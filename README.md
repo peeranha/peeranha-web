@@ -5,8 +5,8 @@
 ### Setup
 #### Clone the repository
 ```
-git clone https://bitbucket.org/sergeyi/bc-webapp.git 
-cd bc-webapp
+git clone https://github.com/peerania/peerania-web 
+cd peerania-web
 ```
 
 #### Install dependencies
