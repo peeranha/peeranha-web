@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+          "*": [
+              "src/*",
+              "node_modules/*"
+          ]
+      },
+      "experimentalDecorators": true,
+      "jsx": "react"
+  }
+}
