@@ -1,7 +1,7 @@
 {
   "name": "Peerania",
   "version": "0.0.1",
-  "description": "",
+  "description": "Decentralized Q&A Platform",
   "repository": {
     "type": "git",
     "url": "git://github.com/peerania/peerania-web.git"
@@ -155,8 +155,10 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
+    "jquery": "3.3.1",
     "lodash": "4.17.10",
     "minimist": "1.2.0",
+    "popper.js": "1.14.4",
     "prop-types": "15.6.1",
     "react": "16.4.1",
     "react-dom": "16.4.1",
@@ -193,6 +195,7 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
+    "bootstrap": "4.1.3",
     "circular-dependency-plugin": "5.0.2",
     "coveralls": "3.0.1",
     "css-loader": "0.28.11",
