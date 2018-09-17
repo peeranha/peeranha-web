@@ -4,12 +4,17 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
   html,
   body {
-    height: 100%;
     width: 100%;
   }
 
+  html {
+    min-height: 100%;
+    position: relative;
+}
+
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 80px;
   }
 
   body.fontLoaded {
