@@ -1,4 +1,9 @@
 {
-  "app.components.HomePage.header":
-    "This is HomePage component (text from translations file)!"
+  "app.components.Footer.header": "Copyright: Peerania",
+  "app.components.Header.home": "Home",
+  "app.components.Header.profile": "Profile",
+  "app.components.Header.about": "About",
+  "app.components.Header.help": "Help",
+  "app.components.Header.search": "Search",
+  "app.components.Header.signIn": "Sign In"
 }
