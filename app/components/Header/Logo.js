@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as img from './images/header-logo.png';
+import * as img from '../../images/header-logo.png';
 
 const height = 50;
 const Logo = styled.img`
