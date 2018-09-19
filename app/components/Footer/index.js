@@ -17,7 +17,7 @@ const Footer = () => (
     <div className="footer-copyright text-center py-3">
       <Link to="/" href="/">
         <FormattedMessage {...messages.copyrightSymbol} />
-        <FormattedMessage {...messages.copyrightSymbol} />
+        <FormattedMessage {...messages.currentYear} />
         <FormattedMessage {...messages.header} />
       </Link>
     </div>
