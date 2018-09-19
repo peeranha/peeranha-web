@@ -3,7 +3,7 @@
  */
 
 import Eosjs from 'eosjs';
-import { getEosio } from '../eosioFactory';
+import { getEosio } from '../eosio';
 
 jest.mock('eosjs');
 Eosjs.mockImplementation(config => ({ config }));

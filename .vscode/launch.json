@@ -7,8 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/server"
+      "name": "Debug Tests",
+      "program": "/Users/Sergey/Documents/Projects/peerania-web/node_modules/jest-cli/bin/jest.js",
+      "cwd": "/Users/Sergey/Documents/Projects/peerania-web"
     }
   ]
 }
