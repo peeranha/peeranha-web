@@ -2,7 +2,6 @@
 
 exports[`<Header /> should match the snapshot 1`] = `
 .c0 {
-  margin: 0 auto;
   padding: 10px 0;
 }
 
@@ -17,7 +16,7 @@ exports[`<Header /> should match the snapshot 1`] = `
 }
 
 .c2 {
-  padding: 8px 6px 0 6px;
+  padding: 8px 8px 0 12px;
   font-size: 18px;
 }
 
@@ -33,11 +32,23 @@ exports[`<Header /> should match the snapshot 1`] = `
   flex: 1;
 }
 
+@media only screen and (min-width:992px) {
+  .c2:first-child {
+    padding-left: 32px;
+  }
+}
+
+@media only screen and (max-width:576px) {
+  .c3 * {
+    margin: 0 2px;
+  }
+}
+
 <header
-  className="col-xl-8 col-lg-10 c0"
+  className="c0"
 >
   <nav
-    className="navbar navbar-expand-lg navbar-light"
+    className="container navbar navbar-expand-lg navbar-light"
   >
     <a
       href="/"
