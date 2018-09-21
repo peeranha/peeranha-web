@@ -21,8 +21,8 @@ const Header = () => {
   const placehld = <FormattedMessage {...messages.search} />;
 
   return (
-    <Wrapper className="col-xl-8 col-lg-10">
-      <nav className="navbar navbar-expand-lg navbar-light">
+    <Wrapper>
+      <nav className="container navbar navbar-expand-lg navbar-light">
         <Link to="/" href="/">
           <Logo />
         </Link>
