@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> should match the snapshot 1`] = `
+.c0 {
+  padding: 10px 0;
+}
+
+.c1 {
+  height: 50px;
+  width: 160px;
+  background: url(0:I; 1:M; 2:A; 3:G; 4:E; 5:_; 6:M; 7:O; 8:C; 9:K; default:IMAGE_MOCK;) no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 25px;
+}
+
+.c2 {
+  padding: 8px 8px 0 12px;
+  font-size: 18px;
+}
+
+.c3 {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.c4 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+@media only screen and (min-width:992px) {
+  .c2:first-child {
+    padding-left: 32px;
+  }
+}
+
+@media only screen and (max-width:576px) {
+  .c3 * {
+    margin: 0 2px;
+  }
+}
+
+<header
+  className="c0"
+>
+  <nav
+    className="container navbar navbar-expand-lg navbar-light"
+  >
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        className="c1"
+      />
+    </a>
+    <button
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      data-target="#navbarTogglerDemo02"
+      data-toggle="collapse"
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarTogglerDemo02"
+    >
+      <ul
+        className="navbar-nav mr-auto mt-2 mt-lg-0"
+      >
+        <li
+          className="nav-item c2"
+        >
+          <a
+            className="nav-link"
+            href="/"
+            onClick={[Function]}
+          >
+            <span>
+              Home
+            </span>
+          </a>
+        </li>
+        <li
+          className="nav-item c2"
+        >
+          <a
+            className="nav-link"
+            href="/profile"
+            onClick={[Function]}
+          >
+            <span>
+              Profile
+            </span>
+          </a>
+        </li>
+        <li
+          className="nav-item c2"
+        >
+          <a
+            className="nav-link"
+            href="/about"
+            onClick={[Function]}
+          >
+            <span>
+              About
+            </span>
+          </a>
+        </li>
+        <li
+          className="nav-item c2"
+        >
+          <a
+            className="nav-link"
+            href="/help"
+            onClick={[Function]}
+          >
+            <span>
+              Help
+            </span>
+          </a>
+        </li>
+      </ul>
+      <form
+        className="form-inline my-2 my-lg-2 c3"
+      >
+        <input
+          className="form-control mr-sm-2 c4"
+          placeholder="Search"
+          type="search"
+        />
+        <button
+          className="btn btn-outline-success mr-sm-2 my-2 my-sm-0"
+          type="submit"
+        >
+          <span>
+            Search
+          </span>
+        </button>
+        <a
+          href="/sign"
+          onClick={[Function]}
+        >
+          <button
+            className="btn btn-success my-2 my-sm-0"
+          >
+            <span>
+              Sign In
+            </span>
+          </button>
+        </a>
+      </form>
+    </div>
+  </nav>
+</header>
+`;
