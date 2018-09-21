@@ -8,7 +8,7 @@ const eosioConfig = {
   keyProvider: [
     '5JUnu1jgVifdznEHpc9eVedpLXsyDPwu69xziMm9ZvbRSkVKEda',
     '5JV2aCujE9j5dUkFKJGtyzeTsgMAHCovQ8QhxKHd9eZpJDfMDmZ',
-    '5KgZw1vCGLSvwQUPFWeBxJFeYHuhQvz6XLa5p6vupwpwhFbaLLF'
+    '5KgZw1vCGLSvwQUPFWeBxJFeYHuhQvz6XLa5p6vupwpwhFbaLLF',
   ],
   broadcast: true,
   sign: true,
@@ -19,7 +19,7 @@ export function getEosio() {
 }
 
 export async function sendTransaction(actor, action, data) {
-  return await getEosio().transaction({
+  return getEosio().transaction({
     actions: [
       {
         account: contractAccount,
@@ -42,8 +42,8 @@ export async function getTableRow(table, scope, primaryKey) {
   const request = {
     json: true,
     code: contractAccount,
-    scope: scope,
-    table: table,
+    scope,
+    table,
     lower_bound: primaryKey,
     limit: 1,
   };
@@ -61,10 +61,10 @@ export async function getTableRows(table, scope) {
   const request = {
     json: true,
     code: contractAccount,
-    scope: scope,
-    table: table
+    scope,
+    table,
   };
-  
+
   const response = await getEosio().getTableRows(request);
 
   if (response && response.rows) {

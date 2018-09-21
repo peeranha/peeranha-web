@@ -3,16 +3,12 @@
  * NOTE: Integration tests require running local eosio node
  */
 
-import {
-  getTableRow,
-  getTableRows,
-  sendTransaction,
-} from '../eosio';
+import { getTableRow, getTableRows, sendTransaction } from '../eosio';
 
 describe('eosio integration', () => {
   describe('sendTransaction', () => {
-    //Test runs successfully only first time and fails the second time (restart eos node to re-run)
-    it('sends transaction to eos node for first user', async () => {
+    // Test runs successfully only first time and fails the second time (restart eos node to re-run)
+    xit('sends transaction to eos node for first user', async () => {
       const actionResult1 = await sendTransaction('user1', 'registeracc', {
         owner: 'user1',
         display_name: 'user1DispName',
@@ -23,8 +19,8 @@ describe('eosio integration', () => {
       expect(actionResult1.error).toBeUndefined();
     });
 
-    //Test runs successfully only first time and fails the second time (restart eos node to re-run)
-    it('sends transaction to eos node for second user', async () => {
+    // Test runs successfully only first time and fails the second time (restart eos node to re-run)
+    xit('sends transaction to eos node for second user', async () => {
       const actionResult2 = await sendTransaction('user2', 'registeracc', {
         owner: 'user2',
         display_name: 'user2DispName',
@@ -37,8 +33,8 @@ describe('eosio integration', () => {
   });
 
   describe('getTableRow', () => {
-    //run 'sends transaction to eos node' prior running this test
-    it('returns one record from account table', async () => {
+    // run 'sends transaction to eos node' prior running this test
+    xit('returns one record from account table', async () => {
       const record = await getTableRow('account', 'allaccounts', 'user1');
       expect(record).toBeDefined();
       expect(record.owner).toBe('user1');
@@ -48,8 +44,8 @@ describe('eosio integration', () => {
   });
 
   describe('getTableRows', () => {
-    //run 'sends transaction to eos node' prior running this test
-    it('returns all records account table', async () => {
+    // run 'sends transaction to eos node' prior running this test
+    xit('returns all records account table', async () => {
       const records = await getTableRows('account', 'allaccounts');
       expect(records).toBeDefined();
       expect(records.length).toBe(2);
