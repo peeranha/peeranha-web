@@ -35,7 +35,7 @@ export class SignUp extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.signup) {
+    if (this.props.signup.registred) {
       this.props.history.push('./profile');
     }
   }

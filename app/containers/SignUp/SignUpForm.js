@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
-import validate from './validate';
+import { strLength, required } from './validate';
 import renderField from './renderField';
 import messages from './messages';
 
@@ -23,6 +23,8 @@ const SignUpForm = props => {
           type="text"
           label={eosAccoutLabel.props.defaultMessage}
           readOnly={false}
+          validate={[required]}
+          warn={[required]}
         />
         <Field
           name={DISPLAY_NAME}
@@ -30,6 +32,8 @@ const SignUpForm = props => {
           type="text"
           label={displayNameLabel.props.defaultMessage}
           readOnly={false}
+          validate={[strLength, required]}
+          warn={[strLength, required]}
         />
       </div>
       <div>
@@ -40,6 +44,7 @@ const SignUpForm = props => {
         >
           <FormattedMessage {...messages.signUp} />
         </button>
+        <h6 className="text-danger">{signup.error && signup.error.message}</h6>
       </div>
     </form>
   );
@@ -55,6 +60,4 @@ SignUpForm.propTypes = {
 
 export default reduxForm({
   form: 'SignUpForm',
-  validate,
-  warn: validate,
 })(SignUpForm);
