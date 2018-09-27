@@ -8,7 +8,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import signReducer from 'containers/Sign/reducer';
+import signUpReducer from 'containers/SignUp/reducer';
 
 /*
  * routeReducer
@@ -45,7 +45,7 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
-    sign: signReducer,
+    signup: signUpReducer,
     form: formReducer,
     ...injectedReducers,
   });

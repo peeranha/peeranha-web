@@ -1,6 +1,6 @@
 /**
  *
- * Sign
+ * SignUp
  *
  */
 
@@ -25,25 +25,29 @@ import makeSelectSign from './selectors';
 import saga from './saga';
 
 import Wrapper from './Wrapper';
-import FormSign from './FormSign';
+import SignUpForm from './SignUpForm';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Sign extends React.Component {
+export class SignUp extends React.Component {
   componentWillMount() {
     this.registrUser = this.registrUser.bind(this);
   }
 
   async registrUser(values) {
-    const EOS_ACCOUNT = values.get(EOS_ACC);
-    const DISPL_NAME = values.get(DISPLAY_NAME);
-    const REGISTR_STATUS = await registerAccount(EOS_ACCOUNT, DISPL_NAME, {});
-    const SERVER_MESSAGE = <FormattedMessage {...messages.serverMessage} />;
+    const eosAccount = values.get(EOS_ACC);
+    const displayName = values.get(DISPLAY_NAME);
+    const registrationStatus = await registerAccount(
+      eosAccount,
+      displayName,
+      {},
+    );
+    const serverMessage = <FormattedMessage {...messages.serverMessage} />;
 
-    if (REGISTR_STATUS) {
+    if (registrationStatus) {
       this.props.history.push('/profile');
     } else {
       throw new SubmissionError({
-        eosAccount: SERVER_MESSAGE.props.defaultMessage,
+        eosAccount: serverMessage.props.defaultMessage,
       });
     }
   }
@@ -56,14 +60,14 @@ export class Sign extends React.Component {
           <meta name="description" content="Description of Sign Up" />
         </Helmet>
         <Wrapper>
-          <FormSign registrUser={this.registrUser} />
+          <SignUpForm registrUser={this.registrUser} />
         </Wrapper>
       </div>
     );
   }
 }
 
-Sign.propTypes = {
+SignUp.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
@@ -84,11 +88,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'sign', reducer });
-const withSaga = injectSaga({ key: 'sign', saga });
+const withReducer = injectReducer({ key: 'signUp', reducer });
+const withSaga = injectSaga({ key: 'signUp', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(Sign);
+)(SignUp);

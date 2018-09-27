@@ -1,6 +1,6 @@
 /*
  *
- * Sign constants
+ * SignUp constants
  *
  */
 

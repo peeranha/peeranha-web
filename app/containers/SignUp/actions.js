@@ -1,6 +1,6 @@
 /*
  *
- * Sign actions
+ * SignUp actions
  *
  */
 

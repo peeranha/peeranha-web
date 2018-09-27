@@ -1,6 +1,6 @@
 /*
  *
- * Sign reducer
+ * SignUp reducer
  *
  */
 
@@ -9,7 +9,7 @@ import { DEFAULT_ACTION } from './constants';
 
 export const initialState = fromJS({});
 
-function signReducer(state = initialState, action) {
+function signUpReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -18,4 +18,4 @@ function signReducer(state = initialState, action) {
   }
 }
 
-export default signReducer;
+export default signUpReducer;

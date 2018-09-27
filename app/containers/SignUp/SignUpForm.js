@@ -9,7 +9,7 @@ import messages from './messages';
 
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
-const FormSign = props => {
+const SignUpForm = props => {
   const { handleSubmit, submitting, invalid, registrUser } = props;
   const eosAccoutLabel = <FormattedMessage {...messages.eosAccount} />;
   const displayNameLabel = <FormattedMessage {...messages.displayName} />;
@@ -45,7 +45,7 @@ const FormSign = props => {
   );
 };
 
-FormSign.propTypes = {
+SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   registrUser: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -53,7 +53,7 @@ FormSign.propTypes = {
 };
 
 export default reduxForm({
-  form: 'FormSign',
+  form: 'SignUpForm',
   validate,
   warn: validate,
-})(FormSign);
+})(SignUpForm);

@@ -6,11 +6,11 @@
   "app.components.Header.help": "Help",
   "app.components.Header.search": "Search",
   "app.components.Header.signIn": "Sign In",
-  "app.containers.Sign.eosAccount": "EOS Account",
-  "app.containers.Sign.displayName": "Display Name",
-  "app.containers.Sign.signUp": "Sign Up",
-  "app.containers.Sign.requiredField": "Required field",
-  "app.containers.Sign.displayNameLength":
+  "app.containers.SignUp.eosAccount": "EOS Account",
+  "app.containers.SignUp.displayName": "Display Name",
+  "app.containers.SignUp.signUp": "Sign Up",
+  "app.containers.SignUp.requiredField": "Required field",
+  "app.containers.SignUp.displayNameLength":
     "Display name length must be between 3 and 20",
-  "app.containers.Sign.serverMessage": "Error"
+  "app.containers.SignUp.serverMessage": "Error"
 }

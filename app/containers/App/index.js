@@ -16,7 +16,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import Profile from 'containers/Profile/Loadable';
-import Sign from 'containers/Sign/Loadable';
+import SignUp from 'containers/SignUp/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Header from 'components/Header/Loadable';
@@ -29,7 +29,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/sign" component={Sign} />
+        <Route exact path="/signup" component={SignUp} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

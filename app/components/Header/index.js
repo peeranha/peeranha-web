@@ -78,7 +78,7 @@ const Header = () => {
             >
               <FormattedMessage {...messages.search} />
             </button>
-            <Link to="/sign" href="/sign">
+            <Link to="/signup" href="/signup">
               <button className="btn btn-success my-2 my-sm-0">
                 <FormattedMessage {...messages.signIn} />
               </button>
