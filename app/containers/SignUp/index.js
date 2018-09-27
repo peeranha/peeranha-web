@@ -52,6 +52,8 @@ export class SignUp extends React.Component {
       eosAccount,
       displayName,
     });
+
+    return { eosAccount, displayName };
   }
 
   render() {

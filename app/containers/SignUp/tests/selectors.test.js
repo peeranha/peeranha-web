@@ -1,8 +1,8 @@
-// import { fromJS } from 'immutable';
-// import { selectSignUpDomain } from '../selectors';
+import makeSelectSign from '../selectors';
+import { initialState } from '../reducer';
 
-describe('selectSignUpDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('makeSelectSign', () => {
+  it('makeSelectSign has to return initialState of reducer', () => {
+    expect(makeSelectSign()).toEqual(initialState);
   });
 });
