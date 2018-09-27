@@ -10,9 +10,9 @@ import messages from './messages';
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
 const SignUpForm = props => {
-  const { handleSubmit, submitting, invalid, registrUser } = props;
   const eosAccoutLabel = <FormattedMessage {...messages.eosAccount} />;
   const displayNameLabel = <FormattedMessage {...messages.displayName} />;
+  const { handleSubmit, submitting, invalid, registrUser, signup } = props;
 
   return (
     <form onSubmit={handleSubmit(registrUser)}>
@@ -35,7 +35,7 @@ const SignUpForm = props => {
       <div>
         <button
           className="btn btn-success form-control"
-          disabled={invalid || submitting}
+          disabled={invalid || submitting || signup.loading}
           type="submit"
         >
           <FormattedMessage {...messages.signUp} />
@@ -50,6 +50,7 @@ SignUpForm.propTypes = {
   registrUser: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
+  signup: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

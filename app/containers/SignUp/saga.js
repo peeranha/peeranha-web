@@ -1,6 +1,21 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { registerAccount } from 'utils/accountManagement';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+import { FETCH_REGISTR_ACC } from './constants';
+
+import { registrAccSuccess, registrAccError } from './actions';
+
+function* resistrAccWorker(res) {
+  try {
+    const { eosAccount, displayName } = res.obj;
+
+    yield call(() => registerAccount(eosAccount, displayName, {}));
+    yield put(registrAccSuccess());
+  } catch (err) {
+    yield put(registrAccError(err));
+  }
+}
+
+export default function*() {
+  yield takeEvery(FETCH_REGISTR_ACC, resistrAccWorker);
 }

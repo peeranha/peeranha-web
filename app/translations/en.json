@@ -12,5 +12,6 @@
   "app.containers.SignUp.requiredField": "Required field",
   "app.containers.SignUp.displayNameLength":
     "Display name length must be between 3 and 20",
+  "app.containers.SignUp.signUpDescription": "Description of Sign Up",
   "app.containers.SignUp.serverMessage": "Error"
 }

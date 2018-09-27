@@ -19,6 +19,10 @@ export default defineMessages({
     id: 'app.containers.SignUp.signUp',
     defaultMessage: 'Sign Up',
   },
+  signUpDescription: {
+    id: 'app.containers.SignUp.signUpDescription',
+    defaultMessage: 'Description of Sign Up',
+  },
   requiredField: {
     id: 'app.containers.SignUp.requiredField',
     defaultMessage: 'Required field',
