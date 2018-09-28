@@ -10,12 +10,13 @@ function renderField({
 }) {
   return (
     <div>
-      <h6>{label}</h6>
+      <h6>{label[0]}</h6>
       <input
         {...input}
-        placeholder={label}
+        placeholder={label[0]}
         type={type}
         readOnly={readOnly}
+        value={readOnly ? label[1] : null}
         className="form-control"
       />
       <h6 className="text-danger">

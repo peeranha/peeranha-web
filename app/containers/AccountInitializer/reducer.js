@@ -27,7 +27,7 @@ function accountInitializerReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        acc,
+        ...acc,
       };
     case REVIEW_ACCOUNT_ERROR:
       return {

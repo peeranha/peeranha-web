@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import makeSelectAccountInitializer from 'containers/AccountInitializer/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -61,7 +61,7 @@ export class SignUp extends React.Component {
       <FormattedMessage {...messages.signUpDescription} />
     );
     const signUp = <FormattedMessage {...messages.signUp} />;
-    const { signup } = this.props;
+    const { signup, account } = this.props;
 
     return (
       <div className="container">
@@ -73,7 +73,11 @@ export class SignUp extends React.Component {
           />
         </Helmet>
         <Wrapper>
-          <SignUpForm registrUser={SignUp.registrUser} signup={signup} />
+          <SignUpForm
+            registrUser={SignUp.registrUser}
+            signup={signup}
+            account={account}
+          />
         </Wrapper>
       </div>
     );
@@ -86,11 +90,12 @@ SignUp.propTypes = {
   setReducerDefaultDispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   signup: PropTypes.object.isRequired,
+  account: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   signup: makeSelectSign(),
-  locale: makeSelectLocale(),
+  account: makeSelectAccountInitializer(),
 });
 
 function mapDispatchToProps(dispatch) {

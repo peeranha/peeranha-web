@@ -12,7 +12,14 @@ import { EOS_ACC, DISPLAY_NAME } from './constants';
 const SignUpForm = props => {
   const eosAccoutLabel = <FormattedMessage {...messages.eosAccount} />;
   const displayNameLabel = <FormattedMessage {...messages.displayName} />;
-  const { handleSubmit, submitting, invalid, registrUser, signup } = props;
+  const {
+    handleSubmit,
+    submitting,
+    invalid,
+    registrUser,
+    signup,
+    account,
+  } = props;
 
   return (
     <form onSubmit={handleSubmit(registrUser)}>
@@ -21,16 +28,14 @@ const SignUpForm = props => {
           name={EOS_ACC}
           component={renderField}
           type="text"
-          label={eosAccoutLabel.props.defaultMessage}
-          readOnly={false}
-          validate={[required]}
-          warn={[required]}
+          label={[eosAccoutLabel.props.defaultMessage, account.eosAccount]}
+          readOnly
         />
         <Field
           name={DISPLAY_NAME}
           component={renderField}
           type="text"
-          label={displayNameLabel.props.defaultMessage}
+          label={[displayNameLabel.props.defaultMessage]}
           readOnly={false}
           validate={[strLength, required]}
           warn={[strLength, required]}
@@ -56,8 +61,12 @@ SignUpForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   signup: PropTypes.object.isRequired,
+  account: PropTypes.object.isRequired,
 };
 
 export default reduxForm({
   form: 'SignUpForm',
+  initialValues: {
+    //    [EOS_ACC]: 'user1',
+  },
 })(SignUpForm);
