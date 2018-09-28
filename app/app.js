@@ -52,13 +52,13 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
-          <AccountInitializer>
+      <AccountInitializer>
+        <LanguageProvider messages={messages}>
+          <ConnectedRouter history={history}>
             <App />
-          </AccountInitializer>
-        </ConnectedRouter>
-      </LanguageProvider>
+          </ConnectedRouter>
+        </LanguageProvider>
+      </AccountInitializer>
     </Provider>,
     MOUNT_NODE,
   );

@@ -18,7 +18,7 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AccountInitializer extends React.Component {
-  static componentDidMount() {
+  componentDidMount() {
     return this.props.reviewAccountDispatch();
   }
 

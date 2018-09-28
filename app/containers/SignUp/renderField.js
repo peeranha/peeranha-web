@@ -16,7 +16,7 @@ function renderField({
         placeholder={label[0]}
         type={type}
         readOnly={readOnly}
-        value={readOnly ? label[1] : null}
+        value={readOnly ? label[1] : undefined}
         className="form-control"
       />
       <h6 className="text-danger">
@@ -29,8 +29,8 @@ function renderField({
 }
 
 renderField.propTypes = {
-  input: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
+  label: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool.isRequired,
   meta: PropTypes.object.isRequired,
