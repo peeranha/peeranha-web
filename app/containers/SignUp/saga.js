@@ -5,7 +5,7 @@ import { FETCH_REGISTR_ACC } from './constants';
 
 import { registrAccSuccess, registrAccError } from './actions';
 
-function* resistrAccWorker(res) {
+export function* resistrAccWorker(res) {
   try {
     const { eosAccount, displayName } = res.obj;
 

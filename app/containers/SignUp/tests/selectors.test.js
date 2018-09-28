@@ -1,8 +1,12 @@
-import makeSelectSign from '../selectors';
-import { initialState } from '../reducer';
+import { fromJS } from 'immutable';
+import { selectSignUpDomain } from '../selectors';
 
-describe('makeSelectSign', () => {
-  it('makeSelectSign has to return initialState of reducer', () => {
-    expect(makeSelectSign()).toEqual(initialState);
+describe('selectSignUpDomain', () => {
+  const globalState = fromJS({});
+  const mockedState = fromJS({
+    signUp: globalState,
+  });
+  it('should select the global state', () => {
+    expect(selectSignUpDomain(mockedState)).toEqual(globalState);
   });
 });

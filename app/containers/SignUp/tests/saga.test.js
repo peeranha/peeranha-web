@@ -3,13 +3,20 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-// import { take, call, put, select } from 'redux-saga/effects';
-// import { defaultSaga } from '../saga';
+import { resistrAccWorker } from '../saga';
 
-// const generator = defaultSaga();
+import { REGISTR_ACC_SUCCESS } from '../constants';
 
-describe('defaultSaga Saga', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('resistrAccWorker Saga', () => {
+  it('Checking, step2 is action with REGISTR_ACC_SUCCESS type', () => {
+    const generator = resistrAccWorker({
+      obj: {
+        eosAccount: 'acc',
+        displayName: 'name',
+      },
+    });
+    generator.next();
+    const step = generator.next();
+    expect(step.value.PUT.action.type).toBe(REGISTR_ACC_SUCCESS);
   });
 });

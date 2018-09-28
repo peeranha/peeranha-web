@@ -5,7 +5,7 @@ import messages from './messages';
 const requiredField = <FormattedMessage {...messages.requiredField} />;
 const displayNameLength = <FormattedMessage {...messages.displayNameLength} />;
 
-const stringLength = (min, max) => value =>
+export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)
     ? displayNameLength.props.defaultMessage
     : undefined;

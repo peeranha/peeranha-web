@@ -31,7 +31,7 @@ import SignUpForm from './SignUpForm';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentWillMount() {
-    this.registrUser = this.registrUser.bind(this);
+    SignUp.registrUser = SignUp.registrUser.bind(this);
   }
 
   componentDidUpdate() {
@@ -44,7 +44,7 @@ export class SignUp extends React.Component {
     this.props.setReducerDefaultDispatch();
   }
 
-  registrUser(values) {
+  static registrUser(values) {
     const eosAccount = values.get(EOS_ACC);
     const displayName = values.get(DISPLAY_NAME);
 
@@ -53,7 +53,7 @@ export class SignUp extends React.Component {
       displayName,
     });
 
-    return { eosAccount, displayName };
+    return { [EOS_ACC]: eosAccount, [DISPLAY_NAME]: displayName };
   }
 
   render() {
@@ -73,7 +73,7 @@ export class SignUp extends React.Component {
           />
         </Helmet>
         <Wrapper>
-          <SignUpForm registrUser={this.registrUser} signup={signup} />
+          <SignUpForm registrUser={SignUp.registrUser} signup={signup} />
         </Wrapper>
       </div>
     );
