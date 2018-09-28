@@ -15,3 +15,11 @@ export async function registerAccount(accountName, displayName, profile) {
 
   return true;
 }
+
+export async function reviewAccount() {
+  const account = {
+    eosAccount: 'user1',
+  };
+
+  return account;
+}
