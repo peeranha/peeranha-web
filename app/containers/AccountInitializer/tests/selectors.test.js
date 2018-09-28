@@ -1,8 +1,12 @@
-// import { fromJS } from 'immutable';
-// import { selectAccountInitializerDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import { selectAccountInitializerDomain } from '../selectors';
 
 describe('selectAccountInitializerDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  const globalState = fromJS({});
+  const mockedState = fromJS({
+    accountInitializer: globalState,
+  });
+  it('should select the global state', () => {
+    expect(selectAccountInitializerDomain(mockedState)).toEqual(globalState);
   });
 });

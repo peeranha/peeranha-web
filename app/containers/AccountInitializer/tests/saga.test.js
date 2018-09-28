@@ -3,13 +3,15 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-// import { take, call, put, select } from 'redux-saga/effects';
-// import { defaultSaga } from '../saga';
+import { reviewAccountWorker } from '../saga';
 
-// const generator = defaultSaga();
+import { REVIEW_ACCOUNT_SUCCESS } from '../constants';
 
-describe('defaultSaga Saga', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('reviewAccountWorker Saga', () => {
+  const generator = reviewAccountWorker({});
+  it('Checking, step2 is action with REVIEW_ACCOUNT_SUCCESS type', () => {
+    generator.next();
+    const step = generator.next();
+    expect(step.value.PUT.action.type).toBe(REVIEW_ACCOUNT_SUCCESS);
   });
 });

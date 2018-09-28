@@ -4,7 +4,7 @@ import { reviewAccount } from 'utils/accountManagement';
 import { REVIEW_ACCOUNT } from './constants';
 import { reviewAccountSuccess, reviewAccountError } from './actions';
 
-function* reviewAccountWorker() {
+export function* reviewAccountWorker() {
   try {
     const account = yield call(() => reviewAccount());
     yield put(reviewAccountSuccess(account));
