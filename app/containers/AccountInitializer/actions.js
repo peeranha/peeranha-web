@@ -5,27 +5,27 @@
  */
 
 import {
-  REVIEW_ACCOUNT,
-  REVIEW_ACCOUNT_SUCCESS,
-  REVIEW_ACCOUNT_ERROR,
+  GET_CURRENT_ACCOUNT,
+  GET_CURRENT_ACCOUNT_SUCCESS,
+  GET_CURRENT_ACCOUNT_ERROR,
 } from './constants';
 
-export function reviewAccount() {
+export function getCurrentAccount() {
   return {
-    type: REVIEW_ACCOUNT,
+    type: GET_CURRENT_ACCOUNT,
   };
 }
 
-export function reviewAccountSuccess(acc) {
+export function getCurrentAccountSuccess(acc) {
   return {
-    type: REVIEW_ACCOUNT_SUCCESS,
+    type: GET_CURRENT_ACCOUNT_SUCCESS,
     acc,
   };
 }
 
-export function reviewAccountError(err) {
+export function getCurrentAccountError(err) {
   return {
-    type: REVIEW_ACCOUNT_ERROR,
+    type: GET_CURRENT_ACCOUNT_ERROR,
     err,
   };
 }

@@ -5,7 +5,9 @@ const selectAccountInitializerDomain = state =>
   state.get('accountInitializer', initialState);
 
 const makeSelectAccountInitializer = () =>
-  createSelector(selectAccountInitializerDomain, substate => substate);
+  createSelector(selectAccountInitializerDomain, substate =>
+    substate.get('account'),
+  );
 
 export default makeSelectAccountInitializer;
 export { selectAccountInitializerDomain };

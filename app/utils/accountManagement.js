@@ -16,7 +16,7 @@ export async function registerAccount(accountName, displayName, profile) {
   return true;
 }
 
-export async function reviewAccount() {
+export async function getCurrentAccount() {
   const account = {
     eosAccount: 'user1',
   };

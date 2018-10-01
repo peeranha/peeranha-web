@@ -17,7 +17,8 @@ const SignUpForm = props => {
     submitting,
     invalid,
     registrUser,
-    signup,
+    loading,
+    errorMessage,
     account,
   } = props;
 
@@ -44,12 +45,12 @@ const SignUpForm = props => {
       <div>
         <button
           className="btn btn-success form-control"
-          disabled={invalid || submitting || signup.loading}
+          disabled={invalid || submitting || loading}
           type="submit"
         >
           <FormattedMessage {...messages.signUp} />
         </button>
-        <h6 className="text-danger">{signup.error && signup.error.message}</h6>
+        <h6 className="text-danger">{errorMessage && errorMessage.message}</h6>
       </div>
     </form>
   );
@@ -60,13 +61,11 @@ SignUpForm.propTypes = {
   registrUser: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
-  signup: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   account: PropTypes.object.isRequired,
+  errorMessage: PropTypes.object.isRequired,
 };
 
 export default reduxForm({
   form: 'SignUpForm',
-  initialValues: {
-    //    [EOS_ACC]: 'user1',
-  },
 })(SignUpForm);

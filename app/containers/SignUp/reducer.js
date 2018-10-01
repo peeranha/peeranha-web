@@ -4,6 +4,8 @@
  *
  */
 
+import { fromJS } from 'immutable';
+
 import {
   FETCH_REGISTR_ACC,
   REGISTR_ACC_SUCCESS,
@@ -11,37 +13,23 @@ import {
   SET_REDUCER_DEFAULT,
 } from './constants';
 
-export const initialState = {
+export const initialState = fromJS({
   loading: false,
-  error: null,
+  error: {},
   registred: false,
-};
+});
 
 function signUpReducer(state = initialState, action) {
   const { type, error } = action;
   switch (type) {
     case FETCH_REGISTR_ACC:
-      return {
-        ...state,
-        loading: true,
-      };
+      return state.set('loading', true);
     case REGISTR_ACC_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        registred: true,
-      };
+      return state.set('loading', false).set('registred', true);
     case REGISTR_ACC_ERROR:
-      return {
-        ...state,
-        error,
-        loading: false,
-      };
+      return state.set('error', error).set('loading', false);
     case SET_REDUCER_DEFAULT:
-      return {
-        ...state,
-        ...initialState,
-      };
+      return initialState;
     default:
       return state;
   }

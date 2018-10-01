@@ -18,8 +18,13 @@ import injectReducer from 'utils/injectReducer';
 
 import messages from './messages';
 import reducer from './reducer';
-import makeSelectSign from './selectors';
 import saga from './saga';
+
+import {
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectRegistred,
+} from './selectors';
 
 import { fetchRegistrAcc, setReducerDefault } from './actions';
 
@@ -35,7 +40,7 @@ export class SignUp extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.signup.registred) {
+    if (this.props.registred) {
       this.props.history.push('./profile');
     }
   }
@@ -61,8 +66,7 @@ export class SignUp extends React.Component {
       <FormattedMessage {...messages.signUpDescription} />
     );
     const signUp = <FormattedMessage {...messages.signUp} />;
-    const { signup, account } = this.props;
-
+    const { loading, error, account } = this.props;
     return (
       <div className="container">
         <Helmet>
@@ -75,7 +79,8 @@ export class SignUp extends React.Component {
         <Wrapper>
           <SignUpForm
             registrUser={SignUp.registrUser}
-            signup={signup}
+            loading={loading}
+            errorMessage={error}
             account={account}
           />
         </Wrapper>
@@ -89,12 +94,16 @@ SignUp.propTypes = {
   registrUserDispatch: PropTypes.func.isRequired,
   setReducerDefaultDispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  signup: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
+  error: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  registred: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  signup: makeSelectSign(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+  registred: makeSelectRegistred(),
   account: makeSelectAccountInitializer(),
 });
 

@@ -12,14 +12,14 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { reviewAccount } from './actions';
+import { getCurrentAccount } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AccountInitializer extends React.Component {
   componentDidMount() {
-    return this.props.reviewAccountDispatch();
+    return this.props.getCurrentAccountDispatch();
   }
 
   render() {
@@ -28,7 +28,7 @@ export class AccountInitializer extends React.Component {
 }
 
 AccountInitializer.propTypes = {
-  reviewAccountDispatch: PropTypes.func.isRequired,
+  getCurrentAccountDispatch: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
 };
 
@@ -37,7 +37,7 @@ const mapStateToProps = createStructuredSelector({});
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    reviewAccountDispatch: () => dispatch(reviewAccount()),
+    getCurrentAccountDispatch: () => dispatch(getCurrentAccount()),
   };
 }
 

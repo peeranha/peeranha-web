@@ -7,8 +7,18 @@ import { initialState } from './reducer';
 
 const selectSignUpDomain = state => state.get('signUp', initialState);
 
-const makeSelectSign = () =>
-  createSelector(selectSignUpDomain, substate => substate);
+const makeSelectLoading = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('loading'));
 
-export default makeSelectSign;
-export { selectSignUpDomain };
+const makeSelectError = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('error'));
+
+const makeSelectRegistred = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('registred'));
+
+export {
+  selectSignUpDomain,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectRegistred,
+};

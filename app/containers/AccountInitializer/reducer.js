@@ -4,37 +4,29 @@
  *
  */
 
+import { fromJS } from 'immutable';
+
 import {
-  REVIEW_ACCOUNT,
-  REVIEW_ACCOUNT_SUCCESS,
-  REVIEW_ACCOUNT_ERROR,
+  GET_CURRENT_ACCOUNT,
+  GET_CURRENT_ACCOUNT_SUCCESS,
+  GET_CURRENT_ACCOUNT_ERROR,
 } from './constants';
 
-export const initialState = {
+export const initialState = fromJS({
   loading: false,
   error: null,
-};
+  account: null,
+});
 
 function accountInitializerReducer(state = initialState, action) {
   const { type, err, acc } = action;
   switch (type) {
-    case REVIEW_ACCOUNT:
-      return {
-        ...state,
-        loading: true,
-      };
-    case REVIEW_ACCOUNT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        ...acc,
-      };
-    case REVIEW_ACCOUNT_ERROR:
-      return {
-        ...state,
-        loading: false,
-        err,
-      };
+    case GET_CURRENT_ACCOUNT:
+      return state.set('loading', true);
+    case GET_CURRENT_ACCOUNT_SUCCESS:
+      return state.set('loading', false).set('account', acc);
+    case GET_CURRENT_ACCOUNT_ERROR:
+      return state.set('loading', false).set('error', err);
     default:
       return state;
   }

@@ -1,38 +1,38 @@
 import {
-  reviewAccount,
-  reviewAccountSuccess,
-  reviewAccountError,
+  getCurrentAccount,
+  getCurrentAccountSuccess,
+  getCurrentAccountError,
 } from '../actions';
 
 import {
-  REVIEW_ACCOUNT,
-  REVIEW_ACCOUNT_SUCCESS,
-  REVIEW_ACCOUNT_ERROR,
+  GET_CURRENT_ACCOUNT,
+  GET_CURRENT_ACCOUNT_SUCCESS,
+  GET_CURRENT_ACCOUNT_ERROR,
 } from '../constants';
 
 describe('AccountInitializer actions', () => {
-  it('has a type of REVIEW_ACCOUNT', () => {
+  it('has a type of GET_CURRENT_ACCOUNT', () => {
     const expected = {
-      type: REVIEW_ACCOUNT,
+      type: GET_CURRENT_ACCOUNT,
     };
-    expect(reviewAccount()).toEqual(expected);
+    expect(getCurrentAccount()).toEqual(expected);
   });
-  it('has a type of REVIEW_ACCOUNT_SUCCESS', () => {
+  it('has a type of GET_CURRENT_ACCOUNT_SUCCESS', () => {
     const expected = {
-      type: REVIEW_ACCOUNT_SUCCESS,
+      type: GET_CURRENT_ACCOUNT_SUCCESS,
       acc: {
         name: 'test',
       },
     };
-    expect(reviewAccountSuccess({ name: 'test' })).toEqual(expected);
+    expect(getCurrentAccountSuccess({ name: 'test' })).toEqual(expected);
   });
-  it('has a type of REVIEW_ACCOUNT_ERROR', () => {
+  it('has a type of GET_CURRENT_ACCOUNT_ERROR', () => {
     const expected = {
-      type: REVIEW_ACCOUNT_ERROR,
+      type: GET_CURRENT_ACCOUNT_ERROR,
       err: {
         message: 'error',
       },
     };
-    expect(reviewAccountError({ message: 'error' })).toEqual(expected);
+    expect(getCurrentAccountError({ message: 'error' })).toEqual(expected);
   });
 });
