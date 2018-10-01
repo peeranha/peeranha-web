@@ -3,9 +3,23 @@
  * NOTE: Integration tests require running local eosio node
  */
 
-import { getTableRow, getTableRows, sendTransaction } from '../eosio';
+import {
+  connectToWallet,
+  getTableRow,
+  getTableRows,
+  sendTransaction,
+} from '../eosio';
+
+jest.setTimeout(10000);
 
 describe('eosio integration', () => {
+  describe('connectToWallet', async () => {
+    it('Not able to connect to scatter from test', async () => {
+      const connected = await connectToWallet();
+      expect(connected).toBe(false);
+    });
+  });
+
   describe('sendTransaction', () => {
     // Test runs successfully only first time and fails the second time (restart eos node to re-run)
     xit('sends transaction to eos node for first user', async () => {

@@ -1,4 +1,5 @@
 import Eosjs from 'eosjs';
+import ScatterJS from 'scatter-js/dist/scatter.cjs';
 
 const contractAccount = 'peerania.dev';
 
@@ -14,8 +15,57 @@ const eosioConfig = {
   sign: true,
 };
 
+const scatterNetwork = {
+  blockchain: 'eos',
+  protocol: process.env.REACT_APP_EOS_PROTOCOL,
+  host: process.env.EOS_HOST,
+  port: process.env.EOS_PORT,
+  chainId: process.env.EOS_CHAIN_ID,
+};
+
 export function getEosio() {
   return Eosjs(eosioConfig);
+}
+
+export async function connectToWallet() {
+  const conneted = await ScatterJS.scatter.connect('Peerania');
+
+  if (conneted) {
+    scatter = ScatterJS.scatter;
+    window.scatter = null;
+  }
+
+  return conneted;
+}
+
+export async function getSelectedAccount() {
+  const connected = await ScatterJS.scatter.connect('Peerania');
+
+  return scatterNetwork;
+
+  if (connected) {
+    const scatter = ScatterJS.scatter;
+    const requiredFields = { accounts: [scatterNetwork] };
+
+    let result;
+    try {
+      result = await scatter.getIdentity(requiredFields);
+    } catch (error) {
+      return error;
+    }
+
+    const account = result.accounts.find(
+      x => x.blockchain === scatterNetwork.blockchain,
+    );
+
+    const eosOptions = { expireInSeconds: 60 };
+
+    window.eos = scatter.eos(scatterNetwork, Eosjs, eosOptions);
+
+    return account.name;
+  }
+
+  return null;
 }
 
 export async function sendTransaction(actor, action, data) {
@@ -73,3 +123,5 @@ export async function getTableRows(table, scope) {
 
   return [];
 }
+
+function getEosConfig() {}
