@@ -4,10 +4,24 @@ import { initialState } from './reducer';
 const selectAccountInitializerDomain = state =>
   state.get('accountInitializer', initialState);
 
-const makeSelectAccountInitializer = () =>
+const makeSelectAccount = () =>
   createSelector(selectAccountInitializerDomain, substate =>
     substate.get('account'),
   );
 
-export default makeSelectAccountInitializer;
-export { selectAccountInitializerDomain };
+const makeSelectLoading = () =>
+  createSelector(selectAccountInitializerDomain, substate =>
+    substate.get('loading'),
+  );
+
+const makeSelectError = () =>
+  createSelector(selectAccountInitializerDomain, substate =>
+    substate.get('error'),
+  );
+
+export {
+  selectAccountInitializerDomain,
+  makeSelectAccount,
+  makeSelectLoading,
+  makeSelectError,
+};

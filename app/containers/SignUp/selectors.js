@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 /**
- * Direct selector to the sign state domain
+ * Direct selector to the signup state domain
  */
 
 const selectSignUpDomain = state => state.get('signUp', initialState);

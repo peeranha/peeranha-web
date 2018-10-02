@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
-import makeSelectAccountInitializer from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -104,7 +104,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
   registered: makeSelectRegistered(),
-  account: makeSelectAccountInitializer(),
+  account: makeSelectAccount(),
 });
 
 function mapDispatchToProps(dispatch) {
