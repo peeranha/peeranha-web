@@ -1,15 +1,10 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-
-const requiredField = <FormattedMessage {...messages.requiredField} />;
-const displayNameLength = <FormattedMessage {...messages.displayNameLength} />;
 
 export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)
-    ? displayNameLength.props.defaultMessage
+    ? messages.displayNameLength.id
     : undefined;
 
 export const strLength = stringLength(3, 20);
 export const required = value =>
-  !value ? requiredField.props.defaultMessage : undefined;
+  !value ? messages.requiredField.id : undefined;

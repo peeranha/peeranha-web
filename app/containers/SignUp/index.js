@@ -10,9 +10,10 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { translationMessages } from 'i18n';
 
 import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -62,18 +63,15 @@ export class SignUp extends React.Component {
   }
 
   render() {
-    const signUpDescription = (
-      <FormattedMessage {...messages.signUpDescription} />
-    );
-    const signUp = <FormattedMessage {...messages.signUp} />;
-    const { loading, error, account } = this.props;
+    const { loading, error, account, locale } = this.props;
+
     return (
       <div className="container">
         <Helmet>
-          <title>{signUp.props.defaultMessage}</title>
+          <title>{translationMessages[locale][messages.signUp.id]}</title>
           <meta
             name="description"
-            content={signUpDescription.props.defaultMessage}
+            content={translationMessages[locale][messages.signUpDescription.id]}
           />
         </Helmet>
         <Wrapper>
@@ -82,6 +80,7 @@ export class SignUp extends React.Component {
             loading={loading}
             errorMessage={error}
             account={account}
+            translations={translationMessages[locale]}
           />
         </Wrapper>
       </div>
@@ -90,7 +89,6 @@ export class SignUp extends React.Component {
 }
 
 SignUp.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   registerUserDispatch: PropTypes.func.isRequired,
   setReducerDefaultDispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
@@ -98,6 +96,7 @@ SignUp.propTypes = {
   error: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   registered: PropTypes.bool,
+  locale: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -105,6 +104,7 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
   registered: makeSelectRegistered(),
   account: makeSelectAccount(),
+  locale: makeSelectLocale(),
 });
 
 function mapDispatchToProps(dispatch) {

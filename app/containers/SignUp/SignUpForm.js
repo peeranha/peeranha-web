@@ -10,8 +10,6 @@ import messages from './messages';
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
 const SignUpForm = props => {
-  const eosAccoutLabel = <FormattedMessage {...messages.eosAccount} />;
-  const displayNameLabel = <FormattedMessage {...messages.displayName} />;
   const {
     handleSubmit,
     submitting,
@@ -20,6 +18,7 @@ const SignUpForm = props => {
     loading,
     errorMessage,
     account,
+    translations,
   } = props;
 
   return (
@@ -29,15 +28,17 @@ const SignUpForm = props => {
           name={EOS_ACC}
           component={renderField}
           type="text"
-          label={[eosAccoutLabel.props.defaultMessage, account.eosAccount]}
+          translations={translations}
+          label={[translations[messages.eosAccount.id], account.eosAccount]}
           readOnly
         />
         <Field
           name={DISPLAY_NAME}
           component={renderField}
           type="text"
-          label={[displayNameLabel.props.defaultMessage]}
+          label={[translations[messages.displayName.id]]}
           readOnly={false}
+          translations={translations}
           validate={[strLength, required]}
           warn={[strLength, required]}
         />
@@ -64,6 +65,7 @@ SignUpForm.propTypes = {
   loading: PropTypes.bool.isRequired,
   account: PropTypes.object.isRequired,
   errorMessage: PropTypes.object.isRequired,
+  translations: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

@@ -6,6 +6,7 @@ function renderField({
   label,
   type,
   readOnly,
+  translations,
   meta: { touched, error, warning },
 }) {
   return (
@@ -21,8 +22,8 @@ function renderField({
       />
       <h6 className="text-danger">
         {touched &&
-          ((error && <span>{error}</span>) ||
-            (warning && <span>{warning}</span>))}
+          ((error && <span>{translations[error]}</span>) ||
+            (warning && <span>{translations[warning]}</span>))}
       </h6>
     </div>
   );
@@ -34,6 +35,7 @@ renderField.propTypes = {
   type: PropTypes.string.isRequired,
   readOnly: PropTypes.bool.isRequired,
   meta: PropTypes.object.isRequired,
+  translations: PropTypes.object,
 };
 
 export default renderField;
