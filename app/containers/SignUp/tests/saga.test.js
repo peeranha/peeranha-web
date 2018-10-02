@@ -5,7 +5,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import { resistrAccWorker } from '../saga';
 
-import { REGISTR_ACC_SUCCESS, REGISTR_ACC_ERROR } from '../constants';
+import { REGISTER_ACC_SUCCESS, REGISTER_ACC_ERROR } from '../constants';
 
 describe('resistrAccWorker Saga', () => {
   const generator = resistrAccWorker({
@@ -14,15 +14,15 @@ describe('resistrAccWorker Saga', () => {
       displayName: 'name',
     },
   });
-  it('Checking, step2 is action with REGISTR_ACC_SUCCESS type', () => {
+  it('Checking, step2 is action with REGISTER_ACC_SUCCESS type', () => {
     generator.next();
     const step = generator.next();
-    expect(step.value.PUT.action.type).toBe(REGISTR_ACC_SUCCESS);
+    expect(step.value.PUT.action.type).toBe(REGISTER_ACC_SUCCESS);
   });
 
-  it('Error: Completing action with REGISTR_ACC_ERROR type', () => {
+  it('Error: Completing action with REGISTER_ACC_ERROR type', () => {
     const response = new Error('Some error');
     const putDescriptor = generator.throw(response).value;
-    expect(putDescriptor.PUT.action.type).toEqual(REGISTR_ACC_ERROR);
+    expect(putDescriptor.PUT.action.type).toEqual(REGISTER_ACC_ERROR);
   });
 });

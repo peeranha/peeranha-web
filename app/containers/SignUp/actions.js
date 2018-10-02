@@ -5,28 +5,28 @@
  */
 
 import {
-  FETCH_REGISTR_ACC,
-  REGISTR_ACC_SUCCESS,
-  REGISTR_ACC_ERROR,
+  FETCH_REGISTER_ACC,
+  REGISTER_ACC_SUCCESS,
+  REGISTER_ACC_ERROR,
   SET_REDUCER_DEFAULT,
 } from './constants';
 
-export function fetchRegistrAcc(obj) {
+export function fetchRegisterAcc(obj) {
   return {
-    type: FETCH_REGISTR_ACC,
+    type: FETCH_REGISTER_ACC,
     obj,
   };
 }
 
-export function registrAccSuccess() {
+export function registerAccSuccess() {
   return {
-    type: REGISTR_ACC_SUCCESS,
+    type: REGISTER_ACC_SUCCESS,
   };
 }
 
-export function registrAccError(error) {
+export function registerAccError(error) {
   return {
-    type: REGISTR_ACC_ERROR,
+    type: REGISTER_ACC_ERROR,
     error,
   };
 }

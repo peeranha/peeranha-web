@@ -13,12 +13,12 @@ const makeSelectLoading = () =>
 const makeSelectError = () =>
   createSelector(selectSignUpDomain, substate => substate.get('error'));
 
-const makeSelectRegistred = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('registred'));
+const makeSelectRegistered = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('registered'));
 
 export {
   selectSignUpDomain,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRegistred,
+  makeSelectRegistered,
 };

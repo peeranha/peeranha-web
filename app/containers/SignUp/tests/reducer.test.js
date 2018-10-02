@@ -3,9 +3,9 @@ import { fromJS } from 'immutable';
 import signUpReducer from '../reducer';
 
 import {
-  fetchRegistrAcc,
-  registrAccSuccess,
-  registrAccError,
+  fetchRegisterAcc,
+  registerAccSuccess,
+  registerAccError,
 } from '../actions';
 
 describe('signUpReducer', () => {
@@ -20,18 +20,18 @@ describe('signUpReducer', () => {
     expect(signUpReducer(state, {})).toEqual(state);
   });
 
-  it('fetchRegistrAcc: set @loading true', () => {
+  it('fetchRegisterAcc: set @loading true', () => {
     const obj = state.set('loading', true);
-    expect(signUpReducer(state, fetchRegistrAcc())).toEqual(obj);
+    expect(signUpReducer(state, fetchRegisterAcc())).toEqual(obj);
   });
 
-  it('registrAccSuccess: set @loading false / @registred true', () => {
-    const obj = state.set('loading', false).set('registred', true);
-    expect(signUpReducer(state, registrAccSuccess())).toEqual(obj);
+  it('registerAccSuccess: set @loading false / @registered true', () => {
+    const obj = state.set('loading', false).set('registered', true);
+    expect(signUpReducer(state, registerAccSuccess())).toEqual(obj);
   });
 
-  it('registrAccError: set @loading false / @error {}', () => {
+  it('registerAccError: set @loading false / @error {}', () => {
     const obj = state.set('loading', false).set('error', {});
-    expect(signUpReducer(state, registrAccError({}))).toEqual(obj);
+    expect(signUpReducer(state, registerAccError({}))).toEqual(obj);
   });
 });

@@ -23,10 +23,10 @@ import saga from './saga';
 import {
   makeSelectLoading,
   makeSelectError,
-  makeSelectRegistred,
+  makeSelectRegistered,
 } from './selectors';
 
-import { fetchRegistrAcc, setReducerDefault } from './actions';
+import { fetchRegisterAcc, setReducerDefault } from './actions';
 
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
@@ -36,11 +36,11 @@ import SignUpForm from './SignUpForm';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentWillMount() {
-    SignUp.registrUser = SignUp.registrUser.bind(this);
+    SignUp.registerUser = SignUp.registerUser.bind(this);
   }
 
   componentDidUpdate() {
-    if (this.props.registred) {
+    if (this.props.registered) {
       this.props.history.push('./profile');
     }
   }
@@ -49,11 +49,11 @@ export class SignUp extends React.Component {
     this.props.setReducerDefaultDispatch();
   }
 
-  static registrUser(values) {
+  static registerUser(values) {
     const eosAccount = values.get(EOS_ACC);
     const displayName = values.get(DISPLAY_NAME);
 
-    this.props.registrUserDispatch({
+    this.props.registerUserDispatch({
       eosAccount,
       displayName,
     });
@@ -78,7 +78,7 @@ export class SignUp extends React.Component {
         </Helmet>
         <Wrapper>
           <SignUpForm
-            registrUser={SignUp.registrUser}
+            registerUser={SignUp.registerUser}
             loading={loading}
             errorMessage={error}
             account={account}
@@ -91,26 +91,26 @@ export class SignUp extends React.Component {
 
 SignUp.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  registrUserDispatch: PropTypes.func.isRequired,
+  registerUserDispatch: PropTypes.func.isRequired,
   setReducerDefaultDispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  registred: PropTypes.bool,
+  registered: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  registred: makeSelectRegistred(),
+  registered: makeSelectRegistered(),
   account: makeSelectAccountInitializer(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    registrUserDispatch: obj => dispatch(fetchRegistrAcc(obj)),
+    registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
     setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
   };
 }

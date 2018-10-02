@@ -7,8 +7,10 @@ describe('<SignUp />', () => {
   space.set(DISPLAY_NAME, 'testName');
   it('Account Registration test', () => {
     SignUp.props = jest.fn().mockImplementation(() => {});
-    SignUp.props.registrUserDispatch = jest.fn().mockImplementation(() => true);
-    expect(SignUp.registrUser(space)).toEqual({
+    SignUp.props.registerUserDispatch = jest
+      .fn()
+      .mockImplementation(() => true);
+    expect(SignUp.registerUser(space)).toEqual({
       [EOS_ACC]: 'testAcc',
       [DISPLAY_NAME]: 'testName',
     });

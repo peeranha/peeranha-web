@@ -16,14 +16,14 @@ const SignUpForm = props => {
     handleSubmit,
     submitting,
     invalid,
-    registrUser,
+    registerUser,
     loading,
     errorMessage,
     account,
   } = props;
 
   return (
-    <form onSubmit={handleSubmit(registrUser)}>
+    <form onSubmit={handleSubmit(registerUser)}>
       <div>
         <Field
           name={EOS_ACC}
@@ -58,7 +58,7 @@ const SignUpForm = props => {
 
 SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  registrUser: PropTypes.func.isRequired,
+  registerUser: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
