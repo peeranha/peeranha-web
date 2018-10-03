@@ -20,6 +20,8 @@ export class ChangeLocale extends React.Component {
 
   /* eslint react/no-did-mount-set-state: 0 */
   componentWillMount() {
+    ChangeLocale.changeLanguage = ChangeLocale.changeLanguage.bind(this);
+
     const languages = Object.keys(translationMessages);
     this.setState({ languages });
   }
