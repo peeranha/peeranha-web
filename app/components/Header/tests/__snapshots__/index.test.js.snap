@@ -148,7 +148,7 @@ exports[`<Header /> should match the snapshot 1`] = `
           </span>
         </button>
         <a
-          href="/sign"
+          href="/signup"
           onClick={[Function]}
         >
           <button

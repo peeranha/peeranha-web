@@ -1,0 +1,17 @@
+{
+  "app.components.Footer.header": "Авторские права: Peerania",
+  "app.components.Header.home": "Главная",
+  "app.components.Header.profile": "Профиль",
+  "app.components.Header.about": "О нас",
+  "app.components.Header.help": "Помощь",
+  "app.components.Header.search": "Поиск",
+  "app.components.Header.signIn": "Войти",
+  "app.containers.SignUp.eosAccount": "EOS аккаунт",
+  "app.containers.SignUp.displayName": "Отображаемое имя",
+  "app.containers.SignUp.signUp": "Зарегистрироваться",
+  "app.containers.SignUp.requiredField": "Требуемое поле",
+  "app.containers.SignUp.displayNameLength":
+    "Длина поля должна быть не меньше 3 символов и не более 20",
+  "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
+  "app.containers.SignUp.serverMessage": "Ошибка"
+}

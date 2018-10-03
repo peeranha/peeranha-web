@@ -5,5 +5,13 @@
   "app.components.Header.about": "About",
   "app.components.Header.help": "Help",
   "app.components.Header.search": "Search",
-  "app.components.Header.signIn": "Sign In"
+  "app.components.Header.signIn": "Sign In",
+  "app.containers.SignUp.eosAccount": "EOS Account",
+  "app.containers.SignUp.displayName": "Display Name",
+  "app.containers.SignUp.signUp": "Sign Up",
+  "app.containers.SignUp.requiredField": "Required field",
+  "app.containers.SignUp.displayNameLength":
+    "Display name length must be between 3 and 20",
+  "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+  "app.containers.SignUp.serverMessage": "Error"
 }

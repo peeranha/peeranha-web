@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import ChangeLocale from 'containers/ChangeLocale';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
@@ -20,6 +21,7 @@ const Footer = () => (
         <FormattedMessage {...messages.currentYear} />
         <FormattedMessage {...messages.header} />
       </Link>
+      <ChangeLocale />
     </div>
   </Wrapper>
 );
