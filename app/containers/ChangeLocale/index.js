@@ -24,16 +24,16 @@ export class ChangeLocale extends React.Component {
     this.setState({ languages });
   }
 
-  changeLanguage(locale) {
-    this.props.changeLocaleDispatch(locale);
+  static changeLanguage(locale) {
+    return this.props.changeLocaleDispatch(locale);
   }
 
-  mapLanguages() {
-    return this.state.languages.map(item => (
+  static mapLanguages(langs) {
+    return langs.map(item => (
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.changeLanguage(item)}
+        onClick={() => ChangeLocale.changeLanguage(item)}
         key={item}
       >
         {item}
@@ -56,7 +56,7 @@ export class ChangeLocale extends React.Component {
           <span className="caret" />
         </button>
         <ul className="dropdown-menu p-0" aria-labelledby="dropdownMenu1">
-          {this.mapLanguages()}
+          {ChangeLocale.mapLanguages(this.state.languages)}
         </ul>
       </span>
     );
