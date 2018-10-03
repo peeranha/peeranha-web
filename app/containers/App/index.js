@@ -28,7 +28,7 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/users/:id" component={Profile} />
         <Route exact path="/signup" component={SignUp} />
         <Route component={NotFoundPage} />
       </Switch>

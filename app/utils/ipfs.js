@@ -14,3 +14,8 @@ export async function getText(hash) {
   const getResult = await getIpfsApi().get(hash);
   return getResult[0].content.toString('utf8');
 }
+
+export async function getImage(hash) {
+  const getResult = await getIpfsApi().get(hash);
+  return URL.createObjectURL(new Blob([getResult[0].content]));
+}
