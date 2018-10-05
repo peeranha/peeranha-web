@@ -14,18 +14,40 @@ import injectReducer from 'utils/injectReducer';
 import PropTypes from 'prop-types';
 
 import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { getBlob } from 'utils/profileManagement';
 
 import {
   makeSelectProfile,
   makeSelectLoadingProfile,
   makeSelectLoadingImage,
   makeSelectErrorProfile,
-  makeSelectUserKey,
-  makeSelectImageSrc,
   makeSelectErrorUploadImage,
+  makeSelectUserKey,
+  makeSelectCashedProfileImg,
+  makeSelectEditImageStatus,
+  makeSelectBlob,
+  makeSelectLoadingSaveProfile,
+  makeSelectLocationList,
+  makeSelectLoadingGetLocationList,
 } from './selectors';
 
-import { getProfileInformation, uploadImageFile } from './actions';
+import {
+  DISPLAY_NAME_FIELD,
+  POSITION_FIELD,
+  COMPANY_FIELD,
+  ABOUT_FIELD,
+} from './constants';
+
+import {
+  getProfileInformation,
+  uploadImageFileAction,
+  editImage,
+  clearImageChanges,
+  saveImageChanges,
+  saveProfileAction,
+  getLocationListAction,
+  cityChoiceAction,
+} from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -40,11 +62,69 @@ import Wrapper from './Wrapper';
 export class Profile extends React.Component {
   componentWillMount() {
     this.uploadImage = this.uploadImage.bind(this);
+    this.getCroppedAvatar = this.getCroppedAvatar.bind(this);
+    this.saveProfile = this.saveProfile.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
     const userKey = this.getUserKey();
     this.props.getProfileInformationDispatch(userKey);
+  }
+
+  async getCroppedAvatar(obj) {
+    if (obj) {
+      const canvas = obj.getImage().toDataURL('image/jpeg', 0.5);
+      const blob = await getBlob(canvas);
+      this.props.saveImageChangesDispatch({
+        blob,
+        cashedProfileImg: window.URL.createObjectURL(blob),
+      });
+    }
+  }
+
+  saveProfile(val) {
+    const userKey = this.getUserKey();
+    const profile = {
+      ...this.props.profile,
+      ipfs: {
+        ...this.props.profile.ipfs,
+        [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
+        [POSITION_FIELD]: val.get(POSITION_FIELD),
+        [COMPANY_FIELD]: val.get(COMPANY_FIELD),
+        [ABOUT_FIELD]: val.get(ABOUT_FIELD),
+      },
+    };
+
+    if (this.props.blob) {
+      const reader = new window.FileReader();
+      reader.onloadend = () => {
+        this.props.saveProfileActionDispatch({
+          userKey,
+          profile,
+          reader: reader.result,
+        });
+      };
+      reader.readAsArrayBuffer(this.props.blob);
+    } else {
+      this.props.saveProfileActionDispatch({
+        userKey,
+        profile,
+      });
+    }
+  }
+
+  uploadImage(event) {
+    try {
+      const file = event.target.files[0];
+      const reader = new window.FileReader();
+
+      reader.onloadend = () =>
+        this.props.uploadImageFileDispatch(reader.result);
+      reader.readAsArrayBuffer(file);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   getUserKey() {
@@ -58,49 +138,47 @@ export class Profile extends React.Component {
     return pathname.split('/')[1];
   }
 
-  uploadImage(event) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    const file = event.target.files[0];
-    const reader = new window.FileReader();
-
-    reader.onloadend = () => this.props.uploadImageFileDispatch(reader.result);
-    reader.readAsArrayBuffer(file);
-  }
-
   render() {
     const {
       account,
       profile,
-      errorProfile,
-      errorUploadImage,
       loadingProfile,
-      loadingImage,
       userKey,
-      imageSrc,
+      cashedProfileImg,
+      editImageStatus,
+      editImageDispatch,
+      clearImageChangesDispatch,
+      cityChoiceActionDispatch,
+      getLocationListDispatch,
+      locationList,
+      loadingSaveProfile,
     } = this.props;
 
-    console.log(
-      account,
+    const sendProps = {
+      uploadImage: this.uploadImage,
+      editImage: editImageDispatch,
+      clearImageChanges: clearImageChangesDispatch,
+      cityChoiceAction: cityChoiceActionDispatch,
+      getLocation: getLocationListDispatch,
+      getCroppedAvatar: this.getCroppedAvatar,
+      cancelChanges: this.componentDidMount,
+      saveProfile: this.saveProfile,
+      loadingSaveProfile,
+      locationList,
+      cashedProfileImg,
+      editImageStatus,
       profile,
-      errorProfile,
-      errorUploadImage,
-      loadingProfile,
-      loadingImage,
-      userKey,
-      imageSrc,
-    );
-
+    };
+    console.log(profile);
     return (
       <div className="container">
         {!loadingProfile && (
           <Wrapper>
             {account.eosAccount === userKey &&
-              profile && <EditableProfileForm />}
+              profile.eos && <EditableProfileForm sendProps={sendProps} />}
             {account.eosAccount !== userKey &&
-              profile && <NotEditableProfileForm />}
-            {!profile && <NoSuchUser />}
+              profile.eos && <NotEditableProfileForm />}
+            {!profile.eos && <NoSuchUser />}
           </Wrapper>
         )}
         {loadingProfile && <Preloader />}
@@ -113,14 +191,21 @@ Profile.propTypes = {
   profile: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   loadingProfile: PropTypes.bool.isRequired,
-  loadingImage: PropTypes.bool.isRequired,
-  errorProfile: PropTypes.string.isRequired,
-  errorUploadImage: PropTypes.string.isRequired,
   account: PropTypes.object.isRequired,
   userKey: PropTypes.string.isRequired,
-  imageSrc: PropTypes.string.isRequired,
+  cashedProfileImg: PropTypes.string.isRequired,
+  blob: PropTypes.string.isRequired,
   getProfileInformationDispatch: PropTypes.func.isRequired,
   uploadImageFileDispatch: PropTypes.func.isRequired,
+  editImageDispatch: PropTypes.func.isRequired,
+  clearImageChangesDispatch: PropTypes.func.isRequired,
+  saveImageChangesDispatch: PropTypes.func.isRequired,
+  saveProfileActionDispatch: PropTypes.func.isRequired,
+  cityChoiceActionDispatch: PropTypes.func.isRequired,
+  getLocationListDispatch: PropTypes.func.isRequired,
+  editImageStatus: PropTypes.func.isRequired,
+  locationList: PropTypes.array.isRequired,
+  loadingSaveProfile: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -131,7 +216,12 @@ const mapStateToProps = createStructuredSelector({
   errorUploadImage: makeSelectErrorUploadImage(),
   account: makeSelectAccount(),
   userKey: makeSelectUserKey(),
-  imageSrc: makeSelectImageSrc(),
+  cashedProfileImg: makeSelectCashedProfileImg(),
+  editImageStatus: makeSelectEditImageStatus(),
+  blob: makeSelectBlob(),
+  loadingSaveProfile: makeSelectLoadingSaveProfile(),
+  locationList: makeSelectLocationList(),
+  loadingGetLocationList: makeSelectLoadingGetLocationList(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -139,7 +229,14 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     getProfileInformationDispatch: userKey =>
       dispatch(getProfileInformation(userKey)),
-    uploadImageFileDispatch: file => dispatch(uploadImageFile(file)),
+    uploadImageFileDispatch: file => dispatch(uploadImageFileAction(file)),
+    editImageDispatch: () => dispatch(editImage()),
+    clearImageChangesDispatch: () => dispatch(clearImageChanges()),
+    saveImageChangesDispatch: cvs => dispatch(saveImageChanges(cvs)),
+    saveProfileActionDispatch: res => dispatch(saveProfileAction(res)),
+    getLocationListDispatch: str => dispatch(getLocationListAction(str)),
+    cityChoiceActionDispatch: (id, city) =>
+      dispatch(cityChoiceAction(id, city)),
   };
 }
 

@@ -1,56 +1,94 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+
+import {
+  AVATAR_FIELD,
+  DISPLAY_NAME_FIELD,
+  POSITION_FIELD,
+  COMPANY_FIELD,
+  ABOUT_FIELD,
+  LOCATION_FIELD,
+} from './constants';
 
 import renderTextInput from './renderTextInput';
 import renderTextarea from './renderTextarea';
 import renderFileInput from './renderFileInput';
+import renderLocationField from './renderLocationField';
 
 import { imageValidation, strLength20, strLength96 } from './validate';
 
-const EditableProfileForm = props => {
-  const { handleSubmit, submitting, invalid } = props;
+/* eslint-disable-next-line */
+let EditableProfileForm = props => {
+  const { handleSubmit, submitting, invalid, sendProps } = props;
 
   return (
-    <form submit={handleSubmit}>
+    <form onSubmit={handleSubmit(sendProps.saveProfile)}>
       <div>
         <Field
-          name="avatar"
+          name={AVATAR_FIELD}
           label="Avatar"
           component={renderFileInput}
+          sendProps={sendProps}
           validate={imageValidation}
           warn={imageValidation}
         />
         <Field
-          name="displayName"
+          name={DISPLAY_NAME_FIELD}
           component={renderTextInput}
           label="Display name"
           validate={strLength20}
           warn={strLength20}
         />
         <Field
-          name="title"
+          name={POSITION_FIELD}
           component={renderTextInput}
-          label="Title"
+          label="Position"
           validate={strLength20}
           warn={strLength20}
         />
         <Field
-          name="about"
+          name={COMPANY_FIELD}
+          component={renderTextInput}
+          label="Company"
+          validate={strLength20}
+          warn={strLength20}
+        />
+        <Field
+          name={ABOUT_FIELD}
           component={renderTextarea}
           label="About me"
           validate={strLength96}
           warn={strLength96}
         />
-        <Field name="location" component={renderTextInput} label="Location" />
+        <Field
+          name={LOCATION_FIELD}
+          sendProps={sendProps}
+          component={renderLocationField}
+          label="Location"
+        />
       </div>
       <div>
         <button
           className="btn btn-success form-control"
-          disabled={invalid || submitting}
+          disabled={
+            invalid ||
+            submitting ||
+            sendProps.loadingSaveProfile ||
+            (!sendProps.profile.ipfs[LOCATION_FIELD].id &&
+              sendProps.profile.ipfs[LOCATION_FIELD].name)
+          }
           type="submit"
         >
-          Button
+          {sendProps.loadingSaveProfile ? 'Saving...' : 'Save'}
+        </button>
+        <button
+          className="btn btn-secondary form-control"
+          onClick={sendProps.cancelChanges}
+          type="button"
+        >
+          Cancel
         </button>
       </div>
     </form>
@@ -61,8 +99,15 @@ EditableProfileForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
+  sendProps: PropTypes.object.isRequired,
 };
 
-export default reduxForm({
+EditableProfileForm = reduxForm({
   form: 'EditableProfileForm',
 })(EditableProfileForm);
+
+EditableProfileForm = connect(state => ({
+  initialValues: state.get('profile').get('profile').ipfs,
+}))(EditableProfileForm);
+
+export default EditableProfileForm;

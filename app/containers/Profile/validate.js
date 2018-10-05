@@ -1,7 +1,7 @@
 export const imageValidation = value => {
-  const maxSize = 1000000;
+  const maxSize = 10000000;
   return value && value[0] && value[0].size > maxSize
-    ? `Max size is ${maxSize / 1000}Kb`
+    ? `Max size is ${maxSize / 1000000}Mb`
     : undefined;
 };
 

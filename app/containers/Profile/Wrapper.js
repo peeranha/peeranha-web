@@ -3,9 +3,9 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 25px 0;
   form {
-    width: 320px;
+    flex-basis: 480px;
   }
   form * {
     margin: 3px 0;

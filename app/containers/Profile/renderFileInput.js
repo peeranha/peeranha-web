@@ -1,18 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AvatarEditor from 'react-avatar-editor';
 
-/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable */
 function renderFileInput({
   input,
   label,
-  uploadImageFunc,
-  image,
+  sendProps,
   meta: { touched, error, warning },
 }) {
+  let avatarRefs;
+
   return (
     <div>
-      {image && (
-        <img src={image} className="rounded" style={{ width: '100%' }} alt="" />
+      {sendProps.editImageStatus && (
+        <img
+          src={sendProps.cashedProfileImg || sendProps.profile.savedProfileImg}
+          className="w-100"
+          alt=""
+          key="w-100"
+        />
+      )}
+
+      {!sendProps.editImageStatus &&
+        sendProps.cashedProfileImg && (
+        <div>
+          <AvatarEditor
+            image={sendProps.cashedProfileImg}
+            ref={refs => (avatarRefs = refs)}
+            width={420}
+            border={30}
+            color={[255, 255, 255, 0.6]}
+            scale={1.5}
+            rotate={0}
+          />
+          <div className="d-flex wrap-nowrap">
+            <button
+              className="btn btn-secondary w-50 mr-1"
+              onClick={() => sendProps.getCroppedAvatar(avatarRefs)}
+              type="button"
+              key="mr-1"
+            >
+                Save
+            </button>
+            <button
+              className="btn btn-secondary w-50 ml-1"
+              onClick={() => sendProps.clearImageChanges()}
+              type="button"
+              key="ml-1"
+            >
+                Cancel
+            </button>
+          </div>
+        </div>
       )}
       <div className="input-group">
         <div className="input-group-prepend">
@@ -24,7 +64,7 @@ function renderFileInput({
           <input
             {...input}
             type="file"
-            onChange={uploadImageFunc}
+            onChange={sendProps.uploadImage}
             className="custom-file-input"
             id="avatarFile"
             value={undefined}
@@ -43,13 +83,13 @@ function renderFileInput({
     </div>
   );
 }
+/* eslint-enable */
 
 renderFileInput.propTypes = {
   input: PropTypes.object.isRequired,
-  image: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
-  uploadImageFunc: PropTypes.func.isRequired,
+  sendProps: PropTypes.object.isRequired,
 };
 
 export default renderFileInput;

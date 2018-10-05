@@ -29,8 +29,41 @@ const makeSelectUserKey = () =>
 const makeSelectProfile = () =>
   createSelector(selectProfileDomain, substate => substate.get('profile'));
 
-const makeSelectImageSrc = () =>
-  createSelector(selectProfileDomain, substate => substate.get('imageSrc'));
+const makeSelectCashedProfileImg = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('cashedProfileImg'),
+  );
+
+const makeSelectEditImageStatus = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('editImageStatus'),
+  );
+
+const makeSelectBlob = () =>
+  createSelector(selectProfileDomain, substate => substate.get('blob'));
+
+const makeSelectErrorSaveProfile = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('errorSaveProfile'),
+  );
+
+const makeSelectLoadingSaveProfile = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('loadingSaveProfile'),
+  );
+
+const makeSelectLoadingGetLocationList = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('loadingGetLocationList'),
+  );
+
+const makeSelectErrorLocationList = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('errorLocationList'),
+  );
+
+const makeSelectLocationList = () =>
+  createSelector(selectProfileDomain, substate => substate.get('locationList'));
 
 export {
   selectProfileDomain,
@@ -39,6 +72,13 @@ export {
   makeSelectLoadingImage,
   makeSelectErrorProfile,
   makeSelectUserKey,
-  makeSelectImageSrc,
+  makeSelectCashedProfileImg,
   makeSelectErrorUploadImage,
+  makeSelectEditImageStatus,
+  makeSelectBlob,
+  makeSelectErrorSaveProfile,
+  makeSelectLoadingSaveProfile,
+  makeSelectLoadingGetLocationList,
+  makeSelectErrorLocationList,
+  makeSelectLocationList,
 };
