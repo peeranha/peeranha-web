@@ -1,20 +1,9 @@
 import Eosjs from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.cjs';
+// import ScatterJS from 'scatter-js/dist/scatter.cjs';
 
 const contractAccount = 'peerania.dev';
 
-const eosioConfig = {
-  httpEndpoint: 'http://127.0.0.1:8888',
-  chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
-  keyProvider: [
-    '5JUnu1jgVifdznEHpc9eVedpLXsyDPwu69xziMm9ZvbRSkVKEda',
-    '5JV2aCujE9j5dUkFKJGtyzeTsgMAHCovQ8QhxKHd9eZpJDfMDmZ',
-    '5KgZw1vCGLSvwQUPFWeBxJFeYHuhQvz6XLa5p6vupwpwhFbaLLF',
-  ],
-  broadcast: true,
-  sign: true,
-};
-
+/*
 const scatterNetwork = {
   blockchain: 'eos',
   protocol: process.env.REACT_APP_EOS_PROTOCOL,
@@ -22,24 +11,42 @@ const scatterNetwork = {
   port: process.env.EOS_PORT,
   chainId: process.env.EOS_CHAIN_ID,
 };
+*/
 
 export function getEosio() {
-  return Eosjs(eosioConfig);
+  console.log('Initializing EOSIO provider without scatter.');
+  const eosio = Eosjs(getEosioConfig());
+  console.log('Initialized EOSIO provider successfully.');
+  return eosio;
 }
 
-export async function connectToWallet() {
-  const conneted = await ScatterJS.scatter.connect('Peerania');
+/* export async function getScatter() {
+  const installed = await ScatterJS.scatter.connect('Peerania');
+  let scatterInstance = null;
 
+  if (installed) {
+    scatterInstance = ScatterJS.scatter;
+    window.scatter = null;
+  }
+
+  return scatterInstance;
+} */
+
+export function getScatterEosio(scatterInstance) {
+  return scatterInstance.eos;
+}
+
+/* export async function connectToWallet() {
   if (conneted) {
     scatter = ScatterJS.scatter;
     window.scatter = null;
   }
 
   return conneted;
-}
+} */
 
-export async function getSelectedAccount() {
-  const connected = await ScatterJS.scatter.connect('Peerania');
+export function getSelectedAccount() {
+  /* const connected = await ScatterJS.scatter.connect('Peerania');
 
   return scatterNetwork;
 
@@ -65,7 +72,8 @@ export async function getSelectedAccount() {
     return account.name;
   }
 
-  return null;
+  return null; */
+  return 'user1';
 }
 
 export async function sendTransaction(actor, action, data) {
@@ -124,4 +132,16 @@ export async function getTableRows(table, scope) {
   return [];
 }
 
-function getEosConfig() {}
+function getEosioConfig() {
+  return {
+    httpEndpoint: 'http://127.0.0.1:8888',
+    chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
+    keyProvider: [
+      '5JUnu1jgVifdznEHpc9eVedpLXsyDPwu69xziMm9ZvbRSkVKEda',
+      '5JV2aCujE9j5dUkFKJGtyzeTsgMAHCovQ8QhxKHd9eZpJDfMDmZ',
+      '5KgZw1vCGLSvwQUPFWeBxJFeYHuhQvz6XLa5p6vupwpwhFbaLLF',
+    ],
+    broadcast: true,
+    sign: true,
+  };
+}
