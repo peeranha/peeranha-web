@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { FormattedMessage } from 'react-intl';
+
+import messages from './messages';
 
 import {
   AVATAR_FIELD,
@@ -20,15 +23,16 @@ import renderLocationField from './renderLocationField';
 import { imageValidation, strLength20, strLength96 } from './validate';
 
 /* eslint-disable-next-line */
-let EditableProfileForm = props => {
+let ProfileForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
+  const { ipfs } = sendProps.profile;
 
   return (
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
       <div>
         <Field
           name={AVATAR_FIELD}
-          label="Avatar"
+          label={sendProps.translations[messages.avatarLabel.id]}
           component={renderFileInput}
           sendProps={sendProps}
           validate={imageValidation}
@@ -36,29 +40,33 @@ let EditableProfileForm = props => {
         />
         <Field
           name={DISPLAY_NAME_FIELD}
+          sendProps={sendProps}
           component={renderTextInput}
-          label="Display name"
+          label={sendProps.translations[messages.displayNameLabel.id]}
           validate={strLength20}
           warn={strLength20}
         />
         <Field
           name={POSITION_FIELD}
+          sendProps={sendProps}
           component={renderTextInput}
-          label="Position"
+          label={sendProps.translations[messages.positionLabel.id]}
           validate={strLength20}
           warn={strLength20}
         />
         <Field
           name={COMPANY_FIELD}
+          sendProps={sendProps}
           component={renderTextInput}
-          label="Company"
+          label={sendProps.translations[messages.companyLabel.id]}
           validate={strLength20}
           warn={strLength20}
         />
         <Field
           name={ABOUT_FIELD}
           component={renderTextarea}
-          label="About me"
+          sendProps={sendProps}
+          label={sendProps.translations[messages.aboutLabel.id]}
           validate={strLength96}
           warn={strLength96}
         />
@@ -66,48 +74,55 @@ let EditableProfileForm = props => {
           name={LOCATION_FIELD}
           sendProps={sendProps}
           component={renderLocationField}
-          label="Location"
+          label={sendProps.translations[messages.locationLabel.id]}
         />
       </div>
-      <div>
-        <button
-          className="btn btn-success form-control"
-          disabled={
-            invalid ||
-            submitting ||
-            sendProps.loadingSaveProfile ||
-            (!sendProps.profile.ipfs[LOCATION_FIELD].id &&
-              sendProps.profile.ipfs[LOCATION_FIELD].name)
-          }
-          type="submit"
-        >
-          {sendProps.loadingSaveProfile ? 'Saving...' : 'Save'}
-        </button>
-        <button
-          className="btn btn-secondary form-control"
-          onClick={sendProps.cancelChanges}
-          type="button"
-        >
-          Cancel
-        </button>
-      </div>
+      {sendProps.isOwner && (
+        <div>
+          <button
+            className="btn btn-success form-control"
+            disabled={
+              invalid ||
+              submitting ||
+              sendProps.loadingSaveProfile ||
+              (ipfs[LOCATION_FIELD] &&
+                !ipfs[LOCATION_FIELD].id &&
+                ipfs[LOCATION_FIELD].name)
+            }
+            type="submit"
+          >
+            {sendProps.loadingSaveProfile ? (
+              <FormattedMessage {...messages.savingButton} />
+            ) : (
+              <FormattedMessage {...messages.saveButton} />
+            )}
+          </button>
+          <button
+            className="btn btn-secondary form-control"
+            onClick={sendProps.cancelChanges}
+            type="button"
+          >
+            <FormattedMessage {...messages.cancelButton} />
+          </button>
+        </div>
+      )}
     </form>
   );
 };
 
-EditableProfileForm.propTypes = {
+ProfileForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   sendProps: PropTypes.object.isRequired,
 };
 
-EditableProfileForm = reduxForm({
-  form: 'EditableProfileForm',
-})(EditableProfileForm);
+ProfileForm = reduxForm({
+  form: 'ProfileForm',
+})(ProfileForm);
 
-EditableProfileForm = connect(state => ({
+ProfileForm = connect(state => ({
   initialValues: state.get('profile').get('profile').ipfs,
-}))(EditableProfileForm);
+}))(ProfileForm);
 
-export default EditableProfileForm;
+export default ProfileForm;

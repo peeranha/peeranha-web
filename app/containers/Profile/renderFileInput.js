@@ -1,6 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
+import { FormattedMessage } from 'react-intl';
+
+import {
+  AvatarEditorBorder,
+  AvatarEditorWidth,
+  AvatarEditorColor,
+  AvatarEditorScale,
+  AvatarEditorRotate,
+} from './Wrapper';
+
+import messages from './messages';
 
 /* eslint-disable */
 function renderFileInput({
@@ -10,10 +21,10 @@ function renderFileInput({
   meta: { touched, error, warning },
 }) {
   let avatarRefs;
-
+  let avatarWidth = window.innerWidth > 480 ? AvatarEditorWidth : 320 - 2*AvatarEditorBorder;
   return (
     <div>
-      {sendProps.editImageStatus && (
+      {sendProps.editingImgState && (
         <img
           src={sendProps.cashedProfileImg || sendProps.profile.savedProfileImg}
           className="w-100"
@@ -22,17 +33,17 @@ function renderFileInput({
         />
       )}
 
-      {!sendProps.editImageStatus &&
+      {!sendProps.editingImgState &&
         sendProps.cashedProfileImg && (
         <div>
           <AvatarEditor
             image={sendProps.cashedProfileImg}
             ref={refs => (avatarRefs = refs)}
-            width={420}
-            border={30}
-            color={[255, 255, 255, 0.6]}
-            scale={1.5}
-            rotate={0}
+            width={avatarWidth}
+            border={AvatarEditorBorder}
+            color={AvatarEditorColor}
+            scale={AvatarEditorScale}
+            rotate={AvatarEditorRotate}
           />
           <div className="d-flex wrap-nowrap">
             <button
@@ -41,7 +52,7 @@ function renderFileInput({
               type="button"
               key="mr-1"
             >
-                Save
+              <FormattedMessage {...messages.saveButton} />
             </button>
             <button
               className="btn btn-secondary w-50 ml-1"
@@ -49,36 +60,40 @@ function renderFileInput({
               type="button"
               key="ml-1"
             >
-                Cancel
+              <FormattedMessage {...messages.cancelButton} />
             </button>
           </div>
         </div>
       )}
-      <div className="input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text" id="avatar1">
-            {label}
-          </span>
+      {
+        sendProps.isOwner && (
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="avatar1">
+              {label}
+            </span>
+          </div>
+          <div className="custom-file">
+            <input
+              {...input}
+              type="file"
+              onChange={sendProps.uploadImage}
+              className="custom-file-input"
+              id="avatarFile"
+              value={undefined}
+              aria-describedby="avatar1"
+            />
+            <label className="custom-file-label" htmlFor="avatarFile">
+              <FormattedMessage {...messages.chooseFile} />
+            </label>
+          </div>
         </div>
-        <div className="custom-file">
-          <input
-            {...input}
-            type="file"
-            onChange={sendProps.uploadImage}
-            className="custom-file-input"
-            id="avatarFile"
-            value={undefined}
-            aria-describedby="avatar1"
-          />
-          <label className="custom-file-label" htmlFor="avatarFile">
-            Choose file
-          </label>
-        </div>
-      </div>
+        )
+      }
       <h6 className="text-danger">
         {touched &&
-          ((error && <span>{error}</span>) ||
-            (warning && <span>{warning}</span>))}
+          ((error && <span>{sendProps.translations[error]}</span>) ||
+            (warning && <span>{sendProps.translations[warning]}</span>))}
       </h6>
     </div>
   );

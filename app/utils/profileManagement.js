@@ -19,7 +19,7 @@ export async function getBlob(canvas) {
   return blob;
 }
 
-export async function getProfileInformation(profileHash) {
+export async function getProfileInfo(profileHash) {
   const eos = await getTableRow('account', 'allaccounts', profileHash);
   const ipfs = await getText(eos.ipfs_profile);
   const ipfsParsed = JSON.parse(ipfs);
@@ -37,18 +37,26 @@ export async function getProfileInformation(profileHash) {
 export async function saveProfile(owner, profile) {
   const ipfsProfile = await saveText(JSON.stringify(profile));
 
-  await sendTransaction(owner, 'setipfspro', {
-    owner,
-    ipfs_profile: ipfsProfile,
+  const setipfspro = new Promise(async res => {
+    await sendTransaction(owner, 'setipfspro', {
+      owner,
+      ipfs_profile: ipfsProfile,
+    });
+    res();
   });
 
-  await sendTransaction(owner, 'setdispname', {
-    owner,
-    display_name: profile[DISPLAY_NAME_FIELD],
+  const setdispname = new Promise(async res => {
+    await sendTransaction(owner, 'setdispname', {
+      owner,
+      display_name: profile[DISPLAY_NAME_FIELD],
+    });
+    res();
   });
+
+  return Promise.all([setipfspro, setdispname]);
 }
 
-export async function getLocationList(city) {
+export async function getCitiesList(city) {
   const cities = await fetch(
     `http://api.geonames.org/searchJSON?q=${city}&maxRows=5&username=romrem`,
   );

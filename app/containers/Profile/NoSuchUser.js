@@ -1,5 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
-const NoSuchUser = () => <div>There are no such users</div>;
+import messages from './messages';
+
+const NoSuchUser = () => (
+  <div>
+    <FormattedMessage {...messages.wrongUser} />
+  </div>
+);
 
 export default NoSuchUser;

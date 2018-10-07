@@ -13,5 +13,20 @@
   "app.containers.SignUp.displayNameLength":
     "Display name length must be between 3 and 20",
   "app.containers.SignUp.signUpDescription": "Description of Sign Up",
-  "app.containers.SignUp.serverMessage": "Error"
+  "app.containers.SignUp.serverMessage": "Error",
+  "app.containers.Profile.profile": "Profile",
+  "app.containers.Profile.wrongUser": "Wrong user",
+  "app.containers.Profile.avatarLabel": "Avatar",
+  "app.containers.Profile.displayNameLabel": "Display name",
+  "app.containers.Profile.positionLabel": "Position",
+  "app.containers.Profile.companyLabel": "Company",
+  "app.containers.Profile.aboutLabel": "About me",
+  "app.containers.Profile.fileSize": "File size is exceeded",
+  "app.containers.Profile.stringLength": "String is too short or too long",
+  "app.containers.Profile.saveButton": "Save",
+  "app.containers.Profile.savingButton": "Saving...",
+  "app.containers.Profile.cancelButton": "Cancel",
+  "app.containers.Profile.chooseFile": "Choose file",
+  "app.containers.Profile.loadingProfile": "Loading...",
+  "app.containers.Profile.locationLabel": "Location"
 }

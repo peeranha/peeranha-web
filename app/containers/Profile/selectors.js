@@ -5,80 +5,64 @@ import { initialState } from './reducer';
  * Direct selector to the profile state domain
  */
 
-const selectProfileDomain = state => state.get('profile', initialState);
+export const selectProfileDomain = state => state.get('profile', initialState);
 
-const makeSelectLoadingProfile = () =>
+export const selectLoadingProfile = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('loadingProfile'),
   );
 
-const makeSelectLoadingImage = () =>
+export const selectLoadingImage = () =>
   createSelector(selectProfileDomain, substate => substate.get('loadingImage'));
 
-const makeSelectErrorProfile = () =>
-  createSelector(selectProfileDomain, substate => substate.get('errorProfile'));
+export const selectErrorLoadProfile = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('errorLoadProfile'),
+  );
 
-const makeSelectErrorUploadImage = () =>
+export const selectErrorUploadImage = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('errorUploadImage'),
   );
 
-const makeSelectUserKey = () =>
+export const selectUserKey = () =>
   createSelector(selectProfileDomain, substate => substate.get('userKey'));
 
-const makeSelectProfile = () =>
+export const selectProfile = () =>
   createSelector(selectProfileDomain, substate => substate.get('profile'));
 
-const makeSelectCashedProfileImg = () =>
+export const selectCashedProfileImg = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('cashedProfileImg'),
   );
 
-const makeSelectEditImageStatus = () =>
+export const selectEditingImgState = () =>
   createSelector(selectProfileDomain, substate =>
-    substate.get('editImageStatus'),
+    substate.get('editingImgState'),
   );
 
-const makeSelectBlob = () =>
+export const selectBlob = () =>
   createSelector(selectProfileDomain, substate => substate.get('blob'));
 
-const makeSelectErrorSaveProfile = () =>
+export const selectErrorSaveProfile = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('errorSaveProfile'),
   );
 
-const makeSelectLoadingSaveProfile = () =>
+export const selectLoadingSaveProfile = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('loadingSaveProfile'),
   );
 
-const makeSelectLoadingGetLocationList = () =>
+export const selectLoadingGetCitiesList = () =>
   createSelector(selectProfileDomain, substate =>
-    substate.get('loadingGetLocationList'),
+    substate.get('loadingGetCitiesList'),
   );
 
-const makeSelectErrorLocationList = () =>
+export const selectErrorCitiesList = () =>
   createSelector(selectProfileDomain, substate =>
-    substate.get('errorLocationList'),
+    substate.get('errorCitiesList'),
   );
 
-const makeSelectLocationList = () =>
-  createSelector(selectProfileDomain, substate => substate.get('locationList'));
-
-export {
-  selectProfileDomain,
-  makeSelectProfile,
-  makeSelectLoadingProfile,
-  makeSelectLoadingImage,
-  makeSelectErrorProfile,
-  makeSelectUserKey,
-  makeSelectCashedProfileImg,
-  makeSelectErrorUploadImage,
-  makeSelectEditImageStatus,
-  makeSelectBlob,
-  makeSelectErrorSaveProfile,
-  makeSelectLoadingSaveProfile,
-  makeSelectLoadingGetLocationList,
-  makeSelectErrorLocationList,
-  makeSelectLocationList,
-};
+export const selectCitiesList = () =>
+  createSelector(selectProfileDomain, substate => substate.get('citiesList'));

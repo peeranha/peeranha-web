@@ -1,5 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
-const Preloader = () => <div className="text-center">Loading...</div>;
+import messages from './messages';
+
+const Preloader = () => (
+  <div className="text-center">
+    <FormattedMessage {...messages.loadingProfile} />
+  </div>
+);
 
 export default Preloader;

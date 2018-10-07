@@ -4,24 +4,23 @@ import PropTypes from 'prop-types';
 import LocationList from './LocationList';
 import { LOCATION_FIELD } from './constants';
 
-const locationList = sendProps =>
-  sendProps.map(item => (
+const cities = (list, sendProps) =>
+  list.map(item => (
     <li
+      role="presentation"
       key={item.geonameId}
       onClick={() =>
-        sendProps.cityChoiceAction(
+        sendProps.chooseLocation(
           item.geonameId,
           `${item.name}, ${item.countryName}`,
         )
       }
-      role="presentation"
-    >
-      {`${item.name}, ${item.countryName}`}
-    </li>
+    >{`${item.name}, ${item.countryName}`}</li>
   ));
 
+/* eslint-disable */
 function renderLocationField({ input, label, sendProps }) {
-  const { id, name } = sendProps.profile.ipfs[LOCATION_FIELD];
+  const { ipfs } = sendProps.profile;
 
   return (
     <div>
@@ -29,16 +28,26 @@ function renderLocationField({ input, label, sendProps }) {
       <div className="position-relative mb-0">
         <input
           {...input}
-          onChange={e => sendProps.getLocation(e.target.value)}
-          value={name}
+          readOnly={!sendProps.isOwner}
+          autoComplete="off"
+          placeholder={label}
+          onChange={e => sendProps.getCitiesList(e.target.value)}
+          value={ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
           className="form-control mb-0"
           type="text"
         />
-        {!id && name && <LocationList>{locationList(sendProps)}</LocationList>}
+        {ipfs[LOCATION_FIELD] &&
+          !ipfs[LOCATION_FIELD].id &&
+          ipfs[LOCATION_FIELD].name && (
+          <LocationList>
+            {cities(sendProps.citiesList, sendProps)}
+          </LocationList>
+        )}
       </div>
     </div>
   );
 }
+/* eslint-enable */
 
 renderLocationField.propTypes = {
   input: PropTypes.object.isRequired,

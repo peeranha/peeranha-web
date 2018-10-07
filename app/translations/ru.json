@@ -13,5 +13,21 @@
   "app.containers.SignUp.displayNameLength":
     "Длина поля должна быть не меньше 3 символов и не более 20",
   "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
-  "app.containers.SignUp.serverMessage": "Ошибка"
+  "app.containers.SignUp.serverMessage": "Ошибка",
+  "app.containers.Profile.profile": "Профиль",
+  "app.containers.Profile.wrongUser": "Неверный пользователь",
+  "app.containers.Profile.avatarLabel": "Аватарка",
+  "app.containers.Profile.displayNameLabel": "Отображаемое имя",
+  "app.containers.Profile.positionLabel": "Должность",
+  "app.containers.Profile.companyLabel": "Компания",
+  "app.containers.Profile.aboutLabel": "Обо мне",
+  "app.containers.Profile.fileSize": "Размер файла превышен",
+  "app.containers.Profile.stringLength":
+    "Строка слишком короткая или слишком длинная",
+  "app.containers.Profile.saveButton": "Сохранить",
+  "app.containers.Profile.savingButton": "Сохранение...",
+  "app.containers.Profile.cancelButton": "Отмена",
+  "app.containers.Profile.chooseFile": "Выбрать файл",
+  "app.containers.Profile.loadingProfile": "Загрузка...",
+  "app.containers.Profile.locationLabel": "Местоположение"
 }

@@ -29,24 +29,24 @@ import {
  *
  */
 
-export function getProfileInformation(userKey) {
+export function getProfileInfo(userKey) {
   return {
     type: GET_PROFILE_INFORMATION,
     userKey,
   };
 }
 
-export function getProfileInformationSuccess(profile) {
+export function getProfileInfoSuccess(profile) {
   return {
     type: GET_PROFILE_INFORMATION_SUCCESS,
     profile,
   };
 }
 
-export function getProfileInformationError(errorProfile) {
+export function getProfileInfoError(errorLoadProfile) {
   return {
     type: GET_PROFILE_INFORMATION_ERROR,
-    errorProfile,
+    errorLoadProfile,
   };
 }
 
@@ -131,32 +131,32 @@ export function saveProfileActionError(errorSaveProfile) {
 
 /*
  *
- * getLocationList actions
+ * get citiesList actions
  *
  */
 
-export function getLocationListAction(locationSearch) {
+export function getCitiesList(locationSearch) {
   return {
     type: GET_LOCATION_LIST,
     locationSearch,
   };
 }
 
-export function getLocationListActionSuccess(locationList) {
+export function getCitiesListSuccess(citiesList) {
   return {
     type: GET_LOCATION_LIST_SUCCESS,
-    locationList,
+    citiesList,
   };
 }
 
-export function getLocationListActionError(errorLocationList) {
+export function getCitiesListError(errorCitiesList) {
   return {
     type: GET_LOCATION_LIST_ERROR,
-    errorLocationList,
+    errorCitiesList,
   };
 }
 
-export function cityChoiceAction(cityId, city) {
+export function chooseLocation(cityId, city) {
   return {
     type: CHOICE_CITY_ACTION,
     cityId,

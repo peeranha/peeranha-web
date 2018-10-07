@@ -3,20 +3,20 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   uploadImageFile,
   getImageFile,
-  getProfileInformation,
+  getProfileInfo,
   saveProfile,
-  getLocationList,
+  getCitiesList,
 } from 'utils/profileManagement';
 
 import {
-  getProfileInformationSuccess,
-  getProfileInformationError,
+  getProfileInfoSuccess,
+  getProfileInfoError,
   uploadImageFileSuccess,
   uploadImageFileError,
   saveProfileActionSuccess,
   saveProfileActionError,
-  getLocationListActionSuccess,
-  getLocationListActionError,
+  getCitiesListSuccess,
+  getCitiesListError,
 } from './actions';
 
 import {
@@ -26,12 +26,12 @@ import {
   GET_LOCATION_LIST,
 } from './constants';
 
-export function* getProfileInformationWorker(res) {
+export function* getProfileInfoWorker(res) {
   try {
-    const profile = yield call(() => getProfileInformation(res.userKey));
-    yield put(getProfileInformationSuccess(profile));
+    const profile = yield call(() => getProfileInfo(res.userKey));
+    yield put(getProfileInfoSuccess(profile));
   } catch (err) {
-    yield put(getProfileInformationError(err.message));
+    yield put(getProfileInfoError(err.message));
   }
 }
 
@@ -63,18 +63,18 @@ export function* saveProfileActionWorker(res) {
   }
 }
 
-export function* getLocationListWorker(str) {
+export function* getCitiesListWorker(str) {
   try {
-    const locationList = yield call(() => getLocationList(str.locationSearch));
-    yield put(getLocationListActionSuccess(locationList));
+    const citiesList = yield call(() => getCitiesList(str.locationSearch));
+    yield put(getCitiesListSuccess(citiesList));
   } catch (err) {
-    yield put(getLocationListActionError(err.message));
+    yield put(getCitiesListError(err.message));
   }
 }
 
 export default function*() {
-  yield takeLatest(GET_PROFILE_INFORMATION, getProfileInformationWorker);
+  yield takeLatest(GET_PROFILE_INFORMATION, getProfileInfoWorker);
   yield takeLatest(UPLOAD_IMAGE_FILE, uploadImageFileWorker);
   yield takeLatest(SAVE_PROFILE_ACTION, saveProfileActionWorker);
-  yield takeLatest(GET_LOCATION_LIST, getLocationListWorker);
+  yield takeLatest(GET_LOCATION_LIST, getCitiesListWorker);
 }

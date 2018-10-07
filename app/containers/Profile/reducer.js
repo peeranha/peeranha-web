@@ -28,34 +28,34 @@ export const initialState = fromJS({
   loadingProfile: false,
   loadingImage: false,
   loadingSaveProfile: false,
-  loadingGetLocationList: false,
-  errorProfile: '',
+  loadingGetCitiesList: false,
+  errorLoadProfile: '',
   errorUploadImage: '',
   errorSaveProfile: '',
-  errorLocationList: '',
+  errorCitiesList: '',
   profile: {},
   userKey: '',
   locationSearch: '',
   blob: '',
-  locationList: [],
+  citiesList: [],
   cashedProfileImg: '',
-  editImageStatus: true,
+  editingImgState: true,
 });
 
 function profileReducer(state = initialState, action) {
   const {
     type,
     profile,
-    errorProfile,
+    errorLoadProfile,
     errorUploadImage,
     errorSaveProfile,
-    errorLocationList,
+    errorCitiesList,
     locationSearch,
     cityId,
     city,
     userKey,
     blob,
-    locationList,
+    citiesList,
     cashedProfileImg,
   } = action;
 
@@ -67,23 +67,23 @@ function profileReducer(state = initialState, action) {
     case GET_PROFILE_INFORMATION_ERROR:
       return state
         .set('loadingProfile', false)
-        .set('errorProfile', errorProfile);
+        .set('errorLoadProfile', errorLoadProfile);
     case UPLOAD_IMAGE_FILE:
       return state.set('loadingImage', true);
     case UPLOAD_IMAGE_FILE_SUCCESS:
       return state
         .set('loadingImage', false)
-        .set('editImageStatus', false)
+        .set('editingImgState', false)
         .set('cashedProfileImg', cashedProfileImg);
     case UPLOAD_IMAGE_FILE_ERROR:
       return state
         .set('loadingImage', false)
         .set('errorUploadImage', errorUploadImage);
     case CANCEL_IMAGE_CHANGES:
-      return state.set('editImageStatus', true).set('cashedProfileImg', '');
+      return state.set('editingImgState', true).set('cashedProfileImg', '');
     case SAVE_IMAGE_CHANGES:
       return state
-        .set('editImageStatus', true)
+        .set('editingImgState', true)
         .set('cashedProfileImg', cashedProfileImg)
         .set('blob', blob)
         .set('profile', {
@@ -110,12 +110,12 @@ function profileReducer(state = initialState, action) {
       });
     case GET_LOCATION_LIST_SUCCESS:
       return state
-        .set('locationList', locationList)
-        .set('loadingGetLocationList', false);
+        .set('citiesList', citiesList)
+        .set('loadingGetCitiesList', false);
     case GET_LOCATION_LIST_ERROR:
       return state
-        .set('loadingGetLocationList', false)
-        .set('errorLocationList', errorLocationList);
+        .set('loadingGetCitiesList', false)
+        .set('errorCitiesList', errorCitiesList);
     case CHOICE_CITY_ACTION:
       return state.set('profile', {
         ...state.get('profile'),
