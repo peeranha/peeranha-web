@@ -52,8 +52,9 @@ export class Profile extends React.Component {
   componentWillMount() {
     this.uploadImage = this.uploadImage.bind(this);
     this.getCroppedAvatar = this.getCroppedAvatar.bind(this);
-    this.saveProfile = this.saveProfile.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    Profile.saveProfile = Profile.saveProfile.bind(this);
+    Profile.saveProfileActionDtch = this.props.saveProfileActionDtch.bind(this);
   }
 
   /*
@@ -61,7 +62,7 @@ export class Profile extends React.Component {
    */
 
   componentDidMount() {
-    const userKey = this.getUserKey();
+    const userKey = Profile.getUserKey(window.location.pathname);
     this.props.getProfileInfoDtch(userKey);
   }
 
@@ -85,8 +86,9 @@ export class Profile extends React.Component {
    * @saveProfile: method allows to save your profile
    */
 
-  saveProfile(val) {
-    const userKey = this.getUserKey();
+  static async saveProfile(val) {
+    let value;
+    const userKey = Profile.getUserKey(window.location.pathname);
     const profile = {
       ...this.props.profile,
       ipfs: {
@@ -100,8 +102,8 @@ export class Profile extends React.Component {
 
     if (this.props.blob) {
       const reader = new window.FileReader();
-      reader.onloadend = () => {
-        this.props.saveProfileActionDtch({
+      reader.onloadend = async () => {
+        value = await Profile.saveProfileActionDtch({
           userKey,
           profile,
           reader: reader.result,
@@ -109,11 +111,13 @@ export class Profile extends React.Component {
       };
       reader.readAsArrayBuffer(this.props.blob);
     } else {
-      this.props.saveProfileActionDtch({
+      value = await Profile.saveProfileActionDtch({
         userKey,
         profile,
       });
     }
+
+    return value;
   }
 
   /*
@@ -126,9 +130,9 @@ export class Profile extends React.Component {
       const reader = new window.FileReader();
 
       reader.onloadend = () => this.props.uploadImageFileDtch(reader.result);
-      reader.readAsArrayBuffer(file);
+      return reader.readAsArrayBuffer(file);
     } catch (err) {
-      console.log(err);
+      return err.message;
     }
   }
 
@@ -138,9 +142,8 @@ export class Profile extends React.Component {
    * example: /users/user1/ --> got key: user1
    */
 
-  getUserKey() {
-    const { history } = this.props;
-    let pathname = history.location.pathname.slice(1);
+  static getUserKey(str) {
+    let pathname = str.slice(1);
 
     if (pathname[pathname.length - 1] === '/') {
       pathname = pathname.slice(0, -1);
@@ -174,7 +177,7 @@ export class Profile extends React.Component {
       getCitiesList: getCitiesListDtch,
       getCroppedAvatar: this.getCroppedAvatar,
       cancelChanges: this.componentDidMount,
-      saveProfile: this.saveProfile,
+      saveProfile: Profile.saveProfile,
       loadingSaveProfile,
       citiesList,
       cashedProfileImg,
@@ -214,7 +217,6 @@ export class Profile extends React.Component {
 
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
   userKey: PropTypes.string.isRequired,
   locale: PropTypes.string.isRequired,

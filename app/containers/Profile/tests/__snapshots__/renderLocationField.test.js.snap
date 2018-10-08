@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderLocationField test test by snapshots 1`] = `
+<div>
+  <h6>
+    string
+  </h6>
+  <div
+    className="position-relative mb-0"
+  >
+    <input
+      autoComplete="off"
+      className="form-control mb-0"
+      onChange={[Function]}
+      placeholder="string"
+      readOnly={true}
+      type="text"
+      value=""
+    />
+    
+  </div>
+</div>
+`;

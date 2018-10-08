@@ -48,7 +48,7 @@ export async function saveProfile(owner, profile) {
   const setdispname = new Promise(async res => {
     await sendTransaction(owner, 'setdispname', {
       owner,
-      display_name: profile[DISPLAY_NAME_FIELD],
+      display_name: profile[DISPLAY_NAME_FIELD] || '',
     });
     res();
   });
