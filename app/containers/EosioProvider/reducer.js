@@ -9,32 +9,19 @@ import { INIT_EOSIO, INIT_EOSIO_SUCCESS, INIT_EOSIO_ERROR } from './constants';
 
 export const initialState = fromJS({
   initializing: false,
-  initialized: false,
-  scatterInstalled: false,
-  scatterInstance: null,
-  eosioInstance: null,
+  eos: { initialized: false },
   error: null,
 });
 
 function eosioProviderReducer(state = initialState, action) {
-  const {
-    type,
-    error,
-    scatterInstalled,
-    scatterInstance,
-    eosioInstance,
-  } = action;
+  const { type, error, eos } = action;
 
   switch (type) {
     case INIT_EOSIO:
       return state.set('initializing', true);
     case INIT_EOSIO_SUCCESS:
-      return state
-        .set('initializing', false)
-        .set('initialized', true)
-        .set('scatterInstalled', scatterInstalled)
-        .set('scatterInstance', scatterInstance)
-        .set('eosioInstance', eosioInstance);
+      console.log(eos);
+      return state.set('initializing', false).set('eos', eos);
     case INIT_EOSIO_ERROR:
       return state.set('initializing', false).set('error', error);
     default:

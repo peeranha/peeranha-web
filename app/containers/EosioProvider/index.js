@@ -15,6 +15,11 @@ import injectReducer from 'utils/injectReducer';
 import { initEosio } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import {
+  makeSelectInitializing,
+  makeSelectEos,
+  makeSelectError,
+} from './selectors';
 
 export class EosioProvider extends React.Component {
   componentDidMount() {
@@ -27,11 +32,18 @@ export class EosioProvider extends React.Component {
 }
 
 EosioProvider.propTypes = {
+  initializing: PropTypes.bool,
+  eos: PropTypes.object,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   initEosio: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  initializing: makeSelectInitializing(),
+  eos: makeSelectEos(),
+  error: makeSelectError(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

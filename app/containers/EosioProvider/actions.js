@@ -12,16 +12,10 @@ export function initEosio() {
   };
 }
 
-export function initEosioSuccess(
-  eosioInstance,
-  scatterInstalled,
-  scatterInstance,
-) {
+export function initEosioSuccess(eos) {
   return {
     type: INIT_EOSIO_SUCCESS,
-    eosioInstance,
-    scatterInstalled,
-    scatterInstance,
+    eos,
   };
 }
 

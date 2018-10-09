@@ -13,25 +13,8 @@ const makeSelectInitializing = () =>
     substate.get('initializing'),
   );
 
-const makeSelectInitialized = () =>
-  createSelector(selectEosioProviderDomain, substate =>
-    substate.get('initialized'),
-  );
-
-const makeSelectScatterInstalled = () =>
-  createSelector(selectEosioProviderDomain, substate =>
-    substate.get('scatterInstalled'),
-  );
-
-const makeSelectScatterInstance = () =>
-  createSelector(selectEosioProviderDomain, substate =>
-    substate.get('scatterInstance'),
-  );
-
-const makeSelectEosioInstance = () =>
-  createSelector(selectEosioProviderDomain, substate =>
-    substate.get('eosioInstance'),
-  );
+const makeSelectEos = () =>
+  createSelector(selectEosioProviderDomain, substate => substate.get('eos'));
 
 const makeSelectError = () =>
   createSelector(selectEosioProviderDomain, substate => substate.get('error'));
@@ -39,9 +22,6 @@ const makeSelectError = () =>
 export {
   selectEosioProviderDomain,
   makeSelectInitializing,
-  makeSelectInitialized,
-  makeSelectScatterInstalled,
-  makeSelectScatterInstance,
-  makeSelectEosioInstance,
+  makeSelectEos,
   makeSelectError,
 };
