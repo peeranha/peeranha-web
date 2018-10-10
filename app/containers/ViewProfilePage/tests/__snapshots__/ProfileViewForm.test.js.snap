@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileViewForm test test by snapshots 1`] = `
+<div
+  className="view-form"
+>
+  <div>
+    <img
+      alt=""
+      className="w-100"
+    />
+  </div>
+  
+  
+  
+  
+  
+  <a
+    href="/users/edit/undefined"
+    onClick={[Function]}
+  >
+    <button
+      className="btn btn-success form-control"
+    >
+      <span>
+        Edit
+      </span>
+    </button>
+  </a>
+</div>
+`;

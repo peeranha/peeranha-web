@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewFormListItem test test by snapshots 1`] = `
+<div
+  className="view-form-item"
+>
+  <h6>
+    <span>
+      Saving...
+    </span>
+  </h6>
+  <p>
+    savingButton
+  </p>
+</div>
+`;

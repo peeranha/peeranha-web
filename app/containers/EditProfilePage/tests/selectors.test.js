@@ -1,8 +1,12 @@
-// import { fromJS } from 'immutable';
-// import { selectEditProfilePageDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import { selectEditProfileDomain } from '../selectors';
 
-describe('selectEditProfilePageDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('selectEditProfileDomain', () => {
+  const globalState = fromJS({});
+  const mockedState = fromJS({
+    editProfileReducer: globalState,
+  });
+  it('should select the global state', () => {
+    expect(selectEditProfileDomain(mockedState)).toEqual(globalState);
   });
 });
