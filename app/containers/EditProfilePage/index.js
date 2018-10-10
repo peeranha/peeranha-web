@@ -72,17 +72,22 @@ export class EditProfilePage extends React.Component {
   };
 
   getCroppedAvatar = async obj => {
+    let value;
+
     if (obj) {
       const canvas = obj.getImage().toDataURL('image/jpeg', 0.5);
       const blob = await getBlob(canvas);
-      this.props.saveImageChangesDispatch({
+      value = this.props.saveImageChangesDispatch({
         blob,
         cachedProfileImg: window.URL.createObjectURL(blob),
       });
     }
+
+    return value;
   };
 
   saveProfile = async val => {
+    let value;
     const { match, blob } = this.props;
     const userKey = match.params.id;
     const profile = {
@@ -107,11 +112,13 @@ export class EditProfilePage extends React.Component {
       };
       reader.readAsArrayBuffer(blob);
     } else {
-      await this.props.saveProfileActionDispatch({
+      value = await this.props.saveProfileActionDispatch({
         userKey,
         profile,
       });
     }
+
+    return value;
   };
 
   render() {

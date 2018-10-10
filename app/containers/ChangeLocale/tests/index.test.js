@@ -1,26 +1,21 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+
 import 'jest-styled-components';
 import renderer from 'react-test-renderer';
-import { changeLocale } from 'containers/LanguageProvider/actions';
 
 import { ChangeLocale } from '../index';
 
 describe('<ChangeLocale />', () => {
+  const wrapper = shallow(<ChangeLocale />);
+
   it('mapLanguages: all languages are rendered', () => {
     const langs = ['en', 'ru'];
-    ChangeLocale.props = jest.fn().mockImplementationOnce(() => {});
-    ChangeLocale.props.changeLocaleDispatch = jest
+    wrapper.instance().props = jest.fn().mockImplementationOnce(() => {});
+    wrapper.instance().props.changeLocaleDispatch = jest
       .fn()
       .mockImplementationOnce(() => {});
-    expect(ChangeLocale.mapLanguages(langs).length).toEqual(langs.length);
-  });
-
-  it('changeLanguage: returns action with established language', () => {
-    const lang = 'en';
-    ChangeLocale.props.changeLocaleDispatch = jest
-      .fn()
-      .mockImplementationOnce(changeLocale);
-    expect(ChangeLocale.changeLanguage(lang).locale).toBe(lang);
+    expect(wrapper.instance().mapLanguages(langs).length).toEqual(langs.length);
   });
 
   it('should match the snapshot', () => {
