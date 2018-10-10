@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wrapper /> should match the snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px 0;
+}
+
+.c0 form,
+.c0 .view-form {
+  -webkit-flex-basis: 480px;
+  -ms-flex-preferred-size: 480px;
+  flex-basis: 480px;
+}
+
+.c0 form *,
+.c0 .view-form * {
+  margin: 3px 0;
+}
+
+.c0 .text-danger {
+  padding-left: 10px;
+  padding-top: 2px;
+  font-size: 14px;
+}
+
+.c0 .view-form > * {
+  margin: 10px 0;
+}
+
+.c0 .view-form p {
+  padding: 10px;
+  background: rgba(0,0,0,0.05);
+}
+
+<div
+  className="c0"
+/>
+`;

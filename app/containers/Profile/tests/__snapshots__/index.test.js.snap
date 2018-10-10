@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profile> Profile snapshot 1`] = `
+<Connect(LanguageProvider)>
+  <withReducer(withSaga(Connect(Profile))) />
+</Connect(LanguageProvider)>
+`;
+
+exports[`Profile 1`] = `
+<Connect(LanguageProvider)>
+  <withReducer(withSaga(Connect(Profile))) />
+</Connect(LanguageProvider)>
+`;
