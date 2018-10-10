@@ -9,9 +9,9 @@ import {
   AvatarEditorColor,
   AvatarEditorScale,
   AvatarEditorRotate,
-} from './Wrapper';
+} from 'containers/Profile/Wrapper';
 
-import messages from './messages';
+import messages from 'containers/Profile/messages';
 
 /* eslint-disable */
 function renderFileInput({
@@ -26,7 +26,7 @@ function renderFileInput({
     <div>
       {sendProps.editingImgState && (
         <img
-          src={sendProps.cashedProfileImg || sendProps.profile.savedProfileImg}
+          src={sendProps.cachedProfileImg || sendProps.profile.savedProfileImg}
           className="w-100"
           alt=""
           key="w-100"
@@ -34,10 +34,10 @@ function renderFileInput({
       )}
 
       {!sendProps.editingImgState &&
-        sendProps.cashedProfileImg && (
+        sendProps.cachedProfileImg && (
         <div>
           <AvatarEditor
-            image={sendProps.cashedProfileImg}
+            image={sendProps.cachedProfileImg}
             ref={refs => (avatarRefs = refs)}
             width={avatarWidth}
             border={AvatarEditorBorder}
@@ -65,35 +65,31 @@ function renderFileInput({
           </div>
         </div>
       )}
-      {
-        sendProps.isOwner && (
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="avatar1">
-              {label}
-            </span>
-          </div>
-          <div className="custom-file">
-            <input
-              {...input}
-              type="file"
-              onChange={sendProps.uploadImage}
-              className="custom-file-input"
-              id="avatarFile"
-              value={undefined}
-              aria-describedby="avatar1"
-            />
-            <label className="custom-file-label" htmlFor="avatarFile">
-              <FormattedMessage {...messages.chooseFile} />
-            </label>
-          </div>
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <span className="input-group-text" id="avatar1">
+            {label}
+          </span>
         </div>
-        )
-      }
-      <h6 className="text-danger">
-        {touched &&
-          ((error && <span>{sendProps.translations[error]}</span>) ||
-            (warning && <span>{sendProps.translations[warning]}</span>))}
+        <div className="custom-file">
+          <input
+            {...input}
+            type="file"
+            onChange={sendProps.uploadImage}
+            className="custom-file-input"
+            id="avatarFile"
+            value={undefined}
+            aria-describedby="avatar1"
+          />
+          <label className="custom-file-label" htmlFor="avatarFile">
+            <FormattedMessage {...messages.chooseFile} />
+          </label>
+        </div>
+      </div>
+    <h6 className="text-danger">
+      {touched &&
+        ((error && <span>{sendProps.translations[error]}</span>) ||
+          (warning && <span>{sendProps.translations[warning]}</span>))}
       </h6>
     </div>
   );

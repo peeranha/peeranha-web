@@ -7,22 +7,19 @@ import { initialState } from './reducer';
 
 export const selectProfileDomain = state => state.get('profile', initialState);
 
-export const selectLoadingProfile = () =>
+export const selectIsProfileLoading = () =>
   createSelector(selectProfileDomain, substate =>
-    substate.get('loadingProfile'),
+    substate.get('isProfileLoading'),
   );
 
-export const selectLoadingImage = () =>
-  createSelector(selectProfileDomain, substate => substate.get('loadingImage'));
+export const selectIsImageLoading = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('isImageLoading'),
+  );
 
 export const selectErrorLoadProfile = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('errorLoadProfile'),
-  );
-
-export const selectErrorUploadImage = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('errorUploadImage'),
   );
 
 export const selectUserKey = () =>
@@ -31,28 +28,11 @@ export const selectUserKey = () =>
 export const selectProfile = () =>
   createSelector(selectProfileDomain, substate => substate.get('profile'));
 
-export const selectCashedProfileImg = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('cashedProfileImg'),
-  );
+export const selectIsOwner = () =>
+  createSelector(selectProfileDomain, substate => substate.get('isOwner'));
 
-export const selectEditingImgState = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('editingImgState'),
-  );
-
-export const selectBlob = () =>
-  createSelector(selectProfileDomain, substate => substate.get('blob'));
-
-export const selectErrorSaveProfile = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('errorSaveProfile'),
-  );
-
-export const selectLoadingSaveProfile = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('loadingSaveProfile'),
-  );
+export const selectCitiesList = () =>
+  createSelector(selectProfileDomain, substate => substate.get('citiesList'));
 
 export const selectLoadingGetCitiesList = () =>
   createSelector(selectProfileDomain, substate =>
@@ -63,6 +43,3 @@ export const selectErrorCitiesList = () =>
   createSelector(selectProfileDomain, substate =>
     substate.get('errorCitiesList'),
   );
-
-export const selectCitiesList = () =>
-  createSelector(selectProfileDomain, substate => substate.get('citiesList'));

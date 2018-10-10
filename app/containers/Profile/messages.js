@@ -63,12 +63,20 @@ export default defineMessages({
     id: 'app.containers.Profile.cancelButton',
     defaultMessage: 'Cancel',
   },
+  viewButton: {
+    id: 'app.containers.Profile.viewButton',
+    defaultMessage: 'View',
+  },
+  editButton: {
+    id: 'app.containers.Profile.editButton',
+    defaultMessage: 'Edit',
+  },
   chooseFile: {
     id: 'app.containers.Profile.chooseFile',
     defaultMessage: 'Choose file',
   },
-  loadingProfile: {
-    id: 'app.containers.Profile.loadingProfile',
+  isProfileLoading: {
+    id: 'app.containers.Profile.isProfileLoading',
     defaultMessage: 'Loading...',
   },
 });

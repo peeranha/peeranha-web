@@ -5,7 +5,7 @@ import messages from './messages';
 
 const Preloader = () => (
   <div className="text-center">
-    <FormattedMessage {...messages.loadingProfile} />
+    <FormattedMessage {...messages.isProfileLoading} />
   </div>
 );
 

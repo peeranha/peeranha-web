@@ -15,6 +15,7 @@
   "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
   "app.containers.SignUp.serverMessage": "Ошибка",
   "app.containers.Profile.profile": "Профиль",
+  "app.containers.Profile.profileDescription": "Описание профиля",
   "app.containers.Profile.wrongUser": "Неверный пользователь",
   "app.containers.Profile.avatarLabel": "Аватарка",
   "app.containers.Profile.displayNameLabel": "Отображаемое имя",
@@ -28,6 +29,8 @@
   "app.containers.Profile.savingButton": "Сохранение...",
   "app.containers.Profile.cancelButton": "Отмена",
   "app.containers.Profile.chooseFile": "Выбрать файл",
-  "app.containers.Profile.loadingProfile": "Загрузка...",
+  "app.containers.Profile.isProfileLoading": "Загрузка...",
+  "app.containers.Profile.editButton": "Редактировать",
+  "app.containers.Profile.viewButton": "Посмотреть",
   "app.containers.Profile.locationLabel": "Местоположение"
 }

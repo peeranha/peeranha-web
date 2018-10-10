@@ -13,7 +13,6 @@ function renderTextInput({
       <input
         {...input}
         placeholder={label}
-        readOnly={!sendProps.isOwner}
         type="text"
         className="form-control"
       />

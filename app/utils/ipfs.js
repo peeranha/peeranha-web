@@ -10,12 +10,18 @@ export async function saveText(text) {
   return saveResult[0].hash;
 }
 
+export async function saveFile(file) {
+  const buf = Buffer.from(file);
+  const saveResult = await getIpfsApi().add(buf);
+  return saveResult[0].hash;
+}
+
 export async function getText(hash) {
   const getResult = await getIpfsApi().get(hash);
   return getResult[0].content.toString('utf8');
 }
 
-export async function getImage(hash) {
+export async function getFile(hash) {
   const getResult = await getIpfsApi().get(hash);
   return URL.createObjectURL(new Blob([getResult[0].content]));
 }

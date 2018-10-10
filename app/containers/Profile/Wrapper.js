@@ -6,16 +6,26 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 25px 0;
-  form {
+  form,
+  .view-form {
     flex-basis: ${FormWidth}px;
-  }
-  form * {
-    margin: 3px 0;
+    * {
+      margin: 3px 0;
+    }
   }
   .text-danger {
     padding-left: 10px;
     padding-top: 2px;
     font-size: 14px;
+  }
+  .view-form {
+    > * {
+      margin: 10px 0;
+    }
+    p {
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.05);
+    }
   }
 `;
 

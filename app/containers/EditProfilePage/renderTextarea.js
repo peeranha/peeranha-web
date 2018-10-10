@@ -10,12 +10,7 @@ function renderTextarea({
   return (
     <div>
       <h6>{label}</h6>
-      <textarea
-        {...input}
-        placeholder={label}
-        readOnly={!sendProps.isOwner}
-        className="form-control"
-      />
+      <textarea {...input} placeholder={label} className="form-control" />
       <h6 className="text-danger">
         {touched &&
           ((error && <span>{sendProps.translations[error]}</span>) ||

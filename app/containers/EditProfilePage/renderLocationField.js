@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LOCATION_FIELD } from 'containers/Profile/constants';
 
 import LocationList from './LocationList';
-import { LOCATION_FIELD } from './constants';
 
 const cities = (list, sendProps) =>
   list.map(item => (
@@ -28,15 +28,15 @@ function renderLocationField({ input, label, sendProps }) {
       <div className="position-relative mb-0">
         <input
           {...input}
-          readOnly={!sendProps.isOwner}
           autoComplete="off"
           placeholder={label}
           onChange={e => sendProps.getCitiesList(e.target.value)}
-          value={ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
+          value={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
           className="form-control mb-0"
           type="text"
         />
-        {ipfs[LOCATION_FIELD] &&
+        { ipfs && 
+          ipfs[LOCATION_FIELD] &&
           !ipfs[LOCATION_FIELD].id &&
           ipfs[LOCATION_FIELD].name && (
           <LocationList>

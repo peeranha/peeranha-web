@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import messages from './messages';
+import messages from 'containers/Profile/messages';
 
 import {
   AVATAR_FIELD,
@@ -13,7 +14,7 @@ import {
   COMPANY_FIELD,
   ABOUT_FIELD,
   LOCATION_FIELD,
-} from './constants';
+} from 'containers/Profile/constants';
 
 import renderTextInput from './renderTextInput';
 import renderTextarea from './renderTextarea';
@@ -23,9 +24,10 @@ import renderLocationField from './renderLocationField';
 import { imageValidation, strLength20, strLength96 } from './validate';
 
 /* eslint-disable-next-line */
-let ProfileForm = props => {
+let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
   const { ipfs } = sendProps.profile;
+  const viewUrl = `/users/${sendProps.match.params.id}`;
 
   return (
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
@@ -77,52 +79,61 @@ let ProfileForm = props => {
           label={sendProps.translations[messages.locationLabel.id]}
         />
       </div>
-      {sendProps.isOwner && (
-        <div>
+      <div>
+        <button
+          className="btn btn-success form-control"
+          disabled={
+            invalid ||
+            submitting ||
+            sendProps.isProfileSaving ||
+            (ipfs &&
+              ipfs[LOCATION_FIELD] &&
+              !ipfs[LOCATION_FIELD].id &&
+              ipfs[LOCATION_FIELD].name)
+          }
+          type="submit"
+        >
+          {sendProps.isProfileSaving ? (
+            <FormattedMessage {...messages.savingButton} />
+          ) : (
+            <FormattedMessage {...messages.saveButton} />
+          )}
+        </button>
+        <button
+          disabled={sendProps.isProfileSaving}
+          className="btn btn-secondary form-control"
+          onClick={sendProps.cancelChanges}
+          type="button"
+        >
+          <FormattedMessage {...messages.cancelButton} />
+        </button>
+        <Link to={viewUrl} href={viewUrl}>
           <button
-            className="btn btn-success form-control"
-            disabled={
-              invalid ||
-              submitting ||
-              sendProps.loadingSaveProfile ||
-              (ipfs[LOCATION_FIELD] &&
-                !ipfs[LOCATION_FIELD].id &&
-                ipfs[LOCATION_FIELD].name)
-            }
-            type="submit"
-          >
-            {sendProps.loadingSaveProfile ? (
-              <FormattedMessage {...messages.savingButton} />
-            ) : (
-              <FormattedMessage {...messages.saveButton} />
-            )}
-          </button>
-          <button
-            className="btn btn-secondary form-control"
-            onClick={sendProps.cancelChanges}
+            disabled={sendProps.isProfileSaving}
+            className="btn btn-link form-control"
             type="button"
           >
-            <FormattedMessage {...messages.cancelButton} />
+            <FormattedMessage {...messages.viewButton} />
           </button>
-        </div>
-      )}
+        </Link>
+      </div>
     </form>
   );
 };
 
-ProfileForm.propTypes = {
+ProfileEditForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   sendProps: PropTypes.object.isRequired,
 };
 
-ProfileForm = reduxForm({
-  form: 'ProfileForm',
-})(ProfileForm);
+ProfileEditForm = reduxForm({
+  form: 'ProfileEditForm',
+})(ProfileEditForm);
 
-ProfileForm = connect(state => ({
+ProfileEditForm = connect(state => ({
   initialValues: state.get('profile').get('profile').ipfs,
-}))(ProfileForm);
+}))(ProfileEditForm);
 
-export default ProfileForm;
+export default ProfileEditForm;

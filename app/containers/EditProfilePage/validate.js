@@ -1,4 +1,4 @@
-import messages from './messages';
+import messages from 'containers/Profile/messages';
 
 export const imageValidation = value => {
   const maxSize = 10000000;
