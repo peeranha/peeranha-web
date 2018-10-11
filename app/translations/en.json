@@ -31,5 +31,6 @@
   "app.containers.Profile.isProfileLoading": "Loading...",
   "app.containers.Profile.editButton": "Edit",
   "app.containers.Profile.viewButton": "View",
-  "app.containers.Profile.locationLabel": "Location"
+  "app.containers.Profile.locationLabel": "Location",
+  "app.containers.Profile.emptyField": "This field is empty"
 }

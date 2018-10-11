@@ -189,6 +189,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   editingImgState: editProfileSelectors.selectEditingImgState(),
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
+  blob: editProfileSelectors.selectBlob(),
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
 });
 

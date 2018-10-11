@@ -41,7 +41,7 @@ const ProfileViewForm = props => {
       />
       <ViewFormListItem
         label={messages.locationLabel}
-        message={ipfs && ipfs[LOCATION_FIELD].name}
+        message={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
       />
       {props.isOwner && (
         <Link to={editUrl} href={editUrl}>

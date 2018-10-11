@@ -32,5 +32,6 @@
   "app.containers.Profile.isProfileLoading": "Загрузка...",
   "app.containers.Profile.editButton": "Редактировать",
   "app.containers.Profile.viewButton": "Посмотреть",
-  "app.containers.Profile.locationLabel": "Местоположение"
+  "app.containers.Profile.locationLabel": "Местоположение",
+  "app.containers.Profile.emptyField": "Это поле - пустое"
 }

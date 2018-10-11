@@ -79,4 +79,8 @@ export default defineMessages({
     id: 'app.containers.Profile.isProfileLoading',
     defaultMessage: 'Loading...',
   },
+  emptyField: {
+    id: 'app.containers.Profile.emptyField',
+    defaultMessage: 'This field is empty',
+  },
 });

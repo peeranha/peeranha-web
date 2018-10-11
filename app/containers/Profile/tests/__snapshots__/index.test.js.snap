@@ -5,9 +5,3 @@ exports[`<Profile> Profile snapshot 1`] = `
   <withReducer(withSaga(Connect(Profile))) />
 </Connect(LanguageProvider)>
 `;
-
-exports[`Profile 1`] = `
-<Connect(LanguageProvider)>
-  <withReducer(withSaga(Connect(Profile))) />
-</Connect(LanguageProvider)>
-`;
