@@ -1,174 +1,183 @@
 import Eosjs from 'eosjs';
 import ScatterJS from 'scatter-js/dist/scatter.cjs';
 
-import { BLOCKCHAIN_NAME } from './constants';
+import {
+  BLOCKCHAIN_NAME,
+  DEFAULT_EOS_PERMISSION,
+  SCATTER_APP_NAME,
+} from './constants';
 
-export async function initEosio() {
-  const scatterInstance = await getScatter();
-  const scatterInstalled = scatterInstance != null;
+class EosioService {
+  constructor() {
+    this.initialized = false;
+    this.eosInstance = null;
+    this.scatterInstance = null;
+    this.scatterInstalled = null;
+  }
 
-  console.log(JSON.stringify(scatterInstance));
-  const eosioInstance = scatterInstalled
-    ? getScatterEosio(scatterInstance)
-    : getEosio();
+  init = async () => {
+    await this.initScatter();
 
-  const eos = {
-    initialized: true,
-    eosioInstance,
-    scatterInstalled,
-    scatterInstance,
+    if (this.scatterInstalled) {
+      this.initEosioWithScatter();
+    } else {
+      this.initEosioWithoutScatter();
+    }
+
+    this.initialized = true;
   };
 
-  return eos;
-}
+  initScatter = async () => {
+    this.scatterInstalled = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
 
-export function getSelectedAccount(eos) {
-  if (!eos || !eos.scatterInstance || !eos.scatterInstance.indentity) {
-    return null;
-  }
+    if (this.scatterInstalled) {
+      console.log('Successfully connected to scatter.');
+      this.scatterInstance = ScatterJS.scatter;
+      window.scatter = null;
+    } else {
+      this.scatterInstance = null;
+    }
+  };
 
-  const account = eos.scatterInstance.indentity.accounts.find(
-    x => x.blockchain === BLOCKCHAIN_NAME,
-  );
+  initEosioWithoutScatter = () => {
+    console.log('Initializing EOSIO provider without Scatter.');
+    const eosioConfig = this.getEosioConfig();
+    this.eosInstance = Eosjs(eosioConfig);
+  };
 
-  if (!account) {
-    return null;
-  }
+  initEosioWithScatter = () => {
+    console.log('Initializing Scatter EOSIO Provider.');
+    const scatterConfig = this.getScatterConfig();
+    const eosOptions = {};
+    this.eosInstance = this.scatterInstance.eos(
+      scatterConfig,
+      Eosjs,
+      eosOptions,
+    );
+    console.log('Successfully initialized Scatter EOSIO Provider.');
+  };
 
-  return account.Name;
+  getSelectedAccount = () => {
+    if (!this.initialized) throw 'EOS is not initialized.';
 
-  /* const connected = await ScatterJS.scatter.connect('Peerania');
+    if (!this.scatterInstalled) throw 'Scatter is not installed.';
 
-  return scatterNetwork;
+    if (
+      this.scatterInstance.identity === undefined ||
+      this.scatterInstance.identity == null
+    )
+      return null;
 
-  if (connected) {
-    const scatter = ScatterJS.scatter;
-    const requiredFields = { accounts: [scatterNetwork] };
+    const account = this.scatterInstance.identity.accounts.find(
+      x => x.blockchain === BLOCKCHAIN_NAME,
+    );
+
+    if (!account) {
+      return null;
+    }
+
+    return account.name;
+  };
+
+  selectAccount = async () => {
+    if (!this.initialized) throw 'EOS is not initialized.';
+
+    if (!this.scatterInstalled) throw 'Scatter is not installed.';
+
+    const requiredFields = { accounts: [this.getScatterConfig()] };
 
     let result;
     try {
-      result = await scatter.getIdentity(requiredFields);
+      result = await this.scatterInstance.getIdentity(requiredFields);
     } catch (error) {
-      return error;
+      return null;
     }
 
-    const account = result.accounts.find(
-      x => x.blockchain === scatterNetwork.blockchain,
-    );
+    const account = result.accounts.find(x => x.blockchain === BLOCKCHAIN_NAME);
 
-    const eosOptions = { expireInSeconds: 60 };
-
-    window.eos = scatter.eos(scatterNetwork, Eosjs, eosOptions);
+    if (!account) {
+      return null;
+    }
 
     return account.name;
-  }
+  };
 
-  return null; */
-  return scatter.indentity.name;
-}
+  sendTransaction = (actor, action, data) => {
+    if (!this.initialized) throw 'EOS is not initialized.';
 
-export async function selectAccount() {}
-
-export async function sendTransaction(actor, action, data) {
-  return getEosio().transaction({
-    actions: [
-      {
-        account: process.env.EOS_CONTRACT_ACCOUNT,
-        name: action,
-        authorization: [
-          {
-            actor,
-            permission: 'active',
+    return this.eosInstance.transaction({
+      actions: [
+        {
+          account: process.env.EOS_CONTRACT_ACCOUNT,
+          name: action,
+          authorization: [
+            {
+              actor,
+              permission: DEFAULT_EOS_PERMISSIONç,
+            },
+          ],
+          data: {
+            ...data,
           },
-        ],
-        data: {
-          ...data,
         },
-      },
-    ],
-  });
-}
-
-export async function getTableRow(table, scope, primaryKey) {
-  const request = {
-    json: true,
-    code: contractAccount,
-    scope,
-    table,
-    lower_bound: primaryKey,
-    limit: 1,
+      ],
+    });
   };
 
-  const response = await getEosio().getTableRows(request);
+  getTableRow = async (table, scope, primaryKey) => {
+    if (!this.initialized) throw 'EOS is not initialized.';
 
-  if (response && response.rows && response.rows.length) {
-    return response.rows[0];
-  }
+    const request = {
+      json: true,
+      code: contractAccount,
+      scope,
+      table,
+      lower_bound: primaryKey,
+      limit: 1,
+    };
 
-  return null;
-}
+    const response = await this.eosInstance.getTableRows(request);
 
-export async function getTableRows(table, scope) {
-  const request = {
-    json: true,
-    code: contractAccount,
-    scope,
-    table,
+    if (response && response.rows && response.rows.length) {
+      return response.rows[0];
+    }
+
+    return null;
   };
 
-  const response = await getEosio().getTableRows(request);
+  getTableRows = async (table, scope) => {
+    if (!this.initialized) throw 'EOS is not initialized.';
 
-  if (response && response.rows) {
-    return response.rows;
-  }
+    const request = {
+      json: true,
+      code: contractAccount,
+      scope,
+      table,
+    };
 
-  return [];
-}
+    const response = await this.eosInstance.getTableRows(request);
 
-function getEosio() {
-  console.log('Initializing EOSIO provider without Scatter.');
-  const eosioConfig = getEosioConfig();
-  const eosio = Eosjs(eosioConfig);
-  return eosio;
-}
+    if (response && response.rows) {
+      return response.rows;
+    }
 
-async function getScatter() {
-  const installed = await ScatterJS.scatter.connect('Peerania');
-  let scatterInstance = null;
+    return [];
+  };
 
-  if (installed) {
-    console.log('Successfully connected to scatter.');
-    scatterInstance = ScatterJS.scatter;
-    window.scatter = null;
-  }
-
-  return scatterInstance;
-}
-
-function getScatterEosio(scatterInstance) {
-  console.log('Initializing Scatter EOSIO Provider.');
-  const scatterConfig = getScatterConfig();
-  const eosOptions = {};
-  const eosInstance = scatterInstance.eos(scatterConfig, Eosjs, eosOptions);
-  console.log('Successfully initialized Scatter EOSIO Provider.');
-  return eosInstance;
-}
-
-function getEosioConfig() {
-  return {
+  getEosioConfig = () => ({
     httpEndpoint: process.env.EOS_DEFAULT_HTTP_ENDPOINT,
     chainId: process.env.EOS_CHAIN_ID,
     broadcast: true,
     sign: true,
-  };
-}
+  });
 
-function getScatterConfig() {
-  return {
+  getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
     protocol: process.env.EOS_SCATTER_PROTOCOL,
     host: process.env.EOS_SCATTER_HOST,
     port: process.env.EOS_SCATTER_PORT,
     chainId: process.env.EOS_CHAIN_ID,
-  };
+  });
 }
+
+export default EosioService;
