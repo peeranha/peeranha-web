@@ -20,9 +20,15 @@ const ProfileViewForm = props => {
 
   return (
     <div className="view-form">
-      <div>
-        <img className="w-100" src={props.profile.savedProfileImg} alt="" />
-      </div>
+      {props.profile.savedProfileImg && (
+        <div className="d-flex justify-content-center">
+          <img
+            className="profile-image"
+            src={props.profile.savedProfileImg}
+            alt=""
+          />
+        </div>
+      )}
       <ViewFormListItem
         label={messages.displayNameLabel}
         message={ipfs && ipfs[DISPLAY_NAME_FIELD]}

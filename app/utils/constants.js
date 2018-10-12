@@ -6,3 +6,5 @@ export const ACCOUNT_TABLE = 'account';
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const SET_IPFS_METHOD = 'setipfspro';
 export const SET_DISPLAY_NAME_METHOD = 'setdispname';
+
+export const IPFS_URL = 'http://localhost:8080/ipfs';

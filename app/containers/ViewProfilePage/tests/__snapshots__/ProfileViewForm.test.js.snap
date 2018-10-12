@@ -4,12 +4,6 @@ exports[`ProfileViewForm test test by snapshots 1`] = `
 <div
   className="view-form"
 >
-  <div>
-    <img
-      alt=""
-      className="w-100"
-    />
-  </div>
   <div
     className="view-form-item"
   >

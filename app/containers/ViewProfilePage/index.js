@@ -13,11 +13,6 @@ import { compose } from 'redux';
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
-import saga from './saga';
-
 import ProfileViewForm from './ProfileViewForm';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -32,7 +27,7 @@ export class ViewProfilePage extends React.Component {
     };
 
     return (
-      <Profile>
+      <Profile match={match}>
         <ProfileViewForm {...sendProps} />
       </Profile>
     );
@@ -62,11 +57,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'viewProfilePage', reducer });
-const withSaga = injectSaga({ key: 'viewProfilePage', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ViewProfilePage);
+export default compose(withConnect)(ViewProfilePage);

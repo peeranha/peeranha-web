@@ -18,9 +18,13 @@ const cities = (list, sendProps) =>
     >{`${item.name}, ${item.countryName}`}</li>
   ));
 
-/* eslint-disable */
 function renderLocationField({ input, label, sendProps }) {
   const { ipfs } = sendProps.profile;
+  const showLocationList =
+    ipfs &&
+    ipfs[LOCATION_FIELD] &&
+    !ipfs[LOCATION_FIELD].id &&
+    ipfs[LOCATION_FIELD].name;
 
   return (
     <div>
@@ -35,19 +39,13 @@ function renderLocationField({ input, label, sendProps }) {
           className="form-control mb-0"
           type="text"
         />
-        { ipfs && 
-          ipfs[LOCATION_FIELD] &&
-          !ipfs[LOCATION_FIELD].id &&
-          ipfs[LOCATION_FIELD].name && (
-          <LocationList>
-            {cities(sendProps.citiesList, sendProps)}
-          </LocationList>
+        {showLocationList && (
+          <LocationList>{cities(sendProps.citiesList, sendProps)}</LocationList>
         )}
       </div>
     </div>
   );
 }
-/* eslint-enable */
 
 renderLocationField.propTypes = {
   input: PropTypes.object.isRequired,

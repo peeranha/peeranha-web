@@ -33,5 +33,7 @@
   "app.containers.Profile.editButton": "Редактировать",
   "app.containers.Profile.viewButton": "Посмотреть",
   "app.containers.Profile.locationLabel": "Местоположение",
-  "app.containers.Profile.emptyField": "Это поле - пустое"
+  "app.containers.Profile.emptyField": "Это поле - пустое",
+  "app.components.NoAccess.errorMessage":
+    "Нет прав, чтобы выполнить данное действие!"
 }

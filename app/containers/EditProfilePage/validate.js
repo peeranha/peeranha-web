@@ -1,11 +1,10 @@
 import messages from 'containers/Profile/messages';
+import { FILE_MAX_SIZE } from './constants';
 
-export const imageValidation = value => {
-  const maxSize = 10000000;
-  return value && value[0] && value[0].size > maxSize
+export const imageValidation = value =>
+  value && value[0] && value[0].size > FILE_MAX_SIZE
     ? messages.fileSize.id
     : undefined;
-};
 
 export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)

@@ -25,6 +25,13 @@ exports[`<Wrapper /> should match the snapshot 1`] = `
   margin: 3px 0;
 }
 
+.c0 .profile-image {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
 .c0 .text-danger {
   padding-left: 10px;
   padding-top: 2px;

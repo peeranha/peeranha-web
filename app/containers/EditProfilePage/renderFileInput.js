@@ -5,10 +5,12 @@ import { FormattedMessage } from 'react-intl';
 
 import {
   AvatarEditorBorder,
-  AvatarEditorWidth,
+  AvatarEditorBorderRadius,
+  AvatarEditorSize,
   AvatarEditorColor,
   AvatarEditorScale,
   AvatarEditorRotate,
+  AvatarCrossOrigin,
 } from 'containers/Profile/Wrapper';
 
 import messages from 'containers/Profile/messages';
@@ -21,30 +23,37 @@ function renderFileInput({
   meta: { touched, error, warning },
 }) {
   let avatarRefs;
-  let avatarWidth = window.innerWidth > 480 ? AvatarEditorWidth : 320 - 2*AvatarEditorBorder;
+
   return (
     <div>
-      {sendProps.editingImgState && (
-        <img
-          src={sendProps.cachedProfileImg || sendProps.profile.savedProfileImg}
-          className="w-100"
-          alt=""
-          key="w-100"
-        />
+      {sendProps.editingImgState && 
+      (sendProps.cachedProfileImg || sendProps.profile.savedProfileImg) && (
+        <div className="d-flex justify-content-center">
+          <img
+            src={sendProps.cachedProfileImg || sendProps.profile.savedProfileImg}
+            className="profile-image"
+            alt=""
+          />  
+        </div>
       )}
 
       {!sendProps.editingImgState &&
         sendProps.cachedProfileImg && (
         <div>
-          <AvatarEditor
-            image={sendProps.cachedProfileImg}
-            ref={refs => (avatarRefs = refs)}
-            width={avatarWidth}
-            border={AvatarEditorBorder}
-            color={AvatarEditorColor}
-            scale={AvatarEditorScale}
-            rotate={AvatarEditorRotate}
-          />
+          <div className="d-flex justify-content-center">
+            <AvatarEditor
+              image={sendProps.cachedProfileImg}
+              ref={refs => (avatarRefs = refs)}
+              width={AvatarEditorSize}
+              height={AvatarEditorSize}
+              color={AvatarEditorColor}
+              scale={AvatarEditorScale}
+              rotate={AvatarEditorRotate}
+              border={AvatarEditorBorder}
+              crossOrigin={AvatarCrossOrigin}
+              borderRadius={AvatarEditorBorderRadius}
+            />
+          </div>
           <div className="d-flex wrap-nowrap">
             <button
               className="btn btn-secondary w-50 mr-1"

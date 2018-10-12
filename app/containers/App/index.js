@@ -22,6 +22,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Header from 'components/Header/Loadable';
 import Footer from 'components/Footer/Loadable';
+import NoAccess from 'components/NoAccess/Loadable';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route exact path="/users/:id" component={ViewProfilePage} />
         <Route path="/users/edit/:id" component={EditProfilePage} />
         <Route exact path="/signup" component={SignUp} />
+        <Route path="/no-access-to-complete-action" component={NoAccess} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

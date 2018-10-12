@@ -11,7 +11,6 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import profileReducer from 'containers/Profile/reducer';
 import accountInitializerReducer from 'containers/AccountInitializer/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
-import viewProfileReducer from 'containers/ViewProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
 
 /*
@@ -52,7 +51,6 @@ export default function createReducer(injectedReducers) {
     signup: signUpReducer,
     account: accountInitializerReducer,
     editProfileReducer,
-    viewProfileReducer,
     profile: profileReducer,
     form: formReducer,
     ...injectedReducers,

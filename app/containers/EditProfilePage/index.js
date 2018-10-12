@@ -50,7 +50,7 @@ import ProfileEditForm from './ProfileEditForm';
 export class EditProfilePage extends React.Component {
   componentWillUpdate(props) {
     if (props.isOwner === false) {
-      props.history.push('/no-such-page');
+      props.history.push('/no-access-to-complete-action');
     }
   }
 
@@ -156,7 +156,7 @@ export class EditProfilePage extends React.Component {
     };
 
     return (
-      <Profile>
+      <Profile match={match}>
         <ProfileEditForm sendProps={sendProps} />
       </Profile>
     );

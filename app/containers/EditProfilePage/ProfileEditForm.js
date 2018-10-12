@@ -26,8 +26,15 @@ import { imageValidation, strLength20, strLength96 } from './validate';
 /* eslint-disable-next-line */
 let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
-  const { ipfs } = sendProps.profile;
   const viewUrl = `/users/${sendProps.match.params.id}`;
+
+  // @locationIsWrong - true - if user entered location value manually (choosed not from cities list)
+  const { ipfs } = sendProps.profile;
+  const locationIsWrong =
+    ipfs &&
+    ipfs[LOCATION_FIELD] &&
+    !ipfs[LOCATION_FIELD].id &&
+    ipfs[LOCATION_FIELD].name;
 
   return (
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
@@ -86,10 +93,7 @@ let ProfileEditForm = props => {
             invalid ||
             submitting ||
             sendProps.isProfileSaving ||
-            (ipfs &&
-              ipfs[LOCATION_FIELD] &&
-              !ipfs[LOCATION_FIELD].id &&
-              ipfs[LOCATION_FIELD].name)
+            locationIsWrong
           }
           type="submit"
         >

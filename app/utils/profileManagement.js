@@ -1,6 +1,6 @@
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 
-import { saveText, getText, getFile, saveFile } from './ipfs';
+import { saveText, getText, saveFile } from './ipfs';
 import { getTableRow, sendTransaction } from './eosio';
 
 import {
@@ -8,6 +8,7 @@ import {
   ALL_ACCOUNTS_SCOPE,
   SET_IPFS_METHOD,
   SET_DISPLAY_NAME_METHOD,
+  IPFS_URL,
 } from './constants';
 
 export async function uploadFile(file) {
@@ -16,8 +17,8 @@ export async function uploadFile(file) {
 }
 
 export async function getFileIpfs(fileHash) {
-  const file = await getFile(fileHash);
-  return file;
+  const fileUrl = `${IPFS_URL}/${fileHash}`;
+  return fileUrl;
 }
 
 export async function getBlob(canvas) {

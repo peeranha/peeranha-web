@@ -32,10 +32,8 @@ import NoSuchUser from './NoSuchUser';
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.Component {
   componentDidMount = () => {
-    /* eslint-disable-next-line */
-    const { id } = this.props.children._owner.stateNode.props.match.params;
-    const { account } = this.props;
-    this.props.getProfileInfoDispatch(id, account.eosAccount);
+    const { match, account } = this.props;
+    this.props.getProfileInfoDispatch(match.params.id, account.eosAccount);
   };
 
   componentWillUnmount() {

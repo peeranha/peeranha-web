@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const AvatarEditorBorder = 20;
+export const AvatarEditorBorderRadius = 100;
+export const AvatarEditorSize = 160;
+export const AvatarEditorColor = [255, 255, 255, 0.6];
+export const AvatarEditorScale = 1.5;
+export const AvatarEditorRotate = 0;
+export const AvatarCrossOrigin = 'anonymous';
+
 const FormWidth = 480;
 
 const Wrapper = styled.div`
@@ -12,6 +20,12 @@ const Wrapper = styled.div`
     * {
       margin: 3px 0;
     }
+  }
+  .profile-image {
+    width: ${AvatarEditorSize}px;
+    height: ${AvatarEditorSize}px;
+    border-radius: 50%;
+    margin-bottom: 10px;
   }
   .text-danger {
     padding-left: 10px;
@@ -28,11 +42,5 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-export const AvatarEditorBorder = 30;
-export const AvatarEditorWidth = FormWidth - 2 * AvatarEditorBorder;
-export const AvatarEditorColor = [255, 255, 255, 0.6];
-export const AvatarEditorScale = 1.5;
-export const AvatarEditorRotate = 0;
 
 export default Wrapper;
