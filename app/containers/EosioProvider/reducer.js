@@ -9,7 +9,7 @@ import { INIT_EOSIO, INIT_EOSIO_SUCCESS, INIT_EOSIO_ERROR } from './constants';
 
 export const initialState = fromJS({
   initializing: false,
-  eos: { initialized: false },
+  eos: null,
   error: null,
 });
 

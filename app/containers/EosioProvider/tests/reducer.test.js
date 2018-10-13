@@ -6,11 +6,8 @@ describe('eosioProviderReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      initializing: false,
-      initialized: false,
-      scatterInstalled: false,
-      scatterInstance: null,
-      eosioInstance: null,
+      initializing: true,
+      eos: null,
       error: null,
     });
   });
@@ -19,31 +16,19 @@ describe('eosioProviderReducer', () => {
     expect(eosioProviderReducer(state, {})).toEqual(state);
   });
 
-  it('getCurrentAccount has to set into state @loading as true', () => {
+  it('initEosio should set @initializing as true', () => {
     const obj = state.set('initializing', true);
     expect(eosioProviderReducer(state, initEosio())).toEqual(obj);
   });
 
-  it('getCurrentAccountSuccess has to set into state @loading as false and @acc as obj', () => {
-    const scatterInstalled = true;
-    const scatterInstance = { name: 'scatterInstance' };
-    const eosioInstance = { name: 'eosioInstance' };
+  it('initEosioSuccess should set @initializing as false and @eos as obj', () => {
+    const eos = { initialized: true };
 
-    const obj = state
-      .set('initializing', false)
-      .set('initialized', true)
-      .set('scatterInstalled', scatterInstalled)
-      .set('scatterInstance', scatterInstance)
-      .set('eosioInstance', eosioInstance);
-    expect(
-      eosioProviderReducer(
-        state,
-        initEosioSuccess(eosioInstance, scatterInstalled, scatterInstance),
-      ),
-    ).toEqual(obj);
+    const obj = state.set('initializing', false).set('eos', eos);
+    expect(eosioProviderReducer(state, initEosioSuccess(eos))).toEqual(obj);
   });
 
-  it('getCurrentAccountError has to set into state @loading as false and @err as obj', () => {
+  it('initEosioError should set @initializing as false and @err as obj', () => {
     const err = {};
     const obj = state.set('initializing', false).set('error', err);
     expect(eosioProviderReducer(state, initEosioError(err))).toEqual(obj);

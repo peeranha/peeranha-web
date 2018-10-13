@@ -2,23 +2,18 @@ import { fromJS } from 'immutable';
 import {
   selectEosioProviderDomain,
   makeSelectInitializing,
-  makeSelectInitialized,
-  makeSelectEosioInstance,
-  makeSelectScatterInstalled,
-  makeSelectScatterInstance,
+  makeSelectEos,
+  makeSelectError,
+  selectEos,
 } from '../selectors';
 
 describe('selectEosioProviderDomain', () => {
-  const eosioInstance = { name: 'eosioInstance' };
-  const scatterInstance = { name: 'scatterInstance' };
+  const eos = { initialized: true };
   const error = { message: 'errorMessage' };
 
   const eosioProviderState = fromJS({
     initializing: true,
-    initialized: true,
-    scatterInstalled: true,
-    scatterInstance,
-    eosioInstance,
+    eos,
     error,
   });
   const mockedState = fromJS({
@@ -33,25 +28,17 @@ describe('selectEosioProviderDomain', () => {
     expect(initializingSelector(mockedState)).toEqual(true);
   });
 
-  it('should select initialized value', () => {
-    const initializedSelector = makeSelectInitialized();
-    expect(initializedSelector(mockedState)).toEqual(true);
+  it('should select eos (makeSelectEos)', () => {
+    const eosSelector = makeSelectEos();
+    expect(eosSelector(mockedState)).toEqual(fromJS(eos));
   });
 
-  it('should select EOSIO instance value', () => {
-    const eosioInstanceSelector = makeSelectEosioInstance();
-    expect(eosioInstanceSelector(mockedState)).toEqual(fromJS(eosioInstance));
+  it('should select eos (selectEos)', () => {
+    expect(selectEos(mockedState)).toEqual(fromJS(eos));
   });
 
-  it('should select scatter installed value', () => {
-    const scatterInstalledSelector = makeSelectScatterInstalled();
-    expect(scatterInstalledSelector(mockedState)).toEqual(true);
-  });
-
-  it('should select scatter instance value', () => {
-    const scatterInstanceSelector = makeSelectScatterInstance();
-    expect(scatterInstanceSelector(mockedState)).toEqual(
-      fromJS(scatterInstance),
-    );
+  it('should select error', () => {
+    const errorSelector = makeSelectError();
+    expect(errorSelector(mockedState)).toEqual(fromJS(error));
   });
 });

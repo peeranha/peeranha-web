@@ -11,11 +11,9 @@ describe('EosioProvider actions', () => {
   it('has a type of INIT_EOSIO_SUCCESS', () => {
     const expected = {
       type: INIT_EOSIO_SUCCESS,
-      eosioInstance: {},
-      scatterInstalled: true,
-      scatterInstance: {},
+      eos: {},
     };
-    expect(initEosioSuccess({}, true, {})).toEqual(expected);
+    expect(initEosioSuccess({})).toEqual(expected);
   });
   it('has a type of INIT_EOSIO_ERROR', () => {
     const expected = {
