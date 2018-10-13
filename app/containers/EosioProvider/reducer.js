@@ -20,7 +20,6 @@ function eosioProviderReducer(state = initialState, action) {
     case INIT_EOSIO:
       return state.set('initializing', true);
     case INIT_EOSIO_SUCCESS:
-      console.log(eos);
       return state.set('initializing', false).set('eos', eos);
     case INIT_EOSIO_ERROR:
       return state.set('initializing', false).set('error', error);
