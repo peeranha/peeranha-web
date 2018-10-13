@@ -10,7 +10,6 @@ export function* initEosioWorker() {
     yield call(() => eosioService.init());
     yield put(initEosioSuccess(eosioService));
   } catch (error) {
-    console.log(error);
     yield put(initEosioError(error));
   }
 }
