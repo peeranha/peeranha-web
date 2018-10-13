@@ -7,10 +7,9 @@ export function* getCurrentAccountWorker() {
   try {
     const eos = yield select(selectEos);
 
-    if (!eos || !eos.initialized) throw 'EOS is not initialized.';
+    if (!eos || !eos.initialized) throw new Error('EOS is not initialized.');
 
     const account = yield call(() => eos.getSelectedAccount());
-    console.log(`Account from saga: ${account}`);
     yield put(getCurrentAccountSuccess(account));
   } catch (err) {
     yield put(getCurrentAccountError(err));

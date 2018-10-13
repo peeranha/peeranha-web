@@ -58,9 +58,9 @@ class EosioService {
   };
 
   getSelectedAccount = () => {
-    if (!this.initialized) throw 'EOS is not initialized.';
+    if (!this.initialized) throw new Error('EOS is not initialized.');
 
-    if (!this.scatterInstalled) throw 'Scatter is not installed.';
+    if (!this.scatterInstalled) throw new Error('Scatter is not installed.');
 
     if (
       this.scatterInstance.identity === undefined ||
@@ -80,9 +80,9 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    if (!this.initialized) throw 'EOS is not initialized.';
+    if (!this.initialized) throw new Error('EOS is not initialized.');
 
-    if (!this.scatterInstalled) throw 'Scatter is not installed.';
+    if (!this.scatterInstalled) throw new Error('Scatter is not installed.');
 
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
@@ -103,7 +103,7 @@ class EosioService {
   };
 
   sendTransaction = (actor, action, data) => {
-    if (!this.initialized) throw 'EOS is not initialized.';
+    if (!this.initialized) throw new Error('EOS is not initialized.');
 
     return this.eosInstance.transaction({
       actions: [
@@ -113,7 +113,7 @@ class EosioService {
           authorization: [
             {
               actor,
-              permission: DEFAULT_EOS_PERMISSIONç,
+              permission: DEFAULT_EOS_PERMISSION,
             },
           ],
           data: {
@@ -125,11 +125,11 @@ class EosioService {
   };
 
   getTableRow = async (table, scope, primaryKey) => {
-    if (!this.initialized) throw 'EOS is not initialized.';
+    if (!this.initialized) throw new Error('EOS is not initialized.');
 
     const request = {
       json: true,
-      code: contractAccount,
+      code: process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
       lower_bound: primaryKey,
@@ -146,11 +146,11 @@ class EosioService {
   };
 
   getTableRows = async (table, scope) => {
-    if (!this.initialized) throw 'EOS is not initialized.';
+    if (!this.initialized) throw new Error('EOS is not initialized.');
 
     const request = {
       json: true,
-      code: contractAccount,
+      code: process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
     };

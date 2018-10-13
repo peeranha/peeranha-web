@@ -13,8 +13,6 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectEos } from 'containers/EosioProvider/selectors';
-
 import { getCurrentAccount } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,15 +23,6 @@ export class AccountInitializer extends React.Component {
 
   componentDidUpdate = async () => {
     this.props.getCurrentAccountDispatch();
-
-    console.log(`EOS init: ${this.props.eos.initialized}`);
-    console.log(`Scatter installed: ${this.props.eos.scatterInstalled}`);
-
-    const selectedAccount = await this.props.eos.getSelectedAccount();
-    console.log(`Current selected account: ${selectedAccount}`);
-
-    const newSelectedAccount = await this.props.eos.selectAccount();
-    console.log(`New selected account: ${newSelectedAccount}`);
   };
 
   render() {
@@ -42,14 +31,11 @@ export class AccountInitializer extends React.Component {
 }
 
 AccountInitializer.propTypes = {
-  eos: PropTypes.object.isRequired,
   getCurrentAccountDispatch: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  eos: makeSelectEos(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -15,11 +15,12 @@ process.noDeprecation = true;
 module.exports = options => {
   // Get Object with a parsed keys from .env
   const env = dotenv.config().parsed;
-  
+
   // reduce .env keys to an object
   const envKeys = Object.keys(env).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(env[next]);
-    return prev;
+    const updatedPrev = prev;
+    updatedPrev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return updatedPrev;
   }, {});
 
   return {
