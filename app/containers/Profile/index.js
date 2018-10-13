@@ -32,8 +32,8 @@ import NoSuchUser from './NoSuchUser';
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.Component {
   componentDidMount = () => {
-    const { match, account } = this.props;
-    this.props.getProfileInfoDispatch(match.params.id, account.eosAccount);
+    const { userId, account } = this.props;
+    this.props.getProfileInfoDispatch(userId, account.eosAccount);
   };
 
   componentWillUnmount() {
@@ -73,7 +73,7 @@ export class Profile extends React.Component {
 
 Profile.propTypes = {
   children: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  userId: PropTypes.string.isRequired,
   account: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,

@@ -17,7 +17,6 @@ describe('uploadImageFileWorker Saga', () => {
 
   it('Checking, image is action with UPLOAD_IMAGE_FILE_SUCCESS type', () => {
     generator.next();
-    generator.next();
     const image = generator.next();
     expect(image.value.PUT.action.type).toBe(UPLOAD_IMAGE_FILE_SUCCESS);
   });

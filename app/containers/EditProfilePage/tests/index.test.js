@@ -1,43 +1,37 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
 import { EditProfilePage } from '../index';
+
+const page = new EditProfilePage();
+page.props = {
+  blob: null,
+  profile: {},
+  match: {
+    params: {
+      id: '',
+    },
+  },
+};
 
 describe('<EditProfilePage>', () => {
   describe('saveProfile method', () => {
     it('case: @blob is null', async () => {
-      const wrapper = shallow(<EditProfilePage />);
       const newMap = new Map();
       const message = 'object is saved';
 
-      wrapper.instance().props = {
-        saveProfileActionDispatch: () => message,
-        blob: null,
-        match: {
-          params: { id: '' },
-        },
-        profile: {
-          ipfs: {},
-        },
-      };
-
-      expect(await wrapper.instance().saveProfile(newMap)).toEqual(message);
+      page.props.saveProfileActionDispatch = () => message;
+      expect(await page.saveProfile(newMap)).toEqual(message);
     });
   });
 
   describe('getCroppedAvatar(@param) method', () => {
-    const wrapper = shallow(<EditProfilePage />);
     it('@param === false', async () => {
-      expect(await wrapper.instance().getCroppedAvatar(false)).toBeFalsy();
+      expect(await page.getCroppedAvatar(false)).toBeFalsy();
     });
   });
 
   describe('uploadImage(@param) method', () => {
-    const wrapper = shallow(<EditProfilePage />);
-
     it('case 1: no @param', async () => {
       const errorMsg = `Cannot read property 'target' of undefined`;
-      expect(await wrapper.instance().uploadImage()).toBe(errorMsg);
+      expect(await page.uploadImage()).toBe(errorMsg);
     });
 
     it('case 2: no files', async () => {
@@ -47,7 +41,7 @@ describe('<EditProfilePage>', () => {
           files: [],
         },
       };
-      expect(await wrapper.instance().uploadImage(ev)).toBe(errorMsg);
+      expect(await page.uploadImage(ev)).toBe(errorMsg);
     });
 
     it('case 3: new Blob', async () => {
@@ -56,7 +50,8 @@ describe('<EditProfilePage>', () => {
           files: [new Blob()],
         },
       };
-      expect(await wrapper.instance().uploadImage(ev)).toBe(undefined);
+      page.props.blob = new Blob();
+      expect(await page.uploadImage(ev)).toBe(undefined);
     });
   });
 });

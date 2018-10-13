@@ -15,7 +15,6 @@ import {
 
 import messages from 'containers/Profile/messages';
 
-/* eslint-disable */
 function renderFileInput({
   input,
   label,
@@ -24,26 +23,41 @@ function renderFileInput({
 }) {
   let avatarRefs;
 
+  const {
+    editingImgState,
+    cachedProfileImg,
+    profile,
+    getCroppedAvatar,
+    uploadImage,
+    clearImageChanges,
+    translations,
+  } = sendProps;
+
+  const displayImage =
+    editingImgState && (cachedProfileImg || profile.savedProfileImg);
+
+  const displayAvatar = !editingImgState && cachedProfileImg;
+
   return (
     <div>
-      {sendProps.editingImgState && 
-      (sendProps.cachedProfileImg || sendProps.profile.savedProfileImg) && (
+      {displayImage && (
         <div className="d-flex justify-content-center">
           <img
-            src={sendProps.cachedProfileImg || sendProps.profile.savedProfileImg}
+            src={cachedProfileImg || profile.savedProfileImg}
             className="profile-image"
             alt=""
-          />  
+          />
         </div>
       )}
 
-      {!sendProps.editingImgState &&
-        sendProps.cachedProfileImg && (
+      {displayAvatar && (
         <div>
           <div className="d-flex justify-content-center">
             <AvatarEditor
-              image={sendProps.cachedProfileImg}
-              ref={refs => (avatarRefs = refs)}
+              image={cachedProfileImg}
+              ref={refs => {
+                avatarRefs = refs;
+              }}
               width={AvatarEditorSize}
               height={AvatarEditorSize}
               color={AvatarEditorColor}
@@ -57,7 +71,7 @@ function renderFileInput({
           <div className="d-flex wrap-nowrap">
             <button
               className="btn btn-secondary w-50 mr-1"
-              onClick={() => sendProps.getCroppedAvatar(avatarRefs)}
+              onClick={() => getCroppedAvatar(avatarRefs)}
               type="button"
               key="mr-1"
             >
@@ -65,7 +79,7 @@ function renderFileInput({
             </button>
             <button
               className="btn btn-secondary w-50 ml-1"
-              onClick={() => sendProps.clearImageChanges()}
+              onClick={clearImageChanges}
               type="button"
               key="ml-1"
             >
@@ -84,7 +98,7 @@ function renderFileInput({
           <input
             {...input}
             type="file"
-            onChange={sendProps.uploadImage}
+            onChange={uploadImage}
             className="custom-file-input"
             id="avatarFile"
             value={undefined}
@@ -95,15 +109,14 @@ function renderFileInput({
           </label>
         </div>
       </div>
-    <h6 className="text-danger">
-      {touched &&
-        ((error && <span>{sendProps.translations[error]}</span>) ||
-          (warning && <span>{sendProps.translations[warning]}</span>))}
+      <h6 className="text-danger">
+        {touched &&
+          ((error && <span>{translations[error]}</span>) ||
+            (warning && <span>{translations[warning]}</span>))}
       </h6>
     </div>
   );
 }
-/* eslint-enable */
 
 renderFileInput.propTypes = {
   input: PropTypes.object.isRequired,

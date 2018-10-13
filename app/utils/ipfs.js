@@ -1,5 +1,7 @@
 import IpfsApi from 'ipfs-api';
 
+import { IPFS_URL } from './constants';
+
 export function getIpfsApi() {
   return IpfsApi('localhost', '5001');
 }
@@ -19,4 +21,9 @@ export async function saveFile(file) {
 export async function getText(hash) {
   const getResult = await getIpfsApi().get(hash);
   return getResult[0].content.toString('utf8');
+}
+
+export async function getFileUrl(fileHash) {
+  const fileUrl = `${IPFS_URL}/${fileHash}`;
+  return fileUrl;
 }

@@ -1,6 +1,6 @@
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 
-import { saveText, getText, saveFile } from './ipfs';
+import { saveText, getText, saveFile, getFileUrl } from './ipfs';
 import { getTableRow, sendTransaction } from './eosio';
 
 import {
@@ -8,17 +8,12 @@ import {
   ALL_ACCOUNTS_SCOPE,
   SET_IPFS_METHOD,
   SET_DISPLAY_NAME_METHOD,
-  IPFS_URL,
 } from './constants';
 
-export async function uploadFile(file) {
-  const savedFile = await saveFile(file);
-  return savedFile;
-}
-
-export async function getFileIpfs(fileHash) {
-  const fileUrl = `${IPFS_URL}/${fileHash}`;
-  return fileUrl;
+export async function uploadImg(img) {
+  const imgHash = await saveFile(img);
+  const imgUrl = await getFileUrl(imgHash);
+  return { imgUrl, imgHash };
 }
 
 export async function getBlob(canvas) {
@@ -32,7 +27,7 @@ export async function getProfileInfo(profileHash) {
   const ipfs = await getText(eos.ipfs_profile);
   const ipfsParsed = JSON.parse(ipfs);
   const savedProfileImg = ipfsParsed.savedProfileImg
-    ? await getFileIpfs(ipfsParsed.savedProfileImg)
+    ? await getFileUrl(ipfsParsed.savedProfileImg)
     : '';
 
   return {

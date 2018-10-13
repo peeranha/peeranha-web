@@ -27,7 +27,7 @@ export class ViewProfilePage extends React.Component {
     };
 
     return (
-      <Profile match={match}>
+      <Profile userId={match.params.id}>
         <ProfileViewForm {...sendProps} />
       </Profile>
     );
