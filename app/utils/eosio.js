@@ -28,7 +28,8 @@ class EosioService {
   };
 
   initScatter = async () => {
-    this.scatterInstalled = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    this.scatterInstalled = connected === true;
 
     if (this.scatterInstalled) {
       console.log('Successfully connected to scatter.');
