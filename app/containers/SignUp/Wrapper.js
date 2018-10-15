@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   form {
-    width: 320px;
+    flex-basis: 480px;
   }
   form * {
     margin: 3px 0;

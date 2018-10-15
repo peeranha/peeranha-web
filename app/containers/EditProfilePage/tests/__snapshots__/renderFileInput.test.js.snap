@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderFileInput test test by snapshots 1`] = `
+<div>
+  <div
+    className="input-group"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+        id="avatar1"
+      >
+        string
+      </span>
+    </div>
+    <div
+      className="custom-file"
+    >
+      <input
+        aria-describedby="avatar1"
+        className="custom-file-input"
+        id="avatarFile"
+        type="file"
+      />
+      <label
+        className="custom-file-label"
+        htmlFor="avatarFile"
+      >
+        <span>
+          Choose file
+        </span>
+      </label>
+    </div>
+  </div>
+  <h6
+    className="text-danger"
+  />
+</div>
+`;

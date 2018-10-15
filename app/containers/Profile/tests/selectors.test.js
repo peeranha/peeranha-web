@@ -1,8 +1,12 @@
-// import { fromJS } from 'immutable';
-// import { selectProfileDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import { selectProfileDomain } from '../selectors';
 
 describe('selectProfileDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  const globalState = fromJS({});
+  const mockedState = fromJS({
+    profile: globalState,
+  });
+  it('should select the global state', () => {
+    expect(selectProfileDomain(mockedState)).toEqual(globalState);
   });
 });

@@ -15,12 +15,14 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import Profile from 'containers/Profile/Loadable';
+import EditProfilePage from 'containers/EditProfilePage/Loadable';
+import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
 import SignUp from 'containers/SignUp/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Header from 'components/Header/Loadable';
 import Footer from 'components/Footer/Loadable';
+import NoAccess from 'components/NoAccess/Loadable';
 
 export default function App() {
   return (
@@ -28,8 +30,10 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/users/:id" component={ViewProfilePage} />
+        <Route path="/users/edit/:id" component={EditProfilePage} />
         <Route exact path="/signup" component={SignUp} />
+        <Route path="/no-access" component={NoAccess} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

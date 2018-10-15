@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileViewForm test test by snapshots 1`] = `
+<div
+  className="view-form"
+>
+  <div
+    className="view-form-item"
+  >
+    <h6>
+      <span>
+        Display name
+      </span>
+    </h6>
+    <p>
+      <span>
+        This field is empty
+      </span>
+    </p>
+  </div>
+  <div
+    className="view-form-item"
+  >
+    <h6>
+      <span>
+        Position
+      </span>
+    </h6>
+    <p>
+      <span>
+        This field is empty
+      </span>
+    </p>
+  </div>
+  <div
+    className="view-form-item"
+  >
+    <h6>
+      <span>
+        Company
+      </span>
+    </h6>
+    <p>
+      <span>
+        This field is empty
+      </span>
+    </p>
+  </div>
+  <div
+    className="view-form-item"
+  >
+    <h6>
+      <span>
+        About me
+      </span>
+    </h6>
+    <p>
+      <span>
+        This field is empty
+      </span>
+    </p>
+  </div>
+  <div
+    className="view-form-item"
+  >
+    <h6>
+      <span>
+        Location
+      </span>
+    </h6>
+    <p>
+      <span>
+        This field is empty
+      </span>
+    </p>
+  </div>
+  <a
+    href="/users/edit/undefined"
+    onClick={[Function]}
+  >
+    <button
+      className="btn btn-success form-control"
+    >
+      <span>
+        Edit
+      </span>
+    </button>
+  </a>
+</div>
+`;

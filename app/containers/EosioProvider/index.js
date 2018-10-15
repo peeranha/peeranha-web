@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { initEosio } from './actions';
+import { makeSelectInitializing } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -22,16 +23,24 @@ export class EosioProvider extends React.Component {
   }
 
   render() {
-    return [React.Children.only(this.props.children)];
+    return (
+      <div>
+        {this.props.initializing && 'EOS initializing...'}
+        {!this.props.initializing && React.Children.only(this.props.children)}
+      </div>
+    );
   }
 }
 
 EosioProvider.propTypes = {
   initEosio: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
+  initializing: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  initializing: makeSelectInitializing(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

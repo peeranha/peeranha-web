@@ -5,18 +5,41 @@ import { initialState } from './reducer';
  * Direct selector to the profile state domain
  */
 
-const selectProfileDomain = state => state.get('profile', initialState);
+export const selectProfileDomain = state => state.get('profile', initialState);
 
-/**
- * Other specific selectors
- */
+export const selectIsProfileLoading = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('isProfileLoading'),
+  );
 
-/**
- * Default selector used by Profile
- */
+export const selectIsImageLoading = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('isImageLoading'),
+  );
 
-const makeSelectProfile = () =>
-  createSelector(selectProfileDomain, substate => substate.toJS());
+export const selectErrorLoadProfile = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('errorLoadProfile'),
+  );
 
-export default makeSelectProfile;
-export { selectProfileDomain };
+export const selectUserKey = () =>
+  createSelector(selectProfileDomain, substate => substate.get('userKey'));
+
+export const selectProfile = () =>
+  createSelector(selectProfileDomain, substate => substate.get('profile'));
+
+export const selectIsOwner = () =>
+  createSelector(selectProfileDomain, substate => substate.get('isOwner'));
+
+export const selectCitiesList = () =>
+  createSelector(selectProfileDomain, substate => substate.get('citiesList'));
+
+export const selectLoadingGetCitiesList = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('loadingGetCitiesList'),
+  );
+
+export const selectErrorCitiesList = () =>
+  createSelector(selectProfileDomain, substate =>
+    substate.get('errorCitiesList'),
+  );
