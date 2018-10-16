@@ -43,16 +43,15 @@ export async function getProfileInfo(profileHash, eosService) {
 export async function saveProfile(owner, profile, eosService) {
   const ipfsProfile = await saveText(JSON.stringify(profile));
 
-  await Promise.all([
-    eosService.sendTransaction(owner, SET_IPFS_METHOD, {
-      owner,
-      ipfs_profile: ipfsProfile,
-    }),
-    eosService.sendTransaction(owner, SET_DISPLAY_NAME_METHOD, {
-      owner,
-      display_name: profile[DISPLAY_NAME_FIELD] || '',
-    }),
-  ]);
+  await eosService.sendTransaction(owner, SET_IPFS_METHOD, {
+    owner,
+    ipfs_profile: ipfsProfile,
+  });
+
+  await eosService.sendTransaction(owner, SET_DISPLAY_NAME_METHOD, {
+    owner,
+    display_name: profile[DISPLAY_NAME_FIELD] || '',
+  });
 }
 
 // TODO: to move url to .env file later

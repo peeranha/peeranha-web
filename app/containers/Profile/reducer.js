@@ -57,6 +57,7 @@ function profileReducer(state = initialState, action) {
     case GET_PROFILE_INFORMATION_ERROR:
       return state
         .set('isProfileLoading', false)
+        .set('profile', {})
         .set('errorLoadProfile', errorLoadProfile);
     case GET_LOCATION_LIST:
       return state.set('locationSearch', locationSearch).set('profile', {

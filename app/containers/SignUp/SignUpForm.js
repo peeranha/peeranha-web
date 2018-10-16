@@ -29,7 +29,7 @@ const SignUpForm = props => {
           component={renderField}
           type="text"
           translations={translations}
-          label={[translations[messages.eosAccount.id], account.eosAccount]}
+          label={[translations[messages.eosAccount.id], account]}
           readOnly
         />
         <Field

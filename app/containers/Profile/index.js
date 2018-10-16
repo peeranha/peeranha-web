@@ -14,6 +14,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PropTypes from 'prop-types';
+// import { browserHistory } from 'react-router';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
@@ -31,14 +32,23 @@ import NoSuchUser from './NoSuchUser';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.Component {
-  componentDidMount = () => {
-    const { userId, account } = this.props;
-    this.props.getProfileInfoDispatch(userId, account && account.eosAccount);
-  };
-
   componentWillUnmount() {
     this.props.setDefaultPropsDispatch();
   }
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.userId !== this.props.userId) {
+      this.getProfile(nextProps.userId);
+    }
+  };
+
+  componentDidMount = () => {
+    this.getProfile();
+  };
+
+  getProfile = (userId = this.props.userId) => {
+    this.props.getProfileInfoDispatch(userId, this.props.account);
+  };
 
   render() {
     const { locale, profile, isProfileLoading } = this.props;

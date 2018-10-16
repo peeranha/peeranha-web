@@ -12,7 +12,7 @@ export function* getCurrentAccountWorker() {
       throw new Error('EOS is not initialized.');
 
     const eosAccount = yield call(() => eosService.selectAccount());
-    yield put(getCurrentAccountSuccess({ eosAccount }));
+    yield put(getCurrentAccountSuccess(eosAccount));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
