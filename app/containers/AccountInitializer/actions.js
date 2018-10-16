@@ -16,10 +16,11 @@ export function getCurrentAccount() {
   };
 }
 
-export function getCurrentAccountSuccess(acc) {
+export function getCurrentAccountSuccess(acc, eosInit) {
   return {
     type: GET_CURRENT_ACCOUNT_SUCCESS,
     acc,
+    eosInit,
   };
 }
 

@@ -16,7 +16,6 @@ const SignUpForm = props => {
     invalid,
     registerUser,
     loading,
-    errorMessage,
     account,
     translations,
   } = props;
@@ -51,7 +50,6 @@ const SignUpForm = props => {
         >
           <FormattedMessage {...messages.signUp} />
         </button>
-        <h6 className="text-danger">{errorMessage && errorMessage.message}</h6>
       </div>
     </form>
   );

@@ -11,8 +11,18 @@ export function* getCurrentAccountWorker() {
     if (!eosService || !eosService.initialized)
       throw new Error('EOS is not initialized.');
 
-    const eosAccount = yield call(() => eosService.selectAccount());
-    yield put(getCurrentAccountSuccess(eosAccount));
+    const selectedScatterAccount = yield call(() =>
+      eosService.getSelectedAccount(),
+    );
+    const eosInit = {
+      selectedScatterAccount,
+      initialized: eosService.initialized,
+      eosInstance: eosService.eosInstance,
+      scatterInstance: eosService.scatterInstance,
+      scatterInstalled: eosService.scatterInstalled,
+    };
+
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, eosInit));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

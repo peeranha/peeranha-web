@@ -12,7 +12,10 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
 
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import {
+  makeSelectAccount,
+  makeSelectEosInit,
+} from 'containers/AccountInitializer/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,46 +24,75 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
+import * as signUpSelectors from './selectors';
 import {
-  makeSelectLoading,
-  makeSelectError,
-  makeSelectRegistered,
-} from './selectors';
-
-import { fetchRegisterAcc, setReducerDefault } from './actions';
-
-import { EOS_ACC, DISPLAY_NAME } from './constants';
+  fetchRegisterAcc,
+  setReducerDefault,
+  isUserInSystem,
+  selectPopupAccount,
+} from './actions';
+import { DISPLAY_NAME } from './constants';
 
 import Wrapper from './Wrapper';
 import SignUpForm from './SignUpForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
-  componentWillMount() {
-    SignUp.registerUser = SignUp.registerUser.bind(this);
+  componentDidUpdate() {
+    const { registered, history, account } = this.props;
+
+    if (registered) {
+      history.push(account);
+    }
+
+    this.componentDidMount();
   }
 
-  componentDidUpdate() {
-    if (this.props.registered) {
-      this.props.history.push('./profile');
+  componentDidMount = async () => {
+    const { eosInit, isUserInSystemDispatch, userIsInSystem } = this.props;
+
+    if (eosInit && !eosInit.initialized) return;
+
+    if (!eosInit.scatterInstalled) {
+      // show spec screen for scatter install
+      console.log('scatterNotInstalled');
+      return;
     }
-  }
+
+    if (!eosInit.selectedScatterAccount) {
+      // show spec. screen
+      // case success: put someth. to redux and in compDidUpdate refresh it
+      this.props.selectPopupAccountDispatch();
+      return;
+    }
+
+    if (!eosInit.scatterInstance.identity) {
+      // show spec. screen
+      console.log('Sign in scatter');
+      return;
+    }
+
+    if (eosInit.selectedScatterAccount && userIsInSystem === null) {
+      isUserInSystemDispatch(eosInit.selectedScatterAccount);
+      return;
+    }
+
+    if (!userIsInSystem) {
+      // push to /signup
+      console.log('Such user is absent in system');
+    }
+  };
 
   componentWillUnmount() {
     this.props.setReducerDefaultDispatch();
   }
 
-  static registerUser(values) {
-    const { eosAccount } = this.props.account;
-    const displayName = values.get(DISPLAY_NAME);
-
+  registerUser = values => {
     this.props.registerUserDispatch({
-      eosAccount,
-      displayName,
+      eosAccount: this.props.account,
+      displayName: values.get(DISPLAY_NAME),
     });
-
-    return { [EOS_ACC]: eosAccount, [DISPLAY_NAME]: displayName };
-  }
+  };
 
   render() {
     const { loading, error, account, locale } = this.props;
@@ -76,7 +108,7 @@ export class SignUp extends React.Component {
         </Helmet>
         <Wrapper>
           <SignUpForm
-            registerUser={SignUp.registerUser}
+            registerUser={this.registerUser}
             loading={loading}
             errorMessage={error}
             account={account}
@@ -90,9 +122,12 @@ export class SignUp extends React.Component {
 
 SignUp.propTypes = {
   registerUserDispatch: PropTypes.func.isRequired,
+  isUserInSystemDispatch: PropTypes.func.isRequired,
+  selectPopupAccountDispatch: PropTypes.func.isRequired,
   setReducerDefaultDispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
+  eosInit: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   registered: PropTypes.bool,
@@ -100,9 +135,11 @@ SignUp.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-  registered: makeSelectRegistered(),
+  eosInit: makeSelectEosInit(),
+  loading: signUpSelectors.makeSelectLoading(),
+  error: signUpSelectors.makeSelectError(),
+  registered: signUpSelectors.makeSelectRegistered(),
+  userIsInSystem: signUpSelectors.makeSelectUserIsInSystem(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
 });
@@ -112,6 +149,8 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
     setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
+    isUserInSystemDispatch: user => dispatch(isUserInSystem(user)),
+    selectPopupAccountDispatch: () => dispatch(selectPopupAccount()),
   };
 }
 

@@ -19,9 +19,15 @@ const makeSelectError = () =>
     substate.get('error'),
   );
 
+const makeSelectEosInit = () =>
+  createSelector(selectAccountInitializerDomain, substate =>
+    substate.get('eosInit'),
+  );
+
 export {
   selectAccountInitializerDomain,
   makeSelectAccount,
   makeSelectLoading,
   makeSelectError,
+  makeSelectEosInit,
 };

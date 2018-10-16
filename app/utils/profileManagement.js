@@ -25,7 +25,6 @@ export async function getProfileInfo(profileHash, eosService) {
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
     profileHash,
-    eos,
   );
   const ipfs = await getText(eos.ipfs_profile);
   const ipfsParsed = JSON.parse(ipfs);
