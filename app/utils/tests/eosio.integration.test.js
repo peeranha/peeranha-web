@@ -3,13 +3,26 @@
  * NOTE: Integration tests require running local eosio node
  */
 
-import { getTableRow, getTableRows, sendTransaction } from '../eosio';
+import EosioService from '../eosio';
+
+jest.setTimeout(10000);
 
 describe('eosio integration', () => {
+  const eos = new EosioService();
+
+  describe('connectToWallet', async () => {
+    xit('Eos is intialized without scatter', async () => {
+      await eos.init();
+      expect(eos.initialized).toBe(true);
+      expect(eos.scatterInstalled).toBe(false);
+      expect(eos.eosInstance).toBeDefined();
+    });
+  });
+
   describe('sendTransaction', () => {
     // Test runs successfully only first time and fails the second time (restart eos node to re-run)
     xit('sends transaction to eos node for first user', async () => {
-      const actionResult1 = await sendTransaction('user1', 'registeracc', {
+      const actionResult1 = await eos.sendTransaction('user1', 'registeracc', {
         owner: 'user1',
         display_name: 'user1DispName',
         ipfs_profile: 'user1_IPFS',
@@ -21,7 +34,7 @@ describe('eosio integration', () => {
 
     // Test runs successfully only first time and fails the second time (restart eos node to re-run)
     xit('sends transaction to eos node for second user', async () => {
-      const actionResult2 = await sendTransaction('user2', 'registeracc', {
+      const actionResult2 = await eos.sendTransaction('user2', 'registeracc', {
         owner: 'user2',
         display_name: 'user2DispName',
         ipfs_profile: 'user2_IPFS',
@@ -35,7 +48,7 @@ describe('eosio integration', () => {
   describe('getTableRow', () => {
     // run 'sends transaction to eos node' prior running this test
     xit('returns one record from account table', async () => {
-      const record = await getTableRow('account', 'allaccounts', 'user1');
+      const record = await eos.getTableRow('account', 'allaccounts', 'user1');
       expect(record).toBeDefined();
       expect(record.owner).toBe('user1');
       expect(record.display_name).toBe('user1DispName');
@@ -46,7 +59,7 @@ describe('eosio integration', () => {
   describe('getTableRows', () => {
     // run 'sends transaction to eos node' prior running this test
     xit('returns all records account table', async () => {
-      const records = await getTableRows('account', 'allaccounts');
+      const records = await eos.getTableRows('account', 'allaccounts');
       expect(records).toBeDefined();
       expect(records.length).toBe(2);
       expect(records[0].owner).toBe('user1');

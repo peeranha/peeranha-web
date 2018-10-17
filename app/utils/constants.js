@@ -8,3 +8,7 @@ export const SET_IPFS_METHOD = 'setipfspro';
 export const SET_DISPLAY_NAME_METHOD = 'setdispname';
 
 export const IPFS_URL = 'http://localhost:8080/ipfs';
+
+export const BLOCKCHAIN_NAME = 'eos';
+export const DEFAULT_EOS_PERMISSION = 'active';
+export const SCATTER_APP_NAME = 'Peerania';
