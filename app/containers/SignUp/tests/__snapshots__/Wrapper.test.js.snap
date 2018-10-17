@@ -18,7 +18,9 @@ exports[`<Wrapper /> should match the snapshot 1`] = `
 }
 
 .c0 form {
-  width: 320px;
+  -webkit-flex-basis: 480px;
+  -ms-flex-preferred-size: 480px;
+  flex-basis: 480px;
 }
 
 .c0 form * {

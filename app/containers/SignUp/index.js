@@ -51,7 +51,7 @@ export class SignUp extends React.Component {
   }
 
   static registerUser(values) {
-    const eosAccount = values.get(EOS_ACC);
+    const { eosAccount } = this.props.account;
     const displayName = values.get(DISPLAY_NAME);
 
     this.props.registerUserDispatch({
