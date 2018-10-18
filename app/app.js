@@ -19,7 +19,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
@@ -37,6 +36,7 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
+import createdHistory from './createdHistory';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -46,8 +46,7 @@ import './global-styles';
 
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
-const store = configureStore(initialState, history);
+const store = configureStore(initialState, createdHistory);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = messages => {
@@ -56,7 +55,7 @@ const render = messages => {
       <EosioProvider>
         <AccountInitializer>
           <LanguageProvider messages={messages}>
-            <ConnectedRouter history={history}>
+            <ConnectedRouter history={createdHistory}>
               <App />
             </ConnectedRouter>
           </LanguageProvider>
