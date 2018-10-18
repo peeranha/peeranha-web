@@ -12,6 +12,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import LoadingIndicator from 'components/LoadingIndicator';
+
 import { initEosio } from './actions';
 import { makeSelectInitializing } from './selectors';
 import reducer from './reducer';
@@ -25,7 +27,7 @@ export class EosioProvider extends React.Component {
   render() {
     return (
       <div>
-        {this.props.initializing && 'EOS initializing...'}
+        {this.props.initializing && <LoadingIndicator />}
         {!this.props.initializing && React.Children.only(this.props.children)}
       </div>
     );

@@ -12,9 +12,6 @@ import {
   IS_USER_IN_SYSTEM,
   IS_USER_IN_SYSTEM_SUCCESS,
   IS_USER_IN_SYSTEM_ERROR,
-  SELECT_POPUP_ACCOUNT,
-  SELECT_POPUP_ACCOUNT_SUCCESS,
-  SELECT_POPUP_ACCOUNT_ERROR,
 } from './constants';
 
 /*
@@ -74,30 +71,5 @@ export function isUserInSystemError(userInSystemActionError) {
   return {
     type: IS_USER_IN_SYSTEM_ERROR,
     userInSystemActionError: userInSystemActionError.message,
-  };
-}
-
-/*
- *
- * selectAccount actions
- *
- */
-
-export function selectPopupAccount() {
-  return {
-    type: SELECT_POPUP_ACCOUNT,
-  };
-}
-
-export function selectPopupAccountSuccess() {
-  return {
-    type: SELECT_POPUP_ACCOUNT_SUCCESS,
-  };
-}
-
-export function selectPopupAccountError(selectAccountError) {
-  return {
-    type: SELECT_POPUP_ACCOUNT_ERROR,
-    selectAccountError: selectAccountError.message,
   };
 }

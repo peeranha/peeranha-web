@@ -22,11 +22,9 @@ export async function registerAccount(
 }
 
 export async function isUserInSystem(user, eosService) {
-  const profile = await eosService.getTableRow(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    user,
-  );
+  const profile = user
+    ? await eosService.getTableRow(ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, user)
+    : false;
 
   return !!profile;
 }

@@ -13,7 +13,6 @@ import {
   SET_REDUCER_DEFAULT,
   IS_USER_IN_SYSTEM_SUCCESS,
   IS_USER_IN_SYSTEM_ERROR,
-  SELECT_POPUP_ACCOUNT_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,17 +21,10 @@ export const initialState = fromJS({
   registered: false,
   userIsInSystem: null,
   userInSystemActionError: null,
-  selectAccountError: null,
 });
 
 function signUpReducer(state = initialState, action) {
-  const {
-    type,
-    error,
-    userIsInSystem,
-    userInSystemActionError,
-    selectAccountError,
-  } = action;
+  const { type, error, userIsInSystem, userInSystemActionError } = action;
 
   switch (type) {
     case FETCH_REGISTER_ACC:
@@ -45,8 +37,6 @@ function signUpReducer(state = initialState, action) {
       return state.set('userIsInSystem', userIsInSystem);
     case IS_USER_IN_SYSTEM_ERROR:
       return state.set('userInSystemActionError', userInSystemActionError);
-    case SELECT_POPUP_ACCOUNT_ERROR:
-      return state.set('selectAccountError', selectAccountError);
     case SET_REDUCER_DEFAULT:
       return initialState;
     default:

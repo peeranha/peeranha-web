@@ -14,6 +14,7 @@ import { translationMessages } from 'i18n';
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
 
 import {
   DISPLAY_NAME_FIELD,
@@ -49,7 +50,9 @@ import ProfileEditForm from './ProfileEditForm';
 /* eslint-disable react/prefer-stateless-function */
 export class EditProfilePage extends React.Component {
   componentWillUpdate(props) {
-    if (props.isOwner === false) {
+    const { account, match } = props;
+
+    if (account !== match.params.id) {
       props.history.push('/no-access');
     }
   }
@@ -124,7 +127,6 @@ export class EditProfilePage extends React.Component {
   render() {
     const {
       profile,
-      isOwner,
       locale,
       match,
       editingImgState,
@@ -150,7 +152,6 @@ export class EditProfilePage extends React.Component {
       cachedProfileImg,
       editingImgState,
       profile,
-      isOwner,
       match,
       translations: translationMessages[locale],
     };
@@ -172,7 +173,6 @@ EditProfilePage.propTypes = {
   chooseLocationDispatch: PropTypes.func.isRequired,
   setDefaultReducerDispatch: PropTypes.func.isRequired,
   saveProfileActionDispatch: PropTypes.func.isRequired,
-  isOwner: PropTypes.bool.isRequired,
   profile: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   citiesList: PropTypes.array.isRequired,
@@ -183,10 +183,10 @@ EditProfilePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  isOwner: selectorsProfile.selectIsOwner(),
   profile: selectorsProfile.selectProfile(),
   citiesList: selectorsProfile.selectCitiesList(),
   locale: makeSelectLocale(),
+  account: makeSelectAccount(),
   editingImgState: editProfileSelectors.selectEditingImgState(),
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
   blob: editProfileSelectors.selectBlob(),

@@ -12,18 +12,19 @@ import { compose } from 'redux';
 
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
+import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewProfilePage extends React.Component {
   render() {
-    const { profile, isOwner, match } = this.props;
+    const { profile, match, account } = this.props;
 
     const sendProps = {
       profile,
-      isOwner,
       match,
+      account,
     };
 
     return (
@@ -37,13 +38,14 @@ export class ViewProfilePage extends React.Component {
 ViewProfilePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  isOwner: PropTypes.bool.isRequired,
+  userKey: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  isOwner: selectorsProfile.selectIsOwner(),
   profile: selectorsProfile.selectProfile(),
+  account: makeSelectAccount(),
 });
 
 function mapDispatchToProps(dispatch) {

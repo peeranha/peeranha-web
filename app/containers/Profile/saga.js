@@ -14,21 +14,10 @@ import { GET_PROFILE_INFORMATION, GET_LOCATION_LIST } from './constants';
 
 export function* getProfileInfoWorker(res) {
   try {
-    let isOwner;
     const eosService = yield select(selectEos);
     const profile = yield call(() => getProfileInfo(res.userKey, eosService));
 
-    if (res.account) {
-      if (res.account === res.userKey) {
-        isOwner = true;
-      } else {
-        isOwner = false;
-      }
-    } else {
-      isOwner = null;
-    }
-
-    yield put(getProfileInfoSuccess(profile, isOwner));
+    yield put(getProfileInfoSuccess(profile));
   } catch (err) {
     yield put(getProfileInfoError(err.message));
   }

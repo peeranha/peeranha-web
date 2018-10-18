@@ -15,7 +15,6 @@ describe('ProfileViewForm test', () => {
             {ProfileViewForm({
               profile: {},
               match: { params: {} },
-              isOwner: true,
             })}
           </IntlProvider>
         </BrowserRouter>,

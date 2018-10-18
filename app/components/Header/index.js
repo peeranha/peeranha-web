@@ -8,6 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FormattedMessage } from 'react-intl';
+import Button from 'containers/Button';
 import messages from './messages';
 
 import Wrapper from './Wrapper';
@@ -75,12 +76,13 @@ const Header = () => (
           >
             <FormattedMessage {...messages.search} />
           </button>
-          <Link to="/signup" href="/signup">
-            <button className="btn btn-success my-2 my-sm-0">
-              <FormattedMessage {...messages.signIn} />
-            </button>
-          </Link>
         </SearchForm>
+
+        <Button
+          buttonAction={() => console.log('Action')}
+          buttonClass="btn btn-success my-2 my-sm-0"
+          buttonContent="Log In"
+        />
       </div>
     </nav>
   </Wrapper>

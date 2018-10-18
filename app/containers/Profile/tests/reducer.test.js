@@ -34,7 +34,6 @@ describe('profileReducer', () => {
   it('getProfileInfoSuccess: returns user profile', () => {
     const obj = state
       .set('profile', { name: 'test' })
-      .set('isOwner', undefined)
       .set('isProfileLoading', false);
     expect(
       profileReducer(state, getProfileInfoSuccess({ name: 'test' })),
