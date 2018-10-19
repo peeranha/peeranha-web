@@ -42,12 +42,6 @@ const Header = () => (
           </li>
 
           <li className="nav-item">
-            <Link to="/profile" className="nav-link" href="/profile">
-              <FormattedMessage {...messages.profile} />
-            </Link>
-          </li>
-
-          <li className="nav-item">
             <Link to="/about" className="nav-link" href="/about">
               <FormattedMessage {...messages.about} />
             </Link>

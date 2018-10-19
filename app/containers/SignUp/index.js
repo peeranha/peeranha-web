@@ -12,10 +12,7 @@ import { compose } from 'redux';
 import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 
-import {
-  makeSelectAccount,
-  makeSelectEosInit,
-} from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
@@ -25,7 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import * as signUpSelectors from './selectors';
-import { fetchRegisterAcc, setReducerDefault, isUserInSystem } from './actions';
+import { fetchRegisterAcc, setReducerDefault } from './actions';
 import { DISPLAY_NAME } from './constants';
 
 import Wrapper from './Wrapper';
@@ -80,11 +77,9 @@ SignUp.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  eosInit: makeSelectEosInit(),
   loading: signUpSelectors.makeSelectLoading(),
   error: signUpSelectors.makeSelectError(),
   registered: signUpSelectors.makeSelectRegistered(),
-  userIsInSystem: signUpSelectors.makeSelectUserIsInSystem(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
 });
@@ -94,7 +89,6 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
     setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
-    isUserInSystemDispatch: user => dispatch(isUserInSystem(user)),
   };
 }
 

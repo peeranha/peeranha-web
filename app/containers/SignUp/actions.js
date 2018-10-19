@@ -9,9 +9,6 @@ import {
   REGISTER_ACC_SUCCESS,
   REGISTER_ACC_ERROR,
   SET_REDUCER_DEFAULT,
-  IS_USER_IN_SYSTEM,
-  IS_USER_IN_SYSTEM_SUCCESS,
-  IS_USER_IN_SYSTEM_ERROR,
 } from './constants';
 
 /*
@@ -43,32 +40,5 @@ export function registerAccError(error) {
 export function setReducerDefault() {
   return {
     type: SET_REDUCER_DEFAULT,
-  };
-}
-
-/*
- *
- * getUserInfo actions
- *
- */
-
-export function isUserInSystem(user) {
-  return {
-    type: IS_USER_IN_SYSTEM,
-    user,
-  };
-}
-
-export function isUserInSystemSuccess(userIsInSystem) {
-  return {
-    type: IS_USER_IN_SYSTEM_SUCCESS,
-    userIsInSystem,
-  };
-}
-
-export function isUserInSystemError(userInSystemActionError) {
-  return {
-    type: IS_USER_IN_SYSTEM_ERROR,
-    userInSystemActionError: userInSystemActionError.message,
   };
 }

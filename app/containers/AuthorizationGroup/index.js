@@ -12,6 +12,7 @@ import createdHistory from 'createdHistory';
 
 import Button from 'containers/Button';
 import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
+import { COMPLETE_LOGIN, COMPLETE_SIGNUP } from 'containers/Button/constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthorizationGroup extends React.Component {
@@ -21,7 +22,7 @@ export class AuthorizationGroup extends React.Component {
       eosInit && eosInit.selectedScatterAccount && eosInit.userIsInSystem;
 
     return (
-      <div>
+      <div className="auth-button-group">
         {logged && (
           <Button
             buttonAction={() =>
@@ -32,13 +33,18 @@ export class AuthorizationGroup extends React.Component {
           />
         )}
 
-        {!logged && (
+        {!logged && [
           <Button
-            buttonAction={() => console.log('Action')}
-            buttonClass="btn btn-success my-2 my-sm-0"
+            complete={COMPLETE_SIGNUP}
+            buttonClass="btn btn-secondary my-2 my-sm-0 mr-2"
+            buttonContent="Sign Up"
+          />,
+          <Button
+            complete={COMPLETE_LOGIN}
+            buttonClass="btn btn-secondary my-2 my-sm-0"
             buttonContent="Log In"
-          />
-        )}
+          />,
+        ]}
       </div>
     );
   }

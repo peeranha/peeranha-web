@@ -8,13 +8,9 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  INIT_SCATTER,
-  INIT_SCATTER_SUCCESS,
-  INIT_SCATTER_ERROR,
   SELECT_POPUP_ACCOUNT,
   SELECT_POPUP_ACCOUNT_SUCCESS,
   SELECT_POPUP_ACCOUNT_ERROR,
-  PUT_EOS_INIT,
 } from './constants';
 
 export function getCurrentAccount() {
@@ -40,31 +36,6 @@ export function getCurrentAccountError(err) {
 
 /*
  *
- * init Scatter actions
- *
- */
-
-export function initScatter() {
-  return {
-    type: INIT_SCATTER,
-  };
-}
-
-export function initScatterSuccess() {
-  return {
-    type: INIT_SCATTER_SUCCESS,
-  };
-}
-
-export function initScatterError(errorScatterInit) {
-  return {
-    type: INIT_SCATTER_ERROR,
-    errorScatterInit,
-  };
-}
-
-/*
- *
  * selectAccount actions
  *
  */
@@ -76,10 +47,10 @@ export function selectPopupAccount(callbackFunction) {
   };
 }
 
-export function selectPopupAccountSuccess(userIsInSystem, acc) {
+export function selectPopupAccountSuccess(eosInit, acc) {
   return {
     type: SELECT_POPUP_ACCOUNT_SUCCESS,
-    userIsInSystem,
+    eosInit,
     acc,
   };
 }
@@ -88,18 +59,5 @@ export function selectPopupAccountError(selectAccountError) {
   return {
     type: SELECT_POPUP_ACCOUNT_ERROR,
     selectAccountError: selectAccountError.message,
-  };
-}
-
-/*
- *
- * eosInit action
- *
- */
-
-export function putEosInitParams(eosInit) {
-  return {
-    type: PUT_EOS_INIT,
-    eosInit,
   };
 }

@@ -12,12 +12,13 @@ import { createStructuredSelector } from 'reselect';
 import { chooseModalContent } from 'containers/Modal/actions';
 import { selectPopupAccount } from 'containers/AccountInitializer/actions';
 
-import {
-  makeSelectEosInit,
-  makeSelectUserIsInSystem,
-} from 'containers/AccountInitializer/selectors';
+import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
 import SignUp from 'containers/SignUp';
+
 import ScatterInstaller from './ScatterInstaller';
+import RequirementToSignUp from './RequirementToSignUp';
+
+import { COMPLETE_LOGIN } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Button extends React.Component {
@@ -43,6 +44,7 @@ export class Button extends React.Component {
       eosInit,
       chooseModalContentDispatch,
       buttonAction,
+      complete,
       selectPopupAccountDispatch,
     } = this.props;
 
@@ -53,8 +55,6 @@ export class Button extends React.Component {
       scatterInstance,
     } = eosInit;
 
-    const userEntered = this.props.userIsInSystem;
-
     if (!scatterInstalled) {
       content = [ScatterInstaller, null, this.reloadApp];
     } else if (
@@ -63,16 +63,27 @@ export class Button extends React.Component {
       !scatterInstance.identity
     ) {
       if (event) selectPopupAccountDispatch(this.clickHandler);
-    } else if (!userEntered && !userIsInSystem) {
+    } else if (!userIsInSystem) {
       content = [SignUp, null, null];
     } else if (typeof buttonAction === 'function') {
       buttonAction();
     }
 
+    // If user is absent in system, but choosed identity in scatter and click "Login" button - you ll see message to sign up in app
+    if (
+      complete === COMPLETE_LOGIN &&
+      eosInit.selectedScatterAccount &&
+      !eosInit.userIsInSystem
+    ) {
+      content = [RequirementToSignUp, null, null];
+    }
+
+    // remember pageY position to scroll auto. after page reload
     if (event && event.pageY) {
       localStorage.setItem('scrollTo', event.pageY - window.screen.height / 2);
     }
 
+    // if content is TRUE -> POPUP window
     if (content) {
       chooseModalContentDispatch(
         React.createElement(content[0], content[1], content[2]),
@@ -93,17 +104,16 @@ export class Button extends React.Component {
 
 Button.propTypes = {
   buttonAction: PropTypes.func.isRequired,
+  complete: PropTypes.string.isRequired,
   buttonClass: PropTypes.string.isRequired,
   buttonContent: PropTypes.string.isRequired,
   chooseModalContentDispatch: PropTypes.func.isRequired,
   selectPopupAccountDispatch: PropTypes.func.isRequired,
   eosInit: PropTypes.object.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   eosInit: makeSelectEosInit(),
-  userIsInSystem: makeSelectUserIsInSystem(),
 });
 
 function mapDispatchToProps(dispatch) {

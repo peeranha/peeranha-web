@@ -16,21 +16,9 @@ const makeSelectError = () =>
 const makeSelectRegistered = () =>
   createSelector(selectSignUpDomain, substate => substate.get('registered'));
 
-const makeSelectUserIsInSystem = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('userIsInSystem'),
-  );
-
-const makeSelectUserInSystemActionError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('userInSystemActionError'),
-  );
-
 export {
   selectSignUpDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectRegistered,
-  makeSelectUserIsInSystem,
-  makeSelectUserInSystemActionError,
 };

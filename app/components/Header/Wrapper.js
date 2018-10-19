@@ -13,13 +13,16 @@ const Wrapper = styled.header`
   }
   form {
     flex-wrap: nowrap;
-    @media only screen and (max-width: 576px) {
-      * {
-        margin: 0 2px;
-      }
+  }
+  @media only screen and (max-width: 576px) {
+    * {
+      margin: 0 2px;
     }
-    input {
-      flex: 1;
+    .auth-button-group {
+      display: flex;
+      button {
+        flex: 1;
+      }
     }
   }
 `;
