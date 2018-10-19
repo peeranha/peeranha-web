@@ -70,7 +70,6 @@ export function* selectPopupAccountWorker(res) {
     yield put(selectPopupAccountSuccess(userIsInSystem, selectedAccount));
     yield call(() => res.callbackFunction(null));
   } catch (err) {
-    console.log(err);
     yield put(selectPopupAccountError(err));
   }
 }

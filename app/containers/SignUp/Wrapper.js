@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  min-height: 50vh;
   align-items: center;
   justify-content: center;
+  padding: 20px;
   form {
     flex-basis: 480px;
   }
@@ -15,6 +15,14 @@ const Wrapper = styled.div`
     padding-left: 10px;
     padding-top: 2px;
     font-size: 14px;
+  }
+  button > div {
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    > div::before {
+      background: #fff;
+    }
   }
 `;
 

@@ -18,6 +18,7 @@ import messages from 'containers/Profile/messages';
 function renderFileInput({
   input,
   label,
+  disabled,
   sendProps,
   meta: { touched, error, warning },
 }) {
@@ -70,6 +71,7 @@ function renderFileInput({
           </div>
           <div className="d-flex wrap-nowrap">
             <button
+              disabled={disabled}
               className="btn btn-secondary w-50 mr-1"
               onClick={() => getCroppedAvatar(avatarRefs)}
               type="button"
@@ -78,6 +80,7 @@ function renderFileInput({
               <FormattedMessage {...messages.saveButton} />
             </button>
             <button
+              disabled={disabled}
               className="btn btn-secondary w-50 ml-1"
               onClick={clearImageChanges}
               type="button"
@@ -96,6 +99,7 @@ function renderFileInput({
         </div>
         <div className="custom-file">
           <input
+            disabled={disabled}
             {...input}
             type="file"
             onChange={uploadImage}
@@ -122,6 +126,7 @@ renderFileInput.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
   sendProps: PropTypes.object.isRequired,
 };
 

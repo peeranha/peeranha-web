@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 function renderTextInput({
   input,
   label,
+  disabled,
   sendProps,
   meta: { touched, error, warning },
 }) {
@@ -12,6 +13,7 @@ function renderTextInput({
       <h6>{label}</h6>
       <input
         {...input}
+        disabled={disabled}
         placeholder={label}
         type="text"
         className="form-control"
@@ -29,6 +31,7 @@ renderTextInput.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   meta: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
   sendProps: PropTypes.object.isRequired,
 };
 

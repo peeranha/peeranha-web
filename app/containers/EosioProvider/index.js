@@ -18,6 +18,7 @@ import { initEosio } from './actions';
 import { makeSelectInitializing } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Wrapper from './Wrapper';
 
 export class EosioProvider extends React.Component {
   componentDidMount() {
@@ -27,7 +28,12 @@ export class EosioProvider extends React.Component {
   render() {
     return (
       <div>
-        {this.props.initializing && <LoadingIndicator />}
+        {this.props.initializing && (
+          <Wrapper>
+            <LoadingIndicator />
+          </Wrapper>
+        )}
+
         {!this.props.initializing && React.Children.only(this.props.children)}
       </div>
     );

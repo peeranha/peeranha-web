@@ -41,6 +41,14 @@ const Wrapper = styled.div`
       background: rgba(0, 0, 0, 0.05);
     }
   }
+  button > div {
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    > div::before {
+      background: #fff;
+    }
+  }
 `;
 
 export default Wrapper;

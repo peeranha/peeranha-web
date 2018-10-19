@@ -55,16 +55,6 @@ export class Button extends React.Component {
 
     const userEntered = this.props.userIsInSystem;
 
-    if (
-      selectedScatterAccount === undefined ||
-      userIsInSystem === undefined ||
-      scatterInstalled === undefined ||
-      scatterInstance === undefined
-    ) {
-      alert('EOS is not initialized');
-      return;
-    }
-
     if (!scatterInstalled) {
       content = [ScatterInstaller, null, this.reloadApp];
     } else if (
@@ -94,7 +84,7 @@ export class Button extends React.Component {
     const { buttonClass, buttonContent } = this.props;
 
     return (
-      <button className={buttonClass} onClick={this.clickHandler}>
+      <button type="button" className={buttonClass} onClick={this.clickHandler}>
         {buttonContent}
       </button>
     );

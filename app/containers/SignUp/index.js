@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -18,10 +17,10 @@ import {
   makeSelectEosInit,
 } from 'containers/AccountInitializer/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -38,7 +37,7 @@ export class SignUp extends React.Component {
     const { registered, account } = this.props;
 
     if (registered) {
-      createdHistory.push(account);
+      createdHistory.push(`/users/edit/${account}`);
     }
   }
 
@@ -57,24 +56,15 @@ export class SignUp extends React.Component {
     const { loading, error, account, locale } = this.props;
 
     return (
-      <div className="container">
-        <Helmet>
-          <title>{translationMessages[locale][messages.signUp.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.signUpDescription.id]}
-          />
-        </Helmet>
-        <Wrapper>
-          <SignUpForm
-            registerUser={this.registerUser}
-            loading={loading}
-            errorMessage={error}
-            account={account}
-            translations={translationMessages[locale]}
-          />
-        </Wrapper>
-      </div>
+      <Wrapper>
+        <SignUpForm
+          registerUser={this.registerUser}
+          loading={loading}
+          errorMessage={error}
+          account={account}
+          translations={translationMessages[locale]}
+        />
+      </Wrapper>
     );
   }
 }

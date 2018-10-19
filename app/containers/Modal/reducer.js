@@ -9,7 +9,7 @@ import { CHOOSE_MODAL_CONTENT } from './constants';
 
 export const initialState = fromJS({
   content: null,
-  modalSize: 'lg',
+  modalSize: 'md',
 });
 
 function modalReducer(state = initialState, action) {

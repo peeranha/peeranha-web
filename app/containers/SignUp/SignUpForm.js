@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import LoadingIndicator from 'components/LoadingIndicator';
+
 import { strLength, required } from './validate';
 import renderField from './renderField';
 import messages from './messages';
@@ -26,6 +28,7 @@ const SignUpForm = props => {
         <Field
           name={EOS_ACC}
           component={renderField}
+          disabled={loading}
           type="text"
           translations={translations}
           label={[translations[messages.eosAccount.id], account]}
@@ -34,6 +37,7 @@ const SignUpForm = props => {
         <Field
           name={DISPLAY_NAME}
           component={renderField}
+          disabled={loading}
           type="text"
           label={[translations[messages.displayName.id]]}
           readOnly={false}
@@ -48,7 +52,8 @@ const SignUpForm = props => {
           disabled={invalid || submitting || loading}
           type="submit"
         >
-          <FormattedMessage {...messages.signUp} />
+          {loading && <LoadingIndicator />}
+          {!loading && <FormattedMessage {...messages.signUp} />}
         </button>
       </div>
     </form>

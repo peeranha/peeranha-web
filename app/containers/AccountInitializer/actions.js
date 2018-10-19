@@ -14,6 +14,7 @@ import {
   SELECT_POPUP_ACCOUNT,
   SELECT_POPUP_ACCOUNT_SUCCESS,
   SELECT_POPUP_ACCOUNT_ERROR,
+  PUT_EOS_INIT,
 } from './constants';
 
 export function getCurrentAccount() {
@@ -87,5 +88,18 @@ export function selectPopupAccountError(selectAccountError) {
   return {
     type: SELECT_POPUP_ACCOUNT_ERROR,
     selectAccountError: selectAccountError.message,
+  };
+}
+
+/*
+ *
+ * eosInit action
+ *
+ */
+
+export function putEosInitParams(eosInit) {
+  return {
+    type: PUT_EOS_INIT,
+    eosInit,
   };
 }

@@ -9,20 +9,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import $ from 'jquery';
 
 import injectReducer from 'utils/injectReducer';
+import { closeModalWindow } from './actions';
 import { makeSelectContent, makeSelectModalSize } from './selectors';
 import reducer from './reducer';
+import { MODAL_ID } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Modal extends React.Component {
-  componentDidUpdate() {
-    $('#modalWindow').modal('show');
-  }
-
   componentWillUnmount = () => {
-    $('#modalWindow').modal('hide');
+    this.props.closeModalWindowDispatch();
   };
 
   render() {
@@ -30,7 +27,7 @@ export class Modal extends React.Component {
 
     return (
       <div
-        id="modalWindow"
+        id={MODAL_ID}
         className={`modal fade bd-example-modal-${modalSize}`}
         tabIndex="-1"
         role="dialog"
@@ -48,6 +45,7 @@ export class Modal extends React.Component {
 Modal.propTypes = {
   content: PropTypes.string.isRequired,
   modalSize: PropTypes.string.isRequired,
+  closeModalWindowDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -58,6 +56,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    closeModalWindowDispatch: () => dispatch(closeModalWindow()),
   };
 }
 

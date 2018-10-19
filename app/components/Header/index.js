@@ -6,16 +6,12 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { FormattedMessage } from 'react-intl';
-import Button from 'containers/Button';
-import messages from './messages';
+import AuthorizationGroup from 'containers/AuthorizationGroup';
 
+import messages from './messages';
 import Wrapper from './Wrapper';
 import Logo from './Logo';
-import ListItem from './ListItem';
-import SearchForm from './SearchForm';
-import SearchFormInput from './SearchFormInput';
 
 /* eslint-disable react/prefer-stateless-function */
 const Header = () => (
@@ -39,33 +35,33 @@ const Header = () => (
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          <ListItem className="nav-item">
+          <li className="nav-item">
             <Link to="/" className="nav-link" href="/">
               <FormattedMessage {...messages.home} />
             </Link>
-          </ListItem>
+          </li>
 
-          <ListItem className="nav-item">
+          <li className="nav-item">
             <Link to="/profile" className="nav-link" href="/profile">
               <FormattedMessage {...messages.profile} />
             </Link>
-          </ListItem>
+          </li>
 
-          <ListItem className="nav-item">
+          <li className="nav-item">
             <Link to="/about" className="nav-link" href="/about">
               <FormattedMessage {...messages.about} />
             </Link>
-          </ListItem>
+          </li>
 
-          <ListItem className="nav-item">
+          <li className="nav-item">
             <Link to="/help" className="nav-link" href="/help">
               <FormattedMessage {...messages.help} />
             </Link>
-          </ListItem>
+          </li>
         </ul>
 
-        <SearchForm className="form-inline my-2 my-lg-2">
-          <SearchFormInput
+        <form className="form-inline my-2 my-lg-2">
+          <input
             className="form-control mr-sm-2"
             type="search"
             placeholder="Search"
@@ -76,13 +72,9 @@ const Header = () => (
           >
             <FormattedMessage {...messages.search} />
           </button>
-        </SearchForm>
+        </form>
 
-        <Button
-          buttonAction={() => console.log('Action')}
-          buttonClass="btn btn-success my-2 my-sm-0"
-          buttonContent="Log In"
-        />
+        <AuthorizationGroup />
       </div>
     </nav>
   </Wrapper>

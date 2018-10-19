@@ -34,7 +34,6 @@ export function registerAccSuccess() {
 }
 
 export function registerAccError(error) {
-  console.log(error.message);
   return {
     type: REGISTER_ACC_ERROR,
     error,

@@ -15,6 +15,7 @@ import {
   INIT_SCATTER_ERROR,
   SELECT_POPUP_ACCOUNT_SUCCESS,
   SELECT_POPUP_ACCOUNT_ERROR,
+  PUT_EOS_INIT,
 } from './constants';
 
 export const initialState = fromJS({
@@ -57,9 +58,17 @@ function accountInitializerReducer(state = initialState, action) {
         .set('initScatter', false)
         .set('errorScatterInit', errorScatterInit);
     case SELECT_POPUP_ACCOUNT_SUCCESS:
-      return state.set('account', acc).set('userIsInSystem', userIsInSystem);
+      return state
+        .set('account', acc || state.get('account'))
+        .set('userIsInSystem', userIsInSystem);
     case SELECT_POPUP_ACCOUNT_ERROR:
       return state.set('selectAccountError', selectAccountError);
+    case PUT_EOS_INIT:
+      return state.set('eosInit', {
+        ...state.get('eosInit'),
+        userIsInSystem: eosInit.userIsInSystem,
+        selectedScatterAccount: eosInit.selectedScatterAccount,
+      });
     default:
       return state;
   }

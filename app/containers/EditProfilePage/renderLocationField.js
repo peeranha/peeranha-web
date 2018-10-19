@@ -18,7 +18,7 @@ const cities = (list, sendProps) =>
     >{`${item.name}, ${item.countryName}`}</li>
   ));
 
-function renderLocationField({ input, label, sendProps }) {
+function renderLocationField({ input, label, disabled, sendProps }) {
   const { ipfs } = sendProps.profile;
   const showLocationList =
     ipfs &&
@@ -31,6 +31,7 @@ function renderLocationField({ input, label, sendProps }) {
       <h6>{label}</h6>
       <div className="position-relative mb-0">
         <input
+          disabled={disabled}
           {...input}
           autoComplete="off"
           placeholder={label}
@@ -50,6 +51,7 @@ function renderLocationField({ input, label, sendProps }) {
 renderLocationField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   sendProps: PropTypes.object.isRequired,
 };
 
