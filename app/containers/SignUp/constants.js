@@ -4,7 +4,6 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/SignUp/DEFAULT_ACTION';
 export const EOS_ACC = 'app/SignUp/eosAccount';
 export const DISPLAY_NAME = 'app/SignUp/displayName';
 

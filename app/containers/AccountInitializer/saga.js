@@ -1,15 +1,31 @@
+import React from 'react';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isUserInSystem } from 'utils/accountManagement';
+import { chooseModalContent, closeModalWindow } from 'containers/Modal/actions';
 
-import { GET_CURRENT_ACCOUNT, SELECT_POPUP_ACCOUNT } from './constants';
+import SignUp from 'containers/SignUp';
+import ScatterInstaller from 'containers/Button/ScatterInstaller';
+import SelectAccount from 'containers/Button/SelectAccount';
+import UserIsAbsentInSystem from 'containers/Button/UserIsAbsentInSystem';
+
+import { COMPLETE_LOGIN, COMPLETE_SIGNUP } from 'containers/Button/constants';
+
+import {
+  GET_CURRENT_ACCOUNT,
+  SELECT_ACCOUNT,
+  NO_SCATTER,
+  NO_SELECTED_SCATTER_ACCOUNTS,
+  USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
+  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+} from './constants';
 
 import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
-  selectPopupAccountSuccess,
-  selectPopupAccountError,
+  selectAccountSuccess,
+  selectAccError,
 } from './actions';
 
 export function* getCurrentAccountWorker() {
@@ -42,27 +58,85 @@ export function* getCurrentAccountWorker() {
   }
 }
 
-export function* selectPopupAccountWorker(res) {
+export function* selectAccountWorker(res) {
+  const eosService = yield select(selectEos);
+  const selectAnotherIdentity = async () => {
+    await eosService.forgetIdentity();
+    await eosService.selectAccount();
+    res.methods.logIn();
+  };
+
   try {
-    const eosService = yield select(selectEos);
-    const selectedScatterAccount = yield call(() => eosService.selectAccount());
-    const userIsInSystem = yield call(() =>
-      isUserInSystem(selectedScatterAccount, eosService),
-    );
+    let account;
+
+    if (!eosService.scatterInstalled) throw new Error(NO_SCATTER);
+
+    if (!eosService.selectedScatterAccount) {
+      account = yield call(() => eosService.selectAccount());
+      if (!account) throw new Error(NO_SELECTED_SCATTER_ACCOUNTS);
+    }
 
     yield put(
-      selectPopupAccountSuccess(
-        { userIsInSystem, selectedScatterAccount },
-        selectedScatterAccount,
+      selectAccountSuccess(
+        {
+          selectedScatterAccount: account,
+          scatterInstalled: true,
+        },
+        account,
       ),
     );
-    yield call(() => res.callbackFunction(null));
+
+    const userIsInSystem = yield call(() =>
+      isUserInSystem(account, eosService),
+    );
+
+    if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN)
+      throw new Error(USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN);
+
+    if (!userIsInSystem && res.methods.type === COMPLETE_SIGNUP)
+      throw new Error(USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP);
+
+    yield put(closeModalWindow());
+    yield put(
+      selectAccountSuccess(
+        {
+          userIsInSystem,
+          selectedScatterAccount: account,
+          scatterInstalled: true,
+        },
+        account,
+      ),
+    );
   } catch (err) {
-    yield put(selectPopupAccountError(err));
+    let content;
+    const methods = { ...res.methods, selectAnotherIdentity };
+
+    switch (err.message) {
+      case NO_SCATTER:
+        content = [ScatterInstaller, null, methods];
+        break;
+      case NO_SELECTED_SCATTER_ACCOUNTS:
+        content = [SelectAccount, null, methods];
+        break;
+      case USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN:
+        content = [UserIsAbsentInSystem, null, methods];
+        break;
+      case USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP:
+        content = [SignUp, null, methods];
+        break;
+      default:
+        content = null;
+        break;
+    }
+
+    const elem = React.createElement(content[0], content[1], content[2]);
+
+    yield put(chooseModalContent(elem));
+    yield put(selectAccError(err));
   }
 }
 
 export default function*() {
   yield takeEvery(GET_CURRENT_ACCOUNT, getCurrentAccountWorker);
-  yield takeEvery(SELECT_POPUP_ACCOUNT, selectPopupAccountWorker);
+  yield takeEvery(SELECT_ACCOUNT, selectAccountWorker);
 }

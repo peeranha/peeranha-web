@@ -23,18 +23,21 @@ export class Modal extends React.Component {
   };
 
   render() {
-    const { content, modalSize } = this.props;
+    const { content } = this.props;
 
     return (
       <div
         id={MODAL_ID}
-        className={`modal fade bd-example-modal-${modalSize}`}
+        className="modal fade"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="myLargeModalLabel"
         aria-hidden="true"
       >
-        <div className={`modal-dialog modal-${modalSize}`}>
+        <div
+          className="modal-dialog modal-dialog-centered"
+          style={{ marginTop: '-25px' }}
+        >
           <div className="modal-content">{content}</div>
         </div>
       </div>
@@ -44,7 +47,6 @@ export class Modal extends React.Component {
 
 Modal.propTypes = {
   content: PropTypes.string.isRequired,
-  modalSize: PropTypes.string.isRequired,
   closeModalWindowDispatch: PropTypes.func.isRequired,
 };
 

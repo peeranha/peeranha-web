@@ -8,9 +8,9 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  SELECT_POPUP_ACCOUNT,
-  SELECT_POPUP_ACCOUNT_SUCCESS,
-  SELECT_POPUP_ACCOUNT_ERROR,
+  SELECT_ACCOUNT,
+  SELECT_ACCOUNT_SUCCESS,
+  SELECT_ACCOUNT_ERROR,
 } from './constants';
 
 export function getCurrentAccount() {
@@ -40,24 +40,24 @@ export function getCurrentAccountError(err) {
  *
  */
 
-export function selectPopupAccount(callbackFunction) {
+export function selectAccount(methods) {
   return {
-    type: SELECT_POPUP_ACCOUNT,
-    callbackFunction,
+    type: SELECT_ACCOUNT,
+    methods,
   };
 }
 
-export function selectPopupAccountSuccess(eosInit, acc) {
+export function selectAccountSuccess(eosInit, acc) {
   return {
-    type: SELECT_POPUP_ACCOUNT_SUCCESS,
+    type: SELECT_ACCOUNT_SUCCESS,
     eosInit,
     acc,
   };
 }
 
-export function selectPopupAccountError(selectAccountError) {
+export function selectAccError(selectAccountError) {
   return {
-    type: SELECT_POPUP_ACCOUNT_ERROR,
-    selectAccountError: selectAccountError.message,
+    type: SELECT_ACCOUNT_ERROR,
+    selectAccountError,
   };
 }

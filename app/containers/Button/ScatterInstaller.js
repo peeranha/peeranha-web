@@ -1,21 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Button from './index';
 import Wrapper from './Wrapper';
 
 const ScatterInstaller = props => (
   <Wrapper>
-    <p>
-      To complete this action in our app you need to install{' '}
+    <p>To complete this action in our app you need to install</p>
+    <h4 className="text-center">
       <a
         href="https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle"
         target="_blank"
       >
-        <h4>Scatter</h4>
+        Scatter
       </a>
-    </p>
-    <button className="btn btn-link form-control" onClick={props.children}>
+    </h4>
+    <button
+      className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
+      onClick={props.children.reloadApp}
+    >
       Next step
     </button>
+    <Button
+      complete={props.children.type}
+      buttonClass="btn btn-link w-50 d-block my-1 mx-auto py-2"
+      buttonContent="< Back to options"
+    />
   </Wrapper>
 );
 

@@ -80,6 +80,15 @@ class EosioService {
     return account.name;
   };
 
+  forgetIdentity = async () => {
+    if (this.scatterInstance.identity) {
+      await this.scatterInstance.forgetIdentity();
+      return true;
+    }
+
+    return null;
+  };
+
   selectAccount = async () => {
     if (!this.initialized) throw new Error('EOS is not initialized.');
 

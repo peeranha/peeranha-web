@@ -10,14 +10,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { chooseModalContent } from 'containers/Modal/actions';
-import { selectPopupAccount } from 'containers/AccountInitializer/actions';
-
+import { selectAccount } from 'containers/AccountInitializer/actions';
 import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
-import SignUp from 'containers/SignUp';
 
-import ScatterInstaller from './ScatterInstaller';
-import RequirementToSignUp from './RequirementToSignUp';
-
+import LoginPopup from './LoginPopup';
 import { COMPLETE_LOGIN } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -27,7 +23,7 @@ export class Button extends React.Component {
     const scrollTo = localStorage.getItem('scrollTo');
 
     if (reload && this.props.eosInit) {
-      this.clickHandler({});
+      this.clickHandler();
       if (scrollTo) window.scrollTo(0, +scrollTo);
       localStorage.clear();
     }
@@ -38,56 +34,28 @@ export class Button extends React.Component {
     window.location.reload();
   };
 
+  selectAccount = () => {
+    this.props.selectAccountDispatch({
+      reloadApp: this.reloadApp,
+      selectAccount: this.selectAccount,
+      type: COMPLETE_LOGIN,
+    });
+  };
+
   clickHandler = event => {
-    let content;
-    const {
-      eosInit,
-      chooseModalContentDispatch,
-      buttonAction,
-      complete,
-      selectPopupAccountDispatch,
-    } = this.props;
+    const { eosInit, buttonAction, chooseModalContentDispatch } = this.props;
 
-    const {
-      selectedScatterAccount,
-      userIsInSystem,
-      scatterInstalled,
-      scatterInstance,
-    } = eosInit;
+    const { selectedScatterAccount, userIsInSystem } = eosInit;
 
-    if (!scatterInstalled) {
-      content = [ScatterInstaller, null, this.reloadApp];
-    } else if (
-      !selectedScatterAccount &&
-      !userIsInSystem &&
-      !scatterInstance.identity
-    ) {
-      if (event) selectPopupAccountDispatch(this.clickHandler);
-    } else if (!userIsInSystem) {
-      content = [SignUp, null, null];
-    } else if (typeof buttonAction === 'function') {
-      buttonAction();
-    }
-
-    // If user is absent in system, but choosed identity in scatter and click "Login" button - you ll see message to sign up in app
-    if (
-      complete === COMPLETE_LOGIN &&
-      eosInit.selectedScatterAccount &&
-      !eosInit.userIsInSystem
-    ) {
-      content = [RequirementToSignUp, null, null];
-    }
-
-    // remember pageY position to scroll auto. after page reload
     if (event && event.pageY) {
       localStorage.setItem('scrollTo', event.pageY - window.screen.height / 2);
     }
 
-    // if content is TRUE -> POPUP window
-    if (content) {
-      chooseModalContentDispatch(
-        React.createElement(content[0], content[1], content[2]),
-      );
+    if (!selectedScatterAccount || !userIsInSystem) {
+      const content = React.createElement(LoginPopup, null, this.selectAccount);
+      chooseModalContentDispatch(content);
+    } else {
+      buttonAction();
     }
   };
 
@@ -104,11 +72,10 @@ export class Button extends React.Component {
 
 Button.propTypes = {
   buttonAction: PropTypes.func.isRequired,
-  complete: PropTypes.string.isRequired,
   buttonClass: PropTypes.string.isRequired,
   buttonContent: PropTypes.string.isRequired,
   chooseModalContentDispatch: PropTypes.func.isRequired,
-  selectPopupAccountDispatch: PropTypes.func.isRequired,
+  selectAccountDispatch: PropTypes.func.isRequired,
   eosInit: PropTypes.object.isRequired,
 };
 
@@ -121,7 +88,7 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     chooseModalContentDispatch: content =>
       dispatch(chooseModalContent(content)),
-    selectPopupAccountDispatch: res => dispatch(selectPopupAccount(res)),
+    selectAccountDispatch: methods => dispatch(selectAccount(methods)),
   };
 }
 

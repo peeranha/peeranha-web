@@ -10,8 +10,8 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  SELECT_POPUP_ACCOUNT_SUCCESS,
-  SELECT_POPUP_ACCOUNT_ERROR,
+  SELECT_ACCOUNT_SUCCESS,
+  SELECT_ACCOUNT_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -35,13 +35,18 @@ function accountInitializerReducer(state = initialState, action) {
         .set('account', acc);
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
-    case SELECT_POPUP_ACCOUNT_SUCCESS:
-      return state.set('account', acc || state.get('account')).set('eosInit', {
+    case SELECT_ACCOUNT_SUCCESS:
+      return state.set('account', acc).set('eosInit', {
         ...state.get('eosInit'),
-        userIsInSystem: eosInit.userIsInSystem,
-        selectedScatterAccount: eosInit.selectedScatterAccount,
+        userIsInSystem:
+          eosInit.userIsInSystem || state.get('eosInit').userIsInSystem,
+        selectedScatterAccount:
+          eosInit.selectedScatterAccount ||
+          state.get('eosInit').selectedScatterAccount,
+        scatterInstalled:
+          eosInit.scatterInstalled || state.get('eosInit').scatterInstalled,
       });
-    case SELECT_POPUP_ACCOUNT_ERROR:
+    case SELECT_ACCOUNT_ERROR:
       return state.set('selectAccountError', selectAccountError);
     default:
       return state;
