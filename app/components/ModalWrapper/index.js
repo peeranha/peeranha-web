@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const ModalWrapper = styled.div`
   padding: 40px 20px;
   .border-top-2 {
     border-top: 2px solid rgba(0, 0, 0, 0.2);
@@ -21,6 +21,14 @@ const Wrapper = styled.div`
     display: inline-block;
     background: #000;
   }
+  button > div {
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    > div::before {
+      background: #fff;
+    }
+  }
 `;
 
-export default Wrapper;
+export default ModalWrapper;

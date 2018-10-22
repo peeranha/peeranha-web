@@ -9,12 +9,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { chooseModalContent } from 'containers/Modal/actions';
-import { selectAccount } from 'containers/AccountInitializer/actions';
 import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
-
-import LoginPopup from './LoginPopup';
-import { COMPLETE_LOGIN } from './constants';
+import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Button extends React.Component {
@@ -29,21 +25,8 @@ export class Button extends React.Component {
     }
   };
 
-  reloadApp = () => {
-    localStorage.setItem('reload', true);
-    window.location.reload();
-  };
-
-  selectAccount = () => {
-    this.props.selectAccountDispatch({
-      reloadApp: this.reloadApp,
-      selectAccount: this.selectAccount,
-      type: COMPLETE_LOGIN,
-    });
-  };
-
   clickHandler = event => {
-    const { eosInit, buttonAction, chooseModalContentDispatch } = this.props;
+    const { eosInit, buttonAction, showLoginModalDispatch } = this.props;
 
     const { selectedScatterAccount, userIsInSystem } = eosInit;
 
@@ -52,8 +35,7 @@ export class Button extends React.Component {
     }
 
     if (!selectedScatterAccount || !userIsInSystem) {
-      const content = React.createElement(LoginPopup, null, this.selectAccount);
-      chooseModalContentDispatch(content);
+      showLoginModalDispatch();
     } else {
       buttonAction();
     }
@@ -72,10 +54,9 @@ export class Button extends React.Component {
 
 Button.propTypes = {
   buttonAction: PropTypes.func.isRequired,
+  showLoginModalDispatch: PropTypes.func.isRequired,
   buttonClass: PropTypes.string.isRequired,
   buttonContent: PropTypes.string.isRequired,
-  chooseModalContentDispatch: PropTypes.func.isRequired,
-  selectAccountDispatch: PropTypes.func.isRequired,
   eosInit: PropTypes.object.isRequired,
 };
 
@@ -86,9 +67,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    chooseModalContentDispatch: content =>
-      dispatch(chooseModalContent(content)),
-    selectAccountDispatch: methods => dispatch(selectAccount(methods)),
+    showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
 

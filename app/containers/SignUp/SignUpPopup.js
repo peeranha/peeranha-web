@@ -1,31 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'containers/Button';
-
-import Wrapper from './Wrapper';
-import { COMPLETE_LOGIN } from './constants';
 
 const SignUpPopup = props => (
-  <Wrapper>
+  <div>
     <button
       className="btn btn-secondary w-100 py-3 mb-4"
-      onClick={props.children}
+      onClick={props.continueSignUp}
     >
       Sign up with Scatter
     </button>
     <p className="mx-2 mb-0 pt-2 border-top-2">
       <span>Already have Peerania account?</span>
-      <Button
-        complete={COMPLETE_LOGIN}
-        buttonClass="btn btn-link"
-        buttonContent="Log in"
-      />
+      <button onClick={props.backToOptions} className="btn btn-link">
+        Log in
+      </button>
     </p>
-  </Wrapper>
+  </div>
 );
 
 SignUpPopup.propTypes = {
-  children: PropTypes.func.isRequired,
+  backToOptions: PropTypes.func.isRequired,
+  continueSignUp: PropTypes.func.isRequired,
 };
 
 export default SignUpPopup;

@@ -11,6 +11,10 @@ import {
   SELECT_ACCOUNT,
   SELECT_ACCOUNT_SUCCESS,
   SELECT_ACCOUNT_ERROR,
+  RELOAD_APP,
+  FORGET_IDENTITY,
+  FORGET_IDENTITY_SUCCESS,
+  FORGET_IDENTITY_ERROR,
 } from './constants';
 
 export function getCurrentAccount() {
@@ -59,5 +63,44 @@ export function selectAccError(selectAccountError) {
   return {
     type: SELECT_ACCOUNT_ERROR,
     selectAccountError,
+  };
+}
+
+/*
+ *
+ * selectAccount actions
+ *
+ */
+
+export function forgetIdentity() {
+  return {
+    type: FORGET_IDENTITY,
+  };
+}
+
+export function forgetIdentitySuccess() {
+  return {
+    type: FORGET_IDENTITY_SUCCESS,
+  };
+}
+
+export function forgetIdentityErr(forgetIdentityError) {
+  return {
+    type: FORGET_IDENTITY_ERROR,
+    forgetIdentityError,
+  };
+}
+
+/*
+ *
+ * reload app action
+ *
+ */
+
+export function reloadApp(reload) {
+  localStorage.setItem(reload, true);
+  window.location.reload();
+  return {
+    type: RELOAD_APP,
   };
 }

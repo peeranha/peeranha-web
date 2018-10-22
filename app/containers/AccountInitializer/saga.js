@@ -1,32 +1,33 @@
-import React from 'react';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { COMPLETE_LOGIN } from 'containers/Login/constants';
+import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
+import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
 import { isUserInSystem } from 'utils/accountManagement';
-import { chooseModalContent, closeModalWindow } from 'containers/Modal/actions';
-
-import SignUp from 'containers/SignUp';
-import ScatterInstaller from 'containers/Button/ScatterInstaller';
-import SelectAccount from 'containers/Button/SelectAccount';
-import UserIsAbsentInSystem from 'containers/Button/UserIsAbsentInSystem';
-
-import { COMPLETE_LOGIN, COMPLETE_SIGNUP } from 'containers/Button/constants';
 
 import {
-  GET_CURRENT_ACCOUNT,
-  SELECT_ACCOUNT,
   NO_SCATTER,
   NO_SELECTED_SCATTER_ACCOUNTS,
   USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
   USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
-} from './constants';
+  COMPLETE_SIGNUP,
+} from 'containers/SignUp/constants';
 
 import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
   selectAccountSuccess,
   selectAccError,
+  forgetIdentitySuccess,
+  forgetIdentityErr,
 } from './actions';
+
+import {
+  GET_CURRENT_ACCOUNT,
+  SELECT_ACCOUNT,
+  FORGET_IDENTITY,
+} from './constants';
 
 export function* getCurrentAccountWorker() {
   try {
@@ -58,85 +59,91 @@ export function* getCurrentAccountWorker() {
   }
 }
 
-export function* selectAccountWorker(res) {
-  const eosService = yield select(selectEos);
-  const selectAnotherIdentity = async () => {
-    await eosService.forgetIdentity();
-    await eosService.selectAccount();
-    res.methods.logIn();
-  };
+function* returnComponent(type, message) {
+  switch (type) {
+    case COMPLETE_SIGNUP:
+      yield put(hideLoginModal());
+      yield put(showSignUpModal(message));
+      break;
+    case COMPLETE_LOGIN:
+      yield put(hideSignUpModal());
+      yield put(showLoginModal(message));
+      break;
+    default:
+  }
+}
 
+export function* closeModals() {
+  yield put(hideSignUpModal());
+  yield put(hideLoginModal());
+}
+
+/* eslint-disable-next-line */
+export function* selectAccountWorker(res) {
   try {
     let account;
+    const eosService = yield select(selectEos);
 
-    if (!eosService.scatterInstalled) throw new Error(NO_SCATTER);
+    if (!eosService.scatterInstalled) {
+      return yield returnComponent(res.methods.type, NO_SCATTER);
+    }
 
     if (!eosService.selectedScatterAccount) {
       account = yield call(() => eosService.selectAccount());
-      if (!account) throw new Error(NO_SELECTED_SCATTER_ACCOUNTS);
+      if (!account) {
+        return yield returnComponent(
+          res.methods.type,
+          NO_SELECTED_SCATTER_ACCOUNTS,
+        );
+      }
     }
 
-    yield put(
-      selectAccountSuccess(
-        {
-          selectedScatterAccount: account,
-          scatterInstalled: true,
-        },
-        account,
-      ),
-    );
+    const obj = {
+      selectedScatterAccount: account,
+      scatterInstalled: true,
+    };
+
+    yield put(selectAccountSuccess(obj, account));
 
     const userIsInSystem = yield call(() =>
       isUserInSystem(account, eosService),
     );
 
-    if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN)
-      throw new Error(USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN);
-
-    if (!userIsInSystem && res.methods.type === COMPLETE_SIGNUP)
-      throw new Error(USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP);
-
-    yield put(closeModalWindow());
-    yield put(
-      selectAccountSuccess(
-        {
-          userIsInSystem,
-          selectedScatterAccount: account,
-          scatterInstalled: true,
-        },
-        account,
-      ),
-    );
-  } catch (err) {
-    let content;
-    const methods = { ...res.methods, selectAnotherIdentity };
-
-    switch (err.message) {
-      case NO_SCATTER:
-        content = [ScatterInstaller, null, methods];
-        break;
-      case NO_SELECTED_SCATTER_ACCOUNTS:
-        content = [SelectAccount, null, methods];
-        break;
-      case USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN:
-        content = [UserIsAbsentInSystem, null, methods];
-        break;
-      case USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP:
-        content = [SignUp, null, methods];
-        break;
-      default:
-        content = null;
-        break;
+    if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN) {
+      return yield returnComponent(
+        res.methods.type,
+        USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
+      );
     }
 
-    const elem = React.createElement(content[0], content[1], content[2]);
+    if (!userIsInSystem && res.methods.type === COMPLETE_SIGNUP) {
+      return yield returnComponent(
+        res.methods.type,
+        USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+      );
+    }
 
-    yield put(chooseModalContent(elem));
+    yield closeModals();
+    yield put(selectAccountSuccess({ ...obj, userIsInSystem }, account));
+  } catch (err) {
     yield put(selectAccError(err));
+  }
+}
+
+export function* forgetIdentityWorker() {
+  try {
+    const eosService = yield select(selectEos);
+
+    yield eosService.forgetIdentity();
+    yield selectAccountWorker();
+    yield put(forgetIdentitySuccess());
+  } catch (err) {
+    yield put(forgetIdentityErr(err));
   }
 }
 
 export default function*() {
   yield takeEvery(GET_CURRENT_ACCOUNT, getCurrentAccountWorker);
   yield takeEvery(SELECT_ACCOUNT, selectAccountWorker);
+  yield takeEvery(FORGET_IDENTITY, forgetIdentityWorker);
 }

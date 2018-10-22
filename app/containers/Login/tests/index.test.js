@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { Modal } from '../index';
+// import { Login } from '../index';
 
-describe('<Modal />', () => {
+describe('<Login />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

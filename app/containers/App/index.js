@@ -17,8 +17,9 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import EditProfilePage from 'containers/EditProfilePage/Loadable';
 import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
-import Modal from 'containers/Modal/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import SignUp from 'containers/SignUp';
+import Login from 'containers/Login';
 
 import Header from 'components/Header/Loadable';
 import Footer from 'components/Footer/Loadable';
@@ -36,7 +37,8 @@ export default function App() {
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />
-      <Modal />
+      <SignUp />
+      <Login />
     </div>
   );
 }

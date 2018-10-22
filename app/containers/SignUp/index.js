@@ -12,8 +12,22 @@ import { compose } from 'redux';
 import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import {
+  makeSelectAccount,
+  makeSelectEosInit,
+} from 'containers/AccountInitializer/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+
+import ModalWrapper from 'components/ModalWrapper';
+import ModalComponent from 'containers/ModalComponent';
+import ScatterInstaller from 'components/ScatterInstaller';
+import SelectAccountComponent from 'components/SelectAccount';
+
+import {
+  selectAccount,
+  reloadApp,
+} from 'containers/AccountInitializer/actions';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,17 +35,41 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 
-import * as signUpSelectors from './selectors';
-import { fetchRegisterAcc, setReducerDefault } from './actions';
-import { DISPLAY_NAME } from './constants';
+import {
+  fetchRegisterAcc,
+  setReducerDefault,
+  showSignUpModal,
+  hideSignUpModal,
+} from './actions';
 
-import Wrapper from './Wrapper';
+import {
+  DISPLAY_NAME,
+  SIGN_UP_MODAL_ID,
+  SHOW_DEFAULT_SIGNUP_MODAL,
+  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+  COMPLETE_SIGNUP,
+  NO_SELECTED_SCATTER_ACCOUNTS,
+  NO_SCATTER,
+} from './constants';
+
+import * as signUpSelectors from './selectors';
+
 import SignUpForm from './SignUpForm';
+import SignUpPopup from './SignUpPopup';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentDidUpdate() {
-    const { registered, account } = this.props;
+    const { registered, account, eosInit } = this.props;
+
+    const reload = localStorage.getItem(COMPLETE_SIGNUP);
+    const scrollTo = localStorage.getItem('scrollTo');
+
+    if (reload && eosInit) {
+      this.props.showSignUpModalDispatch();
+      if (scrollTo) window.scrollTo(0, +scrollTo);
+      localStorage.clear();
+    }
 
     if (registered) {
       createdHistory.push(`/users/edit/${account}`);
@@ -49,19 +87,57 @@ export class SignUp extends React.Component {
     });
   };
 
+  continueSignUp = () => {
+    this.props.selectAccountDispatch({
+      reloadApp: this.props.reloadAppDispatch,
+      selectAccount: this.continueSignUp,
+      type: COMPLETE_SIGNUP,
+    });
+  };
+
+  backToOptions = () => {
+    this.props.hideSignUpModalDispatch();
+    this.props.showLoginModalDispatch();
+  };
+
   render() {
-    const { loading, error, account, locale } = this.props;
+    const { loading, error, account, locale, content } = this.props;
 
     return (
-      <Wrapper>
-        <SignUpForm
-          registerUser={this.registerUser}
-          loading={loading}
-          errorMessage={error}
-          account={account}
-          translations={translationMessages[locale]}
-        />
-      </Wrapper>
+      <ModalComponent modalId={SIGN_UP_MODAL_ID}>
+        <ModalWrapper>
+          {content === SHOW_DEFAULT_SIGNUP_MODAL && (
+            <SignUpPopup
+              continueSignUp={this.continueSignUp}
+              backToOptions={this.backToOptions}
+            />
+          )}
+
+          {content === NO_SCATTER && (
+            <ScatterInstaller
+              reloadApp={this.props.reloadAppDispatch}
+              backToOptions={this.backToOptions}
+            />
+          )}
+
+          {content === NO_SELECTED_SCATTER_ACCOUNTS && (
+            <SelectAccountComponent
+              selectAccount={this.continueSignUp}
+              backToOptions={this.backToOptions}
+            />
+          )}
+
+          {content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP && (
+            <SignUpForm
+              registerUser={this.registerUser}
+              loading={loading}
+              errorMessage={error}
+              account={account}
+              translations={translationMessages[locale]}
+            />
+          )}
+        </ModalWrapper>
+      </ModalComponent>
     );
   }
 }
@@ -69,19 +145,28 @@ export class SignUp extends React.Component {
 SignUp.propTypes = {
   registerUserDispatch: PropTypes.func.isRequired,
   setReducerDefaultDispatch: PropTypes.func.isRequired,
+  selectAccountDispatch: PropTypes.func.isRequired,
+  reloadAppDispatch: PropTypes.func.isRequired,
+  showSignUpModalDispatch: PropTypes.func.isRequired,
+  hideSignUpModalDispatch: PropTypes.func.isRequired,
+  showLoginModalDispatch: PropTypes.func.isRequired,
   account: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
+  eosInit: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   registered: PropTypes.bool,
   locale: PropTypes.string,
+  content: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: signUpSelectors.makeSelectLoading(),
   error: signUpSelectors.makeSelectError(),
   registered: signUpSelectors.makeSelectRegistered(),
+  content: signUpSelectors.makeSelectContent(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
+  eosInit: makeSelectEosInit(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -89,6 +174,11 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
     setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
+    selectAccountDispatch: methods => dispatch(selectAccount(methods)),
+    reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_SIGNUP)),
+    showSignUpModalDispatch: () => dispatch(showSignUpModal()),
+    hideSignUpModalDispatch: () => dispatch(hideSignUpModal()),
+    showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
 

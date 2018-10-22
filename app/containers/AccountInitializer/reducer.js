@@ -12,6 +12,7 @@ import {
   GET_CURRENT_ACCOUNT_ERROR,
   SELECT_ACCOUNT_SUCCESS,
   SELECT_ACCOUNT_ERROR,
+  FORGET_IDENTITY_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -20,10 +21,18 @@ export const initialState = fromJS({
   account: null,
   eosInit: {},
   selectAccountError: null,
+  forgetIdentityError: null,
 });
 
 function accountInitializerReducer(state = initialState, action) {
-  const { type, err, acc, eosInit, selectAccountError } = action;
+  const {
+    type,
+    err,
+    acc,
+    eosInit,
+    selectAccountError,
+    forgetIdentityError,
+  } = action;
 
   switch (type) {
     case GET_CURRENT_ACCOUNT:
@@ -48,6 +57,8 @@ function accountInitializerReducer(state = initialState, action) {
       });
     case SELECT_ACCOUNT_ERROR:
       return state.set('selectAccountError', selectAccountError);
+    case FORGET_IDENTITY_ERROR:
+      return state.set('forgetIdentityError', forgetIdentityError);
     default:
       return state;
   }

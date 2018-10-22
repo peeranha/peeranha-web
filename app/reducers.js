@@ -9,7 +9,7 @@ import { reducer as formReducer } from 'redux-form/immutable';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import profileReducer from 'containers/Profile/reducer';
-import modalReducer from 'containers/Modal/reducer';
+import loginReducer from 'containers/Login/reducer';
 import accountInitializerReducer from 'containers/AccountInitializer/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
@@ -50,8 +50,8 @@ export default function createReducer(injectedReducers) {
     route: routeReducer,
     language: languageProviderReducer,
     signup: signUpReducer,
+    login: loginReducer,
     account: accountInitializerReducer,
-    modal: modalReducer,
     editProfileReducer,
     profile: profileReducer,
     form: formReducer,

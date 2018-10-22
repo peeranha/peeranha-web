@@ -29,6 +29,11 @@ const makeSelectAccountError = () =>
     substate.get('selectAccountError'),
   );
 
+const makeSelectForgetIdentityError = () =>
+  createSelector(selectAccountInitializerDomain, substate =>
+    substate.get('forgetIdentityError'),
+  );
+
 export {
   selectAccountInitializerDomain,
   makeSelectAccount,
@@ -36,4 +41,5 @@ export {
   makeSelectError,
   makeSelectEosInit,
   makeSelectAccountError,
+  makeSelectForgetIdentityError,
 };

@@ -10,12 +10,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import createdHistory from 'createdHistory';
 
-import Button from 'containers/Button';
 import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
-import { COMPLETE_LOGIN, COMPLETE_SIGNUP } from 'containers/Button/constants';
+import { showSignUpModal } from 'containers/SignUp/actions';
+import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthorizationGroup extends React.Component {
+  showSignUpModal = () => this.props.showSignUpModalDispatch();
+
+  showLoginModal = () => this.props.showLoginModalDispatch();
+
+  pushToProfile = () =>
+    createdHistory.push(`/users/${this.props.eosInit.selectedScatterAccount}`);
+
   render() {
     const { eosInit } = this.props;
     const logged =
@@ -24,26 +31,27 @@ export class AuthorizationGroup extends React.Component {
     return (
       <div className="auth-button-group">
         {logged && (
-          <Button
-            buttonAction={() =>
-              createdHistory.push(`/users/${eosInit.selectedScatterAccount}`)
-            }
-            buttonClass="btn btn-secondary my-2 my-sm-0"
-            buttonContent="Profile"
-          />
+          <button
+            onClick={this.pushToProfile}
+            className="btn btn-secondary my-2 my-sm-0"
+          >
+            Profile
+          </button>
         )}
 
         {!logged && [
-          <Button
-            complete={COMPLETE_SIGNUP}
-            buttonClass="btn btn-secondary my-2 my-sm-0 mr-2"
-            buttonContent="Sign Up"
-          />,
-          <Button
-            complete={COMPLETE_LOGIN}
-            buttonClass="btn btn-secondary my-2 my-sm-0"
-            buttonContent="Log In"
-          />,
+          <button
+            onClick={this.showSignUpModal}
+            className="btn btn-secondary my-2 my-sm-0 mr-2"
+          >
+            Sign Up
+          </button>,
+          <button
+            onClick={this.showLoginModal}
+            className="btn btn-secondary my-2 my-sm-0"
+          >
+            Log In
+          </button>,
         ]}
       </div>
     );
@@ -52,6 +60,8 @@ export class AuthorizationGroup extends React.Component {
 
 AuthorizationGroup.propTypes = {
   eosInit: PropTypes.object.isRequired,
+  showSignUpModalDispatch: PropTypes.func.isRequired,
+  showLoginModalDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -61,6 +71,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    showSignUpModalDispatch: () => dispatch(showSignUpModal()),
+    showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
 

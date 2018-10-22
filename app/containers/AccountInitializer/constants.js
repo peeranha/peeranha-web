@@ -14,6 +14,8 @@ export const SELECT_ACCOUNT = 'app/SignUp/SELECT_ACCOUNT';
 export const SELECT_ACCOUNT_SUCCESS = 'app/SignUp/SELECT_ACCOUNT_SUCCESS';
 export const SELECT_ACCOUNT_ERROR = 'app/SignUp/SELECT_ACCOUNT_ERROR';
 
+export const RELOAD_APP = 'app/SignUp/RELOAD_APP';
+
 export const NO_SCATTER = 'app/SignUp/NO_SCATTER';
 export const NO_SELECTED_SCATTER_ACCOUNTS =
   'app/containers/Button/NO_SELECTED_SCATTER_ACCOUNTS';
@@ -21,3 +23,9 @@ export const USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN =
   'app/containers/Button/USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN';
 export const USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP =
   'app/containers/Button/USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP';
+
+export const FORGET_IDENTITY = 'app/containers/Button/FORGET_IDENTITY';
+export const FORGET_IDENTITY_SUCCESS =
+  'app/containers/Button/FORGET_IDENTITY_SUCCESS';
+export const FORGET_IDENTITY_ERROR =
+  'app/containers/Button/FORGET_IDENTITY_ERROR';
