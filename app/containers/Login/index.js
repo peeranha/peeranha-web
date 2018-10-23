@@ -12,11 +12,10 @@ import { compose } from 'redux';
 
 import injectReducer from 'utils/injectReducer';
 
-import ModalWrapper from 'components/ModalWrapper';
 import UserIsAbsentInSystem from 'components/UserIsAbsentInSystem';
 import SelectAccountComponent from 'components/SelectAccount';
 import ScatterInstaller from 'components/ScatterInstaller';
-import ModalComponent from 'containers/ModalComponent';
+import ModalDialog from 'containers/ModalDialog';
 
 import {
   NO_SCATTER,
@@ -26,12 +25,12 @@ import {
 
 import {
   reloadApp,
-  selectAccount,
+  loginSignup,
   forgetIdentity,
 } from 'containers/AccountInitializer/actions';
 
 import { showSignUpModal } from 'containers/SignUp/actions';
-import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
+import { makeSelectUserIsInSystem } from 'containers/AccountInitializer/selectors';
 
 import LoginPopup from './LoginPopup';
 
@@ -48,11 +47,11 @@ import reducer from './reducer';
 /* eslint-disable react/prefer-stateless-function */
 export class Login extends React.Component {
   componentDidUpdate() {
-    const { eosInit, showLoginModalDispatch } = this.props;
+    const { userIsInSystem, showLoginModalDispatch } = this.props;
     const reload = localStorage.getItem(COMPLETE_LOGIN);
     const scrollTo = localStorage.getItem('scrollTo');
 
-    if (reload && eosInit) {
+    if (reload && userIsInSystem !== null) {
       showLoginModalDispatch();
       if (scrollTo) window.scrollTo(0, +scrollTo);
       localStorage.clear();
@@ -60,14 +59,14 @@ export class Login extends React.Component {
   }
 
   continueLogin = () => {
-    this.props.selectAccountDispatch({
-      reloadApp: this.props.reloadAppDispatch,
-      selectAccount: this.continueLogin,
-      type: COMPLETE_LOGIN,
-    });
+    this.props.loginSignupDispatch({ type: COMPLETE_LOGIN });
   };
 
   backToOptions = () => {
+    this.props.showLoginModalDispatch(SHOW_DEFAULT_LOGIN_MODAL);
+  };
+
+  openSignUpWindow = () => {
     this.props.hideLoginModalDispatch();
     this.props.showSignUpModalDispatch();
   };
@@ -76,12 +75,12 @@ export class Login extends React.Component {
     const { content, forgetIdentityDispatch, reloadAppDispatch } = this.props;
 
     return (
-      <ModalComponent modalId={LOGIN_MODAL_ID}>
-        <ModalWrapper>
+      <ModalDialog modalId={LOGIN_MODAL_ID}>
+        <div>
           {content === SHOW_DEFAULT_LOGIN_MODAL && (
             <LoginPopup
               continueLogin={this.continueLogin}
-              backToOptions={this.backToOptions}
+              backToOptions={this.openSignUpWindow}
             />
           )}
 
@@ -102,36 +101,36 @@ export class Login extends React.Component {
           {content === USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN && (
             <UserIsAbsentInSystem
               selectAnotherIdentity={forgetIdentityDispatch}
-              backToOptions={this.backToOptions}
+              backToOptions={this.openSignUpWindow}
             />
           )}
-        </ModalWrapper>
-      </ModalComponent>
+        </div>
+      </ModalDialog>
     );
   }
 }
 
 Login.propTypes = {
-  eosInit: PropTypes.object.isRequired,
+  userIsInSystem: PropTypes.bool.isRequired,
   content: PropTypes.string.isRequired,
   reloadAppDispatch: PropTypes.func.isRequired,
-  selectAccountDispatch: PropTypes.func.isRequired,
   showLoginModalDispatch: PropTypes.func.isRequired,
   showSignUpModalDispatch: PropTypes.func.isRequired,
   hideLoginModalDispatch: PropTypes.func.isRequired,
   forgetIdentityDispatch: PropTypes.func.isRequired,
+  loginSignupDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   content: makeSelectContent(),
-  eosInit: makeSelectEosInit(),
+  userIsInSystem: makeSelectUserIsInSystem(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_LOGIN)),
-    selectAccountDispatch: methods => dispatch(selectAccount(methods)),
+    loginSignupDispatch: methods => dispatch(loginSignup(methods)),
     showLoginModalDispatch: () => dispatch(showLoginModal()),
     showSignUpModalDispatch: () => dispatch(showSignUpModal()),
     hideLoginModalDispatch: () => dispatch(hideLoginModal()),

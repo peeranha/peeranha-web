@@ -10,8 +10,8 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  SELECT_ACCOUNT_SUCCESS,
-  SELECT_ACCOUNT_ERROR,
+  LOGIN_SIGNUP_SUCCESS,
+  LOGIN_SIGNUP_ERROR,
   FORGET_IDENTITY_ERROR,
 } from './constants';
 
@@ -19,8 +19,8 @@ export const initialState = fromJS({
   loading: false,
   error: null,
   account: null,
-  eosInit: {},
-  selectAccountError: null,
+  userIsInSystem: null,
+  loginSignupError: null,
   forgetIdentityError: null,
 });
 
@@ -29,8 +29,8 @@ function accountInitializerReducer(state = initialState, action) {
     type,
     err,
     acc,
-    eosInit,
-    selectAccountError,
+    userIsInSystem,
+    loginSignupError,
     forgetIdentityError,
   } = action;
 
@@ -40,23 +40,14 @@ function accountInitializerReducer(state = initialState, action) {
     case GET_CURRENT_ACCOUNT_SUCCESS:
       return state
         .set('loading', false)
-        .set('eosInit', eosInit)
+        .set('userIsInSystem', userIsInSystem)
         .set('account', acc);
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
-    case SELECT_ACCOUNT_SUCCESS:
-      return state.set('account', acc).set('eosInit', {
-        ...state.get('eosInit'),
-        userIsInSystem:
-          eosInit.userIsInSystem || state.get('eosInit').userIsInSystem,
-        selectedScatterAccount:
-          eosInit.selectedScatterAccount ||
-          state.get('eosInit').selectedScatterAccount,
-        scatterInstalled:
-          eosInit.scatterInstalled || state.get('eosInit').scatterInstalled,
-      });
-    case SELECT_ACCOUNT_ERROR:
-      return state.set('selectAccountError', selectAccountError);
+    case LOGIN_SIGNUP_SUCCESS:
+      return state.set('account', acc).set('userIsInSystem', userIsInSystem);
+    case LOGIN_SIGNUP_ERROR:
+      return state.set('loginSignupError', loginSignupError);
     case FORGET_IDENTITY_ERROR:
       return state.set('forgetIdentityError', forgetIdentityError);
     default:

@@ -19,9 +19,9 @@ const makeSelectError = () =>
     substate.get('error'),
   );
 
-const makeSelectEosInit = () =>
+const makeSelectUserIsInSystem = () =>
   createSelector(selectAccountInitializerDomain, substate =>
-    substate.get('eosInit'),
+    substate.get('userIsInSystem'),
   );
 
 const makeSelectAccountError = () =>
@@ -39,7 +39,7 @@ export {
   makeSelectAccount,
   makeSelectLoading,
   makeSelectError,
-  makeSelectEosInit,
+  makeSelectUserIsInSystem,
   makeSelectAccountError,
   makeSelectForgetIdentityError,
 };

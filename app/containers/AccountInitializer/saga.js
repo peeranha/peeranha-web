@@ -17,15 +17,15 @@ import {
 import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
-  selectAccountSuccess,
-  selectAccError,
+  loginSignupSuccess,
+  loginSignupErr,
   forgetIdentitySuccess,
   forgetIdentityErr,
 } from './actions';
 
 import {
   GET_CURRENT_ACCOUNT,
-  SELECT_ACCOUNT,
+  LOGIN_SIGNUP,
   FORGET_IDENTITY,
 } from './constants';
 
@@ -44,22 +44,13 @@ export function* getCurrentAccountWorker() {
       isUserInSystem(selectedScatterAccount, eosService),
     );
 
-    const eosInit = {
-      userIsInSystem,
-      selectedScatterAccount,
-      initialized: eosService.initialized,
-      eosInstance: eosService.eosInstance,
-      scatterInstance: eosService.scatterInstance,
-      scatterInstalled: eosService.scatterInstalled,
-    };
-
-    yield put(getCurrentAccountSuccess(selectedScatterAccount, eosInit));
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, userIsInSystem));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
 }
 
-function* returnComponent(type, message) {
+function* setLoginSignupModalState(type, message) {
   switch (type) {
     case COMPLETE_SIGNUP:
       yield put(hideLoginModal());
@@ -78,55 +69,53 @@ export function* closeModals() {
   yield put(hideLoginModal());
 }
 
-/* eslint-disable-next-line */
-export function* selectAccountWorker(res) {
+export function* loginSignupWorker(res) {
   try {
     let account;
     const eosService = yield select(selectEos);
 
     if (!eosService.scatterInstalled) {
-      return yield returnComponent(res.methods.type, NO_SCATTER);
+      yield setLoginSignupModalState(res.methods.type, NO_SCATTER);
+      return;
     }
 
     if (!eosService.selectedScatterAccount) {
       account = yield call(() => eosService.selectAccount());
       if (!account) {
-        return yield returnComponent(
+        yield setLoginSignupModalState(
           res.methods.type,
           NO_SELECTED_SCATTER_ACCOUNTS,
         );
+        return;
       }
     }
 
-    const obj = {
-      selectedScatterAccount: account,
-      scatterInstalled: true,
-    };
-
-    yield put(selectAccountSuccess(obj, account));
+    yield put(loginSignupSuccess(account));
 
     const userIsInSystem = yield call(() =>
       isUserInSystem(account, eosService),
     );
 
     if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN) {
-      return yield returnComponent(
+      yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
       );
+      return;
     }
 
     if (!userIsInSystem && res.methods.type === COMPLETE_SIGNUP) {
-      return yield returnComponent(
+      yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
       );
+      return;
     }
 
     yield closeModals();
-    yield put(selectAccountSuccess({ ...obj, userIsInSystem }, account));
+    yield put(loginSignupSuccess(account, userIsInSystem));
   } catch (err) {
-    yield put(selectAccError(err));
+    yield put(loginSignupErr(err));
   }
 }
 
@@ -135,7 +124,7 @@ export function* forgetIdentityWorker() {
     const eosService = yield select(selectEos);
 
     yield eosService.forgetIdentity();
-    yield selectAccountWorker();
+    yield loginSignupWorker();
     yield put(forgetIdentitySuccess());
   } catch (err) {
     yield put(forgetIdentityErr(err));
@@ -144,6 +133,6 @@ export function* forgetIdentityWorker() {
 
 export default function*() {
   yield takeEvery(GET_CURRENT_ACCOUNT, getCurrentAccountWorker);
-  yield takeEvery(SELECT_ACCOUNT, selectAccountWorker);
+  yield takeEvery(LOGIN_SIGNUP, loginSignupWorker);
   yield takeEvery(FORGET_IDENTITY, forgetIdentityWorker);
 }

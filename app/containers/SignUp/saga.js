@@ -3,7 +3,7 @@ import { registerAccount } from 'utils/accountManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
-import { selectAccountSuccess } from 'containers/AccountInitializer/actions';
+import { loginSignupSuccess } from 'containers/AccountInitializer/actions';
 import { closeModals } from 'containers/AccountInitializer/saga';
 
 import { FETCH_REGISTER_ACC } from './constants';
@@ -24,13 +24,7 @@ export function* resistrAccWorker(res) {
     );
 
     yield put(registerAccSuccess());
-
-    const eosInit = {
-      userIsInSystem: true,
-      selectedScatterAccount: eosAccount,
-    };
-
-    yield put(selectAccountSuccess(eosInit, eosAccount));
+    yield put(loginSignupSuccess(eosAccount, true));
     yield call(() => closeModals());
   } catch (err) {
     yield put(registerAccError('Such user exists'));

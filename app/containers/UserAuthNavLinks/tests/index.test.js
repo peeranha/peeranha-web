@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { AuthorizationGroup } from '../index';
+// import { UserAuthNavLinks } from '../index';
 
-describe('<AuthorizationGroup />', () => {
+describe('<UserAuthNavLinks />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

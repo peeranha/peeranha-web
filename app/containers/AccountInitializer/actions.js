@@ -8,9 +8,9 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  SELECT_ACCOUNT,
-  SELECT_ACCOUNT_SUCCESS,
-  SELECT_ACCOUNT_ERROR,
+  LOGIN_SIGNUP,
+  LOGIN_SIGNUP_SUCCESS,
+  LOGIN_SIGNUP_ERROR,
   RELOAD_APP,
   FORGET_IDENTITY,
   FORGET_IDENTITY_SUCCESS,
@@ -23,11 +23,11 @@ export function getCurrentAccount() {
   };
 }
 
-export function getCurrentAccountSuccess(acc, eosInit) {
+export function getCurrentAccountSuccess(acc, userIsInSystem) {
   return {
     type: GET_CURRENT_ACCOUNT_SUCCESS,
     acc,
-    eosInit,
+    userIsInSystem,
   };
 }
 
@@ -40,29 +40,29 @@ export function getCurrentAccountError(err) {
 
 /*
  *
- * selectAccount actions
+ * loginSignup actions
  *
  */
 
-export function selectAccount(methods) {
+export function loginSignup(methods) {
   return {
-    type: SELECT_ACCOUNT,
+    type: LOGIN_SIGNUP,
     methods,
   };
 }
 
-export function selectAccountSuccess(eosInit, acc) {
+export function loginSignupSuccess(acc, userIsInSystem) {
   return {
-    type: SELECT_ACCOUNT_SUCCESS,
-    eosInit,
+    type: LOGIN_SIGNUP_SUCCESS,
+    userIsInSystem,
     acc,
   };
 }
 
-export function selectAccError(selectAccountError) {
+export function loginSignupErr(loginSignupError) {
   return {
-    type: SELECT_ACCOUNT_ERROR,
-    selectAccountError,
+    type: LOGIN_SIGNUP_ERROR,
+    loginSignupError,
   };
 }
 

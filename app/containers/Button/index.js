@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeSelectEosInit } from 'containers/AccountInitializer/selectors';
+import { makeSelectUserIsInSystem } from 'containers/AccountInitializer/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -18,7 +18,7 @@ export class Button extends React.Component {
     const reload = localStorage.getItem('reload');
     const scrollTo = localStorage.getItem('scrollTo');
 
-    if (reload && this.props.eosInit) {
+    if (reload && this.props.userIsInSystem !== null) {
       this.clickHandler();
       if (scrollTo) window.scrollTo(0, +scrollTo);
       localStorage.clear();
@@ -26,15 +26,13 @@ export class Button extends React.Component {
   };
 
   clickHandler = event => {
-    const { eosInit, buttonAction, showLoginModalDispatch } = this.props;
-
-    const { selectedScatterAccount, userIsInSystem } = eosInit;
+    const { userIsInSystem, buttonAction, showLoginModalDispatch } = this.props;
 
     if (event && event.pageY) {
       localStorage.setItem('scrollTo', event.pageY - window.screen.height / 2);
     }
 
-    if (!selectedScatterAccount || !userIsInSystem) {
+    if (!userIsInSystem) {
       showLoginModalDispatch();
     } else {
       buttonAction();
@@ -57,11 +55,11 @@ Button.propTypes = {
   showLoginModalDispatch: PropTypes.func.isRequired,
   buttonClass: PropTypes.string.isRequired,
   buttonContent: PropTypes.string.isRequired,
-  eosInit: PropTypes.object.isRequired,
+  userIsInSystem: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  eosInit: makeSelectEosInit(),
+  userIsInSystem: makeSelectUserIsInSystem(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -7,7 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import AuthorizationGroup from 'containers/AuthorizationGroup';
+import UserAuthNavLinks from 'containers/UserAuthNavLinks';
 
 import messages from './messages';
 import Wrapper from './Wrapper';
@@ -68,7 +68,7 @@ const Header = () => (
           </button>
         </form>
 
-        <AuthorizationGroup />
+        <UserAuthNavLinks />
       </div>
     </nav>
   </Wrapper>
