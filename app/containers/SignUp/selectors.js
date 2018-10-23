@@ -19,10 +19,14 @@ const makeSelectRegistered = () =>
 const makeSelectContent = () =>
   createSelector(selectSignUpDomain, substate => substate.get('content'));
 
+const makeSelectShowModal = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('showModal'));
+
 export {
   selectSignUpDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectRegistered,
   makeSelectContent,
+  makeSelectShowModal,
 };

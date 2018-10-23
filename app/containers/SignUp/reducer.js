@@ -12,6 +12,7 @@ import {
   REGISTER_ACC_ERROR,
   SET_REDUCER_DEFAULT,
   SHOW_SIGN_UP_MODAL,
+  HIDE_SIGN_UP_MODAL,
 } from './constants';
 
 export const initialState = fromJS({
@@ -19,6 +20,7 @@ export const initialState = fromJS({
   error: null,
   registered: false,
   content: null,
+  showModal: 'hide',
 });
 
 function signUpReducer(state = initialState, action) {
@@ -32,7 +34,9 @@ function signUpReducer(state = initialState, action) {
     case REGISTER_ACC_ERROR:
       return state.set('error', error).set('loading', false);
     case SHOW_SIGN_UP_MODAL:
-      return state.set('content', content);
+      return state.set('content', content).set('showModal', 'show');
+    case HIDE_SIGN_UP_MODAL:
+      return state.set('showModal', 'hide');
     case SET_REDUCER_DEFAULT:
       return initialState;
     default:

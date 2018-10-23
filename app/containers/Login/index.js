@@ -41,7 +41,7 @@ import {
 } from './constants';
 
 import { showLoginModal, hideLoginModal } from './actions';
-import { makeSelectContent } from './selectors';
+import { makeSelectContent, makeSelectShowModal } from './selectors';
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -72,10 +72,20 @@ export class Login extends React.Component {
   };
 
   render() {
-    const { content, forgetIdentityDispatch, reloadAppDispatch } = this.props;
+    const {
+      content,
+      forgetIdentityDispatch,
+      reloadAppDispatch,
+      showModal,
+      hideLoginModalDispatch,
+    } = this.props;
 
     return (
-      <ModalDialog modalId={LOGIN_MODAL_ID}>
+      <ModalDialog
+        modalId={LOGIN_MODAL_ID}
+        show={showModal}
+        closeModal={hideLoginModalDispatch}
+      >
         <div>
           {content === SHOW_DEFAULT_LOGIN_MODAL && (
             <LoginPopup
@@ -113,6 +123,7 @@ export class Login extends React.Component {
 Login.propTypes = {
   userIsInSystem: PropTypes.bool.isRequired,
   content: PropTypes.string.isRequired,
+  showModal: PropTypes.string.isRequired,
   reloadAppDispatch: PropTypes.func.isRequired,
   showLoginModalDispatch: PropTypes.func.isRequired,
   showSignUpModalDispatch: PropTypes.func.isRequired,
@@ -123,6 +134,7 @@ Login.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   content: makeSelectContent(),
+  showModal: makeSelectShowModal(),
   userIsInSystem: makeSelectUserIsInSystem(),
 });
 

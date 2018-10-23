@@ -97,10 +97,22 @@ export class SignUp extends React.Component {
   };
 
   render() {
-    const { loading, error, account, locale, content } = this.props;
+    const {
+      loading,
+      error,
+      account,
+      locale,
+      content,
+      showModal,
+      hideSignUpModalDispatch,
+    } = this.props;
 
     return (
-      <ModalDialog modalId={SIGN_UP_MODAL_ID}>
+      <ModalDialog
+        modalId={SIGN_UP_MODAL_ID}
+        show={showModal}
+        closeModal={hideSignUpModalDispatch}
+      >
         <div>
           {content === SHOW_DEFAULT_SIGNUP_MODAL && (
             <SignUpPopup
@@ -153,6 +165,7 @@ SignUp.propTypes = {
   registered: PropTypes.bool,
   locale: PropTypes.string,
   content: PropTypes.string,
+  showModal: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -160,6 +173,7 @@ const mapStateToProps = createStructuredSelector({
   error: signUpSelectors.makeSelectError(),
   registered: signUpSelectors.makeSelectRegistered(),
   content: signUpSelectors.makeSelectContent(),
+  showModal: signUpSelectors.makeSelectShowModal(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
   userIsInSystem: makeSelectUserIsInSystem(),

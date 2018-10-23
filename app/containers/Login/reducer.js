@@ -5,10 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { SHOW_LOGIN_MODAL } from './constants';
+import { SHOW_LOGIN_MODAL, HIDE_LOGIN_MODAL } from './constants';
 
 export const initialState = fromJS({
   content: null,
+  showModal: 'hide',
 });
 
 function loginReducer(state = initialState, action) {
@@ -16,7 +17,9 @@ function loginReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state.set('content', content);
+      return state.set('showModal', 'show').set('content', content);
+    case HIDE_LOGIN_MODAL:
+      return state.set('showModal', 'hide');
     default:
       return state;
   }

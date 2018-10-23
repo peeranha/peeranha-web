@@ -6,4 +6,7 @@ const selectLoginDomain = state => state.get('login', initialState);
 const makeSelectContent = () =>
   createSelector(selectLoginDomain, substate => substate.get('content'));
 
-export { makeSelectContent };
+const makeSelectShowModal = () =>
+  createSelector(selectLoginDomain, substate => substate.get('showModal'));
+
+export { makeSelectContent, makeSelectShowModal };

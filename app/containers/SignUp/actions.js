@@ -10,7 +10,6 @@ import {
   REGISTER_ACC_ERROR,
   SET_REDUCER_DEFAULT,
   SHOW_SIGN_UP_MODAL,
-  SIGN_UP_MODAL_ID,
   SHOW_DEFAULT_SIGNUP_MODAL,
   HIDE_SIGN_UP_MODAL,
 } from './constants';
@@ -54,7 +53,6 @@ export function setReducerDefault() {
  */
 
 export function showSignUpModal(content) {
-  window.$(`#${SIGN_UP_MODAL_ID}`).modal('show');
   return {
     type: SHOW_SIGN_UP_MODAL,
     content: content || SHOW_DEFAULT_SIGNUP_MODAL,
@@ -62,7 +60,6 @@ export function showSignUpModal(content) {
 }
 
 export function hideSignUpModal() {
-  window.$(`#${SIGN_UP_MODAL_ID}`).modal('hide');
   return {
     type: HIDE_SIGN_UP_MODAL,
   };
