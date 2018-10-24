@@ -42,6 +42,7 @@ import {
   DISPLAY_NAME,
   SHOW_DEFAULT_SIGNUP_MODAL,
   USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+  USER_IS_IN_SYSTEM_AND_SIGNUP,
   COMPLETE_SIGNUP,
   NO_SELECTED_SCATTER_ACCOUNTS,
   NO_SCATTER,
@@ -50,6 +51,7 @@ import {
 import * as signUpSelectors from './selectors';
 
 import SignUpForm from './SignUpForm';
+import IdentityIsRegistred from './IdentityIsRegistred';
 import SignUpOptions from './SignUpOptions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -137,6 +139,14 @@ export class SignUp extends React.Component {
               errorMessage={error}
               account={account}
               translations={translationMessages[locale]}
+            />
+          )}
+
+          {content === USER_IS_IN_SYSTEM_AND_SIGNUP && (
+            <IdentityIsRegistred
+              account={account}
+              continueLogin={this.openLoginWindow}
+              backToOptions={this.backToOptions}
             />
           )}
         </div>

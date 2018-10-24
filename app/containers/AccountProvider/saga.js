@@ -11,6 +11,7 @@ import {
   NO_SELECTED_SCATTER_ACCOUNTS,
   USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
   USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+  USER_IS_IN_SYSTEM_AND_SIGNUP,
   COMPLETE_SIGNUP,
 } from 'containers/SignUp/constants';
 
@@ -108,6 +109,14 @@ export function* loginSignupWorker(res) {
       yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+      );
+      return;
+    }
+
+    if (userIsInSystem && res.methods.type === COMPLETE_SIGNUP) {
+      yield setLoginSignupModalState(
+        res.methods.type,
+        USER_IS_IN_SYSTEM_AND_SIGNUP,
       );
       return;
     }

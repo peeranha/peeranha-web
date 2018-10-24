@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
   padding: 40px 20px;
+  .border-bottom-2 {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  }
   .border-top-2 {
     border-top: 2px solid rgba(0, 0, 0, 0.2);
   }
@@ -16,10 +19,10 @@ const ModalWrapper = styled.div`
   .border-or-top-2::after {
     content: '';
     width: 40%;
-    height: 1px;
+    height: 2px;
     margin: 3px 10px;
     display: inline-block;
-    background: #000;
+    background: rgba(0, 0, 0, 0.2);
   }
   button > div {
     margin: 0 auto;
