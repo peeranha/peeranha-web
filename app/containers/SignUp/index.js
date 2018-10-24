@@ -15,7 +15,7 @@ import createdHistory from 'createdHistory';
 import {
   makeSelectAccount,
   makeSelectUserIsInSystem,
-} from 'containers/AccountInitializer/selectors';
+} from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
@@ -23,7 +23,7 @@ import ModalDialog from 'containers/ModalDialog';
 import ScatterInstaller from 'components/ScatterInstaller';
 import SelectAccountComponent from 'components/SelectAccount';
 
-import { loginSignup, reloadApp } from 'containers/AccountInitializer/actions';
+import { loginSignup, reloadApp } from 'containers/AccountProvider/actions';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -40,7 +40,6 @@ import {
 
 import {
   DISPLAY_NAME,
-  SIGN_UP_MODAL_ID,
   SHOW_DEFAULT_SIGNUP_MODAL,
   USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
   COMPLETE_SIGNUP,
@@ -51,7 +50,7 @@ import {
 import * as signUpSelectors from './selectors';
 
 import SignUpForm from './SignUpForm';
-import SignUpPopup from './SignUpPopup';
+import SignUpOptions from './SignUpOptions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
@@ -108,14 +107,10 @@ export class SignUp extends React.Component {
     } = this.props;
 
     return (
-      <ModalDialog
-        modalId={SIGN_UP_MODAL_ID}
-        show={showModal}
-        closeModal={hideSignUpModalDispatch}
-      >
+      <ModalDialog show={showModal} closeModal={hideSignUpModalDispatch}>
         <div>
           {content === SHOW_DEFAULT_SIGNUP_MODAL && (
-            <SignUpPopup
+            <SignUpOptions
               continueSignUp={this.continueSignUp}
               backToOptions={this.openLoginWindow}
             />

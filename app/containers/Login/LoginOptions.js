@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LoginPopup = props => (
+const LoginOptions = props => (
   <div>
     <button
       className="btn btn-secondary w-100 py-3 mb-4"
@@ -18,9 +18,9 @@ const LoginPopup = props => (
   </div>
 );
 
-LoginPopup.propTypes = {
+LoginOptions.propTypes = {
   continueLogin: PropTypes.func.isRequired,
   backToOptions: PropTypes.func.isRequired,
 };
 
-export default LoginPopup;
+export default LoginOptions;

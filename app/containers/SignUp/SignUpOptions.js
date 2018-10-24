@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SignUpPopup = props => (
+const SignUpOptions = props => (
   <div>
     <button
       className="btn btn-secondary w-100 py-3 mb-4"
@@ -18,9 +18,9 @@ const SignUpPopup = props => (
   </div>
 );
 
-SignUpPopup.propTypes = {
+SignUpOptions.propTypes = {
   backToOptions: PropTypes.func.isRequired,
   continueSignUp: PropTypes.func.isRequired,
 };
 
-export default SignUpPopup;
+export default SignUpOptions;

@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for AccountInitializer
+ * Asynchronously loads the component for UserProfileNav
  *
  */
 

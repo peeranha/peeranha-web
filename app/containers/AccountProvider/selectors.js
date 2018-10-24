@@ -1,41 +1,41 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectAccountInitializerDomain = state =>
-  state.get('accountInitializer', initialState);
+const selectAccountProviderDomain = state =>
+  state.get('accountProvider', initialState);
 
 const makeSelectAccount = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('account'),
   );
 
 const makeSelectLoading = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('loading'),
   );
 
 const makeSelectError = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('error'),
   );
 
 const makeSelectUserIsInSystem = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('userIsInSystem'),
   );
 
 const makeSelectAccountError = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('selectAccountError'),
   );
 
 const makeSelectForgetIdentityError = () =>
-  createSelector(selectAccountInitializerDomain, substate =>
+  createSelector(selectAccountProviderDomain, substate =>
     substate.get('forgetIdentityError'),
   );
 
 export {
-  selectAccountInitializerDomain,
+  selectAccountProviderDomain,
   makeSelectAccount,
   makeSelectLoading,
   makeSelectError,

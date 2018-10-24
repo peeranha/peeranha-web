@@ -25,7 +25,7 @@ import 'sanitize.css/sanitize.css';
 import App from 'containers/App';
 
 // Import Language Provider
-import AccountInitializer from 'containers/AccountInitializer';
+import AccountProvider from 'containers/AccountProvider';
 import EosioProvider from 'containers/EosioProvider';
 import LanguageProvider from 'containers/LanguageProvider';
 
@@ -55,13 +55,13 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <EosioProvider>
-        <AccountInitializer>
+        <AccountProvider>
           <LanguageProvider messages={messages}>
             <ConnectedRouter history={createdHistory}>
               <App />
             </ConnectedRouter>
           </LanguageProvider>
-        </AccountInitializer>
+        </AccountProvider>
       </EosioProvider>
     </Provider>,
     MOUNT_NODE,

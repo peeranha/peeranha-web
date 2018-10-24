@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import { getProfileInfo, setDefaultProps } from './actions';
 

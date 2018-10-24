@@ -14,7 +14,7 @@ import { translationMessages } from 'i18n';
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
   DISPLAY_NAME_FIELD,

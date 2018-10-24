@@ -1,6 +1,6 @@
 /**
  *
- * AccountInitializer
+ * AccountProvider
  *
  */
 
@@ -18,7 +18,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
-export class AccountInitializer extends React.Component {
+export class AccountProvider extends React.Component {
   componentDidMount = async () => {
     this.props.getCurrentAccountDispatch();
   };
@@ -28,7 +28,7 @@ export class AccountInitializer extends React.Component {
   }
 }
 
-AccountInitializer.propTypes = {
+AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
 };
@@ -47,11 +47,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'accountInitializer', reducer });
-const withSaga = injectSaga({ key: 'accountInitializer', saga });
+const withReducer = injectReducer({ key: 'accountProvider', reducer });
+const withSaga = injectSaga({ key: 'accountProvider', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AccountInitializer);
+)(AccountProvider);

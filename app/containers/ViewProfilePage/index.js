@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
 

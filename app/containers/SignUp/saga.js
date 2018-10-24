@@ -3,8 +3,8 @@ import { registerAccount } from 'utils/accountManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
-import { loginSignupSuccess } from 'containers/AccountInitializer/actions';
-import { closeModals } from 'containers/AccountInitializer/saga';
+import { loginSignupSuccess } from 'containers/AccountProvider/actions';
+import { closeModals } from 'containers/AccountProvider/saga';
 
 import { FETCH_REGISTER_ACC } from './constants';
 import { registerAccSuccess, registerAccError } from './actions';

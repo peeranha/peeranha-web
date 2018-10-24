@@ -27,18 +27,14 @@ import {
   reloadApp,
   loginSignup,
   forgetIdentity,
-} from 'containers/AccountInitializer/actions';
+} from 'containers/AccountProvider/actions';
 
 import { showSignUpModal } from 'containers/SignUp/actions';
-import { makeSelectUserIsInSystem } from 'containers/AccountInitializer/selectors';
+import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
 
-import LoginPopup from './LoginPopup';
+import LoginOptions from './LoginOptions';
 
-import {
-  LOGIN_MODAL_ID,
-  SHOW_DEFAULT_LOGIN_MODAL,
-  COMPLETE_LOGIN,
-} from './constants';
+import { SHOW_DEFAULT_LOGIN_MODAL, COMPLETE_LOGIN } from './constants';
 
 import { showLoginModal, hideLoginModal } from './actions';
 import { makeSelectContent, makeSelectShowModal } from './selectors';
@@ -81,14 +77,10 @@ export class Login extends React.Component {
     } = this.props;
 
     return (
-      <ModalDialog
-        modalId={LOGIN_MODAL_ID}
-        show={showModal}
-        closeModal={hideLoginModalDispatch}
-      >
+      <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
         <div>
           {content === SHOW_DEFAULT_LOGIN_MODAL && (
-            <LoginPopup
+            <LoginOptions
               continueLogin={this.continueLogin}
               backToOptions={this.openSignUpWindow}
             />

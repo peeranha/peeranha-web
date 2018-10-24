@@ -1,14 +1,14 @@
 /*
  *
- * AccountInitializer constants
+ * AccountProvider constants
  *
  */
 
-export const GET_CURRENT_ACCOUNT = 'app/AccountInitializer/GET_CURRENT_ACCOUNT';
+export const GET_CURRENT_ACCOUNT = 'app/AccountProvider/GET_CURRENT_ACCOUNT';
 export const GET_CURRENT_ACCOUNT_SUCCESS =
-  'app/AccountInitializer/GET_CURRENT_ACCOUNT_SUCCESS';
+  'app/AccountProvider/GET_CURRENT_ACCOUNT_SUCCESS';
 export const GET_CURRENT_ACCOUNT_ERROR =
-  'app/AccountInitializer/GET_CURRENT_ACCOUNT_ERROR';
+  'app/AccountProvider/GET_CURRENT_ACCOUNT_ERROR';
 
 export const LOGIN_SIGNUP = 'app/SignUp/LOGIN_SIGNUP';
 export const LOGIN_SIGNUP_SUCCESS = 'app/SignUp/LOGIN_SIGNUP_SUCCESS';

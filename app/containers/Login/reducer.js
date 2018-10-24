@@ -9,7 +9,7 @@ import { SHOW_LOGIN_MODAL, HIDE_LOGIN_MODAL } from './constants';
 
 export const initialState = fromJS({
   content: null,
-  showModal: 'hide',
+  showModal: false,
 });
 
 function loginReducer(state = initialState, action) {
@@ -17,9 +17,9 @@ function loginReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state.set('showModal', 'show').set('content', content);
+      return state.set('showModal', true).set('content', content);
     case HIDE_LOGIN_MODAL:
-      return state.set('showModal', 'hide');
+      return state.set('showModal', false);
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 /*
  *
- * AccountInitializer reducer
+ * AccountProvider reducer
  *
  */
 
@@ -24,7 +24,7 @@ export const initialState = fromJS({
   forgetIdentityError: null,
 });
 
-function accountInitializerReducer(state = initialState, action) {
+function accountProviderReducer(state = initialState, action) {
   const {
     type,
     err,
@@ -55,4 +55,4 @@ function accountInitializerReducer(state = initialState, action) {
   }
 }
 
-export default accountInitializerReducer;
+export default accountProviderReducer;

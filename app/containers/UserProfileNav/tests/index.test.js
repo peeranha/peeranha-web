@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { AuthenticatedButton } from '../index';
+// import { UserProfileNav } from '../index';
 
-describe('<AuthenticatedButton />', () => {
+describe('<UserProfileNav />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -20,7 +20,7 @@ export const initialState = fromJS({
   error: null,
   registered: false,
   content: null,
-  showModal: 'hide',
+  showModal: false,
 });
 
 function signUpReducer(state = initialState, action) {
@@ -34,9 +34,9 @@ function signUpReducer(state = initialState, action) {
     case REGISTER_ACC_ERROR:
       return state.set('error', error).set('loading', false);
     case SHOW_SIGN_UP_MODAL:
-      return state.set('content', content).set('showModal', 'show');
+      return state.set('content', content).set('showModal', true);
     case HIDE_SIGN_UP_MODAL:
-      return state.set('showModal', 'hide');
+      return state.set('showModal', false);
     case SET_REDUCER_DEFAULT:
       return initialState;
     default:

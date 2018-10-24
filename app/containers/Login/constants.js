@@ -5,7 +5,6 @@
  */
 
 export const COMPLETE_LOGIN = 'COMPLETE_LOGIN';
-export const LOGIN_MODAL_ID = 'LOGIN_MODAL_ID';
 export const SHOW_DEFAULT_LOGIN_MODAL = 'SHOW_DEFAULT_LOGIN_MODAL';
 
 export const SHOW_LOGIN_MODAL = 'app/containers/Login/SHOW_LOGIN_MODAL';

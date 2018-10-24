@@ -12,23 +12,25 @@ import ModalWrapper from './ModalWrapper';
 /* eslint-disable react/prefer-stateless-function */
 export class ModalDialog extends React.Component {
   componentDidUpdate = () => {
-    const { modalId, show, closeModal } = this.props;
+    const { closeModal } = this.props;
+    const show = this.props.show ? 'show' : 'hide';
 
-    if (modalId && show) {
-      window.$(`#${modalId}`).modal(show);
-    }
-
-    window.$(`#${modalId}`).on('hide.bs.modal', () => {
+    window.$(`#${this.modalId}`).modal(show);
+    window.$(`#${this.modalId}`).on('hide.bs.modal', () => {
       closeModal();
     });
   };
 
   render = () => {
     const dialogPosition = { marginTop: '-25px' };
+    /* eslint no-underscore-dangle: 1 */
+    this.modalId = Object.getPrototypeOf(
+      this._reactInternalFiber.return.stateNode,
+    ).constructor.name;
 
     return (
       <div
-        id={this.props.modalId}
+        id={this.modalId}
         className="modal fade"
         tabIndex="-1"
         role="dialog"
@@ -51,7 +53,6 @@ export class ModalDialog extends React.Component {
 }
 
 ModalDialog.propTypes = {
-  modalId: PropTypes.string.isRequired,
   show: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,

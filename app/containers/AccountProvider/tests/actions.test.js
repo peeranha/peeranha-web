@@ -10,7 +10,7 @@ import {
   GET_CURRENT_ACCOUNT_ERROR,
 } from '../constants';
 
-describe('AccountInitializer actions', () => {
+describe('AccountProvider actions', () => {
   it('has a type of GET_CURRENT_ACCOUNT', () => {
     const expected = {
       type: GET_CURRENT_ACCOUNT,

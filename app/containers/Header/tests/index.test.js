@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { UserAuthNavLinks } from '../index';
+// import { Header } from '../index';
 
-describe('<UserAuthNavLinks />', () => {
+describe('<Header />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
