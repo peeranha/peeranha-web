@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import messages from './messages';
 
 const ScatterInstaller = props => (
   <div>
-    <p>To complete this action in our app you need to install</p>
+    <p>
+      <FormattedMessage {...messages.header} />
+    </p>
     <h4 className="text-center">
       <a
         href="https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle"
@@ -16,13 +21,15 @@ const ScatterInstaller = props => (
       className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
       onClick={props.reloadApp}
     >
-      Next step
+      <FormattedMessage {...messages.nextstep} />
     </button>
     <button
       onClick={props.backToOptions}
       className="btn btn-link w-50 d-block my-1 mx-auto py-2"
     >
-      <small>{'< '} Back to options</small>
+      <small>
+        {'< '} <FormattedMessage {...messages.backToOptions} />
+      </small>
     </button>
   </div>
 );

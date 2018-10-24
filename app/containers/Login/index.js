@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectReducer from 'utils/injectReducer';
 
-import UserIsAbsentInSystem from 'components/UserIsAbsentInSystem';
 import SelectAccountComponent from 'components/SelectAccount';
 import ScatterInstaller from 'components/ScatterInstaller';
 import ModalDialog from 'containers/ModalDialog';
@@ -32,13 +31,13 @@ import {
 import { showSignUpModal } from 'containers/SignUp/actions';
 import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
 
-import LoginOptions from './LoginOptions';
-
 import { SHOW_DEFAULT_LOGIN_MODAL, COMPLETE_LOGIN } from './constants';
-
 import { showLoginModal, hideLoginModal } from './actions';
 import { makeSelectContent, makeSelectShowModal } from './selectors';
 import reducer from './reducer';
+
+import LoginOptions from './LoginOptions';
+import UserIsAbsentInSystem from './UserIsAbsentInSystem';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Login extends React.Component {

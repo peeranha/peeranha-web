@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import messages from './messages';
 
 const SignUpOptions = props => (
   <div>
@@ -7,12 +10,12 @@ const SignUpOptions = props => (
       className="btn btn-secondary w-100 py-3 mb-4"
       onClick={props.continueSignUp}
     >
-      Sign up with Scatter
+      <FormattedMessage {...messages.signUpWith} />
     </button>
     <p className="mx-2 mb-0 pt-2 border-top-2">
-      <span>Already have Peerania account?</span>
+      <FormattedMessage {...messages.alreadyHaveAcc} />
       <button onClick={props.backToOptions} className="btn btn-link">
-        Log in
+        <FormattedMessage {...messages.login} />
       </button>
     </p>
   </div>

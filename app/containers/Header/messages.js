@@ -27,8 +27,12 @@ export default defineMessages({
     id: 'app.components.Header.search',
     defaultMessage: 'Search',
   },
-  signIn: {
-    id: 'app.components.Header.signIn',
-    defaultMessage: 'Sign In',
+  signUp: {
+    id: 'app.components.Header.signUp',
+    defaultMessage: 'Sign Up',
+  },
+  login: {
+    id: 'app.components.Header.login',
+    defaultMessage: 'Log in',
   },
 });

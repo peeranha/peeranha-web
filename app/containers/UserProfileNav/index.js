@@ -10,8 +10,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import createdHistory from 'createdHistory';
 import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserProfileNav extends React.Component {
@@ -23,7 +26,7 @@ export class UserProfileNav extends React.Component {
         onClick={this.pushToProfile}
         className="btn btn-secondary my-2 my-sm-0"
       >
-        Profile
+        <FormattedMessage {...messages.profile} />
       </button>
     );
   }

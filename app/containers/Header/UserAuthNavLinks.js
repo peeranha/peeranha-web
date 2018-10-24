@@ -6,6 +6,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 const UserAuthNavLinks = props => (
@@ -15,14 +18,14 @@ const UserAuthNavLinks = props => (
       onClick={props.showSignUpModal}
       className="btn btn-secondary my-2 my-sm-0 mr-2"
     >
-      Sign Up
+      <FormattedMessage {...messages.signUp} />
     </button>
     <button
       key="login"
       onClick={props.showLoginModal}
       className="btn btn-secondary my-2 my-sm-0"
     >
-      Log In
+      <FormattedMessage {...messages.login} />
     </button>
   </div>
 );
