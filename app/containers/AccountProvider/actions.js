@@ -68,7 +68,7 @@ export function loginSignupErr(loginSignupError) {
 
 /*
  *
- * selectAccount actions
+ * forgetIdentity actions
  *
  */
 

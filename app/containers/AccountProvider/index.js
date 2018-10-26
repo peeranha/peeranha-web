@@ -19,9 +19,7 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AccountProvider extends React.Component {
-  componentDidMount = async () => {
-    this.props.getCurrentAccountDispatch();
-  };
+  componentDidMount = async () => this.props.getCurrentAccountDispatch();
 
   render() {
     return [React.Children.only(this.props.children)];
@@ -49,6 +47,8 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'accountProvider', reducer });
 const withSaga = injectSaga({ key: 'accountProvider', saga });
+
+export { mapDispatchToProps };
 
 export default compose(
   withReducer,

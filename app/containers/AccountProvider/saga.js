@@ -51,7 +51,7 @@ export function* getCurrentAccountWorker() {
   }
 }
 
-function* setLoginSignupModalState(type, message) {
+export function* setLoginSignupModalState(type, message) {
   switch (type) {
     case COMPLETE_SIGNUP:
       yield put(hideLoginModal());
@@ -91,7 +91,7 @@ export function* loginSignupWorker(res) {
       }
     }
 
-    yield put(loginSignupSuccess(account));
+    yield put(loginSignupSuccess(eosService.selectedScatterAccount));
 
     const userIsInSystem = yield call(() =>
       isUserInSystem(account, eosService),
@@ -140,7 +140,7 @@ export function* forgetIdentityWorker() {
   }
 }
 
-export default function*() {
+export default function* defaultSaga() {
   yield takeEvery(GET_CURRENT_ACCOUNT, getCurrentAccountWorker);
   yield takeEvery(LOGIN_SIGNUP, loginSignupWorker);
   yield takeEvery(FORGET_IDENTITY, forgetIdentityWorker);
