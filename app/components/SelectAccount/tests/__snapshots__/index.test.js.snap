@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectAccount /> should match the snapshot 1`] = `
+<div>
+  <p>
+    <span>
+      Scatter account was not selected.
+    </span>
+  </p>
+  <button
+    className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
+  >
+    <span>
+      Select identity
+    </span>
+  </button>
+  <button
+    className="btn btn-link w-100 d-block mt-4 mx-auto pt-3 border-top-2"
+  >
+    <small>
+      &lt; 
+       
+      <span>
+        Back to options
+      </span>
+    </small>
+  </button>
+</div>
+`;
