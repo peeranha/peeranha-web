@@ -12,18 +12,19 @@ import ModalWrapper from './ModalWrapper';
 /* eslint-disable react/prefer-stateless-function */
 export class ModalDialog extends React.Component {
   componentDidUpdate = () => {
-    const { closeModal } = this.props;
-    const show = this.props.show ? 'show' : 'hide';
+    const { closeModal, show } = this.props;
 
-    window.$(`#${this.modalId}`).modal(show);
-    window.$(`#${this.modalId}`).on('hide.bs.modal', () => {
-      closeModal();
-    });
+    window.$(`#${this.modalId}`).modal(this.modalShow(show));
+    window.$(`#${this.modalId}`).on('hide.bs.modal', closeModal);
+
+    return true;
   };
 
+  modalShow = show => (show && 'show') || (!show && 'hide');
+
   render = () => {
-    const dialogPosition = { marginTop: '-25px' };
     /* eslint no-underscore-dangle: 1 */
+    const dialogPosition = { marginTop: '-25px' };
     this.modalId = Object.getPrototypeOf(
       this._reactInternalFiber.return.stateNode,
     ).constructor.name;

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ModalDialog /> render test 1`] = `
+<div
+  aria-hidden="true"
+  aria-labelledby="myLargeModalLabel"
+  className="modal fade"
+  id="Object"
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog modal-dialog-centered"
+    style={
+      Object {
+        "marginTop": "-25px",
+      }
+    }
+  >
+    <div
+      className="modal-content"
+    >
+      <ModalWrapper>
+        <div>
+          Children
+        </div>
+      </ModalWrapper>
+    </div>
+  </div>
+</div>
+`;
