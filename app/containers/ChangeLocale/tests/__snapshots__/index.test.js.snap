@@ -1,42 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ChangeLocale /> should match the snapshot 1`] = `
-<span
-  className="dropdown"
->
-  <button
-    aria-expanded="true"
-    aria-haspopup="true"
-    className="dropdown-toggle"
-    data-toggle="dropdown"
-    id="dropdownMenu1"
-    type="button"
+exports[`ChangeLocale mapLanguages 1`] = `
+Array [
+  <li
+    className="pl-2"
+    data-item="en"
+    onClick={[Function]}
+    role="presentation"
   >
-    <small>
-      Lang
-    </small>
-    <span
-      className="caret"
-    />
-  </button>
-  <ul
-    aria-labelledby="dropdownMenu1"
-    className="dropdown-menu p-0"
+    en
+  </li>,
+  <li
+    className="pl-2"
+    data-item="ru"
+    onClick={[Function]}
+    role="presentation"
   >
-    <li
-      className="pl-2"
-      onClick={[Function]}
-      role="presentation"
-    >
-      en
-    </li>
-    <li
-      className="pl-2"
-      onClick={[Function]}
-      role="presentation"
-    >
-      ru
-    </li>
-  </ul>
-</span>
+    ru
+  </li>,
+]
 `;

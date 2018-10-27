@@ -1,25 +1,34 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { ChangeLocale, mapDispatchToProps } from '../index';
 
-import 'jest-styled-components';
-import renderer from 'react-test-renderer';
+const cmp = new ChangeLocale();
+const changeLocaleDispatch = 'changeLocaleDispatch';
 
-import { ChangeLocale } from '../index';
+cmp.props = {};
+cmp.props.changeLocaleDispatch = () => changeLocaleDispatch;
 
-describe('<ChangeLocale />', () => {
-  const wrapper = shallow(<ChangeLocale />);
-
-  it('mapLanguages: all languages are rendered', () => {
+describe('ChangeLocale', () => {
+  it('mapLanguages', () => {
     const langs = ['en', 'ru'];
-    wrapper.instance().props = jest.fn().mockImplementationOnce(() => {});
-    wrapper.instance().props.changeLocaleDispatch = jest
-      .fn()
-      .mockImplementationOnce(() => {});
-    expect(wrapper.instance().mapLanguages(langs).length).toEqual(langs.length);
+    expect(cmp.mapLanguages(langs)).toMatchSnapshot();
   });
 
-  it('should match the snapshot', () => {
-    const renderedComponent = renderer.create(<ChangeLocale />).toJSON();
-    expect(renderedComponent).toMatchSnapshot();
+  it('changeLocaleHandler', () => {
+    const event = {
+      target: {
+        dataset: {
+          item: 'ru',
+        },
+      },
+    };
+    expect(cmp.changeLocaleHandler(event)).toBe(changeLocaleDispatch);
+  });
+
+  it('mapDispatchToProps test', () => {
+    const test = 'test';
+    const dispatch = () => test;
+
+    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
+    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
+    expect(mapDispatchToProps(dispatch).changeLocaleDispatch()).toBe(test);
   });
 });

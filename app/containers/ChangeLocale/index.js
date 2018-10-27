@@ -24,12 +24,16 @@ export class ChangeLocale extends React.Component {
     this.setState({ languages });
   }
 
+  changeLocaleHandler = e =>
+    this.props.changeLocaleDispatch(e.target.dataset.item);
+
   mapLanguages(langs) {
     return langs.map(item => (
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.props.changeLocaleDispatch(item)}
+        data-item={item}
+        onClick={this.changeLocaleHandler}
         key={item}
       >
         {item}
@@ -63,7 +67,7 @@ ChangeLocale.propTypes = {
   changeLocaleDispatch: PropTypes.func.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     changeLocaleDispatch: lang => dispatch(changeLocale(lang)),

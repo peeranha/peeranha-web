@@ -47,6 +47,16 @@ exports[`<Wrapper /> should match the snapshot 1`] = `
   background: rgba(0,0,0,0.05);
 }
 
+.c0 button > div {
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.c0 button > div > div::before {
+  background: #fff;
+}
+
 <div
   className="c0"
 />
