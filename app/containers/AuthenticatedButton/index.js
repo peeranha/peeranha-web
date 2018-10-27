@@ -15,13 +15,16 @@ import { showLoginModal } from 'containers/Login/actions';
 /* eslint-disable react/prefer-stateless-function */
 export class AuthenticatedButton extends React.Component {
   clickHandler = () => {
+    let choice;
     const { userIsInSystem, buttonAction, showLoginModalDispatch } = this.props;
 
     if (!userIsInSystem) {
-      showLoginModalDispatch();
+      choice = showLoginModalDispatch();
     } else {
-      buttonAction();
+      choice = buttonAction();
     }
+
+    return choice;
   };
 
   render() {
@@ -47,7 +50,7 @@ const mapStateToProps = createStructuredSelector({
   userIsInSystem: makeSelectUserIsInSystem(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     showLoginModalDispatch: () => dispatch(showLoginModal()),
