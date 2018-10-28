@@ -129,7 +129,7 @@ const mapStateToProps = createStructuredSelector({
   userIsInSystem: makeSelectUserIsInSystem(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_LOGIN)),

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginOptions 1`] = `
+<div>
+  <button
+    className="btn btn-secondary w-100 py-3 mb-4"
+  >
+    <FormattedMessage
+      defaultMessage="Log in with Scatter"
+      id="app.containers.Login.loginWithScatter"
+      values={Object {}}
+    />
+  </button>
+  <p
+    className="mx-2 mb-0 pt-2 border-top-2"
+  >
+    <FormattedMessage
+      defaultMessage="Do not have an account?"
+      id="app.containers.Login.doNotHaveAcc"
+      values={Object {}}
+    />
+    <button
+      className="btn btn-link"
+    >
+      <FormattedMessage
+        defaultMessage="Sign up"
+        id="app.containers.Login.signUp"
+        values={Object {}}
+      />
+    </button>
+  </p>
+</div>
+`;

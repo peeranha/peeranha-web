@@ -1,8 +1,34 @@
-// import { fromJS } from 'immutable';
-// import { selectLoginDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import {
+  selectLoginDomain,
+  makeSelectContent,
+  makeSelectShowModal,
+} from '../selectors';
 
 describe('selectLoginDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  const content = 'content';
+  const showModal = 'showModal';
+
+  const globalState = fromJS({
+    content,
+    showModal,
+  });
+
+  const mockedState = fromJS({
+    login: globalState,
+  });
+
+  it('should select the global state', () => {
+    expect(selectLoginDomain(mockedState)).toEqual(globalState);
+  });
+
+  it('makeSelectContent', () => {
+    const isContent = makeSelectContent();
+    expect(isContent(mockedState)).toEqual(content);
+  });
+
+  it('makeSelectShowModal', () => {
+    const isShowModal = makeSelectShowModal();
+    expect(isShowModal(mockedState)).toEqual(showModal);
   });
 });
