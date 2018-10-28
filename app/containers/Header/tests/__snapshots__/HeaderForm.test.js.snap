@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderForm 1`] = `
+<Wrapper>
+  <nav
+    className="container navbar navbar-expand-lg navbar-light"
+  >
+    <Link
+      href="/"
+      replace={false}
+      to="/"
+    >
+      <Logo />
+    </Link>
+    <button
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      data-target="#navbarTogglerDemo02"
+      data-toggle="collapse"
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarTogglerDemo02"
+    >
+      <ul
+        className="navbar-nav mr-auto mt-2 mt-lg-0"
+      >
+        <li
+          className="nav-item"
+        >
+          <Link
+            className="nav-link"
+            href="/"
+            replace={false}
+            to="/"
+          >
+            <FormattedMessage
+              defaultMessage="Home"
+              id="app.components.Header.home"
+              values={Object {}}
+            />
+          </Link>
+        </li>
+        <li
+          className="nav-item"
+        >
+          <Link
+            className="nav-link"
+            href="/about"
+            replace={false}
+            to="/about"
+          >
+            <FormattedMessage
+              defaultMessage="About"
+              id="app.components.Header.about"
+              values={Object {}}
+            />
+          </Link>
+        </li>
+        <li
+          className="nav-item"
+        >
+          <Link
+            className="nav-link"
+            href="/help"
+            replace={false}
+            to="/help"
+          >
+            <FormattedMessage
+              defaultMessage="Help"
+              id="app.components.Header.help"
+              values={Object {}}
+            />
+          </Link>
+        </li>
+      </ul>
+      <form
+        className="form-inline my-2 my-lg-2"
+      >
+        <input
+          className="form-control mr-sm-2"
+          placeholder="Search"
+          type="search"
+        />
+        <button
+          className="btn btn-outline-success mr-sm-2 my-2 my-sm-0"
+          type="submit"
+        >
+          <FormattedMessage
+            defaultMessage="Search"
+            id="app.components.Header.search"
+            values={Object {}}
+          />
+        </button>
+      </form>
+      <UserAuthNavLinks />
+    </div>
+  </nav>
+</Wrapper>
+`;
+
+exports[`isProfileOrLogin returns UserAuthNavLinks 1`] = `
+<UserAuthNavLinks
+  showLoginModal={[MockFunction]}
+  showSignUpModal={[MockFunction]}
+/>
+`;
+
+exports[`isProfileOrLogin returns UserProfileNav 1`] = `<Connect(UserProfileNav) />`;

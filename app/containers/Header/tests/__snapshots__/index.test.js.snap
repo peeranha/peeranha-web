@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> render 1`] = `
+<HeaderForm
+  account="user"
+  showLoginModalDispatch={[MockFunction]}
+  showSignUpModalDispatch={[MockFunction]}
+  userIsInSystem={false}
+/>
+`;

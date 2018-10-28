@@ -1,10 +1,26 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { Header, mapDispatchToProps } from '../index';
 
-// import { Header } from '../index';
+const cmp = new Header();
+cmp.props = {};
+cmp.props = {
+  account: 'user',
+  userIsInSystem: false,
+  showSignUpModalDispatch: jest.fn(),
+  showLoginModalDispatch: jest.fn(),
+};
 
 describe('<Header />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('mapDispatchToProps test', () => {
+    const test = 'test';
+    const dispatch = () => test;
+
+    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
+    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
+    expect(mapDispatchToProps(dispatch).showSignUpModalDispatch()).toBe(test);
+    expect(mapDispatchToProps(dispatch).showLoginModalDispatch()).toBe(test);
+  });
+
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });
