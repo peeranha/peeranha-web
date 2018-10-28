@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<withReducer(withSaga(Connect(Profile)))
+  userId=""
+>
+  <Connect(ReduxForm)
+    sendProps={
+      Object {
+        "cachedProfileImg": null,
+        "cancelChanges": [MockFunction],
+        "chooseLocation": [MockFunction],
+        "citiesList": Array [],
+        "clearImageChanges": [MockFunction],
+        "editingImgState": false,
+        "getCitiesList": [MockFunction],
+        "getCroppedAvatar": [Function],
+        "isProfileSaving": false,
+        "match": Object {
+          "params": Object {
+            "id": "",
+          },
+        },
+        "profile": Object {},
+        "saveProfile": [Function],
+        "translations": Object {
+          "app.components.Footer.header": "Copyright: Peerania",
+          "app.components.Header.about": "About",
+          "app.components.Header.help": "Help",
+          "app.components.Header.home": "Home",
+          "app.components.Header.login": "Log in",
+          "app.components.Header.profile": "Profile",
+          "app.components.Header.search": "Search",
+          "app.components.Header.signUp": "Sign Up",
+          "app.components.NoAccess.errorMessage": "No access to complete this action!",
+          "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+          "app.containers.Login.header": "No Peerania account exists for selected identity.",
+          "app.containers.Login.loginWithScatter": "Log in with Scatter",
+          "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+          "app.containers.Login.selectAnotherIdentity": "Select another identity",
+          "app.containers.Login.signUp": "Sign up",
+          "app.containers.Profile.aboutLabel": "About me",
+          "app.containers.Profile.avatarLabel": "Avatar",
+          "app.containers.Profile.cancelButton": "Cancel",
+          "app.containers.Profile.chooseFile": "Choose file",
+          "app.containers.Profile.companyLabel": "Company",
+          "app.containers.Profile.displayNameLabel": "Display name",
+          "app.containers.Profile.editButton": "Edit",
+          "app.containers.Profile.emptyField": "This field is empty",
+          "app.containers.Profile.fileSize": "File size is exceeded",
+          "app.containers.Profile.isProfileLoading": "Loading...",
+          "app.containers.Profile.locationLabel": "Location",
+          "app.containers.Profile.positionLabel": "Position",
+          "app.containers.Profile.profile": "Profile",
+          "app.containers.Profile.profileDescription": "Profile description",
+          "app.containers.Profile.saveButton": "Save",
+          "app.containers.Profile.savingButton": "Saving...",
+          "app.containers.Profile.stringLength": "String is too short or too long",
+          "app.containers.Profile.viewButton": "View",
+          "app.containers.Profile.wrongUser": "Wrong user",
+          "app.containers.ScatterInstaller.backToOptions": "Back to options",
+          "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+          "app.containers.ScatterInstaller.nextstep": "Next step",
+          "app.containers.SelectAccount.backToOptions": "Back to options",
+          "app.containers.SelectAccount.header": "Scatter account was not selected.",
+          "app.containers.SelectAccount.selectIdent": "Select identity",
+          "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+          "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+          "app.containers.SignUp.displayName": "Display Name",
+          "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+          "app.containers.SignUp.eosAccount": "EOS Account",
+          "app.containers.SignUp.identity": "identity",
+          "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+          "app.containers.SignUp.login": "Log in",
+          "app.containers.SignUp.loginWith": "Login with",
+          "app.containers.SignUp.or": "or",
+          "app.containers.SignUp.requiredField": "Required field",
+          "app.containers.SignUp.selectedIdentity": "Selected identity",
+          "app.containers.SignUp.serverMessage": "Error",
+          "app.containers.SignUp.signUp": "Sign Up",
+          "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+          "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+          "app.containers.UserProfileNav.profile": "Profile",
+        },
+        "uploadImage": [Function],
+      }
+    }
+  />
+</withReducer(withSaga(Connect(Profile)))>
+`;

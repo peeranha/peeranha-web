@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renderTextarea test WarningMessage 1`] = `null`;
+
+exports[`renderTextarea test WarningMessage 2`] = `<span />`;
+
+exports[`renderTextarea test WarningMessage 3`] = `<span />`;
+
+exports[`renderTextarea test WarningMessage 4`] = `<span />`;
+
 exports[`renderTextarea test test by snapshots 1`] = `
 <div>
   <h6>

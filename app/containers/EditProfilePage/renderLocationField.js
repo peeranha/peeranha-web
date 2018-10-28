@@ -4,9 +4,10 @@ import { LOCATION_FIELD } from 'containers/Profile/constants';
 
 import LocationList from './LocationList';
 
-const cities = (list, sendProps) =>
+export const cities = (list, sendProps) =>
   list.map(item => (
     <li
+      className="cityItem"
       role="presentation"
       key={item.geonameId}
       onClick={() =>
@@ -17,6 +18,11 @@ const cities = (list, sendProps) =>
       }
     >{`${item.name}, ${item.countryName}`}</li>
   ));
+
+export const CitiesList = (showLocationList, sendProps) =>
+  showLocationList && sendProps.citiesList ? (
+    <LocationList>{cities(sendProps.citiesList, sendProps)}</LocationList>
+  ) : null;
 
 function renderLocationField({ input, label, disabled, sendProps }) {
   const { ipfs } = sendProps.profile;
@@ -37,12 +43,10 @@ function renderLocationField({ input, label, disabled, sendProps }) {
           placeholder={label}
           onChange={e => sendProps.getCitiesList(e.target.value)}
           value={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
-          className="form-control mb-0"
+          className="form-control mb-0 location-field"
           type="text"
         />
-        {showLocationList && (
-          <LocationList>{cities(sendProps.citiesList, sendProps)}</LocationList>
-        )}
+        {CitiesList(showLocationList, sendProps)}
       </div>
     </div>
   );

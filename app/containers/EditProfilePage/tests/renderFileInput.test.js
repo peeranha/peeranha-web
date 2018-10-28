@@ -1,25 +1,48 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import 'jest-styled-components';
-import { IntlProvider } from 'react-intl';
-import { translationMessages } from 'i18n';
-
-import renderFileInput from '../renderFileInput';
+import { shallow } from 'enzyme';
+import renderFileInput, {
+  displayImageFunc,
+  displayAvatarFunc,
+  WarningMessage,
+} from '../renderFileInput';
 
 describe('renderFileInput test', () => {
-  it('test by snapshots', () => {
-    const renderedComponent = renderer
-      .create(
-        <IntlProvider locale="en" key="en" messages={translationMessages.en}>
-          {renderFileInput({
-            input: {},
-            label: 'string',
-            sendProps: {},
-            meta: {},
-          })}
-        </IntlProvider>,
-      )
-      .toJSON();
-    expect(renderedComponent).toMatchSnapshot();
+  it('simulate click', () => {
+    const getCroppedAvatar = jest.fn();
+    const cmp = renderFileInput({
+      input: {},
+      label: 'string',
+      sendProps: {
+        profile: {},
+        cachedProfileImg: true,
+        getCroppedAvatar,
+      },
+      meta: {},
+    });
+
+    expect(cmp).toMatchSnapshot();
+    shallow(cmp)
+      .find('#getcroppedavatar')
+      .simulate('click');
+
+    expect(getCroppedAvatar).toHaveBeenCalledTimes(1);
+  });
+
+  it('displayImageFunc', () => {
+    expect(displayImageFunc(true, false, false)).toBe(false);
+    expect(displayImageFunc(true, true, false)).toBe(true);
+    expect(displayImageFunc(false, true, true)).toBe(false);
+  });
+
+  it('displayAvatarFunc', () => {
+    expect(displayAvatarFunc(true, false)).toBe(false);
+    expect(displayAvatarFunc(false, true)).toBe(true);
+    expect(displayAvatarFunc(true, true)).toBe(false);
+  });
+
+  it('WarningMessage', () => {
+    expect(WarningMessage(false, {}, true, true)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, true, true)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, true, false)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, false, true)).toMatchSnapshot();
   });
 });

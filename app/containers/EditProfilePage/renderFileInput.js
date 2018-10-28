@@ -15,6 +15,25 @@ import {
 
 import messages from 'containers/Profile/messages';
 
+export const displayImageFunc = (edImg, cachedImg, savedImg) =>
+  edImg && (cachedImg || savedImg);
+
+export const displayAvatarFunc = (edImg, cachedImg) => !edImg && cachedImg;
+
+export const WarningMessage = (touched, translations, error, warning) => {
+  let value = null;
+
+  if (touched) {
+    if (error) {
+      value = <span>{translations[error]}</span>;
+    } else if (warning) {
+      value = <span>{translations[warning]}</span>;
+    }
+  }
+
+  return value;
+};
+
 function renderFileInput({
   input,
   label,
@@ -34,10 +53,13 @@ function renderFileInput({
     translations,
   } = sendProps;
 
-  const displayImage =
-    editingImgState && (cachedProfileImg || profile.savedProfileImg);
+  const displayImage = displayImageFunc(
+    editingImgState,
+    cachedProfileImg,
+    profile.savedProfileImg,
+  );
 
-  const displayAvatar = !editingImgState && cachedProfileImg;
+  const displayAvatar = displayAvatarFunc(editingImgState, cachedProfileImg);
 
   return (
     <div>
@@ -71,6 +93,7 @@ function renderFileInput({
           </div>
           <div className="d-flex wrap-nowrap">
             <button
+              id="getcroppedavatar"
               disabled={disabled}
               className="btn btn-secondary w-50 mr-1"
               onClick={() => getCroppedAvatar(avatarRefs)}
@@ -114,9 +137,7 @@ function renderFileInput({
         </div>
       </div>
       <h6 className="text-danger">
-        {touched &&
-          ((error && <span>{translations[error]}</span>) ||
-            (warning && <span>{translations[warning]}</span>))}
+        {WarningMessage(touched, translations, error, warning)}
       </h6>
     </div>
   );

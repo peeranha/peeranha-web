@@ -25,7 +25,7 @@ import renderLocationField from './renderLocationField';
 import { imageValidation, strLength20, strLength96 } from './validate';
 
 /* eslint-disable-next-line */
-let ProfileEditForm = props => {
+export let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
   const viewUrl = `/users/${sendProps.match.params.id}`;
 

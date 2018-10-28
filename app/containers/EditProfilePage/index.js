@@ -58,7 +58,7 @@ export class EditProfilePage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.setDefaultReducerDispatch();
+    return this.props.setDefaultReducerDispatch();
   }
 
   uploadImage = event => {
@@ -106,6 +106,8 @@ export class EditProfilePage extends React.Component {
 
     if (blob) {
       const reader = new window.FileReader();
+      value = null;
+
       reader.onloadend = async () => {
         await this.props.saveProfileActionDispatch({
           userKey,
@@ -113,7 +115,7 @@ export class EditProfilePage extends React.Component {
           reader: reader.result,
         });
       };
-      reader.readAsArrayBuffer(blob);
+      await reader.readAsArrayBuffer(blob);
     } else {
       value = await this.props.saveProfileActionDispatch({
         userKey,
@@ -193,7 +195,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),

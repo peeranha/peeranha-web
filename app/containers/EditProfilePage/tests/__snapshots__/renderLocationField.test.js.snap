@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renderLocationField test CitiesList 1`] = `
+<LocationList__Wrapper>
+  <li
+    className="cityItem"
+    onClick={[Function]}
+    role="presentation"
+  >
+    undefined, undefined
+  </li>
+</LocationList__Wrapper>
+`;
+
 exports[`renderLocationField test test by snapshots 1`] = `
 <div>
   <h6>
@@ -10,13 +22,23 @@ exports[`renderLocationField test test by snapshots 1`] = `
   >
     <input
       autoComplete="off"
-      className="form-control mb-0"
+      className="form-control mb-0 location-field"
       onChange={[Function]}
       placeholder="string"
       type="text"
       value=""
     />
-    
   </div>
 </div>
+`;
+
+exports[`renderLocationField test test cities 1`] = `
+<li
+  className="cityItem"
+  key="1"
+  onClick={[Function]}
+  role="presentation"
+>
+  undefined, undefined
+</li>
 `;

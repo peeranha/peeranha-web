@@ -91,7 +91,7 @@ export function* loginSignupWorker(res) {
       }
     }
 
-    yield put(loginSignupSuccess(eosService.selectedScatterAccount));
+    yield put(loginSignupSuccess(account));
 
     const userIsInSystem = yield call(() =>
       isUserInSystem(account, eosService),
