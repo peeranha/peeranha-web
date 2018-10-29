@@ -1,16 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ViewFormListItem test test by snapshots 1`] = `
+exports[`ViewFormListItem test case1: test by snapshots, @props.message is true 1`] = `
 <div
   className="view-form-item"
 >
   <h6>
-    <span>
-      Saving...
-    </span>
+    <FormattedMessage
+      values={Object {}}
+    />
   </h6>
   <p>
-    savingButton
+    test
+  </p>
+</div>
+`;
+
+exports[`ViewFormListItem test case2: test by snapshots,  @props.message is false 1`] = `
+<div
+  className="view-form-item"
+>
+  <h6>
+    <FormattedMessage
+      values={Object {}}
+    />
+  </h6>
+  <p>
+    <FormattedMessage
+      defaultMessage="This field is empty"
+      id="app.containers.Profile.emptyField"
+      values={Object {}}
+    />
   </p>
 </div>
 `;
