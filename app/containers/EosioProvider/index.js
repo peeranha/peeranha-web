@@ -50,7 +50,7 @@ const mapStateToProps = createStructuredSelector({
   initializing: makeSelectInitializing(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     initEosio: () => dispatch(initEosio()),
     dispatch,

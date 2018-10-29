@@ -1,16 +1,37 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { EosioProvider, mapDispatchToProps } from '../index';
 
-import { EosioProvider } from '../index';
+const child = <div>children</div>;
+React.Children.only = jest.fn().mockImplementation(() => child);
+
+const cmp = new EosioProvider();
+cmp.props = {
+  initializing: false,
+  initEosio: jest.fn(),
+};
 
 describe('<EosioProvider />', () => {
-  it('should render its children and call initEosio', () => {
-    const children = <h1>Test</h1>;
-    const initEosioSpy = jest.fn();
-    const renderedComponent = shallow(
-      <EosioProvider initEosio={initEosioSpy}>{children}</EosioProvider>,
-    );
-    expect(renderedComponent.contains(children)).toBe(true);
-    expect(initEosioSpy).toBeCalledTimes(1);
+  it('render, @initializing is false', () => {
+    cmp.props.initializing = false;
+    expect(cmp.render()).toMatchSnapshot();
+  });
+
+  it('render, @initializing is true', () => {
+    cmp.props.initializing = true;
+    expect(cmp.render()).toMatchSnapshot();
+  });
+
+  it('mapDispatchToProps test', () => {
+    const test = 'test';
+    const dispatch = () => test;
+
+    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
+    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
+    expect(mapDispatchToProps(dispatch).initEosio()).toBe(test);
+  });
+
+  it('componentDidMount', () => {
+    cmp.componentDidMount();
+    expect(cmp.props.initEosio).toHaveBeenCalled();
   });
 });
