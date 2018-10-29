@@ -2,42 +2,57 @@
  * Tests account management operations
  */
 
-import { sendTransaction } from '../eosio';
+import EosioService from '../eosio';
 import { saveText } from '../ipfs';
-import { registerAccount } from '../accountManagement';
+import { registerAccount, isUserInSystem } from '../accountManagement';
+import { REGISTER_ACC, ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from '../constants';
 
-jest.mock('../eosio');
-sendTransaction.mockImplementation(async (actor, action, data) => ({
-  actor,
-  action,
-  data,
+jest.mock('../ipfs', () => ({
+  saveText: jest.fn().mockImplementation(() => {}),
 }));
 
-const dummyHash = 'dummyHash';
-jest.mock('../ipfs');
-saveText.mockImplementation(async () => dummyHash);
+JSON.stringify = jest.fn();
 
-beforeEach(() => {
-  // Clear all instances and calls to constructor and all methods:
-  sendTransaction.mockClear();
+const cmp = new EosioService();
+cmp.sendTransaction = jest.fn().mockImplementation(() => {});
+cmp.getTableRow = jest.fn().mockImplementation(() => {});
+
+it('registerAccount', async () => {
+  const acc = 'user1';
+  const dName = 'user2';
+  const profile = {};
+  const savedHash = 'savedHash';
+
+  saveText.mockImplementation(() => savedHash);
+
+  expect(JSON.stringify).toHaveBeenCalledTimes(0);
+  expect(cmp.sendTransaction).toHaveBeenCalledTimes(0);
+
+  await registerAccount(acc, dName, profile, cmp);
+
+  expect(cmp.sendTransaction).toHaveBeenCalledWith(acc, REGISTER_ACC, {
+    owner: acc,
+    display_name: dName,
+    ipfs_profile: savedHash,
+  });
+  expect(saveText).toHaveBeenCalledTimes(1);
+  expect(JSON.stringify).toHaveBeenCalledTimes(1);
 });
 
-describe('accountManagement', () => {
-  describe('registerAccount', () => {
-    it('registers account on blockchain and saves profile to ipfs', async () => {
-      const account = 'dummyAccount';
-      const displayName = 'dummyDisplayName';
-      const profile = {
-        description: 'dummyDescription',
-      };
-      const result = await registerAccount(account, displayName, profile);
-      expect(result).toBe(true);
-      expect(saveText).toHaveBeenCalledWith(JSON.stringify(profile));
-      expect(sendTransaction).toHaveBeenCalledWith(account, 'registeracc', {
-        owner: account,
-        display_name: displayName,
-        ipfs_profile: dummyHash,
-      });
-    });
+describe('isUserInSystem', () => {
+  const user = 'user1';
+  cmp.getTableRow.mockImplementationOnce(() => true);
+
+  it('@user is true', async () => {
+    expect(await isUserInSystem(user, cmp)).toBe(true);
+    expect(cmp.getTableRow).toHaveBeenCalledWith(
+      ACCOUNT_TABLE,
+      ALL_ACCOUNTS_SCOPE,
+      user,
+    );
+  });
+
+  it('@user is null', async () => {
+    expect(await isUserInSystem(null, cmp)).toBe(false);
   });
 });
