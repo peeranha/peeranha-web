@@ -40,15 +40,9 @@ const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 );
 
 export default compose(withConnect)(UserProfileNav);
