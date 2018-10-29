@@ -184,7 +184,7 @@ const mapStateToProps = createStructuredSelector({
   userIsInSystem: makeSelectUserIsInSystem(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
