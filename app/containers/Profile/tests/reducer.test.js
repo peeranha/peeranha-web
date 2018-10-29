@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import profileReducer from '../reducer';
+import profileReducer, { initialState } from '../reducer';
 
 import {
   getProfileInfo,
@@ -10,6 +10,7 @@ import {
   getCitiesListSuccess,
   getCitiesListError,
   chooseLocation,
+  setDefaultProps,
 } from '../actions';
 
 import { LOCATION_FIELD } from '../constants';
@@ -24,6 +25,10 @@ describe('profileReducer', () => {
 
   it('returns the initial state', () => {
     expect(profileReducer(state, {})).toEqual(state);
+  });
+
+  it('setDefaultProps', () => {
+    expect(profileReducer(state, setDefaultProps())).toEqual(initialState);
   });
 
   it('getProfileInfo: set @loading true', () => {
@@ -43,6 +48,7 @@ describe('profileReducer', () => {
   it('getProfileInfoError: returns error message', () => {
     const obj = state
       .set('errorLoadProfile', 'error')
+      .set('profile', {})
       .set('isProfileLoading', false);
     expect(profileReducer(state, getProfileInfoError('error'))).toEqual(obj);
   });

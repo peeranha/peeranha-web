@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import signUpReducer from '../reducer';
+import signUpReducer, { initialState } from '../reducer';
 
 import {
   fetchRegisterAcc,
@@ -50,7 +50,6 @@ describe('signUpReducer', () => {
   });
 
   it('setReducerDefault', () => {
-    const obj = state.set('showModal', false);
-    expect(signUpReducer(state, setReducerDefault())).toEqual(obj);
+    expect(signUpReducer(state, setReducerDefault())).toEqual(initialState);
   });
 });

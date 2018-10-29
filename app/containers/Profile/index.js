@@ -31,9 +31,9 @@ import NoSuchUser from './NoSuchUser';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.Component {
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.props.setDefaultPropsDispatch();
-  }
+  };
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
@@ -45,9 +45,8 @@ export class Profile extends React.Component {
     this.getProfile();
   };
 
-  getProfile = (userId = this.props.userId) => {
+  getProfile = (userId = this.props.userId) =>
     this.props.getProfileInfoDispatch(userId, this.props.account);
-  };
 
   render() {
     const { locale, profile, isProfileLoading } = this.props;
@@ -98,7 +97,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getProfileInfoDispatch: (key, account) =>
