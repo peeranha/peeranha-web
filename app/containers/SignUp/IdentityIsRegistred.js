@@ -6,23 +6,22 @@ import messages from './messages';
 
 const IdentityIsRegistred = props => (
   <div>
-    <p className="border-bottom-2 pb-3 mx-3">
+    <p className="mx-3">
       <FormattedMessage {...messages.selectedIdentity} />
       {` <${props.account}> `}
       <FormattedMessage {...messages.isAlreadyRegistred} />
     </p>
+    <hr />
     <button
       onClick={props.continueLogin}
-      className="w-100 btn btn-secondary py-2 my-2"
+      className="w-100 btn btn-secondary py-2"
     >
       <FormattedMessage {...messages.loginWith} />
       {` <${props.account}> `}
       <FormattedMessage {...messages.identity} />
     </button>
-    <p className="border-or-top-2 my-2">
-      <FormattedMessage {...messages.or} />
-    </p>
-    <button onClick={props.backToOptions} className="w-100 btn btn-link py-2">
+    <hr />
+    <button onClick={props.backToOptions} className="w-100 btn btn-link">
       <small>
         {'< '} <FormattedMessage {...messages.backToSignUpOptions} />
       </small>

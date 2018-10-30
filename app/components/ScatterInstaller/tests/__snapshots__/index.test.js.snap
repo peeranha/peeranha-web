@@ -24,8 +24,9 @@ exports[`<ScatterInstaller /> should match the snapshot 1`] = `
       Next step
     </span>
   </button>
+  <hr />
   <button
-    className="btn btn-link w-50 d-block my-1 mx-auto py-2"
+    className="btn btn-link w-50 d-block mx-auto"
   >
     <small>
       &lt; 

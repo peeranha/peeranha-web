@@ -3,7 +3,7 @@
 exports[`IdentityIsRegistred snapshot tests 1`] = `
 <div>
   <p
-    className="border-bottom-2 pb-3 mx-3"
+    className="mx-3"
   >
     <FormattedMessage
       defaultMessage="Selected identity"
@@ -17,8 +17,9 @@ exports[`IdentityIsRegistred snapshot tests 1`] = `
       values={Object {}}
     />
   </p>
+  <hr />
   <button
-    className="w-100 btn btn-secondary py-2 my-2"
+    className="w-100 btn btn-secondary py-2"
   >
     <FormattedMessage
       defaultMessage="Login with"
@@ -32,17 +33,9 @@ exports[`IdentityIsRegistred snapshot tests 1`] = `
       values={Object {}}
     />
   </button>
-  <p
-    className="border-or-top-2 my-2"
-  >
-    <FormattedMessage
-      defaultMessage="or"
-      id="app.containers.SignUp.or"
-      values={Object {}}
-    />
-  </p>
+  <hr />
   <button
-    className="w-100 btn btn-link py-2"
+    className="w-100 btn btn-link"
   >
     <small>
       &lt; 

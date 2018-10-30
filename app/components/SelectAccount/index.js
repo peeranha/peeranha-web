@@ -10,14 +10,15 @@ const SelectAccountComponent = props => (
       <FormattedMessage {...messages.header} />
     </p>
     <button
-      className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
+      className="btn btn-secondary w-50 d-block mx-auto py-2"
       onClick={props.selectAccount}
     >
       <FormattedMessage {...messages.selectIdent} />
     </button>
+    <hr />
     <button
       onClick={props.backToOptions}
-      className="btn btn-link w-100 d-block mt-4 mx-auto pt-3 border-top-2"
+      className="btn btn-link w-100 d-block mx-auto"
     >
       <small>
         {'< '} <FormattedMessage {...messages.backToOptions} />

@@ -10,7 +10,7 @@ exports[`LoginOptions 1`] = `
     />
   </p>
   <button
-    className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
+    className="btn btn-secondary w-50 d-block mx-auto py-2"
   >
     <FormattedMessage
       defaultMessage="Select another identity"
@@ -18,13 +18,9 @@ exports[`LoginOptions 1`] = `
       values={Object {}}
     />
   </button>
-  <p
-    className="border-or-top-2 my-1"
-  >
-    or
-  </p>
+  <hr />
   <button
-    className="btn btn-link w-100 d-block my-1 mx-auto py-2"
+    className="btn btn-link w-100 d-block mx-auto"
   >
     <small>
       &lt; 

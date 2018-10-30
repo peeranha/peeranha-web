@@ -23,9 +23,10 @@ const ScatterInstaller = props => (
     >
       <FormattedMessage {...messages.nextstep} />
     </button>
+    <hr />
     <button
       onClick={props.backToOptions}
-      className="btn btn-link w-50 d-block my-1 mx-auto py-2"
+      className="btn btn-link w-50 d-block mx-auto"
     >
       <small>
         {'< '} <FormattedMessage {...messages.backToOptions} />

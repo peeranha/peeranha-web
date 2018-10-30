@@ -8,14 +8,15 @@ exports[`<SelectAccount /> should match the snapshot 1`] = `
     </span>
   </p>
   <button
-    className="btn btn-secondary w-50 d-block my-2 mx-auto py-2"
+    className="btn btn-secondary w-50 d-block mx-auto py-2"
   >
     <span>
       Select identity
     </span>
   </button>
+  <hr />
   <button
-    className="btn btn-link w-100 d-block mt-4 mx-auto pt-3 border-top-2"
+    className="btn btn-link w-100 d-block mx-auto"
   >
     <small>
       &lt; 
