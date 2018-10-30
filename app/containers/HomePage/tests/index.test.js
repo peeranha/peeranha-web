@@ -1,4 +1,4 @@
-import { HomePage } from '../index';
+import HomePage from '../index';
 
 const cmp = new HomePage();
 
