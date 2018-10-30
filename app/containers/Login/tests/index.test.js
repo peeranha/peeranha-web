@@ -7,6 +7,9 @@ import {
 import { Login, mapDispatchToProps } from '../index';
 import { SHOW_DEFAULT_LOGIN_MODAL, COMPLETE_LOGIN } from '../constants';
 
+window.scrollTo = jest.fn();
+window.location.reload = jest.fn();
+
 const cmp = new Login();
 cmp.props = {
   content: '',

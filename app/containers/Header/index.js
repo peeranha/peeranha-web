@@ -41,10 +41,10 @@ export class Header extends React.Component {
 }
 
 Header.propTypes = {
-  showSignUpModalDispatch: PropTypes.func.isRequired,
-  showLoginModalDispatch: PropTypes.func.isRequired,
-  account: PropTypes.string.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
+  showSignUpModalDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
+  account: PropTypes.string,
+  userIsInSystem: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

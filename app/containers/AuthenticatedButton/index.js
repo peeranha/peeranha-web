@@ -39,11 +39,11 @@ export class AuthenticatedButton extends React.Component {
 }
 
 AuthenticatedButton.propTypes = {
-  buttonAction: PropTypes.func.isRequired,
-  showLoginModalDispatch: PropTypes.func.isRequired,
-  buttonClass: PropTypes.string.isRequired,
-  buttonContent: PropTypes.string.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
+  buttonAction: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
+  buttonClass: PropTypes.string,
+  buttonContent: PropTypes.string,
+  userIsInSystem: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -80,14 +80,14 @@ export class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  children: PropTypes.object.isRequired,
-  userId: PropTypes.string.isRequired,
-  account: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
-  isProfileLoading: PropTypes.bool.isRequired,
-  getProfileInfoDispatch: PropTypes.func.isRequired,
-  setDefaultPropsDispatch: PropTypes.func.isRequired,
+  children: PropTypes.object,
+  userId: PropTypes.string,
+  account: PropTypes.object,
+  profile: PropTypes.object,
+  locale: PropTypes.string,
+  isProfileLoading: PropTypes.bool,
+  getProfileInfoDispatch: PropTypes.func,
+  setDefaultPropsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

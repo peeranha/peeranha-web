@@ -42,9 +42,7 @@ describe('ipfs', () => {
   });
 
   describe('saveFile', async () => {
-    const file = new File(['foo'], 'foo.txt', {
-      type: 'text/plain',
-    });
+    const file = 'file';
     const hash = await saveFile(file);
     expect(hash).toBe(dummyHash);
   });

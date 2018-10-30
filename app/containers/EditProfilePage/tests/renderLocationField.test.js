@@ -13,7 +13,7 @@ describe('renderLocationField test', () => {
       input: {},
       label: 'string',
       sendProps: {
-        citiesList: [{}],
+        citiesList: [{ geonameId: 1 }],
         getCitiesList,
         profile: {
           ipfs: {
@@ -50,7 +50,7 @@ describe('renderLocationField test', () => {
 
   it('CitiesList', () => {
     const sendProps = {
-      citiesList: [{}],
+      citiesList: [{ geonameId: 1 }],
       chooseLocation: jest.fn(),
     };
     expect(CitiesList(true, sendProps)).toMatchSnapshot();

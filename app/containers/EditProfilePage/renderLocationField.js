@@ -53,10 +53,10 @@ function renderLocationField({ input, label, disabled, sendProps }) {
 }
 
 renderLocationField.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  sendProps: PropTypes.object.isRequired,
+  input: PropTypes.object,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  sendProps: PropTypes.object,
 };
 
 export default renderLocationField;

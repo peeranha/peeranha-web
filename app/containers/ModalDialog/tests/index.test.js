@@ -1,6 +1,8 @@
 import React from 'react';
 import { ModalDialog } from '../index';
 
+window.location.reload = jest.fn();
+
 const cmp = new ModalDialog();
 const children = <div>Children</div>;
 

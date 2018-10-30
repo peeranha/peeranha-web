@@ -28,8 +28,8 @@ const UserIsAbsentInSystem = props => (
 );
 
 UserIsAbsentInSystem.propTypes = {
-  selectAnotherIdentity: PropTypes.func.isRequired,
-  backToOptions: PropTypes.func.isRequired,
+  selectAnotherIdentity: PropTypes.func,
+  backToOptions: PropTypes.func,
 };
 
 export default UserIsAbsentInSystem;

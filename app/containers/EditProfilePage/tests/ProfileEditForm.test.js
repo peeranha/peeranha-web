@@ -18,6 +18,8 @@ describe('<ProfileEditForm />', () => {
     submitting: true,
     invalid: true,
     sendProps: {
+      saveProfile: jest.fn(),
+      isProfileSaving: false,
       citiesList: [],
       profile: {
         ipfs: {

@@ -6,11 +6,13 @@ exports[`ViewFormListItem test case1: test by snapshots, @props.message is true 
 >
   <h6>
     <FormattedMessage
+      defaultMessage="defaultMessage"
+      id="messageId"
       values={Object {}}
     />
   </h6>
   <p>
-    test
+    user
   </p>
 </div>
 `;
@@ -21,6 +23,8 @@ exports[`ViewFormListItem test case2: test by snapshots,  @props.message is fals
 >
   <h6>
     <FormattedMessage
+      defaultMessage="defaultMessage"
+      id="messageId"
       values={Object {}}
     />
   </h6>

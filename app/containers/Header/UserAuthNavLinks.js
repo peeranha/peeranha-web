@@ -31,8 +31,8 @@ const UserAuthNavLinks = props => (
 );
 
 UserAuthNavLinks.propTypes = {
-  showSignUpModal: PropTypes.func.isRequired,
-  showLoginModal: PropTypes.func.isRequired,
+  showSignUpModal: PropTypes.func,
+  showLoginModal: PropTypes.func,
 };
 
 export default UserAuthNavLinks;

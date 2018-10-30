@@ -92,10 +92,10 @@ const HeaderForm = props => (
 );
 
 isProfileOrLogin.propTypes = {
-  account: PropTypes.string.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
-  showSignUpModalDispatch: PropTypes.func.isRequired,
-  showLoginModalDispatch: PropTypes.func.isRequired,
+  account: PropTypes.string,
+  userIsInSystem: PropTypes.bool,
+  showSignUpModalDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
 };
 
 export default HeaderForm;

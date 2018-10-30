@@ -23,8 +23,8 @@ const SignUpOptions = props => (
 );
 
 SignUpOptions.propTypes = {
-  backToOptions: PropTypes.func.isRequired,
-  continueSignUp: PropTypes.func.isRequired,
+  backToOptions: PropTypes.func,
+  continueSignUp: PropTypes.func,
 };
 
 export default SignUpOptions;

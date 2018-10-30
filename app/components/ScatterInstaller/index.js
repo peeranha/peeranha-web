@@ -36,8 +36,8 @@ const ScatterInstaller = props => (
 );
 
 ScatterInstaller.propTypes = {
-  reloadApp: PropTypes.func.isRequired,
-  backToOptions: PropTypes.func.isRequired,
+  reloadApp: PropTypes.func,
+  backToOptions: PropTypes.func,
 };
 
 export default ScatterInstaller;

@@ -156,21 +156,21 @@ export class SignUp extends React.Component {
 }
 
 SignUp.propTypes = {
-  registerUserDispatch: PropTypes.func.isRequired,
-  setReducerDefaultDispatch: PropTypes.func.isRequired,
-  reloadAppDispatch: PropTypes.func.isRequired,
-  showSignUpModalDispatch: PropTypes.func.isRequired,
-  hideSignUpModalDispatch: PropTypes.func.isRequired,
-  loginSignupDispatch: PropTypes.func.isRequired,
-  showLoginModalDispatch: PropTypes.func.isRequired,
-  account: PropTypes.object.isRequired,
-  error: PropTypes.object.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  registerUserDispatch: PropTypes.func,
+  setReducerDefaultDispatch: PropTypes.func,
+  reloadAppDispatch: PropTypes.func,
+  showSignUpModalDispatch: PropTypes.func,
+  hideSignUpModalDispatch: PropTypes.func,
+  loginSignupDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
+  account: PropTypes.string,
+  error: PropTypes.object,
+  userIsInSystem: PropTypes.bool,
+  loading: PropTypes.bool,
   registered: PropTypes.bool,
   locale: PropTypes.string,
   content: PropTypes.string,
-  showModal: PropTypes.string,
+  showModal: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -7,7 +7,10 @@ import { translationMessages } from 'i18n';
 import ScatterInstaller from '../index';
 
 describe('<ScatterInstaller />', () => {
-  const props = {};
+  const props = {
+    reloadApp: jest.fn(),
+    backToOptions: jest.fn(),
+  };
 
   it('should match the snapshot', () => {
     const renderedComponent = renderer

@@ -41,9 +41,9 @@ export class EosioProvider extends React.Component {
 }
 
 EosioProvider.propTypes = {
-  initEosio: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
-  initializing: PropTypes.bool.isRequired,
+  initEosio: PropTypes.func,
+  children: PropTypes.object,
+  initializing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

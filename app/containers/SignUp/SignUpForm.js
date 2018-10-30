@@ -61,14 +61,14 @@ const SignUpForm = props => {
 };
 
 SignUpForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  registerUser: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
-  account: PropTypes.object.isRequired,
-  errorMessage: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  registerUser: PropTypes.func,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  loading: PropTypes.bool,
+  account: PropTypes.string,
+  errorMessage: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default reduxForm({

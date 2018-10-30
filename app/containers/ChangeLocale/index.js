@@ -64,7 +64,7 @@ export class ChangeLocale extends React.Component {
 }
 
 ChangeLocale.propTypes = {
-  changeLocaleDispatch: PropTypes.func.isRequired,
+  changeLocaleDispatch: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

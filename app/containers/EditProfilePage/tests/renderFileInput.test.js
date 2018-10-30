@@ -13,7 +13,7 @@ describe('renderFileInput test', () => {
       label: 'string',
       sendProps: {
         profile: {},
-        cachedProfileImg: true,
+        cachedProfileImg: 'img',
         getCroppedAvatar,
       },
       meta: {},

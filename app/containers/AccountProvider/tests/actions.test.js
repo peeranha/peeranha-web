@@ -110,6 +110,7 @@ describe('forgetIdentity actions', () => {
 
 describe('reloadApp actions', () => {
   it('has a type of RELOAD_APP', () => {
+    window.location.reload = jest.fn();
     const expected = {
       type: RELOAD_APP,
     };

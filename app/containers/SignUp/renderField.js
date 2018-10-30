@@ -32,12 +32,12 @@ function renderField({
 }
 
 renderField.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
-  readOnly: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  meta: PropTypes.object.isRequired,
+  input: PropTypes.object,
+  label: PropTypes.array,
+  type: PropTypes.string,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  meta: PropTypes.object,
   translations: PropTypes.object,
 };
 

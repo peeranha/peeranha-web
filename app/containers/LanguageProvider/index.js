@@ -32,7 +32,7 @@ export class LanguageProvider extends React.PureComponent {
 LanguageProvider.propTypes = {
   locale: PropTypes.string,
   messages: PropTypes.object,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
 };
 
 const mapStateToProps = createSelector(makeSelectLocale(), locale => ({

@@ -30,9 +30,9 @@ const IdentityIsRegistred = props => (
 );
 
 IdentityIsRegistred.propTypes = {
-  account: PropTypes.string.isRequired,
-  continueLogin: PropTypes.func.isRequired,
-  backToOptions: PropTypes.func.isRequired,
+  account: PropTypes.string,
+  continueLogin: PropTypes.func,
+  backToOptions: PropTypes.func,
 };
 
 export default IdentityIsRegistred;

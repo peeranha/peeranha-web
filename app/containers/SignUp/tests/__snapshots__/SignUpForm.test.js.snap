@@ -378,6 +378,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           >
             <ReduxForm
               account="user1"
+              errorMessage={Object {}}
               handleSubmit={
                 [MockFunction] {
                   "calls": Array [
@@ -404,12 +405,13 @@ exports[`<SignUpForm /> snapshot test 1`] = `
               loading={false}
               registerUser={[MockFunction]}
               submitting={false}
-              translations={Array []}
+              translations={Object {}}
             >
               <Connect(Form(SignUpForm))
                 account="user1"
                 destroyOnUnmount={true}
                 enableReinitialize={false}
+                errorMessage={Object {}}
                 forceUnregisterOnUnmount={false}
                 form="SignUpForm"
                 getFormState={[Function]}
@@ -448,7 +450,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                 submitting={false}
                 touchOnBlur={true}
                 touchOnChange={false}
-                translations={Array []}
+                translations={Object {}}
                 updateUnregisteredFields={false}
               >
                 <Form(SignUpForm)
@@ -491,6 +493,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                   dirty={false}
                   dispatch={[Function]}
                   enableReinitialize={false}
+                  errorMessage={Object {}}
                   focus={[Function]}
                   forceUnregisterOnUnmount={false}
                   form="SignUpForm"
@@ -570,7 +573,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                   touch={[Function]}
                   touchOnBlur={true}
                   touchOnChange={false}
-                  translations={Array []}
+                  translations={Object {}}
                   unregisterField={[Function]}
                   untouch={[Function]}
                   updateSyncErrors={[Function]}
@@ -609,6 +612,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                     destroy={[Function]}
                     dirty={false}
                     dispatch={[Function]}
+                    errorMessage={Object {}}
                     form="SignUpForm"
                     handleSubmit={
                       [MockFunction] {
@@ -646,7 +650,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                     submitSucceeded={false}
                     submitting={false}
                     touch={[Function]}
-                    translations={Array []}
+                    translations={Object {}}
                     untouch={[Function]}
                     valid={false}
                   >
@@ -663,7 +667,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                           }
                           name="app/SignUp/eosAccount"
                           readOnly={true}
-                          translations={Array []}
+                          translations={Object {}}
                           type="text"
                         >
                           <Connect(ConnectedField)
@@ -709,6 +713,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 "dispatch": [Function],
                                 "enableReinitialize": false,
                                 "error": undefined,
+                                "errorMessage": Object {},
                                 "focus": [Function],
                                 "forceUnregisterOnUnmount": false,
                                 "form": "SignUpForm",
@@ -785,7 +790,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 "touch": [Function],
                                 "touchOnBlur": true,
                                 "touchOnChange": false,
-                                "translations": Array [],
+                                "translations": Object {},
                                 "triggerSubmit": undefined,
                                 "unregister": [Function],
                                 "unregisterField": [Function],
@@ -810,7 +815,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                             name="app/SignUp/eosAccount"
                             normalize={[Function]}
                             readOnly={true}
-                            translations={Array []}
+                            translations={Object {}}
                             type="text"
                           >
                             <ConnectedField
@@ -856,6 +861,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   "dispatch": [Function],
                                   "enableReinitialize": false,
                                   "error": undefined,
+                                  "errorMessage": Object {},
                                   "focus": [Function],
                                   "forceUnregisterOnUnmount": false,
                                   "form": "SignUpForm",
@@ -932,7 +938,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
-                                  "translations": Array [],
+                                  "translations": Object {},
                                   "triggerSubmit": undefined,
                                   "unregister": [Function],
                                   "unregisterField": [Function],
@@ -961,7 +967,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                               normalize={[Function]}
                               pristine={true}
                               readOnly={true}
-                              translations={Array []}
+                              translations={Object {}}
                               type="text"
                             >
                               <renderField
@@ -1004,7 +1010,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   }
                                 }
                                 readOnly={true}
-                                translations={Array []}
+                                translations={Object {}}
                                 type="text"
                               >
                                 <div>
@@ -1040,7 +1046,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                           }
                           name="app/SignUp/displayName"
                           readOnly={false}
-                          translations={Array []}
+                          translations={Object {}}
                           type="text"
                           validate={
                             Array [
@@ -1098,6 +1104,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 "dispatch": [Function],
                                 "enableReinitialize": false,
                                 "error": undefined,
+                                "errorMessage": Object {},
                                 "focus": [Function],
                                 "forceUnregisterOnUnmount": false,
                                 "form": "SignUpForm",
@@ -1174,7 +1181,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 "touch": [Function],
                                 "touchOnBlur": true,
                                 "touchOnChange": false,
-                                "translations": Array [],
+                                "translations": Object {},
                                 "triggerSubmit": undefined,
                                 "unregister": [Function],
                                 "unregisterField": [Function],
@@ -1198,7 +1205,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                             name="app/SignUp/displayName"
                             normalize={[Function]}
                             readOnly={false}
-                            translations={Array []}
+                            translations={Object {}}
                             type="text"
                             validate={
                               Array [
@@ -1256,6 +1263,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   "dispatch": [Function],
                                   "enableReinitialize": false,
                                   "error": undefined,
+                                  "errorMessage": Object {},
                                   "focus": [Function],
                                   "forceUnregisterOnUnmount": false,
                                   "form": "SignUpForm",
@@ -1332,7 +1340,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
-                                  "translations": Array [],
+                                  "translations": Object {},
                                   "triggerSubmit": undefined,
                                   "unregister": [Function],
                                   "unregisterField": [Function],
@@ -1362,7 +1370,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                               readOnly={false}
                               syncError="app.containers.SignUp.requiredField"
                               syncWarning="app.containers.SignUp.requiredField"
-                              translations={Array []}
+                              translations={Object {}}
                               type="text"
                               validate={
                                 Array [
@@ -1416,7 +1424,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   }
                                 }
                                 readOnly={false}
-                                translations={Array []}
+                                translations={Object {}}
                                 type="text"
                               >
                                 <div>

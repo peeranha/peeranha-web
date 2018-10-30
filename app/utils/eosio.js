@@ -32,7 +32,6 @@ class EosioService {
     this.scatterInstalled = connected === true;
 
     if (this.scatterInstalled) {
-      console.log('Successfully connected to scatter.');
       this.scatterInstance = ScatterJS.scatter;
       window.scatter = null;
     } else {
@@ -41,13 +40,11 @@ class EosioService {
   };
 
   initEosioWithoutScatter = () => {
-    console.log('Initializing EOSIO provider without Scatter.');
     const eosioConfig = this.getEosioConfig();
     this.eosInstance = Eosjs(eosioConfig);
   };
 
   initEosioWithScatter = () => {
-    console.log('Initializing Scatter EOSIO Provider.');
     const scatterConfig = this.getScatterConfig();
     const eosOptions = {};
     this.eosInstance = this.scatterInstance.eos(
@@ -55,7 +52,6 @@ class EosioService {
       Eosjs,
       eosOptions,
     );
-    console.log('Successfully initialized Scatter EOSIO Provider.');
   };
 
   getSelectedAccount = () => {

@@ -382,6 +382,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
               sendProps={
                 Object {
                   "citiesList": Array [],
+                  "isProfileSaving": false,
                   "match": Object {
                     "params": Object {
                       "id": "id",
@@ -392,6 +393,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                       "app/Profile/LOCATION_FIELD": Object {},
                     },
                   },
+                  "saveProfile": [MockFunction],
                   "translations": Object {},
                 }
               }
@@ -404,6 +406,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                 sendProps={
                   Object {
                     "citiesList": Array [],
+                    "isProfileSaving": false,
                     "match": Object {
                       "params": Object {
                         "id": "id",
@@ -414,6 +417,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                         "app/Profile/LOCATION_FIELD": Object {},
                       },
                     },
+                    "saveProfile": [MockFunction],
                     "translations": Object {},
                   }
                 }
@@ -434,6 +438,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                   sendProps={
                     Object {
                       "citiesList": Array [],
+                      "isProfileSaving": false,
                       "match": Object {
                         "params": Object {
                           "id": "id",
@@ -444,6 +449,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           "app/Profile/LOCATION_FIELD": Object {},
                         },
                       },
+                      "saveProfile": [MockFunction],
                       "translations": Object {},
                     }
                   }
@@ -547,6 +553,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                     sendProps={
                       Object {
                         "citiesList": Array [],
+                        "isProfileSaving": false,
                         "match": Object {
                           "params": Object {
                             "id": "id",
@@ -557,6 +564,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                             "app/Profile/LOCATION_FIELD": Object {},
                           },
                         },
+                        "saveProfile": [MockFunction],
                         "translations": Object {},
                       }
                     }
@@ -628,6 +636,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                       sendProps={
                         Object {
                           "citiesList": Array [],
+                          "isProfileSaving": false,
                           "match": Object {
                             "params": Object {
                               "id": "id",
@@ -638,6 +647,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               "app/Profile/LOCATION_FIELD": Object {},
                             },
                           },
+                          "saveProfile": [MockFunction],
                           "translations": Object {},
                         }
                       }
@@ -653,10 +663,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                         <div>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/AVATAR_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -667,6 +679,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -738,6 +751,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -748,6 +762,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -783,11 +798,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/AVATAR_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -798,6 +815,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -869,6 +887,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -879,6 +898,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -916,6 +936,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/AVATAR_FIELD"
                                 normalize={[Function]}
@@ -923,6 +944,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -933,6 +955,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
@@ -940,6 +963,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 warn={[Function]}
                               >
                                 <renderFileInput
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/AVATAR_FIELD",
@@ -974,6 +998,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -984,6 +1009,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -1006,6 +1032,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         <input
                                           aria-describedby="avatar1"
                                           className="custom-file-input"
+                                          disabled={false}
                                           id="avatarFile"
                                           name="app/Profile/AVATAR_FIELD"
                                           onBlur={[Function]}
@@ -1040,10 +1067,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </Field>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/DISPLAY_NAME_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -1054,6 +1083,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -1125,6 +1155,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -1135,6 +1166,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -1170,11 +1202,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/DISPLAY_NAME_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -1185,6 +1219,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -1256,6 +1291,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -1266,6 +1302,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -1303,6 +1340,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/DISPLAY_NAME_FIELD"
                                 normalize={[Function]}
@@ -1310,6 +1348,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -1320,6 +1359,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
@@ -1327,6 +1367,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 warn={[Function]}
                               >
                                 <renderTextInput
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/DISPLAY_NAME_FIELD",
@@ -1361,6 +1402,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -1371,6 +1413,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -1379,6 +1422,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <h6 />
                                     <input
                                       className="form-control"
+                                      disabled={false}
                                       name="app/Profile/DISPLAY_NAME_FIELD"
                                       onBlur={[Function]}
                                       onChange={[Function]}
@@ -1398,10 +1442,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </Field>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/POSITION_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -1412,6 +1458,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -1483,6 +1530,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -1493,6 +1541,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -1528,11 +1577,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/POSITION_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -1543,6 +1594,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -1614,6 +1666,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -1624,6 +1677,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -1661,6 +1715,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/POSITION_FIELD"
                                 normalize={[Function]}
@@ -1668,6 +1723,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -1678,6 +1734,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
@@ -1685,6 +1742,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 warn={[Function]}
                               >
                                 <renderTextInput
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/POSITION_FIELD",
@@ -1719,6 +1777,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -1729,6 +1788,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -1737,6 +1797,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <h6 />
                                     <input
                                       className="form-control"
+                                      disabled={false}
                                       name="app/Profile/POSITION_FIELD"
                                       onBlur={[Function]}
                                       onChange={[Function]}
@@ -1756,10 +1817,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </Field>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/COMPANY_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -1770,6 +1833,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -1841,6 +1905,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -1851,6 +1916,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -1886,11 +1952,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/COMPANY_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -1901,6 +1969,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -1972,6 +2041,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -1982,6 +2052,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -2019,6 +2090,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/COMPANY_FIELD"
                                 normalize={[Function]}
@@ -2026,6 +2098,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -2036,6 +2109,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
@@ -2043,6 +2117,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 warn={[Function]}
                               >
                                 <renderTextInput
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/COMPANY_FIELD",
@@ -2077,6 +2152,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -2087,6 +2163,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -2095,6 +2172,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <h6 />
                                     <input
                                       className="form-control"
+                                      disabled={false}
                                       name="app/Profile/COMPANY_FIELD"
                                       onBlur={[Function]}
                                       onChange={[Function]}
@@ -2114,10 +2192,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </Field>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/ABOUT_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -2128,6 +2208,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -2199,6 +2280,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -2209,6 +2291,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -2244,11 +2327,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/ABOUT_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -2259,6 +2344,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -2330,6 +2416,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -2340,6 +2427,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -2377,6 +2465,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/ABOUT_FIELD"
                                 normalize={[Function]}
@@ -2384,6 +2473,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -2394,6 +2484,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
@@ -2401,6 +2492,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 warn={[Function]}
                               >
                                 <renderTextarea
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/ABOUT_FIELD",
@@ -2435,6 +2527,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -2445,6 +2538,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -2453,6 +2547,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <h6 />
                                     <textarea
                                       className="form-control"
+                                      disabled={false}
                                       name="app/Profile/ABOUT_FIELD"
                                       onBlur={[Function]}
                                       onChange={[Function]}
@@ -2471,10 +2566,12 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </Field>
                           <Field
                             component={[Function]}
+                            disabled={false}
                             name="app/Profile/LOCATION_FIELD"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
+                                "isProfileSaving": false,
                                 "match": Object {
                                   "params": Object {
                                     "id": "id",
@@ -2485,6 +2582,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "app/Profile/LOCATION_FIELD": Object {},
                                   },
                                 },
+                                "saveProfile": [MockFunction],
                                 "translations": Object {},
                               }
                             }
@@ -2554,6 +2652,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   "sectionPrefix": undefined,
                                   "sendProps": Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -2564,6 +2663,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   },
                                   "setSubmitFailed": [Function],
@@ -2599,11 +2699,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 }
                               }
                               component={[Function]}
+                              disabled={false}
                               name="app/Profile/LOCATION_FIELD"
                               normalize={[Function]}
                               sendProps={
                                 Object {
                                   "citiesList": Array [],
+                                  "isProfileSaving": false,
                                   "match": Object {
                                     "params": Object {
                                       "id": "id",
@@ -2614,6 +2716,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       "app/Profile/LOCATION_FIELD": Object {},
                                     },
                                   },
+                                  "saveProfile": [MockFunction],
                                   "translations": Object {},
                                 }
                               }
@@ -2683,6 +2786,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     "sectionPrefix": undefined,
                                     "sendProps": Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -2693,6 +2797,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     },
                                     "setSubmitFailed": [Function],
@@ -2730,6 +2835,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 asyncValidating={false}
                                 component={[Function]}
                                 dirty={false}
+                                disabled={false}
                                 dispatch={[Function]}
                                 name="app/Profile/LOCATION_FIELD"
                                 normalize={[Function]}
@@ -2737,6 +2843,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 sendProps={
                                   Object {
                                     "citiesList": Array [],
+                                    "isProfileSaving": false,
                                     "match": Object {
                                       "params": Object {
                                         "id": "id",
@@ -2747,11 +2854,13 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         "app/Profile/LOCATION_FIELD": Object {},
                                       },
                                     },
+                                    "saveProfile": [MockFunction],
                                     "translations": Object {},
                                   }
                                 }
                               >
                                 <renderLocationField
+                                  disabled={false}
                                   input={
                                     Object {
                                       "name": "app/Profile/LOCATION_FIELD",
@@ -2786,6 +2895,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   sendProps={
                                     Object {
                                       "citiesList": Array [],
+                                      "isProfileSaving": false,
                                       "match": Object {
                                         "params": Object {
                                           "id": "id",
@@ -2796,6 +2906,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           "app/Profile/LOCATION_FIELD": Object {},
                                         },
                                       },
+                                      "saveProfile": [MockFunction],
                                       "translations": Object {},
                                     }
                                   }
@@ -2808,6 +2919,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       <input
                                         autoComplete="off"
                                         className="form-control mb-0 location-field"
+                                        disabled={false}
                                         name="app/Profile/LOCATION_FIELD"
                                         onBlur={[Function]}
                                         onChange={[Function]}
@@ -2840,6 +2952,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           </button>
                           <button
                             className="btn btn-secondary form-control"
+                            disabled={false}
                             type="button"
                           >
                             <FormattedMessage
@@ -2863,6 +2976,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                             >
                               <button
                                 className="btn btn-link form-control"
+                                disabled={false}
                                 type="button"
                               >
                                 <FormattedMessage

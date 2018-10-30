@@ -100,7 +100,10 @@ exports[`HeaderForm 1`] = `
           />
         </button>
       </form>
-      <UserAuthNavLinks />
+      <UserAuthNavLinks
+        showLoginModal={[MockFunction]}
+        showSignUpModal={[MockFunction]}
+      />
     </div>
   </nav>
 </Wrapper>

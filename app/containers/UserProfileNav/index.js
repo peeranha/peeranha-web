@@ -33,7 +33,7 @@ export class UserProfileNav extends React.Component {
 }
 
 UserProfileNav.propTypes = {
-  account: PropTypes.string.isRequired,
+  account: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

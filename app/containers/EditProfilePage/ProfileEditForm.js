@@ -132,10 +132,10 @@ export let ProfileEditForm = props => {
 };
 
 ProfileEditForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  sendProps: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  sendProps: PropTypes.object,
 };
 
 ProfileEditForm = reduxForm({

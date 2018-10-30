@@ -36,11 +36,11 @@ export class ViewProfilePage extends React.Component {
 }
 
 ViewProfilePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  userKey: PropTypes.string.isRequired,
-  account: PropTypes.string.isRequired,
-  match: PropTypes.object.isRequired,
+  dispatch: PropTypes.func,
+  profile: PropTypes.object,
+  userKey: PropTypes.string,
+  account: PropTypes.string,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

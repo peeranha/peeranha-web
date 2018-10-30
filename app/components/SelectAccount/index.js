@@ -28,8 +28,8 @@ const SelectAccountComponent = props => (
 );
 
 SelectAccountComponent.propTypes = {
-  selectAccount: PropTypes.func.isRequired,
-  backToOptions: PropTypes.func.isRequired,
+  selectAccount: PropTypes.func,
+  backToOptions: PropTypes.func,
 };
 
 export default SelectAccountComponent;

@@ -18,7 +18,8 @@ describe('<SignUpForm />', () => {
     registerUser: jest.fn(),
     loading: false,
     account: 'user1',
-    translations: [],
+    translations: {},
+    errorMessage: {},
   };
 
   const store = configureStore({}, memoryHistory);

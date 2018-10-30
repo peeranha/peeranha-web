@@ -62,9 +62,9 @@ const ProfileViewForm = props => {
 };
 
 ProfileViewForm.propTypes = {
-  profile: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  account: PropTypes.string.isRequired,
+  profile: PropTypes.object,
+  match: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default ProfileViewForm;

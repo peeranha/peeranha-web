@@ -21,6 +21,9 @@ cmp.props = {
   hideSignUpModalDispatch: jest.fn(),
 };
 
+window.scrollTo = jest.fn();
+window.location.reload = jest.fn();
+
 jest.mock('createdHistory');
 createdHistory.push.mockImplementation(res => res);
 

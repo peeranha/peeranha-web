@@ -167,21 +167,21 @@ export class EditProfilePage extends React.Component {
 }
 
 EditProfilePage.propTypes = {
-  uploadImageFileDispatch: PropTypes.func.isRequired,
-  saveImageChangesDispatch: PropTypes.func.isRequired,
-  clearImageChangesDispatch: PropTypes.func.isRequired,
-  getProfileInfoDispatch: PropTypes.func.isRequired,
-  getCitiesListDispatch: PropTypes.func.isRequired,
-  chooseLocationDispatch: PropTypes.func.isRequired,
-  setDefaultReducerDispatch: PropTypes.func.isRequired,
-  saveProfileActionDispatch: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  citiesList: PropTypes.array.isRequired,
-  locale: PropTypes.string.isRequired,
-  editingImgState: PropTypes.bool.isRequired,
-  cachedProfileImg: PropTypes.string.isRequired,
-  isProfileSaving: PropTypes.bool.isRequired,
+  uploadImageFileDispatch: PropTypes.func,
+  saveImageChangesDispatch: PropTypes.func,
+  clearImageChangesDispatch: PropTypes.func,
+  getProfileInfoDispatch: PropTypes.func,
+  getCitiesListDispatch: PropTypes.func,
+  chooseLocationDispatch: PropTypes.func,
+  setDefaultReducerDispatch: PropTypes.func,
+  saveProfileActionDispatch: PropTypes.func,
+  profile: PropTypes.object,
+  match: PropTypes.object,
+  citiesList: PropTypes.array,
+  locale: PropTypes.string,
+  editingImgState: PropTypes.bool,
+  cachedProfileImg: PropTypes.string,
+  isProfileSaving: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

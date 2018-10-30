@@ -112,15 +112,15 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-  userIsInSystem: PropTypes.bool.isRequired,
-  content: PropTypes.string.isRequired,
-  showModal: PropTypes.string.isRequired,
-  reloadAppDispatch: PropTypes.func.isRequired,
-  showLoginModalDispatch: PropTypes.func.isRequired,
-  showSignUpModalDispatch: PropTypes.func.isRequired,
-  hideLoginModalDispatch: PropTypes.func.isRequired,
-  forgetIdentityDispatch: PropTypes.func.isRequired,
-  loginSignupDispatch: PropTypes.func.isRequired,
+  userIsInSystem: PropTypes.bool,
+  content: PropTypes.string,
+  showModal: PropTypes.bool,
+  reloadAppDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
+  showSignUpModalDispatch: PropTypes.func,
+  hideLoginModalDispatch: PropTypes.func,
+  forgetIdentityDispatch: PropTypes.func,
+  loginSignupDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

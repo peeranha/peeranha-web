@@ -23,8 +23,8 @@ const LoginOptions = props => (
 );
 
 LoginOptions.propTypes = {
-  continueLogin: PropTypes.func.isRequired,
-  backToOptions: PropTypes.func.isRequired,
+  continueLogin: PropTypes.func,
+  backToOptions: PropTypes.func,
 };
 
 export default LoginOptions;

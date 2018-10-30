@@ -1,27 +1,24 @@
 import HeaderForm, { isProfileOrLogin } from '../HeaderForm';
 
+const props = {
+  account: 'user1',
+  userIsInSystem: false,
+  showSignUpModalDispatch: jest.fn(),
+  showLoginModalDispatch: jest.fn(),
+};
+
 it('HeaderForm', () => {
-  expect(HeaderForm({})).toMatchSnapshot();
+  expect(HeaderForm(props)).toMatchSnapshot();
 });
 
 describe('isProfileOrLogin', () => {
   it('returns UserAuthNavLinks', () => {
-    const props = {
-      account: 'user1',
-      userIsInSystem: false,
-      showSignUpModalDispatch: jest.fn(),
-      showLoginModalDispatch: jest.fn(),
-    };
+    props.userIsInSystem = false;
     expect(isProfileOrLogin(props)).toMatchSnapshot();
   });
 
   it('returns UserProfileNav', () => {
-    const props = {
-      account: 'user1',
-      userIsInSystem: true,
-      showSignUpModalDispatch: jest.fn(),
-      showLoginModalDispatch: jest.fn(),
-    };
+    props.userIsInSystem = true;
     expect(isProfileOrLogin(props)).toMatchSnapshot();
   });
 });

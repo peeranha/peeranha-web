@@ -144,11 +144,11 @@ function renderFileInput({
 }
 
 renderFileInput.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  meta: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  sendProps: PropTypes.object.isRequired,
+  input: PropTypes.object,
+  label: PropTypes.string,
+  meta: PropTypes.object,
+  disabled: PropTypes.bool,
+  sendProps: PropTypes.object,
 };
 
 export default renderFileInput;
