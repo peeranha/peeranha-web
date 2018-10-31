@@ -5,6 +5,8 @@ import {
   BLOCKCHAIN_NAME,
   DEFAULT_EOS_PERMISSION,
   SCATTER_APP_NAME,
+  EOS_IS_NOT_INIT,
+  SCATTER_IN_NOT_INSTALLED,
 } from './constants';
 
 class EosioService {
@@ -55,9 +57,9 @@ class EosioService {
   };
 
   getSelectedAccount = () => {
-    if (!this.initialized) throw new Error('EOS is not initialized.');
+    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
-    if (!this.scatterInstalled) throw new Error('Scatter is not installed.');
+    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
 
     if (
       this.scatterInstance.identity === undefined ||
@@ -86,9 +88,9 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    if (!this.initialized) throw new Error('EOS is not initialized.');
+    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
-    if (!this.scatterInstalled) throw new Error('Scatter is not installed.');
+    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
 
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
@@ -109,7 +111,7 @@ class EosioService {
   };
 
   sendTransaction = (actor, action, data) => {
-    if (!this.initialized) throw new Error('EOS is not initialized.');
+    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     return this.eosInstance.transaction({
       actions: [
@@ -131,7 +133,7 @@ class EosioService {
   };
 
   getTableRow = async (table, scope, primaryKey) => {
-    if (!this.initialized) throw new Error('EOS is not initialized.');
+    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
@@ -152,7 +154,7 @@ class EosioService {
   };
 
   getTableRows = async (table, scope) => {
-    if (!this.initialized) throw new Error('EOS is not initialized.');
+    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,

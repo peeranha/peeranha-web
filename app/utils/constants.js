@@ -14,3 +14,6 @@ export const SET_DISPLAY_NAME_METHOD = 'setdispname';
 export const IPFS_URL = 'http://localhost:8080/ipfs';
 
 export const REGISTER_ACC = 'registeracc';
+
+export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
+export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
