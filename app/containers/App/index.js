@@ -21,6 +21,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Header from 'containers/Header';
+import Toast from 'containers/Toast';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
@@ -39,6 +40,7 @@ export default function App() {
       <Footer />
       <SignUp />
       <Login />
+      <Toast />
     </div>
   );
 }
