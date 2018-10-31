@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import profileReducer from '../reducer';
+import profileReducer, { initialState } from '../reducer';
 
 import {
   getProfileInfo,
@@ -10,6 +10,7 @@ import {
   getCitiesListSuccess,
   getCitiesListError,
   chooseLocation,
+  setDefaultProps,
 } from '../actions';
 
 import { LOCATION_FIELD } from '../constants';
@@ -26,6 +27,10 @@ describe('profileReducer', () => {
     expect(profileReducer(state, {})).toEqual(state);
   });
 
+  it('setDefaultProps', () => {
+    expect(profileReducer(state, setDefaultProps())).toEqual(initialState);
+  });
+
   it('getProfileInfo: set @loading true', () => {
     const obj = state.set('userKey', true).set('isProfileLoading', true);
     expect(profileReducer(state, getProfileInfo(true))).toEqual(obj);
@@ -34,7 +39,6 @@ describe('profileReducer', () => {
   it('getProfileInfoSuccess: returns user profile', () => {
     const obj = state
       .set('profile', { name: 'test' })
-      .set('isOwner', undefined)
       .set('isProfileLoading', false);
     expect(
       profileReducer(state, getProfileInfoSuccess({ name: 'test' })),
@@ -44,6 +48,7 @@ describe('profileReducer', () => {
   it('getProfileInfoError: returns error message', () => {
     const obj = state
       .set('errorLoadProfile', 'error')
+      .set('profile', {})
       .set('isProfileLoading', false);
     expect(profileReducer(state, getProfileInfoError('error'))).toEqual(obj);
   });

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpOptions snapshot tests 1`] = `
+<div>
+  <button
+    className="btn btn-secondary w-100 py-3"
+  >
+    <FormattedMessage
+      defaultMessage="Sign up with Scatter"
+      id="app.containers.SignUp.signUpWith"
+      values={Object {}}
+    />
+  </button>
+  <hr />
+  <p
+    className="mb-0"
+  >
+    <FormattedMessage
+      defaultMessage="Already have Peerania account?"
+      id="app.containers.SignUp.alreadyHaveAcc"
+      values={Object {}}
+    />
+    <button
+      className="btn btn-link"
+    >
+      <FormattedMessage
+        defaultMessage="Log in"
+        id="app.containers.SignUp.login"
+        values={Object {}}
+      />
+    </button>
+  </p>
+</div>
+`;

@@ -8,6 +8,7 @@ import {
   saveProfileAction,
   saveProfileActionSuccess,
   saveProfileActionError,
+  setDefaultReducer,
 } from '../actions';
 
 import {
@@ -20,9 +21,19 @@ import {
   SAVE_PROFILE_ACTION,
   SAVE_PROFILE_ACTION_SUCCESS,
   SAVE_PROFILE_ACTION_ERROR,
+  SET_DEFAULT_REDUCER,
 } from '../constants';
 
 const str = 'string';
+
+describe('setDefaultReducer', () => {
+  it('type SET_DEFAULT_REDUCER', () => {
+    const expected = {
+      type: SET_DEFAULT_REDUCER,
+    };
+    expect(setDefaultReducer()).toEqual(expected);
+  });
+});
 
 describe('uploadImageFile actions', () => {
   describe('uploadImageFileAction Action', () => {

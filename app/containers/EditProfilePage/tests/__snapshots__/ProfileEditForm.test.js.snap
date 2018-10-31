@@ -1,0 +1,3007 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileEditForm /> snapshot test 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "injectedReducers": Object {},
+      "injectedSagas": Object {},
+      "replaceReducer": [Function],
+      "runSaga": [Function],
+      "subscribe": [Function],
+      Symbol(Symbol.observable): [Function],
+    }
+  }
+>
+  <Connect(LanguageProvider)
+    key="en"
+    locale="en"
+    messages={
+      Object {
+        "en": Object {
+          "app.components.Footer.header": "Copyright: Peerania",
+          "app.components.Header.about": "About",
+          "app.components.Header.help": "Help",
+          "app.components.Header.home": "Home",
+          "app.components.Header.login": "Log in",
+          "app.components.Header.profile": "Profile",
+          "app.components.Header.search": "Search",
+          "app.components.Header.signUp": "Sign Up",
+          "app.components.NoAccess.errorMessage": "No access to complete this action!",
+          "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+          "app.containers.Login.header": "No Peerania account exists for selected identity.",
+          "app.containers.Login.loginWithScatter": "Log in with Scatter",
+          "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+          "app.containers.Login.selectAnotherIdentity": "Select another identity",
+          "app.containers.Login.signUp": "Sign up",
+          "app.containers.Profile.aboutLabel": "About me",
+          "app.containers.Profile.avatarLabel": "Avatar",
+          "app.containers.Profile.cancelButton": "Cancel",
+          "app.containers.Profile.chooseFile": "Choose file",
+          "app.containers.Profile.companyLabel": "Company",
+          "app.containers.Profile.displayNameLabel": "Display name",
+          "app.containers.Profile.editButton": "Edit",
+          "app.containers.Profile.emptyField": "This field is empty",
+          "app.containers.Profile.fileSize": "File size is exceeded",
+          "app.containers.Profile.isProfileLoading": "Loading...",
+          "app.containers.Profile.locationLabel": "Location",
+          "app.containers.Profile.positionLabel": "Position",
+          "app.containers.Profile.profile": "Profile",
+          "app.containers.Profile.profileDescription": "Profile description",
+          "app.containers.Profile.saveButton": "Save",
+          "app.containers.Profile.savingButton": "Saving...",
+          "app.containers.Profile.stringLength": "String is too short or too long",
+          "app.containers.Profile.viewButton": "View",
+          "app.containers.Profile.wrongUser": "Wrong user",
+          "app.containers.ScatterInstaller.backToOptions": "Back to options",
+          "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+          "app.containers.ScatterInstaller.nextstep": "Next step",
+          "app.containers.SelectAccount.backToOptions": "Back to options",
+          "app.containers.SelectAccount.header": "Scatter account was not selected.",
+          "app.containers.SelectAccount.selectIdent": "Select identity",
+          "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+          "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+          "app.containers.SignUp.displayName": "Display Name",
+          "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+          "app.containers.SignUp.eosAccount": "EOS Account",
+          "app.containers.SignUp.identity": "identity",
+          "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+          "app.containers.SignUp.login": "Log in",
+          "app.containers.SignUp.loginWith": "Login with",
+          "app.containers.SignUp.or": "or",
+          "app.containers.SignUp.requiredField": "Required field",
+          "app.containers.SignUp.selectedIdentity": "Selected identity",
+          "app.containers.SignUp.serverMessage": "Error",
+          "app.containers.SignUp.signUp": "Sign Up",
+          "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+          "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+          "app.containers.UserProfileNav.profile": "Profile",
+        },
+        "ru": Object {
+          "app.components.Footer.header": "Авторские права: Peerania",
+          "app.components.Header.about": "О нас",
+          "app.components.Header.help": "Помощь",
+          "app.components.Header.home": "Главная",
+          "app.components.Header.login": "Вход",
+          "app.components.Header.profile": "Профиль",
+          "app.components.Header.search": "Поиск",
+          "app.components.Header.signUp": "Регистрация",
+          "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
+          "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
+          "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
+          "app.containers.Login.loginWithScatter": "Войти через Scatter",
+          "app.containers.Login.requirementToSignUp": "Зарегистрируйте Peerania аккаунт",
+          "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
+          "app.containers.Login.signUp": "Зарегистрируйтесь",
+          "app.containers.Profile.aboutLabel": "Обо мне",
+          "app.containers.Profile.avatarLabel": "Аватарка",
+          "app.containers.Profile.cancelButton": "Отмена",
+          "app.containers.Profile.chooseFile": "Выбрать файл",
+          "app.containers.Profile.companyLabel": "Компания",
+          "app.containers.Profile.displayNameLabel": "Отображаемое имя",
+          "app.containers.Profile.editButton": "Редактировать",
+          "app.containers.Profile.emptyField": "Это поле - пустое",
+          "app.containers.Profile.fileSize": "Размер файла превышен",
+          "app.containers.Profile.isProfileLoading": "Загрузка...",
+          "app.containers.Profile.locationLabel": "Местоположение",
+          "app.containers.Profile.positionLabel": "Должность",
+          "app.containers.Profile.profile": "Профиль",
+          "app.containers.Profile.profileDescription": "Описание профиля",
+          "app.containers.Profile.saveButton": "Сохранить",
+          "app.containers.Profile.savingButton": "Сохранение...",
+          "app.containers.Profile.stringLength": "Строка слишком короткая или слишком длинная",
+          "app.containers.Profile.viewButton": "Посмотреть",
+          "app.containers.Profile.wrongUser": "Неверный пользователь",
+          "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
+          "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
+          "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
+          "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
+          "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
+          "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
+          "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
+          "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
+          "app.containers.SignUp.displayName": "Отображаемое имя",
+          "app.containers.SignUp.displayNameLength": "Длина поля должна быть не меньше 3 символов и не более 20",
+          "app.containers.SignUp.eosAccount": "EOS аккаунт",
+          "app.containers.SignUp.identity": "аккаунт",
+          "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
+          "app.containers.SignUp.login": "Войти",
+          "app.containers.SignUp.loginWith": "Войти через",
+          "app.containers.SignUp.or": "или",
+          "app.containers.SignUp.requiredField": "Требуемое поле",
+          "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
+          "app.containers.SignUp.serverMessage": "Ошибка",
+          "app.containers.SignUp.signUp": "Зарегистрироваться",
+          "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
+          "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
+          "app.containers.UserProfileNav.profile": "Профиль",
+        },
+      }
+    }
+  >
+    <LanguageProvider
+      dispatch={[Function]}
+      locale="en"
+      messages={
+        Object {
+          "en": Object {
+            "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.Header.about": "About",
+            "app.components.Header.help": "Help",
+            "app.components.Header.home": "Home",
+            "app.components.Header.login": "Log in",
+            "app.components.Header.profile": "Profile",
+            "app.components.Header.search": "Search",
+            "app.components.Header.signUp": "Sign Up",
+            "app.components.NoAccess.errorMessage": "No access to complete this action!",
+            "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+            "app.containers.Login.header": "No Peerania account exists for selected identity.",
+            "app.containers.Login.loginWithScatter": "Log in with Scatter",
+            "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+            "app.containers.Login.selectAnotherIdentity": "Select another identity",
+            "app.containers.Login.signUp": "Sign up",
+            "app.containers.Profile.aboutLabel": "About me",
+            "app.containers.Profile.avatarLabel": "Avatar",
+            "app.containers.Profile.cancelButton": "Cancel",
+            "app.containers.Profile.chooseFile": "Choose file",
+            "app.containers.Profile.companyLabel": "Company",
+            "app.containers.Profile.displayNameLabel": "Display name",
+            "app.containers.Profile.editButton": "Edit",
+            "app.containers.Profile.emptyField": "This field is empty",
+            "app.containers.Profile.fileSize": "File size is exceeded",
+            "app.containers.Profile.isProfileLoading": "Loading...",
+            "app.containers.Profile.locationLabel": "Location",
+            "app.containers.Profile.positionLabel": "Position",
+            "app.containers.Profile.profile": "Profile",
+            "app.containers.Profile.profileDescription": "Profile description",
+            "app.containers.Profile.saveButton": "Save",
+            "app.containers.Profile.savingButton": "Saving...",
+            "app.containers.Profile.stringLength": "String is too short or too long",
+            "app.containers.Profile.viewButton": "View",
+            "app.containers.Profile.wrongUser": "Wrong user",
+            "app.containers.ScatterInstaller.backToOptions": "Back to options",
+            "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+            "app.containers.ScatterInstaller.nextstep": "Next step",
+            "app.containers.SelectAccount.backToOptions": "Back to options",
+            "app.containers.SelectAccount.header": "Scatter account was not selected.",
+            "app.containers.SelectAccount.selectIdent": "Select identity",
+            "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+            "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+            "app.containers.SignUp.displayName": "Display Name",
+            "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+            "app.containers.SignUp.eosAccount": "EOS Account",
+            "app.containers.SignUp.identity": "identity",
+            "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+            "app.containers.SignUp.login": "Log in",
+            "app.containers.SignUp.loginWith": "Login with",
+            "app.containers.SignUp.or": "or",
+            "app.containers.SignUp.requiredField": "Required field",
+            "app.containers.SignUp.selectedIdentity": "Selected identity",
+            "app.containers.SignUp.serverMessage": "Error",
+            "app.containers.SignUp.signUp": "Sign Up",
+            "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+            "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+            "app.containers.UserProfileNav.profile": "Profile",
+          },
+          "ru": Object {
+            "app.components.Footer.header": "Авторские права: Peerania",
+            "app.components.Header.about": "О нас",
+            "app.components.Header.help": "Помощь",
+            "app.components.Header.home": "Главная",
+            "app.components.Header.login": "Вход",
+            "app.components.Header.profile": "Профиль",
+            "app.components.Header.search": "Поиск",
+            "app.components.Header.signUp": "Регистрация",
+            "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
+            "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
+            "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
+            "app.containers.Login.loginWithScatter": "Войти через Scatter",
+            "app.containers.Login.requirementToSignUp": "Зарегистрируйте Peerania аккаунт",
+            "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
+            "app.containers.Login.signUp": "Зарегистрируйтесь",
+            "app.containers.Profile.aboutLabel": "Обо мне",
+            "app.containers.Profile.avatarLabel": "Аватарка",
+            "app.containers.Profile.cancelButton": "Отмена",
+            "app.containers.Profile.chooseFile": "Выбрать файл",
+            "app.containers.Profile.companyLabel": "Компания",
+            "app.containers.Profile.displayNameLabel": "Отображаемое имя",
+            "app.containers.Profile.editButton": "Редактировать",
+            "app.containers.Profile.emptyField": "Это поле - пустое",
+            "app.containers.Profile.fileSize": "Размер файла превышен",
+            "app.containers.Profile.isProfileLoading": "Загрузка...",
+            "app.containers.Profile.locationLabel": "Местоположение",
+            "app.containers.Profile.positionLabel": "Должность",
+            "app.containers.Profile.profile": "Профиль",
+            "app.containers.Profile.profileDescription": "Описание профиля",
+            "app.containers.Profile.saveButton": "Сохранить",
+            "app.containers.Profile.savingButton": "Сохранение...",
+            "app.containers.Profile.stringLength": "Строка слишком короткая или слишком длинная",
+            "app.containers.Profile.viewButton": "Посмотреть",
+            "app.containers.Profile.wrongUser": "Неверный пользователь",
+            "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
+            "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
+            "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
+            "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
+            "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
+            "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
+            "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
+            "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
+            "app.containers.SignUp.displayName": "Отображаемое имя",
+            "app.containers.SignUp.displayNameLength": "Длина поля должна быть не меньше 3 символов и не более 20",
+            "app.containers.SignUp.eosAccount": "EOS аккаунт",
+            "app.containers.SignUp.identity": "аккаунт",
+            "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
+            "app.containers.SignUp.login": "Войти",
+            "app.containers.SignUp.loginWith": "Войти через",
+            "app.containers.SignUp.or": "или",
+            "app.containers.SignUp.requiredField": "Требуемое поле",
+            "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
+            "app.containers.SignUp.serverMessage": "Ошибка",
+            "app.containers.SignUp.signUp": "Зарегистрироваться",
+            "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
+            "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
+            "app.containers.UserProfileNav.profile": "Профиль",
+          },
+        }
+      }
+    >
+      <IntlProvider
+        key="en"
+        locale="en"
+        messages={
+          Object {
+            "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.Header.about": "About",
+            "app.components.Header.help": "Help",
+            "app.components.Header.home": "Home",
+            "app.components.Header.login": "Log in",
+            "app.components.Header.profile": "Profile",
+            "app.components.Header.search": "Search",
+            "app.components.Header.signUp": "Sign Up",
+            "app.components.NoAccess.errorMessage": "No access to complete this action!",
+            "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+            "app.containers.Login.header": "No Peerania account exists for selected identity.",
+            "app.containers.Login.loginWithScatter": "Log in with Scatter",
+            "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+            "app.containers.Login.selectAnotherIdentity": "Select another identity",
+            "app.containers.Login.signUp": "Sign up",
+            "app.containers.Profile.aboutLabel": "About me",
+            "app.containers.Profile.avatarLabel": "Avatar",
+            "app.containers.Profile.cancelButton": "Cancel",
+            "app.containers.Profile.chooseFile": "Choose file",
+            "app.containers.Profile.companyLabel": "Company",
+            "app.containers.Profile.displayNameLabel": "Display name",
+            "app.containers.Profile.editButton": "Edit",
+            "app.containers.Profile.emptyField": "This field is empty",
+            "app.containers.Profile.fileSize": "File size is exceeded",
+            "app.containers.Profile.isProfileLoading": "Loading...",
+            "app.containers.Profile.locationLabel": "Location",
+            "app.containers.Profile.positionLabel": "Position",
+            "app.containers.Profile.profile": "Profile",
+            "app.containers.Profile.profileDescription": "Profile description",
+            "app.containers.Profile.saveButton": "Save",
+            "app.containers.Profile.savingButton": "Saving...",
+            "app.containers.Profile.stringLength": "String is too short or too long",
+            "app.containers.Profile.viewButton": "View",
+            "app.containers.Profile.wrongUser": "Wrong user",
+            "app.containers.ScatterInstaller.backToOptions": "Back to options",
+            "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+            "app.containers.ScatterInstaller.nextstep": "Next step",
+            "app.containers.SelectAccount.backToOptions": "Back to options",
+            "app.containers.SelectAccount.header": "Scatter account was not selected.",
+            "app.containers.SelectAccount.selectIdent": "Select identity",
+            "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+            "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+            "app.containers.SignUp.displayName": "Display Name",
+            "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+            "app.containers.SignUp.eosAccount": "EOS Account",
+            "app.containers.SignUp.identity": "identity",
+            "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+            "app.containers.SignUp.login": "Log in",
+            "app.containers.SignUp.loginWith": "Login with",
+            "app.containers.SignUp.or": "or",
+            "app.containers.SignUp.requiredField": "Required field",
+            "app.containers.SignUp.selectedIdentity": "Selected identity",
+            "app.containers.SignUp.serverMessage": "Error",
+            "app.containers.SignUp.signUp": "Sign Up",
+            "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+            "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+            "app.containers.UserProfileNav.profile": "Profile",
+          }
+        }
+      >
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <Router
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+          >
+            <Connect(ReduxForm)
+              handleSubmit={[Function]}
+              invalid={true}
+              sendProps={
+                Object {
+                  "citiesList": Array [],
+                  "isProfileSaving": false,
+                  "match": Object {
+                    "params": Object {
+                      "id": "id",
+                    },
+                  },
+                  "profile": Object {
+                    "ipfs": Object {
+                      "app/Profile/LOCATION_FIELD": Object {},
+                    },
+                  },
+                  "saveProfile": [MockFunction],
+                  "translations": Object {},
+                }
+              }
+              submitting={true}
+            >
+              <ReduxForm
+                dispatch={[Function]}
+                handleSubmit={[Function]}
+                invalid={true}
+                sendProps={
+                  Object {
+                    "citiesList": Array [],
+                    "isProfileSaving": false,
+                    "match": Object {
+                      "params": Object {
+                        "id": "id",
+                      },
+                    },
+                    "profile": Object {
+                      "ipfs": Object {
+                        "app/Profile/LOCATION_FIELD": Object {},
+                      },
+                    },
+                    "saveProfile": [MockFunction],
+                    "translations": Object {},
+                  }
+                }
+                submitting={true}
+              >
+                <Connect(Form(ProfileEditForm))
+                  destroyOnUnmount={true}
+                  dispatch={[Function]}
+                  enableReinitialize={false}
+                  forceUnregisterOnUnmount={false}
+                  form="ProfileEditForm"
+                  getFormState={[Function]}
+                  handleSubmit={[Function]}
+                  invalid={true}
+                  keepDirtyOnReinitialize={false}
+                  persistentSubmitErrors={false}
+                  pure={true}
+                  sendProps={
+                    Object {
+                      "citiesList": Array [],
+                      "isProfileSaving": false,
+                      "match": Object {
+                        "params": Object {
+                          "id": "id",
+                        },
+                      },
+                      "profile": Object {
+                        "ipfs": Object {
+                          "app/Profile/LOCATION_FIELD": Object {},
+                        },
+                      },
+                      "saveProfile": [MockFunction],
+                      "translations": Object {},
+                    }
+                  }
+                  shouldAsyncValidate={[Function]}
+                  shouldError={[Function]}
+                  shouldValidate={[Function]}
+                  shouldWarn={[Function]}
+                  submitting={true}
+                  touchOnBlur={true}
+                  touchOnChange={false}
+                  updateUnregisteredFields={false}
+                >
+                  <Form(ProfileEditForm)
+                    anyTouched={false}
+                    array={
+                      Object {
+                        "insert": [Function],
+                        "move": [Function],
+                        "pop": [Function],
+                        "push": [Function],
+                        "remove": [Function],
+                        "removeAll": [Function],
+                        "shift": [Function],
+                        "splice": [Function],
+                        "swap": [Function],
+                        "unshift": [Function],
+                      }
+                    }
+                    arrayInsert={[Function]}
+                    arrayMove={[Function]}
+                    arrayPop={[Function]}
+                    arrayPush={[Function]}
+                    arrayRemove={[Function]}
+                    arrayRemoveAll={[Function]}
+                    arrayShift={[Function]}
+                    arraySplice={[Function]}
+                    arraySwap={[Function]}
+                    arrayUnshift={[Function]}
+                    asyncValidating={false}
+                    autofill={[Function]}
+                    blur={[Function]}
+                    change={[Function]}
+                    clearAsyncError={[Function]}
+                    clearFields={[Function]}
+                    clearSubmit={[Function]}
+                    clearSubmitErrors={[Function]}
+                    destroy={[Function]}
+                    destroyOnUnmount={true}
+                    dirty={false}
+                    dispatch={[Function]}
+                    enableReinitialize={false}
+                    focus={[Function]}
+                    forceUnregisterOnUnmount={false}
+                    form="ProfileEditForm"
+                    getFormState={[Function]}
+                    handleSubmit={[Function]}
+                    initialize={[Function]}
+                    initialized={false}
+                    invalid={false}
+                    keepDirtyOnReinitialize={false}
+                    persistentSubmitErrors={false}
+                    pristine={true}
+                    pure={true}
+                    registerField={[Function]}
+                    registeredFields={
+                      Immutable.Map {
+                        "app/Profile/AVATAR_FIELD": Immutable.Map {
+                          "name": "app/Profile/AVATAR_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                        "app/Profile/DISPLAY_NAME_FIELD": Immutable.Map {
+                          "name": "app/Profile/DISPLAY_NAME_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                        "app/Profile/POSITION_FIELD": Immutable.Map {
+                          "name": "app/Profile/POSITION_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                        "app/Profile/COMPANY_FIELD": Immutable.Map {
+                          "name": "app/Profile/COMPANY_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                        "app/Profile/ABOUT_FIELD": Immutable.Map {
+                          "name": "app/Profile/ABOUT_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                        "app/Profile/LOCATION_FIELD": Immutable.Map {
+                          "name": "app/Profile/LOCATION_FIELD",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                      }
+                    }
+                    reset={[Function]}
+                    resetSection={[Function]}
+                    sendProps={
+                      Object {
+                        "citiesList": Array [],
+                        "isProfileSaving": false,
+                        "match": Object {
+                          "params": Object {
+                            "id": "id",
+                          },
+                        },
+                        "profile": Object {
+                          "ipfs": Object {
+                            "app/Profile/LOCATION_FIELD": Object {},
+                          },
+                        },
+                        "saveProfile": [MockFunction],
+                        "translations": Object {},
+                      }
+                    }
+                    setSubmitFailed={[Function]}
+                    setSubmitSucceeded={[Function]}
+                    shouldAsyncValidate={[Function]}
+                    shouldError={[Function]}
+                    shouldValidate={[Function]}
+                    shouldWarn={[Function]}
+                    startAsyncValidation={[Function]}
+                    startSubmit={[Function]}
+                    stopAsyncValidation={[Function]}
+                    stopSubmit={[Function]}
+                    submit={[Function]}
+                    submitFailed={false}
+                    submitSucceeded={false}
+                    submitting={false}
+                    syncErrors={Object {}}
+                    syncWarnings={Object {}}
+                    touch={[Function]}
+                    touchOnBlur={true}
+                    touchOnChange={false}
+                    unregisterField={[Function]}
+                    untouch={[Function]}
+                    updateSyncErrors={[Function]}
+                    updateSyncWarnings={[Function]}
+                    updateUnregisteredFields={false}
+                    valid={true}
+                    validExceptSubmit={true}
+                    values={Immutable.Map {}}
+                  >
+                    <ProfileEditForm
+                      anyTouched={false}
+                      array={
+                        Object {
+                          "insert": [Function],
+                          "move": [Function],
+                          "pop": [Function],
+                          "push": [Function],
+                          "remove": [Function],
+                          "removeAll": [Function],
+                          "shift": [Function],
+                          "splice": [Function],
+                          "swap": [Function],
+                          "unshift": [Function],
+                        }
+                      }
+                      asyncValidate={[Function]}
+                      asyncValidating={false}
+                      autofill={[Function]}
+                      blur={[Function]}
+                      change={[Function]}
+                      clearAsyncError={[Function]}
+                      clearFields={[Function]}
+                      clearSubmit={[Function]}
+                      clearSubmitErrors={[Function]}
+                      destroy={[Function]}
+                      dirty={false}
+                      dispatch={[Function]}
+                      form="ProfileEditForm"
+                      handleSubmit={[Function]}
+                      initialize={[Function]}
+                      initialized={false}
+                      invalid={false}
+                      pristine={true}
+                      pure={true}
+                      reset={[Function]}
+                      resetSection={[Function]}
+                      sendProps={
+                        Object {
+                          "citiesList": Array [],
+                          "isProfileSaving": false,
+                          "match": Object {
+                            "params": Object {
+                              "id": "id",
+                            },
+                          },
+                          "profile": Object {
+                            "ipfs": Object {
+                              "app/Profile/LOCATION_FIELD": Object {},
+                            },
+                          },
+                          "saveProfile": [MockFunction],
+                          "translations": Object {},
+                        }
+                      }
+                      submit={[Function]}
+                      submitFailed={false}
+                      submitSucceeded={false}
+                      submitting={false}
+                      touch={[Function]}
+                      untouch={[Function]}
+                      valid={true}
+                    >
+                      <form>
+                        <div>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/AVATAR_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/AVATAR_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/AVATAR_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                                validate={[Function]}
+                                warn={[Function]}
+                              >
+                                <renderFileInput
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/AVATAR_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <div
+                                      className="input-group"
+                                    >
+                                      <div
+                                        className="input-group-prepend"
+                                      >
+                                        <span
+                                          className="input-group-text"
+                                          id="avatar1"
+                                        />
+                                      </div>
+                                      <div
+                                        className="custom-file"
+                                      >
+                                        <input
+                                          aria-describedby="avatar1"
+                                          className="custom-file-input"
+                                          disabled={false}
+                                          id="avatarFile"
+                                          name="app/Profile/AVATAR_FIELD"
+                                          onBlur={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          type="file"
+                                        />
+                                        <label
+                                          className="custom-file-label"
+                                          htmlFor="avatarFile"
+                                        >
+                                          <FormattedMessage
+                                            defaultMessage="Choose file"
+                                            id="app.containers.Profile.chooseFile"
+                                            values={Object {}}
+                                          >
+                                            <span>
+                                              Choose file
+                                            </span>
+                                          </FormattedMessage>
+                                        </label>
+                                      </div>
+                                    </div>
+                                    <h6
+                                      className="text-danger"
+                                    />
+                                  </div>
+                                </renderFileInput>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/DISPLAY_NAME_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/DISPLAY_NAME_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/DISPLAY_NAME_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                                validate={[Function]}
+                                warn={[Function]}
+                              >
+                                <renderTextInput
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/DISPLAY_NAME_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <h6 />
+                                    <input
+                                      className="form-control"
+                                      disabled={false}
+                                      name="app/Profile/DISPLAY_NAME_FIELD"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      type="text"
+                                      value=""
+                                    />
+                                    <h6
+                                      className="text-danger"
+                                    />
+                                  </div>
+                                </renderTextInput>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/POSITION_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/POSITION_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/POSITION_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                                validate={[Function]}
+                                warn={[Function]}
+                              >
+                                <renderTextInput
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/POSITION_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <h6 />
+                                    <input
+                                      className="form-control"
+                                      disabled={false}
+                                      name="app/Profile/POSITION_FIELD"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      type="text"
+                                      value=""
+                                    />
+                                    <h6
+                                      className="text-danger"
+                                    />
+                                  </div>
+                                </renderTextInput>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/COMPANY_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/COMPANY_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/COMPANY_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                                validate={[Function]}
+                                warn={[Function]}
+                              >
+                                <renderTextInput
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/COMPANY_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <h6 />
+                                    <input
+                                      className="form-control"
+                                      disabled={false}
+                                      name="app/Profile/COMPANY_FIELD"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      type="text"
+                                      value=""
+                                    />
+                                    <h6
+                                      className="text-danger"
+                                    />
+                                  </div>
+                                </renderTextInput>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/ABOUT_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/ABOUT_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/ABOUT_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                                validate={[Function]}
+                                warn={[Function]}
+                              >
+                                <renderTextarea
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/ABOUT_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <h6 />
+                                    <textarea
+                                      className="form-control"
+                                      disabled={false}
+                                      name="app/Profile/ABOUT_FIELD"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      value=""
+                                    />
+                                    <h6
+                                      className="text-danger"
+                                    />
+                                  </div>
+                                </renderTextarea>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                          <Field
+                            component={[Function]}
+                            disabled={false}
+                            name="app/Profile/LOCATION_FIELD"
+                            sendProps={
+                              Object {
+                                "citiesList": Array [],
+                                "isProfileSaving": false,
+                                "match": Object {
+                                  "params": Object {
+                                    "id": "id",
+                                  },
+                                },
+                                "profile": Object {
+                                  "ipfs": Object {
+                                    "app/Profile/LOCATION_FIELD": Object {},
+                                  },
+                                },
+                                "saveProfile": [MockFunction],
+                                "translations": Object {},
+                              }
+                            }
+                          >
+                            <Connect(ConnectedField)
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "ProfileEditForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": false,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": undefined,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "sendProps": Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  },
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {},
+                                  "syncWarnings": Object {},
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": true,
+                                  "validExceptSubmit": true,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              component={[Function]}
+                              disabled={false}
+                              name="app/Profile/LOCATION_FIELD"
+                              normalize={[Function]}
+                              sendProps={
+                                Object {
+                                  "citiesList": Array [],
+                                  "isProfileSaving": false,
+                                  "match": Object {
+                                    "params": Object {
+                                      "id": "id",
+                                    },
+                                  },
+                                  "profile": Object {
+                                    "ipfs": Object {
+                                      "app/Profile/LOCATION_FIELD": Object {},
+                                    },
+                                  },
+                                  "saveProfile": [MockFunction],
+                                  "translations": Object {},
+                                }
+                              }
+                            >
+                              <ConnectedField
+                                _reduxForm={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "arrayInsert": [Function],
+                                    "arrayMove": [Function],
+                                    "arrayPop": [Function],
+                                    "arrayPush": [Function],
+                                    "arrayRemove": [Function],
+                                    "arrayRemoveAll": [Function],
+                                    "arrayShift": [Function],
+                                    "arraySplice": [Function],
+                                    "arraySwap": [Function],
+                                    "arrayUnshift": [Function],
+                                    "asyncErrors": undefined,
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "destroy": [Function],
+                                    "destroyOnUnmount": true,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "enableReinitialize": false,
+                                    "error": undefined,
+                                    "focus": [Function],
+                                    "forceUnregisterOnUnmount": false,
+                                    "form": "ProfileEditForm",
+                                    "getFormState": [Function],
+                                    "getValues": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": false,
+                                    "keepDirtyOnReinitialize": false,
+                                    "persistentSubmitErrors": false,
+                                    "pristine": true,
+                                    "pure": true,
+                                    "register": [Function],
+                                    "registerField": [Function],
+                                    "registerInnerOnSubmit": [Function],
+                                    "registeredFields": undefined,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "sectionPrefix": undefined,
+                                    "sendProps": Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    },
+                                    "setSubmitFailed": [Function],
+                                    "setSubmitSucceeded": [Function],
+                                    "shouldAsyncValidate": [Function],
+                                    "shouldError": [Function],
+                                    "shouldValidate": [Function],
+                                    "shouldWarn": [Function],
+                                    "startAsyncValidation": [Function],
+                                    "startSubmit": [Function],
+                                    "stopAsyncValidation": [Function],
+                                    "stopSubmit": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "syncErrors": Object {},
+                                    "syncWarnings": Object {},
+                                    "touch": [Function],
+                                    "touchOnBlur": true,
+                                    "touchOnChange": false,
+                                    "triggerSubmit": undefined,
+                                    "unregister": [Function],
+                                    "unregisterField": [Function],
+                                    "untouch": [Function],
+                                    "updateSyncErrors": [Function],
+                                    "updateSyncWarnings": [Function],
+                                    "updateUnregisteredFields": false,
+                                    "valid": true,
+                                    "validExceptSubmit": true,
+                                    "values": Immutable.Map {},
+                                    "warning": undefined,
+                                  }
+                                }
+                                asyncValidating={false}
+                                component={[Function]}
+                                dirty={false}
+                                disabled={false}
+                                dispatch={[Function]}
+                                name="app/Profile/LOCATION_FIELD"
+                                normalize={[Function]}
+                                pristine={true}
+                                sendProps={
+                                  Object {
+                                    "citiesList": Array [],
+                                    "isProfileSaving": false,
+                                    "match": Object {
+                                      "params": Object {
+                                        "id": "id",
+                                      },
+                                    },
+                                    "profile": Object {
+                                      "ipfs": Object {
+                                        "app/Profile/LOCATION_FIELD": Object {},
+                                      },
+                                    },
+                                    "saveProfile": [MockFunction],
+                                    "translations": Object {},
+                                  }
+                                }
+                              >
+                                <renderLocationField
+                                  disabled={false}
+                                  input={
+                                    Object {
+                                      "name": "app/Profile/LOCATION_FIELD",
+                                      "onBlur": [Function],
+                                      "onChange": [Function],
+                                      "onDragStart": [Function],
+                                      "onDrop": [Function],
+                                      "onFocus": [Function],
+                                      "value": "",
+                                    }
+                                  }
+                                  meta={
+                                    Object {
+                                      "active": false,
+                                      "asyncValidating": false,
+                                      "autofilled": false,
+                                      "dirty": false,
+                                      "dispatch": [Function],
+                                      "error": undefined,
+                                      "form": "ProfileEditForm",
+                                      "initial": undefined,
+                                      "invalid": false,
+                                      "pristine": true,
+                                      "submitFailed": false,
+                                      "submitting": false,
+                                      "touched": false,
+                                      "valid": true,
+                                      "visited": false,
+                                      "warning": undefined,
+                                    }
+                                  }
+                                  sendProps={
+                                    Object {
+                                      "citiesList": Array [],
+                                      "isProfileSaving": false,
+                                      "match": Object {
+                                        "params": Object {
+                                          "id": "id",
+                                        },
+                                      },
+                                      "profile": Object {
+                                        "ipfs": Object {
+                                          "app/Profile/LOCATION_FIELD": Object {},
+                                        },
+                                      },
+                                      "saveProfile": [MockFunction],
+                                      "translations": Object {},
+                                    }
+                                  }
+                                >
+                                  <div>
+                                    <h6 />
+                                    <div
+                                      className="position-relative mb-0"
+                                    >
+                                      <input
+                                        autoComplete="off"
+                                        className="form-control mb-0 location-field"
+                                        disabled={false}
+                                        name="app/Profile/LOCATION_FIELD"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onDragStart={[Function]}
+                                        onDrop={[Function]}
+                                        onFocus={[Function]}
+                                        type="text"
+                                      />
+                                    </div>
+                                  </div>
+                                </renderLocationField>
+                              </ConnectedField>
+                            </Connect(ConnectedField)>
+                          </Field>
+                        </div>
+                        <div>
+                          <button
+                            className="btn btn-success form-control"
+                            type="submit"
+                          >
+                            <FormattedMessage
+                              defaultMessage="Save"
+                              id="app.containers.Profile.saveButton"
+                              values={Object {}}
+                            >
+                              <span>
+                                Save
+                              </span>
+                            </FormattedMessage>
+                          </button>
+                          <button
+                            className="btn btn-secondary form-control"
+                            disabled={false}
+                            type="button"
+                          >
+                            <FormattedMessage
+                              defaultMessage="Cancel"
+                              id="app.containers.Profile.cancelButton"
+                              values={Object {}}
+                            >
+                              <span>
+                                Cancel
+                              </span>
+                            </FormattedMessage>
+                          </button>
+                          <Link
+                            href="/users/id"
+                            replace={false}
+                            to="/users/id"
+                          >
+                            <a
+                              href="/users/id"
+                              onClick={[Function]}
+                            >
+                              <button
+                                className="btn btn-link form-control"
+                                disabled={false}
+                                type="button"
+                              >
+                                <FormattedMessage
+                                  defaultMessage="View"
+                                  id="app.containers.Profile.viewButton"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    View
+                                  </span>
+                                </FormattedMessage>
+                              </button>
+                            </a>
+                          </Link>
+                        </div>
+                      </form>
+                    </ProfileEditForm>
+                  </Form(ProfileEditForm)>
+                </Connect(Form(ProfileEditForm))>
+              </ReduxForm>
+            </Connect(ReduxForm)>
+          </Router>
+        </ConnectedRouter>
+      </IntlProvider>
+    </LanguageProvider>
+  </Connect(LanguageProvider)>
+</Provider>
+`;

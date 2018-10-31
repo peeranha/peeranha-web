@@ -20,18 +20,20 @@ export class ChangeLocale extends React.Component {
 
   /* eslint react/no-did-mount-set-state: 0 */
   componentWillMount() {
-    ChangeLocale.changeLanguage = ChangeLocale.changeLanguage.bind(this);
-
     const languages = Object.keys(translationMessages);
     this.setState({ languages });
   }
+
+  changeLocaleHandler = e =>
+    this.props.changeLocaleDispatch(e.target.dataset.item);
 
   mapLanguages(langs) {
     return langs.map(item => (
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.props.changeLocaleDispatch(item)}
+        data-item={item}
+        onClick={this.changeLocaleHandler}
         key={item}
       >
         {item}
@@ -62,10 +64,10 @@ export class ChangeLocale extends React.Component {
 }
 
 ChangeLocale.propTypes = {
-  changeLocaleDispatch: PropTypes.func.isRequired,
+  changeLocaleDispatch: PropTypes.func,
 };
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     changeLocaleDispatch: lang => dispatch(changeLocale(lang)),

@@ -14,6 +14,7 @@ import { translationMessages } from 'i18n';
 import Profile from 'containers/Profile';
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
   DISPLAY_NAME_FIELD,
@@ -49,13 +50,15 @@ import ProfileEditForm from './ProfileEditForm';
 /* eslint-disable react/prefer-stateless-function */
 export class EditProfilePage extends React.Component {
   componentWillUpdate(props) {
-    if (props.isOwner === false) {
+    const { account, match } = props;
+
+    if (account !== match.params.id) {
       props.history.push('/no-access');
     }
   }
 
   componentWillUnmount() {
-    this.props.setDefaultReducerDispatch();
+    return this.props.setDefaultReducerDispatch();
   }
 
   uploadImage = event => {
@@ -103,6 +106,8 @@ export class EditProfilePage extends React.Component {
 
     if (blob) {
       const reader = new window.FileReader();
+      value = null;
+
       reader.onloadend = async () => {
         await this.props.saveProfileActionDispatch({
           userKey,
@@ -110,7 +115,7 @@ export class EditProfilePage extends React.Component {
           reader: reader.result,
         });
       };
-      reader.readAsArrayBuffer(blob);
+      await reader.readAsArrayBuffer(blob);
     } else {
       value = await this.props.saveProfileActionDispatch({
         userKey,
@@ -124,7 +129,6 @@ export class EditProfilePage extends React.Component {
   render() {
     const {
       profile,
-      isOwner,
       locale,
       match,
       editingImgState,
@@ -150,7 +154,6 @@ export class EditProfilePage extends React.Component {
       cachedProfileImg,
       editingImgState,
       profile,
-      isOwner,
       match,
       translations: translationMessages[locale],
     };
@@ -164,36 +167,35 @@ export class EditProfilePage extends React.Component {
 }
 
 EditProfilePage.propTypes = {
-  uploadImageFileDispatch: PropTypes.func.isRequired,
-  saveImageChangesDispatch: PropTypes.func.isRequired,
-  clearImageChangesDispatch: PropTypes.func.isRequired,
-  getProfileInfoDispatch: PropTypes.func.isRequired,
-  getCitiesListDispatch: PropTypes.func.isRequired,
-  chooseLocationDispatch: PropTypes.func.isRequired,
-  setDefaultReducerDispatch: PropTypes.func.isRequired,
-  saveProfileActionDispatch: PropTypes.func.isRequired,
-  isOwner: PropTypes.bool.isRequired,
-  profile: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  citiesList: PropTypes.array.isRequired,
-  locale: PropTypes.string.isRequired,
-  editingImgState: PropTypes.bool.isRequired,
-  cachedProfileImg: PropTypes.string.isRequired,
-  isProfileSaving: PropTypes.bool.isRequired,
+  uploadImageFileDispatch: PropTypes.func,
+  saveImageChangesDispatch: PropTypes.func,
+  clearImageChangesDispatch: PropTypes.func,
+  getProfileInfoDispatch: PropTypes.func,
+  getCitiesListDispatch: PropTypes.func,
+  chooseLocationDispatch: PropTypes.func,
+  setDefaultReducerDispatch: PropTypes.func,
+  saveProfileActionDispatch: PropTypes.func,
+  profile: PropTypes.object,
+  match: PropTypes.object,
+  citiesList: PropTypes.array,
+  locale: PropTypes.string,
+  editingImgState: PropTypes.bool,
+  cachedProfileImg: PropTypes.string,
+  isProfileSaving: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  isOwner: selectorsProfile.selectIsOwner(),
   profile: selectorsProfile.selectProfile(),
   citiesList: selectorsProfile.selectCitiesList(),
   locale: makeSelectLocale(),
+  account: makeSelectAccount(),
   editingImgState: editProfileSelectors.selectEditingImgState(),
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
   blob: editProfileSelectors.selectBlob(),
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),

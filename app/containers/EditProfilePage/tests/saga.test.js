@@ -3,71 +3,134 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { uploadImageFileWorker, saveProfileActionWorker } from '../saga';
+import { select } from 'redux-saga/effects';
+import { uploadImg, saveProfile } from 'utils/profileManagement';
+import defaultSaga, {
+  uploadImageFileWorker,
+  saveProfileActionWorker,
+} from '../saga';
 
 import {
   UPLOAD_IMAGE_FILE_SUCCESS,
   UPLOAD_IMAGE_FILE_ERROR,
+  UPLOAD_IMAGE_FILE,
   SAVE_PROFILE_ACTION_SUCCESS,
   SAVE_PROFILE_ACTION_ERROR,
+  SAVE_PROFILE_ACTION,
 } from '../constants';
 
-describe('uploadImageFileWorker Saga', () => {
-  const generator = uploadImageFileWorker({ file: {} });
+jest.mock('redux-saga/effects', () => ({
+  select: jest.fn().mockImplementation(() => {}),
+  call: jest.fn().mockImplementation(func => func()),
+  put: jest.fn().mockImplementation(res => res),
+  takeLatest: jest.fn().mockImplementation(res => res),
+}));
 
-  it('Checking, image is action with UPLOAD_IMAGE_FILE_SUCCESS type', () => {
-    generator.next();
-    const image = generator.next();
-    expect(image.value.PUT.action.type).toBe(UPLOAD_IMAGE_FILE_SUCCESS);
+const saved = 'saved';
+const uploaded = 'uploaded';
+
+jest.mock('utils/profileManagement');
+saveProfile.mockImplementation(() => saved);
+uploadImg.mockImplementation(() => uploaded);
+
+describe('saveProfileActionWorker, reader in null', () => {
+  const sendProps = {
+    obj: {
+      profile: {
+        ipfs: {},
+      },
+      userKey: 'user',
+    },
+  };
+  const generator = saveProfileActionWorker(sendProps);
+
+  generator.next();
+
+  const nextStep = generator.next();
+  expect(nextStep.value).toBe(undefined);
+});
+
+describe('saveProfileActionWorker', () => {
+  const sendProps = {
+    obj: {
+      reader: {},
+      profile: {
+        ipfs: {},
+      },
+      userKey: 'user',
+    },
+  };
+  const generator = saveProfileActionWorker(sendProps);
+
+  it('step1, eosService selecting', () => {
+    const eosService = {
+      test: null,
+    };
+    select.mockImplementation(() => eosService);
+    const step1 = generator.next();
+    expect(step1.value).toEqual(eosService);
   });
 
-  it('Error: Completing action with UPLOAD_IMAGE_FILE_ERROR type', () => {
-    const response = new Error('Some error');
-    const putDescriptor = generator.throw(response).value;
-    expect(putDescriptor.PUT.action.type).toEqual(UPLOAD_IMAGE_FILE_ERROR);
+  it('step2, reader true', () => {
+    const step2 = generator.next();
+    expect(step2.value).toBe(uploaded);
+  });
+
+  it('step3, writing', () => {
+    const img = {
+      imgHash: 'yyy',
+    };
+    const step3 = generator.next(img);
+    expect(step3.value).toBe(img.imgHash);
+  });
+
+  it('step4, saveProfile', () => {
+    const step4 = generator.next();
+    expect(step4.value).toBe(saved);
+  });
+
+  it('step5, type Success, putDescriptor', () => {
+    const step5 = generator.next();
+    expect(step5.value.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = new Error('some error');
+    const putDescriptor = generator.throw(err);
+    expect(putDescriptor.value.type).toBe(SAVE_PROFILE_ACTION_ERROR);
   });
 });
 
-describe('saveProfileActionWorker Saga', () => {
-  describe('type - case @!!reader === false', () => {
-    const obj = {
-      userKey: {},
-      profile: {},
-    };
+describe('uploadImageFileWorker', () => {
+  const generator = uploadImageFileWorker({ file: {} });
 
-    const generator = saveProfileActionWorker({ obj });
-
-    it('action with SAVE_PROFILE_ACTION_SUCCESS', () => {
-      generator.next();
-      generator.next();
-      const profile = generator.next();
-
-      expect(profile.value.PUT.action.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
-    });
+  it('step1', () => {
+    const step1 = generator.next();
+    expect(step1.value).toBe(uploaded);
   });
 
-  describe('type - case @!!reader === true', () => {
-    const obj = {
-      userKey: {},
-      profile: {},
-      reader: {},
-    };
+  it('step2, action with Success Type', () => {
+    const step2 = generator.next({ imageUrl: 'url' });
+    expect(step2.value.type).toBe(UPLOAD_IMAGE_FILE_SUCCESS);
+  });
 
-    const generator = saveProfileActionWorker({ obj });
+  it('error handling', () => {
+    const err = new Error('some error');
+    const putDescriptor = generator.throw(err);
+    expect(putDescriptor.value.type).toBe(UPLOAD_IMAGE_FILE_ERROR);
+  });
+});
 
-    it('action with SAVE_PROFILE_ACTION_SUCCESS', () => {
-      generator.next();
-      generator.next();
-      generator.next();
-      const profile = generator.next();
+describe('defaultSaga', () => {
+  const generator = defaultSaga();
 
-      expect(profile.value.PUT.action.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
-    });
+  it('UPLOAD_IMAGE_FILE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(UPLOAD_IMAGE_FILE);
+  });
 
-    it('Error: Completing action with SAVE_PROFILE_ACTION_ERROR type', () => {
-      const response = new Error('Some error');
-      const putDescriptor = generator.throw(response).value;
-      expect(putDescriptor.PUT.action.type).toEqual(SAVE_PROFILE_ACTION_ERROR);
-    });
+  it('SAVE_PROFILE_ACTION', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SAVE_PROFILE_ACTION);
   });
 });

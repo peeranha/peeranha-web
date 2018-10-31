@@ -17,6 +17,7 @@ import ViewFormListItem from './ViewFormListItem';
 const ProfileViewForm = props => {
   const { ipfs } = props.profile;
   const editUrl = `/users/edit/${props.match.params.id}`;
+  const isOwner = props.account === props.match.params.id;
 
   return (
     <div className="view-form">
@@ -49,7 +50,7 @@ const ProfileViewForm = props => {
         label={messages.locationLabel}
         message={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
       />
-      {props.isOwner && (
+      {isOwner && (
         <Link to={editUrl} href={editUrl}>
           <button className="btn btn-success form-control">
             <FormattedMessage {...messages.editButton} />
@@ -61,9 +62,9 @@ const ProfileViewForm = props => {
 };
 
 ProfileViewForm.propTypes = {
-  profile: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  isOwner: PropTypes.bool.isRequired,
+  profile: PropTypes.object,
+  match: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default ProfileViewForm;

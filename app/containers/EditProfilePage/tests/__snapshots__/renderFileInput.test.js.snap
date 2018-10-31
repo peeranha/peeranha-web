@@ -1,7 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renderFileInput test test by snapshots 1`] = `
+exports[`renderFileInput test WarningMessage 1`] = `null`;
+
+exports[`renderFileInput test WarningMessage 2`] = `<span />`;
+
+exports[`renderFileInput test WarningMessage 3`] = `<span />`;
+
+exports[`renderFileInput test WarningMessage 4`] = `<span />`;
+
+exports[`renderFileInput test simulate click 1`] = `
 <div>
+  <div>
+    <div
+      className="d-flex justify-content-center"
+    >
+      <d
+        border={20}
+        borderRadius={100}
+        className=""
+        color={
+          Array [
+            255,
+            255,
+            255,
+            0.6,
+          ]
+        }
+        crossOrigin="anonymous"
+        disableBoundaryChecks={false}
+        height={160}
+        image="img"
+        onImageChange={[Function]}
+        onImageReady={[Function]}
+        onLoadFailure={[Function]}
+        onLoadSuccess={[Function]}
+        onMouseMove={[Function]}
+        onMouseUp={[Function]}
+        onPositionChange={[Function]}
+        rotate={0}
+        scale={1.5}
+        style={Object {}}
+        width={160}
+      />
+    </div>
+    <div
+      className="d-flex wrap-nowrap"
+    >
+      <button
+        className="btn btn-secondary w-50 mr-1"
+        id="getcroppedavatar"
+        onClick={[Function]}
+        type="button"
+      >
+        <FormattedMessage
+          defaultMessage="Save"
+          id="app.containers.Profile.saveButton"
+          values={Object {}}
+        />
+      </button>
+      <button
+        className="btn btn-secondary w-50 ml-1"
+        type="button"
+      >
+        <FormattedMessage
+          defaultMessage="Cancel"
+          id="app.containers.Profile.cancelButton"
+          values={Object {}}
+        />
+      </button>
+    </div>
+  </div>
   <div
     className="input-group"
   >
@@ -28,9 +96,11 @@ exports[`renderFileInput test test by snapshots 1`] = `
         className="custom-file-label"
         htmlFor="avatarFile"
       >
-        <span>
-          Choose file
-        </span>
+        <FormattedMessage
+          defaultMessage="Choose file"
+          id="app.containers.Profile.chooseFile"
+          values={Object {}}
+        />
       </label>
     </div>
   </div>

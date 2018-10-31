@@ -1,7 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Profile> Profile snapshot 1`] = `
-<Connect(LanguageProvider)>
-  <withReducer(withSaga(Connect(Profile))) />
-</Connect(LanguageProvider)>
+exports[`Profile render @isProfileLoading is false && @profile.eos is false 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Wrong user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Wrapper>
+    <NoSuchUser />
+  </Wrapper>
+</div>
+`;
+
+exports[`Profile render @isProfileLoading is false && @profile.eos is true 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Wrong user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Wrapper>
+    <div>
+      Children
+    </div>
+  </Wrapper>
+</div>
+`;
+
+exports[`Profile render @isProfileLoading is true 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Wrapper>
+    <LoadingIndicator />
+  </Wrapper>
+</div>
 `;

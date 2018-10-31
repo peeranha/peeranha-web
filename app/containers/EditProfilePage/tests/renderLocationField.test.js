@@ -1,28 +1,58 @@
-import renderer from 'react-test-renderer';
-import 'jest-styled-components';
+import { shallow } from 'enzyme';
 
 import { LOCATION_FIELD } from 'containers/Profile/constants';
-import renderLocationField from '../renderLocationField';
+import renderLocationField, {
+  cities,
+  CitiesList,
+} from '../renderLocationField';
 
 describe('renderLocationField test', () => {
   it('test by snapshots', () => {
-    const renderedComponent = renderer
-      .create(
-        renderLocationField({
-          input: {},
-          label: 'string',
-          sendProps: {
-            profile: {
-              ipfs: {
-                [LOCATION_FIELD]: {
-                  name: '',
-                },
-              },
+    const getCitiesList = jest.fn();
+    const cmp = renderLocationField({
+      input: {},
+      label: 'string',
+      sendProps: {
+        citiesList: [{ geonameId: 1 }],
+        getCitiesList,
+        profile: {
+          ipfs: {
+            [LOCATION_FIELD]: {
+              name: '',
             },
           },
-        }),
-      )
-      .toJSON();
-    expect(renderedComponent).toMatchSnapshot();
+        },
+      },
+    });
+
+    expect(cmp).toMatchSnapshot();
+    expect(getCitiesList).toHaveBeenCalledTimes(0);
+
+    shallow(cmp)
+      .find('.location-field')
+      .simulate('change', { target: {} });
+
+    expect(getCitiesList).toHaveBeenCalledTimes(1);
+  });
+
+  it('test cities', () => {
+    const list = [{ geonameId: 1 }];
+    const chooseLocation = jest.fn();
+    const cmp = cities(list, { chooseLocation })[0];
+    const wrapper = shallow(cmp);
+
+    expect(wrapper).toMatchSnapshot();
+
+    expect(chooseLocation).toHaveBeenCalledTimes(0);
+    wrapper.find('.cityItem').simulate('click');
+    expect(chooseLocation).toHaveBeenCalledTimes(1);
+  });
+
+  it('CitiesList', () => {
+    const sendProps = {
+      citiesList: [{ geonameId: 1 }],
+      chooseLocation: jest.fn(),
+    };
+    expect(CitiesList(true, sendProps)).toMatchSnapshot();
   });
 });

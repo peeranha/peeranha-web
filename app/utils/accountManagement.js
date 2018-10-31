@@ -1,11 +1,16 @@
-import { sendTransaction } from './eosio';
 import { saveText } from './ipfs';
+import { REGISTER_ACC, ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from './constants';
 
-export async function registerAccount(accountName, displayName, profile) {
+export async function registerAccount(
+  accountName,
+  displayName,
+  profile,
+  eosService,
+) {
   const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
-  await sendTransaction(accountName, 'registeracc', {
+  await eosService.sendTransaction(accountName, REGISTER_ACC, {
     owner: accountName,
     display_name: displayName,
     ipfs_profile: ipfsHash,
@@ -16,10 +21,10 @@ export async function registerAccount(accountName, displayName, profile) {
   return true;
 }
 
-export async function getCurrentAccount() {
-  const account = {
-    eosAccount: 'user1',
-  };
+export async function isUserInSystem(user, eosService) {
+  const profile = user
+    ? await eosService.getTableRow(ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, user)
+    : false;
 
-  return account;
+  return !!profile;
 }

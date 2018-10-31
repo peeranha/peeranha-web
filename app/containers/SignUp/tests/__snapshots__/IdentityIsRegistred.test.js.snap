@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IdentityIsRegistred snapshot tests 1`] = `
+<div>
+  <p
+    className="mx-3"
+  >
+    <FormattedMessage
+      defaultMessage="Selected identity"
+      id="app.containers.SignUp.selectedIdentity"
+      values={Object {}}
+    />
+     &lt;undefined&gt; 
+    <FormattedMessage
+      defaultMessage="is already registred"
+      id="app.containers.SignUp.isAlreadyRegistred"
+      values={Object {}}
+    />
+  </p>
+  <hr />
+  <button
+    className="w-100 btn btn-secondary py-2"
+  >
+    <FormattedMessage
+      defaultMessage="Login with"
+      id="app.containers.SignUp.loginWith"
+      values={Object {}}
+    />
+     &lt;undefined&gt; 
+    <FormattedMessage
+      defaultMessage="identity"
+      id="app.containers.SignUp.identity"
+      values={Object {}}
+    />
+  </button>
+  <hr />
+  <button
+    className="w-100 btn btn-link"
+  >
+    <small>
+      &lt; 
+       
+      <FormattedMessage
+        defaultMessage="Back to Sign Up options"
+        id="app.containers.SignUp.backToSignUpOptions"
+        values={Object {}}
+      />
+    </small>
+  </button>
+</div>
+`;

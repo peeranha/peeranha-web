@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewProfilePage tests render test 1`] = `
+<withReducer(withSaga(Connect(Profile)))
+  userId="user1"
+>
+  <ProfileViewForm
+    account="user2"
+    match={
+      Object {
+        "params": Object {
+          "id": "user1",
+        },
+      }
+    }
+    profile={Object {}}
+  />
+</withReducer(withSaga(Connect(Profile)))>
+`;

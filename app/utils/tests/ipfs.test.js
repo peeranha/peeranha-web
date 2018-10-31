@@ -3,7 +3,8 @@
  */
 
 import IpfsApi from 'ipfs-api';
-import { saveText, getText } from '../ipfs';
+import { saveText, getText, saveFile, getFileUrl } from '../ipfs';
+import { IPFS_URL } from '../constants';
 
 const dummyHash = 'dummy-hash';
 
@@ -33,6 +34,19 @@ beforeEach(() => {
 });
 
 describe('ipfs', () => {
+  describe('getFileUrl', async () => {
+    const fileHash = 'hash';
+    const fileUrl = await getFileUrl(fileHash);
+
+    expect(fileUrl).toBe(`${IPFS_URL}/${fileHash}`);
+  });
+
+  describe('saveFile', async () => {
+    const file = 'file';
+    const hash = await saveFile(file);
+    expect(hash).toBe(dummyHash);
+  });
+
   describe('saveText', () => {
     it('saves text to ipfs', async () => {
       const text = 'dummyText';

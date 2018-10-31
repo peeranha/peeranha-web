@@ -3,26 +3,86 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { resistrAccWorker } from '../saga';
+import { select } from 'redux-saga/effects';
+import { registerAccount } from 'utils/accountManagement';
+import { LOGIN_SIGNUP_SUCCESS } from 'containers/AccountProvider/constants';
+import { closeModals } from 'containers/AccountProvider/saga';
 
-import { REGISTER_ACC_SUCCESS, REGISTER_ACC_ERROR } from '../constants';
+import defaultSaga, { resistrAccWorker } from '../saga';
+import {
+  FETCH_REGISTER_ACC,
+  REGISTER_ACC_SUCCESS,
+  REGISTER_ACC_ERROR,
+} from '../constants';
 
-describe('resistrAccWorker Saga', () => {
-  const generator = resistrAccWorker({
+jest.mock('redux-saga/effects', () => ({
+  select: jest.fn().mockImplementation(() => {}),
+  call: jest.fn().mockImplementation(func => func()),
+  put: jest.fn().mockImplementation(res => res),
+  takeEvery: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('utils/accountManagement', () => ({
+  registerAccount: jest.fn().mockImplementation(() => {}),
+}));
+
+jest.mock('containers/AccountProvider/saga', () => ({
+  closeModals: jest.fn().mockImplementation(() => {}),
+}));
+
+describe('resistrAccWorker', () => {
+  const props = {
     obj: {
-      eosAccount: 'acc',
-      displayName: 'name',
+      eosAccount: 'user1',
+      displayName: 'user',
     },
-  });
-  it('Checking, step2 is action with REGISTER_ACC_SUCCESS type', () => {
-    generator.next();
-    const step = generator.next();
-    expect(step.value.PUT.action.type).toBe(REGISTER_ACC_SUCCESS);
+  };
+  const generator = resistrAccWorker(props);
+
+  it('step1, eosService', () => {
+    select.mockImplementation(() => props);
+    const step1 = generator.next();
+    expect(step1.value).toEqual(props);
   });
 
-  it('Error: Completing action with REGISTER_ACC_ERROR type', () => {
-    const response = new Error('Some error');
-    const putDescriptor = generator.throw(response).value;
-    expect(putDescriptor.PUT.action.type).toEqual(REGISTER_ACC_ERROR);
+  it('step2, registrUser', () => {
+    const registred = 'registred';
+
+    registerAccount.mockImplementation(() => registred);
+    const step2 = generator.next();
+    expect(step2.value).toEqual(registred);
+  });
+
+  it('step3, registerAccSuccess', () => {
+    const step3 = generator.next();
+    expect(step3.value.type).toBe(REGISTER_ACC_SUCCESS);
+  });
+
+  it('step4, loginSignupSuccess', () => {
+    const step4 = generator.next();
+    expect(step4.value.type).toBe(LOGIN_SIGNUP_SUCCESS);
+  });
+
+  it('step5, closeModals', () => {
+    const close = 'closeModals';
+
+    closeModals.mockImplementation(() => close);
+    const step5 = generator.next();
+    expect(step5.value).toBe(close);
+  });
+
+  it('error handling', () => {
+    const err = new Error('some error');
+    const putDescriptor = generator.throw(err);
+    expect(putDescriptor.value.type).toBe(REGISTER_ACC_ERROR);
+  });
+});
+
+describe('defaultSaga', () => {
+  const generator = defaultSaga();
+
+  it('FETCH_REGISTER_ACC', () => {
+    const step = generator.next();
+    expect(step.value).toBe(FETCH_REGISTER_ACC);
   });
 });

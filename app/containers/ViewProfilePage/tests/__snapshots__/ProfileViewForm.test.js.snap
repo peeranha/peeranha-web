@@ -1,90 +1,198 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProfileViewForm test test by snapshots 1`] = `
+exports[`ProfileViewForm test case 1: @profile.savedProfileImg is true 1`] = `
 <div
   className="view-form"
 >
   <div
-    className="view-form-item"
+    className="d-flex justify-content-center"
   >
-    <h6>
-      <span>
-        Display name
-      </span>
-    </h6>
-    <p>
-      <span>
-        This field is empty
-      </span>
-    </p>
+    <img
+      alt=""
+      className="profile-image"
+      src={true}
+    />
   </div>
-  <div
-    className="view-form-item"
-  >
-    <h6>
-      <span>
-        Position
-      </span>
-    </h6>
-    <p>
-      <span>
-        This field is empty
-      </span>
-    </p>
-  </div>
-  <div
-    className="view-form-item"
-  >
-    <h6>
-      <span>
-        Company
-      </span>
-    </h6>
-    <p>
-      <span>
-        This field is empty
-      </span>
-    </p>
-  </div>
-  <div
-    className="view-form-item"
-  >
-    <h6>
-      <span>
-        About me
-      </span>
-    </h6>
-    <p>
-      <span>
-        This field is empty
-      </span>
-    </p>
-  </div>
-  <div
-    className="view-form-item"
-  >
-    <h6>
-      <span>
-        Location
-      </span>
-    </h6>
-    <p>
-      <span>
-        This field is empty
-      </span>
-    </p>
-  </div>
-  <a
-    href="/users/edit/undefined"
-    onClick={[Function]}
-  >
-    <button
-      className="btn btn-success form-control"
-    >
-      <span>
-        Edit
-      </span>
-    </button>
-  </a>
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Display name",
+        "id": "app.containers.Profile.displayNameLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Position",
+        "id": "app.containers.Profile.positionLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Company",
+        "id": "app.containers.Profile.companyLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "About me",
+        "id": "app.containers.Profile.aboutLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Location",
+        "id": "app.containers.Profile.locationLabel",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`ProfileViewForm test case 2: @profile.savedProfileImg is false 1`] = `
+<div
+  className="view-form"
+>
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Display name",
+        "id": "app.containers.Profile.displayNameLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Position",
+        "id": "app.containers.Profile.positionLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Company",
+        "id": "app.containers.Profile.companyLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "About me",
+        "id": "app.containers.Profile.aboutLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Location",
+        "id": "app.containers.Profile.locationLabel",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`ProfileViewForm test case 3: isOwner is true 1`] = `
+<div
+  className="view-form"
+>
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Display name",
+        "id": "app.containers.Profile.displayNameLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Position",
+        "id": "app.containers.Profile.positionLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Company",
+        "id": "app.containers.Profile.companyLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "About me",
+        "id": "app.containers.Profile.aboutLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Location",
+        "id": "app.containers.Profile.locationLabel",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`ProfileViewForm test case 4: isOwner is false 1`] = `
+<div
+  className="view-form"
+>
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Display name",
+        "id": "app.containers.Profile.displayNameLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Position",
+        "id": "app.containers.Profile.positionLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Company",
+        "id": "app.containers.Profile.companyLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "About me",
+        "id": "app.containers.Profile.aboutLabel",
+      }
+    }
+  />
+  <ViewFormListItem
+    label={
+      Object {
+        "defaultMessage": "Location",
+        "id": "app.containers.Profile.locationLabel",
+      }
+    }
+  />
 </div>
 `;

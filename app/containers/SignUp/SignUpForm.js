@@ -3,6 +3,8 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import LoadingIndicator from 'components/LoadingIndicator';
+
 import { strLength, required } from './validate';
 import renderField from './renderField';
 import messages from './messages';
@@ -16,7 +18,6 @@ const SignUpForm = props => {
     invalid,
     registerUser,
     loading,
-    errorMessage,
     account,
     translations,
   } = props;
@@ -27,14 +28,16 @@ const SignUpForm = props => {
         <Field
           name={EOS_ACC}
           component={renderField}
+          disabled={loading}
           type="text"
           translations={translations}
-          label={[translations[messages.eosAccount.id], account.eosAccount]}
+          label={[translations[messages.eosAccount.id], account]}
           readOnly
         />
         <Field
           name={DISPLAY_NAME}
           component={renderField}
+          disabled={loading}
           type="text"
           label={[translations[messages.displayName.id]]}
           readOnly={false}
@@ -49,23 +52,23 @@ const SignUpForm = props => {
           disabled={invalid || submitting || loading}
           type="submit"
         >
-          <FormattedMessage {...messages.signUp} />
+          {loading && <LoadingIndicator />}
+          {!loading && <FormattedMessage {...messages.signUp} />}
         </button>
-        <h6 className="text-danger">{errorMessage && errorMessage.message}</h6>
       </div>
     </form>
   );
 };
 
 SignUpForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  registerUser: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
-  account: PropTypes.object.isRequired,
-  errorMessage: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  registerUser: PropTypes.func,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  loading: PropTypes.bool,
+  account: PropTypes.string,
+  errorMessage: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default reduxForm({

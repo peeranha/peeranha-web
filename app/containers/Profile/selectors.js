@@ -28,9 +28,6 @@ export const selectUserKey = () =>
 export const selectProfile = () =>
   createSelector(selectProfileDomain, substate => substate.get('profile'));
 
-export const selectIsOwner = () =>
-  createSelector(selectProfileDomain, substate => substate.get('isOwner'));
-
 export const selectCitiesList = () =>
   createSelector(selectProfileDomain, substate => substate.get('citiesList'));
 

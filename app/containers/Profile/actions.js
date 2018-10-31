@@ -29,11 +29,10 @@ export function getProfileInfo(userKey, account) {
   };
 }
 
-export function getProfileInfoSuccess(profile, isOwner) {
+export function getProfileInfoSuccess(profile) {
   return {
     type: GET_PROFILE_INFORMATION_SUCCESS,
     profile,
-    isOwner,
   };
 }
 

@@ -15,9 +15,29 @@ import {
 
 import messages from 'containers/Profile/messages';
 
+export const displayImageFunc = (edImg, cachedImg, savedImg) =>
+  edImg && (cachedImg || savedImg);
+
+export const displayAvatarFunc = (edImg, cachedImg) => !edImg && cachedImg;
+
+export const WarningMessage = (touched, translations, error, warning) => {
+  let value = null;
+
+  if (touched) {
+    if (error) {
+      value = <span>{translations[error]}</span>;
+    } else if (warning) {
+      value = <span>{translations[warning]}</span>;
+    }
+  }
+
+  return value;
+};
+
 function renderFileInput({
   input,
   label,
+  disabled,
   sendProps,
   meta: { touched, error, warning },
 }) {
@@ -33,10 +53,13 @@ function renderFileInput({
     translations,
   } = sendProps;
 
-  const displayImage =
-    editingImgState && (cachedProfileImg || profile.savedProfileImg);
+  const displayImage = displayImageFunc(
+    editingImgState,
+    cachedProfileImg,
+    profile.savedProfileImg,
+  );
 
-  const displayAvatar = !editingImgState && cachedProfileImg;
+  const displayAvatar = displayAvatarFunc(editingImgState, cachedProfileImg);
 
   return (
     <div>
@@ -70,6 +93,8 @@ function renderFileInput({
           </div>
           <div className="d-flex wrap-nowrap">
             <button
+              id="getcroppedavatar"
+              disabled={disabled}
               className="btn btn-secondary w-50 mr-1"
               onClick={() => getCroppedAvatar(avatarRefs)}
               type="button"
@@ -78,6 +103,7 @@ function renderFileInput({
               <FormattedMessage {...messages.saveButton} />
             </button>
             <button
+              disabled={disabled}
               className="btn btn-secondary w-50 ml-1"
               onClick={clearImageChanges}
               type="button"
@@ -96,6 +122,7 @@ function renderFileInput({
         </div>
         <div className="custom-file">
           <input
+            disabled={disabled}
             {...input}
             type="file"
             onChange={uploadImage}
@@ -110,19 +137,18 @@ function renderFileInput({
         </div>
       </div>
       <h6 className="text-danger">
-        {touched &&
-          ((error && <span>{translations[error]}</span>) ||
-            (warning && <span>{translations[warning]}</span>))}
+        {WarningMessage(touched, translations, error, warning)}
       </h6>
     </div>
   );
 }
 
 renderFileInput.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  meta: PropTypes.object.isRequired,
-  sendProps: PropTypes.object.isRequired,
+  input: PropTypes.object,
+  label: PropTypes.string,
+  meta: PropTypes.object,
+  disabled: PropTypes.bool,
+  sendProps: PropTypes.object,
 };
 
 export default renderFileInput;

@@ -1,27 +1,21 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { BrowserRouter } from 'react-router-dom';
-import { IntlProvider } from 'react-intl';
-import 'jest-styled-components';
-import { translationMessages } from 'i18n';
-import messages from 'containers/Profile/messages';
-
 import ViewFormListItem from '../ViewFormListItem';
 
+const props = {
+  label: {
+    id: 'messageId',
+    defaultMessage: 'defaultMessage',
+  },
+  message: '',
+};
+
 describe('ViewFormListItem test', () => {
-  it('test by snapshots', () => {
-    const renderedComponent = renderer
-      .create(
-        <BrowserRouter>
-          <IntlProvider locale="en" key="en" messages={translationMessages.en}>
-            {ViewFormListItem({
-              label: messages.savingButton,
-              message: 'savingButton',
-            })}
-          </IntlProvider>
-        </BrowserRouter>,
-      )
-      .toJSON();
-    expect(renderedComponent).toMatchSnapshot();
+  it('case1: test by snapshots, @props.message is true', () => {
+    props.message = 'user';
+    expect(ViewFormListItem(props)).toMatchSnapshot();
+  });
+
+  it('case2: test by snapshots,  @props.message is false', () => {
+    props.message = '';
+    expect(ViewFormListItem(props)).toMatchSnapshot();
   });
 });

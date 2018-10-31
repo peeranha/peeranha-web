@@ -5,6 +5,7 @@ function renderField({
   input,
   label,
   type,
+  disabled,
   readOnly,
   translations,
   meta: { touched, error, warning },
@@ -14,6 +15,7 @@ function renderField({
       <h6>{label[0]}</h6>
       <input
         {...input}
+        disabled={disabled}
         placeholder={label[0]}
         type={type}
         readOnly={readOnly}
@@ -30,11 +32,12 @@ function renderField({
 }
 
 renderField.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
-  readOnly: PropTypes.bool.isRequired,
-  meta: PropTypes.object.isRequired,
+  input: PropTypes.object,
+  label: PropTypes.array,
+  type: PropTypes.string,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  meta: PropTypes.object,
   translations: PropTypes.object,
 };
 

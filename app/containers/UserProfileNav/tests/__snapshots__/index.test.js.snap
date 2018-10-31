@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserProfileNav /> render test 1`] = `
+<button
+  className="btn btn-secondary my-2 my-sm-0"
+  onClick={[Function]}
+>
+  <FormattedMessage
+    defaultMessage="Profile"
+    id="app.containers.UserProfileNav.profile"
+    values={Object {}}
+  />
+</button>
+`;

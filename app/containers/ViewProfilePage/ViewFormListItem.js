@@ -13,8 +13,8 @@ const ViewFormListItem = props => (
 );
 
 ViewFormListItem.propTypes = {
-  message: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  message: PropTypes.string,
+  label: PropTypes.object,
 };
 
 export default ViewFormListItem;

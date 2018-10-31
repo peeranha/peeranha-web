@@ -1,0 +1,1481 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignUpForm /> snapshot test 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "injectedReducers": Object {},
+      "injectedSagas": Object {},
+      "replaceReducer": [Function],
+      "runSaga": [Function],
+      "subscribe": [Function],
+      Symbol(Symbol.observable): [Function],
+    }
+  }
+>
+  <Connect(LanguageProvider)
+    key="en"
+    locale="en"
+    messages={
+      Object {
+        "en": Object {
+          "app.components.Footer.header": "Copyright: Peerania",
+          "app.components.Header.about": "About",
+          "app.components.Header.help": "Help",
+          "app.components.Header.home": "Home",
+          "app.components.Header.login": "Log in",
+          "app.components.Header.profile": "Profile",
+          "app.components.Header.search": "Search",
+          "app.components.Header.signUp": "Sign Up",
+          "app.components.NoAccess.errorMessage": "No access to complete this action!",
+          "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+          "app.containers.Login.header": "No Peerania account exists for selected identity.",
+          "app.containers.Login.loginWithScatter": "Log in with Scatter",
+          "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+          "app.containers.Login.selectAnotherIdentity": "Select another identity",
+          "app.containers.Login.signUp": "Sign up",
+          "app.containers.Profile.aboutLabel": "About me",
+          "app.containers.Profile.avatarLabel": "Avatar",
+          "app.containers.Profile.cancelButton": "Cancel",
+          "app.containers.Profile.chooseFile": "Choose file",
+          "app.containers.Profile.companyLabel": "Company",
+          "app.containers.Profile.displayNameLabel": "Display name",
+          "app.containers.Profile.editButton": "Edit",
+          "app.containers.Profile.emptyField": "This field is empty",
+          "app.containers.Profile.fileSize": "File size is exceeded",
+          "app.containers.Profile.isProfileLoading": "Loading...",
+          "app.containers.Profile.locationLabel": "Location",
+          "app.containers.Profile.positionLabel": "Position",
+          "app.containers.Profile.profile": "Profile",
+          "app.containers.Profile.profileDescription": "Profile description",
+          "app.containers.Profile.saveButton": "Save",
+          "app.containers.Profile.savingButton": "Saving...",
+          "app.containers.Profile.stringLength": "String is too short or too long",
+          "app.containers.Profile.viewButton": "View",
+          "app.containers.Profile.wrongUser": "Wrong user",
+          "app.containers.ScatterInstaller.backToOptions": "Back to options",
+          "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+          "app.containers.ScatterInstaller.nextstep": "Next step",
+          "app.containers.SelectAccount.backToOptions": "Back to options",
+          "app.containers.SelectAccount.header": "Scatter account was not selected.",
+          "app.containers.SelectAccount.selectIdent": "Select identity",
+          "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+          "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+          "app.containers.SignUp.displayName": "Display Name",
+          "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+          "app.containers.SignUp.eosAccount": "EOS Account",
+          "app.containers.SignUp.identity": "identity",
+          "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+          "app.containers.SignUp.login": "Log in",
+          "app.containers.SignUp.loginWith": "Login with",
+          "app.containers.SignUp.or": "or",
+          "app.containers.SignUp.requiredField": "Required field",
+          "app.containers.SignUp.selectedIdentity": "Selected identity",
+          "app.containers.SignUp.serverMessage": "Error",
+          "app.containers.SignUp.signUp": "Sign Up",
+          "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+          "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+          "app.containers.UserProfileNav.profile": "Profile",
+        },
+        "ru": Object {
+          "app.components.Footer.header": "Авторские права: Peerania",
+          "app.components.Header.about": "О нас",
+          "app.components.Header.help": "Помощь",
+          "app.components.Header.home": "Главная",
+          "app.components.Header.login": "Вход",
+          "app.components.Header.profile": "Профиль",
+          "app.components.Header.search": "Поиск",
+          "app.components.Header.signUp": "Регистрация",
+          "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
+          "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
+          "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
+          "app.containers.Login.loginWithScatter": "Войти через Scatter",
+          "app.containers.Login.requirementToSignUp": "Зарегистрируйте Peerania аккаунт",
+          "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
+          "app.containers.Login.signUp": "Зарегистрируйтесь",
+          "app.containers.Profile.aboutLabel": "Обо мне",
+          "app.containers.Profile.avatarLabel": "Аватарка",
+          "app.containers.Profile.cancelButton": "Отмена",
+          "app.containers.Profile.chooseFile": "Выбрать файл",
+          "app.containers.Profile.companyLabel": "Компания",
+          "app.containers.Profile.displayNameLabel": "Отображаемое имя",
+          "app.containers.Profile.editButton": "Редактировать",
+          "app.containers.Profile.emptyField": "Это поле - пустое",
+          "app.containers.Profile.fileSize": "Размер файла превышен",
+          "app.containers.Profile.isProfileLoading": "Загрузка...",
+          "app.containers.Profile.locationLabel": "Местоположение",
+          "app.containers.Profile.positionLabel": "Должность",
+          "app.containers.Profile.profile": "Профиль",
+          "app.containers.Profile.profileDescription": "Описание профиля",
+          "app.containers.Profile.saveButton": "Сохранить",
+          "app.containers.Profile.savingButton": "Сохранение...",
+          "app.containers.Profile.stringLength": "Строка слишком короткая или слишком длинная",
+          "app.containers.Profile.viewButton": "Посмотреть",
+          "app.containers.Profile.wrongUser": "Неверный пользователь",
+          "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
+          "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
+          "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
+          "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
+          "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
+          "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
+          "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
+          "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
+          "app.containers.SignUp.displayName": "Отображаемое имя",
+          "app.containers.SignUp.displayNameLength": "Длина поля должна быть не меньше 3 символов и не более 20",
+          "app.containers.SignUp.eosAccount": "EOS аккаунт",
+          "app.containers.SignUp.identity": "аккаунт",
+          "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
+          "app.containers.SignUp.login": "Войти",
+          "app.containers.SignUp.loginWith": "Войти через",
+          "app.containers.SignUp.or": "или",
+          "app.containers.SignUp.requiredField": "Требуемое поле",
+          "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
+          "app.containers.SignUp.serverMessage": "Ошибка",
+          "app.containers.SignUp.signUp": "Зарегистрироваться",
+          "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
+          "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
+          "app.containers.UserProfileNav.profile": "Профиль",
+        },
+      }
+    }
+  >
+    <LanguageProvider
+      dispatch={[Function]}
+      locale="en"
+      messages={
+        Object {
+          "en": Object {
+            "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.Header.about": "About",
+            "app.components.Header.help": "Help",
+            "app.components.Header.home": "Home",
+            "app.components.Header.login": "Log in",
+            "app.components.Header.profile": "Profile",
+            "app.components.Header.search": "Search",
+            "app.components.Header.signUp": "Sign Up",
+            "app.components.NoAccess.errorMessage": "No access to complete this action!",
+            "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+            "app.containers.Login.header": "No Peerania account exists for selected identity.",
+            "app.containers.Login.loginWithScatter": "Log in with Scatter",
+            "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+            "app.containers.Login.selectAnotherIdentity": "Select another identity",
+            "app.containers.Login.signUp": "Sign up",
+            "app.containers.Profile.aboutLabel": "About me",
+            "app.containers.Profile.avatarLabel": "Avatar",
+            "app.containers.Profile.cancelButton": "Cancel",
+            "app.containers.Profile.chooseFile": "Choose file",
+            "app.containers.Profile.companyLabel": "Company",
+            "app.containers.Profile.displayNameLabel": "Display name",
+            "app.containers.Profile.editButton": "Edit",
+            "app.containers.Profile.emptyField": "This field is empty",
+            "app.containers.Profile.fileSize": "File size is exceeded",
+            "app.containers.Profile.isProfileLoading": "Loading...",
+            "app.containers.Profile.locationLabel": "Location",
+            "app.containers.Profile.positionLabel": "Position",
+            "app.containers.Profile.profile": "Profile",
+            "app.containers.Profile.profileDescription": "Profile description",
+            "app.containers.Profile.saveButton": "Save",
+            "app.containers.Profile.savingButton": "Saving...",
+            "app.containers.Profile.stringLength": "String is too short or too long",
+            "app.containers.Profile.viewButton": "View",
+            "app.containers.Profile.wrongUser": "Wrong user",
+            "app.containers.ScatterInstaller.backToOptions": "Back to options",
+            "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+            "app.containers.ScatterInstaller.nextstep": "Next step",
+            "app.containers.SelectAccount.backToOptions": "Back to options",
+            "app.containers.SelectAccount.header": "Scatter account was not selected.",
+            "app.containers.SelectAccount.selectIdent": "Select identity",
+            "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+            "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+            "app.containers.SignUp.displayName": "Display Name",
+            "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+            "app.containers.SignUp.eosAccount": "EOS Account",
+            "app.containers.SignUp.identity": "identity",
+            "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+            "app.containers.SignUp.login": "Log in",
+            "app.containers.SignUp.loginWith": "Login with",
+            "app.containers.SignUp.or": "or",
+            "app.containers.SignUp.requiredField": "Required field",
+            "app.containers.SignUp.selectedIdentity": "Selected identity",
+            "app.containers.SignUp.serverMessage": "Error",
+            "app.containers.SignUp.signUp": "Sign Up",
+            "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+            "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+            "app.containers.UserProfileNav.profile": "Profile",
+          },
+          "ru": Object {
+            "app.components.Footer.header": "Авторские права: Peerania",
+            "app.components.Header.about": "О нас",
+            "app.components.Header.help": "Помощь",
+            "app.components.Header.home": "Главная",
+            "app.components.Header.login": "Вход",
+            "app.components.Header.profile": "Профиль",
+            "app.components.Header.search": "Поиск",
+            "app.components.Header.signUp": "Регистрация",
+            "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
+            "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
+            "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
+            "app.containers.Login.loginWithScatter": "Войти через Scatter",
+            "app.containers.Login.requirementToSignUp": "Зарегистрируйте Peerania аккаунт",
+            "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
+            "app.containers.Login.signUp": "Зарегистрируйтесь",
+            "app.containers.Profile.aboutLabel": "Обо мне",
+            "app.containers.Profile.avatarLabel": "Аватарка",
+            "app.containers.Profile.cancelButton": "Отмена",
+            "app.containers.Profile.chooseFile": "Выбрать файл",
+            "app.containers.Profile.companyLabel": "Компания",
+            "app.containers.Profile.displayNameLabel": "Отображаемое имя",
+            "app.containers.Profile.editButton": "Редактировать",
+            "app.containers.Profile.emptyField": "Это поле - пустое",
+            "app.containers.Profile.fileSize": "Размер файла превышен",
+            "app.containers.Profile.isProfileLoading": "Загрузка...",
+            "app.containers.Profile.locationLabel": "Местоположение",
+            "app.containers.Profile.positionLabel": "Должность",
+            "app.containers.Profile.profile": "Профиль",
+            "app.containers.Profile.profileDescription": "Описание профиля",
+            "app.containers.Profile.saveButton": "Сохранить",
+            "app.containers.Profile.savingButton": "Сохранение...",
+            "app.containers.Profile.stringLength": "Строка слишком короткая или слишком длинная",
+            "app.containers.Profile.viewButton": "Посмотреть",
+            "app.containers.Profile.wrongUser": "Неверный пользователь",
+            "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
+            "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
+            "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
+            "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
+            "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
+            "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
+            "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
+            "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
+            "app.containers.SignUp.displayName": "Отображаемое имя",
+            "app.containers.SignUp.displayNameLength": "Длина поля должна быть не меньше 3 символов и не более 20",
+            "app.containers.SignUp.eosAccount": "EOS аккаунт",
+            "app.containers.SignUp.identity": "аккаунт",
+            "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
+            "app.containers.SignUp.login": "Войти",
+            "app.containers.SignUp.loginWith": "Войти через",
+            "app.containers.SignUp.or": "или",
+            "app.containers.SignUp.requiredField": "Требуемое поле",
+            "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
+            "app.containers.SignUp.serverMessage": "Ошибка",
+            "app.containers.SignUp.signUp": "Зарегистрироваться",
+            "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
+            "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
+            "app.containers.UserProfileNav.profile": "Профиль",
+          },
+        }
+      }
+    >
+      <IntlProvider
+        key="en"
+        locale="en"
+        messages={
+          Object {
+            "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.Header.about": "About",
+            "app.components.Header.help": "Help",
+            "app.components.Header.home": "Home",
+            "app.components.Header.login": "Log in",
+            "app.components.Header.profile": "Profile",
+            "app.components.Header.search": "Search",
+            "app.components.Header.signUp": "Sign Up",
+            "app.components.NoAccess.errorMessage": "No access to complete this action!",
+            "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+            "app.containers.Login.header": "No Peerania account exists for selected identity.",
+            "app.containers.Login.loginWithScatter": "Log in with Scatter",
+            "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+            "app.containers.Login.selectAnotherIdentity": "Select another identity",
+            "app.containers.Login.signUp": "Sign up",
+            "app.containers.Profile.aboutLabel": "About me",
+            "app.containers.Profile.avatarLabel": "Avatar",
+            "app.containers.Profile.cancelButton": "Cancel",
+            "app.containers.Profile.chooseFile": "Choose file",
+            "app.containers.Profile.companyLabel": "Company",
+            "app.containers.Profile.displayNameLabel": "Display name",
+            "app.containers.Profile.editButton": "Edit",
+            "app.containers.Profile.emptyField": "This field is empty",
+            "app.containers.Profile.fileSize": "File size is exceeded",
+            "app.containers.Profile.isProfileLoading": "Loading...",
+            "app.containers.Profile.locationLabel": "Location",
+            "app.containers.Profile.positionLabel": "Position",
+            "app.containers.Profile.profile": "Profile",
+            "app.containers.Profile.profileDescription": "Profile description",
+            "app.containers.Profile.saveButton": "Save",
+            "app.containers.Profile.savingButton": "Saving...",
+            "app.containers.Profile.stringLength": "String is too short or too long",
+            "app.containers.Profile.viewButton": "View",
+            "app.containers.Profile.wrongUser": "Wrong user",
+            "app.containers.ScatterInstaller.backToOptions": "Back to options",
+            "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+            "app.containers.ScatterInstaller.nextstep": "Next step",
+            "app.containers.SelectAccount.backToOptions": "Back to options",
+            "app.containers.SelectAccount.header": "Scatter account was not selected.",
+            "app.containers.SelectAccount.selectIdent": "Select identity",
+            "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+            "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+            "app.containers.SignUp.displayName": "Display Name",
+            "app.containers.SignUp.displayNameLength": "Display name length must be between 3 and 20",
+            "app.containers.SignUp.eosAccount": "EOS Account",
+            "app.containers.SignUp.identity": "identity",
+            "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+            "app.containers.SignUp.login": "Log in",
+            "app.containers.SignUp.loginWith": "Login with",
+            "app.containers.SignUp.or": "or",
+            "app.containers.SignUp.requiredField": "Required field",
+            "app.containers.SignUp.selectedIdentity": "Selected identity",
+            "app.containers.SignUp.serverMessage": "Error",
+            "app.containers.SignUp.signUp": "Sign Up",
+            "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+            "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+            "app.containers.UserProfileNav.profile": "Profile",
+          }
+        }
+      >
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <Router
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+          >
+            <ReduxForm
+              account="user1"
+              errorMessage={Object {}}
+              handleSubmit={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      [MockFunction],
+                    ],
+                    Array [
+                      [MockFunction],
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "isThrow": false,
+                      "value": undefined,
+                    },
+                    Object {
+                      "isThrow": false,
+                      "value": undefined,
+                    },
+                  ],
+                }
+              }
+              invalid={false}
+              loading={false}
+              registerUser={[MockFunction]}
+              submitting={false}
+              translations={Object {}}
+            >
+              <Connect(Form(SignUpForm))
+                account="user1"
+                destroyOnUnmount={true}
+                enableReinitialize={false}
+                errorMessage={Object {}}
+                forceUnregisterOnUnmount={false}
+                form="SignUpForm"
+                getFormState={[Function]}
+                handleSubmit={
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        [MockFunction],
+                      ],
+                      Array [
+                        [MockFunction],
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "isThrow": false,
+                        "value": undefined,
+                      },
+                      Object {
+                        "isThrow": false,
+                        "value": undefined,
+                      },
+                    ],
+                  }
+                }
+                invalid={false}
+                keepDirtyOnReinitialize={false}
+                loading={false}
+                persistentSubmitErrors={false}
+                pure={true}
+                registerUser={[MockFunction]}
+                shouldAsyncValidate={[Function]}
+                shouldError={[Function]}
+                shouldValidate={[Function]}
+                shouldWarn={[Function]}
+                submitting={false}
+                touchOnBlur={true}
+                touchOnChange={false}
+                translations={Object {}}
+                updateUnregisteredFields={false}
+              >
+                <Form(SignUpForm)
+                  account="user1"
+                  anyTouched={false}
+                  array={
+                    Object {
+                      "insert": [Function],
+                      "move": [Function],
+                      "pop": [Function],
+                      "push": [Function],
+                      "remove": [Function],
+                      "removeAll": [Function],
+                      "shift": [Function],
+                      "splice": [Function],
+                      "swap": [Function],
+                      "unshift": [Function],
+                    }
+                  }
+                  arrayInsert={[Function]}
+                  arrayMove={[Function]}
+                  arrayPop={[Function]}
+                  arrayPush={[Function]}
+                  arrayRemove={[Function]}
+                  arrayRemoveAll={[Function]}
+                  arrayShift={[Function]}
+                  arraySplice={[Function]}
+                  arraySwap={[Function]}
+                  arrayUnshift={[Function]}
+                  asyncValidating={false}
+                  autofill={[Function]}
+                  blur={[Function]}
+                  change={[Function]}
+                  clearAsyncError={[Function]}
+                  clearFields={[Function]}
+                  clearSubmit={[Function]}
+                  clearSubmitErrors={[Function]}
+                  destroy={[Function]}
+                  destroyOnUnmount={true}
+                  dirty={false}
+                  dispatch={[Function]}
+                  enableReinitialize={false}
+                  errorMessage={Object {}}
+                  focus={[Function]}
+                  forceUnregisterOnUnmount={false}
+                  form="SignUpForm"
+                  getFormState={[Function]}
+                  handleSubmit={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          [MockFunction],
+                        ],
+                        Array [
+                          [MockFunction],
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "isThrow": false,
+                          "value": undefined,
+                        },
+                        Object {
+                          "isThrow": false,
+                          "value": undefined,
+                        },
+                      ],
+                    }
+                  }
+                  initialize={[Function]}
+                  initialized={false}
+                  invalid={true}
+                  keepDirtyOnReinitialize={false}
+                  loading={false}
+                  persistentSubmitErrors={false}
+                  pristine={true}
+                  pure={true}
+                  registerField={[Function]}
+                  registerUser={[MockFunction]}
+                  registeredFields={
+                    Immutable.Map {
+                      "app/SignUp/eosAccount": Immutable.Map {
+                        "name": "app/SignUp/eosAccount",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                      "app/SignUp/displayName": Immutable.Map {
+                        "name": "app/SignUp/displayName",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                    }
+                  }
+                  reset={[Function]}
+                  resetSection={[Function]}
+                  setSubmitFailed={[Function]}
+                  setSubmitSucceeded={[Function]}
+                  shouldAsyncValidate={[Function]}
+                  shouldError={[Function]}
+                  shouldValidate={[Function]}
+                  shouldWarn={[Function]}
+                  startAsyncValidation={[Function]}
+                  startSubmit={[Function]}
+                  stopAsyncValidation={[Function]}
+                  stopSubmit={[Function]}
+                  submit={[Function]}
+                  submitFailed={false}
+                  submitSucceeded={false}
+                  submitting={false}
+                  syncErrors={
+                    Object {
+                      "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                    }
+                  }
+                  syncWarnings={
+                    Object {
+                      "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                    }
+                  }
+                  touch={[Function]}
+                  touchOnBlur={true}
+                  touchOnChange={false}
+                  translations={Object {}}
+                  unregisterField={[Function]}
+                  untouch={[Function]}
+                  updateSyncErrors={[Function]}
+                  updateSyncWarnings={[Function]}
+                  updateUnregisteredFields={false}
+                  valid={false}
+                  validExceptSubmit={false}
+                  values={Immutable.Map {}}
+                >
+                  <SignUpForm
+                    account="user1"
+                    anyTouched={false}
+                    array={
+                      Object {
+                        "insert": [Function],
+                        "move": [Function],
+                        "pop": [Function],
+                        "push": [Function],
+                        "remove": [Function],
+                        "removeAll": [Function],
+                        "shift": [Function],
+                        "splice": [Function],
+                        "swap": [Function],
+                        "unshift": [Function],
+                      }
+                    }
+                    asyncValidate={[Function]}
+                    asyncValidating={false}
+                    autofill={[Function]}
+                    blur={[Function]}
+                    change={[Function]}
+                    clearAsyncError={[Function]}
+                    clearFields={[Function]}
+                    clearSubmit={[Function]}
+                    clearSubmitErrors={[Function]}
+                    destroy={[Function]}
+                    dirty={false}
+                    dispatch={[Function]}
+                    errorMessage={Object {}}
+                    form="SignUpForm"
+                    handleSubmit={
+                      [MockFunction] {
+                        "calls": Array [
+                          Array [
+                            [MockFunction],
+                          ],
+                          Array [
+                            [MockFunction],
+                          ],
+                        ],
+                        "results": Array [
+                          Object {
+                            "isThrow": false,
+                            "value": undefined,
+                          },
+                          Object {
+                            "isThrow": false,
+                            "value": undefined,
+                          },
+                        ],
+                      }
+                    }
+                    initialize={[Function]}
+                    initialized={false}
+                    invalid={true}
+                    loading={false}
+                    pristine={true}
+                    pure={true}
+                    registerUser={[MockFunction]}
+                    reset={[Function]}
+                    resetSection={[Function]}
+                    submit={[Function]}
+                    submitFailed={false}
+                    submitSucceeded={false}
+                    submitting={false}
+                    touch={[Function]}
+                    translations={Object {}}
+                    untouch={[Function]}
+                    valid={false}
+                  >
+                    <form>
+                      <div>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          label={
+                            Array [
+                              undefined,
+                              "user1",
+                            ]
+                          }
+                          name="app/SignUp/eosAccount"
+                          readOnly={true}
+                          translations={Object {}}
+                          type="text"
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "account": "user1",
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "errorMessage": Object {},
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "SignUpForm",
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      [MockFunction],
+                                    ],
+                                    Array [
+                                      [MockFunction],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "isThrow": false,
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "isThrow": false,
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "loading": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registerUser": [MockFunction],
+                                "registeredFields": Immutable.Map {
+                                  "app/SignUp/eosAccount": Immutable.Map {
+                                    "name": "app/SignUp/eosAccount",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/SignUp/displayName": Immutable.Map {
+                                    "name": "app/SignUp/displayName",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                },
+                                "syncWarnings": Object {
+                                  "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            label={
+                              Array [
+                                undefined,
+                                "user1",
+                              ]
+                            }
+                            name="app/SignUp/eosAccount"
+                            normalize={[Function]}
+                            readOnly={true}
+                            translations={Object {}}
+                            type="text"
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "account": "user1",
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "errorMessage": Object {},
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "SignUpForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        [MockFunction],
+                                      ],
+                                      Array [
+                                        [MockFunction],
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "isThrow": false,
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "isThrow": false,
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "loading": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registerUser": [MockFunction],
+                                  "registeredFields": Immutable.Map {
+                                    "app/SignUp/eosAccount": Immutable.Map {
+                                      "name": "app/SignUp/eosAccount",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/SignUp/displayName": Immutable.Map {
+                                      "name": "app/SignUp/displayName",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              label={
+                                Array [
+                                  undefined,
+                                  "user1",
+                                ]
+                              }
+                              name="app/SignUp/eosAccount"
+                              normalize={[Function]}
+                              pristine={true}
+                              readOnly={true}
+                              translations={Object {}}
+                              type="text"
+                            >
+                              <renderField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app/SignUp/eosAccount",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                label={
+                                  Array [
+                                    undefined,
+                                    "user1",
+                                  ]
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": undefined,
+                                    "form": "SignUpForm",
+                                    "initial": undefined,
+                                    "invalid": false,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": true,
+                                    "visited": false,
+                                    "warning": undefined,
+                                  }
+                                }
+                                readOnly={true}
+                                translations={Object {}}
+                                type="text"
+                              >
+                                <div>
+                                  <h6 />
+                                  <input
+                                    className="form-control"
+                                    disabled={false}
+                                    name="app/SignUp/eosAccount"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    readOnly={true}
+                                    type="text"
+                                    value="user1"
+                                  />
+                                  <h6
+                                    className="text-danger"
+                                  />
+                                </div>
+                              </renderField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          label={
+                            Array [
+                              undefined,
+                            ]
+                          }
+                          name="app/SignUp/displayName"
+                          readOnly={false}
+                          translations={Object {}}
+                          type="text"
+                          validate={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                          warn={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "account": "user1",
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "errorMessage": Object {},
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "SignUpForm",
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      [MockFunction],
+                                    ],
+                                    Array [
+                                      [MockFunction],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "isThrow": false,
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "isThrow": false,
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "loading": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registerUser": [MockFunction],
+                                "registeredFields": Immutable.Map {
+                                  "app/SignUp/eosAccount": Immutable.Map {
+                                    "name": "app/SignUp/eosAccount",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/SignUp/displayName": Immutable.Map {
+                                    "name": "app/SignUp/displayName",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                },
+                                "syncWarnings": Object {
+                                  "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            label={
+                              Array [
+                                undefined,
+                              ]
+                            }
+                            name="app/SignUp/displayName"
+                            normalize={[Function]}
+                            readOnly={false}
+                            translations={Object {}}
+                            type="text"
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "account": "user1",
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "errorMessage": Object {},
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "SignUpForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        [MockFunction],
+                                      ],
+                                      Array [
+                                        [MockFunction],
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "isThrow": false,
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "isThrow": false,
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "loading": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registerUser": [MockFunction],
+                                  "registeredFields": Immutable.Map {
+                                    "app/SignUp/eosAccount": Immutable.Map {
+                                      "name": "app/SignUp/eosAccount",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/SignUp/displayName": Immutable.Map {
+                                      "name": "app/SignUp/displayName",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/SignUp/displayName": "app.containers.SignUp.requiredField",
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              label={
+                                Array [
+                                  undefined,
+                                ]
+                              }
+                              name="app/SignUp/displayName"
+                              normalize={[Function]}
+                              pristine={true}
+                              readOnly={false}
+                              syncError="app.containers.SignUp.requiredField"
+                              syncWarning="app.containers.SignUp.requiredField"
+                              translations={Object {}}
+                              type="text"
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                            >
+                              <renderField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app/SignUp/displayName",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                label={
+                                  Array [
+                                    undefined,
+                                  ]
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": "app.containers.SignUp.requiredField",
+                                    "form": "SignUpForm",
+                                    "initial": undefined,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": false,
+                                    "visited": false,
+                                    "warning": "app.containers.SignUp.requiredField",
+                                  }
+                                }
+                                readOnly={false}
+                                translations={Object {}}
+                                type="text"
+                              >
+                                <div>
+                                  <h6 />
+                                  <input
+                                    className="form-control"
+                                    disabled={false}
+                                    name="app/SignUp/displayName"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    readOnly={false}
+                                    type="text"
+                                  />
+                                  <h6
+                                    className="text-danger"
+                                  />
+                                </div>
+                              </renderField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                      </div>
+                      <div>
+                        <button
+                          className="btn btn-success form-control"
+                          disabled={true}
+                          type="submit"
+                        >
+                          <FormattedMessage
+                            defaultMessage="Sign Up"
+                            id="app.containers.SignUp.signUp"
+                            values={Object {}}
+                          >
+                            <span>
+                              Sign Up
+                            </span>
+                          </FormattedMessage>
+                        </button>
+                      </div>
+                    </form>
+                  </SignUpForm>
+                </Form(SignUpForm)>
+              </Connect(Form(SignUpForm))>
+            </ReduxForm>
+          </Router>
+        </ConnectedRouter>
+      </IntlProvider>
+    </LanguageProvider>
+  </Connect(LanguageProvider)>
+</Provider>
+`;

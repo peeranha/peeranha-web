@@ -1,6 +1,7 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
+import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   uploadImageFileSuccess,
@@ -23,11 +24,12 @@ export function* uploadImageFileWorker(res) {
 export function* saveProfileActionWorker(res) {
   try {
     const { reader, profile, userKey } = res.obj;
+    const eosService = yield select(selectEos);
+
     const img = reader ? yield call(() => uploadImg(reader)) : undefined;
+    profile.ipfs.savedProfileImg = yield img ? img.imgHash : undefined;
 
-    yield img ? (profile.ipfs.savedProfileImg = img.imgHash) : undefined;
-
-    yield call(() => saveProfile(userKey, profile.ipfs));
+    yield call(() => saveProfile(userKey, profile.ipfs, eosService));
     yield put(saveProfileActionSuccess());
   } catch (err) {
     yield put(saveProfileActionError(err.message));

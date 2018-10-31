@@ -15,8 +15,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import PropTypes from 'prop-types';
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import { getProfileInfo, setDefaultProps } from './actions';
 
@@ -25,20 +26,27 @@ import saga from './saga';
 import messages from './messages';
 import * as profileSelectors from './selectors';
 
-import Preloader from './Preloader';
 import Wrapper from './Wrapper';
 import NoSuchUser from './NoSuchUser';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.Component {
-  componentDidMount = () => {
-    const { userId, account } = this.props;
-    this.props.getProfileInfoDispatch(userId, account.eosAccount);
+  componentWillUnmount = () => {
+    this.props.setDefaultPropsDispatch();
   };
 
-  componentWillUnmount() {
-    this.props.setDefaultPropsDispatch();
-  }
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.userId !== this.props.userId) {
+      this.getProfile(nextProps.userId);
+    }
+  };
+
+  componentDidMount = () => {
+    this.getProfile();
+  };
+
+  getProfile = (userId = this.props.userId) =>
+    this.props.getProfileInfoDispatch(userId, this.props.account);
 
   render() {
     const { locale, profile, isProfileLoading } = this.props;
@@ -60,7 +68,7 @@ export class Profile extends React.Component {
           />
         </Helmet>
         <Wrapper>
-          {isProfileLoading && <Preloader />}
+          {isProfileLoading && <LoadingIndicator />}
           {!isProfileLoading && !profile.eos && <NoSuchUser />}
           {!isProfileLoading &&
             profile.eos &&
@@ -72,14 +80,14 @@ export class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  children: PropTypes.object.isRequired,
-  userId: PropTypes.string.isRequired,
-  account: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
-  isProfileLoading: PropTypes.bool.isRequired,
-  getProfileInfoDispatch: PropTypes.func.isRequired,
-  setDefaultPropsDispatch: PropTypes.func.isRequired,
+  children: PropTypes.object,
+  userId: PropTypes.string,
+  account: PropTypes.object,
+  profile: PropTypes.object,
+  locale: PropTypes.string,
+  isProfileLoading: PropTypes.bool,
+  getProfileInfoDispatch: PropTypes.func,
+  setDefaultPropsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -89,7 +97,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getProfileInfoDispatch: (key, account) =>

@@ -12,9 +12,13 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import LoadingIndicator from 'components/LoadingIndicator';
+
 import { initEosio } from './actions';
+import { makeSelectInitializing } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Wrapper from './Wrapper';
 
 export class EosioProvider extends React.Component {
   componentDidMount() {
@@ -22,18 +26,31 @@ export class EosioProvider extends React.Component {
   }
 
   render() {
-    return [React.Children.only(this.props.children)];
+    return (
+      <div>
+        {this.props.initializing && (
+          <Wrapper>
+            <LoadingIndicator />
+          </Wrapper>
+        )}
+
+        {!this.props.initializing && React.Children.only(this.props.children)}
+      </div>
+    );
   }
 }
 
 EosioProvider.propTypes = {
-  initEosio: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
+  initEosio: PropTypes.func,
+  children: PropTypes.object,
+  initializing: PropTypes.bool,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  initializing: makeSelectInitializing(),
+});
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     initEosio: () => dispatch(initEosio()),
     dispatch,

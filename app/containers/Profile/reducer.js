@@ -25,7 +25,6 @@ export const initialState = fromJS({
   errorLoadProfile: '',
   profile: {},
   userKey: '',
-  isOwner: null,
   citiesList: [],
   locationSearch: '',
   loadingGetCitiesList: false,
@@ -36,7 +35,6 @@ function profileReducer(state = initialState, action) {
   const {
     type,
     profile,
-    isOwner,
     cityId,
     city,
     citiesList,
@@ -50,13 +48,11 @@ function profileReducer(state = initialState, action) {
     case GET_PROFILE_INFORMATION:
       return state.set('isProfileLoading', true).set('userKey', userKey);
     case GET_PROFILE_INFORMATION_SUCCESS:
-      return state
-        .set('isProfileLoading', false)
-        .set('isOwner', isOwner)
-        .set('profile', profile);
+      return state.set('isProfileLoading', false).set('profile', profile);
     case GET_PROFILE_INFORMATION_ERROR:
       return state
         .set('isProfileLoading', false)
+        .set('profile', {})
         .set('errorLoadProfile', errorLoadProfile);
     case GET_LOCATION_LIST:
       return state.set('locationSearch', locationSearch).set('profile', {

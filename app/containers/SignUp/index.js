@@ -7,42 +7,69 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
+import createdHistory from 'createdHistory';
 
-import { makeSelectAccount } from 'containers/AccountInitializer/selectors';
+import {
+  makeSelectAccount,
+  makeSelectUserIsInSystem,
+} from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+
+import ModalDialog from 'containers/ModalDialog';
+import ScatterInstaller from 'components/ScatterInstaller';
+import SelectAccountComponent from 'components/SelectAccount';
+
+import { loginSignup, reloadApp } from 'containers/AccountProvider/actions';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
 import {
-  makeSelectLoading,
-  makeSelectError,
-  makeSelectRegistered,
-} from './selectors';
+  fetchRegisterAcc,
+  setReducerDefault,
+  showSignUpModal,
+  hideSignUpModal,
+} from './actions';
 
-import { fetchRegisterAcc, setReducerDefault } from './actions';
+import {
+  DISPLAY_NAME,
+  SHOW_DEFAULT_SIGNUP_MODAL,
+  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
+  USER_IS_IN_SYSTEM_AND_SIGNUP,
+  COMPLETE_SIGNUP,
+  NO_SELECTED_SCATTER_ACCOUNTS,
+  NO_SCATTER,
+} from './constants';
 
-import { EOS_ACC, DISPLAY_NAME } from './constants';
+import * as signUpSelectors from './selectors';
 
-import Wrapper from './Wrapper';
 import SignUpForm from './SignUpForm';
+import IdentityIsRegistred from './IdentityIsRegistred';
+import SignUpOptions from './SignUpOptions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
-  componentWillMount() {
-    SignUp.registerUser = SignUp.registerUser.bind(this);
-  }
-
   componentDidUpdate() {
-    if (this.props.registered) {
-      this.props.history.push('./profile');
+    const { registered, account, userIsInSystem } = this.props;
+
+    const reload = localStorage.getItem(COMPLETE_SIGNUP);
+    const scrollTo = localStorage.getItem('scrollTo');
+
+    if (reload && userIsInSystem !== null) {
+      this.props.showSignUpModalDispatch();
+      if (scrollTo) window.scrollTo(0, +scrollTo);
+      localStorage.clear();
+    }
+
+    if (registered) {
+      createdHistory.push(`/users/edit/${account}`);
     }
   }
 
@@ -50,68 +77,123 @@ export class SignUp extends React.Component {
     this.props.setReducerDefaultDispatch();
   }
 
-  static registerUser(values) {
-    const { eosAccount } = this.props.account;
-    const displayName = values.get(DISPLAY_NAME);
-
+  registerUser = values => {
     this.props.registerUserDispatch({
-      eosAccount,
-      displayName,
+      eosAccount: this.props.account,
+      displayName: values.get(DISPLAY_NAME),
     });
+  };
 
-    return { [EOS_ACC]: eosAccount, [DISPLAY_NAME]: displayName };
-  }
+  continueSignUp = () => {
+    this.props.loginSignupDispatch({ type: COMPLETE_SIGNUP });
+  };
+
+  backToOptions = () => {
+    this.props.showSignUpModalDispatch(SHOW_DEFAULT_SIGNUP_MODAL);
+  };
+
+  openLoginWindow = () => {
+    this.props.hideSignUpModalDispatch();
+    this.props.showLoginModalDispatch();
+  };
 
   render() {
-    const { loading, error, account, locale } = this.props;
+    const {
+      loading,
+      error,
+      account,
+      locale,
+      content,
+      showModal,
+      hideSignUpModalDispatch,
+    } = this.props;
 
     return (
-      <div className="container">
-        <Helmet>
-          <title>{translationMessages[locale][messages.signUp.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.signUpDescription.id]}
-          />
-        </Helmet>
-        <Wrapper>
-          <SignUpForm
-            registerUser={SignUp.registerUser}
-            loading={loading}
-            errorMessage={error}
-            account={account}
-            translations={translationMessages[locale]}
-          />
-        </Wrapper>
-      </div>
+      <ModalDialog show={showModal} closeModal={hideSignUpModalDispatch}>
+        <div>
+          {content === SHOW_DEFAULT_SIGNUP_MODAL && (
+            <SignUpOptions
+              continueSignUp={this.continueSignUp}
+              backToOptions={this.openLoginWindow}
+            />
+          )}
+
+          {content === NO_SCATTER && (
+            <ScatterInstaller
+              reloadApp={this.props.reloadAppDispatch}
+              backToOptions={this.backToOptions}
+            />
+          )}
+
+          {content === NO_SELECTED_SCATTER_ACCOUNTS && (
+            <SelectAccountComponent
+              selectAccount={this.continueSignUp}
+              backToOptions={this.backToOptions}
+            />
+          )}
+
+          {content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP && (
+            <SignUpForm
+              registerUser={this.registerUser}
+              loading={loading}
+              errorMessage={error}
+              account={account}
+              translations={translationMessages[locale]}
+            />
+          )}
+
+          {content === USER_IS_IN_SYSTEM_AND_SIGNUP && (
+            <IdentityIsRegistred
+              account={account}
+              continueLogin={this.openLoginWindow}
+              backToOptions={this.backToOptions}
+            />
+          )}
+        </div>
+      </ModalDialog>
     );
   }
 }
 
 SignUp.propTypes = {
-  registerUserDispatch: PropTypes.func.isRequired,
-  setReducerDefaultDispatch: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  account: PropTypes.object.isRequired,
-  error: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
+  registerUserDispatch: PropTypes.func,
+  setReducerDefaultDispatch: PropTypes.func,
+  reloadAppDispatch: PropTypes.func,
+  showSignUpModalDispatch: PropTypes.func,
+  hideSignUpModalDispatch: PropTypes.func,
+  loginSignupDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
+  account: PropTypes.string,
+  error: PropTypes.object,
+  userIsInSystem: PropTypes.bool,
+  loading: PropTypes.bool,
   registered: PropTypes.bool,
   locale: PropTypes.string,
+  content: PropTypes.string,
+  showModal: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-  registered: makeSelectRegistered(),
+  loading: signUpSelectors.makeSelectLoading(),
+  error: signUpSelectors.makeSelectError(),
+  registered: signUpSelectors.makeSelectRegistered(),
+  content: signUpSelectors.makeSelectContent(),
+  showModal: signUpSelectors.makeSelectShowModal(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
+  userIsInSystem: makeSelectUserIsInSystem(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
     setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
+    loginSignupDispatch: methods => dispatch(loginSignup(methods)),
+    reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_SIGNUP)),
+    showSignUpModalDispatch: () => dispatch(showSignUpModal()),
+    hideSignUpModalDispatch: () => dispatch(hideSignUpModal()),
+    showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
 

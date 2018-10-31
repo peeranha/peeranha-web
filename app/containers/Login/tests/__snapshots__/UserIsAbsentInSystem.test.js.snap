@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginOptions 1`] = `
+<div>
+  <p>
+    <FormattedMessage
+      defaultMessage="No Peerania account exists for selected identity."
+      id="app.containers.Login.header"
+      values={Object {}}
+    />
+  </p>
+  <button
+    className="btn btn-secondary w-50 d-block mx-auto py-2"
+  >
+    <FormattedMessage
+      defaultMessage="Select another identity"
+      id="app.containers.Login.selectAnotherIdentity"
+      values={Object {}}
+    />
+  </button>
+  <hr />
+  <button
+    className="btn btn-link w-100 d-block mx-auto"
+  >
+    <small>
+      &lt; 
+       
+      <FormattedMessage
+        defaultMessage="Sign Up for Peerania account"
+        id="app.containers.Login.requirementToSignUp"
+        values={Object {}}
+      />
+    </small>
+  </button>
+</div>
+`;

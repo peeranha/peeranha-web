@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import 'jest-styled-components';
 
-import renderTextInput from '../renderTextInput';
+import renderTextInput, { WarningMessage } from '../renderTextInput';
 
 describe('renderTextInput test', () => {
   it('test by snapshots', () => {
@@ -16,5 +16,12 @@ describe('renderTextInput test', () => {
       )
       .toJSON();
     expect(renderedComponent).toMatchSnapshot();
+  });
+
+  it('WarningMessage', () => {
+    expect(WarningMessage(false, {}, true, true)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, true, true)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, true, false)).toMatchSnapshot();
+    expect(WarningMessage(true, {}, false, true)).toMatchSnapshot();
   });
 });

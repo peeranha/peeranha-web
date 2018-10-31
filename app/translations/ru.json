@@ -5,11 +5,21 @@
   "app.components.Header.about": "О нас",
   "app.components.Header.help": "Помощь",
   "app.components.Header.search": "Поиск",
-  "app.components.Header.signIn": "Войти",
+  "app.components.Header.login": "Вход",
+  "app.components.Header.signUp": "Регистрация",
   "app.containers.SignUp.eosAccount": "EOS аккаунт",
+  "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
+  "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
+  "app.containers.SignUp.login": "Войти",
   "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.requiredField": "Требуемое поле",
+  "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
+  "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
+  "app.containers.SignUp.loginWith": "Войти через",
+  "app.containers.SignUp.identity": "аккаунт",
+  "app.containers.SignUp.or": "или",
+  "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
   "app.containers.SignUp.displayNameLength":
     "Длина поля должна быть не меньше 3 символов и не более 20",
   "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
@@ -35,5 +45,21 @@
   "app.containers.Profile.locationLabel": "Местоположение",
   "app.containers.Profile.emptyField": "Это поле - пустое",
   "app.components.NoAccess.errorMessage":
-    "Нет прав, чтобы выполнить данное действие!"
+    "Нет прав, чтобы выполнить данное действие!",
+  "app.containers.ScatterInstaller.header":
+    "Чтобы выполнить это действие в нашем приложении установите",
+  "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
+  "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
+  "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
+  "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
+  "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
+  "app.containers.Login.header":
+    "Не найдено Peerania аккаунта для данного выбора",
+  "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
+  "app.containers.Login.requirementToSignUp":
+    "Зарегистрируйте Peerania аккаунт",
+  "app.containers.Login.loginWithScatter": "Войти через Scatter",
+  "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
+  "app.containers.Login.signUp": "Зарегистрируйтесь",
+  "app.containers.UserProfileNav.profile": "Профиль"
 }

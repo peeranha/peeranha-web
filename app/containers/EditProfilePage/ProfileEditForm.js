@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'containers/Profile/messages';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
   AVATAR_FIELD,
@@ -24,7 +25,7 @@ import renderLocationField from './renderLocationField';
 import { imageValidation, strLength20, strLength96 } from './validate';
 
 /* eslint-disable-next-line */
-let ProfileEditForm = props => {
+export let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
   const viewUrl = `/users/${sendProps.match.params.id}`;
 
@@ -40,6 +41,7 @@ let ProfileEditForm = props => {
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
       <div>
         <Field
+          disabled={sendProps.isProfileSaving}
           name={AVATAR_FIELD}
           label={sendProps.translations[messages.avatarLabel.id]}
           component={renderFileInput}
@@ -48,6 +50,7 @@ let ProfileEditForm = props => {
           warn={imageValidation}
         />
         <Field
+          disabled={sendProps.isProfileSaving}
           name={DISPLAY_NAME_FIELD}
           sendProps={sendProps}
           component={renderTextInput}
@@ -56,6 +59,7 @@ let ProfileEditForm = props => {
           warn={strLength20}
         />
         <Field
+          disabled={sendProps.isProfileSaving}
           name={POSITION_FIELD}
           sendProps={sendProps}
           component={renderTextInput}
@@ -64,6 +68,7 @@ let ProfileEditForm = props => {
           warn={strLength20}
         />
         <Field
+          disabled={sendProps.isProfileSaving}
           name={COMPANY_FIELD}
           sendProps={sendProps}
           component={renderTextInput}
@@ -72,6 +77,7 @@ let ProfileEditForm = props => {
           warn={strLength20}
         />
         <Field
+          disabled={sendProps.isProfileSaving}
           name={ABOUT_FIELD}
           component={renderTextarea}
           sendProps={sendProps}
@@ -80,6 +86,7 @@ let ProfileEditForm = props => {
           warn={strLength96}
         />
         <Field
+          disabled={sendProps.isProfileSaving}
           name={LOCATION_FIELD}
           sendProps={sendProps}
           component={renderLocationField}
@@ -97,9 +104,8 @@ let ProfileEditForm = props => {
           }
           type="submit"
         >
-          {sendProps.isProfileSaving ? (
-            <FormattedMessage {...messages.savingButton} />
-          ) : (
+          {sendProps.isProfileSaving && <LoadingIndicator />}
+          {!sendProps.isProfileSaving && (
             <FormattedMessage {...messages.saveButton} />
           )}
         </button>
@@ -126,10 +132,10 @@ let ProfileEditForm = props => {
 };
 
 ProfileEditForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  sendProps: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
+  invalid: PropTypes.bool,
+  sendProps: PropTypes.object,
 };
 
 ProfileEditForm = reduxForm({
