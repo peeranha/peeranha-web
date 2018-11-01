@@ -28,6 +28,7 @@ import App from 'containers/App';
 import AccountProvider from 'containers/AccountProvider';
 import EosioProvider from 'containers/EosioProvider';
 import LanguageProvider from 'containers/LanguageProvider';
+import ErrorBoundary from 'containers/ErrorBoundary';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -54,15 +55,17 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <EosioProvider>
-        <AccountProvider>
-          <LanguageProvider messages={messages}>
-            <ConnectedRouter history={createdHistory}>
-              <App />
-            </ConnectedRouter>
-          </LanguageProvider>
-        </AccountProvider>
-      </EosioProvider>
+      <LanguageProvider messages={messages}>
+        <ErrorBoundary>
+          <EosioProvider>
+            <AccountProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </AccountProvider>
+          </EosioProvider>
+        </ErrorBoundary>
+      </LanguageProvider>
     </Provider>,
     MOUNT_NODE,
   );
