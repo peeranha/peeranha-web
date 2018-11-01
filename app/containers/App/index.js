@@ -29,6 +29,7 @@ import NoAccess from 'components/NoAccess/Loadable';
 export default function App() {
   return (
     <div>
+      <Toast />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -40,7 +41,6 @@ export default function App() {
       <Footer />
       <SignUp />
       <Login />
-      <Toast />
     </div>
   );
 }

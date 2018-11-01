@@ -1,12 +1,12 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import { ADD_TOAST } from './constants';
+import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { removeToast } from './actions';
 
 export function* addToastWorker(res) {
   yield new Promise(resolve => {
     setTimeout(() => {
       resolve();
-    }, 5000);
+    }, REMOVE_TIMEOUT);
   });
   yield put(removeToast(res.addedToast.toastKey));
 }

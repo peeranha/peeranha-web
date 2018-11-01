@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tosts snapshot test 1`] = `
+<ToastBox>
+  <Toast
+    data-key="toastKey"
+    onClick={[MockFunction]}
+    type="type"
+  >
+    Text
+  </Toast>
+</ToastBox>
+`;

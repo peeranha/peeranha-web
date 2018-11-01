@@ -1,8 +1,23 @@
-// import { fromJS } from 'immutable';
-// import { selectToastDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import { selectToastDomain, makeSelectToasts } from '../selectors';
 
 describe('selectToastDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  const toasts = fromJS([]);
+
+  const globalState = fromJS({
+    toasts,
+  });
+
+  const mockedState = fromJS({
+    signUp: globalState,
+  });
+
+  it('should select the global state', () => {
+    expect(selectToastDomain(mockedState)).toEqual(globalState);
+  });
+
+  it('makeSelectToasts', () => {
+    const isToasts = makeSelectToasts();
+    expect(isToasts(mockedState)).toEqual(toasts);
   });
 });

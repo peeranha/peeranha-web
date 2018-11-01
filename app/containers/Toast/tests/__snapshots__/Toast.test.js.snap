@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Toast /> snapshot test 1`] = `
+<div
+  className="Toast-izlmyG LuGZA"
+  type="info"
+/>
+`;

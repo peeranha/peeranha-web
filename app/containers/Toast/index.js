@@ -51,10 +51,10 @@ const mapStateToProps = createStructuredSelector({
   toasts: makeSelectToasts(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    removeToastDispatch: (a, b) => dispatch(removeToast(a, b)),
+    removeToastDispatch: key => dispatch(removeToast(key)),
   };
 }
 
