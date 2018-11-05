@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextEditor /> snapshot test @content is not null, @height is not null 1`] = `
+<div>
+  <Editor
+    apiKey="fvry0is6hvuc3ij671v897r0t3854qvo6ne0k5eun4378zxk"
+    init={
+      Object {
+        "height": 400,
+        "plugins": Array [
+          "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste code help wordcount",
+        ],
+        "toolbar": "insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+      }
+    }
+    initialValue="content"
+    onChange={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
+<div>
+  <Editor
+    apiKey="fvry0is6hvuc3ij671v897r0t3854qvo6ne0k5eun4378zxk"
+    init={
+      Object {
+        "height": 300,
+        "plugins": Array [
+          "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste code help wordcount",
+        ],
+        "toolbar": "insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+      }
+    }
+    initialValue=""
+    onChange={[MockFunction]}
+  />
+</div>
+`;
