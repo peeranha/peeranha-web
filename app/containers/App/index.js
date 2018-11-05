@@ -22,6 +22,8 @@ import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Header from 'containers/Header';
 import Toast from 'containers/Toast';
+import Questions from 'containers/Questions/Loadable';
+import AskQuestion from 'containers/AskQuestion/Loadable';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
@@ -35,6 +37,8 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/users/:id" component={ViewProfilePage} />
         <Route path="/users/edit/:id" component={EditProfilePage} />
+        <Route exact path="/questions" component={Questions} />
+        <Route path="/questions/ask" component={AskQuestion} />
         <Route path="/no-access" component={NoAccess} />
         <Route component={NotFoundPage} />
       </Switch>

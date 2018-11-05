@@ -15,6 +15,7 @@ const TextEditor = props => (
     <Editor
       apiKey={TextEditorConfig.apiKey}
       initialValue={props.content || ''}
+      disabled={props.disabled}
       init={{
         height: props.height || 300,
         plugins: TextEditorConfig.plugins,
@@ -27,8 +28,9 @@ const TextEditor = props => (
 
 TextEditor.propTypes = {
   content: PropTypes.string,
+  disabled: PropTypes.bool,
   height: PropTypes.number,
-  handleEditorChange: PropTypes.func.isRequired,
+  handleEditorChange: PropTypes.func,
 };
 
 export default TextEditor;

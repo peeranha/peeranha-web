@@ -68,5 +68,13 @@
   "app.containers.ErrorBoundary.problemWithWebpage":
     "Возникла проблема в приложении",
   "app.containers.ErrorBoundary.details": "Детали",
-  "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу"
+  "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу",
+  "app.containers.AskQuestion.title": "Задать вопрос",
+  "app.containers.AskQuestion.description": "Задать вопрос | Описание",
+  "app.containers.AskQuestion.postQuestion": "Отправить",
+  "app.containers.AskQuestion.titleLabel": "Заголовок",
+  "app.containers.AskQuestion.wrongLength20": "Мин - 3, Макс - 20",
+  "app.containers.AskQuestion.wrongLength1000": "Мин - 3, Макс - 1000",
+  "app.containers.AskQuestion.requiredField": "Требуемое поле",
+  "app.containers.AskQuestion.contentLabel": "Содержание"
 }

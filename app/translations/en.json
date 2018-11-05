@@ -64,5 +64,13 @@
   "app.containers.ErrorBoundary.problemWithWebpage":
     "A problem occurred with this webpage",
   "app.containers.ErrorBoundary.details": "Details",
-  "app.containers.ErrorBoundary.reloadPage": "Reload page"
+  "app.containers.ErrorBoundary.reloadPage": "Reload page",
+  "app.containers.AskQuestion.title": "Ask question",
+  "app.containers.AskQuestion.description": "Ask question | Description",
+  "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.containers.AskQuestion.titleLabel": "Title",
+  "app.containers.AskQuestion.wrongLength20": "Min - 3, Max - 20",
+  "app.containers.AskQuestion.wrongLength1000": "Min - 3, Max - 1000",
+  "app.containers.AskQuestion.requiredField": "Required field",
+  "app.containers.AskQuestion.contentLabel": "Body"
 }
