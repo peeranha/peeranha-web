@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundryMessage snapshot test 1`] = `
+<div
+  className="alert alert-danger"
+  role="alert"
+>
+  <h3
+    className="alert alert-danger"
+    role="alert"
+  >
+    <FormattedMessage
+      defaultMessage="A problem occurred with this webpage"
+      id="app.containers.ErrorBoundary.problemWithWebpage"
+      values={Object {}}
+    />
+  </h3>
+  <details>
+    error
+    <br />
+    componentStack
+  </details>
+  <button
+    className="btn btn-link"
+  >
+    <FormattedMessage
+      defaultMessage="Reload page"
+      id="app.containers.ErrorBoundary.reloadPage"
+      values={Object {}}
+    />
+  </button>
+</div>
+`;

@@ -1,29 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
-<withReducer(withSaga(Connect(Profile)))
-  userId=""
->
-  <Connect(ReduxForm)
-    sendProps={
-      Object {
-        "cachedProfileImg": null,
-        "cancelChanges": [MockFunction],
-        "chooseLocation": [MockFunction],
-        "citiesList": Array [],
-        "clearImageChanges": [MockFunction],
-        "editingImgState": false,
-        "getCitiesList": [MockFunction],
-        "getCroppedAvatar": [Function],
-        "isProfileSaving": false,
-        "match": Object {
-          "params": Object {
-            "id": "",
-          },
-        },
-        "profile": Object {},
-        "saveProfile": [Function],
-        "translations": Object {
+exports[`<ErrorBoundary /> snapshot test error is not null 1`] = `
+Array [
+  <div>
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+    >
+      <title>
+        Error
+      </title>
+      <meta
+        content="Description of error boundary"
+        name="description"
+      />
+    </HelmetWrapper>
+    <ErrorBoundryMessage
+      error={Object {}}
+      errorInfo={Object {}}
+      reloadApp={[Function]}
+      translations={
+        Object {
           "app.components.Footer.header": "Copyright: Peerania",
           "app.components.Header.about": "About",
           "app.components.Header.help": "Help",
@@ -86,10 +83,17 @@ exports[` 1`] = `
           "app.containers.SignUp.signUpDescription": "Description of Sign Up",
           "app.containers.SignUp.signUpWith": "Sign up with Scatter",
           "app.containers.UserProfileNav.profile": "Profile",
-        },
-        "uploadImage": [Function],
+        }
       }
-    }
-  />
-</withReducer(withSaga(Connect(Profile)))>
+    />
+  </div>,
+]
+`;
+
+exports[`<ErrorBoundary /> snapshot test error is null 1`] = `
+Array [
+  <div>
+    Children
+  </div>,
+]
 `;

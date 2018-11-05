@@ -61,5 +61,12 @@
   "app.containers.Login.loginWithScatter": "Войти через Scatter",
   "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
   "app.containers.Login.signUp": "Зарегистрируйтесь",
-  "app.containers.UserProfileNav.profile": "Профиль"
+  "app.containers.UserProfileNav.profile": "Профиль",
+  "app.containers.UserProfileNav.profile": "Профиль",
+  "app.containers.ErrorBoundary.title": "Ошибка",
+  "app.containers.ErrorBoundary.description": "Описание error-контейнера",
+  "app.containers.ErrorBoundary.problemWithWebpage":
+    "Возникла проблема в приложении",
+  "app.containers.ErrorBoundary.details": "Детали",
+  "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу"
 }

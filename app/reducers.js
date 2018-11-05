@@ -10,6 +10,7 @@ import { reducer as formReducer } from 'redux-form/immutable';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import profileReducer from 'containers/Profile/reducer';
 import loginReducer from 'containers/Login/reducer';
+import toastReducer from 'containers/Toast/reducer';
 import accountProviderReducer from 'containers/AccountProvider/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
@@ -51,6 +52,7 @@ export default function createReducer(injectedReducers) {
     language: languageProviderReducer,
     signup: signUpReducer,
     login: loginReducer,
+    toast: toastReducer,
     account: accountProviderReducer,
     editProfileReducer,
     profile: profileReducer,
