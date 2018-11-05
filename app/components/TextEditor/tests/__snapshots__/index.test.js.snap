@@ -9,9 +9,9 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
         "height": 400,
         "menubar": false,
         "plugins": Array [
-          "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table contextmenu paste code help wordcount",
+          "codesample textpattern advlist autolink lists link image preview textcolor",
+          "searchreplace visualblocks code",
+          "media contextmenu paste code help wordcount",
         ],
         "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
       }
@@ -31,9 +31,9 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
         "height": 300,
         "menubar": false,
         "plugins": Array [
-          "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-          "searchreplace visualblocks code fullscreen",
-          "insertdatetime media table contextmenu paste code help wordcount",
+          "codesample textpattern advlist autolink lists link image preview textcolor",
+          "searchreplace visualblocks code",
+          "media contextmenu paste code help wordcount",
         ],
         "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
       }

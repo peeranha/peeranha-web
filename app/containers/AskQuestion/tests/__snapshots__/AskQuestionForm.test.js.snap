@@ -1463,9 +1463,9 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                               "height": 300,
                                               "menubar": false,
                                               "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-                                                "searchreplace visualblocks code fullscreen",
-                                                "insertdatetime media table contextmenu paste code help wordcount",
+                                                "codesample textpattern advlist autolink lists link image preview textcolor",
+                                                "searchreplace visualblocks code",
+                                                "media contextmenu paste code help wordcount",
                                               ],
                                               "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
@@ -3086,9 +3086,9 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                               "height": 300,
                                               "menubar": false,
                                               "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-                                                "searchreplace visualblocks code fullscreen",
-                                                "insertdatetime media table contextmenu paste code help wordcount",
+                                                "codesample textpattern advlist autolink lists link image preview textcolor",
+                                                "searchreplace visualblocks code",
+                                                "media contextmenu paste code help wordcount",
                                               ],
                                               "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
@@ -4821,9 +4821,9 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                               "height": 300,
                                               "menubar": false,
                                               "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-                                                "searchreplace visualblocks code fullscreen",
-                                                "insertdatetime media table contextmenu paste code help wordcount",
+                                                "codesample textpattern advlist autolink lists link image preview textcolor",
+                                                "searchreplace visualblocks code",
+                                                "media contextmenu paste code help wordcount",
                                               ],
                                               "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
@@ -6668,9 +6668,9 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                               "height": 300,
                                               "menubar": false,
                                               "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image charmap print preview anchor textcolor",
-                                                "searchreplace visualblocks code fullscreen",
-                                                "insertdatetime media table contextmenu paste code help wordcount",
+                                                "codesample textpattern advlist autolink lists link image preview textcolor",
+                                                "searchreplace visualblocks code",
+                                                "media contextmenu paste code help wordcount",
                                               ],
                                               "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
