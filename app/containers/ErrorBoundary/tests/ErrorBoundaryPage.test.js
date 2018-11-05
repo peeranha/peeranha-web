@@ -1,6 +1,6 @@
-import ErrorBoundaryPage from '../ErrorBoundaryPage';
+import ErrorBoundryMessage from '../ErrorBoundryMessage';
 
-describe('ErrorBoundaryPage', () => {
+describe('ErrorBoundryMessage', () => {
   const props = {
     error: 'error',
     errorInfo: {
@@ -8,6 +8,6 @@ describe('ErrorBoundaryPage', () => {
     },
   };
   it('snapshot test', () => {
-    expect(ErrorBoundaryPage(props)).toMatchSnapshot();
+    expect(ErrorBoundryMessage(props)).toMatchSnapshot();
   });
 });

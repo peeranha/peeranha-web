@@ -16,7 +16,15 @@ function toastReducer(state = initialState, action) {
 
   switch (type) {
     case ADD_TOAST:
-      return state.set('toasts', [...state.get('toasts'), addedToast]);
+      return state.set('toasts', [
+        ...state.get('toasts'),
+        {
+          ...addedToast,
+          toastKey: Math.random()
+            .toString()
+            .slice(2),
+        },
+      ]);
     case REMOVE_TOAST:
       return state.set(
         'toasts',

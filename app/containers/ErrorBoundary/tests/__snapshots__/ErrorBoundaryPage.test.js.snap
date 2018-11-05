@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorBoundaryPage snapshot test 1`] = `
+exports[`ErrorBoundryMessage snapshot test 1`] = `
 <div
   className="alert alert-danger"
   role="alert"

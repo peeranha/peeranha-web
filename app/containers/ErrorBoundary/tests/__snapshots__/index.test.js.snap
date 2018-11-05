@@ -15,7 +15,7 @@ Array [
         name="description"
       />
     </HelmetWrapper>
-    <ErrorBoundaryPage
+    <ErrorBoundryMessage
       error={Object {}}
       errorInfo={Object {}}
       reloadApp={[Function]}

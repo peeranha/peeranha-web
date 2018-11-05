@@ -3,6 +3,9 @@ import toastReducer from '../reducer';
 
 import { addToast, removeToast } from '../actions';
 
+const mathRandom = 0.6789123412;
+Math.random = jest.fn().mockImplementation(() => mathRandom);
+
 describe('toastReducer', () => {
   let state;
   beforeEach(() => {
@@ -35,7 +38,7 @@ describe('toastReducer', () => {
     const toast = {
       type: 'info',
       text: 'text',
-      toastKey: '123456',
+      toastKey: mathRandom.toString().slice(2),
     };
     const obj = state.set('toasts', [...state.get('toasts'), toast]);
     expect(toastReducer(state, addToast(toast))).toEqual(obj);

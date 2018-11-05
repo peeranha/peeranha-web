@@ -37,7 +37,7 @@ export class Toast extends React.Component {
       location: this.location,
     };
     return [
-      this.props.toasts[0] ? <Toasts key="toasts" {...sendProps} /> : null,
+      this.props.toasts.length ? <Toasts key="toasts" {...sendProps} /> : null,
     ];
   }
 }

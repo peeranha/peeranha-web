@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
-const ErrorBoundaryPage = props => (
+const ErrorBoundryMessage = props => (
   <div className="alert alert-danger" role="alert">
     <h3 className="alert alert-danger" role="alert">
       <FormattedMessage {...messages.problemWithWebpage} />
@@ -20,10 +20,10 @@ const ErrorBoundaryPage = props => (
   </div>
 );
 
-ErrorBoundaryPage.propTypes = {
+ErrorBoundryMessage.propTypes = {
   error: PropTypes.object,
   errorInfo: PropTypes.object,
   reloadApp: PropTypes.func,
 };
 
-export default ErrorBoundaryPage;
+export default ErrorBoundryMessage;

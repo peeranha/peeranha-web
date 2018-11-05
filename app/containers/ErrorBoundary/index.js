@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import messages from './messages';
-import ErrorBoundaryPage from './ErrorBoundaryPage';
+import ErrorBoundryMessage from './ErrorBoundryMessage';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ErrorBoundary extends React.Component {
@@ -55,7 +55,7 @@ export class ErrorBoundary extends React.Component {
               content={translations[messages.description.id]}
             />
           </Helmet>
-          <ErrorBoundaryPage {...sendProps} />
+          <ErrorBoundryMessage {...sendProps} />
         </div>
       ) : (
         React.Children.only(this.props.children)
