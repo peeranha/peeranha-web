@@ -3,6 +3,8 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
+import { select } from 'redux-saga/effects';
+
 import defaultSaga, { addToastWorker } from '../saga';
 import { ADD_TOAST, REMOVE_TIMEOUT, REMOVE_TOAST } from '../constants';
 
@@ -23,8 +25,16 @@ describe('addToastWorker', () => {
   };
   const generator = addToastWorker(toast);
 
+  it('step1, makeSelectToasts', () => {
+    const makeSelectToasts = {};
+
+    select.mockImplementation(() => makeSelectToasts);
+    const step1 = generator.next();
+    expect(step1.value).toEqual(makeSelectToasts);
+  });
+
   it('setTimeout', () => {
-    generator.next();
+    generator.next([{ toastKey: 'toastKey' }]);
     expect(setTimeout).toHaveBeenCalledTimes(1);
     expect(setTimeout).toHaveBeenLastCalledWith(
       expect.any(Function),

@@ -1,13 +1,38 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { askQuestion, askQuestionSuccess, askQuestionError } from '../actions';
 
-describe('AskQuestion actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+import {
+  ASK_QUESTION,
+  ASK_QUESTION_SUCCESS,
+  ASK_QUESTION_ERROR,
+} from '../constants';
+
+describe('AskQuestions actions', () => {
+  describe('askQuestion Action', () => {
+    it('has a type of ASK_QUESTION', () => {
+      const user = 'user';
+      const questionData = { user };
       const expected = {
-        type: DEFAULT_ACTION,
+        type: ASK_QUESTION,
+        user,
+        questionData,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(askQuestion(user, questionData)).toEqual(expected);
+    });
+
+    it('has a type of ASK_QUESTION_SUCCESS', () => {
+      const expected = {
+        type: ASK_QUESTION_SUCCESS,
+      };
+      expect(askQuestionSuccess()).toEqual(expected);
+    });
+
+    it('has a type of ASK_QUESTION_ERROR', () => {
+      const questionError = 'questionError';
+      const expected = {
+        type: ASK_QUESTION_ERROR,
+        questionError,
+      };
+      expect(askQuestionError(questionError)).toEqual(expected);
     });
   });
 });

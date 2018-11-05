@@ -52,7 +52,6 @@ export class AskQuestion extends React.Component {
   render() {
     const sendProps = {
       postQuestion: this.postQuestion,
-      handleEditorChange: this.handleEditorChange,
       translations: translationMessages[this.props.locale],
       askQuestionLoading: this.props.askQuestionLoading,
     };
@@ -86,7 +85,7 @@ const mapStateToProps = createStructuredSelector({
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     askQuestionDispatch: (user, questionData) =>

@@ -33,7 +33,6 @@ const AskQuestionForm = props => (
         component={renderTextarea}
         disabled={props.askQuestionLoading}
         translations={props.translations}
-        handleEditorChange={props.handleEditorChange}
       />
     </div>
     <div>
@@ -56,7 +55,6 @@ AskQuestionForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handleEditorChange: PropTypes.func.isRequired,
   postQuestion: PropTypes.func.isRequired,
   translations: PropTypes.object.isRequired,
 };

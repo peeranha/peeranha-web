@@ -30,10 +30,8 @@ function renderTextInput({
 
 renderTextInput.propTypes = {
   input: PropTypes.object,
-  label: PropTypes.string,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
-  sendProps: PropTypes.object,
   translations: PropTypes.object,
 };
 

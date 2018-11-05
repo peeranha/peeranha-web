@@ -20,6 +20,7 @@ const TextEditor = props => (
         height: props.height || 300,
         plugins: TextEditorConfig.plugins,
         toolbar: TextEditorConfig.toolbar,
+        menubar: TextEditorConfig.menubar,
       }}
       onChange={props.handleEditorChange}
     />
