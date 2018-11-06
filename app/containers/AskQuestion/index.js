@@ -16,9 +16,15 @@ import { addToast } from 'containers/Toast/actions';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectUserIsInSystem,
+} from 'containers/AccountProvider/selectors';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import renderFieldMessages from 'components/RenderFields/messages';
+
+import { getTextEditorValue } from 'components/TextEditor/index';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -35,7 +41,7 @@ export class AskQuestion extends React.Component {
   postQuestion = values => {
     const question = {
       title: values.get(FORM_TITLE),
-      content: window.tinyMCE.activeEditor.getContent(),
+      content: getTextEditorValue(),
     };
 
     if (question.content) {
@@ -78,11 +84,13 @@ AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
+  userIsInSystem: PropTypes.bool.isRequired,
   askQuestionDispatch: PropTypes.func.isRequired,
   addToastDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  userIsInSystem: makeSelectUserIsInSystem(),
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),

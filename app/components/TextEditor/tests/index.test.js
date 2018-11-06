@@ -1,4 +1,4 @@
-import TextEditor from '../index';
+import TextEditor, { getTextEditorValue } from '../index';
 
 const props = {
   content: 'content',
@@ -6,7 +6,20 @@ const props = {
   handleEditorChange: jest.fn(),
 };
 
+const content = 'content';
+window.tinyMCE = {
+  activeEditor: {
+    getContent: jest.fn().mockImplementation(() => content),
+  },
+};
+
 describe('<TextEditor />', () => {
+  describe('getTextEditorValue', () => {
+    it('test', () => {
+      expect(getTextEditorValue()).toBe(content);
+    });
+  });
+
   describe('snapshot test', () => {
     it('@content is null, @height is null', () => {
       props.content = null;

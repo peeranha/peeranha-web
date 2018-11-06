@@ -9,30 +9,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthenticatedButton extends React.Component {
   clickHandler = () => {
-    let choice;
     const { userIsInSystem, buttonAction, showLoginModalDispatch } = this.props;
 
     if (!userIsInSystem) {
-      choice = showLoginModalDispatch();
-    } else {
-      choice = buttonAction();
+      showLoginModalDispatch();
+    } else if (buttonAction) {
+      buttonAction();
     }
-
-    return choice;
   };
 
   render() {
-    const { buttonClass, buttonContent } = this.props;
+    const { buttonClass, buttonContent, buttonType, isLoading } = this.props;
 
     return (
-      <button type="button" className={buttonClass} onClick={this.clickHandler}>
-        {buttonContent}
+      <button
+        type={buttonType || 'button'}
+        className={buttonClass}
+        onClick={this.clickHandler}
+      >
+        {isLoading && <LoadingIndicator />}
+        {!isLoading && buttonContent}
       </button>
     );
   }
@@ -42,8 +45,10 @@ AuthenticatedButton.propTypes = {
   buttonAction: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   buttonClass: PropTypes.string,
+  buttonType: PropTypes.string,
   buttonContent: PropTypes.string,
   userIsInSystem: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

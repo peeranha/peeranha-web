@@ -1,8 +1,14 @@
 import { translationMessages } from 'i18n';
 
+import { getTextEditorValue } from 'components/TextEditor/index';
 import messages from 'components/RenderFields/messages';
+
 import { AskQuestion, mapDispatchToProps } from '../index';
 import { FORM_TITLE } from '../constants';
+
+jest.mock('components/TextEditor/index', () => ({
+  getTextEditorValue: jest.fn(),
+}));
 
 window.tinyMCE = {
   activeEditor: {
@@ -29,9 +35,7 @@ describe('AskQuestion', () => {
       content,
     };
 
-    window.tinyMCE.activeEditor.getContent = jest
-      .fn()
-      .mockImplementation(() => content);
+    getTextEditorValue.mockImplementation(() => content);
 
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledTimes(0);
 
@@ -50,9 +54,7 @@ describe('AskQuestion', () => {
       text: translationMessages[cmp.props.locale][messages.wrongLength1000.id],
     };
 
-    window.tinyMCE.activeEditor.getContent = jest
-      .fn()
-      .mockImplementation(() => content);
+    getTextEditorValue.mockImplementation(() => content);
 
     expect(cmp.props.addToastDispatch).toHaveBeenCalledTimes(0);
     cmp.postQuestion(values);

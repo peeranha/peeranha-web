@@ -18,6 +18,7 @@ const props = {
   invalid: false,
   submitting: false,
   askQuestionLoading: false,
+  userIsInSystem: true,
   handleSubmit: jest.fn(),
   postQuestion: jest.fn(),
   translations: {

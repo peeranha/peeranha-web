@@ -3,7 +3,6 @@
 exports[`<TextEditor /> snapshot test @content is not null, @height is not null 1`] = `
 <div>
   <Editor
-    apiKey="fvry0is6hvuc3ij671v897r0t3854qvo6ne0k5eun4378zxk"
     init={
       Object {
         "height": 400,
@@ -25,7 +24,6 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
 exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
 <div>
   <Editor
-    apiKey="fvry0is6hvuc3ij671v897r0t3854qvo6ne0k5eun4378zxk"
     init={
       Object {
         "height": 300,

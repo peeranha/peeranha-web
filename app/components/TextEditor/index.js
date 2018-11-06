@@ -10,6 +10,9 @@ import PropTypes from 'prop-types';
 
 import TextEditorConfig from './TextEditorConfig';
 
+export const getTextEditorValue = () =>
+  window.tinyMCE.activeEditor.getContent();
+
 const TextEditor = props => (
   <div>
     <Editor

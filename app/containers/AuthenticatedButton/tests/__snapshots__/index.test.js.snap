@@ -1,11 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AuthenticatedButton /> render 1`] = `
+exports[`<AuthenticatedButton /> render, @loading is false 1`] = `
 <button
   className="btn"
   onClick={[Function]}
-  type="button"
+  type="submit"
 >
-  Login
+  content
+</button>
+`;
+
+exports[`<AuthenticatedButton /> render, @loading is true 1`] = `
+<button
+  className="btn"
+  onClick={[Function]}
+  type="submit"
+>
+  <LoadingIndicator />
 </button>
 `;
