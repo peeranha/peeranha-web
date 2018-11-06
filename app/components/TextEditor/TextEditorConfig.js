@@ -1,5 +1,5 @@
 const TextEditorConfig = {
-  apiKey: 'fvry0is6hvuc3ij671v897r0t3854qvo6ne0k5eun4378zxk',
+  apiKey: process.env.TEXT_EDITOR_APIKEY,
   menubar: false,
   plugins: [
     'codesample textpattern advlist autolink lists link image preview textcolor',
