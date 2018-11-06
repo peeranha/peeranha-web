@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextEditor from 'components/TextEditor';
 
-function renderTextEditor({ label, disabled }) {
+function TextEditorField({ label, disabled }) {
   return (
     <div>
       <h6>{label}</h6>
@@ -11,9 +11,9 @@ function renderTextEditor({ label, disabled }) {
   );
 }
 
-renderTextEditor.propTypes = {
+TextEditorField.propTypes = {
   disabled: PropTypes.bool,
   label: PropTypes.string,
 };
 
-export default renderTextEditor;
+export default TextEditorField;

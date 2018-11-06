@@ -1,8 +1,8 @@
 {
-  "app.components.RenderFields.requiredField": "Необходимое поле",
-  "app.containers.RenderFields.wrongLength20": "Мин - 3, Макс - 20",
-  "app.containers.RenderFields.wrongLength1000": "Мин - 3, Макс - 1000",
-  "app.containers.RenderFields.fileSize": "Превышен размер файла",
+  "app.components.FormFields.requiredField": "Необходимое поле",
+  "app.containers.FormFields.wrongLength20": "Мин - 3, Макс - 20",
+  "app.containers.FormFields.wrongLength1000": "Мин - 3, Макс - 1000",
+  "app.containers.FormFields.fileSize": "Превышен размер файла",
   "app.components.Footer.header": "Авторские права: Peerania",
   "app.components.Header.home": "Главная",
   "app.components.Header.profile": "Профиль",

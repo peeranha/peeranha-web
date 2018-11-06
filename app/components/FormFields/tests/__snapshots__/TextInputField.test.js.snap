@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renderTextInput test test by snapshots default 1`] = `
+exports[`TextInputField test test by snapshots default 1`] = `
 <div>
   <h6>
     string
@@ -16,7 +16,7 @@ exports[`renderTextInput test test by snapshots default 1`] = `
 </div>
 `;
 
-exports[`renderTextInput test test by snapshots meta.error = true 1`] = `
+exports[`TextInputField test test by snapshots meta.error = true 1`] = `
 <div>
   <h6>
     string
@@ -32,7 +32,7 @@ exports[`renderTextInput test test by snapshots meta.error = true 1`] = `
 </div>
 `;
 
-exports[`renderTextInput test test by snapshots meta.touched = true 1`] = `
+exports[`TextInputField test test by snapshots meta.touched = true 1`] = `
 <div>
   <h6>
     string
@@ -48,7 +48,7 @@ exports[`renderTextInput test test by snapshots meta.touched = true 1`] = `
 </div>
 `;
 
-exports[`renderTextInput test test by snapshots meta.warning = true 1`] = `
+exports[`TextInputField test test by snapshots meta.warning = true 1`] = `
 <div>
   <h6>
     string

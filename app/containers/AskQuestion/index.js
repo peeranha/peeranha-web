@@ -22,7 +22,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import renderFieldMessages from 'components/RenderFields/messages';
+import renderFieldMessages from 'components/FormFields/messages';
 
 import { getTextEditorValue } from 'components/TextEditor/index';
 

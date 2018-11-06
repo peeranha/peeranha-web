@@ -4,9 +4,9 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import AuthenticatedButton from 'containers/AuthenticatedButton';
 
-import { strLength20, required } from 'components/RenderFields/validate';
-import renderTextInput from 'components/RenderFields/renderTextInput';
-import renderTextEditor from 'components/RenderFields/renderTextEditor';
+import { strLength20, required } from 'components/FormFields/validate';
+import TextInputField from 'components/FormFields/TextInputField';
+import TextEditorField from 'components/FormFields/TextEditorField';
 
 import messages from './messages';
 import { FORM_TITLE, FORM_CONTENT } from './constants';
@@ -21,7 +21,7 @@ const AskQuestionForm = props => (
     <div>
       <Field
         name={FORM_TITLE}
-        component={renderTextInput}
+        component={TextInputField}
         disabled={props.askQuestionLoading}
         label={props.translations[messages.titleLabel.id]}
         validate={[strLength20, required]}
@@ -29,7 +29,7 @@ const AskQuestionForm = props => (
       />
       <Field
         name={FORM_CONTENT}
-        component={renderTextEditor}
+        component={TextEditorField}
         disabled={props.askQuestionLoading}
         label={props.translations[messages.contentLabel.id]}
       />

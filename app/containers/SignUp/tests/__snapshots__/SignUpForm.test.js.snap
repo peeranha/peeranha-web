@@ -22,6 +22,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
       Object {
         "en": Object {
           "app.components.Footer.header": "Copyright: Peerania",
+          "app.components.FormFields.requiredField": "Required field",
           "app.components.Header.about": "About",
           "app.components.Header.help": "Help",
           "app.components.Header.home": "Home",
@@ -30,7 +31,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.components.Header.search": "Search",
           "app.components.Header.signUp": "Sign Up",
           "app.components.NoAccess.errorMessage": "No access to complete this action!",
-          "app.components.RenderFields.requiredField": "Required field",
           "app.containers.AskQuestion.contentLabel": "Body",
           "app.containers.AskQuestion.description": "Ask question | Description",
           "app.containers.AskQuestion.postQuestion": "Post question",
@@ -41,6 +41,9 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.containers.ErrorBoundary.problemWithWebpage": "A problem occurred with this webpage",
           "app.containers.ErrorBoundary.reloadPage": "Reload page",
           "app.containers.ErrorBoundary.title": "Error",
+          "app.containers.FormFields.fileSize": "File size is exceeded",
+          "app.containers.FormFields.wrongLength1000": "Min - 3, Max - 1000",
+          "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
           "app.containers.Login.doNotHaveAcc": "Do not have an account?",
           "app.containers.Login.header": "No Peerania account exists for selected identity.",
           "app.containers.Login.loginWithScatter": "Log in with Scatter",
@@ -63,9 +66,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.containers.Profile.savingButton": "Saving...",
           "app.containers.Profile.viewButton": "View",
           "app.containers.Profile.wrongUser": "Wrong user",
-          "app.containers.RenderFields.fileSize": "File size is exceeded",
-          "app.containers.RenderFields.wrongLength1000": "Min - 3, Max - 1000",
-          "app.containers.RenderFields.wrongLength20": "Min - 3, Max - 20",
           "app.containers.ScatterInstaller.backToOptions": "Back to options",
           "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
           "app.containers.ScatterInstaller.nextstep": "Next step",
@@ -90,6 +90,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
         },
         "ru": Object {
           "app.components.Footer.header": "Авторские права: Peerania",
+          "app.components.FormFields.requiredField": "Необходимое поле",
           "app.components.Header.about": "О нас",
           "app.components.Header.help": "Помощь",
           "app.components.Header.home": "Главная",
@@ -98,7 +99,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.components.Header.search": "Поиск",
           "app.components.Header.signUp": "Регистрация",
           "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
-          "app.components.RenderFields.requiredField": "Необходимое поле",
           "app.containers.AskQuestion.contentLabel": "Содержание",
           "app.containers.AskQuestion.description": "Задать вопрос | Описание",
           "app.containers.AskQuestion.postQuestion": "Отправить",
@@ -109,6 +109,9 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.containers.ErrorBoundary.problemWithWebpage": "Возникла проблема в приложении",
           "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу",
           "app.containers.ErrorBoundary.title": "Ошибка",
+          "app.containers.FormFields.fileSize": "Превышен размер файла",
+          "app.containers.FormFields.wrongLength1000": "Мин - 3, Макс - 1000",
+          "app.containers.FormFields.wrongLength20": "Мин - 3, Макс - 20",
           "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
           "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
           "app.containers.Login.loginWithScatter": "Войти через Scatter",
@@ -131,9 +134,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           "app.containers.Profile.savingButton": "Сохранение...",
           "app.containers.Profile.viewButton": "Посмотреть",
           "app.containers.Profile.wrongUser": "Неверный пользователь",
-          "app.containers.RenderFields.fileSize": "Превышен размер файла",
-          "app.containers.RenderFields.wrongLength1000": "Мин - 3, Макс - 1000",
-          "app.containers.RenderFields.wrongLength20": "Мин - 3, Макс - 20",
           "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
           "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
           "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
@@ -167,6 +167,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
         Object {
           "en": Object {
             "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.FormFields.requiredField": "Required field",
             "app.components.Header.about": "About",
             "app.components.Header.help": "Help",
             "app.components.Header.home": "Home",
@@ -175,7 +176,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.components.Header.search": "Search",
             "app.components.Header.signUp": "Sign Up",
             "app.components.NoAccess.errorMessage": "No access to complete this action!",
-            "app.components.RenderFields.requiredField": "Required field",
             "app.containers.AskQuestion.contentLabel": "Body",
             "app.containers.AskQuestion.description": "Ask question | Description",
             "app.containers.AskQuestion.postQuestion": "Post question",
@@ -186,6 +186,9 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.ErrorBoundary.problemWithWebpage": "A problem occurred with this webpage",
             "app.containers.ErrorBoundary.reloadPage": "Reload page",
             "app.containers.ErrorBoundary.title": "Error",
+            "app.containers.FormFields.fileSize": "File size is exceeded",
+            "app.containers.FormFields.wrongLength1000": "Min - 3, Max - 1000",
+            "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
             "app.containers.Login.doNotHaveAcc": "Do not have an account?",
             "app.containers.Login.header": "No Peerania account exists for selected identity.",
             "app.containers.Login.loginWithScatter": "Log in with Scatter",
@@ -208,9 +211,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.Profile.savingButton": "Saving...",
             "app.containers.Profile.viewButton": "View",
             "app.containers.Profile.wrongUser": "Wrong user",
-            "app.containers.RenderFields.fileSize": "File size is exceeded",
-            "app.containers.RenderFields.wrongLength1000": "Min - 3, Max - 1000",
-            "app.containers.RenderFields.wrongLength20": "Min - 3, Max - 20",
             "app.containers.ScatterInstaller.backToOptions": "Back to options",
             "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
             "app.containers.ScatterInstaller.nextstep": "Next step",
@@ -235,6 +235,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
           },
           "ru": Object {
             "app.components.Footer.header": "Авторские права: Peerania",
+            "app.components.FormFields.requiredField": "Необходимое поле",
             "app.components.Header.about": "О нас",
             "app.components.Header.help": "Помощь",
             "app.components.Header.home": "Главная",
@@ -243,7 +244,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.components.Header.search": "Поиск",
             "app.components.Header.signUp": "Регистрация",
             "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
-            "app.components.RenderFields.requiredField": "Необходимое поле",
             "app.containers.AskQuestion.contentLabel": "Содержание",
             "app.containers.AskQuestion.description": "Задать вопрос | Описание",
             "app.containers.AskQuestion.postQuestion": "Отправить",
@@ -254,6 +254,9 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.ErrorBoundary.problemWithWebpage": "Возникла проблема в приложении",
             "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу",
             "app.containers.ErrorBoundary.title": "Ошибка",
+            "app.containers.FormFields.fileSize": "Превышен размер файла",
+            "app.containers.FormFields.wrongLength1000": "Мин - 3, Макс - 1000",
+            "app.containers.FormFields.wrongLength20": "Мин - 3, Макс - 20",
             "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
             "app.containers.Login.header": "Не найдено Peerania аккаунта для данного выбора",
             "app.containers.Login.loginWithScatter": "Войти через Scatter",
@@ -276,9 +279,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.Profile.savingButton": "Сохранение...",
             "app.containers.Profile.viewButton": "Посмотреть",
             "app.containers.Profile.wrongUser": "Неверный пользователь",
-            "app.containers.RenderFields.fileSize": "Превышен размер файла",
-            "app.containers.RenderFields.wrongLength1000": "Мин - 3, Макс - 1000",
-            "app.containers.RenderFields.wrongLength20": "Мин - 3, Макс - 20",
             "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
             "app.containers.ScatterInstaller.header": "Чтобы выполнить это действие в нашем приложении установите",
             "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
@@ -311,6 +311,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
         messages={
           Object {
             "app.components.Footer.header": "Copyright: Peerania",
+            "app.components.FormFields.requiredField": "Required field",
             "app.components.Header.about": "About",
             "app.components.Header.help": "Help",
             "app.components.Header.home": "Home",
@@ -319,7 +320,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.components.Header.search": "Search",
             "app.components.Header.signUp": "Sign Up",
             "app.components.NoAccess.errorMessage": "No access to complete this action!",
-            "app.components.RenderFields.requiredField": "Required field",
             "app.containers.AskQuestion.contentLabel": "Body",
             "app.containers.AskQuestion.description": "Ask question | Description",
             "app.containers.AskQuestion.postQuestion": "Post question",
@@ -330,6 +330,9 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.ErrorBoundary.problemWithWebpage": "A problem occurred with this webpage",
             "app.containers.ErrorBoundary.reloadPage": "Reload page",
             "app.containers.ErrorBoundary.title": "Error",
+            "app.containers.FormFields.fileSize": "File size is exceeded",
+            "app.containers.FormFields.wrongLength1000": "Min - 3, Max - 1000",
+            "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
             "app.containers.Login.doNotHaveAcc": "Do not have an account?",
             "app.containers.Login.header": "No Peerania account exists for selected identity.",
             "app.containers.Login.loginWithScatter": "Log in with Scatter",
@@ -352,9 +355,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
             "app.containers.Profile.savingButton": "Saving...",
             "app.containers.Profile.viewButton": "View",
             "app.containers.Profile.wrongUser": "Wrong user",
-            "app.containers.RenderFields.fileSize": "File size is exceeded",
-            "app.containers.RenderFields.wrongLength1000": "Min - 3, Max - 1000",
-            "app.containers.RenderFields.wrongLength20": "Min - 3, Max - 20",
             "app.containers.ScatterInstaller.backToOptions": "Back to options",
             "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
             "app.containers.ScatterInstaller.nextstep": "Next step",
@@ -1036,7 +1036,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 readOnly={true}
                                 value={null}
                               >
-                                <renderTextInput
+                                <TextInputField
                                   disabled={false}
                                   input={
                                     Object {
@@ -1091,7 +1091,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       className="text-danger"
                                     />
                                   </div>
-                                </renderTextInput>
+                                </TextInputField>
                               </ConnectedField>
                             </Connect(ConnectedField)>
                           </Field>
@@ -1450,7 +1450,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   ]
                                 }
                               >
-                                <renderTextInput
+                                <TextInputField
                                   disabled={false}
                                   input={
                                     Object {
@@ -1509,7 +1509,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       className="text-danger"
                                     />
                                   </div>
-                                </renderTextInput>
+                                </TextInputField>
                               </ConnectedField>
                             </Connect(ConnectedField)>
                           </Field>

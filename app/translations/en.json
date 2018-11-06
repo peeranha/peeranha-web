@@ -1,8 +1,8 @@
 {
-  "app.components.RenderFields.requiredField": "Required field",
-  "app.containers.RenderFields.wrongLength20": "Min - 3, Max - 20",
-  "app.containers.RenderFields.wrongLength1000": "Min - 3, Max - 1000",
-  "app.containers.RenderFields.fileSize": "File size is exceeded",
+  "app.components.FormFields.requiredField": "Required field",
+  "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
+  "app.containers.FormFields.wrongLength1000": "Min - 3, Max - 1000",
+  "app.containers.FormFields.fileSize": "File size is exceeded",
   "app.components.Footer.header": "Copyright: Peerania",
   "app.components.Header.home": "Home",
   "app.components.Header.profile": "Profile",

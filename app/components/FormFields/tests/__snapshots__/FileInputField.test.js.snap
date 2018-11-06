@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renderFileInput test WarningMessage 1`] = `null`;
+exports[`FileInputField test WarningMessage 1`] = `null`;
 
-exports[`renderFileInput test WarningMessage 2`] = `<span />`;
+exports[`FileInputField test WarningMessage 2`] = `<span />`;
 
-exports[`renderFileInput test WarningMessage 3`] = `<span />`;
+exports[`FileInputField test WarningMessage 3`] = `<span />`;
 
-exports[`renderFileInput test WarningMessage 4`] = `<span />`;
+exports[`FileInputField test WarningMessage 4`] = `<span />`;
 
-exports[`renderFileInput test simulate click 1`] = `
+exports[`FileInputField test simulate click 1`] = `
 <div>
   <div>
     <div

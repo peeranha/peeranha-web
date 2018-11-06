@@ -1,15 +1,12 @@
 import { shallow } from 'enzyme';
 
 import { LOCATION_FIELD } from 'containers/Profile/constants';
-import renderLocationField, {
-  cities,
-  CitiesList,
-} from '../renderLocationField';
+import LocationField, { cities, CitiesList } from '../LocationField';
 
-describe('renderLocationField test', () => {
+describe('LocationField test', () => {
   it('test by snapshots', () => {
     const getCitiesList = jest.fn();
-    const cmp = renderLocationField({
+    const cmp = LocationField({
       input: {},
       label: 'string',
       sendProps: {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-function renderTextInput({
+function TextInputField({
   input,
   label,
   readOnly,
@@ -29,7 +29,7 @@ function renderTextInput({
   );
 }
 
-renderTextInput.propTypes = {
+TextInputField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
@@ -37,4 +37,4 @@ renderTextInput.propTypes = {
   label: PropTypes.string,
 };
 
-export default renderTextInput;
+export default TextInputField;

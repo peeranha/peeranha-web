@@ -1,14 +1,14 @@
 import { shallow } from 'enzyme';
-import renderFileInput, {
+import FileInputField, {
   displayImageFunc,
   displayAvatarFunc,
   WarningMessage,
-} from '../renderFileInput';
+} from '../FileInputField';
 
-describe('renderFileInput test', () => {
+describe('FileInputField test', () => {
   it('simulate click', () => {
     const getCroppedAvatar = jest.fn();
-    const cmp = renderFileInput({
+    const cmp = FileInputField({
       input: {},
       label: 'string',
       sendProps: {

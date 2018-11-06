@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { strLength20, required } from 'components/RenderFields/validate';
-import renderTextInput from 'components/RenderFields/renderTextInput';
+import { strLength20, required } from 'components/FormFields/validate';
+import TextInputField from 'components/FormFields/TextInputField';
 
 import messages from './messages';
 
@@ -29,14 +29,14 @@ let SignUpForm = props => {
       <div>
         <Field
           name={EOS_ACC}
-          component={renderTextInput}
+          component={TextInputField}
           disabled={loading}
           label={translations[messages.eosAccount.id]}
           readOnly
         />
         <Field
           name={DISPLAY_NAME}
-          component={renderTextInput}
+          component={TextInputField}
           disabled={loading}
           label={translations[messages.displayName.id]}
           validate={[strLength20, required]}

@@ -1,7 +1,7 @@
 import { translationMessages } from 'i18n';
 
 import { getTextEditorValue } from 'components/TextEditor/index';
-import messages from 'components/RenderFields/messages';
+import messages from 'components/FormFields/messages';
 
 import { AskQuestion, mapDispatchToProps } from '../index';
 import { FORM_TITLE } from '../constants';

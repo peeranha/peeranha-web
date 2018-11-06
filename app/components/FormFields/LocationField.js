@@ -24,7 +24,7 @@ export const CitiesList = (showLocationList, sendProps) =>
     <LocationList>{cities(sendProps.citiesList, sendProps)}</LocationList>
   ) : null;
 
-function renderLocationField({ input, label, disabled, sendProps }) {
+function LocationField({ input, label, disabled, sendProps }) {
   const { ipfs } = sendProps.profile;
   const showLocationList =
     ipfs &&
@@ -52,11 +52,11 @@ function renderLocationField({ input, label, disabled, sendProps }) {
   );
 }
 
-renderLocationField.propTypes = {
+LocationField.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   disabled: PropTypes.bool,
   sendProps: PropTypes.object,
 };
 
-export default renderLocationField;
+export default LocationField;

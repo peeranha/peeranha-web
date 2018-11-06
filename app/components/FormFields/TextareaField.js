@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-function renderTextarea({
+function TextareaField({
   input,
   label,
   disabled,
@@ -26,11 +26,11 @@ function renderTextarea({
   );
 }
 
-renderTextarea.propTypes = {
+TextareaField.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
 };
 
-export default renderTextarea;
+export default TextareaField;

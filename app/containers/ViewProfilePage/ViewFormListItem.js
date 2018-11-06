@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import messages from 'components/RenderFields/messages';
+import messages from 'components/FormFields/messages';
 
 const ViewFormListItem = props => (
   <div className="view-form-item">

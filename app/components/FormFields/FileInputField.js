@@ -34,7 +34,7 @@ export const WarningMessage = (touched, translations, error, warning) => {
   return value;
 };
 
-function renderFileInput({
+function FileInputField({
   input,
   label,
   disabled,
@@ -143,7 +143,7 @@ function renderFileInput({
   );
 }
 
-renderFileInput.propTypes = {
+FileInputField.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.object,
@@ -151,4 +151,4 @@ renderFileInput.propTypes = {
   sendProps: PropTypes.object,
 };
 
-export default renderFileInput;
+export default FileInputField;
