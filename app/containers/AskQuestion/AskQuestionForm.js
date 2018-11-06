@@ -5,12 +5,12 @@ import { FormattedMessage } from 'react-intl';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import messages from './messages';
-import { strLength20, required } from './validate';
-import { FORM_TITLE, FORM_CONTENT } from './constants';
+import { strLength20, required } from 'components/RenderFields/validate';
+import renderTextInput from 'components/RenderFields/renderTextInput';
+import renderTextEditor from 'components/RenderFields/renderTextEditor';
 
-import renderTextInput from './renderTextInput';
-import renderTextarea from './renderTextarea';
+import messages from './messages';
+import { FORM_TITLE, FORM_CONTENT } from './constants';
 
 import Box from './Box';
 
@@ -24,15 +24,15 @@ const AskQuestionForm = props => (
         name={FORM_TITLE}
         component={renderTextInput}
         disabled={props.askQuestionLoading}
-        translations={props.translations}
+        label={props.translations[messages.titleLabel.id]}
         validate={[strLength20, required]}
         warn={[strLength20, required]}
       />
       <Field
         name={FORM_CONTENT}
-        component={renderTextarea}
+        component={renderTextEditor}
         disabled={props.askQuestionLoading}
-        translations={props.translations}
+        label={props.translations[messages.contentLabel.id]}
       />
     </div>
     <div>

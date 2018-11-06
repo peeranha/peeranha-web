@@ -1,24 +1,26 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { strLength, required } from './validate';
-import renderField from './renderField';
+import { strLength20, required } from 'components/RenderFields/validate';
+import renderTextInput from 'components/RenderFields/renderTextInput';
+
 import messages from './messages';
 
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
-const SignUpForm = props => {
+/* eslint-disable-next-line */
+let SignUpForm = props => {
   const {
     handleSubmit,
     submitting,
     invalid,
     registerUser,
     loading,
-    account,
     translations,
   } = props;
 
@@ -27,23 +29,18 @@ const SignUpForm = props => {
       <div>
         <Field
           name={EOS_ACC}
-          component={renderField}
+          component={renderTextInput}
           disabled={loading}
-          type="text"
-          translations={translations}
-          label={[translations[messages.eosAccount.id], account]}
+          label={translations[messages.eosAccount.id]}
           readOnly
         />
         <Field
           name={DISPLAY_NAME}
-          component={renderField}
+          component={renderTextInput}
           disabled={loading}
-          type="text"
-          label={[translations[messages.displayName.id]]}
-          readOnly={false}
-          translations={translations}
-          validate={[strLength, required]}
-          warn={[strLength, required]}
+          label={translations[messages.displayName.id]}
+          validate={[strLength20, required]}
+          warn={[strLength20, required]}
         />
       </div>
       <div>
@@ -71,6 +68,14 @@ SignUpForm.propTypes = {
   translations: PropTypes.object,
 };
 
-export default reduxForm({
+SignUpForm = reduxForm({
   form: 'SignUpForm',
 })(SignUpForm);
+
+SignUpForm = connect(state => ({
+  initialValues: {
+    [EOS_ACC]: state.get('account').get('account'),
+  },
+}))(SignUpForm);
+
+export default SignUpForm;

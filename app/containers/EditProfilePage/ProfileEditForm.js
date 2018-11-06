@@ -17,12 +17,16 @@ import {
   LOCATION_FIELD,
 } from 'containers/Profile/constants';
 
-import renderTextInput from './renderTextInput';
-import renderTextarea from './renderTextarea';
-import renderFileInput from './renderFileInput';
-import renderLocationField from './renderLocationField';
+import renderTextarea from 'components/RenderFields/renderTextarea';
+import renderTextInput from 'components/RenderFields/renderTextInput';
+import renderFileInput from 'components/RenderFields/renderFileInput';
+import renderLocationField from 'components/RenderFields/renderLocationField';
 
-import { imageValidation, strLength20, strLength96 } from './validate';
+import {
+  imageValidation,
+  strLength20,
+  strLength1000,
+} from 'components/RenderFields/validate';
 
 /* eslint-disable-next-line */
 export let ProfileEditForm = props => {
@@ -52,7 +56,6 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={DISPLAY_NAME_FIELD}
-          sendProps={sendProps}
           component={renderTextInput}
           label={sendProps.translations[messages.displayNameLabel.id]}
           validate={strLength20}
@@ -61,7 +64,6 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={POSITION_FIELD}
-          sendProps={sendProps}
           component={renderTextInput}
           label={sendProps.translations[messages.positionLabel.id]}
           validate={strLength20}
@@ -70,7 +72,6 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={COMPANY_FIELD}
-          sendProps={sendProps}
           component={renderTextInput}
           label={sendProps.translations[messages.companyLabel.id]}
           validate={strLength20}
@@ -80,10 +81,9 @@ export let ProfileEditForm = props => {
           disabled={sendProps.isProfileSaving}
           name={ABOUT_FIELD}
           component={renderTextarea}
-          sendProps={sendProps}
           label={sendProps.translations[messages.aboutLabel.id]}
-          validate={strLength96}
-          warn={strLength96}
+          validate={strLength1000}
+          warn={strLength1000}
         />
         <Field
           disabled={sendProps.isProfileSaving}

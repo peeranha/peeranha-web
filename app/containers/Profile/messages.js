@@ -43,14 +43,6 @@ export default defineMessages({
     id: 'app.containers.Profile.locationLabel',
     defaultMessage: 'Location',
   },
-  fileSize: {
-    id: 'app.containers.Profile.fileSize',
-    defaultMessage: 'File size is exceeded',
-  },
-  stringLength: {
-    id: 'app.containers.Profile.stringLength',
-    defaultMessage: 'String is too short or too long',
-  },
   saveButton: {
     id: 'app.containers.Profile.saveButton',
     defaultMessage: 'Save',
@@ -78,9 +70,5 @@ export default defineMessages({
   isProfileLoading: {
     id: 'app.containers.Profile.isProfileLoading',
     defaultMessage: 'Loading...',
-  },
-  emptyField: {
-    id: 'app.containers.Profile.emptyField',
-    defaultMessage: 'This field is empty',
   },
 });

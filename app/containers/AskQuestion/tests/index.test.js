@@ -1,8 +1,8 @@
 import { translationMessages } from 'i18n';
 
+import messages from 'components/RenderFields/messages';
 import { AskQuestion, mapDispatchToProps } from '../index';
 import { FORM_TITLE } from '../constants';
-import messages from '../messages';
 
 window.tinyMCE = {
   activeEditor: {

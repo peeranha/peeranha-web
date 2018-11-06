@@ -1,4 +1,8 @@
 {
+  "app.components.RenderFields.requiredField": "Required field",
+  "app.containers.RenderFields.wrongLength20": "Min - 3, Max - 20",
+  "app.containers.RenderFields.wrongLength1000": "Min - 3, Max - 1000",
+  "app.containers.RenderFields.fileSize": "File size is exceeded",
   "app.components.Footer.header": "Copyright: Peerania",
   "app.components.Header.home": "Home",
   "app.components.Header.profile": "Profile",
@@ -10,9 +14,6 @@
   "app.containers.SignUp.eosAccount": "EOS Account",
   "app.containers.SignUp.displayName": "Display Name",
   "app.containers.SignUp.signUp": "Sign Up",
-  "app.containers.SignUp.requiredField": "Required field",
-  "app.containers.SignUp.displayNameLength":
-    "Display name length must be between 3 and 20",
   "app.containers.SignUp.signUpDescription": "Description of Sign Up",
   "app.containers.SignUp.serverMessage": "Error",
   "app.containers.SignUp.signUpWith": "Sign up with Scatter",
@@ -32,8 +33,6 @@
   "app.containers.Profile.positionLabel": "Position",
   "app.containers.Profile.companyLabel": "Company",
   "app.containers.Profile.aboutLabel": "About me",
-  "app.containers.Profile.fileSize": "File size is exceeded",
-  "app.containers.Profile.stringLength": "String is too short or too long",
   "app.containers.Profile.saveButton": "Save",
   "app.containers.Profile.savingButton": "Saving...",
   "app.containers.Profile.cancelButton": "Cancel",
@@ -42,7 +41,6 @@
   "app.containers.Profile.editButton": "Edit",
   "app.containers.Profile.viewButton": "View",
   "app.containers.Profile.locationLabel": "Location",
-  "app.containers.Profile.emptyField": "This field is empty",
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
   "app.containers.ScatterInstaller.header":
     "To complete this action in our app you need to install",
@@ -69,8 +67,5 @@
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
   "app.containers.AskQuestion.titleLabel": "Title",
-  "app.containers.AskQuestion.wrongLength20": "Min - 3, Max - 20",
-  "app.containers.AskQuestion.wrongLength1000": "Min - 3, Max - 1000",
-  "app.containers.AskQuestion.requiredField": "Required field",
   "app.containers.AskQuestion.contentLabel": "Body"
 }

@@ -18,6 +18,7 @@ import injectReducer from 'utils/injectReducer';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import renderFieldMessages from 'components/RenderFields/messages';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -43,7 +44,9 @@ export class AskQuestion extends React.Component {
       const toast = {
         type: 'error',
         text:
-          translationMessages[this.props.locale][messages.wrongLength1000.id],
+          translationMessages[this.props.locale][
+            renderFieldMessages.wrongLength1000.id
+          ],
       };
       this.props.addToastDispatch(toast);
     }

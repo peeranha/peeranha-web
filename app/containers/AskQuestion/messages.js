@@ -27,16 +27,4 @@ export default defineMessages({
     id: 'app.containers.AskQuestion.contentLabel',
     defaultMessage: 'Body',
   },
-  wrongLength20: {
-    id: 'app.containers.AskQuestion.wrongLength20',
-    defaultMessage: 'Min - 3, Max - 20',
-  },
-  wrongLength1000: {
-    id: 'app.containers.AskQuestion.wrongLength1000',
-    defaultMessage: 'Min - 3, Max - 1000',
-  },
-  requiredField: {
-    id: 'app.containers.AskQuestion.requiredField',
-    defaultMessage: 'Required field',
-  },
 });

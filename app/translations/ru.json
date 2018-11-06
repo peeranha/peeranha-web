@@ -1,4 +1,8 @@
 {
+  "app.components.RenderFields.requiredField": "Необходимое поле",
+  "app.containers.RenderFields.wrongLength20": "Мин - 3, Макс - 20",
+  "app.containers.RenderFields.wrongLength1000": "Мин - 3, Макс - 1000",
+  "app.containers.RenderFields.fileSize": "Превышен размер файла",
   "app.components.Footer.header": "Авторские права: Peerania",
   "app.components.Header.home": "Главная",
   "app.components.Header.profile": "Профиль",
@@ -13,7 +17,6 @@
   "app.containers.SignUp.login": "Войти",
   "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
-  "app.containers.SignUp.requiredField": "Требуемое поле",
   "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
   "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
   "app.containers.SignUp.loginWith": "Войти через",
@@ -32,9 +35,6 @@
   "app.containers.Profile.positionLabel": "Должность",
   "app.containers.Profile.companyLabel": "Компания",
   "app.containers.Profile.aboutLabel": "Обо мне",
-  "app.containers.Profile.fileSize": "Размер файла превышен",
-  "app.containers.Profile.stringLength":
-    "Строка слишком короткая или слишком длинная",
   "app.containers.Profile.saveButton": "Сохранить",
   "app.containers.Profile.savingButton": "Сохранение...",
   "app.containers.Profile.cancelButton": "Отмена",
@@ -43,7 +43,6 @@
   "app.containers.Profile.editButton": "Редактировать",
   "app.containers.Profile.viewButton": "Посмотреть",
   "app.containers.Profile.locationLabel": "Местоположение",
-  "app.containers.Profile.emptyField": "Это поле - пустое",
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
   "app.containers.ScatterInstaller.header":
@@ -73,8 +72,5 @@
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
   "app.containers.AskQuestion.titleLabel": "Заголовок",
-  "app.containers.AskQuestion.wrongLength20": "Мин - 3, Макс - 20",
-  "app.containers.AskQuestion.wrongLength1000": "Мин - 3, Макс - 1000",
-  "app.containers.AskQuestion.requiredField": "Требуемое поле",
   "app.containers.AskQuestion.contentLabel": "Содержание"
 }
