@@ -2,7 +2,9 @@ import renderer from 'react-test-renderer';
 import 'jest-styled-components';
 
 import TextEditorField from '../TextEditorField';
+
 jest.mock('react-intl');
+jest.mock('@tinymce/tinymce-react');
 
 const props = {
   input: {},

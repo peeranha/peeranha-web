@@ -5,16 +5,7 @@ exports[`TextEditorField test test by snapshots default 1`] = `
   <h6>
     label
   </h6>
-  <div>
-    <textarea
-      id="tiny-react_64994138021541536401957"
-      style={
-        Object {
-          "visibility": "hidden",
-        }
-      }
-    />
-  </div>
+  <div />
   <h6
     className="text-danger"
   />
@@ -26,16 +17,7 @@ exports[`TextEditorField test test by snapshots meta.error = true 1`] = `
   <h6>
     label
   </h6>
-  <div>
-    <textarea
-      id="tiny-react_72601862341541536401965"
-      style={
-        Object {
-          "visibility": "hidden",
-        }
-      }
-    />
-  </div>
+  <div />
   <h6
     className="text-danger"
   />
@@ -47,16 +29,7 @@ exports[`TextEditorField test test by snapshots meta.touched = true 1`] = `
   <h6>
     label
   </h6>
-  <div>
-    <textarea
-      id="tiny-react_83870453731541536401962"
-      style={
-        Object {
-          "visibility": "hidden",
-        }
-      }
-    />
-  </div>
+  <div />
   <h6
     className="text-danger"
   />
@@ -68,16 +41,7 @@ exports[`TextEditorField test test by snapshots meta.warning = true 1`] = `
   <h6>
     label
   </h6>
-  <div>
-    <textarea
-      id="tiny-react_7269612451541536401968"
-      style={
-        Object {
-          "visibility": "hidden",
-        }
-      }
-    />
-  </div>
+  <div />
   <h6
     className="text-danger"
   />
