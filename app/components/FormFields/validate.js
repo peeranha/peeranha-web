@@ -14,4 +14,4 @@ export const stringLength = (min, max) => value =>
 export const required = value => (!value ? messages.requiredField : undefined);
 
 export const strLength20 = stringLength(3, 20);
-export const strLength1000 = stringLength(3, 1000);
+export const strLength1000 = stringLength(10, 1000);

@@ -1,14 +1,5 @@
-import { translationMessages } from 'i18n';
-
-import { getTextEditorValue } from 'components/TextEditor/index';
-import messages from 'components/FormFields/messages';
-
 import { AskQuestion, mapDispatchToProps } from '../index';
-import { FORM_TITLE } from '../constants';
-
-jest.mock('components/TextEditor/index', () => ({
-  getTextEditorValue: jest.fn(),
-}));
+import { FORM_TITLE, FORM_CONTENT } from '../constants';
 
 window.tinyMCE = {
   activeEditor: {
@@ -28,14 +19,11 @@ cmp.props = {
 describe('AskQuestion', () => {
   const values = new Map();
 
-  it('postQuestion test, content is true', () => {
-    const content = '<div>Content</div>';
+  it('postQuestion test', () => {
     const question = {
       title: values.get(FORM_TITLE),
-      content,
+      content: values.get(FORM_CONTENT),
     };
-
-    getTextEditorValue.mockImplementation(() => content);
 
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledTimes(0);
 
@@ -45,21 +33,6 @@ describe('AskQuestion', () => {
       cmp.props.account,
       question,
     );
-  });
-
-  it('postQuestion test, content is false', () => {
-    const content = '';
-    const toast = {
-      type: 'error',
-      text: translationMessages[cmp.props.locale][messages.wrongLength1000.id],
-    };
-
-    getTextEditorValue.mockImplementation(() => content);
-
-    expect(cmp.props.addToastDispatch).toHaveBeenCalledTimes(0);
-    cmp.postQuestion(values);
-    expect(cmp.props.addToastDispatch).toHaveBeenCalledTimes(1);
-    expect(cmp.props.addToastDispatch).toHaveBeenCalledWith(toast);
   });
 });
 
@@ -79,6 +52,5 @@ describe('mapDispatchToProps', () => {
     expect(mapDispatchToProps(dispatch).askQuestionDispatch('x1', 'x2')).toBe(
       test,
     );
-    expect(mapDispatchToProps(dispatch).addToastDispatch('x1')).toBe(test);
   });
 });

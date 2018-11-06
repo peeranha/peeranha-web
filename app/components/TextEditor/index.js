@@ -10,12 +10,11 @@ import PropTypes from 'prop-types';
 
 import TextEditorConfig from './TextEditorConfig';
 
-export const getTextEditorValue = () =>
-  window.tinyMCE.activeEditor.getContent();
-
 const TextEditor = props => (
   <div>
     <Editor
+      {...props.input}
+      content={props.input.value}
       apiKey={TextEditorConfig.apiKey}
       initialValue={props.content || ''}
       disabled={props.disabled}
@@ -31,6 +30,7 @@ const TextEditor = props => (
 );
 
 TextEditor.propTypes = {
+  input: PropTypes.object,
   content: PropTypes.string,
   disabled: PropTypes.bool,
   height: PropTypes.number,

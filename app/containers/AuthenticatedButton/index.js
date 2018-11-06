@@ -26,10 +26,17 @@ export class AuthenticatedButton extends React.Component {
   };
 
   render() {
-    const { buttonClass, buttonContent, buttonType, isLoading } = this.props;
+    const {
+      buttonClass,
+      buttonContent,
+      buttonType,
+      isLoading,
+      disabled,
+    } = this.props;
 
     return (
       <button
+        disabled={disabled}
         type={buttonType || 'button'}
         className={buttonClass}
         onClick={this.clickHandler}
@@ -48,6 +55,7 @@ AuthenticatedButton.propTypes = {
   buttonType: PropTypes.string,
   buttonContent: PropTypes.string,
   userIsInSystem: PropTypes.bool,
+  disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
 };
 

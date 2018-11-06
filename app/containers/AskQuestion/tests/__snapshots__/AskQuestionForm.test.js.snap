@@ -263,6 +263,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                   submitting={false}
                   syncErrors={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -271,6 +275,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                   }
                   syncWarnings={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -506,12 +514,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                   "submitSucceeded": false,
                                   "submitting": false,
                                   "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
                                     },
                                   },
                                   "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
@@ -664,12 +680,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     "submitSucceeded": false,
                                     "submitting": false,
                                     "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
@@ -794,7 +818,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
+                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
                           >
                             <Connect(ConnectedField)
                               _reduxForm={
@@ -867,7 +904,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                   "initialValues": undefined,
                                   "initialize": [Function],
                                   "initialized": false,
-                                  "invalid": false,
+                                  "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postQuestion": [MockFunction],
@@ -876,7 +913,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                   "register": [Function],
                                   "registerField": [Function],
                                   "registerInnerOnSubmit": [Function],
-                                  "registeredFields": undefined,
+                                  "registeredFields": Immutable.Map {
+                                    "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_TITLE",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_CONTENT",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
@@ -894,8 +942,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                   "submitFailed": false,
                                   "submitSucceeded": false,
                                   "submitting": false,
-                                  "syncErrors": Object {},
-                                  "syncWarnings": Object {},
+                                  "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
@@ -910,16 +976,29 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                   "updateSyncWarnings": [Function],
                                   "updateUnregisteredFields": false,
                                   "userIsInSystem": true,
-                                  "valid": true,
-                                  "validExceptSubmit": true,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
                                   "values": Immutable.Map {},
                                   "warning": undefined,
                                 }
                               }
                               component={[Function]}
                               disabled={false}
+                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
                             >
                               <ConnectedField
                                 _reduxForm={
@@ -992,7 +1071,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     "initialValues": undefined,
                                     "initialize": [Function],
                                     "initialized": false,
-                                    "invalid": false,
+                                    "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postQuestion": [MockFunction],
@@ -1001,7 +1080,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     "register": [Function],
                                     "registerField": [Function],
                                     "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
+                                    "registeredFields": Immutable.Map {
+                                      "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_TITLE",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                      "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_CONTENT",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                    },
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
@@ -1019,8 +1109,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     "submitFailed": false,
                                     "submitSucceeded": false,
                                     "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
+                                    "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
+                                    "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
                                     "touch": [Function],
                                     "touchOnBlur": true,
                                     "touchOnChange": false,
@@ -1035,8 +1143,8 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     "updateSyncWarnings": [Function],
                                     "updateUnregisteredFields": false,
                                     "userIsInSystem": true,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
+                                    "valid": false,
+                                    "validExceptSubmit": false,
                                     "values": Immutable.Map {},
                                     "warning": undefined,
                                   }
@@ -1046,12 +1154,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
+                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
+                                syncError={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                syncWarning={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                validate={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
+                                warn={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
                               >
                                 <TextEditorField
                                   disabled={false}
+                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -1070,17 +1204,23 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                       "autofilled": false,
                                       "dirty": false,
                                       "dispatch": [Function],
-                                      "error": undefined,
+                                      "error": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "form": "AskQuestionForm",
                                       "initial": undefined,
-                                      "invalid": false,
+                                      "invalid": true,
                                       "pristine": true,
                                       "submitFailed": false,
                                       "submitting": false,
                                       "touched": false,
-                                      "valid": true,
+                                      "valid": false,
                                       "visited": false,
-                                      "warning": undefined,
+                                      "warning": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                     }
                                   }
                                 >
@@ -1088,9 +1228,22 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
+                                      handleEditorChange={[Function]}
+                                      input={
+                                        Object {
+                                          "name": "app/AskQuestion/FORM_CONTENT",
+                                          "onBlur": [Function],
+                                          "onChange": [Function],
+                                          "onDragStart": [Function],
+                                          "onDrop": [Function],
+                                          "onFocus": [Function],
+                                          "value": "",
+                                        }
+                                      }
                                     >
                                       <div>
                                         <Editor
+                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -1105,9 +1258,19 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                             }
                                           }
                                           initialValue=""
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
+                                    <h6
+                                      className="text-danger"
+                                    />
                                   </div>
                                 </TextEditorField>
                               </ConnectedField>
@@ -1133,6 +1296,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                             >
                               <button
                                 className="btn btn-success form-control"
+                                disabled={true}
                                 onClick={[Function]}
                                 type="submit"
                               />
@@ -1458,6 +1622,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                   submitting={false}
                   syncErrors={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -1466,6 +1634,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                   }
                   syncWarnings={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -1729,12 +1901,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                   "submitSucceeded": false,
                                   "submitting": false,
                                   "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
                                     },
                                   },
                                   "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
@@ -1901,12 +2081,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     "submitSucceeded": false,
                                     "submitting": false,
                                     "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
@@ -2031,7 +2219,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
+                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
                           >
                             <Connect(ConnectedField)
                               _reduxForm={
@@ -2118,7 +2319,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                   "initialValues": undefined,
                                   "initialize": [Function],
                                   "initialized": false,
-                                  "invalid": false,
+                                  "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postQuestion": [MockFunction],
@@ -2127,7 +2328,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                   "register": [Function],
                                   "registerField": [Function],
                                   "registerInnerOnSubmit": [Function],
-                                  "registeredFields": undefined,
+                                  "registeredFields": Immutable.Map {
+                                    "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_TITLE",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_CONTENT",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
@@ -2145,8 +2357,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                   "submitFailed": false,
                                   "submitSucceeded": false,
                                   "submitting": false,
-                                  "syncErrors": Object {},
-                                  "syncWarnings": Object {},
+                                  "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
@@ -2161,16 +2391,29 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                   "updateSyncWarnings": [Function],
                                   "updateUnregisteredFields": false,
                                   "userIsInSystem": true,
-                                  "valid": true,
-                                  "validExceptSubmit": true,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
                                   "values": Immutable.Map {},
                                   "warning": undefined,
                                 }
                               }
                               component={[Function]}
                               disabled={false}
+                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
                             >
                               <ConnectedField
                                 _reduxForm={
@@ -2257,7 +2500,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     "initialValues": undefined,
                                     "initialize": [Function],
                                     "initialized": false,
-                                    "invalid": false,
+                                    "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postQuestion": [MockFunction],
@@ -2266,7 +2509,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     "register": [Function],
                                     "registerField": [Function],
                                     "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
+                                    "registeredFields": Immutable.Map {
+                                      "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_TITLE",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                      "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_CONTENT",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                    },
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
@@ -2284,8 +2538,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     "submitFailed": false,
                                     "submitSucceeded": false,
                                     "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
+                                    "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
+                                    "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
                                     "touch": [Function],
                                     "touchOnBlur": true,
                                     "touchOnChange": false,
@@ -2300,8 +2572,8 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     "updateSyncWarnings": [Function],
                                     "updateUnregisteredFields": false,
                                     "userIsInSystem": true,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
+                                    "valid": false,
+                                    "validExceptSubmit": false,
                                     "values": Immutable.Map {},
                                     "warning": undefined,
                                   }
@@ -2311,12 +2583,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
+                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
+                                syncError={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                syncWarning={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                validate={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
+                                warn={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
                               >
                                 <TextEditorField
                                   disabled={false}
+                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -2335,17 +2633,23 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                       "autofilled": false,
                                       "dirty": false,
                                       "dispatch": [Function],
-                                      "error": undefined,
+                                      "error": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "form": "AskQuestionForm",
                                       "initial": undefined,
-                                      "invalid": false,
+                                      "invalid": true,
                                       "pristine": true,
                                       "submitFailed": false,
                                       "submitting": false,
                                       "touched": false,
-                                      "valid": true,
+                                      "valid": false,
                                       "visited": false,
-                                      "warning": undefined,
+                                      "warning": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                     }
                                   }
                                 >
@@ -2353,9 +2657,22 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
+                                      handleEditorChange={[Function]}
+                                      input={
+                                        Object {
+                                          "name": "app/AskQuestion/FORM_CONTENT",
+                                          "onBlur": [Function],
+                                          "onChange": [Function],
+                                          "onDragStart": [Function],
+                                          "onDrop": [Function],
+                                          "onFocus": [Function],
+                                          "value": "",
+                                        }
+                                      }
                                     >
                                       <div>
                                         <Editor
+                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -2370,9 +2687,19 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                             }
                                           }
                                           initialValue=""
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
+                                    <h6
+                                      className="text-danger"
+                                    />
                                   </div>
                                 </TextEditorField>
                               </ConnectedField>
@@ -2398,6 +2725,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                             >
                               <button
                                 className="btn btn-success form-control"
+                                disabled={true}
                                 onClick={[Function]}
                                 type="submit"
                               />
@@ -2765,6 +3093,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                   submitting={false}
                   syncErrors={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -2773,6 +3105,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                   }
                   syncWarnings={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -3064,12 +3400,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                   "submitSucceeded": false,
                                   "submitting": false,
                                   "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
                                     },
                                   },
                                   "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
@@ -3250,12 +3594,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     "submitSucceeded": false,
                                     "submitting": false,
                                     "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
@@ -3380,7 +3732,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
+                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
                           >
                             <Connect(ConnectedField)
                               _reduxForm={
@@ -3481,7 +3846,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                   "initialValues": undefined,
                                   "initialize": [Function],
                                   "initialized": false,
-                                  "invalid": false,
+                                  "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postQuestion": [MockFunction],
@@ -3490,7 +3855,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                   "register": [Function],
                                   "registerField": [Function],
                                   "registerInnerOnSubmit": [Function],
-                                  "registeredFields": undefined,
+                                  "registeredFields": Immutable.Map {
+                                    "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_TITLE",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_CONTENT",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
@@ -3508,8 +3884,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                   "submitFailed": false,
                                   "submitSucceeded": false,
                                   "submitting": false,
-                                  "syncErrors": Object {},
-                                  "syncWarnings": Object {},
+                                  "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
@@ -3524,16 +3918,29 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                   "updateSyncWarnings": [Function],
                                   "updateUnregisteredFields": false,
                                   "userIsInSystem": true,
-                                  "valid": true,
-                                  "validExceptSubmit": true,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
                                   "values": Immutable.Map {},
                                   "warning": undefined,
                                 }
                               }
                               component={[Function]}
                               disabled={false}
+                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
                             >
                               <ConnectedField
                                 _reduxForm={
@@ -3634,7 +4041,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     "initialValues": undefined,
                                     "initialize": [Function],
                                     "initialized": false,
-                                    "invalid": false,
+                                    "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postQuestion": [MockFunction],
@@ -3643,7 +4050,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     "register": [Function],
                                     "registerField": [Function],
                                     "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
+                                    "registeredFields": Immutable.Map {
+                                      "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_TITLE",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                      "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_CONTENT",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                    },
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
@@ -3661,8 +4079,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     "submitFailed": false,
                                     "submitSucceeded": false,
                                     "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
+                                    "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
+                                    "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
                                     "touch": [Function],
                                     "touchOnBlur": true,
                                     "touchOnChange": false,
@@ -3677,8 +4113,8 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     "updateSyncWarnings": [Function],
                                     "updateUnregisteredFields": false,
                                     "userIsInSystem": true,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
+                                    "valid": false,
+                                    "validExceptSubmit": false,
                                     "values": Immutable.Map {},
                                     "warning": undefined,
                                   }
@@ -3688,12 +4124,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
+                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
+                                syncError={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                syncWarning={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                validate={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
+                                warn={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
                               >
                                 <TextEditorField
                                   disabled={false}
+                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -3712,17 +4174,23 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                       "autofilled": false,
                                       "dirty": false,
                                       "dispatch": [Function],
-                                      "error": undefined,
+                                      "error": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "form": "AskQuestionForm",
                                       "initial": undefined,
-                                      "invalid": false,
+                                      "invalid": true,
                                       "pristine": true,
                                       "submitFailed": false,
                                       "submitting": false,
                                       "touched": false,
-                                      "valid": true,
+                                      "valid": false,
                                       "visited": false,
-                                      "warning": undefined,
+                                      "warning": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                     }
                                   }
                                 >
@@ -3730,9 +4198,22 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
+                                      handleEditorChange={[Function]}
+                                      input={
+                                        Object {
+                                          "name": "app/AskQuestion/FORM_CONTENT",
+                                          "onBlur": [Function],
+                                          "onChange": [Function],
+                                          "onDragStart": [Function],
+                                          "onDrop": [Function],
+                                          "onFocus": [Function],
+                                          "value": "",
+                                        }
+                                      }
                                     >
                                       <div>
                                         <Editor
+                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -3747,9 +4228,19 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                             }
                                           }
                                           initialValue=""
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
+                                    <h6
+                                      className="text-danger"
+                                    />
                                   </div>
                                 </TextEditorField>
                               </ConnectedField>
@@ -3775,6 +4266,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                             >
                               <button
                                 className="btn btn-success form-control"
+                                disabled={true}
                                 onClick={[Function]}
                                 type="submit"
                               />
@@ -4184,6 +4676,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                   submitting={false}
                   syncErrors={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -4192,6 +4688,10 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                   }
                   syncWarnings={
                     Object {
+                      "app/AskQuestion/FORM_CONTENT": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.AskQuestion.requiredField",
+                      },
                       "app/AskQuestion/FORM_TITLE": Object {
                         "defaultMessage": "Required field",
                         "id": "app.containers.AskQuestion.requiredField",
@@ -4511,12 +5011,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                   "submitSucceeded": false,
                                   "submitting": false,
                                   "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
                                     },
                                   },
                                   "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
                                     "app/AskQuestion/FORM_TITLE": Object {
                                       "defaultMessage": "Required field",
                                       "id": "app.containers.AskQuestion.requiredField",
@@ -4711,12 +5219,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     "submitSucceeded": false,
                                     "submitting": false,
                                     "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "app/AskQuestion/FORM_TITLE": Object {
                                         "defaultMessage": "Required field",
                                         "id": "app.containers.AskQuestion.requiredField",
@@ -4841,7 +5357,20 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                           <Field
                             component={[Function]}
                             disabled={true}
+                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
                           >
                             <Connect(ConnectedField)
                               _reduxForm={
@@ -4956,7 +5485,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                   "initialValues": undefined,
                                   "initialize": [Function],
                                   "initialized": false,
-                                  "invalid": false,
+                                  "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postQuestion": [MockFunction],
@@ -4965,7 +5494,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                   "register": [Function],
                                   "registerField": [Function],
                                   "registerInnerOnSubmit": [Function],
-                                  "registeredFields": undefined,
+                                  "registeredFields": Immutable.Map {
+                                    "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_TITLE",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                      "name": "app/AskQuestion/FORM_CONTENT",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
@@ -4983,8 +5523,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                   "submitFailed": false,
                                   "submitSucceeded": false,
                                   "submitting": false,
-                                  "syncErrors": Object {},
-                                  "syncWarnings": Object {},
+                                  "syncErrors": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/AskQuestion/FORM_CONTENT": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                    "app/AskQuestion/FORM_TITLE": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.AskQuestion.requiredField",
+                                    },
+                                  },
                                   "touch": [Function],
                                   "touchOnBlur": true,
                                   "touchOnChange": false,
@@ -4999,16 +5557,29 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                   "updateSyncWarnings": [Function],
                                   "updateUnregisteredFields": false,
                                   "userIsInSystem": true,
-                                  "valid": true,
-                                  "validExceptSubmit": true,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
                                   "values": Immutable.Map {},
                                   "warning": undefined,
                                 }
                               }
                               component={[Function]}
                               disabled={true}
+                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
                             >
                               <ConnectedField
                                 _reduxForm={
@@ -5123,7 +5694,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     "initialValues": undefined,
                                     "initialize": [Function],
                                     "initialized": false,
-                                    "invalid": false,
+                                    "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postQuestion": [MockFunction],
@@ -5132,7 +5703,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     "register": [Function],
                                     "registerField": [Function],
                                     "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
+                                    "registeredFields": Immutable.Map {
+                                      "app/AskQuestion/FORM_TITLE": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_TITLE",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                      "app/AskQuestion/FORM_CONTENT": Immutable.Map {
+                                        "name": "app/AskQuestion/FORM_CONTENT",
+                                        "type": "Field",
+                                        "count": 1,
+                                      },
+                                    },
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
@@ -5150,8 +5732,26 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     "submitFailed": false,
                                     "submitSucceeded": false,
                                     "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
+                                    "syncErrors": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
+                                    "syncWarnings": Object {
+                                      "app/AskQuestion/FORM_CONTENT": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                      "app/AskQuestion/FORM_TITLE": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
+                                    },
                                     "touch": [Function],
                                     "touchOnBlur": true,
                                     "touchOnChange": false,
@@ -5166,8 +5766,8 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     "updateSyncWarnings": [Function],
                                     "updateUnregisteredFields": false,
                                     "userIsInSystem": true,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
+                                    "valid": false,
+                                    "validExceptSubmit": false,
                                     "values": Immutable.Map {},
                                     "warning": undefined,
                                   }
@@ -5177,12 +5777,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                 dirty={false}
                                 disabled={true}
                                 dispatch={[Function]}
+                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
+                                syncError={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                syncWarning={
+                                  Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.AskQuestion.requiredField",
+                                  }
+                                }
+                                validate={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
+                                warn={
+                                  Array [
+                                    [Function],
+                                    [Function],
+                                  ]
+                                }
                               >
                                 <TextEditorField
                                   disabled={true}
+                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -5201,17 +5827,23 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                       "autofilled": false,
                                       "dirty": false,
                                       "dispatch": [Function],
-                                      "error": undefined,
+                                      "error": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                       "form": "AskQuestionForm",
                                       "initial": undefined,
-                                      "invalid": false,
+                                      "invalid": true,
                                       "pristine": true,
                                       "submitFailed": false,
                                       "submitting": false,
                                       "touched": false,
-                                      "valid": true,
+                                      "valid": false,
                                       "visited": false,
-                                      "warning": undefined,
+                                      "warning": Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.AskQuestion.requiredField",
+                                      },
                                     }
                                   }
                                 >
@@ -5219,9 +5851,22 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={true}
+                                      handleEditorChange={[Function]}
+                                      input={
+                                        Object {
+                                          "name": "app/AskQuestion/FORM_CONTENT",
+                                          "onBlur": [Function],
+                                          "onChange": [Function],
+                                          "onDragStart": [Function],
+                                          "onDrop": [Function],
+                                          "onFocus": [Function],
+                                          "value": "",
+                                        }
+                                      }
                                     >
                                       <div>
                                         <Editor
+                                          content=""
                                           disabled={true}
                                           init={
                                             Object {
@@ -5236,9 +5881,19 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                             }
                                           }
                                           initialValue=""
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
+                                    <h6
+                                      className="text-danger"
+                                    />
                                   </div>
                                 </TextEditorField>
                               </ConnectedField>
@@ -5264,6 +5919,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                             >
                               <button
                                 className="btn btn-success form-control"
+                                disabled={true}
                                 onClick={[Function]}
                                 type="submit"
                               >

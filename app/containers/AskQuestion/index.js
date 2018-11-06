@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
-import { addToast } from 'containers/Toast/actions';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,9 +21,6 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import renderFieldMessages from 'components/FormFields/messages';
-
-import { getTextEditorValue } from 'components/TextEditor/index';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -32,7 +28,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { FORM_TITLE } from './constants';
+import { FORM_TITLE, FORM_CONTENT } from './constants';
 
 import AskQuestionForm from './AskQuestionForm';
 
@@ -41,21 +37,10 @@ export class AskQuestion extends React.Component {
   postQuestion = values => {
     const question = {
       title: values.get(FORM_TITLE),
-      content: getTextEditorValue(),
+      content: values.get(FORM_CONTENT),
     };
 
-    if (question.content) {
-      this.props.askQuestionDispatch(this.props.account, question);
-    } else {
-      const toast = {
-        type: 'error',
-        text:
-          translationMessages[this.props.locale][
-            renderFieldMessages.wrongLength1000.id
-          ],
-      };
-      this.props.addToastDispatch(toast);
-    }
+    this.props.askQuestionDispatch(this.props.account, question);
   };
 
   render() {
@@ -86,7 +71,6 @@ AskQuestion.propTypes = {
   askQuestionLoading: PropTypes.bool.isRequired,
   userIsInSystem: PropTypes.bool.isRequired,
   askQuestionDispatch: PropTypes.func.isRequired,
-  addToastDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -101,7 +85,6 @@ export function mapDispatchToProps(dispatch) {
     dispatch,
     askQuestionDispatch: (user, questionData) =>
       dispatch(askQuestion(user, questionData)),
-    addToastDispatch: addedToast => dispatch(addToast(addedToast)),
   };
 }
 
