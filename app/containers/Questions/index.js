@@ -8,55 +8,93 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { getQuestionsList } from './actions';
+import InfinityLoader from 'components/InfinityLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
+
+import { getQuestionsList, setDefaultReducer } from './actions';
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import messages from './messages';
+const StyledDiv = styled.div`
+  padding: 20px;
+  border-bottom: 2px solid red;
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
   componentDidMount() {
-    this.props.getQuestionsListDispatch();
+    const { initLoadedItems } = this.props;
+    this.getQuestionsList(initLoadedItems, 0);
   }
 
-  render() {
-    console.log(this.props);
+  componentWillUnmount() {
+    this.props.setDefaultReducerDispatch();
+  }
 
+  getQuestionsList = (
+    limit = this.props.nextLoadedItems,
+    offset = this.props.questionsList.size,
+  ) => {
+    console.log(this.props.questionsList);
+    this.props.getQuestionsListDispatch(limit, offset);
+  };
+
+  render() {
     return (
-      <div>
-        <Helmet>
-          <title>Questions</title>
-          <meta name="description" content="Description of Questions" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
-      </div>
+      <InfinityLoader
+        loadNextPaginatedData={this.getQuestionsList}
+        isLoading={this.props.questionsLoading}
+        isLastFetch={this.props.isLastFetch}
+      >
+        <div className="container">
+          <Helmet>
+            <title>Questions</title>
+            <meta name="description" content="Description of Questions" />
+          </Helmet>
+
+          {this.props.questionsList.map(item => (
+            <StyledDiv key={item.id}>{JSON.stringify(item)}</StyledDiv>
+          ))}
+
+          {this.props.questionsLoading && <LoadingIndicator />}
+        </div>
+      </InfinityLoader>
     );
   }
 }
 
 Questions.propTypes = {
-  getQuestionsListDispatch: PropTypes.func.isRequired,
+  questionsList: PropTypes.array,
+  questionsLoading: PropTypes.bool,
+  isLastFetch: PropTypes.bool,
+  initLoadedItems: PropTypes.number,
+  nextLoadedItems: PropTypes.number,
+  getQuestionsListDispatch: PropTypes.func,
+  setDefaultReducerDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
-  questionsError: questionsSelector.selectQuestionsError(),
+  initLoadedItems: questionsSelector.selectInitLoadedItems(),
+  nextLoadedItems: questionsSelector.selectNextLoadedItems(),
+  isLastFetch: questionsSelector.selectIsLastFetch(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getQuestionsListDispatch: limit => dispatch(getQuestionsList(limit)),
+    getQuestionsListDispatch: (limit, offset) =>
+      dispatch(getQuestionsList(limit, offset)),
+    setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
   };
 }
 

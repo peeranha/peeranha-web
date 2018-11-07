@@ -23,4 +23,19 @@ export const selectQuestionsError = () =>
     substate.get('questionsError'),
   );
 
+export const selectInitLoadedItems = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('initLoadedItems'),
+  );
+
+export const selectNextLoadedItems = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('nextLoadedItems'),
+  );
+
+export const selectIsLastFetch = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('isLastFetch'),
+  );
+
 export { selectQuestionsDomain };

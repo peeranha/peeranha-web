@@ -9,7 +9,9 @@ import { getQuestionsListSuccess, getQuestionsListError } from './actions';
 export function* getQuestionsListWorker(res) {
   try {
     const eosService = yield select(selectEos);
-    const questionsList = yield call(() => getQuestions(res.limit, eosService));
+    const questionsList = yield call(() =>
+      getQuestions(res.limit, eosService, res.offset),
+    );
     yield put(getQuestionsListSuccess(questionsList));
   } catch (err) {
     yield put(getQuestionsListError(err.message));

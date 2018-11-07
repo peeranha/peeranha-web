@@ -9,12 +9,16 @@ import {
   GET_QUESTIONS_LIST,
   GET_QUESTIONS_LIST_SUCCESS,
   GET_QUESTIONS_LIST_ERROR,
+  SET_DEFAULT_REDUCER,
 } from './constants';
 
 export const initialState = fromJS({
+  initLoadedItems: 25,
+  nextLoadedItems: 10,
   questionsLoading: false,
   questionsList: [],
   questionsError: '',
+  isLastFetch: false,
 });
 
 function questionsReducer(state = initialState, action) {
@@ -26,11 +30,17 @@ function questionsReducer(state = initialState, action) {
     case GET_QUESTIONS_LIST_SUCCESS:
       return state
         .set('questionsLoading', false)
-        .set('questionsList', questionsList);
+        .set(
+          'isLastFetch',
+          questionsList.length < initialState.get('nextLoadedItems'),
+        )
+        .set('questionsList', state.get('questionsList').concat(questionsList));
     case GET_QUESTIONS_LIST_ERROR:
       return state
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
+    case SET_DEFAULT_REDUCER:
+      return initialState;
     default:
       return state;
   }

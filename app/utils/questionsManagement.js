@@ -1,12 +1,13 @@
-import { saveText, getText } from './ipfs';
+import { saveText } from './ipfs';
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(limit, eosService) {
-  const questions = await eosService.getTableRows('question', 'allquestions');
-
-  await questions.map(async item => {
-    item.questionText = await getText(item.ipfs_link);
-  });
+export async function getQuestions(limit, eosService, offset) {
+  const questions = await eosService.getTableRows(
+    'question',
+    'allquestions',
+    offset,
+    limit,
+  );
 
   return questions;
 }
