@@ -16,6 +16,7 @@ export async function postQuestion(user, questionData, eosService) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const question = await eosService.sendTransaction(user, 'postquestion', {
     user,
+    title: questionData.title,
     ipfs_link: ipfsLink,
   });
 

@@ -53,8 +53,8 @@ const HeaderForm = props => (
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
           <li className="nav-item">
-            <Link to="/" className="nav-link" href="/">
-              <FormattedMessage {...messages.home} />
+            <Link to="/questions" className="nav-link" href="/questions">
+              <FormattedMessage {...messages.questions} />
             </Link>
           </li>
 

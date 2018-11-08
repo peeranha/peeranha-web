@@ -5,6 +5,7 @@
   "app.containers.FormFields.fileSize": "Превышен размер файла",
   "app.components.Footer.header": "Авторские права: Peerania",
   "app.components.Header.home": "Главная",
+  "app.components.Header.questions": "Вопросы",
   "app.components.Header.profile": "Профиль",
   "app.components.Header.about": "О нас",
   "app.components.Header.help": "Помощь",
@@ -72,5 +73,10 @@
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
   "app.containers.AskQuestion.titleLabel": "Заголовок",
+  "app.containers.Questions.title": "Вопросы",
+  "app.containers.Questions.description": "Вопросы | Описание",
+  "app.containers.Questions.votes": "голосов",
+  "app.containers.Questions.answers": "ответов",
+  "app.containers.Questions.askQuestion": "Задать вопрос",
   "app.containers.AskQuestion.contentLabel": "Содержание"
 }

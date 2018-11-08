@@ -11,6 +11,10 @@ export default defineMessages({
     id: 'app.components.Header.home',
     defaultMessage: 'Home',
   },
+  questions: {
+    id: 'app.components.Header.questions',
+    defaultMessage: 'Questions',
+  },
   profile: {
     id: 'app.components.Header.profile',
     defaultMessage: 'Profile',

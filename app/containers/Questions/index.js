@@ -10,23 +10,22 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import styled from 'styled-components';
+import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import InfinityLoader from 'components/InfinityLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { getQuestionsList, setDefaultReducer } from './actions';
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import messages from './messages';
 
-const StyledDiv = styled.div`
-  padding: 20px;
-  border-bottom: 2px solid red;
-`;
+import QuestionsForm from './QuestionsForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
@@ -43,28 +42,36 @@ export class Questions extends React.Component {
     limit = this.props.nextLoadedItems,
     offset = this.props.questionsList.size,
   ) => {
-    console.log(this.props.questionsList);
     this.props.getQuestionsListDispatch(limit, offset);
   };
 
   render() {
+    const { locale, questionsList, questionsLoading, isLastFetch } = this.props;
+
+    const sendProps = {
+      locale,
+      questionsList,
+      translations: translationMessages[locale],
+    };
+
     return (
       <InfinityLoader
         loadNextPaginatedData={this.getQuestionsList}
-        isLoading={this.props.questionsLoading}
-        isLastFetch={this.props.isLastFetch}
+        isLoading={questionsLoading}
+        isLastFetch={isLastFetch}
       >
         <div className="container">
           <Helmet>
-            <title>Questions</title>
-            <meta name="description" content="Description of Questions" />
+            <title>{sendProps.translations[messages.title.id]}</title>
+            <meta
+              name="description"
+              content={sendProps.translations[messages.description.id]}
+            />
           </Helmet>
 
-          {this.props.questionsList.map(item => (
-            <StyledDiv key={item.id}>{JSON.stringify(item)}</StyledDiv>
-          ))}
+          <QuestionsForm {...sendProps} />
 
-          {this.props.questionsLoading && <LoadingIndicator />}
+          {questionsLoading && <LoadingIndicator />}
         </div>
       </InfinityLoader>
     );
@@ -72,6 +79,7 @@ export class Questions extends React.Component {
 }
 
 Questions.propTypes = {
+  locale: PropTypes.string,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
@@ -82,6 +90,7 @@ Questions.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  locale: makeSelectLocale(),
   questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),

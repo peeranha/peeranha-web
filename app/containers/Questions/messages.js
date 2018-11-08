@@ -7,8 +7,24 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.Questions.header',
-    defaultMessage: 'This is Questions container !',
+  title: {
+    id: 'app.containers.Questions.title',
+    defaultMessage: 'Questions',
+  },
+  description: {
+    id: 'app.containers.Questions.description',
+    defaultMessage: 'Questions | Description',
+  },
+  votes: {
+    id: 'app.containers.Questions.votes',
+    defaultMessage: 'votes',
+  },
+  answers: {
+    id: 'app.containers.Questions.answers',
+    defaultMessage: 'answers',
+  },
+  askQuestion: {
+    id: 'app.containers.Questions.askQuestion',
+    defaultMessage: 'Ask question',
   },
 });
