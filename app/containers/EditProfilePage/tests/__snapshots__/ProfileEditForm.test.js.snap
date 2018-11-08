@@ -659,7 +659,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 validate={[Function]}
                                 warn={[Function]}
                               >
-                                <FileInputField
+                                <AvatarField
                                   disabled={false}
                                   input={
                                     Object {
@@ -758,7 +758,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       className="text-danger"
                                     />
                                   </div>
-                                </FileInputField>
+                                </AvatarField>
                               </ConnectedField>
                             </Connect(ConnectedField)>
                           </Field>

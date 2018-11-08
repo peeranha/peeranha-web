@@ -19,13 +19,13 @@ import {
 
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
-import FileInputField from 'components/FormFields/FileInputField';
+import AvatarField from 'components/FormFields/AvatarField';
 import LocationField from 'components/FormFields/LocationField';
 
 import {
   imageValidation,
   strLength20,
-  strLength1000,
+  strLength30000,
 } from 'components/FormFields/validate';
 
 /* eslint-disable-next-line */
@@ -48,7 +48,7 @@ export let ProfileEditForm = props => {
           disabled={sendProps.isProfileSaving}
           name={AVATAR_FIELD}
           label={sendProps.translations[messages.avatarLabel.id]}
-          component={FileInputField}
+          component={AvatarField}
           sendProps={sendProps}
           validate={imageValidation}
           warn={imageValidation}
@@ -82,8 +82,8 @@ export let ProfileEditForm = props => {
           name={ABOUT_FIELD}
           component={TextareaField}
           label={sendProps.translations[messages.aboutLabel.id]}
-          validate={strLength1000}
-          warn={strLength1000}
+          validate={strLength30000}
+          warn={strLength30000}
         />
         <Field
           disabled={sendProps.isProfileSaving}

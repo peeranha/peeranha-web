@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import AuthenticatedButton from 'containers/AuthenticatedButton';
 
 import {
-  strLength1000,
+  strLength30000,
   strLength20,
   required,
 } from 'components/FormFields/validate';
@@ -43,8 +43,8 @@ const AskQuestionForm = props => {
           handleEditorChange={handleEditorChange}
           disabled={props.askQuestionLoading}
           label={props.translations[messages.contentLabel.id]}
-          validate={[strLength1000, required]}
-          warn={[strLength1000, required]}
+          validate={[strLength30000, required]}
+          warn={[strLength30000, required]}
         />
       </div>
       <div>

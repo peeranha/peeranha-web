@@ -34,7 +34,7 @@ export const WarningMessage = (touched, translations, error, warning) => {
   return value;
 };
 
-function FileInputField({
+function AvatarField({
   input,
   label,
   disabled,
@@ -143,7 +143,7 @@ function FileInputField({
   );
 }
 
-FileInputField.propTypes = {
+AvatarField.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.object,
@@ -151,4 +151,4 @@ FileInputField.propTypes = {
   sendProps: PropTypes.object,
 };
 
-export default FileInputField;
+export default AvatarField;
