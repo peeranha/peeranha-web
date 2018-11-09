@@ -74,6 +74,7 @@
   "app.containers.AskQuestion.postQuestion": "Отправить",
   "app.containers.AskQuestion.titleLabel": "Заголовок",
   "app.containers.Questions.title": "Вопросы",
+  "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.description": "Вопросы | Описание",
   "app.containers.Questions.votes": "голосов",
   "app.containers.Questions.answers": "ответов",

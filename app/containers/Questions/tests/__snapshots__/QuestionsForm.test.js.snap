@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionsForm snapshot test 1 1`] = `
+<Box>
+  <QuestionsHeader
+    locale="en"
+    questionsList={Array []}
+    questionsLoading={false}
+    translations={Object {}}
+  />
+  <QuestionsContent
+    locale="en"
+    questionsList={Array []}
+    questionsLoading={false}
+    translations={Object {}}
+  />
+  <NoQuestions />
+</Box>
+`;
+
+exports[`QuestionsForm snapshot test 2 1`] = `
+<Box>
+  <QuestionsHeader
+    locale="en"
+    questionsList={
+      Array [
+        Array [
+          "cheburek",
+          "cheburek",
+        ],
+      ]
+    }
+    questionsLoading={false}
+    translations={Object {}}
+  />
+  <QuestionsContent
+    locale="en"
+    questionsList={
+      Array [
+        Array [
+          "cheburek",
+          "cheburek",
+        ],
+      ]
+    }
+    questionsLoading={false}
+    translations={Object {}}
+  />
+</Box>
+`;
+
+exports[`QuestionsForm snapshot test 3 1`] = `
+<Box>
+  <QuestionsHeader
+    locale="en"
+    questionsList={
+      Array [
+        Array [
+          "cheburek",
+          "cheburek",
+        ],
+      ]
+    }
+    questionsLoading={true}
+    translations={Object {}}
+  />
+  <QuestionsContent
+    locale="en"
+    questionsList={
+      Array [
+        Array [
+          "cheburek",
+          "cheburek",
+        ],
+      ]
+    }
+    questionsLoading={true}
+    translations={Object {}}
+  />
+  <LoadingIndicator />
+</Box>
+`;

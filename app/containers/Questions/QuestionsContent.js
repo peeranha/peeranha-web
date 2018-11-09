@@ -9,7 +9,7 @@ import messages from './messages';
 
 const QuestionItem = item => (
   <Link to={`/questions/${item.id}`} href={`/questions/${item.id}`}>
-    <div className="question-item" key={item.id}>
+    <div className="question-item">
       <div className="title-user">
         <Link
           className="highlighted-link"
@@ -51,14 +51,15 @@ const QuestionItem = item => (
 const QuestionsContent = props => (
   <div>
     {props.questionsList.map(item => (
-      <QuestionItem {...item} locale={props.locale} />
+      <QuestionItem {...item} locale={props.locale} key={item.id} />
     ))}
   </div>
 );
 
 QuestionsContent.propTypes = {
-  questionsList: PropTypes.array.isRequired,
+  questionsList: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
 };
 
+export { QuestionItem };
 export default QuestionsContent;

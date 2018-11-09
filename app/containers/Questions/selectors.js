@@ -8,34 +8,42 @@ import { initialState } from './reducer';
 const selectQuestionsDomain = state =>
   state.get('questionsReducer', initialState);
 
-export const selectQuestionsLoading = () =>
+const selectQuestionsLoading = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsLoading'),
   );
 
-export const selectQuestionsList = () =>
+const selectQuestionsList = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsList'),
   );
 
-export const selectQuestionsError = () =>
+const selectQuestionsError = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsError'),
   );
 
-export const selectInitLoadedItems = () =>
+const selectInitLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('initLoadedItems'),
   );
 
-export const selectNextLoadedItems = () =>
+const selectNextLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('nextLoadedItems'),
   );
 
-export const selectIsLastFetch = () =>
+const selectIsLastFetch = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('isLastFetch'),
   );
 
-export { selectQuestionsDomain };
+export {
+  selectQuestionsDomain,
+  selectQuestionsLoading,
+  selectQuestionsList,
+  selectQuestionsError,
+  selectInitLoadedItems,
+  selectNextLoadedItems,
+  selectIsLastFetch,
+};

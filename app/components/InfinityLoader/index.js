@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /* eslint-disable react/prefer-stateless-function */
-class InfinityLoader extends React.Component {
+export class InfinityLoader extends React.Component {
   componentWillMount() {
     window.addEventListener('scroll', this.onScroll, false);
   }

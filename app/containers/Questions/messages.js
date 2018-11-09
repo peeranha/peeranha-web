@@ -27,4 +27,8 @@ export default defineMessages({
     id: 'app.containers.Questions.askQuestion',
     defaultMessage: 'Ask question',
   },
+  noQuestions: {
+    id: 'app.containers.Questions.noQuestions',
+    defaultMessage: 'No questions',
+  },
 });

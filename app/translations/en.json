@@ -66,6 +66,7 @@
   "app.containers.ErrorBoundary.details": "Details",
   "app.containers.ErrorBoundary.reloadPage": "Reload page",
   "app.containers.Questions.title": "Questions",
+  "app.containers.Questions.noQuestions": "No questions",
   "app.containers.Questions.description": "Questions | Description",
   "app.containers.Questions.votes": "votes",
   "app.containers.Questions.answers": "answers",

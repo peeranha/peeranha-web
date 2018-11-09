@@ -16,7 +16,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import InfinityLoader from 'components/InfinityLoader';
-import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { getQuestionsList, setDefaultReducer } from './actions';
@@ -51,6 +50,7 @@ export class Questions extends React.Component {
     const sendProps = {
       locale,
       questionsList,
+      questionsLoading,
       translations: translationMessages[locale],
     };
 
@@ -68,10 +68,7 @@ export class Questions extends React.Component {
               content={sendProps.translations[messages.description.id]}
             />
           </Helmet>
-
           <QuestionsForm {...sendProps} />
-
-          {questionsLoading && <LoadingIndicator />}
         </div>
       </InfinityLoader>
     );
@@ -98,7 +95,7 @@ const mapStateToProps = createStructuredSelector({
   isLastFetch: questionsSelector.selectIsLastFetch(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getQuestionsListDispatch: (limit, offset) =>
