@@ -16,7 +16,7 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
       }
     }
     initialValue="content"
-    onChange={[MockFunction]}
+    onChange={[Function]}
   />
 </div>
 `;
@@ -37,7 +37,7 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
       }
     }
     initialValue=""
-    onChange={[MockFunction]}
+    onChange={[Function]}
   />
 </div>
 `;

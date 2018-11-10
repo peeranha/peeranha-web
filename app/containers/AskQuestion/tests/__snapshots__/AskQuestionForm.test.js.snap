@@ -818,7 +818,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
                             validate={
                               Array [
@@ -984,7 +983,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
                               validate={
@@ -1154,7 +1152,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
@@ -1185,7 +1182,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                               >
                                 <TextEditorField
                                   disabled={false}
-                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -1228,22 +1224,16 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
-                                      handleEditorChange={[Function]}
-                                      input={
-                                        Object {
-                                          "name": "app/AskQuestion/FORM_CONTENT",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "onDragStart": [Function],
-                                          "onDrop": [Function],
-                                          "onFocus": [Function],
-                                          "value": "",
-                                        }
-                                      }
+                                      name="app/AskQuestion/FORM_CONTENT"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      value=""
                                     >
                                       <div>
                                         <Editor
-                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -1258,13 +1248,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                             }
                                           }
                                           initialValue=""
-                                          name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={[Function]}
                                           onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -2219,7 +2203,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
                             validate={
                               Array [
@@ -2399,7 +2382,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
                               validate={
@@ -2583,7 +2565,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
@@ -2614,7 +2595,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                               >
                                 <TextEditorField
                                   disabled={false}
-                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -2657,22 +2637,16 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
-                                      handleEditorChange={[Function]}
-                                      input={
-                                        Object {
-                                          "name": "app/AskQuestion/FORM_CONTENT",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "onDragStart": [Function],
-                                          "onDrop": [Function],
-                                          "onFocus": [Function],
-                                          "value": "",
-                                        }
-                                      }
+                                      name="app/AskQuestion/FORM_CONTENT"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      value=""
                                     >
                                       <div>
                                         <Editor
-                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -2687,13 +2661,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                             }
                                           }
                                           initialValue=""
-                                          name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={[Function]}
                                           onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -3732,7 +3700,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
                             validate={
                               Array [
@@ -3926,7 +3893,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
                               validate={
@@ -4124,7 +4090,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
@@ -4155,7 +4120,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                               >
                                 <TextEditorField
                                   disabled={false}
-                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -4198,22 +4162,16 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={false}
-                                      handleEditorChange={[Function]}
-                                      input={
-                                        Object {
-                                          "name": "app/AskQuestion/FORM_CONTENT",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "onDragStart": [Function],
-                                          "onDrop": [Function],
-                                          "onFocus": [Function],
-                                          "value": "",
-                                        }
-                                      }
+                                      name="app/AskQuestion/FORM_CONTENT"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      value=""
                                     >
                                       <div>
                                         <Editor
-                                          content=""
                                           disabled={false}
                                           init={
                                             Object {
@@ -4228,13 +4186,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                             }
                                           }
                                           initialValue=""
-                                          name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={[Function]}
                                           onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -5357,7 +5309,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                           <Field
                             component={[Function]}
                             disabled={true}
-                            handleEditorChange={[Function]}
                             name="app/AskQuestion/FORM_CONTENT"
                             validate={
                               Array [
@@ -5565,7 +5516,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                               }
                               component={[Function]}
                               disabled={true}
-                              handleEditorChange={[Function]}
                               name="app/AskQuestion/FORM_CONTENT"
                               normalize={[Function]}
                               validate={
@@ -5777,7 +5727,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                 dirty={false}
                                 disabled={true}
                                 dispatch={[Function]}
-                                handleEditorChange={[Function]}
                                 name="app/AskQuestion/FORM_CONTENT"
                                 normalize={[Function]}
                                 pristine={true}
@@ -5808,7 +5757,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                               >
                                 <TextEditorField
                                   disabled={true}
-                                  handleEditorChange={[Function]}
                                   input={
                                     Object {
                                       "name": "app/AskQuestion/FORM_CONTENT",
@@ -5851,22 +5799,16 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                     <h6 />
                                     <TextEditor
                                       disabled={true}
-                                      handleEditorChange={[Function]}
-                                      input={
-                                        Object {
-                                          "name": "app/AskQuestion/FORM_CONTENT",
-                                          "onBlur": [Function],
-                                          "onChange": [Function],
-                                          "onDragStart": [Function],
-                                          "onDrop": [Function],
-                                          "onFocus": [Function],
-                                          "value": "",
-                                        }
-                                      }
+                                      name="app/AskQuestion/FORM_CONTENT"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      value=""
                                     >
                                       <div>
                                         <Editor
-                                          content=""
                                           disabled={true}
                                           init={
                                             Object {
@@ -5881,13 +5823,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                             }
                                           }
                                           initialValue=""
-                                          name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={[Function]}
                                           onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          value=""
                                         />
                                       </div>
                                     </TextEditor>

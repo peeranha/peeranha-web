@@ -6,7 +6,6 @@ import TextEditor from 'components/TextEditor';
 
 function TextEditorField({
   input,
-  handleEditorChange,
   label,
   disabled,
   meta: { touched, warning, error },
@@ -14,11 +13,7 @@ function TextEditorField({
   return (
     <div>
       <h6>{label}</h6>
-      <TextEditor
-        input={input}
-        handleEditorChange={handleEditorChange}
-        disabled={disabled}
-      />
+      <TextEditor {...input} disabled={disabled} />
       <h6 className="text-danger">
         {touched &&
           ((error && <FormattedMessage {...error} />) ||
@@ -29,7 +24,6 @@ function TextEditorField({
 }
 
 TextEditorField.propTypes = {
-  handleEditorChange: PropTypes.func,
   disabled: PropTypes.bool,
   input: PropTypes.object,
   meta: PropTypes.object,
