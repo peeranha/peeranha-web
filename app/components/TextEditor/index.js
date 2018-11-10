@@ -15,13 +15,16 @@ const TextEditor = props => {
     console.log(`Value changed - ${e.level.content}`);
     let newContent = e.level.content;
     // TimyMCE keeps <p><br></p> elements when empty
-    newContent = newContent.replace('<p><br></p>', '');
+    newContent = newContent
+      .replace('<p><br></p>', '')
+      .replace('<p><br data-mce-bogus="1"></p>', '');
     props.onChange(newContent);
   };
 
   return (
     <div>
       <Editor
+        {...props}
         apiKey={TextEditorConfig.apiKey}
         initialValue={props.content || ''}
         disabled={props.disabled}
