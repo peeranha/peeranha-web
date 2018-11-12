@@ -82,7 +82,7 @@ export class Profile extends React.Component {
 Profile.propTypes = {
   children: PropTypes.object,
   userId: PropTypes.string,
-  account: PropTypes.object,
+  account: PropTypes.string,
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,

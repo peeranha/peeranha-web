@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
 import AuthenticatedButton from 'containers/AuthenticatedButton';
 import messages from './messages';
 
-const askQuestion = () => createdHistory.push('questions/ask');
+const askQuestion = () => createdHistory.push(routes.question_ask());
 
 const QuestionsHeader = props => (
   <div className="questions-header">

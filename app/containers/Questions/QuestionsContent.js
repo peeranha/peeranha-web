@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { getTimeFromDateToNow } from 'utils/dateManagement';
+import { getTimeFromDateToNow } from 'utils/datetime';
+import * as routes from 'routes-config';
 
 import messages from './messages';
 
 const QuestionItem = item => (
-  <Link to={`/questions/${item.id}`} href={`/questions/${item.id}`}>
+  <Link to={routes.question_view(item.id)} href={routes.question_view(item.id)}>
     <div className="question-item">
       <div className="title-user">
         <Link
           className="highlighted-link"
-          to={`/questions/${item.id}`}
-          href={`/questions/${item.id}`}
+          to={routes.question_view(item.id)}
+          href={routes.question_view(item.id)}
         >
           <h5 className="highlighted-link">{item.title}</h5>
         </Link>
         <p>
           <Link
             className="highlighted-link"
-            to={`/users/${item.user}`}
-            href={`/questions/${item.user}`}
+            to={routes.profile_view(item.user)}
+            href={routes.profile_view(item.user)}
           >
             {item.user}
           </Link>

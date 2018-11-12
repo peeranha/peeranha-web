@@ -13,12 +13,14 @@ import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import * as routes from 'routes-config';
 
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserProfileNav extends React.Component {
-  pushToProfile = () => createdHistory.push(`/users/${this.props.account}`);
+  pushToProfile = () =>
+    createdHistory.push(routes.profile_edit(this.props.account));
 
   render() {
     return (

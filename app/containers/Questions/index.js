@@ -24,7 +24,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import QuestionsForm from './QuestionsForm';
+import QuestionsContainer from './QuestionsContainer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
@@ -68,7 +68,7 @@ export class Questions extends React.Component {
               content={sendProps.translations[messages.description.id]}
             />
           </Helmet>
-          <QuestionsForm {...sendProps} />
+          <QuestionsContainer {...sendProps} />
         </div>
       </InfinityLoader>
     );

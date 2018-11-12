@@ -57,8 +57,8 @@ const AskQuestionForm = props => (
 AskQuestionForm.propTypes = {
   invalid: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  askQuestionLoading: PropTypes.bool.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
+  askQuestionLoading: PropTypes.bool,
+  userIsInSystem: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   postQuestion: PropTypes.func.isRequired,
   translations: PropTypes.object.isRequired,

@@ -11,12 +11,14 @@ import {
   LOCATION_FIELD,
 } from 'containers/Profile/constants';
 
+import * as routes from 'routes-config';
+
 import messages from 'containers/Profile/messages';
 import ViewFormListItem from './ViewFormListItem';
 
 const ProfileViewForm = props => {
   const { ipfs } = props.profile;
-  const editUrl = `/users/edit/${props.match.params.id}`;
+  const editUrl = routes.profile_edit(props.match.params.id);
   const isOwner = props.account === props.match.params.id;
 
   return (

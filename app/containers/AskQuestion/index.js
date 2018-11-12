@@ -67,9 +67,9 @@ export class AskQuestion extends React.Component {
 
 AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
-  account: PropTypes.string.isRequired,
+  account: PropTypes.string,
   askQuestionLoading: PropTypes.bool.isRequired,
-  userIsInSystem: PropTypes.bool.isRequired,
+  userIsInSystem: PropTypes.bool,
   askQuestionDispatch: PropTypes.func.isRequired,
 };
 

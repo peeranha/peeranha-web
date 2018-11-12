@@ -1,4 +1,4 @@
-import QuestionsForm from '../QuestionsForm';
+import QuestionsContainer from '../QuestionsContainer';
 
 const props = {
   translations: {},
@@ -7,18 +7,18 @@ const props = {
   locale: 'en',
 };
 
-describe('QuestionsForm', () => {
+describe('QuestionsContainer', () => {
   it('snapshot test 1', () => {
-    expect(QuestionsForm(props)).toMatchSnapshot();
+    expect(QuestionsContainer(props)).toMatchSnapshot();
   });
 
   it('snapshot test 2', () => {
     props.questionsList.set('cheburek', 'cheburek');
-    expect(QuestionsForm(props)).toMatchSnapshot();
+    expect(QuestionsContainer(props)).toMatchSnapshot();
   });
 
   it('snapshot test 3', () => {
     props.questionsLoading = true;
-    expect(QuestionsForm(props)).toMatchSnapshot();
+    expect(QuestionsContainer(props)).toMatchSnapshot();
   });
 });

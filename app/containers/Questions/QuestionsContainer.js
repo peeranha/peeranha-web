@@ -8,7 +8,7 @@ import NoQuestions from './NoQuestions';
 import QuestionsHeader from './QuestionsHeader';
 import QuestionsContent from './QuestionsContent';
 
-const QuestionsForm = props => (
+const QuestionsContainer = props => (
   <Box>
     <QuestionsHeader {...props} />
     <QuestionsContent {...props} />
@@ -17,9 +17,9 @@ const QuestionsForm = props => (
   </Box>
 );
 
-QuestionsForm.propTypes = {
+QuestionsContainer.propTypes = {
   questionsList: PropTypes.object,
   questionsLoading: PropTypes.bool,
 };
 
-export default QuestionsForm;
+export default QuestionsContainer;

@@ -22,6 +22,8 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import LocationField from 'components/FormFields/LocationField';
 
+import * as routes from 'routes-config';
+
 import {
   imageValidation,
   strLength20,
@@ -31,7 +33,7 @@ import {
 /* eslint-disable-next-line */
 export let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
-  const viewUrl = `/users/${sendProps.match.params.id}`;
+  const viewUrl = routes.profile_view(sendProps.match.params.id);
 
   // @locationIsWrong - true - if user entered location value manually (choosed not from cities list)
   const { ipfs } = sendProps.profile;
