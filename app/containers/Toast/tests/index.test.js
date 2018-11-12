@@ -12,7 +12,7 @@ const event = {
 
 beforeEach(() => {
   cmp.props = {
-    toasts: [],
+    toasts: new Map(),
     removeToastDispatch: jest.fn(),
     location: BOTTOM_RIGHT,
   };
@@ -48,13 +48,14 @@ describe('<Toast />', () => {
 
   describe('render', () => {
     describe('snapshot test', () => {
-      it('toasts === []', () => {
-        cmp.props.toasts = [];
+      it('toasts === MAP', () => {
+        cmp.props.toasts = new Map();
         expect(cmp.render()).toMatchSnapshot();
       });
 
-      it('toasts === [{}]', () => {
-        cmp.props.toasts = [{}];
+      it('toasts === Map.set', () => {
+        const toasts = new Map();
+        cmp.props.toasts = toasts.set('obj', {});
         expect(cmp.render()).toMatchSnapshot();
       });
     });

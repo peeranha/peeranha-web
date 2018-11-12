@@ -20,7 +20,7 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class UserProfileNav extends React.Component {
   pushToProfile = () =>
-    createdHistory.push(routes.profile_edit(this.props.account));
+    createdHistory.push(routes.profile_view(this.props.account));
 
   render() {
     return (

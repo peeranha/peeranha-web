@@ -11,7 +11,8 @@ import LanguageProvider from 'containers/LanguageProvider';
 import AskQuestionFormDefault from '../AskQuestionForm';
 import messages from '../messages';
 
-jest.mock('@tinymce/tinymce-react');
+jest.mock('react-simplemde-editor');
+jest.mock('simplemde/dist/simplemde.min.css');
 
 const props = {
   invalid: false,

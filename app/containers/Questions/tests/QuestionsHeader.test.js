@@ -14,6 +14,6 @@ describe('QuestionsHeader', () => {
 
   it('askQuestion', () => {
     askQuestion();
-    expect(createdHistory.push).toHaveBeenCalledWith('questions/ask');
+    expect(createdHistory.push).toHaveBeenCalledWith('/questions/ask');
   });
 });

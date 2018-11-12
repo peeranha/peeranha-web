@@ -2,42 +2,72 @@
 
 exports[`<TextEditor /> snapshot test @content is not null, @height is not null 1`] = `
 <div>
-  <Editor
-    init={
+  <SimpleMDEEditor
+    content="content"
+    events={Object {}}
+    handleEditorChange={[MockFunction]}
+    height={400}
+    input={Object {}}
+    onBlur={null}
+    onChange={[Function]}
+    options={
       Object {
-        "height": 400,
-        "menubar": false,
-        "plugins": Array [
-          "codesample textpattern advlist autolink lists link image preview textcolor",
-          "searchreplace visualblocks code",
-          "media contextmenu paste code help wordcount",
+        "toolbar": Array [
+          "bold",
+          "italic",
+          "heading",
+          "|",
+          "quote",
+          "code",
+          "unordered-list",
+          "ordered-list",
+          "clean-block",
+          "link",
+          "image",
+          "horizontal-rule",
+          "preview",
+          "undo",
+          "redo",
+          "guide",
         ],
-        "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
       }
     }
-    initialValue="content"
-    onChange={[Function]}
   />
 </div>
 `;
 
 exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
 <div>
-  <Editor
-    init={
+  <SimpleMDEEditor
+    content={null}
+    events={Object {}}
+    handleEditorChange={[MockFunction]}
+    height={null}
+    input={Object {}}
+    onBlur={null}
+    onChange={[Function]}
+    options={
       Object {
-        "height": 300,
-        "menubar": false,
-        "plugins": Array [
-          "codesample textpattern advlist autolink lists link image preview textcolor",
-          "searchreplace visualblocks code",
-          "media contextmenu paste code help wordcount",
+        "toolbar": Array [
+          "bold",
+          "italic",
+          "heading",
+          "|",
+          "quote",
+          "code",
+          "unordered-list",
+          "ordered-list",
+          "clean-block",
+          "link",
+          "image",
+          "horizontal-rule",
+          "preview",
+          "undo",
+          "redo",
+          "guide",
         ],
-        "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
       }
     }
-    initialValue=""
-    onChange={[Function]}
   />
 </div>
 `;

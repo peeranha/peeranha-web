@@ -21,7 +21,7 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
         name="description"
       />
     </HelmetWrapper>
-    <QuestionsForm
+    <QuestionsContainer
       locale="en"
       questionsList={Immutable.List []}
       questionsLoading={false}
@@ -128,7 +128,7 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
         name="description"
       />
     </HelmetWrapper>
-    <QuestionsForm
+    <QuestionsContainer
       locale="en"
       questionsList={Immutable.List []}
       questionsLoading={true}

@@ -4,7 +4,8 @@ import 'jest-styled-components';
 import TextEditorField from '../TextEditorField';
 
 jest.mock('react-intl');
-jest.mock('@tinymce/tinymce-react');
+jest.mock('react-simplemde-editor');
+jest.mock('simplemde/dist/simplemde.min.css');
 
 const props = {
   input: {},

@@ -2,9 +2,9 @@
 
 exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
 <Link
-  href="/questions/undefined"
+  href="/questions/:id"
   replace={false}
-  to="/questions/undefined"
+  to="/questions/:id"
 >
   <div
     className="question-item"
@@ -14,9 +14,9 @@ exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
     >
       <Link
         className="highlighted-link"
-        href="/questions/undefined"
+        href="/questions/:id"
         replace={false}
-        to="/questions/undefined"
+        to="/questions/:id"
       >
         <h5
           className="highlighted-link"
@@ -25,9 +25,9 @@ exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
       <p>
         <Link
           className="highlighted-link"
-          href="/questions/undefined"
+          href="/users/:id"
           replace={false}
-          to="/users/undefined"
+          to="/users/:id"
         />
          | 
         <span>

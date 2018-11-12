@@ -1233,22 +1233,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                       value=""
                                     >
                                       <div>
-                                        <Editor
+                                        <SimpleMDEEditor
                                           disabled={false}
-                                          init={
+                                          events={Object {}}
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={null}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          options={
                                             Object {
-                                              "height": 300,
-                                              "menubar": false,
-                                              "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image preview textcolor",
-                                                "searchreplace visualblocks code",
-                                                "media contextmenu paste code help wordcount",
+                                              "toolbar": Array [
+                                                "bold",
+                                                "italic",
+                                                "heading",
+                                                "|",
+                                                "quote",
+                                                "code",
+                                                "unordered-list",
+                                                "ordered-list",
+                                                "clean-block",
+                                                "link",
+                                                "image",
+                                                "horizontal-rule",
+                                                "preview",
+                                                "undo",
+                                                "redo",
+                                                "guide",
                                               ],
-                                              "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
                                           }
-                                          initialValue=""
-                                          onChange={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -2646,22 +2662,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                       value=""
                                     >
                                       <div>
-                                        <Editor
+                                        <SimpleMDEEditor
                                           disabled={false}
-                                          init={
+                                          events={Object {}}
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={null}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          options={
                                             Object {
-                                              "height": 300,
-                                              "menubar": false,
-                                              "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image preview textcolor",
-                                                "searchreplace visualblocks code",
-                                                "media contextmenu paste code help wordcount",
+                                              "toolbar": Array [
+                                                "bold",
+                                                "italic",
+                                                "heading",
+                                                "|",
+                                                "quote",
+                                                "code",
+                                                "unordered-list",
+                                                "ordered-list",
+                                                "clean-block",
+                                                "link",
+                                                "image",
+                                                "horizontal-rule",
+                                                "preview",
+                                                "undo",
+                                                "redo",
+                                                "guide",
                                               ],
-                                              "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
                                           }
-                                          initialValue=""
-                                          onChange={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -4171,22 +4203,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                       value=""
                                     >
                                       <div>
-                                        <Editor
+                                        <SimpleMDEEditor
                                           disabled={false}
-                                          init={
+                                          events={Object {}}
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={null}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          options={
                                             Object {
-                                              "height": 300,
-                                              "menubar": false,
-                                              "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image preview textcolor",
-                                                "searchreplace visualblocks code",
-                                                "media contextmenu paste code help wordcount",
+                                              "toolbar": Array [
+                                                "bold",
+                                                "italic",
+                                                "heading",
+                                                "|",
+                                                "quote",
+                                                "code",
+                                                "unordered-list",
+                                                "ordered-list",
+                                                "clean-block",
+                                                "link",
+                                                "image",
+                                                "horizontal-rule",
+                                                "preview",
+                                                "undo",
+                                                "redo",
+                                                "guide",
                                               ],
-                                              "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
                                           }
-                                          initialValue=""
-                                          onChange={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
@@ -5808,22 +5856,38 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                       value=""
                                     >
                                       <div>
-                                        <Editor
+                                        <SimpleMDEEditor
                                           disabled={true}
-                                          init={
+                                          events={Object {}}
+                                          name="app/AskQuestion/FORM_CONTENT"
+                                          onBlur={null}
+                                          onChange={[Function]}
+                                          onDragStart={[Function]}
+                                          onDrop={[Function]}
+                                          onFocus={[Function]}
+                                          options={
                                             Object {
-                                              "height": 300,
-                                              "menubar": false,
-                                              "plugins": Array [
-                                                "codesample textpattern advlist autolink lists link image preview textcolor",
-                                                "searchreplace visualblocks code",
-                                                "media contextmenu paste code help wordcount",
+                                              "toolbar": Array [
+                                                "bold",
+                                                "italic",
+                                                "heading",
+                                                "|",
+                                                "quote",
+                                                "code",
+                                                "unordered-list",
+                                                "ordered-list",
+                                                "clean-block",
+                                                "link",
+                                                "image",
+                                                "horizontal-rule",
+                                                "preview",
+                                                "undo",
+                                                "redo",
+                                                "guide",
                                               ],
-                                              "toolbar": "insert | undo redo | codesample formatselect | bold italic backcolor  | bullist numlist | help",
                                             }
                                           }
-                                          initialValue=""
-                                          onChange={[Function]}
+                                          value=""
                                         />
                                       </div>
                                     </TextEditor>
