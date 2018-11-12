@@ -1,0 +1,43 @@
+import { FILE_MAX_SIZE } from 'containers/EditProfilePage/constants';
+
+import { imageValidation, stringLength, required } from '../validate';
+import messages from '../messages';
+
+describe('imageValidation', () => {
+  it('file is null', () => {
+    const file = null;
+    expect(imageValidation(file)).toBe(undefined);
+  });
+
+  it('file is not null, size is more', () => {
+    const file = [{ size: 2 * FILE_MAX_SIZE }];
+    expect(imageValidation(file)).toBe(messages.fileSize);
+  });
+
+  it('file is not null, size is less', () => {
+    const file = [{ size: 0.5 * FILE_MAX_SIZE }];
+    expect(imageValidation(file)).toBe(undefined);
+  });
+});
+
+describe('validate function', () => {
+  const str = 'stringstringstring121';
+  it('undefined', () => {
+    const str1 = 'string';
+    expect(stringLength(str1.length - 1, 20)(str1)).toEqual(undefined);
+  });
+  it('it has to return string if param @max is less than length of string', () => {
+    expect(typeof stringLength(0, 20)(str)).toBe('object');
+  });
+  it('it has to return string if param @min is more than length of string', () => {
+    expect(typeof stringLength(str.length + 1, 20)(str)).toBe('object');
+  });
+});
+
+describe('required function', () => {
+  const str = 'string';
+  it('it has to return undefined if string.length is not false', () => {
+    expect(!!str === true).toBe(true);
+    expect(required(str)).toBe(undefined);
+  });
+});

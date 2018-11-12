@@ -1,31 +1,41 @@
 import { AuthenticatedButton, mapDispatchToProps } from '../index';
 
 const cmp = new AuthenticatedButton();
+cmp.props = {
+  buttonAction: jest.fn(),
+  showLoginModalDispatch: jest.fn(),
+  buttonClass: 'btn',
+  buttonType: 'submit',
+  buttonContent: 'content',
+  userIsInSystem: true,
+  isLoading: false,
+};
 
 describe('<AuthenticatedButton />', () => {
-  const buttonAction = 'buttonAction';
-  const showLoginModalDispatch = 'showLoginModalDispatch';
-
-  cmp.props = {
-    buttonContent: 'Login',
-    buttonClass: 'btn',
-    buttonAction: () => buttonAction,
-    showLoginModalDispatch: () => showLoginModalDispatch,
-  };
-
   it('clickHandler, userIsInSystem === false', () => {
-    const userIsInSystem = false;
-    cmp.props.userIsInSystem = userIsInSystem;
-    expect(cmp.clickHandler()).toEqual(showLoginModalDispatch);
+    cmp.props.userIsInSystem = false;
+    expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(0);
+
+    cmp.clickHandler();
+    expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(1);
   });
 
-  it('clickHandler, userIsInSystem === true', () => {
-    const userIsInSystem = true;
-    cmp.props.userIsInSystem = userIsInSystem;
-    expect(cmp.clickHandler()).toEqual(buttonAction);
+  it('clickHandler, @userIsInSystem, @buttonAction are true', () => {
+    cmp.props.userIsInSystem = true;
+    cmp.props.buttonAction = jest.fn();
+    expect(cmp.props.buttonAction).toHaveBeenCalledTimes(0);
+
+    cmp.clickHandler();
+    expect(cmp.props.buttonAction).toHaveBeenCalledTimes(1);
   });
 
-  it('render', () => {
+  it('render, @loading is true', () => {
+    cmp.props.isLoading = true;
+    expect(cmp.render()).toMatchSnapshot();
+  });
+
+  it('render, @loading is false', () => {
+    cmp.props.isLoading = false;
     expect(cmp.render()).toMatchSnapshot();
   });
 

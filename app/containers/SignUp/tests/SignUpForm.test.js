@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { memoryHistory } from 'react-router-dom';
 import configureStore from 'configureStore';
-import { translationMessages } from 'i18n';
 import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
@@ -25,7 +24,7 @@ describe('<SignUpForm />', () => {
   const store = configureStore({}, memoryHistory);
   const renderedComponent = mount(
     <Provider store={store}>
-      <LanguageProvider locale="en" key="en" messages={translationMessages}>
+      <LanguageProvider locale="en" key="en" messages={{}}>
         <ConnectedRouter history={createdHistory}>
           <SignUpForm {...props} />
         </ConnectedRouter>

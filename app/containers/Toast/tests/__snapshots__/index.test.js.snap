@@ -1,21 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Toast /> render snapshot test toasts === [] 1`] = `
+exports[`<Toast /> render snapshot test toasts === MAP 1`] = `
 Array [
   null,
 ]
 `;
 
-exports[`<Toast /> render snapshot test toasts === [{}] 1`] = `
+exports[`<Toast /> render snapshot test toasts === Map.set 1`] = `
 Array [
-  <Toasts
-    location="app/Toast/BOTTOM_RIGHT"
-    removeToast={[Function]}
-    toasts={
-      Array [
-        Object {},
-      ]
-    }
-  />,
+  null,
 ]
 `;

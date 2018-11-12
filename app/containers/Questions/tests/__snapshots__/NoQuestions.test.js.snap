@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoQuestions snapshot test 1`] = `
+<div
+  className="text-center"
+>
+  <FormattedMessage
+    defaultMessage="No questions"
+    id="app.containers.Questions.noQuestions"
+    values={Object {}}
+  />
+</div>
+`;

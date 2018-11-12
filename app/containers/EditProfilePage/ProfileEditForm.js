@@ -17,17 +17,23 @@ import {
   LOCATION_FIELD,
 } from 'containers/Profile/constants';
 
-import renderTextInput from './renderTextInput';
-import renderTextarea from './renderTextarea';
-import renderFileInput from './renderFileInput';
-import renderLocationField from './renderLocationField';
+import TextareaField from 'components/FormFields/TextareaField';
+import TextInputField from 'components/FormFields/TextInputField';
+import AvatarField from 'components/FormFields/AvatarField';
+import LocationField from 'components/FormFields/LocationField';
 
-import { imageValidation, strLength20, strLength96 } from './validate';
+import * as routes from 'routes-config';
+
+import {
+  imageValidation,
+  strLength20,
+  strLength30000,
+} from 'components/FormFields/validate';
 
 /* eslint-disable-next-line */
 export let ProfileEditForm = props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
-  const viewUrl = `/users/${sendProps.match.params.id}`;
+  const viewUrl = routes.profile_view(sendProps.match.params.id);
 
   // @locationIsWrong - true - if user entered location value manually (choosed not from cities list)
   const { ipfs } = sendProps.profile;
@@ -44,7 +50,7 @@ export let ProfileEditForm = props => {
           disabled={sendProps.isProfileSaving}
           name={AVATAR_FIELD}
           label={sendProps.translations[messages.avatarLabel.id]}
-          component={renderFileInput}
+          component={AvatarField}
           sendProps={sendProps}
           validate={imageValidation}
           warn={imageValidation}
@@ -52,8 +58,7 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={DISPLAY_NAME_FIELD}
-          sendProps={sendProps}
-          component={renderTextInput}
+          component={TextInputField}
           label={sendProps.translations[messages.displayNameLabel.id]}
           validate={strLength20}
           warn={strLength20}
@@ -61,8 +66,7 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={POSITION_FIELD}
-          sendProps={sendProps}
-          component={renderTextInput}
+          component={TextInputField}
           label={sendProps.translations[messages.positionLabel.id]}
           validate={strLength20}
           warn={strLength20}
@@ -70,8 +74,7 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={COMPANY_FIELD}
-          sendProps={sendProps}
-          component={renderTextInput}
+          component={TextInputField}
           label={sendProps.translations[messages.companyLabel.id]}
           validate={strLength20}
           warn={strLength20}
@@ -79,17 +82,16 @@ export let ProfileEditForm = props => {
         <Field
           disabled={sendProps.isProfileSaving}
           name={ABOUT_FIELD}
-          component={renderTextarea}
-          sendProps={sendProps}
+          component={TextareaField}
           label={sendProps.translations[messages.aboutLabel.id]}
-          validate={strLength96}
-          warn={strLength96}
+          validate={strLength30000}
+          warn={strLength30000}
         />
         <Field
           disabled={sendProps.isProfileSaving}
           name={LOCATION_FIELD}
           sendProps={sendProps}
-          component={renderLocationField}
+          component={LocationField}
           label={sendProps.translations[messages.locationLabel.id]}
         />
       </div>

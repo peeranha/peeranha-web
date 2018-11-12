@@ -37,13 +37,13 @@ exports[`HeaderForm 1`] = `
         >
           <Link
             className="nav-link"
-            href="/"
+            href="/questions"
             replace={false}
-            to="/"
+            to="/questions"
           >
             <FormattedMessage
-              defaultMessage="Home"
-              id="app.components.Header.home"
+              defaultMessage="Questions"
+              id="app.components.Header.questions"
               values={Object {}}
             />
           </Link>

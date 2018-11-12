@@ -30,8 +30,8 @@ exports[`ViewFormListItem test case2: test by snapshots,  @props.message is fals
   </h6>
   <p>
     <FormattedMessage
-      defaultMessage="This field is empty"
-      id="app.containers.Profile.emptyField"
+      defaultMessage="Required field"
+      id="app.containers.AskQuestion.requiredField"
       values={Object {}}
     />
   </p>

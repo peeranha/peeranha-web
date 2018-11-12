@@ -32,6 +32,7 @@ import {
 import { getBlob } from 'utils/profileManagement';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import * as routes from 'routes-config';
 
 import * as editProfileSelectors from './selectors';
 import reducer from './reducer';
@@ -53,7 +54,7 @@ export class EditProfilePage extends React.Component {
     const { account, match } = props;
 
     if (account !== match.params.id) {
-      props.history.push('/no-access');
+      props.history.push(routes.no_access());
     }
   }
 

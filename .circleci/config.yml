@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: node:11
     working_directory: ~/ws
     steps:
       - attach_workspace:
@@ -28,7 +28,7 @@ jobs:
             npm run build
   deploy:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: node:11
     working_directory: ~/ws
 
     steps:

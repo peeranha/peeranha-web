@@ -27,6 +27,7 @@ import { loginSignup, reloadApp } from 'containers/AccountProvider/actions';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import * as routes from 'routes-config';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -69,7 +70,7 @@ export class SignUp extends React.Component {
     }
 
     if (registered) {
-      createdHistory.push(`/users/edit/${account}`);
+      createdHistory.push(routes.profile_edit(account));
     }
   }
 

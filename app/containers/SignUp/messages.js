@@ -23,14 +23,6 @@ export default defineMessages({
     id: 'app.containers.SignUp.signUpDescription',
     defaultMessage: 'Description of Sign Up',
   },
-  requiredField: {
-    id: 'app.containers.SignUp.requiredField',
-    defaultMessage: 'Required field',
-  },
-  displayNameLength: {
-    id: 'app.containers.SignUp.displayNameLength',
-    defaultMessage: 'Display name length must be between 3 and 20',
-  },
   serverMessage: {
     id: 'app.containers.SignUp.serverMessage',
     defaultMessage: 'Error',

@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
 import UserProfileNav from 'containers/UserProfileNav';
+import * as routes from 'routes-config';
 
 import messages from './messages';
 import Wrapper from './Wrapper';
@@ -34,7 +35,7 @@ export const isProfileOrLogin = props => {
 const HeaderForm = props => (
   <Wrapper>
     <nav className="container navbar navbar-expand-lg navbar-light">
-      <Link to="/" href="/">
+      <Link to={routes.home()} href={routes.home()}>
         <Logo />
       </Link>
 
@@ -53,8 +54,12 @@ const HeaderForm = props => (
       <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
           <li className="nav-item">
-            <Link to="/" className="nav-link" href="/">
-              <FormattedMessage {...messages.home} />
+            <Link
+              to={routes.questions()}
+              className="nav-link"
+              href={routes.questions()}
+            >
+              <FormattedMessage {...messages.questions} />
             </Link>
           </li>
 

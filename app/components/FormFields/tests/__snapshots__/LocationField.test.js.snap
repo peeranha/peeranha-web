@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocationField test CitiesList 1`] = `
+<LocationList__Wrapper>
+  <li
+    className="cityItem"
+    onClick={[Function]}
+    role="presentation"
+  >
+    undefined, undefined
+  </li>
+</LocationList__Wrapper>
+`;
+
+exports[`LocationField test test by snapshots 1`] = `
+<div>
+  <h6>
+    string
+  </h6>
+  <div
+    className="position-relative mb-0"
+  >
+    <input
+      autoComplete="off"
+      className="form-control mb-0 location-field"
+      onChange={[Function]}
+      placeholder="string"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`LocationField test test cities 1`] = `
+<li
+  className="cityItem"
+  key="1"
+  onClick={[Function]}
+  role="presentation"
+>
+  undefined, undefined
+</li>
+`;

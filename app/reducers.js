@@ -14,6 +14,8 @@ import toastReducer from 'containers/Toast/reducer';
 import accountProviderReducer from 'containers/AccountProvider/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
+import questionsReducer from 'containers/Questions/reducer';
+import askQuestionReducer from 'containers/AskQuestion/reducer';
 
 /*
  * routeReducer
@@ -55,6 +57,8 @@ export default function createReducer(injectedReducers) {
     toast: toastReducer,
     account: accountProviderReducer,
     editProfileReducer,
+    questionsReducer,
+    askQuestionReducer,
     profile: profileReducer,
     form: formReducer,
     ...injectedReducers,

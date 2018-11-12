@@ -10,7 +10,7 @@ injectGlobal`
   html {
     min-height: 100%;
     position: relative;
-}
+  }
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -19,6 +19,21 @@ injectGlobal`
 
   body.fontLoaded {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #07C;
+  }
+
+  a:visited {
+    text-decoration: none;
+    color: #005999;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #3af;
   }
 
   #app {
