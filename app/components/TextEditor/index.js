@@ -11,23 +11,32 @@ import 'simplemde/dist/simplemde.min.css';
 
 import options from './options';
 
-const TextEditor = props => {
-  const handleEditorChange = txt => {
-    props.onChange(txt);
+/* eslint no-return-assign: "error" */
+class TextEditor extends React.Component {
+  handleEditorChange = txt => {
+    this.props.onChange(txt);
   };
 
-  return (
-    <div>
-      <SimpleMDE
-        {...props}
-        onBlur={null}
-        disabled={props.disabled}
-        onChange={handleEditorChange}
-        options={options}
-      />
-    </div>
-  );
-};
+  static getHtmlText = md =>
+    TextEditor.instance && TextEditor.instance.options.previewRender(md);
+
+  render() {
+    return (
+      <div>
+        <SimpleMDE
+          {...this.props}
+          getMdeInstance={instance => (TextEditor.instance = instance)}
+          onBlur={null}
+          onChange={this.handleEditorChange}
+          options={options}
+          extraKeys={{
+            Tab: false,
+          }}
+        />
+      </div>
+    );
+  }
+}
 
 TextEditor.propTypes = {
   content: PropTypes.string,

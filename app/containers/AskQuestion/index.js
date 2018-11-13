@@ -21,6 +21,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import TextEditor from 'components/TextEditor';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -37,9 +38,10 @@ export class AskQuestion extends React.Component {
   postQuestion = values => {
     const question = {
       title: values.get(FORM_TITLE),
-      content: values.get(FORM_CONTENT),
+      content: TextEditor.getHtmlText(values.get(FORM_CONTENT)),
     };
 
+    TextEditor.getHtmlText(question.content);
     this.props.askQuestionDispatch(this.props.account, question);
   };
 
