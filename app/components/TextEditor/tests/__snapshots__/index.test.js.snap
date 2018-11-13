@@ -5,6 +5,12 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
   <SimpleMDEEditor
     content="content"
     events={Object {}}
+    extraKeys={
+      Object {
+        "Tab": false,
+      }
+    }
+    getMdeInstance={[Function]}
     handleEditorChange={[MockFunction]}
     height={400}
     input={Object {}}
@@ -12,6 +18,7 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
     onChange={[Function]}
     options={
       Object {
+        "status": false,
         "toolbar": Array [
           "bold",
           "italic",
@@ -28,7 +35,6 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
           "preview",
           "undo",
           "redo",
-          "guide",
         ],
       }
     }
@@ -41,6 +47,12 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
   <SimpleMDEEditor
     content={null}
     events={Object {}}
+    extraKeys={
+      Object {
+        "Tab": false,
+      }
+    }
+    getMdeInstance={[Function]}
     handleEditorChange={[MockFunction]}
     height={null}
     input={Object {}}
@@ -48,6 +60,7 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
     onChange={[Function]}
     options={
       Object {
+        "status": false,
         "toolbar": Array [
           "bold",
           "italic",
@@ -64,7 +77,6 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
           "preview",
           "undo",
           "redo",
-          "guide",
         ],
       }
     }

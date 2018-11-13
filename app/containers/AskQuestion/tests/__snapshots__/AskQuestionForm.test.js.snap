@@ -1236,6 +1236,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
                                           onBlur={null}
                                           onChange={[Function]}
@@ -1244,6 +1250,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -1260,7 +1267,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -2665,6 +2671,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
                                           onBlur={null}
                                           onChange={[Function]}
@@ -2673,6 +2685,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -2689,7 +2702,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -4206,6 +4218,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
                                           onBlur={null}
                                           onChange={[Function]}
@@ -4214,6 +4232,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -4230,7 +4249,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -5859,6 +5877,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                         <SimpleMDEEditor
                                           disabled={true}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
                                           onBlur={null}
                                           onChange={[Function]}
@@ -5867,6 +5891,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -5883,7 +5908,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
