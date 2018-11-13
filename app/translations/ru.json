@@ -1,6 +1,6 @@
 {
   "app.components.FormFields.requiredField": "Необходимое поле",
-  "app.containers.FormFields.wrongLength20": "Мин - 3, Макс - 20",
+  "app.containers.FormFields.wrongLength": "Невалидная длина поля",
   "app.containers.FormFields.wrongLength30000": "Превышено количество символов",
   "app.containers.FormFields.fileSize": "Превышен размер файла",
   "app.components.Footer.header": "Авторские права: Peerania",

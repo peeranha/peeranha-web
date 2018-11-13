@@ -7,9 +7,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  wrongLength20: {
-    id: 'app.containers.AskQuestion.wrongLength20',
-    defaultMessage: 'Min - 3, Max - 20',
+  wrongLength: {
+    id: 'app.containers.AskQuestion.wrongLength',
+    defaultMessage: 'Not valid field length',
   },
   wrongLength30000: {
     id: 'app.containers.AskQuestion.wrongLength30000',

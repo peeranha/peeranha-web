@@ -1,6 +1,6 @@
 {
   "app.components.FormFields.requiredField": "Required field",
-  "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
+  "app.containers.FormFields.wrongLength": "Not valid field length",
   "app.containers.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
   "app.containers.FormFields.fileSize": "File size is exceeded",

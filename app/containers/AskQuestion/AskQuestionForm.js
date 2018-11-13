@@ -6,7 +6,7 @@ import AuthenticatedButton from 'containers/AuthenticatedButton';
 
 import {
   strLength30000,
-  strLength20,
+  strLength20x100,
   required,
 } from 'components/FormFields/validate';
 
@@ -29,8 +29,8 @@ const AskQuestionForm = props => (
         component={TextInputField}
         disabled={props.askQuestionLoading}
         label={props.translations[messages.titleLabel.id]}
-        validate={[strLength20, required]}
-        warn={[strLength20, required]}
+        validate={[strLength20x100, required]}
+        warn={[strLength20x100, required]}
       />
       <Field
         name={FORM_CONTENT}
