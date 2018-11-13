@@ -15,30 +15,29 @@ import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthenticatedButton extends React.Component {
-  clickHandler = () => {
+  clickHandler = ev => {
     const { userIsInSystem, buttonAction, showLoginModalDispatch } = this.props;
 
     if (!userIsInSystem) {
       showLoginModalDispatch();
     } else if (buttonAction) {
-      buttonAction();
+      buttonAction(ev);
     }
   };
 
   render() {
-    const {
-      buttonClass,
-      buttonContent,
-      buttonType,
-      isLoading,
-      disabled,
-    } = this.props;
+    const { buttonContent, type, isLoading, disabled } = this.props;
+
+    const props = { ...this.props };
+    Object.keys(this.props)
+      .filter(x => typeof this.props[x] !== 'string')
+      .map(x => delete props[x]);
 
     return (
       <button
+        {...props}
         disabled={disabled}
-        type={buttonType || 'button'}
-        className={buttonClass}
+        type={type || 'button'}
         onClick={this.clickHandler}
       >
         {isLoading && <LoadingIndicator />}
@@ -51,8 +50,8 @@ export class AuthenticatedButton extends React.Component {
 AuthenticatedButton.propTypes = {
   buttonAction: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
-  buttonClass: PropTypes.string,
-  buttonType: PropTypes.string,
+  className: PropTypes.string,
+  type: PropTypes.string,
   buttonContent: PropTypes.string,
   userIsInSystem: PropTypes.bool,
   disabled: PropTypes.bool,

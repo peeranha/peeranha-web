@@ -7,7 +7,7 @@ const AddComment = () => (
       <textarea className="form-control" />
       <AuthenticatedButton
         buttonAction={() => {}}
-        buttonClass="btn btn-secondary"
+        className="btn btn-secondary"
         buttonContent="Post comment"
       />
     </form>

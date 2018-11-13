@@ -4,8 +4,8 @@ const cmp = new AuthenticatedButton();
 cmp.props = {
   buttonAction: jest.fn(),
   showLoginModalDispatch: jest.fn(),
-  buttonClass: 'btn',
-  buttonType: 'submit',
+  className: 'btn',
+  type: 'submit',
   buttonContent: 'content',
   userIsInSystem: true,
   isLoading: false,

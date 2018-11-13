@@ -7,7 +7,7 @@ const rating_column_width = 60;
 const Box = styled.div`
   padding: 0 10px;
   margin: 0 auto;
-  max-width: 640px;
+  max-width: 720px;
   min-width: 320px;
   .question-title {
     padding: 10px 0;
@@ -29,6 +29,7 @@ const Box = styled.div`
         pre {
           padding: 10px;
           background: ${gray};
+          font-size: 14px;
         }
       }
     }

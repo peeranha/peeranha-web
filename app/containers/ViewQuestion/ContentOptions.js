@@ -17,8 +17,8 @@ const ContentOptions = props => (
     </button>
     {' | '}
     <AuthenticatedButton
-      buttonAction={() => {}}
-      buttonClass="option"
+      buttonAction={e => console.log(e.target.dataset)}
+      className="option"
       buttonContent="Edit"
     />
     <Comments {...props} />

@@ -1285,15 +1285,15 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
+                            type="submit"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
+                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -2720,15 +2720,15 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
+                            type="submit"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
+                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -4267,15 +4267,15 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
+                            type="submit"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
+                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -5926,15 +5926,15 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
+                            type="submit"
                             disabled={true}
                             isLoading={true}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
+                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={true}

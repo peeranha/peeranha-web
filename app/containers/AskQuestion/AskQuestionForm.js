@@ -44,11 +44,11 @@ const AskQuestionForm = props => (
     <div>
       <AuthenticatedButton
         userIsInSystem={props.userIsInSystem}
-        buttonClass="btn btn-success form-control"
+        className="btn btn-success form-control"
         buttonContent={props.translations[messages.postQuestion.id]}
         isLoading={props.askQuestionLoading}
         disabled={props.invalid || props.submitting || props.askQuestionLoading}
-        buttonType="submit"
+        type="submit"
       />
     </div>
   </Box>
