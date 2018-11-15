@@ -28,7 +28,9 @@ const Comment = item => (
 
 const Comments = props => (
   <div className="comments">
-    {props.comments.map(item => <Comment {...item} />)}
+    {props.comments.map(item => (
+      <Comment key={`comment${item.id}`} {...item} />
+    ))}
   </div>
 );
 

@@ -45,7 +45,7 @@ const AskQuestionForm = props => (
       <AuthenticatedButton
         userIsInSystem={props.userIsInSystem}
         className="btn btn-success form-control"
-        buttonContent={props.translations[messages.postQuestion.id]}
+        content={props.translations[messages.postQuestion.id]}
         isLoading={props.askQuestionLoading}
         disabled={props.invalid || props.submitting || props.askQuestionLoading}
         type="submit"

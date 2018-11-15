@@ -40,7 +40,6 @@ const ContentRating = props => (
 );
 
 ContentRating.propTypes = {
-  answerId: PropTypes.number,
   rating: PropTypes.number,
   history: PropTypes.array,
   account: PropTypes.string,
@@ -49,6 +48,7 @@ ContentRating.propTypes = {
   upVote: PropTypes.func,
   downVote: PropTypes.func,
   questionData: PropTypes.object,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ContentRating;

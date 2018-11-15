@@ -27,7 +27,7 @@ const AddCommentForm = props => (
         <AuthenticatedButton
           isLoading={props.postCommentLoading}
           className="btn btn-secondary"
-          buttonContent={props.translations[messages.postCommentButton.id]}
+          content={props.translations[messages.postCommentButton.id]}
           disabled={
             props.invalid || props.submitting || props.postCommentLoading
           }

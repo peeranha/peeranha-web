@@ -10,6 +10,7 @@ const AcceptedAnswer = props => (
         props.questionData.correct_answer_id === item.id ? (
           <Content
             {...props}
+            key={`answer${item.id}`}
             answerId={item.id}
             comments={item.comments}
             content={item.content}

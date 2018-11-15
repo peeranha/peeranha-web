@@ -9,6 +9,7 @@ const AnswersList = props => (
         props.questionData.correct_answer_id !== item.id ? (
           <Content
             {...props}
+            key={`asnwer${item.id}`}
             answerId={item.id}
             comments={item.comments}
             content={item.content}

@@ -109,7 +109,7 @@ export class ViewQuestion extends React.Component {
     const helmetDescription =
       (questionData && questionData.content.content) ||
       sendProps.translations[messages.title.description];
-
+    console.log(this.props.questionData);
     return (
       <div className="container">
         <Helmet>

@@ -27,7 +27,7 @@ const AnswerQuestionForm = props => (
         <AuthenticatedButton
           isLoading={props.postAnswerLoading}
           className="btn btn-secondary"
-          buttonContent={props.translations[messages.postAnswerButton.id]}
+          content={props.translations[messages.postAnswerButton.id]}
           disabled={
             props.invalid || props.submitting || props.postAnswerLoading
           }

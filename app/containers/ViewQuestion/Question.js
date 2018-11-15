@@ -10,6 +10,7 @@ const Question = props => (
     <Content
       {...props}
       answerId="0"
+      key={`question${props.questionData.id}`}
       comments={props.questionData.comments}
       content={props.questionData.content.content}
       rating={props.questionData.rating}

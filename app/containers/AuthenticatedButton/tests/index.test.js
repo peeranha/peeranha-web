@@ -6,7 +6,7 @@ cmp.props = {
   showLoginModalDispatch: jest.fn(),
   className: 'btn',
   type: 'submit',
-  buttonContent: 'content',
+  content: 'content',
   userIsInSystem: true,
   isLoading: false,
 };

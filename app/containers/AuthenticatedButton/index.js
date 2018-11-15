@@ -26,7 +26,7 @@ export class AuthenticatedButton extends React.Component {
   };
 
   render() {
-    const { buttonContent, type, isLoading, disabled } = this.props;
+    const { content, type, isLoading, disabled } = this.props;
 
     const props = { ...this.props };
     Object.keys(this.props)
@@ -41,7 +41,7 @@ export class AuthenticatedButton extends React.Component {
         onClick={this.clickHandler}
       >
         {isLoading && <LoadingIndicator />}
-        {!isLoading && buttonContent}
+        {!isLoading && content}
       </button>
     );
   }
@@ -52,7 +52,7 @@ AuthenticatedButton.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.string,
-  buttonContent: PropTypes.string,
+  content: PropTypes.string,
   userIsInSystem: PropTypes.bool,
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,

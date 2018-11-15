@@ -30,7 +30,7 @@ ContentBody.propTypes = {
   postCommentLoading: PropTypes.bool,
   comments: PropTypes.array,
   postComment: PropTypes.func,
-  answerId: PropTypes.number,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ContentBody;

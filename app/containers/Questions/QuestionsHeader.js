@@ -15,7 +15,7 @@ const QuestionsHeader = props => (
     </h4>
     <AuthenticatedButton
       className="btn btn-secondary"
-      buttonContent={props.translations[messages.askQuestion.id]}
+      content={props.translations[messages.askQuestion.id]}
       buttonAction={askQuestion}
     />
   </div>
