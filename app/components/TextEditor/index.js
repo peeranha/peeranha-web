@@ -13,6 +13,10 @@ import options from './options';
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.Component {
+  componentDidUpdate() {
+    TextEditor.instance.codemirror.options.readOnly = this.props.disabled;
+  }
+
   handleEditorChange = txt => {
     this.props.onChange(txt);
   };

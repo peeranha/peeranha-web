@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 const TextBlock = props => (
   <div
     className="text-block"
-    dangerouslySetInnerHTML={{ __html: props.text }}
+    dangerouslySetInnerHTML={{ __html: props.content }}
   />
 );
 
 TextBlock.propTypes = {
-  text: PropTypes.string,
+  content: PropTypes.string,
 };
 
 export default TextBlock;

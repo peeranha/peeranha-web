@@ -10,69 +10,119 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+import TextEditor from 'components/TextEditor';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
+import {
+  getQuestionData,
+  postAnswer,
+  postComment,
+  upVote,
+  downVote,
+  markAsAccepted,
+} from './actions';
+
 import * as makeSelectViewQuestion from './selectors';
-import { getQuestionData, postAnswer, postComment } from './actions';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import ViewQuestionForm from './ViewQuestionForm';
+import { TEXT_EDITOR_ANSWER_FORM, TEXTAREA_ANSWER_FORM } from './constants';
+
+import ViewQuestionContainer from './ViewQuestionContainer';
+import NoSuchQuestion from './NoSuchQuestion';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewQuestion extends React.Component {
-  componentDidUpdate() {
-    this.user = this.props.account;
-    console.log(this.props.questionData);
-  }
-
   componentDidMount() {
     this.questionId = this.props.match.params.id;
     this.props.getQuestionDataDispatch(this.questionId);
   }
 
-  postAnswer = () => {
-    const answer = '<p>Answer</p>';
-
-    this.props.postAnswerDispatch(this.user, this.questionId, answer);
+  markAsAccepted = id => {
+    this.props.markAsAcceptedDispatch(this.props.account, this.questionId, id);
   };
 
-  postComment = e => {
-    const answerId = +e.target.dataset.answer_id;
-    const comment = '<p>Comment</p>';
+  upVote = answerId => {
+    this.props.upVoteDispatch(this.props.account, this.questionId, answerId);
+  };
 
-    this.props.postCommentDispatch(
-      this.user,
+  downVote = answerId => {
+    this.props.downVoteDispatch(this.props.account, this.questionId, answerId);
+  };
+
+  postAnswer = (...args) => {
+    const answer = TextEditor.getHtmlText(args[0].get(TEXT_EDITOR_ANSWER_FORM));
+
+    this.props.postAnswerDispatch(
+      this.props.account,
       this.questionId,
-      answerId,
-      comment,
+      answer,
+      args[2].reset,
+    );
+  };
+
+  postComment = (...args) => {
+    this.props.postCommentDispatch(
+      this.props.account,
+      this.questionId,
+      args[2].answerId,
+      args[0].get(TEXTAREA_ANSWER_FORM),
+      args[2].reset,
     );
   };
 
   render() {
+    const {
+      locale,
+      account,
+      questionData,
+      postAnswerLoading,
+      postCommentLoading,
+      questionDataLoading,
+    } = this.props;
+
     const sendProps = {
+      account,
+      questionData,
+      postAnswerLoading,
+      postCommentLoading,
+      upVote: this.upVote,
+      downVote: this.downVote,
       postAnswer: this.postAnswer,
       postComment: this.postComment,
-      questionData: this.props.questionData,
+      markAsAccepted: this.markAsAccepted,
+      translations: translationMessages[locale],
     };
+
+    const helmetTitle =
+      (questionData && questionData.content.title) ||
+      sendProps.translations[messages.title.id];
+    const helmetDescription =
+      (questionData && questionData.content.content) ||
+      sendProps.translations[messages.title.description];
 
     return (
       <div className="container">
         <Helmet>
-          <title>ViewQuestion</title>
-          <meta name="description" content="Description of ViewQuestion" />
+          <title>{helmetTitle}</title>
+          <meta name="description" content={helmetDescription} />
         </Helmet>
 
-        {!this.props.questionDataLoading &&
-          this.props.questionData && <ViewQuestionForm {...sendProps} />}
+        {!questionDataLoading &&
+          questionData && <ViewQuestionContainer {...sendProps} />}
 
-        {this.props.questionDataLoading && <LoadingIndicator />}
+        {!questionDataLoading && !questionData && <NoSuchQuestion />}
+
+        {questionDataLoading && <LoadingIndicator />}
       </div>
     );
   }
@@ -80,18 +130,27 @@ export class ViewQuestion extends React.Component {
 
 ViewQuestion.propTypes = {
   account: PropTypes.string,
+  locale: PropTypes.string,
   questionDataLoading: PropTypes.bool,
+  postAnswerLoading: PropTypes.bool,
+  postCommentLoading: PropTypes.bool,
   questionData: PropTypes.object,
   match: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,
   postAnswerDispatch: PropTypes.func,
   postCommentDispatch: PropTypes.func,
+  upVoteDispatch: PropTypes.func,
+  downVoteDispatch: PropTypes.func,
+  markAsAcceptedDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
+  locale: makeSelectLocale(),
   questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
   questionData: makeSelectViewQuestion.selectQuestionData(),
+  postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
+  postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -99,10 +158,16 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     getQuestionDataDispatch: questionId =>
       dispatch(getQuestionData(questionId)),
-    postAnswerDispatch: (user, questionId, answer) =>
-      dispatch(postAnswer(user, questionId, answer)),
-    postCommentDispatch: (user, questionId, answerId, comment) =>
-      dispatch(postComment(user, questionId, answerId, comment)),
+    postAnswerDispatch: (user, questionId, answer, reset) =>
+      dispatch(postAnswer(user, questionId, answer, reset)),
+    postCommentDispatch: (user, questionId, answerId, comment, reset) =>
+      dispatch(postComment(user, questionId, answerId, comment, reset)),
+    upVoteDispatch: (user, questionId, answerId) =>
+      dispatch(upVote(user, questionId, answerId)),
+    downVoteDispatch: (user, questionId, answerId) =>
+      dispatch(downVote(user, questionId, answerId)),
+    markAsAcceptedDispatch: (user, questionId, correctAnswerId) =>
+      dispatch(markAsAccepted(user, questionId, correctAnswerId)),
   };
 }
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Content from './Content';
 
-const AnswersList = props => (
-  <div className="answers-list">
+const AcceptedAnswer = props => (
+  <div className="accepted-answer">
     {props.questionData.answers.map(
       item =>
-        props.questionData.correct_answer_id !== item.id ? (
+        props.questionData.correct_answer_id === item.id ? (
           <Content
             {...props}
             answerId={item.id}
@@ -24,8 +25,8 @@ const AnswersList = props => (
   </div>
 );
 
-AnswersList.propTypes = {
+AcceptedAnswer.propTypes = {
   questionData: PropTypes.object,
 };
 
-export default AnswersList;
+export default AcceptedAnswer;

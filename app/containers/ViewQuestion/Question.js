@@ -7,7 +7,17 @@ import Content from './Content';
 const Question = props => (
   <div className="question">
     <QuestionTitle title={props.questionData.content.title} />
-    <Content {...props} comments={props.questionData.comments} />
+    <Content
+      {...props}
+      answerId="0"
+      comments={props.questionData.comments}
+      content={props.questionData.content.content}
+      rating={props.questionData.rating}
+      isItWrittenByMe={props.questionData.isItWrittenByMe}
+      history={props.questionData.history}
+      userInfo={props.questionData.userInfo}
+      postTime={props.questionData.post_time}
+    />
   </div>
 );
 

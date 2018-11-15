@@ -1,29 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import AuthenticatedButton from 'containers/AuthenticatedButton';
-import AddComment from './AddComment';
-import Comments from './Comments';
+import messages from './messages';
+import EditButton from './EditButton';
+
+const setDataAttr = e => {
+  e.target.parentElement.dataset.opened = !JSON.parse(
+    e.target.parentElement.dataset.opened || false,
+  );
+};
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const ContentOptions = props => (
   <div className="content-options">
-    <button
-      className="option"
-      onClick={e => {
-        e.target.dataset.opened = !JSON.parse(e.target.dataset.opened || false);
-      }}
-    >
-      Comment
+    <button onClick={setDataAttr}>
+      {props.translations[messages.commentButton.id]}
     </button>
-    {' | '}
-    <AuthenticatedButton
-      buttonAction={e => console.log(e.target.dataset)}
-      className="option"
-      buttonContent="Edit"
-    />
-    <Comments {...props} />
-    <AddComment />
+    <EditButton isItWrittenByMe={props.isItWrittenByMe} />
   </div>
 );
+
+ContentOptions.propTypes = {
+  translations: PropTypes.object,
+  isItWrittenByMe: PropTypes.bool,
+};
 
 export default ContentOptions;

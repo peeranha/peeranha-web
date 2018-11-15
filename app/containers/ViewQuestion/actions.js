@@ -14,6 +14,15 @@ import {
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
   POST_COMMENT_ERROR,
+  UP_VOTE,
+  UP_VOTE_SUCCESS,
+  UP_VOTE_ERROR,
+  DOWN_VOTE,
+  DOWN_VOTE_SUCCESS,
+  DOWN_VOTE_ERROR,
+  MARK_AS_ACCEPTED,
+  MARK_AS_ACCEPTED_SUCCESS,
+  MARK_AS_ACCEPTED_ERROR,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -37,18 +46,20 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function postAnswer(user, questionId, answer) {
+export function postAnswer(user, questionId, answer, reset) {
   return {
     type: POST_ANSWER,
     user,
     questionId,
     answer,
+    reset,
   };
 }
 
-export function postAnswerSuccess() {
+export function postAnswerSuccess(questionData) {
   return {
     type: POST_ANSWER_SUCCESS,
+    questionData,
   };
 }
 
@@ -59,19 +70,21 @@ export function postAnswerErr(postAnswerError) {
   };
 }
 
-export function postComment(user, questionId, answerId, comment) {
+export function postComment(user, questionId, answerId, comment, reset) {
   return {
     type: POST_COMMENT,
     user,
     questionId,
     answerId,
     comment,
+    reset,
   };
 }
 
-export function postCommentSuccess() {
+export function postCommentSuccess(questionData) {
   return {
     type: POST_COMMENT_SUCCESS,
+    questionData,
   };
 }
 
@@ -79,5 +92,74 @@ export function postCommentErr(postCommentError) {
   return {
     type: POST_COMMENT_ERROR,
     postCommentError,
+  };
+}
+
+export function upVote(user, questionId, answerId) {
+  return {
+    type: UP_VOTE,
+    user,
+    questionId,
+    answerId,
+  };
+}
+
+export function upVoteSuccess(questionData) {
+  return {
+    type: UP_VOTE_SUCCESS,
+    questionData,
+  };
+}
+
+export function upVoteErr(upVoteError) {
+  return {
+    type: UP_VOTE_ERROR,
+    upVoteError,
+  };
+}
+
+export function downVote(user, questionId, answerId) {
+  return {
+    type: DOWN_VOTE,
+    user,
+    questionId,
+    answerId,
+  };
+}
+
+export function downVoteSuccess(questionData) {
+  return {
+    type: DOWN_VOTE_SUCCESS,
+    questionData,
+  };
+}
+
+export function downVoteErr(downVoteError) {
+  return {
+    type: DOWN_VOTE_ERROR,
+    downVoteError,
+  };
+}
+
+export function markAsAccepted(user, questionId, correctAnswerId) {
+  return {
+    type: MARK_AS_ACCEPTED,
+    user,
+    questionId,
+    correctAnswerId,
+  };
+}
+
+export function markAsAcceptedSuccess(questionData) {
+  return {
+    type: MARK_AS_ACCEPTED_SUCCESS,
+    questionData,
+  };
+}
+
+export function markAsAcceptedErr(markAsAcceptedError) {
+  return {
+    type: MARK_AS_ACCEPTED_ERROR,
+    markAsAcceptedError,
   };
 }
