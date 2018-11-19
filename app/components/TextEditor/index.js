@@ -17,8 +17,8 @@ class TextEditor extends React.Component {
     TextEditor.instance.codemirror.options.readOnly = this.props.disabled;
   }
 
-  handleEditorChange = txt => {
-    this.props.onChange(txt);
+  onBlurHandler = () => {
+    this.props.onBlur(this.props.value);
   };
 
   static getHtmlText = md =>
@@ -29,9 +29,8 @@ class TextEditor extends React.Component {
       <div>
         <SimpleMDE
           {...this.props}
+          onBlur={this.onBlurHandler}
           getMdeInstance={instance => (TextEditor.instance = instance)}
-          onBlur={null}
-          onChange={this.handleEditorChange}
           options={options}
           extraKeys={{
             Tab: false,
@@ -47,6 +46,8 @@ TextEditor.propTypes = {
   disabled: PropTypes.bool,
   height: PropTypes.number,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default TextEditor;

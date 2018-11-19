@@ -56,7 +56,7 @@ function AvatarField({
   const displayImage = displayImageFunc(
     editingImgState,
     cachedProfileImg,
-    profile.savedProfileImg,
+    profile.ipfs_avatar,
   );
 
   const displayAvatar = displayAvatarFunc(editingImgState, cachedProfileImg);
@@ -66,7 +66,7 @@ function AvatarField({
       {displayImage && (
         <div className="d-flex justify-content-center">
           <img
-            src={cachedProfileImg || profile.savedProfileImg}
+            src={cachedProfileImg || profile.ipfs_avatar}
             className="profile-image"
             alt=""
           />

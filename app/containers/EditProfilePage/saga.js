@@ -27,9 +27,9 @@ export function* saveProfileActionWorker(res) {
     const eosService = yield select(selectEos);
 
     const img = reader ? yield call(() => uploadImg(reader)) : undefined;
-    profile.ipfs.savedProfileImg = yield img ? img.imgHash : undefined;
+    profile.ipfs_avatar = yield (img && img.imgHash) || profile.ipfs_avatar;
 
-    yield call(() => saveProfile(userKey, profile.ipfs, eosService));
+    yield call(() => saveProfile(userKey, profile, eosService));
     yield put(saveProfileActionSuccess());
   } catch (err) {
     yield put(saveProfileActionError(err.message));

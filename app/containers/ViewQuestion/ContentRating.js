@@ -5,17 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getFormattedNum } from 'utils/numbers';
 import MarkAsAcceptedIcon from './MarkAsAcceptedIcon';
 
-/* eslint consistent-return: "error" */
-const isRatingChanged = (history, account, flag) => {
-  const filtered = history.filter(x => x.user === account);
-
-  if (filtered[0] && filtered[0].flag === flag) {
-    return 'text-primary';
-  }
-
-  return '';
-};
-
 const ContentRating = props => (
   <div className="content-rating text-center">
     <MarkAsAcceptedIcon
@@ -27,13 +16,15 @@ const ContentRating = props => (
     />
     <FontAwesomeIcon
       onClick={() => props.upVote(props.answerId)}
-      className={`chevron ${isRatingChanged(props.history, props.account, 1)}`}
+      data-voting={`chevron-up-${props.votingStatus}`}
+      className="chevron"
       icon="chevron-up"
     />
     <span className="rating-value">{getFormattedNum(props.rating)}</span>
     <FontAwesomeIcon
       onClick={() => props.downVote(props.answerId)}
-      className={`chevron ${isRatingChanged(props.history, props.account, 2)}`}
+      data-voting={`chevron-down-${props.votingStatus}`}
+      className="chevron"
       icon="chevron-down"
     />
   </div>
@@ -41,7 +32,7 @@ const ContentRating = props => (
 
 ContentRating.propTypes = {
   rating: PropTypes.number,
-  history: PropTypes.array,
+  votingStatus: PropTypes.number,
   account: PropTypes.string,
   questionFrom: PropTypes.string,
   markAsAccepted: PropTypes.func,

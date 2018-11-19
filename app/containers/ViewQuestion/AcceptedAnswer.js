@@ -20,6 +20,7 @@ const AcceptedAnswer = props => (
             history={item.history}
             userInfo={item.userInfo}
             postTime={item.post_time}
+            votingStatus={item.votingStatus}
           />
         ) : null,
     )}

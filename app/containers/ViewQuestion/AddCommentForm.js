@@ -8,7 +8,7 @@ import { strLength1000, required } from 'components/FormFields/validate';
 
 import TextareaField from 'components/FormFields/TextareaField';
 
-import { ADD_COMMENT_FORM, TEXTAREA_ANSWER_FORM } from './constants';
+import { TEXTAREA_COMMENT_FORM } from './constants';
 import messages from './messages';
 
 const AddCommentForm = props => (
@@ -16,7 +16,7 @@ const AddCommentForm = props => (
     <form onSubmit={props.handleSubmit(props.postComment)}>
       <div>
         <Field
-          name={TEXTAREA_ANSWER_FORM}
+          name={TEXTAREA_COMMENT_FORM}
           disabled={props.postCommentLoading}
           component={TextareaField}
           validate={[strLength1000, required]}
@@ -47,6 +47,4 @@ AddCommentForm.propTypes = {
   submitting: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: ADD_COMMENT_FORM,
-})(AddCommentForm);
+export default reduxForm({})(AddCommentForm);

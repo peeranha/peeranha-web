@@ -20,23 +20,25 @@ export async function getBlob(canvas) {
   return blob;
 }
 
+/* eslint camelcase: 0 */
 export async function getProfileInfo(profileHash, eosService) {
-  const eos = await eosService.getTableRow(
+  const profile = await eosService.getTableRow(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
     profileHash,
   );
-  const ipfs = await getText(eos.ipfs_profile);
-  const ipfsParsed = JSON.parse(ipfs);
-  const savedProfileImg = ipfsParsed.savedProfileImg
-    ? await getFileUrl(ipfsParsed.savedProfileImg)
+
+  const ipfsProfile = await getText(profile.ipfs_profile);
+  const parsedIpfsProfile = JSON.parse(ipfsProfile);
+
+  const ipfs_avatar = parsedIpfsProfile.ipfs_avatar
+    ? await getFileUrl(parsedIpfsProfile.ipfs_avatar)
     : '';
 
-  return {
-    eos,
-    ipfs: ipfsParsed,
-    savedProfileImg,
-  };
+  profile.profile = parsedIpfsProfile;
+  profile.ipfs_avatar = ipfs_avatar;
+
+  return profile;
 }
 
 export async function saveProfile(owner, profile, eosService) {

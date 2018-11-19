@@ -57,8 +57,8 @@ function profileReducer(state = initialState, action) {
     case GET_LOCATION_LIST:
       return state.set('locationSearch', locationSearch).set('profile', {
         ...state.get('profile'),
-        ipfs: {
-          ...state.get('profile').ipfs,
+        profile: {
+          ...state.get('profile'),
           [LOCATION_FIELD]: {
             name: locationSearch,
           },
@@ -75,8 +75,8 @@ function profileReducer(state = initialState, action) {
     case CHOOSE_CITY_ACTION:
       return state.set('profile', {
         ...state.get('profile'),
-        ipfs: {
-          ...state.get('profile').ipfs,
+        profile: {
+          ...state.get('profile'),
           [LOCATION_FIELD]: {
             id: cityId,
             name: city,

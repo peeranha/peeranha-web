@@ -9,7 +9,7 @@ export async function registerAccount(
 ) {
   const profileText = JSON.stringify({
     ...profile,
-    savedProfileImg: 'QmTuT4iqjp1BcYhT4pEusENnMVPpzmUL1AJBpqdT11qHiC',
+    ipfs_avatar: 'QmTuT4iqjp1BcYhT4pEusENnMVPpzmUL1AJBpqdT11qHiC',
   });
   const ipfsHash = await saveText(profileText);
 

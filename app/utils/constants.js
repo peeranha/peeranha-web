@@ -15,5 +15,14 @@ export const IPFS_URL = 'http://localhost:8080/ipfs';
 
 export const REGISTER_ACC = 'registeracc';
 
+export const QUESTION_TABLE = 'question';
+export const ALL_QUESTIONS_SCOPE = 'allquestions';
+export const POST_QUESTION_METHOD = 'postquestion';
+export const POST_ANSWER_METHOD = 'postanswer';
+export const POST_COMMENT_METHOD = 'postcomment';
+export const UP_VOTE_METHOD = 'upvote';
+export const DOWN_VOTE_METHOD = 'downvote';
+export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
+
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';

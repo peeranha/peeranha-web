@@ -17,40 +17,42 @@ import messages from 'containers/Profile/messages';
 import ViewFormListItem from './ViewFormListItem';
 
 const ProfileViewForm = props => {
-  const { ipfs } = props.profile;
+  const { profile } = props.profile;
   const editUrl = routes.profile_edit(props.match.params.id);
   const isOwner = props.account === props.match.params.id;
 
   return (
     <div className="view-form">
-      {props.profile.savedProfileImg && (
+      {props.profile.ipfs_avatar && (
         <div className="d-flex justify-content-center">
           <img
             className="profile-image"
-            src={props.profile.savedProfileImg}
+            src={props.profile.ipfs_avatar}
             alt=""
           />
         </div>
       )}
       <ViewFormListItem
         label={messages.displayNameLabel}
-        message={ipfs && ipfs[DISPLAY_NAME_FIELD]}
+        message={profile && profile[DISPLAY_NAME_FIELD]}
       />
       <ViewFormListItem
         label={messages.positionLabel}
-        message={ipfs && ipfs[POSITION_FIELD]}
+        message={profile && profile[POSITION_FIELD]}
       />
       <ViewFormListItem
         label={messages.companyLabel}
-        message={ipfs && ipfs[COMPANY_FIELD]}
+        message={profile && profile[COMPANY_FIELD]}
       />
       <ViewFormListItem
         label={messages.aboutLabel}
-        message={ipfs && ipfs[ABOUT_FIELD]}
+        message={profile && profile[ABOUT_FIELD]}
       />
       <ViewFormListItem
         label={messages.locationLabel}
-        message={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
+        message={
+          profile && profile[LOCATION_FIELD] && profile[LOCATION_FIELD].name
+        }
       />
       {isOwner && (
         <Link to={editUrl} href={editUrl}>

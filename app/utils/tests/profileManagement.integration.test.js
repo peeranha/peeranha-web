@@ -23,7 +23,7 @@ xit('uploadImageFile test', async () => {
 
 xit('getProfileInfo test', async () => {
   const prof = await getProfileInfo(owner);
-  expect(typeof prof.eos).toBe('object');
+  expect(typeof prof).toBe('object');
 });
 
 xit('getCitiesList test', async () => {

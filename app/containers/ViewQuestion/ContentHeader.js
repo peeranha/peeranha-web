@@ -7,10 +7,10 @@ import RecordingDate from './RecordingDate';
 const ContentHeader = props => (
   <div className="content-header">
     <UserInfo
-      avatar={props.userInfo.savedProfileImg}
-      name={props.userInfo.eos.display_name}
-      account={props.userInfo.eos.owner}
-      rating={props.userInfo.eos.rating}
+      avatar={props.userInfo.ipfs_avatar}
+      name={props.userInfo.display_name}
+      account={props.userInfo.owner}
+      rating={props.userInfo.rating}
     />
     <RecordingDate postTime={props.postTime} />
   </div>

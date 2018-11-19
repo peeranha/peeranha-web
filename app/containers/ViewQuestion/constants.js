@@ -36,4 +36,4 @@ export const TEXT_EDITOR_ANSWER_FORM =
   'app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM';
 
 export const ADD_COMMENT_FORM = 'app_ViewQuestion_ADD_COMMENT_FORM';
-export const TEXTAREA_ANSWER_FORM = 'app_ViewQuestion_TEXTAREA_ANSWER_FORM';
+export const TEXTAREA_COMMENT_FORM = 'app_ViewQuestion_TEXTAREA_COMMENT_FORM';

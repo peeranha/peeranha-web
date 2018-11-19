@@ -6,6 +6,8 @@ import ContentOptions from './ContentOptions';
 import AddCommentForm from './AddCommentForm';
 import Comments from './Comments';
 
+import { ADD_COMMENT_FORM } from './constants';
+
 const ContentBody = props => (
   <div className="content-body">
     <TextBlock content={props.content} />
@@ -15,6 +17,7 @@ const ContentBody = props => (
     />
     <Comments comments={props.comments} />
     <AddCommentForm
+      form={`${ADD_COMMENT_FORM}${props.answerId}`}
       translations={props.translations}
       postCommentLoading={props.postCommentLoading}
       postComment={props.postComment}

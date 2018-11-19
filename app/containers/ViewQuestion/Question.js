@@ -18,6 +18,7 @@ const Question = props => (
       history={props.questionData.history}
       userInfo={props.questionData.userInfo}
       postTime={props.questionData.post_time}
+      votingStatus={props.questionData.votingStatus}
     />
   </div>
 );

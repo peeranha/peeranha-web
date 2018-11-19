@@ -100,6 +100,7 @@ const Box = styled.div`
       }
     }
     .content-body {
+      min-height: 150px;
       max-width: 100%;
       padding-left: ${rating_column_width + 10}px;
       .text-block {
@@ -119,6 +120,10 @@ const Box = styled.div`
       position: absolute;
       display: flex;
       flex-direction: column;
+      .chevron[data-voting='chevron-up-1'],
+      .chevron[data-voting='chevron-down-2'] {
+        color: blue;
+      }
       .chevron {
         cursor: pointer;
         color: gray;

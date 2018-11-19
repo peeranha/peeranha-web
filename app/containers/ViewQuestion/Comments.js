@@ -8,10 +8,10 @@ import UserInfo from './UserInfo';
 const Comment = item => (
   <div className="comment-body">
     <UserInfo
-      avatar={item.userInfo.savedProfileImg}
-      name={item.userInfo.eos.display_name}
-      rating={item.userInfo.eos.rating}
-      account={item.userInfo.eos.owner}
+      avatar={item.userInfo.ipfs_avatar}
+      name={item.userInfo.display_name}
+      rating={item.userInfo.rating}
+      account={item.userInfo.owner}
     />
     <div className="comment-content">
       <RecordingDate postTime={item.post_time} />

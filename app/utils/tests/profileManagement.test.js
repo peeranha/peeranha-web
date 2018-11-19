@@ -26,6 +26,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+/* eslint camelcase: 0 */
 it('uploadImg', async () => {
   const txt = 'txt';
   const imgHash = 'ipfsHash';
@@ -41,21 +42,21 @@ it('uploadImg', async () => {
 
 it('getProfileInfo', async () => {
   const profileHash = 'hash';
-  const img = 'savedProfileImg';
-  const ipfs = JSON.stringify({ savedProfileImg: img });
-  const savedProfileImg = 'url';
+  const img = 'ipfs_avatar';
+  const ipfs = JSON.stringify({ ipfs_avatar: img });
+  const ipfs_avatar = 'url';
   const eos = {
     ipfs_profile: {},
   };
 
   cmp.getTableRow.mockImplementation(() => eos);
   getText.mockImplementation(() => ipfs);
-  getFileUrl.mockImplementation(() => savedProfileImg);
+  getFileUrl.mockImplementation(() => ipfs_avatar);
 
   expect(await getProfileInfo(profileHash, cmp)).toEqual({
     eos,
     ipfs: JSON.parse(ipfs),
-    savedProfileImg,
+    ipfs_avatar,
   });
   expect(cmp.getTableRow).toHaveBeenCalledWith(
     ACCOUNT_TABLE,

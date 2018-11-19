@@ -35,7 +35,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import { TEXT_EDITOR_ANSWER_FORM, TEXTAREA_ANSWER_FORM } from './constants';
+import { TEXT_EDITOR_ANSWER_FORM, TEXTAREA_COMMENT_FORM } from './constants';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import NoSuchQuestion from './NoSuchQuestion';
@@ -75,7 +75,7 @@ export class ViewQuestion extends React.Component {
       this.props.account,
       this.questionId,
       args[2].answerId,
-      args[0].get(TEXTAREA_ANSWER_FORM),
+      args[0].get(TEXTAREA_COMMENT_FORM),
       args[2].reset,
     );
   };
@@ -106,10 +106,11 @@ export class ViewQuestion extends React.Component {
     const helmetTitle =
       (questionData && questionData.content.title) ||
       sendProps.translations[messages.title.id];
+
     const helmetDescription =
       (questionData && questionData.content.content) ||
       sendProps.translations[messages.title.description];
-    console.log(this.props.questionData);
+
     return (
       <div className="container">
         <Helmet>
