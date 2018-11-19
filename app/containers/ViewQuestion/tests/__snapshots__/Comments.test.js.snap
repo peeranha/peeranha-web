@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comments test1, Comments 1`] = `
+<div
+  className="comments"
+>
+  <Comment
+    comments={
+      Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+      ]
+    }
+    id={1}
+  />
+  <Comment
+    comments={
+      Array [
+        Object {
+          "id": 1,
+        },
+        Object {
+          "id": 2,
+        },
+      ]
+    }
+    id={2}
+  />
+</div>
+`;
+
+exports[`Comments test2, Comment 1`] = `
+<div
+  className="comment-body"
+>
+  <UserInfo />
+  <div
+    className="comment-content"
+  >
+    <RecordingDate />
+    <p
+      className="comment-text"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+    <p
+      className="option-edit"
+    >
+      <EditButton />
+    </p>
+  </div>
+</div>
+`;

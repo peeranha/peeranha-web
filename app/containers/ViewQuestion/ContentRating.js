@@ -17,14 +17,14 @@ const ContentRating = props => (
     <FontAwesomeIcon
       onClick={() => props.upVote(props.answerId)}
       data-voting={`chevron-up-${props.votingStatus}`}
-      className="chevron"
+      className="chevron chevron-up"
       icon="chevron-up"
     />
     <span className="rating-value">{getFormattedNum(props.rating)}</span>
     <FontAwesomeIcon
       onClick={() => props.downVote(props.answerId)}
       data-voting={`chevron-down-${props.votingStatus}`}
-      className="chevron"
+      className="chevron chevron-down"
       icon="chevron-down"
     />
   </div>

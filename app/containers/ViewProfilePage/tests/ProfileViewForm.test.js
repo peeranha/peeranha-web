@@ -10,7 +10,7 @@ describe('ProfileViewForm test', () => {
       },
     },
     profile: {
-      ipfs: {
+      profile: {
         [LOCATION_FIELD]: {},
       },
     },

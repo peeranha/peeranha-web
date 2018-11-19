@@ -23,7 +23,7 @@ const MarkAsAcceptedIcon = props => {
   return icon ? (
     <FontAwesomeIcon
       onClick={() => props.markAsAccepted(icon.id)}
-      className={`chevron ${icon.color}`}
+      className={`chevron check ${icon.color}`}
       icon="check"
     />
   ) : null;
@@ -33,4 +33,5 @@ MarkAsAcceptedIcon.propTypes = {
   markAsAccepted: PropTypes.func,
 };
 
+export { renderIcon };
 export default MarkAsAcceptedIcon;

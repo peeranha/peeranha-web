@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentHeader test 1`] = `
+<div
+  className="content-header"
+>
+  <UserInfo />
+  <RecordingDate />
+</div>
+`;

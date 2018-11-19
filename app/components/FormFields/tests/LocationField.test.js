@@ -13,7 +13,7 @@ describe('LocationField test', () => {
         citiesList: [{ geonameId: 1 }],
         getCitiesList,
         profile: {
-          ipfs: {
+          profile: {
             [LOCATION_FIELD]: {
               name: '',
             },

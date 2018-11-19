@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      title
+    </title>
+    <meta
+      content="content"
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;

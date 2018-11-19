@@ -16,7 +16,7 @@ const ContentOptions = props => (
     <button onClick={setDataAttr}>
       {props.translations[messages.commentButton.id]}
     </button>
-    <EditButton isItWrittenByMe={props.isItWrittenByMe} />
+    <EditButton {...props} />
   </div>
 );
 
@@ -25,4 +25,5 @@ ContentOptions.propTypes = {
   isItWrittenByMe: PropTypes.bool,
 };
 
+export { setDataAttr };
 export default ContentOptions;

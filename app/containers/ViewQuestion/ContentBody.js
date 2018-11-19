@@ -12,10 +12,15 @@ const ContentBody = props => (
   <div className="content-body">
     <TextBlock content={props.content} />
     <ContentOptions
+      editContent={props.editContent}
       translations={props.translations}
       isItWrittenByMe={props.isItWrittenByMe}
     />
-    <Comments comments={props.comments} />
+    <Comments
+      editContent={props.editContent}
+      translations={props.translations}
+      comments={props.comments}
+    />
     <AddCommentForm
       form={`${ADD_COMMENT_FORM}${props.answerId}`}
       translations={props.translations}
@@ -33,6 +38,7 @@ ContentBody.propTypes = {
   postCommentLoading: PropTypes.bool,
   comments: PropTypes.array,
   postComment: PropTypes.func,
+  editContent: PropTypes.func,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

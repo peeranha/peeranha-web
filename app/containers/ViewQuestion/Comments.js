@@ -20,7 +20,11 @@ const Comment = item => (
         dangerouslySetInnerHTML={{ __html: item.content }}
       />
       <p className="option-edit">
-        <EditButton isItWrittenByMe={item.isItWrittenByMe} />
+        <EditButton
+          isItWrittenByMe={item.isItWrittenByMe}
+          editContent={item.editContent}
+          translations={item.translations}
+        />
       </p>
     </div>
   </div>
@@ -29,7 +33,7 @@ const Comment = item => (
 const Comments = props => (
   <div className="comments">
     {props.comments.map(item => (
-      <Comment key={`comment${item.id}`} {...item} />
+      <Comment {...item} {...props} key={`comment${item.id}`} />
     ))}
   </div>
 );
@@ -38,4 +42,5 @@ Comments.propTypes = {
   comments: PropTypes.array,
 };
 
+export { Comment };
 export default Comments;

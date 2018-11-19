@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentOptions test, ContentOptions 1`] = `
+<div
+  className="content-options"
+>
+  <button
+    onClick={[Function]}
+  />
+  <EditButton
+    translations={Object {}}
+  />
+</div>
+`;

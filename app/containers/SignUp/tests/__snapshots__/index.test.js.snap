@@ -73,7 +73,7 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
           "app.containers.ErrorBoundary.reloadPage": "Reload page",
           "app.containers.ErrorBoundary.title": "Error",
           "app.containers.FormFields.fileSize": "File size is exceeded",
-          "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
+          "app.containers.FormFields.wrongLength": "Not valid field length",
           "app.containers.FormFields.wrongLength30000": "Maximum number of characters exceeded",
           "app.containers.Login.doNotHaveAcc": "Do not have an account?",
           "app.containers.Login.header": "No Peerania account exists for selected identity.",
@@ -124,6 +124,15 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
           "app.containers.SignUp.signUpDescription": "Description of Sign Up",
           "app.containers.SignUp.signUpWith": "Sign up with Scatter",
           "app.containers.UserProfileNav.profile": "Profile",
+          "app.containers.ViewQuestion.answers": "answers",
+          "app.containers.ViewQuestion.commentButton": "Comment",
+          "app.containers.ViewQuestion.description": "Question's description",
+          "app.containers.ViewQuestion.editButton": "Edit",
+          "app.containers.ViewQuestion.postAnswerButton": "Post answer",
+          "app.containers.ViewQuestion.postCommentButton": "Post comment",
+          "app.containers.ViewQuestion.questionNotExist": "This question does not exist",
+          "app.containers.ViewQuestion.title": "Question's page",
+          "app.containers.ViewQuestion.yourAnswer": "Your answer",
         }
       }
     />

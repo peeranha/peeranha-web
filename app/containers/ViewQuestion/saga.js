@@ -53,6 +53,7 @@ export function* getQuestionDataWorker(res) {
 export function* postCommentWorker(res) {
   try {
     const eosService = yield select(selectEos);
+
     yield call(() =>
       postComment(
         res.user,
@@ -62,9 +63,11 @@ export function* postCommentWorker(res) {
         eosService,
       ),
     );
+
     const questionData = yield call(() =>
       getQuestionData(eosService, res.questionId, res.user),
     );
+
     yield call(() => res.reset());
     yield put(postCommentSuccess(questionData));
   } catch (err) {
@@ -75,12 +78,15 @@ export function* postCommentWorker(res) {
 export function* postAnswerWorker(res) {
   try {
     const eosService = yield select(selectEos);
+
     yield call(() =>
-      postAnswer(res.user, res.questionId, res.answer, eosService, res.user),
+      postAnswer(res.user, res.questionId, res.answer, eosService),
     );
+
     const questionData = yield call(() =>
-      getQuestionData(eosService, res.questionId),
+      getQuestionData(eosService, res.questionId, res.user),
     );
+
     yield call(() => res.reset());
     yield put(postAnswerSuccess(questionData));
   } catch (err) {
@@ -91,12 +97,15 @@ export function* postAnswerWorker(res) {
 export function* upVoteWorker(res) {
   try {
     const eosService = yield select(selectEos);
+
     yield call(() =>
       upVote(res.user, res.questionId, res.answerId, eosService),
     );
+
     const questionData = yield call(() =>
       getQuestionData(eosService, res.questionId, res.user),
     );
+
     yield put(upVoteSuccess(questionData));
   } catch (err) {
     yield put(upVoteErr(err));
@@ -106,12 +115,15 @@ export function* upVoteWorker(res) {
 export function* downVoteWorker(res) {
   try {
     const eosService = yield select(selectEos);
+
     yield call(() =>
       downVote(res.user, res.questionId, res.answerId, eosService),
     );
+
     const questionData = yield call(() =>
       getQuestionData(eosService, res.questionId, res.user),
     );
+
     yield put(downVoteSuccess(questionData));
   } catch (err) {
     yield put(downVoteErr(err));
@@ -121,12 +133,15 @@ export function* downVoteWorker(res) {
 export function* markAsAcceptedWorker(res) {
   try {
     const eosService = yield select(selectEos);
+
     yield call(() =>
       markAsAccepted(res.user, res.questionId, res.correctAnswerId, eosService),
     );
+
     const questionData = yield call(() =>
       getQuestionData(eosService, res.questionId, res.user),
     );
+
     yield put(markAsAcceptedSuccess(questionData));
   } catch (err) {
     yield put(markAsAcceptedErr(err));

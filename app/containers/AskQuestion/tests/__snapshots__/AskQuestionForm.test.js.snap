@@ -1243,7 +1243,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                           }
                                           getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
@@ -1286,18 +1286,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                         <div>
                           <Connect(AuthenticatedButton)
                             className="btn btn-success form-control"
-                            type="submit"
                             disabled={true}
                             isLoading={false}
+                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
                               className="btn btn-success form-control"
-                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
+                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
@@ -2678,7 +2678,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                           }
                                           getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
@@ -2721,18 +2721,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                         <div>
                           <Connect(AuthenticatedButton)
                             className="btn btn-success form-control"
-                            type="submit"
                             disabled={true}
                             isLoading={false}
+                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
                               className="btn btn-success form-control"
-                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
+                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
@@ -4225,7 +4225,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                           }
                                           getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
@@ -4268,18 +4268,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                         <div>
                           <Connect(AuthenticatedButton)
                             className="btn btn-success form-control"
-                            type="submit"
                             disabled={true}
                             isLoading={false}
+                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
                               className="btn btn-success form-control"
-                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
+                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
@@ -5884,7 +5884,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                           }
                                           getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
@@ -5927,18 +5927,18 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                         <div>
                           <Connect(AuthenticatedButton)
                             className="btn btn-success form-control"
-                            type="submit"
                             disabled={true}
                             isLoading={true}
+                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
                               className="btn btn-success form-control"
-                              type="submit"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={true}
                               showLoginModalDispatch={[Function]}
+                              type="submit"
                               userIsInSystem={null}
                             >
                               <button

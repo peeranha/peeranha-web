@@ -21,6 +21,10 @@ class TextEditor extends React.Component {
     this.props.onBlur(this.props.value);
   };
 
+  getMdeInstance = instance => {
+    TextEditor.instance = instance;
+  };
+
   static getHtmlText = md =>
     TextEditor.instance && TextEditor.instance.options.previewRender(md);
 
@@ -30,7 +34,7 @@ class TextEditor extends React.Component {
         <SimpleMDE
           {...this.props}
           onBlur={this.onBlurHandler}
-          getMdeInstance={instance => (TextEditor.instance = instance)}
+          getMdeInstance={this.getMdeInstance}
           options={options}
           extraKeys={{
             Tab: false,

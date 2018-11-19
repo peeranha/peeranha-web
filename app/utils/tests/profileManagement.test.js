@@ -54,15 +54,17 @@ it('getProfileInfo', async () => {
   getFileUrl.mockImplementation(() => ipfs_avatar);
 
   expect(await getProfileInfo(profileHash, cmp)).toEqual({
-    eos,
-    ipfs: JSON.parse(ipfs),
+    ...eos,
+    profile: JSON.parse(ipfs),
     ipfs_avatar,
   });
+
   expect(cmp.getTableRow).toHaveBeenCalledWith(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
     profileHash,
   );
+
   expect(getText).toHaveBeenCalledWith(eos.ipfs_profile);
   expect(getFileUrl).toHaveBeenCalledWith(img);
 });

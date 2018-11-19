@@ -85,7 +85,6 @@ describe('<EditProfilePage>', () => {
       expect(mapDispatchToProps(dispatch).clearImageChangesDispatch()).toBe(
         test,
       );
-      expect(mapDispatchToProps(dispatch).getProfileInfoDispatch()).toBe(test);
       expect(mapDispatchToProps(dispatch).getCitiesListDispatch(obj)).toBe(
         test,
       );

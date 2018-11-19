@@ -1,37 +1,71 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
 import TextEditor from '../index';
 
 const cmp = new TextEditor();
 cmp.props = {
   input: {},
   content: 'content',
-  height: 400,
-  handleEditorChange: jest.fn(),
   onChange: jest.fn(),
+  onBlur: jest.fn(),
 };
 
-jest.mock('react-simplemde-editor');
-jest.mock('simplemde/dist/simplemde.min.css');
+beforeEach(() => {
+  TextEditor.instance = {
+    options: {
+      previewRender: jest.fn(),
+    },
+    codemirror: {
+      options: {
+        readOnly: true,
+      },
+    },
+  };
+});
 
 describe('<TextEditor />', () => {
-  describe('handleEditorChange', () => {
+  describe('componentDidUpdate', () => {
+    it('test', () => {
+      const renderedComponent = shallow(<TextEditor {...cmp.props} />);
+      expect(renderedComponent).toMatchSnapshot();
+    });
+  });
+
+  describe('onBlurHandler', () => {
     it('test', () => {
       const txt = 'some txt';
-      cmp.handleEditorChange(txt);
-      expect(cmp.props.onChange).toHaveBeenCalledWith(txt);
+      cmp.props.value = txt;
+      cmp.onBlurHandler();
+      expect(cmp.props.onBlur).toHaveBeenCalledWith(txt);
+    });
+  });
+
+  describe('getMdeInstance', () => {
+    it('test', () => {
+      const instance = { id: 101 };
+      cmp.getMdeInstance(instance);
+      expect(TextEditor.instance).toEqual(instance);
+    });
+  });
+
+  describe('getHtmlText', () => {
+    it('test', () => {
+      const md = '# Hello';
+      const returnedText = '<h1>Hello</h1>';
+
+      TextEditor.instance.options.previewRender = jest
+        .fn()
+        .mockImplementation(() => returnedText);
+
+      expect(TextEditor.getHtmlText(md)).toBe(returnedText);
     });
   });
 
   describe('snapshot test', () => {
-    it('@content is null, @height is null', () => {
-      cmp.props.content = null;
-      cmp.props.height = null;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('@content is not null, @height is not null', () => {
-      cmp.props.content = 'content';
-      cmp.props.height = 400;
-      expect(cmp.render()).toMatchSnapshot();
+    it('test', () => {
+      const renderedComponent = shallow(<TextEditor {...cmp.props} />);
+      expect(renderedComponent).toMatchSnapshot();
     });
   });
 });

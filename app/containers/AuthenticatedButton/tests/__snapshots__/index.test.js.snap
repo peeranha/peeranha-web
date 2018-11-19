@@ -3,6 +3,7 @@
 exports[`<AuthenticatedButton /> render, @loading is false 1`] = `
 <button
   className="btn"
+  content="content"
   onClick={[Function]}
   type="submit"
 >
@@ -13,6 +14,7 @@ exports[`<AuthenticatedButton /> render, @loading is false 1`] = `
 exports[`<AuthenticatedButton /> render, @loading is true 1`] = `
 <button
   className="btn"
+  content="content"
   onClick={[Function]}
   type="submit"
 >

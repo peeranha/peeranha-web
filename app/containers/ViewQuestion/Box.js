@@ -64,44 +64,9 @@ const Box = styled.div`
     padding: 10px 0;
     flex-wrap: nowrap;
     .content-body {
-      flex: 1;
-    }
-    .content-header {
-      position: relative;
-      padding: 10px 0;
-      .recording-date {
-        position: absolute;
-        top: 10px;
-        right: 0;
-        font-size: 14px;
-      }
-      .user-info {
-        display: flex;
-        .rating-name-block {
-          padding: 3px 0;
-          > p {
-            line-height: 18px;
-            text-align: left;
-          }
-          .name {
-            font-size: 16px;
-          }
-          .rating {
-            font-size: 13px;
-          }
-        }
-        .user-avatar-block {
-          margin-right: 10px;
-          flex-basis: ${rating_column_width}px;
-          .avatar {
-            max-width: 100%;
-          }
-        }
-      }
-    }
-    .content-body {
       min-height: 150px;
       max-width: 100%;
+      flex: 1;
       padding-left: ${rating_column_width + 10}px;
       .text-block {
         word-break: break-all;
@@ -142,6 +107,21 @@ const Box = styled.div`
     .content-options[data-opened='true'] ~ .add-comment {
       display: block;
     }
+    .content-options {
+      > * {
+        margin-bottom: 10px;
+      }
+      > button:not(:last-child)::after {
+        content: '|';
+        position: absolute;
+        padding: 0 ${0.8 * buttonPadding}px;
+      }
+      button {
+        padding: 0 ${buttonPadding}px;
+        cursor: pointer;
+        ${buttonLink};
+      }
+    }
     .add-comment form {
       display: flex;
       flex-direction: column;
@@ -152,6 +132,39 @@ const Box = styled.div`
       > * {
         flex: 1;
         margin-bottom: 10px;
+      }
+    }
+    .content-header {
+      position: relative;
+      padding: 10px 0;
+      .recording-date {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        font-size: 14px;
+      }
+      .user-info {
+        display: flex;
+        .rating-name-block {
+          padding: 3px 0;
+          .name {
+            font-size: 16px;
+            line-height: 18px;
+            text-align: left;
+          }
+          .rating {
+            font-size: 13px;
+            line-height: 18px;
+            text-align: left;
+          }
+        }
+        .user-avatar-block {
+          margin-right: 10px;
+          flex-basis: ${rating_column_width}px;
+          .avatar {
+            max-width: 100%;
+          }
+        }
       }
     }
     .comment-body {
@@ -180,21 +193,6 @@ const Box = styled.div`
           text-align: right;
           font-size: 13px;
         }
-      }
-    }
-    .content-options {
-      > * {
-        margin-bottom: 10px;
-      }
-      > button:not(:last-child)::after {
-        content: '|';
-        position: absolute;
-        padding: 0 ${0.8 * buttonPadding}px;
-      }
-      button {
-        padding: 0 ${buttonPadding}px;
-        cursor: pointer;
-        ${buttonLink};
       }
     }
   }

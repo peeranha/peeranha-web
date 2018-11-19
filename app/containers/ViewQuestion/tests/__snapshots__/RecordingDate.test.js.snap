@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecordingDate test 1`] = `
+<p
+  className="recording-date"
+>
+  23:22, 01 Nov 50853
+</p>
+`;

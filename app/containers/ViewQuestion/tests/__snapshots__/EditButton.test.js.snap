@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditButton test, @isItWrittenByMe === false 1`] = `null`;
+
+exports[`EditButton test, @isItWrittenByMe === true 1`] = `
+<button
+  onClick={[MockFunction]}
+/>
+`;

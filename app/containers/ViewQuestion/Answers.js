@@ -7,7 +7,10 @@ import AcceptedAnswer from './AcceptedAnswer';
 
 const Answers = props => (
   <div className="answers">
-    <AnswersTitle answersNum={props.questionData.answers.length} />
+    <AnswersTitle
+      translations={props.translations}
+      answersNum={props.questionData.answers.length}
+    />
     <AcceptedAnswer {...props} />
     <AnswersList {...props} />
   </div>
@@ -15,6 +18,7 @@ const Answers = props => (
 
 Answers.propTypes = {
   questionData: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default Answers;

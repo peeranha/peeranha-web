@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserInfo test 1`] = `
+<div
+  className="user-info"
+>
+  <div
+    className="user-avatar-block"
+  >
+    <Link
+      href="/users/undefined"
+      replace={false}
+      to="/users/undefined"
+    >
+      <img
+        alt=""
+        className="avatar"
+      />
+    </Link>
+  </div>
+  <div
+    className="rating-name-block"
+  >
+    <p
+      className="name"
+    >
+      <Link
+        href="/users/undefined"
+        replace={false}
+        to="/users/undefined"
+      />
+    </p>
+    <p
+      className="rating"
+    >
+      0
+    </p>
+  </div>
+</div>
+`;

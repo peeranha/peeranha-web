@@ -80,6 +80,10 @@ export class ViewQuestion extends React.Component {
     );
   };
 
+  editContent = () => {
+    console.log('Redirect to edit content');
+  };
+
   render() {
     const {
       locale,
@@ -99,6 +103,7 @@ export class ViewQuestion extends React.Component {
       downVote: this.downVote,
       postAnswer: this.postAnswer,
       postComment: this.postComment,
+      editContent: this.editContent,
       markAsAccepted: this.markAsAccepted,
       translations: translationMessages[locale],
     };
@@ -154,7 +159,7 @@ const mapStateToProps = createStructuredSelector({
   postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getQuestionDataDispatch: questionId =>

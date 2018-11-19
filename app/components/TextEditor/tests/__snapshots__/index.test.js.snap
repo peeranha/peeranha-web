@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TextEditor /> snapshot test @content is not null, @height is not null 1`] = `
+exports[`<TextEditor /> componentDidUpdate test 1`] = `
 <div>
   <SimpleMDEEditor
     content="content"
@@ -11,11 +11,9 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
       }
     }
     getMdeInstance={[Function]}
-    handleEditorChange={[MockFunction]}
-    height={400}
     input={Object {}}
-    onBlur={null}
-    onChange={[Function]}
+    onBlur={[Function]}
+    onChange={[MockFunction]}
     options={
       Object {
         "status": false,
@@ -42,10 +40,10 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
 </div>
 `;
 
-exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
+exports[`<TextEditor /> snapshot test test 1`] = `
 <div>
   <SimpleMDEEditor
-    content={null}
+    content="content"
     events={Object {}}
     extraKeys={
       Object {
@@ -53,11 +51,9 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
       }
     }
     getMdeInstance={[Function]}
-    handleEditorChange={[MockFunction]}
-    height={null}
     input={Object {}}
-    onBlur={null}
-    onChange={[Function]}
+    onBlur={[Function]}
+    onChange={[MockFunction]}
     options={
       Object {
         "status": false,
@@ -80,6 +76,7 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
         ],
       }
     }
+    value="some txt"
   />
 </div>
 `;

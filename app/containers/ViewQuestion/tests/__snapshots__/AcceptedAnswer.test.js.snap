@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AcceptedAnswer test, correct_answer_id !== item.id 1`] = `
+<div
+  className="accepted-answer"
+/>
+`;
+
+exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
+<div
+  className="accepted-answer"
+>
+  <Content
+    answerId={1}
+    questionData={
+      Object {
+        "answers": Array [
+          Object {
+            "id": 1,
+          },
+          Object {
+            "id": 2,
+          },
+          Object {
+            "id": 3,
+          },
+        ],
+        "correct_answer_id": 1,
+      }
+    }
+  />
+</div>
+`;

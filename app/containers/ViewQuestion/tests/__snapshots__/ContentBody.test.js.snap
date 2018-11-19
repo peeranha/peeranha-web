@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentBody test 1`] = `
+<div
+  className="content-body"
+>
+  <TextBlock />
+  <ContentOptions />
+  <Comments />
+  <ReduxForm
+    form="app_ViewQuestion_ADD_COMMENT_FORMundefined"
+  />
+</div>
+`;

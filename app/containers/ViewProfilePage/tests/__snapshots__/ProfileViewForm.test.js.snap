@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProfileViewForm test case 1: @profile.savedProfileImg is true 1`] = `
+exports[`ProfileViewForm test case 1: @profile.ipfs_avatar is true 1`] = `
 <div
   className="view-form"
 >
@@ -56,7 +56,7 @@ exports[`ProfileViewForm test case 1: @profile.savedProfileImg is true 1`] = `
 </div>
 `;
 
-exports[`ProfileViewForm test case 2: @profile.savedProfileImg is false 1`] = `
+exports[`ProfileViewForm test case 2: @profile.ipfs_avatar is false 1`] = `
 <div
   className="view-form"
 >
