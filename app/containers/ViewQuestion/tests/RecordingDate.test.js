@@ -1,5 +1,7 @@
 import RecordingDate from '../RecordingDate';
 
+jest.mock('utils/datetime');
+
 describe('RecordingDate', () => {
   it('test', () => {
     const props = {
