@@ -26,7 +26,7 @@ export class AuthenticatedButton extends React.Component {
   };
 
   render() {
-    const { content, type, isLoading, disabled } = this.props;
+    const { content, isLoading, disabled } = this.props;
 
     const props = { ...this.props };
     Object.keys(this.props)
@@ -37,7 +37,7 @@ export class AuthenticatedButton extends React.Component {
       <button
         {...props}
         disabled={disabled}
-        type={type || 'button'}
+        type="button"
         onClick={this.clickHandler}
       >
         {isLoading && <LoadingIndicator />}

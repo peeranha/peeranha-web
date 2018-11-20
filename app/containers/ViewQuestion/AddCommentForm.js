@@ -31,7 +31,6 @@ const AddCommentForm = props => (
           disabled={
             props.invalid || props.submitting || props.postCommentLoading
           }
-          type="submit"
         />
       </div>
     </form>

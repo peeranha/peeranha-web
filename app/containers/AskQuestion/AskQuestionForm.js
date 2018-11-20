@@ -48,7 +48,6 @@ const AskQuestionForm = props => (
         content={props.translations[messages.postQuestion.id]}
         isLoading={props.askQuestionLoading}
         disabled={props.invalid || props.submitting || props.askQuestionLoading}
-        type="submit"
       />
     </div>
   </Box>

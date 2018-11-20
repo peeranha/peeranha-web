@@ -834,7 +834,6 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                             className="btn btn-secondary"
                             disabled={true}
                             isLoading={true}
-                            type="submit"
                           >
                             <AuthenticatedButton
                               className="btn btn-secondary"
@@ -842,14 +841,13 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                               dispatch={[Function]}
                               isLoading={true}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-secondary"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               >
                                 <LoadingIndicator>
                                   <Wrapper>
@@ -1744,7 +1742,6 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                             className="btn btn-secondary"
                             disabled={true}
                             isLoading={false}
-                            type="submit"
                           >
                             <AuthenticatedButton
                               className="btn btn-secondary"
@@ -1752,14 +1749,13 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-secondary"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>

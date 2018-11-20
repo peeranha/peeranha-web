@@ -31,7 +31,6 @@ const AnswerQuestionForm = props => (
           disabled={
             props.invalid || props.submitting || props.postAnswerLoading
           }
-          type="submit"
         />
       </div>
     </form>

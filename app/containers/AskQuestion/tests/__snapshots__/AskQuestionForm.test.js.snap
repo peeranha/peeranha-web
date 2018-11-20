@@ -1288,7 +1288,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                             className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
-                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
@@ -1297,14 +1296,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -2723,7 +2721,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                             className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
-                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
@@ -2732,14 +2729,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -4270,7 +4266,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                             className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
-                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
@@ -4279,14 +4274,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                               dispatch={[Function]}
                               isLoading={false}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -5929,7 +5923,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                             className="btn btn-success form-control"
                             disabled={true}
                             isLoading={true}
-                            type="submit"
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
@@ -5938,14 +5931,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                               dispatch={[Function]}
                               isLoading={true}
                               showLoginModalDispatch={[Function]}
-                              type="submit"
                               userIsInSystem={null}
                             >
                               <button
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               >
                                 <LoadingIndicator>
                                   <Wrapper>

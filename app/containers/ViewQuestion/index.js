@@ -82,6 +82,7 @@ export class ViewQuestion extends React.Component {
 
   editContent = () => {
     console.log('Redirect to edit content');
+    return null;
   };
 
   render() {
