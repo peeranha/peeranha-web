@@ -1,6 +1,16 @@
 {
+  "app.containers.ViewQuestion.title": "Страница вопроса",
+  "app.containers.ViewQuestion.description": "Содержание вопроса",
+  "app.containers.ViewQuestion.questionNotExist":
+    "Такого вопроса не существует",
+  "app.containers.ViewQuestion.editButton": "Редактировать",
+  "app.containers.ViewQuestion.commentButton": "Комментировать",
+  "app.containers.ViewQuestion.postCommentButton": "Отправить",
+  "app.containers.ViewQuestion.answers": "вопросов",
+  "app.containers.ViewQuestion.postAnswerButton": "Отправить",
+  "app.containers.ViewQuestion.yourAnswer": "Ваш ответ",
   "app.components.FormFields.requiredField": "Необходимое поле",
-  "app.containers.FormFields.wrongLength20": "Мин - 3, Макс - 20",
+  "app.containers.FormFields.wrongLength": "Невалидная длина поля",
   "app.containers.FormFields.wrongLength30000": "Превышено количество символов",
   "app.containers.FormFields.fileSize": "Превышен размер файла",
   "app.components.Footer.header": "Авторские права: Peerania",

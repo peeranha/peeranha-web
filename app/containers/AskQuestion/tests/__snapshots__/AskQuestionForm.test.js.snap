@@ -1236,14 +1236,21 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -1260,7 +1267,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -1279,15 +1285,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -1298,7 +1302,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -2665,14 +2669,21 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -2689,7 +2700,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -2708,15 +2718,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -2727,7 +2735,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -4206,14 +4214,21 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                         <SimpleMDEEditor
                                           disabled={false}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -4230,7 +4245,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -4249,15 +4263,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
                             disabled={true}
                             isLoading={false}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={false}
@@ -4268,7 +4280,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               />
                             </AuthenticatedButton>
                           </Connect(AuthenticatedButton)>
@@ -5859,14 +5871,21 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                         <SimpleMDEEditor
                                           disabled={true}
                                           events={Object {}}
+                                          extraKeys={
+                                            Object {
+                                              "Tab": false,
+                                            }
+                                          }
+                                          getMdeInstance={[Function]}
                                           name="app/AskQuestion/FORM_CONTENT"
-                                          onBlur={null}
+                                          onBlur={[Function]}
                                           onChange={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
                                           onFocus={[Function]}
                                           options={
                                             Object {
+                                              "status": false,
                                               "toolbar": Array [
                                                 "bold",
                                                 "italic",
@@ -5883,7 +5902,6 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                                 "preview",
                                                 "undo",
                                                 "redo",
-                                                "guide",
                                               ],
                                             }
                                           }
@@ -5902,15 +5920,13 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                         </div>
                         <div>
                           <Connect(AuthenticatedButton)
-                            buttonClass="btn btn-success form-control"
-                            buttonType="submit"
+                            className="btn btn-success form-control"
                             disabled={true}
                             isLoading={true}
                             userIsInSystem={true}
                           >
                             <AuthenticatedButton
-                              buttonClass="btn btn-success form-control"
-                              buttonType="submit"
+                              className="btn btn-success form-control"
                               disabled={true}
                               dispatch={[Function]}
                               isLoading={true}
@@ -5921,7 +5937,7 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                                 className="btn btn-success form-control"
                                 disabled={true}
                                 onClick={[Function]}
-                                type="submit"
+                                type="button"
                               >
                                 <LoadingIndicator>
                                   <Wrapper>

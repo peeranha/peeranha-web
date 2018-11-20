@@ -15,7 +15,7 @@ function TextareaField({
         {...input}
         disabled={disabled}
         placeholder={label}
-        className="form-control"
+        className="textarea form-control"
       />
       <h6 className="text-danger">
         {touched &&

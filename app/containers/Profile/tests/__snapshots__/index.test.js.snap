@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile render @isProfileLoading is false && @profile.eos is false 1`] = `
+exports[`Profile render @isProfileLoading is false && @profile is false 1`] = `
 <div
   className="container"
 >
@@ -22,7 +22,7 @@ exports[`Profile render @isProfileLoading is false && @profile.eos is false 1`] 
 </div>
 `;
 
-exports[`Profile render @isProfileLoading is false && @profile.eos is true 1`] = `
+exports[`Profile render @isProfileLoading is false && @profile is true 1`] = `
 <div
   className="container"
 >
@@ -55,7 +55,7 @@ exports[`Profile render @isProfileLoading is true 1`] = `
     encodeSpecialCharacters={true}
   >
     <title>
-      user | Profile
+      Wrong user | Profile
     </title>
     <meta
       content="Profile description"

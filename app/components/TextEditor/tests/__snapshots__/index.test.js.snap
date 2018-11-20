@@ -1,17 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TextEditor /> snapshot test @content is not null, @height is not null 1`] = `
+exports[`<TextEditor /> componentDidUpdate test 1`] = `
 <div>
   <SimpleMDEEditor
     content="content"
     events={Object {}}
-    handleEditorChange={[MockFunction]}
-    height={400}
+    extraKeys={
+      Object {
+        "Tab": false,
+      }
+    }
+    getMdeInstance={[Function]}
     input={Object {}}
-    onBlur={null}
-    onChange={[Function]}
+    onBlur={[Function]}
+    onChange={[MockFunction]}
     options={
       Object {
+        "status": false,
         "toolbar": Array [
           "bold",
           "italic",
@@ -28,7 +33,6 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
           "preview",
           "undo",
           "redo",
-          "guide",
         ],
       }
     }
@@ -36,18 +40,23 @@ exports[`<TextEditor /> snapshot test @content is not null, @height is not null 
 </div>
 `;
 
-exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
+exports[`<TextEditor /> snapshot test test 1`] = `
 <div>
   <SimpleMDEEditor
-    content={null}
+    content="content"
     events={Object {}}
-    handleEditorChange={[MockFunction]}
-    height={null}
+    extraKeys={
+      Object {
+        "Tab": false,
+      }
+    }
+    getMdeInstance={[Function]}
     input={Object {}}
-    onBlur={null}
-    onChange={[Function]}
+    onBlur={[Function]}
+    onChange={[MockFunction]}
     options={
       Object {
+        "status": false,
         "toolbar": Array [
           "bold",
           "italic",
@@ -64,10 +73,10 @@ exports[`<TextEditor /> snapshot test @content is null, @height is null 1`] = `
           "preview",
           "undo",
           "redo",
-          "guide",
         ],
       }
     }
+    value="some txt"
   />
 </div>
 `;

@@ -51,7 +51,7 @@ export class Profile extends React.Component {
   render() {
     const { locale, profile, isProfileLoading } = this.props;
 
-    const HelmetTitle = `${(profile.eos && profile.eos.display_name) ||
+    const HelmetTitle = `${(profile && profile.display_name) ||
       translationMessages[locale][messages.wrongUser.id]} | ${
       translationMessages[locale][messages.profile.id]
     }`;
@@ -69,9 +69,9 @@ export class Profile extends React.Component {
         </Helmet>
         <Wrapper>
           {isProfileLoading && <LoadingIndicator />}
-          {!isProfileLoading && !profile.eos && <NoSuchUser />}
+          {!isProfileLoading && !profile && <NoSuchUser />}
           {!isProfileLoading &&
-            profile.eos &&
+            profile &&
             React.Children.only(this.props.children)}
         </Wrapper>
       </div>

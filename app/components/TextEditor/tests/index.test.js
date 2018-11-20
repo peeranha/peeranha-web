@@ -1,27 +1,71 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
 import TextEditor from '../index';
 
-jest.mock('react-simplemde-editor');
-jest.mock('simplemde/dist/simplemde.min.css');
-
-const props = {
+const cmp = new TextEditor();
+cmp.props = {
   input: {},
   content: 'content',
-  height: 400,
-  handleEditorChange: jest.fn(),
+  onChange: jest.fn(),
+  onBlur: jest.fn(),
 };
 
-describe('<TextEditor />', () => {
-  describe('snapshot test', () => {
-    it('@content is null, @height is null', () => {
-      props.content = null;
-      props.height = null;
-      expect(TextEditor(props)).toMatchSnapshot();
-    });
+beforeEach(() => {
+  TextEditor.instance = {
+    options: {
+      previewRender: jest.fn(),
+    },
+    codemirror: {
+      options: {
+        readOnly: true,
+      },
+    },
+  };
+});
 
-    it('@content is not null, @height is not null', () => {
-      props.content = 'content';
-      props.height = 400;
-      expect(TextEditor(props)).toMatchSnapshot();
+describe('<TextEditor />', () => {
+  describe('componentDidUpdate', () => {
+    it('test', () => {
+      const renderedComponent = shallow(<TextEditor {...cmp.props} />);
+      expect(renderedComponent).toMatchSnapshot();
+    });
+  });
+
+  describe('onBlurHandler', () => {
+    it('test', () => {
+      const txt = 'some txt';
+      cmp.props.value = txt;
+      cmp.onBlurHandler();
+      expect(cmp.props.onBlur).toHaveBeenCalledWith(txt);
+    });
+  });
+
+  describe('getMdeInstance', () => {
+    it('test', () => {
+      const instance = { id: 101 };
+      cmp.getMdeInstance(instance);
+      expect(TextEditor.instance).toEqual(instance);
+    });
+  });
+
+  describe('getHtmlText', () => {
+    it('test', () => {
+      const md = '# Hello';
+      const returnedText = '<h1>Hello</h1>';
+
+      TextEditor.instance.options.previewRender = jest
+        .fn()
+        .mockImplementation(() => returnedText);
+
+      expect(TextEditor.getHtmlText(md)).toBe(returnedText);
+    });
+  });
+
+  describe('snapshot test', () => {
+    it('test', () => {
+      const renderedComponent = shallow(<TextEditor {...cmp.props} />);
+      expect(renderedComponent).toMatchSnapshot();
     });
   });
 });

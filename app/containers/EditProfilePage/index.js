@@ -95,14 +95,11 @@ export class EditProfilePage extends React.Component {
     const { match, blob } = this.props;
     const userKey = match.params.id;
     const profile = {
-      ...this.props.profile,
-      ipfs: {
-        ...this.props.profile.ipfs,
-        [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
-        [POSITION_FIELD]: val.get(POSITION_FIELD),
-        [COMPANY_FIELD]: val.get(COMPANY_FIELD),
-        [ABOUT_FIELD]: val.get(ABOUT_FIELD),
-      },
+      ...this.props.profile.profile,
+      [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
+      [POSITION_FIELD]: val.get(POSITION_FIELD),
+      [COMPANY_FIELD]: val.get(COMPANY_FIELD),
+      [ABOUT_FIELD]: val.get(ABOUT_FIELD),
     };
 
     if (blob) {
@@ -127,6 +124,12 @@ export class EditProfilePage extends React.Component {
     return value;
   };
 
+  cancelChanges = () =>
+    this.props.cancelChangesDispatch(
+      this.props.match.params.id,
+      this.props.account,
+    );
+
   render() {
     const {
       profile,
@@ -138,7 +141,6 @@ export class EditProfilePage extends React.Component {
       clearImageChangesDispatch,
       getCitiesListDispatch,
       chooseLocationDispatch,
-      getProfileInfoDispatch,
       citiesList,
     } = this.props;
 
@@ -148,7 +150,7 @@ export class EditProfilePage extends React.Component {
       clearImageChanges: clearImageChangesDispatch,
       chooseLocation: chooseLocationDispatch,
       getCitiesList: getCitiesListDispatch,
-      cancelChanges: getProfileInfoDispatch,
+      cancelChanges: this.cancelChanges,
       saveProfile: this.saveProfile,
       isProfileSaving,
       citiesList,
@@ -171,7 +173,7 @@ EditProfilePage.propTypes = {
   uploadImageFileDispatch: PropTypes.func,
   saveImageChangesDispatch: PropTypes.func,
   clearImageChangesDispatch: PropTypes.func,
-  getProfileInfoDispatch: PropTypes.func,
+  cancelChangesDispatch: PropTypes.func,
   getCitiesListDispatch: PropTypes.func,
   chooseLocationDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
@@ -182,6 +184,7 @@ EditProfilePage.propTypes = {
   locale: PropTypes.string,
   editingImgState: PropTypes.bool,
   cachedProfileImg: PropTypes.string,
+  account: PropTypes.string,
   isProfileSaving: PropTypes.bool,
 };
 
@@ -202,7 +205,8 @@ export function mapDispatchToProps(dispatch) {
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),
     saveImageChangesDispatch: res => dispatch(saveImageChanges(res)),
     clearImageChangesDispatch: () => dispatch(clearImageChanges()),
-    getProfileInfoDispatch: () => dispatch(getProfileInfo()),
+    cancelChangesDispatch: (userKey, account) =>
+      dispatch(getProfileInfo(userKey, account)),
     getCitiesListDispatch: res => dispatch(getCitiesList(res)),
     chooseLocationDispatch: (id, city) => dispatch(chooseLocation(id, city)),
     setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentRating snapshot test 1`] = `
+<div
+  className="content-rating text-center"
+>
+  <MarkAsAcceptedIcon
+    correct_answer_id={0}
+  />
+  <FontAwesomeIcon
+    border={false}
+    className="chevron chevron-up"
+    data-voting="chevron-up-undefined"
+    fixedWidth={false}
+    flip={null}
+    icon="chevron-up"
+    inverse={false}
+    listItem={false}
+    mask={null}
+    onClick={[Function]}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+  <span
+    className="rating-value"
+  >
+    0
+  </span>
+  <FontAwesomeIcon
+    border={false}
+    className="chevron chevron-down"
+    data-voting="chevron-down-undefined"
+    fixedWidth={false}
+    flip={null}
+    icon="chevron-down"
+    inverse={false}
+    listItem={false}
+    mask={null}
+    onClick={[Function]}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</div>
+`;

@@ -36,12 +36,12 @@ export let ProfileEditForm = props => {
   const viewUrl = routes.profile_view(sendProps.match.params.id);
 
   // @locationIsWrong - true - if user entered location value manually (choosed not from cities list)
-  const { ipfs } = sendProps.profile;
+  const { profile } = sendProps.profile;
   const locationIsWrong =
-    ipfs &&
-    ipfs[LOCATION_FIELD] &&
-    !ipfs[LOCATION_FIELD].id &&
-    ipfs[LOCATION_FIELD].name;
+    profile &&
+    profile[LOCATION_FIELD] &&
+    !profile[LOCATION_FIELD].id &&
+    profile[LOCATION_FIELD].name;
 
   return (
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
@@ -144,8 +144,8 @@ ProfileEditForm = reduxForm({
   form: 'ProfileEditForm',
 })(ProfileEditForm);
 
-ProfileEditForm = connect(state => ({
-  initialValues: state.get('profile').get('profile').ipfs,
+ProfileEditForm = connect((state, props) => ({
+  initialValues: props.sendProps.profile.profile,
 }))(ProfileEditForm);
 
 export default ProfileEditForm;

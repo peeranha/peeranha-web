@@ -7,12 +7,21 @@ import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
+import TextEditor from 'components/TextEditor';
 
 import AskQuestionFormDefault from '../AskQuestionForm';
 import messages from '../messages';
 
 jest.mock('react-simplemde-editor');
 jest.mock('simplemde/dist/simplemde.min.css');
+
+TextEditor.instance = {
+  codemirror: {
+    options: {
+      readOnly: true,
+    },
+  },
+};
 
 const props = {
   invalid: false,

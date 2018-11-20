@@ -6,7 +6,7 @@ exports[`TextareaField test test by snapshots default 1`] = `
     label
   </h6>
   <textarea
-    className="form-control"
+    className="textarea form-control"
     disabled={false}
     placeholder="label"
   />
@@ -22,7 +22,7 @@ exports[`TextareaField test test by snapshots meta.error = true 1`] = `
     label
   </h6>
   <textarea
-    className="form-control"
+    className="textarea form-control"
     disabled={false}
     placeholder="label"
   />
@@ -38,7 +38,7 @@ exports[`TextareaField test test by snapshots meta.touched = true 1`] = `
     label
   </h6>
   <textarea
-    className="form-control"
+    className="textarea form-control"
     disabled={false}
     placeholder="label"
   />
@@ -54,7 +54,7 @@ exports[`TextareaField test test by snapshots meta.warning = true 1`] = `
     label
   </h6>
   <textarea
-    className="form-control"
+    className="textarea form-control"
     disabled={false}
     placeholder="label"
   />

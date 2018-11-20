@@ -87,7 +87,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                   },
                   "profile": Object {
                     "ipfs": Object {
-                      "app/Profile/LOCATION_FIELD": Object {},
+                      "app_profile_location": Object {},
                     },
                   },
                   "saveProfile": [MockFunction],
@@ -111,7 +111,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                     },
                     "profile": Object {
                       "ipfs": Object {
-                        "app/Profile/LOCATION_FIELD": Object {},
+                        "app_profile_location": Object {},
                       },
                     },
                     "saveProfile": [MockFunction],
@@ -143,7 +143,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                       },
                       "profile": Object {
                         "ipfs": Object {
-                          "app/Profile/LOCATION_FIELD": Object {},
+                          "app_profile_location": Object {},
                         },
                       },
                       "saveProfile": [MockFunction],
@@ -213,33 +213,33 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                     registerField={[Function]}
                     registeredFields={
                       Immutable.Map {
-                        "app/Profile/AVATAR_FIELD": Immutable.Map {
-                          "name": "app/Profile/AVATAR_FIELD",
+                        "app_profile_avatar": Immutable.Map {
+                          "name": "app_profile_avatar",
                           "type": "Field",
                           "count": 1,
                         },
-                        "app/Profile/DISPLAY_NAME_FIELD": Immutable.Map {
-                          "name": "app/Profile/DISPLAY_NAME_FIELD",
+                        "app_profile_d_name": Immutable.Map {
+                          "name": "app_profile_d_name",
                           "type": "Field",
                           "count": 1,
                         },
-                        "app/Profile/POSITION_FIELD": Immutable.Map {
-                          "name": "app/Profile/POSITION_FIELD",
+                        "app_profile_position": Immutable.Map {
+                          "name": "app_profile_position",
                           "type": "Field",
                           "count": 1,
                         },
-                        "app/Profile/COMPANY_FIELD": Immutable.Map {
-                          "name": "app/Profile/COMPANY_FIELD",
+                        "app_profile_company": Immutable.Map {
+                          "name": "app_profile_company",
                           "type": "Field",
                           "count": 1,
                         },
-                        "app/Profile/ABOUT_FIELD": Immutable.Map {
-                          "name": "app/Profile/ABOUT_FIELD",
+                        "app_profile_about": Immutable.Map {
+                          "name": "app_profile_about",
                           "type": "Field",
                           "count": 1,
                         },
-                        "app/Profile/LOCATION_FIELD": Immutable.Map {
-                          "name": "app/Profile/LOCATION_FIELD",
+                        "app_profile_location": Immutable.Map {
+                          "name": "app_profile_location",
                           "type": "Field",
                           "count": 1,
                         },
@@ -258,7 +258,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                         },
                         "profile": Object {
                           "ipfs": Object {
-                            "app/Profile/LOCATION_FIELD": Object {},
+                            "app_profile_location": Object {},
                           },
                         },
                         "saveProfile": [MockFunction],
@@ -341,7 +341,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           },
                           "profile": Object {
                             "ipfs": Object {
-                              "app/Profile/LOCATION_FIELD": Object {},
+                              "app_profile_location": Object {},
                             },
                           },
                           "saveProfile": [MockFunction],
@@ -361,7 +361,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/AVATAR_FIELD"
+                            name="app_profile_avatar"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
@@ -373,7 +373,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 },
                                 "profile": Object {
                                   "ipfs": Object {
-                                    "app/Profile/LOCATION_FIELD": Object {},
+                                    "app_profile_location": Object {},
                                   },
                                 },
                                 "saveProfile": [MockFunction],
@@ -456,7 +456,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -496,7 +496,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/AVATAR_FIELD"
+                              name="app_profile_avatar"
                               normalize={[Function]}
                               sendProps={
                                 Object {
@@ -509,7 +509,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   },
                                   "profile": Object {
                                     "ipfs": Object {
-                                      "app/Profile/LOCATION_FIELD": Object {},
+                                      "app_profile_location": Object {},
                                     },
                                   },
                                   "saveProfile": [MockFunction],
@@ -592,7 +592,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -635,7 +635,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/AVATAR_FIELD"
+                                name="app_profile_avatar"
                                 normalize={[Function]}
                                 pristine={true}
                                 sendProps={
@@ -649,7 +649,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -663,7 +663,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/AVATAR_FIELD",
+                                      "name": "app_profile_avatar",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -703,7 +703,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -731,7 +731,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                           className="custom-file-input"
                                           disabled={false}
                                           id="avatarFile"
-                                          name="app/Profile/AVATAR_FIELD"
+                                          name="app_profile_avatar"
                                           onBlur={[Function]}
                                           onDragStart={[Function]}
                                           onDrop={[Function]}
@@ -765,7 +765,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/DISPLAY_NAME_FIELD"
+                            name="app_profile_d_name"
                             validate={[Function]}
                             warn={[Function]}
                           >
@@ -842,7 +842,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -882,7 +882,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/DISPLAY_NAME_FIELD"
+                              name="app_profile_d_name"
                               normalize={[Function]}
                               validate={[Function]}
                               warn={[Function]}
@@ -960,7 +960,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -1003,7 +1003,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/DISPLAY_NAME_FIELD"
+                                name="app_profile_d_name"
                                 normalize={[Function]}
                                 pristine={true}
                                 validate={[Function]}
@@ -1013,7 +1013,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/DISPLAY_NAME_FIELD",
+                                      "name": "app_profile_d_name",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -1048,7 +1048,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <input
                                       className="form-control"
                                       disabled={false}
-                                      name="app/Profile/DISPLAY_NAME_FIELD"
+                                      name="app_profile_d_name"
                                       onBlur={[Function]}
                                       onChange={[Function]}
                                       onDragStart={[Function]}
@@ -1069,7 +1069,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/POSITION_FIELD"
+                            name="app_profile_position"
                             validate={[Function]}
                             warn={[Function]}
                           >
@@ -1146,7 +1146,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -1186,7 +1186,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/POSITION_FIELD"
+                              name="app_profile_position"
                               normalize={[Function]}
                               validate={[Function]}
                               warn={[Function]}
@@ -1264,7 +1264,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -1307,7 +1307,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/POSITION_FIELD"
+                                name="app_profile_position"
                                 normalize={[Function]}
                                 pristine={true}
                                 validate={[Function]}
@@ -1317,7 +1317,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/POSITION_FIELD",
+                                      "name": "app_profile_position",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -1352,7 +1352,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <input
                                       className="form-control"
                                       disabled={false}
-                                      name="app/Profile/POSITION_FIELD"
+                                      name="app_profile_position"
                                       onBlur={[Function]}
                                       onChange={[Function]}
                                       onDragStart={[Function]}
@@ -1373,7 +1373,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/COMPANY_FIELD"
+                            name="app_profile_company"
                             validate={[Function]}
                             warn={[Function]}
                           >
@@ -1450,7 +1450,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -1490,7 +1490,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/COMPANY_FIELD"
+                              name="app_profile_company"
                               normalize={[Function]}
                               validate={[Function]}
                               warn={[Function]}
@@ -1568,7 +1568,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -1611,7 +1611,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/COMPANY_FIELD"
+                                name="app_profile_company"
                                 normalize={[Function]}
                                 pristine={true}
                                 validate={[Function]}
@@ -1621,7 +1621,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/COMPANY_FIELD",
+                                      "name": "app_profile_company",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -1656,7 +1656,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     <input
                                       className="form-control"
                                       disabled={false}
-                                      name="app/Profile/COMPANY_FIELD"
+                                      name="app_profile_company"
                                       onBlur={[Function]}
                                       onChange={[Function]}
                                       onDragStart={[Function]}
@@ -1677,7 +1677,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/ABOUT_FIELD"
+                            name="app_profile_about"
                             validate={[Function]}
                             warn={[Function]}
                           >
@@ -1754,7 +1754,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -1794,7 +1794,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/ABOUT_FIELD"
+                              name="app_profile_about"
                               normalize={[Function]}
                               validate={[Function]}
                               warn={[Function]}
@@ -1872,7 +1872,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -1915,7 +1915,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/ABOUT_FIELD"
+                                name="app_profile_about"
                                 normalize={[Function]}
                                 pristine={true}
                                 validate={[Function]}
@@ -1925,7 +1925,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/ABOUT_FIELD",
+                                      "name": "app_profile_about",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -1958,9 +1958,9 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   <div>
                                     <h6 />
                                     <textarea
-                                      className="form-control"
+                                      className="textarea form-control"
                                       disabled={false}
-                                      name="app/Profile/ABOUT_FIELD"
+                                      name="app_profile_about"
                                       onBlur={[Function]}
                                       onChange={[Function]}
                                       onDragStart={[Function]}
@@ -1979,7 +1979,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                           <Field
                             component={[Function]}
                             disabled={false}
-                            name="app/Profile/LOCATION_FIELD"
+                            name="app_profile_location"
                             sendProps={
                               Object {
                                 "citiesList": Array [],
@@ -1991,7 +1991,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 },
                                 "profile": Object {
                                   "ipfs": Object {
-                                    "app/Profile/LOCATION_FIELD": Object {},
+                                    "app_profile_location": Object {},
                                   },
                                 },
                                 "saveProfile": [MockFunction],
@@ -2072,7 +2072,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -2112,7 +2112,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                               }
                               component={[Function]}
                               disabled={false}
-                              name="app/Profile/LOCATION_FIELD"
+                              name="app_profile_location"
                               normalize={[Function]}
                               sendProps={
                                 Object {
@@ -2125,7 +2125,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   },
                                   "profile": Object {
                                     "ipfs": Object {
-                                      "app/Profile/LOCATION_FIELD": Object {},
+                                      "app_profile_location": Object {},
                                     },
                                   },
                                   "saveProfile": [MockFunction],
@@ -2206,7 +2206,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -2249,7 +2249,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                 dirty={false}
                                 disabled={false}
                                 dispatch={[Function]}
-                                name="app/Profile/LOCATION_FIELD"
+                                name="app_profile_location"
                                 normalize={[Function]}
                                 pristine={true}
                                 sendProps={
@@ -2263,7 +2263,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                     },
                                     "profile": Object {
                                       "ipfs": Object {
-                                        "app/Profile/LOCATION_FIELD": Object {},
+                                        "app_profile_location": Object {},
                                       },
                                     },
                                     "saveProfile": [MockFunction],
@@ -2275,7 +2275,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                   disabled={false}
                                   input={
                                     Object {
-                                      "name": "app/Profile/LOCATION_FIELD",
+                                      "name": "app_profile_location",
                                       "onBlur": [Function],
                                       "onChange": [Function],
                                       "onDragStart": [Function],
@@ -2315,7 +2315,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       },
                                       "profile": Object {
                                         "ipfs": Object {
-                                          "app/Profile/LOCATION_FIELD": Object {},
+                                          "app_profile_location": Object {},
                                         },
                                       },
                                       "saveProfile": [MockFunction],
@@ -2332,7 +2332,7 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         autoComplete="off"
                                         className="form-control mb-0 location-field"
                                         disabled={false}
-                                        name="app/Profile/LOCATION_FIELD"
+                                        name="app_profile_location"
                                         onBlur={[Function]}
                                         onChange={[Function]}
                                         onDragStart={[Function]}

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnswersTitle test 1`] = `
+<h5
+  className="answers-title"
+>
+  0 undefined
+</h5>
+`;

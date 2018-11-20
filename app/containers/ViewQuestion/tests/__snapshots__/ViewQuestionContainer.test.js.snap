@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewQuestionContainer test 1`] = `
+<Box>
+  <Question />
+  <Answers />
+  <ReduxForm />
+</Box>
+`;

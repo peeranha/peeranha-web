@@ -55,9 +55,9 @@ describe('profileReducer', () => {
 
   it('getCitiesList: returns locationSearch', () => {
     const locationSearch = 'Minsk';
-    const st = state.set('profile', { ipfs: {} });
+    const st = state.set('profile', {});
     const obj = state.set('locationSearch', locationSearch).set('profile', {
-      ipfs: {
+      profile: {
         [LOCATION_FIELD]: {
           name: locationSearch,
         },
@@ -89,9 +89,9 @@ describe('profileReducer', () => {
   it('chooseLocation: returns cityId, city', () => {
     const cityId = '10101';
     const city = 'Minsk';
-    const st = state.set('profile', { ipfs: {} });
+    const st = state.set('profile', {});
     const obj = state.set('profile', {
-      ipfs: {
+      profile: {
         [LOCATION_FIELD]: {
           id: cityId,
           name: city,

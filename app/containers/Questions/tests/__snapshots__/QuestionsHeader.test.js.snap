@@ -9,7 +9,7 @@ exports[`QuestionsHeader snapshot test 1`] = `
   />
   <Connect(AuthenticatedButton)
     buttonAction={[Function]}
-    buttonClass="btn btn-secondary"
+    className="btn btn-secondary"
   />
 </div>
 `;

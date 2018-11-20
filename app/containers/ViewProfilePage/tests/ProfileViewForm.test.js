@@ -10,19 +10,19 @@ describe('ProfileViewForm test', () => {
       },
     },
     profile: {
-      ipfs: {
+      profile: {
         [LOCATION_FIELD]: {},
       },
     },
   };
 
-  it('case 1: @profile.savedProfileImg is true', () => {
-    props.profile.savedProfileImg = true;
+  it('case 1: @profile.ipfs_avatar is true', () => {
+    props.profile.ipfs_avatar = true;
     expect(ProfileViewForm(props)).toMatchSnapshot();
   });
 
-  it('case 2: @profile.savedProfileImg is false', () => {
-    props.profile.savedProfileImg = false;
+  it('case 2: @profile.ipfs_avatar is false', () => {
+    props.profile.ipfs_avatar = false;
     expect(ProfileViewForm(props)).toMatchSnapshot();
   });
 

@@ -28,15 +28,15 @@ describe('Profile', () => {
       expect(cmp.render()).toMatchSnapshot();
     });
 
-    it('@isProfileLoading is false && @profile.eos is false', () => {
+    it('@isProfileLoading is false && @profile is false', () => {
       cmp.props.isProfileLoading = false;
-      cmp.props.profile.eos = null;
+      cmp.props.profile = null;
       expect(cmp.render()).toMatchSnapshot();
     });
 
-    it('@isProfileLoading is false && @profile.eos is true', () => {
+    it('@isProfileLoading is false && @profile is true', () => {
       cmp.props.isProfileLoading = false;
-      cmp.props.profile.eos = {};
+      cmp.props.profile = {};
       expect(cmp.render()).toMatchSnapshot();
     });
   });

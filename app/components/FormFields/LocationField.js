@@ -25,12 +25,12 @@ export const CitiesList = (showLocationList, sendProps) =>
   ) : null;
 
 function LocationField({ input, label, disabled, sendProps }) {
-  const { ipfs } = sendProps.profile;
+  const { profile } = sendProps.profile;
   const showLocationList =
-    ipfs &&
-    ipfs[LOCATION_FIELD] &&
-    !ipfs[LOCATION_FIELD].id &&
-    ipfs[LOCATION_FIELD].name;
+    profile &&
+    profile[LOCATION_FIELD] &&
+    !profile[LOCATION_FIELD].id &&
+    profile[LOCATION_FIELD].name;
 
   return (
     <div>
@@ -42,7 +42,9 @@ function LocationField({ input, label, disabled, sendProps }) {
           autoComplete="off"
           placeholder={label}
           onChange={e => sendProps.getCitiesList(e.target.value)}
-          value={ipfs && ipfs[LOCATION_FIELD] && ipfs[LOCATION_FIELD].name}
+          value={
+            profile && profile[LOCATION_FIELD] && profile[LOCATION_FIELD].name
+          }
           className="form-control mb-0 location-field"
           type="text"
         />

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question test 1`] = `
+<div
+  className="question"
+>
+  <QuestionTitle
+    title="Title"
+  />
+  <Content
+    answerId="0"
+    questionData={
+      Object {
+        "content": Object {
+          "title": "Title",
+        },
+      }
+    }
+  />
+</div>
+`;

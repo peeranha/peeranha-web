@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Answers test 1`] = `
+<div
+  className="answers"
+>
+  <AnswersTitle
+    answersNum={0}
+  />
+  <AcceptedAnswer
+    questionData={
+      Object {
+        "answers": Array [],
+      }
+    }
+  />
+  <AnswersList
+    questionData={
+      Object {
+        "answers": Array [],
+      }
+    }
+  />
+</div>
+`;

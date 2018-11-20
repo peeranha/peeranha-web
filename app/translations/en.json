@@ -1,6 +1,16 @@
 {
+  "app.containers.ViewQuestion.title": "Question's page",
+  "app.containers.ViewQuestion.description": "Question's description",
+  "app.containers.ViewQuestion.questionNotExist":
+    "This question does not exist",
+  "app.containers.ViewQuestion.editButton": "Edit",
+  "app.containers.ViewQuestion.commentButton": "Comment",
+  "app.containers.ViewQuestion.postCommentButton": "Post comment",
+  "app.containers.ViewQuestion.answers": "answers",
+  "app.containers.ViewQuestion.postAnswerButton": "Post answer",
+  "app.containers.ViewQuestion.yourAnswer": "Your answer",
   "app.components.FormFields.requiredField": "Required field",
-  "app.containers.FormFields.wrongLength20": "Min - 3, Max - 20",
+  "app.containers.FormFields.wrongLength": "Not valid field length",
   "app.containers.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
   "app.containers.FormFields.fileSize": "File size is exceeded",

@@ -11,29 +11,47 @@ import 'simplemde/dist/simplemde.min.css';
 
 import options from './options';
 
-const TextEditor = props => {
-  const handleEditorChange = txt => {
-    props.onChange(txt);
+/* eslint no-return-assign: "error" */
+class TextEditor extends React.Component {
+  componentDidUpdate() {
+    TextEditor.instance.codemirror.options.readOnly = this.props.disabled;
+  }
+
+  onBlurHandler = () => {
+    this.props.onBlur(this.props.value);
   };
 
-  return (
-    <div>
-      <SimpleMDE
-        {...props}
-        onBlur={null}
-        disabled={props.disabled}
-        onChange={handleEditorChange}
-        options={options}
-      />
-    </div>
-  );
-};
+  getMdeInstance = instance => {
+    TextEditor.instance = instance;
+  };
+
+  static getHtmlText = md =>
+    TextEditor.instance && TextEditor.instance.options.previewRender(md);
+
+  render() {
+    return (
+      <div>
+        <SimpleMDE
+          {...this.props}
+          onBlur={this.onBlurHandler}
+          getMdeInstance={this.getMdeInstance}
+          options={options}
+          extraKeys={{
+            Tab: false,
+          }}
+        />
+      </div>
+    );
+  }
+}
 
 TextEditor.propTypes = {
   content: PropTypes.string,
   disabled: PropTypes.bool,
   height: PropTypes.number,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default TextEditor;

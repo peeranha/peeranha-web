@@ -17,9 +17,9 @@ export const GET_LOCATION_LIST_SUCCESS =
 export const GET_LOCATION_LIST_ERROR = 'app/Profile/GET_LOCATION_LIST_ERROR';
 export const CHOOSE_CITY_ACTION = 'app/Profile/CHOOSE_CITY_ACTION';
 
-export const AVATAR_FIELD = 'app/Profile/AVATAR_FIELD';
-export const DISPLAY_NAME_FIELD = 'app/Profile/DISPLAY_NAME_FIELD';
-export const POSITION_FIELD = 'app/Profile/POSITION_FIELD';
-export const COMPANY_FIELD = 'app/Profile/COMPANY_FIELD';
-export const ABOUT_FIELD = 'app/Profile/ABOUT_FIELD';
-export const LOCATION_FIELD = 'app/Profile/LOCATION_FIELD';
+export const AVATAR_FIELD = 'app_profile_avatar';
+export const DISPLAY_NAME_FIELD = 'app_profile_d_name';
+export const POSITION_FIELD = 'app_profile_position';
+export const COMPANY_FIELD = 'app_profile_company';
+export const ABOUT_FIELD = 'app_profile_about';
+export const LOCATION_FIELD = 'app_profile_location';

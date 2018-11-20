@@ -1,4 +1,5 @@
 const options = {
+  status: false,
   toolbar: [
     'bold',
     'italic',
@@ -15,7 +16,6 @@ const options = {
     'preview',
     'undo',
     'redo',
-    'guide',
   ],
 };
 
