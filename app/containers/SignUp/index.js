@@ -101,7 +101,6 @@ export class SignUp extends React.Component {
   render() {
     const {
       loading,
-      error,
       account,
       locale,
       content,
@@ -137,7 +136,6 @@ export class SignUp extends React.Component {
             <SignUpForm
               registerUser={this.registerUser}
               loading={loading}
-              errorMessage={error}
               account={account}
               translations={translationMessages[locale]}
             />
@@ -165,7 +163,6 @@ SignUp.propTypes = {
   loginSignupDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
-  error: PropTypes.object,
   userIsInSystem: PropTypes.bool,
   loading: PropTypes.bool,
   registered: PropTypes.bool,
@@ -176,7 +173,6 @@ SignUp.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   loading: signUpSelectors.makeSelectLoading(),
-  error: signUpSelectors.makeSelectError(),
   registered: signUpSelectors.makeSelectRegistered(),
   content: signUpSelectors.makeSelectContent(),
   showModal: signUpSelectors.makeSelectShowModal(),

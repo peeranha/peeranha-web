@@ -11,6 +11,7 @@ const ViewQuestionContainer = props => (
     <Question {...props} />
     <Answers {...props} />
     <AnswerQuestionForm
+      postButtonId="0"
       translations={props.translations}
       postAnswer={props.postAnswer}
       postAnswerLoading={props.postAnswerLoading}

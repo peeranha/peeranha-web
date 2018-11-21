@@ -9,6 +9,11 @@ const makeSelectAccount = () =>
     substate.get('account'),
   );
 
+const makeSelectProfileInfo = () =>
+  createSelector(selectAccountProviderDomain, substate =>
+    substate.get('profileInfo'),
+  );
+
 const makeSelectLoading = () =>
   createSelector(selectAccountProviderDomain, substate =>
     substate.get('loading'),
@@ -37,6 +42,7 @@ const makeSelectForgetIdentityError = () =>
 export {
   selectAccountProviderDomain,
   makeSelectAccount,
+  makeSelectProfileInfo,
   makeSelectLoading,
   makeSelectError,
   makeSelectUserIsInSystem,

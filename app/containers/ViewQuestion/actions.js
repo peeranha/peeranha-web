@@ -46,13 +46,22 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function postAnswer(user, questionId, answer, reset) {
+export function postAnswer(
+  user,
+  questionId,
+  answer,
+  reset,
+  postButtonId,
+  translations,
+) {
   return {
     type: POST_ANSWER,
     user,
     questionId,
     answer,
     reset,
+    postButtonId,
+    translations,
   };
 }
 
@@ -70,7 +79,15 @@ export function postAnswerErr(postAnswerError) {
   };
 }
 
-export function postComment(user, questionId, answerId, comment, reset) {
+export function postComment(
+  user,
+  questionId,
+  answerId,
+  comment,
+  reset,
+  postButtonId,
+  translations,
+) {
   return {
     type: POST_COMMENT,
     user,
@@ -78,6 +95,8 @@ export function postComment(user, questionId, answerId, comment, reset) {
     answerId,
     comment,
     reset,
+    postButtonId,
+    translations,
   };
 }
 
@@ -95,12 +114,14 @@ export function postCommentErr(postCommentError) {
   };
 }
 
-export function upVote(user, questionId, answerId) {
+export function upVote(user, questionId, answerId, postButtonId, translations) {
   return {
     type: UP_VOTE,
     user,
     questionId,
     answerId,
+    postButtonId,
+    translations,
   };
 }
 
@@ -118,12 +139,20 @@ export function upVoteErr(upVoteError) {
   };
 }
 
-export function downVote(user, questionId, answerId) {
+export function downVote(
+  user,
+  questionId,
+  answerId,
+  postButtonId,
+  translations,
+) {
   return {
     type: DOWN_VOTE,
     user,
     questionId,
     answerId,
+    postButtonId,
+    translations,
   };
 }
 
@@ -141,12 +170,20 @@ export function downVoteErr(downVoteError) {
   };
 }
 
-export function markAsAccepted(user, questionId, correctAnswerId) {
+export function markAsAccepted(
+  user,
+  questionId,
+  correctAnswerId,
+  postButtonId,
+  translations,
+) {
   return {
     type: MARK_AS_ACCEPTED,
     user,
     questionId,
     correctAnswerId,
+    postButtonId,
+    translations,
   };
 }
 

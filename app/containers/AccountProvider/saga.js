@@ -4,7 +4,9 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { COMPLETE_LOGIN } from 'containers/Login/constants';
 import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
+
 import { isUserInSystem } from 'utils/accountManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 
 import {
   NO_SCATTER,
@@ -41,11 +43,11 @@ export function* getCurrentAccountWorker() {
       ? call(() => eosService.getSelectedAccount())
       : null;
 
-    const userIsInSystem = yield call(() =>
-      isUserInSystem(selectedScatterAccount, eosService),
-    );
+    const profileInfo = yield selectedScatterAccount
+      ? call(() => getProfileInfo(selectedScatterAccount, eosService))
+      : null;
 
-    yield put(getCurrentAccountSuccess(selectedScatterAccount, userIsInSystem));
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, profileInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
@@ -121,8 +123,10 @@ export function* loginSignupWorker(res) {
       return;
     }
 
+    const profileInfo = yield call(() => getProfileInfo(account, eosService));
+
     yield closeModals();
-    yield put(loginSignupSuccess(account, userIsInSystem));
+    yield put(loginSignupSuccess(account, profileInfo));
   } catch (err) {
     yield put(loginSignupErr(err));
   }

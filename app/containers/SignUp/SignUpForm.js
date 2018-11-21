@@ -64,7 +64,6 @@ SignUpForm.propTypes = {
   invalid: PropTypes.bool,
   loading: PropTypes.bool,
   account: PropTypes.string,
-  errorMessage: PropTypes.object,
   translations: PropTypes.object,
 };
 

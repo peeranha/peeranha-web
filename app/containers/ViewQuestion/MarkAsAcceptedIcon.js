@@ -21,16 +21,19 @@ const renderIcon = x => {
 const MarkAsAcceptedIcon = props => {
   const icon = renderIcon(props);
   return icon ? (
-    <FontAwesomeIcon
-      onClick={() => props.markAsAccepted(icon.id)}
-      className={`chevron check ${icon.color}`}
-      icon="check"
-    />
+    <button id={props.id}>
+      <FontAwesomeIcon
+        onClick={() => props.markAsAccepted(icon.id)}
+        className={`chevron check ${icon.color}`}
+        icon="check"
+      />
+    </button>
   ) : null;
 };
 
 MarkAsAcceptedIcon.propTypes = {
   markAsAccepted: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export { renderIcon };

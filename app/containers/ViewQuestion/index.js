@@ -35,7 +35,15 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import { TEXT_EDITOR_ANSWER_FORM, TEXTAREA_COMMENT_FORM } from './constants';
+import {
+  TEXT_EDITOR_ANSWER_FORM,
+  TEXTAREA_COMMENT_FORM,
+  POST_ANSWER_BUTTON,
+  POST_COMMENT_BUTTON,
+  MARK_AS_BUTTON,
+  UP_VOTE_BUTTON,
+  DOWN_VOTE_BUTTON,
+} from './constants';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import NoSuchQuestion from './NoSuchQuestion';
@@ -47,36 +55,72 @@ export class ViewQuestion extends React.Component {
     this.props.getQuestionDataDispatch(this.questionId);
   }
 
-  markAsAccepted = id => {
-    this.props.markAsAcceptedDispatch(this.props.account, this.questionId, id);
+  markAsAccepted = answerId => {
+    const postButtonId = `${MARK_AS_BUTTON}${answerId}`;
+    const translations = translationMessages[this.props.locale];
+
+    this.props.markAsAcceptedDispatch(
+      this.props.account,
+      this.questionId,
+      answerId,
+      postButtonId,
+      translations,
+    );
   };
 
   upVote = answerId => {
-    this.props.upVoteDispatch(this.props.account, this.questionId, answerId);
+    const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
+    const translations = translationMessages[this.props.locale];
+
+    this.props.upVoteDispatch(
+      this.props.account,
+      this.questionId,
+      answerId,
+      postButtonId,
+      translations,
+    );
   };
 
   downVote = answerId => {
-    this.props.downVoteDispatch(this.props.account, this.questionId, answerId);
+    const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
+    const translations = translationMessages[this.props.locale];
+
+    this.props.downVoteDispatch(
+      this.props.account,
+      this.questionId,
+      answerId,
+      postButtonId,
+      translations,
+    );
   };
 
   postAnswer = (...args) => {
     const answer = TextEditor.getHtmlText(args[0].get(TEXT_EDITOR_ANSWER_FORM));
+    const postButtonId = `${POST_ANSWER_BUTTON}${args[2].postButtonId}`;
+    const translations = translationMessages[this.props.locale];
 
     this.props.postAnswerDispatch(
       this.props.account,
       this.questionId,
       answer,
       args[2].reset,
+      postButtonId,
+      translations,
     );
   };
 
   postComment = (...args) => {
+    const postButtonId = `${POST_COMMENT_BUTTON}${args[2].answerId}`;
+    const translations = translationMessages[this.props.locale];
+
     this.props.postCommentDispatch(
       this.props.account,
       this.questionId,
       args[2].answerId,
       args[0].get(TEXTAREA_COMMENT_FORM),
       args[2].reset,
+      postButtonId,
+      translations,
     );
   };
 
@@ -165,16 +209,65 @@ export function mapDispatchToProps(dispatch) {
     dispatch,
     getQuestionDataDispatch: questionId =>
       dispatch(getQuestionData(questionId)),
-    postAnswerDispatch: (user, questionId, answer, reset) =>
-      dispatch(postAnswer(user, questionId, answer, reset)),
-    postCommentDispatch: (user, questionId, answerId, comment, reset) =>
-      dispatch(postComment(user, questionId, answerId, comment, reset)),
-    upVoteDispatch: (user, questionId, answerId) =>
-      dispatch(upVote(user, questionId, answerId)),
-    downVoteDispatch: (user, questionId, answerId) =>
-      dispatch(downVote(user, questionId, answerId)),
-    markAsAcceptedDispatch: (user, questionId, correctAnswerId) =>
-      dispatch(markAsAccepted(user, questionId, correctAnswerId)),
+    postAnswerDispatch: (
+      user,
+      questionId,
+      answer,
+      reset,
+      postButtonId,
+      translations,
+    ) =>
+      dispatch(
+        postAnswer(user, questionId, answer, reset, postButtonId, translations),
+      ),
+    postCommentDispatch: (
+      user,
+      questionId,
+      answerId,
+      comment,
+      reset,
+      postButtonId,
+      translations,
+    ) =>
+      dispatch(
+        postComment(
+          user,
+          questionId,
+          answerId,
+          comment,
+          reset,
+          postButtonId,
+          translations,
+        ),
+      ),
+    upVoteDispatch: (user, questionId, answerId, postButtonId, translations) =>
+      dispatch(upVote(user, questionId, answerId, postButtonId, translations)),
+    downVoteDispatch: (
+      user,
+      questionId,
+      answerId,
+      postButtonId,
+      translations,
+    ) =>
+      dispatch(
+        downVote(user, questionId, answerId, postButtonId, translations),
+      ),
+    markAsAcceptedDispatch: (
+      user,
+      questionId,
+      correctAnswerId,
+      postButtonId,
+      translations,
+    ) =>
+      dispatch(
+        markAsAccepted(
+          user,
+          questionId,
+          correctAnswerId,
+          postButtonId,
+          translations,
+        ),
+      ),
   };
 }
 

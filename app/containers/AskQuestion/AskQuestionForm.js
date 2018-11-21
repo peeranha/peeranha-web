@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import AuthenticatedButton from 'containers/AuthenticatedButton';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
   strLength30000,
@@ -14,7 +14,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import TextEditorField from 'components/FormFields/TextEditorField';
 
 import messages from './messages';
-import { FORM_TITLE, FORM_CONTENT } from './constants';
+import { FORM_TITLE, FORM_CONTENT, POST_QUESTION_BUTTON } from './constants';
 
 import Box from './Box';
 
@@ -42,13 +42,18 @@ const AskQuestionForm = props => (
       />
     </div>
     <div>
-      <AuthenticatedButton
-        userIsInSystem={props.userIsInSystem}
+      <button
+        id={`${POST_QUESTION_BUTTON}`}
+        type="submit"
         className="btn btn-success form-control"
-        content={props.translations[messages.postQuestion.id]}
-        isLoading={props.askQuestionLoading}
         disabled={props.invalid || props.submitting || props.askQuestionLoading}
-      />
+      >
+        {props.askQuestionLoading ? (
+          <LoadingIndicator />
+        ) : (
+          props.translations[messages.postQuestion.id]
+        )}
+      </button>
     </div>
   </Box>
 );
@@ -57,7 +62,6 @@ AskQuestionForm.propTypes = {
   invalid: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
   askQuestionLoading: PropTypes.bool,
-  userIsInSystem: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
   postQuestion: PropTypes.func.isRequired,
   translations: PropTypes.object.isRequired,

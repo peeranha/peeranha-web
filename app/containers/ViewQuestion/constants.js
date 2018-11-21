@@ -37,3 +37,9 @@ export const TEXT_EDITOR_ANSWER_FORM =
 
 export const ADD_COMMENT_FORM = 'app_ViewQuestion_ADD_COMMENT_FORM';
 export const TEXTAREA_COMMENT_FORM = 'app_ViewQuestion_TEXTAREA_COMMENT_FORM';
+
+export const POST_ANSWER_BUTTON = 'app_view_question_post_answer_button';
+export const POST_COMMENT_BUTTON = 'app_view_question_post_comment_button';
+export const MARK_AS_BUTTON = 'app_view_question_mark_as_button';
+export const UP_VOTE_BUTTON = 'app_view_question_upvote_button';
+export const DOWN_VOTE_BUTTON = 'app_view_question_downvote_button';

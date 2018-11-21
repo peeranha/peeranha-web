@@ -1,4 +1,11 @@
 {
+  "app.containers.ViewQuestion.notEnoughRating":
+    "Чтобы выполнить это действие, Ваш рейтинг должен быть больше",
+  "app.containers.ViewQuestion.alreadyAnswered":
+    "Вы уже ответили на этот вопрос",
+  "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",
+  "app.containers.ViewQuestion.noRootsToVote":
+    "Вы не можете голосовать за свои вопросы и ответы",
   "app.containers.ViewQuestion.title": "Страница вопроса",
   "app.containers.ViewQuestion.description": "Содержание вопроса",
   "app.containers.ViewQuestion.questionNotExist":
@@ -89,5 +96,7 @@
   "app.containers.Questions.votes": "голосов",
   "app.containers.Questions.answers": "ответов",
   "app.containers.Questions.askQuestion": "Задать вопрос",
-  "app.containers.AskQuestion.contentLabel": "Содержание"
+  "app.containers.AskQuestion.contentLabel": "Содержание",
+  "app.containers.AskQuestion.notEnoughRating":
+    "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"
 }

@@ -43,4 +43,20 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.yourAnswer',
     defaultMessage: `Your answer`,
   },
+  notEnoughRating: {
+    id: 'app.containers.ViewQuestion.notEnoughRating',
+    defaultMessage: 'To complete this action, your rating has to be more than',
+  },
+  alreadyAnswered: {
+    id: 'app.containers.ViewQuestion.notEnoughRating',
+    defaultMessage: 'You already answered this question',
+  },
+  itemsMax: {
+    id: 'app.containers.ViewQuestion.itemsMax',
+    defaultMessage: 'Number of items is achieved of maximum',
+  },
+  noRootsToVote: {
+    id: 'app.containers.ViewQuestion.noRootsToVote',
+    defaultMessage: 'You cannot vote to own questions and answers',
+  },
 });

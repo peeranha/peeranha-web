@@ -4,10 +4,15 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import { strLength30000, required } from 'components/FormFields/validate';
 
-import AuthenticatedButton from 'containers/AuthenticatedButton';
+import LoadingIndicator from 'components/LoadingIndicator';
 import TextEditorField from 'components/FormFields/TextEditorField';
 
-import { ADD_ANSWER_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
+import {
+  ADD_ANSWER_FORM,
+  TEXT_EDITOR_ANSWER_FORM,
+  POST_ANSWER_BUTTON,
+} from './constants';
+
 import messages from './messages';
 
 const AnswerQuestionForm = props => (
@@ -24,20 +29,27 @@ const AnswerQuestionForm = props => (
         />
       </div>
       <div>
-        <AuthenticatedButton
-          isLoading={props.postAnswerLoading}
+        <button
+          id={`${POST_ANSWER_BUTTON}${props.postButtonId}`}
+          type="submit"
           className="btn btn-secondary"
-          content={props.translations[messages.postAnswerButton.id]}
           disabled={
             props.invalid || props.submitting || props.postAnswerLoading
           }
-        />
+        >
+          {props.postAnswerLoading ? (
+            <LoadingIndicator />
+          ) : (
+            props.translations[messages.postAnswerButton.id]
+          )}
+        </button>
       </div>
     </form>
   </div>
 );
 
 AnswerQuestionForm.propTypes = {
+  postButtonId: PropTypes.string,
   handleSubmit: PropTypes.func,
   postAnswer: PropTypes.func,
   postAnswerLoading: PropTypes.bool,

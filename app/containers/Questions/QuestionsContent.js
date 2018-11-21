@@ -9,44 +9,42 @@ import * as routes from 'routes-config';
 import messages from './messages';
 
 const QuestionItem = item => (
-  <Link to={routes.question_view(item.id)} href={routes.question_view(item.id)}>
-    <div className="question-item">
-      <div className="title-user">
+  <div className="question-item">
+    <div className="title-user">
+      <Link
+        className="highlighted-link"
+        to={routes.question_view(item.id)}
+        href={routes.question_view(item.id)}
+      >
+        <h5 className="highlighted-link">{item.title}</h5>
+      </Link>
+      <p>
         <Link
           className="highlighted-link"
-          to={routes.question_view(item.id)}
-          href={routes.question_view(item.id)}
+          to={routes.profile_view(item.user)}
+          href={routes.profile_view(item.user)}
         >
-          <h5 className="highlighted-link">{item.title}</h5>
+          {item.user}
         </Link>
+        {' | '}
+        <span>{getTimeFromDateToNow(item.post_time, item.locale)}</span>
+      </p>
+    </div>
+    <div className="votes-answers">
+      <div className="votes">
+        <p className="number">{item.rating}</p>
         <p>
-          <Link
-            className="highlighted-link"
-            to={routes.profile_view(item.user)}
-            href={routes.profile_view(item.user)}
-          >
-            {item.user}
-          </Link>
-          {' | '}
-          <span>{getTimeFromDateToNow(item.post_time, item.locale)}</span>
+          <FormattedMessage {...messages.votes} />
         </p>
       </div>
-      <div className="votes-answers">
-        <div className="votes">
-          <p className="number">{item.rating}</p>
-          <p>
-            <FormattedMessage {...messages.votes} />
-          </p>
-        </div>
-        <div className="answers" data-bg={!!item.correct_answer_id}>
-          <p className="number">{item.answers.length}</p>
-          <p>
-            <FormattedMessage {...messages.answers} />
-          </p>
-        </div>
+      <div className="answers" data-bg={!!item.correct_answer_id}>
+        <p className="number">{item.answers.length}</p>
+        <p>
+          <FormattedMessage {...messages.answers} />
+        </p>
       </div>
     </div>
-  </Link>
+  </div>
 );
 
 const QuestionsContent = props => (

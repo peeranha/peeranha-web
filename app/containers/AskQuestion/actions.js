@@ -10,11 +10,13 @@ import {
   ASK_QUESTION_ERROR,
 } from './constants';
 
-export function askQuestion(user, questionData) {
+export function askQuestion(user, questionData, postButtonId, translations) {
   return {
     type: ASK_QUESTION,
     user,
     questionData,
+    postButtonId,
+    translations,
   };
 }
 

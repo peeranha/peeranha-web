@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import AuthenticatedButton from 'containers/AuthenticatedButton';
-
+import LoadingIndicator from 'components/LoadingIndicator';
+import TextareaField from 'components/FormFields/TextareaField';
 import { strLength1000, required } from 'components/FormFields/validate';
 
-import TextareaField from 'components/FormFields/TextareaField';
-
-import { TEXTAREA_COMMENT_FORM } from './constants';
+import { TEXTAREA_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
 
 const AddCommentForm = props => (
@@ -24,20 +22,27 @@ const AddCommentForm = props => (
         />
       </div>
       <div>
-        <AuthenticatedButton
-          isLoading={props.postCommentLoading}
+        <button
+          id={`${POST_COMMENT_BUTTON}${props.answerId}`}
+          type="submit"
           className="btn btn-secondary"
-          content={props.translations[messages.postCommentButton.id]}
           disabled={
             props.invalid || props.submitting || props.postCommentLoading
           }
-        />
+        >
+          {props.postCommentLoading ? (
+            <LoadingIndicator />
+          ) : (
+            props.translations[messages.postCommentButton.id]
+          )}
+        </button>
       </div>
     </form>
   </div>
 );
 
 AddCommentForm.propTypes = {
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleSubmit: PropTypes.func,
   postComment: PropTypes.func,
   postCommentLoading: PropTypes.bool,

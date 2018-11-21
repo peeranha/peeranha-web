@@ -27,4 +27,8 @@ export default defineMessages({
     id: 'app.containers.AskQuestion.contentLabel',
     defaultMessage: 'Body',
   },
+  notEnoughRating: {
+    id: 'app.containers.AskQuestion.notEnoughRating',
+    defaultMessage: 'To complete this action, your rating has to be more than',
+  },
 });
