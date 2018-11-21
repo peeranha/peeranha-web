@@ -23,11 +23,11 @@ export function getCurrentAccount() {
   };
 }
 
-export function getCurrentAccountSuccess(acc, profileInfo) {
+export function getCurrentAccountSuccess(acc, userIsInSystem) {
   return {
     type: GET_CURRENT_ACCOUNT_SUCCESS,
     acc,
-    profileInfo,
+    userIsInSystem,
   };
 }
 
@@ -51,10 +51,10 @@ export function loginSignup(methods) {
   };
 }
 
-export function loginSignupSuccess(acc, profileInfo) {
+export function loginSignupSuccess(acc, userIsInSystem) {
   return {
     type: LOGIN_SIGNUP_SUCCESS,
-    profileInfo,
+    userIsInSystem,
     acc,
   };
 }

@@ -4,6 +4,8 @@ exports[`ViewQuestionContainer test 1`] = `
 <Box>
   <Question />
   <Answers />
-  <ReduxForm />
+  <ReduxForm
+    postButtonId="0"
+  />
 </Box>
 `;

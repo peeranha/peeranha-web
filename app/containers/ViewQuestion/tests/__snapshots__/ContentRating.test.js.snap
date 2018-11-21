@@ -6,51 +6,60 @@ exports[`ContentRating snapshot test 1`] = `
 >
   <MarkAsAcceptedIcon
     correct_answer_id={0}
+    id="app_view_question_mark_as_buttonundefined"
   />
-  <FontAwesomeIcon
-    border={false}
-    className="chevron chevron-up"
-    data-voting="chevron-up-undefined"
-    fixedWidth={false}
-    flip={null}
-    icon="chevron-up"
-    inverse={false}
-    listItem={false}
-    mask={null}
-    onClick={[Function]}
-    pull={null}
-    pulse={false}
-    rotation={null}
-    size={null}
-    spin={false}
-    symbol={false}
-    title=""
-    transform={null}
-  />
+  <button
+    id="app_view_question_upvote_buttonundefined"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="chevron chevron-up"
+      data-voting="chevron-up-undefined"
+      fixedWidth={false}
+      flip={null}
+      icon="chevron-up"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </button>
   <span
     className="rating-value"
   >
     0
   </span>
-  <FontAwesomeIcon
-    border={false}
-    className="chevron chevron-down"
-    data-voting="chevron-down-undefined"
-    fixedWidth={false}
-    flip={null}
-    icon="chevron-down"
-    inverse={false}
-    listItem={false}
-    mask={null}
-    onClick={[Function]}
-    pull={null}
-    pulse={false}
-    rotation={null}
-    size={null}
-    spin={false}
-    symbol={false}
-    title=""
-    transform={null}
-  />
+  <button
+    id="app_view_question_downvote_buttonundefined"
+  >
+    <FontAwesomeIcon
+      border={false}
+      className="chevron chevron-down"
+      data-voting="chevron-down-undefined"
+      fixedWidth={false}
+      flip={null}
+      icon="chevron-down"
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </button>
 </div>
 `;

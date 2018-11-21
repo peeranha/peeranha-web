@@ -1284,28 +1284,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 1 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-success form-control"
                             disabled={true}
-                            isLoading={false}
-                            userIsInSystem={true}
-                          >
-                            <AuthenticatedButton
-                              className="btn btn-success form-control"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={false}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-success form-control"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              />
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            id="app_post_question_button"
+                            type="submit"
+                          />
                         </div>
                       </form>
                     </Box>
@@ -2717,28 +2701,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 2 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-success form-control"
                             disabled={true}
-                            isLoading={false}
-                            userIsInSystem={true}
-                          >
-                            <AuthenticatedButton
-                              className="btn btn-success form-control"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={false}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-success form-control"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              />
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            id="app_post_question_button"
+                            type="submit"
+                          />
                         </div>
                       </form>
                     </Box>
@@ -4262,28 +4230,12 @@ exports[`<AskQuestionFormDefault /> snapshot test 3 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-success form-control"
                             disabled={true}
-                            isLoading={false}
-                            userIsInSystem={true}
-                          >
-                            <AuthenticatedButton
-                              className="btn btn-success form-control"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={false}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-success form-control"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              />
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            id="app_post_question_button"
+                            type="submit"
+                          />
                         </div>
                       </form>
                     </Box>
@@ -5919,154 +5871,138 @@ exports[`<AskQuestionFormDefault /> snapshot test 4 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-success form-control"
                             disabled={true}
-                            isLoading={true}
-                            userIsInSystem={true}
+                            id="app_post_question_button"
+                            type="submit"
                           >
-                            <AuthenticatedButton
-                              className="btn btn-success form-control"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={true}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-success form-control"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              >
-                                <LoadingIndicator>
-                                  <Wrapper>
-                                    <div
-                                      className="Wrapper-ThVjl bNvReZ"
-                                    >
-                                      <Circle>
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG ehmTAR"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-1.1}
-                                        rotate={30}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG zdGXL"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-1}
-                                        rotate={60}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG hZmZmt"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.9}
-                                        rotate={90}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG hmjUiu"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.8}
-                                        rotate={120}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG SCPwQ"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.7}
-                                        rotate={150}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG drXvaa"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.6}
-                                        rotate={180}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG OJgdC"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.5}
-                                        rotate={210}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG gZiMKx"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.4}
-                                        rotate={240}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG okLMH"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.3}
-                                        rotate={270}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG eaNyAy"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.2}
-                                        rotate={300}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG eJcvxt"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.1}
-                                        rotate={330}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG iUFKZk"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                    </div>
-                                  </Wrapper>
-                                </LoadingIndicator>
-                              </button>
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            <LoadingIndicator>
+                              <Wrapper>
+                                <div
+                                  className="Wrapper-ThVjl bNvReZ"
+                                >
+                                  <Circle>
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG ehmTAR"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-1.1}
+                                    rotate={30}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG zdGXL"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-1}
+                                    rotate={60}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG hZmZmt"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.9}
+                                    rotate={90}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG hmjUiu"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.8}
+                                    rotate={120}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG SCPwQ"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.7}
+                                    rotate={150}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG drXvaa"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.6}
+                                    rotate={180}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG OJgdC"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.5}
+                                    rotate={210}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG gZiMKx"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.4}
+                                    rotate={240}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG okLMH"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.3}
+                                    rotate={270}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG eaNyAy"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.2}
+                                    rotate={300}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG eJcvxt"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.1}
+                                    rotate={330}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG iUFKZk"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                </div>
+                              </Wrapper>
+                            </LoadingIndicator>
+                          </button>
                         </div>
                       </form>
                     </Box>

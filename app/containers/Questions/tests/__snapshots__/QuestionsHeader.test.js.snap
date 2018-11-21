@@ -7,9 +7,9 @@ exports[`QuestionsHeader snapshot test 1`] = `
   <h4
     className="text-uppercase font-weight-bold"
   />
-  <Connect(AuthenticatedButton)
-    buttonAction={[Function]}
+  <button
     className="btn btn-secondary"
+    onClick={[Function]}
   />
 </div>
 `;

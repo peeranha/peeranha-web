@@ -1,7 +1,16 @@
 import TextEditor from 'components/TextEditor';
+import { translationMessages } from 'i18n';
 
 import { ViewQuestion, mapDispatchToProps } from '../index';
-import { TEXTAREA_COMMENT_FORM } from '../constants';
+
+import {
+  TEXTAREA_COMMENT_FORM,
+  POST_ANSWER_BUTTON,
+  POST_COMMENT_BUTTON,
+  MARK_AS_BUTTON,
+  UP_VOTE_BUTTON,
+  DOWN_VOTE_BUTTON,
+} from '../constants';
 
 jest.mock('components/TextEditor');
 
@@ -47,6 +56,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const id = 10;
       const questionId = 110;
+      const postButtonId = `${MARK_AS_BUTTON}${id}`;
 
       cmp.questionId = questionId;
 
@@ -55,6 +65,8 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         id,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -63,6 +75,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
@@ -71,6 +84,8 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         answerId,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -79,6 +94,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
@@ -87,14 +103,17 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         answerId,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
 
   describe('postAnswer', () => {
     const reset = () => {};
-    const obj = { answerId: 1, reset };
+    const obj = { answerId: 1, reset, postButtonId: 1 };
     const mapp = new Map().set(TEXTAREA_COMMENT_FORM, 'TEXTAREA_COMMENT_FORM');
+    const postButtonId = `${POST_ANSWER_BUTTON}${obj.postButtonId}`;
 
     it('test', () => {
       const answer = 'HI';
@@ -109,6 +128,8 @@ describe('<ViewQuestion />', () => {
         questionId,
         answer,
         obj.reset,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -117,6 +138,7 @@ describe('<ViewQuestion />', () => {
     const reset = () => {};
     const obj = { answerId: 1, reset };
     const mapp = new Map().set(TEXTAREA_COMMENT_FORM, 'TEXTAREA_COMMENT_FORM');
+    const postButtonId = `${POST_COMMENT_BUTTON}${obj.answerId}`;
 
     it('test', () => {
       const questionId = 5;
@@ -129,6 +151,8 @@ describe('<ViewQuestion />', () => {
         obj.answerId,
         mapp.get(TEXTAREA_COMMENT_FORM),
         obj.reset,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });

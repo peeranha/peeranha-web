@@ -80,6 +80,8 @@ describe('ViewQuestions actions', () => {
       const questionId = 'questionId';
       const answer = 'answer';
       const reset = 'reset';
+      const postButtonId = 'postButtonId';
+      const translations = null;
 
       const expected = {
         type: POST_ANSWER,
@@ -87,8 +89,13 @@ describe('ViewQuestions actions', () => {
         questionId,
         answer,
         reset,
+        postButtonId,
+        translations,
       };
-      expect(postAnswer(user, questionId, answer, reset)).toEqual(expected);
+
+      expect(
+        postAnswer(user, questionId, answer, reset, postButtonId, translations),
+      ).toEqual(expected);
     });
   });
 
@@ -121,6 +128,8 @@ describe('ViewQuestions actions', () => {
       const answerId = 'answerId';
       const comment = 'comment';
       const reset = 'reset';
+      const postButtonId = 'postButtonId';
+      const translations = null;
 
       const expected = {
         type: POST_COMMENT,
@@ -129,10 +138,20 @@ describe('ViewQuestions actions', () => {
         answerId,
         comment,
         reset,
+        postButtonId,
+        translations,
       };
-      expect(postComment(user, questionId, answerId, comment, reset)).toEqual(
-        expected,
-      );
+      expect(
+        postComment(
+          user,
+          questionId,
+          answerId,
+          comment,
+          reset,
+          postButtonId,
+          translations,
+        ),
+      ).toEqual(expected);
     });
   });
 
@@ -163,14 +182,20 @@ describe('ViewQuestions actions', () => {
       const user = 'user';
       const questionId = 'questionId';
       const answerId = 'answerId';
+      const postButtonId = 'postButtonId';
+      const translations = null;
 
       const expected = {
         type: UP_VOTE,
         user,
         questionId,
         answerId,
+        postButtonId,
+        translations,
       };
-      expect(upVote(user, questionId, answerId)).toEqual(expected);
+      expect(
+        upVote(user, questionId, answerId, postButtonId, translations),
+      ).toEqual(expected);
     });
   });
 
@@ -201,14 +226,20 @@ describe('ViewQuestions actions', () => {
       const user = 'user';
       const questionId = 'questionId';
       const answerId = 'answerId';
+      const postButtonId = 'postButtonId';
+      const translations = null;
 
       const expected = {
         type: DOWN_VOTE,
         user,
         questionId,
         answerId,
+        postButtonId,
+        translations,
       };
-      expect(downVote(user, questionId, answerId)).toEqual(expected);
+      expect(
+        downVote(user, questionId, answerId, postButtonId, translations),
+      ).toEqual(expected);
     });
   });
 
@@ -239,16 +270,26 @@ describe('ViewQuestions actions', () => {
       const user = 'user';
       const questionId = 'questionId';
       const correctAnswerId = 'correctAnswerId';
+      const postButtonId = 'postButtonId';
+      const translations = null;
 
       const expected = {
         type: MARK_AS_ACCEPTED,
         user,
         questionId,
         correctAnswerId,
+        postButtonId,
+        translations,
       };
-      expect(markAsAccepted(user, questionId, correctAnswerId)).toEqual(
-        expected,
-      );
+      expect(
+        markAsAccepted(
+          user,
+          questionId,
+          correctAnswerId,
+          postButtonId,
+          translations,
+        ),
+      ).toEqual(expected);
     });
   });
 

@@ -1,7 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
 import {
@@ -12,6 +11,8 @@ import {
   downVote,
   markAsAccepted,
 } from 'utils/questionsManagement';
+
+import { getProfileInfo } from 'utils/profileManagement';
 
 import {
   GET_QUESTION_DATA,
@@ -66,7 +67,8 @@ export function* postCommentWorker(res) {
   try {
     let questionData = yield select(selectQuestionData());
     const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+
+    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -108,7 +110,8 @@ export function* postAnswerWorker(res) {
   try {
     let questionData = yield select(selectQuestionData());
     const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+
+    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -143,7 +146,8 @@ export function* upVoteWorker(res) {
   try {
     let questionData = yield select(selectQuestionData());
     const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+
+    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -178,7 +182,8 @@ export function* downVoteWorker(res) {
   try {
     let questionData = yield select(selectQuestionData());
     const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+
+    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -213,7 +218,8 @@ export function* markAsAcceptedWorker(res) {
   try {
     let questionData = yield select(selectQuestionData());
     const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+
+    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
 
     if (!profileInfo) {
       yield put(showLoginModal());

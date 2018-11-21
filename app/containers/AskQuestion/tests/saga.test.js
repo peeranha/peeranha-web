@@ -5,13 +5,20 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 import { postQuestion } from 'utils/questionsManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 
-import defaultSaga, { askQuestionWorker } from '../saga';
+import defaultSaga, { postQuestionWorker } from '../saga';
 import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_ERROR,
 } from '../constants';
+
+import { postQuestionValidator } from '../validate';
+
+jest.mock('../validate', () => ({
+  postQuestionValidator: jest.fn(),
+}));
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -24,19 +31,44 @@ jest.mock('utils/questionsManagement', () => ({
   postQuestion: jest.fn().mockImplementation(data => data),
 }));
 
-describe('askQuestionWorker', () => {
-  const props = {
-    obj: {
-      user: 'user1',
-      questionData: {},
-    },
-  };
-  const generator = askQuestionWorker(props);
+jest.mock('utils/profileManagement', () => ({
+  getProfileInfo: jest.fn(),
+}));
 
-  it('step1, eosService', () => {
-    select.mockImplementation(() => props);
-    const step1 = generator.next();
-    expect(step1.value).toEqual(props);
+describe('postQuestionWorker', () => {
+  const props = {
+    user: 'user1',
+    questionData: {},
+    postButtonId: 'postButtonId',
+    translations: {},
+  };
+
+  const generator = postQuestionWorker(props);
+
+  const profileInfo = {};
+  const eos = {
+    getSelectedAccount: jest.fn().mockImplementation(() => props.user),
+  };
+
+  it('step1-1, eosService', () => {
+    select.mockImplementation(() => eos);
+    const step = generator.next();
+    expect(step.value).toEqual(eos);
+  });
+
+  it('step1-2, profileInfo', () => {
+    getProfileInfo.mockImplementation(() => profileInfo);
+    const step = generator.next(eos);
+    expect(step.value).toEqual(profileInfo);
+  });
+
+  it('step1-3, validation', () => {
+    generator.next(profileInfo);
+    expect(postQuestionValidator).toHaveBeenCalledWith(
+      profileInfo,
+      props.postButtonId,
+      props.translations,
+    );
   });
 
   it('step2, postQuestion', () => {

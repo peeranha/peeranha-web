@@ -1,25 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MarkAsAcceptedIcon test, return {} 1`] = `
-<FontAwesomeIcon
-  border={false}
-  className="chevron check text-success"
-  fixedWidth={false}
-  flip={null}
-  icon="check"
-  inverse={false}
-  listItem={false}
-  mask={null}
-  onClick={[Function]}
-  pull={null}
-  pulse={false}
-  rotation={null}
-  size={null}
-  spin={false}
-  symbol={false}
-  title=""
-  transform={null}
-/>
+<button>
+  <FontAwesomeIcon
+    border={false}
+    className="chevron check text-success"
+    fixedWidth={false}
+    flip={null}
+    icon="check"
+    inverse={false}
+    listItem={false}
+    mask={null}
+    onClick={[Function]}
+    pull={null}
+    pulse={false}
+    rotation={null}
+    size={null}
+    spin={false}
+    symbol={false}
+    title=""
+    transform={null}
+  />
+</button>
 `;
 
 exports[`MarkAsAcceptedIcon test, return null 1`] = `null`;
