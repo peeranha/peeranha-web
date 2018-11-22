@@ -1,11 +1,11 @@
 import { translationMessages } from 'i18n';
-import { getActivePopover } from 'utils/popover';
+import { showPopover } from 'utils/popover';
 
 import { postQuestionValidator } from '../validate';
 import messages from '../messages';
 
 jest.mock('utils/popover', () => ({
-  getActivePopover: jest.fn(),
+  showPopover: jest.fn(),
 }));
 
 const locale = 'en';
@@ -30,7 +30,7 @@ describe('postQuestionValidator', () => {
       profileInfo.rating = -10;
       postQuestionValidator(profileInfo, postButtonId, translations);
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${0}`,
       );
@@ -46,6 +46,6 @@ describe('postQuestionValidator', () => {
       translations,
     );
 
-    expect(calling).toBe(undefined);
+    expect(calling).toBe(true);
   });
 });

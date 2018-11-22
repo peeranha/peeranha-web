@@ -1,4 +1,4 @@
-export const getActivePopover = (elemId, message) => {
+export const showPopover = (elemId, message) => {
   window.$(`#${elemId}`).attr({
     'data-content': message,
     'data-trigger': 'focus',

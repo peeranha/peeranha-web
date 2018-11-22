@@ -1,5 +1,5 @@
 import { translationMessages } from 'i18n';
-import { getActivePopover } from 'utils/popover';
+import { showPopover } from 'utils/popover';
 
 import {
   postAnswerValidator,
@@ -11,7 +11,7 @@ import {
 import messages from '../messages';
 
 jest.mock('utils/popover', () => ({
-  getActivePopover: jest.fn(),
+  showPopover: jest.fn(),
 }));
 
 const locale = 'en';
@@ -54,7 +54,7 @@ describe('downVoteValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         translations[messages.noRootsToVote.id],
       );
@@ -76,7 +76,7 @@ describe('downVoteValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${100}`,
       );
@@ -99,7 +99,7 @@ describe('upVoteValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         translations[messages.noRootsToVote.id],
       );
@@ -121,7 +121,7 @@ describe('upVoteValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${35}`,
       );
@@ -147,7 +147,7 @@ describe('markAsAcceptedValidator', () => {
 
     const calling = markAsAcceptedValidator(profileInfo, questionData);
 
-    expect(calling).toBe(undefined);
+    expect(calling).toBe(true);
   });
 });
 
@@ -163,7 +163,7 @@ describe('postCommentValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         translations[messages.itemsMax.id],
       );
@@ -185,7 +185,7 @@ describe('postCommentValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${0}`,
       );
@@ -207,7 +207,7 @@ describe('postCommentValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${30}`,
       );
@@ -227,7 +227,7 @@ describe('postCommentValidator', () => {
       translations,
     );
 
-    expect(calling).toBe(undefined);
+    expect(calling).toBe(true);
   });
 });
 
@@ -242,7 +242,7 @@ describe('postAnswerValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         translations[messages.itemsMax.id],
       );
@@ -265,7 +265,7 @@ describe('postAnswerValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.alreadyAnswered.id]}`,
       );
@@ -285,7 +285,7 @@ describe('postAnswerValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${0}`,
       );
@@ -305,7 +305,7 @@ describe('postAnswerValidator', () => {
         translations,
       );
     } catch (err) {
-      expect(getActivePopover).toHaveBeenCalledWith(
+      expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
         `${translations[messages.notEnoughRating.id]} ${10}`,
       );
@@ -324,6 +324,6 @@ describe('postAnswerValidator', () => {
       translations,
     );
 
-    expect(calling).toBe(undefined);
+    expect(calling).toBe(true);
   });
 });

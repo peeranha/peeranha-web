@@ -57,11 +57,11 @@ import {
 } from '../validate';
 
 jest.mock('../validate', () => ({
-  postAnswerValidator: jest.fn(),
-  postCommentValidator: jest.fn(),
-  markAsAcceptedValidator: jest.fn(),
-  upVoteValidator: jest.fn(),
-  downVoteValidator: jest.fn(),
+  postAnswerValidator: jest.fn().mockImplementation(() => true),
+  postCommentValidator: jest.fn().mockImplementation(() => true),
+  markAsAcceptedValidator: jest.fn().mockImplementation(() => true),
+  upVoteValidator: jest.fn().mockImplementation(() => true),
+  downVoteValidator: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('redux-saga/effects', () => ({
@@ -170,7 +170,7 @@ describe('postCommentWorker', () => {
     });
 
     it('step2, postComment', () => {
-      generator.next();
+      generator.next(true);
       expect(postComment).toHaveBeenCalledWith(
         res.user,
         res.questionId,
@@ -269,7 +269,7 @@ describe('postAnswerWorker', () => {
     });
 
     it('step2, postAnswer', () => {
-      generator.next();
+      generator.next(true);
       expect(postAnswer).toHaveBeenCalledWith(
         res.user,
         res.questionId,
@@ -367,7 +367,7 @@ describe('upVoteWorker', () => {
     });
 
     it('step2, upVote', () => {
-      generator.next();
+      generator.next(true);
       expect(upVote).toHaveBeenCalledWith(
         res.user,
         res.questionId,
@@ -465,7 +465,7 @@ describe('downVoteWorker', () => {
     });
 
     it('step2, downVote', () => {
-      generator.next();
+      generator.next(true);
       expect(downVote).toHaveBeenCalledWith(
         res.user,
         res.questionId,
@@ -557,7 +557,7 @@ describe('markAsAcceptedWorker', () => {
     });
 
     it('step2, markAsAccepted', () => {
-      generator.next();
+      generator.next(true);
       expect(markAsAccepted).toHaveBeenCalledWith(
         res.user,
         res.questionId,

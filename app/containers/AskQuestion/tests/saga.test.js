@@ -28,7 +28,7 @@ jest.mock('redux-saga/effects', () => ({
 }));
 
 jest.mock('utils/questionsManagement', () => ({
-  postQuestion: jest.fn().mockImplementation(data => data),
+  postQuestion: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -72,10 +72,10 @@ describe('postQuestionWorker', () => {
   });
 
   it('step2, postQuestion', () => {
-    postQuestion.mockImplementation(data => data);
+    postQuestion.mockImplementation(() => true);
 
     expect(postQuestion).toHaveBeenCalledTimes(0);
-    generator.next();
+    generator.next(true);
     expect(postQuestion).toHaveBeenCalledTimes(1);
   });
 

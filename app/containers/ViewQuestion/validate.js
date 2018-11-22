@@ -1,4 +1,4 @@
-import { getActivePopover } from 'utils/popover';
+import { showPopover } from 'utils/popover';
 
 import messages from './messages';
 
@@ -38,9 +38,11 @@ export const postAnswerValidator = (
   }
 
   if (message) {
-    getActivePopover(postButtonId, message);
-    throw new Error(message);
+    showPopover(postButtonId, message);
+    return false;
   }
+
+  return true;
 };
 
 /* eslint eqeqeq: 0 */
@@ -79,15 +81,19 @@ export const postCommentValidator = (
   }
 
   if (message) {
-    getActivePopover(postButtonId, message);
-    throw new Error(message);
+    showPopover(postButtonId, message);
+    return false;
   }
+
+  return true;
 };
 
 export const markAsAcceptedValidator = (profileInfo, questionData) => {
   if (profileInfo.owner !== questionData.user) {
-    throw new Error(`No roots to complete this action`);
+    return false;
   }
+
+  return true;
 };
 
 export const upVoteValidator = (
@@ -114,9 +120,11 @@ export const upVoteValidator = (
   }
 
   if (message) {
-    getActivePopover(postButtonId, message);
-    throw new Error(message);
+    showPopover(postButtonId, message);
+    return false;
   }
+
+  return true;
 };
 
 export const downVoteValidator = (
@@ -143,7 +151,9 @@ export const downVoteValidator = (
   }
 
   if (message) {
-    getActivePopover(postButtonId, message);
-    throw new Error(message);
+    showPopover(postButtonId, message);
+    return false;
   }
+
+  return true;
 };

@@ -20,9 +20,11 @@ export function* postQuestionWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       postQuestionValidator(profileInfo, res.postButtonId, res.translations),
     );
+
+    if (!isValid) return;
 
     yield call(() => postQuestion(res.user, res.questionData, eosService));
 

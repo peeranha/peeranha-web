@@ -75,7 +75,7 @@ export function* postCommentWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       postCommentValidator(
         profileInfo,
         questionData,
@@ -84,6 +84,8 @@ export function* postCommentWorker(res) {
         res.translations,
       ),
     );
+
+    if (!isValid) return;
 
     yield call(() =>
       postComment(
@@ -118,7 +120,7 @@ export function* postAnswerWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       postAnswerValidator(
         profileInfo,
         questionData,
@@ -126,6 +128,8 @@ export function* postAnswerWorker(res) {
         res.translations,
       ),
     );
+
+    if (!isValid) return;
 
     yield call(() =>
       postAnswer(res.user, res.questionId, res.answer, eosService),
@@ -154,7 +158,7 @@ export function* upVoteWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       upVoteValidator(
         profileInfo,
         questionData,
@@ -163,6 +167,8 @@ export function* upVoteWorker(res) {
         res.translations,
       ),
     );
+
+    if (!isValid) return;
 
     yield call(() =>
       upVote(res.user, res.questionId, res.answerId, eosService),
@@ -190,7 +196,7 @@ export function* downVoteWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       downVoteValidator(
         profileInfo,
         questionData,
@@ -199,6 +205,8 @@ export function* downVoteWorker(res) {
         res.translations,
       ),
     );
+
+    if (!isValid) return;
 
     yield call(() =>
       downVote(res.user, res.questionId, res.answerId, eosService),
@@ -226,7 +234,7 @@ export function* markAsAcceptedWorker(res) {
       throw new Error('Not authorized');
     }
 
-    yield call(() =>
+    const isValid = yield call(() =>
       markAsAcceptedValidator(
         profileInfo,
         questionData,
@@ -234,6 +242,8 @@ export function* markAsAcceptedWorker(res) {
         res.translations,
       ),
     );
+
+    if (!isValid) return;
 
     yield call(() =>
       markAsAccepted(res.user, res.questionId, res.correctAnswerId, eosService),

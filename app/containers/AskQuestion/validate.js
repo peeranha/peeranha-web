@@ -1,4 +1,4 @@
-import { getActivePopover } from 'utils/popover';
+import { showPopover } from 'utils/popover';
 import messages from './messages';
 
 export const postQuestionValidator = (
@@ -12,7 +12,10 @@ export const postQuestionValidator = (
     const message = `${
       translations[messages.notEnoughRating.id]
     } ${minRatingToAskQuestion}`;
-    getActivePopover(postButtonId, message);
-    throw new Error(message);
+
+    showPopover(postButtonId, message);
+    return false;
   }
+
+  return true;
 };
