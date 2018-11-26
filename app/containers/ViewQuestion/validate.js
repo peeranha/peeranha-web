@@ -157,3 +157,44 @@ export const downVoteValidator = (
 
   return true;
 };
+
+export const deleteQuestionValidator = (
+  postButtonId,
+  answersNum,
+  translations,
+) => {
+  const answersLimit = 0;
+
+  let message;
+
+  if (answersNum > answersLimit) {
+    message = `${translations[messages.youHaveAnswers.id]}`;
+  }
+
+  if (message) {
+    showPopover(postButtonId, message);
+    return false;
+  }
+
+  return true;
+};
+
+export const deleteAnswerValidator = (
+  postButtonId,
+  answerid,
+  correctAnswerId,
+  translations,
+) => {
+  let message;
+
+  if (+answerid === correctAnswerId) {
+    message = `${translations[messages.answerIsCorrect.id]}`;
+  }
+
+  if (message) {
+    showPopover(postButtonId, message);
+    return false;
+  }
+
+  return true;
+};

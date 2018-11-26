@@ -9,7 +9,7 @@ import createdHistory from 'createdHistory';
 import LanguageProvider from 'containers/LanguageProvider';
 import TextEditor from 'components/TextEditor';
 
-import AskQuestionFormDefault from '../AskQuestionForm';
+import QuestionFormDefault from '../index';
 import messages from '../messages';
 
 jest.mock('react-simplemde-editor');
@@ -35,14 +35,14 @@ const props = {
   },
 };
 
-describe('<AskQuestionFormDefault />', () => {
+describe('<QuestionFormDefault />', () => {
   it('snapshot test 1', () => {
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -57,7 +57,7 @@ describe('<AskQuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -72,7 +72,7 @@ describe('<AskQuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -87,7 +87,7 @@ describe('<AskQuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

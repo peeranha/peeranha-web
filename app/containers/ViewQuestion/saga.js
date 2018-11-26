@@ -1,7 +1,13 @@
+/* eslint consistent-return: 0 */
+
 import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { translationMessages } from 'i18n';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
+
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
 import {
   getQuestionData,
@@ -10,9 +16,15 @@ import {
   upVote,
   downVote,
   markAsAccepted,
+  deleteQuestion,
+  deleteAnswer,
+  deleteComment,
+  editComment,
 } from 'utils/questionsManagement';
 
 import { getProfileInfo } from 'utils/profileManagement';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   GET_QUESTION_DATA,
@@ -21,6 +33,10 @@ import {
   UP_VOTE,
   DOWN_VOTE,
   MARK_AS_ACCEPTED,
+  DELETE_QUESTION,
+  DELETE_ANSWER,
+  DELETE_COMMENT,
+  SAVE_COMMENT,
 } from './constants';
 
 import {
@@ -36,17 +52,136 @@ import {
   downVoteErr,
   markAsAcceptedSuccess,
   markAsAcceptedErr,
+  deleteQuestionSuccess,
+  deleteQuestionErr,
+  deleteAnswerSuccess,
+  deleteAnswerErr,
+  deleteCommentSuccess,
+  deleteCommentErr,
+  saveCommentSuccess,
+  saveCommentErr,
 } from './actions';
 
 import { selectQuestionData } from './selectors';
 
 import {
+  deleteAnswerValidator,
+  deleteQuestionValidator,
   postAnswerValidator,
   postCommentValidator,
   markAsAcceptedValidator,
   upVoteValidator,
   downVoteValidator,
 } from './validate';
+
+export function* saveCommentWorker({
+  user,
+  questionId,
+  answerId,
+  commentId,
+  comment,
+}) {
+  try {
+    const eosService = yield select(selectEos);
+
+    yield call(() =>
+      editComment(user, questionId, answerId, commentId, comment, eosService),
+    );
+
+    const questionData = yield call(() =>
+      getQuestionData(eosService, questionId, user),
+    );
+
+    yield put(saveCommentSuccess(questionData));
+  } catch (err) {
+    yield put(saveCommentErr(err));
+  }
+}
+
+export function* deleteCommentWorker({
+  user,
+  questionId,
+  answerId,
+  commentId,
+}) {
+  try {
+    const eosService = yield select(selectEos);
+
+    yield call(() =>
+      deleteComment(user, questionId, answerId, commentId, eosService),
+    );
+
+    const questionData = yield call(() =>
+      getQuestionData(eosService, questionId, user),
+    );
+
+    yield put(deleteCommentSuccess(questionData));
+  } catch (err) {
+    yield put(deleteCommentErr(err));
+  }
+}
+
+export function* deleteAnswerWorker({
+  user,
+  questionid,
+  answerid,
+  postButtonId,
+}) {
+  try {
+    let questionData = yield select(selectQuestionData());
+    const locale = yield select(makeSelectLocale());
+    const eosService = yield select(selectEos);
+
+    const isValid = yield call(() =>
+      deleteAnswerValidator(
+        postButtonId,
+        answerid,
+        questionData.correct_answer_id,
+        translationMessages[locale],
+      ),
+    );
+
+    if (!isValid) {
+      return yield put(deleteAnswerErr());
+    }
+
+    yield call(() => deleteAnswer(user, questionid, answerid, eosService));
+
+    questionData = yield call(() =>
+      getQuestionData(eosService, questionid, user),
+    );
+
+    yield put(deleteAnswerSuccess(questionData));
+  } catch (err) {
+    yield put(deleteAnswerErr(err));
+  }
+}
+
+export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
+  try {
+    const questionData = yield select(selectQuestionData());
+    const locale = yield select(makeSelectLocale());
+    const eosService = yield select(selectEos);
+
+    const isValid = yield call(() =>
+      deleteQuestionValidator(
+        postButtonId,
+        questionData.answers.length,
+        translationMessages[locale],
+      ),
+    );
+
+    if (!isValid) {
+      return yield put(deleteQuestionErr());
+    }
+
+    yield call(() => deleteQuestion(user, questionid, eosService));
+    yield put(deleteQuestionSuccess());
+    yield call(() => createdHistory.push(routes.questions()));
+  } catch (err) {
+    yield put(deleteQuestionErr(err));
+  }
+}
 
 export function* getQuestionDataWorker(res) {
   try {
@@ -85,7 +220,9 @@ export function* postCommentWorker(res) {
       ),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(postCommentErr());
+    }
 
     yield call(() =>
       postComment(
@@ -129,7 +266,9 @@ export function* postAnswerWorker(res) {
       ),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(postAnswerErr());
+    }
 
     yield call(() =>
       postAnswer(res.user, res.questionId, res.answer, eosService),
@@ -168,7 +307,9 @@ export function* upVoteWorker(res) {
       ),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(upVoteErr());
+    }
 
     yield call(() =>
       upVote(res.user, res.questionId, res.answerId, eosService),
@@ -206,7 +347,9 @@ export function* downVoteWorker(res) {
       ),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(downVoteErr());
+    }
 
     yield call(() =>
       downVote(res.user, res.questionId, res.answerId, eosService),
@@ -243,7 +386,9 @@ export function* markAsAcceptedWorker(res) {
       ),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(markAsAcceptedErr());
+    }
 
     yield call(() =>
       markAsAccepted(res.user, res.questionId, res.correctAnswerId, eosService),
@@ -266,4 +411,8 @@ export default function*() {
   yield takeLatest(UP_VOTE, upVoteWorker);
   yield takeLatest(DOWN_VOTE, downVoteWorker);
   yield takeLatest(MARK_AS_ACCEPTED, markAsAcceptedWorker);
+  yield takeLatest(DELETE_QUESTION, deleteQuestionWorker);
+  yield takeLatest(DELETE_ANSWER, deleteAnswerWorker);
+  yield takeLatest(DELETE_COMMENT, deleteCommentWorker);
+  yield takeLatest(SAVE_COMMENT, saveCommentWorker);
 }

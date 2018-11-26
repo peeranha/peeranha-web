@@ -9,6 +9,7 @@ const AnswersList = props => (
         props.questionData.correct_answer_id !== item.id ? (
           <Content
             {...props}
+            type="answer"
             key={`asnwer${item.id}`}
             answerId={item.id}
             comments={item.comments}
@@ -20,6 +21,18 @@ const AnswersList = props => (
             userInfo={item.userInfo}
             postTime={item.post_time}
             votingStatus={item.votingStatus}
+            deleteItem={props.deleteAnswer}
+            editItem={props.editAnswer}
+            editComment={props.editComment}
+            saveComment={props.saveComment}
+            editCommentState={props.editCommentState}
+            deleteComment={props.deleteComment}
+            buttonParams={{
+              questionId: props.questionData.id,
+              user: item.user,
+              ipfsLink: item.ipfs_link,
+              answerId: item.id,
+            }}
           />
         ) : null,
     )}
@@ -28,6 +41,12 @@ const AnswersList = props => (
 
 AnswersList.propTypes = {
   questionData: PropTypes.object,
+  editCommentState: PropTypes.object,
+  deleteAnswer: PropTypes.func,
+  editAnswer: PropTypes.func,
+  editComment: PropTypes.func,
+  saveComment: PropTypes.func,
+  deleteComment: PropTypes.func,
 };
 
 export default AnswersList;

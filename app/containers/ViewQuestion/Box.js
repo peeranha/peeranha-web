@@ -167,6 +167,14 @@ const Box = styled.div`
         }
       }
     }
+    .save-edited-form {
+      flex: 1;
+      button {
+        float: right;
+        font-size: 13px;
+        min-width: 80px;
+      }
+    }
     .comment-body {
       display: flex;
       padding: 10px;

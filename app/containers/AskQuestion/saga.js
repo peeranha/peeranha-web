@@ -1,3 +1,5 @@
+/* eslint consistent-return: 0 */
+
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -24,7 +26,9 @@ export function* postQuestionWorker(res) {
       postQuestionValidator(profileInfo, res.postButtonId, res.translations),
     );
 
-    if (!isValid) return;
+    if (!isValid) {
+      return yield put(askQuestionError());
+    }
 
     yield call(() => postQuestion(res.user, res.questionData, eosService));
 

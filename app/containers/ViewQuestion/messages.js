@@ -19,6 +19,14 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.questionNotExist',
     defaultMessage: `This question does not exist :(`,
   },
+  saveButton: {
+    id: 'app.containers.ViewQuestion.saveButton',
+    defaultMessage: `Save`,
+  },
+  deleteButton: {
+    id: 'app.containers.ViewQuestion.deleteButton',
+    defaultMessage: `Delete`,
+  },
   editButton: {
     id: 'app.containers.ViewQuestion.editButton',
     defaultMessage: `Edit`,
@@ -58,5 +66,15 @@ export default defineMessages({
   noRootsToVote: {
     id: 'app.containers.ViewQuestion.noRootsToVote',
     defaultMessage: 'You cannot vote to own questions and answers',
+  },
+  youHaveAnswers: {
+    id: 'app.containers.ViewQuestion.youHaveAnswers',
+    defaultMessage:
+      'You cannot delete it because you already have some answers by your question',
+  },
+  answerIsCorrect: {
+    id: 'app.containers.ViewQuestion.answerIsCorrect',
+    defaultMessage:
+      'You cannot delete it because your answer is marked as correct',
   },
 });

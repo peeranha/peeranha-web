@@ -8,9 +8,9 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import AddCommentForm from '../AddCommentForm';
+import CommentForm from '../CommentForm';
 
-describe('<AddCommentForm />', () => {
+describe('<CommentForm />', () => {
   const props = {
     form: 'form-1010',
     handleSubmit: jest.fn(),
@@ -27,7 +27,7 @@ describe('<AddCommentForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AddCommentForm {...props} />
+            <CommentForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -43,7 +43,7 @@ describe('<AddCommentForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AddCommentForm {...props} />
+            <CommentForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

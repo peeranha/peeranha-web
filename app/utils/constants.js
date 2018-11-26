@@ -17,9 +17,19 @@ export const REGISTER_ACC = 'registeracc';
 
 export const QUESTION_TABLE = 'question';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
+
 export const POST_QUESTION_METHOD = 'postquestion';
+export const EDIT_QUESTION_METHOD = 'modquestion';
+export const DEL_QUESTION_METHOD = 'delquestion';
+
 export const POST_ANSWER_METHOD = 'postanswer';
+export const EDIT_ANSWER_METHOD = 'modanswer';
+export const DEL_ANSWER_METHOD = 'delanswer';
+
 export const POST_COMMENT_METHOD = 'postcomment';
+export const EDIT_COMMENT_METHOD = 'modcomment';
+export const DEL_COMMENT_METHOD = 'delcomment';
+
 export const UP_VOTE_METHOD = 'upvote';
 export const DOWN_VOTE_METHOD = 'downvote';
 export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';

@@ -1,4 +1,10 @@
 {
+  "app.containers.EditAnswer.description": "Edit Answer Description",
+  "app.containers.EditAnswer.submitButtonName": "Save",
+  "app.containers.EditAnswer.title": "Edit Answer",
+  "app.containers.EditQuestion.description": "Edit Question Description",
+  "app.containers.EditQuestion.submitButtonName": "Save",
+  "app.containers.EditQuestion.title": "Edit question",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than",
   "app.containers.ViewQuestion.alreadyAnswered":
@@ -11,12 +17,18 @@
   "app.containers.ViewQuestion.description": "Question's description",
   "app.containers.ViewQuestion.questionNotExist":
     "This question does not exist",
+  "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
+  "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
   "app.containers.ViewQuestion.answers": "answers",
   "app.containers.ViewQuestion.postAnswerButton": "Post answer",
   "app.containers.ViewQuestion.yourAnswer": "Your answer",
+  "app.containers.ViewQuestion.youHaveAnswers":
+    "You cannot delete it because you already have some answers by your question",
+  "app.containers.ViewQuestion.answerIsCorrect":
+    "You cannot delete it because your answer is marked as correct",
   "app.components.FormFields.requiredField": "Required field",
   "app.containers.FormFields.wrongLength": "Not valid field length",
   "app.containers.FormFields.wrongLength30000":
@@ -92,8 +104,9 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
-  "app.containers.AskQuestion.titleLabel": "Title",
-  "app.containers.AskQuestion.contentLabel": "Body",
+  "app.containers.QuestionForm.title": "Ask question",
+  "app.containers.QuestionForm.titleLabel": "Title",
+  "app.containers.QuestionForm.contentLabel": "Body",
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"
 }

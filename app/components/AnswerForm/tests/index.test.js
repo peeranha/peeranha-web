@@ -9,7 +9,7 @@ import createdHistory from 'createdHistory';
 import TextEditor from 'components/TextEditor';
 import LanguageProvider from 'containers/LanguageProvider';
 
-import AnswerQuestionForm from '../AnswerQuestionForm';
+import AnswerForm from '../index';
 
 jest.mock('react-simplemde-editor');
 jest.mock('simplemde/dist/simplemde.min.css');
@@ -22,7 +22,7 @@ TextEditor.instance = {
   },
 };
 
-describe('<AnswerQuestionForm />', () => {
+describe('<AnswerForm />', () => {
   const props = {
     handleSubmit: jest.fn(),
     postAnswer: jest.fn(),
@@ -38,7 +38,7 @@ describe('<AnswerQuestionForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AnswerQuestionForm {...props} />
+            <AnswerForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -54,7 +54,7 @@ describe('<AnswerQuestionForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AnswerQuestionForm {...props} />
+            <AnswerForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

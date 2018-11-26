@@ -14,14 +14,20 @@ import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import * as routes from 'routes-config';
 
 import LoadingIndicator from 'components/LoadingIndicator';
-import TextEditor from 'components/TextEditor';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
+import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
+
 import {
+  toggleCommentVision,
+  saveComment,
+  deleteComment,
+  deleteAnswer,
+  deleteQuestion,
   getQuestionData,
   postAnswer,
   postComment,
@@ -36,9 +42,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import {
-  TEXT_EDITOR_ANSWER_FORM,
   TEXTAREA_COMMENT_FORM,
-  POST_ANSWER_BUTTON,
   POST_COMMENT_BUTTON,
   MARK_AS_BUTTON,
   UP_VOTE_BUTTON,
@@ -54,6 +58,118 @@ export class ViewQuestion extends React.Component {
     this.questionId = this.props.match.params.id;
     this.props.getQuestionDataDispatch(this.questionId);
   }
+
+  /**
+   *
+   * Question methods
+   *
+   */
+
+  deleteQuestion = e => {
+    const { id } = e.target;
+    this.props.deleteQuestionDispatch(this.props.account, this.questionId, id);
+  };
+
+  editQuestion = e => {
+    const { user, link, questionid } = e.target.dataset;
+    this.props.history.push(routes.question_edit(user, link, questionid));
+  };
+
+  /**
+   *
+   * Answer methods
+   *
+   */
+
+  postAnswer = (...args) => {
+    const answer = args[0].get(TEXT_EDITOR_ANSWER_FORM);
+    const postButtonId = args[2].sendButtonId;
+    const translations = translationMessages[this.props.locale];
+
+    this.props.postAnswerDispatch(
+      this.props.account,
+      this.questionId,
+      answer,
+      args[2].reset,
+      postButtonId,
+      translations,
+    );
+  };
+
+  editAnswer = e => {
+    const { user, link, questionid, answerid } = e.target.dataset;
+    this.props.history.push(
+      routes.answer_edit(user, link, questionid, answerid),
+    );
+  };
+
+  deleteAnswer = e => {
+    const { id } = e.target;
+    const { answerid } = e.target.dataset;
+    this.props.deleteAnswerDispatch(
+      this.props.account,
+      this.questionId,
+      answerid,
+      id,
+    );
+  };
+
+  /**
+   *
+   * Comment methods
+   *
+   */
+
+  postComment = (...args) => {
+    const postButtonId = `${POST_COMMENT_BUTTON}${args[2].answerId}`;
+    const translations = translationMessages[this.props.locale];
+
+    this.props.postCommentDispatch(
+      this.props.account,
+      this.questionId,
+      args[2].answerId,
+      args[0].get(TEXTAREA_COMMENT_FORM),
+      args[2].reset,
+      postButtonId,
+      translations,
+    );
+  };
+
+  editComment = e => {
+    const { commentid, answerid } = e.target.dataset;
+    this.props.toggleCommentVisionDispatch({ commentid, answerid });
+  };
+
+  saveComment = (...args) => {
+    const comment = args[0].get(TEXTAREA_COMMENT_FORM);
+    const { commentId, answerId } = args[2];
+
+    this.props.saveCommentDispatch(
+      this.props.account,
+      this.questionId,
+      answerId,
+      commentId,
+      comment,
+    );
+  };
+
+  deleteComment = e => {
+    const { id } = e.target;
+    const { commentid, answerid } = e.target.dataset;
+    this.props.deleteCommentDispatch(
+      this.props.account,
+      this.questionId,
+      answerid,
+      commentid,
+      id,
+    );
+  };
+
+  /**
+   *
+   * Other methods
+   *
+   */
 
   markAsAccepted = answerId => {
     const postButtonId = `${MARK_AS_BUTTON}${answerId}`;
@@ -94,41 +210,6 @@ export class ViewQuestion extends React.Component {
     );
   };
 
-  postAnswer = (...args) => {
-    const answer = TextEditor.getHtmlText(args[0].get(TEXT_EDITOR_ANSWER_FORM));
-    const postButtonId = `${POST_ANSWER_BUTTON}${args[2].postButtonId}`;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.postAnswerDispatch(
-      this.props.account,
-      this.questionId,
-      answer,
-      args[2].reset,
-      postButtonId,
-      translations,
-    );
-  };
-
-  postComment = (...args) => {
-    const postButtonId = `${POST_COMMENT_BUTTON}${args[2].answerId}`;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.postCommentDispatch(
-      this.props.account,
-      this.questionId,
-      args[2].answerId,
-      args[0].get(TEXTAREA_COMMENT_FORM),
-      args[2].reset,
-      postButtonId,
-      translations,
-    );
-  };
-
-  editContent = () => {
-    console.log('Redirect to edit content');
-    return null;
-  };
-
   render() {
     const {
       locale,
@@ -137,6 +218,8 @@ export class ViewQuestion extends React.Component {
       postAnswerLoading,
       postCommentLoading,
       questionDataLoading,
+      saveCommentLoading,
+      editCommentState,
     } = this.props;
 
     const sendProps = {
@@ -144,12 +227,20 @@ export class ViewQuestion extends React.Component {
       questionData,
       postAnswerLoading,
       postCommentLoading,
+      saveCommentLoading,
+      editCommentState,
       upVote: this.upVote,
       downVote: this.downVote,
       postAnswer: this.postAnswer,
+      editAnswer: this.editAnswer,
+      deleteAnswer: this.deleteAnswer,
       postComment: this.postComment,
-      editContent: this.editContent,
+      editComment: this.editComment,
+      saveComment: this.saveComment,
+      deleteComment: this.deleteComment,
       markAsAccepted: this.markAsAccepted,
+      deleteQuestion: this.deleteQuestion,
+      editQuestion: this.editQuestion,
       translations: translationMessages[locale],
     };
 
@@ -185,14 +276,22 @@ ViewQuestion.propTypes = {
   questionDataLoading: PropTypes.bool,
   postAnswerLoading: PropTypes.bool,
   postCommentLoading: PropTypes.bool,
+  saveCommentLoading: PropTypes.bool,
   questionData: PropTypes.object,
   match: PropTypes.object,
+  history: PropTypes.object,
+  editCommentState: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,
   postAnswerDispatch: PropTypes.func,
   postCommentDispatch: PropTypes.func,
   upVoteDispatch: PropTypes.func,
   downVoteDispatch: PropTypes.func,
   markAsAcceptedDispatch: PropTypes.func,
+  deleteQuestionDispatch: PropTypes.func,
+  deleteAnswerDispatch: PropTypes.func,
+  toggleCommentVisionDispatch: PropTypes.func,
+  saveCommentDispatch: PropTypes.func,
+  deleteCommentDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -202,72 +301,34 @@ const mapStateToProps = createStructuredSelector({
   questionData: makeSelectViewQuestion.selectQuestionData(),
   postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
   postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
+  saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
+  editCommentState: makeSelectViewQuestion.selectEditComment(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getQuestionDataDispatch: questionId =>
-      dispatch(getQuestionData(questionId)),
-    postAnswerDispatch: (
-      user,
-      questionId,
-      answer,
-      reset,
-      postButtonId,
-      translations,
-    ) =>
-      dispatch(
-        postAnswer(user, questionId, answer, reset, postButtonId, translations),
-      ),
-    postCommentDispatch: (
-      user,
-      questionId,
-      answerId,
-      comment,
-      reset,
-      postButtonId,
-      translations,
-    ) =>
-      dispatch(
-        postComment(
-          user,
-          questionId,
-          answerId,
-          comment,
-          reset,
-          postButtonId,
-          translations,
-        ),
-      ),
-    upVoteDispatch: (user, questionId, answerId, postButtonId, translations) =>
-      dispatch(upVote(user, questionId, answerId, postButtonId, translations)),
-    downVoteDispatch: (
-      user,
-      questionId,
-      answerId,
-      postButtonId,
-      translations,
-    ) =>
-      dispatch(
-        downVote(user, questionId, answerId, postButtonId, translations),
-      ),
-    markAsAcceptedDispatch: (
-      user,
-      questionId,
-      correctAnswerId,
-      postButtonId,
-      translations,
-    ) =>
-      dispatch(
-        markAsAccepted(
-          user,
-          questionId,
-          correctAnswerId,
-          postButtonId,
-          translations,
-        ),
-      ),
+    toggleCommentVisionDispatch: editCommentState =>
+      dispatch(toggleCommentVision(editCommentState)),
+    saveCommentDispatch: (user, qId, aId, cId, comment) =>
+      dispatch(saveComment(user, qId, aId, cId, comment)),
+    deleteCommentDispatch: (user, qId, aId, cId, bId) =>
+      dispatch(deleteComment(user, qId, aId, cId, bId)),
+    deleteQuestionDispatch: (user, qId, bId) =>
+      dispatch(deleteQuestion(user, qId, bId)),
+    deleteAnswerDispatch: (user, qId, aId, bId) =>
+      dispatch(deleteAnswer(user, qId, aId, bId)),
+    getQuestionDataDispatch: qId => dispatch(getQuestionData(qId)),
+    postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
+      dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
+    postCommentDispatch: (user, qId, aId, comment, reset, postbId, transl) =>
+      dispatch(postComment(user, qId, aId, comment, reset, postbId, transl)),
+    upVoteDispatch: (user, qId, aId, postbId, transl) =>
+      dispatch(upVote(user, qId, aId, postbId, transl)),
+    downVoteDispatch: (user, qId, aId, postbId, transl) =>
+      dispatch(downVote(user, qId, aId, postbId, transl)),
+    markAsAcceptedDispatch: (user, qId, correctaId, postbId, transl) =>
+      dispatch(markAsAccepted(user, qId, correctaId, postbId, transl)),
   };
 }
 

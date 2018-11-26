@@ -17,6 +17,8 @@ import signUpReducer from 'containers/SignUp/reducer';
 import questionsReducer from 'containers/Questions/reducer';
 import askQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
+import editQuestionReducer from 'containers/EditQuestion/reducer';
+import editAnswerReducer from 'containers/EditAnswer/reducer';
 
 /*
  * routeReducer
@@ -61,6 +63,8 @@ export default function createReducer(injectedReducers) {
     questionsReducer,
     askQuestionReducer,
     viewQuestion: viewQuestionReducer,
+    editQuestion: editQuestionReducer,
+    editAnswer: editAnswerReducer,
     profile: profileReducer,
     form: formReducer,
     ...injectedReducers,

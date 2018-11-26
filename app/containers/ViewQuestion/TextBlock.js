@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TextEditor from 'components/TextEditor';
+
 const TextBlock = props => (
   <div
     className="text-block"
-    dangerouslySetInnerHTML={{ __html: props.content }}
+    dangerouslySetInnerHTML={{ __html: TextEditor.getHtmlText(props.content) }}
   />
 );
 

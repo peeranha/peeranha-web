@@ -15,10 +15,11 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import QuestionForm from 'components/QuestionForm';
 
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import TextEditor from 'components/TextEditor';
+import { FORM_TITLE, FORM_CONTENT } from 'components/QuestionForm/constants';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -26,9 +27,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { FORM_TITLE, FORM_CONTENT, POST_QUESTION_BUTTON } from './constants';
-
-import AskQuestionForm from './AskQuestionForm';
+import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AskQuestion extends React.Component {
@@ -38,10 +37,9 @@ export class AskQuestion extends React.Component {
 
     const question = {
       title: values.get(FORM_TITLE),
-      content: TextEditor.getHtmlText(values.get(FORM_CONTENT)),
+      content: values.get(FORM_CONTENT),
     };
 
-    TextEditor.getHtmlText(question.content);
     this.props.askQuestionDispatch(
       this.props.account,
       question,
@@ -52,9 +50,14 @@ export class AskQuestion extends React.Component {
 
   render() {
     const sendProps = {
-      postQuestion: this.postQuestion,
+      form: ASK_QUESTION_FORM,
+      formTitle: translationMessages[this.props.locale][messages.title.id],
+      submitButtonId: POST_QUESTION_BUTTON,
+      submitButtonName:
+        translationMessages[this.props.locale][messages.postQuestion.id],
+      sendQuestion: this.postQuestion,
       translations: translationMessages[this.props.locale],
-      askQuestionLoading: this.props.askQuestionLoading,
+      questionLoading: this.props.askQuestionLoading,
     };
 
     return (
@@ -66,7 +69,7 @@ export class AskQuestion extends React.Component {
             content={sendProps.translations[messages.description.id]}
           />
         </Helmet>
-        <AskQuestionForm {...sendProps} />
+        <QuestionForm {...sendProps} />
       </div>
     );
   }
