@@ -34,18 +34,18 @@ import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export class EditQuestion extends React.Component {
   componentDidMount() {
-    const { user, link, questionid } = this.props.match.params;
-    this.props.getAskedQuestionDispatch(user, link, questionid);
+    const { questionid } = this.props.match.params;
+    this.props.getAskedQuestionDispatch(questionid);
   }
 
   editQuestion = values => {
-    const { user, questionid } = this.props.match.params;
+    const { questionid } = this.props.match.params;
     const question = {
       title: values.get(FORM_TITLE),
       content: values.get(FORM_CONTENT),
     };
 
-    this.props.editQuestionDispatch(user, question, questionid);
+    this.props.editQuestionDispatch(question, questionid);
   };
 
   render() {
@@ -113,10 +113,10 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getAskedQuestionDispatch: (user, link, questionid) =>
-      dispatch(getAskedQuestion(user, link, questionid)),
-    editQuestionDispatch: (user, question, questionid) =>
-      dispatch(editQuestion(user, question, questionid)),
+    getAskedQuestionDispatch: questionid =>
+      dispatch(getAskedQuestion(questionid)),
+    editQuestionDispatch: (question, questionid) =>
+      dispatch(editQuestion(question, questionid)),
   };
 }
 

@@ -13,11 +13,9 @@ import {
   EDIT_ANSWER_ERROR,
 } from './constants';
 
-export function getAnswer(user, link, questionid, answerid) {
+export function getAnswer(questionid, answerid) {
   return {
     type: GET_ANSWER,
-    user,
-    link,
     questionid,
     answerid,
   };
@@ -37,10 +35,9 @@ export function getAnswerErr(getAnswerError) {
   };
 }
 
-export function editAnswer(user, answer, questionid, answerid) {
+export function editAnswer(answer, questionid, answerid) {
   return {
     type: EDIT_ANSWER,
-    user,
     answer,
     questionid,
     answerid,

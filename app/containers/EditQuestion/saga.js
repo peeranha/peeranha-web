@@ -2,7 +2,11 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
+import {
+  getAskedQuestion,
+  editQuestion,
+  getQuestionData,
+} from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -16,17 +20,23 @@ import {
   editQuestionErr,
 } from './actions';
 
-export function* getAskedQuestionWorker({ user, link }) {
+export function* getAskedQuestionWorker({ questionid }) {
   try {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    if (user !== selectedAccount) {
+    const questionData = yield call(() =>
+      getQuestionData(eosService, questionid, selectedAccount),
+    );
+
+    if (questionData.user !== selectedAccount) {
       yield put(getAskedQuestionErr());
       yield call(() => createdHistory.push(routes.no_access()));
     }
 
-    const question = yield call(() => getAskedQuestion(link, eosService));
+    const question = yield call(() =>
+      getAskedQuestion(questionData.ipfs_link, eosService),
+    );
 
     yield put(getAskedQuestionSuccess(question));
   } catch (err) {
@@ -34,11 +44,15 @@ export function* getAskedQuestionWorker({ user, link }) {
   }
 }
 
-export function* editQuestionWorker({ user, question, questionid }) {
+export function* editQuestionWorker({ question, questionid }) {
   try {
     const eosService = yield select(selectEos);
+    const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    yield call(() => editQuestion(user, questionid, question, eosService));
+    yield call(() =>
+      editQuestion(selectedAccount, questionid, question, eosService),
+    );
+
     yield put(editQuestionSuccess());
     yield call(() => createdHistory.push(routes.question_view(questionid)));
   } catch (err) {

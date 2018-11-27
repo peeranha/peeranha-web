@@ -13,11 +13,9 @@ import {
   EDIT_QUESTION_ERROR,
 } from './constants';
 
-export function getAskedQuestion(user, link, questionid) {
+export function getAskedQuestion(questionid) {
   return {
     type: GET_ASKED_QUESTION,
-    user,
-    link,
     questionid,
   };
 }
@@ -36,10 +34,9 @@ export function getAskedQuestionErr(getAskedQuestionError) {
   };
 }
 
-export function editQuestion(user, question, questionid) {
+export function editQuestion(question, questionid) {
   return {
     type: EDIT_QUESTION,
-    user,
     question,
     questionid,
   };

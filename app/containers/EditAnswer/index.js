@@ -32,15 +32,15 @@ import { EDIT_ANSWER_FORM, EDIT_ANSWER_BUTTON } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export class EditAnswer extends React.Component {
   componentDidMount() {
-    const { user, link, questionid, answerid } = this.props.match.params;
-    this.props.getAnswerDispatch(user, link, questionid, answerid);
+    const { questionid, answerid } = this.props.match.params;
+    this.props.getAnswerDispatch(questionid, answerid);
   }
 
   editAnswer = values => {
-    const { user, questionid, answerid } = this.props.match.params;
+    const { questionid, answerid } = this.props.match.params;
     const answer = values.get(TEXT_EDITOR_ANSWER_FORM);
 
-    this.props.editAnswerDispatch(user, answer, questionid, answerid);
+    this.props.editAnswerDispatch(answer, questionid, answerid);
   };
 
   render() {
@@ -102,10 +102,10 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getAnswerDispatch: (user, link, questionid, answerid) =>
-      dispatch(getAnswer(user, link, questionid, answerid)),
-    editAnswerDispatch: (user, answer, questionid, answerid) =>
-      dispatch(editAnswer(user, answer, questionid, answerid)),
+    getAnswerDispatch: (questionid, answerid) =>
+      dispatch(getAnswer(questionid, answerid)),
+    editAnswerDispatch: (answer, questionid, answerid) =>
+      dispatch(editAnswer(answer, questionid, answerid)),
   };
 }
 

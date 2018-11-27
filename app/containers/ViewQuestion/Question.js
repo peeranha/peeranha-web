@@ -29,8 +29,6 @@ const Question = props => (
       buttonParams={{
         questionId: props.questionData.id,
         answerId: 0,
-        user: props.questionData.user,
-        ipfsLink: props.questionData.ipfs_link,
       }}
     />
   </div>

@@ -11,8 +11,6 @@ const Button = ({
   isItWrittenByMe ? (
     <button
       id={buttonId}
-      data-link={buttonParams.ipfsLink}
-      data-user={buttonParams.user}
       data-questionid={buttonParams.questionId}
       data-answerid={buttonParams.answerId}
       data-commentid={buttonParams.commentId}

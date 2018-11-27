@@ -29,8 +29,6 @@ const AnswersList = props => (
             deleteComment={props.deleteComment}
             buttonParams={{
               questionId: props.questionData.id,
-              user: item.user,
-              ipfsLink: item.ipfs_link,
               answerId: item.id,
             }}
           />

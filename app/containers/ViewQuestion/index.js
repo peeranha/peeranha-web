@@ -71,8 +71,8 @@ export class ViewQuestion extends React.Component {
   };
 
   editQuestion = e => {
-    const { user, link, questionid } = e.target.dataset;
-    this.props.history.push(routes.question_edit(user, link, questionid));
+    const { questionid } = e.target.dataset;
+    this.props.history.push(routes.question_edit(questionid));
   };
 
   /**
@@ -97,10 +97,8 @@ export class ViewQuestion extends React.Component {
   };
 
   editAnswer = e => {
-    const { user, link, questionid, answerid } = e.target.dataset;
-    this.props.history.push(
-      routes.answer_edit(user, link, questionid, answerid),
-    );
+    const { questionid, answerid } = e.target.dataset;
+    this.props.history.push(routes.answer_edit(questionid, answerid));
   };
 
   deleteAnswer = e => {

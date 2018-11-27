@@ -54,16 +54,11 @@ export default function App() {
           component={ViewQuestion}
         />
         <Route
-          path={routes.question_edit(':user', ':link', ':questionid')}
+          path={routes.question_edit(':questionid')}
           component={EditQuestion}
         />
         <Route
-          path={routes.answer_edit(
-            ':user',
-            ':link',
-            ':questionid',
-            ':answerid',
-          )}
+          path={routes.answer_edit(':questionid', ':answerid')}
           component={EditAnswer}
         />
         <Route path={routes.no_access()} component={NoAccess} />
