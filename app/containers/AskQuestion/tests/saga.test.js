@@ -7,6 +7,8 @@ import { select } from 'redux-saga/effects';
 import { postQuestion } from 'utils/questionsManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 
+import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+
 import defaultSaga, { postQuestionWorker } from '../saga';
 import {
   ASK_QUESTION,
@@ -43,51 +45,86 @@ describe('postQuestionWorker', () => {
     translations: {},
   };
 
-  const generator = postQuestionWorker(props);
-
-  const profileInfo = {};
   const eos = {
     getSelectedAccount: jest.fn().mockImplementation(() => props.user),
   };
 
-  it('step1-1, eosService', () => {
-    select.mockImplementation(() => eos);
-    const step = generator.next();
-    expect(step.value).toEqual(eos);
+  describe('profileInfo is true', () => {
+    const generator = postQuestionWorker(props);
+    const profileInfo = {};
+
+    it('step1-1, eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next();
+      expect(step.value).toEqual(eos);
+    });
+
+    it('step1-2, profileInfo', () => {
+      getProfileInfo.mockImplementation(() => profileInfo);
+      const step = generator.next(eos);
+      expect(step.value).toEqual(profileInfo);
+    });
+
+    it('step1-3, validation', () => {
+      generator.next(profileInfo);
+      expect(postQuestionValidator).toHaveBeenCalledWith(
+        profileInfo,
+        props.postButtonId,
+        props.translations,
+      );
+    });
+
+    it('step2, postQuestion', () => {
+      postQuestion.mockImplementation(() => true);
+
+      expect(postQuestion).toHaveBeenCalledTimes(0);
+      generator.next(true);
+      expect(postQuestion).toHaveBeenCalledTimes(1);
+    });
+
+    it('step3, askQuestionSuccess', () => {
+      const step3 = generator.next();
+      expect(step3.value.type).toBe(ASK_QUESTION_SUCCESS);
+    });
   });
 
-  it('step1-2, profileInfo', () => {
+  describe('profileInfo false => showLoginModal', () => {
+    const generator = postQuestionWorker(props);
+    const profileInfo = null;
+
     getProfileInfo.mockImplementation(() => profileInfo);
-    const step = generator.next(eos);
-    expect(step.value).toEqual(profileInfo);
+
+    generator.next();
+    generator.next();
+
+    it('showLoginModal', () => {
+      const showLoginModal = generator.next(profileInfo);
+      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
+    });
+
+    it('error handling', () => {
+      const err = new Error('some error');
+      const putDescriptor = generator.throw(err);
+      expect(putDescriptor.value.type).toBe(ASK_QUESTION_ERROR);
+    });
   });
 
-  it('step1-3, validation', () => {
+  describe('validation is falsy', () => {
+    const generator = postQuestionWorker(props);
+    const profileInfo = {};
+    const isValid = false;
+
+    getProfileInfo.mockImplementation(() => profileInfo);
+    postQuestionValidator.mockImplementation(() => isValid);
+
+    generator.next();
+    generator.next();
     generator.next(profileInfo);
-    expect(postQuestionValidator).toHaveBeenCalledWith(
-      profileInfo,
-      props.postButtonId,
-      props.translations,
-    );
-  });
 
-  it('step2, postQuestion', () => {
-    postQuestion.mockImplementation(() => true);
-
-    expect(postQuestion).toHaveBeenCalledTimes(0);
-    generator.next(true);
-    expect(postQuestion).toHaveBeenCalledTimes(1);
-  });
-
-  it('step3, askQuestionSuccess', () => {
-    const step3 = generator.next();
-    expect(step3.value.type).toBe(ASK_QUESTION_SUCCESS);
-  });
-
-  it('error handling', () => {
-    const err = new Error('some error');
-    const putDescriptor = generator.throw(err);
-    expect(putDescriptor.value.type).toBe(ASK_QUESTION_ERROR);
+    it('test', () => {
+      const step = generator.next(isValid);
+      expect(step.value.type).toBe(ASK_QUESTION_ERROR);
+    });
   });
 });
 

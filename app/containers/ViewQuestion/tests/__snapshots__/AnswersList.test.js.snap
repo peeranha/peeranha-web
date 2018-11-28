@@ -6,6 +6,12 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
 >
   <Content
     answerId={1}
+    buttonParams={
+      Object {
+        "answerId": 1,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [
@@ -22,9 +28,16 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
+    type="answer"
   />
   <Content
     answerId={2}
+    buttonParams={
+      Object {
+        "answerId": 2,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [
@@ -41,9 +54,16 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
+    type="answer"
   />
   <Content
     answerId={3}
+    buttonParams={
+      Object {
+        "answerId": 3,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [
@@ -60,6 +80,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
+    type="answer"
   />
 </div>
 `;
@@ -70,6 +91,12 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
 >
   <Content
     answerId={2}
+    buttonParams={
+      Object {
+        "answerId": 2,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [
@@ -86,9 +113,16 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "correct_answer_id": 1,
       }
     }
+    type="answer"
   />
   <Content
     answerId={3}
+    buttonParams={
+      Object {
+        "answerId": 3,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [
@@ -105,6 +139,7 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "correct_answer_id": 1,
       }
     }
+    type="answer"
   />
 </div>
 `;

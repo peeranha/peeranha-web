@@ -12,6 +12,12 @@ exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
 >
   <Content
     answerId={1}
+    buttonParams={
+      Object {
+        "answerId": 1,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "answers": Array [

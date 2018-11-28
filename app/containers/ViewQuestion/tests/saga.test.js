@@ -4,6 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
+import { translationMessages } from 'i18n';
 
 import {
   getQuestionData,
@@ -12,7 +13,14 @@ import {
   upVote,
   downVote,
   markAsAccepted,
+  deleteQuestion,
+  deleteAnswer,
+  deleteComment,
+  editComment,
 } from 'utils/questionsManagement';
+
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
 import { getProfileInfo } from 'utils/profileManagement';
 
@@ -25,6 +33,10 @@ import defaultSaga, {
   upVoteWorker,
   downVoteWorker,
   markAsAcceptedWorker,
+  deleteQuestionWorker,
+  deleteAnswerWorker,
+  deleteCommentWorker,
+  saveCommentWorker,
 } from '../saga';
 
 import {
@@ -46,6 +58,18 @@ import {
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   MARK_AS_ACCEPTED_ERROR,
+  DELETE_QUESTION,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_QUESTION_ERROR,
+  DELETE_ANSWER,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_ANSWER_ERROR,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_ERROR,
+  SAVE_COMMENT,
+  SAVE_COMMENT_SUCCESS,
+  SAVE_COMMENT_ERROR,
 } from '../constants';
 
 import {
@@ -54,6 +78,8 @@ import {
   upVoteValidator,
   downVoteValidator,
   markAsAcceptedValidator,
+  deleteQuestionValidator,
+  deleteAnswerValidator,
 } from '../validate';
 
 jest.mock('../validate', () => ({
@@ -62,6 +88,8 @@ jest.mock('../validate', () => ({
   markAsAcceptedValidator: jest.fn().mockImplementation(() => true),
   upVoteValidator: jest.fn().mockImplementation(() => true),
   downVoteValidator: jest.fn().mockImplementation(() => true),
+  deleteQuestionValidator: jest.fn().mockImplementation(() => true),
+  deleteAnswerValidator: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('redux-saga/effects', () => ({
@@ -71,6 +99,10 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
+
 jest.mock('utils/questionsManagement', () => ({
   getQuestionData: jest.fn(),
   postComment: jest.fn(),
@@ -78,11 +110,301 @@ jest.mock('utils/questionsManagement', () => ({
   upVote: jest.fn(),
   downVote: jest.fn(),
   markAsAccepted: jest.fn(),
+  deleteQuestion: jest.fn(),
+  deleteAnswer: jest.fn(),
+  deleteComment: jest.fn(),
+  editComment: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
+
+describe('saveCommentWorker', () => {
+  const eos = {};
+  const locale = 'en';
+  const user = 'user';
+  const questionId = 11;
+  const answerId = 11;
+  const commentId = 12;
+  const comment = 'comment';
+
+  const res = {
+    user,
+    questionId,
+    answerId,
+    commentId,
+    comment,
+  };
+
+  const generator = saveCommentWorker(res);
+
+  it('step, eosService', () => {
+    select.mockImplementation(() => eos);
+    const step = generator.next(locale);
+    expect(step.value).toEqual(eos);
+  });
+
+  it('step, editComment', () => {
+    generator.next(eos);
+    expect(editComment).toHaveBeenCalledWith(
+      user,
+      questionId,
+      answerId,
+      commentId,
+      comment,
+      eos,
+    );
+  });
+
+  it('step, getQuestionData', () => {
+    generator.next();
+    expect(getQuestionData).toHaveBeenCalledWith(eos, questionId, user);
+  });
+
+  it('step, saveCommentSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = 'some err';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(SAVE_COMMENT_ERROR);
+  });
+});
+
+describe('deleteCommentWorker', () => {
+  const eos = {};
+  const locale = 'en';
+  const user = 'user';
+  const questionId = 11;
+  const answerId = 11;
+  const commentId = 12;
+
+  const res = {
+    user,
+    questionId,
+    answerId,
+    commentId,
+  };
+
+  const generator = deleteCommentWorker(res);
+
+  it('step, eosService', () => {
+    select.mockImplementation(() => eos);
+    const step = generator.next(locale);
+    expect(step.value).toEqual(eos);
+  });
+
+  it('step, deleteComment', () => {
+    generator.next(eos);
+    expect(deleteComment).toHaveBeenCalledWith(
+      user,
+      questionId,
+      answerId,
+      commentId,
+      eos,
+    );
+  });
+
+  it('step, getQuestionData', () => {
+    generator.next();
+    expect(getQuestionData).toHaveBeenCalledWith(eos, questionId, user);
+  });
+
+  it('step, deleteCommentSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(DELETE_COMMENT_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = 'some err';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(DELETE_COMMENT_ERROR);
+  });
+});
+
+describe('deleteAnswerWorker', () => {
+  const eos = {};
+  const locale = 'en';
+  const user = 'user';
+  const questionid = 11;
+  const answerid = 11;
+  const postButtonId = 'postButtonId';
+
+  const questionData = {
+    answers: [],
+    correct_answer_id: 0,
+  };
+
+  const res = {
+    user,
+    questionid,
+    answerid,
+    postButtonId,
+  };
+
+  describe('isValid is true', () => {
+    const generator = deleteAnswerWorker(res);
+
+    it('step, selectQuestionData', () => {
+      select.mockImplementation(() => questionData);
+      const step = generator.next();
+      expect(step.value).toEqual(questionData);
+    });
+
+    it('step, makeSelectLocale', () => {
+      select.mockImplementation(() => locale);
+      const step = generator.next(questionData);
+      expect(step.value).toEqual(locale);
+    });
+
+    it('step, eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(eos);
+    });
+
+    it('step, deleteAnswerValidator', () => {
+      generator.next(eos);
+      expect(deleteAnswerValidator).toHaveBeenCalledWith(
+        postButtonId,
+        answerid,
+        questionData.correct_answer_id,
+        translationMessages[locale],
+      );
+    });
+
+    it('step, deleteAnswer', () => {
+      const isValid = true;
+      generator.next(isValid);
+      expect(deleteAnswer).toHaveBeenCalledWith(
+        user,
+        questionid,
+        answerid,
+        eos,
+      );
+    });
+
+    it('step, getQuestionData', () => {
+      generator.next();
+      expect(getQuestionData).toHaveBeenCalledWith(eos, questionid, user);
+    });
+
+    it('step, deleteAnswerSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(DELETE_ANSWER_SUCCESS);
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(DELETE_ANSWER_ERROR);
+    });
+  });
+
+  describe('isValid is false', () => {
+    const generator = deleteAnswerWorker(res);
+
+    generator.next();
+    generator.next(questionData);
+    generator.next(locale);
+    generator.next(eos);
+
+    it('deleteQuestionErr', () => {
+      const isValid = false;
+      const step = generator.next(isValid);
+      expect(step.value.type).toBe(DELETE_ANSWER_ERROR);
+    });
+  });
+});
+
+describe('deleteQuestionWorker', () => {
+  const eos = {};
+  const locale = 'en';
+  const user = 'user';
+  const questionid = 11;
+  const postButtonId = 'postButtonId';
+
+  const questionData = {
+    answers: [],
+  };
+
+  const res = {
+    user,
+    questionid,
+    postButtonId,
+  };
+
+  describe('isValid is true', () => {
+    const generator = deleteQuestionWorker(res);
+
+    it('step, selectQuestionData', () => {
+      select.mockImplementation(() => questionData);
+      const step = generator.next();
+      expect(step.value).toEqual(questionData);
+    });
+
+    it('step, makeSelectLocale', () => {
+      select.mockImplementation(() => locale);
+      const step = generator.next(questionData);
+      expect(step.value).toEqual(locale);
+    });
+
+    it('step, eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(eos);
+    });
+
+    it('step, deleteQuestionValidator', () => {
+      generator.next(eos);
+      expect(deleteQuestionValidator).toHaveBeenCalledWith(
+        postButtonId,
+        questionData.answers.length,
+        translationMessages[locale],
+      );
+    });
+
+    it('step, deleteQuestion', () => {
+      const isValid = true;
+      generator.next(isValid);
+      expect(deleteQuestion).toHaveBeenCalledWith(user, questionid, eos);
+    });
+
+    it('step, deleteQuestionSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(DELETE_QUESTION_SUCCESS);
+    });
+
+    it('createdHistory.push', () => {
+      generator.next();
+      expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(DELETE_QUESTION_ERROR);
+    });
+  });
+
+  describe('isValid is false', () => {
+    const generator = deleteQuestionWorker(res);
+
+    generator.next();
+    generator.next(questionData);
+    generator.next(locale);
+    generator.next(eos);
+
+    it('deleteQuestionErr', () => {
+      const isValid = false;
+      const step = generator.next(isValid);
+      expect(step.value.type).toBe(DELETE_QUESTION_ERROR);
+    });
+  });
+});
 
 describe('getQuestionDataWorker', () => {
   const res = { questionId: 1 };
@@ -633,5 +955,25 @@ describe('defaultSaga', () => {
   it('MARK_AS_ACCEPTED', () => {
     const step = generator.next();
     expect(step.value).toBe(MARK_AS_ACCEPTED);
+  });
+
+  it('DELETE_QUESTION', () => {
+    const step = generator.next();
+    expect(step.value).toBe(DELETE_QUESTION);
+  });
+
+  it('DELETE_ANSWER', () => {
+    const step = generator.next();
+    expect(step.value).toBe(DELETE_ANSWER);
+  });
+
+  it('DELETE_COMMENT', () => {
+    const step = generator.next();
+    expect(step.value).toBe(DELETE_COMMENT);
+  });
+
+  it('SAVE_COMMENT', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SAVE_COMMENT);
   });
 });

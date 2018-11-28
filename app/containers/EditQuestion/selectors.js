@@ -34,6 +34,7 @@ const selectEditQuestionError = () =>
   );
 
 export {
+  selectEditQuestionDomain,
   selectQuestion,
   selectQuestionLoading,
   selectGetAskedQuestionError,

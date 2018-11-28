@@ -1,7 +1,12 @@
 import React from 'react';
+import EditorOptions from 'simplemde';
 import { shallow } from 'enzyme';
 
 import TextEditor from '../index';
+
+jest.mock('simplemde', () => ({
+  EditorOptions: jest.fn(),
+}));
 
 const cmp = new TextEditor();
 cmp.props = {
@@ -11,27 +16,7 @@ cmp.props = {
   onBlur: jest.fn(),
 };
 
-beforeEach(() => {
-  TextEditor.instance = {
-    options: {
-      previewRender: jest.fn(),
-    },
-    codemirror: {
-      options: {
-        readOnly: true,
-      },
-    },
-  };
-});
-
 describe('<TextEditor />', () => {
-  describe('componentDidUpdate', () => {
-    it('test', () => {
-      const renderedComponent = shallow(<TextEditor {...cmp.props} />);
-      expect(renderedComponent).toMatchSnapshot();
-    });
-  });
-
   describe('onBlurHandler', () => {
     it('test', () => {
       const txt = 'some txt';
@@ -41,22 +26,14 @@ describe('<TextEditor />', () => {
     });
   });
 
-  describe('getMdeInstance', () => {
-    it('test', () => {
-      const instance = { id: 101 };
-      cmp.getMdeInstance(instance);
-      expect(TextEditor.instance).toEqual(instance);
-    });
-  });
-
   describe('getHtmlText', () => {
     it('test', () => {
       const md = '# Hello';
       const returnedText = '<h1>Hello</h1>';
 
-      TextEditor.instance.options.previewRender = jest
-        .fn()
-        .mockImplementation(() => returnedText);
+      EditorOptions.prototype = {
+        markdown: jest.fn().mockImplementation(() => returnedText),
+      };
 
       expect(TextEditor.getHtmlText(md)).toBe(returnedText);
     });

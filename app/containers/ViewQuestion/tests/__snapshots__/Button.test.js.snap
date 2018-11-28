@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button @isItWrittenByMe is falsy 1`] = `null`;
+
+exports[`Button @isItWrittenByMe is true 1`] = `<button />`;

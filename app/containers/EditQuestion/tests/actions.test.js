@@ -1,13 +1,92 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import {
+  getAskedQuestion,
+  getAskedQuestionSuccess,
+  getAskedQuestionErr,
+  editQuestion,
+  editQuestionSuccess,
+  editQuestionErr,
+} from '../actions';
 
-describe('EditQuestion actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+import {
+  GET_ASKED_QUESTION,
+  GET_ASKED_QUESTION_SUCCESS,
+  GET_ASKED_QUESTION_ERROR,
+  EDIT_QUESTION,
+  EDIT_QUESTION_SUCCESS,
+  EDIT_QUESTION_ERROR,
+} from '../constants';
+
+describe('actions', () => {
+  describe('getAskedQuestion Action', () => {
+    it('GET_ASKED_QUESTION', () => {
+      const questionid = 'questionid';
       const expected = {
-        type: DEFAULT_ACTION,
+        type: GET_ASKED_QUESTION,
+        questionid,
       };
-      expect(defaultAction()).toEqual(expected);
+
+      expect(getAskedQuestion(questionid)).toEqual(expected);
+    });
+  });
+
+  describe('getAskedQuestionSuccess Action', () => {
+    it('GET_ASKED_QUESTION_SUCCESS', () => {
+      const question = 'question';
+      const expected = {
+        type: GET_ASKED_QUESTION_SUCCESS,
+        question,
+      };
+
+      expect(getAskedQuestionSuccess(question)).toEqual(expected);
+    });
+  });
+
+  describe('getAskedQuestionErr Action', () => {
+    it('GET_ASKED_QUESTION_ERROR', () => {
+      const getAskedQuestionError = 'getAskedQuestionError';
+      const expected = {
+        type: GET_ASKED_QUESTION_ERROR,
+        getAskedQuestionError,
+      };
+
+      expect(getAskedQuestionErr(getAskedQuestionError)).toEqual(expected);
+    });
+  });
+
+  describe('editQuestion Action', () => {
+    it('EDIT_QUESTION', () => {
+      const question = 'question';
+      const questionid = 'questionid';
+
+      const expected = {
+        type: EDIT_QUESTION,
+        questionid,
+        question,
+      };
+
+      expect(editQuestion(question, questionid)).toEqual(expected);
+    });
+  });
+
+  describe('editQuestionSuccess Action', () => {
+    it('EDIT_QUESTION_SUCCESS', () => {
+      const expected = {
+        type: EDIT_QUESTION_SUCCESS,
+      };
+
+      expect(editQuestionSuccess()).toEqual(expected);
+    });
+  });
+
+  describe('editQuestionErr Action', () => {
+    it('EDIT_QUESTION_ERROR', () => {
+      const editQuestionError = 'editQuestionError';
+      const expected = {
+        type: EDIT_QUESTION_ERROR,
+        editQuestionError,
+      };
+
+      expect(editQuestionErr(editQuestionError)).toEqual(expected);
     });
   });
 });

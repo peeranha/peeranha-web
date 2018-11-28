@@ -1,25 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ViewQuestion /> render !@questionDataLoading && !@questionData 1`] = `
-<div
-  className="container"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Question's page
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
-  <NoSuchQuestion />
-</div>
-`;
-
-exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
+exports[`EditQuestion render test question is NOT null 1`] = `
 <div
   className="container"
 >
@@ -35,29 +16,53 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <ViewQuestionContainer
-    account="user1"
-    deleteAnswer={[Function]}
-    deleteComment={[Function]}
-    deleteQuestion={[Function]}
-    downVote={[Function]}
-    editAnswer={[Function]}
-    editComment={[Function]}
-    editQuestion={[Function]}
-    markAsAccepted={[Function]}
-    postAnswer={[Function]}
-    postAnswerLoading={true}
-    postComment={[Function]}
-    postCommentLoading={true}
-    questionData={
-      Object {
-        "content": Object {
-          "content": "content",
-          "title": "title",
-        },
-      }
-    }
-    saveComment={[Function]}
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`EditQuestion render test question is null 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Edit question
+    </title>
+    <meta
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`EditQuestion render test questionLoading is falsy 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      title
+    </title>
+    <meta
+      content="content"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Connect(ReduxForm)
+    form="app/AskQuestion/EDIT_QUESTION_FORM"
+    formTitle="Edit question"
+    questionContent="content"
+    questionTitle="title"
+    sendQuestion={[Function]}
+    submitButtonId="app/AskQuestion/EDIT_QUESTION_BUTTON"
+    submitButtonName="Save"
     translations={
       Object {
         "app.components.Footer.header": "Copyright: Peerania",
@@ -160,12 +165,11 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.containers.ViewQuestion.yourAnswer": "Your answer",
       }
     }
-    upVote={[Function]}
   />
 </div>
 `;
 
-exports[`<ViewQuestion /> render @questionDataLoading is true 1`] = `
+exports[`EditQuestion render test questionLoading is true 1`] = `
 <div
   className="container"
 >
@@ -174,9 +178,10 @@ exports[`<ViewQuestion /> render @questionDataLoading is true 1`] = `
     encodeSpecialCharacters={true}
   >
     <title>
-      Question's page
+      title
     </title>
     <meta
+      content="content"
       name="description"
     />
   </HelmetWrapper>

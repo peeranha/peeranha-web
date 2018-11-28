@@ -17,7 +17,7 @@ describe('<CommentForm />', () => {
     postComment: jest.fn(),
     submitting: false,
     invalid: false,
-    postCommentLoading: false,
+    sendCommentLoading: false,
     translations: {},
   };
 
@@ -35,8 +35,8 @@ describe('<CommentForm />', () => {
     expect(renderedComponent).toMatchSnapshot();
   });
 
-  it('@postCommentLoading === true', () => {
-    props.postCommentLoading = true;
+  it('@sendCommentLoading === true', () => {
+    props.sendCommentLoading = true;
 
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(

@@ -1,53 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignUp snapshot render testing case 1: content === SHOW_DEFAULT_SIGNUP_MODAL 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
+exports[`EditAnswer render test answerLoading is falsy 1`] = `
+<div
+  className="container"
 >
-  <div>
-    <SignUpOptions
-      backToOptions={[Function]}
-      continueSignUp={[Function]}
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Edit Answer
+    </title>
+    <meta
+      name="description"
     />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
+  </HelmetWrapper>
+  <Box>
     <Connect(ReduxForm)
-      account="user"
-      loading={false}
-      registerUser={[Function]}
+      form="app_editAnswer_EDIT_ANSWER_FORM"
+      formHeader="Edit Answer"
+      sendAnswer={[Function]}
+      sendButtonId="app_editAnswer_EDIT_ANSWER_BUTTON_0"
+      submitButtonName="Save"
       translations={
         Object {
           "app.components.Footer.header": "Copyright: Peerania",
@@ -151,84 +125,25 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
         }
       }
     />
-  </div>
-</ModalDialog>
+  </Box>
+</div>
 `;
 
-exports[`SignUp snapshot render testing case 3: content === USER_IS_IN_SYSTEM_AND_SIGNUP 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
+exports[`EditAnswer render test answerLoading is true 1`] = `
+<div
+  className="container"
 >
-  <div>
-    <IdentityIsRegistred
-      account="user"
-      backToOptions={[Function]}
-      continueLogin={[Function]}
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Edit Answer
+    </title>
+    <meta
+      name="description"
     />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 4: content === NO_SELECTED_SCATTER_ACCOUNTS 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <SelectAccountComponent
-      backToOptions={[Function]}
-      selectAccount={[Function]}
-    />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 5: content === NO_SCATTER 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <ScatterInstaller
-      backToOptions={[Function]}
-    />
-  </div>
-</ModalDialog>
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
 `;

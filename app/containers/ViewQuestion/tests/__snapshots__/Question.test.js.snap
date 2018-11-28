@@ -9,6 +9,12 @@ exports[`Question test 1`] = `
   />
   <Content
     answerId="0"
+    buttonParams={
+      Object {
+        "answerId": 0,
+        "questionId": undefined,
+      }
+    }
     questionData={
       Object {
         "content": Object {
@@ -16,6 +22,7 @@ exports[`Question test 1`] = `
         },
       }
     }
+    type="question"
   />
 </div>
 `;

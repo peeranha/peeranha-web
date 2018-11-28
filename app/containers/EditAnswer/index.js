@@ -99,7 +99,7 @@ const mapStateToProps = createStructuredSelector({
   editAnswerLoading: makeSelectEditAnswer.selectEditAnswerLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getAnswerDispatch: (questionid, answerid) =>

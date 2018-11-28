@@ -24,11 +24,12 @@ TextEditor.instance = {
 
 describe('<AnswerForm />', () => {
   const props = {
+    form: 'form1',
     handleSubmit: jest.fn(),
     postAnswer: jest.fn(),
     submitting: false,
     invalid: false,
-    postAnswerLoading: false,
+    sendAnswerLoading: false,
     translations: {},
   };
 
@@ -46,8 +47,8 @@ describe('<AnswerForm />', () => {
     expect(renderedComponent).toMatchSnapshot();
   });
 
-  it('@postCommentLoading === true', () => {
-    props.postAnswerLoading = true;
+  it('@sendAnswerLoading === true', () => {
+    props.sendAnswerLoading = true;
 
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(

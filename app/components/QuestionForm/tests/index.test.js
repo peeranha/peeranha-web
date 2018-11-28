@@ -7,7 +7,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
-import TextEditor from 'components/TextEditor';
 
 import QuestionFormDefault from '../index';
 import messages from '../messages';
@@ -15,18 +14,11 @@ import messages from '../messages';
 jest.mock('react-simplemde-editor');
 jest.mock('simplemde/dist/simplemde.min.css');
 
-TextEditor.instance = {
-  codemirror: {
-    options: {
-      readOnly: true,
-    },
-  },
-};
-
 const props = {
+  form: 'form1',
   invalid: false,
   submitting: false,
-  askQuestionLoading: false,
+  questionLoading: false,
   userIsInSystem: true,
   handleSubmit: jest.fn(),
   postQuestion: jest.fn(),
@@ -81,7 +73,7 @@ describe('<QuestionFormDefault />', () => {
   });
 
   it('snapshot test 4', () => {
-    props.askQuestionLoading = true;
+    props.questionLoading = true;
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(
       <Provider store={store}>

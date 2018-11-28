@@ -7,7 +7,10 @@ import {
   markAsAcceptedValidator,
   upVoteValidator,
   downVoteValidator,
+  deleteQuestionValidator,
+  deleteAnswerValidator,
 } from '../validate';
+
 import messages from '../messages';
 
 jest.mock('utils/popover', () => ({
@@ -37,6 +40,64 @@ beforeEach(() => {
   postButtonId = 'postButtonId';
   answerId = 0;
   translations = translationMessages[locale];
+});
+
+describe('deleteQuestionValidator', () => {
+  it('answersNum > answersLimit', () => {
+    const answersNum = 100;
+
+    deleteQuestionValidator(postButtonId, answersNum, translations);
+
+    expect(showPopover).toHaveBeenCalledWith(
+      postButtonId,
+      translations[messages.youHaveAnswers.id],
+    );
+  });
+
+  it('passed validation successully', () => {
+    const answersNum = 0;
+
+    const calling = deleteQuestionValidator(
+      postButtonId,
+      answersNum,
+      translations,
+    );
+
+    expect(calling).toBe(true);
+  });
+});
+
+describe('deleteAnswerValidator', () => {
+  it('+answerid === correctAnswerId', () => {
+    const answerid = 100;
+    const correctAnswerId = 100;
+
+    deleteAnswerValidator(
+      postButtonId,
+      answerid,
+      correctAnswerId,
+      translations,
+    );
+
+    expect(showPopover).toHaveBeenCalledWith(
+      postButtonId,
+      translations[messages.answerIsCorrect.id],
+    );
+  });
+
+  it('passed validation successully', () => {
+    const answerid = 100010;
+    const correctAnswerId = 100;
+
+    const calling = deleteAnswerValidator(
+      postButtonId,
+      answerid,
+      correctAnswerId,
+      translations,
+    );
+
+    expect(calling).toBe(true);
+  });
 });
 
 describe('downVoteValidator', () => {
@@ -82,6 +143,23 @@ describe('downVoteValidator', () => {
       );
     }
   });
+
+  it('passed validation successully', () => {
+    questionData.user = 'user1';
+    profileInfo.owner = 'user2';
+    profileInfo.rating = 10000;
+    answerId = 0;
+
+    const calling = downVoteValidator(
+      profileInfo,
+      questionData,
+      postButtonId,
+      answerId,
+      translations,
+    );
+
+    expect(calling).toBe(true);
+  });
 });
 
 describe('upVoteValidator', () => {
@@ -126,6 +204,23 @@ describe('upVoteValidator', () => {
         `${translations[messages.notEnoughRating.id]} ${35}`,
       );
     }
+  });
+
+  it('passed validation successully', () => {
+    profileInfo.rating = 100000;
+    questionData.user = 'user1';
+    profileInfo.owner = 'user2';
+    answerId = 0;
+
+    const calling = upVoteValidator(
+      profileInfo,
+      questionData,
+      postButtonId,
+      answerId,
+      translations,
+    );
+
+    expect(calling).toBe(true);
   });
 });
 

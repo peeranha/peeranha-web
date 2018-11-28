@@ -1,5 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `
+<div
+  className="comment-content"
+>
+  <div>
+    <RecordingDate />
+    <p
+      className="comment-text"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+  </div>
+  <p
+    className="option-edit"
+  >
+    <Button
+      buttonParams={
+        Object {
+          "commentId": undefined,
+        }
+      }
+    />
+    <Button
+      buttonId="comment__undefined"
+      buttonParams={
+        Object {
+          "commentId": undefined,
+        }
+      }
+    />
+  </p>
+</div>
+`;
+
+exports[` 2`] = `
+<div
+  className="save-edited-form"
+>
+  <Connect(ReduxForm)
+    form="app_ViewQuestion_SAVE_COMMENT_FORM_undefinedundefined"
+    submitButtonId="app_ViewQuestion_SAVE_COMMENT_BUTTON"
+  />
+</div>
+`;
+
+exports[`Comments CommentVision answerid != item.answerId && commentid != item.id 1`] = `
+<CommentView
+  answerId={11111}
+  editCommentState={
+    Object {
+      "answerid": 1,
+      "commentid": 1,
+    }
+  }
+  id={11111}
+/>
+`;
+
+exports[`Comments CommentVision answerid == item.answerId && commentid == item.id 1`] = `
+<CommentEdit
+  answerId={1}
+  editCommentState={
+    Object {
+      "answerid": 1,
+      "commentid": 1,
+    }
+  }
+  id={1}
+/>
+`;
+
 exports[`Comments test1, Comments 1`] = `
 <div
   className="comments"
@@ -38,23 +112,8 @@ exports[`Comments test2, Comment 1`] = `
   className="comment-body"
 >
   <UserInfo />
-  <div
-    className="comment-content"
-  >
-    <RecordingDate />
-    <p
-      className="comment-text"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": undefined,
-        }
-      }
-    />
-    <p
-      className="option-edit"
-    >
-      <EditButton />
-    </p>
-  </div>
+  <CommentVision
+    userInfo={Object {}}
+  />
 </div>
 `;

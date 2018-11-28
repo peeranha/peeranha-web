@@ -1,45 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TextEditor /> componentDidUpdate test 1`] = `
-<div>
-  <SimpleMDEEditor
-    content="content"
-    events={Object {}}
-    extraKeys={
-      Object {
-        "Tab": false,
-      }
-    }
-    getMdeInstance={[Function]}
-    input={Object {}}
-    onBlur={[Function]}
-    onChange={[MockFunction]}
-    options={
-      Object {
-        "status": false,
-        "toolbar": Array [
-          "bold",
-          "italic",
-          "heading",
-          "|",
-          "quote",
-          "code",
-          "unordered-list",
-          "ordered-list",
-          "clean-block",
-          "link",
-          "image",
-          "horizontal-rule",
-          "preview",
-          "undo",
-          "redo",
-        ],
-      }
-    }
-  />
-</div>
-`;
-
 exports[`<TextEditor /> snapshot test test 1`] = `
 <div>
   <SimpleMDEEditor
@@ -50,7 +10,6 @@ exports[`<TextEditor /> snapshot test test 1`] = `
         "Tab": false,
       }
     }
-    getMdeInstance={[Function]}
     input={Object {}}
     onBlur={[Function]}
     onChange={[MockFunction]}

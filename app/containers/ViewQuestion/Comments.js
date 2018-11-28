@@ -86,5 +86,5 @@ Comments.propTypes = {
   comments: PropTypes.array,
 };
 
-export { Comment };
+export { Comment, CommentVision, CommentEdit, CommentView };
 export default Comments;
