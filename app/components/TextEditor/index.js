@@ -7,26 +7,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SimpleMDE from 'react-simplemde-editor';
+import EditorOptions from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 
 import options from './options';
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.Component {
-  componentDidUpdate() {
-    TextEditor.instance.codemirror.options.readOnly = this.props.disabled;
-  }
-
   onBlurHandler = () => {
     this.props.onBlur(this.props.value);
   };
 
-  getMdeInstance = instance => {
-    TextEditor.instance = instance;
-  };
-
-  static getHtmlText = md =>
-    TextEditor.instance && TextEditor.instance.options.previewRender(md);
+  static getHtmlText = md => EditorOptions.prototype.markdown(md);
 
   render() {
     return (
@@ -34,7 +26,6 @@ class TextEditor extends React.Component {
         <SimpleMDE
           {...this.props}
           onBlur={this.onBlurHandler}
-          getMdeInstance={this.getMdeInstance}
           options={options}
           extraKeys={{
             Tab: false,

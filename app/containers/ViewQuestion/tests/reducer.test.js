@@ -21,6 +21,19 @@ import {
   markAsAccepted,
   markAsAcceptedSuccess,
   markAsAcceptedErr,
+  deleteQuestion,
+  deleteQuestionSuccess,
+  deleteQuestionErr,
+  deleteAnswer,
+  deleteAnswerSuccess,
+  deleteAnswerErr,
+  deleteComment,
+  deleteCommentSuccess,
+  deleteCommentErr,
+  saveComment,
+  saveCommentSuccess,
+  saveCommentErr,
+  toggleCommentVision,
 } from '../actions';
 
 describe('viewQuestionReducer', () => {
@@ -33,6 +46,122 @@ describe('viewQuestionReducer', () => {
 
   it('returns the initial state', () => {
     expect(viewQuestionReducer(state, {})).toEqual(state);
+  });
+
+  it('toggleCommentVision', () => {
+    const editComment = 'editComment';
+    const obj = state.set('editComment', editComment);
+
+    expect(
+      viewQuestionReducer(state, toggleCommentVision(editComment)),
+    ).toEqual(obj);
+  });
+
+  it('saveComment', () => {
+    const obj = state.set('saveCommentLoading', true);
+    expect(viewQuestionReducer(state, saveComment())).toEqual(obj);
+  });
+
+  it('saveCommentSuccess', () => {
+    const questionData = 'questionData';
+    const editComment = {};
+    const obj = state
+      .set('saveCommentLoading', false)
+      .set('questionData', questionData)
+      .set('editComment', editComment);
+
+    expect(
+      viewQuestionReducer(state, saveCommentSuccess(questionData)),
+    ).toEqual(obj);
+  });
+
+  it('saveCommentErr', () => {
+    const saveCommentError = 'saveCommentError';
+    const obj = state
+      .set('saveCommentLoading', false)
+      .set('saveCommentError', saveCommentError);
+
+    expect(
+      viewQuestionReducer(state, saveCommentErr(saveCommentError)),
+    ).toEqual(obj);
+  });
+
+  it('deleteComment', () => {
+    const obj = state.set('deleteCommentLoading', true);
+    expect(viewQuestionReducer(state, deleteComment())).toEqual(obj);
+  });
+
+  it('deleteCommentSuccess', () => {
+    const questionData = 'questionData';
+    const obj = state
+      .set('questionData', questionData)
+      .set('deleteCommentLoading', false);
+
+    expect(
+      viewQuestionReducer(state, deleteCommentSuccess(questionData)),
+    ).toEqual(obj);
+  });
+
+  it('deleteCommentErr', () => {
+    const deleteCommentError = 'deleteCommentError';
+    const obj = state
+      .set('deleteCommentLoading', false)
+      .set('deleteCommentError', deleteCommentError);
+
+    expect(
+      viewQuestionReducer(state, deleteCommentErr(deleteCommentError)),
+    ).toEqual(obj);
+  });
+
+  it('deleteAnswer', () => {
+    const obj = state.set('deleteAnswerLoading', true);
+    expect(viewQuestionReducer(state, deleteAnswer())).toEqual(obj);
+  });
+
+  it('deleteAnswerSuccess', () => {
+    const questionData = 'questionData';
+    const obj = state
+      .set('questionData', questionData)
+      .set('deleteAnswerLoading', false);
+
+    expect(
+      viewQuestionReducer(state, deleteAnswerSuccess(questionData)),
+    ).toEqual(obj);
+  });
+
+  it('deleteAnswerErr', () => {
+    const deleteAnswerError = 'deleteAnswerError';
+    const obj = state
+      .set('deleteAnswerLoading', false)
+      .set('deleteAnswerError', deleteAnswerError);
+
+    expect(
+      viewQuestionReducer(state, deleteAnswerErr(deleteAnswerError)),
+    ).toEqual(obj);
+  });
+
+  it('deleteQuestion', () => {
+    const obj = state.set('deleteQuestionLoading', true);
+    expect(viewQuestionReducer(state, deleteQuestion())).toEqual(obj);
+  });
+
+  it('deleteQuestionSuccess', () => {
+    const questionData = 'questionData';
+    const obj = state.set('deleteQuestionLoading', false);
+    expect(
+      viewQuestionReducer(state, deleteQuestionSuccess(questionData)),
+    ).toEqual(obj);
+  });
+
+  it('deleteQuestionErr', () => {
+    const deleteQuestionError = 'deleteQuestionError';
+    const obj = state
+      .set('deleteQuestionLoading', false)
+      .set('deleteQuestionError', deleteQuestionError);
+
+    expect(
+      viewQuestionReducer(state, deleteQuestionErr(deleteQuestionError)),
+    ).toEqual(obj);
   });
 
   it('getQuestionData', () => {

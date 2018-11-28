@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditQuestion render test question is NOT null 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      title
+    </title>
+    <meta
+      content="content"
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`EditQuestion render test question is null 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Edit question
+    </title>
+    <meta
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`EditQuestion render test questionLoading is falsy 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      title
+    </title>
+    <meta
+      content="content"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Connect(ReduxForm)
+    form="app/AskQuestion/EDIT_QUESTION_FORM"
+    formTitle="Edit question"
+    questionContent="content"
+    questionTitle="title"
+    sendQuestion={[Function]}
+    submitButtonId="app/AskQuestion/EDIT_QUESTION_BUTTON"
+    submitButtonName="Save"
+    translations={
+      Object {
+        "app.components.Footer.header": "Copyright: Peerania",
+        "app.components.FormFields.requiredField": "Required field",
+        "app.components.Header.about": "About",
+        "app.components.Header.help": "Help",
+        "app.components.Header.home": "Home",
+        "app.components.Header.login": "Log in",
+        "app.components.Header.profile": "Profile",
+        "app.components.Header.questions": "Questions",
+        "app.components.Header.search": "Search",
+        "app.components.Header.signUp": "Sign Up",
+        "app.components.NoAccess.errorMessage": "No access to complete this action!",
+        "app.containers.AskQuestion.description": "Ask question | Description",
+        "app.containers.AskQuestion.notEnoughRating": "To complete this action, your rating has to be more than",
+        "app.containers.AskQuestion.postQuestion": "Post question",
+        "app.containers.AskQuestion.title": "Ask question",
+        "app.containers.EditAnswer.description": "Edit Answer Description",
+        "app.containers.EditAnswer.submitButtonName": "Save",
+        "app.containers.EditAnswer.title": "Edit Answer",
+        "app.containers.EditQuestion.description": "Edit Question Description",
+        "app.containers.EditQuestion.submitButtonName": "Save",
+        "app.containers.EditQuestion.title": "Edit question",
+        "app.containers.ErrorBoundary.description": "Description of error boundary",
+        "app.containers.ErrorBoundary.details": "Details",
+        "app.containers.ErrorBoundary.problemWithWebpage": "A problem occurred with this webpage",
+        "app.containers.ErrorBoundary.reloadPage": "Reload page",
+        "app.containers.ErrorBoundary.title": "Error",
+        "app.containers.FormFields.fileSize": "File size is exceeded",
+        "app.containers.FormFields.wrongLength": "Not valid field length",
+        "app.containers.FormFields.wrongLength30000": "Maximum number of characters exceeded",
+        "app.containers.Login.doNotHaveAcc": "Do not have an account?",
+        "app.containers.Login.header": "No Peerania account exists for selected identity.",
+        "app.containers.Login.loginWithScatter": "Log in with Scatter",
+        "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
+        "app.containers.Login.selectAnotherIdentity": "Select another identity",
+        "app.containers.Login.signUp": "Sign up",
+        "app.containers.Profile.aboutLabel": "About me",
+        "app.containers.Profile.avatarLabel": "Avatar",
+        "app.containers.Profile.cancelButton": "Cancel",
+        "app.containers.Profile.chooseFile": "Choose file",
+        "app.containers.Profile.companyLabel": "Company",
+        "app.containers.Profile.displayNameLabel": "Display name",
+        "app.containers.Profile.editButton": "Edit",
+        "app.containers.Profile.isProfileLoading": "Loading...",
+        "app.containers.Profile.locationLabel": "Location",
+        "app.containers.Profile.positionLabel": "Position",
+        "app.containers.Profile.profile": "Profile",
+        "app.containers.Profile.profileDescription": "Profile description",
+        "app.containers.Profile.saveButton": "Save",
+        "app.containers.Profile.savingButton": "Saving...",
+        "app.containers.Profile.viewButton": "View",
+        "app.containers.Profile.wrongUser": "Wrong user",
+        "app.containers.QuestionForm.contentLabel": "Body",
+        "app.containers.QuestionForm.title": "Ask question",
+        "app.containers.QuestionForm.titleLabel": "Title",
+        "app.containers.Questions.answers": "answers",
+        "app.containers.Questions.askQuestion": "Ask question",
+        "app.containers.Questions.description": "Questions | Description",
+        "app.containers.Questions.noQuestions": "No questions",
+        "app.containers.Questions.title": "Questions",
+        "app.containers.Questions.votes": "votes",
+        "app.containers.ScatterInstaller.backToOptions": "Back to options",
+        "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
+        "app.containers.ScatterInstaller.nextstep": "Next step",
+        "app.containers.SelectAccount.backToOptions": "Back to options",
+        "app.containers.SelectAccount.header": "Scatter account was not selected.",
+        "app.containers.SelectAccount.selectIdent": "Select identity",
+        "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
+        "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+        "app.containers.SignUp.displayName": "Display Name",
+        "app.containers.SignUp.eosAccount": "EOS Account",
+        "app.containers.SignUp.identity": "identity",
+        "app.containers.SignUp.isAlreadyRegistred": "is already registred",
+        "app.containers.SignUp.login": "Log in",
+        "app.containers.SignUp.loginWith": "Login with",
+        "app.containers.SignUp.or": "or",
+        "app.containers.SignUp.selectedIdentity": "Selected identity",
+        "app.containers.SignUp.serverMessage": "Error",
+        "app.containers.SignUp.signUp": "Sign Up",
+        "app.containers.SignUp.signUpDescription": "Description of Sign Up",
+        "app.containers.SignUp.signUpWith": "Sign up with Scatter",
+        "app.containers.UserProfileNav.profile": "Profile",
+        "app.containers.ViewQuestion.alreadyAnswered": "You already answered this question",
+        "app.containers.ViewQuestion.answerIsCorrect": "You cannot delete it because your answer is marked as correct",
+        "app.containers.ViewQuestion.answers": "answers",
+        "app.containers.ViewQuestion.commentButton": "Comment",
+        "app.containers.ViewQuestion.deleteButton": "Delete",
+        "app.containers.ViewQuestion.description": "Question's description",
+        "app.containers.ViewQuestion.editButton": "Edit",
+        "app.containers.ViewQuestion.itemsMax": "Number of items is achieved of maximum",
+        "app.containers.ViewQuestion.noRootsToVote": "You cannot vote to own questions and answers",
+        "app.containers.ViewQuestion.notEnoughRating": "To complete this action, your rating has to be more than",
+        "app.containers.ViewQuestion.postAnswerButton": "Post answer",
+        "app.containers.ViewQuestion.postCommentButton": "Post comment",
+        "app.containers.ViewQuestion.questionNotExist": "This question does not exist",
+        "app.containers.ViewQuestion.saveButton": "Save",
+        "app.containers.ViewQuestion.title": "Question's page",
+        "app.containers.ViewQuestion.youHaveAnswers": "You cannot delete it because you already have some answers by your question",
+        "app.containers.ViewQuestion.yourAnswer": "Your answer",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`EditQuestion render test questionLoading is true 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      title
+    </title>
+    <meta
+      content="content"
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;

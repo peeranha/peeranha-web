@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
+exports[`<CommentForm /> @sendCommentLoading === true 1`] = `
 <Provider
   store={
     Object {
@@ -73,22 +73,22 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
               }
             }
           >
-            <ReduxForm
+            <Connect(ReduxForm)
               form="form-1010"
               handleSubmit={
                 [MockFunction] {
                   "calls": Array [
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                   ],
                   "results": Array [
@@ -113,30 +113,28 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
               }
               invalid={false}
               postComment={[MockFunction]}
-              postCommentLoading={true}
+              sendCommentLoading={true}
               submitting={false}
               translations={Object {}}
             >
-              <Connect(Form(AddCommentForm))
-                destroyOnUnmount={true}
-                enableReinitialize={false}
-                forceUnregisterOnUnmount={false}
+              <ReduxForm
+                dispatch={[Function]}
+                enableReinitialize={true}
                 form="form-1010"
-                getFormState={[Function]}
                 handleSubmit={
                   [MockFunction] {
                     "calls": Array [
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                     ],
                     "results": Array [
@@ -159,62 +157,21 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                     ],
                   }
                 }
-                invalid={false}
-                keepDirtyOnReinitialize={false}
-                persistentSubmitErrors={false}
-                postComment={[MockFunction]}
-                postCommentLoading={true}
-                pure={true}
-                shouldAsyncValidate={[Function]}
-                shouldError={[Function]}
-                shouldValidate={[Function]}
-                shouldWarn={[Function]}
-                submitting={false}
-                touchOnBlur={true}
-                touchOnChange={false}
-                translations={Object {}}
-                updateUnregisteredFields={false}
-              >
-                <Form(AddCommentForm)
-                  anyTouched={false}
-                  array={
-                    Object {
-                      "insert": [Function],
-                      "move": [Function],
-                      "pop": [Function],
-                      "push": [Function],
-                      "remove": [Function],
-                      "removeAll": [Function],
-                      "shift": [Function],
-                      "splice": [Function],
-                      "swap": [Function],
-                      "unshift": [Function],
-                    }
+                initialValues={
+                  Object {
+                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
                   }
-                  arrayInsert={[Function]}
-                  arrayMove={[Function]}
-                  arrayPop={[Function]}
-                  arrayPush={[Function]}
-                  arrayRemove={[Function]}
-                  arrayRemoveAll={[Function]}
-                  arrayShift={[Function]}
-                  arraySplice={[Function]}
-                  arraySwap={[Function]}
-                  arrayUnshift={[Function]}
-                  asyncValidating={false}
-                  autofill={[Function]}
-                  blur={[Function]}
-                  change={[Function]}
-                  clearAsyncError={[Function]}
-                  clearFields={[Function]}
-                  clearSubmit={[Function]}
-                  clearSubmitErrors={[Function]}
-                  destroy={[Function]}
+                }
+                invalid={false}
+                postComment={[MockFunction]}
+                sendCommentLoading={true}
+                submitting={false}
+                translations={Object {}}
+              >
+                <Connect(Form(CommentForm))
                   destroyOnUnmount={true}
-                  dirty={false}
                   dispatch={[Function]}
-                  enableReinitialize={false}
-                  focus={[Function]}
+                  enableReinitialize={true}
                   forceUnregisterOnUnmount={false}
                   form="form-1010"
                   getFormState={[Function]}
@@ -222,16 +179,16 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                     [MockFunction] {
                       "calls": Array [
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                       ],
                       "results": Array [
@@ -254,71 +211,28 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                       ],
                     }
                   }
-                  initialize={[Function]}
-                  initialized={false}
-                  invalid={true}
+                  initialValues={
+                    Immutable.Map {
+                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                    }
+                  }
+                  invalid={false}
                   keepDirtyOnReinitialize={false}
                   persistentSubmitErrors={false}
                   postComment={[MockFunction]}
-                  postCommentLoading={true}
-                  pristine={true}
                   pure={true}
-                  registerField={[Function]}
-                  registeredFields={
-                    Immutable.Map {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Immutable.Map {
-                        "name": "app_ViewQuestion_TEXTAREA_COMMENT_FORM",
-                        "type": "Field",
-                        "count": 1,
-                      },
-                    }
-                  }
-                  reset={[Function]}
-                  resetSection={[Function]}
-                  setSubmitFailed={[Function]}
-                  setSubmitSucceeded={[Function]}
+                  sendCommentLoading={true}
                   shouldAsyncValidate={[Function]}
                   shouldError={[Function]}
                   shouldValidate={[Function]}
                   shouldWarn={[Function]}
-                  startAsyncValidation={[Function]}
-                  startSubmit={[Function]}
-                  stopAsyncValidation={[Function]}
-                  stopSubmit={[Function]}
-                  submit={[Function]}
-                  submitFailed={false}
-                  submitSucceeded={false}
                   submitting={false}
-                  syncErrors={
-                    Object {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
-                        "defaultMessage": "Required field",
-                        "id": "app.containers.AskQuestion.requiredField",
-                      },
-                    }
-                  }
-                  syncWarnings={
-                    Object {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
-                        "defaultMessage": "Required field",
-                        "id": "app.containers.AskQuestion.requiredField",
-                      },
-                    }
-                  }
-                  touch={[Function]}
                   touchOnBlur={true}
                   touchOnChange={false}
                   translations={Object {}}
-                  unregisterField={[Function]}
-                  untouch={[Function]}
-                  updateSyncErrors={[Function]}
-                  updateSyncWarnings={[Function]}
                   updateUnregisteredFields={false}
-                  valid={false}
-                  validExceptSubmit={false}
-                  values={Immutable.Map {}}
                 >
-                  <AddCommentForm
+                  <Form(CommentForm)
                     anyTouched={false}
                     array={
                       Object {
@@ -334,7 +248,16 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                         "unshift": [Function],
                       }
                     }
-                    asyncValidate={[Function]}
+                    arrayInsert={[Function]}
+                    arrayMove={[Function]}
+                    arrayPop={[Function]}
+                    arrayPush={[Function]}
+                    arrayRemove={[Function]}
+                    arrayRemoveAll={[Function]}
+                    arrayShift={[Function]}
+                    arraySplice={[Function]}
+                    arraySwap={[Function]}
+                    arrayUnshift={[Function]}
                     asyncValidating={false}
                     autofill={[Function]}
                     blur={[Function]}
@@ -344,23 +267,28 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                     clearSubmit={[Function]}
                     clearSubmitErrors={[Function]}
                     destroy={[Function]}
+                    destroyOnUnmount={true}
                     dirty={false}
                     dispatch={[Function]}
+                    enableReinitialize={true}
+                    focus={[Function]}
+                    forceUnregisterOnUnmount={false}
                     form="form-1010"
+                    getFormState={[Function]}
                     handleSubmit={
                       [MockFunction] {
                         "calls": Array [
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                         ],
                         "results": Array [
@@ -383,26 +311,166 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                         ],
                       }
                     }
+                    initialValues={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                      }
+                    }
                     initialize={[Function]}
-                    initialized={false}
+                    initialized={true}
                     invalid={true}
+                    keepDirtyOnReinitialize={false}
+                    persistentSubmitErrors={false}
                     postComment={[MockFunction]}
-                    postCommentLoading={true}
                     pristine={true}
                     pure={true}
+                    registerField={[Function]}
+                    registeredFields={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Immutable.Map {
+                          "name": "app_ViewQuestion_TEXTAREA_COMMENT_FORM",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                      }
+                    }
                     reset={[Function]}
                     resetSection={[Function]}
+                    sendCommentLoading={true}
+                    setSubmitFailed={[Function]}
+                    setSubmitSucceeded={[Function]}
+                    shouldAsyncValidate={[Function]}
+                    shouldError={[Function]}
+                    shouldValidate={[Function]}
+                    shouldWarn={[Function]}
+                    startAsyncValidation={[Function]}
+                    startSubmit={[Function]}
+                    stopAsyncValidation={[Function]}
+                    stopSubmit={[Function]}
                     submit={[Function]}
                     submitFailed={false}
                     submitSucceeded={false}
                     submitting={false}
+                    syncErrors={
+                      Object {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
+                          "defaultMessage": "Required field",
+                          "id": "app.containers.AskQuestion.requiredField",
+                        },
+                      }
+                    }
+                    syncWarnings={
+                      Object {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
+                          "defaultMessage": "Required field",
+                          "id": "app.containers.AskQuestion.requiredField",
+                        },
+                      }
+                    }
                     touch={[Function]}
+                    touchOnBlur={true}
+                    touchOnChange={false}
                     translations={Object {}}
+                    unregisterField={[Function]}
                     untouch={[Function]}
+                    updateSyncErrors={[Function]}
+                    updateSyncWarnings={[Function]}
+                    updateUnregisteredFields={false}
                     valid={false}
+                    validExceptSubmit={false}
+                    values={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                      }
+                    }
                   >
-                    <div
-                      className="add-comment"
+                    <CommentForm
+                      anyTouched={false}
+                      array={
+                        Object {
+                          "insert": [Function],
+                          "move": [Function],
+                          "pop": [Function],
+                          "push": [Function],
+                          "remove": [Function],
+                          "removeAll": [Function],
+                          "shift": [Function],
+                          "splice": [Function],
+                          "swap": [Function],
+                          "unshift": [Function],
+                        }
+                      }
+                      asyncValidate={[Function]}
+                      asyncValidating={false}
+                      autofill={[Function]}
+                      blur={[Function]}
+                      change={[Function]}
+                      clearAsyncError={[Function]}
+                      clearFields={[Function]}
+                      clearSubmit={[Function]}
+                      clearSubmitErrors={[Function]}
+                      destroy={[Function]}
+                      dirty={false}
+                      dispatch={[Function]}
+                      form="form-1010"
+                      handleSubmit={
+                        [MockFunction] {
+                          "calls": Array [
+                            Array [
+                              undefined,
+                            ],
+                            Array [
+                              undefined,
+                            ],
+                            Array [
+                              undefined,
+                            ],
+                            Array [
+                              undefined,
+                            ],
+                          ],
+                          "results": Array [
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                          ],
+                        }
+                      }
+                      initialValues={
+                        Immutable.Map {
+                          "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                        }
+                      }
+                      initialize={[Function]}
+                      initialized={true}
+                      invalid={true}
+                      postComment={[MockFunction]}
+                      pristine={true}
+                      pure={true}
+                      reset={[Function]}
+                      resetSection={[Function]}
+                      sendCommentLoading={true}
+                      submit={[Function]}
+                      submitFailed={false}
+                      submitSucceeded={false}
+                      submitting={false}
+                      touch={[Function]}
+                      translations={Object {}}
+                      untouch={[Function]}
+                      valid={false}
                     >
                       <form>
                         <div>
@@ -463,7 +531,7 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                   "destroyOnUnmount": true,
                                   "dirty": false,
                                   "dispatch": [Function],
-                                  "enableReinitialize": false,
+                                  "enableReinitialize": true,
                                   "error": undefined,
                                   "focus": [Function],
                                   "forceUnregisterOnUnmount": false,
@@ -473,16 +541,16 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                   "handleSubmit": [MockFunction] {
                                     "calls": Array [
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                     ],
                                     "results": Array [
@@ -504,14 +572,15 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                       },
                                     ],
                                   },
-                                  "initialValues": undefined,
+                                  "initialValues": Immutable.Map {
+                                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                  },
                                   "initialize": [Function],
-                                  "initialized": false,
+                                  "initialized": true,
                                   "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postComment": [MockFunction],
-                                  "postCommentLoading": true,
                                   "pristine": true,
                                   "pure": true,
                                   "register": [Function],
@@ -527,6 +596,7 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
+                                  "sendCommentLoading": true,
                                   "setSubmitFailed": [Function],
                                   "setSubmitSucceeded": [Function],
                                   "shouldAsyncValidate": [Function],
@@ -566,7 +636,9 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                   "updateUnregisteredFields": false,
                                   "valid": false,
                                   "validExceptSubmit": false,
-                                  "values": Immutable.Map {},
+                                  "values": Immutable.Map {
+                                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                  },
                                   "warning": undefined,
                                 }
                               }
@@ -627,7 +699,7 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                     "destroyOnUnmount": true,
                                     "dirty": false,
                                     "dispatch": [Function],
-                                    "enableReinitialize": false,
+                                    "enableReinitialize": true,
                                     "error": undefined,
                                     "focus": [Function],
                                     "forceUnregisterOnUnmount": false,
@@ -637,16 +709,16 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                     "handleSubmit": [MockFunction] {
                                       "calls": Array [
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                       ],
                                       "results": Array [
@@ -668,14 +740,15 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                         },
                                       ],
                                     },
-                                    "initialValues": undefined,
+                                    "initialValues": Immutable.Map {
+                                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                    },
                                     "initialize": [Function],
-                                    "initialized": false,
+                                    "initialized": true,
                                     "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postComment": [MockFunction],
-                                    "postCommentLoading": true,
                                     "pristine": true,
                                     "pure": true,
                                     "register": [Function],
@@ -691,6 +764,7 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
+                                    "sendCommentLoading": true,
                                     "setSubmitFailed": [Function],
                                     "setSubmitSucceeded": [Function],
                                     "shouldAsyncValidate": [Function],
@@ -730,7 +804,9 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                                     "updateUnregisteredFields": false,
                                     "valid": false,
                                     "validExceptSubmit": false,
-                                    "values": Immutable.Map {},
+                                    "values": Immutable.Map {
+                                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                    },
                                     "warning": undefined,
                                   }
                                 }
@@ -830,160 +906,150 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-secondary"
                             disabled={true}
-                            isLoading={true}
+                            id="undefinedundefined"
+                            style={
+                              Object {
+                                "opacity": 0.5,
+                              }
+                            }
+                            type="submit"
                           >
-                            <AuthenticatedButton
-                              className="btn btn-secondary"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={true}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-secondary"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              >
-                                <LoadingIndicator>
-                                  <Wrapper>
-                                    <div
-                                      className="Wrapper-ThVjl bNvReZ"
-                                    >
-                                      <Circle>
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG ehmTAR"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-1.1}
-                                        rotate={30}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG zdGXL"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-1}
-                                        rotate={60}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG hZmZmt"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.9}
-                                        rotate={90}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG hmjUiu"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.8}
-                                        rotate={120}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG SCPwQ"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.7}
-                                        rotate={150}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG drXvaa"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.6}
-                                        rotate={180}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG OJgdC"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.5}
-                                        rotate={210}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG gZiMKx"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.4}
-                                        rotate={240}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG okLMH"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.3}
-                                        rotate={270}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG eaNyAy"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.2}
-                                        rotate={300}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG eJcvxt"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                      <Circle
-                                        delay={-0.1}
-                                        rotate={330}
-                                      >
-                                        <Circle__CirclePrimitive>
-                                          <div
-                                            className="Circle__CirclePrimitive-cPqaOG iUFKZk"
-                                          />
-                                        </Circle__CirclePrimitive>
-                                      </Circle>
-                                    </div>
-                                  </Wrapper>
-                                </LoadingIndicator>
-                              </button>
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            <LoadingIndicator>
+                              <Wrapper>
+                                <div
+                                  className="Wrapper-ThVjl bNvReZ"
+                                >
+                                  <Circle>
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG ehmTAR"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-1.1}
+                                    rotate={30}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG zdGXL"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-1}
+                                    rotate={60}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG hZmZmt"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.9}
+                                    rotate={90}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG hmjUiu"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.8}
+                                    rotate={120}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG SCPwQ"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.7}
+                                    rotate={150}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG drXvaa"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.6}
+                                    rotate={180}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG OJgdC"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.5}
+                                    rotate={210}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG gZiMKx"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.4}
+                                    rotate={240}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG okLMH"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.3}
+                                    rotate={270}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG eaNyAy"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.2}
+                                    rotate={300}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG eJcvxt"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                  <Circle
+                                    delay={-0.1}
+                                    rotate={330}
+                                  >
+                                    <Circle__CirclePrimitive>
+                                      <div
+                                        className="Circle__CirclePrimitive-cPqaOG iUFKZk"
+                                      />
+                                    </Circle__CirclePrimitive>
+                                  </Circle>
+                                </div>
+                              </Wrapper>
+                            </LoadingIndicator>
+                          </button>
                         </div>
                       </form>
-                    </div>
-                  </AddCommentForm>
-                </Form(AddCommentForm)>
-              </Connect(Form(AddCommentForm))>
-            </ReduxForm>
+                    </CommentForm>
+                  </Form(CommentForm)>
+                </Connect(Form(CommentForm))>
+              </ReduxForm>
+            </Connect(ReduxForm)>
           </Router>
         </ConnectedRouter>
       </IntlProvider>
@@ -992,7 +1058,7 @@ exports[`<AddCommentForm /> @postCommentLoading === true 1`] = `
 </Provider>
 `;
 
-exports[`<AddCommentForm /> snapshot test 1`] = `
+exports[`<CommentForm /> snapshot test 1`] = `
 <Provider
   store={
     Object {
@@ -1065,16 +1131,16 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
               }
             }
           >
-            <ReduxForm
+            <Connect(ReduxForm)
               form="form-1010"
               handleSubmit={
                 [MockFunction] {
                   "calls": Array [
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                     Array [
-                      [MockFunction],
+                      undefined,
                     ],
                   ],
                   "results": Array [
@@ -1091,24 +1157,22 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
               }
               invalid={false}
               postComment={[MockFunction]}
-              postCommentLoading={false}
+              sendCommentLoading={false}
               submitting={false}
               translations={Object {}}
             >
-              <Connect(Form(AddCommentForm))
-                destroyOnUnmount={true}
-                enableReinitialize={false}
-                forceUnregisterOnUnmount={false}
+              <ReduxForm
+                dispatch={[Function]}
+                enableReinitialize={true}
                 form="form-1010"
-                getFormState={[Function]}
                 handleSubmit={
                   [MockFunction] {
                     "calls": Array [
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                       Array [
-                        [MockFunction],
+                        undefined,
                       ],
                     ],
                     "results": Array [
@@ -1123,62 +1187,21 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                     ],
                   }
                 }
-                invalid={false}
-                keepDirtyOnReinitialize={false}
-                persistentSubmitErrors={false}
-                postComment={[MockFunction]}
-                postCommentLoading={false}
-                pure={true}
-                shouldAsyncValidate={[Function]}
-                shouldError={[Function]}
-                shouldValidate={[Function]}
-                shouldWarn={[Function]}
-                submitting={false}
-                touchOnBlur={true}
-                touchOnChange={false}
-                translations={Object {}}
-                updateUnregisteredFields={false}
-              >
-                <Form(AddCommentForm)
-                  anyTouched={false}
-                  array={
-                    Object {
-                      "insert": [Function],
-                      "move": [Function],
-                      "pop": [Function],
-                      "push": [Function],
-                      "remove": [Function],
-                      "removeAll": [Function],
-                      "shift": [Function],
-                      "splice": [Function],
-                      "swap": [Function],
-                      "unshift": [Function],
-                    }
+                initialValues={
+                  Object {
+                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
                   }
-                  arrayInsert={[Function]}
-                  arrayMove={[Function]}
-                  arrayPop={[Function]}
-                  arrayPush={[Function]}
-                  arrayRemove={[Function]}
-                  arrayRemoveAll={[Function]}
-                  arrayShift={[Function]}
-                  arraySplice={[Function]}
-                  arraySwap={[Function]}
-                  arrayUnshift={[Function]}
-                  asyncValidating={false}
-                  autofill={[Function]}
-                  blur={[Function]}
-                  change={[Function]}
-                  clearAsyncError={[Function]}
-                  clearFields={[Function]}
-                  clearSubmit={[Function]}
-                  clearSubmitErrors={[Function]}
-                  destroy={[Function]}
+                }
+                invalid={false}
+                postComment={[MockFunction]}
+                sendCommentLoading={false}
+                submitting={false}
+                translations={Object {}}
+              >
+                <Connect(Form(CommentForm))
                   destroyOnUnmount={true}
-                  dirty={false}
                   dispatch={[Function]}
-                  enableReinitialize={false}
-                  focus={[Function]}
+                  enableReinitialize={true}
                   forceUnregisterOnUnmount={false}
                   form="form-1010"
                   getFormState={[Function]}
@@ -1186,10 +1209,10 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                     [MockFunction] {
                       "calls": Array [
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                         Array [
-                          [MockFunction],
+                          undefined,
                         ],
                       ],
                       "results": Array [
@@ -1204,71 +1227,28 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                       ],
                     }
                   }
-                  initialize={[Function]}
-                  initialized={false}
-                  invalid={true}
+                  initialValues={
+                    Immutable.Map {
+                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                    }
+                  }
+                  invalid={false}
                   keepDirtyOnReinitialize={false}
                   persistentSubmitErrors={false}
                   postComment={[MockFunction]}
-                  postCommentLoading={false}
-                  pristine={true}
                   pure={true}
-                  registerField={[Function]}
-                  registeredFields={
-                    Immutable.Map {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Immutable.Map {
-                        "name": "app_ViewQuestion_TEXTAREA_COMMENT_FORM",
-                        "type": "Field",
-                        "count": 1,
-                      },
-                    }
-                  }
-                  reset={[Function]}
-                  resetSection={[Function]}
-                  setSubmitFailed={[Function]}
-                  setSubmitSucceeded={[Function]}
+                  sendCommentLoading={false}
                   shouldAsyncValidate={[Function]}
                   shouldError={[Function]}
                   shouldValidate={[Function]}
                   shouldWarn={[Function]}
-                  startAsyncValidation={[Function]}
-                  startSubmit={[Function]}
-                  stopAsyncValidation={[Function]}
-                  stopSubmit={[Function]}
-                  submit={[Function]}
-                  submitFailed={false}
-                  submitSucceeded={false}
                   submitting={false}
-                  syncErrors={
-                    Object {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
-                        "defaultMessage": "Required field",
-                        "id": "app.containers.AskQuestion.requiredField",
-                      },
-                    }
-                  }
-                  syncWarnings={
-                    Object {
-                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
-                        "defaultMessage": "Required field",
-                        "id": "app.containers.AskQuestion.requiredField",
-                      },
-                    }
-                  }
-                  touch={[Function]}
                   touchOnBlur={true}
                   touchOnChange={false}
                   translations={Object {}}
-                  unregisterField={[Function]}
-                  untouch={[Function]}
-                  updateSyncErrors={[Function]}
-                  updateSyncWarnings={[Function]}
                   updateUnregisteredFields={false}
-                  valid={false}
-                  validExceptSubmit={false}
-                  values={Immutable.Map {}}
                 >
-                  <AddCommentForm
+                  <Form(CommentForm)
                     anyTouched={false}
                     array={
                       Object {
@@ -1284,7 +1264,16 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                         "unshift": [Function],
                       }
                     }
-                    asyncValidate={[Function]}
+                    arrayInsert={[Function]}
+                    arrayMove={[Function]}
+                    arrayPop={[Function]}
+                    arrayPush={[Function]}
+                    arrayRemove={[Function]}
+                    arrayRemoveAll={[Function]}
+                    arrayShift={[Function]}
+                    arraySplice={[Function]}
+                    arraySwap={[Function]}
+                    arrayUnshift={[Function]}
                     asyncValidating={false}
                     autofill={[Function]}
                     blur={[Function]}
@@ -1294,17 +1283,22 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                     clearSubmit={[Function]}
                     clearSubmitErrors={[Function]}
                     destroy={[Function]}
+                    destroyOnUnmount={true}
                     dirty={false}
                     dispatch={[Function]}
+                    enableReinitialize={true}
+                    focus={[Function]}
+                    forceUnregisterOnUnmount={false}
                     form="form-1010"
+                    getFormState={[Function]}
                     handleSubmit={
                       [MockFunction] {
                         "calls": Array [
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                           Array [
-                            [MockFunction],
+                            undefined,
                           ],
                         ],
                         "results": Array [
@@ -1319,26 +1313,152 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                         ],
                       }
                     }
+                    initialValues={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                      }
+                    }
                     initialize={[Function]}
-                    initialized={false}
+                    initialized={true}
                     invalid={true}
+                    keepDirtyOnReinitialize={false}
+                    persistentSubmitErrors={false}
                     postComment={[MockFunction]}
-                    postCommentLoading={false}
                     pristine={true}
                     pure={true}
+                    registerField={[Function]}
+                    registeredFields={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Immutable.Map {
+                          "name": "app_ViewQuestion_TEXTAREA_COMMENT_FORM",
+                          "type": "Field",
+                          "count": 1,
+                        },
+                      }
+                    }
                     reset={[Function]}
                     resetSection={[Function]}
+                    sendCommentLoading={false}
+                    setSubmitFailed={[Function]}
+                    setSubmitSucceeded={[Function]}
+                    shouldAsyncValidate={[Function]}
+                    shouldError={[Function]}
+                    shouldValidate={[Function]}
+                    shouldWarn={[Function]}
+                    startAsyncValidation={[Function]}
+                    startSubmit={[Function]}
+                    stopAsyncValidation={[Function]}
+                    stopSubmit={[Function]}
                     submit={[Function]}
                     submitFailed={false}
                     submitSucceeded={false}
                     submitting={false}
+                    syncErrors={
+                      Object {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
+                          "defaultMessage": "Required field",
+                          "id": "app.containers.AskQuestion.requiredField",
+                        },
+                      }
+                    }
+                    syncWarnings={
+                      Object {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": Object {
+                          "defaultMessage": "Required field",
+                          "id": "app.containers.AskQuestion.requiredField",
+                        },
+                      }
+                    }
                     touch={[Function]}
+                    touchOnBlur={true}
+                    touchOnChange={false}
                     translations={Object {}}
+                    unregisterField={[Function]}
                     untouch={[Function]}
+                    updateSyncErrors={[Function]}
+                    updateSyncWarnings={[Function]}
+                    updateUnregisteredFields={false}
                     valid={false}
+                    validExceptSubmit={false}
+                    values={
+                      Immutable.Map {
+                        "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                      }
+                    }
                   >
-                    <div
-                      className="add-comment"
+                    <CommentForm
+                      anyTouched={false}
+                      array={
+                        Object {
+                          "insert": [Function],
+                          "move": [Function],
+                          "pop": [Function],
+                          "push": [Function],
+                          "remove": [Function],
+                          "removeAll": [Function],
+                          "shift": [Function],
+                          "splice": [Function],
+                          "swap": [Function],
+                          "unshift": [Function],
+                        }
+                      }
+                      asyncValidate={[Function]}
+                      asyncValidating={false}
+                      autofill={[Function]}
+                      blur={[Function]}
+                      change={[Function]}
+                      clearAsyncError={[Function]}
+                      clearFields={[Function]}
+                      clearSubmit={[Function]}
+                      clearSubmitErrors={[Function]}
+                      destroy={[Function]}
+                      dirty={false}
+                      dispatch={[Function]}
+                      form="form-1010"
+                      handleSubmit={
+                        [MockFunction] {
+                          "calls": Array [
+                            Array [
+                              undefined,
+                            ],
+                            Array [
+                              undefined,
+                            ],
+                          ],
+                          "results": Array [
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                            Object {
+                              "isThrow": false,
+                              "value": undefined,
+                            },
+                          ],
+                        }
+                      }
+                      initialValues={
+                        Immutable.Map {
+                          "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                        }
+                      }
+                      initialize={[Function]}
+                      initialized={true}
+                      invalid={true}
+                      postComment={[MockFunction]}
+                      pristine={true}
+                      pure={true}
+                      reset={[Function]}
+                      resetSection={[Function]}
+                      sendCommentLoading={false}
+                      submit={[Function]}
+                      submitFailed={false}
+                      submitSucceeded={false}
+                      submitting={false}
+                      touch={[Function]}
+                      translations={Object {}}
+                      untouch={[Function]}
+                      valid={false}
                     >
                       <form>
                         <div>
@@ -1399,7 +1519,7 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                   "destroyOnUnmount": true,
                                   "dirty": false,
                                   "dispatch": [Function],
-                                  "enableReinitialize": false,
+                                  "enableReinitialize": true,
                                   "error": undefined,
                                   "focus": [Function],
                                   "forceUnregisterOnUnmount": false,
@@ -1409,10 +1529,10 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                   "handleSubmit": [MockFunction] {
                                     "calls": Array [
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                       Array [
-                                        [MockFunction],
+                                        undefined,
                                       ],
                                     ],
                                     "results": Array [
@@ -1426,14 +1546,15 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                       },
                                     ],
                                   },
-                                  "initialValues": undefined,
+                                  "initialValues": Immutable.Map {
+                                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                  },
                                   "initialize": [Function],
-                                  "initialized": false,
+                                  "initialized": true,
                                   "invalid": true,
                                   "keepDirtyOnReinitialize": false,
                                   "persistentSubmitErrors": false,
                                   "postComment": [MockFunction],
-                                  "postCommentLoading": false,
                                   "pristine": true,
                                   "pure": true,
                                   "register": [Function],
@@ -1449,6 +1570,7 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                   "reset": [Function],
                                   "resetSection": [Function],
                                   "sectionPrefix": undefined,
+                                  "sendCommentLoading": false,
                                   "setSubmitFailed": [Function],
                                   "setSubmitSucceeded": [Function],
                                   "shouldAsyncValidate": [Function],
@@ -1488,7 +1610,9 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                   "updateUnregisteredFields": false,
                                   "valid": false,
                                   "validExceptSubmit": false,
-                                  "values": Immutable.Map {},
+                                  "values": Immutable.Map {
+                                    "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                  },
                                   "warning": undefined,
                                 }
                               }
@@ -1549,7 +1673,7 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                     "destroyOnUnmount": true,
                                     "dirty": false,
                                     "dispatch": [Function],
-                                    "enableReinitialize": false,
+                                    "enableReinitialize": true,
                                     "error": undefined,
                                     "focus": [Function],
                                     "forceUnregisterOnUnmount": false,
@@ -1559,10 +1683,10 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                     "handleSubmit": [MockFunction] {
                                       "calls": Array [
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                         Array [
-                                          [MockFunction],
+                                          undefined,
                                         ],
                                       ],
                                       "results": Array [
@@ -1576,14 +1700,15 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                         },
                                       ],
                                     },
-                                    "initialValues": undefined,
+                                    "initialValues": Immutable.Map {
+                                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                    },
                                     "initialize": [Function],
-                                    "initialized": false,
+                                    "initialized": true,
                                     "invalid": true,
                                     "keepDirtyOnReinitialize": false,
                                     "persistentSubmitErrors": false,
                                     "postComment": [MockFunction],
-                                    "postCommentLoading": false,
                                     "pristine": true,
                                     "pure": true,
                                     "register": [Function],
@@ -1599,6 +1724,7 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                     "reset": [Function],
                                     "resetSection": [Function],
                                     "sectionPrefix": undefined,
+                                    "sendCommentLoading": false,
                                     "setSubmitFailed": [Function],
                                     "setSubmitSucceeded": [Function],
                                     "shouldAsyncValidate": [Function],
@@ -1638,7 +1764,9 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                                     "updateUnregisteredFields": false,
                                     "valid": false,
                                     "validExceptSubmit": false,
-                                    "values": Immutable.Map {},
+                                    "values": Immutable.Map {
+                                      "app_ViewQuestion_TEXTAREA_COMMENT_FORM": undefined,
+                                    },
                                     "warning": undefined,
                                   }
                                 }
@@ -1738,34 +1866,20 @@ exports[`<AddCommentForm /> snapshot test 1`] = `
                           </Field>
                         </div>
                         <div>
-                          <Connect(AuthenticatedButton)
+                          <button
                             className="btn btn-secondary"
                             disabled={true}
-                            isLoading={false}
-                          >
-                            <AuthenticatedButton
-                              className="btn btn-secondary"
-                              disabled={true}
-                              dispatch={[Function]}
-                              isLoading={false}
-                              showLoginModalDispatch={[Function]}
-                              userIsInSystem={null}
-                            >
-                              <button
-                                className="btn btn-secondary"
-                                disabled={true}
-                                onClick={[Function]}
-                                type="button"
-                              />
-                            </AuthenticatedButton>
-                          </Connect(AuthenticatedButton)>
+                            id="undefinedundefined"
+                            style={null}
+                            type="submit"
+                          />
                         </div>
                       </form>
-                    </div>
-                  </AddCommentForm>
-                </Form(AddCommentForm)>
-              </Connect(Form(AddCommentForm))>
-            </ReduxForm>
+                    </CommentForm>
+                  </Form(CommentForm)>
+                </Connect(Form(CommentForm))>
+              </ReduxForm>
+            </Connect(ReduxForm)>
           </Router>
         </ConnectedRouter>
       </IntlProvider>

@@ -1,20 +1,19 @@
-import { AskQuestion, mapDispatchToProps } from '../index';
-import { FORM_TITLE, FORM_CONTENT } from '../constants';
+import { translationMessages } from 'i18n';
 
-window.tinyMCE = {
-  activeEditor: {
-    getContent: jest.fn(),
-  },
-};
+import { AskQuestion, mapDispatchToProps } from '../index';
+import { FORM_TITLE, FORM_CONTENT, POST_QUESTION_BUTTON } from '../constants';
 
 const cmp = new AskQuestion();
-cmp.props = {
-  locale: 'en',
-  account: 'user',
-  askQuestionLoading: false,
-  askQuestionDispatch: jest.fn(),
-  addToastDispatch: jest.fn(),
-};
+
+beforeEach(() => {
+  cmp.props = {
+    locale: 'en',
+    account: 'user',
+    askQuestionLoading: false,
+    askQuestionDispatch: jest.fn(),
+    addToastDispatch: jest.fn(),
+  };
+});
 
 describe('AskQuestion', () => {
   const values = new Map();
@@ -25,6 +24,8 @@ describe('AskQuestion', () => {
       content: values.get(FORM_CONTENT),
     };
 
+    cmp.props.locale = 'zz';
+
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledTimes(0);
 
     cmp.postQuestion(values);
@@ -32,6 +33,8 @@ describe('AskQuestion', () => {
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledWith(
       cmp.props.account,
       question,
+      POST_QUESTION_BUTTON,
+      translationMessages[cmp.props.locale],
     );
   });
 });

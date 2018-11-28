@@ -7,8 +7,9 @@ exports[`ContentOptions test, ContentOptions 1`] = `
   <button
     onClick={[Function]}
   />
-  <EditButton
-    translations={Object {}}
+  <Button />
+  <Button
+    buttonId="undefined__undefined"
   />
 </div>
 `;

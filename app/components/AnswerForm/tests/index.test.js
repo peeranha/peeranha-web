@@ -6,18 +6,30 @@ import configureStore from 'configureStore';
 import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
+import TextEditor from 'components/TextEditor';
 import LanguageProvider from 'containers/LanguageProvider';
 
-import AddCommentForm from '../AddCommentForm';
+import AnswerForm from '../index';
 
-describe('<AddCommentForm />', () => {
+jest.mock('react-simplemde-editor');
+jest.mock('simplemde/dist/simplemde.min.css');
+
+TextEditor.instance = {
+  codemirror: {
+    options: {
+      readOnly: true,
+    },
+  },
+};
+
+describe('<AnswerForm />', () => {
   const props = {
-    form: 'form-1010',
+    form: 'form1',
     handleSubmit: jest.fn(),
-    postComment: jest.fn(),
+    postAnswer: jest.fn(),
     submitting: false,
     invalid: false,
-    postCommentLoading: false,
+    sendAnswerLoading: false,
     translations: {},
   };
 
@@ -27,7 +39,7 @@ describe('<AddCommentForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AddCommentForm {...props} />
+            <AnswerForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -35,15 +47,15 @@ describe('<AddCommentForm />', () => {
     expect(renderedComponent).toMatchSnapshot();
   });
 
-  it('@postCommentLoading === true', () => {
-    props.postCommentLoading = true;
+  it('@sendAnswerLoading === true', () => {
+    props.sendAnswerLoading = true;
 
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AddCommentForm {...props} />
+            <AnswerForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

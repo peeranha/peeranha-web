@@ -25,6 +25,8 @@ import Toast from 'containers/Toast';
 import Questions from 'containers/Questions/Loadable';
 import AskQuestion from 'containers/AskQuestion/Loadable';
 import ViewQuestion from 'containers/ViewQuestion';
+import EditQuestion from 'containers/EditQuestion';
+import EditAnswer from 'containers/EditAnswer';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
@@ -46,7 +48,19 @@ export default function App() {
         <Route path={routes.profile_edit(':id')} component={EditProfilePage} />
         <Route exact path={routes.questions()} component={Questions} />
         <Route path={routes.question_ask()} component={AskQuestion} />
-        <Route path={routes.question_view(':id')} component={ViewQuestion} />
+        <Route
+          exact
+          path={routes.question_view(':id')}
+          component={ViewQuestion}
+        />
+        <Route
+          path={routes.question_edit(':questionid')}
+          component={EditQuestion}
+        />
+        <Route
+          path={routes.answer_edit(':questionid', ':answerid')}
+          component={EditAnswer}
+        />
         <Route path={routes.no_access()} component={NoAccess} />
         <Route component={NotFoundPage} />
       </Switch>

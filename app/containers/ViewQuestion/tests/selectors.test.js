@@ -14,6 +14,15 @@ import {
   selectDownVoteLoading,
   selectMarkAsAcceptedError,
   selectMarkAsAcceptedLoading,
+  selectDeleteQuestionLoading,
+  selectDeleteQuestionError,
+  selectDeleteAnswerLoading,
+  selectDeleteAnswerError,
+  selectDeleteCommentLoading,
+  selectDeleteCommentError,
+  selectSaveCommentLoading,
+  selectSaveCommentError,
+  selectEditComment,
 } from '../selectors';
 
 describe('selectViewQuestionDomain', () => {
@@ -30,6 +39,15 @@ describe('selectViewQuestionDomain', () => {
   const downVoteLoading = true;
   const markAsAcceptedError = 'error';
   const markAsAcceptedLoading = true;
+  const deleteQuestionLoading = true;
+  const deleteQuestionError = 'error';
+  const deleteAnswerLoading = true;
+  const deleteAnswerError = 'error';
+  const deleteCommentLoading = true;
+  const deleteCommentError = 'error';
+  const saveCommentLoading = true;
+  const saveCommentError = 'error';
+  const editComment = 'editComment';
 
   const globalState = fromJS({
     questionData,
@@ -45,6 +63,15 @@ describe('selectViewQuestionDomain', () => {
     downVoteLoading,
     markAsAcceptedError,
     markAsAcceptedLoading,
+    deleteQuestionLoading,
+    deleteQuestionError,
+    deleteAnswerLoading,
+    deleteAnswerError,
+    deleteCommentLoading,
+    deleteCommentError,
+    saveCommentLoading,
+    saveCommentError,
+    editComment,
   });
 
   const mockedState = fromJS({
@@ -53,6 +80,51 @@ describe('selectViewQuestionDomain', () => {
 
   it('should select the global state', () => {
     expect(selectViewQuestionDomain(mockedState)).toEqual(globalState);
+  });
+
+  it('selectEditComment', () => {
+    const isEditComment = selectEditComment();
+    expect(isEditComment(mockedState)).toEqual(editComment);
+  });
+
+  it('selectSaveCommentError', () => {
+    const isSaveCommentError = selectSaveCommentError();
+    expect(isSaveCommentError(mockedState)).toEqual(saveCommentError);
+  });
+
+  it('selectSaveCommentLoading', () => {
+    const isSaveCommentLoading = selectSaveCommentLoading();
+    expect(isSaveCommentLoading(mockedState)).toEqual(saveCommentLoading);
+  });
+
+  it('selectDeleteCommentError', () => {
+    const isDeleteCommentError = selectDeleteCommentError();
+    expect(isDeleteCommentError(mockedState)).toEqual(deleteCommentError);
+  });
+
+  it('selectDeleteCommentLoading', () => {
+    const isDeleteCommentLoading = selectDeleteCommentLoading();
+    expect(isDeleteCommentLoading(mockedState)).toEqual(deleteCommentLoading);
+  });
+
+  it('selectDeleteAnswerError', () => {
+    const isDeleteAnswerError = selectDeleteAnswerError();
+    expect(isDeleteAnswerError(mockedState)).toEqual(deleteAnswerError);
+  });
+
+  it('selectDeleteAnswerLoading', () => {
+    const isDeleteAnswerLoading = selectDeleteAnswerLoading();
+    expect(isDeleteAnswerLoading(mockedState)).toEqual(deleteAnswerLoading);
+  });
+
+  it('selectDeleteQuestionError', () => {
+    const isDeleteQuestionError = selectDeleteQuestionError();
+    expect(isDeleteQuestionError(mockedState)).toEqual(deleteQuestionError);
+  });
+
+  it('selectDeleteQuestionLoading', () => {
+    const isDeleteQuestionLoading = selectDeleteQuestionLoading();
+    expect(isDeleteQuestionLoading(mockedState)).toEqual(deleteQuestionLoading);
   });
 
   it('selectQuestionData', () => {

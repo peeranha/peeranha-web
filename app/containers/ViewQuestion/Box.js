@@ -122,6 +122,14 @@ const Box = styled.div`
         ${buttonLink};
       }
     }
+    .save-edited-form {
+      flex: 1;
+      button {
+        float: right;
+        font-size: 13px;
+        min-width: 80px;
+      }
+    }
     .add-comment form {
       display: flex;
       flex-direction: column;

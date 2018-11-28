@@ -21,11 +21,13 @@ export async function getBlob(canvas) {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(profileHash, eosService) {
+export async function getProfileInfo(user, eosService) {
+  if (!user) return null;
+
   const profile = await eosService.getTableRow(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
-    profileHash,
+    user,
   );
 
   const ipfsProfile = await getText(profile.ipfs_profile);

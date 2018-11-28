@@ -4,6 +4,7 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { COMPLETE_LOGIN } from 'containers/Login/constants';
 import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
+
 import { isUserInSystem } from 'utils/accountManagement';
 
 import {

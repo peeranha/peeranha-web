@@ -8,6 +8,11 @@ import { initialState } from './reducer';
 const selectViewQuestionDomain = state =>
   state.get('viewQuestion', initialState);
 
+const selectEditComment = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('editComment'),
+  );
+
 const selectQuestionData = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('questionData'),
@@ -73,8 +78,49 @@ const selectMarkAsAcceptedLoading = () =>
     substate.get('markAsAcceptedLoading'),
   );
 
+const selectDeleteQuestionLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteQuestionLoading'),
+  );
+
+const selectDeleteQuestionError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteQuestionError'),
+  );
+
+const selectDeleteAnswerLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteAnswerLoading'),
+  );
+
+const selectDeleteAnswerError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteAnswerError'),
+  );
+
+const selectDeleteCommentLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteCommentLoading'),
+  );
+
+const selectDeleteCommentError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('deleteCommentError'),
+  );
+
+const selectSaveCommentLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('saveCommentLoading'),
+  );
+
+const selectSaveCommentError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('saveCommentError'),
+  );
+
 export {
   selectViewQuestionDomain,
+  selectEditComment,
   selectQuestionData,
   selectQuestionDataError,
   selectQuestionDataLoading,
@@ -88,4 +134,12 @@ export {
   selectDownVoteLoading,
   selectMarkAsAcceptedError,
   selectMarkAsAcceptedLoading,
+  selectDeleteQuestionLoading,
+  selectDeleteQuestionError,
+  selectDeleteAnswerLoading,
+  selectDeleteAnswerError,
+  selectDeleteCommentLoading,
+  selectDeleteCommentError,
+  selectSaveCommentLoading,
+  selectSaveCommentError,
 };

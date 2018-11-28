@@ -1,7 +1,15 @@
-import TextEditor from 'components/TextEditor';
+import { translationMessages } from 'i18n';
 
+import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 import { ViewQuestion, mapDispatchToProps } from '../index';
-import { TEXTAREA_COMMENT_FORM } from '../constants';
+
+import {
+  TEXTAREA_COMMENT_FORM,
+  POST_COMMENT_BUTTON,
+  MARK_AS_BUTTON,
+  UP_VOTE_BUTTON,
+  DOWN_VOTE_BUTTON,
+} from '../constants';
 
 jest.mock('components/TextEditor');
 
@@ -30,9 +38,119 @@ cmp.props = {
   upVoteDispatch: jest.fn(),
   downVoteDispatch: jest.fn(),
   markAsAcceptedDispatch: jest.fn(),
+  deleteQuestionDispatch: jest.fn(),
+  deleteAnswerDispatch: jest.fn(),
+  deleteCommentDispatch: jest.fn(),
+  toggleCommentVisionDispatch: jest.fn(),
+  saveCommentDispatch: jest.fn(),
+};
+
+const ev = {
+  target: {
+    id: 'id',
+    dataset: {},
+  },
 };
 
 describe('<ViewQuestion />', () => {
+  describe('saveComment', () => {
+    const mapp = new Map();
+    const commentId = 'commentid';
+    const answerId = 'answerid';
+
+    const args = [
+      mapp,
+      () => {},
+      {
+        commentId,
+        answerId,
+      },
+    ];
+
+    it('test', () => {
+      cmp.saveComment(...args);
+      expect(cmp.props.saveCommentDispatch).toHaveBeenCalledWith(
+        cmp.props.account,
+        cmp.questionId,
+        answerId,
+        commentId,
+        mapp.get('comment'),
+      );
+    });
+  });
+
+  describe('editComment', () => {
+    const commentid = 'commentid';
+    const answerid = 'answerid';
+
+    ev.target.dataset.answerid = answerid;
+    ev.target.dataset.commentid = commentid;
+
+    it('test', () => {
+      cmp.editComment(ev);
+      expect(cmp.props.toggleCommentVisionDispatch).toHaveBeenCalledWith({
+        commentid,
+        answerid,
+      });
+    });
+  });
+
+  describe('deleteComment', () => {
+    const id = 'id';
+    const commentid = 'commentid';
+    const answerid = 'answerid';
+
+    ev.target.id = id;
+    ev.target.dataset.answerid = answerid;
+    ev.target.dataset.commentid = commentid;
+
+    cmp.deleteComment(ev);
+
+    it('test', () => {
+      expect(cmp.props.deleteCommentDispatch).toHaveBeenCalledWith(
+        cmp.props.account,
+        cmp.questionId,
+        answerid,
+        commentid,
+        id,
+      );
+    });
+  });
+
+  describe('deleteAnswer', () => {
+    const id = 'id';
+    const answerid = 'answerid';
+
+    ev.target.id = id;
+    ev.target.dataset.answerid = answerid;
+
+    cmp.deleteAnswer(ev);
+
+    it('test', () => {
+      expect(cmp.props.deleteAnswerDispatch).toHaveBeenCalledWith(
+        cmp.props.account,
+        cmp.questionId,
+        answerid,
+        id,
+      );
+    });
+  });
+
+  describe('deleteQuestion', () => {
+    const id = 'id';
+    ev.target.id = id;
+
+    cmp.deleteQuestion(ev);
+
+    it('test', () => {
+      expect(cmp.props.deleteQuestionDispatch).toHaveBeenCalledWith(
+        cmp.props.account,
+        cmp.questionId,
+        id,
+      );
+    });
+  });
+
   describe('componentDidMount', () => {
     it('componentDidMount', () => {
       cmp.componentDidMount();
@@ -47,6 +165,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const id = 10;
       const questionId = 110;
+      const postButtonId = `${MARK_AS_BUTTON}${id}`;
 
       cmp.questionId = questionId;
 
@@ -55,6 +174,8 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         id,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -63,6 +184,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
@@ -71,6 +193,8 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         answerId,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -79,6 +203,7 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
@@ -87,21 +212,22 @@ describe('<ViewQuestion />', () => {
         cmp.props.account,
         questionId,
         answerId,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
 
   describe('postAnswer', () => {
+    const answer = 'HI';
     const reset = () => {};
-    const obj = { answerId: 1, reset };
-    const mapp = new Map().set(TEXTAREA_COMMENT_FORM, 'TEXTAREA_COMMENT_FORM');
+    const sendButtonId = `sendButtonId`;
+    const obj = { answerId: 1, reset, sendButtonId };
+    const mapp = new Map().set(TEXT_EDITOR_ANSWER_FORM, answer);
 
     it('test', () => {
-      const answer = 'HI';
       const questionId = 5;
       cmp.questionId = questionId;
-
-      TextEditor.getHtmlText = jest.fn().mockImplementation(() => answer);
 
       cmp.postAnswer(mapp, reset, obj);
       expect(cmp.props.postAnswerDispatch).toHaveBeenCalledWith(
@@ -109,6 +235,8 @@ describe('<ViewQuestion />', () => {
         questionId,
         answer,
         obj.reset,
+        sendButtonId,
+        translationMessages[cmp.props.locale],
       );
     });
   });
@@ -117,6 +245,7 @@ describe('<ViewQuestion />', () => {
     const reset = () => {};
     const obj = { answerId: 1, reset };
     const mapp = new Map().set(TEXTAREA_COMMENT_FORM, 'TEXTAREA_COMMENT_FORM');
+    const postButtonId = `${POST_COMMENT_BUTTON}${obj.answerId}`;
 
     it('test', () => {
       const questionId = 5;
@@ -129,13 +258,9 @@ describe('<ViewQuestion />', () => {
         obj.answerId,
         mapp.get(TEXTAREA_COMMENT_FORM),
         obj.reset,
+        postButtonId,
+        translationMessages[cmp.props.locale],
       );
-    });
-  });
-
-  describe('editContent', () => {
-    it('test', () => {
-      expect(cmp.editContent()).toBe(null);
     });
   });
 
@@ -170,6 +295,13 @@ describe('<ViewQuestion />', () => {
       expect(mapDispatchToProps(dispatch).upVoteDispatch()).toBe(test);
       expect(mapDispatchToProps(dispatch).downVoteDispatch()).toBe(test);
       expect(mapDispatchToProps(dispatch).markAsAcceptedDispatch()).toBe(test);
+      expect(mapDispatchToProps(dispatch).deleteQuestionDispatch()).toBe(test);
+      expect(mapDispatchToProps(dispatch).deleteAnswerDispatch()).toBe(test);
+      expect(mapDispatchToProps(dispatch).toggleCommentVisionDispatch()).toBe(
+        test,
+      );
+      expect(mapDispatchToProps(dispatch).saveCommentDispatch()).toBe(test);
+      expect(mapDispatchToProps(dispatch).deleteCommentDispatch()).toBe(test);
     });
   });
 });

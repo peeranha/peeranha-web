@@ -25,7 +25,7 @@ export const initialState = fromJS({
   errorLoadProfile: '',
   profile: {},
   userKey: '',
-  citiesList: [],
+  citiesList: null,
   locationSearch: '',
   loadingGetCitiesList: false,
   errorCitiesList: '',
@@ -58,7 +58,7 @@ function profileReducer(state = initialState, action) {
       return state.set('locationSearch', locationSearch).set('profile', {
         ...state.get('profile'),
         profile: {
-          ...state.get('profile'),
+          ...state.get('profile').profile,
           [LOCATION_FIELD]: {
             name: locationSearch,
           },
@@ -76,7 +76,7 @@ function profileReducer(state = initialState, action) {
       return state.set('profile', {
         ...state.get('profile'),
         profile: {
-          ...state.get('profile'),
+          ...state.get('profile').profile,
           [LOCATION_FIELD]: {
             id: cityId,
             name: city,

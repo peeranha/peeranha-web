@@ -77,7 +77,7 @@ export class Questions extends React.Component {
 
 Questions.propTypes = {
   locale: PropTypes.string,
-  questionsList: PropTypes.array,
+  questionsList: PropTypes.object,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,

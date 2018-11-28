@@ -7,26 +7,18 @@ import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
-import TextEditor from 'components/TextEditor';
 
-import AskQuestionFormDefault from '../AskQuestionForm';
+import QuestionFormDefault from '../index';
 import messages from '../messages';
 
 jest.mock('react-simplemde-editor');
 jest.mock('simplemde/dist/simplemde.min.css');
 
-TextEditor.instance = {
-  codemirror: {
-    options: {
-      readOnly: true,
-    },
-  },
-};
-
 const props = {
+  form: 'form1',
   invalid: false,
   submitting: false,
-  askQuestionLoading: false,
+  questionLoading: false,
   userIsInSystem: true,
   handleSubmit: jest.fn(),
   postQuestion: jest.fn(),
@@ -35,14 +27,14 @@ const props = {
   },
 };
 
-describe('<AskQuestionFormDefault />', () => {
+describe('<QuestionFormDefault />', () => {
   it('snapshot test 1', () => {
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -57,7 +49,7 @@ describe('<AskQuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -72,7 +64,7 @@ describe('<AskQuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -81,13 +73,13 @@ describe('<AskQuestionFormDefault />', () => {
   });
 
   it('snapshot test 4', () => {
-    props.askQuestionLoading = true;
+    props.questionLoading = true;
     const store = configureStore({}, memoryHistory);
     const renderedComponent = mount(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <AskQuestionFormDefault {...props} />
+            <QuestionFormDefault {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

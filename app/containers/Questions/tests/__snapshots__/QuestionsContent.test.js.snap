@@ -1,77 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
-<Link
-  href="/questions/undefined"
-  replace={false}
-  to="/questions/undefined"
+<div
+  className="question-item"
 >
   <div
-    className="question-item"
+    className="title-user"
   >
-    <div
-      className="title-user"
+    <Link
+      className="highlighted-link"
+      href="/questions/undefined"
+      replace={false}
+      to="/questions/undefined"
     >
+      <h5
+        className="highlighted-link"
+      />
+    </Link>
+    <p>
       <Link
         className="highlighted-link"
-        href="/questions/undefined"
+        href="/users/undefined"
         replace={false}
-        to="/questions/undefined"
-      >
-        <h5
-          className="highlighted-link"
-        />
-      </Link>
+        to="/users/undefined"
+      />
+       | 
+      <span>
+        almost NaN years
+      </span>
+    </p>
+  </div>
+  <div
+    className="votes-answers"
+  >
+    <div
+      className="votes"
+    >
+      <p
+        className="number"
+      />
       <p>
-        <Link
-          className="highlighted-link"
-          href="/users/undefined"
-          replace={false}
-          to="/users/undefined"
+        <FormattedMessage
+          defaultMessage="votes"
+          id="app.containers.Questions.votes"
+          values={Object {}}
         />
-         | 
-        <span>
-          almost NaN years
-        </span>
       </p>
     </div>
     <div
-      className="votes-answers"
+      className="answers"
+      data-bg={false}
     >
-      <div
-        className="votes"
+      <p
+        className="number"
       >
-        <p
-          className="number"
+        0
+      </p>
+      <p>
+        <FormattedMessage
+          defaultMessage="answers"
+          id="app.containers.Questions.answers"
+          values={Object {}}
         />
-        <p>
-          <FormattedMessage
-            defaultMessage="votes"
-            id="app.containers.Questions.votes"
-            values={Object {}}
-          />
-        </p>
-      </div>
-      <div
-        className="answers"
-        data-bg={false}
-      >
-        <p
-          className="number"
-        >
-          0
-        </p>
-        <p>
-          <FormattedMessage
-            defaultMessage="answers"
-            id="app.containers.Questions.answers"
-            values={Object {}}
-          />
-        </p>
-      </div>
+      </p>
     </div>
   </div>
-</Link>
+</div>
 `;
 
 exports[`QuestionsContent QuestionsContent, snapshot test 1`] = `

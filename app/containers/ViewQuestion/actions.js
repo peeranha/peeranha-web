@@ -5,6 +5,7 @@
  */
 
 import {
+  TOGGLE_COMMENT_VISION,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
   GET_QUESTION_DATA_ERROR,
@@ -23,7 +24,26 @@ import {
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   MARK_AS_ACCEPTED_ERROR,
+  DELETE_QUESTION,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_QUESTION_ERROR,
+  DELETE_ANSWER,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_ANSWER_ERROR,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_ERROR,
+  SAVE_COMMENT,
+  SAVE_COMMENT_SUCCESS,
+  SAVE_COMMENT_ERROR,
 } from './constants';
+
+export function toggleCommentVision(editComment) {
+  return {
+    type: TOGGLE_COMMENT_VISION,
+    editComment,
+  };
+}
 
 export function getQuestionData(questionId) {
   return {
@@ -46,13 +66,118 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function postAnswer(user, questionId, answer, reset) {
+export function deleteQuestion(user, questionid, postButtonId) {
+  return {
+    type: DELETE_QUESTION,
+    user,
+    questionid,
+    postButtonId,
+  };
+}
+
+export function deleteQuestionSuccess() {
+  return {
+    type: DELETE_QUESTION_SUCCESS,
+  };
+}
+
+export function deleteQuestionErr(deleteQuestionError) {
+  return {
+    type: DELETE_QUESTION_ERROR,
+    deleteQuestionError,
+  };
+}
+
+export function deleteAnswer(user, questionid, answerid, postButtonId) {
+  return {
+    type: DELETE_ANSWER,
+    user,
+    questionid,
+    answerid,
+    postButtonId,
+  };
+}
+
+export function deleteAnswerSuccess(questionData) {
+  return {
+    type: DELETE_ANSWER_SUCCESS,
+    questionData,
+  };
+}
+
+export function deleteAnswerErr(deleteAnswerError) {
+  return {
+    type: DELETE_ANSWER_ERROR,
+    deleteAnswerError,
+  };
+}
+
+export function deleteComment(user, questionId, answerId, commentId, buttonId) {
+  return {
+    type: DELETE_COMMENT,
+    user,
+    questionId,
+    answerId,
+    commentId,
+    buttonId,
+  };
+}
+
+export function deleteCommentSuccess(questionData) {
+  return {
+    type: DELETE_COMMENT_SUCCESS,
+    questionData,
+  };
+}
+
+export function deleteCommentErr(deleteCommentError) {
+  return {
+    type: DELETE_COMMENT_ERROR,
+    deleteCommentError,
+  };
+}
+
+export function saveComment(user, questionId, answerId, commentId, comment) {
+  return {
+    type: SAVE_COMMENT,
+    user,
+    questionId,
+    answerId,
+    commentId,
+    comment,
+  };
+}
+
+export function saveCommentSuccess(questionData) {
+  return {
+    type: SAVE_COMMENT_SUCCESS,
+    questionData,
+  };
+}
+
+export function saveCommentErr(saveCommentError) {
+  return {
+    type: SAVE_COMMENT_ERROR,
+    saveCommentError,
+  };
+}
+
+export function postAnswer(
+  user,
+  questionId,
+  answer,
+  reset,
+  postButtonId,
+  translations,
+) {
   return {
     type: POST_ANSWER,
     user,
     questionId,
     answer,
     reset,
+    postButtonId,
+    translations,
   };
 }
 
@@ -70,7 +195,15 @@ export function postAnswerErr(postAnswerError) {
   };
 }
 
-export function postComment(user, questionId, answerId, comment, reset) {
+export function postComment(
+  user,
+  questionId,
+  answerId,
+  comment,
+  reset,
+  postButtonId,
+  translations,
+) {
   return {
     type: POST_COMMENT,
     user,
@@ -78,6 +211,8 @@ export function postComment(user, questionId, answerId, comment, reset) {
     answerId,
     comment,
     reset,
+    postButtonId,
+    translations,
   };
 }
 
@@ -95,12 +230,14 @@ export function postCommentErr(postCommentError) {
   };
 }
 
-export function upVote(user, questionId, answerId) {
+export function upVote(user, questionId, answerId, postButtonId, translations) {
   return {
     type: UP_VOTE,
     user,
     questionId,
     answerId,
+    postButtonId,
+    translations,
   };
 }
 
@@ -118,12 +255,20 @@ export function upVoteErr(upVoteError) {
   };
 }
 
-export function downVote(user, questionId, answerId) {
+export function downVote(
+  user,
+  questionId,
+  answerId,
+  postButtonId,
+  translations,
+) {
   return {
     type: DOWN_VOTE,
     user,
     questionId,
     answerId,
+    postButtonId,
+    translations,
   };
 }
 
@@ -141,12 +286,20 @@ export function downVoteErr(downVoteError) {
   };
 }
 
-export function markAsAccepted(user, questionId, correctAnswerId) {
+export function markAsAccepted(
+  user,
+  questionId,
+  correctAnswerId,
+  postButtonId,
+  translations,
+) {
   return {
     type: MARK_AS_ACCEPTED,
     user,
     questionId,
     correctAnswerId,
+    postButtonId,
+    translations,
   };
 }
 

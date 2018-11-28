@@ -19,12 +19,8 @@ export default defineMessages({
     id: 'app.containers.AskQuestion.postQuestion',
     defaultMessage: 'Post question',
   },
-  titleLabel: {
-    id: 'app.containers.AskQuestion.titleLabel',
-    defaultMessage: 'Title',
-  },
-  contentLabel: {
-    id: 'app.containers.AskQuestion.contentLabel',
-    defaultMessage: 'Body',
+  notEnoughRating: {
+    id: 'app.containers.AskQuestion.notEnoughRating',
+    defaultMessage: 'To complete this action, your rating has to be more than',
   },
 });
