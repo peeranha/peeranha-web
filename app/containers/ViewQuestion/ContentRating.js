@@ -20,7 +20,7 @@ const ContentRating = props => (
     <button id={`${UP_VOTE_BUTTON}${props.answerId}`}>
       <FontAwesomeIcon
         onClick={() => props.upVote(props.answerId)}
-        data-voting={`chevron-up-${props.votingStatus}`}
+        data-voting={`chevron-hl-${props.votingStatus.isUpVoted}`}
         className="chevron chevron-up"
         icon="chevron-up"
       />
@@ -29,7 +29,7 @@ const ContentRating = props => (
     <button id={`${DOWN_VOTE_BUTTON}${props.answerId}`}>
       <FontAwesomeIcon
         onClick={() => props.downVote(props.answerId)}
-        data-voting={`chevron-down-${props.votingStatus}`}
+        data-voting={`chevron-hl-${props.votingStatus.isDownVoted}`}
         className="chevron chevron-down"
         icon="chevron-down"
       />
@@ -39,7 +39,7 @@ const ContentRating = props => (
 
 ContentRating.propTypes = {
   rating: PropTypes.number,
-  votingStatus: PropTypes.number,
+  votingStatus: PropTypes.object,
   account: PropTypes.string,
   questionFrom: PropTypes.string,
   markAsAccepted: PropTypes.func,

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import UserInfo from './UserInfo';
-import RecordingDate from './RecordingDate';
+import ChangesHistory from './ChangesHistory';
 
 const ContentHeader = props => (
   <div className="content-header">
@@ -12,12 +12,18 @@ const ContentHeader = props => (
       account={props.userInfo.owner}
       rating={props.userInfo.rating}
     />
-    <RecordingDate postTime={props.postTime} />
+    <ChangesHistory
+      locale={props.locale}
+      postTime={props.postTime}
+      lastEditedDate={props.lastEditedDate}
+    />
   </div>
 );
 
 ContentHeader.propTypes = {
   userInfo: PropTypes.object,
+  locale: PropTypes.string,
+  lastEditedDate: PropTypes.number,
   postTime: PropTypes.number,
 };
 

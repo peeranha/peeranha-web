@@ -4,6 +4,10 @@
  *
  */
 
+export const ITEM_UPV_FLAG = 0;
+export const ITEM_DNV_FLAG = 1;
+export const ITEM_VOTED_TO_DEL_FLAG = 2;
+
 export const TOGGLE_COMMENT_VISION = 'app/ViewQuestion/TOGGLE_COMMENT_VISION';
 
 export const GET_QUESTION_DATA = 'app/ViewQuestion/GET_QUESTION_DATA';
@@ -44,6 +48,10 @@ export const UP_VOTE_ERROR = 'app/ViewQuestion/UP_VOTE_ERROR';
 export const DOWN_VOTE = 'app/ViewQuestion/DOWN_VOTE';
 export const DOWN_VOTE_SUCCESS = 'app/ViewQuestion/DOWN_VOTE_SUCCESS';
 export const DOWN_VOTE_ERROR = 'app/ViewQuestion/DOWN_VOTE_ERROR';
+
+export const VOTE_TO_DELETE = 'app/ViewQuestion/VOTE_TO_DELETE';
+export const VOTE_TO_DELETE_SUCCESS = 'app/ViewQuestion/VOTE_TO_DELETE_SUCCESS';
+export const VOTE_TO_DELETE_ERROR = 'app/ViewQuestion/VOTE_TO_DELETE_ERROR';
 
 export const MARK_AS_ACCEPTED = 'app/ViewQuestion/MARK_AS_ACCEPTED';
 export const MARK_AS_ACCEPTED_SUCCESS =

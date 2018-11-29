@@ -55,6 +55,15 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.notEnoughRating',
     defaultMessage: 'To complete this action, your rating has to be more than',
   },
+  notEnoughModPoints: {
+    id: 'app.containers.ViewQuestion.notEnoughModPoints',
+    defaultMessage:
+      'To complete this action, your moderation points rating has to be more than',
+  },
+  youVoted: {
+    id: 'app.containers.ViewQuestion.youVoted',
+    defaultMessage: 'You have completed this action earlier',
+  },
   alreadyAnswered: {
     id: 'app.containers.ViewQuestion.notEnoughRating',
     defaultMessage: 'You already answered this question',
@@ -76,5 +85,13 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.answerIsCorrect',
     defaultMessage:
       'You cannot delete it because your answer is marked as correct',
+  },
+  lastEdited: {
+    id: 'app.containers.ViewQuestion.lastEdited',
+    defaultMessage: 'Last edited',
+  },
+  voteToDelete: {
+    id: 'app.containers.ViewQuestion.voteToDelete',
+    defaultMessage: 'Vote to delete',
   },
 });

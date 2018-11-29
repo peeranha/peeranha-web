@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
-import RecordingDate from './RecordingDate';
+import ChangesHistory from './ChangesHistory';
 import UserInfo from './UserInfo';
 import CommentForm from './CommentForm';
 
@@ -28,7 +28,11 @@ const CommentEdit = item => (
 const CommentView = item => (
   <div className="comment-content">
     <div>
-      <RecordingDate postTime={item.post_time} />
+      <ChangesHistory
+        locale={item.locale}
+        postTime={item.post_time}
+        lastEditedDate={item.lastEditedDate}
+      />
       <p
         className="comment-text"
         dangerouslySetInnerHTML={{ __html: item.content }}
@@ -42,11 +46,18 @@ const CommentView = item => (
         buttonClick={item.editComment}
       />
       <Button
-        buttonId={`comment__${item.answerId}`}
+        buttonId={`comment__${item.answerId}${item.id}`}
         buttonParams={{ ...item.buttonParams, commentId: item.id }}
         isItWrittenByMe={item.isItWrittenByMe}
         buttonName={item.translations[messages.deleteButton.id]}
         buttonClick={item.deleteComment}
+      />
+      <Button
+        buttonId={`comment_vote_to_delete_${item.answerId}${item.id}`}
+        buttonParams={{ ...item.buttonParams, commentId: item.id }}
+        isItWrittenByMe
+        buttonName={item.translations[messages.voteToDelete.id]}
+        buttonClick={item.voteToDelete}
       />
     </p>
   </div>

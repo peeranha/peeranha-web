@@ -19,6 +19,7 @@ const Question = props => (
       history={props.questionData.history}
       userInfo={props.questionData.userInfo}
       postTime={props.questionData.post_time}
+      lastEditedDate={props.questionData.lastEditedDate}
       votingStatus={props.questionData.votingStatus}
       deleteItem={props.deleteQuestion}
       editItem={props.editQuestion}

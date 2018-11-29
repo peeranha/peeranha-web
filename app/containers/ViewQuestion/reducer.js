@@ -37,6 +37,9 @@ import {
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
+  VOTE_TO_DELETE,
+  VOTE_TO_DELETE_SUCCESS,
+  VOTE_TO_DELETE_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -65,6 +68,8 @@ export const initialState = fromJS({
   deleteCommentError: null,
   saveCommentLoading: false,
   saveCommentError: null,
+  voteToDeleteLoading: false,
+  voteToDeleteError: null,
 });
 
 function viewQuestionReducer(state = initialState, action) {
@@ -82,6 +87,7 @@ function viewQuestionReducer(state = initialState, action) {
     deleteCommentError,
     saveCommentError,
     editComment,
+    voteToDeleteError,
   } = action;
 
   switch (type) {
@@ -184,6 +190,16 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('saveCommentError', saveCommentError)
         .set('saveCommentLoading', false);
+    case VOTE_TO_DELETE:
+      return state.set('voteToDeleteLoading', true);
+    case VOTE_TO_DELETE_SUCCESS:
+      return state
+        .set('questionData', questionData)
+        .set('voteToDeleteLoading', false);
+    case VOTE_TO_DELETE_ERROR:
+      return state
+        .set('voteToDeleteError', voteToDeleteError)
+        .set('voteToDeleteLoading', false);
     default:
       return state;
   }
