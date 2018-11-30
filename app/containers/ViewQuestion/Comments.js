@@ -55,7 +55,7 @@ const CommentView = item => (
       <Button
         buttonId={`comment_vote_to_delete_${item.answerId}${item.id}`}
         buttonParams={{ ...item.buttonParams, commentId: item.id }}
-        isItWrittenByMe
+        isItWrittenByMe="true"
         buttonName={item.translations[messages.voteToDelete.id]}
         buttonClick={item.voteToDelete}
       />

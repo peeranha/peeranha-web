@@ -18,6 +18,12 @@ const Box = styled.div`
     padding: 10px 0;
     border-bottom: 1px solid ${gray};
   }
+  .last-edited-date::after {
+    content: ') ';
+  }
+  .last-edited-date::before {
+    content: ' (';
+  }
   textarea {
     min-height: 100px;
   }

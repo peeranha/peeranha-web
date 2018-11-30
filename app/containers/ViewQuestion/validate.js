@@ -16,6 +16,11 @@ export const voteToDeleteValidator = (
   let message;
   let itemData;
 
+  /*
+   * Input data: @questionId, @answerId, @commentId
+   * Output data: @itemData, information about item, which was clicked to vote to delete
+   */
+
   if (!+item.answerId && !+item.commentId) {
     itemData = questionData;
   } else if (!+item.answerId && +item.commentId) {

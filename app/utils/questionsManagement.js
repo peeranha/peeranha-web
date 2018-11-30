@@ -221,6 +221,13 @@ export async function getQuestionData(eosService, questionId, user) {
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag && historyFlag.flag & (1 << constantFlag);
 
+  /*
+   * @ITEM_UPV_FLAG - number of bit from historyFlag value - zero bit
+   * got status with help of @getItemStatus function
+   * if value of this bit NOT 0 => status (isUpVoted) is true
+   * and so on
+   */
+
   const votingStatus = history => {
     const flag = history.filter(x => x.user === user)[0];
 

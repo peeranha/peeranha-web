@@ -9,14 +9,11 @@ const ChangesHistory = props => (
   <p className="recording-date">
     {getFormattedDate(props.postTime)}
     {props.lastEditedDate && (
-      <span>
-        <span> (</span>
+      <span className="last-edited-date">
         <FormattedMessage {...messages.lastEdited} />
-        <span>{`: ${getFormattedDate(
-          props.lastEditedDate,
-          props.locale,
-        )}`}</span>
-        <span>)</span>
+        <span>
+          {`: ${getFormattedDate(props.lastEditedDate, props.locale)}`}
+        </span>
       </span>
     )}
   </p>

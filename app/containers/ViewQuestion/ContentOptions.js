@@ -32,7 +32,7 @@ const ContentOptions = props => (
     <Button
       buttonId={`${props.type}_vote_to_delete_${props.answerId}`}
       buttonParams={props.buttonParams}
-      isItWrittenByMe
+      isItWrittenByMe="true"
       buttonName={props.translations[messages.voteToDelete.id]}
       buttonClick={props.voteToDelete}
     />
