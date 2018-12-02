@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({
-  buttonId,
-  buttonClick,
-  buttonName,
-  buttonParams,
-  isItWrittenByMe,
-}) =>
-  isItWrittenByMe ? (
+const Button = ({ buttonId, buttonClick, buttonName, buttonParams, show }) =>
+  show ? (
     <button
       id={buttonId}
       data-questionid={buttonParams.questionId}
@@ -21,7 +15,7 @@ const Button = ({
   ) : null;
 
 Button.propTypes = {
-  isItWrittenByMe: PropTypes.bool,
+  show: PropTypes.bool,
   buttonParams: PropTypes.object,
   buttonId: PropTypes.string,
   buttonName: PropTypes.string,

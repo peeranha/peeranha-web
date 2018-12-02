@@ -17,6 +17,7 @@ import {
   deleteAnswer,
   deleteComment,
   editComment,
+  voteToDelete,
 } from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
@@ -37,6 +38,7 @@ import defaultSaga, {
   deleteAnswerWorker,
   deleteCommentWorker,
   saveCommentWorker,
+  voteToDeleteWorker,
 } from '../saga';
 
 import {
@@ -70,6 +72,9 @@ import {
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
+  VOTE_TO_DELETE,
+  VOTE_TO_DELETE_SUCCESS,
+  VOTE_TO_DELETE_ERROR,
 } from '../constants';
 
 import {
@@ -80,6 +85,7 @@ import {
   markAsAcceptedValidator,
   deleteQuestionValidator,
   deleteAnswerValidator,
+  voteToDeleteValidator,
 } from '../validate';
 
 jest.mock('../validate', () => ({
@@ -90,6 +96,7 @@ jest.mock('../validate', () => ({
   downVoteValidator: jest.fn().mockImplementation(() => true),
   deleteQuestionValidator: jest.fn().mockImplementation(() => true),
   deleteAnswerValidator: jest.fn().mockImplementation(() => true),
+  voteToDeleteValidator: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('redux-saga/effects', () => ({
@@ -114,6 +121,7 @@ jest.mock('utils/questionsManagement', () => ({
   deleteAnswer: jest.fn(),
   deleteComment: jest.fn(),
   editComment: jest.fn(),
+  voteToDelete: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -924,6 +932,121 @@ describe('markAsAcceptedWorker', () => {
   });
 });
 
+describe('voteToDeleteWorker', () => {
+  const res = {
+    questionId: 1,
+    answerId: 1,
+    commentId: 1,
+    postButtonId: 'id',
+  };
+
+  const locale = 'en';
+  const account = 'user1';
+
+  const questionData = {};
+  const eos = {
+    getSelectedAccount: jest.fn().mockImplementation(() => res.user),
+  };
+
+  describe('profileInfo true', () => {
+    const generator = voteToDeleteWorker(res);
+
+    const profileInfo = {};
+
+    it('step, selectQuestionData', () => {
+      select.mockImplementation(() => questionData);
+      const step = generator.next();
+      expect(step.value).toEqual(questionData);
+    });
+
+    it('step, eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next(questionData);
+      expect(step.value).toEqual(eos);
+    });
+
+    it('step, locale', () => {
+      select.mockImplementation(() => locale);
+      const step = generator.next(eos);
+      expect(step.value).toEqual(locale);
+    });
+
+    it('step, account', () => {
+      eos.getSelectedAccount.mockImplementation(() => account);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(account);
+    });
+
+    it('step, profileInfo', () => {
+      getProfileInfo.mockImplementation(() => profileInfo);
+      const step = generator.next(account);
+      expect(step.value).toEqual(profileInfo);
+    });
+
+    it('step, validation', () => {
+      generator.next(profileInfo);
+      expect(voteToDeleteValidator).toHaveBeenCalledWith(
+        profileInfo,
+        questionData,
+        translationMessages[locale],
+        res.postButtonId,
+        {
+          questionId: res.questionId,
+          answerId: res.answerId,
+          commentId: res.commentId,
+        },
+      );
+    });
+
+    it('step, voteToDelete', () => {
+      generator.next(true);
+      expect(voteToDelete).toHaveBeenCalledWith(
+        account,
+        res.questionId,
+        res.answerId,
+        res.commentId,
+        eos,
+      );
+    });
+
+    it('step, getQuestionData', () => {
+      generator.next();
+      expect(getQuestionData).toHaveBeenCalledWith(
+        eos,
+        res.questionId,
+        account,
+      );
+    });
+
+    it('step4, VOTE_TO_DELETE_SUCCESS', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(VOTE_TO_DELETE_SUCCESS);
+    });
+  });
+
+  describe('profileInfo false => showLoginModal', () => {
+    const generator = voteToDeleteWorker(res);
+    const profileInfo = null;
+
+    generator.next();
+    generator.next();
+    generator.next(eos);
+    generator.next(locale);
+    generator.next(account);
+
+    it('showLoginModal', () => {
+      const showLoginModal = generator.next(profileInfo);
+      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
+    });
+
+    it('error handling', () => {
+      const err = new Error('some error');
+      const putDescriptor = generator.throw(err);
+      expect(putDescriptor.value.type).toBe(VOTE_TO_DELETE_ERROR);
+    });
+  });
+});
+
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
@@ -975,5 +1098,10 @@ describe('defaultSaga', () => {
   it('SAVE_COMMENT', () => {
     const step = generator.next();
     expect(step.value).toBe(SAVE_COMMENT);
+  });
+
+  it('VOTE_TO_DELETE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(VOTE_TO_DELETE);
   });
 });

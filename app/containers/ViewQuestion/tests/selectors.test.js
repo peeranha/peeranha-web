@@ -23,6 +23,8 @@ import {
   selectSaveCommentLoading,
   selectSaveCommentError,
   selectEditComment,
+  selectVoteToDeleteLoading,
+  selectVoteToDeleteError,
 } from '../selectors';
 
 describe('selectViewQuestionDomain', () => {
@@ -48,6 +50,8 @@ describe('selectViewQuestionDomain', () => {
   const saveCommentLoading = true;
   const saveCommentError = 'error';
   const editComment = 'editComment';
+  const voteToDeleteLoading = false;
+  const voteToDeleteError = 'voteToDeleteError';
 
   const globalState = fromJS({
     questionData,
@@ -72,6 +76,8 @@ describe('selectViewQuestionDomain', () => {
     saveCommentLoading,
     saveCommentError,
     editComment,
+    voteToDeleteLoading,
+    voteToDeleteError,
   });
 
   const mockedState = fromJS({
@@ -85,6 +91,16 @@ describe('selectViewQuestionDomain', () => {
   it('selectEditComment', () => {
     const isEditComment = selectEditComment();
     expect(isEditComment(mockedState)).toEqual(editComment);
+  });
+
+  it('selectVoteToDeleteLoading', () => {
+    const isVoteToDeleteLoading = selectVoteToDeleteLoading();
+    expect(isVoteToDeleteLoading(mockedState)).toEqual(voteToDeleteLoading);
+  });
+
+  it('selectVoteToDeleteError', () => {
+    const isVoteToDeleteError = selectVoteToDeleteError();
+    expect(isVoteToDeleteError(mockedState)).toEqual(voteToDeleteError);
   });
 
   it('selectSaveCommentError', () => {

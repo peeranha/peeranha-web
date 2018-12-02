@@ -13,26 +13,29 @@ const setDataAttr = e => {
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const ContentOptions = props => (
   <div className="content-options">
-    <button onClick={setDataAttr}>
-      {props.translations[messages.commentButton.id]}
-    </button>
     <Button
+      show
       buttonParams={props.buttonParams}
-      isItWrittenByMe={props.isItWrittenByMe}
+      buttonName={props.translations[messages.commentButton.id]}
+      buttonClick={setDataAttr}
+    />
+    <Button
+      show={props.isItWrittenByMe}
+      buttonParams={props.buttonParams}
       buttonName={props.translations[messages.editButton.id]}
       buttonClick={props.editItem}
     />
     <Button
+      show={props.isItWrittenByMe}
       buttonId={`${props.type}_delete_${props.answerId}`}
       buttonParams={props.buttonParams}
-      isItWrittenByMe={props.isItWrittenByMe}
       buttonName={props.translations[messages.deleteButton.id]}
       buttonClick={props.deleteItem}
     />
     <Button
+      show
       buttonId={`${props.type}_vote_to_delete_${props.answerId}`}
       buttonParams={props.buttonParams}
-      isItWrittenByMe="true"
       buttonName={props.translations[messages.voteToDelete.id]}
       buttonClick={props.voteToDelete}
     />

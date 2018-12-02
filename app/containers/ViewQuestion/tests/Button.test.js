@@ -3,16 +3,16 @@ import Button from '../Button';
 describe('Button', () => {
   const props = {
     buttonParams: {},
-    isItWrittenByMe: false,
+    show: false,
   };
 
-  it('@isItWrittenByMe is falsy', () => {
-    props.isItWrittenByMe = false;
+  it('@show is falsy', () => {
+    props.show = false;
     expect(Button(props)).toMatchSnapshot();
   });
 
-  it('@isItWrittenByMe is true', () => {
-    props.isItWrittenByMe = true;
+  it('@show is true', () => {
+    props.show = true;
     expect(Button(props)).toMatchSnapshot();
   });
 });

@@ -43,6 +43,7 @@ cmp.props = {
   deleteCommentDispatch: jest.fn(),
   toggleCommentVisionDispatch: jest.fn(),
   saveCommentDispatch: jest.fn(),
+  voteToDeleteDispatch: jest.fn(),
 };
 
 const ev = {
@@ -53,6 +54,28 @@ const ev = {
 };
 
 describe('<ViewQuestion />', () => {
+  describe('voteToDelete', () => {
+    it('test', () => {
+      const questionid = 1;
+      const answerid = 2;
+      const commentid = 3;
+      const id = 'id';
+
+      ev.target.dataset.questionid = questionid;
+      ev.target.dataset.answerid = answerid;
+      ev.target.dataset.commentid = commentid;
+      ev.target.dataset.id = id;
+
+      cmp.voteToDelete(ev);
+      expect(cmp.props.voteToDeleteDispatch).toHaveBeenCalledWith(
+        questionid,
+        answerid,
+        commentid,
+        id,
+      );
+    });
+  });
+
   describe('saveComment', () => {
     const mapp = new Map();
     const commentId = 'commentid';
@@ -83,11 +106,17 @@ describe('<ViewQuestion />', () => {
     const commentid = 'commentid';
     const answerid = 'answerid';
 
-    ev.target.dataset.answerid = answerid;
-    ev.target.dataset.commentid = commentid;
-
     it('test', () => {
-      cmp.editComment(ev);
+      cmp.editComment({
+        ...ev,
+        target: {
+          dataset: {
+            answerid,
+            commentid,
+          },
+        },
+      });
+
       expect(cmp.props.toggleCommentVisionDispatch).toHaveBeenCalledWith({
         commentid,
         answerid,
@@ -302,6 +331,7 @@ describe('<ViewQuestion />', () => {
       );
       expect(mapDispatchToProps(dispatch).saveCommentDispatch()).toBe(test);
       expect(mapDispatchToProps(dispatch).deleteCommentDispatch()).toBe(test);
+      expect(mapDispatchToProps(dispatch).voteToDeleteDispatch()).toBe(test);
     });
   });
 });

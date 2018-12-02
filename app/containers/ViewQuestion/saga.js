@@ -424,6 +424,11 @@ export function* voteToDeleteWorker({
 
     const profileInfo = yield call(() => getProfileInfo(account, eosService));
 
+    if (!profileInfo) {
+      yield put(showLoginModal());
+      throw new Error('Not authorized');
+    }
+
     const isValid = yield call(() =>
       voteToDeleteValidator(
         profileInfo,

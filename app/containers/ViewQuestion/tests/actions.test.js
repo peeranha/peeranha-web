@@ -30,6 +30,9 @@ import {
   saveComment,
   saveCommentSuccess,
   saveCommentErr,
+  voteToDelete,
+  voteToDeleteSuccess,
+  voteToDeleteErr,
 } from '../actions';
 
 import {
@@ -64,9 +67,57 @@ import {
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
+  VOTE_TO_DELETE,
+  VOTE_TO_DELETE_SUCCESS,
+  VOTE_TO_DELETE_ERROR,
 } from '../constants';
 
 describe('ViewQuestions actions', () => {
+  describe('voteToDelete', () => {
+    it('VOTE_TO_DELETE', () => {
+      const questionId = 1;
+      const answerId = 2;
+      const commentId = 3;
+      const postButtonId = 'id';
+
+      const expected = {
+        type: VOTE_TO_DELETE,
+        questionId,
+        answerId,
+        commentId,
+        postButtonId,
+      };
+
+      expect(
+        voteToDelete(questionId, answerId, commentId, postButtonId),
+      ).toEqual(expected);
+    });
+  });
+
+  describe('voteToDeleteSuccess Action', () => {
+    it('VOTE_TO_DELETE_SUCCESS', () => {
+      const questionData = 'questionData';
+      const expected = {
+        type: VOTE_TO_DELETE_SUCCESS,
+        questionData,
+      };
+
+      expect(voteToDeleteSuccess(questionData)).toEqual(expected);
+    });
+  });
+
+  describe('voteToDeleteErr Action', () => {
+    it('VOTE_TO_DELETE_ERROR', () => {
+      const voteToDeleteError = 'voteToDeleteError';
+      const expected = {
+        type: VOTE_TO_DELETE_ERROR,
+        voteToDeleteError,
+      };
+
+      expect(voteToDeleteErr(voteToDeleteError)).toEqual(expected);
+    });
+  });
+
   describe('saveComment Action', () => {
     it('SAVE_COMMENT', () => {
       const user = 'user';
