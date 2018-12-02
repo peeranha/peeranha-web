@@ -36,6 +36,9 @@ import {
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
+  VOTE_TO_DELETE,
+  VOTE_TO_DELETE_SUCCESS,
+  VOTE_TO_DELETE_ERROR,
 } from './constants';
 
 export function toggleCommentVision(editComment) {
@@ -314,5 +317,29 @@ export function markAsAcceptedErr(markAsAcceptedError) {
   return {
     type: MARK_AS_ACCEPTED_ERROR,
     markAsAcceptedError,
+  };
+}
+
+export function voteToDelete(questionId, answerId, commentId, postButtonId) {
+  return {
+    type: VOTE_TO_DELETE,
+    questionId,
+    answerId,
+    commentId,
+    postButtonId,
+  };
+}
+
+export function voteToDeleteSuccess(questionData) {
+  return {
+    type: VOTE_TO_DELETE_SUCCESS,
+    questionData,
+  };
+}
+
+export function voteToDeleteErr(voteToDeleteError) {
+  return {
+    type: VOTE_TO_DELETE_ERROR,
+    voteToDeleteError,
   };
 }

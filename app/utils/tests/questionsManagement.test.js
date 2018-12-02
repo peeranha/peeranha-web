@@ -15,6 +15,7 @@ import {
   DEL_COMMENT_METHOD,
   DEL_ANSWER_METHOD,
   DEL_QUESTION_METHOD,
+  VOTE_TO_DELETE_METHOD,
 } from '../constants';
 
 import {
@@ -34,6 +35,7 @@ import {
   deleteQuestion,
   getAnswer,
   getAskedQuestion,
+  voteToDelete,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -350,6 +352,49 @@ describe('downVote', () => {
   });
 });
 
+describe('voteToDelete', () => {
+  const user = 'user';
+  const questionId = 10;
+  let commentId = 10;
+  let answerId = 50;
+
+  it('test, answerId, commentId - falsy', async () => {
+    commentId = undefined;
+    answerId = undefined;
+
+    await voteToDelete(user, questionId, answerId, commentId, eosService);
+
+    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+      user,
+      VOTE_TO_DELETE_METHOD,
+      {
+        user,
+        question_id: +questionId,
+        answer_id: 0,
+        comment_id: 0,
+      },
+    );
+  });
+
+  it('test, answerId, commentId - true', async () => {
+    commentId = 10;
+    answerId = 10;
+
+    await voteToDelete(user, questionId, answerId, commentId, eosService);
+
+    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+      user,
+      VOTE_TO_DELETE_METHOD,
+      {
+        user,
+        question_id: +questionId,
+        answer_id: +answerId,
+        comment_id: +commentId,
+      },
+    );
+  });
+});
+
 describe('markAsAccepted', () => {
   const user = 'user';
   const questionId = 10;
@@ -376,6 +421,7 @@ describe('getQuestionData', () => {
     answers: [],
     comments: [],
     history: [],
+    properties: [],
   };
 
   it('test', async () => {

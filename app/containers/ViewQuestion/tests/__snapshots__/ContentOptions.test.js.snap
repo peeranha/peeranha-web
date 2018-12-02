@@ -4,12 +4,17 @@ exports[`ContentOptions test, ContentOptions 1`] = `
 <div
   className="content-options"
 >
-  <button
-    onClick={[Function]}
+  <Button
+    buttonClick={[Function]}
+    show={true}
   />
   <Button />
   <Button
-    buttonId="undefined__undefined"
+    buttonId="undefined_delete_undefined"
+  />
+  <Button
+    buttonId="undefined_vote_to_delete_undefined"
+    show={true}
   />
 </div>
 `;

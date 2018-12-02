@@ -18,6 +18,12 @@ const Box = styled.div`
     padding: 10px 0;
     border-bottom: 1px solid ${gray};
   }
+  .last-edited-date::after {
+    content: ') ';
+  }
+  .last-edited-date::before {
+    content: ' (';
+  }
   textarea {
     min-height: 100px;
   }
@@ -85,8 +91,7 @@ const Box = styled.div`
       position: absolute;
       display: flex;
       flex-direction: column;
-      .chevron[data-voting='chevron-up-1'],
-      .chevron[data-voting='chevron-down-2'] {
+      .chevron[data-voting='chevron-hl-true'] {
         color: blue;
       }
       .chevron {
@@ -107,7 +112,8 @@ const Box = styled.div`
     .content-options[data-opened='true'] ~ .add-comment {
       display: block;
     }
-    .content-options {
+    .content-options,
+    .option-edit {
       > * {
         margin-bottom: 10px;
       }

@@ -18,6 +18,8 @@ export const REGISTER_ACC = 'registeracc';
 export const QUESTION_TABLE = 'question';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 
+export const VOTE_TO_DELETE_METHOD = 'votedelete';
+
 export const POST_QUESTION_METHOD = 'postquestion';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';

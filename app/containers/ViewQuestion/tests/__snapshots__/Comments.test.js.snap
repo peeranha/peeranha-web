@@ -5,7 +5,7 @@ exports[` 1`] = `
   className="comment-content"
 >
   <div>
-    <RecordingDate />
+    <ChangesHistory />
     <p
       className="comment-text"
       dangerouslySetInnerHTML={
@@ -26,12 +26,21 @@ exports[` 1`] = `
       }
     />
     <Button
-      buttonId="comment__undefined"
+      buttonId="comment__undefinedundefined"
       buttonParams={
         Object {
           "commentId": undefined,
         }
       }
+    />
+    <Button
+      buttonId="comment_vote_to_delete_undefinedundefined"
+      buttonParams={
+        Object {
+          "commentId": undefined,
+        }
+      }
+      show={true}
     />
   </p>
 </div>

@@ -9,6 +9,7 @@ import {
   downVoteValidator,
   deleteQuestionValidator,
   deleteAnswerValidator,
+  voteToDeleteValidator,
 } from '../validate';
 
 import messages from '../messages';
@@ -35,11 +36,100 @@ beforeEach(() => {
     answers: [],
     comments: [],
     user: 'user1',
+    votingStatus: {},
   };
 
   postButtonId = 'postButtonId';
   answerId = 0;
   translations = translationMessages[locale];
+});
+
+describe('voteToDeleteValidator', () => {
+  const item = {
+    questionId: 1,
+    answerId: 1,
+    commentId: 1,
+  };
+
+  describe('itemData is question', () => {
+    item.answerId = null;
+    item.commentId = null;
+
+    it('itemData.user === profileInfo.owner', () => {
+      questionData.user = 'user';
+      profileInfo.owner = 'user';
+
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translations,
+        postButtonId,
+        item,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.noRootsToVote.id],
+      );
+    });
+
+    it('itemData.votingStatus.isVotedToDelete', () => {
+      questionData.user = 'user12';
+      questionData.votingStatus.isVotedToDelete = true;
+
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translations,
+        postButtonId,
+        item,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.youVoted.id],
+      );
+    });
+
+    it('profileInfo.rating < minRatingToVoteToDelete', () => {
+      profileInfo.rating = 10;
+      questionData.user = 'user22';
+      questionData.votingStatus.isVotedToDelete = false;
+
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translations,
+        postButtonId,
+        item,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughRating.id]} 100`,
+      );
+    });
+
+    it('profileInfo.moderation_points <= minModerationPoints', () => {
+      profileInfo.rating = 200;
+      profileInfo.moderation_points = 0;
+      questionData.user = 'user22';
+      questionData.votingStatus.isVotedToDelete = false;
+
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translations,
+        postButtonId,
+        item,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughModPoints.id]} 0`,
+      );
+    });
+  });
 });
 
 describe('deleteQuestionValidator', () => {

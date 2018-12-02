@@ -20,6 +20,7 @@ import {
   deleteAnswer,
   deleteComment,
   editComment,
+  voteToDelete,
 } from 'utils/questionsManagement';
 
 import { getProfileInfo } from 'utils/profileManagement';
@@ -37,6 +38,7 @@ import {
   DELETE_ANSWER,
   DELETE_COMMENT,
   SAVE_COMMENT,
+  VOTE_TO_DELETE,
 } from './constants';
 
 import {
@@ -60,6 +62,8 @@ import {
   deleteCommentErr,
   saveCommentSuccess,
   saveCommentErr,
+  voteToDeleteSuccess,
+  voteToDeleteErr,
 } from './actions';
 
 import { selectQuestionData } from './selectors';
@@ -72,6 +76,7 @@ import {
   markAsAcceptedValidator,
   upVoteValidator,
   downVoteValidator,
+  voteToDeleteValidator,
 } from './validate';
 
 export function* saveCommentWorker({
@@ -404,6 +409,58 @@ export function* markAsAcceptedWorker(res) {
   }
 }
 
+export function* voteToDeleteWorker({
+  questionId,
+  answerId,
+  commentId,
+  postButtonId,
+}) {
+  try {
+    let questionData = yield select(selectQuestionData());
+
+    const eosService = yield select(selectEos);
+    const locale = yield select(makeSelectLocale());
+    const account = yield call(() => eosService.getSelectedAccount());
+
+    const profileInfo = yield call(() => getProfileInfo(account, eosService));
+
+    if (!profileInfo) {
+      yield put(showLoginModal());
+      throw new Error('Not authorized');
+    }
+
+    const isValid = yield call(() =>
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translationMessages[locale],
+        postButtonId,
+        {
+          questionId,
+          answerId,
+          commentId,
+        },
+      ),
+    );
+
+    if (!isValid) {
+      return yield put(voteToDeleteErr());
+    }
+
+    yield call(() =>
+      voteToDelete(account, questionId, answerId, commentId, eosService),
+    );
+
+    questionData = yield call(() =>
+      getQuestionData(eosService, questionId, account),
+    );
+
+    yield put(voteToDeleteSuccess(questionData));
+  } catch (err) {
+    yield put(voteToDeleteErr(err));
+  }
+}
+
 export default function*() {
   yield takeLatest(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_COMMENT, postCommentWorker);
@@ -415,4 +472,5 @@ export default function*() {
   yield takeLatest(DELETE_ANSWER, deleteAnswerWorker);
   yield takeLatest(DELETE_COMMENT, deleteCommentWorker);
   yield takeLatest(SAVE_COMMENT, saveCommentWorker);
+  yield takeLatest(VOTE_TO_DELETE, voteToDeleteWorker);
 }

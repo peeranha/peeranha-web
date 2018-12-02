@@ -6,8 +6,13 @@
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
+  "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
+  "app.containers.ViewQuestion.voteToDelete": "Голосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше",
+  "app.containers.ViewQuestion.notEnoughModPoints":
+    "Чтобы выполнить это действие, Ваш рейтинг модератора должен быть больше",
+  "app.containers.ViewQuestion.youVoted": "Вы уже выполнили это действие ранее",
   "app.containers.ViewQuestion.alreadyAnswered":
     "Вы уже ответили на этот вопрос",
   "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",

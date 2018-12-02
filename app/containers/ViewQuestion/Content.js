@@ -7,7 +7,12 @@ import ContentBody from './ContentBody';
 
 const Content = props => (
   <div className="content">
-    <ContentHeader userInfo={props.userInfo} postTime={props.postTime} />
+    <ContentHeader
+      locale={props.locale}
+      userInfo={props.userInfo}
+      postTime={props.postTime}
+      lastEditedDate={props.lastEditedDate}
+    />
     <div>
       <ContentRating {...props} />
       <ContentBody {...props} />
@@ -17,7 +22,9 @@ const Content = props => (
 
 Content.propTypes = {
   userInfo: PropTypes.object,
+  locale: PropTypes.string,
   postTime: PropTypes.number,
+  lastEditedDate: PropTypes.number,
 };
 
 export default Content;

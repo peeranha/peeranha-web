@@ -34,6 +34,7 @@ import {
   upVote,
   downVote,
   markAsAccepted,
+  voteToDelete,
 } from './actions';
 
 import * as makeSelectViewQuestion from './selectors';
@@ -208,6 +209,13 @@ export class ViewQuestion extends React.Component {
     );
   };
 
+  voteToDelete = e => {
+    const { id } = e.target;
+    const { questionid, answerid, commentid } = e.target.dataset;
+
+    this.props.voteToDeleteDispatch(questionid, answerid, commentid, id);
+  };
+
   render() {
     const {
       locale,
@@ -222,6 +230,7 @@ export class ViewQuestion extends React.Component {
 
     const sendProps = {
       account,
+      locale,
       questionData,
       postAnswerLoading,
       postCommentLoading,
@@ -239,6 +248,7 @@ export class ViewQuestion extends React.Component {
       markAsAccepted: this.markAsAccepted,
       deleteQuestion: this.deleteQuestion,
       editQuestion: this.editQuestion,
+      voteToDelete: this.voteToDelete,
       translations: translationMessages[locale],
     };
 
@@ -290,6 +300,7 @@ ViewQuestion.propTypes = {
   toggleCommentVisionDispatch: PropTypes.func,
   saveCommentDispatch: PropTypes.func,
   deleteCommentDispatch: PropTypes.func,
+  voteToDeleteDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -327,6 +338,8 @@ export function mapDispatchToProps(dispatch) {
       dispatch(downVote(user, qId, aId, postbId, transl)),
     markAsAcceptedDispatch: (user, qId, correctaId, postbId, transl) =>
       dispatch(markAsAccepted(user, qId, correctaId, postbId, transl)),
+    voteToDeleteDispatch: (qId, aId, cId, buttonid) =>
+      dispatch(voteToDelete(qId, aId, cId, buttonid)),
   };
 }
 

@@ -110,14 +110,18 @@ Array [
           "app.containers.ViewQuestion.description": "Question's description",
           "app.containers.ViewQuestion.editButton": "Edit",
           "app.containers.ViewQuestion.itemsMax": "Number of items is achieved of maximum",
+          "app.containers.ViewQuestion.lastEdited": "Last edited",
           "app.containers.ViewQuestion.noRootsToVote": "You cannot vote to own questions and answers",
+          "app.containers.ViewQuestion.notEnoughModPoints": "To complete this action, your moderation points rating has to be more than",
           "app.containers.ViewQuestion.notEnoughRating": "To complete this action, your rating has to be more than",
           "app.containers.ViewQuestion.postAnswerButton": "Post answer",
           "app.containers.ViewQuestion.postCommentButton": "Post comment",
           "app.containers.ViewQuestion.questionNotExist": "This question does not exist",
           "app.containers.ViewQuestion.saveButton": "Save",
           "app.containers.ViewQuestion.title": "Question's page",
+          "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
           "app.containers.ViewQuestion.youHaveAnswers": "You cannot delete it because you already have some answers by your question",
+          "app.containers.ViewQuestion.youVoted": "You have completed this action earlier",
           "app.containers.ViewQuestion.yourAnswer": "Your answer",
         }
       }

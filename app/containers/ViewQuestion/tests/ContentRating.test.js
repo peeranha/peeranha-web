@@ -7,6 +7,7 @@ describe('ContentRating', () => {
   const props = {
     upVote: jest.fn(),
     downVote: jest.fn(),
+    votingStatus: {},
     questionData: {
       correct_answer_id: 0,
     },

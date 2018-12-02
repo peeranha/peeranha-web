@@ -5,6 +5,6 @@ exports[`ContentHeader test 1`] = `
   className="content-header"
 >
   <UserInfo />
-  <RecordingDate />
+  <ChangesHistory />
 </div>
 `;

@@ -1,3 +1,9 @@
+import {
+  ITEM_UPV_FLAG,
+  ITEM_DNV_FLAG,
+  ITEM_VOTED_TO_DEL_FLAG,
+} from 'containers/ViewQuestion/constants';
+
 import { saveText, getText } from './ipfs';
 import { getProfileInfo } from './profileManagement';
 
@@ -16,6 +22,7 @@ import {
   UP_VOTE_METHOD,
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
+  VOTE_TO_DELETE_METHOD,
 } from './constants';
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -28,6 +35,21 @@ export async function getQuestions(limit, eosService, offset) {
   );
 
   return questions;
+}
+
+export async function voteToDelete(
+  user,
+  questionId,
+  answerId,
+  commentId,
+  eosService,
+) {
+  await eosService.sendTransaction(user, VOTE_TO_DELETE_METHOD, {
+    user,
+    question_id: +questionId,
+    answer_id: +answerId || 0,
+    comment_id: +commentId || 0,
+  });
 }
 
 export async function getAskedQuestion(link) {
@@ -195,11 +217,31 @@ export async function getQuestionData(eosService, questionId, user) {
     questionId,
   );
 
-  // flag: 1 - upVote
-  // flag: 2 - downVote
+  /* eslint no-bitwise: 0 */
+  const getItemStatus = (historyFlag, constantFlag) =>
+    historyFlag && historyFlag.flag & (1 << constantFlag);
+
+  /*
+   * @ITEM_UPV_FLAG - number of bit from historyFlag value - zero bit
+   * got status with help of @getItemStatus function
+   * if value of this bit NOT 0 => status (isUpVoted) is true
+   * and so on
+   */
+
   const votingStatus = history => {
-    const filtered = history.filter(x => x.user === user);
-    return (filtered[0] && filtered[0].flag) || 0;
+    const flag = history.filter(x => x.user === user)[0];
+
+    return {
+      isUpVoted: !!getItemStatus(flag, ITEM_UPV_FLAG),
+      isDownVoted: !!getItemStatus(flag, ITEM_DNV_FLAG),
+      isVotedToDelete: !!getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG),
+    };
+  };
+
+  // key: 3 - key to last edited date value
+  const getlastEditedDate = properties => {
+    const lastEditedDate = properties.filter(x => x.key === 3)[0];
+    return (lastEditedDate && lastEditedDate.value) || null;
   };
 
   const p1 = async () => {
@@ -209,6 +251,7 @@ export async function getQuestionData(eosService, questionId, user) {
       userInfo: await getProfileInfo(question.user, eosService),
       isItWrittenByMe: user === question.user,
       votingStatus: votingStatus(question.history),
+      lastEditedDate: getlastEditedDate(question.properties),
     };
   };
 
@@ -219,12 +262,15 @@ export async function getQuestionData(eosService, questionId, user) {
         x.userInfo = await getProfileInfo(x.user, eosService);
         x.isItWrittenByMe = user === x.user;
         x.votingStatus = votingStatus(x.history);
+        x.lastEditedDate = getlastEditedDate(x.properties);
 
         await Promise.all(
           x.comments.map(async y => {
             y.content = await getText(y.ipfs_link);
             y.userInfo = await getProfileInfo(y.user, eosService);
             y.isItWrittenByMe = user === y.user;
+            y.votingStatus = votingStatus(y.history);
+            y.lastEditedDate = getlastEditedDate(y.properties);
           }),
         );
       }),
@@ -237,6 +283,8 @@ export async function getQuestionData(eosService, questionId, user) {
         x.content = await getText(x.ipfs_link);
         x.userInfo = await getProfileInfo(x.user, eosService);
         x.isItWrittenByMe = user === x.user;
+        x.votingStatus = votingStatus(x.history);
+        x.lastEditedDate = getlastEditedDate(x.properties);
       }),
     );
   };

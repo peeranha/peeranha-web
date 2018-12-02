@@ -14,7 +14,7 @@ exports[`ContentRating snapshot test 1`] = `
     <FontAwesomeIcon
       border={false}
       className="chevron chevron-up"
-      data-voting="chevron-up-undefined"
+      data-voting="chevron-hl-undefined"
       fixedWidth={false}
       flip={null}
       icon="chevron-up"
@@ -43,7 +43,7 @@ exports[`ContentRating snapshot test 1`] = `
     <FontAwesomeIcon
       border={false}
       className="chevron chevron-down"
-      data-voting="chevron-down-undefined"
+      data-voting="chevron-hl-undefined"
       fixedWidth={false}
       flip={null}
       icon="chevron-down"

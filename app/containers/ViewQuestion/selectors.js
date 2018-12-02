@@ -118,6 +118,16 @@ const selectSaveCommentError = () =>
     substate.get('saveCommentError'),
   );
 
+const selectVoteToDeleteLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('voteToDeleteLoading'),
+  );
+
+const selectVoteToDeleteError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('voteToDeleteError'),
+  );
+
 export {
   selectViewQuestionDomain,
   selectEditComment,
@@ -142,4 +152,6 @@ export {
   selectDeleteCommentError,
   selectSaveCommentLoading,
   selectSaveCommentError,
+  selectVoteToDeleteLoading,
+  selectVoteToDeleteError,
 };

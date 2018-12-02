@@ -15,6 +15,7 @@ const ContentBody = props => (
     <ContentOptions
       type={props.type}
       deleteItem={props.deleteItem}
+      voteToDelete={props.voteToDelete}
       editItem={props.editItem}
       buttonParams={props.buttonParams}
       translations={props.translations}
@@ -22,12 +23,14 @@ const ContentBody = props => (
       answerId={props.answerId}
     />
     <Comments
+      locale={props.locale}
       type={props.type}
       editComment={props.editComment}
       saveComment={props.saveComment}
       saveCommentLoading={props.saveCommentLoading}
       editCommentState={props.editCommentState}
       deleteComment={props.deleteComment}
+      voteToDelete={props.voteToDelete}
       buttonParams={props.buttonParams}
       translations={props.translations}
       answerId={props.answerId}
@@ -48,6 +51,7 @@ const ContentBody = props => (
 
 ContentBody.propTypes = {
   type: PropTypes.string,
+  locale: PropTypes.string,
   content: PropTypes.string,
   translations: PropTypes.object,
   editCommentState: PropTypes.object,
@@ -59,6 +63,7 @@ ContentBody.propTypes = {
   postComment: PropTypes.func,
   deleteItem: PropTypes.func,
   editItem: PropTypes.func,
+  voteToDelete: PropTypes.func,
   editComment: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,

@@ -2,6 +2,59 @@ import { showPopover } from 'utils/popover';
 
 import messages from './messages';
 
+/* eslint prefer-destructuring: 0 */
+export const voteToDeleteValidator = (
+  profileInfo,
+  questionData,
+  translations,
+  postButtonId,
+  item,
+) => {
+  const minRatingToVoteToDelete = 100;
+  const minModerationPoints = 0;
+
+  let message;
+  let itemData;
+
+  /*
+   * Input data: @questionId, @answerId, @commentId
+   * Output data: @itemData, information about item, which was clicked to vote to delete
+   */
+
+  if (!+item.answerId && !+item.commentId) {
+    itemData = questionData;
+  } else if (!+item.answerId && +item.commentId) {
+    itemData = questionData.comments.filter(x => x.id == item.commentId)[0];
+  } else if (+item.answerId && !+item.commentId) {
+    itemData = questionData.answers.filter(x => x.id == item.answerId)[0];
+  } else if (+item.answerId && +item.commentId) {
+    itemData = questionData.answers
+      .filter(x => x.id == item.answerId)[0]
+      .comments.filter(y => y.id == item.commentId)[0];
+  }
+
+  if (itemData.user === profileInfo.owner) {
+    message = `${translations[messages.noRootsToVote.id]}`;
+  } else if (itemData.votingStatus.isVotedToDelete) {
+    message = `${translations[messages.youVoted.id]}`;
+  } else if (profileInfo.rating < minRatingToVoteToDelete) {
+    message = `${
+      translations[messages.notEnoughRating.id]
+    } ${minRatingToVoteToDelete}`;
+  } else if (profileInfo.moderation_points <= minModerationPoints) {
+    message = `${
+      translations[messages.notEnoughModPoints.id]
+    } ${minModerationPoints}`;
+  }
+
+  if (message) {
+    showPopover(postButtonId, message);
+    return false;
+  }
+
+  return true;
+};
+
 export const postAnswerValidator = (
   profileInfo,
   questionData,

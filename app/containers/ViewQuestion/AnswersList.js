@@ -20,6 +20,7 @@ const AnswersList = props => (
             history={item.history}
             userInfo={item.userInfo}
             postTime={item.post_time}
+            lastEditedDate={item.lastEditedDate}
             votingStatus={item.votingStatus}
             deleteItem={props.deleteAnswer}
             editItem={props.editAnswer}

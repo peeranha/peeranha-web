@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangesHistory @lastEditedDate is null 1`] = `
+<p
+  className="recording-date"
+/>
+`;
+
+exports[`ChangesHistory @lastEditedDate is true 1`] = `
+<p
+  className="recording-date"
+>
+  <span
+    className="last-edited-date"
+  >
+    <FormattedMessage
+      defaultMessage="Last edited"
+      id="app.containers.ViewQuestion.lastEdited"
+      values={Object {}}
+    />
+    <span>
+      : undefined
+    </span>
+  </span>
+</p>
+`;
