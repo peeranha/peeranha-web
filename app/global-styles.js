@@ -1,10 +1,26 @@
 import { injectGlobal } from 'styled-components';
+import reset from 'reset-css';
+import OpenSansRegular from 'fonts/OpenSansRegular.ttf';
+import OpenSansSemiBold from 'fonts/OpenSansSemiBold.ttf';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  ${reset};
+
+  @font-face {
+   font-family: "OpenSans";
+   src: url(${OpenSansRegular});
+  }
+
+  @font-face {
+   font-family: "OpenSansBold";
+   src: url(${OpenSansSemiBold});
+  }
+
   html,
   body {
     width: 100%;
+    scroll-behavior: smooth;
   }
 
   html {
@@ -14,7 +30,6 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin-bottom: 80px;
   }
 
   body.fontLoaded {
