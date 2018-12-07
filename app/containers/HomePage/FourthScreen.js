@@ -1,11 +1,14 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import * as plus from 'images/Plus.png';
 import * as minus from 'images/Minus.png';
 import * as arrRight from 'images/arrRight.svg';
 
 import { FOURTH_SCREEN } from './constants';
+import messages from './messages';
 
 const Box = styled.section`
   display: flex;
@@ -26,6 +29,7 @@ const Box = styled.section`
 
         button {
           display: flex;
+          text-align: left;
           align-items: center;
           outline: none;
           font-size: 30px;
@@ -37,6 +41,7 @@ const Box = styled.section`
 
           .icon {
             background-size: cover;
+            min-width: 30px;
             width: 30px;
             height: 30px;
             margin: 0 15px 3px 0;
@@ -60,9 +65,41 @@ const Box = styled.section`
       }
     }
   }
+
+  @media only screen and (max-width: 1200px) {
+    padding: 30px 0;
+    .fourth-screen-faq {
+      button {
+        font-size: 24px !important;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .fourth-screen-faq {
+      flex-basis: 80%;
+      button {
+        .text {
+          line-height: normal;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    .fourth-screen-faq {
+      flex-basis: 95%;
+      button {
+        .text {
+          font-size: 18px;
+        }
+      }
+    }
+  }
 `;
 
-const FourthScreen = () => (
+const FourthScreen = ({ translations }) => (
   <Box id={FOURTH_SCREEN}>
     <div className="fourth-screen-faq" id="accordion">
       <div className="card">
@@ -75,7 +112,9 @@ const FourthScreen = () => (
               aria-controls="collapseOne"
             >
               <span className="icon icon-collapse" />
-              <span className="text">What is Peerania?</span>
+              <span className="text">
+                {translations[messages.whatIsPeerania.id]}
+              </span>
             </button>
           </h5>
         </div>
@@ -86,18 +125,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.whatIsPeeraniaCollapsed} />
           </div>
         </div>
       </div>
@@ -111,7 +139,9 @@ const FourthScreen = () => (
               aria-controls="collapseTwo"
             >
               <span className="icon icon-collapse" />
-              <span className="text">How do I create an account?</span>
+              <span className="text">
+                {translations[messages.howToCreateAcc.id]}
+              </span>
             </button>
           </h5>
         </div>
@@ -122,18 +152,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.howToCreateAccCollapsed} />
           </div>
         </div>
       </div>
@@ -147,7 +166,9 @@ const FourthScreen = () => (
               aria-controls="collapseThree"
             >
               <span className="icon icon-collapse" />
-              <span className="text">How do I upvote a post or comment?</span>
+              <span className="text">
+                {translations[messages.howToUpvote.id]}
+              </span>
             </button>
           </h5>
         </div>
@@ -158,18 +179,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.howToUpvoteCollapsed} />
           </div>
         </div>
       </div>
@@ -183,7 +193,9 @@ const FourthScreen = () => (
               aria-controls="collapseFour"
             >
               <span className="icon icon-collapse" />
-              <span className="text">What can users post to Peerania?</span>
+              <span className="text">
+                {translations[messages.whatToPost.id]}
+              </span>
             </button>
           </h5>
         </div>
@@ -194,18 +206,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.whatToPostCollapsed} />
           </div>
         </div>
       </div>
@@ -219,9 +220,7 @@ const FourthScreen = () => (
               aria-controls="collapseFive"
             >
               <span className="icon icon-collapse" />
-              <span className="text">
-                Can I earn Crypto Tokens for commenting?
-              </span>
+              <span className="text">{translations[messages.canIEarn.id]}</span>
             </button>
           </h5>
         </div>
@@ -232,18 +231,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.canIEarnCollapsed} />
           </div>
         </div>
       </div>
@@ -257,7 +245,9 @@ const FourthScreen = () => (
               aria-controls="collapseSix"
             >
               <span className="icon icon-collapse" />
-              <span className="text">What is Reputation?</span>
+              <span className="text">
+                {translations[messages.whatIsReputation.id]}
+              </span>
             </button>
           </h5>
         </div>
@@ -268,18 +258,7 @@ const FourthScreen = () => (
           data-parent="#accordion"
         >
           <div className="card-body">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            maiores porro rem necessitatibus dolorem fugit odio voluptatum
-            sapiente nobis eum nam aperiam ut explicabo, optio aliquam,
-            inventore provident! Repellat libero iusto cumque corporis facere
-            eveniet harum quis, perferendis assumenda doloribus. Adipisci hic
-            molestias assumenda fugiat eos, animi ex pariatur error iusto ipsam.
-            Aliquam mollitia, ipsam, at, porro possimus architecto nihil odio
-            ullam delectus ducimus molestiae vitae, assumenda expedita tenetur
-            nesciunt velit nisi soluta dolores magni officiis ea. Eos, modi
-            voluptas? Odio ad vero, voluptates nulla sequi ullam provident totam
-            dolor obcaecati in praesentium, molestiae culpa voluptatibus
-            doloribus eius aut, quia.
+            <FormattedMessage {...messages.whatIsReputationCollapsed} />
           </div>
         </div>
       </div>
@@ -289,7 +268,9 @@ const FourthScreen = () => (
             <a href="/">
               <button>
                 <img className="icon" src={arrRight} alt="arrRight" />
-                <span className="text">Get more answers</span>
+                <span className="text">
+                  {translations[messages.getMoreAnswers.id]}
+                </span>
               </button>
             </a>
           </h5>
@@ -298,5 +279,9 @@ const FourthScreen = () => (
     </div>
   </Box>
 );
+
+FourthScreen.propTypes = {
+  translations: PropTypes.object,
+};
 
 export default FourthScreen;

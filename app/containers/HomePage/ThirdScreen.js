@@ -1,8 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
 import Parallax from './Parallax';
 import { THIRD_SCREEN } from './constants';
+import messages from './messages';
 
 const Box = styled.div`
   position: relative;
@@ -30,9 +34,31 @@ const Box = styled.div`
       padding: 50px 0;
     }
   }
+
+  @media only screen and (max-width: 992px) {
+    .content {
+      flex-basis: 90%;
+      .title {
+        font-size: 36px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    .bottom-level {
+      height: auto;
+      .get-started-form {
+        flex-direction: column;
+        > * {
+          flex-basis: 48px;
+          margin: 5px 0;
+        }
+      }
+    }
+  }
 `;
 
-const ThirdScreen = () => (
+const ThirdScreen = ({ translations }) => (
   <Parallax id={THIRD_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -42,22 +68,29 @@ const ThirdScreen = () => (
     <Box>
       <div className="content">
         <h3 className="title">
-          Be the first to join and earn up to 100x more rewards
+          <FormattedMessage {...messages.beTheFirst} />
         </h3>
         <p className="content-body">
-          Rewards pool is distributed weekly between all of the contributors for
-          the given week. Members that join early get higher rewards while
-          community is growing.
+          <FormattedMessage {...messages.rewardsPool} />
         </p>
         <p className="bottom-level">
           <form className="get-started-form">
-            <input placeholder="Your email address" type="text" />
-            <button type="submit">Get reward</button>
+            <input
+              placeholder={translations[messages.yourEmail.id]}
+              type="text"
+            />
+            <button type="submit">
+              <FormattedMessage {...messages.getReward} />
+            </button>
           </form>
         </p>
       </div>
     </Box>
   </Parallax>
 );
+
+ThirdScreen.propTypes = {
+  translations: PropTypes.object,
+};
 
 export default ThirdScreen;

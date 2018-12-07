@@ -31,6 +31,7 @@ const Box = styled.span`
     }
   }
   li {
+    padding: 3px;
     border-bottom: 1px solid #a6a6a6;
     :hover {
       cursor: pointer;

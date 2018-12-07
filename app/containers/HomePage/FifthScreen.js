@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import av11 from 'images/1.png';
@@ -9,6 +10,7 @@ import av2 from 'images/av2.jpg';
 import av3 from 'images/av3.jpg';
 
 import { FIFTH_SCREEN } from './constants';
+import messages from './messages';
 
 const inputHeight = 40;
 
@@ -51,8 +53,8 @@ const Box = styled.section`
           .teammate-card {
             display: flex;
             flex-direction: column;
-            margin-right: 60px;
-            margin-bottom: 60px;
+            margin-right: 40px;
+            margin-bottom: 40px;
 
             img {
               width: 150px;
@@ -62,17 +64,15 @@ const Box = styled.section`
             }
 
             .name {
-              opacity: 0.9;
               font-size: 16px;
-              color: #282828;
+              color: rgba(40, 40, 40, 0.9);
               line-height: 26px;
             }
 
             .role {
               font-size: 14px;
-              color: #373737;
+              color: rgba(55, 55, 55, 0.5);
               line-height: 30px;
-              opacity: 0.5;
             }
           }
         }
@@ -139,6 +139,47 @@ const Box = styled.section`
       }
     }
   }
+  @media only screen and (max-width: 1200px) {
+    padding: 30px 0;
+    .fifth-screen {
+      flex-basis: 60%;
+      .fifth-screen-header {
+        font-size: 36px;
+      }
+      .fifth-screen-about {
+        font-size: 18px;
+        padding: 20px 0;
+      }
+      .fifth-screen-content {
+        flex-direction: column;
+        ul {
+          justify-content: center;
+          li.teammate-card {
+            padding: 25px !important;
+            margin: 0 !important;
+          }
+        }
+        .send-message-form {
+          padding: 10px;
+          .form-submit-button {
+            button {
+              flex: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .fifth-screen {
+      flex-basis: 80%;
+    }
+  }
+  @media only screen and (max-width: 560px) {
+    .fifth-screen {
+      flex-basis: 90%;
+    }
+  }
 `;
 
 const CustomInput = ({ label }) => (
@@ -155,53 +196,69 @@ CustomInput.propTypes = {
   label: PropTypes.string,
 };
 
-const FifthScreen = () => (
+const FifthScreen = ({ translations }) => (
   <Box id={FIFTH_SCREEN}>
     <div className="fifth-screen">
-      <h3 className="fifth-screen-header">Our team</h3>
+      <h3 className="fifth-screen-header">
+        <FormattedMessage {...messages.ourTeam} />
+      </h3>
       <p className="fifth-screen-about">
-        We highly appreciate your feedback, opinion or suggestion for the
-        platform. Send us few lines or even better let us know if you have 15
-        minutes to chat.
+        <FormattedMessage {...messages.weAppreciate} />
       </p>
       <div className="fifth-screen-content">
         <div className="team-avatars">
           <ul>
             <li className="teammate-card">
               <img src={av11} alt="avatar" />
-              <span className="name">Sergey Ilin</span>
-              <span className="role">Founder</span>
+              <span className="name">
+                {translations[messages.sergeyIlin.id]}
+              </span>
+              <span className="role">{translations[messages.founder.id]}</span>
             </li>
             <li className="teammate-card">
               <img src={av1} alt="avatar" />
-              <span className="name">Nikita Syrovatnikov</span>
-              <span className="role">Back-end developer</span>
+              <span className="name">
+                {translations[messages.nikitaSyr.id]}
+              </span>
+              <span className="role">
+                {translations[messages.backendDev.id]}
+              </span>
             </li>
             <li className="teammate-card">
               <img src={av2} alt="avatar" />
-              <span className="name">Roman Remniov</span>
-              <span className="role">Front-end developer</span>
+              <span className="name">{translations[messages.romRem.id]}</span>
+              <span className="role">
+                {translations[messages.frontendDev.id]}
+              </span>
             </li>
             <li className="teammate-card">
               <img src={av3} alt="avatar" />
-              <span className="name">Ulyana Popova</span>
-              <span className="role">Designer</span>
+              <span className="name">
+                {translations[messages.ulyanaPopova.id]}
+              </span>
+              <span className="role">{translations[messages.designer.id]}</span>
             </li>
             <li className="teammate-card">
               <img src={av22} alt="avatar" />
-              <span className="name">Kate Behey</span>
-              <span className="role">Marketing</span>
+              <span className="name">
+                {translations[messages.kateBehey.id]}
+              </span>
+              <span className="role">
+                {translations[messages.marketing.id]}
+              </span>
             </li>
           </ul>
         </div>
         <div className="send-message-form">
           <form>
-            <CustomInput label="Your name" />
-            <CustomInput label="Email" />
-            <CustomInput label="Subject" />
-            <CustomInput label="Message" />
+            <CustomInput label={translations[messages.yourName.id]} />
+            <CustomInput label={translations[messages.email.id]} />
+            <CustomInput label={translations[messages.subject.id]} />
+            <CustomInput label={translations[messages.message.id]} />
             <div className="form-submit-button">
-              <button type="submit">Send message</button>
+              <button type="submit">
+                {translations[messages.sendMessage.id]}
+              </button>
             </div>
           </form>
         </div>
@@ -209,5 +266,9 @@ const FifthScreen = () => (
     </div>
   </Box>
 );
+
+FifthScreen.propTypes = {
+  translations: PropTypes.object,
+};
 
 export default FifthScreen;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
 import * as bg from 'images/Logo.svg';
 import * as login from 'images/Login.svg';
@@ -12,6 +13,8 @@ import {
   FOURTH_SCREEN,
   FIFTH_SCREEN,
 } from './constants';
+
+import messages from './messages';
 
 const togglerId = 'navbartogglerId';
 
@@ -30,8 +33,7 @@ const Box = styled.header`
   color: #ffffff !important;
   position: fixed;
   width: 100%;
-  opacity: 0.8;
-  background-color: #091128;
+  background-color: rgba(9, 17, 40, 0.8);
   z-index: 9999;
   padding: 19px 0;
   > div {
@@ -53,6 +55,7 @@ const Box = styled.header`
       display: flex;
       padding: 12px 0;
       button {
+        outline: none;
         cursor: pointer;
         height: 100%;
         padding: 0 18px;
@@ -127,24 +130,34 @@ const Header = () => (
       <div className="nav-bar" id={togglerId}>
         <nav>
           <a href={`#${SECOND_SCREEN}`}>
-            <button>About</button>
+            <button>
+              <FormattedMessage {...messages.about} />
+            </button>
           </a>
           <a href={`#${THIRD_SCREEN}`}>
-            <button>Rewards</button>
+            <button>
+              <FormattedMessage {...messages.rewards} />
+            </button>
           </a>
           <a href={`#${FOURTH_SCREEN}`}>
-            <button>FAQ</button>
+            <button>
+              <FormattedMessage {...messages.faq} />
+            </button>
           </a>
           <a href={`#${FIFTH_SCREEN}`}>
-            <button>Team</button>
+            <button>
+              <FormattedMessage {...messages.team} />
+            </button>
           </a>
         </nav>
         <nav>
           <button className="log-in-button">
             <img src={login} alt="login" />
-            <span>Log in</span>
+            <FormattedMessage {...messages.login} />
           </button>
-          <button className="sign-up-button">Sign up free</button>
+          <button className="sign-up-button">
+            <FormattedMessage {...messages.signUpFree} />
+          </button>
         </nav>
       </div>
     </div>

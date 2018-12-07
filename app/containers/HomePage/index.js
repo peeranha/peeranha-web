@@ -1,15 +1,16 @@
 /*
- * HomePage
+ * Landing
  *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { translationMessages } from 'i18n';
+import { Helmet } from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
+import PropTypes from 'prop-types';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Landing from './Landing';
 import Header from './Header';
@@ -21,6 +22,7 @@ import FourthScreen from './FourthScreen';
 import FifthScreen from './FifthScreen';
 
 import { HEADER_ID, LANDING_ID } from './constants';
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
@@ -77,18 +79,39 @@ class HomePage extends React.PureComponent {
   }
 
   render() {
+    const translations = translationMessages[this.props.locale];
+
     return (
       <Landing id={LANDING_ID}>
+        <Helmet>
+          <title>{translations[messages.title.id]}</title>
+          <meta
+            name="description"
+            content={translations[messages.description.id]}
+          />
+        </Helmet>
+
         <Header />
-        <FirstScreen />
-        <SecondScreen />
-        <ThirdScreen />
-        <FourthScreen />
-        <FifthScreen />
+        <FirstScreen translations={translations} />
+        <SecondScreen translations={translations} />
+        <ThirdScreen translations={translations} />
+        <FourthScreen translations={translations} />
+        <FifthScreen translations={translations} />
         <Footer />
       </Landing>
     );
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  locale: PropTypes.string,
+};
+
+const mapStateToProps = createStructuredSelector({
+  locale: makeSelectLocale(),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(HomePage);
