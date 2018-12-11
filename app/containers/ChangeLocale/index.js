@@ -20,23 +20,59 @@ const Box = styled.span`
   button {
     cursor: pointer;
     outline: none;
+
     .locale {
       color: #282828;
       font-size: 16px;
       padding: 0 10px;
+      letter-spacing: -0.6px;
+      text-transform: uppercase;
+      vertical-align: 1px;
     }
+
     .caret {
       color: #a6a6a6;
       font-size: 12px;
+      display: inline-block;
+      transition: 0.5s;
+      transform: rotate(180deg);
+      vertical-align: 2px;
+    }
+
+    :hover .locale {
+      color: #5c78d7;
     }
   }
+
+  button[aria-expanded='true'] .caret {
+    transform: rotate(180deg);
+  }
+
+  button[aria-expanded='false'] .caret {
+    transform: rotate(0deg);
+  }
+
+  ul {
+    box-shadow: -2px 2px 5px #b9b9b9;
+  }
+
   li {
-    padding: 3px;
-    border-bottom: 1px solid #a6a6a6;
+    font-family: OpenSans;
+    padding: 5px 20px !important;
+    text-transform: uppercase;
+
+    img {
+      margin-right: 5px;
+    }
+
     :hover {
       cursor: pointer;
-      background: #a6a6a6;
+      background: rgba(229, 229, 229, 0.5);
     }
+  }
+
+  li[data-isbold='true'] {
+    font-weight: bold;
   }
 `;
 
@@ -53,20 +89,17 @@ export class ChangeLocale extends React.PureComponent {
     this.setState({ languages });
   }
 
-  changeLocaleHandler = e => {
-    this.props.changeLocaleDispatch(e.target.dataset.item);
-  };
-
   mapLanguages = langs =>
     langs.map(item => (
       <li
         className="pl-2"
         role="presentation"
-        data-item={item}
-        onClick={this.changeLocaleHandler}
+        onClick={() => this.props.changeLocaleDispatch(item)}
+        data-isbold={item === this.props.locale}
         key={item}
       >
-        {item}
+        <img src={require(`images/${item}_lang.png`)} alt="" />
+        <span>{item}</span>
       </li>
     ));
 
@@ -80,7 +113,7 @@ export class ChangeLocale extends React.PureComponent {
           id="dropdownMenu1"
           data-toggle="dropdown"
           aria-haspopup="true"
-          aria-expanded="true"
+          aria-expanded="false"
         >
           <img src={require(`images/${[locale]}_lang.png`)} alt="" />
           <span className="locale">{locale}</span>

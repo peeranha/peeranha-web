@@ -13,15 +13,21 @@ import PropTypes from 'prop-types';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Landing from './Landing';
-import Header from './Header';
 import Footer from './Footer';
-import FirstScreen from './FirstScreen';
-import SecondScreen from './SecondScreen';
-import ThirdScreen from './ThirdScreen';
-import FourthScreen from './FourthScreen';
-import FifthScreen from './FifthScreen';
+import Introduction from './Introduction';
+import About from './About';
+import Rewards from './Rewards';
+import Faq from './Faq';
+import Team from './Team';
 
-import { HEADER_ID, LANDING_ID } from './constants';
+import {
+  HEADER_ID,
+  LANDING_ID,
+  ANIMATE_IMAGE,
+  SECOND_SCREEN,
+  THIRD_SCREEN,
+} from './constants';
+
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -45,6 +51,31 @@ class HomePage extends React.PureComponent {
       });
 
       /*
+       * Image animation
+       */
+
+      window.$(window).on('DOMMouseScroll mousewheel', event => {
+        const { scrollY } = event.currentTarget;
+
+        const secondScreenPosition = window.$(`#${SECOND_SCREEN}`).position()
+          .top;
+        const thirdScreenPosition = window.$(`#${THIRD_SCREEN}`).position().top;
+
+        const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
+
+        if (scrollY > secondScreenPosition && scrollY < thirdScreenPosition) {
+          animatedImagesArray.each(function() {
+            const translator = 50;
+            const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+
+            window.$(this).css({
+              transform: `translate(0px, ${direction * translator}px)`,
+            });
+          });
+        }
+      });
+
+      /*
        * Header animation
        */
 
@@ -56,7 +87,7 @@ class HomePage extends React.PureComponent {
 
         if (scrollY > innerHeight * 0.9 && !show) {
           window.$(`#${HEADER_ID}`).addClass('scroll');
-        } else if (scrollY < 100 && show) {
+        } else if (scrollY < innerHeight * 0.9 && show) {
           window.$(`#${HEADER_ID}`).removeClass('scroll');
         }
       });
@@ -91,12 +122,11 @@ class HomePage extends React.PureComponent {
           />
         </Helmet>
 
-        <Header />
-        <FirstScreen translations={translations} />
-        <SecondScreen translations={translations} />
-        <ThirdScreen translations={translations} />
-        <FourthScreen translations={translations} />
-        <FifthScreen translations={translations} />
+        <Introduction translations={translations} />
+        <About translations={translations} />
+        <Rewards translations={translations} />
+        <Faq translations={translations} />
+        <Team translations={translations} />
         <Footer />
       </Landing>
     );

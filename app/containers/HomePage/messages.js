@@ -272,7 +272,7 @@ export default defineMessages({
     defaultMessage: `Message`,
   },
   sendMessage: {
-    id: 'app.containers.HomePage.message',
+    id: 'app.containers.HomePage.sendMessage',
     defaultMessage: `Send message`,
   },
 });

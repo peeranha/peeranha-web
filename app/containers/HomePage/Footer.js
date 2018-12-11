@@ -16,13 +16,7 @@ const Box = styled.footer`
   padding: 36px 0 26px 0;
 
   > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     .logo {
-      display: flex;
-      align-items: center;
       img {
         width: 200px;
       }
@@ -31,21 +25,26 @@ const Box = styled.footer`
         font-size: 16px;
         padding: 0 30px;
         margin-bottom: 5px;
+        letter-spacing: -0.6px;
+        font-family: OpenSans;
       }
     }
 
-    .media {
+    .media-section {
       .icons {
-        display: flex;
         margin-bottom: 5px;
 
         > * {
           padding-left: 25px;
           cursor: pointer;
-          display: flex;
         }
       }
     }
+  }
+
+  .row {
+    justify-content: space-between;
+    align-items: center;
   }
 
   @media only screen and (max-width: 992px) {
@@ -56,7 +55,7 @@ const Box = styled.footer`
     .year {
       display: none;
     }
-    .media .icons {
+    .media-section .icons {
       display: none !important;
     }
   }
@@ -73,26 +72,32 @@ const Year = new Date().getFullYear();
 const Footer = () => (
   <Box>
     <div className="container">
-      <div className="logo">
-        <a href={`#${FIRST_SCREEN}`}>
-          <img src={logo} alt="logo" />
-        </a>
-        <span className="year">© {Year}</span>
-      </div>
-      <div className="media">
-        <div className="locale">
-          <ChangeLocale />
+      <div className="row">
+        <div className="logo">
+          <div className="row">
+            <a href={`#${FIRST_SCREEN}`}>
+              <img src={logo} alt="logo" />
+            </a>
+            <span className="year">© {Year}</span>
+          </div>
         </div>
-        <div className="icons">
-          <a href="https://www.youtube.com/" target="_blank">
-            <img src={yt} alt="logo" />
-          </a>
-          <a href="https://facebook.com" target="_blank">
-            <img src={fb} alt="logo" />
-          </a>
-          <a href="https://twitter.com" target="_blank">
-            <img src={tw} alt="logo" />
-          </a>
+        <div className="media-section">
+          <div className="row">
+            <div className="locale">
+              <ChangeLocale />
+            </div>
+            <div className="icons">
+              <a href="https://www.youtube.com/" target="_blank">
+                <img src={yt} alt="logo" />
+              </a>
+              <a href="https://facebook.com" target="_blank">
+                <img src={fb} alt="logo" />
+              </a>
+              <a href="https://twitter.com" target="_blank">
+                <img src={tw} alt="logo" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

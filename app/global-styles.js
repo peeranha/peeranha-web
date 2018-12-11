@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
 import OpenSansRegular from 'fonts/OpenSansRegular.ttf';
-import OpenSansSemiBold from 'fonts/OpenSansSemiBold.ttf';
+import OpenSansBold from 'fonts/OpenSansBold.ttf';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -14,7 +14,7 @@ injectGlobal`
 
   @font-face {
    font-family: "OpenSansBold";
-   src: url(${OpenSansSemiBold});
+   src: url(${OpenSansBold});
   }
 
   html,

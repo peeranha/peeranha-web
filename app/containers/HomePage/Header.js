@@ -30,83 +30,129 @@ const Box = styled.header`
     display: none;
   }
 
+  a {
+    display: inline-block;
+  }
+
   color: #ffffff !important;
-  position: fixed;
+  position: relative;
+  top: 0;
   width: 100%;
   background-color: rgba(9, 17, 40, 0.8);
   z-index: 9999;
   padding: 19px 0;
-  > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    .logo {
-      img {
-        width: 240px;
-      }
-      padding-top: 7px;
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      cursor: pointer;
+
+  .logo {
+    img {
+      width: 240px;
+      text-align: left;
     }
-    .nav-bar {
-      font-size: 16px;
+
+    display: flex;
+    padding-top: 7px;
+    cursor: pointer;
+  }
+
+  .nav-bar {
+    font-size: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    > .row {
+      margin: 0;
+    }
+
+    .row,
+    .row button,
+    .row div {
+      height: 100%;
+      align-items: center;
+    }
+
+    * {
+      letter-spacing: -0.9px;
+    }
+
+    a {
+      text-align: center;
+      outline: none;
+      cursor: pointer;
+
+      :hover {
+        color: #5c78d7 !important;
+      }
+    }
+
+    .log-in-button {
       display: flex;
-      padding: 12px 0;
-      button {
-        outline: none;
-        cursor: pointer;
-        height: 100%;
-        padding: 0 18px;
-        vertical-align: middle;
+      text-align: left;
+      cursor: pointer;
+
+      img {
+        padding-right: 9px;
       }
-      .log-in-button {
-        padding-right: 40px;
-        img {
-          padding-right: 9px;
-        }
-        span {
-          vertical-align: 5px;
-        }
+
+      span {
+        vertical-align: 5px;
       }
-      .sign-up-button {
-        border: 1px solid #fc6655;
-        border-radius: 3px;
-        color: #fc6655;
+
+      :hover {
+        color: #5c78d7 !important;
+      }
+    }
+
+    .sign-up-button {
+      cursor: pointer;
+      border: 1px solid #fc6655;
+      border-radius: 3px;
+      color: #fc6655;
+
+      :hover {
+        color: #fff;
+        background: #fc6655;
       }
     }
   }
 
   @media only screen and (max-width: 992px) {
+    position: fixed;
     text-align: center;
     padding: 11px 0;
     > div {
-      flex-direction: column;
       .logo img {
         width: 180px;
       }
     }
 
     .navbar-toggler {
+      text-align: right;
+      outline: none;
       display: inline-block;
       color: #fff;
     }
 
     .nav-bar {
       display: none !important;
+      .row,
+      .row button,
+      .row div {
+        height: auto;
+        justify-content: center;
+        margin: 0;
+      }
+
+      a,
+      button {
+        min-height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     .nav-bar.show {
       display: flex !important;
-      flex-direction: column;
-      > * {
-        display: flex;
-        flex-direction: column;
-        > * {
-          flex-basis: 45px;
-        }
-      }
+      justify-content: center;
     }
   }
 `;
@@ -114,51 +160,51 @@ const Box = styled.header`
 const Header = () => (
   <Box id={HEADER_ID}>
     <div className="container">
-      <div className="logo">
-        <a href={`#${FIRST_SCREEN}`}>
-          <img src={bg} alt="logo" />
-        </a>
-        <button
-          className="navbar-toggler navbar-dark"
-          type="button"
-          onClick={toggle}
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-      </div>
+      <div className="row">
+        <div className="col-md-12 col-xl-6 col-lg-5 logo">
+          <a className="col-md-6" href={`#${FIRST_SCREEN}`}>
+            <img src={bg} alt="logo" />
+          </a>
+          <button
+            className="col-md-6 navbar-toggler navbar-dark"
+            type="button"
+            onClick={toggle}
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+        </div>
 
-      <div className="nav-bar" id={togglerId}>
-        <nav>
-          <a href={`#${SECOND_SCREEN}`}>
-            <button>
-              <FormattedMessage {...messages.about} />
-            </button>
-          </a>
-          <a href={`#${THIRD_SCREEN}`}>
-            <button>
-              <FormattedMessage {...messages.rewards} />
-            </button>
-          </a>
-          <a href={`#${FOURTH_SCREEN}`}>
-            <button>
-              <FormattedMessage {...messages.faq} />
-            </button>
-          </a>
-          <a href={`#${FIFTH_SCREEN}`}>
-            <button>
-              <FormattedMessage {...messages.team} />
-            </button>
-          </a>
-        </nav>
-        <nav>
-          <button className="log-in-button">
-            <img src={login} alt="login" />
-            <FormattedMessage {...messages.login} />
-          </button>
-          <button className="sign-up-button">
-            <FormattedMessage {...messages.signUpFree} />
-          </button>
-        </nav>
+        <div className="col-md-12 col-xl-6 col-lg-7 nav-bar" id={togglerId}>
+          <div className="row">
+            <div className="col-md-12 col-lg-7">
+              <div className="row">
+                <a className="col-md-12 col-lg-3" href={`#${SECOND_SCREEN}`}>
+                  <FormattedMessage {...messages.about} />
+                </a>
+                <a className="col-md-12 col-lg-3" href={`#${THIRD_SCREEN}`}>
+                  <FormattedMessage {...messages.rewards} />
+                </a>
+                <a className="col-md-12 col-lg-3" href={`#${FOURTH_SCREEN}`}>
+                  <FormattedMessage {...messages.faq} />
+                </a>
+                <a className="col-md-12 col-lg-3" href={`#${FIFTH_SCREEN}`}>
+                  <FormattedMessage {...messages.team} />
+                </a>
+              </div>
+            </div>
+            <div className="col-md-12 col-lg-5">
+              <div className="row">
+                <button className="col-md-12 col-lg-6 log-in-button">
+                  <img src={login} alt="login" />
+                  <FormattedMessage {...messages.login} />
+                </button>
+                <button className="col-md-12 col-lg-6 sign-up-button">
+                  <FormattedMessage {...messages.signUpFree} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </Box>

@@ -11,17 +11,13 @@ const submitButton = `
 `;
 
 const Landing = styled.div`
-  * {
-    font-family: OpenSans !important;
-  }
+  font-family: OpenSans;
 
   a {
     color: #ffffff !important;
   }
 
   .bottom-level {
-    display: flex;
-    justify-content: center;
     height: 48px;
   }
 
@@ -30,28 +26,55 @@ const Landing = styled.div`
   }
 
   .get-started-form {
-    display: flex;
-    flex-basis: 500px;
-    flex-wrap: nowrap;
     height: 100%;
     font-size: 18px;
+    letter-spacing: -0.7px;
+    margin: 0;
+
     input {
-      flex: 2;
       border: 1px solid #afb5ca;
       background: #fff;
       border-radius: 3px;
       color: #000000;
-      padding: 0 18px;
+      padding: 14px 24px 18px 24px;
       margin-right: 10px;
+
+      ::placeholder {
+        color: #9b9b9b;
+      }
     }
+
     ${submitButton};
   }
 
   header.scroll {
+    position: fixed;
+    background-color: rgba(9, 17, 40, 0.9);
+    animation: header 1s;
+
+    @keyframes header {
+      0% {
+        transform: translate(0px, -180px);
+      }
+      100% {
+        transform: translate(0, 0px);
+      }
+    }
+
     padding: 5px 0;
     > div .logo {
       img {
         width: 180px !important;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .bottom-level {
+      height: auto;
+      form * {
+        height: 48px;
+        margin: 0 0 10px 0;
       }
     }
   }
