@@ -5,8 +5,10 @@ import { FormattedMessage } from 'react-intl';
 
 import * as bg from 'images/Logo.svg';
 import * as login from 'images/Login.svg';
+import * as bgLogin from 'images/BG_Login.png';
 
 import * as routes from 'routes-config';
+import ModalDialog from 'containers/ModalDialog';
 
 import {
   HEADER_ID,
@@ -114,6 +116,46 @@ const Box = styled.header`
     }
   }
 
+  .header-modal-dialog {
+    max-width: 360px;
+    min-height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    * {
+      font-family: OpenSans;
+      font-size: 18px;
+    }
+
+    form {
+      * {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #b9b9b9;
+        margin-top: 15px;
+        padding: 0 20px;
+        border-radius: 3px;
+      }
+
+      button {
+        color: #fff;
+        background: #f76e5f;
+      }
+    }
+
+    .image-coins {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
   @media only screen and (max-width: 992px) {
     position: fixed;
     text-align: center;
@@ -156,58 +198,117 @@ const Box = styled.header`
   }
 `;
 
-const Header = () => (
-  <Box id={HEADER_ID}>
-    <div className="container">
-      <div className="row">
-        <div className="col-6 col-xl-6 col-lg-5 logo">
-          <Link to={routes.home()} href={routes.home()}>
-            <img src={bg} alt="logo" />
-          </Link>
-        </div>
+class Header extends React.PureComponent {
+  state = {
+    showModalPlatformDeveloping: false,
+  };
 
-        <button
-          className="col-6 navbar-toggler navbar-dark"
-          type="button"
-          onClick={toggle}
+  showModalPlatformDeveloping = e => {
+    const { top, left } = window.$(e.target).offset();
+
+    this.setState({
+      showModalPlatformDeveloping: true,
+      customPosition: {
+        top: top + 80,
+        left: left * 0.85,
+      },
+    });
+  };
+
+  closeModalPlatformDeveloping = () => {
+    this.setState({ showModalPlatformDeveloping: false });
+  };
+
+  render() {
+    return (
+      <Box id={HEADER_ID}>
+        <ModalDialog
+          show={this.state.showModalPlatformDeveloping}
+          closeModal={this.closeModalPlatformDeveloping}
+          customPosition={this.state.customPosition}
         >
-          <span className="navbar-toggler-icon" />
-        </button>
-
-        <div className="col-md-12 col-xl-6 col-lg-7 nav-bar" id={togglerId}>
-          <div className="row">
-            <div className="col-md-12 col-lg-7">
-              <div className="row">
-                <a className="col-md-12 col-lg-3" href={`#${SECOND_SCREEN}`}>
-                  <FormattedMessage {...messages.about} />
-                </a>
-                <a className="col-md-12 col-lg-3" href={`#${THIRD_SCREEN}`}>
-                  <FormattedMessage {...messages.rewards} />
-                </a>
-                <a className="col-md-12 col-lg-3" href={`#${FOURTH_SCREEN}`}>
-                  <FormattedMessage {...messages.faq} />
-                </a>
-                <a className="col-md-12 col-lg-3" href={`#${FIFTH_SCREEN}`}>
-                  <FormattedMessage {...messages.team} />
-                </a>
-              </div>
+          <div className="header-modal-dialog">
+            <div className="image-coins">
+              <img src={bgLogin} alt="bgLogin" />
             </div>
-            <div className="col-md-12 col-lg-5">
+
+            <div>
+              <p>
+                The platform is under developing, but you can be the first to
+                join and earn up to 100x more
+              </p>
+              <form>
+                <input type="text" placeholder="Your email address" />
+                <button>Get reward</button>
+              </form>
+            </div>
+          </div>
+        </ModalDialog>
+
+        <div className="container">
+          <div className="row">
+            <div className="col-6 col-xl-6 col-lg-5 logo">
+              <Link to={routes.home()} href={routes.home()}>
+                <img src={bg} alt="logo" />
+              </Link>
+            </div>
+
+            <button
+              className="col-6 navbar-toggler navbar-dark"
+              type="button"
+              onClick={toggle}
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+
+            <div className="col-md-12 col-xl-6 col-lg-7 nav-bar" id={togglerId}>
               <div className="row">
-                <button className="col-md-12 col-lg-6 log-in-button">
-                  <img src={login} alt="login" />
-                  <FormattedMessage {...messages.login} />
-                </button>
-                <button className="col-md-12 col-lg-6 sign-up-button">
-                  <FormattedMessage {...messages.signUpFree} />
-                </button>
+                <div className="col-md-12 col-lg-7">
+                  <div className="row">
+                    <a
+                      className="col-md-12 col-lg-3"
+                      href={`#${SECOND_SCREEN}`}
+                    >
+                      <FormattedMessage {...messages.about} />
+                    </a>
+                    <a className="col-md-12 col-lg-3" href={`#${THIRD_SCREEN}`}>
+                      <FormattedMessage {...messages.rewards} />
+                    </a>
+                    <a
+                      className="col-md-12 col-lg-3"
+                      href={`#${FOURTH_SCREEN}`}
+                    >
+                      <FormattedMessage {...messages.faq} />
+                    </a>
+                    <a className="col-md-12 col-lg-3" href={`#${FIFTH_SCREEN}`}>
+                      <FormattedMessage {...messages.team} />
+                    </a>
+                  </div>
+                </div>
+                <div className="col-md-12 col-lg-5">
+                  <div className="row">
+                    <button
+                      className="col-md-12 col-lg-6 log-in-button"
+                      onClick={this.showModalPlatformDeveloping}
+                    >
+                      <img src={login} alt="login" />
+                      <FormattedMessage {...messages.login} />
+                    </button>
+                    <button
+                      className="col-md-12 col-lg-6 sign-up-button"
+                      onClick={this.showModalPlatformDeveloping}
+                    >
+                      <FormattedMessage {...messages.signUpFree} />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </Box>
-);
+      </Box>
+    );
+  }
+}
 
 export default Header;
