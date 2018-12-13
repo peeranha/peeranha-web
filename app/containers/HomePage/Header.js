@@ -30,8 +30,9 @@ const Box = styled.header`
     display: none;
   }
 
-  a {
-    display: inline-block;
+  * {
+    outline: none !important;
+    letter-spacing: -0.9px;
   }
 
   color: #ffffff !important;
@@ -69,14 +70,10 @@ const Box = styled.header`
       align-items: center;
     }
 
-    * {
-      letter-spacing: -0.9px;
-    }
-
     a {
       text-align: center;
-      outline: none;
       cursor: pointer;
+      display: inline-block;
 
       :hover {
         color: #5c78d7 !important;
@@ -126,7 +123,6 @@ const Box = styled.header`
 
     .navbar-toggler {
       text-align: right;
-      outline: none;
       display: inline-block;
       color: #fff;
     }

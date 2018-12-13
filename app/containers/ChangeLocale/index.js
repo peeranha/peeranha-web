@@ -24,7 +24,7 @@ const Box = styled.span`
     .locale {
       color: #282828;
       font-size: 16px;
-      padding: 0 10px;
+      padding: 0 5px;
       letter-spacing: -0.6px;
       text-transform: uppercase;
       vertical-align: 1px;

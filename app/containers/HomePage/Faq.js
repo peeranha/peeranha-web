@@ -11,7 +11,8 @@ import { FOURTH_SCREEN } from './constants';
 import messages from './messages';
 
 const Box = styled.section`
-  padding: 60px 0;
+  padding-top: 60px;
+  padding-bottom: 126px;
   background-color: #fff;
 
   .fourth-screen-faq {

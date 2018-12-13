@@ -15,7 +15,7 @@ import messages from './messages';
 const inputHeight = 40;
 
 const Box = styled.section`
-  padding: 60px 0 50px 0;
+  padding-bottom: 50px;
   color: #282828;
 
   .fifth-screen {
@@ -23,6 +23,8 @@ const Box = styled.section`
       font-size: 45px;
       font-family: OpenSansBold !important;
       letter-spacing: -1.8px;
+      padding-top: 60px;
+      padding-bottom: 42px;
     }
 
     .fifth-screen-about {
@@ -31,7 +33,6 @@ const Box = styled.section`
       letter-spacing: -0.8px;
       font-family: OpenSans;
       color: #282828;
-      padding-top: 42px;
       padding-bottom: 66px;
     }
 
@@ -156,79 +157,83 @@ CustomInput.propTypes = {
 
 const Team = ({ translations }) => (
   <Box id={FIFTH_SCREEN}>
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12 fifth-screen">
+    <div className="separator">
+      <div className="container">
+        <div className="row fifth-screen">
           <h3 className="col-lg-12 fifth-screen-header">
             <FormattedMessage {...messages.ourTeam} />
           </h3>
-          <p className="col-lg-6 fifth-screen-about">
-            <FormattedMessage {...messages.weAppreciate} />
-          </p>
-          <div className="col-12 fifth-screen-content">
-            <div className="row">
-              <div className="col-12 col-lg-7 team-avatars">
-                <ul className="row">
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={av11} alt="avatar" />
-                    <span className="name">
-                      {translations[messages.sergeyIlin.id]}
-                    </span>
-                    <span className="role">
-                      {translations[messages.founder.id]}
-                    </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={av1} alt="avatar" />
-                    <span className="name">
-                      {translations[messages.nikitaSyr.id]}
-                    </span>
-                    <span className="role">
-                      {translations[messages.backendDev.id]}
-                    </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={av2} alt="avatar" />
-                    <span className="name">
-                      {translations[messages.romRem.id]}
-                    </span>
-                    <span className="role">
-                      {translations[messages.frontendDev.id]}
-                    </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={av3} alt="avatar" />
-                    <span className="name">
-                      {translations[messages.ulyanaPopova.id]}
-                    </span>
-                    <span className="role">
-                      {translations[messages.designer.id]}
-                    </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={av22} alt="avatar" />
-                    <span className="name">
-                      {translations[messages.kateBehey.id]}
-                    </span>
-                    <span className="role">
-                      {translations[messages.marketing.id]}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-lg-5 send-message-form">
-                <form>
-                  <CustomInput label={translations[messages.yourName.id]} />
-                  <CustomInput label={translations[messages.email.id]} />
-                  <CustomInput label={translations[messages.subject.id]} />
-                  <CustomInput label={translations[messages.message.id]} />
-                  <div className="form-submit-button">
-                    <button type="submit">
-                      {translations[messages.sendMessage.id]}
-                    </button>
-                  </div>
-                </form>
-              </div>
+        </div>
+      </div>
+    </div>
+    <div className="container">
+      <div className="row fifth-screen">
+        <p className="col-lg-6 fifth-screen-about">
+          <FormattedMessage {...messages.weAppreciate} />
+        </p>
+        <div className="col-12 fifth-screen-content">
+          <div className="row">
+            <div className="col-12 col-lg-7 team-avatars">
+              <ul className="row">
+                <li className="col-12 col-sm-4 teammate-card">
+                  <img src={av11} alt="avatar" />
+                  <span className="name">
+                    {translations[messages.sergeyIlin.id]}
+                  </span>
+                  <span className="role">
+                    {translations[messages.founder.id]}
+                  </span>
+                </li>
+                <li className="col-12 col-sm-4 teammate-card">
+                  <img src={av1} alt="avatar" />
+                  <span className="name">
+                    {translations[messages.nikitaSyr.id]}
+                  </span>
+                  <span className="role">
+                    {translations[messages.backendDev.id]}
+                  </span>
+                </li>
+                <li className="col-12 col-sm-4 teammate-card">
+                  <img src={av2} alt="avatar" />
+                  <span className="name">
+                    {translations[messages.romRem.id]}
+                  </span>
+                  <span className="role">
+                    {translations[messages.frontendDev.id]}
+                  </span>
+                </li>
+                <li className="col-12 col-sm-4 teammate-card">
+                  <img src={av3} alt="avatar" />
+                  <span className="name">
+                    {translations[messages.ulyanaPopova.id]}
+                  </span>
+                  <span className="role">
+                    {translations[messages.designer.id]}
+                  </span>
+                </li>
+                <li className="col-12 col-sm-4 teammate-card">
+                  <img src={av22} alt="avatar" />
+                  <span className="name">
+                    {translations[messages.kateBehey.id]}
+                  </span>
+                  <span className="role">
+                    {translations[messages.marketing.id]}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="col-lg-5 send-message-form">
+              <form>
+                <CustomInput label={translations[messages.yourName.id]} />
+                <CustomInput label={translations[messages.email.id]} />
+                <CustomInput label={translations[messages.subject.id]} />
+                <CustomInput label={translations[messages.message.id]} />
+                <div className="form-submit-button">
+                  <button type="submit">
+                    {translations[messages.sendMessage.id]}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

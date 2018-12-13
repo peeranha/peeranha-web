@@ -9,7 +9,7 @@ import * as bg from 'images/BG_Rewards.jpg';
 import { THIRD_SCREEN } from './constants';
 import messages from './messages';
 
-const Box = styled.div`
+const Box = styled.section`
   position: relative;
   padding-top: 96px;
   padding-bottom: 96px;

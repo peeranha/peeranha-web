@@ -29,12 +29,16 @@ const Box = styled.section`
     font-family: OpenSansBold !important;
   }
 
+  .separator {
+    transform: rotate(180deg);
+    height: 170px;
+  }
+
   .main-difference {
     li {
       letter-spacing: -0.7px;
       font-size: 18px;
       color: #282828;
-      padding-bottom: 170px;
 
       .card {
         border: none;
@@ -126,7 +130,8 @@ const Box = styled.section`
 
     .main-difference {
       li {
-        padding: 75px 0 0 0;
+        padding-top: 75px;
+        padding-bottom: 0;
       }
     }
 
@@ -151,11 +156,9 @@ const Box = styled.section`
 const About = () => (
   <Box id={SECOND_SCREEN}>
     <div className="container second-screen">
-      <div className="row">
-        <h1 className="col-lg-12 second-screen-header">
-          <FormattedMessage {...messages.differentThan} />
-        </h1>
-      </div>
+      <h1 className="col-lg-12 second-screen-header">
+        <FormattedMessage {...messages.differentThan} />
+      </h1>
       <div className="row second-screen-elements">
         <ul className="col-lg-12 main-difference">
           <div className="row">
@@ -206,6 +209,11 @@ const About = () => (
             </li>
           </div>
         </ul>
+      </div>
+    </div>
+    <div className="separator" />
+    <div className="container second-screen">
+      <div className="row second-screen-elements">
         <ul className="col-lg-12 second-screen-elements-column">
           <div className="row">
             <li className="col-lg-12">

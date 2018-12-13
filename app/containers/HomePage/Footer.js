@@ -11,7 +11,6 @@ import * as fb from 'images/fb.svg';
 import { FIRST_SCREEN } from './constants';
 
 const Box = styled.footer`
-  background-color: rgba(229, 229, 229, 0.6);
   color: #282828;
   padding: 36px 0 26px 0;
 
@@ -70,19 +69,19 @@ const Box = styled.footer`
 const Year = new Date().getFullYear();
 
 const Footer = () => (
-  <Box>
+  <Box className="separator">
     <div className="container">
       <div className="row">
-        <div className="logo">
-          <div className="row">
+        <div className="col-sm-6 logo">
+          <div className="row justify-content-start">
             <a href={`#${FIRST_SCREEN}`}>
               <img src={logo} alt="logo" />
             </a>
             <span className="year">© {Year}</span>
           </div>
         </div>
-        <div className="media-section">
-          <div className="row">
+        <div className="col-sm-6 media-section">
+          <div className="row justify-content-end">
             <div className="locale">
               <ChangeLocale />
             </div>

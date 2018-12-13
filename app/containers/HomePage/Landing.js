@@ -21,6 +21,19 @@ const Landing = styled.div`
     height: 48px;
   }
 
+  .separator {
+    background: linear-gradient(
+      to bottom,
+      #f9f9f9 0%,
+      #f8f8f8 0%,
+      #fafafa 20%,
+      #fbfbfb 59%,
+      #fbfbfb 59%,
+      #fcfcfc 80%,
+      #fdfdfd 100%
+    );
+  }
+
   .send-message-form {
     ${submitButton};
   }
