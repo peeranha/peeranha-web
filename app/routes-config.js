@@ -1,5 +1,6 @@
 /* eslint camelcase: 0 */
 export const home = () => `/`;
+export const faq = () => `/faq`;
 export const profile_view = id => `/users/${id}`;
 export const profile_edit = id => `/users/edit/${id}`;
 export const questions = () => `/questions`;

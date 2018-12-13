@@ -15,6 +15,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import FaqFull from 'containers/HomePage/FaqFull';
+
 import EditProfilePage from 'containers/EditProfilePage/Loadable';
 import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -47,6 +49,7 @@ export default function App() {
       <Toast />
       <Switch>
         <Route exact path={routes.home()} render={() => <HomePage />} />
+        <Route path={routes.faq()} render={() => <FaqFull />} />
         <Route
           exact
           path={routes.profile_view(':id')}

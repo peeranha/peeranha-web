@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import * as bg from 'images/Logo.svg';
 import * as login from 'images/Login.svg';
 
+import * as routes from 'routes-config';
+
 import {
   HEADER_ID,
-  FIRST_SCREEN,
   SECOND_SCREEN,
   THIRD_SCREEN,
   FOURTH_SCREEN,
@@ -35,7 +37,6 @@ const Box = styled.header`
     letter-spacing: -0.9px;
   }
 
-  color: #ffffff !important;
   position: relative;
   top: 0;
   width: 100%;
@@ -74,6 +75,7 @@ const Box = styled.header`
       text-align: center;
       cursor: pointer;
       display: inline-block;
+      color: #ffffff;
 
       :hover {
         color: #5c78d7 !important;
@@ -84,6 +86,7 @@ const Box = styled.header`
       display: flex;
       text-align: left;
       cursor: pointer;
+      color: #ffffff;
 
       img {
         padding-right: 9px;
@@ -157,18 +160,19 @@ const Header = () => (
   <Box id={HEADER_ID}>
     <div className="container">
       <div className="row">
-        <div className="col-md-12 col-xl-6 col-lg-5 logo">
-          <a className="col-md-6" href={`#${FIRST_SCREEN}`}>
+        <div className="col-6 col-xl-6 col-lg-5 logo">
+          <Link to={routes.home()} href={routes.home()}>
             <img src={bg} alt="logo" />
-          </a>
-          <button
-            className="col-md-6 navbar-toggler navbar-dark"
-            type="button"
-            onClick={toggle}
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
+          </Link>
         </div>
+
+        <button
+          className="col-6 navbar-toggler navbar-dark"
+          type="button"
+          onClick={toggle}
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
 
         <div className="col-md-12 col-xl-6 col-lg-7 nav-bar" id={togglerId}>
           <div className="row">

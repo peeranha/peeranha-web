@@ -17,7 +17,7 @@ import Footer from './Footer';
 import Introduction from './Introduction';
 import About from './About';
 import Rewards from './Rewards';
-import Faq from './Faq';
+import FaqMain from './FaqMain';
 import Team from './Team';
 
 import {
@@ -109,6 +109,10 @@ class HomePage extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    window.$(window).off();
+  }
+
   render() {
     const translations = translationMessages[this.props.locale];
 
@@ -125,7 +129,7 @@ class HomePage extends React.PureComponent {
         <Introduction translations={translations} />
         <About translations={translations} />
         <Rewards translations={translations} />
-        <Faq translations={translations} />
+        <FaqMain translations={translations} questionsNumber={6} />
         <Team translations={translations} />
         <Footer />
       </Landing>
