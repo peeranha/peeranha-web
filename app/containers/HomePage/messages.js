@@ -275,4 +275,8 @@ export default defineMessages({
     id: 'app.containers.HomePage.sendMessage',
     defaultMessage: `Send message`,
   },
+  platformUnderDeveloping: {
+    id: 'app.containers.HomePage.platformUnderDeveloping',
+    defaultMessage: `The platform is under developing, but you can be the first to join and earn up to 100x more.`,
+  },
 });

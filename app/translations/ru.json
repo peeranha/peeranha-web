@@ -89,6 +89,8 @@
   "app.containers.HomePage.subject": "Субъект",
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.sendMessage": "Отправьте сообщение",
+  "app.containers.HomePage.platformUnderDeveloping":
+    "Платформа находится в разработке, но Вы можете стать одним из первых и заработать до 100 раз больше.",
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",

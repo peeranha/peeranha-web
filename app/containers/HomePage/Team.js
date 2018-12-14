@@ -8,17 +8,51 @@ import av22 from 'images/2.png';
 import av1 from 'images/av1.jpg';
 import av2 from 'images/av2.jpg';
 import av3 from 'images/av3.jpg';
+import arrowUp from 'images/ArrowUP.svg';
 
-import { FIFTH_SCREEN } from './constants';
+import { FIRST_SCREEN, FIFTH_SCREEN } from './constants';
 import messages from './messages';
 
 const inputHeight = 40;
+const icon = 47;
 
 const Box = styled.section`
   padding-bottom: 50px;
   color: #282828;
 
   .fifth-screen {
+    position: relative;
+
+    .icon-arrow-up {
+      position: absolute;
+      top: 300px;
+      right: -92px;
+      width: ${icon}px;
+      height: ${icon}px;
+      border-radius: 3px;
+      box-shadow: 0px 3px 10px 0 rgba(40, 40, 40, 0.3);
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      :hover {
+        animation: translatingY 2s infinite;
+        @keyframes translatingY {
+          0% {
+            transform: translate(0, 10px);
+          }
+          50% {
+            transform: translate(0, -10px);
+          }
+          100% {
+            transform: translate(0, 10px);
+          }
+        }
+      }
+    }
+
     .fifth-screen-header {
       font-size: 45px;
       font-family: OpenSansBold !important;
@@ -171,6 +205,7 @@ const Team = ({ translations }) => (
         <p className="col-lg-6 fifth-screen-about">
           <FormattedMessage {...messages.weAppreciate} />
         </p>
+
         <div className="col-12 fifth-screen-content">
           <div className="row">
             <div className="col-12 col-lg-7 team-avatars">
@@ -234,6 +269,10 @@ const Team = ({ translations }) => (
                   </button>
                 </div>
               </form>
+
+              <a className="icon-arrow-up" href={`#${FIRST_SCREEN}`}>
+                <img src={arrowUp} alt="arrowUp" />
+              </a>
             </div>
           </div>
         </div>

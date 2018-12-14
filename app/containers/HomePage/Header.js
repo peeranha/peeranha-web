@@ -37,6 +37,7 @@ const Box = styled.header`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
+    font-family: OpenSans;
   }
 
   position: relative;
@@ -117,19 +118,26 @@ const Box = styled.header`
   }
 
   .header-modal-dialog {
-    max-width: 360px;
+    max-width: 400px;
     min-height: 240px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    padding: 0 20px;
 
     * {
       font-family: OpenSans;
       font-size: 18px;
     }
 
+    .modal-dialog-message {
+      text-align: left;
+      font-size: 17px;
+      padding-bottom: 10px;
+    }
+
     form {
-      * {
+      > * {
         width: 100%;
         height: 48px;
         border: 1px solid #b9b9b9;
@@ -141,6 +149,7 @@ const Box = styled.header`
       button {
         color: #fff;
         background: #f76e5f;
+        cursor: pointer;
       }
     }
 
@@ -204,12 +213,12 @@ class Header extends React.PureComponent {
   };
 
   showModalPlatformDeveloping = e => {
-    const { top, left } = window.$(e.target).offset();
+    const { left } = window.$(e.target).offset();
 
     this.setState({
       showModalPlatformDeveloping: true,
       customPosition: {
-        top: top + 80,
+        top: 120,
         left: left * 0.85,
       },
     });
@@ -233,13 +242,14 @@ class Header extends React.PureComponent {
             </div>
 
             <div>
-              <p>
-                The platform is under developing, but you can be the first to
-                join and earn up to 100x more
+              <p className="modal-dialog-message">
+                <FormattedMessage {...messages.platformUnderDeveloping} />
               </p>
               <form>
                 <input type="text" placeholder="Your email address" />
-                <button>Get reward</button>
+                <button>
+                  <FormattedMessage {...messages.getReward} />
+                </button>
               </form>
             </div>
           </div>
@@ -247,7 +257,7 @@ class Header extends React.PureComponent {
 
         <div className="container">
           <div className="row">
-            <div className="col-6 col-xl-6 col-lg-5 logo">
+            <div className="col-6 col-xl-6 col-lg-4 logo">
               <Link to={routes.home()} href={routes.home()}>
                 <img src={bg} alt="logo" />
               </Link>
@@ -261,7 +271,7 @@ class Header extends React.PureComponent {
               <span className="navbar-toggler-icon" />
             </button>
 
-            <div className="col-md-12 col-xl-6 col-lg-7 nav-bar" id={togglerId}>
+            <div className="col-md-12 col-xl-6 col-lg-8 nav-bar" id={togglerId}>
               <div className="row">
                 <div className="col-md-12 col-lg-7">
                   <div className="row">

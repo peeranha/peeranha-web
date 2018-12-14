@@ -88,6 +88,8 @@
   "app.containers.HomePage.subject": "Subject",
   "app.containers.HomePage.message": "Message",
   "app.containers.HomePage.sendMessage": "Send message",
+  "app.containers.HomePage.platformUnderDeveloping":
+    "The platform is under developing, but you can be the first to join and earn up to 100x more.",
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
   "app.containers.EditAnswer.title": "Edit Answer",

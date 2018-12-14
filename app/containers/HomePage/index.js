@@ -57,20 +57,29 @@ class HomePage extends React.PureComponent {
       window.$(window).on('DOMMouseScroll mousewheel', event => {
         const { scrollY } = event.currentTarget;
 
-        const secondScreenPosition = window.$(`#${SECOND_SCREEN}`).position()
-          .top;
-        const thirdScreenPosition = window.$(`#${THIRD_SCREEN}`).position().top;
+        const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
+        const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
 
         const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
-        if (scrollY > secondScreenPosition && scrollY < thirdScreenPosition) {
+        if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
           animatedImagesArray.each(function() {
-            const translator = 50;
             const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+            const translatorMax = 50;
+            const step = translatorMax * 0.25;
 
-            window.$(this).css({
-              transform: `translate(0px, ${direction * translator}px)`,
-            });
+            const matrix = window
+              .$(this)
+              .css('transform')
+              .replace(/[^0-9\-.,]/g, '')
+              .split(',');
+            const translateY = +(matrix[13] || matrix[5]);
+
+            if (Math.abs(direction * step + translateY) < translatorMax) {
+              window.$(this).css({
+                transform: `translate(0px, ${direction * step + translateY}px)`,
+              });
+            }
           });
         }
       });
@@ -99,6 +108,7 @@ class HomePage extends React.PureComponent {
       window.requestAnimationFrame(function animation() {
         patterns.each(function() {
           const modifier = 50;
+
           window.$(this).css({
             transform: `translate(${x / modifier}px, ${y / modifier}px)`,
           });

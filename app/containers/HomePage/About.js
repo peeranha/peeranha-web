@@ -93,7 +93,7 @@ const Box = styled.section`
         img {
           position: relative;
           transform: translate(0, 0);
-          transition: 6s;
+          transition: 2s;
         }
       }
 

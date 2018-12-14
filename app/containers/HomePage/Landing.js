@@ -12,6 +12,7 @@ const submitButton = `
 
 const Landing = styled.div`
   font-family: OpenSans;
+  overflow: hidden;
 
   a {
     color: #ffffff !important;
