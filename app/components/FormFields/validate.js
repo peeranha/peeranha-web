@@ -11,6 +11,12 @@ export const stringLength = (min, max) => value =>
     ? messages.wrongLength
     : undefined;
 
+/* eslint no-useless-escape: 0 */
+export const validateEmail = email => {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return !re.test(email) ? messages.wrongEmail : undefined;
+};
+
 export const required = value => (!value ? messages.requiredField : undefined);
 
 export const strLength20 = stringLength(3, 20);

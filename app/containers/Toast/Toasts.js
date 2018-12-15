@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Toast from './Toast';
 import ToastBox from './ToastBox';
+import toastTypes from './toastTypes';
 
 const Toasts = props => (
   <ToastBox location={props.location}>
@@ -12,7 +14,10 @@ const Toasts = props => (
         data-key={item.toastKey}
         onClick={props.removeToast}
       >
-        {item.text}
+        <div className="status">
+          <img src={toastTypes[item.type].icon} alt="status" />
+        </div>
+        <div className="content">{item.text}</div>
       </Toast>
     ))}
   </ToastBox>

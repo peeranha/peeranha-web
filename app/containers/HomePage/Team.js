@@ -13,12 +13,26 @@ import arrowUp from 'images/ArrowUP.svg';
 import { FIRST_SCREEN, FIFTH_SCREEN } from './constants';
 import messages from './messages';
 
-const inputHeight = 40;
+import SendMessageForm from './SendMessageForm';
+
 const icon = 47;
 
 const Box = styled.section`
   padding-bottom: 50px;
   color: #282828;
+
+  form {
+    padding-left: 50px;
+
+    .floating-label-input-wrapper {
+      margin-bottom: 20px;
+    }
+
+    .button-submit-wrapper {
+      display: flex;
+      margin: 40px 0;
+    }
+  }
 
   .fifth-screen {
     position: relative;
@@ -104,64 +118,12 @@ const Box = styled.section`
           }
         }
       }
+    }
+  }
 
-      .send-message-form {
-        padding-left: 40px;
-
-        .custom-input-5-scr {
-          position: relative;
-
-          p {
-            line-height: ${inputHeight}px;
-            color: #282828;
-            font-size: 16px;
-            position: absolute;
-            top: 0;
-            left: 2px;
-          }
-
-          input {
-            position: relative;
-            z-index: 2;
-            transition: 0.5s;
-            width: 100%;
-            height: ${inputHeight}px;
-            outline: none;
-            border-bottom: 2px solid #e6e6e6;
-            padding: 0 2px;
-            font-size: 14px;
-            margin-bottom: 40px;
-          }
-
-          input:focus {
-            border-color: #f76f60;
-            + p {
-              transition: 0.5s;
-              color: #9b9b9b;
-              font-size: 14px;
-              line-height: 0;
-            }
-          }
-
-          input[value]:not([value='']) {
-            + p {
-              line-height: 0 !important;
-              color: #9b9b9b !important;
-              font-size: 14px !important;
-            }
-          }
-        }
-
-        .form-submit-button {
-          display: flex;
-          margin-top: 10px;
-          height: ${inputHeight}px;
-          button {
-            padding: 0 30px;
-            flex: unset;
-          }
-        }
-      }
+  @media only screen and (max-width: 992px) {
+    form {
+      padding: 0 !important;
     }
   }
 
@@ -174,20 +136,6 @@ const Box = styled.section`
     }
   }
 `;
-
-const CustomInput = ({ label }) => (
-  <div className="custom-input-5-scr">
-    <input
-      type="text"
-      onKeyUp={e => e.target.setAttribute('value', e.target.value)}
-    />
-    <p>{label}</p>
-  </div>
-);
-
-CustomInput.propTypes = {
-  label: PropTypes.string,
-};
 
 const Team = ({ translations }) => (
   <Box id={FIFTH_SCREEN}>
@@ -258,17 +206,7 @@ const Team = ({ translations }) => (
               </ul>
             </div>
             <div className="col-lg-5 send-message-form">
-              <form>
-                <CustomInput label={translations[messages.yourName.id]} />
-                <CustomInput label={translations[messages.email.id]} />
-                <CustomInput label={translations[messages.subject.id]} />
-                <CustomInput label={translations[messages.message.id]} />
-                <div className="form-submit-button">
-                  <button type="submit">
-                    {translations[messages.sendMessage.id]}
-                  </button>
-                </div>
-              </form>
+              <SendMessageForm translations={translations} />
 
               <a className="icon-arrow-up" href={`#${FIRST_SCREEN}`}>
                 <img src={arrowUp} alt="arrowUp" />

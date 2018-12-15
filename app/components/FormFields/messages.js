@@ -23,4 +23,8 @@ export default defineMessages({
     id: 'app.containers.AskQuestion.fileSize',
     defaultMessage: 'File size is exceeded',
   },
+  wrongEmail: {
+    id: 'app.containers.AskQuestion.wrongEmail',
+    defaultMessage: 'Wrong email',
+  },
 });

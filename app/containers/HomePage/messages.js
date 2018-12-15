@@ -279,4 +279,28 @@ export default defineMessages({
     id: 'app.containers.HomePage.platformUnderDeveloping',
     defaultMessage: `The platform is under developing, but you can be the first to join and earn up to 100x more.`,
   },
+  askQuestion: {
+    id: 'app.containers.HomePage.askQuestion',
+    defaultMessage: `Ask question`,
+  },
+  review: {
+    id: 'app.containers.HomePage.review',
+    defaultMessage: `Review`,
+  },
+  systemError: {
+    id: 'app.containers.HomePage.systemError',
+    defaultMessage: `System error`,
+  },
+  none: {
+    id: 'app.containers.HomePage.none',
+    defaultMessage: `None`,
+  },
+  messageHasNotBeenSent: {
+    id: 'app.containers.HomePage.messageHasNotBeenSent',
+    defaultMessage: `Something went wrong and your message has not been sent. Please try again.`,
+  },
+  yourEmailIsRegistred: {
+    id: 'app.containers.HomePage.yourEmailIsRegistred',
+    defaultMessage: `The platform is under development, but your email is registered. We will send a letter when you can continue registation.`,
+  },
 });

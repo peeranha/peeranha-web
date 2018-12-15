@@ -91,6 +91,14 @@
   "app.containers.HomePage.sendMessage": "Отправьте сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
     "Платформа находится в разработке, но Вы можете стать одним из первых и заработать до 100 раз больше.",
+  "app.containers.HomePage.askQuestion": "Задать вопрос",
+  "app.containers.HomePage.review": "Проверить",
+  "app.containers.HomePage.systemError": "Системная ошибка",
+  "app.containers.HomePage.none": "Ничего",
+  "app.containers.HomePage.messageHasNotBeenSent":
+    "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
+  "app.containers.HomePage.yourEmailIsRegistred":
+    "Платформа находится в разработке, но Ваш емэйл зарегистрирован. Мы отправим Вам письмо, когда Вы сможете продолжить регистрацию.",
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
@@ -130,6 +138,7 @@
   "app.containers.FormFields.wrongLength": "Невалидная длина поля",
   "app.containers.FormFields.wrongLength30000": "Превышено количество символов",
   "app.containers.FormFields.fileSize": "Превышен размер файла",
+  "app.containers.FormFields.wrongEmail": "Неверный емэйл",
   "app.components.Footer.header": "Авторские права: Peerania",
   "app.components.Header.home": "Главная",
   "app.components.Header.questions": "Вопросы",

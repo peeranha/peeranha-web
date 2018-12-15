@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-
 import styled from 'styled-components';
 
-import * as bg from 'images/BG_Rewards.jpg';
+import bg from 'images/BG_Rewards.jpg';
 
 import { THIRD_SCREEN } from './constants';
 import messages from './messages';
+
+import EmailLandingForm from './EmailLandingForm';
 
 const Box = styled.section`
   position: relative;
@@ -40,9 +40,23 @@ const Box = styled.section`
       font-family: OpenSans;
     }
   }
+
+  form {
+    display: flex;
+    width: 100%;
+
+    > div:nth-child(1) {
+      flex: 2;
+      margin-right: 10px;
+    }
+
+    > div:nth-child(2) {
+      flex: 1;
+    }
+  }
 `;
 
-const Rewards = ({ translations }) => (
+const Rewards = () => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row content">
@@ -53,26 +67,15 @@ const Rewards = ({ translations }) => (
           <p className="col-lg-12 content-body">
             <FormattedMessage {...messages.rewardsPool} />
           </p>
-          <div className="col-lg-8 bottom-level mx-auto">
-            <form className="row get-started-form">
-              <input
-                className="col-lg-8"
-                placeholder={translations[messages.yourEmail.id]}
-                type="text"
-              />
-              <button className="col-lg-4" type="submit">
-                <FormattedMessage {...messages.getReward} />
-              </button>
-            </form>
+          <div className="col-10 col-md-6 col-lg-7 bottom-level mx-auto">
+            <div className="row">
+              <EmailLandingForm button={messages.getReward} />
+            </div>
           </div>
         </div>
       </div>
     </div>
   </Box>
 );
-
-Rewards.propTypes = {
-  translations: PropTypes.object,
-};
 
 export default Rewards;

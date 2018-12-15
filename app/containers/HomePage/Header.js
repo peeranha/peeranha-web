@@ -19,6 +19,7 @@ import {
 } from './constants';
 
 import messages from './messages';
+import EmailLandingForm from './EmailLandingForm';
 
 const togglerId = 'navbartogglerId';
 
@@ -118,12 +119,12 @@ const Box = styled.header`
   }
 
   .header-modal-dialog {
-    max-width: 400px;
-    min-height: 240px;
+    max-width: 480px;
+    min-height: 280px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding: 0 20px;
+    padding: 0 20px 10px 20px;
 
     * {
       font-family: OpenSans;
@@ -133,24 +134,7 @@ const Box = styled.header`
     .modal-dialog-message {
       text-align: left;
       font-size: 17px;
-      padding-bottom: 10px;
-    }
-
-    form {
-      > * {
-        width: 100%;
-        height: 48px;
-        border: 1px solid #b9b9b9;
-        margin-top: 15px;
-        padding: 0 20px;
-        border-radius: 3px;
-      }
-
-      button {
-        color: #fff;
-        background: #f76e5f;
-        cursor: pointer;
-      }
+      padding-bottom: 30px;
     }
 
     .image-coins {
@@ -245,12 +229,7 @@ class Header extends React.PureComponent {
               <p className="modal-dialog-message">
                 <FormattedMessage {...messages.platformUnderDeveloping} />
               </p>
-              <form>
-                <input type="text" placeholder="Your email address" />
-                <button>
-                  <FormattedMessage {...messages.getReward} />
-                </button>
-              </form>
+              <EmailLandingForm button={messages.getReward} />
             </div>
           </div>
         </ModalDialog>

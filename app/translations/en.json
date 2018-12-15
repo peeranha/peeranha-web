@@ -90,6 +90,14 @@
   "app.containers.HomePage.sendMessage": "Send message",
   "app.containers.HomePage.platformUnderDeveloping":
     "The platform is under developing, but you can be the first to join and earn up to 100x more.",
+  "app.containers.HomePage.askQuestion": "Ask question",
+  "app.containers.HomePage.review": "Review",
+  "app.containers.HomePage.systemError": "System error",
+  "app.containers.HomePage.none": "None",
+  "app.containers.HomePage.messageHasNotBeenSent":
+    "Something went wrong and your message has not been sent. Please try again.",
+  "app.containers.HomePage.yourEmailIsRegistred":
+    "The platform is under development, but your email is registered. We will send a letter when you can continue registation.",
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
   "app.containers.EditAnswer.title": "Edit Answer",
@@ -131,6 +139,7 @@
   "app.containers.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
   "app.containers.FormFields.fileSize": "File size is exceeded",
+  "app.containers.FormFields.wrongEmail": "Wrong email",
   "app.components.Footer.header": "Copyright: Peerania",
   "app.components.Header.home": "Home",
   "app.components.Header.questions": "Questions",

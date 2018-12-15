@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 
 import * as arrowDown from 'images/arrow_down.svg';
 
@@ -10,6 +9,7 @@ import Parallax from './Parallax';
 import { FIRST_SCREEN, SECOND_SCREEN } from './constants';
 
 import Header from './Header';
+import EmailLandingForm from './EmailLandingForm';
 
 const Box = styled.div`
   color: #ffffff !important;
@@ -31,6 +31,20 @@ const Box = styled.div`
     font-size: 24px;
     line-height: 1.42;
     letter-spacing: -1px;
+  }
+
+  form {
+    display: flex;
+    width: 100%;
+
+    > div:nth-child(1) {
+      flex: 2;
+      margin-right: 10px;
+    }
+
+    > div:nth-child(2) {
+      flex: 1;
+    }
   }
 
   @media only screen and (max-width: 992px) {
@@ -81,7 +95,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Introduction = ({ translations }) => (
+const Introduction = () => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -105,17 +119,10 @@ const Introduction = ({ translations }) => (
           <h3 className="middle-level">
             <FormattedMessage {...messages.weAreDecentralized} />
           </h3>
-          <div className="col-12 col-md-7 col-lg-7 bottom-level mx-auto">
-            <form className="row get-started-form">
-              <input
-                className="col-12 col-md-12 col-lg-8"
-                placeholder={translations[messages.yourEmail.id]}
-                type="text"
-              />
-              <button className="col-12 col-md-12 col-lg-4" type="submit">
-                <FormattedMessage {...messages.getStarted} />
-              </button>
-            </form>
+          <div className="col-10 col-md-6 col-lg-7 bottom-level mx-auto">
+            <div className="row">
+              <EmailLandingForm button={messages.getStarted} />
+            </div>
           </div>
           <div className="row w-100 justify-content-center icon-down">
             <Icon href={`#${SECOND_SCREEN}`}>
@@ -127,9 +134,5 @@ const Introduction = ({ translations }) => (
     </Wrapper>
   </Parallax>
 );
-
-Introduction.propTypes = {
-  translations: PropTypes.object,
-};
 
 export default Introduction;

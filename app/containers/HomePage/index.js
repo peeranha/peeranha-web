@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { addToast } from 'containers/Toast/actions';
 
 import Landing from './Landing';
 import Footer from './Footer';
@@ -32,6 +33,11 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    HomePage.props = this.props;
+  }
+
   componentDidMount() {
     const banner = window.$(`#${LANDING_ID}`);
 
@@ -123,6 +129,34 @@ class HomePage extends React.PureComponent {
     window.$(window).off();
   }
 
+  static sendEmail = (...args) => {
+    const toast = {
+      type: 'error',
+      text:
+        translationMessages[HomePage.props.locale][
+          messages.messageHasNotBeenSent.id
+        ],
+    };
+
+    console.log(args);
+
+    HomePage.props.addToastDispatch(toast);
+  };
+
+  static sendMessage = (...args) => {
+    const toast = {
+      type: 'error',
+      text:
+        translationMessages[HomePage.props.locale][
+          messages.messageHasNotBeenSent.id
+        ],
+    };
+
+    console.log(args);
+
+    HomePage.props.addToastDispatch(toast);
+  };
+
   render() {
     const translations = translationMessages[this.props.locale];
 
@@ -155,7 +189,14 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    addToastDispatch: toast => dispatch(addToast(toast)),
+  };
+}
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(HomePage);
