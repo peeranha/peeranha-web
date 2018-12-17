@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 
-import av11 from 'images/1.png';
-import av22 from 'images/2.png';
-import av1 from 'images/av1.jpg';
-import av2 from 'images/av2.jpg';
-import av3 from 'images/av3.jpg';
+import sergeyIlin from 'images/1.png';
+import kateBehey from 'images/2.png';
+import nikitaSyr from 'images/av1.jpg';
+import romRem from 'images/av2.jpg';
+import ulyanaPopova from 'images/av3.jpg';
 import arrowUp from 'images/ArrowUP.svg';
 
 import { FIRST_SCREEN, FIFTH_SCREEN } from './constants';
 import messages from './messages';
 
 import SendMessageForm from './SendMessageForm';
+import Section from './Section';
+import Gradient from './Gradient';
 
 const icon = 47;
 
-const Box = styled.section`
-  padding-bottom: 50px;
+const Box = Section.extend`
   color: #282828;
 
   form {
@@ -68,31 +68,22 @@ const Box = styled.section`
     }
 
     .fifth-screen-header {
-      font-size: 45px;
-      font-family: OpenSansBold !important;
-      letter-spacing: -1.8px;
-      padding-top: 60px;
-      padding-bottom: 42px;
+      padding-bottom: 40px;
     }
 
     .fifth-screen-about {
-      font-size: 20px;
       line-height: 1.5;
-      letter-spacing: -0.8px;
-      font-family: OpenSans;
       color: #282828;
-      padding-bottom: 66px;
+      padding-bottom: 65px;
     }
 
     .fifth-screen-content {
-      padding-bottom: 90px;
-
       .team-avatars {
         ul {
           .teammate-card {
             display: flex;
             flex-direction: column;
-            padding-bottom: 63px;
+            padding-bottom: 65px;
 
             img {
               width: 150px;
@@ -124,6 +115,10 @@ const Box = styled.section`
   @media only screen and (max-width: 992px) {
     form {
       padding: 0 !important;
+
+      .button-submit-wrapper {
+        display: block;
+      }
     }
   }
 
@@ -132,91 +127,96 @@ const Box = styled.section`
       img {
         margin: 0 auto;
       }
+
       text-align: center;
     }
   }
 `;
 
 const Team = ({ translations }) => (
-  <Box id={FIFTH_SCREEN}>
-    <div className="separator">
+  <Gradient position="top">
+    <Box id={FIFTH_SCREEN}>
       <div className="container">
         <div className="row fifth-screen">
-          <h3 className="col-lg-12 fifth-screen-header">
+          <h2 className="col-lg-12 fifth-screen-header">
             <FormattedMessage {...messages.ourTeam} />
-          </h3>
+          </h2>
         </div>
       </div>
-    </div>
-    <div className="container">
-      <div className="row fifth-screen">
-        <p className="col-lg-6 fifth-screen-about">
-          <FormattedMessage {...messages.weAppreciate} />
-        </p>
 
-        <div className="col-12 fifth-screen-content">
-          <div className="row">
-            <div className="col-12 col-lg-7 team-avatars">
-              <ul className="row">
-                <li className="col-12 col-sm-4 teammate-card">
-                  <img src={av11} alt="avatar" />
-                  <span className="name">
-                    {translations[messages.sergeyIlin.id]}
-                  </span>
-                  <span className="role">
-                    {translations[messages.founder.id]}
-                  </span>
-                </li>
-                <li className="col-12 col-sm-4 teammate-card">
-                  <img src={av1} alt="avatar" />
-                  <span className="name">
-                    {translations[messages.nikitaSyr.id]}
-                  </span>
-                  <span className="role">
-                    {translations[messages.backendDev.id]}
-                  </span>
-                </li>
-                <li className="col-12 col-sm-4 teammate-card">
-                  <img src={av2} alt="avatar" />
-                  <span className="name">
-                    {translations[messages.romRem.id]}
-                  </span>
-                  <span className="role">
-                    {translations[messages.frontendDev.id]}
-                  </span>
-                </li>
-                <li className="col-12 col-sm-4 teammate-card">
-                  <img src={av3} alt="avatar" />
-                  <span className="name">
-                    {translations[messages.ulyanaPopova.id]}
-                  </span>
-                  <span className="role">
-                    {translations[messages.designer.id]}
-                  </span>
-                </li>
-                <li className="col-12 col-sm-4 teammate-card">
-                  <img src={av22} alt="avatar" />
-                  <span className="name">
-                    {translations[messages.kateBehey.id]}
-                  </span>
-                  <span className="role">
-                    {translations[messages.marketing.id]}
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div className="col-lg-5 send-message-form">
-              <SendMessageForm translations={translations} />
+      <div className="container">
+        <div className="row fifth-screen">
+          <p className="col-lg-6 fifth-screen-about">
+            <FormattedMessage {...messages.weAppreciate} />
+          </p>
 
-              <a className="icon-arrow-up" href={`#${FIRST_SCREEN}`}>
-                <img src={arrowUp} alt="arrowUp" />
-              </a>
+          <div className="col-12 fifth-screen-content">
+            <div className="row justify-content-center">
+              <div className="col-12 col-lg-7 team-avatars">
+                <ul className="row">
+                  <li className="col-12 col-sm-4 teammate-card">
+                    <img src={sergeyIlin} alt="sergeyIlin" />
+                    <span className="name">
+                      {translations[messages.sergeyIlin.id]}
+                    </span>
+                    <span className="role">
+                      {translations[messages.founder.id]}
+                    </span>
+                  </li>
+                  <li className="col-12 col-sm-4 teammate-card">
+                    <img src={nikitaSyr} alt="nikitaSyr" />
+                    <span className="name">
+                      {translations[messages.nikitaSyr.id]}
+                    </span>
+                    <span className="role">
+                      {translations[messages.backendDev.id]}
+                    </span>
+                  </li>
+                  <li className="col-12 col-sm-4 teammate-card">
+                    <img src={romRem} alt="romRem" />
+                    <span className="name">
+                      {translations[messages.romRem.id]}
+                    </span>
+                    <span className="role">
+                      {translations[messages.frontendDev.id]}
+                    </span>
+                  </li>
+                  <li className="col-12 col-sm-4 teammate-card">
+                    <img src={ulyanaPopova} alt="ulyanaPopova" />
+                    <span className="name">
+                      {translations[messages.ulyanaPopova.id]}
+                    </span>
+                    <span className="role">
+                      {translations[messages.designer.id]}
+                    </span>
+                  </li>
+                  <li className="col-12 col-sm-4 teammate-card">
+                    <img src={kateBehey} alt="kateBehey" />
+                    <span className="name">
+                      {translations[messages.kateBehey.id]}
+                    </span>
+                    <span className="role">
+                      {translations[messages.marketing.id]}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="col-10 col-lg-5 send-message-form">
+                <SendMessageForm translations={translations} />
+                <a
+                  className="icon-arrow-up d-none d-xl-flex"
+                  href={`#${FIRST_SCREEN}`}
+                >
+                  <img src={arrowUp} alt="arrowUp" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </Box>
+    </Box>
+  </Gradient>
 );
 
 Team.propTypes = {

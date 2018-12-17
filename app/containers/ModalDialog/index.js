@@ -11,6 +11,10 @@ import styled from 'styled-components';
 import ModalWrapper from './ModalWrapper';
 
 const Box = styled.div`
+  .modal-content {
+    overflow: hidden;
+  }
+
   .modal-custom-position {
     position: absolute;
     top: ${({ customPosition }) => customPosition && customPosition.top}px;

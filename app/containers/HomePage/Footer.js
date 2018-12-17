@@ -1,29 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import ChangeLocale from 'containers/ChangeLocale';
 
-import * as logo from 'images/LogoBlack.svg';
-import * as yt from 'images/yt.svg';
-import * as tw from 'images/tw.svg';
-import * as fb from 'images/fb.svg';
+import logo from 'images/LogoBlack.svg';
+import youtube from 'images/yt.svg';
+import twitter from 'images/tw.svg';
+import facebook from 'images/fb.svg';
 
 import * as routes from 'routes-config';
 
-const Box = styled.footer`
+import Gradient from './Gradient';
+
+const Box = Gradient.extend`
   color: #282828;
   padding: 36px 0 26px 0;
-  background: linear-gradient(
-    to bottom,
-    #f9f9f9 0%,
-    #f8f8f8 0%,
-    #fafafa 20%,
-    #fbfbfb 59%,
-    #fbfbfb 59%,
-    #fcfcfc 80%,
-    #fdfdfd 100%
-  );
 
   > div {
     .logo {
@@ -60,10 +51,6 @@ const Box = styled.footer`
       width: 160px !important;
     }
 
-    .year {
-      display: none;
-    }
-
     .media-section {
       .locale {
         text-align: right !important;
@@ -85,7 +72,7 @@ const Box = styled.footer`
 const Year = new Date().getFullYear();
 
 const Footer = () => (
-  <Box>
+  <Box position="top">
     <div className="container">
       <div className="row justify-content-between align-items-center">
         <div className="col-6 logo">
@@ -93,7 +80,9 @@ const Footer = () => (
             <Link to={routes.home()} href={routes.home()} className="col-5">
               <img src={logo} alt="logo" />
             </Link>
-            <span className="col-2 year">© {Year}</span>
+            <span className="col-lg-3 col-xl-2 d-none d-lg-inline year">
+              © {Year}
+            </span>
           </div>
         </div>
         <div className="col-6 col-lg-3 media-section">
@@ -101,15 +90,15 @@ const Footer = () => (
             <div className="col-12 col-lg-6 locale">
               <ChangeLocale />
             </div>
-            <div className="col-6 icons d-flex align-items-center">
+            <div className="col-6 d-none d-lg-flex align-items-center icons">
               <a href="https://www.youtube.com/" target="_blank">
-                <img src={yt} alt="logo" />
+                <img src={youtube} alt="youtube" />
               </a>
               <a href="https://facebook.com" target="_blank">
-                <img src={fb} alt="logo" />
+                <img src={facebook} alt="facebook" />
               </a>
               <a href="https://twitter.com" target="_blank">
-                <img src={tw} alt="logo" />
+                <img src={twitter} alt="twitter" />
               </a>
             </div>
           </div>

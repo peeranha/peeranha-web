@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 
 import bg from 'images/BG_Rewards.jpg';
 
@@ -8,37 +7,25 @@ import { THIRD_SCREEN } from './constants';
 import messages from './messages';
 
 import EmailLandingForm from './EmailLandingForm';
+import Section from './Section';
 
-const Box = styled.section`
+const Box = Section.extend`
   position: relative;
-  padding-top: 96px;
-  padding-bottom: 96px;
   background: url(${bg});
   background-size: cover;
 
-  .content {
-    justify-content: center;
+  .title {
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.22;
+    font-size: 2.8em;
+  }
 
-    .title {
-      color: #ffffff;
-      font-family: OpenSansBold !important;
-      font-size: 45px;
-      text-align: center;
-      line-height: 1.22;
-      letter-spacing: -1.8px;
-      padding: 0 2rem;
-    }
-
-    .content-body {
-      color: #ffffff;
-      font-size: 20px;
-      line-height: 30px;
-      text-align: center;
-      padding: 49px 0 55px 0;
-      line-height: 1.5;
-      letter-spacing: -0.8px;
-      font-family: OpenSans;
-    }
+  .content-body {
+    color: #ffffff;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 55px;
   }
 
   form {
@@ -59,16 +46,22 @@ const Box = styled.section`
 const Rewards = () => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
-      <div className="row content">
-        <div className="col-lg-8">
-          <h1 className="title">
-            <FormattedMessage {...messages.beTheFirst} />
-          </h1>
-          <p className="col-lg-12 content-body">
-            <FormattedMessage {...messages.rewardsPool} />
-          </p>
-          <div className="col-10 col-md-6 col-lg-7 bottom-level mx-auto">
-            <div className="row">
+      <div className="row justify-content-center align-items-center">
+        <div className="col-12">
+          <div className="row justify-content-center">
+            <h2 className="col-12 col-lg-8 title">
+              <FormattedMessage {...messages.beTheFirst} />
+            </h2>
+          </div>
+
+          <div className="row justify-content-center">
+            <p className="col-12 col-lg-8 content-body">
+              <FormattedMessage {...messages.rewardsPool} />
+            </p>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
               <EmailLandingForm button={messages.getReward} />
             </div>
           </div>

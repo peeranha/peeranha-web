@@ -1,40 +1,35 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import * as img1 from 'images/Ico_01.svg';
-import * as img2 from 'images/Ico_02.svg';
-import * as img3 from 'images/Ico_03.svg';
+import practicalAnswers from 'images/Ico_01.svg';
+import fairEconomy from 'images/Ico_02.svg';
+import builtOnSmart from 'images/Ico_03.svg';
 
-import * as img11 from 'images/1.png';
-import * as img22 from 'images/2.png';
-import * as img33 from 'images/3.png';
-import * as img44 from 'images/4.png';
-import * as img55 from 'images/5.png';
+import simpleAndAffordable from 'images/1.png';
+import helpfulAndGenerous from 'images/2.png';
+import profitableAndModern from 'images/3.png';
+import worthyAndPrestig from 'images/4.png';
+import honorableAndFascinating from 'images/5.png';
 
 import { SECOND_SCREEN, ANIMATE_IMAGE } from './constants';
 import messages from './messages';
 
-const Box = styled.section`
+import Section from './Section';
+import Gradient from './Gradient';
+
+const Box = Section.extend`
   scroll-behavior: smooth;
   text-align: center;
   background-color: #fff;
-  padding-bottom: 80px;
 
   .second-screen-header {
-    padding-top: 112px;
     padding-bottom: 81px;
-    font-size: 30px;
-    font-family: OpenSansBold !important;
-  }
-
-  .separator {
-    transform: rotate(180deg);
-    height: 170px;
   }
 
   .main-difference {
+    padding-bottom: 170px;
+
     li {
       letter-spacing: -0.7px;
       font-size: 18px;
@@ -52,25 +47,30 @@ const Box = styled.section`
       }
 
       .item-title {
+        font-size: 18px;
         padding: 31px 0 26px 0;
         font-family: OpenSansBold !important;
       }
 
       .item-content {
+        font-size: 18px;
         font-family: OpenSans;
         padding: 0 3.25rem;
       }
     }
   }
 
-  .second-screen-elements-column {
+  .second-screen-elements .list-items {
     li:nth-child(even) {
       .block1 {
         order: 2;
       }
       .block2 {
         order: 1;
-        padding: 0 55px 0 35px;
+
+        .row {
+          padding: 0 55px 0 35px;
+        }
       }
     }
 
@@ -86,14 +86,24 @@ const Box = styled.section`
       .block2 {
         display: flex;
         align-items: center;
-        padding: 0 35px 0 55px;
+
+        .row {
+          padding: 0 35px 0 55px;
+        }
+
+        img {
+          width: 100%;
+          padding-top: 30px;
+          padding-bottom: 30px;
+        }
       }
 
       .block1 {
         img {
+          width: 90%;
           position: relative;
           transform: translate(0, 0);
-          transition: 2s;
+          transition: 1.5s;
         }
       }
 
@@ -115,6 +125,7 @@ const Box = styled.section`
 
       .text-3 {
         font-family: OpenSans;
+        text-align: left;
         color: #282828;
         font-size: 20px;
         letter-spacing: -0.8px;
@@ -124,7 +135,6 @@ const Box = styled.section`
 
   @media only screen and (max-width: 992px) {
     .second-screen-header {
-      padding-top: 81px;
       padding-bottom: 0;
     }
 
@@ -135,18 +145,26 @@ const Box = styled.section`
       }
     }
 
-    .second-screen-elements-column {
+    .second-screen-elements .list-items {
       li {
-        padding-top: 40px;
+        padding-top: 80px;
 
         .block1 {
           margin: 40px 0;
           text-align: center;
         }
 
+        .text-3 {
+          text-align: justify;
+        }
+
         .block1,
         .block2 {
-          order: 1 !important;
+          order: 0 !important;
+
+          .row {
+            padding: 0 !important;
+          }
         }
       }
     }
@@ -155,75 +173,76 @@ const Box = styled.section`
 
 const About = () => (
   <Box id={SECOND_SCREEN}>
-    <div className="container second-screen">
-      <h1 className="col-lg-12 second-screen-header">
-        <FormattedMessage {...messages.differentThan} />
-      </h1>
-      <div className="row second-screen-elements">
-        <ul className="col-lg-12 main-difference">
-          <div className="row">
-            <li className="col-lg-4">
-              <div className="card row">
-                <div className="col-lg-12">
-                  <img src={img1} alt="img1" />
+    <Gradient>
+      <div className="container second-screen">
+        <h3 className="col-lg-12 second-screen-header">
+          <FormattedMessage {...messages.differentThan} />
+        </h3>
+        <div className="row second-screen-elements">
+          <ul className="col-lg-12 main-difference">
+            <div className="row">
+              <li className="col-lg-4">
+                <div className="card row">
+                  <div className="col-lg-12">
+                    <img src={practicalAnswers} alt="practicalAnswers" />
+                  </div>
+                  <div className="card-body">
+                    <h4 className="item-title">
+                      <FormattedMessage {...messages.practicalAnswers} />
+                    </h4>
+                    <p className="item-content">
+                      <FormattedMessage {...messages.sitesAreModerated} />
+                    </p>
+                  </div>
                 </div>
-                <div className="card-body">
-                  <p className="card-text item-title">
-                    <FormattedMessage {...messages.practicalAnswers} />
-                  </p>
-                  <p className="card-text item-content">
-                    <FormattedMessage {...messages.sitesAreModerated} />
-                  </p>
+              </li>
+              <li className="col-lg-4">
+                <div className="card row">
+                  <div className="col-lg-12">
+                    <img src={fairEconomy} alt="fairEconomy" />
+                  </div>
+                  <div className="card-body">
+                    <h4 className="item-title">
+                      <FormattedMessage {...messages.fairEconomy} />
+                    </h4>
+                    <p className="item-content">
+                      <FormattedMessage {...messages.postsOnQA} />
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li className="col-lg-4">
-              <div className="card row">
-                <div className="col-lg-12">
-                  <img src={img2} alt="img2" />
+              </li>
+              <li className="col-lg-4">
+                <div className="card row">
+                  <div>
+                    <img src={builtOnSmart} alt="builtOnSmart" />
+                  </div>
+                  <div className="card-body">
+                    <h4 className="item-title">
+                      <FormattedMessage {...messages.builtOnSmart} />
+                    </h4>
+                    <p className="item-content">
+                      <FormattedMessage {...messages.platformIsDistributed} />
+                    </p>
+                  </div>
                 </div>
-                <div className="card-body">
-                  <p className="item-title">
-                    <FormattedMessage {...messages.fairEconomy} />
-                  </p>
-                  <p className="item-content">
-                    <FormattedMessage {...messages.postsOnQA} />
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li className="col-lg-4">
-              <div className="card row">
-                <div>
-                  <img src={img3} alt="img3" />
-                </div>
-                <div className="card-body">
-                  <p className="item-title">
-                    <FormattedMessage {...messages.builtOnSmart} />
-                  </p>
-                  <p className="item-content">
-                    <FormattedMessage {...messages.platformIsDistributed} />
-                  </p>
-                </div>
-              </div>
-            </li>
-          </div>
-        </ul>
+              </li>
+            </div>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div className="separator" />
+    </Gradient>
+
     <div className="container second-screen">
       <div className="row second-screen-elements">
-        <ul className="col-lg-12 second-screen-elements-column">
+        <ul className="col-lg-12 list-items">
           <div className="row">
             <li className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6 block1">
+                <div className="d-none d-md-block col-lg-6 block1">
                   <img
                     className={ANIMATE_IMAGE}
-                    src={img11}
-                    width="93%"
-                    alt="img11"
+                    src={simpleAndAffordable}
+                    alt="simpleAndAffordable"
                   />
                 </div>
                 <div className="col-lg-6 block2">
@@ -234,6 +253,12 @@ const About = () => (
                     <h5 className="col-lg-12 text-2">
                       <FormattedMessage {...messages.getHelp} />
                     </h5>
+                    <div className="d-block d-md-none col-lg-12">
+                      <img
+                        src={simpleAndAffordable}
+                        alt="simpleAndAffordable"
+                      />
+                    </div>
                     <p className="col-lg-12 text-3">
                       <FormattedMessage {...messages.askQuestionAndGetHelp} />
                     </p>
@@ -243,12 +268,11 @@ const About = () => (
             </li>
             <li className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6 block1">
+                <div className="d-none d-md-block col-lg-6 block1">
                   <img
                     className={ANIMATE_IMAGE}
-                    src={img22}
-                    width="93%"
-                    alt="img22"
+                    src={helpfulAndGenerous}
+                    alt="helpfulAndGenerous"
                   />
                 </div>
                 <div className="col-lg-6 block2">
@@ -259,6 +283,9 @@ const About = () => (
                     <h5 className="col-lg-12 text-2">
                       <FormattedMessage {...messages.shareKnowledge} />
                     </h5>
+                    <div className="d-block d-md-none col-lg-12">
+                      <img src={helpfulAndGenerous} alt="helpfulAndGenerous" />
+                    </div>
                     <p className="col-lg-12 text-3">
                       <FormattedMessage {...messages.helpCommunity} />
                     </p>
@@ -268,12 +295,11 @@ const About = () => (
             </li>
             <li className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6 block1">
+                <div className="d-none d-md-block col-lg-6 block1">
                   <img
                     className={ANIMATE_IMAGE}
-                    src={img33}
-                    width="93%"
-                    alt="img33"
+                    src={profitableAndModern}
+                    alt="profitableAndModern"
                   />
                 </div>
                 <div className="col-lg-6 block2">
@@ -284,6 +310,12 @@ const About = () => (
                     <h5 className="col-lg-12 text-2">
                       <FormattedMessage {...messages.getPaidInCrypto} />
                     </h5>
+                    <div className="d-block d-md-none col-lg-12">
+                      <img
+                        src={profitableAndModern}
+                        alt="profitableAndModern"
+                      />
+                    </div>
                     <p className="col-lg-12 text-3">
                       <FormattedMessage
                         {...messages.getPaidInCryptoFromWeekly}
@@ -295,12 +327,11 @@ const About = () => (
             </li>
             <li className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6 block1">
+                <div className="d-none d-md-block col-lg-6 block1">
                   <img
                     className={ANIMATE_IMAGE}
-                    src={img44}
-                    width="93%"
-                    alt="img44"
+                    src={worthyAndPrestig}
+                    alt="worthyAndPrestig"
                   />
                 </div>
                 <div className="col-lg-6 block2">
@@ -311,6 +342,9 @@ const About = () => (
                     <h5 className="col-lg-12 text-2">
                       <FormattedMessage {...messages.earnReputation} />
                     </h5>
+                    <div className="d-block d-md-none col-lg-12">
+                      <img src={worthyAndPrestig} alt="worthyAndPrestig" />
+                    </div>
                     <p className="col-lg-12 text-3">
                       <FormattedMessage {...messages.whetherYouAsk} />
                     </p>
@@ -320,12 +354,11 @@ const About = () => (
             </li>
             <li className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6 block1">
+                <div className="d-none d-md-block col-lg-6">
                   <img
                     className={ANIMATE_IMAGE}
-                    src={img55}
-                    width="93%"
-                    alt="img55"
+                    src={honorableAndFascinating}
+                    alt="honorableAndFascinating"
                   />
                 </div>
                 <div className="col-lg-6 block2">
@@ -336,6 +369,12 @@ const About = () => (
                     <h5 className="col-lg-12 text-2">
                       <FormattedMessage {...messages.ruleThePlatform} />
                     </h5>
+                    <div className="d-block d-md-none col-lg-12">
+                      <img
+                        src={honorableAndFascinating}
+                        alt="honorableAndFascinating"
+                      />
+                    </div>
                     <p className="col-lg-12 text-3">
                       <FormattedMessage {...messages.participateInModeration} />
                     </p>

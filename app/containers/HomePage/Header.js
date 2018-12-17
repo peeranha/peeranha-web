@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import * as bg from 'images/Logo.svg';
-import * as login from 'images/Login.svg';
-import * as bgLogin from 'images/BG_Login.png';
+import logo from 'images/Logo.svg';
+import login from 'images/Login.svg';
+import bgLogin from 'images/BG_Login.png';
+
+import createdHistory from 'createdHistory';
 
 import * as routes from 'routes-config';
 import ModalDialog from 'containers/ModalDialog';
 
 import {
   HEADER_ID,
+  FIRST_SCREEN,
   SECOND_SCREEN,
   THIRD_SCREEN,
   FOURTH_SCREEN,
@@ -21,20 +23,7 @@ import {
 import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 
-const togglerId = 'navbartogglerId';
-
-const toggle = () => {
-  const show = window.$(`#${togglerId}`).hasClass('show');
-  const action = !show ? 'add' : 'remove';
-
-  window.$(`#${togglerId}`)[`${action}Class`]('show');
-};
-
-const Box = styled.header`
-  .navbar-toggler {
-    display: none;
-  }
-
+const Box = styled.div`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
@@ -48,6 +37,10 @@ const Box = styled.header`
   z-index: 9999;
   padding: 19px 0;
 
+  button {
+    cursor: pointer;
+  }
+
   .logo {
     img {
       width: 240px;
@@ -56,7 +49,6 @@ const Box = styled.header`
 
     display: flex;
     padding-top: 7px;
-    cursor: pointer;
   }
 
   .nav-bar {
@@ -75,7 +67,7 @@ const Box = styled.header`
       align-items: center;
     }
 
-    a {
+    .navigation button {
       text-align: center;
       cursor: pointer;
       display: inline-block;
@@ -150,9 +142,11 @@ const Box = styled.header`
   }
 
   @media only screen and (max-width: 992px) {
-    position: fixed;
     text-align: center;
     padding: 11px 0;
+    position: fixed;
+    background-color: #17234a !important;
+
     > div {
       .logo img {
         width: 180px;
@@ -161,7 +155,6 @@ const Box = styled.header`
 
     .navbar-toggler {
       text-align: right;
-      display: inline-block;
       color: #fff;
     }
 
@@ -175,7 +168,6 @@ const Box = styled.header`
         margin: 0;
       }
 
-      a,
       button {
         min-height: 40px;
         display: flex;
@@ -191,9 +183,34 @@ const Box = styled.header`
   }
 `;
 
+const Wrapper = styled.header`
+  .scroll {
+    position: fixed;
+    background-color: rgba(9, 17, 40, 0.9);
+    animation: header 1s;
+
+    @keyframes header {
+      0% {
+        transform: translate(0px, -180px);
+      }
+      100% {
+        transform: translate(0, 0px);
+      }
+    }
+
+    padding: 5px 0;
+    > div .logo {
+      img {
+        width: 180px !important;
+      }
+    }
+  }
+`;
+
 class Header extends React.PureComponent {
   state = {
     showModalPlatformDeveloping: false,
+    togglerId: 'navbartogglerId',
   };
 
   showModalPlatformDeveloping = e => {
@@ -212,90 +229,117 @@ class Header extends React.PureComponent {
     this.setState({ showModalPlatformDeveloping: false });
   };
 
+  changeLocation = e => {
+    createdHistory.push(routes.home());
+    window.location.hash = `#${e.currentTarget.dataset.hash}`;
+  };
+
+  toggle = () => {
+    const show = window.$(`#${this.state.togglerId}`).hasClass('show');
+    const action = !show ? 'add' : 'remove';
+
+    window.$(`#${this.state.togglerId}`)[`${action}Class`]('show');
+  };
+
   render() {
     return (
-      <Box id={HEADER_ID}>
-        <ModalDialog
-          show={this.state.showModalPlatformDeveloping}
-          closeModal={this.closeModalPlatformDeveloping}
-          customPosition={this.state.customPosition}
-        >
-          <div className="header-modal-dialog">
-            <div className="image-coins">
-              <img src={bgLogin} alt="bgLogin" />
+      <Wrapper>
+        <Box id={HEADER_ID}>
+          <ModalDialog
+            show={this.state.showModalPlatformDeveloping}
+            closeModal={this.closeModalPlatformDeveloping}
+            customPosition={this.state.customPosition}
+          >
+            <div className="header-modal-dialog">
+              <div className="image-coins">
+                <img src={bgLogin} alt="bgLogin" />
+              </div>
+
+              <div>
+                <p className="modal-dialog-message">
+                  <FormattedMessage {...messages.platformUnderDeveloping} />
+                </p>
+                <EmailLandingForm button={messages.getReward} />
+              </div>
             </div>
+          </ModalDialog>
 
-            <div>
-              <p className="modal-dialog-message">
-                <FormattedMessage {...messages.platformUnderDeveloping} />
-              </p>
-              <EmailLandingForm button={messages.getReward} />
-            </div>
-          </div>
-        </ModalDialog>
+          <div className="container">
+            <div className="row">
+              <div className="col-6 col-xl-6 col-lg-4 logo">
+                <button onClick={this.changeLocation} data-hash={FIRST_SCREEN}>
+                  <img src={logo} alt="logo" />
+                </button>
+              </div>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-6 col-xl-6 col-lg-4 logo">
-              <Link to={routes.home()} href={routes.home()}>
-                <img src={bg} alt="logo" />
-              </Link>
-            </div>
+              <button
+                className="col-6 d-inline-block d-lg-none navbar-toggler navbar-dark"
+                type="button"
+                onClick={this.toggle}
+              >
+                <span className="navbar-toggler-icon" />
+              </button>
 
-            <button
-              className="col-6 navbar-toggler navbar-dark"
-              type="button"
-              onClick={toggle}
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-
-            <div className="col-md-12 col-xl-6 col-lg-8 nav-bar" id={togglerId}>
-              <div className="row">
-                <div className="col-md-12 col-lg-7">
-                  <div className="row">
-                    <a
-                      className="col-md-12 col-lg-3"
-                      href={`#${SECOND_SCREEN}`}
-                    >
-                      <FormattedMessage {...messages.about} />
-                    </a>
-                    <a className="col-md-12 col-lg-3" href={`#${THIRD_SCREEN}`}>
-                      <FormattedMessage {...messages.rewards} />
-                    </a>
-                    <a
-                      className="col-md-12 col-lg-3"
-                      href={`#${FOURTH_SCREEN}`}
-                    >
-                      <FormattedMessage {...messages.faq} />
-                    </a>
-                    <a className="col-md-12 col-lg-3" href={`#${FIFTH_SCREEN}`}>
-                      <FormattedMessage {...messages.team} />
-                    </a>
+              <div
+                className="col-md-12 col-xl-6 col-lg-8 nav-bar"
+                id={this.state.togglerId}
+              >
+                <div className="row">
+                  <div className="col-md-12 col-lg-7">
+                    <div className="row navigation">
+                      <button
+                        className="col-md-12 col-lg-3"
+                        onClick={this.changeLocation}
+                        data-hash={SECOND_SCREEN}
+                      >
+                        <FormattedMessage {...messages.about} />
+                      </button>
+                      <button
+                        className="col-md-12 col-lg-3"
+                        onClick={this.changeLocation}
+                        data-hash={THIRD_SCREEN}
+                      >
+                        <FormattedMessage {...messages.rewards} />
+                      </button>
+                      <button
+                        className="col-md-12 col-lg-3"
+                        onClick={this.changeLocation}
+                        data-hash={FOURTH_SCREEN}
+                      >
+                        <FormattedMessage {...messages.faq} />
+                      </button>
+                      <button
+                        className="col-md-12 col-lg-3"
+                        onClick={this.changeLocation}
+                        data-hash={FIFTH_SCREEN}
+                      >
+                        <FormattedMessage {...messages.team} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-12 col-lg-5">
-                  <div className="row">
-                    <button
-                      className="col-md-12 col-lg-6 log-in-button"
-                      onClick={this.showModalPlatformDeveloping}
-                    >
-                      <img src={login} alt="login" />
-                      <FormattedMessage {...messages.login} />
-                    </button>
-                    <button
-                      className="col-md-12 col-lg-6 sign-up-button"
-                      onClick={this.showModalPlatformDeveloping}
-                    >
-                      <FormattedMessage {...messages.signUpFree} />
-                    </button>
+                  <div className="col-md-12 col-lg-5">
+                    <div className="row">
+                      <button
+                        className="col-md-12 col-lg-6 log-in-button"
+                        onClick={this.showModalPlatformDeveloping}
+                      >
+                        <img src={login} alt="login" />
+                        <FormattedMessage {...messages.login} />
+                      </button>
+                      <button
+                        className="col-md-12 col-lg-6 sign-up-button"
+                        onClick={this.showModalPlatformDeveloping}
+                      >
+                        <FormattedMessage {...messages.signUpFree} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </Box>
+        </Box>
+      </Wrapper>
     );
   }
 }

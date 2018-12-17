@@ -17,20 +17,18 @@ const Box = styled.div`
   position: relative;
   text-align: center;
   background: none;
+  font-size: 16px;
 
   .top-level {
-    font-size: 64px;
+    font-size: 4em;
     line-height: 1.23;
-    letter-spacing: -2.6px;
     padding-top: 100px;
-    font-family: OpenSansBold !important;
   }
 
-  .middle-level {
-    padding: 43px 64px 58px 64px;
-    font-size: 24px;
-    line-height: 1.42;
-    letter-spacing: -1px;
+  .special-paragraph {
+    font-size: 1.5em;
+    padding-top: 43px;
+    padding-bottom: 58px;
   }
 
   form {
@@ -47,18 +45,20 @@ const Box = styled.div`
     }
   }
 
+  .icon-down {
+    padding-top: 95px;
+  }
+
   @media only screen and (max-width: 992px) {
+    font-size: 12px;
+
     .top-level {
-      font-size: 48px;
+      padding-top: 0;
     }
+  }
 
-    .middle-level {
-      font-size: 21px;
-    }
-
-    .icon-down {
-      display: none;
-    }
+  @media only screen and (max-width: 560px) {
+    font-size: 10px;
   }
 `;
 
@@ -66,7 +66,6 @@ const Icon = styled.a`
   position: relative;
   color: #fff;
   font-size: 36px;
-  padding-top: 95px;
   cursor: pointer;
 
   animation: pulse 2s infinite;
@@ -91,7 +90,7 @@ const Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 992px) {
-    height: 100vh;
+    height: 100vmax;
   }
 `;
 
@@ -112,22 +111,31 @@ const Introduction = () => (
     <Header />
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
-        <Box className="col-lg-9 jumbotron jumbotron-fluid first-screen-banner">
-          <h1 className="top-level">
-            <FormattedMessage {...messages.knowledgeSharingEconomy} />
-          </h1>
-          <h3 className="middle-level">
-            <FormattedMessage {...messages.weAreDecentralized} />
-          </h3>
-          <div className="col-10 col-md-6 col-lg-7 bottom-level mx-auto">
-            <div className="row">
+        <Box className="col-lg-12 first-screen-banner">
+          <div className="row justify-content-center">
+            <h1 className="col-12 col-lg-10 top-level">
+              <FormattedMessage {...messages.knowledgeSharingEconomy} />
+            </h1>
+          </div>
+
+          <div className="row justify-content-center">
+            <p className="col-12 col-lg-8 special-paragraph">
+              <FormattedMessage {...messages.weAreDecentralized} />
+            </p>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
               <EmailLandingForm button={messages.getStarted} />
             </div>
           </div>
-          <div className="row w-100 justify-content-center icon-down">
-            <Icon href={`#${SECOND_SCREEN}`}>
-              <img src={arrowDown} alt="arrowDown" />
-            </Icon>
+
+          <div className="row justify-content-center d-none d-lg-block">
+            <div className="col-12 justify-content-center icon-down">
+              <Icon href={`#${SECOND_SCREEN}`}>
+                <img src={arrowDown} alt="arrowDown" />
+              </Icon>
+            </div>
           </div>
         </Box>
       </div>

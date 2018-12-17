@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { addToast } from 'containers/Toast/actions';
 
-import Landing from './Landing';
 import Footer from './Footer';
 import Introduction from './Introduction';
 import About from './About';
@@ -39,7 +38,21 @@ class HomePage extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { hash } = window.location;
     const banner = window.$(`#${LANDING_ID}`);
+
+    /*
+     * Scroll to hash element
+     */
+
+    if (hash) {
+      window.$$('html, body').animate(
+        {
+          scrollTop: window.$(hash).offset().top,
+        },
+        250,
+      );
+    }
 
     if (banner.length) {
       const patterns = banner.find('.pattern');
@@ -72,14 +85,15 @@ class HomePage extends React.PureComponent {
           animatedImagesArray.each(function() {
             const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
             const translatorMax = 50;
-            const step = translatorMax * 0.25;
+            const step = translatorMax * 0.15;
 
             const matrix = window
               .$(this)
               .css('transform')
               .replace(/[^0-9\-.,]/g, '')
               .split(',');
-            const translateY = +(matrix[13] || matrix[5]);
+
+            const translateY = +(matrix[13] || matrix[5]) || 0;
 
             if (Math.abs(direction * step + translateY) < translatorMax) {
               window.$(this).css({
@@ -161,7 +175,7 @@ class HomePage extends React.PureComponent {
     const translations = translationMessages[this.props.locale];
 
     return (
-      <Landing id={LANDING_ID}>
+      <div id={LANDING_ID}>
         <Helmet>
           <title>{translations[messages.title.id]}</title>
           <meta
@@ -176,7 +190,7 @@ class HomePage extends React.PureComponent {
         <FaqMain translations={translations} questionsNumber={6} />
         <Team translations={translations} />
         <Footer />
-      </Landing>
+      </div>
     );
   }
 }

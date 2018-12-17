@@ -1,98 +1,97 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
 
-import * as plus from 'images/Plus.png';
-import * as minus from 'images/Minus.png';
-import * as arrRight from 'images/arrRight.svg';
+import plus from 'images/Plus.png';
+import minus from 'images/Minus.png';
+import arrRight from 'images/arrRight.svg';
 
 import { FOURTH_SCREEN } from './constants';
 import messages from './messages';
 
-const Box = styled.section`
-  padding-top: 60px;
-  padding-bottom: 126px;
-  background-color: #fff;
+import Section from './Section';
 
-  .fourth-screen-faq {
-    .card {
-      border: none;
+const Box = Section.extend`
+  .card {
+    border: none;
 
-      .card-header {
-        background: transparent;
+    .card-header {
+      background: transparent;
+      padding-left: 0;
+      padding-right: 0;
 
-        button {
-          display: flex;
-          align-items: center;
-          text-align: left;
-          outline: none;
-          font-size: 30px;
-          color: #282828;
-          font-family: OpenSansBold !important;
-          line-height: 1.33;
-          letter-spacing: -1.2px;
-          padding: 10px 0;
-          cursor: pointer;
+      button {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        outline: none;
+        color: #282828;
+        line-height: 1.33;
+        padding: 10px 0;
+        cursor: pointer;
 
+        .icon {
+          background-size: cover;
+          min-width: 30px;
+          width: 30px;
+          height: 30px;
+          margin: 3px 15px 0 0;
+          display: inline-block;
+          transition: 0.5s;
+        }
+      }
+
+      button[aria-expanded='true'] .icon.icon-collapse {
+        background: url(${minus}) no-repeat;
+      }
+
+      button[aria-expanded='false'] {
+        .icon.icon-collapse {
+          background: url(${plus}) no-repeat;
+        }
+
+        :hover {
+          color: #5c78d7;
           .icon {
-            background-size: cover;
-            min-width: 30px;
-            width: 30px;
-            height: 30px;
-            margin: 3px 15px 0 0;
-            display: inline-block;
-            transition: 0.5s;
-          }
-        }
-
-        button[aria-expanded='true'] .icon.icon-collapse {
-          background: url(${minus}) no-repeat;
-        }
-
-        button[aria-expanded='false'] {
-          .icon.icon-collapse {
-            background: url(${plus}) no-repeat;
-          }
-
-          :hover {
-            color: #5c78d7;
-            .icon {
-              transform: rotate(90deg);
-            }
-          }
-        }
-
-        button.get-more-answers {
-          .icon {
-            transition: 0.5s;
-            height: 15px !important;
-            wudth: 15px !important;
-          }
-
-          :hover {
-            color: #f76e5f;
-            .icon {
-              transform: translate(10px, 0px);
-            }
+            transform: rotate(90deg);
           }
         }
       }
 
-      .card-body {
-        font-family: OpenSans;
-        padding-left: 3rem;
+      button.get-more-answers {
+        .icon {
+          transition: 0.5s;
+          height: 15px !important;
+          wudth: 15px !important;
+        }
+
+        :hover {
+          color: #f76e5f;
+          .icon {
+            transform: translate(10px, 0px);
+          }
+        }
       }
     }
 
-    .card.get-more-answers .card-header {
-      border: none;
-      button {
-        color: #fa8072 !important;
-      }
+    .card-body {
+      padding-left: 3rem;
+    }
+  }
+
+  .card.get-more-answers .card-header {
+    border: none;
+    button {
+      color: #fa8072 !important;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .card h3 {
+      font-size: 2.5em;
     }
   }
 `;
@@ -159,9 +158,9 @@ const Question = ({ header, body }) => (
           aria-controls={`collapse${header}`}
         >
           <span className="icon icon-collapse" />
-          <span className="text">
+          <h3 className="text">
             <FormattedMessage {...messages[header]} />
-          </span>
+          </h3>
         </button>
       </div>
       <div
@@ -187,7 +186,7 @@ const FaqMain = ({ questionsNumber }) => (
   <Box id={FOURTH_SCREEN}>
     <div className="container">
       <div className="row">
-        <div className="col-lg-12 fourth-screen-faq" id="accordion">
+        <div className="col-12 fourth-screen-faq" id="accordion">
           <Questions questionsNumber={questionsNumber} />
           <div className="card get-more-answers">
             <div className="card-header">
@@ -199,9 +198,9 @@ const FaqMain = ({ questionsNumber }) => (
                       src={arrRight}
                       alt="arrRight"
                     />
-                    <span className="text">
+                    <h3 className="text">
                       <FormattedMessage {...messages.getMoreAnswers} />
-                    </span>
+                    </h3>
                   </button>
                 </Link>
               </div>

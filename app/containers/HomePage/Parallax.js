@@ -1,24 +1,16 @@
-import styled from 'styled-components';
+import bg from 'images/BG_main.jpg';
+import animatedBG1 from 'images/Paralax_01.svg';
+import animatedBG2 from 'images/Paralax_02.svg';
+import animatedBG3 from 'images/Paralax_03.svg';
 
-import * as bg from 'images/BG_main.jpg';
-import * as animatedBG1 from 'images/Paralax_01.svg';
-import * as animatedBG2 from 'images/Paralax_02.svg';
-import * as animatedBG3 from 'images/Paralax_03.svg';
+import Section from './Section';
 
-import { FIRST_SCREEN } from './constants';
-
-const choice = {
-  [FIRST_SCREEN]: {
-    height: '100vh',
-    animatedBG: animatedBG1,
-  },
-};
-
-const Parallax = styled.section`
+const Parallax = Section.extend`
   position: relative;
-  height: ${props => choice[props.id].height};
+  height: 100vh;
   background: url(${bg}) no-repeat;
   background-size: cover;
+  padding: 0;
 
   .layers {
     overflow: hidden;
@@ -47,7 +39,7 @@ const Parallax = styled.section`
     }
 
     & .pattern-1 .inner {
-      background: url(${props => choice[props.id].animatedBG});
+      background: url(${animatedBG1});
       background-size: 100%;
       opacity: 0.7;
       animation: Floating 10s infinite;
@@ -71,6 +63,8 @@ const Parallax = styled.section`
   }
 
   @media only screen and (max-width: 992px) {
+    height: 100vmax;
+
     & .pattern-1 .inner,
     & .pattern-2 .inner,
     & .pattern-3 .inner {

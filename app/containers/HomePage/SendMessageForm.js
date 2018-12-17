@@ -10,11 +10,9 @@ import {
   strLength20,
 } from 'components/FormFields/validate';
 
-import {
-  FloatingLabelInput,
-  ContainedButton,
-  SelectItem,
-} from './CustomComponents';
+import FloatingLabelInput from './FloatingLabelInput';
+import ContainedButton from './ContainedButton';
+import SelectItem from './SelectItem';
 
 import HomePage from './index';
 

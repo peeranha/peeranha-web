@@ -5,7 +5,8 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import { validateEmail } from 'components/FormFields/validate';
 
-import { DefaultInput, ContainedButton } from './CustomComponents';
+import DefaultInput from './DefaultInput';
+import ContainedButton from './ContainedButton';
 import HomePage from './index';
 
 import { EMAIL_FIELD } from './constants';
