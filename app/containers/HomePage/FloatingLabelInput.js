@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   }
 
   .floating-label-input {
-    height: 48px;
+    height: ${props => (props.multiline ? 'auto' : '48px')};
     width: 100%;
 
     * ::after {
@@ -85,11 +85,14 @@ export const FloatingLabelInput = ({
   input,
   label,
   disabled,
+  multiline,
   meta: { touched, error, warning },
 }) => (
-  <Wrapper className="floating-label-input-wrapper">
+  <Wrapper className="floating-label-input-wrapper" multiline={multiline}>
     <TextField
       {...input}
+      multiline={multiline}
+      rowsMax="10"
       className="floating-label-input"
       label={label}
       disabled={disabled}
@@ -107,6 +110,7 @@ FloatingLabelInput.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
+  multiline: PropTypes.bool,
   label: PropTypes.string,
 };
 

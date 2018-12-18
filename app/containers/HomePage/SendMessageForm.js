@@ -60,6 +60,7 @@ const SendMessageForm = props => {
         />
         <Field
           name={MESSAGE_FIELD}
+          multiline
           label={<FormattedMessage {...messages.message} />}
           component={FloatingLabelInput}
           validate={[strLength20x100, required]}

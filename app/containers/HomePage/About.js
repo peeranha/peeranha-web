@@ -12,7 +12,7 @@ import profitableAndModern from 'images/3.png';
 import worthyAndPrestig from 'images/4.png';
 import honorableAndFascinating from 'images/5.png';
 
-import { SECOND_SCREEN, ANIMATE_IMAGE } from './constants';
+import { SECOND_SCREEN, ANIMATE_IMAGE, ANIMATE_TEXT } from './constants';
 import messages from './messages';
 
 import Section from './Section';
@@ -21,7 +21,6 @@ import Gradient from './Gradient';
 const Box = Section.extend`
   scroll-behavior: smooth;
   text-align: center;
-  background-color: #fff;
 
   .second-screen-header {
     padding-bottom: 81px;
@@ -29,11 +28,16 @@ const Box = Section.extend`
 
   .main-difference {
     padding-bottom: 170px;
+    background: transparent;
 
     li {
       letter-spacing: -0.7px;
       font-size: 18px;
       color: #282828;
+
+      * {
+        background: transparent;
+      }
 
       .card {
         border: none;
@@ -49,18 +53,17 @@ const Box = Section.extend`
       .item-title {
         font-size: 18px;
         padding: 31px 0 26px 0;
-        font-family: OpenSansBold !important;
       }
 
       .item-content {
         font-size: 18px;
-        font-family: OpenSans;
         padding: 0 3.25rem;
       }
     }
   }
 
   .second-screen-elements .list-items {
+    background: #fff;
     li:nth-child(even) {
       .block1 {
         order: 2;
@@ -72,6 +75,10 @@ const Box = Section.extend`
           padding: 0 55px 0 35px;
         }
       }
+    }
+
+    .${ANIMATE_IMAGE}, .${ANIMATE_TEXT} {
+      transition: 1.5s;
     }
 
     li {
@@ -103,7 +110,6 @@ const Box = Section.extend`
           width: 90%;
           position: relative;
           transform: translate(0, 0);
-          transition: 1.5s;
         }
       }
 
@@ -246,7 +252,7 @@ const About = () => (
                   />
                 </div>
                 <div className="col-lg-6 block2">
-                  <div className="row">
+                  <div className={`row ${ANIMATE_TEXT}`}>
                     <h5 className="col-lg-12 text-1">
                       <FormattedMessage {...messages.simpleAndAffordable} />
                     </h5>
@@ -276,7 +282,7 @@ const About = () => (
                   />
                 </div>
                 <div className="col-lg-6 block2">
-                  <div className="row">
+                  <div className={`row ${ANIMATE_TEXT}`}>
                     <h5 className="col-lg-12 text-1">
                       <FormattedMessage {...messages.helpfulAndGenerous} />
                     </h5>
@@ -303,7 +309,7 @@ const About = () => (
                   />
                 </div>
                 <div className="col-lg-6 block2">
-                  <div className="row">
+                  <div className={`row ${ANIMATE_TEXT}`}>
                     <h5 className="col-lg-12 text-1">
                       <FormattedMessage {...messages.profitableAndModern} />
                     </h5>
@@ -335,7 +341,7 @@ const About = () => (
                   />
                 </div>
                 <div className="col-lg-6 block2">
-                  <div className="row">
+                  <div className={`row ${ANIMATE_TEXT}`}>
                     <h5 className="col-lg-12 text-1">
                       <FormattedMessage {...messages.worthyAndPrestig} />
                     </h5>
@@ -354,7 +360,7 @@ const About = () => (
             </li>
             <li className="col-lg-12">
               <div className="row">
-                <div className="d-none d-md-block col-lg-6">
+                <div className="d-none d-md-block col-lg-6 block1">
                   <img
                     className={ANIMATE_IMAGE}
                     src={honorableAndFascinating}
@@ -362,7 +368,7 @@ const About = () => (
                   />
                 </div>
                 <div className="col-lg-6 block2">
-                  <div className="row">
+                  <div className={`row ${ANIMATE_TEXT}`}>
                     <h5 className="col-lg-12 text-1">
                       <FormattedMessage {...messages.honorableAndFascinating} />
                     </h5>

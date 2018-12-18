@@ -17,18 +17,21 @@ const Section = styled.section`
     font-size: 45px;
     line-height: 55px;
     font-family: OpenSansBold;
+    letter-spacing: -1.8px;
   }
 
   h3 {
     font-size: 30px;
     line-height: 40px;
     font-family: OpenSansBold;
+    letter-spacing: -1.3px;
   }
 
   h4 {
     font-size: 16px;
     line-height: 26px;
     font-family: OpenSansBold;
+    letter-spacing: -1px;
   }
 
   p {

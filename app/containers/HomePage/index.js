@@ -24,6 +24,7 @@ import {
   HEADER_ID,
   LANDING_ID,
   ANIMATE_IMAGE,
+  ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
 } from './constants';
@@ -46,7 +47,7 @@ class HomePage extends React.PureComponent {
      */
 
     if (hash) {
-      window.$$('html, body').animate(
+      window.$('html, body').animate(
         {
           scrollTop: window.$(hash).offset().top,
         },
@@ -75,7 +76,6 @@ class HomePage extends React.PureComponent {
 
       window.$(window).on('DOMMouseScroll mousewheel', event => {
         const { scrollY } = event.currentTarget;
-
         const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
         const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
 
@@ -84,7 +84,7 @@ class HomePage extends React.PureComponent {
         if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
           animatedImagesArray.each(function() {
             const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
-            const translatorMax = 50;
+            const translatorMax = 30;
             const step = translatorMax * 0.15;
 
             const matrix = window
@@ -94,11 +94,31 @@ class HomePage extends React.PureComponent {
               .split(',');
 
             const translateY = +(matrix[13] || matrix[5]) || 0;
+            const imageY = window.$(this).offset().top;
 
-            if (Math.abs(direction * step + translateY) < translatorMax) {
-              window.$(this).css({
-                transform: `translate(0px, ${direction * step + translateY}px)`,
-              });
+            // Check if image is in area of scrolling
+            if (
+              scrollY + window.innerHeight / 2 > imageY &&
+              scrollY - window.innerHeight / 2 < imageY
+            ) {
+              if (Math.abs(direction * step + translateY) < translatorMax) {
+                // Image translating
+                window.$(this).css({
+                  transform: `translate(0px, ${direction * step +
+                    translateY}px)`,
+                });
+
+                // Text translating
+                window
+                  .$(this)
+                  .parent()
+                  .parent()
+                  .find(`.${ANIMATE_TEXT}`)
+                  .css({
+                    transform: `translate(0px, ${-direction * step -
+                      translateY}px)`,
+                  });
+              }
             }
           });
         }
