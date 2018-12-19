@@ -40,6 +40,9 @@ import configureStore from './configureStore';
 import createdHistory from './createdHistory';
 import './icons-config';
 
+// Import Analytics
+import './analytics';
+
 // Import i18n messages
 import { translationMessages } from './i18n';
 

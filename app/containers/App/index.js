@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
@@ -44,6 +45,8 @@ const Wrapper = (WrappedComp, props) => [
 ];
 
 export default function App() {
+  ReactGA.pageview(window.location.pathname);
+
   return (
     <div>
       <Toast />
