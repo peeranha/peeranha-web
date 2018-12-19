@@ -17,11 +17,13 @@ import {
 
 import messages from './messages';
 
-export function* sendEmailWorker({ formData }) {
+export function* sendEmailWorker({ formData, reset }) {
   const locale = yield select(makeSelectLocale());
 
   try {
     yield call(() => sendEmail(formData));
+
+    yield call(() => reset());
 
     yield put(
       addToast({
@@ -43,11 +45,13 @@ export function* sendEmailWorker({ formData }) {
   }
 }
 
-export function* sendMessageWorker({ formData }) {
+export function* sendMessageWorker({ formData, reset }) {
   const locale = yield select(makeSelectLocale());
 
   try {
     yield call(() => sendMessage(formData));
+
+    yield call(() => reset());
 
     yield put(
       addToast({

@@ -177,14 +177,16 @@ class HomePage extends React.PureComponent {
   }
 
   static sendEmail = (...args) => {
+    const { reset } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
     };
 
-    HomePage.props.sendEmailDispatch(formData);
+    HomePage.props.sendEmailDispatch(formData, reset);
   };
 
   static sendMessage = (...args) => {
+    const { reset } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
       firstname: args[0].get(NAME_FIELD),
@@ -192,7 +194,7 @@ class HomePage extends React.PureComponent {
       message: args[0].get(MESSAGE_FIELD),
     };
 
-    HomePage.props.sendMessageDispatch(formData);
+    HomePage.props.sendMessageDispatch(formData, reset);
   };
 
   render() {
@@ -243,8 +245,10 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    sendEmailDispatch: formData => dispatch(sendEmail(formData)),
-    sendMessageDispatch: formData => dispatch(sendMessage(formData)),
+    sendEmailDispatch: (formData, reset) =>
+      dispatch(sendEmail(formData, reset)),
+    sendMessageDispatch: (formData, reset) =>
+      dispatch(sendMessage(formData, reset)),
   };
 }
 

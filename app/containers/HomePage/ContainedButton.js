@@ -24,6 +24,11 @@ const Wrapper = styled.div`
     :hover {
       background-color: #fc6655;
     }
+
+    :disabled {
+      background-color: #9b9b9b !important;
+      color: #fff;
+    }
   }
 `;
 
