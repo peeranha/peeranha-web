@@ -4,14 +4,21 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { addToast } from 'containers/Toast/actions';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+
+import reducer from './reducer';
+import saga from './saga';
+import * as homepageSelectors from './selectors';
 
 import Footer from './Footer';
 import Introduction from './Introduction';
@@ -27,7 +34,13 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
+  EMAIL_FIELD,
+  NAME_FIELD,
+  SUBJECT_FIELD,
+  MESSAGE_FIELD,
 } from './constants';
+
+import { sendEmail, sendMessage } from './actions';
 
 import messages from './messages';
 
@@ -164,31 +177,22 @@ class HomePage extends React.PureComponent {
   }
 
   static sendEmail = (...args) => {
-    const toast = {
-      type: 'error',
-      text:
-        translationMessages[HomePage.props.locale][
-          messages.messageHasNotBeenSent.id
-        ],
+    const formData = {
+      email: args[0].get(EMAIL_FIELD),
     };
 
-    console.log(args);
-
-    HomePage.props.addToastDispatch(toast);
+    HomePage.props.sendEmailDispatch(formData);
   };
 
   static sendMessage = (...args) => {
-    const toast = {
-      type: 'error',
-      text:
-        translationMessages[HomePage.props.locale][
-          messages.messageHasNotBeenSent.id
-        ],
+    const formData = {
+      email: args[0].get(EMAIL_FIELD),
+      firstname: args[0].get(NAME_FIELD),
+      lastname: args[0].get(SUBJECT_FIELD),
+      message: args[0].get(MESSAGE_FIELD),
     };
 
-    console.log(args);
-
-    HomePage.props.addToastDispatch(toast);
+    HomePage.props.sendMessageDispatch(formData);
   };
 
   render() {
@@ -204,11 +208,20 @@ class HomePage extends React.PureComponent {
           />
         </Helmet>
 
-        <Introduction translations={translations} />
+        <Introduction
+          sendEmailLoading={this.props.sendEmailLoading}
+          translations={translations}
+        />
         <About translations={translations} />
-        <Rewards translations={translations} />
+        <Rewards
+          translations={translations}
+          sendEmailLoading={this.props.sendEmailLoading}
+        />
         <FaqMain translations={translations} questionsNumber={6} />
-        <Team translations={translations} />
+        <Team
+          translations={translations}
+          sendMessageLoading={this.props.sendMessageLoading}
+        />
         <Footer />
       </div>
     );
@@ -217,20 +230,34 @@ class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   locale: PropTypes.string,
+  sendEmailLoading: PropTypes.bool,
+  sendMessageLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
+  sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    addToastDispatch: toast => dispatch(addToast(toast)),
+    sendEmailDispatch: formData => dispatch(sendEmail(formData)),
+    sendMessageDispatch: formData => dispatch(sendMessage(formData)),
   };
 }
 
-export default connect(
+const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'homepage', reducer });
+const withSaga = injectSaga({ key: 'homepage', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
 )(HomePage);

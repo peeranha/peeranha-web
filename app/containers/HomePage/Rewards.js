@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import bg from 'images/BG_Rewards.jpg';
@@ -43,7 +44,7 @@ const Box = Section.extend`
   }
 `;
 
-const Rewards = () => (
+const Rewards = ({ sendEmailLoading }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -62,7 +63,10 @@ const Rewards = () => (
 
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
-              <EmailLandingForm button={messages.getReward} />
+              <EmailLandingForm
+                button={messages.getReward}
+                sendEmailLoading={sendEmailLoading}
+              />
             </div>
           </div>
         </div>
@@ -70,5 +74,9 @@ const Rewards = () => (
     </div>
   </Box>
 );
+
+Rewards.propTypes = {
+  sendEmailLoading: PropTypes.bool,
+};
 
 export default Rewards;

@@ -12,12 +12,13 @@ import HomePage from './index';
 import { EMAIL_FIELD } from './constants';
 
 const EmailLandingForm = props => {
-  const { handleSubmit, button } = props;
+  const { handleSubmit, button, sendEmailLoading } = props;
 
   return (
     <form onSubmit={handleSubmit(HomePage.sendEmail)}>
       <div>
         <Field
+          disabled={sendEmailLoading}
           name={EMAIL_FIELD}
           component={DefaultInput}
           validate={[validateEmail]}
@@ -27,6 +28,7 @@ const EmailLandingForm = props => {
       <div>
         <ContainedButton
           type="submit"
+          disabled={sendEmailLoading}
           content={<FormattedMessage {...button} />}
         />
       </div>
@@ -39,6 +41,7 @@ EmailLandingForm.propTypes = {
   change: PropTypes.func,
   translations: PropTypes.object,
   button: PropTypes.object,
+  sendEmailLoading: PropTypes.bool,
 };
 
 export default reduxForm({

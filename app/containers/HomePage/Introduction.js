@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -94,7 +95,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Introduction = () => (
+const Introduction = ({ sendEmailLoading }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -108,7 +109,7 @@ const Introduction = () => (
       </div>
     </div>
 
-    <Header />
+    <Header sendEmailLoading={sendEmailLoading} />
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
         <Box className="col-lg-12 first-screen-banner">
@@ -126,7 +127,10 @@ const Introduction = () => (
 
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
-              <EmailLandingForm button={messages.getStarted} />
+              <EmailLandingForm
+                button={messages.getStarted}
+                sendEmailLoading={sendEmailLoading}
+              />
             </div>
           </div>
 
@@ -142,5 +146,9 @@ const Introduction = () => (
     </Wrapper>
   </Parallax>
 );
+
+Introduction.propTypes = {
+  sendEmailLoading: PropTypes.bool,
+};
 
 export default Introduction;

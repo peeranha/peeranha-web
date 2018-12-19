@@ -13,3 +13,11 @@ export const EMAIL_FIELD = 'containers_homepage_email';
 export const NAME_FIELD = 'containers_homepage_name';
 export const SUBJECT_FIELD = 'containers_homepage_subject';
 export const MESSAGE_FIELD = 'containers_homepage_message';
+
+export const SEND_EMAIL = 'containers_homepage_SEND_EMAIL';
+export const SEND_EMAIL_SUCCESS = 'containers_homepage_SEND_EMAIL_SUCCESS';
+export const SEND_EMAIL_ERROR = 'containers_homepage_SEND_EMAIL_ERROR';
+
+export const SEND_MESSAGE = 'containers_homepage_SEND_MESSAGE';
+export const SEND_MESSAGE_SUCCESS = 'containers_homepage_SEND_MESSAGE_SUCCESS';
+export const SEND_MESSAGE_ERROR = 'containers_homepage_SEND_MESSAGE_ERROR';

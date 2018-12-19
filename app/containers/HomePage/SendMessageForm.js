@@ -26,13 +26,14 @@ import {
 import messages from './messages';
 
 const SendMessageForm = props => {
-  const { handleSubmit, change, translations } = props;
+  const { handleSubmit, change, translations, sendMessageLoading } = props;
 
   return (
     <form onSubmit={handleSubmit(HomePage.sendMessage)} autoComplete="off">
       <div>
         <Field
           name={NAME_FIELD}
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.yourName} />}
           component={FloatingLabelInput}
           validate={[strLength20, required]}
@@ -40,12 +41,14 @@ const SendMessageForm = props => {
         />
         <Field
           name={EMAIL_FIELD}
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.email} />}
           component={FloatingLabelInput}
           validate={[validateEmail, required]}
           warn={[validateEmail, required]}
         />
         <Field
+          disabled={sendMessageLoading}
           change={change}
           name={SUBJECT_FIELD}
           items={[
@@ -61,6 +64,7 @@ const SendMessageForm = props => {
         <Field
           name={MESSAGE_FIELD}
           multiline
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.message} />}
           component={FloatingLabelInput}
           validate={[strLength20x100, required]}
@@ -70,6 +74,7 @@ const SendMessageForm = props => {
       <div className="button-submit-wrapper">
         <ContainedButton
           type="submit"
+          disabled={sendMessageLoading}
           content={<FormattedMessage {...messages.sendMessage} />}
         />
       </div>
@@ -81,6 +86,7 @@ SendMessageForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   translations: PropTypes.object,
+  sendMessageLoading: PropTypes.bool,
 };
 
 export default reduxForm({

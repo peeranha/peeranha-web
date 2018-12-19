@@ -133,7 +133,7 @@ const Box = Section.extend`
   }
 `;
 
-const Team = ({ translations }) => (
+const Team = ({ translations, sendMessageLoading }) => (
   <Gradient position="top">
     <Box id={FIFTH_SCREEN}>
       <div className="container">
@@ -203,7 +203,10 @@ const Team = ({ translations }) => (
               </div>
 
               <div className="col-10 col-lg-5 send-message-form">
-                <SendMessageForm translations={translations} />
+                <SendMessageForm
+                  translations={translations}
+                  sendMessageLoading={sendMessageLoading}
+                />
                 <a
                   className="icon-arrow-up d-none d-xl-flex"
                   href={`#${FIRST_SCREEN}`}
@@ -221,6 +224,7 @@ const Team = ({ translations }) => (
 
 Team.propTypes = {
   translations: PropTypes.object,
+  sendMessageLoading: PropTypes.bool,
 };
 
 export default Team;

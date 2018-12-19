@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -259,7 +260,10 @@ class Header extends React.PureComponent {
                 <p className="modal-dialog-message">
                   <FormattedMessage {...messages.platformUnderDeveloping} />
                 </p>
-                <EmailLandingForm button={messages.getReward} />
+                <EmailLandingForm
+                  button={messages.getReward}
+                  sendEmailLoading={this.props.sendEmailLoading}
+                />
               </div>
             </div>
           </ModalDialog>
@@ -343,5 +347,9 @@ class Header extends React.PureComponent {
     );
   }
 }
+
+Header.propTypes = {
+  sendEmailLoading: PropTypes.bool,
+};
 
 export default Header;
