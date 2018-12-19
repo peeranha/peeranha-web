@@ -111,7 +111,7 @@ FloatingLabelInput.propTypes = {
   meta: PropTypes.object,
   disabled: PropTypes.bool,
   multiline: PropTypes.bool,
-  label: PropTypes.string,
+  label: PropTypes.element,
 };
 
 export default FloatingLabelInput;

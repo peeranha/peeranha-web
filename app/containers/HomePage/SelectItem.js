@@ -44,7 +44,11 @@ const SelectItem = ({
       <li onClick={() => change([input.name], '')}>
         <FormattedMessage {...messages.none} />
       </li>
-      {items.map(x => <li onClick={() => change([input.name], x)}>{x}</li>)}
+      {items.map(x => (
+        <li key={x} onClick={() => change([input.name], x)}>
+          {x}
+        </li>
+      ))}
     </ul>
     <h6 className="text-danger">
       {touched &&
@@ -58,7 +62,7 @@ SelectItem.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
-  label: PropTypes.string,
+  label: PropTypes.element,
   change: PropTypes.func,
   items: PropTypes.array,
 };

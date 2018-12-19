@@ -25,7 +25,7 @@ const Toasts = props => (
 
 Toasts.propTypes = {
   location: PropTypes.string,
-  toasts: PropTypes.object,
+  toasts: PropTypes.array,
   removeToast: PropTypes.func,
 };
 
