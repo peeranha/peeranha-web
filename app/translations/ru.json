@@ -1,4 +1,104 @@
 {
+  "app.containers.HomePage.title": "Peerania | Главная",
+  "app.containers.HomePage.description": "Peerania | Описание главной страницы",
+  "app.containers.HomePage.about": "О нас",
+  "app.containers.HomePage.rewards": "Награды",
+  "app.containers.HomePage.faq": "ЧАВО",
+  "app.containers.HomePage.team": "Команда",
+  "app.containers.HomePage.login": "Вход",
+  "app.containers.HomePage.signUpFree": "Регистрация",
+  "app.containers.HomePage.knowledgeSharingEconomy":
+    "Экономика обмена знаниями",
+  "app.containers.HomePage.weAreDecentralized":
+    "Мы - децентрализованная платформа вопросов и ответов для профессиональных сообществ с экономикой, которая платит вкладчикам в криптовалюте",
+  "app.containers.HomePage.getStarted": "Начинай",
+  "app.containers.HomePage.yourEmail": "Ваш email адрес",
+  "app.containers.HomePage.differentThan":
+    "Мы отличаемся от других Вопрос - Ответ сайтов",
+  "app.containers.HomePage.practicalAnswers": "Практические вопросы и ответы",
+  "app.containers.HomePage.sitesAreModerated":
+    "Сайты модерируются сообществом. Разрешены только подробные вопросы и ответы на очень практические вопросы",
+  "app.containers.HomePage.fairEconomy":
+    "Справедливая экономика, в которой пользователям платят",
+  "app.containers.HomePage.postsOnQA":
+    "Посты на Q&A сайтах сохраняют миллионам людей много часов работы. Мы считаем, что пользователи должны получать награду за полезный вклад в сообщество",
+  "app.containers.HomePage.builtOnSmart":
+    "Построено на Смарт контрактах и Блокчейне",
+  "app.containers.HomePage.platformIsDistributed":
+    "Платформа является распределенной, построена на блокчейне и IPFS технологиях. Правила платформы и ее экономика построены на смарт контрактах.",
+  "app.containers.HomePage.simpleAndAffordable": "Простой и доступный",
+  "app.containers.HomePage.getHelp": "Получай помощь и помогай другим",
+  "app.containers.HomePage.askQuestionAndGetHelp":
+    "Задавайте вопросы и получайте помощь от экспертов сообщества, увлеченных этой темой. И помогите тысячам других людей получить ответ на вопрос в считанные минуты вместо часов, благодаря вашему сообщению.",
+  "app.containers.HomePage.helpfulAndGenerous": "Полезный и щедрый",
+  "app.containers.HomePage.shareKnowledge": "Делитесь знаниями",
+  "app.containers.HomePage.helpCommunity":
+    "Помогите сообществу, отвечая на вопросы. Ваш ответ останется для многих других, которым тоже нужен ответ.",
+  "app.containers.HomePage.profitableAndModern": "Доходный и современный",
+  "app.containers.HomePage.getPaidInCrypto": "Получайте крипто токены.",
+  "app.containers.HomePage.getPaidInCryptoFromWeekly":
+    "Получайте оплату в крипто валюте из недельного фонда вознаграждения за свои вклады, задавая и отвечая на вопрос. Токен можно продавать на открытом рынке пользователям, которые хотят рекламировать или размещать вакансии на платформе. Вы по-прежнему оплачиваете свои взносы, пока ваш контент полезен и поддерживается сообществом.",
+  "app.containers.HomePage.worthyAndPrestig": "Достойный и престижный",
+  "app.containers.HomePage.earnReputation": "Зарабатывайте репутацию",
+  "app.containers.HomePage.whetherYouAsk":
+    "Независимо от того, задаете ли вы или отвечаете на вопросы, все вклады учитываются. Зарабатывайте репутацию и заработайте признание в сообществе. Разблокируйте новые привилегии по мере роста вашей репутации.",
+  "app.containers.HomePage.honorableAndFascinating": "Почетный и увлекательный",
+  "app.containers.HomePage.ruleThePlatform": "Управляйте платформой",
+  "app.containers.HomePage.participateInModeration":
+    "Участвуйте в модерации сообщества и помогайте сообществу процветать. Успех сообщества напрямую влияет на стоимость токена на рынке. Предлагайте, голосуйте за или даже создавайте обновления для платформы. Платформа с открытым исходным кодом и децентрализована. Владеет вами и вашим сообществом.",
+  "app.containers.HomePage.beTheFirst":
+    "Стань первым, кто присоединится к нам и заработай в 100 раз больше наград",
+  "app.containers.HomePage.rewardsPool":
+    "Плата вознаграждений распределяется еженедельно между всеми вкладчиками за данную неделю. Члены, которые рано присоединяются, получают более высокие награды, в то время как сообщество растет.",
+  "app.containers.HomePage.getReward": "Получи награду",
+  "app.containers.HomePage.whatIsPeerania": "Что такое Peerania?",
+  "app.containers.HomePage.whatIsPeeraniaCollapsed": "Что такое Peerania?",
+  "app.containers.HomePage.howToCreateAcc": "Как я могу создать аккаунт?",
+  "app.containers.HomePage.howToCreateAccCollapsed":
+    "Как я могу создать аккаунт?",
+  "app.containers.HomePage.howToUpvote":
+    "Как я могу голосовать за вопрос или ответ?",
+  "app.containers.HomePage.howToUpvoteCollapsed":
+    "Как я могу голосовать за вопрос или ответ?",
+  "app.containers.HomePage.whatToPost":
+    "Что могут постить пользователи Peerania?",
+  "app.containers.HomePage.whatToPostCollapsed":
+    "Что могут постить пользователи Peerania?",
+  "app.containers.HomePage.canIEarn":
+    "Могу ли я заработать крипто токены за комментирование?",
+  "app.containers.HomePage.canIEarnCollapsed":
+    "Могу ли я заработать крипто токены за комментирование?",
+  "app.containers.HomePage.whatIsReputation": "Что такое репутация?",
+  "app.containers.HomePage.whatIsReputationCollapsed": "Что такое репутация?",
+  "app.containers.HomePage.getMoreAnswers": "Получи больше ответов",
+  "app.containers.HomePage.ourTeam": "Наша команда",
+  "app.containers.HomePage.weAppreciate":
+    "Мы высоко оцениваем ваши отзывы, мнение и предложения по отношению к платформе. Отправьте нам несколько строк или дайте знать, если у вас есть 15 минут, чтобы пообщаться",
+  "app.containers.HomePage.sergeyIlin": "Сергей Ильин",
+  "app.containers.HomePage.founder": "Основатель",
+  "app.containers.HomePage.nikitaSyr": "Никита Сыроватников",
+  "app.containers.HomePage.backendDev": "Back-end разработчик",
+  "app.containers.HomePage.romRem": "Роман Ремнёв",
+  "app.containers.HomePage.frontendDev": "Front-end разработчик",
+  "app.containers.HomePage.ulyanaPopova": "Ульяна Попова",
+  "app.containers.HomePage.designer": "Дизайнер",
+  "app.containers.HomePage.kateBehey": "Кейт Бэйхи",
+  "app.containers.HomePage.marketing": "Маркетинг",
+  "app.containers.HomePage.yourName": "Ваше имя",
+  "app.containers.HomePage.email": "Емэйл",
+  "app.containers.HomePage.subject": "Субъект",
+  "app.containers.HomePage.message": "Сообщение",
+  "app.containers.HomePage.sendMessage": "Отправьте сообщение",
+  "app.containers.HomePage.platformUnderDeveloping":
+    "Платформа находится в разработке, но Вы можете стать одним из первых и заработать до 100 раз больше.",
+  "app.containers.HomePage.askQuestion": "Задать вопрос",
+  "app.containers.HomePage.review": "Проверить",
+  "app.containers.HomePage.systemError": "Системная ошибка",
+  "app.containers.HomePage.none": "Ничего",
+  "app.containers.HomePage.messageHasNotBeenSent":
+    "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
+  "app.containers.HomePage.yourEmailIsRegistred":
+    "Платформа находится в разработке, но Ваш емэйл зарегистрирован. Мы отправим Вам письмо, когда Вы сможете продолжить регистрацию.",
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
@@ -38,6 +138,7 @@
   "app.containers.FormFields.wrongLength": "Невалидная длина поля",
   "app.containers.FormFields.wrongLength30000": "Превышено количество символов",
   "app.containers.FormFields.fileSize": "Превышен размер файла",
+  "app.containers.FormFields.wrongEmail": "Неверный емэйл",
   "app.components.Footer.header": "Авторские права: Peerania",
   "app.components.Header.home": "Главная",
   "app.components.Header.questions": "Вопросы",

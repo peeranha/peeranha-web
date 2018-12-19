@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { removeToast } from './actions';
-import { BOTTOM_RIGHT } from './constants';
+import { TOP_RIGHT } from './constants';
 import { makeSelectToasts } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,7 +25,7 @@ import Toasts from './Toasts';
 export class Toast extends React.Component {
   constructor(props) {
     super(props);
-    this.location = BOTTOM_RIGHT;
+    this.location = TOP_RIGHT;
   }
 
   removeToast = e => this.props.removeToastDispatch(e.target.dataset.key);

@@ -15,6 +15,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import FaqFull from 'containers/HomePage/FaqFull';
+
 import EditProfilePage from 'containers/EditProfilePage/Loadable';
 import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -33,38 +35,58 @@ import NoAccess from 'components/NoAccess/Loadable';
 
 import * as routes from 'routes-config';
 
+const Wrapper = (WrappedComp, props) => [
+  <Header key="header" />,
+  <div style={{ marginBottom: '100px' }} key="wrappedComp">
+    <WrappedComp {...props} />
+  </div>,
+  <Footer key="footer" />,
+];
+
 export default function App() {
   return (
     <div>
       <Toast />
-      <Header />
       <Switch>
-        <Route exact path={routes.home()} component={HomePage} />
+        <Route exact path={routes.home()} render={() => <HomePage />} />
+        <Route path={routes.faq()} render={() => <FaqFull />} />
         <Route
           exact
           path={routes.profile_view(':id')}
-          component={ViewProfilePage}
+          render={props => Wrapper(ViewProfilePage, props)}
         />
-        <Route path={routes.profile_edit(':id')} component={EditProfilePage} />
-        <Route exact path={routes.questions()} component={Questions} />
-        <Route path={routes.question_ask()} component={AskQuestion} />
+        <Route
+          path={routes.profile_edit(':id')}
+          render={props => Wrapper(EditProfilePage, props)}
+        />
+        <Route
+          exact
+          path={routes.questions()}
+          render={props => Wrapper(Questions, props)}
+        />
+        <Route
+          path={routes.question_ask()}
+          render={props => Wrapper(AskQuestion, props)}
+        />
         <Route
           exact
           path={routes.question_view(':id')}
-          component={ViewQuestion}
+          render={props => Wrapper(ViewQuestion, props)}
         />
         <Route
           path={routes.question_edit(':questionid')}
-          component={EditQuestion}
+          render={props => Wrapper(EditQuestion, props)}
         />
         <Route
           path={routes.answer_edit(':questionid', ':answerid')}
-          component={EditAnswer}
+          render={props => Wrapper(EditAnswer, props)}
         />
-        <Route path={routes.no_access()} component={NoAccess} />
-        <Route component={NotFoundPage} />
+        <Route
+          path={routes.no_access()}
+          render={props => Wrapper(NoAccess, props)}
+        />
+        <Route render={props => Wrapper(NotFoundPage, props)} />
       </Switch>
-      <Footer />
       <SignUp />
       <Login />
     </div>
