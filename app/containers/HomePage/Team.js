@@ -9,7 +9,7 @@ import romRem from 'images/av2.jpg';
 import ulyanaPopova from 'images/av3.jpg';
 import arrowUp from 'images/ArrowUP.svg';
 
-import { FIRST_SCREEN, FIFTH_SCREEN } from './constants';
+import { FIRST_SCREEN, FIFTH_SCREEN, SEND_MESSAGE_FORM } from './constants';
 import messages from './messages';
 
 import SendMessageForm from './SendMessageForm';
@@ -133,7 +133,7 @@ const Box = Section.extend`
   }
 `;
 
-const Team = ({ translations, sendMessageLoading }) => (
+const Team = ({ translations, sendMessageLoading, sendMessage }) => (
   <Gradient position="top">
     <Box id={FIFTH_SCREEN}>
       <div className="container">
@@ -204,7 +204,9 @@ const Team = ({ translations, sendMessageLoading }) => (
 
               <div className="col-10 col-lg-5 send-message-form">
                 <SendMessageForm
+                  form={SEND_MESSAGE_FORM}
                   translations={translations}
+                  sendMessage={sendMessage}
                   sendMessageLoading={sendMessageLoading}
                 />
                 <a
@@ -225,6 +227,7 @@ const Team = ({ translations, sendMessageLoading }) => (
 Team.propTypes = {
   translations: PropTypes.object,
   sendMessageLoading: PropTypes.bool,
+  sendMessage: PropTypes.func,
 };
 
 export default Team;

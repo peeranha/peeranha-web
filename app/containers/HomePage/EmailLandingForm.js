@@ -7,15 +7,14 @@ import { validateEmail } from 'components/FormFields/validate';
 
 import DefaultInput from './DefaultInput';
 import ContainedButton from './ContainedButton';
-import HomePage from './index';
 
 import { EMAIL_FIELD } from './constants';
 
 const EmailLandingForm = props => {
-  const { handleSubmit, button, sendEmailLoading } = props;
+  const { handleSubmit, button, sendEmailLoading, sendEmail } = props;
 
   return (
-    <form onSubmit={handleSubmit(HomePage.sendEmail)}>
+    <form onSubmit={handleSubmit(sendEmail)}>
       <div>
         <Field
           disabled={sendEmailLoading}
@@ -28,7 +27,6 @@ const EmailLandingForm = props => {
       <div>
         <ContainedButton
           type="submit"
-          disabled={sendEmailLoading}
           content={<FormattedMessage {...button} />}
         />
       </div>
@@ -39,11 +37,10 @@ const EmailLandingForm = props => {
 EmailLandingForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
+  sendEmail: PropTypes.func,
   translations: PropTypes.object,
   button: PropTypes.object,
   sendEmailLoading: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: 'EmailLandingForm',
-})(EmailLandingForm);
+export default reduxForm({})(EmailLandingForm);

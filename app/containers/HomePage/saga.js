@@ -17,11 +17,11 @@ import {
 
 import messages from './messages';
 
-export function* sendEmailWorker({ formData, reset }) {
+export function* sendEmailWorker({ formData, reset, pageInfo }) {
   const locale = yield select(makeSelectLocale());
 
   try {
-    yield call(() => sendEmail(formData));
+    yield call(() => sendEmail(formData, pageInfo));
 
     yield call(() => reset());
 
@@ -45,11 +45,11 @@ export function* sendEmailWorker({ formData, reset }) {
   }
 }
 
-export function* sendMessageWorker({ formData, reset }) {
+export function* sendMessageWorker({ formData, reset, pageInfo }) {
   const locale = yield select(makeSelectLocale());
 
   try {
-    yield call(() => sendMessage(formData));
+    yield call(() => sendMessage(formData, pageInfo));
 
     yield call(() => reset());
 

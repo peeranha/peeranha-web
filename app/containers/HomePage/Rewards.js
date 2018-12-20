@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import bg from 'images/BG_Rewards.jpg';
 
-import { THIRD_SCREEN } from './constants';
+import { THIRD_SCREEN, SEND_EMAIL_FORM_C } from './constants';
 import messages from './messages';
 
 import EmailLandingForm from './EmailLandingForm';
@@ -44,7 +44,7 @@ const Box = Section.extend`
   }
 `;
 
-const Rewards = ({ sendEmailLoading }) => (
+const Rewards = ({ sendEmailLoading, sendEmail }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -64,8 +64,10 @@ const Rewards = ({ sendEmailLoading }) => (
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
               <EmailLandingForm
+                form={SEND_EMAIL_FORM_C}
                 button={messages.getReward}
                 sendEmailLoading={sendEmailLoading}
+                sendEmail={sendEmail}
               />
             </div>
           </div>
@@ -77,6 +79,7 @@ const Rewards = ({ sendEmailLoading }) => (
 
 Rewards.propTypes = {
   sendEmailLoading: PropTypes.bool,
+  sendEmail: PropTypes.func,
 };
 
 export default Rewards;

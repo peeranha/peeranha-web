@@ -3,11 +3,9 @@ import {
   HUBSPOT_PORTAL_ID,
   HUBSPOT_SEND_EMAIL_FORM_ID,
   HUBSPOT_SEND_MESSAGE_FORM_ID,
-  HUBSPOT_PAGE_URI,
-  HUBSPOT_PAGE_NAME,
 } from './constants';
 
-export async function sendEmail(formData) {
+export async function sendEmail(formData, pageInfo) {
   const fields = Object.keys(formData).map(name => ({
     name,
     value: formData[name],
@@ -21,8 +19,8 @@ export async function sendEmail(formData) {
       submittedAt: +new Date(),
       fields,
       context: {
-        pageUri: HUBSPOT_PAGE_URI,
-        pageName: HUBSPOT_PAGE_NAME,
+        pageUri: pageInfo.url,
+        pageName: pageInfo.name,
       },
     }),
   });
@@ -30,7 +28,7 @@ export async function sendEmail(formData) {
   return true;
 }
 
-export async function sendMessage(formData) {
+export async function sendMessage(formData, pageInfo) {
   const fields = Object.keys(formData).map(name => ({
     name,
     value: formData[name],
@@ -44,8 +42,8 @@ export async function sendMessage(formData) {
       submittedAt: +new Date(),
       fields,
       context: {
-        pageUri: HUBSPOT_PAGE_URI,
-        pageName: HUBSPOT_PAGE_NAME,
+        pageUri: pageInfo.url,
+        pageName: pageInfo.name,
       },
     }),
   });

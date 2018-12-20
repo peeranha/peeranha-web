@@ -1,6 +1,8 @@
 {
   "app.containers.HomePage.title": "Peerania | Главная",
   "app.containers.HomePage.description": "Peerania | Описание главной страницы",
+  "app.containers.HomePage.faqTitle": "Peerania | ЧАВО",
+  "app.containers.HomePage.faqDescription": "Peerania | ЧАВО Описание",
   "app.containers.HomePage.about": "О нас",
   "app.containers.HomePage.rewards": "Награды",
   "app.containers.HomePage.faq": "ЧАВО",

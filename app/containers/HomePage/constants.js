@@ -9,6 +9,12 @@ export const THIRD_SCREEN = 'fs3';
 export const FOURTH_SCREEN = 'fs4';
 export const FIFTH_SCREEN = 'fs5';
 
+export const SEND_EMAIL_FORM_A = 'containers_homepage_SEND_EMAIL_FORM_A';
+export const SEND_EMAIL_FORM_B = 'containers_homepage_SEND_EMAIL_FORM_B';
+export const SEND_EMAIL_FORM_C = 'containers_homepage_SEND_EMAIL_FORM_C';
+
+export const SEND_MESSAGE_FORM = 'containers_homepage_SEND_MESSAGE_FORM';
+
 export const EMAIL_FIELD = 'containers_homepage_email';
 export const NAME_FIELD = 'containers_homepage_name';
 export const SUBJECT_FIELD = 'containers_homepage_subject';

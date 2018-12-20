@@ -46,5 +46,3 @@ export const HUBSPOT_SEND_EMAIL_FORM_ID =
   '05305f90-6546-4718-88e8-2d2c8e79c00c';
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
   'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
-export const HUBSPOT_PAGE_URI = 'www.example.com/page';
-export const HUBSPOT_PAGE_NAME = 'Example page';

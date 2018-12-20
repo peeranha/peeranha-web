@@ -1,6 +1,8 @@
 {
   "app.containers.HomePage.title": "Peerania | Landing",
   "app.containers.HomePage.description": "Peerania | Description",
+  "app.containers.HomePage.faqTitle": "Peerania | FAQ",
+  "app.containers.HomePage.faqDescription": "Peerania | FAQ Description",
   "app.containers.HomePage.about": "About",
   "app.containers.HomePage.rewards": "Rewards",
   "app.containers.HomePage.faq": "FAQ",

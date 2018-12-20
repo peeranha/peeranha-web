@@ -46,11 +46,6 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    HomePage.props = this.props;
-  }
-
   componentDidMount() {
     const { hash } = window.location;
     const banner = window.$(`#${LANDING_ID}`);
@@ -176,16 +171,16 @@ class HomePage extends React.PureComponent {
     window.$(window).off();
   }
 
-  static sendEmail = (...args) => {
+  sendEmail = (...args) => {
     const { reset } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
     };
 
-    HomePage.props.sendEmailDispatch(formData, reset);
+    this.props.sendEmailDispatch(formData, reset);
   };
 
-  static sendMessage = (...args) => {
+  sendMessage = (...args) => {
     const { reset } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
@@ -194,7 +189,7 @@ class HomePage extends React.PureComponent {
       message: args[0].get(MESSAGE_FIELD),
     };
 
-    HomePage.props.sendMessageDispatch(formData, reset);
+    this.props.sendMessageDispatch(formData, reset);
   };
 
   render() {
@@ -212,16 +207,19 @@ class HomePage extends React.PureComponent {
 
         <Introduction
           sendEmailLoading={this.props.sendEmailLoading}
+          sendEmail={this.sendEmail}
           translations={translations}
         />
         <About translations={translations} />
         <Rewards
           translations={translations}
+          sendEmail={this.sendEmail}
           sendEmailLoading={this.props.sendEmailLoading}
         />
         <FaqMain translations={translations} questionsNumber={6} />
         <Team
           translations={translations}
+          sendMessage={this.sendMessage}
           sendMessageLoading={this.props.sendMessageLoading}
         />
         <Footer />
@@ -234,6 +232,8 @@ HomePage.propTypes = {
   locale: PropTypes.string,
   sendEmailLoading: PropTypes.bool,
   sendMessageLoading: PropTypes.bool,
+  sendEmailDispatch: PropTypes.func,
+  sendMessageDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -243,12 +243,17 @@ const mapStateToProps = createStructuredSelector({
 });
 
 function mapDispatchToProps(dispatch) {
+  const pageInfo = {
+    url: window.location.href,
+    name: messages.title.defaultMessage,
+  };
+
   return {
     dispatch,
     sendEmailDispatch: (formData, reset) =>
-      dispatch(sendEmail(formData, reset)),
+      dispatch(sendEmail(formData, reset, pageInfo)),
     sendMessageDispatch: (formData, reset) =>
-      dispatch(sendMessage(formData, reset)),
+      dispatch(sendMessage(formData, reset, pageInfo)),
   };
 }
 

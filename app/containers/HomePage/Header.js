@@ -19,6 +19,7 @@ import {
   THIRD_SCREEN,
   FOURTH_SCREEN,
   FIFTH_SCREEN,
+  SEND_EMAIL_FORM_A,
 } from './constants';
 
 import messages from './messages';
@@ -261,7 +262,9 @@ class Header extends React.PureComponent {
                   <FormattedMessage {...messages.platformUnderDeveloping} />
                 </p>
                 <EmailLandingForm
+                  form={SEND_EMAIL_FORM_A}
                   button={messages.getReward}
+                  sendEmail={this.props.sendEmail}
                   sendEmailLoading={this.props.sendEmailLoading}
                 />
               </div>
@@ -350,6 +353,7 @@ class Header extends React.PureComponent {
 
 Header.propTypes = {
   sendEmailLoading: PropTypes.bool,
+  sendEmail: PropTypes.func,
 };
 
 export default Header;

@@ -14,8 +14,6 @@ import FloatingLabelInput from './FloatingLabelInput';
 import ContainedButton from './ContainedButton';
 import SelectItem from './SelectItem';
 
-import HomePage from './index';
-
 import {
   EMAIL_FIELD,
   NAME_FIELD,
@@ -26,10 +24,16 @@ import {
 import messages from './messages';
 
 const SendMessageForm = props => {
-  const { handleSubmit, change, translations, sendMessageLoading } = props;
+  const {
+    handleSubmit,
+    change,
+    translations,
+    sendMessageLoading,
+    sendMessage,
+  } = props;
 
   return (
-    <form onSubmit={handleSubmit(HomePage.sendMessage)} autoComplete="off">
+    <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
       <div>
         <Field
           name={NAME_FIELD}
@@ -74,7 +78,6 @@ const SendMessageForm = props => {
       <div className="button-submit-wrapper">
         <ContainedButton
           type="submit"
-          disabled={sendMessageLoading}
           content={<FormattedMessage {...messages.sendMessage} />}
         />
       </div>
@@ -85,10 +88,9 @@ const SendMessageForm = props => {
 SendMessageForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
+  sendMessage: PropTypes.func,
   translations: PropTypes.object,
   sendMessageLoading: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: 'SendMessageForm',
-})(SendMessageForm);
+export default reduxForm({})(SendMessageForm);
