@@ -115,7 +115,10 @@ export class ChangeLocale extends React.PureComponent {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img src={require(`images/${[locale]}_lang.png`)} alt="" />
+          <img
+            src={require(`images/${[locale]}_lang.png`)}
+            alt={`images/${[locale]}_lang.png`}
+          />
           <span className="locale">{locale}</span>
           <span className="caret">▾</span>
         </button>

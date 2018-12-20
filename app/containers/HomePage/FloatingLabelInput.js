@@ -60,24 +60,6 @@ export const Wrapper = styled.div`
     input:-webkit-autofill {
       box-shadow: 0 0 0px 1000px #fff inset;
     }
-
-    + .menu-items {
-      display: none;
-      box-shadow: 0 0 10px #e6e6e6;
-      margin-top: 10px;
-
-      li {
-        font-size: 14px;
-        font-family: OpenSans;
-        color: #282828;
-        padding: 10px 21px;
-
-        :hover {
-          cursor: pointer;
-          background: #e6e6e6;
-        }
-      }
-    }
   }
 `;
 

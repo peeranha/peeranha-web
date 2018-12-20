@@ -8,8 +8,21 @@ import messages from './messages';
 import { Wrapper } from './FloatingLabelInput';
 
 const Box = Wrapper.extend`
-  .floating-label-input.show-menu + ul {
-    display: block;
+  ul {
+    box-shadow: 0 0 10px #e6e6e6;
+    margin-top: 10px;
+
+    li {
+      font-size: 14px;
+      font-family: OpenSans;
+      color: #282828;
+      padding: 10px 21px;
+
+      :hover {
+        cursor: pointer;
+        background: #e6e6e6;
+      }
+    }
   }
 `;
 
@@ -24,29 +37,29 @@ const SelectItem = ({
   meta: { touched, error, warning },
 }) => (
   <Box className="floating-label-input-wrapper select-item">
-    <TextField
-      {...input}
-      id={`${input.name}_input`}
-      className="floating-label-input"
-      label={label}
-      disabled={disabled}
-      error={touched && (warning || error)}
-      onChange={null}
-      onFocus={() => window.$(`#${input.name}`).css({ display: 'block' })}
-      onBlur={() =>
-        setTimeout(
-          () => window.$(`#${input.name}`).css({ display: 'none' }),
-          250,
-        )
-      }
-    />
-    <ul className="menu-items" id={input.name}>
+    <div
+      id={input.name}
+      role="button"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <TextField
+        {...input}
+        className="floating-label-input"
+        label={label}
+        disabled={disabled}
+        error={touched && (warning || error)}
+        onChange={null}
+      />
+    </div>
+    <ul className="dropdown-menu" aria-labelledby={input.name}>
       <li onClick={() => change([input.name], '')}>
         <FormattedMessage {...messages.none} />
       </li>
-      {items.map(x => (
-        <li key={x} onClick={() => change([input.name], x)}>
-          {x}
+      {items.map(item => (
+        <li key={item} onClick={() => change([input.name], item)}>
+          {item}
         </li>
       ))}
     </ul>
