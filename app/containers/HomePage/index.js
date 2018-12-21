@@ -185,7 +185,7 @@ class HomePage extends React.PureComponent {
     const formData = {
       email: args[0].get(EMAIL_FIELD),
       firstname: args[0].get(NAME_FIELD),
-      lastname: args[0].get(SUBJECT_FIELD),
+      subject: args[0].get(SUBJECT_FIELD),
       message: args[0].get(MESSAGE_FIELD),
     };
 
