@@ -209,7 +209,7 @@ const Wrapper = styled.header`
   }
 `;
 
-class Header extends React.PureComponent {
+export class Header extends React.PureComponent {
   state = {
     togglerId: 'navbartogglerId',
   };
@@ -361,7 +361,7 @@ const mapStateToProps = createStructuredSelector({
   popupPosition: homepageSelectors.selectHeaderPopupPosition(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     showHeaderPopupDispatch: position => dispatch(showHeaderPopup(position)),

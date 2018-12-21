@@ -147,7 +147,7 @@ const QuestionsData = [
   },
 ];
 
-const Question = ({ header, body }) => (
+export const Question = ({ header, body }) => (
   <div className="card">
     <div className="card-header" id={`heading${header}`}>
       <div>
@@ -177,7 +177,7 @@ const Question = ({ header, body }) => (
   </div>
 );
 
-const Questions = ({ questionsNumber }) =>
+export const Questions = ({ questionsNumber }) =>
   QuestionsData.slice(0, questionsNumber).map(item => (
     <Question key={item.header} {...item} />
   ));

@@ -4,19 +4,31 @@ exports[`ChangeLocale mapLanguages 1`] = `
 Array [
   <li
     className="pl-2"
-    data-item="en"
+    data-isbold={false}
     onClick={[Function]}
     role="presentation"
   >
-    en
+    <img
+      alt=""
+      src="IMAGE_MOCK"
+    />
+    <span>
+      en
+    </span>
   </li>,
   <li
     className="pl-2"
-    data-item="ru"
+    data-isbold={false}
     onClick={[Function]}
     role="presentation"
   >
-    ru
+    <img
+      alt=""
+      src="IMAGE_MOCK"
+    />
+    <span>
+      ru
+    </span>
   </li>,
 ]
 `;

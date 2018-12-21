@@ -36,7 +36,7 @@ const Box = styled.div`
   }
 `;
 
-class FaqFull extends React.PureComponent {
+export class FaqFull extends React.PureComponent {
   sendEmail = (...args) => {
     const { reset, form } = args[2];
     const formData = {
@@ -81,7 +81,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     sendEmailDispatch: (formData, reset, pageInfo) =>

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FaqFull snapshot test test 1`] = `
+<FaqFull__Box>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Peerania | FAQ
+    </title>
+    <meta
+      content="Peerania | Landing"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Connect(Header)
+    sendEmail={[Function]}
+  />
+  <FaqMain />
+  <Footer />
+</FaqFull__Box>
+`;

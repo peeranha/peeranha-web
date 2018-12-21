@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rewards test 1`] = `
+<Section
+  id="fs3"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row justify-content-center align-items-center"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="row justify-content-center"
+        >
+          <h2
+            className="col-12 col-lg-8 title"
+          >
+            <FormattedMessage
+              defaultMessage="Be the first to join and earn up to 100x more rewards"
+              id="app.containers.HomePage.beTheFirst"
+              values={Object {}}
+            />
+          </h2>
+        </div>
+        <div
+          className="row justify-content-center"
+        >
+          <p
+            className="col-12 col-lg-8 content-body"
+          >
+            <FormattedMessage
+              defaultMessage="Rewards pool is distributed weekly between all of the contributors for the given week. Members that join early get higher rewards while community is growing."
+              id="app.containers.HomePage.rewardsPool"
+              values={Object {}}
+            />
+          </p>
+        </div>
+        <div
+          className="row justify-content-center"
+        >
+          <div
+            className="col-12 col-md-8 col-xl-5 bottom-level mx-auto"
+          >
+            <ReduxForm
+              button={
+                Object {
+                  "defaultMessage": "Get Reward",
+                  "id": "app.containers.HomePage.getReward",
+                }
+              }
+              form="REWARDS"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+`;

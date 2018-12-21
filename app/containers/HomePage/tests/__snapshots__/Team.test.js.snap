@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Team test 1`] = `
+<Gradient
+  position="bottom"
+>
+  <Section
+    id="fs5"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row fifth-screen"
+      >
+        <h2
+          className="col-lg-12 fifth-screen-header"
+        >
+          <FormattedMessage
+            defaultMessage="Our team"
+            id="app.containers.HomePage.ourTeam"
+            values={Object {}}
+          />
+        </h2>
+      </div>
+    </div>
+    <div
+      className="container"
+    >
+      <div
+        className="row fifth-screen"
+      >
+        <p
+          className="col-lg-6 fifth-screen-about"
+        >
+          <FormattedMessage
+            defaultMessage="We highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat."
+            id="app.containers.HomePage.weAppreciate"
+            values={Object {}}
+          />
+        </p>
+        <div
+          className="col-12 fifth-screen-content"
+        >
+          <div
+            className="row justify-content-center"
+          >
+            <div
+              className="col-12 col-lg-7 team-avatars"
+            >
+              <ul
+                className="row"
+              >
+                <li
+                  className="col-12 col-sm-4 teammate-card"
+                >
+                  <img
+                    alt="sergeyIlin"
+                    src="IMAGE_MOCK"
+                  />
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                </li>
+                <li
+                  className="col-12 col-sm-4 teammate-card"
+                >
+                  <img
+                    alt="nikitaSyr"
+                    src="IMAGE_MOCK"
+                  />
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                </li>
+                <li
+                  className="col-12 col-sm-4 teammate-card"
+                >
+                  <img
+                    alt="romRem"
+                    src="IMAGE_MOCK"
+                  />
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                </li>
+                <li
+                  className="col-12 col-sm-4 teammate-card"
+                >
+                  <img
+                    alt="ulyanaPopova"
+                    src="IMAGE_MOCK"
+                  />
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                </li>
+                <li
+                  className="col-12 col-sm-4 teammate-card"
+                >
+                  <img
+                    alt="kateBehey"
+                    src="IMAGE_MOCK"
+                  />
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                </li>
+              </ul>
+            </div>
+            <div
+              className="col-10 col-lg-5 send-message-form"
+            >
+              <ReduxForm
+                form="containers_homepage_SEND_MESSAGE_FORM"
+                translations={Object {}}
+              />
+              <a
+                className="icon-arrow-up d-none d-xl-flex"
+                href="#fs1"
+              >
+                <img
+                  alt="arrowUp"
+                  src="IMAGE_MOCK"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+</Gradient>
+`;

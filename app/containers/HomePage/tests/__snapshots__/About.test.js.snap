@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About test1 1`] = `
+<Section
+  id="fs2"
+>
+  <Gradient
+    position="top"
+  >
+    <div
+      className="container second-screen"
+    >
+      <h3
+        className="col-lg-12 second-screen-header"
+      >
+        <FormattedMessage
+          defaultMessage="Different than other Question and Answers sites"
+          id="app.containers.HomePage.differentThan"
+          values={Object {}}
+        />
+      </h3>
+      <div
+        className="row second-screen-elements"
+      >
+        <ul
+          className="col-lg-12 main-difference"
+        >
+          <div
+            className="row"
+          >
+            <li
+              className="col-lg-4"
+            >
+              <div
+                className="card row"
+              >
+                <div
+                  className="col-lg-12"
+                >
+                  <img
+                    alt="practicalAnswers"
+                    src="IMAGE_MOCK"
+                  />
+                </div>
+                <div
+                  className="card-body"
+                >
+                  <h4
+                    className="item-title"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Practical Answers and Questions"
+                      id="app.containers.HomePage.practicalAnswers"
+                      values={Object {}}
+                    />
+                  </h4>
+                  <p
+                    className="item-content"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Sites are moderated by community. Only detailed questions and answers to very practical questions are allowed"
+                      id="app.containers.HomePage.sitesAreModerated"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              className="col-lg-4"
+            >
+              <div
+                className="card row"
+              >
+                <div
+                  className="col-lg-12"
+                >
+                  <img
+                    alt="fairEconomy"
+                    src="IMAGE_MOCK"
+                  />
+                </div>
+                <div
+                  className="card-body"
+                >
+                  <h4
+                    className="item-title"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Fair economy where users are paid"
+                      id="app.containers.HomePage.fairEconomy"
+                      values={Object {}}
+                    />
+                  </h4>
+                  <p
+                    className="item-content"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Posts on Q&A websites save millions of people many hours of work. We believe that people should be paid for helpful contributions to community."
+                      id="app.containers.HomePage.postsOnQA"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              className="col-lg-4"
+            >
+              <div
+                className="card row"
+              >
+                <div>
+                  <img
+                    alt="builtOnSmart"
+                    src="IMAGE_MOCK"
+                  />
+                </div>
+                <div
+                  className="card-body"
+                >
+                  <h4
+                    className="item-title"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Built on Smart Contracts and Blockchain"
+                      id="app.containers.HomePage.builtOnSmart"
+                      values={Object {}}
+                    />
+                  </h4>
+                  <p
+                    className="item-content"
+                  >
+                    <FormattedMessage
+                      defaultMessage="The platform is distributed built on blockchain and IPFS technologies. Platforms rules and economy are built into smart contract."
+                      id="app.containers.HomePage.platformIsDistributed"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </Gradient>
+  <div
+    className="container second-screen"
+  >
+    <div
+      className="row second-screen-elements"
+    >
+      <ul
+        className="col-lg-12 list-items"
+      >
+        <div
+          className="row"
+        >
+          <li
+            className="col-lg-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="d-none d-md-block col-lg-6 block1"
+              >
+                <img
+                  alt="simpleAndAffordable"
+                  className="about-page-image"
+                  src="IMAGE_MOCK"
+                />
+              </div>
+              <div
+                className="col-lg-6 block2"
+              >
+                <div
+                  className="row about-page-text-animation"
+                >
+                  <h5
+                    className="col-lg-12 text-1"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Simple and affordable"
+                      id="app.containers.HomePage.simpleAndAffordable"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <h5
+                    className="col-lg-12 text-2"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Get Help and Help Others"
+                      id="app.containers.HomePage.getHelp"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <div
+                    className="d-block d-md-none col-lg-12"
+                  >
+                    <img
+                      alt="simpleAndAffordable"
+                      src="IMAGE_MOCK"
+                    />
+                  </div>
+                  <p
+                    className="col-lg-12 text-3"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Ask questions and get help from community of experts passionate about the topic. And help thousands of other peers who get answer to the question in minutes instead of hours thanks to your post."
+                      id="app.containers.HomePage.askQuestionAndGetHelp"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            className="col-lg-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="d-none d-md-block col-lg-6 block1"
+              >
+                <img
+                  alt="helpfulAndGenerous"
+                  className="about-page-image"
+                  src="IMAGE_MOCK"
+                />
+              </div>
+              <div
+                className="col-lg-6 block2"
+              >
+                <div
+                  className="row about-page-text-animation"
+                >
+                  <h5
+                    className="col-lg-12 text-1"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Helpful and generous"
+                      id="app.containers.HomePage.helpfulAndGenerous"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <h5
+                    className="col-lg-12 text-2"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Share Knowledge"
+                      id="app.containers.HomePage.shareKnowledge"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <div
+                    className="d-block d-md-none col-lg-12"
+                  >
+                    <img
+                      alt="helpfulAndGenerous"
+                      src="IMAGE_MOCK"
+                    />
+                  </div>
+                  <p
+                    className="col-lg-12 text-3"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Help community by answering question of your peers. Your answer remains there for many others that need the same answer."
+                      id="app.containers.HomePage.helpCommunity"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            className="col-lg-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="d-none d-md-block col-lg-6 block1"
+              >
+                <img
+                  alt="profitableAndModern"
+                  className="about-page-image"
+                  src="IMAGE_MOCK"
+                />
+              </div>
+              <div
+                className="col-lg-6 block2"
+              >
+                <div
+                  className="row about-page-text-animation"
+                >
+                  <h5
+                    className="col-lg-12 text-1"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Profitable and modern"
+                      id="app.containers.HomePage.profitableAndModern"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <h5
+                    className="col-lg-12 text-2"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Get Paid in Crypto Token. Token with Value. Residually."
+                      id="app.containers.HomePage.getPaidInCrypto"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <div
+                    className="d-block d-md-none col-lg-12"
+                  >
+                    <img
+                      alt="profitableAndModern"
+                      src="IMAGE_MOCK"
+                    />
+                  </div>
+                  <p
+                    className="col-lg-12 text-3"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Get paid in crypto from the weekly reward pool for your contributions, asking and answering question. Token can be sold on the open market to users willing to advertise or post job openings on the platform. You continue to be paid for your contributions as long as your content is helpful and being upvoted by the community."
+                      id="app.containers.HomePage.getPaidInCryptoFromWeekly"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            className="col-lg-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="d-none d-md-block col-lg-6 block1"
+              >
+                <img
+                  alt="worthyAndPrestig"
+                  className="about-page-image"
+                  src="IMAGE_MOCK"
+                />
+              </div>
+              <div
+                className="col-lg-6 block2"
+              >
+                <div
+                  className="row about-page-text-animation"
+                >
+                  <h5
+                    className="col-lg-12 text-1"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Worthy and prestigious"
+                      id="app.containers.HomePage.worthyAndPrestig"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <h5
+                    className="col-lg-12 text-2"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Earn Reputation"
+                      id="app.containers.HomePage.earnReputation"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <div
+                    className="d-block d-md-none col-lg-12"
+                  >
+                    <img
+                      alt="worthyAndPrestig"
+                      src="IMAGE_MOCK"
+                    />
+                  </div>
+                  <p
+                    className="col-lg-12 text-3"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Whether you ask or answer questions, all contributions count. Earn reputation and recognition in the community. Unlock new privileges as your reputation grows."
+                      id="app.containers.HomePage.whetherYouAsk"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li
+            className="col-lg-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="d-none d-md-block col-lg-6 block1"
+              >
+                <img
+                  alt="honorableAndFascinating"
+                  className="about-page-image"
+                  src="IMAGE_MOCK"
+                />
+              </div>
+              <div
+                className="col-lg-6 block2"
+              >
+                <div
+                  className="row about-page-text-animation"
+                >
+                  <h5
+                    className="col-lg-12 text-1"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Honorable and fascinating"
+                      id="app.containers.HomePage.honorableAndFascinating"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <h5
+                    className="col-lg-12 text-2"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Rule the Platform"
+                      id="app.containers.HomePage.ruleThePlatform"
+                      values={Object {}}
+                    />
+                  </h5>
+                  <div
+                    className="d-block d-md-none col-lg-12"
+                  >
+                    <img
+                      alt="honorableAndFascinating"
+                      src="IMAGE_MOCK"
+                    />
+                  </div>
+                  <p
+                    className="col-lg-12 text-3"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Participate in moderation of the community and help community to thrive. Success of community directly impacts the value of token on the market. Propose, vote for or even build upgrades for the platform. The platform is open source and decentralized. Owned by you and your community."
+                      id="app.containers.HomePage.participateInModeration"
+                      values={Object {}}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</Section>
+`;
