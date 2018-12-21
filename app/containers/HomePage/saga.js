@@ -13,6 +13,7 @@ import {
   sendEmailErr,
   sendMessageSuccess,
   sendMessageErr,
+  closeHeaderPopup,
 } from './actions';
 
 import messages from './messages';
@@ -24,6 +25,8 @@ export function* sendEmailWorker({ formData, reset, pageInfo }) {
     yield call(() => sendEmail(formData, pageInfo));
 
     yield call(() => reset());
+
+    yield put(closeHeaderPopup());
 
     yield put(
       addToast({
@@ -40,7 +43,7 @@ export function* sendEmailWorker({ formData, reset, pageInfo }) {
         text: translationMessages[locale][messages.messageHasNotBeenSent.id],
       }),
     );
-
+    console.log(err);
     yield put(sendEmailErr(err));
   }
 }

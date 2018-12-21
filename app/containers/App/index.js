@@ -45,7 +45,9 @@ const Wrapper = (WrappedComp, props) => [
 ];
 
 export default function App() {
-  ReactGA.pageview(window.location.pathname);
+  if (process.env.NODE_ENV !== 'development') {
+    ReactGA.pageview(window.location.pathname);
+  }
 
   return (
     <div>

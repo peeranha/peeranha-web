@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import logo from 'images/Logo.svg';
@@ -12,6 +14,9 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import ModalDialog from 'containers/ModalDialog';
 
+import { showHeaderPopup, closeHeaderPopup } from './actions';
+import * as homepageSelectors from './selectors';
+
 import {
   HEADER_ID,
   FIRST_SCREEN,
@@ -19,7 +24,7 @@ import {
   THIRD_SCREEN,
   FOURTH_SCREEN,
   FIFTH_SCREEN,
-  SEND_EMAIL_FORM_A,
+  SEND_EMAIL_FORM_HEADER,
 } from './constants';
 
 import messages from './messages';
@@ -211,24 +216,20 @@ const Wrapper = styled.header`
 
 class Header extends React.PureComponent {
   state = {
-    showModalPlatformDeveloping: false,
     togglerId: 'navbartogglerId',
   };
 
   showModalPlatformDeveloping = e => {
     const { left } = window.$(e.target).offset();
 
-    this.setState({
-      showModalPlatformDeveloping: true,
-      customPosition: {
-        top: 120,
-        left: left * 0.85,
-      },
+    this.props.showHeaderPopupDispatch({
+      top: 120,
+      left: left * 0.85,
     });
   };
 
   closeModalPlatformDeveloping = () => {
-    this.setState({ showModalPlatformDeveloping: false });
+    this.props.closeHeaderPopupDispatch();
   };
 
   changeLocation = e => {
@@ -248,9 +249,9 @@ class Header extends React.PureComponent {
       <Wrapper>
         <Box id={HEADER_ID}>
           <ModalDialog
-            show={this.state.showModalPlatformDeveloping}
-            closeModal={this.closeModalPlatformDeveloping}
-            customPosition={this.state.customPosition}
+            show={this.props.showPopup}
+            closeModal={this.closePopup}
+            customPosition={this.props.popupPosition}
           >
             <div className="header-modal-dialog">
               <div className="image-coins">
@@ -262,7 +263,7 @@ class Header extends React.PureComponent {
                   <FormattedMessage {...messages.platformUnderDeveloping} />
                 </p>
                 <EmailLandingForm
-                  form={SEND_EMAIL_FORM_A}
+                  form={SEND_EMAIL_FORM_HEADER}
                   button={messages.getReward}
                   sendEmail={this.props.sendEmail}
                   sendEmailLoading={this.props.sendEmailLoading}
@@ -354,6 +355,26 @@ class Header extends React.PureComponent {
 Header.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
+  showHeaderPopupDispatch: PropTypes.func,
+  closeHeaderPopupDispatch: PropTypes.func,
+  showPopup: PropTypes.bool,
+  popupPosition: PropTypes.object,
 };
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  showPopup: homepageSelectors.selectShowPopup(),
+  popupPosition: homepageSelectors.selectHeaderPopupPosition(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    showHeaderPopupDispatch: position => dispatch(showHeaderPopup(position)),
+    closeHeaderPopupDispatch: () => dispatch(closeHeaderPopup()),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);

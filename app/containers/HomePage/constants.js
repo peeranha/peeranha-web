@@ -9,9 +9,9 @@ export const THIRD_SCREEN = 'fs3';
 export const FOURTH_SCREEN = 'fs4';
 export const FIFTH_SCREEN = 'fs5';
 
-export const SEND_EMAIL_FORM_A = 'containers_homepage_SEND_EMAIL_FORM_A';
-export const SEND_EMAIL_FORM_B = 'containers_homepage_SEND_EMAIL_FORM_B';
-export const SEND_EMAIL_FORM_C = 'containers_homepage_SEND_EMAIL_FORM_C';
+export const SEND_EMAIL_FORM_HEADER = 'HEADER';
+export const SEND_EMAIL_FORM_INTRODUCTION = 'INTRODUCTION';
+export const SEND_EMAIL_FORM_REWARDS = 'REWARDS';
 
 export const SEND_MESSAGE_FORM = 'containers_homepage_SEND_MESSAGE_FORM';
 
@@ -27,3 +27,6 @@ export const SEND_EMAIL_ERROR = 'containers_homepage_SEND_EMAIL_ERROR';
 export const SEND_MESSAGE = 'containers_homepage_SEND_MESSAGE';
 export const SEND_MESSAGE_SUCCESS = 'containers_homepage_SEND_MESSAGE_SUCCESS';
 export const SEND_MESSAGE_ERROR = 'containers_homepage_SEND_MESSAGE_ERROR';
+
+export const SHOW_HEADER_POPUP = 'containers_homepage_SHOW_HEADER_POPUP';
+export const CLOSE_HEADER_POPUP = 'containers_homepage_CLOSE_HEADER_POPUP';

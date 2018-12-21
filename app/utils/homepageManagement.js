@@ -11,19 +11,24 @@ export async function sendEmail(formData, pageInfo) {
     value: formData[name],
   }));
 
-  await window.$.ajax({
-    type: 'POST',
-    contentType: 'application/json; charset=utf-8',
-    url: `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
-    data: JSON.stringify({
-      submittedAt: +new Date(),
-      fields,
-      context: {
-        pageUri: pageInfo.url,
-        pageName: pageInfo.name,
+  await fetch(
+    `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        submittedAt: +new Date(),
+        fields,
+        context: {
+          pageUri: pageInfo.url,
+          pageName: pageInfo.name,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
       },
-    }),
-  });
+      credentials: 'same-origin',
+    },
+  );
 
   return true;
 }
@@ -34,19 +39,24 @@ export async function sendMessage(formData, pageInfo) {
     value: formData[name],
   }));
 
-  await window.$.ajax({
-    type: 'POST',
-    contentType: 'application/json; charset=utf-8',
-    url: `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_MESSAGE_FORM_ID}`,
-    data: JSON.stringify({
-      submittedAt: +new Date(),
-      fields,
-      context: {
-        pageUri: pageInfo.url,
-        pageName: pageInfo.name,
+  await fetch(
+    `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_MESSAGE_FORM_ID}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        submittedAt: +new Date(),
+        fields,
+        context: {
+          pageUri: pageInfo.url,
+          pageName: pageInfo.name,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
       },
-    }),
-  });
+      credentials: 'same-origin',
+    },
+  );
 
   return true;
 }

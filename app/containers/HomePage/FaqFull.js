@@ -38,12 +38,17 @@ const Box = styled.div`
 
 class FaqFull extends React.PureComponent {
   sendEmail = (...args) => {
-    const { reset } = args[2];
+    const { reset, form } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
     };
 
-    this.props.sendEmailDispatch(formData, reset);
+    const pageInfo = {
+      url: window.location.href,
+      name: `${messages.faqTitle.defaultMessage} | ${form}`,
+    };
+
+    this.props.sendEmailDispatch(formData, reset, pageInfo);
   };
 
   render() {
@@ -77,14 +82,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 function mapDispatchToProps(dispatch) {
-  const pageInfo = {
-    url: window.location.href,
-    name: messages.title.defaultMessage,
-  };
-
   return {
     dispatch,
-    sendEmailDispatch: (formData, reset) =>
+    sendEmailDispatch: (formData, reset, pageInfo) =>
       dispatch(sendEmail(formData, reset, pageInfo)),
   };
 }

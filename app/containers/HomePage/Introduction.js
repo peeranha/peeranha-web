@@ -7,7 +7,11 @@ import * as arrowDown from 'images/arrow_down.svg';
 
 import messages from './messages';
 import Parallax from './Parallax';
-import { FIRST_SCREEN, SECOND_SCREEN, SEND_EMAIL_FORM_B } from './constants';
+import {
+  FIRST_SCREEN,
+  SECOND_SCREEN,
+  SEND_EMAIL_FORM_INTRODUCTION,
+} from './constants';
 
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
@@ -128,7 +132,7 @@ const Introduction = ({ sendEmailLoading, sendEmail }) => (
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
               <EmailLandingForm
-                form={SEND_EMAIL_FORM_B}
+                form={SEND_EMAIL_FORM_INTRODUCTION}
                 button={messages.getStarted}
                 sendEmailLoading={sendEmailLoading}
                 sendEmail={sendEmail}

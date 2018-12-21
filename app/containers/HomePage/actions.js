@@ -11,6 +11,8 @@ import {
   SEND_MESSAGE,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
+  SHOW_HEADER_POPUP,
+  CLOSE_HEADER_POPUP,
 } from './constants';
 
 /*
@@ -66,5 +68,24 @@ export function sendMessageErr(sendMessageError) {
   return {
     type: SEND_MESSAGE_ERROR,
     sendMessageError,
+  };
+}
+
+/*
+ *
+ * HeaderPopup actions
+ *
+ */
+
+export function showHeaderPopup(popupPosition) {
+  return {
+    type: SHOW_HEADER_POPUP,
+    popupPosition,
+  };
+}
+
+export function closeHeaderPopup() {
+  return {
+    type: CLOSE_HEADER_POPUP,
   };
 }

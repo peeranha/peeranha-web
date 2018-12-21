@@ -27,10 +27,20 @@ const selectSendMessageError = () =>
     substate.get('sendMessageError'),
   );
 
+const selectShowPopup = () =>
+  createSelector(selectHomepageDomain, substate => substate.get('showPopup'));
+
+const selectHeaderPopupPosition = () =>
+  createSelector(selectHomepageDomain, substate =>
+    substate.get('popupPosition'),
+  );
+
 export {
   selectHomepageDomain,
   selectSendEmailLoading,
   selectSendEmailError,
   selectSendMessageLoading,
   selectSendMessageError,
+  selectShowPopup,
+  selectHeaderPopupPosition,
 };

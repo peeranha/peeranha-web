@@ -25,7 +25,7 @@ const Toasts = props => (
 
 Toasts.propTypes = {
   location: PropTypes.string,
-  toasts: PropTypes.array,
+  toasts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   removeToast: PropTypes.func,
 };
 
