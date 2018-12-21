@@ -28,7 +28,7 @@ const Box = Gradient.extend`
         margin-bottom: 5px;
         text-align: center;
         letter-spacing: -0.6px;
-        font-family: OpenSans;
+        font-family: OpenSans, sans-serif;
       }
     }
 
@@ -72,7 +72,7 @@ const Box = Gradient.extend`
 const Year = new Date().getFullYear();
 
 const Footer = () => (
-  <Box position="top">
+  <Box position="bottom">
     <div className="container">
       <div className="row justify-content-between align-items-center">
         <div className="col-6 logo">

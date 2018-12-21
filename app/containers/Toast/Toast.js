@@ -4,7 +4,6 @@ import toastTypes from './toastTypes';
 const Toast = styled.div`
   display: flex;
   max-width: 420px;
-  border-radius: 3px;
   background: #fff;
   box-shadow: 0px 3px 10px 0 rgba(40, 40, 40, 0.3);
   align-items: center;
@@ -24,7 +23,7 @@ const Toast = styled.div`
     line-height: 1.63;
     letter-spacing: -0.6px;
     font-size: 16px;
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     padding: 20px 0;
   }
 `;

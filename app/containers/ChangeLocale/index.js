@@ -57,7 +57,7 @@ const Box = styled.span`
   }
 
   li {
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     padding: 5px 20px !important;
     text-transform: uppercase;
 

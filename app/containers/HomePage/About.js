@@ -64,18 +64,6 @@ const Box = Section.extend`
 
   .second-screen-elements .list-items {
     background: #fff;
-    li:nth-child(even) {
-      .block1 {
-        order: 2;
-      }
-      .block2 {
-        order: 1;
-
-        .row {
-          padding: 0 55px 0 35px;
-        }
-      }
-    }
 
     .${ANIMATE_IMAGE}, .${ANIMATE_TEXT} {
       transition: 1.5s;
@@ -114,7 +102,7 @@ const Box = Section.extend`
       }
 
       .text-1 {
-        font-family: OpenSans;
+        font-family: OpenSans, sans-serif;
         color: #fa8072;
         font-size: 16px;
         letter-spacing: -0.6px;
@@ -123,18 +111,31 @@ const Box = Section.extend`
       .text-2 {
         color: #282828;
         font-size: 30px;
-        font-family: OpenSansBold !important;
+        font-family: OpenSansBold, sans-serif !important;
         padding-top: 19px;
         padding-bottom: 32px;
         letter-spacing: -1.2px;
       }
 
       .text-3 {
-        font-family: OpenSans;
+        font-family: OpenSans, sans-serif;
         text-align: left;
         color: #282828;
         font-size: 20px;
         letter-spacing: -0.8px;
+      }
+    }
+
+    li:nth-child(even) {
+      .block1 {
+        order: 2;
+      }
+      .block2 {
+        order: 1;
+
+        .row {
+          padding: 0 55px 0 35px;
+        }
       }
     }
   }
@@ -179,7 +180,7 @@ const Box = Section.extend`
 
 const About = () => (
   <Box id={SECOND_SCREEN}>
-    <Gradient>
+    <Gradient position="top">
       <div className="container second-screen">
         <h3 className="col-lg-12 second-screen-header">
           <FormattedMessage {...messages.differentThan} />

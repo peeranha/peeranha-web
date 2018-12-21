@@ -96,12 +96,12 @@ const Box = Section.extend`
               font-size: 16px;
               color: rgba(40, 40, 40, 0.9);
               letter-spacing: -0.6px;
-              font-family: OpenSans;
+              font-family: OpenSans, sans-serif;
               padding: 15px 0 8px 0;
             }
 
             .role {
-              font-family: OpenSans;
+              font-family: OpenSans, sans-serif;
               font-size: 14px;
               color: rgba(55, 55, 55, 0.5);
               letter-spacing: -0.6px;
@@ -134,7 +134,7 @@ const Box = Section.extend`
 `;
 
 const Team = ({ translations, sendMessageLoading, sendMessage }) => (
-  <Gradient position="top">
+  <Gradient position="bottom">
     <Box id={FIFTH_SCREEN}>
       <div className="container">
         <div className="row fifth-screen">

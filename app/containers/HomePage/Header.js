@@ -34,7 +34,7 @@ const Box = styled.div`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
   }
 
   position: relative;
@@ -79,10 +79,6 @@ const Box = styled.div`
       cursor: pointer;
       display: inline-block;
       color: #ffffff;
-
-      :hover {
-        color: #5c78d7 !important;
-      }
     }
 
     .log-in-button {
@@ -126,7 +122,7 @@ const Box = styled.div`
     padding: 0 20px 10px 20px;
 
     * {
-      font-family: OpenSans;
+      font-family: OpenSans, sans-serif;
       font-size: 18px;
     }
 
@@ -166,20 +162,19 @@ const Box = styled.div`
     }
 
     .nav-bar {
-      display: none !important;
+      button {
+        min-height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .row,
       .row button,
       .row div {
         height: auto;
         justify-content: center;
         margin: 0;
-      }
-
-      button {
-        min-height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
     }
 
@@ -289,7 +284,7 @@ class Header extends React.PureComponent {
               </button>
 
               <div
-                className="col-md-12 col-xl-6 col-lg-8 nav-bar"
+                className="col-md-12 col-xl-6 col-lg-8 nav-bar d-none d-lg-block"
                 id={this.state.togglerId}
               >
                 <div className="row">

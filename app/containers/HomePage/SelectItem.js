@@ -14,7 +14,7 @@ const Box = Wrapper.extend`
 
     li {
       font-size: 14px;
-      font-family: OpenSans;
+      font-family: OpenSans, sans-serif;
       color: #282828;
       padding: 10px 21px;
 
