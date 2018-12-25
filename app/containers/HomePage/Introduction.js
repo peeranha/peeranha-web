@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -6,7 +7,11 @@ import * as arrowDown from 'images/arrow_down.svg';
 
 import messages from './messages';
 import Parallax from './Parallax';
-import { FIRST_SCREEN, SECOND_SCREEN } from './constants';
+import {
+  FIRST_SCREEN,
+  SECOND_SCREEN,
+  SEND_EMAIL_FORM_INTRODUCTION,
+} from './constants';
 
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
@@ -94,7 +99,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Introduction = () => (
+const Introduction = ({ sendEmailLoading, sendEmail }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -108,7 +113,7 @@ const Introduction = () => (
       </div>
     </div>
 
-    <Header />
+    <Header sendEmailLoading={sendEmailLoading} sendEmail={sendEmail} />
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
         <Box className="col-lg-12 first-screen-banner">
@@ -126,7 +131,12 @@ const Introduction = () => (
 
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
-              <EmailLandingForm button={messages.getStarted} />
+              <EmailLandingForm
+                form={SEND_EMAIL_FORM_INTRODUCTION}
+                button={messages.getStarted}
+                sendEmailLoading={sendEmailLoading}
+                sendEmail={sendEmail}
+              />
             </div>
           </div>
 
@@ -142,5 +152,10 @@ const Introduction = () => (
     </Wrapper>
   </Parallax>
 );
+
+Introduction.propTypes = {
+  sendEmailLoading: PropTypes.bool,
+  sendEmail: PropTypes.func,
+};
 
 export default Introduction;

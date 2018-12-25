@@ -12,17 +12,6 @@ describe('ChangeLocale', () => {
     expect(cmp.mapLanguages(langs)).toMatchSnapshot();
   });
 
-  it('changeLocaleHandler', () => {
-    const event = {
-      target: {
-        dataset: {
-          item: 'ru',
-        },
-      },
-    };
-    expect(cmp.changeLocaleHandler(event)).toBe(changeLocaleDispatch);
-  });
-
   it('mapDispatchToProps test', () => {
     const test = 'test';
     const dispatch = () => test;

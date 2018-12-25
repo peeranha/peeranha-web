@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
@@ -43,7 +44,11 @@ const Wrapper = (WrappedComp, props) => [
   <Footer key="footer" />,
 ];
 
-export default function App() {
+export default function App /* istanbul ignore next */() {
+  if (process.env.NODE_ENV !== 'development') {
+    ReactGA.pageview(window.location.pathname);
+  }
+
   return (
     <div>
       <Toast />

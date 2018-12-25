@@ -57,7 +57,7 @@ const Box = styled.span`
   }
 
   li {
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     padding: 5px 20px !important;
     text-transform: uppercase;
 
@@ -115,7 +115,10 @@ export class ChangeLocale extends React.PureComponent {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img src={require(`images/${[locale]}_lang.png`)} alt="" />
+          <img
+            src={require(`images/${[locale]}_lang.png`)}
+            alt={`images/${[locale]}_lang.png`}
+          />
           <span className="locale">{locale}</span>
           <span className="caret">▾</span>
         </button>

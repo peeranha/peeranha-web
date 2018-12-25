@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import ModalWrapper from './ModalWrapper';
 
+/* istanbul ignore next */
 const Box = styled.div`
   .modal-content {
     overflow: hidden;

@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import logo from 'images/Logo.svg';
@@ -11,6 +14,9 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import ModalDialog from 'containers/ModalDialog';
 
+import { showHeaderPopup, closeHeaderPopup } from './actions';
+import * as homepageSelectors from './selectors';
+
 import {
   HEADER_ID,
   FIRST_SCREEN,
@@ -18,6 +24,7 @@ import {
   THIRD_SCREEN,
   FOURTH_SCREEN,
   FIFTH_SCREEN,
+  SEND_EMAIL_FORM_HEADER,
 } from './constants';
 
 import messages from './messages';
@@ -27,7 +34,7 @@ const Box = styled.div`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
   }
 
   position: relative;
@@ -72,10 +79,6 @@ const Box = styled.div`
       cursor: pointer;
       display: inline-block;
       color: #ffffff;
-
-      :hover {
-        color: #5c78d7 !important;
-      }
     }
 
     .log-in-button {
@@ -119,7 +122,7 @@ const Box = styled.div`
     padding: 0 20px 10px 20px;
 
     * {
-      font-family: OpenSans;
+      font-family: OpenSans, sans-serif;
       font-size: 18px;
     }
 
@@ -159,20 +162,19 @@ const Box = styled.div`
     }
 
     .nav-bar {
-      display: none !important;
+      button {
+        min-height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .row,
       .row button,
       .row div {
         height: auto;
         justify-content: center;
         margin: 0;
-      }
-
-      button {
-        min-height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
     }
 
@@ -207,26 +209,22 @@ const Wrapper = styled.header`
   }
 `;
 
-class Header extends React.PureComponent {
+export class Header extends React.PureComponent {
   state = {
-    showModalPlatformDeveloping: false,
     togglerId: 'navbartogglerId',
   };
 
   showModalPlatformDeveloping = e => {
     const { left } = window.$(e.target).offset();
 
-    this.setState({
-      showModalPlatformDeveloping: true,
-      customPosition: {
-        top: 120,
-        left: left * 0.85,
-      },
+    this.props.showHeaderPopupDispatch({
+      top: 120,
+      left: left * 0.85,
     });
   };
 
   closeModalPlatformDeveloping = () => {
-    this.setState({ showModalPlatformDeveloping: false });
+    this.props.closeHeaderPopupDispatch();
   };
 
   changeLocation = e => {
@@ -234,7 +232,7 @@ class Header extends React.PureComponent {
     window.location.hash = `#${e.currentTarget.dataset.hash}`;
   };
 
-  toggle = () => {
+  toggle /* istanbul ignore next */ = () => {
     const show = window.$(`#${this.state.togglerId}`).hasClass('show');
     const action = !show ? 'add' : 'remove';
 
@@ -246,9 +244,9 @@ class Header extends React.PureComponent {
       <Wrapper>
         <Box id={HEADER_ID}>
           <ModalDialog
-            show={this.state.showModalPlatformDeveloping}
-            closeModal={this.closeModalPlatformDeveloping}
-            customPosition={this.state.customPosition}
+            show={this.props.showPopup}
+            closeModal={this.closePopup}
+            customPosition={this.props.popupPosition}
           >
             <div className="header-modal-dialog">
               <div className="image-coins">
@@ -259,7 +257,12 @@ class Header extends React.PureComponent {
                 <p className="modal-dialog-message">
                   <FormattedMessage {...messages.platformUnderDeveloping} />
                 </p>
-                <EmailLandingForm button={messages.getReward} />
+                <EmailLandingForm
+                  form={SEND_EMAIL_FORM_HEADER}
+                  button={messages.getReward}
+                  sendEmail={this.props.sendEmail}
+                  sendEmailLoading={this.props.sendEmailLoading}
+                />
               </div>
             </div>
           </ModalDialog>
@@ -281,7 +284,7 @@ class Header extends React.PureComponent {
               </button>
 
               <div
-                className="col-md-12 col-xl-6 col-lg-8 nav-bar"
+                className="col-md-12 col-xl-6 col-lg-8 nav-bar d-none d-lg-block"
                 id={this.state.togglerId}
               >
                 <div className="row">
@@ -344,4 +347,29 @@ class Header extends React.PureComponent {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  sendEmailLoading: PropTypes.bool,
+  sendEmail: PropTypes.func,
+  showHeaderPopupDispatch: PropTypes.func,
+  closeHeaderPopupDispatch: PropTypes.func,
+  showPopup: PropTypes.bool,
+  popupPosition: PropTypes.object,
+};
+
+const mapStateToProps = createStructuredSelector({
+  showPopup: homepageSelectors.selectShowPopup(),
+  popupPosition: homepageSelectors.selectHeaderPopupPosition(),
+});
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    showHeaderPopupDispatch: position => dispatch(showHeaderPopup(position)),
+    closeHeaderPopupDispatch: () => dispatch(closeHeaderPopup()),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);

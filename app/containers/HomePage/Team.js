@@ -9,7 +9,7 @@ import romRem from 'images/av2.jpg';
 import ulyanaPopova from 'images/av3.jpg';
 import arrowUp from 'images/ArrowUP.svg';
 
-import { FIRST_SCREEN, FIFTH_SCREEN } from './constants';
+import { FIRST_SCREEN, FIFTH_SCREEN, SEND_MESSAGE_FORM } from './constants';
 import messages from './messages';
 
 import SendMessageForm from './SendMessageForm';
@@ -96,12 +96,12 @@ const Box = Section.extend`
               font-size: 16px;
               color: rgba(40, 40, 40, 0.9);
               letter-spacing: -0.6px;
-              font-family: OpenSans;
+              font-family: OpenSans, sans-serif;
               padding: 15px 0 8px 0;
             }
 
             .role {
-              font-family: OpenSans;
+              font-family: OpenSans, sans-serif;
               font-size: 14px;
               color: rgba(55, 55, 55, 0.5);
               letter-spacing: -0.6px;
@@ -133,8 +133,8 @@ const Box = Section.extend`
   }
 `;
 
-const Team = ({ translations }) => (
-  <Gradient position="top">
+const Team = ({ translations, sendMessageLoading, sendMessage }) => (
+  <Gradient position="bottom">
     <Box id={FIFTH_SCREEN}>
       <div className="container">
         <div className="row fifth-screen">
@@ -203,7 +203,12 @@ const Team = ({ translations }) => (
               </div>
 
               <div className="col-10 col-lg-5 send-message-form">
-                <SendMessageForm translations={translations} />
+                <SendMessageForm
+                  form={SEND_MESSAGE_FORM}
+                  translations={translations}
+                  sendMessage={sendMessage}
+                  sendMessageLoading={sendMessageLoading}
+                />
                 <a
                   className="icon-arrow-up d-none d-xl-flex"
                   href={`#${FIRST_SCREEN}`}
@@ -221,6 +226,8 @@ const Team = ({ translations }) => (
 
 Team.propTypes = {
   translations: PropTypes.object,
+  sendMessageLoading: PropTypes.bool,
+  sendMessage: PropTypes.func,
 };
 
 export default Team;

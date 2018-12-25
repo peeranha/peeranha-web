@@ -15,6 +15,14 @@ export default defineMessages({
     id: 'app.containers.HomePage.description',
     defaultMessage: `Peerania | Description`,
   },
+  faqTitle: {
+    id: 'app.containers.HomePage.faqTitle',
+    defaultMessage: `Peerania | FAQ`,
+  },
+  faqDescription: {
+    id: 'app.containers.HomePage.title',
+    defaultMessage: `Peerania | FAQ Description`,
+  },
   about: {
     id: 'app.containers.HomePage.about',
     defaultMessage: `About`,

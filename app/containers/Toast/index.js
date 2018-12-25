@@ -43,7 +43,7 @@ export class Toast extends React.Component {
 }
 
 Toast.propTypes = {
-  toasts: PropTypes.object,
+  toasts: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   removeToastDispatch: PropTypes.func,
 };
 

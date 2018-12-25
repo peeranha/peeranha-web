@@ -48,6 +48,21 @@ const Box = Section.extend`
         background: url(${minus}) no-repeat;
       }
 
+      button.get-more-answers {
+        .icon {
+          transition: 0.5s;
+          height: 15px !important;
+          width: 15px !important;
+        }
+
+        :hover {
+          color: #f76e5f;
+          .icon {
+            transform: translate(10px, 0px);
+          }
+        }
+      }
+
       button[aria-expanded='false'] {
         .icon.icon-collapse {
           background: url(${plus}) no-repeat;
@@ -57,21 +72,6 @@ const Box = Section.extend`
           color: #5c78d7;
           .icon {
             transform: rotate(90deg);
-          }
-        }
-      }
-
-      button.get-more-answers {
-        .icon {
-          transition: 0.5s;
-          height: 15px !important;
-          wudth: 15px !important;
-        }
-
-        :hover {
-          color: #f76e5f;
-          .icon {
-            transform: translate(10px, 0px);
           }
         }
       }
@@ -147,7 +147,7 @@ const QuestionsData = [
   },
 ];
 
-const Question = ({ header, body }) => (
+export const Question = ({ header, body }) => (
   <div className="card">
     <div className="card-header" id={`heading${header}`}>
       <div>
@@ -177,7 +177,7 @@ const Question = ({ header, body }) => (
   </div>
 );
 
-const Questions = ({ questionsNumber }) =>
+export const Questions = ({ questionsNumber }) =>
   QuestionsData.slice(0, questionsNumber).map(item => (
     <Question key={item.header} {...item} />
   ));

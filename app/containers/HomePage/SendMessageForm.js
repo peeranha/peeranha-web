@@ -14,8 +14,6 @@ import FloatingLabelInput from './FloatingLabelInput';
 import ContainedButton from './ContainedButton';
 import SelectItem from './SelectItem';
 
-import HomePage from './index';
-
 import {
   EMAIL_FIELD,
   NAME_FIELD,
@@ -25,14 +23,21 @@ import {
 
 import messages from './messages';
 
-const SendMessageForm = props => {
-  const { handleSubmit, change, translations } = props;
+const SendMessageForm = /* istanbul ignore next */ props => {
+  const {
+    handleSubmit,
+    change,
+    translations,
+    sendMessageLoading,
+    sendMessage,
+  } = props;
 
   return (
-    <form onSubmit={handleSubmit(HomePage.sendMessage)} autoComplete="off">
+    <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
       <div>
         <Field
           name={NAME_FIELD}
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.yourName} />}
           component={FloatingLabelInput}
           validate={[strLength20, required]}
@@ -40,12 +45,14 @@ const SendMessageForm = props => {
         />
         <Field
           name={EMAIL_FIELD}
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.email} />}
           component={FloatingLabelInput}
           validate={[validateEmail, required]}
           warn={[validateEmail, required]}
         />
         <Field
+          disabled={sendMessageLoading}
           change={change}
           name={SUBJECT_FIELD}
           items={[
@@ -61,6 +68,7 @@ const SendMessageForm = props => {
         <Field
           name={MESSAGE_FIELD}
           multiline
+          disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.message} />}
           component={FloatingLabelInput}
           validate={[strLength20x100, required]}
@@ -80,9 +88,9 @@ const SendMessageForm = props => {
 SendMessageForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
+  sendMessage: PropTypes.func,
   translations: PropTypes.object,
+  sendMessageLoading: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: 'SendMessageForm',
-})(SendMessageForm);
+export default reduxForm({})(SendMessageForm);

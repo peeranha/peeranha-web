@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FaqMain FaqMain 1`] = `
+<Section
+  id="fs4"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 fourth-screen-faq"
+        id="accordion"
+      >
+        <Questions
+          questionsNumber={6}
+        />
+        <div
+          className="card get-more-answers"
+        >
+          <div
+            className="card-header"
+          >
+            <div
+              className="mb-0"
+            >
+              <Link
+                href="/faq"
+                replace={false}
+                to="/faq"
+              >
+                <button
+                  className="get-more-answers"
+                >
+                  <img
+                    alt="arrRight"
+                    className="icon icon-getanswers"
+                    src="IMAGE_MOCK"
+                  />
+                  <h3
+                    className="text"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Get more answers"
+                      id="app.containers.HomePage.getMoreAnswers"
+                      values={Object {}}
+                    />
+                  </h3>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+`;
+
+exports[`FaqMain Question 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card-header"
+    id="headingwhatIsReputation"
+  >
+    <div>
+      <button
+        aria-controls="collapsewhatIsReputation"
+        aria-expanded="false"
+        data-target="#collapsewhatIsReputation"
+        data-toggle="collapse"
+      >
+        <span
+          className="icon icon-collapse"
+        />
+        <h3
+          className="text"
+        >
+          <FormattedMessage
+            defaultMessage="What is Reputation?"
+            id="app.containers.HomePage.whatIsReputation"
+            values={Object {}}
+          />
+        </h3>
+      </button>
+    </div>
+    <div
+      aria-labelledby="headingwhatIsReputation"
+      className="collapse"
+      data-parent="#accordion"
+      id="collapsewhatIsReputation"
+    >
+      <div
+        className="card-body"
+      >
+        <FormattedMessage
+          defaultMessage="What is Reputation?"
+          id="app.containers.HomePage.whatIsReputationCollapsed"
+          values={Object {}}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FaqMain Questions 1`] = `
+Array [
+  <Question
+    body="whatIsPeeraniaCollapsed"
+    header="whatIsPeerania"
+  />,
+  <Question
+    body="howToCreateAccCollapsed"
+    header="howToCreateAcc"
+  />,
+  <Question
+    body="howToUpvoteCollapsed"
+    header="howToUpvote"
+  />,
+  <Question
+    body="whatToPostCollapsed"
+    header="whatToPost"
+  />,
+  <Question
+    body="canIEarnCollapsed"
+    header="canIEarn"
+  />,
+  <Question
+    body="whatIsReputationCollapsed"
+    header="whatIsReputation"
+  />,
+]
+`;

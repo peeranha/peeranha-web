@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 const Wrapper = styled.div`
   * {
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   .contained-button {
     width: 100%;
     height: 48px;
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     font-size: 18px;
     background-color: #fc6655;
     border-radius: 3px;
@@ -23,6 +23,11 @@ const Wrapper = styled.div`
 
     :hover {
       background-color: #fc6655;
+    }
+
+    :disabled {
+      background-color: #9b9b9b !important;
+      color: #fff;
     }
   }
 `;

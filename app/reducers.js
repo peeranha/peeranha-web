@@ -19,6 +19,7 @@ import askQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
 import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
+import homepageReducer from 'containers/HomePage/reducer';
 
 /*
  * routeReducer
@@ -66,6 +67,7 @@ export default function createReducer(injectedReducers) {
     editQuestion: editQuestionReducer,
     editAnswer: editAnswerReducer,
     profile: profileReducer,
+    homepage: homepageReducer,
     form: formReducer,
     ...injectedReducers,
   });

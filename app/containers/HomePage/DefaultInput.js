@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 const Wrapper = styled.div`
   * {
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -23,7 +23,6 @@ const Wrapper = styled.div`
 
   .default-input {
     width: 100%;
-    color: #000000;
     font-size: 18px;
     color: #282828;
     height: 48px;
@@ -46,7 +45,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const DefaultInput = ({
+const DefaultInput = /* istanbul ignore next */ ({
   input,
   disabled,
   meta: { touched, error, warning },

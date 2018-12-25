@@ -1,5 +1,5 @@
 import { Toast, mapDispatchToProps } from '../index';
-import { BOTTOM_RIGHT } from '../constants';
+import { TOP_RIGHT } from '../constants';
 
 const cmp = new Toast();
 const event = {
@@ -14,7 +14,7 @@ beforeEach(() => {
   cmp.props = {
     toasts: new Map(),
     removeToastDispatch: jest.fn(),
-    location: BOTTOM_RIGHT,
+    location: TOP_RIGHT,
   };
 });
 
@@ -22,7 +22,7 @@ describe('<Toast />', () => {
   describe('constructor', () => {
     it('test', () => {
       cmp.constructor(null);
-      expect(cmp.location).toBe(BOTTOM_RIGHT);
+      expect(cmp.location).toBe(TOP_RIGHT);
     });
   });
 

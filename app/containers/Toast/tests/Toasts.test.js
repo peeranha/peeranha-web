@@ -6,7 +6,7 @@ describe('Tosts', () => {
     toasts: [
       {
         text: 'Text',
-        type: 'type',
+        type: 'success',
         toastKey: 'toastKey',
       },
     ],

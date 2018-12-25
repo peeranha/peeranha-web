@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 export const Wrapper = styled.div`
   * {
-    font-family: OpenSans;
+    font-family: OpenSans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -38,14 +38,13 @@ export const Wrapper = styled.div`
     label {
       font-size: 14px;
       color: #9b9b9b;
-      font-family: OpenSans;
+      font-family: OpenSans, sans-serif;
       z-index: 10;
     }
 
     input {
-      color: #000000;
       font-size: 16px;
-      font-family: OpenSans;
+      font-family: OpenSans, sans-serif;
       color: #282828;
       padding: 0;
       width: 100%;
@@ -60,28 +59,10 @@ export const Wrapper = styled.div`
     input:-webkit-autofill {
       box-shadow: 0 0 0px 1000px #fff inset;
     }
-
-    + .menu-items {
-      display: none;
-      box-shadow: 0 0 10px #e6e6e6;
-      margin-top: 10px;
-
-      li {
-        font-size: 14px;
-        font-family: OpenSans;
-        color: #282828;
-        padding: 10px 21px;
-
-        :hover {
-          cursor: pointer;
-          background: #e6e6e6;
-        }
-      }
-    }
   }
 `;
 
-export const FloatingLabelInput = ({
+export const FloatingLabelInput = /* istanbul ignore next */ ({
   input,
   label,
   disabled,
@@ -96,7 +77,7 @@ export const FloatingLabelInput = ({
       className="floating-label-input"
       label={label}
       disabled={disabled}
-      error={touched && (warning || error)}
+      error={!!(touched && (warning || error))}
     />
     <h6 className="text-danger">
       {touched &&
@@ -111,7 +92,7 @@ FloatingLabelInput.propTypes = {
   meta: PropTypes.object,
   disabled: PropTypes.bool,
   multiline: PropTypes.bool,
-  label: PropTypes.string,
+  label: PropTypes.element,
 };
 
 export default FloatingLabelInput;
