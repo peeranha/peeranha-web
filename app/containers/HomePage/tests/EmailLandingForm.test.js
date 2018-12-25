@@ -9,13 +9,14 @@ import createdHistory from 'createdHistory';
 import LanguageProvider from 'containers/LanguageProvider';
 
 import EmailLandingForm from '../EmailLandingForm';
+import messages from '../messages';
 
 describe('<EmailLandingForm />', () => {
   const props = {
     translations: {},
     form: 'form',
     handleSubmit: () => {},
-    button: 'button',
+    button: messages.faqTitle,
     sendEmailLoading: true,
     sendEmail: () => {},
   };

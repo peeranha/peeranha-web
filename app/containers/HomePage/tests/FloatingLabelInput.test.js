@@ -1,4 +1,5 @@
 import FloatingLabelInput from '../FloatingLabelInput';
+import messages from '../messages';
 
 const props = {
   input: {},
@@ -18,7 +19,7 @@ describe('FloatingLabelInput', () => {
 
   it('test2, touched, error - true', () => {
     props.meta.touched = true;
-    props.meta.error = true;
+    props.meta.error = messages.title;
 
     expect(FloatingLabelInput(props)).toMatchSnapshot();
   });

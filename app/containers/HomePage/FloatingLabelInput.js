@@ -62,7 +62,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const FloatingLabelInput = ({
+export const FloatingLabelInput = /* istanbul ignore next */ ({
   input,
   label,
   disabled,
@@ -77,7 +77,7 @@ export const FloatingLabelInput = ({
       className="floating-label-input"
       label={label}
       disabled={disabled}
-      error={touched && (warning || error)}
+      error={!!(touched && (warning || error))}
     />
     <h6 className="text-danger">
       {touched &&

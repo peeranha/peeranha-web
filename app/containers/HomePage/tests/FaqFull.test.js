@@ -11,12 +11,12 @@ cmp.props = {
 describe('FaqFull', () => {
   describe('sendEmail', () => {
     it('test', () => {
-      const mapp = new Map().set(EMAIL_FIELD);
+      const mapp = new Map().set(EMAIL_FIELD, EMAIL_FIELD);
       const form = 'form1';
       const reset = jest.fn();
 
       const formData = {
-        email: EMAIL_FIELD,
+        email: mapp.get(EMAIL_FIELD),
       };
 
       const pageInfo = {

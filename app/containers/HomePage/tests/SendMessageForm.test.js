@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { memoryHistory } from 'react-router-dom';
 import configureStore from 'configureStore';
@@ -13,14 +13,16 @@ import SendMessageForm from '../SendMessageForm';
 describe('<SendMessageForm />', () => {
   const props = {
     translations: {},
-    form: 'form',
+    form: 'form2222',
     handleSubmit: () => {},
     change: () => {},
+    sendMessageLoading: false,
+    sendMessage: () => {},
   };
 
   it('snapshot test', () => {
     const store = configureStore({}, memoryHistory);
-    const renderedComponent = mount(
+    const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>

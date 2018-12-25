@@ -1,4 +1,5 @@
 import DefaultInput from '../DefaultInput';
+import messages from '../messages';
 
 const props = {
   input: {},
@@ -19,7 +20,7 @@ describe('DefaultInput', () => {
 
   it('test2, touched, error - true', () => {
     props.meta.touched = true;
-    props.meta.error = true;
+    props.meta.error = messages.title;
 
     expect(DefaultInput(props)).toMatchSnapshot();
   });

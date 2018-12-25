@@ -44,7 +44,7 @@ const Wrapper = (WrappedComp, props) => [
   <Footer key="footer" />,
 ];
 
-export default function App() {
+export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {
     ReactGA.pageview(window.location.pathname);
   }

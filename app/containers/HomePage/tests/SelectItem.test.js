@@ -1,4 +1,5 @@
 import SelectItem from '../SelectItem';
+import messages from '../messages';
 
 const props = {
   input: {},
@@ -18,7 +19,7 @@ describe('SelectItem', () => {
 
   it('test2, touched, error - true', () => {
     props.meta.touched = true;
-    props.meta.error = true;
+    props.meta.error = messages.title;
 
     expect(SelectItem(props)).toMatchSnapshot();
   });

@@ -43,7 +43,6 @@ export function* sendEmailWorker({ formData, reset, pageInfo }) {
         text: translationMessages[locale][messages.messageHasNotBeenSent.id],
       }),
     );
-    console.log(err);
     yield put(sendEmailErr(err));
   }
 }

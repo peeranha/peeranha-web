@@ -23,7 +23,7 @@ import {
 
 import messages from './messages';
 
-const SendMessageForm = props => {
+const SendMessageForm = /* istanbul ignore next */ props => {
   const {
     handleSubmit,
     change,

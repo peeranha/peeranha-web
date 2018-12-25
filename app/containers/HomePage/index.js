@@ -45,14 +45,23 @@ import { sendEmail, sendMessage } from './actions';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-class HomePage extends React.PureComponent {
+export class HomePage extends React.PureComponent {
   componentDidMount() {
-    const { hash } = window.location;
-    const banner = window.$(`#${LANDING_ID}`);
+    this.scrollToSection();
 
-    /*
-     * Scroll to hash element
-     */
+    this.imagesAnimation();
+
+    this.headerAnimation();
+
+    this.parallaxAnimation();
+  }
+
+  componentWillUnmount() {
+    window.$(window).off();
+  }
+
+  scrollToSection /* istanbul ignore next */ = () => {
+    const { hash } = window.location;
 
     if (hash) {
       window.$('html, body').animate(
@@ -62,114 +71,97 @@ class HomePage extends React.PureComponent {
         250,
       );
     }
+  };
 
-    if (banner.length) {
-      const patterns = banner.find('.pattern');
+  imagesAnimation /* istanbul ignore next */ = () => {
+    window.$(window).on('DOMMouseScroll mousewheel', event => {
+      const { scrollY } = event.currentTarget;
+      const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
+      const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
 
-      let x = 0;
-      let y = 0;
+      const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
-      /*
-       * Event @mousemove - @x, @y, coord. writing
-       */
+      if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
+        animatedImagesArray.each(function() {
+          const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+          const translatorMax = 30;
+          const step = translatorMax * 0.15;
 
-      window.$(window).on('mousemove', event => {
-        x = event.pageX;
-        y = event.pageY;
-      });
+          const matrix = window
+            .$(this)
+            .css('transform')
+            .replace(/[^0-9\-.,]/g, '')
+            .split(',');
 
-      /*
-       * Image animation
-       */
+          const translateY = +(matrix[13] || matrix[5]) || 0;
+          const imageY = window.$(this).offset().top;
 
-      window.$(window).on('DOMMouseScroll mousewheel', event => {
-        const { scrollY } = event.currentTarget;
-        const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
-        const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
+          // Check if image is in area of scrolling
+          if (
+            scrollY + window.innerHeight / 2 > imageY &&
+            scrollY - window.innerHeight / 2 < imageY
+          ) {
+            if (Math.abs(direction * step + translateY) < translatorMax) {
+              // Image translating
+              window.$(this).css({
+                transform: `translate(0px, ${direction * step + translateY}px)`,
+              });
 
-        const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
-
-        if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-          animatedImagesArray.each(function() {
-            const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
-            const translatorMax = 30;
-            const step = translatorMax * 0.15;
-
-            const matrix = window
-              .$(this)
-              .css('transform')
-              .replace(/[^0-9\-.,]/g, '')
-              .split(',');
-
-            const translateY = +(matrix[13] || matrix[5]) || 0;
-            const imageY = window.$(this).offset().top;
-
-            // Check if image is in area of scrolling
-            if (
-              scrollY + window.innerHeight / 2 > imageY &&
-              scrollY - window.innerHeight / 2 < imageY
-            ) {
-              if (Math.abs(direction * step + translateY) < translatorMax) {
-                // Image translating
-                window.$(this).css({
-                  transform: `translate(0px, ${direction * step +
+              // Text translating
+              window
+                .$(this)
+                .parent()
+                .parent()
+                .find(`.${ANIMATE_TEXT}`)
+                .css({
+                  transform: `translate(0px, ${-direction * step -
                     translateY}px)`,
                 });
-
-                // Text translating
-                window
-                  .$(this)
-                  .parent()
-                  .parent()
-                  .find(`.${ANIMATE_TEXT}`)
-                  .css({
-                    transform: `translate(0px, ${-direction * step -
-                      translateY}px)`,
-                  });
-              }
             }
-          });
-        }
-      });
-
-      /*
-       * Header animation
-       */
-
-      window.$(window).on('scroll', event => {
-        const { scrollY } = event.currentTarget;
-        const { innerHeight } = window;
-
-        const show = window.$(`#${HEADER_ID}`).hasClass('scroll');
-
-        if (scrollY > innerHeight * 0.9 && !show) {
-          window.$(`#${HEADER_ID}`).addClass('scroll');
-        } else if (scrollY < innerHeight * 0.9 && show) {
-          window.$(`#${HEADER_ID}`).removeClass('scroll');
-        }
-      });
-
-      /*
-       * Parallax animation
-       */
-
-      window.requestAnimationFrame(function animation() {
-        patterns.each(function() {
-          const modifier = 50;
-
-          window.$(this).css({
-            transform: `translate(${x / modifier}px, ${y / modifier}px)`,
-          });
+          }
         });
+      }
+    });
+  };
 
-        window.requestAnimationFrame(animation);
+  headerAnimation /* istanbul ignore next */ = () => {
+    window.$(window).on('scroll', event => {
+      const { scrollY } = event.currentTarget;
+      const { innerHeight } = window;
+
+      const show = window.$(`#${HEADER_ID}`).hasClass('scroll');
+
+      if (scrollY > innerHeight * 0.9 && !show) {
+        window.$(`#${HEADER_ID}`).addClass('scroll');
+      } else if (scrollY < innerHeight * 0.9 && show) {
+        window.$(`#${HEADER_ID}`).removeClass('scroll');
+      }
+    });
+  };
+
+  parallaxAnimation /* istanbul ignore next */ = () => {
+    const patterns = window.$(`#${LANDING_ID}`).find('.pattern');
+
+    let x = 0;
+    let y = 0;
+
+    window.$(window).on('mousemove', event => {
+      x = event.pageX;
+      y = event.pageY;
+    });
+
+    window.requestAnimationFrame(function animation() {
+      patterns.each(function() {
+        const modifier = 50;
+
+        window.$(this).css({
+          transform: `translate(${x / modifier}px, ${y / modifier}px)`,
+        });
       });
-    }
-  }
 
-  componentWillUnmount() {
-    window.$(window).off();
-  }
+      window.requestAnimationFrame(animation);
+    });
+  };
 
   sendEmail = (...args) => {
     const { reset, form } = args[2];
@@ -252,7 +244,7 @@ const mapStateToProps = createStructuredSelector({
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     sendEmailDispatch: (formData, reset, pageInfo) =>

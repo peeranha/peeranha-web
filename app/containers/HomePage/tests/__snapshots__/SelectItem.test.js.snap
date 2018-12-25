@@ -94,6 +94,8 @@ exports[`SelectItem test2, touched, error - true 1`] = `
     className="text-danger"
   >
     <FormattedMessage
+      defaultMessage="Peerania | Landing"
+      id="app.containers.HomePage.title"
       values={Object {}}
     />
   </h6>

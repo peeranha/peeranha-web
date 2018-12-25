@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+/* istanbul ignore next */
 const Gradient = styled.div`
   background-image: linear-gradient(
     to ${props => props.position || 'top'},

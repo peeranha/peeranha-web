@@ -232,7 +232,7 @@ export class Header extends React.PureComponent {
     window.location.hash = `#${e.currentTarget.dataset.hash}`;
   };
 
-  toggle = () => {
+  toggle /* istanbul ignore next */ = () => {
     const show = window.$(`#${this.state.togglerId}`).hasClass('show');
     const action = !show ? 'add' : 'remove';
 

@@ -28,7 +28,7 @@ const Box = Wrapper.extend`
 
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-const SelectItem = ({
+const SelectItem = /* istanbul ignore next */ ({
   input,
   change,
   items,
@@ -49,12 +49,12 @@ const SelectItem = ({
         className="floating-label-input"
         label={label}
         disabled={disabled}
-        error={touched && (warning || error)}
+        error={!!(touched && (warning || error))}
         onChange={null}
       />
     </div>
     <ul className="dropdown-menu" aria-labelledby={input.name}>
-      <li onClick={() => change([input.name], '')}>
+      <li key={messages.none.id} onClick={() => change([input.name], '')}>
         <FormattedMessage {...messages.none} />
       </li>
       {items.map(item => (

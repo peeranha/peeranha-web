@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const DefaultInput = ({
+const DefaultInput = /* istanbul ignore next */ ({
   input,
   disabled,
   meta: { touched, error, warning },
