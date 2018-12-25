@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { strLength20, required } from 'components/FormFields/validate';
+import { strLength3x20, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 
 import messages from './messages';
@@ -39,8 +39,8 @@ let SignUpForm = props => {
           component={TextInputField}
           disabled={loading}
           label={translations[messages.displayName.id]}
-          validate={[strLength20, required]}
-          warn={[strLength20, required]}
+          validate={[strLength3x20, required]}
+          warn={[strLength3x20, required]}
         />
       </div>
       <div>

@@ -39,6 +39,8 @@ import {
   DELETE_COMMENT,
   SAVE_COMMENT,
   VOTE_TO_DELETE,
+  contentOptionsClass,
+  contentOptionsAttr,
 } from './constants';
 
 import {
@@ -244,6 +246,13 @@ export function* postCommentWorker(res) {
     );
 
     yield call(() => res.reset());
+
+    yield call(() =>
+      window
+        .$(`.${contentOptionsClass}`)
+        .attr(`data-${contentOptionsAttr}`, false),
+    );
+
     yield put(postCommentSuccess(questionData));
   } catch (err) {
     yield put(postCommentErr(err));

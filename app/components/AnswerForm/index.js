@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import { strLength30000, required } from 'components/FormFields/validate';
+import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import TextEditorField from 'components/FormFields/TextEditorField';
@@ -20,8 +20,8 @@ let AnswerForm = props => (
           name={TEXT_EDITOR_ANSWER_FORM}
           component={TextEditorField}
           disabled={props.sendAnswerLoading}
-          validate={[strLength30000, required]}
-          warn={[strLength30000, required]}
+          validate={[strLength25x30000, required]}
+          warn={[strLength25x30000, required]}
         />
       </div>
       <div>

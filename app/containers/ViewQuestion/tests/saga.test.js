@@ -75,6 +75,8 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  contentOptionsClass,
+  contentOptionsAttr,
 } from '../constants';
 
 import {
@@ -519,9 +521,20 @@ describe('postCommentWorker', () => {
       );
     });
 
-    it('step4, reset', () => {
+    it('step4-1, reset', () => {
       generator.next();
       expect(res.reset).toHaveBeenCalled();
+    });
+
+    it('step4-2, hideForm', () => {
+      const attr = jest.fn();
+      window.$ = jest.fn(() => ({
+        attr,
+      }));
+
+      generator.next();
+      expect(window.$).toHaveBeenCalledWith(`.${contentOptionsClass}`);
+      expect(attr).toHaveBeenCalledWith(`data-${contentOptionsAttr}`, false);
     });
 
     it('step5, postCommentSuccess', () => {

@@ -1,9 +1,12 @@
 /* eslint consistent-return: 0 */
 
 import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { translationMessages } from 'i18n';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
+import { addToast } from 'containers/Toast/actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { postQuestion } from 'utils/questionsManagement';
 import { getProfileInfo } from 'utils/profileManagement';
@@ -13,6 +16,8 @@ import { askQuestionSuccess, askQuestionError } from './actions';
 import { postQuestionValidator } from './validate';
 
 export function* postQuestionWorker(res) {
+  const locale = yield select(makeSelectLocale());
+
   try {
     const eosService = yield select(selectEos);
     const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
@@ -32,8 +37,23 @@ export function* postQuestionWorker(res) {
 
     yield call(() => postQuestion(res.user, res.questionData, eosService));
 
+    yield put(
+      addToast({
+        type: 'success',
+        text:
+          translationMessages[locale]['app.containers.Other.successMessage'],
+      }),
+    );
+
     yield put(askQuestionSuccess());
   } catch (err) {
+    yield put(
+      addToast({
+        type: 'error',
+        text: translationMessages[locale]['app.containers.Other.errorMessage'],
+      }),
+    );
+
     yield put(askQuestionError(err.message));
   }
 }

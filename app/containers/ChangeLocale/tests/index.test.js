@@ -1,15 +1,43 @@
 import { ChangeLocale, mapDispatchToProps } from '../index';
 
 const cmp = new ChangeLocale();
-const changeLocaleDispatch = 'changeLocaleDispatch';
 
 cmp.props = {};
-cmp.props.changeLocaleDispatch = () => changeLocaleDispatch;
+cmp.props.changeLocaleDispatch = jest.fn();
+
+beforeEach(() => {
+  cmp.props.changeLocaleDispatch.mockClear();
+});
 
 describe('ChangeLocale', () => {
   it('mapLanguages', () => {
     const langs = ['en', 'ru'];
     expect(cmp.mapLanguages(langs)).toMatchSnapshot();
+  });
+
+  describe('componentWillMount', () => {
+    const locale = 'en';
+
+    it('localstorage not null', () => {
+      localStorage.setItem('locale', locale);
+
+      cmp.componentWillMount();
+      expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
+    });
+
+    it('localstorage is null', () => {
+      localStorage.setItem('locale', '');
+
+      cmp.componentWillMount();
+      expect(cmp.props.changeLocaleDispatch).not.toHaveBeenCalledWith(locale);
+    });
+  });
+
+  it('changeLocale', () => {
+    const locale = 'en';
+
+    cmp.changeLocale(locale);
+    expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
   });
 
   it('mapDispatchToProps test', () => {

@@ -26,8 +26,8 @@ import * as routes from 'routes-config';
 
 import {
   imageValidation,
-  strLength20,
-  strLength30000,
+  strLength3x20,
+  strLength25x30000,
 } from 'components/FormFields/validate';
 
 /* eslint-disable-next-line */
@@ -60,32 +60,32 @@ export let ProfileEditForm = props => {
           name={DISPLAY_NAME_FIELD}
           component={TextInputField}
           label={sendProps.translations[messages.displayNameLabel.id]}
-          validate={strLength20}
-          warn={strLength20}
+          validate={strLength3x20}
+          warn={strLength3x20}
         />
         <Field
           disabled={sendProps.isProfileSaving}
           name={POSITION_FIELD}
           component={TextInputField}
           label={sendProps.translations[messages.positionLabel.id]}
-          validate={strLength20}
-          warn={strLength20}
+          validate={strLength3x20}
+          warn={strLength3x20}
         />
         <Field
           disabled={sendProps.isProfileSaving}
           name={COMPANY_FIELD}
           component={TextInputField}
           label={sendProps.translations[messages.companyLabel.id]}
-          validate={strLength20}
-          warn={strLength20}
+          validate={strLength3x20}
+          warn={strLength3x20}
         />
         <Field
           disabled={sendProps.isProfileSaving}
           name={ABOUT_FIELD}
           component={TextareaField}
           label={sendProps.translations[messages.aboutLabel.id]}
-          validate={strLength30000}
-          warn={strLength30000}
+          validate={strLength25x30000}
+          warn={strLength25x30000}
         />
         <Field
           disabled={sendProps.isProfileSaving}

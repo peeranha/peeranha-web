@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 import messages from './messages';
 import Button from './Button';
 
+import { contentOptionsClass, contentOptionsAttr } from './constants';
+
 const setDataAttr = e => {
-  e.target.parentElement.dataset.opened = !JSON.parse(
-    e.target.parentElement.dataset.opened || false,
+  e.target.parentElement.dataset[contentOptionsAttr] = !JSON.parse(
+    e.target.parentElement.dataset[contentOptionsAttr] || false,
   );
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const ContentOptions = props => (
-  <div className="content-options">
+  <div className={contentOptionsClass}>
     <Button
       show
       buttonParams={props.buttonParams}

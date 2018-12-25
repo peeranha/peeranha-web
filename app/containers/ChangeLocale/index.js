@@ -86,19 +86,30 @@ export class ChangeLocale extends React.PureComponent {
   /* eslint react/no-did-mount-set-state: 0 */
   componentWillMount() {
     const languages = Object.keys(translationMessages);
+    const locale = localStorage.getItem('locale');
+
     this.setState({ languages });
+
+    if (locale) {
+      this.props.changeLocaleDispatch(locale);
+    }
   }
+
+  changeLocale = locale => {
+    localStorage.setItem('locale', locale);
+    this.props.changeLocaleDispatch(locale);
+  };
 
   mapLanguages = langs =>
     langs.map(item => (
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.props.changeLocaleDispatch(item)}
+        onClick={() => this.changeLocale(item)}
         data-isbold={item === this.props.locale}
         key={item}
       >
-        <img src={require(`images/${item}_lang.png`)} alt="" />
+        <img src={require(`images/${item}_lang.png`)} alt={item} />
         <span>{item}</span>
       </li>
     ));

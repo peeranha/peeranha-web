@@ -26,8 +26,13 @@ exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
       />
        | 
       <span>
-        almost NaN years
+        undefined 
       </span>
+      <FormattedMessage
+        defaultMessage="ago"
+        id="app.containers.Questions.ago"
+        values={Object {}}
+      />
     </p>
   </div>
   <div

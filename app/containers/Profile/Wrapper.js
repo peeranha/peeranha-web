@@ -37,6 +37,7 @@ const Wrapper = styled.div`
       margin: 10px 0;
     }
     p {
+      min-height: 40px;
       padding: 10px;
       background: rgba(0, 0, 0, 0.05);
     }

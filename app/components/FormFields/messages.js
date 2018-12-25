@@ -7,9 +7,25 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  wrongLength: {
-    id: 'app.containers.AskQuestion.wrongLength',
-    defaultMessage: 'Not valid field length',
+  wrongLength3x20: {
+    id: 'app.containers.AskQuestion.wrongLength3x20',
+    defaultMessage:
+      'Value must be at least 3 characters and no longer than 20 characters',
+  },
+  wrongLength15x100: {
+    id: 'app.containers.AskQuestion.wrongLength15x100',
+    defaultMessage:
+      'Value must be at least 15 characters and no longer than 100 characters',
+  },
+  wrongLength20x1000: {
+    id: 'app.containers.AskQuestion.wrongLength20x1000',
+    defaultMessage:
+      'Value must be at least 20 characters and no longer than 1000 characters',
+  },
+  wrongLength25x30000: {
+    id: 'app.containers.AskQuestion.wrongLength25x30000',
+    defaultMessage:
+      'Value must be at least 25 characters and no longer than 30000 characters',
   },
   wrongLength30000: {
     id: 'app.containers.AskQuestion.wrongLength30000',

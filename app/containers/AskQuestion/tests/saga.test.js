@@ -8,6 +8,7 @@ import { postQuestion } from 'utils/questionsManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+import { ADD_TOAST } from 'containers/Toast/constants';
 
 import defaultSaga, { postQuestionWorker } from '../saga';
 import {
@@ -52,10 +53,17 @@ describe('postQuestionWorker', () => {
   describe('profileInfo is true', () => {
     const generator = postQuestionWorker(props);
     const profileInfo = {};
+    const locale = 'en';
+
+    it('step1, locale', () => {
+      select.mockImplementation(() => locale);
+      const step = generator.next();
+      expect(step.value).toEqual(locale);
+    });
 
     it('step1-1, eosService', () => {
       select.mockImplementation(() => eos);
-      const step = generator.next();
+      const step = generator.next(locale);
       expect(step.value).toEqual(eos);
     });
 
@@ -82,6 +90,11 @@ describe('postQuestionWorker', () => {
       expect(postQuestion).toHaveBeenCalledTimes(1);
     });
 
+    it('step, addToastSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(ADD_TOAST);
+    });
+
     it('step3, askQuestionSuccess', () => {
       const step3 = generator.next();
       expect(step3.value.type).toBe(ASK_QUESTION_SUCCESS);
@@ -95,6 +108,7 @@ describe('postQuestionWorker', () => {
     getProfileInfo.mockImplementation(() => profileInfo);
 
     generator.next();
+    generator.next('en');
     generator.next();
 
     it('showLoginModal', () => {
@@ -105,7 +119,10 @@ describe('postQuestionWorker', () => {
     it('error handling', () => {
       const err = new Error('some error');
       const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(ASK_QUESTION_ERROR);
+      expect(putDescriptor.value.type).toBe(ADD_TOAST);
+
+      const step = generator.next();
+      expect(step.value.type).toBe(ASK_QUESTION_ERROR);
     });
   });
 
@@ -118,6 +135,7 @@ describe('postQuestionWorker', () => {
     postQuestionValidator.mockImplementation(() => isValid);
 
     generator.next();
+    generator.next('en');
     generator.next();
     generator.next(profileInfo);
 

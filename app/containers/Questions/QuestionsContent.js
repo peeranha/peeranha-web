@@ -27,7 +27,8 @@ const QuestionItem = item => (
           {item.user}
         </Link>
         {' | '}
-        <span>{getTimeFromDateToNow(item.post_time, item.locale)}</span>
+        <span>{`${getTimeFromDateToNow(item.post_time, item.locale)} `}</span>
+        <FormattedMessage {...messages.ago} />
       </p>
     </div>
     <div className="votes-answers">

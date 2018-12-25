@@ -71,3 +71,6 @@ export const POST_COMMENT_BUTTON = 'app_view_question_post_comment_button';
 export const MARK_AS_BUTTON = 'app_view_question_mark_as_button';
 export const UP_VOTE_BUTTON = 'app_view_question_upvote_button';
 export const DOWN_VOTE_BUTTON = 'app_view_question_downvote_button';
+
+export const contentOptionsClass = 'content-options';
+export const contentOptionsAttr = 'opened';

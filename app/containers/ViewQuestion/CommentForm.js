@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import TextareaField from 'components/FormFields/TextareaField';
-import { strLength1000, required } from 'components/FormFields/validate';
+import { strLength20x1000, required } from 'components/FormFields/validate';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
@@ -17,8 +17,8 @@ let CommentForm = props => (
         name={TEXTAREA_COMMENT_FORM}
         disabled={props.sendCommentLoading}
         component={TextareaField}
-        validate={[strLength1000, required]}
-        warn={[strLength1000, required]}
+        validate={[strLength20x1000, required]}
+        warn={[strLength20x1000, required]}
       />
     </div>
     <div>
