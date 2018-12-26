@@ -30,17 +30,17 @@ import QuestionsContainer from './QuestionsContainer';
 export class Questions extends React.Component {
   componentDidMount() {
     const { initLoadedItems } = this.props;
-    this.getQuestionsList(initLoadedItems, 0);
+    this.getQuestionsList(initLoadedItems);
   }
 
   componentWillUnmount() {
     this.props.setDefaultReducerDispatch();
   }
 
-  getQuestionsList = (
-    limit = this.props.nextLoadedItems,
-    offset = this.props.questionsList.size,
-  ) => {
+  getQuestionsList = (limit = this.props.nextLoadedItems) => {
+    const lastItem = this.props.questionsList.last();
+    const offset = (lastItem && +lastItem.id + 1) || 0;
+
     this.props.getQuestionsListDispatch(limit, offset);
   };
 

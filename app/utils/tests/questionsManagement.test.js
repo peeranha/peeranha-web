@@ -16,6 +16,7 @@ import {
   DEL_ANSWER_METHOD,
   DEL_QUESTION_METHOD,
   VOTE_TO_DELETE_METHOD,
+  USER_QUESTIONS_TABLE,
 } from '../constants';
 
 import {
@@ -36,6 +37,7 @@ import {
   getAnswer,
   getAskedQuestion,
   voteToDelete,
+  getQuestionsPostedByUser,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -51,6 +53,24 @@ beforeEach(() => {
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
   };
+});
+
+describe('getQuestionsPostedByUser', async () => {
+  const user = 'user1';
+  const questionsMass = [];
+  eosService.getTableRows.mockImplementation(() => questionsMass);
+
+  const questions = await getQuestionsPostedByUser(eosService, user);
+
+  it('test', () => {
+    expect(eosService.getTableRows).toHaveBeenCalledWith(
+      USER_QUESTIONS_TABLE,
+      user,
+      0,
+    );
+
+    expect(questions).toEqual(questionsMass);
+  });
 });
 
 describe('getAskedQuestion', async () => {
