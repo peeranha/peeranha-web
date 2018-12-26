@@ -79,6 +79,7 @@ const Box = Section.extend`
 
     .card-body {
       padding-left: 3rem;
+      font-size: 16px;
     }
   }
 
