@@ -23,7 +23,7 @@ describe('eosio integration', () => {
     // Test runs successfully only first time and fails the second time (restart eos node to re-run)
     xit('sends transaction to eos node for first user', async () => {
       const actionResult1 = await eos.sendTransaction('user1', 'registeracc', {
-        owner: 'user1',
+        user: 'user1',
         display_name: 'user1DispName',
         ipfs_profile: 'user1_IPFS',
       });
@@ -35,7 +35,7 @@ describe('eosio integration', () => {
     // Test runs successfully only first time and fails the second time (restart eos node to re-run)
     xit('sends transaction to eos node for second user', async () => {
       const actionResult2 = await eos.sendTransaction('user2', 'registeracc', {
-        owner: 'user2',
+        user: 'user2',
         display_name: 'user2DispName',
         ipfs_profile: 'user2_IPFS',
       });
@@ -50,7 +50,7 @@ describe('eosio integration', () => {
     xit('returns one record from account table', async () => {
       const record = await eos.getTableRow('account', 'allaccounts', 'user1');
       expect(record).toBeDefined();
-      expect(record.owner).toBe('user1');
+      expect(record.user).toBe('user1');
       expect(record.display_name).toBe('user1DispName');
       expect(record.ipfs_profile).toBe('user1_IPFS');
     });
@@ -62,10 +62,10 @@ describe('eosio integration', () => {
       const records = await eos.getTableRows('account', 'allaccounts');
       expect(records).toBeDefined();
       expect(records.length).toBe(2);
-      expect(records[0].owner).toBe('user1');
+      expect(records[0].user).toBe('user1');
       expect(records[0].display_name).toBe('user1DispName');
       expect(records[0].ipfs_profile).toBe('user1_IPFS');
-      expect(records[1].owner).toBe('user2');
+      expect(records[1].user).toBe('user2');
       expect(records[1].display_name).toBe('user2DispName');
       expect(records[1].ipfs_profile).toBe('user2_IPFS');
     });

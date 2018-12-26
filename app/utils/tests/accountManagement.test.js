@@ -31,7 +31,7 @@ it('registerAccount', async () => {
   await registerAccount(acc, dName, profile, cmp);
 
   expect(cmp.sendTransaction).toHaveBeenCalledWith(acc, REGISTER_ACC, {
-    owner: acc,
+    user: acc,
     display_name: dName,
     ipfs_profile: savedHash,
   });

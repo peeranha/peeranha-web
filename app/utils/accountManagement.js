@@ -14,7 +14,7 @@ export async function registerAccount(
   const ipfsHash = await saveText(profileText);
 
   await eosService.sendTransaction(accountName, REGISTER_ACC, {
-    owner: accountName,
+    user: accountName,
     display_name: displayName,
     ipfs_profile: ipfsHash,
   });

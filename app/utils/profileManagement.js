@@ -4,8 +4,7 @@ import { saveText, getText, saveFile, getFileUrl } from './ipfs';
 import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
-  SET_IPFS_METHOD,
-  SET_DISPLAY_NAME_METHOD,
+  SAVE_PROFILE_METHOD,
 } from './constants';
 
 export async function uploadImg(img) {
@@ -43,16 +42,12 @@ export async function getProfileInfo(user, eosService) {
   return profile;
 }
 
-export async function saveProfile(owner, profile, eosService) {
+export async function saveProfile(user, profile, eosService) {
   const ipfsProfile = await saveText(JSON.stringify(profile));
 
-  await eosService.sendTransaction(owner, SET_IPFS_METHOD, {
-    owner,
+  await eosService.sendTransaction(user, SAVE_PROFILE_METHOD, {
+    user,
     ipfs_profile: ipfsProfile,
-  });
-
-  await eosService.sendTransaction(owner, SET_DISPLAY_NAME_METHOD, {
-    owner,
     display_name: profile[DISPLAY_NAME_FIELD] || '',
   });
 }

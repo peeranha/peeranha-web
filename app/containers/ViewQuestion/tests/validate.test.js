@@ -55,9 +55,9 @@ describe('voteToDeleteValidator', () => {
     item.answerId = null;
     item.commentId = null;
 
-    it('itemData.user === profileInfo.owner', () => {
+    it('itemData.user === profileInfo.user', () => {
       questionData.user = 'user';
-      profileInfo.owner = 'user';
+      profileInfo.user = 'user';
 
       voteToDeleteValidator(
         profileInfo,
@@ -191,10 +191,10 @@ describe('deleteAnswerValidator', () => {
 });
 
 describe('downVoteValidator', () => {
-  it('(questionData.user === profileInfo.owner && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)', () => {
+  it('(questionData.user === profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)', () => {
     try {
       questionData.user = 'user1';
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       answerId = 0;
 
       downVoteValidator(
@@ -215,7 +215,7 @@ describe('downVoteValidator', () => {
   it('profileInfo.rating < minRatingToDownvote', () => {
     try {
       questionData.user = 'user1';
-      profileInfo.owner = 'user2';
+      profileInfo.user = 'user2';
       profileInfo.rating = 0;
       answerId = 0;
 
@@ -236,7 +236,7 @@ describe('downVoteValidator', () => {
 
   it('passed validation successully', () => {
     questionData.user = 'user1';
-    profileInfo.owner = 'user2';
+    profileInfo.user = 'user2';
     profileInfo.rating = 10000;
     answerId = 0;
 
@@ -253,10 +253,10 @@ describe('downVoteValidator', () => {
 });
 
 describe('upVoteValidator', () => {
-  it('(questionData.user === profileInfo.owner && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)', () => {
+  it('(questionData.user === profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)', () => {
     try {
       questionData.user = 'user1';
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       answerId = 0;
 
       upVoteValidator(
@@ -277,7 +277,7 @@ describe('upVoteValidator', () => {
   it('profileInfo.rating < minRatingToUpvote', () => {
     try {
       questionData.user = 'user1';
-      profileInfo.owner = 'user2';
+      profileInfo.user = 'user2';
       profileInfo.rating = 0;
       answerId = 0;
 
@@ -299,7 +299,7 @@ describe('upVoteValidator', () => {
   it('passed validation successully', () => {
     profileInfo.rating = 100000;
     questionData.user = 'user1';
-    profileInfo.owner = 'user2';
+    profileInfo.user = 'user2';
     answerId = 0;
 
     const calling = upVoteValidator(
@@ -315,9 +315,9 @@ describe('upVoteValidator', () => {
 });
 
 describe('markAsAcceptedValidator', () => {
-  it('profileInfo.owner !== questionData.user', () => {
+  it('profileInfo.user !== questionData.user', () => {
     try {
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       questionData.user = 'user2';
 
       markAsAcceptedValidator(profileInfo, questionData);
@@ -327,7 +327,7 @@ describe('markAsAcceptedValidator', () => {
   });
 
   it('passed validation successully', () => {
-    profileInfo.owner = 'user1';
+    profileInfo.user = 'user1';
     questionData.user = 'user1';
 
     const calling = markAsAcceptedValidator(profileInfo, questionData);
@@ -355,11 +355,11 @@ describe('postCommentValidator', () => {
     }
   });
 
-  it('((questionData.user === profileInfo.owner && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)) && profileInfo.rating < minRatingForMyItem', () => {
+  it('((questionData.user === profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)) && profileInfo.rating < minRatingForMyItem', () => {
     try {
       answerId = 0;
       profileInfo.rating = -100;
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       questionData.user = 'user1';
 
       postCommentValidator(
@@ -377,11 +377,11 @@ describe('postCommentValidator', () => {
     }
   });
 
-  it('((questionData.user !== profileInfo.owner && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user !== profileInfo.owner)) && profileInfo.rating < minRatingForOtherItems', () => {
+  it('((questionData.user !== profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user !== profileInfo.user)) && profileInfo.rating < minRatingForOtherItems', () => {
     try {
       answerId = 0;
       profileInfo.rating = -100;
-      profileInfo.owner = 'user2';
+      profileInfo.user = 'user2';
       questionData.user = 'user1';
 
       postCommentValidator(
@@ -400,7 +400,7 @@ describe('postCommentValidator', () => {
   });
 
   it('passed validation successully', () => {
-    profileInfo.owner = 'user2';
+    profileInfo.user = 'user2';
     profileInfo.rating = 1000;
     questionData.answers = [];
 
@@ -436,7 +436,7 @@ describe('postAnswerValidator', () => {
 
   it('questionData.answers.length === maxAnswersNumber', () => {
     try {
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       questionData.answers = [
         {
           user: 'user1',
@@ -457,9 +457,9 @@ describe('postAnswerValidator', () => {
     }
   });
 
-  it('questionData.user === profileInfo.owner && profileInfo.rating < minRatingForMyQuestion', () => {
+  it('questionData.user === profileInfo.user && profileInfo.rating < minRatingForMyQuestion', () => {
     try {
-      profileInfo.owner = 'user1';
+      profileInfo.user = 'user1';
       profileInfo.rating = -10;
       questionData.answers = [];
 
@@ -477,9 +477,9 @@ describe('postAnswerValidator', () => {
     }
   });
 
-  it('questionData.user !== profileInfo.owner && profileInfo.rating < minRatingForOtherQuestions', () => {
+  it('questionData.user !== profileInfo.user && profileInfo.rating < minRatingForOtherQuestions', () => {
     try {
-      profileInfo.owner = 'user2';
+      profileInfo.user = 'user2';
       profileInfo.rating = -10;
       questionData.answers = [];
 
@@ -498,7 +498,7 @@ describe('postAnswerValidator', () => {
   });
 
   it('passed validation successully', () => {
-    profileInfo.owner = 'user2';
+    profileInfo.user = 'user2';
     profileInfo.rating = 1000;
     questionData.answers = [];
 

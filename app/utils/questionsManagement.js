@@ -9,6 +9,7 @@ import { getProfileInfo } from './profileManagement';
 
 import {
   QUESTION_TABLE,
+  USER_QUESTIONS_TABLE,
   ALL_QUESTIONS_SCOPE,
   POST_QUESTION_METHOD,
   EDIT_QUESTION_METHOD,
@@ -24,6 +25,16 @@ import {
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
 } from './constants';
+
+export async function getQuestionsPostedByUser(eosService, user) {
+  const questions = await eosService.getTableRows(
+    USER_QUESTIONS_TABLE,
+    user,
+    0,
+  );
+
+  return questions;
+}
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export async function getQuestions(limit, eosService, offset) {
@@ -66,6 +77,8 @@ export async function postQuestion(user, questionData, eosService) {
       user,
       title: questionData.title,
       ipfs_link: ipfsLink,
+      community_id: 1,
+      tags: [1, 2],
     },
   );
 

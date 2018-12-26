@@ -261,6 +261,8 @@ describe('postQuestion', () => {
         user,
         title: questionData.title,
         ipfs_link: ipfsLink,
+        community_id: 1,
+        tags: [1, 2],
       },
     );
   });

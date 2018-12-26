@@ -8,8 +8,7 @@ export const SCATTER_APP_NAME = 'Peerania';
 
 export const ACCOUNT_TABLE = 'account';
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
-export const SET_IPFS_METHOD = 'setipfspro';
-export const SET_DISPLAY_NAME_METHOD = 'setdispname';
+export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const IPFS_URL = 'http://localhost:8080/ipfs';
 
@@ -17,6 +16,8 @@ export const REGISTER_ACC = 'registeracc';
 
 export const QUESTION_TABLE = 'question';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
+
+export const USER_QUESTIONS_TABLE = 'usrquestions';
 
 export const VOTE_TO_DELETE_METHOD = 'votedelete';
 

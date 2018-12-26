@@ -4,8 +4,12 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
-import { postQuestion } from 'utils/questionsManagement';
+import {
+  postQuestion,
+  getQuestionsPostedByUser,
+} from 'utils/questionsManagement';
 import { getProfileInfo } from 'utils/profileManagement';
+import createdHistory from 'createdHistory';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 import { ADD_TOAST } from 'containers/Toast/constants';
@@ -32,10 +36,15 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('utils/questionsManagement', () => ({
   postQuestion: jest.fn().mockImplementation(() => true),
+  getQuestionsPostedByUser: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
+}));
+
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
 }));
 
 describe('postQuestionWorker', () => {
@@ -98,6 +107,19 @@ describe('postQuestionWorker', () => {
     it('step3, askQuestionSuccess', () => {
       const step3 = generator.next();
       expect(step3.value.type).toBe(ASK_QUESTION_SUCCESS);
+    });
+
+    it('step4, getQuestionsPostedByUser', () => {
+      generator.next();
+      expect(getQuestionsPostedByUser).toHaveBeenCalledWith(eos, props.user);
+    });
+
+    it('step5, push to question page', () => {
+      const questionId = '102003';
+      const questionsPostedByUser = [{ question_id: questionId }];
+
+      generator.next(questionsPostedByUser);
+      expect(createdHistory.push).toHaveBeenCalledWith(questionId);
     });
   });
 
