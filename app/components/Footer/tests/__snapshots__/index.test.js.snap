@@ -51,7 +51,7 @@ exports[`<Footer test /> should match the snapshot test 1`] = `
 }
 
 .c1 li {
-  font-family: OpenSans,sans-serif;
+  font-family: Open Sans,sans-serif;
   padding: 5px 20px !important;
   text-transform: uppercase;
 }

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 const Wrapper = styled.div`
   * {
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }

@@ -622,7 +622,7 @@ exports[`<EmailLandingForm /> snapshot test 1`] = `
                               >
                                 <DefaultInput__Wrapper>
                                   <div
-                                    className="DefaultInput__Wrapper-bFTbVB gYnvJt"
+                                    className="DefaultInput__Wrapper-bFTbVB cMcbEk"
                                   >
                                     <input
                                       className="default-input false"
@@ -662,7 +662,7 @@ exports[`<EmailLandingForm /> snapshot test 1`] = `
                             className="contained-button-wrapper"
                           >
                             <div
-                              className="contained-button-wrapper ContainedButton__Wrapper-jdnubP hWrmQB"
+                              className="contained-button-wrapper ContainedButton__Wrapper-jdnubP biEZfx"
                             >
                               <WithStyles(Button)
                                 className="contained-button"

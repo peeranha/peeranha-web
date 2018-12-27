@@ -28,7 +28,7 @@ const Box = Gradient.extend`
         margin-bottom: 5px;
         text-align: center;
         letter-spacing: -0.6px;
-        font-family: OpenSans, sans-serif;
+        font-family: Open Sans, sans-serif;
       }
     }
 

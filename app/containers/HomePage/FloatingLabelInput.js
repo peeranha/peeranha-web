@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 export const Wrapper = styled.div`
   * {
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -38,13 +38,13 @@ export const Wrapper = styled.div`
     label {
       font-size: 14px;
       color: #9b9b9b;
-      font-family: OpenSans, sans-serif;
+      font-family: Open Sans, sans-serif;
       z-index: 10;
     }
 
     input {
       font-size: 16px;
-      font-family: OpenSans, sans-serif;
+      font-family: Open Sans, sans-serif;
       color: #282828;
       padding: 0;
       width: 100%;

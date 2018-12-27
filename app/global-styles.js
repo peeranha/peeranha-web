@@ -1,21 +1,11 @@
 import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
-import OpenSansRegular from 'fonts/OpenSansRegular.ttf';
-import OpenSansBold from 'fonts/OpenSansBold.ttf';
-
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   ${reset};
 
-  @font-face {
-   font-family: "OpenSans";
-   src: url(${OpenSansRegular});
-  }
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
 
-  @font-face {
-   font-family: "OpenSansBold";
-   src: url(${OpenSansBold});
-  }
 
   html,
   body {

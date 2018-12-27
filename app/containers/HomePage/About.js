@@ -102,7 +102,7 @@ const Box = Section.extend`
       }
 
       .text-1 {
-        font-family: OpenSans, sans-serif;
+        font-family: Open Sans, sans-serif;
         color: #fa8072;
         font-size: 16px;
         letter-spacing: -0.6px;
@@ -111,14 +111,14 @@ const Box = Section.extend`
       .text-2 {
         color: #282828;
         font-size: 30px;
-        font-family: OpenSansBold, sans-serif !important;
+        font-weight: 700;
         padding-top: 19px;
         padding-bottom: 32px;
         letter-spacing: -1.2px;
       }
 
       .text-3 {
-        font-family: OpenSans, sans-serif;
+        font-family: Open Sans, sans-serif;
         text-align: left;
         color: #282828;
         font-size: 20px;

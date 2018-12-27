@@ -34,7 +34,8 @@ const Box = styled.div`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
   }
 
   position: relative;
@@ -122,7 +123,7 @@ const Box = styled.div`
     padding: 0 20px 10px 20px;
 
     * {
-      font-family: OpenSans, sans-serif;
+      font-family: Open Sans, sans-serif;
       font-size: 18px;
     }
 

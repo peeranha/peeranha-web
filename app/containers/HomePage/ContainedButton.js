@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 const Wrapper = styled.div`
   * {
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   .contained-button {
     width: 100%;
     height: 48px;
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
     font-size: 18px;
     background-color: #fc6655;
     border-radius: 3px;

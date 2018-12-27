@@ -23,7 +23,7 @@ const Toast = styled.div`
     line-height: 1.63;
     letter-spacing: -0.6px;
     font-size: 16px;
-    font-family: OpenSans, sans-serif;
+    font-family: Open Sans, sans-serif;
     padding: 20px 0;
   }
 `;
