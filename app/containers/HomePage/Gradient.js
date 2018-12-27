@@ -4,13 +4,16 @@ import styled from 'styled-components';
 const Gradient = styled.div`
   background-image: linear-gradient(
     to ${props => props.position || 'top'},
-    #f9f9f9 0,
-    #f8f8f8 0,
-    #fafafa 25px,
-    #fbfbfb 60%,
-    #fcfcfc 80%,
-    #fdfdfd 100%
+    #fbfbfb 0,
+    #fcfcfc 10px,
+    #fdfdfd 20px,
+    #fefefe 30px,
+    #ffffff 40px
   );
+  background-repeat: no-repeat;
+  background-size: 100% 50px;
+  background-position: ${props =>
+    props.position === 'bottom' ? 'top' : 'bottom'};
 `;
 
 export default Gradient;

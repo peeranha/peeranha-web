@@ -6,8 +6,8 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
-  strLength30000,
-  strLength20x100,
+  strLength25x30000,
+  strLength15x100,
   required,
 } from 'components/FormFields/validate';
 
@@ -29,16 +29,16 @@ let QuestionForm = props => (
         component={TextInputField}
         disabled={props.questionLoading}
         label={props.translations[messages.titleLabel.id]}
-        validate={[strLength20x100, required]}
-        warn={[strLength20x100, required]}
+        validate={[strLength15x100, required]}
+        warn={[strLength15x100, required]}
       />
       <Field
         name={FORM_CONTENT}
         component={TextEditorField}
         disabled={props.questionLoading}
         label={props.translations[messages.contentLabel.id]}
-        validate={[strLength30000, required]}
-        warn={[strLength30000, required]}
+        validate={[strLength25x30000, required]}
+        warn={[strLength25x30000, required]}
       />
     </div>
     <div>

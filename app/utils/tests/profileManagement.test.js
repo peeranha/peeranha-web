@@ -70,7 +70,7 @@ it('getProfileInfo', async () => {
 });
 
 it('saveProfile', async () => {
-  const owner = 'user';
+  const user = 'user';
   const profile = {};
   const ipfsProfile = 'ipfsProfile';
 
@@ -78,10 +78,10 @@ it('saveProfile', async () => {
 
   expect(cmp.sendTransaction).toHaveBeenCalledTimes(0);
 
-  await saveProfile(owner, profile, cmp);
+  await saveProfile(user, profile, cmp);
 
   expect(saveText).toHaveBeenCalledWith(JSON.stringify(profile));
-  expect(cmp.sendTransaction).toHaveBeenCalledTimes(2);
+  expect(cmp.sendTransaction).toHaveBeenCalledTimes(1);
 });
 
 it('getCitiesList', async () => {

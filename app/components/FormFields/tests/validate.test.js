@@ -23,14 +23,11 @@ describe('imageValidation', () => {
 describe('validate function', () => {
   const str = 'stringstringstring121';
   it('undefined', () => {
-    const str1 = 'string';
+    const str1 = 'string3333string33331';
     expect(stringLength(str1.length - 1, 20)(str1)).toEqual(undefined);
   });
-  it('it has to return string if param @max is less than length of string', () => {
-    expect(typeof stringLength(0, 20)(str)).toBe('object');
-  });
   it('it has to return string if param @min is more than length of string', () => {
-    expect(typeof stringLength(str.length + 1, 20)(str)).toBe('object');
+    expect(typeof stringLength(25, 30000)(str)).toBe('object');
   });
 });
 

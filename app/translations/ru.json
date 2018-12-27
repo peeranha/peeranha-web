@@ -137,7 +137,14 @@
   "app.containers.ViewQuestion.answerIsCorrect":
     "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
   "app.components.FormFields.requiredField": "Необходимое поле",
-  "app.containers.FormFields.wrongLength": "Невалидная длина поля",
+  "app.containers.FormFields.wrongLength15x100":
+    "Значение должно быть не меньше 15 и не более 100 символов",
+  "app.containers.FormFields.wrongLength3x20":
+    "Значение должно быть не меньше 3 и не более 20 символов",
+  "app.containers.FormFields.wrongLength20x1000":
+    "Значение должно быть не меньше 20 и не более 1000 символов",
+  "app.containers.FormFields.wrongLength25x30000":
+    "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.containers.FormFields.wrongLength30000": "Превышено количество символов",
   "app.containers.FormFields.fileSize": "Превышен размер файла",
   "app.containers.FormFields.wrongEmail": "Неверный емэйл",
@@ -217,6 +224,7 @@
   "app.containers.Questions.votes": "голосов",
   "app.containers.Questions.answers": "ответов",
   "app.containers.Questions.askQuestion": "Задать вопрос",
+  "app.containers.Questions.ago": "назад",
   "app.containers.QuestionForm.title": "Задать вопрос",
   "app.containers.QuestionForm.contentLabel": "Содержание",
   "app.containers.AskQuestion.notEnoughRating":

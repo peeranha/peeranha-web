@@ -43,6 +43,7 @@ exports[`<Wrapper /> should match the snapshot 1`] = `
 }
 
 .c0 .view-form p {
+  min-height: 40px;
   padding: 10px;
   background: rgba(0,0,0,0.05);
 }

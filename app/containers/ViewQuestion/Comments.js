@@ -79,7 +79,7 @@ const Comment = item => (
       avatar={item.userInfo.ipfs_avatar}
       name={item.userInfo.display_name}
       rating={item.userInfo.rating}
-      account={item.userInfo.owner}
+      account={item.userInfo.user}
     />
     <CommentVision {...item} />
   </div>

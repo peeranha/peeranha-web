@@ -5,9 +5,9 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import {
   validateEmail,
-  strLength20x100,
+  strLength15x100,
   required,
-  strLength20,
+  strLength3x20,
 } from 'components/FormFields/validate';
 
 import FloatingLabelInput from './FloatingLabelInput';
@@ -40,8 +40,8 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.yourName} />}
           component={FloatingLabelInput}
-          validate={[strLength20, required]}
-          warn={[strLength20, required]}
+          validate={[strLength3x20, required]}
+          warn={[strLength3x20, required]}
         />
         <Field
           name={EMAIL_FIELD}
@@ -71,8 +71,8 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.message} />}
           component={FloatingLabelInput}
-          validate={[strLength20x100, required]}
-          warn={[strLength20x100, required]}
+          validate={[strLength15x100, required]}
+          warn={[strLength15x100, required]}
         />
       </div>
       <div className="button-submit-wrapper">

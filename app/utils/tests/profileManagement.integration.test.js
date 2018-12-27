@@ -7,22 +7,22 @@ import {
 
 jest.setTimeout(20000);
 
-const owner = 'user1';
+const user = 'user1';
 const profile = { display_name: 'test' };
 
 xit('saveProfile test', async () => {
-  const savedText = await saveProfile(owner, profile);
+  const savedText = await saveProfile(user, profile);
   expect(savedText).toBeDefined();
 });
 
 xit('uploadImageFile test', async () => {
   const hashCode = 'QmdSUUYvWCEuJ1qWFZ4F1arVKDX2CZFhk3gd9G4ovmWChn';
-  const savedText = await uploadImageFile(owner);
+  const savedText = await uploadImageFile(user);
   expect(savedText).toEqual(hashCode);
 });
 
 xit('getProfileInfo test', async () => {
-  const prof = await getProfileInfo(owner);
+  const prof = await getProfileInfo(user);
   expect(typeof prof).toBe('object');
 });
 

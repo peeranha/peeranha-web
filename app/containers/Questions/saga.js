@@ -12,6 +12,7 @@ export function* getQuestionsListWorker(res) {
     const questionsList = yield call(() =>
       getQuestions(res.limit, eosService, res.offset),
     );
+
     yield put(getQuestionsListSuccess(questionsList));
   } catch (err) {
     yield put(getQuestionsListError(err.message));

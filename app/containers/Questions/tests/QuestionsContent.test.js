@@ -10,6 +10,10 @@ const props = {
   locale: 'en',
 };
 
+jest.mock('utils/datetime', () => ({
+  getTimeFromDateToNow: jest.fn(),
+}));
+
 describe('QuestionsContent', () => {
   it('QuestionsContent, snapshot test', () => {
     expect(QuestionsContent(props)).toMatchSnapshot();

@@ -33,7 +33,7 @@ export const voteToDeleteValidator = (
       .comments.filter(y => y.id == item.commentId)[0];
   }
 
-  if (itemData.user === profileInfo.owner) {
+  if (itemData.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (itemData.votingStatus.isVotedToDelete) {
     message = `${translations[messages.youVoted.id]}`;
@@ -65,7 +65,7 @@ export const postAnswerValidator = (
   const minRatingForMyQuestion = 0;
   const minRatingForOtherQuestions = 10;
   const isAnswered = !!questionData.answers.filter(
-    x => x.user === profileInfo.owner,
+    x => x.user === profileInfo.user,
   ).length;
 
   let message;
@@ -75,14 +75,14 @@ export const postAnswerValidator = (
   } else if (isAnswered) {
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
-    questionData.user === profileInfo.owner &&
+    questionData.user === profileInfo.user &&
     profileInfo.rating < minRatingForMyQuestion
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${minRatingForMyQuestion}`;
   } else if (
-    questionData.user !== profileInfo.owner &&
+    questionData.user !== profileInfo.user &&
     profileInfo.rating < minRatingForOtherQuestions
   ) {
     message = `${
@@ -116,16 +116,16 @@ export const postCommentValidator = (
   if (questionData.comments.length === maxCommentsNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
-    ((questionData.user === profileInfo.owner && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)) &&
+    ((questionData.user === profileInfo.user && answerId == 0) ||
+      (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)) &&
     profileInfo.rating < minRatingForMyItem
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${minRatingForMyItem}`;
   } else if (
-    ((questionData.user !== profileInfo.owner && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user !== profileInfo.owner)) &&
+    ((questionData.user !== profileInfo.user && answerId == 0) ||
+      (isOwnItem[0] && isOwnItem[0].user !== profileInfo.user)) &&
     profileInfo.rating < minRatingForOtherItems
   ) {
     message = `${
@@ -142,7 +142,7 @@ export const postCommentValidator = (
 };
 
 export const markAsAcceptedValidator = (profileInfo, questionData) => {
-  if (profileInfo.owner !== questionData.user) {
+  if (profileInfo.user !== questionData.user) {
     return false;
   }
 
@@ -162,8 +162,8 @@ export const upVoteValidator = (
   let message;
 
   if (
-    (questionData.user === profileInfo.owner && answerId == 0) ||
-    (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)
+    (questionData.user === profileInfo.user && answerId == 0) ||
+    (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < minRatingToUpvote) {
@@ -193,8 +193,8 @@ export const downVoteValidator = (
   let message;
 
   if (
-    (questionData.user === profileInfo.owner && answerId == 0) ||
-    (isOwnItem[0] && isOwnItem[0].user === profileInfo.owner)
+    (questionData.user === profileInfo.user && answerId == 0) ||
+    (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < minRatingToDownvote) {

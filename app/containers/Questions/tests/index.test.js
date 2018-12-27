@@ -23,16 +23,24 @@ describe('Questions', () => {
 
   describe('componentDidMount', () => {
     const init = 35;
+    const lastItem = cmp.props.questionsList.last();
+    const offset = (lastItem && +lastItem.id + 1) || 0;
+
     cmp.props.initLoadedItems = init;
     cmp.componentDidMount();
 
-    expect(cmp.props.getQuestionsListDispatch).toHaveBeenCalledWith(init, 0);
+    expect(cmp.props.getQuestionsListDispatch).toHaveBeenCalledWith(
+      init,
+      offset,
+    );
   });
 
   describe('getQuestionsList', () => {
     it('call without params', () => {
       const limit = 20;
-      const offset = cmp.props.questionsList.size;
+      const lastItem = cmp.props.questionsList.last();
+      const offset = (lastItem && +lastItem.id + 1) || 0;
+
       cmp.props.nextLoadedItems = limit;
 
       cmp.getQuestionsList();
@@ -42,9 +50,28 @@ describe('Questions', () => {
       );
     });
 
-    it('call with params', () => {
+    it('call with params1', () => {
       const limit = 10;
-      const offset = 10;
+      const lastItem = cmp.props.questionsList.last();
+      const offset = (lastItem && +lastItem.id + 1) || 0;
+
+      cmp.getQuestionsList(limit, offset);
+      expect(cmp.props.getQuestionsListDispatch).toHaveBeenCalledWith(
+        limit,
+        offset,
+      );
+    });
+
+    it('call with params12', () => {
+      cmp.props.questionsList = fromJS([
+        {
+          id: 12,
+        },
+      ]);
+
+      const limit = 10;
+      const lastItem = cmp.props.questionsList.last();
+      const offset = (lastItem && +lastItem.id + 1) || 0;
 
       cmp.getQuestionsList(limit, offset);
       expect(cmp.props.getQuestionsListDispatch).toHaveBeenCalledWith(

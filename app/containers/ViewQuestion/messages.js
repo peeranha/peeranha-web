@@ -65,7 +65,7 @@ export default defineMessages({
     defaultMessage: 'You have completed this action earlier',
   },
   alreadyAnswered: {
-    id: 'app.containers.ViewQuestion.notEnoughRating',
+    id: 'app.containers.ViewQuestion.alreadyAnswered',
     defaultMessage: 'You already answered this question',
   },
   itemsMax: {

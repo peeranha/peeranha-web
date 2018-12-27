@@ -31,4 +31,12 @@ export default defineMessages({
     id: 'app.containers.Questions.noQuestions',
     defaultMessage: 'No questions',
   },
+  ago: {
+    id: 'app.containers.Questions.ago',
+    defaultMessage: 'ago',
+  },
+  questionPo: {
+    id: 'app.containers.Questions.ago',
+    defaultMessage: 'Your question is successfully posted!',
+  },
 });

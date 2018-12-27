@@ -9,7 +9,7 @@ const ContentHeader = props => (
     <UserInfo
       avatar={props.userInfo.ipfs_avatar}
       name={props.userInfo.display_name}
-      account={props.userInfo.owner}
+      account={props.userInfo.user}
       rating={props.userInfo.rating}
     />
     <ChangesHistory

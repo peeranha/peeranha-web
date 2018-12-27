@@ -8,7 +8,7 @@ export const imageValidation = value =>
 
 export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)
-    ? messages.wrongLength
+    ? messages[`wrongLength${min}x${max}`]
     : undefined;
 
 /* eslint no-useless-escape: 0 */
@@ -19,7 +19,7 @@ export const validateEmail = email => {
 
 export const required = value => (!value ? messages.requiredField : undefined);
 
-export const strLength20 = stringLength(3, 20);
-export const strLength20x100 = stringLength(20, 100);
-export const strLength1000 = stringLength(20, 1000);
-export const strLength30000 = stringLength(50, 30000);
+export const strLength3x20 = stringLength(3, 20);
+export const strLength15x100 = stringLength(15, 100);
+export const strLength20x1000 = stringLength(20, 1000);
+export const strLength25x30000 = stringLength(25, 30000);
