@@ -6,6 +6,9 @@ import { FormattedMessage } from 'react-intl';
 import { getTimeFromDateToNow } from 'utils/datetime';
 import * as routes from 'routes-config';
 
+import Tags from 'components/Tags';
+import Community from 'components/Community';
+
 import messages from './messages';
 
 const QuestionItem = item => (
@@ -30,6 +33,15 @@ const QuestionItem = item => (
         <span>{`${getTimeFromDateToNow(item.post_time, item.locale)} `}</span>
         <FormattedMessage {...messages.ago} />
       </p>
+      <Community
+        communityId={item.community_id}
+        communities={item.communities}
+      />
+      <Tags
+        chosenTags={item.tags}
+        communityId={item.community_id}
+        communities={item.communities}
+      />
     </div>
     <div className="votes-answers">
       <div className="votes">
@@ -51,7 +63,12 @@ const QuestionItem = item => (
 const QuestionsContent = props => (
   <div>
     {props.questionsList.map(item => (
-      <QuestionItem {...item} locale={props.locale} key={item.id} />
+      <QuestionItem
+        {...item}
+        locale={props.locale}
+        communities={props.communities}
+        key={item.id}
+      />
     ))}
   </div>
 );
@@ -59,6 +76,7 @@ const QuestionsContent = props => (
 QuestionsContent.propTypes = {
   questionsList: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  communities: PropTypes.array,
 };
 
 export { QuestionItem };

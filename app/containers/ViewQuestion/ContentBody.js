@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tags from 'components/Tags';
+import Community from 'components/Community';
+
 import TextBlock from './TextBlock';
 import ContentOptions from './ContentOptions';
 import CommentForm from './CommentForm';
@@ -22,6 +25,17 @@ const ContentBody = props => (
       isItWrittenByMe={props.isItWrittenByMe}
       answerId={props.answerId}
     />
+    <div>
+      <Community
+        communityId={props.questionData.community_id}
+        communities={props.communities}
+      />
+      <Tags
+        chosenTags={props.questionData.tags}
+        communityId={props.questionData.community_id}
+        communities={props.communities}
+      />
+    </div>
     <Comments
       locale={props.locale}
       type={props.type}
@@ -54,12 +68,14 @@ ContentBody.propTypes = {
   locale: PropTypes.string,
   content: PropTypes.string,
   translations: PropTypes.object,
+  questionData: PropTypes.object,
   editCommentState: PropTypes.object,
   buttonParams: PropTypes.object,
   isItWrittenByMe: PropTypes.bool,
   postCommentLoading: PropTypes.bool,
   saveCommentLoading: PropTypes.bool,
   comments: PropTypes.array,
+  communities: PropTypes.array,
   postComment: PropTypes.func,
   deleteItem: PropTypes.func,
   editItem: PropTypes.func,

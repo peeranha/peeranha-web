@@ -17,6 +17,7 @@ import injectReducer from 'utils/injectReducer';
 
 import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { getQuestionsList, setDefaultReducer } from './actions';
 import * as questionsSelector from './selectors';
@@ -45,12 +46,19 @@ export class Questions extends React.Component {
   };
 
   render() {
-    const { locale, questionsList, questionsLoading, isLastFetch } = this.props;
+    const {
+      locale,
+      questionsList,
+      questionsLoading,
+      isLastFetch,
+      communities,
+    } = this.props;
 
     const sendProps = {
       locale,
       questionsList,
       questionsLoading,
+      communities,
       translations: translationMessages[locale],
     };
 
@@ -77,6 +85,7 @@ export class Questions extends React.Component {
 
 Questions.propTypes = {
   locale: PropTypes.string,
+  communities: PropTypes.array,
   questionsList: PropTypes.object,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
@@ -88,6 +97,7 @@ Questions.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  communities: selectCommunities(),
   questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),

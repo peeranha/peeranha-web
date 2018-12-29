@@ -31,12 +31,14 @@ const Question = props => (
         questionId: props.questionData.id,
         answerId: 0,
       }}
+      communities={props.communities}
     />
   </div>
 );
 
 Question.propTypes = {
   questionData: PropTypes.object,
+  communities: PropTypes.array,
   editCommentState: PropTypes.object,
   deleteQuestion: PropTypes.func,
   editQuestion: PropTypes.func,
