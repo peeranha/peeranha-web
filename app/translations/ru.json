@@ -141,6 +141,8 @@
     "Значение должно быть не меньше 15 и не более 100 символов",
   "app.containers.FormFields.wrongLength3x20":
     "Значение должно быть не меньше 3 и не более 20 символов",
+  "app.containers.FormFields.wrongLength1x5":
+    "Значение должно быть не меньше 1 и не более 5 символов",
   "app.containers.FormFields.wrongLength20x1000":
     "Значение должно быть не меньше 20 и не более 1000 символов",
   "app.containers.FormFields.wrongLength25x30000":
@@ -227,6 +229,8 @@
   "app.containers.Questions.ago": "назад",
   "app.containers.QuestionForm.title": "Задать вопрос",
   "app.containers.QuestionForm.contentLabel": "Содержание",
+  "app.containers.QuestionForm.communityLabel": "Сообщество",
+  "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.AskQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"
 }

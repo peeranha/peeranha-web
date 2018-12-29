@@ -19,9 +19,16 @@ import injectReducer from 'utils/injectReducer';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
-import { FORM_TITLE, FORM_CONTENT } from 'components/QuestionForm/constants';
+
+import {
+  FORM_TITLE,
+  FORM_CONTENT,
+  FORM_COMMUNITY,
+  FORM_TAGS,
+} from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
 import reducer from './reducer';
@@ -43,6 +50,8 @@ export class EditQuestion extends React.Component {
     const question = {
       title: values.get(FORM_TITLE),
       content: values.get(FORM_CONTENT),
+      communityId: values.get(FORM_COMMUNITY).value,
+      tagsId: values.get(FORM_TAGS).map(x => x.value),
     };
 
     this.props.editQuestionDispatch(question, questionid);
@@ -54,6 +63,7 @@ export class EditQuestion extends React.Component {
       question,
       questionLoading,
       editQuestionLoading,
+      communities,
     } = this.props;
 
     const sendProps = {
@@ -65,8 +75,8 @@ export class EditQuestion extends React.Component {
       sendQuestion: this.editQuestion,
       translations: translationMessages[locale],
       questionLoading: editQuestionLoading,
-      questionTitle: (question && question.title) || '',
-      questionContent: (question && question.content) || '',
+      communities,
+      question,
     };
 
     const helmetTitle =
@@ -96,6 +106,7 @@ EditQuestion.propTypes = {
   account: PropTypes.string,
   match: PropTypes.object,
   question: PropTypes.object,
+  communities: PropTypes.array,
   getAskedQuestionDispatch: PropTypes.func,
   editQuestionDispatch: PropTypes.func,
   questionLoading: PropTypes.bool,
@@ -105,6 +116,7 @@ EditQuestion.propTypes = {
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
+  communities: selectCommunities(),
   question: makeSelectEditQuestion.selectQuestion(),
   questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
   editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),

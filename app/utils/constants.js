@@ -2,22 +2,41 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
+export const IPFS_URL = 'http://localhost:8080/ipfs';
+
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
 export const SCATTER_APP_NAME = 'Peerania';
 
+export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
+export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
+
+export const HUBSPOT_URL =
+  'https://api.hsforms.com/submissions/v3/integration/submit';
+export const HUBSPOT_PORTAL_ID = '5258952';
+export const HUBSPOT_SEND_EMAIL_FORM_ID =
+  '05305f90-6546-4718-88e8-2d2c8e79c00c';
+export const HUBSPOT_SEND_MESSAGE_FORM_ID =
+  'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
+
+// Tables
+
 export const ACCOUNT_TABLE = 'account';
+export const QUESTION_TABLE = 'question';
+export const USER_QUESTIONS_TABLE = 'usrquestions';
+export const TAGS_COMMUNITIES_TABLE = 'tagandcomm';
+
+// Scopes
+
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
+export const ALL_QUESTIONS_SCOPE = 'allquestions';
+export const ALL_COMMUNITIES_SCOPE = 'allcomm';
+
+// Methods
+
 export const SAVE_PROFILE_METHOD = 'setaccprof';
 
-export const IPFS_URL = 'http://localhost:8080/ipfs';
-
 export const REGISTER_ACC = 'registeracc';
-
-export const QUESTION_TABLE = 'question';
-export const ALL_QUESTIONS_SCOPE = 'allquestions';
-
-export const USER_QUESTIONS_TABLE = 'usrquestions';
 
 export const VOTE_TO_DELETE_METHOD = 'votedelete';
 
@@ -36,14 +55,3 @@ export const DEL_COMMENT_METHOD = 'delcomment';
 export const UP_VOTE_METHOD = 'upvote';
 export const DOWN_VOTE_METHOD = 'downvote';
 export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
-
-export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
-export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
-
-export const HUBSPOT_URL =
-  'https://api.hsforms.com/submissions/v3/integration/submit';
-export const HUBSPOT_PORTAL_ID = '5258952';
-export const HUBSPOT_SEND_EMAIL_FORM_ID =
-  '05305f90-6546-4718-88e8-2d2c8e79c00c';
-export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';

@@ -7,6 +7,11 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  wrongLength1x5: {
+    id: 'app.containers.AskQuestion.wrongLength1x5',
+    defaultMessage:
+      'Value must be at least 1 characters and no longer than 5 characters',
+  },
   wrongLength3x20: {
     id: 'app.containers.AskQuestion.wrongLength3x20',
     defaultMessage:
