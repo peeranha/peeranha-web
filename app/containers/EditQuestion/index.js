@@ -50,8 +50,8 @@ export class EditQuestion extends React.Component {
     const question = {
       title: values.get(FORM_TITLE),
       content: values.get(FORM_CONTENT),
-      communityId: values.get(FORM_COMMUNITY).value,
-      tagsId: values.get(FORM_TAGS).map(x => x.value),
+      community: values.get(FORM_COMMUNITY),
+      chosenTags: values.get(FORM_TAGS),
     };
 
     this.props.editQuestionDispatch(question, questionid);

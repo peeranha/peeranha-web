@@ -129,15 +129,11 @@ QuestionForm = connect((state, props) => {
   let formValues = {};
 
   if (props.question) {
-    const community = props.communities[props.question.communityId - 1];
-
     initialValues = {
       [FORM_TITLE]: props.question.title,
       [FORM_CONTENT]: props.question.content,
-      [FORM_COMMUNITY]: community,
-      [FORM_TAGS]: community.tags
-        .filter(tag => props.question.tagsId.includes(tag.id))
-        .map(x => ({ label: x.name, value: x.id })),
+      [FORM_COMMUNITY]: props.question.community,
+      [FORM_TAGS]: props.question.chosenTags,
     };
   }
 
