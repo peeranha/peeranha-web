@@ -34,6 +34,8 @@ exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
         values={Object {}}
       />
     </p>
+    <Community />
+    <Tags />
   </div>
   <div
     className="votes-answers"

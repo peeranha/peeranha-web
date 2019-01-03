@@ -1,10 +1,21 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { DataCacheProvider } from '../index';
 
-// import { DataCacheProvider } from '../index';
+const cmp = new DataCacheProvider();
+
+cmp.props = {
+  getCommunitiesWithTagsDispatch: jest.fn(),
+  children: <div>Children</div>,
+};
 
 describe('<DataCacheProvider />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('componentDidMount', () => {
+    expect(cmp.props.getCommunitiesWithTagsDispatch).toHaveBeenCalledTimes(0);
+    cmp.componentDidMount();
+    expect(cmp.props.getCommunitiesWithTagsDispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

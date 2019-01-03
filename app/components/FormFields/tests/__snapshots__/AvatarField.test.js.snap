@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AvatarField test WarningMessage 1`] = `null`;
-
-exports[`AvatarField test WarningMessage 2`] = `<span />`;
-
-exports[`AvatarField test WarningMessage 3`] = `<span />`;
-
-exports[`AvatarField test WarningMessage 4`] = `<span />`;
-
 exports[`AvatarField test simulate click 1`] = `
 <div>
   <div>
@@ -104,8 +96,6 @@ exports[`AvatarField test simulate click 1`] = `
       </label>
     </div>
   </div>
-  <h6
-    className="text-danger"
-  />
+  <WarningMessage />
 </div>
 `;

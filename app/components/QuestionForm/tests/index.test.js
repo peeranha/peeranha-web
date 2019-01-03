@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { memoryHistory } from 'react-router-dom';
 import configureStore from 'configureStore';
@@ -20,6 +20,7 @@ const props = {
   submitting: false,
   questionLoading: false,
   userIsInSystem: true,
+  change: jest.fn(),
   handleSubmit: jest.fn(),
   postQuestion: jest.fn(),
   translations: {
@@ -30,7 +31,7 @@ const props = {
 describe('<QuestionFormDefault />', () => {
   it('snapshot test 1', () => {
     const store = configureStore({}, memoryHistory);
-    const renderedComponent = mount(
+    const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
@@ -45,7 +46,7 @@ describe('<QuestionFormDefault />', () => {
   it('snapshot test 2', () => {
     props.invalid = true;
     const store = configureStore({}, memoryHistory);
-    const renderedComponent = mount(
+    const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
@@ -60,7 +61,7 @@ describe('<QuestionFormDefault />', () => {
   it('snapshot test 3', () => {
     props.submitting = true;
     const store = configureStore({}, memoryHistory);
-    const renderedComponent = mount(
+    const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
@@ -75,7 +76,7 @@ describe('<QuestionFormDefault />', () => {
   it('snapshot test 4', () => {
     props.questionLoading = true;
     const store = configureStore({}, memoryHistory);
-    const renderedComponent = mount(
+    const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>

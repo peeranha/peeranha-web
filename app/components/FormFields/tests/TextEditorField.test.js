@@ -21,23 +21,5 @@ describe('TextEditorField test', () => {
       const rendered = renderer.create(TextEditorField(props)).toJSON();
       expect(rendered).toMatchSnapshot();
     });
-
-    it('meta.touched = true', () => {
-      props.meta.touched = true;
-      const rendered = renderer.create(TextEditorField(props)).toJSON();
-      expect(rendered).toMatchSnapshot();
-    });
-
-    it('meta.error = true', () => {
-      props.meta.error = true;
-      const rendered = renderer.create(TextEditorField(props)).toJSON();
-      expect(rendered).toMatchSnapshot();
-    });
-
-    it('meta.warning = true', () => {
-      props.meta.warning = true;
-      const rendered = renderer.create(TextEditorField(props)).toJSON();
-      expect(rendered).toMatchSnapshot();
-    });
   });
 });

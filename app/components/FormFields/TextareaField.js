@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
-function TextareaField({
-  input,
-  label,
-  disabled,
-  meta: { touched, error, warning },
-}) {
+import WarningMessage from './WarningMessage';
+
+function TextareaField({ input, label, disabled, meta }) {
   return (
     <div>
       <h6>{label}</h6>
@@ -17,11 +13,7 @@ function TextareaField({
         placeholder={label}
         className="textarea form-control"
       />
-      <h6 className="text-danger">
-        {touched &&
-          ((error && <FormattedMessage {...error} />) ||
-            (warning && <FormattedMessage {...warning} />))}
-      </h6>
+      <WarningMessage {...meta} />
     </div>
   );
 }

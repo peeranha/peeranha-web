@@ -896,8 +896,32 @@ exports[`<CommentForm /> @sendCommentLoading === true 1`] = `
                                       onFocus={[Function]}
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      error={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
+                                      form="form-1010"
+                                      invalid={true}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={false}
+                                      visited={false}
+                                      warning={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
                                     />
                                   </div>
                                 </TextareaField>
@@ -1856,8 +1880,32 @@ exports[`<CommentForm /> snapshot test 1`] = `
                                       onFocus={[Function]}
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      error={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
+                                      form="form-1010"
+                                      invalid={true}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={false}
+                                      visited={false}
+                                      warning={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
                                     />
                                   </div>
                                 </TextareaField>

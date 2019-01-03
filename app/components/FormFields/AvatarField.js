@@ -14,33 +14,14 @@ import {
 } from 'containers/Profile/Wrapper';
 
 import messages from 'containers/Profile/messages';
+import WarningMessage from './WarningMessage';
 
 export const displayImageFunc = (edImg, cachedImg, savedImg) =>
   edImg && (cachedImg || savedImg);
 
 export const displayAvatarFunc = (edImg, cachedImg) => !edImg && cachedImg;
 
-export const WarningMessage = (touched, translations, error, warning) => {
-  let value = null;
-
-  if (touched) {
-    if (error) {
-      value = <span>{translations[error]}</span>;
-    } else if (warning) {
-      value = <span>{translations[warning]}</span>;
-    }
-  }
-
-  return value;
-};
-
-function AvatarField({
-  input,
-  label,
-  disabled,
-  sendProps,
-  meta: { touched, error, warning },
-}) {
+function AvatarField({ input, label, disabled, sendProps, meta }) {
   let avatarRefs;
 
   const {
@@ -50,7 +31,6 @@ function AvatarField({
     getCroppedAvatar,
     uploadImage,
     clearImageChanges,
-    translations,
   } = sendProps;
 
   const displayImage = displayImageFunc(
@@ -136,9 +116,7 @@ function AvatarField({
           </label>
         </div>
       </div>
-      <h6 className="text-danger">
-        {WarningMessage(touched, translations, error, warning)}
-      </h6>
+      <WarningMessage {...meta} />
     </div>
   );
 }

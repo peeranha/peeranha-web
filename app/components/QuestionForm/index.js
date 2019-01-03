@@ -27,7 +27,7 @@ import messages from './messages';
 import Box from './Box';
 
 /* eslint-disable-next-line */
-let QuestionForm = ({
+let QuestionForm = /* istanbul ignore next */ ({
   sendQuestion,
   formTitle,
   questionLoading,
@@ -124,7 +124,7 @@ QuestionForm.propTypes = {
 
 QuestionForm = reduxForm({})(QuestionForm);
 
-QuestionForm = connect((state, props) => {
+QuestionForm = connect((state, props) /* istanbul ignore next */ => {
   let initialValues = {};
   let formValues = {};
 

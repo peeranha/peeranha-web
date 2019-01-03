@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { FormattedMessage } from 'react-intl';
+
+import WarningMessage from './WarningMessage';
 
 const SelectField = ({
   input,
@@ -11,7 +12,7 @@ const SelectField = ({
   isClearable,
   isSearchable,
   disabled,
-  meta: { touched, error, warning },
+  meta,
 }) => (
   <div>
     <h6>{label}</h6>
@@ -24,11 +25,7 @@ const SelectField = ({
       isDisabled={disabled}
       options={options}
     />
-    <h6 className="text-danger">
-      {touched &&
-        ((error && <FormattedMessage {...error} />) ||
-          (warning && <FormattedMessage {...warning} />))}
-    </h6>
+    <WarningMessage {...meta} />
   </div>
 );
 

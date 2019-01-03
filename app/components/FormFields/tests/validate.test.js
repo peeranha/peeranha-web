@@ -1,6 +1,12 @@
 import { FILE_MAX_SIZE } from 'containers/EditProfilePage/constants';
 
-import { imageValidation, stringLength, required } from '../validate';
+import {
+  imageValidation,
+  stringLength,
+  required,
+  validateEmail,
+} from '../validate';
+
 import messages from '../messages';
 
 describe('imageValidation', () => {
@@ -28,6 +34,18 @@ describe('validate function', () => {
   });
   it('it has to return string if param @min is more than length of string', () => {
     expect(typeof stringLength(25, 30000)(str)).toBe('object');
+  });
+});
+
+describe('validateEmail', () => {
+  it('test, valid email', () => {
+    const email = 'email@email.com';
+    expect(validateEmail(email)).toBe(undefined);
+  });
+
+  it('test, invalid email', () => {
+    const email = 'ema22ilema2222il.co222m';
+    expect(validateEmail(email)).toEqual(messages.wrongEmail);
   });
 });
 

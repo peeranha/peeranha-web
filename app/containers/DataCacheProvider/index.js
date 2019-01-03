@@ -32,6 +32,7 @@ DataCacheProvider.propTypes = {
   children: PropTypes.element,
 };
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

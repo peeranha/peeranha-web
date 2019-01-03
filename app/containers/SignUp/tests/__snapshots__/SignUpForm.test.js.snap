@@ -732,13 +732,25 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       onDragStart={[Function]}
                                       onDrop={[Function]}
                                       onFocus={[Function]}
-                                      placeholder=""
                                       readOnly={true}
                                       type="text"
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="SignUpForm"
+                                      initial={null}
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </TextInputField>
@@ -1151,12 +1163,35 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       onDragStart={[Function]}
                                       onDrop={[Function]}
                                       onFocus={[Function]}
-                                      placeholder=""
                                       type="text"
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      error={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
+                                      form="SignUpForm"
+                                      invalid={true}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={false}
+                                      visited={false}
+                                      warning={
+                                        Object {
+                                          "defaultMessage": "Required field",
+                                          "id": "app.containers.AskQuestion.requiredField",
+                                        }
+                                      }
                                     />
                                   </div>
                                 </TextInputField>
