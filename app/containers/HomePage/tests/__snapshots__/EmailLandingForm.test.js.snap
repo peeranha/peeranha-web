@@ -742,6 +742,7 @@ exports[`<EmailLandingForm /> snapshot test 1`] = `
                                         className="MuiButtonBase-root-27 MuiButton-root-1 MuiButton-contained-12 MuiButton-raised-15 contained-button"
                                         disabled={false}
                                         onBlur={[Function]}
+                                        onContextMenu={[Function]}
                                         onFocus={[Function]}
                                         onKeyDown={[Function]}
                                         onKeyUp={[Function]}

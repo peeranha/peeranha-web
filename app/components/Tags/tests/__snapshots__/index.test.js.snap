@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags test, chosenTags - [... , .... , ...] 1`] = `
+<div>
+  <span
+    className="badge badge-secondary mr-1"
+  >
+    tag1
+  </span>
+  <span
+    className="badge badge-secondary mr-1"
+  >
+    tag2
+  </span>
+</div>
+`;

@@ -20,6 +20,7 @@ import viewQuestionReducer from 'containers/ViewQuestion/reducer';
 import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
 import homepageReducer from 'containers/HomePage/reducer';
+import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
 
 /*
  * routeReducer
@@ -68,6 +69,7 @@ export default function createReducer(injectedReducers) {
     editAnswer: editAnswerReducer,
     profile: profileReducer,
     homepage: homepageReducer,
+    dataCacheProvider: dataCacheProviderReducer,
     form: formReducer,
     ...injectedReducers,
   });

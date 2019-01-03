@@ -754,8 +754,20 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                         </label>
                                       </div>
                                     </div>
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="ProfileEditForm"
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </AvatarField>
@@ -1054,12 +1066,23 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       onDragStart={[Function]}
                                       onDrop={[Function]}
                                       onFocus={[Function]}
-                                      placeholder=""
                                       type="text"
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="ProfileEditForm"
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </TextInputField>
@@ -1358,12 +1381,23 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       onDragStart={[Function]}
                                       onDrop={[Function]}
                                       onFocus={[Function]}
-                                      placeholder=""
                                       type="text"
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="ProfileEditForm"
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </TextInputField>
@@ -1662,12 +1696,23 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       onDragStart={[Function]}
                                       onDrop={[Function]}
                                       onFocus={[Function]}
-                                      placeholder=""
                                       type="text"
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="ProfileEditForm"
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </TextInputField>
@@ -1968,8 +2013,20 @@ exports[`<ProfileEditForm /> snapshot test 1`] = `
                                       onFocus={[Function]}
                                       value=""
                                     />
-                                    <h6
-                                      className="text-danger"
+                                    <WarningMessage
+                                      active={false}
+                                      asyncValidating={false}
+                                      autofilled={false}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      form="ProfileEditForm"
+                                      invalid={false}
+                                      pristine={true}
+                                      submitFailed={false}
+                                      submitting={false}
+                                      touched={false}
+                                      valid={true}
+                                      visited={false}
                                     />
                                   </div>
                                 </TextareaField>

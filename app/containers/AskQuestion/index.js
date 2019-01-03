@@ -19,7 +19,14 @@ import QuestionForm from 'components/QuestionForm';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { FORM_TITLE, FORM_CONTENT } from 'components/QuestionForm/constants';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
+import {
+  FORM_TITLE,
+  FORM_CONTENT,
+  FORM_COMMUNITY,
+  FORM_TAGS,
+} from 'components/QuestionForm/constants';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -38,6 +45,8 @@ export class AskQuestion extends React.Component {
     const question = {
       title: values.get(FORM_TITLE),
       content: values.get(FORM_CONTENT),
+      community: values.get(FORM_COMMUNITY),
+      chosenTags: values.get(FORM_TAGS),
     };
 
     this.props.askQuestionDispatch(
@@ -58,6 +67,7 @@ export class AskQuestion extends React.Component {
       sendQuestion: this.postQuestion,
       translations: translationMessages[this.props.locale],
       questionLoading: this.props.askQuestionLoading,
+      communities: this.props.communities,
     };
 
     return (
@@ -80,11 +90,13 @@ AskQuestion.propTypes = {
   account: PropTypes.string,
   askQuestionLoading: PropTypes.bool.isRequired,
   askQuestionDispatch: PropTypes.func.isRequired,
+  communities: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
+  communities: selectCommunities(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 

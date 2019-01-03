@@ -77,8 +77,8 @@ export async function postQuestion(user, questionData, eosService) {
       user,
       title: questionData.title,
       ipfs_link: ipfsLink,
-      community_id: 1,
-      tags: [1, 2],
+      community_id: questionData.community.value,
+      tags: questionData.chosenTags.map(x => x.value),
     },
   );
 
@@ -93,6 +93,8 @@ export async function editQuestion(user, id, question, eosService) {
     question_id: +id,
     title: question.title,
     ipfs_link: ipfsLink,
+    community_id: question.community.value,
+    tags: question.chosenTags.map(x => x.value),
   });
 }
 

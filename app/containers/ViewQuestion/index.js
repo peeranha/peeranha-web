@@ -17,8 +17,10 @@ import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
@@ -226,11 +228,13 @@ export class ViewQuestion extends React.Component {
       questionDataLoading,
       saveCommentLoading,
       editCommentState,
+      communities,
     } = this.props;
 
     const sendProps = {
       account,
       locale,
+      communities,
       questionData,
       postAnswerLoading,
       postCommentLoading,
@@ -281,6 +285,7 @@ export class ViewQuestion extends React.Component {
 ViewQuestion.propTypes = {
   account: PropTypes.string,
   locale: PropTypes.string,
+  communities: PropTypes.array,
   questionDataLoading: PropTypes.bool,
   postAnswerLoading: PropTypes.bool,
   postCommentLoading: PropTypes.bool,
@@ -306,6 +311,7 @@ ViewQuestion.propTypes = {
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
+  communities: selectCommunities(),
   questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
   questionData: makeSelectViewQuestion.selectQuestionData(),
   postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),

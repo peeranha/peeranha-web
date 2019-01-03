@@ -941,8 +941,32 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                           />
                                         </div>
                                       </TextEditor>
-                                      <h6
-                                        className="text-danger"
+                                      <WarningMessage
+                                        active={false}
+                                        asyncValidating={false}
+                                        autofilled={false}
+                                        dirty={false}
+                                        dispatch={[Function]}
+                                        error={
+                                          Object {
+                                            "defaultMessage": "Required field",
+                                            "id": "app.containers.AskQuestion.requiredField",
+                                          }
+                                        }
+                                        form="form1"
+                                        invalid={true}
+                                        pristine={true}
+                                        submitFailed={false}
+                                        submitting={false}
+                                        touched={false}
+                                        valid={false}
+                                        visited={false}
+                                        warning={
+                                          Object {
+                                            "defaultMessage": "Required field",
+                                            "id": "app.containers.AskQuestion.requiredField",
+                                          }
+                                        }
                                       />
                                     </div>
                                   </TextEditorField>
@@ -1946,8 +1970,32 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                           />
                                         </div>
                                       </TextEditor>
-                                      <h6
-                                        className="text-danger"
+                                      <WarningMessage
+                                        active={false}
+                                        asyncValidating={false}
+                                        autofilled={false}
+                                        dirty={false}
+                                        dispatch={[Function]}
+                                        error={
+                                          Object {
+                                            "defaultMessage": "Required field",
+                                            "id": "app.containers.AskQuestion.requiredField",
+                                          }
+                                        }
+                                        form="form1"
+                                        invalid={true}
+                                        pristine={true}
+                                        submitFailed={false}
+                                        submitting={false}
+                                        touched={false}
+                                        valid={false}
+                                        visited={false}
+                                        warning={
+                                          Object {
+                                            "defaultMessage": "Required field",
+                                            "id": "app.containers.AskQuestion.requiredField",
+                                          }
+                                        }
                                       />
                                     </div>
                                   </TextEditorField>

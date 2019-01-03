@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WarningMessage test test by snapshots touched: false, 1`] = `null`;
+
+exports[`WarningMessage test test by snapshots touched: true, error: true 1`] = `
+<h6
+  className="text-danger"
+>
+  <FormattedMessage
+    values={Object {}}
+  />
+</h6>
+`;
+
+exports[`WarningMessage test test by snapshots touched: true, warning: true 1`] = `
+<h6
+  className="text-danger"
+>
+  <FormattedMessage
+    values={Object {}}
+  />
+</h6>
+`;

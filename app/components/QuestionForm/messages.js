@@ -19,4 +19,12 @@ export default defineMessages({
     id: 'app.containers.QuestionForm.contentLabel',
     defaultMessage: 'Body',
   },
+  communityLabel: {
+    id: 'app.containers.QuestionForm.communityLabel',
+    defaultMessage: 'Community',
+  },
+  tagsLabel: {
+    id: 'app.containers.QuestionForm.tagsLabel',
+    defaultMessage: 'Tags',
+  },
 });

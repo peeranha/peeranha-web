@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
-function TextInputField({
-  input,
-  label,
-  readOnly,
-  disabled,
-  meta: { touched, error, warning },
-}) {
+import WarningMessage from './WarningMessage';
+
+function TextInputField({ input, label, readOnly, disabled, meta }) {
   return (
     <div>
       <h6>{label}</h6>
@@ -16,15 +11,11 @@ function TextInputField({
         {...input}
         disabled={disabled}
         readOnly={readOnly}
-        placeholder={label || ''}
+        placeholder={label}
         type="text"
         className="form-control"
       />
-      <h6 className="text-danger">
-        {touched &&
-          ((error && <FormattedMessage {...error} />) ||
-            (warning && <FormattedMessage {...warning} />))}
-      </h6>
+      <WarningMessage {...meta} />
     </div>
   );
 }

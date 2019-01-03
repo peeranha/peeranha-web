@@ -8,6 +8,10 @@ exports[`ContentBody test 1`] = `
   <ContentOptions
     translations={Object {}}
   />
+  <div>
+    <Community />
+    <Tags />
+  </div>
   <Comments
     translations={Object {}}
   />

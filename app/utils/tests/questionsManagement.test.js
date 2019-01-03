@@ -219,8 +219,26 @@ describe('editQuestion', () => {
   const user = 10;
   const id = 10;
   const ipfsLink = 'ipfsLink';
+  const value = 12;
+
   const question = {
     title: 'title',
+    community: {
+      value,
+      id: 1,
+      name: 'com1',
+      tags: [
+        {
+          id: 1,
+          name: 'tag1',
+        },
+      ],
+    },
+    chosenTags: [
+      {
+        value,
+      },
+    ],
   };
 
   saveText.mockImplementation(() => ipfsLink);
@@ -235,6 +253,8 @@ describe('editQuestion', () => {
         question_id: +id,
         title: question.title,
         ipfs_link: ipfsLink,
+        community_id: value,
+        tags: [value],
       },
     );
   });
@@ -261,8 +281,27 @@ describe('getQuestions', () => {
 });
 
 describe('postQuestion', () => {
+  const value = 12;
   const user = 'user';
-  const questionData = {};
+
+  const questionData = {
+    community: {
+      value,
+      id: 1,
+      name: 'com1',
+      tags: [
+        {
+          id: 1,
+          name: 'tag1',
+        },
+      ],
+    },
+    chosenTags: [
+      {
+        value,
+      },
+    ],
+  };
   const questionInfo = { info: 'questionInfo' };
   const ipfsLink = 'ipfsLink';
 
@@ -281,8 +320,8 @@ describe('postQuestion', () => {
         user,
         title: questionData.title,
         ipfs_link: ipfsLink,
-        community_id: 1,
-        tags: [1, 2],
+        community_id: value,
+        tags: [value],
       },
     );
   });

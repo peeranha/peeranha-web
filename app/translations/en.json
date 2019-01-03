@@ -142,6 +142,8 @@
   "app.components.FormFields.requiredField": "Required field",
   "app.containers.FormFields.wrongLength15x100":
     "Value must be at least 15 characters and no longer than 100 characters",
+  "app.containers.FormFields.wrongLength1x5":
+    "Value must be at least 1 characters and no longer than 5 characters",
   "app.containers.FormFields.wrongLength3x20":
     "Value must be at least 3 characters and no longer than 20 characters",
   "app.containers.FormFields.wrongLength20x1000":
@@ -226,6 +228,8 @@
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.contentLabel": "Body",
+  "app.containers.QuestionForm.communityLabel": "Community",
+  "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"
 }

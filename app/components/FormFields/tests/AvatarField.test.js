@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import AvatarField, {
   displayImageFunc,
   displayAvatarFunc,
-  WarningMessage,
 } from '../AvatarField';
 
 describe('AvatarField test', () => {
@@ -37,12 +36,5 @@ describe('AvatarField test', () => {
     expect(displayAvatarFunc(true, false)).toBe(false);
     expect(displayAvatarFunc(false, true)).toBe(true);
     expect(displayAvatarFunc(true, true)).toBe(false);
-  });
-
-  it('WarningMessage', () => {
-    expect(WarningMessage(false, {}, true, true)).toMatchSnapshot();
-    expect(WarningMessage(true, {}, true, true)).toMatchSnapshot();
-    expect(WarningMessage(true, {}, true, false)).toMatchSnapshot();
-    expect(WarningMessage(true, {}, false, true)).toMatchSnapshot();
   });
 });
