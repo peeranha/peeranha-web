@@ -14,3 +14,5 @@ exports[`Tags test, chosenTags - [... , .... , ...] 1`] = `
   </span>
 </div>
 `;
+
+exports[`Tags test, communityId - null 1`] = `<div />`;

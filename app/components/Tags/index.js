@@ -8,11 +8,12 @@ const Tags = ({ chosenTags, communities, communityId }) => {
 
   return (
     <div>
-      {questionTags.map(x => (
-        <span className="badge badge-secondary mr-1" key={x.name}>
-          {x.name}
-        </span>
-      ))}
+      {questionTags &&
+        questionTags.map(x => (
+          <span className="badge badge-secondary mr-1" key={x.name}>
+            {x.name}
+          </span>
+        ))}
     </div>
   );
 };

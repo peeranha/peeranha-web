@@ -29,4 +29,9 @@ describe('Tags', () => {
   it('test, chosenTags - [... , .... , ...]', () => {
     expect(Tags(props)).toMatchSnapshot();
   });
+
+  it('test, communityId - null', () => {
+    props.communityId = null;
+    expect(Tags(props)).toMatchSnapshot();
+  });
 });
