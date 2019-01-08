@@ -1,15 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QuestionsHeader snapshot test 1`] = `
-<div
-  className="questions-header"
->
-  <h4
-    className="text-uppercase font-weight-bold"
-  />
-  <button
-    className="btn btn-secondary"
-    onClick={[Function]}
+<div>
+  <div
+    className="questions-header"
+  >
+    <h4
+      className="text-uppercase font-weight-bold"
+    />
+    <button
+      className="btn btn-secondary"
+      onClick={[Function]}
+    />
+  </div>
+  <SelectField
+    defaultValue={
+      Object {
+        "label": "ALL",
+        "value": 0,
+      }
+    }
+    input={
+      Object {
+        "onChange": [Function],
+      }
+    }
+    isClearable={false}
+    isDisabled={false}
+    isMulti={false}
+    isSearchable={true}
+    options={
+      Array [
+        Object {
+          "label": "ALL",
+          "value": 0,
+        },
+      ]
+    }
   />
 </div>
 `;

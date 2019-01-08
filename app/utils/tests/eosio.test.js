@@ -447,15 +447,27 @@ describe('getTableRows', () => {
   describe('test', () => {
     const table = 'table';
     const scope = 'scope';
+    const lowerBound = 'lowerBound';
+    const upperBound = 'upperBound';
+    const limit = 'limit';
+    const indexPosition = 'indexPosition';
+    const keyType = 'keyType';
     const obj = { id: '1' };
+
     const response = {
       rows: [obj],
     };
+
     const request = {
       json: true,
       code: process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
+      lower_bound: lowerBound,
+      upper_bound: upperBound,
+      limit,
+      index_position: indexPosition,
+      key_type: keyType,
     };
 
     it('response is true', async () => {
@@ -465,7 +477,15 @@ describe('getTableRows', () => {
       };
       expect(eos.eosInstance.getTableRows).toHaveBeenCalledTimes(0);
 
-      const value = await eos.getTableRows(table, scope);
+      const value = await eos.getTableRows(
+        table,
+        scope,
+        limit,
+        lowerBound,
+        upperBound,
+        indexPosition,
+        keyType,
+      );
       expect(eos.eosInstance.getTableRows).toHaveBeenCalledTimes(1);
       expect(eos.eosInstance.getTableRows).toHaveBeenCalledWith(request);
       expect(value).toEqual(response.rows);
@@ -477,7 +497,15 @@ describe('getTableRows', () => {
         getTableRows: jest.fn().mockImplementation(() => null),
       };
 
-      const value = await eos.getTableRows(table, scope);
+      const value = await eos.getTableRows(
+        table,
+        scope,
+        limit,
+        lowerBound,
+        upperBound,
+        indexPosition,
+        keyType,
+      );
       expect(value).toEqual([]);
     });
   });

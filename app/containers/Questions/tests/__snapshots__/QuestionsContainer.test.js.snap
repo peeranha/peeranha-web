@@ -24,10 +24,7 @@ exports[`QuestionsContainer snapshot test 2 1`] = `
     locale="en"
     questionsList={
       Array [
-        Array [
-          "cheburek",
-          "cheburek",
-        ],
+        "cheburek",
       ]
     }
     questionsLoading={false}
@@ -37,10 +34,7 @@ exports[`QuestionsContainer snapshot test 2 1`] = `
     locale="en"
     questionsList={
       Array [
-        Array [
-          "cheburek",
-          "cheburek",
-        ],
+        "cheburek",
       ]
     }
     questionsLoading={false}
@@ -55,10 +49,7 @@ exports[`QuestionsContainer snapshot test 3 1`] = `
     locale="en"
     questionsList={
       Array [
-        Array [
-          "cheburek",
-          "cheburek",
-        ],
+        "cheburek",
       ]
     }
     questionsLoading={true}
@@ -68,10 +59,7 @@ exports[`QuestionsContainer snapshot test 3 1`] = `
     locale="en"
     questionsList={
       Array [
-        Array [
-          "cheburek",
-          "cheburek",
-        ],
+        "cheburek",
       ]
     }
     questionsLoading={true}

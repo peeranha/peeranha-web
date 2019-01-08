@@ -1,26 +1,29 @@
 import { saveText, getText } from '../ipfs';
 
 import {
+  GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+  GET_QUESTIONS_KEY_TYPE,
   QUESTION_TABLE,
+  USER_QUESTIONS_TABLE,
   ALL_QUESTIONS_SCOPE,
   POST_QUESTION_METHOD,
+  EDIT_QUESTION_METHOD,
+  DEL_QUESTION_METHOD,
   POST_ANSWER_METHOD,
+  EDIT_ANSWER_METHOD,
+  DEL_ANSWER_METHOD,
   POST_COMMENT_METHOD,
+  EDIT_COMMENT_METHOD,
+  DEL_COMMENT_METHOD,
   UP_VOTE_METHOD,
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
-  EDIT_QUESTION_METHOD,
-  EDIT_ANSWER_METHOD,
-  EDIT_COMMENT_METHOD,
-  DEL_COMMENT_METHOD,
-  DEL_ANSWER_METHOD,
-  DEL_QUESTION_METHOD,
   VOTE_TO_DELETE_METHOD,
-  USER_QUESTIONS_TABLE,
 } from '../constants';
 
 import {
   getQuestions,
+  getQuestionsFilteredByCommunities,
   postQuestion,
   postAnswer,
   postComment,
@@ -72,6 +75,42 @@ describe('getQuestionsPostedByUser', async () => {
     expect(questions).toEqual(questionsMass);
   });
 });
+
+/* eslint-disable  */
+describe('getQuestionsFilteredByCommunities', () => {
+  const questions = [
+    {
+      id: 1,
+    },
+  ];
+
+  const limit = 10;
+  const offset = 10;
+  const communityId = 10;
+
+  it('test1', async () => {
+    eosService.getTableRows.mockImplementation(() => questions);
+
+    const getQuestions = await getQuestionsFilteredByCommunities(
+      eosService,
+      limit,
+      offset,
+      communityId,
+    );
+
+    expect(getQuestions).toEqual(questions);
+    expect(eosService.getTableRows).toHaveBeenCalledWith(
+      QUESTION_TABLE,
+      ALL_QUESTIONS_SCOPE,
+      limit,
+      String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+      String(BigInt(communityId + 1) << BigInt(36)),
+      GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+      GET_QUESTIONS_KEY_TYPE,
+    );
+  });
+});
+/* eslint-enable  */
 
 describe('getAskedQuestion', async () => {
   const link = 'link';
@@ -268,7 +307,7 @@ describe('getQuestions', () => {
   it('test', async () => {
     eosService.getTableRows.mockImplementation(() => questionsMass);
 
-    const questions = await getQuestions(limit, eosService, offset);
+    const questions = await getQuestions(eosService, limit, offset);
 
     expect(questions).toEqual(questionsMass);
     expect(eosService.getTableRows).toHaveBeenCalledWith(

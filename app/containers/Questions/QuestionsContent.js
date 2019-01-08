@@ -74,8 +74,8 @@ const QuestionsContent = props => (
 );
 
 QuestionsContent.propTypes = {
-  questionsList: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
+  questionsList: PropTypes.array,
+  locale: PropTypes.string,
   communities: PropTypes.array,
 };
 

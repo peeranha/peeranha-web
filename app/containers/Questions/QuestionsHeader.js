@@ -36,9 +36,9 @@ const QuestionsHeader = ({ translations, communities, getInitQuestions }) => {
 };
 
 QuestionsHeader.propTypes = {
-  translations: PropTypes.object.isRequired,
-  communities: PropTypes.array.isRequired,
-  getInitQuestions: PropTypes.func.isRequired,
+  translations: PropTypes.object,
+  communities: PropTypes.array,
+  getInitQuestions: PropTypes.func,
 };
 
 export { askQuestion };

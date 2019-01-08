@@ -7,14 +7,16 @@ import {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
+  selectCommunityIdFilter,
 } from '../selectors';
 
 describe('selectQuestionsDomain', () => {
   const questionsLoading = true;
-  const questionsList = fromJS([]);
+  const questionsList = [];
   const questionsError = 'questionsError';
   const initLoadedItems = 25;
   const nextLoadedItems = 10;
+  const communityIdFilter = 10;
   const isLastFetch = false;
 
   const globalState = fromJS({
@@ -24,6 +26,7 @@ describe('selectQuestionsDomain', () => {
     initLoadedItems,
     nextLoadedItems,
     isLastFetch,
+    communityIdFilter,
   });
 
   const mockedState = fromJS({
@@ -62,5 +65,10 @@ describe('selectQuestionsDomain', () => {
   it('selectIsLastFetch', () => {
     const isIsLastFetch = selectIsLastFetch();
     expect(isIsLastFetch(mockedState)).toEqual(isLastFetch);
+  });
+
+  it('selectCommunityIdFilter', () => {
+    const isSelectCommunityIdFilter = selectCommunityIdFilter();
+    expect(isSelectCommunityIdFilter(mockedState)).toEqual(communityIdFilter);
   });
 });

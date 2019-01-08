@@ -22,14 +22,9 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
       />
     </HelmetWrapper>
     <QuestionsContainer
+      getInitQuestions={[Function]}
       locale="en"
-      questionsList={
-        Immutable.List [
-          Immutable.Map {
-            "id": 12,
-          },
-        ]
-      }
+      questionsList={Array []}
       questionsLoading={false}
       translations={
         Object {
@@ -250,14 +245,9 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
       />
     </HelmetWrapper>
     <QuestionsContainer
+      getInitQuestions={[Function]}
       locale="en"
-      questionsList={
-        Immutable.List [
-          Immutable.Map {
-            "id": 12,
-          },
-        ]
-      }
+      questionsList={Array []}
       questionsLoading={true}
       translations={
         Object {

@@ -106,7 +106,7 @@ export class Questions extends React.Component {
 Questions.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
-  questionsList: PropTypes.object,
+  questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
@@ -128,7 +128,7 @@ const mapStateToProps = createStructuredSelector({
   communityIdFilter: questionsSelector.selectCommunityIdFilter(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     getInitQuestionsDispatch: (limit, offset, communityIdFilter) =>

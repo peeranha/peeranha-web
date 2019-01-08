@@ -18,7 +18,7 @@ const QuestionsContainer = props => (
 );
 
 QuestionsContainer.propTypes = {
-  questionsList: PropTypes.object,
+  questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
 };
 
