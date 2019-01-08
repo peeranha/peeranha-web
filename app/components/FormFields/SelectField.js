@@ -12,17 +12,19 @@ const SelectField = ({
   isClearable,
   isSearchable,
   disabled,
+  defaultValue,
   meta,
 }) => (
   <div>
     <h6>{label}</h6>
     <Select
       {...input}
-      onBlur={() => input.onBlur(input.value)}
+      onBlur={() => input.onBlur && input.onBlur(input.value)}
       isMulti={isMulti}
       isClearable={isClearable}
       isSearchable={isSearchable}
       isDisabled={disabled}
+      defaultValue={defaultValue}
       options={options}
     />
     <WarningMessage {...meta} />
@@ -31,6 +33,7 @@ const SelectField = ({
 
 SelectField.propTypes = {
   input: PropTypes.object,
+  defaultValue: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

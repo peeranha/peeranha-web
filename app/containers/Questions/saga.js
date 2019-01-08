@@ -1,24 +1,71 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getQuestions } from 'utils/questionsManagement';
+import {
+  getQuestions,
+  getQuestionsFilteredByCommunities,
+} from 'utils/questionsManagement';
 
-import { GET_QUESTIONS_LIST } from './constants';
-import { getQuestionsListSuccess, getQuestionsListError } from './actions';
+import { GET_INIT_QUESTIONS, GET_NEXT_QUESTIONS } from './constants';
 
-export function* getQuestionsListWorker(res) {
+import {
+  getInitQuestionsSuccess,
+  getInitQuestionsError,
+  getNextQuestionsSuccess,
+  getNextQuestionsError,
+} from './actions';
+
+export function* getInitQuestionsWorker({ limit, offset, communityIdFilter }) {
   try {
     const eosService = yield select(selectEos);
-    const questionsList = yield call(() =>
-      getQuestions(res.limit, eosService, res.offset),
-    );
 
-    yield put(getQuestionsListSuccess(questionsList));
+    let questionsList = [];
+
+    if (communityIdFilter) {
+      questionsList = yield call(() =>
+        getQuestionsFilteredByCommunities(
+          eosService,
+          limit,
+          offset,
+          communityIdFilter,
+        ),
+      );
+    } else {
+      questionsList = yield call(() => getQuestions(eosService, limit, offset));
+    }
+
+    yield put(getInitQuestionsSuccess(questionsList));
   } catch (err) {
-    yield put(getQuestionsListError(err.message));
+    yield put(getInitQuestionsError(err.message));
+  }
+}
+
+export function* getNextQuestionsWorker({ limit, offset, communityIdFilter }) {
+  try {
+    const eosService = yield select(selectEos);
+
+    let questionsList = [];
+
+    if (communityIdFilter) {
+      questionsList = yield call(() =>
+        getQuestionsFilteredByCommunities(
+          eosService,
+          limit,
+          offset,
+          communityIdFilter,
+        ),
+      );
+    } else {
+      questionsList = yield call(() => getQuestions(eosService, limit, offset));
+    }
+
+    yield put(getNextQuestionsSuccess(questionsList));
+  } catch (err) {
+    yield put(getNextQuestionsError(err.message));
   }
 }
 
 export default function*() {
-  yield takeLatest(GET_QUESTIONS_LIST, getQuestionsListWorker);
+  yield takeLatest(GET_INIT_QUESTIONS, getInitQuestionsWorker);
+  yield takeLatest(GET_NEXT_QUESTIONS, getNextQuestionsWorker);
 }

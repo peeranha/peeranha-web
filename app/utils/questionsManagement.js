@@ -8,6 +8,8 @@ import { saveText, getText } from './ipfs';
 import { getProfileInfo } from './profileManagement';
 
 import {
+  GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+  GET_QUESTIONS_KEY_TYPE,
   QUESTION_TABLE,
   USER_QUESTIONS_TABLE,
   ALL_QUESTIONS_SCOPE,
@@ -37,12 +39,32 @@ export async function getQuestionsPostedByUser(eosService, user) {
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(limit, eosService, offset) {
+export async function getQuestions(eosService, limit, offset) {
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    offset,
     limit,
+    offset,
+  );
+
+  return questions;
+}
+
+/* eslint no-undef: 0 */
+export async function getQuestionsFilteredByCommunities(
+  eosService,
+  limit,
+  offset,
+  communityId,
+) {
+  const questions = await eosService.getTableRows(
+    QUESTION_TABLE,
+    ALL_QUESTIONS_SCOPE,
+    limit,
+    String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+    String(BigInt(communityId + 1) << BigInt(36)),
+    GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+    GET_QUESTIONS_KEY_TYPE,
   );
 
   return questions;

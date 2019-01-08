@@ -38,6 +38,11 @@ const selectIsLastFetch = () =>
     substate.get('isLastFetch'),
   );
 
+const selectCommunityIdFilter = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('communityIdFilter'),
+  );
+
 export {
   selectQuestionsDomain,
   selectQuestionsLoading,
@@ -46,4 +51,5 @@ export {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
+  selectCommunityIdFilter,
 };
