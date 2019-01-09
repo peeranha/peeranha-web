@@ -5,6 +5,8 @@ createdHistory.push = jest.fn();
 
 const props = {
   translations: {},
+  getInitQuestions: jest.fn(),
+  communities: [],
 };
 
 describe('QuestionsHeader', () => {

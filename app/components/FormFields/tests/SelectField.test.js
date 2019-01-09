@@ -15,7 +15,13 @@ const props = {
 };
 
 describe('SelectField', () => {
-  it('test', () => {
+  it('test1, onBlur', () => {
+    props.input.onBlur = () => true;
+    expect(SelectField(props)).toMatchSnapshot();
+  });
+
+  it('test2, !onBlur', () => {
+    props.input.onBlur = null;
     expect(SelectField(props)).toMatchSnapshot();
   });
 });

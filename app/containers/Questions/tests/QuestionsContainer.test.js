@@ -2,7 +2,7 @@ import QuestionsContainer from '../QuestionsContainer';
 
 const props = {
   translations: {},
-  questionsList: new Map(),
+  questionsList: [],
   questionsLoading: false,
   locale: 'en',
 };
@@ -13,7 +13,7 @@ describe('QuestionsContainer', () => {
   });
 
   it('snapshot test 2', () => {
-    props.questionsList.set('cheburek', 'cheburek');
+    props.questionsList = ['cheburek'];
     expect(QuestionsContainer(props)).toMatchSnapshot();
   });
 

@@ -5,36 +5,69 @@
  */
 
 import {
-  GET_QUESTIONS_LIST,
-  GET_QUESTIONS_LIST_SUCCESS,
-  GET_QUESTIONS_LIST_ERROR,
+  GET_INIT_QUESTIONS,
+  GET_INIT_QUESTIONS_SUCCESS,
+  GET_INIT_QUESTIONS_ERROR,
+  GET_NEXT_QUESTIONS,
+  GET_NEXT_QUESTIONS_SUCCESS,
+  GET_NEXT_QUESTIONS_ERROR,
   SET_DEFAULT_REDUCER,
 } from './constants';
 
 /*
  *
- * getQuestionsList actions
+ * getInitQuestions actions
  *
  */
 
-export function getQuestionsList(limit, offset) {
+export function getInitQuestions(limit, offset, communityIdFilter) {
   return {
-    type: GET_QUESTIONS_LIST,
+    type: GET_INIT_QUESTIONS,
     limit,
     offset,
+    communityIdFilter,
   };
 }
 
-export function getQuestionsListSuccess(questionsList) {
+export function getInitQuestionsSuccess(questionsList) {
   return {
-    type: GET_QUESTIONS_LIST_SUCCESS,
+    type: GET_INIT_QUESTIONS_SUCCESS,
     questionsList,
   };
 }
 
-export function getQuestionsListError(questionsError) {
+export function getInitQuestionsError(questionsError) {
   return {
-    type: GET_QUESTIONS_LIST_ERROR,
+    type: GET_INIT_QUESTIONS_ERROR,
+    questionsError,
+  };
+}
+
+/*
+ *
+ * getInitQuestions actions
+ *
+ */
+
+export function getNextQuestions(limit, offset, communityIdFilter) {
+  return {
+    type: GET_NEXT_QUESTIONS,
+    limit,
+    offset,
+    communityIdFilter,
+  };
+}
+
+export function getNextQuestionsSuccess(questionsList) {
+  return {
+    type: GET_NEXT_QUESTIONS_SUCCESS,
+    questionsList,
+  };
+}
+
+export function getNextQuestionsError(questionsError) {
+  return {
+    type: GET_NEXT_QUESTIONS_ERROR,
     questionsError,
   };
 }

@@ -153,7 +153,15 @@ class EosioService {
     return null;
   };
 
-  getTableRows = async (table, scope, offset, limit) => {
+  getTableRows = async (
+    table,
+    scope,
+    limit,
+    lowerBound,
+    upperBound,
+    indexPosition,
+    keyType,
+  ) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
@@ -161,8 +169,11 @@ class EosioService {
       code: process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
-      lower_bound: offset,
+      lower_bound: lowerBound,
+      upper_bound: upperBound,
       limit,
+      index_position: indexPosition,
+      key_type: keyType,
     };
 
     const response = await this.eosInstance.getTableRows(request);

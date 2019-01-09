@@ -14,8 +14,9 @@ const selectQuestionsLoading = () =>
   );
 
 const selectQuestionsList = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('questionsList'),
+  createSelector(
+    selectQuestionsDomain,
+    substate => substate.toJS().questionsList,
   );
 
 const selectQuestionsError = () =>
@@ -38,6 +39,11 @@ const selectIsLastFetch = () =>
     substate.get('isLastFetch'),
   );
 
+const selectCommunityIdFilter = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('communityIdFilter'),
+  );
+
 export {
   selectQuestionsDomain,
   selectQuestionsLoading,
@@ -46,4 +52,5 @@ export {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
+  selectCommunityIdFilter,
 };

@@ -19,7 +19,11 @@ import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { getQuestionsList, setDefaultReducer } from './actions';
+import {
+  getInitQuestions,
+  getNextQuestions,
+  setDefaultReducer,
+} from './actions';
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -30,19 +34,34 @@ import QuestionsContainer from './QuestionsContainer';
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
   componentDidMount() {
-    const { initLoadedItems } = this.props;
-    this.getQuestionsList(initLoadedItems);
+    this.getInitQuestions();
   }
 
   componentWillUnmount() {
     this.props.setDefaultReducerDispatch();
   }
 
-  getQuestionsList = (limit = this.props.nextLoadedItems) => {
-    const lastItem = this.props.questionsList.last();
+  getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
+    const { initLoadedItems } = this.props;
+    const offset = 0;
+
+    this.props.getInitQuestionsDispatch(
+      initLoadedItems,
+      offset,
+      communityIdFilter,
+    );
+  };
+
+  getNextQuestions = () => {
+    const { nextLoadedItems, questionsList, communityIdFilter } = this.props;
+    const lastItem = questionsList[questionsList.length - 1];
     const offset = (lastItem && +lastItem.id + 1) || 0;
 
-    this.props.getQuestionsListDispatch(limit, offset);
+    this.props.getNextQuestionsDispatch(
+      nextLoadedItems,
+      offset,
+      communityIdFilter,
+    );
   };
 
   render() {
@@ -60,11 +79,12 @@ export class Questions extends React.Component {
       questionsLoading,
       communities,
       translations: translationMessages[locale],
+      getInitQuestions: this.getInitQuestions,
     };
 
     return (
       <InfinityLoader
-        loadNextPaginatedData={this.getQuestionsList}
+        loadNextPaginatedData={this.getNextQuestions}
         isLoading={questionsLoading}
         isLastFetch={isLastFetch}
       >
@@ -86,12 +106,14 @@ export class Questions extends React.Component {
 Questions.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
-  questionsList: PropTypes.object,
+  questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
-  getQuestionsListDispatch: PropTypes.func,
+  communityIdFilter: PropTypes.number,
+  getInitQuestionsDispatch: PropTypes.func,
+  getNextQuestionsDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
 };
 
@@ -103,13 +125,16 @@ const mapStateToProps = createStructuredSelector({
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
+  communityIdFilter: questionsSelector.selectCommunityIdFilter(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    getQuestionsListDispatch: (limit, offset) =>
-      dispatch(getQuestionsList(limit, offset)),
+    getInitQuestionsDispatch: (limit, offset, communityIdFilter) =>
+      dispatch(getInitQuestions(limit, offset, communityIdFilter)),
+    getNextQuestionsDispatch: (limit, offset, communityIdFilter) =>
+      dispatch(getNextQuestions(limit, offset, communityIdFilter)),
     setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
   };
 }

@@ -4,13 +4,22 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
-import { getQuestions } from 'utils/questionsManagement';
-
-import defaultSaga, { getQuestionsListWorker } from '../saga';
 import {
-  GET_QUESTIONS_LIST,
-  GET_QUESTIONS_LIST_SUCCESS,
-  GET_QUESTIONS_LIST_ERROR,
+  getQuestions,
+  getQuestionsFilteredByCommunities,
+} from 'utils/questionsManagement';
+
+import defaultSaga, {
+  getInitQuestionsWorker,
+  getNextQuestionsWorker,
+} from '../saga';
+import {
+  GET_INIT_QUESTIONS,
+  GET_INIT_QUESTIONS_SUCCESS,
+  GET_INIT_QUESTIONS_ERROR,
+  GET_NEXT_QUESTIONS,
+  GET_NEXT_QUESTIONS_SUCCESS,
+  GET_NEXT_QUESTIONS_ERROR,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -22,47 +31,131 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('utils/questionsManagement', () => ({
   getQuestions: jest.fn(),
+  getQuestionsFilteredByCommunities: jest.fn(),
 }));
 
-describe('getQuestionsListWorker', () => {
+describe('getInitQuestionsWorker', () => {
   const res = {
     limit: 10,
     offset: 10,
+    communityIdFilter: 0,
   };
   const eos = { id: 1 };
-  const generator = getQuestionsListWorker(res);
 
-  it('eosService', () => {
-    select.mockImplementation(() => eos);
-    const step = generator.next();
-    expect(step.value).toEqual(eos);
+  describe('communityIdFilter === 0', () => {
+    res.communityIdFilter = 0;
+    const generator = getInitQuestionsWorker(res);
+
+    it('eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next();
+      expect(step.value).toEqual(eos);
+    });
+
+    it('getQuestions', () => {
+      const questions = [];
+      getQuestions.mockImplementation(() => questions);
+      const step = generator.next(eos);
+
+      expect(step.value).toEqual(questions);
+    });
+
+    it('GET_INIT_QUESTIONS_SUCCESS', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(GET_INIT_QUESTIONS_SUCCESS);
+    });
+
+    it('error handling', () => {
+      const err = 'error';
+      const putDescriptor = generator.throw(err);
+      expect(putDescriptor.value.type).toBe(GET_INIT_QUESTIONS_ERROR);
+    });
   });
 
-  it('getQuestions', () => {
-    const questions = [];
-    getQuestions.mockImplementation(() => questions);
-    const step = generator.next(eos);
+  describe('communityIdFilter > 0', () => {
+    res.communityIdFilter = 10;
+    const generator = getInitQuestionsWorker(res);
 
-    expect(step.value).toEqual(questions);
+    generator.next();
+
+    it('getQuestionsFilteredByCommunities', () => {
+      generator.next(eos);
+      expect(getQuestionsFilteredByCommunities).toHaveBeenCalledWith(
+        eos,
+        res.limit,
+        res.offset,
+        res.communityIdFilter,
+      );
+    });
+  });
+});
+
+describe('getNextQuestionsWorker', () => {
+  const res = {
+    limit: 10,
+    offset: 10,
+    communityIdFilter: 0,
+  };
+  const eos = { id: 1 };
+
+  describe('communityIdFilter === 0', () => {
+    res.communityIdFilter = 0;
+    const generator = getNextQuestionsWorker(res);
+
+    it('eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next();
+      expect(step.value).toEqual(eos);
+    });
+
+    it('getQuestions', () => {
+      const questions = [];
+      getQuestions.mockImplementation(() => questions);
+      const step = generator.next(eos);
+
+      expect(step.value).toEqual(questions);
+    });
+
+    it('GET_INIT_QUESTIONS_SUCCESS', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(GET_NEXT_QUESTIONS_SUCCESS);
+    });
+
+    it('error handling', () => {
+      const err = 'error';
+      const putDescriptor = generator.throw(err);
+      expect(putDescriptor.value.type).toBe(GET_NEXT_QUESTIONS_ERROR);
+    });
   });
 
-  it('GET_QUESTIONS_LIST_SUCCESS', () => {
-    const step = generator.next();
-    expect(step.value.type).toBe(GET_QUESTIONS_LIST_SUCCESS);
-  });
+  describe('communityIdFilter > 0', () => {
+    res.communityIdFilter = 10;
+    const generator = getNextQuestionsWorker(res);
 
-  it('error handling', () => {
-    const err = 'error';
-    const putDescriptor = generator.throw(err);
-    expect(putDescriptor.value.type).toBe(GET_QUESTIONS_LIST_ERROR);
+    generator.next();
+
+    it('getQuestionsFilteredByCommunities', () => {
+      generator.next(eos);
+      expect(getQuestionsFilteredByCommunities).toHaveBeenCalledWith(
+        eos,
+        res.limit,
+        res.offset,
+        res.communityIdFilter,
+      );
+    });
   });
 });
 
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
-  it('GET_QUESTIONS_LIST', () => {
+  it('GET_INIT_QUESTIONS', () => {
     const step = generator.next();
-    expect(step.value).toBe(GET_QUESTIONS_LIST);
+    expect(step.value).toBe(GET_INIT_QUESTIONS);
+  });
+
+  it('GET_NEXT_QUESTIONS', () => {
+    const step = generator.next();
+    expect(step.value).toBe(GET_NEXT_QUESTIONS);
   });
 });
