@@ -5,13 +5,13 @@
  */
 
 import {
-  GET_INIT_QUESTIONS,
-  GET_INIT_QUESTIONS_SUCCESS,
-  GET_INIT_QUESTIONS_ERROR,
-  GET_NEXT_QUESTIONS,
-  GET_NEXT_QUESTIONS_SUCCESS,
-  GET_NEXT_QUESTIONS_ERROR,
+  GET_QUESTIONS,
+  GET_QUESTIONS_SUCCESS,
+  GET_QUESTIONS_ERROR,
   SET_DEFAULT_REDUCER,
+  FOLLOW_HANDLER,
+  FOLLOW_HANDLER_SUCCESS,
+  FOLLOW_HANDLER_ERROR,
 } from './constants';
 
 /*
@@ -20,55 +20,64 @@ import {
  *
  */
 
-export function getInitQuestions(limit, offset, communityIdFilter) {
+export function getQuestions(
+  limit,
+  offset,
+  communityIdFilter,
+  parentPage,
+  next,
+) {
   return {
-    type: GET_INIT_QUESTIONS,
+    type: GET_QUESTIONS,
     limit,
     offset,
     communityIdFilter,
+    parentPage,
+    next,
   };
 }
 
-export function getInitQuestionsSuccess(questionsList) {
+export function getQuestionsSuccess(questionsList, followedCommunities, next) {
   return {
-    type: GET_INIT_QUESTIONS_SUCCESS,
+    type: GET_QUESTIONS_SUCCESS,
     questionsList,
+    followedCommunities,
+    next,
   };
 }
 
-export function getInitQuestionsError(questionsError) {
+export function getQuestionsError(questionsError) {
   return {
-    type: GET_INIT_QUESTIONS_ERROR,
+    type: GET_QUESTIONS_ERROR,
     questionsError,
   };
 }
 
 /*
  *
- * getInitQuestions actions
+ * subscribedHandler actions
  *
  */
 
-export function getNextQuestions(limit, offset, communityIdFilter) {
+export function followHandler(communityIdFilter, isFollowed) {
   return {
-    type: GET_NEXT_QUESTIONS,
-    limit,
-    offset,
+    type: FOLLOW_HANDLER,
     communityIdFilter,
+    isFollowed,
   };
 }
 
-export function getNextQuestionsSuccess(questionsList) {
+export function followHandlerSuccess(followedCommunities) {
   return {
-    type: GET_NEXT_QUESTIONS_SUCCESS,
-    questionsList,
+    type: FOLLOW_HANDLER_SUCCESS,
+    followedCommunities,
   };
 }
 
-export function getNextQuestionsError(questionsError) {
+export function followHandlerErr(followHandlerError) {
   return {
-    type: GET_NEXT_QUESTIONS_ERROR,
-    questionsError,
+    type: FOLLOW_HANDLER_ERROR,
+    followHandlerError,
   };
 }
 

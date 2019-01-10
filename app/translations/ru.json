@@ -154,7 +154,7 @@
   "app.components.Header.home": "Главная",
   "app.components.Header.questions": "Вопросы",
   "app.components.Header.profile": "Профиль",
-  "app.components.Header.about": "О нас",
+  "app.components.Header.feed": "Feed",
   "app.components.Header.help": "Помощь",
   "app.components.Header.search": "Поиск",
   "app.components.Header.login": "Вход",

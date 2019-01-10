@@ -10,3 +10,4 @@ export const answer_edit = (questionid, answerid) =>
   `/questions/${questionid}/answers/${answerid}/edit`;
 export const question_ask = () => `/questions/ask`;
 export const no_access = () => `/no-access`;
+export const feed = () => `/feed`;

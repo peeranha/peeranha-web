@@ -1,27 +1,49 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
+import * as routes from 'routes-config';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
+  getQuestionsForCommunitiesWhereIAm,
+  followCommunity,
+  unfollowCommunity,
 } from 'utils/questionsManagement';
 
-import { GET_INIT_QUESTIONS, GET_NEXT_QUESTIONS } from './constants';
+import { getProfileInfo } from 'utils/profileManagement';
+
+import { GET_QUESTIONS, FOLLOW_HANDLER } from './constants';
 
 import {
-  getInitQuestionsSuccess,
-  getInitQuestionsError,
-  getNextQuestionsSuccess,
-  getNextQuestionsError,
+  getQuestionsSuccess,
+  getQuestionsError,
+  followHandlerSuccess,
+  followHandlerErr,
 } from './actions';
 
-export function* getInitQuestionsWorker({ limit, offset, communityIdFilter }) {
+const feed = routes.feed();
+
+export function* getQuestionsWorker({
+  limit,
+  offset,
+  communityIdFilter,
+  parentPage,
+  next,
+}) {
   try {
     const eosService = yield select(selectEos);
 
+    const selectedAccount = yield call(() => eosService.getSelectedAccount());
+    const profile = yield call(() =>
+      getProfileInfo(selectedAccount, eosService),
+    );
+
+    const followedCommunities = profile ? profile.followed_communities : null;
+
     let questionsList = [];
 
-    if (communityIdFilter) {
+    // Load questions filtered for some community
+    if (communityIdFilter > 0) {
       questionsList = yield call(() =>
         getQuestionsFilteredByCommunities(
           eosService,
@@ -30,42 +52,59 @@ export function* getInitQuestionsWorker({ limit, offset, communityIdFilter }) {
           communityIdFilter,
         ),
       );
-    } else {
+    }
+
+    // Load all questions
+    if (communityIdFilter === 0 && parentPage !== feed) {
       questionsList = yield call(() => getQuestions(eosService, limit, offset));
     }
 
-    yield put(getInitQuestionsSuccess(questionsList));
+    // Load questions for communities where I am
+    if (communityIdFilter === 0 && parentPage === feed && followedCommunities) {
+      questionsList = yield call(() =>
+        getQuestionsForCommunitiesWhereIAm(
+          eosService,
+          limit,
+          offset,
+          followedCommunities,
+        ),
+      );
+    }
+
+    yield put(getQuestionsSuccess(questionsList, followedCommunities, next));
   } catch (err) {
-    yield put(getInitQuestionsError(err.message));
+    yield put(getQuestionsError(err.message));
   }
 }
 
-export function* getNextQuestionsWorker({ limit, offset, communityIdFilter }) {
+export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
   try {
     const eosService = yield select(selectEos);
+    const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    let questionsList = [];
-
-    if (communityIdFilter) {
-      questionsList = yield call(() =>
-        getQuestionsFilteredByCommunities(
-          eosService,
-          limit,
-          offset,
-          communityIdFilter,
-        ),
+    if (isFollowed) {
+      yield call(() =>
+        unfollowCommunity(eosService, communityIdFilter, selectedAccount),
       );
     } else {
-      questionsList = yield call(() => getQuestions(eosService, limit, offset));
+      yield call(() =>
+        followCommunity(eosService, communityIdFilter, selectedAccount),
+      );
     }
 
-    yield put(getNextQuestionsSuccess(questionsList));
+    const profile = yield call(() =>
+      getProfileInfo(selectedAccount, eosService),
+    );
+
+    const followedCommunities = profile.followed_communities;
+
+    yield put(followHandlerSuccess(followedCommunities));
   } catch (err) {
-    yield put(getNextQuestionsError(err.message));
+    yield put(followHandlerErr(err.message));
   }
 }
 
 export default function*() {
-  yield takeLatest(GET_INIT_QUESTIONS, getInitQuestionsWorker);
-  yield takeLatest(GET_NEXT_QUESTIONS, getNextQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(FOLLOW_HANDLER, followHandlerWorker);
 }

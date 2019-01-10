@@ -19,9 +19,9 @@ export default defineMessages({
     id: 'app.components.Header.profile',
     defaultMessage: 'Profile',
   },
-  about: {
-    id: 'app.components.Header.about',
-    defaultMessage: 'About',
+  feed: {
+    id: 'app.components.Header.feed',
+    defaultMessage: 'Feed',
   },
   help: {
     id: 'app.components.Header.help',

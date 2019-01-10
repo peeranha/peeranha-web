@@ -12,7 +12,7 @@ const QuestionsContainer = props => (
   <Box>
     <QuestionsHeader {...props} />
     <QuestionsContent {...props} />
-    {!props.questionsList.length && <NoQuestions />}
+    {!props.questionsList.length && !props.questionsLoading && <NoQuestions />}
     {props.questionsLoading && <LoadingIndicator />}
   </Box>
 );

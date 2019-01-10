@@ -58,3 +58,6 @@ export const DEL_COMMENT_METHOD = 'delcomment';
 export const UP_VOTE_METHOD = 'upvote';
 export const DOWN_VOTE_METHOD = 'downvote';
 export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
+
+export const UNFOLLOW_COMM = 'unfollowcomm';
+export const FOLLOW_COMM = 'followcomm';

@@ -19,11 +19,8 @@ import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import {
-  getInitQuestions,
-  getNextQuestions,
-  setDefaultReducer,
-} from './actions';
+import { getQuestions, setDefaultReducer, followHandler } from './actions';
+
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,7 +31,7 @@ import QuestionsContainer from './QuestionsContainer';
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
   componentDidMount() {
-    this.getInitQuestions();
+    setTimeout(() => this.getInitQuestions(), 0);
   }
 
   componentWillUnmount() {
@@ -42,26 +39,43 @@ export class Questions extends React.Component {
   }
 
   getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
-    const { initLoadedItems } = this.props;
+    const { initLoadedItems, parentPage } = this.props;
     const offset = 0;
 
-    this.props.getInitQuestionsDispatch(
+    this.props.getQuestionsDispatch(
       initLoadedItems,
       offset,
       communityIdFilter,
+      parentPage,
     );
   };
 
   getNextQuestions = () => {
-    const { nextLoadedItems, questionsList, communityIdFilter } = this.props;
+    const {
+      nextLoadedItems,
+      questionsList,
+      communityIdFilter,
+      parentPage,
+    } = this.props;
+
     const lastItem = questionsList[questionsList.length - 1];
     const offset = (lastItem && +lastItem.id + 1) || 0;
+    const next = true;
 
-    this.props.getNextQuestionsDispatch(
+    this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
       communityIdFilter,
+      parentPage,
+      next,
     );
+  };
+
+  followHandler = e => {
+    const isFollowed = JSON.parse(e.target.dataset.isfollowed);
+    const { communityIdFilter } = this.props;
+
+    this.props.followHandlerDispatch(communityIdFilter, isFollowed);
   };
 
   render() {
@@ -71,6 +85,9 @@ export class Questions extends React.Component {
       questionsLoading,
       isLastFetch,
       communities,
+      communityIdFilter,
+      followedCommunities,
+      parentPage,
     } = this.props;
 
     const sendProps = {
@@ -80,6 +97,10 @@ export class Questions extends React.Component {
       communities,
       translations: translationMessages[locale],
       getInitQuestions: this.getInitQuestions,
+      followHandler: this.followHandler,
+      communityIdFilter,
+      followedCommunities,
+      parentPage,
     };
 
     return (
@@ -105,15 +126,17 @@ export class Questions extends React.Component {
 
 Questions.propTypes = {
   locale: PropTypes.string,
+  parentPage: PropTypes.string,
   communities: PropTypes.array,
+  followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
   communityIdFilter: PropTypes.number,
-  getInitQuestionsDispatch: PropTypes.func,
-  getNextQuestionsDispatch: PropTypes.func,
+  getQuestionsDispatch: PropTypes.func,
+  followHandlerDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
 };
 
@@ -126,16 +149,17 @@ const mapStateToProps = createStructuredSelector({
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
   communityIdFilter: questionsSelector.selectCommunityIdFilter(),
+  followedCommunities: questionsSelector.selectFollowedCommunities(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    getInitQuestionsDispatch: (limit, offset, communityIdFilter) =>
-      dispatch(getInitQuestions(limit, offset, communityIdFilter)),
-    getNextQuestionsDispatch: (limit, offset, communityIdFilter) =>
-      dispatch(getNextQuestions(limit, offset, communityIdFilter)),
+    getQuestionsDispatch: (limit, offset, comId, parentPage, next) =>
+      dispatch(getQuestions(limit, offset, comId, parentPage, next)),
     setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
+    followHandlerDispatch: (communityIdFilter, isFollowed) =>
+      dispatch(followHandler(communityIdFilter, isFollowed)),
   };
 }
 
