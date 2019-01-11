@@ -39,4 +39,20 @@ export default defineMessages({
     id: 'app.containers.Questions.ago',
     defaultMessage: 'Your question is successfully posted!',
   },
+  myfeed: {
+    id: 'app.containers.Questions.myfeed',
+    defaultMessage: 'My feed',
+  },
+  all: {
+    id: 'app.containers.Questions.all',
+    defaultMessage: 'All',
+  },
+  follow: {
+    id: 'app.containers.Questions.follow',
+    defaultMessage: 'Follow',
+  },
+  unfollow: {
+    id: 'app.containers.Questions.unfollow',
+    defaultMessage: 'Unfollow',
+  },
 });

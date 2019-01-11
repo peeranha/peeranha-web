@@ -75,6 +75,7 @@ export async function getQuestionsFilteredByCommunities(
 }
 
 /* eslint no-undef: 0 */
+/* istanbul ignore next */
 export async function getQuestionsForCommunitiesWhereIAm(
   eosService,
   limit,

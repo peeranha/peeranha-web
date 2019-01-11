@@ -27,13 +27,16 @@ const QuestionsHeader = ({
 
   if (followedCommunities && isFeed) {
     options = [
-      { label: 'All', value: 0 },
+      { label: translations[messages.all.id], value: 0 },
       ...communities.filter(x => followedCommunities.includes(x.id)),
     ];
   }
 
   if (!isFeed) {
-    options = [{ label: 'All', value: 0 }, ...communities];
+    options = [
+      { label: translations[messages.all.id], value: 0 },
+      ...communities,
+    ];
   }
 
   const selectValue = options.filter(x => x.value === communityIdFilter)[0];
@@ -42,7 +45,9 @@ const QuestionsHeader = ({
     <div>
       <div className="questions-header">
         <h4 className="text-uppercase font-weight-bold">
-          {!isFeed ? translations[messages.title.id] : 'My feed'}
+          {!isFeed
+            ? translations[messages.title.id]
+            : translations[messages.myfeed.id]}
           {`: ${questionsList.length}`}
         </h4>
         <div>
@@ -50,6 +55,7 @@ const QuestionsHeader = ({
             {translations[messages.askQuestion.id]}
           </button>
           <FollowCommunityButton
+            translations={translations}
             communityIdFilter={communityIdFilter}
             followedCommunities={followedCommunities}
             followHandler={followHandler}

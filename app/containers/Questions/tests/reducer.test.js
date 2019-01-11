@@ -3,13 +3,13 @@ import { fromJS } from 'immutable';
 import questionsReducer, { initialState } from '../reducer';
 
 import {
-  getInitQuestions,
-  getInitQuestionsSuccess,
-  getInitQuestionsError,
-  getNextQuestions,
-  getNextQuestionsSuccess,
-  getNextQuestionsError,
+  getQuestions,
+  getQuestionsSuccess,
+  getQuestionsError,
   setDefaultReducer,
+  followHandler,
+  followHandlerSuccess,
+  followHandlerErr,
 } from '../actions';
 
 describe('questionsReducer', () => {
@@ -24,67 +24,92 @@ describe('questionsReducer', () => {
     expect(questionsReducer(state, {})).toEqual(state);
   });
 
-  it('getInitQuestions', () => {
+  it('followHandlerErr', () => {
+    const followHandlerError = 'followHandlerError';
+    const obj = state
+      .set('followHandlerLoading', false)
+      .set('followHandlerError', followHandlerError);
+
+    expect(
+      questionsReducer(state, followHandlerErr(followHandlerError)),
+    ).toEqual(obj);
+  });
+
+  it('followHandlerSuccess', () => {
+    const followedCommunities = 'followedCommunities';
+    const obj = state
+      .set('followHandlerLoading', false)
+      .set('followedCommunities', followedCommunities);
+
+    expect(
+      questionsReducer(state, followHandlerSuccess(followedCommunities)),
+    ).toEqual(obj);
+  });
+
+  it('followHandler', () => {
+    const obj = state.set('followHandlerLoading', true);
+
+    expect(questionsReducer(state, followHandler())).toEqual(obj);
+  });
+
+  it('getQuestions', () => {
     const communityIdFilter = 10;
     const obj = state
       .set('questionsLoading', true)
       .set('communityIdFilter', communityIdFilter);
 
     expect(
-      questionsReducer(state, getInitQuestions(0, 0, communityIdFilter)),
+      questionsReducer(state, getQuestions(0, 0, communityIdFilter)),
     ).toEqual(obj);
   });
 
-  it('getInitQuestionsSuccess', () => {
+  it('getQuestionsSuccess, next is true', () => {
     const questionsList = [{}];
+    const next = true;
+    const followedCommunities = 'followedCommunities';
+
     const obj = state
       .set('questionsLoading', false)
-      .set('questionsList', questionsList)
-      .set('isLastFetch', true);
-
-    expect(
-      questionsReducer(state, getInitQuestionsSuccess(questionsList)),
-    ).toEqual(obj);
-  });
-
-  it('getInitQuestionsError', () => {
-    const questionsError = 'questionsError';
-    const obj = state
-      .set('questionsLoading', false)
-      .set('questionsError', questionsError);
-
-    expect(
-      questionsReducer(state, getInitQuestionsError(questionsError)),
-    ).toEqual(obj);
-  });
-
-  it('getNextQuestions', () => {
-    const obj = state.set('questionsLoading', true);
-
-    expect(questionsReducer(state, getNextQuestions())).toEqual(obj);
-  });
-
-  it('getNextQuestionsSuccess', () => {
-    const questionsList = [];
-    const obj = state
-      .set('questionsLoading', false)
+      .set('followedCommunities', followedCommunities)
       .set('questionsList', state.get('questionsList').concat(questionsList))
       .set('isLastFetch', true);
 
     expect(
-      questionsReducer(state, getNextQuestionsSuccess(questionsList)),
+      questionsReducer(
+        state,
+        getQuestionsSuccess(questionsList, followedCommunities, next),
+      ),
     ).toEqual(obj);
   });
 
-  it('getNextQuestionsError', () => {
+  it('getQuestionsSuccess, next is false', () => {
+    const questionsList = [{}];
+    const next = false;
+    const followedCommunities = 'followedCommunities';
+
+    const obj = state
+      .set('questionsLoading', false)
+      .set('followedCommunities', followedCommunities)
+      .set('questionsList', questionsList)
+      .set('isLastFetch', true);
+
+    expect(
+      questionsReducer(
+        state,
+        getQuestionsSuccess(questionsList, followedCommunities, next),
+      ),
+    ).toEqual(obj);
+  });
+
+  it('getQuestionsError', () => {
     const questionsError = 'questionsError';
     const obj = state
       .set('questionsLoading', false)
       .set('questionsError', questionsError);
 
-    expect(
-      questionsReducer(state, getNextQuestionsError(questionsError)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getQuestionsError(questionsError))).toEqual(
+      obj,
+    );
   });
 
   it('setDefaultReducer', () => {

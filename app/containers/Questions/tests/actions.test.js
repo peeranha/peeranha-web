@@ -1,111 +1,117 @@
 import {
-  getInitQuestions,
-  getInitQuestionsSuccess,
-  getInitQuestionsError,
-  getNextQuestions,
-  getNextQuestionsSuccess,
-  getNextQuestionsError,
+  getQuestions,
+  getQuestionsSuccess,
+  getQuestionsError,
   setDefaultReducer,
+  followHandler,
+  followHandlerSuccess,
+  followHandlerErr,
 } from '../actions';
 
 import {
-  GET_INIT_QUESTIONS,
-  GET_INIT_QUESTIONS_SUCCESS,
-  GET_INIT_QUESTIONS_ERROR,
-  GET_NEXT_QUESTIONS,
-  GET_NEXT_QUESTIONS_SUCCESS,
-  GET_NEXT_QUESTIONS_ERROR,
+  GET_QUESTIONS,
+  GET_QUESTIONS_SUCCESS,
+  GET_QUESTIONS_ERROR,
   SET_DEFAULT_REDUCER,
+  FOLLOW_HANDLER,
+  FOLLOW_HANDLER_SUCCESS,
+  FOLLOW_HANDLER_ERROR,
 } from '../constants';
 
 describe('actions', () => {
-  describe('getInitQuestions Action', () => {
-    it('GET_INIT_QUESTIONS', () => {
+  describe('followHandler Action', () => {
+    it('FOLLOW_HANDLER', () => {
+      const communityIdFilter = 'limit';
+      const isFollowed = 'offset';
+
+      const expected = {
+        type: FOLLOW_HANDLER,
+        communityIdFilter,
+        isFollowed,
+      };
+
+      expect(followHandler(communityIdFilter, isFollowed)).toEqual(expected);
+    });
+  });
+
+  describe('followHandlerSuccess Action', () => {
+    it('FOLLOW_HANDLER_SUCCESS', () => {
+      const followedCommunities = 'limit';
+
+      const expected = {
+        type: FOLLOW_HANDLER_SUCCESS,
+        followedCommunities,
+      };
+
+      expect(followHandlerSuccess(followedCommunities)).toEqual(expected);
+    });
+  });
+
+  describe('followHandlerErr Action', () => {
+    it('FOLLOW_HANDLER_ERROR', () => {
+      const followHandlerError = 'limit';
+
+      const expected = {
+        type: FOLLOW_HANDLER_ERROR,
+        followHandlerError,
+      };
+
+      expect(followHandlerErr(followHandlerError)).toEqual(expected);
+    });
+  });
+
+  describe('getQuestions Action', () => {
+    it('GET_QUESTIONS', () => {
       const limit = 'limit';
       const offset = 'offset';
       const communityIdFilter = 'communityIdFilter';
+      const parentPage = 'parentPage';
+      const next = 'next';
 
       const expected = {
-        type: GET_INIT_QUESTIONS,
+        type: GET_QUESTIONS,
         limit,
         offset,
         communityIdFilter,
+        parentPage,
+        next,
       };
 
-      expect(getInitQuestions(limit, offset, communityIdFilter)).toEqual(
-        expected,
-      );
+      expect(
+        getQuestions(limit, offset, communityIdFilter, parentPage, next),
+      ).toEqual(expected);
     });
   });
 
-  describe('getInitQuestionsSuccess Action', () => {
-    it('GET_INIT_QUESTIONS_SUCCESS', () => {
+  describe('getQuestionsSuccess Action', () => {
+    it('GET_QUESTIONS_SUCCESS', () => {
       const questionsList = 'questionsList';
+      const followedCommunities = 'followedCommunities';
+      const next = 'next';
 
       const expected = {
-        type: GET_INIT_QUESTIONS_SUCCESS,
+        type: GET_QUESTIONS_SUCCESS,
         questionsList,
+        followedCommunities,
+        next,
       };
 
-      expect(getInitQuestionsSuccess(questionsList)).toEqual(expected);
+      expect(
+        getQuestionsSuccess(questionsList, followedCommunities, next),
+      ).toEqual(expected);
     });
   });
 
-  describe('getInitQuestionsError Action', () => {
-    it('GET_INIT_QUESTIONS_ERROR', () => {
+  describe('getQuestionsError Action', () => {
+    it('GET_QUESTIONS_ERROR', () => {
       const questionsError = 'questionsError';
 
       const expected = {
-        type: GET_INIT_QUESTIONS_ERROR,
+        type: GET_QUESTIONS_ERROR,
         questionsError,
       };
 
-      expect(getInitQuestionsError(questionsError)).toEqual(expected);
-    });
-  });
-
-  describe('getNextQuestions Action', () => {
-    it('GET_NEXT_QUESTIONS', () => {
-      const limit = 'limit';
-      const offset = 'offset';
-      const communityIdFilter = 'communityIdFilter';
-
-      const expected = {
-        type: GET_NEXT_QUESTIONS,
-        limit,
-        offset,
-        communityIdFilter,
-      };
-
-      expect(getNextQuestions(limit, offset, communityIdFilter)).toEqual(
-        expected,
-      );
-    });
-  });
-
-  describe('getNextQuestionsSuccess Action', () => {
-    it('GET_NEXT_QUESTIONS_SUCCESS', () => {
-      const questionsList = 'questionsList';
-
-      const expected = {
-        type: GET_NEXT_QUESTIONS_SUCCESS,
-        questionsList,
-      };
-
-      expect(getNextQuestionsSuccess(questionsList)).toEqual(expected);
-    });
-  });
-
-  describe('getNextQuestionsError Action', () => {
-    it('GET_NEXT_QUESTIONS_ERROR', () => {
-      const questionsError = 'questionsError';
-
-      const expected = {
-        type: GET_NEXT_QUESTIONS_ERROR,
-        questionsError,
-      };
-
-      expect(getNextQuestionsError(questionsError)).toEqual(expected);
+      expect(getQuestionsError(questionsError)).toEqual(expected);
     });
   });
 

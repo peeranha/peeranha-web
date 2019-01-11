@@ -22,15 +22,18 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
       />
     </HelmetWrapper>
     <QuestionsContainer
+      communityIdFilter={10}
+      followHandler={[Function]}
       getInitQuestions={[Function]}
       locale="en"
+      parentPage="parentPage"
       questionsList={Array []}
       questionsLoading={false}
       translations={
         Object {
           "app.components.Footer.header": "Copyright: Peerania",
           "app.components.FormFields.requiredField": "Required field",
-          "app.components.Header.about": "About",
+          "app.components.Header.feed": "Feed",
           "app.components.Header.help": "Help",
           "app.components.Header.home": "Home",
           "app.components.Header.login": "Log in",
@@ -168,11 +171,15 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
           "app.containers.QuestionForm.title": "Ask question",
           "app.containers.QuestionForm.titleLabel": "Title",
           "app.containers.Questions.ago": "ago",
+          "app.containers.Questions.all": "All",
           "app.containers.Questions.answers": "answers",
           "app.containers.Questions.askQuestion": "Ask question",
           "app.containers.Questions.description": "Questions | Description",
+          "app.containers.Questions.follow": "Follow",
+          "app.containers.Questions.myfeed": "My feed",
           "app.containers.Questions.noQuestions": "No questions",
           "app.containers.Questions.title": "Questions",
+          "app.containers.Questions.unfollow": "Unfollow",
           "app.containers.Questions.votes": "votes",
           "app.containers.ScatterInstaller.backToOptions": "Back to options",
           "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",
@@ -245,15 +252,18 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
       />
     </HelmetWrapper>
     <QuestionsContainer
+      communityIdFilter={10}
+      followHandler={[Function]}
       getInitQuestions={[Function]}
       locale="en"
+      parentPage="parentPage"
       questionsList={Array []}
       questionsLoading={true}
       translations={
         Object {
           "app.components.Footer.header": "Copyright: Peerania",
           "app.components.FormFields.requiredField": "Required field",
-          "app.components.Header.about": "About",
+          "app.components.Header.feed": "Feed",
           "app.components.Header.help": "Help",
           "app.components.Header.home": "Home",
           "app.components.Header.login": "Log in",
@@ -391,11 +401,15 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
           "app.containers.QuestionForm.title": "Ask question",
           "app.containers.QuestionForm.titleLabel": "Title",
           "app.containers.Questions.ago": "ago",
+          "app.containers.Questions.all": "All",
           "app.containers.Questions.answers": "answers",
           "app.containers.Questions.askQuestion": "Ask question",
           "app.containers.Questions.description": "Questions | Description",
+          "app.containers.Questions.follow": "Follow",
+          "app.containers.Questions.myfeed": "My feed",
           "app.containers.Questions.noQuestions": "No questions",
           "app.containers.Questions.title": "Questions",
+          "app.containers.Questions.unfollow": "Unfollow",
           "app.containers.Questions.votes": "votes",
           "app.containers.ScatterInstaller.backToOptions": "Back to options",
           "app.containers.ScatterInstaller.header": "To complete this action in our app you need to install",

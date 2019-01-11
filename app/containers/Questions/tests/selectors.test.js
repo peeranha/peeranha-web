@@ -8,6 +8,9 @@ import {
   selectNextLoadedItems,
   selectIsLastFetch,
   selectCommunityIdFilter,
+  selectFollowedCommunities,
+  selectFollowHandlerLoading,
+  selectFollowHandlerError,
 } from '../selectors';
 
 describe('selectQuestionsDomain', () => {
@@ -18,6 +21,9 @@ describe('selectQuestionsDomain', () => {
   const nextLoadedItems = 10;
   const communityIdFilter = 10;
   const isLastFetch = false;
+  const followedCommunities = fromJS([]);
+  const followHandlerLoading = false;
+  const followHandlerError = 'followHandlerError';
 
   const globalState = fromJS({
     questionsLoading,
@@ -27,6 +33,9 @@ describe('selectQuestionsDomain', () => {
     nextLoadedItems,
     isLastFetch,
     communityIdFilter,
+    followedCommunities,
+    followHandlerLoading,
+    followHandlerError,
   });
 
   const mockedState = fromJS({
@@ -70,5 +79,24 @@ describe('selectQuestionsDomain', () => {
   it('selectCommunityIdFilter', () => {
     const isSelectCommunityIdFilter = selectCommunityIdFilter();
     expect(isSelectCommunityIdFilter(mockedState)).toEqual(communityIdFilter);
+  });
+
+  it('selectFollowedCommunities', () => {
+    const isSelectFollowedCommunities = selectFollowedCommunities();
+    expect(isSelectFollowedCommunities(mockedState)).toEqual(
+      followedCommunities,
+    );
+  });
+
+  it('selectFollowHandlerLoading', () => {
+    const isSelectFollowHandlerLoading = selectFollowHandlerLoading();
+    expect(isSelectFollowHandlerLoading(mockedState)).toEqual(
+      followHandlerLoading,
+    );
+  });
+
+  it('selectFollowHandlerError', () => {
+    const isSelectFollowHandlerError = selectFollowHandlerError();
+    expect(isSelectFollowHandlerError(mockedState)).toEqual(followHandlerError);
   });
 });

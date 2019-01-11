@@ -10,9 +10,16 @@ cmp.props = {
   initLoadedItems: 25,
   nextLoadedItems: 10,
   communityIdFilter: 10,
-  getInitQuestionsDispatch: jest.fn(),
-  getNextQuestionsDispatch: jest.fn(),
+  getQuestionsDispatch: jest.fn(),
   setDefaultReducerDispatch: jest.fn(),
+  followHandlerDispatch: jest.fn(),
+  parentPage: 'parentPage',
+};
+
+const ev = {
+  target: {
+    dataset: {},
+  },
 };
 
 describe('Questions', () => {
@@ -23,15 +30,13 @@ describe('Questions', () => {
     });
   });
 
-  describe('componentDidMount', () => {
-    const offset = 0;
+  describe('followHandler', () => {
+    ev.target.dataset.isfollowed = 'true';
+    cmp.followHandler(ev);
 
-    cmp.componentDidMount();
-
-    expect(cmp.props.getInitQuestionsDispatch).toHaveBeenCalledWith(
-      cmp.props.initLoadedItems,
-      offset,
+    expect(cmp.props.followHandlerDispatch).toHaveBeenCalledWith(
       cmp.props.communityIdFilter,
+      JSON.parse(ev.target.dataset.isfollowed),
     );
   });
 
@@ -41,10 +46,11 @@ describe('Questions', () => {
       const communityIdFilter = 26;
 
       cmp.getInitQuestions(communityIdFilter);
-      expect(cmp.props.getInitQuestionsDispatch).toHaveBeenCalledWith(
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.initLoadedItems,
         offset,
         communityIdFilter,
+        cmp.props.parentPage,
       );
     });
   });
@@ -52,6 +58,7 @@ describe('Questions', () => {
   describe('getNextQuestions', () => {
     it('test, questionsList NOT null', () => {
       const id = 1;
+      const next = true;
 
       cmp.props.questionsList = [
         {
@@ -60,23 +67,28 @@ describe('Questions', () => {
       ];
 
       cmp.getNextQuestions();
-      expect(cmp.props.getNextQuestionsDispatch).toHaveBeenCalledWith(
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.nextLoadedItems,
         id + 1,
         cmp.props.communityIdFilter,
+        cmp.props.parentPage,
+        next,
       );
     });
 
     it('test, questionsList IS null', () => {
       const id = 0;
+      const next = true;
 
       cmp.props.questionsList = [];
 
       cmp.getNextQuestions();
-      expect(cmp.props.getNextQuestionsDispatch).toHaveBeenCalledWith(
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.nextLoadedItems,
         id,
         cmp.props.communityIdFilter,
+        cmp.props.parentPage,
+        next,
       );
     });
   });

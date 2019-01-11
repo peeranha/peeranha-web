@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import messages from './messages';
 
 const FollowCommunityButton = ({
   communityIdFilter,
   followedCommunities,
   followHandler,
+  translations,
 }) => {
   if (!followedCommunities) return null;
 
@@ -16,7 +18,9 @@ const FollowCommunityButton = ({
       data-isfollowed={isFollowed}
       onClick={followHandler}
     >
-      {isFollowed ? 'Unfollow' : 'Follow'}
+      {isFollowed
+        ? translations[messages.unfollow.id]
+        : translations[messages.follow.id]}
     </button>
   ) : null;
 };
@@ -25,6 +29,7 @@ FollowCommunityButton.propTypes = {
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
   followHandler: PropTypes.func,
+  translations: PropTypes.object,
 };
 
 export default FollowCommunityButton;
