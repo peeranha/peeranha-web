@@ -1,28 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`QuestionsHeader snapshot test 1`] = `
+exports[`QuestionsHeader parentPage === feed 1`] = `
 <div>
   <div
     className="questions-header"
   >
     <h4
       className="text-uppercase font-weight-bold"
-    />
-    <button
-      className="btn btn-secondary"
-      onClick={[Function]}
-    />
+    >
+      : 0
+    </h4>
+    <div>
+      <button
+        className="btn btn-secondary ml-1"
+        onClick={[Function]}
+      />
+      <FollowCommunityButton
+        followedCommunities={Array []}
+        translations={Object {}}
+      />
+    </div>
   </div>
   <SelectField
-    defaultValue={
-      Object {
-        "label": "ALL",
-        "value": 0,
-      }
-    }
     input={
       Object {
         "onChange": [Function],
+        "value": undefined,
       }
     }
     isClearable={false}
@@ -32,7 +35,50 @@ exports[`QuestionsHeader snapshot test 1`] = `
     options={
       Array [
         Object {
-          "label": "ALL",
+          "label": undefined,
+          "value": 0,
+        },
+      ]
+    }
+  />
+</div>
+`;
+
+exports[`QuestionsHeader snapshot test 1`] = `
+<div>
+  <div
+    className="questions-header"
+  >
+    <h4
+      className="text-uppercase font-weight-bold"
+    >
+      : 0
+    </h4>
+    <div>
+      <button
+        className="btn btn-secondary ml-1"
+        onClick={[Function]}
+      />
+      <FollowCommunityButton
+        translations={Object {}}
+      />
+    </div>
+  </div>
+  <SelectField
+    input={
+      Object {
+        "onChange": [Function],
+        "value": undefined,
+      }
+    }
+    isClearable={false}
+    isDisabled={false}
+    isMulti={false}
+    isSearchable={true}
+    options={
+      Array [
+        Object {
+          "label": undefined,
           "value": 0,
         },
       ]

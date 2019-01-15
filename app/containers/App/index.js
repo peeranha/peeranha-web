@@ -33,6 +33,7 @@ import EditAnswer from 'containers/EditAnswer';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
+import Feed from 'components/Feed';
 
 import * as routes from 'routes-config';
 
@@ -55,6 +56,8 @@ export default function App /* istanbul ignore next */() {
       <Switch>
         <Route exact path={routes.home()} render={() => <HomePage />} />
         <Route path={routes.faq()} render={() => <FaqFull />} />
+        <Route path={routes.feed()} render={props => Wrapper(Feed, props)} />
+
         <Route
           exact
           path={routes.profile_view(':id')}

@@ -12,7 +12,6 @@ const SelectField = ({
   isClearable,
   isSearchable,
   disabled,
-  defaultValue,
   meta,
 }) => (
   <div>
@@ -24,7 +23,6 @@ const SelectField = ({
       isClearable={isClearable}
       isSearchable={isSearchable}
       isDisabled={disabled}
-      defaultValue={defaultValue}
       options={options}
     />
     <WarningMessage {...meta} />

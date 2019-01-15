@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
@@ -26,6 +28,8 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
+  UNFOLLOW_COMM,
+  FOLLOW_COMM,
 } from './constants';
 
 export async function getQuestionsPostedByUser(eosService, user) {
@@ -68,6 +72,62 @@ export async function getQuestionsFilteredByCommunities(
   );
 
   return questions;
+}
+
+/* eslint no-undef: 0 */
+/* istanbul ignore next */
+export async function getQuestionsForCommunitiesWhereIAm(
+  eosService,
+  limit,
+  offset,
+  followedCommunities,
+) {
+  let questions = [];
+
+  await Promise.all(
+    followedCommunities.map(async id => {
+      const q = await eosService.getTableRows(
+        QUESTION_TABLE,
+        ALL_QUESTIONS_SCOPE,
+        limit,
+        String((BigInt(id) << BigInt(36)) + BigInt(offset)),
+        String(BigInt(id + 1) << BigInt(36)),
+        GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+        GET_QUESTIONS_KEY_TYPE,
+      );
+
+      questions = questions.concat(q);
+    }),
+  );
+
+  const questionsSortedByTime = _.orderBy(questions, x => x.post_time, [
+    'desc',
+  ]);
+  const questionsSortedByTimeLimited = _.take(questionsSortedByTime, limit);
+
+  return questionsSortedByTimeLimited;
+}
+
+export async function unfollowCommunity(
+  eosService,
+  communityIdFilter,
+  selectedAccount,
+) {
+  await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
+    user: selectedAccount,
+    community_id: communityIdFilter,
+  });
+}
+
+export async function followCommunity(
+  eosService,
+  communityIdFilter,
+  selectedAccount,
+) {
+  await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
+    user: selectedAccount,
+    community_id: communityIdFilter,
+  });
 }
 
 export async function voteToDelete(
