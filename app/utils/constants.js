@@ -28,6 +28,7 @@ export const ACCOUNT_TABLE = 'account';
 export const QUESTION_TABLE = 'question';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const TAGS_COMMUNITIES_TABLE = 'tagandcomm';
+export const CREATED_TAGS_COMMUNITIES_TABLE = 'crtagcomm';
 
 // Scopes
 
@@ -61,3 +62,6 @@ export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
 
 export const UNFOLLOW_COMM = 'unfollowcomm';
 export const FOLLOW_COMM = 'followcomm';
+export const CREATE_COMMUNITY = 'crcommunity';
+export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
+export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';

@@ -7,10 +7,10 @@ import { select } from 'redux-saga/effects';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
-  getQuestionsForCommunitiesWhereIAm,
-  unfollowCommunity,
-  followCommunity,
+  getQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
+
+import { unfollowCommunity, followCommunity } from 'utils/communityManagement';
 
 import { getProfileInfo } from 'utils/profileManagement';
 
@@ -36,7 +36,7 @@ jest.mock('redux-saga/effects', () => ({
 jest.mock('utils/questionsManagement', () => ({
   getQuestions: jest.fn(),
   getQuestionsFilteredByCommunities: jest.fn(),
-  getQuestionsForCommunitiesWhereIAm: jest.fn(),
+  getQuestionsForFollowedCommunities: jest.fn(),
   unfollowCommunity: jest.fn(),
   followCommunity: jest.fn(),
 }));
@@ -135,7 +135,7 @@ describe('getQuestionsWorker', () => {
 
     it('getQuestionsFilteredByCommunities', () => {
       generator.next(profileInfo);
-      expect(getQuestionsForCommunitiesWhereIAm).toHaveBeenCalledWith(
+      expect(getQuestionsForFollowedCommunities).toHaveBeenCalledWith(
         eos,
         res.limit,
         res.offset,

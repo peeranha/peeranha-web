@@ -4,7 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
-import { getAllCommunities } from 'utils/dataCacheManagement';
+import { getAllCommunities } from 'utils/communityManagement';
 
 import defaultSaga, { getCommunitiesWithTagsWorker } from '../saga';
 

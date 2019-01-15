@@ -5,21 +5,14 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
-  getQuestionsForCommunitiesWhereIAm,
-  followCommunity,
-  unfollowCommunity,
+  getQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 
-import { GET_QUESTIONS, FOLLOW_HANDLER } from './constants';
+import { GET_QUESTIONS } from './constants';
 
-import {
-  getQuestionsSuccess,
-  getQuestionsError,
-  followHandlerSuccess,
-  followHandlerErr,
-} from './actions';
+import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 const feed = routes.feed();
 
@@ -32,13 +25,7 @@ export function* getQuestionsWorker({
 }) {
   try {
     const eosService = yield select(selectEos);
-
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profile = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
-    );
-
-    const followedCommunities = profile ? profile.followed_communities : null;
+    const followedCommunities = yield select(makeSelectFollowedCommunities());
 
     let questionsList = [];
 
@@ -62,7 +49,7 @@ export function* getQuestionsWorker({
     // Load questions for communities where I am
     if (communityIdFilter === 0 && parentPage === feed && followedCommunities) {
       questionsList = yield call(() =>
-        getQuestionsForCommunitiesWhereIAm(
+        getQuestionsForFollowedCommunities(
           eosService,
           limit,
           offset,
@@ -71,40 +58,12 @@ export function* getQuestionsWorker({
       );
     }
 
-    yield put(getQuestionsSuccess(questionsList, followedCommunities, next));
+    yield put(getQuestionsSuccess(questionsList, next));
   } catch (err) {
     yield put(getQuestionsError(err.message));
   }
 }
 
-export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
-  try {
-    const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-
-    if (isFollowed) {
-      yield call(() =>
-        unfollowCommunity(eosService, communityIdFilter, selectedAccount),
-      );
-    } else {
-      yield call(() =>
-        followCommunity(eosService, communityIdFilter, selectedAccount),
-      );
-    }
-
-    const profile = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
-    );
-
-    const followedCommunities = profile.followed_communities;
-
-    yield put(followHandlerSuccess(followedCommunities));
-  } catch (err) {
-    yield put(followHandlerErr(err.message));
-  }
-}
-
 export default function*() {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
-  yield takeLatest(FOLLOW_HANDLER, followHandlerWorker);
 }

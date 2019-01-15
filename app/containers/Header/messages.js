@@ -23,9 +23,9 @@ export default defineMessages({
     id: 'app.components.Header.feed',
     defaultMessage: 'Feed',
   },
-  help: {
-    id: 'app.components.Header.help',
-    defaultMessage: 'Help',
+  communities: {
+    id: 'app.components.Header.communities',
+    defaultMessage: 'Communities',
   },
   search: {
     id: 'app.components.Header.search',

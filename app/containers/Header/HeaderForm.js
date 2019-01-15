@@ -70,8 +70,12 @@ const HeaderForm = props => (
           </li>
 
           <li className="nav-item">
-            <Link to="/help" className="nav-link" href="/help">
-              <FormattedMessage {...messages.help} />
+            <Link
+              to={routes.communities()}
+              className="nav-link"
+              href={routes.communities()}
+            >
+              <FormattedMessage {...messages.communities} />
             </Link>
           </li>
         </ul>

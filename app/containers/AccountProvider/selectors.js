@@ -24,6 +24,15 @@ const makeSelectUserIsInSystem = () =>
     substate.get('userIsInSystem'),
   );
 
+const makeSelectFollowedCommunities = () =>
+  createSelector(
+    selectAccountProviderDomain,
+    substate =>
+      substate.get('userIsInSystem')
+        ? substate.get('userIsInSystem').followed_communities
+        : null,
+  );
+
 const makeSelectAccountError = () =>
   createSelector(selectAccountProviderDomain, substate =>
     substate.get('selectAccountError'),
@@ -42,4 +51,5 @@ export {
   makeSelectUserIsInSystem,
   makeSelectAccountError,
   makeSelectForgetIdentityError,
+  makeSelectFollowedCommunities,
 };

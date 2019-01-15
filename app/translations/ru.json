@@ -1,4 +1,20 @@
 {
+  "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
+  "app.containers.SuggestedCommunities.description":
+    "Предложенные сообщества | Описание",
+  "app.containers.SuggestedCommunities.youHaveAlreadyVoted":
+    "Вы уже проголосовали",
+  "app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm":
+    "Нельзя голосовать за собственное сообщество",
+  "app.containers.Communities.title": "Сообщества",
+  "app.containers.Communities.title": "Сообщества",
+  "app.containers.Communities.description": "Сообщества | Описание",
+  "app.containers.CreateCommunity.title": "Сообщества | Создать",
+  "app.containers.CreateCommunity.descriptionField": "Описание",
+  "app.containers.CreateCommunity.avatar": "Аватар",
+  "app.containers.CreateCommunity.name": "Наименование",
+  "app.containers.CreateCommunity.description": "Описание",
+  "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
   "app.containers.HomePage.title": "Peerania | Главная",
   "app.containers.HomePage.description": "Peerania | Описание главной страницы",
   "app.containers.HomePage.faqTitle": "Peerania | ЧАВО",
@@ -139,6 +155,8 @@
   "app.components.FormFields.requiredField": "Необходимое поле",
   "app.containers.FormFields.wrongLength15x100":
     "Значение должно быть не меньше 15 и не более 100 символов",
+  "app.containers.FormFields.wrongLength2x15":
+    "Значение должно быть не меньше 2 и не более 15 символов",
   "app.containers.FormFields.wrongLength3x20":
     "Значение должно быть не меньше 3 и не более 20 символов",
   "app.containers.FormFields.wrongLength1x5":
@@ -154,8 +172,8 @@
   "app.components.Header.home": "Главная",
   "app.components.Header.questions": "Вопросы",
   "app.components.Header.profile": "Профиль",
-  "app.components.Header.feed": "Feed",
-  "app.components.Header.help": "Помощь",
+  "app.components.Header.feed": "Подборка",
+  "app.components.Header.communities": "Сообщества",
   "app.components.Header.search": "Поиск",
   "app.components.Header.login": "Вход",
   "app.components.Header.signUp": "Регистрация",

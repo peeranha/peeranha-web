@@ -1,7 +1,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getAllCommunities } from 'utils/dataCacheManagement';
+import { getAllCommunities } from 'utils/communityManagement';
 
 import {
   getCommunitiesWithTagsSuccess,

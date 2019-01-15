@@ -10,9 +10,6 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
   SET_DEFAULT_REDUCER,
-  FOLLOW_HANDLER,
-  FOLLOW_HANDLER_SUCCESS,
-  FOLLOW_HANDLER_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,9 +20,6 @@ export const initialState = fromJS({
   questionsError: '',
   isLastFetch: false,
   communityIdFilter: 0,
-  followedCommunities: null,
-  followHandlerLoading: false,
-  followHandlerError: null,
 });
 
 function questionsReducer(state = initialState, action) {
@@ -34,8 +28,6 @@ function questionsReducer(state = initialState, action) {
     questionsList,
     questionsError,
     communityIdFilter,
-    followedCommunities,
-    followHandlerError,
     next,
   } = action;
 
@@ -53,7 +45,6 @@ function questionsReducer(state = initialState, action) {
             ? questionsList
             : state.get('questionsList').concat(questionsList),
         )
-        .set('followedCommunities', followedCommunities)
         .set(
           'isLastFetch',
           questionsList.length < initialState.get('nextLoadedItems'),
@@ -62,17 +53,6 @@ function questionsReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
-
-    case FOLLOW_HANDLER:
-      return state.set('followHandlerLoading', true);
-    case FOLLOW_HANDLER_SUCCESS:
-      return state
-        .set('followHandlerLoading', false)
-        .set('followedCommunities', followedCommunities);
-    case FOLLOW_HANDLER_ERROR:
-      return state
-        .set('followHandlerLoading', false)
-        .set('followHandlerError', followHandlerError);
 
     case SET_DEFAULT_REDUCER:
       return initialState;

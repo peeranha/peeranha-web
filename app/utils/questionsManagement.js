@@ -28,8 +28,6 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
-  UNFOLLOW_COMM,
-  FOLLOW_COMM,
 } from './constants';
 
 export async function getQuestionsPostedByUser(eosService, user) {
@@ -76,7 +74,7 @@ export async function getQuestionsFilteredByCommunities(
 
 /* eslint no-undef: 0 */
 /* istanbul ignore next */
-export async function getQuestionsForCommunitiesWhereIAm(
+export async function getQuestionsForFollowedCommunities(
   eosService,
   limit,
   offset,
@@ -106,28 +104,6 @@ export async function getQuestionsForCommunitiesWhereIAm(
   const questionsSortedByTimeLimited = _.take(questionsSortedByTime, limit);
 
   return questionsSortedByTimeLimited;
-}
-
-export async function unfollowCommunity(
-  eosService,
-  communityIdFilter,
-  selectedAccount,
-) {
-  await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: communityIdFilter,
-  });
-}
-
-export async function followCommunity(
-  eosService,
-  communityIdFilter,
-  selectedAccount,
-) {
-  await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: communityIdFilter,
-  });
 }
 
 export async function voteToDelete(

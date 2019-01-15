@@ -4,9 +4,9 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import SelectField from 'components/FormFields/SelectField';
+import FollowCommunityButton from 'containers/FollowCommunityButton';
 
 import messages from './messages';
-import FollowCommunityButton from './FollowCommunityButton';
 
 const askQuestion = () => createdHistory.push(routes.question_ask());
 const feed = routes.feed();
@@ -17,7 +17,6 @@ const QuestionsHeader = ({
   getInitQuestions,
   communityIdFilter,
   followedCommunities,
-  followHandler,
   parentPage,
   questionsList,
 }) => {
@@ -54,12 +53,9 @@ const QuestionsHeader = ({
           <button className="btn btn-secondary ml-1" onClick={askQuestion}>
             {translations[messages.askQuestion.id]}
           </button>
-          <FollowCommunityButton
-            translations={translations}
-            communityIdFilter={communityIdFilter}
-            followedCommunities={followedCommunities}
-            followHandler={followHandler}
-          />
+          {communityIdFilter > 0 && (
+            <FollowCommunityButton communityIdFilter={communityIdFilter} />
+          )}
         </div>
       </div>
       <SelectField
@@ -81,7 +77,6 @@ QuestionsHeader.propTypes = {
   translations: PropTypes.object,
   communities: PropTypes.array,
   getInitQuestions: PropTypes.func,
-  followHandler: PropTypes.func,
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,

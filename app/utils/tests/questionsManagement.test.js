@@ -19,8 +19,6 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
-  UNFOLLOW_COMM,
-  FOLLOW_COMM,
 } from '../constants';
 
 import {
@@ -43,8 +41,6 @@ import {
   getAskedQuestion,
   voteToDelete,
   getQuestionsPostedByUser,
-  unfollowCommunity,
-  followCommunity,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -77,42 +73,6 @@ describe('getQuestionsPostedByUser', async () => {
     );
 
     expect(questions).toEqual(questionsMass);
-  });
-});
-
-describe('unfollowCommunity', () => {
-  const communityIdFilter = 'user';
-  const selectedAccount = 10;
-
-  it('test', async () => {
-    await unfollowCommunity(eosService, communityIdFilter, selectedAccount);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      selectedAccount,
-      UNFOLLOW_COMM,
-      {
-        user: selectedAccount,
-        community_id: communityIdFilter,
-      },
-    );
-  });
-});
-
-describe('followCommunity', () => {
-  const communityIdFilter = 'user';
-  const selectedAccount = 10;
-
-  it('test', async () => {
-    await followCommunity(eosService, communityIdFilter, selectedAccount);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      selectedAccount,
-      FOLLOW_COMM,
-      {
-        user: selectedAccount,
-        community_id: communityIdFilter,
-      },
-    );
   });
 });
 

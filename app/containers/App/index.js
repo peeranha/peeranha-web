@@ -30,6 +30,9 @@ import AskQuestion from 'containers/AskQuestion/Loadable';
 import ViewQuestion from 'containers/ViewQuestion';
 import EditQuestion from 'containers/EditQuestion';
 import EditAnswer from 'containers/EditAnswer';
+import Communities from 'containers/Communities';
+import CreateCommunity from 'containers/CreateCommunity';
+import SuggestedCommunities from 'containers/SuggestedCommunities';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
@@ -60,6 +63,20 @@ export default function App /* istanbul ignore next */() {
 
         <Route
           exact
+          path={routes.communities()}
+          render={props => Wrapper(Communities, props)}
+        />
+        <Route
+          path={routes.communities_create()}
+          render={props => Wrapper(CreateCommunity, props)}
+        />
+        <Route
+          path={routes.suggestedCommunities()}
+          render={props => Wrapper(SuggestedCommunities, props)}
+        />
+
+        <Route
+          exact
           path={routes.profile_view(':id')}
           render={props => Wrapper(ViewProfilePage, props)}
         />
@@ -67,6 +84,7 @@ export default function App /* istanbul ignore next */() {
           path={routes.profile_edit(':id')}
           render={props => Wrapper(EditProfilePage, props)}
         />
+
         <Route
           exact
           path={routes.questions()}
@@ -85,10 +103,12 @@ export default function App /* istanbul ignore next */() {
           path={routes.question_edit(':questionid')}
           render={props => Wrapper(EditQuestion, props)}
         />
+
         <Route
           path={routes.answer_edit(':questionid', ':answerid')}
           render={props => Wrapper(EditAnswer, props)}
         />
+
         <Route
           path={routes.no_access()}
           render={props => Wrapper(NoAccess, props)}

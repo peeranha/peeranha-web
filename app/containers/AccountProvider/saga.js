@@ -5,7 +5,7 @@ import { COMPLETE_LOGIN } from 'containers/Login/constants';
 import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
 
-import { isUserInSystem } from 'utils/accountManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 
 import {
   NO_SCATTER,
@@ -43,7 +43,7 @@ export function* getCurrentAccountWorker() {
       : null;
 
     const userIsInSystem = yield call(() =>
-      isUserInSystem(selectedScatterAccount, eosService),
+      getProfileInfo(selectedScatterAccount, eosService),
     );
 
     yield put(getCurrentAccountSuccess(selectedScatterAccount, userIsInSystem));
@@ -95,7 +95,7 @@ export function* loginSignupWorker(res) {
     yield put(loginSignupSuccess(account));
 
     const userIsInSystem = yield call(() =>
-      isUserInSystem(account, eosService),
+      getProfileInfo(account, eosService),
     );
 
     if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN) {

@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 
 const Tags = ({ chosenTags, communities, communityId }) => {
   const community = communities.filter(x => communityId === x.id)[0];
-  const questionTags =
-    community && community.tags.filter(x => chosenTags.includes(x.id));
+
+  if (!community) return null;
+
+  const questionTags = chosenTags
+    ? community.tags.filter(x => chosenTags.includes(x.id))
+    : community.tags;
 
   return (
     <div>
-      {questionTags &&
-        questionTags.map(x => (
-          <span className="badge badge-secondary mr-1" key={x.name}>
-            {x.name}
-          </span>
-        ))}
+      {questionTags.map(x => (
+        <span className="badge badge-secondary mr-1" key={x.name}>
+          {x.name}
+        </span>
+      ))}
     </div>
   );
 };
