@@ -14,7 +14,7 @@ import createdHistory from 'createdHistory';
 
 import {
   makeSelectAccount,
-  makeSelectUserIsInSystem,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
@@ -58,12 +58,12 @@ import SignUpOptions from './SignUpOptions';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentDidUpdate() {
-    const { registered, account, userIsInSystem } = this.props;
+    const { registered, account, profileInfo } = this.props;
 
     const reload = localStorage.getItem(COMPLETE_SIGNUP);
     const scrollTo = localStorage.getItem('scrollTo');
 
-    if (reload && userIsInSystem !== null) {
+    if (reload && profileInfo !== null) {
       this.props.showSignUpModalDispatch();
       if (scrollTo) window.scrollTo(0, +scrollTo);
       localStorage.clear();
@@ -163,7 +163,7 @@ SignUp.propTypes = {
   loginSignupDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
   loading: PropTypes.bool,
   registered: PropTypes.bool,
   locale: PropTypes.string,
@@ -178,7 +178,7 @@ const mapStateToProps = createStructuredSelector({
   showModal: signUpSelectors.makeSelectShowModal(),
   account: makeSelectAccount(),
   locale: makeSelectLocale(),
-  userIsInSystem: makeSelectUserIsInSystem(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 export function mapDispatchToProps(dispatch) {

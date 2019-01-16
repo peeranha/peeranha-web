@@ -22,6 +22,8 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
+
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.Component {
   followHandler = e => {
@@ -44,7 +46,9 @@ export class FollowCommunityButton extends React.Component {
         data-isfollowed={isFollowed}
         onClick={this.followHandler}
       >
-        <FormattedMessage {...messages[isFollowed ? 'unfollow' : 'follow']} />
+        <FormattedMessage
+          {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
+        />
       </button>
     );
   }

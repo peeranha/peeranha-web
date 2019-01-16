@@ -29,7 +29,7 @@ import {
 } from 'containers/AccountProvider/actions';
 
 import { showSignUpModal } from 'containers/SignUp/actions';
-import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { SHOW_DEFAULT_LOGIN_MODAL, COMPLETE_LOGIN } from './constants';
 import { showLoginModal, hideLoginModal } from './actions';
@@ -42,11 +42,11 @@ import UserIsAbsentInSystem from './UserIsAbsentInSystem';
 /* eslint-disable react/prefer-stateless-function */
 export class Login extends React.Component {
   componentDidUpdate() {
-    const { userIsInSystem, showLoginModalDispatch } = this.props;
+    const { profileInfo, showLoginModalDispatch } = this.props;
     const reload = localStorage.getItem(COMPLETE_LOGIN);
     const scrollTo = localStorage.getItem('scrollTo');
 
-    if (reload && userIsInSystem !== null) {
+    if (reload && profileInfo !== null) {
       showLoginModalDispatch();
       if (scrollTo) window.scrollTo(0, +scrollTo);
       localStorage.clear();
@@ -112,7 +112,7 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
   content: PropTypes.string,
   showModal: PropTypes.bool,
   reloadAppDispatch: PropTypes.func,
@@ -126,7 +126,7 @@ Login.propTypes = {
 const mapStateToProps = createStructuredSelector({
   content: makeSelectContent(),
   showModal: makeSelectShowModal(),
-  userIsInSystem: makeSelectUserIsInSystem(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 export function mapDispatchToProps(dispatch) {

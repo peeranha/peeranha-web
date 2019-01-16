@@ -13,12 +13,6 @@ export async function uploadImg(img) {
   return { imgUrl, imgHash };
 }
 
-export async function getBlob(canvas) {
-  const res = await fetch(canvas);
-  const blob = await res.blob();
-  return blob;
-}
-
 /* eslint camelcase: 0 */
 export async function getProfileInfo(user, eosService) {
   if (!user) return null;

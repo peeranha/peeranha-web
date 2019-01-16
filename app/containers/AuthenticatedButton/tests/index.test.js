@@ -7,21 +7,21 @@ cmp.props = {
   className: 'btn',
   type: 'submit',
   content: 'content',
-  userIsInSystem: true,
+  profileInfo: true,
   isLoading: false,
 };
 
 describe('<AuthenticatedButton />', () => {
-  it('clickHandler, userIsInSystem === false', () => {
-    cmp.props.userIsInSystem = false;
+  it('clickHandler, profileInfo === false', () => {
+    cmp.props.profileInfo = false;
     expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(0);
 
     cmp.clickHandler();
     expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(1);
   });
 
-  it('clickHandler, @userIsInSystem, @buttonAction are true', () => {
-    cmp.props.userIsInSystem = true;
+  it('clickHandler, @profileInfo, @buttonAction are true', () => {
+    cmp.props.profileInfo = true;
     cmp.props.buttonAction = jest.fn();
     expect(cmp.props.buttonAction).toHaveBeenCalledTimes(0);
 

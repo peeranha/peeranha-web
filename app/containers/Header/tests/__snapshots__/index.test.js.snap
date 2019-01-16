@@ -5,6 +5,6 @@ exports[`<Header /> render 1`] = `
   account="user"
   showLoginModalDispatch={[MockFunction]}
   showSignUpModalDispatch={[MockFunction]}
-  userIsInSystem={false}
+  profileInfo={false}
 />
 `;

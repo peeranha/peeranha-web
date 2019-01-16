@@ -19,7 +19,7 @@ import Logo from './Logo';
 import UserAuthNavLinks from './UserAuthNavLinks';
 
 export const isProfileOrLogin = props => {
-  if (props.account && props.userIsInSystem) {
+  if (props.account && props.profileInfo) {
     return <UserProfileNav />;
   }
 
@@ -102,7 +102,7 @@ const HeaderForm = props => (
 
 isProfileOrLogin.propTypes = {
   account: PropTypes.string,
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };

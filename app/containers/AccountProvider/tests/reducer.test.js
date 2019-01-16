@@ -30,16 +30,13 @@ describe('accountProviderReducer', () => {
 
   it('getCurrentAccountSuccess', () => {
     const acc = 'user1';
-    const userIsInSystem = true;
+    const profileInfo = true;
     const obj = state
       .set('loading', false)
-      .set('userIsInSystem', userIsInSystem)
+      .set('profileInfo', profileInfo)
       .set('account', acc);
     expect(
-      accountProviderReducer(
-        state,
-        getCurrentAccountSuccess(acc, userIsInSystem),
-      ),
+      accountProviderReducer(state, getCurrentAccountSuccess(acc, profileInfo)),
     ).toEqual(obj);
   });
 
@@ -53,11 +50,11 @@ describe('accountProviderReducer', () => {
 
   it('loginSignupSuccess', () => {
     const acc = 'user1';
-    const userIsInSystem = true;
-    const obj = state.set('userIsInSystem', userIsInSystem).set('account', acc);
+    const profileInfo = true;
+    const obj = state.set('profileInfo', profileInfo).set('account', acc);
 
     expect(
-      accountProviderReducer(state, loginSignupSuccess(acc, userIsInSystem)),
+      accountProviderReducer(state, loginSignupSuccess(acc, profileInfo)),
     ).toEqual(obj);
   });
 

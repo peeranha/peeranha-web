@@ -1,4 +1,4 @@
-import { getBlob } from 'utils/profileManagement';
+import { getBlob } from 'utils/imageManagement';
 import { EditProfilePage, mapDispatchToProps } from '../index';
 
 jest.mock('utils/profileManagement');

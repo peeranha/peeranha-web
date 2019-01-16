@@ -40,7 +40,7 @@ import {
 } from '../constants';
 
 const account = 'user1';
-const userIsInSystem = true;
+const profileInfo = true;
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -50,7 +50,7 @@ jest.mock('redux-saga/effects', () => ({
 }));
 
 jest.mock('utils/accountManagement');
-isUserInSystem.mockImplementation(() => userIsInSystem);
+isUserInSystem.mockImplementation(() => profileInfo);
 
 describe('getCurrentAccountWorker', () => {
   const generator = getCurrentAccountWorker();
@@ -71,9 +71,9 @@ describe('getCurrentAccountWorker', () => {
     expect(selectedScatterAccount.value).toEqual(account);
   });
 
-  it('userIsInSystem step3', () => {
+  it('profileInfo step3', () => {
     const user = generator.next(account);
-    expect(user.value).toEqual(userIsInSystem);
+    expect(user.value).toEqual(profileInfo);
   });
 
   it('putDescriptor step4', () => {
@@ -206,7 +206,7 @@ describe('loginSignupWorker', () => {
       generator.next();
       generator.next(scatter);
       const isUser = generator.next();
-      expect(isUser.value).toBe(userIsInSystem);
+      expect(isUser.value).toBe(profileInfo);
     });
 
     it('invoked function', () => {

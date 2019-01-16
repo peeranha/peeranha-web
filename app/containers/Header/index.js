@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   makeSelectAccount,
-  makeSelectUserIsInSystem,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { showSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal } from 'containers/Login/actions';
@@ -24,14 +24,14 @@ export class Header extends React.Component {
   render() {
     const {
       account,
-      userIsInSystem,
+      profileInfo,
       showSignUpModalDispatch,
       showLoginModalDispatch,
     } = this.props;
 
     const sendProps = {
       account,
-      userIsInSystem,
+      profileInfo,
       showLoginModalDispatch,
       showSignUpModalDispatch,
     };
@@ -44,12 +44,12 @@ Header.propTypes = {
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
-  userIsInSystem: makeSelectUserIsInSystem(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 export function mapDispatchToProps(dispatch) {

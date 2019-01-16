@@ -10,15 +10,15 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import LoadingIndicator from 'components/LoadingIndicator';
-import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AuthenticatedButton extends React.Component {
   clickHandler = ev => {
-    const { userIsInSystem, buttonAction, showLoginModalDispatch } = this.props;
+    const { profileInfo, buttonAction, showLoginModalDispatch } = this.props;
 
-    if (!userIsInSystem) {
+    if (!profileInfo) {
       showLoginModalDispatch();
     } else if (buttonAction) {
       buttonAction(ev);
@@ -53,13 +53,13 @@ AuthenticatedButton.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   content: PropTypes.string,
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  userIsInSystem: makeSelectUserIsInSystem(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 export function mapDispatchToProps(dispatch) {

@@ -4,7 +4,7 @@ const cmp = new Header();
 cmp.props = {};
 cmp.props = {
   account: 'user',
-  userIsInSystem: false,
+  profileInfo: false,
   showSignUpModalDispatch: jest.fn(),
   showLoginModalDispatch: jest.fn(),
 };

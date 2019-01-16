@@ -41,7 +41,7 @@ exports[`<QuestionFormDefault /> snapshot test 1 1`] = `
           "app.containers.AskQuestion.title": "content",
         }
       }
-      userIsInSystem={true}
+      profileInfo={true}
     />
   </ConnectedRouter>
 </Connect(LanguageProvider)>
@@ -88,7 +88,7 @@ exports[`<QuestionFormDefault /> snapshot test 2 1`] = `
           "app.containers.AskQuestion.title": "content",
         }
       }
-      userIsInSystem={true}
+      profileInfo={true}
     />
   </ConnectedRouter>
 </Connect(LanguageProvider)>
@@ -135,7 +135,7 @@ exports[`<QuestionFormDefault /> snapshot test 3 1`] = `
           "app.containers.AskQuestion.title": "content",
         }
       }
-      userIsInSystem={true}
+      profileInfo={true}
     />
   </ConnectedRouter>
 </Connect(LanguageProvider)>
@@ -182,7 +182,7 @@ exports[`<QuestionFormDefault /> snapshot test 4 1`] = `
           "app.containers.AskQuestion.title": "content",
         }
       }
-      userIsInSystem={true}
+      profileInfo={true}
     />
   </ConnectedRouter>
 </Connect(LanguageProvider)>

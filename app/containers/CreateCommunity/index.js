@@ -14,7 +14,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { getBlob } from 'utils/profileManagement';
+
+import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Wrapper from 'containers/Profile/Wrapper';
@@ -53,29 +54,12 @@ export class CreateCommunity extends React.Component {
     this.props.createCommunityDispatch(community, reset);
   };
 
-  /* eslint no-empty: 0 */
   uploadImage = event => {
-    try {
-      const file = event.target.files[0];
-      const reader = new window.FileReader();
-
-      reader.onloadend = () =>
-        this.props.uploadImageFileDispatch(reader.result);
-
-      reader.readAsArrayBuffer(file);
-    } catch (err) {}
+    uploadImage(event, this.props.uploadImageFileDispatch);
   };
 
-  getCroppedAvatar = async obj => {
-    if (obj) {
-      const canvas = obj.getImage().toDataURL('image/jpeg', 0.5);
-      const blob = await getBlob(canvas);
-
-      this.props.saveImageChangesDispatch({
-        blob,
-        cachedProfileImg: window.URL.createObjectURL(blob),
-      });
-    }
+  getCroppedAvatar = obj => {
+    getCroppedAvatar(obj, this.props.saveImageChangesDispatch);
   };
 
   render() {

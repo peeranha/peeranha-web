@@ -5,17 +5,18 @@
  */
 
 import { defineMessages } from 'react-intl';
+import { UNFOLLOW_BUTTON, FOLLOW_BUTTON } from './constants';
 
 export default defineMessages({
   header: {
     id: 'app.containers.FollowCommunityButton.header',
     defaultMessage: 'This is FollowCommunityButton container !',
   },
-  follow: {
+  [FOLLOW_BUTTON]: {
     id: 'app.containers.Questions.follow',
     defaultMessage: 'Follow',
   },
-  unfollow: {
+  [UNFOLLOW_BUTTON]: {
     id: 'app.containers.Questions.unfollow',
     defaultMessage: 'Unfollow',
   },

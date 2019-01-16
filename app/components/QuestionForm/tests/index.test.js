@@ -19,7 +19,7 @@ const props = {
   invalid: false,
   submitting: false,
   questionLoading: false,
-  userIsInSystem: true,
+  profileInfo: true,
   change: jest.fn(),
   handleSubmit: jest.fn(),
   postQuestion: jest.fn(),

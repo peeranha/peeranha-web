@@ -16,7 +16,7 @@ import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { makeSelectUserIsInSystem } from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import LoadingIndicator from 'components/LoadingIndicator';
 
@@ -86,7 +86,7 @@ Communities.propTypes = {
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   communities: selectCommunities(),
-  profile: makeSelectUserIsInSystem(),
+  profile: makeSelectProfileInfo(),
 });
 
 function mapDispatchToProps(dispatch) {
