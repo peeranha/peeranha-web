@@ -89,6 +89,7 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

@@ -87,6 +87,7 @@ const mapStateToProps = createStructuredSelector({
   communitiesLoading: selectors.selectCommunitiesLoading(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

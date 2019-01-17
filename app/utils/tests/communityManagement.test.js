@@ -50,7 +50,7 @@ describe('getAllCommunities', () => {
 });
 
 describe('unfollowCommunity', () => {
-  const communityIdFilter = 'user';
+  const communityIdFilter = 10;
   const selectedAccount = 10;
 
   it('test', async () => {
@@ -68,7 +68,7 @@ describe('unfollowCommunity', () => {
 });
 
 describe('followCommunity', () => {
-  const communityIdFilter = 'user';
+  const communityIdFilter = 10;
   const selectedAccount = 10;
 
   it('test', async () => {

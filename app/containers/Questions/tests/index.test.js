@@ -16,28 +16,12 @@ cmp.props = {
   parentPage: 'parentPage',
 };
 
-const ev = {
-  target: {
-    dataset: {},
-  },
-};
-
 describe('Questions', () => {
   describe('componentWillUnmount', () => {
     it('test', () => {
       cmp.componentWillUnmount();
       expect(cmp.props.setDefaultReducerDispatch).toHaveBeenCalled();
     });
-  });
-
-  describe('followHandler', () => {
-    ev.target.dataset.isfollowed = 'true';
-    cmp.followHandler(ev);
-
-    expect(cmp.props.followHandlerDispatch).toHaveBeenCalledWith(
-      cmp.props.communityIdFilter,
-      JSON.parse(ev.target.dataset.isfollowed),
-    );
   });
 
   describe('getInitQuestions', () => {

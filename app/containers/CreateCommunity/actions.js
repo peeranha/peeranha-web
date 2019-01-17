@@ -91,7 +91,7 @@ export function createCommunityErr(createCommunityError) {
   };
 }
 
-export function setDafaultStore() {
+export function setDefaultStore() {
   return {
     type: SET_DEFAULT_STORE,
   };

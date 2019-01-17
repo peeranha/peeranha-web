@@ -1,53 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignUp snapshot render testing case 1: content === SHOW_DEFAULT_SIGNUP_MODAL 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
+exports[`<CreateCommunity /> render 1`] = `
+<div
+  className="container"
 >
-  <div>
-    <SignUpOptions
-      backToOptions={[Function]}
-      continueSignUp={[Function]}
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Community | Create
+    </title>
+    <meta
+      content="Description of CreateCommunity"
+      name="description"
     />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <Connect(ReduxForm)
-      account="user"
-      loading={false}
-      registerUser={[Function]}
+  </HelmetWrapper>
+  <Wrapper>
+    <ReduxForm
+      cachedProfileImg=""
+      clearImageChanges={[MockFunction]}
+      createCommunity={[Function]}
+      createCommunityLoading={false}
+      editingImgState={false}
+      getCroppedAvatar={[Function]}
+      profile={Object {}}
       translations={
         Object {
           "app.components.Footer.header": "Copyright: Peerania",
@@ -258,85 +235,8 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
           "app.containers.ViewQuestion.yourAnswer": "Your answer",
         }
       }
+      uploadImage={[Function]}
     />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 3: content === USER_IS_IN_SYSTEM_AND_SIGNUP 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <IdentityIsRegistred
-      account="user"
-      backToOptions={[Function]}
-      continueLogin={[Function]}
-    />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 4: content === NO_SELECTED_SCATTER_ACCOUNTS 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <SelectAccountComponent
-      backToOptions={[Function]}
-      selectAccount={[Function]}
-    />
-  </div>
-</ModalDialog>
-`;
-
-exports[`SignUp snapshot render testing case 5: content === NO_SCATTER 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
-  show={true}
->
-  <div>
-    <ScatterInstaller
-      backToOptions={[Function]}
-    />
-  </div>
-</ModalDialog>
+  </Wrapper>
+</div>
 `;

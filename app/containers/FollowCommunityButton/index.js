@@ -17,7 +17,6 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 
 import { followHandler } from './actions';
-import makeSelectFollowCommunityButton from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -55,17 +54,16 @@ export class FollowCommunityButton extends React.Component {
 }
 
 FollowCommunityButton.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   communityIdFilter: PropTypes.number.isRequired,
   followedCommunities: PropTypes.array.isRequired,
   followHandlerDispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  followcommunitybutton: makeSelectFollowCommunityButton(),
   followedCommunities: makeSelectFollowedCommunities(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

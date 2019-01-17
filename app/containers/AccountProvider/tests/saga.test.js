@@ -5,7 +5,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import { isUserInSystem } from 'utils/accountManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 
 import {
   COMPLETE_SIGNUP,
@@ -49,8 +49,11 @@ jest.mock('redux-saga/effects', () => ({
   takeEvery: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('utils/accountManagement');
-isUserInSystem.mockImplementation(() => profileInfo);
+jest.mock('utils/profileManagement', () => ({
+  getProfileInfo: jest.fn(),
+}));
+
+getProfileInfo.mockImplementation(() => profileInfo);
 
 describe('getCurrentAccountWorker', () => {
   const generator = getCurrentAccountWorker();
@@ -235,7 +238,7 @@ describe('loginSignupWorker', () => {
     };
 
     it('invoked function', () => {
-      isUserInSystem.mockImplementationOnce(() => true);
+      getProfileInfo.mockImplementationOnce(() => true);
       generator.next();
       generator.next(scatter);
       generator.next();
@@ -266,7 +269,7 @@ describe('loginSignupWorker', () => {
     };
 
     it('isUser: null', () => {
-      isUserInSystem.mockImplementationOnce(() => userInSystem);
+      getProfileInfo.mockImplementationOnce(() => userInSystem);
       generator.next();
       generator.next(scatter);
       const isUser = generator.next();
@@ -299,7 +302,7 @@ describe('loginSignupWorker', () => {
       selectedScatterAccount: true,
     };
 
-    isUserInSystem.mockImplementationOnce(() => userInSystem);
+    getProfileInfo.mockImplementationOnce(() => userInSystem);
     generator.next();
     generator.next(scatter);
     generator.next();

@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import {
   getSuggestedCommunities,
@@ -116,7 +116,7 @@ export function* downVoteWorker({ communityid, buttonId }) {
     );
 
     if (!isValid) {
-      return yield put(upVoteErr('Validation Error'));
+      return yield put(downVoteErr('Validation Error'));
     }
 
     yield call(() =>
@@ -132,7 +132,7 @@ export function* downVoteWorker({ communityid, buttonId }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_SUGGESTED_COMMUNITIES, getSuggestedCommunitiesWorker);
-  yield takeEvery(UPVOTE, upVoteWorker);
-  yield takeEvery(DOWNVOTE, downVoteWorker);
+  yield takeLatest(GET_SUGGESTED_COMMUNITIES, getSuggestedCommunitiesWorker);
+  yield takeLatest(UPVOTE, upVoteWorker);
+  yield takeLatest(DOWNVOTE, downVoteWorker);
 }

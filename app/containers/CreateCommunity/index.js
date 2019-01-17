@@ -30,7 +30,7 @@ import {
   saveImageChanges,
   clearImageChanges,
   createCommunity,
-  setDafaultStore,
+  setDefaultStore,
 } from './actions';
 
 import { NAME_FIELD, DESCRIPTION_FIELD } from './constants';
@@ -40,7 +40,7 @@ import CreateCommunityForm from './CreateCommunityForm';
 /* eslint-disable react/prefer-stateless-function */
 export class CreateCommunity extends React.Component {
   componentWillUnmount() {
-    this.props.setDafaultStoreDispatch();
+    this.props.setDefaultStoreDispatch();
   }
 
   createCommunity = (...args) => {
@@ -94,7 +94,7 @@ export class CreateCommunity extends React.Component {
 }
 
 CreateCommunity.propTypes = {
-  setDafaultStoreDispatch: PropTypes.func.isRequired,
+  setDefaultStoreDispatch: PropTypes.func.isRequired,
   createCommunityDispatch: PropTypes.func.isRequired,
   clearImageChangesDispatch: PropTypes.func.isRequired,
   saveImageChangesDispatch: PropTypes.func.isRequired,
@@ -114,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   cachedImgHash: selectors.selectCachedImgHash(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
@@ -122,7 +123,7 @@ function mapDispatchToProps(dispatch) {
     clearImageChangesDispatch: () => dispatch(clearImageChanges()),
     createCommunityDispatch: (comm, reset) =>
       dispatch(createCommunity(comm, reset)),
-    setDafaultStoreDispatch: () => dispatch(setDafaultStore()),
+    setDefaultStoreDispatch: () => dispatch(setDefaultStore()),
   };
 }
 

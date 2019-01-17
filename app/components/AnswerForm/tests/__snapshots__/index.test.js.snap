@@ -354,7 +354,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                       Object {
                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -362,7 +362,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                       Object {
                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -619,13 +619,13 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                     "syncErrors": Object {
                                       "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
                                       "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "touch": [Function],
@@ -787,13 +787,13 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                       "syncErrors": Object {
                                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       },
                                       "syncWarnings": Object {
                                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       },
                                       "touch": [Function],
@@ -826,13 +826,13 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                   syncError={
                                     Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     }
                                   }
                                   syncWarning={
                                     Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     }
                                   }
                                   validate={
@@ -870,7 +870,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                         "dispatch": [Function],
                                         "error": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                         "form": "form1",
                                         "initial": undefined,
@@ -883,7 +883,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                         "visited": false,
                                         "warning": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       }
                                     }
@@ -950,7 +950,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                         error={
                                           Object {
                                             "defaultMessage": "Required field",
-                                            "id": "app.containers.AskQuestion.requiredField",
+                                            "id": "app.containers.FormFields.requiredField",
                                           }
                                         }
                                         form="form1"
@@ -964,7 +964,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
                                         warning={
                                           Object {
                                             "defaultMessage": "Required field",
-                                            "id": "app.containers.AskQuestion.requiredField",
+                                            "id": "app.containers.FormFields.requiredField",
                                           }
                                         }
                                       />
@@ -1425,7 +1425,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                       Object {
                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -1433,7 +1433,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                       Object {
                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -1662,13 +1662,13 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                     "syncErrors": Object {
                                       "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
                                       "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "touch": [Function],
@@ -1816,13 +1816,13 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                       "syncErrors": Object {
                                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       },
                                       "syncWarnings": Object {
                                         "app_ViewQuestion_TEXT_EDITOR_ANSWER_FORM": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       },
                                       "touch": [Function],
@@ -1855,13 +1855,13 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                   syncError={
                                     Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     }
                                   }
                                   syncWarning={
                                     Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     }
                                   }
                                   validate={
@@ -1899,7 +1899,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                         "dispatch": [Function],
                                         "error": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                         "form": "form1",
                                         "initial": undefined,
@@ -1912,7 +1912,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                         "visited": false,
                                         "warning": Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         },
                                       }
                                     }
@@ -1979,7 +1979,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                         error={
                                           Object {
                                             "defaultMessage": "Required field",
-                                            "id": "app.containers.AskQuestion.requiredField",
+                                            "id": "app.containers.FormFields.requiredField",
                                           }
                                         }
                                         form="form1"
@@ -1993,7 +1993,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
                                         warning={
                                           Object {
                                             "defaultMessage": "Required field",
-                                            "id": "app.containers.AskQuestion.requiredField",
+                                            "id": "app.containers.FormFields.requiredField",
                                           }
                                         }
                                       />

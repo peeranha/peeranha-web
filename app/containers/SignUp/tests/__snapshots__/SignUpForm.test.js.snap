@@ -309,7 +309,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                       Object {
                         "app/SignUp/displayName": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -317,7 +317,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                       Object {
                         "app/SignUp/displayName": Object {
                           "defaultMessage": "Required field",
-                          "id": "app.containers.AskQuestion.requiredField",
+                          "id": "app.containers.FormFields.requiredField",
                         },
                       }
                     }
@@ -890,13 +890,13 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                   "syncErrors": Object {
                                     "app/SignUp/displayName": Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     },
                                   },
                                   "syncWarnings": Object {
                                     "app/SignUp/displayName": Object {
                                       "defaultMessage": "Required field",
-                                      "id": "app.containers.AskQuestion.requiredField",
+                                      "id": "app.containers.FormFields.requiredField",
                                     },
                                   },
                                   "touch": [Function],
@@ -1051,13 +1051,13 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                     "syncErrors": Object {
                                       "app/SignUp/displayName": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "syncWarnings": Object {
                                       "app/SignUp/displayName": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     },
                                     "touch": [Function],
@@ -1090,13 +1090,13 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                 syncError={
                                   Object {
                                     "defaultMessage": "Required field",
-                                    "id": "app.containers.AskQuestion.requiredField",
+                                    "id": "app.containers.FormFields.requiredField",
                                   }
                                 }
                                 syncWarning={
                                   Object {
                                     "defaultMessage": "Required field",
-                                    "id": "app.containers.AskQuestion.requiredField",
+                                    "id": "app.containers.FormFields.requiredField",
                                   }
                                 }
                                 validate={
@@ -1134,7 +1134,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       "dispatch": [Function],
                                       "error": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                       "form": "SignUpForm",
                                       "initial": undefined,
@@ -1147,7 +1147,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       "visited": false,
                                       "warning": Object {
                                         "defaultMessage": "Required field",
-                                        "id": "app.containers.AskQuestion.requiredField",
+                                        "id": "app.containers.FormFields.requiredField",
                                       },
                                     }
                                   }
@@ -1175,7 +1175,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       error={
                                         Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         }
                                       }
                                       form="SignUpForm"
@@ -1189,7 +1189,7 @@ exports[`<SignUpForm /> snapshot test 1`] = `
                                       warning={
                                         Object {
                                           "defaultMessage": "Required field",
-                                          "id": "app.containers.AskQuestion.requiredField",
+                                          "id": "app.containers.FormFields.requiredField",
                                         }
                                       }
                                     />

@@ -21,7 +21,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('utils/dataCacheManagement', () => ({
+jest.mock('utils/communityManagement', () => ({
   getAllCommunities: jest.fn(),
 }));
 

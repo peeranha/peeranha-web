@@ -15,10 +15,6 @@ exports[`QuestionsHeader parentPage === feed 1`] = `
         className="btn btn-secondary ml-1"
         onClick={[Function]}
       />
-      <FollowCommunityButton
-        followedCommunities={Array []}
-        translations={Object {}}
-      />
     </div>
   </div>
   <SelectField
@@ -58,9 +54,6 @@ exports[`QuestionsHeader snapshot test 1`] = `
       <button
         className="btn btn-secondary ml-1"
         onClick={[Function]}
-      />
-      <FollowCommunityButton
-        translations={Object {}}
       />
     </div>
   </div>

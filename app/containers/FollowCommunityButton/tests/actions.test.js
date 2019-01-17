@@ -1,13 +1,45 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import {
+  followHandler,
+  followHandlerSuccess,
+  followHandlerErr,
+} from '../actions';
 
-describe('FollowCommunityButton actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
-      };
-      expect(defaultAction()).toEqual(expected);
-    });
+import {
+  FOLLOW_HANDLER,
+  FOLLOW_HANDLER_SUCCESS,
+  FOLLOW_HANDLER_ERROR,
+} from '../constants';
+
+describe('followHandler actions', () => {
+  it('FOLLOW_HANDLER', () => {
+    const communityIdFilter = 'communityIdFilter';
+    const isFollowed = 'isFollowed';
+
+    const expected = {
+      type: FOLLOW_HANDLER,
+      communityIdFilter,
+      isFollowed,
+    };
+
+    expect(followHandler(communityIdFilter, isFollowed)).toEqual(expected);
+  });
+
+  it('FOLLOW_HANDLER_SUCCESS', () => {
+    const expected = {
+      type: FOLLOW_HANDLER_SUCCESS,
+    };
+
+    expect(followHandlerSuccess()).toEqual(expected);
+  });
+
+  it('FOLLOW_HANDLER_ERROR', () => {
+    const followHandlerError = 'followHandlerError';
+
+    const expected = {
+      type: FOLLOW_HANDLER_ERROR,
+      followHandlerError,
+    };
+
+    expect(followHandlerErr(followHandlerError)).toEqual(expected);
   });
 });

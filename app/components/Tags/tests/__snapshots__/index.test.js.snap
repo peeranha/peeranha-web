@@ -15,4 +15,4 @@ exports[`Tags test, chosenTags - [... , .... , ...] 1`] = `
 </div>
 `;
 
-exports[`Tags test, communityId - null 1`] = `<div />`;
+exports[`Tags test, communityId - null 1`] = `null`;

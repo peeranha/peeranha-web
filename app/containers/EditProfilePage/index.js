@@ -178,6 +178,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
 });
 
+/* istanbul ignore next */
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
