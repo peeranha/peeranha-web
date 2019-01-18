@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FollowCommunityButton followedCommunities is false 1`] = `null`;
+
+exports[`FollowCommunityButton followedCommunities is true; communityIdFilter > 0 1`] = `
+<button
+  className="btn btn-secondary ml-1"
+  data-isfollowed={true}
+  onClick={[MockFunction]}
+/>
+`;
+
+exports[`FollowCommunityButton followedCommunities is true; communityIdFilter is 0 1`] = `null`;
