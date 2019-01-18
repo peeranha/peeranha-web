@@ -38,6 +38,11 @@ export class Questions extends React.Component {
     this.componentDidUpdate();
   }
 
+  componentWillUnmount() {
+    this.props.setDefaultReducerDispatch();
+    this.fetcher = null;
+  }
+
   componentDidUpdate() {
     const { followedCommunities, eosService, initLoadedItems } = this.props;
 
@@ -49,11 +54,6 @@ export class Questions extends React.Component {
       );
       setTimeout(() => this.getInitQuestions(), 0);
     }
-  }
-
-  componentWillUnmount() {
-    this.props.setDefaultReducerDispatch();
-    this.fetcher = null;
   }
 
   getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {

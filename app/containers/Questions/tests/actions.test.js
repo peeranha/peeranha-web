@@ -19,6 +19,7 @@ describe('actions', () => {
       const offset = 'offset';
       const communityIdFilter = 'communityIdFilter';
       const parentPage = 'parentPage';
+      const fetcher = 'fetcher';
       const next = 'next';
 
       const expected = {
@@ -27,11 +28,19 @@ describe('actions', () => {
         offset,
         communityIdFilter,
         parentPage,
+        fetcher,
         next,
       };
 
       expect(
-        getQuestions(limit, offset, communityIdFilter, parentPage, next),
+        getQuestions(
+          limit,
+          offset,
+          communityIdFilter,
+          parentPage,
+          fetcher,
+          next,
+        ),
       ).toEqual(expected);
     });
   });

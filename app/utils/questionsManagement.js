@@ -29,9 +29,13 @@ import {
 } from './constants';
 
 /* eslint-disable  */
-/* istanbul ignore next */
 export class FetcherOfQuestionsForFollowedCommunities {
-  constructor(firstFetchCount = 5, communities, eosService) {
+  /* istanbul ignore next */
+  constructor(
+    firstFetchCount = 5,
+    communities,
+    eosService,
+  ) /* istanbul ignore next */ {
     this.eosService = eosService;
     this.firstFetchCount = firstFetchCount;
 
@@ -53,7 +57,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.hasMore = true;
   }
 
-  async getNextItems(fetchCount) {
+  async getNextItems(fetchCount) /* istanbul ignore next */ {
     if (!this.hasMore) return [];
 
     const inc = BigInt(1);

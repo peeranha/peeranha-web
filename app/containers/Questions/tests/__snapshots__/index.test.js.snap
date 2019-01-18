@@ -23,6 +23,11 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
     </HelmetWrapper>
     <QuestionsContainer
       communityIdFilter={10}
+      followedCommunities={
+        Array [
+          1,
+        ]
+      }
       getInitQuestions={[Function]}
       locale="en"
       parentPage="parentPage"
@@ -267,6 +272,11 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
     </HelmetWrapper>
     <QuestionsContainer
       communityIdFilter={10}
+      followedCommunities={
+        Array [
+          1,
+        ]
+      }
       getInitQuestions={[Function]}
       locale="en"
       parentPage="parentPage"

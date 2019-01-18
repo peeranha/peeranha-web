@@ -56,7 +56,6 @@ export function* getQuestionsWorker({
 
     yield put(getQuestionsSuccess(questionsList, next));
   } catch (err) {
-    console.log(err);
     yield put(getQuestionsError(err.message));
   }
 }
