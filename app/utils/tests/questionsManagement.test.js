@@ -41,6 +41,7 @@ import {
   getAskedQuestion,
   voteToDelete,
   getQuestionsPostedByUser,
+  getQuestionsForFollowedCommunities,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -56,6 +57,20 @@ beforeEach(() => {
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
   };
+});
+
+describe('getQuestionsForFollowedCommunities', () => {
+  const questionsExpected = [];
+  const limit = 10;
+  const fetcher = {
+    getNextItems: jest.fn().mockImplementation(() => questionsExpected),
+  };
+
+  it('test', async () => {
+    const questions = await getQuestionsForFollowedCommunities(limit, fetcher);
+    expect(fetcher.getNextItems).toHaveBeenCalledWith(limit);
+    expect(questions).toEqual(questionsExpected);
+  });
 });
 
 describe('getQuestionsPostedByUser', async () => {

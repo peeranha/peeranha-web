@@ -15,6 +15,9 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
+import { selectEos } from 'containers/EosioProvider/selectors';
+
 import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
@@ -32,11 +35,25 @@ import QuestionsContainer from './QuestionsContainer';
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
   componentWillMount() {
-    setTimeout(() => this.getInitQuestions(), 0);
+    this.componentDidUpdate();
+  }
+
+  componentDidUpdate() {
+    const { followedCommunities, eosService, initLoadedItems } = this.props;
+
+    if (!this.fetcher && followedCommunities && eosService) {
+      this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
+        Math.floor(1.2 * initLoadedItems),
+        followedCommunities,
+        eosService,
+      );
+      setTimeout(() => this.getInitQuestions(), 0);
+    }
   }
 
   componentWillUnmount() {
     this.props.setDefaultReducerDispatch();
+    this.fetcher = null;
   }
 
   getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
@@ -48,6 +65,7 @@ export class Questions extends React.Component {
       offset,
       communityIdFilter,
       parentPage,
+      this.fetcher,
     );
   };
 
@@ -68,6 +86,7 @@ export class Questions extends React.Component {
       offset,
       communityIdFilter,
       parentPage,
+      this.fetcher,
       next,
     );
   };
@@ -130,9 +149,11 @@ Questions.propTypes = {
   communityIdFilter: PropTypes.number,
   getQuestionsDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
+  eosService: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
+  eosService: selectEos,
   locale: makeSelectLocale(),
   communities: selectCommunities(),
   followedCommunities: makeSelectFollowedCommunities(),
@@ -147,8 +168,8 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    getQuestionsDispatch: (limit, offset, comId, parentPage, next) =>
-      dispatch(getQuestions(limit, offset, comId, parentPage, next)),
+    getQuestionsDispatch: (limit, offset, comId, parentPage, fetcher, next) =>
+      dispatch(getQuestions(limit, offset, comId, parentPage, fetcher, next)),
     setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
   };
 }
