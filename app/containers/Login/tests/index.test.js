@@ -16,7 +16,7 @@ cmp.props = {
   forgetIdentityDispatch: jest.fn(),
   reloadAppDispatch: jest.fn(),
   showModal: true,
-  userIsInSystem: true,
+  profileInfo: true,
   hideLoginModalDispatch: jest.fn(),
   showLoginModalDispatch: jest.fn(),
 };

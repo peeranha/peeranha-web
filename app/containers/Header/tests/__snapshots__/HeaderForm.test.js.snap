@@ -69,13 +69,13 @@ exports[`HeaderForm 1`] = `
         >
           <Link
             className="nav-link"
-            href="/help"
+            href="/communities"
             replace={false}
-            to="/help"
+            to="/communities"
           >
             <FormattedMessage
-              defaultMessage="Help"
-              id="app.components.Header.help"
+              defaultMessage="Communities"
+              id="app.components.Header.communities"
               values={Object {}}
             />
           </Link>

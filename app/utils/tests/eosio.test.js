@@ -480,8 +480,8 @@ describe('getTableRows', () => {
       const value = await eos.getTableRows(
         table,
         scope,
-        limit,
         lowerBound,
+        limit,
         upperBound,
         indexPosition,
         keyType,
@@ -500,8 +500,8 @@ describe('getTableRows', () => {
       const value = await eos.getTableRows(
         table,
         scope,
-        limit,
         lowerBound,
+        limit,
         upperBound,
         indexPosition,
         keyType,

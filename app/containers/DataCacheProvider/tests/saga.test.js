@@ -4,7 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
-import { getAllCommunities } from 'utils/dataCacheManagement';
+import { getAllCommunities } from 'utils/communityManagement';
 
 import defaultSaga, { getCommunitiesWithTagsWorker } from '../saga';
 
@@ -21,7 +21,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('utils/dataCacheManagement', () => ({
+jest.mock('utils/communityManagement', () => ({
   getAllCommunities: jest.fn(),
 }));
 

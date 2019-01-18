@@ -20,6 +20,7 @@ export const validateEmail = email => {
 export const required = value => (!value ? messages.requiredField : undefined);
 
 export const strLength1x5 = stringLength(1, 5);
+export const strLength2x15 = stringLength(2, 15);
 export const strLength3x20 = stringLength(3, 20);
 export const strLength15x100 = stringLength(15, 100);
 export const strLength20x1000 = stringLength(20, 1000);

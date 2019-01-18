@@ -9,8 +9,6 @@ import {
   selectIsLastFetch,
   selectCommunityIdFilter,
   selectFollowedCommunities,
-  selectFollowHandlerLoading,
-  selectFollowHandlerError,
 } from '../selectors';
 
 describe('selectQuestionsDomain', () => {
@@ -22,8 +20,6 @@ describe('selectQuestionsDomain', () => {
   const communityIdFilter = 10;
   const isLastFetch = false;
   const followedCommunities = fromJS([]);
-  const followHandlerLoading = false;
-  const followHandlerError = 'followHandlerError';
 
   const globalState = fromJS({
     questionsLoading,
@@ -34,8 +30,6 @@ describe('selectQuestionsDomain', () => {
     isLastFetch,
     communityIdFilter,
     followedCommunities,
-    followHandlerLoading,
-    followHandlerError,
   });
 
   const mockedState = fromJS({
@@ -86,17 +80,5 @@ describe('selectQuestionsDomain', () => {
     expect(isSelectFollowedCommunities(mockedState)).toEqual(
       followedCommunities,
     );
-  });
-
-  it('selectFollowHandlerLoading', () => {
-    const isSelectFollowHandlerLoading = selectFollowHandlerLoading();
-    expect(isSelectFollowHandlerLoading(mockedState)).toEqual(
-      followHandlerLoading,
-    );
-  });
-
-  it('selectFollowHandlerError', () => {
-    const isSelectFollowHandlerError = selectFollowHandlerError();
-    expect(isSelectFollowHandlerError(mockedState)).toEqual(followHandlerError);
   });
 });

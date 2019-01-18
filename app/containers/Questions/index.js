@@ -17,9 +17,10 @@ import injectReducer from 'utils/injectReducer';
 
 import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { getQuestions, setDefaultReducer, followHandler } from './actions';
+import { getQuestions, setDefaultReducer } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -30,7 +31,7 @@ import QuestionsContainer from './QuestionsContainer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Questions extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     setTimeout(() => this.getInitQuestions(), 0);
   }
 
@@ -71,13 +72,6 @@ export class Questions extends React.Component {
     );
   };
 
-  followHandler = e => {
-    const isFollowed = JSON.parse(e.target.dataset.isfollowed);
-    const { communityIdFilter } = this.props;
-
-    this.props.followHandlerDispatch(communityIdFilter, isFollowed);
-  };
-
   render() {
     const {
       locale,
@@ -97,7 +91,6 @@ export class Questions extends React.Component {
       communities,
       translations: translationMessages[locale],
       getInitQuestions: this.getInitQuestions,
-      followHandler: this.followHandler,
       communityIdFilter,
       followedCommunities,
       parentPage,
@@ -136,20 +129,19 @@ Questions.propTypes = {
   nextLoadedItems: PropTypes.number,
   communityIdFilter: PropTypes.number,
   getQuestionsDispatch: PropTypes.func,
-  followHandlerDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   communities: selectCommunities(),
+  followedCommunities: makeSelectFollowedCommunities(),
   questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
   communityIdFilter: questionsSelector.selectCommunityIdFilter(),
-  followedCommunities: questionsSelector.selectFollowedCommunities(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -158,8 +150,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     getQuestionsDispatch: (limit, offset, comId, parentPage, next) =>
       dispatch(getQuestions(limit, offset, comId, parentPage, next)),
     setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
-    followHandlerDispatch: (communityIdFilter, isFollowed) =>
-      dispatch(followHandler(communityIdFilter, isFollowed)),
   };
 }
 

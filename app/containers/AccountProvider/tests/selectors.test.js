@@ -4,7 +4,7 @@ import {
   makeSelectAccount,
   makeSelectLoading,
   makeSelectError,
-  makeSelectUserIsInSystem,
+  makeSelectProfileInfo,
   makeSelectAccountError,
   makeSelectForgetIdentityError,
 } from '../selectors';
@@ -13,7 +13,7 @@ describe('selectAccountProviderDomain', () => {
   const account = 'user2';
   const loading = true;
   const error = 'someError';
-  const userIsInSystem = false;
+  const profileInfo = false;
   const selectAccountError = 'accError';
   const forgetIdentityError = 'idError';
 
@@ -21,7 +21,7 @@ describe('selectAccountProviderDomain', () => {
     account,
     loading,
     error,
-    userIsInSystem,
+    profileInfo,
     selectAccountError,
     forgetIdentityError,
   });
@@ -49,9 +49,9 @@ describe('selectAccountProviderDomain', () => {
     expect(err(mockedState)).toEqual(error);
   });
 
-  it('makeSelectUserIsInSystem', () => {
-    const userInSystem = makeSelectUserIsInSystem();
-    expect(userInSystem(mockedState)).toEqual(userIsInSystem);
+  it('makeSelectProfileInfo', () => {
+    const userInSystem = makeSelectProfileInfo();
+    expect(userInSystem(mockedState)).toEqual(profileInfo);
   });
 
   it('makeSelectAccountError', () => {

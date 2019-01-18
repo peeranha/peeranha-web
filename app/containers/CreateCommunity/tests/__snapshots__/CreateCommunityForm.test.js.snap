@@ -1,0 +1,1814 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileEditForm /> snapshot test 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "injectedReducers": Object {},
+      "injectedSagas": Object {},
+      "replaceReducer": [Function],
+      "runSaga": [Function],
+      "subscribe": [Function],
+      Symbol(Symbol.observable): [Function],
+    }
+  }
+>
+  <Connect(LanguageProvider)
+    key="en"
+    locale="en"
+    messages={Object {}}
+  >
+    <LanguageProvider
+      dispatch={[Function]}
+      locale="en"
+      messages={Object {}}
+    >
+      <IntlProvider
+        key="en"
+        locale="en"
+      >
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <Router
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+          >
+            <ReduxForm
+              cachedProfileImg=""
+              clearImageChanges={[MockFunction]}
+              createCommunity={[MockFunction]}
+              createCommunityLoading={false}
+              editingImgState=""
+              getCroppedAvatar={[MockFunction]}
+              handleSubmit={[Function]}
+              invalid={true}
+              profile={Object {}}
+              submitting={true}
+              translations={Object {}}
+              uploadImage={[MockFunction]}
+            >
+              <Connect(Form(CreateCommunityForm))
+                cachedProfileImg=""
+                clearImageChanges={[MockFunction]}
+                createCommunity={[MockFunction]}
+                createCommunityLoading={false}
+                destroyOnUnmount={true}
+                editingImgState=""
+                enableReinitialize={false}
+                forceUnregisterOnUnmount={false}
+                form="CreateCommunityForm"
+                getCroppedAvatar={[MockFunction]}
+                getFormState={[Function]}
+                handleSubmit={[Function]}
+                invalid={true}
+                keepDirtyOnReinitialize={false}
+                persistentSubmitErrors={false}
+                profile={Object {}}
+                pure={true}
+                shouldAsyncValidate={[Function]}
+                shouldError={[Function]}
+                shouldValidate={[Function]}
+                shouldWarn={[Function]}
+                submitting={true}
+                touchOnBlur={true}
+                touchOnChange={false}
+                translations={Object {}}
+                updateUnregisteredFields={false}
+                uploadImage={[MockFunction]}
+              >
+                <Form(CreateCommunityForm)
+                  anyTouched={false}
+                  array={
+                    Object {
+                      "insert": [Function],
+                      "move": [Function],
+                      "pop": [Function],
+                      "push": [Function],
+                      "remove": [Function],
+                      "removeAll": [Function],
+                      "shift": [Function],
+                      "splice": [Function],
+                      "swap": [Function],
+                      "unshift": [Function],
+                    }
+                  }
+                  arrayInsert={[Function]}
+                  arrayMove={[Function]}
+                  arrayPop={[Function]}
+                  arrayPush={[Function]}
+                  arrayRemove={[Function]}
+                  arrayRemoveAll={[Function]}
+                  arrayShift={[Function]}
+                  arraySplice={[Function]}
+                  arraySwap={[Function]}
+                  arrayUnshift={[Function]}
+                  asyncValidating={false}
+                  autofill={[Function]}
+                  blur={[Function]}
+                  cachedProfileImg=""
+                  change={[Function]}
+                  clearAsyncError={[Function]}
+                  clearFields={[Function]}
+                  clearImageChanges={[MockFunction]}
+                  clearSubmit={[Function]}
+                  clearSubmitErrors={[Function]}
+                  createCommunity={[MockFunction]}
+                  createCommunityLoading={false}
+                  destroy={[Function]}
+                  destroyOnUnmount={true}
+                  dirty={false}
+                  dispatch={[Function]}
+                  editingImgState=""
+                  enableReinitialize={false}
+                  focus={[Function]}
+                  forceUnregisterOnUnmount={false}
+                  form="CreateCommunityForm"
+                  getCroppedAvatar={[MockFunction]}
+                  getFormState={[Function]}
+                  handleSubmit={[Function]}
+                  initialize={[Function]}
+                  initialized={false}
+                  invalid={true}
+                  keepDirtyOnReinitialize={false}
+                  persistentSubmitErrors={false}
+                  pristine={true}
+                  profile={Object {}}
+                  pure={true}
+                  registerField={[Function]}
+                  registeredFields={
+                    Immutable.Map {
+                      "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                        "name": "app/CreateCommunity/AVATAR_FIELD",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                      "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                        "name": "app/CreateCommunity/NAME_FIELD",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                      "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                        "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                    }
+                  }
+                  reset={[Function]}
+                  resetSection={[Function]}
+                  setSubmitFailed={[Function]}
+                  setSubmitSucceeded={[Function]}
+                  shouldAsyncValidate={[Function]}
+                  shouldError={[Function]}
+                  shouldValidate={[Function]}
+                  shouldWarn={[Function]}
+                  startAsyncValidation={[Function]}
+                  startSubmit={[Function]}
+                  stopAsyncValidation={[Function]}
+                  stopSubmit={[Function]}
+                  submit={[Function]}
+                  submitFailed={false}
+                  submitSucceeded={false}
+                  submitting={false}
+                  syncErrors={
+                    Object {
+                      "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                      "app/CreateCommunity/NAME_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                    }
+                  }
+                  syncWarnings={
+                    Object {
+                      "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                      "app/CreateCommunity/NAME_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                    }
+                  }
+                  touch={[Function]}
+                  touchOnBlur={true}
+                  touchOnChange={false}
+                  translations={Object {}}
+                  unregisterField={[Function]}
+                  untouch={[Function]}
+                  updateSyncErrors={[Function]}
+                  updateSyncWarnings={[Function]}
+                  updateUnregisteredFields={false}
+                  uploadImage={[MockFunction]}
+                  valid={false}
+                  validExceptSubmit={false}
+                  values={Immutable.Map {}}
+                >
+                  <CreateCommunityForm
+                    anyTouched={false}
+                    array={
+                      Object {
+                        "insert": [Function],
+                        "move": [Function],
+                        "pop": [Function],
+                        "push": [Function],
+                        "remove": [Function],
+                        "removeAll": [Function],
+                        "shift": [Function],
+                        "splice": [Function],
+                        "swap": [Function],
+                        "unshift": [Function],
+                      }
+                    }
+                    asyncValidate={[Function]}
+                    asyncValidating={false}
+                    autofill={[Function]}
+                    blur={[Function]}
+                    cachedProfileImg=""
+                    change={[Function]}
+                    clearAsyncError={[Function]}
+                    clearFields={[Function]}
+                    clearImageChanges={[MockFunction]}
+                    clearSubmit={[Function]}
+                    clearSubmitErrors={[Function]}
+                    createCommunity={[MockFunction]}
+                    createCommunityLoading={false}
+                    destroy={[Function]}
+                    dirty={false}
+                    dispatch={[Function]}
+                    editingImgState=""
+                    form="CreateCommunityForm"
+                    getCroppedAvatar={[MockFunction]}
+                    handleSubmit={[Function]}
+                    initialize={[Function]}
+                    initialized={false}
+                    invalid={true}
+                    pristine={true}
+                    profile={Object {}}
+                    pure={true}
+                    reset={[Function]}
+                    resetSection={[Function]}
+                    submit={[Function]}
+                    submitFailed={false}
+                    submitSucceeded={false}
+                    submitting={false}
+                    touch={[Function]}
+                    translations={Object {}}
+                    untouch={[Function]}
+                    uploadImage={[MockFunction]}
+                    valid={false}
+                  >
+                    <form>
+                      <div>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          name="app/CreateCommunity/AVATAR_FIELD"
+                          sendProps={
+                            Object {
+                              "anyTouched": false,
+                              "array": Object {
+                                "insert": [Function],
+                                "move": [Function],
+                                "pop": [Function],
+                                "push": [Function],
+                                "remove": [Function],
+                                "removeAll": [Function],
+                                "shift": [Function],
+                                "splice": [Function],
+                                "swap": [Function],
+                                "unshift": [Function],
+                              },
+                              "asyncValidate": [Function],
+                              "asyncValidating": false,
+                              "autofill": [Function],
+                              "blur": [Function],
+                              "cachedProfileImg": "",
+                              "change": [Function],
+                              "clearAsyncError": [Function],
+                              "clearFields": [Function],
+                              "clearImageChanges": [MockFunction],
+                              "clearSubmit": [Function],
+                              "clearSubmitErrors": [Function],
+                              "createCommunity": [MockFunction],
+                              "createCommunityLoading": false,
+                              "destroy": [Function],
+                              "dirty": false,
+                              "dispatch": [Function],
+                              "editingImgState": "",
+                              "error": undefined,
+                              "form": "CreateCommunityForm",
+                              "getCroppedAvatar": [MockFunction],
+                              "handleSubmit": [Function],
+                              "initialValues": undefined,
+                              "initialize": [Function],
+                              "initialized": false,
+                              "invalid": true,
+                              "pristine": true,
+                              "profile": Object {},
+                              "pure": true,
+                              "reset": [Function],
+                              "resetSection": [Function],
+                              "submit": [Function],
+                              "submitFailed": false,
+                              "submitSucceeded": false,
+                              "submitting": false,
+                              "touch": [Function],
+                              "translations": Object {},
+                              "triggerSubmit": undefined,
+                              "untouch": [Function],
+                              "uploadImage": [MockFunction],
+                              "valid": false,
+                              "warning": undefined,
+                            }
+                          }
+                          validate={[Function]}
+                          warn={[Function]}
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "cachedProfileImg": "",
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearImageChanges": [MockFunction],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createCommunity": [MockFunction],
+                                "createCommunityLoading": false,
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "editingImgState": "",
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "CreateCommunityForm",
+                                "getCroppedAvatar": [MockFunction],
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "profile": Object {},
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registeredFields": Immutable.Map {
+                                  "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/AVATAR_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/NAME_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "syncWarnings": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "uploadImage": [MockFunction],
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            name="app/CreateCommunity/AVATAR_FIELD"
+                            normalize={[Function]}
+                            sendProps={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "cachedProfileImg": "",
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearImageChanges": [MockFunction],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createCommunity": [MockFunction],
+                                "createCommunityLoading": false,
+                                "destroy": [Function],
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "editingImgState": "",
+                                "error": undefined,
+                                "form": "CreateCommunityForm",
+                                "getCroppedAvatar": [MockFunction],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "pristine": true,
+                                "profile": Object {},
+                                "pure": true,
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "touch": [Function],
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "untouch": [Function],
+                                "uploadImage": [MockFunction],
+                                "valid": false,
+                                "warning": undefined,
+                              }
+                            }
+                            validate={[Function]}
+                            warn={[Function]}
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "cachedProfileImg": "",
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearImageChanges": [MockFunction],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createCommunity": [MockFunction],
+                                  "createCommunityLoading": false,
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "editingImgState": "",
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "CreateCommunityForm",
+                                  "getCroppedAvatar": [MockFunction],
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "profile": Object {},
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": Immutable.Map {
+                                    "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/AVATAR_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/NAME_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "uploadImage": [MockFunction],
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              name="app/CreateCommunity/AVATAR_FIELD"
+                              normalize={[Function]}
+                              pristine={true}
+                              sendProps={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "cachedProfileImg": "",
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearImageChanges": [MockFunction],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createCommunity": [MockFunction],
+                                  "createCommunityLoading": false,
+                                  "destroy": [Function],
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "editingImgState": "",
+                                  "error": undefined,
+                                  "form": "CreateCommunityForm",
+                                  "getCroppedAvatar": [MockFunction],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "pristine": true,
+                                  "profile": Object {},
+                                  "pure": true,
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "touch": [Function],
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "untouch": [Function],
+                                  "uploadImage": [MockFunction],
+                                  "valid": false,
+                                  "warning": undefined,
+                                }
+                              }
+                              validate={[Function]}
+                              warn={[Function]}
+                            >
+                              <AvatarField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app/CreateCommunity/AVATAR_FIELD",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": undefined,
+                                    "form": "CreateCommunityForm",
+                                    "initial": undefined,
+                                    "invalid": false,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": true,
+                                    "visited": false,
+                                    "warning": undefined,
+                                  }
+                                }
+                                sendProps={
+                                  Object {
+                                    "anyTouched": false,
+                                    "array": Object {
+                                      "insert": [Function],
+                                      "move": [Function],
+                                      "pop": [Function],
+                                      "push": [Function],
+                                      "remove": [Function],
+                                      "removeAll": [Function],
+                                      "shift": [Function],
+                                      "splice": [Function],
+                                      "swap": [Function],
+                                      "unshift": [Function],
+                                    },
+                                    "asyncValidate": [Function],
+                                    "asyncValidating": false,
+                                    "autofill": [Function],
+                                    "blur": [Function],
+                                    "cachedProfileImg": "",
+                                    "change": [Function],
+                                    "clearAsyncError": [Function],
+                                    "clearFields": [Function],
+                                    "clearImageChanges": [MockFunction],
+                                    "clearSubmit": [Function],
+                                    "clearSubmitErrors": [Function],
+                                    "createCommunity": [MockFunction],
+                                    "createCommunityLoading": false,
+                                    "destroy": [Function],
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "editingImgState": "",
+                                    "error": undefined,
+                                    "form": "CreateCommunityForm",
+                                    "getCroppedAvatar": [MockFunction],
+                                    "handleSubmit": [Function],
+                                    "initialValues": undefined,
+                                    "initialize": [Function],
+                                    "initialized": false,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "profile": Object {},
+                                    "pure": true,
+                                    "reset": [Function],
+                                    "resetSection": [Function],
+                                    "submit": [Function],
+                                    "submitFailed": false,
+                                    "submitSucceeded": false,
+                                    "submitting": false,
+                                    "touch": [Function],
+                                    "translations": Object {},
+                                    "triggerSubmit": undefined,
+                                    "untouch": [Function],
+                                    "uploadImage": [MockFunction],
+                                    "valid": false,
+                                    "warning": undefined,
+                                  }
+                                }
+                              >
+                                <div>
+                                  <div
+                                    className="input-group"
+                                  >
+                                    <div
+                                      className="input-group-prepend"
+                                    >
+                                      <span
+                                        className="input-group-text"
+                                        id="avatar1"
+                                      />
+                                    </div>
+                                    <div
+                                      className="custom-file"
+                                    >
+                                      <input
+                                        aria-describedby="avatar1"
+                                        className="custom-file-input"
+                                        disabled={false}
+                                        id="avatarFile"
+                                        name="app/CreateCommunity/AVATAR_FIELD"
+                                        onBlur={[Function]}
+                                        onChange={[MockFunction]}
+                                        onDragStart={[Function]}
+                                        onDrop={[Function]}
+                                        onFocus={[Function]}
+                                        type="file"
+                                      />
+                                      <label
+                                        className="custom-file-label"
+                                        htmlFor="avatarFile"
+                                      >
+                                        <FormattedMessage
+                                          defaultMessage="Choose file"
+                                          id="app.containers.Profile.chooseFile"
+                                          values={Object {}}
+                                        >
+                                          <span>
+                                            Choose file
+                                          </span>
+                                        </FormattedMessage>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <WarningMessage
+                                    active={false}
+                                    asyncValidating={false}
+                                    autofilled={false}
+                                    dirty={false}
+                                    dispatch={[Function]}
+                                    form="CreateCommunityForm"
+                                    invalid={false}
+                                    pristine={true}
+                                    submitFailed={false}
+                                    submitting={false}
+                                    touched={false}
+                                    valid={true}
+                                    visited={false}
+                                  />
+                                </div>
+                              </AvatarField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          name="app/CreateCommunity/NAME_FIELD"
+                          validate={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                          warn={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "cachedProfileImg": "",
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearImageChanges": [MockFunction],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createCommunity": [MockFunction],
+                                "createCommunityLoading": false,
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "editingImgState": "",
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "CreateCommunityForm",
+                                "getCroppedAvatar": [MockFunction],
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "profile": Object {},
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registeredFields": Immutable.Map {
+                                  "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/AVATAR_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/NAME_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "syncWarnings": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "uploadImage": [MockFunction],
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            name="app/CreateCommunity/NAME_FIELD"
+                            normalize={[Function]}
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "cachedProfileImg": "",
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearImageChanges": [MockFunction],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createCommunity": [MockFunction],
+                                  "createCommunityLoading": false,
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "editingImgState": "",
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "CreateCommunityForm",
+                                  "getCroppedAvatar": [MockFunction],
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "profile": Object {},
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": Immutable.Map {
+                                    "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/AVATAR_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/NAME_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "uploadImage": [MockFunction],
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              name="app/CreateCommunity/NAME_FIELD"
+                              normalize={[Function]}
+                              pristine={true}
+                              syncError={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              syncWarning={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                            >
+                              <TextInputField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app/CreateCommunity/NAME_FIELD",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "form": "CreateCommunityForm",
+                                    "initial": undefined,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": false,
+                                    "visited": false,
+                                    "warning": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  }
+                                }
+                              >
+                                <div>
+                                  <h6 />
+                                  <input
+                                    className="form-control"
+                                    disabled={false}
+                                    name="app/CreateCommunity/NAME_FIELD"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    type="text"
+                                    value=""
+                                  />
+                                  <WarningMessage
+                                    active={false}
+                                    asyncValidating={false}
+                                    autofilled={false}
+                                    dirty={false}
+                                    dispatch={[Function]}
+                                    error={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                    form="CreateCommunityForm"
+                                    invalid={true}
+                                    pristine={true}
+                                    submitFailed={false}
+                                    submitting={false}
+                                    touched={false}
+                                    valid={false}
+                                    visited={false}
+                                    warning={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                  />
+                                </div>
+                              </TextInputField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          name="app/CreateCommunity/DESCRIPTION_FIELD"
+                          validate={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                          warn={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "cachedProfileImg": "",
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearImageChanges": [MockFunction],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createCommunity": [MockFunction],
+                                "createCommunityLoading": false,
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "editingImgState": "",
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "CreateCommunityForm",
+                                "getCroppedAvatar": [MockFunction],
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "profile": Object {},
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registeredFields": Immutable.Map {
+                                  "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/AVATAR_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/NAME_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                    "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "syncWarnings": Object {
+                                  "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app/CreateCommunity/NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "uploadImage": [MockFunction],
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            name="app/CreateCommunity/DESCRIPTION_FIELD"
+                            normalize={[Function]}
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "cachedProfileImg": "",
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearImageChanges": [MockFunction],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createCommunity": [MockFunction],
+                                  "createCommunityLoading": false,
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "editingImgState": "",
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "CreateCommunityForm",
+                                  "getCroppedAvatar": [MockFunction],
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "profile": Object {},
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": Immutable.Map {
+                                    "app/CreateCommunity/AVATAR_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/AVATAR_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/NAME_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Immutable.Map {
+                                      "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app/CreateCommunity/DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app/CreateCommunity/NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "uploadImage": [MockFunction],
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              name="app/CreateCommunity/DESCRIPTION_FIELD"
+                              normalize={[Function]}
+                              pristine={true}
+                              syncError={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              syncWarning={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                            >
+                              <TextareaField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app/CreateCommunity/DESCRIPTION_FIELD",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "form": "CreateCommunityForm",
+                                    "initial": undefined,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": false,
+                                    "visited": false,
+                                    "warning": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  }
+                                }
+                              >
+                                <div>
+                                  <h6 />
+                                  <textarea
+                                    className="textarea form-control"
+                                    disabled={false}
+                                    name="app/CreateCommunity/DESCRIPTION_FIELD"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    value=""
+                                  />
+                                  <WarningMessage
+                                    active={false}
+                                    asyncValidating={false}
+                                    autofilled={false}
+                                    dirty={false}
+                                    dispatch={[Function]}
+                                    error={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                    form="CreateCommunityForm"
+                                    invalid={true}
+                                    pristine={true}
+                                    submitFailed={false}
+                                    submitting={false}
+                                    touched={false}
+                                    valid={false}
+                                    visited={false}
+                                    warning={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                  />
+                                </div>
+                              </TextareaField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                      </div>
+                      <div>
+                        <button
+                          className="btn btn-success form-control"
+                          disabled={true}
+                          type="submit"
+                        />
+                      </div>
+                    </form>
+                  </CreateCommunityForm>
+                </Form(CreateCommunityForm)>
+              </Connect(Form(CreateCommunityForm))>
+            </ReduxForm>
+          </Router>
+        </ConnectedRouter>
+      </IntlProvider>
+    </LanguageProvider>
+  </Connect(LanguageProvider)>
+</Provider>
+`;

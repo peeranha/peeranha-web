@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesView test 1`] = `
+<div>
+  <div
+    className="mb-2 p-2"
+    style={
+      Object {
+        "boxShadow": "0 0 2px rgba(0,0,0,0.2)",
+      }
+    }
+  >
+    <div
+      className="mb-1 d-flex justify-content-between align-items-center"
+    >
+      <span>
+        label
+      </span>
+      <withReducer(withSaga(Connect(FollowCommunityButton)))
+        communityIdFilter={1}
+      />
+    </div>
+    <Tags
+      communities={
+        Array [
+          Object {
+            "id": 1,
+            "label": "label",
+            "popularity": 10,
+            "value": 1,
+          },
+        ]
+      }
+      communityId={1}
+    />
+  </div>
+</div>
+`;

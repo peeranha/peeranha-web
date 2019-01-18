@@ -19,7 +19,7 @@ import Logo from './Logo';
 import UserAuthNavLinks from './UserAuthNavLinks';
 
 export const isProfileOrLogin = props => {
-  if (props.account && props.userIsInSystem) {
+  if (props.account && props.profileInfo) {
     return <UserProfileNav />;
   }
 
@@ -70,8 +70,12 @@ const HeaderForm = props => (
           </li>
 
           <li className="nav-item">
-            <Link to="/help" className="nav-link" href="/help">
-              <FormattedMessage {...messages.help} />
+            <Link
+              to={routes.communities()}
+              className="nav-link"
+              href={routes.communities()}
+            >
+              <FormattedMessage {...messages.communities} />
             </Link>
           </li>
         </ul>
@@ -98,7 +102,7 @@ const HeaderForm = props => (
 
 isProfileOrLogin.propTypes = {
   account: PropTypes.string,
-  userIsInSystem: PropTypes.bool,
+  profileInfo: PropTypes.bool,
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };

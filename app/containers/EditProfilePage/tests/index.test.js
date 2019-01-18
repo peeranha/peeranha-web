@@ -1,8 +1,12 @@
-import { getBlob } from 'utils/profileManagement';
-import { EditProfilePage, mapDispatchToProps } from '../index';
+import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
+import { EditProfilePage } from '../index';
 
 jest.mock('utils/profileManagement');
-getBlob.mockImplementation(() => null);
+
+jest.mock('utils/imageManagement', () => ({
+  uploadImage: jest.fn(),
+  getCroppedAvatar: jest.fn(),
+}));
 
 const page = new EditProfilePage();
 page.props = {
@@ -17,6 +21,7 @@ page.props = {
   chooseLocationDispatch: jest.fn(),
   getProfileInfoDispatch: jest.fn(),
   setDefaultReducerDispatch: jest.fn(),
+  saveProfileActionDispatch: jest.fn(),
   citiesList: [],
   blob: null,
   profile: {},
@@ -30,15 +35,15 @@ page.props = {
   },
 };
 
+jest.setTimeout(10000);
+
+const ev = {};
+
 describe('<EditProfilePage>', () => {
   describe('componentWillUnmount', () => {
-    const status = 'setDefaultReducerDispatch';
-    page.props.setDefaultReducerDispatch = jest
-      .fn()
-      .mockImplementation(() => status);
-
-    it('returns @status', () => {
-      expect(page.componentWillUnmount()).toBe(status);
+    it('test', () => {
+      page.componentWillUnmount();
+      expect(page.props.setDefaultReducerDispatch).toHaveBeenCalled();
     });
   });
 
@@ -64,106 +69,33 @@ describe('<EditProfilePage>', () => {
     });
   });
 
+  it('uploadImage', () => {
+    page.uploadImage(ev);
+    expect(uploadImage).toHaveBeenCalledWith(
+      ev,
+      page.props.uploadImageFileDispatch,
+    );
+  });
+
+  it('getCroppedAvatar', () => {
+    page.getCroppedAvatar(ev);
+    expect(getCroppedAvatar).toHaveBeenCalledWith(
+      ev,
+      page.props.saveImageChangesDispatch,
+    );
+  });
+
   describe('render', () => {
     expect(page.render()).toMatchSnapshot();
   });
 
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const obj = {};
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).uploadImageFileDispatch(obj)).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).saveImageChangesDispatch(obj)).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).clearImageChangesDispatch()).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).getCitiesListDispatch(obj)).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).chooseLocationDispatch(obj)).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).setDefaultReducerDispatch()).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).saveProfileActionDispatch(obj)).toBe(
-        test,
-      );
-    });
-  });
-
   describe('saveProfile method', () => {
     const newMap = new Map();
-    it('blob true', async () => {
-      const reader = new window.FileReader();
-      page.props.blob = new Blob();
-      page.props.saveProfileActionDispatch = jest.fn();
-      reader.readAsArrayBuffer = jest.fn();
 
-      expect(await page.saveProfile(newMap)).toBe(null);
-    });
     it('case: @blob is null', async () => {
-      const message = 'object is saved';
-
-      page.props.saveProfileActionDispatch = () => message;
       page.props.blob = null;
-      expect(await page.saveProfile(newMap)).toEqual(message);
-    });
-  });
-
-  describe('getCroppedAvatar(@param) method', () => {
-    it('@param === false', async () => {
-      expect(await page.getCroppedAvatar(false)).toBeFalsy();
-    });
-
-    it('@param === true', async () => {
-      const saveImageChangesDispatch = jest.fn();
-      const obj = {
-        getImage: () => ({
-          toDataURL: () => ({}),
-        }),
-      };
-      window.URL.createObjectURL = () => null;
-      page.props.saveImageChangesDispatch = saveImageChangesDispatch;
-
-      expect(saveImageChangesDispatch).toHaveBeenCalledTimes(0);
-      await page.getCroppedAvatar(obj);
-      expect(saveImageChangesDispatch).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('uploadImage(@param) method', () => {
-    it('case 1: no @param', async () => {
-      const errorMsg = `Cannot read property 'target' of undefined`;
-      expect(await page.uploadImage()).toBe(errorMsg);
-    });
-
-    it('case 2: no files', async () => {
-      const errorMsg = `Failed to execute 'readAsArrayBuffer' on 'FileReader': parameter 1 is not of type 'Blob'.`;
-      const ev = {
-        target: {
-          files: [],
-        },
-      };
-      expect(await page.uploadImage(ev)).toBe(errorMsg);
-    });
-
-    it('case 3: new Blob', async () => {
-      const ev = {
-        target: {
-          files: [new Blob()],
-        },
-      };
-      page.props.blob = new Blob();
-      expect(await page.uploadImage(ev)).toBe(undefined);
+      await page.saveProfile(newMap);
+      expect(page.props.saveProfileActionDispatch).toHaveBeenCalled();
     });
   });
 });

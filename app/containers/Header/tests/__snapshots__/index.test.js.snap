@@ -3,8 +3,8 @@
 exports[`<Header /> render 1`] = `
 <HeaderForm
   account="user"
+  profileInfo={false}
   showLoginModalDispatch={[MockFunction]}
   showSignUpModalDispatch={[MockFunction]}
-  userIsInSystem={false}
 />
 `;

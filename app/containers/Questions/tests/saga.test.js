@@ -7,23 +7,16 @@ import { select } from 'redux-saga/effects';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
-  getQuestionsForCommunitiesWhereIAm,
-  unfollowCommunity,
-  followCommunity,
+  getQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
-
-import { getProfileInfo } from 'utils/profileManagement';
 
 import * as routes from 'routes-config';
 
-import defaultSaga, { getQuestionsWorker, followHandlerWorker } from '../saga';
+import defaultSaga, { getQuestionsWorker } from '../saga';
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  FOLLOW_HANDLER,
-  FOLLOW_HANDLER_SUCCESS,
-  FOLLOW_HANDLER_ERROR,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -36,9 +29,7 @@ jest.mock('redux-saga/effects', () => ({
 jest.mock('utils/questionsManagement', () => ({
   getQuestions: jest.fn(),
   getQuestionsFilteredByCommunities: jest.fn(),
-  getQuestionsForCommunitiesWhereIAm: jest.fn(),
-  unfollowCommunity: jest.fn(),
-  followCommunity: jest.fn(),
+  getQuestionsForFollowedCommunities: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -54,7 +45,7 @@ describe('getQuestionsWorker', () => {
     next: true,
   };
 
-  const profile = {};
+  const communities = [];
   let profileInfo = null;
 
   const eos = { id: 1, getSelectedAccount: jest.fn() };
@@ -71,23 +62,17 @@ describe('getQuestionsWorker', () => {
       expect(step.value).toEqual(eos);
     });
 
-    it('selectedAccount', () => {
-      eos.getSelectedAccount.mockImplementation(() => profile);
+    it('followedCommunities', () => {
+      select.mockImplementation(() => communities);
       const step = generator.next(eos);
-      expect(step.value).toEqual(profile);
-    });
-
-    it('profile', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
-      const step = generator.next(profile);
-      expect(step.value).toEqual(profileInfo);
+      expect(step.value).toEqual(communities);
     });
 
     it('getQuestions', () => {
       const questions = [];
 
       getQuestions.mockImplementation(() => questions);
-      const step = generator.next(profileInfo);
+      const step = generator.next(communities);
 
       expect(step.value).toEqual(questions);
     });
@@ -112,10 +97,9 @@ describe('getQuestionsWorker', () => {
 
     generator.next();
     generator.next(eos);
-    generator.next(profile);
 
     it('getQuestionsFilteredByCommunities', () => {
-      generator.next(profileInfo);
+      generator.next(communities);
       expect(getQuestionsFilteredByCommunities).toHaveBeenCalled();
     });
   });
@@ -131,84 +115,15 @@ describe('getQuestionsWorker', () => {
 
     generator.next();
     generator.next(eos);
-    generator.next(profile);
 
     it('getQuestionsFilteredByCommunities', () => {
-      generator.next(profileInfo);
-      expect(getQuestionsForCommunitiesWhereIAm).toHaveBeenCalledWith(
+      generator.next(communities);
+      expect(getQuestionsForFollowedCommunities).toHaveBeenCalledWith(
         eos,
         res.limit,
         res.offset,
         profileInfo.followed_communities,
       );
-    });
-  });
-});
-
-describe('followHandlerWorker', () => {
-  const props = {
-    communityIdFilter: 0,
-    isFollowed: false,
-  };
-
-  const profile = {};
-  const profileInfo = {};
-  const eos = { id: 1, getSelectedAccount: jest.fn() };
-
-  describe('isFollowed false', () => {
-    const generator = followHandlerWorker(props);
-
-    it('eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next();
-      expect(step.value).toEqual(eos);
-    });
-
-    it('selectedAccount', () => {
-      eos.getSelectedAccount.mockImplementation(() => profile);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profile);
-    });
-
-    it('unfollowCommunity', () => {
-      const unfollow = false;
-
-      followCommunity.mockImplementation(() => unfollow);
-      const step = generator.next(profile);
-      expect(step.value).toEqual(unfollow);
-    });
-
-    it('profile', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
-      const step = generator.next(profile);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('FOLLOW_HANDLER_SUCCESS', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(FOLLOW_HANDLER_SUCCESS);
-    });
-
-    it('error handling', () => {
-      const err = 'error';
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(FOLLOW_HANDLER_ERROR);
-    });
-  });
-
-  describe('isFollowed true', () => {
-    props.isFollowed = true;
-    const generator = followHandlerWorker(props);
-
-    generator.next();
-    generator.next(eos);
-
-    it('followCommunity', () => {
-      const unfollow = true;
-
-      unfollowCommunity.mockImplementation(() => unfollow);
-      const step = generator.next(profile);
-      expect(step.value).toEqual(unfollow);
     });
   });
 });
@@ -219,10 +134,5 @@ describe('defaultSaga', () => {
   it('GET_QUESTIONS', () => {
     const step = generator.next();
     expect(step.value).toBe(GET_QUESTIONS);
-  });
-
-  it('FOLLOW_HANDLER', () => {
-    const step = generator.next();
-    expect(step.value).toBe(FOLLOW_HANDLER);
   });
 });

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SuggestedCommunities /> render communitiesLoading FALSE 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested communities
+    </title>
+    <meta
+      content="Suggested communities | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <NoSuggestedCommunities />
+  <SuggestedCommunitiesView
+    communities={Array []}
+    downVote={[Function]}
+    upVote={[Function]}
+  />
+</div>
+`;
+
+exports[`<SuggestedCommunities /> render communitiesLoading TRUE 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested communities
+    </title>
+    <meta
+      content="Suggested communities | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;

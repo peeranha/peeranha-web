@@ -11,3 +11,6 @@ export const answer_edit = (questionid, answerid) =>
 export const question_ask = () => `/questions/ask`;
 export const no_access = () => `/no-access`;
 export const feed = () => `/feed`;
+export const communities = () => `/communities`;
+export const communities_create = () => `/communities/create`;
+export const suggestedCommunities = () => `/communities/suggested`;

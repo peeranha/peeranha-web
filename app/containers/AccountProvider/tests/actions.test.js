@@ -62,15 +62,15 @@ describe('loginSignup actions', () => {
   });
 
   it('has a type of LOGIN_SIGNUP_SUCCESS', () => {
-    const userIsInSystem = false;
+    const profileInfo = false;
     const acc = 'user1';
 
     const expected = {
       type: LOGIN_SIGNUP_SUCCESS,
-      userIsInSystem,
+      profileInfo,
       acc,
     };
-    expect(loginSignupSuccess(acc, userIsInSystem)).toEqual(expected);
+    expect(loginSignupSuccess(acc, profileInfo)).toEqual(expected);
   });
 
   it('has a type of LOGIN_SIGNUP_ERROR', () => {

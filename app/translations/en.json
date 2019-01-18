@@ -1,4 +1,22 @@
 {
+  "app.containers.SuggestedCommunities.noSuggestedCommunities":
+    "There are no suggested communities",
+  "app.containers.SuggestedCommunities.title": "Suggested communities",
+  "app.containers.SuggestedCommunities.description":
+    "Suggested communities | Description",
+  "app.containers.SuggestedCommunities.youHaveAlreadyVoted":
+    "You have already voted",
+  "app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm":
+    "Creator cannot upvote own community",
+  "app.containers.Communities.title": "Communities",
+  "app.containers.Communities.description": "Communities | Description",
+  "app.containers.CreateCommunity.title": "Community | Create",
+  "app.containers.CreateCommunity.description":
+    "Description of CreateCommunity",
+  "app.containers.CreateCommunity.avatar": "Avatar",
+  "app.containers.CreateCommunity.name": "Name",
+  "app.containers.CreateCommunity.descriptionField": "Description",
+  "app.containers.CreateCommunity.createCommunity": "Create community",
   "app.containers.Other.successMessage":
     "Action has been completed successfully",
   "app.containers.Other.errorMessage": "An error occurred",
@@ -144,6 +162,8 @@
     "Value must be at least 15 characters and no longer than 100 characters",
   "app.containers.FormFields.wrongLength1x5":
     "Value must be at least 1 characters and no longer than 5 characters",
+  "app.containers.FormFields.wrongLength2x15":
+    "Value must be at least 2 characters and no longer than 15 characters",
   "app.containers.FormFields.wrongLength3x20":
     "Value must be at least 3 characters and no longer than 20 characters",
   "app.containers.FormFields.wrongLength20x1000":
@@ -159,6 +179,7 @@
   "app.components.Header.questions": "Questions",
   "app.components.Header.profile": "Profile",
   "app.components.Header.feed": "Feed",
+  "app.components.Header.communities": "Communities",
   "app.components.Header.help": "Help",
   "app.components.Header.search": "Search",
   "app.components.Header.login": "Log in",

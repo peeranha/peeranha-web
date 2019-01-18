@@ -21,6 +21,9 @@ import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
 import homepageReducer from 'containers/HomePage/reducer';
 import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
+import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
+import createCommunityReducer from 'containers/CreateCommunity/reducer';
+import suggestedCommunitiesReducer from 'containers/SuggestedCommunities/reducer';
 
 /*
  * routeReducer
@@ -70,6 +73,9 @@ export default function createReducer(injectedReducers) {
     profile: profileReducer,
     homepage: homepageReducer,
     dataCacheProvider: dataCacheProviderReducer,
+    followCommunityButton: followCommunityButtonReducer,
+    createCommunity: createCommunityReducer,
+    suggestedCommunities: suggestedCommunitiesReducer,
     form: formReducer,
     ...injectedReducers,
   });

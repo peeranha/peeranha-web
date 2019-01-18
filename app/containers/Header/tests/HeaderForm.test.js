@@ -2,7 +2,7 @@ import HeaderForm, { isProfileOrLogin } from '../HeaderForm';
 
 const props = {
   account: 'user1',
-  userIsInSystem: false,
+  profileInfo: false,
   showSignUpModalDispatch: jest.fn(),
   showLoginModalDispatch: jest.fn(),
 };
@@ -13,12 +13,12 @@ it('HeaderForm', () => {
 
 describe('isProfileOrLogin', () => {
   it('returns UserAuthNavLinks', () => {
-    props.userIsInSystem = false;
+    props.profileInfo = false;
     expect(isProfileOrLogin(props)).toMatchSnapshot();
   });
 
   it('returns UserProfileNav', () => {
-    props.userIsInSystem = true;
+    props.profileInfo = true;
     expect(isProfileOrLogin(props)).toMatchSnapshot();
   });
 });

@@ -11,10 +11,13 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
 
-import Profile from 'containers/Profile';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import Profile from 'containers/Profile';
 
 import {
   DISPLAY_NAME_FIELD,
@@ -29,10 +32,8 @@ import {
   chooseLocation,
 } from 'containers/Profile/actions';
 
-import { getBlob } from 'utils/profileManagement';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
+import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
 import * as editProfileSelectors from './selectors';
 import reducer from './reducer';
@@ -59,41 +60,21 @@ export class EditProfilePage extends React.Component {
   }
 
   componentWillUnmount() {
-    return this.props.setDefaultReducerDispatch();
+    this.props.setDefaultReducerDispatch();
   }
 
   uploadImage = event => {
-    try {
-      const file = event.target.files[0];
-      const reader = new window.FileReader();
-
-      reader.onloadend = () =>
-        this.props.uploadImageFileDispatch(reader.result);
-      return reader.readAsArrayBuffer(file);
-    } catch (err) {
-      return err.message;
-    }
+    uploadImage(event, this.props.uploadImageFileDispatch);
   };
 
-  getCroppedAvatar = async obj => {
-    let value;
-
-    if (obj) {
-      const canvas = obj.getImage().toDataURL('image/jpeg', 0.5);
-      const blob = await getBlob(canvas);
-      value = this.props.saveImageChangesDispatch({
-        blob,
-        cachedProfileImg: window.URL.createObjectURL(blob),
-      });
-    }
-
-    return value;
+  getCroppedAvatar = obj => {
+    getCroppedAvatar(obj, this.props.saveImageChangesDispatch);
   };
 
   saveProfile = async val => {
-    let value;
     const { match, blob } = this.props;
     const userKey = match.params.id;
+
     const profile = {
       ...this.props.profile.profile,
       [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
@@ -104,24 +85,22 @@ export class EditProfilePage extends React.Component {
 
     if (blob) {
       const reader = new window.FileReader();
-      value = null;
 
-      reader.onloadend = async () => {
-        await this.props.saveProfileActionDispatch({
+      reader.onloadend = () => {
+        this.props.saveProfileActionDispatch({
           userKey,
           profile,
           reader: reader.result,
         });
       };
-      await reader.readAsArrayBuffer(blob);
+
+      reader.readAsArrayBuffer(blob);
     } else {
-      value = await this.props.saveProfileActionDispatch({
+      this.props.saveProfileActionDispatch({
         userKey,
         profile,
       });
     }
-
-    return value;
   };
 
   cancelChanges = () =>
@@ -199,6 +178,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
 });
 
+/* istanbul ignore next */
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,

@@ -3,9 +3,6 @@ import {
   getQuestionsSuccess,
   getQuestionsError,
   setDefaultReducer,
-  followHandler,
-  followHandlerSuccess,
-  followHandlerErr,
 } from '../actions';
 
 import {
@@ -13,53 +10,9 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
   SET_DEFAULT_REDUCER,
-  FOLLOW_HANDLER,
-  FOLLOW_HANDLER_SUCCESS,
-  FOLLOW_HANDLER_ERROR,
 } from '../constants';
 
 describe('actions', () => {
-  describe('followHandler Action', () => {
-    it('FOLLOW_HANDLER', () => {
-      const communityIdFilter = 'limit';
-      const isFollowed = 'offset';
-
-      const expected = {
-        type: FOLLOW_HANDLER,
-        communityIdFilter,
-        isFollowed,
-      };
-
-      expect(followHandler(communityIdFilter, isFollowed)).toEqual(expected);
-    });
-  });
-
-  describe('followHandlerSuccess Action', () => {
-    it('FOLLOW_HANDLER_SUCCESS', () => {
-      const followedCommunities = 'limit';
-
-      const expected = {
-        type: FOLLOW_HANDLER_SUCCESS,
-        followedCommunities,
-      };
-
-      expect(followHandlerSuccess(followedCommunities)).toEqual(expected);
-    });
-  });
-
-  describe('followHandlerErr Action', () => {
-    it('FOLLOW_HANDLER_ERROR', () => {
-      const followHandlerError = 'limit';
-
-      const expected = {
-        type: FOLLOW_HANDLER_ERROR,
-        followHandlerError,
-      };
-
-      expect(followHandlerErr(followHandlerError)).toEqual(expected);
-    });
-  });
-
   describe('getQuestions Action', () => {
     it('GET_QUESTIONS', () => {
       const limit = 'limit';
@@ -86,19 +39,15 @@ describe('actions', () => {
   describe('getQuestionsSuccess Action', () => {
     it('GET_QUESTIONS_SUCCESS', () => {
       const questionsList = 'questionsList';
-      const followedCommunities = 'followedCommunities';
       const next = 'next';
 
       const expected = {
         type: GET_QUESTIONS_SUCCESS,
         questionsList,
-        followedCommunities,
         next,
       };
 
-      expect(
-        getQuestionsSuccess(questionsList, followedCommunities, next),
-      ).toEqual(expected);
+      expect(getQuestionsSuccess(questionsList, next)).toEqual(expected);
     });
   });
 

@@ -7,9 +7,6 @@ import {
   getQuestionsSuccess,
   getQuestionsError,
   setDefaultReducer,
-  followHandler,
-  followHandlerSuccess,
-  followHandlerErr,
 } from '../actions';
 
 describe('questionsReducer', () => {
@@ -22,34 +19,6 @@ describe('questionsReducer', () => {
 
   it('returns the initial state', () => {
     expect(questionsReducer(state, {})).toEqual(state);
-  });
-
-  it('followHandlerErr', () => {
-    const followHandlerError = 'followHandlerError';
-    const obj = state
-      .set('followHandlerLoading', false)
-      .set('followHandlerError', followHandlerError);
-
-    expect(
-      questionsReducer(state, followHandlerErr(followHandlerError)),
-    ).toEqual(obj);
-  });
-
-  it('followHandlerSuccess', () => {
-    const followedCommunities = 'followedCommunities';
-    const obj = state
-      .set('followHandlerLoading', false)
-      .set('followedCommunities', followedCommunities);
-
-    expect(
-      questionsReducer(state, followHandlerSuccess(followedCommunities)),
-    ).toEqual(obj);
-  });
-
-  it('followHandler', () => {
-    const obj = state.set('followHandlerLoading', true);
-
-    expect(questionsReducer(state, followHandler())).toEqual(obj);
   });
 
   it('getQuestions', () => {
@@ -66,38 +35,28 @@ describe('questionsReducer', () => {
   it('getQuestionsSuccess, next is true', () => {
     const questionsList = [{}];
     const next = true;
-    const followedCommunities = 'followedCommunities';
 
     const obj = state
       .set('questionsLoading', false)
-      .set('followedCommunities', followedCommunities)
       .set('questionsList', state.get('questionsList').concat(questionsList))
       .set('isLastFetch', true);
 
     expect(
-      questionsReducer(
-        state,
-        getQuestionsSuccess(questionsList, followedCommunities, next),
-      ),
+      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
     ).toEqual(obj);
   });
 
   it('getQuestionsSuccess, next is false', () => {
     const questionsList = [{}];
     const next = false;
-    const followedCommunities = 'followedCommunities';
 
     const obj = state
       .set('questionsLoading', false)
-      .set('followedCommunities', followedCommunities)
       .set('questionsList', questionsList)
       .set('isLastFetch', true);
 
     expect(
-      questionsReducer(
-        state,
-        getQuestionsSuccess(questionsList, followedCommunities, next),
-      ),
+      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
     ).toEqual(obj);
   });
 

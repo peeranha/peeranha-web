@@ -5,7 +5,7 @@ import { COMPLETE_LOGIN } from 'containers/Login/constants';
 import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
 
-import { isUserInSystem } from 'utils/accountManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 
 import {
   NO_SCATTER,
@@ -42,11 +42,11 @@ export function* getCurrentAccountWorker() {
       ? call(() => eosService.getSelectedAccount())
       : null;
 
-    const userIsInSystem = yield call(() =>
-      isUserInSystem(selectedScatterAccount, eosService),
+    const profileInfo = yield call(() =>
+      getProfileInfo(selectedScatterAccount, eosService),
     );
 
-    yield put(getCurrentAccountSuccess(selectedScatterAccount, userIsInSystem));
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, profileInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
@@ -94,11 +94,9 @@ export function* loginSignupWorker(res) {
 
     yield put(loginSignupSuccess(account));
 
-    const userIsInSystem = yield call(() =>
-      isUserInSystem(account, eosService),
-    );
+    const profileInfo = yield call(() => getProfileInfo(account, eosService));
 
-    if (!userIsInSystem && res.methods.type === COMPLETE_LOGIN) {
+    if (!profileInfo && res.methods.type === COMPLETE_LOGIN) {
       yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
@@ -106,7 +104,7 @@ export function* loginSignupWorker(res) {
       return;
     }
 
-    if (!userIsInSystem && res.methods.type === COMPLETE_SIGNUP) {
+    if (!profileInfo && res.methods.type === COMPLETE_SIGNUP) {
       yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
@@ -114,7 +112,7 @@ export function* loginSignupWorker(res) {
       return;
     }
 
-    if (userIsInSystem && res.methods.type === COMPLETE_SIGNUP) {
+    if (profileInfo && res.methods.type === COMPLETE_SIGNUP) {
       yield setLoginSignupModalState(
         res.methods.type,
         USER_IS_IN_SYSTEM_AND_SIGNUP,
@@ -123,7 +121,7 @@ export function* loginSignupWorker(res) {
     }
 
     yield closeModals();
-    yield put(loginSignupSuccess(account, userIsInSystem));
+    yield put(loginSignupSuccess(account, profileInfo));
   } catch (err) {
     yield put(loginSignupErr(err));
   }

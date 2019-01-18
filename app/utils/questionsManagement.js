@@ -28,8 +28,6 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
-  UNFOLLOW_COMM,
-  FOLLOW_COMM,
 } from './constants';
 
 export async function getQuestionsPostedByUser(eosService, user) {
@@ -47,8 +45,8 @@ export async function getQuestions(eosService, limit, offset) {
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    limit,
     offset,
+    limit,
   );
 
   return questions;
@@ -64,8 +62,8 @@ export async function getQuestionsFilteredByCommunities(
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    limit,
     String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+    limit,
     String(BigInt(communityId + 1) << BigInt(36)),
     GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
     GET_QUESTIONS_KEY_TYPE,
@@ -76,7 +74,7 @@ export async function getQuestionsFilteredByCommunities(
 
 /* eslint no-undef: 0 */
 /* istanbul ignore next */
-export async function getQuestionsForCommunitiesWhereIAm(
+export async function getQuestionsForFollowedCommunities(
   eosService,
   limit,
   offset,
@@ -89,8 +87,8 @@ export async function getQuestionsForCommunitiesWhereIAm(
       const q = await eosService.getTableRows(
         QUESTION_TABLE,
         ALL_QUESTIONS_SCOPE,
-        limit,
         String((BigInt(id) << BigInt(36)) + BigInt(offset)),
+        limit,
         String(BigInt(id + 1) << BigInt(36)),
         GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
         GET_QUESTIONS_KEY_TYPE,
@@ -106,28 +104,6 @@ export async function getQuestionsForCommunitiesWhereIAm(
   const questionsSortedByTimeLimited = _.take(questionsSortedByTime, limit);
 
   return questionsSortedByTimeLimited;
-}
-
-export async function unfollowCommunity(
-  eosService,
-  communityIdFilter,
-  selectedAccount,
-) {
-  await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: communityIdFilter,
-  });
-}
-
-export async function followCommunity(
-  eosService,
-  communityIdFilter,
-  selectedAccount,
-) {
-  await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: communityIdFilter,
-  });
 }
 
 export async function voteToDelete(

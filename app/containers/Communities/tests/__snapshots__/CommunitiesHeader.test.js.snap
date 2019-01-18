@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesHeader test 1`] = `
+<div
+  className="d-flex justify-content-end pb-3"
+>
+  <Link
+    href="/communities/suggested"
+    replace={false}
+    to="/communities/suggested"
+  >
+    <button
+      className="btn btn-secondary ml-2"
+    >
+      Suggested communities
+    </button>
+  </Link>
+  <button
+    className="btn btn-secondary ml-2"
+    id="app_Communities_GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID"
+    onClick={[MockFunction]}
+  >
+    Create community
+  </button>
+</div>
+`;

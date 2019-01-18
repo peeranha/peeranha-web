@@ -47,12 +47,4 @@ export default defineMessages({
     id: 'app.containers.Questions.all',
     defaultMessage: 'All',
   },
-  follow: {
-    id: 'app.containers.Questions.follow',
-    defaultMessage: 'Follow',
-  },
-  unfollow: {
-    id: 'app.containers.Questions.unfollow',
-    defaultMessage: 'Unfollow',
-  },
 });

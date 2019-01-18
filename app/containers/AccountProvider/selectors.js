@@ -19,9 +19,18 @@ const makeSelectError = () =>
     substate.get('error'),
   );
 
-const makeSelectUserIsInSystem = () =>
+const makeSelectProfileInfo = () =>
   createSelector(selectAccountProviderDomain, substate =>
-    substate.get('userIsInSystem'),
+    substate.get('profileInfo'),
+  );
+
+const makeSelectFollowedCommunities = () =>
+  createSelector(
+    selectAccountProviderDomain,
+    substate =>
+      substate.get('profileInfo')
+        ? substate.get('profileInfo').followed_communities
+        : null,
   );
 
 const makeSelectAccountError = () =>
@@ -39,7 +48,8 @@ export {
   makeSelectAccount,
   makeSelectLoading,
   makeSelectError,
-  makeSelectUserIsInSystem,
+  makeSelectProfileInfo,
   makeSelectAccountError,
   makeSelectForgetIdentityError,
+  makeSelectFollowedCommunities,
 };

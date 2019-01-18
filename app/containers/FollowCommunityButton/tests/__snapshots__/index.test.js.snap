@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FollowCommunityButton /> render followedCommunities NULL 1`] = `null`;
+
+exports[`<FollowCommunityButton /> render isFollowed - false, followedCommunities [1, 2] 1`] = `
+<button
+  className="btn btn-secondary ml-1"
+  data-isfollowed={false}
+  onClick={[Function]}
+>
+  <FormattedMessage
+    defaultMessage="Follow"
+    id="app.containers.Questions.follow"
+    values={Object {}}
+  />
+</button>
+`;
+
+exports[`<FollowCommunityButton /> render isFollowed - true, followedCommunities [1, 2] 1`] = `
+<button
+  className="btn btn-secondary ml-1"
+  data-isfollowed={true}
+  onClick={[Function]}
+>
+  <FormattedMessage
+    defaultMessage="Unfollow"
+    id="app.containers.Questions.unfollow"
+    values={Object {}}
+  />
+</button>
+`;
