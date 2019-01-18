@@ -102,8 +102,8 @@ describe('getQuestionsFilteredByCommunities', () => {
     expect(eosService.getTableRows).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,
-      limit,
       String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+      limit,
       String(BigInt(communityId + 1) << BigInt(36)),
       GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
       GET_QUESTIONS_KEY_TYPE,

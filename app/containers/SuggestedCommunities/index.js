@@ -26,6 +26,7 @@ import messages from './messages';
 import { getSuggestedCommunities, upVote, downVote } from './actions';
 
 import SuggestedCommunitiesView from './SuggestedCommunitiesView';
+import NoSuggestedCommunities from './NoSuggestedCommunities';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SuggestedCommunities extends React.Component {
@@ -57,6 +58,9 @@ export class SuggestedCommunities extends React.Component {
             content={translationMessages[locale][messages.description.id]}
           />
         </Helmet>
+
+        {!communitiesLoading &&
+          !communities.length && <NoSuggestedCommunities />}
 
         {!communitiesLoading ? (
           <SuggestedCommunitiesView

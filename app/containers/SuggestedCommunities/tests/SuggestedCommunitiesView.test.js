@@ -6,7 +6,8 @@ describe('SuggestedCommunitiesView', () => {
       {
         id: 1,
         creator: 'user',
-        votes: ['user1'],
+        upvotes: ['user1'],
+        downvotes: ['user2'],
         name: 'name',
         description: 'description',
         avatar: 'avatar',

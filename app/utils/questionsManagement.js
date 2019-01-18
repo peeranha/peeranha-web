@@ -45,8 +45,8 @@ export async function getQuestions(eosService, limit, offset) {
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    limit,
     offset,
+    limit,
   );
 
   return questions;
@@ -62,8 +62,8 @@ export async function getQuestionsFilteredByCommunities(
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    limit,
     String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+    limit,
     String(BigInt(communityId + 1) << BigInt(36)),
     GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
     GET_QUESTIONS_KEY_TYPE,
@@ -87,8 +87,8 @@ export async function getQuestionsForFollowedCommunities(
       const q = await eosService.getTableRows(
         QUESTION_TABLE,
         ALL_QUESTIONS_SCOPE,
-        limit,
         String((BigInt(id) << BigInt(36)) + BigInt(offset)),
+        limit,
         String(BigInt(id + 1) << BigInt(36)),
         GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
         GET_QUESTIONS_KEY_TYPE,

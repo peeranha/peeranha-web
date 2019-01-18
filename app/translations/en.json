@@ -1,4 +1,6 @@
 {
+  "app.containers.SuggestedCommunities.noSuggestedCommunities":
+    "There are no suggested communities",
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
     "Suggested communities | Description",

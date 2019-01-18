@@ -232,6 +232,7 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
           "app.containers.SignUp.signUpWith": "Sign up with Scatter",
           "app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm": "Creator cannot upvote own community",
           "app.containers.SuggestedCommunities.description": "Suggested communities | Description",
+          "app.containers.SuggestedCommunities.noSuggestedCommunities": "There are no suggested communities",
           "app.containers.SuggestedCommunities.title": "Suggested communities",
           "app.containers.SuggestedCommunities.youHaveAlreadyVoted": "You have already voted",
           "app.containers.UserProfileNav.profile": "Profile",

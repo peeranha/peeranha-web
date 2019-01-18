@@ -26,7 +26,7 @@ const SuggestedCommunitiesView = ({ communities, upVote, downVote }) => (
               />
             </button>
           </div>
-          <div className="mb-3 text-center">{x.votes}</div>
+          <div className="mb-3 text-center">{x.upvotes.length}</div>
           <div className="mb-3">
             <button
               id={`${DOWNVOTE_BUTTON_ID}_${x.id}`}

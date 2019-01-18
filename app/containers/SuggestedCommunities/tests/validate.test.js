@@ -31,22 +31,6 @@ describe('upVoteValidator', () => {
     expect(isValid).toBe(false);
   });
 
-  it('activeCommunity.voters.filter(x => x === selectedAccount)[0] TRUE', () => {
-    selectedAccount = 'user2';
-    activeCommunity.creator = 'user1';
-    activeCommunity.voters = [selectedAccount];
-
-    const isValid = upVoteValidator(
-      profile,
-      locale,
-      selectedAccount,
-      activeCommunity,
-      buttonId,
-    );
-
-    expect(isValid).toBe(false);
-  });
-
   it('rating < MIN_RATING_TO_UPVOTE', () => {
     selectedAccount = 'user2';
     activeCommunity.creator = 'user1';
@@ -93,22 +77,6 @@ describe('downVoteValidator', () => {
     voters: [],
   };
   const buttonId = 'buttonId';
-
-  it('activeCommunity.voters.filter(x => x === selectedAccount)[0] TRUE', () => {
-    selectedAccount = 'user2';
-    activeCommunity.creator = 'user1';
-    activeCommunity.voters = [selectedAccount];
-
-    const isValid = downVoteValidator(
-      profile,
-      locale,
-      selectedAccount,
-      activeCommunity,
-      buttonId,
-    );
-
-    expect(isValid).toBe(false);
-  });
 
   it('rating < MIN_RATING_TO_DOWNVOTE', () => {
     selectedAccount = 'user2';

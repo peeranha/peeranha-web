@@ -23,4 +23,8 @@ export default defineMessages({
     id: 'app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm',
     defaultMessage: 'Creator cannot upvote own community',
   },
+  noSuggestedCommunities: {
+    id: 'app.containers.SuggestedCommunities.noSuggestedCommunities',
+    defaultMessage: 'There are no suggested communities',
+  },
 });

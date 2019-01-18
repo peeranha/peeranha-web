@@ -22,12 +22,6 @@ export const upVoteValidator = (
         suggestedCommunitiesMessages.creatorCannotUpvoteOwnComm.id
       ]
     }`;
-  } else if (activeCommunity.voters.filter(x => x === selectedAccount)[0]) {
-    message = `${
-      translationMessages[locale][
-        suggestedCommunitiesMessages.youHaveAlreadyVoted.id
-      ]
-    }`;
   } else if (profile.rating < MIN_RATING_TO_UPVOTE) {
     message = `${
       translationMessages[locale][messages.notEnoughRating.id]
@@ -54,13 +48,7 @@ export const downVoteValidator = (
 
   let message;
 
-  if (activeCommunity.voters.filter(x => x === selectedAccount)[0]) {
-    message = `${
-      translationMessages[locale][
-        suggestedCommunitiesMessages.youHaveAlreadyVoted.id
-      ]
-    }`;
-  } else if (profile.rating < MIN_RATING_TO_DOWNVOTE) {
+  if (profile.rating < MIN_RATING_TO_DOWNVOTE) {
     message = `${
       translationMessages[locale][messages.notEnoughRating.id]
     } ${MIN_RATING_TO_DOWNVOTE}`;

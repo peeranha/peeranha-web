@@ -156,8 +156,8 @@ class EosioService {
   getTableRows = async (
     table,
     scope,
-    limit,
     lowerBound,
+    limit,
     upperBound,
     indexPosition,
     keyType,

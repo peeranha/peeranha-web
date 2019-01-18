@@ -1,4 +1,6 @@
 {
+  "app.containers.SuggestedCommunities.noSuggestedCommunities":
+    "Нет предложенных сообществ",
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":
     "Предложенные сообщества | Описание",

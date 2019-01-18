@@ -16,6 +16,7 @@ exports[`<SuggestedCommunities /> render communitiesLoading FALSE 1`] = `
       name="description"
     />
   </HelmetWrapper>
+  <NoSuggestedCommunities />
   <SuggestedCommunitiesView
     communities={Array []}
     downVote={[Function]}
