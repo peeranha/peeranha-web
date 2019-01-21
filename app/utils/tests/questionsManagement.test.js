@@ -19,8 +19,6 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
-  UNFOLLOW_COMM,
-  FOLLOW_COMM,
 } from '../constants';
 
 import {
@@ -43,8 +41,8 @@ import {
   getAskedQuestion,
   voteToDelete,
   getQuestionsPostedByUser,
-  unfollowCommunity,
-  followCommunity,
+  getQuestionsForFollowedCommunities,
+  FetcherOfQuestionsForFollowedCommunities,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -62,6 +60,181 @@ beforeEach(() => {
   };
 });
 
+/* eslint-disable */
+describe('FetcherOfQuestionsForFollowedCommunities', () => {
+  let firstFetchCount = 30;
+  let communities = [1, 2, 3];
+
+  eosService = {
+    sendTransaction: jest.fn(),
+    getTableRow: jest.fn(),
+    getTableRows: jest.fn(),
+  };
+
+  describe('constructor', () => {
+    const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+      firstFetchCount,
+      communities,
+      eosService,
+    );
+
+    it('communities.length 0', () => {
+      communities = [];
+      const fetch = fetcher.constructor(
+        firstFetchCount,
+        communities,
+        eosService,
+      );
+
+      expect(fetch).toBe(null);
+    });
+
+    it('communities.length > 0', () => {
+      communities = [1, 2, 3];
+      fetcher.constructor(firstFetchCount, communities, eosService);
+
+      expect(fetcher.eosService).toEqual(eosService);
+      expect(fetcher.firstFetchCount).toEqual(firstFetchCount);
+      expect(fetcher.hasMore).toEqual(true);
+      expect(fetcher.eosService).toEqual(eosService);
+
+      expect(fetcher.communitiesMap[communities[0]]).toEqual({
+        items: [],
+        lowerBound: BigInt(communities[0]) << BigInt(36),
+        lastKeyFetched: `${BigInt(communities[0]) << BigInt(36)}`,
+        uppperBound: `${BigInt(communities[0] + 1) << BigInt(36)}`,
+        more: true,
+      });
+    });
+  });
+
+  describe('getNextItems', async () => {
+    communities = [1];
+
+    let fetchCount = 10;
+    const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+      firstFetchCount,
+      communities,
+      eosService,
+    );
+
+    await fetcher.constructor(firstFetchCount, communities, eosService);
+
+    it('hasMore FALSE', async () => {
+      fetcher.hasMore = false;
+      const fetch = await fetcher.getNextItems(fetchCount);
+      expect(fetch).toEqual([]);
+    });
+
+    describe('fetch_res.length', () => {
+      const v0 = 3;
+      const v1 = 2;
+      const v2 = 1;
+
+      fetcher.hasMore = true;
+
+      it('fetch_res.length === limit', async () => {
+        fetcher.firstFetchCount = v1;
+        fetcher.communitiesMap[communities[0]].items.length = v2;
+
+        const ID = 1;
+
+        fetcher.eosService.getTableRows.mockImplementation(() => [{ id: ID }]);
+
+        const fetch = await fetcher.getNextItems(fetchCount);
+        expect(fetcher.communitiesMap[communities[0]].lastKeyFetched).toEqual(
+          `${fetcher.communitiesMap[communities[0]].lowerBound +
+            BigInt(ID) +
+            BigInt(1)}`,
+        );
+      });
+
+      it('fetch_res.length !== limit', async () => {
+        fetcher.firstFetchCount = v0;
+        fetcher.communitiesMap[communities[0]].items.length = v2;
+
+        const ID = 1;
+
+        fetcher.eosService.getTableRows.mockImplementation(() => [{ id: ID }]);
+        expect(fetcher.communitiesMap[communities[0]].more).toBe(false);
+      });
+    });
+
+    describe('hasMore TRUE', async () => {
+      fetcher.hasMore = true;
+      const fetch = await fetcher.getNextItems(fetchCount);
+
+      it('!this.communitiesMap[community_id].more', () => {
+        fetcher.communitiesMap[communities[0]].more = false;
+        fetcher.communitiesMap[communities[0]].items.length = 2 * fetchCount;
+        expect(fetch).toBe(null);
+      });
+
+      it('this.communitiesMap[community_id].more TRUE && fetcher.communitiesMap[communities[0]].items.length < fetchCount', () => {
+        fetcher.communitiesMap[communities[0]].more = true;
+        fetcher.communitiesMap[communities[0]].items.length = Math.floor(
+          0.5 * fetchCount,
+        );
+
+        expect(fetch.eosService.getTableRows).toHaveBeenCalledWith(
+          QUESTION_TABLE,
+          ALL_QUESTIONS_SCOPE,
+          fetcher.communitiesMap[communities[0]].lastKeyFetched,
+          limit,
+          fetcher.communitiesMap[communities[0]].uppperBound,
+          GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+          GET_QUESTIONS_KEY_TYPE,
+        );
+      });
+    });
+
+    it('fetch.eosService.getTableRows => [1, 2]', async () => {
+      const items = [1, 2];
+
+      fetcher.hasMore = true;
+      fetch.eosService.getTableRows.mockImplementation(() => items);
+
+      const fetch = await fetcher.getNextItems(fetchCount);
+      expect(fetcher.communitiesMap[communities[0]].items).toEqual([
+        ...fetcher.communitiesMap[communities[0]].items,
+        ...items,
+      ]);
+    });
+
+    it('this.communitiesMap[community_id].items.length < fetchCount', async () => {
+      const MIN_ID = 1;
+
+      fetchCount = 10;
+      fetcher.hasMore = true;
+      this.communitiesMap[community_id].items = [
+        { id: MIN_ID },
+        { id: 2 * MIN_ID },
+        { id: 3 * MIN_ID },
+      ];
+
+      const fetch = await fetcher.getNextItems(fetchCount);
+
+      expect(fetcher.hasMore).toBe(false);
+      expect(fetch).toEqual(fetcher.communitiesMap[MIN_ID].items[0]);
+    });
+  });
+});
+/* eslint-enable */
+
+describe('getQuestionsForFollowedCommunities', () => {
+  const questionsExpected = [];
+  const limit = 10;
+  const fetcher = {
+    getNextItems: jest.fn().mockImplementation(() => questionsExpected),
+  };
+
+  it('test', async () => {
+    const questions = await getQuestionsForFollowedCommunities(limit, fetcher);
+    expect(fetcher.getNextItems).toHaveBeenCalledWith(limit);
+    expect(questions).toEqual(questionsExpected);
+  });
+});
+
 describe('getQuestionsPostedByUser', async () => {
   const user = 'user1';
   const questionsMass = [];
@@ -77,42 +250,6 @@ describe('getQuestionsPostedByUser', async () => {
     );
 
     expect(questions).toEqual(questionsMass);
-  });
-});
-
-describe('unfollowCommunity', () => {
-  const communityIdFilter = 'user';
-  const selectedAccount = 10;
-
-  it('test', async () => {
-    await unfollowCommunity(eosService, communityIdFilter, selectedAccount);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      selectedAccount,
-      UNFOLLOW_COMM,
-      {
-        user: selectedAccount,
-        community_id: communityIdFilter,
-      },
-    );
-  });
-});
-
-describe('followCommunity', () => {
-  const communityIdFilter = 'user';
-  const selectedAccount = 10;
-
-  it('test', async () => {
-    await followCommunity(eosService, communityIdFilter, selectedAccount);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      selectedAccount,
-      FOLLOW_COMM,
-      {
-        user: selectedAccount,
-        community_id: communityIdFilter,
-      },
-    );
   });
 });
 

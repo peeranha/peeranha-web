@@ -46,7 +46,6 @@ describe('getQuestionsWorker', () => {
   };
 
   const communities = [];
-  let profileInfo = null;
 
   const eos = { id: 1, getSelectedAccount: jest.fn() };
 
@@ -91,7 +90,6 @@ describe('getQuestionsWorker', () => {
 
   describe('communityIdFilter > 0', () => {
     res.communityIdFilter = 10;
-    profileInfo = null;
 
     const generator = getQuestionsWorker(res);
 
@@ -105,11 +103,11 @@ describe('getQuestionsWorker', () => {
   });
 
   describe('communityIdFilter === 0 && parentPage === feed && followedCommunities', () => {
+    const fetcher = {};
+
     res.communityIdFilter = 0;
     res.parentPage = routes.feed();
-    profileInfo = {
-      followed_communities: [],
-    };
+    res.fetcher = fetcher;
 
     const generator = getQuestionsWorker(res);
 
@@ -119,10 +117,8 @@ describe('getQuestionsWorker', () => {
     it('getQuestionsFilteredByCommunities', () => {
       generator.next(communities);
       expect(getQuestionsForFollowedCommunities).toHaveBeenCalledWith(
-        eos,
         res.limit,
-        res.offset,
-        profileInfo.followed_communities,
+        res.fetcher,
       );
     });
   });

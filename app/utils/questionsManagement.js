@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import {
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
@@ -29,6 +27,114 @@ import {
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
 } from './constants';
+
+/* eslint-disable  */
+export class FetcherOfQuestionsForFollowedCommunities {
+  constructor(firstFetchCount = 5, communities, eosService) {
+    this.eosService = eosService;
+    this.firstFetchCount = firstFetchCount;
+    this.communities = communities;
+
+    if (!communities.length) return null;
+
+    this.communitiesMap = {};
+
+    communities.forEach(community_id => {
+      const lowerBound = BigInt(community_id) << BigInt(36);
+      this.communitiesMap[community_id] = {
+        items: [],
+        lowerBound,
+        lastKeyFetched: `${lowerBound}`,
+        uppperBound: `${BigInt(community_id + 1) << BigInt(36)}`,
+        more: true,
+      };
+    });
+
+    this.hasMore = true;
+  }
+
+  getNextItems = async fetchCount => {
+    if (!this.hasMore) return [];
+
+    const inc = BigInt(1);
+
+    const fill_fetcher = async community_id => {
+      if (
+        !this.communitiesMap[community_id].more ||
+        this.communitiesMap[community_id].items.length >= fetchCount
+      )
+        return null;
+
+      const limit =
+        this.firstFetchCount - this.communitiesMap[community_id].items.length;
+
+      const fetch_res = await this.eosService.getTableRows(
+        QUESTION_TABLE,
+        ALL_QUESTIONS_SCOPE,
+        this.communitiesMap[community_id].lastKeyFetched,
+        limit,
+        this.communitiesMap[community_id].uppperBound,
+        GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
+        GET_QUESTIONS_KEY_TYPE,
+      );
+
+      this.communitiesMap[community_id].items.push(...fetch_res);
+
+      if (fetch_res.length === limit) {
+        this.communitiesMap[community_id].lastKeyFetched = `${this
+          .communitiesMap[community_id].lowerBound +
+          BigInt(fetch_res[fetch_res.length - 1].id) +
+          inc}`;
+      } else {
+        this.communitiesMap[community_id].more = false;
+      }
+    };
+
+    const fill_fetcher_task = [];
+
+    this.communities.forEach(community_id => {
+      fill_fetcher_task.push(fill_fetcher(community_id));
+    });
+
+    await Promise.all(fill_fetcher_task);
+
+    let availableItems = 0;
+
+    this.communities.forEach(community_id => {
+      availableItems += this.communitiesMap[community_id].items.length;
+    });
+
+    if (availableItems < fetchCount) {
+      this.hasMore = false;
+      fetchCount = availableItems;
+    }
+
+    const minIdInitializer = BigInt(1) << BigInt(65);
+    const items = [];
+
+    for (let i = 0; i < fetchCount; i++) {
+      // Find min
+      let minId = minIdInitializer;
+      let communityWithMinId;
+
+      this.communities.forEach(community_id => {
+        if (this.communitiesMap[community_id].items.length) {
+          const currId = BigInt(this.communitiesMap[community_id].items[0].id);
+          if (currId < minId) {
+            minId = currId;
+            communityWithMinId = community_id;
+          }
+        }
+      });
+
+      items.push(this.communitiesMap[communityWithMinId].items[0]);
+      this.communitiesMap[communityWithMinId].items.shift();
+    }
+
+    return items;
+  }
+}
+/* eslint-enable  */
 
 export async function getQuestionsPostedByUser(eosService, user) {
   const questions = await eosService.getTableRows(
@@ -73,37 +179,10 @@ export async function getQuestionsFilteredByCommunities(
 }
 
 /* eslint no-undef: 0 */
-/* istanbul ignore next */
-export async function getQuestionsForFollowedCommunities(
-  eosService,
-  limit,
-  offset,
-  followedCommunities,
-) {
-  let questions = [];
+export async function getQuestionsForFollowedCommunities(limit, fetcher) {
+  const questions = await fetcher.getNextItems(limit);
 
-  await Promise.all(
-    followedCommunities.map(async id => {
-      const q = await eosService.getTableRows(
-        QUESTION_TABLE,
-        ALL_QUESTIONS_SCOPE,
-        String((BigInt(id) << BigInt(36)) + BigInt(offset)),
-        limit,
-        String(BigInt(id + 1) << BigInt(36)),
-        GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
-        GET_QUESTIONS_KEY_TYPE,
-      );
-
-      questions = questions.concat(q);
-    }),
-  );
-
-  const questionsSortedByTime = _.orderBy(questions, x => x.post_time, [
-    'desc',
-  ]);
-  const questionsSortedByTimeLimited = _.take(questionsSortedByTime, limit);
-
-  return questionsSortedByTimeLimited;
+  return questions;
 }
 
 export async function voteToDelete(

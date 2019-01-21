@@ -1,28 +1,28 @@
 import { fromJS } from 'immutable';
 import {
   selectAccountProviderDomain,
-  makeSelectAccount,
   makeSelectLoading,
   makeSelectError,
+  makeSelectAccount,
   makeSelectProfileInfo,
-  makeSelectAccountError,
+  selectLoginSignupError,
   makeSelectForgetIdentityError,
 } from '../selectors';
 
 describe('selectAccountProviderDomain', () => {
-  const account = 'user2';
-  const loading = true;
-  const error = 'someError';
-  const profileInfo = false;
-  const selectAccountError = 'accError';
-  const forgetIdentityError = 'idError';
+  const loading = 'loading';
+  const error = 'error';
+  const account = 'account';
+  const profileInfo = fromJS({});
+  const loginSignupError = 'loginSignupError';
+  const forgetIdentityError = 'forgetIdentityError';
 
   const globalState = fromJS({
-    account,
     loading,
     error,
+    account,
     profileInfo,
-    selectAccountError,
+    loginSignupError,
     forgetIdentityError,
   });
 
@@ -50,13 +50,13 @@ describe('selectAccountProviderDomain', () => {
   });
 
   it('makeSelectProfileInfo', () => {
-    const userInSystem = makeSelectProfileInfo();
-    expect(userInSystem(mockedState)).toEqual(profileInfo);
+    const isProfileInfo = makeSelectProfileInfo();
+    expect(isProfileInfo(mockedState)).toEqual(profileInfo);
   });
 
-  it('makeSelectAccountError', () => {
-    const accError = makeSelectAccountError();
-    expect(accError(mockedState)).toEqual(selectAccountError);
+  it('selectLoginSignupError', () => {
+    const isSelectLoginSignupError = selectLoginSignupError();
+    expect(isSelectLoginSignupError(mockedState)).toEqual(loginSignupError);
   });
 
   it('makeSelectForgetIdentityError', () => {

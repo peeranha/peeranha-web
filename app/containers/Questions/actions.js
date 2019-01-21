@@ -22,6 +22,7 @@ export function getQuestions(
   offset,
   communityIdFilter,
   parentPage,
+  fetcher,
   next,
 ) {
   return {
@@ -30,6 +31,7 @@ export function getQuestions(
     offset,
     communityIdFilter,
     parentPage,
+    fetcher,
     next,
   };
 }

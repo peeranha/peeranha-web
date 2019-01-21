@@ -21,6 +21,7 @@ export function* getQuestionsWorker({
   offset,
   communityIdFilter,
   parentPage,
+  fetcher,
   next,
 }) {
   try {
@@ -49,12 +50,7 @@ export function* getQuestionsWorker({
     // Load questions for communities where I am
     if (communityIdFilter === 0 && parentPage === feed && followedCommunities) {
       questionsList = yield call(() =>
-        getQuestionsForFollowedCommunities(
-          eosService,
-          limit,
-          offset,
-          followedCommunities,
-        ),
+        getQuestionsForFollowedCommunities(limit, fetcher),
       );
     }
 
