@@ -16,11 +16,14 @@ import {
 import messages from 'containers/Profile/messages';
 import WarningMessage from './WarningMessage';
 
+/* istanbul ignore next */
 export const displayImageFunc = (edImg, cachedImg, savedImg) =>
   edImg && (cachedImg || savedImg);
 
+/* istanbul ignore next */
 export const displayAvatarFunc = (edImg, cachedImg) => !edImg && cachedImg;
 
+/* istanbul ignore next */
 function AvatarField({ input, label, disabled, sendProps, meta }) {
   let avatarRefs;
 

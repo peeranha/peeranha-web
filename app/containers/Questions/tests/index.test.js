@@ -1,6 +1,4 @@
 import { fromJS } from 'immutable';
-
-import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 import { Questions } from '../index';
 
 const cmp = new Questions();
@@ -40,13 +38,7 @@ describe('Questions', () => {
       cmp.props.eosService = {};
 
       cmp.componentDidUpdate();
-      expect(cmp.fetcher).toEqual(
-        new FetcherOfQuestionsForFollowedCommunities(
-          Math.floor(1.2 * cmp.props.initLoadedItems),
-          cmp.props.followedCommunities,
-          cmp.props.eosService,
-        ),
-      );
+      expect(!!cmp.fetcher.getNextItems).toBe(true);
     });
   });
 

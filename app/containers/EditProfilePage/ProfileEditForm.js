@@ -31,7 +31,7 @@ import {
 } from 'components/FormFields/validate';
 
 /* eslint-disable-next-line */
-export let ProfileEditForm = props => {
+export let ProfileEditForm = /* istanbul ignore next */ props => {
   const { handleSubmit, submitting, invalid, sendProps } = props;
   const viewUrl = routes.profile_view(sendProps.match.params.id);
 

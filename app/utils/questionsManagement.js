@@ -30,16 +30,12 @@ import {
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
-  /* istanbul ignore next */
-  constructor(
-    firstFetchCount = 5,
-    communities,
-    eosService,
-  ) /* istanbul ignore next */ {
+  constructor(firstFetchCount = 5, communities, eosService) {
     this.eosService = eosService;
     this.firstFetchCount = firstFetchCount;
+    this.communities = communities;
 
-    if (!this.firstFetchCount || !communities.length) return null;
+    if (!communities.length) return null;
 
     this.communitiesMap = {};
 
@@ -57,7 +53,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.hasMore = true;
   }
 
-  async getNextItems(fetchCount) /* istanbul ignore next */ {
+  getNextItems = async fetchCount => {
     if (!this.hasMore) return [];
 
     const inc = BigInt(1);
@@ -67,7 +63,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
         !this.communitiesMap[community_id].more ||
         this.communitiesMap[community_id].items.length >= fetchCount
       )
-        return;
+        return null;
 
       const limit =
         this.firstFetchCount - this.communitiesMap[community_id].items.length;
@@ -96,7 +92,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     const fill_fetcher_task = [];
 
-    Object.keys(this.communitiesMap).forEach(community_id => {
+    this.communities.forEach(community_id => {
       fill_fetcher_task.push(fill_fetcher(community_id));
     });
 
@@ -104,7 +100,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     let availableItems = 0;
 
-    Object.keys(this.communitiesMap).forEach(community_id => {
+    this.communities.forEach(community_id => {
       availableItems += this.communitiesMap[community_id].items.length;
     });
 
@@ -121,7 +117,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       let minId = minIdInitializer;
       let communityWithMinId;
 
-      Object.keys(this.communitiesMap).forEach(community_id => {
+      this.communities.forEach(community_id => {
         if (this.communitiesMap[community_id].items.length) {
           const currId = BigInt(this.communitiesMap[community_id].items[0].id);
           if (currId < minId) {

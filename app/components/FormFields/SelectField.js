@@ -4,6 +4,7 @@ import Select from 'react-select';
 
 import WarningMessage from './WarningMessage';
 
+/* istanbul ignore next */
 const SelectField = ({
   input,
   label,
