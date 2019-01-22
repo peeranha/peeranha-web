@@ -33,6 +33,9 @@ import EditAnswer from 'containers/EditAnswer';
 import Communities from 'containers/Communities';
 import CreateCommunity from 'containers/CreateCommunity';
 import SuggestedCommunities from 'containers/SuggestedCommunities';
+import Tags from 'containers/Tags';
+import CreateTag from 'containers/CreateTag';
+import SuggestedTags from 'containers/SuggestedTags';
 
 import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
@@ -73,6 +76,20 @@ export default function App /* istanbul ignore next */() {
         <Route
           path={routes.suggestedCommunities()}
           render={props => Wrapper(SuggestedCommunities, props)}
+        />
+
+        <Route
+          exact
+          path={routes.communityTags(':communityid')}
+          render={props => Wrapper(Tags, props)}
+        />
+        <Route
+          path={routes.tags_create(':communityid')}
+          render={props => Wrapper(CreateTag, props)}
+        />
+        <Route
+          path={routes.suggestedTags(':communityid')}
+          render={props => Wrapper(SuggestedTags, props)}
         />
 
         <Route

@@ -14,3 +14,8 @@ export const feed = () => `/feed`;
 export const communities = () => `/communities`;
 export const communities_create = () => `/communities/create`;
 export const suggestedCommunities = () => `/communities/suggested`;
+export const communityTags = communityid => `/communities/${communityid}/tags`;
+export const suggestedTags = communityid =>
+  `/communities/${communityid}/tags/suggested`;
+export const tags_create = communityid =>
+  `/communities/${communityid}/tags/create`;

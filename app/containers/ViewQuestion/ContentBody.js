@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tags from 'components/Tags';
+import Tags from 'components/TagsList';
 import Community from 'components/Community';
 
 import TextBlock from './TextBlock';

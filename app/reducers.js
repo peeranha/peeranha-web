@@ -24,6 +24,8 @@ import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
 import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
 import createCommunityReducer from 'containers/CreateCommunity/reducer';
 import suggestedCommunitiesReducer from 'containers/SuggestedCommunities/reducer';
+import createTagReducer from 'containers/CreateTag/reducer';
+import suggestedTagsReducer from 'containers/SuggestedTags/reducer';
 
 /*
  * routeReducer
@@ -76,6 +78,8 @@ export default function createReducer(injectedReducers) {
     followCommunityButton: followCommunityButtonReducer,
     createCommunity: createCommunityReducer,
     suggestedCommunities: suggestedCommunitiesReducer,
+    createTag: createTagReducer,
+    suggestedTags: suggestedTagsReducer,
     form: formReducer,
     ...injectedReducers,
   });

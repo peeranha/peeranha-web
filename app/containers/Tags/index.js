@@ -20,37 +20,38 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { createCommunityValidator } from './validate';
+import { createTagValidator } from './validate';
 import messages from './messages';
 
-import CommunitiesView from './CommunitiesView';
-import CommunitiesHeader from './CommunitiesHeader';
+import TagsView from './TagsView';
+import TagsHeader from './TagsHeader';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Communities extends React.Component {
+export class Tags extends React.Component {
   /* eslint consistent-return: 0 */
-  goToCreateCommunityScreen = () => {
-    const { profile, locale } = this.props;
+  goToCreateTagScreen = () => {
+    const { profile, locale, match } = this.props;
 
     if (!profile) {
       this.props.showLoginModalDispatch();
       return null;
     }
 
-    const isValid = createCommunityValidator(
-      profile,
-      translationMessages[locale],
-    );
+    const isValid = createTagValidator(profile, translationMessages[locale]);
 
     if (!isValid) {
       return null;
     }
 
-    createdHistory.push(routes.communities_create());
+    createdHistory.push(routes.tags_create(match.params.communityid));
   };
 
   render() {
-    const { communities, locale } = this.props;
+    const { communities, locale, match } = this.props;
+    const { communityid } = match.params;
+    const community = communities.length
+      ? communities.filter(x => x.id === +communityid)[0]
+      : null;
 
     return (
       <div className="container">
@@ -62,24 +63,22 @@ export class Communities extends React.Component {
           />
         </Helmet>
 
-        <CommunitiesHeader
-          goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+        <TagsHeader
+          communityid={communityid}
+          goToCreateTagScreen={this.goToCreateTagScreen}
         />
 
-        {communities.length ? (
-          <CommunitiesView communities={communities} />
-        ) : (
-          <LoadingIndicator />
-        )}
+        {community ? <TagsView tags={community.tags} /> : <LoadingIndicator />}
       </div>
     );
   }
 }
 
-Communities.propTypes = {
+Tags.propTypes = {
   communities: PropTypes.array.isRequired,
   locale: PropTypes.string.isRequired,
   profile: PropTypes.object,
+  match: PropTypes.object,
   showLoginModalDispatch: PropTypes.func.isRequired,
 };
 
@@ -100,4 +99,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Communities);
+)(Tags);
