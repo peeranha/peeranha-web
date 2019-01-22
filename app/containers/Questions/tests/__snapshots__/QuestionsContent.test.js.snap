@@ -35,7 +35,7 @@ exports[`QuestionsContent QuestionItem, snapshot test 1`] = `
       />
     </p>
     <Community />
-    <Tags />
+    <TagsList />
   </div>
   <div
     className="votes-answers"

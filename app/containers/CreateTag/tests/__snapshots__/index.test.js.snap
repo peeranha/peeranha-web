@@ -1,24 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ErrorBoundary /> snapshot test error is not null 1`] = `
-Array [
-  <div>
-    <HelmetWrapper
-      defer={true}
-      encodeSpecialCharacters={true}
-    >
-      <title>
-        Error
-      </title>
-      <meta
-        content="Description of error boundary"
-        name="description"
-      />
-    </HelmetWrapper>
-    <ErrorBoundryMessage
-      error={Object {}}
-      errorInfo={Object {}}
-      reloadApp={[Function]}
+exports[`<CreateTag /> render 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Create tag
+    </title>
+    <meta
+      content="Create tag | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Wrapper>
+    <ReduxForm
+      createTag={[Function]}
+      createTagLoading={false}
       translations={
         Object {
           "app.components.Footer.header": "Copyright: Peerania",
@@ -246,14 +247,6 @@ Array [
         }
       }
     />
-  </div>,
-]
-`;
-
-exports[`<ErrorBoundary /> snapshot test error is null 1`] = `
-Array [
-  <div>
-    Children
-  </div>,
-]
+  </Wrapper>
+</div>
 `;

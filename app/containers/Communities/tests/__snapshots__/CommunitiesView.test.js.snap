@@ -16,11 +16,28 @@ exports[`CommunitiesView test 1`] = `
       <span>
         label
       </span>
-      <withReducer(withSaga(Connect(FollowCommunityButton)))
-        communityIdFilter={1}
-      />
+      <div>
+        <Link
+          href="/communities/1/tags"
+          replace={false}
+          to="/communities/1/tags"
+        >
+          <button
+            className="btn btn-secondary"
+          >
+            <FormattedMessage
+              defaultMessage="Tags"
+              id="app.containers.Communities.tags"
+              values={Object {}}
+            />
+          </button>
+        </Link>
+        <withReducer(withSaga(Connect(FollowCommunityButton)))
+          communityIdFilter={1}
+        />
+      </div>
     </div>
-    <Tags
+    <TagsList
       communities={
         Array [
           Object {

@@ -1,0 +1,1110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateTagForm /> snapshot test 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "injectedReducers": Object {},
+      "injectedSagas": Object {},
+      "replaceReducer": [Function],
+      "runSaga": [Function],
+      "subscribe": [Function],
+      Symbol(Symbol.observable): [Function],
+    }
+  }
+>
+  <Connect(LanguageProvider)
+    key="en"
+    locale="en"
+    messages={Object {}}
+  >
+    <LanguageProvider
+      dispatch={[Function]}
+      locale="en"
+      messages={Object {}}
+    >
+      <IntlProvider
+        key="en"
+        locale="en"
+      >
+        <ConnectedRouter
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "length": 1,
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+        >
+          <Router
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+          >
+            <ReduxForm
+              createTag={[MockFunction]}
+              createTagLoading={false}
+              handleSubmit={[Function]}
+              invalid={true}
+              submitting={true}
+              translations={Object {}}
+            >
+              <Connect(Form(CreateTagForm))
+                createTag={[MockFunction]}
+                createTagLoading={false}
+                destroyOnUnmount={true}
+                enableReinitialize={false}
+                forceUnregisterOnUnmount={false}
+                form="CreateTagForm"
+                getFormState={[Function]}
+                handleSubmit={[Function]}
+                invalid={true}
+                keepDirtyOnReinitialize={false}
+                persistentSubmitErrors={false}
+                pure={true}
+                shouldAsyncValidate={[Function]}
+                shouldError={[Function]}
+                shouldValidate={[Function]}
+                shouldWarn={[Function]}
+                submitting={true}
+                touchOnBlur={true}
+                touchOnChange={false}
+                translations={Object {}}
+                updateUnregisteredFields={false}
+              >
+                <Form(CreateTagForm)
+                  anyTouched={false}
+                  array={
+                    Object {
+                      "insert": [Function],
+                      "move": [Function],
+                      "pop": [Function],
+                      "push": [Function],
+                      "remove": [Function],
+                      "removeAll": [Function],
+                      "shift": [Function],
+                      "splice": [Function],
+                      "swap": [Function],
+                      "unshift": [Function],
+                    }
+                  }
+                  arrayInsert={[Function]}
+                  arrayMove={[Function]}
+                  arrayPop={[Function]}
+                  arrayPush={[Function]}
+                  arrayRemove={[Function]}
+                  arrayRemoveAll={[Function]}
+                  arrayShift={[Function]}
+                  arraySplice={[Function]}
+                  arraySwap={[Function]}
+                  arrayUnshift={[Function]}
+                  asyncValidating={false}
+                  autofill={[Function]}
+                  blur={[Function]}
+                  change={[Function]}
+                  clearAsyncError={[Function]}
+                  clearFields={[Function]}
+                  clearSubmit={[Function]}
+                  clearSubmitErrors={[Function]}
+                  createTag={[MockFunction]}
+                  createTagLoading={false}
+                  destroy={[Function]}
+                  destroyOnUnmount={true}
+                  dirty={false}
+                  dispatch={[Function]}
+                  enableReinitialize={false}
+                  focus={[Function]}
+                  forceUnregisterOnUnmount={false}
+                  form="CreateTagForm"
+                  getFormState={[Function]}
+                  handleSubmit={[Function]}
+                  initialize={[Function]}
+                  initialized={false}
+                  invalid={true}
+                  keepDirtyOnReinitialize={false}
+                  persistentSubmitErrors={false}
+                  pristine={true}
+                  pure={true}
+                  registerField={[Function]}
+                  registeredFields={
+                    Immutable.Map {
+                      "app_CreateTag_NAME_FIELD": Immutable.Map {
+                        "name": "app_CreateTag_NAME_FIELD",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                      "app_CreateTag_DESCRIPTION_FIELD": Immutable.Map {
+                        "name": "app_CreateTag_DESCRIPTION_FIELD",
+                        "type": "Field",
+                        "count": 1,
+                      },
+                    }
+                  }
+                  reset={[Function]}
+                  resetSection={[Function]}
+                  setSubmitFailed={[Function]}
+                  setSubmitSucceeded={[Function]}
+                  shouldAsyncValidate={[Function]}
+                  shouldError={[Function]}
+                  shouldValidate={[Function]}
+                  shouldWarn={[Function]}
+                  startAsyncValidation={[Function]}
+                  startSubmit={[Function]}
+                  stopAsyncValidation={[Function]}
+                  stopSubmit={[Function]}
+                  submit={[Function]}
+                  submitFailed={false}
+                  submitSucceeded={false}
+                  submitting={false}
+                  syncErrors={
+                    Object {
+                      "app_CreateTag_DESCRIPTION_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                      "app_CreateTag_NAME_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                    }
+                  }
+                  syncWarnings={
+                    Object {
+                      "app_CreateTag_DESCRIPTION_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                      "app_CreateTag_NAME_FIELD": Object {
+                        "defaultMessage": "Required field",
+                        "id": "app.containers.FormFields.requiredField",
+                      },
+                    }
+                  }
+                  touch={[Function]}
+                  touchOnBlur={true}
+                  touchOnChange={false}
+                  translations={Object {}}
+                  unregisterField={[Function]}
+                  untouch={[Function]}
+                  updateSyncErrors={[Function]}
+                  updateSyncWarnings={[Function]}
+                  updateUnregisteredFields={false}
+                  valid={false}
+                  validExceptSubmit={false}
+                  values={Immutable.Map {}}
+                >
+                  <CreateTagForm
+                    anyTouched={false}
+                    array={
+                      Object {
+                        "insert": [Function],
+                        "move": [Function],
+                        "pop": [Function],
+                        "push": [Function],
+                        "remove": [Function],
+                        "removeAll": [Function],
+                        "shift": [Function],
+                        "splice": [Function],
+                        "swap": [Function],
+                        "unshift": [Function],
+                      }
+                    }
+                    asyncValidate={[Function]}
+                    asyncValidating={false}
+                    autofill={[Function]}
+                    blur={[Function]}
+                    change={[Function]}
+                    clearAsyncError={[Function]}
+                    clearFields={[Function]}
+                    clearSubmit={[Function]}
+                    clearSubmitErrors={[Function]}
+                    createTag={[MockFunction]}
+                    createTagLoading={false}
+                    destroy={[Function]}
+                    dirty={false}
+                    dispatch={[Function]}
+                    form="CreateTagForm"
+                    handleSubmit={[Function]}
+                    initialize={[Function]}
+                    initialized={false}
+                    invalid={true}
+                    pristine={true}
+                    pure={true}
+                    reset={[Function]}
+                    resetSection={[Function]}
+                    submit={[Function]}
+                    submitFailed={false}
+                    submitSucceeded={false}
+                    submitting={false}
+                    touch={[Function]}
+                    translations={Object {}}
+                    untouch={[Function]}
+                    valid={false}
+                  >
+                    <form>
+                      <div>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          name="app_CreateTag_NAME_FIELD"
+                          validate={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                          warn={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createTag": [MockFunction],
+                                "createTagLoading": false,
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "CreateTagForm",
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registeredFields": Immutable.Map {
+                                  "app_CreateTag_NAME_FIELD": Immutable.Map {
+                                    "name": "app_CreateTag_NAME_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app_CreateTag_DESCRIPTION_FIELD": Immutable.Map {
+                                    "name": "app_CreateTag_DESCRIPTION_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app_CreateTag_NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "syncWarnings": Object {
+                                  "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app_CreateTag_NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            name="app_CreateTag_NAME_FIELD"
+                            normalize={[Function]}
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createTag": [MockFunction],
+                                  "createTagLoading": false,
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "CreateTagForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": Immutable.Map {
+                                    "app_CreateTag_NAME_FIELD": Immutable.Map {
+                                      "name": "app_CreateTag_NAME_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app_CreateTag_DESCRIPTION_FIELD": Immutable.Map {
+                                      "name": "app_CreateTag_DESCRIPTION_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app_CreateTag_NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app_CreateTag_NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              name="app_CreateTag_NAME_FIELD"
+                              normalize={[Function]}
+                              pristine={true}
+                              syncError={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              syncWarning={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                            >
+                              <TextInputField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app_CreateTag_NAME_FIELD",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "form": "CreateTagForm",
+                                    "initial": undefined,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": false,
+                                    "visited": false,
+                                    "warning": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  }
+                                }
+                              >
+                                <div>
+                                  <h6 />
+                                  <input
+                                    className="form-control"
+                                    disabled={false}
+                                    name="app_CreateTag_NAME_FIELD"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    type="text"
+                                    value=""
+                                  />
+                                  <WarningMessage
+                                    active={false}
+                                    asyncValidating={false}
+                                    autofilled={false}
+                                    dirty={false}
+                                    dispatch={[Function]}
+                                    error={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                    form="CreateTagForm"
+                                    invalid={true}
+                                    pristine={true}
+                                    submitFailed={false}
+                                    submitting={false}
+                                    touched={false}
+                                    valid={false}
+                                    visited={false}
+                                    warning={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                  />
+                                </div>
+                              </TextInputField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                        <Field
+                          component={[Function]}
+                          disabled={false}
+                          name="app_CreateTag_DESCRIPTION_FIELD"
+                          validate={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                          warn={
+                            Array [
+                              [Function],
+                              [Function],
+                            ]
+                          }
+                        >
+                          <Connect(ConnectedField)
+                            _reduxForm={
+                              Object {
+                                "anyTouched": false,
+                                "array": Object {
+                                  "insert": [Function],
+                                  "move": [Function],
+                                  "pop": [Function],
+                                  "push": [Function],
+                                  "remove": [Function],
+                                  "removeAll": [Function],
+                                  "shift": [Function],
+                                  "splice": [Function],
+                                  "swap": [Function],
+                                  "unshift": [Function],
+                                },
+                                "arrayInsert": [Function],
+                                "arrayMove": [Function],
+                                "arrayPop": [Function],
+                                "arrayPush": [Function],
+                                "arrayRemove": [Function],
+                                "arrayRemoveAll": [Function],
+                                "arrayShift": [Function],
+                                "arraySplice": [Function],
+                                "arraySwap": [Function],
+                                "arrayUnshift": [Function],
+                                "asyncErrors": undefined,
+                                "asyncValidate": [Function],
+                                "asyncValidating": false,
+                                "autofill": [Function],
+                                "blur": [Function],
+                                "change": [Function],
+                                "clearAsyncError": [Function],
+                                "clearFields": [Function],
+                                "clearSubmit": [Function],
+                                "clearSubmitErrors": [Function],
+                                "createTag": [MockFunction],
+                                "createTagLoading": false,
+                                "destroy": [Function],
+                                "destroyOnUnmount": true,
+                                "dirty": false,
+                                "dispatch": [Function],
+                                "enableReinitialize": false,
+                                "error": undefined,
+                                "focus": [Function],
+                                "forceUnregisterOnUnmount": false,
+                                "form": "CreateTagForm",
+                                "getFormState": [Function],
+                                "getValues": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": undefined,
+                                "initialize": [Function],
+                                "initialized": false,
+                                "invalid": true,
+                                "keepDirtyOnReinitialize": false,
+                                "persistentSubmitErrors": false,
+                                "pristine": true,
+                                "pure": true,
+                                "register": [Function],
+                                "registerField": [Function],
+                                "registerInnerOnSubmit": [Function],
+                                "registeredFields": Immutable.Map {
+                                  "app_CreateTag_NAME_FIELD": Immutable.Map {
+                                    "name": "app_CreateTag_NAME_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                  "app_CreateTag_DESCRIPTION_FIELD": Immutable.Map {
+                                    "name": "app_CreateTag_DESCRIPTION_FIELD",
+                                    "type": "Field",
+                                    "count": 1,
+                                  },
+                                },
+                                "reset": [Function],
+                                "resetSection": [Function],
+                                "sectionPrefix": undefined,
+                                "setSubmitFailed": [Function],
+                                "setSubmitSucceeded": [Function],
+                                "shouldAsyncValidate": [Function],
+                                "shouldError": [Function],
+                                "shouldValidate": [Function],
+                                "shouldWarn": [Function],
+                                "startAsyncValidation": [Function],
+                                "startSubmit": [Function],
+                                "stopAsyncValidation": [Function],
+                                "stopSubmit": [Function],
+                                "submit": [Function],
+                                "submitFailed": false,
+                                "submitSucceeded": false,
+                                "submitting": false,
+                                "syncErrors": Object {
+                                  "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app_CreateTag_NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "syncWarnings": Object {
+                                  "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                  "app_CreateTag_NAME_FIELD": Object {
+                                    "defaultMessage": "Required field",
+                                    "id": "app.containers.FormFields.requiredField",
+                                  },
+                                },
+                                "touch": [Function],
+                                "touchOnBlur": true,
+                                "touchOnChange": false,
+                                "translations": Object {},
+                                "triggerSubmit": undefined,
+                                "unregister": [Function],
+                                "unregisterField": [Function],
+                                "untouch": [Function],
+                                "updateSyncErrors": [Function],
+                                "updateSyncWarnings": [Function],
+                                "updateUnregisteredFields": false,
+                                "valid": false,
+                                "validExceptSubmit": false,
+                                "values": Immutable.Map {},
+                                "warning": undefined,
+                              }
+                            }
+                            component={[Function]}
+                            disabled={false}
+                            name="app_CreateTag_DESCRIPTION_FIELD"
+                            normalize={[Function]}
+                            validate={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                            warn={
+                              Array [
+                                [Function],
+                                [Function],
+                              ]
+                            }
+                          >
+                            <ConnectedField
+                              _reduxForm={
+                                Object {
+                                  "anyTouched": false,
+                                  "array": Object {
+                                    "insert": [Function],
+                                    "move": [Function],
+                                    "pop": [Function],
+                                    "push": [Function],
+                                    "remove": [Function],
+                                    "removeAll": [Function],
+                                    "shift": [Function],
+                                    "splice": [Function],
+                                    "swap": [Function],
+                                    "unshift": [Function],
+                                  },
+                                  "arrayInsert": [Function],
+                                  "arrayMove": [Function],
+                                  "arrayPop": [Function],
+                                  "arrayPush": [Function],
+                                  "arrayRemove": [Function],
+                                  "arrayRemoveAll": [Function],
+                                  "arrayShift": [Function],
+                                  "arraySplice": [Function],
+                                  "arraySwap": [Function],
+                                  "arrayUnshift": [Function],
+                                  "asyncErrors": undefined,
+                                  "asyncValidate": [Function],
+                                  "asyncValidating": false,
+                                  "autofill": [Function],
+                                  "blur": [Function],
+                                  "change": [Function],
+                                  "clearAsyncError": [Function],
+                                  "clearFields": [Function],
+                                  "clearSubmit": [Function],
+                                  "clearSubmitErrors": [Function],
+                                  "createTag": [MockFunction],
+                                  "createTagLoading": false,
+                                  "destroy": [Function],
+                                  "destroyOnUnmount": true,
+                                  "dirty": false,
+                                  "dispatch": [Function],
+                                  "enableReinitialize": false,
+                                  "error": undefined,
+                                  "focus": [Function],
+                                  "forceUnregisterOnUnmount": false,
+                                  "form": "CreateTagForm",
+                                  "getFormState": [Function],
+                                  "getValues": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": undefined,
+                                  "initialize": [Function],
+                                  "initialized": false,
+                                  "invalid": true,
+                                  "keepDirtyOnReinitialize": false,
+                                  "persistentSubmitErrors": false,
+                                  "pristine": true,
+                                  "pure": true,
+                                  "register": [Function],
+                                  "registerField": [Function],
+                                  "registerInnerOnSubmit": [Function],
+                                  "registeredFields": Immutable.Map {
+                                    "app_CreateTag_NAME_FIELD": Immutable.Map {
+                                      "name": "app_CreateTag_NAME_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                    "app_CreateTag_DESCRIPTION_FIELD": Immutable.Map {
+                                      "name": "app_CreateTag_DESCRIPTION_FIELD",
+                                      "type": "Field",
+                                      "count": 1,
+                                    },
+                                  },
+                                  "reset": [Function],
+                                  "resetSection": [Function],
+                                  "sectionPrefix": undefined,
+                                  "setSubmitFailed": [Function],
+                                  "setSubmitSucceeded": [Function],
+                                  "shouldAsyncValidate": [Function],
+                                  "shouldError": [Function],
+                                  "shouldValidate": [Function],
+                                  "shouldWarn": [Function],
+                                  "startAsyncValidation": [Function],
+                                  "startSubmit": [Function],
+                                  "stopAsyncValidation": [Function],
+                                  "stopSubmit": [Function],
+                                  "submit": [Function],
+                                  "submitFailed": false,
+                                  "submitSucceeded": false,
+                                  "submitting": false,
+                                  "syncErrors": Object {
+                                    "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app_CreateTag_NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "syncWarnings": Object {
+                                    "app_CreateTag_DESCRIPTION_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "app_CreateTag_NAME_FIELD": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  },
+                                  "touch": [Function],
+                                  "touchOnBlur": true,
+                                  "touchOnChange": false,
+                                  "translations": Object {},
+                                  "triggerSubmit": undefined,
+                                  "unregister": [Function],
+                                  "unregisterField": [Function],
+                                  "untouch": [Function],
+                                  "updateSyncErrors": [Function],
+                                  "updateSyncWarnings": [Function],
+                                  "updateUnregisteredFields": false,
+                                  "valid": false,
+                                  "validExceptSubmit": false,
+                                  "values": Immutable.Map {},
+                                  "warning": undefined,
+                                }
+                              }
+                              asyncValidating={false}
+                              component={[Function]}
+                              dirty={false}
+                              disabled={false}
+                              dispatch={[Function]}
+                              name="app_CreateTag_DESCRIPTION_FIELD"
+                              normalize={[Function]}
+                              pristine={true}
+                              syncError={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              syncWarning={
+                                Object {
+                                  "defaultMessage": "Required field",
+                                  "id": "app.containers.FormFields.requiredField",
+                                }
+                              }
+                              validate={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                              warn={
+                                Array [
+                                  [Function],
+                                  [Function],
+                                ]
+                              }
+                            >
+                              <TextareaField
+                                disabled={false}
+                                input={
+                                  Object {
+                                    "name": "app_CreateTag_DESCRIPTION_FIELD",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "onDragStart": [Function],
+                                    "onDrop": [Function],
+                                    "onFocus": [Function],
+                                    "value": "",
+                                  }
+                                }
+                                meta={
+                                  Object {
+                                    "active": false,
+                                    "asyncValidating": false,
+                                    "autofilled": false,
+                                    "dirty": false,
+                                    "dispatch": [Function],
+                                    "error": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                    "form": "CreateTagForm",
+                                    "initial": undefined,
+                                    "invalid": true,
+                                    "pristine": true,
+                                    "submitFailed": false,
+                                    "submitting": false,
+                                    "touched": false,
+                                    "valid": false,
+                                    "visited": false,
+                                    "warning": Object {
+                                      "defaultMessage": "Required field",
+                                      "id": "app.containers.FormFields.requiredField",
+                                    },
+                                  }
+                                }
+                              >
+                                <div>
+                                  <h6 />
+                                  <textarea
+                                    className="textarea form-control"
+                                    disabled={false}
+                                    name="app_CreateTag_DESCRIPTION_FIELD"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    value=""
+                                  />
+                                  <WarningMessage
+                                    active={false}
+                                    asyncValidating={false}
+                                    autofilled={false}
+                                    dirty={false}
+                                    dispatch={[Function]}
+                                    error={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                    form="CreateTagForm"
+                                    invalid={true}
+                                    pristine={true}
+                                    submitFailed={false}
+                                    submitting={false}
+                                    touched={false}
+                                    valid={false}
+                                    visited={false}
+                                    warning={
+                                      Object {
+                                        "defaultMessage": "Required field",
+                                        "id": "app.containers.FormFields.requiredField",
+                                      }
+                                    }
+                                  />
+                                </div>
+                              </TextareaField>
+                            </ConnectedField>
+                          </Connect(ConnectedField)>
+                        </Field>
+                      </div>
+                      <div>
+                        <button
+                          className="btn btn-success form-control"
+                          disabled={true}
+                          type="submit"
+                        />
+                      </div>
+                    </form>
+                  </CreateTagForm>
+                </Form(CreateTagForm)>
+              </Connect(Form(CreateTagForm))>
+            </ReduxForm>
+          </Router>
+        </ConnectedRouter>
+      </IntlProvider>
+    </LanguageProvider>
+  </Connect(LanguageProvider)>
+</Provider>
+`;

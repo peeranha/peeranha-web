@@ -41,7 +41,7 @@ export const downVoteValidator = (
   profile,
   locale,
   selectedAccount,
-  activeCommunity,
+  activeTag,
   buttonId,
 ) => {
   const MIN_RATING_TO_DOWNVOTE = 35;

@@ -112,7 +112,7 @@ export function* downVoteWorker({ communityid, tagid, buttonId }) {
     );
 
     if (!isValid) {
-      return yield put(upVoteErr('Validation Error'));
+      return yield put(downVoteErr('Validation Error'));
     }
 
     yield call(() =>

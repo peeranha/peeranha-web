@@ -6,18 +6,22 @@ jest.mock('utils/popover', () => ({
 
 describe('createCommunityValidator', () => {
   it('rating < MIN_RATING_TO_CREATE_COMMUNITY', () => {
-    const rating = 1000;
+    const profile = {
+      rating: 1000,
+    };
     const translations = {};
 
-    const isValid = createCommunityValidator(rating, translations);
+    const isValid = createCommunityValidator(profile, translations);
     expect(isValid).toBe(false);
   });
 
   it('rating > MIN_RATING_TO_CREATE_COMMUNITY', () => {
-    const rating = 11000;
+    const profile = {
+      rating: 11000,
+    };
     const translations = {};
 
-    const isValid = createCommunityValidator(rating, translations);
+    const isValid = createCommunityValidator(profile, translations);
     expect(isValid).toBe(true);
   });
 });

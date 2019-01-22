@@ -24,7 +24,6 @@ export function* suggestTagWorker({ tag, reset }) {
       createdHistory.push(routes.suggestedTags(tag.communityid)),
     );
   } catch (err) {
-    console.log(err);
     yield put(suggestTagErr(err.message));
   }
 }
