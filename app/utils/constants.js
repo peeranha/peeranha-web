@@ -65,3 +65,6 @@ export const FOLLOW_COMM = 'followcomm';
 export const CREATE_COMMUNITY = 'crcommunity';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
+export const CREATE_TAG = 'crtag';
+export const VOTE_TO_CREATE_TAG = 'vtcrtag';
+export const VOTE_TO_DELETE_TAG = 'vtdeltag';

@@ -9,6 +9,9 @@ import {
   CREATED_TAGS_COMMUNITIES_TABLE,
   VOTE_TO_CREATE_COMMUNITY,
   VOTE_TO_DELETE_COMMUNITY,
+  CREATE_TAG,
+  VOTE_TO_CREATE_TAG,
+  VOTE_TO_DELETE_TAG,
 } from './constants';
 
 /* eslint-disable */
@@ -34,6 +37,59 @@ export function getTagScope(communityId) {
   return ret;
 }
 /* eslint-enable */
+
+export async function suggestTag(eosService, selectedAccount, tag) {
+  const tagIpfsHash = await saveText(JSON.stringify(tag));
+
+  await eosService.sendTransaction(selectedAccount, CREATE_TAG, {
+    user: selectedAccount,
+    community_id: +tag.communityid,
+    name: tag.name,
+    ipfs_description: tagIpfsHash,
+  });
+}
+export async function getSuggestedTags(eosService, communityid) {
+  const tags = await eosService.getTableRows(
+    CREATED_TAGS_COMMUNITIES_TABLE,
+    getTagScope(communityid),
+    0,
+  );
+
+  await Promise.all(
+    tags.map(async x => {
+      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
+      x.description = ipfsDescription.description;
+    }),
+  );
+
+  return tags;
+}
+
+export async function upVoteToCreateTag(
+  eosService,
+  selectedAccount,
+  communityId,
+  tagid,
+) {
+  await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_TAG, {
+    user: selectedAccount,
+    community_id: +communityId,
+    tag_id: +tagid,
+  });
+}
+
+export async function downVoteToCreateTag(
+  eosService,
+  selectedAccount,
+  communityId,
+  tagid,
+) {
+  await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_TAG, {
+    user: selectedAccount,
+    community_id: +communityId,
+    tag_id: +tagid,
+  });
+}
 
 /* eslint no-param-reassign: 0 */
 export async function getAllCommunities(eosService) {

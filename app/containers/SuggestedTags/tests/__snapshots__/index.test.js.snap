@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SuggestedTags /> render communitiesLoading FALSE | !tags.length 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested tags
+    </title>
+    <meta
+      content="Suggested tags | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <NoSuggestedTags />
+  <SuggestedTagsView
+    downVote={[Function]}
+    tags={Array []}
+    upVote={[Function]}
+  />
+</div>
+`;
+
+exports[`<SuggestedTags /> render communitiesLoading FALSE | tags.length 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested tags
+    </title>
+    <meta
+      content="Suggested tags | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <SuggestedTagsView
+    downVote={[Function]}
+    tags={
+      Array [
+        Object {},
+      ]
+    }
+    upVote={[Function]}
+  />
+</div>
+`;
+
+exports[`<SuggestedTags /> render tagsLoading TRUE 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested tags
+    </title>
+    <meta
+      content="Suggested tags | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <LoadingIndicator />
+</div>
+`;

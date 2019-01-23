@@ -1,4 +1,21 @@
 {
+  "app.containers.SuggestedTags.title": "Suggested tags",
+  "app.containers.SuggestedTags.description": "Suggested tags | Description",
+  "app.containers.SuggestedTags.youHaveAlreadyVoted": "You have already voted",
+  "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
+    "Creator cannot upvote own tag",
+  "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
+  "app.containers.CreateTag.title": "Create tag",
+  "app.containers.CreateTag.description": "Create tag | Description",
+  "app.containers.CreateTag.name": "Name",
+  "app.containers.CreateTag.descriptionField": "Description",
+  "app.containers.CreateTag.createTag": "Create tag",
+  "app.containers.Tags.title": "Tags",
+  "app.containers.Tags.description": "Description of Tags",
+  "app.containers.Tags.suggestedTags": "Suggested tags",
+  "app.containers.Tags.createTag": "Create tag",
+  "app.containers.SuggestedCommunities.noSuggestedCommunities":
+    "There are no suggested communities",
   "app.containers.SuggestedCommunities.noSuggestedCommunities":
     "There are no suggested communities",
   "app.containers.SuggestedCommunities.title": "Suggested communities",
@@ -10,6 +27,7 @@
     "Creator cannot upvote own community",
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",
+  "app.containers.Communities.tags": "Tags",
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",

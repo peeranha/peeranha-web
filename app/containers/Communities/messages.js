@@ -15,4 +15,8 @@ export default defineMessages({
     id: 'app.containers.Communities.description',
     defaultMessage: 'Communities | Description',
   },
+  tags: {
+    id: 'app.containers.Communities.tags',
+    defaultMessage: 'Tags',
+  },
 });

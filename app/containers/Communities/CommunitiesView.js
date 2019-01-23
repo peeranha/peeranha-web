@@ -1,9 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import Tags from 'components/Tags';
+import * as routes from 'routes-config';
+
+import Tags from 'components/TagsList';
 import FollowCommunityButton from 'containers/FollowCommunityButton';
+
+import messages from './messages';
 
 const CommunitiesView = ({ communities }) => (
   <div>
@@ -15,7 +21,17 @@ const CommunitiesView = ({ communities }) => (
       >
         <div className="mb-1 d-flex justify-content-between align-items-center">
           <span>{x.label}</span>
-          <FollowCommunityButton communityIdFilter={x.id} />
+          <div>
+            <Link
+              to={routes.communityTags(x.id)}
+              href={routes.communityTags(x.id)}
+            >
+              <button className="btn btn-secondary">
+                <FormattedMessage {...messages.tags} />
+              </button>
+            </Link>
+            <FollowCommunityButton communityIdFilter={x.id} />
+          </div>
         </div>
         <Tags communities={communities} communityId={x.value} />
       </div>

@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { getTimeFromDateToNow } from 'utils/datetime';
 import * as routes from 'routes-config';
 
-import Tags from 'components/Tags';
+import Tags from 'components/TagsList';
 import Community from 'components/Community';
 
 import messages from './messages';

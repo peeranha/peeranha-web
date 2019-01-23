@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tags /> render communities [] 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Tags
+    </title>
+    <meta
+      content="Description of Tags"
+      name="description"
+    />
+  </HelmetWrapper>
+  <TagsHeader
+    communityid="1"
+    goToCreateTagScreen={[Function]}
+  />
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`<Tags /> render communities [{ id: 1 }] 1`] = `
+<div
+  className="container"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Tags
+    </title>
+    <meta
+      content="Description of Tags"
+      name="description"
+    />
+  </HelmetWrapper>
+  <TagsHeader
+    communityid="1"
+    goToCreateTagScreen={[Function]}
+  />
+  <TagsView
+    tags={Array []}
+  />
+</div>
+`;

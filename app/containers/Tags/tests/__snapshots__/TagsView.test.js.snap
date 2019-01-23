@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagsView test 1`] = `
+<div>
+  <div
+    className="mb-2 p-2"
+    style={
+      Object {
+        "boxShadow": "0 0 2px rgba(0,0,0,0.2)",
+      }
+    }
+  >
+    <div
+      className="mb-1 d-flex justify-content-between align-items-center"
+    >
+      <span>
+        label
+      </span>
+    </div>
+  </div>
+</div>
+`;

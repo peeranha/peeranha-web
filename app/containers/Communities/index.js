@@ -38,7 +38,7 @@ export class Communities extends React.Component {
     }
 
     const isValid = createCommunityValidator(
-      profile.rating,
+      profile,
       translationMessages[locale],
     );
 

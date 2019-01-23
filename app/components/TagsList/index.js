@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tags = ({ chosenTags, communities, communityId }) => {
+const TagsList = ({ chosenTags, communities, communityId }) => {
   const community = communities.filter(x => communityId === x.id)[0];
 
   if (!community) return null;
@@ -21,10 +21,10 @@ const Tags = ({ chosenTags, communities, communityId }) => {
   );
 };
 
-Tags.propTypes = {
+TagsList.propTypes = {
   chosenTags: PropTypes.array,
   communities: PropTypes.array,
   communityId: PropTypes.number,
 };
 
-export default Tags;
+export default TagsList;
