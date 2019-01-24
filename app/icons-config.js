@@ -3,6 +3,9 @@ import {
   faChevronUp,
   faChevronDown,
   faCheck,
+  faSearch,
+  faPlus,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -17,3 +20,6 @@ library.add(faCheck);
 library.add(faYoutube);
 library.add(faTwitter);
 library.add(faFacebook);
+library.add(faSearch);
+library.add(faPlus);
+library.add(faEye);
