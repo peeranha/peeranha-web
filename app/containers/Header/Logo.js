@@ -1,15 +1,17 @@
 import styled from 'styled-components';
-import * as img from '../../images/header-logo.png';
 
-const height = 50;
-const Logo = styled.img`
-  height: ${height}px;
-  width: 160px;
-  background: url(${img}) no-repeat;
-  background-size: cover;
-  cursor: pointer;
-  border-radius: 3px;
-  padding: ${height / 2}px;
+const Logo = styled.div`
+  display: flex;
+  flex-basis: 210px;
+  justify-content: left;
+
+  img {
+    width: 180px;
+    position: relative;
+    height: 40px;
+    top: 5px;
+    cursor: pointer;
+  }
 `;
 
 export default Logo;

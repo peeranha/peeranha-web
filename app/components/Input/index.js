@@ -14,10 +14,16 @@ class Input extends React.PureComponent {
   };
 
   render() {
-    const { input = {}, type, placeholder, isSearchable } = this.props;
+    const {
+      input = {},
+      type,
+      placeholder,
+      isSearchable,
+      className,
+    } = this.props;
 
     return (
-      <InputStyled isText={this.state.isText}>
+      <InputStyled isText={this.state.isText} className={className}>
         <input
           {...input}
           type={this.state.isText ? 'text' : type}
@@ -43,6 +49,7 @@ class Input extends React.PureComponent {
 Input.propTypes = {
   input: PropTypes.object,
   type: PropTypes.string,
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   isSearchable: PropTypes.bool,
 };

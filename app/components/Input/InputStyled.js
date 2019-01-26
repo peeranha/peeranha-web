@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const InputStyled = styled.div`
   position: relative;
   display: flex;
+  flex: 1;
   align-items: center;
   transition: 0.5s;
 
@@ -14,6 +15,7 @@ const InputStyled = styled.div`
   }
 
   input {
+    flex: 1;
     height: 40px;
     border: 1px solid #c2c6d8;
     border-radius: 3px;
@@ -23,7 +25,6 @@ const InputStyled = styled.div`
     font-size: 16px;
     line-height: 20px;
     outline: none;
-    width: 100%;
 
     &:focus {
       box-shadow: 0 0 0 3px rgba(118, 153, 255, 0.4);

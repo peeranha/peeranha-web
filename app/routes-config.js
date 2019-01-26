@@ -12,6 +12,8 @@ export const question_ask = () => `/questions/ask`;
 export const no_access = () => `/no-access`;
 export const feed = () => `/feed`;
 export const communities = () => `/communities`;
+export const tags = () => `/tags`;
+export const users = () => `/users`;
 export const communities_create = () => `/communities/create`;
 export const suggestedCommunities = () => `/communities/suggested`;
 export const communityTags = communityid => `/communities/${communityid}/tags`;

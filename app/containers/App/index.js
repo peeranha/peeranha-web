@@ -36,19 +36,28 @@ import SuggestedCommunities from 'containers/SuggestedCommunities';
 import Tags from 'containers/Tags';
 import CreateTag from 'containers/CreateTag';
 import SuggestedTags from 'containers/SuggestedTags';
+import LeftMenu from 'containers/LeftMenu';
 
-import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
 import Feed from 'components/Feed';
 
 import * as routes from 'routes-config';
+import styled from 'styled-components';
+
+const Content = styled.div`
+  background: rgb(234, 236, 244);
+`;
 
 const Wrapper = (WrappedComp, props) => [
   <Header key="header" />,
-  <div style={{ marginBottom: '100px' }} key="wrappedComp">
-    <WrappedComp {...props} />
-  </div>,
-  <Footer key="footer" />,
+  <Content key="wrappedComp">
+    <div className="container">
+      <div className="d-flex">
+        <LeftMenu {...props} />
+        <WrappedComp {...props} />
+      </div>
+    </div>
+  </Content>,
 ];
 
 export default function App /* istanbul ignore next */() {

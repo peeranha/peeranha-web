@@ -44,6 +44,8 @@ import { sendEmail, sendMessage } from './actions';
 
 import messages from './messages';
 
+const BG = { background: '#FFF' };
+
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
@@ -198,7 +200,7 @@ export class HomePage extends React.PureComponent {
     const translations = translationMessages[this.props.locale];
 
     return (
-      <div id={LANDING_ID}>
+      <div id={LANDING_ID} style={BG}>
         <Helmet>
           <title>{translations[messages.title.id]}</title>
           <meta

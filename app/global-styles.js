@@ -25,20 +25,10 @@ injectGlobal`
   body.fontLoaded {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
-  
-  a {
-    text-decoration: none;
-    color: #07C;
-  }
 
-  a:visited {
-    text-decoration: none;
-    color: #005999;
-  }
-
-  a:hover {
-    text-decoration: none;
-    color: #3af;
+  button, a {
+    cursor: pointer;
+    outline: none !important;
   }
 
   #app {

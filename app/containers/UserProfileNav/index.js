@@ -15,21 +15,21 @@ import { FormattedMessage } from 'react-intl';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import * as routes from 'routes-config';
 
+import Button from 'components/Button';
+
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class UserProfileNav extends React.Component {
-  pushToProfile = () =>
+export class UserProfileNav extends React.PureComponent {
+  pushToProfile = () => {
     createdHistory.push(routes.profile_view(this.props.account));
+  };
 
   render() {
     return (
-      <button
-        onClick={this.pushToProfile}
-        className="btn btn-secondary my-2 my-sm-0"
-      >
+      <Button onClick={this.pushToProfile}>
         <FormattedMessage {...messages.profile} />
-      </button>
+      </Button>
     );
   }
 }

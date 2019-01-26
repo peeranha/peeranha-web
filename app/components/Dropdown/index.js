@@ -1,30 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import DropdownStyled from './DropdownStyled';
+import MenuStyled from './MenuStyled';
 
 const Dropdown = ({ button, menu, id, isArrowed }) => (
   <DropdownStyled class="dropdown show">
     <button
-      type="button"
       id={id}
+      className="d-flex align-items-center"
+      type="button"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
     >
       {button}
-      {isArrowed && <span className="arrow">▴</span>}
+
+      {isArrowed && (
+        <FontAwesomeIcon className="chevron chevron-up" icon="chevron-up" />
+      )}
     </button>
 
-    <div className="dropdown-menu" aria-labelledby={id}>
+    <MenuStyled className="dropdown-menu" ariaLabelledby={id}>
       {menu}
-    </div>
+    </MenuStyled>
   </DropdownStyled>
 );
 
 Dropdown.propTypes = {
-  button: PropTypes.element,
-  menu: PropTypes.element,
-  id: PropTypes.string,
+  button: PropTypes.element.isRequired,
+  menu: PropTypes.element.isRequired,
+  id: PropTypes.string.isRequired,
   isArrowed: PropTypes.bool,
 };
 

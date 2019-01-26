@@ -1,28 +1,32 @@
-import styled from 'styled-components';
+import AddText from '../AddText';
 
-const ButtonStyled = styled.button`
+const ButtonStyled = AddText.extend`
+  color: #fff;
   border: none;
   cursor: pointer;
-  color: #fff;
   padding: 9px 16px;
   border-radius: 3px;
   min-width: 92px;
-  font-size: 16px;
-  font-family: Open Sans, sans-serif;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   background: #f76f60;
-  line-height: 20px;
   height: 40px;
 
   position: relative;
   overflow: hidden;
 
   .chevron {
-    margin-right: 12px;
+    color: #fff;
   }
 
   :disabled {
-    opacity: 0.5;
+    border: 1px solid #bdbdbd;
+    background-color: #efefef;
+    color: #7b7b7b;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+
+    .chevron {
+      color: #bdbdbd;
+    }
   }
 
   :after {
@@ -57,6 +61,6 @@ const ButtonStyled = styled.button`
   :focus:not(:active)::after {
     animation: ripple 1s ease-out;
   }
-`;
+`.withComponent('button');
 
 export default ButtonStyled;
