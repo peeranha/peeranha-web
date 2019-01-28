@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { black } from 'style-constants';
+
 const A = styled(Link)`
   text-decoration: none;
-  color: #282828;
+  color: ${black};
 
   :visited {
     text-decoration: none;

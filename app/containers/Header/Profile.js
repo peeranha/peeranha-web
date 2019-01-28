@@ -2,17 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { gray } from 'style-constants';
+import logoutIcon from 'svg/logout';
 
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
 import Ul from 'components/Ul';
-import AddText from 'components/AddText';
+import Span from 'components/Span';
 import A from 'components/A';
+import Icon from 'components/Icon';
 
 const Img = styled.img`
   border-radius: 50%;
-  border: 1px solid #bdbdbd;
+  border: 1px solid ${gray};
   width: 43px;
   height: 43px;
   display: flex;
@@ -36,10 +39,10 @@ const Button = ({ profileInfo }) => (
   <span className="d-flex">
     <Img src={profileInfo.ipfs_avatar} alt="ipfs_avatar" />
     <Info>
-      <AddText bold>{profileInfo.display_name}</AddText>
-      <AddText fontSize="14" color="gray">
+      <Span bold>{profileInfo.display_name}</Span>
+      <Span fontSize="14" color="gray">
         {profileInfo.rating}
-      </AddText>
+      </Span>
     </Info>
   </span>
 );
@@ -69,10 +72,8 @@ const Menu = ({ profileInfo }) => (
     </Ul>
     <Ul>
       <Li>
-        <AddText color="blue">
-          <FontAwesomeIcon className="chevron door-open" icon="door-open" />
-          <span>Log out</span>
-        </AddText>
+        <Icon icon={logoutIcon} />
+        <Span color="blue">Log out</Span>
       </Li>
     </Ul>
   </div>

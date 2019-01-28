@@ -7,19 +7,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import userIcon from 'svg/user';
+
+import Icon from 'components/Icon';
 import Button from 'components/Button';
+
 import messages from './messages';
 
-/* eslint-disable react/prefer-stateless-function */
 const UserAuthNavLinks = ({ showSignUpModal, showLoginModal }) => [
   <Button key="signUp" onClick={showSignUpModal}>
-    <FontAwesomeIcon className="chevron user" icon="user" />
+    <Icon icon={userIcon} />
     <FormattedMessage {...messages.signUp} />
   </Button>,
   <Button key="login" onClick={showLoginModal}>
-    <FontAwesomeIcon className="chevron sign-in-alt" icon="sign-in-alt" />
+    <Icon icon={userIcon} />
     <FormattedMessage {...messages.login} />
   </Button>,
 ];

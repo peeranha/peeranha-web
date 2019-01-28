@@ -8,14 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import createdHistory from 'createdHistory';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
+import Icon from 'components/Icon';
 
 import * as routes from 'routes-config';
 
+import addIcon from 'svg/add';
 import img from 'images/LogoBlack.svg';
 
 import messages from './messages';
@@ -68,7 +69,7 @@ const HeaderForm = props => (
             isSearchable
           />
           <Button disabled={!props.profileInfo} onClick={addQuestionRoute}>
-            <FontAwesomeIcon className="chevron plus" icon="plus" />
+            <Icon icon={addIcon} />
             <FormattedMessage {...messages.addQuestion} />
           </Button>
           <LoginProfile {...props} />

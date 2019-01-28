@@ -8,16 +8,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { compose } from 'redux';
+
 import * as routes from 'routes-config';
+import { darkblue, blue, transparent, black } from 'style-constants';
+
+import myFeedIcon from 'svg/myFeed';
+import allQuestionsIcon from 'svg/allQuestions';
+import communitiesIcon from 'svg/communities';
+import tagsIcon from 'svg/tags';
+import usersIcon from 'svg/users';
+import faqIcon from 'svg/faq';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+
 import Ul from 'components/Ul';
 import Li from 'components/Li';
-import AddText from 'components/AddText';
+import Span from 'components/Span';
 import A from 'components/A';
+import Icon from 'components/Icon';
 
 const Aside = styled.aside`
   margin-right: 15px;
@@ -30,13 +40,13 @@ const LiExtended = Li.extend`
   display: flex;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-left: 3px solid rgba(0, 0, 0, 0);
+  border-left: 3px solid ${transparent};
   background-color: ${props =>
     window.location.pathname === props.route
       ? 'rgba(53,74,137,0.11)'
-      : 'rgba(0,0,0,0)'};
+      : transparent};
   border-color: ${props =>
-    window.location.pathname === props.route ? '#5065A5' : 'rgba(0,0,0,0)'};
+    window.location.pathname === props.route ? darkblue : transparent}};
   font-weight: ${props =>
     window.location.pathname === props.route ? 'bold' : 'normal'};
 
@@ -44,9 +54,9 @@ const LiExtended = Li.extend`
     flex: 1;
   }
 
-  .chevron {
-    color: ${props =>
-      window.location.pathname === props.route ? '#576FED' : '#7B7B7B'};
+  span[data-icon="icon"] {
+    stroke: ${props =>
+      window.location.pathname === props.route ? blue : black};
   }
 `;
 /* eslint-enable */
@@ -74,38 +84,38 @@ const LeftMenu = props => (
       {props.profile && (
         <LiExtended route={feedRoute}>
           <A to={feedRoute} href={feedRoute}>
-            <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+            <Icon icon={myFeedIcon} />
             <span>My feed</span>
           </A>
         </LiExtended>
       )}
       <LiExtended route={questionsRoute}>
         <A to={questionsRoute} href={questionsRoute}>
-          <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+          <Icon icon={allQuestionsIcon} />
           <span>All questions</span>
         </A>
       </LiExtended>
       <LiExtended route={communitiesRoute}>
         <A to={communitiesRoute} href={communitiesRoute}>
-          <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+          <Icon icon={communitiesIcon} />
           <span>Communities</span>
         </A>
       </LiExtended>
       <LiExtended route={tagsRoute}>
         <A to={tagsRoute} href={tagsRoute}>
-          <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+          <Icon icon={tagsIcon} />
           <span>Tags</span>
         </A>
       </LiExtended>
       <LiExtended route={usersRoute}>
         <A to={usersRoute} href={usersRoute}>
-          <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+          <Icon icon={usersIcon} />
           <span>Users</span>
         </A>
       </LiExtended>
       <LiExtended route={faqRoute}>
         <A to={faqRoute} href={faqRoute}>
-          <FontAwesomeIcon className="chevron file-alt" icon="file-alt" />
+          <Icon icon={faqIcon} />
           <span>FAQ</span>
         </A>
       </LiExtended>
@@ -113,30 +123,30 @@ const LeftMenu = props => (
     <UlMargin>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <AddText color="gray">About</AddText>
+          <Span color="gray">About</Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <AddText color="gray">Contacts</AddText>
+          <Span color="gray">Contacts</Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <AddText color="gray">Support</AddText>
+          <Span color="gray">Support</Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <AddText color="gray">Privacy Policy</AddText>
+          <Span color="gray">Privacy Policy</Span>
         </A>
       </Li>
     </UlMargin>
     <Footer>
-      <AddText
+      <Span
         color="gray"
         fontSize="12"
-      >{`@${new Date().getFullYear()} Peerania`}</AddText>
+      >{`@${new Date().getFullYear()} Peerania`}</Span>
     </Footer>
   </Aside>
 );

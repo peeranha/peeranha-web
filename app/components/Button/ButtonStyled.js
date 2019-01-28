@@ -1,31 +1,36 @@
-import AddText from '../AddText';
+import { white, darkgray, lightgray, gray, pink } from 'style-constants';
+import Span from '../Span';
 
-const ButtonStyled = AddText.extend`
-  color: #fff;
+const ButtonStyled = Span.extend`
+  color: ${white};
   border: none;
   cursor: pointer;
   padding: 9px 16px;
   border-radius: 3px;
   min-width: 92px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: #f76f60;
+  background: ${pink};
   height: 40px;
 
   position: relative;
   overflow: hidden;
 
-  .chevron {
-    color: #fff;
+  span[data-icon='icon'] {
+    stroke: ${white};
+    fill: ${white};
+    color: ${white};
   }
 
   :disabled {
-    border: 1px solid #bdbdbd;
-    background-color: #efefef;
-    color: #7b7b7b;
+    border: 1px solid ${gray};
+    background-color: ${lightgray};
+    color: ${darkgray};
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 
-    .chevron {
-      color: #bdbdbd;
+    span[data-icon='icon'] {
+      stroke: ${gray};
+      fill: ${gray};
+      color: ${gray};
     }
   }
 

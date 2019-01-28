@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darkgray } from 'style-constants';
 
 const DropdownStyled = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const DropdownStyled = styled.div`
   .chevron-up {
     display: inline-block;
     transition: 0.5s;
-    color: #7b7b7b;
+    color: ${darkgray};
   }
 
   button[aria-expanded='true'] .chevron-up {

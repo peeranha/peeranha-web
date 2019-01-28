@@ -54,11 +54,12 @@ const Wrapper = (WrappedComp, props) => [
     <div className="container">
       <div className="d-flex">
         <LeftMenu {...props} />
-        <WrappedComp {...props} />
       </div>
     </div>
   </Content>,
 ];
+
+// <WrappedComp {...props} />
 
 export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {

@@ -1,7 +1,8 @@
-import AddText from '../AddText';
+import { black } from 'style-constants';
+import Span from '../Span';
 
-const Li = AddText.extend`
-  color: #282828;
+const Li = Span.extend`
+  color: ${black};
   padding: 0 15px;
   cursor: pointer;
   line-height: 28px;
