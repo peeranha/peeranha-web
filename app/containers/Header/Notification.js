@@ -7,7 +7,7 @@ import notificationIcon from 'svg/notification';
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
-import H4 from 'components/H4';
+import H from 'components/H';
 import Span from 'components/Span';
 import A from 'components/A';
 
@@ -60,9 +60,9 @@ const Button = () => (
 const Menu = () => (
   <MenuStyled>
     <header>
-      <H4>
+      <H size={4}>
         Notifications: <Span>0</Span>
-      </H4>
+      </H>
     </header>
     <main>
       <ul>
@@ -87,4 +87,4 @@ const Notification = () => (
   />
 );
 
-export default Notification;
+export default React.memo(Notification);

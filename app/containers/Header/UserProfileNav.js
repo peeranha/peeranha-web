@@ -5,4 +5,4 @@ const UserProfileNav = ({ profileInfo }) => [
   <Profile profileInfo={profileInfo} />,
 ];
 
-export default UserProfileNav;
+export default React.memo(UserProfileNav);

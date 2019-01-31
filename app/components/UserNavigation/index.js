@@ -8,9 +8,13 @@ import messages from 'common-messages';
 import Ul from 'components/Ul';
 import A from 'components/A';
 import Button from 'components/Button';
+import Base from 'components/Base';
 
-import UserNavigationStyled from './UserNavigationStyled';
 import MyProfileButton from './MyProfileButton';
+
+const BaseStyled = Base.extend`
+  margin-bottom: 0;
+`.withComponent('header');
 
 const Nav = Ul.extend`
   padding: 0;
@@ -18,7 +22,7 @@ const Nav = Ul.extend`
 `.withComponent('nav');
 
 const UserNavigation = ({ userId, account }) => (
-  <UserNavigationStyled className="d-flex justify-content-between">
+  <BaseStyled position="top" className="d-flex justify-content-between">
     <Nav>
       <A to={routes.profile_view(userId)} href={routes.profile_view(userId)}>
         <Button
@@ -67,7 +71,7 @@ const UserNavigation = ({ userId, account }) => (
         <FormattedMessage {...messages.edit} />
       </MyProfileButton>
     </Nav>
-  </UserNavigationStyled>
+  </BaseStyled>
 );
 
 UserNavigation.propTypes = {
@@ -75,4 +79,4 @@ UserNavigation.propTypes = {
   account: PropTypes.string,
 };
 
-export default UserNavigation;
+export default React.memo(UserNavigation);

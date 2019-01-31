@@ -39,4 +39,4 @@ Dropdown.propTypes = {
   isArrowed: PropTypes.bool,
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);

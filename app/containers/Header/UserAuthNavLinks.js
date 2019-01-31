@@ -30,4 +30,4 @@ UserAuthNavLinks.propTypes = {
   showLoginModal: PropTypes.func,
 };
 
-export default UserAuthNavLinks;
+export default React.memo(UserAuthNavLinks);

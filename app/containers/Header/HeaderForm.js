@@ -27,22 +27,20 @@ import Logo from './Logo';
 import UserAuthNavLinks from './UserAuthNavLinks';
 import UserProfileNav from './UserProfileNav';
 
-export const LoginProfile = ({
-  profileInfo,
-  showSignUpModalDispatch,
-  showLoginModalDispatch,
-}) => {
-  if (profileInfo) {
-    return <UserProfileNav profileInfo={profileInfo} />;
-  }
+export const LoginProfile = React.memo(
+  ({ profileInfo, showSignUpModalDispatch, showLoginModalDispatch }) => {
+    if (profileInfo) {
+      return <UserProfileNav profileInfo={profileInfo} />;
+    }
 
-  return (
-    <UserAuthNavLinks
-      showSignUpModal={showSignUpModalDispatch}
-      showLoginModal={showLoginModalDispatch}
-    />
-  );
-};
+    return (
+      <UserAuthNavLinks
+        showSignUpModal={showSignUpModalDispatch}
+        showLoginModal={showLoginModalDispatch}
+      />
+    );
+  },
+);
 
 const homeRoute = routes.home();
 const addQuestionRoute = () => {
@@ -91,4 +89,4 @@ LoginProfile.propTypes = {
   showLoginModalDispatch: PropTypes.func,
 };
 
-export default injectIntl(HeaderForm);
+export default injectIntl(React.memo(HeaderForm));

@@ -15,4 +15,4 @@ Icon.propTypes = {
   noMargin: PropTypes.bool,
 };
 
-export default Icon;
+export default React.memo(Icon);
