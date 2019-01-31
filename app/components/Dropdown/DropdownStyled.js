@@ -10,13 +10,13 @@ const DropdownStyled = styled.div`
     margin: 0;
   }
 
-  span[data-icon='icon'] {
+  span[data-icon='arrow'] {
     display: inline-block;
     transition: 0.5s;
     stroke: ${darkgray};
   }
 
-  button[aria-expanded='true'] span[data-icon='icon'] {
+  button[aria-expanded='true'] span[data-icon='arrow'] {
     transform: rotate(180deg);
   }
 `;

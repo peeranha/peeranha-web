@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import createdHistory from 'createdHistory';
 
 import Input from 'components/Input';
@@ -15,11 +15,11 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 
 import * as routes from 'routes-config';
+import messages from 'common-messages';
 
 import addIcon from 'svg/add';
 import img from 'images/LogoBlack.svg';
 
-import messages from './messages';
 import Wrapper from './Wrapper';
 import Section from './Section';
 import Logo from './Logo';
@@ -29,14 +29,11 @@ import UserProfileNav from './UserProfileNav';
 
 export const LoginProfile = ({
   profileInfo,
-  translations,
   showSignUpModalDispatch,
   showLoginModalDispatch,
 }) => {
   if (profileInfo) {
-    return (
-      <UserProfileNav profileInfo={profileInfo} translations={translations} />
-    );
+    return <UserProfileNav profileInfo={profileInfo} />;
   }
 
   return (
@@ -65,7 +62,7 @@ const HeaderForm = props => (
         <Section>
           <Input
             type="text"
-            placeholder={props.translations[messages.search.id]}
+            placeholder={props.intl.formatMessage({ id: messages.search.id })}
             isSearchable
           />
           <Button
@@ -84,15 +81,14 @@ const HeaderForm = props => (
 );
 
 HeaderForm.propTypes = {
-  translations: PropTypes.object,
+  intl: intlShape.isRequired,
   profileInfo: PropTypes.bool,
 };
 
 LoginProfile.propTypes = {
-  translations: PropTypes.object,
   profileInfo: PropTypes.bool,
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };
 
-export default HeaderForm;
+export default injectIntl(HeaderForm);

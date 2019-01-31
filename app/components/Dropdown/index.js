@@ -19,7 +19,11 @@ const Dropdown = ({ button, menu, id, isArrowed }) => (
     >
       {button}
 
-      {isArrowed && <Icon icon={arrowDownIcon} />}
+      {isArrowed && (
+        <span data-icon="arrow">
+          <Icon icon={arrowDownIcon} />
+        </span>
+      )}
     </button>
 
     <MenuStyled className="dropdown-menu" ariaLabelledby={id}>

@@ -24,4 +24,19 @@ export default defineMessages({
   edit: {
     id: 'app.common.edit',
   },
+  logout: {
+    id: 'app.common.logout',
+  },
+  search: {
+    id: 'app.common.search',
+  },
+  addQuestion: {
+    id: 'app.common.addQuestion',
+  },
+  signUp: {
+    id: 'app.common.signUp',
+  },
+  login: {
+    id: 'app.common.login',
+  },
 });
