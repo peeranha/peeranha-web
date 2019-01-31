@@ -1,4 +1,11 @@
 {
+  "app.common.peerania": "Peerania",
+  "app.common.profile": "Profile",
+  "app.common.questions": "Questions",
+  "app.common.answers": "Answers",
+  "app.common.settings": "Settings",
+  "app.common.edit": "Edit",
+
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
   "app.containers.SuggestedTags.youHaveAlreadyVoted": "You have already voted",

@@ -46,7 +46,7 @@ const LiExtended = Li.extend`
       ? 'rgba(53,74,137,0.11)'
       : transparent};
   border-color: ${props =>
-    window.location.pathname === props.route ? darkblue : transparent}};
+    window.location.pathname === props.route ? darkblue : transparent};
   font-weight: ${props =>
     window.location.pathname === props.route ? 'bold' : 'normal'};
 
@@ -54,7 +54,7 @@ const LiExtended = Li.extend`
     flex: 1;
   }
 
-  span[data-icon="icon"] {
+  span[data-icon='icon'] {
     stroke: ${props =>
       window.location.pathname === props.route ? blue : black};
   }
@@ -67,7 +67,9 @@ const UlMargin = Ul.extend`
   border-bottom: none;
 `;
 
-const Footer = Li.extend``.withComponent('footer');
+const Footer = Li.extend`
+  padding: 0 15px;
+`.withComponent('footer');
 
 const feedRoute = routes.feed();
 const questionsRoute = routes.questions();

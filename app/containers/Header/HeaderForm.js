@@ -68,7 +68,11 @@ const HeaderForm = props => (
             placeholder={props.translations[messages.search.id]}
             isSearchable
           />
-          <Button disabled={!props.profileInfo} onClick={addQuestionRoute}>
+          <Button
+            type="red"
+            disabled={!props.profileInfo}
+            onClick={addQuestionRoute}
+          >
             <Icon icon={addIcon} />
             <FormattedMessage {...messages.addQuestion} />
           </Button>

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import arrowDownIcon from 'svg/arrowDown';
+import Icon from 'components/Icon';
 
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
@@ -17,9 +19,7 @@ const Dropdown = ({ button, menu, id, isArrowed }) => (
     >
       {button}
 
-      {isArrowed && (
-        <FontAwesomeIcon className="chevron chevron-up" icon="chevron-up" />
-      )}
+      {isArrowed && <Icon icon={arrowDownIcon} />}
     </button>
 
     <MenuStyled className="dropdown-menu" ariaLabelledby={id}>

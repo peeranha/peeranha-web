@@ -46,6 +46,7 @@ const AStyled = A.extend`
   * {
     color: ${blue};
     stroke: ${blue};
+  }
 `;
 
 const Button = () => (

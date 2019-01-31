@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
 const ViewFormListItem = props => (
-  <div className="view-form-item">
+  <div>
     <h6>
       <FormattedMessage {...props.label} />
     </h6>

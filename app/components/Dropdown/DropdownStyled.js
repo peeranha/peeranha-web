@@ -10,17 +10,13 @@ const DropdownStyled = styled.div`
     margin: 0;
   }
 
-  .chevron-up {
+  span[data-icon='icon'] {
     display: inline-block;
     transition: 0.5s;
-    color: ${darkgray};
+    stroke: ${darkgray};
   }
 
-  button[aria-expanded='true'] .chevron-up {
-    transform: rotate(0deg);
-  }
-
-  button[aria-expanded='false'] .chevron-up {
+  button[aria-expanded='true'] span[data-icon='icon'] {
     transform: rotate(180deg);
   }
 `;

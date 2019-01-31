@@ -1,4 +1,11 @@
 {
+  "app.common.peerania": "Peerania",
+  "app.common.profile": "Профиль",
+  "app.common.questions": "Вопросы",
+  "app.common.answers": "Ответы",
+  "app.common.settings": "Настройки",
+  "app.common.edit": "Править",
+
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.youHaveAlreadyVoted": "Вы уже голосовали",

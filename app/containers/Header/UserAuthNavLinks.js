@@ -16,11 +16,11 @@ import Button from 'components/Button';
 import messages from './messages';
 
 const UserAuthNavLinks = ({ showSignUpModal, showLoginModal }) => [
-  <Button key="signUp" onClick={showSignUpModal}>
+  <Button key="signUp" type="red" onClick={showSignUpModal}>
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.signUp} />
   </Button>,
-  <Button key="login" onClick={showLoginModal}>
+  <Button key="login" type="red" onClick={showLoginModal}>
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.login} />
   </Button>,

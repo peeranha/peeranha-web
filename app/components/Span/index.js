@@ -17,7 +17,7 @@ const Span = styled.span`
 
   [data-icon='icon'] {
     margin-right: 12px;
-    color: ${props => (props.color ? colors[props.color] : colors.gray)};
+    stroke: ${props => (props.color ? colors[props.color] : colors.gray)};
   }
 `;
 

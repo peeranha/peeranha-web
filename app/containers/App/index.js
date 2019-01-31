@@ -44,22 +44,28 @@ import Feed from 'components/Feed';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
 
-const Content = styled.div`
+const Main = styled.div`
   background: rgb(234, 236, 244);
 `;
 
-const Wrapper = (WrappedComp, props) => [
+const WrapStyled = styled.div`
+  margin-top: 10px;
+  flex: 1;
+`;
+
+const Wrapper = (Wrap, props) => [
   <Header key="header" />,
-  <Content key="wrappedComp">
+  <Main key="main">
     <div className="container">
       <div className="d-flex">
         <LeftMenu {...props} />
+        <WrapStyled>
+          <Wrap {...props} />
+        </WrapStyled>
       </div>
     </div>
-  </Content>,
+  </Main>,
 ];
-
-// <WrappedComp {...props} />
 
 export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {

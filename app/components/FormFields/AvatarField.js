@@ -3,16 +3,6 @@ import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  AvatarEditorBorder,
-  AvatarEditorBorderRadius,
-  AvatarEditorSize,
-  AvatarEditorColor,
-  AvatarEditorScale,
-  AvatarEditorRotate,
-  AvatarCrossOrigin,
-} from 'containers/Profile/Wrapper';
-
 import messages from 'containers/Profile/messages';
 import WarningMessage from './WarningMessage';
 
@@ -64,14 +54,6 @@ function AvatarField({ input, label, disabled, sendProps, meta }) {
               ref={refs => {
                 avatarRefs = refs;
               }}
-              width={AvatarEditorSize}
-              height={AvatarEditorSize}
-              color={AvatarEditorColor}
-              scale={AvatarEditorScale}
-              rotate={AvatarEditorRotate}
-              border={AvatarEditorBorder}
-              crossOrigin={AvatarCrossOrigin}
-              borderRadius={AvatarEditorBorderRadius}
             />
           </div>
           <div className="d-flex wrap-nowrap">

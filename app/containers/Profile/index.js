@@ -5,32 +5,30 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { translationMessages } from 'i18n';
+import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import { getProfileInfo, setDefaultProps } from './actions';
-
+import * as profileSelectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import * as profileSelectors from './selectors';
 
-import Wrapper from './Wrapper';
 import NoSuchUser from './NoSuchUser';
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Profile extends React.Component {
+export class Profile extends React.PureComponent {
   componentWillUnmount = () => {
     this.props.setDefaultPropsDispatch();
   };
@@ -45,8 +43,9 @@ export class Profile extends React.Component {
     this.getProfile();
   };
 
-  getProfile = (userId = this.props.userId) =>
+  getProfile = (userId = this.props.userId) => {
     this.props.getProfileInfoDispatch(userId, this.props.account);
+  };
 
   render() {
     const { locale, profile, isProfileLoading } = this.props;
@@ -57,7 +56,7 @@ export class Profile extends React.Component {
     }`;
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{HelmetTitle}</title>
           <meta
@@ -67,13 +66,15 @@ export class Profile extends React.Component {
             }
           />
         </Helmet>
-        <Wrapper>
+        <div>
           {isProfileLoading && <LoadingIndicator />}
+
           {!isProfileLoading && !profile && <NoSuchUser />}
+
           {!isProfileLoading &&
             profile &&
             React.Children.only(this.props.children)}
-        </Wrapper>
+        </div>
       </div>
     );
   }

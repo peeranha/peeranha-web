@@ -7,10 +7,8 @@ const ButtonStyled = Span.extend`
   cursor: pointer;
   padding: 9px 16px;
   border-radius: 3px;
-  min-width: 92px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   background: ${pink};
-  height: 40px;
 
   position: relative;
   overflow: hidden;

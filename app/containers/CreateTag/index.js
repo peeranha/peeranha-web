@@ -16,7 +16,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import Wrapper from 'containers/Profile/Wrapper';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -55,13 +54,11 @@ export class CreateTag extends React.Component {
           />
         </Helmet>
 
-        <Wrapper>
-          <CreateTagForm
-            createTagLoading={createTagLoading}
-            createTag={this.createTag}
-            translations={translationMessages[locale]}
-          />
-        </Wrapper>
+        <CreateTagForm
+          createTagLoading={createTagLoading}
+          createTag={this.createTag}
+          translations={translationMessages[locale]}
+        />
       </div>
     );
   }
