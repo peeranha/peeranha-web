@@ -39,4 +39,25 @@ export default defineMessages({
   login: {
     id: 'app.common.login',
   },
+  all: {
+    id: 'app.common.all',
+  },
+  add: {
+    id: 'app.common.add',
+  },
+  communities: {
+    id: 'app.common.communities',
+  },
+  tags: {
+    id: 'app.common.tags',
+  },
+  myFeed: {
+    id: 'app.common.myFeed',
+  },
+  users: {
+    id: 'app.common.users',
+  },
+  faq: {
+    id: 'app.common.faq',
+  },
 });

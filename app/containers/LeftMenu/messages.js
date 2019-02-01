@@ -7,8 +7,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.LeftMenu.header',
-    defaultMessage: 'This is LeftMenu container !',
+  about: {
+    id: 'app.containers.LeftMenu.about',
+  },
+  contacts: {
+    id: 'app.containers.LeftMenu.contacts',
+  },
+  support: {
+    id: 'app.containers.LeftMenu.support',
+  },
+  privacyPolicy: {
+    id: 'app.containers.LeftMenu.privacyPolicy',
   },
 });

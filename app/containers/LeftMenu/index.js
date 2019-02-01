@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { compose } from 'redux';
 
@@ -28,6 +29,9 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
+
+import commonMessages from 'common-messages';
+import messages from './messages';
 
 const Aside = styled.aside`
   margin-right: 15px;
@@ -78,77 +82,84 @@ const tagsRoute = routes.tags();
 const usersRoute = routes.users();
 const faqRoute = routes.faq();
 
-// TODO: change hardcoded textTODO: change hardcoded text when Profile comp. will be finished
-
 const LeftMenu = props => (
-  <Aside>
+  <Aside className="d-none d-lg-block">
     <Ul>
       {props.profile && (
         <LiExtended route={feedRoute}>
           <A to={feedRoute} href={feedRoute}>
             <Icon icon={myFeedIcon} />
-            <span>My feed</span>
+            <FormattedMessage {...commonMessages.myFeed} />
           </A>
         </LiExtended>
       )}
       <LiExtended route={questionsRoute}>
         <A to={questionsRoute} href={questionsRoute}>
           <Icon icon={allQuestionsIcon} />
-          <span>All questions</span>
+          <FormattedMessage {...commonMessages.all} />{' '}
+          <FormattedMessage {...commonMessages.questions} />
         </A>
       </LiExtended>
       <LiExtended route={communitiesRoute}>
         <A to={communitiesRoute} href={communitiesRoute}>
           <Icon icon={communitiesIcon} />
-          <span>Communities</span>
+          <FormattedMessage {...commonMessages.communities} />
         </A>
       </LiExtended>
       <LiExtended route={tagsRoute}>
         <A to={tagsRoute} href={tagsRoute}>
           <Icon icon={tagsIcon} />
-          <span>Tags</span>
+          <FormattedMessage {...commonMessages.tags} />
         </A>
       </LiExtended>
       <LiExtended route={usersRoute}>
         <A to={usersRoute} href={usersRoute}>
           <Icon icon={usersIcon} />
-          <span>Users</span>
+          <FormattedMessage {...commonMessages.users} />
         </A>
       </LiExtended>
       <LiExtended route={faqRoute}>
         <A to={faqRoute} href={faqRoute}>
           <Icon icon={faqIcon} />
-          <span>FAQ</span>
+          <FormattedMessage {...commonMessages.faq} />
         </A>
       </LiExtended>
     </Ul>
     <UlMargin>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">About</Span>
+          <Span color="gray">
+            <FormattedMessage {...messages.about} />
+          </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">Contacts</Span>
+          <Span color="gray">
+            <FormattedMessage {...messages.contacts} />
+          </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">Support</Span>
+          <Span color="gray">
+            <FormattedMessage {...messages.support} />
+          </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">Privacy Policy</Span>
+          <Span color="gray">
+            <FormattedMessage {...messages.privacyPolicy} />
+          </Span>
         </A>
       </Li>
     </UlMargin>
     <Footer>
-      <Span
-        color="gray"
-        fontSize="12"
-      >{`@${new Date().getFullYear()} Peerania`}</Span>
+      <Span color="gray" fontSize="12">
+        <span>{`@${new Date().getFullYear()} `}</span>
+        <FormattedMessage {...commonMessages.peerania} />
+      </Span>
     </Footer>
   </Aside>
 );

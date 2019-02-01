@@ -26,7 +26,7 @@ export const selectUserKey = () =>
   createSelector(selectProfileDomain, substate => substate.get('userKey'));
 
 export const selectProfile = () =>
-  createSelector(selectProfileDomain, substate => substate.get('profile'));
+  createSelector(selectProfileDomain, substate => substate.toJS().profile);
 
 export const selectCitiesList = () =>
   createSelector(selectProfileDomain, substate => substate.get('citiesList'));

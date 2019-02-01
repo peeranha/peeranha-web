@@ -10,7 +10,11 @@ const ProfileViewForm = ({ profile, account, userId }) => (
   <div>
     <UserNavigation userId={userId} account={account} />
     <MainUserInformation profile={profile} />
-    <AdditionalUserInformation profile={profile} />
+    <AdditionalUserInformation
+      profile={profile}
+      userId={userId}
+      account={account}
+    />
   </div>
 );
 

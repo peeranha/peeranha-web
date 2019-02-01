@@ -23,7 +23,7 @@ import {
 export const initialState = fromJS({
   isProfileLoading: false,
   errorLoadProfile: '',
-  profile: {},
+  profile: null,
   userKey: '',
   citiesList: null,
   locationSearch: '',

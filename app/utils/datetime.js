@@ -12,7 +12,7 @@ export const getTimeFromDateToNow = (date, locale) => {
 /* eslint global-require: 1 */
 export const getFormattedDate = (date, locale) => {
   const dateInMills = date * 1000;
-  const formatView = 'HH:mm, DD MMM YYYY';
+  const formatView = 'DD.MM.YYYY';
   const localeObj = { locale: () => require(`date-fns/locale/${locale}`) };
 
   return format(dateInMills, formatView, localeObj);

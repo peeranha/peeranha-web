@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 const RatingStatusStyled = styled.span`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 
   > span {
-    margin-right: 7px;
+    margin-right: 6px !important;
   }
 `;
 

@@ -6,10 +6,17 @@
   "app.common.settings": "Settings",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
-  "app.common.addQuestion": "Add question",
   "app.common.search": "Search",
   "app.common.login": "Log in",
   "app.common.signUp": "Sign Up",
+  "app.common.all": "All",
+  "app.common.addQuestion": "Add question",
+  "app.common.add": "Add",
+  "app.common.communities": "Communities",
+  "app.common.tags": "Tags",
+  "app.common.myFeed": "My feed",
+  "app.common.users": "Users",
+  "app.common.faq": "FAQ",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -19,6 +26,17 @@
   "app.components.RatingStatus.heroResident": "Hero Resident",
   "app.components.RatingStatus.legResident": "Legendary Resident",
   "app.components.RatingStatus.banned": "Banned",
+
+  "app.containers.Profile.reputation": "Reputation",
+  "app.containers.Profile.risen": "Risen",
+  "app.containers.Profile.memberSince": "Member since ",
+  "app.containers.Profile.informationIsBlank":
+    "Information about you is currently blank.",
+
+  "app.containers.LeftMenu.about": "About",
+  "app.containers.LeftMenu.contacts": "Contacts",
+  "app.containers.LeftMenu.support": "Support",
+  "app.containers.LeftMenu.privacyPolicy": "Privacy Policy",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",

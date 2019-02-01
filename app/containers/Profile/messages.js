@@ -15,6 +15,32 @@ export default defineMessages({
     id: 'app.containers.Profile.profileDescription',
     defaultMessage: 'Profile description',
   },
+
+  reputation: {
+    id: 'app.containers.Profile.reputation',
+  },
+  risen: {
+    id: 'app.containers.Profile.risen',
+  },
+  memberSince: {
+    id: 'app.containers.Profile.memberSince',
+  },
+  locationLabel: {
+    id: 'app.containers.Profile.locationLabel',
+  },
+  positionLabel: {
+    id: 'app.containers.Profile.positionLabel',
+  },
+  companyLabel: {
+    id: 'app.containers.Profile.companyLabel',
+  },
+  aboutLabel: {
+    id: 'app.containers.Profile.aboutLabel',
+  },
+  informationIsBlank: {
+    id: 'app.containers.Profile.informationIsBlank',
+  },
+
   wrongUser: {
     id: 'app.containers.Profile.wrongUser',
     defaultMessage: 'Wrong user',
@@ -26,22 +52,6 @@ export default defineMessages({
   displayNameLabel: {
     id: 'app.containers.Profile.displayNameLabel',
     defaultMessage: 'Display name',
-  },
-  positionLabel: {
-    id: 'app.containers.Profile.positionLabel',
-    defaultMessage: 'Position',
-  },
-  companyLabel: {
-    id: 'app.containers.Profile.companyLabel',
-    defaultMessage: 'Company',
-  },
-  aboutLabel: {
-    id: 'app.containers.Profile.aboutLabel',
-    defaultMessage: 'About me',
-  },
-  locationLabel: {
-    id: 'app.containers.Profile.locationLabel',
-    defaultMessage: 'Location',
   },
   saveButton: {
     id: 'app.containers.Profile.saveButton',
