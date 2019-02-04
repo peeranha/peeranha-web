@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
-import { Link } from 'react-router-dom';
+import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'containers/Profile/messages';
@@ -20,9 +19,7 @@ import {
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
-import LocationField from 'components/FormFields/LocationField';
-
-import * as routes from 'routes-config';
+import SelectField from 'components/FormFields/SelectField';
 
 import {
   imageValidation,
@@ -30,18 +27,38 @@ import {
   strLength25x30000,
 } from 'components/FormFields/validate';
 
+import { getCitiesList } from 'utils/profileManagement';
+
+import { PROFILE_EDIT_FORM } from './constants';
+
+const loadCities = async (v, callback) => {
+  const cities = await getCitiesList(v);
+
+  const formattedCities = cities.map(x => ({
+    label: x.name,
+    value: x.name,
+  }));
+
+  callback(formattedCities);
+};
+
 /* eslint-disable-next-line */
 export let ProfileEditForm = /* istanbul ignore next */ props => {
-  const { handleSubmit, submitting, invalid, sendProps } = props;
-  const viewUrl = routes.profile_view(sendProps.match.params.id);
+  const {
+    handleSubmit,
+    submitting,
+    invalid,
+    change,
+    sendProps,
+    location,
+  } = props;
 
-  // @locationIsWrong - true - if user entered location value manually (choosed not from cities list)
-  const { profile } = sendProps.profile;
-  const locationIsWrong =
-    profile &&
-    profile[LOCATION_FIELD] &&
-    !profile[LOCATION_FIELD].id &&
-    profile[LOCATION_FIELD].name;
+  if (!location) {
+    change(LOCATION_FIELD, {
+      value: sendProps.profile.profile[LOCATION_FIELD],
+      label: sendProps.profile.profile[LOCATION_FIELD],
+    });
+  }
 
   return (
     <form onSubmit={handleSubmit(sendProps.saveProfile)}>
@@ -88,22 +105,18 @@ export let ProfileEditForm = /* istanbul ignore next */ props => {
           warn={strLength25x30000}
         />
         <Field
-          disabled={sendProps.isProfileSaving}
+          isAsync
           name={LOCATION_FIELD}
-          sendProps={sendProps}
-          component={LocationField}
+          loadOptions={loadCities}
           label={sendProps.translations[messages.locationLabel.id]}
+          disabled={sendProps.isProfileSaving}
+          component={SelectField}
         />
       </div>
       <div>
         <button
           className="btn btn-success form-control"
-          disabled={
-            invalid ||
-            submitting ||
-            sendProps.isProfileSaving ||
-            locationIsWrong
-          }
+          disabled={invalid || submitting || sendProps.isProfileSaving}
           type="submit"
         >
           {sendProps.isProfileSaving && <LoadingIndicator />}
@@ -111,23 +124,6 @@ export let ProfileEditForm = /* istanbul ignore next */ props => {
             <FormattedMessage {...messages.saveButton} />
           )}
         </button>
-        <button
-          disabled={sendProps.isProfileSaving}
-          className="btn btn-secondary form-control"
-          onClick={sendProps.cancelChanges}
-          type="button"
-        >
-          <FormattedMessage {...messages.cancelButton} />
-        </button>
-        <Link to={viewUrl} href={viewUrl}>
-          <button
-            disabled={sendProps.isProfileSaving}
-            className="btn btn-link form-control"
-            type="button"
-          >
-            <FormattedMessage {...messages.viewButton} />
-          </button>
-        </Link>
       </div>
     </form>
   );
@@ -135,17 +131,22 @@ export let ProfileEditForm = /* istanbul ignore next */ props => {
 
 ProfileEditForm.propTypes = {
   handleSubmit: PropTypes.func,
+  change: PropTypes.func,
   submitting: PropTypes.bool,
   invalid: PropTypes.bool,
   sendProps: PropTypes.object,
+  location: PropTypes.object,
 };
 
+const selector = formValueSelector(PROFILE_EDIT_FORM);
+
 ProfileEditForm = reduxForm({
-  form: 'ProfileEditForm',
+  form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
 
 ProfileEditForm = connect((state, props) => ({
   initialValues: props.sendProps.profile.profile,
+  location: selector(state, LOCATION_FIELD),
 }))(ProfileEditForm);
 
 export default ProfileEditForm;

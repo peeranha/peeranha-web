@@ -54,12 +54,7 @@ const Row = ({ nameField, value }) =>
 
 const AdditionalUserInformation = ({ profile, userId, account }) => (
   <Base position="bottom">
-    <Row
-      nameField="locationLabel"
-      value={
-        profile.profile[LOCATION_FIELD] && profile.profile[LOCATION_FIELD].name
-      }
-    />
+    <Row nameField="locationLabel" value={profile.profile[LOCATION_FIELD]} />
     <Row nameField="companyLabel" value={profile.profile[COMPANY_FIELD]} />
     <Row nameField="positionLabel" value={profile.profile[POSITION_FIELD]} />
     <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />

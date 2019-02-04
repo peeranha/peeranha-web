@@ -1,21 +1,16 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 
-import { getProfileInfo, getCitiesList } from 'utils/profileManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import {
-  getProfileInfoSuccess,
-  getProfileInfoError,
-  getCitiesListSuccess,
-  getCitiesListError,
-} from './actions';
+import { getProfileInfoSuccess, getProfileInfoError } from './actions';
 
-import { GET_PROFILE_INFORMATION, GET_LOCATION_LIST } from './constants';
+import { GET_PROFILE_INFORMATION } from './constants';
 
-export function* getProfileInfoWorker(res) {
+export function* getProfileInfoWorker({ userKey }) {
   try {
     const eosService = yield select(selectEos);
-    const profile = yield call(() => getProfileInfo(res.userKey, eosService));
+    const profile = yield call(() => getProfileInfo(userKey, eosService));
 
     yield put(getProfileInfoSuccess(profile));
   } catch (err) {
@@ -23,16 +18,6 @@ export function* getProfileInfoWorker(res) {
   }
 }
 
-export function* getCitiesListWorker(res) {
-  try {
-    const citiesList = yield call(() => getCitiesList(res.locationSearch));
-    yield put(getCitiesListSuccess(citiesList));
-  } catch (err) {
-    yield put(getCitiesListError(err.message));
-  }
-}
-
 export default function*() {
   yield takeEvery(GET_PROFILE_INFORMATION, getProfileInfoWorker);
-  yield takeEvery(GET_LOCATION_LIST, getCitiesListWorker);
 }

@@ -17,9 +17,8 @@ import injectReducer from 'utils/injectReducer';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-import { getProfileInfo, setDefaultProps } from './actions';
+import { getProfileInfo } from './actions';
 import * as profileSelectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -29,22 +28,14 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.PureComponent {
-  componentWillUnmount = () => {
-    this.props.setDefaultPropsDispatch();
-  };
+  componentDidMount() {
+    this.props.getProfileInfoDispatch(this.props.userId);
+  }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.getProfile(nextProps.userId);
+      this.props.getProfileInfoDispatch(nextProps.userId);
     }
-  };
-
-  componentDidMount = () => {
-    this.getProfile();
-  };
-
-  getProfile = (userId = this.props.userId) => {
-    this.props.getProfileInfoDispatch(userId, this.props.account);
   };
 
   render() {
@@ -83,17 +74,14 @@ export class Profile extends React.PureComponent {
 Profile.propTypes = {
   children: PropTypes.object,
   userId: PropTypes.string,
-  account: PropTypes.string,
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,
   getProfileInfoDispatch: PropTypes.func,
-  setDefaultPropsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  account: makeSelectAccount(),
   profile: profileSelectors.selectProfile(),
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });
@@ -103,7 +91,6 @@ export function mapDispatchToProps(dispatch) {
     dispatch,
     getProfileInfoDispatch: (key, account) =>
       dispatch(getProfileInfo(key, account)),
-    setDefaultPropsDispatch: () => dispatch(setDefaultProps()),
   };
 }
 
