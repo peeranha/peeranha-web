@@ -13,7 +13,7 @@ injectGlobal`
     scroll-behavior: smooth;
   }
 
-  html {
+  html, body {
     min-height: 100%;
     position: relative;
   }

@@ -19,15 +19,24 @@ class Input extends React.PureComponent {
       type,
       placeholder,
       isSearchable,
+      disabled,
       className,
+      error,
+      readOnly,
     } = this.props;
 
     return (
-      <InputStyled isText={this.state.isText} className={className}>
+      <InputStyled
+        error={error}
+        isText={this.state.isText}
+        className={className}
+      >
         <input
           {...input}
+          readOnly={readOnly}
           type={this.state.isText ? 'text' : type}
           placeholder={placeholder}
+          disabled={disabled}
         />
 
         {isSearchable && (
@@ -52,6 +61,9 @@ Input.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   isSearchable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  error: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 export default Input;

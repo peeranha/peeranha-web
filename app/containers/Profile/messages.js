@@ -40,45 +40,13 @@ export default defineMessages({
   informationIsBlank: {
     id: 'app.containers.Profile.informationIsBlank',
   },
-
   wrongUser: {
     id: 'app.containers.Profile.wrongUser',
-    defaultMessage: 'Wrong user',
-  },
-  avatarLabel: {
-    id: 'app.containers.Profile.avatarLabel',
-    defaultMessage: 'Avatar',
   },
   displayNameLabel: {
     id: 'app.containers.Profile.displayNameLabel',
-    defaultMessage: 'Display name',
   },
   saveButton: {
     id: 'app.containers.Profile.saveButton',
-    defaultMessage: 'Save',
-  },
-  savingButton: {
-    id: 'app.containers.Profile.savingButton',
-    defaultMessage: 'Saving...',
-  },
-  cancelButton: {
-    id: 'app.containers.Profile.cancelButton',
-    defaultMessage: 'Cancel',
-  },
-  viewButton: {
-    id: 'app.containers.Profile.viewButton',
-    defaultMessage: 'View',
-  },
-  editButton: {
-    id: 'app.containers.Profile.editButton',
-    defaultMessage: 'Edit',
-  },
-  chooseFile: {
-    id: 'app.containers.Profile.chooseFile',
-    defaultMessage: 'Choose file',
-  },
-  isProfileLoading: {
-    id: 'app.containers.Profile.isProfileLoading',
-    defaultMessage: 'Loading...',
   },
 });

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconStyled from './IconStyled';
 
-const Icon = ({ icon, noMargin }) => (
+const Icon = ({ icon, noMargin, className }) => (
   <IconStyled
+    className={className}
     noMargin={noMargin}
     dangerouslySetInnerHTML={{ __html: icon }}
     data-icon="icon"
@@ -13,6 +14,7 @@ const Icon = ({ icon, noMargin }) => (
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
   noMargin: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default React.memo(Icon);

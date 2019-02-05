@@ -22,4 +22,4 @@ export const SAVE_PROFILE_ACTION_ERROR =
 export const SET_DEFAULT_REDUCER = 'app/Profile/SET_DEFAULT_REDUCER';
 export const PROFILE_EDIT_FORM = 'app_profile_PROFILE_EDIT_FORM';
 
-export const FILE_MAX_SIZE = 10000000;
+export const FILE_MAX_SIZE = 2000000; // 2MB

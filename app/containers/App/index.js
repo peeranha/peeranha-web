@@ -44,8 +44,11 @@ import Feed from 'components/Feed';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
 
+import { HEADER_HEIGHT } from 'containers/Header/Wrapper';
+
 const Main = styled.div`
   background: rgb(234, 236, 244);
+  min-height: calc(100vh - ${HEADER_HEIGHT}px);
 `;
 
 const WrapStyled = styled.div`

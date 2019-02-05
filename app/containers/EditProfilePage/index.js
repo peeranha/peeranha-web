@@ -9,14 +9,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import * as selectorsProfile from 'containers/Profile/selectors';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
 import Profile from 'containers/Profile';
+import UserNavigation from 'components/UserNavigation';
+import Base from 'components/Base';
 
 import {
   DISPLAY_NAME_FIELD,
@@ -61,13 +63,13 @@ export class EditProfilePage extends React.PureComponent {
     const userKey = match.params.id;
 
     const profile = {
-      [LOCATION_FIELD]: val.get(LOCATION_FIELD)
-        ? val.get(LOCATION_FIELD).value
-        : '',
       [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
       [POSITION_FIELD]: val.get(POSITION_FIELD),
       [COMPANY_FIELD]: val.get(COMPANY_FIELD),
       [ABOUT_FIELD]: val.get(ABOUT_FIELD),
+      [LOCATION_FIELD]: val.get(LOCATION_FIELD)
+        ? val.get(LOCATION_FIELD).value
+        : '',
     };
 
     if (blob) {
@@ -93,8 +95,8 @@ export class EditProfilePage extends React.PureComponent {
   render() {
     const {
       profile,
-      locale,
       match,
+      account,
       editingImgState,
       isProfileSaving,
       cachedProfileImg,
@@ -110,13 +112,14 @@ export class EditProfilePage extends React.PureComponent {
       cachedProfileImg,
       editingImgState,
       profile,
-      match,
-      translations: translationMessages[locale],
     };
 
     return (
       <Profile userId={match.params.id}>
-        <ProfileEditForm sendProps={sendProps} />
+        <UserNavigation userId={match.params.id} account={account} />
+        <Base position="bottom">
+          <ProfileEditForm {...sendProps} />
+        </Base>
       </Profile>
     );
   }
@@ -130,7 +133,7 @@ EditProfilePage.propTypes = {
   saveProfileActionDispatch: PropTypes.func,
   profile: PropTypes.object,
   match: PropTypes.object,
-  locale: PropTypes.string,
+  account: PropTypes.string,
   editingImgState: PropTypes.bool,
   cachedProfileImg: PropTypes.string,
   isProfileSaving: PropTypes.bool,
@@ -138,7 +141,7 @@ EditProfilePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   profile: selectorsProfile.selectProfile(),
-  locale: makeSelectLocale(),
+  account: makeSelectAccount(),
   editingImgState: editProfileSelectors.selectEditingImgState(),
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
   blob: editProfileSelectors.selectBlob(),

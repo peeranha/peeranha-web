@@ -16,6 +16,7 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import Icon from 'components/Icon';
+import H3 from 'components/H3';
 
 import messages from 'containers/Profile/messages';
 import commonMessages from 'common-messages';
@@ -48,11 +49,7 @@ const MainUserInformation = ({ profile }) => (
         <Img src={profile.ipfs_avatar} alt="avatar" />
       </div>
       <div className="col-12 col-lg-9 col-xl-10">
-        <div>
-          <Span fontSize="38" bold>
-            {profile.display_name}
-          </Span>
-        </div>
+        <H3>{profile.display_name}</H3>
         <div className="d-flex align-items-center">
           <UlStyled>
             <LiStyled>

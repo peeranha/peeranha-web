@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
 
+import commonMessages from 'common-messages';
 import messages from 'containers/Profile/messages';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
   AVATAR_FIELD,
@@ -21,6 +21,9 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import SelectField from 'components/FormFields/SelectField';
 
+import Button from 'components/Button';
+import H3 from 'components/H3';
+
 import {
   imageValidation,
   strLength3x20,
@@ -29,6 +32,8 @@ import {
 
 import { getCitiesList } from 'utils/profileManagement';
 
+import FormStyled from './FormStyled';
+import AvatarStyled from './AvatarStyled';
 import { PROFILE_EDIT_FORM } from './constants';
 
 const loadCities = async (v, callback) => {
@@ -43,99 +48,122 @@ const loadCities = async (v, callback) => {
 };
 
 /* eslint-disable-next-line */
-export let ProfileEditForm = /* istanbul ignore next */ props => {
-  const {
-    handleSubmit,
-    submitting,
-    invalid,
-    change,
-    sendProps,
-    location,
-  } = props;
+export let ProfileEditForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  submitting,
+  invalid,
+  change,
+  location,
+  intl,
+  uploadImage,
+  getCroppedAvatar,
+  clearImageChanges,
+  saveProfile,
+  isProfileSaving,
+  cachedProfileImg,
+  editingImgState,
+  profile,
+}) => {
+  const size = 120;
 
   if (!location) {
     change(LOCATION_FIELD, {
-      value: sendProps.profile.profile[LOCATION_FIELD],
-      label: sendProps.profile.profile[LOCATION_FIELD],
+      value: profile.profile[LOCATION_FIELD],
+      label: profile.profile[LOCATION_FIELD],
     });
   }
 
   return (
-    <form onSubmit={handleSubmit(sendProps.saveProfile)}>
-      <div>
+    <FormStyled size={1.25 * size} onSubmit={handleSubmit(saveProfile)}>
+      <div className="col-xl-12 position-static">
+        <H3 marginBottom={24}>
+          <FormattedMessage {...commonMessages.edit} />{' '}
+          <FormattedMessage {...commonMessages.profile} />
+        </H3>
+        <AvatarStyled>
+          <Field
+            name={AVATAR_FIELD}
+            component={AvatarField}
+            disabled={isProfileSaving}
+            editingImgState={editingImgState}
+            size={size}
+            uploadImage={uploadImage}
+            cachedProfileImg={cachedProfileImg}
+            ipfsAvatar={profile.ipfs_avatar}
+            getCroppedAvatar={getCroppedAvatar}
+            clearImageChanges={clearImageChanges}
+            validate={imageValidation}
+            warn={imageValidation}
+          />
+        </AvatarStyled>
         <Field
-          disabled={sendProps.isProfileSaving}
-          name={AVATAR_FIELD}
-          label={sendProps.translations[messages.avatarLabel.id]}
-          component={AvatarField}
-          sendProps={sendProps}
-          validate={imageValidation}
-          warn={imageValidation}
-        />
-        <Field
-          disabled={sendProps.isProfileSaving}
           name={DISPLAY_NAME_FIELD}
           component={TextInputField}
-          label={sendProps.translations[messages.displayNameLabel.id]}
+          label={intl.formatMessage({ id: messages.displayNameLabel.id })}
+          disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
         />
         <Field
-          disabled={sendProps.isProfileSaving}
-          name={POSITION_FIELD}
-          component={TextInputField}
-          label={sendProps.translations[messages.positionLabel.id]}
-          validate={strLength3x20}
-          warn={strLength3x20}
-        />
-        <Field
-          disabled={sendProps.isProfileSaving}
           name={COMPANY_FIELD}
           component={TextInputField}
-          label={sendProps.translations[messages.companyLabel.id]}
+          label={intl.formatMessage({ id: messages.companyLabel.id })}
+          disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
         />
         <Field
-          disabled={sendProps.isProfileSaving}
+          name={POSITION_FIELD}
+          component={TextInputField}
+          label={intl.formatMessage({ id: messages.positionLabel.id })}
+          disabled={isProfileSaving}
+          validate={strLength3x20}
+          warn={strLength3x20}
+        />
+        <Field
+          name={LOCATION_FIELD}
+          isAsync
+          loadOptions={loadCities}
+          label={intl.formatMessage({ id: messages.locationLabel.id })}
+          disabled={isProfileSaving}
+          component={SelectField}
+        />
+        <Field
           name={ABOUT_FIELD}
           component={TextareaField}
-          label={sendProps.translations[messages.aboutLabel.id]}
+          label={intl.formatMessage({ id: messages.aboutLabel.id })}
+          disabled={isProfileSaving}
           validate={strLength25x30000}
           warn={strLength25x30000}
         />
-        <Field
-          isAsync
-          name={LOCATION_FIELD}
-          loadOptions={loadCities}
-          label={sendProps.translations[messages.locationLabel.id]}
-          disabled={sendProps.isProfileSaving}
-          component={SelectField}
-        />
-      </div>
-      <div>
-        <button
-          className="btn btn-success form-control"
-          disabled={invalid || submitting || sendProps.isProfileSaving}
-          type="submit"
+
+        <Button
+          disabled={invalid || submitting || isProfileSaving}
+          typeAttr="submit"
+          type="red"
         >
-          {sendProps.isProfileSaving && <LoadingIndicator />}
-          {!sendProps.isProfileSaving && (
-            <FormattedMessage {...messages.saveButton} />
-          )}
-        </button>
+          <FormattedMessage {...messages.saveButton} />
+        </Button>
       </div>
-    </form>
+    </FormStyled>
   );
 };
 
 ProfileEditForm.propTypes = {
+  intl: intlShape.isRequired,
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   submitting: PropTypes.bool,
   invalid: PropTypes.bool,
-  sendProps: PropTypes.object,
   location: PropTypes.object,
+  uploadImage: PropTypes.func,
+  getCroppedAvatar: PropTypes.func,
+  clearImageChanges: PropTypes.func,
+  saveProfile: PropTypes.func,
+  isProfileSaving: PropTypes.bool,
+  cachedProfileImg: PropTypes.string,
+  editingImgState: PropTypes.string,
+  profile: PropTypes.object,
 };
 
 const selector = formValueSelector(PROFILE_EDIT_FORM);
@@ -145,8 +173,8 @@ ProfileEditForm = reduxForm({
 })(ProfileEditForm);
 
 ProfileEditForm = connect((state, props) => ({
-  initialValues: props.sendProps.profile.profile,
+  initialValues: props.profile.profile,
   location: selector(state, LOCATION_FIELD),
 }))(ProfileEditForm);
 
-export default ProfileEditForm;
+export default injectIntl(React.memo(ProfileEditForm));

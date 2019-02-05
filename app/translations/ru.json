@@ -247,12 +247,6 @@
   "app.containers.Profile.companyLabel": "Компания",
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
-  "app.containers.Profile.savingButton": "Сохранение...",
-  "app.containers.Profile.cancelButton": "Отмена",
-  "app.containers.Profile.chooseFile": "Выбрать файл",
-  "app.containers.Profile.isProfileLoading": "Загрузка...",
-  "app.containers.Profile.editButton": "Редактировать",
-  "app.containers.Profile.viewButton": "Посмотреть",
   "app.containers.Profile.locationLabel": "Местоположение",
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

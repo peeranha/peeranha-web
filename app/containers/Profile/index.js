@@ -39,7 +39,7 @@ export class Profile extends React.PureComponent {
   };
 
   render() {
-    const { locale, profile, isProfileLoading } = this.props;
+    const { locale, profile, isProfileLoading, children } = this.props;
 
     const HelmetTitle = `${(profile && profile.display_name) ||
       translationMessages[locale][messages.wrongUser.id]} | ${
@@ -62,9 +62,7 @@ export class Profile extends React.PureComponent {
 
           {!isProfileLoading && !profile && <NoSuchUser />}
 
-          {!isProfileLoading &&
-            profile &&
-            React.Children.only(this.props.children)}
+          {!isProfileLoading && profile && React.Children.toArray(children)}
         </div>
       </div>
     );
