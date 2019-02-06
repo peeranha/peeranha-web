@@ -9,11 +9,20 @@ const options = {
   default: BlueButtonStyled,
 };
 
-const Button = ({ children, onClick, disabled, type, isLink, typeAttr }) => {
+const Button = ({
+  children,
+  onClick,
+  disabled,
+  type,
+  isLink,
+  typeAttr,
+  className,
+}) => {
   const B = options[type || 'default'];
 
   return (
     <B
+      className={className}
       onClick={onClick}
       disabled={disabled}
       isLink={isLink}
@@ -27,6 +36,7 @@ const Button = ({ children, onClick, disabled, type, isLink, typeAttr }) => {
 Button.propTypes = {
   type: PropTypes.string,
   typeAttr: PropTypes.string,
+  className: PropTypes.string,
   isLink: PropTypes.bool,
   children: PropTypes.element,
   onClick: PropTypes.func,

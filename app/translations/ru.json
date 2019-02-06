@@ -32,10 +32,10 @@
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank": "Информация о Вас отсутствует",
 
-  "app.containers.LeftMenu.about": "О нас",
-  "app.containers.LeftMenu.contacts": "Контакты",
-  "app.containers.LeftMenu.support": "Поддержка",
-  "app.containers.LeftMenu.privacyPolicy": "Политика конфиденциальности",
+  "app.common.about": "О нас",
+  "app.common.contacts": "Контакты",
+  "app.common.support": "Поддержка",
+  "app.common.privacyPolicy": "Политика конфиденциальности",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",

@@ -41,7 +41,7 @@ const AStyled = A.extend`
 const Button = ({ profileInfo }) => (
   <span className="d-flex">
     <Img src={profileInfo.ipfs_avatar} alt="ipfs_avatar" />
-    <Info>
+    <Info className="d-none d-sm-flex">
       <Span bold>{profileInfo.display_name}</Span>
       <RatingStatus rating={profileInfo.rating} size="sm" />
     </Info>
@@ -69,6 +69,61 @@ const Menu = ({ profileInfo }) => (
       <Li>
         <AStyled to={routes.user_settings(profileInfo.user)}>
           <FormattedMessage {...messages.settings} />
+        </AStyled>
+      </Li>
+    </Ul>
+    <Ul className="d-block d-lg-none">
+      <Li>
+        <AStyled to={routes.feed()}>
+          <FormattedMessage {...messages.myFeed} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.questions()}>
+          <FormattedMessage {...messages.all} />{' '}
+          <FormattedMessage {...messages.questions} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.communities()}>
+          <FormattedMessage {...messages.communities} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.tags()}>
+          <FormattedMessage {...messages.tags} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.users()}>
+          <FormattedMessage {...messages.users} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.faq()}>
+          <FormattedMessage {...messages.faq} />
+        </AStyled>
+      </Li>
+    </Ul>
+    <Ul className="d-block d-lg-none">
+      <Li>
+        <AStyled to={routes.faq()}>
+          <FormattedMessage {...messages.about} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.faq()}>
+          <FormattedMessage {...messages.contacts} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.faq()}>
+          <FormattedMessage {...messages.support} />
+        </AStyled>
+      </Li>
+      <Li>
+        <AStyled to={routes.faq()}>
+          <FormattedMessage {...messages.privacyPolicy} />
         </AStyled>
       </Li>
     </Ul>

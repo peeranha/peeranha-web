@@ -60,4 +60,16 @@ export default defineMessages({
   faq: {
     id: 'app.common.faq',
   },
+  about: {
+    id: 'app.common.about',
+  },
+  contacts: {
+    id: 'app.common.contacts',
+  },
+  support: {
+    id: 'app.common.support',
+  },
+  privacyPolicy: {
+    id: 'app.common.privacyPolicy',
+  },
 });

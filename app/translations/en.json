@@ -33,10 +33,10 @@
   "app.containers.Profile.informationIsBlank":
     "Information about you is currently blank.",
 
-  "app.containers.LeftMenu.about": "About",
-  "app.containers.LeftMenu.contacts": "Contacts",
-  "app.containers.LeftMenu.support": "Support",
-  "app.containers.LeftMenu.privacyPolicy": "Privacy Policy",
+  "app.common.about": "About",
+  "app.common.contacts": "Contacts",
+  "app.common.support": "Support",
+  "app.common.privacyPolicy": "Privacy Policy",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",

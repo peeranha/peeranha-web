@@ -20,7 +20,7 @@ const Dropdown = ({ button, menu, id, isArrowed }) => (
       {button}
 
       {isArrowed && (
-        <span data-icon="arrow">
+        <span className="d-none d-sm-flex" data-icon="arrow">
           <Icon icon={arrowDownIcon} />
         </span>
       )}

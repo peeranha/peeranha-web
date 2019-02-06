@@ -32,8 +32,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
 
-import commonMessages from 'common-messages';
-import messages from './messages';
+import messages from 'common-messages';
 
 import { LEFT_MENU_ID } from './constants';
 
@@ -100,46 +99,46 @@ const usersRoute = routes.users();
 const faqRoute = routes.faq();
 
 const LeftMenu = props => (
-  <Aside className="d-none d-xl-block">
+  <Aside className="d-none d-lg-block">
     <FixedContent id={LEFT_MENU_ID}>
       <Ul>
         {props.profile && (
           <LiExtended route={feedRoute}>
             <A to={feedRoute} href={feedRoute}>
               <Icon icon={myFeedIcon} />
-              <FormattedMessage {...commonMessages.myFeed} />
+              <FormattedMessage {...messages.myFeed} />
             </A>
           </LiExtended>
         )}
         <LiExtended route={questionsRoute}>
           <A to={questionsRoute} href={questionsRoute}>
             <Icon icon={allQuestionsIcon} />
-            <FormattedMessage {...commonMessages.all} />{' '}
-            <FormattedMessage {...commonMessages.questions} />
+            <FormattedMessage {...messages.all} />{' '}
+            <FormattedMessage {...messages.questions} />
           </A>
         </LiExtended>
         <LiExtended route={communitiesRoute}>
           <A to={communitiesRoute} href={communitiesRoute}>
             <Icon icon={communitiesIcon} />
-            <FormattedMessage {...commonMessages.communities} />
+            <FormattedMessage {...messages.communities} />
           </A>
         </LiExtended>
         <LiExtended route={tagsRoute}>
           <A to={tagsRoute} href={tagsRoute}>
             <Icon icon={tagsIcon} />
-            <FormattedMessage {...commonMessages.tags} />
+            <FormattedMessage {...messages.tags} />
           </A>
         </LiExtended>
         <LiExtended route={usersRoute}>
           <A to={usersRoute} href={usersRoute}>
             <Icon icon={usersIcon} />
-            <FormattedMessage {...commonMessages.users} />
+            <FormattedMessage {...messages.users} />
           </A>
         </LiExtended>
         <LiExtended route={faqRoute}>
           <A to={faqRoute} href={faqRoute}>
             <Icon icon={faqIcon} />
-            <FormattedMessage {...commonMessages.faq} />
+            <FormattedMessage {...messages.faq} />
           </A>
         </LiExtended>
       </Ul>
@@ -176,7 +175,7 @@ const LeftMenu = props => (
       <Footer>
         <Span color="gray" fontSize="12">
           <span>{`@${new Date().getFullYear()} `}</span>
-          <FormattedMessage {...commonMessages.peerania} />
+          <FormattedMessage {...messages.peerania} />
         </Span>
       </Footer>
     </FixedContent>

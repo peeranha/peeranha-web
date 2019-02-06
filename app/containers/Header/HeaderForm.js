@@ -51,7 +51,7 @@ const addQuestionRoute = () => {
 const HeaderForm = props => (
   <Wrapper id={HEADER_ID}>
     <div className="container">
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center justify-content-between">
         <Logo>
           <Link to={homeRoute} href={homeRoute}>
             <img src={img} alt="logo" />
@@ -60,11 +60,13 @@ const HeaderForm = props => (
 
         <Section>
           <Input
+            className="d-none d-lg-flex"
             type="text"
             placeholder={props.intl.formatMessage({ id: messages.search.id })}
             isSearchable
           />
           <Button
+            className="d-none d-lg-flex"
             type="red"
             disabled={!props.profileInfo}
             onClick={addQuestionRoute}
