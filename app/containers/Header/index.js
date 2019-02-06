@@ -18,21 +18,59 @@ import {
 import { showSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal } from 'containers/Login/actions';
 
-import HeaderForm from './HeaderForm';
+import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-const Header = ({
-  account,
-  profileInfo,
-  showSignUpModalDispatch,
-  showLoginModalDispatch,
-}) => (
-  <HeaderForm
-    account={account}
-    profileInfo={profileInfo}
-    showSignUpModalDispatch={showSignUpModalDispatch}
-    showLoginModalDispatch={showLoginModalDispatch}
-  />
-);
+import HeaderForm from './HeaderForm';
+import { HEADER_ID } from './constants';
+
+class Header extends React.PureComponent {
+  componentDidMount() {
+    this.headerLeftMenuAnimation();
+  }
+
+  headerLeftMenuAnimation /* istanbul ignore next */ = () => {
+    window.$(window).on('DOMMouseScroll mousewheel', event => {
+      const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+
+      const scrollHidden = window.$(`#${HEADER_ID}`).hasClass('scroll-hidden');
+      const scrollVisible = window
+        .$(`#${HEADER_ID}`)
+        .hasClass('scroll-visible');
+
+      if (direction < 0 && !scrollHidden) {
+        window.$(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
+        window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
+
+        window.$(`#${HEADER_ID}`).addClass('scroll-hidden');
+        window.$(`#${HEADER_ID}`).removeClass('scroll-visible');
+      } else if (direction > 0 && !scrollVisible) {
+        window.$(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
+        window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
+
+        window.$(`#${HEADER_ID}`).addClass('scroll-visible');
+        window.$(`#${HEADER_ID}`).removeClass('scroll-hidden');
+      }
+    });
+  };
+
+  render() {
+    const {
+      account,
+      profileInfo,
+      showSignUpModalDispatch,
+      showLoginModalDispatch,
+    } = this.props;
+
+    return (
+      <HeaderForm
+        account={account}
+        profileInfo={profileInfo}
+        showSignUpModalDispatch={showSignUpModalDispatch}
+        showLoginModalDispatch={showLoginModalDispatch}
+      />
+    );
+  }
+}
 
 Header.propTypes = {
   showSignUpModalDispatch: PropTypes.func,

@@ -74,7 +74,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
   }
 
   return (
-    <FormStyled size={1.25 * size} onSubmit={handleSubmit(saveProfile)}>
+    <FormStyled size={15 + size} onSubmit={handleSubmit(saveProfile)}>
       <div className="col-xl-12 position-static">
         <H3 marginBottom={24}>
           <FormattedMessage {...commonMessages.edit} />{' '}

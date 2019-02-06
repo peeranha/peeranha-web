@@ -26,6 +26,7 @@ import Logo from './Logo';
 
 import UserAuthNavLinks from './UserAuthNavLinks';
 import UserProfileNav from './UserProfileNav';
+import { HEADER_ID } from './constants';
 
 export const LoginProfile = React.memo(
   ({ profileInfo, showSignUpModalDispatch, showLoginModalDispatch }) => {
@@ -48,7 +49,7 @@ const addQuestionRoute = () => {
 };
 
 const HeaderForm = props => (
-  <Wrapper>
+  <Wrapper id={HEADER_ID}>
     <div className="container">
       <div className="d-flex align-items-center">
         <Logo>

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 const Logo = styled.div`
   display: flex;
-  flex-basis: 210px;
+  flex-basis: ${LEFT_MENU_WIDTH}px;
   justify-content: left;
 
   img {
