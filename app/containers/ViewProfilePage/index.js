@@ -24,31 +24,6 @@ const ViewProfilePage = ({ match, profile, account }) => (
       profile={profile}
       account={account}
     />
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
   </Profile>
 );
 

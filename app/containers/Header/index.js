@@ -30,6 +30,9 @@ class Header extends React.PureComponent {
 
   headerLeftMenuAnimation /* istanbul ignore next */ = () => {
     window.$(window).on('DOMMouseScroll mousewheel', event => {
+      const { scrollY } = event.currentTarget;
+      const { innerHeight } = window;
+
       const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
 
       const scrollHidden = window.$(`#${HEADER_ID}`).hasClass('scroll-hidden');
@@ -37,18 +40,20 @@ class Header extends React.PureComponent {
         .$(`#${HEADER_ID}`)
         .hasClass('scroll-visible');
 
-      if (direction < 0 && !scrollHidden) {
-        window.$(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
-        window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
+      if (scrollY > innerHeight) {
+        if (direction < 0 && !scrollHidden) {
+          window.$(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
+          window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
 
-        window.$(`#${HEADER_ID}`).addClass('scroll-hidden');
-        window.$(`#${HEADER_ID}`).removeClass('scroll-visible');
-      } else if (direction > 0 && !scrollVisible) {
-        window.$(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
-        window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
+          window.$(`#${HEADER_ID}`).addClass('scroll-hidden');
+          window.$(`#${HEADER_ID}`).removeClass('scroll-visible');
+        } else if (direction > 0 && !scrollVisible) {
+          window.$(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
+          window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
 
-        window.$(`#${HEADER_ID}`).addClass('scroll-visible');
-        window.$(`#${HEADER_ID}`).removeClass('scroll-hidden');
+          window.$(`#${HEADER_ID}`).addClass('scroll-visible');
+          window.$(`#${HEADER_ID}`).removeClass('scroll-hidden');
+        }
       }
     });
   };
