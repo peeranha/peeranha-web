@@ -68,21 +68,22 @@ const HeaderForm = props => (
   <Wrapper id={HEADER_ID}>
     <div className="container">
       <div className="d-flex align-items-center justify-content-between">
-        <Logo className="d-flex align-items-center">
-          <Icon
-            onClick={props.showMenu}
-            className="mr-3 d-flex d-md-none"
-            icon={!props.isMenuVisible ? headerNavigationIcon : closeIcon}
-            noMargin
-          />
-          {!props.isMenuVisible && (
+        {!props.isMenuVisible && (
+          <Logo className="d-flex align-items-center">
+            <Icon
+              onClick={props.showMenu}
+              className="mr-3 d-flex d-md-none"
+              icon={!props.isMenuVisible ? headerNavigationIcon : closeIcon}
+              noMargin
+            />
+
             <Link to={homeRoute} href={homeRoute}>
               <img src={img} alt="logo" />
             </Link>
-          )}
-        </Logo>
+          </Logo>
+        )}
 
-        <Section>
+        <Section isMenuVisible={props.isMenuVisible}>
           {!props.isMenuVisible && [
             <Input
               key="1"

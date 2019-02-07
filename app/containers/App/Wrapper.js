@@ -75,6 +75,7 @@ class Box extends React.PureComponent {
         <div className="container">
           <div className="d-flex">
             <LeftMenu
+              showMenu={this.showMenu}
               isNavigationExpanded={isNavigationExpanded}
               isMenuVisible={isMenuVisible}
               {...props}

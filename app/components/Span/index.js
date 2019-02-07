@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { black, blue, darkgray } from 'style-constants';
+import { black, blue, darkgray, white } from 'style-constants';
 
 const colors = {
   black,
   blue,
+  white,
   gray: darkgray,
 };
 

@@ -26,7 +26,7 @@ const ButtonStyled = Span.extend`
     border: 1px solid ${gray};
     background-color: ${lightgray};
     color: ${darkgray};
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: none;
 
     span[data-icon='icon'] {
       stroke: ${gray};
