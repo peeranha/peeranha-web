@@ -7,8 +7,8 @@ import Icon from 'components/Icon';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
-const Dropdown = ({ button, menu, id, isArrowed }) => (
-  <DropdownStyled class="dropdown show">
+const Dropdown = ({ button, menu, id, isArrowed, className }) => (
+  <DropdownStyled className={`dropdown show ${className}`}>
     <button
       id={id}
       className="d-flex align-items-center"
@@ -20,7 +20,7 @@ const Dropdown = ({ button, menu, id, isArrowed }) => (
       {button}
 
       {isArrowed && (
-        <span className="d-none d-sm-flex" data-icon="arrow">
+        <span className="d-none d-md-flex" data-icon="arrow">
           <Icon icon={arrowDownIcon} />
         </span>
       )}
@@ -36,6 +36,7 @@ Dropdown.propTypes = {
   button: PropTypes.element.isRequired,
   menu: PropTypes.element.isRequired,
   id: PropTypes.string.isRequired,
+  className: PropTypes.string,
   isArrowed: PropTypes.bool,
 };
 

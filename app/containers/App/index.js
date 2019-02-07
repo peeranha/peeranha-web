@@ -23,7 +23,6 @@ import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
-import Header from 'containers/Header';
 import Toast from 'containers/Toast';
 import Questions from 'containers/Questions/Loadable';
 import AskQuestion from 'containers/AskQuestion/Loadable';
@@ -36,40 +35,13 @@ import SuggestedCommunities from 'containers/SuggestedCommunities';
 import Tags from 'containers/Tags';
 import CreateTag from 'containers/CreateTag';
 import SuggestedTags from 'containers/SuggestedTags';
-import LeftMenu from 'containers/LeftMenu';
 
 import NoAccess from 'components/NoAccess/Loadable';
 import Feed from 'components/Feed';
 
 import * as routes from 'routes-config';
-import styled from 'styled-components';
 
-import { HEADER_HEIGHT } from 'containers/Header/constants';
-
-const Main = styled.div`
-  background: rgb(234, 236, 244);
-  min-height: 100vh;
-  padding-top: ${HEADER_HEIGHT}px;
-`;
-
-const WrapStyled = styled.div`
-  margin-top: 10px;
-  flex: 1;
-`;
-
-const Wrapper = (Wrap, props) => [
-  <Header key="header" />,
-  <Main key="main">
-    <div className="container">
-      <div className="d-flex">
-        <LeftMenu {...props} />
-        <WrapStyled>
-          <Wrap {...props} />
-        </WrapStyled>
-      </div>
-    </div>
-  </Main>,
-];
+import Wrapper from './Wrapper';
 
 export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {

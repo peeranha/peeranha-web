@@ -9,7 +9,7 @@ const ButtonStyled = Span.extend`
   min-width: 92px;
   border-radius: 3px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: ${pink};
+  background: ${props => props.bg || pink};
   text-align: center;
   transition: 0.5s;
 
@@ -35,7 +35,16 @@ const ButtonStyled = Span.extend`
     }
   }
 
-  :after {
+  ${props =>
+    props.isRounded
+      ? `
+    width: 43px !important;
+    height: 43px !important;
+    border-radius: 50% !important;
+    min-width: inherit !important;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+  `
+      : ``} :after {
     content: '';
     position: absolute;
     top: 50%;

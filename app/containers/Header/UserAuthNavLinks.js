@@ -14,12 +14,27 @@ import messages from 'common-messages';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
 
-const UserAuthNavLinks = ({ showSignUpModal, showLoginModal }) => [
-  <Button key="signUp" type="red" onClick={showSignUpModal}>
+const UserAuthNavLinks = ({
+  showSignUpModal,
+  showLoginModal,
+  isMenuVisible,
+}) => [
+  <Button
+    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+    key="signUp"
+    type="red"
+    onClick={showSignUpModal}
+  >
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.signUp} />
   </Button>,
-  <Button key="login" type="red" onClick={showLoginModal}>
+
+  <Button
+    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+    key="login"
+    type="red"
+    onClick={showLoginModal}
+  >
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.login} />
   </Button>,

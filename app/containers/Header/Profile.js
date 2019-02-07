@@ -38,10 +38,12 @@ const AStyled = A.extend`
   flex: 1;
 `;
 
-const Button = ({ profileInfo }) => (
-  <span className="d-flex">
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
+const Button = ({ profileInfo, onClick }) => (
+  <span className="d-flex" onClick={onClick}>
     <Img src={profileInfo.ipfs_avatar} alt="ipfs_avatar" />
-    <Info className="d-none d-sm-flex">
+    <Info>
       <Span bold>{profileInfo.display_name}</Span>
       <RatingStatus rating={profileInfo.rating} size="sm" />
     </Info>
@@ -138,17 +140,23 @@ const Menu = ({ profileInfo }) => (
   </div>
 );
 
-const Profile = ({ profileInfo }) => (
-  <Dropdown
-    isArrowed
-    id={`profile_id_${Math.random()}`}
-    button={<Button profileInfo={profileInfo} />}
-    menu={<Menu profileInfo={profileInfo} />}
-  />
-);
+const Profile = ({ profileInfo, isMenuVisible, expandLeftMenuNavigation }) =>
+  !isMenuVisible ? (
+    <Dropdown
+      isArrowed
+      className={`${isMenuVisible ? 'd-flex' : 'd-none d-md-flex'}`}
+      id={`profile_id_${Math.random()}`}
+      button={<Button profileInfo={profileInfo} />}
+      menu={<Menu profileInfo={profileInfo} />}
+    />
+  ) : (
+    <Button profileInfo={profileInfo} onClick={expandLeftMenuNavigation} />
+  );
 
 Profile.propTypes = {
   profileInfo: PropTypes.object,
+  isMenuVisible: PropTypes.bool,
+  expandLeftMenuNavigation: PropTypes.func,
 };
 
 Menu.propTypes = {
@@ -157,6 +165,7 @@ Menu.propTypes = {
 
 Button.propTypes = {
   profileInfo: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(Profile);

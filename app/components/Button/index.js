@@ -16,7 +16,9 @@ const Button = ({
   type,
   isLink,
   typeAttr,
+  isRounded,
   className,
+  bg,
 }) => {
   const B = options[type || 'default'];
 
@@ -26,6 +28,8 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       isLink={isLink}
+      isRounded={isRounded}
+      bg={bg}
       type={typeAttr || 'button'}
     >
       {React.Children.toArray(children)}
@@ -35,12 +39,14 @@ const Button = ({
 
 Button.propTypes = {
   type: PropTypes.string,
+  bg: PropTypes.string,
   typeAttr: PropTypes.string,
   className: PropTypes.string,
   isLink: PropTypes.bool,
   children: PropTypes.element,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  isRounded: PropTypes.bool,
 };
 
 export default React.memo(Button);

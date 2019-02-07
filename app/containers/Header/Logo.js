@@ -13,6 +13,13 @@ const Logo = styled.div`
     top: 5px;
     cursor: pointer;
   }
+
+  @media only screen and (max-width: 992px) {
+    flex-basis: auto;
+    img {
+      width: 150px;
+    }
+  }
 `;
 
 export default Logo;

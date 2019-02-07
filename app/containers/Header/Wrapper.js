@@ -4,6 +4,8 @@ import { white } from 'style-constants';
 import { HEADER_HEIGHT } from './constants';
 
 const Wrapper = styled.header`
+  display: flex;
+  align-items: center;
   position: fixed;
   height: ${HEADER_HEIGHT}px;
   z-index: 9999;

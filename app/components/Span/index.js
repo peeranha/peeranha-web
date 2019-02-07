@@ -17,7 +17,6 @@ const Span = styled.span`
   text-align: left;
 
   [data-icon='icon'] {
-    margin-right: ${props => (props.margin === 'sm' ? 6 : 12)}px;
     stroke: ${props => (props.color ? colors[props.color] : colors.gray)};
   }
 `;

@@ -64,6 +64,9 @@ class Header extends React.PureComponent {
       profileInfo,
       showSignUpModalDispatch,
       showLoginModalDispatch,
+      isMenuVisible,
+      showMenu,
+      expandLeftMenuNavigation,
     } = this.props;
 
     return (
@@ -72,6 +75,9 @@ class Header extends React.PureComponent {
         profileInfo={profileInfo}
         showSignUpModalDispatch={showSignUpModalDispatch}
         showLoginModalDispatch={showLoginModalDispatch}
+        isMenuVisible={isMenuVisible}
+        showMenu={showMenu}
+        expandLeftMenuNavigation={expandLeftMenuNavigation}
       />
     );
   }
@@ -81,7 +87,10 @@ Header.propTypes = {
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
-  profileInfo: PropTypes.bool,
+  profileInfo: PropTypes.object,
+  isMenuVisible: PropTypes.bool,
+  showMenu: PropTypes.func,
+  expandLeftMenuNavigation: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
