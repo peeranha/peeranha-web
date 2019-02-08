@@ -14,15 +14,23 @@ import Profile from 'containers/Profile';
 
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
+import CommunitiesForm from './CommunitiesForm';
 
-const ViewProfilePage = ({ match, profile, account }) => (
+const ViewProfilePage = ({ match, profile, account, communities }) => (
   <Profile userId={match.params.id}>
     <ProfileViewForm
       userId={match.params.id}
       profile={profile}
       account={account}
+    />
+    <CommunitiesForm
+      userId={match.params.id}
+      profile={profile}
+      account={account}
+      communities={communities}
     />
   </Profile>
 );
@@ -31,11 +39,13 @@ ViewProfilePage.propTypes = {
   profile: PropTypes.object,
   account: PropTypes.string,
   match: PropTypes.object,
+  communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   profile: selectorsProfile.selectProfile(),
   account: makeSelectAccount(),
+  communities: selectCommunities(),
 });
 
 const withConnect = connect(

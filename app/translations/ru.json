@@ -17,6 +17,7 @@
   "app.common.myFeed": "Мой фид",
   "app.common.users": "Пользователи",
   "app.common.faq": "ЧАВО",
+  "app.common.subscribeMore": "Подписаться еще",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",

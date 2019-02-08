@@ -72,4 +72,7 @@ export default defineMessages({
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
   },
+  subscribeMore: {
+    id: 'app.common.subscribeMore',
+  },
 });

@@ -14,6 +14,11 @@ import {
   VOTE_TO_DELETE_TAG,
 } from './constants';
 
+// TODO: to test it
+export function getFollowedCommunities(allcommunities, followedcommunities) {
+  return allcommunities.filter(x => followedcommunities.includes(x.id));
+}
+
 /* eslint-disable */
 export function getTagScope(communityId) {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
@@ -104,6 +109,7 @@ export async function getAllCommunities(eosService) {
       x.label = x.name;
       x.value = x.id;
 
+      // Tags for community
       x.tags = await eosService.getTableRows(
         TAGS_COMMUNITIES_TABLE,
         getTagScope(x.id),
@@ -114,6 +120,14 @@ export async function getAllCommunities(eosService) {
         y.label = y.name;
         y.value = y.id;
       });
+
+      // IPFS additional information
+      // TODO: to test it
+      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
+      const avatar = await getFileUrl(ipfsDescription.avatar);
+
+      x.avatar = avatar;
+      x.description = ipfsDescription.description;
     }),
   );
 

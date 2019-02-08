@@ -17,6 +17,7 @@
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
   "app.common.faq": "FAQ",
+  "app.common.subscribeMore": "Subscribe more",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
