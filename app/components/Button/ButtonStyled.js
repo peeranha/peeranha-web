@@ -10,6 +10,7 @@ const ButtonStyled = Span.extend`
   border-radius: 3px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   background: ${props => props.bg || pink};
+  border: 1px solid ${props => props.bg || pink};
   text-align: center;
   transition: 0.5s;
 

@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import ButtonStyled from './ButtonStyled';
 import BlueButtonStyled from './BlueButtonStyled';
+import OutlinedButtonStyled from './OutlinedButtonStyled';
 
 const options = {
+  outlined: OutlinedButtonStyled,
   red: ButtonStyled,
   default: BlueButtonStyled,
 };
@@ -19,11 +21,13 @@ const Button = ({
   isRounded,
   className,
   bg,
+  dataset = {},
 }) => {
   const B = options[type || 'default'];
 
   return (
     <B
+      {...dataset}
       className={className}
       onClick={onClick}
       disabled={disabled}
@@ -47,6 +51,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   isRounded: PropTypes.bool,
+  dataset: PropTypes.object,
 };
 
 export default React.memo(Button);

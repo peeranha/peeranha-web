@@ -10,13 +10,12 @@ import Base from 'components/Base';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
+import H4 from 'components/H4';
 
 import arrowRightIcon from 'svg/arrowRight';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
-import { getFormattedNum } from 'utils/numbers';
-
-import HeaderForBlock from './HeaderForBlock';
+import { getFormattedNum2 } from 'utils/numbers';
 
 const CommunityStyled = Base.extend`
   border-radius: 5px;
@@ -35,7 +34,7 @@ const Img = styled.img`
 const communitiesRoute = routes.communities();
 
 const CommunitiesForm = ({ userId, profile, account, communities }) => {
-  if (!communities) {
+  if ((!profile && !communities) || !profile.followed_communities[0]) {
     return null;
   }
 
@@ -46,12 +45,13 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
 
   return (
     <div>
-      <HeaderForBlock>
+      <H4 isHeader>
         <FormattedMessage {...messages.communities} />{' '}
         <Span color="gray" fontSize="30" bold>
           {followedCommunities.length}
         </Span>
-      </HeaderForBlock>
+      </H4>
+
       <div className="row">
         {followedCommunities.map(x => (
           <div className="col-xl-3 mb-2">
@@ -62,7 +62,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
                   <Span>{x.name}</Span>
                   <span>
                     <Span bold fontSize="16">
-                      {getFormattedNum(x.users || 9999)}
+                      {getFormattedNum2(x.users || 9999)}
                     </Span>{' '}
                     <Span color="gray" fontSize="14">
                       <FormattedMessage {...messages.users} />

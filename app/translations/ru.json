@@ -18,6 +18,8 @@
   "app.common.users": "Пользователи",
   "app.common.faq": "ЧАВО",
   "app.common.subscribeMore": "Подписаться еще",
+  "app.common.top": "Лучшие",
+  "app.common.see": "Посмотреть",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",

@@ -75,4 +75,10 @@ export default defineMessages({
   subscribeMore: {
     id: 'app.common.subscribeMore',
   },
+  top: {
+    id: 'app.common.top',
+  },
+  see: {
+    id: 'app.common.see',
+  },
 });

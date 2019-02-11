@@ -15,6 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import Button from 'components/Button';
 
 import { followHandler } from './actions';
 import reducer from './reducer';
@@ -24,8 +25,10 @@ import messages from './messages';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
-export class FollowCommunityButton extends React.Component {
+export class FollowCommunityButton extends React.PureComponent {
   followHandler = e => {
+    e.preventDefault();
+
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
     const { communityIdFilter } = this.props;
 
@@ -40,15 +43,15 @@ export class FollowCommunityButton extends React.Component {
     const isFollowed = followedCommunities.includes(communityIdFilter);
 
     return (
-      <button
-        className="btn btn-secondary ml-1"
-        data-isfollowed={isFollowed}
+      <Button
+        type="outlined"
+        dataset={{ 'data-isfollowed': isFollowed }}
         onClick={this.followHandler}
       >
         <FormattedMessage
           {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
         />
-      </button>
+      </Button>
     );
   }
 }

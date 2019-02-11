@@ -40,7 +40,7 @@ class Header extends React.PureComponent {
         .$(`#${HEADER_ID}`)
         .hasClass('scroll-visible');
 
-      if (scrollY > innerHeight) {
+      if (scrollY > 0.5 * innerHeight) {
         if (direction < 0 && !scrollHidden) {
           window.$(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
           window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');

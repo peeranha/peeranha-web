@@ -16,6 +16,8 @@ import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
+import TopCommunities from 'components/TopCommunities';
+
 import ProfileViewForm from './ProfileViewForm';
 import CommunitiesForm from './CommunitiesForm';
 
@@ -26,11 +28,19 @@ const ViewProfilePage = ({ match, profile, account, communities }) => (
       profile={profile}
       account={account}
     />
+
     <CommunitiesForm
       userId={match.params.id}
       profile={profile}
       account={account}
       communities={communities}
+    />
+
+    <TopCommunities
+      userId={match.params.id}
+      account={account}
+      communities={communities}
+      profile={profile}
     />
   </Profile>
 );
