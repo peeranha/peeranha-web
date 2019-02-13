@@ -49,4 +49,25 @@ export default defineMessages({
   saveButton: {
     id: 'app.containers.Profile.saveButton',
   },
+  activity: {
+    id: 'app.containers.Profile.activity',
+  },
+  userHasntActivityYet: {
+    id: 'app.containers.Profile.userHasntActivityYet',
+  },
+  userHasntQuestionsYet: {
+    id: 'app.containers.Profile.userHasntQuestionsYet',
+  },
+  userHasntAnswersYet: {
+    id: 'app.containers.Profile.userHasntAnswersYet',
+  },
+  heHasnoAnswersAndQuestions: {
+    id: 'app.containers.Profile.heHasnoAnswersAndQuestions',
+  },
+  heHasnoQuestions: {
+    id: 'app.containers.Profile.heHasnoQuestions',
+  },
+  heHasnoAnswers: {
+    id: 'app.containers.Profile.heHasnoAnswers',
+  },
 });

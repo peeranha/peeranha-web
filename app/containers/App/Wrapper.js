@@ -12,6 +12,7 @@ const Main = styled.div`
   background: rgb(234, 236, 244);
   min-height: 100vh;
   padding-top: ${HEADER_HEIGHT}px;
+  padding-bottom: 150px;
 `;
 
 const WrapStyled = styled.div`

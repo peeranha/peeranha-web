@@ -26,6 +26,7 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
+  USER_ANSWERS_TABLE,
 } from './constants';
 
 /* eslint-disable  */
@@ -136,14 +137,37 @@ export class FetcherOfQuestionsForFollowedCommunities {
 }
 /* eslint-enable  */
 
-export async function getQuestionsPostedByUser(eosService, user) {
+export async function getQuestionsPostedByUser(
+  eosService,
+  user,
+  offset = 0,
+  limit,
+) {
   const questions = await eosService.getTableRows(
     USER_QUESTIONS_TABLE,
     user,
-    0,
+    offset,
+    limit,
   );
 
   return questions;
+}
+
+// TODO: test it
+export async function getAnswersPostedByUser(
+  eosService,
+  user,
+  offset = 0,
+  limit,
+) {
+  const answers = await eosService.getTableRows(
+    USER_ANSWERS_TABLE,
+    user,
+    offset,
+    limit,
+  );
+
+  return answers;
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

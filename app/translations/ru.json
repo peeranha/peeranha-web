@@ -20,6 +20,8 @@
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
   "app.common.see": "Посмотреть",
+  "app.common.posts": "Посты",
+  "app.common.ago": "Назад",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -30,10 +32,21 @@
   "app.components.RatingStatus.legResident": "Легендарный Резидент",
   "app.components.RatingStatus.banned": "Заблокирован",
 
+  "app.containers.Profile.activity": "Активность",
   "app.containers.Profile.reputation": "Репутация",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank": "Информация о Вас отсутствует",
+  "app.containers.Profile.userHasntActivityYet":
+    "Пользователь не имеет активность пока",
+  "app.containers.Profile.userHasntQuestionsYet":
+    "Пользователь не задавал вопросы пока",
+  "app.containers.Profile.userHasntAnswersYet":
+    "Пользователь не отвечал на вопросы пока",
+  "app.containers.Profile.heHasnoAnswersAndQuestions":
+    "У него нет пока вопросов и ответов",
+  "app.containers.Profile.heHasnoQuestions": "У него нет пока вопросов",
+  "app.containers.Profile.heHasnoAnswers": "У него нет пока ответов",
 
   "app.common.about": "О нас",
   "app.common.contacts": "Контакты",

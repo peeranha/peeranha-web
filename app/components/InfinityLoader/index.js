@@ -10,7 +10,9 @@ import PropTypes from 'prop-types';
 /* eslint-disable react/prefer-stateless-function */
 export class InfinityLoader extends React.Component {
   componentWillMount() {
-    window.addEventListener('scroll', this.onScroll, false);
+    if (!this.props.infinityOff) {
+      window.addEventListener('scroll', this.onScroll, false);
+    }
   }
 
   componentWillUnmount() {
@@ -31,12 +33,15 @@ export class InfinityLoader extends React.Component {
     }
   };
 
-  render = () => React.Children.only(this.props.children);
+  render() {
+    return React.Children.toArray(this.props.children);
+  }
 }
 
 InfinityLoader.propTypes = {
   loadNextPaginatedData: PropTypes.func,
   isLoading: PropTypes.bool,
+  infinityOff: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   children: PropTypes.object,
 };

@@ -81,4 +81,10 @@ export default defineMessages({
   see: {
     id: 'app.common.see',
   },
+  posts: {
+    id: 'app.common.posts',
+  },
+  ago: {
+    id: 'app.common.ago',
+  },
 });

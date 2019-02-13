@@ -7,3 +7,4 @@ export const pink = '#f76f60';
 export const blue = '#576fed';
 export const darkblue = '#5065A5';
 export const transparent = 'rgba(0, 0, 0, 0)';
+export const green = '#49b562';
