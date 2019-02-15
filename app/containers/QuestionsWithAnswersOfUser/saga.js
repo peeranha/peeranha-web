@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {
   getAnswersPostedByUser,
@@ -18,7 +18,7 @@ export function* getQuestionsWorker({ userId }) {
 
     const offset =
       (questionsFromStore[questionsFromStore.length - 1] &&
-        +questionsFromStore[questionsFromStore.length - 1].question_id + 1) ||
+        +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
       0;
 
     const eosService = yield select(selectEos);
@@ -38,6 +38,7 @@ export function* getQuestionsWorker({ userId }) {
      * @myPostTime - time of user's post
      * @acceptedAnswer - somebody gave answer which has become accepted
      * @isMyAnswerAccepted - check if my answer is Accepted
+     * @myPostRating - rating of post
      *
      */
 
@@ -49,6 +50,7 @@ export function* getQuestionsWorker({ userId }) {
         if (y.id === answersId[index].answer_id) {
           x.myPostTime = y.post_time;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
+          x.myPostRating = y.rating;
         }
       });
     });
@@ -63,5 +65,5 @@ export function* getQuestionsWorker({ userId }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
 }

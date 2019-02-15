@@ -69,3 +69,9 @@ export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
+
+// Datetime
+export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY_TIME =
+  'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';

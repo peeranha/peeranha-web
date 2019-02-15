@@ -39,7 +39,12 @@ export class QuestionsWithAnswersOfUser extends React.PureComponent {
   };
 
   render() {
-    const { isLastFetch, children, questionsLoading, infinityOff } = this.props;
+    const {
+      isLastFetch,
+      questionsLoading,
+      className,
+      infinityOff,
+    } = this.props;
 
     return (
       <InfinityLoader
@@ -48,7 +53,7 @@ export class QuestionsWithAnswersOfUser extends React.PureComponent {
         isLastFetch={isLastFetch}
         infinityOff={infinityOff}
       >
-        {React.Children.toArray(children)}
+        <div className={className}>213</div>
       </InfinityLoader>
     );
   }
@@ -57,9 +62,9 @@ export class QuestionsWithAnswersOfUser extends React.PureComponent {
 QuestionsWithAnswersOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
   questionsLoading: PropTypes.bool,
-  infinityOff: PropTypes.bool,
-  children: PropTypes.element,
   userId: PropTypes.string,
+  infinityOff: PropTypes.string,
+  className: PropTypes.string,
   getQuestionsDispatch: PropTypes.func,
   resetStoreDispatch: PropTypes.func,
 };

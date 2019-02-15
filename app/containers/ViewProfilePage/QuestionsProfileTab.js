@@ -49,14 +49,14 @@ const Note = ({
   postType,
   isMyAnswerAccepted,
   acceptedAnswer,
-  rating,
+  myPostRating,
   title,
   myPostTime,
   locale,
 }) => (
   <li className="d-flex align-items-center py-1">
     <PostTypeIcon postType={postType} isMyAnswerAccepted={isMyAnswerAccepted} />
-    <Rating acceptedAnswer={acceptedAnswer}>{rating}</Rating>
+    <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
     <Span className="flex-grow-1">{title}</Span>
     <Span fontSize="14" color="gray">
       {getTimeFromDateToNow(myPostTime, locale)}{' '}
@@ -75,7 +75,7 @@ const QuestionsProfileTab = ({
   <div className={className}>
     <ul>{questions.map(x => <Note {...x} locale={locale} />)}</ul>
 
-    {loading && <LoadingIndicator />}
+    {!questions[0] && loading && <LoadingIndicator />}
 
     {!questions[0] && !loading && <NoActivity tab={tab} />}
   </div>
@@ -90,7 +90,7 @@ Note.propTypes = {
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   acceptedAnswer: PropTypes.bool,
-  rating: PropTypes.number,
+  myPostRating: PropTypes.number,
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   locale: PropTypes.string,

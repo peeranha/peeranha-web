@@ -1,10 +1,17 @@
 /* eslint camelcase: 0 */
 export const home = () => `/`;
 export const faq = () => `/faq`;
+
 export const profile_view = id => `/users/${id}`;
+export const profile_view_activity_questions = id =>
+  `/users/${id}#activity#questions`;
+export const profile_view_activity_answers = id =>
+  `/users/${id}#activity#answers`;
+
 export const profile_edit = id => `/users/edit/${id}`;
-export const user_questions = id => `/users/${id}/questions`;
-export const user_answers = id => `/users/${id}/answers`;
+
+export const user_questions = id => `/users/${id}#questions`;
+export const user_answers = id => `/users/${id}#answers`;
 export const user_settings = id => `/users/${id}/settings`;
 
 export const questions = () => `/questions`;

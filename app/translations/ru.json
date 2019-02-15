@@ -22,6 +22,7 @@
   "app.common.see": "Посмотреть",
   "app.common.posts": "Посты",
   "app.common.ago": "Назад",
+  "app.common.you": "Вы",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -47,6 +48,9 @@
     "У него нет пока вопросов и ответов",
   "app.containers.Profile.heHasnoQuestions": "У него нет пока вопросов",
   "app.containers.Profile.heHasnoAnswers": "У него нет пока ответов",
+  "app.containers.Profile.asked": "спрашивали",
+  "app.containers.Profile.lastAnswer": "Последний ответ",
+  "app.containers.Profile.noAnswersYet": "Пока нет ответов",
 
   "app.common.about": "О нас",
   "app.common.contacts": "Контакты",

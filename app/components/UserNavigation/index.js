@@ -21,62 +21,66 @@ const Nav = Ul.extend`
   border-bottom: 0;
 `.withComponent('nav');
 
-const UserNavigation = ({ userId, account }) => (
-  <BaseStyled position="top" className="d-flex justify-content-between">
-    <Nav>
-      <A to={routes.profile_view(userId)} href={routes.profile_view(userId)}>
-        <Button
-          isLink={window.location.pathname !== routes.profile_view(userId)}
+const UserNavigation = ({ userId, account }) => {
+  const path = window.location.pathname + window.location.hash;
+
+  return (
+    <BaseStyled position="top" className="d-flex justify-content-between">
+      <Nav>
+        <A to={routes.profile_view(userId)} href={routes.profile_view(userId)}>
+          <Button
+            isLink={
+              path !== routes.profile_view(userId) &&
+              path !== routes.profile_view_activity_questions(userId) &&
+              path !== routes.profile_view_activity_answers(userId)
+            }
+          >
+            <FormattedMessage {...messages.profile} />
+          </Button>
+        </A>
+
+        <A
+          to={routes.user_questions(userId)}
+          href={routes.user_questions(userId)}
         >
-          <FormattedMessage {...messages.profile} />
-        </Button>
-      </A>
+          <Button isLink={path !== routes.user_questions(userId)}>
+            <FormattedMessage {...messages.questions} />
+          </Button>
+        </A>
 
-      <A
-        to={routes.user_questions(userId)}
-        href={routes.user_questions(userId)}
-      >
-        <Button
-          isLink={window.location.pathname !== routes.user_questions(userId)}
+        <A to={routes.user_answers(userId)} href={routes.user_answers(userId)}>
+          <Button isLink={path !== routes.user_answers(userId)}>
+            <FormattedMessage {...messages.answers} />
+          </Button>
+        </A>
+
+        <MyProfileButton
+          userId={userId}
+          account={account}
+          href={routes.user_settings(userId)}
+          isLink
         >
-          <FormattedMessage {...messages.questions} />
-        </Button>
-      </A>
+          <FormattedMessage {...messages.settings} />
+        </MyProfileButton>
+      </Nav>
 
-      <A to={routes.user_answers(userId)} href={routes.user_answers(userId)}>
-        <Button
-          isLink={window.location.pathname !== routes.user_answers(userId)}
+      <Nav>
+        <MyProfileButton
+          userId={userId}
+          account={account}
+          href={routes.profile_edit(userId)}
+          isLink
         >
-          <FormattedMessage {...messages.answers} />
-        </Button>
-      </A>
-
-      <MyProfileButton
-        userId={userId}
-        account={account}
-        href={routes.user_settings(userId)}
-        isLink
-      >
-        <FormattedMessage {...messages.settings} />
-      </MyProfileButton>
-    </Nav>
-
-    <Nav>
-      <MyProfileButton
-        userId={userId}
-        account={account}
-        href={routes.profile_edit(userId)}
-        isLink
-      >
-        <FormattedMessage {...messages.edit} />
-      </MyProfileButton>
-    </Nav>
-  </BaseStyled>
-);
+          <FormattedMessage {...messages.edit} />
+        </MyProfileButton>
+      </Nav>
+    </BaseStyled>
+  );
+};
 
 UserNavigation.propTypes = {
   userId: PropTypes.string,
   account: PropTypes.string,
 };
 
-export default React.memo(UserNavigation);
+export default UserNavigation;

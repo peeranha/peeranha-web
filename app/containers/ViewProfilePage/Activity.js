@@ -10,8 +10,6 @@ import Base from 'components/Base';
 import Button from 'components/Button';
 import A from 'components/A';
 
-import QuestionsOfUser from 'containers/QuestionsOfUser';
-import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
@@ -49,14 +47,17 @@ const Activity = ({
           </Button>
         </A>
 
-        <A to={`${route}#questions`} href={`${route}#questions`}>
-          <Button isLink={path !== `${route}#questions`}>
+        <A
+          to={`${route}#activity#questions`}
+          href={`${route}#activity#questions`}
+        >
+          <Button isLink={path !== `${route}#activity#questions`}>
             <FormattedMessage {...messages.questions} />
           </Button>
         </A>
 
-        <A to={`${route}#answers`} href={`${route}#answers`}>
-          <Button isLink={path !== `${route}#answers`}>
+        <A to={`${route}#activity#answers`} href={`${route}#activity#answers`}>
+          <Button isLink={path !== `${route}#activity#answers`}>
             <FormattedMessage {...messages.answers} />
           </Button>
         </A>
@@ -71,25 +72,21 @@ const Activity = ({
           loading={questionsWithAnswersLoading || questionsLoading}
         />
 
-        <QuestionsOfUser userId={userId} infinityOff>
-          <QuestionsProfileTab
-            tab="questions"
-            locale={locale}
-            className={path === `${route}#questions` ? '' : 'd-none'}
-            questions={questions.slice(0, 10)}
-            loading={questionsLoading}
-          />
-        </QuestionsOfUser>
+        <QuestionsProfileTab
+          tab="questions"
+          locale={locale}
+          className={path === `${route}#activity#questions` ? '' : 'd-none'}
+          questions={questions.slice(0, 10)}
+          loading={questionsLoading}
+        />
 
-        <QuestionsWithAnswersOfUser userId={userId} infinityOff>
-          <QuestionsProfileTab
-            tab="answers"
-            locale={locale}
-            className={path === `${route}#answers` ? '' : 'd-none'}
-            questions={questionsWithUserAnswers.slice(0, 10)}
-            loading={questionsWithAnswersLoading}
-          />
-        </QuestionsWithAnswersOfUser>
+        <QuestionsProfileTab
+          tab="answers"
+          locale={locale}
+          className={path === `${route}#activity#answers` ? '' : 'd-none'}
+          questions={questionsWithUserAnswers.slice(0, 10)}
+          loading={questionsWithAnswersLoading}
+        />
       </Base>
     </div>
   );

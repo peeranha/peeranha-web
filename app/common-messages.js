@@ -87,4 +87,7 @@ export default defineMessages({
   ago: {
     id: 'app.common.ago',
   },
+  you: {
+    id: 'app.common.you',
+  },
 });

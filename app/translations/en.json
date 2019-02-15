@@ -22,6 +22,7 @@
   "app.common.see": "See",
   "app.common.posts": "Posts",
   "app.common.ago": "ago",
+  "app.common.you": "You",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -47,6 +48,9 @@
     "He has no answers and questions.",
   "app.containers.Profile.heHasnoQuestions": "He has no questions.",
   "app.containers.Profile.heHasnoAnswers": "He has no answers.",
+  "app.containers.Profile.asked": "asked",
+  "app.containers.Profile.lastAnswer": "Last answer",
+  "app.containers.Profile.noAnswersYet": "No answers yet",
 
   "app.common.about": "About",
   "app.common.contacts": "Contacts",

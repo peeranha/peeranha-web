@@ -70,4 +70,13 @@ export default defineMessages({
   heHasnoAnswers: {
     id: 'app.containers.Profile.heHasnoAnswers',
   },
+  asked: {
+    id: 'app.containers.Profile.asked',
+  },
+  lastAnswer: {
+    id: 'app.containers.Profile.lastAnswer',
+  },
+  noAnswersYet: {
+    id: 'app.containers.Profile.noAnswersYet',
+  },
 });

@@ -16,7 +16,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import { getProfileInfo } from './actions';
 import * as profileSelectors from './selectors';
@@ -58,9 +60,9 @@ export class Profile extends React.PureComponent {
           />
         </Helmet>
         <div>
-          {isProfileLoading && <LoadingIndicator />}
-
           {!isProfileLoading && !profile && <NoSuchUser />}
+
+          {isProfileLoading && <LoadingIndicator />}
 
           {!isProfileLoading && profile && React.Children.toArray(children)}
         </div>
@@ -80,6 +82,7 @@ Profile.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  account: makeSelectAccount(),
   profile: profileSelectors.selectProfile(),
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });

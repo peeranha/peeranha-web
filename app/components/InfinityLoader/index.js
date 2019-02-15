@@ -10,9 +10,7 @@ import PropTypes from 'prop-types';
 /* eslint-disable react/prefer-stateless-function */
 export class InfinityLoader extends React.Component {
   componentWillMount() {
-    if (!this.props.infinityOff) {
-      window.addEventListener('scroll', this.onScroll, false);
-    }
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
   componentWillUnmount() {
@@ -20,14 +18,20 @@ export class InfinityLoader extends React.Component {
   }
 
   onScroll = () => {
-    const { loadNextPaginatedData, isLoading, isLastFetch } = this.props;
+    const {
+      loadNextPaginatedData,
+      isLoading,
+      isLastFetch,
+      infinityOff,
+    } = this.props;
     const offsetHeightFromBottom = 100;
 
     if (
       window.innerHeight + window.scrollY >=
         document.body.offsetHeight - offsetHeightFromBottom &&
       !isLoading &&
-      !isLastFetch
+      !isLastFetch &&
+      !infinityOff
     ) {
       loadNextPaginatedData();
     }

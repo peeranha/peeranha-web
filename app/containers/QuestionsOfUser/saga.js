@@ -1,10 +1,13 @@
-import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {
   getQuestionsPostedByUser,
   getQuestionData,
 } from 'utils/questionsManagement';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
+
+// import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
 
@@ -19,7 +22,7 @@ export function* getQuestionsWorker({ userId }) {
 
     const offset =
       (questionsFromStore[questionsFromStore.length - 1] &&
-        +questionsFromStore[questionsFromStore.length - 1].question_id + 1) ||
+        +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
       0;
 
     const eosService = yield select(selectEos);
@@ -38,14 +41,24 @@ export function* getQuestionsWorker({ userId }) {
      * @postType - type of user's post
      * @myPostTime - time of user's post
      * @acceptedAnswer - somebody gave answer which has become accepted
+     * @myPostRating - rating of post
      *
      */
 
     /* eslint no-param-reassign: 0 */
-    questions.forEach(x => {
+    yield questions.map(function*(x) {
       x.postType = 'question';
       x.myPostTime = x.post_time;
       x.acceptedAnswer = x.correct_answer_id > 0;
+      x.myPostRating = x.rating;
+
+      // Now we get userInfo from @getQuestionData method
+      // TODO: remove it there and use @getUserProfileWorker of DataCacheProvider
+
+      //      if (x.answers[0]) {
+      //        const userInfo = yield call(() => getUserProfileWorker({ user: x.answers[0].user }));
+      //        x.answers[0].userInfo = userInfo;
+      //      }
     });
 
     yield put(getQuestionsSuccess(questions));
@@ -55,5 +68,5 @@ export function* getQuestionsWorker({ userId }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
 }

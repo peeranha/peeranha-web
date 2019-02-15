@@ -15,7 +15,7 @@ const getStatus = rating =>
     x => options[x].minRating < rating && options[x].maxRating >= rating,
   )[0];
 
-const RatingStatus = ({ rating, size, intl }) => {
+const RatingStatus = ({ rating, size, intl, isRankOff }) => {
   const full = options[getStatus(rating)];
 
   return (
@@ -29,6 +29,7 @@ const RatingStatus = ({ rating, size, intl }) => {
         {getFormattedNum(rating)}
       </Span>
       <Span
+        className={isRankOff ? 'd-none' : ''}
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? 'black' : 'gray'}
       >
@@ -42,6 +43,7 @@ RatingStatus.propTypes = {
   intl: intlShape.isRequired,
   rating: PropTypes.number.isRequired,
   size: PropTypes.string,
+  isRankOff: PropTypes.bool,
 };
 
 export default React.memo(injectIntl(RatingStatus));

@@ -8,29 +8,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import * as routes from 'routes-config';
 
 import Profile from 'containers/Profile';
+import UserNavigation from 'components/UserNavigation';
 
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
-import TopCommunities from 'components/TopCommunities';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
+import QuestionsOfUser from 'containers/QuestionsOfUser';
+import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
+
 import {
   selectQuestionsLoading,
   selectQuestions,
 } from 'containers/QuestionsOfUser/selectors';
+
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
-import CommunitiesForm from './CommunitiesForm';
-import Activity from './Activity';
 
 const ViewProfilePage = ({
   match,
@@ -42,39 +43,47 @@ const ViewProfilePage = ({
   questionsLoading,
   questionsWithAnswersLoading,
   locale,
-}) => (
-  <Profile userId={match.params.id}>
-    <ProfileViewForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-    />
+}) => {
+  const path = window.location.pathname + window.location.hash;
+  const userId = match.params.id;
 
-    <CommunitiesForm
-      userId={match.params.id}
-      profile={profile}
-      account={account}
-      communities={communities}
-    />
+  return (
+    <Profile userId={userId}>
+      <UserNavigation userId={userId} account={account} />
 
-    <TopCommunities
-      userId={match.params.id}
-      account={account}
-      communities={communities}
-      profile={profile}
-    />
+      <ProfileViewForm
+        className={
+          path === routes.profile_view(userId) ||
+          path === routes.profile_view_activity_questions(userId) ||
+          path === routes.profile_view_activity_answers(userId)
+            ? ''
+            : 'd-none'
+        }
+        userId={userId}
+        profile={profile}
+        account={account}
+        communities={communities}
+        questions={questions}
+        questionsWithUserAnswers={questionsWithUserAnswers}
+        questionsLoading={questionsLoading}
+        questionsWithAnswersLoading={questionsWithAnswersLoading}
+        locale={locale}
+      />
 
-    <Activity
-      account={account}
-      userId={match.params.id}
-      questions={questions}
-      questionsWithUserAnswers={questionsWithUserAnswers}
-      questionsLoading={questionsLoading}
-      questionsWithAnswersLoading={questionsWithAnswersLoading}
-      locale={locale}
-    />
-  </Profile>
-);
+      <QuestionsOfUser
+        className={path === routes.user_questions(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.user_questions(userId)}
+        userId={userId}
+      />
+
+      <QuestionsWithAnswersOfUser
+        className={path === routes.user_answers(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.user_answers(userId)}
+        userId={userId}
+      />
+    </Profile>
+  );
+};
 
 ViewProfilePage.propTypes = {
   profile: PropTypes.object,
@@ -99,9 +108,7 @@ const mapStateToProps = createStructuredSelector({
   questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
 });
 
-const withConnect = connect(
+export default connect(
   mapStateToProps,
   null,
-);
-
-export default compose(withConnect)(ViewProfilePage);
+)(ViewProfilePage);
