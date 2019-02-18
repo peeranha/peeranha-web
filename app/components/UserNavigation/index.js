@@ -5,10 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
+import pencilIcon from 'svg/pencil';
+
 import Ul from 'components/Ul';
 import A from 'components/A';
 import Button from 'components/Button';
 import Base from 'components/Base';
+import Icon from 'components/Icon';
 
 import MyProfileButton from './MyProfileButton';
 
@@ -71,6 +74,7 @@ const UserNavigation = ({ userId, account }) => {
           href={routes.profile_edit(userId)}
           isLink
         >
+          <Icon className="mr-2" icon={pencilIcon} />
           <FormattedMessage {...messages.edit} />
         </MyProfileButton>
       </Nav>

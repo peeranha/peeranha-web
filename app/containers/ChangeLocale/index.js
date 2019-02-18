@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import styled from 'styled-components';
+import { LANDING_FONT } from 'style-constants';
 
 import { translationMessages } from 'i18n';
 import { changeLocale } from 'containers/LanguageProvider/actions';
@@ -57,7 +58,7 @@ const Box = styled.span`
   }
 
   li {
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     padding: 5px 20px !important;
     text-transform: uppercase;
 

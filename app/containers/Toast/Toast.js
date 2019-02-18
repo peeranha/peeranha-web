@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { LANDING_FONT } from 'style-constants';
+
 import toastTypes from './toastTypes';
 
 const Toast = styled.div`
@@ -23,7 +25,7 @@ const Toast = styled.div`
     line-height: 1.63;
     letter-spacing: -0.6px;
     font-size: 16px;
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     padding: 20px 0;
   }
 `;

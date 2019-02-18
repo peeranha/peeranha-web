@@ -63,6 +63,7 @@ export class EditProfilePage extends React.PureComponent {
     const userKey = match.params.id;
 
     const profile = {
+      ...this.props.profile.profile,
       [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
       [POSITION_FIELD]: val.get(POSITION_FIELD),
       [COMPANY_FIELD]: val.get(COMPANY_FIELD),

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LANDING_FONT } from 'style-constants';
 
 import ChangeLocale from 'containers/ChangeLocale';
 
@@ -28,7 +29,7 @@ const Box = Gradient.extend`
         margin-bottom: 5px;
         text-align: center;
         letter-spacing: -0.6px;
-        font-family: Open Sans, sans-serif;
+        font-family: ${LANDING_FONT};
       }
     }
 

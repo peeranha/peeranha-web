@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import styled from 'styled-components';
 import { green, gray, darkgray } from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
@@ -10,6 +9,7 @@ import commonMessages from 'common-messages';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import Span from 'components/Span';
+import Img from 'components/Img';
 
 import questionRoundedIcon from 'images/question.png';
 import bestAnswerIcon from 'images/ico-best-answer.png';
@@ -29,20 +29,16 @@ const Rating = Span.extend`
   margin: 0 20px;
 `;
 
-const Img = styled.img`
-  width: 18px;
-`;
-
 const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
   if (postType === 'question') {
-    return <Img src={questionRoundedIcon} alt="?" />;
+    return <Img size={0.75} notRounded src={questionRoundedIcon} alt="?" />;
   }
 
   if (isMyAnswerAccepted) {
-    return <Img src={bestAnswerIcon} alt="v" />;
+    return <Img size={0.75} notRounded src={bestAnswerIcon} alt="v" />;
   }
 
-  return <Img src={answerIcon} alt="+" />;
+  return <Img size={0.75} notRounded src={answerIcon} alt="+" />;
 };
 
 const Note = ({

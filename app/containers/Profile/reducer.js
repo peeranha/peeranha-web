@@ -12,7 +12,6 @@ import {
   GET_PROFILE_INFORMATION,
   GET_PROFILE_INFORMATION_SUCCESS,
   GET_PROFILE_INFORMATION_ERROR,
-  SET_DEFAULT_PROPS,
 } from './constants';
 /* eslint-enable */
 
@@ -36,9 +35,6 @@ function profileReducer(state = initialState, action) {
         .set('isProfileLoading', false)
         .set('profile', null)
         .set('errorLoadProfile', errorLoadProfile);
-
-    case SET_DEFAULT_PROPS:
-      return initialState;
 
     default:
       return state;

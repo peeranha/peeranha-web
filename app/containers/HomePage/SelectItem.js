@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-
 import TextField from '@material-ui/core/TextField';
+
+import { LANDING_FONT } from 'style-constants';
 
 import messages from './messages';
 import { Wrapper } from './FloatingLabelInput';
@@ -14,7 +15,7 @@ const Box = Wrapper.extend`
 
     li {
       font-size: 14px;
-      font-family: Open Sans, sans-serif;
+      font-family: ${LANDING_FONT};
       color: #282828;
       padding: 10px 21px;
 

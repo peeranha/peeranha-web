@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import { LANDING_FONT } from 'style-constants';
+
 import sergeyIlin from 'images/1.png';
 import kateBehey from 'images/2.png';
 import nikitaSyr from 'images/av1.jpg';
@@ -96,12 +98,12 @@ const Box = Section.extend`
               font-size: 16px;
               color: rgba(40, 40, 40, 0.9);
               letter-spacing: -0.6px;
-              font-family: Open Sans, sans-serif;
+              font-family: ${LANDING_FONT};
               padding: 15px 0 8px 0;
             }
 
             .role {
-              font-family: Open Sans, sans-serif;
+              font-family: ${LANDING_FONT};
               font-size: 14px;
               color: rgba(55, 55, 55, 0.5);
               letter-spacing: -0.6px;

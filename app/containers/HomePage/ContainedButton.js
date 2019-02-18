@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import Button from '@material-ui/core/Button';
+
+import { LANDING_FONT } from 'style-constants';
 
 const Wrapper = styled.div`
   * {
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
   .contained-button {
     width: 100%;
     height: 48px;
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     font-size: 18px;
     background-color: #fc6655;
     border-radius: 3px;

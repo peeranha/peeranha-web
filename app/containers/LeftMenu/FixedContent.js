@@ -11,6 +11,7 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
+import Img from 'components/Img';
 
 import messages from 'common-messages';
 
@@ -22,8 +23,9 @@ import allQuestionsIcon from 'svg/allQuestions';
 import communitiesIcon from 'svg/communities';
 import tagsIcon from 'svg/tags';
 import usersIcon from 'svg/users';
-import faqIcon from 'svg/faq';
 import logoutIcon from 'svg/logout';
+
+import questionRoundedIcon from 'images/ico-faq.png';
 
 import { LEFT_MENU_ID } from './constants';
 
@@ -155,8 +157,8 @@ const FixedContent = ({ profile, isMenuVisible, isNavigationExpanded }) => (
         </A>
       </LiExtended>
       <LiExtended route={faqRoute}>
-        <A to={faqRoute} href={faqRoute}>
-          <Icon icon={faqIcon} />
+        <A className="d-flex align-items-center" to={faqRoute} href={faqRoute}>
+          <Img className="mr-2" src={questionRoundedIcon} />
           <FormattedMessage {...messages.faq} />
         </A>
       </LiExtended>

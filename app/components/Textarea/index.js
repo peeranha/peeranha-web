@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import { gray, blue, black, pink, transparent } from 'style-constants';
+import {
+  gray,
+  blue,
+  black,
+  pink,
+  transparent,
+  APP_FONT,
+} from 'style-constants';
 
 const Textarea = styled.textarea`
   height: 200px;
@@ -9,7 +16,7 @@ const Textarea = styled.textarea`
   border-radius: 3px;
   padding: 9px 42px 9px 14px;
   color: ${black};
-  font-family: Source Sans Pro, sans-serif;
+  font-family: ${APP_FONT};
   font-size: 16px;
   line-height: 20px;
   outline: none;

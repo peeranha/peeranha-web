@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import { black, blue, darkgray, white, darkblue } from 'style-constants';
+import {
+  black,
+  blue,
+  darkgray,
+  white,
+  darkblue,
+  APP_FONT,
+} from 'style-constants';
 
 const colors = {
   black,
@@ -15,7 +22,7 @@ const Span = styled.span`
   font-size: ${props => (props.fontSize ? +props.fontSize : '16')}px;
   line-height: ${props => (props.fontSize ? 1.25 * +props.fontSize : '20')}px;
   font-style: ${props => (props.isItalic ? 'italic' : 'normal')};
-  font-family: Source Sans Pro, sans-serif;
+  font-family: ${APP_FONT};
   text-align: left;
 
   [data-icon='icon'] {

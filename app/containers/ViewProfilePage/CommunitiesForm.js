@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
@@ -11,6 +10,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
 import H4 from 'components/H4';
+import Img from 'components/Img';
 
 import arrowRightIcon from 'svg/arrowRight';
 
@@ -21,14 +21,6 @@ const CommunityStyled = Base.extend`
   border-radius: 5px;
   padding: 12px 20px;
   height: 100%;
-`;
-
-const Img = styled.img`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  margin-right: 5px;
-  object-fit: contain;
 `;
 
 const communitiesRoute = routes.communities();
@@ -57,7 +49,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
           <div className="col-xl-3 mb-2">
             <A to={communitiesRoute} href={communitiesRoute}>
               <CommunityStyled className="d-flex">
-                <Img src={x.avatar} alt="comm_img" />
+                <Img className="mr-2" src={x.avatar} alt="comm_img" />
                 <div className="d-flex flex-column">
                   <Span>{x.name}</Span>
                   <span>

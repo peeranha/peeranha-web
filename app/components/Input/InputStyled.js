@@ -1,4 +1,11 @@
-import { gray, blue, black, pink, transparent } from 'style-constants';
+import {
+  gray,
+  blue,
+  black,
+  pink,
+  transparent,
+  APP_FONT,
+} from 'style-constants';
 import styled from 'styled-components';
 
 const InputStyled = styled.div`
@@ -23,7 +30,7 @@ const InputStyled = styled.div`
     box-shadow: 0 0 0 3px ${props => (props.error ? `${pink}66` : transparent)};
     padding: 9px 42px 9px 14px;
     color: ${black};
-    font-family: Source Sans Pro, sans-serif;
+    font-family: ${APP_FONT};
     font-size: 16px;
     line-height: 20px;
     outline: none;

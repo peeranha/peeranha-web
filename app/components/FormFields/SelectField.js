@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import styled from 'styled-components';
 import AsyncSelect from 'react-select/lib/Async';
-import { gray, black, white } from 'style-constants';
+import { gray, black, white, APP_FONT } from 'style-constants';
 
 import Label from './Label';
 import WarningMessage from './WarningMessage';
@@ -47,14 +47,14 @@ const SelectField = ({
                 border: `1px solid ${gray}`,
                 borderRadius: '3px',
                 color: black,
-                fontFamily: 'Source Sans Pro, sans-serif',
+                fontFamily: APP_FONT,
                 fontSize: '16px',
                 background: `${white} !important`,
               }),
               menu: base => ({
                 ...base,
                 color: black,
-                fontFamily: 'Source Sans Pro, sans-serif',
+                fontFamily: APP_FONT,
                 fontSize: '16px',
               }),
               dropdownIndicator: base => ({

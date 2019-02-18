@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ButtonStyled from './ButtonStyled';
-import BlueButtonStyled from './BlueButtonStyled';
+import PrimaryButtonStyled from './PrimaryButtonStyled';
 import OutlinedButtonStyled from './OutlinedButtonStyled';
 
 const options = {
   outlined: OutlinedButtonStyled,
   red: ButtonStyled,
-  default: BlueButtonStyled,
+  default: PrimaryButtonStyled,
 };
 
 const Button = ({

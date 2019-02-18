@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { darkblue, green } from 'style-constants';
@@ -21,6 +20,7 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
+import Img from 'components/Img';
 
 import messages from 'containers/Profile/messages';
 
@@ -50,14 +50,6 @@ const AcceptedQuestionBadge = Badge.extend`
   border: none;
 `;
 
-const CommunityAvatar = styled.img`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: contain;
-  margin-right: 5px;
-`;
-
 const QuestionCommunity = ({ communities, communityId }) => {
   if (!communities[0]) {
     return null;
@@ -67,7 +59,7 @@ const QuestionCommunity = ({ communities, communityId }) => {
 
   return (
     <Span className="d-flex align-items-center" fontSize="14">
-      <CommunityAvatar src={com.avatar} alt="comm_avatar" />
+      <Img className="mr-1" src={com.avatar} alt="comm_avatar" />
       <span>{com.name}</span>
     </Span>
   );
@@ -160,7 +152,7 @@ const Question = ({
         </Span>
       </span>
 
-      <LastAnswer lastAnswer={answers[0]} locale={locale} />
+      <LastAnswer lastAnswer={answers[answers.length - 1]} locale={locale} />
     </RightBlock>
   </li>
 );

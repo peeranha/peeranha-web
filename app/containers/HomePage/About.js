@@ -2,6 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import { LANDING_FONT } from 'style-constants';
+
 import practicalAnswers from 'images/Ico_01.svg';
 import fairEconomy from 'images/Ico_02.svg';
 import builtOnSmart from 'images/Ico_03.svg';
@@ -102,7 +104,7 @@ const Box = Section.extend`
       }
 
       .text-1 {
-        font-family: Open Sans, sans-serif;
+        font-family: ${LANDING_FONT};
         color: #fa8072;
         font-size: 16px;
         letter-spacing: -0.6px;
@@ -118,7 +120,7 @@ const Box = Section.extend`
       }
 
       .text-3 {
-        font-family: Open Sans, sans-serif;
+        font-family: ${LANDING_FONT};
         text-align: left;
         color: #282828;
         font-size: 20px;

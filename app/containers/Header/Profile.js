@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
-import { gray } from 'style-constants';
 import logoutIcon from 'svg/logout';
 import messages from 'common-messages';
 
@@ -15,16 +14,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
 import RatingStatus from 'components/RatingStatus';
-
-const Img = styled.img`
-  border-radius: 50%;
-  border: 1px solid ${gray};
-  width: 43px;
-  height: 43px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import Img from 'components/Img';
 
 const Info = styled.span`
   padding: 0 17px;
@@ -42,7 +32,12 @@ const AStyled = A.extend`
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
 const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
-    <Img src={profileInfo.ipfs_avatar} alt="ipfs_avatar" />
+    <Img
+      size={1.75}
+      isBordered
+      src={profileInfo.ipfs_avatar}
+      alt="ipfs_avatar"
+    />
     <Info>
       <Span bold>{profileInfo.display_name}</Span>
       <RatingStatus rating={profileInfo.rating} size="sm" />
