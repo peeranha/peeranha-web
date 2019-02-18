@@ -29,33 +29,36 @@ class Header extends React.PureComponent {
   }
 
   headerLeftMenuAnimation /* istanbul ignore next */ = () => {
-    window.$(window).on('DOMMouseScroll mousewheel', event => {
-      const { scrollY } = event.currentTarget;
-      const { innerHeight } = window;
+    let lastScrollTop = 0;
 
-      const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+    window.addEventListener(
+      'scroll',
+      event => {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
 
-      const scrollHidden = window.$(`#${HEADER_ID}`).hasClass('scroll-hidden');
-      const scrollVisible = window
-        .$(`#${HEADER_ID}`)
-        .hasClass('scroll-visible');
+        const { scrollY } = event.currentTarget;
+        const { innerHeight, $ } = window;
 
-      if (scrollY > 0.5 * innerHeight) {
-        if (direction < 0 && !scrollHidden) {
-          window.$(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
-          window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
+        if (scrollY > 0.5 * innerHeight) {
+          if (st > lastScrollTop) {
+            $(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
+            $(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
 
-          window.$(`#${HEADER_ID}`).addClass('scroll-hidden');
-          window.$(`#${HEADER_ID}`).removeClass('scroll-visible');
-        } else if (direction > 0 && !scrollVisible) {
-          window.$(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
-          window.$(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
+            $(`#${HEADER_ID}`).addClass('scroll-hidden');
+            $(`#${HEADER_ID}`).removeClass('scroll-visible');
+          } else {
+            $(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
+            $(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
 
-          window.$(`#${HEADER_ID}`).addClass('scroll-visible');
-          window.$(`#${HEADER_ID}`).removeClass('scroll-hidden');
+            $(`#${HEADER_ID}`).addClass('scroll-visible');
+            $(`#${HEADER_ID}`).removeClass('scroll-hidden');
+          }
         }
-      }
-    });
+
+        lastScrollTop = st <= 0 ? 0 : st;
+      },
+      false,
+    );
   };
 
   render() {
