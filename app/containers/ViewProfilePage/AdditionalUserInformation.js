@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
@@ -16,6 +17,10 @@ import {
 
 import messages from 'containers/Profile/messages';
 import commonMessages from 'common-messages';
+
+const RowStyled = styled.div`
+  line-height: 30px;
+`;
 
 const Blank = ({ profile, userId, account }) =>
   !profile[LOCATION_FIELD] &&
@@ -40,7 +45,7 @@ const Blank = ({ profile, userId, account }) =>
 
 const Row = ({ nameField, value }) =>
   value ? (
-    <div className="row align-items-center pb-2">
+    <RowStyled className="row align-items-center">
       <div className="col-2">
         <Span color="gray" fontSize="14">
           <FormattedMessage {...messages[nameField]} />
@@ -49,7 +54,7 @@ const Row = ({ nameField, value }) =>
       <div className="col-10">
         <Span>{value}</Span>
       </div>
-    </div>
+    </RowStyled>
   ) : null;
 
 const AdditionalUserInformation = ({ profile, userId, account }) => (

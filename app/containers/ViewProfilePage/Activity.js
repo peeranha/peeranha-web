@@ -13,6 +13,7 @@ import A from 'components/A';
 import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
+import NoActivity from './NoActivity';
 
 const Activity = ({
   userId,
@@ -34,6 +35,10 @@ const Activity = ({
     ['desc'],
   ).slice(0, 10);
 
+  if (!questionsWithAnswersLoading && !questionsLoading && !myPosts[0]) {
+    return <NoActivity />;
+  }
+
   return (
     <div>
       <H4 isHeader>
@@ -41,8 +46,8 @@ const Activity = ({
       </H4>
 
       <Base position="top">
-        <A to={route} href={route}>
-          <Button isLink={path !== route}>
+        <A to={route} href={route} disabled={!myPosts.length}>
+          <Button disabled={!myPosts.length} isLink={path !== route}>
             <FormattedMessage {...messages.posts} />
           </Button>
         </A>
@@ -50,14 +55,25 @@ const Activity = ({
         <A
           to={`${route}#activity#questions`}
           href={`${route}#activity#questions`}
+          disabled={!questions.length}
         >
-          <Button isLink={path !== `${route}#activity#questions`}>
+          <Button
+            disabled={!questions.length}
+            isLink={path !== `${route}#activity#questions`}
+          >
             <FormattedMessage {...messages.questions} />
           </Button>
         </A>
 
-        <A to={`${route}#activity#answers`} href={`${route}#activity#answers`}>
-          <Button isLink={path !== `${route}#activity#answers`}>
+        <A
+          disabled={!questionsWithUserAnswers.length}
+          to={`${route}#activity#answers`}
+          href={`${route}#activity#answers`}
+        >
+          <Button
+            disabled={!questionsWithUserAnswers.length}
+            isLink={path !== `${route}#activity#answers`}
+          >
             <FormattedMessage {...messages.answers} />
           </Button>
         </A>

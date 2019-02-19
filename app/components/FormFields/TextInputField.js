@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import Input from 'components/Input';
 
 import Label from './Label';
 import WarningMessage from './WarningMessage';
-
-const InputStyled = styled.div`
-  margin-bottom: 14px;
-`;
 
 const TextInputField = ({
   input,
@@ -20,11 +15,11 @@ const TextInputField = ({
   placeholder,
   isSearchable,
 }) => (
-  <InputStyled>
+  <div className="mb-2">
     <Label>{label}</Label>
-    <div className="row">
+    <div className="row align-items-start">
       <Input
-        className="col-xl-6"
+        className="col-xl-6 mb-1"
         input={input}
         disabled={disabled}
         readOnly={readOnly}
@@ -35,7 +30,7 @@ const TextInputField = ({
       />
       <WarningMessage className="col-xl-6" {...meta} isArrowed />
     </div>
-  </InputStyled>
+  </div>
 );
 
 TextInputField.propTypes = {

@@ -13,7 +13,7 @@ import {
 } from 'utils/constants';
 
 import okayIcon from 'svg/okay';
-import answerIcon from 'images/answer.png';
+import answerIcon from 'images/ico-answer.png';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
@@ -127,10 +127,10 @@ const Question = ({
             </Span>
           </A>
         </p>
-        <p className="d-flex align-items-center">
-          <Span className="text-capitalize mr-2" fontSize="14" color="gray">
-            <FormattedMessage {...messages.asked} />{' '}
-            <span>
+        <p className="d-flex align-items-center my-1">
+          <Span className="text-capitalize mr-3" fontSize="14" color="gray">
+            <FormattedMessage {...messages.asked} />
+            <span className="pl-1">
               {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}
             </span>
           </Span>

@@ -15,6 +15,7 @@ const getStatus = rating =>
     x => options[x].minRating < rating && options[x].maxRating >= rating,
   )[0];
 
+/* eslint no-nested-ternary: 0 */
 const RatingStatus = ({ rating, size, intl, isRankOff }) => {
   const full = options[getStatus(rating)];
 
@@ -23,8 +24,14 @@ const RatingStatus = ({ rating, size, intl, isRankOff }) => {
       <Icon icon={full.icon[size || 'sm']} />
       <Span
         fontSize={size === 'lg' ? 20 : 14}
-        color={size === 'lg' ? 'black' : 'blue'}
         bold={size === 'lg'}
+        color={
+          rating > options.newbie.minRating && size === 'sm'
+            ? 'pink'
+            : rating < options.newbie.minRating && size === 'sm'
+              ? 'blue'
+              : 'black'
+        }
       >
         {getFormattedNum(rating)}
       </Span>

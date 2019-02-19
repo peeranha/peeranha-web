@@ -18,9 +18,6 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import QuestionsOfUser from 'containers/QuestionsOfUser';
-import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
-
 import {
   selectQuestionsLoading,
   selectQuestions,
@@ -49,7 +46,12 @@ const ViewProfilePage = ({
 
   return (
     <Profile userId={userId}>
-      <UserNavigation userId={userId} account={account} />
+      <UserNavigation
+        userId={userId}
+        account={account}
+        questionsLength={questions.length}
+        questionsWithUserAnswersLength={questionsWithUserAnswers.length}
+      />
 
       <ProfileViewForm
         className={
@@ -68,18 +70,6 @@ const ViewProfilePage = ({
         questionsLoading={questionsLoading}
         questionsWithAnswersLoading={questionsWithAnswersLoading}
         locale={locale}
-      />
-
-      <QuestionsOfUser
-        className={path === routes.user_questions(userId) ? '' : 'd-none'}
-        infinityOff={path !== routes.user_questions(userId)}
-        userId={userId}
-      />
-
-      <QuestionsWithAnswersOfUser
-        className={path === routes.user_answers(userId) ? '' : 'd-none'}
-        infinityOff={path !== routes.user_answers(userId)}
-        userId={userId}
       />
     </Profile>
   );

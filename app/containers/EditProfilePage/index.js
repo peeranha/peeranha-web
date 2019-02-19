@@ -13,6 +13,9 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { selectQuestions } from 'containers/QuestionsOfUser/selectors';
+import { selectQuestionsWithUserAnswers } from 'containers/QuestionsWithAnswersOfUser/selectors';
+
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
@@ -102,6 +105,8 @@ export class EditProfilePage extends React.PureComponent {
       isProfileSaving,
       cachedProfileImg,
       clearImageChangesDispatch,
+      questions,
+      questionsWithUserAnswers,
     } = this.props;
 
     const sendProps = {
@@ -117,7 +122,13 @@ export class EditProfilePage extends React.PureComponent {
 
     return (
       <Profile userId={match.params.id}>
-        <UserNavigation userId={match.params.id} account={account} />
+        <UserNavigation
+          userId={match.params.id}
+          account={account}
+          questionsLength={questions.length}
+          questionsWithUserAnswersLength={questionsWithUserAnswers.length}
+        />
+
         <Base position="bottom">
           <ProfileEditForm {...sendProps} />
         </Base>
@@ -138,6 +149,8 @@ EditProfilePage.propTypes = {
   editingImgState: PropTypes.bool,
   cachedProfileImg: PropTypes.string,
   isProfileSaving: PropTypes.bool,
+  questions: PropTypes.array,
+  questionsWithUserAnswers: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -147,6 +160,8 @@ const mapStateToProps = createStructuredSelector({
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
   blob: editProfileSelectors.selectBlob(),
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
+  questions: selectQuestions(),
+  questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
 });
 
 /* istanbul ignore next */

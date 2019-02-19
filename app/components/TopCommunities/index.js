@@ -15,7 +15,7 @@ import H4 from 'components/H4';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import Button from 'components/Button';
-import Img from 'components/Img';
+import MediumImage from 'components/Img/MediumImage';
 
 const BaseStyled = Base.extend`
   padding: 15px 20px;
@@ -72,7 +72,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
           <div className="col-xl-3 mb-2">
             <AStyled to={communitiesRoute} href={communitiesRoute}>
               <BaseStyled className="flex-grow-1" position="top">
-                <Img size={1.75} src={x.avatar} alt="comm_img" />
+                <MediumImage src={x.avatar} alt="comm_img" />
                 <p>
                   <Span fontSize="16" bold>
                     {x.name}

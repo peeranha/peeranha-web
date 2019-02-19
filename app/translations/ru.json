@@ -23,6 +23,7 @@
   "app.common.posts": "Посты",
   "app.common.ago": "Назад",
   "app.common.you": "Вы",
+  "app.common.upload": "Загрузить",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -40,17 +41,12 @@
   "app.containers.Profile.informationIsBlank": "Информация о Вас отсутствует",
   "app.containers.Profile.userHasntActivityYet":
     "Пользователь не имеет активность пока",
-  "app.containers.Profile.userHasntQuestionsYet":
-    "Пользователь не задавал вопросы пока",
-  "app.containers.Profile.userHasntAnswersYet":
-    "Пользователь не отвечал на вопросы пока",
   "app.containers.Profile.heHasnoAnswersAndQuestions":
     "У него нет пока вопросов и ответов",
-  "app.containers.Profile.heHasnoQuestions": "У него нет пока вопросов",
-  "app.containers.Profile.heHasnoAnswers": "У него нет пока ответов",
   "app.containers.Profile.asked": "спрашивали",
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
+  "app.containers.Profile.editProfile": "Редактировать профиль",
 
   "app.common.about": "О нас",
   "app.common.contacts": "Контакты",

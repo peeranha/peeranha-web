@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+
 import {
   black,
   blue,
   darkgray,
   white,
   darkblue,
+  pink,
   APP_FONT,
 } from 'style-constants';
 
@@ -13,6 +15,7 @@ const colors = {
   blue,
   darkblue,
   white,
+  pink,
   gray: darkgray,
 };
 

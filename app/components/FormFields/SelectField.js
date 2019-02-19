@@ -1,16 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import styled from 'styled-components';
 import AsyncSelect from 'react-select/lib/Async';
 import { gray, black, white, APP_FONT } from 'style-constants';
 
 import Label from './Label';
 import WarningMessage from './WarningMessage';
-
-const SelectStyled = styled.div`
-  margin-bottom: 14px;
-`;
 
 /* istanbul ignore next */
 const SelectField = ({
@@ -28,10 +23,10 @@ const SelectField = ({
   const S = isAsync ? AsyncSelect : Select;
 
   return (
-    <SelectStyled>
+    <div className="mb-2">
       <Label>{label}</Label>
-      <div className="row">
-        <div className="col-xl-6">
+      <div className="row align-items-start">
+        <div className="col-xl-6 mb-1">
           <S
             {...input}
             loadOptions={loadOptions}
@@ -70,7 +65,7 @@ const SelectField = ({
         </div>
         <WarningMessage className="col-xl-6" {...meta} isArrowed />
       </div>
-    </SelectStyled>
+    </div>
   );
 };
 

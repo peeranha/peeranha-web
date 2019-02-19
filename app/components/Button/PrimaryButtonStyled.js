@@ -1,7 +1,7 @@
-import { blue, darkblue, transparent, white } from 'style-constants';
+import { blue, darkblue, transparent, white, gray } from 'style-constants';
 import ButtonStyled from './ButtonStyled';
 
-const BlueButtonStyled = ButtonStyled.extend`
+const PrimaryButtonStyled = ButtonStyled.extend`
   padding: 4px 15px;
   box-shadow: none;
   border: none;
@@ -11,6 +11,12 @@ const BlueButtonStyled = ButtonStyled.extend`
   span[data-icon='icon'] {
     stroke: ${props => (props.isLink ? blue : white)};
   }
+
+  :disabled {
+    background ${transparent};
+    color: ${gray};
+    border: none;
+  }
 `;
 
-export default BlueButtonStyled;
+export default PrimaryButtonStyled;

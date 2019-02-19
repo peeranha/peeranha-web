@@ -23,6 +23,7 @@
   "app.common.posts": "Posts",
   "app.common.ago": "ago",
   "app.common.you": "You",
+  "app.common.upload": "Upload",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -41,16 +42,12 @@
   "app.containers.Profile.activity": "Activity",
   "app.containers.Profile.userHasntActivityYet":
     "This user hasn’t activity yet",
-  "app.containers.Profile.userHasntQuestionsYet":
-    "This user hasn’t questions yet",
-  "app.containers.Profile.userHasntAnswersYet": "This user hasn’t answers yet",
   "app.containers.Profile.heHasnoAnswersAndQuestions":
     "He has no answers and questions.",
-  "app.containers.Profile.heHasnoQuestions": "He has no questions.",
-  "app.containers.Profile.heHasnoAnswers": "He has no answers.",
   "app.containers.Profile.asked": "asked",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
+  "app.containers.Profile.editProfile": "Edit profile",
 
   "app.common.about": "About",
   "app.common.contacts": "Contacts",

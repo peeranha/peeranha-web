@@ -90,4 +90,7 @@ export default defineMessages({
   you: {
     id: 'app.common.you',
   },
+  upload: {
+    id: 'app.common.upload',
+  },
 });

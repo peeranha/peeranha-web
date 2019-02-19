@@ -7,6 +7,8 @@ import * as routes from 'routes-config';
 import logoutIcon from 'svg/logout';
 import messages from 'common-messages';
 
+import noAvatar from 'images/ico-user-no-photo.png';
+
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
 import Ul from 'components/Ul';
@@ -14,10 +16,10 @@ import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
 import RatingStatus from 'components/RatingStatus';
-import Img from 'components/Img';
+import MediumImage from 'components/Img/MediumImage';
 
 const Info = styled.span`
-  padding: 0 17px;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,10 +34,9 @@ const AStyled = A.extend`
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
 const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
-    <Img
-      size={1.75}
+    <MediumImage
       isBordered
-      src={profileInfo.ipfs_avatar}
+      src={profileInfo.ipfs_avatar || noAvatar}
       alt="ipfs_avatar"
     />
     <Info>

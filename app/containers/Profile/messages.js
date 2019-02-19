@@ -55,20 +55,8 @@ export default defineMessages({
   userHasntActivityYet: {
     id: 'app.containers.Profile.userHasntActivityYet',
   },
-  userHasntQuestionsYet: {
-    id: 'app.containers.Profile.userHasntQuestionsYet',
-  },
-  userHasntAnswersYet: {
-    id: 'app.containers.Profile.userHasntAnswersYet',
-  },
   heHasnoAnswersAndQuestions: {
     id: 'app.containers.Profile.heHasnoAnswersAndQuestions',
-  },
-  heHasnoQuestions: {
-    id: 'app.containers.Profile.heHasnoQuestions',
-  },
-  heHasnoAnswers: {
-    id: 'app.containers.Profile.heHasnoAnswers',
   },
   asked: {
     id: 'app.containers.Profile.asked',
@@ -78,5 +66,8 @@ export default defineMessages({
   },
   noAnswersYet: {
     id: 'app.containers.Profile.noAnswersYet',
+  },
+  editProfile: {
+    id: 'app.containers.Profile.editProfile',
   },
 });

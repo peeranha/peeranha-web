@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import * as routes from 'routes-config';
 import { green, gray, darkgray } from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
@@ -9,7 +10,8 @@ import commonMessages from 'common-messages';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import Span from 'components/Span';
-import Img from 'components/Img';
+import SmallImage from 'components/Img/SmallImage';
+import A from 'components/A';
 
 import questionRoundedIcon from 'images/question.png';
 import bestAnswerIcon from 'images/ico-best-answer.png';
@@ -29,16 +31,20 @@ const Rating = Span.extend`
   margin: 0 20px;
 `;
 
+const PostDate = Span.extend`
+  white-space: nowrap;
+`;
+
 const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
   if (postType === 'question') {
-    return <Img size={0.75} notRounded src={questionRoundedIcon} alt="?" />;
+    return <SmallImage notRounded src={questionRoundedIcon} alt="?" />;
   }
 
   if (isMyAnswerAccepted) {
-    return <Img size={0.75} notRounded src={bestAnswerIcon} alt="v" />;
+    return <SmallImage notRounded src={bestAnswerIcon} alt="v" />;
   }
 
-  return <Img size={0.75} notRounded src={answerIcon} alt="+" />;
+  return <SmallImage notRounded src={answerIcon} alt="+" />;
 };
 
 const Note = ({
@@ -49,15 +55,25 @@ const Note = ({
   title,
   myPostTime,
   locale,
+  id,
 }) => (
-  <li className="d-flex align-items-center py-1">
-    <PostTypeIcon postType={postType} isMyAnswerAccepted={isMyAnswerAccepted} />
-    <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
-    <Span className="flex-grow-1">{title}</Span>
-    <Span fontSize="14" color="gray">
-      {getTimeFromDateToNow(myPostTime, locale)}{' '}
-      <FormattedMessage {...commonMessages.ago} />
-    </Span>
+  <li>
+    <A
+      className="d-flex align-items-center py-1"
+      to={routes.question_view(id)}
+      href={routes.question_view(id)}
+    >
+      <PostTypeIcon
+        postType={postType}
+        isMyAnswerAccepted={isMyAnswerAccepted}
+      />
+      <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
+      <Span className="flex-grow-1">{title}</Span>
+      <PostDate fontSize="14" color="gray">
+        {getTimeFromDateToNow(myPostTime, locale)}{' '}
+        <FormattedMessage {...commonMessages.ago} />
+      </PostDate>
+    </A>
   </li>
 );
 
@@ -90,6 +106,7 @@ Note.propTypes = {
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   locale: PropTypes.string,
+  id: PropTypes.string,
 };
 
 QuestionsProfileTab.propTypes = {

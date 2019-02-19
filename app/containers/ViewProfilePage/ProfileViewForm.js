@@ -21,7 +21,7 @@ const ProfileViewForm = ({
   className,
 }) => (
   <div className={className}>
-    <MainUserInformation profile={profile} />
+    <MainUserInformation profile={profile} userId={userId} account={account} />
 
     <AdditionalUserInformation
       profile={profile}

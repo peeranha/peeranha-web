@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import styled from 'styled-components';
+
 import { gray, darkgray } from 'style-constants';
+import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import WarningMessage from './WarningMessage';
 
@@ -24,6 +26,7 @@ const AvatarArea = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit: scale-down;
   }
 
   input {
@@ -73,7 +76,10 @@ function AvatarField({
     <AvatarFieldStyled size={size}>
       <AvatarArea>
         {!displayAvatar && (
-          <img src={cachedProfileImg || ipfsAvatar} alt="avatar" />
+          <img
+            src={cachedProfileImg || ipfsAvatar || editUserNoAvatar}
+            alt="avatar"
+          />
         )}
 
         {displayAvatar && (

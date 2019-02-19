@@ -6,6 +6,7 @@ import { black } from 'style-constants';
 const A = styled(Link)`
   text-decoration: none;
   color: ${black};
+  pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
 
   :visited {
     text-decoration: none;

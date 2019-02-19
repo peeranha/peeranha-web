@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
 
-import commonMessages from 'common-messages';
 import messages from 'containers/Profile/messages';
 
 import {
@@ -77,8 +76,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
     <FormStyled size={15 + size} onSubmit={handleSubmit(saveProfile)}>
       <div className="col-xl-12 position-static">
         <H3 marginBottom={24}>
-          <FormattedMessage {...commonMessages.edit} />{' '}
-          <FormattedMessage {...commonMessages.profile} />
+          <FormattedMessage {...messages.editProfile} />
         </H3>
         <AvatarStyled>
           <Field
@@ -138,6 +136,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
         />
 
         <Button
+          className="my-3"
           disabled={invalid || submitting || isProfileSaving}
           typeAttr="submit"
           type="red"

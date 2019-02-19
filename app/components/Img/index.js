@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { gray } from 'style-constants';
 
-const CELL = 24;
+export const CELL = 24;
 
 const Img = styled.img`
   border-radius: ${props => (props.notRounded ? 0 : 50)}%;
@@ -10,7 +10,7 @@ const Img = styled.img`
   width: ${props => (props.size ? Math.floor(props.size * CELL) : CELL)}px;
   height: ${props => (props.size ? Math.floor(props.size * CELL) : CELL)}px;
 
-  object-fit: contain;
+  object-fit: scale-down;
   display: inline-block;
 `;
 
