@@ -7,6 +7,7 @@ const UserProfileNav = ({
   expandLeftMenuNavigation,
 }) => [
   <Profile
+    key="UserProfileNav"
     isMenuVisible={isMenuVisible}
     profileInfo={profileInfo}
     expandLeftMenuNavigation={expandLeftMenuNavigation}

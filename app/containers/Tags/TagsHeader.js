@@ -30,7 +30,7 @@ const TagsHeader = ({ goToCreateTagScreen, communityid }) => (
 
 TagsHeader.propTypes = {
   goToCreateTagScreen: PropTypes.func.isRequired,
-  communityid: PropTypes.string,
+  communityid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default TagsHeader;

@@ -105,7 +105,7 @@ function AvatarField({
             onChange={uploadImage}
             disabled={disabled}
             type="file"
-            value={null}
+            value={undefined}
             className="custom-file-input"
           />
         )}
@@ -144,7 +144,7 @@ AvatarField.propTypes = {
   size: PropTypes.number,
   disabled: PropTypes.bool,
   meta: PropTypes.object,
-  editingImgState: PropTypes.string,
+  editingImgState: PropTypes.bool,
   cachedProfileImg: PropTypes.string,
   ipfsAvatar: PropTypes.string,
   getCroppedAvatar: PropTypes.func,

@@ -47,7 +47,7 @@ Button.propTypes = {
   typeAttr: PropTypes.string,
   className: PropTypes.string,
   isLink: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   isRounded: PropTypes.bool,

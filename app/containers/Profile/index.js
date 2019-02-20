@@ -103,7 +103,7 @@ export class Profile extends React.PureComponent {
 }
 
 Profile.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
   userId: PropTypes.string,
   profile: PropTypes.object,
   locale: PropTypes.string,

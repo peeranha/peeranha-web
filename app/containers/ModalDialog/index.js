@@ -74,7 +74,7 @@ ModalDialog.propTypes = {
   show: PropTypes.bool,
   customPosition: PropTypes.object,
   closeModal: PropTypes.func,
-  children: PropTypes.object,
+  children: PropTypes.element,
 };
 
 export default ModalDialog;

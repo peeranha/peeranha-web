@@ -85,7 +85,7 @@ const QuestionsProfileTab = ({
   locale,
 }) => (
   <div className={className}>
-    <ul>{questions.map(x => <Note {...x} locale={locale} />)}</ul>
+    <ul>{questions.map(x => <Note {...x} key={x.id} locale={locale} />)}</ul>
 
     {!questions[0] && loading && <LoadingIndicator />}
 

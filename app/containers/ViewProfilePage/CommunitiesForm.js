@@ -46,7 +46,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
 
       <div className="row">
         {followedCommunities.map(x => (
-          <div className="col-xl-3 mb-2">
+          <div key={x.id} className="col-xl-3 mb-2">
             <A to={communitiesRoute} href={communitiesRoute}>
               <CommunityStyled className="d-flex">
                 <Img className="mr-2" src={x.avatar} alt="comm_img" />

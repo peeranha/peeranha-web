@@ -56,20 +56,19 @@ const MainUserInformation = ({ profile, userId, account }) => (
       </div>
 
       <div className="col-12 col-lg-9 col-xl-10">
-        <p className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center">
           <H3>{profile.display_name}</H3>
-          <nav>
-            <A
-              to={routes.profile_edit(userId)}
-              href={routes.profile_edit(userId)}
-            >
-              <Button isLink>
-                <Icon className="mr-2" icon={pencilIcon} />
-                <FormattedMessage {...commonMessages.edit} />
-              </Button>
-            </A>
-          </nav>
-        </p>
+
+          <A
+            to={routes.profile_edit(userId)}
+            href={routes.profile_edit(userId)}
+          >
+            <Button isLink>
+              <Icon className="mr-2" icon={pencilIcon} />
+              <FormattedMessage {...commonMessages.edit} />
+            </Button>
+          </A>
+        </div>
 
         <div className="d-flex align-items-center">
           <UlStyled>

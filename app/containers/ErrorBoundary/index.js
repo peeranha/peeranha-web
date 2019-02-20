@@ -66,7 +66,7 @@ export class ErrorBoundary extends React.Component {
 
 ErrorBoundary.propTypes = {
   locale: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.element,
 };
 
 const mapStateToProps = createStructuredSelector({

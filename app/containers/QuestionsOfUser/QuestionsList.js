@@ -169,7 +169,7 @@ const QuestionsList = ({ questions, locale, communities }) => (
 
 QuestionCommunity.propTypes = {
   communities: PropTypes.array,
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 LastAnswer.propTypes = {
@@ -178,7 +178,7 @@ LastAnswer.propTypes = {
 };
 
 Question.propTypes = {
-  myPostRating: PropTypes.string,
+  myPostRating: PropTypes.number,
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   answers: PropTypes.array,
@@ -186,7 +186,7 @@ Question.propTypes = {
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
   id: PropTypes.string,
-  community_id: PropTypes.string,
+  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 QuestionsList.propTypes = {

@@ -15,7 +15,7 @@ const Community = ({ communities, communityId }) => {
 
 Community.propTypes = {
   communities: PropTypes.array,
-  communityId: PropTypes.number,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Community;

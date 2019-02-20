@@ -69,7 +69,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       <H4 isHeader>Top communities</H4>
       <div className="row">
         {communities.map(x => (
-          <div className="col-xl-3 mb-2">
+          <div key={x.id} className="col-xl-3 mb-2">
             <AStyled to={communitiesRoute} href={communitiesRoute}>
               <BaseStyled className="flex-grow-1" position="top">
                 <MediumImage src={x.avatar} alt="comm_img" />
@@ -107,7 +107,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
 
               <BackSide>
                 <div className="d-flex flex-column justify-content-between">
-                  <p>
+                  <div>
                     <p>
                       <Span fontSize="16" bold>
                         {x.name}
@@ -116,13 +116,13 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
                     <p>
                       <Span>{x.description}</Span>
                     </p>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <FollowCommunityButton
                       communityIdFilter={x.id}
                       followedCommunities={profile.followed_communities}
                     />
-                  </p>
+                  </div>
                 </div>
               </BackSide>
             </AStyled>

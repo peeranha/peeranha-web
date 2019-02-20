@@ -161,7 +161,7 @@ ProfileEditForm.propTypes = {
   saveProfile: PropTypes.func,
   isProfileSaving: PropTypes.bool,
   cachedProfileImg: PropTypes.string,
-  editingImgState: PropTypes.string,
+  editingImgState: PropTypes.bool,
   profile: PropTypes.object,
 };
 

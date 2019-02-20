@@ -24,7 +24,7 @@ const TagsList = ({ chosenTags, communities, communityId }) => {
 TagsList.propTypes = {
   chosenTags: PropTypes.array,
   communities: PropTypes.array,
-  communityId: PropTypes.number,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default TagsList;

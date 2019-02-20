@@ -63,7 +63,7 @@ QuestionsWithAnswersOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
   questionsLoading: PropTypes.bool,
   userId: PropTypes.string,
-  infinityOff: PropTypes.string,
+  infinityOff: PropTypes.bool,
   className: PropTypes.string,
   getQuestionsDispatch: PropTypes.func,
   resetStoreDispatch: PropTypes.func,

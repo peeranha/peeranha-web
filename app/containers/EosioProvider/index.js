@@ -42,7 +42,7 @@ export class EosioProvider extends React.Component {
 
 EosioProvider.propTypes = {
   initEosio: PropTypes.func,
-  children: PropTypes.object,
+  children: PropTypes.element,
   initializing: PropTypes.bool,
 };
 

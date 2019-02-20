@@ -13,10 +13,12 @@ const options = {
   [DD_MM_YYYY]: 'DD.MM.YYYY',
 };
 
+// TODO: `date-fns/locale/${locale}/index.js` - such record means that all locales includes in bundle - impove it later
+
 /* eslint global-require: 1 */
 export const getTimeFromDateToNow = (date, locale) => {
   const dateInMills = date * 1000;
-  const localeObj = { locale: require(`date-fns/locale/${locale}`) };
+  const localeObj = { locale: require(`date-fns/locale/${locale}/index.js`) };
 
   return distanceInWordsToNow(dateInMills, localeObj);
 };
@@ -24,7 +26,9 @@ export const getTimeFromDateToNow = (date, locale) => {
 /* eslint global-require: 1 */
 export const getFormattedDate = (date, locale, dateFormat) => {
   const dateInMills = date * 1000;
-  const localeObj = { locale: () => require(`date-fns/locale/${locale}`) };
+  const localeObj = {
+    locale: () => require(`date-fns/locale/${locale}/index.js`),
+  };
   const dateView = options[dateFormat || DD_MM_YYYY];
 
   return format(dateInMills, dateView, localeObj);
