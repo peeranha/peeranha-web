@@ -1,8 +1,7 @@
 import { blue, darkblue, transparent, white, gray } from 'style-constants';
-import ButtonStyled from './ButtonStyled';
+import A from './A';
 
-const PrimaryButtonStyled = ButtonStyled.extend`
-  padding: 4px 15px;
+const NavigationButton = A.extend`
   box-shadow: none;
   border: none;
   color: ${props => (props.isLink ? blue : white)};
@@ -19,4 +18,4 @@ const PrimaryButtonStyled = ButtonStyled.extend`
   }
 `;
 
-export default PrimaryButtonStyled;
+export default NavigationButton;

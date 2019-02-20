@@ -8,10 +8,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+
+import { pink } from 'style-constants';
 import createdHistory from 'createdHistory';
 
 import Input from 'components/Input';
-import Button from 'components/Button';
+import RoundedButton from 'components/Button/RoundedButton';
+import LargeButton from 'components/Button/LargeButton';
 import Icon from 'components/Icon';
 
 import * as routes from 'routes-config';
@@ -30,6 +33,10 @@ import Logo from './Logo';
 import UserAuthNavLinks from './UserAuthNavLinks';
 import UserProfileNav from './UserProfileNav';
 import { HEADER_ID } from './constants';
+
+const RoundedButtonStyled = RoundedButton.extend`
+  background: ${pink};
+`;
 
 export const LoginProfile = React.memo(
   ({
@@ -93,38 +100,32 @@ const HeaderForm = props => (
               isSearchable
             />,
 
-            <Button
-              key="2"
+            <RoundedButton
+              key="RoundedButton2"
               className="d-flex justify-content-center align-items-center d-lg-none"
-              type="red"
               onClick={addQuestionRoute}
-              bg="white"
-              isRounded
             >
               <Icon icon={searchIcon} noMargin />
-            </Button>,
+            </RoundedButton>,
 
-            <Button
-              key="3"
+            <LargeButton
+              key="Button3"
               className="d-none d-lg-flex"
-              type="red"
               disabled={!props.profileInfo}
               onClick={addQuestionRoute}
             >
               <Icon icon={addIcon} />
               <FormattedMessage {...messages.addQuestion} />
-            </Button>,
+            </LargeButton>,
 
-            <Button
-              key="4"
+            <RoundedButtonStyled
+              key="RoundedButton4"
               className="d-flex justify-content-center align-items-center d-lg-none"
-              type="red"
               disabled={!props.profileInfo}
               onClick={addQuestionRoute}
-              isRounded
             >
               <Icon icon={addIcon} noMargin />
-            </Button>,
+            </RoundedButtonStyled>,
           ]}
 
           <LoginProfile {...props} />

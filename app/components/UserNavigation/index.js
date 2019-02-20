@@ -7,7 +7,7 @@ import messages from 'common-messages';
 
 import Ul from 'components/Ul';
 import A from 'components/A';
-import Button from 'components/Button';
+import NavigationButton from 'components/Button/NavigationButton';
 import Base from 'components/Base';
 
 import MyProfileButton from './MyProfileButton';
@@ -33,7 +33,7 @@ const UserNavigation = ({
     <BaseStyled position="top" className="d-flex justify-content-between">
       <Nav>
         <A to={routes.profile_view(userId)} href={routes.profile_view(userId)}>
-          <Button
+          <NavigationButton
             isLink={
               path !== routes.profile_view(userId) &&
               path !== routes.profile_view_activity_questions(userId) &&
@@ -42,7 +42,7 @@ const UserNavigation = ({
             }
           >
             <FormattedMessage {...messages.profile} />
-          </Button>
+          </NavigationButton>
         </A>
 
         <A
@@ -50,12 +50,12 @@ const UserNavigation = ({
           to={routes.user_questions(userId)}
           href={routes.user_questions(userId)}
         >
-          <Button
+          <NavigationButton
             disabled={!questionsLength}
             isLink={path !== routes.user_questions(userId)}
           >
             <FormattedMessage {...messages.questions} />
-          </Button>
+          </NavigationButton>
         </A>
 
         <A
@@ -63,12 +63,12 @@ const UserNavigation = ({
           to={routes.user_answers(userId)}
           href={routes.user_answers(userId)}
         >
-          <Button
+          <NavigationButton
             disabled={!questionsWithUserAnswersLength}
             isLink={path !== routes.user_answers(userId)}
           >
             <FormattedMessage {...messages.answers} />
-          </Button>
+          </NavigationButton>
         </A>
 
         <MyProfileButton

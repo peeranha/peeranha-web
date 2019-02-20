@@ -7,7 +7,7 @@ import * as routes from 'routes-config';
 
 import H4 from 'components/H4';
 import Base from 'components/Base';
-import Button from 'components/Button';
+import NavigationButton from 'components/Button/NavigationButton';
 import A from 'components/A';
 
 import profileMessages from 'containers/Profile/messages';
@@ -47,9 +47,9 @@ const Activity = ({
 
       <Base position="top">
         <A to={route} href={route} disabled={!myPosts.length}>
-          <Button disabled={!myPosts.length} isLink={path !== route}>
+          <NavigationButton disabled={!myPosts.length} isLink={path !== route}>
             <FormattedMessage {...messages.posts} />
-          </Button>
+          </NavigationButton>
         </A>
 
         <A
@@ -57,12 +57,12 @@ const Activity = ({
           href={`${route}#activity#questions`}
           disabled={!questions.length}
         >
-          <Button
+          <NavigationButton
             disabled={!questions.length}
             isLink={path !== `${route}#activity#questions`}
           >
             <FormattedMessage {...messages.questions} />
-          </Button>
+          </NavigationButton>
         </A>
 
         <A
@@ -70,12 +70,12 @@ const Activity = ({
           to={`${route}#activity#answers`}
           href={`${route}#activity#answers`}
         >
-          <Button
+          <NavigationButton
             disabled={!questionsWithUserAnswers.length}
             isLink={path !== `${route}#activity#answers`}
           >
             <FormattedMessage {...messages.answers} />
-          </Button>
+          </NavigationButton>
         </A>
       </Base>
 

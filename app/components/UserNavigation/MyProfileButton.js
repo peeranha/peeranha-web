@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import A from 'components/A';
-import Button from 'components/Button';
+import NavigationButton from 'components/Button/NavigationButton';
 
 const MyProfileButton = ({ account, userId, href, children, disabled }) => {
   if (account !== userId) {
@@ -11,9 +11,12 @@ const MyProfileButton = ({ account, userId, href, children, disabled }) => {
 
   return (
     <A to={href} href={href}>
-      <Button disabled={disabled} isLink={window.location.pathname !== href}>
+      <NavigationButton
+        disabled={disabled}
+        isLink={window.location.pathname !== href}
+      >
         {React.Children.toArray(children)}
-      </Button>
+      </NavigationButton>
     </A>
   );
 };

@@ -12,32 +12,30 @@ import userIcon from 'svg/user';
 import messages from 'common-messages';
 
 import Icon from 'components/Icon';
-import Button from 'components/Button';
+import LargeButton from 'components/Button/LargeButton';
 
 const UserAuthNavLinks = ({
   showSignUpModal,
   showLoginModal,
   isMenuVisible,
 }) => [
-  <Button
+  <LargeButton
     className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
     key="signUp"
-    type="red"
     onClick={showSignUpModal}
   >
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.signUp} />
-  </Button>,
+  </LargeButton>,
 
-  <Button
+  <LargeButton
     className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
     key="login"
-    type="red"
     onClick={showLoginModal}
   >
     <Icon icon={userIcon} />
     <FormattedMessage {...messages.login} />
-  </Button>,
+  </LargeButton>,
 ];
 
 UserAuthNavLinks.propTypes = {

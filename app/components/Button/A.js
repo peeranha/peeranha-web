@@ -1,18 +1,14 @@
-import { white, darkgray, lightgray, gray, pink } from 'style-constants';
+import { white, darkgray, lightgray, gray } from 'style-constants';
 import Span from '../Span';
 
-const ButtonStyled = Span.extend`
-  color: ${white};
-  border: none;
+const A = Span.extend`
   cursor: pointer;
-  padding: 9px 16px;
-  min-width: 92px;
   border-radius: 3px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  background: ${props => props.bg || pink};
-  border: 1px solid ${props => props.bg || pink};
   text-align: center;
   transition: 0.5s;
+  min-width: 92px;
+  padding: 4px 15px;
 
   position: relative;
   overflow: hidden;
@@ -36,16 +32,7 @@ const ButtonStyled = Span.extend`
     }
   }
 
-  ${props =>
-    props.isRounded
-      ? `
-    width: 43px !important;
-    height: 43px !important;
-    border-radius: 50% !important;
-    min-width: inherit !important;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
-  `
-      : ``} :after {
+  :after {
     content: '';
     position: absolute;
     top: 50%;
@@ -79,4 +66,4 @@ const ButtonStyled = Span.extend`
   }
 `.withComponent('button');
 
-export default ButtonStyled;
+export default A;

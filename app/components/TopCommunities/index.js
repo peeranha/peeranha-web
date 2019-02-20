@@ -14,7 +14,7 @@ import A from 'components/A';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Base from 'components/Base';
-import Button from 'components/Button';
+import OutlinedButton from 'components/Button/OutlinedButton';
 import MediumImage from 'components/Img/MediumImage';
 
 const BaseStyled = Base.extend`
@@ -131,11 +131,11 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </div>
       <div className="my-3">
         <A to={communitiesRoute} href={communitiesRoute}>
-          <Button bg={blue} className="py-2 w-100" type="outlined">
+          <OutlinedButton bg={blue} className="py-2 w-100">
             <FormattedMessage {...messages.see} />{' '}
             <FormattedMessage {...messages.all} />{' '}
             <FormattedMessage {...messages.communities} />
-          </Button>
+          </OutlinedButton>
         </A>
       </div>
     </div>

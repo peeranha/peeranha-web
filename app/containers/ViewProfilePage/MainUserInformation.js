@@ -19,7 +19,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import H3 from 'components/H3';
 import A from 'components/A';
-import Button from 'components/Button';
+import NavigationButton from 'components/Button/NavigationButton';
 import Icon from 'components/Icon';
 
 import SmallImage from 'components/Img/SmallImage';
@@ -63,10 +63,10 @@ const MainUserInformation = ({ profile, userId, account }) => (
             to={routes.profile_edit(userId)}
             href={routes.profile_edit(userId)}
           >
-            <Button isLink>
+            <NavigationButton isLink>
               <Icon className="mr-2" icon={pencilIcon} />
               <FormattedMessage {...commonMessages.edit} />
-            </Button>
+            </NavigationButton>
           </A>
         </div>
 

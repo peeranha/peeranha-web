@@ -20,7 +20,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import SelectField from 'components/FormFields/SelectField';
 
-import Button from 'components/Button';
+import LargeButton from 'components/Button/LargeButton';
 import H3 from 'components/H3';
 
 import {
@@ -135,14 +135,13 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           warn={strLength25x30000}
         />
 
-        <Button
+        <LargeButton
           className="my-3"
           disabled={invalid || submitting || isProfileSaving}
           typeAttr="submit"
-          type="red"
         >
           <FormattedMessage {...messages.saveButton} />
-        </Button>
+        </LargeButton>
       </div>
     </FormStyled>
   );

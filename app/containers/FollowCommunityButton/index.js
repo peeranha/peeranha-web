@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
-import Button from 'components/Button';
+import OutlinedButton from 'components/Button/OutlinedButton';
 
 import { followHandler } from './actions';
 import reducer from './reducer';
@@ -43,15 +43,11 @@ export class FollowCommunityButton extends React.PureComponent {
     const isFollowed = followedCommunities.includes(communityIdFilter);
 
     return (
-      <Button
-        type="outlined"
-        dataset={{ 'data-isfollowed': isFollowed }}
-        onClick={this.followHandler}
-      >
+      <OutlinedButton data-isfollowed={isFollowed} onClick={this.followHandler}>
         <FormattedMessage
           {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
         />
-      </Button>
+      </OutlinedButton>
     );
   }
 }
