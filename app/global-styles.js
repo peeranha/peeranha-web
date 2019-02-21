@@ -11,9 +11,6 @@ injectGlobal`
   body {
     width: 100%;
     scroll-behavior: smooth;
-  }
-
-  html, body {
     min-height: 100%;
     position: relative;
   }

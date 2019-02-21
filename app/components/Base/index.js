@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { gray, white } from 'style-constants';
 
+/* istanbul ignore next */
 const Base = styled.div`
   background: ${white};
   padding: 20px 30px;

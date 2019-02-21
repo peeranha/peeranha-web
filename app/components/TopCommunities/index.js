@@ -66,7 +66,12 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
 
   return (
     <div>
-      <H4 isHeader>Top communities</H4>
+      <H4 isHeader>
+        <FormattedMessage {...messages.top} />{' '}
+        <span className="text-lowercase">
+          <FormattedMessage {...messages.communities} />
+        </span>
+      </H4>
       <div className="row">
         {communities.map(x => (
           <div key={x.id} className="col-xl-3 mb-2">

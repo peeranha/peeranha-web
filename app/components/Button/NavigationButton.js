@@ -1,6 +1,7 @@
 import { blue, darkblue, transparent, white, gray } from 'style-constants';
 import A from './A';
 
+/* istanbul ignore next */
 const NavigationButton = A.extend`
   box-shadow: none;
   border: none;
@@ -12,7 +13,7 @@ const NavigationButton = A.extend`
   }
 
   :disabled {
-    background ${transparent};
+    background: ${transparent};
     color: ${gray};
     border: none;
   }

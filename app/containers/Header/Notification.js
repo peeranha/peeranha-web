@@ -7,7 +7,6 @@ import notificationIcon from 'svg/notification';
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
-import H from 'components/H';
 import Span from 'components/Span';
 import A from 'components/A';
 
@@ -60,9 +59,7 @@ const Button = () => (
 const Menu = () => (
   <MenuStyled>
     <header>
-      <H size={4}>
-        Notifications: <Span>0</Span>
-      </H>
+      Notifications: <Span>0</Span>
     </header>
     <main>
       <ul>
