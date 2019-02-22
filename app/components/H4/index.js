@@ -1,6 +1,7 @@
 import { black } from 'style-constants';
 import Text from '../Span';
 
+/* istanbul ignore next */
 const H4 = Text.extend`
   color: ${black};
   font-weight: 600;

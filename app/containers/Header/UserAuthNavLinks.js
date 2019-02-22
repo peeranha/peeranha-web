@@ -14,7 +14,7 @@ import messages from 'common-messages';
 import Icon from 'components/Icon';
 import LargeButton from 'components/Button/LargeButton';
 
-const UserAuthNavLinks = ({
+const UserAuthNavLinks = /* istanbul ignore next */ ({
   showSignUpModal,
   showLoginModal,
   isMenuVisible,

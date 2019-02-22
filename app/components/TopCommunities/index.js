@@ -54,7 +54,12 @@ const AStyled = A.extend`
 
 const communitiesRoute = routes.communities();
 
-const TopCommunities = ({ communities, profile, account, userId }) => {
+const TopCommunities = /* istanbul ignore next */ ({
+  communities,
+  profile,
+  account,
+  userId,
+}) => {
   if (
     account !== userId ||
     !communities ||

@@ -3,6 +3,7 @@ import { gray } from 'style-constants';
 
 export const CELL = 24;
 
+/* istanbul ignore next */
 const Img = styled.img`
   border-radius: ${props => (props.notRounded ? 0 : 50)}%;
   border: ${props => (props.isBordered ? 1 : 0)}px solid ${gray};

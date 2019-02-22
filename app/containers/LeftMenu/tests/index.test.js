@@ -1,10 +1,34 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+import { memoryHistory } from 'react-router-dom';
+import configureStore from 'configureStore';
+import { ConnectedRouter } from 'react-router-redux';
+import createdHistory from 'createdHistory';
 
-// import { LeftMenu } from '../index';
+import LanguageProvider from 'containers/LanguageProvider';
 
-describe('<LeftMenu />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+import LeftMenu from '../index';
+
+describe('<CommentForm />', () => {
+  const props = {
+    profile: {},
+    isMenuVisible: false,
+    isNavigationExpanded: false,
+    showMenu: jest.fn(),
+  };
+
+  it('snapshot test', () => {
+    const store = configureStore({}, memoryHistory);
+    const renderedComponent = shallow(
+      <Provider store={store}>
+        <LanguageProvider locale="en" key="en" messages={{}}>
+          <ConnectedRouter history={createdHistory}>
+            <LeftMenu {...props} />
+          </ConnectedRouter>
+        </LanguageProvider>
+      </Provider>,
+    );
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

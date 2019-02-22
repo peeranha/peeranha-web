@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import A from 'components/A';
 import NavigationButton from 'components/Button/NavigationButton';
 
-const MyProfileButton = ({ account, userId, href, children, disabled }) => {
+const MyProfileButton = /* istanbul ignore next */ ({
+  account,
+  userId,
+  href,
+  children,
+  disabled,
+}) => {
   if (account !== userId) {
     return null;
   }

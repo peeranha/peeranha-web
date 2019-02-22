@@ -8,7 +8,7 @@ import H4 from 'components/H4';
 import noActivityImg from 'images/userHasntActivity.png';
 import messages from 'containers/Profile/messages';
 
-const NoActivity = () => (
+const NoActivity = /* istanbul ignore next */ () => (
   <div>
     <H4 isHeader>
       <FormattedMessage {...messages.activity} />

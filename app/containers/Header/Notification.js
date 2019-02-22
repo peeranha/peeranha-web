@@ -48,15 +48,13 @@ const AStyled = A.extend`
   }
 `;
 
-const Button = () => (
+const Button = /* istanbul ignore next */ () => (
   <ButtonStyled>
     <Icon icon={notificationIcon} noMargin />
   </ButtonStyled>
 );
 
-// TODO: change hardcoded text when Notification comp. will be finished
-
-const Menu = () => (
+const Menu = /* istanbul ignore next */ () => (
   <MenuStyled>
     <header>
       Notifications: <Span>0</Span>
@@ -76,7 +74,7 @@ const Menu = () => (
   </MenuStyled>
 );
 
-const Notification = () => (
+const Notification = /* istanbul ignore next */ () => (
   <Dropdown
     id={`notification_id_${Math.random()}`}
     button={<Button />}

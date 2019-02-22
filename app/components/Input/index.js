@@ -9,10 +9,11 @@ class Input extends React.PureComponent {
     isText: false,
   };
 
-  changeType = () => {
+  changeType = /* istanbul ignore next */ () => {
     this.setState({ isText: !this.state.isText });
   };
 
+  /* istanbul ignore next */
   render() {
     const {
       input = {},

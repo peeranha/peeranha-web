@@ -23,12 +23,12 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import HeaderForm from './HeaderForm';
 import { HEADER_ID } from './constants';
 
-class Header extends React.PureComponent {
-  componentDidMount() {
+export class Header extends React.PureComponent {
+  componentDidMount() /* istanbul ignore next */ {
     this.headerLeftMenuAnimation();
   }
 
-  headerLeftMenuAnimation /* istanbul ignore next */ = () => {
+  headerLeftMenuAnimation = /* istanbul ignore next */ () => {
     let lastScrollTop = 0;
 
     window.addEventListener(
@@ -101,7 +101,7 @@ const mapStateToProps = createStructuredSelector({
   profileInfo: makeSelectProfileInfo(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     showSignUpModalDispatch: () => dispatch(showSignUpModal()),

@@ -14,7 +14,7 @@ const circleFadeDelay = keyframes`
   }
 `;
 
-const Circle = props => {
+const Circle = /* istanbul ignore next */ props => {
   const CirclePrimitive = styled.div`
     width: 100%;
     height: 100%;

@@ -16,7 +16,10 @@ const options = {
 // TODO: `date-fns/locale/${locale}/index.js` - such record means that all locales includes in bundle - impove it later
 
 /* eslint global-require: 1 */
-export const getTimeFromDateToNow = (date, locale) => {
+export const getTimeFromDateToNow = /* istanbul ignore next */ (
+  date,
+  locale,
+) => {
   const dateInMills = date * 1000;
   const localeObj = { locale: require(`date-fns/locale/${locale}/index.js`) };
 
@@ -24,7 +27,11 @@ export const getTimeFromDateToNow = (date, locale) => {
 };
 
 /* eslint global-require: 1 */
-export const getFormattedDate = (date, locale, dateFormat) => {
+export const getFormattedDate = /* istanbul ignore next */ (
+  date,
+  locale,
+  dateFormat,
+) => {
   const dateInMills = date * 1000;
   const localeObj = {
     locale: () => require(`date-fns/locale/${locale}/index.js`),

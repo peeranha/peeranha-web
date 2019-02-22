@@ -25,7 +25,12 @@ const CommunityStyled = Base.extend`
 
 const communitiesRoute = routes.communities();
 
-const CommunitiesForm = ({ userId, profile, account, communities }) => {
+const CommunitiesForm = /* istanbul ignore next */ ({
+  userId,
+  profile,
+  account,
+  communities,
+}) => {
   if ((!profile && !communities) || !profile.followed_communities[0]) {
     return null;
   }

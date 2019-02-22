@@ -26,8 +26,6 @@ export function* getCommunitiesWithTagsWorker() {
   }
 }
 
-// TODO: test it
-
 /* eslint consistent-return: 0 */
 export function* getUserProfileWorker({ user }) {
   try {
@@ -36,7 +34,7 @@ export function* getUserProfileWorker({ user }) {
 
     // take userProfile from STORE
     if (users[user]) {
-      return users[user];
+      return yield users[user];
     }
 
     // get userProfile and put to STORE
@@ -44,7 +42,7 @@ export function* getUserProfileWorker({ user }) {
 
     yield put(getUserProfileSuccess(userInfo));
 
-    return userInfo;
+    return yield userInfo;
   } catch (err) {
     yield put(getUserProfileErr(err));
   }

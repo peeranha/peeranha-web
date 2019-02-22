@@ -22,6 +22,7 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import FixedContent from './FixedContent';
 
+/* istanbul ignore next */
 const Aside = styled.aside`
   ${props =>
     props.isMenuVisible
@@ -48,7 +49,7 @@ const After = styled.div`
   padding: 25px 0;
 `;
 
-const LeftMenu = ({
+const LeftMenu = /* istanbul ignore next */ ({
   profile,
   isMenuVisible,
   isNavigationExpanded,

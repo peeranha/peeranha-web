@@ -10,13 +10,18 @@ import Span from 'components/Span';
 import options from './options';
 import RatingStatusStyled from './RatingStatusStyled';
 
-const getStatus = rating =>
+const getStatus = /* istanbul ignore next */ rating =>
   Object.keys(options).filter(
     x => options[x].minRating < rating && options[x].maxRating >= rating,
   )[0];
 
 /* eslint no-nested-ternary: 0 */
-const RatingStatus = ({ rating, size, intl, isRankOff }) => {
+const RatingStatus = /* istanbul ignore next */ ({
+  rating,
+  size,
+  intl,
+  isRankOff,
+}) => {
   const full = options[getStatus(rating)];
 
   return (

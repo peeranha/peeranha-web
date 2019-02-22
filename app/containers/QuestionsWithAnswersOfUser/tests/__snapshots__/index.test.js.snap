@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionsWithAnswersOfUser render questions[0] TRUE 1`] = `
+<InfinityLoader
+  infinityOff={false}
+  isLastFetch={false}
+  isLoading={true}
+  loadNextPaginatedData={[Function]}
+>
+  <div
+    className="className"
+  >
+    213
+  </div>
+</InfinityLoader>
+`;
+
+exports[`QuestionsWithAnswersOfUser render questionsLoading TRUE 1`] = `
+<InfinityLoader
+  infinityOff={false}
+  isLastFetch={false}
+  isLoading={true}
+  loadNextPaginatedData={[Function]}
+>
+  <div
+    className="className"
+  >
+    213
+  </div>
+</InfinityLoader>
+`;

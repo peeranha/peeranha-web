@@ -15,7 +15,7 @@ import profileMessages from 'containers/Profile/messages';
 import QuestionsProfileTab from './QuestionsProfileTab';
 import NoActivity from './NoActivity';
 
-const Activity = ({
+const Activity = /* istanbul ignore next */ ({
   userId,
   questions,
   questionsWithUserAnswers,

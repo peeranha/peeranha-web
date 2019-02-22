@@ -21,8 +21,6 @@ import saga from './saga';
 
 import { getQuestions, resetStore } from './actions';
 
-// TODO: test this component
-
 /* eslint-disable react/prefer-stateless-function */
 export class QuestionsWithAnswersOfUser extends React.PureComponent {
   componentDidMount() {
@@ -74,6 +72,7 @@ const mapStateToProps = createStructuredSelector({
   isLastFetch: select.selectIsLastFetch(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

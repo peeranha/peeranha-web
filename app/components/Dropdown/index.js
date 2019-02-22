@@ -7,7 +7,13 @@ import Icon from 'components/Icon';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
-const Dropdown = ({ button, menu, id, isArrowed, className }) => (
+const Dropdown = /* istanbul ignore next */ ({
+  button,
+  menu,
+  id,
+  isArrowed,
+  className,
+}) => (
   <DropdownStyled className={`dropdown show ${className}`}>
     <button
       id={id}

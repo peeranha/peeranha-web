@@ -10,7 +10,7 @@ import { strLength20x1000, required } from 'components/FormFields/validate';
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
 /* eslint-disable-next-line */
-let CommentForm = props => (
+let CommentForm = /* istanbul ignore next */ props => (
   <form onSubmit={props.handleSubmit(props.sendComment)}>
     <div>
       <Field

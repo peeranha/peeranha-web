@@ -20,14 +20,14 @@ const WrapStyled = styled.div`
   flex: 1;
 `;
 
-class Box extends React.PureComponent {
+export class Box extends React.PureComponent {
   state = {
     isMenuVisible: false,
     isNavigationExpanded: false,
   };
 
   // set default state if window resizing is happening
-  componentDidMount() {
+  componentDidMount() /* istanbul ignore next */ {
     $(window).resize(() => {
       clearTimeout(window.resizedFinished);
       window.resizedFinished = setTimeout(() => {
@@ -40,7 +40,7 @@ class Box extends React.PureComponent {
   }
 
   // set default state if links changing is happening
-  componentWillReceiveProps(prevProps) {
+  componentWillReceiveProps(prevProps) /* istanbul ignore next */ {
     if (
       prevProps.props.location.pathname !==
         this.props.props.location.pathname &&
@@ -53,15 +53,15 @@ class Box extends React.PureComponent {
     }
   }
 
-  showMenu = () => {
+  showMenu = /* istanbul ignore next */ () => {
     this.setState({ isMenuVisible: !this.state.isMenuVisible });
   };
 
-  expandLeftMenuNavigation = () => {
+  expandLeftMenuNavigation = /* istanbul ignore next */ () => {
     this.setState({ isNavigationExpanded: !this.state.isNavigationExpanded });
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { isMenuVisible, isNavigationExpanded } = this.state;
     const { Comp, props } = this.props;
 
@@ -97,6 +97,8 @@ Box.propTypes = {
   props: PropTypes.object,
 };
 
-const Wrapper = (comp, props) => <Box Comp={comp} props={props} />;
+const Wrapper = /* istanbul ignore next */ (comp, props) => (
+  <Box Comp={comp} props={props} />
+);
 
 export default Wrapper;

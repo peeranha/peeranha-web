@@ -5,6 +5,7 @@ Array [
   <li
     className="pl-2"
     data-isbold={false}
+    data-locale="en"
     onClick={[Function]}
     role="presentation"
   >
@@ -19,6 +20,7 @@ Array [
   <li
     className="pl-2"
     data-isbold={false}
+    data-locale="ru"
     onClick={[Function]}
     role="presentation"
   >

@@ -43,7 +43,8 @@ export function* getQuestionsWorker({ userId }) {
      */
 
     /* eslint no-param-reassign: 0 */
-    questions.forEach((x, index) => {
+    /* istanbul ignore next */
+    yield questions.forEach((x, index) => {
       x.postType = 'answer';
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.answers.forEach(y => {

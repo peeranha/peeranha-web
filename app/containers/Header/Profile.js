@@ -32,7 +32,7 @@ const AStyled = A.extend`
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
-const Button = ({ profileInfo, onClick }) => (
+const Button = /* istanbul ignore next */ ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
     <MediumImage
       isBordered
@@ -46,7 +46,7 @@ const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({ profileInfo }) => (
+const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
   <div>
     <Ul>
       <Li>
@@ -136,7 +136,11 @@ const Menu = ({ profileInfo }) => (
   </div>
 );
 
-const Profile = ({ profileInfo, isMenuVisible, expandLeftMenuNavigation }) =>
+const Profile = /* istanbul ignore next */ ({
+  profileInfo,
+  isMenuVisible,
+  expandLeftMenuNavigation,
+}) =>
   !isMenuVisible ? (
     <Dropdown
       isArrowed

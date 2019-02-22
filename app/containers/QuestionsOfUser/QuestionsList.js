@@ -13,7 +13,7 @@ import {
 } from 'utils/constants';
 
 import okayIcon from 'svg/okay';
-import answerIcon from 'images/ico-answer.png';
+import answerIconEmptyInside from 'svg/answerIconEmptyInside';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
@@ -50,7 +50,10 @@ const AcceptedQuestionBadge = Badge.extend`
   border: none;
 `;
 
-const QuestionCommunity = ({ communities, communityId }) => {
+const QuestionCommunity = /* istanbul ignore next */ ({
+  communities,
+  communityId,
+}) => {
   if (!communities[0]) {
     return null;
   }
@@ -65,7 +68,7 @@ const QuestionCommunity = ({ communities, communityId }) => {
   );
 };
 
-const LastAnswer = ({ lastAnswer, locale }) => {
+const LastAnswer = /* istanbul ignore next */ ({ lastAnswer, locale }) => {
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color="gray">
@@ -96,7 +99,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 };
 
 /* eslint camelcase: 0 */
-const Question = ({
+const Question = /* istanbul ignore next */ ({
   myPostRating,
   title,
   myPostTime,
@@ -146,7 +149,7 @@ const Question = ({
       position="right"
     >
       <span className="d-flex align-items-center mb-2">
-        <img className="mr-2" src={answerIcon} alt="☖" />
+        <Icon icon={answerIconEmptyInside} className="mr-2" />
         <Span color="darkblue" bold>
           {answers.length}
         </Span>
@@ -157,7 +160,11 @@ const Question = ({
   </li>
 );
 
-const QuestionsList = ({ questions, locale, communities }) => (
+const QuestionsList = /* istanbul ignore next */ ({
+  questions,
+  locale,
+  communities,
+}) => (
   <div>
     <ul>
       {questions.map(x => (

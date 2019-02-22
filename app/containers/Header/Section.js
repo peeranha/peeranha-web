@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+/* istanbul ignore next */
 const Section = styled.div`
   display: flex;
   align-items: center;

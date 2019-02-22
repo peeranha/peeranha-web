@@ -8,6 +8,7 @@ import {
 } from 'style-constants';
 import styled from 'styled-components';
 
+/* istanbul ignore next */
 const InputStyled = styled.div`
   position: relative;
   display: flex;

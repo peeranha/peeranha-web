@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { LANDING_FONT } from 'style-constants';
 
+/* istanbul ignore next */
 export const Wrapper = styled.div`
   * {
     font-family: ${LANDING_FONT};

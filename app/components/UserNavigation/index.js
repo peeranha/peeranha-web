@@ -21,7 +21,7 @@ const Nav = Ul.extend`
   border-bottom: 0;
 `.withComponent('nav');
 
-const UserNavigation = ({
+const UserNavigation = /* istanbul ignore next */ ({
   userId,
   account,
   questionsLength,

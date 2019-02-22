@@ -8,6 +8,7 @@ import {
   APP_FONT,
 } from 'style-constants';
 
+/* istanbul ignore next */
 const Textarea = styled.textarea`
   height: 200px;
   width: 100%;

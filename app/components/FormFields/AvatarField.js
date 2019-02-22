@@ -55,7 +55,6 @@ const AvatarFieldStyled = styled.div`
   height: ${props => props.size}px;
 `;
 
-/* istanbul ignore next */
 function AvatarField({
   input,
   size,
@@ -67,7 +66,7 @@ function AvatarField({
   getCroppedAvatar,
   uploadImage,
   clearImageChanges,
-}) {
+}) /* istanbul ignore next */ {
   let avatarRefs;
 
   const displayAvatar = !editingImgState && cachedProfileImg;

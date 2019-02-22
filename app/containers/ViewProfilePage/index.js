@@ -30,7 +30,7 @@ import {
 
 import ProfileViewForm from './ProfileViewForm';
 
-const ViewProfilePage = ({
+const ViewProfilePage = /* istanbul ignore next */ ({
   match,
   profile,
   account,

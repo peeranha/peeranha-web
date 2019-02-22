@@ -164,8 +164,7 @@ const mapStateToProps = createStructuredSelector({
   questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
 });
 
-/* istanbul ignore next */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),

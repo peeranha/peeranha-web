@@ -12,7 +12,6 @@ import {
 import { FETCH_REGISTER_ACC } from './constants';
 import { registerAccSuccess, registerAccError } from './actions';
 
-// TODO: check test, method was changed
 export function* resistrAccWorker(res) {
   try {
     const { eosAccount, displayName } = res.obj;

@@ -85,7 +85,7 @@ export class ChangeLocale extends React.PureComponent {
   };
 
   /* eslint react/no-did-mount-set-state: 0 */
-  componentWillMount() {
+  componentDidMount() {
     const languages = Object.keys(translationMessages);
     const locale = localStorage.getItem('locale');
 
@@ -96,7 +96,9 @@ export class ChangeLocale extends React.PureComponent {
     }
   }
 
-  changeLocale = locale => {
+  changeLocale = e => {
+    const { locale } = e.currentTarget.dataset;
+
     localStorage.setItem('locale', locale);
     this.props.changeLocaleDispatch(locale);
   };
@@ -106,7 +108,8 @@ export class ChangeLocale extends React.PureComponent {
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.changeLocale(item)}
+        onClick={this.changeLocale}
+        data-locale={item}
         data-isbold={item === this.props.locale}
         key={item}
       >
@@ -151,6 +154,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
+/* istanbul ignore next */
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,

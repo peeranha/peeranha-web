@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TagsList = ({ chosenTags, communities, communityId }) => {
+const TagsList = /* istanbul ignore next */ ({
+  chosenTags,
+  communities,
+  communityId,
+}) => {
   const community = communities.filter(x => communityId === x.id)[0];
 
   if (!community) return null;

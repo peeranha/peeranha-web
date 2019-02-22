@@ -10,15 +10,16 @@ import commonMessages from 'common-messages';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import Span from 'components/Span';
-import SmallImage from 'components/Img/SmallImage';
+import Icon from 'components/Icon';
 import A from 'components/A';
 
-import questionRoundedIcon from 'images/question.png';
-import bestAnswerIcon from 'images/ico-best-answer.png';
-import answerIcon from 'images/answer.png';
+import questionRoundedIcon from 'svg/question2';
+import answerIcon from 'svg/answer';
+import bestAnswerIcon from 'svg/bestAnswer';
 
 import NoActivity from './NoActivity';
 
+/* istanbul ignore next */
 const Rating = Span.extend`
   min-width: 40px;
   padding: 2px 3px;
@@ -35,19 +36,29 @@ const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
+const PostTypeIcon = /* istanbul ignore next */ ({
+  postType,
+  isMyAnswerAccepted,
+}) => {
   if (postType === 'question') {
-    return <SmallImage notRounded src={questionRoundedIcon} alt="?" />;
+    return (
+      <Icon
+        icon={questionRoundedIcon}
+        className="d-flex align-items-center mr-0"
+      />
+    );
   }
 
   if (isMyAnswerAccepted) {
-    return <SmallImage notRounded src={bestAnswerIcon} alt="v" />;
+    return (
+      <Icon icon={bestAnswerIcon} className="d-flex align-items-center mr-0" />
+    );
   }
 
-  return <SmallImage notRounded src={answerIcon} alt="+" />;
+  return <Icon icon={answerIcon} className="d-flex align-items-center mr-0" />;
 };
 
-const Note = ({
+const Note = /* istanbul ignore next */ ({
   postType,
   isMyAnswerAccepted,
   acceptedAnswer,
@@ -77,7 +88,7 @@ const Note = ({
   </li>
 );
 
-const QuestionsProfileTab = ({
+const QuestionsProfileTab = /* istanbul ignore next */ ({
   questions,
   className,
   loading,

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
-const NoSuchUser = () => (
+const NoSuchUser = /* istanbul ignore next */ () => (
   <div>
     <FormattedMessage {...messages.wrongUser} />
   </div>

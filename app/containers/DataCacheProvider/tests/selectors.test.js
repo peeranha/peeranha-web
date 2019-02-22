@@ -4,17 +4,26 @@ import {
   selectCommunities,
   selectCommunitiesLoading,
   selectGetCommunitiesWithTagsError,
+  selectUsers,
+  selectUsersLoading,
+  selectGetUserProfileError,
 } from '../selectors';
 
 describe('selectDataCacheProviderDomain', () => {
   const communities = [];
   const communitiesLoading = false;
   const getCommunitiesWithTagsError = null;
+  const users = {};
+  const usersLoading = false;
+  const getUserProfileError = null;
 
   const globalState = fromJS({
     communities,
     communitiesLoading,
     getCommunitiesWithTagsError,
+    users,
+    usersLoading,
+    getUserProfileError,
   });
 
   const mockedState = fromJS({
@@ -39,6 +48,23 @@ describe('selectDataCacheProviderDomain', () => {
     const isSelectGetCommunitiesWithTagsError = selectGetCommunitiesWithTagsError();
     expect(isSelectGetCommunitiesWithTagsError(mockedState)).toEqual(
       getCommunitiesWithTagsError,
+    );
+  });
+
+  it('selectUsers', () => {
+    const isSelectUsers = selectUsers();
+    expect(isSelectUsers(mockedState)).toEqual(users);
+  });
+
+  it('selectUsersLoading', () => {
+    const isSelectUsersLoading = selectUsersLoading();
+    expect(isSelectUsersLoading(mockedState)).toEqual(usersLoading);
+  });
+
+  it('selectGetUserProfileError', () => {
+    const isSelectGetUserProfileError = selectGetUserProfileError();
+    expect(isSelectGetUserProfileError(mockedState)).toEqual(
+      getUserProfileError,
     );
   });
 });

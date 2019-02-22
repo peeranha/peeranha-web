@@ -34,6 +34,7 @@ export function* getQuestionsWorker({ userId }) {
     const promise1 = idOfQuestions.map(x =>
       getQuestionData(eosService, x.question_id, userId),
     );
+
     const questions = yield all(promise1);
 
     /*
@@ -46,6 +47,7 @@ export function* getQuestionsWorker({ userId }) {
      */
 
     /* eslint no-param-reassign: 0 */
+    /* istanbul ignore next */
     yield questions.map(function*(x) {
       x.postType = 'question';
       x.myPostTime = x.post_time;

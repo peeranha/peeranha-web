@@ -7,10 +7,11 @@ import { getFormattedDate } from 'utils/datetime';
 
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
-import questionRoundedIcon from 'images/question.png';
-import risenIcon from 'images/risen.png';
-import answerIcon from 'images/answer.png';
+
+import questionRoundedIcon from 'svg/question2';
+import answerIcon from 'svg/answer';
 import pencilIcon from 'svg/pencil';
+import risenIcon from 'svg/risen';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
@@ -22,7 +23,6 @@ import A from 'components/A';
 import NavigationButton from 'components/Button/NavigationButton';
 import Icon from 'components/Icon';
 
-import SmallImage from 'components/Img/SmallImage';
 import LargeImage from 'components/Img/LargeImage';
 
 import messages from 'containers/Profile/messages';
@@ -35,13 +35,18 @@ const UlStyled = Ul.extend`
   padding: 0;
 `;
 
+/* istanbul ignore next */
 const LiStyled = Li.extend`
   display: flex;
   flex-direction: column;
   padding: 16px ${props => (props.last ? '0' : '47px')} 16px 0;
 `;
 
-const MainUserInformation = ({ profile, userId, account }) => (
+const MainUserInformation = /* istanbul ignore next */ ({
+  profile,
+  userId,
+  account,
+}) => (
   <Base position="middle">
     <div className="row">
       <div className="col-12 col-lg-3 col-xl-2 d-flex justify-content-center">
@@ -89,11 +94,9 @@ const MainUserInformation = ({ profile, userId, account }) => (
                 margin="sm"
                 bold
               >
-                <SmallImage
-                  className="mr-1"
-                  notRounded
-                  src={questionRoundedIcon}
-                  alt="?"
+                <Icon
+                  icon={questionRoundedIcon}
+                  className="d-flex align-items-center mr-1"
                 />
                 <span>{profile.questions || 0}</span>
               </Span>
@@ -109,11 +112,9 @@ const MainUserInformation = ({ profile, userId, account }) => (
                 margin="sm"
                 bold
               >
-                <SmallImage
-                  className="mr-1"
-                  notRounded
-                  src={answerIcon}
-                  alt="+"
+                <Icon
+                  icon={answerIcon}
+                  className="d-flex align-items-center mr-1"
                 />
                 <span>{profile.answers || 0}</span>
               </Span>
@@ -129,11 +130,9 @@ const MainUserInformation = ({ profile, userId, account }) => (
                 margin="sm"
                 bold
               >
-                <SmallImage
-                  className="mr-1"
-                  notRounded
-                  src={risenIcon}
-                  alt="?"
+                <Icon
+                  icon={risenIcon}
+                  className="d-flex align-items-center mr-1"
                 />
                 <span>{profile.risen || 0}</span>
               </Span>

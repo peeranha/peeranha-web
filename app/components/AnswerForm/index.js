@@ -11,7 +11,7 @@ import TextEditorField from 'components/FormFields/TextEditorField';
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
 /* eslint-disable-next-line */
-let AnswerForm = props => (
+let AnswerForm = /* istanbul ignore next */ props => (
   <div className="answer-question">
     <form onSubmit={props.handleSubmit(props.sendAnswer)}>
       <h4 className="header text-uppercase">{props.formHeader}</h4>

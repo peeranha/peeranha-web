@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import TextareaField from 'components/FormFields/TextareaField';
@@ -16,31 +17,37 @@ import messages from './messages';
 import { AVATAR_FIELD, NAME_FIELD, DESCRIPTION_FIELD } from './constants';
 
 /* eslint-disable-next-line */
-export const CreateCommunityForm = sendProps => (
-  <form onSubmit={sendProps.handleSubmit(sendProps.createCommunity)}>
+export const CreateCommunityForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  createCommunity,
+  createCommunityLoading,
+  translations,
+  invalid,
+  submitting,
+}) => (
+  <form onSubmit={handleSubmit(createCommunity)}>
     <div>
       <Field
-        disabled={sendProps.createCommunityLoading}
+        disabled={createCommunityLoading}
         name={AVATAR_FIELD}
-        label={sendProps.translations[messages.avatar.id]}
+        label={translations[messages.avatar.id]}
         component={AvatarField}
-        sendProps={sendProps}
         validate={imageValidation}
         warn={imageValidation}
       />
       <Field
-        disabled={sendProps.createCommunityLoading}
+        disabled={createCommunityLoading}
         name={NAME_FIELD}
         component={TextInputField}
-        label={sendProps.translations[messages.name.id]}
+        label={translations[messages.name.id]}
         validate={[strLength3x20, required]}
         warn={[strLength3x20, required]}
       />
       <Field
-        disabled={sendProps.createCommunityLoading}
+        disabled={createCommunityLoading}
         name={DESCRIPTION_FIELD}
         component={TextareaField}
-        label={sendProps.translations[messages.descriptionField.id]}
+        label={translations[messages.descriptionField.id]}
         validate={[strLength20x1000, required]}
         warn={[strLength20x1000, required]}
       />
@@ -48,18 +55,23 @@ export const CreateCommunityForm = sendProps => (
     <div>
       <button
         className="btn btn-success form-control"
-        disabled={
-          sendProps.invalid ||
-          sendProps.submitting ||
-          sendProps.createCommunityLoading
-        }
+        disabled={invalid || submitting || createCommunityLoading}
         type="submit"
       >
-        {sendProps.translations[messages.createCommunity.id]}
+        {translations[messages.createCommunity.id]}
       </button>
     </div>
   </form>
 );
+
+CreateCommunityForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  createCommunity: PropTypes.func,
+  createCommunityLoading: PropTypes.bool,
+  translations: PropTypes.object,
+  invalid: PropTypes.bool,
+  submitting: PropTypes.bool,
+};
 
 export default reduxForm({
   form: 'CreateCommunityForm',

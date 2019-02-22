@@ -35,7 +35,7 @@ import FormStyled from './FormStyled';
 import AvatarStyled from './AvatarStyled';
 import { PROFILE_EDIT_FORM } from './constants';
 
-const loadCities = async (v, callback) => {
+const loadCities = /* istanbul ignore next */ async (v, callback) => {
   const cities = await getCitiesList(v);
 
   const formattedCities = cities.map(x => ({
@@ -170,7 +170,7 @@ ProfileEditForm = reduxForm({
   form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
 
-ProfileEditForm = connect((state, props) => ({
+ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
   initialValues: props.profile.profile,
   location: selector(state, LOCATION_FIELD),
 }))(ProfileEditForm);

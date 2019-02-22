@@ -45,7 +45,7 @@ export const LoginProfile = React.memo(
     showLoginModalDispatch,
     isMenuVisible,
     expandLeftMenuNavigation,
-  }) => {
+  }) /* istanbul ignore next */ => {
     if (profileInfo) {
       return (
         <UserProfileNav
@@ -67,11 +67,11 @@ export const LoginProfile = React.memo(
 );
 
 const homeRoute = routes.home();
-const addQuestionRoute = () => {
+const addQuestionRoute = /* istanbul ignore next */ () => {
   createdHistory.push(routes.question_ask());
 };
 
-const HeaderForm = props => (
+const HeaderForm = /* istanbul ignore next */ props => (
   <Wrapper id={HEADER_ID}>
     <div className="container">
       <div className="d-flex align-items-center justify-content-between">

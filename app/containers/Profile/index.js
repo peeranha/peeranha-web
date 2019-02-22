@@ -118,7 +118,7 @@ const mapStateToProps = createStructuredSelector({
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     getProfileInfoDispatch: (key, account) =>

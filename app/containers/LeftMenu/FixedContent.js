@@ -11,7 +11,6 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
-import Img from 'components/Img';
 
 import messages from 'common-messages';
 
@@ -24,8 +23,7 @@ import communitiesIcon from 'svg/communities';
 import tagsIcon from 'svg/tags';
 import usersIcon from 'svg/users';
 import logoutIcon from 'svg/logout';
-
-import questionRoundedIcon from 'images/ico-faq.png';
+import questionRoundedIcon from 'svg/faq';
 
 import { LEFT_MENU_ID } from './constants';
 
@@ -37,6 +35,7 @@ const usersRoute = routes.users();
 const faqRoute = routes.faq();
 
 /* eslint-disable */
+/* istanbul ignore next */
 const LiExtended = Li.extend`
   display: flex;
   align-items: center;
@@ -73,6 +72,7 @@ const Footer = Li.extend`
   padding: 0 15px;
 `.withComponent('footer');
 
+/* istanbul ignore next */
 const FixedContentStyled = styled.div`
   position: ${props => (props.isMenuVisible ? 'relative' : 'fixed')};
   width: ${props => (props.isMenuVisible ? '100%' : `${LEFT_MENU_WIDTH}px`)};
@@ -88,7 +88,11 @@ const FixedContentStyled = styled.div`
 `;
 
 /* eslint indent: 0 */
-const FixedContent = ({ profile, isMenuVisible, isNavigationExpanded }) => (
+const FixedContent = /* istanbul ignore next */ ({
+  profile,
+  isMenuVisible,
+  isNavigationExpanded,
+}) => (
   <FixedContentStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
     {profile &&
       isNavigationExpanded && (
@@ -158,7 +162,7 @@ const FixedContent = ({ profile, isMenuVisible, isNavigationExpanded }) => (
       </LiExtended>
       <LiExtended route={faqRoute}>
         <A className="d-flex align-items-center" to={faqRoute} href={faqRoute}>
-          <Img className="mr-2" src={questionRoundedIcon} />
+          <Icon icon={questionRoundedIcon} />
           <FormattedMessage {...messages.faq} />
         </A>
       </LiExtended>

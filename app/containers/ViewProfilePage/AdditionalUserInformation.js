@@ -22,7 +22,7 @@ const RowStyled = styled.div`
   line-height: 30px;
 `;
 
-const Blank = ({ profile, userId, account }) =>
+const Blank = /* istanbul ignore next */ ({ profile, userId, account }) =>
   !profile[LOCATION_FIELD] &&
   !profile[COMPANY_FIELD] &&
   !profile[POSITION_FIELD] &&
@@ -43,7 +43,7 @@ const Blank = ({ profile, userId, account }) =>
     </Span>
   );
 
-const Row = ({ nameField, value }) =>
+const Row = /* istanbul ignore next */ ({ nameField, value }) =>
   value ? (
     <RowStyled className="row align-items-center">
       <div className="col-2">
@@ -57,7 +57,11 @@ const Row = ({ nameField, value }) =>
     </RowStyled>
   ) : null;
 
-const AdditionalUserInformation = ({ profile, userId, account }) => (
+const AdditionalUserInformation = /* istanbul ignore next */ ({
+  profile,
+  userId,
+  account,
+}) => (
   <Base position="bottom">
     <Row nameField="locationLabel" value={profile.profile[LOCATION_FIELD]} />
     <Row nameField="companyLabel" value={profile.profile[COMPANY_FIELD]} />

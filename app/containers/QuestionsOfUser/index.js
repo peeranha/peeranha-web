@@ -34,8 +34,6 @@ import { getQuestions, resetStore } from './actions';
 import Header from './Header';
 import QuestionsList from './QuestionsList';
 
-// TODO: test this component
-
 /* eslint-disable react/prefer-stateless-function */
 export class QuestionsOfUser extends React.PureComponent {
   componentDidMount() {
@@ -109,6 +107,7 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
+/* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,

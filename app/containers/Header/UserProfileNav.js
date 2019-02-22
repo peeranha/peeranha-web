@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 
-const UserProfileNav = ({
+const UserProfileNav = /* istanbul ignore next */ ({
   profileInfo,
   isMenuVisible,
   expandLeftMenuNavigation,

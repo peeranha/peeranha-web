@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconStyled from './IconStyled';
 
-const Icon = ({ icon, noMargin, className, onClick }) => (
+const Icon = /* istanbul ignore next */ ({
+  icon,
+  noMargin,
+  className,
+  onClick,
+}) => (
   <IconStyled
     className={className}
     onClick={onClick}

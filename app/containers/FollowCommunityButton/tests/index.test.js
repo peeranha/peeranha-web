@@ -9,6 +9,7 @@ cmp.props = {
 };
 
 const event = {
+  preventDefault: jest.fn(),
   currentTarget: {
     dataset: { isfollowed: false },
   },

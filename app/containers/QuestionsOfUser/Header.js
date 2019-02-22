@@ -7,7 +7,7 @@ import H3 from 'components/H3';
 import commonMessages from 'common-messages';
 import messages from 'containers/Profile/messages';
 
-const Header = () => (
+const Header = /* istanbul ignore next */ () => (
   <Base position="bottom">
     <H3>
       <FormattedMessage {...commonMessages.you} />{' '}

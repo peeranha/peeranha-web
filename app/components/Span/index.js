@@ -19,6 +19,7 @@ const colors = {
   gray: darkgray,
 };
 
+/* istanbul ignore next */
 const Span = styled.span`
   color: ${props => (props.color ? colors[props.color] : colors.black)};
   font-weight: ${props => (props.bold ? '600' : 'normal')};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Profile, mapDispatchToProps } from '../index';
+import { Profile } from '../index';
 
 const children = <div>Children</div>;
 React.Children.only = jest.fn().mockImplementation(() => children);
@@ -41,28 +41,13 @@ describe('Profile', () => {
     });
   });
 
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const obj = {};
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(
-        mapDispatchToProps(dispatch).getProfileInfoDispatch(obj, obj),
-      ).toBe(test);
-      expect(mapDispatchToProps(dispatch).setDefaultPropsDispatch()).toBe(test);
-    });
-  });
-
   describe('componentDidMount', () => {
     it('componentDidMount call check', () => {
       cmp.getProfile = jest.fn().mockImplementation(() => 'profile1');
 
-      expect(cmp.getProfile).toHaveBeenCalledTimes(0);
+      expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(0);
       cmp.componentDidMount();
-      expect(cmp.getProfile).toHaveBeenCalledTimes(1);
+      expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -74,40 +59,18 @@ describe('Profile', () => {
       it('case: nextProps.userId === this.props.userId', () => {
         cmp.props.userId = 'user1';
 
-        expect(cmp.getProfile).toHaveBeenCalledTimes(0);
+        expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(0);
         cmp.componentWillReceiveProps(props);
-        expect(cmp.getProfile).toHaveBeenCalledTimes(0);
+        expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(0);
       });
 
       it('case: nextProps.userId !== this.props.userId', () => {
         cmp.props.userId = 'user2';
 
-        expect(cmp.getProfile).toHaveBeenCalledTimes(0);
+        expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(0);
         cmp.componentWillReceiveProps(props);
-        expect(cmp.getProfile).toHaveBeenCalledTimes(1);
+        expect(cmp.props.getProfileInfoDispatch).toHaveBeenCalledTimes(1);
       });
-    });
-  });
-
-  describe('getProfile', () => {
-    it('getProfile', () => {
-      const cmp1 = new Profile();
-      const profile = { id: 1 };
-
-      cmp1.props = {};
-      cmp1.props.getProfileInfoDispatch = jest
-        .fn()
-        .mockImplementation(() => profile);
-
-      expect(cmp1.getProfile()).toEqual(profile);
-    });
-  });
-
-  describe('componentWillUnmount', () => {
-    it('componentWillUnmount test', () => {
-      expect(cmp.props.setDefaultPropsDispatch).toHaveBeenCalledTimes(0);
-      cmp.componentWillUnmount();
-      expect(cmp.props.setDefaultPropsDispatch).toHaveBeenCalledTimes(1);
     });
   });
 });

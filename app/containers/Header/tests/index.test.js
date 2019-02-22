@@ -1,26 +1,19 @@
-import { Header, mapDispatchToProps } from '../index';
+import { Header } from '../index';
 
 const cmp = new Header();
-cmp.props = {};
+
 cmp.props = {
-  account: 'user',
-  profileInfo: false,
+  account: 'account',
+  profileInfo: {},
   showSignUpModalDispatch: jest.fn(),
   showLoginModalDispatch: jest.fn(),
+  isMenuVisible: false,
+  showMenu: jest.fn(),
+  expandLeftMenuNavigation: jest.fn(),
 };
 
 describe('<Header />', () => {
-  it('mapDispatchToProps test', () => {
-    const test = 'test';
-    const dispatch = () => test;
-
-    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-    expect(mapDispatchToProps(dispatch).showSignUpModalDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).showLoginModalDispatch()).toBe(test);
-  });
-
-  it('render', () => {
+  it('snapshot test', () => {
     expect(cmp.render()).toMatchSnapshot();
   });
 });
