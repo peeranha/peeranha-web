@@ -10,29 +10,30 @@ import ContainedButton from './ContainedButton';
 
 import { EMAIL_FIELD } from './constants';
 
-const EmailLandingForm = props => {
-  const { handleSubmit, button, sendEmailLoading, sendEmail } = props;
-
-  return (
-    <form onSubmit={handleSubmit(sendEmail)}>
-      <div>
-        <Field
-          disabled={sendEmailLoading}
-          name={EMAIL_FIELD}
-          component={DefaultInput}
-          validate={[validateEmail]}
-          warn={[validateEmail]}
-        />
-      </div>
-      <div>
-        <ContainedButton
-          type="submit"
-          content={<FormattedMessage {...button} />}
-        />
-      </div>
-    </form>
-  );
-};
+const EmailLandingForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  button,
+  sendEmailLoading,
+  sendEmail,
+}) => (
+  <form onSubmit={handleSubmit(sendEmail)}>
+    <div>
+      <Field
+        disabled={sendEmailLoading}
+        name={EMAIL_FIELD}
+        component={DefaultInput}
+        validate={[validateEmail]}
+        warn={[validateEmail]}
+      />
+    </div>
+    <div>
+      <ContainedButton
+        type="submit"
+        content={<FormattedMessage {...button} />}
+      />
+    </div>
+  </form>
+);
 
 EmailLandingForm.propTypes = {
   handleSubmit: PropTypes.func,

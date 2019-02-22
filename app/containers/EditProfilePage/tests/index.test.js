@@ -12,6 +12,8 @@ const page = new EditProfilePage();
 page.props = {
   account: 'user',
   locale: 'en',
+  questions: [],
+  questionsWithUserAnswers: [],
   editingImgState: false,
   isProfileSaving: false,
   cachedProfileImg: null,
@@ -44,28 +46,6 @@ describe('<EditProfilePage>', () => {
     it('test', () => {
       page.componentWillUnmount();
       expect(page.props.setDefaultReducerDispatch).toHaveBeenCalled();
-    });
-  });
-
-  describe('componentWillUpdate', () => {
-    const { push } = page.props.history;
-
-    it('account === match.params.id', async () => {
-      page.props.account = 'user2';
-      page.props.match.params.id = 'user2';
-
-      expect(push).toHaveBeenCalledTimes(0);
-      await page.componentWillUpdate(page.props);
-      expect(push).toHaveBeenCalledTimes(0);
-    });
-
-    it('account !== match.params.id', async () => {
-      page.props.account = 'user2';
-      page.props.match.params.id = 'user1';
-
-      expect(push).toHaveBeenCalledTimes(0);
-      await page.componentWillUpdate(page.props);
-      expect(push).toHaveBeenCalledTimes(1);
     });
   });
 

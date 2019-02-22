@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-
 import TextField from '@material-ui/core/TextField';
 
+import { LANDING_FONT } from 'style-constants';
+
+/* istanbul ignore next */
 export const Wrapper = styled.div`
   * {
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     text-transform: none;
     letter-spacing: -0.9px;
   }
@@ -38,13 +40,13 @@ export const Wrapper = styled.div`
     label {
       font-size: 14px;
       color: #9b9b9b;
-      font-family: Open Sans, sans-serif;
+      font-family: ${LANDING_FONT};
       z-index: 10;
     }
 
     input {
       font-size: 16px;
-      font-family: Open Sans, sans-serif;
+      font-family: ${LANDING_FONT};
       color: #282828;
       padding: 0;
       width: 100%;

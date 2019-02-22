@@ -1,135 +1,154 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
-import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
-import {
-  AvatarEditorBorder,
-  AvatarEditorBorderRadius,
-  AvatarEditorSize,
-  AvatarEditorColor,
-  AvatarEditorScale,
-  AvatarEditorRotate,
-  AvatarCrossOrigin,
-} from 'containers/Profile/Wrapper';
+import { gray, darkgray } from 'style-constants';
+import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import messages from 'containers/Profile/messages';
 import WarningMessage from './WarningMessage';
 
-/* istanbul ignore next */
-export const displayImageFunc = (edImg, cachedImg, savedImg) =>
-  edImg && (cachedImg || savedImg);
+const BORDER_EDITOR_RADIUS = 100;
+const EDITOR_COLOR = [255, 255, 255, 0.6];
+const EDITOR_SCALE = 1.5;
+const EDITOR_ROTATE = 0;
+const CROSS_ORIGIN = 'anonymous';
 
-/* istanbul ignore next */
-export const displayAvatarFunc = (edImg, cachedImg) => !edImg && cachedImg;
+const AvatarArea = styled.div`
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid ${gray};
+  border-radius: 50%;
 
-/* istanbul ignore next */
-function AvatarField({ input, label, disabled, sendProps, meta }) {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+  }
+
+  input {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    cursor: pointer;
+  }
+`;
+
+const ButtonStyled = styled.button`
+  position: absolute;
+  font-size: 20px;
+  color: ${darkgray};
+  top: ${props => props.top}px;
+  right: ${props => props.right}px;
+`;
+
+const AvatarFieldStyled = styled.div`
+  position: relative;
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+`;
+
+function AvatarField({
+  input,
+  size,
+  disabled,
+  meta,
+  editingImgState,
+  cachedProfileImg,
+  ipfsAvatar,
+  getCroppedAvatar,
+  uploadImage,
+  clearImageChanges,
+}) /* istanbul ignore next */ {
   let avatarRefs;
 
-  const {
-    editingImgState,
-    cachedProfileImg,
-    profile,
-    getCroppedAvatar,
-    uploadImage,
-    clearImageChanges,
-  } = sendProps;
-
-  const displayImage = displayImageFunc(
-    editingImgState,
-    cachedProfileImg,
-    profile.ipfs_avatar,
-  );
-
-  const displayAvatar = displayAvatarFunc(editingImgState, cachedProfileImg);
+  const displayAvatar = !editingImgState && cachedProfileImg;
 
   return (
-    <div>
-      {displayImage && (
-        <div className="d-flex justify-content-center">
+    <AvatarFieldStyled size={size}>
+      <AvatarArea>
+        {!displayAvatar && (
           <img
-            src={cachedProfileImg || profile.ipfs_avatar}
-            className="profile-image"
-            alt=""
+            src={cachedProfileImg || ipfsAvatar || editUserNoAvatar}
+            alt="avatar"
           />
-        </div>
-      )}
+        )}
+
+        {displayAvatar && (
+          <AvatarEditor
+            image={cachedProfileImg}
+            ref={refs => {
+              avatarRefs = refs;
+            }}
+            width={size - 0.2 * size}
+            height={size - 0.2 * size}
+            color={EDITOR_COLOR}
+            scale={EDITOR_SCALE}
+            rotate={EDITOR_ROTATE}
+            border={0.2 * size}
+            crossOrigin={CROSS_ORIGIN}
+            borderRadius={BORDER_EDITOR_RADIUS}
+          />
+        )}
+
+        {!displayAvatar && (
+          <input
+            {...input}
+            onChange={uploadImage}
+            disabled={disabled}
+            type="file"
+            value={undefined}
+            className="custom-file-input"
+          />
+        )}
+      </AvatarArea>
+
+      <WarningMessage {...meta} />
 
       {displayAvatar && (
         <div>
-          <div className="d-flex justify-content-center">
-            <AvatarEditor
-              image={cachedProfileImg}
-              ref={refs => {
-                avatarRefs = refs;
-              }}
-              width={AvatarEditorSize}
-              height={AvatarEditorSize}
-              color={AvatarEditorColor}
-              scale={AvatarEditorScale}
-              rotate={AvatarEditorRotate}
-              border={AvatarEditorBorder}
-              crossOrigin={AvatarCrossOrigin}
-              borderRadius={AvatarEditorBorderRadius}
-            />
-          </div>
-          <div className="d-flex wrap-nowrap">
-            <button
-              id="getcroppedavatar"
-              disabled={disabled}
-              className="btn btn-secondary w-50 mr-1"
-              onClick={() => getCroppedAvatar(avatarRefs)}
-              type="button"
-              key="mr-1"
-            >
-              <FormattedMessage {...messages.saveButton} />
-            </button>
-            <button
-              disabled={disabled}
-              className="btn btn-secondary w-50 ml-1"
-              onClick={clearImageChanges}
-              type="button"
-              key="ml-1"
-            >
-              <FormattedMessage {...messages.cancelButton} />
-            </button>
-          </div>
+          <ButtonStyled
+            top={-5}
+            right={-5}
+            disabled={disabled}
+            onClick={() => getCroppedAvatar(avatarRefs)}
+            type="button"
+          >
+            ✔
+          </ButtonStyled>
+          <ButtonStyled
+            top={5}
+            right={-25}
+            disabled={disabled}
+            onClick={clearImageChanges}
+            type="button"
+          >
+            ✕
+          </ButtonStyled>
         </div>
       )}
-      <div className="input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text" id="avatar1">
-            {label}
-          </span>
-        </div>
-        <div className="custom-file">
-          <input
-            disabled={disabled}
-            {...input}
-            type="file"
-            onChange={uploadImage}
-            className="custom-file-input"
-            id="avatarFile"
-            value={undefined}
-            aria-describedby="avatar1"
-          />
-          <label className="custom-file-label" htmlFor="avatarFile">
-            <FormattedMessage {...messages.chooseFile} />
-          </label>
-        </div>
-      </div>
-      <WarningMessage {...meta} />
-    </div>
+    </AvatarFieldStyled>
   );
 }
 
 AvatarField.propTypes = {
   input: PropTypes.object,
-  label: PropTypes.string,
-  meta: PropTypes.object,
+  size: PropTypes.number,
   disabled: PropTypes.bool,
-  sendProps: PropTypes.object,
+  meta: PropTypes.object,
+  editingImgState: PropTypes.bool,
+  cachedProfileImg: PropTypes.string,
+  ipfsAvatar: PropTypes.string,
+  getCroppedAvatar: PropTypes.func,
+  uploadImage: PropTypes.func,
+  clearImageChanges: PropTypes.func,
 };
 
 export default AvatarField;

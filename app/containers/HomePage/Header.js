@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
+import { LANDING_FONT } from 'style-constants';
+
 import logo from 'images/Logo.svg';
 import login from 'images/Login.svg';
 import bgLogin from 'images/BG_Login.png';
@@ -34,7 +36,7 @@ const Box = styled.div`
   * {
     outline: none !important;
     letter-spacing: -0.9px;
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     font-weight: 400;
   }
 
@@ -123,7 +125,7 @@ const Box = styled.div`
     padding: 0 20px 10px 20px;
 
     * {
-      font-family: Open Sans, sans-serif;
+      font-family: ${LANDING_FONT};
       font-size: 18px;
     }
 

@@ -3,8 +3,11 @@ import { registerAccount } from 'utils/accountManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
-import { loginSignupSuccess } from 'containers/AccountProvider/actions';
-import { closeModals } from 'containers/AccountProvider/saga';
+
+import {
+  closeModals,
+  loginSignupWorker,
+} from 'containers/AccountProvider/saga';
 
 import { FETCH_REGISTER_ACC } from './constants';
 import { registerAccSuccess, registerAccError } from './actions';
@@ -24,7 +27,7 @@ export function* resistrAccWorker(res) {
     );
 
     yield put(registerAccSuccess());
-    yield put(loginSignupSuccess(eosAccount, true));
+    yield loginSignupWorker({ methods: { type: null } });
     yield call(() => closeModals());
   } catch (err) {
     yield put(registerAccError('Such user exists'));

@@ -1,19 +1,12 @@
 import { fromJS } from 'immutable';
 
-import profileReducer, { initialState } from '../reducer';
+import profileReducer from '../reducer';
 
 import {
   getProfileInfo,
   getProfileInfoSuccess,
   getProfileInfoError,
-  getCitiesList,
-  getCitiesListSuccess,
-  getCitiesListError,
-  chooseLocation,
-  setDefaultProps,
 } from '../actions';
-
-import { LOCATION_FIELD } from '../constants';
 
 describe('profileReducer', () => {
   let state;
@@ -25,10 +18,6 @@ describe('profileReducer', () => {
 
   it('returns the initial state', () => {
     expect(profileReducer(state, {})).toEqual(state);
-  });
-
-  it('setDefaultProps', () => {
-    expect(profileReducer(state, setDefaultProps())).toEqual(initialState);
   });
 
   it('getProfileInfo: set @loading true', () => {
@@ -48,56 +37,8 @@ describe('profileReducer', () => {
   it('getProfileInfoError: returns error message', () => {
     const obj = state
       .set('errorLoadProfile', 'error')
-      .set('profile', {})
+      .set('profile', null)
       .set('isProfileLoading', false);
     expect(profileReducer(state, getProfileInfoError('error'))).toEqual(obj);
-  });
-
-  it('getCitiesList: returns locationSearch', () => {
-    const locationSearch = 'Minsk';
-    const st = state.set('profile', {});
-    const obj = state.set('locationSearch', locationSearch).set('profile', {
-      profile: {
-        [LOCATION_FIELD]: {
-          name: locationSearch,
-        },
-      },
-    });
-    expect(profileReducer(st, getCitiesList(locationSearch))).toEqual(obj);
-  });
-
-  it('getCitiesListSuccess: returns citiesList', () => {
-    const citiesList = ['Minsk', 'Chicago'];
-    const obj = state
-      .set('loadingGetCitiesList', false)
-      .set('citiesList', citiesList);
-    expect(profileReducer(state, getCitiesListSuccess(citiesList))).toEqual(
-      obj,
-    );
-  });
-
-  it('getCitiesListError: returns error message', () => {
-    const errorCitiesList = 'error message';
-    const obj = state
-      .set('loadingGetCitiesList', false)
-      .set('errorCitiesList', errorCitiesList);
-    expect(profileReducer(state, getCitiesListError(errorCitiesList))).toEqual(
-      obj,
-    );
-  });
-
-  it('chooseLocation: returns cityId, city', () => {
-    const cityId = '10101';
-    const city = 'Minsk';
-    const st = state.set('profile', {});
-    const obj = state.set('profile', {
-      profile: {
-        [LOCATION_FIELD]: {
-          id: cityId,
-          name: city,
-        },
-      },
-    });
-    expect(profileReducer(st, chooseLocation(cityId, city))).toEqual(obj);
   });
 });

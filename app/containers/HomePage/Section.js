@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { LANDING_FONT } from 'style-constants';
 
 const Section = styled.section`
-  font-family: Open Sans, sans-serif;
+  font-family: ${LANDING_FONT};
   font-weight: 400;
   overflow: hidden;
   padding: 110px 0;
@@ -39,14 +40,14 @@ const Section = styled.section`
     font-size: 20px;
     line-height: 30px;
     letter-spacing: -0.8px;
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
   }
 
   p.special-paragraph {
     font-size: 24px;
     line-height: 34px;
     letter-spacing: -1px;
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
   }
 
   @media only screen and (max-width: 992px) {

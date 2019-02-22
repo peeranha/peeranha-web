@@ -26,6 +26,8 @@ import createCommunityReducer from 'containers/CreateCommunity/reducer';
 import suggestedCommunitiesReducer from 'containers/SuggestedCommunities/reducer';
 import createTagReducer from 'containers/CreateTag/reducer';
 import suggestedTagsReducer from 'containers/SuggestedTags/reducer';
+import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
+import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 
 /*
  * routeReducer
@@ -80,6 +82,8 @@ export default function createReducer(injectedReducers) {
     suggestedCommunities: suggestedCommunitiesReducer,
     createTag: createTagReducer,
     suggestedTags: suggestedTagsReducer,
+    questionsOfUser: questionsOfUserReducer,
+    questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     form: formReducer,
     ...injectedReducers,
   });

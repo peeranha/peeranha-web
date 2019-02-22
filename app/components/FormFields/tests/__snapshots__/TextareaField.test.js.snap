@@ -1,14 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextareaField test test by snapshots default 1`] = `
-<div>
-  <h6>
+.c2 {
+  height: 200px;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0);
+  border-radius: 3px;
+  padding: 9px 42px 9px 14px;
+  color: #282828;
+  font-family: Source Sans Pro,sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  outline: none;
+}
+
+.c2:focus {
+  box-shadow: 0 0 0 3px #576fed66;
+  border-color: #576fed;
+}
+
+.c2:disabled {
+  opacity: 0.5;
+}
+
+.c1 {
+  color: #282828;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  font-style: normal;
+  font-family: Source Sans Pro,sans-serif;
+  text-align: left;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.c1 [data-icon='icon'] {
+  stroke: #7b7b7b;
+}
+
+.c0 {
+  margin-bottom: 14px;
+}
+
+<div
+  className="c0"
+>
+  <h6
+    className="c1"
+  >
     label
   </h6>
   <textarea
-    className="textarea form-control"
+    className="c2"
     disabled={false}
-    placeholder="label"
   />
 </div>
 `;

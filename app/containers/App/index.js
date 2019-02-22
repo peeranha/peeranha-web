@@ -23,7 +23,6 @@ import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
-import Header from 'containers/Header';
 import Toast from 'containers/Toast';
 import Questions from 'containers/Questions/Loadable';
 import AskQuestion from 'containers/AskQuestion/Loadable';
@@ -37,19 +36,12 @@ import Tags from 'containers/Tags';
 import CreateTag from 'containers/CreateTag';
 import SuggestedTags from 'containers/SuggestedTags';
 
-import Footer from 'components/Footer/Loadable';
 import NoAccess from 'components/NoAccess/Loadable';
 import Feed from 'components/Feed';
 
 import * as routes from 'routes-config';
 
-const Wrapper = (WrappedComp, props) => [
-  <Header key="header" />,
-  <div style={{ marginBottom: '100px' }} key="wrappedComp">
-    <WrappedComp {...props} />
-  </div>,
-  <Footer key="footer" />,
-];
+import Wrapper from './Wrapper';
 
 export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {

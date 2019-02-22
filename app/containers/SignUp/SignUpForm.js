@@ -14,7 +14,7 @@ import messages from './messages';
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
 /* eslint-disable-next-line */
-let SignUpForm = props => {
+let SignUpForm = /* istanbul ignore next */ props => {
   const {
     handleSubmit,
     submitting,

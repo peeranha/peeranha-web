@@ -9,7 +9,7 @@ cmp.props = {
 };
 
 const children = <div>Children</div>;
-React.Children.only = jest.fn().mockImplementation(() => children);
+React.Children.toArray = jest.fn().mockImplementation(() => children);
 
 window.addEventListener = jest.fn();
 window.removeEventListener = jest.fn();

@@ -26,17 +26,4 @@ export const selectUserKey = () =>
   createSelector(selectProfileDomain, substate => substate.get('userKey'));
 
 export const selectProfile = () =>
-  createSelector(selectProfileDomain, substate => substate.get('profile'));
-
-export const selectCitiesList = () =>
-  createSelector(selectProfileDomain, substate => substate.get('citiesList'));
-
-export const selectLoadingGetCitiesList = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('loadingGetCitiesList'),
-  );
-
-export const selectErrorCitiesList = () =>
-  createSelector(selectProfileDomain, substate =>
-    substate.get('errorCitiesList'),
-  );
+  createSelector(selectProfileDomain, substate => substate.toJS().profile);

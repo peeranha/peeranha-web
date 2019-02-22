@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import styled from 'styled-components';
+import { LANDING_FONT } from 'style-constants';
 
 import { translationMessages } from 'i18n';
 import { changeLocale } from 'containers/LanguageProvider/actions';
@@ -57,7 +58,7 @@ const Box = styled.span`
   }
 
   li {
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     padding: 5px 20px !important;
     text-transform: uppercase;
 
@@ -84,7 +85,7 @@ export class ChangeLocale extends React.PureComponent {
   };
 
   /* eslint react/no-did-mount-set-state: 0 */
-  componentWillMount() {
+  componentDidMount() {
     const languages = Object.keys(translationMessages);
     const locale = localStorage.getItem('locale');
 
@@ -95,7 +96,9 @@ export class ChangeLocale extends React.PureComponent {
     }
   }
 
-  changeLocale = locale => {
+  changeLocale = e => {
+    const { locale } = e.currentTarget.dataset;
+
     localStorage.setItem('locale', locale);
     this.props.changeLocaleDispatch(locale);
   };
@@ -105,7 +108,8 @@ export class ChangeLocale extends React.PureComponent {
       <li
         className="pl-2"
         role="presentation"
-        onClick={() => this.changeLocale(item)}
+        onClick={this.changeLocale}
+        data-locale={item}
         data-isbold={item === this.props.locale}
         key={item}
       >
@@ -150,6 +154,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
+/* istanbul ignore next */
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,

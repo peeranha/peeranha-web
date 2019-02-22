@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
+import { LANDING_FONT } from 'style-constants';
+
 const Wrapper = styled.div`
   * {
-    font-family: Open Sans, sans-serif;
+    font-family: ${LANDING_FONT};
     text-transform: none;
     letter-spacing: -0.9px;
   }

@@ -28,7 +28,7 @@ export class AccountProvider extends React.Component {
 
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
-  children: PropTypes.object,
+  children: PropTypes.element,
 };
 
 const mapStateToProps = createStructuredSelector({});

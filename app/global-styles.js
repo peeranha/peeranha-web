@@ -5,15 +5,12 @@ injectGlobal`
   ${reset};
 
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
-
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
 
   html,
   body {
     width: 100%;
     scroll-behavior: smooth;
-  }
-
-  html {
     min-height: 100%;
     position: relative;
   }
@@ -25,20 +22,10 @@ injectGlobal`
   body.fontLoaded {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
-  
-  a {
-    text-decoration: none;
-    color: #07C;
-  }
 
-  a:visited {
-    text-decoration: none;
-    color: #005999;
-  }
-
-  a:hover {
-    text-decoration: none;
-    color: #3af;
+  button, a {
+    cursor: pointer;
+    outline: none !important;
   }
 
   #app {

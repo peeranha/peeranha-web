@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+
 import {
   selectProfileDomain,
   selectIsProfileLoading,
@@ -6,9 +7,6 @@ import {
   selectErrorLoadProfile,
   selectUserKey,
   selectProfile,
-  selectCitiesList,
-  selectLoadingGetCitiesList,
-  selectErrorCitiesList,
 } from '../selectors';
 
 describe('selectProfileDomain', () => {
@@ -16,10 +14,7 @@ describe('selectProfileDomain', () => {
   const isImageLoading = true;
   const errorLoadProfile = null;
   const userKey = 'user';
-  const profile = fromJS({});
-  const citiesList = fromJS([]);
-  const loadingGetCitiesList = true;
-  const errorCitiesList = null;
+  const profile = {};
 
   const globalState = fromJS({
     isProfileLoading,
@@ -27,9 +22,6 @@ describe('selectProfileDomain', () => {
     errorLoadProfile,
     userKey,
     profile,
-    citiesList,
-    loadingGetCitiesList,
-    errorCitiesList,
   });
 
   const mockedState = fromJS({
@@ -63,20 +55,5 @@ describe('selectProfileDomain', () => {
   it('selectProfile', () => {
     const isProfile = selectProfile();
     expect(isProfile(mockedState)).toEqual(profile);
-  });
-
-  it('selectCitiesList', () => {
-    const isCitiesList = selectCitiesList();
-    expect(isCitiesList(mockedState)).toEqual(citiesList);
-  });
-
-  it('selectLoadingGetCitiesList', () => {
-    const isLoadingGetCitiesList = selectLoadingGetCitiesList();
-    expect(isLoadingGetCitiesList(mockedState)).toEqual(loadingGetCitiesList);
-  });
-
-  it('selectErrorCitiesList', () => {
-    const isErrorCitiesList = selectErrorCitiesList();
-    expect(isErrorCitiesList(mockedState)).toEqual(errorCitiesList);
   });
 });

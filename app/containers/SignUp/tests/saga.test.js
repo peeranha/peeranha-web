@@ -5,10 +5,14 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 import { registerAccount } from 'utils/accountManagement';
-import { LOGIN_SIGNUP_SUCCESS } from 'containers/AccountProvider/constants';
-import { closeModals } from 'containers/AccountProvider/saga';
+
+import {
+  closeModals,
+  loginSignupWorker,
+} from 'containers/AccountProvider/saga';
 
 import defaultSaga, { resistrAccWorker } from '../saga';
+
 import {
   FETCH_REGISTER_ACC,
   REGISTER_ACC_SUCCESS,
@@ -28,6 +32,7 @@ jest.mock('utils/accountManagement', () => ({
 
 jest.mock('containers/AccountProvider/saga', () => ({
   closeModals: jest.fn().mockImplementation(() => {}),
+  loginSignupWorker: jest.fn(),
 }));
 
 describe('resistrAccWorker', () => {
@@ -58,9 +63,9 @@ describe('resistrAccWorker', () => {
     expect(step3.value.type).toBe(REGISTER_ACC_SUCCESS);
   });
 
-  it('step4, loginSignupSuccess', () => {
-    const step4 = generator.next();
-    expect(step4.value.type).toBe(LOGIN_SIGNUP_SUCCESS);
+  it('step4, loginSignupWorker', () => {
+    generator.next();
+    expect(loginSignupWorker).toHaveBeenCalledWith({ methods: { type: null } });
   });
 
   it('step5, closeModals', () => {

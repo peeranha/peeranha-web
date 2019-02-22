@@ -38,7 +38,7 @@ export class ModalDialog extends React.Component {
   modalShow = show => (show && 'show') || (!show && 'hide');
 
   /* eslint no-underscore-dangle: 1 */
-  render = () => {
+  render = /* istanbul ignore next */ () => {
     const position =
       !this.props.customPosition || window.innerWidth < 1000
         ? 'modal-dialog-centered'
@@ -74,7 +74,7 @@ ModalDialog.propTypes = {
   show: PropTypes.bool,
   customPosition: PropTypes.object,
   closeModal: PropTypes.func,
-  children: PropTypes.object,
+  children: PropTypes.element,
 };
 
 export default ModalDialog;

@@ -5,59 +5,58 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { translationMessages } from 'i18n';
+import { createStructuredSelector } from 'reselect';
+
+import * as routes from 'routes-config';
+
+import QuestionsOfUser from 'containers/QuestionsOfUser';
+import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import PropTypes from 'prop-types';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-import { getProfileInfo, setDefaultProps } from './actions';
-
+import { getProfileInfo } from './actions';
+import * as profileSelectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import * as profileSelectors from './selectors';
 
-import Wrapper from './Wrapper';
 import NoSuchUser from './NoSuchUser';
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Profile extends React.Component {
-  componentWillUnmount = () => {
-    this.props.setDefaultPropsDispatch();
-  };
+export class Profile extends React.PureComponent {
+  componentDidMount() {
+    this.props.getProfileInfoDispatch(this.props.userId);
+  }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.getProfile(nextProps.userId);
+      this.props.getProfileInfoDispatch(nextProps.userId);
     }
   };
 
-  componentDidMount = () => {
-    this.getProfile();
-  };
-
-  getProfile = (userId = this.props.userId) =>
-    this.props.getProfileInfoDispatch(userId, this.props.account);
-
   render() {
-    const { locale, profile, isProfileLoading } = this.props;
+    const { locale, profile, isProfileLoading, children, userId } = this.props;
 
     const HelmetTitle = `${(profile && profile.display_name) ||
       translationMessages[locale][messages.wrongUser.id]} | ${
       translationMessages[locale][messages.profile.id]
     }`;
 
+    const path = window.location.pathname + window.location.hash;
+
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{HelmetTitle}</title>
           <meta
@@ -67,27 +66,49 @@ export class Profile extends React.Component {
             }
           />
         </Helmet>
-        <Wrapper>
-          {isProfileLoading && <LoadingIndicator />}
+        <div>
           {!isProfileLoading && !profile && <NoSuchUser />}
-          {!isProfileLoading &&
-            profile &&
-            React.Children.only(this.props.children)}
-        </Wrapper>
+
+          {isProfileLoading && <LoadingIndicator />}
+
+          {!isProfileLoading && profile && React.Children.toArray(children)}
+
+          <QuestionsOfUser
+            className={
+              !isProfileLoading &&
+              profile &&
+              path === routes.user_questions(userId)
+                ? ''
+                : 'd-none'
+            }
+            infinityOff={path !== routes.user_questions(userId)}
+            userId={userId}
+          />
+
+          <QuestionsWithAnswersOfUser
+            className={
+              !isProfileLoading &&
+              profile &&
+              path === routes.user_answers(userId)
+                ? ''
+                : 'd-none'
+            }
+            infinityOff={path !== routes.user_answers(userId)}
+            userId={userId}
+          />
+        </div>
       </div>
     );
   }
 }
 
 Profile.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
   userId: PropTypes.string,
-  account: PropTypes.string,
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,
   getProfileInfoDispatch: PropTypes.func,
-  setDefaultPropsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -97,12 +118,11 @@ const mapStateToProps = createStructuredSelector({
   isProfileLoading: profileSelectors.selectIsProfileLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     getProfileInfoDispatch: (key, account) =>
       dispatch(getProfileInfo(key, account)),
-    setDefaultPropsDispatch: () => dispatch(setDefaultProps()),
   };
 }
 

@@ -8,31 +8,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import messages from './messages';
+import userIcon from 'svg/user';
+import messages from 'common-messages';
 
-/* eslint-disable react/prefer-stateless-function */
-const UserAuthNavLinks = props => (
-  <div className="auth-button-group">
-    <button
-      key="signup"
-      onClick={props.showSignUpModal}
-      className="btn btn-secondary my-2 my-sm-0 mr-2"
-    >
-      <FormattedMessage {...messages.signUp} />
-    </button>
-    <button
-      key="login"
-      onClick={props.showLoginModal}
-      className="btn btn-secondary my-2 my-sm-0"
-    >
-      <FormattedMessage {...messages.login} />
-    </button>
-  </div>
-);
+import Icon from 'components/Icon';
+import LargeButton from 'components/Button/LargeButton';
+
+const UserAuthNavLinks = /* istanbul ignore next */ ({
+  showSignUpModal,
+  showLoginModal,
+  isMenuVisible,
+}) => [
+  <LargeButton
+    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+    key="signUp"
+    onClick={showSignUpModal}
+  >
+    <Icon icon={userIcon} />
+    <FormattedMessage {...messages.signUp} />
+  </LargeButton>,
+
+  <LargeButton
+    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+    key="login"
+    onClick={showLoginModal}
+  >
+    <Icon icon={userIcon} />
+    <FormattedMessage {...messages.login} />
+  </LargeButton>,
+];
 
 UserAuthNavLinks.propTypes = {
   showSignUpModal: PropTypes.func,
   showLoginModal: PropTypes.func,
 };
 
-export default UserAuthNavLinks;
+export default React.memo(UserAuthNavLinks);

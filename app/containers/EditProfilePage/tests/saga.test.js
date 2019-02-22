@@ -4,7 +4,13 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
+import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
+
 import { uploadImg, saveProfile } from 'utils/profileManagement';
+
+import { GET_CURRENT_ACCOUNT } from 'containers/AccountProvider/constants';
+
 import defaultSaga, {
   uploadImageFileWorker,
   saveProfileActionWorker,
@@ -18,6 +24,10 @@ import {
   SAVE_PROFILE_ACTION_ERROR,
   SAVE_PROFILE_ACTION,
 } from '../constants';
+
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -89,9 +99,21 @@ describe('saveProfileActionWorker', () => {
     expect(step4.value).toBe(saved);
   });
 
-  it('step5, type Success, putDescriptor', () => {
-    const step5 = generator.next();
-    expect(step5.value.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
+  it('step, GET_CURRENT_ACCOUNT', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(GET_CURRENT_ACCOUNT);
+  });
+
+  it('step, type Success, putDescriptor', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
+  });
+
+  it('createdHistory.push', () => {
+    generator.next();
+    expect(createdHistory.push).toHaveBeenCalledWith(
+      routes.profile_view(sendProps.obj.userKey),
+    );
   });
 
   it('error handling', () => {

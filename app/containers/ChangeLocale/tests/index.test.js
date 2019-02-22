@@ -1,9 +1,17 @@
-import { ChangeLocale, mapDispatchToProps } from '../index';
+import { ChangeLocale } from '../index';
 
 const cmp = new ChangeLocale();
 
 cmp.props = {};
 cmp.props.changeLocaleDispatch = jest.fn();
+
+const event = {
+  currentTarget: {
+    dataset: {
+      locale: 'en',
+    },
+  },
+};
 
 beforeEach(() => {
   cmp.props.changeLocaleDispatch.mockClear();
@@ -15,37 +23,29 @@ describe('ChangeLocale', () => {
     expect(cmp.mapLanguages(langs)).toMatchSnapshot();
   });
 
-  describe('componentWillMount', () => {
+  describe('componentDidMount', () => {
     const locale = 'en';
 
     it('localstorage not null', () => {
       localStorage.setItem('locale', locale);
 
-      cmp.componentWillMount();
+      cmp.componentDidMount();
       expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
     });
 
     it('localstorage is null', () => {
       localStorage.setItem('locale', '');
 
-      cmp.componentWillMount();
+      cmp.componentDidMount();
       expect(cmp.props.changeLocaleDispatch).not.toHaveBeenCalledWith(locale);
     });
   });
 
   it('changeLocale', () => {
     const locale = 'en';
+    event.currentTarget.dataset.locale = locale;
 
-    cmp.changeLocale(locale);
+    cmp.changeLocale(event);
     expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
-  });
-
-  it('mapDispatchToProps test', () => {
-    const test = 'test';
-    const dispatch = () => test;
-
-    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-    expect(mapDispatchToProps(dispatch).changeLocaleDispatch()).toBe(test);
   });
 });

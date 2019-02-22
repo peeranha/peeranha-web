@@ -163,7 +163,7 @@ SignUp.propTypes = {
   loginSignupDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
-  profileInfo: PropTypes.bool,
+  profileInfo: PropTypes.object,
   loading: PropTypes.bool,
   registered: PropTypes.bool,
   locale: PropTypes.string,

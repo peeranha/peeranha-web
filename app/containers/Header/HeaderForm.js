@@ -5,106 +5,147 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-import UserProfileNav from 'containers/UserProfileNav';
+import { pink } from 'style-constants';
+import createdHistory from 'createdHistory';
+
+import Input from 'components/Input';
+import RoundedButton from 'components/Button/RoundedButton';
+import LargeButton from 'components/Button/LargeButton';
+import Icon from 'components/Icon';
+
 import * as routes from 'routes-config';
+import messages from 'common-messages';
 
-import messages from './messages';
+import addIcon from 'svg/add';
+import searchIcon from 'svg/search';
+import closeIcon from 'svg/close';
+import headerNavigationIcon from 'svg/headerNavigation';
+import img from 'images/LogoBlack.svg';
+
 import Wrapper from './Wrapper';
+import Section from './Section';
 import Logo from './Logo';
 
 import UserAuthNavLinks from './UserAuthNavLinks';
+import UserProfileNav from './UserProfileNav';
+import { HEADER_ID } from './constants';
 
-export const isProfileOrLogin = props => {
-  if (props.account && props.profileInfo) {
-    return <UserProfileNav />;
-  }
+const RoundedButtonStyled = RoundedButton.extend`
+  background: ${pink};
+`;
 
-  return (
-    <UserAuthNavLinks
-      showSignUpModal={props.showSignUpModalDispatch}
-      showLoginModal={props.showLoginModalDispatch}
-    />
-  );
+export const LoginProfile = React.memo(
+  ({
+    profileInfo,
+    showSignUpModalDispatch,
+    showLoginModalDispatch,
+    isMenuVisible,
+    expandLeftMenuNavigation,
+  }) /* istanbul ignore next */ => {
+    if (profileInfo) {
+      return (
+        <UserProfileNav
+          isMenuVisible={isMenuVisible}
+          profileInfo={profileInfo}
+          expandLeftMenuNavigation={expandLeftMenuNavigation}
+        />
+      );
+    }
+
+    return (
+      <UserAuthNavLinks
+        isMenuVisible={isMenuVisible}
+        showSignUpModal={showSignUpModalDispatch}
+        showLoginModal={showLoginModalDispatch}
+      />
+    );
+  },
+);
+
+const homeRoute = routes.home();
+const addQuestionRoute = /* istanbul ignore next */ () => {
+  createdHistory.push(routes.question_ask());
 };
 
-/* eslint-disable react/prefer-stateless-function */
-const HeaderForm = props => (
-  <Wrapper>
-    <nav className="container navbar navbar-expand-lg navbar-light">
-      <Link to={routes.home()} href={routes.home()}>
-        <Logo />
-      </Link>
+const HeaderForm = /* istanbul ignore next */ props => (
+  <Wrapper id={HEADER_ID}>
+    <div className="container">
+      <div className="d-flex align-items-center justify-content-between">
+        {!props.isMenuVisible && (
+          <Logo className="d-flex align-items-center">
+            <Icon
+              onClick={props.showMenu}
+              className="mr-3 d-flex d-md-none"
+              icon={!props.isMenuVisible ? headerNavigationIcon : closeIcon}
+              noMargin
+            />
 
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li className="nav-item">
-            <Link to={routes.feed()} className="nav-link" href={routes.feed()}>
-              <FormattedMessage {...messages.feed} />
+            <Link to={homeRoute} href={homeRoute}>
+              <img src={img} alt="logo" />
             </Link>
-          </li>
+          </Logo>
+        )}
 
-          <li className="nav-item">
-            <Link
-              to={routes.questions()}
-              className="nav-link"
-              href={routes.questions()}
+        <Section isMenuVisible={props.isMenuVisible}>
+          {!props.isMenuVisible && [
+            <Input
+              key="1"
+              className="d-none d-lg-flex"
+              type="text"
+              placeholder={props.intl.formatMessage({ id: messages.search.id })}
+              isSearchable
+            />,
+
+            <RoundedButton
+              key="RoundedButton2"
+              className="d-flex justify-content-center align-items-center d-lg-none"
+              onClick={addQuestionRoute}
             >
-              <FormattedMessage {...messages.questions} />
-            </Link>
-          </li>
+              <Icon icon={searchIcon} noMargin />
+            </RoundedButton>,
 
-          <li className="nav-item">
-            <Link
-              to={routes.communities()}
-              className="nav-link"
-              href={routes.communities()}
+            <LargeButton
+              key="Button3"
+              className="d-none d-lg-flex"
+              disabled={!props.profileInfo}
+              onClick={addQuestionRoute}
             >
-              <FormattedMessage {...messages.communities} />
-            </Link>
-          </li>
-        </ul>
+              <Icon icon={addIcon} />
+              <FormattedMessage {...messages.addQuestion} />
+            </LargeButton>,
 
-        <form className="form-inline my-2 my-lg-2">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-          />
-          <button
-            className="btn btn-outline-success mr-sm-2 my-2 my-sm-0"
-            type="submit"
-          >
-            <FormattedMessage {...messages.search} />
-          </button>
-        </form>
+            <RoundedButtonStyled
+              key="RoundedButton4"
+              className="d-flex justify-content-center align-items-center d-lg-none"
+              disabled={!props.profileInfo}
+              onClick={addQuestionRoute}
+            >
+              <Icon icon={addIcon} noMargin />
+            </RoundedButtonStyled>,
+          ]}
 
-        {isProfileOrLogin(props)}
+          <LoginProfile {...props} />
+        </Section>
       </div>
-    </nav>
+    </div>
   </Wrapper>
 );
 
-isProfileOrLogin.propTypes = {
-  account: PropTypes.string,
-  profileInfo: PropTypes.bool,
+HeaderForm.propTypes = {
+  intl: intlShape.isRequired,
+  profileInfo: PropTypes.object,
+  isMenuVisible: PropTypes.bool,
+  showMenu: PropTypes.func,
+};
+
+LoginProfile.propTypes = {
+  profileInfo: PropTypes.object,
   showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };
 
-export default HeaderForm;
+export default injectIntl(React.memo(HeaderForm));

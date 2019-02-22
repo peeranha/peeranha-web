@@ -121,7 +121,7 @@ export class Questions extends React.Component {
         isLoading={questionsLoading}
         isLastFetch={isLastFetch}
       >
-        <div className="container">
+        <div>
           <Helmet>
             <title>{sendProps.translations[messages.title.id]}</title>
             <meta

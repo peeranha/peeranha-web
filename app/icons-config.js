@@ -3,6 +3,14 @@ import {
   faChevronUp,
   faChevronDown,
   faCheck,
+  faSearch,
+  faPlus,
+  faEye,
+  faSignInAlt,
+  faUser,
+  faBell,
+  faDoorOpen,
+  faFileAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -17,3 +25,11 @@ library.add(faCheck);
 library.add(faYoutube);
 library.add(faTwitter);
 library.add(faFacebook);
+library.add(faSearch);
+library.add(faPlus);
+library.add(faEye);
+library.add(faSignInAlt);
+library.add(faUser);
+library.add(faBell);
+library.add(faDoorOpen);
+library.add(faFileAlt);

@@ -23,6 +23,8 @@ export async function getProfileInfo(user, eosService) {
     user,
   );
 
+  if (!profile) return null;
+
   const ipfsProfile = await getText(profile.ipfs_profile);
   const parsedIpfsProfile = JSON.parse(ipfsProfile);
 

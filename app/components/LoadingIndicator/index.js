@@ -3,7 +3,7 @@ import React from 'react';
 import Circle from './Circle';
 import Wrapper from './Wrapper';
 
-const LoadingIndicator = () => (
+const LoadingIndicator = /* istanbul ignore next */ () => (
   <Wrapper>
     <Circle />
     <Circle rotate={30} delay={-1.1} />

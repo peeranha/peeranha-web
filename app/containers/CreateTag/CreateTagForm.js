@@ -15,7 +15,7 @@ import messages from './messages';
 import { NAME_FIELD, DESCRIPTION_FIELD } from './constants';
 
 /* eslint-disable-next-line */
-export const CreateTagForm = ({
+export const CreateTagForm = /* istanbul ignore next */ ({
   createTagLoading,
   invalid,
   submitting,

@@ -2,12 +2,18 @@ import {
   getCommunitiesWithTags,
   getCommunitiesWithTagsSuccess,
   getCommunitiesWithTagsErr,
+  getUserProfile,
+  getUserProfileSuccess,
+  getUserProfileErr,
 } from '../actions';
 
 import {
   GET_COMMUNITIES_WITH_TAGS,
   GET_COMMUNITIES_WITH_TAGS_SUCCESS,
   GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_USER_PROFILE,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_ERROR,
 } from '../constants';
 
 describe('DataCacheProvider actions', () => {
@@ -39,6 +45,36 @@ describe('DataCacheProvider actions', () => {
       expect(getCommunitiesWithTagsErr(getCommunitiesWithTagsError)).toEqual(
         expected,
       );
+    });
+
+    it('GET_USER_PROFILE', () => {
+      const user = 'user';
+      const expected = {
+        type: GET_USER_PROFILE,
+        user,
+      };
+
+      expect(getUserProfile(user)).toEqual(expected);
+    });
+
+    it('GET_USER_PROFILE_SUCCESS', () => {
+      const profile = 'profile';
+      const expected = {
+        type: GET_USER_PROFILE_SUCCESS,
+        profile,
+      };
+
+      expect(getUserProfileSuccess(profile)).toEqual(expected);
+    });
+
+    it('GET_USER_PROFILE_ERROR', () => {
+      const getUserProfileError = 'getUserProfileError';
+      const expected = {
+        type: GET_USER_PROFILE_ERROR,
+        getUserProfileError,
+      };
+
+      expect(getUserProfileErr(getUserProfileError)).toEqual(expected);
     });
   });
 });

@@ -1,19 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ViewProfilePage tests render test 1`] = `
-<withReducer(withSaga(Connect(Profile)))
-  userId="user1"
+exports[`<CommentForm /> snapshot test 1`] = `
+<Connect(LanguageProvider)
+  key="en"
+  locale="en"
+  messages={Object {}}
 >
-  <ProfileViewForm
-    account="user2"
-    match={
+  <ConnectedRouter
+    history={
       Object {
-        "params": Object {
-          "id": "user1",
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
         },
+        "push": [Function],
+        "replace": [Function],
       }
     }
-    profile={Object {}}
-  />
-</withReducer(withSaga(Connect(Profile)))>
+  >
+    <Connect(ViewProfilePage)
+      account="account"
+      communities={Array []}
+      locale="en"
+      match={
+        Object {
+          "params": Object {
+            "id": "id",
+          },
+        }
+      }
+      profile={Object {}}
+      questions={Array []}
+      questionsLoading={false}
+      questionsWithAnswersLoading={false}
+      questionsWithUserAnswers={Array []}
+    />
+  </ConnectedRouter>
+</Connect(LanguageProvider)>
 `;

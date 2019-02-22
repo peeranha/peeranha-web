@@ -18,7 +18,6 @@ import injectReducer from 'utils/injectReducer';
 import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import Wrapper from 'containers/Profile/Wrapper';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -85,9 +84,7 @@ export class CreateCommunity extends React.Component {
           />
         </Helmet>
 
-        <Wrapper>
-          <CreateCommunityForm {...sendProps} />
-        </Wrapper>
+        <CreateCommunityForm {...sendProps} />
       </div>
     );
   }

@@ -3,8 +3,7 @@
 exports[`<FollowCommunityButton /> render followedCommunities NULL 1`] = `null`;
 
 exports[`<FollowCommunityButton /> render isFollowed - false, followedCommunities [1, 2] 1`] = `
-<button
-  className="btn btn-secondary ml-1"
+<Span
   data-isfollowed={false}
   onClick={[Function]}
 >
@@ -13,12 +12,11 @@ exports[`<FollowCommunityButton /> render isFollowed - false, followedCommunitie
     id="app.containers.Questions.follow"
     values={Object {}}
   />
-</button>
+</Span>
 `;
 
 exports[`<FollowCommunityButton /> render isFollowed - true, followedCommunities [1, 2] 1`] = `
-<button
-  className="btn btn-secondary ml-1"
+<Span
   data-isfollowed={true}
   onClick={[Function]}
 >
@@ -27,5 +25,5 @@ exports[`<FollowCommunityButton /> render isFollowed - true, followedCommunities
     id="app.containers.Questions.unfollow"
     values={Object {}}
   />
-</button>
+</Span>
 `;

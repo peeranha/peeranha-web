@@ -112,7 +112,7 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-  profileInfo: PropTypes.bool,
+  profileInfo: PropTypes.object,
   content: PropTypes.string,
   showModal: PropTypes.bool,
   reloadAppDispatch: PropTypes.func,

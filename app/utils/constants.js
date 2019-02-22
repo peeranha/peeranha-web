@@ -27,6 +27,7 @@ export const GET_QUESTIONS_KEY_TYPE = 'i64';
 export const ACCOUNT_TABLE = 'account';
 export const QUESTION_TABLE = 'question';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
+export const USER_ANSWERS_TABLE = 'usranswers';
 export const TAGS_COMMUNITIES_TABLE = 'tagandcomm';
 export const CREATED_TAGS_COMMUNITIES_TABLE = 'crtagcomm';
 
@@ -68,3 +69,12 @@ export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
+
+// Datetime
+export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY_TIME =
+  'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
+
+export const NO_AVATAR = 'QmUyiWb3p3W16pAGJudZsZuQ59eiW4RtHwCjDCRNqqMwPE';
+export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';

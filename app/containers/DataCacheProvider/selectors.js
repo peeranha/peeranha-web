@@ -24,9 +24,30 @@ const selectGetCommunitiesWithTagsError = () =>
     substate.get('getCommunitiesWithTagsError'),
   );
 
+const selectUsers = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.toJS().users,
+  );
+
+const selectUsersLoading = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.toJS().usersLoading,
+  );
+
+const selectGetUserProfileError = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.toJS().getUserProfileError,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
   selectCommunitiesLoading,
   selectGetCommunitiesWithTagsError,
+  selectUsers,
+  selectUsersLoading,
+  selectGetUserProfileError,
 };

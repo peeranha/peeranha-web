@@ -15,60 +15,59 @@ export default defineMessages({
     id: 'app.containers.Profile.profileDescription',
     defaultMessage: 'Profile description',
   },
-  wrongUser: {
-    id: 'app.containers.Profile.wrongUser',
-    defaultMessage: 'Wrong user',
+
+  reputation: {
+    id: 'app.containers.Profile.reputation',
   },
-  avatarLabel: {
-    id: 'app.containers.Profile.avatarLabel',
-    defaultMessage: 'Avatar',
+  risen: {
+    id: 'app.containers.Profile.risen',
   },
-  displayNameLabel: {
-    id: 'app.containers.Profile.displayNameLabel',
-    defaultMessage: 'Display name',
-  },
-  positionLabel: {
-    id: 'app.containers.Profile.positionLabel',
-    defaultMessage: 'Position',
-  },
-  companyLabel: {
-    id: 'app.containers.Profile.companyLabel',
-    defaultMessage: 'Company',
-  },
-  aboutLabel: {
-    id: 'app.containers.Profile.aboutLabel',
-    defaultMessage: 'About me',
+  memberSince: {
+    id: 'app.containers.Profile.memberSince',
   },
   locationLabel: {
     id: 'app.containers.Profile.locationLabel',
-    defaultMessage: 'Location',
+  },
+  positionLabel: {
+    id: 'app.containers.Profile.positionLabel',
+  },
+  companyLabel: {
+    id: 'app.containers.Profile.companyLabel',
+  },
+  aboutLabel: {
+    id: 'app.containers.Profile.aboutLabel',
+  },
+  informationIsBlank: {
+    id: 'app.containers.Profile.informationIsBlank',
+  },
+  wrongUser: {
+    id: 'app.containers.Profile.wrongUser',
+  },
+  displayNameLabel: {
+    id: 'app.containers.Profile.displayNameLabel',
   },
   saveButton: {
     id: 'app.containers.Profile.saveButton',
-    defaultMessage: 'Save',
   },
-  savingButton: {
-    id: 'app.containers.Profile.savingButton',
-    defaultMessage: 'Saving...',
+  activity: {
+    id: 'app.containers.Profile.activity',
   },
-  cancelButton: {
-    id: 'app.containers.Profile.cancelButton',
-    defaultMessage: 'Cancel',
+  userHasntActivityYet: {
+    id: 'app.containers.Profile.userHasntActivityYet',
   },
-  viewButton: {
-    id: 'app.containers.Profile.viewButton',
-    defaultMessage: 'View',
+  heHasnoAnswersAndQuestions: {
+    id: 'app.containers.Profile.heHasnoAnswersAndQuestions',
   },
-  editButton: {
-    id: 'app.containers.Profile.editButton',
-    defaultMessage: 'Edit',
+  asked: {
+    id: 'app.containers.Profile.asked',
   },
-  chooseFile: {
-    id: 'app.containers.Profile.chooseFile',
-    defaultMessage: 'Choose file',
+  lastAnswer: {
+    id: 'app.containers.Profile.lastAnswer',
   },
-  isProfileLoading: {
-    id: 'app.containers.Profile.isProfileLoading',
-    defaultMessage: 'Loading...',
+  noAnswersYet: {
+    id: 'app.containers.Profile.noAnswersYet',
+  },
+  editProfile: {
+    id: 'app.containers.Profile.editProfile',
   },
 });

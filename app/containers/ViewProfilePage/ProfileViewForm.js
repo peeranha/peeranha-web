@@ -1,74 +1,71 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {
-  DISPLAY_NAME_FIELD,
-  POSITION_FIELD,
-  COMPANY_FIELD,
-  ABOUT_FIELD,
-  LOCATION_FIELD,
-} from 'containers/Profile/constants';
+import TopCommunities from 'components/TopCommunities';
 
-import * as routes from 'routes-config';
+import MainUserInformation from './MainUserInformation';
+import AdditionalUserInformation from './AdditionalUserInformation';
+import CommunitiesForm from './CommunitiesForm';
+import Activity from './Activity';
 
-import messages from 'containers/Profile/messages';
-import ViewFormListItem from './ViewFormListItem';
+const ProfileViewForm = /* istanbul ignore next */ ({
+  profile,
+  account,
+  userId,
+  communities,
+  questions,
+  questionsWithUserAnswers,
+  questionsLoading,
+  questionsWithAnswersLoading,
+  locale,
+  className,
+}) => (
+  <div className={className}>
+    <MainUserInformation profile={profile} userId={userId} account={account} />
 
-const ProfileViewForm = props => {
-  const { profile } = props.profile;
-  const editUrl = routes.profile_edit(props.match.params.id);
-  const isOwner = props.account === props.match.params.id;
+    <AdditionalUserInformation
+      profile={profile}
+      userId={userId}
+      account={account}
+    />
 
-  return (
-    <div className="view-form">
-      {props.profile.ipfs_avatar && (
-        <div className="d-flex justify-content-center">
-          <img
-            className="profile-image"
-            src={props.profile.ipfs_avatar}
-            alt=""
-          />
-        </div>
-      )}
-      <ViewFormListItem
-        label={messages.displayNameLabel}
-        message={profile && profile[DISPLAY_NAME_FIELD]}
-      />
-      <ViewFormListItem
-        label={messages.positionLabel}
-        message={profile && profile[POSITION_FIELD]}
-      />
-      <ViewFormListItem
-        label={messages.companyLabel}
-        message={profile && profile[COMPANY_FIELD]}
-      />
-      <ViewFormListItem
-        label={messages.aboutLabel}
-        message={profile && profile[ABOUT_FIELD]}
-      />
-      <ViewFormListItem
-        label={messages.locationLabel}
-        message={
-          profile && profile[LOCATION_FIELD] && profile[LOCATION_FIELD].name
-        }
-      />
-      {isOwner && (
-        <Link to={editUrl} href={editUrl}>
-          <button className="btn btn-success form-control">
-            <FormattedMessage {...messages.editButton} />
-          </button>
-        </Link>
-      )}
-    </div>
-  );
-};
+    <CommunitiesForm
+      userId={userId}
+      profile={profile}
+      account={account}
+      communities={communities}
+    />
+
+    <TopCommunities
+      userId={userId}
+      account={account}
+      communities={communities}
+      profile={profile}
+    />
+
+    <Activity
+      account={account}
+      userId={userId}
+      questions={questions}
+      questionsWithUserAnswers={questionsWithUserAnswers}
+      questionsLoading={questionsLoading}
+      questionsWithAnswersLoading={questionsWithAnswersLoading}
+      locale={locale}
+    />
+  </div>
+);
 
 ProfileViewForm.propTypes = {
   profile: PropTypes.object,
-  match: PropTypes.object,
   account: PropTypes.string,
+  userId: PropTypes.string,
+  communities: PropTypes.array,
+  questions: PropTypes.array,
+  questionsWithUserAnswers: PropTypes.array,
+  questionsLoading: PropTypes.bool,
+  questionsWithAnswersLoading: PropTypes.bool,
+  locale: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ProfileViewForm;

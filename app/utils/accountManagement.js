@@ -7,10 +7,7 @@ export async function registerAccount(
   profile,
   eosService,
 ) {
-  const profileText = JSON.stringify({
-    ...profile,
-    ipfs_avatar: 'QmTuT4iqjp1BcYhT4pEusENnMVPpzmUL1AJBpqdT11qHiC',
-  });
+  const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
   await eosService.sendTransaction(accountName, REGISTER_ACC, {

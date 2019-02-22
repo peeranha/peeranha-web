@@ -18,6 +18,8 @@ jest.mock('../ipfs', () => ({
   saveText: jest.fn().mockImplementation(() => {}),
 }));
 
+jest.setTimeout(10000);
+
 const cmp = new EosioService();
 cmp.sendTransaction = jest.fn().mockImplementation(() => {});
 cmp.getTableRow = jest.fn().mockImplementation(() => {});

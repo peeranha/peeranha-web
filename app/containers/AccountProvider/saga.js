@@ -121,6 +121,7 @@ export function* loginSignupWorker(res) {
     }
 
     yield closeModals();
+
     yield put(loginSignupSuccess(account, profileInfo));
   } catch (err) {
     yield put(loginSignupErr(err));
