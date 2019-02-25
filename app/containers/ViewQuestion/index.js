@@ -16,6 +16,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
 
+import { scrollToSection } from 'utils/homepageManagement';
+
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -60,6 +62,19 @@ export class ViewQuestion extends React.Component {
   componentDidMount() {
     this.questionId = this.props.match.params.id;
     this.props.getQuestionDataDispatch(this.questionId);
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (
+      nextProps.questionData &&
+      nextProps.questionDataLoading !== this.props.questionDataLoading
+    ) {
+      setTimeout(() => scrollToSection(), 250);
+    }
+  };
+
+  componentWillUnmount() {
+    window.$(window).off();
   }
 
   /**

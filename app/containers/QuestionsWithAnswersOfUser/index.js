@@ -14,12 +14,20 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import InfinityLoader from 'components/InfinityLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import * as select from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
 import { getQuestions, resetStore } from './actions';
+
+import QuestionsWithAnswersList from './QuestionsWithAnswersList';
+import Header from './Header';
 
 /* eslint-disable react/prefer-stateless-function */
 export class QuestionsWithAnswersOfUser extends React.PureComponent {
@@ -38,8 +46,11 @@ export class QuestionsWithAnswersOfUser extends React.PureComponent {
 
   render() {
     const {
-      isLastFetch,
+      locale,
+      communities,
+      questions,
       questionsLoading,
+      isLastFetch,
       className,
       infinityOff,
     } = this.props;
@@ -51,7 +62,19 @@ export class QuestionsWithAnswersOfUser extends React.PureComponent {
         isLastFetch={isLastFetch}
         infinityOff={infinityOff}
       >
-        <div className={className}>213</div>
+        <div className={className}>
+          <Header />
+
+          {questions[0] && (
+            <QuestionsWithAnswersList
+              questions={questions}
+              locale={locale}
+              communities={communities}
+            />
+          )}
+
+          {questionsLoading && <LoadingIndicator />}
+        </div>
       </InfinityLoader>
     );
   }
@@ -65,9 +88,17 @@ QuestionsWithAnswersOfUser.propTypes = {
   className: PropTypes.string,
   getQuestionsDispatch: PropTypes.func,
   resetStoreDispatch: PropTypes.func,
+
+  locale: PropTypes.string,
+  communities: PropTypes.array,
+  questions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
+  locale: makeSelectLocale(),
+  account: makeSelectAccount(),
+  communities: selectCommunities(),
+  questions: select.selectQuestionsWithUserAnswers(),
   questionsLoading: select.selectQuestionsLoading(),
   isLastFetch: select.selectIsLastFetch(),
 });

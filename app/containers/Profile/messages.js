@@ -61,6 +61,9 @@ export default defineMessages({
   asked: {
     id: 'app.containers.Profile.asked',
   },
+  answered: {
+    id: 'app.containers.Profile.answered',
+  },
   lastAnswer: {
     id: 'app.containers.Profile.lastAnswer',
   },

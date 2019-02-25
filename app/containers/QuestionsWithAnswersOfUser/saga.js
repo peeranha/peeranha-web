@@ -4,7 +4,11 @@ import {
   getAnswersPostedByUser,
   getQuestionData,
 } from 'utils/questionsManagement';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
+
+import { POST_TYPE_ANSWER } from 'containers/Profile/constants';
+import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
 
@@ -45,13 +49,20 @@ export function* getQuestionsWorker({ userId }) {
     /* eslint no-param-reassign: 0 */
     /* istanbul ignore next */
     yield questions.forEach((x, index) => {
-      x.postType = 'answer';
+      x.postType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
+
+      const mostRatingAnswer = window._.maxBy(x.answers, 'rating');
+
       x.answers.forEach(y => {
         if (y.id === answersId[index].answer_id) {
           x.myPostTime = y.post_time;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
+          x.isTheLargestRating =
+            y.rating === mostRatingAnswer.rating &&
+            y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
           x.myPostRating = y.rating;
+          x.answerId = y.id;
         }
       });
     });

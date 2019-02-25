@@ -7,6 +7,8 @@ import {
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
+import { POST_TYPE_QUESTION } from 'containers/Profile/constants';
+
 // import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
@@ -49,7 +51,7 @@ export function* getQuestionsWorker({ userId }) {
     /* eslint no-param-reassign: 0 */
     /* istanbul ignore next */
     yield questions.map(function*(x) {
-      x.postType = 'question';
+      x.postType = POST_TYPE_QUESTION;
       x.myPostTime = x.post_time;
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.myPostRating = x.rating;

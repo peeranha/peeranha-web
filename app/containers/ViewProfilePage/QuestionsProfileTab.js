@@ -96,7 +96,15 @@ const QuestionsProfileTab = /* istanbul ignore next */ ({
   locale,
 }) => (
   <div className={className}>
-    <ul>{questions.map(x => <Note {...x} key={x.id} locale={locale} />)}</ul>
+    <ul>
+      {questions.map(x => (
+        <Note
+          {...x}
+          key={`${x.id}_profile_tab_${x.postType}`}
+          locale={locale}
+        />
+      ))}
+    </ul>
 
     {!questions[0] && loading && <LoadingIndicator />}
 

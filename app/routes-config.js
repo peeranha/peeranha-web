@@ -15,10 +15,17 @@ export const user_answers = id => `/users/${id}#answers`;
 export const user_settings = id => `/users/${id}/settings`;
 
 export const questions = () => `/questions`;
-export const question_view = id => `/questions/${id}`;
+
+export const uniqAnswerId = answerId => `ans${answerId}`;
+
+export const question_view = (id, answerId) =>
+  answerId ? `/questions/${id}#${uniqAnswerId(answerId)}` : `/questions/${id}`;
+
 export const question_edit = questionid => `/questions/${questionid}/edit`;
+
 export const answer_edit = (questionid, answerid) =>
   `/questions/${questionid}/answers/${answerid}/edit`;
+
 export const question_ask = () => `/questions/ask`;
 
 export const no_access = () => `/no-access`;
