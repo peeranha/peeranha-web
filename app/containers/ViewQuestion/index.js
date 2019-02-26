@@ -16,7 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
 
-import { scrollToSection } from 'utils/homepageManagement';
+import { scrollToSection } from 'utils/animation';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 

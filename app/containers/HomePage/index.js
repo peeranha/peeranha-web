@@ -16,7 +16,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { scrollToSection } from 'utils/homepageManagement';
+import { scrollToSection } from 'utils/animation';
 
 import reducer from './reducer';
 import saga from './saga';
