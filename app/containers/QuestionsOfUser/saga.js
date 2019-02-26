@@ -2,14 +2,14 @@ import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {
   getQuestionsPostedByUser,
-  getQuestionData,
+  getQuestionById,
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { POST_TYPE_QUESTION } from 'containers/Profile/constants';
 
-// import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
 
@@ -34,7 +34,7 @@ export function* getQuestionsWorker({ userId }) {
 
     // async questionData getting
     const promise1 = idOfQuestions.map(x =>
-      getQuestionData(eosService, x.question_id, userId),
+      getQuestionById(eosService, x.question_id, userId),
     );
 
     const questions = yield all(promise1);
@@ -55,13 +55,12 @@ export function* getQuestionsWorker({ userId }) {
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.myPostRating = x.rating;
 
-      // Now we get userInfo from @getQuestionData method
-      // TODO: remove it there and use @getUserProfileWorker of DataCacheProvider
-
-      //      if (x.answers[0]) {
-      //        const userInfo = yield call(() => getUserProfileWorker({ user: x.answers[0].user }));
-      //        x.answers[0].userInfo = userInfo;
-      //      }
+      if (x.answers[0]) {
+        const userInfo = yield call(() =>
+          getUserProfileWorker({ user: x.answers[0].user }),
+        );
+        x.answers[0].userInfo = userInfo;
+      }
     });
 
     yield put(getQuestionsSuccess(questions));

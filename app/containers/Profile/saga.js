@@ -1,16 +1,13 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { getProfileInfo } from 'utils/profileManagement';
-import { selectEos } from 'containers/EosioProvider/selectors';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { getProfileInfoSuccess, getProfileInfoError } from './actions';
-
 import { GET_PROFILE_INFORMATION } from './constants';
 
 export function* getProfileInfoWorker({ userKey }) {
   try {
-    const eosService = yield select(selectEos);
-    const profile = yield call(() => getProfileInfo(userKey, eosService));
+    const profile = yield call(() => getUserProfileWorker({ user: userKey }));
 
     yield put(getProfileInfoSuccess(profile));
   } catch (err) {

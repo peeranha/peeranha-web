@@ -48,10 +48,13 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_USER_PROFILE:
       return state.set('usersLoading', true);
     case GET_USER_PROFILE_SUCCESS:
-      return state.set('usersLoading', false).set('users', {
-        ...state.get('users').toJS(),
-        [profile.user]: profile,
-      });
+      return state.set('usersLoading', false).set(
+        'users',
+        fromJS({
+          ...state.get('users').toJS(),
+          [profile.user]: profile,
+        }),
+      );
     case GET_USER_PROFILE_ERROR:
       return state
         .set('usersLoading', false)

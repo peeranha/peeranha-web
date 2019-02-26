@@ -178,6 +178,8 @@ export async function getQuestions(eosService, limit, offset) {
     limit,
   );
 
+  console.log(questions);
+
   return questions;
 }
 
@@ -385,12 +387,19 @@ export async function markAsAccepted(
   });
 }
 
-export async function getQuestionData(eosService, questionId, user) {
-  let question = await eosService.getTableRow(
+// TODO: test it
+export async function getQuestionById(eosService, questionId) {
+  const question = await eosService.getTableRow(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
     questionId,
   );
+
+  return question;
+}
+
+export async function getQuestionData(eosService, questionId, user) {
+  let question = await getQuestionById(eosService, questionId);
 
   /* eslint no-bitwise: 0 */
   const getItemStatus = (historyFlag, constantFlag) =>
