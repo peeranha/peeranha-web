@@ -8,6 +8,11 @@ import { green, gray, darkgray } from 'style-constants';
 import { getTimeFromDateToNow } from 'utils/datetime';
 import commonMessages from 'common-messages';
 
+import {
+  POST_TYPE_ANSWER,
+  POST_TYPE_QUESTION,
+} from 'containers/Profile/constants';
+
 import LoadingIndicator from 'components/LoadingIndicator';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
@@ -40,7 +45,7 @@ const PostTypeIcon = /* istanbul ignore next */ ({
   postType,
   isMyAnswerAccepted,
 }) => {
-  if (postType === 'question') {
+  if (postType === POST_TYPE_QUESTION) {
     return (
       <Icon
         icon={questionRoundedIcon}
@@ -67,12 +72,19 @@ const Note = /* istanbul ignore next */ ({
   myPostTime,
   locale,
   id,
+  answerId,
 }) => (
   <li>
     <A
       className="d-flex align-items-center py-1"
-      to={routes.questionView(id)}
-      href={routes.questionView(id)}
+      to={routes.questionView(
+        id,
+        postType === POST_TYPE_ANSWER ? answerId : null,
+      )}
+      href={routes.questionView(
+        id,
+        postType === POST_TYPE_ANSWER ? answerId : null,
+      )}
     >
       <PostTypeIcon
         postType={postType}
@@ -92,7 +104,6 @@ const QuestionsProfileTab = /* istanbul ignore next */ ({
   questions,
   className,
   loading,
-  tab,
   locale,
 }) => (
   <div className={className}>
@@ -108,7 +119,7 @@ const QuestionsProfileTab = /* istanbul ignore next */ ({
 
     {!questions[0] && loading && <LoadingIndicator />}
 
-    {!questions[0] && !loading && <NoActivity tab={tab} />}
+    {!questions[0] && !loading && <NoActivity />}
   </div>
 );
 
@@ -125,6 +136,7 @@ Note.propTypes = {
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   locale: PropTypes.string,
+  answerId: PropTypes.string,
   id: PropTypes.string,
 };
 
@@ -132,7 +144,6 @@ QuestionsProfileTab.propTypes = {
   questions: PropTypes.array,
   className: PropTypes.string,
   loading: PropTypes.bool,
-  tab: PropTypes.string,
   locale: PropTypes.string,
 };
 
