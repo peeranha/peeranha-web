@@ -178,8 +178,6 @@ export async function getQuestions(eosService, limit, offset) {
     limit,
   );
 
-  console.log(questions);
-
   return questions;
 }
 
@@ -387,7 +385,6 @@ export async function markAsAccepted(
   });
 }
 
-// TODO: test it
 export async function getQuestionById(eosService, questionId) {
   const question = await eosService.getTableRow(
     QUESTION_TABLE,

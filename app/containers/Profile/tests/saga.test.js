@@ -3,8 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
-import { getProfileInfo } from 'utils/profileManagement';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import defaultSaga, { getProfileInfoWorker } from '../saga';
 
 import {
@@ -20,32 +19,27 @@ jest.mock('redux-saga/effects', () => ({
   takeEvery: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('utils/profileManagement', () => ({
-  getProfileInfo: jest.fn().mockImplementation(() => {}),
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 describe('getProfileInfoWorker', () => {
-  const generator = getProfileInfoWorker({});
+  const userKey = 'userKey';
+  const generator = getProfileInfoWorker({ userKey });
 
-  it('step1, eosService', () => {
-    const eosService = {};
-
-    select.mockImplementation(() => eosService);
-    const step1 = generator.next();
-    expect(step1.value).toEqual(eosService);
-  });
-
-  it('step2, profile', () => {
+  it('step, profile', () => {
     const profile = { name: 'test' };
 
-    getProfileInfo.mockImplementation(() => profile);
-    const step2 = generator.next();
-    expect(step2.value).toEqual(profile);
+    getUserProfileWorker.mockImplementation(() => profile);
+
+    const step = generator.next();
+    expect(step.value).toEqual(profile);
+    expect(getUserProfileWorker).toHaveBeenCalledWith({ user: userKey });
   });
 
-  it('step3, put getProfileInfoSuccess', () => {
-    const step3 = generator.next();
-    expect(step3.value.type).toBe(GET_PROFILE_INFORMATION_SUCCESS);
+  it('step, put getProfileInfoSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(GET_PROFILE_INFORMATION_SUCCESS);
   });
 
   it('error handling', () => {

@@ -45,6 +45,7 @@ import {
   getQuestionsForFollowedCommunities,
   FetcherOfQuestionsForFollowedCommunities,
   getAnswersPostedByUser,
+  getQuestionById,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -712,6 +713,24 @@ describe('markAsAccepted', () => {
         question_id: +questionId,
         answer_id: +answerId,
       },
+    );
+  });
+});
+
+describe('getQuestionById', () => {
+  const questionId = 10;
+  const questionInfo = {
+    answers: [],
+  };
+
+  it('test', async () => {
+    eosService.getTableRow.mockImplementation(() => questionInfo);
+
+    expect(await getQuestionById(eosService, questionId)).toEqual(questionInfo);
+    expect(eosService.getTableRow).toHaveBeenCalledWith(
+      QUESTION_TABLE,
+      ALL_QUESTIONS_SCOPE,
+      questionId,
     );
   });
 });
