@@ -43,7 +43,7 @@ export class Tags extends React.Component {
       return null;
     }
 
-    createdHistory.push(routes.tags_create(match.params.communityid));
+    createdHistory.push(routes.tagsCreate(match.params.communityid));
   };
 
   render() {

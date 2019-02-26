@@ -8,7 +8,7 @@ import FollowCommunityButton from 'containers/FollowCommunityButton';
 
 import messages from './messages';
 
-const askQuestion = () => createdHistory.push(routes.question_ask());
+const askQuestion = () => createdHistory.push(routes.questionAsk());
 const feed = routes.feed();
 
 const QuestionsHeader = ({

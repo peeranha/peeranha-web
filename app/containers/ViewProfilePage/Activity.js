@@ -24,7 +24,7 @@ const Activity = /* istanbul ignore next */ ({
   locale,
 }) => {
   const path = window.location.pathname + window.location.hash;
-  const route = routes.profile_view(userId);
+  const route = routes.profileView(userId);
 
   let myPosts = [];
 

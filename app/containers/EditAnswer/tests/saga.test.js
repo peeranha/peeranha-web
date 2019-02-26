@@ -130,7 +130,7 @@ describe('getAnswerWorker', () => {
 
     it('createdHistory.push', () => {
       generator.next();
-      expect(createdHistory.push).toHaveBeenCalledWith(routes.no_access());
+      expect(createdHistory.push).toHaveBeenCalledWith(routes.noAccess());
     });
   });
 });
@@ -184,7 +184,7 @@ describe('editAnswerWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.question_view(questionid),
+      routes.questionView(questionid),
     );
   });
 

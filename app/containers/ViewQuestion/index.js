@@ -90,7 +90,7 @@ export class ViewQuestion extends React.Component {
 
   editQuestion = e => {
     const { questionid } = e.target.dataset;
-    this.props.history.push(routes.question_edit(questionid));
+    this.props.history.push(routes.questionEdit(questionid));
   };
 
   /**
@@ -116,7 +116,7 @@ export class ViewQuestion extends React.Component {
 
   editAnswer = e => {
     const { questionid, answerid } = e.target.dataset;
-    this.props.history.push(routes.answer_edit(questionid, answerid));
+    this.props.history.push(routes.answerEdit(questionid, answerid));
   };
 
   deleteAnswer = e => {

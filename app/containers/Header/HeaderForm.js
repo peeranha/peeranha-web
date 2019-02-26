@@ -68,7 +68,7 @@ export const LoginProfile = React.memo(
 
 const homeRoute = routes.home();
 const addQuestionRoute = /* istanbul ignore next */ () => {
-  createdHistory.push(routes.question_ask());
+  createdHistory.push(routes.questionAsk());
 };
 
 const HeaderForm = /* istanbul ignore next */ props => (

@@ -19,7 +19,7 @@ const Question = ({
   answerId,
 }) => (
   <QuestionForProfilePage
-    route={routes.question_view(id, answerId)}
+    route={routes.questionView(id, answerId)}
     myPostRating={myPostRating}
     title={title}
     myPostTime={myPostTime}

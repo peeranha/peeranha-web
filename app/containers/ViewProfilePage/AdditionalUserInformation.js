@@ -32,7 +32,7 @@ const Blank = /* istanbul ignore next */ ({ profile, userId, account }) =>
       <MyProfileButton
         userId={userId}
         account={account}
-        href={routes.profile_edit(userId)}
+        href={routes.profileEdit(userId)}
         isLink
       >
         <Span color="blue">

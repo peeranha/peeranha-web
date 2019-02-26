@@ -39,7 +39,7 @@ const LastAnswer = /* istanbul ignore next */ ({
 
   return (
     <span className="d-flex flex-column">
-      <A to={routes.profile_view(user)} className="d-flex align-items-center">
+      <A to={routes.profileView(user)} className="d-flex align-items-center">
         <Span className="mr-2" fontSize="14">
           {lastAnswer.userInfo.display_name}
         </Span>
@@ -75,7 +75,7 @@ const Question = /* istanbul ignore next */ ({
 }) => (
   <li className="d-flex">
     <QuestionForProfilePage
-      route={routes.question_view(id)}
+      route={routes.questionView(id)}
       myPostRating={myPostRating}
       title={title}
       myPostTime={myPostTime}

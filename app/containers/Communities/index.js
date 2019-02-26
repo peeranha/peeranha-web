@@ -46,7 +46,7 @@ export class Communities extends React.Component {
       return null;
     }
 
-    createdHistory.push(routes.communities_create());
+    createdHistory.push(routes.communitiesCreate());
   };
 
   render() {

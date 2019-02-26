@@ -7,7 +7,7 @@ import ContentRating from './ContentRating';
 import ContentBody from './ContentBody';
 
 const Content = props => (
-  <div className="content" id={routes.uniqAnswerId(props.answerId)}>
+  <div className="content" id={routes.uniqueAnswerId(props.answerId)}>
     <ContentHeader
       locale={props.locale}
       userInfo={props.userInfo}

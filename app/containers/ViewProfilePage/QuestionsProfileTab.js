@@ -71,8 +71,8 @@ const Note = /* istanbul ignore next */ ({
   <li>
     <A
       className="d-flex align-items-center py-1"
-      to={routes.question_view(id)}
-      href={routes.question_view(id)}
+      to={routes.questionView(id)}
+      href={routes.questionView(id)}
     >
       <PostTypeIcon
         postType={postType}

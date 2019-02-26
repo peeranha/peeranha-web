@@ -34,7 +34,7 @@ export function* getAnswerWorker({ questionid, answerid }) {
 
     if (answer.user !== selectedAccount) {
       yield put(getAnswerErr());
-      yield call(() => createdHistory.push(routes.no_access()));
+      yield call(() => createdHistory.push(routes.noAccess()));
     }
 
     const answerBody = yield call(() => getAnswer(answer.ipfs_link));
@@ -54,7 +54,7 @@ export function* editAnswerWorker({ answer, questionid, answerid }) {
       editAnswer(user, questionid, answerid, answer, eosService),
     );
     yield put(editAnswerSuccess());
-    yield call(() => createdHistory.push(routes.question_view(questionid)));
+    yield call(() => createdHistory.push(routes.questionView(questionid)));
   } catch (err) {
     yield put(editAnswerErr(err));
   }

@@ -60,22 +60,22 @@ const ViewProfilePage = /* istanbul ignore next */ ({
       />
 
       <QuestionsOfUser
-        className={path === routes.user_questions(userId) ? '' : 'd-none'}
-        infinityOff={path !== routes.user_questions(userId)}
+        className={path === routes.userQuestions(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.userQuestions(userId)}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
-        className={path === routes.user_answers(userId) ? '' : 'd-none'}
-        infinityOff={path !== routes.user_answers(userId)}
+        className={path === routes.userAnswers(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.userAnswers(userId)}
         userId={userId}
       />
 
       <ProfileViewForm
         className={
-          path === routes.profile_view(userId) ||
-          path === routes.profile_view_activity_questions(userId) ||
-          path === routes.profile_view_activity_answers(userId)
+          path === routes.profileView(userId) ||
+          path === routes.profileViewActivityQuestions(userId) ||
+          path === routes.profileViewActivityAnswers(userId)
             ? ''
             : 'd-none'
         }

@@ -32,13 +32,13 @@ const UserNavigation = /* istanbul ignore next */ ({
   return (
     <BaseStyled position="top" className="d-flex justify-content-between">
       <Nav>
-        <A to={routes.profile_view(userId)} href={routes.profile_view(userId)}>
+        <A to={routes.profileView(userId)} href={routes.profileView(userId)}>
           <NavigationButton
             isLink={
-              path !== routes.profile_view(userId) &&
-              path !== routes.profile_view_activity_questions(userId) &&
-              path !== routes.profile_view_activity_answers(userId) &&
-              path !== routes.profile_edit(userId)
+              path !== routes.profileView(userId) &&
+              path !== routes.profileViewActivityQuestions(userId) &&
+              path !== routes.profileViewActivityAnswers(userId) &&
+              path !== routes.profileEdit(userId)
             }
           >
             <FormattedMessage {...messages.profile} />
@@ -47,12 +47,12 @@ const UserNavigation = /* istanbul ignore next */ ({
 
         <A
           disabled={!questionsLength}
-          to={routes.user_questions(userId)}
-          href={routes.user_questions(userId)}
+          to={routes.userQuestions(userId)}
+          href={routes.userQuestions(userId)}
         >
           <NavigationButton
             disabled={!questionsLength}
-            isLink={path !== routes.user_questions(userId)}
+            isLink={path !== routes.userQuestions(userId)}
           >
             <FormattedMessage {...messages.questions} />
           </NavigationButton>
@@ -60,12 +60,12 @@ const UserNavigation = /* istanbul ignore next */ ({
 
         <A
           disabled={!questionsWithUserAnswersLength}
-          to={routes.user_answers(userId)}
-          href={routes.user_answers(userId)}
+          to={routes.userAnswers(userId)}
+          href={routes.userAnswers(userId)}
         >
           <NavigationButton
             disabled={!questionsWithUserAnswersLength}
-            isLink={path !== routes.user_answers(userId)}
+            isLink={path !== routes.userAnswers(userId)}
           >
             <FormattedMessage {...messages.answers} />
           </NavigationButton>
@@ -74,7 +74,7 @@ const UserNavigation = /* istanbul ignore next */ ({
         <MyProfileButton
           userId={userId}
           account={account}
-          href={routes.user_settings(userId)}
+          href={routes.userSettings(userId)}
         >
           <FormattedMessage {...messages.settings} />
         </MyProfileButton>

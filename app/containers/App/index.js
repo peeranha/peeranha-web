@@ -62,7 +62,7 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(Communities, props)}
         />
         <Route
-          path={routes.communities_create()}
+          path={routes.communitiesCreate()}
           render={props => Wrapper(CreateCommunity, props)}
         />
         <Route
@@ -76,7 +76,7 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(Tags, props)}
         />
         <Route
-          path={routes.tags_create(':communityid')}
+          path={routes.tagsCreate(':communityid')}
           render={props => Wrapper(CreateTag, props)}
         />
         <Route
@@ -86,11 +86,11 @@ export default function App /* istanbul ignore next */() {
 
         <Route
           exact
-          path={routes.profile_view(':id')}
+          path={routes.profileView(':id')}
           render={props => Wrapper(ViewProfilePage, props)}
         />
         <Route
-          path={routes.profile_edit(':id')}
+          path={routes.profileEdit(':id')}
           render={props => Wrapper(EditProfilePage, props)}
         />
 
@@ -100,26 +100,26 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(Questions, props)}
         />
         <Route
-          path={routes.question_ask()}
+          path={routes.questionAsk()}
           render={props => Wrapper(AskQuestion, props)}
         />
         <Route
           exact
-          path={routes.question_view(':id')}
+          path={routes.questionView(':id')}
           render={props => Wrapper(ViewQuestion, props)}
         />
         <Route
-          path={routes.question_edit(':questionid')}
+          path={routes.questionEdit(':questionid')}
           render={props => Wrapper(EditQuestion, props)}
         />
 
         <Route
-          path={routes.answer_edit(':questionid', ':answerid')}
+          path={routes.answerEdit(':questionid', ':answerid')}
           render={props => Wrapper(EditAnswer, props)}
         />
 
         <Route
-          path={routes.no_access()}
+          path={routes.noAccess()}
           render={props => Wrapper(NoAccess, props)}
         />
         <Route render={props => Wrapper(NotFoundPage, props)} />

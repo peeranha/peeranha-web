@@ -16,16 +16,16 @@ const QuestionItem = item => (
     <div className="title-user">
       <Link
         className="highlighted-link"
-        to={routes.question_view(item.id)}
-        href={routes.question_view(item.id)}
+        to={routes.questionView(item.id)}
+        href={routes.questionView(item.id)}
       >
         <h5 className="highlighted-link">{item.title}</h5>
       </Link>
       <p>
         <Link
           className="highlighted-link"
-          to={routes.profile_view(item.user)}
-          href={routes.profile_view(item.user)}
+          to={routes.profileView(item.user)}
+          href={routes.profileView(item.user)}
         >
           {item.user}
         </Link>

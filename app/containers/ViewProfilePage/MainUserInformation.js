@@ -64,10 +64,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
         <div className="d-flex justify-content-between align-items-center">
           <H3>{profile.display_name}</H3>
 
-          <A
-            to={routes.profile_edit(userId)}
-            href={routes.profile_edit(userId)}
-          >
+          <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
             <NavigationButton isLink>
               <Icon className="mr-2" icon={pencilIcon} />
               <FormattedMessage {...commonMessages.edit} />

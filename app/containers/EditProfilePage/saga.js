@@ -38,7 +38,7 @@ export function* saveProfileActionWorker({ obj }) {
     yield put(getCurrentAccount());
     yield put(saveProfileActionSuccess());
 
-    yield call(() => createdHistory.push(routes.profile_view(userKey)));
+    yield call(() => createdHistory.push(routes.profileView(userKey)));
   } catch (err) {
     yield put(saveProfileActionError(err.message));
   }

@@ -31,7 +31,7 @@ export function* getAskedQuestionWorker({ questionid }) {
 
     if (questionData.user !== selectedAccount) {
       yield put(getAskedQuestionErr());
-      yield call(() => createdHistory.push(routes.no_access()));
+      yield call(() => createdHistory.push(routes.noAccess()));
     }
 
     const question = yield call(() =>
@@ -54,7 +54,7 @@ export function* editQuestionWorker({ question, questionid }) {
     );
 
     yield put(editQuestionSuccess());
-    yield call(() => createdHistory.push(routes.question_view(questionid)));
+    yield call(() => createdHistory.push(routes.questionView(questionid)));
   } catch (err) {
     yield put(editQuestionErr(err));
   }

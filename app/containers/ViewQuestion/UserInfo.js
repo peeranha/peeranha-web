@@ -9,8 +9,8 @@ const UserInfo = props => (
   <div className="user-info">
     <div className="user-avatar-block">
       <Link
-        to={routes.profile_view(props.account)}
-        href={routes.profile_view(props.account)}
+        to={routes.profileView(props.account)}
+        href={routes.profileView(props.account)}
       >
         <img className="avatar" src={props.avatar} alt="" />
       </Link>
@@ -18,8 +18,8 @@ const UserInfo = props => (
     <div className="rating-name-block">
       <p className="name">
         <Link
-          to={routes.profile_view(props.account)}
-          href={routes.profile_view(props.account)}
+          to={routes.profileView(props.account)}
+          href={routes.profileView(props.account)}
         >
           {props.name}
         </Link>
