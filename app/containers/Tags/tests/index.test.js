@@ -49,7 +49,7 @@ describe('<Tags />', () => {
       expect(cmp.goToCreateTagScreen()).not.toBe(null);
 
       expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.tags_create(cmp.props.match.params.communityid),
+        routes.tagsCreate(cmp.props.match.params.communityid),
       );
       expect(createdHistory.push).toHaveBeenCalledTimes(1);
     });

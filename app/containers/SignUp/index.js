@@ -70,7 +70,7 @@ export class SignUp extends React.Component {
     }
 
     if (registered) {
-      createdHistory.push(routes.profile_edit(account));
+      createdHistory.push(routes.profileEdit(account));
     }
   }
 

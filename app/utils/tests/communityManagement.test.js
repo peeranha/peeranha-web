@@ -27,6 +27,7 @@ import {
   downVoteToCreateCommunity,
   getSuggestedCommunities,
   createCommunity,
+  getFollowedCommunities,
 } from '../communityManagement';
 
 jest.mock('../ipfs', () => ({
@@ -41,6 +42,17 @@ beforeEach(() => {
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
   };
+});
+
+describe('getFollowedCommunities', () => {
+  it('test', () => {
+    const allcommunities = [{ id: 1 }];
+    const followedcommunities = [1];
+
+    expect(getFollowedCommunities(allcommunities, followedcommunities)).toEqual(
+      allcommunities.filter(x => followedcommunities.includes(x.id)),
+    );
+  });
 });
 
 describe('createCommunity', () => {

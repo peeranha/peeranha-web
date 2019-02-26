@@ -12,11 +12,7 @@ import {
 
 import defaultSaga, { getQuestionsWorker } from '../saga';
 
-import {
-  GET_QUESTIONS,
-  GET_QUESTIONS_SUCCESS,
-  GET_QUESTIONS_ERROR,
-} from '../constants';
+import { GET_QUESTIONS, GET_QUESTIONS_ERROR } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -36,14 +32,6 @@ describe('getQuestionsWorker', () => {
   const limit = 10;
   const questionsFromStore = [];
   const answersId = [{ question_id: 1, answer_id: 1 }];
-  const questions = [
-    {
-      answers: [],
-      post_time: Date.now(),
-      correct_answer_id: 1,
-      rating: 100,
-    },
-  ];
 
   const offset =
     (questionsFromStore[questionsFromStore.length - 1] &&
@@ -89,12 +77,6 @@ describe('getQuestionsWorker', () => {
       answersId[0].question_id,
       userId,
     );
-  });
-
-  it('getQuestionData', () => {
-    generator.next(questions);
-    const step = generator.next(questions);
-    expect(step.value.type).toBe(GET_QUESTIONS_SUCCESS);
   });
 
   it('error handling', () => {

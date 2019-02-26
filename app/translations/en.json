@@ -45,6 +45,7 @@
   "app.containers.Profile.heHasnoAnswersAndQuestions":
     "He has no answers and questions.",
   "app.containers.Profile.asked": "asked",
+  "app.containers.Profile.answered": "answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",

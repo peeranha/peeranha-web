@@ -1,5 +1,9 @@
+import { scrollToSection } from 'utils/animation';
+
 import { HomePage, mapDispatchToProps } from '../index';
+
 import messages from '../messages';
+
 import {
   EMAIL_FIELD,
   NAME_FIELD,
@@ -8,6 +12,7 @@ import {
 } from '../constants';
 
 const cmp = new HomePage();
+
 cmp.props = {
   locale: 'en',
   sendEmailLoading: true,
@@ -24,10 +29,12 @@ window.$ = jest.fn(() => ({
   on,
 }));
 
+jest.mock('utils/animation', () => ({
+  scrollToSection: jest.fn(),
+}));
+
 describe('HomePage', () => {
   describe('componentDidMount', () => {
-    cmp.scrollToSection = jest.fn();
-
     cmp.imagesAnimation = jest.fn();
 
     cmp.headerAnimation = jest.fn();
@@ -35,17 +42,17 @@ describe('HomePage', () => {
     cmp.parallaxAnimation = jest.fn();
 
     it('test', () => {
-      expect(cmp.scrollToSection).toHaveBeenCalledTimes(0);
+      expect(scrollToSection).toHaveBeenCalledTimes(0);
       expect(cmp.imagesAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(0);
 
       cmp.componentDidMount();
 
-      expect(cmp.scrollToSection).toHaveBeenCalledTimes(1);
-      expect(cmp.scrollToSection).toHaveBeenCalledTimes(1);
-      expect(cmp.scrollToSection).toHaveBeenCalledTimes(1);
-      expect(cmp.scrollToSection).toHaveBeenCalledTimes(1);
+      expect(scrollToSection).toHaveBeenCalledTimes(1);
+      expect(cmp.imagesAnimation).toHaveBeenCalledTimes(1);
+      expect(cmp.headerAnimation).toHaveBeenCalledTimes(1);
+      expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -16,6 +16,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { scrollToSection } from 'utils/animation';
+
 import reducer from './reducer';
 import saga from './saga';
 import * as homepageSelectors from './selectors';
@@ -47,7 +49,7 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    this.scrollToSection();
+    scrollToSection();
 
     this.imagesAnimation();
 
@@ -59,19 +61,6 @@ export class HomePage extends React.PureComponent {
   componentWillUnmount() {
     window.$(window).off();
   }
-
-  scrollToSection /* istanbul ignore next */ = () => {
-    const { hash } = window.location;
-
-    if (hash) {
-      window.$('html, body').animate(
-        {
-          scrollTop: window.$(hash).offset().top,
-        },
-        250,
-      );
-    }
-  };
 
   imagesAnimation /* istanbul ignore next */ = () => {
     window.$(window).on('DOMMouseScroll mousewheel', event => {

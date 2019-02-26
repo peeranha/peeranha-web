@@ -10,7 +10,7 @@ const AnswersList = props => (
           <Content
             {...props}
             type="answer"
-            key={`asnwer${item.id}`}
+            key={`answer${item.id}`}
             answerId={item.id}
             comments={item.comments}
             content={item.content}

@@ -24,7 +24,14 @@ const Activity = /* istanbul ignore next */ ({
   locale,
 }) => {
   const path = window.location.pathname + window.location.hash;
-  const route = routes.profile_view(userId);
+
+  const profileViewRoute = routes.profileView(userId);
+  const profileViewActivityQuestionsRoute = routes.profileViewActivityQuestions(
+    userId,
+  );
+  const profileViewActivityAnswersRoute = routes.profileViewActivityAnswers(
+    userId,
+  );
 
   let myPosts = [];
 
@@ -46,20 +53,27 @@ const Activity = /* istanbul ignore next */ ({
       </H4>
 
       <Base position="top">
-        <A to={route} href={route} disabled={!myPosts.length}>
-          <NavigationButton disabled={!myPosts.length} isLink={path !== route}>
+        <A
+          to={profileViewRoute}
+          href={profileViewRoute}
+          disabled={!myPosts.length}
+        >
+          <NavigationButton
+            disabled={!myPosts.length}
+            isLink={path !== profileViewRoute}
+          >
             <FormattedMessage {...messages.posts} />
           </NavigationButton>
         </A>
 
         <A
-          to={`${route}#activity#questions`}
-          href={`${route}#activity#questions`}
+          to={profileViewActivityQuestionsRoute}
+          href={profileViewActivityQuestionsRoute}
           disabled={!questions.length}
         >
           <NavigationButton
             disabled={!questions.length}
-            isLink={path !== `${route}#activity#questions`}
+            isLink={path !== profileViewActivityQuestionsRoute}
           >
             <FormattedMessage {...messages.questions} />
           </NavigationButton>
@@ -67,12 +81,12 @@ const Activity = /* istanbul ignore next */ ({
 
         <A
           disabled={!questionsWithUserAnswers.length}
-          to={`${route}#activity#answers`}
-          href={`${route}#activity#answers`}
+          to={profileViewActivityAnswersRoute}
+          href={profileViewActivityAnswersRoute}
         >
           <NavigationButton
             disabled={!questionsWithUserAnswers.length}
-            isLink={path !== `${route}#activity#answers`}
+            isLink={path !== profileViewActivityAnswersRoute}
           >
             <FormattedMessage {...messages.answers} />
           </NavigationButton>
@@ -83,7 +97,7 @@ const Activity = /* istanbul ignore next */ ({
         <QuestionsProfileTab
           tab="posts"
           locale={locale}
-          className={path === route ? '' : 'd-none'}
+          className={path === profileViewRoute ? '' : 'd-none'}
           questions={myPosts}
           loading={questionsWithAnswersLoading || questionsLoading}
         />
@@ -91,7 +105,7 @@ const Activity = /* istanbul ignore next */ ({
         <QuestionsProfileTab
           tab="questions"
           locale={locale}
-          className={path === `${route}#activity#questions` ? '' : 'd-none'}
+          className={path === profileViewActivityQuestionsRoute ? '' : 'd-none'}
           questions={questions.slice(0, 10)}
           loading={questionsLoading}
         />
@@ -99,7 +113,7 @@ const Activity = /* istanbul ignore next */ ({
         <QuestionsProfileTab
           tab="answers"
           locale={locale}
-          className={path === `${route}#activity#answers` ? '' : 'd-none'}
+          className={path === profileViewActivityAnswersRoute ? '' : 'd-none'}
           questions={questionsWithUserAnswers.slice(0, 10)}
           loading={questionsWithAnswersLoading}
         />

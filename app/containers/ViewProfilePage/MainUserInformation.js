@@ -64,10 +64,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
         <div className="d-flex justify-content-between align-items-center">
           <H3>{profile.display_name}</H3>
 
-          <A
-            to={routes.profile_edit(userId)}
-            href={routes.profile_edit(userId)}
-          >
+          <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
             <NavigationButton isLink>
               <Icon className="mr-2" icon={pencilIcon} />
               <FormattedMessage {...commonMessages.edit} />
@@ -98,7 +95,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
                   icon={questionRoundedIcon}
                   className="d-flex align-items-center mr-1"
                 />
-                <span>{profile.questions || 0}</span>
+                <span>{profile.questions_asked || 0}</span>
               </Span>
             </LiStyled>
 
@@ -116,7 +113,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
                   icon={answerIcon}
                   className="d-flex align-items-center mr-1"
                 />
-                <span>{profile.answers || 0}</span>
+                <span>{profile.answers_given || 0}</span>
               </Span>
             </LiStyled>
 
@@ -134,7 +131,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
                   icon={risenIcon}
                   className="d-flex align-items-center mr-1"
                 />
-                <span>{profile.risen || 0}</span>
+                <span>{profile.correct_answers || 0}</span>
               </Span>
             </LiStyled>
 

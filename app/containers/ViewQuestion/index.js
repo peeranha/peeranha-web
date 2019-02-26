@@ -16,6 +16,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
 
+import { scrollToSection } from 'utils/animation';
+
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -62,6 +64,19 @@ export class ViewQuestion extends React.Component {
     this.props.getQuestionDataDispatch(this.questionId);
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (
+      nextProps.questionData &&
+      nextProps.questionDataLoading !== this.props.questionDataLoading
+    ) {
+      setTimeout(() => scrollToSection(), 250);
+    }
+  };
+
+  componentWillUnmount() {
+    window.$(window).off();
+  }
+
   /**
    *
    * Question methods
@@ -75,7 +90,7 @@ export class ViewQuestion extends React.Component {
 
   editQuestion = e => {
     const { questionid } = e.target.dataset;
-    this.props.history.push(routes.question_edit(questionid));
+    this.props.history.push(routes.questionEdit(questionid));
   };
 
   /**
@@ -101,7 +116,7 @@ export class ViewQuestion extends React.Component {
 
   editAnswer = e => {
     const { questionid, answerid } = e.target.dataset;
-    this.props.history.push(routes.answer_edit(questionid, answerid));
+    this.props.history.push(routes.answerEdit(questionid, answerid));
   };
 
   deleteAnswer = e => {

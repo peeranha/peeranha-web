@@ -112,7 +112,7 @@ describe('saveProfileActionWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.profile_view(sendProps.obj.userKey),
+      routes.profileView(sendProps.obj.userKey),
     );
   });
 

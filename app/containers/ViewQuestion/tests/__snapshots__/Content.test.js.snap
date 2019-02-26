@@ -3,6 +3,7 @@
 exports[`Content test 1`] = `
 <div
   className="content"
+  id="ansundefined"
 >
   <ContentHeader />
   <div>

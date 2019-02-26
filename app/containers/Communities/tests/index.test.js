@@ -44,7 +44,7 @@ describe('<Communities />', () => {
       expect(cmp.goToCreateCommunityScreen()).not.toBe(null);
 
       expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.communities_create(),
+        routes.communitiesCreate(),
       );
       expect(createdHistory.push).toHaveBeenCalledTimes(1);
     });

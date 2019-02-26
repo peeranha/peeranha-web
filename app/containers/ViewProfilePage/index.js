@@ -13,6 +13,9 @@ import * as routes from 'routes-config';
 import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
 
+import QuestionsOfUser from 'containers/QuestionsOfUser';
+import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
+
 import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -44,20 +47,35 @@ const ViewProfilePage = /* istanbul ignore next */ ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
+  // TODO: remove hardcoded questions&answers length after finishing task
   return (
     <Profile userId={userId}>
       <UserNavigation
         userId={userId}
         account={account}
-        questionsLength={questions.length}
-        questionsWithUserAnswersLength={questionsWithUserAnswers.length}
+        questionsLength={profile ? profile.questions_asked || 1 : 0}
+        questionsWithUserAnswersLength={
+          profile ? profile.answers_given || 1 : 0
+        }
+      />
+
+      <QuestionsOfUser
+        className={path === routes.userQuestions(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.userQuestions(userId)}
+        userId={userId}
+      />
+
+      <QuestionsWithAnswersOfUser
+        className={path === routes.userAnswers(userId) ? '' : 'd-none'}
+        infinityOff={path !== routes.userAnswers(userId)}
+        userId={userId}
       />
 
       <ProfileViewForm
         className={
-          path === routes.profile_view(userId) ||
-          path === routes.profile_view_activity_questions(userId) ||
-          path === routes.profile_view_activity_answers(userId)
+          path === routes.profileView(userId) ||
+          path === routes.profileViewActivityQuestions(userId) ||
+          path === routes.profileViewActivityAnswers(userId)
             ? ''
             : 'd-none'
         }

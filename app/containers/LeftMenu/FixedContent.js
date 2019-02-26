@@ -98,22 +98,22 @@ const FixedContent = /* istanbul ignore next */ ({
       isNavigationExpanded && (
         <Ul>
           <LiExtended>
-            <A to={routes.profile_view(profile.user)}>
+            <A to={routes.profileView(profile.user)}>
               <FormattedMessage {...messages.profile} />
             </A>
           </LiExtended>
           <LiExtended>
-            <A to={routes.user_questions(profile.user)}>
+            <A to={routes.userQuestions(profile.user)}>
               <FormattedMessage {...messages.questions} />
             </A>
           </LiExtended>
           <LiExtended>
-            <A to={routes.user_answers(profile.user)}>
+            <A to={routes.userAnswers(profile.user)}>
               <FormattedMessage {...messages.answers} />
             </A>
           </LiExtended>
           <LiExtended>
-            <A to={routes.user_settings(profile.user)}>
+            <A to={routes.userSettings(profile.user)}>
               <FormattedMessage {...messages.settings} />
             </A>
           </LiExtended>

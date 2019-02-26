@@ -10,7 +10,27 @@ exports[`QuestionsWithAnswersOfUser render questions[0] TRUE 1`] = `
   <div
     className="className"
   >
-    213
+    <Header />
+    <QuestionsWithAnswersList
+      communities={Array []}
+      locale="en"
+      questions={
+        Array [
+          Object {
+            "acceptedAnswer": false,
+            "answers": Array [],
+            "communities": Array [],
+            "community_id": 123,
+            "id": "id",
+            "locale": "en",
+            "myPostRating": 100,
+            "myPostTime": 1550837750334,
+            "title": "title",
+          },
+        ]
+      }
+    />
+    <LoadingIndicator />
   </div>
 </InfinityLoader>
 `;
@@ -25,7 +45,8 @@ exports[`QuestionsWithAnswersOfUser render questionsLoading TRUE 1`] = `
   <div
     className="className"
   >
-    213
+    <Header />
+    <LoadingIndicator />
   </div>
 </InfinityLoader>
 `;

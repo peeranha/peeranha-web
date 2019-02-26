@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -14,6 +15,8 @@ import {
   makeSelectAccount,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
+
+import { makeSelectLocation } from 'containers/App/selectors';
 
 import { showSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal } from 'containers/Login/actions';
@@ -28,6 +31,10 @@ export class Header extends React.PureComponent {
     this.headerLeftMenuAnimation();
   }
 
+  componentDidUpdate() /* istanbul ignore next */ {
+    setTimeout(() => this.displayHeader(), 250);
+  }
+
   headerLeftMenuAnimation = /* istanbul ignore next */ () => {
     let lastScrollTop = 0;
 
@@ -37,21 +44,13 @@ export class Header extends React.PureComponent {
         const st = window.pageYOffset || document.documentElement.scrollTop;
 
         const { scrollY } = event.currentTarget;
-        const { innerHeight, $ } = window;
+        const { innerHeight } = window;
 
         if (scrollY > innerHeight) {
           if (st > lastScrollTop) {
-            $(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
-            $(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
-
-            $(`#${HEADER_ID}`).addClass('scroll-hidden');
-            $(`#${HEADER_ID}`).removeClass('scroll-visible');
+            this.hideHeader();
           } else {
-            $(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
-            $(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
-
-            $(`#${HEADER_ID}`).addClass('scroll-visible');
-            $(`#${HEADER_ID}`).removeClass('scroll-hidden');
+            this.displayHeader();
           }
         }
 
@@ -59,6 +58,22 @@ export class Header extends React.PureComponent {
       },
       false,
     );
+  };
+
+  displayHeader = /* istanbul ignore next */ () => {
+    $(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
+    $(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
+
+    $(`#${HEADER_ID}`).addClass('scroll-visible');
+    $(`#${HEADER_ID}`).removeClass('scroll-hidden');
+  };
+
+  hideHeader = /* istanbul ignore next */ () => {
+    $(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
+    $(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
+
+    $(`#${HEADER_ID}`).addClass('scroll-hidden');
+    $(`#${HEADER_ID}`).removeClass('scroll-visible');
   };
 
   render() {
@@ -99,6 +114,7 @@ Header.propTypes = {
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
   profileInfo: makeSelectProfileInfo(),
+  location: makeSelectLocation(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

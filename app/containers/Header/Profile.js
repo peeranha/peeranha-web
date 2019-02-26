@@ -50,22 +50,22 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
   <div>
     <Ul>
       <Li>
-        <AStyled to={routes.profile_view(profileInfo.user)}>
+        <AStyled to={routes.profileView(profileInfo.user)}>
           <FormattedMessage {...messages.profile} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.user_questions(profileInfo.user)}>
+        <AStyled to={routes.userQuestions(profileInfo.user)}>
           <FormattedMessage {...messages.questions} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.user_answers(profileInfo.user)}>
+        <AStyled to={routes.userAnswers(profileInfo.user)}>
           <FormattedMessage {...messages.answers} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.user_settings(profileInfo.user)}>
+        <AStyled to={routes.userSettings(profileInfo.user)}>
           <FormattedMessage {...messages.settings} />
         </AStyled>
       </Li>

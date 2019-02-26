@@ -16,14 +16,6 @@ exports[`Profile render @isProfileLoading is false && @profile is false 1`] = `
   </HelmetWrapper>
   <div>
     <NoSuchUser />
-    <withReducer(withSaga(Connect(QuestionsOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
-    <withReducer(withSaga(Connect(QuestionsWithAnswersOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
   </div>
 </div>
 `;
@@ -42,16 +34,7 @@ exports[`Profile render @isProfileLoading is false && @profile is true 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <div>
-    <withReducer(withSaga(Connect(QuestionsOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
-    <withReducer(withSaga(Connect(QuestionsWithAnswersOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
-  </div>
+  <div />
 </div>
 `;
 
@@ -71,14 +54,6 @@ exports[`Profile render @isProfileLoading is true 1`] = `
   </HelmetWrapper>
   <div>
     <LoadingIndicator />
-    <withReducer(withSaga(Connect(QuestionsOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
-    <withReducer(withSaga(Connect(QuestionsWithAnswersOfUser)))
-      className="d-none"
-      infinityOff={true}
-    />
   </div>
 </div>
 `;
