@@ -14,7 +14,6 @@ import {
   VOTE_TO_DELETE_TAG,
 } from './constants';
 
-// TODO: to test it
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   return allcommunities.filter(x => followedcommunities.includes(x.id));
 }

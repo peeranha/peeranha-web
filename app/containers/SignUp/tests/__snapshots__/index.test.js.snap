@@ -214,6 +214,7 @@ exports[`SignUp snapshot render testing case 2: content === USER_IS_ABSENT_IN_SY
           "app.containers.Other.successMessage": "Action has been completed successfully",
           "app.containers.Profile.aboutLabel": "About me",
           "app.containers.Profile.activity": "Activity",
+          "app.containers.Profile.answered": "answered",
           "app.containers.Profile.asked": "asked",
           "app.containers.Profile.companyLabel": "Company",
           "app.containers.Profile.displayNameLabel": "Display name",

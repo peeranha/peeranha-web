@@ -19,7 +19,7 @@ export const questions = () => `/questions`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questionView = (id, answerId) =>
+export const questionView = /* istanbul ignore next */ (id, answerId) =>
   answerId
     ? `/questions/${id}#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;

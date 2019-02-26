@@ -49,8 +49,7 @@ export function* getQuestionsWorker({ userId }) {
      */
 
     /* eslint no-param-reassign: 0 */
-    /* istanbul ignore next */
-    yield questions.map(function*(x) {
+    yield questions.map(function*(x) /* istanbul ignore next */ {
       x.postType = POST_TYPE_QUESTION;
       x.myPostTime = x.post_time;
       x.acceptedAnswer = x.correct_answer_id > 0;

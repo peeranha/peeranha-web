@@ -19,6 +19,7 @@ import {
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
+  USER_ANSWERS_TABLE,
 } from '../constants';
 
 import {
@@ -43,6 +44,7 @@ import {
   getQuestionsPostedByUser,
   getQuestionsForFollowedCommunities,
   FetcherOfQuestionsForFollowedCommunities,
+  getAnswersPostedByUser,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -58,6 +60,29 @@ beforeEach(() => {
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
   };
+});
+
+describe('getAnswersPostedByUser', () => {
+  const user = 'user1';
+  const offset = 10;
+  const limit = 10;
+
+  const answers = [1, 2, 3];
+
+  it('test', async () => {
+    eosService.getTableRows.mockImplementation(() => answers);
+
+    expect(
+      await getAnswersPostedByUser(eosService, user, offset, limit),
+    ).toEqual(answers);
+
+    expect(eosService.getTableRows).toHaveBeenCalledWith(
+      USER_ANSWERS_TABLE,
+      user,
+      offset,
+      limit,
+    );
+  });
 });
 
 /* eslint-disable */

@@ -1,5 +1,4 @@
-/* istanbul ignore next */
-export function scrollToSection() {
+export function scrollToSection() /* istanbul ignore next */ {
   const { hash } = window.location;
 
   if (hash) {

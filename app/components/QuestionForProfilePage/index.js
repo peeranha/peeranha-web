@@ -31,7 +31,6 @@ const BaseStyled = Base.extend`
 
 const Badge = Span.extend`
   color: ${darkblue};
-  display: inline-block;
   border: 1px solid ${darkblue};
   border-radius: 3px;
   padding: 4px 10px;
@@ -55,7 +54,7 @@ const TopCommunityBadgeStyled = Badge.extend`
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = ({
+const AcceptedQuestionBadge = /* istanbul ignore next */ ({
   acceptedAnswer,
   postType,
   isMyAnswerAccepted,
@@ -71,7 +70,10 @@ const AcceptedQuestionBadge = ({
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
-const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
+const TopCommunityBadge = /* istanbul ignore next */ ({
+  isTheLargestRating,
+  postType,
+}) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
       <Icon
@@ -101,7 +103,7 @@ const QuestionCommunity = /* istanbul ignore next */ ({
 };
 
 /* eslint camelcase: 0 */
-const QuestionForProfilePage = ({
+export const QuestionForProfilePage = /* istanbul ignore next */ ({
   myPostRating,
   title,
   myPostTime,

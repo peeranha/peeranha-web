@@ -153,7 +153,6 @@ export async function getQuestionsPostedByUser(
   return questions;
 }
 
-// TODO: test it
 export async function getAnswersPostedByUser(
   eosService,
   user,

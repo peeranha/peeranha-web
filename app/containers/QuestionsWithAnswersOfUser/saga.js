@@ -34,6 +34,7 @@ export function* getQuestionsWorker({ userId }) {
     const promise1 = answersId.map(x =>
       getQuestionData(eosService, x.question_id, userId),
     );
+
     const questions = yield all(promise1);
 
     /*
@@ -47,8 +48,7 @@ export function* getQuestionsWorker({ userId }) {
      */
 
     /* eslint no-param-reassign: 0 */
-    /* istanbul ignore next */
-    yield questions.forEach((x, index) => {
+    yield questions.forEach((x, index) => /* istanbul ignore next */ {
       x.postType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
 
