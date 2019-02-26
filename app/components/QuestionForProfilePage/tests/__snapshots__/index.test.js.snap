@@ -54,7 +54,9 @@ exports[`QuestionForProfilePage snapshot test 1`] = `
         <span
           className="pl-1"
         >
-          Nov 26, 02:37
+          <div>
+            postTime
+          </div>
         </span>
       </Span>
       <QuestionCommunity

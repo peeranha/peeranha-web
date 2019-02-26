@@ -1,4 +1,11 @@
+import React from 'react';
+
+import { getFormattedDate } from 'utils/datetime';
 import { QuestionForProfilePage } from '../index';
+
+jest.mock('utils/datetime', () => ({
+  getFormattedDate: jest.fn(),
+}));
 
 const props = {
   myPostRating: 10,
@@ -17,6 +24,7 @@ const props = {
 
 describe('QuestionForProfilePage', () => {
   it('snapshot test', () => {
+    getFormattedDate.mockImplementation(() => <div>postTime</div>);
     expect(QuestionForProfilePage(props)).toMatchSnapshot();
   });
 });
