@@ -156,13 +156,13 @@ const QuestionForProfilePage = ({
 
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,
-  postType: PropTypes.number,
+  postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
 };
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
-  postType: PropTypes.number,
+  postType: PropTypes.string,
 };
 
 QuestionCommunity.propTypes = {

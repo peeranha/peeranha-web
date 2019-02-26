@@ -61,11 +61,11 @@ Question.propTypes = {
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
   id: PropTypes.string,
-  community_id: PropTypes.string,
+  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isMyAnswerAccepted: PropTypes.bool,
-  postType: PropTypes.number,
+  postType: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
-  answerId: PropTypes.string,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 QuestionsWithAnswersList.propTypes = {

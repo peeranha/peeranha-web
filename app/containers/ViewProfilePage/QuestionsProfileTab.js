@@ -136,7 +136,7 @@ Note.propTypes = {
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   locale: PropTypes.string,
-  answerId: PropTypes.string,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
 };
 
