@@ -12,52 +12,73 @@ import Comments from './Comments';
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
 
-const ContentBody = props => (
+const ContentBody = ({
+  content,
+  type,
+  deleteItem,
+  voteToDelete,
+  editItem,
+  buttonParams,
+  translations,
+  isItWrittenByMe,
+  answerId,
+  questionData,
+  communities,
+  locale,
+  editComment,
+  saveComment,
+  saveCommentLoading,
+  editCommentState,
+  deleteComment,
+  comments,
+  postCommentLoading,
+  postComment,
+}) => (
   <div className="content-body">
-    <TextBlock content={props.content} />
+    <TextBlock content={content} />
     <ContentOptions
-      type={props.type}
-      deleteItem={props.deleteItem}
-      voteToDelete={props.voteToDelete}
-      editItem={props.editItem}
-      buttonParams={props.buttonParams}
-      translations={props.translations}
-      isItWrittenByMe={props.isItWrittenByMe}
-      answerId={props.answerId}
+      type={type}
+      deleteItem={deleteItem}
+      voteToDelete={voteToDelete}
+      editItem={editItem}
+      buttonParams={buttonParams}
+      translations={translations}
+      isItWrittenByMe={isItWrittenByMe}
+      answerId={answerId}
     />
     <div>
       <Community
-        communityId={props.questionData.community_id}
-        communities={props.communities}
+        communityId={questionData.community_id}
+        communities={communities}
       />
       <Tags
-        chosenTags={props.questionData.tags}
-        communityId={props.questionData.community_id}
-        communities={props.communities}
+        chosenTags={questionData.tags}
+        communityId={questionData.community_id}
+        communities={communities}
       />
     </div>
     <Comments
-      locale={props.locale}
-      type={props.type}
-      editComment={props.editComment}
-      saveComment={props.saveComment}
-      saveCommentLoading={props.saveCommentLoading}
-      editCommentState={props.editCommentState}
-      deleteComment={props.deleteComment}
-      voteToDelete={props.voteToDelete}
-      buttonParams={props.buttonParams}
-      translations={props.translations}
-      answerId={props.answerId}
-      comments={props.comments}
+      locale={locale}
+      type={type}
+      editComment={editComment}
+      saveComment={saveComment}
+      saveCommentLoading={saveCommentLoading}
+      editCommentState={editCommentState}
+      deleteComment={deleteComment}
+      voteToDelete={voteToDelete}
+      buttonParams={buttonParams}
+      translations={translations}
+      answerId={answerId}
+      comments={comments}
     />
     <div className="add-comment">
       <CommentForm
-        form={`${ADD_COMMENT_FORM}${props.answerId}`}
+        form={`${ADD_COMMENT_FORM}${answerId}`}
         submitButtonId={POST_COMMENT_BUTTON}
-        submitButtonName={props.translations[messages.postCommentButton.id]}
-        sendCommentLoading={props.postCommentLoading}
-        sendComment={props.postComment}
-        answerId={props.answerId}
+        submitButtonName={translations[messages.postCommentButton.id]}
+        sendCommentLoading={postCommentLoading}
+        sendComment={postComment}
+        answerId={answerId}
       />
     </div>
   </div>

@@ -30,6 +30,7 @@ const Question = props => (
       buttonParams={{
         questionId: props.questionData.id,
         answerId: 0,
+        whowasvoted: props.questionData.userInfo.user,
       }}
       communities={props.communities}
     />

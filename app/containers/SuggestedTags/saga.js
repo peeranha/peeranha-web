@@ -6,11 +6,10 @@ import {
   downVoteToCreateTag,
 } from 'utils/communityManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
-
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_SUGGESTED_TAGS, UPVOTE, DOWNVOTE } from './constants';
 import {
@@ -45,8 +44,9 @@ export function* upVoteWorker({ communityid, tagid, buttonId }) {
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
+
     const profileInfo = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
+      getUserProfileWorker({ user: selectedAccount }),
     );
 
     if (!profileInfo) {
@@ -90,8 +90,9 @@ export function* downVoteWorker({ communityid, tagid, buttonId }) {
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
+
     const profileInfo = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
+      getUserProfileWorker({ user: selectedAccount }),
     );
 
     if (!profileInfo) {

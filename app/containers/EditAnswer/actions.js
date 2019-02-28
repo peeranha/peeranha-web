@@ -13,11 +13,11 @@ import {
   EDIT_ANSWER_ERROR,
 } from './constants';
 
-export function getAnswer(questionid, answerid) {
+export function getAnswer(questionId, answerId) {
   return {
     type: GET_ANSWER,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 }
 

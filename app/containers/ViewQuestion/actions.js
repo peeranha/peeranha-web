@@ -39,6 +39,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  RESET_STORE,
 } from './constants';
 
 export function toggleCommentVision(editComment) {
@@ -91,12 +92,12 @@ export function deleteQuestionErr(deleteQuestionError) {
   };
 }
 
-export function deleteAnswer(user, questionid, answerid, postButtonId) {
+export function deleteAnswer(user, questionId, answerId, postButtonId) {
   return {
     type: DELETE_ANSWER,
     user,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
     postButtonId,
   };
 }
@@ -233,7 +234,14 @@ export function postCommentErr(postCommentError) {
   };
 }
 
-export function upVote(user, questionId, answerId, postButtonId, translations) {
+export function upVote(
+  user,
+  questionId,
+  answerId,
+  postButtonId,
+  translations,
+  whoWasUpvoted,
+) {
   return {
     type: UP_VOTE,
     user,
@@ -241,6 +249,7 @@ export function upVote(user, questionId, answerId, postButtonId, translations) {
     answerId,
     postButtonId,
     translations,
+    whoWasUpvoted,
   };
 }
 
@@ -264,6 +273,7 @@ export function downVote(
   answerId,
   postButtonId,
   translations,
+  whoWasDownvoted,
 ) {
   return {
     type: DOWN_VOTE,
@@ -272,6 +282,7 @@ export function downVote(
     answerId,
     postButtonId,
     translations,
+    whoWasDownvoted,
   };
 }
 
@@ -295,6 +306,7 @@ export function markAsAccepted(
   correctAnswerId,
   postButtonId,
   translations,
+  whoWasAccepted,
 ) {
   return {
     type: MARK_AS_ACCEPTED,
@@ -303,6 +315,7 @@ export function markAsAccepted(
     correctAnswerId,
     postButtonId,
     translations,
+    whoWasAccepted,
   };
 }
 
@@ -320,13 +333,20 @@ export function markAsAcceptedErr(markAsAcceptedError) {
   };
 }
 
-export function voteToDelete(questionId, answerId, commentId, postButtonId) {
+export function voteToDelete(
+  questionId,
+  answerId,
+  commentId,
+  postButtonId,
+  whoWasVoted,
+) {
   return {
     type: VOTE_TO_DELETE,
     questionId,
     answerId,
     commentId,
     postButtonId,
+    whoWasVoted,
   };
 }
 
@@ -341,5 +361,11 @@ export function voteToDeleteErr(voteToDeleteError) {
   return {
     type: VOTE_TO_DELETE_ERROR,
     voteToDeleteError,
+  };
+}
+
+export function resetStore() {
+  return {
+    type: RESET_STORE,
   };
 }

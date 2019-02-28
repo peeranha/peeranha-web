@@ -4,6 +4,7 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { COMPLETE_LOGIN } from 'containers/Login/constants';
 import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
 import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { getProfileInfo } from 'utils/profileManagement';
 
@@ -58,10 +59,12 @@ export function* setLoginSignupModalState(type, message) {
       yield put(hideLoginModal());
       yield put(showSignUpModal(message));
       break;
+
     case COMPLETE_LOGIN:
       yield put(hideSignUpModal());
       yield put(showLoginModal(message));
       break;
+
     default:
   }
 }
@@ -94,7 +97,9 @@ export function* loginSignupWorker(res) {
 
     yield put(loginSignupSuccess(account));
 
-    const profileInfo = yield call(() => getProfileInfo(account, eosService));
+    const profileInfo = yield call(() =>
+      getUserProfileWorker({ user: account }),
+    );
 
     if (!profileInfo && res.methods.type === COMPLETE_LOGIN) {
       yield setLoginSignupModalState(

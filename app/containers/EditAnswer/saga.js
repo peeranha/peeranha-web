@@ -1,12 +1,9 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { getQuestionData } from 'containers/ViewQuestion/saga';
 
-import {
-  getAnswer,
-  editAnswer,
-  getQuestionData,
-} from 'utils/questionsManagement';
+import { getAnswer, editAnswer } from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -21,18 +18,18 @@ import {
 } from './actions';
 
 /* eslint eqeqeq: 0 */
-export function* getAnswerWorker({ questionid, answerid }) {
+export function* getAnswerWorker({ questionId, answerId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(() => eosService.getSelectedAccount());
 
     const questionData = yield call(() =>
-      getQuestionData(eosService, questionid, selectedAccount),
+      getQuestionData({ eosService, questionId, user }),
     );
 
-    const answer = yield questionData.answers.filter(x => x.id == answerid)[0];
+    const answer = yield questionData.answers.filter(x => x.id == answerId)[0];
 
-    if (answer.user !== selectedAccount) {
+    if (answer.user !== user) {
       yield put(getAnswerErr());
       yield call(() => createdHistory.push(routes.noAccess()));
     }
@@ -53,6 +50,7 @@ export function* editAnswerWorker({ answer, questionid, answerid }) {
     yield call(() =>
       editAnswer(user, questionid, answerid, answer, eosService),
     );
+
     yield put(editAnswerSuccess());
     yield call(() => createdHistory.push(routes.questionView(questionid)));
   } catch (err) {

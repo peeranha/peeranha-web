@@ -23,7 +23,7 @@ const MarkAsAcceptedIcon = props => {
   return icon ? (
     <button id={props.id}>
       <FontAwesomeIcon
-        onClick={() => props.markAsAccepted(icon.id)}
+        onClick={() => props.markAsAccepted(icon.id, props.whoWasAccepted)}
         className={`chevron check ${icon.color}`}
         icon="check"
       />
@@ -33,6 +33,7 @@ const MarkAsAcceptedIcon = props => {
 
 MarkAsAcceptedIcon.propTypes = {
   markAsAccepted: PropTypes.func,
+  whoWasAccepted: PropTypes.string,
   id: PropTypes.string,
 };
 

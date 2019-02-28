@@ -9,6 +9,7 @@ export const ITEM_DNV_FLAG = 1;
 export const ITEM_VOTED_TO_DEL_FLAG = 2;
 
 export const TOGGLE_COMMENT_VISION = 'app/ViewQuestion/TOGGLE_COMMENT_VISION';
+export const RESET_STORE = 'app/ViewQuestion/RESET_STORE';
 
 export const GET_QUESTION_DATA = 'app/ViewQuestion/GET_QUESTION_DATA';
 export const GET_QUESTION_DATA_SUCCESS =

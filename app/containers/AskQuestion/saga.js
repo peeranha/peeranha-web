@@ -8,23 +8,28 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { addToast } from 'containers/Toast/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import {
   postQuestion,
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
-import { getProfileInfo } from 'utils/profileManagement';
 
 import { ASK_QUESTION } from './constants';
 import { askQuestionSuccess, askQuestionError } from './actions';
 import { postQuestionValidator } from './validate';
 
-export function* postQuestionWorker(res) {
+export function* postQuestionWorker({
+  user,
+  postButtonId,
+  translations,
+  questionData,
+}) {
   const locale = yield select(makeSelectLocale());
 
   try {
     const eosService = yield select(selectEos);
-    const profileInfo = yield call(() => getProfileInfo(res.user, eosService));
+    const profileInfo = yield call(() => getUserProfileWorker({ user }));
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -32,14 +37,14 @@ export function* postQuestionWorker(res) {
     }
 
     const isValid = yield call(() =>
-      postQuestionValidator(profileInfo, res.postButtonId, res.translations),
+      postQuestionValidator(profileInfo, postButtonId, translations),
     );
 
     if (!isValid) {
       return yield put(askQuestionError());
     }
 
-    yield call(() => postQuestion(res.user, res.questionData, eosService));
+    yield call(() => postQuestion(user, questionData, eosService));
 
     yield put(
       addToast({
@@ -52,7 +57,7 @@ export function* postQuestionWorker(res) {
     yield put(askQuestionSuccess());
 
     const questionsPostedByUser = yield call(() =>
-      getQuestionsPostedByUser(eosService, res.user),
+      getQuestionsPostedByUser(eosService, user),
     );
 
     yield call(() => createdHistory.push(questionsPostedByUser[0].question_id));

@@ -1,12 +1,9 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { getQuestionData } from 'containers/ViewQuestion/saga';
 
-import {
-  getAskedQuestion,
-  editQuestion,
-  getQuestionData,
-} from 'utils/questionsManagement';
+import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -20,16 +17,16 @@ import {
   editQuestionErr,
 } from './actions';
 
-export function* getAskedQuestionWorker({ questionid }) {
+export function* getAskedQuestionWorker({ questionId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(() => eosService.getSelectedAccount());
 
     const questionData = yield call(() =>
-      getQuestionData(eosService, questionid, selectedAccount),
+      getQuestionData({ eosService, questionId, user }),
     );
 
-    if (questionData.user !== selectedAccount) {
+    if (questionData.user !== user) {
       yield put(getAskedQuestionErr());
       yield call(() => createdHistory.push(routes.noAccess()));
     }

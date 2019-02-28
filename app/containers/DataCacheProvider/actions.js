@@ -11,6 +11,7 @@ import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
+  REMOVE_USER_PROFILE,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -51,5 +52,12 @@ export function getUserProfileErr(getUserProfileError) {
   return {
     type: GET_USER_PROFILE_ERROR,
     getUserProfileError,
+  };
+}
+
+export function removeUserProfile(user) {
+  return {
+    type: REMOVE_USER_PROFILE,
+    user,
   };
 }
