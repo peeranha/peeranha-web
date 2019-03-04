@@ -40,6 +40,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  RESET_STORE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -93,6 +94,7 @@ function viewQuestionReducer(state = initialState, action) {
   switch (type) {
     case TOGGLE_COMMENT_VISION:
       return state.set('editComment', editComment);
+
     case GET_QUESTION_DATA:
       return state.set('questionDataLoading', true);
     case GET_QUESTION_DATA_SUCCESS:
@@ -103,6 +105,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('questionDataLoading', false)
         .set('getQuestionDataError', getQuestionDataError);
+
     case POST_ANSWER:
       return state.set('postAnswerLoading', true);
     case POST_ANSWER_SUCCESS:
@@ -113,6 +116,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('postAnswerLoading', false)
         .set('postAnswerError', postAnswerError);
+
     case POST_COMMENT:
       return state.set('postCommentLoading', true);
     case POST_COMMENT_SUCCESS:
@@ -123,6 +127,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('postCommentLoading', false)
         .set('postCommentError', postCommentError);
+
     case UP_VOTE:
       return state.set('upVoteLoading', true);
     case UP_VOTE_SUCCESS:
@@ -131,6 +136,7 @@ function viewQuestionReducer(state = initialState, action) {
         .set('questionData', questionData);
     case UP_VOTE_ERROR:
       return state.set('upVoteLoading', false).set('upVoteError', upVoteError);
+
     case DOWN_VOTE:
       return state.set('downVoteLoading', true);
     case DOWN_VOTE_SUCCESS:
@@ -141,6 +147,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('downVoteLoading', false)
         .set('downVoteError', downVoteError);
+
     case MARK_AS_ACCEPTED:
       return state.set('markAsAcceptedLoading', true);
     case MARK_AS_ACCEPTED_SUCCESS:
@@ -151,6 +158,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('markAsAcceptedLoading', false)
         .set('markAsAcceptedError', markAsAcceptedError);
+
     case DELETE_QUESTION:
       return state.set('deleteQuestionLoading', true);
     case DELETE_QUESTION_SUCCESS:
@@ -159,6 +167,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('deleteQuestionError', deleteQuestionError)
         .set('deleteQuestionLoading', false);
+
     case DELETE_ANSWER:
       return state.set('deleteAnswerLoading', true);
     case DELETE_ANSWER_SUCCESS:
@@ -169,6 +178,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('deleteAnswerError', deleteAnswerError)
         .set('deleteAnswerLoading', false);
+
     case DELETE_COMMENT:
       return state.set('deleteCommentLoading', true);
     case DELETE_COMMENT_SUCCESS:
@@ -179,6 +189,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('deleteCommentError', deleteCommentError)
         .set('deleteCommentLoading', false);
+
     case SAVE_COMMENT:
       return state.set('saveCommentLoading', true);
     case SAVE_COMMENT_SUCCESS:
@@ -190,6 +201,7 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('saveCommentError', saveCommentError)
         .set('saveCommentLoading', false);
+
     case VOTE_TO_DELETE:
       return state.set('voteToDeleteLoading', true);
     case VOTE_TO_DELETE_SUCCESS:
@@ -200,6 +212,10 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false);
+
+    case RESET_STORE:
+      return initialState;
+
     default:
       return state;
   }

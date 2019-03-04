@@ -70,10 +70,13 @@ describe('dataCacheProviderReducer', () => {
       user: 'user',
     };
 
-    const obj = state.set('usersLoading', false).set('users', {
-      ...state.get('users').toJS(),
-      [profile.user]: profile,
-    });
+    const obj = state.set('usersLoading', false).set(
+      'users',
+      fromJS({
+        ...state.get('users').toJS(),
+        [profile.user]: profile,
+      }),
+    );
 
     expect(
       dataCacheProviderReducer(state, getUserProfileSuccess(profile)),

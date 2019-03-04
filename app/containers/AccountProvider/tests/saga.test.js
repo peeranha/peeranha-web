@@ -13,6 +13,8 @@ import {
   HIDE_SIGN_UP_MODAL,
 } from 'containers/SignUp/constants';
 
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+
 import {
   COMPLETE_LOGIN,
   SHOW_LOGIN_MODAL,
@@ -53,6 +55,10 @@ jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
 
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
+}));
+
 getProfileInfo.mockImplementation(() => profileInfo);
 
 describe('getCurrentAccountWorker', () => {
@@ -63,28 +69,28 @@ describe('getCurrentAccountWorker', () => {
     getSelectedAccount: () => account,
   };
 
-  it('selectDescriptor step1', () => {
+  it('selectDescriptor step', () => {
     select.mockImplementationOnce(() => scatter);
     const selectDescriptor = generator.next();
     expect(selectDescriptor.value).toEqual(scatter);
   });
 
-  it('selectedScatterAccount step2', () => {
+  it('selectedScatterAccount step', () => {
     const selectedScatterAccount = generator.next(scatter);
     expect(selectedScatterAccount.value).toEqual(account);
   });
 
-  it('profileInfo step3', () => {
-    const user = generator.next(account);
-    expect(user.value).toEqual(profileInfo);
+  it('profileInfo step', () => {
+    const step = generator.next(account);
+    expect(step.value).toEqual(profileInfo);
   });
 
-  it('putDescriptor step4', () => {
+  it('putDescriptor step', () => {
     const putDescriptor = generator.next();
     expect(putDescriptor.value.type).toEqual(GET_CURRENT_ACCOUNT_SUCCESS);
   });
 
-  it('errorHandling step5', () => {
+  it('errorHandling step', () => {
     const err = new Error('Some error');
     const putDescriptor = generator.throw(err).value;
     expect(putDescriptor.type).toEqual(GET_CURRENT_ACCOUNT_ERROR);
@@ -202,14 +208,17 @@ describe('loginSignupWorker', () => {
     const generator = loginSignupWorker(sendObj);
     const scatter = {
       scatterInstalled: true,
-      selectedScatterAccount: true,
+      selectedScatterAccount: 'selectedScatterAccount',
     };
 
     it('isUser: true', () => {
       generator.next();
       generator.next(scatter);
-      const isUser = generator.next();
-      expect(isUser.value).toBe(profileInfo);
+
+      getUserProfileWorker.mockImplementation(() => profileInfo);
+
+      const step = generator.next();
+      expect(step.value).toBe(profileInfo);
     });
 
     it('invoked function', () => {
@@ -238,7 +247,7 @@ describe('loginSignupWorker', () => {
     };
 
     it('invoked function', () => {
-      getProfileInfo.mockImplementationOnce(() => true);
+      getUserProfileWorker.mockImplementationOnce(() => true);
       generator.next();
       generator.next(scatter);
       generator.next();
@@ -269,7 +278,7 @@ describe('loginSignupWorker', () => {
     };
 
     it('isUser: null', () => {
-      getProfileInfo.mockImplementationOnce(() => userInSystem);
+      getUserProfileWorker.mockImplementationOnce(() => userInSystem);
       generator.next();
       generator.next(scatter);
       const isUser = generator.next();
@@ -302,7 +311,7 @@ describe('loginSignupWorker', () => {
       selectedScatterAccount: true,
     };
 
-    getProfileInfo.mockImplementationOnce(() => userInSystem);
+    getUserProfileWorker.mockImplementationOnce(() => userInSystem);
     generator.next();
     generator.next(scatter);
     generator.next();

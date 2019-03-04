@@ -19,15 +19,15 @@ import {
 describe('getAnswer actions', () => {
   describe('getAnswer Action', () => {
     it('GET_ANSWER', () => {
-      const questionid = 'questionid';
-      const answerid = 'answerid';
+      const questionId = 'questionId';
+      const answerId = 'answerId';
       const expected = {
         type: GET_ANSWER,
-        questionid,
-        answerid,
+        questionId,
+        answerId,
       };
 
-      expect(getAnswer(questionid, answerid)).toEqual(expected);
+      expect(getAnswer(questionId, answerId)).toEqual(expected);
     });
   });
 
@@ -58,17 +58,17 @@ describe('getAnswer actions', () => {
   describe('editAnswer Action', () => {
     it('EDIT_ANSWER', () => {
       const answer = 'answer';
-      const questionid = 'questionid';
-      const answerid = 'answerid';
+      const questionId = 'questionId';
+      const answerId = 'answerId';
 
       const expected = {
         type: EDIT_ANSWER,
-        questionid,
-        answerid,
+        questionId,
+        answerId,
         answer,
       };
 
-      expect(editAnswer(answer, questionid, answerid)).toEqual(expected);
+      expect(editAnswer(answer, questionId, answerId)).toEqual(expected);
     });
   });
 

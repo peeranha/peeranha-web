@@ -18,6 +18,28 @@ const selectQuestionData = () =>
     substate.get('questionData'),
   );
 
+export const selectAnswer = answerId =>
+  createSelector(
+    selectViewQuestionDomain,
+    substate =>
+      substate.get('questionData')
+        ? substate.get('questionData').answers.filter(x => x.id === answerId)[0]
+        : null,
+  );
+
+export const selectComment = (answerId, commentId) =>
+  createSelector(selectViewQuestionDomain, substate => {
+    if (!substate.get('questionData')) return null;
+
+    const answer = substate
+      .get('questionData')
+      .answers.filter(x => x.id === answerId)[0];
+
+    if (!answer) return null;
+
+    return answer.comments.filter(x => x.id === commentId)[0];
+  });
+
 const selectQuestionDataError = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('getQuestionDataError'),

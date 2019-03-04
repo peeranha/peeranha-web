@@ -13,11 +13,11 @@ import {
   EDIT_ANSWER_ERROR,
 } from './constants';
 
-export function getAnswer(questionid, answerid) {
+export function getAnswer(questionId, answerId) {
   return {
     type: GET_ANSWER,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 }
 
@@ -35,12 +35,12 @@ export function getAnswerErr(getAnswerError) {
   };
 }
 
-export function editAnswer(answer, questionid, answerid) {
+export function editAnswer(answer, questionId, answerId) {
   return {
     type: EDIT_ANSWER,
     answer,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 }
 

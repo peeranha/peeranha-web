@@ -22,6 +22,7 @@ exports[` 1`] = `
       buttonParams={
         Object {
           "commentId": undefined,
+          "whowasvoted": undefined,
         }
       }
     />
@@ -30,6 +31,7 @@ exports[` 1`] = `
       buttonParams={
         Object {
           "commentId": undefined,
+          "whowasvoted": undefined,
         }
       }
     />
@@ -38,6 +40,7 @@ exports[` 1`] = `
       buttonParams={
         Object {
           "commentId": undefined,
+          "whowasvoted": undefined,
         }
       }
       show={true}
@@ -92,26 +95,32 @@ exports[`Comments test1, Comments 1`] = `
       Array [
         Object {
           "id": 1,
+          "userInfo": Object {},
         },
         Object {
           "id": 2,
+          "userInfo": Object {},
         },
       ]
     }
     id={1}
+    userInfo={Object {}}
   />
   <Comment
     comments={
       Array [
         Object {
           "id": 1,
+          "userInfo": Object {},
         },
         Object {
           "id": 2,
+          "userInfo": Object {},
         },
       ]
     }
     id={2}
+    userInfo={Object {}}
   />
 </div>
 `;

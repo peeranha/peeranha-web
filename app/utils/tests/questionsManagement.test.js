@@ -31,7 +31,6 @@ import {
   upVote,
   downVote,
   markAsAccepted,
-  getQuestionData,
   editQuestion,
   editAnswer,
   editComment,
@@ -45,6 +44,7 @@ import {
   getQuestionsForFollowedCommunities,
   FetcherOfQuestionsForFollowedCommunities,
   getAnswersPostedByUser,
+  getQuestionById,
 } from '../questionsManagement';
 
 jest.mock('../ipfs', () => ({
@@ -716,21 +716,16 @@ describe('markAsAccepted', () => {
   });
 });
 
-describe('getQuestionData', () => {
+describe('getQuestionById', () => {
   const questionId = 10;
-  const user = 'user';
   const questionInfo = {
     answers: [],
-    comments: [],
-    history: [],
-    properties: [],
   };
 
   it('test', async () => {
-    getText.mockImplementation(() => '{}');
     eosService.getTableRow.mockImplementation(() => questionInfo);
 
-    await getQuestionData(eosService, questionId, user);
+    expect(await getQuestionById(eosService, questionId)).toEqual(questionInfo);
     expect(eosService.getTableRow).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,

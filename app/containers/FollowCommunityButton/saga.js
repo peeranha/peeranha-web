@@ -1,10 +1,10 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-import { getProfileInfo } from 'utils/profileManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { FOLLOW_HANDLER } from './constants';
 
@@ -26,7 +26,7 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
     }
 
     const profile = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
+      getUserProfileWorker({ user: selectedAccount }),
     );
 
     yield put(getCurrentAccountSuccess(selectedAccount, profile));

@@ -41,21 +41,33 @@ const CommentView = item => (
     <p className="option-edit">
       <Button
         show={item.isItWrittenByMe}
-        buttonParams={{ ...item.buttonParams, commentId: item.id }}
+        buttonParams={{
+          ...item.buttonParams,
+          commentId: item.id,
+          whowasvoted: item.userInfo.user,
+        }}
         buttonName={item.translations[messages.editButton.id]}
         buttonClick={item.editComment}
       />
       <Button
         show={item.isItWrittenByMe}
         buttonId={`comment__${item.answerId}${item.id}`}
-        buttonParams={{ ...item.buttonParams, commentId: item.id }}
+        buttonParams={{
+          ...item.buttonParams,
+          commentId: item.id,
+          whowasvoted: item.userInfo.user,
+        }}
         buttonName={item.translations[messages.deleteButton.id]}
         buttonClick={item.deleteComment}
       />
       <Button
         show
         buttonId={`comment_vote_to_delete_${item.answerId}${item.id}`}
-        buttonParams={{ ...item.buttonParams, commentId: item.id }}
+        buttonParams={{
+          ...item.buttonParams,
+          commentId: item.id,
+          whowasvoted: item.userInfo.user,
+        }}
         buttonName={item.translations[messages.voteToDelete.id]}
         buttonClick={item.voteToDelete}
       />

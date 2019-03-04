@@ -5,11 +5,9 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import {
-  getQuestionData,
-  getAnswer,
-  editAnswer,
-} from 'utils/questionsManagement';
+import { getAnswer, editAnswer } from 'utils/questionsManagement';
+
+import { getQuestionData } from 'containers/ViewQuestion/saga';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -29,6 +27,10 @@ jest.mock('createdHistory', () => ({
   push: jest.fn(),
 }));
 
+jest.mock('containers/ViewQuestion/saga', () => ({
+  getQuestionData: jest.fn(),
+}));
+
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
@@ -37,7 +39,6 @@ jest.mock('redux-saga/effects', () => ({
 }));
 
 jest.mock('utils/questionsManagement', () => ({
-  getQuestionData: jest.fn(),
   getAnswer: jest.fn(),
   editAnswer: jest.fn(),
 }));
@@ -45,8 +46,8 @@ jest.mock('utils/questionsManagement', () => ({
 describe('getAnswerWorker', () => {
   const answer = 'answer';
   const user = 'user1';
-  const questionid = 'questionid';
-  const answerid = 1;
+  const questionId = 'questionId';
+  const answerId = 1;
   const questionData = {
     answers: [
       {
@@ -59,8 +60,8 @@ describe('getAnswerWorker', () => {
 
   const props = {
     user,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 
   const eos = {
@@ -138,13 +139,13 @@ describe('getAnswerWorker', () => {
 describe('editAnswerWorker', () => {
   const user = 'user1';
   const answer = 'answer';
-  const questionid = 'questionid';
-  const answerid = 1;
+  const questionId = 'questionId';
+  const answerId = 1;
 
   const props = {
     answer,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 
   const eos = {
@@ -169,8 +170,8 @@ describe('editAnswerWorker', () => {
     generator.next(user);
     expect(editAnswer).toHaveBeenCalledWith(
       user,
-      questionid,
-      answerid,
+      questionId,
+      answerId,
       answer,
       eos,
     );
@@ -184,7 +185,7 @@ describe('editAnswerWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.questionView(questionid),
+      routes.questionView(questionId),
     );
   });
 

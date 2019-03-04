@@ -31,6 +31,7 @@ const AcceptedAnswer = props => (
             buttonParams={{
               questionId: props.questionData.id,
               answerId: item.id,
+              whowasvoted: item.userInfo.user,
             }}
           />
         ) : null,

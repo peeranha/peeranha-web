@@ -7,7 +7,7 @@ import { select } from 'redux-saga/effects';
 
 import {
   getQuestionsPostedByUser,
-  getQuestionData,
+  getQuestionById,
 } from 'utils/questionsManagement';
 
 import defaultSaga, { getQuestionsWorker } from '../saga';
@@ -24,7 +24,7 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('utils/questionsManagement', () => ({
   getQuestionsPostedByUser: jest.fn(),
-  getQuestionData: jest.fn(),
+  getQuestionById: jest.fn(),
 }));
 
 describe('getQuestionsWorker', () => {
@@ -70,9 +70,9 @@ describe('getQuestionsWorker', () => {
     );
   });
 
-  it('getQuestionData', () => {
+  it('getQuestionById', () => {
     generator.next(idOfQuestions);
-    expect(getQuestionData).toHaveBeenCalledWith(
+    expect(getQuestionById).toHaveBeenCalledWith(
       eosService,
       idOfQuestions[0].question_id,
       userId,

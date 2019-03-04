@@ -1,7 +1,7 @@
 import { translationMessages } from 'i18n';
 
 import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
-import { ViewQuestion, mapDispatchToProps } from '../index';
+import { ViewQuestion } from '../index';
 
 import {
   TEXTAREA_COMMENT_FORM,
@@ -14,6 +14,7 @@ import {
 jest.mock('components/TextEditor');
 
 const cmp = new ViewQuestion();
+
 cmp.props = {
   translations: {},
   account: 'user1',
@@ -60,10 +61,12 @@ describe('<ViewQuestion />', () => {
       const answerid = 2;
       const commentid = 3;
       const id = 'id';
+      const whowasvoted = 'whowasvoted';
 
       ev.target.dataset.questionid = questionid;
       ev.target.dataset.answerid = answerid;
       ev.target.dataset.commentid = commentid;
+      ev.target.dataset.whowasvoted = whowasvoted;
       ev.target.dataset.id = id;
 
       cmp.voteToDelete(ev);
@@ -72,6 +75,7 @@ describe('<ViewQuestion />', () => {
         answerid,
         commentid,
         id,
+        whowasvoted,
       );
     });
   });
@@ -194,17 +198,19 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const id = 10;
       const questionId = 110;
+      const whoWasAccepted = 'whoWasAccepted';
       const postButtonId = `${MARK_AS_BUTTON}${id}`;
 
       cmp.questionId = questionId;
 
-      cmp.markAsAccepted(id);
+      cmp.markAsAccepted(id, whoWasAccepted);
       expect(cmp.props.markAsAcceptedDispatch).toHaveBeenCalledWith(
         cmp.props.account,
         questionId,
         id,
         postButtonId,
         translationMessages[cmp.props.locale],
+        whoWasAccepted,
       );
     });
   });
@@ -213,17 +219,19 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const whoWasUpvoted = 'whoWasUpvoted';
       const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
-      cmp.upVote(answerId);
+      cmp.upVote(answerId, whoWasUpvoted);
       expect(cmp.props.upVoteDispatch).toHaveBeenCalledWith(
         cmp.props.account,
         questionId,
         answerId,
         postButtonId,
         translationMessages[cmp.props.locale],
+        whoWasUpvoted,
       );
     });
   });
@@ -232,17 +240,19 @@ describe('<ViewQuestion />', () => {
     it('test', () => {
       const answerId = 10;
       const questionId = 110;
+      const whoWasDownvoted = 'whoWasDownvoted';
       const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
 
       cmp.questionId = questionId;
 
-      cmp.downVote(answerId);
+      cmp.downVote(answerId, whoWasDownvoted);
       expect(cmp.props.downVoteDispatch).toHaveBeenCalledWith(
         cmp.props.account,
         questionId,
         answerId,
         postButtonId,
         translationMessages[cmp.props.locale],
+        whoWasDownvoted,
       );
     });
   });
@@ -308,30 +318,6 @@ describe('<ViewQuestion />', () => {
     it('@questionDataLoading is true', () => {
       cmp.props.questionDataLoading = true;
       expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).getQuestionDataDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).postAnswerDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).postCommentDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).upVoteDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).downVoteDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).markAsAcceptedDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).deleteQuestionDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).deleteAnswerDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).toggleCommentVisionDispatch()).toBe(
-        test,
-      );
-      expect(mapDispatchToProps(dispatch).saveCommentDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).deleteCommentDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).voteToDeleteDispatch()).toBe(test);
     });
   });
 });

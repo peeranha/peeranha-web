@@ -39,12 +39,18 @@ const LastAnswer = /* istanbul ignore next */ ({
 
   return (
     <span className="d-flex flex-column">
-      <A to={routes.profileView(user)} className="d-flex align-items-center">
-        <Span className="mr-2" fontSize="14">
-          {lastAnswer.userInfo.display_name}
-        </Span>
-        <RatingStatus rating={lastAnswer.userInfo.rating} size="sm" isRankOff />
-      </A>
+      {lastAnswer.userInfo && (
+        <A to={routes.profileView(user)} className="d-flex align-items-center">
+          <Span className="mr-2" fontSize="14">
+            {lastAnswer.userInfo.display_name}
+          </Span>
+          <RatingStatus
+            rating={lastAnswer.userInfo.rating}
+            size="sm"
+            isRankOff
+          />
+        </A>
+      )}
 
       <Span fontSize="14" color="gray">
         <FormattedMessage {...messages.lastAnswer} />{' '}

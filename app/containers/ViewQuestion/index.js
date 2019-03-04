@@ -39,6 +39,7 @@ import {
   downVote,
   markAsAccepted,
   voteToDelete,
+  resetStore,
 } from './actions';
 
 import * as makeSelectViewQuestion from './selectors';
@@ -74,6 +75,7 @@ export class ViewQuestion extends React.Component {
   };
 
   componentWillUnmount() {
+    this.props.resetStoreDispatch();
     window.$(window).off();
   }
 
@@ -187,7 +189,7 @@ export class ViewQuestion extends React.Component {
    *
    */
 
-  markAsAccepted = answerId => {
+  markAsAccepted = (answerId, whoWasAccepted) => {
     const postButtonId = `${MARK_AS_BUTTON}${answerId}`;
     const translations = translationMessages[this.props.locale];
 
@@ -197,10 +199,11 @@ export class ViewQuestion extends React.Component {
       answerId,
       postButtonId,
       translations,
+      whoWasAccepted,
     );
   };
 
-  upVote = answerId => {
+  upVote = (answerId, whoWasUpvoted) => {
     const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
     const translations = translationMessages[this.props.locale];
 
@@ -210,10 +213,11 @@ export class ViewQuestion extends React.Component {
       answerId,
       postButtonId,
       translations,
+      whoWasUpvoted,
     );
   };
 
-  downVote = answerId => {
+  downVote = (answerId, whoWasDownvoted) => {
     const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
     const translations = translationMessages[this.props.locale];
 
@@ -223,14 +227,21 @@ export class ViewQuestion extends React.Component {
       answerId,
       postButtonId,
       translations,
+      whoWasDownvoted,
     );
   };
 
   voteToDelete = e => {
     const { id } = e.target;
-    const { questionid, answerid, commentid } = e.target.dataset;
+    const { questionid, answerid, commentid, whowasvoted } = e.target.dataset;
 
-    this.props.voteToDeleteDispatch(questionid, answerid, commentid, id);
+    this.props.voteToDeleteDispatch(
+      questionid,
+      answerid,
+      commentid,
+      id,
+      whowasvoted,
+    );
   };
 
   render() {
@@ -321,6 +332,7 @@ ViewQuestion.propTypes = {
   saveCommentDispatch: PropTypes.func,
   deleteCommentDispatch: PropTypes.func,
   voteToDeleteDispatch: PropTypes.func,
+  resetStoreDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -335,32 +347,54 @@ const mapStateToProps = createStructuredSelector({
   editCommentState: makeSelectViewQuestion.selectEditComment(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     toggleCommentVisionDispatch: editCommentState =>
       dispatch(toggleCommentVision(editCommentState)),
+
     saveCommentDispatch: (user, qId, aId, cId, comment) =>
       dispatch(saveComment(user, qId, aId, cId, comment)),
+
     deleteCommentDispatch: (user, qId, aId, cId, bId) =>
       dispatch(deleteComment(user, qId, aId, cId, bId)),
+
     deleteQuestionDispatch: (user, qId, bId) =>
       dispatch(deleteQuestion(user, qId, bId)),
+
     deleteAnswerDispatch: (user, qId, aId, bId) =>
       dispatch(deleteAnswer(user, qId, aId, bId)),
+
     getQuestionDataDispatch: qId => dispatch(getQuestionData(qId)),
+
     postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
       dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
+
     postCommentDispatch: (user, qId, aId, comment, reset, postbId, transl) =>
       dispatch(postComment(user, qId, aId, comment, reset, postbId, transl)),
-    upVoteDispatch: (user, qId, aId, postbId, transl) =>
-      dispatch(upVote(user, qId, aId, postbId, transl)),
-    downVoteDispatch: (user, qId, aId, postbId, transl) =>
-      dispatch(downVote(user, qId, aId, postbId, transl)),
-    markAsAcceptedDispatch: (user, qId, correctaId, postbId, transl) =>
-      dispatch(markAsAccepted(user, qId, correctaId, postbId, transl)),
-    voteToDeleteDispatch: (qId, aId, cId, buttonid) =>
-      dispatch(voteToDelete(qId, aId, cId, buttonid)),
+
+    upVoteDispatch: (user, qId, aId, postbId, transl, whoWasUpvoted) =>
+      dispatch(upVote(user, qId, aId, postbId, transl, whoWasUpvoted)),
+
+    downVoteDispatch: (user, qId, aId, postbId, transl, whoWasDownvoted) =>
+      dispatch(downVote(user, qId, aId, postbId, transl, whoWasDownvoted)),
+
+    markAsAcceptedDispatch: (
+      user,
+      qId,
+      correctaId,
+      postbId,
+      transl,
+      whoWasAccepted,
+    ) =>
+      dispatch(
+        markAsAccepted(user, qId, correctaId, postbId, transl, whoWasAccepted),
+      ),
+
+    voteToDeleteDispatch: (qId, aId, cId, buttonid, whowasvoted) =>
+      dispatch(voteToDelete(qId, aId, cId, buttonid, whowasvoted)),
+
+    resetStoreDispatch: () => dispatch(resetStore()),
   };
 }
 

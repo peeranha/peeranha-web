@@ -4,6 +4,7 @@ describe('Question', () => {
   it('test', () => {
     const props = {
       questionData: {
+        userInfo: {},
         content: {
           title: 'Title',
         },

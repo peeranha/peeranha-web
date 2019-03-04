@@ -11,9 +11,11 @@ describe('Comments', () => {
       comments: [
         {
           id: 1,
+          userInfo: {},
         },
         {
           id: 2,
+          userInfo: {},
         },
       ],
     };
@@ -58,6 +60,7 @@ describe('Comments', () => {
     const props = {
       buttonParams: {},
       translations: {},
+      userInfo: {},
     };
 
     expect(CommentView(props)).toMatchSnapshot();
@@ -67,6 +70,7 @@ describe('Comments', () => {
     const props = {
       buttonParams: {},
       translations: {},
+      userInfo: {},
     };
 
     expect(CommentEdit(props)).toMatchSnapshot();

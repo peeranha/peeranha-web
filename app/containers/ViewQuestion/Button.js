@@ -8,6 +8,7 @@ const Button = ({ buttonId, buttonClick, buttonName, buttonParams, show }) =>
       data-questionid={buttonParams.questionId}
       data-answerid={buttonParams.answerId}
       data-commentid={buttonParams.commentId}
+      data-whowasvoted={buttonParams.whowasvoted}
       onClick={buttonClick}
     >
       {buttonName}

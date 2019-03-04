@@ -2,10 +2,12 @@ import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {
   getAnswersPostedByUser,
-  getQuestionData,
+  getQuestionById,
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { POST_TYPE_ANSWER } from 'containers/Profile/constants';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
@@ -32,7 +34,7 @@ export function* getQuestionsWorker({ userId }) {
 
     // async questionData getting
     const promise1 = answersId.map(x =>
-      getQuestionData(eosService, x.question_id, userId),
+      getQuestionById(eosService, x.question_id, userId),
     );
 
     const questions = yield all(promise1);
@@ -48,27 +50,31 @@ export function* getQuestionsWorker({ userId }) {
      */
 
     /* eslint no-param-reassign: 0 */
-    yield questions.forEach((x, index) => /* istanbul ignore next */ {
+    yield questions.map(function*(x, index) /* istanbul ignore next */ {
       x.postType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
 
       const mostRatingAnswer = window._.maxBy(x.answers, 'rating');
 
-      x.answers.forEach(y => {
+      yield x.answers.map(function*(y) {
         if (y.id === answersId[index].answer_id) {
           x.myPostTime = y.post_time;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
+
           x.isTheLargestRating =
             y.rating === mostRatingAnswer.rating &&
             y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
+
           x.myPostRating = y.rating;
           x.answerId = y.id;
+
+          const userInfo = yield call(() =>
+            getUserProfileWorker({ user: y.user }),
+          );
+          x.userInfo = userInfo;
         }
       });
     });
-
-    // id of answer === question.correct_answer_id => question is accepted ....... correct_answer_id > 0 - is accepted
-    // need to know that MY ANSWER is accepted
 
     yield put(getQuestionsSuccess(questions));
   } catch (err) {

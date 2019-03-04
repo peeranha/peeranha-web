@@ -5,14 +5,12 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import {
-  getQuestionData,
-  getAskedQuestion,
-  editQuestion,
-} from 'utils/questionsManagement';
+import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+
+import { getQuestionData } from 'containers/ViewQuestion/saga';
 
 import defaultSaga, {
   getAskedQuestionWorker,
@@ -32,6 +30,10 @@ jest.mock('createdHistory', () => ({
   push: jest.fn(),
 }));
 
+jest.mock('containers/ViewQuestion/saga', () => ({
+  getQuestionData: jest.fn(),
+}));
+
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
@@ -40,7 +42,6 @@ jest.mock('redux-saga/effects', () => ({
 }));
 
 jest.mock('utils/questionsManagement', () => ({
-  getQuestionData: jest.fn(),
   getAskedQuestion: jest.fn(),
   editQuestion: jest.fn(),
 }));

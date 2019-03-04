@@ -3,12 +3,12 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, all } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import {
-  getQuestionData,
   postComment,
+  getQuestionById,
   postAnswer,
   upVote,
   downVote,
@@ -22,24 +22,10 @@ import {
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-
-import { getProfileInfo } from 'utils/profileManagement';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
-
-import defaultSaga, {
-  getQuestionDataWorker,
-  postCommentWorker,
-  postAnswerWorker,
-  upVoteWorker,
-  downVoteWorker,
-  markAsAcceptedWorker,
-  deleteQuestionWorker,
-  deleteAnswerWorker,
-  deleteCommentWorker,
-  saveCommentWorker,
-  voteToDeleteWorker,
-} from '../saga';
 
 import {
   GET_QUESTION_DATA,
@@ -90,6 +76,8 @@ import {
   voteToDeleteValidator,
 } from '../validate';
 
+import * as sagaImports from '../saga';
+
 jest.mock('../validate', () => ({
   postAnswerValidator: jest.fn().mockImplementation(() => true),
   postCommentValidator: jest.fn().mockImplementation(() => true),
@@ -105,6 +93,7 @@ jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
+  all: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
@@ -113,7 +102,7 @@ jest.mock('createdHistory', () => ({
 }));
 
 jest.mock('utils/questionsManagement', () => ({
-  getQuestionData: jest.fn(),
+  getQuestionById: jest.fn(),
   postComment: jest.fn(),
   postAnswer: jest.fn(),
   upVote: jest.fn(),
@@ -130,6 +119,54 @@ jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
 
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
+}));
+
+jest.mock('utils/ipfs', () => ({
+  getText: jest.fn(),
+}));
+
+describe('getQuestionData', () => {
+  const eosService = {};
+  const questionId = 1;
+  const user = 'user';
+  const res = { eosService, questionId, user };
+
+  const question = {
+    answers: [{}],
+    comments: [{}],
+    community_id: 2,
+    correct_answer_id: 1,
+    history: [],
+    id: '68719476729',
+    ipfs_link: 'QmQnvSPNHehegUFohQ8kABdrGCFeADVTiwuD8SM23xmVjZ',
+    post_time: 1551430946,
+    properties: [],
+    rating: 0,
+    tags: [1, 2],
+    title: 'sdadsddsdadsddsdadsddsdadsddsdadsddsdadsdd',
+    user: 'user1',
+  };
+
+  const generator = sagaImports.getQuestionData(res);
+
+  it('getQuestionById', () => {
+    getQuestionById.mockImplementation(() => question);
+    const step = generator.next();
+    expect(step.value).toBe(question);
+  });
+
+  it('all promises', () => {
+    const isAll = true;
+
+    all.mockImplementation(() => isAll);
+    const step = generator.next(question);
+    expect(step.value).toBe(isAll);
+  });
+});
+
+/* eslint no-underscore-dangle: 0 */
 describe('saveCommentWorker', () => {
   const eos = {};
   const locale = 'en';
@@ -147,7 +184,7 @@ describe('saveCommentWorker', () => {
     comment,
   };
 
-  const generator = saveCommentWorker(res);
+  const generator = sagaImports.saveCommentWorker(res);
 
   it('step, eosService', () => {
     select.mockImplementation(() => eos);
@@ -168,8 +205,8 @@ describe('saveCommentWorker', () => {
   });
 
   it('step, getQuestionData', () => {
-    generator.next();
-    expect(getQuestionData).toHaveBeenCalledWith(eos, questionId, user);
+    const step = generator.next();
+    expect(!!step.value._invoke).toBe(true);
   });
 
   it('step, saveCommentSuccess', () => {
@@ -199,7 +236,7 @@ describe('deleteCommentWorker', () => {
     commentId,
   };
 
-  const generator = deleteCommentWorker(res);
+  const generator = sagaImports.deleteCommentWorker(res);
 
   it('step, eosService', () => {
     select.mockImplementation(() => eos);
@@ -219,8 +256,8 @@ describe('deleteCommentWorker', () => {
   });
 
   it('step, getQuestionData', () => {
-    generator.next();
-    expect(getQuestionData).toHaveBeenCalledWith(eos, questionId, user);
+    const step = generator.next();
+    expect(!!step.value._invoke).toBe(true);
   });
 
   it('step, deleteCommentSuccess', () => {
@@ -239,8 +276,8 @@ describe('deleteAnswerWorker', () => {
   const eos = {};
   const locale = 'en';
   const user = 'user';
-  const questionid = 11;
-  const answerid = 11;
+  const questionId = 11;
+  const answerId = 11;
   const postButtonId = 'postButtonId';
 
   const questionData = {
@@ -250,13 +287,13 @@ describe('deleteAnswerWorker', () => {
 
   const res = {
     user,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
     postButtonId,
   };
 
   describe('isValid is true', () => {
-    const generator = deleteAnswerWorker(res);
+    const generator = sagaImports.deleteAnswerWorker(res);
 
     it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
@@ -280,7 +317,7 @@ describe('deleteAnswerWorker', () => {
       generator.next(eos);
       expect(deleteAnswerValidator).toHaveBeenCalledWith(
         postButtonId,
-        answerid,
+        answerId,
         questionData.correct_answer_id,
         translationMessages[locale],
       );
@@ -291,15 +328,20 @@ describe('deleteAnswerWorker', () => {
       generator.next(isValid);
       expect(deleteAnswer).toHaveBeenCalledWith(
         user,
-        questionid,
-        answerid,
+        questionId,
+        answerId,
         eos,
       );
     });
 
+    it('step, removeUserProfile', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(user));
+    });
+
     it('step, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(eos, questionid, user);
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
     });
 
     it('step, deleteAnswerSuccess', () => {
@@ -315,7 +357,7 @@ describe('deleteAnswerWorker', () => {
   });
 
   describe('isValid is false', () => {
-    const generator = deleteAnswerWorker(res);
+    const generator = sagaImports.deleteAnswerWorker(res);
 
     generator.next();
     generator.next(questionData);
@@ -348,7 +390,7 @@ describe('deleteQuestionWorker', () => {
   };
 
   describe('isValid is true', () => {
-    const generator = deleteQuestionWorker(res);
+    const generator = sagaImports.deleteQuestionWorker(res);
 
     it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
@@ -401,7 +443,7 @@ describe('deleteQuestionWorker', () => {
   });
 
   describe('isValid is false', () => {
-    const generator = deleteQuestionWorker(res);
+    const generator = sagaImports.deleteQuestionWorker(res);
 
     generator.next();
     generator.next(questionData);
@@ -418,7 +460,7 @@ describe('deleteQuestionWorker', () => {
 
 describe('getQuestionDataWorker', () => {
   const res = { questionId: 1 };
-  const generator = getQuestionDataWorker(res);
+  const generator = sagaImports.getQuestionDataWorker(res);
   const account = 'user1';
   const eos = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
@@ -435,9 +477,9 @@ describe('getQuestionDataWorker', () => {
     expect(step.value).toBe(account);
   });
 
-  it('step3, getQuestionData', () => {
-    generator.next(account);
-    expect(getQuestionData).toHaveBeenCalledWith(eos, res.questionId, account);
+  it('step, getQuestionData', () => {
+    const step = generator.next();
+    expect(!!step.value._invoke).toBe(true);
   });
 
   it('step4, getQuestionDataSuccess', () => {
@@ -464,7 +506,7 @@ describe('postCommentWorker', () => {
   };
 
   describe('profileInfo true', () => {
-    const generator = postCommentWorker(res);
+    const generator = sagaImports.postCommentWorker(res);
 
     const profileInfo = {};
     const questionData = {};
@@ -472,25 +514,25 @@ describe('postCommentWorker', () => {
       getSelectedAccount: jest.fn().mockImplementation(() => res.user),
     };
 
-    it('step1-1, selectQuestionData', () => {
+    it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
       const step = generator.next();
       expect(step.value).toEqual(questionData);
     });
 
-    it('step1-2, eosService', () => {
+    it('step, eosService', () => {
       select.mockImplementation(() => eos);
       const step = generator.next(questionData);
       expect(step.value).toEqual(eos);
     });
 
-    it('step1-3, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+    it('step, profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
 
-    it('step1-4, validation', () => {
+    it('step, validation', () => {
       generator.next(profileInfo);
       expect(postCommentValidator).toHaveBeenCalledWith(
         profileInfo,
@@ -501,7 +543,7 @@ describe('postCommentWorker', () => {
       );
     });
 
-    it('step2, postComment', () => {
+    it('step, postComment', () => {
       generator.next(true);
       expect(postComment).toHaveBeenCalledWith(
         res.user,
@@ -512,21 +554,17 @@ describe('postCommentWorker', () => {
       );
     });
 
-    it('step3, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        res.user,
-      );
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
     });
 
-    it('step4-1, reset', () => {
+    it('step, reset', () => {
       generator.next();
       expect(res.reset).toHaveBeenCalled();
     });
 
-    it('step4-2, hideForm', () => {
+    it('step, hideForm', () => {
       const attr = jest.fn();
       window.$ = jest.fn(() => ({
         attr,
@@ -537,14 +575,14 @@ describe('postCommentWorker', () => {
       expect(attr).toHaveBeenCalledWith(`data-${contentOptionsAttr}`, false);
     });
 
-    it('step5, postCommentSuccess', () => {
+    it('step, postCommentSuccess', () => {
       const step = generator.next();
       expect(step.value.type).toBe(POST_COMMENT_SUCCESS);
     });
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = postCommentWorker(res);
+    const generator = sagaImports.postCommentWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -575,7 +613,7 @@ describe('postAnswerWorker', () => {
   };
 
   describe('profileInfo true', () => {
-    const generator = postAnswerWorker(res);
+    const generator = sagaImports.postAnswerWorker(res);
 
     const profileInfo = {};
     const questionData = {};
@@ -596,7 +634,7 @@ describe('postAnswerWorker', () => {
     });
 
     it('step1-3, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -621,13 +659,9 @@ describe('postAnswerWorker', () => {
       );
     });
 
-    it('step3, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        res.user,
-      );
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
     });
 
     it('step4, reset', () => {
@@ -642,7 +676,7 @@ describe('postAnswerWorker', () => {
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = postAnswerWorker(res);
+    const generator = sagaImports.postAnswerWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -665,6 +699,7 @@ describe('postAnswerWorker', () => {
 describe('upVoteWorker', () => {
   const res = {
     user: 'user1',
+    whoWasUpvoted: 'whoWasUpvoted',
     questionId: 1,
     answerId: 1,
     postButtonId: 'postButtonId',
@@ -672,7 +707,7 @@ describe('upVoteWorker', () => {
   };
 
   describe('profileInfo is true', () => {
-    const generator = upVoteWorker(res);
+    const generator = sagaImports.upVoteWorker(res);
 
     const profileInfo = {};
     const questionData = {};
@@ -680,25 +715,25 @@ describe('upVoteWorker', () => {
       getSelectedAccount: jest.fn().mockImplementation(() => res.user),
     };
 
-    it('step1-1, selectQuestionData', () => {
+    it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
       const step = generator.next();
       expect(step.value).toEqual(questionData);
     });
 
-    it('step1-2, eosService', () => {
+    it('step, eosService', () => {
       select.mockImplementation(() => eos);
       const step = generator.next(questionData);
       expect(step.value).toEqual(eos);
     });
 
-    it('step1-3, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+    it('step profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
 
-    it('step1-4, validation', () => {
+    it('step, validation', () => {
       generator.next(profileInfo);
       expect(upVoteValidator).toHaveBeenCalledWith(
         profileInfo,
@@ -709,7 +744,7 @@ describe('upVoteWorker', () => {
       );
     });
 
-    it('step2, upVote', () => {
+    it('step, upVote', () => {
       generator.next(true);
       expect(upVote).toHaveBeenCalledWith(
         res.user,
@@ -719,16 +754,22 @@ describe('upVoteWorker', () => {
       );
     });
 
-    it('step3, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        res.user,
-      );
+    it('step, removeUserProfile, user1', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.user));
     });
 
-    it('step4, UP_VOTE_SUCCESS', () => {
+    it('step, removeUserProfile, user1 - whoWasUpvoted', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.whoWasUpvoted));
+    });
+
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
+    });
+
+    it('step, UP_VOTE_SUCCESS', () => {
       const step = generator.next();
       expect(step.value.type).toBe(UP_VOTE_SUCCESS);
     });
@@ -741,7 +782,7 @@ describe('upVoteWorker', () => {
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = upVoteWorker(res);
+    const generator = sagaImports.upVoteWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -763,6 +804,7 @@ describe('upVoteWorker', () => {
 describe('downVoteWorker', () => {
   const res = {
     user: 'user1',
+    whoWasDownvoted: 'whoWasDownvoted',
     questionId: 1,
     answerId: 1,
     postButtonId: 'postButtonId',
@@ -770,7 +812,7 @@ describe('downVoteWorker', () => {
   };
 
   describe('profileInfo true', () => {
-    const generator = downVoteWorker(res);
+    const generator = sagaImports.downVoteWorker(res);
 
     const profileInfo = {};
     const questionData = {};
@@ -778,25 +820,25 @@ describe('downVoteWorker', () => {
       getSelectedAccount: jest.fn().mockImplementation(() => res.user),
     };
 
-    it('step1-1, selectQuestionData', () => {
+    it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
       const step = generator.next();
       expect(step.value).toEqual(questionData);
     });
 
-    it('step1-2, eosService', () => {
+    it('step, eosService', () => {
       select.mockImplementation(() => eos);
       const step = generator.next(questionData);
       expect(step.value).toEqual(eos);
     });
 
-    it('step1-3, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+    it('step, profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
 
-    it('step1-4, validation', () => {
+    it('step, validation', () => {
       generator.next(profileInfo);
       expect(downVoteValidator).toHaveBeenCalledWith(
         profileInfo,
@@ -807,7 +849,7 @@ describe('downVoteWorker', () => {
       );
     });
 
-    it('step2, downVote', () => {
+    it('step, downVote', () => {
       generator.next(true);
       expect(downVote).toHaveBeenCalledWith(
         res.user,
@@ -817,23 +859,29 @@ describe('downVoteWorker', () => {
       );
     });
 
-    it('step3, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        res.user,
-      );
+    it('step, removeUserProfile, user1', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.user));
     });
 
-    it('step4, DOWN_VOTE_SUCCESS', () => {
+    it('step, removeUserProfile, user1 - whoWasDownvoted', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.whoWasDownvoted));
+    });
+
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
+    });
+
+    it('step, DOWN_VOTE_SUCCESS', () => {
       const step = generator.next();
       expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
     });
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = downVoteWorker(res);
+    const generator = sagaImports.downVoteWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -856,6 +904,7 @@ describe('downVoteWorker', () => {
 describe('markAsAcceptedWorker', () => {
   const res = {
     user: 'user1',
+    whoWasAccepted: 'whoWasAccepted',
     questionId: 1,
     correctAnswerId: 1,
     postButtonId: 'postButtonId',
@@ -863,7 +912,7 @@ describe('markAsAcceptedWorker', () => {
   };
 
   describe('profileInfo true', () => {
-    const generator = markAsAcceptedWorker(res);
+    const generator = sagaImports.markAsAcceptedWorker(res);
 
     const profileInfo = {};
     const questionData = {};
@@ -871,25 +920,25 @@ describe('markAsAcceptedWorker', () => {
       getSelectedAccount: jest.fn().mockImplementation(() => res.user),
     };
 
-    it('step1-1, selectQuestionData', () => {
+    it('step, selectQuestionData', () => {
       select.mockImplementation(() => questionData);
       const step = generator.next();
       expect(step.value).toEqual(questionData);
     });
 
-    it('step1-2, eosService', () => {
+    it('step, eosService', () => {
       select.mockImplementation(() => eos);
       const step = generator.next(questionData);
       expect(step.value).toEqual(eos);
     });
 
-    it('step1-3, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+    it('step, profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
 
-    it('step1-4, validation', () => {
+    it('step, validation', () => {
       generator.next(profileInfo);
       expect(markAsAcceptedValidator).toHaveBeenCalledWith(
         profileInfo,
@@ -899,7 +948,7 @@ describe('markAsAcceptedWorker', () => {
       );
     });
 
-    it('step2, markAsAccepted', () => {
+    it('step, markAsAccepted', () => {
       generator.next(true);
       expect(markAsAccepted).toHaveBeenCalledWith(
         res.user,
@@ -909,23 +958,29 @@ describe('markAsAcceptedWorker', () => {
       );
     });
 
-    it('step3, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        res.user,
-      );
+    it('step, removeUserProfile, user1', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.user));
     });
 
-    it('step4, MARK_AS_ACCEPTED_SUCCESS', () => {
+    it('step, removeUserProfile, user1 - whoWasAccepted', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.whoWasAccepted));
+    });
+
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
+    });
+
+    it('step, MARK_AS_ACCEPTED_SUCCESS', () => {
       const step = generator.next();
       expect(step.value.type).toBe(MARK_AS_ACCEPTED_SUCCESS);
     });
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = markAsAcceptedWorker(res);
+    const generator = sagaImports.markAsAcceptedWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -951,6 +1006,7 @@ describe('voteToDeleteWorker', () => {
     answerId: 1,
     commentId: 1,
     postButtonId: 'id',
+    whoWasVoted: 'whoWasVoted',
   };
 
   const locale = 'en';
@@ -962,7 +1018,7 @@ describe('voteToDeleteWorker', () => {
   };
 
   describe('profileInfo true', () => {
-    const generator = voteToDeleteWorker(res);
+    const generator = sagaImports.voteToDeleteWorker(res);
 
     const profileInfo = {};
 
@@ -991,7 +1047,7 @@ describe('voteToDeleteWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -1022,13 +1078,14 @@ describe('voteToDeleteWorker', () => {
       );
     });
 
+    it('step, removeUserProfile, user1 - whoWasVoted', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(removeUserProfile(res.whoWasVoted));
+    });
+
     it('step, getQuestionData', () => {
-      generator.next();
-      expect(getQuestionData).toHaveBeenCalledWith(
-        eos,
-        res.questionId,
-        account,
-      );
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
     });
 
     it('step4, VOTE_TO_DELETE_SUCCESS', () => {
@@ -1038,7 +1095,7 @@ describe('voteToDeleteWorker', () => {
   });
 
   describe('profileInfo false => showLoginModal', () => {
-    const generator = voteToDeleteWorker(res);
+    const generator = sagaImports.voteToDeleteWorker(res);
     const profileInfo = null;
 
     generator.next();
@@ -1061,7 +1118,7 @@ describe('voteToDeleteWorker', () => {
 });
 
 describe('defaultSaga', () => {
-  const generator = defaultSaga();
+  const generator = sagaImports.default();
 
   it('GET_QUESTION_DATA', () => {
     const step = generator.next();

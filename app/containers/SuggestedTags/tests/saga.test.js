@@ -11,7 +11,7 @@ import {
   downVoteToCreateTag,
 } from 'utils/communityManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
@@ -53,8 +53,8 @@ jest.mock('../validate', () => ({
   downVoteValidator: jest.fn(),
 }));
 
-jest.mock('utils/profileManagement', () => ({
-  getProfileInfo: jest.fn(),
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 describe('getSuggestedTagsWorker', () => {
@@ -163,7 +163,7 @@ describe('downVoteWorker', () => {
     });
 
     it('profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -279,7 +279,7 @@ describe('upVoteWorker', () => {
     });
 
     it('profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });

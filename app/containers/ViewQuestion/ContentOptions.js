@@ -13,33 +13,42 @@ const setDataAttr = e => {
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-const ContentOptions = props => (
+const ContentOptions = ({
+  buttonParams,
+  translations,
+  isItWrittenByMe,
+  editItem,
+  type,
+  answerId,
+  deleteItem,
+  voteToDelete,
+}) => (
   <div className={contentOptionsClass}>
     <Button
       show
-      buttonParams={props.buttonParams}
-      buttonName={props.translations[messages.commentButton.id]}
+      buttonParams={buttonParams}
+      buttonName={translations[messages.commentButton.id]}
       buttonClick={setDataAttr}
     />
     <Button
-      show={props.isItWrittenByMe}
-      buttonParams={props.buttonParams}
-      buttonName={props.translations[messages.editButton.id]}
-      buttonClick={props.editItem}
+      show={isItWrittenByMe}
+      buttonParams={buttonParams}
+      buttonName={translations[messages.editButton.id]}
+      buttonClick={editItem}
     />
     <Button
-      show={props.isItWrittenByMe}
-      buttonId={`${props.type}_delete_${props.answerId}`}
-      buttonParams={props.buttonParams}
-      buttonName={props.translations[messages.deleteButton.id]}
-      buttonClick={props.deleteItem}
+      show={isItWrittenByMe}
+      buttonId={`${type}_delete_${answerId}`}
+      buttonParams={buttonParams}
+      buttonName={translations[messages.deleteButton.id]}
+      buttonClick={deleteItem}
     />
     <Button
       show
-      buttonId={`${props.type}_vote_to_delete_${props.answerId}`}
-      buttonParams={props.buttonParams}
-      buttonName={props.translations[messages.voteToDelete.id]}
-      buttonClick={props.voteToDelete}
+      buttonId={`${type}_vote_to_delete_${answerId}`}
+      buttonParams={buttonParams}
+      buttonName={translations[messages.voteToDelete.id]}
+      buttonClick={voteToDelete}
     />
   </div>
 );
