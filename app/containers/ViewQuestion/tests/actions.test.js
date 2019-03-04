@@ -215,19 +215,19 @@ describe('ViewQuestions actions', () => {
   describe('deleteAnswer Action', () => {
     it('DELETE_ANSWER', () => {
       const user = 'user';
-      const questionid = 11;
-      const answerid = 12;
+      const questionId = 11;
+      const answerId = 12;
       const postButtonId = 'postButtonId';
 
       const expected = {
         type: DELETE_ANSWER,
         user,
-        questionid,
-        answerid,
+        questionId,
+        answerId,
         postButtonId,
       };
 
-      expect(deleteAnswer(user, questionid, answerid, postButtonId)).toEqual(
+      expect(deleteAnswer(user, questionId, answerId, postButtonId)).toEqual(
         expected,
       );
     });

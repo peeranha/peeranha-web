@@ -19,7 +19,7 @@ export function getFollowedCommunities(allcommunities, followedcommunities) {
 }
 
 /* eslint-disable */
-export function getTagScope(communityId) {
+export function getTagScope(communityId) /* istanbul ignore next */ {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
   const mask = BigInt('0xF800000000000000');
   const mask64 = BigInt('0xFFFFFFFFFFFFFFFF');

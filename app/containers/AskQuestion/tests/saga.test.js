@@ -4,17 +4,20 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
+
 import {
   postQuestion,
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
-import { getProfileInfo } from 'utils/profileManagement';
+
 import createdHistory from 'createdHistory';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 import { ADD_TOAST } from 'containers/Toast/constants';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import defaultSaga, { postQuestionWorker } from '../saga';
+
 import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
@@ -39,8 +42,8 @@ jest.mock('utils/questionsManagement', () => ({
   getQuestionsPostedByUser: jest.fn().mockImplementation(() => true),
 }));
 
-jest.mock('utils/profileManagement', () => ({
-  getProfileInfo: jest.fn(),
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 jest.mock('createdHistory', () => ({
@@ -64,25 +67,25 @@ describe('postQuestionWorker', () => {
     const profileInfo = {};
     const locale = 'en';
 
-    it('step1, locale', () => {
+    it('step, locale', () => {
       select.mockImplementation(() => locale);
       const step = generator.next();
       expect(step.value).toEqual(locale);
     });
 
-    it('step1-1, eosService', () => {
+    it('step, eosService', () => {
       select.mockImplementation(() => eos);
       const step = generator.next(locale);
       expect(step.value).toEqual(eos);
     });
 
-    it('step1-2, profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+    it('step, profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
 
-    it('step1-3, validation', () => {
+    it('step, validation', () => {
       generator.next(profileInfo);
       expect(postQuestionValidator).toHaveBeenCalledWith(
         profileInfo,
@@ -91,7 +94,7 @@ describe('postQuestionWorker', () => {
       );
     });
 
-    it('step2, postQuestion', () => {
+    it('step, postQuestion', () => {
       postQuestion.mockImplementation(() => true);
 
       expect(postQuestion).toHaveBeenCalledTimes(0);
@@ -104,17 +107,17 @@ describe('postQuestionWorker', () => {
       expect(step.value.type).toBe(ADD_TOAST);
     });
 
-    it('step3, askQuestionSuccess', () => {
-      const step3 = generator.next();
-      expect(step3.value.type).toBe(ASK_QUESTION_SUCCESS);
+    it('step, askQuestionSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(ASK_QUESTION_SUCCESS);
     });
 
-    it('step4, getQuestionsPostedByUser', () => {
+    it('step, getQuestionsPostedByUser', () => {
       generator.next();
       expect(getQuestionsPostedByUser).toHaveBeenCalledWith(eos, props.user);
     });
 
-    it('step5, push to question page', () => {
+    it('step, push to question page', () => {
       const questionId = '102003';
       const questionsPostedByUser = [{ question_id: questionId }];
 
@@ -127,7 +130,7 @@ describe('postQuestionWorker', () => {
     const generator = postQuestionWorker(props);
     const profileInfo = null;
 
-    getProfileInfo.mockImplementation(() => profileInfo);
+    getUserProfileWorker.mockImplementation(() => profileInfo);
 
     generator.next();
     generator.next('en');
@@ -153,7 +156,7 @@ describe('postQuestionWorker', () => {
     const profileInfo = {};
     const isValid = false;
 
-    getProfileInfo.mockImplementation(() => profileInfo);
+    getUserProfileWorker.mockImplementation(() => profileInfo);
     postQuestionValidator.mockImplementation(() => isValid);
 
     generator.next();

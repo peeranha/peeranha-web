@@ -16,6 +16,7 @@ exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
       Object {
         "answerId": 1,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -23,17 +24,21 @@ exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 1,
       }
     }
+    userInfo={Object {}}
   />
 </div>
 `;

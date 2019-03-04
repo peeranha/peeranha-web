@@ -35,12 +35,12 @@ export function getAnswerErr(getAnswerError) {
   };
 }
 
-export function editAnswer(answer, questionid, answerid) {
+export function editAnswer(answer, questionId, answerId) {
   return {
     type: EDIT_ANSWER,
     answer,
-    questionid,
-    answerid,
+    questionId,
+    answerId,
   };
 }
 

@@ -5,7 +5,7 @@ import AnswersTitle from './AnswersTitle';
 import AnswersList from './AnswersList';
 import AcceptedAnswer from './AcceptedAnswer';
 
-const Answers = props => {
+const Answers = /* istanbul ignore next */ props => {
   const answersList = props.questionData.answers;
 
   if (!answersList.length) return null;

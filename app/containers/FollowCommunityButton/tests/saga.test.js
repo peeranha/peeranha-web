@@ -6,7 +6,7 @@
 import { select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-import { getProfileInfo } from 'utils/profileManagement';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_CURRENT_ACCOUNT_SUCCESS } from 'containers/AccountProvider/constants';
 
@@ -30,8 +30,8 @@ jest.mock('utils/communityManagement', () => ({
   unfollowCommunity: jest.fn(),
 }));
 
-jest.mock('utils/profileManagement', () => ({
-  getProfileInfo: jest.fn(),
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 describe('followHandlerWorker', () => {
@@ -72,7 +72,7 @@ describe('followHandlerWorker', () => {
     });
 
     it('getProfileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      getUserProfileWorker.mockImplementation(() => profileInfo);
       const step = generator.next();
       expect(step.value).toEqual(profileInfo);
     });

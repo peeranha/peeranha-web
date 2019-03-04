@@ -8,6 +8,9 @@ describe('ContentRating', () => {
     upVote: jest.fn(),
     downVote: jest.fn(),
     votingStatus: {},
+    userInfo: {
+      user: 'user123',
+    },
     questionData: {
       correct_answer_id: 0,
     },
@@ -21,13 +24,19 @@ describe('ContentRating', () => {
     const wrapper = shallow(<ContentRating {...props} />);
 
     wrapper.find('.chevron-up').simulate('click');
-    expect(props.upVote).toHaveBeenCalledWith(props.answerId);
+    expect(props.upVote).toHaveBeenCalledWith(
+      props.answerId,
+      props.userInfo.user,
+    );
   });
 
   it('chevron-down click', () => {
     const wrapper = shallow(<ContentRating {...props} />);
 
     wrapper.find('.chevron-down').simulate('click');
-    expect(props.downVote).toHaveBeenCalledWith(props.answerId);
+    expect(props.downVote).toHaveBeenCalledWith(
+      props.answerId,
+      props.userInfo.user,
+    );
   });
 });

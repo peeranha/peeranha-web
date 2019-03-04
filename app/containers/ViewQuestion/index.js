@@ -347,7 +347,7 @@ const mapStateToProps = createStructuredSelector({
   editCommentState: makeSelectViewQuestion.selectEditComment(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     toggleCommentVisionDispatch: editCommentState =>

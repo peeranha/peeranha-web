@@ -13,6 +13,7 @@ exports[`Question test 1`] = `
       Object {
         "answerId": 0,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -20,9 +21,11 @@ exports[`Question test 1`] = `
         "content": Object {
           "title": "Title",
         },
+        "userInfo": Object {},
       }
     }
     type="question"
+    userInfo={Object {}}
   />
 </div>
 `;

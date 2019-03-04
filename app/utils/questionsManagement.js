@@ -1,11 +1,4 @@
-import {
-  ITEM_UPV_FLAG,
-  ITEM_DNV_FLAG,
-  ITEM_VOTED_TO_DEL_FLAG,
-} from 'containers/ViewQuestion/constants';
-
 import { saveText, getText } from './ipfs';
-import { getProfileInfo } from './profileManagement';
 
 import {
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
@@ -31,7 +24,11 @@ import {
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
-  constructor(firstFetchCount = 5, communities, eosService) {
+  constructor(
+    firstFetchCount = 5,
+    communities,
+    eosService,
+  ) /* istanbul ignore next */ {
     this.eosService = eosService;
     this.firstFetchCount = firstFetchCount;
     this.communities = communities;
@@ -54,7 +51,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.hasMore = true;
   }
 
-  getNextItems = async fetchCount => {
+  getNextItems = /* istanbul ignore next */ async fetchCount => {
     if (!this.hasMore) return [];
 
     const inc = BigInt(1);
@@ -133,7 +130,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
     }
 
     return items;
-  }
+  };
 }
 /* eslint-enable  */
 
@@ -181,7 +178,7 @@ export async function getQuestions(eosService, limit, offset) {
   return questions;
 }
 
-/* eslint no-undef: 0 */
+/* eslint no-bitwise: 0 no-undef: 0 */
 export async function getQuestionsFilteredByCommunities(
   eosService,
   limit,
@@ -391,86 +388,6 @@ export async function getQuestionById(eosService, questionId) {
     ALL_QUESTIONS_SCOPE,
     questionId,
   );
-
-  return question;
-}
-
-export async function getQuestionData(eosService, questionId, user) {
-  let question = await getQuestionById(eosService, questionId);
-
-  /* eslint no-bitwise: 0 */
-  const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag && historyFlag.flag & (1 << constantFlag);
-
-  /*
-   * @ITEM_UPV_FLAG - number of bit from historyFlag value - zero bit
-   * got status with help of @getItemStatus function
-   * if value of this bit NOT 0 => status (isUpVoted) is true
-   * and so on
-   */
-
-  const votingStatus = history => {
-    const flag = history.filter(x => x.user === user)[0];
-
-    return {
-      isUpVoted: !!getItemStatus(flag, ITEM_UPV_FLAG),
-      isDownVoted: !!getItemStatus(flag, ITEM_DNV_FLAG),
-      isVotedToDelete: !!getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG),
-    };
-  };
-
-  // key: 3 - key to last edited date value
-  const getlastEditedDate = properties => {
-    const lastEditedDate = properties.filter(x => x.key === 3)[0];
-    return (lastEditedDate && lastEditedDate.value) || null;
-  };
-
-  const p1 = async () => {
-    question = {
-      ...question,
-      content: JSON.parse(await getText(question.ipfs_link)),
-      userInfo: await getProfileInfo(question.user, eosService),
-      isItWrittenByMe: user === question.user,
-      votingStatus: votingStatus(question.history),
-      lastEditedDate: getlastEditedDate(question.properties),
-    };
-  };
-
-  const p2 = async () => {
-    await Promise.all(
-      question.answers.map(async x => {
-        x.content = await getText(x.ipfs_link);
-        x.userInfo = await getProfileInfo(x.user, eosService);
-        x.isItWrittenByMe = user === x.user;
-        x.votingStatus = votingStatus(x.history);
-        x.lastEditedDate = getlastEditedDate(x.properties);
-
-        await Promise.all(
-          x.comments.map(async y => {
-            y.content = await getText(y.ipfs_link);
-            y.userInfo = await getProfileInfo(y.user, eosService);
-            y.isItWrittenByMe = user === y.user;
-            y.votingStatus = votingStatus(y.history);
-            y.lastEditedDate = getlastEditedDate(y.properties);
-          }),
-        );
-      }),
-    );
-  };
-
-  const p3 = async () => {
-    await Promise.all(
-      question.comments.map(async x => {
-        x.content = await getText(x.ipfs_link);
-        x.userInfo = await getProfileInfo(x.user, eosService);
-        x.isItWrittenByMe = user === x.user;
-        x.votingStatus = votingStatus(x.history);
-        x.lastEditedDate = getlastEditedDate(x.properties);
-      }),
-    );
-  };
-
-  await Promise.all([p1(), p2(), p3()]);
 
   return question;
 }

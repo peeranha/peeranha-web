@@ -10,6 +10,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
       Object {
         "answerId": 1,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -17,18 +18,22 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 0,
       }
     }
     type="answer"
+    userInfo={Object {}}
   />
   <Content
     answerId={2}
@@ -36,6 +41,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
       Object {
         "answerId": 2,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -43,18 +49,22 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 0,
       }
     }
     type="answer"
+    userInfo={Object {}}
   />
   <Content
     answerId={3}
@@ -62,6 +72,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
       Object {
         "answerId": 3,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -69,18 +80,22 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 0,
       }
     }
     type="answer"
+    userInfo={Object {}}
   />
 </div>
 `;
@@ -95,6 +110,7 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
       Object {
         "answerId": 2,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -102,18 +118,22 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 1,
       }
     }
     type="answer"
+    userInfo={Object {}}
   />
   <Content
     answerId={3}
@@ -121,6 +141,7 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
       Object {
         "answerId": 3,
         "questionId": undefined,
+        "whowasvoted": undefined,
       }
     }
     questionData={
@@ -128,18 +149,22 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "answers": Array [
           Object {
             "id": 1,
+            "userInfo": Object {},
           },
           Object {
             "id": 2,
+            "userInfo": Object {},
           },
           Object {
             "id": 3,
+            "userInfo": Object {},
           },
         ],
         "correct_answer_id": 1,
       }
     }
     type="answer"
+    userInfo={Object {}}
   />
 </div>
 `;

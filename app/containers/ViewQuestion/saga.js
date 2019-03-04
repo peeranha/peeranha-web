@@ -87,7 +87,11 @@ import {
 } from './validate';
 
 /* eslint no-param-reassign: 0 */
-export function* getQuestionData({ eosService, questionId, user }) {
+export function* getQuestionData({
+  eosService,
+  questionId,
+  user,
+}) /* istanbul ignore next */ {
   const question = yield call(() => getQuestionById(eosService, questionId));
 
   /* eslint no-bitwise: 0 */
@@ -236,9 +240,11 @@ export function* saveCommentWorker({
       editComment(user, questionId, answerId, commentId, comment, eosService),
     );
 
-    const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    const questionData = yield getQuestionData({
+      eosService,
+      questionId,
+      user,
+    });
 
     yield put(saveCommentSuccess(questionData));
   } catch (err) {
@@ -641,7 +647,7 @@ export function* voteToDeleteWorker({
       voteToDelete(user, questionId, answerId, commentId, eosService),
     );
 
-    // Delete 2 user profiles from DataCacheProvider - to update them after accepting action
+    // Delete user profile from DataCacheProvider - to update them after accepting action
     yield put(removeUserProfile(whoWasVoted));
 
     questionData = yield call(() =>

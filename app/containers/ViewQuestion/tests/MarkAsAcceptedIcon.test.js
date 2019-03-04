@@ -11,6 +11,7 @@ beforeEach(() => {
     answerId: 0,
     questionFrom: 'Bob',
     account: 'Bob',
+    whoWasAccepted: 'whoWasAccepted',
     markAsAccepted: jest.fn(),
   };
 });
@@ -72,6 +73,6 @@ describe('MarkAsAcceptedIcon', () => {
       .find('.check')
       .simulate('click');
 
-    expect(props.markAsAccepted).toHaveBeenCalledWith(0);
+    expect(props.markAsAccepted).toHaveBeenCalledWith(0, props.whoWasAccepted);
   });
 });

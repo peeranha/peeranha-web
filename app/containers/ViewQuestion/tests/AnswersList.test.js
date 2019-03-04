@@ -8,12 +8,15 @@ beforeEach(() => {
       answers: [
         {
           id: 1,
+          userInfo: {},
         },
         {
           id: 2,
+          userInfo: {},
         },
         {
           id: 3,
+          userInfo: {},
         },
       ],
       correct_answer_id: 1,
