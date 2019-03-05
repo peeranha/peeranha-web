@@ -19,16 +19,18 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AccountProvider extends React.Component {
-  componentDidMount = async () => this.props.getCurrentAccountDispatch();
+  componentDidMount() {
+    this.props.getCurrentAccountDispatch();
+  }
 
   render() {
-    return [React.Children.only(this.props.children)];
+    return [React.Children.toArray(this.props.children)];
   }
 }
 
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
-  children: PropTypes.element,
+  children: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({});

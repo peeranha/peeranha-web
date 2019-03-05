@@ -25,11 +25,8 @@ import 'sanitize.css/sanitize.css';
 import App from 'containers/App';
 
 // Import Providers
-import AccountProvider from 'containers/AccountProvider';
-import EosioProvider from 'containers/EosioProvider';
 import LanguageProvider from 'containers/LanguageProvider';
 import ErrorBoundary from 'containers/ErrorBoundary';
-import DataCacheProvider from 'containers/DataCacheProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -62,15 +59,9 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ErrorBoundary>
-          <EosioProvider>
-            <DataCacheProvider>
-              <AccountProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </AccountProvider>
-            </DataCacheProvider>
-          </EosioProvider>
+          <ConnectedRouter history={createdHistory}>
+            <App />
+          </ConnectedRouter>
         </ErrorBoundary>
       </LanguageProvider>
     </Provider>,

@@ -6,6 +6,10 @@ import $ from 'jquery';
 import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
 
+import AccountProvider from 'containers/AccountProvider';
+import EosioProvider from 'containers/EosioProvider';
+import DataCacheProvider from 'containers/DataCacheProvider';
+
 import { HEADER_HEIGHT } from 'containers/Header/constants';
 
 const Main = styled.div`
@@ -65,30 +69,37 @@ export class Box extends React.PureComponent {
     const { isMenuVisible, isNavigationExpanded } = this.state;
     const { Comp, props } = this.props;
 
-    return [
-      <Header
-        expandLeftMenuNavigation={this.expandLeftMenuNavigation}
-        isMenuVisible={isMenuVisible}
-        showMenu={this.showMenu}
-        key="header"
-      />,
-      <Main key="main">
-        <div className="container">
-          <div className="d-flex">
-            <LeftMenu
-              showMenu={this.showMenu}
-              isNavigationExpanded={isNavigationExpanded}
+    return (
+      <EosioProvider>
+        <DataCacheProvider>
+          <AccountProvider>
+            <Header
+              expandLeftMenuNavigation={this.expandLeftMenuNavigation}
               isMenuVisible={isMenuVisible}
-              {...props}
+              showMenu={this.showMenu}
+              key="header"
             />
 
-            <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
-              <Comp {...props} />
-            </WrapStyled>
-          </div>
-        </div>
-      </Main>,
-    ];
+            <Main key="main">
+              <div className="container">
+                <div className="d-flex">
+                  <LeftMenu
+                    showMenu={this.showMenu}
+                    isNavigationExpanded={isNavigationExpanded}
+                    isMenuVisible={isMenuVisible}
+                    {...props}
+                  />
+
+                  <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
+                    <Comp {...props} />
+                  </WrapStyled>
+                </div>
+              </div>
+            </Main>
+          </AccountProvider>
+        </DataCacheProvider>
+      </EosioProvider>
+    );
   }
 }
 
