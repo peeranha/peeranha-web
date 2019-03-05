@@ -44,6 +44,10 @@ const Box = Section.extend`
         }
       }
 
+      a {
+        text-decoration: none !important;
+      }
+
       button[aria-expanded='true'] .icon.icon-collapse {
         background: url(${minus}) no-repeat;
       }

@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { LANDING_FONT } from 'style-constants';
 
-import sergeyIlin from 'images/1.png';
-import kateBehey from 'images/2.png';
+import sergeyIlin from 'images/Team_Sergey.jpg';
+import steveKreynin from 'images/Team_Steve.png';
 import nikitaSyr from 'images/av1.jpg';
 import romRem from 'images/av2.jpg';
 import ulyanaPopova from 'images/av3.jpg';
 import arrowUp from 'images/ArrowUP.svg';
+import letterSmile from 'images/letter-smile.svg';
 
 import { FIRST_SCREEN, FIFTH_SCREEN, SEND_MESSAGE_FORM } from './constants';
 import messages from './messages';
@@ -23,9 +25,11 @@ const icon = 47;
 const Box = Section.extend`
   color: #282828;
 
-  form {
-    padding-left: 50px;
+  a {
+    text-decoration: none;
+  }
 
+  form {
     .floating-label-input-wrapper {
       margin-bottom: 20px;
     }
@@ -70,7 +74,7 @@ const Box = Section.extend`
     }
 
     .fifth-screen-header {
-      padding-bottom: 40px;
+      padding-bottom: 65px;
     }
 
     .fifth-screen-about {
@@ -81,10 +85,13 @@ const Box = Section.extend`
 
     .fifth-screen-content {
       .team-avatars {
+        border-bottom: 1px solid #d8d8d8;
+        margin-bottom: 60px;
+
         ul {
           .teammate-card {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             padding-bottom: 65px;
 
             img {
@@ -92,29 +99,56 @@ const Box = Section.extend`
               height: 150px;
               object-fit: cover;
               margin-bottom: 10px;
+              margin-right: 30px;
             }
 
             .name {
-              font-size: 16px;
+              font-size: 18px;
+              line-height: 20px;
+              font-weight: 700;
               color: rgba(40, 40, 40, 0.9);
               letter-spacing: -0.6px;
               font-family: ${LANDING_FONT};
-              padding: 15px 0 8px 0;
             }
 
             .role {
               font-family: ${LANDING_FONT};
               font-size: 14px;
+              line-height: 18px;
               color: rgba(55, 55, 55, 0.5);
               letter-spacing: -0.6px;
+              padding: 10px 0;
+            }
+
+            .description {
+              font-family: ${LANDING_FONT};
+              font-size: 16px;
+              line-height: 1.63;
+              letter-spacing: -0.6px;
+              text-align: left;
+              color: #282828;
             }
           }
         }
       }
     }
+
+    .info-appreciate {
+      padding: 30px 0px 30px 30px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      font-size: 17px;
+      letter-spacing: -0.7px;
+    }
   }
 
   @media only screen and (max-width: 992px) {
+    .fifth-screen-content .info-appreciate {
+      padding: 0px;
+      padding-bottom: 30px;
+    }
+
     form {
       padding: 0 !important;
 
@@ -125,13 +159,26 @@ const Box = Section.extend`
   }
 
   @media only screen and (max-width: 560px) {
-    .team-avatars {
-      img {
-        margin: 0 auto;
-      }
-
+    .fifth-screen .fifth-screen-content .team-avatars ul .teammate-card {
+      display: flex;
+      flex-direction: column;
       text-align: center;
+      align-items: center;
+      
+      img {
+        margin-right: 0;gi t
+      }
     }
+`;
+
+const LinkIn = styled.a`
+  color: #0b78b6;
+  text-decoration: none;
+  padding-left: 15px;
+  font-size: 20px;
+
+  :after {
+    content: 'in';
   }
 `;
 
@@ -148,63 +195,103 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
 
       <div className="container">
         <div className="row fifth-screen">
-          <p className="col-lg-6 fifth-screen-about">
-            <FormattedMessage {...messages.weAppreciate} />
-          </p>
-
           <div className="col-12 fifth-screen-content">
-            <div className="row justify-content-center">
-              <div className="col-12 col-lg-7 team-avatars">
-                <ul className="row">
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={sergeyIlin} alt="sergeyIlin" />
+            <div className="team-avatars">
+              <ul className="row">
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={sergeyIlin} alt="sergeyIlin" />
+                  <p className="d-flex flex-column">
                     <span className="name">
-                      {translations[messages.sergeyIlin.id]}
+                      <span>{translations[messages.sergeyIlin.id]}</span>
+                      <LinkIn
+                        href="https://www.linkedin.com/in/sergeyilinn/"
+                        target="_blank"
+                      />
                     </span>
                     <span className="role">
-                      {translations[messages.founder.id]}
+                      {translations[messages.sergeyIlinRole.id]}
                     </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={nikitaSyr} alt="nikitaSyr" />
+                    <span className="description">
+                      {translations[messages.sergeyIlinDescription.id]}
+                    </span>
+                  </p>
+                </li>
+
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={nikitaSyr} alt="nikitaSyr" />
+                  <p className="d-flex flex-column">
                     <span className="name">
                       {translations[messages.nikitaSyr.id]}
                     </span>
                     <span className="role">
-                      {translations[messages.backendDev.id]}
+                      {translations[messages.nikitaSyrRole.id]}
                     </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={romRem} alt="romRem" />
+                    <span className="description">
+                      {translations[messages.nikitaSyrDescription.id]}
+                    </span>
+                  </p>
+                </li>
+
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={romRem} alt="romRem" />
+                  <p className="d-flex flex-column">
                     <span className="name">
                       {translations[messages.romRem.id]}
                     </span>
                     <span className="role">
-                      {translations[messages.frontendDev.id]}
+                      {translations[messages.romRemRole.id]}
                     </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={ulyanaPopova} alt="ulyanaPopova" />
+                    <span className="description">
+                      {translations[messages.romRemDescription.id]}
+                    </span>
+                  </p>
+                </li>
+
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={ulyanaPopova} alt="ulyanaPopova" />
+                  <p className="d-flex flex-column">
                     <span className="name">
                       {translations[messages.ulyanaPopova.id]}
                     </span>
                     <span className="role">
-                      {translations[messages.designer.id]}
+                      {translations[messages.ulyanaPopovaRole.id]}
                     </span>
-                  </li>
-                  <li className="col-12 col-sm-4 teammate-card">
-                    <img src={kateBehey} alt="kateBehey" />
+                    <span className="description">
+                      {translations[messages.ulyanaPopovaDescription.id]}
+                    </span>
+                  </p>
+                </li>
+
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={steveKreynin} alt="steveKreynin" />
+                  <p className="d-flex flex-column">
                     <span className="name">
-                      {translations[messages.kateBehey.id]}
+                      <span>{translations[messages.steveKreynin.id]}</span>
+                      <LinkIn
+                        href="https://www.linkedin.com/in/stevekreynin/"
+                        target="_blank"
+                      />
                     </span>
                     <span className="role">
-                      {translations[messages.marketing.id]}
+                      {translations[messages.steveKreyninRole.id]}
                     </span>
-                  </li>
-                </ul>
+                    <span className="description">
+                      {translations[messages.steveKreyninDescription.id]}
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div className="row">
+              <div className="col-12 col-lg-5">
+                <p className="info-appreciate">
+                  <img className="mb-4" src={letterSmile} alt="letter" />
+                  <FormattedMessage {...messages.weAppreciate} />
+                </p>
               </div>
 
-              <div className="col-10 col-lg-5 send-message-form">
+              <div className="col-12 col-lg-5 offset-lg-1 send-message-form">
                 <SendMessageForm
                   form={SEND_MESSAGE_FORM}
                   translations={translations}

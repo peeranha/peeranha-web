@@ -223,46 +223,57 @@ export default defineMessages({
     id: 'app.containers.HomePage.weAppreciate',
     defaultMessage: `We highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.`,
   },
+
   sergeyIlin: {
     id: 'app.containers.HomePage.sergeyIlin',
-    defaultMessage: `Sergey Ilin`,
   },
-  founder: {
-    id: 'app.containers.HomePage.founder',
-    defaultMessage: `Founder`,
+  sergeyIlinDescription: {
+    id: 'app.containers.HomePage.sergeyIlinDescription',
   },
+  sergeyIlinRole: {
+    id: 'app.containers.HomePage.sergeyIlinRole',
+  },
+
   nikitaSyr: {
     id: 'app.containers.HomePage.nikitaSyr',
-    defaultMessage: `Nikita Syrovatnikov`,
   },
-  backendDev: {
-    id: 'app.containers.HomePage.backendDev',
-    defaultMessage: `Back-end developer`,
+  nikitaSyrRole: {
+    id: 'app.containers.HomePage.nikitaSyrRole',
   },
+  nikitaSyrDescription: {
+    id: 'app.containers.HomePage.nikitaSyrDescription',
+  },
+
   romRem: {
     id: 'app.containers.HomePage.romRem',
-    defaultMessage: `Roman Remniov`,
   },
-  frontendDev: {
-    id: 'app.containers.HomePage.frontendDev',
-    defaultMessage: `Front-end developer`,
+  romRemRole: {
+    id: 'app.containers.HomePage.romRemRole',
   },
+  romRemDescription: {
+    id: 'app.containers.HomePage.romRemDescription',
+  },
+
   ulyanaPopova: {
     id: 'app.containers.HomePage.ulyanaPopova',
-    defaultMessage: `Ulyana Popova`,
   },
-  designer: {
-    id: 'app.containers.HomePage.designer',
-    defaultMessage: `Designer`,
+  ulyanaPopovaRole: {
+    id: 'app.containers.HomePage.ulyanaPopovaRole',
   },
-  kateBehey: {
-    id: 'app.containers.HomePage.kateBehey',
-    defaultMessage: `Kate Behey`,
+  ulyanaPopovaDescription: {
+    id: 'app.containers.HomePage.ulyanaPopovaDescription',
   },
-  marketing: {
-    id: 'app.containers.HomePage.marketing',
-    defaultMessage: `Marketing`,
+
+  steveKreynin: {
+    id: 'app.containers.HomePage.steveKreynin',
   },
+  steveKreyninRole: {
+    id: 'app.containers.HomePage.steveKreyninRole',
+  },
+  steveKreyninDescription: {
+    id: 'app.containers.HomePage.steveKreyninDescription',
+  },
+
   yourName: {
     id: 'app.containers.HomePage.yourName',
     defaultMessage: `Your name`,

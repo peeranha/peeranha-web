@@ -170,16 +170,33 @@
   "app.containers.HomePage.ourTeam": "Our team",
   "app.containers.HomePage.weAppreciate":
     "We highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
+
   "app.containers.HomePage.sergeyIlin": "Sergey Ilin",
-  "app.containers.HomePage.founder": "Founder",
+  "app.containers.HomePage.sergeyIlinRole": "Co-founder, CTO",
+  "app.containers.HomePage.sergeyIlinDescription":
+    "Developer and architect with over decade of experience building software from websites to large scale enterprise solutions for Fortune 500 companies. Passionate about finding groundbreaking practical applications of Blockchain technology.",
+
   "app.containers.HomePage.nikitaSyr": "Nikita Syrovatnikov",
-  "app.containers.HomePage.backendDev": "Back-end developer",
+  "app.containers.HomePage.nikitaSyrRole":
+    "Back-end and Smart-contract Developer",
+  "app.containers.HomePage.nikitaSyrDescription":
+    "Blockchain app technician, interesting in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+
   "app.containers.HomePage.romRem": "Roman Remniov",
-  "app.containers.HomePage.frontendDev": "Front-end developer",
+  "app.containers.HomePage.romRemRole": "Front-end developer",
+  "app.containers.HomePage.romRemDescription":
+    "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
+
   "app.containers.HomePage.ulyanaPopova": "Ulyana Popova",
-  "app.containers.HomePage.designer": "Designer",
-  "app.containers.HomePage.kateBehey": "Kate Behey",
-  "app.containers.HomePage.marketing": "Marketing",
+  "app.containers.HomePage.ulyanaPopovaRole": "UX and UI Designer",
+  "app.containers.HomePage.ulyanaPopovaDescription":
+    "Ready to produce wire-frames, mock-ups, and prototypes which implement the modernization of systems with an effective, efficient, aesthetic, and uncluttered user experience. Able to use humour and energy to keep the momentum going.",
+
+  "app.containers.HomePage.steveKreynin": "Steve Kreynin",
+  "app.containers.HomePage.steveKreyninRole": "Co-founder, President",
+  "app.containers.HomePage.steveKreyninDescription":
+    "Successful serial entrepreneur. CEO of Forte Group, an international IT Consulting Company.",
+
   "app.containers.HomePage.yourName": "Your name",
   "app.containers.HomePage.email": "Email",
   "app.containers.HomePage.subject": "Subject",
