@@ -84,16 +84,21 @@ export class ChangeLocale extends React.PureComponent {
     languages: [],
   };
 
-  /* eslint react/no-did-mount-set-state: 0 */
+  /* eslint react/no-did-mount-set-state: 0 prefer-destructuring: 0  */
   componentDidMount() {
     const languages = Object.keys(translationMessages);
-    const locale = localStorage.getItem('locale');
+    let locale = localStorage.getItem('locale');
 
-    this.setState({ languages });
+    // if (!locale) - find the first suitable language in window.navigator.languages
+    if (!locale) {
+      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
+    }
 
     if (locale) {
       this.props.changeLocaleDispatch(locale);
     }
+
+    this.setState({ languages });
   }
 
   changeLocale = e => {
@@ -103,6 +108,7 @@ export class ChangeLocale extends React.PureComponent {
     this.props.changeLocaleDispatch(locale);
   };
 
+  /* eslint global-require: 0 */
   mapLanguages = langs =>
     langs.map(item => (
       <li
