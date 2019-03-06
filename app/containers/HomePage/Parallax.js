@@ -1,7 +1,6 @@
 import bg from 'images/BG_main.jpg';
-import animatedBG1 from 'images/Paralax_01.svg';
-import animatedBG2 from 'images/Paralax_02.svg';
-import animatedBG3 from 'images/Paralax_03.svg';
+import animatedBG1 from 'images/QA_01-01.svg';
+import animatedBG2 from 'images/QA_02-01.png';
 
 import Section from './Section';
 
@@ -51,14 +50,6 @@ const Parallax = Section.extend`
       opacity: 0.5;
       animation: Floating 8s infinite;
       animation-delay: 1s;
-    }
-
-    & .pattern-3 .inner {
-      background: url(${animatedBG3});
-      background-size: 70%;
-      opacity: 0.7;
-      animation: Floating 8s infinite;
-      animation-delay: 2s;
     }
   }
 

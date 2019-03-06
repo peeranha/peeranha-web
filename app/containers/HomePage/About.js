@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import { LANDING_FONT } from 'style-constants';
 
-import practicalAnswers from 'images/Ico_01.svg';
-import fairEconomy from 'images/Ico_02.svg';
-import builtOnSmart from 'images/Ico_03.svg';
+import rewardingImg from 'images/rewarding.png';
+import ownershipImg from 'images/ownership.png';
+import valuingImg from 'images/valuing.png';
 
 import simpleAndAffordable from 'images/1.png';
 import helpfulAndGenerous from 'images/2.png';
@@ -193,14 +193,14 @@ const About = () => (
               <li className="col-lg-4">
                 <div className="card row">
                   <div className="col-lg-12">
-                    <img src={practicalAnswers} alt="practicalAnswers" />
+                    <img src={rewardingImg} alt="rewardingImg" />
                   </div>
                   <div className="card-body">
                     <h4 className="item-title">
-                      <FormattedMessage {...messages.practicalAnswers} />
+                      <FormattedMessage {...messages.rewardingUser} />
                     </h4>
                     <p className="item-content">
-                      <FormattedMessage {...messages.sitesAreModerated} />
+                      <FormattedMessage {...messages.peopleSaveHours} />
                     </p>
                   </div>
                 </div>
@@ -208,14 +208,14 @@ const About = () => (
               <li className="col-lg-4">
                 <div className="card row">
                   <div className="col-lg-12">
-                    <img src={fairEconomy} alt="fairEconomy" />
+                    <img src={ownershipImg} alt="ownershipImg" />
                   </div>
                   <div className="card-body">
                     <h4 className="item-title">
-                      <FormattedMessage {...messages.fairEconomy} />
+                      <FormattedMessage {...messages.ownershipByUsers} />
                     </h4>
                     <p className="item-content">
-                      <FormattedMessage {...messages.postsOnQA} />
+                      <FormattedMessage {...messages.peeraniaDecentralized} />
                     </p>
                   </div>
                 </div>
@@ -223,14 +223,14 @@ const About = () => (
               <li className="col-lg-4">
                 <div className="card row">
                   <div>
-                    <img src={builtOnSmart} alt="builtOnSmart" />
+                    <img src={valuingImg} alt="valuingImg" />
                   </div>
                   <div className="card-body">
                     <h4 className="item-title">
-                      <FormattedMessage {...messages.builtOnSmart} />
+                      <FormattedMessage {...messages.earlyAdopters} />
                     </h4>
                     <p className="item-content">
-                      <FormattedMessage {...messages.platformIsDistributed} />
+                      <FormattedMessage {...messages.peeraniaPhilosophy} />
                     </p>
                   </div>
                 </div>

@@ -95,99 +95,143 @@
   "app.containers.HomePage.team": "Команда",
   "app.containers.HomePage.login": "Вход",
   "app.containers.HomePage.signUpFree": "Регистрация",
-  "app.containers.HomePage.knowledgeSharingEconomy":
-    "Экономика обмена знаниями",
+  "app.containers.HomePage.yourContributionsRewarded":
+    "Ваша помощь будет вознаграждена",
   "app.containers.HomePage.weAreDecentralized":
-    "Мы - децентрализованная платформа вопросов и ответов для профессиональных сообществ с экономикой, которая платит вкладчикам в криптовалюте",
+    "Peerania - децентрализованный веб-сайт вопросов и ответов в котором пользователи вознаграждаются за активность крипто-токенами",
   "app.containers.HomePage.getStarted": "Начинай",
   "app.containers.HomePage.yourEmail": "Ваш email адрес",
   "app.containers.HomePage.differentThan":
-    "Мы отличаемся от других Вопрос - Ответ сайтов",
-  "app.containers.HomePage.practicalAnswers": "Практические вопросы и ответы",
-  "app.containers.HomePage.sitesAreModerated":
-    "Сайты модерируются сообществом. Разрешены только подробные вопросы и ответы на очень практические вопросы",
-  "app.containers.HomePage.fairEconomy":
-    "Справедливая экономика, в которой пользователям платят",
-  "app.containers.HomePage.postsOnQA":
-    "Посты на Q&A сайтах сохраняют миллионам людей много часов работы. Мы считаем, что пользователи должны получать награду за полезный вклад в сообщество",
-  "app.containers.HomePage.builtOnSmart":
-    "Построено на Смарт контрактах и Блокчейне",
-  "app.containers.HomePage.platformIsDistributed":
-    "Платформа является распределенной, построена на блокчейне и IPFS технологиях. Правила платформы и ее экономика построены на смарт контрактах.",
+    "Peerania - это больше чем веб-сайт вопросов и ответов. Мы сообщество профессионалов где:",
+
+  "app.containers.HomePage.rewardingUser":
+    "Пользователи вознаграждаются крипто-токенами",
+  "app.containers.HomePage.peopleSaveHours":
+    "Миллионы людей экономят часы работы ежедневно благодаря опыту других на веб-сайтах вопросов и ответов. Peerania вознаграждает пользователей за полезную активность крипто-токенами PEER.",
+
+  "app.containers.HomePage.ownershipByUsers":
+    "Пользователи во главе сообщества",
+  "app.containers.HomePage.peeraniaDecentralized":
+    "Peerania открыт для всех и децентрализован. Вебсайт модерируется сообществом и принадлежит сообществу, а не разработчикам.",
+
+  "app.containers.HomePage.earlyAdopters": "Первые пользователи поощряются",
+  "app.containers.HomePage.peeraniaPhilosophy":
+    "Философия Peerania заключается в щедром поощрении первых пользователей за их время и усилия потраченные на развитие сообщества. По мере роста платформы вознаграждения будут выравниваться и распределяться среди большего числа членов сообщества.",
+
   "app.containers.HomePage.simpleAndAffordable": "Простой и доступный",
-  "app.containers.HomePage.getHelp": "Получай помощь и помогай другим",
+  "app.containers.HomePage.getHelp": "Получайте помощь от сообщества",
   "app.containers.HomePage.askQuestionAndGetHelp":
-    "Задавайте вопросы и получайте помощь от экспертов сообщества, увлеченных этой темой. И помогите тысячам других людей получить ответ на вопрос в считанные минуты вместо часов, благодаря вашему сообщению.",
+    "Peerania - это сообщество увлеченных специалистов из разных областей жизни. Пользователи получают ответы на свои вопросы и взаимно могут помочь другим. Ответы на многие вопросы доступны на сайте и могут быть найдены в считаные минуты.",
+
   "app.containers.HomePage.helpfulAndGenerous": "Полезный и щедрый",
-  "app.containers.HomePage.shareKnowledge": "Делитесь знаниями",
+  "app.containers.HomePage.shareKnowledge": "Делитесь своими знаниями",
   "app.containers.HomePage.helpCommunity":
-    "Помогите сообществу, отвечая на вопросы. Ваш ответ останется для многих других, которым тоже нужен ответ.",
+    "Специалисты помогают сообществу отвечая на вопросы других участников.  Ответы помогают не только пользователю который задал вопрос, но и тысячам других, которые будут искать ответ на тот же вопрос. После того, как на вопрос дан ответ, он будет доступен нынешним и будущим пользователям.",
+
   "app.containers.HomePage.profitableAndModern": "Доходный и современный",
-  "app.containers.HomePage.getPaidInCrypto": "Получайте крипто токены.",
+  "app.containers.HomePage.getPaidInCrypto":
+    "Получайте вознаграждения крипто-токенами",
   "app.containers.HomePage.getPaidInCryptoFromWeekly":
-    "Получайте оплату в крипто валюте из недельного фонда вознаграждения за свои вклады, задавая и отвечая на вопрос. Токен можно продавать на открытом рынке пользователям, которые хотят рекламировать или размещать вакансии на платформе. Вы по-прежнему оплачиваете свои взносы, пока ваш контент полезен и поддерживается сообществом.",
+    "Еженедельный резерв вознаграждений из токенов распределяется среди пользователей за их полезную активность. Полученные токены могут быть проданы на открытом рынке любому, кто хочет заплатить за контент, который будет размещен на платформе, например рекламу или вакансии. Пользователи всегда будут вознаграждены за их ценный вклад в сообщество.",
+
   "app.containers.HomePage.worthyAndPrestig": "Достойный и престижный",
   "app.containers.HomePage.earnReputation": "Зарабатывайте репутацию",
   "app.containers.HomePage.whetherYouAsk":
-    "Независимо от того, задаете ли вы или отвечаете на вопросы, все вклады учитываются. Зарабатывайте репутацию и заработайте признание в сообществе. Разблокируйте новые привилегии по мере роста вашей репутации.",
+    "По мере активного пользования веб-сайтом, пользователи также улучшают свою репутацию. Участники, которые задают вопросы и отвечают на вопросы других - это основная ценность сообщества. По мере повышения репутации пользователи открывают новые привилегии, так как их положение в сообществе возрастает!",
+
   "app.containers.HomePage.honorableAndFascinating": "Почетный и увлекательный",
-  "app.containers.HomePage.ruleThePlatform": "Управляйте платформой",
+  "app.containers.HomePage.ruleThePlatform": "Будьте во главе",
   "app.containers.HomePage.participateInModeration":
-    "Участвуйте в модерации сообщества и помогайте сообществу процветать. Успех сообщества напрямую влияет на стоимость токена на рынке. Предлагайте, голосуйте за или даже создавайте обновления для платформы. Платформа с открытым исходным кодом и децентрализована. Владеет вами и вашим сообществом.",
+    "Управление сообществом находится в руках его участников. Пользователи заинтересованы в процветании сообщества. Чем успешнее веб-сайт, тем выше стоимость PEER токена, который используется для вознаграждений. Благодаря встроенной в Peerania системе управления, веб-сайт модерируется лишь самими пользователями. Будучи децентрализованным проектом с открытым исходным кодом, будущее Peerania определяется ее пользователем. Ваш голос имеет значение!",
+
   "app.containers.HomePage.beTheFirst":
-    "Стань первым, кто присоединится к нам и заработай в 100 раз больше наград",
+    "Чем раньше вы присоединитесь, тем больше вознаграждений вы получите",
   "app.containers.HomePage.rewardsPool":
-    "Плата вознаграждений распределяется еженедельно между всеми вкладчиками за данную неделю. Члены, которые рано присоединяются, получают более высокие награды, в то время как сообщество растет.",
-  "app.containers.HomePage.getReward": "Получи награду",
+    "Вознаграждения распределяются среди участников еженедельно. По мере того, как число еженедельных участников увеличивается, количество вознаграждений на каждого пользователя уменьшается. Присоединитесь первым и получите максимальное вознаграждение за свой новаторский вклад в молодое и перспективное сообщество.",
+
+  "app.containers.HomePage.getReward": "Подписаться",
+
   "app.containers.HomePage.whatIsPeerania": "Что такое Peerania?",
-  "app.containers.HomePage.whatIsPeeraniaCollapsed": "Что такое Peerania?",
-  "app.containers.HomePage.howToCreateAcc": "Как я могу создать аккаунт?",
-  "app.containers.HomePage.howToCreateAccCollapsed":
-    "Как я могу создать аккаунт?",
-  "app.containers.HomePage.howToUpvote":
-    "Как я могу голосовать за вопрос или ответ?",
-  "app.containers.HomePage.howToUpvoteCollapsed":
-    "Как я могу голосовать за вопрос или ответ?",
-  "app.containers.HomePage.whatToPost":
-    "Что могут постить пользователи Peerania?",
-  "app.containers.HomePage.whatToPostCollapsed":
-    "Что могут постить пользователи Peerania?",
-  "app.containers.HomePage.canIEarn":
-    "Могу ли я заработать крипто токены за комментирование?",
-  "app.containers.HomePage.canIEarnCollapsed":
-    "Могу ли я заработать крипто токены за комментирование?",
-  "app.containers.HomePage.whatIsReputation": "Что такое репутация?",
-  "app.containers.HomePage.whatIsReputationCollapsed": "Что такое репутация?",
+  "app.containers.HomePage.whatIsPeeraniaCollapsed":
+    "Peerania - это децентрализованный сайт вопросов и ответов, который награждает пользователей за полезную активность крипто-токенами. Peerania создана на блокчейне и принадлежит сообществу, а не разработчикам.",
+
+  "app.containers.HomePage.differentFromOtherSites":
+    "В чем отличие Peerania от других веб-сайтов вопросов и ответов?",
+  "app.containers.HomePage.differentFromOtherSitesCollapsed":
+    "В отличие от других веб-сайтов с вопросами и ответами, где разработчики владеют веб-сайтом и всеми данными, полученными от пользователей, Peerania принадлежит сообществу. Вознаграждения распределяются среди членов сообщества за их вклад и внимание, которое они уделяют веб-сайту.",
+
+  "app.containers.HomePage.howItWorks": "Как это работает?",
+  "app.containers.HomePage.howItWorksCollapsed":
+    "Peerania разработан с помощью умных контрактов на блокчейне EOS. Большой по размеру контент хранится в распределенном хранилище (IPFS), и только отпечаток документов размещаются в блокчейне для экономии дорогостоящей памяти блокчейна. Репутация, привилегии, модерация, вознаграждения и все другие правила встроены в умные контракты и видны всем.",
+
+  "app.containers.HomePage.whatBlockchain":
+    "На каком блокчене построен Peerania?",
+  "app.containers.HomePage.whatBlockchainCollapsed":
+    "Peerania построен на блокчейне EOS. EOS предоставляет быстрое подтверждения транзакций и не требует, чтобы пользователи платили комиссию за транзакции.",
+
+  "app.containers.HomePage.whatIsCryptocurrency":
+    "Какая криптовалюта используется на Peerania?",
+  "app.containers.HomePage.whatIsCryptocurrencyCollapsed":
+    "Peerania использует свою собственную криптовалюту (или другими словами крипто-токен) который называется PEER.",
+
+  "app.containers.HomePage.howEarn":
+    "Как я могу заработать крипто-токены на Peerania?",
+  "app.containers.HomePage.howEarnCollapsed":
+    "Все действия на веб-сайте, которые считаются ценными для сообщества, вознаграждаются крипто-токенами. Действия, которые вознаграждаются токенами, включают в себя размещение подробного вопроса, предоставление полезного ответа и участие в модерации.",
+
+  "app.containers.HomePage.tokensReward":
+    "Откуда берутся токены для вознаграждений?",
+  "app.containers.HomePage.tokensRewardCollapsed":
+    "Peerania еженедельно выпускает новые токены до тех пор пока не будет достигнут максимальный запас. Для валюты это процесс известен как инфляция. Каждую неделю вновь созданные токены помещаются в резерв вознаграждений. Этот еженедельный резерв вознаграждений распределяется пропорционально полезным активностям пользователей в сообщество в течение недели. По мере роста веб-сайта и сообщества токены начнут поступать в резерв вознаграждений из дополнительных источников. Такими источниками могут быть плата за рекламу и объявления о вакансиях опубликованные на веб-сайте, пожертвования или другие способы, которыми сообщество решит монетизировать веб-сайт. Количество новых выпущенных токенов уменьшается с каждым годом и в конечном итоге уменьшается до нуля. К тому моменту еженедельный резерв вознаграждений будет состоять исключительно из источников монетизации веб-сайта.",
+
+  "app.containers.HomePage.valueOfToken": "Чем обеспечивается ценность токена?",
+  "app.containers.HomePage.valueOfTokenCollapsed":
+    "Поскольку Peerania разработана на блокчейне, PEER токены cмогут быть проданы на открытом рынке. Кроме того, Peerania включает в себя игровые элементы, и пользователи открывают дополнительные возможности с помощью токенов. Наконец, токен будет использоваться в качестве премий за ответ на вопрос если пользователь желает простимулировать отвечающих. Также публикации вакансий и рекламы на веб-сайте или любые других платные услуг на веб-сайте буду оплачиваться PEER токенами.",
+
+  "app.containers.HomePage.whitePaper":
+    "У вас есть подробная спецификация проекта?",
+  "app.containers.HomePage.whitePaperCollapsed":
+    "Нет, мы гибкая команда. У нас есть общее видение, но детали спецификации часто меняются в процессе разработки. Мы создадим подробную документацию, когда бета-версия продукта будет готова для пользователей.",
+
+  "app.containers.HomePage.websiteLive":
+    "На какой стадии разработки находится веб-сайт?",
+  "app.containers.HomePage.websiteLiveCollapsed":
+    "Сайт находится в активной разработке с июня 2018 года. Бета-версия планируется на конец второго квартала 2019 года.",
+
+  "app.containers.HomePage.learnMore": "Где я могу получить больше информации?",
+  "app.containers.HomePage.learnMoreCollapsed":
+    "Лучший способ больше информации о проекте это присоединиться к нашему твиттеру, прочитать наш блог или отправить нам письмо на support@peerania.com.",
+
   "app.containers.HomePage.getMoreAnswers": "Получи больше ответов",
   "app.containers.HomePage.ourTeam": "Наша команда",
   "app.containers.HomePage.weAppreciate":
     "Мы высоко оцениваем ваши отзывы, мнение и предложения по отношению к платформе. Отправьте нам несколько строк или дайте знать, если у вас есть 15 минут, чтобы пообщаться",
 
   "app.containers.HomePage.sergeyIlin": "Сергей Ильин",
-  "app.containers.HomePage.sergeyIlinRole": "Co-founder, CTO",
+  "app.containers.HomePage.sergeyIlinRole": "Сооснователь, CTO",
   "app.containers.HomePage.sergeyIlinDescription":
-    "Developer and architect with over decade of experience building software from websites to large scale enterprise solutions for Fortune 500 companies. Passionate about finding groundbreaking practical applications of Blockchain technology.",
+    "Программист и архитектор с опытом разработки от веб-сайтов до крупномасштабных информационных систем для компаний из списка Fortune 500. Увлечен идеей найти новаторские практические применения для технологии блокчейн.",
 
   "app.containers.HomePage.nikitaSyr": "Никита Сыроватников",
   "app.containers.HomePage.nikitaSyrRole":
-    "Back-end and Smart-contract Developer",
+    "Бэк-энд разработчик и разработчик умных контрактов",
   "app.containers.HomePage.nikitaSyrDescription":
-    "Blockchain app technician, interesting in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+    "Специалист по технологии блокчейн, увлеченный поиском решений для разнообразных проблем и изучением новых технологий. Уверен что любая проблема может быть решена при правильном подходе.",
 
   "app.containers.HomePage.romRem": "Роман Ремнёв",
-  "app.containers.HomePage.romRemRole": "Front-end разработчик",
+  "app.containers.HomePage.romRemRole": "Фронт-энд разработчик",
   "app.containers.HomePage.romRemDescription":
-    "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
+    "Фронт-энд разработчик из Минска, в настоящее время сосредоточен на проблемах управления данными и удобства для пользователя в децентрализованных приложениях",
 
   "app.containers.HomePage.ulyanaPopova": "Ульяна Попова",
-  "app.containers.HomePage.ulyanaPopovaRole": "UX and UI Designer",
+  "app.containers.HomePage.ulyanaPopovaRole": "UX и UI дизайнер",
   "app.containers.HomePage.ulyanaPopovaDescription":
-    "Ready to produce wire-frames, mock-ups, and prototypes which implement the modernization of systems with an effective, efficient, aesthetic, and uncluttered user experience. Able to use humour and energy to keep the momentum going.",
+    "Готова создавать варфреймы, мокапы и прототипы с эффективным, эстетичным и беспрепятственным UX-ом, чтобы модернизировать целые системы. Могу энергично шутить, чтобы поддержать рабочий процесс.",
 
   "app.containers.HomePage.steveKreynin": "Стив Крейнин",
-  "app.containers.HomePage.steveKreyninRole": "Co-founder, President",
+  "app.containers.HomePage.steveKreyninRole": "Сооснователь, Президент",
   "app.containers.HomePage.steveKreyninDescription":
-    "Successful serial entrepreneur. CEO of Forte Group, an international IT Consulting Company.",
+    "Многократно успешный предприниматель. CEO международной IT консалтинговой компании Forte Group.",
 
   "app.containers.HomePage.yourName": "Ваше имя",
   "app.containers.HomePage.email": "Емэйл",
@@ -195,7 +239,7 @@
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.sendMessage": "Отправьте сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
-    "Платформа находится в разработке, но Вы можете стать одним из первых и заработать до 100 раз больше.",
+    "В настоящее время веб-сайт находится в разработке. Подпишитесь на оповещения, чтобы стать первым пользователем и получить максимальные вознаграждения.",
   "app.containers.HomePage.askQuestion": "Задать вопрос",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",
@@ -203,7 +247,7 @@
   "app.containers.HomePage.messageHasNotBeenSent":
     "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
   "app.containers.HomePage.yourEmailIsRegistred":
-    "Платформа находится в разработке, но Ваш емэйл зарегистрирован. Мы отправим Вам письмо, когда Вы сможете продолжить регистрацию.",
+    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите имейл с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
