@@ -10,7 +10,7 @@ exports[`FaqFull snapshot test test 1`] = `
       Peerania | FAQ
     </title>
     <meta
-      content="Peerania | Landing"
+      content="Peerania - Decentralized Q&A website with crypto rewards"
       name="description"
     />
   </HelmetWrapper>

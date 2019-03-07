@@ -23,7 +23,7 @@ export class AccountProvider extends React.Component {
     this.props.getCurrentAccountDispatch();
   }
 
-  render() {
+  render() /* istanbul ignore next */ {
     return [React.Children.toArray(this.props.children)];
   }
 }

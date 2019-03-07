@@ -17,7 +17,6 @@ exports[`Team test 1`] = `
           className="col-lg-12 fifth-screen-header"
         >
           <FormattedMessage
-            defaultMessage="Our team"
             id="app.containers.HomePage.ourTeam"
             values={Object {}}
           />
@@ -30,101 +29,156 @@ exports[`Team test 1`] = `
       <div
         className="row fifth-screen"
       >
-        <p
-          className="col-lg-6 fifth-screen-about"
-        >
-          <FormattedMessage
-            defaultMessage="We highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat."
-            id="app.containers.HomePage.weAppreciate"
-            values={Object {}}
-          />
-        </p>
         <div
           className="col-12 fifth-screen-content"
         >
           <div
-            className="row justify-content-center"
+            className="team-avatars"
+          >
+            <ul
+              className="row"
+            >
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="steveKreynin"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  >
+                    <span />
+                    <Team__LinkIn
+                      href="https://www.linkedin.com/in/stevekreynin/"
+                      target="_blank"
+                    />
+                  </span>
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="sergeyIlin"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  >
+                    <span />
+                    <Team__LinkIn
+                      href="https://www.linkedin.com/in/sergeyilinn/"
+                      target="_blank"
+                    />
+                  </span>
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="nikitaSyr"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="romRem"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="ulyanaPopova"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div
+            className="row"
           >
             <div
-              className="col-12 col-lg-7 team-avatars"
+              className="col-12 col-lg-5"
             >
-              <ul
-                className="row"
+              <p
+                className="info-appreciate"
               >
-                <li
-                  className="col-12 col-sm-4 teammate-card"
-                >
-                  <img
-                    alt="sergeyIlin"
-                    src="IMAGE_MOCK"
-                  />
-                  <span
-                    className="name"
-                  />
-                  <span
-                    className="role"
-                  />
-                </li>
-                <li
-                  className="col-12 col-sm-4 teammate-card"
-                >
-                  <img
-                    alt="nikitaSyr"
-                    src="IMAGE_MOCK"
-                  />
-                  <span
-                    className="name"
-                  />
-                  <span
-                    className="role"
-                  />
-                </li>
-                <li
-                  className="col-12 col-sm-4 teammate-card"
-                >
-                  <img
-                    alt="romRem"
-                    src="IMAGE_MOCK"
-                  />
-                  <span
-                    className="name"
-                  />
-                  <span
-                    className="role"
-                  />
-                </li>
-                <li
-                  className="col-12 col-sm-4 teammate-card"
-                >
-                  <img
-                    alt="ulyanaPopova"
-                    src="IMAGE_MOCK"
-                  />
-                  <span
-                    className="name"
-                  />
-                  <span
-                    className="role"
-                  />
-                </li>
-                <li
-                  className="col-12 col-sm-4 teammate-card"
-                >
-                  <img
-                    alt="kateBehey"
-                    src="IMAGE_MOCK"
-                  />
-                  <span
-                    className="name"
-                  />
-                  <span
-                    className="role"
-                  />
-                </li>
-              </ul>
+                <img
+                  alt="letter"
+                  className="mb-4"
+                  src="IMAGE_MOCK"
+                />
+                <FormattedMessage
+                  id="app.containers.HomePage.weAppreciate"
+                  values={Object {}}
+                />
+              </p>
             </div>
             <div
-              className="col-10 col-lg-5 send-message-form"
+              className="col-12 col-lg-5 offset-lg-1 send-message-form"
             >
               <ReduxForm
                 form="containers_homepage_SEND_MESSAGE_FORM"

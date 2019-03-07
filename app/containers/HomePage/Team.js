@@ -164,11 +164,12 @@ const Box = Section.extend`
       flex-direction: column;
       text-align: center;
       align-items: center;
-      
+
       img {
         margin-right: 0;
       }
     }
+  }
 `;
 
 const LinkIn = styled.a`

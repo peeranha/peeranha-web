@@ -25,7 +25,6 @@ exports[`Header snapshot test test 1`] = `
             className="modal-dialog-message"
           >
             <FormattedMessage
-              defaultMessage="The platform is under developing, but you can be the first to join and earn up to 100x more."
               id="app.containers.HomePage.platformUnderDeveloping"
               values={Object {}}
             />
@@ -33,7 +32,6 @@ exports[`Header snapshot test test 1`] = `
           <ReduxForm
             button={
               Object {
-                "defaultMessage": "Get Reward",
                 "id": "app.containers.HomePage.getReward",
               }
             }
@@ -51,7 +49,7 @@ exports[`Header snapshot test test 1`] = `
         className="row"
       >
         <div
-          className="col-6 col-xl-6 col-lg-4 logo"
+          className="col-6 col-xl-5 col-lg-4 logo"
         >
           <button
             data-hash="fs1"
@@ -73,7 +71,7 @@ exports[`Header snapshot test test 1`] = `
           />
         </button>
         <div
-          className="col-md-12 col-xl-6 col-lg-8 nav-bar d-none d-lg-block"
+          className="col-md-12 col-xl-7 col-lg-8 nav-bar d-none d-lg-block"
           id="navbartogglerId"
         >
           <div
@@ -91,7 +89,6 @@ exports[`Header snapshot test test 1`] = `
                   onClick={[Function]}
                 >
                   <FormattedMessage
-                    defaultMessage="About"
                     id="app.containers.HomePage.about"
                     values={Object {}}
                   />
@@ -102,7 +99,6 @@ exports[`Header snapshot test test 1`] = `
                   onClick={[Function]}
                 >
                   <FormattedMessage
-                    defaultMessage="Rewards"
                     id="app.containers.HomePage.rewards"
                     values={Object {}}
                   />
@@ -113,7 +109,6 @@ exports[`Header snapshot test test 1`] = `
                   onClick={[Function]}
                 >
                   <FormattedMessage
-                    defaultMessage="FAQ"
                     id="app.containers.HomePage.faq"
                     values={Object {}}
                   />
@@ -124,7 +119,6 @@ exports[`Header snapshot test test 1`] = `
                   onClick={[Function]}
                 >
                   <FormattedMessage
-                    defaultMessage="Team"
                     id="app.containers.HomePage.team"
                     values={Object {}}
                   />
@@ -146,7 +140,6 @@ exports[`Header snapshot test test 1`] = `
                     src="IMAGE_MOCK"
                   />
                   <FormattedMessage
-                    defaultMessage="Log in"
                     id="app.containers.HomePage.login"
                     values={Object {}}
                   />
@@ -156,7 +149,6 @@ exports[`Header snapshot test test 1`] = `
                   onClick={[Function]}
                 >
                   <FormattedMessage
-                    defaultMessage="Sign up free"
                     id="app.containers.HomePage.signUpFree"
                     values={Object {}}
                   />

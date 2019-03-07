@@ -20,7 +20,6 @@ exports[`Rewards test 1`] = `
             className="col-12 col-lg-8 title"
           >
             <FormattedMessage
-              defaultMessage="Be the first to join and earn up to 100x more rewards"
               id="app.containers.HomePage.beTheFirst"
               values={Object {}}
             />
@@ -33,7 +32,6 @@ exports[`Rewards test 1`] = `
             className="col-12 col-lg-8 content-body"
           >
             <FormattedMessage
-              defaultMessage="Rewards pool is distributed weekly between all of the contributors for the given week. Members that join early get higher rewards while community is growing."
               id="app.containers.HomePage.rewardsPool"
               values={Object {}}
             />
@@ -48,7 +46,6 @@ exports[`Rewards test 1`] = `
             <ReduxForm
               button={
                 Object {
-                  "defaultMessage": "Get Reward",
                   "id": "app.containers.HomePage.getReward",
                 }
               }

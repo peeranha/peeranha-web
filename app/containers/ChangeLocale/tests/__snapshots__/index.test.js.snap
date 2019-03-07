@@ -9,7 +9,7 @@ Array [
     onClick={[Function]}
     role="presentation"
   >
-    <img
+    <ChangeLocale__Flag
       alt="en"
       src="IMAGE_MOCK"
     />
@@ -24,7 +24,7 @@ Array [
     onClick={[Function]}
     role="presentation"
   >
-    <img
+    <ChangeLocale__Flag
       alt="ru"
       src="IMAGE_MOCK"
     />

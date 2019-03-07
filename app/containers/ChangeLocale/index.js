@@ -127,7 +127,7 @@ export class ChangeLocale extends React.PureComponent {
       </li>
     ));
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { locale } = this.props;
 
     return (
@@ -163,8 +163,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-/* istanbul ignore next */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     changeLocaleDispatch: lang => dispatch(changeLocale(lang)),
