@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Circle = styled.div`
-  width: 20px;
-  height: 20px;
-  background: #1e90ff;
+  width: 16px;
+  height: 16px;
+  background: #d3daf6;
   border-radius: 50%;
-  background-color: ${props => props.color};
-  margin: 7px;
+  background-color: #7699ff;
+  margin: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@ const Circle = styled.div`
     }
     50%,
     75% {
-      transform: scale(2.5);
+      transform: scale(2);
     }
     78%,
     100% {
@@ -28,10 +28,10 @@ const Circle = styled.div`
 
   &:before {
     content: '';
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background-color: #1e90ff;
+    background-color: #7699ff;
     opacity: 0.7;
     animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
     animation-delay: ${props => props.number * 200}ms;
@@ -42,7 +42,6 @@ const Circle = styled.div`
 
 Circle.propTypes = {
   number: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
 };
 
 export default Circle;

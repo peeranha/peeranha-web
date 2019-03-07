@@ -62,10 +62,6 @@ const Box = styled.span`
     padding: 5px 20px !important;
     text-transform: uppercase;
 
-    img {
-      margin-right: 5px;
-    }
-
     :hover {
       cursor: pointer;
       background: rgba(229, 229, 229, 0.5);
@@ -75,6 +71,13 @@ const Box = styled.span`
   li[data-isbold='true'] {
     font-weight: bold;
   }
+`;
+
+const Flag = styled.img`
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
 `;
 
 /* eslint global-require: 1 */
@@ -119,7 +122,7 @@ export class ChangeLocale extends React.PureComponent {
         data-isbold={item === this.props.locale}
         key={item}
       >
-        <img src={require(`images/${item}_lang.png`)} alt={item} />
+        <Flag src={require(`images/${item}_lang.png`)} alt={item} />
         <span>{item}</span>
       </li>
     ));
@@ -136,7 +139,7 @@ export class ChangeLocale extends React.PureComponent {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img
+          <Flag
             src={require(`images/${[locale]}_lang.png`)}
             alt={`images/${[locale]}_lang.png`}
           />
