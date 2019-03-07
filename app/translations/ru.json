@@ -85,8 +85,10 @@
   "app.containers.CreateCommunity.name": "Наименование",
   "app.containers.CreateCommunity.description": "Описание",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
-  "app.containers.HomePage.title": "Peerania | Главная",
-  "app.containers.HomePage.description": "Peerania | Описание главной страницы",
+  "app.containers.HomePage.title":
+    "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
+  "app.containers.HomePage.description":
+    "Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами пользователей за их вклад",
   "app.containers.HomePage.faqTitle": "Peerania | ЧАВО",
   "app.containers.HomePage.faqDescription": "Peerania | ЧАВО Описание",
   "app.containers.HomePage.about": "О нас",
@@ -205,7 +207,7 @@
   "app.containers.HomePage.getMoreAnswers": "Получи больше ответов",
   "app.containers.HomePage.ourTeam": "Наша команда",
   "app.containers.HomePage.weAppreciate":
-    "Мы высоко оцениваем ваши отзывы, мнение и предложения по отношению к платформе. Отправьте нам несколько строк или дайте знать, если у вас есть 15 минут, чтобы пообщаться",
+    "Мы будем очень благодарны услышать ваш отзыв, мнение или предложение для веб-сайта. Отправьте нам сообщение, или еще лучше, давайте договримся о коротком звонке.",
 
   "app.containers.HomePage.sergeyIlin": "Сергей Ильин",
   "app.containers.HomePage.sergeyIlinRole": "Сооснователь, CTO",
@@ -239,7 +241,7 @@
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.sendMessage": "Отправьте сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
-    "В настоящее время веб-сайт находится в разработке. Подпишитесь на оповещения, чтобы стать первым пользователем и получить максимальные вознаграждения.",
+    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
   "app.containers.HomePage.askQuestion": "Задать вопрос",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",

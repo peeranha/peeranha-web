@@ -94,8 +94,10 @@
   "app.containers.Other.successMessage":
     "Action has been completed successfully",
   "app.containers.Other.errorMessage": "An error occurred",
-  "app.containers.HomePage.title": "Peerania | Landing",
-  "app.containers.HomePage.description": "Peerania | Description",
+  "app.containers.HomePage.title":
+    "Peerania - Decentralized Q&A website with crypto rewards",
+  "app.containers.HomePage.description":
+    "Decentralized question and answer website that rewards users with crypto tokens for their contributions.",
   "app.containers.HomePage.faqTitle": "Peerania | FAQ",
   "app.containers.HomePage.faqDescription": "Peerania | FAQ Description",
   "app.containers.HomePage.about": "About",

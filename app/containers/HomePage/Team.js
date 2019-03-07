@@ -166,7 +166,7 @@ const Box = Section.extend`
       align-items: center;
       
       img {
-        margin-right: 0;gi t
+        margin-right: 0;
       }
     }
 `;
@@ -198,6 +198,25 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
           <div className="col-12 fifth-screen-content">
             <div className="team-avatars">
               <ul className="row">
+                <li className="col-12 col-lg-6 teammate-card">
+                  <img src={steveKreynin} alt="steveKreynin" />
+                  <p className="d-flex flex-column">
+                    <span className="name">
+                      <span>{translations[messages.steveKreynin.id]}</span>
+                      <LinkIn
+                        href="https://www.linkedin.com/in/stevekreynin/"
+                        target="_blank"
+                      />
+                    </span>
+                    <span className="role">
+                      {translations[messages.steveKreyninRole.id]}
+                    </span>
+                    <span className="description">
+                      {translations[messages.steveKreyninDescription.id]}
+                    </span>
+                  </p>
+                </li>
+
                 <li className="col-12 col-lg-6 teammate-card">
                   <img src={sergeyIlin} alt="sergeyIlin" />
                   <p className="d-flex flex-column">
@@ -258,25 +277,6 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
                     </span>
                     <span className="description">
                       {translations[messages.ulyanaPopovaDescription.id]}
-                    </span>
-                  </p>
-                </li>
-
-                <li className="col-12 col-lg-6 teammate-card">
-                  <img src={steveKreynin} alt="steveKreynin" />
-                  <p className="d-flex flex-column">
-                    <span className="name">
-                      <span>{translations[messages.steveKreynin.id]}</span>
-                      <LinkIn
-                        href="https://www.linkedin.com/in/stevekreynin/"
-                        target="_blank"
-                      />
-                    </span>
-                    <span className="role">
-                      {translations[messages.steveKreyninRole.id]}
-                    </span>
-                    <span className="description">
-                      {translations[messages.steveKreyninDescription.id]}
                     </span>
                   </p>
                 </li>
