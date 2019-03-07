@@ -95,7 +95,7 @@ const Box = Section.extend`
             padding-bottom: 65px;
 
             img {
-              width: 150px;
+              min-width: 150px;
               height: 150px;
               object-fit: cover;
               margin-bottom: 10px;
