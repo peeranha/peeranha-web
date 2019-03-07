@@ -42,6 +42,10 @@ export const Wrapper = styled.div`
       color: #9b9b9b;
       font-family: ${LANDING_FONT};
       z-index: 10;
+
+      + div {
+        min-height: 32px;
+      }
     }
 
     input {

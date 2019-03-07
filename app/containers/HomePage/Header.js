@@ -91,7 +91,9 @@ const Box = styled.div`
       color: #ffffff;
 
       img {
-        padding-right: 9px;
+        margin-right: 9px;
+        width: 21px;
+        height: 21px;
       }
 
       span {
