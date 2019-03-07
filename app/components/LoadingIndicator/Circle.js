@@ -1,53 +1,48 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-const circleFadeDelay = keyframes`
-  0%,
-  39%,
-  100% {
-    opacity: 0;
+const Circle = styled.div`
+  width: 20px;
+  height: 20px;
+  background: #1e90ff;
+  border-radius: 50%;
+  background-color: ${props => props.color};
+  margin: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+    75% {
+      transform: scale(2.5);
+    }
+    78%,
+    100% {
+      opacity: 0;
+    }
   }
 
-  40% {
-    opacity: 1;
+  &:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #1e90ff;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: ${props => props.number * 200}ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
   }
 `;
 
-const Circle = /* istanbul ignore next */ props => {
-  const CirclePrimitive = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    ${props.rotate &&
-      `
-      -webkit-transform: rotate(${props.rotate}deg);
-      -ms-transform: rotate(${props.rotate}deg);
-      transform: rotate(${props.rotate}deg);
-    `} &:before {
-      content: '';
-      display: block;
-      margin: 0 auto;
-      width: 15%;
-      height: 15%;
-      background-color: #999;
-      border-radius: 100%;
-      animation: ${circleFadeDelay} 1.2s infinite ease-in-out both;
-      ${props.delay &&
-        `
-        -webkit-animation-delay: ${props.delay}s;
-        animation-delay: ${props.delay}s;
-      `};
-    }
-  `;
-  return <CirclePrimitive />;
-};
-
 Circle.propTypes = {
-  delay: PropTypes.number,
-  rotate: PropTypes.number,
+  number: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default Circle;
