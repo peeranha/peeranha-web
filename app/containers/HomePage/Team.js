@@ -125,7 +125,6 @@ const Box = Section.extend`
               font-size: 16px;
               line-height: 1.63;
               letter-spacing: -0.6px;
-              text-align: left;
               color: #282828;
             }
           }
