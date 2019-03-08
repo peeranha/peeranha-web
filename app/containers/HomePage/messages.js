@@ -52,6 +52,9 @@ export default defineMessages({
   differentThan: {
     id: 'app.containers.HomePage.differentThan',
   },
+  differentThan2: {
+    id: 'app.containers.HomePage.differentThan2',
+  },
   rewardingUser: {
     id: 'app.containers.HomePage.rewardingUser',
   },

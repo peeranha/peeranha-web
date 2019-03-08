@@ -103,6 +103,10 @@ const Box = Section.extend`
 
 const QuestionsData = [
   {
+    header: 'whatIsPeerania',
+    body: 'whatIsPeeraniaCollapsed',
+  },
+  {
     header: 'differentFromOtherSites',
     body: 'differentFromOtherSitesCollapsed',
   },
@@ -121,10 +125,6 @@ const QuestionsData = [
   {
     header: 'websiteLive',
     body: 'websiteLiveCollapsed',
-  },
-  {
-    header: 'whatIsPeerania',
-    body: 'whatIsPeeraniaCollapsed',
   },
   {
     header: 'whatBlockchain',

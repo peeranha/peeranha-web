@@ -186,6 +186,8 @@ const About = () => (
       <div className="container second-screen">
         <h3 className="col-lg-12 second-screen-header">
           <FormattedMessage {...messages.differentThan} />
+          <br />
+          <FormattedMessage {...messages.differentThan2} />
         </h3>
         <div className="row second-screen-elements">
           <ul className="col-lg-12 main-difference">

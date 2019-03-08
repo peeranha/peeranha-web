@@ -109,11 +109,12 @@
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
-    "Peerania is a decentralized question and answer website that rewards users with crypto tokens for their contributions.",
+    "Decentralized question and answer website that rewards users with crypto tokens for their contributions.",
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
-  "app.containers.HomePage.differentThan":
-    "Peerania is more than Q&A website. It is a community that puts users at the heart by:",
+  "app.containers.HomePage.differentThan": "Peerania is more than Q&A website.",
+  "app.containers.HomePage.differentThan2":
+    "It is a community that puts users at the heart by:",
 
   "app.containers.HomePage.rewardingUser": "Rewarding User with Crypto",
   "app.containers.HomePage.peopleSaveHours":
@@ -227,7 +228,7 @@
     "Blockchain app technician, interesting in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
 
   "app.containers.HomePage.romRem": "Roman Remniov",
-  "app.containers.HomePage.romRemRole": "Front-end developer",
+  "app.containers.HomePage.romRemRole": "Front-end Developer",
   "app.containers.HomePage.romRemDescription":
     "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
 

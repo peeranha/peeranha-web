@@ -59,7 +59,7 @@ const DefaultInput = /* istanbul ignore next */ ({
       className={`default-input ${touched &&
         (warning || error) &&
         'default-input-error'}`}
-      placeholder="Your email address"
+      placeholder="Email"
       disabled={disabled}
     />
     <h6 className="text-danger">
