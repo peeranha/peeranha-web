@@ -50,13 +50,13 @@ const Rewards = ({ sendEmailLoading, sendEmail }) => (
       <div className="row justify-content-center align-items-center">
         <div className="col-12">
           <div className="row justify-content-center">
-            <h2 className="col-12 col-lg-8 title">
+            <h2 className="col-12 col-lg-12 title">
               <FormattedMessage {...messages.beTheFirst} />
             </h2>
           </div>
 
           <div className="row justify-content-center">
-            <p className="col-12 col-lg-8 content-body">
+            <p className="col-12 col-lg-10 content-body">
               <FormattedMessage {...messages.rewardsPool} />
             </p>
           </div>
