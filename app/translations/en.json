@@ -97,7 +97,7 @@
   "app.containers.HomePage.title":
     "Peerania - Decentralized Q&A website with crypto rewards",
   "app.containers.HomePage.description":
-    "Decentralized question and answer website that rewards users with crypto tokens for their contributions.",
+    "Decentralized questions and answers website that rewards users with crypto tokens for their contributions.",
   "app.containers.HomePage.faqTitle": "Peerania | FAQ",
   "app.containers.HomePage.faqDescription": "Peerania | FAQ Description",
   "app.containers.HomePage.about": "About",
@@ -112,26 +112,27 @@
     "Decentralized question and answer website that rewards users with crypto tokens for their contributions.",
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
-  "app.containers.HomePage.differentThan": "Peerania is more than Q&A website.",
+  "app.containers.HomePage.differentThan":
+    "Peerania is more than a Q&A website.",
   "app.containers.HomePage.differentThan2":
     "It is a community that puts users at the heart by:",
 
-  "app.containers.HomePage.rewardingUser": "Rewarding User with Crypto",
+  "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
   "app.containers.HomePage.peopleSaveHours":
     "Millions of people save hours of work through the knowledge of others on Q&A websites on a daily basis. Peerania’s users are rewarded with PEER crypto tokens for valuable activities.",
 
   "app.containers.HomePage.ownershipByUsers": "Ownership by Users",
   "app.containers.HomePage.peeraniaDecentralized":
-    "Peerania is truly permissionless and decentralized. Website governance is decided for the community, by the community. Peerania puts powers in the hands of the contributors, not the developers.",
+    "Peerania is truly permissionless and decentralized. Website governance is decided for the community, by the community. Peerania puts power in the hands of the contributors, not the developers.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
   "app.containers.HomePage.peeraniaPhilosophy":
-    "Peerania’s philosophy is to reward early users generously for their time in the early stages of a community. As the website grows, rewards will even out and be distributed to more members of the community.",
+    "Peerania’s philosophy is to reward early users generously for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
 
   "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
   "app.containers.HomePage.getHelp": "Getting Help from the Community",
   "app.containers.HomePage.askQuestionAndGetHelp":
-    "Peerania has passionate experts from all areas of life ready to help others. Users can return the favor by helping thousands of others answer questions they may have also. Users can get the answer to their questions swiftly, in a matter of minutes.",
+    "Peerania has passionate experts from all areas of life ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
 
   "app.containers.HomePage.helpfulAndGenerous": "Helpful and generous",
   "app.containers.HomePage.shareKnowledge": "Sharing Knowledge",
@@ -152,7 +153,7 @@
     "Honorable and fascinating",
   "app.containers.HomePage.ruleThePlatform": "Governing the Community",
   "app.containers.HomePage.participateInModeration":
-    "Governing the community is in the hands of the members. Making the best decisions for the platform result in a higher value of the tokens issued as rewards. Through the governance structure built into Peerania, the website is moderated by its users. As a decentralized, open source project, the future is decided by you the user. Much like a local community, your voice matters.",
+    "Governing the community is in the hands of the members. Making the best decisions for the platform result in a higher token value. Through the governance structure built into Peerania, the website is moderated by its users. As a decentralized, open source project, the future is decided by you the user. Much like a local community, your voice matters.",
 
   "app.containers.HomePage.beTheFirst":
     "Joining early means enjoying higher levels of rewards",
@@ -161,12 +162,12 @@
 
   "app.containers.HomePage.getReward": "Sign Up",
 
-  "app.containers.HomePage.whatIsPeerania": "What is Peerania",
+  "app.containers.HomePage.whatIsPeerania": "What is Peerania?",
   "app.containers.HomePage.whatIsPeeraniaCollapsed":
     "Peerania is a decentralized question and answer website that rewards users with crypto tokens for their valuable contributions. Peerania is built on a blockchain and it is owned by the community rather than by a single organization.",
 
   "app.containers.HomePage.differentFromOtherSites":
-    "How Peerania is different from other Question and Answer websites?",
+    "How is Peerania different from other questions and answers websites?",
   "app.containers.HomePage.differentFromOtherSitesCollapsed":
     "Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peerania is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.",
 
@@ -195,7 +196,7 @@
     "Peerania continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.",
 
   "app.containers.HomePage.valueOfToken":
-    "Where does the value of token come from?",
+    "Where does the value of the token come from?",
   "app.containers.HomePage.valueOfTokenCollapsed":
     "Because Peerania is blockchain based, tokens can be traded in the open market. Additionally, Peerania incorporates game elements and users unlock additional powers by using the tokens. Finally, the token will be used as a payment method on the website for bounties to answer questions. Fees in the form of tokens will be required to publish job postings and ads on the website or any other paid services that website will provide.",
 
