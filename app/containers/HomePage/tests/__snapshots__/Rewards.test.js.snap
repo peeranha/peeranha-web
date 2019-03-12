@@ -17,7 +17,7 @@ exports[`Rewards test 1`] = `
           className="row justify-content-center"
         >
           <h2
-            className="col-12 col-lg-8 title"
+            className="col-12 col-lg-12 title"
           >
             <FormattedMessage
               id="app.containers.HomePage.beTheFirst"
@@ -29,7 +29,7 @@ exports[`Rewards test 1`] = `
           className="row justify-content-center"
         >
           <p
-            className="col-12 col-lg-8 content-body"
+            className="col-12 col-lg-10 content-body"
           >
             <FormattedMessage
               id="app.containers.HomePage.rewardsPool"

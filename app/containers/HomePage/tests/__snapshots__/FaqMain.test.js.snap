@@ -106,6 +106,10 @@ exports[`FaqMain Question 1`] = `
 exports[`FaqMain Questions 1`] = `
 Array [
   <Question
+    body="whatIsPeeraniaCollapsed"
+    header="whatIsPeerania"
+  />,
+  <Question
     body="differentFromOtherSitesCollapsed"
     header="differentFromOtherSites"
   />,
@@ -124,10 +128,6 @@ Array [
   <Question
     body="websiteLiveCollapsed"
     header="websiteLive"
-  />,
-  <Question
-    body="whatIsPeeraniaCollapsed"
-    header="whatIsPeerania"
   />,
 ]
 `;
