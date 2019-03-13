@@ -9,12 +9,14 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.Questions.title',
-    defaultMessage: 'Questions',
   },
   description: {
     id: 'app.containers.Questions.description',
-    defaultMessage: 'Questions | Description',
   },
+  allCommunities: {
+    id: 'app.containers.Questions.allCommunities',
+  },
+
   votes: {
     id: 'app.containers.Questions.votes',
     defaultMessage: 'votes',
@@ -38,13 +40,5 @@ export default defineMessages({
   questionPo: {
     id: 'app.containers.Questions.ago',
     defaultMessage: 'Your question is successfully posted!',
-  },
-  myfeed: {
-    id: 'app.containers.Questions.myfeed',
-    defaultMessage: 'My feed',
-  },
-  all: {
-    id: 'app.containers.Questions.all',
-    defaultMessage: 'All',
   },
 });

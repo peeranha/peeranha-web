@@ -24,6 +24,8 @@
   "app.common.ago": "ago",
   "app.common.you": "You",
   "app.common.upload": "Upload",
+  "app.common.allQuestions": "All questions",
+  "app.common.manageMyComm": "Manage my communities",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -357,17 +359,20 @@
     "A problem occurred with this webpage",
   "app.containers.ErrorBoundary.details": "Details",
   "app.containers.ErrorBoundary.reloadPage": "Reload page",
+
   "app.containers.Questions.title": "Questions",
   "app.containers.Questions.noQuestions": "No questions",
+  "app.containers.Questions.allCommunities": "All communities",
+
   "app.containers.Questions.description": "Questions | Description",
   "app.containers.Questions.votes": "votes",
   "app.containers.Questions.answers": "answers",
   "app.containers.Questions.askQuestion": "Ask question",
   "app.containers.Questions.ago": "ago",
   "app.containers.Questions.myfeed": "My feed",
-  "app.containers.Questions.all": "All",
   "app.containers.Questions.follow": "Follow",
   "app.containers.Questions.unfollow": "Unfollow",
+
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",

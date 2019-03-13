@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
+import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,9 +22,12 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectCommunitiesLoading,
+} from 'containers/DataCacheProvider/selectors';
 
-import { getQuestions, setDefaultReducer } from './actions';
+import { getQuestions } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -32,29 +36,42 @@ import messages from './messages';
 
 import QuestionsContainer from './QuestionsContainer';
 
+const feed = routes.feed();
+
 /* eslint-disable react/prefer-stateless-function */
-export class Questions extends React.Component {
-  componentWillMount() {
+export class Questions extends React.PureComponent {
+  componentDidMount() {
     this.componentDidUpdate();
   }
 
   componentWillUnmount() {
-    this.props.setDefaultReducerDispatch();
     this.fetcher = null;
   }
 
   componentDidUpdate() {
-    const { followedCommunities, eosService, initLoadedItems } = this.props;
+    const { followedCommunities, parentPage, eosService } = this.props;
 
-    if (!this.fetcher && followedCommunities && eosService) {
-      this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
-        Math.floor(1.2 * initLoadedItems),
-        followedCommunities,
-        eosService,
-      );
-      setTimeout(() => this.getInitQuestions(), 0);
+    if (!this.fetcher && eosService) {
+      if (parentPage === feed && followedCommunities) {
+        this.initFetcher(followedCommunities);
+      } else if (parentPage !== feed) {
+        this.initFetcher();
+      }
     }
   }
+
+  initFetcher = (followedCommunities = []) => {
+    const { eosService, initLoadedItems } = this.props;
+    const MARGIN = 1.2;
+
+    this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
+      Math.floor(MARGIN * initLoadedItems),
+      followedCommunities,
+      eosService,
+    );
+
+    this.getInitQuestions();
+  };
 
   getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
     const { initLoadedItems, parentPage } = this.props;
@@ -78,7 +95,7 @@ export class Questions extends React.Component {
     } = this.props;
 
     const lastItem = questionsList[questionsList.length - 1];
-    const offset = (lastItem && +lastItem.id + 1) || 0;
+    const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
     this.props.getQuestionsDispatch(
@@ -101,12 +118,14 @@ export class Questions extends React.Component {
       communityIdFilter,
       followedCommunities,
       parentPage,
+      communitiesLoading,
     } = this.props;
 
     const sendProps = {
       locale,
       questionsList,
       questionsLoading,
+      communitiesLoading,
       communities,
       translations: translationMessages[locale],
       getInitQuestions: this.getInitQuestions,
@@ -143,12 +162,12 @@ Questions.propTypes = {
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
+  communitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
   communityIdFilter: PropTypes.number,
   getQuestionsDispatch: PropTypes.func,
-  setDefaultReducerDispatch: PropTypes.func,
   eosService: PropTypes.object,
 };
 
@@ -156,6 +175,7 @@ const mapStateToProps = createStructuredSelector({
   eosService: selectEos,
   locale: makeSelectLocale(),
   communities: selectCommunities(),
+  communitiesLoading: selectCommunitiesLoading(),
   followedCommunities: makeSelectFollowedCommunities(),
   questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
@@ -170,7 +190,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     dispatch,
     getQuestionsDispatch: (limit, offset, comId, parentPage, fetcher, next) =>
       dispatch(getQuestions(limit, offset, comId, parentPage, fetcher, next)),
-    setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
   };
 }
 

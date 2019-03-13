@@ -8,7 +8,6 @@ import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  SET_DEFAULT_REDUCER,
 } from './constants';
 
 /*
@@ -48,17 +47,5 @@ export function getQuestionsError(questionsError) {
   return {
     type: GET_QUESTIONS_ERROR,
     questionsError,
-  };
-}
-
-/*
- *
- * setDefaultReducer actions
- *
- */
-
-export function setDefaultReducer() {
-  return {
-    type: SET_DEFAULT_REDUCER,
   };
 }

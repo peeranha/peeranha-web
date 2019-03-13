@@ -41,7 +41,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       const lowerBound = BigInt(community_id) << BigInt(36);
       this.communitiesMap[community_id] = {
         items: [],
-        lowerBound,
+        lowerBound: `${lowerBound}`,
         lastKeyFetched: `${lowerBound}`,
         uppperBound: `${BigInt(community_id + 1) << BigInt(36)}`,
         more: true,

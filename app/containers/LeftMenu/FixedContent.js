@@ -138,8 +138,7 @@ const FixedContent = /* istanbul ignore next */ ({
       <LiExtended route={questionsRoute}>
         <A to={questionsRoute} href={questionsRoute}>
           <Icon icon={allQuestionsIcon} />
-          <FormattedMessage {...messages.all} />{' '}
-          <FormattedMessage {...messages.questions} />
+          <FormattedMessage {...messages.allQuestions} />
         </A>
       </LiExtended>
       <LiExtended route={communitiesRoute}>

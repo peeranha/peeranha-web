@@ -3,23 +3,9 @@
  */
 import React from 'react';
 import Loadable from 'react-loadable';
-import styled from 'styled-components';
-
-import LoadingIndicator from 'components/LoadingIndicator';
-
-const LoadingIndicatorStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-`;
+import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 export default Loadable({
   loader: () => import('./index'),
-  loading: () => (
-    <LoadingIndicatorStyled>
-      <LoadingIndicator />
-    </LoadingIndicatorStyled>
-  ),
+  loading: () => <LoadingIndicator />,
 });

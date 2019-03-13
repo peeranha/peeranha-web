@@ -54,6 +54,9 @@ export default defineMessages({
   myFeed: {
     id: 'app.common.myFeed',
   },
+  allQuestions: {
+    id: 'app.common.allQuestions',
+  },
   users: {
     id: 'app.common.users',
   },
@@ -92,5 +95,8 @@ export default defineMessages({
   },
   upload: {
     id: 'app.common.upload',
+  },
+  manageMyComm: {
+    id: 'app.common.manageMyComm',
   },
 });

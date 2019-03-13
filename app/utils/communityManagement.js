@@ -18,6 +18,11 @@ export function getFollowedCommunities(allcommunities, followedcommunities) {
   return allcommunities.filter(x => followedcommunities.includes(x.id));
 }
 
+// TODO: test it
+export function getUnfollowedCommunities(allcommunities, followedcommunities) {
+  return allcommunities.filter(x => !followedcommunities.includes(x.id));
+}
+
 /* eslint-disable */
 export function getTagScope(communityId) /* istanbul ignore next */ {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
