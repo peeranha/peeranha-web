@@ -5,7 +5,8 @@ import * as routes from 'routes-config';
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getCurrentAccount } from 'containers/AccountProvider/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
 import {
   uploadImageFileSuccess,
@@ -35,7 +36,10 @@ export function* saveProfileActionWorker({ obj }) {
 
     yield call(() => saveProfile(userKey, profile, eosService));
 
-    yield put(getCurrentAccount());
+    // remove user from cache to update him after
+    yield put(removeUserProfile(userKey));
+    yield call(() => getUserProfileWorker({ user: userKey }));
+
     yield put(saveProfileActionSuccess());
 
     yield call(() => createdHistory.push(routes.profileView(userKey)));

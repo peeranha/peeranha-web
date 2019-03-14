@@ -1,7 +1,8 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select, all } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import { selectEos } from 'containers/EosioProvider/selectors';
+
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
@@ -9,6 +10,7 @@ import {
 } from 'utils/questionsManagement';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_QUESTIONS } from './constants';
 
@@ -53,6 +55,19 @@ export function* getQuestionsWorker({
         getQuestionsForFollowedCommunities(limit, fetcher),
       );
     }
+
+    // Got questions
+    // Do mapping - to get userProfiles (question's authors)
+
+    /* eslint no-param-reassign: 0 */
+    yield all(
+      questionsList.map(function*(question) {
+        const userInfo = yield call(() =>
+          getUserProfileWorker({ user: question.user }),
+        );
+        question.userInfo = userInfo;
+      }),
+    );
 
     yield put(getQuestionsSuccess(questionsList, next));
   } catch (err) {

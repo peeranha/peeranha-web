@@ -26,6 +26,8 @@
   "app.common.upload": "Загрузить",
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Управлять своими сообществами",
+  "app.common.asked": "Спрашивали",
+  "app.common.youAsked": "Вы спрашивали",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -45,7 +47,6 @@
     "Пользователь не имеет активность пока",
   "app.containers.Profile.heHasnoAnswersAndQuestions":
     "У него нет пока вопросов и ответов",
-  "app.containers.Profile.asked": "спрашивали",
   "app.containers.Profile.answered": "ответили",
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",

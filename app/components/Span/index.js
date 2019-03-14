@@ -7,6 +7,7 @@ import {
   white,
   darkblue,
   pink,
+  green,
   APP_FONT,
 } from 'style-constants';
 
@@ -16,6 +17,7 @@ const colors = {
   darkblue,
   white,
   pink,
+  green,
   gray: darkgray,
 };
 

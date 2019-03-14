@@ -1,77 +1,159 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { getTimeFromDateToNow } from 'utils/datetime';
+import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
+import { transparent, lightgreen } from 'style-constants';
+
+import { getFormattedDate } from 'utils/datetime';
+import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
+import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
 import Tags from 'components/TagsList';
-import Community from 'components/Community';
+import Base from 'components/Base';
+import BaseRounded from 'components/Base/BaseRounded';
+import Span from 'components/Span';
+import Icon from 'components/Icon';
+import A from 'components/A';
+import RatingStatus from 'components/RatingStatus';
+import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 
-import messages from './messages';
+import answerIconEmptyInside from 'svg/answerIconEmptyInside';
+import bestAnswerIcon from 'svg/bestAnswer';
+import fingerDownAllQuestionsPage from 'svg/fingerDownAllQuestionsPage';
+import fingerUpAllQuestionsPage from 'svg/fingerUpAllQuestionsPage';
 
-const QuestionItem = item => (
-  <div className="question-item">
-    <div className="title-user">
-      <Link
-        className="highlighted-link"
-        to={routes.questionView(item.id)}
-        href={routes.questionView(item.id)}
+const BaseStyled = BaseRounded.extend`
+  margin-top: 15px;
+  overflow: hidden;
+  padding: 0;
+  word-break: break-all;
+`;
+
+const AdditionalInfo = Base.extend`
+  border-bottom: 1px solid #00000013;
+  border-right: 1px solid #00000013;
+  display: flex;
+  justify-content: center;
+
+  background: ${props => (props.isAccepted ? lightgreen : transparent)};
+`;
+
+/* eslint camelcase: 0 */
+const QuestionItem = ({
+  id,
+  title,
+  user,
+  userInfo,
+  post_time,
+  locale,
+  community_id,
+  communities,
+  tags,
+  rating,
+  answers,
+  correct_answer_id,
+}) => (
+  <BaseStyled className="d-flex flex-wrap">
+    <Base className="d-flex flex-wrap col-12 col-sm-3 col-md-2 p-0">
+      <AdditionalInfo
+        className="col-6 col-sm-12"
+        isAccepted={correct_answer_id}
       >
-        <h5 className="highlighted-link">{item.title}</h5>
-      </Link>
+        <span className="d-flex align-items-center">
+          <Icon
+            icon={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
+          />
+          <Span color={correct_answer_id ? 'green' : 'darkblue'} bold>
+            {getFormattedNum(answers.length)}
+          </Span>
+        </span>
+      </AdditionalInfo>
+
+      <AdditionalInfo className="col-6 col-sm-12">
+        <span className="d-flex align-items-center">
+          <Icon
+            icon={
+              rating >= 0
+                ? fingerUpAllQuestionsPage
+                : fingerDownAllQuestionsPage
+            }
+          />
+          <Span color="darkblue" bold>
+            {getFormattedNum2(rating)}
+          </Span>
+        </span>
+      </AdditionalInfo>
+    </Base>
+
+    <Base className="col-12 col-sm-9 col-md-10">
       <p>
-        <Link
-          className="highlighted-link"
-          to={routes.profileView(item.user)}
-          href={routes.profileView(item.user)}
-        >
-          {item.user}
-        </Link>
-        {' | '}
-        <span>{`${getTimeFromDateToNow(item.post_time, item.locale)} `}</span>
-        <FormattedMessage {...messages.ago} />
+        <A to={routes.questionView(id)} href={routes.questionView(id)}>
+          <Span fontSize="24" bold>
+            {title}
+          </Span>
+        </A>
       </p>
-      <Community
-        communityId={item.community_id}
-        communities={item.communities}
-      />
-      <Tags
-        chosenTags={item.tags}
-        communityId={item.community_id}
-        communities={item.communities}
-      />
-    </div>
-    <div className="votes-answers">
-      <div className="votes">
-        <p className="number">{item.rating}</p>
-        <p>
-          <FormattedMessage {...messages.votes} />
-        </p>
+      <p>
+        <A to={routes.profileView(user)} className="d-flex align-items-center">
+          <Span className="mr-2" fontSize="14">
+            {userInfo.display_name}
+          </Span>
+          <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
+          <Span className="text-capitalize mr-3" fontSize="14" color="gray">
+            <FormattedMessage {...commonMessages.asked} />
+            <span className="pl-1">
+              {getFormattedDate(post_time, locale, MONTH_3LETTERS__DAY_TIME)}
+            </span>
+          </Span>
+        </A>
+      </p>
+      <div className="d-flex align-items-center flex-wrap">
+        <Tags
+          className="my-1"
+          chosenTags={tags}
+          communityId={community_id}
+          communities={communities}
+        >
+          <QuestionCommunity
+            className="my-1"
+            communities={communities}
+            communityId={community_id}
+          />
+        </Tags>
       </div>
-      <div className="answers" data-bg={!!item.correct_answer_id}>
-        <p className="number">{item.answers.length}</p>
-        <p>
-          <FormattedMessage {...messages.answers} />
-        </p>
-      </div>
-    </div>
-  </div>
+    </Base>
+  </BaseStyled>
 );
 
-const QuestionsContent = props => (
+const QuestionsContent = ({ questionsList, locale, communities }) => (
   <div>
-    {props.questionsList.map(item => (
+    {questionsList.map(item => (
       <QuestionItem
         {...item}
-        locale={props.locale}
-        communities={props.communities}
+        locale={locale}
+        communities={communities}
         key={item.id}
       />
     ))}
   </div>
 );
+
+QuestionItem.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  user: PropTypes.string,
+  userInfo: PropTypes.object,
+  post_time: PropTypes.number,
+  locale: PropTypes.string,
+  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  communities: PropTypes.array,
+  tags: PropTypes.array,
+  rating: PropTypes.number,
+  answers: PropTypes.array,
+  correct_answer_id: PropTypes.number,
+};
 
 QuestionsContent.propTypes = {
   questionsList: PropTypes.array,

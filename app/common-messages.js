@@ -75,6 +75,12 @@ export default defineMessages({
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
   },
+  asked: {
+    id: 'app.common.asked',
+  },
+  youAsked: {
+    id: 'app.common.youAsked',
+  },
   subscribeMore: {
     id: 'app.common.subscribeMore',
   },

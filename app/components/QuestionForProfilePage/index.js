@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { darkblue, green, blue } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { getFollowedCommunities } from 'utils/communityManagement';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
 import okayIcon from 'svg/okay';
@@ -15,14 +14,15 @@ import Base from 'components/Base';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 import A from 'components/A';
-import Img from 'components/Img';
 
-import messages from 'containers/Profile/messages';
+import messages from 'common-messages';
 
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
+
+import QuestionCommunity from './QuestionCommunity';
 
 const BaseStyled = Base.extend`
   margin-top: 15px;
@@ -83,24 +83,6 @@ const TopCommunityBadge = /* istanbul ignore next */ ({
       />
     </TopCommunityBadgeStyled>
   ) : null;
-
-const QuestionCommunity = /* istanbul ignore next */ ({
-  communities,
-  communityId,
-}) => {
-  if (!communities[0]) {
-    return null;
-  }
-
-  const com = getFollowedCommunities(communities, [communityId])[0];
-
-  return (
-    <Span className="d-flex align-items-center" fontSize="14">
-      <Img className="mr-1" src={com.avatar} alt="comm_avatar" />
-      <span>{com.name}</span>
-    </Span>
-  );
-};
 
 /* eslint camelcase: 0 */
 export const QuestionForProfilePage = /* istanbul ignore next */ ({

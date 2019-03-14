@@ -58,9 +58,6 @@ export default defineMessages({
   heHasnoAnswersAndQuestions: {
     id: 'app.containers.Profile.heHasnoAnswersAndQuestions',
   },
-  asked: {
-    id: 'app.containers.Profile.asked',
-  },
   answered: {
     id: 'app.containers.Profile.answered',
   },
