@@ -364,15 +364,14 @@
   "app.containers.Questions.title": "Questions",
   "app.containers.Questions.noQuestions": "No questions",
   "app.containers.Questions.allCommunities": "All communities",
-
-  "app.containers.Questions.description": "Questions | Description",
-  "app.containers.Questions.votes": "votes",
-  "app.containers.Questions.answers": "answers",
-  "app.containers.Questions.askQuestion": "Ask question",
-  "app.containers.Questions.ago": "ago",
-  "app.containers.Questions.myfeed": "My feed",
-  "app.containers.Questions.follow": "Follow",
-  "app.containers.Questions.unfollow": "Unfollow",
+  "app.containers.Questions.youDontHaveFeedToRead":
+    "You don't have any feed to read",
+  "app.containers.Questions.subscribeToCommToKeep":
+    "Subscribe to communities to keep track of topics that you are interested in.",
+  "app.containers.Questions.noQuestionsYet": "No questions yet.",
+  "app.containers.Questions.thisIsNewCommunity":
+    "This is a new community, you can be the first and your question may be the most popular.",
+  "app.containers.Questions.readMyFeed": "Read my feed",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

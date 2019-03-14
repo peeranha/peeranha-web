@@ -16,29 +16,19 @@ export default defineMessages({
   allCommunities: {
     id: 'app.containers.Questions.allCommunities',
   },
-
-  votes: {
-    id: 'app.containers.Questions.votes',
-    defaultMessage: 'votes',
+  youDontHaveFeedToRead: {
+    id: 'app.containers.Questions.youDontHaveFeedToRead',
   },
-  answers: {
-    id: 'app.containers.Questions.answers',
-    defaultMessage: 'answers',
+  subscribeToCommToKeep: {
+    id: 'app.containers.Questions.subscribeToCommToKeep',
   },
-  askQuestion: {
-    id: 'app.containers.Questions.askQuestion',
-    defaultMessage: 'Ask question',
+  noQuestionsYet: {
+    id: 'app.containers.Questions.noQuestionsYet',
   },
-  noQuestions: {
-    id: 'app.containers.Questions.noQuestions',
-    defaultMessage: 'No questions',
+  thisIsNewCommunity: {
+    id: 'app.containers.Questions.thisIsNewCommunity',
   },
-  ago: {
-    id: 'app.containers.Questions.ago',
-    defaultMessage: 'ago',
-  },
-  questionPo: {
-    id: 'app.containers.Questions.ago',
-    defaultMessage: 'Your question is successfully posted!',
+  readMyFeed: {
+    id: 'app.containers.Questions.readMyFeed',
   },
 });

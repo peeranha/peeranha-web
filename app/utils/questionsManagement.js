@@ -79,8 +79,8 @@ export class FetcherOfQuestionsForFollowedCommunities {
       this.communitiesMap[community_id].items.push(...fetch_res);
 
       if (fetch_res.length === limit) {
-        this.communitiesMap[community_id].lastKeyFetched = `${this
-          .communitiesMap[community_id].lowerBound +
+        this.communitiesMap[community_id].lastKeyFetched = `${BigInt(this
+          .communitiesMap[community_id].lowerBound) +
           BigInt(fetch_res[fetch_res.length - 1].id) +
           inc}`;
       } else {

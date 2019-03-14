@@ -21,7 +21,13 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 
 import InfinityLoader from 'components/InfinityLoader';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+
+import {
+  makeSelectFollowedCommunities,
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
+
 import {
   selectCommunities,
   selectCommunitiesLoading,
@@ -51,31 +57,31 @@ export class Questions extends React.PureComponent {
   componentDidUpdate() {
     const { followedCommunities, parentPage, eosService } = this.props;
 
-    if (!this.fetcher && eosService) {
-      if (parentPage === feed && followedCommunities) {
-        this.initFetcher(followedCommunities);
-      } else if (parentPage !== feed) {
-        this.initFetcher();
-      }
+    if (
+      !this.fetcher &&
+      eosService &&
+      ((parentPage === feed && followedCommunities) || parentPage !== feed)
+    ) {
+      this.getInitQuestions();
     }
   }
 
-  initFetcher = (followedCommunities = []) => {
-    const { eosService, initLoadedItems } = this.props;
+  initFetcher = () => {
+    const { eosService, initLoadedItems, followedCommunities } = this.props;
     const MARGIN = 1.2;
 
     this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
       Math.floor(MARGIN * initLoadedItems),
-      followedCommunities,
+      followedCommunities || [],
       eosService,
     );
-
-    this.getInitQuestions();
   };
 
   getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
     const { initLoadedItems, parentPage } = this.props;
     const offset = 0;
+
+    this.initFetcher();
 
     this.props.getQuestionsDispatch(
       initLoadedItems,
@@ -98,6 +104,8 @@ export class Questions extends React.PureComponent {
     const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
+    this.initFetcher();
+
     this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
@@ -119,9 +127,13 @@ export class Questions extends React.PureComponent {
       followedCommunities,
       parentPage,
       communitiesLoading,
+      account,
+      profile,
     } = this.props;
 
     const sendProps = {
+      profile,
+      account,
       locale,
       questionsList,
       questionsLoading,
@@ -158,6 +170,7 @@ export class Questions extends React.PureComponent {
 Questions.propTypes = {
   locale: PropTypes.string,
   parentPage: PropTypes.string,
+  account: PropTypes.string,
   communities: PropTypes.array,
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
@@ -169,9 +182,12 @@ Questions.propTypes = {
   communityIdFilter: PropTypes.number,
   getQuestionsDispatch: PropTypes.func,
   eosService: PropTypes.object,
+  profile: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
+  account: makeSelectAccount(),
+  profile: makeSelectProfileInfo(),
   eosService: selectEos,
   locale: makeSelectLocale(),
   communities: selectCommunities(),

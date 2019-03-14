@@ -4,7 +4,9 @@ import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
 import { FOLLOW_HANDLER } from './constants';
 
@@ -25,6 +27,8 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
       );
     }
 
+    // remove user from cache to update him after
+    yield put(removeUserProfile(selectedAccount));
     const profile = yield call(() =>
       getUserProfileWorker({ user: selectedAccount }),
     );
