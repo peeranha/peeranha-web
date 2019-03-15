@@ -7,6 +7,7 @@ import { select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
 import { GET_CURRENT_ACCOUNT_SUCCESS } from 'containers/AccountProvider/constants';
 
@@ -71,10 +72,16 @@ describe('followHandlerWorker', () => {
       );
     });
 
-    it('getProfileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+    it('removeUserProfile', () => {
       const step = generator.next();
-      expect(step.value).toEqual(profileInfo);
+      expect(step.value).toEqual(removeUserProfile(account));
+    });
+
+    it('getUserProfileWorker', () => {
+      generator.next();
+      expect(getUserProfileWorker).toHaveBeenCalledWith({
+        user: account,
+      });
     });
 
     it('getCurrentAccountSuccess', () => {

@@ -9,7 +9,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${gray};
 `;
 
-const Group = ({ children, selectProps }) => (
+const Group = /* istanbul ignore next */ ({ children, selectProps }) => (
   <Box>
     {children.map(x => (
       <CustomOption

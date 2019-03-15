@@ -17,6 +17,11 @@ exports[`About test1 1`] = `
           id="app.containers.HomePage.differentThan"
           values={Object {}}
         />
+        <br />
+        <FormattedMessage
+          id="app.containers.HomePage.differentThan2"
+          values={Object {}}
+        />
       </h3>
       <div
         className="row second-screen-elements"

@@ -1,8 +1,5 @@
-import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-import QuestionsHeader, { askQuestion } from '../QuestionsHeader';
-
-createdHistory.push = jest.fn();
+import { QuestionsHeader } from '../QuestionsHeader';
 
 const props = {
   translations: {},
@@ -10,16 +7,14 @@ const props = {
   communities: [],
   questionsList: [],
   parentPage: '99',
+  intl: {
+    formatMessage: jest.fn(),
+  },
 };
 
 describe('QuestionsHeader', () => {
   it('snapshot test', () => {
     expect(QuestionsHeader(props)).toMatchSnapshot();
-  });
-
-  it('askQuestion', () => {
-    askQuestion();
-    expect(createdHistory.push).toHaveBeenCalledWith('/questions/ask');
   });
 
   it('parentPage === feed', () => {

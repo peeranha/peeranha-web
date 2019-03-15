@@ -10,8 +10,6 @@ exports[`<EosioProvider /> render, @initializing is false 1`] = `
 
 exports[`<EosioProvider /> render, @initializing is true 1`] = `
 <div>
-  <Wrapper>
-    <LoadingIndicator />
-  </Wrapper>
+  <UNDEFINED />
 </div>
 `;

@@ -2,14 +2,12 @@ import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsError,
-  setDefaultReducer,
 } from '../actions';
 
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  SET_DEFAULT_REDUCER,
 } from '../constants';
 
 describe('actions', () => {
@@ -70,16 +68,6 @@ describe('actions', () => {
       };
 
       expect(getQuestionsError(questionsError)).toEqual(expected);
-    });
-  });
-
-  describe('setDefaultReducer Action', () => {
-    it('GET_NEXT_QUESTIONS_ERROR', () => {
-      const expected = {
-        type: SET_DEFAULT_REDUCER,
-      };
-
-      expect(setDefaultReducer()).toEqual(expected);
     });
   });
 });

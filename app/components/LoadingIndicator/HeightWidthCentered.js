@@ -12,10 +12,10 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const HeightWidthCentered = () => (
+const HeightWidthCentered = /* istanbul ignore next */ () => (
   <Wrapper>
     <LoadingIndicator />
   </Wrapper>
 );
 
-export default HeightWidthCentered;
+export default React.memo(HeightWidthCentered);

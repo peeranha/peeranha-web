@@ -1,12 +1,11 @@
 import { fromJS } from 'immutable';
 
-import questionsReducer, { initialState } from '../reducer';
+import questionsReducer from '../reducer';
 
 import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsError,
-  setDefaultReducer,
 } from '../actions';
 
 describe('questionsReducer', () => {
@@ -69,10 +68,5 @@ describe('questionsReducer', () => {
     expect(questionsReducer(state, getQuestionsError(questionsError))).toEqual(
       obj,
     );
-  });
-
-  it('setDefaultReducer', () => {
-    const obj = initialState;
-    expect(questionsReducer(state, setDefaultReducer())).toEqual(obj);
   });
 });

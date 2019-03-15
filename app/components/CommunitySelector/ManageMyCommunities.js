@@ -16,7 +16,7 @@ const BoxStyled = Box.extend`
   height: 44px;
 `.withComponent(A);
 
-const ManageMyCommunities = () => (
+const ManageMyCommunities = /* istanbul ignore next */ () => (
   <BoxStyled to={routes.communities()} href={routes.communities()}>
     <Span color="blue">
       <Icon icon={arrowRightIcon} />

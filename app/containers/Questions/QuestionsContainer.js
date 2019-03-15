@@ -12,7 +12,7 @@ import QuestionsContent from './QuestionsContent';
 const feed = routes.feed();
 
 /* eslint indent: 0 */
-const QuestionsContainer = props => (
+export const QuestionsContainer = /* istanbul ignore next */ props => (
   <div>
     <QuestionsHeader {...props} />
 

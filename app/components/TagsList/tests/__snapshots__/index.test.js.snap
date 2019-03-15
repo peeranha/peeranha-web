@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tags test, chosenTags - [... , .... , ...] 1`] = `
-<div>
-  <span
-    className="badge badge-secondary mr-1"
-  >
+<ul
+  className="d-flex flex-wrap align-items-center"
+>
+  <Span>
     tag1
-  </span>
-  <span
-    className="badge badge-secondary mr-1"
-  >
+  </Span>
+  <Span>
     tag2
-  </span>
-</div>
+  </Span>
+</ul>
 `;
 
 exports[`Tags test, communityId - null 1`] = `null`;

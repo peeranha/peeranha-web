@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { injectIntl, intlShape } from 'react-intl';
@@ -13,7 +12,7 @@ import {
 
 import FollowCommunityButton from 'containers/FollowCommunityButton';
 
-import CommunityChooser from 'components/CommunityChooser';
+import CommunitySelector from 'components/CommunitySelector';
 import Base from 'components/Base/BaseRounded';
 import MediumImage from 'components/Img/MediumImage';
 import H3 from 'components/H3';
@@ -23,7 +22,6 @@ import myFeedIcon from 'images/myFeed.svg';
 
 import messages from './messages';
 
-const askQuestion = () => createdHistory.push(routes.questionAsk());
 const feed = routes.feed();
 
 const MediumImageStyled = MediumImage.extend`
@@ -33,7 +31,7 @@ const MediumImageStyled = MediumImage.extend`
   height: 43px;
 `;
 
-const QuestionsHeader = ({
+export const QuestionsHeader = /* istanbul ignore next */ ({
   intl,
   communities,
   getInitQuestions,
@@ -119,7 +117,7 @@ const QuestionsHeader = ({
 
   return (
     <Base className="d-flex align-items-center">
-      <CommunityChooser
+      <CommunitySelector
         options={options}
         Button={Button}
         toggle={getInitQuestions}
@@ -146,5 +144,4 @@ QuestionsHeader.propTypes = {
   parentPage: PropTypes.string,
 };
 
-export { askQuestion };
 export default injectIntl(React.memo(QuestionsHeader));

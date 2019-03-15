@@ -14,19 +14,19 @@ import DropdownIndicator from './DropdownIndicator';
 import Group from './Group';
 import ManageMyCommunities from './ManageMyCommunities';
 
-class CommunityChooser extends React.PureComponent {
+export class CommunitySelector extends React.PureComponent {
   state = { isOpen: false };
 
-  toggleOpen = () => {
+  toggleOpen = /* istanbul ignore next */ () => {
     this.setState(state => ({ isOpen: !state.isOpen }));
   };
 
-  onSelectChange = ({ value }) => {
+  onSelectChange = /* istanbul ignore next */ ({ value }) => {
     this.toggleOpen();
     this.props.toggle(value);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { isOpen } = this.state;
     const { Button, intl, options, optionsNumber, selectedValue } = this.props;
 
@@ -90,7 +90,7 @@ class CommunityChooser extends React.PureComponent {
   }
 }
 
-CommunityChooser.propTypes = {
+CommunitySelector.propTypes = {
   intl: intlShape.isRequired,
   Button: PropTypes.any,
   options: PropTypes.array,
@@ -99,4 +99,4 @@ CommunityChooser.propTypes = {
   toggle: PropTypes.func,
 };
 
-export default injectIntl(React.memo(CommunityChooser));
+export default injectIntl(React.memo(CommunitySelector));

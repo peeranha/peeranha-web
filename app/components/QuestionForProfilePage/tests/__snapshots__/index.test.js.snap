@@ -48,7 +48,7 @@ exports[`QuestionForProfilePage snapshot test 1`] = `
         fontSize="14"
       >
         <FormattedMessage
-          id="app.containers.Profile.asked"
+          id="app.common.asked"
           values={Object {}}
         />
         <span

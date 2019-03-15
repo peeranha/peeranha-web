@@ -14,7 +14,7 @@ import { addQuestionRoute } from 'containers/Header/HeaderForm';
 
 import messages from './messages';
 
-const AllQuestions = /* istanbul ignore next */ React.memo(() => (
+export const AllQuestions = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center py-4">
     <img src={noQuestionsAllQuestionsPage} alt="noQuestionsAllQuestionsPage" />
     <div className="ml-5 mb-2">
@@ -33,9 +33,12 @@ const AllQuestions = /* istanbul ignore next */ React.memo(() => (
       </p>
     </div>
   </BaseRounded>
-));
+);
 
-const NoQuestions = ({ isFeed, followedCommunities }) => (
+export const NoQuestions = /* istanbul ignore next */ ({
+  isFeed,
+  followedCommunities,
+}) => (
   <div className="mt-2">
     {isFeed && followedCommunities && !followedCommunities[0] ? (
       <Feed />

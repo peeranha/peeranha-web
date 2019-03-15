@@ -43,7 +43,7 @@ exports[`Introduction test 1`] = `
           className="row justify-content-center"
         >
           <h1
-            className="col-12 col-lg-10 top-level"
+            className="col-12 top-level"
           >
             <FormattedMessage
               id="app.containers.HomePage.yourContributionsRewarded"

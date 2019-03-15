@@ -5,7 +5,7 @@ exports[`DefaultInput test1 1`] = `
   <input
     className="default-input false"
     disabled={false}
-    placeholder="Your email address"
+    placeholder="Email"
     type="text"
   />
   <h6
@@ -19,7 +19,7 @@ exports[`DefaultInput test2, touched, error - true 1`] = `
   <input
     className="default-input default-input-error"
     disabled={false}
-    placeholder="Your email address"
+    placeholder="Email"
     type="text"
   />
   <h6

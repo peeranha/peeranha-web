@@ -1,4 +1,4 @@
-import QuestionsContainer from '../QuestionsContainer';
+import { QuestionsContainer } from '../QuestionsContainer';
 
 const props = {
   translations: {},

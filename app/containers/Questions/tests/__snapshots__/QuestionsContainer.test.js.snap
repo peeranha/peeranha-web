@@ -1,26 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QuestionsContainer snapshot test 1 1`] = `
-<Box>
-  <QuestionsHeader
+<div>
+  <InjectIntl(Component)
     locale="en"
     questionsList={Array []}
     questionsLoading={false}
     translations={Object {}}
   />
-  <QuestionsContent
+  <UNDEFINED
+    isFeed={false}
+  />
+  <UNDEFINED
     locale="en"
     questionsList={Array []}
     questionsLoading={false}
     translations={Object {}}
   />
-  <NoQuestions />
-</Box>
+</div>
 `;
 
 exports[`QuestionsContainer snapshot test 2 1`] = `
-<Box>
-  <QuestionsHeader
+<div>
+  <InjectIntl(Component)
     locale="en"
     questionsList={
       Array [
@@ -30,7 +32,7 @@ exports[`QuestionsContainer snapshot test 2 1`] = `
     questionsLoading={false}
     translations={Object {}}
   />
-  <QuestionsContent
+  <UNDEFINED
     locale="en"
     questionsList={
       Array [
@@ -40,12 +42,12 @@ exports[`QuestionsContainer snapshot test 2 1`] = `
     questionsLoading={false}
     translations={Object {}}
   />
-</Box>
+</div>
 `;
 
 exports[`QuestionsContainer snapshot test 3 1`] = `
-<Box>
-  <QuestionsHeader
+<div>
+  <InjectIntl(Component)
     locale="en"
     questionsList={
       Array [
@@ -55,7 +57,7 @@ exports[`QuestionsContainer snapshot test 3 1`] = `
     questionsLoading={true}
     translations={Object {}}
   />
-  <QuestionsContent
+  <UNDEFINED
     locale="en"
     questionsList={
       Array [
@@ -65,6 +67,6 @@ exports[`QuestionsContainer snapshot test 3 1`] = `
     questionsLoading={true}
     translations={Object {}}
   />
-  <LoadingIndicator />
-</Box>
+  <UNDEFINED />
+</div>
 `;

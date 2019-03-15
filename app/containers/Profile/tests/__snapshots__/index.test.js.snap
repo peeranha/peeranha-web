@@ -53,7 +53,7 @@ exports[`Profile render @isProfileLoading is true 1`] = `
     />
   </HelmetWrapper>
   <div>
-    <LoadingIndicator />
+    <UNDEFINED />
   </div>
 </div>
 `;

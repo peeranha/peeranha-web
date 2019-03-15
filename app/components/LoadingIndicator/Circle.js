@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+/* eslint indent: 0 */
 const Circle = styled.div`
   width: 16px;
   height: 16px;
@@ -34,7 +35,9 @@ const Circle = styled.div`
     background-color: #7699ff;
     opacity: 0.7;
     animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
-    animation-delay: ${props => props.number * 200}ms;
+    animation-delay: ${(props) /* istanbul ignore next */ =>
+      props.number * 200}ms;
+
     transition: 0.5s all ease;
     transform: scale(1);
   }

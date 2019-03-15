@@ -11,10 +11,10 @@ const Wrapper = styled.div`
   margin: 25px 0;
 `;
 
-const WidthCentered = () => (
+const WidthCentered = /* istanbul ignore next */ () => (
   <Wrapper>
     <LoadingIndicator />
   </Wrapper>
 );
 
-export default WidthCentered;
+export default React.memo(WidthCentered);

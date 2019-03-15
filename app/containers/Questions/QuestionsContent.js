@@ -31,6 +31,7 @@ const BaseStyled = BaseRounded.extend`
   word-break: break-all;
 `;
 
+/* istanbul ignore next */
 const AdditionalInfo = Base.extend`
   border-bottom: 1px solid #00000013;
   border-right: 1px solid #00000013;
@@ -41,7 +42,7 @@ const AdditionalInfo = Base.extend`
 `;
 
 /* eslint camelcase: 0 */
-const QuestionItem = ({
+const QuestionItem = /* istanbul ignore next */ ({
   id,
   title,
   user,
@@ -127,7 +128,7 @@ const QuestionItem = ({
   </BaseStyled>
 );
 
-const QuestionsContent = ({ questionsList, locale, communities }) => (
+export const QuestionsContent = ({ questionsList, locale, communities }) => (
   <div>
     {questionsList.map(item => (
       <QuestionItem
@@ -162,4 +163,4 @@ QuestionsContent.propTypes = {
 };
 
 export { QuestionItem };
-export default QuestionsContent;
+export default React.memo(QuestionsContent);
