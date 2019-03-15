@@ -43,11 +43,10 @@ exports[`Introduction test 1`] = `
           className="row justify-content-center"
         >
           <h1
-            className="col-12 col-lg-10 top-level"
+            className="col-12 top-level"
           >
             <FormattedMessage
-              defaultMessage="Knowledge Sharing Economy"
-              id="app.containers.HomePage.knowledgeSharingEconomy"
+              id="app.containers.HomePage.yourContributionsRewarded"
               values={Object {}}
             />
           </h1>
@@ -59,7 +58,6 @@ exports[`Introduction test 1`] = `
             className="col-12 col-lg-8 special-paragraph"
           >
             <FormattedMessage
-              defaultMessage="We are decentralized question and answer platform for professional communities with economy that pays contributors in crypto"
               id="app.containers.HomePage.weAreDecentralized"
               values={Object {}}
             />
@@ -74,7 +72,6 @@ exports[`Introduction test 1`] = `
             <ReduxForm
               button={
                 Object {
-                  "defaultMessage": "Get started",
                   "id": "app.containers.HomePage.getStarted",
                 }
               }

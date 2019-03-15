@@ -31,7 +31,6 @@ exports[`<EmailLandingForm /> snapshot test 1`] = `
     <ReduxForm
       button={
         Object {
-          "defaultMessage": "Peerania | FAQ",
           "id": "app.containers.HomePage.faqTitle",
         }
       }

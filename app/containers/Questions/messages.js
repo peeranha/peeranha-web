@@ -9,42 +9,26 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.Questions.title',
-    defaultMessage: 'Questions',
   },
   description: {
     id: 'app.containers.Questions.description',
-    defaultMessage: 'Questions | Description',
   },
-  votes: {
-    id: 'app.containers.Questions.votes',
-    defaultMessage: 'votes',
+  allCommunities: {
+    id: 'app.containers.Questions.allCommunities',
   },
-  answers: {
-    id: 'app.containers.Questions.answers',
-    defaultMessage: 'answers',
+  youDontHaveFeedToRead: {
+    id: 'app.containers.Questions.youDontHaveFeedToRead',
   },
-  askQuestion: {
-    id: 'app.containers.Questions.askQuestion',
-    defaultMessage: 'Ask question',
+  subscribeToCommToKeep: {
+    id: 'app.containers.Questions.subscribeToCommToKeep',
   },
-  noQuestions: {
-    id: 'app.containers.Questions.noQuestions',
-    defaultMessage: 'No questions',
+  noQuestionsYet: {
+    id: 'app.containers.Questions.noQuestionsYet',
   },
-  ago: {
-    id: 'app.containers.Questions.ago',
-    defaultMessage: 'ago',
+  thisIsNewCommunity: {
+    id: 'app.containers.Questions.thisIsNewCommunity',
   },
-  questionPo: {
-    id: 'app.containers.Questions.ago',
-    defaultMessage: 'Your question is successfully posted!',
-  },
-  myfeed: {
-    id: 'app.containers.Questions.myfeed',
-    defaultMessage: 'My feed',
-  },
-  all: {
-    id: 'app.containers.Questions.all',
-    defaultMessage: 'All',
+  readMyFeed: {
+    id: 'app.containers.Questions.readMyFeed',
   },
 });

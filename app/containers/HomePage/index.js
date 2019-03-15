@@ -207,7 +207,7 @@ export class HomePage extends React.PureComponent {
           sendEmail={this.sendEmail}
           sendEmailLoading={this.props.sendEmailLoading}
         />
-        <FaqMain translations={translations} questionsNumber={6} />
+        <FaqMain translations={translations} questionsNumber={5} />
         <Team
           translations={translations}
           sendMessage={this.sendMessage}

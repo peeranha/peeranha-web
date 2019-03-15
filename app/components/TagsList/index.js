@@ -1,10 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { blue } from 'style-constants';
+import Span from 'components/Span';
+
+const Tag = Span.extend`
+  border: 1px solid ${blue};
+  color: ${blue};
+  font-size: 14px;
+  border-radius: 2px;
+  margin-right: 8px;
+  padding: 2px 10px;
+`.withComponent('li');
+
 const TagsList = /* istanbul ignore next */ ({
   chosenTags,
   communities,
   communityId,
+  children,
+  className,
 }) => {
   const community = communities.filter(x => communityId === x.id)[0];
 
@@ -15,17 +29,21 @@ const TagsList = /* istanbul ignore next */ ({
     : community.tags;
 
   return (
-    <div>
+    <ul className="d-flex flex-wrap align-items-center">
       {questionTags.map(x => (
-        <span className="badge badge-secondary mr-1" key={x.name}>
+        <Tag className={className} key={x.name}>
           {x.name}
-        </span>
+        </Tag>
       ))}
-    </div>
+
+      {children}
+    </ul>
   );
 };
 
 TagsList.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string,
   chosenTags: PropTypes.array,
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

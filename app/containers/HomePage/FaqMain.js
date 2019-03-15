@@ -44,6 +44,10 @@ const Box = Section.extend`
         }
       }
 
+      a {
+        text-decoration: none !important;
+      }
+
       button[aria-expanded='true'] .icon.icon-collapse {
         background: url(${minus}) no-repeat;
       }
@@ -103,48 +107,44 @@ const QuestionsData = [
     body: 'whatIsPeeraniaCollapsed',
   },
   {
-    header: 'howToCreateAcc',
-    body: 'howToCreateAccCollapsed',
+    header: 'differentFromOtherSites',
+    body: 'differentFromOtherSitesCollapsed',
   },
   {
-    header: 'howToUpvote',
-    body: 'howToUpvoteCollapsed',
+    header: 'howItWorks',
+    body: 'howItWorksCollapsed',
   },
   {
-    header: 'whatToPost',
-    body: 'whatToPostCollapsed',
+    header: 'tokensReward',
+    body: 'tokensRewardCollapsed',
   },
   {
-    header: 'canIEarn',
-    body: 'canIEarnCollapsed',
+    header: 'valueOfToken',
+    body: 'valueOfTokenCollapsed',
   },
   {
-    header: 'whatIsReputation',
-    body: 'whatIsReputationCollapsed',
+    header: 'websiteLive',
+    body: 'websiteLiveCollapsed',
   },
   {
-    header: 'whatIsPeerania',
-    body: 'whatIsPeeraniaCollapsed',
+    header: 'whatBlockchain',
+    body: 'whatBlockchainCollapsed',
   },
   {
-    header: 'howToCreateAcc',
-    body: 'howToCreateAccCollapsed',
+    header: 'whatIsCryptocurrency',
+    body: 'whatIsCryptocurrencyCollapsed',
   },
   {
-    header: 'howToUpvote',
-    body: 'howToUpvoteCollapsed',
+    header: 'howEarn',
+    body: 'howEarnCollapsed',
   },
   {
-    header: 'whatToPost',
-    body: 'whatToPostCollapsed',
+    header: 'whitePaper',
+    body: 'whitePaperCollapsed',
   },
   {
-    header: 'canIEarn',
-    body: 'canIEarnCollapsed',
-  },
-  {
-    header: 'whatIsReputation',
-    body: 'whatIsReputationCollapsed',
+    header: 'learnMore',
+    body: 'learnMoreCollapsed',
   },
 ];
 

@@ -5,11 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  SET_DEFAULT_REDUCER,
 } from './constants';
 
 export const initialState = fromJS({
@@ -54,7 +55,7 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
 
-    case SET_DEFAULT_REDUCER:
+    case LOCATION_CHANGE:
       return initialState;
 
     default:

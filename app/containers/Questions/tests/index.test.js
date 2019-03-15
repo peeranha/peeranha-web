@@ -21,31 +21,48 @@ cmp.props = {
   parentPage: 'parentPage',
 };
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Questions', () => {
   describe('componentDidUpdate', () => {
-    cmp.fetcher = null;
-
-    it('!this.fetcher && followedCommunities && eosService === FALSE', () => {
+    it('call getInitQuestions if fetcher is null and oth.', () => {
       cmp.props.followedCommunities = null;
 
-      cmp.componentDidUpdate();
-      expect(cmp.fetcher).toEqual(null);
-    });
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledTimes(0);
 
-    it('!this.fetcher && followedCommunities && eosService === TRUE', () => {
       cmp.fetcher = null;
-      cmp.props.followedCommunities = [1];
       cmp.props.eosService = {};
+      cmp.props.parentPage = 'parentPage';
 
       cmp.componentDidUpdate();
-      expect(!!cmp.fetcher.getNextItems).toBe(true);
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledTimes(1);
     });
+
+    it('DO NOT call getInitQuestions ...', () => {
+      cmp.props.followedCommunities = null;
+
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledTimes(0);
+
+      cmp.fetcher = {};
+
+      cmp.componentDidUpdate();
+      expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('initFetcher', () => {
+    cmp.fetcher = null;
+
+    cmp.initFetcher();
+
+    expect(cmp.fetcher).not.toBe(null);
   });
 
   describe('componentWillUnmount', () => {
     it('test', () => {
       cmp.componentWillUnmount();
-      expect(cmp.props.setDefaultReducerDispatch).toHaveBeenCalled();
       expect(cmp.fetcher).toBe(null);
     });
   });
@@ -55,7 +72,12 @@ describe('Questions', () => {
       const offset = 0;
       const communityIdFilter = 26;
 
+      cmp.fetcher = null;
+
       cmp.getInitQuestions(communityIdFilter);
+
+      expect(cmp.fetcher).not.toBe(null);
+
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.initLoadedItems,
         offset,
@@ -77,7 +99,12 @@ describe('Questions', () => {
         },
       ];
 
+      cmp.fetcher = null;
+
       cmp.getNextQuestions();
+
+      expect(cmp.fetcher).not.toBe(null);
+
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.nextLoadedItems,
         id + 1,

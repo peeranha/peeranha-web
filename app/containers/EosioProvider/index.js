@@ -12,13 +12,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import { initEosio } from './actions';
 import { makeSelectInitializing } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Wrapper from './Wrapper';
 
 export class EosioProvider extends React.Component {
   componentDidMount() {
@@ -28,11 +27,7 @@ export class EosioProvider extends React.Component {
   render() {
     return (
       <div>
-        {this.props.initializing && (
-          <Wrapper>
-            <LoadingIndicator />
-          </Wrapper>
-        )}
+        {this.props.initializing && <LoadingIndicator />}
 
         {!this.props.initializing && React.Children.only(this.props.children)}
       </div>

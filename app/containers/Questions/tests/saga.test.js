@@ -3,7 +3,8 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, all } from 'redux-saga/effects';
+
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
@@ -24,6 +25,11 @@ jest.mock('redux-saga/effects', () => ({
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+  all: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 jest.mock('utils/questionsManagement', () => ({
@@ -46,6 +52,11 @@ describe('getQuestionsWorker', () => {
   };
 
   const communities = [];
+  const questions = [
+    {
+      user: 'user1',
+    },
+  ];
 
   const eos = { id: 1, getSelectedAccount: jest.fn() };
 
@@ -68,12 +79,19 @@ describe('getQuestionsWorker', () => {
     });
 
     it('getQuestions', () => {
-      const questions = [];
-
       getQuestions.mockImplementation(() => questions);
       const step = generator.next(communities);
 
       expect(step.value).toEqual(questions);
+    });
+
+    it('questionsList mapping, get userInfo', () => {
+      const waitPromise = true;
+
+      all.mockImplementation(() => waitPromise);
+
+      const step = generator.next(questions);
+      expect(step.value).toBe(waitPromise);
     });
 
     it('GET_QUESTIONS_SUCCESS', () => {

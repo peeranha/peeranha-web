@@ -41,7 +41,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       const lowerBound = BigInt(community_id) << BigInt(36);
       this.communitiesMap[community_id] = {
         items: [],
-        lowerBound,
+        lowerBound: `${lowerBound}`,
         lastKeyFetched: `${lowerBound}`,
         uppperBound: `${BigInt(community_id + 1) << BigInt(36)}`,
         more: true,
@@ -79,8 +79,8 @@ export class FetcherOfQuestionsForFollowedCommunities {
       this.communitiesMap[community_id].items.push(...fetch_res);
 
       if (fetch_res.length === limit) {
-        this.communitiesMap[community_id].lastKeyFetched = `${this
-          .communitiesMap[community_id].lowerBound +
+        this.communitiesMap[community_id].lastKeyFetched = `${BigInt(this
+          .communitiesMap[community_id].lowerBound) +
           BigInt(fetch_res[fetch_res.length - 1].id) +
           inc}`;
       } else {

@@ -14,8 +14,12 @@ exports[`About test1 1`] = `
         className="col-lg-12 second-screen-header"
       >
         <FormattedMessage
-          defaultMessage="Different than other Question and Answers sites"
           id="app.containers.HomePage.differentThan"
+          values={Object {}}
+        />
+        <br />
+        <FormattedMessage
+          id="app.containers.HomePage.differentThan2"
           values={Object {}}
         />
       </h3>
@@ -38,7 +42,7 @@ exports[`About test1 1`] = `
                   className="col-lg-12"
                 >
                   <img
-                    alt="practicalAnswers"
+                    alt="rewardingImg"
                     src="IMAGE_MOCK"
                   />
                 </div>
@@ -49,8 +53,7 @@ exports[`About test1 1`] = `
                     className="item-title"
                   >
                     <FormattedMessage
-                      defaultMessage="Practical Answers and Questions"
-                      id="app.containers.HomePage.practicalAnswers"
+                      id="app.containers.HomePage.rewardingUser"
                       values={Object {}}
                     />
                   </h4>
@@ -58,8 +61,7 @@ exports[`About test1 1`] = `
                     className="item-content"
                   >
                     <FormattedMessage
-                      defaultMessage="Sites are moderated by community. Only detailed questions and answers to very practical questions are allowed"
-                      id="app.containers.HomePage.sitesAreModerated"
+                      id="app.containers.HomePage.peopleSaveHours"
                       values={Object {}}
                     />
                   </p>
@@ -76,7 +78,7 @@ exports[`About test1 1`] = `
                   className="col-lg-12"
                 >
                   <img
-                    alt="fairEconomy"
+                    alt="ownershipImg"
                     src="IMAGE_MOCK"
                   />
                 </div>
@@ -87,8 +89,7 @@ exports[`About test1 1`] = `
                     className="item-title"
                   >
                     <FormattedMessage
-                      defaultMessage="Fair economy where users are paid"
-                      id="app.containers.HomePage.fairEconomy"
+                      id="app.containers.HomePage.ownershipByUsers"
                       values={Object {}}
                     />
                   </h4>
@@ -96,8 +97,7 @@ exports[`About test1 1`] = `
                     className="item-content"
                   >
                     <FormattedMessage
-                      defaultMessage="Posts on Q&A websites save millions of people many hours of work. We believe that people should be paid for helpful contributions to community."
-                      id="app.containers.HomePage.postsOnQA"
+                      id="app.containers.HomePage.peeraniaDecentralized"
                       values={Object {}}
                     />
                   </p>
@@ -112,7 +112,7 @@ exports[`About test1 1`] = `
               >
                 <div>
                   <img
-                    alt="builtOnSmart"
+                    alt="valuingImg"
                     src="IMAGE_MOCK"
                   />
                 </div>
@@ -123,8 +123,7 @@ exports[`About test1 1`] = `
                     className="item-title"
                   >
                     <FormattedMessage
-                      defaultMessage="Built on Smart Contracts and Blockchain"
-                      id="app.containers.HomePage.builtOnSmart"
+                      id="app.containers.HomePage.earlyAdopters"
                       values={Object {}}
                     />
                   </h4>
@@ -132,8 +131,7 @@ exports[`About test1 1`] = `
                     className="item-content"
                   >
                     <FormattedMessage
-                      defaultMessage="The platform is distributed built on blockchain and IPFS technologies. Platforms rules and economy are built into smart contract."
-                      id="app.containers.HomePage.platformIsDistributed"
+                      id="app.containers.HomePage.peeraniaPhilosophy"
                       values={Object {}}
                     />
                   </p>
@@ -182,7 +180,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-1"
                   >
                     <FormattedMessage
-                      defaultMessage="Simple and affordable"
                       id="app.containers.HomePage.simpleAndAffordable"
                       values={Object {}}
                     />
@@ -191,7 +188,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-2"
                   >
                     <FormattedMessage
-                      defaultMessage="Get Help and Help Others"
                       id="app.containers.HomePage.getHelp"
                       values={Object {}}
                     />
@@ -208,7 +204,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-3"
                   >
                     <FormattedMessage
-                      defaultMessage="Ask questions and get help from community of experts passionate about the topic. And help thousands of other peers who get answer to the question in minutes instead of hours thanks to your post."
                       id="app.containers.HomePage.askQuestionAndGetHelp"
                       values={Object {}}
                     />
@@ -242,7 +237,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-1"
                   >
                     <FormattedMessage
-                      defaultMessage="Helpful and generous"
                       id="app.containers.HomePage.helpfulAndGenerous"
                       values={Object {}}
                     />
@@ -251,7 +245,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-2"
                   >
                     <FormattedMessage
-                      defaultMessage="Share Knowledge"
                       id="app.containers.HomePage.shareKnowledge"
                       values={Object {}}
                     />
@@ -268,7 +261,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-3"
                   >
                     <FormattedMessage
-                      defaultMessage="Help community by answering question of your peers. Your answer remains there for many others that need the same answer."
                       id="app.containers.HomePage.helpCommunity"
                       values={Object {}}
                     />
@@ -302,7 +294,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-1"
                   >
                     <FormattedMessage
-                      defaultMessage="Profitable and modern"
                       id="app.containers.HomePage.profitableAndModern"
                       values={Object {}}
                     />
@@ -311,7 +302,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-2"
                   >
                     <FormattedMessage
-                      defaultMessage="Get Paid in Crypto Token. Token with Value. Residually."
                       id="app.containers.HomePage.getPaidInCrypto"
                       values={Object {}}
                     />
@@ -328,7 +318,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-3"
                   >
                     <FormattedMessage
-                      defaultMessage="Get paid in crypto from the weekly reward pool for your contributions, asking and answering question. Token can be sold on the open market to users willing to advertise or post job openings on the platform. You continue to be paid for your contributions as long as your content is helpful and being upvoted by the community."
                       id="app.containers.HomePage.getPaidInCryptoFromWeekly"
                       values={Object {}}
                     />
@@ -362,7 +351,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-1"
                   >
                     <FormattedMessage
-                      defaultMessage="Worthy and prestigious"
                       id="app.containers.HomePage.worthyAndPrestig"
                       values={Object {}}
                     />
@@ -371,7 +359,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-2"
                   >
                     <FormattedMessage
-                      defaultMessage="Earn Reputation"
                       id="app.containers.HomePage.earnReputation"
                       values={Object {}}
                     />
@@ -388,7 +375,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-3"
                   >
                     <FormattedMessage
-                      defaultMessage="Whether you ask or answer questions, all contributions count. Earn reputation and recognition in the community. Unlock new privileges as your reputation grows."
                       id="app.containers.HomePage.whetherYouAsk"
                       values={Object {}}
                     />
@@ -422,7 +408,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-1"
                   >
                     <FormattedMessage
-                      defaultMessage="Honorable and fascinating"
                       id="app.containers.HomePage.honorableAndFascinating"
                       values={Object {}}
                     />
@@ -431,7 +416,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-2"
                   >
                     <FormattedMessage
-                      defaultMessage="Rule the Platform"
                       id="app.containers.HomePage.ruleThePlatform"
                       values={Object {}}
                     />
@@ -448,7 +432,6 @@ exports[`About test1 1`] = `
                     className="col-lg-12 text-3"
                   >
                     <FormattedMessage
-                      defaultMessage="Participate in moderation of the community and help community to thrive. Success of community directly impacts the value of token on the market. Propose, vote for or even build upgrades for the platform. The platform is open source and decentralized. Owned by you and your community."
                       id="app.containers.HomePage.participateInModeration"
                       values={Object {}}
                     />

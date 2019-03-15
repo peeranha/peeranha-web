@@ -62,10 +62,6 @@ const Box = styled.span`
     padding: 5px 20px !important;
     text-transform: uppercase;
 
-    img {
-      margin-right: 5px;
-    }
-
     :hover {
       cursor: pointer;
       background: rgba(229, 229, 229, 0.5);
@@ -77,6 +73,13 @@ const Box = styled.span`
   }
 `;
 
+const Flag = styled.img`
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+`;
+
 /* eslint global-require: 1 */
 /* eslint-disable react/prefer-stateless-function */
 export class ChangeLocale extends React.PureComponent {
@@ -84,16 +87,21 @@ export class ChangeLocale extends React.PureComponent {
     languages: [],
   };
 
-  /* eslint react/no-did-mount-set-state: 0 */
+  /* eslint react/no-did-mount-set-state: 0 prefer-destructuring: 0  */
   componentDidMount() {
     const languages = Object.keys(translationMessages);
-    const locale = localStorage.getItem('locale');
+    let locale = localStorage.getItem('locale');
 
-    this.setState({ languages });
+    // if (!locale) - find the first suitable language in window.navigator.languages
+    if (!locale) {
+      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
+    }
 
     if (locale) {
       this.props.changeLocaleDispatch(locale);
     }
+
+    this.setState({ languages });
   }
 
   changeLocale = e => {
@@ -103,6 +111,7 @@ export class ChangeLocale extends React.PureComponent {
     this.props.changeLocaleDispatch(locale);
   };
 
+  /* eslint global-require: 0 */
   mapLanguages = langs =>
     langs.map(item => (
       <li
@@ -113,12 +122,12 @@ export class ChangeLocale extends React.PureComponent {
         data-isbold={item === this.props.locale}
         key={item}
       >
-        <img src={require(`images/${item}_lang.png`)} alt={item} />
+        <Flag src={require(`images/${item}_lang.png`)} alt={item} />
         <span>{item}</span>
       </li>
     ));
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { locale } = this.props;
 
     return (
@@ -130,7 +139,7 @@ export class ChangeLocale extends React.PureComponent {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img
+          <Flag
             src={require(`images/${[locale]}_lang.png`)}
             alt={`images/${[locale]}_lang.png`}
           />
@@ -154,8 +163,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-/* istanbul ignore next */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     changeLocaleDispatch: lang => dispatch(changeLocale(lang)),

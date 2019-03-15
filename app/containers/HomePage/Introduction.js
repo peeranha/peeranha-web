@@ -118,8 +118,8 @@ const Introduction = ({ sendEmailLoading, sendEmail }) => (
       <div className="row align-items-center justify-content-center">
         <Box className="col-lg-12 first-screen-banner">
           <div className="row justify-content-center">
-            <h1 className="col-12 col-lg-10 top-level">
-              <FormattedMessage {...messages.knowledgeSharingEconomy} />
+            <h1 className="col-12 top-level">
+              <FormattedMessage {...messages.yourContributionsRewarded} />
             </h1>
           </div>
 

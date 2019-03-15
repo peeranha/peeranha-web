@@ -159,4 +159,4 @@ TopCommunities.propTypes = {
   userId: PropTypes.string,
 };
 
-export default TopCommunities;
+export default React.memo(TopCommunities);

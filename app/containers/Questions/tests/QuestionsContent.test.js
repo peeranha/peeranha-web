@@ -1,18 +1,25 @@
-import QuestionsContent, { QuestionItem } from '../QuestionsContent';
+import { QuestionsContent, QuestionItem } from '../QuestionsContent';
+
+jest.mock('utils/datetime', () => ({
+  getFormattedDate: jest.fn(),
+}));
+
+jest.mock('utils/numbers', () => ({
+  getFormattedNum: jest.fn(),
+  getFormattedNum2: jest.fn(),
+}));
 
 const props = {
   questionsList: [
     {
       answers: [],
       id: 1,
+      userInfo: {},
     },
   ],
   locale: 'en',
+  communities: [],
 };
-
-jest.mock('utils/datetime', () => ({
-  getTimeFromDateToNow: jest.fn(),
-}));
 
 describe('QuestionsContent', () => {
   it('QuestionsContent, snapshot test', () => {
@@ -22,7 +29,9 @@ describe('QuestionsContent', () => {
   it('QuestionItem, snapshot test', () => {
     const obj = {
       answers: [],
+      userInfo: {},
     };
+
     expect(QuestionItem(obj)).toMatchSnapshot();
   });
 });

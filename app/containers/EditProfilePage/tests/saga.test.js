@@ -7,9 +7,10 @@ import { select } from 'redux-saga/effects';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { uploadImg, saveProfile } from 'utils/profileManagement';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
-import { GET_CURRENT_ACCOUNT } from 'containers/AccountProvider/constants';
+import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import defaultSaga, {
   uploadImageFileWorker,
@@ -34,6 +35,10 @@ jest.mock('redux-saga/effects', () => ({
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
 }));
 
 const saved = 'saved';
@@ -99,9 +104,16 @@ describe('saveProfileActionWorker', () => {
     expect(step4.value).toBe(saved);
   });
 
-  it('step, GET_CURRENT_ACCOUNT', () => {
+  it('removeUserProfile', () => {
     const step = generator.next();
-    expect(step.value.type).toBe(GET_CURRENT_ACCOUNT);
+    expect(step.value).toEqual(removeUserProfile(sendProps.obj.userKey));
+  });
+
+  it('getUserProfileWorker', () => {
+    generator.next();
+    expect(getUserProfileWorker).toHaveBeenCalledWith({
+      user: sendProps.obj.userKey,
+    });
   });
 
   it('step, type Success, putDescriptor', () => {

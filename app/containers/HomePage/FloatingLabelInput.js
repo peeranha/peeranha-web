@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { LANDING_FONT } from 'style-constants';
 
-/* istanbul ignore next */
+/* eslint indent: 0 */
 export const Wrapper = styled.div`
   * {
     font-family: ${LANDING_FONT};
@@ -26,7 +26,9 @@ export const Wrapper = styled.div`
   }
 
   .floating-label-input {
-    height: ${props => (props.multiline ? 'auto' : '48px')};
+    height: ${(props) /* istanbul ignore next */ =>
+      props.multiline ? 'auto' : '48px'};
+
     width: 100%;
 
     * ::after {
@@ -42,6 +44,10 @@ export const Wrapper = styled.div`
       color: #9b9b9b;
       font-family: ${LANDING_FONT};
       z-index: 10;
+
+      + div {
+        min-height: 32px;
+      }
     }
 
     input {

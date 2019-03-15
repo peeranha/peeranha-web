@@ -42,37 +42,46 @@ exports[`Footer test 1`] = `
           className="row align-items-center"
         >
           <div
-            className="col-12 col-lg-6 locale"
+            className="col-12 col-lg-5 locale"
           >
             <Connect(ChangeLocale) />
           </div>
           <div
-            className="col-6 d-none d-lg-flex align-items-center icons"
+            className="col-7 d-none d-lg-flex align-items-center icons"
           >
             <a
-              href="https://www.youtube.com/"
-              target="_blank"
-            >
-              <img
-                alt="youtube"
-                src="IMAGE_MOCK"
-              />
-            </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-            >
-              <img
-                alt="facebook"
-                src="IMAGE_MOCK"
-              />
-            </a>
-            <a
-              href="https://twitter.com"
+              href="https://twitter.com/peerania_com"
               target="_blank"
             >
               <img
                 alt="twitter"
+                src="IMAGE_MOCK"
+              />
+            </a>
+            <a
+              href="https://github.com/peerania"
+              target="_blank"
+            >
+              <img
+                alt="github"
+                src="IMAGE_MOCK"
+              />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/peeraniacom/about/"
+              target="_blank"
+            >
+              <img
+                alt="linkedin"
+                src="IMAGE_MOCK"
+              />
+            </a>
+            <a
+              href="https://medium.com/peerania"
+              target="_blank"
+            >
+              <img
+                alt="medium"
                 src="IMAGE_MOCK"
               />
             </a>

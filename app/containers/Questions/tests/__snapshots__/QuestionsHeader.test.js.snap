@@ -1,81 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QuestionsHeader parentPage === feed 1`] = `
-<div>
-  <div
-    className="questions-header"
-  >
-    <h4
-      className="text-uppercase font-weight-bold"
-    >
-      : 0
-    </h4>
-    <div>
-      <button
-        className="btn btn-secondary ml-1"
-        onClick={[Function]}
-      />
-    </div>
-  </div>
-  <SelectField
-    input={
-      Object {
-        "onChange": [Function],
-        "value": undefined,
-      }
-    }
-    isClearable={false}
-    isDisabled={false}
-    isMulti={false}
-    isSearchable={true}
+<Base
+  className="d-flex align-items-center"
+>
+  <InjectIntl(Component)
+    Button={[Function]}
     options={
       Array [
         Object {
-          "label": undefined,
-          "value": 0,
+          "options": Array [
+            Object {
+              "label": undefined,
+              "value": 0,
+            },
+          ],
+        },
+        Object {
+          "options": Array [],
         },
       ]
     }
+    optionsNumber={0}
+    selectedValue={0}
+    toggle={[MockFunction]}
   />
-</div>
+</Base>
 `;
 
 exports[`QuestionsHeader snapshot test 1`] = `
-<div>
-  <div
-    className="questions-header"
-  >
-    <h4
-      className="text-uppercase font-weight-bold"
-    >
-      : 0
-    </h4>
-    <div>
-      <button
-        className="btn btn-secondary ml-1"
-        onClick={[Function]}
-      />
-    </div>
-  </div>
-  <SelectField
-    input={
-      Object {
-        "onChange": [Function],
-        "value": undefined,
-      }
-    }
-    isClearable={false}
-    isDisabled={false}
-    isMulti={false}
-    isSearchable={true}
+<Base
+  className="d-flex align-items-center"
+>
+  <InjectIntl(Component)
+    Button={[Function]}
     options={
       Array [
         Object {
-          "label": undefined,
-          "value": 0,
+          "options": Array [
+            Object {
+              "label": undefined,
+              "value": 0,
+            },
+          ],
+        },
+        Object {
+          "options": Array [],
+        },
+        Object {
+          "options": Array [],
         },
       ]
     }
+    optionsNumber={0}
+    selectedValue={0}
+    toggle={[MockFunction]}
   />
-</div>
+</Base>
 `;

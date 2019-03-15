@@ -43,7 +43,6 @@ exports[`FaqMain FaqMain 1`] = `
                     className="text"
                   >
                     <FormattedMessage
-                      defaultMessage="Get more answers"
                       id="app.containers.HomePage.getMoreAnswers"
                       values={Object {}}
                     />
@@ -81,8 +80,6 @@ exports[`FaqMain Question 1`] = `
           className="text"
         >
           <FormattedMessage
-            defaultMessage="What is Reputation?"
-            id="app.containers.HomePage.whatIsReputation"
             values={Object {}}
           />
         </h3>
@@ -98,8 +95,6 @@ exports[`FaqMain Question 1`] = `
         className="card-body"
       >
         <FormattedMessage
-          defaultMessage="What is Reputation?"
-          id="app.containers.HomePage.whatIsReputationCollapsed"
           values={Object {}}
         />
       </div>
@@ -115,24 +110,24 @@ Array [
     header="whatIsPeerania"
   />,
   <Question
-    body="howToCreateAccCollapsed"
-    header="howToCreateAcc"
+    body="differentFromOtherSitesCollapsed"
+    header="differentFromOtherSites"
   />,
   <Question
-    body="howToUpvoteCollapsed"
-    header="howToUpvote"
+    body="howItWorksCollapsed"
+    header="howItWorks"
   />,
   <Question
-    body="whatToPostCollapsed"
-    header="whatToPost"
+    body="tokensRewardCollapsed"
+    header="tokensReward"
   />,
   <Question
-    body="canIEarnCollapsed"
-    header="canIEarn"
+    body="valueOfTokenCollapsed"
+    header="valueOfToken"
   />,
   <Question
-    body="whatIsReputationCollapsed"
-    header="whatIsReputation"
+    body="websiteLiveCollapsed"
+    header="websiteLive"
   />,
 ]
 `;

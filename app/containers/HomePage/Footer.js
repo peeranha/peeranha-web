@@ -5,9 +5,10 @@ import { LANDING_FONT } from 'style-constants';
 import ChangeLocale from 'containers/ChangeLocale';
 
 import logo from 'images/LogoBlack.svg';
-import youtube from 'images/yt.svg';
-import twitter from 'images/tw.svg';
-import facebook from 'images/fb.svg';
+import medium from 'images/medium.png';
+import twitter from 'images/twitter.svg';
+import linkedin from 'images/in.svg';
+import github from 'images/github.svg';
 
 import * as routes from 'routes-config';
 
@@ -88,18 +89,24 @@ const Footer = () => (
         </div>
         <div className="col-6 col-lg-3 media-section">
           <div className="row align-items-center">
-            <div className="col-12 col-lg-6 locale">
+            <div className="col-12 col-lg-5 locale">
               <ChangeLocale />
             </div>
-            <div className="col-6 d-none d-lg-flex align-items-center icons">
-              <a href="https://www.youtube.com/" target="_blank">
-                <img src={youtube} alt="youtube" />
-              </a>
-              <a href="https://facebook.com" target="_blank">
-                <img src={facebook} alt="facebook" />
-              </a>
-              <a href="https://twitter.com" target="_blank">
+            <div className="col-7 d-none d-lg-flex align-items-center icons">
+              <a href="https://twitter.com/peerania_com" target="_blank">
                 <img src={twitter} alt="twitter" />
+              </a>
+              <a href="https://github.com/peerania" target="_blank">
+                <img src={github} alt="github" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/peeraniacom/about/"
+                target="_blank"
+              >
+                <img src={linkedin} alt="linkedin" />
+              </a>
+              <a href="https://medium.com/peerania" target="_blank">
+                <img src={medium} alt="medium" />
               </a>
             </div>
           </div>

@@ -91,7 +91,9 @@ const Box = styled.div`
       color: #ffffff;
 
       img {
-        padding-right: 9px;
+        margin-right: 9px;
+        width: 21px;
+        height: 21px;
       }
 
       span {
@@ -122,7 +124,7 @@ const Box = styled.div`
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding: 0 20px 10px 20px;
+    padding: 50px 20px 10px 20px;
 
     * {
       font-family: ${LANDING_FONT};
@@ -272,7 +274,7 @@ export class Header extends React.PureComponent {
 
           <div className="container">
             <div className="row">
-              <div className="col-6 col-xl-6 col-lg-4 logo">
+              <div className="col-6 col-xl-5 col-lg-4 logo">
                 <button onClick={this.changeLocation} data-hash={FIRST_SCREEN}>
                   <img src={logo} alt="logo" />
                 </button>
@@ -287,7 +289,7 @@ export class Header extends React.PureComponent {
               </button>
 
               <div
-                className="col-md-12 col-xl-6 col-lg-8 nav-bar d-none d-lg-block"
+                className="col-md-12 col-xl-7 col-lg-8 nav-bar d-none d-lg-block"
                 id={this.state.togglerId}
               >
                 <div className="row">

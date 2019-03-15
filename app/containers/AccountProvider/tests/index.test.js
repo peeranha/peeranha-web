@@ -1,39 +1,24 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
-import { memoryHistory } from 'react-router-dom';
-import configureStore from 'configureStore';
 
 import { mapDispatchToProps, AccountProvider } from '../index';
 
 describe('<AccountProvider />', () => {
-  it('render test', async () => {
-    const children = <h1>Children</h1>;
-    const store = configureStore({}, memoryHistory);
-    const renderedComponent = shallow(
-      <Provider store={store}>
-        <AccountProvider>{children}</AccountProvider>
-      </Provider>,
-    );
-    expect(renderedComponent.contains(children)).toBe(true);
-  });
-
   it('componentDidMount', async () => {
-    const user = 'user1';
     const cmp = new AccountProvider();
 
     cmp.props = {};
-    cmp.props.getCurrentAccountDispatch = () => user;
+    cmp.props.getCurrentAccountDispatch = jest.fn();
 
-    expect(await cmp.componentDidMount()).toBe(user);
+    await cmp.componentDidMount();
+    expect(cmp.props.getCurrentAccountDispatch).toHaveBeenCalled();
   });
 
   it('render', () => {
     const cmp = new AccountProvider();
-    const children = <div>Children</div>;
+    const children = [];
 
     cmp.props = {};
-    React.Children.only = jest.fn().mockImplementationOnce(() => children);
+    React.Children.toArray = jest.fn().mockImplementationOnce(() => children);
     expect(cmp.render()).toEqual([children]);
   });
 

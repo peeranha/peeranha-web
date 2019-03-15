@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitySelector snapshot test 1`] = `
+<Dropdown
+  isArrowed={true}
+  isOpen={false}
+  onClose={[Function]}
+  target={
+    <UNDEFINED
+      toggleOpen={[Function]}
+    />
+  }
+>
+  <StateManager
+    autoFocus={true}
+    backspaceRemovesValue={false}
+    components={
+      Object {
+        "DropdownIndicator": [Function],
+        "Group": Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        },
+        "IndicatorSeparator": null,
+        "Option": Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        },
+      }
+    }
+    controlShouldRenderValue={false}
+    defaultInputValue=""
+    defaultMenuIsOpen={false}
+    defaultValue={null}
+    hideSelectedOptions={false}
+    isClearable={false}
+    menuIsOpen={true}
+    onChange={[Function]}
+    options={Array []}
+    optionsNumber={0}
+    selectedValue={0}
+    styles={
+      Object {
+        "control": [Function],
+        "menu": [Function],
+        "menuList": [Function],
+      }
+    }
+    tabSelectsValue={false}
+  />
+  <UNDEFINED />
+</Dropdown>
+`;

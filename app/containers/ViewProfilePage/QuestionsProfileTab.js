@@ -13,7 +13,7 @@ import {
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 import A from 'components/A';

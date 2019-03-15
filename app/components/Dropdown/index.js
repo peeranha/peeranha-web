@@ -7,7 +7,7 @@ import Icon from 'components/Icon';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
-const Dropdown = /* istanbul ignore next */ ({
+export const Dropdown = /* istanbul ignore next */ ({
   button,
   menu,
   id,

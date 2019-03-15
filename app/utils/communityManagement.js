@@ -15,7 +15,16 @@ import {
 } from './constants';
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
+  if (!allcommunities || !followedcommunities) return [];
+
   return allcommunities.filter(x => followedcommunities.includes(x.id));
+}
+
+// TODO: test it
+export function getUnfollowedCommunities(allcommunities, followedcommunities) {
+  if (!allcommunities || !followedcommunities) return [];
+
+  return allcommunities.filter(x => !followedcommunities.includes(x.id));
 }
 
 /* eslint-disable */

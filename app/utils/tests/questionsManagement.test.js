@@ -125,7 +125,7 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
 
       expect(fetcher.communitiesMap[communities[0]]).toEqual({
         items: [],
-        lowerBound: BigInt(communities[0]) << BigInt(36),
+        lowerBound: `${BigInt(communities[0]) << BigInt(36)}`,
         lastKeyFetched: `${BigInt(communities[0]) << BigInt(36)}`,
         uppperBound: `${BigInt(communities[0] + 1) << BigInt(36)}`,
         more: true,
