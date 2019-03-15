@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: node:11
+      - image: node:11.10.1
     working_directory: ~/ws
     steps:
       - attach_workspace:
