@@ -30,7 +30,7 @@ const Aside = styled.aside`
     width: 100%;
     min-height: 100vh;`
       : `
-    flex-basis: ${LEFT_MENU_WIDTH}px;
+    flex: 0 0 ${LEFT_MENU_WIDTH}px;
     margin-top: 15px;
     margin-right: 15px;
   `};

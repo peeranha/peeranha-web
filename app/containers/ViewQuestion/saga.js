@@ -28,6 +28,7 @@ import {
 } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 
 import {
   GET_QUESTION_DATA,
@@ -42,7 +43,7 @@ import {
   SAVE_COMMENT,
   VOTE_TO_DELETE,
   contentOptionsClass,
-  contentOptionsAttr,
+  commentsOpened,
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -145,6 +146,8 @@ export function* getQuestionData({
 
   /* eslint no-shadow: 0 */
   const p2 = function*() {
+    const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
+
     yield all(
       question.answers.map(function*(x) {
         const cachedAnswer = yield select(selectAnswer(x.id));
@@ -166,6 +169,10 @@ export function* getQuestionData({
         x.isItWrittenByMe = user === x.user;
         x.votingStatus = votingStatus(x.history);
         x.lastEditedDate = getlastEditedDate(x.properties);
+
+        x.isTheLargestRating =
+          x.rating === mostRatingAnswer.rating &&
+          x.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
         yield all(
           x.comments.map(function*(y) {
@@ -232,6 +239,7 @@ export function* saveCommentWorker({
   answerId,
   commentId,
   comment,
+  toggleView,
 }) {
   try {
     const eosService = yield select(selectEos);
@@ -245,6 +253,8 @@ export function* saveCommentWorker({
       questionId,
       user,
     });
+
+    yield call(() => toggleView(true));
 
     yield put(saveCommentSuccess(questionData));
   } catch (err) {
@@ -363,6 +373,7 @@ export function* postCommentWorker({
   questionId,
   comment,
   reset,
+  toggleView,
 }) {
   try {
     let questionData = yield select(selectQuestionData());
@@ -393,6 +404,8 @@ export function* postCommentWorker({
       postComment(user, questionId, answerId, comment, eosService),
     );
 
+    yield call(() => toggleView(true));
+
     questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
     );
@@ -400,9 +413,7 @@ export function* postCommentWorker({
     yield call(() => reset());
 
     yield call(() =>
-      window
-        .$(`.${contentOptionsClass}`)
-        .attr(`data-${contentOptionsAttr}`, false),
+      window.$(`.${contentOptionsClass}`).attr(`data-${commentsOpened}`, false),
     );
 
     yield put(postCommentSuccess(questionData));

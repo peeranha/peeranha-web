@@ -1,40 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { blue } from 'style-constants';
+import messages from 'common-messages';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LargeButton from 'components/Button/LargeButton';
 import TextareaField from 'components/FormFields/TextareaField';
 import { strLength20x1000, required } from 'components/FormFields/validate';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
+const CancelButton = LargeButton.extend`
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: ${blue};
+`;
+
 /* eslint-disable-next-line */
-let CommentForm = /* istanbul ignore next */ props => (
-  <form onSubmit={props.handleSubmit(props.sendComment)}>
+let CommentForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  sendComment,
+  sendCommentLoading,
+  submitButtonId,
+  answerId,
+  toggleView,
+  submitButtonName,
+  className,
+}) => (
+  <form className={className} onSubmit={handleSubmit(sendComment)}>
     <div>
       <Field
         name={TEXTAREA_COMMENT_FORM}
-        disabled={props.sendCommentLoading}
+        disabled={sendCommentLoading}
         component={TextareaField}
         validate={[strLength20x1000, required]}
         warn={[strLength20x1000, required]}
       />
     </div>
     <div>
-      <button
-        id={`${props.submitButtonId}${props.answerId}`}
-        style={props.sendCommentLoading ? { opacity: 0.5 } : null}
-        type="submit"
-        className="btn btn-secondary"
-        disabled={props.invalid || props.submitting}
+      <LargeButton
+        id={`${submitButtonId}${answerId}`}
+        disabled={sendCommentLoading}
+        typeAttr="submit"
       >
-        {props.sendCommentLoading ? (
-          <LoadingIndicator />
-        ) : (
-          props.submitButtonName
-        )}
-      </button>
+        {submitButtonName}
+      </LargeButton>
+
+      <CancelButton onClick={() => toggleView(true)} typeAttr="button">
+        <FormattedMessage {...messages.cancel} />
+      </CancelButton>
     </div>
   </form>
 );
@@ -48,6 +65,8 @@ CommentForm.propTypes = {
   sendCommentLoading: PropTypes.bool,
   invalid: PropTypes.bool,
   submitting: PropTypes.bool,
+  toggleView: PropTypes.func,
+  className: PropTypes.string,
 };
 
 CommentForm = reduxForm({})(CommentForm);
@@ -59,4 +78,4 @@ CommentForm = connect((state, props) => ({
   },
 }))(CommentForm);
 
-export default CommentForm;
+export default React.memo(CommentForm);

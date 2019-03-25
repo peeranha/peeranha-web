@@ -17,6 +17,10 @@ import Base from 'components/Base';
 import OutlinedButton from 'components/Button/OutlinedButton';
 import MediumImage from 'components/Img/MediumImage';
 
+const CommunitiesFormStyled = styled.div`
+  overflow: hidden;
+`;
+
 const BaseStyled = Base.extend`
   padding: 15px 20px;
 `;
@@ -70,7 +74,7 @@ const TopCommunities = /* istanbul ignore next */ ({
   }
 
   return (
-    <div>
+    <CommunitiesFormStyled>
       <H4 isHeader>
         <FormattedMessage {...messages.top} />{' '}
         <span className="text-lowercase">
@@ -148,7 +152,7 @@ const TopCommunities = /* istanbul ignore next */ ({
           </OutlinedButton>
         </A>
       </div>
-    </div>
+    </CommunitiesFormStyled>
   );
 };
 

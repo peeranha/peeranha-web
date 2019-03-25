@@ -16,7 +16,7 @@ const TextareaField = ({ input, label, disabled, meta, placeholder }) => (
     <Label>{label}</Label>
     <Textarea
       {...input}
-      error={!!(meta.error || meta.warning)}
+      error={meta.touched && (meta.error || meta.warning)}
       disabled={disabled}
       placeholder={placeholder}
     />

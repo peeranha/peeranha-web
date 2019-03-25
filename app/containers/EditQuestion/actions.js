@@ -13,10 +13,10 @@ import {
   EDIT_QUESTION_ERROR,
 } from './constants';
 
-export function getAskedQuestion(questionid) {
+export function getAskedQuestion(questionId) {
   return {
     type: GET_ASKED_QUESTION,
-    questionid,
+    questionId,
   };
 }
 
@@ -34,11 +34,11 @@ export function getAskedQuestionErr(getAskedQuestionError) {
   };
 }
 
-export function editQuestion(question, questionid) {
+export function editQuestion(question, questionId) {
   return {
     type: EDIT_QUESTION,
     question,
-    questionid,
+    questionId,
   };
 }
 

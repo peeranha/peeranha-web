@@ -7,8 +7,8 @@ import validationArrowIcon from 'svg/validationArrow';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 
-const WarningMessage = ({ error, warning, className, isArrowed }) =>
-  error || warning ? (
+const WarningMessage = ({ error, warning, touched, className, isArrowed }) =>
+  touched && (error || warning) ? (
     <div className={`d-flex align-items-center ${className}`}>
       {isArrowed && (
         <Icon className="d-none d-xl-inline" icon={validationArrowIcon} />
@@ -26,6 +26,7 @@ WarningMessage.propTypes = {
   warning: PropTypes.object,
   className: PropTypes.string,
   isArrowed: PropTypes.bool,
+  touched: PropTypes.bool,
 };
 
 export default WarningMessage;

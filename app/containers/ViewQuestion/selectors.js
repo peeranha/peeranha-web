@@ -8,11 +8,6 @@ import { initialState } from './reducer';
 const selectViewQuestionDomain = state =>
   state.get('viewQuestion', initialState);
 
-const selectEditComment = () =>
-  createSelector(selectViewQuestionDomain, substate =>
-    substate.get('editComment'),
-  );
-
 const selectQuestionData = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('questionData'),
@@ -152,7 +147,6 @@ const selectVoteToDeleteError = () =>
 
 export {
   selectViewQuestionDomain,
-  selectEditComment,
   selectQuestionData,
   selectQuestionDataError,
   selectQuestionDataLoading,

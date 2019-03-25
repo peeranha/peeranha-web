@@ -26,7 +26,7 @@ const RatingStatus = /* istanbul ignore next */ ({
 
   return (
     <RatingStatusStyled>
-      <Icon icon={full.icon[size || 'sm']} />
+      <Icon className="d-inline-flex" icon={full.icon[size || 'sm']} />
       <Span
         fontSize={size === 'lg' ? 20 : 14}
         bold={size === 'lg'}

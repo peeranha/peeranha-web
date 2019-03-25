@@ -21,7 +21,8 @@ const Main = styled.div`
 
 const WrapStyled = styled.div`
   margin-top: 10px;
-  flex: 1;
+  flex: 1 1 auto;
+  overflow: auto;
 `;
 
 export class Box extends React.PureComponent {
@@ -77,10 +78,9 @@ export class Box extends React.PureComponent {
               expandLeftMenuNavigation={this.expandLeftMenuNavigation}
               isMenuVisible={isMenuVisible}
               showMenu={this.showMenu}
-              key="header"
             />
 
-            <Main key="main">
+            <Main>
               <div className="container">
                 <div className="d-flex">
                   <LeftMenu

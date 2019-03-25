@@ -28,6 +28,8 @@
   "app.common.manageMyComm": "Управлять своими сообществами",
   "app.common.asked": "Спрашивали",
   "app.common.youAsked": "Вы спрашивали",
+  "app.common.answered": "Ответили",
+  "app.common.cancel": "Отменить",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -261,8 +263,9 @@
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
+
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
-  "app.containers.ViewQuestion.voteToDelete": "Голосовать за удаление",
+  "app.containers.ViewQuestion.voteToDelete": "Блокировать",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше",
   "app.containers.ViewQuestion.notEnoughModPoints":
@@ -289,6 +292,12 @@
     "Вы не можете удалить свой вопрос, т.к. уже были оставлены ответы",
   "app.containers.ViewQuestion.answerIsCorrect":
     "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
+  "app.containers.ViewQuestion.theBest": "Лучший",
+  "app.containers.ViewQuestion.theBestAnswer": "Лучший ответ",
+  "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
+  "app.containers.ViewQuestion.moreComments": "Больше комментариев",
+  "app.containers.ViewQuestion.addComment": "Добавить комментарий",
+
   "app.components.FormFields.requiredField": "Необходимое поле",
   "app.containers.FormFields.wrongLength15x100":
     "Значение должно быть не меньше 15 и не более 100 символов",

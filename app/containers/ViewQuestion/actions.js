@@ -5,7 +5,6 @@
  */
 
 import {
-  TOGGLE_COMMENT_VISION,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
   GET_QUESTION_DATA_ERROR,
@@ -41,13 +40,6 @@ import {
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
 } from './constants';
-
-export function toggleCommentVision(editComment) {
-  return {
-    type: TOGGLE_COMMENT_VISION,
-    editComment,
-  };
-}
 
 export function getQuestionData(questionId) {
   return {
@@ -141,7 +133,14 @@ export function deleteCommentErr(deleteCommentError) {
   };
 }
 
-export function saveComment(user, questionId, answerId, commentId, comment) {
+export function saveComment(
+  user,
+  questionId,
+  answerId,
+  commentId,
+  comment,
+  toggleView,
+) {
   return {
     type: SAVE_COMMENT,
     user,
@@ -149,6 +148,7 @@ export function saveComment(user, questionId, answerId, commentId, comment) {
     answerId,
     commentId,
     comment,
+    toggleView,
   };
 }
 
@@ -207,6 +207,7 @@ export function postComment(
   reset,
   postButtonId,
   translations,
+  toggleView,
 ) {
   return {
     type: POST_COMMENT,
@@ -217,6 +218,7 @@ export function postComment(
     reset,
     postButtonId,
     translations,
+    toggleView,
   };
 }
 

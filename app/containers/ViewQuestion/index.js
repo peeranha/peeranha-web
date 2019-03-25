@@ -18,7 +18,7 @@ import * as routes from 'routes-config';
 
 import { scrollToSection } from 'utils/animation';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -27,7 +27,6 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
 import {
-  toggleCommentVision,
   saveComment,
   deleteComment,
   deleteAnswer,
@@ -47,13 +46,7 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import {
-  TEXTAREA_COMMENT_FORM,
-  POST_COMMENT_BUTTON,
-  MARK_AS_BUTTON,
-  UP_VOTE_BUTTON,
-  DOWN_VOTE_BUTTON,
-} from './constants';
+import { TEXTAREA_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import NoSuchQuestion from './NoSuchQuestion';
@@ -86,12 +79,12 @@ export class ViewQuestion extends React.Component {
    */
 
   deleteQuestion = e => {
-    const { id } = e.target;
+    const { id } = e.currentTarget;
     this.props.deleteQuestionDispatch(this.props.account, this.questionId, id);
   };
 
   editQuestion = e => {
-    const { questionid } = e.target.dataset;
+    const { questionid } = e.currentTarget.dataset;
     this.props.history.push(routes.questionEdit(questionid));
   };
 
@@ -117,13 +110,13 @@ export class ViewQuestion extends React.Component {
   };
 
   editAnswer = e => {
-    const { questionid, answerid } = e.target.dataset;
+    const { questionid, answerid } = e.currentTarget.dataset;
     this.props.history.push(routes.answerEdit(questionid, answerid));
   };
 
   deleteAnswer = e => {
-    const { id } = e.target;
-    const { answerid } = e.target.dataset;
+    const { id } = e.currentTarget;
+    const { answerid } = e.currentTarget.dataset;
     this.props.deleteAnswerDispatch(
       this.props.account,
       this.questionId,
@@ -150,17 +143,13 @@ export class ViewQuestion extends React.Component {
       args[2].reset,
       postButtonId,
       translations,
+      args[2].toggleView,
     );
-  };
-
-  editComment = e => {
-    const { commentid, answerid } = e.target.dataset;
-    this.props.toggleCommentVisionDispatch({ commentid, answerid });
   };
 
   saveComment = (...args) => {
     const comment = args[0].get(TEXTAREA_COMMENT_FORM);
-    const { commentId, answerId } = args[2];
+    const { commentId, answerId, toggleView } = args[2];
 
     this.props.saveCommentDispatch(
       this.props.account,
@@ -168,12 +157,13 @@ export class ViewQuestion extends React.Component {
       answerId,
       commentId,
       comment,
+      toggleView,
     );
   };
 
   deleteComment = e => {
-    const { id } = e.target;
-    const { commentid, answerid } = e.target.dataset;
+    const { id } = e.currentTarget;
+    const { commentid, answerid } = e.currentTarget.dataset;
     this.props.deleteCommentDispatch(
       this.props.account,
       this.questionId,
@@ -189,51 +179,62 @@ export class ViewQuestion extends React.Component {
    *
    */
 
-  markAsAccepted = (answerId, whoWasAccepted) => {
-    const postButtonId = `${MARK_AS_BUTTON}${answerId}`;
+  markAsAccepted = e => {
+    const { answerid, whowasaccepted } = e.currentTarget.dataset;
+
+    const postButtonId = e.currentTarget.id;
     const translations = translationMessages[this.props.locale];
 
     this.props.markAsAcceptedDispatch(
       this.props.account,
       this.questionId,
-      answerId,
+      answerid,
       postButtonId,
       translations,
-      whoWasAccepted,
+      whowasaccepted,
     );
   };
 
-  upVote = (answerId, whoWasUpvoted) => {
-    const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
+  upVote = e => {
+    const { answerid, whowasupvoted } = e.currentTarget.dataset;
+
+    const postButtonId = e.currentTarget.id;
     const translations = translationMessages[this.props.locale];
 
     this.props.upVoteDispatch(
       this.props.account,
       this.questionId,
-      answerId,
+      +answerid,
       postButtonId,
       translations,
-      whoWasUpvoted,
+      whowasupvoted,
     );
   };
 
-  downVote = (answerId, whoWasDownvoted) => {
-    const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
+  downVote = e => {
+    const { answerid, whowasdownvoted } = e.currentTarget.dataset;
+
+    const postButtonId = e.currentTarget.id;
     const translations = translationMessages[this.props.locale];
 
     this.props.downVoteDispatch(
       this.props.account,
       this.questionId,
-      answerId,
+      +answerid,
       postButtonId,
       translations,
-      whoWasDownvoted,
+      whowasdownvoted,
     );
   };
 
   voteToDelete = e => {
-    const { id } = e.target;
-    const { questionid, answerid, commentid, whowasvoted } = e.target.dataset;
+    const { id } = e.currentTarget;
+    const {
+      questionid,
+      answerid,
+      commentid,
+      whowasvoted,
+    } = e.currentTarget.dataset;
 
     this.props.voteToDeleteDispatch(
       questionid,
@@ -253,7 +254,6 @@ export class ViewQuestion extends React.Component {
       postCommentLoading,
       questionDataLoading,
       saveCommentLoading,
-      editCommentState,
       communities,
     } = this.props;
 
@@ -265,14 +265,12 @@ export class ViewQuestion extends React.Component {
       postAnswerLoading,
       postCommentLoading,
       saveCommentLoading,
-      editCommentState,
       upVote: this.upVote,
       downVote: this.downVote,
       postAnswer: this.postAnswer,
       editAnswer: this.editAnswer,
       deleteAnswer: this.deleteAnswer,
       postComment: this.postComment,
-      editComment: this.editComment,
       saveComment: this.saveComment,
       deleteComment: this.deleteComment,
       markAsAccepted: this.markAsAccepted,
@@ -291,7 +289,7 @@ export class ViewQuestion extends React.Component {
       sendProps.translations[messages.title.description];
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{helmetTitle}</title>
           <meta name="description" content={helmetDescription} />
@@ -319,7 +317,6 @@ ViewQuestion.propTypes = {
   questionData: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
-  editCommentState: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,
   postAnswerDispatch: PropTypes.func,
   postCommentDispatch: PropTypes.func,
@@ -328,7 +325,6 @@ ViewQuestion.propTypes = {
   markAsAcceptedDispatch: PropTypes.func,
   deleteQuestionDispatch: PropTypes.func,
   deleteAnswerDispatch: PropTypes.func,
-  toggleCommentVisionDispatch: PropTypes.func,
   saveCommentDispatch: PropTypes.func,
   deleteCommentDispatch: PropTypes.func,
   voteToDeleteDispatch: PropTypes.func,
@@ -344,17 +340,13 @@ const mapStateToProps = createStructuredSelector({
   postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
   postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
   saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
-  editCommentState: makeSelectViewQuestion.selectEditComment(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    toggleCommentVisionDispatch: editCommentState =>
-      dispatch(toggleCommentVision(editCommentState)),
-
-    saveCommentDispatch: (user, qId, aId, cId, comment) =>
-      dispatch(saveComment(user, qId, aId, cId, comment)),
+    saveCommentDispatch: (user, qId, aId, cId, comment, toggleView) =>
+      dispatch(saveComment(user, qId, aId, cId, comment, toggleView)),
 
     deleteCommentDispatch: (user, qId, aId, cId, bId) =>
       dispatch(deleteComment(user, qId, aId, cId, bId)),
@@ -370,8 +362,28 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
       dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
 
-    postCommentDispatch: (user, qId, aId, comment, reset, postbId, transl) =>
-      dispatch(postComment(user, qId, aId, comment, reset, postbId, transl)),
+    postCommentDispatch: (
+      user,
+      qId,
+      aId,
+      comment,
+      reset,
+      postbId,
+      transl,
+      toggleView,
+    ) =>
+      dispatch(
+        postComment(
+          user,
+          qId,
+          aId,
+          comment,
+          reset,
+          postbId,
+          transl,
+          toggleView,
+        ),
+      ),
 
     upVoteDispatch: (user, qId, aId, postbId, transl, whoWasUpvoted) =>
       dispatch(upVote(user, qId, aId, postbId, transl, whoWasUpvoted)),

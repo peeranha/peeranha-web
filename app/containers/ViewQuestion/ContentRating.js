@@ -1,52 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg';
+import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg';
+import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg';
+import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg';
+import disabledFingerUp from 'images/disabledFingerUp.svg';
+import disabledFingerDown from 'images/disabledFingerDown.svg';
+import emptyFingerUp from 'images/emptyFingerUp.svg';
+import emptyFingerDown from 'images/emptyFingerDown.svg';
+
+import { green, pink } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
-import MarkAsAcceptedIcon from './MarkAsAcceptedIcon';
 
-import { MARK_AS_BUTTON, UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
+import Base from 'components/Base';
+import Span from 'components/Span';
+import MediumImage from 'components/Img/MediumImage';
+
+import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
+
+const MediumImageStyled = MediumImage.extend`
+  ${props =>
+    props.src === greenFingerUpSingleQuestion
+      ? `border: 1px solid ${green};`
+      : ``};
+
+  ${props =>
+    props.src === redFingerDownSingleQuestion
+      ? `border: 1px solid ${pink};`
+      : ``};
+`;
 
 const ContentRating = ({
   answerId,
-  questionFrom,
   account,
-  markAsAccepted,
-  questionData,
   upVote,
   votingStatus,
   rating,
   downVote,
   userInfo,
 }) => (
-  <div className="content-rating text-center">
-    <MarkAsAcceptedIcon
-      id={`${MARK_AS_BUTTON}${answerId}`}
-      answerId={answerId}
-      questionFrom={questionFrom}
-      account={account}
-      markAsAccepted={markAsAccepted}
-      correct_answer_id={questionData.correct_answer_id}
-      whoWasAccepted={userInfo.user}
-    />
-    <button id={`${UP_VOTE_BUTTON}${answerId}`}>
-      <FontAwesomeIcon
-        onClick={() => upVote(answerId, userInfo.user)}
-        data-voting={`chevron-hl-${votingStatus.isUpVoted}`}
-        className="chevron chevron-up"
-        icon="chevron-up"
+  <Base className="d-flex align-items-center justify-content-between">
+    <button
+      className="p-0"
+      onClick={upVote}
+      id={`${UP_VOTE_BUTTON}${answerId}`}
+      data-answerid={answerId}
+      data-whowasupvoted={userInfo.user}
+    >
+      <UpvoteIcon
+        account={account}
+        userInfo={userInfo}
+        votingStatus={votingStatus}
       />
     </button>
-    <span className="rating-value">{getFormattedNum(rating)}</span>
-    <button id={`${DOWN_VOTE_BUTTON}${answerId}`}>
-      <FontAwesomeIcon
-        onClick={() => downVote(answerId, userInfo.user)}
-        data-voting={`chevron-hl-${votingStatus.isDownVoted}`}
-        className="chevron chevron-down"
-        icon="chevron-down"
+
+    <Span fontSize="20" bold>
+      {getFormattedNum(rating)}
+    </Span>
+
+    <button
+      className="p-0"
+      onClick={downVote}
+      id={`${DOWN_VOTE_BUTTON}${answerId}`}
+      data-answerid={answerId}
+      data-whowasdownvoted={userInfo.user}
+    >
+      <DownvoteIcon
+        account={account}
+        userInfo={userInfo}
+        votingStatus={votingStatus}
       />
     </button>
-  </div>
+  </Base>
 );
 
 ContentRating.propTypes = {
@@ -54,12 +80,53 @@ ContentRating.propTypes = {
   votingStatus: PropTypes.object,
   userInfo: PropTypes.object,
   account: PropTypes.string,
-  questionFrom: PropTypes.string,
-  markAsAccepted: PropTypes.func,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
-  questionData: PropTypes.object,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-export default ContentRating;
+function UpvoteIcon({ account, userInfo, votingStatus }) {
+  let src = null;
+
+  if (account === userInfo.user) {
+    src = disabledFingerUp;
+  } else if (votingStatus.isUpVoted) {
+    src = greenFingerUpSingleQuestion;
+  } else if (votingStatus.isDownVoted) {
+    src = emptyFingerUp;
+  } else {
+    src = fingerUpSingleQuestionPage;
+  }
+
+  return <MediumImageStyled src={src} alt="voteup" />;
+}
+
+UpvoteIcon.propTypes = {
+  votingStatus: PropTypes.object,
+  userInfo: PropTypes.object,
+  account: PropTypes.string,
+};
+
+function DownvoteIcon({ account, userInfo, votingStatus }) {
+  let src = null;
+
+  if (account === userInfo.user) {
+    src = disabledFingerDown;
+  } else if (votingStatus.isDownVoted) {
+    src = redFingerDownSingleQuestion;
+  } else if (votingStatus.isUpVoted) {
+    src = emptyFingerDown;
+  } else {
+    src = fingerDownSingleQuestionPage;
+  }
+
+  return <MediumImageStyled src={src} alt="votedown" />;
+}
+
+DownvoteIcon.propTypes = {
+  votingStatus: PropTypes.object,
+  userInfo: PropTypes.object,
+  account: PropTypes.string,
+};
+
+export default React.memo(ContentRating);

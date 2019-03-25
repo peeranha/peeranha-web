@@ -11,22 +11,21 @@ const Answers = /* istanbul ignore next */ props => {
   if (!answersList.length) return null;
 
   return (
-    <div className="answers">
-      <AnswersTitle
-        translations={props.translations}
-        answersNum={answersList.length}
-      />
-      {answersList[0].content && [
-        <AcceptedAnswer key="accepted-answer" {...props} />,
-        <AnswersList key="answer-list" {...props} />,
-      ]}
+    <div>
+      <AnswersTitle answersNum={answersList.length} />
+
+      {answersList[0].content && (
+        <React.Fragment>
+          <AcceptedAnswer {...props} />
+          <AnswersList {...props} />
+        </React.Fragment>
+      )}
     </div>
   );
 };
 
 Answers.propTypes = {
   questionData: PropTypes.object,
-  translations: PropTypes.object,
 };
 
-export default Answers;
+export default React.memo(Answers);

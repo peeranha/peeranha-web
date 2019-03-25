@@ -49,6 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier --write",
       "npm run lint:eslint:fix",
       "git add --force"
     ],
@@ -167,9 +168,9 @@
     "numeral": "^2.0.6",
     "popper.js": "1.14.4",
     "prop-types": "15.6.1",
-    "react": "^16.7.0",
+    "react": "^16.8.3",
     "react-avatar-editor": "^11.0.4",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.3",
     "react-ga": "^2.5.6",
     "react-helmet": "5.2.0",
     "react-intl": "2.4.0",

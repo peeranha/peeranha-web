@@ -91,42 +91,42 @@ const HeaderForm = /* istanbul ignore next */ props => (
         )}
 
         <Section isMenuVisible={props.isMenuVisible}>
-          {!props.isMenuVisible && [
-            <Input
-              key="1"
-              className="d-none d-lg-flex"
-              type="text"
-              placeholder={props.intl.formatMessage({ id: messages.search.id })}
-              isSearchable
-            />,
+          {!props.isMenuVisible && (
+            <React.Fragment>
+              <Input
+                className="d-none d-lg-flex"
+                type="text"
+                placeholder={props.intl.formatMessage({
+                  id: messages.search.id,
+                })}
+                isSearchable
+              />
 
-            <RoundedButton
-              key="RoundedButton2"
-              className="d-flex justify-content-center align-items-center d-lg-none"
-              onClick={addQuestionRoute}
-            >
-              <Icon icon={searchIcon} noMargin />
-            </RoundedButton>,
+              <RoundedButton
+                className="d-flex justify-content-center align-items-center d-lg-none"
+                onClick={addQuestionRoute}
+              >
+                <Icon icon={searchIcon} noMargin />
+              </RoundedButton>
 
-            <LargeButton
-              key="Button3"
-              className="d-none d-lg-flex"
-              disabled={!props.profileInfo}
-              onClick={addQuestionRoute}
-            >
-              <Icon icon={addIcon} />
-              <FormattedMessage {...messages.addQuestion} />
-            </LargeButton>,
+              <LargeButton
+                className="d-none d-lg-flex"
+                disabled={!props.profileInfo}
+                onClick={addQuestionRoute}
+              >
+                <Icon icon={addIcon} />
+                <FormattedMessage {...messages.addQuestion} />
+              </LargeButton>
 
-            <RoundedButtonStyled
-              key="RoundedButton4"
-              className="d-flex justify-content-center align-items-center d-lg-none"
-              disabled={!props.profileInfo}
-              onClick={addQuestionRoute}
-            >
-              <Icon icon={addIcon} noMargin />
-            </RoundedButtonStyled>,
-          ]}
+              <RoundedButtonStyled
+                className="d-flex justify-content-center align-items-center d-lg-none"
+                disabled={!props.profileInfo}
+                onClick={addQuestionRoute}
+              >
+                <Icon icon={addIcon} noMargin />
+              </RoundedButtonStyled>
+            </React.Fragment>
+          )}
 
           <LoginProfile {...props} />
         </Section>

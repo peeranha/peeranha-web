@@ -45,22 +45,24 @@ export class ErrorBoundary extends React.Component {
       translations,
     };
 
-    return [
-      sendProps.error || sendProps.errorInfo ? (
-        <div key="errorBoundary">
-          <Helmet>
-            <title>{translations[messages.title.id]}</title>
-            <meta
-              name="description"
-              content={translations[messages.description.id]}
-            />
-          </Helmet>
-          <ErrorBoundryMessage {...sendProps} />
-        </div>
-      ) : (
-        React.Children.only(this.props.children)
-      ),
-    ];
+    return (
+      <React.Fragment>
+        {sendProps.error || sendProps.errorInfo ? (
+          <div>
+            <Helmet>
+              <title>{translations[messages.title.id]}</title>
+              <meta
+                name="description"
+                content={translations[messages.description.id]}
+              />
+            </Helmet>
+            <ErrorBoundryMessage {...sendProps} />
+          </div>
+        ) : (
+          React.Children.only(this.props.children)
+        )}
+      </React.Fragment>
+    );
   }
 }
 

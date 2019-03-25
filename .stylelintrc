@@ -5,6 +5,7 @@
     "stylelint-config-styled-components"
   ],
   "rules": {
-    "selector-type-no-unknown": null
+    "selector-type-no-unknown": null,
+    "no-duplicate-selectors": null	
   }
 }
