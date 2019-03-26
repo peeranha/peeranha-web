@@ -72,6 +72,7 @@ import {
   saveCommentErr,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from './actions';
 
 import { selectQuestionData, selectAnswer, selectComment } from './selectors';
@@ -243,10 +244,37 @@ export function* saveCommentWorker({
 }) {
   try {
     const eosService = yield select(selectEos);
+    const cachedQues = yield select(selectQuestionData());
 
     yield call(() =>
       editComment(user, questionId, answerId, commentId, comment, eosService),
     );
+
+    // Delete comment from cache to update it after
+    if (+answerId === 0) {
+      yield put(
+        updateQuestionData({
+          ...cachedQues,
+          comments: cachedQues.comments.filter(x => x.id !== +commentId),
+        }),
+      );
+    } else {
+      const answer = cachedQues.answers.filter(x => x.id === +answerId)[0];
+      const updatedComm = answer.comments.filter(y => y.id !== +commentId);
+
+      yield put(
+        updateQuestionData({
+          ...cachedQues,
+          answers: [
+            ...cachedQues.answers.filter(x => x.id !== +answerId),
+            {
+              ...answer,
+              comments: updatedComm,
+            },
+          ],
+        }),
+      );
+    }
 
     const questionData = yield getQuestionData({
       eosService,
@@ -258,6 +286,7 @@ export function* saveCommentWorker({
 
     yield put(saveCommentSuccess(questionData));
   } catch (err) {
+    console.log(err);
     yield put(saveCommentErr(err));
   }
 }

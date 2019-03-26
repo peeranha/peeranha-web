@@ -80,3 +80,5 @@ export const commentsOpened = 'opened';
 export const QUESTION_TYPE = 'app_viewQuestion_QUESTION_TYPE';
 export const ANSWER_TYPE = 'app_viewQuestion_ANSWER_TYPE';
 export const COMMENT_TYPE = 'app_viewQuestion_COMMENT_TYPE';
+
+export const UPDATE_QUESTION_DATA = 'app/ViewQuestion/UPDATE_QUESTION_DATA';

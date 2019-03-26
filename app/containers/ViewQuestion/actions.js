@@ -39,6 +39,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
+  UPDATE_QUESTION_DATA,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -369,5 +370,12 @@ export function voteToDeleteErr(voteToDeleteError) {
 export function resetStore() {
   return {
     type: RESET_STORE,
+  };
+}
+
+export function updateQuestionData(questionData) {
+  return {
+    type: UPDATE_QUESTION_DATA,
+    questionData,
   };
 }

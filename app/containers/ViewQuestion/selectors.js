@@ -24,11 +24,16 @@ export const selectAnswer = answerId =>
 
 export const selectComment = (answerId, commentId) =>
   createSelector(selectViewQuestionDomain, substate => {
-    if (!substate.get('questionData')) return null;
+    const questionData = substate.get('questionData');
 
-    const answer = substate
-      .get('questionData')
-      .answers.filter(x => x.id === answerId)[0];
+    if (!questionData) return null;
+
+    // comments of question
+    if (answerId === 0)
+      return questionData.comments.filter(x => x.id === commentId)[0];
+
+    // comments of answer
+    const answer = questionData.answers.filter(x => x.id === answerId)[0];
 
     if (!answer) return null;
 

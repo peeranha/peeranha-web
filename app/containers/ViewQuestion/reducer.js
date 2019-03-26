@@ -40,6 +40,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
+  UPDATE_QUESTION_DATA,
 } from './constants';
 
 export const initialState = fromJS({
@@ -202,6 +203,9 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false);
+
+    case UPDATE_QUESTION_DATA:
+      return state.set('questionData', questionData);
 
     case RESET_STORE:
       return initialState;
