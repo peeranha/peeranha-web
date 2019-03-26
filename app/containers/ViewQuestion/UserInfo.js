@@ -17,7 +17,7 @@ import A from 'components/A';
 
 import { ANSWER_TYPE, COMMENT_TYPE } from './constants';
 
-const UserInfo = ({
+export const UserInfo = ({
   rating,
   name,
   avatar,

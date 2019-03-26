@@ -33,7 +33,6 @@ import {
   saveComment,
   saveCommentSuccess,
   saveCommentErr,
-  toggleCommentVision,
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
@@ -49,15 +48,6 @@ describe('viewQuestionReducer', () => {
 
   it('returns the initial state', () => {
     expect(viewQuestionReducer(state, {})).toEqual(state);
-  });
-
-  it('toggleCommentVision', () => {
-    const editComment = 'editComment';
-    const obj = state.set('editComment', editComment);
-
-    expect(
-      viewQuestionReducer(state, toggleCommentVision(editComment)),
-    ).toEqual(obj);
   });
 
   it('voteToDelete', () => {
@@ -94,11 +84,9 @@ describe('viewQuestionReducer', () => {
 
   it('saveCommentSuccess', () => {
     const questionData = 'questionData';
-    const editComment = {};
     const obj = state
       .set('saveCommentLoading', false)
-      .set('questionData', questionData)
-      .set('editComment', editComment);
+      .set('questionData', questionData);
 
     expect(
       viewQuestionReducer(state, saveCommentSuccess(questionData)),

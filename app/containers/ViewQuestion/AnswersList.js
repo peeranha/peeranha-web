@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
 
-const AnswersList = props => (
+export const AnswersList = props => (
   <React.Fragment>
     {props.questionData.answers.map(
       item =>

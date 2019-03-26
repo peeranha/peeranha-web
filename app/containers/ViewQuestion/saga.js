@@ -42,8 +42,6 @@ import {
   DELETE_COMMENT,
   SAVE_COMMENT,
   VOTE_TO_DELETE,
-  contentOptionsClass,
-  commentsOpened,
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -286,7 +284,6 @@ export function* saveCommentWorker({
 
     yield put(saveCommentSuccess(questionData));
   } catch (err) {
-    console.log(err);
     yield put(saveCommentErr(err));
   }
 }
@@ -440,10 +437,6 @@ export function* postCommentWorker({
     );
 
     yield call(() => reset());
-
-    yield call(() =>
-      window.$(`.${contentOptionsClass}`).attr(`data-${commentsOpened}`, false),
-    );
 
     yield put(postCommentSuccess(questionData));
   } catch (err) {

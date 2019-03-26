@@ -1,66 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContentRating snapshot test 1`] = `
-<div
-  className="content-rating text-center"
+<Base
+  className="d-flex align-items-center justify-content-between"
 >
-  <MarkAsAcceptedIcon
-    correct_answer_id={0}
-    id="app_view_question_mark_as_buttonundefined"
-    whoWasAccepted="user123"
-  />
   <button
+    className="p-0"
+    data-whowasupvoted="user123"
     id="app_view_question_upvote_buttonundefined"
+    onClick={[MockFunction]}
   >
-    <FontAwesomeIcon
-      border={false}
-      className="chevron chevron-up"
-      data-voting="chevron-hl-undefined"
-      fixedWidth={false}
-      flip={null}
-      icon="chevron-up"
-      inverse={false}
-      listItem={false}
-      mask={null}
-      onClick={[Function]}
-      pull={null}
-      pulse={false}
-      rotation={null}
-      size={null}
-      spin={false}
-      symbol={false}
-      title=""
-      transform={null}
+    <UpvoteIcon
+      userInfo={
+        Object {
+          "user": "user123",
+        }
+      }
+      votingStatus={Object {}}
     />
   </button>
-  <span
-    className="rating-value"
+  <Span
+    bold={true}
+    fontSize="20"
   >
     0
-  </span>
+  </Span>
   <button
+    className="p-0"
+    data-whowasdownvoted="user123"
     id="app_view_question_downvote_buttonundefined"
+    onClick={[MockFunction]}
   >
-    <FontAwesomeIcon
-      border={false}
-      className="chevron chevron-down"
-      data-voting="chevron-hl-undefined"
-      fixedWidth={false}
-      flip={null}
-      icon="chevron-down"
-      inverse={false}
-      listItem={false}
-      mask={null}
-      onClick={[Function]}
-      pull={null}
-      pulse={false}
-      rotation={null}
-      size={null}
-      spin={false}
-      symbol={false}
-      title=""
-      transform={null}
+    <DownvoteIcon
+      userInfo={
+        Object {
+          "user": "user123",
+        }
+      }
+      votingStatus={Object {}}
     />
   </button>
-</div>
+</Base>
 `;

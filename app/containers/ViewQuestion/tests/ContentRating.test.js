@@ -1,7 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
-import ContentRating from '../ContentRating';
+import { ContentRating } from '../ContentRating';
 
 describe('ContentRating', () => {
   const props = {
@@ -18,25 +15,5 @@ describe('ContentRating', () => {
 
   it('snapshot test', () => {
     expect(ContentRating(props)).toMatchSnapshot();
-  });
-
-  it('chevron-up click', () => {
-    const wrapper = shallow(<ContentRating {...props} />);
-
-    wrapper.find('.chevron-up').simulate('click');
-    expect(props.upVote).toHaveBeenCalledWith(
-      props.answerId,
-      props.userInfo.user,
-    );
-  });
-
-  it('chevron-down click', () => {
-    const wrapper = shallow(<ContentRating {...props} />);
-
-    wrapper.find('.chevron-down').simulate('click');
-    expect(props.downVote).toHaveBeenCalledWith(
-      props.answerId,
-      props.userInfo.user,
-    );
   });
 });

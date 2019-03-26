@@ -1,4 +1,4 @@
-import ChangesHistory from '../ChangesHistory';
+import { ChangesHistory } from '../ChangesHistory';
 
 jest.mock('utils/datetime');
 

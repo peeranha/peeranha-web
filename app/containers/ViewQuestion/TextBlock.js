@@ -34,7 +34,7 @@ const TextBlockStyled = styled.div`
   }
 `;
 
-const TextBlock = ({ content }) => (
+export const TextBlock = ({ content }) => (
   <TextBlockStyled
     className="text-block"
     dangerouslySetInnerHTML={{ __html: TextEditor.getHtmlText(content) }}
@@ -45,4 +45,4 @@ TextBlock.propTypes = {
   content: PropTypes.string,
 };
 
-export default TextBlock;
+export default React.memo(TextBlock);

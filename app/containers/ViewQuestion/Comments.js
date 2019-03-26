@@ -236,5 +236,5 @@ CommentEdit.propTypes = {
   toggleView: PropTypes.func,
 };
 
-export { Comment, CommentEdit, CommentView };
-export default Comments;
+export { Comment, CommentEdit, CommentView, Comments };
+export default React.memo(Comments);

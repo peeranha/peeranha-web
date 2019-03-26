@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Content from './Content';
 import { QUESTION_TYPE } from './constants';
 
-const Question = props => (
+export const Question = props => (
   <Content
     {...props}
     answerId="0"

@@ -362,28 +362,8 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
       dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
 
-    postCommentDispatch: (
-      user,
-      qId,
-      aId,
-      comment,
-      reset,
-      postbId,
-      transl,
-      toggleView,
-    ) =>
-      dispatch(
-        postComment(
-          user,
-          qId,
-          aId,
-          comment,
-          reset,
-          postbId,
-          transl,
-          toggleView,
-        ),
-      ),
+    postCommentDispatch: (us, qid, aid, comm, reset, bId, transl, toggle) =>
+      dispatch(postComment(us, qid, aid, comm, reset, bId, transl, toggle)),
 
     upVoteDispatch: (user, qId, aId, postbId, transl, whoWasUpvoted) =>
       dispatch(upVote(user, qId, aId, postbId, transl, whoWasUpvoted)),
@@ -391,17 +371,8 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     downVoteDispatch: (user, qId, aId, postbId, transl, whoWasDownvoted) =>
       dispatch(downVote(user, qId, aId, postbId, transl, whoWasDownvoted)),
 
-    markAsAcceptedDispatch: (
-      user,
-      qId,
-      correctaId,
-      postbId,
-      transl,
-      whoWasAccepted,
-    ) =>
-      dispatch(
-        markAsAccepted(user, qId, correctaId, postbId, transl, whoWasAccepted),
-      ),
+    markAsAcceptedDispatch: (user, qId, corrId, bId, transl, accepted) =>
+      dispatch(markAsAccepted(user, qId, corrId, bId, transl, accepted)),
 
     voteToDeleteDispatch: (qId, aId, cId, buttonid, whowasvoted) =>
       dispatch(voteToDelete(qId, aId, cId, buttonid, whowasvoted)),

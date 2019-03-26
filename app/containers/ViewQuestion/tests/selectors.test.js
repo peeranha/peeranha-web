@@ -22,7 +22,6 @@ import {
   selectDeleteCommentError,
   selectSaveCommentLoading,
   selectSaveCommentError,
-  selectEditComment,
   selectVoteToDeleteLoading,
   selectVoteToDeleteError,
 } from '../selectors';
@@ -86,11 +85,6 @@ describe('selectViewQuestionDomain', () => {
 
   it('should select the global state', () => {
     expect(selectViewQuestionDomain(mockedState)).toEqual(globalState);
-  });
-
-  it('selectEditComment', () => {
-    const isEditComment = selectEditComment();
-    expect(isEditComment(mockedState)).toEqual(editComment);
   });
 
   it('selectVoteToDeleteLoading', () => {

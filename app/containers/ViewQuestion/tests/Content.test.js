@@ -1,8 +1,11 @@
-import Content from '../Content';
+import { Content } from '../Content';
 
 describe('Content', () => {
   it('test', () => {
-    const props = {};
+    const props = {
+      questionData: {},
+    };
+
     expect(Content(props)).toMatchSnapshot();
   });
 });

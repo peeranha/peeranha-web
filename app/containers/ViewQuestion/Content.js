@@ -14,7 +14,7 @@ const BaseStyled = Base.extend`
   overflow: hidden;
 `;
 
-const Content = props => (
+export const Content = props => (
   <BaseStyled
     className={props.className}
     id={routes.uniqueAnswerId(props.answerId)}

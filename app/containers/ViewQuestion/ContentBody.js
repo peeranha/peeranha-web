@@ -10,7 +10,7 @@ import BestAnswerMarker from './BestAnswerMarker';
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
 
-const ContentBody = ({
+export const ContentBody = ({
   content,
   type,
   voteToDelete,

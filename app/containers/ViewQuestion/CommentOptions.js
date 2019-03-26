@@ -34,7 +34,7 @@ const CommentEditStyled = styled.div`
   }
 `;
 
-const CommentOptions = ({
+export const CommentOptions = ({
   form,
   submitButtonId,
   submitButtonName,

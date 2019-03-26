@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Content test 1`] = `
-<div
-  className="content"
+<Base
   id="ansundefined"
 >
-  <ContentHeader />
-  <div>
-    <ContentRating />
-    <ContentBody />
-  </div>
-</div>
+  <UNDEFINED
+    questionData={Object {}}
+  />
+  <UNDEFINED />
+  <UNDEFINED
+    questionData={Object {}}
+  />
+</Base>
 `;

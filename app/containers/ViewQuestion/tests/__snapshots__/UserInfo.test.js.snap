@@ -2,39 +2,42 @@
 
 exports[`UserInfo test 1`] = `
 <div
-  className="user-info"
+  className="d-flex"
 >
+  <Img
+    alt="avatar"
+    className="mr-2"
+    isBordered={true}
+    src="IMAGE_MOCK"
+  />
   <div
-    className="user-avatar-block"
+    className="d-flex justify-content-center flex-column"
   >
-    <Link
-      href="/users/undefined"
-      replace={false}
+    <A
+      className="d-flex align-items-center mr-2"
       to="/users/undefined"
     >
-      <img
-        alt=""
-        className="avatar"
+      <Span
+        className="mr-2"
+        fontSize="14"
       />
-    </Link>
-  </div>
-  <div
-    className="rating-name-block"
-  >
-    <p
-      className="name"
-    >
-      <Link
-        href="/users/undefined"
-        replace={false}
-        to="/users/undefined"
+      <UNDEFINED
+        isRankOff={true}
+        size="sm"
       />
-    </p>
-    <p
-      className="rating"
+    </A>
+    <Span
+      color="gray"
+      fontSize={14}
     >
-      0
-    </p>
+      <FormattedMessage
+        id="app.common.asked"
+        values={Object {}}
+      />
+      <span>
+         Invalid Date
+      </span>
+    </Span>
   </div>
 </div>
 `;

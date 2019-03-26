@@ -1,27 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContentBody test 1`] = `
-<div
-  className="content-body"
+<Base
+  position="bottom"
 >
-  <TextBlock />
-  <ContentOptions
+  <BestAnswerMarker />
+  <UNDEFINED />
+  <UNDEFINED
+    form="app_ViewQuestion_ADD_COMMENT_FORMundefined"
+    submitButtonId="app_view_question_post_comment_button"
     translations={Object {}}
   />
-  <div>
-    <Community />
-    <TagsList />
-  </div>
-  <Comments
-    translations={Object {}}
-  />
-  <div
-    className="add-comment"
-  >
-    <Connect(ReduxForm)
-      form="app_ViewQuestion_ADD_COMMENT_FORMundefined"
-      submitButtonId="app_view_question_post_comment_button"
-    />
-  </div>
-</div>
+</Base>
 `;

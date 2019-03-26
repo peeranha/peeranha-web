@@ -1,16 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AcceptedAnswer test, correct_answer_id !== item.id 1`] = `
-<div
-  className="accepted-answer"
-/>
-`;
+exports[`AcceptedAnswer test, correct_answer_id !== item.id 1`] = `<React.Fragment />`;
 
 exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
-<div
-  className="accepted-answer"
->
-  <Content
+<React.Fragment>
+  <UNDEFINED
     answerId={1}
     buttonParams={
       Object {
@@ -19,6 +13,7 @@ exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -40,5 +35,5 @@ exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
     }
     userInfo={Object {}}
   />
-</div>
+</React.Fragment>
 `;

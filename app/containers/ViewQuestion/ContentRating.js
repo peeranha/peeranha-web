@@ -129,4 +129,5 @@ DownvoteIcon.propTypes = {
   account: PropTypes.string,
 };
 
+export { UpvoteIcon, DownvoteIcon, ContentRating };
 export default React.memo(ContentRating);

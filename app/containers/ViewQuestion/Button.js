@@ -11,7 +11,7 @@ const SpanStyled = Span.extend`
     props.isItWrittenByMe ? gray : props.isVotedToDelete ? darkred : blue};
 `;
 
-const Button = ({ className, id, onClick, params, show, children }) =>
+export const Button = ({ className, id, onClick, params, show, children }) =>
   show ? (
     <button
       id={id}

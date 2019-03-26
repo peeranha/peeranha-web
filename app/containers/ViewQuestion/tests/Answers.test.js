@@ -1,4 +1,4 @@
-import Answers from '../Answers';
+import { Answers } from '../Answers';
 
 describe('Answers', () => {
   it('test', () => {

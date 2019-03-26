@@ -6,7 +6,7 @@ import H3 from 'components/H3';
 import TagList from 'components/TagsList';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 
-const QuestionTitle = ({ title, tags, communityId, communities }) =>
+export const QuestionTitle = ({ title, tags, communityId, communities }) =>
   title ? (
     <Base position="middle">
       <H3 className="mb-2">{title}</H3>
