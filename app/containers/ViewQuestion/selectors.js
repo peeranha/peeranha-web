@@ -17,14 +17,14 @@ export const selectAnswer = answerId =>
   createSelector(
     selectViewQuestionDomain,
     substate =>
-      substate.get('questionData')
-        ? substate.get('questionData').answers.filter(x => x.id === answerId)[0]
+      substate.toJS().questionData
+        ? substate.toJS().questionData.answers.filter(x => x.id === answerId)[0]
         : null,
   );
 
 export const selectComment = (answerId, commentId) =>
   createSelector(selectViewQuestionDomain, substate => {
-    const questionData = substate.get('questionData');
+    const { questionData } = substate.toJS();
 
     if (!questionData) return null;
 

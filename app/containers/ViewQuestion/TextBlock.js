@@ -34,7 +34,7 @@ const TextBlockStyled = styled.div`
   }
 `;
 
-export const TextBlock = ({ content }) => (
+export const TextBlock = /* istanbul ignore next */ ({ content }) => (
   <TextBlockStyled
     className="text-block"
     dangerouslySetInnerHTML={{ __html: TextEditor.getHtmlText(content) }}

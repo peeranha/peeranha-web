@@ -32,6 +32,7 @@ import {
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from '../actions';
 
 import {
@@ -68,6 +69,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  UPDATE_QUESTION_DATA,
 } from '../constants';
 
 describe('ViewQuestions actions', () => {
@@ -565,6 +567,18 @@ describe('ViewQuestions actions', () => {
         markAsAcceptedError,
       };
       expect(markAsAcceptedErr(markAsAcceptedError)).toEqual(expected);
+    });
+  });
+
+  describe('updateQuestionData', () => {
+    it('UPDATE_QUESTION_DATA', () => {
+      const questionData = {};
+      const expected = {
+        type: UPDATE_QUESTION_DATA,
+        questionData,
+      };
+
+      expect(updateQuestionData(questionData)).toEqual(expected);
     });
   });
 });

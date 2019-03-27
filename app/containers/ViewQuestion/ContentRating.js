@@ -20,18 +20,18 @@ import MediumImage from 'components/Img/MediumImage';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
 const MediumImageStyled = MediumImage.extend`
-  ${props =>
+  ${(props /* istanbul ignore next */) =>
     props.src === greenFingerUpSingleQuestion
       ? `border: 1px solid ${green};`
       : ``};
 
-  ${props =>
+  ${(props /* istanbul ignore next */) =>
     props.src === redFingerDownSingleQuestion
       ? `border: 1px solid ${pink};`
       : ``};
 `;
 
-const ContentRating = ({
+const ContentRating = /* istanbul ignore next */ ({
   answerId,
   account,
   upVote,
@@ -85,7 +85,11 @@ ContentRating.propTypes = {
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-function UpvoteIcon({ account, userInfo, votingStatus }) {
+function UpvoteIcon({
+  account,
+  userInfo,
+  votingStatus,
+}) /* istanbul ignore next */ {
   let src = null;
 
   if (account === userInfo.user) {
@@ -107,7 +111,11 @@ UpvoteIcon.propTypes = {
   account: PropTypes.string,
 };
 
-function DownvoteIcon({ account, userInfo, votingStatus }) {
+function DownvoteIcon({
+  account,
+  userInfo,
+  votingStatus,
+}) /* istanbul ignore next */ {
   let src = null;
 
   if (account === userInfo.user) {

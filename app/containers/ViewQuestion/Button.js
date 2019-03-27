@@ -6,12 +6,20 @@ import Span from 'components/Span';
 
 /* eslint no-nested-ternary: 0 */
 const SpanStyled = Span.extend`
-  opacity: ${props => (props.isItWrittenByMe ? 0.75 : 1)};
-  color: ${props =>
+  opacity: ${props =>
+    /* istanbul ignore next */ props.isItWrittenByMe ? 0.75 : 1};
+  color: ${(props /* istanbul ignore next */) =>
     props.isItWrittenByMe ? gray : props.isVotedToDelete ? darkred : blue};
 `;
 
-export const Button = ({ className, id, onClick, params, show, children }) =>
+export const Button = /* istanbul ignore next */ ({
+  className,
+  id,
+  onClick,
+  params,
+  show,
+  children,
+}) =>
   show ? (
     <button
       id={id}
@@ -26,7 +34,7 @@ export const Button = ({ className, id, onClick, params, show, children }) =>
     </button>
   ) : null;
 
-export const BlockButton = ({
+export const BlockButton = /* istanbul ignore next */ ({
   className,
   id,
   onClick,

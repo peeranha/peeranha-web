@@ -7,7 +7,7 @@ import Span from 'components/Span';
 
 import messages from './messages';
 
-export const AnswersTitle = ({ answersNum }) => (
+export const AnswersTitle = /* istanbul ignore next */ ({ answersNum }) => (
   <H4 className="text-capitalize" isHeader>
     <FormattedMessage {...messages.answers} />{' '}
     <Span color="gray" fontSize="30" bold>

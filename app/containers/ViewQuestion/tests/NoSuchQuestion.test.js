@@ -1,4 +1,4 @@
-import NoSuchQuestion from '../NoSuchQuestion';
+import { NoSuchQuestion } from '../NoSuchQuestion';
 
 describe('NoSuchQuestion', () => {
   it('test', () => {

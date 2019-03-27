@@ -19,13 +19,13 @@ import {
 describe('actions', () => {
   describe('getAskedQuestion Action', () => {
     it('GET_ASKED_QUESTION', () => {
-      const questionid = 'questionid';
+      const questionId = 'questionId';
       const expected = {
         type: GET_ASKED_QUESTION,
-        questionid,
+        questionId,
       };
 
-      expect(getAskedQuestion(questionid)).toEqual(expected);
+      expect(getAskedQuestion(questionId)).toEqual(expected);
     });
   });
 
@@ -56,15 +56,15 @@ describe('actions', () => {
   describe('editQuestion Action', () => {
     it('EDIT_QUESTION', () => {
       const question = 'question';
-      const questionid = 'questionid';
+      const questionId = 'questionId';
 
       const expected = {
         type: EDIT_QUESTION,
-        questionid,
+        questionId,
         question,
       };
 
-      expect(editQuestion(question, questionid)).toEqual(expected);
+      expect(editQuestion(question, questionId)).toEqual(expected);
     });
   });
 

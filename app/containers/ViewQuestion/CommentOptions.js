@@ -24,7 +24,9 @@ const ButtonStyled = styled.button`
 
   ${Img} {
     transition: 0.5s;
-    transform: rotate(${props => (props.toRotate ? '180deg' : '0deg')});
+    transform: rotate(
+      ${(x) /* istanbul ignore next */ => (x.toRotate ? '180deg' : '0deg')}
+    );
   }
 `;
 
@@ -34,7 +36,7 @@ const CommentEditStyled = styled.div`
   }
 `;
 
-export const CommentOptions = ({
+export const CommentOptions = /* istanbul ignore next */ ({
   form,
   submitButtonId,
   submitButtonName,

@@ -36,6 +36,7 @@ import {
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from '../actions';
 
 describe('viewQuestionReducer', () => {
@@ -337,6 +338,15 @@ describe('viewQuestionReducer', () => {
 
     expect(
       viewQuestionReducer(state, markAsAcceptedErr(markAsAcceptedError)),
+    ).toEqual(obj);
+  });
+
+  it('updateQuestionData', () => {
+    const questionData = {};
+    const obj = state.set('questionData', questionData);
+
+    expect(
+      viewQuestionReducer(state, updateQuestionData(questionData)),
     ).toEqual(obj);
   });
 });

@@ -4,6 +4,8 @@ import { Questions } from '../index';
 const cmp = new Questions();
 const fetcher = {};
 
+window.BigInt = jest.fn().mockImplementation(x => x);
+
 cmp.fetcher = fetcher;
 cmp.props = {
   locale: 'en',

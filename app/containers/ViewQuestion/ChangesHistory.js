@@ -5,7 +5,11 @@ import { FormattedMessage } from 'react-intl';
 import { getFormattedDate } from 'utils/datetime';
 import messages from './messages';
 
-export const ChangesHistory = ({ lastEditedDate, postTime, locale }) => (
+export const ChangesHistory = /* istanbul ignore next */ ({
+  lastEditedDate,
+  postTime,
+  locale,
+}) => (
   <p className="recording-date">
     {getFormattedDate(postTime)}
 

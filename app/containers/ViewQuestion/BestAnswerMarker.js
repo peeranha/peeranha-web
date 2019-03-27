@@ -13,7 +13,7 @@ import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 
 export const ButtonStyled = Button.extend`
-  background: ${props => props.bg};
+  background: ${(x) /* istanbul ignore next */ => x.bg};
   font-size: 14px;
   height: 22px;
   min-width: 0;
@@ -21,10 +21,11 @@ export const ButtonStyled = Button.extend`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${props => (props.bg === white ? gray : props.bg)};
+  border: 1px solid
+    ${(x) /* istanbul ignore next */ => (x.bg === white ? gray : x.bg)};
 `;
 
-const BestAnswerMarker = ({
+export const BestAnswerMarker = /* istanbul ignore next */ ({
   answerId,
   questionFrom,
   account,
@@ -69,4 +70,4 @@ BestAnswerMarker.propTypes = {
   isTheLargestRating: PropTypes.bool,
 };
 
-export default BestAnswerMarker;
+export default React.memo(BestAnswerMarker);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
 
-export const AcceptedAnswer = props => (
+export const AcceptedAnswer = /* istanbul ignore next */ props => (
   <React.Fragment>
     {props.questionData.answers.map(
       item =>

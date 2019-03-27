@@ -13,7 +13,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && !@questionData 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <NoSuchQuestion />
+  <UNDEFINED />
 </div>
 `;
 
@@ -31,7 +31,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <ViewQuestionContainer
+  <UNDEFINED
     account="user1"
     deleteAnswer={[Function]}
     deleteComment={[Function]}

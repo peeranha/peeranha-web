@@ -4,7 +4,7 @@ exports[`ContentBody test 1`] = `
 <Base
   position="bottom"
 >
-  <BestAnswerMarker />
+  <UNDEFINED />
   <UNDEFINED />
   <UNDEFINED
     form="app_ViewQuestion_ADD_COMMENT_FORMundefined"

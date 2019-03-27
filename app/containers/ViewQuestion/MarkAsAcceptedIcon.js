@@ -10,7 +10,7 @@ import messages from './messages';
 import { ButtonStyled } from './BestAnswerMarker';
 
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
-export const MarkAsAcceptedIcon = ({
+export const MarkAsAcceptedIcon = /* istanbul ignore next */ ({
   correctAnswerId,
   answerId,
   questionFrom,

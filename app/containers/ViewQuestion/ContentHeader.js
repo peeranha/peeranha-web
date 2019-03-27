@@ -22,7 +22,7 @@ const BaseStyled = Base.extend`
   border-right: 1px solid ${gray};
 `;
 
-export const ContentHeader = props => (
+export const ContentHeader = /* istanbul ignore next */ props => (
   <Base position="top" className="d-flex align-items-center p-0">
     <BaseStyled className="col-12 col-sm-3">
       <ContentRating {...props} />

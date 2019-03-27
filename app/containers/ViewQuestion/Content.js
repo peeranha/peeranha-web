@@ -14,7 +14,7 @@ const BaseStyled = Base.extend`
   overflow: hidden;
 `;
 
-export const Content = props => (
+export const Content = /* istanbul ignore next */ props => (
   <BaseStyled
     className={props.className}
     id={routes.uniqueAnswerId(props.answerId)}

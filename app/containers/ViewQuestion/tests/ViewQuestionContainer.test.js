@@ -1,4 +1,4 @@
-import ViewQuestionContainer from '../ViewQuestionContainer';
+import { ViewQuestionContainer } from '../ViewQuestionContainer';
 
 describe('ViewQuestionContainer', () => {
   it('test', () => {

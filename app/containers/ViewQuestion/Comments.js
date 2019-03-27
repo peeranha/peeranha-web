@@ -77,7 +77,7 @@ const CommentsStyled = styled.ul`
   }
 `;
 
-const CommentEdit = ({
+const CommentEdit = /* istanbul ignore next */ ({
   answerId,
   id,
   content,
@@ -101,7 +101,7 @@ const CommentEdit = ({
   </CommentEditStyled>
 );
 
-const CommentView = item => (
+const CommentView = /* istanbul ignore next */ item => (
   <CommentViewStyled>
     <div className="d-flex justify-content-between align-items-center">
       <UserInfo
@@ -171,7 +171,7 @@ const CommentView = item => (
   </CommentViewStyled>
 );
 
-const Comment = item => {
+const Comment = /* istanbul ignore next */ item => {
   const [isView, toggleView] = useState(true);
 
   return (
@@ -185,7 +185,7 @@ const Comment = item => {
   );
 };
 
-const Comments = props => {
+const Comments = /* istanbul ignore next */ props => {
   const DEFAULT_COMMENTS_NUMBER = 3;
   const [isAllCommentsView, changeCommentsView] = useState(false);
 

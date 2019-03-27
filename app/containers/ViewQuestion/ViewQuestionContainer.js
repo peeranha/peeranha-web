@@ -10,7 +10,7 @@ import Answers from './Answers';
 import { POST_ANSWER_BUTTON, ADD_ANSWER_FORM } from './constants';
 import messages from './messages';
 
-const ViewQuestionContainer = props => (
+export const ViewQuestionContainer = /* istanbul ignore next */ props => (
   <div>
     <Question {...props} />
     <Answers {...props} />
@@ -34,4 +34,4 @@ ViewQuestionContainer.propTypes = {
   translations: PropTypes.object,
 };
 
-export default ViewQuestionContainer;
+export default React.memo(ViewQuestionContainer);
