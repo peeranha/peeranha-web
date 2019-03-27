@@ -11,12 +11,18 @@ const TextareaFieldStyled = styled.div`
   margin-bottom: 14px;
 `;
 
-const TextareaField = ({ input, label, disabled, meta, placeholder }) => (
+const TextareaField = /* istanbul ignore next */ ({
+  input,
+  label,
+  disabled,
+  meta,
+  placeholder,
+}) => (
   <TextareaFieldStyled>
     <Label>{label}</Label>
     <Textarea
       {...input}
-      error={!!(meta.error || meta.warning)}
+      error={meta.touched && (meta.error || meta.warning)}
       disabled={disabled}
       placeholder={placeholder}
     />

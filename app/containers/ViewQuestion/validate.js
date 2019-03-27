@@ -157,7 +157,7 @@ export const upVoteValidator = (
   translations,
 ) => {
   const minRatingToUpvote = 35;
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+  const isOwnItem = questionData.answers.filter(x => x.id === +answerId);
 
   let message;
 
@@ -188,7 +188,7 @@ export const downVoteValidator = (
   translations,
 ) => {
   const minRatingToDownvote = 100;
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+  const isOwnItem = questionData.answers.filter(x => x.id === +answerId);
 
   let message;
 

@@ -6,7 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  TOGGLE_COMMENT_VISION,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
   GET_QUESTION_DATA_ERROR,
@@ -41,13 +40,10 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
+  UPDATE_QUESTION_DATA,
 } from './constants';
 
 export const initialState = fromJS({
-  editComment: {
-    commentid: null,
-    answerid: null,
-  },
   questionData: null,
   getQuestionDataError: null,
   questionDataLoading: false,
@@ -87,14 +83,10 @@ function viewQuestionReducer(state = initialState, action) {
     deleteAnswerError,
     deleteCommentError,
     saveCommentError,
-    editComment,
     voteToDeleteError,
   } = action;
 
   switch (type) {
-    case TOGGLE_COMMENT_VISION:
-      return state.set('editComment', editComment);
-
     case GET_QUESTION_DATA:
       return state.set('questionDataLoading', true);
     case GET_QUESTION_DATA_SUCCESS:
@@ -195,7 +187,6 @@ function viewQuestionReducer(state = initialState, action) {
     case SAVE_COMMENT_SUCCESS:
       return state
         .set('questionData', questionData)
-        .set('editComment', {})
         .set('saveCommentLoading', false);
     case SAVE_COMMENT_ERROR:
       return state
@@ -212,6 +203,9 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false);
+
+    case UPDATE_QUESTION_DATA:
+      return state.set('questionData', questionData);
 
     case RESET_STORE:
       return initialState;

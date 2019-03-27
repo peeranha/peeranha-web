@@ -1,17 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ViewQuestionContainer test 1`] = `
-<Box>
-  <Question
+<div>
+  <UNDEFINED
     translations={Object {}}
   />
-  <Answers
+  <UNDEFINED
     translations={Object {}}
   />
-  <Connect(ReduxForm)
-    form="app_ViewQuestion_ADD_ANSWER_FORM"
-    sendButtonId="app_view_question_post_answer_button0"
-    translations={Object {}}
-  />
-</Box>
+  <Base
+    className="mt-5"
+  >
+    <UNDEFINED
+      form="app_ViewQuestion_ADD_ANSWER_FORM"
+      sendButtonId="app_view_question_post_answer_button0"
+    />
+  </Base>
+</div>
 `;

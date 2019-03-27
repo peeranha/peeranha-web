@@ -48,7 +48,7 @@ cmp.props = {
 };
 
 const ev = {
-  target: {
+  currentTarget: {
     id: 'id',
     dataset: {},
   },
@@ -63,11 +63,11 @@ describe('<ViewQuestion />', () => {
       const id = 'id';
       const whowasvoted = 'whowasvoted';
 
-      ev.target.dataset.questionid = questionid;
-      ev.target.dataset.answerid = answerid;
-      ev.target.dataset.commentid = commentid;
-      ev.target.dataset.whowasvoted = whowasvoted;
-      ev.target.dataset.id = id;
+      ev.currentTarget.dataset.questionid = questionid;
+      ev.currentTarget.dataset.answerid = answerid;
+      ev.currentTarget.dataset.commentid = commentid;
+      ev.currentTarget.dataset.whowasvoted = whowasvoted;
+      ev.currentTarget.dataset.id = id;
 
       cmp.voteToDelete(ev);
       expect(cmp.props.voteToDeleteDispatch).toHaveBeenCalledWith(
@@ -82,8 +82,10 @@ describe('<ViewQuestion />', () => {
 
   describe('saveComment', () => {
     const mapp = new Map();
+
     const commentId = 'commentid';
     const answerId = 'answerid';
+    const toggleView = jest.fn();
 
     const args = [
       mapp,
@@ -91,6 +93,7 @@ describe('<ViewQuestion />', () => {
       {
         commentId,
         answerId,
+        toggleView,
       },
     ];
 
@@ -102,29 +105,8 @@ describe('<ViewQuestion />', () => {
         answerId,
         commentId,
         mapp.get('comment'),
+        args[2].toggleView,
       );
-    });
-  });
-
-  describe('editComment', () => {
-    const commentid = 'commentid';
-    const answerid = 'answerid';
-
-    it('test', () => {
-      cmp.editComment({
-        ...ev,
-        target: {
-          dataset: {
-            answerid,
-            commentid,
-          },
-        },
-      });
-
-      expect(cmp.props.toggleCommentVisionDispatch).toHaveBeenCalledWith({
-        commentid,
-        answerid,
-      });
     });
   });
 
@@ -133,9 +115,9 @@ describe('<ViewQuestion />', () => {
     const commentid = 'commentid';
     const answerid = 'answerid';
 
-    ev.target.id = id;
-    ev.target.dataset.answerid = answerid;
-    ev.target.dataset.commentid = commentid;
+    ev.currentTarget.id = id;
+    ev.currentTarget.dataset.answerid = answerid;
+    ev.currentTarget.dataset.commentid = commentid;
 
     cmp.deleteComment(ev);
 
@@ -154,8 +136,8 @@ describe('<ViewQuestion />', () => {
     const id = 'id';
     const answerid = 'answerid';
 
-    ev.target.id = id;
-    ev.target.dataset.answerid = answerid;
+    ev.currentTarget.id = id;
+    ev.currentTarget.dataset.answerid = answerid;
 
     cmp.deleteAnswer(ev);
 
@@ -171,7 +153,7 @@ describe('<ViewQuestion />', () => {
 
   describe('deleteQuestion', () => {
     const id = 'id';
-    ev.target.id = id;
+    ev.currentTarget.id = id;
 
     cmp.deleteQuestion(ev);
 
@@ -196,63 +178,75 @@ describe('<ViewQuestion />', () => {
 
   describe('markAsAccepted', () => {
     it('test', () => {
-      const id = 10;
-      const questionId = 110;
-      const whoWasAccepted = 'whoWasAccepted';
-      const postButtonId = `${MARK_AS_BUTTON}${id}`;
+      const answerid = 10;
+      const questionid = 11;
+      const whowasaccepted = 'whowasaccepted';
+      const postButtonId = `${MARK_AS_BUTTON}${answerid}`;
 
-      cmp.questionId = questionId;
+      ev.currentTarget.dataset.answerid = answerid;
+      ev.currentTarget.dataset.whowasaccepted = whowasaccepted;
+      ev.currentTarget.id = postButtonId;
 
-      cmp.markAsAccepted(id, whoWasAccepted);
+      cmp.questionId = questionid;
+
+      cmp.markAsAccepted(ev);
       expect(cmp.props.markAsAcceptedDispatch).toHaveBeenCalledWith(
         cmp.props.account,
-        questionId,
-        id,
+        questionid,
+        answerid,
         postButtonId,
         translationMessages[cmp.props.locale],
-        whoWasAccepted,
+        whowasaccepted,
       );
     });
   });
 
   describe('upVote', () => {
     it('test', () => {
-      const answerId = 10;
-      const questionId = 110;
-      const whoWasUpvoted = 'whoWasUpvoted';
-      const postButtonId = `${UP_VOTE_BUTTON}${answerId}`;
+      const answerid = 10;
+      const questionid = 11;
+      const whowasupvoted = 'whowasupvoted';
+      const postButtonId = `${UP_VOTE_BUTTON}${answerid}`;
 
-      cmp.questionId = questionId;
+      ev.currentTarget.dataset.answerid = answerid;
+      ev.currentTarget.dataset.whowasupvoted = whowasupvoted;
+      ev.currentTarget.id = postButtonId;
 
-      cmp.upVote(answerId, whoWasUpvoted);
+      cmp.questionId = questionid;
+
+      cmp.upVote(ev);
       expect(cmp.props.upVoteDispatch).toHaveBeenCalledWith(
         cmp.props.account,
-        questionId,
-        answerId,
+        questionid,
+        answerid,
         postButtonId,
         translationMessages[cmp.props.locale],
-        whoWasUpvoted,
+        whowasupvoted,
       );
     });
   });
 
   describe('downVote', () => {
     it('test', () => {
-      const answerId = 10;
-      const questionId = 110;
-      const whoWasDownvoted = 'whoWasDownvoted';
-      const postButtonId = `${DOWN_VOTE_BUTTON}${answerId}`;
+      const answerid = 10;
+      const questionid = 11;
+      const whowasdownvoted = 'whowasdownvoted';
+      const postButtonId = `${DOWN_VOTE_BUTTON}${answerid}`;
 
-      cmp.questionId = questionId;
+      ev.currentTarget.dataset.answerid = answerid;
+      ev.currentTarget.dataset.whowasdownvoted = whowasdownvoted;
+      ev.currentTarget.id = postButtonId;
 
-      cmp.downVote(answerId, whoWasDownvoted);
+      cmp.questionId = questionid;
+
+      cmp.downVote(ev);
       expect(cmp.props.downVoteDispatch).toHaveBeenCalledWith(
         cmp.props.account,
-        questionId,
-        answerId,
+        questionid,
+        answerid,
         postButtonId,
         translationMessages[cmp.props.locale],
-        whoWasDownvoted,
+        whowasdownvoted,
       );
     });
   });
@@ -281,8 +275,10 @@ describe('<ViewQuestion />', () => {
   });
 
   describe('postComment', () => {
-    const reset = () => {};
-    const obj = { answerId: 1, reset };
+    const reset = jest.fn();
+    const toggleView = jest.fn();
+
+    const obj = { answerId: 1, reset, toggleView };
     const mapp = new Map().set(TEXTAREA_COMMENT_FORM, 'TEXTAREA_COMMENT_FORM');
     const postButtonId = `${POST_COMMENT_BUTTON}${obj.answerId}`;
 
@@ -299,6 +295,7 @@ describe('<ViewQuestion />', () => {
         obj.reset,
         postButtonId,
         translationMessages[cmp.props.locale],
+        obj.toggleView,
       );
     });
   });

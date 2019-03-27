@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentOptions test 1`] = `
+<div>
+  <div
+    className="d-flex align-items-center"
+  >
+    <CommentOptions__ButtonStyled
+      onClick={[Function]}
+    >
+      <img
+        alt="***"
+        className="mr-1"
+        src="IMAGE_MOCK"
+      />
+      <Span
+        color="blue"
+      >
+        <FormattedMessage
+          id="app.containers.ViewQuestion.addComment"
+          values={Object {}}
+        />
+      </Span>
+    </CommentOptions__ButtonStyled>
+  </div>
+  <CommentOptions__CommentEditStyled>
+    <UNDEFINED
+      className="mt-4"
+      toggleView={[MockFunction]}
+    />
+  </CommentOptions__CommentEditStyled>
+</div>
+`;

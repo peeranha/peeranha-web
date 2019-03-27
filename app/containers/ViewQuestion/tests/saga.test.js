@@ -61,8 +61,6 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
-  contentOptionsClass,
-  contentOptionsAttr,
 } from '../constants';
 
 import {
@@ -170,11 +168,21 @@ describe('getQuestionData', () => {
 describe('saveCommentWorker', () => {
   const eos = {};
   const locale = 'en';
+
+  const answerId = 0;
   const user = 'user';
-  const questionId = 11;
-  const answerId = 11;
-  const commentId = 12;
+  const questionId = 1;
+  const commentId = 1;
   const comment = 'comment';
+  const toggleView = jest.fn();
+
+  const questionData = {
+    comments: [{ id: 1 }, { id: 2 }],
+    answers: [
+      { id: 1, comments: [{ id: 1 }, { id: 2 }] },
+      { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+    ],
+  };
 
   const res = {
     user,
@@ -182,42 +190,94 @@ describe('saveCommentWorker', () => {
     answerId,
     commentId,
     comment,
+    toggleView,
   };
 
-  const generator = sagaImports.saveCommentWorker(res);
+  describe('+answerId === 0', () => {
+    const generator = sagaImports.saveCommentWorker({
+      ...res,
+      answerId: 0,
+    });
 
-  it('step, eosService', () => {
-    select.mockImplementation(() => eos);
-    const step = generator.next(locale);
-    expect(step.value).toEqual(eos);
+    it('step, eosService', () => {
+      select.mockImplementation(() => eos);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(eos);
+    });
+
+    it('step, selectQuestionData', () => {
+      select.mockImplementation(() => questionData);
+      const step = generator.next(eos);
+      expect(step.value).toEqual(questionData);
+    });
+
+    it('step, editComment', () => {
+      generator.next(questionData);
+      expect(editComment).toHaveBeenCalledWith(
+        user,
+        questionId,
+        answerId,
+        commentId,
+        comment,
+        eos,
+      );
+    });
+
+    describe('delete comment', () => {
+      it('+answerId === 0', () => {
+        const step = generator.next();
+        expect(step.value.questionData).toEqual({
+          comments: [{ id: 2 }],
+          answers: [
+            { id: 1, comments: [{ id: 1 }, { id: 2 }] },
+            { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+          ],
+        });
+      });
+    });
+
+    it('step, getQuestionData', () => {
+      const step = generator.next();
+      expect(!!step.value._invoke).toBe(true);
+    });
+
+    it('step, toggleView', () => {
+      generator.next();
+      expect(res.toggleView).toHaveBeenCalledWith(true);
+    });
+
+    it('step, saveCommentSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(SAVE_COMMENT_ERROR);
+    });
   });
 
-  it('step, editComment', () => {
+  describe('+answerId > 0', () => {
+    const generator = sagaImports.saveCommentWorker({
+      ...res,
+      answerId: 1,
+    });
+
+    generator.next();
     generator.next(eos);
-    expect(editComment).toHaveBeenCalledWith(
-      user,
-      questionId,
-      answerId,
-      commentId,
-      comment,
-      eos,
-    );
-  });
+    generator.next(questionData);
 
-  it('step, getQuestionData', () => {
-    const step = generator.next();
-    expect(!!step.value._invoke).toBe(true);
-  });
-
-  it('step, saveCommentSuccess', () => {
-    const step = generator.next();
-    expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
-  });
-
-  it('error handling', () => {
-    const err = 'some err';
-    const step = generator.throw(err);
-    expect(step.value.type).toBe(SAVE_COMMENT_ERROR);
+    it('test', () => {
+      const step = generator.next();
+      expect(step.value.questionData).toEqual({
+        comments: [{ id: 1 }, { id: 2 }],
+        answers: [
+          { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+          { id: 1, comments: [{ id: 2 }] },
+        ],
+      });
+    });
   });
 });
 
@@ -501,6 +561,7 @@ describe('postCommentWorker', () => {
     answerId: 1,
     comment: 'comment',
     reset: jest.fn(),
+    toggleView: jest.fn(),
     translations: {},
     postButtonId: 'postButtonId',
   };
@@ -554,6 +615,11 @@ describe('postCommentWorker', () => {
       );
     });
 
+    it('step, toggleView', () => {
+      generator.next();
+      expect(res.toggleView).toHaveBeenCalledWith(true);
+    });
+
     it('step, getQuestionData', () => {
       const step = generator.next();
       expect(!!step.value._invoke).toBe(true);
@@ -562,17 +628,6 @@ describe('postCommentWorker', () => {
     it('step, reset', () => {
       generator.next();
       expect(res.reset).toHaveBeenCalled();
-    });
-
-    it('step, hideForm', () => {
-      const attr = jest.fn();
-      window.$ = jest.fn(() => ({
-        attr,
-      }));
-
-      generator.next();
-      expect(window.$).toHaveBeenCalledWith(`.${contentOptionsClass}`);
-      expect(attr).toHaveBeenCalledWith(`data-${contentOptionsAttr}`, false);
     });
 
     it('step, postCommentSuccess', () => {

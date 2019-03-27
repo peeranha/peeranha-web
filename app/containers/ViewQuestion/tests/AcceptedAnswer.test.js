@@ -1,4 +1,4 @@
-import AcceptedAnswer from '../AcceptedAnswer';
+import { AcceptedAnswer } from '../AcceptedAnswer';
 
 let props;
 

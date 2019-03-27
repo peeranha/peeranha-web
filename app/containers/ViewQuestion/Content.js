@@ -2,31 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
+import Base from 'components/Base/BaseRounded';
+
+import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
-import ContentRating from './ContentRating';
 import ContentBody from './ContentBody';
 
-const Content = props => (
-  <div className="content" id={routes.uniqueAnswerId(props.answerId)}>
-    <ContentHeader
-      locale={props.locale}
-      userInfo={props.userInfo}
-      postTime={props.postTime}
-      lastEditedDate={props.lastEditedDate}
+const BaseStyled = Base.extend`
+  padding: 0;
+  word-break: break-all;
+  overflow: hidden;
+`;
+
+export const Content = /* istanbul ignore next */ props => (
+  <BaseStyled
+    className={props.className}
+    id={routes.uniqueAnswerId(props.answerId)}
+  >
+    <ContentHeader {...props} />
+    <QuestionTitle
+      title={props.title}
+      tags={props.questionData.tags}
+      communityId={props.questionData.community_id}
+      communities={props.communities}
     />
-    <div>
-      <ContentRating {...props} />
-      <ContentBody {...props} />
-    </div>
-  </div>
+    <ContentBody {...props} />
+  </BaseStyled>
 );
 
 Content.propTypes = {
   userInfo: PropTypes.object,
+  questionData: PropTypes.object,
   locale: PropTypes.string,
+  title: PropTypes.string,
+  className: PropTypes.string,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postTime: PropTypes.number,
   lastEditedDate: PropTypes.number,
+  communities: PropTypes.array,
 };
 
-export default Content;
+export default React.memo(Content);

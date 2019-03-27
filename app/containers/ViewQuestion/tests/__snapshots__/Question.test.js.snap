@@ -1,31 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Question test 1`] = `
-<div
-  className="question"
->
-  <QuestionTitle
-    title="Title"
-  />
-  <Content
-    answerId="0"
-    buttonParams={
-      Object {
-        "answerId": 0,
-        "questionId": undefined,
-        "whowasvoted": undefined,
-      }
+<UNDEFINED
+  answerId="0"
+  buttonParams={
+    Object {
+      "answerId": 0,
+      "questionId": undefined,
+      "whowasvoted": undefined,
     }
-    questionData={
-      Object {
-        "content": Object {
-          "title": "Title",
-        },
-        "userInfo": Object {},
-      }
+  }
+  questionData={
+    Object {
+      "content": Object {
+        "title": "Title",
+      },
+      "userInfo": Object {},
     }
-    type="question"
-    userInfo={Object {}}
-  />
-</div>
+  }
+  title="Title"
+  type="app_viewQuestion_QUESTION_TYPE"
+  userInfo={Object {}}
+/>
 `;

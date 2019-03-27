@@ -8,11 +8,6 @@ import { initialState } from './reducer';
 const selectViewQuestionDomain = state =>
   state.get('viewQuestion', initialState);
 
-const selectEditComment = () =>
-  createSelector(selectViewQuestionDomain, substate =>
-    substate.get('editComment'),
-  );
-
 const selectQuestionData = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('questionData'),
@@ -22,18 +17,23 @@ export const selectAnswer = answerId =>
   createSelector(
     selectViewQuestionDomain,
     substate =>
-      substate.get('questionData')
-        ? substate.get('questionData').answers.filter(x => x.id === answerId)[0]
+      substate.toJS().questionData
+        ? substate.toJS().questionData.answers.filter(x => x.id === answerId)[0]
         : null,
   );
 
 export const selectComment = (answerId, commentId) =>
   createSelector(selectViewQuestionDomain, substate => {
-    if (!substate.get('questionData')) return null;
+    const { questionData } = substate.toJS();
 
-    const answer = substate
-      .get('questionData')
-      .answers.filter(x => x.id === answerId)[0];
+    if (!questionData) return null;
+
+    // comments of question
+    if (answerId === 0)
+      return questionData.comments.filter(x => x.id === commentId)[0];
+
+    // comments of answer
+    const answer = questionData.answers.filter(x => x.id === answerId)[0];
 
     if (!answer) return null;
 
@@ -152,7 +152,6 @@ const selectVoteToDeleteError = () =>
 
 export {
   selectViewQuestionDomain,
-  selectEditComment,
   selectQuestionData,
   selectQuestionDataError,
   selectQuestionDataLoading,

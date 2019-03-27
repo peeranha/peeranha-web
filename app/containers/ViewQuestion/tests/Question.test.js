@@ -1,4 +1,4 @@
-import Question from '../Question';
+import { Question } from '../Question';
 
 describe('Question', () => {
   it('test', () => {
@@ -10,6 +10,7 @@ describe('Question', () => {
         },
       },
     };
+
     expect(Question(props)).toMatchSnapshot();
   });
 });
