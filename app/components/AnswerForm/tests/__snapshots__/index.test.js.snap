@@ -28,7 +28,7 @@ exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       form="form1"
       handleSubmit={[MockFunction]}
       invalid={false}
@@ -69,7 +69,7 @@ exports[`<AnswerForm /> snapshot test 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       form="form1"
       handleSubmit={[MockFunction]}
       invalid={false}

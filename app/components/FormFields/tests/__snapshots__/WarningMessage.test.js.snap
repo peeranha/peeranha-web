@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WarningMessage test test by snapshots touched: false, 1`] = `
-<div
-  className="d-flex align-items-center undefined"
->
-  <Span
-    color="gray"
-    fontSize="14"
-    isItalic={true}
-  >
-    <FormattedMessage
-      values={Object {}}
-    />
-  </Span>
-</div>
-`;
+exports[`WarningMessage test test by snapshots touched: false, 1`] = `null`;
 
 exports[`WarningMessage test test by snapshots touched: true, error: true 1`] = `
 <div
