@@ -15,7 +15,7 @@ exports[`<ErrorBoundary /> snapshot test error is not null 1`] = `
         name="description"
       />
     </HelmetWrapper>
-    <ErrorBoundryMessage
+    <UNDEFINED
       error={Object {}}
       errorInfo={Object {}}
       reloadApp={[Function]}
