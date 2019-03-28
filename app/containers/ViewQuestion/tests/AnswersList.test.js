@@ -1,4 +1,4 @@
-import AnswersList from '../AnswersList';
+import { AnswersList } from '../AnswersList';
 
 let props;
 

@@ -1,13 +1,14 @@
-import ErrorBoundryMessage from '../ErrorBoundryMessage';
+import { ErrorBoundaryMessage } from '../ErrorBoundaryMessage';
 
-describe('ErrorBoundryMessage', () => {
+describe('ErrorBoundaryMessage', () => {
   const props = {
     error: 'error',
     errorInfo: {
       componentStack: 'componentStack',
     },
   };
+
   it('snapshot test', () => {
-    expect(ErrorBoundryMessage(props)).toMatchSnapshot();
+    expect(ErrorBoundaryMessage(props)).toMatchSnapshot();
   });
 });

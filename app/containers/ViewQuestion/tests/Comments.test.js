@@ -1,9 +1,7 @@
-import Comments, {
-  Comment,
-  CommentVision,
-  CommentEdit,
-  CommentView,
-} from '../Comments';
+import React from 'react';
+import { Comment, CommentEdit, CommentView, Comments } from '../Comments';
+
+React.useState = jest.fn().mockImplementation(() => [false, jest.fn()]);
 
 describe('Comments', () => {
   it('test1, Comments', () => {
@@ -29,31 +27,6 @@ describe('Comments', () => {
     };
 
     expect(Comment(props)).toMatchSnapshot();
-  });
-
-  describe('CommentVision', () => {
-    const props = {
-      id: 1,
-      answerId: 1,
-      editCommentState: {
-        answerid: 1,
-        commentid: 1,
-      },
-    };
-
-    it('answerid == item.answerId && commentid == item.id', () => {
-      props.id = 1;
-      props.answerId = 1;
-      props.editCommentState.answerid = 1;
-      props.editCommentState.commentid = 1;
-      expect(CommentVision(props)).toMatchSnapshot();
-    });
-
-    it('answerid != item.answerId && commentid != item.id', () => {
-      props.id = 11111;
-      props.answerId = 11111;
-      expect(CommentVision(props)).toMatchSnapshot();
-    });
   });
 
   describe('CommentView', () => {

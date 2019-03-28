@@ -5,53 +5,48 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import { strLength25x30000, required } from 'components/FormFields/validate';
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import TextEditorField from 'components/FormFields/TextEditorField';
+import LargeButton from 'components/Button/LargeButton';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
 /* eslint-disable-next-line */
-let AnswerForm = /* istanbul ignore next */ props => (
-  <div className="answer-question">
-    <form onSubmit={props.handleSubmit(props.sendAnswer)}>
-      <h4 className="header text-uppercase">{props.formHeader}</h4>
-      <div>
-        <Field
-          name={TEXT_EDITOR_ANSWER_FORM}
-          component={TextEditorField}
-          disabled={props.sendAnswerLoading}
-          validate={[strLength25x30000, required]}
-          warn={[strLength25x30000, required]}
-        />
-      </div>
-      <div>
-        <button
-          type="submit"
-          className="btn btn-secondary"
-          disabled={props.invalid || props.submitting}
-          id={props.sendButtonId}
-          style={props.sendAnswerLoading ? { opacity: 0.5 } : null}
-        >
-          {props.sendAnswerLoading ? (
-            <LoadingIndicator />
-          ) : (
-            props.submitButtonName
-          )}
-        </button>
-      </div>
-    </form>
-  </div>
+let AnswerForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  sendAnswer,
+  sendAnswerLoading,
+  sendButtonId,
+  submitButtonName,
+}) => (
+  <form onSubmit={handleSubmit(sendAnswer)}>
+    <div>
+      <Field
+        name={TEXT_EDITOR_ANSWER_FORM}
+        component={TextEditorField}
+        disabled={sendAnswerLoading}
+        validate={[strLength25x30000, required]}
+        warn={[strLength25x30000, required]}
+      />
+    </div>
+    <div>
+      <LargeButton
+        id={sendButtonId}
+        className="my-3"
+        disabled={sendAnswerLoading}
+        typeAttr="submit"
+      >
+        {submitButtonName}
+      </LargeButton>
+    </div>
+  </form>
 );
 
 AnswerForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendAnswer: PropTypes.func,
-  formHeader: PropTypes.string,
   sendButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   sendAnswerLoading: PropTypes.bool,
-  invalid: PropTypes.bool,
-  submitting: PropTypes.bool,
 };
 
 AnswerForm = reduxForm({})(AnswerForm);
@@ -62,4 +57,4 @@ AnswerForm = connect((state, props) => ({
   },
 }))(AnswerForm);
 
-export default AnswerForm;
+export default React.memo(AnswerForm);

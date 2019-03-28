@@ -13,10 +13,10 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import messages from './messages';
-import ErrorBoundryMessage from './ErrorBoundryMessage';
+import ErrorBoundaryMessage from './ErrorBoundaryMessage';
 
 /* eslint-disable react/prefer-stateless-function */
-export class ErrorBoundary extends React.Component {
+export class ErrorBoundary extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,30 +37,35 @@ export class ErrorBoundary extends React.Component {
   };
 
   render() {
-    const translations = translationMessages[this.props.locale];
+    const { locale, children } = this.props;
+    const { error, errorInfo } = this.state;
+    const translations = translationMessages[locale];
+
     const sendProps = {
-      error: this.state.error,
-      errorInfo: this.state.errorInfo,
+      error,
+      errorInfo,
       reloadApp: this.reloadApp,
       translations,
     };
 
-    return [
-      sendProps.error || sendProps.errorInfo ? (
-        <div key="errorBoundary">
-          <Helmet>
-            <title>{translations[messages.title.id]}</title>
-            <meta
-              name="description"
-              content={translations[messages.description.id]}
-            />
-          </Helmet>
-          <ErrorBoundryMessage {...sendProps} />
-        </div>
-      ) : (
-        React.Children.only(this.props.children)
-      ),
-    ];
+    return (
+      <React.Fragment>
+        {error || errorInfo ? (
+          <div>
+            <Helmet>
+              <title>{translations[messages.title.id]}</title>
+              <meta
+                name="description"
+                content={translations[messages.description.id]}
+              />
+            </Helmet>
+            <ErrorBoundaryMessage {...sendProps} />
+          </div>
+        ) : (
+          React.Children.only(children)
+        )}
+      </React.Fragment>
+    );
   }
 }
 

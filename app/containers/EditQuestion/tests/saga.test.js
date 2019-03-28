@@ -49,7 +49,7 @@ jest.mock('utils/questionsManagement', () => ({
 describe('getAskedQuestionWorker', () => {
   const question = {};
   const user = 'user1';
-  const questionid = 'questionid';
+  const questionId = 'questionId';
   const answerid = 1;
   const questionData = {
     user,
@@ -65,7 +65,7 @@ describe('getAskedQuestionWorker', () => {
 
   const props = {
     user,
-    questionid,
+    questionId,
     answerid,
   };
 
@@ -146,11 +146,11 @@ describe('getAskedQuestionWorker', () => {
 describe('editQuestionWorker', () => {
   const user = 'user1';
   const question = {};
-  const questionid = 'questionid';
+  const questionId = 'questionId';
 
   const props = {
     question,
-    questionid,
+    questionId,
   };
 
   const eos = {
@@ -173,7 +173,7 @@ describe('editQuestionWorker', () => {
 
   it('step, editQuestion', () => {
     generator.next(user);
-    expect(editQuestion).toHaveBeenCalledWith(user, questionid, question, eos);
+    expect(editQuestion).toHaveBeenCalledWith(user, questionId, question, eos);
   });
 
   it('editQuestionSuccess', () => {
@@ -184,7 +184,7 @@ describe('editQuestionWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.questionView(questionid),
+      routes.questionView(questionId),
     );
   });
 

@@ -4,26 +4,26 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 
-const ErrorBoundryMessage = props => (
+export const ErrorBoundaryMessage = ({ error, errorInfo, reloadApp }) => (
   <div className="alert alert-danger" role="alert">
     <h3 className="alert alert-danger" role="alert">
       <FormattedMessage {...messages.problemWithWebpage} />
     </h3>
     <details>
-      {props.error.toString()}
+      {error.toString()}
       <br />
-      {props.errorInfo.componentStack}
+      {errorInfo.componentStack}
     </details>
-    <button className="btn btn-link" onClick={props.reloadApp}>
+    <button className="btn btn-link" onClick={reloadApp}>
       <FormattedMessage {...messages.reloadPage} />
     </button>
   </div>
 );
 
-ErrorBoundryMessage.propTypes = {
+ErrorBoundaryMessage.propTypes = {
   error: PropTypes.object,
   errorInfo: PropTypes.object,
   reloadApp: PropTypes.func,
 };
 
-export default ErrorBoundryMessage;
+export default React.memo(ErrorBoundaryMessage);

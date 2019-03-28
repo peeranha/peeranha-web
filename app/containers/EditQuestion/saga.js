@@ -41,17 +41,17 @@ export function* getAskedQuestionWorker({ questionId }) {
   }
 }
 
-export function* editQuestionWorker({ question, questionid }) {
+export function* editQuestionWorker({ question, questionId }) {
   try {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
     yield call(() =>
-      editQuestion(selectedAccount, questionid, question, eosService),
+      editQuestion(selectedAccount, questionId, question, eosService),
     );
 
     yield put(editQuestionSuccess());
-    yield call(() => createdHistory.push(routes.questionView(questionid)));
+    yield call(() => createdHistory.push(routes.questionView(questionId)));
   } catch (err) {
     yield put(editQuestionErr(err));
   }

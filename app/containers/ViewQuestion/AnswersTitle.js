@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import H4 from 'components/H4';
+import Span from 'components/Span';
 
 import messages from './messages';
 
-const AnswersTitle = props => (
-  <h5 className="answers-title">
-    {`${props.answersNum} ${props.translations[messages.answers.id]}`}
-  </h5>
+export const AnswersTitle = /* istanbul ignore next */ ({ answersNum }) => (
+  <H4 className="text-capitalize" isHeader>
+    <FormattedMessage {...messages.answers} />{' '}
+    <Span color="gray" fontSize="30" bold>
+      {answersNum}
+    </Span>
+  </H4>
 );
 
 AnswersTitle.propTypes = {
   answersNum: PropTypes.number,
-  translations: PropTypes.object,
 };
 
-export default AnswersTitle;
+export default React.memo(AnswersTitle);

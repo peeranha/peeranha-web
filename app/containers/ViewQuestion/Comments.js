@@ -1,113 +1,240 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { gray, blue, transparent } from 'style-constants';
+import { FormattedMessage } from 'react-intl';
 
-import Button from './Button';
-import ChangesHistory from './ChangesHistory';
+import editSmallIcon from 'svg/editSmallIcon';
+import deleteSmallIcon from 'svg/deleteSmallIcon';
+import blockSmallIcon from 'svg/blockSmallIcon';
+
+import Span from 'components/Span';
+import Icon from 'components/Icon';
+import Textarea from 'components/Textarea';
+import IconStyled from 'components/Icon/IconStyled';
+
+import Button, { BlockButton } from './Button';
 import UserInfo from './UserInfo';
+import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
 
 import messages from './messages';
 
-import { SAVE_COMMENT_FORM, SAVE_COMMENT_BUTTON } from './constants';
+import {
+  SAVE_COMMENT_FORM,
+  SAVE_COMMENT_BUTTON,
+  COMMENT_TYPE,
+} from './constants';
 
-const CommentEdit = item => (
-  <div className="save-edited-form">
+const CommentManage = styled.div`
+  opacity: 0;
+
+  ${Span} {
+    font-size: 14px;
+  }
+
+  ${IconStyled} {
+    margin-right: 5px;
+  }
+`;
+
+const CommentViewStyled = styled.li`
+  position: relative;
+`;
+
+const CommentEditStyled = styled.li`
+  ${Textarea} {
+    height: 90px;
+  }
+`;
+
+const CommentsStyled = styled.ul`
+  ${CommentViewStyled} {
+    border: 1px solid ${gray};
+    padding: 10px 15px;
+
+    :first-child {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+
+    :last-child {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+
+    :not(:last-child) {
+      border-bottom-color: ${transparent};
+    }
+
+    :hover {
+      border-color: ${blue};
+
+      ${CommentManage} {
+        opacity: 1;
+      }
+    }
+  }
+`;
+
+const CommentEdit = /* istanbul ignore next */ ({
+  answerId,
+  id,
+  content,
+  translations,
+  saveCommentLoading,
+  saveComment,
+  toggleView,
+}) => (
+  <CommentEditStyled className="my-4">
     <CommentForm
-      form={`${SAVE_COMMENT_FORM}_${item.answerId}${item.id}`}
-      comment={item.content}
+      form={`${SAVE_COMMENT_FORM}_${answerId}${id}`}
+      comment={content}
       submitButtonId={SAVE_COMMENT_BUTTON}
-      submitButtonName={item.translations[messages.saveButton.id]}
-      sendCommentLoading={item.saveCommentLoading}
-      sendComment={item.saveComment}
-      answerId={item.answerId}
-      commentId={item.id}
+      submitButtonName={translations[messages.saveButton.id]}
+      sendCommentLoading={saveCommentLoading}
+      sendComment={saveComment}
+      answerId={answerId}
+      commentId={id}
+      toggleView={toggleView}
     />
-  </div>
+  </CommentEditStyled>
 );
 
-const CommentView = item => (
-  <div className="comment-content">
-    <div>
-      <ChangesHistory
-        locale={item.locale}
+const CommentView = /* istanbul ignore next */ item => (
+  <CommentViewStyled>
+    <div className="d-flex justify-content-between align-items-center">
+      <UserInfo
+        type={COMMENT_TYPE}
+        avatar={item.userInfo.ipfs_avatar}
+        name={item.userInfo.display_name}
+        rating={item.userInfo.rating}
+        account={item.userInfo.user}
         postTime={item.post_time}
-        lastEditedDate={item.lastEditedDate}
+        locale={item.locale}
       />
-      <p
-        className="comment-text"
-        dangerouslySetInnerHTML={{ __html: item.content }}
-      />
+
+      <CommentManage>
+        <Button
+          className="ml-1"
+          show={item.isItWrittenByMe}
+          params={{
+            ...item.buttonParams,
+            commentId: item.id,
+            whowasvoted: item.userInfo.user,
+          }}
+          onClick={() => item.toggleView(!item.isView)}
+        >
+          <Span color="blue">
+            <Icon icon={editSmallIcon} />
+            <FormattedMessage {...messages.editButton} />
+          </Span>
+        </Button>
+
+        <Button
+          className="ml-1"
+          show={item.isItWrittenByMe}
+          id={`comment__${item.answerId}${item.id}`}
+          params={{
+            ...item.buttonParams,
+            commentId: item.id,
+            whowasvoted: item.userInfo.user,
+          }}
+          onClick={item.deleteComment}
+        >
+          <Span color="blue">
+            <Icon icon={deleteSmallIcon} />
+            <FormattedMessage {...messages.deleteButton} />
+          </Span>
+        </Button>
+
+        <BlockButton
+          show
+          id={`comment_vote_to_delete_${item.answerId}${item.id}`}
+          className="ml-1"
+          isVotedToDelete={item.isVotedToDelete}
+          isItWrittenByMe={item.isItWrittenByMe}
+          onClick={item.voteToDelete}
+          params={{
+            ...item.buttonParams,
+            commentId: item.id,
+            whowasvoted: item.userInfo.user,
+          }}
+        >
+          <Icon icon={blockSmallIcon} />
+          <FormattedMessage {...messages.voteToDelete} />
+        </BlockButton>
+      </CommentManage>
     </div>
-    <p className="option-edit">
-      <Button
-        show={item.isItWrittenByMe}
-        buttonParams={{
-          ...item.buttonParams,
-          commentId: item.id,
-          whowasvoted: item.userInfo.user,
-        }}
-        buttonName={item.translations[messages.editButton.id]}
-        buttonClick={item.editComment}
-      />
-      <Button
-        show={item.isItWrittenByMe}
-        buttonId={`comment__${item.answerId}${item.id}`}
-        buttonParams={{
-          ...item.buttonParams,
-          commentId: item.id,
-          whowasvoted: item.userInfo.user,
-        }}
-        buttonName={item.translations[messages.deleteButton.id]}
-        buttonClick={item.deleteComment}
-      />
-      <Button
-        show
-        buttonId={`comment_vote_to_delete_${item.answerId}${item.id}`}
-        buttonParams={{
-          ...item.buttonParams,
-          commentId: item.id,
-          whowasvoted: item.userInfo.user,
-        }}
-        buttonName={item.translations[messages.voteToDelete.id]}
-        buttonClick={item.voteToDelete}
-      />
-    </p>
-  </div>
+
+    <div dangerouslySetInnerHTML={{ __html: item.content }} />
+  </CommentViewStyled>
 );
 
-/* eslint eqeqeq: 0 */
-const CommentVision = item => {
-  const { answerid, commentid } = item.editCommentState;
-  return answerid == item.answerId && commentid == item.id ? (
-    <CommentEdit {...item} />
-  ) : (
-    <CommentView {...item} />
+const Comment = /* istanbul ignore next */ item => {
+  const [isView, toggleView] = useState(true);
+
+  return (
+    <React.Fragment>
+      {!isView ? (
+        <CommentEdit toggleView={toggleView} {...item} />
+      ) : (
+        <CommentView isView={isView} toggleView={toggleView} {...item} />
+      )}
+    </React.Fragment>
   );
 };
 
-const Comment = item => (
-  <div className="comment-body">
-    <UserInfo
-      avatar={item.userInfo.ipfs_avatar}
-      name={item.userInfo.display_name}
-      rating={item.userInfo.rating}
-      account={item.userInfo.user}
-    />
-    <CommentVision {...item} />
-  </div>
-);
+const Comments = /* istanbul ignore next */ props => {
+  const DEFAULT_COMMENTS_NUMBER = 3;
+  const [isAllCommentsView, changeCommentsView] = useState(false);
 
-const Comments = props => (
-  <div className="comments">
-    {props.comments.map(item => (
-      <Comment {...item} {...props} key={`comment${item.id}`} />
-    ))}
-  </div>
-);
+  const commentsNum = !isAllCommentsView ? DEFAULT_COMMENTS_NUMBER : undefined;
+
+  return (
+    <div>
+      <CommentsStyled className="my-3">
+        {props.comments
+          .slice(0, commentsNum)
+          .map(item => (
+            <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
+          ))}
+      </CommentsStyled>
+
+      <CommentOptions
+        form={props.form}
+        submitButtonId={props.submitButtonId}
+        submitButtonName={props.submitButtonName}
+        sendCommentLoading={props.sendCommentLoading}
+        sendComment={props.sendComment}
+        answerId={props.answerId}
+        changeCommentsView={changeCommentsView}
+        isAllCommentsView={isAllCommentsView}
+        commentsNumber={props.comments.length - DEFAULT_COMMENTS_NUMBER}
+      />
+    </div>
+  );
+};
 
 Comments.propTypes = {
   comments: PropTypes.array,
+  form: PropTypes.string,
+  submitButtonId: PropTypes.string,
+  submitButtonName: PropTypes.string,
+  sendCommentLoading: PropTypes.bool,
+  sendComment: PropTypes.func,
+  answerId: PropTypes.string,
 };
 
-export { Comment, CommentVision, CommentEdit, CommentView };
-export default Comments;
+CommentEdit.propTypes = {
+  answerId: PropTypes.string,
+  id: PropTypes.string,
+  content: PropTypes.string,
+  translations: PropTypes.object,
+  saveCommentLoading: PropTypes.bool,
+  saveComment: PropTypes.func,
+  toggleView: PropTypes.func,
+};
+
+export { Comment, CommentEdit, CommentView, Comments };
+export default React.memo(Comments);

@@ -81,6 +81,9 @@ export default defineMessages({
   youAsked: {
     id: 'app.common.youAsked',
   },
+  answered: {
+    id: 'app.common.answered',
+  },
   subscribeMore: {
     id: 'app.common.subscribeMore',
   },
@@ -104,5 +107,8 @@ export default defineMessages({
   },
   manageMyComm: {
     id: 'app.common.manageMyComm',
+  },
+  cancel: {
+    id: 'app.common.cancel',
   },
 });

@@ -33,10 +33,10 @@ import {
   saveComment,
   saveCommentSuccess,
   saveCommentErr,
-  toggleCommentVision,
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from '../actions';
 
 describe('viewQuestionReducer', () => {
@@ -49,15 +49,6 @@ describe('viewQuestionReducer', () => {
 
   it('returns the initial state', () => {
     expect(viewQuestionReducer(state, {})).toEqual(state);
-  });
-
-  it('toggleCommentVision', () => {
-    const editComment = 'editComment';
-    const obj = state.set('editComment', editComment);
-
-    expect(
-      viewQuestionReducer(state, toggleCommentVision(editComment)),
-    ).toEqual(obj);
   });
 
   it('voteToDelete', () => {
@@ -94,11 +85,9 @@ describe('viewQuestionReducer', () => {
 
   it('saveCommentSuccess', () => {
     const questionData = 'questionData';
-    const editComment = {};
     const obj = state
       .set('saveCommentLoading', false)
-      .set('questionData', questionData)
-      .set('editComment', editComment);
+      .set('questionData', questionData);
 
     expect(
       viewQuestionReducer(state, saveCommentSuccess(questionData)),
@@ -349,6 +338,15 @@ describe('viewQuestionReducer', () => {
 
     expect(
       viewQuestionReducer(state, markAsAcceptedErr(markAsAcceptedError)),
+    ).toEqual(obj);
+  });
+
+  it('updateQuestionData', () => {
+    const questionData = {};
+    const obj = state.set('questionData', questionData);
+
+    expect(
+      viewQuestionReducer(state, updateQuestionData(questionData)),
     ).toEqual(obj);
   });
 });

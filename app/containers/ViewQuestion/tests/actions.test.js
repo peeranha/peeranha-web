@@ -17,7 +17,6 @@ import {
   markAsAccepted,
   markAsAcceptedSuccess,
   markAsAcceptedErr,
-  toggleCommentVision,
   deleteQuestion,
   deleteQuestionSuccess,
   deleteQuestionErr,
@@ -33,6 +32,7 @@ import {
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from '../actions';
 
 import {
@@ -54,7 +54,6 @@ import {
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   MARK_AS_ACCEPTED_ERROR,
-  TOGGLE_COMMENT_VISION,
   DELETE_QUESTION,
   DELETE_QUESTION_SUCCESS,
   DELETE_QUESTION_ERROR,
@@ -70,6 +69,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  UPDATE_QUESTION_DATA,
 } from '../constants';
 
 describe('ViewQuestions actions', () => {
@@ -293,17 +293,6 @@ describe('ViewQuestions actions', () => {
       };
 
       expect(deleteQuestionErr(deleteQuestionError)).toEqual(expected);
-    });
-  });
-
-  describe('toggleCommentVision Action', () => {
-    it('TOGGLE_COMMENT_VISION', () => {
-      const editComment = 'editComment';
-      const expected = {
-        type: TOGGLE_COMMENT_VISION,
-        editComment,
-      };
-      expect(toggleCommentVision(editComment)).toEqual(expected);
     });
   });
 
@@ -578,6 +567,18 @@ describe('ViewQuestions actions', () => {
         markAsAcceptedError,
       };
       expect(markAsAcceptedErr(markAsAcceptedError)).toEqual(expected);
+    });
+  });
+
+  describe('updateQuestionData', () => {
+    it('UPDATE_QUESTION_DATA', () => {
+      const questionData = {};
+      const expected = {
+        type: UPDATE_QUESTION_DATA,
+        questionData,
+      };
+
+      expect(updateQuestionData(questionData)).toEqual(expected);
     });
   });
 });

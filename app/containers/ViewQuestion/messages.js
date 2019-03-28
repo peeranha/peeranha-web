@@ -9,89 +9,80 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.ViewQuestion.title',
-    defaultMessage: `Question's page`,
   },
   description: {
     id: 'app.containers.ViewQuestion.description',
-    defaultMessage: `Question's description`,
   },
   questionNotExist: {
     id: 'app.containers.ViewQuestion.questionNotExist',
-    defaultMessage: `This question does not exist :(`,
   },
   saveButton: {
     id: 'app.containers.ViewQuestion.saveButton',
-    defaultMessage: `Save`,
   },
   deleteButton: {
     id: 'app.containers.ViewQuestion.deleteButton',
-    defaultMessage: `Delete`,
   },
   editButton: {
     id: 'app.containers.ViewQuestion.editButton',
-    defaultMessage: `Edit`,
+  },
+  moreComments: {
+    id: 'app.containers.ViewQuestion.moreComments',
+  },
+  addComment: {
+    id: 'app.containers.ViewQuestion.addComment',
   },
   commentButton: {
     id: 'app.containers.ViewQuestion.commentButton',
-    defaultMessage: `Comment`,
   },
   postCommentButton: {
     id: 'app.containers.ViewQuestion.postCommentButton',
-    defaultMessage: `Post comment`,
   },
   answers: {
     id: 'app.containers.ViewQuestion.answers',
-    defaultMessage: `answers`,
   },
   postAnswerButton: {
     id: 'app.containers.ViewQuestion.postAnswerButton',
-    defaultMessage: `Post answer`,
   },
   yourAnswer: {
     id: 'app.containers.ViewQuestion.yourAnswer',
-    defaultMessage: `Your answer`,
   },
   notEnoughRating: {
     id: 'app.containers.ViewQuestion.notEnoughRating',
-    defaultMessage: 'To complete this action, your rating has to be more than',
   },
   notEnoughModPoints: {
     id: 'app.containers.ViewQuestion.notEnoughModPoints',
-    defaultMessage:
-      'To complete this action, your moderation points rating has to be more than',
   },
   youVoted: {
     id: 'app.containers.ViewQuestion.youVoted',
-    defaultMessage: 'You have completed this action earlier',
   },
   alreadyAnswered: {
     id: 'app.containers.ViewQuestion.alreadyAnswered',
-    defaultMessage: 'You already answered this question',
   },
   itemsMax: {
     id: 'app.containers.ViewQuestion.itemsMax',
-    defaultMessage: 'Number of items is achieved of maximum',
   },
   noRootsToVote: {
     id: 'app.containers.ViewQuestion.noRootsToVote',
-    defaultMessage: 'You cannot vote to own questions and answers',
   },
   youHaveAnswers: {
     id: 'app.containers.ViewQuestion.youHaveAnswers',
-    defaultMessage:
-      'You cannot delete it because you already have some answers by your question',
   },
   answerIsCorrect: {
     id: 'app.containers.ViewQuestion.answerIsCorrect',
-    defaultMessage:
-      'You cannot delete it because your answer is marked as correct',
   },
   lastEdited: {
     id: 'app.containers.ViewQuestion.lastEdited',
-    defaultMessage: 'Last edited',
   },
   voteToDelete: {
     id: 'app.containers.ViewQuestion.voteToDelete',
-    defaultMessage: 'Vote to delete',
+  },
+  theBest: {
+    id: 'app.containers.ViewQuestion.theBest',
+  },
+  theBestAnswer: {
+    id: 'app.containers.ViewQuestion.theBestAnswer',
+  },
+  communityChoice: {
+    id: 'app.containers.ViewQuestion.communityChoice',
   },
 });

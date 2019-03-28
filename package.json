@@ -39,7 +39,7 @@
     "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --fix",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
-    "pretest": "npm run test:clean && npm run lint",
+    "pretest": "npm run prettify './app/**/*.js' && npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --no-cache",
     "test:file": "cross-env NODE_ENV=test jest",
@@ -49,6 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier --write",
       "npm run lint:eslint:fix",
       "git add --force"
     ],
@@ -167,9 +168,9 @@
     "numeral": "^2.0.6",
     "popper.js": "1.14.4",
     "prop-types": "15.6.1",
-    "react": "^16.7.0",
+    "react": "^16.8.3",
     "react-avatar-editor": "^11.0.4",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.3",
     "react-ga": "^2.5.6",
     "react-helmet": "5.2.0",
     "react-intl": "2.4.0",

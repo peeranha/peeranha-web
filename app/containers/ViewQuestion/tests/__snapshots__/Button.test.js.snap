@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button @show is falsy 1`] = `null`;
+exports[`BlockButton snapshot tests 1`] = `
+<Button
+  params={Object {}}
+  show={true}
+>
+  <Span />
+</Button>
+`;
 
-exports[`Button @show is true 1`] = `<button />`;
+exports[`Button snapshot tests 1`] = `
+<button
+  className="d-inline-flex align-items-center undefined"
+/>
+`;

@@ -28,6 +28,7 @@ import {
 } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 
 import {
   GET_QUESTION_DATA,
@@ -41,8 +42,6 @@ import {
   DELETE_COMMENT,
   SAVE_COMMENT,
   VOTE_TO_DELETE,
-  contentOptionsClass,
-  contentOptionsAttr,
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -71,6 +70,7 @@ import {
   saveCommentErr,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  updateQuestionData,
 } from './actions';
 
 import { selectQuestionData, selectAnswer, selectComment } from './selectors';
@@ -115,113 +115,78 @@ export function* getQuestionData({
     };
   };
 
-  // key: 3 - key to last edited date value
   const getlastEditedDate = properties => {
-    const lastEditedDate = properties.filter(x => x.key === 3)[0];
+    const LAST_EDITED_KEY = 3;
+    const lastEditedDate = properties.filter(x => x.key === LAST_EDITED_KEY)[0];
+
     return (lastEditedDate && lastEditedDate.value) || null;
   };
 
-  const p1 = function*() {
-    const cachedQuestion = yield select(selectQuestionData());
-
-    // Question's @content: IF cache is empty - take from IPFS
-    if (cachedQuestion && cachedQuestion.content) {
-      question.content = cachedQuestion.content;
+  const addOptions = function*(cachedItem, currentItem) {
+    // Item's @content: IF cache is empty - take from IPFS
+    if (cachedItem && cachedItem.content) {
+      currentItem.content = cachedItem.content;
     } else {
-      const content = yield call(() => getText(question.ipfs_link));
-      question.content = JSON.parse(content);
+      const content = yield call(() => getText(currentItem.ipfs_link));
+
+      try {
+        currentItem.content = JSON.parse(content);
+      } catch (err) {
+        currentItem.content = content;
+      }
     }
 
-    // Question's @userInfo: IF cache is empty - take from IPFS
+    // Items's @userInfo: IF cache is empty - take from IPFS
     const userInfo = yield call(() =>
-      getUserProfileWorker({ user: question.user }),
+      getUserProfileWorker({ user: currentItem.user }),
     );
-    question.userInfo = userInfo;
 
-    question.isItWrittenByMe = user === question.user;
-    question.votingStatus = votingStatus(question.history);
-    question.lastEditedDate = getlastEditedDate(question.properties);
+    currentItem.userInfo = userInfo;
+    currentItem.isItWrittenByMe = user === currentItem.user;
+    currentItem.votingStatus = votingStatus(currentItem.history);
+    currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
+  };
+
+  const processQuestion = function*() {
+    const cachedQuestion = yield select(selectQuestionData());
+    yield call(() => addOptions(cachedQuestion, question));
   };
 
   /* eslint no-shadow: 0 */
-  const p2 = function*() {
+  const processAnswers = function*() {
+    const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
+
     yield all(
       question.answers.map(function*(x) {
         const cachedAnswer = yield select(selectAnswer(x.id));
+        yield call(() => addOptions(cachedAnswer, x));
 
-        // Answers's @content: IF cache is empty (ViewQuestion) - take from IPFS
-        if (cachedAnswer && cachedAnswer.content) {
-          x.content = cachedAnswer.content;
-        } else {
-          const content = yield call(() => getText(x.ipfs_link));
-          x.content = content;
-        }
-
-        // Question's @userInfo: IF cache is empty (DataCacheProvider) - take from IPFS
-        const userInfo = yield call(() =>
-          getUserProfileWorker({ user: x.user }),
-        );
-        x.userInfo = userInfo;
-
-        x.isItWrittenByMe = user === x.user;
-        x.votingStatus = votingStatus(x.history);
-        x.lastEditedDate = getlastEditedDate(x.properties);
+        x.isTheLargestRating =
+          x.rating === mostRatingAnswer.rating &&
+          x.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
         yield all(
           x.comments.map(function*(y) {
             const cachedComment = yield select(selectComment(x.id, y.id));
-
-            // Answers's @content: IF cache is empty - take from IPFS
-            if (cachedComment && cachedComment.content) {
-              y.content = cachedComment.content;
-            } else {
-              const content = yield call(() => getText(y.ipfs_link));
-              y.content = content;
-            }
-
-            // Question's @userInfo: IF cache is empty - take from IPFS
-            const userInfo = yield call(() =>
-              getUserProfileWorker({ user: y.user }),
-            );
-            y.userInfo = userInfo;
-
-            y.isItWrittenByMe = user === y.user;
-            y.votingStatus = votingStatus(y.history);
-            y.lastEditedDate = getlastEditedDate(y.properties);
+            yield call(() => addOptions(cachedComment, y));
           }),
         );
       }),
     );
   };
 
-  const p3 = function*() {
+  const processCommentsOfQuestion = function*() {
     yield all(
       question.comments.map(function*(x) {
         const answerId = 0; // it is unique ID for question to get comments
         const cachedComment = yield select(selectComment(answerId, x.id));
 
-        // Answers's @content: IF cache is empty - take from IPFS
-        if (cachedComment && cachedComment.content) {
-          x.content = cachedComment.content;
-        } else {
-          const content = yield call(() => getText(x.ipfs_link));
-          x.content = content;
-        }
-
-        // Question's @userInfo: IF cache is empty - take from IPFS
-        const userInfo = yield call(() =>
-          getUserProfileWorker({ user: x.user }),
-        );
-        x.userInfo = userInfo;
-
-        x.isItWrittenByMe = user === x.user;
-        x.votingStatus = votingStatus(x.history);
-        x.lastEditedDate = getlastEditedDate(x.properties);
+        yield call(() => addOptions(cachedComment, x));
       }),
     );
   };
 
-  yield all([p1(), p2(), p3()]);
+  yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
 
   return question;
 }
@@ -232,19 +197,49 @@ export function* saveCommentWorker({
   answerId,
   commentId,
   comment,
+  toggleView,
 }) {
   try {
     const eosService = yield select(selectEos);
+    const cachedQues = yield select(selectQuestionData());
 
     yield call(() =>
       editComment(user, questionId, answerId, commentId, comment, eosService),
     );
+
+    // Delete comment from cache to update it after
+    if (+answerId === 0) {
+      yield put(
+        updateQuestionData({
+          ...cachedQues,
+          comments: cachedQues.comments.filter(x => x.id !== +commentId),
+        }),
+      );
+    } else {
+      const answer = cachedQues.answers.filter(x => x.id === +answerId)[0];
+      const updatedComm = answer.comments.filter(y => y.id !== +commentId);
+
+      yield put(
+        updateQuestionData({
+          ...cachedQues,
+          answers: [
+            ...cachedQues.answers.filter(x => x.id !== +answerId),
+            {
+              ...answer,
+              comments: updatedComm,
+            },
+          ],
+        }),
+      );
+    }
 
     const questionData = yield getQuestionData({
       eosService,
       questionId,
       user,
     });
+
+    yield call(() => toggleView(true));
 
     yield put(saveCommentSuccess(questionData));
   } catch (err) {
@@ -363,6 +358,7 @@ export function* postCommentWorker({
   questionId,
   comment,
   reset,
+  toggleView,
 }) {
   try {
     let questionData = yield select(selectQuestionData());
@@ -393,17 +389,13 @@ export function* postCommentWorker({
       postComment(user, questionId, answerId, comment, eosService),
     );
 
+    yield call(() => toggleView(true));
+
     questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
     );
 
     yield call(() => reset());
-
-    yield call(() =>
-      window
-        .$(`.${contentOptionsClass}`)
-        .attr(`data-${contentOptionsAttr}`, false),
-    );
 
     yield put(postCommentSuccess(questionData));
   } catch (err) {

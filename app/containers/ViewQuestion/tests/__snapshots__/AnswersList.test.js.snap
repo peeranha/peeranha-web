@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
-<div
-  className="answers-list"
->
-  <Content
+<React.Fragment>
+  <UNDEFINED
     answerId={1}
     buttonParams={
       Object {
@@ -13,6 +11,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -32,10 +31,10 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
-    type="answer"
+    type="app_viewQuestion_ANSWER_TYPE"
     userInfo={Object {}}
   />
-  <Content
+  <UNDEFINED
     answerId={2}
     buttonParams={
       Object {
@@ -44,6 +43,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -63,10 +63,10 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
-    type="answer"
+    type="app_viewQuestion_ANSWER_TYPE"
     userInfo={Object {}}
   />
-  <Content
+  <UNDEFINED
     answerId={3}
     buttonParams={
       Object {
@@ -75,6 +75,7 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -94,17 +95,15 @@ exports[`AnswersList test, correct_answer_id !== item.id 1`] = `
         "correct_answer_id": 0,
       }
     }
-    type="answer"
+    type="app_viewQuestion_ANSWER_TYPE"
     userInfo={Object {}}
   />
-</div>
+</React.Fragment>
 `;
 
 exports[`AnswersList test, correct_answer_id === item.id 1`] = `
-<div
-  className="answers-list"
->
-  <Content
+<React.Fragment>
+  <UNDEFINED
     answerId={2}
     buttonParams={
       Object {
@@ -113,6 +112,7 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -132,10 +132,10 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "correct_answer_id": 1,
       }
     }
-    type="answer"
+    type="app_viewQuestion_ANSWER_TYPE"
     userInfo={Object {}}
   />
-  <Content
+  <UNDEFINED
     answerId={3}
     buttonParams={
       Object {
@@ -144,6 +144,7 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "whowasvoted": undefined,
       }
     }
+    className="mb-3"
     questionData={
       Object {
         "answers": Array [
@@ -163,8 +164,8 @@ exports[`AnswersList test, correct_answer_id === item.id 1`] = `
         "correct_answer_id": 1,
       }
     }
-    type="answer"
+    type="app_viewQuestion_ANSWER_TYPE"
     userInfo={Object {}}
   />
-</div>
+</React.Fragment>
 `;

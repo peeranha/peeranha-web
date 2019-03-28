@@ -34,6 +34,8 @@ jest.mock('../ipfs', () => ({
   saveText: jest.fn(),
 }));
 
+window.BigInt = jest.fn().mockImplementation(x => x);
+
 let eosService;
 
 beforeEach(() => {

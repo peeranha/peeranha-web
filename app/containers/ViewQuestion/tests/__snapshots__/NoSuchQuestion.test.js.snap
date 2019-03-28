@@ -5,7 +5,6 @@ exports[`NoSuchQuestion test 1`] = `
   className="text-center"
 >
   <FormattedMessage
-    defaultMessage="This question does not exist :("
     id="app.containers.ViewQuestion.questionNotExist"
     values={Object {}}
   />

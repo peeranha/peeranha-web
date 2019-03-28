@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
@@ -16,6 +17,10 @@ import arrowRightIcon from 'svg/arrowRight';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 import { getFormattedNum2 } from 'utils/numbers';
+
+const CommunitiesFormStyled = styled.div`
+  overflow: hidden;
+`;
 
 const CommunityStyled = Base.extend`
   border-radius: 5px;
@@ -41,7 +46,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
   );
 
   return (
-    <div>
+    <CommunitiesFormStyled>
       <H4 isHeader>
         <FormattedMessage {...messages.communities} />{' '}
         <Span color="gray" fontSize="30" bold>
@@ -82,7 +87,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
           </div>
         )}
       </div>
-    </div>
+    </CommunitiesFormStyled>
   );
 };
 

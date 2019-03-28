@@ -1,4 +1,4 @@
-import QuestionTitle from '../QuestionTitle';
+import { QuestionTitle } from '../QuestionTitle';
 
 describe('QuestionTitle', () => {
   it('test', () => {

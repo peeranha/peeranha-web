@@ -10,11 +10,8 @@ exports[`ChangesHistory @lastEditedDate is true 1`] = `
 <p
   className="recording-date"
 >
-  <span
-    className="last-edited-date"
-  >
+  <span>
     <FormattedMessage
-      defaultMessage="Last edited"
       id="app.containers.ViewQuestion.lastEdited"
       values={Object {}}
     />
