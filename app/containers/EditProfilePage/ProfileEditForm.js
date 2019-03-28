@@ -101,6 +101,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          fieldWithTips
         />
         <Field
           name={COMPANY_FIELD}
@@ -109,6 +110,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          fieldWithTips
         />
         <Field
           name={POSITION_FIELD}
@@ -117,6 +119,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          fieldWithTips
         />
         <Field
           name={LOCATION_FIELD}
@@ -125,6 +128,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           label={intl.formatMessage({ id: messages.locationLabel.id })}
           disabled={isProfileSaving}
           component={SelectField}
+          fieldWithTips
         />
         <Field
           name={ABOUT_FIELD}
