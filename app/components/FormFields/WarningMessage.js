@@ -29,4 +29,4 @@ WarningMessage.propTypes = {
   touched: PropTypes.bool,
 };
 
-export default WarningMessage;
+export default React.memo(WarningMessage);

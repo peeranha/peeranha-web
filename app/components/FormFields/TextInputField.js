@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from 'components/Input';
-
-import Label from './Label';
-import WarningMessage from './WarningMessage';
+import Wrapper from './Wrapper';
 
 const TextInputField = ({
   input,
@@ -14,23 +12,19 @@ const TextInputField = ({
   meta,
   placeholder,
   isSearchable,
+  fieldWithTips,
 }) => (
-  <div className="mb-2">
-    <Label>{label}</Label>
-    <div className="row align-items-start">
-      <Input
-        className="col-xl-6 mb-1"
-        input={input}
-        disabled={disabled}
-        readOnly={readOnly}
-        placeholder={placeholder}
-        isSearchable={isSearchable}
-        error={!!(meta.error || meta.warning)}
-        type="text"
-      />
-      <WarningMessage className="col-xl-6" {...meta} isArrowed />
-    </div>
-  </div>
+  <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+    <Input
+      input={input}
+      disabled={disabled}
+      readOnly={readOnly}
+      placeholder={placeholder}
+      isSearchable={isSearchable}
+      error={!!(meta.error || meta.warning)}
+      type="text"
+    />
+  </Wrapper>
 );
 
 TextInputField.propTypes = {
@@ -39,8 +33,9 @@ TextInputField.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   isSearchable: PropTypes.bool,
+  fieldWithTips: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
 };
 
-export default TextInputField;
+export default React.memo(TextInputField);

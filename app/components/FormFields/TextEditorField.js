@@ -2,23 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TextEditor from 'components/TextEditor';
-import WarningMessage from './WarningMessage';
+import Wrapper from './Wrapper';
 
-function TextEditorField({ input, label, disabled, meta }) {
-  return (
-    <div>
-      <h6>{label}</h6>
-      <TextEditor {...input} disabled={disabled} />
-      <WarningMessage {...meta} />
-    </div>
-  );
-}
+const TextEditorField = ({ input, label, disabled, meta, fieldWithTips }) => (
+  <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+    <TextEditor {...input} disabled={disabled} />
+  </Wrapper>
+);
 
 TextEditorField.propTypes = {
   disabled: PropTypes.bool,
   input: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
+  fieldWithTips: PropTypes.bool,
 };
 
-export default TextEditorField;
+export default React.memo(TextEditorField);
