@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
+import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import AccountProvider from 'containers/AccountProvider';
 import EosioProvider from 'containers/EosioProvider';
@@ -90,9 +91,11 @@ export class Box extends React.PureComponent {
                     {...props}
                   />
 
-                  <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
-                    <Comp {...props} />
-                  </WrapStyled>
+                  <React.Suspense fallback={<Loader />}>
+                    <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
+                      <Comp {...props} />
+                    </WrapStyled>
+                  </React.Suspense>
                 </div>
               </div>
             </Main>
