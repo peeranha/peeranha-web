@@ -12,7 +12,8 @@ import closeIcon from 'images/closeCircle.svg';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import LargeButton from 'components/Button/LargeButton';
 import TagSelector from 'components/TagSelector';
-import Base from 'components/Base/BaseRounded';
+import BaseRounded from 'components/Base/BaseRounded';
+import Base from 'components/Base';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
@@ -38,6 +39,13 @@ import {
 
 import messages from './messages';
 
+import Tips from './Tips';
+
+const Form = Base.extend`
+  position: relative;
+  border-radius: 5px;
+`.withComponent('form');
+
 /* eslint-disable-next-line */
 let QuestionForm = /* istanbul ignore next */ ({
   sendQuestion,
@@ -59,7 +67,7 @@ let QuestionForm = /* istanbul ignore next */ ({
 
   return (
     <div>
-      <Base className="d-flex align-items-center justify-content-between mb-3">
+      <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
         <H3 className="d-flex align-items-end">
           <MediumImageStyled src={questionIcon} alt="questionIcon" />
           <span>{formTitle}</span>
@@ -77,66 +85,76 @@ let QuestionForm = /* istanbul ignore next */ ({
             </Span>
           </A>
         )}
-      </Base>
+      </BaseRounded>
 
-      <form onSubmit={handleSubmit(sendQuestion)}>
-        <Base>
-          <div>
-            <Field
-              name={FORM_COMMUNITY}
-              component={CommunityField}
-              onChange={() => change(FORM_TAGS, '')}
-              disabled={questionLoading}
-              label={intl.formatMessage({ id: messages.communityLabel.id })}
-              tip={intl.formatMessage({ id: messages.communityTip.id })}
-              options={communities}
-              validate={[requiredForObjectField]}
-              warn={[requiredForObjectField]}
-            />
-            <Field
-              name={FORM_TITLE}
-              component={TextInputField}
-              disabled={questionLoading}
-              label={intl.formatMessage({ id: messages.titleLabel.id })}
-              tip={intl.formatMessage({ id: messages.titleTip.id })}
-              validate={[strLength15x100, required]}
-              warn={[strLength15x100, required]}
-            />
-            <Field
-              name={FORM_CONTENT}
-              component={TextEditorField}
-              disabled={questionLoading}
-              label={intl.formatMessage({ id: messages.contentLabel.id })}
-              previewLabel={intl.formatMessage({
-                id: messages.previewLabel.id,
-              })}
-              validate={[strLength25x30000, required]}
-              warn={[strLength25x30000, required]}
-            />
+      <BaseRounded className="p-0">
+        <div className="row">
+          <div className="col-12 col-xl-9">
+            <Form onSubmit={handleSubmit(sendQuestion)}>
+              <div>
+                <Field
+                  name={FORM_COMMUNITY}
+                  component={CommunityField}
+                  onChange={() => change(FORM_TAGS, '')}
+                  disabled={questionLoading}
+                  label={intl.formatMessage({ id: messages.communityLabel.id })}
+                  tip={intl.formatMessage({ id: messages.communityTip.id })}
+                  options={communities}
+                  validate={[requiredForObjectField]}
+                  warn={[requiredForObjectField]}
+                />
+                <Field
+                  name={FORM_TITLE}
+                  component={TextInputField}
+                  disabled={questionLoading}
+                  label={intl.formatMessage({ id: messages.titleLabel.id })}
+                  tip={intl.formatMessage({ id: messages.titleTip.id })}
+                  validate={[strLength15x100, required]}
+                  warn={[strLength15x100, required]}
+                />
+                <Field
+                  name={FORM_CONTENT}
+                  component={TextEditorField}
+                  disabled={questionLoading}
+                  label={intl.formatMessage({ id: messages.contentLabel.id })}
+                  previewLabel={intl.formatMessage({
+                    id: messages.previewLabel.id,
+                  })}
+                  validate={[strLength25x30000, required]}
+                  warn={[strLength25x30000, required]}
+                />
 
-            <Field
-              name={FORM_TAGS}
-              label={intl.formatMessage({ id: messages.tagsLabel.id })}
-              tip={intl.formatMessage({ id: messages.tagsTip.id })}
-              component={TagSelector}
-              disabled={questionLoading || !formValues[FORM_COMMUNITY]}
-              setTags={setTags}
-              options={
-                formValues[FORM_COMMUNITY]
-                  ? formValues[FORM_COMMUNITY].tags
-                  : []
-              }
-              validate={[required, strLength1x5]}
-              warn={[required, strLength1x5]}
-            />
+                <Field
+                  name={FORM_TAGS}
+                  label={intl.formatMessage({ id: messages.tagsLabel.id })}
+                  tip={intl.formatMessage({ id: messages.tagsTip.id })}
+                  component={TagSelector}
+                  disabled={questionLoading || !formValues[FORM_COMMUNITY]}
+                  setTags={setTags}
+                  options={
+                    formValues[FORM_COMMUNITY]
+                      ? formValues[FORM_COMMUNITY].tags
+                      : []
+                  }
+                  validate={[required, strLength1x5]}
+                  warn={[required, strLength1x5]}
+                />
+              </div>
+              <div>
+                <LargeButton
+                  id={submitButtonId}
+                  className="my-3"
+                  typeAttr="submit"
+                >
+                  {submitButtonName}
+                </LargeButton>
+              </div>
+            </Form>
           </div>
-          <div>
-            <LargeButton id={submitButtonId} className="my-3" typeAttr="submit">
-              {submitButtonName}
-            </LargeButton>
-          </div>
-        </Base>
-      </form>
+
+          <Tips className="d-none d-xl-block col-xl-3" />
+        </div>
+      </BaseRounded>
     </div>
   );
 };

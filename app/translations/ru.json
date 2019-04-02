@@ -407,6 +407,21 @@
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
+  "app.containers.QuestionForm.tips": "Подсказки",
+  "app.containers.QuestionForm.putReturnsBetweenParagraphs":
+    "Жмите enter для абзаца",
+  "app.containers.QuestionForm.addForLineBreaks":
+    "Для лайнбрейка поставьте 2 пробела в конце",
+  "app.containers.QuestionForm.italicAndBold": "*курсив* или **жирный**",
+  "app.containers.QuestionForm.indentCode": "4 пробела для индент кода",
+  "app.containers.QuestionForm.backtipEscapes": "бэктик `like _so_`",
+  "app.containers.QuestionForm.quoteByPlacing":
+    "квот размещением &gt; в начале строки",
+  "app.containers.QuestionForm.toMakeLinks":
+    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.containers.QuestionForm.howToAsk": "Как спросить?",
+  "app.containers.QuestionForm.howToFormat": "Как форматировать?",
+  "app.containers.QuestionForm.howToTag": "Как ставить тег",
 
   "app.containers.AskQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"

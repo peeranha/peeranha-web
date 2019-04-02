@@ -34,4 +34,37 @@ export default defineMessages({
   tagsTip: {
     id: 'app.containers.QuestionForm.tagsTip',
   },
+  tips: {
+    id: 'app.containers.QuestionForm.tips',
+  },
+  putReturnsBetweenParagraphs: {
+    id: 'app.containers.QuestionForm.putReturnsBetweenParagraphs',
+  },
+  addForLineBreaks: {
+    id: 'app.containers.QuestionForm.addForLineBreaks',
+  },
+  italicAndBold: {
+    id: 'app.containers.QuestionForm.italicAndBold',
+  },
+  indentCode: {
+    id: 'app.containers.QuestionForm.indentCode',
+  },
+  backtipEscapes: {
+    id: 'app.containers.QuestionForm.backtipEscapes',
+  },
+  quoteByPlacing: {
+    id: 'app.containers.QuestionForm.quoteByPlacing',
+  },
+  toMakeLinks: {
+    id: 'app.containers.QuestionForm.toMakeLinks',
+  },
+  howToAsk: {
+    id: 'app.containers.QuestionForm.howToAsk',
+  },
+  howToFormat: {
+    id: 'app.containers.QuestionForm.howToFormat',
+  },
+  howToTag: {
+    id: 'app.containers.QuestionForm.howToTag',
+  },
 });

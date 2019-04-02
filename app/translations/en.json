@@ -410,6 +410,22 @@
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.previewLabel": "Preview",
+  "app.containers.QuestionForm.tips": "Tips",
+  "app.containers.QuestionForm.putReturnsBetweenParagraphs":
+    "put returns between paragraphs",
+  "app.containers.QuestionForm.addForLineBreaks":
+    "for linebreak add 2 spaces at end",
+  "app.containers.QuestionForm.italicAndBold": "_italic_ or **bold**",
+  "app.containers.QuestionForm.indentCode": "indent code by 4 spaces",
+  "app.containers.QuestionForm.backtipEscapes": "backtick escapes `like _so_`",
+  "app.containers.QuestionForm.quoteByPlacing":
+    "quote by placing &gt; at start of line",
+  "app.containers.QuestionForm.toMakeLinks":
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.containers.QuestionForm.howToAsk": "How to ask?",
+  "app.containers.QuestionForm.howToFormat": "How to format?",
+  "app.containers.QuestionForm.howToTag": "How to tag?",
+
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"
 }
