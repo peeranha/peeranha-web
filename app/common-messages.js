@@ -117,4 +117,7 @@ export default defineMessages({
   nothingToSeeYet: {
     id: 'app.common.nothingToSeeYet',
   },
+  close: {
+    id: 'app.common.close',
+  },
 });

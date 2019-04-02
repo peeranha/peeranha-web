@@ -32,6 +32,7 @@
   "app.common.answered": "Ответили",
   "app.common.cancel": "Отменить",
   "app.common.nothingToSeeYet": "Пока нечего смотреть",
+  "app.common.close": "Закрыть",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",

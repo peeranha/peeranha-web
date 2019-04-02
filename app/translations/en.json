@@ -32,6 +32,7 @@
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
   "app.common.nothingToSeeYet": "Nothing to see yet",
+  "app.common.close": "Close",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
