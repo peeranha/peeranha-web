@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape } from 'react-intl';
+import * as routes from 'routes-config';
 
 import questionIcon from 'images/question.svg';
+import closeIcon from 'images/closeCircle.svg';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import LargeButton from 'components/Button/LargeButton';
-import Base from 'components/Base/BaseRounded';
-import H3 from 'components/H3';
 import TagSelector from 'components/TagSelector';
+import Base from 'components/Base/BaseRounded';
+import Span from 'components/Span';
+import H3 from 'components/H3';
+import A from 'components/A';
 
 import {
   strLength25x30000,
@@ -45,22 +49,31 @@ let QuestionForm = /* istanbul ignore next */ ({
   change,
   formValues,
   intl,
+  questionid,
 }) => {
   change(FORM_COMMUNITY, formValues[FORM_COMMUNITY]);
   change(FORM_TAGS, formValues[FORM_TAGS]);
 
-  const setTags = updatedTags => {
-    console.log(updatedTags);
-    change(FORM_TAGS, updatedTags);
-  };
+  const setTags = updatedTags => change(FORM_TAGS, updatedTags);
 
   return (
     <div>
-      <Base className="d-flex align-items-center mb-3">
+      <Base className="d-flex align-items-center justify-content-between mb-3">
         <H3 className="d-flex align-items-end">
           <MediumImageStyled src={questionIcon} alt="questionIcon" />
           <span>{formTitle}</span>
         </H3>
+
+        {questionid && (
+          <A
+            to={routes.questionView(questionid)}
+            href={routes.questionView(questionid)}
+            className="d-inline-flex align-items-center"
+          >
+            <img className="mr-1" src={closeIcon} alt="x" />
+            <Span color="blue">Close</Span>
+          </A>
+        )}
       </Base>
 
       <form onSubmit={handleSubmit(sendQuestion)}>
@@ -132,6 +145,7 @@ QuestionForm.propTypes = {
   sendQuestion: PropTypes.func,
   change: PropTypes.func,
   questionLoading: PropTypes.bool,
+  questionid: PropTypes.bool,
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
   communities: PropTypes.array,

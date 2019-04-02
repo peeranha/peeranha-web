@@ -58,6 +58,8 @@ export class EditQuestion extends React.Component {
   };
 
   render() {
+    const { questionid } = this.props.match.params;
+
     const {
       locale,
       question,
@@ -76,6 +78,7 @@ export class EditQuestion extends React.Component {
       questionLoading: editQuestionLoading,
       communities,
       question,
+      questionid,
     };
 
     const helmetTitle =
