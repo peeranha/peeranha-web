@@ -27,7 +27,7 @@ export const Dropdown = /* istanbul ignore next */ ({
 
       {isArrowed && (
         <span className="d-none d-md-flex" data-icon="arrow">
-          <Icon icon={arrowDownIcon} />
+          <Icon icon={arrowDownIcon} noMargin />
         </span>
       )}
     </button>

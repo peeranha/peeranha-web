@@ -23,7 +23,7 @@ const Main = styled.div`
 const WrapStyled = styled.div`
   margin-top: 10px;
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: -webkit-paged-y;
 `;
 
 export class Box extends React.PureComponent {
@@ -91,11 +91,11 @@ export class Box extends React.PureComponent {
                     {...props}
                   />
 
-                  <React.Suspense fallback={<Loader />}>
-                    <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
+                  <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
+                    <React.Suspense fallback={<Loader />}>
                       <Comp {...props} />
-                    </WrapStyled>
-                  </React.Suspense>
+                    </React.Suspense>
+                  </WrapStyled>
                 </div>
               </div>
             </Main>

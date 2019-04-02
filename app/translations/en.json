@@ -13,6 +13,7 @@
   "app.common.addQuestion": "Add question",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
+  "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
@@ -30,6 +31,7 @@
   "app.common.youAsked": "You asked",
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
+  "app.common.nothingToSeeYet": "Nothing to see yet",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -390,6 +392,7 @@
   "app.containers.QuestionForm.contentLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
+  "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"
 }

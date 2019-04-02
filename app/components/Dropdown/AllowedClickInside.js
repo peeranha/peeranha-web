@@ -37,7 +37,7 @@ const Dropdown /* istanbul ignore next */ = ({
   isArrowed,
 }) => (
   <div className="position-relative">
-    <div className="d-inline-flex align-items-center">
+    <div className="d-flex align-items-center">
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>

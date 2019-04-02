@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
+
 import { gray, black, white, APP_FONT } from 'style-constants';
 
 import Wrapper from './Wrapper';
@@ -26,6 +27,10 @@ const SelectField = ({
     <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
       <S
         {...input}
+        components={{
+          IndicatorSeparator: null,
+          DropdownIndicator: null,
+        }}
         loadOptions={loadOptions}
         onBlur={() => input.onBlur && input.onBlur(input.value)}
         isMulti={isMulti}
@@ -48,14 +53,6 @@ const SelectField = ({
             color: black,
             fontFamily: APP_FONT,
             fontSize: '16px',
-          }),
-          dropdownIndicator: base => ({
-            ...base,
-            display: 'none',
-          }),
-          indicatorsContainer: base => ({
-            ...base,
-            display: 'none',
           }),
         }}
       />

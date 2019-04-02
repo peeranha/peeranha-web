@@ -12,8 +12,10 @@ import 'simplemde/dist/simplemde.min.css';
 
 import options from './options';
 
+const TEXT_EDITOR_CLASSNAME = 'component-text-editor';
+
 /* eslint no-return-assign: "error" */
-class TextEditor extends React.Component {
+class TextEditor extends React.PureComponent {
   onBlurHandler = () => {
     this.props.onBlur(this.props.value);
   };
@@ -22,16 +24,15 @@ class TextEditor extends React.Component {
 
   render() {
     return (
-      <div>
-        <SimpleMDE
-          {...this.props}
-          onBlur={this.onBlurHandler}
-          options={options}
-          extraKeys={{
-            Tab: false,
-          }}
-        />
-      </div>
+      <SimpleMDE
+        {...this.props}
+        className={TEXT_EDITOR_CLASSNAME}
+        onBlur={this.onBlurHandler}
+        options={options}
+        extraKeys={{
+          Tab: false,
+        }}
+      />
     );
   }
 }
@@ -45,4 +46,5 @@ TextEditor.propTypes = {
   value: PropTypes.string,
 };
 
+export { TEXT_EDITOR_CLASSNAME };
 export default TextEditor;

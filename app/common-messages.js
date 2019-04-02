@@ -48,6 +48,9 @@ export default defineMessages({
   communities: {
     id: 'app.common.communities',
   },
+  allCommunities: {
+    id: 'app.common.allCommunities',
+  },
   tags: {
     id: 'app.common.tags',
   },
@@ -110,5 +113,8 @@ export default defineMessages({
   },
   cancel: {
     id: 'app.common.cancel',
+  },
+  nothingToSeeYet: {
+    id: 'app.common.nothingToSeeYet',
   },
 });

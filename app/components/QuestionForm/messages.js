@@ -9,22 +9,20 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.AskQuestion.title',
-    defaultMessage: 'Ask question',
   },
   titleLabel: {
     id: 'app.containers.QuestionForm.titleLabel',
-    defaultMessage: 'Title',
   },
   contentLabel: {
     id: 'app.containers.QuestionForm.contentLabel',
-    defaultMessage: 'Body',
   },
   communityLabel: {
     id: 'app.containers.QuestionForm.communityLabel',
-    defaultMessage: 'Community',
   },
   tagsLabel: {
     id: 'app.containers.QuestionForm.tagsLabel',
-    defaultMessage: 'Tags',
+  },
+  previewLabel: {
+    id: 'app.containers.QuestionForm.previewLabel',
   },
 });

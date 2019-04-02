@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose } from 'redux';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -73,21 +73,21 @@ export class EditQuestion extends React.Component {
       submitButtonName:
         translationMessages[locale][messages.submitButtonName.id],
       sendQuestion: this.editQuestion,
-      translations: translationMessages[locale],
       questionLoading: editQuestionLoading,
       communities,
       question,
     };
 
     const helmetTitle =
-      (question && question.title) || sendProps.translations[messages.title.id];
+      (question && question.title) ||
+      translationMessages[locale][messages.title.id];
 
     const helmetDescription =
       (question && question.content) ||
-      sendProps.translations[messages.title.description];
+      translationMessages[locale][messages.title.description];
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{helmetTitle}</title>
           <meta name="description" content={helmetDescription} />

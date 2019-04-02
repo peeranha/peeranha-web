@@ -13,6 +13,7 @@
   "app.common.addQuestion": "Добавить вопрос",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
+  "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.myFeed": "Мой фид",
   "app.common.users": "Пользователи",
@@ -30,6 +31,7 @@
   "app.common.youAsked": "Вы спрашивали",
   "app.common.answered": "Ответили",
   "app.common.cancel": "Отменить",
+  "app.common.nothingToSeeYet": "Пока нечего смотреть",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -386,6 +388,8 @@
   "app.containers.QuestionForm.contentLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.tagsLabel": "Теги",
+  "app.containers.QuestionForm.previewLabel": "Предпросмотр",
+
   "app.containers.AskQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"
 }

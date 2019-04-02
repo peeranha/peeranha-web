@@ -21,7 +21,7 @@ const TextInputField = ({
       readOnly={readOnly}
       placeholder={placeholder}
       isSearchable={isSearchable}
-      error={!!(meta.error || meta.warning)}
+      error={meta.touched && (meta.error || meta.warning)}
       type="text"
     />
   </Wrapper>

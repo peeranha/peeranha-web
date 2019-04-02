@@ -14,10 +14,10 @@ const EmptyOption = styled.span`
 
 const Image = /* istanbul ignore next */ ({
   avatar,
-  selectedValue,
+  selectedOptionId,
   optionValue,
 }) => {
-  if (selectedValue === optionValue)
+  if (selectedOptionId === optionValue)
     return <Img src={okayBlueIcon} alt="chosen" />;
 
   if (!avatar) return <EmptyOption />;
@@ -65,7 +65,7 @@ const CustomOption = /* istanbul ignore next */ ({
     <Box {...innerProps} isActive={isActive}>
       <Image
         avatar={data.avatar}
-        selectedValue={selectedValue}
+        selectedOptionId={selectedValue ? selectedValue.id : 0}
         optionValue={data.value}
       />
 
@@ -82,8 +82,8 @@ const CustomOption = /* istanbul ignore next */ ({
 
 Image.propTypes = {
   avatar: PropTypes.string,
-  selectedValue: PropTypes.number,
   optionValue: PropTypes.number,
+  selectedOptionId: PropTypes.number,
 };
 
 CustomOption.propTypes = {

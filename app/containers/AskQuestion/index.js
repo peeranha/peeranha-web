@@ -37,16 +37,16 @@ import messages from './messages';
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
-export class AskQuestion extends React.Component {
-  postQuestion = values => {
+export class AskQuestion extends React.PureComponent {
+  postQuestion = (...args) => {
     const translations = translationMessages[this.props.locale];
-    const postButtonId = POST_QUESTION_BUTTON;
+    const { postButtonId } = args[2];
 
     const question = {
-      title: values.get(FORM_TITLE),
-      content: values.get(FORM_CONTENT),
-      community: values.get(FORM_COMMUNITY),
-      chosenTags: values.get(FORM_TAGS),
+      title: args[0].get(FORM_TITLE),
+      content: args[0].get(FORM_CONTENT),
+      community: args[0].get(FORM_COMMUNITY),
+      chosenTags: args[0].get(FORM_TAGS),
     };
 
     this.props.askQuestionDispatch(
@@ -58,27 +58,28 @@ export class AskQuestion extends React.Component {
   };
 
   render() {
+    const { locale, askQuestionLoading, communities } = this.props;
+
     const sendProps = {
       form: ASK_QUESTION_FORM,
-      formTitle: translationMessages[this.props.locale][messages.title.id],
+      formTitle: translationMessages[locale][messages.title.id],
       submitButtonId: POST_QUESTION_BUTTON,
-      submitButtonName:
-        translationMessages[this.props.locale][messages.postQuestion.id],
+      submitButtonName: translationMessages[locale][messages.postQuestion.id],
       sendQuestion: this.postQuestion,
-      translations: translationMessages[this.props.locale],
-      questionLoading: this.props.askQuestionLoading,
-      communities: this.props.communities,
+      questionLoading: askQuestionLoading,
+      communities,
     };
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
-          <title>{sendProps.translations[messages.title.id]}</title>
+          <title>{translationMessages[locale][messages.title.id]}</title>
           <meta
             name="description"
-            content={sendProps.translations[messages.description.id]}
+            content={translationMessages[locale][messages.description.id]}
           />
         </Helmet>
+
         <QuestionForm {...sendProps} />
       </div>
     );

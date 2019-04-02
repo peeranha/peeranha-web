@@ -17,7 +17,9 @@ export const validateEmail = email => {
   return !re.test(email) ? messages.wrongEmail : undefined;
 };
 
-export const required = value => (!value ? messages.requiredField : undefined);
+export const required = x => (!x ? messages.requiredField : undefined);
+export const requiredForObjectField = x =>
+  !x || (x && !x.value) ? messages.requiredField : undefined;
 
 export const strLength1x5 = stringLength(1, 5);
 export const strLength2x15 = stringLength(2, 15);
