@@ -10,9 +10,9 @@ const TextareaField = /* istanbul ignore next */ ({
   disabled,
   meta,
   placeholder,
-  fieldWithTips,
+  tip,
 }) => (
-  <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta}>
     <Textarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}
@@ -27,7 +27,7 @@ TextareaField.propTypes = {
   label: PropTypes.string,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 

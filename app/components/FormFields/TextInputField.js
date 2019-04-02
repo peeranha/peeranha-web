@@ -12,9 +12,9 @@ const TextInputField = ({
   meta,
   placeholder,
   isSearchable,
-  fieldWithTips,
+  tip,
 }) => (
-  <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta}>
     <Input
       input={input}
       disabled={disabled}
@@ -33,7 +33,7 @@ TextInputField.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   isSearchable: PropTypes.bool,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
 };

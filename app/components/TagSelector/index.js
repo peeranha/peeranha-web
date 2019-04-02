@@ -36,10 +36,10 @@ const TagSelector = ({
   input,
   meta,
   label,
-  fieldWithTips,
+  tip,
   setTags,
-  options,
   disabled,
+  options = [],
 }) => {
   const value = input.value || [];
 
@@ -51,7 +51,7 @@ const TagSelector = ({
   const filteredOptions = options.filter(x => !valueIds.includes(x.id));
 
   return (
-    <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+    <Wrapper label={label} tip={tip} meta={meta}>
       <Dropdown
         isOpen={isOpen}
         onClose={() => toggleOpen(false)}
@@ -100,7 +100,7 @@ TagSelector.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.string,
   setTags: PropTypes.func,
   options: PropTypes.array,
   disabled: PropTypes.bool,

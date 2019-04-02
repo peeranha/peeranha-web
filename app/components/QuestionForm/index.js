@@ -88,19 +88,19 @@ let QuestionForm = /* istanbul ignore next */ ({
               onChange={() => change(FORM_TAGS, '')}
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.communityLabel.id })}
+              tip={intl.formatMessage({ id: messages.communityTip.id })}
               options={communities}
               validate={[requiredForObjectField]}
               warn={[requiredForObjectField]}
-              fieldWithTips
             />
             <Field
               name={FORM_TITLE}
               component={TextInputField}
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.titleLabel.id })}
+              tip={intl.formatMessage({ id: messages.titleTip.id })}
               validate={[strLength15x100, required]}
               warn={[strLength15x100, required]}
-              fieldWithTips
             />
             <Field
               name={FORM_CONTENT}
@@ -117,6 +117,7 @@ let QuestionForm = /* istanbul ignore next */ ({
             <Field
               name={FORM_TAGS}
               label={intl.formatMessage({ id: messages.tagsLabel.id })}
+              tip={intl.formatMessage({ id: messages.tagsTip.id })}
               component={TagSelector}
               disabled={questionLoading || !formValues[FORM_COMMUNITY]}
               setTags={setTags}
@@ -127,7 +128,6 @@ let QuestionForm = /* istanbul ignore next */ ({
               }
               validate={[required, strLength1x5]}
               warn={[required, strLength1x5]}
-              fieldWithTips
             />
           </div>
           <div>

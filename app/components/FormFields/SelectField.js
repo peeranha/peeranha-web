@@ -127,11 +127,7 @@ export const Select2 = ({
 
 /* istanbul ignore next */
 const SelectField = props => (
-  <Wrapper
-    label={props.label}
-    fieldWithTips={props.fieldWithTips}
-    meta={props.meta}
-  >
+  <Wrapper label={props.label} tip={props.tip} meta={props.meta}>
     <Select2 {...props} />
   </Wrapper>
 );
@@ -161,7 +157,7 @@ Select2.propTypes = {
 SelectField.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.string,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.string,
 };
 
 export default React.memo(SelectField);

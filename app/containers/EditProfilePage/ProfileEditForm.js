@@ -102,37 +102,37 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={DISPLAY_NAME_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.displayNameLabel.id })}
+          tip={intl.formatMessage({ id: messages.displayNameTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
-          fieldWithTips
         />
         <Field
           name={COMPANY_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.companyLabel.id })}
+          tip={intl.formatMessage({ id: messages.companyTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
-          fieldWithTips
         />
         <Field
           name={POSITION_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.positionLabel.id })}
+          tip={intl.formatMessage({ id: messages.positionTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
-          fieldWithTips
         />
         <Field
           name={LOCATION_FIELD}
           isAsync
           loadOptions={loadCities}
           label={intl.formatMessage({ id: messages.locationLabel.id })}
+          tip={intl.formatMessage({ id: messages.locationTip.id })}
           disabled={isProfileSaving}
           component={SelectField}
-          fieldWithTips
         />
         <Field
           name={ABOUT_FIELD}

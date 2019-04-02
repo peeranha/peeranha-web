@@ -39,10 +39,10 @@ const TextEditorField = ({
   previewLabel,
   disabled,
   meta,
-  fieldWithTips,
+  tip,
 }) => (
   <React.Fragment>
-    <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+    <Wrapper label={label} tip={tip} meta={meta}>
       <Div
         disabled={disabled}
         error={meta.touched && (meta.error || meta.warning)}
@@ -71,7 +71,7 @@ TextEditorField.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.string,
   previewLabel: PropTypes.string,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.string,
 };
 
 export default React.memo(TextEditorField);

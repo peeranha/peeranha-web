@@ -25,4 +25,13 @@ export default defineMessages({
   previewLabel: {
     id: 'app.containers.QuestionForm.previewLabel',
   },
+  communityTip: {
+    id: 'app.containers.QuestionForm.communityTip',
+  },
+  titleTip: {
+    id: 'app.containers.QuestionForm.titleTip',
+  },
+  tagsTip: {
+    id: 'app.containers.QuestionForm.tagsTip',
+  },
 });

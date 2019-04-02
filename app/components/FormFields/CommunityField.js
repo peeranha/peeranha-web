@@ -24,8 +24,8 @@ const Div = styled.div`
   }
 `;
 
-const CommunityField = ({ input, meta, label, fieldWithTips, disabled }) => (
-  <Wrapper label={label} fieldWithTips={fieldWithTips} meta={meta}>
+const CommunityField = ({ input, meta, label, tip, disabled }) => (
+  <Wrapper label={label} tip={tip} meta={meta}>
     <CommunitySelector
       input={input}
       disabled={disabled}
@@ -55,7 +55,7 @@ CommunityField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
-  fieldWithTips: PropTypes.bool,
+  tip: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
