@@ -7,7 +7,7 @@ import WarningMessage from './WarningMessage';
 const Wrapper = ({ children, fieldWithTips, label, meta }) => (
   <div className="mb-2">
     <Label>{label}</Label>
-    <div className="row align-items-start mb-2">
+    <div className="row align-items-center mb-2">
       <div className={`col-xl-${fieldWithTips ? 6 : 12} mb-1`}>{children}</div>
       <WarningMessage
         {...meta}

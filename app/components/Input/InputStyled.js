@@ -22,6 +22,7 @@ const Input = ({ error, disabled }) =>
   `
     flex: 1;
     height: 40px;
+    min-height: 40px;
     ${ErrorHandling(error)}
     ${DisableHandling(disabled)}
     padding: 9px 42px 9px 14px;

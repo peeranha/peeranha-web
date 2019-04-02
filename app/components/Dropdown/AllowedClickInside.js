@@ -7,10 +7,9 @@ import Icon from 'components/Icon';
 
 import Menu from './MenuStyled';
 
-const MenuStyled = Menu.extend`
+export const MenuStyled = Menu.extend`
   position: absolute;
   z-index: 2;
-  margin: 0;
 `;
 
 const Blanket = styled.div`
@@ -24,7 +23,7 @@ const Blanket = styled.div`
 
 const Chevron = styled.span`
   transform: rotate(
-    ${(props) /* istanbul ignore next */ => (props.isOpen ? '180deg' : '0deg')}
+    ${({ isOpen }) /* istanbul ignore next */ => (isOpen ? '180deg' : '0deg')}
   );
   transition: 0.5s;
 `;

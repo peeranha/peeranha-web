@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { createStructuredSelector } from 'reselect';
 
 import messages from 'common-messages';
-import { gray, black, white, APP_FONT } from 'style-constants';
-import { connect } from 'react-redux';
-
-import { createStructuredSelector } from 'reselect';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -17,14 +16,18 @@ import {
   getUnfollowedCommunities,
 } from 'utils/communityManagement';
 
-import Select from 'react-select';
-
-import Dropdown from 'components/Dropdown/AllowedClickInside';
+import Dropdown, { MenuStyled } from 'components/Dropdown/AllowedClickInside';
+import { Select2 } from 'components/FormFields/SelectField';
 
 import CustomOption from './CustomOption';
-import DropdownIndicator from './DropdownIndicator';
 import Group from './Group';
 import ManageMyCommunities from './ManageMyCommunities';
+
+const Wrapper = styled.div`
+  ${MenuStyled} {
+    box-shadow: none;
+  }
+`;
 
 export class CommunitySelector extends React.PureComponent {
   state = { isOpen: false };
@@ -124,56 +127,23 @@ export class CommunitySelector extends React.PureComponent {
           />
         }
       >
-        <Select
-          {...input}
-          onBlur={() => input.onBlur && input.onBlur(input.value)}
-          optionsNumber={optionsNumber}
-          selectedValue={selectedValue}
-          onChange={this.onSelectChange}
-          isDisabled={disabled}
-          controlShouldRenderValue={false}
-          backspaceRemovesValue={false}
-          hideSelectedOptions={false}
-          tabSelectsValue={false}
-          isClearable={false}
-          menuIsOpen
-          autoFocus
-          options={options}
-          components={{
-            Group,
-            DropdownIndicator,
-            IndicatorSeparator: null,
-            Option: CustomOption,
-          }}
-          styles={{
-            control: base => ({
-              ...base,
-              border: `1px solid ${gray}`,
-              borderRadius: '3px',
-              color: black,
-              fontFamily: APP_FONT,
-              fontSize: '16px',
-              background: `${white} !important`,
-              minWidth: 300,
-              margin: '5px',
-              padding: '0 5px',
-            }),
-            menu: base => ({
-              ...base,
-              color: black,
-              fontFamily: APP_FONT,
-              fontSize: '16px',
-              position: 'relative',
-              margin: 0,
-              boxShadow: 'none',
-            }),
-            menuList: base => ({
-              ...base,
-              paddingBottom: 0,
-            }),
-          }}
-        />
-        <ManageMyCommunities />
+        <Wrapper>
+          <Select2
+            input={{
+              ...input,
+              optionsNumber,
+              selectedValue,
+              onChange: this.onSelectChange,
+            }}
+            options={options}
+            disabled={disabled}
+            Group={Group}
+            CustomOption={CustomOption}
+            autoFocus
+            menuIsOpen
+          />
+          <ManageMyCommunities />
+        </Wrapper>
       </Dropdown>
     );
   }
@@ -181,9 +151,6 @@ export class CommunitySelector extends React.PureComponent {
 
 CommunitySelector.propTypes = {
   Button: PropTypes.any,
-  options: PropTypes.array,
-  optionsNumber: PropTypes.number,
-  selectedValue: PropTypes.number,
   toggle: PropTypes.func,
   disabled: PropTypes.bool,
   input: PropTypes.object,

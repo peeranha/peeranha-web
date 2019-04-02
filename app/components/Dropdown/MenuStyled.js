@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { white } from 'style-constants';
 
 const MenuStyled = styled.div`
-  margin: 0;
+  margin: 10px 0;
   padding: 0;
   min-width: 200px;
   border-radius: 5px;

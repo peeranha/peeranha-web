@@ -10,6 +10,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import LargeButton from 'components/Button/LargeButton';
 import Base from 'components/Base/BaseRounded';
 import H3 from 'components/H3';
+import TagSelector from 'components/TagSelector';
 
 import {
   strLength25x30000,
@@ -21,7 +22,6 @@ import {
 
 import TextInputField from 'components/FormFields/TextInputField';
 import TextEditorField from 'components/FormFields/TextEditorField';
-import SelectField from 'components/FormFields/SelectField';
 import CommunityField from 'components/FormFields/CommunityField';
 
 import {
@@ -48,6 +48,11 @@ let QuestionForm = /* istanbul ignore next */ ({
 }) => {
   change(FORM_COMMUNITY, formValues[FORM_COMMUNITY]);
   change(FORM_TAGS, formValues[FORM_TAGS]);
+
+  const setTags = updatedTags => {
+    console.log(updatedTags);
+    change(FORM_TAGS, updatedTags);
+  };
 
   return (
     <div>
@@ -96,8 +101,9 @@ let QuestionForm = /* istanbul ignore next */ ({
             <Field
               name={FORM_TAGS}
               label={intl.formatMessage({ id: messages.tagsLabel.id })}
-              component={SelectField}
+              component={TagSelector}
               disabled={questionLoading || !formValues[FORM_COMMUNITY]}
+              setTags={setTags}
               options={
                 formValues[FORM_COMMUNITY]
                   ? formValues[FORM_COMMUNITY].tags
@@ -105,10 +111,7 @@ let QuestionForm = /* istanbul ignore next */ ({
               }
               validate={[required, strLength1x5]}
               warn={[required, strLength1x5]}
-              isClearable={false}
               fieldWithTips
-              isSearchable
-              isMulti
             />
           </div>
           <div>
