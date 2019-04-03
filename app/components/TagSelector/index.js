@@ -11,7 +11,9 @@ import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 
 const TagsContainer = styled.ul`
-  ${props => Input(props)} cursor: pointer;
+  ${props => Input(props)};
+
+  cursor: pointer;
   height: auto;
 `;
 
@@ -59,7 +61,7 @@ const TagSelector = ({
           <TagsContainer
             disabled={disabled}
             error={meta.touched && (meta.warning || meta.error)}
-            onClick={() => toggleOpen(true)}
+            onClick={() => (!disabled ? toggleOpen(true) : null)}
           >
             {value.map(x => (
               <Tag>

@@ -88,8 +88,8 @@ let QuestionForm = /* istanbul ignore next */ ({
       </BaseRounded>
 
       <BaseRounded className="p-0">
-        <div className="row">
-          <div className="col-12 col-xl-9">
+        <div className="d-flex">
+          <div className="col-12 col-xl-9 p-0">
             <Form onSubmit={handleSubmit(sendQuestion)}>
               <div>
                 <Field
@@ -152,7 +152,7 @@ let QuestionForm = /* istanbul ignore next */ ({
             </Form>
           </div>
 
-          <Tips className="d-none d-xl-block col-xl-3" />
+          <Tips className="d-none d-xl-block col-xl-3 p-0" />
         </div>
       </BaseRounded>
     </div>
