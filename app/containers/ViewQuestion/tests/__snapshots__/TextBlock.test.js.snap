@@ -2,7 +2,7 @@
 
 exports[`TextBlock test 1`] = `
 <TextBlock__TextBlockStyled
-  className="text-block"
+  className="text-block undefined"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<p>Content</p>",

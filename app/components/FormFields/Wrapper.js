@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import Label from './Label';
 import WarningMessage from './WarningMessage';
 
-const Wrapper = ({ children, tip, label, meta }) => (
+export const Wrapper = /* istanbul ignore next */ ({
+  children,
+  tip,
+  label,
+  meta,
+}) => (
   <div className="mb-2">
     <Label>{label}</Label>
     <div className="row align-items-center mb-2">

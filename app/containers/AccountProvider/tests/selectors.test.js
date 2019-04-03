@@ -7,6 +7,7 @@ import {
   makeSelectProfileInfo,
   selectLoginSignupError,
   makeSelectForgetIdentityError,
+  makeSelectFollowedCommunities,
 } from '../selectors';
 
 describe('selectAccountProviderDomain', () => {
@@ -32,6 +33,40 @@ describe('selectAccountProviderDomain', () => {
 
   it('should select the global state', () => {
     expect(selectAccountProviderDomain(mockedState)).toEqual(globalState);
+  });
+
+  describe('makeSelectFollowedCommunities', () => {
+    const isMakeSelectFollowedCommunities = makeSelectFollowedCommunities();
+
+    it('profileInfo FALSE', () => {
+      expect(
+        isMakeSelectFollowedCommunities(
+          fromJS({
+            accountProvider: {
+              ...globalState.toJS(),
+              profileInfo: null,
+            },
+          }),
+        ),
+      ).toEqual(null);
+    });
+
+    it('profileInfo TRUE', () => {
+      const followedCommunities = [];
+
+      expect(
+        isMakeSelectFollowedCommunities(
+          fromJS({
+            accountProvider: {
+              ...globalState.toJS(),
+              profileInfo: {
+                followed_communities: followedCommunities,
+              },
+            },
+          }),
+        ),
+      ).toEqual(followedCommunities);
+    });
   });
 
   it('makeSelectAccount', () => {

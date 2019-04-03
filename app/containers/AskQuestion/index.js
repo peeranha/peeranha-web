@@ -101,7 +101,7 @@ const mapStateToProps = createStructuredSelector({
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     askQuestionDispatch: (user, questionData, postButtonId, translations) =>

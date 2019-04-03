@@ -57,7 +57,7 @@ const DefaultOption = /* istanbul ignore next */ ({
   );
 };
 
-export const Select2 = ({
+export const Select2 = /* istanbul ignore next */ ({
   input,
   options,
   isMulti,
@@ -125,8 +125,7 @@ export const Select2 = ({
   );
 };
 
-/* istanbul ignore next */
-const SelectField = props => (
+export const SelectField = /* istanbul ignore next */ props => (
   <Wrapper label={props.label} tip={props.tip} meta={props.meta}>
     <Select2 {...props} />
   </Wrapper>

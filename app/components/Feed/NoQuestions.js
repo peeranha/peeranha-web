@@ -9,7 +9,7 @@ import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg';
 
 import messages from 'containers/Questions/messages';
 
-const NoQuestions = () => (
+export const NoQuestions = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center py-5">
     <img src={noQuestionsFeedPage} alt="noQuestionsFeedPage" />
     <div className="ml-5 mb-2">

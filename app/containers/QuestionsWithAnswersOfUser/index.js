@@ -103,8 +103,7 @@ const mapStateToProps = createStructuredSelector({
   isLastFetch: select.selectIsLastFetch(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     getQuestionsDispatch: userId => dispatch(getQuestions(userId)),

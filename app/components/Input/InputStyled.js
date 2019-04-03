@@ -8,16 +8,19 @@ import {
 } from 'style-constants';
 import styled from 'styled-components';
 
+/* istanbul ignore next */
 const ErrorHandling = error => `
   border: 1px solid ${error ? `${pink}` : gray};
   box-shadow: 0 0 0 3px ${error ? `${pink}66` : transparent};
   border-radius: 3px;
 `;
 
+/* istanbul ignore next */
 const DisableHandling = disabled => `
   opacity: ${disabled ? 0.6 : 1};
 `;
 
+/* istanbul ignore next */
 const Input = ({ error, disabled }) =>
   `
     flex: 1;

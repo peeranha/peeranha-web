@@ -28,7 +28,7 @@ exports[`<QuestionFormDefault /> snapshot test 1 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -75,7 +75,7 @@ exports[`<QuestionFormDefault /> snapshot test 2 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -122,7 +122,7 @@ exports[`<QuestionFormDefault /> snapshot test 3 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -169,7 +169,7 @@ exports[`<QuestionFormDefault /> snapshot test 4 1`] = `
       }
     }
   >
-    <Connect(ReduxForm)
+    <[object Object]
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}

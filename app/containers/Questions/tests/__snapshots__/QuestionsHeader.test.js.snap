@@ -4,25 +4,10 @@ exports[`QuestionsHeader parentPage === feed 1`] = `
 <Base
   className="d-flex align-items-center"
 >
-  <InjectIntl(Component)
+  <Connect(CommunitySelector)
     Button={[Function]}
-    options={
-      Array [
-        Object {
-          "options": Array [
-            Object {
-              "label": undefined,
-              "value": 0,
-            },
-          ],
-        },
-        Object {
-          "options": Array [],
-        },
-      ]
-    }
-    optionsNumber={0}
-    selectedValue={0}
+    isArrowed={true}
+    showOnlyFollowed={true}
     toggle={[MockFunction]}
   />
 </Base>
@@ -32,28 +17,10 @@ exports[`QuestionsHeader snapshot test 1`] = `
 <Base
   className="d-flex align-items-center"
 >
-  <InjectIntl(Component)
+  <Connect(CommunitySelector)
     Button={[Function]}
-    options={
-      Array [
-        Object {
-          "options": Array [
-            Object {
-              "label": undefined,
-              "value": 0,
-            },
-          ],
-        },
-        Object {
-          "options": Array [],
-        },
-        Object {
-          "options": Array [],
-        },
-      ]
-    }
-    optionsNumber={0}
-    selectedValue={0}
+    isArrowed={true}
+    showOnlyFollowed={false}
     toggle={[MockFunction]}
   />
 </Base>

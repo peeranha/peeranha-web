@@ -16,7 +16,7 @@ import Wrapper from './Wrapper';
 const Div = styled.div`
   position: relative;
 
-  ${props => Input(props)};
+  ${(props) /* istanbul ignore next */ => Input(props)};
 
   ${IconStyled} {
     position: absolute;
@@ -24,7 +24,13 @@ const Div = styled.div`
   }
 `;
 
-const CommunityField = ({ input, meta, label, tip, disabled }) => (
+export const CommunityField = /* istanbul ignore next */ ({
+  input,
+  meta,
+  label,
+  tip,
+  disabled,
+}) => (
   <Wrapper label={label} tip={tip} meta={meta}>
     <CommunitySelector
       input={input}

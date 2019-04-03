@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextInputField test test 1`] = `
+exports[`CommunityField test 1`] = `
 <UNDEFINED
   label="label"
   meta={Object {}}
   tip="tip"
 >
-  <Input
+  <Connect(CommunitySelector)
+    Button={[Function]}
     disabled={false}
     input={Object {}}
-    isSearchable={false}
-    placeholder="placeholder"
-    readOnly={false}
-    type="text"
+    selectedCommunityId={0}
   />
 </UNDEFINED>
 `;

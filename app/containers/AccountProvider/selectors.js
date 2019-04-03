@@ -29,7 +29,7 @@ const makeSelectFollowedCommunities = () =>
     selectAccountProviderDomain,
     substate =>
       substate.get('profileInfo')
-        ? substate.get('profileInfo').followed_communities
+        ? substate.toJS().profileInfo.followed_communities
         : null,
   );
 

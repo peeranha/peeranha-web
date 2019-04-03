@@ -7,7 +7,14 @@ import validationArrowIcon from 'svg/validationArrow';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 
-const WarningMessage = ({ error, warning, touched, className, tip, intl }) =>
+export const WarningMessage = /* istanbul ignore next */ ({
+  error,
+  warning,
+  touched,
+  className,
+  tip,
+  intl,
+}) =>
   touched && (error || warning || tip) ? (
     <div className={`d-flex align-items-center ${className}`}>
       {tip && (

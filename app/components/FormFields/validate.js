@@ -18,6 +18,7 @@ export const validateEmail = email => {
 };
 
 export const required = x => (!x ? messages.requiredField : undefined);
+
 export const requiredForObjectField = x =>
   !x || (x && !x.value) ? messages.requiredField : undefined;
 

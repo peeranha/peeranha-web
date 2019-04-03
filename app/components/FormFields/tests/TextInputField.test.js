@@ -1,21 +1,18 @@
-import renderer from 'react-test-renderer';
-import 'jest-styled-components';
-
-import TextInputField from '../TextInputField';
-jest.mock('react-intl');
+import { TextInputField } from '../TextInputField';
 
 const props = {
   input: {},
-  label: 'string',
-  sendProps: {},
+  label: 'label',
+  readOnly: false,
+  disabled: false,
   meta: {},
+  placeholder: 'placeholder',
+  isSearchable: false,
+  tip: 'tip',
 };
 
 describe('TextInputField test', () => {
-  describe('test by snapshots', () => {
-    it('default', () => {
-      const rendered = renderer.create(TextInputField(props)).toJSON();
-      expect(rendered).toMatchSnapshot();
-    });
+  it('test', () => {
+    expect(TextInputField(props)).toMatchSnapshot();
   });
 });

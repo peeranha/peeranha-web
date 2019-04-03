@@ -3,14 +3,14 @@ import { CommunitySelector } from '../index';
 const cmp = new CommunitySelector();
 
 cmp.props = {
-  intl: {
-    formatMessage: jest.fn(),
-  },
   Button: null,
-  options: [],
-  optionsNumber: 0,
-  selectedValue: 0,
-  toggle: jest.fn(),
+  isArrowed: true,
+  locale: 'en',
+  communities: [{ id: 1, label: 'com_1' }, { id: 2, label: 'com_2' }],
+  followedCommunities: [{ id: 1, label: 'com_1' }],
+  showOnlyFollowed: false,
+  selectedCommunityId: 1,
+  disabled: false,
 };
 
 describe('CommunitySelector', () => {
