@@ -9,7 +9,7 @@ const Section = styled.div`
   flex: 1;
 
   > * {
-    margin-left: 10px;
+    margin-left: 15px;
   }
 `;
 

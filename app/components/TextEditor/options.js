@@ -13,7 +13,6 @@ const options = {
     'link',
     'image',
     'horizontal-rule',
-    'preview',
     'undo',
     'redo',
   ],

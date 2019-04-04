@@ -139,7 +139,6 @@ export class Questions extends React.PureComponent {
       questionsLoading,
       communitiesLoading,
       communities,
-      translations: translationMessages[locale],
       getInitQuestions: this.getInitQuestions,
       communityIdFilter,
       followedCommunities,
@@ -154,12 +153,13 @@ export class Questions extends React.PureComponent {
       >
         <div>
           <Helmet>
-            <title>{sendProps.translations[messages.title.id]}</title>
+            <title>{translationMessages[locale][messages.title.id]}</title>
             <meta
               name="description"
-              content={sendProps.translations[messages.description.id]}
+              content={translationMessages[locale][messages.description.id]}
             />
           </Helmet>
+
           <QuestionsContainer {...sendProps} />
         </div>
       </InfinityLoader>

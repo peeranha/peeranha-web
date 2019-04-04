@@ -1,7 +1,7 @@
 import { translationMessages } from 'i18n';
 
-import { AskQuestion, mapDispatchToProps } from '../index';
-import { FORM_TITLE, FORM_CONTENT, POST_QUESTION_BUTTON } from '../constants';
+import { AskQuestion } from '../index';
+import { FORM_TITLE, FORM_CONTENT } from '../constants';
 
 const cmp = new AskQuestion();
 
@@ -17,6 +17,9 @@ beforeEach(() => {
 
 describe('AskQuestion', () => {
   const values = new Map();
+  const addParams = {
+    postButtonId: 'postButtonId',
+  };
 
   it('postQuestion test', () => {
     const question = {
@@ -24,16 +27,15 @@ describe('AskQuestion', () => {
       content: values.get(FORM_CONTENT),
     };
 
-    cmp.props.locale = 'zz';
-
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledTimes(0);
 
-    cmp.postQuestion(values);
+    cmp.postQuestion(values, null, addParams);
+
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledTimes(1);
     expect(cmp.props.askQuestionDispatch).toHaveBeenCalledWith(
       cmp.props.account,
       question,
-      POST_QUESTION_BUTTON,
+      addParams.postButtonId,
       translationMessages[cmp.props.locale],
     );
   });
@@ -42,18 +44,5 @@ describe('AskQuestion', () => {
 describe('AskQuestion', () => {
   it('snapshot test', () => {
     expect(cmp.render()).toMatchSnapshot();
-  });
-});
-
-describe('mapDispatchToProps', () => {
-  it('mapDispatchToProps test', () => {
-    const test = 'test';
-    const dispatch = () => test;
-
-    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-    expect(mapDispatchToProps(dispatch).askQuestionDispatch('x1', 'x2')).toBe(
-      test,
-    );
   });
 });

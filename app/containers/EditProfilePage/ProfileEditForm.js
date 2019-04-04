@@ -63,7 +63,8 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
   editingImgState,
   profile,
 }) => {
-  const size = 120;
+  const AVATAR_FIELD_WIDTH = 120;
+  const AVATAR_FIELD_MARGIN = 15;
 
   if (!location) {
     change(LOCATION_FIELD, {
@@ -73,9 +74,12 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
   }
 
   return (
-    <FormStyled size={15 + size} onSubmit={handleSubmit(saveProfile)}>
+    <FormStyled
+      size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
+      onSubmit={handleSubmit(saveProfile)}
+    >
       <div className="col-xl-12 position-static">
-        <H3 marginBottom={24}>
+        <H3 className="pb-3">
           <FormattedMessage {...messages.editProfile} />
         </H3>
         <AvatarStyled>
@@ -84,7 +88,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
             component={AvatarField}
             disabled={isProfileSaving}
             editingImgState={editingImgState}
-            size={size}
+            size={AVATAR_FIELD_WIDTH}
             uploadImage={uploadImage}
             cachedProfileImg={cachedProfileImg}
             ipfsAvatar={profile.ipfs_avatar}
@@ -98,6 +102,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={DISPLAY_NAME_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.displayNameLabel.id })}
+          tip={intl.formatMessage({ id: messages.displayNameTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
@@ -106,6 +111,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={COMPANY_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.companyLabel.id })}
+          tip={intl.formatMessage({ id: messages.companyTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
@@ -114,6 +120,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={POSITION_FIELD}
           component={TextInputField}
           label={intl.formatMessage({ id: messages.positionLabel.id })}
+          tip={intl.formatMessage({ id: messages.positionTip.id })}
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
@@ -123,6 +130,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           isAsync
           loadOptions={loadCities}
           label={intl.formatMessage({ id: messages.locationLabel.id })}
+          tip={intl.formatMessage({ id: messages.locationTip.id })}
           disabled={isProfileSaving}
           component={SelectField}
         />

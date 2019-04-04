@@ -7,49 +7,69 @@ exports[`CommunitySelector snapshot test 1`] = `
   onClose={[Function]}
   target={
     <UNDEFINED
+      communityLabel="com_1"
       toggleOpen={[Function]}
     />
   }
 >
-  <StateManager
-    autoFocus={true}
-    backspaceRemovesValue={false}
-    components={
-      Object {
-        "DropdownIndicator": [Function],
-        "Group": Object {
+  <CommunitySelector__Wrapper>
+    <CustomizedSelector
+      CustomOption={
+        Object {
           "$$typeof": Symbol(react.memo),
           "compare": null,
           "type": [Function],
-        },
-        "IndicatorSeparator": null,
-        "Option": Object {
+        }
+      }
+      Group={
+        Object {
           "$$typeof": Symbol(react.memo),
           "compare": null,
           "type": [Function],
-        },
+        }
       }
-    }
-    controlShouldRenderValue={false}
-    defaultInputValue=""
-    defaultMenuIsOpen={false}
-    defaultValue={null}
-    hideSelectedOptions={false}
-    isClearable={false}
-    menuIsOpen={true}
-    onChange={[Function]}
-    options={Array []}
-    optionsNumber={0}
-    selectedValue={0}
-    styles={
-      Object {
-        "control": [Function],
-        "menu": [Function],
-        "menuList": [Function],
+      autoFocus={true}
+      disabled={false}
+      input={
+        Object {
+          "onChange": [Function],
+          "optionsNumber": 2,
+          "selectedValue": Object {
+            "id": 1,
+            "label": "com_1",
+          },
+        }
       }
-    }
-    tabSelectsValue={false}
-  />
-  <UNDEFINED />
+      menuIsOpen={true}
+      options={
+        Array [
+          Object {
+            "options": Array [
+              Object {
+                "label": "All communities",
+                "value": 0,
+              },
+            ],
+          },
+          Object {
+            "options": Array [],
+          },
+          Object {
+            "options": Array [
+              Object {
+                "id": 1,
+                "label": "com_1",
+              },
+              Object {
+                "id": 2,
+                "label": "com_2",
+              },
+            ],
+          },
+        ]
+      }
+    />
+    <UNDEFINED />
+  </CommunitySelector__Wrapper>
 </Dropdown>
 `;

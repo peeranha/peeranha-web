@@ -7,6 +7,10 @@ import CustomOption from './CustomOption';
 
 const Box = styled.div`
   border-bottom: 1px solid ${gray};
+
+  &:first-child {
+    border-top: 1px solid ${gray};
+  }
 `;
 
 const Group = /* istanbul ignore next */ ({ children, selectProps }) => (

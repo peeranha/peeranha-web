@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { blue, transparent, lightgray } from 'style-constants';
 
 import Img, { CELL } from 'components/Img';
 import Span from 'components/Span';
+import { Box } from 'components/FormFields/SelectField';
 
 import okayBlueIcon from 'images/okayBlueIcon.svg';
 
@@ -14,10 +14,10 @@ const EmptyOption = styled.span`
 
 const Image = /* istanbul ignore next */ ({
   avatar,
-  selectedValue,
+  selectedOptionId,
   optionValue,
 }) => {
-  if (selectedValue === optionValue)
+  if (selectedOptionId === optionValue)
     return <Img src={okayBlueIcon} alt="chosen" />;
 
   if (!avatar) return <EmptyOption />;
@@ -26,23 +26,7 @@ const Image = /* istanbul ignore next */ ({
 };
 
 /* istanbul ignore next */
-export const Box = styled.div`
-  padding: 0 25px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  height: 36px;
-  box-sizing: border-box;
-  border: 1px solid ${transparent};
-
-  background: ${(props) /* istanbul ignore next */ =>
-    props.isActive ? lightgray : transparent};
-
-  :hover {
-    border: 1px solid ${blue};
-    background: none;
-  }
-
+export const BoxStyled = Box.extend`
   ${Img}, ${EmptyOption} {
     margin-right: 8px;
   }
@@ -62,10 +46,10 @@ const CustomOption = /* istanbul ignore next */ ({
   }
 
   return (
-    <Box {...innerProps} isActive={isActive}>
+    <BoxStyled {...innerProps} isActive={isActive}>
       <Image
         avatar={data.avatar}
-        selectedValue={selectedValue}
+        selectedOptionId={selectedValue ? selectedValue.id : 0}
         optionValue={data.value}
       />
 
@@ -76,14 +60,14 @@ const CustomOption = /* istanbul ignore next */ ({
           {optionsNumber}
         </Span>
       ) : null}
-    </Box>
+    </BoxStyled>
   );
 };
 
 Image.propTypes = {
   avatar: PropTypes.string,
-  selectedValue: PropTypes.number,
   optionValue: PropTypes.number,
+  selectedOptionId: PropTypes.number,
 };
 
 CustomOption.propTypes = {

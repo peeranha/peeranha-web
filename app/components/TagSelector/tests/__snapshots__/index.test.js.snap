@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagSelector test 1`] = `
+<UNDEFINED
+  label="label"
+  meta={Object {}}
+  tip="tip"
+>
+  <Dropdown
+    isOpen={false}
+    onClose={[Function]}
+    target={
+      <TagSelector__TagsContainer
+        disabled={false}
+        onClick={[Function]}
+      />
+    }
+  >
+    <CustomizedSelector
+      autoFocus={true}
+      disabled={false}
+      input={
+        Object {
+          "onChange": [Function],
+        }
+      }
+      menuIsOpen={true}
+      options={Array []}
+    />
+  </Dropdown>
+</UNDEFINED>
+`;

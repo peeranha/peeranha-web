@@ -13,6 +13,7 @@
   "app.common.addQuestion": "Add question",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
+  "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
@@ -30,6 +31,8 @@
   "app.common.youAsked": "You asked",
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
+  "app.common.nothingToSeeYet": "Nothing to see yet",
+  "app.common.close": "Close",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -307,22 +310,23 @@
   "app.containers.ViewQuestion.addComment": "Add comment",
 
   "app.components.FormFields.requiredField": "Required field",
-  "app.containers.FormFields.wrongLength15x100":
+  "app.components.FormFields.wrongLength15x100":
     "Value must be at least 15 characters and no longer than 100 characters",
-  "app.containers.FormFields.wrongLength1x5":
+  "app.components.FormFields.wrongLength1x5":
     "Value must be at least 1 characters and no longer than 5 characters",
-  "app.containers.FormFields.wrongLength2x15":
+  "app.components.FormFields.wrongLength2x15":
     "Value must be at least 2 characters and no longer than 15 characters",
-  "app.containers.FormFields.wrongLength3x20":
+  "app.components.FormFields.wrongLength3x20":
     "Value must be at least 3 characters and no longer than 20 characters",
-  "app.containers.FormFields.wrongLength20x1000":
+  "app.components.FormFields.wrongLength20x1000":
     "Value must be at least 20 characters and no longer than 1000 characters",
-  "app.containers.FormFields.wrongLength25x30000":
+  "app.components.FormFields.wrongLength25x30000":
     "Value must be at least 25 characters and no longer than 30000 characters",
-  "app.containers.FormFields.wrongLength30000":
+  "app.components.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
-  "app.containers.FormFields.fileSize": "File size is exceeded",
-  "app.containers.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.fileSize": "File size is exceeded",
+  "app.components.FormFields.wrongEmail": "Wrong email",
+
   "app.components.Footer.header": "Copyright: Peerania",
   "app.containers.SignUp.eosAccount": "EOS Account",
   "app.containers.SignUp.displayName": "Display Name",
@@ -338,6 +342,7 @@
   "app.containers.SignUp.identity": "identity",
   "app.containers.SignUp.or": "or",
   "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",
   "app.containers.Profile.wrongUser": "Wrong user",
@@ -347,14 +352,22 @@
   "app.containers.Profile.aboutLabel": "About me",
   "app.containers.Profile.saveButton": "Save",
   "app.containers.Profile.locationLabel": "Location",
+  "app.containers.Profile.displayNameTip": "Display name tip...",
+  "app.containers.Profile.companyTip": "Company tip...",
+  "app.containers.Profile.positionTip": "Position tip...",
+  "app.containers.Profile.locationTip": "Location tip...",
+
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
+
   "app.containers.ScatterInstaller.header":
     "To complete this action in our app you need to install",
   "app.containers.ScatterInstaller.nextstep": "Next step",
   "app.containers.ScatterInstaller.backToOptions": "Back to options",
+
   "app.containers.SelectAccount.header": "Scatter account was not selected.",
   "app.containers.SelectAccount.selectIdent": "Select identity",
   "app.containers.SelectAccount.backToOptions": "Back to options",
+
   "app.containers.Login.header":
     "No Peerania account exists for selected identity.",
   "app.containers.Login.selectAnotherIdentity": "Select another identity",
@@ -362,7 +375,9 @@
   "app.containers.Login.loginWithScatter": "Log in with Scatter",
   "app.containers.Login.doNotHaveAcc": "Do not have an account?",
   "app.containers.Login.signUp": "Sign up",
+
   "app.containers.UserProfileNav.profile": "Profile",
+
   "app.containers.ErrorBoundary.title": "Error",
   "app.containers.ErrorBoundary.description": "Description of error boundary",
   "app.containers.ErrorBoundary.problemWithWebpage":
@@ -385,11 +400,32 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
+
+  "app.containers.QuestionForm.communityTip": "Community tip...",
+  "app.containers.QuestionForm.titleTip": "Title tip...",
+  "app.containers.QuestionForm.tagsTip": "Tags tip...",
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.contentLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
+  "app.containers.QuestionForm.previewLabel": "Preview",
+  "app.containers.QuestionForm.tips": "Tips",
+  "app.containers.QuestionForm.putReturnsBetweenParagraphs":
+    "put returns between paragraphs",
+  "app.containers.QuestionForm.addForLineBreaks":
+    "for linebreak add 2 spaces at end",
+  "app.containers.QuestionForm.italicAndBold": "_italic_ or **bold**",
+  "app.containers.QuestionForm.indentCode": "indent code by 4 spaces",
+  "app.containers.QuestionForm.backtipEscapes": "backtick escapes `like _so_`",
+  "app.containers.QuestionForm.quoteByPlacing":
+    "quote by placing &gt; at start of line",
+  "app.containers.QuestionForm.toMakeLinks":
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.containers.QuestionForm.howToAsk": "How to ask?",
+  "app.containers.QuestionForm.howToFormat": "How to format?",
+  "app.containers.QuestionForm.howToTag": "How to tag?",
+
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"
 }

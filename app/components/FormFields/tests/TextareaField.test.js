@@ -1,21 +1,16 @@
-import renderer from 'react-test-renderer';
-import 'jest-styled-components';
-
-import TextareaField from '../TextareaField';
-jest.mock('react-intl');
+import { TextareaField } from '../TextareaField';
 
 const props = {
   input: {},
   label: 'label',
   disabled: false,
   meta: {},
+  placeholder: 'placeholder',
+  tip: 'tip',
 };
 
 describe('TextareaField test', () => {
-  describe('test by snapshots', () => {
-    it('default', () => {
-      const rendered = renderer.create(TextareaField(props)).toJSON();
-      expect(rendered).toMatchSnapshot();
-    });
+  it('snapshot test', () => {
+    expect(TextareaField(props)).toMatchSnapshot();
   });
 });

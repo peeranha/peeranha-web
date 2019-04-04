@@ -70,4 +70,16 @@ export default defineMessages({
   editProfile: {
     id: 'app.containers.Profile.editProfile',
   },
+  displayNameTip: {
+    id: 'app.containers.Profile.displayNameTip',
+  },
+  companyTip: {
+    id: 'app.containers.Profile.companyTip',
+  },
+  positionTip: {
+    id: 'app.containers.Profile.positionTip',
+  },
+  locationTip: {
+    id: 'app.containers.Profile.locationTip',
+  },
 });

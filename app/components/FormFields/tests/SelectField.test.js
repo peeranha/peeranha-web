@@ -1,4 +1,4 @@
-import SelectField from '../SelectField';
+import { SelectField } from '../SelectField';
 
 const props = {
   input: {

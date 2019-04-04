@@ -1,10 +1,12 @@
-import WarningMessage from '../WarningMessage';
-jest.mock('react-intl');
+import { WarningMessage } from '../WarningMessage';
 
 const props = {
-  touched: true,
   error: {},
   warning: {},
+  touched: true,
+  className: 'className',
+  tip: 'tip',
+  intl: { formatMessage: jest.fn().mockImplementation(() => 'formatMessage') },
 };
 
 describe('WarningMessage test', () => {

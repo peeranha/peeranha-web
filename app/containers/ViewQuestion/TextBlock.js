@@ -7,6 +7,8 @@ import testBlockStyles from 'text-block-styles';
 import TextEditor from 'components/TextEditor';
 
 const TextBlockStyled = styled.div`
+  word-break: break-all;
+
   ${testBlockStyles}
 
   color: ${black};
@@ -34,15 +36,20 @@ const TextBlockStyled = styled.div`
   }
 `;
 
-export const TextBlock = /* istanbul ignore next */ ({ content }) => (
+export const TextBlock = /* istanbul ignore next */ ({
+  content,
+  className,
+}) => (
   <TextBlockStyled
-    className="text-block"
+    className={`text-block ${className}`}
     dangerouslySetInnerHTML={{ __html: TextEditor.getHtmlText(content) }}
   />
 );
 
 TextBlock.propTypes = {
   content: PropTypes.string,
+  className: PropTypes.string,
 };
 
+export { TextBlockStyled };
 export default React.memo(TextBlock);

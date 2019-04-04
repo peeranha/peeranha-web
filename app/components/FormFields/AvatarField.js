@@ -151,4 +151,4 @@ AvatarField.propTypes = {
   clearImageChanges: PropTypes.func,
 };
 
-export default AvatarField;
+export default React.memo(AvatarField);

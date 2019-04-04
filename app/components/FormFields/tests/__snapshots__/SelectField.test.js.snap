@@ -1,85 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectField test1, onBlur 1`] = `
-<div
-  className="mb-2"
+<UNDEFINED
+  label="label"
+  meta={Object {}}
 >
-  <Span>
-    label
-  </Span>
-  <div
-    className="row align-items-start"
-  >
-    <div
-      className="col-xl-6 mb-1"
-    >
-      <StateManager
-        defaultInputValue=""
-        defaultMenuIsOpen={false}
-        defaultValue={null}
-        isClearable={false}
-        isDisabled={false}
-        isMulti={false}
-        isSearchable={false}
-        onBlur={[Function]}
-        options={Array []}
-        styles={
-          Object {
-            "control": [Function],
-            "dropdownIndicator": [Function],
-            "indicatorsContainer": [Function],
-            "menu": [Function],
-          }
-        }
-        value=""
-      />
-    </div>
-    <WarningMessage
-      className="col-xl-6"
-      isArrowed={true}
-    />
-  </div>
-</div>
+  <CustomizedSelector
+    disabled={false}
+    input={
+      Object {
+        "onBlur": [Function],
+        "value": "",
+      }
+    }
+    isClearable={false}
+    isMulti={false}
+    isSearchable={false}
+    label="label"
+    meta={Object {}}
+    options={Array []}
+  />
+</UNDEFINED>
 `;
 
 exports[`SelectField test2, !onBlur 1`] = `
-<div
-  className="mb-2"
+<UNDEFINED
+  label="label"
+  meta={Object {}}
 >
-  <Span>
-    label
-  </Span>
-  <div
-    className="row align-items-start"
-  >
-    <div
-      className="col-xl-6 mb-1"
-    >
-      <StateManager
-        defaultInputValue=""
-        defaultMenuIsOpen={false}
-        defaultValue={null}
-        isClearable={false}
-        isDisabled={false}
-        isMulti={false}
-        isSearchable={false}
-        onBlur={[Function]}
-        options={Array []}
-        styles={
-          Object {
-            "control": [Function],
-            "dropdownIndicator": [Function],
-            "indicatorsContainer": [Function],
-            "menu": [Function],
-          }
-        }
-        value=""
-      />
-    </div>
-    <WarningMessage
-      className="col-xl-6"
-      isArrowed={true}
-    />
-  </div>
-</div>
+  <CustomizedSelector
+    disabled={false}
+    input={
+      Object {
+        "onBlur": null,
+        "value": "",
+      }
+    }
+    isClearable={false}
+    isMulti={false}
+    isSearchable={false}
+    label="label"
+    meta={Object {}}
+    options={Array []}
+  />
+</UNDEFINED>
 `;

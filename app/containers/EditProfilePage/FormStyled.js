@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-/* istanbul ignore next */
 const FormStyled = styled.form`
   position: relative;
-  padding-left: ${props => props.size}px;
+  padding-left: ${(x) /* istanbul ignore next */ => x.size}px;
   padding-bottom: 50px;
 `;
 

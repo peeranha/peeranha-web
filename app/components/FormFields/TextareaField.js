@@ -1,33 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import Textarea from 'components/Textarea';
+import Wrapper from './Wrapper';
 
-import Label from './Label';
-import WarningMessage from './WarningMessage';
-
-const TextareaFieldStyled = styled.div`
-  margin-bottom: 14px;
-`;
-
-const TextareaField = /* istanbul ignore next */ ({
+export const TextareaField = /* istanbul ignore next */ ({
   input,
   label,
   disabled,
   meta,
   placeholder,
+  tip,
 }) => (
-  <TextareaFieldStyled>
-    <Label>{label}</Label>
+  <Wrapper label={label} tip={tip} meta={meta}>
     <Textarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}
       disabled={disabled}
       placeholder={placeholder}
     />
-    <WarningMessage {...meta} />
-  </TextareaFieldStyled>
+  </Wrapper>
 );
 
 TextareaField.propTypes = {
@@ -35,7 +27,8 @@ TextareaField.propTypes = {
   label: PropTypes.string,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
+  tip: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 
-export default TextareaField;
+export default React.memo(TextareaField);

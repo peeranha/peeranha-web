@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunityField test 1`] = `
+<UNDEFINED
+  label="label"
+  meta={Object {}}
+  tip="tip"
+>
+  <Connect(CommunitySelector)
+    Button={[Function]}
+    disabled={false}
+    input={Object {}}
+    selectedCommunityId={0}
+  />
+</UNDEFINED>
+`;

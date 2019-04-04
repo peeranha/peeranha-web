@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
+import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import AccountProvider from 'containers/AccountProvider';
 import EosioProvider from 'containers/EosioProvider';
@@ -22,7 +23,7 @@ const Main = styled.div`
 const WrapStyled = styled.div`
   margin-top: 10px;
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: -webkit-paged-y;
 `;
 
 export class Box extends React.PureComponent {
@@ -91,7 +92,9 @@ export class Box extends React.PureComponent {
                   />
 
                   <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
-                    <Comp {...props} />
+                    <React.Suspense fallback={<Loader />}>
+                      <Comp {...props} />
+                    </React.Suspense>
                   </WrapStyled>
                 </div>
               </div>

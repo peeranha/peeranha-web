@@ -14,34 +14,37 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import { Switch, Route } from 'react-router-dom';
+import * as routes from 'routes-config';
 
-import HomePage from 'containers/HomePage/Loadable';
-import FaqFull from 'containers/HomePage/FaqFull';
+import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 
-import EditProfilePage from 'containers/EditProfilePage/Loadable';
-import ViewProfilePage from 'containers/ViewProfilePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Toast from 'containers/Toast';
-import Questions from 'containers/Questions/Loadable';
-import AskQuestion from 'containers/AskQuestion/Loadable';
-import ViewQuestion from 'containers/ViewQuestion';
-import EditQuestion from 'containers/EditQuestion';
-import EditAnswer from 'containers/EditAnswer';
-import Communities from 'containers/Communities';
-import CreateCommunity from 'containers/CreateCommunity';
-import SuggestedCommunities from 'containers/SuggestedCommunities';
-import Tags from 'containers/Tags';
-import CreateTag from 'containers/CreateTag';
-import SuggestedTags from 'containers/SuggestedTags';
-
-import NoAccess from 'components/NoAccess/Loadable';
-import Feed from 'components/Feed';
-
-import * as routes from 'routes-config';
 
 import Wrapper from './Wrapper';
+
+const HomePage = React.lazy(() => import('containers/HomePage'));
+const FaqFull = React.lazy(() => import('containers/HomePage/FaqFull'));
+
+const EditQuestion = React.lazy(() => import('containers/EditQuestion'));
+const EditProfilePage = React.lazy(() => import('containers/EditProfilePage'));
+const ViewProfilePage = React.lazy(() => import('containers/ViewProfilePage'));
+const NotFoundPage = React.lazy(() => import('containers/NotFoundPage'));
+const Questions = React.lazy(() => import('containers/Questions'));
+const AskQuestion = React.lazy(() => import('containers/AskQuestion'));
+const ViewQuestion = React.lazy(() => import('containers/ViewQuestion'));
+const EditAnswer = React.lazy(() => import('containers/EditAnswer'));
+const Communities = React.lazy(() => import('containers/Communities'));
+const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
+const Tags = React.lazy(() => import('containers/Tags'));
+const CreateTag = React.lazy(() => import('containers/CreateTag'));
+const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
+const NoAccess = React.lazy(() => import('components/NoAccess'));
+const Feed = React.lazy(() => import('components/Feed'));
+const SuggestedCommunities = React.lazy(() =>
+  import('containers/SuggestedCommunities'),
+);
 
 export default function App /* istanbul ignore next */() {
   if (process.env.NODE_ENV !== 'development') {
@@ -51,9 +54,20 @@ export default function App /* istanbul ignore next */() {
   return (
     <div>
       <Toast />
+
       <Switch>
-        <Route exact path={routes.home()} render={() => <HomePage />} />
-        <Route path={routes.faq()} render={() => <FaqFull />} />
+        <Route exact path={routes.home()}>
+          <React.Suspense fallback={<Loader />}>
+            <HomePage />
+          </React.Suspense>
+        </Route>
+
+        <Route exact path={routes.faq()}>
+          <React.Suspense fallback={<Loader />}>
+            <FaqFull />
+          </React.Suspense>
+        </Route>
+
         <Route path={routes.feed()} render={props => Wrapper(Feed, props)} />
 
         <Route
@@ -124,6 +138,7 @@ export default function App /* istanbul ignore next */() {
         />
         <Route render={props => Wrapper(NotFoundPage, props)} />
       </Switch>
+
       <SignUp />
       <Login />
     </div>

@@ -10,19 +10,19 @@ import A from 'components/A';
 
 import messages from 'common-messages';
 
-import { Box } from './CustomOption';
+import { BoxStyled } from './CustomOption';
 
-const BoxStyled = Box.extend`
+const Box = BoxStyled.extend`
   height: 44px;
 `.withComponent(A);
 
 const ManageMyCommunities = /* istanbul ignore next */ () => (
-  <BoxStyled to={routes.communities()} href={routes.communities()}>
+  <Box to={routes.communities()} href={routes.communities()}>
     <Span color="blue">
       <Icon icon={arrowRightIcon} />
       <FormattedMessage {...messages.manageMyComm} />
     </Span>
-  </BoxStyled>
+  </Box>
 );
 
 export default React.memo(ManageMyCommunities);

@@ -1,92 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextInputField test test by snapshots default 1`] = `
-.c1 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c1 .chevron {
-  position: absolute;
-  right: 14px;
-  cursor: pointer;
-  color: #bdbdbd;
-}
-
-.c1 input {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  height: 40px;
-  border-radius: 3px;
-  border: 1px solid #bdbdbd;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0);
-  padding: 9px 42px 9px 14px;
-  color: #282828;
-  font-family: Source Sans Pro,sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  outline: none;
-}
-
-.c1 input:focus {
-  box-shadow: 0 0 0 3px #576fed66;
-  border-color: #576fed;
-}
-
-.c1 input:disabled {
-  opacity: 0.5;
-}
-
-.c0 {
-  color: #282828;
-  opacity: 1;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-  font-style: normal;
-  font-family: Source Sans Pro,sans-serif;
-  text-align: left;
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.c0 [data-icon='icon'] {
-  stroke: #7b7b7b;
-  fill: #7b7b7b;
-}
-
-<div
-  className="mb-2"
+exports[`TextInputField test test 1`] = `
+<UNDEFINED
+  label="label"
+  meta={Object {}}
+  tip="tip"
 >
-  <h6
-    className="c0"
-  >
-    string
-  </h6>
-  <div
-    className="row align-items-start"
-  >
-    <div
-      className="col-xl-6 mb-1 c1"
-    >
-      <input
-        type="text"
-      />
-    </div>
-  </div>
-</div>
+  <Input
+    disabled={false}
+    input={Object {}}
+    isSearchable={false}
+    placeholder="placeholder"
+    readOnly={false}
+    type="text"
+  />
+</UNDEFINED>
 `;
