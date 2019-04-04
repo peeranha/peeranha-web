@@ -9,14 +9,14 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.EditAnswer.title',
-    defaultMessage: `Edit Answer`,
   },
   description: {
     id: 'app.containers.EditAnswer.description',
-    defaultMessage: `Edit Answer Description`,
   },
   submitButtonName: {
     id: 'app.containers.EditAnswer.submitButtonName',
-    defaultMessage: 'Save',
+  },
+  editAnswer: {
+    id: 'app.containers.EditAnswer.editAnswer',
   },
 });
