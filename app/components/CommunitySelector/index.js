@@ -17,7 +17,7 @@ import {
 } from 'utils/communityManagement';
 
 import Dropdown, { MenuStyled } from 'components/Dropdown/AllowedClickInside';
-import { Select2 } from 'components/FormFields/SelectField';
+import { CustomizedSelector } from 'components/FormFields/SelectField';
 
 import CustomOption from './CustomOption';
 import Group from './Group';
@@ -128,7 +128,7 @@ export class CommunitySelector extends React.PureComponent {
         }
       >
         <Wrapper>
-          <Select2
+          <CustomizedSelector
             input={{
               ...input,
               optionsNumber,

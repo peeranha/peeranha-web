@@ -5,7 +5,7 @@ exports[`SelectField test1, onBlur 1`] = `
   label="label"
   meta={Object {}}
 >
-  <Select2
+  <CustomizedSelector
     disabled={false}
     input={
       Object {
@@ -28,7 +28,7 @@ exports[`SelectField test2, !onBlur 1`] = `
   label="label"
   meta={Object {}}
 >
-  <Select2
+  <CustomizedSelector
     disabled={false}
     input={
       Object {

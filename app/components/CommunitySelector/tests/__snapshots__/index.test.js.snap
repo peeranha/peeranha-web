@@ -13,7 +13,7 @@ exports[`CommunitySelector snapshot test 1`] = `
   }
 >
   <CommunitySelector__Wrapper>
-    <Select2
+    <CustomizedSelector
       CustomOption={
         Object {
           "$$typeof": Symbol(react.memo),

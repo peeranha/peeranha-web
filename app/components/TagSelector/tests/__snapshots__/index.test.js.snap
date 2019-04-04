@@ -16,7 +16,7 @@ exports[`TagSelector test 1`] = `
       />
     }
   >
-    <Select2
+    <CustomizedSelector
       autoFocus={true}
       disabled={false}
       input={

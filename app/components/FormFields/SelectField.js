@@ -57,7 +57,7 @@ const DefaultOption = /* istanbul ignore next */ ({
   );
 };
 
-export const Select2 = /* istanbul ignore next */ ({
+export const CustomizedSelector = /* istanbul ignore next */ ({
   input,
   options,
   isMulti,
@@ -127,7 +127,7 @@ export const Select2 = /* istanbul ignore next */ ({
 
 export const SelectField = /* istanbul ignore next */ props => (
   <Wrapper label={props.label} tip={props.tip} meta={props.meta}>
-    <Select2 {...props} />
+    <CustomizedSelector {...props} />
   </Wrapper>
 );
 
@@ -137,7 +137,7 @@ DefaultOption.propTypes = {
   innerProps: PropTypes.object,
 };
 
-Select2.propTypes = {
+CustomizedSelector.propTypes = {
   input: PropTypes.object,
   defaultValue: PropTypes.object,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

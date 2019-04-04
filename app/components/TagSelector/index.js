@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { blue } from 'style-constants';
 import closeIcon from 'images/closeCircle.svg';
 
-import { Select2 } from 'components/FormFields/SelectField';
+import { CustomizedSelector } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
@@ -80,7 +80,7 @@ export const TagSelector = /* istanbul ignore next */ ({
           </TagsContainer>
         }
       >
-        <Select2
+        <CustomizedSelector
           input={{
             ...input,
             onChange: x => {
