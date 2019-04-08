@@ -185,7 +185,7 @@ describe('editAnswerWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.questionView(questionId),
+      routes.questionView(questionId, answerId),
     );
   });
 

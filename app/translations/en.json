@@ -266,9 +266,12 @@
     "Something went wrong and your message has not been sent. Please try again.",
   "app.containers.HomePage.yourEmailIsRegistred":
     "The website is under development but your email is registered. You will receive an email with the steps to continue registration when the website is ready.",
+
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
   "app.containers.EditAnswer.title": "Edit Answer",
+  "app.containers.EditAnswer.editAnswer": "Edit Answer",
+
   "app.containers.EditQuestion.description": "Edit Question Description",
   "app.containers.EditQuestion.submitButtonName": "Save",
   "app.containers.EditQuestion.title": "Edit question",
@@ -410,21 +413,22 @@
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.previewLabel": "Preview",
-  "app.containers.QuestionForm.tips": "Tips",
-  "app.containers.QuestionForm.putReturnsBetweenParagraphs":
+
+  "app.components.TextEditor.tips": "Tips",
+  "app.components.TextEditor.putReturnsBetweenParagraphs":
     "put returns between paragraphs",
-  "app.containers.QuestionForm.addForLineBreaks":
+  "app.components.TextEditor.addForLineBreaks":
     "for linebreak add 2 spaces at end",
-  "app.containers.QuestionForm.italicAndBold": "_italic_ or **bold**",
-  "app.containers.QuestionForm.indentCode": "indent code by 4 spaces",
-  "app.containers.QuestionForm.backtipEscapes": "backtick escapes `like _so_`",
-  "app.containers.QuestionForm.quoteByPlacing":
+  "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
+  "app.components.TextEditor.indentCode": "indent code by 4 spaces",
+  "app.components.TextEditor.backtipEscapes": "backtick escapes `like _so_`",
+  "app.components.TextEditor.quoteByPlacing":
     "quote by placing &gt; at start of line",
-  "app.containers.QuestionForm.toMakeLinks":
+  "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-  "app.containers.QuestionForm.howToAsk": "How to ask?",
-  "app.containers.QuestionForm.howToFormat": "How to format?",
-  "app.containers.QuestionForm.howToTag": "How to tag?",
+  "app.components.TextEditor.howToAsk": "How to ask?",
+  "app.components.TextEditor.howToFormat": "How to format?",
+  "app.components.TextEditor.howToTag": "How to tag?",
 
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"

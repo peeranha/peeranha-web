@@ -13,6 +13,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import LargeButton from 'components/Button/LargeButton';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
+import Tips from 'components/TextEditor/Tips';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -38,8 +39,6 @@ import {
 } from './constants';
 
 import messages from './messages';
-
-import Tips from './Tips';
 
 const Form = Base.extend`
   position: relative;

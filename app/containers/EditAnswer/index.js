@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import AnswerForm from 'components/AnswerForm';
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
@@ -25,12 +25,13 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import Box from './Box';
+import Wrapper from './Wrapper';
+
 import { getAnswer, editAnswer } from './actions';
 import { EDIT_ANSWER_FORM, EDIT_ANSWER_BUTTON } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditAnswer extends React.Component {
+export class EditAnswer extends React.PureComponent {
   componentDidMount() {
     const { questionid, answerid } = this.props.match.params;
     this.props.getAnswerDispatch(questionid, answerid);
@@ -44,7 +45,15 @@ export class EditAnswer extends React.Component {
   };
 
   render() {
-    const { locale, answer, answerLoading, editAnswerLoading } = this.props;
+    const {
+      locale,
+      answer,
+      answerLoading,
+      editAnswerLoading,
+      match,
+    } = this.props;
+
+    const { questionid, answerid } = match.params;
 
     const sendProps = {
       form: EDIT_ANSWER_FORM,
@@ -71,9 +80,9 @@ export class EditAnswer extends React.Component {
         </Helmet>
 
         {!answerLoading && (
-          <Box>
+          <Wrapper questionid={questionid} answerid={answerid}>
             <AnswerForm {...sendProps} />
-          </Box>
+          </Wrapper>
         )}
 
         {answerLoading && <LoadingIndicator />}

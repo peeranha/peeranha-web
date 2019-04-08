@@ -259,9 +259,12 @@
     "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
   "app.containers.HomePage.yourEmailIsRegistred":
     "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите имейл с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
+
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
+  "app.containers.EditAnswer.editAnswer": "Редактировать ответ",
+
   "app.containers.EditQuestion.description":
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
@@ -407,21 +410,22 @@
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
-  "app.containers.QuestionForm.tips": "Подсказки",
-  "app.containers.QuestionForm.putReturnsBetweenParagraphs":
+
+  "app.components.TextEditor.tips": "Подсказки",
+  "app.components.TextEditor.putReturnsBetweenParagraphs":
     "Жмите enter для абзаца",
-  "app.containers.QuestionForm.addForLineBreaks":
+  "app.components.TextEditor.addForLineBreaks":
     "Для лайнбрейка поставьте 2 пробела в конце",
-  "app.containers.QuestionForm.italicAndBold": "*курсив* или **жирный**",
-  "app.containers.QuestionForm.indentCode": "4 пробела для индент кода",
-  "app.containers.QuestionForm.backtipEscapes": "бэктик `like _so_`",
-  "app.containers.QuestionForm.quoteByPlacing":
+  "app.components.TextEditor.italicAndBold": "*курсив* или **жирный**",
+  "app.components.TextEditor.indentCode": "4 пробела для индент кода",
+  "app.components.TextEditor.backtipEscapes": "бэктик `like _so_`",
+  "app.components.TextEditor.quoteByPlacing":
     "квот размещением &gt; в начале строки",
-  "app.containers.QuestionForm.toMakeLinks":
+  "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-  "app.containers.QuestionForm.howToAsk": "Как спросить?",
-  "app.containers.QuestionForm.howToFormat": "Как форматировать?",
-  "app.containers.QuestionForm.howToTag": "Как ставить тег",
+  "app.components.TextEditor.howToAsk": "Как спросить?",
+  "app.components.TextEditor.howToFormat": "Как форматировать?",
+  "app.components.TextEditor.howToTag": "Как ставить тег",
 
   "app.containers.AskQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"

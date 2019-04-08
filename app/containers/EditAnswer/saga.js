@@ -52,7 +52,9 @@ export function* editAnswerWorker({ answer, questionId, answerId }) {
     );
 
     yield put(editAnswerSuccess());
-    yield call(() => createdHistory.push(routes.questionView(questionId)));
+    yield call(() =>
+      createdHistory.push(routes.questionView(questionId, answerId)),
+    );
   } catch (err) {
     yield put(editAnswerErr(err));
   }
