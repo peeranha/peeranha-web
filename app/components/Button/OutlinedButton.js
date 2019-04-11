@@ -1,4 +1,4 @@
-import { transparent, pink } from 'style-constants';
+import { transparent, pink, white } from 'style-constants';
 import A from './A';
 
 const OutlinedButton = A.extend`
@@ -7,6 +7,12 @@ const OutlinedButton = A.extend`
   color: ${pink};
   padding: 4px 20px;
   box-shadow: none;
+
+  :hover {
+    color: ${white};
+    background: ${pink};
+    border-color: ${transparent};
+  }
 `;
 
 export default OutlinedButton;

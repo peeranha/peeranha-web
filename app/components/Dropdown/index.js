@@ -6,6 +6,7 @@ import Icon from 'components/Icon';
 
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
+import ArrowIcon from './ArrowIcon';
 
 export const Dropdown = /* istanbul ignore next */ ({
   button,
@@ -17,7 +18,7 @@ export const Dropdown = /* istanbul ignore next */ ({
   <DropdownStyled className={`dropdown show ${className}`}>
     <button
       id={id}
-      className="d-flex align-items-center"
+      className="d-flex align-items-center p-0"
       type="button"
       data-toggle="dropdown"
       aria-haspopup="true"
@@ -26,9 +27,9 @@ export const Dropdown = /* istanbul ignore next */ ({
       {button}
 
       {isArrowed && (
-        <span className="d-none d-md-flex" data-icon="arrow">
+        <ArrowIcon className="d-none d-md-flex" data-icon="arrow">
           <Icon icon={arrowDownIcon} noMargin />
-        </span>
+        </ArrowIcon>
       )}
     </button>
 

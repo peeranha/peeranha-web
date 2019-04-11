@@ -33,6 +33,18 @@
   "app.common.cancel": "Cancel",
   "app.common.nothingToSeeYet": "Nothing to see yet",
   "app.common.close": "Close",
+  "app.common.subscribed": "Subscribed",
+  "app.common.newest": "Newest",
+  "app.common.oldest": "Oldest",
+  "app.common.age": "Age",
+  "app.common.yes": "Yes",
+  "app.common.no": "No",
+  "app.common.agree": "Agree",
+  "app.common.disagree": "Disagree",
+
+  "app.containers.ExistingCommunities.voteForNewCommunities":
+    "Vote for new communities",
+  "app.containers.ExistingCommunities.moreVoting": "More voting",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -69,29 +81,38 @@
   "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
     "Creator cannot upvote own tag",
   "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
+
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
   "app.containers.CreateTag.name": "Name",
   "app.containers.CreateTag.descriptionField": "Description",
   "app.containers.CreateTag.createTag": "Create tag",
+
   "app.containers.Tags.title": "Tags",
   "app.containers.Tags.description": "Description of Tags",
   "app.containers.Tags.suggestedTags": "Suggested tags",
   "app.containers.Tags.createTag": "Create tag",
-  "app.containers.SuggestedCommunities.noSuggestedCommunities":
-    "There are no suggested communities",
-  "app.containers.SuggestedCommunities.noSuggestedCommunities":
-    "There are no suggested communities",
+
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
     "Suggested communities | Description",
-  "app.containers.SuggestedCommunities.youHaveAlreadyVoted":
+  "app.containers.SuggestedCommunities.votingForNewComm":
+    "Vote for new community",
+  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why we need it?",
+
+  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
     "You have already voted",
-  "app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm":
+  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
     "Creator cannot upvote own community",
+  "app.containers.VoteForNewCommunityButton.youCannotChange":
+    "You can’t change your vote. Are you sure?",
+
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",
   "app.containers.Communities.tags": "Tags",
+  "app.containers.Communities.voting": "Voting",
+  "app.containers.Communities.suggestCommunity": "Suggest community",
+
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",
@@ -99,9 +120,15 @@
   "app.containers.CreateCommunity.name": "Name",
   "app.containers.CreateCommunity.descriptionField": "Description",
   "app.containers.CreateCommunity.createCommunity": "Create community",
+  "app.containers.Communities.didntFindAnyInteresting":
+    "Didn’t find anything interesting?",
+  "app.containers.Communities.suggestInterestingComm":
+    "Suggest community, which will be interesting to you and 100 other users who will vote for it.",
+
   "app.containers.Other.successMessage":
     "Action has been completed successfully",
   "app.containers.Other.errorMessage": "An error occurred",
+
   "app.containers.HomePage.title":
     "Peerania - Decentralized Q&A website with crypto rewards",
   "app.containers.HomePage.description":

@@ -33,6 +33,18 @@
   "app.common.cancel": "Отменить",
   "app.common.nothingToSeeYet": "Пока нечего смотреть",
   "app.common.close": "Закрыть",
+  "app.common.subscribed": "Подписчики",
+  "app.common.newest": "Новые",
+  "app.common.oldest": "Старые",
+  "app.common.age": "Возраст",
+  "app.common.yes": "Да",
+  "app.common.no": "Нет",
+  "app.common.agree": "Согласен",
+  "app.common.disagree": "Не согласен",
+
+  "app.containers.ExistingCommunities.voteForNewCommunities":
+    "Голосуйте за новые сообщества",
+  "app.containers.ExistingCommunities.moreVoting": "Больше голосований",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -68,31 +80,49 @@
   "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
     "Нельзя голосовать за свой тег",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
+
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
   "app.containers.CreateTag.name": "Название",
   "app.containers.CreateTag.descriptionField": "Описание",
   "app.containers.CreateTag.createTag": "Предложить тег",
+
   "app.containers.Tags.title": "Теги",
   "app.containers.Tags.description": "Описание тегов",
   "app.containers.Tags.suggestedTags": "Предложенные теги",
   "app.containers.Tags.createTag": "Предложить тег",
+
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":
     "Предложенные сообщества | Описание",
-  "app.containers.SuggestedCommunities.youHaveAlreadyVoted":
+  "app.containers.SuggestedCommunities.votingForNewComm":
+    "Голосуй за новое сообщество",
+  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Зачем мне это нужно?",
+
+  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
     "Вы уже проголосовали",
-  "app.containers.SuggestedCommunities.creatorCannotUpvoteOwnComm":
+  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
     "Нельзя голосовать за собственное сообщество",
+  "app.containers.VoteForNewCommunityButton.youCannotChange":
+    "Вы не сможете изменить свой голос. Вы уверены?",
+
   "app.containers.Communities.title": "Сообщества",
   "app.containers.Communities.description": "Сообщества | Описание",
   "app.containers.Communities.tags": "Теги",
+  "app.containers.Communities.voting": "Голосование",
+  "app.containers.Communities.suggestCommunity": "Предложить сообщество",
+  "app.containers.Communities.didntFindAnyInteresting":
+    "Не нашли ничего интересного?",
+  "app.containers.Communities.suggestInterestingComm":
+    "Предложите сообщество, которое будет интересно Вам и другим людям, которые проголосуют за него.",
+
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.name": "Наименование",
   "app.containers.CreateCommunity.description": "Описание",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
+
   "app.containers.HomePage.title":
     "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
   "app.containers.HomePage.description":

@@ -8,7 +8,7 @@ import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import FollowCommunityButton from 'containers/FollowCommunityButton';
+import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
 import A from 'components/A';
 import H4 from 'components/H4';

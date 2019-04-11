@@ -1,5 +1,6 @@
 import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import differenceInMonths from 'date-fns/difference_in_calendar_months';
 
 import {
   MONTH_3LETTERS__DAY_TIME,
@@ -40,3 +41,6 @@ export const getFormattedDate = /* istanbul ignore next */ (
 
   return format(dateInMills, dateView, localeObj);
 };
+
+export const getDifferenceInMonths = /* istanbul ignore next */ date =>
+  `${differenceInMonths(date, Date.now())}M`;

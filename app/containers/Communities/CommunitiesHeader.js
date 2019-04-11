@@ -1,30 +1,79 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
-import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
+import commonMessages from 'common-messages';
+import createCommunityIcon from 'svg/createCommunity';
+
+import Base from 'components/Base';
+import NavigationButton from 'components/Button/NavigationButton';
+import A from 'components/A';
+import Icon from 'components/Icon';
+
+import messages from './messages';
 
 const suggestedCommunitiesRoute = routes.suggestedCommunities();
+const communitiesRoute = routes.communities();
 
-const CommunitiesHeader = ({ goToCreateCommunityScreen }) => (
-  <div className="d-flex justify-content-end pb-3">
-    <Link to={suggestedCommunitiesRoute} href={suggestedCommunitiesRoute}>
-      <button className="btn btn-secondary ml-2">Suggested communities</button>
-    </Link>
+const CommunitiesHeader = ({
+  goToCreateCommunityScreen,
+  SubHeader,
+  changeSorting,
+  sorting,
+  communitiesNumber,
+}) => {
+  const path = window.location.pathname + window.location.hash;
 
-    <button
-      className="btn btn-secondary ml-2"
-      onClick={goToCreateCommunityScreen}
-      id={GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}
-    >
-      Create community
-    </button>
-  </div>
-);
+  return (
+    <div>
+      <Base
+        className="d-flex align-items-center justify-content-between"
+        position="top"
+      >
+        <div>
+          <A to={communitiesRoute} href={communitiesRoute}>
+            <NavigationButton isLink={path !== communitiesRoute}>
+              <FormattedMessage {...commonMessages.communities} />
+            </NavigationButton>
+          </A>
+
+          <A to={suggestedCommunitiesRoute} href={suggestedCommunitiesRoute}>
+            <NavigationButton isLink={path !== suggestedCommunitiesRoute}>
+              <FormattedMessage {...messages.voting} />
+            </NavigationButton>
+          </A>
+        </div>
+
+        <div>
+          <NavigationButton
+            onClick={goToCreateCommunityScreen}
+            className="d-inline-flex align-items-center p-0"
+            isLink
+          >
+            <Icon icon={createCommunityIcon} />
+            <FormattedMessage {...messages.suggestCommunity} />
+          </NavigationButton>
+        </div>
+      </Base>
+
+      <Base position="bottom">
+        <SubHeader
+          changeSorting={changeSorting}
+          sorting={sorting}
+          communitiesNumber={communitiesNumber}
+        />
+      </Base>
+    </div>
+  );
+};
 
 CommunitiesHeader.propTypes = {
-  goToCreateCommunityScreen: PropTypes.func.isRequired,
+  goToCreateCommunityScreen: PropTypes.func,
+  SubHeader: PropTypes.any,
+  changeSorting: PropTypes.func,
+  sorting: PropTypes.object,
+  communitiesNumber: PropTypes.number,
 };
 
 export default CommunitiesHeader;

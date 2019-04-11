@@ -11,6 +11,7 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
+import IconStyled from 'components/Icon/IconStyled';
 
 import messages from 'common-messages';
 
@@ -42,23 +43,31 @@ const LiExtended = Li.extend`
   padding-top: 8px;
   padding-bottom: 8px;
   border-left: 3px solid ${transparent};
-  background-color: ${props =>
-    window.location.pathname === props.route
-      ? 'rgba(53,74,137,0.11)'
-      : transparent};
-  border-color: ${props =>
-    window.location.pathname === props.route ? darkblue : transparent};
-  font-weight: ${props =>
-    window.location.pathname === props.route ? 'bold' : 'normal'};
 
   > a {
     flex: 1;
   }
 
-  span[data-icon='icon'] {
-    stroke: ${props =>
-      window.location.pathname === props.route ? blue : black};
-  }
+  ${({ route }) =>
+    window.location.pathname.match(route)
+      ? `
+    background-color: rgba(53,74,137,0.11);
+    border-color: ${darkblue};
+    font-weight: bold;
+
+    ${IconStyled} [data-icon="icon"] {
+      stroke: ${blue} !important;
+    }
+  `
+      : `
+    background-color: ${transparent};
+    border-color: ${transparent};
+    font-weight: normal;
+
+    ${IconStyled} {
+      stroke: ${black};
+    }
+  `};
 `;
 /* eslint-enable */
 

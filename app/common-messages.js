@@ -120,4 +120,28 @@ export default defineMessages({
   close: {
     id: 'app.common.close',
   },
+  subscribed: {
+    id: 'app.common.subscribed',
+  },
+  newest: {
+    id: 'app.common.newest',
+  },
+  oldest: {
+    id: 'app.common.oldest',
+  },
+  age: {
+    id: 'app.common.age',
+  },
+  yes: {
+    id: 'app.common.yes',
+  },
+  no: {
+    id: 'app.common.no',
+  },
+  agree: {
+    id: 'app.common.agree',
+  },
+  disagree: {
+    id: 'app.common.disagree',
+  },
 });

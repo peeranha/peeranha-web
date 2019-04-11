@@ -23,11 +23,12 @@ import homepageReducer from 'containers/HomePage/reducer';
 import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
 import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
 import createCommunityReducer from 'containers/CreateCommunity/reducer';
-import suggestedCommunitiesReducer from 'containers/SuggestedCommunities/reducer';
+import communitiesReducer from 'containers/Communities/reducer';
 import createTagReducer from 'containers/CreateTag/reducer';
 import suggestedTagsReducer from 'containers/SuggestedTags/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
+import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
 
 /*
  * routeReducer
@@ -79,11 +80,12 @@ export default function createReducer(injectedReducers) {
     dataCacheProvider: dataCacheProviderReducer,
     followCommunityButton: followCommunityButtonReducer,
     createCommunity: createCommunityReducer,
-    suggestedCommunities: suggestedCommunitiesReducer,
+    communities: communitiesReducer,
     createTag: createTagReducer,
     suggestedTags: suggestedTagsReducer,
     questionsOfUser: questionsOfUserReducer,
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
+    voteForNewCommunityButton: voteForNewCommunityButtonReducer,
     form: formReducer,
     ...injectedReducers,
   });

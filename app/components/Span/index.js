@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import IconStyled from 'components/Icon/IconStyled';
 
 import {
   black,
@@ -25,18 +26,18 @@ const colors = {
 
 /* istanbul ignore next */
 const Span = styled.span`
-  color: ${props => (props.color ? colors[props.color] : colors.black)};
-  opacity: ${props => +props.opacity || 1};
-  font-weight: ${props => (props.bold ? '600' : 'normal')};
-  font-size: ${props => (props.fontSize ? +props.fontSize : '16')}px;
-  line-height: ${props => (props.fontSize ? 1.25 * +props.fontSize : '20')}px;
-  font-style: ${props => (props.isItalic ? 'italic' : 'normal')};
+  color: ${({ color }) => (color ? colors[color] : colors.black)};
+  opacity: ${({ opacity }) => +opacity || 1};
+  font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
+  font-size: ${({ fontSize }) => (fontSize ? +fontSize : '16')}px;
+  line-height: ${({ fontSize }) => (fontSize ? 1.25 * +fontSize : '20')}px;
+  font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
   font-family: ${APP_FONT};
   text-align: left;
 
-  [data-icon='icon'] {
-    stroke: ${props => (props.color ? colors[props.color] : colors.gray)};
-    fill: ${props => (props.color ? colors[props.color] : colors.gray)};
+  ${IconStyled} {
+    stroke: ${({ color }) => (color ? colors[color] : colors.gray)};
+    fill: ${({ color }) => (color ? colors[color] : colors.gray)};
   }
 `;
 

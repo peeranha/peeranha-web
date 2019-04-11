@@ -1,4 +1,5 @@
 import { white, darkgray, lightgray, gray } from 'style-constants';
+import IconStyled from 'components/Icon/IconStyled';
 import Span from '../Span';
 
 const A = Span.extend`
@@ -13,7 +14,7 @@ const A = Span.extend`
   position: relative;
   overflow: hidden;
 
-  span[data-icon='icon'] {
+  ${IconStyled} {
     stroke: ${white};
     fill: ${white};
     color: ${white};
@@ -25,7 +26,7 @@ const A = Span.extend`
     color: ${darkgray};
     box-shadow: none;
 
-    span[data-icon='icon'] {
+    ${IconStyled} {
       stroke: ${gray};
       fill: ${gray};
       color: ${gray};

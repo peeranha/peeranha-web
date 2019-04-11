@@ -139,6 +139,24 @@ export async function getAllCommunities(eosService) {
     }),
   );
 
+  // TODO: REMOVE IT WHEN IT WILL BE READY FOR BACKEND
+
+  communities[0].questions = 10;
+  communities[1].questions = 20;
+  communities[2].questions = 5;
+
+  communities[0].answers = 1;
+  communities[1].answers = 20;
+  communities[2].answers = 5;
+
+  communities[0].date = 1554903164297;
+  communities[1].date = 1554903163297;
+  communities[2].date = 1554903161297;
+
+  communities[0].subscribers = 300;
+  communities[1].subscribers = 200;
+  communities[2].subscribers = 100;
+
   return communities;
 }
 

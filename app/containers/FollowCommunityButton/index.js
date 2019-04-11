@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -15,14 +14,10 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
-import OutlinedButton from 'components/Button/OutlinedButton';
 
 import { followHandler } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-
-import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.PureComponent {
@@ -36,26 +31,25 @@ export class FollowCommunityButton extends React.PureComponent {
   };
 
   render() {
-    const { communityIdFilter, followedCommunities } = this.props;
+    const { communityIdFilter, followedCommunities, render } = this.props;
 
     if (!followedCommunities) return null;
 
     const isFollowed = followedCommunities.includes(communityIdFilter);
 
     return (
-      <OutlinedButton data-isfollowed={isFollowed} onClick={this.followHandler}>
-        <FormattedMessage
-          {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
-        />
-      </OutlinedButton>
+      <button data-isfollowed={isFollowed} onClick={this.followHandler}>
+        {render(isFollowed)}
+      </button>
     );
   }
 }
 
 FollowCommunityButton.propTypes = {
-  communityIdFilter: PropTypes.number.isRequired,
-  followedCommunities: PropTypes.array.isRequired,
-  followHandlerDispatch: PropTypes.func.isRequired,
+  communityIdFilter: PropTypes.number,
+  followedCommunities: PropTypes.array,
+  followHandlerDispatch: PropTypes.func,
+  render: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
