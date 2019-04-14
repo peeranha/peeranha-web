@@ -69,4 +69,5 @@ Aside.propTypes = {
   suggestedCommunities: PropTypes.array,
 };
 
+export { Item, Header };
 export default React.memo(Aside);

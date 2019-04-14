@@ -137,7 +137,10 @@ export class Communities extends React.PureComponent {
 
         {suggestedCommunities[0] && (
           <BaseTransparent className="d-none d-xl-block col-xl-3 pr-0">
-            <Aside suggestedCommunities={suggestedCommunities} />
+            <Aside
+              suggestedCommunities={suggestedCommunities}
+              communities={communities}
+            />
           </BaseTransparent>
         )}
       </div>

@@ -113,10 +113,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     </Span>
                   </div>
                 </div>
-                <FollowCommunityButton
-                  communityIdFilter={x.id}
-                  followedCommunities={profile.followed_communities}
-                />
+                <FollowCommunityButton communityIdFilter={x.id} />
               </BaseStyled>
 
               <BackSide>
@@ -132,10 +129,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     </p>
                   </div>
                   <div>
-                    <FollowCommunityButton
-                      communityIdFilter={x.id}
-                      followedCommunities={profile.followed_communities}
-                    />
+                    <FollowCommunityButton communityIdFilter={x.id} />
                   </div>
                 </div>
               </BackSide>
