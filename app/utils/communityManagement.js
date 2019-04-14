@@ -160,11 +160,12 @@ export async function getAllCommunities(eosService) {
   return communities;
 }
 
-export async function getSuggestedCommunities(eosService) {
+export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   const communities = await eosService.getTableRows(
     CREATED_TAGS_COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
-    0,
+    lowerBound,
+    limit,
   );
 
   await Promise.all(

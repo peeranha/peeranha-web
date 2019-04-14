@@ -10,10 +10,22 @@ import {
   getSuggestedCommunitiesErr,
 } from './actions';
 
+import { selectSuggestedCommunities, selectLimit } from './selectors';
+
 export function* getSuggestedCommunitiesWorker() {
   try {
     const eosService = yield select(selectEos);
-    const communities = yield call(() => getSuggestedCommunities(eosService));
+    const storedComm = yield select(selectSuggestedCommunities());
+    const limit = yield select(selectLimit());
+
+    // Lower bound - is ID of community
+    const lowerBound = storedComm[storedComm.length - 1]
+      ? storedComm[storedComm.length - 1].id
+      : 0;
+
+    const communities = yield call(() =>
+      getSuggestedCommunities(eosService, lowerBound, limit),
+    );
 
     yield put(getSuggestedCommunitiesSuccess(communities));
   } catch (err) {

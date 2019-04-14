@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import arrowDownIcon from 'svg/arrowDown';
 
+import InfinityLoader from 'components/InfinityLoader';
 import P from 'components/P';
 import Base from 'components/Base/BaseRounded';
 import Span from 'components/Span';
@@ -22,7 +23,6 @@ import messages from './messages';
 const ItemStyled = Base.extend`
   margin-bottom: 15px;
   padding: 0;
-  overflow: hidden;
   word-break: break-word;
 `.withComponent('li');
 
@@ -79,20 +79,34 @@ const Item = x => {
   );
 };
 
-const Content = ({ suggestedCommunities }) => {
+const Content = ({
+  suggestedCommunities,
+  suggestedCommunitiesLoading,
+  isLastFetch,
+  getSuggestedCommunities,
+}) => {
   if (!suggestedCommunities) return null;
 
   return (
-    <ul>
-      {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc']).map(x => (
-        <Item {...x} />
-      ))}
-    </ul>
+    <InfinityLoader
+      loadNextPaginatedData={getSuggestedCommunities}
+      isLoading={suggestedCommunitiesLoading}
+      isLastFetch={isLastFetch}
+    >
+      <ul>
+        {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc']).map(x => (
+          <Item {...x} />
+        ))}
+      </ul>
+    </InfinityLoader>
   );
 };
 
 Content.propTypes = {
   suggestedCommunities: PropTypes.array,
+  suggestedCommunitiesLoading: PropTypes.bool,
+  isLastFetch: PropTypes.bool,
+  getSuggestedCommunities: PropTypes.func,
 };
 
 export default React.memo(Content);

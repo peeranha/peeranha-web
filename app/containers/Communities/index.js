@@ -34,6 +34,7 @@ import BaseTransparent from 'components/Base/BaseTransparent';
 import {
   selectSuggestedCommunities,
   selectSuggestedCommunitiesLoading,
+  selectIsLastFetch,
 } from './selectors';
 
 import { createCommunityValidator } from './validate';
@@ -49,8 +50,12 @@ import NothingInterestingBanner from './NothingInterestingBanner';
 /* eslint-disable react/prefer-stateless-function */
 export class Communities extends React.PureComponent {
   componentDidMount() {
-    this.props.getSuggestedCommunitiesDispatch();
+    this.getSuggestedCommunities();
   }
+
+  getSuggestedCommunities = () => {
+    this.props.getSuggestedCommunitiesDispatch();
+  };
 
   /* eslint consistent-return: 0 */
   goToCreateCommunityScreen = () => {
@@ -80,6 +85,7 @@ export class Communities extends React.PureComponent {
       communitiesLoading,
       suggestedCommunities,
       suggestedCommunitiesLoading,
+      isLastFetch,
       Content,
       Aside,
       SubHeader,
@@ -97,41 +103,43 @@ export class Communities extends React.PureComponent {
           />
         </Helmet>
 
-        {(communitiesLoading || suggestedCommunitiesLoading) && (
-          <LoadingIndicator />
-        )}
+        <div
+          className={`col-12 col-xl-${suggestedCommunities[0] ? 9 : 12} p-0`}
+        >
+          <CommunitiesHeader
+            goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+            SubHeader={SubHeader}
+            changeSorting={changeSorting}
+            sorting={sorting}
+            communitiesNumber={communities ? communities.length : 0}
+          />
 
-        {!communitiesLoading &&
-          !suggestedCommunitiesLoading && (
-            <React.Fragment>
-              <div className="col-12 col-xl-9 p-0">
-                <CommunitiesHeader
-                  goToCreateCommunityScreen={this.goToCreateCommunityScreen}
-                  SubHeader={SubHeader}
-                  changeSorting={changeSorting}
-                  sorting={sorting}
-                  communitiesNumber={communities ? communities.length : 0}
-                />
+          <div className="my-3">
+            <Content
+              suggestedCommunities={suggestedCommunities}
+              suggestedCommunitiesLoading={suggestedCommunitiesLoading}
+              getSuggestedCommunities={this.getSuggestedCommunities}
+              isLastFetch={isLastFetch}
+              communities={communities}
+              sorting={sorting}
+              locale={locale}
+            />
+          </div>
 
-                <div className="my-3">
-                  <Content
-                    suggestedCommunities={suggestedCommunities}
-                    communities={communities}
-                    sorting={sorting}
-                    locale={locale}
-                  />
-                </div>
-
-                <NothingInterestingBanner
-                  goToCreateCommunityScreen={this.goToCreateCommunityScreen}
-                />
-              </div>
-
-              <BaseTransparent className="d-none d-xl-block col-xl-3 pr-0">
-                <Aside suggestedCommunities={suggestedCommunities} />
-              </BaseTransparent>
-            </React.Fragment>
+          {communitiesLoading || suggestedCommunitiesLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <NothingInterestingBanner
+              goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+            />
           )}
+        </div>
+
+        {suggestedCommunities[0] && (
+          <BaseTransparent className="d-none d-xl-block col-xl-3 pr-0">
+            <Aside suggestedCommunities={suggestedCommunities} />
+          </BaseTransparent>
+        )}
       </div>
     );
   }
@@ -149,6 +157,7 @@ Communities.propTypes = {
   Aside: PropTypes.any,
   Content: PropTypes.any,
   suggestedCommunitiesLoading: PropTypes.bool,
+  isLastFetch: PropTypes.bool,
   communitiesLoading: PropTypes.bool,
   getSuggestedCommunitiesDispatch: PropTypes.func,
 };
@@ -160,6 +169,7 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
   suggestedCommunities: selectSuggestedCommunities(),
   suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
+  isLastFetch: selectIsLastFetch(),
 });
 
 /* istanbul ignore next */

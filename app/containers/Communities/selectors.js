@@ -26,9 +26,23 @@ const selectSuggestedCommunitiesError = () =>
     substate => substate.toJS().getSuggestedCommunitiesError,
   );
 
+const selectIsLastFetch = () =>
+  createSelector(
+    selectSuggestedCommunitiesDomain,
+    substate => substate.toJS().isLastFetch,
+  );
+
+const selectLimit = () =>
+  createSelector(
+    selectSuggestedCommunitiesDomain,
+    substate => substate.toJS().limit,
+  );
+
 export {
   selectSuggestedCommunitiesDomain,
   selectSuggestedCommunities,
   selectSuggestedCommunitiesLoading,
   selectSuggestedCommunitiesError,
+  selectIsLastFetch,
+  selectLimit,
 };
