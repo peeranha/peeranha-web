@@ -47,7 +47,7 @@ const Menu = ({ changeSorting, sorting }) => (
   </Ul>
 );
 
-const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
+export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
   <H3Styled className="d-flex align-items-end justify-content-between">
     <div className="d-flex align-items-center">
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
