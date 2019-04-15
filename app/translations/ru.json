@@ -42,6 +42,10 @@
   "app.common.agree": "Согласен",
   "app.common.disagree": "Не согласен",
 
+  "app.containers.FollowCommunityButton.header": "Хедер",
+  "app.containers.FollowCommunityButton.follow": "Подписаться",
+  "app.containers.FollowCommunityButton.unfollow": "Отписаться",
+
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
   "app.containers.ExistingCommunities.moreVoting": "Больше голосований",

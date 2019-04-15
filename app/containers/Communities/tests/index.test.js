@@ -1,3 +1,4 @@
+import React from 'react';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
@@ -7,10 +8,19 @@ import { Communities } from '../index';
 const cmp = new Communities();
 
 cmp.props = {
-  communities: [],
   locale: 'en',
-  profile: null,
+  communities: [],
+  communitiesLoading: true,
+  suggestedCommunities: [],
+  suggestedCommunitiesLoading: true,
+  isLastFetch: false,
+  changeSorting: jest.fn(),
   showLoginModalDispatch: jest.fn(),
+  getSuggestedCommunitiesDispatch: jest.fn(),
+  sorting: {},
+  Content: () => <div>123</div>,
+  Aside: () => <div>123</div>,
+  SubHeader: () => <div>123</div>,
 };
 
 jest.mock('../validate', () => ({
@@ -67,6 +77,30 @@ describe('<Communities />', () => {
     it('communities [{ id: 1 }]', () => {
       cmp.props.communities = [{ id: 1 }];
       expect(cmp.render()).toMatchSnapshot();
+    });
+  });
+
+  describe('componentDidMount', () => {
+    it('test', () => {
+      expect(cmp.props.getSuggestedCommunitiesDispatch).toHaveBeenCalledTimes(
+        0,
+      );
+      cmp.componentDidMount();
+      expect(cmp.props.getSuggestedCommunitiesDispatch).toHaveBeenCalledTimes(
+        1,
+      );
+    });
+  });
+
+  describe('getSuggestedCommunities', () => {
+    it('test', () => {
+      expect(cmp.props.getSuggestedCommunitiesDispatch).toHaveBeenCalledTimes(
+        0,
+      );
+      cmp.getSuggestedCommunities();
+      expect(cmp.props.getSuggestedCommunitiesDispatch).toHaveBeenCalledTimes(
+        1,
+      );
     });
   });
 });

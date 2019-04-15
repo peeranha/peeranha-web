@@ -28,7 +28,7 @@ const Header = Span.extend`
   word-break: break-word;
 `.withComponent('header');
 
-const Aside = ({ suggestedCommunities }) => (
+const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
       <FormattedMessage {...messages.voteForNewCommunities} />

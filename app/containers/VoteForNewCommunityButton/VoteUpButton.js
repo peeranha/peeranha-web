@@ -16,7 +16,7 @@ const B = OutlinedButton.extend`
   position: relative;
 `.withComponent('span');
 
-const D = ({ communityId, onClick, id }) => (
+const D = /* istanbul ignore next */ ({ communityId, onClick, id }) => (
   <Dropdown
     id={`vote_comm_id_${communityId}`}
     button={
@@ -28,7 +28,7 @@ const D = ({ communityId, onClick, id }) => (
   />
 );
 
-const VoteUpButton = ({ id, communityId }) => (
+const VoteUpButton = /* istanbul ignore next */ ({ id, communityId }) => (
   <Button
     communityId={communityId}
     id={id}

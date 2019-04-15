@@ -7,7 +7,7 @@ import SubHeader from './SubHeader';
 
 import sortingOptions from './SortingOptions';
 
-const ExistingCommunities = () => {
+export const ExistingCommunities = /* istanbul ignore next */ () => {
   const [sorting, changeSorting] = useState(
     sortingOptions[Object.keys(sortingOptions)[0]],
   );

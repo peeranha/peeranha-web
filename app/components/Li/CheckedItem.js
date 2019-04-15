@@ -3,6 +3,7 @@ import checked from 'images/okayBlueIcon.svg';
 
 import Li from './index';
 
+/* istanbul ignore next */
 const CheckedItem = Li.extend`
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
   border: 1px solid ${transparent};

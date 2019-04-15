@@ -30,12 +30,12 @@ export class FollowCommunityButton extends React.PureComponent {
     this.props.followHandlerDispatch(communityIdFilter, isFollowed);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { communityIdFilter, followedCommunities, render } = this.props;
 
-    if (!followedCommunities) return null;
-
-    const isFollowed = followedCommunities.includes(communityIdFilter);
+    const isFollowed = followedCommunities
+      ? followedCommunities.includes(communityIdFilter)
+      : false;
 
     return render({ isFollowed, onClick: this.followHandler });
   }
@@ -52,8 +52,7 @@ const mapStateToProps = createStructuredSelector({
   followedCommunities: makeSelectFollowedCommunities(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     followHandlerDispatch: (communityIdFilter, isFollowed) =>

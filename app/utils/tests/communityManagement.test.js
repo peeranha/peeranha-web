@@ -83,16 +83,19 @@ describe('createCommunity', () => {
 
 describe('getSuggestedCommunities', () => {
   const communities = [];
+  const lowerBound = 10;
+  const limit = 10;
 
   it('test', async () => {
     eosService.getTableRows.mockImplementation(() => communities);
-    const fetch = await getSuggestedCommunities(eosService);
+    const fetch = await getSuggestedCommunities(eosService, lowerBound, limit);
 
     expect(fetch).toEqual(communities);
     expect(eosService.getTableRows).toHaveBeenCalledWith(
       CREATED_TAGS_COMMUNITIES_TABLE,
       ALL_COMMUNITIES_SCOPE,
-      0,
+      lowerBound,
+      limit,
     );
   });
 });

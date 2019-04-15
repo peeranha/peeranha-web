@@ -63,9 +63,9 @@ export function* upVoteWorker({ communityId, buttonId }) {
       upVoteToCreateCommunity(eosService, selectedAccount, communityId),
     );
 
-    const communities = yield call(() => getSuggestedCommunitiesWorker());
+    yield call(() => getSuggestedCommunitiesWorker());
 
-    yield put(upVoteSuccess(communities));
+    yield put(upVoteSuccess());
   } catch (err) {
     yield put(upVoteErr(err.message));
   }
@@ -110,9 +110,9 @@ export function* downVoteWorker({ communityId, buttonId }) {
       downVoteToCreateCommunity(eosService, selectedAccount, communityId),
     );
 
-    const communities = yield call(() => getSuggestedCommunitiesWorker());
+    yield call(() => getSuggestedCommunitiesWorker());
 
-    yield put(downVoteSuccess(communities));
+    yield put(downVoteSuccess());
   } catch (err) {
     yield put(downVoteErr(err.message));
   }

@@ -10,6 +10,7 @@ import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
 import { GET_CURRENT_ACCOUNT_SUCCESS } from 'containers/AccountProvider/constants';
+import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import defaultSaga, { followHandlerWorker } from '../saga';
 
@@ -42,7 +43,7 @@ describe('followHandlerWorker', () => {
   };
 
   const account = 'user1';
-  const profileInfo = {};
+  let profileInfo = {};
 
   const eos = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
@@ -63,8 +64,16 @@ describe('followHandlerWorker', () => {
       expect(step.value).toEqual(account);
     });
 
+    it('step, profileInfo', () => {
+      getUserProfileWorker.mockImplementation(() => profileInfo);
+      const step = generator.next(account);
+      expect(step.value).toEqual(profileInfo);
+    });
+
     it('props.isFollowed === false', () => {
-      generator.next(account);
+      profileInfo = true;
+
+      generator.next(profileInfo);
       expect(followCommunity).toHaveBeenCalledWith(
         eos,
         props.communityIdFilter,
@@ -97,17 +106,39 @@ describe('followHandlerWorker', () => {
     it('forgetIdentityError: error handling', () => {
       const err = new Error('Some error');
       const putDescriptor = generator.throw(err).value;
-      expect(putDescriptor.type).toEqual(FOLLOW_HANDLER_ERROR);
+      expect(putDescriptor.type).toBe(FOLLOW_HANDLER_ERROR);
     });
   });
 
-  describe('props.isFollowed === true', () => {
-    props.isFollowed = true;
+  describe('profileInfo false => showLoginModal', () => {
     const generator = followHandlerWorker(props);
 
     generator.next();
     generator.next(eos);
     generator.next(account);
+
+    it('showLoginModal', () => {
+      const showLoginModal = generator.next(null);
+      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
+    });
+
+    it('error handling', () => {
+      const err = new Error('some error');
+      const putDescriptor = generator.throw(err).value;
+      expect(putDescriptor.type).toBe(FOLLOW_HANDLER_ERROR);
+    });
+  });
+
+  describe('props.isFollowed === true', () => {
+    props.isFollowed = true;
+    profileInfo = true;
+
+    const generator = followHandlerWorker(props);
+
+    generator.next();
+    generator.next(eos);
+    generator.next(account);
+    generator.next(profileInfo);
 
     it('props.isFollowed === true', () => {
       expect(unfollowCommunity).toHaveBeenCalledWith(

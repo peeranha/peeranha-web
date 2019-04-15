@@ -34,7 +34,7 @@ export class VoteForNewCommunityButton extends React.PureComponent {
     this.props.downVoteDispatch(communityId, id);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       communityId,
       clickMethod,
@@ -78,8 +78,7 @@ const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     upVoteDispatch: (communityId, buttonId) =>

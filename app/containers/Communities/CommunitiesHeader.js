@@ -16,7 +16,7 @@ import messages from './messages';
 const suggestedCommunitiesRoute = routes.suggestedCommunities();
 const communitiesRoute = routes.communities();
 
-const CommunitiesHeader = ({
+const CommunitiesHeader = /* istanbul ignore next */ ({
   goToCreateCommunityScreen,
   SubHeader,
   changeSorting,

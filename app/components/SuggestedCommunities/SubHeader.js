@@ -8,7 +8,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import messages from './messages';
 
-const SubHeader = () => (
+const SubHeader = /* istanbul ignore next */ () => (
   <H3 className="d-flex align-items-end">
     <MediumImageStyled
       src={communitiesHeader}

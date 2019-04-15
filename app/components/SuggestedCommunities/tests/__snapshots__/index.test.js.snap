@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuggestedCommunities test 1`] = `
+<withReducer(withSaga(Connect(Communities)))
+  Aside={
+    Object {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": [Function],
+    }
+  }
+  Content={
+    Object {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": [Function],
+    }
+  }
+  SubHeader={
+    Object {
+      "$$typeof": Symbol(react.memo),
+      "compare": null,
+      "type": [Function],
+    }
+  }
+/>
+`;

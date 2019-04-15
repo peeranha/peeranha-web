@@ -22,7 +22,7 @@ const H3Styled = H3.extend`
   }
 `;
 
-const Button = ({ sorting }) => (
+const Button = /* istanbul ignore next */ ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <img
       className="mr-2"

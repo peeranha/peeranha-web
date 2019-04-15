@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { blue, transparent, white, black } from 'style-constants';
 
+/* istanbul ignore next */
 const Div = styled.div`
   background: ${x => (x.choice ? blue : transparent)};
   color: ${x => (x.choice ? white : black)};
@@ -21,7 +22,7 @@ const Div = styled.div`
   }
 `;
 
-const AlreadyVoted = ({ choice, children }) => (
+const AlreadyVoted = /* istanbul ignore next */ ({ choice, children }) => (
   <Div choice={choice}>{children}</Div>
 );
 

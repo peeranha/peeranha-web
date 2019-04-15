@@ -19,7 +19,7 @@ export function* getSuggestedCommunitiesWorker() {
     const limit = yield select(selectLimit());
 
     // Lower bound - is ID of community
-    const lowerBound = storedComm[storedComm.length - 1]
+    const lowerBound = yield storedComm[storedComm.length - 1]
       ? +storedComm[storedComm.length - 1].id + 1
       : 0;
 

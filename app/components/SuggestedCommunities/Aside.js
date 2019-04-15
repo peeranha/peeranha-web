@@ -18,7 +18,7 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton
 
 // TODO: when backend will be ready - remove hardcoded fields for communities
 
-const Aside = ({ communities }) => (
+const Aside = /* istanbul ignore next */ ({ communities }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
       <FormattedMessage {...commonMessages.top} />{' '}

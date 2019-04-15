@@ -11,7 +11,7 @@ import LargeButton from 'components/Button/LargeButton';
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
 /* eslint-disable-next-line */
-let AnswerForm = /* istanbul ignore next */ ({
+export let AnswerForm = /* istanbul ignore next */ ({
   handleSubmit,
   sendAnswer,
   sendAnswerLoading,

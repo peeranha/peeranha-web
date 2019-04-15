@@ -11,12 +11,13 @@ import Icon from 'components/Icon';
 import Button from './index';
 import messages from './messages';
 
+/* istanbul ignore next */
 const BStyled = OutlinedButton.extend`
   background-color: ${x => (x['data-isfollowed'] ? blue : transparent)};
   border: ${x => (x['data-isfollowed'] ? 'none' : '')};
 `;
 
-const B = ({ isFollowed, onClick }) => (
+const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => (
   <BStyled data-isfollowed={isFollowed} onClick={onClick}>
     {!isFollowed && <FormattedMessage {...messages.follow} />}
 
@@ -24,7 +25,9 @@ const B = ({ isFollowed, onClick }) => (
   </BStyled>
 );
 
-const StyledButton = ({ communityIdFilter }) => (
+export const StyledButton = /* istanbul ignore next */ ({
+  communityIdFilter,
+}) => (
   <Button
     communityIdFilter={communityIdFilter}
     render={({ isFollowed, onClick }) => (

@@ -18,7 +18,7 @@ const OutlinedButtonStyled = OutlinedButton.extend`
   color: ${gray};
 `.withComponent('span');
 
-const D = ({ communityId, onClick, id }) => (
+const D = /* istanbul ignore next */ ({ communityId, onClick, id }) => (
   <Dropdown
     id={`downvote_comm_id_${communityId}`}
     button={
@@ -30,7 +30,7 @@ const D = ({ communityId, onClick, id }) => (
   />
 );
 
-const VoteDownButton = ({ id, communityId }) => (
+const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (
   <Button
     communityId={communityId}
     id={id}

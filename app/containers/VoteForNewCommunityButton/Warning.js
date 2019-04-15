@@ -17,7 +17,7 @@ const NavigationButtonStyled = NavigationButton.extend`
   min-width: 60px;
 `;
 
-const Warning = ({ onClick }) => (
+const Warning = /* istanbul ignore next */ ({ onClick }) => (
   <div className="py-3 px-4">
     <P className="mb-3" fontSize="14">
       <FormattedMessage {...messages.youCannotChange} />

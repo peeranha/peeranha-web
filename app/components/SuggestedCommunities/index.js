@@ -12,7 +12,7 @@ import Aside from './Aside';
 import Content from './Content';
 import SubHeader from './SubHeader';
 
-const SuggestedCommunities = () => (
+export const SuggestedCommunities = /* istanbul ignore next */ () => (
   <Communities Content={Content} Aside={Aside} SubHeader={SubHeader} />
 );
 

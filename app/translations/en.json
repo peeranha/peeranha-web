@@ -42,6 +42,10 @@
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
 
+  "app.containers.FollowCommunityButton.header": "Header",
+  "app.containers.FollowCommunityButton.follow": "Follow",
+  "app.containers.FollowCommunityButton.unfollow": "Unfollow",
+
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
   "app.containers.ExistingCommunities.moreVoting": "More voting",

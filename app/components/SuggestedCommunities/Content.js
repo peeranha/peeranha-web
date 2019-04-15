@@ -31,6 +31,7 @@ const Header = BaseTransparent.extend`
   border-radius: 0;
 `;
 
+/* istanbul ignore next */
 const Description = BaseTransparent.extend`
   ${P} {
     overflow: hidden;
@@ -43,7 +44,7 @@ const Description = BaseTransparent.extend`
   }
 `;
 
-const Item = x => {
+const Item = /* istanbul ignore next */ x => {
   const [isOpened, changeView] = useState(false);
 
   return (
@@ -79,7 +80,7 @@ const Item = x => {
   );
 };
 
-const Content = ({
+const Content = /* istanbul ignore next */ ({
   suggestedCommunities,
   suggestedCommunitiesLoading,
   isLastFetch,

@@ -61,7 +61,11 @@ const TextDescription = styled.p`
 `;
 
 // TODO: change hardcoded numbers when it will be ready for backend
-const Content = ({ communities, sorting, locale }) => (
+const Content = /* istanbul ignore next */ ({
+  communities,
+  sorting,
+  locale,
+}) => (
   <Base>
     {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order]).map(x => (
       <BaseTransparent key={x.value}>

@@ -22,22 +22,20 @@ export const initialState = fromJS({
 });
 
 function voteForNewCommunityButtonReducer(state = initialState, action) {
-  const { type, communities, downVoteError, upVoteError } = action;
+  const { type, downVoteError, upVoteError } = action;
 
   switch (type) {
     case UPVOTE:
       return state.set('upVoteLoading', true);
     case UPVOTE_SUCCESS:
-      return state.set('upVoteLoading', false).set('communities', communities);
+      return state.set('upVoteLoading', false);
     case UPVOTE_ERROR:
       return state.set('upVoteLoading', false).set('upVoteError', upVoteError);
 
     case DOWNVOTE:
       return state.set('downVoteLoading', true);
     case DOWNVOTE_SUCCESS:
-      return state
-        .set('downVoteLoading', false)
-        .set('communities', communities);
+      return state.set('downVoteLoading', false);
     case DOWNVOTE_ERROR:
       return state
         .set('downVoteLoading', false)

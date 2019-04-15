@@ -78,7 +78,7 @@ export class Communities extends React.PureComponent {
     createdHistory.push(routes.communitiesCreate());
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       communities,
@@ -177,8 +177,7 @@ const mapStateToProps = createStructuredSelector({
   isLastFetch: selectIsLastFetch(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     showLoginModalDispatch: () => dispatch(showLoginModal()),
