@@ -55,14 +55,14 @@ const VoteUpButton = ({ id, communityId }) => (
 );
 
 D.propTypes = {
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 VoteUpButton.propTypes = {
   id: PropTypes.string,
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default React.memo(VoteUpButton);

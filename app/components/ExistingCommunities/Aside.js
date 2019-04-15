@@ -35,7 +35,7 @@ const Aside = ({ suggestedCommunities }) => (
     </Header>
 
     {suggestedCommunities.slice(0, 3).map(x => (
-      <Item>
+      <Item key={x.id}>
         <div className="d-flex align-items-center mb-2">
           <Img className="mr-1" src={x.avatar} alt="commAvatar" />
           <Span bold>{x.name}</Span>

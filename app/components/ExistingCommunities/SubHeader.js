@@ -37,6 +37,7 @@ const Menu = ({ changeSorting, sorting }) => (
   <Ul>
     {Object.keys(sortingOptions).map(x => (
       <CheckedItem
+        key={`${sortingOptions[x].sortBy}_${sortingOptions[x].order}`}
         onClick={() => changeSorting(sortingOptions[x])}
         isActive={sorting.message === sortingOptions[x].message}
       >
@@ -59,6 +60,7 @@ const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
     <Dropdown
       button={<Button sorting={sorting} />}
       menu={<Menu changeSorting={changeSorting} sorting={sorting} />}
+      id="existing-communities-dropdown"
       isArrowed
     />
   </H3Styled>

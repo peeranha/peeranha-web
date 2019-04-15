@@ -37,11 +37,7 @@ export class FollowCommunityButton extends React.PureComponent {
 
     const isFollowed = followedCommunities.includes(communityIdFilter);
 
-    return (
-      <button data-isfollowed={isFollowed} onClick={this.followHandler}>
-        {render(isFollowed)}
-      </button>
-    );
+    return render({ isFollowed, onClick: this.followHandler });
   }
 }
 

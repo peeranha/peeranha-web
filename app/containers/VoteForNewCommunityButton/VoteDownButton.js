@@ -57,14 +57,14 @@ const VoteDownButton = ({ id, communityId }) => (
 );
 
 D.propTypes = {
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 VoteDownButton.propTypes = {
   id: PropTypes.string,
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default React.memo(VoteDownButton);

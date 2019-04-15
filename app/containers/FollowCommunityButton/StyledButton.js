@@ -12,12 +12,12 @@ import Button from './index';
 import messages from './messages';
 
 const BStyled = OutlinedButton.extend`
-  background-color: ${x => (x.isFollowed ? blue : transparent)};
-  border: ${x => (x.isFollowed ? 'none' : '')};
+  background-color: ${x => (x['data-isfollowed'] ? blue : transparent)};
+  border: ${x => (x['data-isfollowed'] ? 'none' : '')};
 `;
 
-const B = ({ isFollowed }) => (
-  <BStyled isFollowed={isFollowed}>
+const B = ({ isFollowed, onClick }) => (
+  <BStyled data-isfollowed={isFollowed} onClick={onClick}>
     {!isFollowed && <FormattedMessage {...messages.follow} />}
 
     {isFollowed && <Icon icon={okayIcon} noMargin />}
@@ -27,12 +27,15 @@ const B = ({ isFollowed }) => (
 const StyledButton = ({ communityIdFilter }) => (
   <Button
     communityIdFilter={communityIdFilter}
-    render={isFollowed => <B isFollowed={isFollowed} />}
+    render={({ isFollowed, onClick }) => (
+      <B isFollowed={isFollowed} onClick={onClick} />
+    )}
   />
 );
 
 B.propTypes = {
   isFollowed: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 StyledButton.propTypes = {

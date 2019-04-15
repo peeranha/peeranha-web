@@ -126,9 +126,11 @@ export class Communities extends React.PureComponent {
             />
           </div>
 
-          {communitiesLoading || suggestedCommunitiesLoading ? (
+          {(communitiesLoading || suggestedCommunitiesLoading) && (
             <LoadingIndicator />
-          ) : (
+          )}
+
+          {isLastFetch && (
             <NothingInterestingBanner
               goToCreateCommunityScreen={this.goToCreateCommunityScreen}
             />

@@ -20,7 +20,7 @@ export function* getSuggestedCommunitiesWorker() {
 
     // Lower bound - is ID of community
     const lowerBound = storedComm[storedComm.length - 1]
-      ? storedComm[storedComm.length - 1].id
+      ? +storedComm[storedComm.length - 1].id + 1
       : 0;
 
     const communities = yield call(() =>

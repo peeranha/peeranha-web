@@ -63,7 +63,7 @@ export class VoteForNewCommunityButton extends React.PureComponent {
 }
 
 VoteForNewCommunityButton.propTypes = {
-  communityId: PropTypes.string,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   clickMethod: PropTypes.string,
   render: PropTypes.func,
   suggestedCommunities: PropTypes.array,

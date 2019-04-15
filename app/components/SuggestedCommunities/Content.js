@@ -95,7 +95,7 @@ const Content = ({
     >
       <ul>
         {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc']).map(x => (
-          <Item {...x} />
+          <Item key={x.id} {...x} />
         ))}
       </ul>
     </InfinityLoader>
