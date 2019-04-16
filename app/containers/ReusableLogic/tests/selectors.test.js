@@ -1,19 +1,26 @@
 import { fromJS } from 'immutable';
 import {
-  selectVoteForNewCommunityButtonDomain,
+  selectReusableLogicDomain,
+  selectFollowHandlerLoading,
+  selectFollowHandlerError,
   selectUpVoteLoading,
   selectUpVoteError,
   selectDownVoteLoading,
   selectDownVoteError,
 } from '../selectors';
 
-describe('selectVoteForNewCommunityButtonDomain', () => {
+describe('selectReusableLogicDomain', () => {
+  const followHandlerLoading = false;
+  const followHandlerError = null;
+
   const upVoteLoading = false;
   const upVoteError = null;
   const downVoteLoading = false;
   const downVoteError = null;
 
   const globalState = fromJS({
+    followHandlerLoading,
+    followHandlerError,
     upVoteLoading,
     upVoteError,
     downVoteLoading,
@@ -21,13 +28,23 @@ describe('selectVoteForNewCommunityButtonDomain', () => {
   });
 
   const mockedState = fromJS({
-    suggestedCommunities: globalState,
+    reusableLogic: globalState,
   });
 
   it('should select the global state', () => {
-    expect(selectVoteForNewCommunityButtonDomain(mockedState)).toEqual(
-      globalState,
+    expect(selectReusableLogicDomain(mockedState)).toEqual(globalState);
+  });
+
+  it('selectFollowHandlerLoading', () => {
+    const isSelectFollowHandlerLoading = selectFollowHandlerLoading();
+    expect(isSelectFollowHandlerLoading(mockedState)).toEqual(
+      followHandlerLoading,
     );
+  });
+
+  it('selectFollowHandlerError', () => {
+    const isSelectFollowHandlerError = selectFollowHandlerError();
+    expect(isSelectFollowHandlerError(mockedState)).toEqual(followHandlerError);
   });
 
   it('selectUpVoteLoading', () => {

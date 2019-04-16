@@ -2,6 +2,9 @@ import { fromJS } from 'immutable';
 import voteForNewCommunityButtonReducer from '../reducer';
 
 import {
+  followHandler,
+  followHandlerSuccess,
+  followHandlerErr,
   upVote,
   upVoteSuccess,
   upVoteErr,
@@ -21,6 +24,36 @@ describe('voteForNewCommunityButtonReducer', () => {
 
   it('returns the initial state', () => {
     expect(voteForNewCommunityButtonReducer(state, {})).toEqual(state);
+  });
+
+  it('followHandler', () => {
+    const obj = state.set('followHandlerLoading', true);
+
+    expect(voteForNewCommunityButtonReducer(state, followHandler())).toEqual(
+      obj,
+    );
+  });
+
+  it('followHandlerSuccess', () => {
+    const obj = state.set('followHandlerLoading', false);
+
+    expect(
+      voteForNewCommunityButtonReducer(state, followHandlerSuccess()),
+    ).toEqual(obj);
+  });
+
+  it('followHandlerErr', () => {
+    const followHandlerError = 'followHandlerError';
+    const obj = state
+      .set('followHandlerLoading', false)
+      .set('followHandlerError', followHandlerError);
+
+    expect(
+      voteForNewCommunityButtonReducer(
+        state,
+        followHandlerErr(followHandlerError),
+      ),
+    ).toEqual(obj);
   });
 
   it('upVote', () => {

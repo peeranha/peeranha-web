@@ -8,17 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 
-import { upVote, downVote } from './actions';
-import reducer from './reducer';
-import saga from './saga';
+import { upVote, downVote } from 'containers/ReusableLogic/actions';
 
 import { UPVOTE_METHOD, DOWNVOTE_METHOD } from './constants';
 
@@ -88,20 +82,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-);
-
-const withReducer = injectReducer({
-  key: 'voteForNewCommunityButton',
-  reducer,
-});
-
-const withSaga = injectSaga({ key: 'voteForNewCommunityButton', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
 )(VoteForNewCommunityButton);

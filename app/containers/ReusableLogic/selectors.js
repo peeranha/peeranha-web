@@ -1,35 +1,49 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectVoteForNewCommunityButtonDomain = state =>
-  state.get('voteForNewCommunityButton', initialState);
+const selectReusableLogicDomain = state =>
+  state.get('reusableLogic', initialState);
+
+const selectFollowHandlerLoading = () =>
+  createSelector(
+    selectReusableLogicDomain,
+    substate => substate.toJS().followHandlerLoading,
+  );
+
+const selectFollowHandlerError = () =>
+  createSelector(
+    selectReusableLogicDomain,
+    substate => substate.toJS().followHandlerError,
+  );
 
 const selectUpVoteLoading = () =>
   createSelector(
-    selectVoteForNewCommunityButtonDomain,
+    selectReusableLogicDomain,
     substate => substate.toJS().upVoteLoading,
   );
 
 const selectUpVoteError = () =>
   createSelector(
-    selectVoteForNewCommunityButtonDomain,
+    selectReusableLogicDomain,
     substate => substate.toJS().upVoteError,
   );
 
 const selectDownVoteLoading = () =>
   createSelector(
-    selectVoteForNewCommunityButtonDomain,
+    selectReusableLogicDomain,
     substate => substate.toJS().downVoteLoading,
   );
 
 const selectDownVoteError = () =>
   createSelector(
-    selectVoteForNewCommunityButtonDomain,
+    selectReusableLogicDomain,
     substate => substate.toJS().downVoteError,
   );
 
 export {
-  selectVoteForNewCommunityButtonDomain,
+  selectReusableLogicDomain,
+  selectFollowHandlerLoading,
+  selectFollowHandlerError,
   selectUpVoteLoading,
   selectUpVoteError,
   selectDownVoteLoading,

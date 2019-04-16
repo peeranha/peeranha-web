@@ -1,4 +1,7 @@
 import {
+  followHandler,
+  followHandlerSuccess,
+  followHandlerErr,
   upVote,
   upVoteSuccess,
   upVoteErr,
@@ -8,6 +11,9 @@ import {
 } from '../actions';
 
 import {
+  FOLLOW_HANDLER,
+  FOLLOW_HANDLER_SUCCESS,
+  FOLLOW_HANDLER_ERROR,
   UPVOTE,
   UPVOTE_SUCCESS,
   UPVOTE_ERROR,
@@ -15,6 +21,40 @@ import {
   DOWNVOTE_SUCCESS,
   DOWNVOTE_ERROR,
 } from '../constants';
+
+describe('followHandler actions', () => {
+  it('FOLLOW_HANDLER', () => {
+    const communityIdFilter = 'communityIdFilter';
+    const isFollowed = 'isFollowed';
+
+    const expected = {
+      type: FOLLOW_HANDLER,
+      communityIdFilter,
+      isFollowed,
+    };
+
+    expect(followHandler(communityIdFilter, isFollowed)).toEqual(expected);
+  });
+
+  it('FOLLOW_HANDLER_SUCCESS', () => {
+    const expected = {
+      type: FOLLOW_HANDLER_SUCCESS,
+    };
+
+    expect(followHandlerSuccess()).toEqual(expected);
+  });
+
+  it('FOLLOW_HANDLER_ERROR', () => {
+    const followHandlerError = 'followHandlerError';
+
+    const expected = {
+      type: FOLLOW_HANDLER_ERROR,
+      followHandlerError,
+    };
+
+    expect(followHandlerErr(followHandlerError)).toEqual(expected);
+  });
+});
 
 describe('SuggestedCommunities actions', () => {
   it('UPVOTE', () => {

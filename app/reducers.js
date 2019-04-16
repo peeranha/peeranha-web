@@ -21,14 +21,13 @@ import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
 import homepageReducer from 'containers/HomePage/reducer';
 import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
-import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
+import reusableLogicReducer from 'containers/ReusableLogic/reducer';
 import createCommunityReducer from 'containers/CreateCommunity/reducer';
 import communitiesReducer from 'containers/Communities/reducer';
 import createTagReducer from 'containers/CreateTag/reducer';
 import suggestedTagsReducer from 'containers/SuggestedTags/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
-import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
 
 /*
  * routeReducer
@@ -78,14 +77,13 @@ export default function createReducer(injectedReducers) {
     profile: profileReducer,
     homepage: homepageReducer,
     dataCacheProvider: dataCacheProviderReducer,
-    followCommunityButton: followCommunityButtonReducer,
+    reusableLogic: reusableLogicReducer,
     createCommunity: createCommunityReducer,
     communities: communitiesReducer,
     createTag: createTagReducer,
     suggestedTags: suggestedTagsReducer,
     questionsOfUser: questionsOfUserReducer,
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
-    voteForNewCommunityButton: voteForNewCommunityButtonReducer,
     form: formReducer,
     ...injectedReducers,
   });

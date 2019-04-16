@@ -27,6 +27,7 @@ import App from 'containers/App';
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
 import ErrorBoundary from 'containers/ErrorBoundary';
+import ReusableLogic from 'containers/ReusableLogic';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -59,9 +60,11 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ErrorBoundary>
-          <ConnectedRouter history={createdHistory}>
-            <App />
-          </ConnectedRouter>
+          <ReusableLogic>
+            <ConnectedRouter history={createdHistory}>
+              <App />
+            </ConnectedRouter>
+          </ReusableLogic>
         </ErrorBoundary>
       </LanguageProvider>
     </Provider>,
