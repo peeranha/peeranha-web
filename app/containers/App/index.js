@@ -35,15 +35,15 @@ const Questions = React.lazy(() => import('containers/Questions'));
 const AskQuestion = React.lazy(() => import('containers/AskQuestion'));
 const ViewQuestion = React.lazy(() => import('containers/ViewQuestion'));
 const EditAnswer = React.lazy(() => import('containers/EditAnswer'));
-const Communities = React.lazy(() => import('containers/Communities'));
 const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
 const Tags = React.lazy(() => import('containers/Tags'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const NoAccess = React.lazy(() => import('components/NoAccess'));
 const Feed = React.lazy(() => import('components/Feed'));
+const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const SuggestedCommunities = React.lazy(() =>
-  import('containers/SuggestedCommunities'),
+  import('components/SuggestedCommunities'),
 );
 
 export default function App /* istanbul ignore next */() {

@@ -2,7 +2,7 @@
 
 exports[`<Communities /> render communities [] 1`] = `
 <div
-  className="container"
+  className="d-flex justify-content-center"
 >
   <HelmetWrapper
     defer={true}
@@ -16,16 +16,37 @@ exports[`<Communities /> render communities [] 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <CommunitiesHeader
-    goToCreateCommunityScreen={[Function]}
-  />
-  <LoadingIndicator />
+  <div
+    className="col-12 col-xl-12 p-0"
+  >
+    <CommunitiesHeader
+      SubHeader={[Function]}
+      changeSorting={[MockFunction]}
+      communitiesNumber={0}
+      goToCreateCommunityScreen={[Function]}
+      sorting={Object {}}
+    />
+    <div
+      className="my-3"
+    >
+      <Content
+        communities={Array []}
+        getSuggestedCommunities={[Function]}
+        isLastFetch={false}
+        locale="en"
+        sorting={Object {}}
+        suggestedCommunities={Array []}
+        suggestedCommunitiesLoading={true}
+      />
+    </div>
+    <UNDEFINED />
+  </div>
 </div>
 `;
 
 exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
 <div
-  className="container"
+  className="d-flex justify-content-center"
 >
   <HelmetWrapper
     defer={true}
@@ -39,17 +60,36 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <CommunitiesHeader
-    goToCreateCommunityScreen={[Function]}
-  />
-  <CommunitiesView
-    communities={
-      Array [
-        Object {
-          "id": 1,
-        },
-      ]
-    }
-  />
+  <div
+    className="col-12 col-xl-12 p-0"
+  >
+    <CommunitiesHeader
+      SubHeader={[Function]}
+      changeSorting={[MockFunction]}
+      communitiesNumber={1}
+      goToCreateCommunityScreen={[Function]}
+      sorting={Object {}}
+    />
+    <div
+      className="my-3"
+    >
+      <Content
+        communities={
+          Array [
+            Object {
+              "id": 1,
+            },
+          ]
+        }
+        getSuggestedCommunities={[Function]}
+        isLastFetch={false}
+        locale="en"
+        sorting={Object {}}
+        suggestedCommunities={Array []}
+        suggestedCommunitiesLoading={true}
+      />
+    </div>
+    <UNDEFINED />
+  </div>
 </div>
 `;

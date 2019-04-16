@@ -8,7 +8,7 @@ import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import FollowCommunityButton from 'containers/FollowCommunityButton';
+import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
 import A from 'components/A';
 import H4 from 'components/H4';
@@ -113,10 +113,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     </Span>
                   </div>
                 </div>
-                <FollowCommunityButton
-                  communityIdFilter={x.id}
-                  followedCommunities={profile.followed_communities}
-                />
+                <FollowCommunityButton communityIdFilter={x.id} />
               </BaseStyled>
 
               <BackSide>
@@ -132,10 +129,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     </p>
                   </div>
                   <div>
-                    <FollowCommunityButton
-                      communityIdFilter={x.id}
-                      followedCommunities={profile.followed_communities}
-                    />
+                    <FollowCommunityButton communityIdFilter={x.id} />
                   </div>
                 </div>
               </BackSide>

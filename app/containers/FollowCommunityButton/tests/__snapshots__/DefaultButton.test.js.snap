@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultButton test 1`] = `
+<withReducer(withSaga(Connect(FollowCommunityButton)))
+  communityIdFilter={1}
+  render={[Function]}
+/>
+`;

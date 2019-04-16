@@ -9,7 +9,7 @@ const reset = `
   table, caption, tbody, tfoot, thead, tr, th, td,
   article, aside, canvas, details, embed, 
   figure, figcaption, footer, header, hgroup, 
-  menu, nav, output, ruby, section, summary,
+  menu, nav, output, ruby, section, summary, button,
   time, mark, audio, video {
       margin: 0;
       padding: 0;

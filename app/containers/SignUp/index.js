@@ -16,6 +16,7 @@ import {
   makeSelectAccount,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 

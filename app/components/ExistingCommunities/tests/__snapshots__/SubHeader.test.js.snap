@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubHeader test 1`] = `
+<Span
+  className="d-flex align-items-end justify-content-between"
+>
+  <div
+    className="d-flex align-items-center"
+  >
+    <Img
+      alt="communitiesHeader"
+      src="IMAGE_MOCK"
+    />
+    <FormattedMessage
+      id="app.common.communities"
+      values={Object {}}
+    />
+    <Span
+      bold={true}
+      className="ml-2"
+      color="gray"
+      fontSize="30"
+    >
+      10
+    </Span>
+  </div>
+  <UNDEFINED
+    button={
+      <Button
+        sorting={Object {}}
+      />
+    }
+    id="existing-communities-dropdown"
+    isArrowed={true}
+    menu={
+      <Menu
+        changeSorting={[MockFunction]}
+        sorting={Object {}}
+      />
+    }
+  />
+</Span>
+`;

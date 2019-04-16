@@ -9,14 +9,23 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.Communities.title',
-    defaultMessage: 'Communities',
   },
   description: {
     id: 'app.containers.Communities.description',
-    defaultMessage: 'Communities | Description',
   },
   tags: {
     id: 'app.containers.Communities.tags',
-    defaultMessage: 'Tags',
+  },
+  voting: {
+    id: 'app.containers.Communities.voting',
+  },
+  suggestCommunity: {
+    id: 'app.containers.Communities.suggestCommunity',
+  },
+  didntFindAnyInteresting: {
+    id: 'app.containers.Communities.didntFindAnyInteresting',
+  },
+  suggestInterestingComm: {
+    id: 'app.containers.Communities.suggestInterestingComm',
   },
 });

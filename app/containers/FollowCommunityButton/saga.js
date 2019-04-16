@@ -2,6 +2,8 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
+import { showLoginModal } from 'containers/Login/actions';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 
@@ -16,6 +18,15 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
   try {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
+
+    const profileInfo = yield call(() =>
+      getUserProfileWorker({ user: selectedAccount }),
+    );
+
+    if (!profileInfo) {
+      yield put(showLoginModal());
+      throw new Error('Not authorized');
+    }
 
     if (isFollowed) {
       yield call(() =>

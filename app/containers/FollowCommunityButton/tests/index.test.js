@@ -6,6 +6,7 @@ cmp.props = {
   communityIdFilter: 0,
   followedCommunities: [],
   followHandlerDispatch: jest.fn(),
+  render: jest.fn(),
 };
 
 const event = {
@@ -27,21 +28,34 @@ describe('<FollowCommunityButton />', () => {
   describe('render', () => {
     it('followedCommunities NULL', () => {
       cmp.props.followedCommunities = null;
-      expect(cmp.render()).toMatchSnapshot();
+
+      cmp.render();
+      expect(cmp.props.render).toHaveBeenCalledWith({
+        onClick: cmp.followHandler,
+        isFollowed: false,
+      });
     });
 
     it('isFollowed - true, followedCommunities [1, 2]', () => {
       cmp.props.followedCommunities = [1, 2];
       cmp.props.communityIdFilter = 1;
 
-      expect(cmp.render()).toMatchSnapshot();
+      cmp.render();
+      expect(cmp.props.render).toHaveBeenCalledWith({
+        onClick: cmp.followHandler,
+        isFollowed: true,
+      });
     });
 
     it('isFollowed - false, followedCommunities [1, 2]', () => {
       cmp.props.followedCommunities = [1, 2];
       cmp.props.communityIdFilter = 3;
 
-      expect(cmp.render()).toMatchSnapshot();
+      cmp.render();
+      expect(cmp.props.render).toHaveBeenCalledWith({
+        onClick: cmp.followHandler,
+        isFollowed: false,
+      });
     });
   });
 });

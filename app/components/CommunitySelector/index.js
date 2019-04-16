@@ -71,12 +71,12 @@ export class CommunitySelector extends React.PureComponent {
     // To form options array I need to get 2 groups: communities where I AM and NOT
     const followedFilteredCommunities = getFollowedCommunities(
       communities,
-      followedCommunities,
+      followedCommunities || [],
     );
 
     const unfollowedFilteredCommunities = getUnfollowedCommunities(
       communities,
-      followedCommunities,
+      followedCommunities || [],
     );
 
     let options = [];

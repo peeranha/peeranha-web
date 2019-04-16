@@ -107,7 +107,7 @@ export class Box extends React.PureComponent {
 }
 
 Box.propTypes = {
-  Comp: PropTypes.func,
+  Comp: PropTypes.any,
   props: PropTypes.object,
 };
 

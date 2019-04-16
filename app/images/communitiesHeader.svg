@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+    <g fill="none" fill-rule="nonzero" transform="translate(8 8)">
+        <circle cx="14.5" cy="8.5" r="8" fill="#BBBEC8" stroke="#BBBEC8"/>
+        <circle cx="8.5" cy="19.5" r="8" fill="#BBBEC8" stroke="#BBBEC8"/>
+        <circle cx="20.5" cy="19.5" r="8" fill="#BBBEC8" stroke="#BBBEC8"/>
+        <circle cx="13.5" cy="7.5" r="7.5" fill="#FFF"/>
+        <circle cx="7.5" cy="17.5" r="7.5" fill="#FFF"/>
+        <circle cx="19.5" cy="17.5" r="7.5" fill="#FFF"/>
+        <path fill="#7699FF" d="M13.5 13a7.467 7.467 0 0 1 1.5 4.5 7.467 7.467 0 0 1-1.5 4.5 7.467 7.467 0 0 1-1.5-4.5c0-1.689.558-3.247 1.5-4.5z"/>
+        <path fill="#7699FF" d="M12.453 14.927a7.503 7.503 0 0 1 8.094-4.854 7.503 7.503 0 0 1-8.094 4.854z"/>
+        <path fill="#7699FF" d="M6.453 10.073a7.503 7.503 0 0 1 8.094 4.855 7.503 7.503 0 0 1-8.094-4.855z"/>
+        <path fill="#FFF" d="M13.5 13a7.484 7.484 0 0 1 1.047 1.927 7.565 7.565 0 0 1-2.094 0A7.484 7.484 0 0 1 13.5 13z"/>
+        <circle cx="13.5" cy="7.5" r="8" stroke="#576FED"/>
+        <circle cx="7.5" cy="17.5" r="8" stroke="#576FED"/>
+        <circle cx="19.5" cy="17.5" r="8" stroke="#576FED"/>
+    </g>
+</svg>

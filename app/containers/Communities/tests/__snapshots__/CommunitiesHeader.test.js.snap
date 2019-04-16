@@ -1,26 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CommunitiesHeader test 1`] = `
-<div
-  className="d-flex justify-content-end pb-3"
->
-  <Link
-    href="/communities/suggested"
-    replace={false}
-    to="/communities/suggested"
+<div>
+  <Base
+    className="d-flex align-items-center justify-content-between"
+    position="top"
   >
-    <button
-      className="btn btn-secondary ml-2"
-    >
-      Suggested communities
-    </button>
-  </Link>
-  <button
-    className="btn btn-secondary ml-2"
-    id="app_Communities_GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID"
-    onClick={[MockFunction]}
+    <div>
+      <A
+        href="/communities"
+        to="/communities"
+      >
+        <Span
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.common.communities"
+            values={Object {}}
+          />
+        </Span>
+      </A>
+      <A
+        href="/communities/suggested"
+        to="/communities/suggested"
+      >
+        <Span
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.containers.Communities.voting"
+            values={Object {}}
+          />
+        </Span>
+      </A>
+    </div>
+    <div>
+      <Span
+        className="d-inline-flex align-items-center p-0"
+        isLink={true}
+        onClick={[MockFunction]}
+      >
+        <UNDEFINED
+          icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"18\\" height=\\"18\\" viewBox=\\"0 0 18 18\\">
+      <g fill=\\"#7699FF\\" fill-opacity=\\".2\\" fill-rule=\\"nonzero\\" stroke=\\"#576FED\\">
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(5)\\"/>
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(1 7)\\"/>
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(9 7)\\"/>
+      </g>
+  </svg>
+"
+        />
+        <FormattedMessage
+          id="app.containers.Communities.suggestCommunity"
+          values={Object {}}
+        />
+      </Span>
+    </div>
+  </Base>
+  <Base
+    position="bottom"
   >
-    Create community
-  </button>
+    <UNDEFINED />
+  </Base>
 </div>
 `;

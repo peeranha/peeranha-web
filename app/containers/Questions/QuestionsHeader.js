@@ -5,7 +5,7 @@ import * as routes from 'routes-config';
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
 
-import FollowCommunityButton from 'containers/FollowCommunityButton';
+import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
 
 import CommunitySelector from 'components/CommunitySelector';
 import Base from 'components/Base/BaseRounded';

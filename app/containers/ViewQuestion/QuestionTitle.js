@@ -34,7 +34,7 @@ export const QuestionTitle = /* istanbul ignore next */ ({
 QuestionTitle.propTypes = {
   title: PropTypes.string,
   tags: PropTypes.array,
-  communityId: PropTypes.number,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
 };
 
