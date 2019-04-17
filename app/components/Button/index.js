@@ -1,36 +1,16 @@
-import { white, darkgray, lightgray, gray } from 'style-constants';
-import IconStyled from 'components/Icon/IconStyled';
-import Span from '../Span';
+import Span from 'components/Span';
 
-const A = Span.extend`
+const Button = Span.extend`
   cursor: pointer;
   border-radius: 3px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   text-align: center;
   transition: 0.5s;
-  min-width: 92px;
-  padding: 4px 15px;
 
   position: relative;
   overflow: hidden;
 
-  ${IconStyled} {
-    stroke: ${white};
-    fill: ${white};
-    color: ${white};
-  }
-
   :disabled {
-    border: 1px solid ${gray};
-    background-color: ${lightgray};
-    color: ${darkgray};
-    box-shadow: none;
-
-    ${IconStyled} {
-      stroke: ${gray};
-      fill: ${gray};
-      color: ${gray};
-    }
+    opacity: 0.6;
   }
 
   :after {
@@ -67,4 +47,4 @@ const A = Span.extend`
   }
 `.withComponent('button');
 
-export default A;
+export default Button;

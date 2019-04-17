@@ -25,4 +25,8 @@ injectGlobal`
     min-height: 100%;
     min-width: 100%;
   }
+
+  .container {
+    max-width: 1320px;
+  }
 `;

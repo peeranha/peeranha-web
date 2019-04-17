@@ -9,12 +9,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-import { pink } from 'style-constants';
+import { white } from 'style-constants';
 import createdHistory from 'createdHistory';
 
 import Input from 'components/Input';
-import RoundedButton from 'components/Button/RoundedButton';
-import LargeButton from 'components/Button/LargeButton';
+import RoundedButton from 'components/Button/Contained/InfoRoundedMedium';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 
 import * as routes from 'routes-config';
@@ -35,7 +35,7 @@ import UserProfileNav from './UserProfileNav';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
-  background: ${pink};
+  background: ${white};
 `;
 
 export const LoginProfile = React.memo(
@@ -102,12 +102,12 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 isSearchable
               />
 
-              <RoundedButton
+              <RoundedButtonStyled
                 className="d-flex justify-content-center align-items-center d-lg-none"
                 onClick={addQuestionRoute}
               >
                 <Icon icon={searchIcon} noMargin />
-              </RoundedButton>
+              </RoundedButtonStyled>
 
               <LargeButton
                 className="d-none d-lg-flex"
@@ -118,13 +118,13 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 <FormattedMessage {...messages.addQuestion} />
               </LargeButton>
 
-              <RoundedButtonStyled
+              <RoundedButton
                 className="d-flex justify-content-center align-items-center d-lg-none"
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
                 <Icon icon={addIcon} noMargin />
-              </RoundedButtonStyled>
+              </RoundedButton>
             </React.Fragment>
           )}
 

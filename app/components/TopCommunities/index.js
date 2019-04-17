@@ -14,7 +14,7 @@ import A from 'components/A';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Base from 'components/Base';
-import OutlinedButton from 'components/Button/OutlinedButton';
+import OutlinedButton from 'components/Button/Outlined/InfoLarge';
 import MediumImage from 'components/Img/MediumImage';
 
 const CommunitiesFormStyled = styled.div`

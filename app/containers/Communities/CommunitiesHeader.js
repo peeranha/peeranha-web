@@ -7,7 +7,7 @@ import commonMessages from 'common-messages';
 import createCommunityIcon from 'svg/createCommunity';
 
 import Base from 'components/Base';
-import NavigationButton from 'components/Button/NavigationButton';
+import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 import Icon from 'components/Icon';
 

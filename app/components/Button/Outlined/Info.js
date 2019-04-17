@@ -1,12 +1,16 @@
 import { transparent, pink, white } from 'style-constants';
-import A from './A';
+import IconStyled from 'components/Icon/IconStyled';
 
-const OutlinedButton = A.extend`
+import Button from '../index';
+
+const OutlinedButton = Button.extend`
   background: ${transparent};
   border: 1px solid ${pink};
   color: ${pink};
-  padding: 4px 20px;
-  box-shadow: none;
+
+  ${IconStyled} {
+    stroke: ${pink};
+  }
 
   :hover {
     color: ${white};

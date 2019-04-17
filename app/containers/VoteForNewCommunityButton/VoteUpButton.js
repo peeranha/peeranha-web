@@ -3,32 +3,18 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
-import Dropdown from 'components/Dropdown';
-import OutlinedButton from 'components/Button/OutlinedButton';
+import OutlinedButton from 'components/Button/Outlined/InfoStretching';
 
 import Button from './index';
-import Warning from './Warning';
 import AlreadyVoted from './AlreadyVoted';
 
 import { UPVOTE_METHOD } from './constants';
 
-const B = OutlinedButton.extend`
-  position: relative;
-`.withComponent('span');
-
-const D = /* istanbul ignore next */ ({ communityId, onClick, id }) => (
-  <Dropdown
-    id={`vote_comm_id_${communityId}`}
-    button={
-      <B id={id} className="px-1">
-        <FormattedMessage {...commonMessages.agree} />
-      </B>
-    }
-    menu={<Warning onClick={onClick} />}
-  />
-);
-
-const VoteUpButton = /* istanbul ignore next */ ({ id, communityId }) => (
+const VoteUpButton = /* istanbul ignore next */ ({
+  id,
+  communityId,
+  className,
+}) => (
   <Button
     communityId={communityId}
     id={id}
@@ -41,9 +27,15 @@ const VoteUpButton = /* istanbul ignore next */ ({ id, communityId }) => (
       downvotesNumber,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <D id={id} communityId={communityId} onClick={onClick} />
+        <OutlinedButton className={className} onClick={onClick} id={id}>
+          <FormattedMessage {...commonMessages.agree} />
+        </OutlinedButton>
       ) : (
-        <AlreadyVoted choice={isUpvoted}>
+        <AlreadyVoted
+          onClick={onClick}
+          className={className}
+          choice={isUpvoted}
+        >
           <p>
             <FormattedMessage {...commonMessages.agree} />
           </p>
@@ -54,14 +46,9 @@ const VoteUpButton = /* istanbul ignore next */ ({ id, communityId }) => (
   />
 );
 
-D.propTypes = {
-  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  id: PropTypes.string,
-  onClick: PropTypes.func,
-};
-
 VoteUpButton.propTypes = {
   id: PropTypes.string,
+  className: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

@@ -10,7 +10,7 @@ import questionIcon from 'images/question.svg';
 import closeIcon from 'images/closeCircle.svg';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
 import Tips from 'components/TextEditor/Tips';

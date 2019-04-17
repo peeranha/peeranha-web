@@ -20,7 +20,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import H3 from 'components/H3';
 import A from 'components/A';
-import NavigationButton from 'components/Button/NavigationButton';
+import NavigationButton from 'components/Button/Contained/Navigation';
 import Icon from 'components/Icon';
 
 import LargeImage from 'components/Img/LargeImage';

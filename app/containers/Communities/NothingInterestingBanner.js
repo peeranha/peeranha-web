@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import communitySuggestBanner from 'images/communitySuggest.svg';
 

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import crownIcon from 'svg/crownIcon';
 
-import Button from 'components/Button/NavigationButton';
+import Button from 'components/Button';
 import Icon from 'components/Icon';
 
 import MarkAsAcceptedIcon from './MarkAsAcceptedIcon';

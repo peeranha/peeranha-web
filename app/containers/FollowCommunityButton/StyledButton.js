@@ -3,27 +3,29 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import okayIcon from 'svg/okay';
-import { blue, transparent } from 'style-constants';
 
-import OutlinedButton from 'components/Button/OutlinedButton';
+import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 import Icon from 'components/Icon';
 
 import Button from './index';
 import messages from './messages';
 
-/* istanbul ignore next */
-const BStyled = OutlinedButton.extend`
-  background-color: ${x => (x['data-isfollowed'] ? blue : transparent)};
-  border: ${x => (x['data-isfollowed'] ? 'none' : '')};
-`;
+const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => {
+  if (isFollowed) {
+    return (
+      <PrimaryButton data-isfollowed={isFollowed} onClick={onClick}>
+        <Icon icon={okayIcon} noMargin />
+      </PrimaryButton>
+    );
+  }
 
-const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => (
-  <BStyled data-isfollowed={isFollowed} onClick={onClick}>
-    {!isFollowed && <FormattedMessage {...messages.follow} />}
-
-    {isFollowed && <Icon icon={okayIcon} noMargin />}
-  </BStyled>
-);
+  return (
+    <InfoButton data-isfollowed={isFollowed} onClick={onClick}>
+      <FormattedMessage {...messages.follow} />
+    </InfoButton>
+  );
+};
 
 export const StyledButton = /* istanbul ignore next */ ({
   communityIdFilter,

@@ -44,7 +44,11 @@ const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
           {x.description}
         </P>
         <div className="d-flex justify-content-between">
-          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
+          <VoteUpButton
+            className="mr-2"
+            id={`voteup_${x.id}`}
+            communityId={x.id}
+          />
           <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
         </div>
       </Item>

@@ -3,21 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { blue } from 'style-constants';
 import messages from 'common-messages';
 
-import LargeButton from 'components/Button/LargeButton';
+import InfoButton from 'components/Button/Contained/InfoLarge';
+import TransparentButton from 'components/Button/Contained/TransparentLarge';
 import TextareaField from 'components/FormFields/TextareaField';
 import { strLength20x1000, required } from 'components/FormFields/validate';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
-
-const CancelButton = LargeButton.extend`
-  background: none;
-  border: none;
-  box-shadow: none;
-  color: ${blue};
-`;
 
 /* eslint-disable-next-line */
 let CommentForm = /* istanbul ignore next */ ({
@@ -41,17 +34,17 @@ let CommentForm = /* istanbul ignore next */ ({
       />
     </div>
     <div>
-      <LargeButton
+      <InfoButton
         id={`${submitButtonId}${answerId}`}
         disabled={sendCommentLoading}
         typeAttr="submit"
       >
         {submitButtonName}
-      </LargeButton>
+      </InfoButton>
 
-      <CancelButton onClick={() => toggleView(true)} typeAttr="button">
+      <TransparentButton onClick={() => toggleView(true)} typeAttr="button">
         <FormattedMessage {...messages.cancel} />
-      </CancelButton>
+      </TransparentButton>
     </div>
   </form>
 );

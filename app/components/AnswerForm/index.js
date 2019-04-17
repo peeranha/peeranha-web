@@ -6,7 +6,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import TextEditorField from 'components/FormFields/TextEditorField';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
