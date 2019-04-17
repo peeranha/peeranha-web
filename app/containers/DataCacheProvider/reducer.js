@@ -25,7 +25,7 @@ export const initialState = fromJS({
   getUserProfileError: null,
 });
 
-/* eslint no-param-reassign: 0 */
+/* eslint no-param-reassign: 0, indent: 0 */
 function dataCacheProviderReducer(state = initialState, action) {
   const {
     type,
@@ -64,10 +64,12 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_USER_PROFILE_SUCCESS:
       return state.set('usersLoading', false).set(
         'users',
-        fromJS({
-          ...state.get('users').toJS(),
-          [profile.user]: profile,
-        }),
+        profile
+          ? fromJS({
+              ...state.get('users').toJS(),
+              [profile.user]: profile,
+            })
+          : state.get('users'),
       );
 
     case GET_USER_PROFILE_ERROR:

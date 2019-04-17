@@ -10,8 +10,10 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
+import { clearSuggestedCommunities } from 'containers/Communities/actions';
 
 import { UPVOTE, DOWNVOTE } from './constants';
 
@@ -63,6 +65,7 @@ export function* upVoteWorker({ communityId, buttonId }) {
       upVoteToCreateCommunity(eosService, selectedAccount, communityId),
     );
 
+    yield put(clearSuggestedCommunities());
     yield call(() => getSuggestedCommunitiesWorker());
 
     yield put(upVoteSuccess());
@@ -110,6 +113,7 @@ export function* downVoteWorker({ communityId, buttonId }) {
       downVoteToCreateCommunity(eosService, selectedAccount, communityId),
     );
 
+    yield put(clearSuggestedCommunities());
     yield call(() => getSuggestedCommunitiesWorker());
 
     yield put(downVoteSuccess());

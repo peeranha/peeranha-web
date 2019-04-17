@@ -11,6 +11,7 @@ import {
   getUserProfileErr,
 } from '../actions';
 
+/* eslint indent: 0 */
 describe('dataCacheProviderReducer', () => {
   let state;
   beforeEach(() => {
@@ -72,10 +73,12 @@ describe('dataCacheProviderReducer', () => {
 
     const obj = state.set('usersLoading', false).set(
       'users',
-      fromJS({
-        ...state.get('users').toJS(),
-        [profile.user]: profile,
-      }),
+      profile
+        ? fromJS({
+            ...state.get('users').toJS(),
+            [profile.user]: profile,
+          })
+        : state.get('users'),
     );
 
     expect(
