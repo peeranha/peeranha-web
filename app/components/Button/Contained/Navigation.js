@@ -5,7 +5,7 @@ import PrimaryLarge from './PrimaryLarge';
 
 /* istanbul ignore next */
 const NavigationButton = PrimaryLarge.extend`
-  padding: 4px 15px;
+  padding: 6px 15px;
 
   ${({ isLink }) =>
     isLink
@@ -13,7 +13,7 @@ const NavigationButton = PrimaryLarge.extend`
     color: ${blue};
     background: ${transparent};
 
-    ${IconStyled} {
+    ${IconStyled} * {
       stroke: ${blue};
     }
   `

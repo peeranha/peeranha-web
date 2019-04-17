@@ -33,8 +33,12 @@ const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (
           <FormattedMessage {...commonMessages.disagree} />
         </OutlinedButtonStyled>
       ) : (
-        <AlreadyVoted onClick={onClick} choice={isDownvoted}>
-          <p>
+        <AlreadyVoted
+          className="flex-column"
+          onClick={onClick}
+          choice={isDownvoted}
+        >
+          <p className="pb-1">
             <FormattedMessage {...commonMessages.disagree} />
           </p>
           <p>{`${downvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>

@@ -33,10 +33,10 @@ const VoteUpButton = /* istanbul ignore next */ ({
       ) : (
         <AlreadyVoted
           onClick={onClick}
-          className={className}
+          className={`flex-column ${className}`}
           choice={isUpvoted}
         >
-          <p>
+          <p className="pb-1">
             <FormattedMessage {...commonMessages.agree} />
           </p>
           <p>{`${upvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>

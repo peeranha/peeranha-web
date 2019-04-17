@@ -6,7 +6,10 @@ import {
   transparent,
   APP_FONT,
 } from 'style-constants';
+
 import styled from 'styled-components';
+
+import IconStyled from 'components/Icon/IconStyled';
 
 /* istanbul ignore next */
 const ErrorHandling = error => `
@@ -44,7 +47,7 @@ const InputStyled = styled.div`
   transition: 0.5s;
   flex: 1;
 
-  .chevron {
+  ${IconStyled} {
     position: absolute;
     right: 14px;
     cursor: pointer;

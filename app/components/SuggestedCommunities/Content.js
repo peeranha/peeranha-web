@@ -49,8 +49,8 @@ const Item = /* istanbul ignore next */ x => {
 
   return (
     <ItemStyled key={x.id}>
-      <Header className="d-flex justify-content-between">
-        <div className="col-xl-8 d-flex align-items-center p-0">
+      <Header className="row align-items-center">
+        <div className="col-xl-9 d-flex align-items-center">
           <MediumImageStyled
             className="mr-3"
             src={x.avatar}
@@ -61,8 +61,12 @@ const Item = /* istanbul ignore next */ x => {
           </Span>
         </div>
 
-        <div className="col-xl-4 d-flex justify-content-between p-0">
-          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
+        <div className="col-xl-3 d-flex justify-content-between">
+          <VoteUpButton
+            className="mr-2"
+            id={`voteup_${x.id}`}
+            communityId={x.id}
+          />
           <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
         </div>
       </Header>

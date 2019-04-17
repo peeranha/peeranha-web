@@ -1,10 +1,14 @@
-import Span from 'components/Span';
+import styled from 'styled-components';
 
-const Button = Span.extend`
+const Button = styled.button`
   cursor: pointer;
   border-radius: 3px;
   text-align: center;
   transition: 0.5s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   position: relative;
   overflow: hidden;
@@ -45,6 +49,6 @@ const Button = Span.extend`
   :focus:not(:active)::after {
     animation: ripple 1s ease-out;
   }
-`.withComponent('button');
+`;
 
 export default Button;

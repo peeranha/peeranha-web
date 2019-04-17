@@ -1,6 +1,6 @@
 import Info from './Info';
 
 export default Info.extend`
-  padding: 4px 15px;
+  padding: 5px 15px;
   min-width: 92px;
 `;
