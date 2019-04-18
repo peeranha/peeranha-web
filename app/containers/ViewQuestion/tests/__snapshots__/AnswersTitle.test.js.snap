@@ -12,7 +12,7 @@ exports[`AnswersTitle test 1`] = `
    
   <Span
     bold={true}
-    color="gray"
+    color="#7b7b7b"
     fontSize="30"
   >
     0

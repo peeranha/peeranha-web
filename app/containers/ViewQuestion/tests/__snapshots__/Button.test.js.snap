@@ -5,12 +5,14 @@ exports[`BlockButton snapshot tests 1`] = `
   params={Object {}}
   show={true}
 >
-  <Span />
+  <Span
+    className="d-flex align-items-center"
+  />
 </Button>
 `;
 
 exports[`Button snapshot tests 1`] = `
-<button
-  className="d-inline-flex align-items-center undefined"
+<Button
+  className="d-inline-flex align-items-center pl-4 undefined"
 />
 `;

@@ -2,11 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import IconStyled from 'components/Icon/IconStyled';
 
-import {
-  TEXT_PRIMARY,
-  BORDER_SECONDARY,
-  TEXT_SECONDARY,
-} from 'style-constants';
+import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import notificationIcon from 'svg/notification';
 
@@ -26,10 +22,6 @@ const ButtonStyled = styled.span`
   justify-content: center;
   align-items: center;
 
-  ${IconStyled} * {
-    stroke: ${TEXT_SECONDARY};
-  }
-
   :hover {
     border: 1px solid ${BORDER_SECONDARY};
 
@@ -45,13 +37,6 @@ const MenuStyled = styled.div`
   li {
     padding: 15px;
     border-bottom: 1px solid ${BORDER_SECONDARY};
-  }
-`;
-
-const AStyled = A.extend`
-  * {
-    color: ${TEXT_PRIMARY};
-    stroke: ${TEXT_PRIMARY};
   }
 `;
 
@@ -73,10 +58,10 @@ const Menu = /* istanbul ignore next */ () => (
       </ul>
     </main>
     <footer>
-      <AStyled to="/notifications" href="/notifications">
+      <A to="/notifications" href="/notifications">
         <Icon icon={notificationIcon} />
         <Span>See all</Span>
-      </AStyled>
+      </A>
     </footer>
   </MenuStyled>
 );

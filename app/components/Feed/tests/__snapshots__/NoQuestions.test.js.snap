@@ -11,36 +11,31 @@ exports[`NoQuestions test 1`] = `
   <div
     className="ml-5 mb-2"
   >
-    <p
+    <Span
+      bold={true}
       className="mb-1"
+      fontSize="24"
     >
-      <Span
-        bold={true}
-        fontSize="24"
-      >
-        <FormattedMessage
-          id="app.containers.Questions.youDontHaveFeedToRead"
-          values={Object {}}
-        />
-      </Span>
-    </p>
-    <p>
-      <Span>
-        <FormattedMessage
-          id="app.containers.Questions.subscribeToCommToKeep"
-          values={Object {}}
-        />
-      </Span>
-      <Span
-        className="my-4"
-        disabled={true}
-      >
-        <FormattedMessage
-          id="app.containers.Questions.readMyFeed"
-          values={Object {}}
-        />
-      </Span>
-    </p>
+      <FormattedMessage
+        id="app.containers.Questions.youDontHaveFeedToRead"
+        values={Object {}}
+      />
+    </Span>
+    <Span>
+      <FormattedMessage
+        id="app.containers.Questions.subscribeToCommToKeep"
+        values={Object {}}
+      />
+    </Span>
+    <Button
+      className="my-4"
+      disabled={true}
+    >
+      <FormattedMessage
+        id="app.containers.Questions.readMyFeed"
+        values={Object {}}
+      />
+    </Button>
   </div>
 </Base>
 `;

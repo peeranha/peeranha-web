@@ -14,7 +14,7 @@ exports[`CommentOptions test 1`] = `
         src="IMAGE_MOCK"
       />
       <Span
-        color="blue"
+        color="#576fed"
       >
         <FormattedMessage
           id="app.containers.ViewQuestion.addComment"

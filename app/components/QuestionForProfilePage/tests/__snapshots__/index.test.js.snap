@@ -44,7 +44,7 @@ exports[`QuestionForProfilePage snapshot test 1`] = `
     >
       <Span
         className="text-capitalize mr-3"
-        color="gray"
+        color="#7b7b7b"
         fontSize="14"
       >
         <FormattedMessage

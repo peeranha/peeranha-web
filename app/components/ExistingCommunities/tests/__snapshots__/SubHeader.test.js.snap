@@ -18,7 +18,7 @@ exports[`SubHeader test 1`] = `
     <Span
       bold={true}
       className="ml-2"
-      color="gray"
+      color="#7b7b7b"
       fontSize="30"
     >
       10

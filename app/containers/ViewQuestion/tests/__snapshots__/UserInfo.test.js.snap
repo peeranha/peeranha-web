@@ -27,8 +27,8 @@ exports[`UserInfo test 1`] = `
       />
     </A>
     <Span
-      color="gray"
-      fontSize={14}
+      color="#7b7b7b"
+      fontSize="14"
     >
       <FormattedMessage
         id="app.common.asked"

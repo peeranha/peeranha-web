@@ -7,7 +7,7 @@ exports[`MarkAsAcceptedIcon test, return {} 1`] = `
   data-whowasaccepted="whoWasAccepted"
   onClick={[MockFunction]}
 >
-  <Span
+  <Button
     bg="#FFF"
     className="mr-2"
   >
@@ -20,7 +20,7 @@ exports[`MarkAsAcceptedIcon test, return {} 1`] = `
 "
       noMargin={true}
     />
-  </Span>
+  </Button>
   <FormattedMessage
     id="app.containers.ViewQuestion.theBestAnswer"
     values={Object {}}
