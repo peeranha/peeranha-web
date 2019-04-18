@@ -20,15 +20,16 @@ import messages from './messages';
 const BaseStyled = Base.extend`
   padding: 0;
   border-right: 1px solid ${gray};
+  flex-basis: 210px;
 `;
 
 export const ContentHeader = /* istanbul ignore next */ props => (
   <Base position="top" className="d-flex align-items-center p-0">
-    <BaseStyled className="col-12 col-sm-3">
+    <BaseStyled>
       <ContentRating {...props} />
     </BaseStyled>
 
-    <div className="col-12 col-sm-9 p-0">
+    <div className="flex-grow-1">
       <Base className="d-flex align-items-center justify-content-between">
         <UserInfo
           avatar={props.userInfo.ipfs_avatar}
@@ -42,7 +43,6 @@ export const ContentHeader = /* istanbul ignore next */ props => (
 
         <div>
           <Button
-            className="ml-3"
             show={props.isItWrittenByMe}
             params={props.buttonParams}
             onClick={props.editItem}
@@ -54,7 +54,6 @@ export const ContentHeader = /* istanbul ignore next */ props => (
           </Button>
 
           <Button
-            className="ml-3"
             show={props.isItWrittenByMe}
             id={`${props.type}_delete_${props.answerId}`}
             params={props.buttonParams}
@@ -68,7 +67,6 @@ export const ContentHeader = /* istanbul ignore next */ props => (
 
           <BlockButton
             isItWrittenByMe={props.isItWrittenByMe}
-            className="ml-3"
             id={`${props.type}_vote_to_delete_${props.answerId}`}
             params={props.buttonParams}
             onClick={props.voteToDelete}

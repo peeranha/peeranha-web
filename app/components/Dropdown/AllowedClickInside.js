@@ -12,6 +12,10 @@ export const MenuStyled = Menu.extend`
   z-index: 2;
 `;
 
+const TargetButton = styled.div`
+  cursor: pointer;
+`;
+
 const Blanket = styled.div`
   bottom: 0;
   left: 0;
@@ -32,21 +36,21 @@ const Dropdown /* istanbul ignore next */ = ({
   children,
   isOpen,
   target,
-  onClose,
+  toggle,
   isArrowed,
 }) => (
   <div className="position-relative">
-    <div className="d-flex align-items-center">
+    <TargetButton className="d-flex align-items-center" onClick={toggle}>
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>
           <Icon className="mx-3" icon={arrowDownIcon} />
         </Chevron>
       )}
-    </div>
+    </TargetButton>
 
     {isOpen ? <MenuStyled>{children}</MenuStyled> : null}
-    {isOpen ? <Blanket onClick={onClose} /> : null}
+    {isOpen ? <Blanket onClick={toggle} /> : null}
   </div>
 );
 
@@ -54,7 +58,7 @@ Dropdown.propTypes = {
   children: PropTypes.any,
   isOpen: PropTypes.bool,
   target: PropTypes.any,
-  onClose: PropTypes.func,
+  toggle: PropTypes.func,
   isArrowed: PropTypes.bool,
 };
 

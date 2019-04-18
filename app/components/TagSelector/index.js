@@ -56,12 +56,11 @@ export const TagSelector = /* istanbul ignore next */ ({
     <Wrapper label={label} tip={tip} meta={meta}>
       <Dropdown
         isOpen={isOpen}
-        onClose={() => toggleOpen(false)}
+        toggle={() => toggleOpen(!isOpen)}
         target={
           <TagsContainer
             disabled={disabled}
             error={meta.touched && (meta.warning || meta.error)}
-            onClick={() => (!disabled ? toggleOpen(true) : null)}
           >
             {value.map(x => (
               <Tag>

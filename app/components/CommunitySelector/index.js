@@ -118,10 +118,9 @@ export class CommunitySelector extends React.PureComponent {
       <Dropdown
         isArrowed={isArrowed}
         isOpen={isOpen}
-        onClose={this.toggleOpen}
+        toggle={this.toggleOpen}
         target={
           <Button
-            toggleOpen={this.toggleOpen}
             communityAvatar={selectedValue ? selectedValue.avatar : null}
             communityLabel={selectedValue ? selectedValue.label : null}
           />

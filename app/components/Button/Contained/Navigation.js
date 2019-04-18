@@ -5,7 +5,7 @@ import PrimaryLarge from './PrimaryLarge';
 
 /* istanbul ignore next */
 const NavigationButton = PrimaryLarge.extend`
-  padding: 6px 15px;
+  padding: 6px 20px;
 
   ${({ isLink }) =>
     isLink

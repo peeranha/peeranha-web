@@ -52,7 +52,7 @@ import NothingInterestingBanner from './NothingInterestingBanner';
 
 const AsideWrapper = BaseTransparent.extend`
   width: ${LEFT_MENU_WIDTH}px;
-`;
+`.withComponent('aside');
 
 /* eslint indent: 0 */
 /* eslint-disable react/prefer-stateless-function */

@@ -29,12 +29,16 @@ import {
 const CommentManage = styled.div`
   opacity: 0;
 
-  ${Span} {
-    font-size: 14px;
-  }
+  button {
+    padding-left: 15px !important;
 
-  ${IconStyled} {
-    margin-right: 5px;
+    ${Span} {
+      font-size: 14px;
+    }
+
+    ${IconStyled} {
+      margin-right: 5px;
+    }
   }
 `;
 
@@ -51,7 +55,7 @@ const CommentEditStyled = styled.li`
 const CommentsStyled = styled.ul`
   ${CommentViewStyled} {
     border: 1px solid ${gray};
-    padding: 10px 15px;
+    padding: 5px 15px 8px 15px;
 
     :first-child {
       border-top-left-radius: 3px;
@@ -116,7 +120,6 @@ const CommentView = /* istanbul ignore next */ item => (
 
       <CommentManage>
         <Button
-          className="ml-1"
           show={item.isItWrittenByMe}
           params={{
             ...item.buttonParams,
@@ -132,7 +135,6 @@ const CommentView = /* istanbul ignore next */ item => (
         </Button>
 
         <Button
-          className="ml-1"
           show={item.isItWrittenByMe}
           id={`comment__${item.answerId}${item.id}`}
           params={{
@@ -151,7 +153,6 @@ const CommentView = /* istanbul ignore next */ item => (
         <BlockButton
           show
           id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          className="ml-1"
           isVotedToDelete={item.isVotedToDelete}
           isItWrittenByMe={item.isItWrittenByMe}
           onClick={item.voteToDelete}

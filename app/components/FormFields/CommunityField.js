@@ -36,12 +36,11 @@ export const CommunityField = /* istanbul ignore next */ ({
       input={input}
       disabled={disabled}
       selectedCommunityId={input.value ? input.value.id : 0}
-      Button={({ toggleOpen, communityAvatar, communityLabel }) => (
+      Button={({ communityAvatar, communityLabel }) => (
         <Div
           className="d-flex align-items-center"
           error={meta.touched && (meta.error || meta.warning)}
           disabled={disabled}
-          onClick={toggleOpen}
         >
           {communityAvatar && (
             <React.Fragment>

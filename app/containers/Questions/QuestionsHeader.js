@@ -17,6 +17,10 @@ import myFeedIcon from 'images/myFeed.svg';
 
 const feed = routes.feed();
 
+const ButtonStyled = H3.extend`
+  position: relative;
+`.withComponent('span');
+
 export const QuestionsHeader = /* istanbul ignore next */ ({
   intl,
   getInitQuestions,
@@ -38,14 +42,14 @@ export const QuestionsHeader = /* istanbul ignore next */ ({
   }
 
   /* eslint react/prop-types: 0 */
-  const Button = ({ toggleOpen, communityAvatar, communityLabel }) => (
-    <H3 className="d-flex align-items-end" onClick={toggleOpen}>
+  const Button = ({ communityAvatar, communityLabel }) => (
+    <ButtonStyled className="d-flex align-items-end">
       <MediumImageStyled
         src={communityAvatar || defaultAvatar}
         alt="communityAvatar"
       />
       <span>{communityLabel || defaultLabel}</span>
-    </H3>
+    </ButtonStyled>
   );
 
   return (
