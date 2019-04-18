@@ -49,7 +49,10 @@ const LiExtended = Li.extend`
   }
 
   ${({ route }) =>
-    window.location.pathname.match(route)
+    window.location.pathname
+      .split('/')
+      .filter(x => x.length > 0)[0]
+      .match(route.split('/').filter(x => x.length > 0)[0])
       ? `
     background-color: rgba(53,74,137,0.11);
     border-color: ${darkblue};
