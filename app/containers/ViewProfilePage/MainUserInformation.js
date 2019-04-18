@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 
@@ -75,14 +76,14 @@ const MainUserInformation = /* istanbul ignore next */ ({
         <div className="d-flex align-items-center">
           <UlStyled>
             <LiStyled>
-              <Span color="gray" fontSize="13">
+              <Span color={TEXT_SECONDARY} fontSize="13">
                 <FormattedMessage {...messages.reputation} />
               </Span>
               <RatingStatus rating={profile.rating} size="lg" />
             </LiStyled>
 
             <LiStyled>
-              <Span color="gray" fontSize="13">
+              <Span color={TEXT_SECONDARY} fontSize="13">
                 <FormattedMessage {...commonMessages.questions} />
               </Span>
               <Span
@@ -100,7 +101,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
             </LiStyled>
 
             <LiStyled>
-              <Span color="gray" fontSize="13">
+              <Span color={TEXT_SECONDARY} fontSize="13">
                 <FormattedMessage {...commonMessages.answers} />
               </Span>
               <Span
@@ -118,7 +119,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
             </LiStyled>
 
             <LiStyled>
-              <Span color="gray" fontSize="13">
+              <Span color={TEXT_SECONDARY} fontSize="13">
                 <FormattedMessage {...messages.risen} />
               </Span>
               <Span
@@ -136,7 +137,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
             </LiStyled>
 
             <LiStyled last>
-              <Span color="gray" fontSize="13">
+              <Span color={TEXT_SECONDARY} fontSize="13">
                 <FormattedMessage {...messages.memberSince} />
                 <span>{getFormattedDate(profile.registration_time)}</span>
               </Span>

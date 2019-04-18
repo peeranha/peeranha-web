@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { white, blue } from 'style-constants';
+import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
@@ -31,7 +31,7 @@ const BackSide = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: ${white};
+  background: ${BG_LIGHT};
   display: none;
   border-radius: 5px;
 
@@ -100,7 +100,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     <Span fontSize="16" bold>
                       {getFormattedNum2(x.users || 9999)}
                     </Span>
-                    <Span className="mt-1" fontSize="14" color="gray">
+                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
                       <FormattedMessage {...messages.users} />
                     </Span>
                   </div>
@@ -108,7 +108,7 @@ const TopCommunities = /* istanbul ignore next */ ({
                     <Span fontSize="16" bold>
                       {getFormattedNum2(x.popularity)}
                     </Span>
-                    <Span className="mt-1" fontSize="14" color="gray">
+                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
                       <FormattedMessage {...messages.questions} />
                     </Span>
                   </div>
@@ -139,7 +139,7 @@ const TopCommunities = /* istanbul ignore next */ ({
       </div>
       <div className="my-3">
         <A to={communitiesRoute} href={communitiesRoute}>
-          <OutlinedButton bg={blue} className="py-2 w-100">
+          <OutlinedButton className="py-2 w-100">
             <FormattedMessage {...messages.see} />{' '}
             <FormattedMessage {...messages.all} />{' '}
             <FormattedMessage {...messages.communities} />

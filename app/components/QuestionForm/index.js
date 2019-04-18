@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape } from 'react-intl';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import questionIcon from 'images/question.svg';
 import closeIcon from 'images/closeCircle.svg';
@@ -79,7 +80,7 @@ let QuestionForm = /* istanbul ignore next */ ({
             className="d-inline-flex align-items-center"
           >
             <img className="mr-1" src={closeIcon} alt="x" />
-            <Span color="blue">
+            <Span color={TEXT_PRIMARY}>
               {intl.formatMessage({ id: commonMessages.close.id })}
             </Span>
           </A>

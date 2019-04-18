@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { gray, blue, transparent } from 'style-constants';
 import { FormattedMessage } from 'react-intl';
+
+import {
+  TEXT_PRIMARY,
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_TRANSPARENT,
+} from 'style-constants';
 
 import editSmallIcon from 'svg/editSmallIcon';
 import deleteSmallIcon from 'svg/deleteSmallIcon';
@@ -54,7 +60,7 @@ const CommentEditStyled = styled.li`
 
 const CommentsStyled = styled.ul`
   ${CommentViewStyled} {
-    border: 1px solid ${gray};
+    border: 1px solid ${BORDER_SECONDARY};
     padding: 5px 15px 8px 15px;
 
     :first-child {
@@ -68,11 +74,11 @@ const CommentsStyled = styled.ul`
     }
 
     :not(:last-child) {
-      border-bottom-color: ${transparent};
+      border-bottom-color: ${BORDER_TRANSPARENT};
     }
 
     :hover {
-      border-color: ${blue};
+      border-color: ${BORDER_PRIMARY};
 
       ${CommentManage} {
         opacity: 1;
@@ -128,7 +134,7 @@ const CommentView = /* istanbul ignore next */ item => (
           }}
           onClick={() => item.toggleView(!item.isView)}
         >
-          <Span color="blue">
+          <Span color={TEXT_PRIMARY}>
             <Icon icon={editSmallIcon} />
             <FormattedMessage {...messages.editButton} />
           </Span>
@@ -144,7 +150,7 @@ const CommentView = /* istanbul ignore next */ item => (
           }}
           onClick={item.deleteComment}
         >
-          <Span color="blue">
+          <Span color={TEXT_PRIMARY}>
             <Icon icon={deleteSmallIcon} />
             <FormattedMessage {...messages.deleteButton} />
           </Span>

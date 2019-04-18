@@ -1,4 +1,4 @@
-import { transparent, blue } from 'style-constants';
+import { BG_TRANSPARENT, TEXT_PRIMARY } from 'style-constants';
 import IconStyled from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
@@ -10,11 +10,11 @@ const NavigationButton = PrimaryLarge.extend`
   ${({ isLink }) =>
     isLink
       ? `
-    color: ${blue};
-    background: ${transparent};
+    color: ${TEXT_PRIMARY};
+    background: ${BG_TRANSPARENT};
 
     ${IconStyled} * {
-      stroke: ${blue};
+      stroke: ${TEXT_PRIMARY};
     }
   `
       : ``};

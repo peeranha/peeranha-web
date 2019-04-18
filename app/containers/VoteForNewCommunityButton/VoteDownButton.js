@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 
 import OutlinedButton from 'components/Button/Outlined/InfoStretching';
 
@@ -12,8 +12,8 @@ import AlreadyVoted from './AlreadyVoted';
 import { DOWNVOTE_METHOD } from './constants';
 
 const OutlinedButtonStyled = OutlinedButton.extend`
-  border-color: ${gray};
-  color: ${gray};
+  border-color: ${BORDER_SECONDARY};
+  color: ${TEXT_SECONDARY};
 `;
 
 const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (

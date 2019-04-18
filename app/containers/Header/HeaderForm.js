@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-import { white } from 'style-constants';
+import { BG_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
 
 import Input from 'components/Input';
@@ -35,7 +35,7 @@ import UserProfileNav from './UserProfileNav';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
-  background: ${white};
+  background: ${BG_LIGHT};
 `;
 
 export const LoginProfile = React.memo(

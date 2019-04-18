@@ -10,7 +10,7 @@ import disabledFingerDown from 'images/disabledFingerDown.svg';
 import emptyFingerUp from 'images/emptyFingerUp.svg';
 import emptyFingerDown from 'images/emptyFingerDown.svg';
 
-import { green, pink } from 'style-constants';
+import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Base from 'components/Base';
@@ -22,12 +22,12 @@ import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 const MediumImageStyled = MediumImage.extend`
   ${(props /* istanbul ignore next */) =>
     props.src === greenFingerUpSingleQuestion
-      ? `border: 1px solid ${green};`
+      ? `border: 1px solid ${BORDER_SUCCESS};`
       : ``};
 
   ${(props /* istanbul ignore next */) =>
     props.src === redFingerDownSingleQuestion
-      ? `border: 1px solid ${pink};`
+      ? `border: 1px solid ${BORDER_WARNING_LIGHT};`
       : ``};
 `;
 

@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { blue, gray } from 'style-constants';
+import IconStyled from 'components/Icon/IconStyled';
+
+import {
+  TEXT_PRIMARY,
+  BORDER_SECONDARY,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 import notificationIcon from 'svg/notification';
 
@@ -12,7 +18,7 @@ import A from 'components/A';
 
 const ButtonStyled = styled.span`
   border-radius: 50%;
-  border: 1px solid ${gray};
+  border: 1px solid ${BORDER_SECONDARY};
   font-size: 18px;
   width: 43px;
   height: 43px;
@@ -20,14 +26,15 @@ const ButtonStyled = styled.span`
   justify-content: center;
   align-items: center;
 
-  span[data-icon='icon'] {
-    stroke: ${gray};
+  ${IconStyled} * {
+    stroke: ${TEXT_SECONDARY};
   }
 
   :hover {
-    border: 1px solid ${blue};
-    span[data-icon='icon'] {
-      stroke: ${blue};
+    border: 1px solid ${BORDER_SECONDARY};
+
+    ${IconStyled} * {
+      stroke: ${TEXT_PRIMARY};
     }
   }
 `;
@@ -37,14 +44,14 @@ const MenuStyled = styled.div`
   footer,
   li {
     padding: 15px;
-    border-bottom: 1px solid ${gray};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 `;
 
 const AStyled = A.extend`
   * {
-    color: ${blue};
-    stroke: ${blue};
+    color: ${TEXT_PRIMARY};
+    stroke: ${TEXT_PRIMARY};
   }
 `;
 

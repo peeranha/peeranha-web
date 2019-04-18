@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import myFeedIcon from 'images/myFeed.svg';
 import closeIcon from 'images/closeCircle.svg';
@@ -31,7 +32,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
         className="d-inline-flex align-items-center"
       >
         <img className="mr-1" src={closeIcon} alt="x" />
-        <Span color="blue">
+        <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.close} />
         </Span>
       </A>

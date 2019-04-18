@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
@@ -49,7 +50,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
     <CommunitiesFormStyled>
       <H4 isHeader>
         <FormattedMessage {...messages.communities} />{' '}
-        <Span color="gray" fontSize="30" bold>
+        <Span color={TEXT_SECONDARY} fontSize="30" bold>
           {followedCommunities.length}
         </Span>
       </H4>
@@ -66,7 +67,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
                     <Span bold fontSize="16">
                       {getFormattedNum2(x.users || 9999)}
                     </Span>{' '}
-                    <Span color="gray" fontSize="14">
+                    <Span color={TEXT_SECONDARY} fontSize="14">
                       <FormattedMessage {...messages.users} />
                     </Span>
                   </span>
@@ -79,7 +80,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
         {userId === account && (
           <div className="col-xl-3 d-flex justify-content-center align-items-center mb-2">
             <A to={communitiesRoute} href={communitiesRoute}>
-              <Span color="blue" fontSize="16">
+              <Span color={TEXT_PRIMARY} fontSize="16">
                 <Icon icon={arrowRightIcon} />
                 <FormattedMessage {...messages.subscribeMore} />
               </Span>

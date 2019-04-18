@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
+import { TEXT_PRIMARY_DARK, TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
@@ -31,7 +32,7 @@ const LastAnswer = /* istanbul ignore next */ ({
 }) => {
   if (!lastAnswer) {
     return (
-      <Span fontSize="14" color="gray">
+      <Span fontSize="14" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.noAnswersYet} />
       </Span>
     );
@@ -52,7 +53,7 @@ const LastAnswer = /* istanbul ignore next */ ({
         </A>
       )}
 
-      <Span fontSize="14" color="gray">
+      <Span fontSize="14" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.lastAnswer} />{' '}
         {getFormattedDate(
           lastAnswer.post_time,
@@ -99,7 +100,7 @@ const Question = /* istanbul ignore next */ ({
     >
       <span className="d-flex align-items-center mb-2">
         <Icon icon={answerIconEmptyInside} className="mr-2" />
-        <Span color="darkblue" bold>
+        <Span color={TEXT_PRIMARY_DARK} bold>
           {answers.length}
         </Span>
       </span>

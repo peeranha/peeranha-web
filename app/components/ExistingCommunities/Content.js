@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import _ from 'lodash';
 
 import * as routes from 'routes-config';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -25,7 +25,7 @@ const Base = BaseRounded.extend`
   word-break: break-word;
 
   ${BaseTransparent} {
-    border-bottom: 1px solid ${gray};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
     border-radius: 0;
 
     :last-child {
@@ -96,7 +96,7 @@ const Content = /* istanbul ignore next */ ({
               href={routes.questions(x.id)}
             >
               <Num>{getFormattedNum2('1111')}</Num>
-              <Name color="blue">
+              <Name color={TEXT_PRIMARY}>
                 <FormattedMessage {...commonMessages.questions} />
               </Name>
             </LinkDescription>
@@ -113,7 +113,7 @@ const Content = /* istanbul ignore next */ ({
               href={routes.communityTags(x.id)}
             >
               <Num>{getFormattedNum2(x.tags.length)}</Num>
-              <Name color="blue">
+              <Name color={TEXT_PRIMARY}>
                 <FormattedMessage {...commonMessages.tags} />
               </Name>
             </LinkDescription>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { gray } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 import _ from 'lodash';
 
 import arrowDownIcon from 'svg/arrowDown';
@@ -27,7 +27,7 @@ const ItemStyled = Base.extend`
 `.withComponent('li');
 
 const Header = BaseTransparent.extend`
-  border-bottom: 1px solid ${gray};
+  border-bottom: 1px solid ${TEXT_SECONDARY};
   border-radius: 0;
 `;
 

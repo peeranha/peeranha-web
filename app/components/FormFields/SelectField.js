@@ -5,14 +5,15 @@ import styled from 'styled-components';
 import AsyncSelect from 'react-select/lib/Async';
 
 import {
-  blue,
-  lightgray,
-  transparent,
-  gray,
-  black,
-  white,
+  BORDER_PRIMARY,
+  BG_SECONDARY_LIGHT,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
+  BORDER_SECONDARY,
+  TEXT_DARK,
+  BG_LIGHT,
+  BORDER_SECONDARY_DARK,
   APP_FONT,
-  darkgray,
 } from 'style-constants';
 
 import searchIcon from 'svg/search';
@@ -28,13 +29,13 @@ export const Box = styled.div`
   cursor: pointer;
   height: 36px;
   box-sizing: border-box;
-  border: 1px solid ${transparent};
+  border: 1px solid ${BORDER_TRANSPARENT};
 
   background: ${(props) /* istanbul ignore next */ =>
-    props.isActive ? lightgray : transparent};
+    props.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
 
   :hover {
-    border: 1px solid ${blue};
+    border: 1px solid ${BORDER_PRIMARY};
     background: none;
   }
 `;
@@ -94,20 +95,24 @@ export const Select2 = /* istanbul ignore next */ ({
       styles={{
         control: (base, state) => ({
           ...base,
-          border: `1px solid ${state.isFocused ? blue : gray}`,
-          boxShadow: `0 0 0 3px ${state.isFocused ? blue : transparent}66`,
+          border: `1px solid ${
+            state.isFocused ? BORDER_PRIMARY : BORDER_SECONDARY
+          }`,
+          boxShadow: `0 0 0 3px ${
+            state.isFocused ? BORDER_PRIMARY : BORDER_TRANSPARENT
+          }66`,
           borderRadius: '3px',
-          color: black,
+          color: TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
-          background: `${white} !important`,
+          background: `${BG_LIGHT} !important`,
           minWidth: 300,
           margin: `${menuIsOpen ? '10px' : '5px 0'}`,
           padding: '0 5px',
         }),
         menu: base => ({
           ...base,
-          color: black,
+          color: TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
           position: 'relative',
@@ -117,7 +122,7 @@ export const Select2 = /* istanbul ignore next */ ({
         menuList: base => ({
           ...base,
           paddingBottom: 0,
-          boxShadow: !menuIsOpen ? `0 0 3px ${darkgray}` : `none`,
+          boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY_DARK}` : `none`,
           borderRadius: '3px',
         }),
       }}

@@ -4,7 +4,14 @@ import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
-import { transparent, lightgreen } from 'style-constants';
+
+import {
+  TEXT_PRIMARY_DARK,
+  TEXT_SUCCESS,
+  BG_TRANSPARENT,
+  TEXT_SECONDARY,
+  BG_SUCCESS_LIGHT,
+} from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
@@ -38,7 +45,8 @@ const AdditionalInfo = Base.extend`
   display: flex;
   justify-content: center;
 
-  background: ${props => (props.isAccepted ? lightgreen : transparent)};
+  background: ${props =>
+    props.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT};
 `;
 
 /* eslint camelcase: 0 */
@@ -66,7 +74,10 @@ const QuestionItem = /* istanbul ignore next */ ({
           <Icon
             icon={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
           />
-          <Span color={correct_answer_id ? 'green' : 'darkblue'} bold>
+          <Span
+            color={correct_answer_id ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
+            bold
+          >
             {getFormattedNum(answers.length)}
           </Span>
         </span>
@@ -81,7 +92,7 @@ const QuestionItem = /* istanbul ignore next */ ({
                 : fingerDownAllQuestionsPage
             }
           />
-          <Span color="darkblue" bold>
+          <Span color={TEXT_PRIMARY_DARK} bold>
             {getFormattedNum2(rating)}
           </Span>
         </span>
@@ -102,7 +113,11 @@ const QuestionItem = /* istanbul ignore next */ ({
             {userInfo.display_name}
           </Span>
           <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-          <Span className="text-capitalize mr-3" fontSize="14" color="gray">
+          <Span
+            className="text-capitalize mr-3"
+            fontSize="14"
+            color={TEXT_SECONDARY}
+          >
             <FormattedMessage {...commonMessages.asked} />
             <span className="pl-1">
               {getFormattedDate(post_time, locale, MONTH_3LETTERS__DAY_TIME)}

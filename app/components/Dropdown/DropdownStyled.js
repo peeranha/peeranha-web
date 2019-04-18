@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { darkgray } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
+
+import IconStyled from 'components/Icon/IconStyled';
 
 const DropdownStyled = styled.div`
   display: flex;
@@ -10,10 +12,10 @@ const DropdownStyled = styled.div`
     margin: 0;
   }
 
-  [data-icon='arrow'] span {
+  ${IconStyled} {
     display: inline-block;
     transition: 0.5s;
-    stroke: ${darkgray};
+    stroke: ${TEXT_SECONDARY};
   }
 
   button[aria-expanded='true'] [data-icon='arrow'] span {

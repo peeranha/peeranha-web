@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import Img, { CELL } from 'components/Img';
 import Span from 'components/Span';
@@ -56,7 +57,7 @@ const CustomOption = /* istanbul ignore next */ ({
       <Span>{data.label}</Span>
 
       {!data.value ? (
-        <Span className="pl-2" color="gray">
+        <Span className="pl-2" color={TEXT_SECONDARY}>
           {optionsNumber}
         </Span>
       ) : null}

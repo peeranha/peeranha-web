@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { darkblue, green, blue } from 'style-constants';
+import {
+  TEXT_PRIMARY_DARK,
+  BORDER_PRIMARY_DARK,
+  BG_PRIMARY,
+  BG_SUCCESS,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
@@ -30,8 +36,8 @@ const BaseStyled = Base.extend`
 `;
 
 const Badge = Span.extend`
-  color: ${darkblue};
-  border: 1px solid ${darkblue};
+  color: ${TEXT_PRIMARY_DARK};
+  border: 1px solid ${BORDER_PRIMARY_DARK};
   border-radius: 3px;
   padding: 4px 10px;
   text-align: center;
@@ -44,12 +50,12 @@ const Badge = Span.extend`
 `;
 
 const AcceptedQuestionBadgeStyled = Badge.extend`
-  background: ${green};
+  background: ${BG_SUCCESS};
   border: none;
 `;
 
 const TopCommunityBadgeStyled = Badge.extend`
-  background: ${blue};
+  background: ${BG_PRIMARY};
   border: none;
 `;
 
@@ -123,7 +129,11 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
         </A>
       </p>
       <p className="d-flex align-items-center my-1">
-        <Span className="text-capitalize mr-3" fontSize="14" color="gray">
+        <Span
+          className="text-capitalize mr-3"
+          fontSize="14"
+          color={TEXT_SECONDARY}
+        >
           <FormattedMessage {...messages.asked} />
           <span className="pl-1">
             {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}

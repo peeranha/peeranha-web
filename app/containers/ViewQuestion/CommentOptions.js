@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import dotsIcon from 'images/dots.svg';
 import arrowDownOutlined from 'images/arrowDownOutlined.png';
@@ -57,12 +58,8 @@ export const CommentOptions = /* istanbul ignore next */ ({
             toRotate={isAllCommentsView}
             onClick={() => changeCommentsView(!isAllCommentsView)}
           >
-            <Span
-              className="mr-1"
-              color="black"
-              bold
-            >{`${commentsNumber} `}</Span>
-            <Span className="mr-1 text-lowercase" color="gray">
+            <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
+            <Span className="mr-1 text-lowercase" color={TEXT_SECONDARY}>
               <FormattedMessage {...messages.moreComments} />
             </Span>
             <Img src={arrowDownOutlined} alt="*" />
@@ -71,7 +68,7 @@ export const CommentOptions = /* istanbul ignore next */ ({
 
         <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
           <img className="mr-1" src={dotsIcon} alt="***" />
-          <Span color="blue">
+          <Span color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
         </ButtonStyled>

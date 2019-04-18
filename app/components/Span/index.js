@@ -1,32 +1,11 @@
 import styled from 'styled-components';
 import IconStyled from 'components/Icon/IconStyled';
 
-import {
-  black,
-  blue,
-  darkgray,
-  white,
-  darkblue,
-  pink,
-  darkred,
-  green,
-  APP_FONT,
-} from 'style-constants';
-
-const colors = {
-  black,
-  blue,
-  darkblue,
-  white,
-  pink,
-  green,
-  darkred,
-  gray: darkgray,
-};
+import { APP_FONT, TEXT_DARK } from 'style-constants';
 
 /* istanbul ignore next */
 const Span = styled.span`
-  color: ${({ color }) => (color ? colors[color] : colors.black)};
+  color: ${({ color }) => color || TEXT_DARK};
   opacity: ${({ opacity }) => +opacity || 1};
   font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   font-size: ${({ fontSize }) => (fontSize ? +fontSize : '16')}px;
@@ -36,8 +15,8 @@ const Span = styled.span`
   text-align: left;
 
   ${IconStyled} {
-    stroke: ${({ color }) => (color ? colors[color] : colors.gray)};
-    fill: ${({ color }) => (color ? colors[color] : colors.gray)};
+    stroke: ${({ color }) => color || TEXT_DARK};
+    fill: ${({ color }) => color || TEXT_DARK};
   }
 `;
 

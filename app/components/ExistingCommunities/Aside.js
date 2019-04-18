@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { gray } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 
 import moreVotingIcon from 'images/moreVoting.svg';
@@ -19,7 +19,7 @@ import messages from './messages';
 
 const Item = styled.div`
   word-break: break-word;
-  border-bottom: 1px solid ${gray};
+  border-bottom: 1px solid ${BORDER_SECONDARY};
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
@@ -61,7 +61,7 @@ const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
         href={routes.suggestedCommunities()}
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
-        <Span color="blue">
+        <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...messages.moreVoting} />
         </Span>
       </A>

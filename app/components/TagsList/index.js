@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { blue } from 'style-constants';
+import { BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 import Span from 'components/Span';
 
 const Tag = Span.extend`
-  border: 1px solid ${blue};
-  color: ${blue};
+  border: 1px solid ${BORDER_PRIMARY};
+  color: ${TEXT_PRIMARY};
   font-size: 14px;
   border-radius: 2px;
   margin-right: 8px;

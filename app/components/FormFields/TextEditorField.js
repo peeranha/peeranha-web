@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
@@ -24,14 +24,14 @@ const Div = styled.div`
   }
 
   .editor-toolbar {
-    border-bottom: 1px solid ${gray} !important;
+    border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT} !important;
   }
 `;
 
 const PreviewWrapper = styled.div`
   padding: 10px 0;
-  border-top: 1px dashed ${gray};
-  border-bottom: 1px dashed ${gray};
+  border-top: 1px dashed ${BORDER_SECONDARY_LIGHT};
+  border-bottom: 1px dashed ${BORDER_SECONDARY_LIGHT};
 `;
 
 export const TextEditorField = /* istanbul ignore next */ ({
@@ -57,7 +57,7 @@ export const TextEditorField = /* istanbul ignore next */ ({
         {input.value ? (
           <TextBlock className="my-2" content={input.value} />
         ) : (
-          <Span color="gray" fontSize="14" isItalic>
+          <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
             <FormattedMessage {...messages.nothingToSeeYet} />
           </Span>
         )}

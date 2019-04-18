@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { white, gray, blue } from 'style-constants';
 import { FormattedMessage } from 'react-intl';
+import { BG_LIGHT, BORDER_SECONDARY, BG_PRIMARY } from 'style-constants';
 
 import crownIcon from 'svg/crownIcon';
 
@@ -12,6 +12,7 @@ import MarkAsAcceptedIcon from './MarkAsAcceptedIcon';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 
+/* eslint indent: 0 */
 export const ButtonStyled = Button.extend`
   background: ${(x) /* istanbul ignore next */ => x.bg};
   font-size: 14px;
@@ -22,7 +23,8 @@ export const ButtonStyled = Button.extend`
   align-items: center;
   justify-content: center;
   border: 1px solid
-    ${(x) /* istanbul ignore next */ => (x.bg === white ? gray : x.bg)};
+    ${(x) /* istanbul ignore next */ =>
+      x.bg === BG_LIGHT ? BORDER_SECONDARY : x.bg};
 `;
 
 export const BestAnswerMarker = /* istanbul ignore next */ ({
@@ -50,7 +52,7 @@ export const BestAnswerMarker = /* istanbul ignore next */ ({
 
       {isTheLargestRating ? (
         <div className="ml-2">
-          <ButtonStyled bg={blue} className="px-2">
+          <ButtonStyled bg={BG_PRIMARY} className="px-2">
             <Icon className="d-inline-flex" icon={crownIcon} />
             <FormattedMessage {...messages.communityChoice} />
           </ButtonStyled>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -51,7 +52,7 @@ export const UserInfo = /* istanbul ignore next */ ({
         <RatingStatus rating={rating} size="sm" isRankOff />
       </A>
 
-      <Span fontSize={14} color="gray">
+      <Span color={TEXT_SECONDARY} fontSize="14">
         {type === ANSWER_TYPE ? (
           <FormattedMessage {...messages.answered} />
         ) : (

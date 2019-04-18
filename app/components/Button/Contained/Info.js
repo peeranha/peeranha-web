@@ -1,13 +1,13 @@
-import { pink, white } from 'style-constants';
+import { BG_WARNING_LIGHT, TEXT_LIGHT } from 'style-constants';
 import IconStyled from 'components/Icon/IconStyled';
 
 import Button from '../index';
 
 export default Button.extend`
-  background: ${pink};
-  color: ${white};
+  background: ${BG_WARNING_LIGHT};
+  color: ${TEXT_LIGHT};
 
   ${IconStyled} {
-    stroke: ${white};
+    stroke: ${TEXT_LIGHT};
   }
 `;

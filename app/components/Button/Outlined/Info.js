@@ -1,21 +1,28 @@
-import { transparent, pink, white } from 'style-constants';
-import IconStyled from 'components/Icon/IconStyled';
+import {
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
+  TEXT_WARNING_LIGHT,
+  BG_WARNING_LIGHT,
+  TEXT_LIGHT,
+  BORDER_WARNING_LIGHT,
+} from 'style-constants';
 
+import IconStyled from 'components/Icon/IconStyled';
 import Button from '../index';
 
 const OutlinedButton = Button.extend`
-  background: ${transparent};
-  border: 1px solid ${pink};
-  color: ${pink};
+  background: ${BG_TRANSPARENT};
+  border: 1px solid ${BORDER_WARNING_LIGHT};
+  color: ${TEXT_WARNING_LIGHT};
 
   ${IconStyled} {
-    stroke: ${pink};
+    stroke: ${TEXT_WARNING_LIGHT};
   }
 
   :hover {
-    color: ${white};
-    background: ${pink};
-    border-color: ${transparent};
+    color: ${TEXT_LIGHT};
+    background: ${BG_WARNING_LIGHT};
+    border-color: ${BORDER_TRANSPARENT};
   }
 `;
 
