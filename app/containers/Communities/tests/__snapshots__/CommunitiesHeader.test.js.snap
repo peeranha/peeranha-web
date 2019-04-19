@@ -11,31 +11,31 @@ exports[`CommunitiesHeader test 1`] = `
         href="/communities"
         to="/communities"
       >
-        <Span
+        <Button
           isLink={true}
         >
           <FormattedMessage
             id="app.common.communities"
             values={Object {}}
           />
-        </Span>
+        </Button>
       </A>
       <A
         href="/communities/suggested"
         to="/communities/suggested"
       >
-        <Span
+        <Button
           isLink={true}
         >
           <FormattedMessage
             id="app.containers.Communities.voting"
             values={Object {}}
           />
-        </Span>
+        </Button>
       </A>
     </div>
     <div>
-      <Span
+      <Button
         className="d-inline-flex align-items-center p-0"
         isLink={true}
         onClick={[MockFunction]}
@@ -55,7 +55,7 @@ exports[`CommunitiesHeader test 1`] = `
           id="app.containers.Communities.suggestCommunity"
           values={Object {}}
         />
-      </Span>
+      </Button>
     </div>
   </Base>
   <Base

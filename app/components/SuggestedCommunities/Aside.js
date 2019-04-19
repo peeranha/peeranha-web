@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import allCommunitiesIcon from 'svg/createCommunity';
 
@@ -55,7 +56,7 @@ const Aside = /* istanbul ignore next */ ({ communities }) => (
         href={routes.suggestedCommunities()}
       >
         <Icon className="mr-2" icon={allCommunitiesIcon} />
-        <Span color="blue">
+        <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.allCommunities} />
         </Span>
       </A>

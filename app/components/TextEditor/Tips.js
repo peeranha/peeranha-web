@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { lightgray, gray, blue } from 'style-constants';
 import * as routes from 'routes-config';
+
+import {
+  BG_SECONDARY_LIGHT,
+  BORDER_SECONDARY,
+  TEXT_PRIMARY,
+  BG_PRIMARY,
+} from 'style-constants';
 
 import A from 'components/A';
 import Base from 'components/Base';
@@ -12,20 +18,20 @@ import Label from 'components/FormFields/Label';
 import messages from './messages';
 
 const BaseStyled = Base.extend`
-  background: ${lightgray}50;
+  background: ${BG_SECONDARY_LIGHT}50;
   word-break: break-word;
   height: 100%;
 `;
 
 const AStyled = A.extend`
-  color: ${blue};
+  color: ${TEXT_PRIMARY};
   font-size: 14px;
   margin-bottom: 10px;
   display: inline-block;
 `;
 
 const Ul = styled.ul`
-  border-bottom: 1px solid ${gray}75;
+  border-bottom: 1px solid ${BORDER_SECONDARY}75;
   padding-bottom: 20px;
   margin-bottom: 20px;
 
@@ -40,7 +46,7 @@ const Ul = styled.ul`
       flex-basis: 5px;
       height: 5px;
       border-radius: 50%;
-      background: ${blue};
+      background: ${BG_PRIMARY};
       margin-right: 10px;
       display: inline-flex;
     }

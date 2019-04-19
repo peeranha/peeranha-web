@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from 'style-constants';
+import { BG_LIGHT } from 'style-constants';
 
 import { HEADER_HEIGHT } from './constants';
 
@@ -9,7 +9,7 @@ const Wrapper = styled.header`
   position: fixed;
   height: ${HEADER_HEIGHT}px;
   z-index: 9999;
-  background: ${white};
+  background: ${BG_LIGHT};
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   padding: 20px 0;
   width: 100%;

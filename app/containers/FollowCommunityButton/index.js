@@ -13,6 +13,8 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { DAEMON } from 'utils/constants';
+
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 
 import { followHandler } from './actions';
@@ -66,7 +68,11 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'followCommunityButton', reducer });
-const withSaga = injectSaga({ key: 'followCommunityButton', saga });
+const withSaga = injectSaga({
+  key: 'followCommunityButton',
+  saga,
+  mode: DAEMON,
+});
 
 export default compose(
   withReducer,

@@ -13,6 +13,8 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { DAEMON } from 'utils/constants';
+
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 
@@ -98,7 +100,11 @@ const withReducer = injectReducer({
   reducer,
 });
 
-const withSaga = injectSaga({ key: 'voteForNewCommunityButton', saga });
+const withSaga = injectSaga({
+  key: 'voteForNewCommunityButton',
+  saga,
+  mode: DAEMON,
+});
 
 export default compose(
   withReducer,

@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import _ from 'lodash';
 
 import * as routes from 'routes-config';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
+import P from 'components/P';
 import A from 'components/A';
 import Span from 'components/Span';
 import BaseRounded from 'components/Base/BaseRounded';
@@ -24,7 +25,7 @@ const Base = BaseRounded.extend`
   word-break: break-word;
 
   ${BaseTransparent} {
-    border-bottom: 1px solid ${gray};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
     border-radius: 0;
 
     :last-child {
@@ -69,26 +70,22 @@ const Content = /* istanbul ignore next */ ({
   <Base>
     {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order]).map(x => (
       <BaseTransparent key={x.value}>
-        <div className="d-flex">
-          <div className="col-xl-4 d-flex p-0">
+        <div className="row align-items-center">
+          <div className="col-xl-4 d-flex">
             <MediumImageStyled
               className="mt-2"
               src={x.avatar}
               alt="communityAvatar"
             />
             <div>
-              <p>
-                <Span className="mb-1" fontSize="24" bold>
-                  {x.label}
-                </Span>
-              </p>
-              <p>
-                <Span fontSize="14">{x.description}</Span>
-              </p>
+              <P className="mb-1" fontSize="24" bold>
+                {x.label}
+              </P>
+              <P fontSize="14">{x.description}</P>
             </div>
           </div>
 
-          <div className="col-xl-8 d-flex align-items-center justify-content-between pl-3 p-0">
+          <div className="col-xl-8 d-flex align-items-center justify-content-between">
             <TextDescription>
               <Num>{getFormattedNum2('7777')}</Num>
               <Name>Users</Name>
@@ -99,7 +96,7 @@ const Content = /* istanbul ignore next */ ({
               href={routes.questions(x.id)}
             >
               <Num>{getFormattedNum2('1111')}</Num>
-              <Name color="blue">
+              <Name color={TEXT_PRIMARY}>
                 <FormattedMessage {...commonMessages.questions} />
               </Name>
             </LinkDescription>
@@ -116,7 +113,7 @@ const Content = /* istanbul ignore next */ ({
               href={routes.communityTags(x.id)}
             >
               <Num>{getFormattedNum2(x.tags.length)}</Num>
-              <Name color="blue">
+              <Name color={TEXT_PRIMARY}>
                 <FormattedMessage {...commonMessages.tags} />
               </Name>
             </LinkDescription>

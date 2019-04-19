@@ -10,7 +10,6 @@ exports[` 1`] = `
     />
     <Comments__CommentManage>
       <UNDEFINED
-        className="ml-1"
         onClick={[Function]}
         params={
           Object {
@@ -20,7 +19,7 @@ exports[` 1`] = `
         }
       >
         <Span
-          color="blue"
+          color="#576fed"
         >
           <UNDEFINED
             icon="
@@ -39,7 +38,6 @@ exports[` 1`] = `
         </Span>
       </UNDEFINED>
       <UNDEFINED
-        className="ml-1"
         id="comment__undefinedundefined"
         params={
           Object {
@@ -49,7 +47,7 @@ exports[` 1`] = `
         }
       >
         <Span
-          color="blue"
+          color="#576fed"
         >
           <UNDEFINED
             icon="
@@ -69,7 +67,6 @@ exports[` 1`] = `
         </Span>
       </UNDEFINED>
       <BlockButton
-        className="ml-1"
         id="comment_vote_to_delete_undefinedundefined"
         params={
           Object {

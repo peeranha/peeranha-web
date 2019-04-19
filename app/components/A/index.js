@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { black } from 'style-constants';
+import { TEXT_DARK } from 'style-constants';
+import IconStyled from 'components/Icon/IconStyled';
 
 /* istanbul ignore next */
 const A = styled(Link)`
   text-decoration: none;
-  color: ${black};
+  color: ${TEXT_DARK};
   pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
+
+  ${IconStyled} {
+    stroke: ${TEXT_DARK};
+    fill: ${TEXT_DARK};
+  }
 
   :visited {
     text-decoration: none;

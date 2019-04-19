@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 
+import {
+  TEXT_WARNING_LIGHT,
+  TEXT_PRIMARY,
+  TEXT_DARK,
+  TEXT_SECONDARY,
+} from 'style-constants';
+
 import { getFormattedNum } from 'utils/numbers';
 
 import Icon from 'components/Icon';
@@ -32,10 +39,10 @@ const RatingStatus = /* istanbul ignore next */ ({
         bold={size === 'lg'}
         color={
           rating > options.newbie.minRating && size === 'sm'
-            ? 'pink'
+            ? TEXT_WARNING_LIGHT
             : rating < options.newbie.minRating && size === 'sm'
-              ? 'blue'
-              : 'black'
+              ? TEXT_PRIMARY
+              : TEXT_DARK
         }
       >
         {getFormattedNum(rating)}
@@ -43,7 +50,7 @@ const RatingStatus = /* istanbul ignore next */ ({
       <Span
         className={isRankOff ? 'd-none' : ''}
         fontSize={size === 'lg' ? 16 : 14}
-        color={size === 'lg' ? 'black' : 'gray'}
+        color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >
         {intl.formatMessage({ id: full.messageId })}
       </Span>

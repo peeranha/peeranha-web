@@ -25,4 +25,12 @@ injectGlobal`
     min-height: 100%;
     min-width: 100%;
   }
+
+  .container {
+    max-width: 1320px;
+  }
+
+  #landing-id .container {
+    max-width: 1140px;
+  }
 `;

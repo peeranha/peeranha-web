@@ -1,4 +1,4 @@
-import { blue, transparent } from 'style-constants';
+import { BORDER_PRIMARY, BORDER_TRANSPARENT } from 'style-constants';
 import checked from 'images/okayBlueIcon.svg';
 
 import Li from './index';
@@ -6,7 +6,7 @@ import Li from './index';
 /* istanbul ignore next */
 const CheckedItem = Li.extend`
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
-  border: 1px solid ${transparent};
+  border: 1px solid ${BORDER_TRANSPARENT};
 
   :before {
     content: '';
@@ -17,7 +17,7 @@ const CheckedItem = Li.extend`
   }
 
   :hover {
-    border: 1px solid ${blue};
+    border: 1px solid ${BORDER_PRIMARY};
   }
 `;
 

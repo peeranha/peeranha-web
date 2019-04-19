@@ -18,7 +18,7 @@ exports[`WarningMessage test test by snapshots touched: true, error: true 1`] = 
 "
   />
   <Span
-    color="gray"
+    color="#7b7b7b"
     fontSize="14"
     isItalic={true}
   >
@@ -43,7 +43,7 @@ exports[`WarningMessage test test by snapshots touched: true, warning: true 1`] 
 "
   />
   <Span
-    color="gray"
+    color="#7b7b7b"
     fontSize="14"
     isItalic={true}
   >

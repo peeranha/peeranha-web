@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
-import { green, gray, darkgray } from 'style-constants';
+
+import {
+  TEXT_SECONDARY,
+  BORDER_SUCCESS,
+  TEXT_SUCCESS,
+  BORDER_SECONDARY,
+} from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
 import commonMessages from 'common-messages';
@@ -29,8 +35,10 @@ const Rating = Span.extend`
   min-width: 40px;
   padding: 2px 3px;
   font-size: 14px;
-  border: 1px solid ${props => (props.acceptedAnswer ? green : gray)};
-  color: ${props => (props.acceptedAnswer ? green : darkgray)};
+  border: 1px solid
+    ${x => (x.acceptedAnswer ? BORDER_SUCCESS : BORDER_SECONDARY)};
+
+  color: ${x => (x.acceptedAnswer ? TEXT_SUCCESS : TEXT_SECONDARY)};
   display: inline-block;
   text-align: center;
   border-radius: 3px;
@@ -92,7 +100,7 @@ const Note = /* istanbul ignore next */ ({
       />
       <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
       <Span className="flex-grow-1">{title}</Span>
-      <PostDate fontSize="14" color="gray">
+      <PostDate fontSize="14" color={TEXT_SECONDARY}>
         {getTimeFromDateToNow(myPostTime, locale)}{' '}
         <FormattedMessage {...commonMessages.ago} />
       </PostDate>

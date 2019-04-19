@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { blue } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 import closeIcon from 'images/closeCircle.svg';
 
 import { Select2 } from 'components/FormFields/SelectField';
@@ -27,10 +27,10 @@ const Tag = styled.li`
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: ${blue};
+  color: ${TEXT_PRIMARY};
   padding: 2px 8px;
   margin: 5px 10px 5px 0;
-  border: 1px solid ${blue};
+  border: 1px solid ${BORDER_PRIMARY};
   border-radius: 2px;
 `;
 
@@ -56,12 +56,11 @@ export const TagSelector = /* istanbul ignore next */ ({
     <Wrapper label={label} tip={tip} meta={meta}>
       <Dropdown
         isOpen={isOpen}
-        onClose={() => toggleOpen(false)}
+        toggle={() => toggleOpen(!isOpen)}
         target={
           <TagsContainer
             disabled={disabled}
             error={meta.touched && (meta.warning || meta.error)}
-            onClick={() => (!disabled ? toggleOpen(true) : null)}
           >
             {value.map(x => (
               <Tag>

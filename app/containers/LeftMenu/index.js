@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import styled from 'styled-components';
-import { darkblue } from 'style-constants';
+import { TEXT_LIGHT, TEXT_PRIMARY_DARK } from 'style-constants';
 
 import closeIcon from 'svg/close';
 import Icon from 'components/Icon';
@@ -43,7 +43,7 @@ const After = styled.div`
   width: 50px;
   height: 100vh;
   z-index: 9999;
-  background: ${darkblue}E6;
+  background: ${TEXT_PRIMARY_DARK}E6;
   display: flex;
   justify-content: center;
   padding: 25px 0;
@@ -67,7 +67,7 @@ const LeftMenu = /* istanbul ignore next */ ({
 
     {isMenuVisible && (
       <After onClick={showMenu}>
-        <Span color="white">
+        <Span color={TEXT_LIGHT}>
           <Icon icon={closeIcon} noMargin />
         </Span>
       </After>

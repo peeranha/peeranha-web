@@ -15,6 +15,8 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { DAEMON } from 'utils/constants';
+
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
@@ -31,6 +33,8 @@ import { showLoginModal } from 'containers/Login/actions';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import BaseTransparent from 'components/Base/BaseTransparent';
 
+import { LEFT_MENU_WIDTH } from 'containers/App/constants';
+
 import {
   selectSuggestedCommunities,
   selectSuggestedCommunitiesLoading,
@@ -45,6 +49,10 @@ import saga from './saga';
 
 import CommunitiesHeader from './CommunitiesHeader';
 import NothingInterestingBanner from './NothingInterestingBanner';
+
+const AsideWrapper = BaseTransparent.extend`
+  width: ${LEFT_MENU_WIDTH}px;
+`.withComponent('aside');
 
 /* eslint indent: 0 */
 /* eslint-disable react/prefer-stateless-function */
@@ -103,9 +111,7 @@ export class Communities extends React.PureComponent {
           />
         </Helmet>
 
-        <div
-          className={`col-12 col-xl-${suggestedCommunities[0] ? 9 : 12} p-0`}
-        >
+        <div className="flex-grow-1">
           <CommunitiesHeader
             goToCreateCommunityScreen={this.goToCreateCommunityScreen}
             SubHeader={SubHeader}
@@ -137,14 +143,12 @@ export class Communities extends React.PureComponent {
           )}
         </div>
 
-        {suggestedCommunities[0] && (
-          <BaseTransparent className="d-none d-xl-block col-xl-3 pr-0">
-            <Aside
-              suggestedCommunities={suggestedCommunities}
-              communities={communities}
-            />
-          </BaseTransparent>
-        )}
+        <AsideWrapper className="d-none d-xl-block pr-0">
+          <Aside
+            suggestedCommunities={suggestedCommunities}
+            communities={communities}
+          />
+        </AsideWrapper>
       </div>
     );
   }
@@ -191,7 +195,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'communities', reducer });
-const withSaga = injectSaga({ key: 'communities', saga });
+const withSaga = injectSaga({ key: 'communities', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

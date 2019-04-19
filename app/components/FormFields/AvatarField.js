@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import styled from 'styled-components';
 
-import { gray, darkgray } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import WarningMessage from './WarningMessage';
@@ -20,7 +20,7 @@ const AvatarArea = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  border: 1px solid ${gray};
+  border: 1px solid ${BORDER_SECONDARY};
   border-radius: 50%;
 
   img {
@@ -44,15 +44,15 @@ const AvatarArea = styled.div`
 const ButtonStyled = styled.button`
   position: absolute;
   font-size: 20px;
-  color: ${darkgray};
-  top: ${props => props.top}px;
-  right: ${props => props.right}px;
+  color: ${TEXT_SECONDARY};
+  top: ${x => x.top}px;
+  right: ${x => x.right}px;
 `;
 
 const AvatarFieldStyled = styled.div`
   position: relative;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${x => x.size}px;
+  height: ${x => x.size}px;
 `;
 
 function AvatarField({

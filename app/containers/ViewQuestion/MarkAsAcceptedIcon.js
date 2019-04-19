@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { green, blue, white } from 'style-constants';
 import { FormattedMessage } from 'react-intl';
+import { BG_SUCCESS, BG_PRIMARY, BG_LIGHT } from 'style-constants';
 
 import okayIcon from 'svg/okay';
 import Icon from 'components/Icon';
@@ -26,7 +26,7 @@ export const MarkAsAcceptedIcon = /* istanbul ignore next */ ({
     account !== questionFrom
   ) {
     return (
-      <ButtonStyled bg={green} className="px-2">
+      <ButtonStyled bg={BG_SUCCESS} className="px-2">
         <Icon className="d-inline-flex" icon={okayIcon} />
         <FormattedMessage {...messages.theBest} />
       </ButtonStyled>
@@ -47,7 +47,7 @@ export const MarkAsAcceptedIcon = /* istanbul ignore next */ ({
         data-answerid={0}
         data-whowasaccepted={whoWasAccepted}
       >
-        <ButtonStyled bg={blue} className="mr-2">
+        <ButtonStyled bg={BG_PRIMARY} className="mr-2">
           <Icon className="d-inline-flex" icon={okayIcon} noMargin />
         </ButtonStyled>
         <FormattedMessage {...messages.theBestAnswer} />
@@ -69,7 +69,7 @@ export const MarkAsAcceptedIcon = /* istanbul ignore next */ ({
         data-answerid={answerId}
         data-whowasaccepted={whoWasAccepted}
       >
-        <ButtonStyled className="mr-2" bg={white}>
+        <ButtonStyled className="mr-2" bg={BG_LIGHT}>
           <Icon className="d-inline-flex" icon={okayIcon} noMargin />
         </ButtonStyled>
         <FormattedMessage {...messages.theBestAnswer} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY } from 'style-constants';
 import _ from 'lodash';
 
 import arrowDownIcon from 'svg/arrowDown';
@@ -27,7 +27,7 @@ const ItemStyled = Base.extend`
 `.withComponent('li');
 
 const Header = BaseTransparent.extend`
-  border-bottom: 1px solid ${gray};
+  border-bottom: 1px solid ${BORDER_SECONDARY};
   border-radius: 0;
 `;
 
@@ -49,21 +49,27 @@ const Item = /* istanbul ignore next */ x => {
 
   return (
     <ItemStyled key={x.id}>
-      <Header className="d-flex justify-content-between">
-        <div className="col-xl-8 d-flex align-items-center p-0">
-          <MediumImageStyled
-            className="mr-3"
-            src={x.avatar}
-            alt="voting-community"
-          />
-          <Span fontSize="24" bold>
-            {x.name}
-          </Span>
-        </div>
+      <Header>
+        <div className="row">
+          <div className="col-xl-9 d-flex align-items-center">
+            <MediumImageStyled
+              className="mr-3"
+              src={x.avatar}
+              alt="voting-community"
+            />
+            <Span fontSize="24" bold>
+              {x.name}
+            </Span>
+          </div>
 
-        <div className="col-xl-4 d-flex justify-content-between p-0">
-          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
-          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
+          <div className="col-xl-3 d-flex justify-content-between">
+            <VoteUpButton
+              className="mr-2"
+              id={`voteup_${x.id}`}
+              communityId={x.id}
+            />
+            <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
+          </div>
         </div>
       </Header>
 

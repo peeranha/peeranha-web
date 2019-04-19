@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import A from 'components/A';
-import NavigationButton from 'components/Button/NavigationButton';
+import NavigationButton from 'components/Button/Contained/Navigation';
 
 const MyProfileButton = /* istanbul ignore next */ ({
   account,

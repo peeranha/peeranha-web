@@ -2,33 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 
-import Dropdown from 'components/Dropdown';
-import OutlinedButton from 'components/Button/OutlinedButton';
+import OutlinedButton from 'components/Button/Outlined/InfoStretching';
 
 import Button from './index';
-import Warning from './Warning';
 import AlreadyVoted from './AlreadyVoted';
 
 import { DOWNVOTE_METHOD } from './constants';
 
 const OutlinedButtonStyled = OutlinedButton.extend`
-  border-color: ${gray};
-  color: ${gray};
-`.withComponent('span');
-
-const D = /* istanbul ignore next */ ({ communityId, onClick, id }) => (
-  <Dropdown
-    id={`downvote_comm_id_${communityId}`}
-    button={
-      <OutlinedButtonStyled id={id} className="px-1">
-        <FormattedMessage {...commonMessages.disagree} />
-      </OutlinedButtonStyled>
-    }
-    menu={<Warning onClick={onClick} />}
-  />
-);
+  border-color: ${BORDER_SECONDARY};
+  color: ${TEXT_SECONDARY};
+`;
 
 const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (
   <Button
@@ -43,10 +29,16 @@ const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (
       downvotesNumber,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <D communityId={communityId} onClick={onClick} />
+        <OutlinedButtonStyled onClick={onClick} id={id}>
+          <FormattedMessage {...commonMessages.disagree} />
+        </OutlinedButtonStyled>
       ) : (
-        <AlreadyVoted choice={isDownvoted}>
-          <p>
+        <AlreadyVoted
+          className="flex-column"
+          onClick={onClick}
+          choice={isDownvoted}
+        >
+          <p className="pb-1">
             <FormattedMessage {...commonMessages.disagree} />
           </p>
           <p>{`${downvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>
@@ -55,12 +47,6 @@ const VoteDownButton = /* istanbul ignore next */ ({ id, communityId }) => (
     }
   />
 );
-
-D.propTypes = {
-  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  id: PropTypes.string,
-  onClick: PropTypes.func,
-};
 
 VoteDownButton.propTypes = {
   id: PropTypes.string,

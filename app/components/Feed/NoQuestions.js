@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import Span from 'components/Span';
+import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg';
 
@@ -13,19 +13,15 @@ export const NoQuestions = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center py-5">
     <img src={noQuestionsFeedPage} alt="noQuestionsFeedPage" />
     <div className="ml-5 mb-2">
-      <p className="mb-1">
-        <Span fontSize="24" bold>
-          <FormattedMessage {...messages.youDontHaveFeedToRead} />
-        </Span>
-      </p>
-      <p>
-        <Span>
-          <FormattedMessage {...messages.subscribeToCommToKeep} />
-        </Span>
-        <LargeButton className="my-4" disabled>
-          <FormattedMessage {...messages.readMyFeed} />
-        </LargeButton>
-      </p>
+      <P className="mb-1" fontSize="24" bold>
+        <FormattedMessage {...messages.youDontHaveFeedToRead} />
+      </P>
+      <P>
+        <FormattedMessage {...messages.subscribeToCommToKeep} />
+      </P>
+      <LargeButton className="my-4" disabled>
+        <FormattedMessage {...messages.readMyFeed} />
+      </LargeButton>
     </div>
   </BaseRounded>
 );

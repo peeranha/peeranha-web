@@ -7,7 +7,7 @@ import messages from 'common-messages';
 
 import Ul from 'components/Ul';
 import A from 'components/A';
-import NavigationButton from 'components/Button/NavigationButton';
+import NavigationButton from 'components/Button/Contained/Navigation';
 import Base from 'components/Base';
 
 import MyProfileButton from './MyProfileButton';

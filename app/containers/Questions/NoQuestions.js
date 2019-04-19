@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
-import Span from 'components/Span';
+import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
 import Feed from 'components/Feed/NoQuestions';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg';
 
@@ -18,19 +18,15 @@ export const AllQuestions = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center py-4">
     <img src={noQuestionsAllQuestionsPage} alt="noQuestionsAllQuestionsPage" />
     <div className="ml-5 mb-2">
-      <p className="mb-1">
-        <Span fontSize="24" bold>
-          <FormattedMessage {...messages.noQuestionsYet} />
-        </Span>
-      </p>
-      <p>
-        <Span>
-          <FormattedMessage {...messages.thisIsNewCommunity} />
-        </Span>
-        <LargeButton className="mt-4" onClick={addQuestionRoute}>
-          <FormattedMessage {...commonMessages.addQuestion} />
-        </LargeButton>
-      </p>
+      <P className="mb-1" fontSize="24" bold>
+        <FormattedMessage {...messages.noQuestionsYet} />
+      </P>
+      <P>
+        <FormattedMessage {...messages.thisIsNewCommunity} />
+      </P>
+      <LargeButton className="mt-4" onClick={addQuestionRoute}>
+        <FormattedMessage {...commonMessages.addQuestion} />
+      </LargeButton>
     </div>
   </BaseRounded>
 );

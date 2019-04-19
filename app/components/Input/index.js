@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import seacrhIcon from 'svg/search';
+import Icon from 'components/Icon';
 
 import InputStyled from './InputStyled';
 
@@ -40,16 +42,10 @@ class Input extends React.PureComponent {
           disabled={disabled}
         />
 
-        {isSearchable && (
-          <FontAwesomeIcon className="chevron search" icon="search" />
-        )}
+        {isSearchable && <Icon icon={seacrhIcon} noMargin />}
 
         {type === 'password' && (
-          <FontAwesomeIcon
-            onClick={this.changeType}
-            className="chevron eye"
-            icon="eye"
-          />
+          <Icon onClick={this.changeType} icon={seacrhIcon} noMargin />
         )}
       </InputStyled>
     );

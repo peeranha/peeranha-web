@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import OutlinedButton from 'components/Button/OutlinedButton';
+import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 
 import Button from './index';
 import messages from './messages';

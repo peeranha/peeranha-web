@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'svg/validationArrow';
 
@@ -21,7 +22,7 @@ export const WarningMessage = /* istanbul ignore next */ ({
         <Icon className="d-none d-xl-inline" icon={validationArrowIcon} />
       )}
 
-      <Span color="gray" fontSize="14" isItalic>
+      <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
         {(error && intl.formatMessage({ id: error.id })) ||
           (warning && intl.formatMessage({ id: warning.id })) ||
           tip}

@@ -4,13 +4,12 @@ exports[`CommunitySelector snapshot test 1`] = `
 <Dropdown
   isArrowed={true}
   isOpen={false}
-  onClose={[Function]}
   target={
     <UNDEFINED
       communityLabel="com_1"
-      toggleOpen={[Function]}
     />
   }
+  toggle={[Function]}
 >
   <CommunitySelector__Wrapper>
     <Select2

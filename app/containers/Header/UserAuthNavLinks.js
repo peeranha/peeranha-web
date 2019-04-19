@@ -12,7 +12,7 @@ import userIcon from 'svg/user';
 import messages from 'common-messages';
 
 import Icon from 'components/Icon';
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
 const UserAuthNavLinks = /* istanbul ignore next */ ({
   showSignUpModal,

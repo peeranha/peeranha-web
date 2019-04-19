@@ -16,7 +16,14 @@ import IconStyled from 'components/Icon/IconStyled';
 import messages from 'common-messages';
 
 import * as routes from 'routes-config';
-import { darkblue, blue, transparent, black } from 'style-constants';
+
+import {
+  TEXT_SECONDARY,
+  BORDER_PRIMARY_DARK,
+  BORDER_TRANSPARENT,
+  TEXT_PRIMARY,
+  BG_TRANSPARENT,
+} from 'style-constants';
 
 import myFeedIcon from 'svg/myFeed';
 import allQuestionsIcon from 'svg/allQuestions';
@@ -42,31 +49,30 @@ const LiExtended = Li.extend`
   align-items: center;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-left: 3px solid ${transparent};
+  border-left: 3px solid ${BORDER_TRANSPARENT};
 
   > a {
     flex: 1;
   }
 
   ${({ route }) =>
-    window.location.pathname.match(route)
+    window.location.pathname
+      .split('/')
+      .filter(x => x.length > 0)[0]
+      .match(route.split('/').filter(x => x.length > 0)[0])
       ? `
     background-color: rgba(53,74,137,0.11);
-    border-color: ${darkblue};
+    border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
 
-    ${IconStyled} [data-icon="icon"] {
-      stroke: ${blue} !important;
+    ${IconStyled} * {
+      stroke: ${TEXT_PRIMARY};
     }
   `
       : `
-    background-color: ${transparent};
-    border-color: ${transparent};
+    background-color: ${BG_TRANSPARENT};
+    border-color: ${BORDER_TRANSPARENT};
     font-weight: normal;
-
-    ${IconStyled} {
-      stroke: ${black};
-    }
   `};
 `;
 /* eslint-enable */
@@ -128,7 +134,7 @@ const FixedContent = /* istanbul ignore next */ ({
           </LiExtended>
           <LiExtended>
             <Icon icon={logoutIcon} />
-            <Span color="blue">
+            <Span color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.logout} />
             </Span>
           </LiExtended>
@@ -179,28 +185,28 @@ const FixedContent = /* istanbul ignore next */ ({
     <UlMargin>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">
+          <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.about} />
           </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">
+          <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.contacts} />
           </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">
+          <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.support} />
           </Span>
         </A>
       </Li>
       <Li>
         <A to={faqRoute} href={faqRoute}>
-          <Span color="gray">
+          <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.privacyPolicy} />
           </Span>
         </A>
@@ -208,7 +214,7 @@ const FixedContent = /* istanbul ignore next */ ({
     </UlMargin>
 
     <Footer>
-      <Span color="gray" fontSize="12">
+      <Span color={TEXT_SECONDARY} fontSize="12">
         <span>{`@${new Date().getFullYear()} `}</span>
         <FormattedMessage {...messages.peerania} />
       </Span>

@@ -11,9 +11,15 @@ import {
 } from 'utils/communityManagement';
 
 import { getProfileInfo } from 'utils/profileManagement';
-
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+
+import { CLEAR_SUGGESTED_COMMUNITIES } from 'containers/Communities/constants';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
+
+import {
+  upVoteValidator,
+  downVoteValidator,
+} from 'containers/VoteForNewCommunityButton/validate';
 
 import defaultSaga, { upVoteWorker, downVoteWorker } from '../saga';
 
@@ -25,8 +31,6 @@ import {
   DOWNVOTE_SUCCESS,
   DOWNVOTE_ERROR,
 } from '../constants';
-
-import { upVoteValidator, downVoteValidator } from '../validate';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -40,11 +44,15 @@ jest.mock('utils/communityManagement', () => ({
   downVoteToCreateCommunity: jest.fn(),
 }));
 
+jest.mock('containers/DataCacheProvider/saga', () => ({
+  getUserProfileWorker: jest.fn(),
+}));
+
 jest.mock('containers/Communities/saga', () => ({
   getSuggestedCommunitiesWorker: jest.fn(),
 }));
 
-jest.mock('../validate', () => ({
+jest.mock('containers/VoteForNewCommunityButton/validate', () => ({
   upVoteValidator: jest.fn(),
   downVoteValidator: jest.fn(),
 }));
@@ -52,6 +60,20 @@ jest.mock('../validate', () => ({
 jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
+
+describe('defaultSaga', () => {
+  const generator = defaultSaga();
+
+  it('UPVOTE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(UPVOTE);
+  });
+
+  it('DOWNVOTE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(DOWNVOTE);
+  });
+});
 
 describe('downVoteWorker', () => {
   const props = {
@@ -146,6 +168,11 @@ describe('downVoteWorker', () => {
         account,
         props.communityId,
       );
+    });
+
+    it('clearSuggestedCommunities', () => {
+      const step = generator.next();
+      expect(step.value.type).toEqual(CLEAR_SUGGESTED_COMMUNITIES);
     });
 
     it('getSuggestedCommunitiesWorker', () => {
@@ -262,6 +289,11 @@ describe('upVoteWorker', () => {
       );
     });
 
+    it('clearSuggestedCommunities', () => {
+      const step = generator.next();
+      expect(step.value.type).toEqual(CLEAR_SUGGESTED_COMMUNITIES);
+    });
+
     it('getSuggestedCommunitiesWorker', () => {
       getSuggestedCommunitiesWorker.mockImplementation(() => storedCommunities);
       const step = generator.next();
@@ -278,19 +310,5 @@ describe('upVoteWorker', () => {
       const putDescriptor = generator.throw(err).value;
       expect(putDescriptor.type).toEqual(UPVOTE_ERROR);
     });
-  });
-});
-
-describe('defaultSaga', () => {
-  const generator = defaultSaga();
-
-  it('UPVOTE', () => {
-    const step = generator.next();
-    expect(step.value).toBe(UPVOTE);
-  });
-
-  it('DOWNVOTE', () => {
-    const step = generator.next();
-    expect(step.value).toBe(DOWNVOTE);
   });
 });

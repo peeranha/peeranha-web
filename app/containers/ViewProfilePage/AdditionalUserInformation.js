@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
@@ -27,7 +28,7 @@ const Blank = /* istanbul ignore next */ ({ profile, userId, account }) =>
   !profile[COMPANY_FIELD] &&
   !profile[POSITION_FIELD] &&
   !profile[ABOUT_FIELD] && (
-    <Span color="gray">
+    <Span color={TEXT_SECONDARY}>
       <FormattedMessage {...messages.informationIsBlank} />
       <MyProfileButton
         userId={userId}
@@ -35,7 +36,7 @@ const Blank = /* istanbul ignore next */ ({ profile, userId, account }) =>
         href={routes.profileEdit(userId)}
         isLink
       >
-        <Span color="blue">
+        <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.edit} />{' '}
           <FormattedMessage {...messages.profile} />
         </Span>
@@ -47,7 +48,7 @@ const Row = /* istanbul ignore next */ ({ nameField, value }) =>
   value ? (
     <RowStyled className="row align-items-center">
       <div className="col-2">
-        <Span color="gray" fontSize="14">
+        <Span color={TEXT_SECONDARY} fontSize="14">
           <FormattedMessage {...messages[nameField]} />
         </Span>
       </div>

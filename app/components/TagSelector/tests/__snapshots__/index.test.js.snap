@@ -8,13 +8,12 @@ exports[`TagSelector test 1`] = `
 >
   <Dropdown
     isOpen={false}
-    onClose={[Function]}
     target={
       <TagSelector__TagsContainer
         disabled={false}
-        onClick={[Function]}
       />
     }
+    toggle={[Function]}
   >
     <Select2
       autoFocus={true}

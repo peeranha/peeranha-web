@@ -1,15 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { blue, gray, darkred } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY, TEXT_WARNING } from 'style-constants';
+
+import IconStyled from 'components/Icon/IconStyled';
+import TransparentButton from 'components/Button/Contained/Transparent';
 
 import Span from 'components/Span';
 
-/* eslint no-nested-ternary: 0 */
+/* eslint no-nested-ternary: 0, indent: 0 */
 const SpanStyled = Span.extend`
-  opacity: ${props =>
-    /* istanbul ignore next */ props.isItWrittenByMe ? 0.75 : 1};
   color: ${(props /* istanbul ignore next */) =>
-    props.isItWrittenByMe ? gray : props.isVotedToDelete ? darkred : blue};
+    props.isItWrittenByMe
+      ? TEXT_SECONDARY
+      : props.isVotedToDelete
+        ? TEXT_WARNING
+        : TEXT_PRIMARY};
+
+  ${IconStyled} rect {
+    fill: ${(props /* istanbul ignore next */) =>
+      props.isItWrittenByMe
+        ? TEXT_SECONDARY
+        : props.isVotedToDelete
+          ? TEXT_WARNING
+          : TEXT_PRIMARY};
+  }
+
+  ${IconStyled} circle {
+    stroke: ${(props /* istanbul ignore next */) =>
+      props.isItWrittenByMe
+        ? TEXT_SECONDARY
+        : props.isVotedToDelete
+          ? TEXT_WARNING
+          : TEXT_PRIMARY};
+  }
 `;
 
 export const Button = /* istanbul ignore next */ ({
@@ -21,9 +44,9 @@ export const Button = /* istanbul ignore next */ ({
   children,
 }) =>
   show ? (
-    <button
+    <TransparentButton
       id={id}
-      className={`d-inline-flex align-items-center ${className}`}
+      className={`d-inline-flex align-items-center pl-4 ${className}`}
       data-questionid={params.questionId}
       data-answerid={params.answerId}
       data-commentid={params.commentId}
@@ -31,7 +54,7 @@ export const Button = /* istanbul ignore next */ ({
       onClick={onClick}
     >
       {children}
-    </button>
+    </TransparentButton>
   ) : null;
 
 export const BlockButton = /* istanbul ignore next */ ({
@@ -45,6 +68,7 @@ export const BlockButton = /* istanbul ignore next */ ({
 }) => (
   <Button show params={params} onClick={onClick} id={id} className={className}>
     <SpanStyled
+      className="d-flex align-items-center"
       isItWrittenByMe={isItWrittenByMe}
       isVotedToDelete={isVotedToDelete}
     >

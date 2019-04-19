@@ -1,34 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { blue, transparent, white, black } from 'style-constants';
 
-/* istanbul ignore next */
-const Div = styled.div`
-  background: ${x => (x.choice ? blue : transparent)};
-  color: ${x => (x.choice ? white : black)};
-  border-radius: 3px;
-  padding: 5px 20px;
-  text-align: center;
+import PositiveChoice from 'components/Button/Contained/PrimaryStretching';
+import NegativeChoice from 'components/Button/Contained/TransparentStretching';
 
-  > *:nth-child(1) {
-    font-weight: ${x => (x.choice ? '600' : 'normal')};
-    margin-bottom: 5px;
-  }
+const AlreadyVoted = /* istanbul ignore next */ ({
+  choice,
+  children,
+  className,
+  onClick,
+}) => {
+  const Comp = choice ? PositiveChoice : NegativeChoice;
 
-  > *:nth-child(2) {
-    font-size: 14px;
-    color: ${x => (x.choice ? white : black)};
-  }
-`;
-
-const AlreadyVoted = /* istanbul ignore next */ ({ choice, children }) => (
-  <Div choice={choice}>{children}</Div>
-);
+  return (
+    <Comp onClick={onClick} className={className} choice={choice}>
+      {children}
+    </Comp>
+  );
+};
 
 AlreadyVoted.propTypes = {
   choice: PropTypes.bool,
   children: PropTypes.any,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(AlreadyVoted);

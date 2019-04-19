@@ -20,7 +20,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import SelectField from 'components/FormFields/SelectField';
 
-import LargeButton from 'components/Button/LargeButton';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 import H3 from 'components/H3';
 
 import {

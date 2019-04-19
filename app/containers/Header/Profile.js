@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 import logoutIcon from 'svg/logout';
@@ -128,7 +129,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
     <Ul>
       <Li>
         <Icon icon={logoutIcon} />
-        <Span color="blue">
+        <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...messages.logout} />
         </Span>
       </Li>

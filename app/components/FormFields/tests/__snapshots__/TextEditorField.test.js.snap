@@ -20,7 +20,7 @@ exports[`TextEditorField test test 1`] = `
   >
     <TextEditorField__PreviewWrapper>
       <Span
-        color="gray"
+        color="#7b7b7b"
         fontSize="14"
         isItalic={true}
       >

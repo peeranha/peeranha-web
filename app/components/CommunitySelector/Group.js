@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { gray } from 'style-constants';
+import { BORDER_SECONDARY } from 'style-constants';
 
 import CustomOption from './CustomOption';
 
 const Box = styled.div`
-  border-bottom: 1px solid ${gray};
+  border-bottom: 1px solid ${BORDER_SECONDARY};
 
   &:first-child {
-    border-top: 1px solid ${gray};
+    border-top: 1px solid ${BORDER_SECONDARY};
   }
 `;
 

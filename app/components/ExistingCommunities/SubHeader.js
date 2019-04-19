@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg';
@@ -52,7 +53,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
     <div className="d-flex align-items-center">
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
       <FormattedMessage {...commonMessages.communities} />
-      <Span className="ml-2" color="gray" fontSize="30" bold>
+      <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
         {communitiesNumber}
       </Span>
     </div>

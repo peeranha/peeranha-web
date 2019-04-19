@@ -7,7 +7,7 @@ import * as routes from 'routes-config';
 
 import H4 from 'components/H4';
 import Base from 'components/Base';
-import NavigationButton from 'components/Button/NavigationButton';
+import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
 import profileMessages from 'containers/Profile/messages';

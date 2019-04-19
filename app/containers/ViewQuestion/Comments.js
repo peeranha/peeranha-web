@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { gray, blue, transparent } from 'style-constants';
 import { FormattedMessage } from 'react-intl';
+
+import {
+  TEXT_PRIMARY,
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_TRANSPARENT,
+} from 'style-constants';
 
 import editSmallIcon from 'svg/editSmallIcon';
 import deleteSmallIcon from 'svg/deleteSmallIcon';
@@ -29,12 +35,16 @@ import {
 const CommentManage = styled.div`
   opacity: 0;
 
-  ${Span} {
-    font-size: 14px;
-  }
+  button {
+    padding-left: 15px !important;
 
-  ${IconStyled} {
-    margin-right: 5px;
+    ${Span} {
+      font-size: 14px;
+    }
+
+    ${IconStyled} {
+      margin-right: 5px;
+    }
   }
 `;
 
@@ -50,8 +60,8 @@ const CommentEditStyled = styled.li`
 
 const CommentsStyled = styled.ul`
   ${CommentViewStyled} {
-    border: 1px solid ${gray};
-    padding: 10px 15px;
+    border: 1px solid ${BORDER_SECONDARY};
+    padding: 5px 15px 8px 15px;
 
     :first-child {
       border-top-left-radius: 3px;
@@ -64,11 +74,11 @@ const CommentsStyled = styled.ul`
     }
 
     :not(:last-child) {
-      border-bottom-color: ${transparent};
+      border-bottom-color: ${BORDER_TRANSPARENT};
     }
 
     :hover {
-      border-color: ${blue};
+      border-color: ${BORDER_PRIMARY};
 
       ${CommentManage} {
         opacity: 1;
@@ -116,7 +126,6 @@ const CommentView = /* istanbul ignore next */ item => (
 
       <CommentManage>
         <Button
-          className="ml-1"
           show={item.isItWrittenByMe}
           params={{
             ...item.buttonParams,
@@ -125,14 +134,13 @@ const CommentView = /* istanbul ignore next */ item => (
           }}
           onClick={() => item.toggleView(!item.isView)}
         >
-          <Span color="blue">
+          <Span color={TEXT_PRIMARY}>
             <Icon icon={editSmallIcon} />
             <FormattedMessage {...messages.editButton} />
           </Span>
         </Button>
 
         <Button
-          className="ml-1"
           show={item.isItWrittenByMe}
           id={`comment__${item.answerId}${item.id}`}
           params={{
@@ -142,7 +150,7 @@ const CommentView = /* istanbul ignore next */ item => (
           }}
           onClick={item.deleteComment}
         >
-          <Span color="blue">
+          <Span color={TEXT_PRIMARY}>
             <Icon icon={deleteSmallIcon} />
             <FormattedMessage {...messages.deleteButton} />
           </Span>
@@ -151,7 +159,6 @@ const CommentView = /* istanbul ignore next */ item => (
         <BlockButton
           show
           id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          className="ml-1"
           isVotedToDelete={item.isVotedToDelete}
           isItWrittenByMe={item.isItWrittenByMe}
           onClick={item.voteToDelete}
