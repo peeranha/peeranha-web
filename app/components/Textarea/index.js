@@ -11,7 +11,7 @@ import {
 /* eslint indent: 0 */
 /* istanbul ignore next */
 const Textarea = styled.textarea`
-  height: 200px;
+  height: 90px;
   width: 100%;
   border: 1px solid
     ${props => (props.error ? `${BORDER_WARNING_LIGHT}` : BORDER_SECONDARY)};

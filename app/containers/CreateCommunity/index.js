@@ -17,6 +17,8 @@ import injectReducer from 'utils/injectReducer';
 
 import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
+import Base from 'components/Base/BaseRounded';
+import BaseTransparent from 'components/Base/BaseTransparent';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import * as selectors from './selectors';
@@ -32,22 +34,32 @@ import {
   setDefaultStore,
 } from './actions';
 
-import { NAME_FIELD, DESCRIPTION_FIELD } from './constants';
+import {
+  COMM_NAME_FIELD,
+  COMM_SHORT_DESCRIPTION_FIELD,
+  COMM_MAIN_DESCRIPTION_FIELD,
+} from './constants';
 
-import CreateCommunityForm from './CreateCommunityForm';
+import Form from './Form';
+import Header from './Header';
+import Tips from './Tips';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateCommunity extends React.Component {
+export class CreateCommunity extends React.PureComponent {
   componentWillUnmount() {
     this.props.setDefaultStoreDispatch();
   }
 
   createCommunity = (...args) => {
     const { reset } = args[2];
+    const values = args[0].toJS();
+
     const community = {
       avatar: this.props.cachedImgHash,
-      name: args[0].get(NAME_FIELD),
-      description: args[0].get(DESCRIPTION_FIELD),
+      name: values[COMM_NAME_FIELD],
+      description: values[COMM_SHORT_DESCRIPTION_FIELD],
+      main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
+      tags: values.tags,
     };
 
     this.props.createCommunityDispatch(community, reset);
@@ -71,11 +83,10 @@ export class CreateCommunity extends React.Component {
       cachedProfileImg: this.props.cachedProfileImg,
       createCommunityLoading: this.props.createCommunityLoading,
       translations: translationMessages[this.props.locale],
-      profile: {},
     };
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{sendProps.translations[messages.title.id]}</title>
           <meta
@@ -84,7 +95,21 @@ export class CreateCommunity extends React.Component {
           />
         </Helmet>
 
-        <CreateCommunityForm {...sendProps} />
+        <Header />
+
+        <Base className="p-0">
+          <div className="d-flex">
+            <div className="col-12 col-xl-9 p-0">
+              <BaseTransparent>
+                <Form {...sendProps} />
+              </BaseTransparent>
+            </div>
+
+            <div className="col-12 col-xl-3 p-0">
+              <Tips />
+            </div>
+          </div>
+        </Base>
       </div>
     );
   }
