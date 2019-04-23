@@ -27,11 +27,13 @@ import {
   strLength3x20,
   required,
   strLength20x1000,
+  strLength15x100,
 } from 'components/FormFields/validate';
 
 import messages from './messages';
 
 import {
+  FORM_NAME,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
@@ -50,7 +52,7 @@ for (let i = 0; i < DEFAULT_TAGS_NUMBER; i++) {
 }
 
 /* eslint-disable-next-line */
-export const CreateCommunityForm = /* istanbul ignore next */ ({
+let CreateCommunityForm = /* istanbul ignore next */ ({
   handleSubmit,
   createCommunity,
   createCommunityLoading,
@@ -70,9 +72,8 @@ export const CreateCommunityForm = /* istanbul ignore next */ ({
     const { key } = e.currentTarget.dataset;
     const index = tags.findIndex(x => x === +key);
 
-    // clear redux store
-    change(`${TAG_NAME_FIELD}_${key}`, null);
-    change(`${TAG_DESCRIPTION_FIELD}_${key}`, null);
+    // clear tag in redux-form
+    change(`tags.${TAG_SECTION}_${key}`, null);
 
     // clear array
     const tagsCopy = [...tags];
@@ -103,9 +104,9 @@ export const CreateCommunityForm = /* istanbul ignore next */ ({
             name={COMM_AVATAR_FIELD}
             label={translations[messages.avatar.id]}
             component={AvatarField}
-            validate={imageValidation}
-            warn={imageValidation}
             size={AVATAR_FIELD_WIDTH}
+            validate={() => imageValidation(cachedProfileImg)}
+            warn={() => imageValidation(cachedProfileImg)}
           />
         </AvatarStyled>
 
@@ -124,8 +125,8 @@ export const CreateCommunityForm = /* istanbul ignore next */ ({
           name={COMM_SHORT_DESCRIPTION_FIELD}
           component={TextInputField}
           label={translations[messages.shortDescription.id]}
-          validate={[strLength3x20, required]}
-          warn={[strLength3x20, required]}
+          validate={[strLength15x100, required]}
+          warn={[strLength15x100, required]}
           tip={translations[messages.shortDescriptionTip.id]}
         />
 
@@ -160,7 +161,7 @@ export const CreateCommunityForm = /* istanbul ignore next */ ({
 
                 <Field
                   disabled={createCommunityLoading}
-                  name={`${TAG_NAME_FIELD}_${x}`}
+                  name={TAG_NAME_FIELD}
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
                   validate={[strLength3x20, required]}
@@ -170,7 +171,7 @@ export const CreateCommunityForm = /* istanbul ignore next */ ({
 
                 <Field
                   disabled={createCommunityLoading}
-                  name={`${TAG_DESCRIPTION_FIELD}_${x}`}
+                  name={TAG_DESCRIPTION_FIELD}
                   component={TextareaField}
                   placeholder={translations[messages.tagDescription.id]}
                   validate={[strLength20x1000, required]}
@@ -222,6 +223,34 @@ CreateCommunityForm.propTypes = {
   clearImageChanges: PropTypes.func,
 };
 
+const validateTagsTitles = st => {
+  const state = st.toJS();
+  const errors = {
+    tags: {},
+  };
+
+  if (!state.tags) return errors;
+
+  const tags = Object.keys(state.tags).filter(x => state.tags[x]);
+
+  const notValidTitles = tags.filter(
+    x =>
+      tags
+        .map(z => state.tags[z][TAG_NAME_FIELD])
+        .filter(y => y === state.tags[x][TAG_NAME_FIELD]).length > 1,
+  );
+
+  notValidTitles.forEach(x => {
+    errors.tags[x] = {
+      [TAG_NAME_FIELD]: { id: messages.onlyTagsWithUniqueTitles.id },
+    };
+  });
+
+  return errors;
+};
+
 export default reduxForm({
-  form: 'CreateCommunityForm',
+  form: FORM_NAME,
+  validate: x => validateTagsTitles(x),
+  warn: x => validateTagsTitles(x),
 })(CreateCommunityForm);

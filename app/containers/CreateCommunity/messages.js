@@ -79,4 +79,7 @@ export default defineMessages({
   whoManagesCommunities: {
     id: 'app.containers.CreateCommunity.whoManagesCommunities',
   },
+  onlyTagsWithUniqueTitles: {
+    id: 'app.components.CreateCommunity.onlyTagsWithUniqueTitles',
+  },
 });

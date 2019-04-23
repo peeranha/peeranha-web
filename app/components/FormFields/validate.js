@@ -1,10 +1,7 @@
-import { FILE_MAX_SIZE } from 'containers/EditProfilePage/constants';
 import messages from './messages';
 
-export const imageValidation = value =>
-  value && value[0] && value[0].size > FILE_MAX_SIZE
-    ? messages.fileSize
-    : undefined;
+export const imageValidation = isValid =>
+  !isValid ? messages.fileSize : undefined;
 
 export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)

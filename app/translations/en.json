@@ -153,6 +153,8 @@
   "app.containers.CreateCommunity.whatIsCommunity": "What is community?",
   "app.containers.CreateCommunity.whoManagesCommunities":
     "Who manages the communities?",
+  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+    "Form should allow only tags with unique names",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
@@ -388,7 +390,7 @@
     "Value must be at least 25 characters and no longer than 30000 characters",
   "app.components.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
-  "app.components.FormFields.fileSize": "File size is exceeded",
+  "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
 
   "app.components.Footer.header": "Copyright: Peerania",

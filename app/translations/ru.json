@@ -156,6 +156,8 @@
   "app.containers.CreateCommunity.whatIsCommunity": "Что такое сообщество?",
   "app.containers.CreateCommunity.whoManagesCommunities":
     "Кто руководит сообществами?",
+  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+    "Форма должна содержать только теги с уникальными именами",
 
   "app.containers.HomePage.title":
     "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
@@ -382,7 +384,7 @@
   "app.components.FormFields.wrongLength25x30000":
     "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.components.FormFields.wrongLength30000": "Превышено количество символов",
-  "app.components.FormFields.fileSize": "Превышен размер файла",
+  "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
   "app.components.FormFields.wrongEmail": "Неверный имейл",
 
   "app.components.Footer.header": "Авторские права: Peerania",

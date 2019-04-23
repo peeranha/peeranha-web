@@ -92,8 +92,6 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
             ipfsAvatar={profile.ipfs_avatar}
             getCroppedAvatar={getCroppedAvatar}
             clearImageChanges={clearImageChanges}
-            validate={imageValidation}
-            warn={imageValidation}
           />
         </AvatarStyled>
         <Field
@@ -136,6 +134,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={ABOUT_FIELD}
           component={TextareaField}
           label={intl.formatMessage({ id: messages.aboutLabel.id })}
+          tip={intl.formatMessage({ id: messages.companyTip.id })}
           disabled={isProfileSaving}
           validate={strLength25x30000}
           warn={strLength25x30000}
@@ -172,6 +171,18 @@ const selector = formValueSelector(PROFILE_EDIT_FORM);
 
 ProfileEditForm = reduxForm({
   form: PROFILE_EDIT_FORM,
+  validate: (state, props) => {
+    const errors = {};
+    const imageError = imageValidation(
+      props.cachedProfileImg || props.profile.ipfs_avatar,
+    );
+
+    if (imageError) {
+      errors[AVATAR_FIELD] = { id: imageError.id };
+    }
+
+    return errors;
+  },
 })(ProfileEditForm);
 
 ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
@@ -179,4 +190,4 @@ ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
   location: selector(state, LOCATION_FIELD),
 }))(ProfileEditForm);
 
-export default injectIntl(React.memo(ProfileEditForm));
+export default injectIntl(ProfileEditForm);
