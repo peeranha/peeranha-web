@@ -144,4 +144,7 @@ export default defineMessages({
   disagree: {
     id: 'app.common.disagree',
   },
+  tips: {
+    id: 'app.common.tips',
+  },
 });

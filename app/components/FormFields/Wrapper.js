@@ -13,12 +13,14 @@ export const Wrapper = /* istanbul ignore next */ ({
   <div className="mb-2">
     <Label>{label}</Label>
     <div className="row align-items-center mb-2">
-      <div className={`col-xl-${tip ? 7 : 12} mb-1`}>{children}</div>
-      <WarningMessage
-        {...meta}
-        tip={tip}
-        className={`col-xl-${tip ? 5 : 12}`}
-      />
+      <div className={`col-xl-${tip ? 8 : 12} mb-1`}>{children}</div>
+      {meta && (
+        <WarningMessage
+          {...meta}
+          tip={tip}
+          className={`col-xl-${tip ? 4 : 12}`}
+        />
+      )}
     </div>
   </div>
 );

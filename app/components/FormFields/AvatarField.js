@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import styled from 'styled-components';
 
-import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
+
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
 import WarningMessage from './WarningMessage';
+
+export const MAX_FILE_SIZE = 2000000; // 2mb
 
 const BORDER_EDITOR_RADIUS = 100;
 const EDITOR_COLOR = [255, 255, 255, 0.6];
@@ -20,8 +24,12 @@ const AvatarArea = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  border: 1px solid ${BORDER_SECONDARY};
-  border-radius: 50%;
+  margin-bottom: 10px;
+
+  ${(x) /* istanbul ignore next */ => ErrorHandling(x.error)};
+  ${(x) /* istanbul ignore next */ => DisableHandling(x.disabled)};
+
+  border-radius: 50% !important;
 
   img {
     width: 100%;
@@ -45,14 +53,14 @@ const ButtonStyled = styled.button`
   position: absolute;
   font-size: 20px;
   color: ${TEXT_SECONDARY};
-  top: ${x => x.top}px;
-  right: ${x => x.right}px;
+  top: ${(x) /* istanbul ignore next */ => x.top}px;
+  right: ${(x) /* istanbul ignore next */ => x.right}px;
 `;
 
 const AvatarFieldStyled = styled.div`
   position: relative;
-  width: ${x => x.size}px;
-  height: ${x => x.size}px;
+  width: ${(x) /* istanbul ignore next */ => x.size}px;
+  height: ${(x) /* istanbul ignore next */ => x.size}px;
 `;
 
 function AvatarField({
@@ -73,7 +81,10 @@ function AvatarField({
 
   return (
     <AvatarFieldStyled size={size}>
-      <AvatarArea>
+      <AvatarArea
+        disabled={disabled}
+        error={meta.touched && (meta.warning || meta.error)}
+      >
         {!displayAvatar && (
           <img
             src={cachedProfileImg || ipfsAvatar || editUserNoAvatar}
@@ -101,7 +112,14 @@ function AvatarField({
         {!displayAvatar && (
           <input
             {...input}
-            onChange={uploadImage}
+            onChange={x => {
+              if (x.target.files[0].size > MAX_FILE_SIZE) {
+                clearImageChanges();
+                return;
+              }
+
+              uploadImage(x);
+            }}
             disabled={disabled}
             type="file"
             value={undefined}

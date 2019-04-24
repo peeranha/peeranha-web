@@ -108,4 +108,5 @@ Tips.propTypes = {
   className: PropTypes.string,
 };
 
+export { BaseStyled, AStyled, Ul };
 export default React.memo(Tips);

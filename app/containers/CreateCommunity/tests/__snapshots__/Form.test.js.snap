@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> snapshot test 1`] = `
+<FormStyled
+  size={150}
+>
+  <div
+    className="position-static"
+  >
+    <AvatarStyled>
+      <Field
+        cachedProfileImg=""
+        clearImageChanges={[MockFunction]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "compare": null,
+            "type": [Function],
+          }
+        }
+        disabled={false}
+        editingImgState=""
+        getCroppedAvatar={[MockFunction]}
+        ipfsAvatar={null}
+        name="app/CreateCommunity/COMM_AVATAR_FIELD"
+        size={120}
+        uploadImage={[MockFunction]}
+        validate={[Function]}
+        warn={[Function]}
+      />
+    </AvatarStyled>
+    <Field
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      disabled={false}
+      name="app/CreateCommunity/COMM_NAME_FIELD"
+      validate={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+      warn={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+    />
+    <Field
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      disabled={false}
+      name="app/CreateCommunity/COMM_SHORT_DESCRIPTION_FIELD"
+      validate={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+      warn={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+    />
+    <Field
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      disabled={false}
+      name="app/CreateCommunity/COMM_MAIN_DESCRIPTION_FIELD"
+      validate={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+      warn={
+        Array [
+          [Function],
+          [Function],
+        ]
+      }
+    />
+    <div>
+      <UNDEFINED
+        tip={true}
+      >
+        <FormattedMessage
+          id="app.containers.CreateCommunity.tagsAreNeeded"
+          values={Object {}}
+        />
+      </UNDEFINED>
+      <FormSection
+        className="mt-3"
+        component="div"
+        name="tags"
+      >
+        <FormSection
+          component="div"
+          name="app/CreateCommunity/TAG_SECTION_1"
+        >
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_NAME_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_DESCRIPTION_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+        </FormSection>
+        <FormSection
+          component="div"
+          name="app/CreateCommunity/TAG_SECTION_2"
+        >
+          <button
+            data-key={2}
+            onClick={[Function]}
+            style={
+              Object {
+                "transform": "scale(0.75)",
+              }
+            }
+            type="button"
+          >
+            <UNDEFINED
+              icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"14\\" height=\\"14\\" viewBox=\\"0 0 14 14\\">
+      <path fill=\\"#7B7B7B\\" fill-rule=\\"nonzero\\" d=\\"M7.01 5.96l6.01-6.01.708.707-6.01 6.01 6.01 6.01-.707.708-6.01-6.01L1 13.384l-.707-.707 6.01-6.01L.293.656 1-.05l6.01 6.01z\\" opacity=\\".5\\"/>
+  </svg>
+"
+            />
+          </button>
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_NAME_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_DESCRIPTION_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+        </FormSection>
+        <FormSection
+          component="div"
+          name="app/CreateCommunity/TAG_SECTION_3"
+        >
+          <button
+            data-key={3}
+            onClick={[Function]}
+            style={
+              Object {
+                "transform": "scale(0.75)",
+              }
+            }
+            type="button"
+          >
+            <UNDEFINED
+              icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"14\\" height=\\"14\\" viewBox=\\"0 0 14 14\\">
+      <path fill=\\"#7B7B7B\\" fill-rule=\\"nonzero\\" d=\\"M7.01 5.96l6.01-6.01.708.707-6.01 6.01 6.01 6.01-.707.708-6.01-6.01L1 13.384l-.707-.707 6.01-6.01L.293.656 1-.05l6.01 6.01z\\" opacity=\\".5\\"/>
+  </svg>
+"
+            />
+          </button>
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_NAME_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+          <Field
+            component={
+              Object {
+                "$$typeof": Symbol(react.memo),
+                "compare": null,
+                "type": [Function],
+              }
+            }
+            disabled={false}
+            name="app/CreateCommunity/TAG_DESCRIPTION_FIELD"
+            validate={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+            warn={
+              Array [
+                [Function],
+                [Function],
+              ]
+            }
+          />
+        </FormSection>
+      </FormSection>
+    </div>
+    <div>
+      <Button
+        className="d-flex align-items-center"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="icoTag"
+          className="mr-2"
+          src="IMAGE_MOCK"
+        />
+        <FormattedMessage
+          id="app.containers.CreateCommunity.oneMoreTag"
+          values={Object {}}
+        />
+      </Button>
+    </div>
+    <div>
+      <Button
+        className="my-3"
+        disabled={false}
+        typeAttr="submit"
+      />
+    </div>
+  </div>
+</FormStyled>
+`;

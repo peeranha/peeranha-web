@@ -41,6 +41,7 @@
   "app.common.no": "Нет",
   "app.common.agree": "Согласен",
   "app.common.disagree": "Не согласен",
+  "app.common.tips": "Подсказки",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.follow": "Подписаться",
@@ -123,9 +124,40 @@
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
   "app.containers.CreateCommunity.avatar": "Аватар",
-  "app.containers.CreateCommunity.name": "Наименование",
-  "app.containers.CreateCommunity.description": "Описание",
+  "app.containers.CreateCommunity.communityTitle": "Название",
+  "app.containers.CreateCommunity.shortDescription": "Краткое описание",
+  "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
+  "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
+  "app.containers.CreateCommunity.oneMoreTag": "Добавить тег",
+  "app.containers.CreateCommunity.tags": "Теги",
+  "app.containers.CreateCommunity.tagsAreNeeded":
+    "Теги необходимы при добавлении вопросов. Вы можете указать как можно больше тегов.",
+  "app.containers.CreateCommunity.tagTitle": "Тег",
+  "app.containers.CreateCommunity.tagDescription": "Описание",
+  "app.containers.CreateCommunity.communityTitleTip":
+    "Подсказка для заголовка...",
+  "app.containers.CreateCommunity.shortDescriptionTip":
+    "Подсказка для краткого описания...",
+  "app.containers.CreateCommunity.whyWeNeedItTip":
+    "Подсказка для основного описания...",
+  "app.containers.CreateCommunity.tagTitleTip":
+    "Подсказка для заголовка тега...",
+  "app.containers.CreateCommunity.tagDescriptionTip":
+    "Подсказка для описания тега...",
+  "app.containers.CreateCommunity.imageWillBeTheFace":
+    "Изображение станет лицом сообщества",
+  "app.containers.CreateCommunity.specifyMemorableTitle":
+    "Укажите запоминающийся заголовок",
+  "app.containers.CreateCommunity.communityDescriptionShouldBe":
+    "Описание должно говорить о том, кому будет полезно данное сообщество",
+  "app.containers.CreateCommunity.writeWhyDoWeeNeed":
+    "Напишите, зачем вам нужно привлекать внимание и коллекционировать голоса",
+  "app.containers.CreateCommunity.whatIsCommunity": "Что такое сообщество?",
+  "app.containers.CreateCommunity.whoManagesCommunities":
+    "Кто руководит сообществами?",
+  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+    "Форма должна содержать только теги с уникальными именами",
 
   "app.containers.HomePage.title":
     "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
@@ -352,7 +384,7 @@
   "app.components.FormFields.wrongLength25x30000":
     "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.components.FormFields.wrongLength30000": "Превышено количество символов",
-  "app.components.FormFields.fileSize": "Превышен размер файла",
+  "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
   "app.components.FormFields.wrongEmail": "Неверный имейл",
 
   "app.components.Footer.header": "Авторские права: Peerania",

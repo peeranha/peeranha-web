@@ -35,6 +35,9 @@ import FormStyled from './FormStyled';
 import AvatarStyled from './AvatarStyled';
 import { PROFILE_EDIT_FORM } from './constants';
 
+export const AVATAR_FIELD_WIDTH = 120;
+export const AVATAR_FIELD_MARGIN = 30;
+
 const loadCities = /* istanbul ignore next */ async (v, callback) => {
   const cities = await getCitiesList(v);
 
@@ -49,8 +52,6 @@ const loadCities = /* istanbul ignore next */ async (v, callback) => {
 /* eslint-disable-next-line */
 export let ProfileEditForm = /* istanbul ignore next */ ({
   handleSubmit,
-  submitting,
-  invalid,
   change,
   location,
   intl,
@@ -63,9 +64,6 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
   editingImgState,
   profile,
 }) => {
-  const AVATAR_FIELD_WIDTH = 120;
-  const AVATAR_FIELD_MARGIN = 15;
-
   if (!location) {
     change(LOCATION_FIELD, {
       value: profile.profile[LOCATION_FIELD],
@@ -78,7 +76,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
       size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
       onSubmit={handleSubmit(saveProfile)}
     >
-      <div className="col-xl-12 position-static">
+      <div className="position-static">
         <H3 className="pb-3">
           <FormattedMessage {...messages.editProfile} />
         </H3>
@@ -94,8 +92,6 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
             ipfsAvatar={profile.ipfs_avatar}
             getCroppedAvatar={getCroppedAvatar}
             clearImageChanges={clearImageChanges}
-            validate={imageValidation}
-            warn={imageValidation}
           />
         </AvatarStyled>
         <Field
@@ -138,6 +134,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
           name={ABOUT_FIELD}
           component={TextareaField}
           label={intl.formatMessage({ id: messages.aboutLabel.id })}
+          tip={intl.formatMessage({ id: messages.companyTip.id })}
           disabled={isProfileSaving}
           validate={strLength25x30000}
           warn={strLength25x30000}
@@ -145,7 +142,7 @@ export let ProfileEditForm = /* istanbul ignore next */ ({
 
         <LargeButton
           className="my-3"
-          disabled={invalid || submitting || isProfileSaving}
+          disabled={isProfileSaving}
           typeAttr="submit"
         >
           <FormattedMessage {...messages.saveButton} />
@@ -159,8 +156,6 @@ ProfileEditForm.propTypes = {
   intl: intlShape.isRequired,
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
-  submitting: PropTypes.bool,
-  invalid: PropTypes.bool,
   location: PropTypes.object,
   uploadImage: PropTypes.func,
   getCroppedAvatar: PropTypes.func,
@@ -176,6 +171,18 @@ const selector = formValueSelector(PROFILE_EDIT_FORM);
 
 ProfileEditForm = reduxForm({
   form: PROFILE_EDIT_FORM,
+  validate: (state, props) => {
+    const errors = {};
+    const imageError = imageValidation(
+      props.cachedProfileImg || props.profile.ipfs_avatar,
+    );
+
+    if (imageError) {
+      errors[AVATAR_FIELD] = { id: imageError.id };
+    }
+
+    return errors;
+  },
 })(ProfileEditForm);
 
 ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
@@ -183,4 +190,4 @@ ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
   location: selector(state, LOCATION_FIELD),
 }))(ProfileEditForm);
 
-export default injectIntl(React.memo(ProfileEditForm));
+export default injectIntl(ProfileEditForm);

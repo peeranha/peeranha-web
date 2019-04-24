@@ -13,7 +13,7 @@ exports[` 1`] = `
   <Base
     position="bottom"
   >
-    <InjectIntl(Component)
+    <InjectIntl(Connect(ReduxForm))
       cachedProfileImg={null}
       clearImageChanges={[MockFunction]}
       editingImgState={false}

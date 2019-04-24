@@ -55,7 +55,7 @@ export class FaqFull extends React.PureComponent {
     const translations = translationMessages[this.props.locale];
 
     return (
-      <Box>
+      <Box id="landing-id">
         <Helmet>
           <title>{translations[messages.faqTitle.id]}</title>
           <meta

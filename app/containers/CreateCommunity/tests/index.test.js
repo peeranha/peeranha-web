@@ -1,7 +1,13 @@
+import { fromJS } from 'immutable';
 import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
 import { CreateCommunity } from '../index';
-import { NAME_FIELD, DESCRIPTION_FIELD } from '../constants';
+
+import {
+  COMM_NAME_FIELD,
+  COMM_SHORT_DESCRIPTION_FIELD,
+  COMM_MAIN_DESCRIPTION_FIELD,
+} from '../constants';
 
 const cmp = new CreateCommunity();
 
@@ -33,7 +39,13 @@ describe('<CreateCommunity />', () => {
   });
 
   it('createCommunity', () => {
-    const obj0 = new Map();
+    const values = {
+      [COMM_NAME_FIELD]: COMM_NAME_FIELD,
+      [COMM_SHORT_DESCRIPTION_FIELD]: COMM_SHORT_DESCRIPTION_FIELD,
+      [COMM_MAIN_DESCRIPTION_FIELD]: COMM_MAIN_DESCRIPTION_FIELD,
+    };
+
+    const obj0 = fromJS(values);
     const obj1 = jest.fn();
     const obj2 = {
       reset: jest.fn(),
@@ -41,8 +53,10 @@ describe('<CreateCommunity />', () => {
 
     const community = {
       avatar: cmp.props.cachedImgHash,
-      name: obj0.get(NAME_FIELD),
-      description: obj0.get(DESCRIPTION_FIELD),
+      name: values[COMM_NAME_FIELD],
+      description: values[COMM_SHORT_DESCRIPTION_FIELD],
+      main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
+      tags: values.tags,
     };
 
     cmp.createCommunity(obj0, obj1, obj2);

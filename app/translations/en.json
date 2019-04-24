@@ -41,6 +41,7 @@
   "app.common.no": "No",
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
+  "app.common.tips": "Tips",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",
@@ -121,9 +122,40 @@
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",
   "app.containers.CreateCommunity.avatar": "Avatar",
-  "app.containers.CreateCommunity.name": "Name",
-  "app.containers.CreateCommunity.descriptionField": "Description",
-  "app.containers.CreateCommunity.createCommunity": "Create community",
+  "app.containers.CreateCommunity.communityTitle": "Title",
+  "app.containers.CreateCommunity.shortDescription": "Short description",
+  "app.containers.CreateCommunity.whyWeNeedIt": "Why we need it?",
+  "app.containers.CreateCommunity.newCommunity": "New community",
+  "app.containers.CreateCommunity.createCommunity": "Suggest community",
+  "app.containers.CreateCommunity.oneMoreTag": "One more tag",
+  "app.containers.CreateCommunity.tags": "Tags",
+  "app.containers.CreateCommunity.tagsAreNeeded":
+    "Tags are needed for asking questions. So you have to specify 3-30 main tags.",
+  "app.containers.CreateCommunity.tagTitle": "Tag",
+  "app.containers.CreateCommunity.tagDescription": "Description",
+  "app.containers.CreateCommunity.communityTitleTip":
+    "Some community title tip...",
+  "app.containers.CreateCommunity.shortDescriptionTip":
+    "Some community description tip...",
+  "app.containers.CreateCommunity.whyWeNeedItTip":
+    "Some community main description tip...",
+  "app.containers.CreateCommunity.tagTitleTip": "Some tag title tip...",
+  "app.containers.CreateCommunity.tagDescriptionTip":
+    "Some tag description tip...",
+  "app.containers.CreateCommunity.imageWillBeTheFace":
+    "Image will be the face of community",
+  "app.containers.CreateCommunity.specifyMemorableTitle":
+    "Specify a memorable title",
+  "app.containers.CreateCommunity.communityDescriptionShouldBe":
+    "Community description should be concise and describe to whom it will be useful",
+  "app.containers.CreateCommunity.writeWhyDoWeeNeed":
+    "Write why do we need this community to attract the attention of other users and collect votes",
+  "app.containers.CreateCommunity.whatIsCommunity": "What is community?",
+  "app.containers.CreateCommunity.whoManagesCommunities":
+    "Who manages the communities?",
+  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+    "Form should allow only tags with unique names",
+
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
   "app.containers.Communities.suggestInterestingComm":
@@ -358,7 +390,7 @@
     "Value must be at least 25 characters and no longer than 30000 characters",
   "app.components.FormFields.wrongLength30000":
     "Maximum number of characters exceeded",
-  "app.components.FormFields.fileSize": "File size is exceeded",
+  "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
 
   "app.components.Footer.header": "Copyright: Peerania",
