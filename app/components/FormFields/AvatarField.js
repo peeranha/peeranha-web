@@ -26,8 +26,8 @@ const AvatarArea = styled.div`
   height: 100%;
   margin-bottom: 10px;
 
-  ${x => ErrorHandling(x.error)};
-  ${x => DisableHandling(x.disabled)};
+  ${(x) /* istanbul ignore next */ => ErrorHandling(x.error)};
+  ${(x) /* istanbul ignore next */ => DisableHandling(x.disabled)};
 
   border-radius: 50% !important;
 
@@ -53,14 +53,14 @@ const ButtonStyled = styled.button`
   position: absolute;
   font-size: 20px;
   color: ${TEXT_SECONDARY};
-  top: ${x => x.top}px;
-  right: ${x => x.right}px;
+  top: ${(x) /* istanbul ignore next */ => x.top}px;
+  right: ${(x) /* istanbul ignore next */ => x.right}px;
 `;
 
 const AvatarFieldStyled = styled.div`
   position: relative;
-  width: ${x => x.size}px;
-  height: ${x => x.size}px;
+  width: ${(x) /* istanbul ignore next */ => x.size}px;
+  height: ${(x) /* istanbul ignore next */ => x.size}px;
 `;
 
 function AvatarField({

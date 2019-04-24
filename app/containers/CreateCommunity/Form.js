@@ -52,7 +52,7 @@ for (let i = 0; i < DEFAULT_TAGS_NUMBER; i++) {
 }
 
 /* eslint-disable-next-line */
-let CreateCommunityForm = /* istanbul ignore next */ ({
+const CreateCommunityForm = /* istanbul ignore next */ ({
   handleSubmit,
   createCommunity,
   createCommunityLoading,
@@ -147,7 +147,7 @@ let CreateCommunityForm = /* istanbul ignore next */ ({
 
           <FormSection name="tags" className="mt-3">
             {tags.map(x => (
-              <FormSection name={`${TAG_SECTION}_${x}`}>
+              <FormSection key={x} name={`${TAG_SECTION}_${x}`}>
                 {x !== tags[0] && (
                   <button
                     type="button"
@@ -248,6 +248,8 @@ const validateTagsTitles = st => {
 
   return errors;
 };
+
+export { CreateCommunityForm, validateTagsTitles };
 
 export default reduxForm({
   form: FORM_NAME,

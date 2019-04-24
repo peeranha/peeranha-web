@@ -4,7 +4,9 @@ exports[`AvatarField test 1`] = `
 <AvatarField__AvatarFieldStyled
   size={16}
 >
-  <AvatarField__AvatarArea>
+  <AvatarField__AvatarArea
+    disabled={false}
+  >
     <d
       border={3.2}
       borderRadius={100}

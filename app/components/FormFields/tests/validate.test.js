@@ -1,5 +1,3 @@
-import { FILE_MAX_SIZE } from 'containers/EditProfilePage/constants';
-
 import {
   imageValidation,
   stringLength,
@@ -11,22 +9,16 @@ import {
 import messages from '../messages';
 
 describe('imageValidation', () => {
-  it('file is null', () => {
-    const file = null;
+  it('isValid TRUE', () => {
+    const isValid = true;
 
-    expect(imageValidation(file)).toBe(undefined);
+    expect(imageValidation(isValid)).toBe(undefined);
   });
 
-  it('file is not null, size is more', () => {
-    const file = [{ size: 2 * FILE_MAX_SIZE }];
+  it('isValid FALSE', () => {
+    const isValid = false;
 
-    expect(imageValidation(file)).toBe(messages.fileSize);
-  });
-
-  it('file is not null, size is less', () => {
-    const file = [{ size: 0.5 * FILE_MAX_SIZE }];
-
-    expect(imageValidation(file)).toBe(undefined);
+    expect(imageValidation(isValid)).toBe(messages.fileSize);
   });
 });
 

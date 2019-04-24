@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header test 1`] = `
+<Base
+  className="d-flex align-items-center justify-content-between mb-3"
+>
+  <Span
+    className="d-flex align-items-end"
+  >
+    <Img
+      alt="questionIcon"
+      src="IMAGE_MOCK"
+    />
+    <FormattedMessage
+      id="app.containers.CreateCommunity.newCommunity"
+      values={Object {}}
+    />
+  </Span>
+  <A
+    className="d-inline-flex align-items-center"
+    href="/communities"
+    to="/communities"
+  >
+    <img
+      alt="x"
+      className="mr-1"
+      src="IMAGE_MOCK"
+    />
+    <Span
+      color="#576fed"
+    >
+      <FormattedMessage
+        id="app.common.close"
+        values={Object {}}
+      />
+    </Span>
+  </A>
+</Base>
+`;

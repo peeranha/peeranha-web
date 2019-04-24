@@ -11,14 +11,14 @@ exports[`Wrapper test 1`] = `
     className="row align-items-center mb-2"
   >
     <div
-      className="col-xl-7 mb-1"
+      className="col-xl-8 mb-1"
     >
       <div>
         123
       </div>
     </div>
     <UNDEFINED
-      className="col-xl-5"
+      className="col-xl-4"
       tip="tip"
     />
   </div>
