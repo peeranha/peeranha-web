@@ -27,7 +27,7 @@ import TagsView from './TagsView';
 import TagsHeader from './TagsHeader';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Tags extends React.Component {
+export class TagsOfCommunity extends React.Component {
   /* eslint consistent-return: 0 */
   goToCreateTagScreen = () => {
     const { profile, locale, match } = this.props;
@@ -74,7 +74,7 @@ export class Tags extends React.Component {
   }
 }
 
-Tags.propTypes = {
+TagsOfCommunity.propTypes = {
   communities: PropTypes.array.isRequired,
   locale: PropTypes.string.isRequired,
   profile: PropTypes.object,
@@ -99,4 +99,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Tags);
+)(TagsOfCommunity);
