@@ -147,4 +147,10 @@ export default defineMessages({
   tips: {
     id: 'app.common.tips',
   },
+  suggestTag: {
+    id: 'app.common.suggestTag',
+  },
+  seeAll: {
+    id: 'app.common.seeAll',
+  },
 });

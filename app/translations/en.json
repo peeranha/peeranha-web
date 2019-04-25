@@ -42,6 +42,8 @@
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
   "app.common.tips": "Tips",
+  "app.common.suggestTag": "Suggest tag",
+  "app.common.seeAll": "See all",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",
@@ -392,6 +394,8 @@
     "Maximum number of characters exceeded",
   "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
+
+  "app.containers.TagsCollection.title": "Tags collection",
 
   "app.components.Footer.header": "Copyright: Peerania",
   "app.containers.SignUp.eosAccount": "EOS Account",

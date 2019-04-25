@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 import Span from 'components/Span';
@@ -12,6 +13,12 @@ const Tag = Span.extend`
   margin-right: 8px;
   padding: 2px 10px;
 `.withComponent('li');
+
+const Box = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+`;
 
 const TagsList = /* istanbul ignore next */ ({
   chosenTags,
@@ -29,7 +36,7 @@ const TagsList = /* istanbul ignore next */ ({
     : community.tags;
 
   return (
-    <ul className="d-flex flex-wrap align-items-center">
+    <Box>
       {questionTags.map(x => (
         <Tag className={className} key={x.name}>
           {x.name}
@@ -37,7 +44,7 @@ const TagsList = /* istanbul ignore next */ ({
       ))}
 
       {children}
-    </ul>
+    </Box>
   );
 };
 
@@ -49,4 +56,5 @@ TagsList.propTypes = {
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
+export { Tag, Box };
 export default TagsList;

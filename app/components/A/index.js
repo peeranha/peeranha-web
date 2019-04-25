@@ -8,7 +8,7 @@ import IconStyled from 'components/Icon/IconStyled';
 const A = styled(Link)`
   text-decoration: none;
   color: ${TEXT_DARK};
-  pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
+  pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
 
   ${IconStyled} {
     stroke: ${TEXT_DARK};
