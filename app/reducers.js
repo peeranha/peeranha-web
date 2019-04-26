@@ -25,7 +25,7 @@ import followCommunityButtonReducer from 'containers/FollowCommunityButton/reduc
 import createCommunityReducer from 'containers/CreateCommunity/reducer';
 import communitiesReducer from 'containers/Communities/reducer';
 import createTagReducer from 'containers/CreateTag/reducer';
-import suggestedTagsReducer from 'containers/SuggestedTags/reducer';
+import tagsReducer from 'containers/Tags/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
@@ -82,7 +82,7 @@ export default function createReducer(injectedReducers) {
     createCommunity: createCommunityReducer,
     communities: communitiesReducer,
     createTag: createTagReducer,
-    suggestedTags: suggestedTagsReducer,
+    tags: tagsReducer,
     questionsOfUser: questionsOfUserReducer,
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     voteForNewCommunityButton: voteForNewCommunityButtonReducer,

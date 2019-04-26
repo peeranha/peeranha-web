@@ -1,9 +1,3 @@
-/*
- *
- * SuggestedCommunities reducer
- *
- */
-
 import { fromJS } from 'immutable';
 import {
   GET_SUGGESTED_TAGS,
@@ -27,7 +21,7 @@ export const initialState = fromJS({
   downVoteError: null,
 });
 
-function suggestedTagsReducer(state = initialState, action) {
+function tagsReducer(state = initialState, action) {
   const {
     type,
     getSuggestedTagsError,
@@ -67,4 +61,4 @@ function suggestedTagsReducer(state = initialState, action) {
   }
 }
 
-export default suggestedTagsReducer;
+export default tagsReducer;

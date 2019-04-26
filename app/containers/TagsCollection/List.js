@@ -7,6 +7,7 @@ import {
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
   BORDER_PRIMARY,
+  TEXT_SECONDARY,
 } from 'style-constants';
 
 import commonMessages from 'common-messages';
@@ -59,23 +60,34 @@ const List = ({ communities }) => (
     {_.orderBy(communities, y => y.popularity, 'desc').map(x => (
       <BaseTransparent key={x.value}>
         <div className="row align-items-center">
-          <div className="col-xl-4 d-flex">
+          <div className="col-xl-3 d-flex">
             <MediumImageStyled
-              className="mt-2"
+              className="mt-1"
               src={x.avatar}
               alt="communityAvatar"
             />
             <div>
-              <P className="mb-1" fontSize="24" bold>
+              <P fontSize="24" bold>
                 {x.label}
               </P>
-              <P fontSize="14">{x.description}</P>
+              <P
+                className="text-lowercase"
+                fontSize="14"
+                color={TEXT_SECONDARY}
+              >
+                <span>{`${x.tags.length} `}</span>
+                <FormattedMessage {...commonMessages.tags} />
+              </P>
             </div>
           </div>
 
-          <div className="col-xl-8 d-flex align-items-center">
+          <div className="col-xl-9 d-flex align-items-center">
             <div className="position-relative flex-grow-1">
-              <TagList communities={communities} communityId={x.id} />
+              <TagList
+                communities={communities}
+                communityId={x.id}
+                showPopularity
+              />
               <BlockShadow toSide="right" />
             </div>
 

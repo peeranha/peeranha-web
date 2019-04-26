@@ -1,2 +1,0 @@
-export const GO_TO_CREATE_TAG_SCREEN_BUTTON_ID =
-  'app_containers_GO_TO_CREATE_TAG_SCREEN_BUTTON_ID';

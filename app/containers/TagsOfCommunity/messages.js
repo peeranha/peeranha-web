@@ -2,19 +2,15 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   title: {
-    id: 'app.containers.Tags.title',
-    defaultMessage: 'Tags',
+    id: 'app.containers.TagsOfCommunity.title',
   },
   description: {
-    id: 'app.containers.Tags.description',
-    defaultMessage: 'Description of Tags',
+    id: 'app.containers.TagsOfCommunity.description',
   },
   suggestedTags: {
-    id: 'app.containers.Tags.suggestedTags',
-    defaultMessage: 'Suggested tags',
+    id: 'app.containers.TagsOfCommunity.suggestedTags',
   },
   createTag: {
-    id: 'app.containers.Tags.createTag',
-    defaultMessage: 'Create tag',
+    id: 'app.containers.TagsOfCommunity.createTag',
   },
 });

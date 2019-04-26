@@ -153,4 +153,7 @@ export default defineMessages({
   seeAll: {
     id: 'app.common.seeAll',
   },
+  voting: {
+    id: 'app.common.voting',
+  },
 });

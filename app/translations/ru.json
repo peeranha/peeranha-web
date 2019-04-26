@@ -44,6 +44,7 @@
   "app.common.tips": "Подсказки",
   "app.common.suggestTag": "Предложить тег",
   "app.common.seeAll": "Посмотреть все",
+  "app.common.voting": "Голосование",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
 
@@ -85,9 +86,6 @@
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
-  "app.containers.SuggestedTags.youHaveAlreadyVoted": "Вы уже голосовали",
-  "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
-    "Нельзя голосовать за свой тег",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
 
   "app.containers.CreateTag.title": "Предложить тег",
@@ -96,10 +94,20 @@
   "app.containers.CreateTag.descriptionField": "Описание",
   "app.containers.CreateTag.createTag": "Предложить тег",
 
-  "app.containers.Tags.title": "Теги",
-  "app.containers.Tags.description": "Описание тегов",
-  "app.containers.Tags.suggestedTags": "Предложенные теги",
-  "app.containers.Tags.createTag": "Предложить тег",
+  "app.containers.Tags.backToList": "Вернуться к списку",
+
+  "app.containers.Tags.backToList": "Вернуться к списку",
+  "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
+  "app.containers.Tags.suggestTagWhichWillbeUseful":
+    "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
+  "app.containers.Tags.youHaveAlreadyVoted": "Вы уже голосовали",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm":
+    "Нельзя голосовать за свой тег",
+
+  "app.containers.TagsOfCommunity.title": "Теги",
+  "app.containers.TagsOfCommunity.description": "Описание тегов",
+  "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
+  "app.containers.TagsOfCommunity.createTag": "Предложить тег",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":

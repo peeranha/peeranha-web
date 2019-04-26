@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
+import { BORDER_PRIMARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+
 import Span from 'components/Span';
 
 const Tag = Span.extend`
@@ -11,8 +12,9 @@ const Tag = Span.extend`
   font-size: 14px;
   border-radius: 2px;
   margin-right: 8px;
+  margin-bottom: 2px;
   padding: 2px 10px;
-`.withComponent('li');
+`;
 
 const Box = styled.ul`
   display: flex;
@@ -26,6 +28,7 @@ const TagsList = /* istanbul ignore next */ ({
   communityId,
   children,
   className,
+  showPopularity,
 }) => {
   const community = communities.filter(x => communityId === x.id)[0];
 
@@ -38,9 +41,17 @@ const TagsList = /* istanbul ignore next */ ({
   return (
     <Box>
       {questionTags.map(x => (
-        <Tag className={className} key={x.name}>
-          {x.name}
-        </Tag>
+        <li className="d-flex flex-column">
+          <Tag className={className} key={x.name}>
+            {x.name}
+          </Tag>
+
+          {showPopularity && (
+            <Span color={TEXT_SECONDARY} fontSize="14">
+              {x.popularity}
+            </Span>
+          )}
+        </li>
       ))}
 
       {children}
@@ -53,6 +64,7 @@ TagsList.propTypes = {
   className: PropTypes.string,
   chosenTags: PropTypes.array,
   communities: PropTypes.array,
+  showPopularity: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

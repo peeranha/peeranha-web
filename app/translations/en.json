@@ -44,6 +44,7 @@
   "app.common.tips": "Tips",
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
+  "app.common.voting": "Voting",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",
@@ -84,9 +85,6 @@
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
-  "app.containers.SuggestedTags.youHaveAlreadyVoted": "You have already voted",
-  "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
-    "Creator cannot upvote own tag",
   "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
 
   "app.containers.CreateTag.title": "Create tag",
@@ -95,10 +93,18 @@
   "app.containers.CreateTag.descriptionField": "Description",
   "app.containers.CreateTag.createTag": "Create tag",
 
-  "app.containers.Tags.title": "Tags",
-  "app.containers.Tags.description": "Description of Tags",
-  "app.containers.Tags.suggestedTags": "Suggested tags",
-  "app.containers.Tags.createTag": "Create tag",
+  "app.containers.Tags.backToList": "Back to list",
+  "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tag?",
+  "app.containers.Tags.youHaveAlreadyVoted": "You have already voted",
+  "app.containers.Tags.suggestTagWhichWillbeUseful":
+    "Suggest tag, which will be useful to you and 100 other users who will vote for it.",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm":
+    "Creator cannot upvote own tag",
+
+  "app.containers.TagsOfCommunity.title": "Tags",
+  "app.containers.TagsOfCommunity.description": "Description of Tags",
+  "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
+  "app.containers.TagsOfCommunity.createTag": "Create tag",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
