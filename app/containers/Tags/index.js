@@ -32,7 +32,7 @@ import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getSuggestedTags, upVote, downVote } from './actions';
+import { getSuggestedTags } from './actions';
 
 import { createTagValidator } from './validate';
 
@@ -81,22 +81,6 @@ export class Tags extends React.Component {
     });
   };
 
-  upVote = ev => {
-    const { communityid } = this.props.match.params;
-    const { id, dataset } = ev.currentTarget;
-    const { tagid } = dataset;
-
-    this.props.upVoteDispatch(communityid, tagid, id);
-  };
-
-  downVote = ev => {
-    const { communityid } = this.props.match.params;
-    const { id, dataset } = ev.currentTarget;
-    const { tagid } = dataset;
-
-    this.props.downVoteDispatch(communityid, tagid, id);
-  };
-
   render() {
     const { communityId } = this.props;
 
@@ -119,11 +103,8 @@ export class Tags extends React.Component {
 
 Tags.propTypes = {
   locale: PropTypes.string,
-  match: PropTypes.object,
   profile: PropTypes.object,
   showLoginModalDispatch: PropTypes.func,
-  upVoteDispatch: PropTypes.func,
-  downVoteDispatch: PropTypes.func,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
@@ -138,12 +119,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getSuggestedTagsDispatch: communityid =>
-      dispatch(getSuggestedTags(communityid)),
-    upVoteDispatch: (communityid, tagid, buttonId) =>
-      dispatch(upVote(communityid, tagid, buttonId)),
-    downVoteDispatch: (communityid, tagid, buttonId) =>
-      dispatch(downVote(communityid, tagid, buttonId)),
+    getSuggestedTagsDispatch: communityId =>
+      dispatch(getSuggestedTags(communityId)),
     showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }

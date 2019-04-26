@@ -19,25 +19,4 @@ const selectTagsError = () =>
     substate => substate.toJS().getSuggestedTagsError,
   );
 
-const selectUpVoteLoading = () =>
-  createSelector(selectTagsDomain, substate => substate.toJS().upVoteLoading);
-
-const selectUpVoteError = () =>
-  createSelector(selectTagsDomain, substate => substate.toJS().upVoteError);
-
-const selectDownVoteLoading = () =>
-  createSelector(selectTagsDomain, substate => substate.toJS().downVoteLoading);
-
-const selectDownVoteError = () =>
-  createSelector(selectTagsDomain, substate => substate.toJS().downVoteError);
-
-export {
-  selectTagsDomain,
-  selectTags,
-  selectTagsLoading,
-  selectTagsError,
-  selectUpVoteLoading,
-  selectUpVoteError,
-  selectDownVoteLoading,
-  selectDownVoteError,
-};
+export { selectTagsDomain, selectTags, selectTagsLoading, selectTagsError };

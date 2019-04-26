@@ -3,32 +3,16 @@ import {
   GET_SUGGESTED_TAGS,
   GET_SUGGESTED_TAGS_SUCCESS,
   GET_SUGGESTED_TAGS_ERROR,
-  UPVOTE,
-  UPVOTE_SUCCESS,
-  UPVOTE_ERROR,
-  DOWNVOTE,
-  DOWNVOTE_SUCCESS,
-  DOWNVOTE_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   tags: [],
   getSuggestedTagsError: null,
   tagsLoading: false,
-  upVoteLoading: false,
-  upVoteError: null,
-  downVoteLoading: false,
-  downVoteError: null,
 });
 
 function tagsReducer(state = initialState, action) {
-  const {
-    type,
-    getSuggestedTagsError,
-    tags,
-    downVoteError,
-    upVoteError,
-  } = action;
+  const { type, getSuggestedTagsError, tags } = action;
 
   switch (type) {
     case GET_SUGGESTED_TAGS:
@@ -39,22 +23,6 @@ function tagsReducer(state = initialState, action) {
       return state
         .set('tagsLoading', false)
         .set('getSuggestedTagsError', getSuggestedTagsError);
-
-    case UPVOTE:
-      return state.set('upVoteLoading', true);
-    case UPVOTE_SUCCESS:
-      return state.set('upVoteLoading', false).set('tags', tags);
-    case UPVOTE_ERROR:
-      return state.set('upVoteLoading', false).set('upVoteError', upVoteError);
-
-    case DOWNVOTE:
-      return state.set('downVoteLoading', true);
-    case DOWNVOTE_SUCCESS:
-      return state.set('downVoteLoading', false).set('tags', tags);
-    case DOWNVOTE_ERROR:
-      return state
-        .set('downVoteLoading', false)
-        .set('downVoteError', downVoteError);
 
     default:
       return state;
