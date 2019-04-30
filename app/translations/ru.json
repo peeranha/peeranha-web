@@ -94,9 +94,21 @@
 
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
+  "app.containers.CreateTag.community": "Сообщество",
+  "app.containers.CreateTag.communityTip": "Подсказка для поля сообщество...",
   "app.containers.CreateTag.name": "Название",
+  "app.containers.CreateTag.nameTip": "Подсказка для поля название...",
   "app.containers.CreateTag.descriptionField": "Описание",
+  "app.containers.CreateTag.descriptionFieldTip":
+    "Подсказка для поля описание...",
   "app.containers.CreateTag.createTag": "Предложить тег",
+  "app.containers.CreateTag.newTag": "Новый тег",
+  "app.containers.CreateTag.tagIsKeyword":
+    "Тег - это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
+  "app.containers.CreateTag.usingTheRightTags":
+    "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
+  "app.containers.CreateTag.whatIsTag": "Что такое тег?",
+  "app.containers.CreateTag.howToUseIt": "Как это использовать?",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 

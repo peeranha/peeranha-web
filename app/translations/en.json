@@ -93,9 +93,20 @@
 
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
+  "app.containers.CreateTag.community": "Community",
+  "app.containers.CreateTag.communityTip": "Some community tip...",
   "app.containers.CreateTag.name": "Name",
+  "app.containers.CreateTag.nameTip": "Some name tip...",
   "app.containers.CreateTag.descriptionField": "Description",
+  "app.containers.CreateTag.descriptionFieldTip": "Some descriptions tip...",
   "app.containers.CreateTag.createTag": "Create tag",
+  "app.containers.CreateTag.newTag": "New tag",
+  "app.containers.CreateTag.tagIsKeyword":
+    "A tag is a keyword or label that categorizes your question with other, similar questions.",
+  "app.containers.CreateTag.usingTheRightTags":
+    "Using the right tags makes it easier for others to find and answer your question.",
+  "app.containers.CreateTag.whatIsTag": "What is a tag?",
+  "app.containers.CreateTag.howToUseIt": "How to use it?",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tag?",

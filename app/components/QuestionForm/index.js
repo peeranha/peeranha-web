@@ -188,6 +188,8 @@ QuestionForm = connect((state, props) /* istanbul ignore next */ => {
     };
   }
 
+  console.log(initialValues);
+
   const form = state.toJS().form[props.form];
 
   if (form) {

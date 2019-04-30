@@ -56,7 +56,7 @@ export async function suggestTag(eosService, selectedAccount, tag) {
 
   await eosService.sendTransaction(selectedAccount, CREATE_TAG, {
     user: selectedAccount,
-    community_id: +tag.communityid,
+    community_id: +tag.communityId,
     name: tag.name,
     ipfs_description: tagIpfsHash,
   });

@@ -21,9 +21,10 @@ export function* suggestTagWorker({ tag, reset }) {
     yield call(() => reset());
 
     yield call(() =>
-      createdHistory.push(routes.suggestedTags(tag.communityid)),
+      createdHistory.push(routes.suggestedTags(tag.communityId)),
     );
   } catch (err) {
+    console.log(err);
     yield put(suggestTagErr(err.message));
   }
 }
