@@ -16,4 +16,10 @@ export default defineMessages({
   noSuggestedTags: {
     id: 'app.containers.SuggestedTags.noSuggestedTags',
   },
+  topTagsInCommunity: {
+    id: 'app.containers.SuggestedTags.topTagsInCommunity',
+  },
+  tagDescription: {
+    id: 'app.containers.SuggestedTags.tagDescription',
+  },
 });

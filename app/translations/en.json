@@ -45,6 +45,9 @@
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
   "app.common.voting": "Voting",
+  "app.common.date": "Date",
+  "app.common.popularity": "Popularity",
+  "app.common.moreVoting": "More voting",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",
@@ -52,7 +55,6 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
-  "app.containers.ExistingCommunities.moreVoting": "More voting",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -86,6 +88,8 @@
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
   "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
+  "app.containers.SuggestedTags.tagDescription": "Description",
 
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
@@ -105,6 +109,7 @@
   "app.containers.TagsOfCommunity.description": "Description of Tags",
   "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
   "app.containers.TagsOfCommunity.createTag": "Create tag",
+  "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
@@ -119,6 +124,9 @@
     "Creator cannot upvote own community",
   "app.containers.VoteForNewCommunityButton.youCannotChange":
     "You can’t change your vote. Are you sure?",
+
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
+    "Creator cannot upvote own tag",
 
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",

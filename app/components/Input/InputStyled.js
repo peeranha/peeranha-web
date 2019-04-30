@@ -60,6 +60,7 @@ const InputStyled = styled.div`
   }
 
   input {
+    width: 100%;
     ${props => Input(props)} &:focus {
       box-shadow: 0 0 0 3px
         ${props =>

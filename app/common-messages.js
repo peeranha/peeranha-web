@@ -156,4 +156,13 @@ export default defineMessages({
   voting: {
     id: 'app.common.voting',
   },
+  date: {
+    id: 'app.common.date',
+  },
+  popularity: {
+    id: 'app.common.popularity',
+  },
+  moreVoting: {
+    id: 'app.common.moreVoting',
+  },
 });

@@ -13,4 +13,7 @@ export default defineMessages({
   createTag: {
     id: 'app.containers.TagsOfCommunity.createTag',
   },
+  voteForNewTags: {
+    id: 'app.containers.TagsOfCommunity.voteForNewTags',
+  },
 });

@@ -61,13 +61,32 @@ export async function suggestTag(eosService, selectedAccount, tag) {
     ipfs_description: tagIpfsHash,
   });
 }
-export async function getSuggestedTags(eosService, communityid) {
+
+export async function getSuggestedTags(
+  eosService,
+  communityId,
+  lowerBound,
+  limit,
+) {
   const tags = await eosService.getTableRows(
     CREATED_TAGS_COMMUNITIES_TABLE,
-    getTagScope(communityid),
-    0,
+    getTagScope(communityId),
+    lowerBound,
+    limit,
   );
 
+  await Promise.all(
+    tags.map(async x => {
+      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
+      x.description = ipfsDescription.description;
+    }),
+  );
+
+  return tags;
+}
+
+// TODO: test it
+export async function getExistingTags(tags) {
   await Promise.all(
     tags.map(async x => {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));

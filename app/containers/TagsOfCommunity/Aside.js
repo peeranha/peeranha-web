@@ -1,57 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 
 import moreVotingIcon from 'images/moreVoting.svg';
 
-import Img from 'components/Img';
 import Span from 'components/Span';
 import P from 'components/P';
 import A from 'components/A';
 
-import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
-import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
+import VoteUpButton from 'containers/VoteForNewTagButton/VoteUpButton';
+import VoteDownButton from 'containers/VoteForNewTagButton/VoteDownButton';
+
+import { Header, Item } from 'components/ExistingCommunities/Aside';
 
 import messages from './messages';
 
-const Item = styled.div`
-  word-break: break-word;
-  border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-`;
+const suggestTagRoute = routes.suggestedTags();
 
-const Header = Span.extend`
-  word-break: break-word;
-`.withComponent('header');
-
-const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
+const Aside = /* istanbul ignore next */ ({ suggestedTags, communityId }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
-      <FormattedMessage {...messages.voteForNewCommunities} />
+      <FormattedMessage {...messages.voteForNewTags} />
     </Header>
 
-    {suggestedCommunities.slice(0, 3).map(x => (
+    {suggestedTags.slice(0, 3).map(x => (
       <Item key={x.id}>
         <div className="d-flex align-items-center mb-2">
-          <Img className="mr-1" src={x.avatar} alt="commAvatar" />
-          <Span bold>{x.name}</Span>
+          <A to={suggestTagRoute} href={suggestTagRoute} bold>
+            {x.name}
+          </A>
         </div>
+
         <P className="mb-3" fontSize="14">
           {x.description}
         </P>
+
         <div className="d-flex justify-content-between">
           <VoteUpButton
             className="mr-2"
             id={`voteup_${x.id}`}
-            communityId={x.id}
+            communityId={communityId}
+            tagId={x.id}
           />
-          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
+
+          <VoteDownButton
+            id={`downvote_${x.id}`}
+            communityId={communityId}
+            tagId={x.id}
+          />
         </div>
       </Item>
     ))}
@@ -59,8 +59,8 @@ const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
     <footer>
       <A
         className="d-flex align-items-center"
-        to={routes.suggestedCommunities()}
-        href={routes.suggestedCommunities()}
+        to={suggestTagRoute}
+        href={suggestTagRoute}
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
         <Span color={TEXT_PRIMARY}>
@@ -72,8 +72,8 @@ const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
 );
 
 Aside.propTypes = {
-  suggestedCommunities: PropTypes.array,
+  suggestedTags: PropTypes.array,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-export { Item, Header };
 export default React.memo(Aside);

@@ -29,6 +29,7 @@ import tagsReducer from 'containers/Tags/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
+import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
 
 /*
  * routeReducer
@@ -86,6 +87,7 @@ export default function createReducer(injectedReducers) {
     questionsOfUser: questionsOfUserReducer,
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     voteForNewCommunityButton: voteForNewCommunityButtonReducer,
+    voteForNewTagButton: voteForNewTagButtonReducer,
     form: formReducer,
     ...injectedReducers,
   });

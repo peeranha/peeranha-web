@@ -4,7 +4,4 @@ export default defineMessages({
   voteForNewCommunities: {
     id: 'app.containers.ExistingCommunities.voteForNewCommunities',
   },
-  moreVoting: {
-    id: 'app.containers.ExistingCommunities.moreVoting',
-  },
 });

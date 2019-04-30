@@ -5,8 +5,9 @@ import {
   downVoteToCreateTag,
 } from 'utils/communityManagement';
 
-import { getSuggestedTags } from 'containers/Tags/saga';
+import { getSuggestedTagsWorker } from 'containers/Tags/saga';
 
+import { selectSuggestedTags } from 'containers/Tags/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -21,15 +22,13 @@ import {
   downVoteErr,
 } from './actions';
 
-import { selectTags } from './selectors';
-
 import { upVoteValidator, downVoteValidator } from './validate';
 
 /* eslint consistent-return: 0 */
 export function* upVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const storedTags = yield select(selectTags());
+    const storedTags = yield select(selectSuggestedTags());
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
@@ -63,10 +62,11 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
       upVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
     );
 
-    const tags = yield call(() => getSuggestedTags(eosService, communityId));
+    const tags = yield call(() => getSuggestedTagsWorker({ communityId }));
 
     yield put(upVoteSuccess(tags));
   } catch (err) {
+    console.log(err);
     yield put(upVoteErr(err.message));
   }
 }
@@ -75,7 +75,7 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
 export function* downVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const storedTags = yield select(selectTags());
+    const storedTags = yield select(selectSuggestedTags());
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
@@ -109,7 +109,7 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
       downVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
     );
 
-    const tags = yield call(() => getSuggestedTags(eosService, communityId));
+    const tags = yield call(() => getSuggestedTagsWorker({ communityId }));
 
     yield put(downVoteSuccess(tags));
   } catch (err) {

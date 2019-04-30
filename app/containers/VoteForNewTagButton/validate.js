@@ -18,7 +18,7 @@ export const upVoteValidator = (
 
   if (selectedAccount === activeTag.creator) {
     message = `${
-      translationMessages[locale][tagsMessages.creatorCannotUpvoteOwnComm.id]
+      translationMessages[locale][tagsMessages.creatorCannotUpvoteOwnTag.id]
     }`;
   } else if (profile.rating < MIN_RATING_TO_UPVOTE) {
     message = `${

@@ -6,3 +6,9 @@ export const DOWNVOTE = 'app/VoteForNewCommunityButton/DOWNVOTE';
 export const DOWNVOTE_SUCCESS =
   'app/VoteForNewCommunityButton/DOWNVOTE_SUCCESS';
 export const DOWNVOTE_ERROR = 'app/VoteForNewCommunityButton/DOWNVOTE_ERROR';
+
+export const UPVOTE_BUTTON_ID = 'app_upvote_for_tag_UPVOTE_BUTTON_ID';
+export const DOWNVOTE_BUTTON_ID = 'app_downvote_for_tag_DOWNVOTE_BUTTON_ID';
+
+export const UPVOTE_METHOD = 'upvotes';
+export const DOWNVOTE_METHOD = 'downvotes';

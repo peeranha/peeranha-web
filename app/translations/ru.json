@@ -45,6 +45,9 @@
   "app.common.suggestTag": "Предложить тег",
   "app.common.seeAll": "Посмотреть все",
   "app.common.voting": "Голосование",
+  "app.common.date": "Дата",
+  "app.common.popularity": "Популярность",
+  "app.common.moreVoting": "Больше голосований",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
 
@@ -54,7 +57,6 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
-  "app.containers.ExistingCommunities.moreVoting": "Больше голосований",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -87,6 +89,8 @@
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Топ теги в сообществе",
+  "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
@@ -108,6 +112,7 @@
   "app.containers.TagsOfCommunity.description": "Описание тегов",
   "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
   "app.containers.TagsOfCommunity.createTag": "Предложить тег",
+  "app.containers.TagsOfCommunity.voteForNewTags": "Голосуйте за новые теги",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":
@@ -122,6 +127,9 @@
     "Нельзя голосовать за собственное сообщество",
   "app.containers.VoteForNewCommunityButton.youCannotChange":
     "Вы не сможете изменить свой голос. Вы уверены?",
+
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
+    "Нельзя голосовать за собственный тег",
 
   "app.containers.Communities.title": "Сообщества",
   "app.containers.Communities.description": "Сообщества | Описание",

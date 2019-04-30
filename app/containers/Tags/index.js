@@ -22,24 +22,26 @@ import * as routes from 'routes-config';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import { showLoginModal } from 'containers/Login/actions';
-
-import BaseTransparent from 'components/Base/BaseTransparent';
-
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
-import * as selectors from './selectors';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import BaseTransparent from 'components/Base/BaseTransparent';
+
 import reducer from './reducer';
 import saga from './saga';
-
-import { getSuggestedTags } from './actions';
-
+import { getSuggestedTags, getExistingTags } from './actions';
 import { createTagValidator } from './validate';
+import * as selectors from './selectors';
 
 import Header from './Header';
+import GoToCreateTagFromBanner from './GoToCreateTagFromBanner';
 
 const AsideWrapper = BaseTransparent.extend`
-  width: ${LEFT_MENU_WIDTH}px;
+  flex: 0 0 ${LEFT_MENU_WIDTH}px;
+  padding-top: 20px;
 `.withComponent('aside');
 
 export const goToCreateTagScreen = ({
@@ -66,8 +68,22 @@ export const goToCreateTagScreen = ({
 /* eslint-disable react/prefer-stateless-function */
 export class Tags extends React.Component {
   componentDidMount() {
-    //    const { communityid } = this.props.match.params;
-    //    this.props.getSuggestedTagsDispatch(communityid);
+    const {
+      communityId,
+      getSuggestedTagsDispatch,
+      getExistingTagsDispatch,
+    } = this.props;
+
+    getExistingTagsDispatch({ communityId });
+    getSuggestedTagsDispatch({ communityId });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { communityId, getExistingTagsDispatch, communities } = this.props;
+
+    if (!prevProps.communities.length && communities.length) {
+      getExistingTagsDispatch({ communityId });
+    }
   }
 
   goToCreateTagScreen = () => {
@@ -82,20 +98,34 @@ export class Tags extends React.Component {
   };
 
   render() {
-    const { communityId } = this.props;
+    const {
+      sorting,
+      currentCommunity,
+      tagsNumber,
+      sortTags,
+      Content,
+      Aside,
+    } = this.props;
+
+    if (!currentCommunity.tags.length) return <LoadingIndicator />;
 
     return (
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1">
           <Header
             goToCreateTagScreen={this.goToCreateTagScreen}
-            communityId={communityId}
+            sortTags={sortTags}
+            sorting={sorting}
+            currentCommunity={currentCommunity}
+            tagsNumber={tagsNumber}
           />
 
-          <div className="my-3">CONTENT</div>
+          <div className="my-3">{Content}</div>
+
+          <GoToCreateTagFromBanner openTagForm={this.goToCreateTagScreen} />
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">ASIDE</AsideWrapper>
+        <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>
       </div>
     );
   }
@@ -103,24 +133,34 @@ export class Tags extends React.Component {
 
 Tags.propTypes = {
   locale: PropTypes.string,
+  sorting: PropTypes.string,
   profile: PropTypes.object,
   showLoginModalDispatch: PropTypes.func,
+  getSuggestedTagsDispatch: PropTypes.func,
+  getExistingTagsDispatch: PropTypes.func,
+  Aside: PropTypes.any,
+  Content: PropTypes.any,
+  sortTags: PropTypes.func,
+  tagsNumber: PropTypes.number,
+  currentCommunity: PropTypes.object,
+  communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   profile: makeSelectProfileInfo(),
-  tags: selectors.selectTags(),
-  tagsLoading: selectors.selectTagsLoading(),
+  sorting: selectors.selectSorting(),
+  existingTagsLoading: selectors.selectExistingTagsLoading(),
+  suggestedTagsLoading: selectors.selectSuggestedTagsLoading(),
+  communities: selectCommunities(),
 });
 
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
-    getSuggestedTagsDispatch: communityId =>
-      dispatch(getSuggestedTags(communityId)),
+    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
+    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
     showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
