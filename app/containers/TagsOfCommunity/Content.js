@@ -45,7 +45,7 @@ const Base = BaseRounded.extend`
   }
 `;
 
-const Content = ({
+const Content = /* istanbul ignore next */ ({
   tags,
   loadMoreTags,
   isLastFetch,

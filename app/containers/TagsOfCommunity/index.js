@@ -54,7 +54,7 @@ export class TagsOfCommunity extends React.Component {
     });
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       match,
@@ -137,8 +137,7 @@ const mapStateToProps = createStructuredSelector({
   suggestedTags: selectSuggestedTags(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
   };

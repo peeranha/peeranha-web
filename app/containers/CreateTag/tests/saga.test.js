@@ -35,7 +35,7 @@ jest.mock('createdHistory', () => ({
 describe('suggestTagWorker', () => {
   const props = {
     tag: {
-      communityid: 1,
+      communityId: 1,
     },
     reset: jest.fn(),
   };
@@ -76,7 +76,7 @@ describe('suggestTagWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.suggestedTags(props.tag.communityid),
+      routes.suggestedTags(props.tag.communityId),
     );
   });
 

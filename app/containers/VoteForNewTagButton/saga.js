@@ -62,11 +62,10 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
       upVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
     );
 
-    const tags = yield call(() => getSuggestedTagsWorker({ communityId }));
+    yield call(() => getSuggestedTagsWorker({ communityId }));
 
-    yield put(upVoteSuccess(tags));
+    yield put(upVoteSuccess());
   } catch (err) {
-    console.log(err);
     yield put(upVoteErr(err.message));
   }
 }
@@ -109,9 +108,9 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
       downVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
     );
 
-    const tags = yield call(() => getSuggestedTagsWorker({ communityId }));
+    yield call(() => getSuggestedTagsWorker({ communityId }));
 
-    yield put(downVoteSuccess(tags));
+    yield put(downVoteSuccess());
   } catch (err) {
     yield put(downVoteErr(err.message));
   }

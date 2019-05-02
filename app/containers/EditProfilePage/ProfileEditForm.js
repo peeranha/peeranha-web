@@ -171,7 +171,7 @@ const selector = formValueSelector(PROFILE_EDIT_FORM);
 
 ProfileEditForm = reduxForm({
   form: PROFILE_EDIT_FORM,
-  validate: (state, props) => {
+  validate: (state, props) /* istanbul ignore next */ => {
     const errors = {};
     const imageError = imageValidation(
       props.cachedProfileImg || props.profile.ipfs_avatar,

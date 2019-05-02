@@ -74,7 +74,7 @@ const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     upVoteDispatch: (communityId, tagId, buttonId) =>
       dispatch(upVote(communityId, tagId, buttonId)),

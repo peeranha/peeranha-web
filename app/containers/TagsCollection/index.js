@@ -31,7 +31,7 @@ import messages from './messages';
 import Header from './Header';
 import List from './List';
 
-const TagsCollection = ({
+export const TagsCollection = /* istanbul ignore next */ ({
   locale,
   communities,
   communitiesLoading,
@@ -77,7 +77,7 @@ const mapStateToProps = createStructuredSelector({
   communitiesLoading: selectCommunitiesLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: () => dispatch(showLoginModal()),
   };

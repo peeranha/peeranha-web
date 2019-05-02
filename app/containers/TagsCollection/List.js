@@ -55,7 +55,7 @@ const Base = BaseRounded.extend`
   }
 `;
 
-const List = ({ communities }) => (
+const List = /* istanbul ignore next */ ({ communities }) => (
   <Base>
     {_.orderBy(communities, y => y.popularity, 'desc').map(x => (
       <BaseTransparent key={x.value}>

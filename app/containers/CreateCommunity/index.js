@@ -73,7 +73,7 @@ export class CreateCommunity extends React.PureComponent {
     getCroppedAvatar(obj, this.props.saveImageChangesDispatch);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const sendProps = {
       createCommunity: this.createCommunity,
       uploadImage: this.uploadImage,
@@ -136,8 +136,7 @@ const mapStateToProps = createStructuredSelector({
   cachedImgHash: selectors.selectCachedImgHash(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),

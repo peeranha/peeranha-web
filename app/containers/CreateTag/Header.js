@@ -16,7 +16,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import messages from './messages';
 
-export const Header = () => (
+export const Header = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
     <H3 className="d-flex align-items-end">
       <MediumImageStyled src={suggestTagIcon} alt="suggestTagIcon" />

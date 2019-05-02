@@ -9,7 +9,7 @@ import { BaseStyled, AStyled, Ul } from 'components/TextEditor/Tips';
 
 import messages from './messages';
 
-export const Tips = () => (
+export const Tips = /* istanbul ignore next */ () => (
   <BaseStyled>
     <Label className="mb-3">
       <FormattedMessage {...commonMessages.tips} />

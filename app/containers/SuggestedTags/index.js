@@ -50,7 +50,7 @@ export class SuggestedTags extends React.Component {
     });
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       match,
@@ -123,8 +123,7 @@ const mapStateToProps = createStructuredSelector({
   existingTags: selectExistingTags(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
   };

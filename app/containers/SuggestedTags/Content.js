@@ -73,7 +73,7 @@ const Item = /* istanbul ignore next */ x => {
   );
 };
 
-const Content = ({
+const Content = /* istanbul ignore next */ ({
   suggestedTags,
   loadMoreTags,
   isLastFetch,

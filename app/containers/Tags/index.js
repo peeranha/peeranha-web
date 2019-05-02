@@ -86,7 +86,7 @@ export class Tags extends React.Component {
     }
   }
 
-  goToCreateTagScreen = () => {
+  goToCreateTagScreen = /* istanbul ignore next */ () => {
     const { showLoginModalDispatch, locale, communityId, profile } = this.props;
 
     goToCreateTagScreen({
@@ -97,7 +97,7 @@ export class Tags extends React.Component {
     });
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       sorting,
       currentCommunity,
@@ -156,8 +156,7 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
     getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),

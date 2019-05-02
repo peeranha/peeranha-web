@@ -1,10 +1,15 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
-// import { TagsCollection } from '../index';
+import { TagsCollection } from '../index';
 
 describe('<TagsCollection />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  const props = {
+    locale: 'en',
+    profile: {},
+    communities: [{ id: 1 }],
+    communitiesLoading: false,
+    showLoginModalDispatch: jest.fn(),
+  };
+
+  it('render', () => {
+    expect(TagsCollection(props)).toMatchSnapshot();
   });
 });

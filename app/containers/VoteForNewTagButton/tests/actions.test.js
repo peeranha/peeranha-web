@@ -1,13 +1,85 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import {
+  upVote,
+  upVoteSuccess,
+  upVoteErr,
+  downVote,
+  downVoteSuccess,
+  downVoteErr,
+} from '../actions';
 
-describe('VoteForNewTagButton actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
-      };
-      expect(defaultAction()).toEqual(expected);
-    });
+import {
+  UPVOTE,
+  UPVOTE_SUCCESS,
+  UPVOTE_ERROR,
+  DOWNVOTE,
+  DOWNVOTE_SUCCESS,
+  DOWNVOTE_ERROR,
+} from '../constants';
+
+describe('SuggestedCommunities actions', () => {
+  it('UPVOTE', () => {
+    const communityId = 'communityId';
+    const buttonId = 'buttonId';
+    const tagId = 'tagId';
+
+    const expected = {
+      type: UPVOTE,
+      communityId,
+      buttonId,
+      tagId,
+    };
+
+    expect(upVote(communityId, tagId, buttonId)).toEqual(expected);
+  });
+
+  it('UPVOTE_SUCCESS', () => {
+    const expected = {
+      type: UPVOTE_SUCCESS,
+    };
+
+    expect(upVoteSuccess()).toEqual(expected);
+  });
+
+  it('UPVOTE_ERROR', () => {
+    const upVoteError = 'upVoteError';
+    const expected = {
+      type: UPVOTE_ERROR,
+      upVoteError,
+    };
+
+    expect(upVoteErr(upVoteError)).toEqual(expected);
+  });
+
+  it('DOWNVOTE', () => {
+    const communityId = 'communityId';
+    const buttonId = 'buttonId';
+    const tagId = 'tagId';
+
+    const expected = {
+      type: DOWNVOTE,
+      communityId,
+      tagId,
+      buttonId,
+    };
+
+    expect(downVote(communityId, tagId, buttonId)).toEqual(expected);
+  });
+
+  it('DOWNVOTE_SUCCESS', () => {
+    const expected = {
+      type: DOWNVOTE_SUCCESS,
+    };
+
+    expect(downVoteSuccess()).toEqual(expected);
+  });
+
+  it('DOWNVOTE_ERROR', () => {
+    const downVoteError = 'downVoteError';
+    const expected = {
+      type: DOWNVOTE_ERROR,
+      downVoteError,
+    };
+
+    expect(downVoteErr(downVoteError)).toEqual(expected);
   });
 });

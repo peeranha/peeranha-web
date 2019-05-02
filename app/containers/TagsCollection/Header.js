@@ -13,7 +13,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 
-const Header = ({ openTagForm }) => (
+const Header = /* istanbul ignore next */ ({ openTagForm }) => (
   <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
     <H3 className="d-flex align-items-end">
       <MediumImageStyled src={suggestTagIcon} alt="suggestTagIcon" />

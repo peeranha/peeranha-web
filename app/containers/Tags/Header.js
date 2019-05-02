@@ -44,7 +44,7 @@ const Button = /* istanbul ignore next */ ({ sorting }) => (
   </Span>
 );
 
-const Menu = ({ sortTags, sorting }) => (
+const Menu = /* istanbul ignore next */ ({ sortTags, sorting }) => (
   <Ul>
     {Object.keys(options).map(x => (
       <CheckedItem
@@ -59,7 +59,7 @@ const Menu = ({ sortTags, sorting }) => (
   </Ul>
 );
 
-const Header = /* istanbul ignore next */ ({
+export const Header = /* istanbul ignore next */ ({
   goToCreateTagScreen,
   sortTags,
   sorting,

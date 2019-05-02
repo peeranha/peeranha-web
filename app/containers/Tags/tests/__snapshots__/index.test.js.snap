@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tags /> render !currentCommunity.tags.length 1`] = `<UNDEFINED />`;
+
+exports[`<Tags /> render currentCommunity.tags.length > 0 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <div
+    className="flex-grow-1"
+  >
+    <UNDEFINED
+      currentCommunity={
+        Object {
+          "tags": Array [
+            Object {},
+          ],
+        }
+      }
+      goToCreateTagScreen={[Function]}
+      sortTags={[MockFunction]}
+      sorting="id"
+      tagsNumber={10}
+    />
+    <div
+      className="my-3"
+    />
+    <UNDEFINED
+      openTagForm={[Function]}
+    />
+  </div>
+  <Base
+    className="d-none d-xl-block pr-0"
+  />
+</div>
+`;

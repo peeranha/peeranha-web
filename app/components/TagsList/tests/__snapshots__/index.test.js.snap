@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tags test, chosenTags - [... , .... , ...] 1`] = `
-<ul
-  className="d-flex flex-wrap align-items-center"
->
-  <Span>
-    tag1
-  </Span>
-  <Span>
-    tag2
-  </Span>
-</ul>
+<TagsList__Box>
+  <li
+    className="d-flex flex-column"
+  >
+    <Span>
+      tag1
+    </Span>
+  </li>
+  <li
+    className="d-flex flex-column"
+  >
+    <Span>
+      tag2
+    </Span>
+  </li>
+</TagsList__Box>
 `;
 
 exports[`Tags test, communityId - null 1`] = `null`;

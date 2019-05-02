@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header test 1`] = `
+<div>
+  <Base
+    className="d-flex align-items-center justify-content-between"
+    position="top"
+  >
+    <div>
+      <A
+        href="/tags"
+        to="/tags"
+      >
+        <Button
+          className="pl-0"
+          isLink={true}
+        >
+          <img
+            alt="x"
+            className="mr-2"
+            src="IMAGE_MOCK"
+          />
+          <FormattedMessage
+            id="app.containers.Tags.backToList"
+            values={Object {}}
+          />
+        </Button>
+      </A>
+      <A
+        disabled={false}
+        href="/communities/undefined/tags"
+        to="/communities/undefined/tags"
+      >
+        <Button
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.common.tags"
+            values={Object {}}
+          />
+        </Button>
+      </A>
+      <A
+        disabled={false}
+        href="/communities/undefined/tags/suggested"
+        to="/communities/undefined/tags/suggested"
+      >
+        <Button
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.common.voting"
+            values={Object {}}
+          />
+        </Button>
+      </A>
+    </div>
+    <div>
+      <Button
+        className="d-inline-flex align-items-center p-0"
+        isLink={true}
+        onClick={[MockFunction]}
+      >
+        <img
+          alt="icoTagIcon"
+          className="mr-1"
+          src="IMAGE_MOCK"
+        />
+        <FormattedMessage
+          id="app.common.suggestTag"
+          values={Object {}}
+        />
+      </Button>
+    </div>
+  </Base>
+  <Base
+    position="bottom"
+  >
+    <Span
+      className="d-flex align-items-end justify-content-between"
+    >
+      <div
+        className="d-flex align-items-center"
+      >
+        <Img
+          alt="communitiesHeader"
+        />
+        <Span
+          bold={true}
+          className="text-lowercase ml-3"
+          color="#7b7b7b"
+          fontSize="30"
+        >
+          <span>
+            1 
+          </span>
+          <FormattedMessage
+            id="app.common.tags"
+            values={Object {}}
+          />
+        </Span>
+      </div>
+      <UNDEFINED
+        button={
+          <Button
+            sorting="id"
+          />
+        }
+        id="tags-dropdown"
+        isArrowed={true}
+        menu={
+          <Menu
+            sortTags={[MockFunction]}
+            sorting="id"
+          />
+        }
+      />
+    </Span>
+  </Base>
+</div>
+`;

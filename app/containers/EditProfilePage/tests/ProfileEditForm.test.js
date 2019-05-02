@@ -8,25 +8,31 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import CreateTagForm from '../CreateTagForm';
+import ProfileEditForm from '../ProfileEditForm';
 
-describe('<CreateTagForm />', () => {
-  const props = {
-    handleSubmit: () => {},
-    submitting: true,
-    invalid: true,
-    createTag: jest.fn(),
-    createTagLoading: false,
-    translations: {},
-  };
+const props = {
+  intl: { formatMessage: jest.fn() },
+  handleSubmit: jest.fn(),
+  change: jest.fn(),
+  location: {},
+  uploadImage: jest.fn(),
+  getCroppedAvatar: jest.fn(),
+  clearImageChanges: jest.fn(),
+  saveProfile: jest.fn(),
+  isProfileSaving: false,
+  cachedProfileImg: 'cachedProfileImg',
+  editingImgState: false,
+  profile: {},
+};
 
-  it('snapshot test', () => {
+describe('<ProfileEditForm />', () => {
+  it('snapshot test 1', () => {
     const store = configureStore({}, memoryHistory);
     const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <CreateTagForm {...props} />
+            <ProfileEditForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

@@ -1,5 +1,5 @@
 import { CreateTag } from '../index';
-import { NAME_FIELD, DESCRIPTION_FIELD } from '../constants';
+import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from '../constants';
 
 const cmp = new CreateTag();
 cmp.props = {
@@ -11,6 +11,7 @@ cmp.props = {
   },
   createTagLoading: false,
   suggestTagDispatch: jest.fn(),
+  communities: [{ id: 1 }, { id: 2 }],
 };
 
 describe('<CreateTag />', () => {
@@ -21,10 +22,15 @@ describe('<CreateTag />', () => {
       reset: jest.fn(),
     };
 
+    obj0
+      .set(FORM_COMMUNITY, { id: 1 })
+      .set(DESCRIPTION_FIELD, DESCRIPTION_FIELD)
+      .set(NAME_FIELD, NAME_FIELD);
+
     const tag = {
       name: obj0.get(NAME_FIELD),
       description: obj0.get(DESCRIPTION_FIELD),
-      communityid: cmp.props.match.params.communityid,
+      communityId: obj0.get(FORM_COMMUNITY).id,
     };
 
     cmp.createTag(obj0, obj1, obj2);

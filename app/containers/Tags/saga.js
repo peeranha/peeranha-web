@@ -27,8 +27,8 @@ import {
 export function* getSuggestedTagsWorker({ communityId, loadMore }) {
   try {
     const eosService = yield select(selectEos);
-    const limit = yield select(selectLimit());
     const storedTags = yield select(selectSuggestedTags());
+    const limit = yield select(selectLimit());
 
     // Lower bound - is ID of tag
     let lowerBound = 0;
@@ -58,9 +58,9 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
     const sorting = yield select(selectSorting());
     const communities = yield select(selectCommunities());
 
-    const { tags } = communities.filter(x => x.id === +communityId)[0];
+    const sliceStart = yield loadMore ? storedTags.length : 0;
 
-    const sliceStart = loadMore ? storedTags.length : 0;
+    const { tags } = communities.filter(x => x.id === +communityId)[0];
 
     const tagsByInput = tags.filter(x =>
       JSON.stringify(x)

@@ -2,87 +2,53 @@ import { SuggestedTags } from '../index';
 
 const cmp = new SuggestedTags();
 
-cmp.props = {
-  locale: 'en',
-  match: {
-    params: {
-      communityid: 1,
-    },
-  },
-  tags: [],
-  tagsLoading: false,
-  getSuggestedTagsDispatch: jest.fn(),
-  upVoteDispatch: jest.fn(),
-  downVoteDispatch: jest.fn(),
-};
-
 const ev = {
   currentTarget: {
     dataset: {
-      communityid: null,
+      key: 'key',
     },
-    id: null,
   },
 };
 
-describe('<SuggestedTags />', () => {
-  it('componentDidMount', () => {
-    cmp.componentDidMount();
-    expect(cmp.props.getSuggestedTagsDispatch).toHaveBeenCalledWith(
-      cmp.props.match.params.communityid,
-    );
+beforeEach(() => {
+  cmp.props = {
+    locale: 'en',
+    communities: [{ id: 1 }, { id: 2 }],
+    isLastFetch: false,
+    suggestedTagsLoading: false,
+    existingTags: [{ id: 1 }, { id: 2 }],
+    match: { params: { communityid: 1 } },
+    emptyCommunity: { tags: [] },
+    getSuggestedTagsDispatch: jest.fn(),
+  };
+});
+
+describe('SuggestedTags', () => {
+  it('sortTags', () => {
+    expect(cmp.props.getSuggestedTagsDispatch).toHaveBeenCalledTimes(0);
+
+    cmp.render();
+    cmp.sortTags(ev);
+
+    expect(cmp.props.getSuggestedTagsDispatch).toHaveBeenCalledWith({
+      sorting: ev.currentTarget.dataset.key,
+      communityId: cmp.currentCommunity.id,
+    });
   });
 
-  it('downVote', () => {
-    const { communityid } = cmp.props.match.params;
+  it('loadMoreTags', () => {
+    expect(cmp.props.getSuggestedTagsDispatch).toHaveBeenCalledTimes(0);
 
-    const id = 'id';
-    const tagid = 'tagid';
+    cmp.render();
+    cmp.loadMoreTags();
 
-    ev.currentTarget.dataset.tagid = tagid;
-    ev.currentTarget.id = id;
-
-    cmp.downVote(ev);
-    expect(cmp.props.downVoteDispatch).toHaveBeenCalledWith(
-      communityid,
-      tagid,
-      id,
-    );
+    expect(cmp.props.getSuggestedTagsDispatch).toHaveBeenCalledWith({
+      loadMore: true,
+      communityId: cmp.currentCommunity.id,
+    });
   });
 
-  it('upVote', () => {
-    const { communityid } = cmp.props.match.params;
-
-    const tagid = 'tagid';
-    const id = 'id';
-
-    ev.currentTarget.dataset.tagid = tagid;
-    ev.currentTarget.id = id;
-
-    cmp.upVote(ev);
-    expect(cmp.props.upVoteDispatch).toHaveBeenCalledWith(
-      communityid,
-      tagid,
-      id,
-    );
-  });
-
-  describe('render', () => {
-    it('tagsLoading TRUE', () => {
-      cmp.props.tagsLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('communitiesLoading FALSE | tags.length', () => {
-      cmp.props.tagsLoading = false;
-      cmp.props.tags = [{}];
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('communitiesLoading FALSE | !tags.length', () => {
-      cmp.props.tagsLoading = false;
-      cmp.props.tags = [];
-      expect(cmp.render()).toMatchSnapshot();
-    });
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

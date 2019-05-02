@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CreateTagForm /> snapshot test 1`] = `
+exports[`<ProfileEditForm /> snapshot test 1 1`] = `
 <Connect(LanguageProvider)
   key="en"
   locale="en"
@@ -28,13 +28,23 @@ exports[`<CreateTagForm /> snapshot test 1`] = `
       }
     }
   >
-    <ReduxForm
-      createTag={[MockFunction]}
-      createTagLoading={false}
-      handleSubmit={[Function]}
-      invalid={true}
-      submitting={true}
-      translations={Object {}}
+    <InjectIntl(Connect(ReduxForm))
+      cachedProfileImg="cachedProfileImg"
+      change={[MockFunction]}
+      clearImageChanges={[MockFunction]}
+      editingImgState={false}
+      getCroppedAvatar={[MockFunction]}
+      handleSubmit={[MockFunction]}
+      intl={
+        Object {
+          "formatMessage": [MockFunction],
+        }
+      }
+      isProfileSaving={false}
+      location={Object {}}
+      profile={Object {}}
+      saveProfile={[MockFunction]}
+      uploadImage={[MockFunction]}
     />
   </ConnectedRouter>
 </Connect(LanguageProvider)>

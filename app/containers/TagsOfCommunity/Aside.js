@@ -19,8 +19,6 @@ import { Header, Item } from 'components/ExistingCommunities/Aside';
 
 import messages from './messages';
 
-const suggestTagRoute = routes.suggestedTags();
-
 const Aside = /* istanbul ignore next */ ({ suggestedTags, communityId }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
@@ -30,7 +28,11 @@ const Aside = /* istanbul ignore next */ ({ suggestedTags, communityId }) => (
     {suggestedTags.slice(0, 3).map(x => (
       <Item key={x.id}>
         <div className="d-flex align-items-center mb-2">
-          <A to={suggestTagRoute} href={suggestTagRoute} bold>
+          <A
+            to={routes.suggestedTags(communityId)}
+            href={routes.suggestedTags(communityId)}
+            bold
+          >
             {x.name}
           </A>
         </div>
@@ -59,8 +61,8 @@ const Aside = /* istanbul ignore next */ ({ suggestedTags, communityId }) => (
     <footer>
       <A
         className="d-flex align-items-center"
-        to={suggestTagRoute}
-        href={suggestTagRoute}
+        to={routes.suggestedTags(communityId)}
+        href={routes.suggestedTags(communityId)}
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
         <Span color={TEXT_PRIMARY}>

@@ -20,7 +20,6 @@ export function getFollowedCommunities(allcommunities, followedcommunities) {
   return allcommunities.filter(x => followedcommunities.includes(x.id));
 }
 
-// TODO: test it
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
 
@@ -85,7 +84,6 @@ export async function getSuggestedTags(
   return tags;
 }
 
-// TODO: test it
 export async function getExistingTags(tags) {
   await Promise.all(
     tags.map(async x => {

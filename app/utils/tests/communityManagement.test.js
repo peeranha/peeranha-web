@@ -1,4 +1,4 @@
-import { saveText } from '../ipfs';
+import { saveText, getText } from '../ipfs';
 
 import {
   FOLLOW_COMM,
@@ -28,10 +28,13 @@ import {
   getSuggestedCommunities,
   createCommunity,
   getFollowedCommunities,
+  getUnfollowedCommunities,
+  getExistingTags,
 } from '../communityManagement';
 
 jest.mock('../ipfs', () => ({
   saveText: jest.fn(),
+  getText: jest.fn(),
 }));
 
 window.BigInt = jest.fn().mockImplementation(x => x);
@@ -46,14 +49,52 @@ beforeEach(() => {
   };
 });
 
+describe('getExistingTags', () => {
+  const tags = [{ id: 1, name: 'name', ipfs_description: 'ipfs_description' }];
+
+  it('test', async () => {
+    const result = { description: 'description' };
+
+    getText.mockImplementationOnce(() => JSON.stringify(result));
+
+    const extendedTags = await getExistingTags(tags);
+
+    expect(extendedTags[0]).toEqual({
+      ...tags[0],
+      description: result.description,
+    });
+  });
+});
+
 describe('getFollowedCommunities', () => {
+  it('return []', () => {
+    const step = getFollowedCommunities(null, null);
+    expect(step).toEqual([]);
+  });
+
   it('test', () => {
-    const allcommunities = [{ id: 1 }];
-    const followedcommunities = [1];
+    const allcommunities = [{ id: 1 }, { id: 12 }, { id: 13 }];
+    const followedcommunities = [1, 12];
 
     expect(getFollowedCommunities(allcommunities, followedcommunities)).toEqual(
-      allcommunities.filter(x => followedcommunities.includes(x.id)),
+      [{ id: 1 }, { id: 12 }],
     );
+  });
+});
+
+describe('getUnfollowedCommunities', () => {
+  it('return []', () => {
+    const step = getUnfollowedCommunities(null, null);
+    expect(step).toEqual([]);
+  });
+
+  it('test', () => {
+    const allcommunities = [{ id: 1 }, { id: 12 }, { id: 13 }];
+    const followedcommunities = [1, 12];
+
+    expect(
+      getUnfollowedCommunities(allcommunities, followedcommunities),
+    ).toEqual([{ id: 13 }]);
   });
 });
 
@@ -174,17 +215,26 @@ describe('upVoteToCreateTag', () => {
 
 describe('getSuggestedTags', () => {
   const tags = [];
-  const communityid = '1';
+  const communityId = '1';
+  const lowerBound = 10;
+  const limit = 10;
 
   it('test', async () => {
     eosService.getTableRows.mockImplementation(() => tags);
-    const fetch = await getSuggestedTags(eosService, communityid);
+
+    const fetch = await getSuggestedTags(
+      eosService,
+      communityId,
+      lowerBound,
+      limit,
+    );
 
     expect(fetch).toEqual(tags);
     expect(eosService.getTableRows).toHaveBeenCalledWith(
       CREATED_TAGS_COMMUNITIES_TABLE,
-      getTagScope(communityid),
-      0,
+      getTagScope(communityId),
+      lowerBound,
+      limit,
     );
   });
 });
@@ -193,7 +243,7 @@ describe('suggestTag', () => {
   const tagIpfsHash = 'tagIpfsHash';
   const user = 'user';
   const tag = {
-    communityid: '1',
+    communityId: '1',
     name: 'name',
   };
 
@@ -204,7 +254,7 @@ describe('suggestTag', () => {
     expect(saveText).toHaveBeenCalledWith(JSON.stringify(tag));
     expect(eosService.sendTransaction).toHaveBeenCalledWith(user, CREATE_TAG, {
       user,
-      community_id: +tag.communityid,
+      community_id: +tag.communityId,
       name: tag.name,
       ipfs_description: tagIpfsHash,
     });
