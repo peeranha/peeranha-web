@@ -27,17 +27,7 @@ exports[`<CommentForm /> @sendCommentLoading === true 1`] = `
         "replace": [Function],
       }
     }
-  >
-    <[object Object]
-      form="form-1010"
-      handleSubmit={[MockFunction]}
-      invalid={false}
-      postComment={[MockFunction]}
-      sendCommentLoading={true}
-      submitting={false}
-      translations={Object {}}
-    />
-  </ConnectedRouter>
+  />
 </Connect(LanguageProvider)>
 `;
 
@@ -68,16 +58,6 @@ exports[`<CommentForm /> snapshot test 1`] = `
         "replace": [Function],
       }
     }
-  >
-    <[object Object]
-      form="form-1010"
-      handleSubmit={[MockFunction]}
-      invalid={false}
-      postComment={[MockFunction]}
-      sendCommentLoading={false}
-      submitting={false}
-      translations={Object {}}
-    />
-  </ConnectedRouter>
+  />
 </Connect(LanguageProvider)>
 `;

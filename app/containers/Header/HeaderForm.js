@@ -39,13 +39,13 @@ const RoundedButtonStyled = RoundedButton.extend`
 `;
 
 export const LoginProfile = React.memo(
-  ({
+  /* istanbul ignore next */ ({
     profileInfo,
     showSignUpModalDispatch,
     showLoginModalDispatch,
     isMenuVisible,
     expandLeftMenuNavigation,
-  }) /* istanbul ignore next */ => {
+  }) => {
     if (profileInfo) {
       return (
         <UserProfileNav

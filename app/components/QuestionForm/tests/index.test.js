@@ -8,7 +8,7 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import QuestionFormDefault from '../index';
+import { QuestionForm } from '../index';
 import messages from '../messages';
 
 jest.mock('react-simplemde-editor');
@@ -28,14 +28,14 @@ const props = {
   },
 };
 
-describe('<QuestionFormDefault />', () => {
+describe('<QuestionForm />', () => {
   it('snapshot test 1', () => {
     const store = configureStore({}, memoryHistory);
     const renderedComponent = shallow(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <QuestionFormDefault {...props} />
+            <QuestionForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -50,7 +50,7 @@ describe('<QuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <QuestionFormDefault {...props} />
+            <QuestionForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -65,7 +65,7 @@ describe('<QuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <QuestionFormDefault {...props} />
+            <QuestionForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,
@@ -80,7 +80,7 @@ describe('<QuestionFormDefault />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <QuestionFormDefault {...props} />
+            <QuestionForm {...props} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

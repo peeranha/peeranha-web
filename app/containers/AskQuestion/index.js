@@ -57,7 +57,7 @@ export class AskQuestion extends React.PureComponent {
     );
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { locale, askQuestionLoading, communities } = this.props;
 
     const sendProps = {

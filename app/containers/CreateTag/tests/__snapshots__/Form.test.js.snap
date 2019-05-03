@@ -28,7 +28,7 @@ exports[`<Form /> snapshot test 1`] = `
       }
     }
   >
-    <[object Object]
+    <Form
       createTag={[MockFunction]}
       createTagLoading={false}
       handleSubmit={[Function]}

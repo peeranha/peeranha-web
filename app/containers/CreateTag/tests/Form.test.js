@@ -8,7 +8,7 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import Form from '../Form';
+import { Form } from '../Form';
 
 describe('<Form />', () => {
   const props = {

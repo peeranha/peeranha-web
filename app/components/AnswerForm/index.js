@@ -10,8 +10,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
-/* eslint-disable-next-line */
-export let AnswerForm = /* istanbul ignore next */ ({
+export const AnswerForm = /* istanbul ignore next */ ({
   handleSubmit,
   sendAnswer,
   sendAnswerLoading,
@@ -49,12 +48,14 @@ AnswerForm.propTypes = {
   sendAnswerLoading: PropTypes.bool,
 };
 
-AnswerForm = reduxForm({})(AnswerForm);
+let FormClone = reduxForm({})(AnswerForm);
 
-AnswerForm = connect((state, props) => ({
-  initialValues: {
-    [TEXT_EDITOR_ANSWER_FORM]: props.answer,
-  },
-}))(AnswerForm);
+FormClone = connect(
+  /* istanbul ignore next */ (state, props) => ({
+    initialValues: {
+      [TEXT_EDITOR_ANSWER_FORM]: props.answer,
+    },
+  }),
+)(FormClone);
 
-export default React.memo(AnswerForm);
+export default React.memo(FormClone);

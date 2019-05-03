@@ -49,7 +49,7 @@ export class CreateTag extends React.PureComponent {
     this.props.suggestTagDispatch(tag, reset);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const { locale, createTagLoading, communities, match } = this.props;
 
     return (

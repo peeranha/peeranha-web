@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<QuestionFormDefault /> snapshot test 1 1`] = `
+exports[`<QuestionForm /> snapshot test 1 1`] = `
 <Connect(LanguageProvider)
   key="en"
   locale="en"
@@ -28,7 +28,7 @@ exports[`<QuestionFormDefault /> snapshot test 1 1`] = `
       }
     }
   >
-    <[object Object]
+    <QuestionForm
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -47,7 +47,7 @@ exports[`<QuestionFormDefault /> snapshot test 1 1`] = `
 </Connect(LanguageProvider)>
 `;
 
-exports[`<QuestionFormDefault /> snapshot test 2 1`] = `
+exports[`<QuestionForm /> snapshot test 2 1`] = `
 <Connect(LanguageProvider)
   key="en"
   locale="en"
@@ -75,7 +75,7 @@ exports[`<QuestionFormDefault /> snapshot test 2 1`] = `
       }
     }
   >
-    <[object Object]
+    <QuestionForm
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -94,7 +94,7 @@ exports[`<QuestionFormDefault /> snapshot test 2 1`] = `
 </Connect(LanguageProvider)>
 `;
 
-exports[`<QuestionFormDefault /> snapshot test 3 1`] = `
+exports[`<QuestionForm /> snapshot test 3 1`] = `
 <Connect(LanguageProvider)
   key="en"
   locale="en"
@@ -122,7 +122,7 @@ exports[`<QuestionFormDefault /> snapshot test 3 1`] = `
       }
     }
   >
-    <[object Object]
+    <QuestionForm
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}
@@ -141,7 +141,7 @@ exports[`<QuestionFormDefault /> snapshot test 3 1`] = `
 </Connect(LanguageProvider)>
 `;
 
-exports[`<QuestionFormDefault /> snapshot test 4 1`] = `
+exports[`<QuestionForm /> snapshot test 4 1`] = `
 <Connect(LanguageProvider)
   key="en"
   locale="en"
@@ -169,7 +169,7 @@ exports[`<QuestionFormDefault /> snapshot test 4 1`] = `
       }
     }
   >
-    <[object Object]
+    <QuestionForm
       change={[MockFunction]}
       form="form1"
       handleSubmit={[MockFunction]}

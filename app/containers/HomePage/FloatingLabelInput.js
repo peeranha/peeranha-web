@@ -26,7 +26,7 @@ export const Wrapper = styled.div`
   }
 
   .floating-label-input {
-    height: ${(props) /* istanbul ignore next */ =>
+    height: ${/* istanbul ignore next */ props =>
       props.multiline ? 'auto' : '48px'};
 
     width: 100%;

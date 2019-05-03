@@ -18,7 +18,11 @@ import A from 'components/A';
 
 import messages from './messages';
 
-const Wrapper = ({ children, questionid, answerid }) => (
+const Wrapper = /* istanbul ignore next */ ({
+  children,
+  questionid,
+  answerid,
+}) => (
   <div>
     <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
       <H3 className="d-flex align-items-end">

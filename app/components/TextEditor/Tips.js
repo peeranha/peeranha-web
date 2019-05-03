@@ -57,7 +57,7 @@ const Ul = styled.ul`
   }
 `;
 
-const Tips = ({ className }) => (
+const Tips = /* istanbul ignore next */ ({ className }) => (
   <div className={className}>
     <BaseStyled>
       <Label className="mb-3">

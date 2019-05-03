@@ -49,8 +49,7 @@ const loadCities = /* istanbul ignore next */ async (v, callback) => {
   callback(formattedCities);
 };
 
-/* eslint-disable-next-line */
-export let ProfileEditForm = /* istanbul ignore next */ ({
+export const ProfileEditForm = /* istanbul ignore next */ ({
   handleSubmit,
   change,
   location,
@@ -169,7 +168,7 @@ ProfileEditForm.propTypes = {
 
 const selector = formValueSelector(PROFILE_EDIT_FORM);
 
-ProfileEditForm = reduxForm({
+let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
   validate: (state, props) /* istanbul ignore next */ => {
     const errors = {};
@@ -185,9 +184,9 @@ ProfileEditForm = reduxForm({
   },
 })(ProfileEditForm);
 
-ProfileEditForm = /* istanbul ignore next */ connect((state, props) => ({
+FormClone = /* istanbul ignore next */ connect((state, props) => ({
   initialValues: props.profile.profile,
   location: selector(state, LOCATION_FIELD),
-}))(ProfileEditForm);
+}))(FormClone);
 
-export default injectIntl(ProfileEditForm);
+export default injectIntl(FormClone);

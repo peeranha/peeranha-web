@@ -13,8 +13,7 @@ import messages from './messages';
 
 import { EOS_ACC, DISPLAY_NAME } from './constants';
 
-/* eslint-disable-next-line */
-let SignUpForm = /* istanbul ignore next */ props => {
+const SignUpForm = /* istanbul ignore next */ props => {
   const {
     handleSubmit,
     submitting,
@@ -67,14 +66,15 @@ SignUpForm.propTypes = {
   translations: PropTypes.object,
 };
 
-SignUpForm = reduxForm({
+/* eslint import/no-mutable-exports: 0 */
+let FormClone = reduxForm({
   form: 'SignUpForm',
 })(SignUpForm);
 
-SignUpForm = connect(state => ({
+FormClone = connect(state => ({
   initialValues: {
     [EOS_ACC]: state.get('account').get('account'),
   },
-}))(SignUpForm);
+}))(FormClone);
 
-export default SignUpForm;
+export default FormClone;

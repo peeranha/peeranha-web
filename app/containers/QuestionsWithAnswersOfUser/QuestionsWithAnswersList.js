@@ -4,7 +4,7 @@ import * as routes from 'routes-config';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 /* eslint camelcase: 0 */
-const Question = ({
+const Question = /* istanbul ignore next */ ({
   myPostRating,
   title,
   myPostTime,

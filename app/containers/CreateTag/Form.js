@@ -26,8 +26,7 @@ import {
 
 import messages from './messages';
 
-/* eslint-disable-next-line */
-export let Form = /* istanbul ignore next */ ({
+export const Form = /* istanbul ignore next */ ({
   createTagLoading,
   createTag,
   handleSubmit,
@@ -94,21 +93,23 @@ Form.propTypes = {
   change: PropTypes.func,
 };
 
-Form = reduxForm({
+let FormClone = reduxForm({
   form: FORM_NAME,
 })(Form);
 
-Form = connect((state, props) /* istanbul ignore next */ => {
-  const { communities, communityId } = props;
+FormClone = connect(
+  /* istanbul ignore next */ (state, props) => {
+    const { communities, communityId } = props;
 
-  const form = state.toJS().form[FORM_NAME];
+    const form = state.toJS().form[FORM_NAME];
 
-  return {
-    formValues: form ? form.values : {},
-    initialValues: {
-      [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
-    },
-  };
-})(Form);
+    return {
+      formValues: form ? form.values : {},
+      initialValues: {
+        [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
+      },
+    };
+  },
+)(FormClone);
 
-export default React.memo(Form);
+export default React.memo(FormClone);

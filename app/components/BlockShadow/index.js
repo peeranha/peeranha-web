@@ -8,7 +8,7 @@ export default styled.div`
   width: 100%;
   height: 100%;
   background-image: linear-gradient(
-    to ${(x) /* istanbul ignore next */ => x.toSide || 'bottom'},
+    to ${/* istanbul ignore next */ x => x.toSide || 'bottom'},
     ${BG_TRANSPARENT} 75%,
     ${BG_LIGHT}
   );

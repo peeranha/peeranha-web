@@ -28,7 +28,7 @@ exports[`<ProfileEditForm /> snapshot test 1 1`] = `
       }
     }
   >
-    <InjectIntl(Connect(ReduxForm))
+    <ProfileEditForm
       cachedProfileImg="cachedProfileImg"
       change={[MockFunction]}
       clearImageChanges={[MockFunction]}

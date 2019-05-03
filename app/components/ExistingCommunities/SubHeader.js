@@ -34,7 +34,7 @@ const Button = /* istanbul ignore next */ ({ sorting }) => (
   </Span>
 );
 
-const Menu = ({ changeSorting, sorting }) => (
+const Menu = /* istanbul ignore next */ ({ changeSorting, sorting }) => (
   <Ul>
     {Object.keys(sortingOptions).map(x => (
       <CheckedItem
@@ -48,7 +48,11 @@ const Menu = ({ changeSorting, sorting }) => (
   </Ul>
 );
 
-export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
+export const SubHeader = /* istanbul ignore next */ ({
+  changeSorting,
+  sorting,
+  communitiesNumber,
+}) => (
   <H3Styled className="d-flex align-items-end justify-content-between">
     <div className="d-flex align-items-center">
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
