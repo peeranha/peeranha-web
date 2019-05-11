@@ -109,7 +109,7 @@ export const Header = /* istanbul ignore next */ ({
         <div>
           <NavigationButton
             onClick={goToCreateTagScreen}
-            className="d-inline-flex align-items-center p-0"
+            className="d-inline-flex align-items-center px-0 py-1"
             isLink
           >
             <img className="mr-1" src={icoTagIcon} alt="icoTagIcon" />

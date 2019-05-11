@@ -63,9 +63,7 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
     const { tags } = communities.filter(x => x.id === +communityId)[0];
 
     const tagsByInput = tags.filter(x =>
-      JSON.stringify(x)
-        .toLowerCase()
-        .match(text.toLowerCase()),
+      `${x.name} ${x.description}`.toLowerCase().match(text.toLowerCase()),
     );
 
     const sortedTags = _.orderBy(tagsByInput, x => x[sorting], ['desc']).slice(
