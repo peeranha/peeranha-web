@@ -8,7 +8,7 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import CommentForm from '../CommentForm';
+import { CommentForm } from '../CommentForm';
 
 describe('<CommentForm />', () => {
   const props = {

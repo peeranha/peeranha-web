@@ -96,7 +96,7 @@ export class EditProfilePage extends React.PureComponent {
     }
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       profile,
       match,

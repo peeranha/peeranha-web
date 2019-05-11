@@ -20,7 +20,6 @@ export function getFollowedCommunities(allcommunities, followedcommunities) {
   return allcommunities.filter(x => followedcommunities.includes(x.id));
 }
 
-// TODO: test it
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
 
@@ -56,18 +55,36 @@ export async function suggestTag(eosService, selectedAccount, tag) {
 
   await eosService.sendTransaction(selectedAccount, CREATE_TAG, {
     user: selectedAccount,
-    community_id: +tag.communityid,
+    community_id: +tag.communityId,
     name: tag.name,
     ipfs_description: tagIpfsHash,
   });
 }
-export async function getSuggestedTags(eosService, communityid) {
+
+export async function getSuggestedTags(
+  eosService,
+  communityId,
+  lowerBound,
+  limit,
+) {
   const tags = await eosService.getTableRows(
     CREATED_TAGS_COMMUNITIES_TABLE,
-    getTagScope(communityid),
-    0,
+    getTagScope(communityId),
+    lowerBound,
+    limit,
   );
 
+  await Promise.all(
+    tags.map(async x => {
+      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
+      x.description = ipfsDescription.description;
+    }),
+  );
+
+  return tags;
+}
+
+export async function getExistingTags(tags) {
   await Promise.all(
     tags.map(async x => {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));

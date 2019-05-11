@@ -9,7 +9,7 @@ import createdHistory from 'createdHistory';
 import TextEditor from 'components/TextEditor';
 import LanguageProvider from 'containers/LanguageProvider';
 
-import AnswerForm from '../index';
+import { AnswerForm } from '../index';
 
 jest.mock('react-simplemde-editor');
 jest.mock('simplemde/dist/simplemde.min.css');

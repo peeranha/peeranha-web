@@ -76,7 +76,7 @@ export class Header extends React.PureComponent {
     $(`#${HEADER_ID}`).removeClass('scroll-visible');
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       account,
       profileInfo,

@@ -6,7 +6,6 @@ import _ from 'lodash';
 
 import arrowDownIcon from 'svg/arrowDown';
 
-import InfinityLoader from 'components/InfinityLoader';
 import P from 'components/P';
 import Base from 'components/Base/BaseRounded';
 import Span from 'components/Span';
@@ -14,6 +13,8 @@ import Icon from 'components/Icon';
 import IconStyled from 'components/Icon/IconStyled';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
+import InfinityLoader from 'components/InfinityLoader';
+import BlockShadow from 'components/BlockShadow';
 
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
@@ -42,6 +43,10 @@ const Description = BaseTransparent.extend`
     transition: 0.5s;
     transform: rotate(${x => (x.isOpened ? '180deg' : '0deg')});
   }
+
+  ${BlockShadow} {
+    display: ${x => (!x.isOpened ? 'block' : 'none')};
+  }
 `;
 
 const Item = /* istanbul ignore next */ x => {
@@ -50,7 +55,7 @@ const Item = /* istanbul ignore next */ x => {
   return (
     <ItemStyled key={x.id}>
       <Header>
-        <div className="row">
+        <div className="row align-items-center">
           <div className="col-xl-9 d-flex align-items-center">
             <MediumImageStyled
               className="mr-3"
@@ -80,7 +85,11 @@ const Item = /* istanbul ignore next */ x => {
             <Icon className="ml-2" icon={arrowDownIcon} noMargin />
           </button>
         </P>
-        <P>{x.description}</P>
+
+        <div className="position-relative">
+          <P>{x.description}</P>
+          <BlockShadow />
+        </div>
       </Description>
     </ItemStyled>
   );
@@ -116,4 +125,5 @@ Content.propTypes = {
   getSuggestedCommunities: PropTypes.func,
 };
 
+export { ItemStyled, Header, Description };
 export default React.memo(Content);

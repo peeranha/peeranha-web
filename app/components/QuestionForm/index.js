@@ -46,8 +46,7 @@ const Form = Base.extend`
   border-radius: 5px;
 `.withComponent('form');
 
-/* eslint-disable-next-line */
-let QuestionForm = /* istanbul ignore next */ ({
+export const QuestionForm = /* istanbul ignore next */ ({
   sendQuestion,
   formTitle,
   questionLoading,
@@ -173,31 +172,33 @@ QuestionForm.propTypes = {
   intl: intlShape.isRequired,
 };
 
-QuestionForm = reduxForm({})(QuestionForm);
+let FormClone = reduxForm({})(QuestionForm);
 
-QuestionForm = connect((state, props) /* istanbul ignore next */ => {
-  let initialValues = {};
-  let formValues = {};
+FormClone = connect(
+  /* istanbul ignore next */ (state, props) => {
+    let initialValues = {};
+    let formValues = {};
 
-  if (props.question) {
-    initialValues = {
-      [FORM_TITLE]: props.question.title,
-      [FORM_CONTENT]: props.question.content,
-      [FORM_COMMUNITY]: props.question.community,
-      [FORM_TAGS]: props.question.chosenTags,
+    if (props.question) {
+      initialValues = {
+        [FORM_TITLE]: props.question.title,
+        [FORM_CONTENT]: props.question.content,
+        [FORM_COMMUNITY]: props.question.community,
+        [FORM_TAGS]: props.question.chosenTags,
+      };
+    }
+
+    const form = state.toJS().form[props.form];
+
+    if (form) {
+      formValues = form.values;
+    }
+
+    return {
+      formValues,
+      initialValues,
     };
-  }
+  },
+)(FormClone);
 
-  const form = state.toJS().form[props.form];
-
-  if (form) {
-    formValues = form.values;
-  }
-
-  return {
-    formValues,
-    initialValues,
-  };
-})(QuestionForm);
-
-export default React.memo(injectIntl(QuestionForm));
+export default React.memo(injectIntl(FormClone));

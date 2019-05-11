@@ -10,52 +10,64 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import { getFollowedCommunities } from 'utils/communityManagement';
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getSuggestedTags } from 'containers/Tags/actions';
 
-import * as selectors from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import {
+  selectSuggestedTags,
+  selectIsLastFetchForSuggestedTags,
+  selectSuggestedTagsLoading,
+  selectExistingTags,
+} from 'containers/Tags/selectors';
+
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
+import Tags from 'containers/Tags';
+
 import messages from './messages';
 
-import { getSuggestedTags, upVote, downVote } from './actions';
-
-import SuggestedTagsView from './SuggestedTagsView';
-import NoSuggestedTags from './NoSuggestedTags';
+import Content from './Content';
+import Aside from './Aside';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SuggestedTags extends React.Component {
-  componentDidMount() {
-    const { communityid } = this.props.match.params;
-    this.props.getSuggestedTagsDispatch(communityid);
-  }
+  sortTags = ev => {
+    const sorting = ev.currentTarget.dataset.key;
 
-  upVote = ev => {
-    const { communityid } = this.props.match.params;
-    const { id, dataset } = ev.currentTarget;
-    const { tagid } = dataset;
-
-    this.props.upVoteDispatch(communityid, tagid, id);
+    this.props.getSuggestedTagsDispatch({
+      sorting,
+      communityId: this.currentCommunity.id,
+    });
   };
 
-  downVote = ev => {
-    const { communityid } = this.props.match.params;
-    const { id, dataset } = ev.currentTarget;
-    const { tagid } = dataset;
-
-    this.props.downVoteDispatch(communityid, tagid, id);
+  loadMoreTags = () => {
+    this.props.getSuggestedTagsDispatch({
+      communityId: this.currentCommunity.id,
+      loadMore: true,
+    });
   };
 
-  render() {
-    const { tags, tagsLoading, locale } = this.props;
+  render() /* istanbul ignore next */ {
+    const {
+      locale,
+      match,
+      communities,
+      suggestedTags,
+      emptyCommunity,
+      isLastFetch,
+      suggestedTagsLoading,
+      existingTags,
+    } = this.props;
+
+    this.currentCommunity =
+      getFollowedCommunities(communities, [+match.params.communityid])[0] ||
+      emptyCommunity;
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{translationMessages[locale][messages.title.id]}</title>
           <meta
@@ -64,61 +76,60 @@ export class SuggestedTags extends React.Component {
           />
         </Helmet>
 
-        {!tagsLoading && !tags.length && <NoSuggestedTags />}
-
-        {!tagsLoading ? (
-          <SuggestedTagsView
-            tags={tags}
-            upVote={this.upVote}
-            downVote={this.downVote}
-          />
-        ) : (
-          <LoadingIndicator />
-        )}
+        <Tags
+          sortTags={this.sortTags}
+          communityId={+match.params.communityid}
+          currentCommunity={this.currentCommunity}
+          Aside={<Aside existingTags={existingTags} />}
+          Content={
+            <Content
+              loadMoreTags={this.loadMoreTags}
+              isLastFetch={isLastFetch}
+              communityId={+match.params.communityid}
+              suggestedTagsLoading={suggestedTagsLoading}
+              suggestedTags={suggestedTags}
+            />
+          }
+        />
       </div>
     );
   }
 }
 
+SuggestedTags.defaultProps = {
+  emptyCommunity: {
+    tags: [],
+  },
+};
+
 SuggestedTags.propTypes = {
   locale: PropTypes.string,
+  communities: PropTypes.array,
+  suggestedTags: PropTypes.array,
+  isLastFetch: PropTypes.bool,
+  suggestedTagsLoading: PropTypes.bool,
+  existingTags: PropTypes.array,
   match: PropTypes.object,
-  tags: PropTypes.array,
-  tagsLoading: PropTypes.bool,
+  emptyCommunity: PropTypes.object,
   getSuggestedTagsDispatch: PropTypes.func,
-  upVoteDispatch: PropTypes.func,
-  downVoteDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  tags: selectors.selectTags(),
-  tagsLoading: selectors.selectTagsLoading(),
+  communities: selectCommunities(),
+  suggestedTags: selectSuggestedTags(),
+  isLastFetch: selectIsLastFetchForSuggestedTags(),
+  suggestedTagsLoading: selectSuggestedTagsLoading(),
+  existingTags: selectExistingTags(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getSuggestedTagsDispatch: communityid =>
-      dispatch(getSuggestedTags(communityid)),
-    upVoteDispatch: (communityid, tagid, buttonId) =>
-      dispatch(upVote(communityid, tagid, buttonId)),
-    downVoteDispatch: (communityid, tagid, buttonId) =>
-      dispatch(downVote(communityid, tagid, buttonId)),
+    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
   };
 }
 
-const withConnect = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'suggestedTags', reducer });
-const withSaga = injectSaga({ key: 'suggestedTags', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
 )(SuggestedTags);

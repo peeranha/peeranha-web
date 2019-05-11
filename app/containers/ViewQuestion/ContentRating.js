@@ -20,12 +20,12 @@ import MediumImage from 'components/Img/MediumImage';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
 const MediumImageStyled = MediumImage.extend`
-  ${(props /* istanbul ignore next */) =>
+  ${/* istanbul ignore next */ props =>
     props.src === greenFingerUpSingleQuestion
       ? `border: 1px solid ${BORDER_SUCCESS};`
       : ``};
 
-  ${(props /* istanbul ignore next */) =>
+  ${/* istanbul ignore next */ props =>
     props.src === redFingerDownSingleQuestion
       ? `border: 1px solid ${BORDER_WARNING_LIGHT};`
       : ``};

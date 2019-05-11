@@ -7,20 +7,19 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  title: {
-    id: 'app.containers.Tags.title',
-    defaultMessage: 'Tags',
+  youHaveAlreadyVoted: {
+    id: 'app.containers.Tags.youHaveAlreadyVoted',
   },
-  description: {
-    id: 'app.containers.Tags.description',
-    defaultMessage: 'Description of Tags',
+  creatorCannotUpvoteOwnComm: {
+    id: 'app.containers.Tags.creatorCannotUpvoteOwnComm',
   },
-  suggestedTags: {
-    id: 'app.containers.Tags.suggestedTags',
-    defaultMessage: 'Suggested tags',
+  backToList: {
+    id: 'app.containers.Tags.backToList',
   },
-  createTag: {
-    id: 'app.containers.Tags.createTag',
-    defaultMessage: 'Create tag',
+  didntFindSuitableTag: {
+    id: 'app.containers.Tags.didntFindSuitableTag',
+  },
+  suggestTagWhichWillbeUseful: {
+    id: 'app.containers.Tags.suggestTagWhichWillbeUseful',
   },
 });

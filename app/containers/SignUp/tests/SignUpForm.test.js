@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
-import SignUpForm from '../SignUpForm';
+import { SignUpForm } from '../SignUpForm';
 
 describe('<SignUpForm />', () => {
   const props = {

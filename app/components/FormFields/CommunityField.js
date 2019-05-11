@@ -16,7 +16,7 @@ import Wrapper from './Wrapper';
 const Div = styled.div`
   position: relative;
 
-  ${(props) /* istanbul ignore next */ => Input(props)};
+  ${/* istanbul ignore next */ props => Input(props)};
 
   ${IconStyled} {
     position: absolute;

@@ -26,7 +26,7 @@ const ButtonStyled = styled.button`
   ${Img} {
     transition: 0.5s;
     transform: rotate(
-      ${(x) /* istanbul ignore next */ => (x.toRotate ? '180deg' : '0deg')}
+      ${/* istanbul ignore next */ x => (x.toRotate ? '180deg' : '0deg')}
     );
   }
 `;

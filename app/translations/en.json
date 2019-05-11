@@ -42,6 +42,12 @@
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
   "app.common.tips": "Tips",
+  "app.common.suggestTag": "Suggest tag",
+  "app.common.seeAll": "See all",
+  "app.common.voting": "Voting",
+  "app.common.date": "Date",
+  "app.common.popularity": "Popularity",
+  "app.common.moreVoting": "More voting",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",
@@ -49,7 +55,6 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
-  "app.containers.ExistingCommunities.moreVoting": "More voting",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
@@ -82,21 +87,40 @@
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
-  "app.containers.SuggestedTags.youHaveAlreadyVoted": "You have already voted",
-  "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
-    "Creator cannot upvote own tag",
   "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
+  "app.containers.SuggestedTags.tagDescription": "Description",
 
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
+  "app.containers.CreateTag.community": "Community",
+  "app.containers.CreateTag.communityTip": "Some community tip...",
   "app.containers.CreateTag.name": "Name",
+  "app.containers.CreateTag.nameTip": "Some name tip...",
   "app.containers.CreateTag.descriptionField": "Description",
+  "app.containers.CreateTag.descriptionFieldTip": "Some descriptions tip...",
   "app.containers.CreateTag.createTag": "Create tag",
+  "app.containers.CreateTag.newTag": "New tag",
+  "app.containers.CreateTag.tagIsKeyword":
+    "A tag is a keyword or label that categorizes your question with other, similar questions.",
+  "app.containers.CreateTag.usingTheRightTags":
+    "Using the right tags makes it easier for others to find and answer your question.",
+  "app.containers.CreateTag.whatIsTag": "What is a tag?",
+  "app.containers.CreateTag.howToUseIt": "How to use it?",
 
-  "app.containers.Tags.title": "Tags",
-  "app.containers.Tags.description": "Description of Tags",
-  "app.containers.Tags.suggestedTags": "Suggested tags",
-  "app.containers.Tags.createTag": "Create tag",
+  "app.containers.Tags.backToList": "Back to list",
+  "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tag?",
+  "app.containers.Tags.youHaveAlreadyVoted": "You have already voted",
+  "app.containers.Tags.suggestTagWhichWillbeUseful":
+    "Suggest tag, which will be useful to you and 100 other users who will vote for it.",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm":
+    "Creator cannot upvote own tag",
+
+  "app.containers.TagsOfCommunity.title": "Tags",
+  "app.containers.TagsOfCommunity.description": "Description of Tags",
+  "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
+  "app.containers.TagsOfCommunity.createTag": "Create tag",
+  "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
@@ -111,6 +135,9 @@
     "Creator cannot upvote own community",
   "app.containers.VoteForNewCommunityButton.youCannotChange":
     "You can’t change your vote. Are you sure?",
+
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
+    "Creator cannot upvote own tag",
 
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",
@@ -392,6 +419,8 @@
     "Maximum number of characters exceeded",
   "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
+
+  "app.containers.TagsCollection.title": "Tags collection",
 
   "app.components.Footer.header": "Copyright: Peerania",
   "app.containers.SignUp.eosAccount": "EOS Account",

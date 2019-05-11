@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TagsCollection /> render 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Tags collection
+    </title>
+    <meta
+      name="description"
+    />
+  </HelmetWrapper>
+  <UNDEFINED
+    openTagForm={[Function]}
+  />
+  <UNDEFINED
+    communities={
+      Array [
+        Object {
+          "id": 1,
+        },
+      ]
+    }
+  />
+  <UNDEFINED
+    openTagForm={[Function]}
+  />
+</div>
+`;

@@ -9,22 +9,49 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'app.containers.CreateTag.title',
-    defaultMessage: 'Create tag',
   },
   description: {
     id: 'app.containers.CreateTag.description',
-    defaultMessage: 'Create tag | Description',
   },
+
+  community: {
+    id: 'app.containers.CreateTag.community',
+  },
+  communityTip: {
+    id: 'app.containers.CreateTag.community',
+  },
+
   name: {
     id: 'app.containers.CreateTag.name',
-    defaultMessage: 'Name',
   },
+  nameTip: {
+    id: 'app.containers.CreateTag.nameTip',
+  },
+
   descriptionField: {
     id: 'app.containers.CreateTag.descriptionField',
-    defaultMessage: 'Description',
   },
+  descriptionFieldTip: {
+    id: 'app.containers.CreateTag.descriptionFieldTip',
+  },
+
   createTag: {
     id: 'app.containers.CreateTag.createTag',
-    defaultMessage: 'Create tag',
+  },
+  newTag: {
+    id: 'app.containers.CreateTag.newTag',
+  },
+
+  tagIsKeyword: {
+    id: 'app.containers.CreateTag.tagIsKeyword',
+  },
+  usingTheRightTags: {
+    id: 'app.containers.CreateTag.usingTheRightTags',
+  },
+  whatIsTag: {
+    id: 'app.containers.CreateTag.whatIsTag',
+  },
+  howToUseIt: {
+    id: 'app.containers.CreateTag.howToUseIt',
   },
 });

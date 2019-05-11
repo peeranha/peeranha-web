@@ -9,7 +9,7 @@ import Span from 'components/Span';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 const SpanStyled = Span.extend`
-  color: ${(props /* istanbul ignore next */) =>
+  color: ${/* istanbul ignore next */ props =>
     props.isItWrittenByMe
       ? TEXT_SECONDARY
       : props.isVotedToDelete
@@ -17,7 +17,7 @@ const SpanStyled = Span.extend`
         : TEXT_PRIMARY};
 
   ${IconStyled} rect {
-    fill: ${(props /* istanbul ignore next */) =>
+    fill: ${/* istanbul ignore next */ props =>
       props.isItWrittenByMe
         ? TEXT_SECONDARY
         : props.isVotedToDelete
@@ -26,7 +26,7 @@ const SpanStyled = Span.extend`
   }
 
   ${IconStyled} circle {
-    stroke: ${(props /* istanbul ignore next */) =>
+    stroke: ${/* istanbul ignore next */ props =>
       props.isItWrittenByMe
         ? TEXT_SECONDARY
         : props.isVotedToDelete

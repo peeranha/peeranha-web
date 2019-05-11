@@ -12,8 +12,7 @@ import { strLength20x1000, required } from 'components/FormFields/validate';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
-/* eslint-disable-next-line */
-let CommentForm = /* istanbul ignore next */ ({
+const CommentForm = /* istanbul ignore next */ ({
   handleSubmit,
   sendComment,
   sendCommentLoading,
@@ -62,13 +61,13 @@ CommentForm.propTypes = {
   className: PropTypes.string,
 };
 
-CommentForm = reduxForm({})(CommentForm);
+let Form = reduxForm({})(CommentForm);
 
-CommentForm = connect((state, props) => ({
+Form = connect((state, props) => ({
   enableReinitialize: true,
   initialValues: {
     [TEXTAREA_COMMENT_FORM]: props.comment,
   },
-}))(CommentForm);
+}))(Form);
 
-export default React.memo(CommentForm);
+export default React.memo(Form);

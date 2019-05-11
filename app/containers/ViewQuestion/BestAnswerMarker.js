@@ -23,7 +23,7 @@ export const ButtonStyled = Button.extend`
   align-items: center;
   justify-content: center;
   border: 1px solid
-    ${(x) /* istanbul ignore next */ =>
+    ${/* istanbul ignore next */ x =>
       x.bg === BG_LIGHT ? BORDER_SECONDARY : x.bg};
 `;
 

@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SuggestedTags /> render communitiesLoading FALSE | !tags.length 1`] = `
-<div
-  className="container"
->
+exports[`SuggestedTags render 1`] = `
+<div>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -16,59 +14,36 @@ exports[`<SuggestedTags /> render communitiesLoading FALSE | !tags.length 1`] = 
       name="description"
     />
   </HelmetWrapper>
-  <NoSuggestedTags />
-  <SuggestedTagsView
-    downVote={[Function]}
-    tags={Array []}
-    upVote={[Function]}
-  />
-</div>
-`;
-
-exports[`<SuggestedTags /> render communitiesLoading FALSE | tags.length 1`] = `
-<div
-  className="container"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Suggested tags
-    </title>
-    <meta
-      content="Suggested tags | Description"
-      name="description"
-    />
-  </HelmetWrapper>
-  <SuggestedTagsView
-    downVote={[Function]}
-    tags={
-      Array [
-        Object {},
-      ]
+  <withReducer(withSaga(Connect(Tags)))
+    Aside={
+      <UNDEFINED
+        existingTags={
+          Array [
+            Object {
+              "id": 1,
+            },
+            Object {
+              "id": 2,
+            },
+          ]
+        }
+      />
     }
-    upVote={[Function]}
+    Content={
+      <UNDEFINED
+        communityId={1}
+        isLastFetch={false}
+        loadMoreTags={[Function]}
+        suggestedTagsLoading={false}
+      />
+    }
+    communityId={1}
+    currentCommunity={
+      Object {
+        "id": 1,
+      }
+    }
+    sortTags={[Function]}
   />
-</div>
-`;
-
-exports[`<SuggestedTags /> render tagsLoading TRUE 1`] = `
-<div
-  className="container"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Suggested tags
-    </title>
-    <meta
-      content="Suggested tags | Description"
-      name="description"
-    />
-  </HelmetWrapper>
-  <LoadingIndicator />
 </div>
 `;

@@ -15,7 +15,12 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import Base from 'components/Base/BaseRounded';
+import BaseTransparent from 'components/Base/BaseTransparent';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -24,28 +29,31 @@ import messages from './messages';
 
 import { suggestTag } from './actions';
 
-import { NAME_FIELD, DESCRIPTION_FIELD } from './constants';
+import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from './constants';
 
-import CreateTagForm from './CreateTagForm';
+import Form from './Form';
+import Tips from './Tips';
+import Header from './Header';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateTag extends React.Component {
+export class CreateTag extends React.PureComponent {
   createTag = (...args) => {
     const { reset } = args[2];
+
     const tag = {
       name: args[0].get(NAME_FIELD),
       description: args[0].get(DESCRIPTION_FIELD),
-      communityid: this.props.match.params.communityid,
+      communityId: args[0].get(FORM_COMMUNITY).id,
     };
 
     this.props.suggestTagDispatch(tag, reset);
   };
 
-  render() {
-    const { locale, createTagLoading } = this.props;
+  render() /* istanbul ignore next */ {
+    const { locale, createTagLoading, communities, match } = this.props;
 
     return (
-      <div className="container">
+      <div>
         <Helmet>
           <title>{translationMessages[locale][messages.title.id]}</title>
           <meta
@@ -54,11 +62,31 @@ export class CreateTag extends React.Component {
           />
         </Helmet>
 
-        <CreateTagForm
-          createTagLoading={createTagLoading}
-          createTag={this.createTag}
-          translations={translationMessages[locale]}
-        />
+        <Header />
+
+        {communities[0] && (
+          <Base className="p-0">
+            <div className="d-flex">
+              <div className="col-12 col-xl-9 p-0">
+                <BaseTransparent>
+                  <Form
+                    communityId={+match.params.communityid}
+                    communities={communities}
+                    createTagLoading={createTagLoading}
+                    createTag={this.createTag}
+                    translations={translationMessages[locale]}
+                  />
+                </BaseTransparent>
+              </div>
+
+              <div className="col-12 col-xl-3 p-0">
+                <Tips />
+              </div>
+            </div>
+          </Base>
+        )}
+
+        {!communities.length && <LoadingIndicator />}
       </div>
     );
   }
@@ -69,15 +97,16 @@ CreateTag.propTypes = {
   match: PropTypes.object,
   createTagLoading: PropTypes.bool,
   suggestTagDispatch: PropTypes.func,
+  communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  communities: selectCommunities(),
   createTagLoading: selectors.selectSuggestTagLoading(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     suggestTagDispatch: (tag, reset) => dispatch(suggestTag(tag, reset)),

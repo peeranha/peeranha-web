@@ -42,6 +42,14 @@
   "app.common.agree": "Согласен",
   "app.common.disagree": "Не согласен",
   "app.common.tips": "Подсказки",
+  "app.common.suggestTag": "Предложить тег",
+  "app.common.seeAll": "Посмотреть все",
+  "app.common.voting": "Голосование",
+  "app.common.date": "Дата",
+  "app.common.popularity": "Популярность",
+  "app.common.moreVoting": "Больше голосований",
+
+  "app.containers.TagsCollection.title": "Подборка тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.follow": "Подписаться",
@@ -49,7 +57,6 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
-  "app.containers.ExistingCommunities.moreVoting": "Больше голосований",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -81,21 +88,43 @@
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
-  "app.containers.SuggestedTags.youHaveAlreadyVoted": "Вы уже голосовали",
-  "app.containers.SuggestedTags.creatorCannotUpvoteOwnComm":
-    "Нельзя голосовать за свой тег",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Топ теги в сообществе",
+  "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
+  "app.containers.CreateTag.community": "Сообщество",
+  "app.containers.CreateTag.communityTip": "Подсказка для поля сообщество...",
   "app.containers.CreateTag.name": "Название",
+  "app.containers.CreateTag.nameTip": "Подсказка для поля название...",
   "app.containers.CreateTag.descriptionField": "Описание",
+  "app.containers.CreateTag.descriptionFieldTip":
+    "Подсказка для поля описание...",
   "app.containers.CreateTag.createTag": "Предложить тег",
+  "app.containers.CreateTag.newTag": "Новый тег",
+  "app.containers.CreateTag.tagIsKeyword":
+    "Тег - это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
+  "app.containers.CreateTag.usingTheRightTags":
+    "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
+  "app.containers.CreateTag.whatIsTag": "Что такое тег?",
+  "app.containers.CreateTag.howToUseIt": "Как это использовать?",
 
-  "app.containers.Tags.title": "Теги",
-  "app.containers.Tags.description": "Описание тегов",
-  "app.containers.Tags.suggestedTags": "Предложенные теги",
-  "app.containers.Tags.createTag": "Предложить тег",
+  "app.containers.Tags.backToList": "Вернуться к списку",
+
+  "app.containers.Tags.backToList": "Вернуться к списку",
+  "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
+  "app.containers.Tags.suggestTagWhichWillbeUseful":
+    "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
+  "app.containers.Tags.youHaveAlreadyVoted": "Вы уже голосовали",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm":
+    "Нельзя голосовать за свой тег",
+
+  "app.containers.TagsOfCommunity.title": "Теги",
+  "app.containers.TagsOfCommunity.description": "Описание тегов",
+  "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
+  "app.containers.TagsOfCommunity.createTag": "Предложить тег",
+  "app.containers.TagsOfCommunity.voteForNewTags": "Голосуйте за новые теги",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":
@@ -110,6 +139,9 @@
     "Нельзя голосовать за собственное сообщество",
   "app.containers.VoteForNewCommunityButton.youCannotChange":
     "Вы не сможете изменить свой голос. Вы уверены?",
+
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
+    "Нельзя голосовать за собственный тег",
 
   "app.containers.Communities.title": "Сообщества",
   "app.containers.Communities.description": "Сообщества | Описание",

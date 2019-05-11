@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
+
 import * as routes from 'routes-config';
+import commonMessages from 'common-messages';
 
 import moreVotingIcon from 'images/moreVoting.svg';
 
@@ -62,7 +64,7 @@ const Aside = /* istanbul ignore next */ ({ suggestedCommunities }) => (
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
         <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...messages.moreVoting} />
+          <FormattedMessage {...commonMessages.moreVoting} />
         </Span>
       </A>
     </footer>

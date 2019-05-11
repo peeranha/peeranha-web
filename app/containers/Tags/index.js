@@ -1,102 +1,179 @@
 /**
  *
- * Communities
+ * Tags
  *
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 import { translationMessages } from 'i18n';
+
+import { DAEMON } from 'utils/constants';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import { showLoginModal } from 'containers/Login/actions';
-import LoadingIndicator from 'components/LoadingIndicator';
+import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import BaseTransparent from 'components/Base/BaseTransparent';
+
+import reducer from './reducer';
+import saga from './saga';
+import { getSuggestedTags, getExistingTags } from './actions';
 import { createTagValidator } from './validate';
-import messages from './messages';
+import * as selectors from './selectors';
 
-import TagsView from './TagsView';
-import TagsHeader from './TagsHeader';
+import Header from './Header';
+import GoToCreateTagFromBanner from './GoToCreateTagFromBanner';
 
+const AsideWrapper = BaseTransparent.extend`
+  flex: 0 0 ${LEFT_MENU_WIDTH}px;
+  padding-top: 20px;
+`.withComponent('aside');
+
+export const goToCreateTagScreen = ({
+  profile,
+  showLoginModalDispatch,
+  locale,
+  communityId,
+}) => {
+  if (!profile) {
+    showLoginModalDispatch();
+    return null;
+  }
+
+  const isValid = createTagValidator(profile, translationMessages[locale]);
+
+  if (!isValid) {
+    return null;
+  }
+
+  createdHistory.push(routes.tagsCreate(communityId));
+};
+
+/* eslint consistent-return: 0 */
 /* eslint-disable react/prefer-stateless-function */
 export class Tags extends React.Component {
-  /* eslint consistent-return: 0 */
-  goToCreateTagScreen = () => {
-    const { profile, locale, match } = this.props;
+  componentDidMount() {
+    const {
+      communityId,
+      getSuggestedTagsDispatch,
+      getExistingTagsDispatch,
+    } = this.props;
 
-    if (!profile) {
-      this.props.showLoginModalDispatch();
-      return null;
+    getExistingTagsDispatch({ communityId });
+    getSuggestedTagsDispatch({ communityId });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { communityId, getExistingTagsDispatch, communities } = this.props;
+
+    if (!prevProps.communities.length && communities.length) {
+      getExistingTagsDispatch({ communityId });
     }
+  }
 
-    const isValid = createTagValidator(profile, translationMessages[locale]);
+  goToCreateTagScreen = /* istanbul ignore next */ () => {
+    const { showLoginModalDispatch, locale, communityId, profile } = this.props;
 
-    if (!isValid) {
-      return null;
-    }
-
-    createdHistory.push(routes.tagsCreate(match.params.communityid));
+    goToCreateTagScreen({
+      profile,
+      showLoginModalDispatch,
+      locale,
+      communityId,
+    });
   };
 
-  render() {
-    const { communities, locale, match } = this.props;
-    const { communityid } = match.params;
-    const community = communities.length
-      ? communities.filter(x => x.id === +communityid)[0]
-      : null;
+  render() /* istanbul ignore next */ {
+    const {
+      sorting,
+      currentCommunity,
+      tagsNumber,
+      sortTags,
+      Content,
+      Aside,
+    } = this.props;
+
+    if (!currentCommunity.tags.length) return <LoadingIndicator />;
 
     return (
-      <div className="container">
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
+      <div className="d-flex justify-content-center">
+        <div className="flex-grow-1">
+          <Header
+            goToCreateTagScreen={this.goToCreateTagScreen}
+            sortTags={sortTags}
+            sorting={sorting}
+            currentCommunity={currentCommunity}
+            tagsNumber={tagsNumber}
           />
-        </Helmet>
 
-        <TagsHeader
-          communityid={communityid}
-          goToCreateTagScreen={this.goToCreateTagScreen}
-        />
+          <div className="my-3">{Content}</div>
 
-        {community ? <TagsView tags={community.tags} /> : <LoadingIndicator />}
+          <GoToCreateTagFromBanner openTagForm={this.goToCreateTagScreen} />
+        </div>
+
+        <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>
       </div>
     );
   }
 }
 
 Tags.propTypes = {
-  communities: PropTypes.array.isRequired,
-  locale: PropTypes.string.isRequired,
+  locale: PropTypes.string,
+  sorting: PropTypes.string,
   profile: PropTypes.object,
-  match: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func.isRequired,
+  showLoginModalDispatch: PropTypes.func,
+  getSuggestedTagsDispatch: PropTypes.func,
+  getExistingTagsDispatch: PropTypes.func,
+  Aside: PropTypes.any,
+  Content: PropTypes.any,
+  sortTags: PropTypes.func,
+  tagsNumber: PropTypes.number,
+  currentCommunity: PropTypes.object,
+  communities: PropTypes.array,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  communities: selectCommunities(),
   profile: makeSelectProfileInfo(),
+  sorting: selectors.selectSorting(),
+  existingTagsLoading: selectors.selectExistingTagsLoading(),
+  suggestedTagsLoading: selectors.selectSuggestedTagsLoading(),
+  communities: selectCommunities(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
+    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
+    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
     showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }
 
-export default connect(
+const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'tags', reducer });
+const withSaga = injectSaga({ key: 'tags', saga, mode: DAEMON });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
 )(Tags);

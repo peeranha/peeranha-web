@@ -1,5 +1,4 @@
 import { showPopover } from 'utils/popover';
-
 import messages from 'containers/ViewQuestion/messages';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';

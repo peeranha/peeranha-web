@@ -45,4 +45,4 @@ export const suggestedTags = communityid =>
   `/communities/${communityid}/tags/suggested`;
 
 export const tagsCreate = communityid =>
-  `/communities/${communityid}/tags/create`;
+  `/communities/${communityid || 0}/tags/create`;

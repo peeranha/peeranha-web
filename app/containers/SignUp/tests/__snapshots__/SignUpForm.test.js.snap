@@ -27,17 +27,6 @@ exports[`<SignUpForm /> snapshot test 1`] = `
         "replace": [Function],
       }
     }
-  >
-    <Connect(ReduxForm)
-      account="user1"
-      errorMessage={Object {}}
-      handleSubmit={[MockFunction]}
-      invalid={false}
-      loading={false}
-      registerUser={[MockFunction]}
-      submitting={false}
-      translations={Object {}}
-    />
-  </ConnectedRouter>
+  />
 </Connect(LanguageProvider)>
 `;

@@ -31,7 +31,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${(props) /* istanbul ignore next */ =>
+  background: ${/* istanbul ignore next */ props =>
     props.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
 
   :hover {

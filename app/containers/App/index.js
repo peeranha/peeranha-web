@@ -36,7 +36,8 @@ const AskQuestion = React.lazy(() => import('containers/AskQuestion'));
 const ViewQuestion = React.lazy(() => import('containers/ViewQuestion'));
 const EditAnswer = React.lazy(() => import('containers/EditAnswer'));
 const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
-const Tags = React.lazy(() => import('containers/Tags'));
+const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
+const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const NoAccess = React.lazy(() => import('components/NoAccess'));
@@ -86,8 +87,13 @@ export default function App /* istanbul ignore next */() {
 
         <Route
           exact
+          path={routes.tags()}
+          render={props => Wrapper(TagsCollection, props)}
+        />
+        <Route
+          exact
           path={routes.communityTags(':communityid')}
-          render={props => Wrapper(Tags, props)}
+          render={props => Wrapper(TagsOfCommunity, props)}
         />
         <Route
           path={routes.tagsCreate(':communityid')}

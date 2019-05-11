@@ -147,4 +147,22 @@ export default defineMessages({
   tips: {
     id: 'app.common.tips',
   },
+  suggestTag: {
+    id: 'app.common.suggestTag',
+  },
+  seeAll: {
+    id: 'app.common.seeAll',
+  },
+  voting: {
+    id: 'app.common.voting',
+  },
+  date: {
+    id: 'app.common.date',
+  },
+  popularity: {
+    id: 'app.common.popularity',
+  },
+  moreVoting: {
+    id: 'app.common.moreVoting',
+  },
 });

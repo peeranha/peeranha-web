@@ -11,7 +11,7 @@ import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 
 const TagsContainer = styled.ul`
-  ${(props) /* istanbul ignore next */ => Input(props)};
+  ${/* istanbul ignore next */ props => Input(props)};
 
   cursor: pointer;
   height: auto;

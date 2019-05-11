@@ -51,7 +51,7 @@ import CommunitiesHeader from './CommunitiesHeader';
 import NothingInterestingBanner from './NothingInterestingBanner';
 
 const AsideWrapper = BaseTransparent.extend`
-  width: ${LEFT_MENU_WIDTH}px;
+  flex: 0 0 ${LEFT_MENU_WIDTH}px;
 `.withComponent('aside');
 
 /* eslint indent: 0 */
