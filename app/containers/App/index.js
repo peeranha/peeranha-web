@@ -27,6 +27,7 @@ import Wrapper from './Wrapper';
 const HomePage = React.lazy(() => import('containers/HomePage'));
 const FaqFull = React.lazy(() => import('containers/HomePage/FaqFull'));
 
+const Users = React.lazy(() => import('containers/Users'));
 const EditQuestion = React.lazy(() => import('containers/EditQuestion'));
 const EditProfilePage = React.lazy(() => import('containers/EditProfilePage'));
 const ViewProfilePage = React.lazy(() => import('containers/ViewProfilePage'));
@@ -137,6 +138,8 @@ export default function App /* istanbul ignore next */() {
           path={routes.answerEdit(':questionid', ':answerid')}
           render={props => Wrapper(EditAnswer, props)}
         />
+
+        <Route path={routes.users()} render={props => Wrapper(Users, props)} />
 
         <Route
           path={routes.noAccess()}

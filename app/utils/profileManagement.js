@@ -38,6 +38,17 @@ export async function getProfileInfo(user, eosService) {
   return profile;
 }
 
+export async function getUsers(lowerBound, limit, eosService) {
+  const users = await eosService.getTableRows(
+    ACCOUNT_TABLE,
+    ALL_ACCOUNTS_SCOPE,
+    lowerBound,
+    limit,
+  );
+
+  return users;
+}
+
 export async function saveProfile(user, profile, eosService) {
   const ipfsProfile = await saveText(JSON.stringify(profile));
 
