@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Users render 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Users
+    </title>
+    <meta
+      content="Users: description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <UNDEFINED
+    dropdownFilter={[Function]}
+    getMoreUsers={[Function]}
+    inputFilter={[Function]}
+    isLastFetch={false}
+    locale="en"
+    searchText="user1"
+    sorting="id"
+    users={Array []}
+    usersLoading={false}
+  />
+</React.Fragment>
+`;

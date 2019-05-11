@@ -48,6 +48,10 @@
   "app.common.date": "Date",
   "app.common.popularity": "Popularity",
   "app.common.moreVoting": "More voting",
+  "app.common.reputation": "Reputation",
+
+  "app.containers.Users.title": "Users",
+  "app.containers.Users.description": "Users: description",
 
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.follow": "Follow",

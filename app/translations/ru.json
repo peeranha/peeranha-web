@@ -48,6 +48,10 @@
   "app.common.date": "Дата",
   "app.common.popularity": "Популярность",
   "app.common.moreVoting": "Больше голосований",
+  "app.common.reputation": "Репутация",
+
+  "app.containers.Users.title": "Пользователи",
+  "app.containers.Users.description": "Пользователи: описание",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
 

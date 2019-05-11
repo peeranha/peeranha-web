@@ -30,6 +30,7 @@ import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
 import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
+import usersReducer from 'containers/Users/reducer';
 
 /*
  * routeReducer
@@ -88,6 +89,7 @@ export default function createReducer(injectedReducers) {
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     voteForNewCommunityButton: voteForNewCommunityButtonReducer,
     voteForNewTagButton: voteForNewTagButtonReducer,
+    users: usersReducer,
     form: formReducer,
     ...injectedReducers,
   });

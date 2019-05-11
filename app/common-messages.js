@@ -165,4 +165,7 @@ export default defineMessages({
   moreVoting: {
     id: 'app.common.moreVoting',
   },
+  reputation: {
+    id: 'app.common.reputation',
+  },
 });
