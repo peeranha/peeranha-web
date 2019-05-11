@@ -57,7 +57,7 @@ exports[`Header test 1`] = `
     </div>
     <div>
       <Button
-        className="d-inline-flex align-items-center p-0"
+        className="d-inline-flex align-items-center px-0 py-1"
         isLink={true}
         onClick={[MockFunction]}
       >
