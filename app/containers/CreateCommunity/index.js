@@ -38,6 +38,9 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  TAG_NAME_FIELD,
+  LANGUAGE_FIELD,
+  TAG_DESCRIPTION_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -54,12 +57,20 @@ export class CreateCommunity extends React.PureComponent {
     const { reset } = args[2];
     const values = args[0].toJS();
 
+    const tags = Object.keys(values.tags)
+      .filter(x => values.tags[x])
+      .map(x => ({
+        name: values.tags[x][TAG_NAME_FIELD],
+        description: values.tags[x][TAG_DESCRIPTION_FIELD],
+      }));
+
     const community = {
       avatar: this.props.cachedImgHash,
       name: values[COMM_NAME_FIELD],
+      language: values[LANGUAGE_FIELD].value,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
-      tags: values.tags,
+      tags,
     };
 
     this.props.createCommunityDispatch(community, reset);

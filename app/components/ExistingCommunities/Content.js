@@ -61,7 +61,6 @@ const TextDescription = styled.p`
   ${Description};
 `;
 
-// TODO: change hardcoded numbers when it will be ready for backend
 const Content = /* istanbul ignore next */ ({
   communities,
   sorting,
@@ -87,22 +86,24 @@ const Content = /* istanbul ignore next */ ({
 
           <div className="col-xl-8 d-flex align-items-center justify-content-between">
             <TextDescription>
-              <Num>{getFormattedNum2('7777')}</Num>
-              <Name>Users</Name>
+              <Num>{getFormattedNum2(x.users_subscribed)}</Num>
+              <Name>
+                <FormattedMessage {...commonMessages.users} />
+              </Name>
             </TextDescription>
 
             <LinkDescription
               to={routes.questions(x.id)}
               href={routes.questions(x.id)}
             >
-              <Num>{getFormattedNum2('1111')}</Num>
+              <Num>{getFormattedNum2(x.questions_asked)}</Num>
               <Name color={TEXT_PRIMARY}>
                 <FormattedMessage {...commonMessages.questions} />
               </Name>
             </LinkDescription>
 
             <TextDescription>
-              <Num>{getFormattedNum2('2222')}</Num>
+              <Num>{getFormattedNum2(x.answers_given)}</Num>
               <Name>
                 <FormattedMessage {...commonMessages.answers} />
               </Name>
@@ -119,7 +120,7 @@ const Content = /* istanbul ignore next */ ({
             </LinkDescription>
 
             <TextDescription>
-              <Num>{getDifferenceInMonths(1554877697000, locale)}</Num>
+              <Num>{getDifferenceInMonths(x.creation_time, locale)}</Num>
               <Name>
                 <FormattedMessage {...commonMessages.age} />
               </Name>

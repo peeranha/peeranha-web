@@ -43,4 +43,4 @@ export const getFormattedDate = /* istanbul ignore next */ (
 };
 
 export const getDifferenceInMonths = /* istanbul ignore next */ date =>
-  `${differenceInMonths(date, Date.now())}M`;
+  `${differenceInMonths(Date.now(), date)}M`;

@@ -118,16 +118,13 @@ export class EditProfilePage extends React.PureComponent {
       profile,
     };
 
-    // TODO: remove hardcoded questions&answers length after finishing task
     return (
       <Profile userId={match.params.id}>
         <UserNavigation
           userId={match.params.id}
           account={account}
-          questionsLength={profile ? profile.questions_asked || 1 : 0}
-          questionsWithUserAnswersLength={
-            profile ? profile.answers_given || 1 : 0
-          }
+          questionsLength={profile ? profile.questions_asked : 0}
+          questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
         />
 
         <Base position="bottom">

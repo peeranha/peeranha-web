@@ -1,12 +1,14 @@
 import { saveText, getText, getFileUrl } from './ipfs';
 
 import {
-  TAGS_COMMUNITIES_TABLE,
+  TAGS_TABLE,
+  COMMUNITIES_TABLE,
+  CREATED_TAGS_TABLE,
+  CREATED_COMMUNITIES_TABLE,
   ALL_COMMUNITIES_SCOPE,
   UNFOLLOW_COMM,
   FOLLOW_COMM,
   CREATE_COMMUNITY,
-  CREATED_TAGS_COMMUNITIES_TABLE,
   VOTE_TO_CREATE_COMMUNITY,
   VOTE_TO_DELETE_COMMUNITY,
   CREATE_TAG,
@@ -68,7 +70,7 @@ export async function getSuggestedTags(
   limit,
 ) {
   const tags = await eosService.getTableRows(
-    CREATED_TAGS_COMMUNITIES_TABLE,
+    CREATED_TAGS_TABLE,
     getTagScope(communityId),
     lowerBound,
     limit,
@@ -124,7 +126,7 @@ export async function downVoteToCreateTag(
 /* eslint no-param-reassign: 0 */
 export async function getAllCommunities(eosService) {
   const communities = await eosService.getTableRows(
-    TAGS_COMMUNITIES_TABLE,
+    COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     0,
   );
@@ -135,11 +137,7 @@ export async function getAllCommunities(eosService) {
       x.value = x.id;
 
       // Tags for community
-      x.tags = await eosService.getTableRows(
-        TAGS_COMMUNITIES_TABLE,
-        getTagScope(x.id),
-        0,
-      );
+      x.tags = await eosService.getTableRows(TAGS_TABLE, getTagScope(x.id), 0);
 
       x.tags.forEach(y => {
         y.label = y.name;
@@ -153,33 +151,16 @@ export async function getAllCommunities(eosService) {
 
       x.avatar = avatar;
       x.description = ipfsDescription.description;
+      x.language = ipfsDescription.language;
     }),
   );
-
-  // TODO: REMOVE IT WHEN IT WILL BE READY FOR BACKEND
-
-  communities[0].questions = 10;
-  communities[1].questions = 20;
-  communities[2].questions = 5;
-
-  communities[0].answers = 1;
-  communities[1].answers = 20;
-  communities[2].answers = 5;
-
-  communities[0].date = 1554903164297;
-  communities[1].date = 1554903163297;
-  communities[2].date = 1554903161297;
-
-  communities[0].subscribers = 300;
-  communities[1].subscribers = 200;
-  communities[2].subscribers = 100;
 
   return communities;
 }
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   const communities = await eosService.getTableRows(
-    CREATED_TAGS_COMMUNITIES_TABLE,
+    CREATED_COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     lowerBound,
     limit,
@@ -192,6 +173,7 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
       x.avatar = avatar;
       x.description = ipfsDescription.description;
+      x.language = ipfsDescription.language;
     }),
   );
 
@@ -220,13 +202,26 @@ export async function followCommunity(
   });
 }
 
+/* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
   const communityIpfsHash = await saveText(JSON.stringify(community));
+
+  const suggested_tags = await Promise.all(
+    community.tags.map(async x => {
+      const ipfs_description = await saveText(JSON.stringify(x));
+
+      return {
+        name: x.name,
+        ipfs_description,
+      };
+    }),
+  );
 
   await eosService.sendTransaction(selectedAccount, CREATE_COMMUNITY, {
     user: selectedAccount,
     name: community.name,
     ipfs_description: communityIpfsHash,
+    suggested_tags,
   });
 }
 

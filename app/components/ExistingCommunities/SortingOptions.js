@@ -2,12 +2,12 @@ import messages from 'common-messages';
 
 export default {
   questions: {
-    sortBy: 'questions',
+    sortBy: 'questions_asked',
     order: 'desc',
     message: messages.questions,
   },
   answers: {
-    sortBy: 'answers',
+    sortBy: 'answers_given',
     order: 'desc',
     message: messages.answers,
   },
@@ -17,17 +17,17 @@ export default {
     message: messages.tags,
   },
   oldest: {
-    sortBy: 'date',
+    sortBy: 'creation_time',
     order: 'ask',
     message: messages.oldest,
   },
   newest: {
-    sortBy: 'date',
+    sortBy: 'creation_time',
     order: 'desc',
     message: messages.newest,
   },
   subscribed: {
-    sortBy: 'subscribers',
+    sortBy: 'users_subscribed',
     order: 'desc',
     message: messages.subscribed,
   },

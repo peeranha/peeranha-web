@@ -1,5 +1,6 @@
 export const FORM_NAME = 'app/CreateCommunity/FORM_NAME';
 
+export const LANGUAGE_FIELD = 'app/CreateCommunity/LANGUAGE_FIELD';
 export const COMM_AVATAR_FIELD = 'app/CreateCommunity/COMM_AVATAR_FIELD';
 export const COMM_NAME_FIELD = 'app/CreateCommunity/COMM_NAME_FIELD';
 export const COMM_SHORT_DESCRIPTION_FIELD =

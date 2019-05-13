@@ -28,8 +28,10 @@ export const ACCOUNT_TABLE = 'account';
 export const QUESTION_TABLE = 'question';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const USER_ANSWERS_TABLE = 'usranswers';
-export const TAGS_COMMUNITIES_TABLE = 'tagandcomm';
-export const CREATED_TAGS_COMMUNITIES_TABLE = 'crtagcomm';
+export const TAGS_TABLE = 'tags';
+export const COMMUNITIES_TABLE = 'communities';
+export const CREATED_TAGS_TABLE = 'crtagtb';
+export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
 
 // Scopes
 

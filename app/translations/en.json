@@ -184,8 +184,11 @@
   "app.containers.CreateCommunity.whatIsCommunity": "What is community?",
   "app.containers.CreateCommunity.whoManagesCommunities":
     "Who manages the communities?",
-  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+  "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
     "Form should allow only tags with unique names",
+  "app.containers.CreateCommunity.communityLanguage": "Language",
+  "app.containers.CreateCommunity.communityLanguageTip":
+    "Some language field tip...",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",

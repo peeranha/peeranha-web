@@ -17,8 +17,6 @@ import Ul from 'components/Ul';
 import { Header } from 'components/ExistingCommunities/Aside';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
-// TODO: when backend will be ready - remove hardcoded fields for communities
-
 const Aside = /* istanbul ignore next */ ({ communities }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
@@ -36,7 +34,7 @@ const Aside = /* istanbul ignore next */ ({ communities }) => (
             <div>
               <P>{x.name}</P>
               <P>
-                <Span bold>999</Span>{' '}
+                <Span bold>{x.users_subscribed}</Span>{' '}
                 <Span fontSize="14">
                   <FormattedMessage {...commonMessages.users} />
                 </Span>

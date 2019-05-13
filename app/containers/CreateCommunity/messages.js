@@ -46,6 +46,12 @@ export default defineMessages({
   tagDescription: {
     id: 'app.containers.CreateCommunity.tagDescription',
   },
+  communityLanguage: {
+    id: 'app.containers.CreateCommunity.communityLanguage',
+  },
+  communityLanguageTip: {
+    id: 'app.containers.CreateCommunity.communityLanguageTip',
+  },
   communityTitleTip: {
     id: 'app.containers.CreateCommunity.communityTitleTip',
   },
