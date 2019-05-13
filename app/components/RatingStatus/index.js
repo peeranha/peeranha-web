@@ -22,18 +22,21 @@ const getStatus = /* istanbul ignore next */ rating =>
     x => options[x].minRating < rating && options[x].maxRating >= rating,
   )[0];
 
-/* eslint no-nested-ternary: 0 */
-const RatingStatus = /* istanbul ignore next */ ({
-  rating,
+const IconWithStatus = /* istanbul ignore next */ ({
+  className,
   size,
-  intl,
-  isRankOff,
+  rating,
 }) => {
   const full = options[getStatus(rating)];
 
   return (
-    <RatingStatusStyled>
-      <Icon className="d-inline-flex" icon={full.icon[size || 'sm']} />
+    <span className={className}>
+      <Icon
+        className="d-inline-flex mr-1"
+        icon={full.icon[size || 'sm']}
+        noMargin
+      />
+
       <Span
         fontSize={size === 'lg' ? 20 : 14}
         bold={size === 'lg'}
@@ -47,6 +50,22 @@ const RatingStatus = /* istanbul ignore next */ ({
       >
         {getFormattedNum(rating)}
       </Span>
+    </span>
+  );
+};
+
+/* eslint no-nested-ternary: 0 */
+const RatingStatus = /* istanbul ignore next */ ({
+  rating,
+  size,
+  intl,
+  isRankOff,
+}) => {
+  const full = options[getStatus(rating)];
+
+  return (
+    <RatingStatusStyled>
+      <IconWithStatus size={size} rating={rating} />
       <Span
         className={isRankOff ? 'd-none' : ''}
         fontSize={size === 'lg' ? 16 : 14}
@@ -65,4 +84,11 @@ RatingStatus.propTypes = {
   isRankOff: PropTypes.bool,
 };
 
+IconWithStatus.propTypes = {
+  className: PropTypes.string,
+  rating: PropTypes.number.isRequired,
+  size: PropTypes.string,
+};
+
+export { IconWithStatus };
 export default React.memo(injectIntl(RatingStatus));
