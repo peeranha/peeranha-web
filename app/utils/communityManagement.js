@@ -125,10 +125,11 @@ export async function downVoteToCreateTag(
 
 /* eslint no-param-reassign: 0 */
 export async function getAllCommunities(eosService) {
+  const lowerBound = 0;
   const communities = await eosService.getTableRows(
     COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
-    0,
+    lowerBound,
   );
 
   await Promise.all(
@@ -137,7 +138,11 @@ export async function getAllCommunities(eosService) {
       x.value = x.id;
 
       // Tags for community
-      x.tags = await eosService.getTableRows(TAGS_TABLE, getTagScope(x.id), 0);
+      x.tags = await eosService.getTableRows(
+        TAGS_TABLE,
+        getTagScope(x.id),
+        lowerBound,
+      );
 
       x.tags.forEach(y => {
         y.label = y.name;
@@ -149,9 +154,11 @@ export async function getAllCommunities(eosService) {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
       const avatar = await getFileUrl(ipfsDescription.avatar);
 
+      Object.keys(ipfsDescription).forEach(field => {
+        x[field] = ipfsDescription[field];
+      });
+
       x.avatar = avatar;
-      x.description = ipfsDescription.description;
-      x.language = ipfsDescription.language;
     }),
   );
 
@@ -171,9 +178,11 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
       const avatar = await getFileUrl(ipfsDescription.avatar);
 
+      Object.keys(ipfsDescription).forEach(field => {
+        x[field] = ipfsDescription[field];
+      });
+
       x.avatar = avatar;
-      x.description = ipfsDescription.description;
-      x.language = ipfsDescription.language;
     }),
   );
 

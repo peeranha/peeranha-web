@@ -49,6 +49,8 @@
   "app.common.popularity": "Popularity",
   "app.common.moreVoting": "More voting",
   "app.common.reputation": "Reputation",
+  "app.common.en": "English",
+  "app.common.ru": "Russian",
 
   "app.containers.Users.title": "Users",
   "app.containers.Users.description": "Users: description",
@@ -189,6 +191,10 @@
   "app.containers.CreateCommunity.communityLanguage": "Language",
   "app.containers.CreateCommunity.communityLanguageTip":
     "Some language field tip...",
+  "app.containers.CreateCommunity.thatisgreat": "That's great!",
+  "app.containers.CreateCommunity.communityWillAppear":
+    "Your community will appear in the list and other users can vote for it. 100 votes are needed for communuty be created.",
+  "app.containers.CreateCommunity.goToList": "Go to list",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",

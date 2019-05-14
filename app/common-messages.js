@@ -168,4 +168,10 @@ export default defineMessages({
   reputation: {
     id: 'app.common.reputation',
   },
+  en: {
+    id: 'app.common.en',
+  },
+  ru: {
+    id: 'app.common.ru',
+  },
 });

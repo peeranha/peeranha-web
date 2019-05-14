@@ -88,4 +88,13 @@ export default defineMessages({
   onlyTagsWithUniqueTitles: {
     id: 'app.components.CreateCommunity.onlyTagsWithUniqueTitles',
   },
+  thatisgreat: {
+    id: 'app.containers.CreateCommunity.thatisgreat',
+  },
+  communityWillAppear: {
+    id: 'app.containers.CreateCommunity.communityWillAppear',
+  },
+  goToList: {
+    id: 'app.containers.CreateCommunity.goToList',
+  },
 });

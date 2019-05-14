@@ -32,7 +32,9 @@ export function* createCommunityWorker({ community, reset }) {
     yield call(() => createCommunity(eosService, selectedAccount, community));
     yield put(createCommunitySuccess());
     yield call(() => reset());
-    yield call(() => createdHistory.push(routes.suggestedCommunities()));
+    yield call(() =>
+      createdHistory.push(`${routes.communitiesCreate()}#banner`),
+    );
   } catch (err) {
     yield put(createCommunityErr(err.message));
   }

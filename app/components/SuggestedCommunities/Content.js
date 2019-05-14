@@ -8,7 +8,6 @@ import arrowDownIcon from 'svg/arrowDown';
 
 import P from 'components/P';
 import Base from 'components/Base/BaseRounded';
-import Span from 'components/Span';
 import Icon from 'components/Icon';
 import IconStyled from 'components/Icon/IconStyled';
 import BaseTransparent from 'components/Base/BaseTransparent';
@@ -62,9 +61,16 @@ const Item = /* istanbul ignore next */ x => {
               src={x.avatar}
               alt="voting-community"
             />
-            <Span fontSize="24" bold>
-              {x.name}
-            </Span>
+
+            <div>
+              <P fontSize="24" bold>
+                {x.name}
+              </P>
+              <P className="text-capitalize" fontSize="14">
+                {x.language}
+              </P>
+              <P fontSize="14">{x.description}</P>
+            </div>
           </div>
 
           <div className="col-xl-3 d-flex justify-content-between">
@@ -87,7 +93,7 @@ const Item = /* istanbul ignore next */ x => {
         </P>
 
         <div className="position-relative">
-          <P>{x.description}</P>
+          <P>{x.main_description}</P>
           <BlockShadow />
         </div>
       </Description>
@@ -100,6 +106,7 @@ const Content = /* istanbul ignore next */ ({
   suggestedCommunitiesLoading,
   isLastFetch,
   getSuggestedCommunities,
+  language,
 }) => {
   if (!suggestedCommunities) return null;
 
@@ -110,9 +117,11 @@ const Content = /* istanbul ignore next */ ({
       isLastFetch={isLastFetch}
     >
       <ul>
-        {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc']).map(x => (
-          <Item key={x.id} {...x} />
-        ))}
+        {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc'])
+          .filter(
+            x => (language.sortBy ? x.language === language.sortBy : true),
+          )
+          .map(x => <Item key={x.id} {...x} />)}
       </ul>
     </InfinityLoader>
   );
@@ -123,6 +132,7 @@ Content.propTypes = {
   suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   getSuggestedCommunities: PropTypes.func,
+  language: PropTypes.object,
 };
 
 export { ItemStyled, Header, Description };

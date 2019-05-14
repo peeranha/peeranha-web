@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose } from 'redux';
+import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -46,6 +47,9 @@ import {
 import Form from './Form';
 import Header from './Header';
 import Tips from './Tips';
+import CommunityIsSuggestedBanner from './CommunityIsSuggestedBanner';
+
+const createCommunityRoute = routes.communitiesCreate();
 
 /* eslint-disable react/prefer-stateless-function */
 export class CreateCommunity extends React.PureComponent {
@@ -96,6 +100,8 @@ export class CreateCommunity extends React.PureComponent {
       translations: translationMessages[this.props.locale],
     };
 
+    const path = window.location.pathname + window.location.hash;
+
     return (
       <div>
         <Helmet>
@@ -108,19 +114,23 @@ export class CreateCommunity extends React.PureComponent {
 
         <Header />
 
-        <Base className="p-0">
-          <div className="d-flex">
-            <div className="col-12 col-xl-9 p-0">
-              <BaseTransparent>
-                <Form {...sendProps} />
-              </BaseTransparent>
-            </div>
+        {path === createCommunityRoute && (
+          <Base className="p-0">
+            <div className="d-flex">
+              <div className="col-12 col-xl-9 p-0">
+                <BaseTransparent>
+                  <Form {...sendProps} />
+                </BaseTransparent>
+              </div>
 
-            <div className="col-12 col-xl-3 p-0">
-              <Tips />
+              <div className="col-12 col-xl-3 p-0">
+                <Tips />
+              </div>
             </div>
-          </div>
-        </Base>
+          </Base>
+        )}
+
+        {path !== createCommunityRoute && <CommunityIsSuggestedBanner />}
       </div>
     );
   }

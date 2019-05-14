@@ -31,6 +31,7 @@ import {
   required,
   strLength20x1000,
   strLength15x100,
+  imageValidation,
 } from 'components/FormFields/validate';
 
 import messages from './messages';
@@ -60,6 +61,7 @@ const languages = appLocales.map(x => ({
   label: x,
 }));
 
+/* eslint react/jsx-no-bind: 0 */
 /* eslint-disable-next-line */
 const CreateCommunityForm = /* istanbul ignore next */ ({
   handleSubmit,
@@ -95,6 +97,8 @@ const CreateCommunityForm = /* istanbul ignore next */ ({
     changeTags([...tags, tags[tags.length - 1] + 1]);
   };
 
+  const imageValidationBind = imageValidation.bind(null, cachedProfileImg);
+
   return (
     <FormStyled
       size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
@@ -114,6 +118,8 @@ const CreateCommunityForm = /* istanbul ignore next */ ({
             label={translations[messages.avatar.id]}
             component={AvatarField}
             size={AVATAR_FIELD_WIDTH}
+            validate={imageValidationBind}
+            warn={imageValidationBind}
           />
         </AvatarStyled>
 
@@ -272,6 +278,6 @@ export { CreateCommunityForm, validateTagsTitles };
 
 export default reduxForm({
   form: FORM_NAME,
-  validate: x => validateTagsTitles(x),
-  warn: x => validateTagsTitles(x),
+  validate: (state, props) => validateTagsTitles(state, props),
+  warn: (state, props) => validateTagsTitles(state, props),
 })(CreateCommunityForm);
