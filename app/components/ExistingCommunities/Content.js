@@ -61,75 +61,82 @@ const TextDescription = styled.p`
   ${Description};
 `;
 
-// TODO: change hardcoded numbers when it will be ready for backend
 const Content = /* istanbul ignore next */ ({
   communities,
   sorting,
   locale,
+  language,
 }) => (
   <Base>
-    {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order]).map(x => (
-      <BaseTransparent key={x.value}>
-        <div className="row align-items-center">
-          <div className="col-xl-4 d-flex">
-            <MediumImageStyled
-              className="mt-2"
-              src={x.avatar}
-              alt="communityAvatar"
-            />
-            <div>
-              <P className="mb-1" fontSize="24" bold>
-                {x.label}
-              </P>
-              <P fontSize="14">{x.description}</P>
+    {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order])
+      .filter(x => (language.sortBy ? x.language === language.sortBy : true))
+      .map(x => (
+        <BaseTransparent key={x.value}>
+          <div className="row align-items-center">
+            <div className="col-xl-4 d-flex">
+              <MediumImageStyled
+                className="mt-2"
+                src={x.avatar}
+                alt="communityAvatar"
+              />
+              <div>
+                <P className="mb-1" fontSize="24" bold>
+                  {x.name}
+                </P>
+                <P className="text-capitalize" fontSize="14">
+                  {x.language}
+                </P>
+                <P fontSize="14">{x.description}</P>
+              </div>
+            </div>
+
+            <div className="col-xl-8 d-flex align-items-center justify-content-between">
+              <TextDescription>
+                <Num>{getFormattedNum2(x.users_subscribed)}</Num>
+                <Name>
+                  <FormattedMessage {...commonMessages.users} />
+                </Name>
+              </TextDescription>
+
+              <LinkDescription
+                to={routes.questions(x.id)}
+                href={routes.questions(x.id)}
+              >
+                <Num>{getFormattedNum2(x.questions_asked)}</Num>
+                <Name color={TEXT_PRIMARY}>
+                  <FormattedMessage {...commonMessages.questions} />
+                </Name>
+              </LinkDescription>
+
+              <TextDescription>
+                <Num>{getFormattedNum2(x.answers_given)}</Num>
+                <Name>
+                  <FormattedMessage {...commonMessages.answers} />
+                </Name>
+              </TextDescription>
+
+              <LinkDescription
+                to={routes.communityTags(x.id)}
+                href={routes.communityTags(x.id)}
+              >
+                <Num>{getFormattedNum2(x.tags.length)}</Num>
+                <Name color={TEXT_PRIMARY}>
+                  <FormattedMessage {...commonMessages.tags} />
+                </Name>
+              </LinkDescription>
+
+              <TextDescription>
+                <Num>{getDifferenceInMonths(x.creation_time, locale)}</Num>
+                <Name>
+                  <FormattedMessage {...commonMessages.age} />
+                </Name>
+              </TextDescription>
+
+              <FollowCommunityButton communityIdFilter={x.id} />
             </div>
           </div>
-
-          <div className="col-xl-8 d-flex align-items-center justify-content-between">
-            <TextDescription>
-              <Num>{getFormattedNum2('7777')}</Num>
-              <Name>Users</Name>
-            </TextDescription>
-
-            <LinkDescription
-              to={routes.questions(x.id)}
-              href={routes.questions(x.id)}
-            >
-              <Num>{getFormattedNum2('1111')}</Num>
-              <Name color={TEXT_PRIMARY}>
-                <FormattedMessage {...commonMessages.questions} />
-              </Name>
-            </LinkDescription>
-
-            <TextDescription>
-              <Num>{getFormattedNum2('2222')}</Num>
-              <Name>
-                <FormattedMessage {...commonMessages.answers} />
-              </Name>
-            </TextDescription>
-
-            <LinkDescription
-              to={routes.communityTags(x.id)}
-              href={routes.communityTags(x.id)}
-            >
-              <Num>{getFormattedNum2(x.tags.length)}</Num>
-              <Name color={TEXT_PRIMARY}>
-                <FormattedMessage {...commonMessages.tags} />
-              </Name>
-            </LinkDescription>
-
-            <TextDescription>
-              <Num>{getDifferenceInMonths(1554877697000, locale)}</Num>
-              <Name>
-                <FormattedMessage {...commonMessages.age} />
-              </Name>
-            </TextDescription>
-
-            <FollowCommunityButton communityIdFilter={x.id} />
-          </div>
-        </div>
-      </BaseTransparent>
-    ))}
+        </BaseTransparent>
+      ))}
   </Base>
 );
 
@@ -137,6 +144,7 @@ Content.propTypes = {
   communities: PropTypes.array,
   sorting: PropTypes.object,
   locale: PropTypes.string,
+  language: PropTypes.object,
 };
 
 export default React.memo(Content);

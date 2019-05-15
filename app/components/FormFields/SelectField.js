@@ -71,6 +71,7 @@ export const Select2 = /* istanbul ignore next */ ({
   menuIsOpen,
   Group,
   CustomOption,
+  placeholder,
 }) => {
   const S = isAsync ? AsyncSelect : Select;
 
@@ -83,6 +84,7 @@ export const Select2 = /* istanbul ignore next */ ({
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,
       }}
+      placeholder={placeholder}
       autoFocus={autoFocus}
       menuIsOpen={menuIsOpen}
       loadOptions={loadOptions}
@@ -156,6 +158,7 @@ Select2.propTypes = {
   menuIsOpen: PropTypes.bool,
   Group: PropTypes.any,
   CustomOption: PropTypes.any,
+  placeholder: PropTypes.string,
 };
 
 SelectField.propTypes = {

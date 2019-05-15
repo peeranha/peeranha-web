@@ -23,26 +23,26 @@ const H3Styled = H3.extend`
   }
 `;
 
-const Button = /* istanbul ignore next */ ({ sorting }) => (
+const Button = /* istanbul ignore next */ ({ sorting, icon }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-    <img
-      className="mr-2"
-      src={communitiesHeaderFilter}
-      alt="communitiesHeaderFilter"
-    />
+    <img className="mr-2" src={icon} alt="icon" />
     <FormattedMessage {...sorting.message} />
   </Span>
 );
 
-const Menu = /* istanbul ignore next */ ({ changeSorting, sorting }) => (
+const Menu = /* istanbul ignore next */ ({
+  changeSorting,
+  sorting,
+  options,
+}) => (
   <Ul>
-    {Object.keys(sortingOptions).map(x => (
+    {Object.keys(options).map(x => (
       <CheckedItem
-        key={`${sortingOptions[x].sortBy}_${sortingOptions[x].order}`}
-        onClick={() => changeSorting(sortingOptions[x])}
-        isActive={sorting.message === sortingOptions[x].message}
+        key={`${options[x].message}_${options[x].order}`}
+        onClick={() => changeSorting(options[x])}
+        isActive={sorting.message === options[x].message}
       >
-        <FormattedMessage {...sortingOptions[x].message} />
+        <FormattedMessage {...options[x].message} />
       </CheckedItem>
     ))}
   </Ul>
@@ -52,6 +52,9 @@ export const SubHeader = /* istanbul ignore next */ ({
   changeSorting,
   sorting,
   communitiesNumber,
+  setLang,
+  language,
+  languages,
 }) => (
   <H3Styled className="d-flex align-items-end justify-content-between">
     <div className="d-flex align-items-center">
@@ -62,20 +65,44 @@ export const SubHeader = /* istanbul ignore next */ ({
       </Span>
     </div>
 
-    <Dropdown
-      button={<Button sorting={sorting} />}
-      menu={<Menu changeSorting={changeSorting} sorting={sorting} />}
-      id="existing-communities-dropdown"
-      isArrowed
-    />
+    <div className="d-flex">
+      <Dropdown
+        className="mr-3"
+        button={<Button sorting={language} icon={communitiesHeaderFilter} />}
+        menu={
+          <Menu
+            changeSorting={setLang}
+            sorting={language}
+            options={languages}
+          />
+        }
+        id="choose-language-dropdown"
+        isArrowed
+      />
+
+      <Dropdown
+        button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
+        menu={
+          <Menu
+            changeSorting={changeSorting}
+            sorting={sorting}
+            options={sortingOptions}
+          />
+        }
+        id="existing-communities-dropdown"
+        isArrowed
+      />
+    </div>
   </H3Styled>
 );
 
 Button.propTypes = {
   sorting: PropTypes.object,
+  icon: PropTypes.string,
 };
 
 Menu.propTypes = {
+  options: PropTypes.object,
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
 };
@@ -83,7 +110,11 @@ Menu.propTypes = {
 SubHeader.propTypes = {
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
+  setLang: PropTypes.func,
   communitiesNumber: PropTypes.number,
+  language: PropTypes.object,
+  languages: PropTypes.object,
 };
 
+export { Button, Menu, H3Styled };
 export default React.memo(SubHeader);

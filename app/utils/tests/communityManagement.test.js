@@ -1,12 +1,13 @@
 import { saveText, getText } from '../ipfs';
 
 import {
+  COMMUNITIES_TABLE,
+  CREATED_TAGS_TABLE,
+  CREATED_COMMUNITIES_TABLE,
   FOLLOW_COMM,
   UNFOLLOW_COMM,
-  TAGS_COMMUNITIES_TABLE,
   ALL_COMMUNITIES_SCOPE,
   CREATE_TAG,
-  CREATED_TAGS_COMMUNITIES_TABLE,
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
   VOTE_TO_CREATE_COMMUNITY,
@@ -103,6 +104,7 @@ describe('createCommunity', () => {
   const user = 'user';
   const community = {
     name: 'name',
+    tags: [{ name: 'name' }],
   };
 
   it('test', async () => {
@@ -117,6 +119,12 @@ describe('createCommunity', () => {
         user,
         name: community.name,
         ipfs_description: communityIpfsHash,
+        suggested_tags: [
+          {
+            name: 'name',
+            ipfs_description: communityIpfsHash,
+          },
+        ],
       },
     );
   });
@@ -133,7 +141,7 @@ describe('getSuggestedCommunities', () => {
 
     expect(fetch).toEqual(communities);
     expect(eosService.getTableRows).toHaveBeenCalledWith(
-      CREATED_TAGS_COMMUNITIES_TABLE,
+      CREATED_COMMUNITIES_TABLE,
       ALL_COMMUNITIES_SCOPE,
       lowerBound,
       limit,
@@ -231,7 +239,7 @@ describe('getSuggestedTags', () => {
 
     expect(fetch).toEqual(tags);
     expect(eosService.getTableRows).toHaveBeenCalledWith(
-      CREATED_TAGS_COMMUNITIES_TABLE,
+      CREATED_TAGS_TABLE,
       getTagScope(communityId),
       lowerBound,
       limit,
@@ -261,7 +269,7 @@ describe('suggestTag', () => {
   });
 });
 
-describe('getAllCommunities', () => {
+describe('getAllCommunities', async () => {
   const community = {
     id: 1,
     name: 'com1',
@@ -271,17 +279,17 @@ describe('getAllCommunities', () => {
     getTableRows: jest.fn().mockImplementation(() => [community]),
   };
 
-  getAllCommunities(eos);
+  await getAllCommunities(eos);
 
   it('eos', () => {
     expect(eos.getTableRows).toHaveBeenCalledWith(
-      TAGS_COMMUNITIES_TABLE,
+      COMMUNITIES_TABLE,
       ALL_COMMUNITIES_SCOPE,
       0,
     );
 
     expect(eos.getTableRows).toHaveBeenCalledWith(
-      TAGS_COMMUNITIES_TABLE,
+      COMMUNITIES_TABLE,
       getTagScope(community.id),
       0,
     );

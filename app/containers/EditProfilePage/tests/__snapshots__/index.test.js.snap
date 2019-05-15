@@ -6,8 +6,6 @@ exports[` 1`] = `
 >
   <UserNavigation
     account="user"
-    questionsLength={1}
-    questionsWithUserAnswersLength={1}
     userId=""
   />
   <Base

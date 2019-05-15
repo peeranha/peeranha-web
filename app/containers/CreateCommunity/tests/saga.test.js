@@ -112,7 +112,7 @@ describe('createCommunityWorker', () => {
   it('createdHistory.push', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.suggestedCommunities(),
+      `${routes.communitiesCreate()}#banner`,
     );
   });
 

@@ -49,6 +49,8 @@
   "app.common.popularity": "Популярность",
   "app.common.moreVoting": "Больше голосований",
   "app.common.reputation": "Репутация",
+  "app.common.en": "Английский",
+  "app.common.ru": "Русский",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",
@@ -192,8 +194,15 @@
   "app.containers.CreateCommunity.whatIsCommunity": "Что такое сообщество?",
   "app.containers.CreateCommunity.whoManagesCommunities":
     "Кто руководит сообществами?",
-  "app.components.CreateCommunity.onlyTagsWithUniqueTitles":
+  "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
     "Форма должна содержать только теги с уникальными именами",
+  "app.containers.CreateCommunity.communityLanguage": "Язык",
+  "app.containers.CreateCommunity.communityLanguageTip":
+    "Подсказка для поля язык...",
+  "app.containers.CreateCommunity.thatisgreat": "Отлично!",
+  "app.containers.CreateCommunity.communityWillAppear":
+    "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать.",
+  "app.containers.CreateCommunity.goToList": "Перейти к списку",
 
   "app.containers.HomePage.title":
     "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",

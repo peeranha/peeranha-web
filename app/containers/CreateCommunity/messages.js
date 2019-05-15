@@ -46,6 +46,12 @@ export default defineMessages({
   tagDescription: {
     id: 'app.containers.CreateCommunity.tagDescription',
   },
+  communityLanguage: {
+    id: 'app.containers.CreateCommunity.communityLanguage',
+  },
+  communityLanguageTip: {
+    id: 'app.containers.CreateCommunity.communityLanguageTip',
+  },
   communityTitleTip: {
     id: 'app.containers.CreateCommunity.communityTitleTip',
   },
@@ -81,5 +87,14 @@ export default defineMessages({
   },
   onlyTagsWithUniqueTitles: {
     id: 'app.components.CreateCommunity.onlyTagsWithUniqueTitles',
+  },
+  thatisgreat: {
+    id: 'app.containers.CreateCommunity.thatisgreat',
+  },
+  communityWillAppear: {
+    id: 'app.containers.CreateCommunity.communityWillAppear',
+  },
+  goToList: {
+    id: 'app.containers.CreateCommunity.goToList',
   },
 });

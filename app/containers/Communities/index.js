@@ -47,6 +47,8 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
+import languages from './LanguagesOptions';
+
 import CommunitiesHeader from './CommunitiesHeader';
 import NothingInterestingBanner from './NothingInterestingBanner';
 
@@ -57,6 +59,14 @@ const AsideWrapper = BaseTransparent.extend`
 /* eslint indent: 0 */
 /* eslint-disable react/prefer-stateless-function */
 export class Communities extends React.PureComponent {
+  state = {
+    language: languages.all,
+  };
+
+  setLang = language => {
+    this.setState({ language });
+  };
+
   componentDidMount() {
     this.getSuggestedCommunities();
   }
@@ -118,6 +128,8 @@ export class Communities extends React.PureComponent {
             changeSorting={changeSorting}
             sorting={sorting}
             communitiesNumber={communities ? communities.length : 0}
+            setLang={this.setLang}
+            language={this.state.language}
           />
 
           <div className="my-3">
@@ -129,6 +141,7 @@ export class Communities extends React.PureComponent {
               communities={communities}
               sorting={sorting}
               locale={locale}
+              language={this.state.language}
             />
           </div>
 

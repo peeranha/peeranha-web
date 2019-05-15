@@ -47,16 +47,13 @@ const ViewProfilePage = /* istanbul ignore next */ ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
-  // TODO: remove hardcoded questions&answers length after finishing task
   return (
     <Profile userId={userId}>
       <UserNavigation
         userId={userId}
         account={account}
-        questionsLength={profile ? profile.questions_asked || 1 : 0}
-        questionsWithUserAnswersLength={
-          profile ? profile.answers_given || 1 : 0
-        }
+        questionsLength={profile ? profile.questions_asked : 0}
+        questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
       />
 
       <QuestionsOfUser

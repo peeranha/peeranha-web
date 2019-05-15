@@ -12,6 +12,7 @@ import A from 'components/A';
 import Icon from 'components/Icon';
 
 import messages from './messages';
+import languages from './LanguagesOptions';
 
 const suggestedCommunitiesRoute = routes.suggestedCommunities();
 const communitiesRoute = routes.communities();
@@ -22,6 +23,8 @@ const CommunitiesHeader = /* istanbul ignore next */ ({
   changeSorting,
   sorting,
   communitiesNumber,
+  setLang,
+  language,
 }) => {
   const path = window.location.pathname + window.location.hash;
 
@@ -62,6 +65,9 @@ const CommunitiesHeader = /* istanbul ignore next */ ({
           changeSorting={changeSorting}
           sorting={sorting}
           communitiesNumber={communitiesNumber}
+          setLang={setLang}
+          language={language}
+          languages={languages}
         />
       </Base>
     </div>
@@ -74,6 +80,8 @@ CommunitiesHeader.propTypes = {
   changeSorting: PropTypes.func,
   sorting: PropTypes.object,
   communitiesNumber: PropTypes.number,
+  setLang: PropTypes.func,
+  language: PropTypes.object,
 };
 
 export default CommunitiesHeader;
