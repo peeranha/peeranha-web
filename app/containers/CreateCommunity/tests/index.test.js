@@ -7,6 +7,9 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  TAG_NAME_FIELD,
+  TAG_DESCRIPTION_FIELD,
+  LANGUAGE_FIELD,
 } from '../constants';
 
 const cmp = new CreateCommunity();
@@ -40,9 +43,16 @@ describe('<CreateCommunity />', () => {
 
   it('createCommunity', () => {
     const values = {
+      [LANGUAGE_FIELD]: { value: 'en' },
       [COMM_NAME_FIELD]: COMM_NAME_FIELD,
       [COMM_SHORT_DESCRIPTION_FIELD]: COMM_SHORT_DESCRIPTION_FIELD,
       [COMM_MAIN_DESCRIPTION_FIELD]: COMM_MAIN_DESCRIPTION_FIELD,
+      tags: {
+        0: {
+          [TAG_NAME_FIELD]: TAG_NAME_FIELD,
+          [TAG_DESCRIPTION_FIELD]: TAG_DESCRIPTION_FIELD,
+        },
+      },
     };
 
     const obj0 = fromJS(values);
@@ -54,9 +64,10 @@ describe('<CreateCommunity />', () => {
     const community = {
       avatar: cmp.props.cachedImgHash,
       name: values[COMM_NAME_FIELD],
+      language: values[LANGUAGE_FIELD].value,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
-      tags: values.tags,
+      tags: [{ name: TAG_NAME_FIELD, description: TAG_DESCRIPTION_FIELD }],
     };
 
     cmp.createCommunity(obj0, obj1, obj2);

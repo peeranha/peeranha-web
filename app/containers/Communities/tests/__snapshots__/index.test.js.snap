@@ -24,6 +24,15 @@ exports[`<Communities /> render communities [] 1`] = `
       changeSorting={[MockFunction]}
       communitiesNumber={0}
       goToCreateCommunityScreen={[Function]}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
+        }
+      }
+      setLang={[Function]}
       sorting={Object {}}
     />
     <div
@@ -33,6 +42,14 @@ exports[`<Communities /> render communities [] 1`] = `
         communities={Array []}
         getSuggestedCommunities={[Function]}
         isLastFetch={false}
+        language={
+          Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          }
+        }
         locale="en"
         sorting={Object {}}
         suggestedCommunities={Array []}
@@ -76,6 +93,15 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       changeSorting={[MockFunction]}
       communitiesNumber={1}
       goToCreateCommunityScreen={[Function]}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
+        }
+      }
+      setLang={[Function]}
       sorting={Object {}}
     />
     <div
@@ -91,6 +117,14 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
         }
         getSuggestedCommunities={[Function]}
         isLastFetch={false}
+        language={
+          Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          }
+        }
         locale="en"
         sorting={Object {}}
         suggestedCommunities={Array []}

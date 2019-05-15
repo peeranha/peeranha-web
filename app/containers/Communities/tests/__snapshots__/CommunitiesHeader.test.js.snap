@@ -61,7 +61,30 @@ exports[`CommunitiesHeader test 1`] = `
   <Base
     position="bottom"
   >
-    <UNDEFINED />
+    <UNDEFINED
+      languages={
+        Object {
+          "all": Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          },
+          "en": Object {
+            "message": Object {
+              "id": "app.common.en",
+            },
+            "sortBy": "en",
+          },
+          "ru": Object {
+            "message": Object {
+              "id": "app.common.ru",
+            },
+            "sortBy": "ru",
+          },
+        }
+      }
+    />
   </Base>
 </div>
 `;

@@ -61,6 +61,40 @@ exports[`<Form /> snapshot test 1`] = `
         }
       }
       disabled={false}
+      name="app/CreateCommunity/LANGUAGE_FIELD"
+      options={
+        Array [
+          Object {
+            "label": "en",
+            "value": "en",
+          },
+          Object {
+            "label": "ru",
+            "value": "ru",
+          },
+        ]
+      }
+      placeholder=""
+      validate={
+        Array [
+          [Function],
+        ]
+      }
+      warn={
+        Array [
+          [Function],
+        ]
+      }
+    />
+    <Field
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      disabled={false}
       name="app/CreateCommunity/COMM_SHORT_DESCRIPTION_FIELD"
       validate={
         Array [
