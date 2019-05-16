@@ -53,3 +53,8 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# build folder
+build
+
+package-lock.json

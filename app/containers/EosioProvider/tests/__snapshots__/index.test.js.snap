@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EosioProvider /> render, @initializing is false 1`] = `
+<div>
+  <div>
+    children
+  </div>
+</div>
+`;
+
+exports[`<EosioProvider /> render, @initializing is true 1`] = `
+<div>
+  <UNDEFINED />
+</div>
+`;

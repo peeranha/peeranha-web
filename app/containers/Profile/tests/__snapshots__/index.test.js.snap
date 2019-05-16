@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile render @isProfileLoading is false && @profile is false 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Wrong user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div>
+    <NoSuchUser />
+  </div>
+</div>
+`;
+
+exports[`Profile render @isProfileLoading is false && @profile is true 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Wrong user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div />
+</div>
+`;
+
+exports[`Profile render @isProfileLoading is true 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Wrong user | Profile
+    </title>
+    <meta
+      content="Profile description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div>
+    <UNDEFINED />
+  </div>
+</div>
+`;

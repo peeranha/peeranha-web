@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommunitiesHeader test 1`] = `
+<div>
+  <Base
+    className="d-flex align-items-center justify-content-between"
+    position="top"
+  >
+    <div>
+      <A
+        href="/communities"
+        to="/communities"
+      >
+        <Button
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.common.communities"
+            values={Object {}}
+          />
+        </Button>
+      </A>
+      <A
+        href="/communities/suggested"
+        to="/communities/suggested"
+      >
+        <Button
+          isLink={true}
+        >
+          <FormattedMessage
+            id="app.containers.Communities.voting"
+            values={Object {}}
+          />
+        </Button>
+      </A>
+    </div>
+    <div>
+      <Button
+        className="d-inline-flex align-items-center p-0"
+        isLink={true}
+        onClick={[MockFunction]}
+      >
+        <UNDEFINED
+          icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"18\\" height=\\"18\\" viewBox=\\"0 0 18 18\\">
+      <g fill=\\"#7699FF\\" fill-opacity=\\".2\\" fill-rule=\\"nonzero\\" stroke=\\"#576FED\\">
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(5)\\"/>
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(1 7)\\"/>
+          <circle cx=\\"4.5\\" cy=\\"4.5\\" r=\\"4\\" transform=\\"translate(9 7)\\"/>
+      </g>
+  </svg>
+"
+        />
+        <FormattedMessage
+          id="app.containers.Communities.suggestCommunity"
+          values={Object {}}
+        />
+      </Button>
+    </div>
+  </Base>
+  <Base
+    position="bottom"
+  >
+    <UNDEFINED
+      languages={
+        Object {
+          "all": Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          },
+          "en": Object {
+            "message": Object {
+              "id": "app.common.en",
+            },
+            "sortBy": "en",
+          },
+          "ru": Object {
+            "message": Object {
+              "id": "app.common.ru",
+            },
+            "sortBy": "ru",
+          },
+        }
+      }
+    />
+  </Base>
+</div>
+`;

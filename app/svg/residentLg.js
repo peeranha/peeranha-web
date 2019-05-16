@@ -1,0 +1,14 @@
+const residentLg = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="37" height="16" viewBox="0 0 37 16">
+      <g fill="#FDE2DF" fill-rule="evenodd" stroke="#F76F60">
+          <circle cx="8" cy="8" r="7.5"/>
+          <circle cx="8" cy="8" r="5.5"/>
+          <circle cx="18" cy="8" r="7.5"/>
+          <circle cx="18" cy="8" r="5.5"/>
+          <circle cx="29" cy="8" r="7.5"/>
+          <circle cx="29" cy="8" r="5.5"/>
+      </g>
+  </svg>
+`;
+
+export default residentLg;

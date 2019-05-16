@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectItem test1 1`] = `
+<FloatingLabelInput__Wrapper
+  className="floating-label-input-wrapper select-item"
+>
+  <div
+    aria-expanded="false"
+    aria-haspopup="true"
+    data-toggle="dropdown"
+    role="button"
+  >
+    <TextField
+      className="floating-label-input"
+      error={false}
+      onChange={null}
+      required={false}
+      select={false}
+      variant="standard"
+    />
+  </div>
+  <ul
+    className="dropdown-menu"
+  >
+    <li
+      onClick={[Function]}
+    >
+      <FormattedMessage
+        id="app.containers.HomePage.none"
+        values={Object {}}
+      />
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      item1
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      item2
+    </li>
+  </ul>
+  <h6
+    className="text-danger"
+  />
+</FloatingLabelInput__Wrapper>
+`;
+
+exports[`SelectItem test2, touched, error - true 1`] = `
+<FloatingLabelInput__Wrapper
+  className="floating-label-input-wrapper select-item"
+>
+  <div
+    aria-expanded="false"
+    aria-haspopup="true"
+    data-toggle="dropdown"
+    role="button"
+  >
+    <TextField
+      className="floating-label-input"
+      error={true}
+      onChange={null}
+      required={false}
+      select={false}
+      variant="standard"
+    />
+  </div>
+  <ul
+    className="dropdown-menu"
+  >
+    <li
+      onClick={[Function]}
+    >
+      <FormattedMessage
+        id="app.containers.HomePage.none"
+        values={Object {}}
+      />
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      item1
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      item2
+    </li>
+  </ul>
+  <h6
+    className="text-danger"
+  >
+    <FormattedMessage
+      id="app.containers.HomePage.title"
+      values={Object {}}
+    />
+  </h6>
+</FloatingLabelInput__Wrapper>
+`;

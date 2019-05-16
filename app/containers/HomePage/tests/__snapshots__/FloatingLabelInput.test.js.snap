@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FloatingLabelInput test1 1`] = `
+<FloatingLabelInput__Wrapper
+  className="floating-label-input-wrapper"
+  multiline={false}
+>
+  <TextField
+    className="floating-label-input"
+    error={false}
+    multiline={false}
+    required={false}
+    rowsMax="10"
+    select={false}
+    variant="standard"
+  />
+  <h6
+    className="text-danger"
+  />
+</FloatingLabelInput__Wrapper>
+`;
+
+exports[`FloatingLabelInput test2, touched, error - true 1`] = `
+<FloatingLabelInput__Wrapper
+  className="floating-label-input-wrapper"
+  multiline={false}
+>
+  <TextField
+    className="floating-label-input"
+    error={true}
+    multiline={false}
+    required={false}
+    rowsMax="10"
+    select={false}
+    variant="standard"
+  />
+  <h6
+    className="text-danger"
+  >
+    <FormattedMessage
+      id="app.containers.HomePage.title"
+      values={Object {}}
+    />
+  </h6>
+</FloatingLabelInput__Wrapper>
+`;

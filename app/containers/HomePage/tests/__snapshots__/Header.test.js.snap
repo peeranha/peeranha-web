@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header snapshot test test 1`] = `
+<Header__Wrapper>
+  <Header__Box
+    id="landing-header"
+  >
+    <ModalDialog
+      customPosition={Object {}}
+      show={true}
+    >
+      <div
+        className="header-modal-dialog"
+      >
+        <div
+          className="image-coins"
+        >
+          <img
+            alt="bgLogin"
+            src="IMAGE_MOCK"
+          />
+        </div>
+        <div>
+          <p
+            className="modal-dialog-message"
+          >
+            <FormattedMessage
+              id="app.containers.HomePage.platformUnderDeveloping"
+              values={Object {}}
+            />
+          </p>
+          <ReduxForm
+            button={
+              Object {
+                "id": "app.containers.HomePage.getReward",
+              }
+            }
+            form="HEADER"
+            sendEmail={[Function]}
+            sendEmailLoading={false}
+          />
+        </div>
+      </div>
+    </ModalDialog>
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-6 col-xl-5 col-lg-4 logo"
+        >
+          <button
+            data-hash="fs1"
+            onClick={[Function]}
+          >
+            <img
+              alt="logo"
+              src="IMAGE_MOCK"
+            />
+          </button>
+        </div>
+        <button
+          className="col-6 d-inline-block d-lg-none navbar-toggler navbar-dark"
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="navbar-toggler-icon"
+          />
+        </button>
+        <div
+          className="col-md-12 col-xl-7 col-lg-8 nav-bar d-none d-lg-block"
+          id="navbartogglerId"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-md-12 col-lg-7"
+            >
+              <div
+                className="row navigation"
+              >
+                <button
+                  className="col-md-12 col-lg-3"
+                  data-hash="fs2"
+                  onClick={[Function]}
+                >
+                  <FormattedMessage
+                    id="app.containers.HomePage.about"
+                    values={Object {}}
+                  />
+                </button>
+                <button
+                  className="col-md-12 col-lg-3"
+                  data-hash="fs3"
+                  onClick={[Function]}
+                >
+                  <FormattedMessage
+                    id="app.containers.HomePage.rewards"
+                    values={Object {}}
+                  />
+                </button>
+                <button
+                  className="col-md-12 col-lg-3"
+                  data-hash="fs4"
+                  onClick={[Function]}
+                >
+                  <FormattedMessage
+                    id="app.containers.HomePage.faq"
+                    values={Object {}}
+                  />
+                </button>
+                <button
+                  className="col-md-12 col-lg-3"
+                  data-hash="fs5"
+                  onClick={[Function]}
+                >
+                  <FormattedMessage
+                    id="app.containers.HomePage.team"
+                    values={Object {}}
+                  />
+                </button>
+              </div>
+            </div>
+            <div
+              className="col-md-12 col-lg-5"
+            >
+              <div
+                className="row"
+              >
+                <button
+                  className="col-md-12 col-lg-6 log-in-button"
+                  onClick={[Function]}
+                >
+                  <img
+                    alt="login"
+                    src="IMAGE_MOCK"
+                  />
+                  <FormattedMessage
+                    id="app.containers.HomePage.login"
+                    values={Object {}}
+                  />
+                </button>
+                <button
+                  className="col-md-12 col-lg-6 sign-up-button"
+                  onClick={[Function]}
+                >
+                  <FormattedMessage
+                    id="app.containers.HomePage.signUpFree"
+                    values={Object {}}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Header__Box>
+</Header__Wrapper>
+`;

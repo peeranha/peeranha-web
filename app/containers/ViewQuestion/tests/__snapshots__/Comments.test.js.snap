@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<Comments__CommentViewStyled>
+  <div
+    className="d-flex justify-content-between align-items-center"
+  >
+    <UNDEFINED
+      type="app_viewQuestion_COMMENT_TYPE"
+    />
+    <Comments__CommentManage>
+      <UNDEFINED
+        onClick={[Function]}
+        params={
+          Object {
+            "commentId": undefined,
+            "whowasvoted": undefined,
+          }
+        }
+      >
+        <Span
+          color="#576fed"
+        >
+          <UNDEFINED
+            icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
+    <g fill=\\"none\\" fill-rule=\\"nonzero\\">
+        <path fill=\\"#7699FF\\" fill-opacity=\\".2\\" stroke=\\"#576FED\\" d=\\"M1.52 10.949a.5.5 0 0 0 .527.536l2.675-.155a.5.5 0 0 0 .327-.147l6.22-6.29a.5.5 0 0 0-.002-.704L8.821 1.737l-.001-.001a.5.5 0 0 0-.707 0l-6.25 6.266a.5.5 0 0 0-.145.315l-.199 2.632z\\"/>
+        <path stroke=\\"none\\" fill=\\"#576FED\\" d=\\"M6.707 3l3.536 3.535-.707.707L6 3.707z\\"/>
+    </g>
+  </svg>
+"
+          />
+          <FormattedMessage
+            id="app.containers.ViewQuestion.editButton"
+            values={Object {}}
+          />
+        </Span>
+      </UNDEFINED>
+      <UNDEFINED
+        id="comment__undefinedundefined"
+        params={
+          Object {
+            "commentId": undefined,
+            "whowasvoted": undefined,
+          }
+        }
+      >
+        <Span
+          color="#576fed"
+        >
+          <UNDEFINED
+            icon="
+  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
+    <g fill=\\"none\\" fill-rule=\\"nonzero\\">
+        <path fill=\\"#7699FF\\" fill-opacity=\\".2\\" stroke=\\"#576FED\\" d=\\"M2.5 3.5V9A2.5 2.5 0 0 0 5 11.5h3A2.5 2.5 0 0 0 10.5 9V3.5h-8z\\" opacity=\\".9\\"/>
+        <path stroke=\\"none\\" fill=\\"#576FED\\" d=\\"M1 3h11v1H1z\\"/>
+        <path stroke=\\"#576FED\\" d=\\"M4.5 3.5h4V3A1.5 1.5 0 0 0 7 1.5H6A1.5 1.5 0 0 0 4.5 3v.5z\\"/>
+    </g>
+  </svg>
+"
+          />
+          <FormattedMessage
+            id="app.containers.ViewQuestion.deleteButton"
+            values={Object {}}
+          />
+        </Span>
+      </UNDEFINED>
+      <BlockButton
+        id="comment_vote_to_delete_undefinedundefined"
+        params={
+          Object {
+            "commentId": undefined,
+            "whowasvoted": undefined,
+          }
+        }
+        show={true}
+      >
+        <UNDEFINED
+          icon="
+  <svg id=\\"1d5002e0-1a1b-49c4-bd9f-7fdbfd814526\\" data-name=\\"Layer 1\\" xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
+    <title>ico-block_13</title>
+    <circle cx=\\"6.5\\" cy=\\"6.5\\" r=\\"5\\" fill-opacity=\\"0.2\\" />
+    <rect x=\\"1.5\\" y=\\"6\\" width=\\"10\\" height=\\"1.4\\" transform=\\"translate(-2.69 6.5) rotate(-45)\\" stroke=\\"none\\"  />
+  </svg>
+"
+        />
+        <FormattedMessage
+          id="app.containers.ViewQuestion.voteToDelete"
+          values={Object {}}
+        />
+      </BlockButton>
+    </Comments__CommentManage>
+  </div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
+</Comments__CommentViewStyled>
+`;
+
+exports[` 2`] = `
+<Comments__CommentEditStyled
+  className="my-4"
+>
+  <UNDEFINED
+    form="app_ViewQuestion_SAVE_COMMENT_FORM_undefinedundefined"
+    submitButtonId="app_ViewQuestion_SAVE_COMMENT_BUTTON"
+  />
+</Comments__CommentEditStyled>
+`;
+
+exports[`Comments test1, Comments 1`] = `
+<div>
+  <Comments__CommentsStyled
+    className="my-3"
+  >
+    <Comment
+      comments={
+        Array [
+          Object {
+            "id": 1,
+            "userInfo": Object {},
+          },
+          Object {
+            "id": 2,
+            "userInfo": Object {},
+          },
+        ]
+      }
+      id={1}
+      userInfo={Object {}}
+    />
+    <Comment
+      comments={
+        Array [
+          Object {
+            "id": 1,
+            "userInfo": Object {},
+          },
+          Object {
+            "id": 2,
+            "userInfo": Object {},
+          },
+        ]
+      }
+      id={2}
+      userInfo={Object {}}
+    />
+  </Comments__CommentsStyled>
+  <UNDEFINED
+    changeCommentsView={[MockFunction]}
+    commentsNumber={-1}
+    isAllCommentsView={false}
+  />
+</div>
+`;
+
+exports[`Comments test2, Comment 1`] = `
+<React.Fragment>
+  <CommentEdit
+    toggleView={[MockFunction]}
+    userInfo={Object {}}
+  />
+</React.Fragment>
+`;

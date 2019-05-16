@@ -5,6 +5,12 @@
  * code.
  */
 
+// Importing Bootstrap and its dependencies
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery'; // eslint-disable-line no-unused-vars
+import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
@@ -13,14 +19,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';
 
-// Import Language Provider
+// Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
+import ErrorBoundary from 'containers/ErrorBoundary';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -29,6 +35,11 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
+import createdHistory from './createdHistory';
+import './icons-config';
+
+// Import Analytics
+import './analytics';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -36,19 +47,22 @@ import { translationMessages } from './i18n';
 // Import CSS reset and Global Styles
 import './global-styles';
 
+window.$ = $;
+
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
-const store = configureStore(initialState, history);
+const store = configureStore(initialState, createdHistory);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
+        <ErrorBoundary>
+          <ConnectedRouter history={createdHistory}>
+            <App />
+          </ConnectedRouter>
+        </ErrorBoundary>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE,
@@ -77,11 +91,4 @@ if (!window.Intl) {
     });
 } else {
   render(translationMessages);
-}
-
-// Install ServiceWorker and AppCache in the end since
-// it's not most important operation and if main code fails,
-// we do not want it installed
-if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install(); // eslint-disable-line global-require
 }

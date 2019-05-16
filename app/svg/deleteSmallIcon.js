@@ -1,0 +1,11 @@
+const deleteSmallIcon = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+    <g fill="none" fill-rule="nonzero">
+        <path fill="#7699FF" fill-opacity=".2" stroke="#576FED" d="M2.5 3.5V9A2.5 2.5 0 0 0 5 11.5h3A2.5 2.5 0 0 0 10.5 9V3.5h-8z" opacity=".9"/>
+        <path stroke="none" fill="#576FED" d="M1 3h11v1H1z"/>
+        <path stroke="#576FED" d="M4.5 3.5h4V3A1.5 1.5 0 0 0 7 1.5H6A1.5 1.5 0 0 0 4.5 3v.5z"/>
+    </g>
+  </svg>
+`;
+
+export default deleteSmallIcon;

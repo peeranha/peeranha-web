@@ -1,0 +1,85 @@
+/*
+ *
+ * DataCacheProvider reducer
+ *
+ */
+
+import { fromJS } from 'immutable';
+
+import {
+  GET_COMMUNITIES_WITH_TAGS,
+  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
+  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_USER_PROFILE,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_ERROR,
+  REMOVE_USER_PROFILE,
+} from './constants';
+
+export const initialState = fromJS({
+  communities: [],
+  communitiesLoading: false,
+  getCommunitiesWithTagsError: null,
+  users: {},
+  usersLoading: false,
+  getUserProfileError: null,
+});
+
+/* eslint no-param-reassign: 0, indent: 0 */
+function dataCacheProviderReducer(state = initialState, action) {
+  const {
+    type,
+    communities,
+    getCommunitiesWithTagsError,
+    getUserProfileError,
+    profile,
+    user,
+  } = action;
+
+  switch (type) {
+    case GET_COMMUNITIES_WITH_TAGS:
+      return state.set('communitiesLoading', true);
+
+    case GET_COMMUNITIES_WITH_TAGS_SUCCESS:
+      return state
+        .set('communitiesLoading', false)
+        .set('communities', communities);
+
+    case GET_COMMUNITIES_WITH_TAGS_ERROR:
+      return state
+        .set('communitiesLoading', false)
+        .set('getCommunitiesWithTagsError', getCommunitiesWithTagsError);
+
+    case REMOVE_USER_PROFILE:
+      return state.set(
+        'users',
+        fromJS({
+          ...delete state.get('users').toJS()[user],
+        }),
+      );
+
+    case GET_USER_PROFILE:
+      return state.set('usersLoading', true);
+
+    case GET_USER_PROFILE_SUCCESS:
+      return state.set('usersLoading', false).set(
+        'users',
+        profile
+          ? fromJS({
+              ...state.get('users').toJS(),
+              [profile.user]: profile,
+            })
+          : state.get('users'),
+      );
+
+    case GET_USER_PROFILE_ERROR:
+      return state
+        .set('usersLoading', false)
+        .set('getUserProfileError', getUserProfileError);
+
+    default:
+      return state;
+  }
+}
+
+export default dataCacheProviderReducer;

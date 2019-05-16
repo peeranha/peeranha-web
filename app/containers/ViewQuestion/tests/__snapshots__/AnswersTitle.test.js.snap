@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnswersTitle test 1`] = `
+<Span
+  className="text-capitalize"
+  isHeader={true}
+>
+  <FormattedMessage
+    id="app.containers.ViewQuestion.answers"
+    values={Object {}}
+  />
+   
+  <Span
+    bold={true}
+    color="#7b7b7b"
+    fontSize="30"
+  >
+    0
+  </Span>
+</Span>
+`;

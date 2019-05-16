@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextareaField test snapshot test 1`] = `
+<UNDEFINED
+  label="label"
+  meta={Object {}}
+  tip="tip"
+>
+  <Textarea
+    disabled={false}
+    placeholder="placeholder"
+  />
+</UNDEFINED>
+`;

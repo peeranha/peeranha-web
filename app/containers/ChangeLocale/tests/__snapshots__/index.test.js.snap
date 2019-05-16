@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangeLocale mapLanguages 1`] = `
+Array [
+  <li
+    className="pl-2"
+    data-isbold={false}
+    data-locale="en"
+    onClick={[Function]}
+    role="presentation"
+  >
+    <ChangeLocale__Flag
+      alt="en"
+      src="IMAGE_MOCK"
+    />
+    <span>
+      en
+    </span>
+  </li>,
+  <li
+    className="pl-2"
+    data-isbold={false}
+    data-locale="ru"
+    onClick={[Function]}
+    role="presentation"
+  >
+    <ChangeLocale__Flag
+      alt="ru"
+      src="IMAGE_MOCK"
+    />
+    <span>
+      ru
+    </span>
+  </li>,
+]
+`;

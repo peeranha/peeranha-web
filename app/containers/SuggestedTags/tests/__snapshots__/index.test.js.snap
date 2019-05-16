@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuggestedTags render 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Suggested tags
+    </title>
+    <meta
+      content="Suggested tags | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <withReducer(withSaga(Connect(Tags)))
+    Aside={
+      <UNDEFINED
+        existingTags={
+          Array [
+            Object {
+              "id": 1,
+            },
+            Object {
+              "id": 2,
+            },
+          ]
+        }
+      />
+    }
+    Content={
+      <UNDEFINED
+        communityId={1}
+        isLastFetch={false}
+        loadMoreTags={[Function]}
+        suggestedTagsLoading={false}
+      />
+    }
+    communityId={1}
+    currentCommunity={
+      Object {
+        "id": 1,
+      }
+    }
+    sortTags={[Function]}
+  />
+</div>
+`;

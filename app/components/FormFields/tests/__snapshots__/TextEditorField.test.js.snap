@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextEditorField test test 1`] = `
+<React.Fragment>
+  <UNDEFINED
+    label="label"
+    meta={Object {}}
+    tip="tip"
+  >
+    <TextEditorField__Div
+      disabled={false}
+    >
+      <TextEditor
+        disabled={false}
+      />
+    </TextEditorField__Div>
+  </UNDEFINED>
+  <UNDEFINED
+    label="previewLabel"
+  >
+    <TextEditorField__PreviewWrapper>
+      <Span
+        color="#7b7b7b"
+        fontSize="14"
+        isItalic={true}
+      >
+        <FormattedMessage
+          id="app.common.nothingToSeeYet"
+          values={Object {}}
+        />
+      </Span>
+    </TextEditorField__PreviewWrapper>
+  </UNDEFINED>
+</React.Fragment>
+`;

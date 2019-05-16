@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Introduction test 1`] = `
+<Section
+  id="fs1"
+>
+  <div
+    className="layers"
+  >
+    <div
+      className="pattern pattern-1"
+    >
+      <div
+        className="inner"
+      />
+    </div>
+    <div
+      className="pattern pattern-2"
+    >
+      <div
+        className="inner"
+      />
+    </div>
+    <div
+      className="pattern pattern-3"
+    >
+      <div
+        className="inner"
+      />
+    </div>
+  </div>
+  <Connect(Header) />
+  <Introduction__Wrapper
+    className="container"
+  >
+    <div
+      className="row align-items-center justify-content-center"
+    >
+      <Introduction__Box
+        className="col-lg-12 first-screen-banner"
+      >
+        <div
+          className="row justify-content-center"
+        >
+          <h1
+            className="col-12 top-level"
+          >
+            <FormattedMessage
+              id="app.containers.HomePage.yourContributionsRewarded"
+              values={Object {}}
+            />
+          </h1>
+        </div>
+        <div
+          className="row justify-content-center"
+        >
+          <p
+            className="col-12 col-lg-8 special-paragraph"
+          >
+            <FormattedMessage
+              id="app.containers.HomePage.weAreDecentralized"
+              values={Object {}}
+            />
+          </p>
+        </div>
+        <div
+          className="row justify-content-center"
+        >
+          <div
+            className="col-12 col-md-8 col-xl-5 bottom-level mx-auto"
+          >
+            <ReduxForm
+              button={
+                Object {
+                  "id": "app.containers.HomePage.getStarted",
+                }
+              }
+              form="INTRODUCTION"
+            />
+          </div>
+        </div>
+        <div
+          className="row justify-content-center d-none d-lg-block"
+        >
+          <div
+            className="col-12 justify-content-center icon-down"
+          >
+            <Introduction__Icon
+              href="#fs2"
+            >
+              <img
+                alt="arrowDown"
+                src={
+                  Object {
+                    "0": "I",
+                    "1": "M",
+                    "2": "A",
+                    "3": "G",
+                    "4": "E",
+                    "5": "_",
+                    "6": "M",
+                    "7": "O",
+                    "8": "C",
+                    "9": "K",
+                    "default": "IMAGE_MOCK",
+                  }
+                }
+              />
+            </Introduction__Icon>
+          </div>
+        </div>
+      </Introduction__Box>
+    </div>
+  </Introduction__Wrapper>
+</Section>
+`;

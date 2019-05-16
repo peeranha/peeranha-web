@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Communities /> render communities [] 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Communities
+    </title>
+    <meta
+      content="Communities | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div
+    className="flex-grow-1"
+  >
+    <CommunitiesHeader
+      SubHeader={[Function]}
+      changeSorting={[MockFunction]}
+      communitiesNumber={0}
+      goToCreateCommunityScreen={[Function]}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
+        }
+      }
+      setLang={[Function]}
+      sorting={Object {}}
+    />
+    <div
+      className="my-3"
+    >
+      <Content
+        communities={Array []}
+        getSuggestedCommunities={[Function]}
+        isLastFetch={false}
+        language={
+          Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          }
+        }
+        locale="en"
+        sorting={Object {}}
+        suggestedCommunities={Array []}
+        suggestedCommunitiesLoading={true}
+      />
+    </div>
+    <UNDEFINED />
+  </div>
+  <Base
+    className="d-none d-xl-block pr-0"
+  >
+    <Aside
+      communities={Array []}
+      suggestedCommunities={Array []}
+    />
+  </Base>
+</div>
+`;
+
+exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Communities
+    </title>
+    <meta
+      content="Communities | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div
+    className="flex-grow-1"
+  >
+    <CommunitiesHeader
+      SubHeader={[Function]}
+      changeSorting={[MockFunction]}
+      communitiesNumber={1}
+      goToCreateCommunityScreen={[Function]}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
+        }
+      }
+      setLang={[Function]}
+      sorting={Object {}}
+    />
+    <div
+      className="my-3"
+    >
+      <Content
+        communities={
+          Array [
+            Object {
+              "id": 1,
+            },
+          ]
+        }
+        getSuggestedCommunities={[Function]}
+        isLastFetch={false}
+        language={
+          Object {
+            "message": Object {
+              "id": "app.common.all",
+            },
+            "sortBy": "",
+          }
+        }
+        locale="en"
+        sorting={Object {}}
+        suggestedCommunities={Array []}
+        suggestedCommunitiesLoading={true}
+      />
+    </div>
+    <UNDEFINED />
+  </div>
+  <Base
+    className="d-none d-xl-block pr-0"
+  >
+    <Aside
+      communities={
+        Array [
+          Object {
+            "id": 1,
+          },
+        ]
+      }
+      suggestedCommunities={Array []}
+    />
+  </Base>
+</div>
+`;

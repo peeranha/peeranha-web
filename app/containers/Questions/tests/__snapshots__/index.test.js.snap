@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
+<InfinityLoader
+  isLastFetch={false}
+  isLoading={false}
+  loadNextPaginatedData={[Function]}
+>
+  <div>
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+    >
+      <title>
+        Questions
+      </title>
+      <meta
+        name="description"
+      />
+    </HelmetWrapper>
+    <UNDEFINED
+      communityIdFilter={10}
+      followedCommunities={null}
+      getInitQuestions={[Function]}
+      locale="en"
+      parentPage="parentPage"
+      questionsList={Array []}
+      questionsLoading={false}
+    />
+  </div>
+</InfinityLoader>
+`;
+
+exports[`Questions snapshot test @questionsLoading is true 1`] = `
+<InfinityLoader
+  isLastFetch={false}
+  isLoading={true}
+  loadNextPaginatedData={[Function]}
+>
+  <div>
+    <HelmetWrapper
+      defer={true}
+      encodeSpecialCharacters={true}
+    >
+      <title>
+        Questions
+      </title>
+      <meta
+        name="description"
+      />
+    </HelmetWrapper>
+    <UNDEFINED
+      communityIdFilter={10}
+      followedCommunities={null}
+      getInitQuestions={[Function]}
+      locale="en"
+      parentPage="parentPage"
+      questionsList={Array []}
+      questionsLoading={true}
+    />
+  </div>
+</InfinityLoader>
+`;

@@ -1,0 +1,65 @@
+version: 2
+jobs:
+
+  test:
+    docker:
+      - image: node:11.10.1
+    working_directory: ~/ws
+    steps:
+      - attach_workspace:
+          at: ~/ws
+      - checkout:
+          path:
+            "peerania-web"
+      - run:
+          name: Install NPM packages
+          command: |
+            cd peerania-web
+            npm install
+      - run:
+          name: ESLint and Unit Tests
+          command: |
+            cd peerania-web
+            npm run test
+      - run:
+          name: Build
+          command: |
+            cd peerania-web
+            npm run build
+  deploy:
+    docker:
+      - image: node:11
+    working_directory: ~/ws
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ws
+      - run:
+          name: Install NPM packages
+          command: |
+            cd peerania-web
+            npm install
+      - run:
+          name: ESLint and Unit Tests
+          command: |
+            cd peerania-web
+            npm run test
+      - run:
+          name: Build
+          command: |
+            cd peerania-web
+            npm run build
+
+workflows:
+  version: 2
+
+  test-build:
+    jobs:
+      - test
+      - deploy:
+          filters:
+            branches:
+              only: develop
+          requires:
+            - test

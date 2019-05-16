@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoAccess /> should match the snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="text-center pt-3"
+  >
+    <span>
+      No access to complete this action!
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoSuchQuestion test 1`] = `
+<div
+  className="text-center"
+>
+  <FormattedMessage
+    id="app.containers.ViewQuestion.questionNotExist"
+    values={Object {}}
+  />
+</div>
+`;

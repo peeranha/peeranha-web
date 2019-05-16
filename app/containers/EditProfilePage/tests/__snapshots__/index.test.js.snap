@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<withReducer(withSaga(Connect(Profile)))
+  userId=""
+>
+  <UserNavigation
+    account="user"
+    userId=""
+  />
+  <Base
+    position="bottom"
+  >
+    <InjectIntl(Connect(ReduxForm))
+      cachedProfileImg={null}
+      clearImageChanges={[MockFunction]}
+      editingImgState={false}
+      getCroppedAvatar={[Function]}
+      isProfileSaving={false}
+      profile={Object {}}
+      saveProfile={[Function]}
+      uploadImage={[Function]}
+    />
+  </Base>
+</withReducer(withSaga(Connect(Profile)))>
+`;

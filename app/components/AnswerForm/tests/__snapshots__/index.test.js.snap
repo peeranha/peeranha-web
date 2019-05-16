@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AnswerForm /> @sendAnswerLoading === true 1`] = `
+<Connect(LanguageProvider)
+  key="en"
+  locale="en"
+  messages={Object {}}
+>
+  <ConnectedRouter
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AnswerForm
+      form="form1"
+      handleSubmit={[MockFunction]}
+      invalid={false}
+      postAnswer={[MockFunction]}
+      sendAnswerLoading={true}
+      submitting={false}
+      translations={Object {}}
+    />
+  </ConnectedRouter>
+</Connect(LanguageProvider)>
+`;
+
+exports[`<AnswerForm /> snapshot test 1`] = `
+<Connect(LanguageProvider)
+  key="en"
+  locale="en"
+  messages={Object {}}
+>
+  <ConnectedRouter
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <AnswerForm
+      form="form1"
+      handleSubmit={[MockFunction]}
+      invalid={false}
+      postAnswer={[MockFunction]}
+      sendAnswerLoading={false}
+      submitting={false}
+      translations={Object {}}
+    />
+  </ConnectedRouter>
+</Connect(LanguageProvider)>
+`;

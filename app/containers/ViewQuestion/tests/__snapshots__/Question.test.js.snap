@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question test 1`] = `
+<UNDEFINED
+  answerId="0"
+  buttonParams={
+    Object {
+      "answerId": 0,
+      "questionId": undefined,
+      "whowasvoted": undefined,
+    }
+  }
+  questionData={
+    Object {
+      "content": Object {
+        "title": "Title",
+      },
+      "userInfo": Object {},
+    }
+  }
+  title="Title"
+  type="app_viewQuestion_QUESTION_TYPE"
+  userInfo={Object {}}
+/>
+`;

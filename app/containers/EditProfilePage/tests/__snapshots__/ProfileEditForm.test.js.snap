@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileEditForm /> snapshot test 1 1`] = `
+<Connect(LanguageProvider)
+  key="en"
+  locale="en"
+  messages={Object {}}
+>
+  <ConnectedRouter
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <ProfileEditForm
+      cachedProfileImg="cachedProfileImg"
+      change={[MockFunction]}
+      clearImageChanges={[MockFunction]}
+      editingImgState={false}
+      getCroppedAvatar={[MockFunction]}
+      handleSubmit={[MockFunction]}
+      intl={
+        Object {
+          "formatMessage": [MockFunction],
+        }
+      }
+      isProfileSaving={false}
+      location={Object {}}
+      profile={Object {}}
+      saveProfile={[MockFunction]}
+      uploadImage={[MockFunction]}
+    />
+  </ConnectedRouter>
+</Connect(LanguageProvider)>
+`;

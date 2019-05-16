@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AskQuestion snapshot test 1`] = `
+<div>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Ask question
+    </title>
+    <meta
+      content="Ask question | Description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <UNDEFINED
+    form="app/AskQuestion/ASK_QUESTION_FORM"
+    formTitle="Ask question"
+    questionLoading={false}
+    sendQuestion={[Function]}
+    submitButtonId="app_post_question_button"
+    submitButtonName="Post question"
+  />
+</div>
+`;

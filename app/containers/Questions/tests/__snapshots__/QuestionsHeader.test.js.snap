@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionsHeader parentPage === feed 1`] = `
+<Base
+  className="d-flex align-items-center"
+>
+  <Connect(CommunitySelector)
+    Button={[Function]}
+    isArrowed={true}
+    showOnlyFollowed={true}
+    toggle={[MockFunction]}
+  />
+</Base>
+`;
+
+exports[`QuestionsHeader snapshot test 1`] = `
+<Base
+  className="d-flex align-items-center"
+>
+  <Connect(CommunitySelector)
+    Button={[Function]}
+    isArrowed={true}
+    showOnlyFollowed={false}
+    toggle={[MockFunction]}
+  />
+</Base>
+`;

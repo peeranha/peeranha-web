@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultInput test1 1`] = `
+<DefaultInput__Wrapper>
+  <input
+    className="default-input false"
+    disabled={false}
+    placeholder="Email"
+    type="text"
+  />
+  <h6
+    className="text-danger"
+  />
+</DefaultInput__Wrapper>
+`;
+
+exports[`DefaultInput test2, touched, error - true 1`] = `
+<DefaultInput__Wrapper>
+  <input
+    className="default-input default-input-error"
+    disabled={false}
+    placeholder="Email"
+    type="text"
+  />
+  <h6
+    className="text-danger"
+  >
+    <FormattedMessage
+      id="app.containers.HomePage.title"
+      values={Object {}}
+    />
+  </h6>
+</DefaultInput__Wrapper>
+`;

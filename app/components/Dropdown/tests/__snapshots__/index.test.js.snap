@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown snapshot test 1`] = `
+<DropdownStyled
+  className="dropdown show className"
+>
+  <button
+    aria-expanded="false"
+    aria-haspopup="true"
+    className="d-flex align-items-center p-0"
+    data-toggle="dropdown"
+    id="id"
+    type="button"
+  />
+  <MenuStyled
+    ariaLabelledby="id"
+    className="dropdown-menu"
+  />
+</DropdownStyled>
+`;

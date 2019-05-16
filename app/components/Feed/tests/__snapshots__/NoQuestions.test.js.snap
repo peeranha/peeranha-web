@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoQuestions test 1`] = `
+<Base
+  className="d-flex align-items-center py-5"
+>
+  <img
+    alt="noQuestionsFeedPage"
+    src="IMAGE_MOCK"
+  />
+  <div
+    className="ml-5 mb-2"
+  >
+    <Span
+      bold={true}
+      className="mb-1"
+      fontSize="24"
+    >
+      <FormattedMessage
+        id="app.containers.Questions.youDontHaveFeedToRead"
+        values={Object {}}
+      />
+    </Span>
+    <Span>
+      <FormattedMessage
+        id="app.containers.Questions.subscribeToCommToKeep"
+        values={Object {}}
+      />
+    </Span>
+    <Button
+      className="my-4"
+      disabled={true}
+    >
+      <FormattedMessage
+        id="app.containers.Questions.readMyFeed"
+        values={Object {}}
+      />
+    </Button>
+  </div>
+</Base>
+`;

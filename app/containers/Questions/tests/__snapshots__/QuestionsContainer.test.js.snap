@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionsContainer snapshot test 1 1`] = `
+<div>
+  <InjectIntl(Component)
+    locale="en"
+    questionsList={Array []}
+    questionsLoading={false}
+    translations={Object {}}
+  />
+  <UNDEFINED
+    isFeed={false}
+  />
+  <UNDEFINED
+    locale="en"
+    questionsList={Array []}
+    questionsLoading={false}
+    translations={Object {}}
+  />
+</div>
+`;
+
+exports[`QuestionsContainer snapshot test 2 1`] = `
+<div>
+  <InjectIntl(Component)
+    locale="en"
+    questionsList={
+      Array [
+        "cheburek",
+      ]
+    }
+    questionsLoading={false}
+    translations={Object {}}
+  />
+  <UNDEFINED
+    locale="en"
+    questionsList={
+      Array [
+        "cheburek",
+      ]
+    }
+    questionsLoading={false}
+    translations={Object {}}
+  />
+</div>
+`;
+
+exports[`QuestionsContainer snapshot test 3 1`] = `
+<div>
+  <InjectIntl(Component)
+    locale="en"
+    questionsList={
+      Array [
+        "cheburek",
+      ]
+    }
+    questionsLoading={true}
+    translations={Object {}}
+  />
+  <UNDEFINED
+    locale="en"
+    questionsList={
+      Array [
+        "cheburek",
+      ]
+    }
+    questionsLoading={true}
+    translations={Object {}}
+  />
+  <UNDEFINED />
+</div>
+`;

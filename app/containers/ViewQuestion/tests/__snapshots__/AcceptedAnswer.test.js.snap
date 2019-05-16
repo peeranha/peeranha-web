@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AcceptedAnswer test, correct_answer_id !== item.id 1`] = `<React.Fragment />`;
+
+exports[`AcceptedAnswer test, correct_answer_id === item.id 1`] = `
+<React.Fragment>
+  <UNDEFINED
+    answerId={1}
+    buttonParams={
+      Object {
+        "answerId": 1,
+        "questionId": undefined,
+        "whowasvoted": undefined,
+      }
+    }
+    className="mb-3"
+    questionData={
+      Object {
+        "answers": Array [
+          Object {
+            "id": 1,
+            "userInfo": Object {},
+          },
+          Object {
+            "id": 2,
+            "userInfo": Object {},
+          },
+          Object {
+            "id": 3,
+            "userInfo": Object {},
+          },
+        ],
+        "correct_answer_id": 1,
+      }
+    }
+    userInfo={Object {}}
+  />
+</React.Fragment>
+`;
