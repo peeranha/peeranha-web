@@ -3,6 +3,7 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
+import { getStat } from 'utils/statisticsManagement';
 
 import { selectUsers } from './selectors';
 
@@ -11,9 +12,26 @@ import {
   getCommunitiesWithTagsErr,
   getUserProfileSuccess,
   getUserProfileErr,
+  getStatSuccess,
+  getStatErr,
 } from './actions';
 
-import { GET_COMMUNITIES_WITH_TAGS, GET_USER_PROFILE } from './constants';
+import {
+  GET_COMMUNITIES_WITH_TAGS,
+  GET_USER_PROFILE,
+  GET_STAT,
+} from './constants';
+
+export function* getStatWorker() {
+  try {
+    const eosService = yield select(selectEos);
+    const stat = yield call(() => getStat(eosService));
+
+    yield put(getStatSuccess(stat));
+  } catch (err) {
+    yield put(getStatErr(err.message));
+  }
+}
 
 export function* getCommunitiesWithTagsWorker() {
   try {
@@ -22,7 +40,7 @@ export function* getCommunitiesWithTagsWorker() {
 
     yield put(getCommunitiesWithTagsSuccess(communities));
   } catch (err) {
-    yield put(getCommunitiesWithTagsErr(err));
+    yield put(getCommunitiesWithTagsErr(err.message));
   }
 }
 
@@ -44,11 +62,12 @@ export function* getUserProfileWorker({ user }) {
 
     return yield userInfo;
   } catch (err) {
-    yield put(getUserProfileErr(err));
+    yield put(getUserProfileErr(err.message));
   }
 }
 
 export default function*() {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeLatest(GET_USER_PROFILE, getUserProfileWorker);
+  yield takeLatest(GET_STAT, getStatWorker);
 }

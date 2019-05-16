@@ -5,6 +5,9 @@ import {
   getUserProfile,
   getUserProfileSuccess,
   getUserProfileErr,
+  getStat,
+  getStatSuccess,
+  getStatErr,
 } from '../actions';
 
 import {
@@ -14,6 +17,9 @@ import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
+  GET_STAT,
+  GET_STAT_SUCCESS,
+  GET_STAT_ERROR,
 } from '../constants';
 
 describe('DataCacheProvider actions', () => {
@@ -75,6 +81,38 @@ describe('DataCacheProvider actions', () => {
       };
 
       expect(getUserProfileErr(getUserProfileError)).toEqual(expected);
+    });
+  });
+
+  describe('getStat actions', () => {
+    it('GET_STAT', () => {
+      const expected = {
+        type: GET_STAT,
+      };
+
+      expect(getStat()).toEqual(expected);
+    });
+
+    it('GET_STAT_SUCCESS', () => {
+      const stat = 'stat';
+
+      const expected = {
+        type: GET_STAT_SUCCESS,
+        stat,
+      };
+
+      expect(getStatSuccess(stat)).toEqual(expected);
+    });
+
+    it('GET_STAT_ERROR', () => {
+      const getStatError = 'getStatError';
+
+      const expected = {
+        type: GET_STAT_ERROR,
+        getStatError,
+      };
+
+      expect(getStatErr(getStatError)).toEqual(expected);
     });
   });
 });

@@ -14,11 +14,12 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getCommunitiesWithTags } from './actions';
+import { getCommunitiesWithTags, getStat } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DataCacheProvider extends React.Component {
   componentDidMount() {
+    this.props.getStatDispatch();
     this.props.getCommunitiesWithTagsDispatch();
   }
 
@@ -29,6 +30,7 @@ export class DataCacheProvider extends React.Component {
 
 DataCacheProvider.propTypes = {
   getCommunitiesWithTagsDispatch: PropTypes.func,
+  getStatDispatch: PropTypes.func,
   children: PropTypes.element,
 };
 
@@ -37,6 +39,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getCommunitiesWithTagsDispatch: () => dispatch(getCommunitiesWithTags()),
+    getStatDispatch: () => dispatch(getStat()),
   };
 }
 

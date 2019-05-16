@@ -9,6 +9,9 @@ import {
   getUserProfile,
   getUserProfileSuccess,
   getUserProfileErr,
+  getStat,
+  getStatSuccess,
+  getStatErr,
 } from '../actions';
 
 /* eslint indent: 0 */
@@ -23,6 +26,30 @@ describe('dataCacheProviderReducer', () => {
 
   it('returns the initial state', () => {
     expect(dataCacheProviderReducer(state, {})).toEqual(state);
+  });
+
+  it('getStat', () => {
+    const obj = state.set('statLoading', true);
+
+    expect(dataCacheProviderReducer(state, getStat())).toEqual(obj);
+  });
+
+  it('getStatSuccess', () => {
+    const stat = 'stat';
+    const obj = state.set('statLoading', false).set('stat', stat);
+
+    expect(dataCacheProviderReducer(state, getStatSuccess(stat))).toEqual(obj);
+  });
+
+  it('getStatError', () => {
+    const getStatError = 'getStatError';
+    const obj = state
+      .set('statLoading', false)
+      .set('getStatError', getStatError);
+
+    expect(dataCacheProviderReducer(state, getStatErr(getStatError))).toEqual(
+      obj,
+    );
   });
 
   it('getCommunitiesWithTags', () => {

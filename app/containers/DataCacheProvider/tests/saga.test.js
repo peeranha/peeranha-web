@@ -4,12 +4,15 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
+
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
+import { getStat } from 'utils/statisticsManagement';
 
 import defaultSaga, {
   getCommunitiesWithTagsWorker,
   getUserProfileWorker,
+  getStatWorker,
 } from '../saga';
 
 import {
@@ -19,6 +22,9 @@ import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
+  GET_STAT,
+  GET_STAT_SUCCESS,
+  GET_STAT_ERROR,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -32,9 +38,42 @@ jest.mock('utils/communityManagement', () => ({
   getAllCommunities: jest.fn(),
 }));
 
+jest.mock('utils/statisticsManagement', () => ({
+  getStat: jest.fn(),
+}));
+
 jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
+
+describe('getStatWorker', () => {
+  const eos = {};
+  const stat = {};
+
+  const generator = getStatWorker();
+
+  it('step, eos', () => {
+    select.mockImplementation(() => eos);
+    const step = generator.next();
+    expect(step.value).toEqual(eos);
+  });
+
+  it('step, getStat', () => {
+    generator.next(eos);
+    expect(getStat).toHaveBeenCalledWith(eos);
+  });
+
+  it('step, getStatSuccess', () => {
+    const step = generator.next(stat);
+    expect(step.value.type).toBe(GET_STAT_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = 'some error';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(GET_STAT_ERROR);
+  });
+});
 
 describe('getCommunitiesWithTagsWorker', () => {
   const eos = {};
@@ -145,5 +184,10 @@ describe('defaultSaga', () => {
   it('GET_USER_PROFILE', () => {
     const step = generator.next();
     expect(step.value).toBe(GET_USER_PROFILE);
+  });
+
+  it('GET_STAT', () => {
+    const step = generator.next();
+    expect(step.value).toBe(GET_STAT);
   });
 });
