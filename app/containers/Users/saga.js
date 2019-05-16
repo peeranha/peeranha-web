@@ -1,32 +1,19 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-
-import { getUsers } from 'utils/profileManagement';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { getFileUrl } from 'utils/ipfs';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
-import { selectLimit, selectUsers } from './selectors';
 
-export function* getUsersWorker({ loadMore }) {
+export function* getUsersWorker({ loadMore, fetcher }) {
   try {
-    const eosService = yield select(selectEos);
-    const storedUsers = yield select(selectUsers());
-    const limit = yield select(selectLimit());
+    const { items } = yield call(() => fetcher.getNextItems());
 
-    // Lower bound - is ID of user
-    let lowerBound = 0;
+    const users = items.map(x => ({
+      ...x,
+      ipfs_avatar: getFileUrl(x.ipfs_avatar),
+    }));
 
-    if (loadMore) {
-      lowerBound = yield storedUsers[storedUsers.length - 1]
-        ? storedUsers[storedUsers.length - 1].user
-        : 0;
-    }
-
-    // slice(1) - lowerbound is string
-    const users = yield call(() => getUsers(lowerBound, limit, eosService));
-
-    yield put(getUsersSuccess(lowerBound ? users.slice(1) : users, loadMore));
+    yield put(getUsersSuccess(users, loadMore));
   } catch (err) {
     yield put(getUsersErr(err.message));
   }

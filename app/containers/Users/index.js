@@ -10,6 +10,10 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
+import { selectEos } from 'containers/EosioProvider/selectors';
+
+import { UsersFetcher, AccountsSortedBy } from 'utils/profileManagement';
 
 import messages from './messages';
 
@@ -20,25 +24,46 @@ import saga from './saga';
 
 import View from './View';
 
-/* 
- *
- * TODO: @dropdownFilter, @inputFilter - while unavailable for backend 
- * Header: users number, sorting
- * Content: users avatar 
- * 
-*/
-
 export class Users extends React.PureComponent {
   componentDidMount() {
-    this.props.getUsersDispatch({ loadMore: false });
+    this.fetcher = null;
+    this.initFetcher();
+
+    if (this.fetcher) {
+      this.props.getUsersDispatch({ loadMore: false, fetcher: this.fetcher });
+    }
   }
 
-  getMoreUsers = () => {
-    this.props.getUsersDispatch({ loadMore: true });
+  componentDidUpdate() {
+    this.initFetcher();
+  }
+
+  initFetcher = (sorting = this.props.sorting) => {
+    const { limit, eosService } = this.props;
+
+    if (!this.fetcher && eosService) {
+      this.fetcher = new UsersFetcher(
+        limit,
+        limit,
+        AccountsSortedBy[sorting],
+        eosService,
+      );
+    }
   };
 
-  dropdownFilter = () => {
-    //    this.props.getUsersDispatch({ sorting });
+  getMoreUsers = () => {
+    if (this.fetcher) {
+      this.props.getUsersDispatch({ loadMore: true, fetcher: this.fetcher });
+    }
+  };
+
+  dropdownFilter = sorting => {
+    this.fetcher = null;
+    this.initFetcher(sorting);
+
+    if (this.fetcher) {
+      this.props.getUsersDispatch({ sorting, fetcher: this.fetcher });
+    }
   };
 
   inputFilter = () => {
@@ -53,6 +78,7 @@ export class Users extends React.PureComponent {
       sorting,
       searchText,
       isLastFetch,
+      stat,
     } = this.props;
 
     return (
@@ -66,6 +92,7 @@ export class Users extends React.PureComponent {
         </Helmet>
 
         <View
+          userCount={stat.user_count}
           getMoreUsers={this.getMoreUsers}
           dropdownFilter={this.dropdownFilter}
           inputFilter={this.inputFilter}
@@ -89,15 +116,21 @@ Users.propTypes = {
   isLastFetch: PropTypes.bool,
   sorting: PropTypes.string,
   searchText: PropTypes.string,
+  limit: PropTypes.number,
+  eosService: PropTypes.object,
+  stat: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
+  eosService: selectEos,
   locale: makeSelectLocale(),
   users: selectors.selectUsers(),
   usersLoading: selectors.selectUsersLoading(),
+  limit: selectors.selectLimit(),
   sorting: selectors.selectSorting(),
   searchText: selectors.selectSearchText(),
   isLastFetch: selectors.selectIsLastFetch(),
+  stat: selectStat(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
