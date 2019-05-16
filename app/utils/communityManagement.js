@@ -137,28 +137,32 @@ export async function getAllCommunities(eosService) {
       x.label = x.name;
       x.value = x.id;
 
+      const promise1 = async () => {
+        const { description, main_description, language, avatar } = JSON.parse(
+          await getText(x.ipfs_description),
+        );
+
+        x.avatar = getFileUrl(avatar);
+        x.description = description;
+        x.main_description = main_description;
+        x.language = language;
+      };
+
       // Tags for community
-      x.tags = await eosService.getTableRows(
-        TAGS_TABLE,
-        getTagScope(x.id),
-        lowerBound,
-      );
+      const promise2 = async () => {
+        x.tags = await eosService.getTableRows(
+          TAGS_TABLE,
+          getTagScope(x.id),
+          lowerBound,
+        );
 
-      x.tags.forEach(y => {
-        y.label = y.name;
-        y.value = y.id;
-      });
+        x.tags.forEach(y => {
+          y.label = y.name;
+          y.value = y.id;
+        });
+      };
 
-      // IPFS additional information
-      // TODO: to test it
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      const avatar = await getFileUrl(ipfsDescription.avatar);
-
-      Object.keys(ipfsDescription).forEach(field => {
-        x[field] = ipfsDescription[field];
-      });
-
-      x.avatar = avatar;
+      await Promise.all([promise1(), promise2()]);
     }),
   );
 
@@ -175,14 +179,14 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
   await Promise.all(
     communities.map(async x => {
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      const avatar = await getFileUrl(ipfsDescription.avatar);
+      const { avatar, description, main_description, language } = JSON.parse(
+        await getText(x.ipfs_description),
+      );
 
-      Object.keys(ipfsDescription).forEach(field => {
-        x[field] = ipfsDescription[field];
-      });
-
-      x.avatar = avatar;
+      x.avatar = getFileUrl(avatar);
+      x.description = description;
+      x.main_description = main_description;
+      x.language = language;
     }),
   );
 

@@ -32,12 +32,14 @@ export const TAGS_TABLE = 'tags';
 export const COMMUNITIES_TABLE = 'communities';
 export const CREATED_TAGS_TABLE = 'crtagtb';
 export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
+export const GLOBAL_STAT_TABLE = 'globalstat';
 
 // Scopes
 
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
+export const ALL_STAT_SCOPE = 'allstat';
 
 // Methods
 

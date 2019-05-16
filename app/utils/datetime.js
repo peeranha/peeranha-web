@@ -42,5 +42,8 @@ export const getFormattedDate = /* istanbul ignore next */ (
   return format(dateInMills, dateView, localeObj);
 };
 
-export const getDifferenceInMonths = /* istanbul ignore next */ date =>
-  `${differenceInMonths(Date.now(), date)}M`;
+export const getDifferenceInMonths = /* istanbul ignore next */ date => {
+  const dateInMills = date * 1000;
+
+  return `${differenceInMonths(Date.now(), dateInMills)}M`;
+};

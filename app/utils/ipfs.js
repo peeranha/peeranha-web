@@ -23,7 +23,6 @@ export async function getText(hash) {
   return getResult[0].content.toString('utf8');
 }
 
-export async function getFileUrl(fileHash) {
-  const fileUrl = `${IPFS_URL}/${fileHash}`;
-  return fileUrl;
+export function getFileUrl(fileHash) {
+  return `${IPFS_URL}/${fileHash}`;
 }
