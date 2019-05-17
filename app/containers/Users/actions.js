@@ -1,11 +1,12 @@
 import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './constants';
 
-export function getUsers({ searchText, loadMore, sorting }) {
+export function getUsers({ searchText, loadMore, sorting, fetcher }) {
   return {
     type: GET_USERS,
     searchText,
     sorting,
     loadMore,
+    fetcher,
   };
 }
 

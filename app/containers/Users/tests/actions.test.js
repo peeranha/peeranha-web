@@ -4,13 +4,19 @@ import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from '../constants';
 
 describe('Users actions', () => {
   it('GET_USERS', () => {
-    const obj = { searchText: '1', loadMore: false, sorting: '2' };
+    const obj = {
+      searchText: '1',
+      loadMore: false,
+      sorting: '2',
+      fetcher: jest.fn(),
+    };
 
     const expected = {
       type: GET_USERS,
       searchText: obj.searchText,
       sorting: obj.sorting,
       loadMore: obj.loadMore,
+      fetcher: obj.fetcher,
     };
 
     expect(getUsers(obj)).toEqual(expected);

@@ -1,10 +1,12 @@
 import messages from 'common-messages';
 
 export default {
-  id: {
+  registration_time: {
+    sortBy: 'registration_time',
     message: messages.date,
   },
-  reputation: {
+  rating: {
+    sortBy: 'rating',
     message: messages.reputation,
   },
 };

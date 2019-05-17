@@ -50,7 +50,7 @@ const Content = /* istanbul ignore next */ ({
           <Base className="d-flex align-items-start">
             <MediumImage
               isBordered
-              src={x.avatarLink || noAvatar}
+              src={x.ipfs_avatar || noAvatar}
               alt="ipfs_avatar"
             />
             <div className="pl-3">

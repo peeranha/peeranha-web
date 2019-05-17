@@ -14,6 +14,9 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
   REMOVE_USER_PROFILE,
+  GET_STAT,
+  GET_STAT_SUCCESS,
+  GET_STAT_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,6 +26,9 @@ export const initialState = fromJS({
   users: {},
   usersLoading: false,
   getUserProfileError: null,
+  stat: {},
+  statLoading: false,
+  getStatError: null,
 });
 
 /* eslint no-param-reassign: 0, indent: 0 */
@@ -34,9 +40,20 @@ function dataCacheProviderReducer(state = initialState, action) {
     getUserProfileError,
     profile,
     user,
+    stat,
+    getStatError,
   } = action;
 
   switch (type) {
+    case GET_STAT:
+      return state.set('statLoading', true);
+
+    case GET_STAT_SUCCESS:
+      return state.set('statLoading', false).set('stat', stat);
+
+    case GET_STAT_ERROR:
+      return state.set('statLoading', false).set('getStatError', getStatError);
+
     case GET_COMMUNITIES_WITH_TAGS:
       return state.set('communitiesLoading', true);
 
