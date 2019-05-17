@@ -1913,6 +1913,8 @@ exports[`HomePage render test 1`] = `
       }
     }
   />
-  <Footer />
+  <Footer
+    locale="en"
+  />
 </div>
 `;
