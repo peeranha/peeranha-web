@@ -201,19 +201,24 @@ export class HomePage extends React.PureComponent {
           sendEmail={this.sendEmail}
           translations={translations}
         />
+
         <About translations={translations} />
+
         <Rewards
           translations={translations}
           sendEmail={this.sendEmail}
           sendEmailLoading={this.props.sendEmailLoading}
         />
+
         <FaqMain translations={translations} questionsNumber={5} />
+
         <Team
           translations={translations}
           sendMessage={this.sendMessage}
           sendMessageLoading={this.props.sendMessageLoading}
         />
-        <Footer />
+
+        <Footer locale={this.props.locale} />
       </div>
     );
   }
