@@ -97,7 +97,7 @@ const Section = ({ h2, blocks, id }) => {
 
         {blocks.length > DEFAULT_QST_NUM && (
           <Button
-            className="ml-5"
+            className="ml-5 mt-3"
             onClick={extendSection.bind(null, !isExtendedSection)}
           >
             <FormattedMessage {...commonMessages.seeAll} />
