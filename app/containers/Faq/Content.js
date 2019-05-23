@@ -37,7 +37,7 @@ const Ul = styled.ul`
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-const Question = ({ h3, content }) => {
+const Question = /* istanbul ignore next */ ({ h3, content }) => {
   const [isOpened, collapse] = useState(false);
 
   return (
@@ -65,7 +65,7 @@ const Question = ({ h3, content }) => {
 
 const DEFAULT_QST_NUM = 5;
 
-const Section = ({ h2, blocks, id }) => {
+const Section = /* istanbul ignore next */ ({ h2, blocks, id }) => {
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
 
@@ -111,7 +111,7 @@ const Section = ({ h2, blocks, id }) => {
   );
 };
 
-const Content = ({ faq }) => (
+const Content = /* istanbul ignore next */ ({ faq }) => (
   <div>
     {faq.blocks.map((x, index) => (
       <Section key={x.h2} {...x} id={`${SECTION_ID}_${index}`} />

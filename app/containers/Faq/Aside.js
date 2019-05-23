@@ -8,7 +8,7 @@ import Span from 'components/Span';
 
 import { SECTION_ID } from './constants';
 
-const Aside = ({ faq }) => (
+const Aside = /* istanbul ignore next */ ({ faq }) => (
   <ul className="py-2">
     {faq.blocks.map((x, index) => (
       <li className="mb-1" key={x.h2}>

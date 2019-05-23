@@ -29,7 +29,7 @@ const AsideWrapper = BaseTransparent.extend`
   flex: 0 0 ${LEFT_MENU_WIDTH}px;
 `.withComponent('aside');
 
-const Faq = ({ locale }) => {
+export const Faq = /* istanbul ignore next */ ({ locale }) => {
   const faq = getFAQ(locale);
   const translations = translationMessages[locale];
 

@@ -1,10 +1,24 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { Faq } from '../index';
 
-// import { Faq } from '../index';
+jest.mock('utils/faqManagement', () => ({
+  getFAQ: jest.fn().mockImplementation(() => ({
+    h1: 'h1',
+    blocks: [
+      {
+        h2: 'h2',
+        blocks: [
+          {
+            h3: 'h3',
+            content: 'content',
+          },
+        ],
+      },
+    ],
+  })),
+}));
 
 describe('<Faq />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('test', () => {
+    expect(Faq({ locale: 'en' })).toMatchSnapshot();
   });
 });
