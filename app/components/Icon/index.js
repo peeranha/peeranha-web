@@ -7,11 +7,13 @@ const Icon = /* istanbul ignore next */ ({
   noMargin,
   className,
   onClick,
+  rotate,
 }) => (
   <IconStyled
     className={className}
     onClick={onClick}
     noMargin={noMargin}
+    rotate={rotate}
     dangerouslySetInnerHTML={{ __html: icon }}
     data-icon="icon"
   />
@@ -20,6 +22,7 @@ const Icon = /* istanbul ignore next */ ({
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
   noMargin: PropTypes.bool,
+  rotate: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };

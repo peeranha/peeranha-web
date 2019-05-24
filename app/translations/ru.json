@@ -51,6 +51,18 @@
   "app.common.reputation": "Репутация",
   "app.common.en": "Английский",
   "app.common.ru": "Русский",
+  "app.common.about": "О нас",
+  "app.common.contacts": "Контакты",
+  "app.common.support": "Поддержка",
+  "app.common.privacyPolicy": "Политика конфиденциальности",
+
+  "app.containers.Faq.title": "ЧАВО",
+  "app.containers.Faq.description": "ЧАВО: описание",
+  "app.containers.Faq.faq": "Часто задаваемые вопросы",
+  "app.containers.Faq.help": "Помощь",
+  "app.containers.Faq.didntFindAnswer": "Не нашел ответ?",
+  "app.containers.Faq.freeFeelToAsk":
+    "Спроси нашу команду. Мы поможем найти ответ.",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",
@@ -86,11 +98,6 @@
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
   "app.containers.Profile.editProfile": "Редактировать профиль",
-
-  "app.common.about": "О нас",
-  "app.common.contacts": "Контакты",
-  "app.common.support": "Поддержка",
-  "app.common.privacyPolicy": "Политика конфиденциальности",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",

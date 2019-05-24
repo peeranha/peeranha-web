@@ -27,6 +27,7 @@ import Wrapper from './Wrapper';
 const HomePage = React.lazy(() => import('containers/HomePage'));
 const FaqFull = React.lazy(() => import('containers/HomePage/FaqFull'));
 
+const Faq = React.lazy(() => import('containers/Faq'));
 const Users = React.lazy(() => import('containers/Users'));
 const EditQuestion = React.lazy(() => import('containers/EditQuestion'));
 const EditProfilePage = React.lazy(() => import('containers/EditProfilePage'));
@@ -105,6 +106,11 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(SuggestedTags, props)}
         />
 
+        <Route
+          exact
+          path={routes.appFaq()}
+          render={props => Wrapper(Faq, props)}
+        />
         <Route
           exact
           path={routes.profileView(':id')}

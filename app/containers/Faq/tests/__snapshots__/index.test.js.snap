@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Faq /> test 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      FAQ
+    </title>
+    <meta
+      content="FAQ: description"
+      name="description"
+    />
+  </HelmetWrapper>
+  <div
+    className="flex-grow-1"
+  >
+    <UNDEFINED />
+    <div
+      className="my-3"
+    >
+      <UNDEFINED
+        faq={
+          Object {
+            "blocks": Array [
+              Object {
+                "blocks": Array [
+                  Object {
+                    "content": "content",
+                    "h3": "h3",
+                  },
+                ],
+                "h2": "h2",
+              },
+            ],
+            "h1": "h1",
+          }
+        }
+      />
+      <UNDEFINED />
+    </div>
+  </div>
+  <Base
+    className="d-none d-xl-block pr-0"
+  >
+    <UNDEFINED
+      faq={
+        Object {
+          "blocks": Array [
+            Object {
+              "blocks": Array [
+                Object {
+                  "content": "content",
+                  "h3": "h3",
+                },
+              ],
+              "h2": "h2",
+            },
+          ],
+          "h1": "h1",
+        }
+      }
+    />
+  </Base>
+</div>
+`;

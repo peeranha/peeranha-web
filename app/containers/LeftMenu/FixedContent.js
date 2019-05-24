@@ -40,7 +40,7 @@ const questionsRoute = routes.questions();
 const communitiesRoute = routes.communities();
 const tagsRoute = routes.tags();
 const usersRoute = routes.users();
-const faqRoute = routes.faq();
+const faqRoute = routes.appFaq();
 
 /* eslint-disable */
 /* istanbul ignore next */

@@ -51,6 +51,18 @@
   "app.common.reputation": "Reputation",
   "app.common.en": "English",
   "app.common.ru": "Russian",
+  "app.common.about": "About",
+  "app.common.contacts": "Contacts",
+  "app.common.support": "Support",
+  "app.common.privacyPolicy": "Privacy Policy",
+
+  "app.containers.Faq.title": "FAQ",
+  "app.containers.Faq.description": "FAQ: description",
+  "app.containers.Faq.faq": "Frequently asked questions",
+  "app.containers.Faq.help": "Help",
+  "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
+  "app.containers.Faq.freeFeelToAsk":
+    "Feel free to ask our team.  We will help to find the answer.",
 
   "app.containers.Users.title": "Users",
   "app.containers.Users.description": "Users: description",
@@ -85,11 +97,6 @@
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
-
-  "app.common.about": "About",
-  "app.common.contacts": "Contacts",
-  "app.common.support": "Support",
-  "app.common.privacyPolicy": "Privacy Policy",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
