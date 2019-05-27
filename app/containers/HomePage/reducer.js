@@ -22,12 +22,11 @@ export const initialState = fromJS({
   sendEmailError: null,
   sendMessageLoading: false,
   sendMessageError: null,
-  popupPosition: {},
   showPopup: false,
 });
 
 function homepageReducer(state = initialState, action) {
-  const { type, sendEmailError, sendMessageError, popupPosition } = action;
+  const { type, sendEmailError, sendMessageError } = action;
 
   switch (type) {
     case SEND_EMAIL:
@@ -49,7 +48,7 @@ function homepageReducer(state = initialState, action) {
         .set('sendMessageError', sendMessageError);
 
     case SHOW_HEADER_POPUP:
-      return state.set('popupPosition', popupPosition).set('showPopup', true);
+      return state.set('showPopup', true);
     case CLOSE_HEADER_POPUP:
       return state.set('showPopup', false);
 

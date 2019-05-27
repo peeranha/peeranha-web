@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import * as arrowDown from 'images/arrow_down.svg';
+import * as arrowDown from 'images/arrow_down.svg?inline';
 
 import messages from './messages';
 import Parallax from './Parallax';
+
 import {
   FIRST_SCREEN,
   SECOND_SCREEN,
@@ -16,90 +17,7 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Box = styled.div`
-  color: #ffffff !important;
-  z-index: 10;
-  position: relative;
-  text-align: center;
-  background: none;
-  font-size: 16px;
-
-  .top-level {
-    font-size: 4em;
-    line-height: 1.23;
-    padding-top: 100px;
-  }
-
-  .special-paragraph {
-    font-size: 1.5em;
-    padding-top: 43px;
-    padding-bottom: 58px;
-  }
-
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
-  }
-
-  .icon-down {
-    padding-top: 95px;
-  }
-
-  @media only screen and (max-width: 992px) {
-    font-size: 12px;
-
-    .top-level {
-      padding-top: 0;
-    }
-  }
-
-  @media only screen and (max-width: 560px) {
-    font-size: 10px;
-  }
-`;
-
-const Icon = styled.a`
-  position: relative;
-  color: #fff;
-  font-size: 36px;
-  cursor: pointer;
-
-  animation: pulse 2s infinite;
-  @keyframes pulse {
-    0% {
-      bottom: 0px;
-    }
-    50% {
-      bottom: 10px;
-    }
-    100% {
-      bottom: 0px;
-    }
-  }
-`;
-
-const Wrapper = styled.div`
-  height: calc(100vh - 100px);
-
-  > .row {
-    height: 100%;
-  }
-
-  @media only screen and (max-width: 992px) {
-    height: 100vmax;
-  }
-`;
-
-const Introduction = ({ sendEmailLoading, sendEmail }) => (
+const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -113,7 +31,12 @@ const Introduction = ({ sendEmailLoading, sendEmail }) => (
       </div>
     </div>
 
-    <Header sendEmailLoading={sendEmailLoading} sendEmail={sendEmail} />
+    <Header
+      sendEmailLoading={sendEmailLoading}
+      sendEmail={sendEmail}
+      location={location}
+    />
+
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
         <Box className="col-lg-12 first-screen-banner">
@@ -153,9 +76,113 @@ const Introduction = ({ sendEmailLoading, sendEmail }) => (
   </Parallax>
 );
 
+const Box = styled.div`
+  color: #ffffff !important;
+  z-index: 10;
+  position: relative;
+  text-align: center;
+  background: none;
+  font-size: 16px;
+
+  .top-level {
+    font-size: 4em;
+    line-height: 1.23;
+    padding-top: 100px;
+  }
+
+  .special-paragraph {
+    font-size: 1.5em !important;
+    line-height: 1.5em !important;
+    padding-top: 43px;
+    padding-bottom: 58px;
+  }
+
+  form {
+    display: flex;
+    width: 100%;
+
+    > div:nth-child(1) {
+      flex: 2;
+      margin-right: 10px;
+    }
+
+    > div:nth-child(2) {
+      flex: 1;
+    }
+  }
+
+  .icon-down {
+    padding-top: 95px;
+  }
+
+  @media only screen and (max-width: 992px) {
+    font-size: 21px;
+
+    .top-level {
+      padding-top: 0;
+      font-size: 2.5em;
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    font-size: 18px;
+
+    .special-paragraph {
+      padding-top: 20px;
+      padding-bottom: 40px;
+    }
+
+    form {
+      flex-direction: column;
+
+      > div:nth-child(1) {
+        flex: 1;
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    font-size: 14px;
+  }
+`;
+
+const Icon = styled.a`
+  position: relative;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+
+  animation: pulse 2s infinite;
+  @keyframes pulse {
+    0% {
+      bottom: 0px;
+    }
+    50% {
+      bottom: 10px;
+    }
+    100% {
+      bottom: 0px;
+    }
+  }
+`;
+
+const Wrapper = styled.div`
+  height: calc(100vh - 100px);
+
+  > .row {
+    height: 100%;
+  }
+
+  @media only screen and (max-width: 992px) {
+    height: 100vmax;
+  }
+`;
+
 Introduction.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
+  location: PropTypes.object,
 };
 
 export default Introduction;

@@ -11,7 +11,7 @@ import {
 } from 'components/FormFields/validate';
 
 import FloatingLabelInput from './FloatingLabelInput';
-import ContainedButton from './ContainedButton';
+import Button from './ContainedButton';
 import SelectItem from './SelectItem';
 
 import {
@@ -43,6 +43,7 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
         />
+
         <Field
           name={EMAIL_FIELD}
           disabled={sendMessageLoading}
@@ -51,6 +52,7 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           validate={[validateEmail, required]}
           warn={[validateEmail, required]}
         />
+
         <Field
           disabled={sendMessageLoading}
           change={change}
@@ -65,6 +67,7 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           validate={[required]}
           warn={[required]}
         />
+
         <Field
           name={MESSAGE_FIELD}
           multiline
@@ -75,11 +78,11 @@ const SendMessageForm = /* istanbul ignore next */ props => {
           warn={[strLength15x100, required]}
         />
       </div>
-      <div className="button-submit-wrapper">
-        <ContainedButton
-          type="submit"
-          content={<FormattedMessage {...messages.sendMessage} />}
-        />
+
+      <div className="d-flex">
+        <Button>
+          <FormattedMessage {...messages.sendMessage} />
+        </Button>
       </div>
     </form>
   );

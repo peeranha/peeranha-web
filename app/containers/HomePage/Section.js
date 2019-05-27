@@ -61,8 +61,8 @@ const Section = styled.section`
       }
 
       input {
-        padding: 0 12px !important;
-        font-size: 16px !important;
+        padding: 0 12px;
+        font-size: 16px;
       }
     }
   }

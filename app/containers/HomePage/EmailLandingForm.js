@@ -6,7 +6,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { validateEmail } from 'components/FormFields/validate';
 
 import DefaultInput from './DefaultInput';
-import ContainedButton from './ContainedButton';
+import Button from './ContainedButton';
 
 import { EMAIL_FIELD } from './constants';
 
@@ -17,20 +17,18 @@ const EmailLandingForm = /* istanbul ignore next */ ({
   sendEmail,
 }) => (
   <form onSubmit={handleSubmit(sendEmail)}>
-    <div>
-      <Field
-        disabled={sendEmailLoading}
-        name={EMAIL_FIELD}
-        component={DefaultInput}
-        validate={[validateEmail]}
-        warn={[validateEmail]}
-      />
-    </div>
-    <div>
-      <ContainedButton
-        type="submit"
-        content={<FormattedMessage {...button} />}
-      />
+    <Field
+      disabled={sendEmailLoading}
+      name={EMAIL_FIELD}
+      component={DefaultInput}
+      validate={[validateEmail]}
+      warn={[validateEmail]}
+    />
+
+    <div className="d-flex">
+      <Button disabled={sendEmailLoading} typeAttr="submit">
+        <FormattedMessage {...button} />
+      </Button>
     </div>
   </form>
 );
