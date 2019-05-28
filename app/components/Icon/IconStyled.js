@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+const IconHover = ({ color }) => `
+  .fill {
+    fill: ${color};
+  }
+
+  .stroke {
+    stroke: ${color};
+  }
+`;
+
 /* istanbul ignore next */
 const IconStyled = styled.span`
   display: inline-block;
@@ -7,6 +17,22 @@ const IconStyled = styled.span`
   vertical-align: 1px;
   transform: rotate(${x => (x.rotate ? '180deg' : '0deg')});
   transition: 0.5s;
+  cursor: pointer;
+
+  ${x =>
+    x.width
+      ? `
+    width: ${x.width}px;
+  `
+      : ``};
+
+  svg {
+    width: inherit;
+    height: inherit;
+  }
+
+  ${x => (x.hover ? `:hover { ${IconHover({ color: x.hover })} }` : ``)};
 `;
 
+export { IconHover };
 export default IconStyled;

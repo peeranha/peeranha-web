@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
-import faqPageHeader from 'images/faqPageHeader.svg';
-import infoIcon from 'images/icon-information.svg';
+import faqPageHeader from 'images/faqPageHeader.svg?inline';
+import infoIcon from 'images/icon-information.svg?inline';
 
 import BaseRounded from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';

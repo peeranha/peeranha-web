@@ -20,11 +20,11 @@ import Icon from 'components/Icon';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import addIcon from 'svg/add';
-import searchIcon from 'svg/search';
-import closeIcon from 'svg/close';
-import headerNavigationIcon from 'svg/headerNavigation';
-import img from 'images/LogoBlack.svg';
+import addIcon from 'images/add.svg?inline';
+import searchIcon from 'images/search.svg?inline';
+import closeIcon from 'images/close.svg?external';
+import headerNavigationIcon from 'images/headerNavigation.svg?external';
+import img from 'images/LogoBlack.svg?inline';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -78,6 +78,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
         {!props.isMenuVisible && (
           <Logo className="d-flex align-items-center">
             <Icon
+              width="20"
               onClick={props.showMenu}
               className="mr-3 d-flex d-md-none"
               icon={!props.isMenuVisible ? headerNavigationIcon : closeIcon}
@@ -106,7 +107,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 className="d-flex justify-content-center align-items-center d-lg-none"
                 onClick={addQuestionRoute}
               >
-                <Icon icon={searchIcon} noMargin />
+                <img src={searchIcon} alt="icon" />
               </RoundedButtonStyled>
 
               <LargeButton
@@ -114,7 +115,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <Icon icon={addIcon} />
+                <img className="mr-2" src={addIcon} alt="icon" />
                 <FormattedMessage {...messages.addQuestion} />
               </LargeButton>
 
@@ -123,7 +124,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <Icon icon={addIcon} noMargin />
+                <img src={addIcon} alt="icon" />
               </RoundedButton>
             </React.Fragment>
           )}

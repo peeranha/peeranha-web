@@ -11,7 +11,6 @@ import {
 
 import { getFormattedNum } from 'utils/numbers';
 
-import Icon from 'components/Icon';
 import Span from 'components/Span';
 
 import options from './options';
@@ -31,10 +30,10 @@ const IconWithStatus = /* istanbul ignore next */ ({
 
   return (
     <span className={className}>
-      <Icon
+      <img
         className="d-inline-flex mr-1"
-        icon={full.icon[size || 'sm']}
-        noMargin
+        src={full.icon[size || 'sm']}
+        alt="icon"
       />
 
       <Span

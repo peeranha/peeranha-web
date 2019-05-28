@@ -7,8 +7,8 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import questionIcon from 'images/question.svg';
-import closeIcon from 'images/closeCircle.svg';
+import questionIcon from 'images/question.svg?inline';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import LargeButton from 'components/Button/Contained/InfoLarge';

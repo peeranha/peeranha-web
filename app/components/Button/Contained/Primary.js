@@ -1,5 +1,5 @@
 import { BG_PRIMARY_DARK, TEXT_LIGHT } from 'style-constants';
-import IconStyled from 'components/Icon/IconStyled';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import Button from '../index';
 
@@ -8,6 +8,6 @@ export default Button.extend`
   color: ${TEXT_LIGHT};
 
   ${IconStyled} {
-    stroke: ${TEXT_LIGHT};
+    ${IconHover({ color: TEXT_LIGHT })};
   }
 `;

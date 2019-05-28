@@ -9,7 +9,7 @@ import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
-import bannerImage from 'images/communityIsSuggested.svg';
+import bannerImage from 'images/communityIsSuggested.svg?inline';
 
 import messages from './messages';
 

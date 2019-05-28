@@ -8,12 +8,16 @@ const Icon = /* istanbul ignore next */ ({
   className,
   onClick,
   rotate,
+  hover,
+  width,
 }) => (
   <IconStyled
     className={className}
     onClick={onClick}
     noMargin={noMargin}
     rotate={rotate}
+    hover={hover}
+    width={width}
     dangerouslySetInnerHTML={{ __html: icon }}
     data-icon="icon"
   />
@@ -24,6 +28,8 @@ Icon.propTypes = {
   noMargin: PropTypes.bool,
   rotate: PropTypes.bool,
   className: PropTypes.string,
+  hover: PropTypes.string,
+  width: PropTypes.string,
   onClick: PropTypes.func,
 };
 

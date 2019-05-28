@@ -1,5 +1,5 @@
 import { BG_TRANSPARENT, TEXT_PRIMARY } from 'style-constants';
-import IconStyled from 'components/Icon/IconStyled';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
 
@@ -13,8 +13,8 @@ const NavigationButton = PrimaryLarge.extend`
     color: ${TEXT_PRIMARY};
     background: ${BG_TRANSPARENT};
 
-    ${IconStyled} * {
-      stroke: ${TEXT_PRIMARY};
+    ${IconStyled} {
+      ${IconHover({ color: TEXT_PRIMARY })};
     }
   `
       : ``};

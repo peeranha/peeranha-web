@@ -11,7 +11,7 @@ import Li from 'components/Li';
 import Span from 'components/Span';
 import A from 'components/A';
 import Icon from 'components/Icon';
-import IconStyled from 'components/Icon/IconStyled';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import messages from 'common-messages';
 
@@ -25,13 +25,13 @@ import {
   BG_TRANSPARENT,
 } from 'style-constants';
 
-import myFeedIcon from 'svg/myFeed';
-import allQuestionsIcon from 'svg/allQuestions';
-import communitiesIcon from 'svg/communities';
-import tagsIcon from 'svg/tags';
-import usersIcon from 'svg/users';
-import logoutIcon from 'svg/logout';
-import questionRoundedIcon from 'svg/faq';
+import myFeedIcon from 'images/myFeed.svg?external';
+import allQuestionsIcon from 'images/allQuestions.svg?external';
+import communitiesIcon from 'images/communities.svg?external';
+import tagsIcon from 'images/tags.svg?external';
+import usersIcon from 'images/users.svg?external';
+import logoutIcon from 'images/logout.svg?inline';
+import questionRoundedIcon from 'images/faq.svg?external';
 
 import { LEFT_MENU_ID } from './constants';
 
@@ -55,6 +55,14 @@ const LiExtended = Li.extend`
     flex: 1;
   }
 
+  :hover {
+    color: ${TEXT_PRIMARY};
+
+    ${IconStyled} {
+      ${IconHover({ color: TEXT_PRIMARY })};
+    }
+  }
+
   ${({ route }) =>
     window.location.pathname
       .split('/')
@@ -65,8 +73,8 @@ const LiExtended = Li.extend`
     border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
 
-    ${IconStyled} * {
-      stroke: ${TEXT_PRIMARY};
+    ${IconStyled} {
+      ${IconHover({ color: TEXT_PRIMARY })}
     }
   `
       : `
@@ -117,23 +125,27 @@ const FixedContent = /* istanbul ignore next */ ({
               <FormattedMessage {...messages.profile} />
             </A>
           </LiExtended>
+
           <LiExtended>
             <A to={routes.userQuestions(profile.user)}>
               <FormattedMessage {...messages.questions} />
             </A>
           </LiExtended>
+
           <LiExtended>
             <A to={routes.userAnswers(profile.user)}>
               <FormattedMessage {...messages.answers} />
             </A>
           </LiExtended>
+
           <LiExtended>
             <A to={routes.userSettings(profile.user)}>
               <FormattedMessage {...messages.settings} />
             </A>
           </LiExtended>
-          <LiExtended>
-            <Icon icon={logoutIcon} />
+
+          <LiExtended className="d-flex align-items-center">
+            <img className="mr-2" src={logoutIcon} alt="icon" />
             <Span color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.logout} />
             </Span>
@@ -145,38 +157,42 @@ const FixedContent = /* istanbul ignore next */ ({
       {profile && (
         <LiExtended route={feedRoute}>
           <A to={feedRoute} href={feedRoute}>
-            <Icon icon={myFeedIcon} />
+            <Icon width="24" icon={myFeedIcon} />
             <FormattedMessage {...messages.myFeed} />
           </A>
         </LiExtended>
       )}
       <LiExtended route={questionsRoute}>
         <A to={questionsRoute} href={questionsRoute}>
-          <Icon icon={allQuestionsIcon} />
+          <Icon width="24" icon={allQuestionsIcon} />
           <FormattedMessage {...messages.allQuestions} />
         </A>
       </LiExtended>
+
       <LiExtended route={communitiesRoute}>
         <A to={communitiesRoute} href={communitiesRoute}>
-          <Icon icon={communitiesIcon} />
+          <Icon width="24" icon={communitiesIcon} />
           <FormattedMessage {...messages.communities} />
         </A>
       </LiExtended>
+
       <LiExtended route={tagsRoute}>
         <A to={tagsRoute} href={tagsRoute}>
-          <Icon icon={tagsIcon} />
+          <Icon width="24" icon={tagsIcon} />
           <FormattedMessage {...messages.tags} />
         </A>
       </LiExtended>
+
       <LiExtended route={usersRoute}>
         <A to={usersRoute} href={usersRoute}>
-          <Icon icon={usersIcon} />
+          <Icon width="24" icon={usersIcon} />
           <FormattedMessage {...messages.users} />
         </A>
       </LiExtended>
+
       <LiExtended route={faqRoute}>
         <A className="d-flex align-items-center" to={faqRoute} href={faqRoute}>
-          <Icon icon={questionRoundedIcon} />
+          <Icon width="24" icon={questionRoundedIcon} />
           <FormattedMessage {...messages.faq} />
         </A>
       </LiExtended>

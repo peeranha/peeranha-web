@@ -7,11 +7,10 @@ import { TEXT_PRIMARY_DARK, TEXT_SECONDARY } from 'style-constants';
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
-import answerIconEmptyInside from 'svg/answerIconEmptyInside';
+import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
@@ -99,7 +98,7 @@ const Question = /* istanbul ignore next */ ({
       position="right"
     >
       <span className="d-flex align-items-center mb-2">
-        <Icon icon={answerIconEmptyInside} className="mr-2" />
+        <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
         <Span color={TEXT_PRIMARY_DARK} bold>
           {answers.length}
         </Span>

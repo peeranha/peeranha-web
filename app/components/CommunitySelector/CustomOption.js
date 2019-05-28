@@ -7,7 +7,7 @@ import Img, { CELL } from 'components/Img';
 import Span from 'components/Span';
 import { Box } from 'components/FormFields/SelectField';
 
-import okayBlueIcon from 'images/okayBlueIcon.svg';
+import okayBlueIcon from 'images/okayBlueIcon.svg?inline';
 
 const EmptyOption = styled.span`
   width: ${CELL}px;

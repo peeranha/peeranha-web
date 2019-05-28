@@ -1,9 +1,0 @@
-const blockSmallIcon = `
-  <svg id="1d5002e0-1a1b-49c4-bd9f-7fdbfd814526" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
-    <title>ico-block_13</title>
-    <circle cx="6.5" cy="6.5" r="5" fill-opacity="0.2" />
-    <rect x="1.5" y="6" width="10" height="1.4" transform="translate(-2.69 6.5) rotate(-45)" stroke="none"  />
-  </svg>
-`;
-
-export default blockSmallIcon;

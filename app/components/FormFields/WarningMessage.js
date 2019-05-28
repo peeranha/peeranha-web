@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
-import validationArrowIcon from 'svg/validationArrow';
+import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 
 export const WarningMessage = /* istanbul ignore next */ ({
   error,
@@ -19,7 +18,11 @@ export const WarningMessage = /* istanbul ignore next */ ({
   touched && (error || warning || tip) ? (
     <div className={`d-flex align-items-center ${className}`}>
       {tip && (
-        <Icon className="d-none d-xl-inline" icon={validationArrowIcon} />
+        <img
+          className="d-none d-xl-inline mr-2"
+          src={validationArrowIcon}
+          alt="icon"
+        />
       )}
 
       <Span color={TEXT_SECONDARY} fontSize="14" isItalic>

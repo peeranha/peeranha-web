@@ -8,10 +8,9 @@ import commonMessages from 'common-messages';
 
 import plusIcon from 'images/Plus.png';
 import minusIcon from 'images/Minus.png';
-import arrowIcon from 'svg/arrowDown';
+import arrowIcon from 'images/arrowDown.svg?inline';
 
 import H4 from 'components/H4';
-import Icon from 'components/Icon';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import BaseRounded from 'components/Base/BaseRounded';
@@ -43,7 +42,12 @@ const Question = /* istanbul ignore next */ ({ h3, content }) => {
   return (
     <li className="d-flex">
       <div>
-        <Icon className="px-2 mr-3" icon={arrowIcon} rotate={isOpened} />
+        <img
+          style={{ transform: `rotate(${isOpened ? '180deg' : '0deg'})` }}
+          className="px-2 mr-3"
+          src={arrowIcon}
+          alt="icon"
+        />
       </div>
 
       <div>

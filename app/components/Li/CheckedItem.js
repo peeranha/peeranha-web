@@ -1,5 +1,5 @@
 import { BORDER_PRIMARY, BORDER_TRANSPARENT } from 'style-constants';
-import checked from 'images/okayBlueIcon.svg';
+import checked from 'images/okayBlueIcon.svg?inline';
 
 import Li from './index';
 

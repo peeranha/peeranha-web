@@ -8,7 +8,7 @@ import BaseRounded from 'components/Base/BaseRounded';
 import Feed from 'components/Feed/NoQuestions';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
-import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg';
+import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
 
 import { addQuestionRoute } from 'containers/Header/HeaderForm';
 

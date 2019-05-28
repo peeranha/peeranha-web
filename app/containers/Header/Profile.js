@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import logoutIcon from 'svg/logout';
+import logoutIcon from 'images/logout.svg?inline';
 import messages from 'common-messages';
 
 import noAvatar from 'images/ico-user-no-photo.png';
@@ -15,7 +15,6 @@ import Li from 'components/Li';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import A from 'components/A';
-import Icon from 'components/Icon';
 import RatingStatus from 'components/RatingStatus';
 import MediumImage from 'components/Img/MediumImage';
 
@@ -127,8 +126,8 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
       </Li>
     </Ul>
     <Ul>
-      <Li>
-        <Icon icon={logoutIcon} />
+      <Li className="d-flex align-items-center">
+        <img className="mr-2" src={logoutIcon} alt="icon" />
         <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...messages.logout} />
         </Span>

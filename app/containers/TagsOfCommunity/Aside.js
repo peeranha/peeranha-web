@@ -6,7 +6,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 
-import moreVotingIcon from 'images/moreVoting.svg';
+import moreVotingIcon from 'images/moreVoting.svg?inline';
 
 import Span from 'components/Span';
 import P from 'components/P';

@@ -8,10 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import userIcon from 'svg/user';
+import userIcon from 'images/user.svg?inline';
 import messages from 'common-messages';
 
-import Icon from 'components/Icon';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
 const UserAuthNavLinks = /* istanbul ignore next */ ({
@@ -24,7 +23,7 @@ const UserAuthNavLinks = /* istanbul ignore next */ ({
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
       onClick={showSignUpModal}
     >
-      <Icon icon={userIcon} />
+      <img className="mr-2" src={userIcon} alt="icon" />
       <FormattedMessage {...messages.signUp} />
     </LargeButton>
 
@@ -32,7 +31,7 @@ const UserAuthNavLinks = /* istanbul ignore next */ ({
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
       onClick={showLoginModal}
     >
-      <Icon icon={userIcon} />
+      <img className="mr-2" src={userIcon} alt="icon" />
       <FormattedMessage {...messages.login} />
     </LargeButton>
   </React.Fragment>

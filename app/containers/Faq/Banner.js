@@ -8,7 +8,7 @@ import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
-import bannerImage from 'images/faqBanner.svg';
+import bannerImage from 'images/faqBanner.svg?inline';
 
 import messages from './messages';
 

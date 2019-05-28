@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
-import communitiesHeader from 'images/communitiesHeader.svg';
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg';
+import communitiesHeader from 'images/communitiesHeader.svg?inline';
+import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -56,7 +56,7 @@ export const SubHeader = /* istanbul ignore next */ ({
   language,
   languages,
 }) => (
-  <H3Styled className="d-flex align-items-end justify-content-between">
+  <H3Styled className="d-flex align-items-center justify-content-between">
     <div className="d-flex align-items-center">
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
       <FormattedMessage {...commonMessages.communities} />

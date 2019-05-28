@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg';
-import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg';
-import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg';
-import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg';
-import disabledFingerUp from 'images/disabledFingerUp.svg';
-import disabledFingerDown from 'images/disabledFingerDown.svg';
-import emptyFingerUp from 'images/emptyFingerUp.svg';
-import emptyFingerDown from 'images/emptyFingerDown.svg';
+import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg?inline';
+import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg?inline';
+import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg?inline';
+import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg?inline';
+import disabledFingerUp from 'images/disabledFingerUp.svg?inline';
+import disabledFingerDown from 'images/disabledFingerDown.svg?inline';
+import emptyFingerUp from 'images/emptyFingerUp.svg?inline';
+import emptyFingerDown from 'images/emptyFingerDown.svg?inline';
 
 import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
