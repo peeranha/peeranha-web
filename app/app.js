@@ -36,7 +36,6 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 
 import configureStore from './configureStore';
 import createdHistory from './createdHistory';
-import './icons-config';
 
 // Import Analytics
 import './analytics';
