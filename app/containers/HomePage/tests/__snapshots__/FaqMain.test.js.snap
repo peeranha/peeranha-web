@@ -2,7 +2,7 @@
 
 exports[`FaqMain FaqMain 1`] = `
 <Section
-  id="fs4"
+  id="faq"
 >
   <div
     className="container"

@@ -22,9 +22,8 @@ exports[`Footer test 1`] = `
             replace={false}
             to="/"
           >
-            <img
-              alt="logo"
-              src="IMAGE_MOCK"
+            <UNDEFINED
+              icon="IMAGE_MOCK"
             />
           </Link>
           <span

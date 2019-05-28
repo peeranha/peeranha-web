@@ -1,34 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DefaultInput test1 1`] = `
-<DefaultInput__Wrapper>
-  <input
-    className="default-input false"
+<div
+  className="d-flex flex-column"
+>
+  <LandingInput
     disabled={false}
+    error={false}
     placeholder="Email"
     type="text"
+    warning={false}
   />
-  <h6
-    className="text-danger"
-  />
-</DefaultInput__Wrapper>
+  <DefaultInput__Message
+    className="my-1"
+  >
+    <UNDEFINED
+      error={false}
+      touched={false}
+      warning={false}
+    />
+  </DefaultInput__Message>
+</div>
 `;
 
 exports[`DefaultInput test2, touched, error - true 1`] = `
-<DefaultInput__Wrapper>
-  <input
-    className="default-input default-input-error"
+<div
+  className="d-flex flex-column"
+>
+  <LandingInput
     disabled={false}
+    error={
+      Object {
+        "id": "app.containers.HomePage.title",
+      }
+    }
     placeholder="Email"
     type="text"
+    warning={false}
   />
-  <h6
-    className="text-danger"
+  <DefaultInput__Message
+    className="my-1"
   >
-    <FormattedMessage
-      id="app.containers.HomePage.title"
-      values={Object {}}
+    <UNDEFINED
+      error={
+        Object {
+          "id": "app.containers.HomePage.title",
+        }
+      }
+      touched={true}
+      warning={false}
     />
-  </h6>
-</DefaultInput__Wrapper>
+  </DefaultInput__Message>
+</div>
 `;

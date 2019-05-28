@@ -383,7 +383,7 @@ const mapStateToProps = createStructuredSelector({
   popupPosition: homepageSelectors.selectHeaderPopupPosition(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     showHeaderPopupDispatch: () => dispatch(showHeaderPopup()),

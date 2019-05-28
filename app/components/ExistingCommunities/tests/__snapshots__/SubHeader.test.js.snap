@@ -2,7 +2,7 @@
 
 exports[`SubHeader test 1`] = `
 <Span
-  className="d-flex align-items-end justify-content-between"
+  className="d-flex align-items-center justify-content-between"
 >
   <div
     className="d-flex align-items-center"

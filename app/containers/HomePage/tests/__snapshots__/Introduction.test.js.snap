@@ -2,7 +2,7 @@
 
 exports[`Introduction test 1`] = `
 <Section
-  id="fs1"
+  id="introduction"
 >
   <div
     className="layers"
@@ -86,7 +86,7 @@ exports[`Introduction test 1`] = `
             className="col-12 justify-content-center icon-down"
           >
             <Introduction__Icon
-              href="#fs2"
+              href="#about"
             >
               <img
                 alt="arrowDown"

@@ -2,7 +2,7 @@
 
 exports[`About test1 1`] = `
 <Section
-  id="fs2"
+  id="about"
 >
   <Gradient
     position="top"

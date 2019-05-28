@@ -1,100 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectItem test1 1`] = `
-<FloatingLabelInput__Wrapper
-  className="floating-label-input-wrapper select-item"
+<div
+  className="mb-4"
 >
-  <div
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-toggle="dropdown"
-    role="button"
-  >
-    <TextField
-      className="floating-label-input"
-      error={false}
-      onChange={null}
-      required={false}
-      select={false}
-      variant="standard"
-    />
-  </div>
-  <ul
-    className="dropdown-menu"
-  >
-    <li
-      onClick={[Function]}
-    >
-      <FormattedMessage
-        id="app.containers.HomePage.none"
-        values={Object {}}
-      />
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      item1
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      item2
-    </li>
-  </ul>
-  <h6
-    className="text-danger"
+  <UNDEFINED
+    button={
+      <FloatingLabelInput__Box>
+        <FloatingLabelInput__Input
+          error={false}
+          onChange={null}
+          type="text"
+        />
+        <FloatingLabelInput__Label />
+      </FloatingLabelInput__Box>
+    }
+    menu={
+      <SelectItem__Ul>
+        <li
+          onClick={[Function]}
+        >
+          None
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          item1
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          item2
+        </li>
+      </SelectItem__Ul>
+    }
   />
-</FloatingLabelInput__Wrapper>
+  <DefaultInput__Message
+    className="my-1"
+  >
+    <UNDEFINED
+      error={false}
+      touched={false}
+      warning={false}
+    />
+  </DefaultInput__Message>
+</div>
 `;
 
 exports[`SelectItem test2, touched, error - true 1`] = `
-<FloatingLabelInput__Wrapper
-  className="floating-label-input-wrapper select-item"
+<div
+  className="mb-4"
 >
-  <div
-    aria-expanded="false"
-    aria-haspopup="true"
-    data-toggle="dropdown"
-    role="button"
+  <UNDEFINED
+    button={
+      <FloatingLabelInput__Box>
+        <FloatingLabelInput__Input
+          error={
+            Object {
+              "id": "app.containers.HomePage.title",
+            }
+          }
+          onChange={null}
+          type="text"
+        />
+        <FloatingLabelInput__Label />
+      </FloatingLabelInput__Box>
+    }
+    menu={
+      <SelectItem__Ul>
+        <li
+          onClick={[Function]}
+        >
+          None
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          item1
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          item2
+        </li>
+      </SelectItem__Ul>
+    }
+  />
+  <DefaultInput__Message
+    className="my-1"
   >
-    <TextField
-      className="floating-label-input"
-      error={true}
-      onChange={null}
-      required={false}
-      select={false}
-      variant="standard"
+    <UNDEFINED
+      error={
+        Object {
+          "id": "app.containers.HomePage.title",
+        }
+      }
+      touched={true}
+      warning={false}
     />
-  </div>
-  <ul
-    className="dropdown-menu"
-  >
-    <li
-      onClick={[Function]}
-    >
-      <FormattedMessage
-        id="app.containers.HomePage.none"
-        values={Object {}}
-      />
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      item1
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      item2
-    </li>
-  </ul>
-  <h6
-    className="text-danger"
-  >
-    <FormattedMessage
-      id="app.containers.HomePage.title"
-      values={Object {}}
-    />
-  </h6>
-</FloatingLabelInput__Wrapper>
+  </DefaultInput__Message>
+</div>
 `;
