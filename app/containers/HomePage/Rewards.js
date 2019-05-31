@@ -63,31 +63,6 @@ const Box = Section.extend`
     padding-top: 50px;
     padding-bottom: 55px;
   }
-
-  //  form {
-  //    display: flex;
-  //    width: 100%;
-  //
-  //    > div:nth-child(1) {
-  //      flex: 2;
-  //      margin-right: 10px;
-  //    }
-  //
-  //    > div:nth-child(2) {
-  //      flex: 1;
-  //    }
-  //  }
-
-  @media only screen and (max-width: 560px) {
-    //    form {
-    //      flex-direction: column;
-    //
-    //      > div:nth-child(1) {
-    //        flex: 1;
-    //        margin-right: 0;
-    //      }
-    //    }
-  }
 `;
 
 Rewards.propTypes = {

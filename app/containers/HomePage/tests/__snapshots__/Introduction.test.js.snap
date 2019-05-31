@@ -29,7 +29,9 @@ exports[`Introduction test 1`] = `
       />
     </div>
   </div>
-  <Connect(Header) />
+  <Connect(Header)
+    translations={Object {}}
+  />
   <Introduction__Wrapper
     className="container"
   >
@@ -69,13 +71,14 @@ exports[`Introduction test 1`] = `
           <div
             className="col-12 col-md-8 col-xl-5 bottom-level mx-auto"
           >
-            <ReduxForm
+            <Connect(ReduxForm)
               button={
                 Object {
                   "id": "app.containers.HomePage.getStarted",
                 }
               }
               form="INTRODUCTION"
+              translations={Object {}}
             />
           </div>
         </div>

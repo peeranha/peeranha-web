@@ -85,14 +85,14 @@ const Box = Gradient.extend`
 
 const Year = new Date().getFullYear();
 
-const MediaLink = ({ href, src }) =>
+const MediaLink = /* istanbul ignore next */ ({ href, src }) =>
   href ? (
     <a href={href} target="_blank">
       <Icon icon={src} hover={TEXT_PRIMARY} />
     </a>
   ) : null;
 
-const Footer = ({ locale }) => (
+const Footer = /* istanbul ignore next */ ({ locale }) => (
   <Box position="bottom">
     <div className="container">
       <div className="row justify-content-between align-items-center">

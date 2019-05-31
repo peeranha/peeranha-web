@@ -46,7 +46,7 @@ export class Header extends React.PureComponent {
     isToggled: false,
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = /* istanbul ignore next */ prevProps => {
     if (prevProps.location !== this.props.location) {
       this.setState({ isToggled: false });
     }
@@ -56,7 +56,7 @@ export class Header extends React.PureComponent {
     this.setState({ isToggled: !this.state.isToggled });
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       showHeaderPopupDispatch,
       closeHeaderPopupDispatch,
@@ -299,7 +299,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: #17234a !important;
-    height: ${x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${/* istanbul ignore next */ x => (x.isToggled ? `100vh` : `auto`)};
 
     > div {
       .logo img {
@@ -335,7 +335,7 @@ const Box = styled.div`
       }
     }
 
-    ${x =>
+    ${/* istanbul ignore next */ x =>
       x.isToggled
         ? `
       .navbar {

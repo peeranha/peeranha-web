@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LanguageProvider /> should render its children 1`] = `
+<IntlProvider
+  locale="en"
+>
+  <div>
+    Children
+  </div>
+</IntlProvider>
+`;

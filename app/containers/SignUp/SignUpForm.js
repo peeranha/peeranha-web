@@ -71,10 +71,12 @@ let FormClone = reduxForm({
   form: 'SignUpForm',
 })(SignUpForm);
 
-FormClone = connect(state => ({
-  initialValues: {
-    [EOS_ACC]: state.get('account').get('account'),
-  },
-}))(FormClone);
+FormClone = connect(
+  /* istanbul ignore next */ state => ({
+    initialValues: {
+      [EOS_ACC]: state.get('account').get('account'),
+    },
+  }),
+)(FormClone);
 
 export default FormClone;

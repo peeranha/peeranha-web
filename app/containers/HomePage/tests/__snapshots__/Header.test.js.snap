@@ -38,7 +38,7 @@ exports[`Header test 1`] = `
               values={Object {}}
             />
           </p>
-          <ReduxForm
+          <Connect(ReduxForm)
             button={
               Object {
                 "id": "app.containers.HomePage.getReward",

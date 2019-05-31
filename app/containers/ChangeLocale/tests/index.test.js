@@ -24,32 +24,6 @@ describe('ChangeLocale', () => {
     expect(cmp.mapLanguages(langs)).toMatchSnapshot();
   });
 
-  describe('componentDidMount', () => {
-    let locale = 'en';
-
-    it('localstorage not null', () => {
-      localStorage.setItem('locale', locale);
-
-      cmp.componentDidMount();
-      expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
-    });
-
-    it('localstorage is null', () => {
-      const languages = ['en'];
-
-      window.navigator = {
-        languages,
-      };
-
-      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
-
-      localStorage.setItem('locale', '');
-
-      cmp.componentDidMount();
-      expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
-    });
-  });
-
   it('changeLocale', () => {
     const locale = 'en';
     event.currentTarget.dataset.locale = locale;

@@ -57,11 +57,13 @@ EmailLandingForm.propTypes = {
 
 const FormClone = reduxForm({})(EmailLandingForm);
 
-export default connect(() => ({
-  initialValues: {
-    [REFCODE_FIELD]: getValueFromSearchString(
-      window.location.search,
-      'refcode',
-    ),
-  },
-}))(FormClone);
+export default connect(
+  /* istanbul ignore next */ () => ({
+    initialValues: {
+      [REFCODE_FIELD]: getValueFromSearchString(
+        window.location.search,
+        'refcode',
+      ),
+    },
+  }),
+)(FormClone);

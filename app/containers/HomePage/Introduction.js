@@ -104,20 +104,6 @@ const Box = styled.div`
     padding-bottom: 58px;
   }
 
-//  form {
-//    display: flex;
-//    width: 100%;
-//
-//    > div:nth-child(1) {
-//      flex: 2;
-//      margin-right: 10px;
-//    }
-//
-//    > div:nth-child(2) {
-//      flex: 1;
-//    }
-  }
-
   .icon-down {
     padding-top: 95px;
   }
@@ -138,15 +124,6 @@ const Box = styled.div`
       padding-top: 20px;
       padding-bottom: 30px;
     }
-
-//    form {
-//      flex-direction: column;
-//
-//      > div:nth-child(1) {
-//        flex: 1;
-//        margin-right: 0;
-//      }
-//    }
   }
 
   @media only screen and (max-width: 400px) {
