@@ -17,69 +17,6 @@ import { translationMessages } from 'i18n';
 import { changeLocale } from 'containers/LanguageProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-const Box = styled.span`
-  button {
-    cursor: pointer;
-    outline: none;
-
-    .locale {
-      color: #282828;
-      font-size: 16px;
-      padding: 0 5px;
-      letter-spacing: -0.6px;
-      text-transform: uppercase;
-      vertical-align: 1px;
-    }
-
-    .caret {
-      color: #a6a6a6;
-      font-size: 12px;
-      display: inline-block;
-      transition: 0.5s;
-      transform: rotate(180deg);
-      vertical-align: 2px;
-    }
-
-    :hover .locale {
-      color: #5c78d7;
-    }
-  }
-
-  button[aria-expanded='true'] .caret {
-    transform: rotate(180deg);
-  }
-
-  button[aria-expanded='false'] .caret {
-    transform: rotate(0deg);
-  }
-
-  ul {
-    box-shadow: -2px 2px 5px #b9b9b9;
-  }
-
-  li {
-    font-family: ${LANDING_FONT};
-    padding: 5px 20px !important;
-    text-transform: uppercase;
-
-    :hover {
-      cursor: pointer;
-      background: rgba(229, 229, 229, 0.5);
-    }
-  }
-
-  li[data-isbold='true'] {
-    font-weight: bold;
-  }
-`;
-
-const Flag = styled.img`
-  margin-right: 5px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-`;
-
 /* eslint global-require: 1 */
 /* eslint-disable react/prefer-stateless-function */
 export class ChangeLocale extends React.PureComponent {
@@ -90,16 +27,6 @@ export class ChangeLocale extends React.PureComponent {
   /* eslint react/no-did-mount-set-state: 0 prefer-destructuring: 0  */
   componentDidMount() {
     const languages = Object.keys(translationMessages);
-    let locale = localStorage.getItem('locale');
-
-    // if (!locale) - find the first suitable language in window.navigator.languages
-    if (!locale) {
-      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
-    }
-
-    if (locale) {
-      this.props.changeLocaleDispatch(locale);
-    }
 
     this.setState({ languages });
   }
@@ -176,3 +103,66 @@ const withConnect = connect(
 );
 
 export default compose(withConnect)(ChangeLocale);
+
+const Box = styled.span`
+  button {
+    cursor: pointer;
+    outline: none;
+
+    .locale {
+      color: #282828;
+      font-size: 16px;
+      padding: 0 5px;
+      letter-spacing: -0.6px;
+      text-transform: uppercase;
+      vertical-align: 1px;
+    }
+
+    .caret {
+      color: #a6a6a6;
+      font-size: 12px;
+      display: inline-block;
+      transition: 0.5s;
+      transform: rotate(180deg);
+      vertical-align: 2px;
+    }
+
+    :hover .locale {
+      color: #5c78d7;
+    }
+  }
+
+  button[aria-expanded='true'] .caret {
+    transform: rotate(180deg);
+  }
+
+  button[aria-expanded='false'] .caret {
+    transform: rotate(0deg);
+  }
+
+  ul {
+    box-shadow: -2px 2px 5px #b9b9b9;
+  }
+
+  li {
+    font-family: ${LANDING_FONT};
+    padding: 5px 20px !important;
+    text-transform: uppercase;
+
+    :hover {
+      cursor: pointer;
+      background: rgba(229, 229, 229, 0.5);
+    }
+  }
+
+  li[data-isbold='true'] {
+    font-weight: bold;
+  }
+`;
+
+const Flag = styled.img`
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+`;

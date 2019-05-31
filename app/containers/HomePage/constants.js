@@ -19,6 +19,7 @@ export const EMAIL_FIELD = 'containers_homepage_email';
 export const NAME_FIELD = 'containers_homepage_name';
 export const SUBJECT_FIELD = 'containers_homepage_subject';
 export const MESSAGE_FIELD = 'containers_homepage_message';
+export const REFCODE_FIELD = 'containers_REFCODE_FIELD';
 
 export const SEND_EMAIL = 'containers_homepage_SEND_EMAIL';
 export const SEND_EMAIL_SUCCESS = 'containers_homepage_SEND_EMAIL_SUCCESS';

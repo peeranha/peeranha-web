@@ -17,7 +17,12 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
+const Introduction = ({
+  sendEmailLoading,
+  sendEmail,
+  location,
+  translations,
+}) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -35,6 +40,7 @@ const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
       sendEmailLoading={sendEmailLoading}
       sendEmail={sendEmail}
       location={location}
+      translations={translations}
     />
 
     <Wrapper className="container">
@@ -59,6 +65,7 @@ const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
                 button={messages.getStarted}
                 sendEmailLoading={sendEmailLoading}
                 sendEmail={sendEmail}
+                translations={translations}
               />
             </div>
           </div>
@@ -97,18 +104,18 @@ const Box = styled.div`
     padding-bottom: 58px;
   }
 
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
+//  form {
+//    display: flex;
+//    width: 100%;
+//
+//    > div:nth-child(1) {
+//      flex: 2;
+//      margin-right: 10px;
+//    }
+//
+//    > div:nth-child(2) {
+//      flex: 1;
+//    }
   }
 
   .icon-down {
@@ -129,21 +136,21 @@ const Box = styled.div`
 
     .special-paragraph {
       padding-top: 20px;
-      padding-bottom: 40px;
+      padding-bottom: 30px;
     }
 
-    form {
-      flex-direction: column;
-
-      > div:nth-child(1) {
-        flex: 1;
-        margin-right: 0;
-      }
-    }
+//    form {
+//      flex-direction: column;
+//
+//      > div:nth-child(1) {
+//        flex: 1;
+//        margin-right: 0;
+//      }
+//    }
   }
 
   @media only screen and (max-width: 400px) {
-    font-size: 14px;
+    font-size: 13px;
   }
 `;
 
@@ -183,6 +190,7 @@ Introduction.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
   location: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default Introduction;

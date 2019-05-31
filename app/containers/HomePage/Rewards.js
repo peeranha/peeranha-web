@@ -10,7 +10,7 @@ import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 import Section from './Section';
 
-const Rewards = ({ sendEmailLoading, sendEmail }) => (
+const Rewards = ({ sendEmailLoading, sendEmail, translations }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -33,6 +33,7 @@ const Rewards = ({ sendEmailLoading, sendEmail }) => (
                 form={SEND_EMAIL_FORM_REWARDS}
                 button={messages.getReward}
                 sendEmailLoading={sendEmailLoading}
+                translations={translations}
                 sendEmail={sendEmail}
               />
             </div>
@@ -63,35 +64,36 @@ const Box = Section.extend`
     padding-bottom: 55px;
   }
 
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
-  }
+  //  form {
+  //    display: flex;
+  //    width: 100%;
+  //
+  //    > div:nth-child(1) {
+  //      flex: 2;
+  //      margin-right: 10px;
+  //    }
+  //
+  //    > div:nth-child(2) {
+  //      flex: 1;
+  //    }
+  //  }
 
   @media only screen and (max-width: 560px) {
-    form {
-      flex-direction: column;
-
-      > div:nth-child(1) {
-        flex: 1;
-        margin-right: 0;
-      }
-    }
+    //    form {
+    //      flex-direction: column;
+    //
+    //      > div:nth-child(1) {
+    //        flex: 1;
+    //        margin-right: 0;
+    //      }
+    //    }
   }
 `;
 
 Rewards.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
+  translations: PropTypes.object,
 };
 
 export default Rewards;

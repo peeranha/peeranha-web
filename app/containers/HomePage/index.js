@@ -41,6 +41,7 @@ import {
   NAME_FIELD,
   SUBJECT_FIELD,
   MESSAGE_FIELD,
+  REFCODE_FIELD,
 } from './constants';
 
 import { sendEmail, sendMessage } from './actions';
@@ -157,6 +158,7 @@ export class HomePage extends React.PureComponent {
     const { reset, form } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
+      refCode: args[0].get(REFCODE_FIELD),
     };
 
     const pageInfo = {

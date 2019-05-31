@@ -57,7 +57,13 @@ export class Header extends React.PureComponent {
   };
 
   render() {
-    const { showHeaderPopupDispatch, closeHeaderPopupDispatch } = this.props;
+    const {
+      showHeaderPopupDispatch,
+      closeHeaderPopupDispatch,
+      translations,
+      sendEmail,
+      sendEmailLoading,
+    } = this.props;
 
     const { isToggled } = this.state;
 
@@ -84,8 +90,9 @@ export class Header extends React.PureComponent {
                 <EmailLandingForm
                   form={SEND_EMAIL_FORM_HEADER}
                   button={messages.getReward}
-                  sendEmail={this.props.sendEmail}
-                  sendEmailLoading={this.props.sendEmailLoading}
+                  sendEmail={sendEmail}
+                  sendEmailLoading={sendEmailLoading}
+                  translations={translations}
                 />
               </div>
             </div>
@@ -375,6 +382,7 @@ Header.propTypes = {
   closeHeaderPopupDispatch: PropTypes.func,
   showPopup: PropTypes.bool,
   popupPosition: PropTypes.object,
+  translations: PropTypes.object,
   location: PropTypes.object,
 };
 
