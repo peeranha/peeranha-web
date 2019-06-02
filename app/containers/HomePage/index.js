@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import { selectLocation } from 'selectors';
+// import { selectLocation } from 'selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
@@ -239,7 +239,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
-  location: selectLocation(),
+  // location: selectLocation(),
 });
 
 export function mapDispatchToProps(dispatch) {
