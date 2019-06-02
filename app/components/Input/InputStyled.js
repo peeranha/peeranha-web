@@ -11,8 +11,6 @@ import {
 
 import styled from 'styled-components';
 
-import IconStyled from 'components/Icon/IconStyled';
-
 /* eslint indent: 0 */
 /* istanbul ignore next */
 const ErrorHandling = error => `
@@ -52,7 +50,7 @@ const InputStyled = styled.div`
   transition: 0.5s;
   flex: 1;
 
-  ${IconStyled} {
+  img {
     position: absolute;
     right: 14px;
     cursor: pointer;

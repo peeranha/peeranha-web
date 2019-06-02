@@ -5,7 +5,7 @@ exports[`Team test 1`] = `
   position="bottom"
 >
   <Section
-    id="fs5"
+    id="team"
   >
     <div
       className="container"
@@ -155,6 +155,27 @@ exports[`Team test 1`] = `
                   />
                 </p>
               </li>
+              <li
+                className="col-12 col-lg-6 teammate-card"
+              >
+                <img
+                  alt="olgaFyodorova"
+                  src="IMAGE_MOCK"
+                />
+                <p
+                  className="d-flex flex-column"
+                >
+                  <span
+                    className="name"
+                  />
+                  <span
+                    className="role"
+                  />
+                  <span
+                    className="description"
+                  />
+                </p>
+              </li>
             </ul>
           </div>
           <div
@@ -186,7 +207,7 @@ exports[`Team test 1`] = `
               />
               <a
                 className="icon-arrow-up d-none d-xl-flex"
-                href="#fs1"
+                href="#introduction"
               >
                 <img
                   alt="arrowUp"

@@ -4,7 +4,7 @@ import IconStyled from 'components/Icon/IconStyled';
 
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
-import notificationIcon from 'svg/notification';
+import notificationIcon from 'images/notification.svg?inline';
 
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
@@ -42,7 +42,7 @@ const MenuStyled = styled.div`
 
 const Button = /* istanbul ignore next */ () => (
   <ButtonStyled>
-    <Icon icon={notificationIcon} noMargin />
+    <img src={notificationIcon} alt="icon" />
   </ButtonStyled>
 );
 

@@ -6,7 +6,7 @@ import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
-import communitySuggestBanner from 'images/communitySuggest.svg';
+import communitySuggestBanner from 'images/communitySuggest.svg?inline';
 
 import messages from './messages';
 

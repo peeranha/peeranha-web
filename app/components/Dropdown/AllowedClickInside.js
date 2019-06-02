@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import arrowDownIcon from 'svg/arrowDown';
-import Icon from 'components/Icon';
+import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import Menu from './MenuStyled';
 
@@ -38,7 +37,7 @@ const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>
-          <Icon className="mx-3" icon={arrowDownIcon} />
+          <img className="mx-3" src={arrowDownIcon} alt="icon" />
         </Chevron>
       )}
     </TargetButton>

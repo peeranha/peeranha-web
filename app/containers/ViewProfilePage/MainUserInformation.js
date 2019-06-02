@@ -9,10 +9,10 @@ import { getFormattedDate } from 'utils/datetime';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import questionRoundedIcon from 'svg/question2';
-import answerIcon from 'svg/answer';
-import pencilIcon from 'svg/pencil';
-import risenIcon from 'svg/risen';
+import questionRoundedIcon from 'images/question2.svg?inline';
+import answerIcon from 'images/answer.svg?inline';
+import pencilIcon from 'images/pencil.svg?inline';
+import risenIcon from 'images/risen.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
@@ -22,7 +22,6 @@ import RatingStatus from 'components/RatingStatus';
 import H3 from 'components/H3';
 import A from 'components/A';
 import NavigationButton from 'components/Button/Contained/Navigation';
-import Icon from 'components/Icon';
 
 import LargeImage from 'components/Img/LargeImage';
 
@@ -67,7 +66,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
 
           <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
             <NavigationButton isLink>
-              <Icon className="mr-2" icon={pencilIcon} />
+              <img className="mr-2" src={pencilIcon} alt="icon" />
               <FormattedMessage {...commonMessages.edit} />
             </NavigationButton>
           </A>
@@ -92,10 +91,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
                 margin="sm"
                 bold
               >
-                <Icon
-                  icon={questionRoundedIcon}
-                  className="d-flex align-items-center mr-1"
-                />
+                <img src={questionRoundedIcon} className="mr-1" alt="icon" />
                 <span>{profile.questions_asked || 0}</span>
               </Span>
             </LiStyled>
@@ -110,10 +106,7 @@ const MainUserInformation = /* istanbul ignore next */ ({
                 margin="sm"
                 bold
               >
-                <Icon
-                  icon={answerIcon}
-                  className="d-flex align-items-center mr-1"
-                />
+                <img src={answerIcon} className="mr-1" alt="icon" />
                 <span>{profile.answers_given || 0}</span>
               </Span>
             </LiStyled>
@@ -128,9 +121,10 @@ const MainUserInformation = /* istanbul ignore next */ ({
                 margin="sm"
                 bold
               >
-                <Icon
-                  icon={risenIcon}
+                <img
+                  src={risenIcon}
                   className="d-flex align-items-center mr-1"
+                  alt="icon"
                 />
                 <span>{profile.correct_answers || 0}</span>
               </Span>

@@ -5,10 +5,9 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import allCommunitiesIcon from 'svg/createCommunity';
+import allCommunitiesIcon from 'images/createCommunity.svg?inline';
 
 import Img from 'components/Img';
-import Icon from 'components/Icon';
 import Span from 'components/Span';
 import P from 'components/P';
 import A from 'components/A';
@@ -53,7 +52,7 @@ const Aside = /* istanbul ignore next */ ({ communities }) => (
         to={routes.suggestedCommunities()}
         href={routes.suggestedCommunities()}
       >
-        <Icon className="mr-2" icon={allCommunitiesIcon} />
+        <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
         <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.allCommunities} />
         </Span>

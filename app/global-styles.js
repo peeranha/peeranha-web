@@ -19,6 +19,7 @@ injectGlobal`
   button, a {
     cursor: pointer;
     outline: none !important;
+    text-decoration: none !important;
   }
 
   #app {

@@ -19,17 +19,13 @@ exports[` 1`] = `
         }
       >
         <Span
+          className="d-flex align-items-center"
           color="#576fed"
         >
-          <UNDEFINED
-            icon="
-  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
-    <g fill=\\"none\\" fill-rule=\\"nonzero\\">
-        <path fill=\\"#7699FF\\" fill-opacity=\\".2\\" stroke=\\"#576FED\\" d=\\"M1.52 10.949a.5.5 0 0 0 .527.536l2.675-.155a.5.5 0 0 0 .327-.147l6.22-6.29a.5.5 0 0 0-.002-.704L8.821 1.737l-.001-.001a.5.5 0 0 0-.707 0l-6.25 6.266a.5.5 0 0 0-.145.315l-.199 2.632z\\"/>
-        <path stroke=\\"none\\" fill=\\"#576FED\\" d=\\"M6.707 3l3.536 3.535-.707.707L6 3.707z\\"/>
-    </g>
-  </svg>
-"
+          <img
+            alt="icon"
+            className="mr-1"
+            src="IMAGE_MOCK"
           />
           <FormattedMessage
             id="app.containers.ViewQuestion.editButton"
@@ -47,18 +43,13 @@ exports[` 1`] = `
         }
       >
         <Span
+          className="d-flex align-items-center"
           color="#576fed"
         >
-          <UNDEFINED
-            icon="
-  <svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
-    <g fill=\\"none\\" fill-rule=\\"nonzero\\">
-        <path fill=\\"#7699FF\\" fill-opacity=\\".2\\" stroke=\\"#576FED\\" d=\\"M2.5 3.5V9A2.5 2.5 0 0 0 5 11.5h3A2.5 2.5 0 0 0 10.5 9V3.5h-8z\\" opacity=\\".9\\"/>
-        <path stroke=\\"none\\" fill=\\"#576FED\\" d=\\"M1 3h11v1H1z\\"/>
-        <path stroke=\\"#576FED\\" d=\\"M4.5 3.5h4V3A1.5 1.5 0 0 0 7 1.5H6A1.5 1.5 0 0 0 4.5 3v.5z\\"/>
-    </g>
-  </svg>
-"
+          <img
+            alt="icon"
+            className="mr-1"
+            src="IMAGE_MOCK"
           />
           <FormattedMessage
             id="app.containers.ViewQuestion.deleteButton"
@@ -76,19 +67,20 @@ exports[` 1`] = `
         }
         show={true}
       >
-        <UNDEFINED
-          icon="
-  <svg id=\\"1d5002e0-1a1b-49c4-bd9f-7fdbfd814526\\" data-name=\\"Layer 1\\" xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"13\\" height=\\"13\\" viewBox=\\"0 0 13 13\\">
-    <title>ico-block_13</title>
-    <circle cx=\\"6.5\\" cy=\\"6.5\\" r=\\"5\\" fill-opacity=\\"0.2\\" />
-    <rect x=\\"1.5\\" y=\\"6\\" width=\\"10\\" height=\\"1.4\\" transform=\\"translate(-2.69 6.5) rotate(-45)\\" stroke=\\"none\\"  />
-  </svg>
-"
-        />
-        <FormattedMessage
-          id="app.containers.ViewQuestion.voteToDelete"
-          values={Object {}}
-        />
+        <Span
+          className="d-flex align-items-center"
+          color="#576fed"
+        >
+          <img
+            alt="icon"
+            className="mr-1"
+            src="IMAGE_MOCK"
+          />
+          <FormattedMessage
+            id="app.containers.ViewQuestion.voteToDelete"
+            values={Object {}}
+          />
+        </Span>
       </BlockButton>
     </Comments__CommentManage>
   </div>

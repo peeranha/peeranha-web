@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
-import closeIcon from 'images/closeCircle.svg';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';

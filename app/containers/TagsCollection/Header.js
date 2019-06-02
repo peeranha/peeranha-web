@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import messages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
-import suggestTagIcon from 'images/tagsHeaderIcon.svg';
-import iconTagIcon from 'images/icoTag.svg';
+import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
+import iconTagIcon from 'images/icoTag.svg?inline';
 
 import BaseRounded from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -15,7 +15,7 @@ import Span from 'components/Span';
 
 const Header = /* istanbul ignore next */ ({ openTagForm }) => (
   <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
-    <H3 className="d-flex align-items-end">
+    <H3 className="d-flex align-items-center">
       <MediumImageStyled src={suggestTagIcon} alt="suggestTagIcon" />
       <FormattedMessage {...messages.tags} />
     </H3>

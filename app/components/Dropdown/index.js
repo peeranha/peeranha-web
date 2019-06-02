@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import arrowDownIcon from 'svg/arrowDown';
-import Icon from 'components/Icon';
+import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
@@ -18,7 +17,7 @@ export const Dropdown = /* istanbul ignore next */ ({
   <DropdownStyled className={`dropdown show ${className}`}>
     <button
       id={id}
-      className="d-flex align-items-center p-0"
+      className="d-flex align-items-center w-100 p-0"
       type="button"
       data-toggle="dropdown"
       aria-haspopup="true"
@@ -28,7 +27,7 @@ export const Dropdown = /* istanbul ignore next */ ({
 
       {isArrowed && (
         <ArrowIcon className="d-none d-md-flex" data-icon="arrow">
-          <Icon icon={arrowDownIcon} noMargin />
+          <img src={arrowDownIcon} alt="icon" />
         </ArrowIcon>
       )}
     </button>

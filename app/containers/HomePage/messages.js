@@ -253,6 +253,16 @@ export default defineMessages({
     id: 'app.containers.HomePage.romRemDescription',
   },
 
+  olgaFyodorova: {
+    id: 'app.containers.HomePage.olgaFyodorova',
+  },
+  olgaFyodorovaRole: {
+    id: 'app.containers.HomePage.olgaFyodorovaRole',
+  },
+  olgaFyodorovaDescription: {
+    id: 'app.containers.HomePage.olgaFyodorovaDescription',
+  },
+
   ulyanaPopova: {
     id: 'app.containers.HomePage.ulyanaPopova',
   },

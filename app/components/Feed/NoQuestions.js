@@ -5,7 +5,7 @@ import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 
-import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg';
+import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg?inline';
 
 import messages from 'containers/Questions/messages';
 

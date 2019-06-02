@@ -6,8 +6,8 @@ import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import myFeedIcon from 'images/myFeed.svg';
-import closeIcon from 'images/closeCircle.svg';
+import myFeedIcon from 'images/myFeedHeader.svg?inline';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import BaseRounded from 'components/Base/BaseRounded';

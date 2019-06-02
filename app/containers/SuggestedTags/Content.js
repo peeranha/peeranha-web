@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import arrowDownIcon from 'svg/arrowDown';
+import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import { Tag } from 'components/TagsList';
 import P from 'components/P';
-import Icon from 'components/Icon';
 import InfinityLoader from 'components/InfinityLoader';
 import BlockShadow from 'components/BlockShadow';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -60,7 +59,7 @@ const Item = /* istanbul ignore next */ x => {
         <P className="mb-2" bold>
           <button onClick={() => changeView(!isOpened)}>
             <FormattedMessage {...messages.tagDescription} />
-            <Icon className="ml-2" icon={arrowDownIcon} noMargin />
+            <img className="ml-2" src={arrowDownIcon} alt="icon" />
           </button>
         </P>
 

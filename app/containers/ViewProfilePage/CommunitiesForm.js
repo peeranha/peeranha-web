@@ -10,11 +10,10 @@ import * as routes from 'routes-config';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import A from 'components/A';
-import Icon from 'components/Icon';
 import H4 from 'components/H4';
 import Img from 'components/Img';
 
-import arrowRightIcon from 'svg/arrowRight';
+import arrowRightIcon from 'images/arrowRight.svg?inline';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 import { getFormattedNum2 } from 'utils/numbers';
@@ -81,7 +80,7 @@ const CommunitiesForm = /* istanbul ignore next */ ({
           <div className="col-xl-3 d-flex justify-content-center align-items-center mb-2">
             <A to={communitiesRoute} href={communitiesRoute}>
               <Span color={TEXT_PRIMARY} fontSize="16">
-                <Icon icon={arrowRightIcon} />
+                <img className="mr-2" src={arrowRightIcon} alt="icon" />
                 <FormattedMessage {...messages.subscribeMore} />
               </Span>
             </A>

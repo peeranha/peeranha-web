@@ -1,5 +1,5 @@
-import successIcon from 'images/Ok.svg';
-import errorIcon from 'images/Error.svg';
+import successIcon from 'images/Ok.svg?inline';
+import errorIcon from 'images/Error.svg?inline';
 
 const toastTypes = {
   success: {

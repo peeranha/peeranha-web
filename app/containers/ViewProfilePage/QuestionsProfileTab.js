@@ -21,12 +21,11 @@ import {
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import A from 'components/A';
 
-import questionRoundedIcon from 'svg/question2';
-import answerIcon from 'svg/answer';
-import bestAnswerIcon from 'svg/bestAnswer';
+import questionRoundedIcon from 'images/question2.svg?inline';
+import answerIcon from 'images/answer.svg?inline';
+import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import NoActivity from './NoActivity';
 
@@ -54,21 +53,14 @@ const PostTypeIcon = /* istanbul ignore next */ ({
   isMyAnswerAccepted,
 }) => {
   if (postType === POST_TYPE_QUESTION) {
-    return (
-      <Icon
-        icon={questionRoundedIcon}
-        className="d-flex align-items-center mr-0"
-      />
-    );
+    return <img src={questionRoundedIcon} className="mr-0" alt="icon" />;
   }
 
   if (isMyAnswerAccepted) {
-    return (
-      <Icon icon={bestAnswerIcon} className="d-flex align-items-center mr-0" />
-    );
+    return <img src={bestAnswerIcon} className="mr-0" alt="icon" />;
   }
 
-  return <Icon icon={answerIcon} className="d-flex align-items-center mr-0" />;
+  return <img src={answerIcon} className="mr-0" alt="icon" />;
 };
 
 const Note = /* istanbul ignore next */ ({

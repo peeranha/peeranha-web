@@ -1,75 +1,72 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
+import styled from 'styled-components';
 
-import { LANDING_FONT } from 'style-constants';
+import { LANDING_FONT, BG_SECONDARY_LIGHT } from 'style-constants';
 
-import messages from './messages';
-import { Wrapper } from './FloatingLabelInput';
+import WarningMessage from 'components/FormFields/WarningMessage';
+import Dropdown from 'components/Dropdown';
 
-const Box = Wrapper.extend`
-  ul {
-    box-shadow: 0 0 10px #e6e6e6;
-    margin-top: 10px;
+import { Message } from './DefaultInput';
+import { Box, Input, Label } from './FloatingLabelInput';
 
-    li {
-      font-size: 14px;
-      font-family: ${LANDING_FONT};
-      color: #282828;
-      padding: 10px 21px;
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-      :hover {
-        cursor: pointer;
-        background: #e6e6e6;
-      }
+const Ul = styled.ul`
+  font-size: 14px;
+  font-family: ${LANDING_FONT};
+
+  li {
+    padding: 6px 15px;
+    cursor: pointer;
+
+    :hover {
+      background: ${BG_SECONDARY_LIGHT};
     }
   }
-`;
+`.withComponent('ul');
 
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
 const SelectItem = /* istanbul ignore next */ ({
   input,
   change,
-  items,
   label,
   disabled,
-  meta: { touched, error, warning },
+  meta,
+  items,
 }) => (
-  <Box className="floating-label-input-wrapper select-item">
-    <div
-      id={input.name}
-      role="button"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <TextField
-        {...input}
-        className="floating-label-input"
-        label={label}
-        disabled={disabled}
-        error={!!(touched && (warning || error))}
-        onChange={null}
-      />
-    </div>
-    <ul className="dropdown-menu" aria-labelledby={input.name}>
-      <li key={messages.none.id} onClick={() => change([input.name], '')}>
-        <FormattedMessage {...messages.none} />
-      </li>
-      {items.map(item => (
-        <li key={item} onClick={() => change([input.name], item)}>
-          {item}
-        </li>
-      ))}
-    </ul>
-    <h6 className="text-danger">
-      {touched &&
-        ((error && <FormattedMessage {...error} />) ||
-          (warning && <FormattedMessage {...warning} />))}
-    </h6>
-  </Box>
+  <div className="mb-4">
+    <Dropdown
+      button={
+        <Box>
+          <Input
+            {...input}
+            type="text"
+            onChange={null}
+            disabled={disabled}
+            error={meta.touched && (meta.error || meta.warning)}
+          />
+
+          <Label>{label}</Label>
+        </Box>
+      }
+      menu={
+        <Ul>
+          <li onClick={() => change([input.name], '')}>None</li>
+
+          {items.map(x => (
+            <li onClick={() => change([input.name], x)} key={x}>
+              {x}
+            </li>
+          ))}
+        </Ul>
+      }
+    />
+
+    <Message className="my-1">
+      <WarningMessage {...meta} />
+    </Message>
+  </div>
 );
 
 SelectItem.propTypes = {

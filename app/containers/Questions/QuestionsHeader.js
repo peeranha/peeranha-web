@@ -12,8 +12,8 @@ import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 
-import allquestionsIcon from 'images/allquestions-header.svg';
-import myFeedIcon from 'images/myFeed.svg';
+import allquestionsIcon from 'images/allquestions-header.svg?inline';
+import myFeedIcon from 'images/myFeedHeader.svg?inline';
 
 const feed = routes.feed();
 

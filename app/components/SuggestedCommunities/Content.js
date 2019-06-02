@@ -4,12 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { BORDER_SECONDARY } from 'style-constants';
 import _ from 'lodash';
 
-import arrowDownIcon from 'svg/arrowDown';
+import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import P from 'components/P';
 import Base from 'components/Base/BaseRounded';
-import Icon from 'components/Icon';
-import IconStyled from 'components/Icon/IconStyled';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import InfinityLoader from 'components/InfinityLoader';
@@ -38,7 +36,7 @@ const Description = BaseTransparent.extend`
     max-height: ${x => (!x.isOpened ? '100px' : 'auto')};
   }
 
-  ${IconStyled} {
+  img {
     transition: 0.5s;
     transform: rotate(${x => (x.isOpened ? '180deg' : '0deg')});
   }
@@ -88,7 +86,7 @@ const Item = /* istanbul ignore next */ x => {
         <P className="mb-2" bold>
           <button onClick={() => changeView(!isOpened)}>
             <FormattedMessage {...messages.whyWeeNeedIt} />
-            <Icon className="ml-2" icon={arrowDownIcon} noMargin />
+            <img className="ml-2" src={arrowDownIcon} alt="icon" />
           </button>
         </P>
 

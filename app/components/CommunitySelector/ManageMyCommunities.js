@@ -3,10 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import arrowRightIcon from 'svg/arrowRight';
+import arrowRightIcon from 'images/arrowRight.svg?inline';
 
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import A from 'components/A';
 
 import messages from 'common-messages';
@@ -20,7 +19,7 @@ const Box = BoxStyled.extend`
 const ManageMyCommunities = /* istanbul ignore next */ () => (
   <Box to={routes.communities()} href={routes.communities()}>
     <Span color={TEXT_PRIMARY}>
-      <Icon icon={arrowRightIcon} />
+      <img className="mr-2" src={arrowRightIcon} alt="icon" />
       <FormattedMessage {...messages.manageMyComm} />
     </Span>
   </Box>

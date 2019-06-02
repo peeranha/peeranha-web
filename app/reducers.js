@@ -41,7 +41,7 @@ import usersReducer from 'containers/Users/reducer';
  */
 
 // Initial routing state
-const routeInitialState = fromJS({
+export const routeInitialState = fromJS({
   location: null,
 });
 

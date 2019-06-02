@@ -1,7 +1,0 @@
-const legendaryResidentLg = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="16" viewBox="0 0 19 16">
-      <path fill="#FFECCC" fill-rule="nonzero" stroke="#FF8500" d="M2.176 15.5h14.648l1.501-13.908-4.543 5.455L9.5.877l-4.282 6.17L.675 1.592 2.176 15.5z"/>
-  </svg>
-`;
-
-export default legendaryResidentLg;

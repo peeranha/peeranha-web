@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
-import dotsIcon from 'images/dots.svg';
+import dotsIcon from 'images/dots.svg?inline';
 import arrowDownOutlined from 'images/arrowDownOutlined.png';
 
 import Span from 'components/Span';

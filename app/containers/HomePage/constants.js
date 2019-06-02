@@ -3,11 +3,11 @@ export const LANDING_ID = 'landing-id';
 export const ANIMATE_IMAGE = 'about-page-image';
 export const ANIMATE_TEXT = 'about-page-text-animation';
 
-export const FIRST_SCREEN = 'fs1';
-export const SECOND_SCREEN = 'fs2';
-export const THIRD_SCREEN = 'fs3';
-export const FOURTH_SCREEN = 'fs4';
-export const FIFTH_SCREEN = 'fs5';
+export const FIRST_SCREEN = 'introduction';
+export const SECOND_SCREEN = 'about';
+export const THIRD_SCREEN = 'rewards';
+export const FOURTH_SCREEN = 'faq';
+export const FIFTH_SCREEN = 'team';
 
 export const SEND_EMAIL_FORM_HEADER = 'HEADER';
 export const SEND_EMAIL_FORM_INTRODUCTION = 'INTRODUCTION';

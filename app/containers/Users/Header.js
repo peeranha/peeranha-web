@@ -7,8 +7,8 @@ import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
 
-import usersHeaderFilter from 'images/communitiesHeaderFilter.svg';
-import usersHeader from 'images/usersHeader.svg';
+import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
+import usersHeader from 'images/usersHeader.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -56,7 +56,7 @@ export const Header = /* istanbul ignore next */ ({
   userCount,
 }) => (
   <Base>
-    <H3Styled className="d-flex align-items-end justify-content-between">
+    <H3Styled className="d-flex align-items-center justify-content-between">
       <div className="d-flex align-items-center">
         <MediumImageStyled src={usersHeader} alt="usersHeader" />
         <FormattedMessage {...commonMessages.users} />

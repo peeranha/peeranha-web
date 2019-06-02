@@ -3,150 +3,18 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import { TEXT_DARK, TEXT_PRIMARY, TEXT_WARNING_LIGHT } from 'style-constants';
+
 import * as routes from 'routes-config';
 
 import plus from 'images/Plus.png';
 import minus from 'images/Minus.png';
-import arrRight from 'images/arrRight.svg';
+import arrRight from 'images/arrRight.svg?inline';
 
 import { FOURTH_SCREEN } from './constants';
 import messages from './messages';
 
 import Section from './Section';
-
-const Box = Section.extend`
-  .card {
-    border: none;
-
-    .card-header {
-      background: transparent;
-      padding-left: 0;
-      padding-right: 0;
-
-      button {
-        display: flex;
-        align-items: center;
-        text-align: left;
-        outline: none;
-        color: #282828;
-        line-height: 1.33;
-        padding: 10px 0;
-        cursor: pointer;
-
-        .icon {
-          background-size: cover;
-          min-width: 30px;
-          width: 30px;
-          height: 30px;
-          margin: 3px 15px 0 0;
-          display: inline-block;
-          transition: 0.5s;
-        }
-      }
-
-      a {
-        text-decoration: none !important;
-      }
-
-      button[aria-expanded='true'] .icon.icon-collapse {
-        background: url(${minus}) no-repeat;
-      }
-
-      button.get-more-answers {
-        .icon {
-          transition: 0.5s;
-          height: 15px !important;
-          width: 15px !important;
-        }
-
-        :hover {
-          color: #f76e5f;
-          .icon {
-            transform: translate(10px, 0px);
-          }
-        }
-      }
-
-      button[aria-expanded='false'] {
-        .icon.icon-collapse {
-          background: url(${plus}) no-repeat;
-        }
-
-        :hover {
-          color: #5c78d7;
-          .icon {
-            transform: rotate(90deg);
-          }
-        }
-      }
-    }
-
-    .card-body {
-      padding-left: 3rem;
-      font-size: 16px;
-    }
-  }
-
-  .card.get-more-answers .card-header {
-    border: none;
-    button {
-      color: #fa8072 !important;
-    }
-  }
-
-  @media only screen and (max-width: 992px) {
-    .card h3 {
-      font-size: 2.5em;
-    }
-  }
-`;
-
-const QuestionsData = [
-  {
-    header: 'whatIsPeerania',
-    body: 'whatIsPeeraniaCollapsed',
-  },
-  {
-    header: 'differentFromOtherSites',
-    body: 'differentFromOtherSitesCollapsed',
-  },
-  {
-    header: 'howItWorks',
-    body: 'howItWorksCollapsed',
-  },
-  {
-    header: 'tokensReward',
-    body: 'tokensRewardCollapsed',
-  },
-  {
-    header: 'valueOfToken',
-    body: 'valueOfTokenCollapsed',
-  },
-  {
-    header: 'websiteLive',
-    body: 'websiteLiveCollapsed',
-  },
-  {
-    header: 'whatBlockchain',
-    body: 'whatBlockchainCollapsed',
-  },
-  {
-    header: 'whatIsCryptocurrency',
-    body: 'whatIsCryptocurrencyCollapsed',
-  },
-  {
-    header: 'howEarn',
-    body: 'howEarnCollapsed',
-  },
-  {
-    header: 'whitePaper',
-    body: 'whitePaperCollapsed',
-  },
-  {
-    header: 'learnMore',
-    body: 'learnMoreCollapsed',
-  },
-];
 
 export const Question = ({ header, body }) => (
   <div className="card">
@@ -212,6 +80,141 @@ const FaqMain = ({ questionsNumber }) => (
     </div>
   </Box>
 );
+
+const Box = Section.extend`
+  .card {
+    border: none;
+
+    .card-header {
+      background: transparent;
+      padding-left: 0;
+      padding-right: 0;
+
+      button {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        outline: none;
+        color: ${TEXT_DARK};
+        line-height: 1.33;
+        padding: 10px 0;
+        cursor: pointer;
+
+        .icon {
+          background-size: cover;
+          min-width: 30px;
+          width: 30px;
+          height: 30px;
+          margin: 3px 15px 0 0;
+          display: inline-block;
+          transition: 0.5s;
+        }
+      }
+
+      a {
+        text-decoration: none !important;
+      }
+
+      button[aria-expanded='true'] .icon.icon-collapse {
+        background: url(${minus}) no-repeat;
+      }
+
+      button.get-more-answers {
+        .icon {
+          transition: 0.5s;
+          height: 15px !important;
+          width: 15px !important;
+        }
+
+        :hover {
+          color: #f76e5f;
+          .icon {
+            transform: translate(10px, 0px);
+          }
+        }
+      }
+
+      button[aria-expanded='false'] {
+        .icon.icon-collapse {
+          background: url(${plus}) no-repeat;
+        }
+
+        :hover {
+          color: ${TEXT_PRIMARY};
+          .icon {
+            transform: rotate(90deg);
+          }
+        }
+      }
+    }
+
+    .card-body {
+      padding-left: 3rem;
+      font-size: 16px;
+      line-height: 1.63;
+    }
+  }
+
+  .card.get-more-answers .card-header {
+    border: none;
+    button {
+      color: ${TEXT_WARNING_LIGHT} !important;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .card h3 {
+      font-size: 2.5em;
+    }
+  }
+`;
+
+const QuestionsData = [
+  {
+    header: 'whatIsPeerania',
+    body: 'whatIsPeeraniaCollapsed',
+  },
+  {
+    header: 'differentFromOtherSites',
+    body: 'differentFromOtherSitesCollapsed',
+  },
+  {
+    header: 'howItWorks',
+    body: 'howItWorksCollapsed',
+  },
+  {
+    header: 'tokensReward',
+    body: 'tokensRewardCollapsed',
+  },
+  {
+    header: 'valueOfToken',
+    body: 'valueOfTokenCollapsed',
+  },
+  {
+    header: 'websiteLive',
+    body: 'websiteLiveCollapsed',
+  },
+  {
+    header: 'whatBlockchain',
+    body: 'whatBlockchainCollapsed',
+  },
+  {
+    header: 'whatIsCryptocurrency',
+    body: 'whatIsCryptocurrencyCollapsed',
+  },
+  {
+    header: 'howEarn',
+    body: 'howEarnCollapsed',
+  },
+  {
+    header: 'whitePaper',
+    body: 'whitePaperCollapsed',
+  },
+  {
+    header: 'learnMore',
+    body: 'learnMoreCollapsed',
+  },
+];
 
 FaqMain.propTypes = {
   questionsNumber: PropTypes.number,

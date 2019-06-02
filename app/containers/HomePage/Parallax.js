@@ -1,5 +1,5 @@
 import bg from 'images/BG_main.jpg';
-import animatedBG1 from 'images/QA_01-01.svg';
+import animatedBG1 from 'images/QA_01-01.svg?inline';
 import animatedBG2 from 'images/QA_02-01.png';
 
 import Section from './Section';

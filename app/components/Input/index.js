@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import seacrhIcon from 'svg/search';
-import Icon from 'components/Icon';
+import seacrhIcon from 'images/search.svg?inline';
 
 import InputStyled from './InputStyled';
+
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
 class Input extends React.PureComponent {
   state = {
@@ -42,10 +44,10 @@ class Input extends React.PureComponent {
           disabled={disabled}
         />
 
-        {isSearchable && <Icon icon={seacrhIcon} noMargin />}
+        {isSearchable && <img src={seacrhIcon} alt="icon" />}
 
         {type === 'password' && (
-          <Icon onClick={this.changeType} icon={seacrhIcon} noMargin />
+          <img onClick={this.changeType} src={seacrhIcon} alt="icon" />
         )}
       </InputStyled>
     );

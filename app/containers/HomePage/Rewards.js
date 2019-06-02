@@ -10,40 +10,6 @@ import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 import Section from './Section';
 
-const Box = Section.extend`
-  position: relative;
-  background: url(${bg});
-  background-size: cover;
-
-  .title {
-    color: #ffffff;
-    text-align: center;
-    line-height: 1.22;
-    font-size: 2.8em;
-  }
-
-  .content-body {
-    color: #ffffff;
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 55px;
-  }
-
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
-  }
-`;
-
 const Rewards = ({ sendEmailLoading, sendEmail }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
@@ -76,6 +42,52 @@ const Rewards = ({ sendEmailLoading, sendEmail }) => (
     </div>
   </Box>
 );
+
+const Box = Section.extend`
+  position: relative;
+  background: url(${bg});
+  background-size: cover;
+  background-position-x: 50%;
+
+  .title {
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.22;
+    font-size: 2.8em;
+  }
+
+  .content-body {
+    color: #ffffff;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 55px;
+  }
+
+  form {
+    display: flex;
+    width: 100%;
+
+    > div:nth-child(1) {
+      flex: 2;
+      margin-right: 10px;
+    }
+
+    > div:nth-child(2) {
+      flex: 1;
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    form {
+      flex-direction: column;
+
+      > div:nth-child(1) {
+        flex: 1;
+        margin-right: 0;
+      }
+    }
+  }
+`;
 
 Rewards.propTypes = {
   sendEmailLoading: PropTypes.bool,

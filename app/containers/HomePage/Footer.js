@@ -1,30 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { LANDING_FONT } from 'style-constants';
 
 import { getLinks } from 'media-links';
+import { TEXT_PRIMARY, TEXT_DARK, LANDING_FONT } from 'style-constants';
 
 import ChangeLocale from 'containers/ChangeLocale';
 
-import logo from 'images/LogoBlack.svg';
-import medium from 'images/medium.png';
-import twitter from 'images/twitter.svg';
-import linkedin from 'images/in.svg';
-import github from 'images/github.svg';
-import facebook from 'images/facebook.svg';
+import Icon from 'components/Icon';
+import IconStyled from 'components/Icon/IconStyled';
+
+import logo from 'images/LogoBlack.svg?external';
+import medium from 'images/medium.svg?external';
+import twitter from 'images/twitter.svg?external';
+import linkedin from 'images/in.svg?external';
+import github from 'images/github.svg?external';
+import facebook from 'images/facebook.svg?external';
 
 import * as routes from 'routes-config';
 
 import Gradient from './Gradient';
 
 const Box = Gradient.extend`
-  color: #282828;
+  color: ${TEXT_DARK};
   padding: 36px 0 26px 0;
 
   > div {
     .logo {
-      img {
+      ${IconStyled} {
         width: 200px;
         margin-top: 5px;
       }
@@ -48,10 +51,9 @@ const Box = Gradient.extend`
         text-align: center;
         cursor: pointer;
 
-        img {
-          width: 20px;
-          height: 20px;
-          object-fit: contain;
+        ${IconStyled} {
+          width: 22px;
+          height: 22px;
         }
       }
     }
@@ -59,7 +61,7 @@ const Box = Gradient.extend`
 
   @media only screen and (max-width: 992px) {
     padding: 20px;
-    .logo img {
+    .logo ${IconStyled} {
       width: 160px !important;
     }
 
@@ -75,7 +77,7 @@ const Box = Gradient.extend`
   }
 
   @media only screen and (max-width: 560px) {
-    .logo img {
+    .logo ${IconStyled} {
       width: 120px !important;
     }
   }
@@ -86,7 +88,7 @@ const Year = new Date().getFullYear();
 const MediaLink = ({ href, src }) =>
   href ? (
     <a href={href} target="_blank">
-      <img src={src} alt="icon" />
+      <Icon icon={src} hover={TEXT_PRIMARY} />
     </a>
   ) : null;
 
@@ -97,7 +99,7 @@ const Footer = ({ locale }) => (
         <div className="col-6 logo">
           <div className="row align-items-center">
             <Link to={routes.home()} href={routes.home()} className="col-5">
-              <img src={logo} alt="logo" />
+              <Icon icon={logo} />
             </Link>
             <span className="col-lg-3 col-xl-2 d-none d-lg-inline year">
               © {Year}

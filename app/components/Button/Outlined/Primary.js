@@ -7,7 +7,7 @@ import {
   BORDER_PRIMARY,
 } from 'style-constants';
 
-import IconStyled from 'components/Icon/IconStyled';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Button from '../index';
 
 const PrimaryButton = Button.extend`
@@ -16,7 +16,7 @@ const PrimaryButton = Button.extend`
   color: ${TEXT_PRIMARY};
 
   ${IconStyled} {
-    stroke: ${TEXT_PRIMARY};
+    ${IconHover({ color: TEXT_PRIMARY })};
   }
 
   :hover {

@@ -2,7 +2,7 @@
 
 exports[`Rewards test 1`] = `
 <Section
-  id="fs3"
+  id="rewards"
 >
   <div
     className="container"

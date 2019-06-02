@@ -1,20 +1,20 @@
-import bannedSm from 'svg/bannedSm';
-import strangerSm from 'svg/strangerSm';
-import newbieSm from 'svg/newbieSm';
-import jrResidentSm from 'svg/jrResidentSm';
-import residentSm from 'svg/residentSm';
-import srResidentSm from 'svg/srResidentSm';
-import heroResidentSm from 'svg/heroResidentSm';
-import legendaryResidentSm from 'svg/legendaryResidentSm';
+import bannedSm from 'images/bannedSm.svg?inline';
+import strangerSm from 'images/strangerSm.svg?inline';
+import newbieSm from 'images/newbieSm.svg?inline';
+import jrResidentSm from 'images/jrResidentSm.svg?inline';
+import residentSm from 'images/residentSm.svg?inline';
+import srResidentSm from 'images/srResidentSm.svg?inline';
+import heroResidentSm from 'images/heroResidentSm.svg?inline';
+import legendaryResidentSm from 'images/legendaryResidentSm.svg?inline';
 
-import bannedLg from 'svg/bannedLg';
-import strangerLg from 'svg/strangerLg';
-import newbieLg from 'svg/newbieLg';
-import jrResidentLg from 'svg/jrResidentLg';
-import residentLg from 'svg/residentLg';
-import srResidentLg from 'svg/srResidentLg';
-import heroResidentLg from 'svg/heroResidentLg';
-import legendaryResidentLg from 'svg/legendaryResidentLg';
+import bannedLg from 'images/bannedLg.svg?inline';
+import strangerLg from 'images/strangerLg.svg?inline';
+import newbieLg from 'images/newbieLg.svg?inline';
+import jrResidentLg from 'images/jrResidentLg.svg?inline';
+import residentLg from 'images/residentLg.svg?inline';
+import srResidentLg from 'images/srResidentLg.svg?inline';
+import heroResidentLg from 'images/heroResidentLg.svg?inline';
+import legendaryResidentLg from 'images/legendaryResidentLg.svg?inline';
 
 import messages from './messages';
 

@@ -64,14 +64,23 @@ module.exports = options => {
           use: 'file-loader',
         },
         {
-          test: /\.svg$/,
-          use: [
+          test: /\.svg/,
+          oneOf: [
             {
-              loader: 'svg-url-loader',
-              options: {
-                // Inline files smaller than 10 kB
-                encoding: 'base64',
-                noquotes: true,
+              resourceQuery: /inline/, // foo.svg?inline
+              use: {
+                loader: 'svg-url-loader',
+                options: {
+                  encoding: 'base64',
+                  noquotes: true,
+                },
+              },
+            },
+            {
+              resourceQuery: /external/, // foo.svg?external
+              use: {
+                loader: 'svg-inline-loader',
+                options: {},
               },
             },
           ],

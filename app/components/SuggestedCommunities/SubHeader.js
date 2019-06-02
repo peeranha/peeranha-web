@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import communitiesHeader from 'images/communitiesHeader.svg';
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg';
+import communitiesHeader from 'images/communitiesHeader.svg?inline';
+import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
 import Dropdown from 'components/Dropdown';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -21,7 +21,7 @@ const SubHeader = /* istanbul ignore next */ ({
   language,
   languages,
 }) => (
-  <H3Styled className="d-flex align-items-end justify-content-between">
+  <H3Styled className="d-flex align-items-center justify-content-between">
     <div>
       <MediumImageStyled
         src={communitiesHeader}

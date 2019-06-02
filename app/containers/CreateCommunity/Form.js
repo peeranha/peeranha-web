@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 
 import { appLocales } from 'i18n';
 
-import icoTag from 'images/icoTag.svg';
-import closeIcon from 'svg/close';
+import icoTag from 'images/icoTag.svg?inline';
+import closeIcon from 'images/close.svg?inline';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
@@ -14,7 +14,6 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import SelectField from 'components/FormFields/SelectField';
 
-import Icon from 'components/Icon';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
@@ -180,7 +179,7 @@ const CreateCommunityForm = /* istanbul ignore next */ ({
                     data-key={x}
                     onClick={removeTag}
                   >
-                    <Icon icon={closeIcon} />
+                    <img src={closeIcon} alt="icon" />
                   </button>
                 )}
 

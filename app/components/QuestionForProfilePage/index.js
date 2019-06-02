@@ -13,12 +13,11 @@ import {
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
-import okayIcon from 'svg/okay';
-import crownIcon from 'svg/crownIcon';
+import okayIcon from 'images/okay.svg?inline';
+import crownIcon from 'images/crownIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import A from 'components/A';
 
 import messages from 'common-messages';
@@ -68,10 +67,10 @@ const AcceptedQuestionBadge = /* istanbul ignore next */ ({
   (postType === POST_TYPE_QUESTION && acceptedAnswer) ||
   (postType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
     <AcceptedQuestionBadgeStyled>
-      <Icon
+      <img
         className="d-flex align-items-center justify-content-center"
-        icon={okayIcon}
-        noMargin
+        src={okayIcon}
+        alt="icon"
       />
     </AcceptedQuestionBadgeStyled>
   ) : null;
@@ -82,10 +81,10 @@ const TopCommunityBadge = /* istanbul ignore next */ ({
 }) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
-      <Icon
+      <img
         className="d-flex align-items-center justify-content-center"
-        icon={crownIcon}
-        noMargin
+        src={crownIcon}
+        alt="icon"
       />
     </TopCommunityBadgeStyled>
   ) : null;

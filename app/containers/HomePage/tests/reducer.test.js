@@ -64,11 +64,8 @@ describe('homepageReducer', () => {
   });
 
   it('showHeaderPopup', () => {
-    const popupPosition = 'popupPosition';
-    const obj = state
-      .set('showPopup', true)
-      .set('popupPosition', popupPosition);
-    expect(homepageReducer(state, showHeaderPopup(popupPosition))).toEqual(obj);
+    const obj = state.set('showPopup', true);
+    expect(homepageReducer(state, showHeaderPopup())).toEqual(obj);
   });
 
   it('closeHeaderPopup', () => {
