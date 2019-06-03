@@ -14,6 +14,13 @@ export async function sendEmail(formData, pageInfo) {
     },
   ];
 
+  if (formData.refCode !== undefined) {
+    fields.push({
+      name: 'refcode',
+      value: formData.refCode,
+    });
+  }
+
   const fetchHubspot = async () => {
     await fetch(
       `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
@@ -48,13 +55,11 @@ export async function sendEmail(formData, pageInfo) {
     });
   };
 
-  const promises = await Promise.all([fetchHubspot(), fetchAws()]);
-
-  const notSuccess = promises.find(x => x.status !== 200);
-
-  if (notSuccess) {
-    throw new Error('Something went wrong...');
-  }
+  const tasks =
+    formData.refCode === undefined
+      ? [fetchHubspot()]
+      : [fetchHubspot(), fetchAws()];
+  await Promise.all(tasks);
 }
 
 export async function sendMessage(formData, pageInfo) {
