@@ -28,7 +28,7 @@ exports[`<EmailLandingForm /> snapshot test 1`] = `
       }
     }
   >
-    <ReduxForm
+    <Connect(ReduxForm)
       button={
         Object {
           "id": "app.containers.HomePage.faqTitle",

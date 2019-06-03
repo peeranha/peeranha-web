@@ -205,15 +205,15 @@ exports[`Team test 1`] = `
                 form="containers_homepage_SEND_MESSAGE_FORM"
                 translations={Object {}}
               />
-              <a
+              <button
                 className="icon-arrow-up d-none d-xl-flex"
-                href="#introduction"
+                onClick={[Function]}
               >
                 <img
                   alt="arrowUp"
                   src="IMAGE_MOCK"
                 />
-              </a>
+              </button>
             </div>
           </div>
         </div>

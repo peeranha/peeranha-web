@@ -11,6 +11,8 @@ import {
   BORDER_SECONDARY,
 } from 'style-constants';
 
+import { scrollToSection } from 'utils/animation';
+
 import sergeyIlin from 'images/Team_Sergey.jpg';
 import steveKreynin from 'images/Team_Steve.jpg';
 import nikitaSyr from 'images/av1.jpg';
@@ -29,7 +31,11 @@ import Gradient from './Gradient';
 
 const icon = 47;
 
-const Team = ({ translations, sendMessageLoading, sendMessage }) => (
+const Team = /* istanbul ignore next */ ({
+  translations,
+  sendMessageLoading,
+  sendMessage,
+}) => (
   <Gradient position="bottom">
     <Box id={FIFTH_SCREEN}>
       <div className="container">
@@ -160,12 +166,12 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
                   sendMessage={sendMessage}
                   sendMessageLoading={sendMessageLoading}
                 />
-                <a
+                <button
                   className="icon-arrow-up d-none d-xl-flex"
-                  href={`#${FIRST_SCREEN}`}
+                  onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
                 >
                   <img src={arrowUp} alt="arrowUp" />
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -289,6 +289,9 @@ export default defineMessages({
   email: {
     id: 'app.containers.HomePage.email',
   },
+  refCode: {
+    id: 'app.containers.HomePage.refCode',
+  },
   subject: {
     id: 'app.containers.HomePage.subject',
   },

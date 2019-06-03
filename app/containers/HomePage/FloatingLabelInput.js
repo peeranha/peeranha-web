@@ -53,7 +53,7 @@ const Input = styled.input`
     border-color: ${BORDER_WARNING_LIGHT} !important;
   }
 
-  ${x =>
+  ${/* istanbul ignore next */ x =>
     x.error
       ? `
     border-color: ${BORDER_WARNING_LIGHT} !important;
@@ -67,7 +67,7 @@ const Input = styled.input`
     padding-bottom: ${1.2 * HEIGHT}px;
   }
 
-  ${x =>
+  ${/* istanbul ignore next */ x =>
     x.value
       ? `+ * {
      font-size: 12px !important;

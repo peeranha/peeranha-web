@@ -18,9 +18,11 @@ import closeIcon from 'images/close.svg?external';
 import headerNavigation from 'images/headerNavigation.svg?external';
 import bgLogin from 'images/BG_Login.png';
 
+import { scrollToSection } from 'utils/animation';
 import * as routes from 'routes-config';
 import ModalDialog from 'containers/ModalDialog';
 
+import A from 'components/A';
 import Icon from 'components/Icon';
 import Button from 'components/Button/Outlined/InfoStretching';
 import IconStyled, { IconHover } from 'components/Icon/IconStyled';
@@ -41,23 +43,26 @@ import {
 import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+
 export class Header extends React.PureComponent {
   state = {
     isToggled: false,
   };
 
-  componentDidUpdate = prevProps => {
-    if (prevProps.location !== this.props.location) {
-      this.setState({ isToggled: false });
-    }
-  };
-
-  toggle /* istanbul ignore next */ = () => {
+  toggle /* istanbul ignore next */ = screen => {
     this.setState({ isToggled: !this.state.isToggled });
+    scrollToSection(typeof screen === 'string' ? `#${screen}` : ``);
   };
 
-  render() {
-    const { showHeaderPopupDispatch, closeHeaderPopupDispatch } = this.props;
+  render() /* istanbul ignore next */ {
+    const {
+      showHeaderPopupDispatch,
+      closeHeaderPopupDispatch,
+      translations,
+      sendEmail,
+      sendEmailLoading,
+    } = this.props;
 
     const { isToggled } = this.state;
 
@@ -84,8 +89,9 @@ export class Header extends React.PureComponent {
                 <EmailLandingForm
                   form={SEND_EMAIL_FORM_HEADER}
                   button={messages.getReward}
-                  sendEmail={this.props.sendEmail}
-                  sendEmailLoading={this.props.sendEmailLoading}
+                  sendEmail={sendEmail}
+                  sendEmailLoading={sendEmailLoading}
+                  translations={translations}
                 />
               </div>
             </div>
@@ -94,9 +100,13 @@ export class Header extends React.PureComponent {
           <div className="container">
             <div className="row">
               <div className="col-6 col-lg-4 col-xl-5 logo">
-                <a href={`${routes.home()}#${FIRST_SCREEN}`}>
-                  <img src={logo} alt="logo" />
-                </a>
+                <A to={routes.home()} href={routes.home()}>
+                  <img
+                    onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
+                    src={logo}
+                    alt="logo"
+                  />
+                </A>
               </div>
 
               <button
@@ -114,33 +124,33 @@ export class Header extends React.PureComponent {
                 <div className="row">
                   <div className="col-12 col-lg-7">
                     <div className="row navigation">
-                      <a
+                      <span
                         className="col-md-12 col-lg-3"
-                        href={`${routes.home()}#${SECOND_SCREEN}`}
+                        onClick={() => this.toggle(SECOND_SCREEN)}
                       >
                         <FormattedMessage {...messages.about} />
-                      </a>
+                      </span>
 
-                      <a
+                      <span
                         className="col-md-12 col-lg-3"
-                        href={`${routes.home()}#${THIRD_SCREEN}`}
+                        onClick={() => this.toggle(THIRD_SCREEN)}
                       >
                         <FormattedMessage {...messages.rewards} />
-                      </a>
+                      </span>
 
-                      <a
+                      <span
                         className="col-md-12 col-lg-3"
-                        href={`${routes.home()}#${FOURTH_SCREEN}`}
+                        onClick={() => this.toggle(FOURTH_SCREEN)}
                       >
                         <FormattedMessage {...messages.faq} />
-                      </a>
+                      </span>
 
-                      <a
+                      <span
                         className="col-md-12 col-lg-3"
-                        href={`${routes.home()}#${FIFTH_SCREEN}`}
+                        onClick={() => this.toggle(FIFTH_SCREEN)}
                       >
                         <FormattedMessage {...messages.team} />
-                      </a>
+                      </span>
                     </div>
                   </div>
 
@@ -217,11 +227,12 @@ const Box = styled.div`
       align-items: center;
     }
 
-    .navigation a,
+    .navigation span,
     .log-in-button {
       display: inline-block;
       text-align: center;
       color: ${TEXT_LIGHT};
+      cursor: pointer;
 
       ${IconStyled} {
         margin-right: 9px;
@@ -292,7 +303,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: #17234a !important;
-    height: ${x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${/* istanbul ignore next */ x => (x.isToggled ? `100vh` : `auto`)};
 
     > div {
       .logo img {
@@ -311,7 +322,7 @@ const Box = styled.div`
     }
 
     .navbar {
-      .navigation a,
+      .navigation span,
       button {
         min-height: calc(100vh / 8);
         display: flex;
@@ -328,7 +339,7 @@ const Box = styled.div`
       }
     }
 
-    ${x =>
+    ${/* istanbul ignore next */ x =>
       x.isToggled
         ? `
       .navbar {
@@ -375,6 +386,7 @@ Header.propTypes = {
   closeHeaderPopupDispatch: PropTypes.func,
   showPopup: PropTypes.bool,
   popupPosition: PropTypes.object,
+  translations: PropTypes.object,
   location: PropTypes.object,
 };
 

@@ -17,12 +17,21 @@ const Message = styled.div`
   }
 `;
 
-const DefaultInput = /* istanbul ignore next */ ({ input, disabled, meta }) => (
+const InputStyled = Input.extend`
+  font-size: 16px !important;
+`;
+
+const DefaultInput = /* istanbul ignore next */ ({
+  input,
+  disabled,
+  meta,
+  placeholder,
+}) => (
   <div className="d-flex flex-column">
-    <Input
+    <InputStyled
       {...input}
       type="text"
-      placeholder="Email"
+      placeholder={placeholder}
       disabled={disabled}
       error={meta.touched && meta.error}
       warning={meta.touched && meta.warning}
@@ -38,6 +47,7 @@ DefaultInput.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 export { Message };

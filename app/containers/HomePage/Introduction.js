@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
+import { scrollToSection } from 'utils/animation';
 import * as arrowDown from 'images/arrow_down.svg?inline';
 
 import messages from './messages';
@@ -17,7 +18,11 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
+const Introduction = /* istanbul ignore next */ ({
+  sendEmailLoading,
+  sendEmail,
+  translations,
+}) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -34,7 +39,7 @@ const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
     <Header
       sendEmailLoading={sendEmailLoading}
       sendEmail={sendEmail}
-      location={location}
+      translations={translations}
     />
 
     <Wrapper className="container">
@@ -53,19 +58,20 @@ const Introduction = ({ sendEmailLoading, sendEmail, location }) => (
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
+            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
               <EmailLandingForm
                 form={SEND_EMAIL_FORM_INTRODUCTION}
                 button={messages.getStarted}
                 sendEmailLoading={sendEmailLoading}
                 sendEmail={sendEmail}
+                translations={translations}
               />
             </div>
           </div>
 
           <div className="row justify-content-center d-none d-lg-block">
             <div className="col-12 justify-content-center icon-down">
-              <Icon href={`#${SECOND_SCREEN}`}>
+              <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
                 <img src={arrowDown} alt="arrowDown" />
               </Icon>
             </div>
@@ -97,20 +103,6 @@ const Box = styled.div`
     padding-bottom: 58px;
   }
 
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
-  }
-
   .icon-down {
     padding-top: 95px;
   }
@@ -129,25 +121,16 @@ const Box = styled.div`
 
     .special-paragraph {
       padding-top: 20px;
-      padding-bottom: 40px;
-    }
-
-    form {
-      flex-direction: column;
-
-      > div:nth-child(1) {
-        flex: 1;
-        margin-right: 0;
-      }
+      padding-bottom: 30px;
     }
   }
 
   @media only screen and (max-width: 400px) {
-    font-size: 14px;
+    font-size: 13px;
   }
 `;
 
-const Icon = styled.a`
+const Icon = styled.span`
   position: relative;
   color: #fff;
   font-size: 36px;
@@ -183,6 +166,7 @@ Introduction.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
   location: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default Introduction;

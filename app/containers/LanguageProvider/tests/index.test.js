@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
@@ -9,6 +9,17 @@ import configureStore from '../../../configureStore';
 
 import { translationMessages } from '../../../i18n';
 
+const cmp = new LanguageProvider();
+
+cmp.props = {
+  locale: 'en',
+  messages: {},
+  children: <div>Children</div>,
+  changeLocaleDispatch: jest.fn(),
+};
+
+/* eslint prefer-destructuring: 0 */
+
 const messages = defineMessages({
   someMessage: {
     id: 'some.id',
@@ -17,15 +28,35 @@ const messages = defineMessages({
   },
 });
 
+describe('componentWillMount', () => {
+  let locale = 'en';
+
+  it('localstorage not null', () => {
+    localStorage.setItem('locale', locale);
+
+    cmp.componentWillMount();
+    expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
+  });
+
+  it('localstorage is null', () => {
+    const languages = ['en'];
+
+    window.navigator = {
+      languages,
+    };
+
+    locale = window.navigator.languages.filter(x => languages.includes(x))[0];
+
+    localStorage.setItem('locale', '');
+
+    cmp.componentWillMount();
+    expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
+  });
+});
+
 describe('<LanguageProvider />', () => {
   it('should render its children', () => {
-    const children = <h1>Test</h1>;
-    const renderedComponent = shallow(
-      <LanguageProvider messages={messages} locale="en">
-        {children}
-      </LanguageProvider>,
-    );
-    expect(renderedComponent.contains(children)).toBe(true);
+    expect(cmp.render()).toMatchSnapshot();
   });
 });
 

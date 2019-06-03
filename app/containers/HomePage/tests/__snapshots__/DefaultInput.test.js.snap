@@ -7,7 +7,6 @@ exports[`DefaultInput test1 1`] = `
   <LandingInput
     disabled={false}
     error={false}
-    placeholder="Email"
     type="text"
     warning={false}
   />
@@ -34,7 +33,6 @@ exports[`DefaultInput test2, touched, error - true 1`] = `
         "id": "app.containers.HomePage.title",
       }
     }
-    placeholder="Email"
     type="text"
     warning={false}
   />

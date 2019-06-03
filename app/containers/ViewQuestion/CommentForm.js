@@ -63,7 +63,7 @@ CommentForm.propTypes = {
 
 let Form = reduxForm({})(CommentForm);
 
-Form = connect((state, props) => ({
+Form = connect((state, props) /* istanbul ignore next */ => ({
   enableReinitialize: true,
   initialValues: {
     [TEXTAREA_COMMENT_FORM]: props.comment,

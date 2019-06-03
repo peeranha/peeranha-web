@@ -17,8 +17,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { scrollToSection } from 'utils/animation';
-
 import reducer from './reducer';
 import saga from './saga';
 import * as homepageSelectors from './selectors';
@@ -41,6 +39,7 @@ import {
   NAME_FIELD,
   SUBJECT_FIELD,
   MESSAGE_FIELD,
+  REFCODE_FIELD,
 } from './constants';
 
 import { sendEmail, sendMessage } from './actions';
@@ -50,8 +49,6 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    scrollToSection();
-
     this.imagesAnimation();
 
     this.headerAnimation();
@@ -157,11 +154,14 @@ export class HomePage extends React.PureComponent {
     const { reset, form } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
+      refCode: args[0].get(REFCODE_FIELD),
     };
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendEmailDispatch(formData, reset, pageInfo);
@@ -178,7 +178,9 @@ export class HomePage extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendMessageDispatch(formData, reset, pageInfo);
