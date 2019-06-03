@@ -45,7 +45,9 @@ export class FaqFull extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.faqTitle.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.faqTitle.id]
+      } | ${form}`,
     };
 
     this.props.sendEmailDispatch(formData, reset, pageInfo);

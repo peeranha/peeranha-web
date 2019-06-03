@@ -158,7 +158,9 @@ export class HomePage extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendEmailDispatch(formData, reset, pageInfo);
@@ -175,7 +177,9 @@ export class HomePage extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendMessageDispatch(formData, reset, pageInfo);

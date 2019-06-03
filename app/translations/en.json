@@ -368,7 +368,7 @@
 
   "app.containers.HomePage.yourName": "Your name",
   "app.containers.HomePage.email": "Email",
-  "app.containers.HomePage.refCode": "Referral code",
+  "app.containers.HomePage.refCode": "Ref. code",
   "app.containers.HomePage.subject": "Subject",
   "app.containers.HomePage.message": "Message",
   "app.containers.HomePage.sendMessage": "Send message",

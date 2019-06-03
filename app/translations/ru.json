@@ -369,7 +369,7 @@
 
   "app.containers.HomePage.yourName": "Ваше имя",
   "app.containers.HomePage.email": "Электронная почта",
-  "app.containers.HomePage.refCode": "Реферальный код",
+  "app.containers.HomePage.refCode": "Реф. код",
   "app.containers.HomePage.subject": "Тема",
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",

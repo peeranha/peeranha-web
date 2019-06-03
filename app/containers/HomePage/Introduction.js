@@ -54,7 +54,7 @@ const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
+            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
               <EmailLandingForm
                 form={SEND_EMAIL_FORM_INTRODUCTION}
                 button={messages.getStarted}
