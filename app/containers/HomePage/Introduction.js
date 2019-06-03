@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
+import { scrollToSection } from 'utils/animation';
 import * as arrowDown from 'images/arrow_down.svg?inline';
 
 import messages from './messages';
@@ -17,12 +18,7 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = ({
-  sendEmailLoading,
-  sendEmail,
-  location,
-  translations,
-}) => (
+const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -39,7 +35,6 @@ const Introduction = ({
     <Header
       sendEmailLoading={sendEmailLoading}
       sendEmail={sendEmail}
-      location={location}
       translations={translations}
     />
 
@@ -72,7 +67,7 @@ const Introduction = ({
 
           <div className="row justify-content-center d-none d-lg-block">
             <div className="col-12 justify-content-center icon-down">
-              <Icon href={`#${SECOND_SCREEN}`}>
+              <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
                 <img src={arrowDown} alt="arrowDown" />
               </Icon>
             </div>
@@ -131,7 +126,7 @@ const Box = styled.div`
   }
 `;
 
-const Icon = styled.a`
+const Icon = styled.span`
   position: relative;
   color: #fff;
   font-size: 36px;

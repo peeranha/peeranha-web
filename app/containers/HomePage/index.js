@@ -11,13 +11,10 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import { selectLocation } from 'selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-import { scrollToSection } from 'utils/animation';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -51,8 +48,6 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    scrollToSection();
-
     this.imagesAnimation();
 
     this.headerAnimation();
@@ -203,7 +198,6 @@ export class HomePage extends React.PureComponent {
           sendEmailLoading={this.props.sendEmailLoading}
           sendEmail={this.sendEmail}
           translations={translations}
-          location={this.props.location}
         />
 
         <About translations={translations} />
@@ -234,14 +228,12 @@ HomePage.propTypes = {
   sendMessageLoading: PropTypes.bool,
   sendEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
-  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
-  location: selectLocation(),
 });
 
 export function mapDispatchToProps(dispatch) {

@@ -20,9 +20,9 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 
-import { EMAIL_FIELD } from './constants';
-
 import { sendEmail } from './actions';
+import { EMAIL_FIELD } from './constants';
+import * as homepageSelectors from './selectors';
 
 import messages from './messages';
 
@@ -64,8 +64,14 @@ export class FaqFull extends React.PureComponent {
           />
         </Helmet>
 
-        <Header sendEmail={this.sendEmail} />
+        <Header
+          sendEmailLoading={this.props.sendEmailLoading}
+          sendEmail={this.sendEmail}
+          translations={translations}
+        />
+
         <FaqMain />
+
         <Footer />
       </Box>
     );
@@ -75,10 +81,12 @@ export class FaqFull extends React.PureComponent {
 FaqFull.propTypes = {
   locale: PropTypes.string,
   sendEmailDispatch: PropTypes.func,
+  sendEmailLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
 });
 
 export function mapDispatchToProps(dispatch) {
