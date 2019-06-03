@@ -16,7 +16,7 @@ import messages from './messages';
 
 import Section from './Section';
 
-export const Question = ({ header, body }) => (
+export const Question = /* istanbul ignore next */ ({ header, body }) => (
   <div className="card">
     <div className="card-header" id={`heading${header}`}>
       <div>
@@ -46,12 +46,12 @@ export const Question = ({ header, body }) => (
   </div>
 );
 
-export const Questions = ({ questionsNumber }) =>
+export const Questions = /* istanbul ignore next */ ({ questionsNumber }) =>
   QuestionsData.slice(0, questionsNumber).map(item => (
     <Question key={item.header} {...item} />
   ));
 
-const FaqMain = ({ questionsNumber }) => (
+const FaqMain = /* istanbul ignore next */ ({ questionsNumber }) => (
   <Box id={FOURTH_SCREEN}>
     <div className="container">
       <div className="row">

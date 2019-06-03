@@ -18,7 +18,11 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
+const Introduction = /* istanbul ignore next */ ({
+  sendEmailLoading,
+  sendEmail,
+  translations,
+}) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">

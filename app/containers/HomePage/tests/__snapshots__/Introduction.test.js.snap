@@ -69,7 +69,7 @@ exports[`Introduction test 1`] = `
           className="row justify-content-center"
         >
           <div
-            className="col-12 col-md-8 col-xl-5 bottom-level mx-auto"
+            className="col-12 col-md-8 col-xl-7 bottom-level mx-auto"
           >
             <Connect(ReduxForm)
               button={
@@ -89,7 +89,7 @@ exports[`Introduction test 1`] = `
             className="col-12 justify-content-center icon-down"
           >
             <Introduction__Icon
-              href="#about"
+              onClick={[Function]}
             >
               <img
                 alt="arrowDown"

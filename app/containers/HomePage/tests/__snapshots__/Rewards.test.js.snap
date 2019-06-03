@@ -41,7 +41,7 @@ exports[`Rewards test 1`] = `
           className="row justify-content-center"
         >
           <div
-            className="col-12 col-md-8 col-xl-5 bottom-level mx-auto"
+            className="col-12 col-md-8 col-xl-7 bottom-level mx-auto"
           >
             <Connect(ReduxForm)
               button={

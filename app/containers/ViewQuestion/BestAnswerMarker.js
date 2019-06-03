@@ -13,7 +13,7 @@ import messages from './messages';
 
 /* eslint indent: 0 */
 export const ButtonStyled = Button.extend`
-  background: ${(x) /* istanbul ignore next */ => x.bg};
+  background: ${/* istanbul ignore next */ x => x.bg};
   font-size: 14px;
   height: 22px;
   min-width: 0;

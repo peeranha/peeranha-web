@@ -60,14 +60,16 @@ exports[`Header test 1`] = `
         <div
           className="col-6 col-lg-4 col-xl-5 logo"
         >
-          <a
-            href="/#introduction"
+          <A
+            href="/"
+            to="/"
           >
             <img
               alt="logo"
+              onClick={[Function]}
               src="IMAGE_MOCK"
             />
-          </a>
+          </A>
         </div>
         <button
           className="col-6 d-inline-block d-lg-none navbar-toggler"
@@ -90,42 +92,42 @@ exports[`Header test 1`] = `
               <div
                 className="row navigation"
               >
-                <a
+                <span
                   className="col-md-12 col-lg-3"
-                  href="/#about"
+                  onClick={[Function]}
                 >
                   <FormattedMessage
                     id="app.containers.HomePage.about"
                     values={Object {}}
                   />
-                </a>
-                <a
+                </span>
+                <span
                   className="col-md-12 col-lg-3"
-                  href="/#rewards"
+                  onClick={[Function]}
                 >
                   <FormattedMessage
                     id="app.containers.HomePage.rewards"
                     values={Object {}}
                   />
-                </a>
-                <a
+                </span>
+                <span
                   className="col-md-12 col-lg-3"
-                  href="/#faq"
+                  onClick={[Function]}
                 >
                   <FormattedMessage
                     id="app.containers.HomePage.faq"
                     values={Object {}}
                   />
-                </a>
-                <a
+                </span>
+                <span
                   className="col-md-12 col-lg-3"
-                  href="/#team"
+                  onClick={[Function]}
                 >
                   <FormattedMessage
                     id="app.containers.HomePage.team"
                     values={Object {}}
                   />
-                </a>
+                </span>
               </div>
             </div>
             <div

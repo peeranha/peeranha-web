@@ -31,7 +31,11 @@ import Gradient from './Gradient';
 
 const icon = 47;
 
-const Team = ({ translations, sendMessageLoading, sendMessage }) => (
+const Team = /* istanbul ignore next */ ({
+  translations,
+  sendMessageLoading,
+  sendMessage,
+}) => (
   <Gradient position="bottom">
     <Box id={FIFTH_SCREEN}>
       <div className="container">

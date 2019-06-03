@@ -1,8 +1,11 @@
-import { FaqFull, mapDispatchToProps } from '../FaqFull';
+import { translationMessages } from 'i18n';
+
+import { FaqFull } from '../FaqFull';
 import { EMAIL_FIELD } from '../constants';
 import messages from '../messages';
 
 const cmp = new FaqFull();
+
 cmp.props = {
   locale: 'en',
   sendEmailDispatch: jest.fn(),
@@ -21,7 +24,9 @@ describe('FaqFull', () => {
 
       const pageInfo = {
         url: window.location.href,
-        name: `${messages.faqTitle.defaultMessage} | ${form}`,
+        name: `${
+          translationMessages[cmp.props.locale][messages.faqTitle.id]
+        } | ${form}`,
       };
 
       cmp.sendEmail(mapp, () => {}, {
@@ -40,17 +45,6 @@ describe('FaqFull', () => {
   describe('snapshot test', () => {
     it('test', () => {
       expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).sendEmailDispatch()).toBe(test);
     });
   });
 });
