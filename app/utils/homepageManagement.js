@@ -22,7 +22,7 @@ export async function sendEmail(formData, pageInfo) {
   }
 
   const fetchHubspot = async () => {
-    await fetch(
+    const res = await fetch(
       `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
       {
         method: 'POST',
@@ -40,10 +40,12 @@ export async function sendEmail(formData, pageInfo) {
         credentials: 'same-origin',
       },
     );
+
+    return res;
   };
 
   const fetchAws = async () => {
-    await fetch(AWS_URL, {
+    const res = await fetch(AWS_URL, {
       method: 'POST',
       body: JSON.stringify({
         email: formData.email,
@@ -53,13 +55,18 @@ export async function sendEmail(formData, pageInfo) {
         'Content-Type': 'application/json',
       },
     });
+
+    return res;
   };
 
-  const tasks =
-    formData.refCode === undefined
-      ? [fetchHubspot()]
-      : [fetchHubspot(), fetchAws()];
-  await Promise.all(tasks);
+  const promises = await Promise.all([fetchHubspot(), fetchAws()]);
+
+  const notSuccess = promises.find(x => x.status !== 200);
+
+  if (notSuccess) {
+    const errorMessage = await notSuccess.json();
+    throw new Error(errorMessage.error);
+  }
 }
 
 export async function sendMessage(formData, pageInfo) {

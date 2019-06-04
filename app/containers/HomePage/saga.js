@@ -40,7 +40,9 @@ export function* sendEmailWorker({ formData, reset, pageInfo }) {
     yield put(
       addToast({
         type: 'error',
-        text: translationMessages[locale][messages.messageHasNotBeenSent.id],
+        text:
+          err.message ||
+          translationMessages[locale][messages.messageHasNotBeenSent.id],
       }),
     );
     yield put(sendEmailErr(err));
