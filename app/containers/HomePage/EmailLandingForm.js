@@ -15,6 +15,25 @@ import Button from './ContainedButton';
 import { EMAIL_FIELD, REFCODE_FIELD } from './constants';
 import messages from './messages';
 
+const FormColumnStyle = `
+  flex-direction: column;
+  align-items: stretch;
+
+  div:nth-child(1) {
+    flex: 1;
+    margin-right: 0px;
+  }
+
+  div:nth-child(2) {
+    flex: 1;
+    margin-right: 0px;
+  }
+
+  div:nth-child(3) {
+    flex: 1;
+  }
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: row;
@@ -36,23 +55,10 @@ const Form = styled.form`
     flex: 1;
   }
 
+  ${x => (x.modal ? FormColumnStyle : ``)};
+
   @media only screen and (max-width: 992px) {
-    flex-direction: column;
-    align-items: stretch;
-
-    div:nth-child(1) {
-      flex: 1;
-      margin-right: 0px;
-    }
-
-    div:nth-child(2) {
-      flex: 1;
-      margin-right: 0px;
-    }
-
-    div:nth-child(3) {
-      flex: 1;
-    }
+    ${FormColumnStyle};
   }
 `;
 
@@ -62,8 +68,9 @@ const EmailLandingForm = /* istanbul ignore next */ ({
   sendEmailLoading,
   sendEmail,
   translations,
+  modal,
 }) => (
-  <Form onSubmit={handleSubmit(sendEmail)}>
+  <Form onSubmit={handleSubmit(sendEmail)} modal={modal}>
     <Field
       disabled={sendEmailLoading}
       placeholder={translations[messages.email.id]}
@@ -95,6 +102,7 @@ EmailLandingForm.propTypes = {
   translations: PropTypes.object,
   button: PropTypes.object,
   sendEmailLoading: PropTypes.bool,
+  modal: PropTypes.bool,
 };
 
 const FormClone = reduxForm({})(EmailLandingForm);
