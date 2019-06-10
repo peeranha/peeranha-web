@@ -55,7 +55,7 @@ const Form = styled.form`
     flex: 1;
   }
 
-  ${x => (x.modal ? FormColumnStyle : ``)};
+  ${/* istanbul ignore next */ x => (x.modal ? FormColumnStyle : ``)};
 
   @media only screen and (max-width: 992px) {
     ${FormColumnStyle};
@@ -105,7 +105,7 @@ EmailLandingForm.propTypes = {
   modal: PropTypes.bool,
 };
 
-const FormClone = reduxForm({})(EmailLandingForm);
+const FormClone = /* istanbul ignore next */ reduxForm({})(EmailLandingForm);
 
 export default connect(
   /* istanbul ignore next */ () => ({
