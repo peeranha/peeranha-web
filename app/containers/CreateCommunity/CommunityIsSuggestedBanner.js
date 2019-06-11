@@ -13,7 +13,8 @@ import bannerImage from 'images/communityIsSuggested.svg?inline';
 
 import messages from './messages';
 
-const goToList = () => createdHistory.push(routes.suggestedCommunities());
+const goToList = /* istanbul ignore next */ () =>
+  createdHistory.push(routes.suggestedCommunities());
 
 export const CommunityIsSuggestedBanner = /* istanbul ignore next */ () => (
   <BaseRounded className="d-flex align-items-center py-5 my-3">

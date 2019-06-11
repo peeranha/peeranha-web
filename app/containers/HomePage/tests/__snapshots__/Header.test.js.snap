@@ -45,6 +45,7 @@ exports[`Header test 1`] = `
               }
             }
             form="HEADER"
+            modal={true}
             sendEmail={[Function]}
             sendEmailLoading={false}
           />

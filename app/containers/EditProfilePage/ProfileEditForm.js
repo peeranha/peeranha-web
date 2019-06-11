@@ -168,7 +168,7 @@ ProfileEditForm.propTypes = {
 
 const selector = formValueSelector(PROFILE_EDIT_FORM);
 
-let FormClone = reduxForm({
+let FormClone = /* istanbul ignore next */ reduxForm({
   form: PROFILE_EDIT_FORM,
   validate: (state, props) /* istanbul ignore next */ => {
     const errors = {};

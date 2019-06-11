@@ -92,6 +92,7 @@ export class Header extends React.PureComponent {
                   sendEmail={sendEmail}
                   sendEmailLoading={sendEmailLoading}
                   translations={translations}
+                  modal
                 />
               </div>
             </div>
@@ -284,6 +285,7 @@ const Box = styled.div`
       text-align: left;
       font-size: 17px;
       padding-bottom: 30px;
+      line-height: 30px;
     }
 
     .image-coins {
