@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -17,10 +16,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import InfinityLoader from 'components/InfinityLoader';
+import Seo from 'components/Seo';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   makeSelectFollowedCommunities,
@@ -152,13 +153,11 @@ export class Questions extends React.PureComponent {
         isLastFetch={isLastFetch}
       >
         <div>
-          <Helmet>
-            <title>{translationMessages[locale][messages.title.id]}</title>
-            <meta
-              name="description"
-              content={translationMessages[locale][messages.description.id]}
-            />
-          </Helmet>
+          <Seo
+            title={translationMessages[locale][messages.title.id]}
+            description={translationMessages[locale][messages.description.id]}
+            language={locale}
+          />
 
           <QuestionsContainer {...sendProps} />
         </div>

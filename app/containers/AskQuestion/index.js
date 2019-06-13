@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -15,6 +14,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -72,13 +72,12 @@ export class AskQuestion extends React.PureComponent {
 
     return (
       <div>
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          index={false}
+        />
 
         <QuestionForm {...sendProps} />
       </div>

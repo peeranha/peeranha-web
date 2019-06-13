@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-// import { selectLocation } from 'selectors';
+import Seo from 'components/Seo';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
@@ -191,13 +191,11 @@ export class HomePage extends React.PureComponent {
 
     return (
       <div id={LANDING_ID}>
-        <Helmet>
-          <title>{translations[messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translations[messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translations[messages.title.id]}
+          description={translations[messages.description.id]}
+          language={this.props.locale}
+        />
 
         <Introduction
           sendEmailLoading={this.props.sendEmailLoading}
@@ -241,7 +239,6 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
-  // location: selectLocation(),
 });
 
 export function mapDispatchToProps(dispatch) {

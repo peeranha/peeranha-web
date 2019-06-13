@@ -8,13 +8,13 @@ import React from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -48,17 +48,19 @@ export class Profile extends React.PureComponent {
       translationMessages[locale][messages.profile.id]
     }`;
 
+    const keywords = profile ? Object.values(profile.profile) : ``;
+
     return (
       <div>
-        <Helmet>
-          <title>{HelmetTitle}</title>
-          <meta
-            name="description"
-            content={
-              translationMessages[locale][messages.profileDescription.id]
-            }
-          />
-        </Helmet>
+        <Seo
+          title={HelmetTitle}
+          description={
+            translationMessages[locale][messages.profileDescription.id]
+          }
+          language={locale}
+          keywords={keywords}
+        />
+
         <div>
           {!isProfileLoading && !profile && <NoSuchUser />}
 
