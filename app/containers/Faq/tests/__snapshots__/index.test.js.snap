@@ -4,18 +4,18 @@ exports[`<Faq /> test 1`] = `
 <div
   className="d-flex justify-content-center"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      FAQ
-    </title>
-    <meta
-      content="FAQ: description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="FAQ: description"
+    keywords={
+      Array [
+        Array [
+          "h3",
+        ],
+      ]
+    }
+    language="en"
+    title="FAQ"
+  />
   <div
     className="flex-grow-1"
   >

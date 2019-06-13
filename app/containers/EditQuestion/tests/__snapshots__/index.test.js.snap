@@ -2,53 +2,35 @@
 
 exports[`EditQuestion render test question is NOT null 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      title
-    </title>
-    <meta
-      content="content"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="content"
+    index={false}
+    language="en"
+    title="title"
+  />
   <UNDEFINED />
 </div>
 `;
 
 exports[`EditQuestion render test question is null 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Edit question
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    index={false}
+    language="en"
+    title="Edit question"
+  />
   <UNDEFINED />
 </div>
 `;
 
 exports[`EditQuestion render test questionLoading is falsy 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      title
-    </title>
-    <meta
-      content="content"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="content"
+    index={false}
+    language="en"
+    title="title"
+  />
   <UNDEFINED
     form="app/AskQuestion/EDIT_QUESTION_FORM"
     formTitle="Edit question"
@@ -68,18 +50,12 @@ exports[`EditQuestion render test questionLoading is falsy 1`] = `
 
 exports[`EditQuestion render test questionLoading is true 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      title
-    </title>
-    <meta
-      content="content"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="content"
+    index={false}
+    language="en"
+    title="title"
+  />
   <UNDEFINED />
 </div>
 `;

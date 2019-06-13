@@ -11,6 +11,7 @@ cmp.props = {
   isProfileLoading: false,
   locale: 'en',
   profile: {
+    profile: {},
     eos: {
       display_name: 'user',
     },
@@ -36,7 +37,7 @@ describe('Profile', () => {
 
     it('@isProfileLoading is false && @profile is true', () => {
       cmp.props.isProfileLoading = false;
-      cmp.props.profile = {};
+      cmp.props.profile = { profile: {} };
       expect(cmp.render()).toMatchSnapshot();
     });
   });

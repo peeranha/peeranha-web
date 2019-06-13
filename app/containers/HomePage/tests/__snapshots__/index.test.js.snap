@@ -4,18 +4,11 @@ exports[`HomePage render test 1`] = `
 <div
   id="landing-id"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Peerania - Decentralized Q&A website with crypto rewards
-    </title>
-    <meta
-      content="Decentralized questions and answers website that rewards users with crypto tokens for their contributions."
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Decentralized questions and answers website that rewards users with crypto tokens for their contributions."
+    language="en"
+    title="Peerania - Decentralized Q&A website with crypto rewards"
+  />
   <Introduction
     sendEmail={[Function]}
     sendEmailLoading={true}

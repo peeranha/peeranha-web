@@ -2,18 +2,12 @@
 
 exports[`SuggestedTags render 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Suggested tags
-    </title>
-    <meta
-      content="Suggested tags | Description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Suggested tags | Description"
+    keywords={Array []}
+    language="en"
+    title="Suggested tags"
+  />
   <withReducer(withSaga(Connect(Tags)))
     Aside={
       <UNDEFINED
@@ -41,6 +35,7 @@ exports[`SuggestedTags render 1`] = `
     currentCommunity={
       Object {
         "id": 1,
+        "tags": Array [],
       }
     }
     sortTags={[Function]}

@@ -2,35 +2,27 @@
 
 exports[`<ViewQuestion /> render !@questionDataLoading && !@questionData 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Question's page
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    articleModifiedTime=""
+    articlePublishedTime=""
+    keywords="Question's page"
+    language="en"
+    title="Question's page"
+  />
   <UNDEFINED />
 </div>
 `;
 
 exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      title
-    </title>
-    <meta
-      content="content"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    articleModifiedTime=""
+    articlePublishedTime=""
+    description="content"
+    keywords="title"
+    language="en"
+    title="title"
+  />
   <UNDEFINED
     account="user1"
     deleteAnswer={[Function]}
@@ -448,17 +440,13 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
 
 exports[`<ViewQuestion /> render @questionDataLoading is true 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Question's page
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    articleModifiedTime=""
+    articlePublishedTime=""
+    keywords="Question's page"
+    language="en"
+    title="Question's page"
+  />
   <UNDEFINED />
 </div>
 `;

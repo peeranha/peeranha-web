@@ -2,18 +2,12 @@
 
 exports[`AskQuestion snapshot test 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Ask question
-    </title>
-    <meta
-      content="Ask question | Description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Ask question | Description"
+    index={false}
+    language="en"
+    title="Ask question"
+  />
   <UNDEFINED
     form="app/AskQuestion/ASK_QUESTION_FORM"
     formTitle="Ask question"

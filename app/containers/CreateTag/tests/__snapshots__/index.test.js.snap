@@ -2,18 +2,12 @@
 
 exports[`<CreateTag /> render 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Create tag
-    </title>
-    <meta
-      content="Create tag | Description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Create tag | Description"
+    index={false}
+    language="en"
+    title="Create tag"
+  />
   <UNDEFINED />
   <Base
     className="p-0"

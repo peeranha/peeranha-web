@@ -7,17 +7,10 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
   loadNextPaginatedData={[Function]}
 >
   <div>
-    <HelmetWrapper
-      defer={true}
-      encodeSpecialCharacters={true}
-    >
-      <title>
-        Questions
-      </title>
-      <meta
-        name="description"
-      />
-    </HelmetWrapper>
+    <UNDEFINED
+      language="en"
+      title="Questions"
+    />
     <UNDEFINED
       communityIdFilter={10}
       followedCommunities={null}
@@ -38,17 +31,10 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
   loadNextPaginatedData={[Function]}
 >
   <div>
-    <HelmetWrapper
-      defer={true}
-      encodeSpecialCharacters={true}
-    >
-      <title>
-        Questions
-      </title>
-      <meta
-        name="description"
-      />
-    </HelmetWrapper>
+    <UNDEFINED
+      language="en"
+      title="Questions"
+    />
     <UNDEFINED
       communityIdFilter={10}
       followedCommunities={null}

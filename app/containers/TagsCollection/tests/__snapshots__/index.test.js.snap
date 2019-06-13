@@ -2,17 +2,15 @@
 
 exports[`<TagsCollection /> render 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Tags collection
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    keywords={
+      Array [
+        Array [],
+      ]
+    }
+    language="en"
+    title="Tags collection"
+  />
   <UNDEFINED
     openTagForm={[Function]}
   />
@@ -21,6 +19,7 @@ exports[`<TagsCollection /> render 1`] = `
       Array [
         Object {
           "id": 1,
+          "tags": Array [],
         },
       ]
     }

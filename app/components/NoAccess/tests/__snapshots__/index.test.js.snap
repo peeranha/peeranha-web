@@ -4,12 +4,20 @@ exports[`<NoAccess /> should match the snapshot 1`] = `
 <div
   className="container"
 >
+  <UNDEFINED
+    description="No access"
+    index={false}
+    language="en"
+    title="No access"
+  />
   <div
     className="text-center pt-3"
   >
-    <span>
-      No access to complete this action!
-    </span>
+    <FormattedMessage
+      defaultMessage="No access to complete this action!"
+      id="app.components.NoAccess.errorMessage"
+      values={Object {}}
+    />
   </div>
 </div>
 `;
