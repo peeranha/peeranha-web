@@ -23,6 +23,7 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';
+import LocationProvider from 'components/LocationProvider';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
@@ -59,7 +60,9 @@ const render = messages => {
       <LanguageProvider messages={messages}>
         <ErrorBoundary>
           <ConnectedRouter history={createdHistory}>
-            <App />
+            <LocationProvider>
+              <App />
+            </LocationProvider>
           </ConnectedRouter>
         </ErrorBoundary>
       </LanguageProvider>
