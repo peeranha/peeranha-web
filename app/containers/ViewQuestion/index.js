@@ -298,13 +298,25 @@ export class ViewQuestion extends React.Component {
         ? new Date(questionData.lastEditedDate * 1000)
         : ``;
 
+    const tagIds = questionData ? questionData.tags : [];
+
+    const commId = questionData ? questionData.community_id : null;
+
+    const community = communities.filter(x => x.id === commId)[0] || {
+      tags: [],
+    };
+
+    const tags = community.tags.filter(x => tagIds.includes(x.id));
+
+    const keywords = `${tags.map(x => x.name)}, ${helmetTitle}`;
+
     return (
       <div>
         <Seo
           title={helmetTitle}
           description={helmetDescription}
           language={locale}
-          keywords={helmetTitle}
+          keywords={keywords}
           articlePublishedTime={articlePublishedTime}
           articleModifiedTime={articleModifiedTime}
         />
