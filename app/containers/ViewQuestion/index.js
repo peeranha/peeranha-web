@@ -245,7 +245,7 @@ export class ViewQuestion extends React.Component {
     );
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       account,

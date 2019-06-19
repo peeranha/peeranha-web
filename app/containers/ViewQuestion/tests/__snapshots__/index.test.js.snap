@@ -5,7 +5,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && !@questionData 1`] = `
   <UNDEFINED
     articleModifiedTime=""
     articlePublishedTime=""
-    keywords="Question's page"
+    keywords=", Question's page"
     language="en"
     title="Question's page"
   />
@@ -19,12 +19,25 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
     articleModifiedTime=""
     articlePublishedTime=""
     description="content"
-    keywords="title"
+    keywords="tag1, title"
     language="en"
     title="title"
   />
   <UNDEFINED
     account="user1"
+    communities={
+      Array [
+        Object {
+          "id": 0,
+          "tags": Array [
+            Object {
+              "id": 0,
+              "name": "tag1",
+            },
+          ],
+        },
+      ]
+    }
     deleteAnswer={[Function]}
     deleteComment={[Function]}
     deleteQuestion={[Function]}
@@ -39,10 +52,14 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
     postCommentLoading={true}
     questionData={
       Object {
+        "community_id": 0,
         "content": Object {
           "content": "content",
           "title": "title",
         },
+        "tags": Array [
+          0,
+        ],
       }
     }
     saveComment={[Function]}
@@ -443,7 +460,7 @@ exports[`<ViewQuestion /> render @questionDataLoading is true 1`] = `
   <UNDEFINED
     articleModifiedTime=""
     articlePublishedTime=""
-    keywords="Question's page"
+    keywords=", Question's page"
     language="en"
     title="Question's page"
   />
