@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose } from 'redux';
@@ -15,6 +14,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -54,13 +54,12 @@ export class CreateTag extends React.PureComponent {
 
     return (
       <div>
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          index={false}
+        />
 
         <Header />
 

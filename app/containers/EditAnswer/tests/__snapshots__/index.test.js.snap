@@ -1,20 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditAnswer render test answerLoading is falsy 1`] = `
-<div
-  className="container"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Edit Answer
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+<div>
+  <UNDEFINED
+    index={false}
+    language="en"
+    title="Edit Answer"
+  />
   <UNDEFINED
     answerid={1}
     questionid={1}
@@ -417,20 +409,12 @@ exports[`EditAnswer render test answerLoading is falsy 1`] = `
 `;
 
 exports[`EditAnswer render test answerLoading is true 1`] = `
-<div
-  className="container"
->
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Edit Answer
-    </title>
-    <meta
-      name="description"
-    />
-  </HelmetWrapper>
+<div>
+  <UNDEFINED
+    index={false}
+    language="en"
+    title="Edit Answer"
+  />
   <UNDEFINED />
 </div>
 `;

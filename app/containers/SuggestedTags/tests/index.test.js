@@ -13,7 +13,7 @@ const ev = {
 beforeEach(() => {
   cmp.props = {
     locale: 'en',
-    communities: [{ id: 1 }, { id: 2 }],
+    communities: [{ id: 1, tags: [] }, { id: 2, tags: [] }],
     isLastFetch: false,
     suggestedTagsLoading: false,
     existingTags: [{ id: 1 }, { id: 2 }],

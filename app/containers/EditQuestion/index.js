@@ -7,12 +7,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose } from 'redux';
-
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +19,8 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
+import Seo from 'components/Seo';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import {
   FORM_TITLE,
@@ -91,10 +90,12 @@ export class EditQuestion extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          <title>{helmetTitle}</title>
-          <meta name="description" content={helmetDescription} />
-        </Helmet>
+        <Seo
+          title={helmetTitle}
+          description={helmetDescription}
+          language={locale}
+          index={false}
+        />
 
         {!questionLoading && <QuestionForm {...sendProps} />}
 

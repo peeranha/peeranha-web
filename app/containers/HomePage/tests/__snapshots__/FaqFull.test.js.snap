@@ -4,18 +4,11 @@ exports[`FaqFull snapshot test test 1`] = `
 <FaqFull__Box
   id="landing-id"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Peerania | FAQ
-    </title>
-    <meta
-      content="Peerania - Decentralized Q&A website with crypto rewards"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Peerania - Decentralized Q&A website with crypto rewards"
+    language="en"
+    title="Peerania | FAQ"
+  />
   <Connect(Header)
     sendEmail={[Function]}
     translations={

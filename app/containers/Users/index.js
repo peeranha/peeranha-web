@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -9,6 +8,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import Seo from 'components/Seo';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectStat } from 'containers/DataCacheProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -83,13 +83,11 @@ export class Users extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+        />
 
         <View
           userCount={stat.user_count}

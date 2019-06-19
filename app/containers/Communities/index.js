@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
@@ -32,6 +31,7 @@ import { showLoginModal } from 'containers/Login/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import Seo from 'components/Seo';
 
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
@@ -111,15 +111,16 @@ export class Communities extends React.PureComponent {
       sorting,
     } = this.props;
 
+    const keywords = communities.map(x => x.name);
+
     return (
       <div className="d-flex justify-content-center">
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          keywords={keywords}
+        />
 
         <div className="flex-grow-1">
           <CommunitiesHeader

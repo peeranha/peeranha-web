@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 
@@ -21,6 +20,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getExistingTags } from 'containers/Tags/actions';
 
 import Tags from 'containers/Tags';
+import Seo from 'components/Seo';
 
 import messages from './messages';
 
@@ -71,15 +71,16 @@ export class TagsOfCommunity extends React.Component {
       getFollowedCommunities(communities, [+match.params.communityid])[0] ||
       emptyCommunity;
 
+    const keywords = this.currentCommunity.tags.map(x => x.name);
+
     return (
       <div>
-        <Helmet>
-          <title>{translationMessages[locale][messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translationMessages[locale][messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          keywords={keywords}
+        />
 
         <Tags
           sortTags={this.sortTags}

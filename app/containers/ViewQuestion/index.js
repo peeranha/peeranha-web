@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -18,6 +17,7 @@ import * as routes from 'routes-config';
 
 import { scrollToSection } from 'utils/animation';
 
+import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -245,7 +245,7 @@ export class ViewQuestion extends React.Component {
     );
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       account,
@@ -288,12 +288,38 @@ export class ViewQuestion extends React.Component {
       (questionData && questionData.content.content) ||
       sendProps.translations[messages.title.description];
 
+    const articlePublishedTime =
+      questionData && questionData.post_time
+        ? new Date(questionData.post_time * 1000)
+        : ``;
+
+    const articleModifiedTime =
+      questionData && questionData.lastEditedDate
+        ? new Date(questionData.lastEditedDate * 1000)
+        : ``;
+
+    const tagIds = questionData ? questionData.tags : [];
+
+    const commId = questionData ? questionData.community_id : null;
+
+    const community = communities.filter(x => x.id === commId)[0] || {
+      tags: [],
+    };
+
+    const tags = community.tags.filter(x => tagIds.includes(x.id));
+
+    const keywords = `${tags.map(x => x.name)}, ${helmetTitle}`;
+
     return (
       <div>
-        <Helmet>
-          <title>{helmetTitle}</title>
-          <meta name="description" content={helmetDescription} />
-        </Helmet>
+        <Seo
+          title={helmetTitle}
+          description={helmetDescription}
+          language={locale}
+          keywords={keywords}
+          articlePublishedTime={articlePublishedTime}
+          articleModifiedTime={articleModifiedTime}
+        />
 
         {!questionDataLoading &&
           questionData && <ViewQuestionContainer {...sendProps} />}

@@ -7,11 +7,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -73,11 +73,13 @@ export class EditAnswer extends React.PureComponent {
       answer || sendProps.translations[messages.title.description];
 
     return (
-      <div className="container">
-        <Helmet>
-          <title>{helmetTitle}</title>
-          <meta name="description" content={helmetDescription} />
-        </Helmet>
+      <div>
+        <Seo
+          title={helmetTitle}
+          description={helmetDescription}
+          language={locale}
+          index={false}
+        />
 
         {!answerLoading && (
           <Wrapper questionid={questionid} answerid={answerid}>

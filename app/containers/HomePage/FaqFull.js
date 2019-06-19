@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import Seo from 'components/Seo';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -58,13 +58,11 @@ export class FaqFull extends React.PureComponent {
 
     return (
       <Box id="landing-id">
-        <Helmet>
-          <title>{translations[messages.faqTitle.id]}</title>
-          <meta
-            name="description"
-            content={translations[messages.faqDescription.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translations[messages.faqTitle.id]}
+          description={translations[messages.faqDescription.id]}
+          language={this.props.locale}
+        />
 
         <Header
           sendEmailLoading={this.props.sendEmailLoading}
