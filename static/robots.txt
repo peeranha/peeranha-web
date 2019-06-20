@@ -1,0 +1,14 @@
+User-Agent: *
+Disallow: /users/
+Disallow: /users/*#
+Disallow: /questions/*/edit/
+Disallow: /questions/*/answers/*/edit/
+Disallow: /questions/ask/
+Disallow: /no-access/
+Disallow: /feed/
+Disallow: /communities/create/
+Disallow: /communities/suggested/
+Disallow: /communities/*/tags/suggested/
+Disallow: /communities/*/tags/create/
+
+Sitemap: https://peerania.com/sitemap.xml
