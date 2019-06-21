@@ -26,6 +26,9 @@ module.exports = options => {
 
   return {
     mode: options.mode,
+    node: {
+      fs: 'empty',
+    },
     entry: options.entry,
     output: Object.assign(
       {
