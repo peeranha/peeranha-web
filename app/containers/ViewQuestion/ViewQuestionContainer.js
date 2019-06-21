@@ -7,11 +7,16 @@ import Base from 'components/Base/BaseRounded';
 import Question from './Question';
 import Answers from './Answers';
 
-import { POST_ANSWER_BUTTON, ADD_ANSWER_FORM } from './constants';
 import messages from './messages';
 
+import {
+  POST_ANSWER_BUTTON,
+  ADD_ANSWER_FORM,
+  QUESTION_IS_RENDERED_ID,
+} from './constants';
+
 export const ViewQuestionContainer = /* istanbul ignore next */ props => (
-  <div>
+  <div id={QUESTION_IS_RENDERED_ID}>
     <Question {...props} />
     <Answers {...props} />
 
