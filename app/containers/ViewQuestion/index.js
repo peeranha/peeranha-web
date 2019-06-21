@@ -311,7 +311,7 @@ export class ViewQuestion extends React.Component {
     const keywords = `${tags.map(x => x.name)}, ${helmetTitle}`;
 
     return (
-      <div>
+      <React.Fragment>
         <Seo
           title={helmetTitle}
           description={helmetDescription}
@@ -327,7 +327,7 @@ export class ViewQuestion extends React.Component {
         {!questionDataLoading && !questionData && <NoSuchQuestion />}
 
         {questionDataLoading && <LoadingIndicator />}
-      </div>
+      </React.Fragment>
     );
   }
 }

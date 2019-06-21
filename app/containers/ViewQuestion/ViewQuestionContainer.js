@@ -16,7 +16,7 @@ import {
 } from './constants';
 
 export const ViewQuestionContainer = /* istanbul ignore next */ props => (
-  <div id={QUESTION_IS_RENDERED_ID}>
+  <article id={QUESTION_IS_RENDERED_ID}>
     <Question {...props} />
     <Answers {...props} />
 
@@ -30,7 +30,7 @@ export const ViewQuestionContainer = /* istanbul ignore next */ props => (
         submitButtonName={props.translations[messages.postAnswerButton.id]}
       />
     </Base>
-  </div>
+  </article>
 );
 
 ViewQuestionContainer.propTypes = {
