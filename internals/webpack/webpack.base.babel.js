@@ -5,6 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
@@ -156,6 +157,7 @@ module.exports = options => {
 
       // Expose .env config to webpack in order to use `process.env.{key}` inside code
       new webpack.DefinePlugin(envKeys),
+      new CopyWebpackPlugin([{ from: 'static' }]),
     ]),
     resolve: {
       modules: ['node_modules', 'app'],
