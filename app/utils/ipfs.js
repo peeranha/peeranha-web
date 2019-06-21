@@ -24,5 +24,9 @@ export async function getText(hash) {
 }
 
 export function getFileUrl(fileHash) {
+  if (window.renderedByPuppeteer) {
+    return null;
+  }
+
   return `${IPFS_URL}/${fileHash}`;
 }
