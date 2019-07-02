@@ -57,9 +57,7 @@ class EosioService {
   };
 
   getSelectedAccount = () => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
-
-    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
+    if (!this.initialized || !this.scatterInstalled) return null;
 
     if (
       this.scatterInstance.identity === undefined ||
