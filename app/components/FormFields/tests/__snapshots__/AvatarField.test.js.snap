@@ -7,10 +7,9 @@ exports[`AvatarField test 1`] = `
   <AvatarField__AvatarArea
     disabled={false}
   >
-    <d
+    <l
       border={3.2}
       borderRadius={100}
-      className=""
       color={
         Array [
           255,
@@ -21,6 +20,7 @@ exports[`AvatarField test 1`] = `
       }
       crossOrigin="anonymous"
       disableBoundaryChecks={false}
+      disableHiDPIScaling={false}
       height={12.8}
       image="cached"
       onImageChange={[Function]}
@@ -32,7 +32,6 @@ exports[`AvatarField test 1`] = `
       onPositionChange={[Function]}
       rotate={0}
       scale={1.5}
-      style={Object {}}
       width={12.8}
     />
   </AvatarField__AvatarArea>

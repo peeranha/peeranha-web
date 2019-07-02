@@ -96,7 +96,7 @@ const Footer = Li.extend`
 `.withComponent('footer');
 
 /* istanbul ignore next */
-const FixedContentStyled = styled.div`
+const FixedContentStyled = styled.nav`
   position: ${props => (props.isMenuVisible ? 'relative' : 'fixed')};
   width: ${props => (props.isMenuVisible ? '100%' : `${LEFT_MENU_WIDTH}px`)};
   transition: 0.4s;

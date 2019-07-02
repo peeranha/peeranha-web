@@ -20,7 +20,7 @@ const Main = styled.div`
   padding-bottom: 150px;
 `;
 
-const WrapStyled = styled.div`
+const WrapStyled = styled.main`
   margin-top: 10px;
   flex: 1 1 auto;
   overflow-y: -webkit-paged-y;

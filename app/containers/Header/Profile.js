@@ -47,7 +47,7 @@ const Button = /* istanbul ignore next */ ({ profileInfo, onClick }) => (
 );
 
 const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
-  <div>
+  <nav>
     <Ul>
       <Li>
         <AStyled to={routes.profileView(profileInfo.user)}>
@@ -70,6 +70,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
         </AStyled>
       </Li>
     </Ul>
+
     <Ul className="d-block d-lg-none">
       <Li>
         <AStyled to={routes.feed()}>
@@ -103,6 +104,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
         </AStyled>
       </Li>
     </Ul>
+
     <Ul className="d-block d-lg-none">
       <Li>
         <AStyled to={routes.faq()}>
@@ -125,6 +127,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
         </AStyled>
       </Li>
     </Ul>
+
     <Ul>
       <Li className="d-flex align-items-center">
         <img className="mr-2" src={logoutIcon} alt="icon" />
@@ -133,7 +136,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
         </Span>
       </Li>
     </Ul>
-  </div>
+  </nav>
 );
 
 const Profile = /* istanbul ignore next */ ({
