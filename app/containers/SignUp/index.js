@@ -20,7 +20,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
-import ModalDialog from 'containers/ModalDialog';
+import ModalDialog from 'components/ModalDialog';
 import ScatterInstaller from 'components/ScatterInstaller';
 import SelectAccountComponent from 'components/SelectAccount';
 

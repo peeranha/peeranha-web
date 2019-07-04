@@ -14,7 +14,7 @@ import injectReducer from 'utils/injectReducer';
 
 import SelectAccountComponent from 'components/SelectAccount';
 import ScatterInstaller from 'components/ScatterInstaller';
-import ModalDialog from 'containers/ModalDialog';
+import ModalDialog from 'components/ModalDialog';
 
 import {
   NO_SCATTER,
