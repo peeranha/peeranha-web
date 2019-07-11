@@ -1,5 +1,6 @@
 import Eosjs from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.cjs';
+import ScatterJS from 'scatterjs-core';
+import ScatterEOS from 'scatterjs-plugin-eosjs';
 
 import {
   BLOCKCHAIN_NAME,
@@ -30,6 +31,8 @@ class EosioService {
   };
 
   initScatter = async () => {
+    ScatterJS.plugins(new ScatterEOS());
+
     const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
     this.scatterInstalled = connected === true;
 
