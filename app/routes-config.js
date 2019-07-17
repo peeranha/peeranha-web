@@ -48,3 +48,40 @@ export const suggestedTags = communityid =>
 
 export const tagsCreate = communityid =>
   `/communities/${communityid || 0}/tags/create`;
+
+export const registrationStage = 'signup';
+
+export const signup = {
+  email: {
+    step: 1,
+    name: `/${registrationStage}/email`,
+    scatter: false,
+  },
+  displayName: {
+    step: 1,
+    name: `/${registrationStage}/with-scatter/display-name`,
+    scatter: true,
+  },
+  emailVerification: {
+    step: 2,
+    name: `/${registrationStage}/email-verification`,
+    scatter: false,
+  },
+  haveEosAccount: {
+    step: 3,
+    name: `/${registrationStage}/i-have-eos-account`,
+    scatter: false,
+  },
+  haveNotEosAccount: {
+    step: 3,
+    name: `/${registrationStage}/i-have-not-eos-account`,
+    scatter: false,
+  },
+  almostDone: {
+    step: 4,
+    name: `/${registrationStage}/almost-done`,
+    scatter: false,
+  },
+};
+
+export const privacyPolicy = () => `/privacy-policy`;

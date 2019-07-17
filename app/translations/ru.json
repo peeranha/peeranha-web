@@ -56,6 +56,36 @@
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
 
+  "web_integration.errors.unknownError":
+    "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
+  "web_integration.errors.accountAlreadyRegistered":
+    "Аккаунт уже зарегистрирован",
+  "web_integration.errors.invalidEncryptionKey":
+    "Неверный ключ шифрования или IV",
+  "web_integration.errors.userDidntStoreKey":
+    "Пользователь не сохранил owner key в нашем сервисе",
+  "web_integration.errors.unableToDecryptUserKey":
+    "Невозможно расшифровать данные с текущим ключом",
+  "web_integration.errors.userDidntRequestActivateAcc":
+    "Данный пользователь не активировал аккаунт",
+  "web_integration.errors.youSendTooManRequests":
+    "Вы отправили слишком много запросов за последнее время",
+  "web_integration.errors.userDidntMakeRequestToVerifyEmail":
+    "Email не был зарегистрирован или время ожидания истекло",
+  "web_integration.errors.codeExpiredOrIncorrect":
+    "Код истек или был введен некорректно",
+  "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
+  "web_integration.errors.wrongPassword":
+    "Невозможно дешифровать passphrase с данным ключом",
+  "web_integration.errors.accountWithEmailIsntRegistered":
+    "Аккаунт с данным ключом не был еще зарегистрирован",
+  "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
+    "Пользователь еще не завершил операцию или время жизни ключа истекло",
+  "web_integration.errors.invalidCipher":
+    "Неверный ключ шифрования IV in passphase",
+  "web_integration.errors.emailAlreadyInUse": "Email уже используется",
+  "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
+
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
@@ -125,7 +155,6 @@
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
-  "app.containers.Tags.backToList": "Вернуться к списку",
   "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
   "app.containers.Tags.suggestTagWhichWillbeUseful":
     "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
@@ -447,22 +476,92 @@
 
   "app.components.Footer.header": "Авторские права: Peerania",
 
-  "app.containers.SignUp.eosAccount": "EOS аккаунт",
-  "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
-  "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
-  "app.containers.SignUp.login": "Войти",
-  "app.containers.SignUp.displayName": "Отображаемое имя",
-  "app.containers.SignUp.signUp": "Зарегистрироваться",
-  "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
-  "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
-  "app.containers.SignUp.loginWith": "Войти через",
-  "app.containers.SignUp.identity": "аккаунт",
+  "app.containers.Login.authUserHasMore":
+    "Авторизованный пользователь имеет больше привилегий",
+  "app.containers.Login.staySignedIn": "Оставаться авторизованным",
+  "app.containers.Login.iForgotPassword": "Я забыл свой пароль",
+  "app.containers.Login.scatterIsNotInstalled":
+    "Проверьте, установлен ли Scatter, а также его настройки",
+  "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
+  "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
+  "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
+  "app.containers.Login.yourUsernameIsHow":
+    "Имя, которое будет у Вас в Peerania.",
+
+  "app.containers.ForgotPassword.youGotThisKey":
+    "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
+
+  "app.containers.SignUp.checkYourEmail":
+    "Проверьте свою почту. Вам должен придти код подтверждения.",
+  "app.containers.SignUp.almostDone": "Почти все",
+  "app.containers.SignUp.firstParagraphAlmostDone":
+    "Peerania не типичное приложение. Оно движимо Peerania блокчейном.",
+  "app.containers.SignUp.secondParagraphAlmostDone":
+    "Peerania блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
+  "app.containers.SignUp.thirdParagraphAlmostDone":
+    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
+  "app.containers.SignUp.firstFAQAlmostDone": "Почему я должен ожидать?",
+  "app.containers.SignUp.secondFAQAlmostDone": "Когда я могу начать?",
+  "app.containers.SignUp.thirdFAQAlmostDone": "Для чего мне нужен EOS аккаунт?",
+  "app.containers.SignUp.weWillNotify":
+    "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
+  "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
+  "app.containers.SignUp.youNeedEosAccount": "Вам необходим EOS аккаунт",
+  "app.containers.SignUp.theWayEosWorks":
+    "Подход EOS работы в том, что новые аккаунты могут быть созданы только кем-то с существующим аккаунтом. Создание аккаунт также требует купить некоторое количество RAM.",
+  "app.containers.SignUp.ifYouCreateEos":
+    "Если вы создаете учетную запись EOS на этом веб-сайте, она поставляется с 0.2 EOS, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
+  "app.containers.SignUp.whyDoIneedThisService":
+    "Почему мне нужен этот сервис?",
+  "app.containers.SignUp.howMuchDoesItCost": "Как дорого это стоит?",
+  "app.containers.SignUp.ifThisWebsiteSafe":
+    "Этот вебсайт безопасен для использования?",
+  "app.containers.SignUp.whatKeysAndHowToUse":
+    "Что это за ключи и как их генерировать?",
+  "app.containers.SignUp.signUpOptions": "Опции при регистрации",
+  "app.containers.SignUp.steemitIsNotTypical":
+    "Peerania не типичное приложение. Оно движимо Peerania блокчейном.",
+  "app.containers.SignUp.steemitBlockchainPowers":
+    "Peerania блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
+  "app.containers.SignUp.weAreHappyToCover":
+    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
+  "app.containers.SignUp.ifYouLikeToSkip":
+    "Если бы Вы хотели пропустить этот шаг и остаться анонимным, Вы можете сами оплатить создание аккаунта через сторонние сервисы",
+  "app.containers.SignUp.whyIHaveToWait": "Почему я должен ожидать?",
+  "app.containers.SignUp.whenCanIStart": "Когда я могу начать?",
+  "app.containers.SignUp.whatIsEosAccountFor":
+    "Для чего мне нужен EOS аккаунт?",
   "app.containers.SignUp.or": "или",
-  "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
-  "app.containers.SignUp.displayNameLength":
-    "Длина поля должна быть не меньше 3 символов и не более 20",
-  "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
-  "app.containers.SignUp.serverMessage": "Ошибка",
+  "app.containers.SignUp.doYouHaveAlreadyAccount": "Вы уже имеете EOS аккаунт?",
+  "app.containers.SignUp.youHaveToSaveKeys":
+    "Вам следует грамотно сохранить ключи",
+  "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
+  "app.containers.SignUp.iHaveEosAccount": "Я имею EOS аккаунт",
+  "app.containers.SignUp.iHaveNotEosAccount": "Я не имею EOS аккаунта",
+  "app.containers.SignUp.downloadKeys": "Загрузить ключи",
+  "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peerania?",
+  "app.containers.SignUp.title": "Регистрация",
+  "app.containers.SignUp.description": "Регистрация | Описание",
+  "app.containers.SignUp.continue": "Продолжить",
+  "app.containers.SignUp.email": "Почта",
+  "app.containers.SignUp.verificationCode": "Код подтверждения",
+  "app.containers.SignUp.verify": "Подтвердить",
+  "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
+  "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
+  "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
+  "app.containers.SignUp.masterKey": "Master key",
+  "app.containers.SignUp.displayName": "Имя в Peerania",
+  "app.containers.SignUp.eosName": "Имя в EOS",
+  "app.containers.SignUp.signUp": "Зарегистрироваться",
+  "app.containers.SignUp.password": "Пароль",
+  "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
+  "app.containers.SignUp.iAcceptPrivacyPolicy":
+    "Я принимаю условия Политики Конфиденциальности.",
+  "app.containers.SignUp.iSaveMasterKey":
+    "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
+  "app.containers.SignUp.userAlreadyRegistered":
+    "Пользователь с таким identity уже зарегистрирован",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",
@@ -482,25 +581,6 @@
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
 
-  "app.containers.ScatterInstaller.header":
-    "Чтобы выполнить это действие в нашем приложении установите",
-  "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
-  "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
-
-  "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
-  "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
-  "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
-
-  "app.containers.Login.header":
-    "Не найдено Peerania аккаунта для данного выбора",
-  "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
-  "app.containers.Login.requirementToSignUp":
-    "Зарегистрируйте Peerania аккаунт",
-  "app.containers.Login.loginWithScatter": "Войти через Scatter",
-  "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
-  "app.containers.Login.signUp": "Зарегистрируйтесь",
-
-  "app.containers.UserProfileNav.profile": "Профиль",
   "app.containers.UserProfileNav.profile": "Профиль",
 
   "app.containers.ErrorBoundary.title": "Ошибка",

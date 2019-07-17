@@ -2,11 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import seacrhIcon from 'images/search.svg?inline';
+import refreshIcon from 'images/reload.svg?inline';
+import eyeOpenedIcon from 'images/eyeOpened.svg?inline';
+import eyeClosedIcon from 'images/eyeСlosed.svg?inline';
 
 import InputStyled from './InputStyled';
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+
+const Handler = ({ isRefreshable, isSearchable, isPassword, onClick }) => {
+  let src = null;
+
+  if (isSearchable) {
+    src = seacrhIcon;
+  } else if (isRefreshable) {
+    src = refreshIcon;
+  } else if (isPassword[0] && !isPassword[1]) {
+    src = eyeClosedIcon;
+  } else if (isPassword[0] && isPassword[1]) {
+    src = eyeOpenedIcon;
+  } else {
+    return null;
+  }
+
+  return <img onClick={onClick || null} src={src} alt="icon" />;
+};
 
 class Input extends React.PureComponent {
   state = {
@@ -24,10 +45,12 @@ class Input extends React.PureComponent {
       type,
       placeholder,
       isSearchable,
+      isRefreshable,
       disabled,
       className,
       error,
       readOnly,
+      onClick,
     } = this.props;
 
     return (
@@ -44,11 +67,12 @@ class Input extends React.PureComponent {
           disabled={disabled}
         />
 
-        {isSearchable && <img src={seacrhIcon} alt="icon" />}
-
-        {type === 'password' && (
-          <img onClick={this.changeType} src={seacrhIcon} alt="icon" />
-        )}
+        <Handler
+          isSearchable={isSearchable}
+          isRefreshable={isRefreshable}
+          isPassword={[type === 'password', this.state.isText]}
+          onClick={type === 'password' ? this.changeType : onClick}
+        />
       </InputStyled>
     );
   }
@@ -60,9 +84,18 @@ Input.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   isSearchable: PropTypes.bool,
+  isRefreshable: PropTypes.bool,
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   readOnly: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+Handler.propTypes = {
+  isRefreshable: PropTypes.bool,
+  isSearchable: PropTypes.bool,
+  isPassword: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Input;

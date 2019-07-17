@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { getCurrentAccount } from './actions';
 import reducer from './reducer';
@@ -24,7 +25,7 @@ export class AccountProvider extends React.Component {
   }
 
   render() /* istanbul ignore next */ {
-    return [React.Children.toArray(this.props.children)];
+    return this.props.children;
   }
 }
 
@@ -48,7 +49,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'accountProvider', reducer });
-const withSaga = injectSaga({ key: 'accountProvider', saga });
+const withSaga = injectSaga({ key: 'accountProvider', saga, mode: DAEMON });
 
 export { mapDispatchToProps };
 

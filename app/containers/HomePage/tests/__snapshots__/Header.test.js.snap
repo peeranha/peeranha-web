@@ -6,13 +6,11 @@ exports[`Header test 1`] = `
     id="landing-header"
     isToggled={false}
   >
-    <ModalDialog
+    <UNDEFINED
       closeModal={[MockFunction]}
       show={true}
     >
-      <div
-        className="header-modal-dialog"
-      >
+      <ModalDialog>
         <div
           className="image-coins"
         >
@@ -50,8 +48,8 @@ exports[`Header test 1`] = `
             sendEmailLoading={false}
           />
         </div>
-      </div>
-    </ModalDialog>
+      </ModalDialog>
+    </UNDEFINED>
     <div
       className="container"
     >

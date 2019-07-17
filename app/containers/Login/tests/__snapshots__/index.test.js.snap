@@ -1,126 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Login /> render COMPLETE_LOGIN 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
+<UNDEFINED
+  closeModal={[MockFunction]}
   show={true}
 >
-  <div />
-</ModalDialog>
+  <Children />
+</UNDEFINED>
 `;
 
 exports[`<Login /> render NO_SCATTER 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
+<UNDEFINED
+  closeModal={[MockFunction]}
   show={true}
 >
-  <div>
-    <ScatterInstaller
-      backToOptions={[Function]}
-      reloadApp={[MockFunction]}
-    />
-  </div>
-</ModalDialog>
+  <Children />
+</UNDEFINED>
 `;
 
 exports[`<Login /> render NO_SELECTED_SCATTER_ACCOUNTS 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
+<UNDEFINED
+  closeModal={[MockFunction]}
   show={true}
 >
-  <div>
-    <SelectAccountComponent
-      backToOptions={[Function]}
-      selectAccount={[Function]}
-    />
-  </div>
-</ModalDialog>
+  <Children />
+</UNDEFINED>
 `;
 
 exports[`<Login /> render SHOW_DEFAULT_LOGIN_MODAL 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
+<UNDEFINED
+  closeModal={[MockFunction]}
   show={true}
 >
-  <div>
-    <LoginOptions
-      backToOptions={[Function]}
-      continueLogin={[Function]}
-    />
-  </div>
-</ModalDialog>
+  <Children />
+</UNDEFINED>
 `;
 
 exports[`<Login /> render USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN 1`] = `
-<ModalDialog
-  closeModal={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "isThrow": false,
-          "value": undefined,
-        },
-      ],
-    }
-  }
+<UNDEFINED
+  closeModal={[MockFunction]}
   show={true}
 >
-  <div>
-    <UserIsAbsentInSystem
-      backToOptions={[Function]}
-      selectAnotherIdentity={[MockFunction]}
-    />
-  </div>
-</ModalDialog>
+  <Children />
+</UNDEFINED>
 `;

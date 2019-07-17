@@ -4,8 +4,9 @@ import { LANDING_FONT } from 'style-constants';
 import toastTypes from './toastTypes';
 
 const Toast = styled.div`
+  overflow: hidden;
   display: flex;
-  max-width: 420px;
+  width: 320px;
   background: #fff;
   box-shadow: 0px 3px 10px 0 rgba(40, 40, 40, 0.3);
   align-items: center;
@@ -22,6 +23,7 @@ const Toast = styled.div`
   }
 
   .content {
+    flex: 1;
     line-height: 1.63;
     letter-spacing: -0.6px;
     font-size: 16px;

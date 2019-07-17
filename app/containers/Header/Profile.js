@@ -18,6 +18,8 @@ import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import MediumImage from 'components/Img/MediumImage';
 
+import Logout from 'containers/Logout';
+
 const Info = styled.span`
   padding: 0 10px;
   display: flex;
@@ -130,10 +132,12 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
 
     <Ul>
       <Li className="d-flex align-items-center">
-        <img className="mr-2" src={logoutIcon} alt="icon" />
-        <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...messages.logout} />
-        </Span>
+        <Logout>
+          <img className="mr-1" src={logoutIcon} alt="icon" />
+          <Span color={TEXT_PRIMARY}>
+            <FormattedMessage {...messages.logout} />
+          </Span>
+        </Logout>
       </Li>
     </Ul>
   </nav>

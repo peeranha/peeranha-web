@@ -7,6 +7,7 @@ import {
   TEXT_DARK,
   BORDER_WARNING_LIGHT,
   APP_FONT,
+  BG_LIGHT,
 } from 'style-constants';
 
 import styled from 'styled-components';
@@ -59,6 +60,7 @@ const InputStyled = styled.div`
 
   input {
     width: 100%;
+    background: ${BG_LIGHT};
     ${props => Input(props)} &:focus {
       box-shadow: 0 0 0 3px
         ${props =>

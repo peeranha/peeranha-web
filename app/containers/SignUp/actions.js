@@ -5,62 +5,206 @@
  */
 
 import {
-  FETCH_REGISTER_ACC,
-  REGISTER_ACC_SUCCESS,
-  REGISTER_ACC_ERROR,
   SET_REDUCER_DEFAULT,
-  SHOW_SIGN_UP_MODAL,
-  SHOW_DEFAULT_SIGNUP_MODAL,
-  HIDE_SIGN_UP_MODAL,
+  EMAIL_CHECKING,
+  EMAIL_CHECKING_SUCCESS,
+  EMAIL_CHECKING_ERROR,
+  EMAIL_VERIFICATION,
+  EMAIL_VERIFICATION_SUCCESS,
+  EMAIL_VERIFICATION_ERROR,
+  I_HAVE_EOS_ACCOUNT,
+  I_HAVE_EOS_ACCOUNT_SUCCESS,
+  I_HAVE_EOS_ACCOUNT_ERROR,
+  I_HAVE_NOT_EOS_ACCOUNT,
+  I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
+  I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+  PUT_KEYS_TO_STATE,
+  VERIFICATION_FIELD,
+  SIGNUP_WITH_SCATTER,
+  SIGNUP_WITH_SCATTER_SUCCESS,
+  SIGNUP_WITH_SCATTER_ERROR,
+  SHOW_SCATTER_SIGNUP_FORM,
+  SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+  SHOW_SCATTER_SIGNUP_FORM_ERROR,
 } from './constants';
 
 /*
  *
- * register actions
+ * email checking
  *
  */
 
-export function fetchRegisterAcc(obj) {
+export function checkEmail(email) {
   return {
-    type: FETCH_REGISTER_ACC,
-    obj,
+    type: EMAIL_CHECKING,
+    email,
   };
 }
 
-export function registerAccSuccess() {
+export function checkEmailSuccess() {
   return {
-    type: REGISTER_ACC_SUCCESS,
+    type: EMAIL_CHECKING_SUCCESS,
   };
 }
 
-export function registerAccError(error) {
+export function checkEmailErr(emailCheckingError) {
   return {
-    type: REGISTER_ACC_ERROR,
-    error,
-  };
-}
-
-export function setReducerDefault() {
-  return {
-    type: SET_REDUCER_DEFAULT,
+    type: EMAIL_CHECKING_ERROR,
+    emailCheckingError,
   };
 }
 
 /*
  *
- * signUp modal window actions
+ * email verification
  *
  */
 
-export function showSignUpModal(content) {
+export function verifyEmail(values) {
   return {
-    type: SHOW_SIGN_UP_MODAL,
-    content: content || SHOW_DEFAULT_SIGNUP_MODAL,
+    type: EMAIL_VERIFICATION,
+    verificationCode: values.get(VERIFICATION_FIELD),
   };
 }
 
-export function hideSignUpModal() {
+export function verifyEmailSuccess(encryptionKey) {
   return {
-    type: HIDE_SIGN_UP_MODAL,
+    type: EMAIL_VERIFICATION_SUCCESS,
+    encryptionKey,
+  };
+}
+
+export function verifyEmailErr(verifyEmailError) {
+  return {
+    type: EMAIL_VERIFICATION_ERROR,
+    verifyEmailError,
+  };
+}
+
+/*
+ *
+ * i have eos account sign up
+ *
+ */
+
+export function iHaveEosAccount(val) {
+  return {
+    type: I_HAVE_EOS_ACCOUNT,
+    val: val.toJS(),
+  };
+}
+
+export function iHaveEosAccountSuccess() {
+  return {
+    type: I_HAVE_EOS_ACCOUNT_SUCCESS,
+  };
+}
+
+export function iHaveEosAccountErr(iHaveEosAccountError) {
+  return {
+    type: I_HAVE_EOS_ACCOUNT_ERROR,
+    iHaveEosAccountError,
+  };
+}
+
+/*
+ *
+ * i have NOT eos account sign up
+ *
+ */
+
+export function iHaveNotEosAccount(val) {
+  return {
+    type: I_HAVE_NOT_EOS_ACCOUNT,
+    val: val.toJS(),
+  };
+}
+
+export function iHaveNotEosAccountSuccess() {
+  return {
+    type: I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
+  };
+}
+
+export function iHaveNotEosAccountErr(iHaveNotEosAccountError) {
+  return {
+    type: I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+    iHaveNotEosAccountError,
+  };
+}
+
+/*
+ *
+ * sign up with scatter
+ *
+ */
+
+export function signUpWithScatter(val) {
+  return {
+    type: SIGNUP_WITH_SCATTER,
+    val: val.toJS(),
+  };
+}
+
+export function signUpWithScatterSuccess() {
+  return {
+    type: SIGNUP_WITH_SCATTER_SUCCESS,
+  };
+}
+
+export function signUpWithScatterErr(signUpWithScatterError) {
+  return {
+    type: SIGNUP_WITH_SCATTER_ERROR,
+    signUpWithScatterError,
+  };
+}
+
+/*
+ *
+ * open window for scatter registration
+ *
+ */
+
+export function showScatterSignUpForm() {
+  return {
+    type: SHOW_SCATTER_SIGNUP_FORM,
+  };
+}
+
+export function showScatterSignUpFormSuccess() {
+  return {
+    type: SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+  };
+}
+
+export function showScatterSignUpFormErr(showScatterSignUpFormError) {
+  return {
+    type: SHOW_SCATTER_SIGNUP_FORM_ERROR,
+    showScatterSignUpFormError,
+  };
+}
+
+/*
+ *
+ * put keys to state
+ *
+ */
+
+export function putKeysToState(keys) {
+  return {
+    type: PUT_KEYS_TO_STATE,
+    keys,
+  };
+}
+
+/*
+ *
+ * Reset reducer state
+ *
+ */
+
+export function setReducerDefault() {
+  return {
+    type: SET_REDUCER_DEFAULT,
   };
 }

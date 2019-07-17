@@ -33,6 +33,8 @@ import usersIcon from 'images/users.svg?external';
 import logoutIcon from 'images/logout.svg?inline';
 import questionRoundedIcon from 'images/faq.svg?external';
 
+import Logout from 'containers/Logout';
+
 import { LEFT_MENU_ID } from './constants';
 
 const feedRoute = routes.feed();
@@ -145,10 +147,12 @@ const FixedContent = /* istanbul ignore next */ ({
           </LiExtended>
 
           <LiExtended className="d-flex align-items-center">
-            <img className="mr-2" src={logoutIcon} alt="icon" />
-            <Span color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.logout} />
-            </Span>
+            <Logout>
+              <img className="mr-1" src={logoutIcon} alt="icon" />
+              <Span color={TEXT_PRIMARY}>
+                <FormattedMessage {...messages.logout} />
+              </Span>
+            </Logout>
           </LiExtended>
         </Ul>
       )}

@@ -5,7 +5,7 @@ export default styled.div`
   position: relative;
   z-index: 500;
   background: ${BG_LIGHT};
-  max-width: 480px;
+  width: 420px;
   margin: 0 15px;
   padding: 30px;
   border-radius: 5px;

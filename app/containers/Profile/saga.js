@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
@@ -16,5 +16,5 @@ export function* getProfileInfoWorker({ userKey }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_PROFILE_INFORMATION, getProfileInfoWorker);
+  yield takeLatest(GET_PROFILE_INFORMATION, getProfileInfoWorker);
 }

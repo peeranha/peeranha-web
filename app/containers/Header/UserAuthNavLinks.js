@@ -7,38 +7,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
 import userIcon from 'images/user.svg?inline';
 import messages from 'common-messages';
 
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
+import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
 const UserAuthNavLinks = /* istanbul ignore next */ ({
-  showSignUpModal,
   showLoginModal,
   isMenuVisible,
 }) => (
   <React.Fragment>
-    <LargeButton
-      className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
-      onClick={showSignUpModal}
-    >
-      <img className="mr-2" src={userIcon} alt="icon" />
-      <FormattedMessage {...messages.signUp} />
-    </LargeButton>
-
-    <LargeButton
+    <LargeOutlinedButton
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
       onClick={showLoginModal}
     >
-      <img className="mr-2" src={userIcon} alt="icon" />
       <FormattedMessage {...messages.login} />
-    </LargeButton>
+    </LargeOutlinedButton>
+
+    <LargeContainedButton
+      className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+      onClick={() => createdHistory.push(routes.signup.email.name)}
+    >
+      <img className="mr-2" src={userIcon} alt="icon" />
+      <FormattedMessage {...messages.signUp} />
+    </LargeContainedButton>
   </React.Fragment>
 );
 
 UserAuthNavLinks.propTypes = {
-  showSignUpModal: PropTypes.func,
   showLoginModal: PropTypes.func,
   isMenuVisible: PropTypes.bool,
 };

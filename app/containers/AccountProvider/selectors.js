@@ -33,16 +33,6 @@ const makeSelectFollowedCommunities = () =>
         : null,
   );
 
-const selectLoginSignupError = () =>
-  createSelector(selectAccountProviderDomain, substate =>
-    substate.get('loginSignupError'),
-  );
-
-const makeSelectForgetIdentityError = () =>
-  createSelector(selectAccountProviderDomain, substate =>
-    substate.get('forgetIdentityError'),
-  );
-
 export {
   selectAccountProviderDomain,
   makeSelectLoading,
@@ -50,6 +40,4 @@ export {
   makeSelectAccount,
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
-  selectLoginSignupError,
-  makeSelectForgetIdentityError,
 };

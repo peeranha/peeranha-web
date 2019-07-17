@@ -9,189 +9,196 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
 import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
+import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
 
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
-import ModalDialog from 'components/ModalDialog';
-import ScatterInstaller from 'components/ScatterInstaller';
-import SelectAccountComponent from 'components/SelectAccount';
-
-import { loginSignup, reloadApp } from 'containers/AccountProvider/actions';
+import Seo from 'components/Seo';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import * as routes from 'routes-config';
+import { DAEMON } from 'utils/constants';
 
 import reducer from './reducer';
 import saga from './saga';
 
-import {
-  fetchRegisterAcc,
-  setReducerDefault,
-  showSignUpModal,
-  hideSignUpModal,
-} from './actions';
-
-import {
-  DISPLAY_NAME,
-  SHOW_DEFAULT_SIGNUP_MODAL,
-  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
-  USER_IS_IN_SYSTEM_AND_SIGNUP,
-  COMPLETE_SIGNUP,
-  NO_SELECTED_SCATTER_ACCOUNTS,
-  NO_SCATTER,
-} from './constants';
-
 import * as signUpSelectors from './selectors';
 
-import SignUpForm from './SignUpForm';
-import IdentityIsRegistred from './IdentityIsRegistred';
-import SignUpOptions from './SignUpOptions';
+import {
+  checkEmail,
+  verifyEmail,
+  iHaveEosAccount,
+  iHaveNotEosAccount,
+  putKeysToState,
+  showScatterSignUpForm,
+  signUpWithScatter,
+} from './actions';
+
+import { EMAIL_FIELD } from './constants';
+
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
-  componentDidUpdate() {
-    const { registered, account, profileInfo } = this.props;
-
-    const reload = localStorage.getItem(COMPLETE_SIGNUP);
-    const scrollTo = localStorage.getItem('scrollTo');
-
-    if (reload && profileInfo !== null) {
-      this.props.showSignUpModalDispatch();
-      if (scrollTo) window.scrollTo(0, +scrollTo);
-      localStorage.clear();
+  componentWillMount() {
+    if (!this.props.email && !this.props.withScatter) {
+      createdHistory.push(routes.signup.email.name);
     }
 
-    if (registered) {
-      createdHistory.push(routes.profileEdit(account));
+    if (!this.props.keys) {
+      this.getMasterKey();
+      this.getAllKeys();
     }
   }
 
-  componentWillUnmount() {
-    this.props.setReducerDefaultDispatch();
-  }
+  checkEmail = values => {
+    const email = values.get ? values.get(EMAIL_FIELD) : this.props.email;
+    this.props.checkEmailDispatch(email);
+  };
 
-  registerUser = values => {
-    this.props.registerUserDispatch({
-      eosAccount: this.props.account,
-      displayName: values.get(DISPLAY_NAME),
+  getMasterKey = () => {
+    const masterKey = generateMasterKey();
+    const linkToDownloadMasterKey = this.getLinkToDownloadKeys({ masterKey });
+
+    this.props.putKeysToStateDispatch({
+      masterKey,
+      linkToDownloadMasterKey,
     });
   };
 
-  continueSignUp = () => {
-    this.props.loginSignupDispatch({ type: COMPLETE_SIGNUP });
+  getAllKeys = async () => {
+    const { activeKey, ownerKey } = await generateKeys();
+
+    const linkToDownloadAllKeys = this.getLinkToDownloadKeys({
+      masterKey: this.props.keys.masterKey,
+      activeKey,
+      ownerKey,
+    });
+
+    this.props.putKeysToStateDispatch({
+      activeKey,
+      ownerKey,
+      linkToDownloadAllKeys,
+    });
   };
 
-  backToOptions = () => {
-    this.props.showSignUpModalDispatch(SHOW_DEFAULT_SIGNUP_MODAL);
-  };
+  getLinkToDownloadKeys = keys => {
+    const text = JSON.stringify({ keys });
+    const data = new Blob([text], { type: 'text/plain' });
 
-  openLoginWindow = () => {
-    this.props.hideSignUpModalDispatch();
-    this.props.showLoginModalDispatch();
+    return window.URL.createObjectURL(data);
   };
 
   render() {
     const {
-      loading,
-      account,
       locale,
-      content,
-      showModal,
-      hideSignUpModalDispatch,
+      children,
+      email,
+      emailChecking,
+      emailVerificationProcessing,
+      iHaveEosAccountProcessing,
+      iHaveNotEosAccountProcessing,
+      iHaveNotEosAccountDispatch,
+      iHaveEosAccountDispatch,
+      verifyEmailDispatch,
+      showLoginModalDispatch,
+      signUpWithScatterDispatch,
+      keys,
+      signUpWithScatterProcessing,
+      showScatterSignUpProcessing,
+      showScatterSignUpFormDispatch,
+      account,
     } = this.props;
 
     return (
-      <ModalDialog show={showModal} closeModal={hideSignUpModalDispatch}>
-        <div>
-          {content === SHOW_DEFAULT_SIGNUP_MODAL && (
-            <SignUpOptions
-              continueSignUp={this.continueSignUp}
-              backToOptions={this.openLoginWindow}
-            />
-          )}
+      <React.Fragment>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          index={false}
+        />
 
-          {content === NO_SCATTER && (
-            <ScatterInstaller
-              reloadApp={this.props.reloadAppDispatch}
-              backToOptions={this.backToOptions}
-            />
-          )}
-
-          {content === NO_SELECTED_SCATTER_ACCOUNTS && (
-            <SelectAccountComponent
-              selectAccount={this.continueSignUp}
-              backToOptions={this.backToOptions}
-            />
-          )}
-
-          {content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP && (
-            <SignUpForm
-              registerUser={this.registerUser}
-              loading={loading}
-              account={account}
-              translations={translationMessages[locale]}
-            />
-          )}
-
-          {content === USER_IS_IN_SYSTEM_AND_SIGNUP && (
-            <IdentityIsRegistred
-              account={account}
-              continueLogin={this.openLoginWindow}
-              backToOptions={this.backToOptions}
-            />
-          )}
-        </div>
-      </ModalDialog>
+        {children({
+          checkEmail: this.checkEmail,
+          verifyEmail: verifyEmailDispatch,
+          iHaveEosAccount: iHaveEosAccountDispatch,
+          iHaveNotEosAccount: iHaveNotEosAccountDispatch,
+          showLoginModal: showLoginModalDispatch,
+          showScatterSignUpForm: showScatterSignUpFormDispatch,
+          signUpWithScatter: signUpWithScatterDispatch,
+          getAllKeys: this.getAllKeys,
+          keys: keys || {},
+          locale,
+          account,
+          email,
+          emailChecking,
+          emailVerificationProcessing,
+          iHaveEosAccountProcessing,
+          iHaveNotEosAccountProcessing,
+          signUpWithScatterProcessing,
+          showScatterSignUpProcessing,
+        })}
+      </React.Fragment>
     );
   }
 }
 
 SignUp.propTypes = {
-  registerUserDispatch: PropTypes.func,
-  setReducerDefaultDispatch: PropTypes.func,
-  reloadAppDispatch: PropTypes.func,
-  showSignUpModalDispatch: PropTypes.func,
-  hideSignUpModalDispatch: PropTypes.func,
-  loginSignupDispatch: PropTypes.func,
-  showLoginModalDispatch: PropTypes.func,
-  account: PropTypes.string,
-  profileInfo: PropTypes.object,
-  loading: PropTypes.bool,
-  registered: PropTypes.bool,
   locale: PropTypes.string,
-  content: PropTypes.string,
-  showModal: PropTypes.bool,
+  children: PropTypes.any,
+  showLoginModalDispatch: PropTypes.func,
+  checkEmailDispatch: PropTypes.func,
+  verifyEmailDispatch: PropTypes.func,
+  iHaveEosAccountDispatch: PropTypes.func,
+  iHaveNotEosAccountDispatch: PropTypes.func,
+  signUpWithScatterDispatch: PropTypes.func,
+  emailChecking: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  iHaveEosAccountProcessing: PropTypes.bool,
+  iHaveNotEosAccountProcessing: PropTypes.bool,
+  signUpWithScatterProcessing: PropTypes.bool,
+  showScatterSignUpProcessing: PropTypes.bool,
+  showScatterSignUpFormDispatch: PropTypes.func,
+  account: PropTypes.string,
+  email: PropTypes.string,
+  withScatter: PropTypes.bool,
+  keys: PropTypes.object,
+  putKeysToStateDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loading: signUpSelectors.makeSelectLoading(),
-  registered: signUpSelectors.makeSelectRegistered(),
-  content: signUpSelectors.makeSelectContent(),
-  showModal: signUpSelectors.makeSelectShowModal(),
-  account: makeSelectAccount(),
   locale: makeSelectLocale(),
-  profileInfo: makeSelectProfileInfo(),
+  account: makeSelectAccount(),
+  email: signUpSelectors.selectEmail(),
+  emailChecking: signUpSelectors.selectEmailChecking(),
+  emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
+  iHaveEosAccountProcessing: signUpSelectors.selectIHaveEosAccountProcessing(),
+  iHaveNotEosAccountProcessing: signUpSelectors.selectIHaveNotEosAccountProcessing(),
+  signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
+  showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
+  keys: signUpSelectors.selectKeys(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    registerUserDispatch: obj => dispatch(fetchRegisterAcc(obj)),
-    setReducerDefaultDispatch: () => dispatch(setReducerDefault()),
-    loginSignupDispatch: methods => dispatch(loginSignup(methods)),
-    reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_SIGNUP)),
-    showSignUpModalDispatch: () => dispatch(showSignUpModal()),
-    hideSignUpModalDispatch: () => dispatch(hideSignUpModal()),
+    checkEmailDispatch: email => dispatch(checkEmail(email)),
+    verifyEmailDispatch: code => dispatch(verifyEmail(code)),
+    iHaveEosAccountDispatch: val => dispatch(iHaveEosAccount(val)),
+    iHaveNotEosAccountDispatch: val => dispatch(iHaveNotEosAccount(val)),
+    putKeysToStateDispatch: keys => dispatch(putKeysToState(keys)),
     showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showScatterSignUpFormDispatch: () => dispatch(showScatterSignUpForm()),
+    signUpWithScatterDispatch: val => dispatch(signUpWithScatter(val)),
   };
 }
 
@@ -201,7 +208,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'signUp', reducer });
-const withSaga = injectSaga({ key: 'signUp', saga });
+const withSaga = injectSaga({ key: 'signUp', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

@@ -12,7 +12,10 @@ export const TextInputField = /* istanbul ignore next */ ({
   meta,
   placeholder,
   isSearchable,
+  isRefreshable,
   tip,
+  onClick,
+  type = 'text',
 }) => (
   <Wrapper label={label} tip={tip} meta={meta}>
     <Input
@@ -21,8 +24,10 @@ export const TextInputField = /* istanbul ignore next */ ({
       readOnly={readOnly}
       placeholder={placeholder}
       isSearchable={isSearchable}
+      isRefreshable={isRefreshable}
+      onClick={onClick}
       error={meta.touched && (meta.error || meta.warning)}
-      type="text"
+      type={type}
     />
   </Wrapper>
 );
@@ -33,9 +38,12 @@ TextInputField.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   isSearchable: PropTypes.bool,
+  isRefreshable: PropTypes.bool,
   tip: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  type: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(TextInputField);
