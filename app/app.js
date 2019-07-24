@@ -23,7 +23,6 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';
-import LocationProvider from 'components/LocationProvider';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
@@ -62,17 +61,15 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ErrorBoundary>
-          <LocationProvider>
-            <EosioProvider>
-              <DataCacheProvider>
-                <AccountProvider>
-                  <ConnectedRouter history={createdHistory}>
-                    <App />
-                  </ConnectedRouter>
-                </AccountProvider>
-              </DataCacheProvider>
-            </EosioProvider>
-          </LocationProvider>
+          <EosioProvider>
+            <DataCacheProvider>
+              <AccountProvider>
+                <ConnectedRouter history={createdHistory}>
+                  <App />
+                </ConnectedRouter>
+              </AccountProvider>
+            </DataCacheProvider>
+          </EosioProvider>
         </ErrorBoundary>
       </LanguageProvider>
     </Provider>,

@@ -46,7 +46,7 @@ const SlideIndicatorsStyled = styled.div`
   }
 `;
 
-const SlideIndicators = () => {
+const SlideIndicators = /* istanbul ignore next */ () => {
   const keys = Object.keys(routes.signup);
 
   const route = keys.find(
@@ -64,7 +64,10 @@ const SlideIndicators = () => {
   );
 };
 
-const SignUpWrapper = ({ RightMenuChildren, LeftMenuChildren }) => (
+const SignUpWrapper = /* istanbul ignore next */ ({
+  RightMenuChildren,
+  LeftMenuChildren,
+}) => (
   <BaseStyled>
     <LeftMenu>{LeftMenuChildren}</LeftMenu>
     <RightMenu>

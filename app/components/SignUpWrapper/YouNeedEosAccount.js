@@ -23,7 +23,7 @@ import messages from 'containers/SignUp/messages';
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
 
-const LeftMenu = () => (
+const LeftMenu = /* istanbul ignore next */ () => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -110,7 +110,7 @@ const NavButton = styled.a`
   `};
 `.withComponent(Link);
 
-const Navigation = () => (
+const Navigation = /* istanbul ignore next */ () => (
   <NavigationStyled>
     <NavButton to={routes.signup.haveEosAccount.name}>
       <FormattedMessage {...messages.iHaveEosAccount} />
@@ -122,14 +122,14 @@ const Navigation = () => (
 );
 
 /* eslint react/no-children-prop: 0 */
-const RightMenu = ({ children }) => (
+const RightMenu = /* istanbul ignore next */ ({ children }) => (
   <React.Fragment>
     <Navigation />
     <div>{children}</div>
   </React.Fragment>
 );
 
-const YouNeedEosAccount = ({ children }) => (
+const YouNeedEosAccount = /* istanbul ignore next */ ({ children }) => (
   <SignUpWrapper
     LeftMenuChildren={<LeftMenu />}
     RightMenuChildren={<RightMenu children={children} />}

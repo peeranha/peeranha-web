@@ -3,9 +3,7 @@
  */
 
 import Eosjs from 'eosjs';
-// import ecc from 'eosjs-ecc';
 import ScatterJS from 'scatterjs-core';
-// import ScatterEOS from 'scatterjs-plugin-eosjs';
 
 import EosioService from '../eosio';
 
@@ -17,7 +15,15 @@ import {
 } from '../constants';
 
 jest.mock('eosjs');
-jest.mock('scatter-js/dist/scatter.cjs', () => ({
+
+jest.mock('eosjs-ecc', () => ({
+  privateToPublic: jest.fn(),
+}));
+
+jest.mock('scatterjs-plugin-eosjs', () => class ScatterEOS {});
+
+jest.mock('scatterjs-core', () => ({
+  plugins: jest.fn(),
   scatter: {
     connect: jest.fn().mockImplementation(res => res),
   },

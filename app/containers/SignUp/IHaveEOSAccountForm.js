@@ -204,7 +204,7 @@ let FormClone = reduxForm({
   form: formName,
 })(IHaveEOSAccountForm);
 
-export const validatePassword = state => {
+export const validatePassword = /* istanbul ignore next */ state => {
   const password = state.toJS()[PASSWORD_FIELD];
   const passwordConf = state.toJS()[PASSWORD_CONFIRM_FIELD];
 

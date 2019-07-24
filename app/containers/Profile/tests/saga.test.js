@@ -16,7 +16,7 @@ jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
-  takeEvery: jest.fn().mockImplementation(res => res),
+  takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
 jest.mock('containers/DataCacheProvider/saga', () => ({

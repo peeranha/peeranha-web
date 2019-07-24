@@ -1,3 +1,5 @@
+// TODO: to test web_integration and delete exclude coverage from package.json
+
 module.exports = {
   0: {
     id: 'web_integration.errors.unknownError',
