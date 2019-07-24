@@ -44,7 +44,7 @@ export const Div = styled.div`
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
 `;
 
-const IHaveEOSAccountForm = ({
+const IHaveEOSAccountForm = /* istanbul ignore next */ ({
   handleSubmit,
   change,
   iSaveMasterKeyValue,

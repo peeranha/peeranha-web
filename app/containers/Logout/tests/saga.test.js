@@ -1,15 +1,75 @@
-/**
- * Test sagas
- */
+import { select } from 'redux-saga/effects';
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
 
-/* eslint-disable redux-saga/yield-effects */
-// import { take, call, put, select } from 'redux-saga/effects';
-// import { defaultSaga } from '../saga';
+import { INIT_EOSIO } from 'containers/EosioProvider/constants';
+import { GET_CURRENT_ACCOUNT } from 'containers/AccountProvider/constants';
 
-// const generator = defaultSaga();
+import defaultSaga, { logoutWorker } from '../saga';
+import { LOGOUT_SUCCESS, LOGOUT, LOGOUT_ERROR } from '../constants';
 
-describe('defaultSaga Saga', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+jest.mock('redux-saga/effects', () => ({
+  select: jest.fn().mockImplementation(() => {}),
+  call: jest.fn().mockImplementation(func => func()),
+  put: jest.fn().mockImplementation(res => res),
+  takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
+
+const eosService = {
+  forgetIdentity: jest.fn(),
+};
+
+describe('logoutWorker', () => {
+  const generator = logoutWorker();
+
+  it('select @eosService', () => {
+    select.mockImplementation(() => eosService);
+    const step = generator.next();
+    expect(step.value).toEqual(eosService);
+  });
+
+  it('forget identity', () => {
+    expect(eosService.forgetIdentity).toHaveBeenCalledTimes(0);
+    generator.next(eosService);
+    expect(eosService.forgetIdentity).toHaveBeenCalledTimes(1);
+  });
+
+  it('INIT_EOSIO', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(INIT_EOSIO);
+  });
+
+  it('GET_CURRENT_ACCOUNT', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(GET_CURRENT_ACCOUNT);
+  });
+
+  it('LOGOUT_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(LOGOUT_SUCCESS);
+  });
+
+  it('redirection', () => {
+    generator.next();
+    expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
+  });
+
+  it('error handling', () => {
+    const err = 'some error';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(LOGOUT_ERROR);
+  });
+});
+
+describe('defaultSaga', () => {
+  const generator = defaultSaga();
+
+  it('LOGOUT', () => {
+    const step = generator.next();
+    expect(step.value).toBe(LOGOUT);
   });
 });

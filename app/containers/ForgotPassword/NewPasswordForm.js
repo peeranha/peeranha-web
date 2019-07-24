@@ -26,7 +26,7 @@ import {
 
 import messages from './messages';
 
-const NewPasswordForm = ({
+const NewPasswordForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   changePassword,

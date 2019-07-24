@@ -15,7 +15,7 @@ import messages from './messages';
 
 import { Form } from './EmailVerificationForm';
 
-const EmailEnteringForm = ({ handleSubmit }) => (
+const EmailEnteringForm = /* istanbul ignore next */ ({ handleSubmit }) => (
   <SignUp>
     {({
       checkEmail,

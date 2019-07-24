@@ -3,8 +3,12 @@
  */
 
 import Eosjs from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.cjs';
+// import ecc from 'eosjs-ecc';
+import ScatterJS from 'scatterjs-core';
+// import ScatterEOS from 'scatterjs-plugin-eosjs';
+
 import EosioService from '../eosio';
+
 import {
   EOS_IS_NOT_INIT,
   SCATTER_IN_NOT_INSTALLED,

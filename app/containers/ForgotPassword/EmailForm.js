@@ -14,7 +14,7 @@ import loginMessages from 'containers/Login/messages';
 
 import { EMAIL_FIELD } from './constants';
 
-const EmailForgotPasswordForm = ({
+const EmailForgotPasswordForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   getVerificationCode,

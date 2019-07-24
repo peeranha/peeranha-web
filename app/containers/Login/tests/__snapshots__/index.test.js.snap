@@ -1,46 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Login /> render COMPLETE_LOGIN 1`] = `
+exports[`<Login /> render content === EMAIL_FORM 1`] = `
 <UNDEFINED
-  closeModal={[MockFunction]}
+  closeModal={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
   show={true}
 >
-  <Children />
+  <ReduxForm
+    locale="en"
+    loginWithScatter={[MockFunction]}
+    showEmailPasswordForm={[MockFunction]}
+  />
 </UNDEFINED>
 `;
 
-exports[`<Login /> render NO_SCATTER 1`] = `
+exports[`<Login /> render content === EMAIL_PASSWORD_FORM 1`] = `
 <UNDEFINED
-  closeModal={[MockFunction]}
+  closeModal={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
   show={true}
 >
-  <Children />
+  <Connect(ReduxForm)
+    email="email"
+    locale="en"
+    login={[MockFunction]}
+    loginProcessing={false}
+    loginWithScatter={[MockFunction]}
+    showIForgotPasswordModal={[Function]}
+  />
 </UNDEFINED>
 `;
 
-exports[`<Login /> render NO_SELECTED_SCATTER_ACCOUNTS 1`] = `
+exports[`<Login /> render content === WE_ARE_HAPPY_FORM 1`] = `
 <UNDEFINED
-  closeModal={[MockFunction]}
+  closeModal={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
   show={true}
 >
-  <Children />
-</UNDEFINED>
-`;
-
-exports[`<Login /> render SHOW_DEFAULT_LOGIN_MODAL 1`] = `
-<UNDEFINED
-  closeModal={[MockFunction]}
-  show={true}
->
-  <Children />
-</UNDEFINED>
-`;
-
-exports[`<Login /> render USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN 1`] = `
-<UNDEFINED
-  closeModal={[MockFunction]}
-  show={true}
->
-  <Children />
+  <ReduxForm
+    finishRegistration={[MockFunction]}
+    finishRegistrationProcessing={false}
+    locale="en"
+  />
 </UNDEFINED>
 `;

@@ -97,7 +97,7 @@ export class SignUp extends React.Component {
     return window.URL.createObjectURL(data);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       children,
@@ -188,7 +188,7 @@ const mapStateToProps = createStructuredSelector({
   keys: signUpSelectors.selectKeys(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     checkEmailDispatch: email => dispatch(checkEmail(email)),

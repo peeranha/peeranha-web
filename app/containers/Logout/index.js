@@ -18,7 +18,10 @@ import saga from './saga';
 
 import { logout } from './actions';
 
-export const Logout = ({ logoutDispatch, children }) => (
+export const Logout = /* istanbul ignore next */ ({
+  logoutDispatch,
+  children,
+}) => (
   <button className="d-flex align-items-center" onClick={logoutDispatch}>
     {children}
   </button>
@@ -29,7 +32,7 @@ Logout.propTypes = {
   children: PropTypes.any.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     logoutDispatch: () => dispatch(logout()),
   };

@@ -40,7 +40,7 @@ import NewPasswordForm from './NewPasswordForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ForgotPassword extends React.Component {
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       getVerificationCodeDispatch,
       hideForgotPasswordModalDispatch,
@@ -109,7 +109,7 @@ const mapStateToProps = createStructuredSelector({
   changePasswordLoading: selectors.selectChangePasswordLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     hideForgotPasswordModalDispatch: () => dispatch(hideForgotPasswordModal()),

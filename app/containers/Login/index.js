@@ -48,7 +48,7 @@ export class Login extends React.Component {
     this.props.showForgotPasswordModalDispatch();
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       content,
       showModal,
@@ -120,7 +120,7 @@ const mapStateToProps = createStructuredSelector({
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     hideLoginModalDispatch: () => dispatch(hideLoginModal()),

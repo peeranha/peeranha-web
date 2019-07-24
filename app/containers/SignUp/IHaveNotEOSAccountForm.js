@@ -33,7 +33,7 @@ import {
 
 import { Link, Div, validatePassword } from './IHaveEOSAccountForm';
 
-const IHaveNotEOSAccountForm = ({
+const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
   handleSubmit,
   change,
   iSaveMasterKeyValue,

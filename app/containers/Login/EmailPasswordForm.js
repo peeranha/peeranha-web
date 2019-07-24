@@ -25,7 +25,7 @@ import loginMessages from './messages';
 
 import { LoginWithScatter } from './EmailForm';
 
-const EmailPasswordForm = ({
+const EmailPasswordForm = /* istanbul ignore next */ ({
   handleSubmit,
   login,
   locale,

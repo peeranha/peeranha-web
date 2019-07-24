@@ -22,7 +22,7 @@ export const Form = Div.extend`
   position: relative;
 `.withComponent('form');
 
-const EmailVerificationForm = ({ handleSubmit }) => (
+const EmailVerificationForm = /* istanbul ignore next */ ({ handleSubmit }) => (
   <SignUp>
     {({
       verifyEmail,

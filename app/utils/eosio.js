@@ -133,9 +133,6 @@ class EosioService {
   };
 
   forgetIdentity = async () => {
-    Cookies.remove(AUTH_TYPE);
-    Cookies.remove(AUTH_PRIVATE_KEY);
-
     if (this.scatterInstance && this.scatterInstance.identity) {
       await this.scatterInstance.forgetIdentity();
       return true;

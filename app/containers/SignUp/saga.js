@@ -272,8 +272,8 @@ export default function*() {
   yield takeLatest(EMAIL_VERIFICATION, verifyEmailWorker);
   yield takeLatest(I_HAVE_EOS_ACCOUNT, iHaveEosAccountWorker);
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, iHaveNotEosAccountWorker);
-  yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
+  yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
   yield takeLatest(
     [
       EMAIL_CHECKING_ERROR,

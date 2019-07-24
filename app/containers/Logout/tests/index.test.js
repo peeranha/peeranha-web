@@ -1,10 +1,12 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { Logout } from '../index';
 
-// import { Logout } from '../index';
+const props = {
+  logoutDispatch: jest.fn(),
+  children: null,
+};
 
 describe('<Logout />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('render snapshot', () => {
+    expect(Logout(props)).toMatchSnapshot();
   });
 });

@@ -21,7 +21,9 @@ import { EMAIL_FIELD } from './constants';
 
 import loginMessages from './messages';
 
-export const LoginWithScatter = ({ loginWithScatter }) => (
+export const LoginWithScatter = /* istanbul ignore next */ ({
+  loginWithScatter,
+}) => (
   <div className="pt-5">
     <P fontSize="14" className="text-center text-uppercase mb-3">
       <FormattedMessage {...signupMessages.or} />
@@ -33,7 +35,7 @@ export const LoginWithScatter = ({ loginWithScatter }) => (
   </div>
 );
 
-const EmailForm = ({
+const EmailForm = /* istanbul ignore next */ ({
   handleSubmit,
   showEmailPasswordForm,
   locale,

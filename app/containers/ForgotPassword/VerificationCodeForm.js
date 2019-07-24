@@ -14,7 +14,7 @@ import loginMessages from 'containers/Login/messages';
 
 import { VERIFICATION_CODE_FIELD } from './constants';
 
-const VerificationCodeForm = ({
+const VerificationCodeForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   verifyEmail,

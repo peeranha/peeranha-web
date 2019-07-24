@@ -18,7 +18,11 @@ import messages from './messages';
 
 import { Form } from './EmailVerificationForm';
 
-const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
+const ScatterSignUpForm = /* istanbul ignore next */ ({
+  handleSubmit,
+  eosAccountValue,
+  change,
+}) => (
   <SignUp withScatter>
     {({
       signUpWithScatter,

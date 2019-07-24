@@ -18,7 +18,7 @@ import { DISPLAY_NAME } from './constants';
 
 import loginMessages from './messages';
 
-const WeAreHappyYouAreHereForm = ({
+const WeAreHappyYouAreHereForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   finishRegistrationProcessing,

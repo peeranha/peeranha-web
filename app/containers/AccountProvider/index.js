@@ -36,7 +36,7 @@ AccountProvider.propTypes = {
 
 const mapStateToProps = createStructuredSelector({});
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     getCurrentAccountDispatch: () => dispatch(getCurrentAccount()),

@@ -2,7 +2,14 @@ import { fromJS } from 'immutable';
 import logoutReducer from '../reducer';
 
 describe('logoutReducer', () => {
+  let state;
+  beforeEach(() => {
+    state = fromJS({
+      username: '',
+    });
+  });
+
   it('returns the initial state', () => {
-    expect(logoutReducer(undefined, {})).toEqual(fromJS({}));
+    expect(logoutReducer(state, {})).toEqual(state);
   });
 });

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Logout /> render snapshot 1`] = `
+<button
+  className="d-flex align-items-center"
+  onClick={[MockFunction]}
+/>
+`;

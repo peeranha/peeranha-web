@@ -1,13 +1,30 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { logout, logoutSuccess, logoutErr } from '../actions';
+import { LOGOUT, LOGOUT_SUCCESS, LOGOUT_ERROR } from '../constants';
 
 describe('Logout actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
-      };
-      expect(defaultAction()).toEqual(expected);
-    });
+  it('logout', () => {
+    const expected = {
+      type: LOGOUT,
+    };
+
+    expect(logout()).toEqual(expected);
+  });
+
+  it('logoutSuccess', () => {
+    const expected = {
+      type: LOGOUT_SUCCESS,
+    };
+
+    expect(logoutSuccess()).toEqual(expected);
+  });
+
+  it('logoutErr', () => {
+    const logoutError = 'logoutError';
+    const expected = {
+      type: LOGOUT_ERROR,
+      logoutError,
+    };
+
+    expect(logoutErr(logoutError)).toEqual(expected);
   });
 });
