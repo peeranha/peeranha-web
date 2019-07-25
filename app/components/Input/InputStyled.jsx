@@ -13,7 +13,6 @@ import {
 import styled from 'styled-components';
 
 /* eslint indent: 0 */
-/* istanbul ignore next */
 const ErrorHandling = error => `
   border: 1px solid ${error ? `${BORDER_WARNING_LIGHT}` : BORDER_SECONDARY};
   box-shadow: 0 0 0 3px ${
@@ -22,12 +21,10 @@ const ErrorHandling = error => `
   border-radius: 3px;
 `;
 
-/* istanbul ignore next */
 const DisableHandling = disabled => `
   opacity: ${disabled ? 0.6 : 1};
 `;
 
-/* istanbul ignore next */
 const Input = ({ error, disabled }) =>
   `
     flex: 1;
@@ -43,7 +40,6 @@ const Input = ({ error, disabled }) =>
     outline: none;
   `;
 
-/* istanbul ignore next */
 const InputStyled = styled.div`
   position: relative;
   display: flex;

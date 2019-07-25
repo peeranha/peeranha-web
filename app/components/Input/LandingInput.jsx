@@ -4,8 +4,7 @@ import { LANDING_FONT, BG_LIGHT } from 'style-constants';
 import { Input } from './InputStyled';
 
 export default styled.input`
-  ${/* istanbul ignore next */ x =>
-    Input({ error: x.error, warning: x.warning })};
+  ${x => Input({ error: x.error, warning: x.warning })};
 
   height: 48px;
   min-height: 48px;

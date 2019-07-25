@@ -33,7 +33,7 @@ const Input = Icon.extend`
 `.withComponent('input');
 
 /* eslint jsx-a11y/label-has-for: 0 */
-const Checkbox = /* istanbul ignore next */ ({ input, label, disabled }) => (
+const Checkbox = ({ input, label, disabled }) => (
   <div className="d-flex align-items-start">
     <div className="position-relative">
       <Icon value={input.value} />

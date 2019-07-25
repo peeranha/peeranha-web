@@ -18,7 +18,7 @@ const MainPageLink = Button.extend`
   position: relative;
 `.withComponent(Link);
 
-const LeftMenu = /* istanbul ignore next */ () => (
+const LeftMenu = () => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -62,7 +62,7 @@ const LeftMenu = /* istanbul ignore next */ () => (
   </React.Fragment>
 );
 
-const RightMenu = /* istanbul ignore next */ () => (
+const RightMenu = () => (
   <div className="text-center pt-5">
     <img
       className="mb-2"
@@ -80,7 +80,7 @@ const RightMenu = /* istanbul ignore next */ () => (
   </div>
 );
 
-const AlmostDone = /* istanbul ignore next */ () => (
+const AlmostDone = () => (
   <SignUpWrapper
     LeftMenuChildren={<LeftMenu />}
     RightMenuChildren={<RightMenu />}

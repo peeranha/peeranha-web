@@ -46,7 +46,7 @@ const SlideIndicatorsStyled = styled.div`
   }
 `;
 
-const SlideIndicators = /* istanbul ignore next */ () => {
+const SlideIndicators = () => {
   const keys = Object.keys(routes.signup);
 
   const route = keys.find(
@@ -64,7 +64,7 @@ const SlideIndicators = /* istanbul ignore next */ () => {
   );
 };
 
-const SignUpWrapper = /* istanbul ignore next */ ({
+const SignUpWrapper = ({
   RightMenuChildren,
   LeftMenuChildren,
 }) => (

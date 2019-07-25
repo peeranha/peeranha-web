@@ -38,10 +38,12 @@ export const Link = A.extend`
 `.withComponent('a');
 
 export const Div = styled.div`
-  padding: ${x => (x.primary ? '20px' : '0px')} 30px;
-  margin-bottom: ${x => (x.primary ? '20px' : '0px')};
+  padding: ${/* istanbul ignore next */ x => (x.primary ? '20px' : '0px')} 30px;
+  margin-bottom: ${/* istanbul ignore next */ x =>
+    x.primary ? '20px' : '0px'};
   border-radius: 3px;
-  background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
+  background: ${/* istanbul ignore next */ x =>
+    x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT};
 `;
 
 const IHaveEOSAccountForm = /* istanbul ignore next */ ({

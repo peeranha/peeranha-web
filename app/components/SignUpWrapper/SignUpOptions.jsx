@@ -36,7 +36,7 @@ export const Li = P.extend`
   }
 `.withComponent('li');
 
-const LeftMenu = /* istanbul ignore next */ () => (
+const LeftMenu = () => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -84,7 +84,7 @@ const LeftMenu = /* istanbul ignore next */ () => (
 );
 
 /* eslint react/no-children-prop: 0 */
-const RightMenuWithoutScatter = /* istanbul ignore next */ ({
+const RightMenuWithoutScatter = ({
   children,
   showLoginModal,
   showScatterSignUpForm,
@@ -119,7 +119,7 @@ const RightMenuWithoutScatter = /* istanbul ignore next */ ({
   </div>
 );
 
-const SignUpOptions = /* istanbul ignore next */ ({
+const SignUpOptions = ({
   children,
   showLoginModal,
   showScatterSignUpForm,

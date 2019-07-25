@@ -11,12 +11,7 @@ import InputStyled from './InputStyled';
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-const Handler = /* istanbul ignore next */ ({
-  isRefreshable,
-  isSearchable,
-  isPassword,
-  onClick,
-}) => {
+const Handler = ({ isRefreshable, isSearchable, isPassword, onClick }) => {
   let src = null;
 
   if (isSearchable) {
@@ -39,11 +34,11 @@ class Input extends React.PureComponent {
     isText: false,
   };
 
-  changeType = /* istanbul ignore next */ () => {
+  changeType = () => {
     this.setState({ isText: !this.state.isText });
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const {
       input = {},
       type,
