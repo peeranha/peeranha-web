@@ -113,23 +113,23 @@ export function iHaveEosAccountErr(iHaveEosAccountError) {
  *
  */
 
-export function iHaveNotEosAccount(val) {
+export function idontHaveEosAccount(val) {
   return {
     type: I_HAVE_NOT_EOS_ACCOUNT,
     val: val.toJS(),
   };
 }
 
-export function iHaveNotEosAccountSuccess() {
+export function idontHaveEosAccountSuccess() {
   return {
     type: I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
   };
 }
 
-export function iHaveNotEosAccountErr(iHaveNotEosAccountError) {
+export function idontHaveEosAccountErr(idontHaveEosAccountError) {
   return {
     type: I_HAVE_NOT_EOS_ACCOUNT_ERROR,
-    iHaveNotEosAccountError,
+    idontHaveEosAccountError,
   };
 }
 

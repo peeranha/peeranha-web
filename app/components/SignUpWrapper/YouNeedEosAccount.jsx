@@ -115,8 +115,8 @@ const Navigation = () => (
     <NavButton to={routes.signup.haveEosAccount.name}>
       <FormattedMessage {...messages.iHaveEosAccount} />
     </NavButton>
-    <NavButton to={routes.signup.haveNotEosAccount.name}>
-      <FormattedMessage {...messages.iHaveNotEosAccount} />
+    <NavButton to={routes.signup.dontHaveEosAccount.name}>
+      <FormattedMessage {...messages.idontHaveEosAccount} />
     </NavButton>
   </NavigationStyled>
 );

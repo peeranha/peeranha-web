@@ -33,7 +33,7 @@ import {
 
 import { Link, Div, validatePassword } from './IHaveEOSAccountForm';
 
-const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
+const IdontHaveEOSAccountForm = /* istanbul ignore next */ ({
   handleSubmit,
   change,
   iSaveMasterKeyValue,
@@ -43,9 +43,9 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
   <YouNeedEosAccount>
     <SignUp>
       {({
-        iHaveNotEosAccount,
+        idontHaveEosAccount,
         locale,
-        iHaveNotEosAccountProcessing,
+        idontHaveEosAccountProcessing,
         keys: { activeKey, ownerKey, masterKey, linkToDownloadAllKeys },
         getAllKeys,
       }) => {
@@ -58,7 +58,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
         }
 
         return (
-          <form onSubmit={handleSubmit(iHaveNotEosAccount)}>
+          <form onSubmit={handleSubmit(idontHaveEosAccount)}>
             <Div primary>
               <Field
                 name={EOS_ACTIVE_PRIVATE_KEY_FIELD}
@@ -85,7 +85,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
               <div className="mb-3">
                 <Field
                   name={STORE_KEY_FIELD}
-                  disabled={iHaveNotEosAccountProcessing}
+                  disabled={idontHaveEosAccountProcessing}
                   label={translate[messages.storeThisKey.id]}
                   component={Checkbox}
                 />
@@ -129,7 +129,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
             <Div>
               <Field
                 name={PASSWORD_FIELD}
-                disabled={iHaveNotEosAccountProcessing}
+                disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.password.id]}
                 component={TextInputField}
                 type="password"
@@ -138,7 +138,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
             <Div>
               <Field
                 name={PASSWORD_CONFIRM_FIELD}
-                disabled={iHaveNotEosAccountProcessing}
+                disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.confirmPassword.id]}
                 component={TextInputField}
                 type="password"
@@ -147,7 +147,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
             <Div>
               <Field
                 name={WHY_DO_YOU_LIKE_US_FIELD}
-                disabled={iHaveNotEosAccountProcessing}
+                disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.whyYouLikeUs.id]}
                 component={TextareaField}
               />
@@ -155,7 +155,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
             <Div className="mb-4">
               <Field
                 name={I_SAVE_MASTER_KEY_FIELD}
-                disabled={iHaveNotEosAccountProcessing}
+                disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
                 component={Checkbox}
               />
@@ -163,7 +163,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
             <Div className="mb-4">
               <Field
                 name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={iHaveNotEosAccountProcessing}
+                disabled={idontHaveEosAccountProcessing}
                 label={
                   <Link href={routes.privacyPolicy()} target="_blank">
                     {translate[messages.iAcceptPrivacyPolicy.id]}
@@ -177,7 +177,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
                 disabled={
                   !iSaveMasterKeyValue ||
                   !iAcceptPolicyValue ||
-                  iHaveNotEosAccountProcessing
+                  idontHaveEosAccountProcessing
                 }
                 className="w-100"
               >
@@ -191,7 +191,7 @@ const IHaveNotEOSAccountForm = /* istanbul ignore next */ ({
   </YouNeedEosAccount>
 );
 
-IHaveNotEOSAccountForm.propTypes = {
+IdontHaveEOSAccountForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   iSaveMasterKeyValue: PropTypes.bool,
@@ -199,12 +199,12 @@ IHaveNotEOSAccountForm.propTypes = {
   eosActivePrevValue: PropTypes.string,
 };
 
-const formName = 'IHaveNotEOSAccountForm';
+const formName = 'IdontHaveEOSAccountForm';
 
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-})(IHaveNotEOSAccountForm);
+})(IdontHaveEOSAccountForm);
 
 FormClone = connect(
   /* istanbul ignore next */ state => {

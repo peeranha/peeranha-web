@@ -537,7 +537,7 @@
     "Вам следует грамотно сохранить ключи",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
   "app.containers.SignUp.iHaveEosAccount": "Я имею EOS аккаунт",
-  "app.containers.SignUp.iHaveNotEosAccount": "Я не имею EOS аккаунта",
+  "app.containers.SignUp.idontHaveEosAccount": "Я не имею EOS аккаунта",
   "app.containers.SignUp.downloadKeys": "Загрузить ключи",
   "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peerania?",
   "app.containers.SignUp.title": "Регистрация",

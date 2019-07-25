@@ -60,8 +60,8 @@ import {
   verifyEmailErr,
   iHaveEosAccountSuccess,
   iHaveEosAccountErr,
-  iHaveNotEosAccountSuccess,
-  iHaveNotEosAccountErr,
+  idontHaveEosAccountSuccess,
+  idontHaveEosAccountErr,
   showScatterSignUpFormErr,
   showScatterSignUpFormSuccess,
   signUpWithScatterSuccess,
@@ -161,7 +161,7 @@ export function* iHaveEosAccountWorker({ val }) {
   }
 }
 
-export function* iHaveNotEosAccountWorker({ val }) {
+export function* idontHaveEosAccountWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -196,11 +196,11 @@ export function* iHaveNotEosAccountWorker({ val }) {
       );
     }
 
-    yield put(iHaveNotEosAccountSuccess());
+    yield put(idontHaveEosAccountSuccess());
 
     yield call(() => createdHistory.push(routes.signup.almostDone.name));
   } catch (err) {
-    yield put(iHaveNotEosAccountErr(err.message));
+    yield put(idontHaveEosAccountErr(err.message));
   }
 }
 
@@ -271,7 +271,7 @@ export default function*() {
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
   yield takeLatest(EMAIL_VERIFICATION, verifyEmailWorker);
   yield takeLatest(I_HAVE_EOS_ACCOUNT, iHaveEosAccountWorker);
-  yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, iHaveNotEosAccountWorker);
+  yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
   yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
   yield takeLatest(

@@ -19,7 +19,7 @@ import defaultSaga, {
   emailCheckingWorker,
   verifyEmailWorker,
   iHaveEosAccountWorker,
-  iHaveNotEosAccountWorker,
+  idontHaveEosAccountWorker,
   signUpWithScatterWorker,
   showScatterSignUpFormWorker,
 } from '../saga';
@@ -266,7 +266,7 @@ describe('signUpWithScatterWorker', () => {
   });
 });
 
-describe('iHaveNotEosAccountWorker', () => {
+describe('idontHaveEosAccountWorker', () => {
   const email = 'email';
   const locale = 'en';
   const encryptionKey = 'encryptionKey';
@@ -307,7 +307,7 @@ describe('iHaveNotEosAccountWorker', () => {
       errorCode: 1,
     };
 
-    const generator = iHaveNotEosAccountWorker({ val });
+    const generator = idontHaveEosAccountWorker({ val });
 
     it('select @locale', () => {
       select.mockImplementation(() => locale);
@@ -351,7 +351,7 @@ describe('iHaveNotEosAccountWorker', () => {
       errorCode: 1,
     };
 
-    const generator = iHaveNotEosAccountWorker({ val });
+    const generator = idontHaveEosAccountWorker({ val });
 
     registerComplete.mockImplementation(() => response);
 
@@ -360,7 +360,7 @@ describe('iHaveNotEosAccountWorker', () => {
     generator.next(email);
     generator.next(encryptionKey);
 
-    it('iHaveNotEosAccountSuccess', () => {
+    it('idontHaveEosAccountSuccess', () => {
       const step = generator.next(response);
       expect(step.value.type).toBe(I_HAVE_NOT_EOS_ACCOUNT_SUCCESS);
     });

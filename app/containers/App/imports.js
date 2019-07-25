@@ -4,7 +4,7 @@ import Toast from 'containers/Toast';
 import EmailEnteringForm from 'containers/SignUp/EmailEnteringForm';
 import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
 import IHaveEOSAccountForm from 'containers/SignUp/IHaveEOSAccountForm';
-import IHaveNotEOSAccountForm from 'containers/SignUp/IHaveNotEOSAccountForm';
+import IdontHaveEOSAccountForm from 'containers/SignUp/IdontHaveEOSAccountForm';
 import ScatterSignUpForm from 'containers/SignUp/ScatterSignUpForm';
 import RegistrationAlmostDone from 'components/SignUpWrapper/AlmostDone';
 import Login from 'containers/Login';
@@ -100,7 +100,7 @@ export {
   EmailEnteringForm,
   EmailVerificationForm,
   IHaveEOSAccountForm,
-  IHaveNotEOSAccountForm,
+  IdontHaveEOSAccountForm,
   ScatterSignUpForm,
   RegistrationAlmostDone,
   Login,

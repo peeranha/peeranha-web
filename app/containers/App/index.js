@@ -45,7 +45,7 @@ import {
   EmailVerificationForm,
   ScatterSignUpForm,
   IHaveEOSAccountForm,
-  IHaveNotEOSAccountForm,
+  IdontHaveEOSAccountForm,
   RegistrationAlmostDone,
   Login,
   ForgotPassword,
@@ -191,9 +191,9 @@ export default function App /* istanbul ignore next */() {
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.haveNotEosAccount.name}>
+        <Route path={routes.signup.dontHaveEosAccount.name}>
           <React.Suspense fallback={null}>
-            <IHaveNotEOSAccountForm />
+            <IdontHaveEOSAccountForm />
           </React.Suspense>
         </Route>
 

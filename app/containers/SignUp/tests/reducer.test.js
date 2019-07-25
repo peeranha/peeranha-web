@@ -13,9 +13,9 @@ import {
   iHaveEosAccount,
   iHaveEosAccountSuccess,
   iHaveEosAccountErr,
-  iHaveNotEosAccount,
-  iHaveNotEosAccountSuccess,
-  iHaveNotEosAccountErr,
+  idontHaveEosAccount,
+  idontHaveEosAccountSuccess,
+  idontHaveEosAccountErr,
   signUpWithScatter,
   signUpWithScatterSuccess,
   signUpWithScatterErr,
@@ -130,24 +130,24 @@ describe('signUpReducer', () => {
       [VERIFICATION_FIELD]: VERIFICATION_FIELD,
     });
 
-    const obj = state.set('iHaveNotEosAccountProcessing', true);
+    const obj = state.set('idontHaveEosAccountProcessing', true);
 
-    expect(signUpReducer(state, iHaveNotEosAccount(values))).toEqual(obj);
+    expect(signUpReducer(state, idontHaveEosAccount(values))).toEqual(obj);
   });
 
   it('I_HAVE_NOT_EOS_ACCOUNT_SUCCESS', () => {
-    const obj = state.set('iHaveNotEosAccountProcessing', false);
-    expect(signUpReducer(state, iHaveNotEosAccountSuccess())).toEqual(obj);
+    const obj = state.set('idontHaveEosAccountProcessing', false);
+    expect(signUpReducer(state, idontHaveEosAccountSuccess())).toEqual(obj);
   });
 
   it('I_HAVE_NOT_EOS_ACCOUNT_ERROR', () => {
-    const iHaveNotEosAccountError = 'iHaveNotEosAccountError';
+    const idontHaveEosAccountError = 'idontHaveEosAccountError';
     const obj = state
-      .set('iHaveNotEosAccountProcessing', false)
-      .set('iHaveNotEosAccountError', iHaveNotEosAccountError);
+      .set('idontHaveEosAccountProcessing', false)
+      .set('idontHaveEosAccountError', idontHaveEosAccountError);
 
     expect(
-      signUpReducer(state, iHaveNotEosAccountErr(iHaveNotEosAccountError)),
+      signUpReducer(state, idontHaveEosAccountErr(idontHaveEosAccountError)),
     ).toEqual(obj);
   });
 

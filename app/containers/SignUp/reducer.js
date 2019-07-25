@@ -41,8 +41,8 @@ export const initialState = fromJS({
   verifyEmailError: null,
   iHaveEosAccountProcessing: false,
   iHaveEosAccountError: null,
-  iHaveNotEosAccountProcessing: false,
-  iHaveNotEosAccountError: null,
+  idontHaveEosAccountProcessing: false,
+  idontHaveEosAccountError: null,
   signUpWithScatterProcessing: false,
   signUpWithScatterError: null,
   showScatterSignUpProcessing: false,
@@ -57,7 +57,7 @@ function signUpReducer(state = initialState, action) {
     emailCheckingError,
     verifyEmailError,
     iHaveEosAccountError,
-    iHaveNotEosAccountError,
+    idontHaveEosAccountError,
     signUpWithScatterError,
     showScatterSignUpFormError,
     keys,
@@ -98,13 +98,13 @@ function signUpReducer(state = initialState, action) {
         .set('iHaveEosAccountProcessing', false);
 
     case I_HAVE_NOT_EOS_ACCOUNT:
-      return state.set('iHaveNotEosAccountProcessing', true);
+      return state.set('idontHaveEosAccountProcessing', true);
     case I_HAVE_NOT_EOS_ACCOUNT_SUCCESS:
-      return state.set('iHaveNotEosAccountProcessing', false);
+      return state.set('idontHaveEosAccountProcessing', false);
     case I_HAVE_NOT_EOS_ACCOUNT_ERROR:
       return state
-        .set('iHaveNotEosAccountError', iHaveNotEosAccountError)
-        .set('iHaveNotEosAccountProcessing', false);
+        .set('idontHaveEosAccountError', idontHaveEosAccountError)
+        .set('idontHaveEosAccountProcessing', false);
 
     case SIGNUP_WITH_SCATTER:
       return state.set('signUpWithScatterProcessing', true);

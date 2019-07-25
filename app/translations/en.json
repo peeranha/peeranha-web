@@ -535,7 +535,7 @@
   "app.containers.SignUp.youHaveToSaveKeys": "You have to save keys carefully",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
-  "app.containers.SignUp.iHaveNotEosAccount": "I have not EOS account",
+  "app.containers.SignUp.idontHaveEosAccount": "I have not EOS account",
   "app.containers.SignUp.downloadKeys": "Download keys",
   "app.containers.SignUp.whyYouLikeUs": "Why do you like Peerania?",
   "app.containers.SignUp.title": "Registration",

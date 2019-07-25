@@ -43,14 +43,14 @@ const selectIHaveEosAccountError = () =>
     substate.get('iHaveEosAccountError'),
   );
 
-const selectIHaveNotEosAccountProcessing = () =>
+const selectIdontHaveEosAccountProcessing = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('iHaveNotEosAccountProcessing'),
+    substate.get('idontHaveEosAccountProcessing'),
   );
 
-const selectIHaveNotEosAccountError = () =>
+const selectIdontHaveEosAccountError = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('iHaveNotEosAccountError'),
+    substate.get('idontHaveEosAccountError'),
   );
 
 const selectSignUpWithScatterProcessing = () =>
@@ -89,8 +89,8 @@ export {
   selectVerifyEmailError,
   selectIHaveEosAccountProcessing,
   selectIHaveEosAccountError,
-  selectIHaveNotEosAccountProcessing,
-  selectIHaveNotEosAccountError,
+  selectIdontHaveEosAccountProcessing,
+  selectIdontHaveEosAccountError,
   selectKeys,
   selectSignUpWithScatterProcessing,
   selectSignUpWithScatterError,

@@ -72,9 +72,9 @@ export const signup = {
     name: `/${registrationStage}/i-have-eos-account`,
     scatter: false,
   },
-  haveNotEosAccount: {
+  dontHaveEosAccount: {
     step: 3,
-    name: `/${registrationStage}/i-have-not-eos-account`,
+    name: `/${registrationStage}/i-dont-have-eos-account`,
     scatter: false,
   },
   almostDone: {

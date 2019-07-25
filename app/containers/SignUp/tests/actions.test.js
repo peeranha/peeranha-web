@@ -17,9 +17,9 @@ import {
   iHaveEosAccount,
   iHaveEosAccountSuccess,
   iHaveEosAccountErr,
-  iHaveNotEosAccount,
-  iHaveNotEosAccountSuccess,
-  iHaveNotEosAccountErr,
+  idontHaveEosAccount,
+  idontHaveEosAccountSuccess,
+  idontHaveEosAccountErr,
   setReducerDefault,
 } from '../actions';
 
@@ -142,7 +142,7 @@ describe('SignUp actions', () => {
     expect(iHaveEosAccountErr(iHaveEosAccountError)).toEqual(expected);
   });
 
-  it('iHaveNotEosAccount', () => {
+  it('idontHaveEosAccount', () => {
     const val = fromJS({
       [VERIFICATION_FIELD]: VERIFICATION_FIELD,
     });
@@ -152,25 +152,25 @@ describe('SignUp actions', () => {
       val: val.toJS(),
     };
 
-    expect(iHaveNotEosAccount(val)).toEqual(expected);
+    expect(idontHaveEosAccount(val)).toEqual(expected);
   });
 
-  it('iHaveNotEosAccountSuccess', () => {
+  it('idontHaveEosAccountSuccess', () => {
     const expected = {
       type: I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
     };
 
-    expect(iHaveNotEosAccountSuccess()).toEqual(expected);
+    expect(idontHaveEosAccountSuccess()).toEqual(expected);
   });
 
-  it('iHaveNotEosAccountErr', () => {
-    const iHaveNotEosAccountError = 'iHaveNotEosAccountError';
+  it('idontHaveEosAccountErr', () => {
+    const idontHaveEosAccountError = 'idontHaveEosAccountError';
     const expected = {
       type: I_HAVE_NOT_EOS_ACCOUNT_ERROR,
-      iHaveNotEosAccountError,
+      idontHaveEosAccountError,
     };
 
-    expect(iHaveNotEosAccountErr(iHaveNotEosAccountError)).toEqual(expected);
+    expect(idontHaveEosAccountErr(idontHaveEosAccountError)).toEqual(expected);
   });
 
   it('signUpWithScatter', () => {

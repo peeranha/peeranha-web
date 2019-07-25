@@ -6,11 +6,11 @@ import {
   selectVerificationCode,
   selectEmailChecking,
   selectEmailCheckingError,
-  selectIHaveNotEosAccountProcessing,
+  selectIdontHaveEosAccountProcessing,
   selectIHaveEosAccountError,
   selectIHaveEosAccountProcessing,
   selectEmailVerificationProcessing,
-  selectIHaveNotEosAccountError,
+  selectIdontHaveEosAccountError,
   selectSignUpWithScatterProcessing,
   selectSignUpWithScatterError,
   selectVerifyEmailError,
@@ -28,8 +28,8 @@ describe('selectSignUpDomain', () => {
   const verifyEmailError = 'verifyEmailError';
   const iHaveEosAccountProcessing = 'iHaveEosAccountProcessing';
   const iHaveEosAccountError = 'iHaveEosAccountError';
-  const iHaveNotEosAccountProcessing = 'iHaveNotEosAccountProcessing';
-  const iHaveNotEosAccountError = 'iHaveNotEosAccountError';
+  const idontHaveEosAccountProcessing = 'idontHaveEosAccountProcessing';
+  const idontHaveEosAccountError = 'idontHaveEosAccountError';
   const signUpWithScatterProcessing = 'signUpWithScatterProcessing';
   const signUpWithScatterError = 'signUpWithScatterError';
   const keys = 'keys';
@@ -46,8 +46,8 @@ describe('selectSignUpDomain', () => {
     verifyEmailError,
     iHaveEosAccountProcessing,
     iHaveEosAccountError,
-    iHaveNotEosAccountProcessing,
-    iHaveNotEosAccountError,
+    idontHaveEosAccountProcessing,
+    idontHaveEosAccountError,
     signUpWithScatterProcessing,
     signUpWithScatterError,
     keys,
@@ -109,17 +109,17 @@ describe('selectSignUpDomain', () => {
     expect(isIHaveEosAccountError(mockedState)).toEqual(iHaveEosAccountError);
   });
 
-  it('selectIHaveNotEosAccountProcessing', () => {
-    const isIHaveNotEosAccountProcessing = selectIHaveNotEosAccountProcessing();
-    expect(isIHaveNotEosAccountProcessing(mockedState)).toEqual(
-      iHaveNotEosAccountProcessing,
+  it('selectIdontHaveEosAccountProcessing', () => {
+    const isIdontHaveEosAccountProcessing = selectIdontHaveEosAccountProcessing();
+    expect(isIdontHaveEosAccountProcessing(mockedState)).toEqual(
+      idontHaveEosAccountProcessing,
     );
   });
 
-  it('selectIHaveNotEosAccountError', () => {
-    const isIHaveNotEosAccountError = selectIHaveNotEosAccountError();
-    expect(isIHaveNotEosAccountError(mockedState)).toEqual(
-      iHaveNotEosAccountError,
+  it('selectIdontHaveEosAccountError', () => {
+    const isIdontHaveEosAccountError = selectIdontHaveEosAccountError();
+    expect(isIdontHaveEosAccountError(mockedState)).toEqual(
+      idontHaveEosAccountError,
     );
   });
 

@@ -74,8 +74,8 @@ export default defineMessages({
   iHaveEosAccount: {
     id: 'app.containers.SignUp.iHaveEosAccount',
   },
-  iHaveNotEosAccount: {
-    id: 'app.containers.SignUp.iHaveNotEosAccount',
+  idontHaveEosAccount: {
+    id: 'app.containers.SignUp.idontHaveEosAccount',
   },
   passwordsDoNotMatch: {
     id: 'app.containers.SignUp.passwordsDoNotMatch',
