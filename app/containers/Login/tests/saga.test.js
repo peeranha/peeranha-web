@@ -128,7 +128,7 @@ describe('loginWithScatterWorker', () => {
     });
   });
 
-  describe('user is not registered in Peerania', () => {
+  describe('user is not registered in Peeranha', () => {
     const account = 'account';
     const profileInfo = null;
 
@@ -235,7 +235,7 @@ describe('loginWithEmailWorker', () => {
     });
   });
 
-  describe('call @login is SUCCESS; user is not registered in Peerania', () => {
+  describe('call @login is SUCCESS; user is not registered in Peeranha', () => {
     const selectedAccount = null;
     const profileInfo = null;
 
@@ -298,7 +298,7 @@ describe('loginWithEmailWorker', () => {
     });
   });
 
-  describe('call @login is SUCCESS; user is registered in Peerania', () => {
+  describe('call @login is SUCCESS; user is registered in Peeranha', () => {
     const selectedAccount = 'user1';
     const profileInfo = { account: selectedAccount };
 

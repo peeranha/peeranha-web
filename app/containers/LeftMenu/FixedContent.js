@@ -236,7 +236,7 @@ const FixedContent = /* istanbul ignore next */ ({
     <Footer>
       <Span color={TEXT_SECONDARY} fontSize="12">
         <span>{`@${new Date().getFullYear()} `}</span>
-        <FormattedMessage {...messages.peerania} />
+        <FormattedMessage {...messages.peeranha} />
       </Span>
     </Footer>
   </FixedContentStyled>

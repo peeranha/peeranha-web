@@ -18,7 +18,7 @@ import steveKreynin from 'images/Team_Steve.jpg';
 import nikitaSyr from 'images/av1.jpg';
 import romRem from 'images/av2.jpg';
 import ulyanaPopova from 'images/av3.jpg';
-import olgaFyodorova from 'images/peerania_olga.jpg';
+import olgaFyodorova from 'images/peeranha_olga.jpg';
 import arrowUp from 'images/ArrowUP.svg?inline';
 import letterSmile from 'images/letter-smile.svg?inline';
 

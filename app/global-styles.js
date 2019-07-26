@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
-import { BG_PRIMARY_LIGHT } from 'style-constants';
+import { BG_PRIMARY_LIGHT, BG_LIGHT } from 'style-constants';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -46,8 +46,11 @@ injectGlobal`
     max-width: 1320px;
   }
 
-  #landing-id .container {
-    max-width: 1140px;
+  #landing-id {
+    background: ${BG_LIGHT};
+    .container {
+      max-width: 1140px;
+    }
   }
 
   .popover {

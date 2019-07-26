@@ -62,7 +62,7 @@ const About = () => (
                       <FormattedMessage {...messages.ownershipByUsers} />
                     </h4>
                     <p className="item-content">
-                      <FormattedMessage {...messages.peeraniaDecentralized} />
+                      <FormattedMessage {...messages.peeranhaDecentralized} />
                     </p>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ const About = () => (
                       <FormattedMessage {...messages.earlyAdopters} />
                     </h4>
                     <p className="item-content">
-                      <FormattedMessage {...messages.peeraniaPhilosophy} />
+                      <FormattedMessage {...messages.peeranhaPhilosophy} />
                     </p>
                   </div>
                 </div>

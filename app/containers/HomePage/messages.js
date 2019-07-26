@@ -65,15 +65,15 @@ export default defineMessages({
   ownershipByUsers: {
     id: 'app.containers.HomePage.ownershipByUsers',
   },
-  peeraniaDecentralized: {
-    id: 'app.containers.HomePage.peeraniaDecentralized',
+  peeranhaDecentralized: {
+    id: 'app.containers.HomePage.peeranhaDecentralized',
   },
 
   earlyAdopters: {
     id: 'app.containers.HomePage.earlyAdopters',
   },
-  peeraniaPhilosophy: {
-    id: 'app.containers.HomePage.peeraniaPhilosophy',
+  peeranhaPhilosophy: {
+    id: 'app.containers.HomePage.peeranhaPhilosophy',
   },
 
   simpleAndAffordable: {
@@ -136,11 +136,11 @@ export default defineMessages({
     id: 'app.containers.HomePage.getReward',
   },
 
-  whatIsPeerania: {
-    id: 'app.containers.HomePage.whatIsPeerania',
+  whatIsPeeranha: {
+    id: 'app.containers.HomePage.whatIsPeeranha',
   },
-  whatIsPeeraniaCollapsed: {
-    id: 'app.containers.HomePage.whatIsPeeraniaCollapsed',
+  whatIsPeeranhaCollapsed: {
+    id: 'app.containers.HomePage.whatIsPeeranhaCollapsed',
   },
 
   differentFromOtherSites: {

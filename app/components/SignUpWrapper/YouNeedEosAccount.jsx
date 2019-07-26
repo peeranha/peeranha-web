@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
-import peeraniaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import eosIcon from 'images/eosIcon.svg?inline';
 
 import {
@@ -27,7 +27,7 @@ const LeftMenu = () => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
-        <img src={peeraniaLogo} width="180px" alt="Peerania logo" />
+        <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
       </Link>
     </div>
 

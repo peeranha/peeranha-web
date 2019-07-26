@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
-import peeraniaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import scatterLogo from 'images/scatterLogo.svg?inline';
 
 import commonMessages from 'common-messages';
@@ -40,7 +40,7 @@ const LeftMenu = () => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
-        <img src={peeraniaLogo} width="180px" alt="Peerania logo" />
+        <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
       </Link>
     </div>
 

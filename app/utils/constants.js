@@ -6,7 +6,7 @@ export const IPFS_URL = 'http://localhost:8080/ipfs';
 
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
-export const SCATTER_APP_NAME = 'Peerania';
+export const SCATTER_APP_NAME = 'Peeranha';
 
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';

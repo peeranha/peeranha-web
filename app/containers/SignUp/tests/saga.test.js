@@ -162,7 +162,7 @@ describe('showScatterSignUpFormWorker', () => {
     });
   });
 
-  describe('user is already registered in Peerania, showScatterSignUpFormSuccess FAILED', () => {
+  describe('user is already registered in Peeranha, showScatterSignUpFormSuccess FAILED', () => {
     const account = 'account';
     const profileInfo = { account };
 
