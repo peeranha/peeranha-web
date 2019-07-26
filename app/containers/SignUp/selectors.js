@@ -7,26 +7,94 @@ import { initialState } from './reducer';
 
 const selectSignUpDomain = state => state.get('signUp', initialState);
 
-const makeSelectLoading = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('loading'));
+const selectEmail = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('email'));
 
-const makeSelectError = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('error'));
+const selectVerificationCode = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('verificationCode'),
+  );
 
-const makeSelectRegistered = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('registered'));
+const selectEmailChecking = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('emailChecking'));
 
-const makeSelectContent = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('content'));
+const selectEmailCheckingError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('emailCheckingError'),
+  );
 
-const makeSelectShowModal = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('showModal'));
+const selectEmailVerificationProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('emailVerificationProcessing'),
+  );
+
+const selectVerifyEmailError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('verifyEmailError'),
+  );
+
+const selectIHaveEosAccountProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('iHaveEosAccountProcessing'),
+  );
+
+const selectIHaveEosAccountError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('iHaveEosAccountError'),
+  );
+
+const selectIdontHaveEosAccountProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('idontHaveEosAccountProcessing'),
+  );
+
+const selectIdontHaveEosAccountError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('idontHaveEosAccountError'),
+  );
+
+const selectSignUpWithScatterProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('signUpWithScatterProcessing'),
+  );
+
+const selectSignUpWithScatterError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('signUpWithScatterError'),
+  );
+
+const selectKeys = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('keys'));
+
+const selectShowScatterSignUpProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('showScatterSignUpProcessing'),
+  );
+
+const selectShowScatterSignUpFormError = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('showScatterSignUpFormError'),
+  );
+
+const selectEncryptionKey = () =>
+  createSelector(selectSignUpDomain, substate => substate.get('encryptionKey'));
 
 export {
   selectSignUpDomain,
-  makeSelectLoading,
-  makeSelectError,
-  makeSelectRegistered,
-  makeSelectContent,
-  makeSelectShowModal,
+  selectEmail,
+  selectVerificationCode,
+  selectEmailChecking,
+  selectEmailCheckingError,
+  selectEmailVerificationProcessing,
+  selectVerifyEmailError,
+  selectIHaveEosAccountProcessing,
+  selectIHaveEosAccountError,
+  selectIdontHaveEosAccountProcessing,
+  selectIdontHaveEosAccountError,
+  selectKeys,
+  selectSignUpWithScatterProcessing,
+  selectSignUpWithScatterError,
+  selectShowScatterSignUpProcessing,
+  selectShowScatterSignUpFormError,
+  selectEncryptionKey,
 };

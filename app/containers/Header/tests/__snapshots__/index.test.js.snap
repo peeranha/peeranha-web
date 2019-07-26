@@ -8,6 +8,5 @@ exports[`<Header /> snapshot test 1`] = `
   profileInfo={Object {}}
   showLoginModalDispatch={[MockFunction]}
   showMenu={[MockFunction]}
-  showSignUpModalDispatch={[MockFunction]}
 />
 `;

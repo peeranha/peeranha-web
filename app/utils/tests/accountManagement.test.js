@@ -2,10 +2,15 @@
  * Tests account management operations
  */
 
-import EosioService from '../eosio';
 import { saveText } from '../ipfs';
 import { registerAccount, isUserInSystem } from '../accountManagement';
-import { REGISTER_ACC, ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from '../constants';
+
+import {
+  REGISTER_ACC,
+  ACCOUNT_TABLE,
+  ALL_ACCOUNTS_SCOPE,
+  NO_AVATAR,
+} from '../constants';
 
 jest.mock('../ipfs', () => ({
   saveText: jest.fn().mockImplementation(() => {}),
@@ -13,39 +18,47 @@ jest.mock('../ipfs', () => ({
 
 JSON.stringify = jest.fn();
 
-const cmp = new EosioService();
-cmp.sendTransaction = jest.fn().mockImplementation(() => {});
-cmp.getTableRow = jest.fn().mockImplementation(() => {});
+const EosioService = {
+  sendTransaction: jest.fn(),
+  getTableRow: jest.fn(),
+};
 
 it('registerAccount', async () => {
-  const acc = 'user1';
-  const dName = 'user2';
-  const profile = {};
   const savedHash = 'savedHash';
+
+  const profile = {
+    accountName: 'accountName',
+    displayName: 'displayName',
+  };
 
   saveText.mockImplementation(() => savedHash);
 
   expect(JSON.stringify).toHaveBeenCalledTimes(0);
-  expect(cmp.sendTransaction).toHaveBeenCalledTimes(0);
+  expect(EosioService.sendTransaction).toHaveBeenCalledTimes(0);
 
-  await registerAccount(acc, dName, profile, cmp);
+  await registerAccount(profile, EosioService);
 
-  expect(cmp.sendTransaction).toHaveBeenCalledWith(acc, REGISTER_ACC, {
-    user: acc,
-    display_name: dName,
-    ipfs_profile: savedHash,
-  });
+  expect(EosioService.sendTransaction).toHaveBeenCalledWith(
+    profile.accountName,
+    REGISTER_ACC,
+    {
+      user: profile.accountName,
+      display_name: profile.displayName,
+      ipfs_profile: savedHash,
+      ipfs_avatar: NO_AVATAR,
+    },
+  );
   expect(saveText).toHaveBeenCalledTimes(1);
   expect(JSON.stringify).toHaveBeenCalledTimes(1);
 });
 
 describe('isUserInSystem', () => {
   const user = 'user1';
-  cmp.getTableRow.mockImplementationOnce(() => true);
+  EosioService.getTableRow.mockImplementationOnce(() => true);
 
   it('@user is true', async () => {
-    expect(await isUserInSystem(user, cmp)).toBe(true);
-    expect(cmp.getTableRow).toHaveBeenCalledWith(
+    expect(await isUserInSystem(user, EosioService)).toBe(true);
+    expect(EosioService.getTableRow).toHaveBeenCalledWith(
       ACCOUNT_TABLE,
       ALL_ACCOUNTS_SCOPE,
       user,
@@ -53,6 +66,6 @@ describe('isUserInSystem', () => {
   });
 
   it('@user is null', async () => {
-    expect(await isUserInSystem(null, cmp)).toBe(false);
+    expect(await isUserInSystem(null, EosioService)).toBe(false);
   });
 });

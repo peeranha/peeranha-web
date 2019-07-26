@@ -1,5 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
+import { BG_PRIMARY_LIGHT } from 'style-constants';
+
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   ${reset};
@@ -14,6 +16,7 @@ injectGlobal`
     min-height: 100%;
     position: relative;
     font-family: Source Sans Pro, sans-serif;
+    background: ${BG_PRIMARY_LIGHT};
   }
 
   button, a {
@@ -27,11 +30,27 @@ injectGlobal`
     min-width: 100%;
   }
 
+  #modal > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10100;
+  }
+
   .container {
     max-width: 1320px;
   }
 
   #landing-id .container {
     max-width: 1140px;
+  }
+
+  .popover {
+    z-index: 100000;
   }
 `;

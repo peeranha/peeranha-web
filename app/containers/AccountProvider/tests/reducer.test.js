@@ -6,9 +6,6 @@ import {
   getCurrentAccount,
   getCurrentAccountSuccess,
   getCurrentAccountError,
-  loginSignupSuccess,
-  loginSignupErr,
-  forgetIdentityErr,
 } from '../actions';
 
 describe('accountProviderReducer', () => {
@@ -46,33 +43,5 @@ describe('accountProviderReducer', () => {
     expect(accountProviderReducer(state, getCurrentAccountError(err))).toEqual(
       obj,
     );
-  });
-
-  it('loginSignupSuccess', () => {
-    const acc = 'user1';
-    const profileInfo = true;
-    const obj = state.set('profileInfo', profileInfo).set('account', acc);
-
-    expect(
-      accountProviderReducer(state, loginSignupSuccess(acc, profileInfo)),
-    ).toEqual(obj);
-  });
-
-  it('loginSignupErr', () => {
-    const loginSignupError = true;
-    const obj = state.set('loginSignupError', loginSignupError);
-
-    expect(
-      accountProviderReducer(state, loginSignupErr(loginSignupError)),
-    ).toEqual(obj);
-  });
-
-  it('forgetIdentityErr', () => {
-    const forgetIdentityError = true;
-    const obj = state.set('forgetIdentityError', forgetIdentityError);
-
-    expect(
-      accountProviderReducer(state, forgetIdentityErr(forgetIdentityError)),
-    ).toEqual(obj);
   });
 });

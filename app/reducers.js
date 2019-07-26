@@ -31,6 +31,8 @@ import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOf
 import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
 import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
 import usersReducer from 'containers/Users/reducer';
+import forgotPasswordReducer from 'containers/ForgotPassword/reducer';
+import logoutReducer from 'containers/Logout/reducer';
 
 /*
  * routeReducer
@@ -67,8 +69,10 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
-    signup: signUpReducer,
+    signUp: signUpReducer,
     login: loginReducer,
+    logout: logoutReducer,
+    forgotPassword: forgotPasswordReducer,
     toast: toastReducer,
     account: accountProviderReducer,
     editProfileReducer,

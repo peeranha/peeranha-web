@@ -10,7 +10,6 @@ exports[`ErrorBoundaryMessage snapshot test 1`] = `
     role="alert"
   >
     <FormattedMessage
-      defaultMessage="A problem occurred with this webpage"
       id="app.containers.ErrorBoundary.problemWithWebpage"
       values={Object {}}
     />
@@ -24,7 +23,6 @@ exports[`ErrorBoundaryMessage snapshot test 1`] = `
     className="btn btn-link"
   >
     <FormattedMessage
-      defaultMessage="Reload page"
       id="app.containers.ErrorBoundary.reloadPage"
       values={Object {}}
     />

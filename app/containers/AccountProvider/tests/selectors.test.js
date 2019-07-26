@@ -1,12 +1,11 @@
 import { fromJS } from 'immutable';
+
 import {
   selectAccountProviderDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectAccount,
   makeSelectProfileInfo,
-  selectLoginSignupError,
-  makeSelectForgetIdentityError,
   makeSelectFollowedCommunities,
 } from '../selectors';
 
@@ -15,16 +14,12 @@ describe('selectAccountProviderDomain', () => {
   const error = 'error';
   const account = 'account';
   const profileInfo = fromJS({});
-  const loginSignupError = 'loginSignupError';
-  const forgetIdentityError = 'forgetIdentityError';
 
   const globalState = fromJS({
     loading,
     error,
     account,
     profileInfo,
-    loginSignupError,
-    forgetIdentityError,
   });
 
   const mockedState = fromJS({
@@ -87,15 +82,5 @@ describe('selectAccountProviderDomain', () => {
   it('makeSelectProfileInfo', () => {
     const isProfileInfo = makeSelectProfileInfo();
     expect(isProfileInfo(mockedState)).toEqual(profileInfo);
-  });
-
-  it('selectLoginSignupError', () => {
-    const isSelectLoginSignupError = selectLoginSignupError();
-    expect(isSelectLoginSignupError(mockedState)).toEqual(loginSignupError);
-  });
-
-  it('makeSelectForgetIdentityError', () => {
-    const forgetIdError = makeSelectForgetIdentityError();
-    expect(forgetIdError(mockedState)).toEqual(forgetIdentityError);
   });
 });

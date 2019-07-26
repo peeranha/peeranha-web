@@ -4,6 +4,7 @@ const gray = '#bdbdbd';
 const darkgray = '#7b7b7b';
 const lightgray = '#efefef';
 const pink = '#fc6655';
+const lightblue = '#edeff6';
 const blue = '#576fed';
 const darkblue = '#5065A5';
 const transparent = 'rgba(0, 0, 0, 0)';
@@ -37,6 +38,7 @@ export const BORDER_DARK = black;
 
 export const BG_SUCCESS = green;
 export const BG_PRIMARY = blue;
+export const BG_PRIMARY_LIGHT = lightblue;
 export const BG_PRIMARY_DARK = darkblue;
 export const BG_LIGHT = white;
 export const BG_TRANSPARENT = transparent;

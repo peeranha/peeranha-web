@@ -56,6 +56,34 @@
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
 
+  "web_integration.errors.unknownError":
+    "Unknown error. Please submit bug report!",
+  "web_integration.errors.accountAlreadyRegistered":
+    "Account already registered",
+  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key or IV",
+  "web_integration.errors.userDidntStoreKey":
+    "User didn't store owner key in our service",
+  "web_integration.errors.unableToDecryptUserKey":
+    "Unable to decrypt user key modify with given key",
+  "web_integration.errors.userDidntRequestActivateAcc":
+    "This user didn't request activate account",
+  "web_integration.errors.youSendTooManRequests":
+    "You send too many requests in last period",
+  "web_integration.errors.userDidntMakeRequestToVerifyEmail":
+    "Email isn't request registration or request expired",
+  "web_integration.errors.codeExpiredOrIncorrect":
+    "Code expired or entered incorrectly",
+  "web_integration.errors.passphraseIsInvalid": "The passphrase is invalid",
+  "web_integration.errors.wrongPassword":
+    "Unable to decrypt passphrase with given key",
+  "web_integration.errors.accountWithEmailIsntRegistered":
+    "Account with given email isn't registered yet",
+  "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
+    "User isn't request opertion or request expired",
+  "web_integration.errors.invalidCipher": "Invalid cipher IV in passphase",
+  "web_integration.errors.emailAlreadyInUse": "Email already in use",
+  "web_integration.errors.unableToBuildModel": "Unable to build model",
+
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
@@ -449,20 +477,89 @@
   "app.containers.TagsCollection.title": "Tags collection",
 
   "app.components.Footer.header": "Copyright: Peerania",
-  "app.containers.SignUp.eosAccount": "EOS Account",
-  "app.containers.SignUp.displayName": "Display Name",
-  "app.containers.SignUp.signUp": "Sign Up",
-  "app.containers.SignUp.signUpDescription": "Description of Sign Up",
-  "app.containers.SignUp.serverMessage": "Error",
-  "app.containers.SignUp.signUpWith": "Sign up with Scatter",
-  "app.containers.SignUp.alreadyHaveAcc": "Already have Peerania account?",
-  "app.containers.SignUp.login": "Log in",
-  "app.containers.SignUp.selectedIdentity": "Selected identity",
-  "app.containers.SignUp.isAlreadyRegistred": "is already registred",
-  "app.containers.SignUp.loginWith": "Login with",
-  "app.containers.SignUp.identity": "identity",
+
+  "app.containers.Login.authUserHasMore": "An authorized user has more options",
+  "app.containers.Login.staySignedIn": "Stay signed in",
+  "app.containers.Login.iForgotPassword": "I forgot my password",
+  "app.containers.Login.scatterIsNotInstalled":
+    "Check whether the Scatter and network settings are installed",
+  "app.containers.Login.userIsNotRegistered": "User is not registered",
+  "app.containers.Login.userIsNotSelected": "User is not selected",
+  "app.containers.Login.weAreHappyYouAreHere": "We are happy you are here",
+  "app.containers.Login.yourUsernameIsHow":
+    "Your username is how you'll be known on Peerania.",
+
+  "app.containers.ForgotPassword.youGotThisKey":
+    "You got this key with authorization and saved in a safe place. Try to find it.",
+
+  "app.containers.SignUp.checkYourEmail":
+    "Check your email. You get verification code.",
+  "app.containers.SignUp.almostDone": "Almost done",
+  "app.containers.SignUp.firstParagraphAlmostDone":
+    "Peerania is not a typical social app. It's powered by the Peerania blockchain.",
+  "app.containers.SignUp.secondParagraphAlmostDone":
+    "The Peerania blockchain powers many real time content apps like Peerania, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+  "app.containers.SignUp.thirdParagraphAlmostDone":
+    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
+  "app.containers.SignUp.firstFAQAlmostDone": "Why I have to wait?",
+  "app.containers.SignUp.secondFAQAlmostDone": "When can I start?",
+  "app.containers.SignUp.thirdFAQAlmostDone": "What is EOS account for?",
+  "app.containers.SignUp.weWillNotify":
+    "We will notify you when your account will be ready. Usually it takes no longer, than 4 hours.",
+  "app.containers.SignUp.goToMainPage": "Go to main page",
+  "app.containers.SignUp.youNeedEosAccount": "You nees EOS account",
+  "app.containers.SignUp.theWayEosWorks":
+    "The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.",
+  "app.containers.SignUp.ifYouCreateEos":
+    "If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.",
+  "app.containers.SignUp.whyDoIneedThisService": "Why do I need this service?",
+  "app.containers.SignUp.howMuchDoesItCost": "How much does it cost?",
+  "app.containers.SignUp.ifThisWebsiteSafe": "Is this website safe to use?",
+  "app.containers.SignUp.whatKeysAndHowToUse":
+    "What are those keys and how do I generate them?",
+  "app.containers.SignUp.signUpOptions": "Sign up options",
+  "app.containers.SignUp.steemitIsNotTypical":
+    "Peerania is not a typical social app. It's powered by the Peerania blockchain.",
+  "app.containers.SignUp.steemitBlockchainPowers":
+    "The Peerania blockchain powers many real time content apps like Peerania, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+  "app.containers.SignUp.weAreHappyToCover":
+    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
+  "app.containers.SignUp.ifYouLikeToSkip":
+    "If you'd like to skip the queue or stay anonymous, you can pay the account creation fee using a third party service.",
+  "app.containers.SignUp.whyIHaveToWait": "Why I have to wait?",
+  "app.containers.SignUp.whenCanIStart": "When can I start?",
+  "app.containers.SignUp.whatIsEosAccountFor": "What is EOS account for?",
   "app.containers.SignUp.or": "or",
-  "app.containers.SignUp.backToSignUpOptions": "Back to Sign Up options",
+  "app.containers.SignUp.doYouHaveAlreadyAccount":
+    "Do you already have an account?",
+  "app.containers.SignUp.youHaveToSaveKeys": "You have to save keys carefully",
+  "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
+  "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
+  "app.containers.SignUp.idontHaveEosAccount": "I have not EOS account",
+  "app.containers.SignUp.downloadKeys": "Download keys",
+  "app.containers.SignUp.whyYouLikeUs": "Why do you like Peerania?",
+  "app.containers.SignUp.title": "Registration",
+  "app.containers.SignUp.description": "Registration | Description",
+  "app.containers.SignUp.continue": "Continue",
+  "app.containers.SignUp.email": "Email",
+  "app.containers.SignUp.verificationCode": "Verification code",
+  "app.containers.SignUp.verify": "Verify",
+  "app.containers.SignUp.sendAnotherCode": "Send another code",
+  "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
+  "app.containers.SignUp.storeThisKey": "Store this key",
+  "app.containers.SignUp.masterKey": "Master key",
+  "app.containers.SignUp.displayName": "Peerania name",
+  "app.containers.SignUp.eosName": "EOS name",
+  "app.containers.SignUp.signUp": "Sign Up",
+  "app.containers.SignUp.password": "Password",
+  "app.containers.SignUp.confirmPassword": "Confirm password",
+  "app.containers.SignUp.iAcceptPrivacyPolicy":
+    "I accept terms of Privacy Policy.",
+  "app.containers.SignUp.iSaveMasterKey":
+    "I save Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
+  "app.containers.SignUp.userAlreadyRegistered":
+    "User with such identity has been already registered",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",
@@ -479,23 +576,6 @@
   "app.containers.Profile.locationTip": "Location tip...",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
-
-  "app.containers.ScatterInstaller.header":
-    "To complete this action in our app you need to install",
-  "app.containers.ScatterInstaller.nextstep": "Next step",
-  "app.containers.ScatterInstaller.backToOptions": "Back to options",
-
-  "app.containers.SelectAccount.header": "Scatter account was not selected.",
-  "app.containers.SelectAccount.selectIdent": "Select identity",
-  "app.containers.SelectAccount.backToOptions": "Back to options",
-
-  "app.containers.Login.header":
-    "No Peerania account exists for selected identity.",
-  "app.containers.Login.selectAnotherIdentity": "Select another identity",
-  "app.containers.Login.requirementToSignUp": "Sign Up for Peerania account",
-  "app.containers.Login.loginWithScatter": "Log in with Scatter",
-  "app.containers.Login.doNotHaveAcc": "Do not have an account?",
-  "app.containers.Login.signUp": "Sign up",
 
   "app.containers.UserProfileNav.profile": "Profile",
 

@@ -10,9 +10,6 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
-  LOGIN_SIGNUP_SUCCESS,
-  LOGIN_SIGNUP_ERROR,
-  FORGET_IDENTITY_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -20,19 +17,10 @@ export const initialState = fromJS({
   error: null,
   account: null,
   profileInfo: null,
-  loginSignupError: null,
-  forgetIdentityError: null,
 });
 
 function accountProviderReducer(state = initialState, action) {
-  const {
-    type,
-    err,
-    acc,
-    profileInfo,
-    loginSignupError,
-    forgetIdentityError,
-  } = action;
+  const { type, err, account, profileInfo } = action;
 
   switch (type) {
     case GET_CURRENT_ACCOUNT:
@@ -41,15 +29,10 @@ function accountProviderReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('profileInfo', profileInfo)
-        .set('account', acc);
+        .set('account', account);
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
-    case LOGIN_SIGNUP_SUCCESS:
-      return state.set('account', acc).set('profileInfo', profileInfo);
-    case LOGIN_SIGNUP_ERROR:
-      return state.set('loginSignupError', loginSignupError);
-    case FORGET_IDENTITY_ERROR:
-      return state.set('forgetIdentityError', forgetIdentityError);
+
     default:
       return state;
   }

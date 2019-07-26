@@ -17,11 +17,6 @@ import { Switch, Route } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
-
-import SignUp from 'containers/SignUp';
-import Login from 'containers/Login';
-import Toast from 'containers/Toast';
-
 import Wrapper from './Wrapper';
 
 import {
@@ -46,6 +41,15 @@ import {
   Feed,
   Communities,
   SuggestedCommunities,
+  EmailEnteringForm,
+  EmailVerificationForm,
+  ScatterSignUpForm,
+  IHaveEOSAccountForm,
+  IdontHaveEOSAccountForm,
+  RegistrationAlmostDone,
+  Login,
+  ForgotPassword,
+  Toast,
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
@@ -56,6 +60,8 @@ export default function App /* istanbul ignore next */() {
   return (
     <div>
       <Toast />
+      <Login />
+      <ForgotPassword />
 
       <Switch>
         <Route exact path={routes.home()}>
@@ -77,10 +83,12 @@ export default function App /* istanbul ignore next */() {
           path={routes.communities()}
           render={props => Wrapper(Communities, props)}
         />
+
         <Route
           path={routes.communitiesCreate()}
           render={props => Wrapper(CreateCommunity, props)}
         />
+
         <Route
           path={routes.suggestedCommunities()}
           render={props => Wrapper(SuggestedCommunities, props)}
@@ -91,15 +99,18 @@ export default function App /* istanbul ignore next */() {
           path={routes.tags()}
           render={props => Wrapper(TagsCollection, props)}
         />
+
         <Route
           exact
           path={routes.communityTags(':communityid')}
           render={props => Wrapper(TagsOfCommunity, props)}
         />
+
         <Route
           path={routes.tagsCreate(':communityid')}
           render={props => Wrapper(CreateTag, props)}
         />
+
         <Route
           path={routes.suggestedTags(':communityid')}
           render={props => Wrapper(SuggestedTags, props)}
@@ -110,11 +121,13 @@ export default function App /* istanbul ignore next */() {
           path={routes.appFaq()}
           render={props => Wrapper(Faq, props)}
         />
+
         <Route
           exact
           path={routes.profileView(':id')}
           render={props => Wrapper(ViewProfilePage, props)}
         />
+
         <Route
           path={routes.profileEdit(':id')}
           render={props => Wrapper(EditProfilePage, props)}
@@ -125,15 +138,18 @@ export default function App /* istanbul ignore next */() {
           path={routes.questions()}
           render={props => Wrapper(Questions, props)}
         />
+
         <Route
           path={routes.questionAsk()}
           render={props => Wrapper(AskQuestion, props)}
         />
+
         <Route
           exact
           path={routes.questionView(':id')}
           render={props => Wrapper(ViewQuestion, props)}
         />
+
         <Route
           path={routes.questionEdit(':questionid')}
           render={props => Wrapper(EditQuestion, props)}
@@ -150,11 +166,45 @@ export default function App /* istanbul ignore next */() {
           path={routes.noAccess()}
           render={props => Wrapper(NoAccess, props)}
         />
+
+        <Route path={routes.signup.email.name}>
+          <React.Suspense fallback={<Loader />}>
+            <EmailEnteringForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.emailVerification.name}>
+          <React.Suspense fallback={null}>
+            <EmailVerificationForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.displayName.name}>
+          <React.Suspense fallback={null}>
+            <ScatterSignUpForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.haveEosAccount.name}>
+          <React.Suspense fallback={null}>
+            <IHaveEOSAccountForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.dontHaveEosAccount.name}>
+          <React.Suspense fallback={null}>
+            <IdontHaveEOSAccountForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.almostDone.name}>
+          <React.Suspense fallback={null}>
+            <RegistrationAlmostDone />
+          </React.Suspense>
+        </Route>
+
         <Route render={props => Wrapper(NotFoundPage, props)} />
       </Switch>
-
-      <SignUp />
-      <Login />
     </div>
   );
 }

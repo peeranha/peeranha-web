@@ -89,19 +89,21 @@ it('uploadImg', async () => {
 });
 
 it('getProfileInfo', async () => {
-  const profileHash = 'hash';
+  const user = 'hash';
   const img = 'ipfs_avatar';
   const ipfs = JSON.stringify({ ipfs_avatar: img });
   const ipfs_avatar = 'url';
+
   const eos = {
     ipfs_profile: {},
+    user,
   };
 
   cmp.getTableRow.mockImplementation(() => eos);
   getText.mockImplementation(() => ipfs);
   getFileUrl.mockImplementation(() => ipfs_avatar);
 
-  expect(await getProfileInfo(profileHash, cmp)).toEqual({
+  expect(await getProfileInfo(user, cmp)).toEqual({
     ...eos,
     profile: JSON.parse(ipfs),
     ipfs_avatar,
@@ -110,7 +112,7 @@ it('getProfileInfo', async () => {
   expect(cmp.getTableRow).toHaveBeenCalledWith(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
-    profileHash,
+    user,
   );
 
   expect(getText).toHaveBeenCalledWith(eos.ipfs_profile);

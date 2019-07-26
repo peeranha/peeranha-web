@@ -12,6 +12,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
+
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import { initEosio } from './actions';
@@ -27,9 +29,7 @@ export class EosioProvider extends React.Component {
   render() {
     return (
       <div>
-        {this.props.initializing && <LoadingIndicator />}
-
-        {!this.props.initializing && React.Children.only(this.props.children)}
+        {!this.props.initializing ? this.props.children : <LoadingIndicator />}
       </div>
     );
   }
@@ -58,7 +58,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'eosioProvider', reducer });
-const withSaga = injectSaga({ key: 'eosioProvider', saga });
+const withSaga = injectSaga({ key: 'eosioProvider', saga, mode: DAEMON });
 
 export default compose(
   withReducer,
