@@ -5,12 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  LANDING_FONT,
-  TEXT_PRIMARY,
-  TEXT_LIGHT,
-  TEXT_SECONDARY,
-} from 'style-constants';
+import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 
 import logo from 'images/Logo.svg?inline';
 import login from 'images/Login.svg?external';
@@ -20,7 +15,7 @@ import bgLogin from 'images/BG_Login.png';
 
 import { scrollToSection } from 'utils/animation';
 import * as routes from 'routes-config';
-import ModalDialog from 'containers/ModalDialog';
+import ModalDialog from 'components/ModalDialog';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
@@ -42,6 +37,7 @@ import {
 
 import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
+import ModalDialogChildren from './ModalDialog';
 
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
@@ -73,7 +69,7 @@ export class Header extends React.PureComponent {
             show={this.props.showPopup}
             closeModal={closeHeaderPopupDispatch}
           >
-            <div className="header-modal-dialog">
+            <ModalDialogChildren>
               <div className="image-coins">
                 <img src={bgLogin} alt="bgLogin" />
               </div>
@@ -95,7 +91,7 @@ export class Header extends React.PureComponent {
                   modal
                 />
               </div>
-            </div>
+            </ModalDialogChildren>
           </ModalDialog>
 
           <div className="container">
@@ -252,51 +248,6 @@ const Box = styled.div`
 
     .log-in-button {
       text-align: left;
-    }
-  }
-
-  .header-modal-dialog {
-    max-width: 480px;
-    min-height: 280px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 50px 20px 10px 20px;
-
-    * {
-      font-family: ${LANDING_FONT};
-      font-size: 18px;
-    }
-
-    .close-icon {
-      position: absolute;
-      right: 0px;
-      top: 0px;
-      padding: 15px 5px;
-
-      ${IconStyled} {
-        ${IconHover({ color: TEXT_SECONDARY })};
-
-        width: 18px;
-      }
-    }
-
-    .modal-dialog-message {
-      text-align: left;
-      font-size: 17px;
-      padding-bottom: 30px;
-      line-height: 30px;
-    }
-
-    .image-coins {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-
-      img {
-        width: 100%;
-      }
     }
   }
 

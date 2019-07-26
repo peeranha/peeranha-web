@@ -41,7 +41,6 @@ const RoundedButtonStyled = RoundedButton.extend`
 export const LoginProfile = React.memo(
   /* istanbul ignore next */ ({
     profileInfo,
-    showSignUpModalDispatch,
     showLoginModalDispatch,
     isMenuVisible,
     expandLeftMenuNavigation,
@@ -59,7 +58,6 @@ export const LoginProfile = React.memo(
     return (
       <UserAuthNavLinks
         isMenuVisible={isMenuVisible}
-        showSignUpModal={showSignUpModalDispatch}
         showLoginModal={showLoginModalDispatch}
       />
     );
@@ -145,7 +143,6 @@ HeaderForm.propTypes = {
 
 LoginProfile.propTypes = {
   profileInfo: PropTypes.object,
-  showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };
 

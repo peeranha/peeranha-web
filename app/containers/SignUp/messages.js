@@ -5,62 +5,163 @@
  */
 
 import { defineMessages } from 'react-intl';
+import { USER_ALREADY_REGISTERED_ERROR } from './constants';
 
 export default defineMessages({
-  eosAccount: {
-    id: 'app.containers.SignUp.eosAccount',
-    defaultMessage: 'EOS Account',
+  title: {
+    id: 'app.containers.SignUp.title',
+  },
+  description: {
+    id: 'app.containers.SignUp.description',
+  },
+  continue: {
+    id: 'app.containers.SignUp.continue',
+  },
+  email: {
+    id: 'app.containers.SignUp.email',
+  },
+  verificationCode: {
+    id: 'app.containers.SignUp.verificationCode',
+  },
+  verify: {
+    id: 'app.containers.SignUp.verify',
+  },
+  sendAnotherCode: {
+    id: 'app.containers.SignUp.sendAnotherCode',
+  },
+  eosActivePrivateKey: {
+    id: 'app.containers.SignUp.eosActivePrivateKey',
+  },
+  eosOwnerPrivateKey: {
+    id: 'app.containers.SignUp.eosOwnerPrivateKey',
+  },
+  storeThisKey: {
+    id: 'app.containers.SignUp.storeThisKey',
+  },
+  masterKey: {
+    id: 'app.containers.SignUp.masterKey',
+  },
+  eosName: {
+    id: 'app.containers.SignUp.eosName',
   },
   displayName: {
     id: 'app.containers.SignUp.displayName',
-    defaultMessage: 'Display Name',
+  },
+  password: {
+    id: 'app.containers.SignUp.password',
+  },
+  confirmPassword: {
+    id: 'app.containers.SignUp.confirmPassword',
+  },
+  iSaveMasterKey: {
+    id: 'app.containers.SignUp.iSaveMasterKey',
+  },
+  iAcceptPrivacyPolicy: {
+    id: 'app.containers.SignUp.iAcceptPrivacyPolicy',
   },
   signUp: {
     id: 'app.containers.SignUp.signUp',
-    defaultMessage: 'Sign Up',
   },
-  signUpDescription: {
-    id: 'app.containers.SignUp.signUpDescription',
-    defaultMessage: 'Description of Sign Up',
+  youHaveToSaveKeys: {
+    id: 'app.containers.SignUp.youHaveToSaveKeys',
   },
-  serverMessage: {
-    id: 'app.containers.SignUp.serverMessage',
-    defaultMessage: 'Error',
+  downloadKeys: {
+    id: 'app.containers.SignUp.downloadKeys',
   },
-  signUpWith: {
-    id: 'app.containers.SignUp.signUpWith',
-    defaultMessage: 'Sign up with Scatter',
+  whyYouLikeUs: {
+    id: 'app.containers.SignUp.whyYouLikeUs',
   },
-  alreadyHaveAcc: {
-    id: 'app.containers.SignUp.alreadyHaveAcc',
-    defaultMessage: 'Already have Peerania account?',
+  iHaveEosAccount: {
+    id: 'app.containers.SignUp.iHaveEosAccount',
   },
-  login: {
-    id: 'app.containers.SignUp.login',
-    defaultMessage: 'Log in',
+  idontHaveEosAccount: {
+    id: 'app.containers.SignUp.idontHaveEosAccount',
   },
-  selectedIdentity: {
-    id: 'app.containers.SignUp.selectedIdentity',
-    defaultMessage: 'Selected identity',
+  passwordsDoNotMatch: {
+    id: 'app.containers.SignUp.passwordsDoNotMatch',
   },
-  isAlreadyRegistred: {
-    id: 'app.containers.SignUp.isAlreadyRegistred',
-    defaultMessage: 'is already registred',
+  signUpOptions: {
+    id: 'app.containers.SignUp.signUpOptions',
   },
-  loginWith: {
-    id: 'app.containers.SignUp.loginWith',
-    defaultMessage: 'Login with',
+  steemitIsNotTypical: {
+    id: 'app.containers.SignUp.steemitIsNotTypical',
   },
-  identity: {
-    id: 'app.containers.SignUp.identity',
-    defaultMessage: 'identity',
+  steemitBlockchainPowers: {
+    id: 'app.containers.SignUp.steemitBlockchainPowers',
+  },
+  weAreHappyToCover: {
+    id: 'app.containers.SignUp.weAreHappyToCover',
+  },
+  ifYouLikeToSkip: {
+    id: 'app.containers.SignUp.ifYouLikeToSkip',
+  },
+  whyIHaveToWait: {
+    id: 'app.containers.SignUp.whyIHaveToWait',
+  },
+  whenCanIStart: {
+    id: 'app.containers.SignUp.whenCanIStart',
+  },
+  whatIsEosAccountFor: {
+    id: 'app.containers.SignUp.whatIsEosAccountFor',
   },
   or: {
     id: 'app.containers.SignUp.or',
-    defaultMessage: 'or',
   },
-  backToSignUpOptions: {
-    id: 'app.containers.SignUp.backToSignUpOptions',
-    defaultMessage: 'Back to Sign Up options',
+  doYouHaveAlreadyAccount: {
+    id: 'app.containers.SignUp.doYouHaveAlreadyAccount',
+  },
+  youNeedEosAccount: {
+    id: 'app.containers.SignUp.youNeedEosAccount',
+  },
+  theWayEosWorks: {
+    id: 'app.containers.SignUp.theWayEosWorks',
+  },
+  ifYouCreateEos: {
+    id: 'app.containers.SignUp.ifYouCreateEos',
+  },
+  whyDoIneedThisService: {
+    id: 'app.containers.SignUp.whyDoIneedThisService',
+  },
+  howMuchDoesItCost: {
+    id: 'app.containers.SignUp.howMuchDoesItCost',
+  },
+  ifThisWebsiteSafe: {
+    id: 'app.containers.SignUp.ifThisWebsiteSafe',
+  },
+  whatKeysAndHowToUse: {
+    id: 'app.containers.SignUp.whatKeysAndHowToUse',
+  },
+  checkYourEmail: {
+    id: 'app.containers.SignUp.checkYourEmail',
+  },
+  almostDone: {
+    id: 'app.containers.SignUp.almostDone',
+  },
+  firstParagraphAlmostDone: {
+    id: 'app.containers.SignUp.firstParagraphAlmostDone',
+  },
+  secondParagraphAlmostDone: {
+    id: 'app.containers.SignUp.secondParagraphAlmostDone',
+  },
+  thirdParagraphAlmostDone: {
+    id: 'app.containers.SignUp.thirdParagraphAlmostDone',
+  },
+  firstFAQAlmostDone: {
+    id: 'app.containers.SignUp.firstFAQAlmostDone',
+  },
+  secondFAQAlmostDone: {
+    id: 'app.containers.SignUp.secondFAQAlmostDone',
+  },
+  thirdFAQAlmostDone: {
+    id: 'app.containers.SignUp.thirdFAQAlmostDone',
+  },
+  weWillNotify: {
+    id: 'app.containers.SignUp.weWillNotify',
+  },
+  goToMainPage: {
+    id: 'app.containers.SignUp.goToMainPage',
+  },
+  [USER_ALREADY_REGISTERED_ERROR]: {
+    id: 'app.containers.SignUp.userAlreadyRegistered',
   },
 });

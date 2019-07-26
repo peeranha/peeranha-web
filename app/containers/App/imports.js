@@ -1,5 +1,15 @@
 import React from 'react';
 
+import Toast from 'containers/Toast';
+import EmailEnteringForm from 'containers/SignUp/EmailEnteringForm';
+import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
+import IHaveEOSAccountForm from 'containers/SignUp/IHaveEOSAccountForm';
+import IdontHaveEOSAccountForm from 'containers/SignUp/IdontHaveEOSAccountForm';
+import ScatterSignUpForm from 'containers/SignUp/ScatterSignUpForm';
+import RegistrationAlmostDone from 'components/SignUpWrapper/AlmostDone';
+import Login from 'containers/Login';
+import ForgotPassword from 'containers/ForgotPassword';
+
 const HomePage = React.lazy(
   /* istanbul ignore next */ () => import('containers/HomePage'),
 );
@@ -87,4 +97,13 @@ export {
   Feed,
   Communities,
   SuggestedCommunities,
+  EmailEnteringForm,
+  EmailVerificationForm,
+  IHaveEOSAccountForm,
+  IdontHaveEOSAccountForm,
+  ScatterSignUpForm,
+  RegistrationAlmostDone,
+  Login,
+  ForgotPassword,
+  Toast,
 };

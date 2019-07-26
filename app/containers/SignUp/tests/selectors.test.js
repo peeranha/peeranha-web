@@ -1,26 +1,60 @@
 import { fromJS } from 'immutable';
+
 import {
   selectSignUpDomain,
-  makeSelectLoading,
-  makeSelectError,
-  makeSelectRegistered,
-  makeSelectContent,
-  makeSelectShowModal,
+  selectEmail,
+  selectVerificationCode,
+  selectEmailChecking,
+  selectEmailCheckingError,
+  selectIdontHaveEosAccountProcessing,
+  selectIHaveEosAccountError,
+  selectIHaveEosAccountProcessing,
+  selectEmailVerificationProcessing,
+  selectIdontHaveEosAccountError,
+  selectSignUpWithScatterProcessing,
+  selectSignUpWithScatterError,
+  selectVerifyEmailError,
+  selectShowScatterSignUpProcessing,
+  selectKeys,
+  selectShowScatterSignUpFormError,
+  selectEncryptionKey,
 } from '../selectors';
 
 describe('selectSignUpDomain', () => {
-  const loading = true;
-  const error = 'error';
-  const registered = false;
-  const content = 'content';
-  const showModal = true;
+  const email = 'email';
+  const verificationCode = 'verificationCode';
+  const emailChecking = 'emailChecking';
+  const emailCheckingError = 'emailCheckingError';
+  const verifyEmailError = 'verifyEmailError';
+  const iHaveEosAccountProcessing = 'iHaveEosAccountProcessing';
+  const iHaveEosAccountError = 'iHaveEosAccountError';
+  const idontHaveEosAccountProcessing = 'idontHaveEosAccountProcessing';
+  const idontHaveEosAccountError = 'idontHaveEosAccountError';
+  const signUpWithScatterProcessing = 'signUpWithScatterProcessing';
+  const signUpWithScatterError = 'signUpWithScatterError';
+  const keys = 'keys';
+  const showScatterSignUpProcessing = 'showScatterSignUpProcessing';
+  const showScatterSignUpFormError = 'showScatterSignUpFormError';
+  const encryptionKey = 'encryptionKey';
+  const emailVerificationProcessing = 'emailVerificationProcessing';
 
   const globalState = fromJS({
-    loading,
-    error,
-    registered,
-    content,
-    showModal,
+    email,
+    verificationCode,
+    emailChecking,
+    emailCheckingError,
+    verifyEmailError,
+    iHaveEosAccountProcessing,
+    iHaveEosAccountError,
+    idontHaveEosAccountProcessing,
+    idontHaveEosAccountError,
+    signUpWithScatterProcessing,
+    signUpWithScatterError,
+    keys,
+    showScatterSignUpProcessing,
+    showScatterSignUpFormError,
+    encryptionKey,
+    emailVerificationProcessing,
   });
 
   const mockedState = fromJS({
@@ -31,28 +65,99 @@ describe('selectSignUpDomain', () => {
     expect(selectSignUpDomain(mockedState)).toEqual(globalState);
   });
 
-  it('makeSelectLoading', () => {
-    const isLoading = makeSelectLoading();
-    expect(isLoading(mockedState)).toEqual(loading);
+  it('selectEmail', () => {
+    const isEmail = selectEmail();
+    expect(isEmail(mockedState)).toEqual(email);
   });
 
-  it('makeSelectError', () => {
-    const isError = makeSelectError();
-    expect(isError(mockedState)).toEqual(error);
+  it('selectVerificationCode', () => {
+    const isVerificationCode = selectVerificationCode();
+    expect(isVerificationCode(mockedState)).toEqual(verificationCode);
   });
 
-  it('makeSelectRegistered', () => {
-    const isRegistred = makeSelectRegistered();
-    expect(isRegistred(mockedState)).toEqual(registered);
+  it('selectVerificationCode', () => {
+    const isEmailChecking = selectEmailChecking();
+    expect(isEmailChecking(mockedState)).toEqual(emailChecking);
   });
 
-  it('makeSelectContent', () => {
-    const isContent = makeSelectContent();
-    expect(isContent(mockedState)).toEqual(content);
+  it('selectEmailCheckingError', () => {
+    const isEmailCheckingError = selectEmailCheckingError();
+    expect(isEmailCheckingError(mockedState)).toEqual(emailCheckingError);
   });
 
-  it('makeSelectShowModal', () => {
-    const IsShowModal = makeSelectShowModal();
-    expect(IsShowModal(mockedState)).toEqual(showModal);
+  it('selectEmailVerificationProcessing', () => {
+    const isEmailVerificationProcessing = selectEmailVerificationProcessing();
+    expect(isEmailVerificationProcessing(mockedState)).toEqual(
+      emailVerificationProcessing,
+    );
+  });
+
+  it('selectVerifyEmailError', () => {
+    const isVerifyEmailError = selectVerifyEmailError();
+    expect(isVerifyEmailError(mockedState)).toEqual(verifyEmailError);
+  });
+
+  it('selectIHaveEosAccountProcessing', () => {
+    const isIHaveEosAccountProcessing = selectIHaveEosAccountProcessing();
+    expect(isIHaveEosAccountProcessing(mockedState)).toEqual(
+      iHaveEosAccountProcessing,
+    );
+  });
+
+  it('selectIHaveEosAccountError', () => {
+    const isIHaveEosAccountError = selectIHaveEosAccountError();
+    expect(isIHaveEosAccountError(mockedState)).toEqual(iHaveEosAccountError);
+  });
+
+  it('selectIdontHaveEosAccountProcessing', () => {
+    const isIdontHaveEosAccountProcessing = selectIdontHaveEosAccountProcessing();
+    expect(isIdontHaveEosAccountProcessing(mockedState)).toEqual(
+      idontHaveEosAccountProcessing,
+    );
+  });
+
+  it('selectIdontHaveEosAccountError', () => {
+    const isIdontHaveEosAccountError = selectIdontHaveEosAccountError();
+    expect(isIdontHaveEosAccountError(mockedState)).toEqual(
+      idontHaveEosAccountError,
+    );
+  });
+
+  it('selectSignUpWithScatterProcessing', () => {
+    const isSignUpWithScatterProcessing = selectSignUpWithScatterProcessing();
+    expect(isSignUpWithScatterProcessing(mockedState)).toEqual(
+      signUpWithScatterProcessing,
+    );
+  });
+
+  it('selectSignUpWithScatterError', () => {
+    const isSignUpWithScatterError = selectSignUpWithScatterError();
+    expect(isSignUpWithScatterError(mockedState)).toEqual(
+      signUpWithScatterError,
+    );
+  });
+
+  it('selectKeys', () => {
+    const isKeys = selectKeys();
+    expect(isKeys(mockedState)).toEqual(keys);
+  });
+
+  it('selectShowScatterSignUpProcessing', () => {
+    const isShowScatterSignUpProcessing = selectShowScatterSignUpProcessing();
+    expect(isShowScatterSignUpProcessing(mockedState)).toEqual(
+      showScatterSignUpProcessing,
+    );
+  });
+
+  it('selectShowScatterSignUpFormError', () => {
+    const isShowScatterSignUpFormError = selectShowScatterSignUpFormError();
+    expect(isShowScatterSignUpFormError(mockedState)).toEqual(
+      showScatterSignUpFormError,
+    );
+  });
+
+  it('selectEncryptionKey', () => {
+    const isEncryptionKey = selectEncryptionKey();
+    expect(isEncryptionKey(mockedState)).toEqual(encryptionKey);
   });
 });

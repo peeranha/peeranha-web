@@ -3,8 +3,17 @@
  */
 
 import Eosjs from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.cjs';
+import ecc from 'eosjs-ecc';
+import ScatterJS from 'scatterjs-core';
+import Cookies from 'utils/cookies';
+
+import {
+  LOGIN_WITH_SCATTER,
+  LOGIN_WITH_EMAIL,
+} from 'containers/Login/constants';
+
 import EosioService from '../eosio';
+
 import {
   EOS_IS_NOT_INIT,
   SCATTER_IN_NOT_INSTALLED,
@@ -13,9 +22,24 @@ import {
 } from '../constants';
 
 jest.mock('eosjs');
-jest.mock('scatter-js/dist/scatter.cjs', () => ({
+
+jest.mock('utils/cookies', () => ({
+  get: jest.fn(),
+  set: jest.fn(),
+  remove: jest.fn(),
+}));
+
+jest.mock('eosjs-ecc', () => ({
+  privateToPublic: jest.fn(),
+}));
+
+jest.mock('scatterjs-plugin-eosjs', () => class ScatterEOS {});
+
+jest.mock('scatterjs-core', () => ({
+  plugins: jest.fn(),
   scatter: {
-    connect: jest.fn().mockImplementation(res => res),
+    connect: jest.fn(),
+    eos: jest.fn(),
   },
 }));
 
@@ -25,6 +49,16 @@ const inst = {
 };
 
 Eosjs.mockImplementation(() => inst);
+
+beforeEach(() => {
+  inst.transaction.mockClear();
+  inst.getTableRows.mockClear();
+  ecc.privateToPublic.mockClear();
+  ScatterJS.plugins.mockClear();
+  ScatterJS.scatter.connect.mockClear();
+  ScatterJS.scatter.eos.mockClear();
+  Eosjs.mockClear();
+});
 
 describe('constructor', async () => {
   const eos = new EosioService();
@@ -39,44 +73,73 @@ describe('constructor', async () => {
 });
 
 describe('init', () => {
-  it('@connected === false', async () => {
-    const eos = new EosioService();
+  describe('initialization with scatter', () => {
+    const initWith = LOGIN_WITH_SCATTER;
+    const privateKey = 'privateKey';
 
-    eos.initScatter = jest.fn();
-    eos.initEosioWithScatter = jest.fn();
-    eos.initEosioWithoutScatter = jest.fn();
-    eos.scatterInstalled = true;
+    it('scatter is installed', async () => {
+      const service = new EosioService();
 
-    expect(eos.initScatter).toHaveBeenCalledTimes(0);
-    expect(eos.initEosioWithScatter).toHaveBeenCalledTimes(0);
-    expect(eos.initEosioWithoutScatter).toHaveBeenCalledTimes(0);
+      ScatterJS.scatter = {
+        eos: jest.fn(),
+        connect: jest.fn().mockImplementation(() => true),
+      };
 
-    await eos.init();
+      expect(ScatterJS.plugins).toHaveBeenCalledTimes(0);
+      expect(Boolean(service.initialized)).toBe(false);
 
-    expect(eos.initialized).toBe(true);
-    expect(eos.initScatter).toHaveBeenCalledTimes(1);
-    expect(eos.initEosioWithScatter).toHaveBeenCalledTimes(1);
-    expect(eos.initEosioWithoutScatter).toHaveBeenCalledTimes(0);
+      await service.init(initWith, privateKey);
+
+      expect(ScatterJS.plugins).toHaveBeenCalledTimes(1);
+      expect(service.scatterInstance.eos).toHaveBeenCalledTimes(1);
+      expect(Boolean(service.initialized)).toBe(true);
+    });
+
+    it('scatter is NOT installed', async () => {
+      const service = new EosioService();
+
+      service.scatterInstalled = false;
+      ScatterJS.scatter = {
+        eos: jest.fn(),
+        connect: jest.fn().mockImplementation(() => false),
+      };
+
+      expect(ScatterJS.plugins).toHaveBeenCalledTimes(0);
+      expect(Eosjs).toHaveBeenCalledTimes(0);
+      expect(Boolean(service.initialized)).toBe(false);
+
+      await service.init(initWith, privateKey);
+
+      expect(ScatterJS.plugins).toHaveBeenCalledTimes(1);
+      expect(Eosjs).toHaveBeenCalledTimes(1);
+      expect(Boolean(service.initialized)).toBe(true);
+    });
   });
 
-  it('@connected === true', async () => {
-    const eos = new EosioService();
+  it('initialization without scatter', async () => {
+    const service = new EosioService();
+    const initWith = 'initWith';
+    const privateKey = 'privateKey2';
+    const publicKey = 'publicKey2';
+    const username = 'user1';
 
-    eos.initScatter = jest.fn();
-    eos.initEosioWithScatter = jest.fn();
-    eos.initEosioWithoutScatter = jest.fn();
-    eos.scatterInstalled = false;
+    ecc.privateToPublic.mockImplementation(() => publicKey);
 
-    expect(eos.initScatter).toHaveBeenCalledTimes(0);
-    expect(eos.initEosioWithScatter).toHaveBeenCalledTimes(0);
-    expect(eos.initEosioWithoutScatter).toHaveBeenCalledTimes(0);
+    Eosjs.mockImplementation(() => ({
+      getKeyAccounts: () => ({
+        account_names: [username],
+      }),
+    }));
 
-    await eos.init();
+    expect(Eosjs).toHaveBeenCalledTimes(0);
+    expect(Boolean(service.selectedAccount)).toBe(false);
+    expect(Boolean(service.initialized)).toBe(false);
 
-    expect(eos.initialized).toBe(true);
-    expect(eos.initScatter).toHaveBeenCalledTimes(1);
-    expect(eos.initEosioWithScatter).toHaveBeenCalledTimes(0);
-    expect(eos.initEosioWithoutScatter).toHaveBeenCalledTimes(1);
+    await service.init(initWith, privateKey);
+
+    expect(Eosjs).toHaveBeenCalledTimes(1);
+    expect(service.selectedAccount).toBe(username);
+    expect(Boolean(service.initialized)).toBe(true);
   });
 });
 
@@ -86,7 +149,11 @@ describe('initScatter', () => {
   it('@scatterInstalled is true', async () => {
     ScatterJS.scatter.connect.mockImplementation(() => true);
 
+    expect(ScatterJS.plugins).toHaveBeenCalledTimes(0);
+
     await eos.initScatter();
+
+    expect(ScatterJS.plugins).toHaveBeenCalledTimes(1);
     expect(eos.scatterInstalled).toBe(true);
     expect(window.scatter).toBe(null);
     expect(eos.scatterInstance).toEqual(ScatterJS.scatter);
@@ -96,26 +163,28 @@ describe('initScatter', () => {
     ScatterJS.scatter.connect.mockImplementation(() => false);
 
     await eos.initScatter();
+
     expect(eos.scatterInstalled).toBe(false);
     expect(eos.scatterInstance).toBe(null);
   });
 });
 
 describe('initEosioWithoutScatter', () => {
-  const eos = new EosioService();
-  const config = 'config';
+  const service = new EosioService();
+  const key = 'key';
+  const eosInstance = 'eosInstance';
 
-  eos.getEosioConfig = jest.fn().mockImplementationOnce(() => config);
-  Eosjs.mockImplementationOnce(res => res);
+  it('test', () => {
+    Eosjs.mockImplementation(() => eosInstance);
 
-  it('eosInstance === config', async () => {
-    expect(eos.getEosioConfig).toHaveBeenCalledTimes(0);
+    expect(Eosjs).toHaveBeenCalledTimes(0);
+    expect(Boolean(service.eosInstance)).toBe(false);
 
-    await eos.initEosioWithoutScatter();
+    service.initEosioWithoutScatter(key);
 
-    expect(eos.eosInstance).toBe(config);
-    expect(eos.getEosioConfig).toHaveBeenCalledTimes(1);
-    expect(Eosjs).toHaveBeenCalledWith(config);
+    expect(Eosjs).toHaveBeenCalledTimes(1);
+    expect(Eosjs).toHaveBeenCalledWith(service.getEosioConfig(key));
+    expect(service.eosInstance).toBe(eosInstance);
   });
 });
 
@@ -124,7 +193,7 @@ describe('initEosioWithScatter', () => {
   const eosInstance = 'eosInstance';
   const scatterConfig = 'scatterConfig';
 
-  eos.getScatterConfig = jest.fn().mockImplementationOnce(() => scatterConfig);
+  eos.getScatterConfig = jest.fn().mockImplementation(() => scatterConfig);
   eos.scatterInstance = {
     eos: jest.fn().mockImplementation(() => eosInstance),
   };
@@ -146,79 +215,102 @@ describe('initEosioWithScatter', () => {
 });
 
 describe('getSelectedAccount', () => {
-  const eos = new EosioService();
+  describe('login without scatter', () => {
+    const eos = new EosioService();
+    const selectedAccount = 'selectedAccount';
 
-  it('@initialized is false', async () => {
-    eos.initialized = false;
+    it('test', async () => {
+      Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
+      eos.selectedAccount = selectedAccount;
 
-    try {
-      await eos.getSelectedAccount();
-    } catch (error) {
-      expect(error.message).toBe(EOS_IS_NOT_INIT);
-    }
+      const res = await eos.getSelectedAccount();
+      expect(res).toBe(selectedAccount);
+    });
   });
 
-  it('@scatterInstalled is false', async () => {
-    eos.initialized = true;
-    eos.scatterInstalled = false;
+  describe('login with scatter', () => {
+    const eos = new EosioService();
 
-    try {
-      await eos.getSelectedAccount();
-    } catch (error) {
-      expect(error.message).toBe(SCATTER_IN_NOT_INSTALLED);
-    }
-  });
+    it('@initialized is false', async () => {
+      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+      eos.initialized = false;
 
-  it('@scatterInstance.identity is falsy', async () => {
-    eos.initialized = true;
-    eos.scatterInstalled = true;
-    eos.scatterInstance = { identity: null };
-
-    expect(await eos.getSelectedAccount()).toBe(null);
-  });
-
-  describe('got @scatterInstance.identity', () => {
-    const accountName = 'accountName';
-
-    eos.initialized = true;
-    eos.scatterInstalled = true;
-
-    it('account is true', async () => {
-      eos.scatterInstance = {
-        identity: {
-          accounts: {
-            find: jest.fn().mockImplementation(() => ({
-              name: accountName,
-            })),
-          },
-        },
-      };
-
-      const { find } = eos.scatterInstance.identity.accounts;
-
-      expect(find).toHaveBeenCalledTimes(0);
-      expect(await eos.getSelectedAccount()).toBe(accountName);
-      expect(find).toHaveBeenCalledTimes(1);
-
-      eos.scatterInstance.identity.accounts.find.mockRestore();
+      try {
+        await eos.getSelectedAccount();
+      } catch (error) {
+        expect(error.message).toBe(EOS_IS_NOT_INIT);
+      }
     });
 
-    it('account is false', async () => {
-      eos.scatterInstance = {
-        identity: {
-          accounts: {
-            find: jest.fn().mockImplementation(() => null),
-          },
-        },
-      };
+    it('@scatterInstalled is false', async () => {
+      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+      eos.initialized = true;
+      eos.scatterInstalled = false;
 
-      const { find } = eos.scatterInstance.identity.accounts;
+      try {
+        await eos.getSelectedAccount();
+      } catch (error) {
+        expect(error.message).toBe(SCATTER_IN_NOT_INSTALLED);
+      }
+    });
 
-      expect(find).toHaveBeenCalledTimes(0);
+    it('@scatterInstance.identity is falsy', async () => {
+      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+
+      eos.initialized = true;
+      eos.scatterInstalled = true;
+      eos.scatterInstance = { identity: null };
+
       expect(await eos.getSelectedAccount()).toBe(null);
-      expect(find).toHaveBeenCalledTimes(1);
+    });
 
-      eos.scatterInstance.identity.accounts.find.mockRestore();
+    describe('got @scatterInstance.identity', () => {
+      const accountName = 'accountName';
+
+      eos.initialized = true;
+      eos.scatterInstalled = true;
+
+      it('account is true', async () => {
+        Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+
+        eos.scatterInstance = {
+          identity: {
+            accounts: {
+              find: jest.fn().mockImplementation(() => ({
+                name: accountName,
+              })),
+            },
+          },
+        };
+
+        const { find } = eos.scatterInstance.identity.accounts;
+
+        expect(find).toHaveBeenCalledTimes(0);
+        expect(await eos.getSelectedAccount()).toBe(accountName);
+        expect(find).toHaveBeenCalledTimes(1);
+
+        eos.scatterInstance.identity.accounts.find.mockRestore();
+      });
+
+      it('account is false', async () => {
+        Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+
+        eos.scatterInstance = {
+          identity: {
+            accounts: {
+              find: jest.fn().mockImplementation(() => null),
+            },
+          },
+        };
+
+        const { find } = eos.scatterInstance.identity.accounts;
+
+        expect(find).toHaveBeenCalledTimes(0);
+        expect(await eos.getSelectedAccount()).toBe(null);
+        expect(find).toHaveBeenCalledTimes(1);
+
+        eos.scatterInstance.identity.accounts.find.mockRestore();
+      });
     });
   });
 });
@@ -514,12 +606,14 @@ describe('getTableRows', () => {
 describe('getEosioConfig', () => {
   it('test', () => {
     const eos = new EosioService();
-    const value = eos.getEosioConfig();
+    const key = 'key';
+    const value = eos.getEosioConfig(key);
 
     expect(value).toEqual({
       httpEndpoint: process.env.EOS_DEFAULT_HTTP_ENDPOINT,
       chainId: process.env.EOS_CHAIN_ID,
       broadcast: true,
+      keyProvider: [key],
       sign: true,
     });
   });

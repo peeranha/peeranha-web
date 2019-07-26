@@ -1,173 +1,177 @@
+import { fromJS } from 'immutable';
 import createdHistory from 'createdHistory';
-import { SignUp, mapDispatchToProps } from '../index';
+import * as routes from 'routes-config';
 
-import {
-  COMPLETE_SIGNUP,
-  SHOW_DEFAULT_SIGNUP_MODAL,
-  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
-  USER_IS_IN_SYSTEM_AND_SIGNUP,
-  NO_SELECTED_SCATTER_ACCOUNTS,
-  NO_SCATTER,
-} from '../constants';
+import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
+import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
 
-const cmp = new SignUp();
-cmp.props = {
-  loading: false,
-  error: null,
-  account: 'user',
-  locale: 'en',
-  content: null,
-  showModal: true,
-  hideSignUpModalDispatch: jest.fn(),
+import { SignUp } from '../index';
+import { EMAIL_FIELD } from '../constants';
+
+jest.mock('utils/web_integration/src/util/eos-keygen', () => ({
+  generateKeys: jest.fn(),
+}));
+
+jest.mock('utils/web_integration/src/util/masterKeygen', () => ({
+  generateMasterKey: jest.fn(),
+}));
+
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
+
+window.URL = {
+  createObjectURL: jest.fn(),
 };
 
-window.scrollTo = jest.fn();
-window.location.reload = jest.fn();
+const cmp = new SignUp();
 
-jest.mock('createdHistory');
-createdHistory.push.mockImplementation(res => res);
+beforeEach(() => {
+  createdHistory.push.mockClear();
+  generateKeys.mockClear();
+  generateMasterKey.mockClear();
+  window.URL.createObjectURL.mockClear();
 
-describe('mapDispatchToProps', () => {
-  it('mapDispatchToProps test', () => {
-    const test = 'test';
-    const obj = {};
-    const dispatch = () => test;
-
-    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-    expect(mapDispatchToProps(dispatch).registerUserDispatch(obj)).toBe(test);
-    expect(mapDispatchToProps(dispatch).setReducerDefaultDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).loginSignupDispatch(obj)).toBe(test);
-    expect(mapDispatchToProps(dispatch).reloadAppDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).showSignUpModalDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).hideSignUpModalDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).hideSignUpModalDispatch()).toBe(test);
-    expect(mapDispatchToProps(dispatch).showLoginModalDispatch()).toBe(test);
-  });
+  cmp.props = {
+    locale: 'en',
+    children: jest.fn(),
+    showLoginModalDispatch: jest.fn(),
+    checkEmailDispatch: jest.fn(),
+    verifyEmailDispatch: jest.fn(),
+    iHaveEosAccountDispatch: jest.fn(),
+    idontHaveEosAccountDispatch: jest.fn(),
+    signUpWithScatterDispatch: jest.fn(),
+    emailChecking: false,
+    emailVerificationProcessing: false,
+    iHaveEosAccountProcessing: false,
+    idontHaveEosAccountProcessing: false,
+    signUpWithScatterProcessing: false,
+    showScatterSignUpProcessing: false,
+    showScatterSignUpFormDispatch: jest.fn(),
+    account: 'account',
+    email: 'email',
+    withScatter: false,
+    keys: {},
+    putKeysToStateDispatch: jest.fn(),
+  };
 });
 
 describe('SignUp', () => {
-  describe('snapshot render testing', () => {
-    it('case 1: content === SHOW_DEFAULT_SIGNUP_MODAL', () => {
-      cmp.props.content = SHOW_DEFAULT_SIGNUP_MODAL;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('case 2: content === USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP', () => {
-      cmp.props.content = USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('case 3: content === USER_IS_IN_SYSTEM_AND_SIGNUP', () => {
-      cmp.props.content = USER_IS_IN_SYSTEM_AND_SIGNUP;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('case 4: content === NO_SELECTED_SCATTER_ACCOUNTS', () => {
-      cmp.props.content = NO_SELECTED_SCATTER_ACCOUNTS;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('case 5: content === NO_SCATTER', () => {
-      cmp.props.content = NO_SCATTER;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-});
-
-describe('openLoginWindow', () => {
-  const hideSignUpModalDispatch = jest.fn();
-  const showLoginModalDispatch = jest.fn();
-
-  cmp.props.hideSignUpModalDispatch = hideSignUpModalDispatch;
-  cmp.props.showLoginModalDispatch = showLoginModalDispatch;
-
-  expect(hideSignUpModalDispatch).toHaveBeenCalledTimes(0);
-  expect(showLoginModalDispatch).toHaveBeenCalledTimes(0);
-
-  cmp.openLoginWindow();
-
-  expect(hideSignUpModalDispatch).toHaveBeenCalledTimes(1);
-  expect(showLoginModalDispatch).toHaveBeenCalledTimes(1);
-});
-
-describe('backToOptions', () => {
-  const showSignUpModalDispatch = jest.fn();
-  cmp.props.showSignUpModalDispatch = showSignUpModalDispatch;
-
-  expect(showSignUpModalDispatch).toHaveBeenCalledTimes(0);
-  cmp.backToOptions();
-  expect(showSignUpModalDispatch).toHaveBeenCalledTimes(1);
-});
-
-describe('continueSignUp', () => {
-  const loginSignupDispatch = jest.fn();
-  cmp.props.loginSignupDispatch = loginSignupDispatch;
-
-  expect(loginSignupDispatch).toHaveBeenCalledTimes(0);
-  cmp.continueSignUp();
-  expect(loginSignupDispatch).toHaveBeenCalledTimes(1);
-});
-
-describe('registerUser', () => {
-  const newMap = new Map();
-  const registerUserDispatch = jest.fn();
-  cmp.props.registerUserDispatch = registerUserDispatch;
-
-  expect(registerUserDispatch).toHaveBeenCalledTimes(0);
-  cmp.registerUser(newMap);
-  expect(registerUserDispatch).toHaveBeenCalledTimes(1);
-});
-
-describe('componentWillUnmount', () => {
-  const setReducerDefaultDispatch = jest.fn();
-  cmp.props.setReducerDefaultDispatch = setReducerDefaultDispatch;
-
-  expect(setReducerDefaultDispatch).toHaveBeenCalledTimes(0);
-  cmp.componentWillUnmount();
-  expect(setReducerDefaultDispatch).toHaveBeenCalledTimes(1);
-});
-
-describe('componentDidUpdate', () => {
-  cmp.props.showSignUpModalDispatch = jest.fn();
-
-  it('COMPLETE_SIGNUP is not in localStorage', () => {
-    localStorage.clear();
-
-    expect(cmp.props.showSignUpModalDispatch).toHaveBeenCalledTimes(0);
-    cmp.componentDidUpdate();
-    expect(cmp.props.showSignUpModalDispatch).toHaveBeenCalledTimes(0);
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 
-  it('COMPLETE_SIGNUP is in localStorage', () => {
-    localStorage.setItem(COMPLETE_SIGNUP, true);
-    localStorage.setItem('scrollTo', 800);
+  it('getLinkToDownloadKeys', () => {
+    const keys = { key1: 'key1', key2: 'key2' };
 
-    window.scrollTo = jest.fn();
-    localStorage.clear = jest.fn();
+    const text = JSON.stringify({ keys });
+    const data = new Blob([text], { type: 'text/plain' });
 
-    expect(cmp.props.showSignUpModalDispatch).toHaveBeenCalledTimes(0);
-    expect(window.scrollTo).toHaveBeenCalledTimes(0);
+    cmp.getLinkToDownloadKeys();
 
-    cmp.componentDidUpdate();
-
-    expect(cmp.props.showSignUpModalDispatch).toHaveBeenCalledTimes(1);
-    expect(window.scrollTo).toHaveBeenCalledTimes(1);
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(data);
   });
 
-  it('case: @registered is false', () => {
-    cmp.props.registered = false;
+  it('getAllKeys', async () => {
+    const linkToDownloadAllKeys = 'getAllKeys';
+    const keys = { activeKey: 1, ownerKey: 2 };
 
-    expect(createdHistory.push).toHaveBeenCalledTimes(0);
-    cmp.componentDidUpdate();
-    expect(createdHistory.push).toHaveBeenCalledTimes(0);
+    generateKeys.mockImplementation(() => keys);
+    window.URL.createObjectURL.mockImplementationOnce(
+      () => linkToDownloadAllKeys,
+    );
+
+    await cmp.getAllKeys();
+
+    expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalledWith({
+      activeKey: keys.activeKey,
+      ownerKey: keys.ownerKey,
+      linkToDownloadAllKeys,
+    });
   });
 
-  it('case: @registered is true', () => {
-    cmp.props.registered = true;
+  it('getMasterKey', () => {
+    const masterKey = 'masterKey';
+    const linkToDownloadMasterKey = 'getMasterKey';
 
-    expect(createdHistory.push).toHaveBeenCalledTimes(0);
-    cmp.componentDidUpdate();
-    expect(createdHistory.push).toHaveBeenCalledTimes(1);
+    generateMasterKey.mockImplementation(() => masterKey);
+    window.URL.createObjectURL.mockImplementationOnce(
+      () => linkToDownloadMasterKey,
+    );
+
+    cmp.getMasterKey();
+
+    expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalledWith({
+      masterKey,
+      linkToDownloadMasterKey,
+    });
+  });
+
+  describe('checkEmail', () => {
+    it('with values', () => {
+      const values = fromJS({
+        [EMAIL_FIELD]: EMAIL_FIELD,
+      });
+
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledTimes(0);
+      cmp.checkEmail(values);
+
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledTimes(1);
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledWith(
+        values.get(EMAIL_FIELD),
+      );
+    });
+
+    it('without values', () => {
+      const event = {};
+
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledTimes(0);
+      cmp.checkEmail(event);
+
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledTimes(1);
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledWith(
+        cmp.props.email,
+      );
+    });
+  });
+
+  describe('componentWillMount', () => {
+    it('without @email in store', () => {
+      cmp.props.email = null;
+      cmp.props.withScatter = false;
+
+      expect(createdHistory.push).toHaveBeenCalledTimes(0);
+      cmp.componentWillMount();
+
+      expect(createdHistory.push).toHaveBeenCalledTimes(1);
+      expect(createdHistory.push).toHaveBeenCalledWith(
+        routes.signup.email.name,
+      );
+    });
+
+    it('with @email in store', () => {
+      cmp.props.email = 'email';
+      cmp.props.withScatter = true;
+
+      expect(createdHistory.push).toHaveBeenCalledTimes(0);
+      cmp.componentWillMount();
+      expect(createdHistory.push).toHaveBeenCalledTimes(0);
+    });
+
+    it('without @keys in store', () => {
+      cmp.props.keys = null;
+
+      expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalledTimes(0);
+      cmp.componentWillMount();
+      expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalled();
+    });
+
+    it('with @keys in store', () => {
+      cmp.props.keys = {};
+
+      expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalledTimes(0);
+      cmp.componentWillMount();
+      expect(cmp.props.putKeysToStateDispatch).toHaveBeenCalledTimes(0);
+    });
   });
 });

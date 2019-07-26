@@ -10,134 +10,127 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import SelectAccountComponent from 'components/SelectAccount';
-import ScatterInstaller from 'components/ScatterInstaller';
-import ModalDialog from 'containers/ModalDialog';
+import ModalDialog from 'components/ModalDialog';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showForgotPasswordModal } from 'containers/ForgotPassword/actions';
+
+import * as selectors from './selectors';
 
 import {
-  NO_SCATTER,
-  NO_SELECTED_SCATTER_ACCOUNTS,
-  USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
-} from 'containers/SignUp/constants';
+  hideLoginModal,
+  showEmailPasswordForm,
+  loginWithEmail,
+  loginWithScatter,
+  finishRegistrationWithDisplayName,
+} from './actions';
 
 import {
-  reloadApp,
-  loginSignup,
-  forgetIdentity,
-} from 'containers/AccountProvider/actions';
+  EMAIL_FORM,
+  EMAIL_PASSWORD_FORM,
+  WE_ARE_HAPPY_FORM,
+} from './constants';
 
-import { showSignUpModal } from 'containers/SignUp/actions';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-
-import { SHOW_DEFAULT_LOGIN_MODAL, COMPLETE_LOGIN } from './constants';
-import { showLoginModal, hideLoginModal } from './actions';
-import { makeSelectContent, makeSelectShowModal } from './selectors';
 import reducer from './reducer';
+import saga from './saga';
 
-import LoginOptions from './LoginOptions';
-import UserIsAbsentInSystem from './UserIsAbsentInSystem';
+import EmailForm from './EmailForm';
+import EmailPasswordForm from './EmailPasswordForm';
+import WeAreHappyYouAreHereForm from './WeAreHappyYouAreHereForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Login extends React.Component {
-  componentDidUpdate() {
-    const { profileInfo, showLoginModalDispatch } = this.props;
-    const reload = localStorage.getItem(COMPLETE_LOGIN);
-    const scrollTo = localStorage.getItem('scrollTo');
-
-    if (reload && profileInfo !== null) {
-      showLoginModalDispatch();
-      if (scrollTo) window.scrollTo(0, +scrollTo);
-      localStorage.clear();
-    }
-  }
-
-  continueLogin = () => {
-    this.props.loginSignupDispatch({ type: COMPLETE_LOGIN });
-  };
-
-  backToOptions = () => {
-    this.props.showLoginModalDispatch(SHOW_DEFAULT_LOGIN_MODAL);
-  };
-
-  openSignUpWindow = () => {
+  showIForgotPasswordModal = () => {
     this.props.hideLoginModalDispatch();
-    this.props.showSignUpModalDispatch();
+    this.props.showForgotPasswordModalDispatch();
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       content,
-      forgetIdentityDispatch,
-      reloadAppDispatch,
       showModal,
       hideLoginModalDispatch,
+      locale,
+      email,
+      loginProcessing,
+      finishRegistrationProcessing,
+      loginWithScatterDispatch,
+      showEmailPasswordFormDispatch,
+      loginWithEmailDispatch,
+      finishRegistrationDispatch,
     } = this.props;
 
     return (
       <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
-        <div>
-          {content === SHOW_DEFAULT_LOGIN_MODAL && (
-            <LoginOptions
-              continueLogin={this.continueLogin}
-              backToOptions={this.openSignUpWindow}
-            />
-          )}
+        {content === EMAIL_FORM && (
+          <EmailForm
+            locale={locale}
+            loginWithScatter={loginWithScatterDispatch}
+            showEmailPasswordForm={showEmailPasswordFormDispatch}
+          />
+        )}
 
-          {content === NO_SCATTER && (
-            <ScatterInstaller
-              reloadApp={reloadAppDispatch}
-              backToOptions={this.backToOptions}
-            />
-          )}
+        {content === EMAIL_PASSWORD_FORM && (
+          <EmailPasswordForm
+            locale={locale}
+            login={loginWithEmailDispatch}
+            loginProcessing={loginProcessing}
+            loginWithScatter={loginWithScatterDispatch}
+            showIForgotPasswordModal={this.showIForgotPasswordModal}
+            email={email}
+          />
+        )}
 
-          {content === NO_SELECTED_SCATTER_ACCOUNTS && (
-            <SelectAccountComponent
-              selectAccount={this.continueLogin}
-              backToOptions={this.backToOptions}
-            />
-          )}
-
-          {content === USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN && (
-            <UserIsAbsentInSystem
-              selectAnotherIdentity={forgetIdentityDispatch}
-              backToOptions={this.openSignUpWindow}
-            />
-          )}
-        </div>
+        {content === WE_ARE_HAPPY_FORM && (
+          <WeAreHappyYouAreHereForm
+            locale={locale}
+            finishRegistration={finishRegistrationDispatch}
+            finishRegistrationProcessing={finishRegistrationProcessing}
+          />
+        )}
       </ModalDialog>
     );
   }
 }
 
 Login.propTypes = {
-  profileInfo: PropTypes.object,
   content: PropTypes.string,
   showModal: PropTypes.bool,
-  reloadAppDispatch: PropTypes.func,
-  showLoginModalDispatch: PropTypes.func,
-  showSignUpModalDispatch: PropTypes.func,
   hideLoginModalDispatch: PropTypes.func,
-  forgetIdentityDispatch: PropTypes.func,
-  loginSignupDispatch: PropTypes.func,
+  locale: PropTypes.string,
+  email: PropTypes.string,
+  loginProcessing: PropTypes.bool,
+  finishRegistrationProcessing: PropTypes.bool,
+  loginWithScatterDispatch: PropTypes.func,
+  showEmailPasswordFormDispatch: PropTypes.func,
+  loginWithEmailDispatch: PropTypes.func,
+  finishRegistrationDispatch: PropTypes.func,
+  showForgotPasswordModalDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  content: makeSelectContent(),
-  showModal: makeSelectShowModal(),
-  profileInfo: makeSelectProfileInfo(),
+  locale: makeSelectLocale(),
+  content: selectors.makeSelectContent(),
+  showModal: selectors.makeSelectShowModal(),
+  email: selectors.makeSelectEmail(),
+  loginProcessing: selectors.makeSelectLoginProcessing(),
+  finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    reloadAppDispatch: () => dispatch(reloadApp(COMPLETE_LOGIN)),
-    loginSignupDispatch: methods => dispatch(loginSignup(methods)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
-    showSignUpModalDispatch: () => dispatch(showSignUpModal()),
     hideLoginModalDispatch: () => dispatch(hideLoginModal()),
-    forgetIdentityDispatch: () => dispatch(forgetIdentity()),
+    showEmailPasswordFormDispatch: email =>
+      dispatch(showEmailPasswordForm(email)),
+    loginWithEmailDispatch: val => dispatch(loginWithEmail(val)),
+    loginWithScatterDispatch: () => dispatch(loginWithScatter()),
+    showForgotPasswordModalDispatch: () => dispatch(showForgotPasswordModal()),
+    finishRegistrationDispatch: val =>
+      dispatch(finishRegistrationWithDisplayName(val)),
   };
 }
 
@@ -147,8 +140,10 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'login', reducer });
+const withSaga = injectSaga({ key: 'login', saga });
 
 export default compose(
   withReducer,
+  withSaga,
   withConnect,
 )(Login);

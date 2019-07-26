@@ -1,41 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Box test 1`] = `
-<withReducer(withSaga(Connect(EosioProvider)))>
-  <withReducer(withSaga(Connect(DataCacheProvider)))>
-    <withReducer(withSaga(Connect(AccountProvider)))>
-      <Connect(Header)
-        expandLeftMenuNavigation={[Function]}
-        isMenuVisible={false}
-        showMenu={[Function]}
-      />
-      <Wrapper__Main>
-        <div
-          className="container"
+<React.Fragment>
+  <Connect(Header)
+    expandLeftMenuNavigation={[Function]}
+    isMenuVisible={false}
+    showMenu={[Function]}
+  />
+  <Wrapper__Main>
+    <div
+      className="container"
+    >
+      <div
+        className="d-flex"
+      >
+        <Connect(LeftMenu)
+          isMenuVisible={false}
+          isNavigationExpanded={false}
+          showMenu={[Function]}
+        />
+        <Wrapper__WrapStyled
+          className=""
         >
-          <div
-            className="d-flex"
+          <UNDEFINED
+            fallback={<UNDEFINED />}
           >
-            <Connect(LeftMenu)
-              isMenuVisible={false}
-              isNavigationExpanded={false}
-              showMenu={[Function]}
-            />
-            <Wrapper__WrapStyled
-              className=""
-            >
-              <UNDEFINED
-                fallback={<UNDEFINED />}
-              >
-                <Comp />
-              </UNDEFINED>
-            </Wrapper__WrapStyled>
-          </div>
-        </div>
-      </Wrapper__Main>
-    </withReducer(withSaga(Connect(AccountProvider)))>
-  </withReducer(withSaga(Connect(DataCacheProvider)))>
-</withReducer(withSaga(Connect(EosioProvider)))>
+            <Comp />
+          </UNDEFINED>
+        </Wrapper__WrapStyled>
+      </div>
+    </div>
+  </Wrapper__Main>
+</React.Fragment>
 `;
 
 exports[`Wrapper test 1`] = `
