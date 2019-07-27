@@ -1,5 +1,5 @@
 {
-  "app.common.peerania": "Peerania",
+  "app.common.peeranha": "Peeranha",
   "app.common.profile": "Profile",
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
@@ -241,11 +241,11 @@
   "app.containers.Other.errorMessage": "An error occurred",
 
   "app.containers.HomePage.title":
-    "Peerania - Decentralized Q&A website with crypto rewards",
+    "Peeranha - Decentralized Q&A website with crypto rewards",
   "app.containers.HomePage.description":
     "Decentralized questions and answers website that rewards users with crypto tokens for their contributions.",
-  "app.containers.HomePage.faqTitle": "Peerania | FAQ",
-  "app.containers.HomePage.faqDescription": "Peerania | FAQ Description",
+  "app.containers.HomePage.faqTitle": "Peeranha | FAQ",
+  "app.containers.HomePage.faqDescription": "Peeranha | FAQ Description",
   "app.containers.HomePage.about": "About",
   "app.containers.HomePage.rewards": "Rewards",
   "app.containers.HomePage.faq": "FAQ",
@@ -259,26 +259,26 @@
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
   "app.containers.HomePage.differentThan":
-    "Peerania is more than a Q&A website.",
+    "Peeranha is more than a Q&A website.",
   "app.containers.HomePage.differentThan2":
     "It is a community that puts users at the heart by:",
 
   "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
   "app.containers.HomePage.peopleSaveHours":
-    "Millions of people save hours of work through the knowledge of others on Q&A websites on a daily basis. Peerania’s users are rewarded with PEER crypto tokens for valuable activities.",
+    "Millions of people save hours of work through the knowledge of others on Q&A websites on a daily basis. Peeranha’s users are rewarded with PEER crypto tokens for valuable activities.",
 
   "app.containers.HomePage.ownershipByUsers": "Ownership by Users",
-  "app.containers.HomePage.peeraniaDecentralized":
-    "Peerania is truly permissionless and decentralized. Website governance is decided for the community, by the community. Peerania puts power in the hands of the contributors, not the developers.",
+  "app.containers.HomePage.peeranhaDecentralized":
+    "Peeranha is truly permissionless and decentralized. Website governance is decided for the community, by the community. Peeranha puts power in the hands of the contributors, not the developers.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
-  "app.containers.HomePage.peeraniaPhilosophy":
-    "Peerania’s philosophy is to reward early users generously for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
+  "app.containers.HomePage.peeranhaPhilosophy":
+    "Peeranha’s philosophy is to reward early users generously for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
 
   "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
   "app.containers.HomePage.getHelp": "Getting Help from the Community",
   "app.containers.HomePage.askQuestionAndGetHelp":
-    "Peerania has passionate experts from all areas of life ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
+    "Peeranha has passionate experts from all areas of life ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
 
   "app.containers.HomePage.helpfulAndGenerous": "Helpful and generous",
   "app.containers.HomePage.shareKnowledge": "Sharing Knowledge",
@@ -299,7 +299,7 @@
     "Honorable and fascinating",
   "app.containers.HomePage.ruleThePlatform": "Governing the Community",
   "app.containers.HomePage.participateInModeration":
-    "Governing the community is in the hands of the members. Making the best decisions for the platform result in a higher token value. Through the governance structure built into Peerania, the website is moderated by its users. As a decentralized, open source project, the future is decided by you the user. Much like a local community, your voice matters.",
+    "Governing the community is in the hands of the members. Making the best decisions for the platform result in a higher token value. Through the governance structure built into Peeranha, the website is moderated by its users. As a decentralized, open source project, the future is decided by you the user. Much like a local community, your voice matters.",
 
   "app.containers.HomePage.beTheFirst":
     "Joining early means enjoying higher levels of rewards",
@@ -308,43 +308,43 @@
 
   "app.containers.HomePage.getReward": "Sign Up",
 
-  "app.containers.HomePage.whatIsPeerania": "What is Peerania?",
-  "app.containers.HomePage.whatIsPeeraniaCollapsed":
-    "Peerania is a decentralized question and answer website that rewards users with crypto tokens for their valuable contributions. Peerania is built on a blockchain and it is owned by the community rather than by a single organization.",
+  "app.containers.HomePage.whatIsPeeranha": "What is Peeranha?",
+  "app.containers.HomePage.whatIsPeeranhaCollapsed":
+    "Peeranha is a decentralized question and answer website that rewards users with crypto tokens for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.",
 
   "app.containers.HomePage.differentFromOtherSites":
-    "How is Peerania different from other questions and answers websites?",
+    "How is Peeranha different from other questions and answers websites?",
   "app.containers.HomePage.differentFromOtherSitesCollapsed":
-    "Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peerania is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.",
+    "Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.",
 
   "app.containers.HomePage.howItWorks": "How does it work?",
   "app.containers.HomePage.howItWorksCollapsed":
-    "Peerania is built using smart contracts on the EOS blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
+    "Peeranha is built using smart contracts on the EOS blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
 
   "app.containers.HomePage.whatBlockchain":
-    "What Blockchain Peerania is Built on?",
+    "What Blockchain Peeranha is Built on?",
   "app.containers.HomePage.whatBlockchainCollapsed":
-    "Peerania is built on the EOS blockchain. EOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
+    "Peeranha is built on the EOS blockchain. EOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
 
   "app.containers.HomePage.whatIsCryptocurrency":
-    "What is the cryptocurrency of Peerania?",
+    "What is the cryptocurrency of Peeranha?",
   "app.containers.HomePage.whatIsCryptocurrencyCollapsed":
-    "Peerania uses its own crypto-token (or cryptocurrency) called PEER.",
+    "Peeranha uses its own crypto-token (or cryptocurrency) called PEER.",
 
   "app.containers.HomePage.howEarn":
-    "How can I earn crypto tokens on Peerania?",
+    "How can I earn crypto tokens on Peeranha?",
   "app.containers.HomePage.howEarnCollapsed":
     "All activities on the website that are considered valuable for the community are rewarded in crypto tokens.  Contributions that earn tokens may include posting a detailed question, providing a helpful answer and participating in moderation.",
 
   "app.containers.HomePage.tokensReward":
     "Where do tokens for rewards come from?",
   "app.containers.HomePage.tokensRewardCollapsed":
-    "Peerania continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.",
+    "Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.",
 
   "app.containers.HomePage.valueOfToken":
     "Where does the value of the token come from?",
   "app.containers.HomePage.valueOfTokenCollapsed":
-    "Because Peerania is blockchain based, tokens can be traded in the open market. Additionally, Peerania incorporates game elements and users unlock additional powers by using the tokens. Finally, the token will be used as a payment method on the website for bounties to answer questions. Fees in the form of tokens will be required to publish job postings and ads on the website or any other paid services that website will provide.",
+    "Because Peeranha is blockchain based, tokens can be traded in the open market. Additionally, Peeranha incorporates game elements and users unlock additional powers by using the tokens. Finally, the token will be used as a payment method on the website for bounties to answer questions. Fees in the form of tokens will be required to publish job postings and ads on the website or any other paid services that website will provide.",
 
   "app.containers.HomePage.whitePaper": "Do you have white paper?",
   "app.containers.HomePage.whitePaperCollapsed":
@@ -356,7 +356,7 @@
 
   "app.containers.HomePage.learnMore": "Where can I learn more?",
   "app.containers.HomePage.learnMoreCollapsed":
-    "The best ways to learn more about to join our twitter, read our blog or send us an email to support@peerania.com .",
+    "The best ways to learn more about to join our twitter, read our blog or send us an email to support@peeranha.com .",
 
   "app.containers.HomePage.getMoreAnswers": "Get more answers",
   "app.containers.HomePage.ourTeam": "Our team",
@@ -476,7 +476,7 @@
 
   "app.containers.TagsCollection.title": "Tags collection",
 
-  "app.components.Footer.header": "Copyright: Peerania",
+  "app.components.Footer.header": "Copyright: Peeranha",
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
@@ -487,7 +487,7 @@
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy you are here",
   "app.containers.Login.yourUsernameIsHow":
-    "Your username is how you'll be known on Peerania.",
+    "Your username is how you'll be known on Peeranha.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You got this key with authorization and saved in a safe place. Try to find it.",
@@ -496,9 +496,9 @@
     "Check your email. You get verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peerania is not a typical social app. It's powered by the Peerania blockchain.",
+    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
   "app.containers.SignUp.secondParagraphAlmostDone":
-    "The Peerania blockchain powers many real time content apps like Peerania, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
   "app.containers.SignUp.firstFAQAlmostDone": "Why I have to wait?",
@@ -519,9 +519,9 @@
     "What are those keys and how do I generate them?",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.steemitIsNotTypical":
-    "Peerania is not a typical social app. It's powered by the Peerania blockchain.",
+    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
   "app.containers.SignUp.steemitBlockchainPowers":
-    "The Peerania blockchain powers many real time content apps like Peerania, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
   "app.containers.SignUp.weAreHappyToCover":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
   "app.containers.SignUp.ifYouLikeToSkip":
@@ -537,7 +537,7 @@
   "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
   "app.containers.SignUp.idontHaveEosAccount": "I have not EOS account",
   "app.containers.SignUp.downloadKeys": "Download keys",
-  "app.containers.SignUp.whyYouLikeUs": "Why do you like Peerania?",
+  "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
   "app.containers.SignUp.title": "Registration",
   "app.containers.SignUp.description": "Registration | Description",
   "app.containers.SignUp.continue": "Continue",
@@ -549,7 +549,7 @@
   "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
-  "app.containers.SignUp.displayName": "Peerania name",
+  "app.containers.SignUp.displayName": "Peeranha name",
   "app.containers.SignUp.eosName": "EOS name",
   "app.containers.SignUp.signUp": "Sign Up",
   "app.containers.SignUp.password": "Password",

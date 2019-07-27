@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  peerania: {
-    id: 'app.common.peerania',
+  peeranha: {
+    id: 'app.common.peeranha',
   },
   profile: {
     id: 'app.common.profile',

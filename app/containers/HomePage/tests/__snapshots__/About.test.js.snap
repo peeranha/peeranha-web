@@ -97,7 +97,7 @@ exports[`About test1 1`] = `
                     className="item-content"
                   >
                     <FormattedMessage
-                      id="app.containers.HomePage.peeraniaDecentralized"
+                      id="app.containers.HomePage.peeranhaDecentralized"
                       values={Object {}}
                     />
                   </p>
@@ -131,7 +131,7 @@ exports[`About test1 1`] = `
                     className="item-content"
                   >
                     <FormattedMessage
-                      id="app.containers.HomePage.peeraniaPhilosophy"
+                      id="app.containers.HomePage.peeranhaPhilosophy"
                       values={Object {}}
                     />
                   </p>

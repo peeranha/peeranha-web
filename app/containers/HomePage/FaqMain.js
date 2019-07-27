@@ -171,8 +171,8 @@ const Box = Section.extend`
 
 const QuestionsData = [
   {
-    header: 'whatIsPeerania',
-    body: 'whatIsPeeraniaCollapsed',
+    header: 'whatIsPeeranha',
+    body: 'whatIsPeeranhaCollapsed',
   },
   {
     header: 'differentFromOtherSites',
