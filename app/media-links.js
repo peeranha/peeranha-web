@@ -1,17 +1,17 @@
 const links = {
   en: {
     facebook: '',
-    twitter: 'https://twitter.com/peerania_com',
-    github: 'https://github.com/peerania',
-    linkedin: 'https://www.linkedin.com/company/peeraniacom/about/',
-    medium: 'https://medium.com/peerania',
+    twitter: 'https://twitter.com/peeranhaio',
+    github: 'https://github.com/peeranha',
+    linkedin: 'https://www.linkedin.com/company/peeranha/about/',
+    medium: 'https://medium.com/peeranha',
   },
   ru: {
     facebook: 'https://www.facebook.com/peerania1/',
-    twitter: 'https://twitter.com/peerania_com',
-    github: 'https://github.com/peerania',
-    linkedin: 'https://www.linkedin.com/company/peeraniacom/about/',
-    medium: 'https://medium.com/peerania',
+    twitter: 'https://twitter.com/peeranha',
+    github: 'https://github.com/peeranha',
+    linkedin: 'https://www.linkedin.com/company/peeranha/about/',
+    medium: 'https://medium.com/peeranha',
   },
 };
 

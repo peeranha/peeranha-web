@@ -53,19 +53,19 @@ exports[`Footer test 1`] = `
               src="IMAGE_MOCK"
             />
             <MediaLink
-              href="https://twitter.com/peerania_com"
+              href="https://twitter.com/peeranhaio"
               src="IMAGE_MOCK"
             />
             <MediaLink
-              href="https://github.com/peerania"
+              href="https://github.com/peeranha"
               src="IMAGE_MOCK"
             />
             <MediaLink
-              href="https://medium.com/peerania"
+              href="https://medium.com/peeranha"
               src="IMAGE_MOCK"
             />
             <MediaLink
-              href="https://www.linkedin.com/company/peeraniacom/about/"
+              href="https://www.linkedin.com/company/peeranha/about/"
               src="IMAGE_MOCK"
             />
           </div>
