@@ -12,11 +12,11 @@ import Base from 'components/Base';
 
 import MyProfileButton from './MyProfileButton';
 
-const BaseStyled = Base.extend`
+export const BaseStyled = Base.extend`
   margin-bottom: 0;
 `.withComponent('header');
 
-const Nav = Ul.extend`
+export const Nav = Ul.extend`
   padding: 0;
   border-bottom: 0;
 `.withComponent('nav');

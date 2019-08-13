@@ -55,6 +55,24 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.wallet": "Wallet",
+  "app.common.sendTokens": "Send tokens",
+  "app.common.peers": "Peers",
+  "app.common.submit": "Submit",
+  "app.common.amount": "Amount",
+  "app.common.password": "Password",
+  "app.common.eosAccount": "EOS account",
+
+  "app.containers.Wallet.title": "Wallet",
+  "app.containers.Wallet.description": "Wallet | Description",
+  "app.containers.Wallet.eosAccount": "EOS account",
+  "app.containers.Wallet.currentPeriod": "Current period in progress",
+  "app.containers.Wallet.periodStillInProgress":
+    "This period is still in progress. You will see more details on the next week.",
+  "app.containers.Wallet.payoutPending": "Payout pending",
+  "app.containers.Wallet.estimatedPayout": "Estimated payout",
+  "app.containers.Wallet.paidOut": "Paid out",
+  "app.containers.Wallet.rewarded": "Rewarded",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

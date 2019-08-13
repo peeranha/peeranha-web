@@ -20,7 +20,7 @@ import Icon from 'components/Icon';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import addIcon from 'images/add.svg?inline';
+import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?inline';
 import closeIcon from 'images/close.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
@@ -113,7 +113,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <img className="mr-2" src={addIcon} alt="icon" />
+                <Icon color={BG_LIGHT} icon={addIcon} width="14" />
                 <FormattedMessage {...messages.addQuestion} />
               </LargeButton>
 

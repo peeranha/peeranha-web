@@ -174,4 +174,25 @@ export default defineMessages({
   ru: {
     id: 'app.common.ru',
   },
+  wallet: {
+    id: 'app.common.wallet',
+  },
+  sendTokens: {
+    id: 'app.common.sendTokens',
+  },
+  peers: {
+    id: 'app.common.peers',
+  },
+  submit: {
+    id: 'app.common.submit',
+  },
+  amount: {
+    id: 'app.common.amount',
+  },
+  password: {
+    id: 'app.common.password',
+  },
+  eosAccount: {
+    id: 'app.common.eosAccount',
+  },
 });

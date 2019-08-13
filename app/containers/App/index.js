@@ -50,6 +50,7 @@ import {
   Login,
   ForgotPassword,
   Toast,
+  Wallet,
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
@@ -131,6 +132,11 @@ export default function App /* istanbul ignore next */() {
         <Route
           path={routes.profileEdit(':id')}
           render={props => Wrapper(EditProfilePage, props)}
+        />
+
+        <Route
+          path={routes.userWallet(':id')}
+          render={props => Wrapper(Wallet, props)}
         />
 
         <Route

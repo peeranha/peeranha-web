@@ -74,6 +74,9 @@ const Communities = React.lazy(
 const SuggestedCommunities = React.lazy(
   /* istanbul ignore next */ () => import('components/SuggestedCommunities'),
 );
+const Wallet = React.lazy(
+  /* istanbul ignore next */ () => import('containers/Wallet'),
+);
 
 export {
   HomePage,
@@ -106,4 +109,5 @@ export {
   Login,
   ForgotPassword,
   Toast,
+  Wallet,
 };
