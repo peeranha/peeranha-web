@@ -30,8 +30,8 @@ import Wrapper from './Wrapper';
 import Section from './Section';
 import Logo from './Logo';
 
-import UserAuthNavLinks from './UserAuthNavLinks';
-import UserProfileNav from './UserProfileNav';
+import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
+import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
@@ -47,7 +47,7 @@ export const LoginProfile = React.memo(
   }) => {
     if (profileInfo) {
       return (
-        <UserProfileNav
+        <ButtonGroupForAuthorizedUser
           isMenuVisible={isMenuVisible}
           profileInfo={profileInfo}
           expandLeftMenuNavigation={expandLeftMenuNavigation}
@@ -56,7 +56,7 @@ export const LoginProfile = React.memo(
     }
 
     return (
-      <UserAuthNavLinks
+      <ButtonGroupForNotAuthorizedUser
         isMenuVisible={isMenuVisible}
         showLoginModal={showLoginModalDispatch}
       />

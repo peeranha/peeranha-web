@@ -595,7 +595,7 @@
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 
-  "app.containers.UserProfileNav.profile": "Profile",
+  "app.containers.ButtonGroupForAuthorizedUser.profile": "Profile",
 
   "app.containers.ErrorBoundary.title": "Error",
   "app.containers.ErrorBoundary.description": "Description of error boundary",

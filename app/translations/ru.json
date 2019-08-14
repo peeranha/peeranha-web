@@ -599,7 +599,7 @@
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
 
-  "app.containers.UserProfileNav.profile": "Профиль",
+  "app.containers.ButtonGroupForAuthorizedUser.profile": "Профиль",
 
   "app.containers.ErrorBoundary.title": "Ошибка",
   "app.containers.ErrorBoundary.description": "Описание error-контейнера",

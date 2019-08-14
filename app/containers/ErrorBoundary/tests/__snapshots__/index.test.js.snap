@@ -405,7 +405,7 @@ exports[`<ErrorBoundary /> snapshot test error is not null 1`] = `
           "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
           "app.containers.TagsOfCommunity.title": "Tags",
           "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
-          "app.containers.UserProfileNav.profile": "Profile",
+          "app.containers.ButtonGroupForAuthorizedUser.profile": "Profile",
           "app.containers.Users.description": "Users: description",
           "app.containers.Users.title": "Users",
           "app.containers.ViewQuestion.addComment": "Add comment",
