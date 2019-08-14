@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileDropdown from './ProfileDropdown.jsx';
-import WalletDropdown from './WalletDropdown.jsx';
+import ProfileDropdown from './ProfileDropdown';
+import WalletDropdown from './WalletDropdown';
 
 const ButtonGroupForAuthorizedUser = ({
   profileInfo,

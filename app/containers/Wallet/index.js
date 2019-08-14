@@ -25,7 +25,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import View from './View.jsx';
+import View from './View';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Wallet extends React.PureComponent {

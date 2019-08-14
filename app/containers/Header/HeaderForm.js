@@ -30,8 +30,8 @@ import Wrapper from './Wrapper';
 import Section from './Section';
 import Logo from './Logo';
 
-import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser.jsx';
-import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser.jsx';
+import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
+import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`

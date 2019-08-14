@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavHeader from 'components/WalletNavigation/index.jsx';
+import NavHeader from 'components/WalletNavigation';
 import SubHeader from './SubHeader';
 import Weeks from './Weeks';
 

@@ -8,7 +8,7 @@ import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
-import { ProfileEditForm } from '../ProfileEditForm.jsx';
+import { ProfileEditForm } from '../ProfileEditForm';
 
 const props = {
   intl: { formatMessage: jest.fn() },

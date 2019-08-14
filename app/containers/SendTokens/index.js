@@ -28,8 +28,8 @@ import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import Button from './StyledButton.jsx';
-import SendTokensForm from './SendTokensForm.jsx';
+import Button from './StyledButton';
+import SendTokensForm from './SendTokensForm';
 
 export const SendTokens = ({
   locale,

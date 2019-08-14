@@ -27,7 +27,7 @@ import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import SendTokens from 'containers/SendTokens';
 
-import { AStyled } from './ProfileDropdown.jsx';
+import { AStyled } from './ProfileDropdown';
 
 const ButtonStyled = styled.span`
   display: flex;

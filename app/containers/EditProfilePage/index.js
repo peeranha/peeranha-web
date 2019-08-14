@@ -45,7 +45,7 @@ import {
   saveProfileAction,
 } from './actions';
 
-import ProfileEditForm from './ProfileEditForm.jsx';
+import ProfileEditForm from './ProfileEditForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class EditProfilePage extends React.PureComponent {

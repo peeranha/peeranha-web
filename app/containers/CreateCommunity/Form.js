@@ -23,7 +23,7 @@ import AvatarStyled from 'containers/EditProfilePage/AvatarStyled';
 import {
   AVATAR_FIELD_WIDTH,
   AVATAR_FIELD_MARGIN,
-} from 'containers/EditProfilePage/ProfileEditForm.jsx';
+} from 'containers/EditProfilePage/ProfileEditForm';
 
 import {
   strLength3x20,
