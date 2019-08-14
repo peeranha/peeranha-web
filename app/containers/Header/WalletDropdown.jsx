@@ -27,7 +27,7 @@ import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import SendTokens from 'containers/SendTokens';
 
-import { AStyled } from './ProfileDropdown';
+import { AStyled } from './ProfileDropdown.jsx';
 
 const ButtonStyled = styled.span`
   display: flex;
@@ -107,7 +107,7 @@ const Menu = ({ user }) => (
   </Ul>
 );
 
-const WalletDropdown = /* istanbul ignore next */ ({ profileInfo }) => (
+const WalletDropdown = ({ profileInfo }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
     button={<Button />}

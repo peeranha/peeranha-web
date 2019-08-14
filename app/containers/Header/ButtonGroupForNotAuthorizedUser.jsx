@@ -16,7 +16,7 @@ import messages from 'common-messages';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
-const ButtonGroupForNotAuthorizedUser = /* istanbul ignore next */ ({
+const ButtonGroupForNotAuthorizedUser = ({
   showLoginModal,
   isMenuVisible,
 }) => (

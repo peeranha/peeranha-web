@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ProfileDropdown from './ProfileDropdown';
-import WalletDropdown from './WalletDropdown';
+import ProfileDropdown from './ProfileDropdown.jsx';
+import WalletDropdown from './WalletDropdown.jsx';
 
-const ButtonGroupForAuthorizedUser = /* istanbul ignore next */ ({
+const ButtonGroupForAuthorizedUser = ({
   profileInfo,
   isMenuVisible,
   expandLeftMenuNavigation,
