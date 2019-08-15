@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -27,14 +28,14 @@ const Info = styled.span`
   justify-content: center;
 `;
 
-const AStyled = A.extend`
+export const AStyled = A.extend`
   display: flex;
   flex: 1;
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
-const Button = /* istanbul ignore next */ ({ profileInfo, onClick }) => (
+const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
     <MediumImage
       isBordered
@@ -48,26 +49,26 @@ const Button = /* istanbul ignore next */ ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
+const Menu = ({ user }) => (
   <nav>
     <Ul>
       <Li>
-        <AStyled to={routes.profileView(profileInfo.user)}>
+        <AStyled to={routes.profileView(user)}>
           <FormattedMessage {...messages.profile} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.userQuestions(profileInfo.user)}>
+        <AStyled to={routes.userQuestions(user)}>
           <FormattedMessage {...messages.questions} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.userAnswers(profileInfo.user)}>
+        <AStyled to={routes.userAnswers(user)}>
           <FormattedMessage {...messages.answers} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.userSettings(profileInfo.user)}>
+        <AStyled to={routes.userSettings(user)}>
           <FormattedMessage {...messages.settings} />
         </AStyled>
       </Li>
@@ -143,7 +144,7 @@ const Menu = /* istanbul ignore next */ ({ profileInfo }) => (
   </nav>
 );
 
-const Profile = /* istanbul ignore next */ ({
+const ProfileDropdown = ({
   profileInfo,
   isMenuVisible,
   expandLeftMenuNavigation,
@@ -154,20 +155,20 @@ const Profile = /* istanbul ignore next */ ({
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-md-flex'}`}
       id={`profile_id_${Math.random()}`}
       button={<Button profileInfo={profileInfo} />}
-      menu={<Menu profileInfo={profileInfo} />}
+      menu={<Menu user={profileInfo.user} />}
     />
   ) : (
     <Button profileInfo={profileInfo} onClick={expandLeftMenuNavigation} />
   );
 
-Profile.propTypes = {
+ProfileDropdown.propTypes = {
   profileInfo: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   expandLeftMenuNavigation: PropTypes.func,
 };
 
 Menu.propTypes = {
-  profileInfo: PropTypes.object,
+  user: PropTypes.string,
 };
 
 Button.propTypes = {
@@ -175,4 +176,4 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default React.memo(Profile);
+export default React.memo(ProfileDropdown);

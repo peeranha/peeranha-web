@@ -20,7 +20,7 @@ import Icon from 'components/Icon';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import addIcon from 'images/add.svg?inline';
+import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?inline';
 import closeIcon from 'images/close.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
@@ -30,8 +30,8 @@ import Wrapper from './Wrapper';
 import Section from './Section';
 import Logo from './Logo';
 
-import UserAuthNavLinks from './UserAuthNavLinks';
-import UserProfileNav from './UserProfileNav';
+import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
+import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
@@ -47,7 +47,7 @@ export const LoginProfile = React.memo(
   }) => {
     if (profileInfo) {
       return (
-        <UserProfileNav
+        <ButtonGroupForAuthorizedUser
           isMenuVisible={isMenuVisible}
           profileInfo={profileInfo}
           expandLeftMenuNavigation={expandLeftMenuNavigation}
@@ -56,7 +56,7 @@ export const LoginProfile = React.memo(
     }
 
     return (
-      <UserAuthNavLinks
+      <ButtonGroupForNotAuthorizedUser
         isMenuVisible={isMenuVisible}
         showLoginModal={showLoginModalDispatch}
       />
@@ -113,7 +113,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <img className="mr-2" src={addIcon} alt="icon" />
+                <Icon color={BG_LIGHT} icon={addIcon} width="14" />
                 <FormattedMessage {...messages.addQuestion} />
               </LargeButton>
 

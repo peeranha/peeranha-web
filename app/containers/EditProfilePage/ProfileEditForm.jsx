@@ -38,7 +38,7 @@ import { PROFILE_EDIT_FORM } from './constants';
 export const AVATAR_FIELD_WIDTH = 120;
 export const AVATAR_FIELD_MARGIN = 30;
 
-const loadCities = /* istanbul ignore next */ async (v, callback) => {
+const loadCities = async (v, callback) => {
   const cities = await getCitiesList(v);
 
   const formattedCities = cities.map(x => ({
@@ -49,7 +49,7 @@ const loadCities = /* istanbul ignore next */ async (v, callback) => {
   callback(formattedCities);
 };
 
-export const ProfileEditForm = /* istanbul ignore next */ ({
+export const ProfileEditForm = ({
   handleSubmit,
   change,
   location,
@@ -168,9 +168,9 @@ ProfileEditForm.propTypes = {
 
 const selector = formValueSelector(PROFILE_EDIT_FORM);
 
-let FormClone = /* istanbul ignore next */ reduxForm({
+let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
-  validate: (state, props) /* istanbul ignore next */ => {
+  validate: (state, props) => {
     const errors = {};
     const imageError = imageValidation(
       props.cachedProfileImg || props.profile.ipfs_avatar,
@@ -184,7 +184,7 @@ let FormClone = /* istanbul ignore next */ reduxForm({
   },
 })(ProfileEditForm);
 
-FormClone = /* istanbul ignore next */ connect((state, props) => ({
+FormClone = connect((state, props) => ({
   initialValues: props.profile.profile,
   location: selector(state, LOCATION_FIELD),
 }))(FormClone);

@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Profile from './Profile';
+import ProfileDropdown from './ProfileDropdown';
+import WalletDropdown from './WalletDropdown';
 
-const UserProfileNav = /* istanbul ignore next */ ({
+const ButtonGroupForAuthorizedUser = ({
   profileInfo,
   isMenuVisible,
   expandLeftMenuNavigation,
 }) => (
   <React.Fragment>
-    <Profile
+    <WalletDropdown
+      isMenuVisible={isMenuVisible}
+      profileInfo={profileInfo}
+      expandLeftMenuNavigation={expandLeftMenuNavigation}
+    />
+    <ProfileDropdown
       isMenuVisible={isMenuVisible}
       profileInfo={profileInfo}
       expandLeftMenuNavigation={expandLeftMenuNavigation}
@@ -17,10 +23,10 @@ const UserProfileNav = /* istanbul ignore next */ ({
   </React.Fragment>
 );
 
-UserProfileNav.propTypes = {
+ButtonGroupForAuthorizedUser.propTypes = {
   profileInfo: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   expandLeftMenuNavigation: PropTypes.func,
 };
 
-export default React.memo(UserProfileNav);
+export default React.memo(ButtonGroupForAuthorizedUser);

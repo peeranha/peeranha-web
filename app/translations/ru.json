@@ -55,6 +55,24 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.wallet": "Кошелек",
+  "app.common.sendTokens": "Отправить токены",
+  "app.common.peers": "Пиры",
+  "app.common.submit": "Подтвердить",
+  "app.common.amount": "Количество",
+  "app.common.password": "Пароль",
+  "app.common.eosAccount": "EOS аккаунт",
+
+  "app.containers.Wallet.title": "Кошелек",
+  "app.containers.Wallet.description": "Кошелек | Описание",
+  "app.containers.Wallet.eosAccount": "EOS аккаунт",
+  "app.containers.Wallet.currentPeriod": "Текущий период в прогрессе",
+  "app.containers.Wallet.periodStillInProgress":
+    "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
+  "app.containers.Wallet.payoutPending": "Выплата в ожидании",
+  "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
+  "app.containers.Wallet.paidOut": "Выплачено",
+  "app.containers.Wallet.rewarded": "Награждено",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
@@ -581,7 +599,7 @@
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
 
-  "app.containers.UserProfileNav.profile": "Профиль",
+  "app.containers.ButtonGroupForAuthorizedUser.profile": "Профиль",
 
   "app.containers.ErrorBoundary.title": "Ошибка",
   "app.containers.ErrorBoundary.description": "Описание error-контейнера",

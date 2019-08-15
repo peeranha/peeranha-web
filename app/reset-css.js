@@ -5,8 +5,7 @@ const reset = `
   del, dfn, img, ins, kbd, q, s, samp,
   strike, sub, sup, tt, var,
   dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td,
+  fieldset, form, label, legend, caption,
   article, aside, canvas, details, embed, 
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary, button,
@@ -28,10 +27,6 @@ const reset = `
   }
   ol, ul {
       list-style: none;
-  }
-  table {
-      border-collapse: collapse;
-      border-spacing: 0;
   }
 `;
 

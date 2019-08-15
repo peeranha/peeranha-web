@@ -1,6 +1,6 @@
 /**
  *
- * UserAuthNavLinks
+ * ButtonGroupForNotAuthorizedUser
  *
  */
 
@@ -16,7 +16,7 @@ import messages from 'common-messages';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
-const UserAuthNavLinks = /* istanbul ignore next */ ({
+const ButtonGroupForNotAuthorizedUser = ({
   showLoginModal,
   isMenuVisible,
 }) => (
@@ -38,9 +38,9 @@ const UserAuthNavLinks = /* istanbul ignore next */ ({
   </React.Fragment>
 );
 
-UserAuthNavLinks.propTypes = {
+ButtonGroupForNotAuthorizedUser.propTypes = {
   showLoginModal: PropTypes.func,
   isMenuVisible: PropTypes.bool,
 };
 
-export default React.memo(UserAuthNavLinks);
+export default React.memo(ButtonGroupForNotAuthorizedUser);
