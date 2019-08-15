@@ -62,6 +62,8 @@
   "app.common.amount": "Количество",
   "app.common.password": "Пароль",
   "app.common.eosAccount": "EOS аккаунт",
+  "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.errorMessage": "Возникла ошибка",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",

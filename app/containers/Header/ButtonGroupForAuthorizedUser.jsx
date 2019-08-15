@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ProfileDropdown from './ProfileDropdown';
 import WalletDropdown from './WalletDropdown';
+import EnergyDropdown from './EnergyDropdown';
 
 const ButtonGroupForAuthorizedUser = ({
   profileInfo,
@@ -10,9 +11,10 @@ const ButtonGroupForAuthorizedUser = ({
   expandLeftMenuNavigation,
 }) => (
   <React.Fragment>
+    <EnergyDropdown energy={profileInfo.energy} />
     <WalletDropdown
       isMenuVisible={isMenuVisible}
-      profileInfo={profileInfo}
+      user={profileInfo.user}
       expandLeftMenuNavigation={expandLeftMenuNavigation}
     />
     <ProfileDropdown

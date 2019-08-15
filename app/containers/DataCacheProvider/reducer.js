@@ -31,7 +31,7 @@ export const initialState = fromJS({
   getStatError: null,
 });
 
-/* eslint no-param-reassign: 0, indent: 0 */
+/* eslint no-param-reassign: 0, indent: 0, no-case-declarations: 0 */
 function dataCacheProviderReducer(state = initialState, action) {
   const {
     type,
@@ -68,12 +68,10 @@ function dataCacheProviderReducer(state = initialState, action) {
         .set('getCommunitiesWithTagsError', getCommunitiesWithTagsError);
 
     case REMOVE_USER_PROFILE:
-      return state.set(
-        'users',
-        fromJS({
-          ...delete state.get('users').toJS()[user],
-        }),
-      );
+      const users = state.get('users').toJS();
+      delete users[user];
+
+      return state.set('users', fromJS(users));
 
     case GET_USER_PROFILE:
       return state.set('usersLoading', true);

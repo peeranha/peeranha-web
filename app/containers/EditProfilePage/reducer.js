@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+
 import {
   UPLOAD_IMAGE_FILE,
   UPLOAD_IMAGE_FILE_SUCCESS,
@@ -19,10 +20,10 @@ import {
 export const initialState = fromJS({
   isImageLoading: false,
   isProfileSaving: false,
-  errorUploadImage: '',
-  errorSaveProfile: '',
-  blob: '',
-  cachedProfileImg: '',
+  errorUploadImage: null,
+  errorSaveProfile: null,
+  blob: null,
+  cachedProfileImg: null,
   editingImgState: true,
 });
 
@@ -47,6 +48,7 @@ function editProfileReducer(state = initialState, action) {
       return state
         .set('isImageLoading', false)
         .set('errorUploadImage', errorUploadImage);
+
     case CANCEL_IMAGE_CHANGES:
       return state.set('editingImgState', true).set('cachedProfileImg', '');
     case SAVE_IMAGE_CHANGES:
@@ -54,6 +56,7 @@ function editProfileReducer(state = initialState, action) {
         .set('editingImgState', true)
         .set('cachedProfileImg', cachedProfileImg)
         .set('blob', blob);
+
     case SAVE_PROFILE_ACTION:
       return state.set('isProfileSaving', true);
     case SAVE_PROFILE_ACTION_SUCCESS:
@@ -62,6 +65,7 @@ function editProfileReducer(state = initialState, action) {
       return state
         .set('errorSaveProfile', errorSaveProfile)
         .set('isProfileSaving', false);
+
     default:
       return state;
   }

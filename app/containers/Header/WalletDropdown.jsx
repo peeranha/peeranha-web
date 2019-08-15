@@ -107,11 +107,11 @@ const Menu = ({ user }) => (
   </Ul>
 );
 
-const WalletDropdown = ({ profileInfo }) => (
+const WalletDropdown = ({ user }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
     button={<Button />}
-    menu={<Menu user={profileInfo.user} />}
+    menu={<Menu user={user} />}
   />
 );
 
@@ -120,7 +120,7 @@ Menu.propTypes = {
 };
 
 WalletDropdown.propTypes = {
-  profileInfo: PropTypes.object,
+  user: PropTypes.string,
 };
 
 export default React.memo(WalletDropdown);

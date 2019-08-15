@@ -195,4 +195,10 @@ export default defineMessages({
   eosAccount: {
     id: 'app.common.eosAccount',
   },
+  successMessage: {
+    id: 'app.common.successMessage',
+  },
+  errorMessage: {
+    id: 'app.common.errorMessage',
+  },
 });

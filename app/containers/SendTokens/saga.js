@@ -1,5 +1,15 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { SEND_TOKENS } from './constants';
+
+import {
+  successToastHandlingWithDefaultText,
+  errorToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
+
+import {
+  SEND_TOKENS,
+  SEND_TOKENS_SUCCESS,
+  SEND_TOKENS_ERROR,
+} from './constants';
 
 import {
   sendTokensSuccess,
@@ -19,4 +29,6 @@ export function* sendTokensWorker({ resetForm }) {
 
 export default function* defaultSaga() {
   yield takeLatest(SEND_TOKENS, sendTokensWorker);
+  yield takeLatest(SEND_TOKENS_SUCCESS, successToastHandlingWithDefaultText);
+  yield takeLatest(SEND_TOKENS_ERROR, errorToastHandlingWithDefaultText);
 }

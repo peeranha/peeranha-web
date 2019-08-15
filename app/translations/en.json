@@ -62,6 +62,8 @@
   "app.common.amount": "Amount",
   "app.common.password": "Password",
   "app.common.eosAccount": "EOS account",
+  "app.common.successMessage": "Action has been completed successfully",
+  "app.common.errorMessage": "An error occurred",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
@@ -253,10 +255,6 @@
     "Didn’t find anything interesting?",
   "app.containers.Communities.suggestInterestingComm":
     "Suggest community, which will be interesting to you and 100 other users who will vote for it.",
-
-  "app.containers.Other.successMessage":
-    "Action has been completed successfully",
-  "app.containers.Other.errorMessage": "An error occurred",
 
   "app.containers.HomePage.title":
     "Peeranha - Decentralized Q&A website with crypto rewards",

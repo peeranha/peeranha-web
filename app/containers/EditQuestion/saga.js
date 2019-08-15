@@ -8,7 +8,17 @@ import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { GET_ASKED_QUESTION, EDIT_QUESTION } from './constants';
+import {
+  successToastHandlingWithDefaultText,
+  errorToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
+
+import {
+  GET_ASKED_QUESTION,
+  EDIT_QUESTION,
+  EDIT_QUESTION_SUCCESS,
+  EDIT_QUESTION_ERROR,
+} from './constants';
 
 import {
   getAskedQuestionSuccess,
@@ -60,4 +70,6 @@ export function* editQuestionWorker({ question, questionId }) {
 export default function*() {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
+  yield takeLatest(EDIT_QUESTION_SUCCESS, successToastHandlingWithDefaultText);
+  yield takeLatest(EDIT_QUESTION_ERROR, errorToastHandlingWithDefaultText);
 }

@@ -8,7 +8,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import profileReducer from 'containers/Profile/reducer';
 import loginReducer from 'containers/Login/reducer';
 import toastReducer from 'containers/Toast/reducer';
 import accountProviderReducer from 'containers/AccountProvider/reducer';
@@ -81,7 +80,6 @@ export default function createReducer(injectedReducers) {
     viewQuestion: viewQuestionReducer,
     editQuestion: editQuestionReducer,
     editAnswer: editAnswerReducer,
-    profile: profileReducer,
     homepage: homepageReducer,
     dataCacheProvider: dataCacheProviderReducer,
     followCommunityButton: followCommunityButtonReducer,

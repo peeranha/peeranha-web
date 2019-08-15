@@ -5,8 +5,10 @@ import * as routes from 'routes-config';
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import {
+  successToastHandlingWithDefaultText,
+  errorToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
 
 import {
   uploadImageFileSuccess,
@@ -15,7 +17,12 @@ import {
   saveProfileActionError,
 } from './actions';
 
-import { UPLOAD_IMAGE_FILE, SAVE_PROFILE_ACTION } from './constants';
+import {
+  UPLOAD_IMAGE_FILE,
+  SAVE_PROFILE_ACTION,
+  SAVE_PROFILE_ACTION_SUCCESS,
+  SAVE_PROFILE_ACTION_ERROR,
+} from './constants';
 
 export function* uploadImageFileWorker({ file }) {
   try {
@@ -32,13 +39,9 @@ export function* saveProfileActionWorker({ obj }) {
     const eosService = yield select(selectEos);
 
     const img = reader ? yield call(() => uploadImg(reader)) : undefined;
-    profile.ipfs_avatar = yield (img && img.imgHash) || profile.ipfs_avatar;
+    profile.ipfs_avatar = yield img ? img.imgHash : profile.ipfs_avatar;
 
     yield call(() => saveProfile(userKey, profile, eosService));
-
-    // remove user from cache to update him after
-    yield put(removeUserProfile(userKey));
-    yield call(() => getUserProfileWorker({ user: userKey }));
 
     yield put(saveProfileActionSuccess());
 
@@ -51,4 +54,12 @@ export function* saveProfileActionWorker({ obj }) {
 export default function*() {
   yield takeLatest(UPLOAD_IMAGE_FILE, uploadImageFileWorker);
   yield takeLatest(SAVE_PROFILE_ACTION, saveProfileActionWorker);
+  yield takeLatest(
+    SAVE_PROFILE_ACTION_SUCCESS,
+    successToastHandlingWithDefaultText,
+  );
+  yield takeLatest(
+    SAVE_PROFILE_ACTION_ERROR,
+    errorToastHandlingWithDefaultText,
+  );
 }

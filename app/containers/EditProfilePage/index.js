@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { selectQuestions } from 'containers/QuestionsOfUser/selectors';
 import { selectQuestionsWithUserAnswers } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
-import * as selectorsProfile from 'containers/Profile/selectors';
+import { selectUsers } from 'containers/DataCacheProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import Profile from 'containers/Profile';
@@ -152,7 +152,7 @@ EditProfilePage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  profile: selectorsProfile.selectProfile(),
+  profile: (state, props) => selectUsers(props.match.params.id)(state),
   account: makeSelectAccount(),
   editingImgState: editProfileSelectors.selectEditingImgState(),
   cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),

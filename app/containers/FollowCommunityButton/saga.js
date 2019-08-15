@@ -5,10 +5,7 @@ import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { showLoginModal } from 'containers/Login/actions';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
-
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { FOLLOW_HANDLER } from './constants';
 
@@ -19,9 +16,7 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    const profileInfo = yield call(() =>
-      getUserProfileWorker({ user: selectedAccount }),
-    );
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -37,14 +32,6 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
         followCommunity(eosService, communityIdFilter, selectedAccount),
       );
     }
-
-    // remove user from cache to update him after
-    yield put(removeUserProfile(selectedAccount));
-    const profile = yield call(() =>
-      getUserProfileWorker({ user: selectedAccount }),
-    );
-
-    yield put(getCurrentAccountSuccess(selectedAccount, profile));
 
     yield put(followHandlerSuccess());
   } catch (err) {

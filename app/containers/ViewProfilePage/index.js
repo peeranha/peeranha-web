@@ -16,10 +16,12 @@ import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 
-import * as selectorsProfile from 'containers/Profile/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import {
+  selectCommunities,
+  selectUsers,
+} from 'containers/DataCacheProvider/selectors';
 
 import {
   selectQuestionsLoading,
@@ -104,7 +106,7 @@ ViewProfilePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  profile: selectorsProfile.selectProfile(),
+  profile: (state, props) => selectUsers(props.match.params.id)(state),
   account: makeSelectAccount(),
   communities: selectCommunities(),
   questions: selectQuestions(),

@@ -16,20 +16,16 @@ export const initialState = fromJS({
   loading: false,
   error: null,
   account: null,
-  profileInfo: null,
 });
 
 function accountProviderReducer(state = initialState, action) {
-  const { type, err, account, profileInfo } = action;
+  const { type, err, account } = action;
 
   switch (type) {
     case GET_CURRENT_ACCOUNT:
       return state.set('loading', true);
     case GET_CURRENT_ACCOUNT_SUCCESS:
-      return state
-        .set('loading', false)
-        .set('profileInfo', profileInfo)
-        .set('account', account);
+      return state.set('loading', false).set('account', account);
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
 

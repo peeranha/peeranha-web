@@ -25,7 +25,8 @@ import loginMessages from 'containers/Login/messages';
 
 import { errorToastHandling } from 'containers/Toast/saga';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -257,8 +258,7 @@ export function* showScatterSignUpFormWorker() {
       );
     }
 
-    yield put(getCurrentAccountSuccess(user, profileInfo));
-
+    yield put(getUserProfileSuccess(profileInfo));
     yield put(showScatterSignUpFormSuccess());
 
     yield call(() => createdHistory.push(routes.signup.displayName.name));
