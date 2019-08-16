@@ -1,10 +1,10 @@
 {
-  "name": "Peerania",
+  "name": "Peeranha",
   "version": "0.0.1",
   "description": "Decentralized Q&A Platform",
   "repository": {
     "type": "git",
-    "url": "git://github.com/peerania/peerania-web.git"
+    "url": "git://github.com/peeranha/peeranha-web.git"
   },
   "engines": {
     "npm": ">=5",

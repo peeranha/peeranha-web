@@ -10,21 +10,21 @@ jobs:
           at: ~/ws
       - checkout:
           path:
-            "peerania-web"
+            "peeranha-web"
       - run:
           name: Install NPM packages
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm install
       - run:
           name: ESLint and Unit Tests
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm run test
       - run:
           name: Build
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm run build
   deploy:
     docker:
@@ -38,17 +38,17 @@ jobs:
       - run:
           name: Install NPM packages
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm install
       - run:
           name: ESLint and Unit Tests
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm run test
       - run:
           name: Build
           command: |
-            cd peerania-web
+            cd peeranha-web
             npm run build
 
 workflows:
