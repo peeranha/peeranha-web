@@ -22,6 +22,7 @@ const options = {
   banned: {
     minRating: -99999999999999999999,
     maxRating: 0,
+    maxEnergy: 0,
     messageId: messages.banned.id,
     icon: {
       sm: bannedSm,
@@ -31,6 +32,7 @@ const options = {
   stranger: {
     minRating: 0,
     maxRating: 100,
+    maxEnergy: 50,
     messageId: messages.stranger.id,
     icon: {
       sm: strangerSm,
@@ -40,6 +42,7 @@ const options = {
   newbie: {
     minRating: 100,
     maxRating: 500,
+    maxEnergy: 100,
     messageId: messages.newbie.id,
     icon: {
       sm: newbieSm,
@@ -49,6 +52,7 @@ const options = {
   jrResident: {
     minRating: 500,
     maxRating: 1000,
+    maxEnergy: 150,
     messageId: messages.jrResident.id,
     icon: {
       sm: jrResidentSm,
@@ -58,6 +62,7 @@ const options = {
   resident: {
     minRating: 1000,
     maxRating: 2500,
+    maxEnergy: 200,
     messageId: messages.resident.id,
     icon: {
       sm: residentSm,
@@ -67,6 +72,7 @@ const options = {
   srResident: {
     minRating: 2500,
     maxRating: 5000,
+    maxEnergy: 250,
     messageId: messages.srResident.id,
     icon: {
       sm: srResidentSm,
@@ -76,6 +82,7 @@ const options = {
   heroResident: {
     minRating: 5000,
     maxRating: 10000,
+    maxEnergy: 300,
     messageId: messages.heroResident.id,
     icon: {
       sm: heroResidentSm,
@@ -85,6 +92,7 @@ const options = {
   legResident: {
     minRating: 10000,
     maxRating: 10000000000000000000000,
+    maxEnergy: 350,
     messageId: messages.legResident.id,
     icon: {
       sm: legendaryResidentSm,

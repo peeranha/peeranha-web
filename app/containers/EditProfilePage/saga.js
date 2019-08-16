@@ -39,7 +39,7 @@ export function* saveProfileActionWorker({ obj }) {
     const eosService = yield select(selectEos);
 
     const img = reader ? yield call(() => uploadImg(reader)) : undefined;
-    profile.ipfs_avatar = yield img ? img.imgHash : profile.ipfs_avatar;
+    profile.ipfs_avatar = yield (img && img.imgHash) || profile.ipfs_avatar;
 
     yield call(() => saveProfile(userKey, profile, eosService));
 

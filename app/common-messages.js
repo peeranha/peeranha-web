@@ -201,4 +201,7 @@ export default defineMessages({
   errorMessage: {
     id: 'app.common.errorMessage',
   },
+  energy: {
+    id: 'app.common.energy',
+  },
 });

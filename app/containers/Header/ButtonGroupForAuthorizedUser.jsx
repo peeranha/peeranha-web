@@ -11,7 +11,7 @@ const ButtonGroupForAuthorizedUser = ({
   expandLeftMenuNavigation,
 }) => (
   <React.Fragment>
-    <EnergyDropdown energy={profileInfo.energy} />
+    <EnergyDropdown rating={profileInfo.rating} energy={profileInfo.energy} />
     <WalletDropdown
       isMenuVisible={isMenuVisible}
       user={profileInfo.user}

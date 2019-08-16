@@ -40,30 +40,6 @@ const ButtonStyled = styled.span`
   ${MediumImage} {
     margin-right: 10px;
   }
-
-  :hover {
-    ${MediumImage} {
-      animation: anim 1s infinite linear;
-    }
-  }
-
-  @keyframes anim {
-    0% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(15deg);
-    }
-    50% {
-      transform: rotate(0deg);
-    }
-    75% {
-      transform: rotate(-15deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
 `;
 
 const IconBG = MediumImage.extend`
@@ -71,6 +47,7 @@ const IconBG = MediumImage.extend`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid ${BORDER_PRIMARY};
 
   ${IconStyled} {
     ${() => IconHover({ color: TEXT_LIGHT })};
@@ -123,4 +100,5 @@ WalletDropdown.propTypes = {
   user: PropTypes.string,
 };
 
+export { IconBG };
 export default React.memo(WalletDropdown);
