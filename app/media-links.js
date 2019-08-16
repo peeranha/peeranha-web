@@ -7,7 +7,7 @@ const links = {
     medium: 'https://medium.com/peeranha',
   },
   ru: {
-    facebook: 'https://www.facebook.com/peerania1/',
+    facebook: 'https://www.facebook.com/peeranha1/',
     twitter: 'https://twitter.com/peeranha',
     github: 'https://github.com/peeranha',
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
