@@ -89,5 +89,5 @@ IconWithStatus.propTypes = {
   size: PropTypes.string,
 };
 
-export { IconWithStatus };
+export { IconWithStatus, getStatus };
 export default React.memo(injectIntl(RatingStatus));

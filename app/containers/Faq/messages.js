@@ -25,4 +25,13 @@ export default defineMessages({
   freeFeelToAsk: {
     id: 'app.containers.Faq.freeFeelToAsk',
   },
+  whatIsEnergy: {
+    id: 'app.containers.Faq.whatIsEnergy',
+  },
+  howToChargeMyEnergy: {
+    id: 'app.containers.Faq.howToChargeMyEnergy',
+  },
+  valueOfActions: {
+    id: 'app.containers.Faq.valueOfActions',
+  },
 });

@@ -6,58 +6,58 @@ import { initialState } from './reducer';
  */
 
 const selectDataCacheProviderDomain = state =>
-  state.get('dataCacheProvider', initialState);
+  state.get('dataCacheProvider', initialState).toJS();
 
 const selectCommunities = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().communities,
+    substate => substate.communities,
   );
 
 const selectCommunitiesLoading = () =>
-  createSelector(selectDataCacheProviderDomain, substate =>
-    substate.get('communitiesLoading'),
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.communitiesLoading,
   );
 
 const selectGetCommunitiesWithTagsError = () =>
-  createSelector(selectDataCacheProviderDomain, substate =>
-    substate.get('getCommunitiesWithTagsError'),
-  );
-
-const selectUsers = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().users,
+    substate => substate.getCommunitiesWithTagsError,
+  );
+
+const selectUsers = username =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate =>
+      username !== undefined ? substate.users[username] : substate.users,
   );
 
 const selectUsersLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().usersLoading,
+    substate => substate.usersLoading,
   );
 
 const selectGetUserProfileError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().getUserProfileError,
+    substate => substate.getUserProfileError,
   );
 
 const selectStat = () =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    substate => substate.toJS().stat,
-  );
+  createSelector(selectDataCacheProviderDomain, substate => substate.stat);
 
 const selectStatLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().statLoading,
+    substate => substate.statLoading,
   );
 
 const selectStatError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.toJS().getStatError,
+    substate => substate.getStatError,
   );
 
 export {

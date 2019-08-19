@@ -37,10 +37,11 @@ export function getCommunitiesWithTagsErr(getCommunitiesWithTagsError) {
   };
 }
 
-export function getUserProfile(user) {
+export function getUserProfile(user, getFullProfile) {
   return {
     type: GET_USER_PROFILE,
     user,
+    getFullProfile,
   };
 }
 

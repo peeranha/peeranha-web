@@ -10,9 +10,9 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { errorToastHandling } from 'containers/Toast/saga';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import {
   loginWithEmailSuccess,
@@ -80,6 +80,7 @@ export function* loginWithEmailWorker({ val }) {
 
     const eosAccount = yield call(() => eosService.getSelectedAccount());
 
+    // get profile info to know is there user in system
     const profileInfo = yield call(() =>
       getProfileInfo(eosAccount, eosService),
     );
@@ -92,7 +93,7 @@ export function* loginWithEmailWorker({ val }) {
       return null;
     }
 
-    yield put(getCurrentAccountSuccess(eosAccount, profileInfo));
+    yield put(getUserProfileSuccess(profileInfo));
 
     yield put(loginWithEmailSuccess());
   } catch (err) {
@@ -127,7 +128,8 @@ export function* loginWithScatterWorker() {
     }
 
     const profileInfo = yield call(() => getProfileInfo(user, eosService));
-    yield put(getCurrentAccountSuccess(user, profileInfo));
+
+    yield put(getUserProfileSuccess(profileInfo));
 
     if (!profileInfo) {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
@@ -152,12 +154,6 @@ export function* finishRegistrationWorker({ val }) {
     };
 
     yield call(() => registerAccount(profile, eosService));
-
-    const profileInfo = yield call(() =>
-      getProfileInfo(accountName, eosService),
-    );
-
-    yield put(getCurrentAccountSuccess(accountName, profileInfo));
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {

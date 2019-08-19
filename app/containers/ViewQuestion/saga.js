@@ -3,15 +3,10 @@
 import { takeLatest, call, put, select, all } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import { getText } from 'utils/ipfs';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+
+import { getText } from 'utils/ipfs';
 
 import {
   getQuestionById,
@@ -27,8 +22,14 @@ import {
   voteToDelete,
 } from 'utils/questionsManagement';
 
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import {
   GET_QUESTION_DATA,
@@ -122,7 +123,7 @@ export function* getQuestionData({
     return (lastEditedDate && lastEditedDate.value) || null;
   };
 
-  const addOptions = function*(cachedItem, currentItem) {
+  function* addOptions(cachedItem, currentItem) {
     // Item's @content: IF cache is empty - take from IPFS
     if (cachedItem && cachedItem.content) {
       currentItem.content = cachedItem.content;
@@ -145,15 +146,15 @@ export function* getQuestionData({
     currentItem.isItWrittenByMe = user === currentItem.user;
     currentItem.votingStatus = votingStatus(currentItem.history);
     currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
-  };
+  }
 
-  const processQuestion = function*() {
+  function* processQuestion() {
     const cachedQuestion = yield select(selectQuestionData());
     yield call(() => addOptions(cachedQuestion, question));
-  };
+  }
 
-  /* eslint no-shadow: 0 */
-  const processAnswers = function*() {
+  /* eslint no-shadow: 0, func-names: 0 */
+  function* processAnswers() {
     const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
 
     yield all(
@@ -173,9 +174,9 @@ export function* getQuestionData({
         );
       }),
     );
-  };
+  }
 
-  const processCommentsOfQuestion = function*() {
+  function* processCommentsOfQuestion() {
     yield all(
       question.comments.map(function*(x) {
         const answerId = 0; // it is unique ID for question to get comments
@@ -184,7 +185,7 @@ export function* getQuestionData({
         yield call(() => addOptions(cachedComment, x));
       }),
     );
-  };
+  }
 
   yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
 
@@ -206,6 +207,8 @@ export function* saveCommentWorker({
     yield call(() =>
       editComment(user, questionId, answerId, commentId, comment, eosService),
     );
+
+    yield call(getCurrentAccountWorker);
 
     // Delete comment from cache to update it after
     if (+answerId === 0) {
@@ -260,6 +263,8 @@ export function* deleteCommentWorker({
       deleteComment(user, questionId, answerId, commentId, eosService),
     );
 
+    yield call(getCurrentAccountWorker);
+
     const questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
     );
@@ -296,8 +301,7 @@ export function* deleteAnswerWorker({
 
     yield call(() => deleteAnswer(user, questionId, answerId, eosService));
 
-    // Delete user profile from DataCacheProvider - to update them after deleting action
-    yield put(removeUserProfile(user));
+    yield call(getCurrentAccountWorker);
 
     questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
@@ -328,7 +332,11 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
     }
 
     yield call(() => deleteQuestion(user, questionid, eosService));
+
+    yield call(getCurrentAccountWorker);
+
     yield put(deleteQuestionSuccess());
+
     yield call(() => createdHistory.push(routes.questions()));
   } catch (err) {
     yield put(deleteQuestionErr(err));
@@ -362,9 +370,9 @@ export function* postCommentWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
-    const eosService = yield select(selectEos);
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -388,6 +396,8 @@ export function* postCommentWorker({
     yield call(() =>
       postComment(user, questionId, answerId, comment, eosService),
     );
+
+    yield call(getCurrentAccountWorker);
 
     yield call(() => toggleView(true));
 
@@ -413,9 +423,9 @@ export function* postAnswerWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
-    const eosService = yield select(selectEos);
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -436,6 +446,8 @@ export function* postAnswerWorker({
     }
 
     yield call(() => postAnswer(user, questionId, answer, eosService));
+
+    yield call(getCurrentAccountWorker);
 
     questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
@@ -458,9 +470,9 @@ export function* downVoteWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
-    const eosService = yield select(selectEos);
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -483,8 +495,8 @@ export function* downVoteWorker({
 
     yield call(() => downVote(user, questionId, answerId, eosService));
 
-    // Delete 2 user profiles from DataCacheProvider - to update them after downvoting action
-    yield put(removeUserProfile(user));
+    yield call(getCurrentAccountWorker);
+
     yield put(removeUserProfile(whoWasDownvoted));
 
     questionData = yield call(() =>
@@ -507,9 +519,9 @@ export function* upVoteWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
-    const eosService = yield select(selectEos);
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -532,8 +544,8 @@ export function* upVoteWorker({
 
     yield call(() => upVote(user, questionId, answerId, eosService));
 
-    // Delete 2 user profiles from DataCacheProvider - to update them after upvoting action
-    yield put(removeUserProfile(user));
+    yield call(getCurrentAccountWorker);
+
     yield put(removeUserProfile(whoWasUpvoted));
 
     questionData = yield call(() =>
@@ -556,9 +568,9 @@ export function* markAsAcceptedWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
-    const eosService = yield select(selectEos);
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -582,8 +594,8 @@ export function* markAsAcceptedWorker({
       markAsAccepted(user, questionId, correctAnswerId, eosService),
     );
 
-    // Delete 2 user profiles from DataCacheProvider - to update them after accepting action
-    yield put(removeUserProfile(user));
+    yield call(getCurrentAccountWorker);
+
     yield put(removeUserProfile(whoWasAccepted));
 
     questionData = yield call(() =>
@@ -610,7 +622,7 @@ export function* voteToDeleteWorker({
     const locale = yield select(makeSelectLocale());
     const user = yield call(() => eosService.getSelectedAccount());
 
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -638,6 +650,8 @@ export function* voteToDeleteWorker({
     yield call(() =>
       voteToDelete(user, questionId, answerId, commentId, eosService),
     );
+
+    yield call(getCurrentAccountWorker);
 
     // Delete user profile from DataCacheProvider - to update them after accepting action
     yield put(removeUserProfile(whoWasVoted));

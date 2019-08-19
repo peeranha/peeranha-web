@@ -5,25 +5,22 @@
  */
 
 import React from 'react';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { getUserProfile } from 'containers/DataCacheProvider/actions';
 
-import { getProfileInfo } from './actions';
-import * as profileSelectors from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import {
+  selectUsers,
+  selectUsersLoading,
+} from 'containers/DataCacheProvider/selectors';
 
 import NoSuchUser from './NoSuchUser';
 import messages from './messages';
@@ -31,24 +28,28 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.PureComponent {
   componentDidMount() {
-    this.props.getProfileInfoDispatch(this.props.userId);
+    this.props.getUserProfileDispatch(this.props.userId);
   }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.props.getProfileInfoDispatch(nextProps.userId);
+      this.props.getUserProfileDispatch(nextProps.userId);
     }
   };
 
   render() {
-    const { locale, profile, isProfileLoading, children } = this.props;
+    const { locale, children, isProfileLoading, profile } = this.props;
 
     const HelmetTitle = `${(profile && profile.display_name) ||
       translationMessages[locale][messages.wrongUser.id]} | ${
       translationMessages[locale][messages.profile.id]
     }`;
 
-    const keywords = profile ? Object.values(profile.profile) : ``;
+    let keywords = '';
+
+    if (profile && profile.profile) {
+      keywords = Object.values(profile.profile);
+    }
 
     return (
       <div>
@@ -66,7 +67,7 @@ export class Profile extends React.PureComponent {
 
           {isProfileLoading && <LoadingIndicator />}
 
-          {!isProfileLoading && profile && React.Children.toArray(children)}
+          {!isProfileLoading && profile && profile.profile && children}
         </div>
       </div>
     );
@@ -79,34 +80,25 @@ Profile.propTypes = {
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,
-  getProfileInfoDispatch: PropTypes.func,
+  getUserProfileDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
-  profile: profileSelectors.selectProfile(),
-  isProfileLoading: profileSelectors.selectIsProfileLoading(),
+  isProfileLoading: selectUsersLoading(),
+  profile: (state, props) => selectUsers(props.userId)(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    getProfileInfoDispatch: (key, account) =>
-      dispatch(getProfileInfo(key, account)),
+    getUserProfileDispatch: (user, getFullProfile = true) =>
+      dispatch(getUserProfile(user, getFullProfile)),
   };
 }
 
-const withConnect = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'profile', reducer });
-const withSaga = injectSaga({ key: 'profile', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
 )(Profile);

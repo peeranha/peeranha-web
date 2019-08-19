@@ -1,23 +1,30 @@
 /* eslint consistent-return: 0 */
 
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
-import { addToast } from 'containers/Toast/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import {
   postQuestion,
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
-import { ASK_QUESTION } from './constants';
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+
+import {
+  successToastHandlingWithDefaultText,
+  errorToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
+
 import { askQuestionSuccess, askQuestionError } from './actions';
 import { postQuestionValidator } from './validate';
+
+import {
+  ASK_QUESTION,
+  ASK_QUESTION_SUCCESS,
+  ASK_QUESTION_ERROR,
+} from './constants';
 
 export function* postQuestionWorker({
   user,
@@ -25,8 +32,6 @@ export function* postQuestionWorker({
   translations,
   questionData,
 }) {
-  const locale = yield select(makeSelectLocale());
-
   try {
     const eosService = yield select(selectEos);
     const profileInfo = yield call(() => getUserProfileWorker({ user }));
@@ -46,14 +51,6 @@ export function* postQuestionWorker({
 
     yield call(() => postQuestion(user, questionData, eosService));
 
-    yield put(
-      addToast({
-        type: 'success',
-        text:
-          translationMessages[locale]['app.containers.Other.successMessage'],
-      }),
-    );
-
     yield put(askQuestionSuccess());
 
     const questionsPostedByUser = yield call(() =>
@@ -62,17 +59,12 @@ export function* postQuestionWorker({
 
     yield call(() => createdHistory.push(questionsPostedByUser[0].question_id));
   } catch (err) {
-    yield put(
-      addToast({
-        type: 'error',
-        text: translationMessages[locale]['app.containers.Other.errorMessage'],
-      }),
-    );
-
     yield put(askQuestionError(err.message));
   }
 }
 
 export default function*() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
+  yield takeLatest(ASK_QUESTION_SUCCESS, successToastHandlingWithDefaultText);
+  yield takeLatest(ASK_QUESTION_ERROR, errorToastHandlingWithDefaultText);
 }

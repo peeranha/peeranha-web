@@ -1,5 +1,10 @@
 import { takeLatest, put, select } from 'redux-saga/effects';
 
+import { translationMessages } from 'i18n';
+import commonMessages from 'common-messages';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
 import { makeSelectToasts } from './selectors';
@@ -25,6 +30,28 @@ export function* errorToastHandling(error) {
     addToast({
       type: 'error',
       text: error[key],
+    }),
+  );
+}
+
+export function* errorToastHandlingWithDefaultText() {
+  const locale = yield select(makeSelectLocale());
+
+  yield put(
+    addToast({
+      type: 'error',
+      text: translationMessages[locale][commonMessages.errorMessage.id],
+    }),
+  );
+}
+
+export function* successToastHandlingWithDefaultText() {
+  const locale = yield select(makeSelectLocale());
+
+  yield put(
+    addToast({
+      type: 'success',
+      text: translationMessages[locale][commonMessages.successMessage.id],
     }),
   );
 }

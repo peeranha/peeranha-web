@@ -16,11 +16,10 @@ export function getCurrentAccount() {
   };
 }
 
-export function getCurrentAccountSuccess(account, profileInfo) {
+export function getCurrentAccountSuccess(account) {
   return {
     type: GET_CURRENT_ACCOUNT_SUCCESS,
     account,
-    profileInfo,
   };
 }
 

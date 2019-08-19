@@ -44,7 +44,7 @@ const Button = ({ profileInfo, onClick }) => (
     />
     <Info>
       <Span bold>{profileInfo.display_name}</Span>
-      <RatingStatus rating={profileInfo.rating} size="sm" />
+      <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
     </Info>
   </span>
 );

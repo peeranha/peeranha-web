@@ -202,7 +202,7 @@ export class UsersFetcher extends Fetcher {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(user, eosService) {
+export async function getProfileInfo(user, eosService, getExtendedProfile) {
   if (!user) return null;
 
   const profile = await eosService.getTableRow(
@@ -213,15 +213,14 @@ export async function getProfileInfo(user, eosService) {
 
   if (!profile || profile.user !== user) return null;
 
-  const ipfsProfile = await getText(profile.ipfs_profile);
-  const parsedIpfsProfile = JSON.parse(ipfsProfile);
+  profile.ipfs_avatar = getFileUrl(profile.ipfs_avatar);
 
-  const ipfs_avatar = parsedIpfsProfile.ipfs_avatar
-    ? await getFileUrl(parsedIpfsProfile.ipfs_avatar)
-    : '';
+  if (getExtendedProfile) {
+    const ipfsProfile = await getText(profile.ipfs_profile);
+    const parsedIpfsProfile = JSON.parse(ipfsProfile);
 
-  profile.profile = parsedIpfsProfile;
-  profile.ipfs_avatar = ipfs_avatar;
+    profile.profile = parsedIpfsProfile;
+  }
 
   return profile;
 }
@@ -233,6 +232,7 @@ export async function saveProfile(user, profile, eosService) {
     user,
     ipfs_profile: ipfsProfile,
     display_name: profile[DISPLAY_NAME_FIELD] || '',
+    ipfs_avatar: profile.ipfs_avatar,
   });
 }
 

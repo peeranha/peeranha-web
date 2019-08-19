@@ -62,6 +62,9 @@
   "app.common.amount": "Количество",
   "app.common.password": "Пароль",
   "app.common.eosAccount": "EOS аккаунт",
+  "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.errorMessage": "Возникла ошибка",
+  "app.common.energy": "Энергия",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
@@ -111,6 +114,9 @@
   "app.containers.Faq.didntFindAnswer": "Не нашел ответ?",
   "app.containers.Faq.freeFeelToAsk":
     "Спроси нашу команду. Мы поможем найти ответ.",
+  "app.containers.Faq.whatIsEnergy": "Что такое энергия?",
+  "app.containers.Faq.howToChargeMyEnergy": "Как пополнить мою энергию?",
+  "app.containers.Faq.valueOfActions": "Ценность действий",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",

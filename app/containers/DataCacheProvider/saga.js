@@ -45,18 +45,20 @@ export function* getCommunitiesWithTagsWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user }) {
+export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
     const eosService = yield select(selectEos);
     const users = yield select(selectUsers());
 
     // take userProfile from STORE
-    if (users[user]) {
+    if (users[user] && !getFullProfile) {
       return yield users[user];
     }
 
     // get userProfile and put to STORE
-    const userInfo = yield call(() => getProfileInfo(user, eosService));
+    const userInfo = yield call(() =>
+      getProfileInfo(user, eosService, getFullProfile),
+    );
 
     yield put(getUserProfileSuccess(userInfo));
 

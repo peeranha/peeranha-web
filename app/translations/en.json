@@ -62,6 +62,9 @@
   "app.common.amount": "Amount",
   "app.common.password": "Password",
   "app.common.eosAccount": "EOS account",
+  "app.common.successMessage": "Action has been completed successfully",
+  "app.common.errorMessage": "An error occurred",
+  "app.common.energy": "Energy",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
@@ -109,6 +112,9 @@
   "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
   "app.containers.Faq.freeFeelToAsk":
     "Feel free to ask our team.  We will help to find the answer.",
+  "app.containers.Faq.whatIsEnergy": "What is energy?",
+  "app.containers.Faq.howToChargeMyEnergy": "How to charge my energy?",
+  "app.containers.Faq.valueOfActions": "Value of actions",
 
   "app.containers.Users.title": "Users",
   "app.containers.Users.description": "Users: description",
@@ -253,10 +259,6 @@
     "Didn’t find anything interesting?",
   "app.containers.Communities.suggestInterestingComm":
     "Suggest community, which will be interesting to you and 100 other users who will vote for it.",
-
-  "app.containers.Other.successMessage":
-    "Action has been completed successfully",
-  "app.containers.Other.errorMessage": "An error occurred",
 
   "app.containers.HomePage.title":
     "Peeranha - Decentralized Q&A website with crypto rewards",
