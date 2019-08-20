@@ -51,6 +51,8 @@ export class Profile extends React.PureComponent {
       keywords = Object.values(profile.profile);
     }
 
+    // todo: #123
+
     return (
       <div>
         <Seo
@@ -63,11 +65,13 @@ export class Profile extends React.PureComponent {
         />
 
         <div>
-          {!isProfileLoading && !profile && <NoSuchUser />}
+          {/* {!isProfileLoading && !profile && <NoSuchUser />} */}
 
-          {isProfileLoading && <LoadingIndicator />}
+          {/* {isProfileLoading && <LoadingIndicator />} */}
 
-          {!isProfileLoading && profile && profile.profile && children}
+          {/* {!isProfileLoading && profile && profile.profile && children} */}
+
+          {children}
         </div>
       </div>
     );

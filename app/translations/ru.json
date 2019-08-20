@@ -65,6 +65,11 @@
   "app.common.successMessage": "Действие было выполнено успешно!",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
+  "app.common.show": "Показать",
+  "app.common.change": "Изменить",
+  
+  "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
+  "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
@@ -152,6 +157,7 @@
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
   "app.containers.Profile.editProfile": "Редактировать профиль",
+  "app.containers.Profile.authorizationData": "Данные авторизации",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
@@ -601,6 +607,9 @@
   "app.containers.Profile.companyTip": "Компания подсказка...",
   "app.containers.Profile.positionTip": "Позиция подсказка...",
   "app.containers.Profile.locationTip": "Местоположение подсказка...",
+  "app.containers.Profile.oldPassword": "Старый пароль",
+  "app.containers.Profile.newPassword": "Новый пароль",
+  "app.containers.Profile.confirmPassword": "Подтвердите пароль",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

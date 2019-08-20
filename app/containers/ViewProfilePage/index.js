@@ -34,6 +34,7 @@ import {
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
+import SettingsOfUser from './SettingsOfUser';
 
 const ViewProfilePage = /* istanbul ignore next */ ({
   match,
@@ -48,6 +49,9 @@ const ViewProfilePage = /* istanbul ignore next */ ({
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
+
+  // todo: #123
+  profile = {profile: {}, followed_communities: [], rating: 10}
 
   return (
     <Profile userId={userId}>
@@ -68,6 +72,12 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
         userId={userId}
+      />
+
+      <SettingsOfUser
+        className={path === routes.userSettings(userId) ? '' : 'd-none'}
+        userId={userId}
+        locale={locale}
       />
 
       <ProfileViewForm

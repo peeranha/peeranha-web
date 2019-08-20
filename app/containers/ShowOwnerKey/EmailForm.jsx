@@ -1,0 +1,60 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field, reduxForm } from 'redux-form/immutable';
+import { FormattedMessage } from 'react-intl';
+import { translationMessages } from 'i18n';
+
+import commonMessages from 'common-messages';
+
+import H4 from 'components/H4';
+import TextInputField from 'components/FormFields/TextInputField';
+import Button from 'components/Button/Contained/InfoLarge';
+import signUpMessages from 'containers/SignUp/messages';
+
+import {
+  validateEmail,
+  required,
+  strLength3x20,
+} from 'components/FormFields/validate';
+
+import { EMAIL_FIELD } from './constants';
+
+const EmailForm = ({
+  handleSubmit,
+  locale,
+  sendEmail,
+  sendEmailProcessing,
+}) => (
+  <div>
+    <H4 className="text-center pb-3">
+      <FormattedMessage {...commonMessages.show} />{' '}
+      <FormattedMessage {...signUpMessages.eosOwnerPrivateKey} />
+    </H4>
+
+    <form onSubmit={handleSubmit(sendEmail)}>
+      <Field
+        name={EMAIL_FIELD}
+        disabled={sendEmailProcessing}
+        label={translationMessages[locale][signUpMessages.email.id]}
+        component={TextInputField}
+        validate={[validateEmail, strLength3x20, required]}
+        warn={[validateEmail, strLength3x20, required]}
+      />
+
+      <Button disabled={sendEmailProcessing} className="w-100 mb-3">
+        <FormattedMessage {...commonMessages.submit} />
+      </Button>
+    </form>
+  </div>
+);
+
+EmailForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  sendEmail: PropTypes.func,
+  locale: PropTypes.string,
+  sendEmailProcessing: PropTypes.bool,
+};
+
+export default reduxForm({
+  form: 'EmailForm',
+})(EmailForm);

@@ -32,6 +32,10 @@ import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
 import usersReducer from 'containers/Users/reducer';
 import forgotPasswordReducer from 'containers/ForgotPassword/reducer';
 import logoutReducer from 'containers/Logout/reducer';
+import showActiveKeyReducer from 'containers/ShowActiveKey/reducer';
+import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
+import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
+import changeEmailReducer from 'containers/ChangeEmail/reducer';
 
 /*
  * routeReducer
@@ -93,6 +97,10 @@ export default function createReducer(injectedReducers) {
     voteForNewTagButton: voteForNewTagButtonReducer,
     users: usersReducer,
     form: formReducer,
+    showActiveKey: showActiveKeyReducer,
+    showOwnerKey: showOwnerKeyReducer,
+    changePasswordByPrevious: changePasswordByPreviousReducer,
+    changeEmail: changeEmailReducer,
     ...injectedReducers,
   });
 }

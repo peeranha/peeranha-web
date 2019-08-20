@@ -206,9 +206,12 @@ let FormClone = reduxForm({
   form: formName,
 })(IHaveEOSAccountForm);
 
-export const validatePassword = /* istanbul ignore next */ state => {
-  const password = state.toJS()[PASSWORD_FIELD];
-  const passwordConf = state.toJS()[PASSWORD_CONFIRM_FIELD];
+export const validatePassword = /* istanbul ignore next */ (state, fields) => {
+  const passwordField = fields ? fields[0] : PASSWORD_FIELD;
+  const confirmPasswordField = fields ? fields[1] : PASSWORD_CONFIRM_FIELD;
+
+  const password = state.toJS()[passwordField];
+  const passwordConf = state.toJS()[confirmPasswordField];
 
   const errors = {};
 
@@ -218,7 +221,7 @@ export const validatePassword = /* istanbul ignore next */ state => {
     required(passwordConf) || strLength3x20(passwordConf);
 
   if (passwordError) {
-    errors[PASSWORD_FIELD] = passwordError;
+    errors[passwordField] = passwordError;
   }
 
   if (passwordConfirmError) {
@@ -226,8 +229,8 @@ export const validatePassword = /* istanbul ignore next */ state => {
   }
 
   if (password && passwordConf && password !== passwordConf) {
-    errors[PASSWORD_FIELD] = { id: messages.passwordsDoNotMatch.id };
-    errors[PASSWORD_CONFIRM_FIELD] = { id: messages.passwordsDoNotMatch.id };
+    errors[passwordField] = { id: messages.passwordsDoNotMatch.id };
+    errors[confirmPasswordField] = { id: messages.passwordsDoNotMatch.id };
   }
 
   return errors;
