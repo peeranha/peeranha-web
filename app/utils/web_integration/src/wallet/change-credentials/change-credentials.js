@@ -116,40 +116,50 @@ async function changeCredentialsComplete(
   encryptionKey,
   includeOwnerKeys,
 ) {
-  const { keys } = newProperties;
   const userKeyModify = {};
 
-  if (newProperties.email) userKeyModify.email = newProperties.email;
+  if (newProperties) {
+    if (newProperties.email) userKeyModify.email = newProperties.email;
 
-  if (newProperties.password) {
-    const hashPassword = buildEncryptionKeys(newProperties.password);
-    const encryptedPwdEosKeys = {
-      activeKey: encryptObject(keys.activeKey, hashPassword.encryptionKey),
-    };
-    if (keys.ownerKey)
-      encryptedPwdEosKeys.ownerKey = encryptObject(
-        keys.ownerKey,
-        hashPassword.encryptionKey,
-      );
-    userKeyModify.hashPassword = hashPassword.authKey;
-    userKeyModify.encryptedPwdEosKeys = encryptedPwdEosKeys;
-  }
+    if (newProperties.password) {
+      const { keys } = newProperties;
 
-  if (newProperties.masterKey) {
-    const hashMasterKey = buildEncryptionKeys(newProperties.masterKey);
-    const encryptedMKEosKeys = {
-      activeKey: encryptObject(keys.activeKey, hashMasterKey.encryptionKey),
-    };
+      const hashPassword = buildEncryptionKeys(newProperties.password);
+      const encryptedPwdEosKeys = {
+        activeKey: encryptObject(keys.activeKey, hashPassword.encryptionKey),
+      };
 
-    if (includeOwnerKeys) {
-      encryptedMKEosKeys.ownerKey = encryptObject(
-        keys.ownerKey,
-        hashMasterKey.encryptionKey,
-      );
+      if (keys.ownerKey) {
+        encryptedPwdEosKeys.ownerKey = encryptObject(
+          keys.ownerKey,
+          hashPassword.encryptionKey,
+        );
+      }
+
+      userKeyModify.hashPassword = hashPassword.authKey;
+      userKeyModify.encryptedPwdEosKeys = encryptedPwdEosKeys;
     }
 
-    userKeyModify.hashMasterKey = hashMasterKey.authKey;
-    userKeyModify.encryptedMKEosKeys = encryptedMKEosKeys;
+    if (newProperties.masterKey) {
+      const { keys } = newProperties;
+
+      const hashMasterKey = buildEncryptionKeys(newProperties.masterKey);
+      const encryptedMKEosKeys = {
+        activeKey: encryptObject(keys.activeKey, hashMasterKey.encryptionKey),
+      };
+
+      if (includeOwnerKeys) {
+        encryptedMKEosKeys.ownerKey = encryptObject(
+          keys.ownerKey,
+          hashMasterKey.encryptionKey,
+        );
+      }
+
+      userKeyModify.hashMasterKey = hashMasterKey.authKey;
+      userKeyModify.encryptedMKEosKeys = encryptedMKEosKeys;
+    }
+  } else {
+    userKeyModify.isDelete = true;
   }
 
   const encryptedUserKeyModify = encryptObject(userKeyModify, encryptionKey);

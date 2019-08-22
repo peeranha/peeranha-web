@@ -38,6 +38,9 @@ const selectDeleteAccountError = () =>
     substate => substate.deleteAccountError,
   );
 
+const selectEmail = () =>
+  createSelector(selectDeleteAccountDomain, substate => substate.email);
+
 export {
   selectDeleteAccountDomain,
   selectContent,
@@ -46,4 +49,5 @@ export {
   selectSendEmailError,
   selectDeleteAccountProcessing,
   selectDeleteAccountError,
+  selectEmail,
 };

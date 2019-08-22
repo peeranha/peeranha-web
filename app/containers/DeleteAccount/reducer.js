@@ -25,10 +25,11 @@ export const initialState = fromJS({
   sendEmailError: null,
   deleteAccountProcessing: false,
   deleteAccountError: null,
+  email: null,
 });
 
 function deleteAccountReducer(state = initialState, action) {
-  const { type, deleteAccountError, content, sendEmailError } = action;
+  const { type, deleteAccountError, content, sendEmailError, email } = action;
 
   switch (type) {
     case SHOW_DELETE_ACCOUNT_MODAL:
@@ -39,7 +40,7 @@ function deleteAccountReducer(state = initialState, action) {
         .set('content', initialState.get('content'));
 
     case SEND_EMAIL:
-      return state.set('sendEmailProcessing', true);
+      return state.set('sendEmailProcessing', true).set('email', email);
     case SEND_EMAIL_SUCCESS:
       return state
         .set('sendEmailProcessing', false)

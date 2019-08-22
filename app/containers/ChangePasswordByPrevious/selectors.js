@@ -56,6 +56,18 @@ const selectChangePasswordError = () =>
     substate => substate.changePasswordError,
   );
 
+const selectEmail = () =>
+  createSelector(
+    selectChangePasswordByPreviousDomain,
+    substate => substate.email,
+  );
+
+const selectVerificationCode = () =>
+  createSelector(
+    selectChangePasswordByPreviousDomain,
+    substate => substate.verificationCode,
+  );
+
 export {
   selectChangePasswordByPreviousDomain,
   selectContent,
@@ -66,4 +78,6 @@ export {
   selectSubmitEmailError,
   selectChangePasswordProcessing,
   selectChangePasswordError,
+  selectEmail,
+  selectVerificationCode,
 };

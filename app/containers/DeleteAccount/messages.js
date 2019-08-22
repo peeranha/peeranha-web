@@ -13,4 +13,10 @@ export default defineMessages({
   areYouLeaving: {
     id: 'app.containers.DeleteAccount.areYouLeaving',
   },
+  iUnderstand: {
+    id: 'app.containers.DeleteAccount.iUnderstand',
+  },
+  iHaveBackup: {
+    id: 'app.containers.DeleteAccount.iHaveBackup',
+  },
 });

@@ -47,4 +47,5 @@ export const USER_IS_NOT_REGISTERED = 'USER_IS_NOT_REGISTERED';
 // cookie
 export const AUTH_TYPE = 'authorization_type';
 export const AUTH_PRIVATE_KEY = 'auth_private_key';
+export const STORED_EMAIL = 'email';
 export const AUTH_IS_VALID_DAYS = 7 * 24 * 60 * 60; // 7 days

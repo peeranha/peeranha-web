@@ -68,8 +68,16 @@
   "app.common.show": "Show",
   "app.common.change": "Change",
 
+  "app.containers.ChangeEmail.newEmail": "New email",
+  "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
+  "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
+
   "app.containers.DeleteAccount.deleteAccount": "Delete account",
   "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
+  "app.containers.DeleteAccount.iUnderstand":
+    "I understand that this operation does not remove my account on EOS blockchain. Account is removed only from wallet service.",
+  "app.containers.DeleteAccount.iHaveBackup":
+    "I have back up of my EOS private keys.",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",

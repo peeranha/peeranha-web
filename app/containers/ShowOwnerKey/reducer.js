@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   SHOW_OWNER_KEY,
@@ -25,10 +26,19 @@ export const initialState = fromJS({
   showOwnerKeyError: null,
   sendEmailProcessing: false,
   sendEmailError: null,
+  password: null,
+  ownerKey: null,
 });
 
 function showOwnerKeyReducer(state = initialState, action) {
-  const { type, showOwnerKeyError, content, sendEmailError } = action;
+  const {
+    type,
+    showOwnerKeyError,
+    content,
+    sendEmailError,
+    password,
+    ownerKey,
+  } = action;
 
   switch (type) {
     case SHOW_OWNER_KEY_MODAL:
@@ -42,6 +52,7 @@ function showOwnerKeyReducer(state = initialState, action) {
       return state.set('showOwnerKeyProcessing', true);
     case SHOW_OWNER_KEY_SUCCESS:
       return state
+        .set('ownerKey', ownerKey)
         .set('showOwnerKeyProcessing', false)
         .set('content', initialState.get('content'))
         .set('showModal', false);
@@ -51,7 +62,7 @@ function showOwnerKeyReducer(state = initialState, action) {
         .set('showOwnerKeyError', showOwnerKeyError);
 
     case SEND_EMAIL:
-      return state.set('sendEmailProcessing', true);
+      return state.set('sendEmailProcessing', true).set('password', password);
     case SEND_EMAIL_SUCCESS:
       return state
         .set('sendEmailProcessing', false)
@@ -60,6 +71,9 @@ function showOwnerKeyReducer(state = initialState, action) {
       return state
         .set('sendEmailProcessing', false)
         .set('sendEmailError', sendEmailError);
+
+    case LOCATION_CHANGE:
+      return initialState;
 
     default:
       return state;

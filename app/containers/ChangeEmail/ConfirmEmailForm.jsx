@@ -16,18 +16,18 @@ import signUpMessages from 'containers/SignUp/messages';
 
 import { strLength3x20, required } from 'components/FormFields/validate';
 
-import { CODE_FIELD, SUBMIT_EMAIL_FORM } from './constants';
+import { CODE_FIELD, CONFIRM_EMAIL_FORM } from './constants';
 
-const ShowOwnerKeyForm = ({
+const ConfirmEmailForm = ({
   handleSubmit,
   locale,
-  showOwnerKey,
-  showOwnerKeyProcessing,
+  confirmOldEmail,
+  confirmOldEmailProcessing,
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.show} />{' '}
-      <FormattedMessage {...signUpMessages.eosOwnerPrivateKey} />
+      <FormattedMessage {...commonMessages.change} />{' '}
+      <FormattedMessage {...signUpMessages.email} />
     </H4>
 
     <div className="text-center pb-3">
@@ -37,30 +37,30 @@ const ShowOwnerKeyForm = ({
       </P>
     </div>
 
-    <form onSubmit={handleSubmit(showOwnerKey)}>
+    <form onSubmit={handleSubmit(confirmOldEmail)}>
       <Field
         name={CODE_FIELD}
-        disabled={showOwnerKeyProcessing}
+        disabled={confirmOldEmailProcessing}
         label={translationMessages[locale][signUpMessages.verificationCode.id]}
         component={TextInputField}
         validate={[strLength3x20, required]}
         warn={[strLength3x20, required]}
       />
 
-      <Button disabled={showOwnerKeyProcessing} className="w-100 mb-3">
+      <Button disabled={confirmOldEmailProcessing} className="w-100 mb-3">
         <FormattedMessage {...commonMessages.submit} />
       </Button>
     </form>
   </div>
 );
 
-ShowOwnerKeyForm.propTypes = {
+ConfirmEmailForm.propTypes = {
   handleSubmit: PropTypes.func,
-  showOwnerKey: PropTypes.func,
+  confirmOldEmail: PropTypes.func,
   locale: PropTypes.string,
-  showOwnerKeyProcessing: PropTypes.bool,
+  confirmOldEmailProcessing: PropTypes.bool,
 };
 
 export default reduxForm({
-  form: SUBMIT_EMAIL_FORM,
-})(ShowOwnerKeyForm);
+  form: CONFIRM_EMAIL_FORM,
+})(ConfirmEmailForm);

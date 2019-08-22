@@ -225,7 +225,7 @@ export const validatePassword = /* istanbul ignore next */ (state, fields) => {
   }
 
   if (passwordConfirmError) {
-    errors[PASSWORD_CONFIRM_FIELD] = passwordConfirmError;
+    errors[confirmPasswordField] = passwordConfirmError;
   }
 
   if (password && passwordConf && password !== passwordConf) {

@@ -11,6 +11,8 @@ import {
   SHOW_CHANGE_PASSWORD_MODAL,
   HIDE_CHANGE_PASSWORD_MODAL,
   EMAIL_FORM,
+  EMAIL_FIELD,
+  CODE_FIELD,
 } from './constants';
 
 // Modal actions
@@ -19,13 +21,13 @@ export function showChangePasswordModal(content) {
   return {
     type: SHOW_CHANGE_PASSWORD_MODAL,
     content: content || EMAIL_FORM,
-  }
+  };
 }
 
 export function hideChangePasswordModal() {
   return {
     type: HIDE_CHANGE_PASSWORD_MODAL,
-  }
+  };
 }
 
 // Send email
@@ -33,7 +35,7 @@ export function hideChangePasswordModal() {
 export function sendEmail(args) {
   return {
     type: SEND_EMAIL,
-    values: args[0].toJS(),
+    email: args[0].toJS()[EMAIL_FIELD],
     resetForm: args[2].reset,
   };
 }
@@ -57,7 +59,7 @@ export function sendEmailErr(sendEmailError) {
 export function submitEmail(args) {
   return {
     type: SUBMIT_EMAIL,
-    values: args[0].toJS(),
+    verificationCode: args[0].toJS()[CODE_FIELD],
     resetForm: args[2].reset,
   };
 }

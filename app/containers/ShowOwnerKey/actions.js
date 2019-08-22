@@ -14,19 +14,22 @@ import {
   SEND_EMAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
+  EMAIL_FIELD,
+  PASSWORD_FIELD,
+  CODE_FIELD,
 } from './constants';
 
 export function showOwnerKeyModal(content) {
   return {
     type: SHOW_OWNER_KEY_MODAL,
     content: content || EMAIL_FORM,
-  }
+  };
 }
 
 export function hideOwnerKeyModal() {
   return {
     type: HIDE_OWNER_KEY_MODAL,
-  }
+  };
 }
 
 // sendEmail
@@ -34,7 +37,8 @@ export function hideOwnerKeyModal() {
 export function sendEmail(args) {
   return {
     type: SEND_EMAIL,
-    values: args[0].toJS(),
+    email: args[0].toJS()[EMAIL_FIELD],
+    password: args[0].toJS()[PASSWORD_FIELD],
     resetForm: args[2].reset,
   };
 }
@@ -58,14 +62,15 @@ export function sendEmailErr(sendEmailError) {
 export function showOwnerKey(args) {
   return {
     type: SHOW_OWNER_KEY,
-    values: args[0].toJS(),
+    verificationCode: args[0].toJS()[CODE_FIELD],
     resetForm: args[2].reset,
   };
 }
 
-export function showOwnerKeySuccess() {
+export function showOwnerKeySuccess(ownerKey) {
   return {
     type: SHOW_OWNER_KEY_SUCCESS,
+    ownerKey,
   };
 }
 

@@ -25,6 +25,8 @@ export const initialState = fromJS({
   submitEmailError: null,
   changePasswordProcessing: false,
   changePasswordError: null,
+  email: null,
+  verificationCode: null,
 });
 
 function changePasswordByPreviousReducer(state = initialState, action) {
@@ -34,6 +36,8 @@ function changePasswordByPreviousReducer(state = initialState, action) {
     content,
     changePasswordError,
     sendEmailError,
+    email,
+    verificationCode,
   } = action;
 
   switch (type) {
@@ -45,7 +49,7 @@ function changePasswordByPreviousReducer(state = initialState, action) {
         .set('content', initialState.get('content'));
 
     case SEND_EMAIL:
-      return state.set('sendEmailProcessing', true);
+      return state.set('sendEmailProcessing', true).set('email', email);
     case SEND_EMAIL_SUCCESS:
       return state
         .set('sendEmailProcessing', false)
@@ -56,7 +60,9 @@ function changePasswordByPreviousReducer(state = initialState, action) {
         .set('sendEmailError', sendEmailError);
 
     case SUBMIT_EMAIL:
-      return state.set('submitEmailProcessing', true);
+      return state
+        .set('submitEmailProcessing', true)
+        .set('verificationCode', verificationCode);
     case SUBMIT_EMAIL_SUCCESS:
       return state
         .set('submitEmailProcessing', false)

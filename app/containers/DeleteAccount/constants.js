@@ -26,3 +26,5 @@ export const SUBMIT_EMAIL_FORM = 'app/DeleteAccount/SUBMIT_EMAIL_FORM';
 export const EMAIL_FIELD = 'app/DeleteAccount/EMAIL_FIELD';
 export const CODE_FIELD = 'app/DeleteAccount/CODE_FIELD';
 export const PASSWORD_FIELD = 'app/DeleteAccount/PASSWORD_FIELD';
+export const I_UNDERSTAND_FIELD = 'app/DeleteAccount/I_UNDERSTAND_FIELD';
+export const I_HAVE_BACKUP_FIELD = 'app/DeleteAccount/I_HAVE_BACKUP_FIELD';

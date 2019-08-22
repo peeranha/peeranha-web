@@ -67,9 +67,17 @@
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
   "app.common.change": "Изменить",
-  
+
+  "app.containers.ChangeEmail.newEmail": "Новая почта",
+  "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
+  "app.containers.ChangeEmail.emailsDoNotMatch": "Е-мэйлы не совпадают",
+
   "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
   "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
+  "app.containers.DeleteAccount.iUnderstand":
+    "Я понимаю, что эта операция не удаляет мой аккаунт на EOS блокчейне. Аккаунт удаляется только из кошелька сервиса.",
+  "app.containers.DeleteAccount.iHaveBackup":
+    "Я сделал бэкап моих EOS приватных ключей.",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",

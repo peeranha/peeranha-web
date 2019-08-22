@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
-import styled from 'styled-components';
 
 import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
+
+import Cookies from 'utils/cookies';
 
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
@@ -22,6 +23,8 @@ import ShowOwnerKeyButton from 'containers/ShowOwnerKey';
 import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
 import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
+
+import { STORED_EMAIL } from 'containers/Login/constants';
 
 const BaseStyled = Base.extend`
   > :not(:nth-child(1)) {
@@ -45,7 +48,7 @@ const BaseStyled = Base.extend`
   }
 `;
 
-const SettingsOfUser = ({ className, locale }) => (
+const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => (
   <BaseStyled className={className} position="bottom">
     <H3>
       <FormattedMessage {...profileMessages.authorizationData} />
@@ -56,7 +59,7 @@ const SettingsOfUser = ({ className, locale }) => (
         <td>
           <FormattedMessage {...signupMessages.email} />
         </td>
-        <td>• • • • • • • • • • • • •</td>
+        <td>{Cookies.get(STORED_EMAIL)}</td>
         <td>
           <ChangeEmailButton>
             <FormattedMessage {...commonMessages.change} />{' '}
@@ -89,7 +92,7 @@ const SettingsOfUser = ({ className, locale }) => (
             <FormattedMessage {...signupMessages.eosActivePrivateKey} />
           </InfoLabel>
         </td>
-        <td>• • • • • • • • • •</td>
+        <td>{activeKey || `• • • • • • • • • •`}</td>
         <td>
           <ShowActiveKeyButton>
             <FormattedMessage {...commonMessages.show} />
@@ -110,7 +113,7 @@ const SettingsOfUser = ({ className, locale }) => (
             <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
           </InfoLabel>
         </td>
-        <td>• • • • • • • • • •</td>
+        <td>{ownerKey || `• • • • • • • • • •`}</td>
         <td>
           <ShowOwnerKeyButton>
             <FormattedMessage {...commonMessages.show} />
@@ -134,6 +137,8 @@ const SettingsOfUser = ({ className, locale }) => (
 SettingsOfUser.propTypes = {
   className: PropTypes.string,
   locale: PropTypes.string,
+  ownerKey: PropTypes.string,
+  activeKey: PropTypes.string,
 };
 
 export default React.memo(SettingsOfUser);

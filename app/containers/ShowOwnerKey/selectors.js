@@ -35,6 +35,12 @@ const selectSendEmailProcessing = () =>
 const selectSendEmailError = () =>
   createSelector(selectShowOwnerKeyDomain, substate => substate.sendEmailError);
 
+const selectPassword = () =>
+  createSelector(selectShowOwnerKeyDomain, substate => substate.password);
+
+const selectOwnerKey = () =>
+  createSelector(selectShowOwnerKeyDomain, substate => substate.ownerKey);
+
 export {
   selectShowOwnerKeyDomain,
   selectShowModal,
@@ -43,4 +49,6 @@ export {
   selectShowOwnerKeyError,
   selectSendEmailProcessing,
   selectSendEmailError,
+  selectPassword,
+  selectOwnerKey,
 };

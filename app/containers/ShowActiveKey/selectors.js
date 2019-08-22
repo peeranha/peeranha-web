@@ -23,9 +23,13 @@ const selectShowActiveKeyError = () =>
     substate => substate.showActiveKeyError,
   );
 
+const selectActivekey = () =>
+  createSelector(selectShowActiveKeyDomain, substate => substate.activeKey);
+
 export {
   selectShowActiveKeyDomain,
   selectShowModal,
   selectShowActiveKeyProcessing,
   selectShowActiveKeyError,
+  selectActivekey,
 };

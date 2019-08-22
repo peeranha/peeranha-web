@@ -14,19 +14,20 @@ import {
   DELETE_ACCOUNT,
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_ERROR,
+  EMAIL_FIELD,
 } from './constants';
 
 export function showDeleteAccountModal(content) {
   return {
     type: SHOW_DELETE_ACCOUNT_MODAL,
     content: content || EMAIL_FORM,
-  }
+  };
 }
 
 export function hideDeleteAccountModal() {
   return {
     type: HIDE_DELETE_ACCOUNT_MODAL,
-  }
+  };
 }
 
 // sendEmail
@@ -34,7 +35,7 @@ export function hideDeleteAccountModal() {
 export function sendEmail(args) {
   return {
     type: SEND_EMAIL,
-    values: args[0].toJS(),
+    email: args[0].toJS()[EMAIL_FIELD],
     resetForm: args[2].reset,
   };
 }

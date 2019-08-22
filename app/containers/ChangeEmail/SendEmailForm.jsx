@@ -21,23 +21,23 @@ import {
   strLength3x20,
 } from 'components/FormFields/validate';
 
-import { EMAIL_FIELD, EMAIL_FORM } from './constants';
+import { OLD_EMAIL_FORM, OLD_EMAIL_FIELD } from './constants';
 
 const EmailForm = ({
   handleSubmit,
   locale,
-  sendEmail,
-  sendEmailProcessing,
+  sendOldEmail,
+  sendOldEmailProcessing,
 }) => (
   <div>
     <H4 className="text-center pb-3">
       <FormattedMessage {...commonMessages.change} />{' '}
-      <FormattedMessage {...signUpMessages.password} />
+      <FormattedMessage {...signUpMessages.email} />
     </H4>
 
-    <form onSubmit={handleSubmit(sendEmail)}>
+    <form onSubmit={handleSubmit(sendOldEmail)}>
       <Field
-        name={EMAIL_FIELD}
+        name={OLD_EMAIL_FIELD}
         disabled
         label={translationMessages[locale][signUpMessages.email.id]}
         component={TextInputField}
@@ -45,7 +45,7 @@ const EmailForm = ({
         warn={[validateEmail, strLength3x20, required]}
       />
 
-      <Button disabled={sendEmailProcessing} className="w-100 mb-3">
+      <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
         <FormattedMessage {...commonMessages.submit} />
       </Button>
     </form>
@@ -54,19 +54,19 @@ const EmailForm = ({
 
 EmailForm.propTypes = {
   handleSubmit: PropTypes.func,
-  sendEmail: PropTypes.func,
+  sendOldEmail: PropTypes.func,
   locale: PropTypes.string,
-  sendEmailProcessing: PropTypes.bool,
+  sendOldEmailProcessing: PropTypes.bool,
 };
 
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
-  form: EMAIL_FORM,
+  form: OLD_EMAIL_FORM,
 })(EmailForm);
 
 FormClone = connect(() => ({
   initialValues: {
-    [EMAIL_FIELD]: Cookies.get(STORED_EMAIL),
+    [OLD_EMAIL_FIELD]: Cookies.get(STORED_EMAIL),
   },
 }))(FormClone);
 

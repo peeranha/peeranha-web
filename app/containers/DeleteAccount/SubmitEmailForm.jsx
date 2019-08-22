@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
@@ -11,12 +12,18 @@ import communitySuggestImage from 'images/communitySuggest.svg?inline';
 import P from 'components/P';
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
+import Checkbox from 'components/Input/Checkbox';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
 import { strLength3x20, required } from 'components/FormFields/validate';
 
-import { CODE_FIELD, PASSWORD_FIELD } from './constants';
+import {
+  CODE_FIELD,
+  PASSWORD_FIELD,
+  I_UNDERSTAND_FIELD,
+  I_HAVE_BACKUP_FIELD,
+} from './constants';
 
 import messages from './messages';
 
@@ -25,6 +32,8 @@ const SubmitEmailForm = ({
   locale,
   deleteAccount,
   deleteAccountProcessing,
+  iUnderstandValue,
+  iHaveBackupValue,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -58,7 +67,30 @@ const SubmitEmailForm = ({
         type="password"
       />
 
-      <Button disabled={deleteAccountProcessing} className="w-100 mb-3">
+      <div className="my-3">
+        <Field
+          name={I_UNDERSTAND_FIELD}
+          disabled={deleteAccountProcessing}
+          label={translationMessages[locale][messages.iUnderstand.id]}
+          component={Checkbox}
+        />
+      </div>
+
+      <div className="my-3">
+        <Field
+          name={I_HAVE_BACKUP_FIELD}
+          disabled={deleteAccountProcessing}
+          label={translationMessages[locale][messages.iHaveBackup.id]}
+          component={Checkbox}
+        />
+      </div>
+
+      <Button
+        className="w-100 mb-3"
+        disabled={
+          deleteAccountProcessing || !iUnderstandValue || !iHaveBackupValue
+        }
+      >
         <FormattedMessage {...commonMessages.submit} />
       </Button>
     </form>
@@ -72,6 +104,22 @@ SubmitEmailForm.propTypes = {
   deleteAccountProcessing: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: 'SubmitEmailForm',
+const formName = 'SubmitEmailForm';
+
+/* eslint import/no-mutable-exports: 0 */
+let FormClone = reduxForm({
+  form: formName,
 })(SubmitEmailForm);
+
+FormClone = connect(
+  /* istanbul ignore next */ state => {
+    const form = state.toJS().form[formName] || { values: {} };
+
+    return {
+      iUnderstandValue: form.values ? form.values[I_UNDERSTAND_FIELD] : false,
+      iHaveBackupValue: form.values ? form.values[I_HAVE_BACKUP_FIELD] : false,
+    };
+  },
+)(FormClone);
+
+export default FormClone;
