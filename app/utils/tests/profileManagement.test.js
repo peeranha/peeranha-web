@@ -88,35 +88,55 @@ it('uploadImg', async () => {
   expect(getFileUrl).toHaveBeenCalledWith(imgHash);
 });
 
-it('getProfileInfo', async () => {
-  const user = 'hash';
-  const img = 'ipfs_avatar';
-  const ipfs = JSON.stringify({ ipfs_avatar: img });
-  const ipfs_avatar = 'url';
+describe('getProfileInfo', async () => {
+  const user = 'user';
 
-  const eos = {
-    ipfs_profile: {},
+  const eosProfile = {
     user,
+    ipfs_profile: '1111',
+    ipfs_avatar: '1111',
   };
 
-  cmp.getTableRow.mockImplementation(() => eos);
-  getText.mockImplementation(() => ipfs);
-  getFileUrl.mockImplementation(() => ipfs_avatar);
+  const eosService = {
+    getTableRow: jest.fn(),
+  };
 
-  expect(await getProfileInfo(user, cmp)).toEqual({
-    ...eos,
-    profile: JSON.parse(ipfs),
-    ipfs_avatar,
+  it('!!user is falsy', async () => {
+    expect(await getProfileInfo(null)).toBe(null);
   });
 
-  expect(cmp.getTableRow).toHaveBeenCalledWith(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    user,
-  );
+  it('eosProfile is falsy', async () => {
+    eosService.getTableRow.mockImplementationOnce(() => null);
+    expect(await getProfileInfo(user, eosService, false)).toBe(null);
+  });
 
-  expect(getText).toHaveBeenCalledWith(eos.ipfs_profile);
-  expect(getFileUrl).toHaveBeenCalledWith(img);
+  describe('eosProfile is truthy', () => {
+    it('getExtendedProfile is falsy', async () => {
+      eosService.getTableRow.mockImplementationOnce(() => eosProfile);
+      const getExtendedProfile = false;
+
+      expect(
+        await getProfileInfo(user, eosService, getExtendedProfile),
+      ).toEqual(eosProfile);
+    });
+
+    it('getExtendedProfile is truthy', async () => {
+      const ipfsProfile = `{"username":"username"}`;
+      const getExtendedProfile = true;
+
+      const extendedProfile = {
+        ...eosProfile,
+        profile: JSON.parse(ipfsProfile),
+      };
+
+      eosService.getTableRow.mockImplementationOnce(() => eosProfile);
+      getText.mockImplementationOnce(() => ipfsProfile);
+
+      expect(
+        await getProfileInfo(user, eosService, getExtendedProfile),
+      ).toEqual(extendedProfile);
+    });
+  });
 });
 
 it('saveProfile', async () => {

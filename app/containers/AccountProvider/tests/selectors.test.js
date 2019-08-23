@@ -15,19 +15,31 @@ describe('selectAccountProviderDomain', () => {
   const account = 'account';
   const profileInfo = fromJS({});
 
-  const globalState = fromJS({
+  const accountProviderState = fromJS({
     loading,
     error,
     account,
     profileInfo,
   });
 
+  const user1 = {
+    followed_communities: [1, 2, 3],
+    profile: {},
+  };
+
+  const dataCacheProviderState = fromJS({
+    users: {},
+  });
+
   const mockedState = fromJS({
-    accountProvider: globalState,
+    accountProvider: accountProviderState,
+    dataCacheProvider: dataCacheProviderState,
   });
 
   it('should select the global state', () => {
-    expect(selectAccountProviderDomain(mockedState)).toEqual(globalState);
+    expect(selectAccountProviderDomain(mockedState)).toEqual(
+      accountProviderState.toJS(),
+    );
   });
 
   describe('makeSelectFollowedCommunities', () => {
@@ -37,9 +49,13 @@ describe('selectAccountProviderDomain', () => {
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
+            ...mockedState.toJS(),
+            dataCacheProvider: dataCacheProviderState.set('users', {
+              unknownUser: {},
+            }),
             accountProvider: {
-              ...globalState.toJS(),
-              profileInfo: null,
+              ...accountProviderState.toJS(),
+              account: 'unknown_account',
             },
           }),
         ),
@@ -47,20 +63,20 @@ describe('selectAccountProviderDomain', () => {
     });
 
     it('profileInfo TRUE', () => {
-      const followedCommunities = [];
-
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
+            ...mockedState.toJS(),
+            dataCacheProvider: dataCacheProviderState.set('users', {
+              user1,
+            }),
             accountProvider: {
-              ...globalState.toJS(),
-              profileInfo: {
-                followed_communities: followedCommunities,
-              },
+              ...accountProviderState.toJS(),
+              account: 'user1',
             },
           }),
         ),
-      ).toEqual(followedCommunities);
+      ).toEqual([1, 2, 3]);
     });
   });
 
@@ -81,6 +97,20 @@ describe('selectAccountProviderDomain', () => {
 
   it('makeSelectProfileInfo', () => {
     const isProfileInfo = makeSelectProfileInfo();
-    expect(isProfileInfo(mockedState)).toEqual(profileInfo);
+
+    expect(
+      isProfileInfo(
+        fromJS({
+          ...mockedState.toJS(),
+          dataCacheProvider: dataCacheProviderState.set('users', {
+            user1,
+          }),
+          accountProvider: {
+            ...accountProviderState.toJS(),
+            account: 'user1',
+          },
+        }),
+      ),
+    ).toEqual(user1);
   });
 });

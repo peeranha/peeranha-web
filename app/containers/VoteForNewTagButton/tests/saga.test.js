@@ -130,7 +130,7 @@ describe('downVoteWorker', () => {
     });
 
     it('profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });

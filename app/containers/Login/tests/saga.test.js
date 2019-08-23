@@ -30,6 +30,7 @@ import {
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
 } from '../constants';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 class eosService {}
 
@@ -152,10 +153,7 @@ describe('loginWithScatterWorker', () => {
 
     it('put profileInfo to store', () => {
       const step = generator.next(profileInfo);
-
-      expect(step.value).toEqual(
-        getCurrentAccountSuccess(account, profileInfo),
-      );
+      expect(step.value).toEqual(getUserProfileSuccess(profileInfo));
     });
 
     it('error handling, profileInfo is absent', () => {
@@ -322,8 +320,7 @@ describe('loginWithEmailWorker', () => {
 
     it('put @account and @profileInfo to store', () => {
       const step = generator.next();
-      expect(step.value.account).toBe(selectedAccount);
-      expect(step.value.profileInfo).toBe(profileInfo);
+      expect(step.value.profile).toBe(profileInfo);
     });
 
     it('@loginWithEmailSuccess', () => {
@@ -362,16 +359,6 @@ describe('finishRegistrationWorker', () => {
   it('registerAccount', () => {
     generator.next(eosAccount);
     expect(registerAccount).toHaveBeenCalledWith(profile, eosService);
-  });
-
-  it('getProfileInfo', () => {
-    generator.next();
-    expect(getProfileInfo).toBeCalledWith(eosAccount, eosService);
-  });
-
-  it('put profileInfo to store', () => {
-    const step = generator.next(profile);
-    expect(step.value).toEqual(getCurrentAccountSuccess(eosAccount, profile));
   });
 
   it('finish registration with success', () => {

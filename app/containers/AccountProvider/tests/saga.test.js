@@ -6,6 +6,7 @@
 import { select } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
+import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 
 import defaultSaga, { getCurrentAccountWorker } from '../saga';
 
@@ -37,20 +38,20 @@ getProfileInfo.mockImplementation(() => profileInfo);
 
 describe('getCurrentAccountWorker', () => {
   const generator = getCurrentAccountWorker();
-  const scatter = {
+  const eos = {
     scatterInstalled: true,
     initialized: true,
     getSelectedAccount: () => account,
   };
 
   it('selectDescriptor step', () => {
-    select.mockImplementationOnce(() => scatter);
+    select.mockImplementationOnce(() => eos);
     const selectDescriptor = generator.next();
-    expect(selectDescriptor.value).toEqual(scatter);
+    expect(selectDescriptor.value).toEqual(eos);
   });
 
   it('selectedScatterAccount step', () => {
-    const selectedScatterAccount = generator.next(scatter);
+    const selectedScatterAccount = generator.next(eos);
     expect(selectedScatterAccount.value).toEqual(account);
   });
 
@@ -59,7 +60,12 @@ describe('getCurrentAccountWorker', () => {
     expect(step.value).toEqual(profileInfo);
   });
 
-  it('putDescriptor step', () => {
+  it('putDescriptor step (GET_USER_PROFILE_SUCCESS)', () => {
+    const putDescriptor = generator.next();
+    expect(putDescriptor.value.type).toEqual(GET_USER_PROFILE_SUCCESS);
+  });
+
+  it('putDescriptor step (GET_CURRENT_ACCOUNT_SUCCESS)', () => {
     const putDescriptor = generator.next();
     expect(putDescriptor.value.type).toEqual(GET_CURRENT_ACCOUNT_SUCCESS);
   });
@@ -74,8 +80,8 @@ describe('getCurrentAccountWorker', () => {
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
-  it('GET_CURRENT_ACCOUNT', () => {
+  it('getCurrentAccountWorker TAKES array', () => {
     const step = generator.next();
-    expect(step.value).toBe(GET_CURRENT_ACCOUNT);
+    expect(typeof step.value.slice).toBe("function");
   });
 });

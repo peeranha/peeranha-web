@@ -26,20 +26,18 @@ describe('accountProviderReducer', () => {
   });
 
   it('getCurrentAccountSuccess', () => {
-    const acc = 'user1';
-    const profileInfo = true;
-    const obj = state
-      .set('loading', false)
-      .set('profileInfo', profileInfo)
-      .set('account', acc);
+    const account = 'user1';
+    const obj = state.set('loading', false).set('account', account);
+
     expect(
-      accountProviderReducer(state, getCurrentAccountSuccess(acc, profileInfo)),
+      accountProviderReducer(state, getCurrentAccountSuccess(account)),
     ).toEqual(obj);
   });
 
   it('getCurrentAccountError', () => {
     const err = {};
     const obj = state.set('loading', false).set('error', err);
+
     expect(accountProviderReducer(state, getCurrentAccountError(err))).toEqual(
       obj,
     );

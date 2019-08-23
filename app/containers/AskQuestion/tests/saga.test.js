@@ -65,17 +65,10 @@ describe('postQuestionWorker', () => {
   describe('profileInfo is true', () => {
     const generator = postQuestionWorker(props);
     const profileInfo = {};
-    const locale = 'en';
-
-    it('step, locale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next();
-      expect(step.value).toEqual(locale);
-    });
 
     it('step, eosService', () => {
       select.mockImplementation(() => eos);
-      const step = generator.next(locale);
+      const step = generator.next();
       expect(step.value).toEqual(eos);
     });
 
@@ -100,11 +93,6 @@ describe('postQuestionWorker', () => {
       expect(postQuestion).toHaveBeenCalledTimes(0);
       generator.next(true);
       expect(postQuestion).toHaveBeenCalledTimes(1);
-    });
-
-    it('step, addToastSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(ADD_TOAST);
     });
 
     it('step, askQuestionSuccess', () => {
@@ -133,7 +121,6 @@ describe('postQuestionWorker', () => {
     getUserProfileWorker.mockImplementation(() => profileInfo);
 
     generator.next();
-    generator.next('en');
     generator.next();
 
     it('showLoginModal', () => {
@@ -143,10 +130,7 @@ describe('postQuestionWorker', () => {
 
     it('error handling', () => {
       const err = new Error('some error');
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(ADD_TOAST);
-
-      const step = generator.next();
+      const step = generator.throw(err);
       expect(step.value.type).toBe(ASK_QUESTION_ERROR);
     });
   });
@@ -160,7 +144,6 @@ describe('postQuestionWorker', () => {
     postQuestionValidator.mockImplementation(() => isValid);
 
     generator.next();
-    generator.next('en');
     generator.next();
     generator.next(profileInfo);
 

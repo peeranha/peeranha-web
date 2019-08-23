@@ -65,7 +65,7 @@ describe('followHandlerWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -79,23 +79,6 @@ describe('followHandlerWorker', () => {
         props.communityIdFilter,
         account,
       );
-    });
-
-    it('removeUserProfile', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(account));
-    });
-
-    it('getUserProfileWorker', () => {
-      generator.next();
-      expect(getUserProfileWorker).toHaveBeenCalledWith({
-        user: account,
-      });
-    });
-
-    it('getCurrentAccountSuccess', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(GET_CURRENT_ACCOUNT_SUCCESS);
     });
 
     it('followHandlerSuccess', () => {

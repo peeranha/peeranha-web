@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile render @isProfileLoading is false && @profile is false 1`] = `
-<div>
-  <UNDEFINED
-    description="Profile description"
-    keywords=""
-    language="en"
-    title="Wrong user | Profile"
-  />
-  <div>
-    <NoSuchUser />
-  </div>
-</div>
-`;
-
-exports[`Profile render @isProfileLoading is false && @profile is true 1`] = `
+exports[`Profile render 1`] = `
 <div>
   <UNDEFINED
     description="Profile description"
@@ -23,19 +9,5 @@ exports[`Profile render @isProfileLoading is false && @profile is true 1`] = `
     title="Wrong user | Profile"
   />
   <div />
-</div>
-`;
-
-exports[`Profile render @isProfileLoading is true 1`] = `
-<div>
-  <UNDEFINED
-    description="Profile description"
-    keywords={Array []}
-    language="en"
-    title="Wrong user | Profile"
-  />
-  <div>
-    <UNDEFINED />
-  </div>
 </div>
 `;
