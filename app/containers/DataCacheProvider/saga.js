@@ -1,4 +1,5 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
+import getHash from 'object-hash';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getAllCommunities } from 'utils/communityManagement';
@@ -48,21 +49,32 @@ export function* getCommunitiesWithTagsWorker() {
 export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
     const eosService = yield select(selectEos);
-    const users = yield select(selectUsers());
+    let cachedUserInfo = yield select(selectUsers(user));
 
     // take userProfile from STORE
-    if (users[user] && !getFullProfile) {
-      return yield users[user];
+    if (cachedUserInfo && !getFullProfile) {
+      return yield cachedUserInfo;
     }
 
     // get userProfile and put to STORE
-    const userInfo = yield call(() =>
+    const updatedUserInfo = yield call(() =>
       getProfileInfo(user, eosService, getFullProfile),
     );
 
-    yield put(getUserProfileSuccess(userInfo));
+    cachedUserInfo = yield select(selectUsers(user));
 
-    return yield userInfo;
+    if (
+      (updatedUserInfo && !cachedUserInfo) ||
+      (updatedUserInfo &&
+        cachedUserInfo &&
+        getHash(updatedUserInfo) !== getHash(cachedUserInfo))
+    ) {
+      yield put(getUserProfileSuccess(updatedUserInfo));
+    }
+
+    yield put(getUserProfileSuccess());
+
+    return yield updatedUserInfo;
   } catch (err) {
     yield put(getUserProfileErr(err.message));
   }
