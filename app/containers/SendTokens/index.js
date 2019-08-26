@@ -31,7 +31,7 @@ import saga from './saga';
 import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
 
-export const SendTokens = ({
+export const SendTokens = /* istanbul ignore next */ ({
   locale,
   sendTokensDispatch,
   sendTokensProcessing,
@@ -69,7 +69,7 @@ const mapStateToProps = createStructuredSelector({
   sendTokensProcessing: selectors.selectSendTokensProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     hideSendTokensModalDispatch: () => dispatch(hideSendTokensModal()),
     showSendTokensModalDispatch: () => dispatch(showSendTokensModal()),

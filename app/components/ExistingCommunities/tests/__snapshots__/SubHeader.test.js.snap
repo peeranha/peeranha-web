@@ -11,18 +11,20 @@ exports[`SubHeader test 1`] = `
       alt="communitiesHeader"
       src="IMAGE_MOCK"
     />
-    <FormattedMessage
-      id="app.common.communities"
-      values={Object {}}
-    />
-    <Span
-      bold={true}
-      className="ml-2"
-      color="#7b7b7b"
-      fontSize="30"
-    >
-      10
-    </Span>
+    <span>
+      <FormattedMessage
+        id="app.common.communities"
+        values={Object {}}
+      />
+      <Span
+        bold={true}
+        className="ml-2"
+        color="#7b7b7b"
+        fontSize="30"
+      >
+        10
+      </Span>
+    </span>
   </div>
   <div
     className="d-flex"

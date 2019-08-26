@@ -42,6 +42,7 @@ import {
   REMEMBER_ME_FIELD,
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
+  STORED_EMAIL,
 } from './constants';
 
 import messages from './messages';
@@ -86,6 +87,8 @@ export function* loginWithEmailWorker({ val }) {
     );
 
     yield put(initEosioSuccess(eosService));
+
+    Cookies.set(STORED_EMAIL, email, AUTH_IS_VALID_DAYS);
 
     if (!profileInfo) {
       yield put(loginWithEmailSuccess(eosAccount));

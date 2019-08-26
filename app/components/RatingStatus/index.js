@@ -29,7 +29,7 @@ const IconWithStatus = /* istanbul ignore next */ ({
   const full = options[getStatus(rating)];
 
   return (
-    <span className={className}>
+    <span className={`d-flex align-items-center ${className}`}>
       <img
         className="d-inline-flex mr-1"
         src={full.icon[size || 'sm']}
@@ -37,7 +37,7 @@ const IconWithStatus = /* istanbul ignore next */ ({
       />
 
       <Span
-        fontSize={size === 'lg' ? 20 : 14}
+        fontSize={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
         color={
           rating > options.newbie.minRating && size === 'sm'

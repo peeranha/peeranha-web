@@ -59,16 +59,18 @@ export const Header = /* istanbul ignore next */ ({
     <H3Styled className="d-flex align-items-center justify-content-between">
       <div className="d-flex align-items-center">
         <MediumImageStyled src={usersHeader} alt="usersHeader" />
-        <FormattedMessage {...commonMessages.users} />
 
-        <Span
-          className="text-lowercase ml-3"
-          color={TEXT_SECONDARY}
-          fontSize="30"
-          bold
-        >
-          {getFormattedNum2(userCount)}
-        </Span>
+        <span>
+          <FormattedMessage {...commonMessages.users} />
+          <Span
+            className="text-lowercase ml-2"
+            color={TEXT_SECONDARY}
+            fontSize="30"
+            bold
+          >
+            {getFormattedNum2(userCount)}
+          </Span>
+        </span>
       </div>
 
       <Dropdown

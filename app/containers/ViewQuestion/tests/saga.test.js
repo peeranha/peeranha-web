@@ -23,7 +23,7 @@ import {
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
@@ -125,6 +125,10 @@ jest.mock('utils/ipfs', () => ({
   getText: jest.fn(),
 }));
 
+jest.mock('containers/AccountProvider/saga', () => ({
+  getCurrentAccountWorker: jest.fn(),
+}));
+
 describe('getQuestionData', () => {
   const eosService = {};
   const questionId = 1;
@@ -223,6 +227,12 @@ describe('saveCommentWorker', () => {
       );
     });
 
+    it('step, getCurrentAccountWorker', () => {
+      getCurrentAccountWorker.mockImplementationOnce(() => 'saveCommentWorker');
+      const step = generator.next();
+      expect(step.value).toBe('saveCommentWorker');
+    });
+
     describe('delete comment', () => {
       it('+answerId === 0', () => {
         const step = generator.next();
@@ -267,6 +277,7 @@ describe('saveCommentWorker', () => {
     generator.next();
     generator.next(eos);
     generator.next(questionData);
+    generator.next();
 
     it('test', () => {
       const step = generator.next();
@@ -313,6 +324,14 @@ describe('deleteCommentWorker', () => {
       commentId,
       eos,
     );
+  });
+
+  it('step, getCurrentAccountWorker', () => {
+    const worker = 'deleteCommentWorker';
+
+    getCurrentAccountWorker.mockImplementationOnce(() => worker);
+    const step = generator.next();
+    expect(step.value).toBe(worker);
   });
 
   it('step, getQuestionData', () => {
@@ -394,9 +413,12 @@ describe('deleteAnswerWorker', () => {
       );
     });
 
-    it('step, removeUserProfile', () => {
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'deleteAnswerWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
       const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(user));
+      expect(step.value).toBe(worker);
     });
 
     it('step, getQuestionData', () => {
@@ -483,6 +505,14 @@ describe('deleteQuestionWorker', () => {
       const isValid = true;
       generator.next(isValid);
       expect(deleteQuestion).toHaveBeenCalledWith(user, questionid, eos);
+    });
+
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'deleteQuestionWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
+      const step = generator.next();
+      expect(step.value).toBe(worker);
     });
 
     it('step, deleteQuestionSuccess', () => {
@@ -588,7 +618,7 @@ describe('postCommentWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -613,6 +643,14 @@ describe('postCommentWorker', () => {
         res.comment,
         eos,
       );
+    });
+
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'postCommentWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
+      const step = generator.next();
+      expect(step.value).toBe(worker);
     });
 
     it('step, toggleView', () => {
@@ -689,7 +727,7 @@ describe('postAnswerWorker', () => {
     });
 
     it('step1-3, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -712,6 +750,14 @@ describe('postAnswerWorker', () => {
         res.answer,
         eos,
       );
+    });
+
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'postAnswerWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
+      const step = generator.next();
+      expect(step.value).toBe(worker);
     });
 
     it('step, getQuestionData', () => {
@@ -783,7 +829,7 @@ describe('upVoteWorker', () => {
     });
 
     it('step profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -809,9 +855,12 @@ describe('upVoteWorker', () => {
       );
     });
 
-    it('step, removeUserProfile, user1', () => {
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'upVoteWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
       const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.user));
+      expect(step.value).toBe(worker);
     });
 
     it('step, removeUserProfile, user1 - whoWasUpvoted', () => {
@@ -888,7 +937,7 @@ describe('downVoteWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -914,9 +963,12 @@ describe('downVoteWorker', () => {
       );
     });
 
-    it('step, removeUserProfile, user1', () => {
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'downVoteWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
       const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.user));
+      expect(step.value).toBe(worker);
     });
 
     it('step, removeUserProfile, user1 - whoWasDownvoted', () => {
@@ -988,7 +1040,7 @@ describe('markAsAcceptedWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });
@@ -1013,9 +1065,12 @@ describe('markAsAcceptedWorker', () => {
       );
     });
 
-    it('step, removeUserProfile, user1', () => {
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'makeAsAcceptedWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
       const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.user));
+      expect(step.value).toBe(worker);
     });
 
     it('step, removeUserProfile, user1 - whoWasAccepted', () => {
@@ -1102,7 +1157,7 @@ describe('voteToDeleteWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -1131,6 +1186,14 @@ describe('voteToDeleteWorker', () => {
         res.commentId,
         eos,
       );
+    });
+
+    it('step, getCurrentAccountWorker', () => {
+      const worker = 'voteToDeleteWorker';
+
+      getCurrentAccountWorker.mockImplementationOnce(() => worker);
+      const step = generator.next();
+      expect(step.value).toBe(worker);
     });
 
     it('step, removeUserProfile, user1 - whoWasVoted', () => {

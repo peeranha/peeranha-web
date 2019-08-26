@@ -5,14 +5,11 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
-import infoIcon from 'images/icon-information.svg?inline';
-
-import { showPopover } from 'utils/popover';
-
 import { strLength3x20, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
+import InfoLabel from 'components/InfoLabelWithPopover';
 import { validatePassword } from 'containers/SignUp/IHaveEOSAccountForm';
 
 import signupMessages from 'containers/SignUp/messages';
@@ -42,22 +39,12 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         name={MASTER_KEY_FIELD}
         disabled={changePasswordLoading}
         label={
-          <button
+          <InfoLabel
             id={MASTER_KEY_FIELD}
-            className="d-flex align-items-end"
-            type="button"
-            onClick={() =>
-              showPopover(
-                MASTER_KEY_FIELD,
-                translationMessages[locale][messages.youGotThisKey.id],
-              )
-            }
+            message={translationMessages[locale][messages.youGotThisKey.id]}
           >
-            <span className="mr-1">
-              <FormattedMessage {...signupMessages.masterKey} />
-            </span>
-            <img src={infoIcon} alt="aboud master key saving" />
-          </button>
+            <FormattedMessage {...signupMessages.masterKey} />
+          </InfoLabel>
         }
         component={TextInputField}
         validate={[required]}

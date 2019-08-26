@@ -20,15 +20,13 @@ describe('getCurrentAccount actions', () => {
 
   it('has a type of GET_CURRENT_ACCOUNT_SUCCESS', () => {
     const account = 'account';
-    const profileInfo = 'profileInfo';
 
     const expected = {
       type: GET_CURRENT_ACCOUNT_SUCCESS,
       account,
-      profileInfo,
     };
 
-    expect(getCurrentAccountSuccess(account, profileInfo)).toEqual(expected);
+    expect(getCurrentAccountSuccess(account)).toEqual(expected);
   });
 
   it('has a type of GET_CURRENT_ACCOUNT_ERROR', () => {

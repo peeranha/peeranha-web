@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SendTokens /> render 1`] = `
+<React.Fragment>
+  <UNDEFINED
+    closeModal={[MockFunction]}
+    show={true}
+  >
+    <Connect(ReduxForm)
+      locale="en"
+      sendTokens={[MockFunction]}
+      sendTokensProcessing={false}
+    />
+  </UNDEFINED>
+  <StyledButton
+    onClick={[MockFunction]}
+  />
+</React.Fragment>
+`;

@@ -65,6 +65,19 @@
   "app.common.successMessage": "Action has been completed successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
+  "app.common.show": "Show",
+  "app.common.change": "Change",
+
+  "app.containers.ChangeEmail.newEmail": "New email",
+  "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
+  "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
+
+  "app.containers.DeleteAccount.deleteAccount": "Delete account",
+  "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
+  "app.containers.DeleteAccount.iUnderstand":
+    "I understand that this operation does not remove my account on EOS blockchain. Account is removed only from wallet service.",
+  "app.containers.DeleteAccount.iHaveBackup":
+    "I have back up of my EOS private keys.",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
@@ -149,6 +162,7 @@
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
+  "app.containers.Profile.authorizationData": "Authorization data",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
@@ -594,6 +608,9 @@
   "app.containers.Profile.companyTip": "Company tip...",
   "app.containers.Profile.positionTip": "Position tip...",
   "app.containers.Profile.locationTip": "Location tip...",
+  "app.containers.Profile.oldPassword": "Old password",
+  "app.containers.Profile.newPassword": "New password",
+  "app.containers.Profile.confirmPassword": "Confirm password",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 

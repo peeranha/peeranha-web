@@ -59,10 +59,13 @@ export const SubHeader = /* istanbul ignore next */ ({
   <H3Styled className="d-flex align-items-center justify-content-between">
     <div className="d-flex align-items-center">
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
-      <FormattedMessage {...commonMessages.communities} />
-      <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
-        {communitiesNumber}
-      </Span>
+
+      <span>
+        <FormattedMessage {...commonMessages.communities} />
+        <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
+          {communitiesNumber}
+        </Span>
+      </span>
     </div>
 
     <div className="d-flex">

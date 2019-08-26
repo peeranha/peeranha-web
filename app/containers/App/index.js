@@ -166,7 +166,11 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(EditAnswer, props)}
         />
 
-        <Route path={routes.users()} render={props => Wrapper(Users, props)} />
+        <Route
+          exact
+          path={routes.users()}
+          render={props => Wrapper(Users, props)}
+        />
 
         <Route
           path={routes.noAccess()}

@@ -41,7 +41,9 @@ describe('selectDataCacheProviderDomain', () => {
   });
 
   it('should select the global state', () => {
-    expect(selectDataCacheProviderDomain(mockedState)).toEqual(globalState);
+    expect(selectDataCacheProviderDomain(mockedState)).toEqual(
+      globalState.toJS(),
+    );
   });
 
   it('selectStat', () => {

@@ -21,7 +21,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import H3 from 'components/H3';
 import A from 'components/A';
-import NavigationButton from 'components/Button/Contained/Navigation';
+import TransparentButton from 'components/Button/Contained/Transparent';
 
 import LargeImage from 'components/Img/LargeImage';
 
@@ -40,6 +40,14 @@ const LiStyled = Li.extend`
   display: flex;
   flex-direction: column;
   padding: 16px ${props => (props.last ? '0' : '47px')} 16px 0;
+
+  > :nth-child(1) {
+    margin-bottom: 5px;
+  }
+
+  img {
+    margin-right: 5px;
+  }
 `;
 
 const MainUserInformation = /* istanbul ignore next */ ({
@@ -65,10 +73,10 @@ const MainUserInformation = /* istanbul ignore next */ ({
           <H3>{profile.display_name}</H3>
 
           <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
-            <NavigationButton isLink>
+            <TransparentButton>
               <img className="mr-2" src={pencilIcon} alt="icon" />
               <FormattedMessage {...commonMessages.edit} />
-            </NavigationButton>
+            </TransparentButton>
           </A>
         </div>
 
@@ -87,11 +95,11 @@ const MainUserInformation = /* istanbul ignore next */ ({
               </Span>
               <Span
                 className="d-flex align-items-center"
-                fontSize="20"
+                fontSize="18"
                 margin="sm"
                 bold
               >
-                <img src={questionRoundedIcon} className="mr-1" alt="icon" />
+                <img src={questionRoundedIcon} alt="icon" />
                 <span>{profile.questions_asked || 0}</span>
               </Span>
             </LiStyled>
@@ -102,11 +110,11 @@ const MainUserInformation = /* istanbul ignore next */ ({
               </Span>
               <Span
                 className="d-flex align-items-center"
-                fontSize="20"
+                fontSize="18"
                 margin="sm"
                 bold
               >
-                <img src={answerIcon} className="mr-1" alt="icon" />
+                <img src={answerIcon} alt="icon" />
                 <span>{profile.answers_given || 0}</span>
               </Span>
             </LiStyled>
@@ -117,13 +125,13 @@ const MainUserInformation = /* istanbul ignore next */ ({
               </Span>
               <Span
                 className="d-flex align-items-center"
-                fontSize="20"
+                fontSize="18"
                 margin="sm"
                 bold
               >
                 <img
                   src={risenIcon}
-                  className="d-flex align-items-center mr-1"
+                  className="d-flex align-items-center"
                   alt="icon"
                 />
                 <span>{profile.correct_answers || 0}</span>

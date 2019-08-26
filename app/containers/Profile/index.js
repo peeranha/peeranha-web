@@ -64,9 +64,7 @@ export class Profile extends React.PureComponent {
 
         <div>
           {!isProfileLoading && !profile && <NoSuchUser />}
-
           {isProfileLoading && <LoadingIndicator />}
-
           {!isProfileLoading && profile && profile.profile && children}
         </div>
       </div>

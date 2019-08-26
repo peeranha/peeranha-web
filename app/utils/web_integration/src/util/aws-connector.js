@@ -6,8 +6,8 @@ const REGISTER_COMPLETE_SERVICE = 'wallet/register/complete';
 
 const LOGIN_SERVICE = 'wallet/login';
 
-const GET_OWNER_KEY_INIT_SERVICE = 'wallet/owner-key/init';
-const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/owner-key/complete';
+const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
+const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
 
 const CHANGE_CREDENTIALS_INIT_SERVICE = 'wallet/change-credentials/init';
 const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'wallet/change-credentials/confirm';

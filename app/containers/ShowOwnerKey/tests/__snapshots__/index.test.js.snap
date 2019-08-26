@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShowOwnerKey /> render 1`] = `
+<React.Fragment>
+  <UNDEFINED
+    closeModal={[MockFunction]}
+    show={false}
+  />
+  <button
+    onClick={[MockFunction]}
+  />
+</React.Fragment>
+`;

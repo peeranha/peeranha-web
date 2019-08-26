@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShowActiveKey /> render 1`] = `
+<React.Fragment>
+  <UNDEFINED
+    closeModal={[MockFunction]}
+    show={true}
+  >
+    <ReduxForm
+      locale="en"
+      showActiveKey={[MockFunction]}
+      showActiveKeyProcessing={false}
+    />
+  </UNDEFINED>
+  <button
+    onClick={[MockFunction]}
+  />
+</React.Fragment>
+`;

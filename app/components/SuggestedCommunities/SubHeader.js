@@ -22,7 +22,7 @@ const SubHeader = /* istanbul ignore next */ ({
   languages,
 }) => (
   <H3Styled className="d-flex align-items-center justify-content-between">
-    <div>
+    <div className="d-flex align-items-center">
       <MediumImageStyled
         src={communitiesHeader}
         alt="communities-voting-header"
@@ -31,7 +31,6 @@ const SubHeader = /* istanbul ignore next */ ({
     </div>
 
     <Dropdown
-      className="mr-3"
       button={<Button sorting={language} icon={communitiesHeaderFilter} />}
       menu={
         <Menu changeSorting={setLang} sorting={language} options={languages} />

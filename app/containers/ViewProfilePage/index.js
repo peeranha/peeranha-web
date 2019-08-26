@@ -18,6 +18,7 @@ import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import {
   selectCommunities,
   selectUsers,
@@ -33,7 +34,11 @@ import {
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
+import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
+import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
+
 import ProfileViewForm from './ProfileViewForm';
+import SettingsOfUser from './SettingsOfUser';
 
 const ViewProfilePage = /* istanbul ignore next */ ({
   match,
@@ -45,6 +50,8 @@ const ViewProfilePage = /* istanbul ignore next */ ({
   questionsLoading,
   questionsWithAnswersLoading,
   locale,
+  activeKey,
+  ownerKey,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -68,6 +75,14 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
         userId={userId}
+      />
+
+      <SettingsOfUser
+        className={path === routes.userSettings(userId) ? '' : 'd-none'}
+        userId={userId}
+        locale={locale}
+        activeKey={activeKey}
+        ownerKey={ownerKey}
       />
 
       <ProfileViewForm
@@ -95,6 +110,8 @@ const ViewProfilePage = /* istanbul ignore next */ ({
 ViewProfilePage.propTypes = {
   profile: PropTypes.object,
   locale: PropTypes.string,
+  activeKey: PropTypes.string,
+  ownerKey: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
   communities: PropTypes.array,
@@ -113,6 +130,8 @@ const mapStateToProps = createStructuredSelector({
   questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
   questionsLoading: selectQuestionsLoading(),
   questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
+  activeKey: selectActiveKey(),
+  ownerKey: selectOwnerKey(),
 });
 
 export default connect(

@@ -7,9 +7,6 @@ import { select } from 'redux-saga/effects';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
-
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import defaultSaga, {
@@ -104,18 +101,6 @@ describe('saveProfileActionWorker', () => {
     expect(step4.value).toBe(saved);
   });
 
-  it('removeUserProfile', () => {
-    const step = generator.next();
-    expect(step.value).toEqual(removeUserProfile(sendProps.obj.userKey));
-  });
-
-  it('getUserProfileWorker', () => {
-    generator.next();
-    expect(getUserProfileWorker).toHaveBeenCalledWith({
-      user: sendProps.obj.userKey,
-    });
-  });
-
   it('step, type Success, putDescriptor', () => {
     const step = generator.next();
     expect(step.value.type).toBe(SAVE_PROFILE_ACTION_SUCCESS);
@@ -166,5 +151,15 @@ describe('defaultSaga', () => {
   it('SAVE_PROFILE_ACTION', () => {
     const step = generator.next();
     expect(step.value).toBe(SAVE_PROFILE_ACTION);
+  });
+
+  it('SAVE_PROFILE_ACTION_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SAVE_PROFILE_ACTION_SUCCESS);
+  });
+
+  it('SAVE_PROFILE_ACTION_ERROR', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SAVE_PROFILE_ACTION_ERROR);
   });
 });

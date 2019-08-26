@@ -204,4 +204,10 @@ export default defineMessages({
   energy: {
     id: 'app.common.energy',
   },
+  show: {
+    id: 'app.common.show',
+  },
+  change: {
+    id: 'app.common.change',
+  },
 });
