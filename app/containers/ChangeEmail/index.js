@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -41,7 +42,7 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class ChangeEmail extends React.PureComponent {
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       changeEmailDispatch,
       hideChangeEmailModalDispatch,
@@ -115,7 +116,7 @@ const mapStateToProps = createStructuredSelector({
   confirmOldEmailProcessing: selectors.selectConfirmOldEmailProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     changeEmailDispatch: (...args) => dispatch(changeEmail(args)),
     sendOldEmailDispatch: (...args) => dispatch(sendOldEmail(args)),
@@ -131,7 +132,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'showChangeEmail', reducer });
-const withSaga = injectSaga({ key: 'showChangeEmail', saga });
+const withSaga = injectSaga({ key: 'showChangeEmail', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

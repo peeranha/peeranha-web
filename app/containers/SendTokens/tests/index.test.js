@@ -1,10 +1,17 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
-// import { SendTokens } from '../index';
+import { SendTokens } from '../index';
 
 describe('<SendTokens />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  const props = {
+    locale: 'en',
+    children: null,
+    showModal: true,
+    sendTokensProcessing: false,
+    hideSendTokensModalDispatch: jest.fn(),
+    showSendTokensModalDispatch: jest.fn(),
+    sendTokensDispatch: jest.fn(),
+  };
+
+  it('render', () => {
+    expect(SendTokens(props)).toMatchSnapshot();
   });
 });

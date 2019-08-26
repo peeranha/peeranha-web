@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -24,13 +25,18 @@ import saga from './saga';
 import SubmitEmailForm from './SubmitEmailForm';
 import EmailForm from './EmailForm';
 
-import { showOwnerKey, showOwnerKeyModal, hideOwnerKeyModal, sendEmail } from './actions';
+import {
+  showOwnerKey,
+  showOwnerKeyModal,
+  hideOwnerKeyModal,
+  sendEmail,
+} from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ShowOwnerKey extends React.PureComponent {
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       showOwnerKeyDispatch,
       hideOwnerKeyModalDispatch,
@@ -77,7 +83,10 @@ ShowOwnerKey.propTypes = {
   children: PropTypes.any,
   showOwnerKeyProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
+  sendEmailProcessing: PropTypes.bool,
   locale: PropTypes.string,
+  content: PropTypes.string,
+  sendEmailDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -88,7 +97,7 @@ const mapStateToProps = createStructuredSelector({
   sendEmailProcessing: selectors.selectSendEmailProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showOwnerKeyDispatch: (...args) => dispatch(showOwnerKey(args)),
     sendEmailDispatch: (...args) => dispatch(sendEmail(args)),
@@ -103,7 +112,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'showOwnerKey', reducer });
-const withSaga = injectSaga({ key: 'showOwnerKey', saga });
+const withSaga = injectSaga({ key: 'showOwnerKey', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

@@ -1,13 +1,123 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { fromJS } from 'immutable';
 
-describe('ShowOwnerKey actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
-      };
-      expect(true).toEqual(true);
-    });
+import {
+  showOwnerKeyModal,
+  hideOwnerKeyModal,
+  showOwnerKey,
+  showOwnerKeySuccess,
+  showOwnerKeyErr,
+  sendEmail,
+  sendEmailSuccess,
+  sendEmailErr,
+} from '../actions';
+
+import {
+  SEND_EMAIL,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_ERROR,
+  SHOW_OWNER_KEY_MODAL,
+  HIDE_OWNER_KEY_MODAL,
+  SHOW_OWNER_KEY,
+  SHOW_OWNER_KEY_SUCCESS,
+  SHOW_OWNER_KEY_ERROR,
+  CODE_FIELD,
+  EMAIL_FORM,
+  EMAIL_FIELD,
+  PASSWORD_FIELD,
+} from '../constants';
+
+describe('showOwnerKey actions', () => {
+  it('showOwnerKeyModal', () => {
+    const expected = {
+      type: SHOW_OWNER_KEY_MODAL,
+      content: EMAIL_FORM,
+    };
+
+    expect(showOwnerKeyModal()).toEqual(expected);
+  });
+
+  it('hideOwnerKeyModal', () => {
+    const expected = {
+      type: HIDE_OWNER_KEY_MODAL,
+    };
+
+    expect(hideOwnerKeyModal()).toEqual(expected);
+  });
+
+  it('sendEmail', () => {
+    const email = 'email';
+    const password = 'password';
+
+    const args = [
+      fromJS({ [EMAIL_FIELD]: email, [PASSWORD_FIELD]: password }),
+      () => null,
+      { reset: jest.fn() },
+    ];
+
+    const expected = {
+      type: SEND_EMAIL,
+      resetForm: args[2].reset,
+      password,
+      email,
+    };
+
+    expect(sendEmail(args)).toEqual(expected);
+  });
+
+  it('sendEmailSuccess', () => {
+    const verificationCode = 'verificationCode';
+    const expected = {
+      type: SEND_EMAIL_SUCCESS,
+      verificationCode,
+    };
+
+    expect(sendEmailSuccess(verificationCode)).toEqual(expected);
+  });
+
+  it('sendEmailErr', () => {
+    const sendEmailError = 'sendEmailError';
+    const expected = {
+      type: SEND_EMAIL_ERROR,
+      sendEmailError,
+    };
+
+    expect(sendEmailErr(sendEmailError)).toEqual(expected);
+  });
+
+  it('showOwnerKey', () => {
+    const verificationCode = '1234';
+    const args = [
+      fromJS({ [CODE_FIELD]: verificationCode }),
+      () => null,
+      { reset: jest.fn() },
+    ];
+
+    const expected = {
+      type: SHOW_OWNER_KEY,
+      resetForm: args[2].reset,
+      verificationCode,
+    };
+
+    expect(showOwnerKey(args)).toEqual(expected);
+  });
+
+  it('showOwnerKeySuccess', () => {
+    const ownerKey = 'ownerKey';
+    const expected = {
+      type: SHOW_OWNER_KEY_SUCCESS,
+      ownerKey,
+    };
+
+    expect(showOwnerKeySuccess(ownerKey)).toEqual(expected);
+  });
+
+  it('showOwnerKeyErr', () => {
+    const showOwnerKeyError = 'showOwnerKeyError';
+    const expected = {
+      type: SHOW_OWNER_KEY_ERROR,
+      showOwnerKeyError,
+    };
+
+    expect(showOwnerKeyErr(showOwnerKeyError)).toEqual(expected);
   });
 });

@@ -34,7 +34,7 @@ import {
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
-import { selectActivekey } from 'containers/ShowActiveKey/selectors';
+import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
@@ -130,7 +130,7 @@ const mapStateToProps = createStructuredSelector({
   questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
   questionsLoading: selectQuestionsLoading(),
   questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-  activekey: selectActivekey(),
+  activeKey: selectActiveKey(),
   ownerKey: selectOwnerKey(),
 });
 

@@ -44,11 +44,11 @@ const selectOwnerKey = () =>
 export {
   selectShowOwnerKeyDomain,
   selectShowModal,
-  selectContent,
+  selectOwnerKey,
   selectShowOwnerKeyProcessing,
   selectShowOwnerKeyError,
   selectSendEmailProcessing,
   selectSendEmailError,
   selectPassword,
-  selectOwnerKey,
+  selectContent,
 };

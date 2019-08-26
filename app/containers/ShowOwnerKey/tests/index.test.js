@@ -1,10 +1,21 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { ShowOwnerKey } from '../index';
 
-// import { ShowOwnerKey } from '../index';
+const cmp = new ShowOwnerKey();
+cmp.props = {
+  showOwnerKeyDispatch: jest.fn(),
+  hideOwnerKeyModalDispatch: jest.fn(),
+  showOwnerKeyModalDispatch: jest.fn(),
+  children: null,
+  showOwnerKeyProcessing: false,
+  showModal: false,
+  sendEmailProcessing: false,
+  locale: 'en',
+  content: null,
+  sendEmailDispatch: jest.fn(),
+};
 
 describe('<ShowOwnerKey />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

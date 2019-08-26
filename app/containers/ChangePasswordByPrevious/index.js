@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -47,8 +48,8 @@ export class ChangePasswordByPrevious extends React.PureComponent {
       showChangePasswordModalDispatch,
       children,
       showModal,
-      content,
       locale,
+      content,
       sendEmailProcessing,
       sendEmailDispatch,
       submitEmailDispatch,
@@ -92,13 +93,18 @@ export class ChangePasswordByPrevious extends React.PureComponent {
 }
 
 ChangePasswordByPrevious.propTypes = {
-  showChangePasswordDispatch: PropTypes.func,
   hideChangePasswordModalDispatch: PropTypes.func,
   showChangePasswordModalDispatch: PropTypes.func,
   children: PropTypes.any,
-  showChangePasswordProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
   locale: PropTypes.string,
+  content: PropTypes.string,
+  sendEmailProcessing: PropTypes.bool,
+  sendEmailDispatch: PropTypes.func,
+  submitEmailDispatch: PropTypes.func,
+  submitEmailProcessing: PropTypes.bool,
+  changePasswordDispatch: PropTypes.func,
+  changePasswordProcessing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -126,7 +132,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'showChangePassword', reducer });
-const withSaga = injectSaga({ key: 'showChangePassword', saga });
+const withSaga = injectSaga({ key: 'showChangePassword', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

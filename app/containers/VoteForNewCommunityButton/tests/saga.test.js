@@ -10,7 +10,6 @@ import {
   downVoteToCreateCommunity,
 } from 'utils/communityManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import { CLEAR_SUGGESTED_COMMUNITIES } from 'containers/Communities/constants';

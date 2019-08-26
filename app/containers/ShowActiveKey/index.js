@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -31,7 +32,7 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class ShowActiveKey extends React.PureComponent {
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       showActiveKeyDispatch,
       hideActiveKeyModalDispatch,
@@ -74,7 +75,7 @@ const mapStateToProps = createStructuredSelector({
   showActiveKeyProcessing: selectors.selectShowActiveKeyProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showActiveKeyDispatch: (...args) => dispatch(showActiveKey(args)),
     showActiveKeyModalDispatch: () => dispatch(showActiveKeyModal()),
@@ -88,7 +89,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'showActiveKey', reducer });
-const withSaga = injectSaga({ key: 'showActiveKey', saga });
+const withSaga = injectSaga({ key: 'showActiveKey', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

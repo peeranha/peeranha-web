@@ -26,7 +26,7 @@ const selectSendEmailProcessing = () =>
     substate => substate.sendEmailProcessing,
   );
 
-const selectSendEmailProcessingError = () =>
+const selectSendEmailError = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
     substate => substate.sendEmailError,
@@ -73,7 +73,7 @@ export {
   selectContent,
   selectShowModal,
   selectSendEmailProcessing,
-  selectSendEmailProcessingError,
+  selectSendEmailError,
   selectSubmitEmailProcessing,
   selectSubmitEmailError,
   selectChangePasswordProcessing,

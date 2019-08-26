@@ -6,10 +6,7 @@
 import { select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
-import { GET_CURRENT_ACCOUNT_SUCCESS } from 'containers/AccountProvider/constants';
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import defaultSaga, { followHandlerWorker } from '../saga';

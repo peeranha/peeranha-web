@@ -6,7 +6,7 @@ import { login } from 'utils/web_integration/src/wallet/login/login';
 import { registerAccount } from 'utils/accountManagement';
 
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import defaultSaga, {
   loginWithEmailWorker,
@@ -30,7 +30,6 @@ import {
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
 } from '../constants';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 class eosService {}
 

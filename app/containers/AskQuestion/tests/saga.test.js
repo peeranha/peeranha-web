@@ -13,7 +13,6 @@ import {
 import createdHistory from 'createdHistory';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
-import { ADD_TOAST } from 'containers/Toast/constants';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import defaultSaga, { postQuestionWorker } from '../saga';

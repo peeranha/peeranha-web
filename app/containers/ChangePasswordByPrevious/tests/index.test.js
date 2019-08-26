@@ -1,10 +1,23 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { ChangePasswordByPrevious } from '../index';
 
-// import { ChangePasswordByPrevious } from '../index';
+const cmp = new ChangePasswordByPrevious();
+cmp.props = {
+  hideChangePasswordModalDispatch: jest.fn(),
+  showChangePasswordModalDispatch: jest.fn(),
+  children: null,
+  showModal: false,
+  locale: 'en',
+  content: null,
+  sendEmailProcessing: false,
+  sendEmailDispatch: jest.fn(),
+  submitEmailDispatch: jest.fn(),
+  submitEmailProcessing: false,
+  changePasswordDispatch: jest.fn(),
+  changePasswordProcessing: false,
+};
 
 describe('<ChangePasswordByPrevious />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

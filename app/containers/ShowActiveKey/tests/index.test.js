@@ -1,10 +1,18 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { ShowActiveKey } from '../index';
 
-// import { ShowActiveKey } from '../index';
+const cmp = new ShowActiveKey();
+cmp.props = {
+  showActiveKeyDispatch: jest.fn(),
+  hideActiveKeyModalDispatch: jest.fn(),
+  showActiveKeyModalDispatch: jest.fn(),
+  children: null,
+  showActiveKeyProcessing: false,
+  showModal: true,
+  locale: 'en',
+};
 
 describe('<ShowActiveKey />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

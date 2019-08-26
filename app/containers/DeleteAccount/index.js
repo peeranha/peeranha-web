@@ -12,6 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -35,15 +36,14 @@ import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DeleteAccount extends React.PureComponent {
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       deleteAccountDispatch,
-      children,
-      showDeleteAccountModalDispatch,
       hideDeleteAccountModalDispatch,
       showModal,
       deleteAccountProcessing,
       locale,
+      showDeleteAccountModalDispatch,
       content,
       sendEmailProcessing,
       sendEmailDispatch,
@@ -79,11 +79,14 @@ export class DeleteAccount extends React.PureComponent {
 DeleteAccount.propTypes = {
   deleteAccountDispatch: PropTypes.func,
   hideDeleteAccountModalDispatch: PropTypes.func,
-  deleteAccountModalDispatch: PropTypes.func,
-  children: PropTypes.any,
   deleteAccountProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
   locale: PropTypes.string,
+  showDeleteAccountModalDispatch: PropTypes.func,
+  content: PropTypes.string,
+  sendEmailProcessing: PropTypes.bool,
+  sendEmailDispatch: PropTypes.func,
+  render: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -94,7 +97,7 @@ const mapStateToProps = createStructuredSelector({
   sendEmailProcessing: selectors.selectSendEmailProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     deleteAccountDispatch: (...args) => dispatch(deleteAccount(args)),
     sendEmailDispatch: (...args) => dispatch(sendEmail(args)),
@@ -109,7 +112,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'deleteAccount', reducer });
-const withSaga = injectSaga({ key: 'deleteAccount', saga });
+const withSaga = injectSaga({ key: 'deleteAccount', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

@@ -78,7 +78,7 @@ function changePasswordByPreviousReducer(state = initialState, action) {
       return state
         .set('changePasswordProcessing', false)
         .set('content', initialState.get('content'))
-        .set('showModal', false);
+        .set('showModal', initialState.get('showModal'));
     case CHANGE_PASSWORD_ERROR:
       return state
         .set('changePasswordProcessing', false)

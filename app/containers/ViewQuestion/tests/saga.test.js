@@ -23,7 +23,6 @@ import {
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';

@@ -11,7 +11,6 @@ import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants
 import defaultSaga, { getCurrentAccountWorker } from '../saga';
 
 import {
-  GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
 } from '../constants';
@@ -82,6 +81,6 @@ describe('defaultSaga', () => {
 
   it('getCurrentAccountWorker TAKES array', () => {
     const step = generator.next();
-    expect(typeof step.value.slice).toBe("function");
+    expect(typeof step.value.slice).toBe('function');
   });
 });

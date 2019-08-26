@@ -1,10 +1,21 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { DeleteAccount } from '../index';
 
-// import { DeleteAccount } from '../index';
+const cmp = new DeleteAccount();
+cmp.props = {
+  deleteAccountDispatch: jest.fn(),
+  hideDeleteAccountModalDispatch: jest.fn(),
+  deleteAccountProcessing: false,
+  showModal: false,
+  locale: 'en',
+  showDeleteAccountModalDispatch: jest.fn(),
+  content: null,
+  sendEmailProcessing: false,
+  sendEmailDispatch: jest.fn(),
+  render: jest.fn(),
+};
 
 describe('<DeleteAccount />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(true);
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });
