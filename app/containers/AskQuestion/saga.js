@@ -10,7 +10,7 @@ import {
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   successToastHandlingWithDefaultText,
@@ -34,7 +34,7 @@ export function* postQuestionWorker({
 }) {
   try {
     const eosService = yield select(selectEos);
-    const profileInfo = yield call(() => getUserProfileWorker({ user }));
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
