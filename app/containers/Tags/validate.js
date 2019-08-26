@@ -1,10 +1,8 @@
 import { showPopover } from 'utils/popover';
 import messages from 'containers/ViewQuestion/messages';
 
-import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
-
 /* eslint prefer-destructuring: 0 */
-export const createTagValidator = (profile, translations) => {
+export const createTagValidator = (profile, translations, buttonId) => {
   const MIN_RATING_TO_CREATE_TAG = 500;
   const MIN_MOD_POINTS = 2;
 
@@ -21,7 +19,7 @@ export const createTagValidator = (profile, translations) => {
   }
 
   if (message) {
-    showPopover(GO_TO_CREATE_TAG_SCREEN_BUTTON_ID, message);
+    showPopover(buttonId, message);
     return false;
   }
 
