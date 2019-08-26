@@ -41,9 +41,10 @@ export const TextEditorField = /* istanbul ignore next */ ({
   disabled,
   meta,
   tip,
+  splitInHalf,
 }) => (
   <React.Fragment>
-    <Wrapper label={label} tip={tip} meta={meta}>
+    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
       <Div
         disabled={disabled}
         error={meta.touched && (meta.error || meta.warning)}
@@ -73,6 +74,7 @@ TextEditorField.propTypes = {
   label: PropTypes.string,
   previewLabel: PropTypes.string,
   tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(TextEditorField);

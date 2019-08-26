@@ -20,7 +20,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 import SelectField from 'components/FormFields/SelectField';
 
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 import H3 from 'components/H3';
 
 import {
@@ -101,6 +101,7 @@ export const ProfileEditForm = ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          splitInHalf
         />
         <Field
           name={COMPANY_FIELD}
@@ -110,6 +111,7 @@ export const ProfileEditForm = ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          splitInHalf
         />
         <Field
           name={POSITION_FIELD}
@@ -119,6 +121,7 @@ export const ProfileEditForm = ({
           disabled={isProfileSaving}
           validate={strLength3x20}
           warn={strLength3x20}
+          splitInHalf
         />
         <Field
           name={LOCATION_FIELD}
@@ -128,6 +131,7 @@ export const ProfileEditForm = ({
           tip={intl.formatMessage({ id: messages.locationTip.id })}
           disabled={isProfileSaving}
           component={SelectField}
+          splitInHalf
         />
         <Field
           name={ABOUT_FIELD}
@@ -137,15 +141,12 @@ export const ProfileEditForm = ({
           disabled={isProfileSaving}
           validate={strLength25x30000}
           warn={strLength25x30000}
+          splitInHalf
         />
 
-        <LargeButton
-          className="my-3"
-          disabled={isProfileSaving}
-          typeAttr="submit"
-        >
+        <Button className="my-3" disabled={isProfileSaving}>
           <FormattedMessage {...messages.saveButton} />
-        </LargeButton>
+        </Button>
       </div>
     </FormStyled>
   );
@@ -170,7 +171,7 @@ const selector = formValueSelector(PROFILE_EDIT_FORM);
 
 let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
-  validate: (state, props) => {
+  validate: (_, props) => {
     const errors = {};
     const imageError = imageValidation(
       props.cachedProfileImg || props.profile.ipfs_avatar,
@@ -185,7 +186,10 @@ let FormClone = reduxForm({
 })(ProfileEditForm);
 
 FormClone = connect((state, props) => ({
-  initialValues: props.profile.profile,
+  initialValues: {
+    ...props.profile.profile,
+    [DISPLAY_NAME_FIELD]: props.profile.display_name,
+  },
   location: selector(state, LOCATION_FIELD),
 }))(FormClone);
 

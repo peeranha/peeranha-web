@@ -55,7 +55,7 @@ const IconWithStatus = /* istanbul ignore next */ ({
 
 /* eslint no-nested-ternary: 0 */
 const RatingStatus = /* istanbul ignore next */ ({
-  rating,
+  rating = 0,
   size,
   intl,
   isRankOff,

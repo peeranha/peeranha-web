@@ -14,10 +14,11 @@ export const TextInputField = /* istanbul ignore next */ ({
   isSearchable,
   isRefreshable,
   tip,
+  splitInHalf,
   onClick,
   type = 'text',
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
     <Input
       input={input}
       disabled={disabled}
@@ -39,7 +40,8 @@ TextInputField.propTypes = {
   readOnly: PropTypes.bool,
   isSearchable: PropTypes.bool,
   isRefreshable: PropTypes.bool,
-  tip: PropTypes.bool,
+  tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,

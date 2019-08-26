@@ -8,7 +8,7 @@ import { getFollowedCommunities } from 'utils/communityManagement';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import CommunityField from 'components/FormFields/CommunityField';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 
 import {
   required,
@@ -49,6 +49,7 @@ export const Form = /* istanbul ignore next */ ({
           options={communities}
           validate={[requiredForObjectField]}
           warn={[requiredForObjectField]}
+          splitInHalf
         />
         <Field
           disabled={createTagLoading}
@@ -58,6 +59,7 @@ export const Form = /* istanbul ignore next */ ({
           tip={translations[messages.nameTip.id]}
           validate={[strLength2x15, required]}
           warn={[strLength2x15, required]}
+          splitInHalf
         />
         <Field
           disabled={createTagLoading}
@@ -67,17 +69,14 @@ export const Form = /* istanbul ignore next */ ({
           tip={translations[messages.descriptionFieldTip.id]}
           validate={[strLength20x1000, required]}
           warn={[strLength20x1000, required]}
+          splitInHalf
         />
       </div>
 
       <div>
-        <LargeButton
-          className="my-3"
-          disabled={createTagLoading}
-          typeAttr="submit"
-        >
+        <Button className="my-3" disabled={createTagLoading}>
           {translations[messages.createTag.id]}
-        </LargeButton>
+        </Button>
       </div>
     </form>
   );

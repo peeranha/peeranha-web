@@ -134,7 +134,12 @@ export const Select2 = /* istanbul ignore next */ ({
 };
 
 export const SelectField = /* istanbul ignore next */ props => (
-  <Wrapper label={props.label} tip={props.tip} meta={props.meta}>
+  <Wrapper
+    label={props.label}
+    tip={props.tip}
+    meta={props.meta}
+    splitInHalf={props.splitInHalf}
+  >
     <Select2 {...props} />
   </Wrapper>
 );
@@ -166,6 +171,7 @@ SelectField.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.string,
   tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(SelectField);

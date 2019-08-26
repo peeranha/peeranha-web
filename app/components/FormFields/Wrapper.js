@@ -9,27 +9,46 @@ export const Wrapper = /* istanbul ignore next */ ({
   tip,
   label,
   meta,
-}) => (
-  <div className="mb-2">
-    <Label>{label}</Label>
-    <div className="row align-items-center mb-2">
-      <div className={`col-xl-${tip ? 8 : 12} mb-1`}>{children}</div>
-      {meta && (
-        <WarningMessage
-          {...meta}
-          tip={tip}
-          className={`col-xl-${tip ? 4 : 12}`}
-        />
-      )}
+  splitInHalf,
+}) => {
+  let valueWidth = 12;
+  let tipWidth = 12;
+
+  // ratio 2 : 1 if there is tip in row
+  if (tip) {
+    valueWidth = 8;
+    tipWidth = 4;
+  }
+
+  // to split form in half
+  if (splitInHalf) {
+    valueWidth = 6;
+    tipWidth = 6;
+  }
+
+  return (
+    <div className="mb-2">
+      <Label>{label}</Label>
+      <div className="row align-items-center mb-2">
+        <div className={`col-xl-${valueWidth} mb-1`}>{children}</div>
+        {meta && (
+          <WarningMessage
+            {...meta}
+            tip={tip}
+            className={`col-xl-${tipWidth}`}
+          />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Wrapper.propTypes = {
   children: PropTypes.any,
   tip: PropTypes.string,
   label: PropTypes.string,
   meta: PropTypes.object,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(Wrapper);

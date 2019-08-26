@@ -16,7 +16,7 @@ const Div = styled.div`
 
   ${/* istanbul ignore next */ props => Input(props)};
 
-  img {
+  img[alt='icon'] {
     position: absolute;
     right: 0;
   }
@@ -27,9 +27,10 @@ export const CommunityField = /* istanbul ignore next */ ({
   meta,
   label,
   tip,
+  splitInHalf,
   disabled,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
     <CommunitySelector
       input={input}
       disabled={disabled}
@@ -60,6 +61,7 @@ CommunityField.propTypes = {
   label: PropTypes.string,
   tip: PropTypes.string,
   disabled: PropTypes.bool,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(CommunityField);
