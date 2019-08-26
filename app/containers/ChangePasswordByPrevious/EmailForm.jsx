@@ -15,11 +15,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import {
-  validateEmail,
-  required,
-  strLength3x20,
-} from 'components/FormFields/validate';
+import { validateEmail, required } from 'components/FormFields/validate';
 
 import { EMAIL_FIELD, EMAIL_FORM } from './constants';
 
@@ -41,8 +37,8 @@ const EmailForm = ({
         disabled
         label={translationMessages[locale][signUpMessages.email.id]}
         component={TextInputField}
-        validate={[validateEmail, strLength3x20, required]}
-        warn={[validateEmail, strLength3x20, required]}
+        validate={[validateEmail, required]}
+        warn={[validateEmail, required]}
       />
 
       <Button disabled={sendEmailProcessing} className="w-100 mb-3">

@@ -11,7 +11,6 @@ import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
-import { validatePassword } from 'containers/SignUp/IHaveEOSAccountForm';
 
 import {
   strLength3x20,
@@ -46,8 +45,6 @@ const ChangeEmailForm = ({
         disabled={changeEmailProcessing}
         label={translationMessages[locale][changeEmailMessages.newEmail.id]}
         component={TextInputField}
-        validate={[validateEmail, strLength3x20, required]}
-        warn={[validateEmail, strLength3x20, required]}
       />
 
       <Field
@@ -57,8 +54,6 @@ const ChangeEmailForm = ({
           translationMessages[locale][changeEmailMessages.confirmNewEmail.id]
         }
         component={TextInputField}
-        validate={[validateEmail, strLength3x20, required]}
-        warn={[validateEmail, strLength3x20, required]}
       />
 
       <Field
@@ -87,7 +82,7 @@ ChangeEmailForm.propTypes = {
 
 const formName = CHANGE_EMAIL_FORM;
 
-export const validateEmails = /* istanbul ignore next */ (state, fields) => {
+export const validateEmails = (state, fields) => {
   const emailField = fields[0];
   const confirmEmailField = fields[1];
 
@@ -96,7 +91,7 @@ export const validateEmails = /* istanbul ignore next */ (state, fields) => {
 
   const errors = {};
 
-  const emailError = required(email) || strLength3x20(email);
+  const emailError = required(email) || validateEmail(email);
 
   const emailConfirmError = required(emailConf) || validateEmail(emailConf);
 

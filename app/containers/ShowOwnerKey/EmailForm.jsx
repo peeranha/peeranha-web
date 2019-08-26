@@ -41,8 +41,8 @@ const EmailForm = ({
         disabled
         label={translationMessages[locale][signUpMessages.email.id]}
         component={TextInputField}
-        validate={[validateEmail, strLength3x20, required]}
-        warn={[validateEmail, strLength3x20, required]}
+        validate={[validateEmail, required]}
+        warn={[validateEmail, required]}
       />
 
       <Field
