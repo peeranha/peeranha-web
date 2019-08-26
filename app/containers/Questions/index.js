@@ -42,10 +42,11 @@ import saga from './saga';
 import messages from './messages';
 
 import QuestionsContainer from './QuestionsContainer';
+import NoQuestions from './NoQuestions';
 
 const feed = routes.feed();
 
-/* eslint-disable react/prefer-stateless-function */
+/* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Questions extends React.PureComponent {
   componentDidMount() {
     this.componentDidUpdate();
@@ -105,8 +106,6 @@ export class Questions extends React.PureComponent {
     const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
-    this.initFetcher();
-
     this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
@@ -147,21 +146,30 @@ export class Questions extends React.PureComponent {
     };
 
     return (
-      <InfinityLoader
-        loadNextPaginatedData={this.getNextQuestions}
-        isLoading={questionsLoading}
-        isLastFetch={isLastFetch}
-      >
-        <div>
-          <Seo
-            title={translationMessages[locale][messages.title.id]}
-            description={translationMessages[locale][messages.description.id]}
-            language={locale}
-          />
+      <div>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+        />
 
+        <InfinityLoader
+          loadNextPaginatedData={this.getNextQuestions}
+          isLoading={questionsLoading}
+          isLastFetch={isLastFetch}
+        >
           <QuestionsContainer {...sendProps} />
-        </div>
-      </InfinityLoader>
+        </InfinityLoader>
+
+        {!questionsList.length &&
+          !questionsLoading &&
+          !communitiesLoading && (
+            <NoQuestions
+              isFeed={parentPage === feed}
+              followedCommunities={followedCommunities}
+            />
+          )}
+      </div>
     );
   }
 }

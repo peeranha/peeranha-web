@@ -5,7 +5,6 @@ import * as routes from 'routes-config';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
 
-import NoQuestions from './NoQuestions';
 import QuestionsHeader from './QuestionsHeader';
 import QuestionsContent from './QuestionsContent';
 
@@ -13,17 +12,8 @@ const feed = routes.feed();
 
 /* eslint indent: 0 */
 export const QuestionsContainer = /* istanbul ignore next */ props => (
-  <div>
+  <React.Fragment>
     <QuestionsHeader {...props} />
-
-    {!props.questionsList.length &&
-      !props.questionsLoading &&
-      !props.communitiesLoading && (
-        <NoQuestions
-          isFeed={props.parentPage === feed}
-          followedCommunities={props.followedCommunities}
-        />
-      )}
 
     {props.parentPage === feed && (
       <TopCommunities
@@ -39,7 +29,7 @@ export const QuestionsContainer = /* istanbul ignore next */ props => (
     {(props.questionsLoading || props.communitiesLoading) && (
       <LoadingIndicator />
     )}
-  </div>
+  </React.Fragment>
 );
 
 QuestionsContainer.propTypes = {
