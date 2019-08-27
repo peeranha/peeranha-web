@@ -57,5 +57,7 @@ function getNormalizedCurrency(value) {
     throw new Error(`Value has to be number`);
   }
 
-  return `${getFormattedNum3(Number(value))} ${APP_CURRENCY}`;
+  const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
+
+  return `${num} ${APP_CURRENCY}`;
 }
