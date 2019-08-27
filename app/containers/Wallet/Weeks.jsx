@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -161,5 +162,33 @@ const Weeks = ({ locale, weekStat, getWeekStatProcessing }) => (
     {getWeekStatProcessing && <LoadingIndicator />}
   </React.Fragment>
 );
+
+WeekNumber.propTypes = {
+  period: PropTypes.string,
+  locale: PropTypes.string,
+};
+
+CurrentWeek.propTypes = {
+  period: PropTypes.string,
+  locale: PropTypes.string,
+};
+
+PendingWeek.propTypes = {
+  period: PropTypes.string,
+  locale: PropTypes.string,
+  reward: PropTypes.string,
+};
+
+PaidOutWeek.propTypes = {
+  period: PropTypes.string,
+  locale: PropTypes.string,
+  reward: PropTypes.string,
+};
+
+Weeks.propTypes = {
+  weekStat: PropTypes.array,
+  locale: PropTypes.string,
+  getWeekStatProcessing: PropTypes.bool,
+};
 
 export default React.memo(Weeks);
