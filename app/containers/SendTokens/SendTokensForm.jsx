@@ -6,6 +6,9 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import Cookies from 'utils/cookies';
+
+import { LOGIN_WITH_EMAIL, AUTH_TYPE } from 'containers/Login/constants';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -46,15 +49,17 @@ const SendTokensForm = ({
         warn={[required]}
       />
 
-      <Field
-        name={PASSWORD_FIELD}
-        disabled={sendTokensProcessing}
-        label={translationMessages[locale][commonMessages.password.id]}
-        component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
-        type="password"
-      />
+      {Cookies.get(AUTH_TYPE) === LOGIN_WITH_EMAIL && (
+        <Field
+          name={PASSWORD_FIELD}
+          disabled={sendTokensProcessing}
+          label={translationMessages[locale][commonMessages.password.id]}
+          component={TextInputField}
+          validate={[strLength3x20, required]}
+          warn={[strLength3x20, required]}
+          type="password"
+        />
+      )}
 
       <Button disabled={sendTokensProcessing} className="w-100 mb-3">
         <FormattedMessage {...commonMessages.submit} />

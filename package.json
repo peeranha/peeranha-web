@@ -48,7 +48,7 @@
     "prettify": "prettier --write"
   },
   "lint-staged": {
-    "*.js": [
+    "*.js, *.jsx": [
       "prettier --write",
       "npm run lint:eslint:fix",
       "git add --force"

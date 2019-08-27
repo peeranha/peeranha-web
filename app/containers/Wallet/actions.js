@@ -4,10 +4,28 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  GET_WEEK_STAT,
+  GET_WEEK_STAT_SUCCESS,
+  GET_WEEK_STAT_ERROR,
+} from './constants';
 
-export function defaultAction() {
+export function getWeekStat() {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_WEEK_STAT,
+  };
+}
+
+export function getWeekStatSuccess(weekStat) {
+  return {
+    type: GET_WEEK_STAT_SUCCESS,
+    weekStat,
+  };
+}
+
+export function getWeekStatErr(getWeekStatError) {
+  return {
+    type: GET_WEEK_STAT_ERROR,
+    getWeekStatError,
   };
 }

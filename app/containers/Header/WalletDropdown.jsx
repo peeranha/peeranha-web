@@ -54,14 +54,14 @@ const IconBG = MediumImage.extend`
   }
 `.withComponent('span');
 
-const Button = () => (
+const Button = ({ balance }) => (
   <ButtonStyled>
     <IconBG bg={BG_PRIMARY}>
       <Icon width="24" icon={currencyPeerIcon} noMargin />
     </IconBG>
 
     <span className="d-flex flex-column text-left">
-      <Span bold>${getFormattedNum4(99999.23999)}</Span>
+      <Span bold>{getFormattedNum4(balance)}</Span>
       <Span fontSize="14" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.peers} />
       </Span>
@@ -84,10 +84,10 @@ const Menu = ({ user }) => (
   </Ul>
 );
 
-const WalletDropdown = ({ user }) => (
+const WalletDropdown = ({ user, balance }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
-    button={<Button />}
+    button={<Button balance={balance} />}
     menu={<Menu user={user} />}
   />
 );

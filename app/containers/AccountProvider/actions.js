@@ -16,10 +16,11 @@ export function getCurrentAccount() {
   };
 }
 
-export function getCurrentAccountSuccess(account) {
+export function getCurrentAccountSuccess(account, balance) {
   return {
     type: GET_CURRENT_ACCOUNT_SUCCESS,
     account,
+    balance,
   };
 }
 

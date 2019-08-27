@@ -21,33 +21,18 @@ import Icon from 'components/Icon';
 import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Span from 'components/Span';
 import Base from 'components/Base';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import BaseRounded from 'components/Base/BaseRounded';
 import SmallImage from 'components/Img/SmallImage';
 
 import messages from './messages';
 
-const data = [
-  {
-    id: 5,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 1,
-  },
-];
+import { RELEASE_DATE, WEEK_DURATION } from './constants';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
   display: flex;
-  align-items-cemter;
+  align-items: center;
   justify-content: space-between;
 
   ${IconStyled} {
@@ -55,21 +40,21 @@ const BaseRoundedLi = BaseRounded.extend`
   }
 `.withComponent('li');
 
-const WeekNumber = ({ number, locale }) => (
+const WeekNumber = ({ period, locale }) => (
   <P>
     <Span className="mr-3" fontSize="24" bold>
-      Week {number}
+      <FormattedMessage {...messages.week} /> {` ${period}`}
     </Span>
 
     <Span>
       {getFormattedDate(
-        1565692922 + 604800 * number,
+        RELEASE_DATE + WEEK_DURATION * period - WEEK_DURATION,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
       {' — '}
       {getFormattedDate(
-        1565692922 + 604800 * number + 604800,
+        RELEASE_DATE + WEEK_DURATION * period,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
@@ -77,13 +62,13 @@ const WeekNumber = ({ number, locale }) => (
   </P>
 );
 
-const CurrentWeek = ({ id, locale }) => (
+const CurrentWeek = ({ period, locale }) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.currentPeriod} />
       </P>
-      <WeekNumber locale={locale} number={id} />
+      <WeekNumber locale={locale} period={period} />
     </Base>
     <Base className="d-flex align-items-center" position="bottom">
       <img className="mr-3" src={calendarImage} alt="calendar" />
@@ -94,13 +79,13 @@ const CurrentWeek = ({ id, locale }) => (
   </li>
 );
 
-const PendingWeek = ({ id, locale }) => (
+const PendingWeek = ({ period, reward, locale }) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.payoutPending} />
       </P>
-      <WeekNumber locale={locale} number={id} />
+      <WeekNumber locale={locale} period={period} />
     </Base>
     <Base position="bottom">
       <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
@@ -109,20 +94,20 @@ const PendingWeek = ({ id, locale }) => (
       <P className="d-flex align-items-center">
         <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
         <Span fontSize="16" bold>
-          {getFormattedNum3(99999.95)}
+          {getFormattedNum3(reward)}
         </Span>
       </P>
     </Base>
   </li>
 );
 
-const PaidOutWeek = ({ id, locale }) => (
+const PaidOutWeek = ({ period, reward, locale }) => (
   <BaseRoundedLi className="mb-3">
     <div>
       <P fontSize="13" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.paidOut} />
       </P>
-      <WeekNumber locale={locale} number={id} />
+      <WeekNumber locale={locale} period={period} />
     </div>
 
     <div>
@@ -138,7 +123,7 @@ const PaidOutWeek = ({ id, locale }) => (
           noMargin
         />
 
-        <span>{getFormattedNum3(99999.95)}</span>
+        <span>{getFormattedNum3(reward)}</span>
       </P>
     </div>
   </BaseRoundedLi>
@@ -158,15 +143,23 @@ const CurrentPendingWeeks = styled.div`
   }
 `;
 
-const Weeks = ({ locale }) => (
-  <ul className="mt-3">
-    <CurrentPendingWeeks inRow={data.length >= 2}>
-      {data[0] && <CurrentWeek locale={locale} {...data[0]} />}
-      {data[1] && <PendingWeek locale={locale} {...data[1]} />}
-    </CurrentPendingWeeks>
+/* eslint indent: 0 */
+const Weeks = ({ locale, weekStat, getWeekStatProcessing }) => (
+  <React.Fragment>
+    {weekStat &&
+      !getWeekStatProcessing && (
+        <ul className="mt-3">
+          <CurrentPendingWeeks inRow={weekStat.length >= 2}>
+            {weekStat[0] && <CurrentWeek locale={locale} {...weekStat[0]} />}
+            {weekStat[1] && <PendingWeek locale={locale} {...weekStat[1]} />}
+          </CurrentPendingWeeks>
 
-    {data.slice(2).map(x => <PaidOutWeek locale={locale} {...x} />)}
-  </ul>
+          {weekStat.slice(2).map(x => <PaidOutWeek locale={locale} {...x} />)}
+        </ul>
+      )}
+
+    {getWeekStatProcessing && <LoadingIndicator />}
+  </React.Fragment>
 );
 
 export default React.memo(Weeks);

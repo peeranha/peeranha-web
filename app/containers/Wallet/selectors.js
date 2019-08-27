@@ -5,18 +5,23 @@ import { initialState } from './reducer';
  * Direct selector to the wallet state domain
  */
 
-const selectWalletDomain = state => state.get('wallet', initialState);
+const selectWalletDomain = state => state.get('wallet', initialState).toJS();
 
-/**
- * Other specific selectors
- */
+const selectGetWeekStatProcessing = () =>
+  createSelector(
+    selectWalletDomain,
+    substate => substate.getWeekStatProcessing,
+  );
 
-/**
- * Default selector used by Wallet
- */
+const selectGetWeekStatError = () =>
+  createSelector(selectWalletDomain, substate => substate.getWeekStatError);
 
-const makeSelectWallet = () =>
-  createSelector(selectWalletDomain, substate => substate.toJS());
+const selectWeekStat = () =>
+  createSelector(selectWalletDomain, substate => substate.weekStat);
 
-export default makeSelectWallet;
-export { selectWalletDomain };
+export {
+  selectWalletDomain,
+  selectGetWeekStatProcessing,
+  selectWeekStat,
+  selectGetWeekStatError,
+};

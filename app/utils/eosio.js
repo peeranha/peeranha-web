@@ -164,13 +164,13 @@ class EosioService {
     return account.name;
   };
 
-  sendTransaction = (actor, action, data) => {
+  sendTransaction = (actor, action, data, account) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     return this.eosInstance.transaction({
       actions: [
         {
-          account: process.env.EOS_CONTRACT_ACCOUNT,
+          account: account || process.env.EOS_CONTRACT_ACCOUNT,
           name: action,
           authorization: [
             {
@@ -186,12 +186,12 @@ class EosioService {
     });
   };
 
-  getTableRow = async (table, scope, primaryKey) => {
+  getTableRow = async (table, scope, primaryKey, code) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
-      code: process.env.EOS_CONTRACT_ACCOUNT,
+      code: code || process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
       lower_bound: primaryKey,
@@ -215,12 +215,13 @@ class EosioService {
     upperBound,
     indexPosition,
     keyType,
+    code,
   ) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
-      code: process.env.EOS_CONTRACT_ACCOUNT,
+      code: code || process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
       lower_bound: lowerBound,

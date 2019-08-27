@@ -15,6 +15,7 @@ const ButtonGroupForAuthorizedUser = ({
     <WalletDropdown
       isMenuVisible={isMenuVisible}
       user={profileInfo.user}
+      balance={profileInfo.balance}
       expandLeftMenuNavigation={expandLeftMenuNavigation}
     />
     <ProfileDropdown

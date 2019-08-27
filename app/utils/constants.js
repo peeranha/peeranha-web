@@ -27,6 +27,7 @@ export const GET_QUESTIONS_KEY_TYPE = 'i64';
 // Tables
 
 export const ACCOUNT_TABLE = 'account';
+export const ACCOUNTS_TABLE = 'accounts';
 export const QUESTION_TABLE = 'question';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const USER_ANSWERS_TABLE = 'usranswers';
@@ -35,6 +36,7 @@ export const COMMUNITIES_TABLE = 'communities';
 export const CREATED_TAGS_TABLE = 'crtagtb';
 export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
 export const GLOBAL_STAT_TABLE = 'globalstat';
+export const PERIOD_REWARD_TABLE = 'periodreward';
 
 // Scopes
 
@@ -76,6 +78,8 @@ export const CREATE_TAG = 'crtag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
+export const SEND_TOKEN_METHOD = 'transfer';
+
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
@@ -85,3 +89,6 @@ export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
 
 export const NO_AVATAR = 'QmUyiWb3p3W16pAGJudZsZuQ59eiW4RtHwCjDCRNqqMwPE';
 export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
+
+// Currency
+export const APP_CURRENCY = 'PEER';

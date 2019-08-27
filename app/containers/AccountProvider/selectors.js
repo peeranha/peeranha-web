@@ -15,12 +15,23 @@ const makeSelectError = () =>
 const makeSelectAccount = () =>
   createSelector(selectAccountProviderDomain, substate => substate.account);
 
+const makeSelectBalance = () =>
+  createSelector(selectAccountProviderDomain, substate => substate.balance);
+
 const makeSelectProfileInfo = () =>
   createSelector(
     state => state,
     state => {
       const account = makeSelectAccount()(state);
+      const balance = makeSelectBalance()(state);
       const profileInfo = selectUsers(account)(state);
+
+      if (typeof profileInfo === 'object') {
+        return {
+          ...profileInfo,
+          balance,
+        };
+      }
 
       return profileInfo;
     },
@@ -42,4 +53,5 @@ export {
   makeSelectAccount,
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
+  makeSelectBalance,
 };
