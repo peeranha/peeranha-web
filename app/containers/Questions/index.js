@@ -106,6 +106,10 @@ export class Questions extends React.PureComponent {
     const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
+    if (parentPage !== feed) {
+      this.initFetcher();
+    }
+
     this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
