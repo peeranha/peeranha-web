@@ -11,8 +11,9 @@ export const TextareaField = /* istanbul ignore next */ ({
   meta,
   placeholder,
   tip,
+  splitInHalf,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
     <Textarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}
@@ -27,7 +28,8 @@ TextareaField.propTypes = {
   label: PropTypes.string,
   meta: PropTypes.object,
   disabled: PropTypes.bool,
-  tip: PropTypes.bool,
+  tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 

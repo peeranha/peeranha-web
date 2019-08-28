@@ -24,6 +24,7 @@ import A from 'components/A';
 
 import messages from './messages';
 import options from './options';
+import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 
 const tagsRoute = routes.tags();
 
@@ -109,6 +110,7 @@ export const Header = /* istanbul ignore next */ ({
         <div>
           <NavigationButton
             onClick={goToCreateTagScreen}
+            id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
             className="d-inline-flex align-items-center px-0 py-1"
             isLink
           >

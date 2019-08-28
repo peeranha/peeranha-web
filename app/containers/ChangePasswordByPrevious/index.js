@@ -36,7 +36,7 @@ import {
 
 import {
   EMAIL_FORM,
-  SUBMIT_EMAIL_FORM,
+  VERIFY_EMAIL_FORM,
   CHANGE_PASSWORD_FORM,
 } from './constants';
 
@@ -69,7 +69,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
             />
           )}
 
-          {content === SUBMIT_EMAIL_FORM && (
+          {content === VERIFY_EMAIL_FORM && (
             <SubmitEmailForm
               locale={locale}
               submitEmail={submitEmailDispatch}

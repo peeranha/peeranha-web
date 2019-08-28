@@ -6,11 +6,13 @@ import commonMessages from 'common-messages';
 
 import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 
 import communitySuggestBanner from 'images/communitySuggest.svg?inline';
 
 import messages from './messages';
+
+import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 
 export const GoToCreateTagFromBanner = /* istanbul ignore next */ ({
   openTagForm,
@@ -30,9 +32,13 @@ export const GoToCreateTagFromBanner = /* istanbul ignore next */ ({
         <FormattedMessage {...messages.suggestTagWhichWillbeUseful} />
       </P>
 
-      <LargeButton className="my-4" onClick={openTagForm}>
+      <Button
+        className="my-4"
+        id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_banner`}
+        onClick={openTagForm}
+      >
         <FormattedMessage {...commonMessages.suggestTag} />
-      </LargeButton>
+      </Button>
     </div>
   </BaseRounded>
 );

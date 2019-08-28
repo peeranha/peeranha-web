@@ -4,11 +4,12 @@ import { FormattedMessage } from 'react-intl';
 
 import P from 'components/P';
 import BaseRounded from 'components/Base/BaseRounded';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 
 import communitySuggestBanner from 'images/communitySuggest.svg?inline';
 
 import messages from './messages';
+import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 
 export const NothingInterestingBanner = /* istanbul ignore next */ ({
   goToCreateCommunityScreen,
@@ -28,9 +29,13 @@ export const NothingInterestingBanner = /* istanbul ignore next */ ({
         <FormattedMessage {...messages.suggestInterestingComm} />
       </P>
 
-      <LargeButton className="my-4" onClick={goToCreateCommunityScreen}>
+      <Button
+        id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_banner`}
+        className="my-4"
+        onClick={goToCreateCommunityScreen}
+      >
         <FormattedMessage {...messages.suggestCommunity} />
-      </LargeButton>
+      </Button>
     </div>
   </BaseRounded>
 );

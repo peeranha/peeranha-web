@@ -16,10 +16,7 @@ import messages from 'common-messages';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
-const ButtonGroupForNotAuthorizedUser = ({
-  showLoginModal,
-  isMenuVisible,
-}) => (
+const ButtonGroupForNotAuthorizedUser = ({ showLoginModal, isMenuVisible }) => (
   <React.Fragment>
     <LargeOutlinedButton
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}

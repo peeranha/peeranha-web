@@ -38,8 +38,13 @@ export const TagsCollection = /* istanbul ignore next */ ({
   profile,
   showLoginModalDispatch,
 }) => {
-  const openTagForm = () =>
-    goToCreateTagScreen({ locale, showLoginModalDispatch, profile });
+  const openTagForm = e =>
+    goToCreateTagScreen({
+      locale,
+      showLoginModalDispatch,
+      profile,
+      buttonId: e.currentTarget.id,
+    });
 
   const keywords = communities.map(comm =>
     comm.tags.map(tag => `${comm.name} ${tag.name}`),

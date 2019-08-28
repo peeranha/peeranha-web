@@ -12,7 +12,7 @@ import {
   CHANGE_PASSWORD_ERROR,
   SHOW_CHANGE_PASSWORD_MODAL,
   HIDE_CHANGE_PASSWORD_MODAL,
-  SUBMIT_EMAIL_FORM,
+  VERIFY_EMAIL_FORM,
   CHANGE_PASSWORD_FORM,
 } from './constants';
 
@@ -53,7 +53,7 @@ function changePasswordByPreviousReducer(state = initialState, action) {
     case SEND_EMAIL_SUCCESS:
       return state
         .set('sendEmailProcessing', false)
-        .set('content', SUBMIT_EMAIL_FORM);
+        .set('content', VERIFY_EMAIL_FORM);
     case SEND_EMAIL_ERROR:
       return state
         .set('sendEmailProcessing', false)

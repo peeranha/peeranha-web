@@ -9,6 +9,7 @@ import * as routes from 'routes-config';
 import logoutIcon from 'images/logout.svg?inline';
 import messages from 'common-messages';
 
+import Cookies from 'utils/cookies';
 import noAvatar from 'images/ico-user-no-photo.png';
 
 import Dropdown from 'components/Dropdown';
@@ -20,6 +21,7 @@ import RatingStatus from 'components/RatingStatus';
 import MediumImage from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
+import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
 const Info = styled.span`
   padding: 0 10px;
@@ -28,9 +30,13 @@ const Info = styled.span`
   justify-content: center;
 `;
 
+const authType = Cookies.get(AUTH_TYPE);
+
 export const AStyled = A.extend`
   display: flex;
   flex: 1;
+
+  ${x => (x.disabled ? `opacity: 0.5` : ``)};
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -49,7 +55,7 @@ const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({ user }) => (
+const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
   <nav>
     <Ul>
       <Li>
@@ -58,16 +64,19 @@ const Menu = ({ user }) => (
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.userQuestions(user)}>
+        <AStyled to={routes.userQuestions(user)} disabled={!questionsLength}>
           <FormattedMessage {...messages.questions} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.userAnswers(user)}>
+        <AStyled
+          to={routes.userAnswers(user)}
+          disabled={!questionsWithUserAnswersLength}
+        >
           <FormattedMessage {...messages.answers} />
         </AStyled>
       </Li>
-      <Li>
+      <Li className={authType !== LOGIN_WITH_EMAIL ? 'd-none' : ''}>
         <AStyled to={routes.userSettings(user)}>
           <FormattedMessage {...messages.settings} />
         </AStyled>
@@ -155,7 +164,13 @@ const ProfileDropdown = ({
       className={`${isMenuVisible ? 'd-flex' : 'd-none d-md-flex'}`}
       id={`profile_id_${Math.random()}`}
       button={<Button profileInfo={profileInfo} />}
-      menu={<Menu user={profileInfo.user} />}
+      menu={
+        <Menu
+          user={profileInfo.user}
+          questionsLength={profileInfo.questions_asked}
+          questionsWithUserAnswersLength={profileInfo.answers_given}
+        />
+      }
     />
   ) : (
     <Button profileInfo={profileInfo} onClick={expandLeftMenuNavigation} />
@@ -169,6 +184,8 @@ ProfileDropdown.propTypes = {
 
 Menu.propTypes = {
   user: PropTypes.string,
+  questionsLength: PropTypes.number,
+  questionsWithUserAnswersLength: PropTypes.number,
 };
 
 Button.propTypes = {

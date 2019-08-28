@@ -76,7 +76,9 @@ export class Communities extends React.PureComponent {
   };
 
   /* eslint consistent-return: 0 */
-  goToCreateCommunityScreen = () => {
+  goToCreateCommunityScreen = e => {
+    const buttonId = e.currentTarget.id;
+
     const { profile, locale } = this.props;
 
     if (!profile) {
@@ -87,6 +89,7 @@ export class Communities extends React.PureComponent {
     const isValid = createCommunityValidator(
       profile,
       translationMessages[locale],
+      buttonId,
     );
 
     if (!isValid) {
