@@ -1,5 +1,7 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, all } from 'redux-saga/effects';
+
 import { getProfileInfo } from 'utils/profileManagement';
+import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -33,6 +35,7 @@ import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
 
+/* eslint func-names: 0 */
 export function* getCurrentAccountWorker() {
   try {
     const eosService = yield select(selectEos);
@@ -40,17 +43,29 @@ export function* getCurrentAccountWorker() {
     if (!eosService || !eosService.initialized)
       throw new Error('EOS is not initialized.');
 
+    let profileInfo;
+    let balance;
+
     const selectedScatterAccount = yield call(() =>
       eosService.getSelectedAccount(),
     );
 
-    const profileInfo = yield call(() =>
-      getProfileInfo(selectedScatterAccount, eosService),
-    );
+    yield all([
+      (function*() {
+        profileInfo = yield call(() =>
+          getProfileInfo(selectedScatterAccount, eosService),
+        );
+      })(),
+      (function*() {
+        balance = yield call(() =>
+          getBalance(eosService, selectedScatterAccount),
+        );
+      })(),
+    ]);
 
     yield put(getUserProfileSuccess(profileInfo));
 
-    yield put(getCurrentAccountSuccess(selectedScatterAccount));
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

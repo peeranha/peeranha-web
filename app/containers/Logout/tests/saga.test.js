@@ -3,7 +3,7 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { INIT_EOSIO } from 'containers/EosioProvider/constants';
-import { GET_CURRENT_ACCOUNT } from 'containers/AccountProvider/constants';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 
 import defaultSaga, { logoutWorker } from '../saga';
 import { LOGOUT_SUCCESS, LOGOUT, LOGOUT_ERROR } from '../constants';
@@ -43,9 +43,9 @@ describe('logoutWorker', () => {
     expect(step.value.type).toBe(INIT_EOSIO);
   });
 
-  it('GET_CURRENT_ACCOUNT', () => {
+  it('GET_CURRENT_ACCOUNT_SUCCESS', () => {
     const step = generator.next();
-    expect(step.value.type).toBe(GET_CURRENT_ACCOUNT);
+    expect(step.value).toEqual(getCurrentAccountSuccess());
   });
 
   it('LOGOUT_SUCCESS', () => {

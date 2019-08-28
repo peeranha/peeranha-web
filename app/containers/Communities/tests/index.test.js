@@ -23,6 +23,12 @@ cmp.props = {
   SubHeader: () => <div>123</div>,
 };
 
+const event = {
+  currentTarget: {
+    id: 'id',
+  },
+};
+
 jest.mock('../validate', () => ({
   createCommunityValidator: jest.fn(),
 }));
@@ -40,7 +46,7 @@ describe('<Communities />', () => {
     it('profile NULL', () => {
       cmp.props.profile = null;
 
-      expect(cmp.goToCreateCommunityScreen()).toBe(null);
+      expect(cmp.goToCreateCommunityScreen(event)).toBe(null);
       expect(cmp.props.showLoginModalDispatch).toHaveBeenCalled();
     });
 
@@ -51,7 +57,7 @@ describe('<Communities />', () => {
       createCommunityValidator.mockImplementation(() => isValid);
       expect(createdHistory.push).toHaveBeenCalledTimes(0);
 
-      expect(cmp.goToCreateCommunityScreen()).not.toBe(null);
+      expect(cmp.goToCreateCommunityScreen(event)).not.toBe(null);
 
       expect(createdHistory.push).toHaveBeenCalledWith(
         routes.communitiesCreate(),
@@ -64,7 +70,7 @@ describe('<Communities />', () => {
       cmp.props.profile = {};
 
       createCommunityValidator.mockImplementation(() => isValid);
-      expect(cmp.goToCreateCommunityScreen()).toBe(null);
+      expect(cmp.goToCreateCommunityScreen(event)).toBe(null);
     });
   });
 

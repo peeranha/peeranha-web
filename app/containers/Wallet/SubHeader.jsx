@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
@@ -31,7 +32,7 @@ const BaseStyled = Base.extend`
   }
 `;
 
-const SubHeader = ({ account }) => (
+const SubHeader = ({ account, balance }) => (
   <BaseStyled className="d-flex" position="bottom">
     <LargeImage
       src={walletCoinsImage}
@@ -43,7 +44,7 @@ const SubHeader = ({ account }) => (
       <div className="mb-3">
         <Span fontSize="38" bold>
           <Icon width="24" icon={currencyPeerImage} />
-          {getFormattedNum3(99999.95)}
+          {getFormattedNum3(balance)}
         </Span>
         <Span className="ml-2" fontSize="24" color={TEXT_SECONDARY_LIGHT} bold>
           <FormattedMessage {...commonMessages.peers} />
@@ -62,5 +63,10 @@ const SubHeader = ({ account }) => (
     </div>
   </BaseStyled>
 );
+
+SubHeader.propTypes = {
+  account: PropTypes.string,
+  balance: PropTypes.string,
+};
 
 export default React.memo(SubHeader);

@@ -89,6 +89,7 @@
   "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
   "app.containers.Wallet.paidOut": "Выплачено",
   "app.containers.Wallet.rewarded": "Награждено",
+  "app.containers.Wallet.week": "Неделя",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

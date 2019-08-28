@@ -49,7 +49,7 @@ export function* getCommunitiesWithTagsWorker() {
 export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
     const eosService = yield select(selectEos);
-    let cachedUserInfo = yield select(selectUsers(user));
+    const cachedUserInfo = yield select(selectUsers(user));
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
@@ -60,8 +60,6 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     const updatedUserInfo = yield call(() =>
       getProfileInfo(user, eosService, getFullProfile),
     );
-
-    cachedUserInfo = yield select(selectUsers(user));
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

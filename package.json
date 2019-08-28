@@ -53,6 +53,11 @@
       "npm run lint:eslint:fix",
       "git add --force"
     ],
+    "*.jsx": [
+      "prettier --write",
+      "npm run lint:eslint:fix",
+      "git add --force"
+    ],
     "*.json": [
       "prettier --write",
       "git add --force"

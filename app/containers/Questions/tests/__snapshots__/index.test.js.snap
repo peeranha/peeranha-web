@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
-<InfinityLoader
-  isLastFetch={false}
-  isLoading={false}
-  loadNextPaginatedData={[Function]}
->
-  <div>
-    <UNDEFINED
-      language="en"
-      title="Questions"
-    />
+<div>
+  <UNDEFINED
+    language="en"
+    title="Questions"
+  />
+  <InfinityLoader
+    isLastFetch={false}
+    isLoading={false}
+    loadNextPaginatedData={[Function]}
+  >
     <UNDEFINED
       communityIdFilter={10}
       followedCommunities={null}
@@ -20,21 +20,25 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
       questionsList={Array []}
       questionsLoading={false}
     />
-  </div>
-</InfinityLoader>
+  </InfinityLoader>
+  <UNDEFINED
+    followedCommunities={null}
+    isFeed={false}
+  />
+</div>
 `;
 
 exports[`Questions snapshot test @questionsLoading is true 1`] = `
-<InfinityLoader
-  isLastFetch={false}
-  isLoading={true}
-  loadNextPaginatedData={[Function]}
->
-  <div>
-    <UNDEFINED
-      language="en"
-      title="Questions"
-    />
+<div>
+  <UNDEFINED
+    language="en"
+    title="Questions"
+  />
+  <InfinityLoader
+    isLastFetch={false}
+    isLoading={true}
+    loadNextPaginatedData={[Function]}
+  >
     <UNDEFINED
       communityIdFilter={10}
       followedCommunities={null}
@@ -44,6 +48,6 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
       questionsList={Array []}
       questionsLoading={true}
     />
-  </div>
-</InfinityLoader>
+  </InfinityLoader>
+</div>
 `;

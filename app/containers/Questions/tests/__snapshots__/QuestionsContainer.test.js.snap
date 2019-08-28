@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QuestionsContainer snapshot test 1 1`] = `
-<div>
+<React.Fragment>
   <InjectIntl(Component)
     locale="en"
     questionsList={Array []}
@@ -9,19 +9,16 @@ exports[`QuestionsContainer snapshot test 1 1`] = `
     translations={Object {}}
   />
   <UNDEFINED
-    isFeed={false}
-  />
-  <UNDEFINED
     locale="en"
     questionsList={Array []}
     questionsLoading={false}
     translations={Object {}}
   />
-</div>
+</React.Fragment>
 `;
 
 exports[`QuestionsContainer snapshot test 2 1`] = `
-<div>
+<React.Fragment>
   <InjectIntl(Component)
     locale="en"
     questionsList={
@@ -42,11 +39,11 @@ exports[`QuestionsContainer snapshot test 2 1`] = `
     questionsLoading={false}
     translations={Object {}}
   />
-</div>
+</React.Fragment>
 `;
 
 exports[`QuestionsContainer snapshot test 3 1`] = `
-<div>
+<React.Fragment>
   <InjectIntl(Component)
     locale="en"
     questionsList={
@@ -68,5 +65,5 @@ exports[`QuestionsContainer snapshot test 3 1`] = `
     translations={Object {}}
   />
   <UNDEFINED />
-</div>
+</React.Fragment>
 `;

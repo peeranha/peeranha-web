@@ -89,6 +89,7 @@
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
+  "app.containers.Wallet.week": "Week",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

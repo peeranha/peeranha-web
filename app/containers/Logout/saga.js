@@ -8,7 +8,7 @@ import Cookies from 'utils/cookies';
 import { AUTH_TYPE, AUTH_PRIVATE_KEY } from 'containers/Login/constants';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { errorToastHandling } from 'containers/Toast/saga';
-import { getCurrentAccount } from 'containers/AccountProvider/actions';
+import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { initEosio } from 'containers/EosioProvider/actions';
 
 import { LOGOUT, LOGOUT_ERROR } from './constants';
@@ -26,7 +26,7 @@ export function* logoutWorker() {
 
     yield put(initEosio());
 
-    yield put(getCurrentAccount());
+    yield put(getCurrentAccountSuccess());
 
     yield put(logoutSuccess());
 
