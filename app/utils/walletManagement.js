@@ -62,7 +62,7 @@ export async function sendTokens(eosService, info) {
   );
 }
 
-function getNormalizedCurrency(value) {
+export function getNormalizedCurrency(value) {
   if (!Number(value)) {
     throw new Error(`Value has to be number`);
   }

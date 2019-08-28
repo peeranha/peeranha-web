@@ -19,7 +19,7 @@ import {
 import {
   CODE_FIELD,
   EMAIL_FIELD,
-  SUBMIT_EMAIL_FORM,
+  VERIFY_EMAIL_FORM,
   CHANGE_PASSWORD_FORM,
 } from '../constants';
 
@@ -110,7 +110,7 @@ describe('changePasswordByPreviousReducer', () => {
   it('sendEmailSuccess', () => {
     const obj = state
       .set('sendEmailProcessing', false)
-      .set('content', SUBMIT_EMAIL_FORM);
+      .set('content', VERIFY_EMAIL_FORM);
 
     expect(changePasswordByPreviousReducer(state, sendEmailSuccess())).toEqual(
       obj,

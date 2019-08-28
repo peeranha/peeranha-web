@@ -4,6 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
+import getHash from 'object-hash';
 
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
@@ -41,6 +42,8 @@ jest.mock('utils/communityManagement', () => ({
 jest.mock('utils/statisticsManagement', () => ({
   getStat: jest.fn(),
 }));
+
+jest.mock('object-hash', () => jest.fn());
 
 jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
@@ -108,67 +111,88 @@ describe('getCommunitiesWithTagsWorker', () => {
 describe('getUserProfileWorker', () => {
   const eos = {};
   const user = 'user';
-  const userInfo = {};
+  const getFullProfile = false;
 
-  let users = { [user]: {} };
-
-  const props = {
-    user,
-  };
-
-  describe('step, users[user] TRUE', () => {
-    const generator = getUserProfileWorker(props);
+  describe('user IS in store', () => {
+    const cachedUserInfo = {};
+    const generator = getUserProfileWorker({ user, getFullProfile });
 
     it('step, eos', () => {
       select.mockImplementation(() => eos);
-
       const step = generator.next();
       expect(step.value).toEqual(eos);
     });
 
-    it('step, selectUsers', () => {
-      select.mockImplementation(() => users);
-
+    it('step, cachedUserInfo', () => {
+      select.mockImplementation(() => cachedUserInfo);
       const step = generator.next(eos);
-      expect(step.value).toEqual(users);
+      expect(step.value).toEqual(cachedUserInfo);
     });
 
-    it('step, users[user] TRUE', () => {
-      users[user] = {};
-
-      const step = generator.next(users);
-      expect(step.value).toEqual(users[user]);
+    it('step, cachedUserInfo', () => {
+      const step = generator.next(eos);
+      expect(step.value).toEqual(cachedUserInfo);
     });
 
-    it('error handling', () => {
-      const err = 'some error';
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(GET_USER_PROFILE_ERROR);
+    it('step, done is TRUE', () => {
+      const step = generator.next();
+      expect(step.done).toBe(true);
     });
   });
 
-  describe('step, users[user] FALSE', () => {
-    const generator = getUserProfileWorker(props);
+  describe('user IS NOT in store', () => {
+    describe('updatedUserInfo differs from cachedUserInfo', () => {
+      const cachedUserInfo = null;
+      const updatedUserInfo = {};
 
-    generator.next();
-    generator.next(eos);
+      const generator = getUserProfileWorker({ user, getFullProfile });
 
-    it('getProfileInfo', () => {
-      users = {};
-      getProfileInfo.mockImplementation(() => userInfo);
+      generator.next();
+      generator.next(eos);
 
-      const step = generator.next(users);
-      expect(step.value).toEqual(userInfo);
+      it('getUpdatedProfileInfo', () => {
+        generator.next(cachedUserInfo);
+        expect(getProfileInfo).toHaveBeenCalledWith(user, eos, getFullProfile);
+      });
+
+      it('put updatedUserInfo to store', () => {
+        const step = generator.next(updatedUserInfo);
+        expect(step.value.type).toBe(GET_USER_PROFILE_SUCCESS);
+        expect(step.value.profile).toBe(updatedUserInfo);
+      });
+
+      it('to finish processing', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(GET_USER_PROFILE_SUCCESS);
+      });
+
+      it('return updatedUserInfo', () => {
+        const step = generator.next();
+        expect(step.value).toEqual(updatedUserInfo);
+      });
+
+      it('error handling', () => {
+        const step = generator.throw('throw new error');
+        expect(step.value.type).toBe(GET_USER_PROFILE_ERROR);
+      });
     });
 
-    it('getUserProfileSuccess', () => {
-      const step = generator.next(userInfo);
-      expect(step.value.type).toEqual(GET_USER_PROFILE_SUCCESS);
-    });
+    describe('updatedUserInfo does not differs from cachedUserInfo', () => {
+      const cachedUserInfo = null;
+      const updatedUserInfo = null;
 
-    it('return yield userInfo', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(userInfo);
+      const generator = getUserProfileWorker({ user, getFullProfile });
+
+      getHash.mockImplementation(() => null);
+
+      generator.next();
+      generator.next(eos);
+      generator.next(cachedUserInfo);
+
+      it('to finish processing', () => {
+        const step = generator.next(updatedUserInfo);
+        expect(step.value.type).toBe(GET_USER_PROFILE_SUCCESS);
+      });
     });
   });
 });

@@ -7,12 +7,14 @@ import {
   makeSelectAccount,
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
+  makeSelectBalance,
 } from '../selectors';
 
 describe('selectAccountProviderDomain', () => {
   const loading = 'loading';
   const error = 'error';
   const account = 'account';
+  const balance = 'balance';
   const profileInfo = fromJS({});
 
   const accountProviderState = fromJS({
@@ -20,6 +22,7 @@ describe('selectAccountProviderDomain', () => {
     error,
     account,
     profileInfo,
+    balance,
   });
 
   const user1 = {
@@ -95,6 +98,11 @@ describe('selectAccountProviderDomain', () => {
     expect(err(mockedState)).toEqual(error);
   });
 
+  it('makeSelectBalance', () => {
+    const isSelectedBalance = makeSelectBalance();
+    expect(isSelectedBalance(mockedState)).toEqual(balance);
+  });
+
   it('makeSelectProfileInfo', () => {
     const isProfileInfo = makeSelectProfileInfo();
 
@@ -111,6 +119,9 @@ describe('selectAccountProviderDomain', () => {
           },
         }),
       ),
-    ).toEqual(user1);
+    ).toEqual({
+      ...user1,
+      balance,
+    });
   });
 });

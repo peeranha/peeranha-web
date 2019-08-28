@@ -72,7 +72,7 @@ describe('postQuestionWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(eos);
       expect(step.value).toEqual(profileInfo);
     });

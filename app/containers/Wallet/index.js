@@ -47,7 +47,7 @@ export class Wallet extends React.PureComponent {
     }
   }
 
-  render() {
+  render() /* istanbul ignore next */ {
     const userId = this.props.match.params.id;
 
     const {
@@ -99,7 +99,7 @@ const mapStateToProps = createStructuredSelector({
   getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getWeekStatDispatch: () => dispatch(getWeekStat()),
   };

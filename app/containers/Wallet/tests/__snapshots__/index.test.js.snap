@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wallet render 1`] = `
+<div>
+  <UNDEFINED
+    description="Wallet | Description"
+    index={false}
+    language="en"
+    title="Wallet"
+  />
+  <UNDEFINED
+    account={null}
+    balance={null}
+    getWeekStatProcessing={false}
+    locale="en"
+    userId="id"
+    weekStat={Array []}
+  />
+</div>
+`;

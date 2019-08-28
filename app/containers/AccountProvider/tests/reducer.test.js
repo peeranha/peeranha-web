@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import accountProviderReducer from '../reducer';
+import accountProviderReducer, { initialState } from '../reducer';
 
 import {
   getCurrentAccount,
@@ -25,13 +25,34 @@ describe('accountProviderReducer', () => {
     expect(accountProviderReducer(state, getCurrentAccount())).toEqual(obj);
   });
 
-  it('getCurrentAccountSuccess', () => {
-    const account = 'user1';
-    const obj = state.set('loading', false).set('account', account);
+  describe('getCurrentAccountSuccess', () => {
+    it('account, balance UNDEFINED', () => {
+      const obj = state
+        .set('loading', false)
+        .set('account', initialState.get('account'))
+        .set('balance', initialState.get('balance'));
 
-    expect(
-      accountProviderReducer(state, getCurrentAccountSuccess(account)),
-    ).toEqual(obj);
+      expect(accountProviderReducer(state, getCurrentAccountSuccess())).toEqual(
+        obj,
+      );
+    });
+
+    it('account, balance NOT UNDEFINED', () => {
+      const account = 'account';
+      const balance = 'balance';
+
+      const obj = state
+        .set('loading', false)
+        .set('account', account)
+        .set('balance', balance);
+
+      expect(
+        accountProviderReducer(
+          state,
+          getCurrentAccountSuccess(account, balance),
+        ),
+      ).toEqual(obj);
+    });
   });
 
   it('getCurrentAccountError', () => {
