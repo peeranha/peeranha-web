@@ -7,6 +7,10 @@ import {
   APP_CURRENCY,
 } from './constants';
 
+/**
+ * @balance - string, example - '1000.000000 PEER'
+ */
+
 export async function getBalance(eosService, user) {
   const { balance } = await eosService.getTableRow(
     ACCOUNTS_TABLE,
@@ -15,8 +19,13 @@ export async function getBalance(eosService, user) {
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
 
+  // remove all chars besides of number
   return balance.replace(/[a-zA-Z]/gim, '').trim();
 }
+
+/**
+ * @reward - string, example - '1000.000000 PEER'
+ */
 
 export async function getWeekStat(eosService, user) {
   const weekStat = await eosService.getTableRows(
@@ -30,6 +39,7 @@ export async function getWeekStat(eosService, user) {
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
 
+  // remove all chars besides of numeral
   const normalizedWeekStat = weekStat.map(iterableWeek => ({
     ...iterableWeek,
     reward: iterableWeek.reward.replace(/[a-zA-Z]/gim, '').trim(),
