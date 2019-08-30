@@ -15,6 +15,10 @@ const Wrapper = styled.header`
   width: 100%;
   transition: 0.4s;
 
+  form {
+    flex: 1;
+  }
+
   &.scroll-hidden {
     top: 0px;
     transform: translate(0px, ${-HEADER_HEIGHT}px);

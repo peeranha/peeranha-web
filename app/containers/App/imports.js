@@ -78,6 +78,10 @@ const Wallet = React.lazy(
   /* istanbul ignore next */ () => import('containers/Wallet'),
 );
 
+const Search = React.lazy(
+  /* istanbul ignore next */ () => import('components/Search'),
+);
+
 export {
   HomePage,
   FaqFull,
@@ -110,4 +114,5 @@ export {
   ForgotPassword,
   Toast,
   Wallet,
+  Search,
 };

@@ -12,7 +12,6 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { BG_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
 
-import Input from 'components/Input';
 import RoundedButton from 'components/Button/Contained/InfoRoundedMedium';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -32,6 +31,8 @@ import Logo from './Logo';
 
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
+import SearchForm from './SearchForm';
+
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
@@ -92,13 +93,10 @@ const HeaderForm = /* istanbul ignore next */ props => (
         <Section isMenuVisible={props.isMenuVisible}>
           {!props.isMenuVisible && (
             <React.Fragment>
-              <Input
-                className="d-none d-lg-flex"
-                type="text"
+              <SearchForm
                 placeholder={props.intl.formatMessage({
                   id: messages.search.id,
                 })}
-                isSearchable
               />
 
               <RoundedButtonStyled

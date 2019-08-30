@@ -51,6 +51,7 @@ import {
   ForgotPassword,
   Toast,
   Wallet,
+  Search,
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
@@ -175,6 +176,11 @@ export default function App /* istanbul ignore next */() {
         <Route
           path={routes.noAccess()}
           render={props => Wrapper(NoAccess, props)}
+        />
+
+        <Route
+          path={routes.search()}
+          render={props => Wrapper(Search, props)}
         />
 
         <Route path={routes.signup.email.name}>
