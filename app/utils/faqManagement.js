@@ -1,3 +1,5 @@
+import { SECTION_ID } from 'containers/Faq/constants';
+
 /* eslint global-require: 0 */
 
 const getFAQ = locale => {
@@ -50,23 +52,28 @@ const getFAQ = locale => {
 
   const H2BlocksHTML = getBlocks(md, 2);
 
-  const H2BlocksObject = H2BlocksHTML.map(x => {
+  const H2BlocksObject = H2BlocksHTML.map((x, sectionCode) => {
     const h2 = getTagText(x, 'h2');
     const H3BlocksHTML = getBlocks(x, 3);
 
-    const H3BlocksObjects = H3BlocksHTML.map(y => {
+    const H3BlocksObjects = H3BlocksHTML.map((y, questionCode) => {
       const h3 = getTagText(y, 'h3');
       const H3Html = y.match(/^<h3.+h3>?/)[0];
 
       const content = y.replace(H3Html, '').trim();
 
-      return { h3, content };
+      return { h3, content, questionCode };
     });
 
-    return { h2, blocks: H3BlocksObjects };
+    return { h2, blocks: H3BlocksObjects, sectionCode };
   });
 
   return { h1, blocks: H2BlocksObject };
 };
 
-export { getFAQ };
+const getSectionCode = sectionIndex => `${SECTION_ID}_${sectionIndex}`;
+
+const getQuestionCode = (sectionIndex, questionIndex) =>
+  `${SECTION_ID}_${sectionIndex}_${questionIndex}`;
+
+export { getFAQ, getQuestionCode, getSectionCode };

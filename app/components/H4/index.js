@@ -8,6 +8,6 @@ const H4 = Text.extend`
 
   ${props => (props.isHeader ? 'padding: 23px 27px;' : '')} font-size: 30px;
   line-height: 38px;
-`.withComponent('h3');
+`.withComponent('h4');
 
 export default H4;

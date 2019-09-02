@@ -17,6 +17,9 @@ import {
   GET_STAT,
   GET_STAT_SUCCESS,
   GET_STAT_ERROR,
+  GET_FAQ,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -29,6 +32,9 @@ export const initialState = fromJS({
   stat: {},
   statLoading: false,
   getStatError: null,
+  faq: null,
+  getFaqLoading: false,
+  getFaqError: null,
 });
 
 /* eslint no-param-reassign: 0, indent: 0, no-case-declarations: 0 */
@@ -42,6 +48,8 @@ function dataCacheProviderReducer(state = initialState, action) {
     user,
     stat,
     getStatError,
+    faq,
+    getFaqError,
   } = action;
 
   switch (type) {
@@ -53,6 +61,15 @@ function dataCacheProviderReducer(state = initialState, action) {
 
     case GET_STAT_ERROR:
       return state.set('statLoading', false).set('getStatError', getStatError);
+
+    case GET_FAQ:
+      return state.set('getFaqLoading', true);
+
+    case GET_FAQ_SUCCESS:
+      return state.set('getFaqLoading', false).set('faq', faq);
+
+    case GET_FAQ_ERROR:
+      return state.set('getFaqLoading', false).set('getFaqError', getFaqError);
 
     case GET_COMMUNITIES_WITH_TAGS:
       return state.set('communitiesLoading', true);

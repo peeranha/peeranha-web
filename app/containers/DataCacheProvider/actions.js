@@ -15,6 +15,9 @@ import {
   GET_STAT,
   GET_STAT_SUCCESS,
   GET_STAT_ERROR,
+  GET_FAQ,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_ERROR,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -84,5 +87,26 @@ export function getStatErr(getStatError) {
   return {
     type: GET_STAT_ERROR,
     getStatError,
+  };
+}
+
+// Get FAQ
+export function getFaq() {
+  return {
+    type: GET_FAQ,
+  };
+}
+
+export function getFaqSuccess(faq) {
+  return {
+    type: GET_FAQ_SUCCESS,
+    faq,
+  };
+}
+
+export function getFaqErr(getFaqError) {
+  return {
+    type: GET_FAQ_ERROR,
+    getFaqError,
   };
 }
