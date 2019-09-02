@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
 import * as routes from 'routes-config';
+
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import eosIcon from 'images/eosIcon.svg?inline';
@@ -23,7 +28,7 @@ import messages from 'containers/SignUp/messages';
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
 
-const LeftMenu = () => (
+const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -45,28 +50,9 @@ const LeftMenu = () => (
       </P>
     </div>
 
-    <ul className="mb-4">
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whyDoIneedThisService} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.howMuchDoesItCost} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.ifThisWebsiteSafe} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whatKeysAndHowToUse} />
-        </Link>
-      </Li>
-    </ul>
+    {faqQuestions && (
+      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+    )}
   </React.Fragment>
 );
 
@@ -129,12 +115,16 @@ const RightMenu = ({ children }) => (
   </React.Fragment>
 );
 
-const YouNeedEosAccount = ({ children }) => (
+const YouNeedEosAccount = ({ children, faqQuestions }) => (
   <SignUpWrapper
-    LeftMenuChildren={<LeftMenu />}
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={<RightMenu children={children} />}
   />
 );
+
+LeftMenu.propTypes = {
+  faqQuestions: PropTypes.array,
+};
 
 RightMenu.propTypes = {
   children: PropTypes.any,
@@ -142,6 +132,14 @@ RightMenu.propTypes = {
 
 YouNeedEosAccount.propTypes = {
   children: PropTypes.any,
+  faqQuestions: PropTypes.array,
 };
 
-export default React.memo(YouNeedEosAccount);
+const mapStateToProps = createStructuredSelector({
+  faqQuestions: selectFaqQuestions(['5.3', '5.4', '5.5', '5.6']),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(YouNeedEosAccount);

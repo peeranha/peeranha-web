@@ -1,4 +1,10 @@
+import React from 'react';
 import { createSelector } from 'reselect';
+import * as routes from 'routes-config';
+
+import { getQuestionCode } from 'utils/faqManagement';
+import A from 'components/A';
+
 import { initialState } from './reducer';
 
 /**
@@ -80,7 +86,13 @@ const selectFaqQuestions = questionsIndexes =>
           const section = faq.blocks[sectionIndex];
 
           if (section && section.blocks[questionIndex]) {
-            return section.blocks[questionIndex].h3;
+            return (
+              <A
+                to={routes.appFaq(getQuestionCode(sectionIndex, questionIndex))}
+              >
+                {section.blocks[questionIndex].h3}
+              </A>
+            );
           }
         })
         .filter(x => x);
