@@ -79,12 +79,6 @@ export default defineMessages({
   writeWhyDoWeeNeed: {
     id: 'app.containers.CreateCommunity.writeWhyDoWeeNeed',
   },
-  whatIsCommunity: {
-    id: 'app.containers.CreateCommunity.whatIsCommunity',
-  },
-  whoManagesCommunities: {
-    id: 'app.containers.CreateCommunity.whoManagesCommunities',
-  },
   onlyTagsWithUniqueTitles: {
     id: 'app.components.CreateCommunity.onlyTagsWithUniqueTitles',
   },

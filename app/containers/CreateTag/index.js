@@ -20,7 +20,16 @@ import BaseTransparent from 'components/Base/BaseTransparent';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
+import {
+  selectCommunities,
+  selectFaqQuestions,
+} from 'containers/DataCacheProvider/selectors';
+
+import {
+  WHAT_IS_TAG_QUESTION,
+  HOW_TO_USE_IT_QUESTION,
+} from 'containers/Faq/constants';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -50,7 +59,13 @@ export class CreateTag extends React.PureComponent {
   };
 
   render() /* istanbul ignore next */ {
-    const { locale, createTagLoading, communities, match } = this.props;
+    const {
+      locale,
+      createTagLoading,
+      communities,
+      match,
+      faqQuestions,
+    } = this.props;
 
     return (
       <div>
@@ -79,7 +94,7 @@ export class CreateTag extends React.PureComponent {
               </div>
 
               <div className="col-12 col-xl-3 p-0">
-                <Tips />
+                <Tips faqQuestions={faqQuestions} />
               </div>
             </div>
           </Base>
@@ -97,10 +112,15 @@ CreateTag.propTypes = {
   createTagLoading: PropTypes.bool,
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
+  faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_TAG_QUESTION,
+    HOW_TO_USE_IT_QUESTION,
+  ]),
   communities: selectCommunities(),
   createTagLoading: selectors.selectSuggestTagLoading(),
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
@@ -11,12 +13,19 @@ import scatterLogo from 'images/scatterLogo.svg?inline';
 
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import SecondaryLargeButton from 'components/Button/Outlined/SecondaryLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
+
+import {
+  WHY_I_HAVE_TO_WAIT_QUESTION,
+  WHEN_CAN_I_START_QUESTION,
+  WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+} from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
 
@@ -36,7 +45,7 @@ export const Li = P.extend`
   }
 `.withComponent('li');
 
-const LeftMenu = () => (
+const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -63,23 +72,9 @@ const LeftMenu = () => (
       </P>
     </div>
 
-    <ul className="mb-4">
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whyIHaveToWait} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whenCanIStart} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whatIsEosAccountFor} />
-        </Link>
-      </Li>
-    </ul>
+    {faqQuestions && (
+      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+    )}
   </React.Fragment>
 );
 
@@ -125,9 +120,10 @@ const SignUpOptions = ({
   showScatterSignUpForm,
   showScatterSignUpProcessing,
   withScatter,
+  faqQuestions,
 }) => (
   <SignUpWrapper
-    LeftMenuChildren={<LeftMenu />}
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={
       !withScatter ? (
         <RightMenuWithoutScatter
@@ -143,6 +139,10 @@ const SignUpOptions = ({
   />
 );
 
+LeftMenu.propTypes = {
+  faqQuestions: PropTypes.array,
+};
+
 RightMenuWithoutScatter.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
@@ -156,6 +156,18 @@ SignUpOptions.propTypes = {
   showScatterSignUpForm: PropTypes.func,
   showScatterSignUpProcessing: PropTypes.bool,
   withScatter: PropTypes.bool,
+  faqQuestions: PropTypes.array,
 };
 
-export default React.memo(SignUpOptions);
+const mapStateToProps = createStructuredSelector({
+  faqQuestions: selectFaqQuestions([
+    WHY_I_HAVE_TO_WAIT_QUESTION,
+    WHEN_CAN_I_START_QUESTION,
+    WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+  ]),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(SignUpOptions);

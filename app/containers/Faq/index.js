@@ -10,9 +10,8 @@ import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 
-import { getFAQ } from 'utils/faqManagement';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectFaq } from 'containers/DataCacheProvider/selectors';
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 import Seo from 'components/Seo';
@@ -29,10 +28,8 @@ const AsideWrapper = BaseTransparent.extend`
   flex: 0 0 ${LEFT_MENU_WIDTH}px;
 `.withComponent('aside');
 
-export const Faq = /* istanbul ignore next */ ({ locale }) => {
-  const faq = getFAQ(locale);
+export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
   const translations = translationMessages[locale];
-
   const keywords = faq.blocks.map(x => x.blocks.map(y => y.h3));
 
   return (
@@ -62,10 +59,12 @@ export const Faq = /* istanbul ignore next */ ({ locale }) => {
 
 Faq.propTypes = {
   locale: PropTypes.string,
+  faq: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  faq: selectFaq(),
 });
 
 export default connect(

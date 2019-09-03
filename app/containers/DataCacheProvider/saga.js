@@ -1,10 +1,13 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
+import { getFAQ } from 'utils/faqManagement';
+
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { selectUsers } from './selectors';
 
@@ -15,12 +18,15 @@ import {
   getUserProfileErr,
   getStatSuccess,
   getStatErr,
+  getFaqErr,
+  getFaqSuccess,
 } from './actions';
 
 import {
   GET_COMMUNITIES_WITH_TAGS,
   GET_USER_PROFILE,
   GET_STAT,
+  GET_FAQ,
 } from './constants';
 
 export function* getStatWorker() {
@@ -42,6 +48,17 @@ export function* getCommunitiesWithTagsWorker() {
     yield put(getCommunitiesWithTagsSuccess(communities));
   } catch (err) {
     yield put(getCommunitiesWithTagsErr(err.message));
+  }
+}
+
+export function* getFaqWorker() {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const faq = yield call(() => getFAQ(locale));
+
+    yield put(getFaqSuccess(faq));
+  } catch (err) {
+    yield put(getFaqErr(err.message));
   }
 }
 
@@ -82,4 +99,5 @@ export default function*() {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeLatest(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);
+  yield takeLatest(GET_FAQ, getFaqWorker);
 }

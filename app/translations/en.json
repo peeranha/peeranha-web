@@ -185,8 +185,6 @@
     "A tag is a keyword or label that categorizes your question with other, similar questions.",
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for others to find and answer your question.",
-  "app.containers.CreateTag.whatIsTag": "What is a tag?",
-  "app.containers.CreateTag.howToUseIt": "How to use it?",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tag?",
@@ -257,9 +255,6 @@
     "Community description should be concise and describe to whom it will be useful",
   "app.containers.CreateCommunity.writeWhyDoWeeNeed":
     "Write why do we need this community to attract the attention of other users and collect votes",
-  "app.containers.CreateCommunity.whatIsCommunity": "What is community?",
-  "app.containers.CreateCommunity.whoManagesCommunities":
-    "Who manages the communities?",
   "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
     "Form should allow only tags with unique names",
   "app.containers.CreateCommunity.communityLanguage": "Language",
@@ -536,9 +531,6 @@
     "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
-  "app.containers.SignUp.firstFAQAlmostDone": "Why I have to wait?",
-  "app.containers.SignUp.secondFAQAlmostDone": "When can I start?",
-  "app.containers.SignUp.thirdFAQAlmostDone": "What is EOS account for?",
   "app.containers.SignUp.weWillNotify":
     "We will notify you when your account will be ready. Usually it takes no longer, than 4 hours.",
   "app.containers.SignUp.goToMainPage": "Go to main page",
@@ -547,11 +539,6 @@
     "The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.",
   "app.containers.SignUp.ifYouCreateEos":
     "If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.",
-  "app.containers.SignUp.whyDoIneedThisService": "Why do I need this service?",
-  "app.containers.SignUp.howMuchDoesItCost": "How much does it cost?",
-  "app.containers.SignUp.ifThisWebsiteSafe": "Is this website safe to use?",
-  "app.containers.SignUp.whatKeysAndHowToUse":
-    "What are those keys and how do I generate them?",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.steemitIsNotTypical":
     "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
@@ -561,9 +548,6 @@
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "If you'd like to skip the queue or stay anonymous, you can pay the account creation fee using a third party service.",
-  "app.containers.SignUp.whyIHaveToWait": "Why I have to wait?",
-  "app.containers.SignUp.whenCanIStart": "When can I start?",
-  "app.containers.SignUp.whatIsEosAccountFor": "What is EOS account for?",
   "app.containers.SignUp.or": "or",
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
@@ -662,9 +646,6 @@
     "quote by placing &gt; at start of line",
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-  "app.components.TextEditor.howToAsk": "How to ask?",
-  "app.components.TextEditor.howToFormat": "How to format?",
-  "app.components.TextEditor.howToTag": "How to tag?",
 
   "app.containers.AskQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than"

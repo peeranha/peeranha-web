@@ -64,10 +64,7 @@ const SlideIndicators = () => {
   );
 };
 
-const SignUpWrapper = ({
-  RightMenuChildren,
-  LeftMenuChildren,
-}) => (
+const SignUpWrapper = ({ RightMenuChildren, LeftMenuChildren }) => (
   <BaseStyled>
     <LeftMenu>{LeftMenuChildren}</LeftMenu>
     <RightMenu>

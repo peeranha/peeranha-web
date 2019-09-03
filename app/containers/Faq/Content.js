@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import styled from 'styled-components';
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
+
 import textBlockStyles from 'text-block-styles';
 import commonMessages from 'common-messages';
+
+import { scrollToSection } from 'utils/animation';
+import { getSectionCode, getQuestionCode } from 'utils/faqManagement';
 
 import plusIcon from 'images/Plus.png';
 import minusIcon from 'images/Minus.png';
@@ -16,7 +22,12 @@ import Base from 'components/Base';
 import BaseRounded from 'components/Base/BaseRounded';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
-import { SECTION_ID } from './constants';
+const ContentStyled = styled.div`
+  h4,
+  h5 {
+    cursor: pointer;
+  }
+`;
 
 const TextBlock = styled.div`
   ${textBlockStyles};
@@ -36,11 +47,29 @@ const Ul = styled.ul`
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-const Question = /* istanbul ignore next */ ({ h3, content }) => {
+const Question = /* istanbul ignore next */ ({
+  h3,
+  content,
+  questionCode,
+  sectionCode,
+}) => {
+  const { hash } = window.location;
+
   const [isOpened, collapse] = useState(false);
 
+  const collapseQuestion = () => {
+    createdHistory.push(routes.appFaq());
+    collapse(!isOpened);
+  };
+
+  const questionId = getQuestionCode(sectionCode, questionCode);
+
+  if (hash.match(questionId) && !isOpened) {
+    collapse(true);
+  }
+
   return (
-    <li className="d-flex">
+    <li className="d-flex" id={questionId}>
       <div>
         <img
           style={{ transform: `rotate(${isOpened ? '180deg' : '0deg'})` }}
@@ -51,12 +80,9 @@ const Question = /* istanbul ignore next */ ({ h3, content }) => {
       </div>
 
       <div>
-        <h3
-          className="d-flex align-items-center"
-          onClick={collapse.bind(null, !isOpened)}
-        >
+        <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
           <Span fontSize="18">{h3}</Span>
-        </h3>
+        </h5>
 
         <TextBlock
           className={isOpened ? 'd-block' : 'd-none'}
@@ -69,20 +95,34 @@ const Question = /* istanbul ignore next */ ({ h3, content }) => {
 
 const DEFAULT_QST_NUM = 5;
 
-const Section = /* istanbul ignore next */ ({ h2, blocks, id }) => {
+const Section = /* istanbul ignore next */ ({ h2, blocks, sectionCode }) => {
+  const { hash } = window.location;
+
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
   const Header = isOpened ? Base : BaseRounded;
 
+  const collapseSection = () => {
+    createdHistory.push(routes.appFaq());
+    collapse(!isOpened);
+  };
+
+  const sectionId = getSectionCode(sectionCode);
+
+  if (hash.match(sectionId) && !isOpened) {
+    collapse(true);
+
+    if (!isExtendedSection) {
+      extendSection(true);
+    }
+  }
+
   return (
-    <div className="mb-3" id={id}>
+    <div className="mb-3" id={sectionId}>
       <Header position="top">
-        <H4
-          className="d-flex align-items-center"
-          onClick={collapse.bind(null, !isOpened)}
-        >
+        <H4 className="d-flex align-items-center" onClick={collapseSection}>
           <img
             className="mr-4"
             src={isOpened ? minusIcon : plusIcon}
@@ -96,7 +136,7 @@ const Section = /* istanbul ignore next */ ({ h2, blocks, id }) => {
         <Ul>
           {blocks
             .slice(0, questionsNumber)
-            .map(x => <Question key={x.h3} {...x} />)}
+            .map(x => <Question {...x} key={x.h3} sectionCode={sectionCode} />)}
         </Ul>
 
         {blocks.length > DEFAULT_QST_NUM && (
@@ -115,23 +155,30 @@ const Section = /* istanbul ignore next */ ({ h2, blocks, id }) => {
   );
 };
 
-const Content = /* istanbul ignore next */ ({ faq }) => (
-  <div>
-    {faq.blocks.map((x, index) => (
-      <Section key={x.h2} {...x} id={`${SECTION_ID}_${index}`} />
-    ))}
-  </div>
-);
+const Content = /* istanbul ignore next */ ({ faq }) => {
+  // scroll to section / question after component mounting
+  useEffect(() => {
+    scrollToSection();
+  }, []);
+
+  return (
+    <ContentStyled>
+      {faq.blocks.map(x => <Section {...x} key={x.h2} />)}
+    </ContentStyled>
+  );
+};
 
 Question.propTypes = {
   h3: PropTypes.string,
   content: PropTypes.string,
+  questionCode: PropTypes.string,
+  sectionCode: PropTypes.string,
 };
 
 Section.propTypes = {
   h2: PropTypes.string,
   blocks: PropTypes.array,
-  id: PropTypes.string,
+  sectionCode: PropTypes.string,
 };
 
 Content.propTypes = {

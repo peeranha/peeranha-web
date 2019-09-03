@@ -189,8 +189,6 @@
     "Тег – это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
-  "app.containers.CreateTag.whatIsTag": "Что такое тег?",
-  "app.containers.CreateTag.howToUseIt": "Как это использовать?",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
@@ -266,9 +264,6 @@
     "Описание должно говорить о том, кому будет полезно данное сообщество",
   "app.containers.CreateCommunity.writeWhyDoWeeNeed":
     "Напишите, зачем вам нужно привлекать внимание и коллекционировать голоса",
-  "app.containers.CreateCommunity.whatIsCommunity": "Что такое сообщество?",
-  "app.containers.CreateCommunity.whoManagesCommunities":
-    "Кто руководит сообществами?",
   "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
     "Форма должна содержать только теги с уникальными именами",
   "app.containers.CreateCommunity.communityLanguage": "Язык",
@@ -539,9 +534,6 @@
     "Peeranha блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
-  "app.containers.SignUp.firstFAQAlmostDone": "Почему я должен ожидать?",
-  "app.containers.SignUp.secondFAQAlmostDone": "Когда я могу начать?",
-  "app.containers.SignUp.thirdFAQAlmostDone": "Для чего мне нужен EOS аккаунт?",
   "app.containers.SignUp.weWillNotify":
     "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
@@ -550,13 +542,6 @@
     "Подход EOS работы в том, что новые аккаунты могут быть созданы только кем-то с существующим аккаунтом. Создание аккаунт также требует купить некоторое количество RAM.",
   "app.containers.SignUp.ifYouCreateEos":
     "Если вы создаете учетную запись EOS на этом веб-сайте, она поставляется с 0.2 EOS, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
-  "app.containers.SignUp.whyDoIneedThisService":
-    "Почему мне нужен этот сервис?",
-  "app.containers.SignUp.howMuchDoesItCost": "Как дорого это стоит?",
-  "app.containers.SignUp.ifThisWebsiteSafe":
-    "Этот вебсайт безопасен для использования?",
-  "app.containers.SignUp.whatKeysAndHowToUse":
-    "Что это за ключи и как их генерировать?",
   "app.containers.SignUp.signUpOptions": "Опции при регистрации",
   "app.containers.SignUp.steemitIsNotTypical":
     "Peeranha не типичное приложение. Оно движимо Peeranha блокчейном.",
@@ -566,10 +551,6 @@
     "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "Если бы Вы хотели пропустить этот шаг и остаться анонимным, Вы можете сами оплатить создание аккаунта через сторонние сервисы",
-  "app.containers.SignUp.whyIHaveToWait": "Почему я должен ожидать?",
-  "app.containers.SignUp.whenCanIStart": "Когда я могу начать?",
-  "app.containers.SignUp.whatIsEosAccountFor":
-    "Для чего мне нужен EOS аккаунт?",
   "app.containers.SignUp.or": "или",
   "app.containers.SignUp.doYouHaveAlreadyAccount": "Вы уже имеете EOS аккаунт?",
   "app.containers.SignUp.youHaveToSaveKeys":
@@ -669,9 +650,6 @@
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-  "app.components.TextEditor.howToAsk": "Как спросить?",
-  "app.components.TextEditor.howToFormat": "Как форматировать?",
-  "app.components.TextEditor.howToTag": "Как ставить тег",
 
   "app.containers.AskQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"

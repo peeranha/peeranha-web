@@ -37,7 +37,7 @@ export const feed = () => `/feed`;
 export const communities = () => `/communities`;
 export const tags = () => `/tags`;
 export const users = () => `/users`;
-export const appFaq = () => `/app/faq`;
+export const appFaq = code => `/app/faq${code ? `#${code}` : ``}`;
 export const support = () => `/support`;
 export const search = () => `/search`;
 

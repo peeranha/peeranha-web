@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import * as routes from 'routes-config';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import almostDoneBanner from 'images/communityIsSuggested.svg?inline';
 
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
 import H3 from 'components/H3';
 import Button from 'components/Button/Outlined/InfoLarge';
 
 import messages from 'containers/SignUp/messages';
+
+import {
+  ALMOST_DONE_1ST_QUESTION,
+  ALMOST_DONE_2ST_QUESTION,
+  ALMOST_DONE_3ST_QUESTION,
+} from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
@@ -18,7 +29,7 @@ const MainPageLink = Button.extend`
   position: relative;
 `.withComponent(Link);
 
-const LeftMenu = () => (
+const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -27,7 +38,7 @@ const LeftMenu = () => (
     </div>
 
     <H3 className="d-flex align-items-center mb-4">
-      <FormattedMessage {...messages.firstFAQAlmostDone} />
+      <FormattedMessage {...messages.almostDone} />
     </H3>
 
     <div className="mb-4">
@@ -42,23 +53,9 @@ const LeftMenu = () => (
       </P>
     </div>
 
-    <ul className="mb-4">
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.firstFAQAlmostDone} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.secondFAQAlmostDone} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.thirdFAQAlmostDone} />
-        </Link>
-      </Li>
-    </ul>
+    {faqQuestions && (
+      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+    )}
   </React.Fragment>
 );
 
@@ -80,11 +77,30 @@ const RightMenu = () => (
   </div>
 );
 
-const AlmostDone = () => (
+const AlmostDone = ({ faqQuestions }) => (
   <SignUpWrapper
-    LeftMenuChildren={<LeftMenu />}
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={<RightMenu />}
   />
 );
 
-export default React.memo(AlmostDone);
+const mapStateToProps = createStructuredSelector({
+  faqQuestions: selectFaqQuestions([
+    ALMOST_DONE_1ST_QUESTION,
+    ALMOST_DONE_2ST_QUESTION,
+    ALMOST_DONE_3ST_QUESTION,
+  ]),
+});
+
+LeftMenu.propTypes = {
+  faqQuestions: PropTypes.array,
+};
+
+AlmostDone.propTypes = {
+  faqQuestions: PropTypes.array,
+};
+
+export default connect(
+  mapStateToProps,
+  null,
+)(AlmostDone);

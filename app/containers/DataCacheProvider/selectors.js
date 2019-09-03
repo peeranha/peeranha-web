@@ -1,4 +1,10 @@
+import React from 'react';
 import { createSelector } from 'reselect';
+import * as routes from 'routes-config';
+
+import { getQuestionCode } from 'utils/faqManagement';
+import A from 'components/A';
+
 import { initialState } from './reducer';
 
 /**
@@ -60,6 +66,47 @@ const selectStatError = () =>
     substate => substate.getStatError,
   );
 
+const selectFaq = () =>
+  createSelector(selectDataCacheProviderDomain, substate => substate.faq);
+
+/**
+ *
+ * @questionsIndexes - array, ['1.1', '{sectionIndex}.{questionIndex}']
+ */
+
+/* eslint array-callback-return: 0, consistent-return: 0 */
+const selectFaqQuestions = questionsIndexes =>
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const { faq } = substate;
+
+    if (faq) {
+      return questionsIndexes
+        .map(x => {
+          const [sectionIndex, questionIndex] = x.split('.');
+          const section = faq.blocks[sectionIndex];
+
+          if (section && section.blocks[questionIndex]) {
+            return (
+              <A
+                to={routes.appFaq(getQuestionCode(sectionIndex, questionIndex))}
+              >
+                {section.blocks[questionIndex].h3}
+              </A>
+            );
+          }
+        })
+        .filter(x => x);
+    }
+
+    return null;
+  });
+
+const selectGetFaqError = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getFaqError,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -71,4 +118,7 @@ export {
   selectStat,
   selectStatLoading,
   selectStatError,
+  selectFaq,
+  selectGetFaqError,
+  selectFaqQuestions,
 };

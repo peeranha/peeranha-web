@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import * as routes from 'routes-config';
 
 import commonMessages from 'common-messages';
 
 import Label from 'components/FormFields/Label';
-import { BaseStyled, AStyled, Ul } from 'components/TextEditor/Tips';
+import { BaseStyled, Li, Ul } from 'components/TextEditor/Tips';
 
 import messages from './messages';
 
-export const Tips = /* istanbul ignore next */ () => (
+export const Tips = /* istanbul ignore next */ ({ faqQuestions }) => (
   <BaseStyled>
     <Label className="mb-3">
       <FormattedMessage {...commonMessages.tips} />
@@ -28,19 +28,13 @@ export const Tips = /* istanbul ignore next */ () => (
         <FormattedMessage {...messages.writeWhyDoWeeNeed} />
       </li>
     </Ul>
-    <ul>
-      <li>
-        <AStyled to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whatIsCommunity} />
-        </AStyled>
-      </li>
-      <li>
-        <AStyled to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whoManagesCommunities} />
-        </AStyled>
-      </li>
-    </ul>
+
+    {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
   </BaseStyled>
 );
+
+Tips.propTypes = {
+  faqQuestions: PropTypes.array,
+};
 
 export default React.memo(Tips);

@@ -21,6 +21,12 @@ import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
+import {
+  WHAT_IS_COMMUNITY_QUESTION,
+  WHO_MANAGES_COMMUNITY_QUESTION,
+} from 'containers/Faq/constants';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -123,7 +129,7 @@ export class CreateCommunity extends React.PureComponent {
               </div>
 
               <div className="col-12 col-xl-3 p-0">
-                <Tips />
+                <Tips faqQuestions={this.props.faqQuestions} />
               </div>
             </div>
           </Base>
@@ -146,10 +152,15 @@ CreateCommunity.propTypes = {
   createCommunityLoading: PropTypes.bool.isRequired,
   cachedProfileImg: PropTypes.string.isRequired,
   cachedImgHash: PropTypes.string.isRequired,
+  faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_COMMUNITY_QUESTION,
+    WHO_MANAGES_COMMUNITY_QUESTION,
+  ]),
   editingImgState: selectors.selectEditingImgState(),
   cachedProfileImg: selectors.selectCachedProfileImg(),
   createCommunityLoading: selectors.selectCreateCommunityLoading(),

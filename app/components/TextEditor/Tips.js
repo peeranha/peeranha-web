@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import * as routes from 'routes-config';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import {
   BG_SECONDARY_LIGHT,
@@ -10,6 +11,14 @@ import {
   TEXT_PRIMARY,
   BG_PRIMARY,
 } from 'style-constants';
+
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
+import {
+  HOW_TO_ASK_QUESTION,
+  HOW_TO_FORMAT_QUESTION,
+  HOW_TO_TAG_QUESTION,
+} from 'containers/Faq/constants';
 
 import A from 'components/A';
 import Base from 'components/Base';
@@ -23,11 +32,13 @@ const BaseStyled = Base.extend`
   height: 100%;
 `;
 
-const AStyled = A.extend`
-  color: ${TEXT_PRIMARY};
-  font-size: 14px;
+const Li = styled.li`
+  ${A} {
+    color: ${TEXT_PRIMARY};
+    font-size: 14px;
+  }
+
   margin-bottom: 10px;
-  display: inline-block;
 `;
 
 const Ul = styled.ul`
@@ -57,7 +68,7 @@ const Ul = styled.ul`
   }
 `;
 
-const Tips = /* istanbul ignore next */ ({ className }) => (
+const Tips = /* istanbul ignore next */ ({ className, faqQuestions }) => (
   <div className={className}>
     <BaseStyled>
       <Label className="mb-3">
@@ -83,30 +94,28 @@ const Tips = /* istanbul ignore next */ ({ className }) => (
           <FormattedMessage {...messages.quoteByPlacing} />
         </li>
       </Ul>
-      <ul>
-        <li>
-          <AStyled to={routes.faq()} href={routes.faq()}>
-            <FormattedMessage {...messages.howToAsk} />
-          </AStyled>
-        </li>
-        <li>
-          <AStyled to={routes.faq()} href={routes.faq()}>
-            <FormattedMessage {...messages.howToFormat} />
-          </AStyled>
-        </li>
-        <li>
-          <AStyled to={routes.faq()} href={routes.faq()}>
-            <FormattedMessage {...messages.howToTag} />
-          </AStyled>
-        </li>
-      </ul>
+
+      {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
     </BaseStyled>
   </div>
 );
 
 Tips.propTypes = {
   className: PropTypes.string,
+  faqQuestions: PropTypes.array,
 };
 
-export { BaseStyled, AStyled, Ul };
-export default React.memo(Tips);
+const mapStateToProps = createStructuredSelector({
+  faqQuestions: selectFaqQuestions([
+    HOW_TO_ASK_QUESTION,
+    HOW_TO_FORMAT_QUESTION,
+    HOW_TO_TAG_QUESTION,
+  ]),
+});
+
+export { BaseStyled, Li, Ul };
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Tips);

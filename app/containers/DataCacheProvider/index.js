@@ -16,12 +16,13 @@ import { DAEMON } from 'utils/constants';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getCommunitiesWithTags, getStat } from './actions';
+import { getCommunitiesWithTags, getStat, getFaq } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DataCacheProvider extends React.Component {
   componentDidMount() {
     this.props.getStatDispatch();
+    this.props.getFaqDispatch();
     this.props.getCommunitiesWithTagsDispatch();
   }
 
@@ -33,6 +34,7 @@ export class DataCacheProvider extends React.Component {
 DataCacheProvider.propTypes = {
   getCommunitiesWithTagsDispatch: PropTypes.func,
   getStatDispatch: PropTypes.func,
+  getFaqDispatch: PropTypes.func,
   children: PropTypes.element,
 };
 
@@ -42,6 +44,7 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     getCommunitiesWithTagsDispatch: () => dispatch(getCommunitiesWithTags()),
     getStatDispatch: () => dispatch(getStat()),
+    getFaqDispatch: () => dispatch(getFaq()),
   };
 }
 
