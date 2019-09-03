@@ -5,8 +5,8 @@
 ### Setup
 #### Clone the repository
 ```
-git clone https://github.com/peerania/peerania-web 
-cd peerania-web
+git clone https://github.com/peeranha/peeranha-web 
+cd peeranha-web
 ```
 
 #### Install dependencies

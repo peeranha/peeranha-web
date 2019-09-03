@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import * as arrowDown from 'images/arrow_down.svg';
+import { scrollToSection } from 'utils/animation';
+import * as arrowDown from 'images/arrow_down.svg?inline';
 
 import messages from './messages';
 import Parallax from './Parallax';
+
 import {
   FIRST_SCREEN,
   SECOND_SCREEN,
@@ -15,6 +17,70 @@ import {
 
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
+
+const Introduction = /* istanbul ignore next */ ({
+  sendEmailLoading,
+  sendEmail,
+  translations,
+}) => (
+  <Parallax id={FIRST_SCREEN}>
+    <div className="layers">
+      <div className="pattern pattern-1">
+        <div className="inner" />
+      </div>
+      <div className="pattern pattern-2">
+        <div className="inner" />
+      </div>
+      <div className="pattern pattern-3">
+        <div className="inner" />
+      </div>
+    </div>
+
+    <Header
+      sendEmailLoading={sendEmailLoading}
+      sendEmail={sendEmail}
+      translations={translations}
+    />
+
+    <Wrapper className="container">
+      <div className="row align-items-center justify-content-center">
+        <Box className="col-lg-12 first-screen-banner">
+          <div className="row justify-content-center">
+            <h1 className="col-12 top-level">
+              <FormattedMessage {...messages.yourContributionsRewarded} />
+            </h1>
+          </div>
+
+          <div className="row justify-content-center">
+            <p className="col-12 col-lg-8 special-paragraph">
+              <FormattedMessage {...messages.weAreDecentralized} />
+            </p>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
+              <EmailLandingForm
+                form={SEND_EMAIL_FORM_INTRODUCTION}
+                button={messages.getStarted}
+                sendEmailLoading={sendEmailLoading}
+                sendEmail={sendEmail}
+                translations={translations}
+              />
+            </div>
+          </div>
+
+          <div className="row justify-content-center d-none d-lg-block">
+            <div className="col-12 justify-content-center icon-down">
+              <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
+                <img src={arrowDown} alt="arrowDown" />
+              </Icon>
+            </div>
+          </div>
+        </Box>
+      </div>
+    </Wrapper>
+  </Parallax>
+);
 
 const Box = styled.div`
   color: #ffffff !important;
@@ -31,23 +97,10 @@ const Box = styled.div`
   }
 
   .special-paragraph {
-    font-size: 1.5em;
+    font-size: 1.5em !important;
+    line-height: 1.5em !important;
     padding-top: 43px;
     padding-bottom: 58px;
-  }
-
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
   }
 
   .icon-down {
@@ -55,19 +108,29 @@ const Box = styled.div`
   }
 
   @media only screen and (max-width: 992px) {
-    font-size: 12px;
+    font-size: 21px;
 
     .top-level {
       padding-top: 0;
+      font-size: 2.5em;
     }
   }
 
   @media only screen and (max-width: 560px) {
-    font-size: 10px;
+    font-size: 18px;
+
+    .special-paragraph {
+      padding-top: 20px;
+      padding-bottom: 30px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    font-size: 13px;
   }
 `;
 
-const Icon = styled.a`
+const Icon = styled.span`
   position: relative;
   color: #fff;
   font-size: 36px;
@@ -99,63 +162,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const Introduction = ({ sendEmailLoading, sendEmail }) => (
-  <Parallax id={FIRST_SCREEN}>
-    <div className="layers">
-      <div className="pattern pattern-1">
-        <div className="inner" />
-      </div>
-      <div className="pattern pattern-2">
-        <div className="inner" />
-      </div>
-      <div className="pattern pattern-3">
-        <div className="inner" />
-      </div>
-    </div>
-
-    <Header sendEmailLoading={sendEmailLoading} sendEmail={sendEmail} />
-    <Wrapper className="container">
-      <div className="row align-items-center justify-content-center">
-        <Box className="col-lg-12 first-screen-banner">
-          <div className="row justify-content-center">
-            <h1 className="col-12 top-level">
-              <FormattedMessage {...messages.yourContributionsRewarded} />
-            </h1>
-          </div>
-
-          <div className="row justify-content-center">
-            <p className="col-12 col-lg-8 special-paragraph">
-              <FormattedMessage {...messages.weAreDecentralized} />
-            </p>
-          </div>
-
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
-              <EmailLandingForm
-                form={SEND_EMAIL_FORM_INTRODUCTION}
-                button={messages.getStarted}
-                sendEmailLoading={sendEmailLoading}
-                sendEmail={sendEmail}
-              />
-            </div>
-          </div>
-
-          <div className="row justify-content-center d-none d-lg-block">
-            <div className="col-12 justify-content-center icon-down">
-              <Icon href={`#${SECOND_SCREEN}`}>
-                <img src={arrowDown} alt="arrowDown" />
-              </Icon>
-            </div>
-          </div>
-        </Box>
-      </div>
-    </Wrapper>
-  </Parallax>
-);
-
 Introduction.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
+  location: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 export default Introduction;

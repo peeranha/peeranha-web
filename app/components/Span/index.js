@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import IconStyled from 'components/Icon/IconStyled';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import { APP_FONT, TEXT_DARK } from 'style-constants';
 
@@ -14,10 +14,14 @@ const Span = styled.span`
   font-family: ${APP_FONT};
   text-align: left;
 
-  ${IconStyled} {
-    stroke: ${({ color }) => color || TEXT_DARK};
-    fill: ${({ color }) => color || TEXT_DARK};
-  }
+  ${x =>
+    x.color
+      ? `
+    ${IconStyled} {
+      ${IconHover({ color: x.color })};
+    }
+  `
+      : ``};
 `;
 
 export default Span;

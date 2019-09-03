@@ -5,18 +5,20 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
+import Cookies from 'utils/cookies';
+
 import Ul from 'components/Ul';
 import A from 'components/A';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import Base from 'components/Base';
 
-import MyProfileButton from './MyProfileButton';
+import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
-const BaseStyled = Base.extend`
+export const BaseStyled = Base.extend`
   margin-bottom: 0;
 `.withComponent('header');
 
-const Nav = Ul.extend`
+export const Nav = Ul.extend`
   padding: 0;
   border-bottom: 0;
 `.withComponent('nav');
@@ -28,6 +30,8 @@ const UserNavigation = /* istanbul ignore next */ ({
   questionsWithUserAnswersLength,
 }) => {
   const path = window.location.pathname + window.location.hash;
+
+  const authType = Cookies.get(AUTH_TYPE);
 
   return (
     <BaseStyled position="top" className="d-flex justify-content-between">
@@ -71,13 +75,17 @@ const UserNavigation = /* istanbul ignore next */ ({
           </NavigationButton>
         </A>
 
-        <MyProfileButton
-          userId={userId}
-          account={account}
+        <A
+          className={
+            userId !== account || authType !== LOGIN_WITH_EMAIL ? 'd-none' : ''
+          }
+          to={routes.userSettings(userId)}
           href={routes.userSettings(userId)}
         >
-          <FormattedMessage {...messages.settings} />
-        </MyProfileButton>
+          <NavigationButton isLink={path !== routes.userSettings(userId)}>
+            <FormattedMessage {...messages.settings} />
+          </NavigationButton>
+        </A>
       </Nav>
     </BaseStyled>
   );

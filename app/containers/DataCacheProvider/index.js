@@ -11,14 +11,17 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
+
 import reducer from './reducer';
 import saga from './saga';
 
-import { getCommunitiesWithTags } from './actions';
+import { getCommunitiesWithTags, getStat } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DataCacheProvider extends React.Component {
   componentDidMount() {
+    this.props.getStatDispatch();
     this.props.getCommunitiesWithTagsDispatch();
   }
 
@@ -29,6 +32,7 @@ export class DataCacheProvider extends React.Component {
 
 DataCacheProvider.propTypes = {
   getCommunitiesWithTagsDispatch: PropTypes.func,
+  getStatDispatch: PropTypes.func,
   children: PropTypes.element,
 };
 
@@ -37,6 +41,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getCommunitiesWithTagsDispatch: () => dispatch(getCommunitiesWithTags()),
+    getStatDispatch: () => dispatch(getStat()),
   };
 }
 
@@ -46,7 +51,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'dataCacheProvider', reducer });
-const withSaga = injectSaga({ key: 'dataCacheProvider', saga });
+const withSaga = injectSaga({ key: 'dataCacheProvider', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

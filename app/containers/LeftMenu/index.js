@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import { TEXT_LIGHT, TEXT_PRIMARY_DARK } from 'style-constants';
 
-import closeIcon from 'svg/close';
+import closeIcon from 'images/close.svg?external';
 import Icon from 'components/Icon';
 import Span from 'components/Span';
 
@@ -68,7 +68,7 @@ const LeftMenu = /* istanbul ignore next */ ({
     {isMenuVisible && (
       <After onClick={showMenu}>
         <Span color={TEXT_LIGHT}>
-          <Icon icon={closeIcon} noMargin />
+          <Icon width="16" icon={closeIcon} noMargin />
         </Span>
       </After>
     )}

@@ -5,6 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
@@ -25,6 +26,9 @@ module.exports = options => {
 
   return {
     mode: options.mode,
+    node: {
+      fs: 'empty',
+    },
     entry: options.entry,
     output: Object.assign(
       {
@@ -38,7 +42,7 @@ module.exports = options => {
     module: {
       rules: [
         {
-          test: /\.js$/, // Transform all .js files required somewhere with Babel
+          test: /\.(js|jsx)$/, // Transform all .js files required somewhere with Babel
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
@@ -64,14 +68,23 @@ module.exports = options => {
           use: 'file-loader',
         },
         {
-          test: /\.svg$/,
-          use: [
+          test: /\.svg/,
+          oneOf: [
             {
-              loader: 'svg-url-loader',
-              options: {
-                // Inline files smaller than 10 kB
-                encoding: 'base64',
-                noquotes: true,
+              resourceQuery: /inline/, // foo.svg?inline
+              use: {
+                loader: 'svg-url-loader',
+                options: {
+                  encoding: 'base64',
+                  noquotes: true,
+                },
+              },
+            },
+            {
+              resourceQuery: /external/, // foo.svg?external
+              use: {
+                loader: 'svg-inline-loader',
+                options: {},
               },
             },
           ],
@@ -115,6 +128,20 @@ module.exports = options => {
           use: 'html-loader',
         },
         {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'html-loader',
+            },
+            {
+              loader: 'markdown-loader',
+              options: {
+                /* your options here */
+              },
+            },
+          ],
+        },
+        {
           test: /\.(mp4|webm)$/,
           use: {
             loader: 'url-loader',
@@ -133,6 +160,7 @@ module.exports = options => {
 
       // Expose .env config to webpack in order to use `process.env.{key}` inside code
       new webpack.DefinePlugin(envKeys),
+      new CopyWebpackPlugin([{ from: 'static' }]),
     ]),
     resolve: {
       modules: ['node_modules', 'app'],

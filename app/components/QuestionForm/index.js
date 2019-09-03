@@ -7,11 +7,11 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import questionIcon from 'images/question.svg';
-import closeIcon from 'images/closeCircle.svg';
+import questionIcon from 'images/question.svg?inline';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
 import Tips from 'components/TextEditor/Tips';
@@ -101,6 +101,7 @@ export const QuestionForm = /* istanbul ignore next */ ({
                   options={communities}
                   validate={[requiredForObjectField]}
                   warn={[requiredForObjectField]}
+                  splitInHalf
                 />
                 <Field
                   name={FORM_TITLE}
@@ -110,6 +111,7 @@ export const QuestionForm = /* istanbul ignore next */ ({
                   tip={intl.formatMessage({ id: messages.titleTip.id })}
                   validate={[strLength15x100, required]}
                   warn={[strLength15x100, required]}
+                  splitInHalf
                 />
                 <Field
                   name={FORM_CONTENT}
@@ -137,16 +139,14 @@ export const QuestionForm = /* istanbul ignore next */ ({
                   }
                   validate={[required, strLength1x5]}
                   warn={[required, strLength1x5]}
+                  splitInHalf
                 />
               </div>
+
               <div>
-                <LargeButton
-                  id={submitButtonId}
-                  className="my-3"
-                  typeAttr="submit"
-                >
+                <Button id={submitButtonId} className="my-3">
                   {submitButtonName}
-                </LargeButton>
+                </Button>
               </div>
             </Form>
           </div>

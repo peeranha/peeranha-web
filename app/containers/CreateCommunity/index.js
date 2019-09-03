@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose } from 'redux';
@@ -18,6 +17,7 @@ import injectReducer from 'utils/injectReducer';
 
 import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 
+import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -104,13 +104,12 @@ export class CreateCommunity extends React.PureComponent {
 
     return (
       <div>
-        <Helmet>
-          <title>{sendProps.translations[messages.title.id]}</title>
-          <meta
-            name="description"
-            content={sendProps.translations[messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={sendProps.translations[messages.title.id]}
+          description={sendProps.translations[messages.description.id]}
+          language={this.props.locale}
+          index={false}
+        />
 
         <Header />
 

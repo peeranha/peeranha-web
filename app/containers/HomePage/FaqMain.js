@@ -3,16 +3,83 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
+import { TEXT_DARK, TEXT_PRIMARY, TEXT_WARNING_LIGHT } from 'style-constants';
+
 import * as routes from 'routes-config';
 
 import plus from 'images/Plus.png';
 import minus from 'images/Minus.png';
-import arrRight from 'images/arrRight.svg';
+import arrRight from 'images/arrRight.svg?inline';
 
 import { FOURTH_SCREEN } from './constants';
 import messages from './messages';
 
 import Section from './Section';
+
+export const Question = /* istanbul ignore next */ ({ header, body }) => (
+  <div className="card">
+    <div className="card-header" id={`heading${header}`}>
+      <div>
+        <button
+          data-toggle="collapse"
+          data-target={`#collapse${header}`}
+          aria-expanded="false"
+          aria-controls={`collapse${header}`}
+        >
+          <span className="icon icon-collapse" />
+          <h3 className="text">
+            <FormattedMessage {...messages[header]} />
+          </h3>
+        </button>
+      </div>
+      <div
+        id={`collapse${header}`}
+        className="collapse"
+        aria-labelledby={`heading${header}`}
+        data-parent="#accordion"
+      >
+        <div className="card-body">
+          <FormattedMessage {...messages[body]} />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+export const Questions = /* istanbul ignore next */ ({ questionsNumber }) =>
+  QuestionsData.slice(0, questionsNumber).map(item => (
+    <Question key={item.header} {...item} />
+  ));
+
+const FaqMain = /* istanbul ignore next */ ({ questionsNumber }) => (
+  <Box id={FOURTH_SCREEN}>
+    <div className="container">
+      <div className="row">
+        <div className="col-12 fourth-screen-faq" id="accordion">
+          <Questions questionsNumber={questionsNumber} />
+          <div className="card get-more-answers">
+            <div className="card-header">
+              <div className="mb-0">
+                <Link to={routes.faq()} href={routes.faq()}>
+                  <button className="get-more-answers">
+                    <img
+                      className="icon icon-getanswers"
+                      src={arrRight}
+                      alt="arrRight"
+                    />
+                    <h3 className="text">
+                      <FormattedMessage {...messages.getMoreAnswers} />
+                    </h3>
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Box>
+);
 
 const Box = Section.extend`
   .card {
@@ -28,7 +95,7 @@ const Box = Section.extend`
         align-items: center;
         text-align: left;
         outline: none;
-        color: #282828;
+        color: ${TEXT_DARK};
         line-height: 1.33;
         padding: 10px 0;
         cursor: pointer;
@@ -73,7 +140,7 @@ const Box = Section.extend`
         }
 
         :hover {
-          color: #5c78d7;
+          color: ${TEXT_PRIMARY};
           .icon {
             transform: rotate(90deg);
           }
@@ -84,13 +151,14 @@ const Box = Section.extend`
     .card-body {
       padding-left: 3rem;
       font-size: 16px;
+      line-height: 1.63;
     }
   }
 
   .card.get-more-answers .card-header {
     border: none;
     button {
-      color: #fa8072 !important;
+      color: ${TEXT_WARNING_LIGHT} !important;
     }
   }
 
@@ -103,8 +171,8 @@ const Box = Section.extend`
 
 const QuestionsData = [
   {
-    header: 'whatIsPeerania',
-    body: 'whatIsPeeraniaCollapsed',
+    header: 'whatIsPeeranha',
+    body: 'whatIsPeeranhaCollapsed',
   },
   {
     header: 'differentFromOtherSites',
@@ -147,71 +215,6 @@ const QuestionsData = [
     body: 'learnMoreCollapsed',
   },
 ];
-
-export const Question = ({ header, body }) => (
-  <div className="card">
-    <div className="card-header" id={`heading${header}`}>
-      <div>
-        <button
-          data-toggle="collapse"
-          data-target={`#collapse${header}`}
-          aria-expanded="false"
-          aria-controls={`collapse${header}`}
-        >
-          <span className="icon icon-collapse" />
-          <h3 className="text">
-            <FormattedMessage {...messages[header]} />
-          </h3>
-        </button>
-      </div>
-      <div
-        id={`collapse${header}`}
-        className="collapse"
-        aria-labelledby={`heading${header}`}
-        data-parent="#accordion"
-      >
-        <div className="card-body">
-          <FormattedMessage {...messages[body]} />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-export const Questions = ({ questionsNumber }) =>
-  QuestionsData.slice(0, questionsNumber).map(item => (
-    <Question key={item.header} {...item} />
-  ));
-
-const FaqMain = ({ questionsNumber }) => (
-  <Box id={FOURTH_SCREEN}>
-    <div className="container">
-      <div className="row">
-        <div className="col-12 fourth-screen-faq" id="accordion">
-          <Questions questionsNumber={questionsNumber} />
-          <div className="card get-more-answers">
-            <div className="card-header">
-              <div className="mb-0">
-                <Link to={routes.faq()} href={routes.faq()}>
-                  <button className="get-more-answers">
-                    <img
-                      className="icon icon-getanswers"
-                      src={arrRight}
-                      alt="arrRight"
-                    />
-                    <h3 className="text">
-                      <FormattedMessage {...messages.getMoreAnswers} />
-                    </h3>
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Box>
-);
 
 FaqMain.propTypes = {
   questionsNumber: PropTypes.number,

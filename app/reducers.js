@@ -8,7 +8,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import profileReducer from 'containers/Profile/reducer';
 import loginReducer from 'containers/Login/reducer';
 import toastReducer from 'containers/Toast/reducer';
 import accountProviderReducer from 'containers/AccountProvider/reducer';
@@ -31,6 +30,13 @@ import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOf
 import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
 import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
 import usersReducer from 'containers/Users/reducer';
+import forgotPasswordReducer from 'containers/ForgotPassword/reducer';
+import logoutReducer from 'containers/Logout/reducer';
+import showActiveKeyReducer from 'containers/ShowActiveKey/reducer';
+import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
+import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
+import changeEmailReducer from 'containers/ChangeEmail/reducer';
+import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 
 /*
  * routeReducer
@@ -41,7 +47,7 @@ import usersReducer from 'containers/Users/reducer';
  */
 
 // Initial routing state
-const routeInitialState = fromJS({
+export const routeInitialState = fromJS({
   location: null,
 });
 
@@ -67,8 +73,10 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
-    signup: signUpReducer,
+    signUp: signUpReducer,
     login: loginReducer,
+    logout: logoutReducer,
+    forgotPassword: forgotPasswordReducer,
     toast: toastReducer,
     account: accountProviderReducer,
     editProfileReducer,
@@ -77,7 +85,6 @@ export default function createReducer(injectedReducers) {
     viewQuestion: viewQuestionReducer,
     editQuestion: editQuestionReducer,
     editAnswer: editAnswerReducer,
-    profile: profileReducer,
     homepage: homepageReducer,
     dataCacheProvider: dataCacheProviderReducer,
     followCommunityButton: followCommunityButtonReducer,
@@ -91,6 +98,11 @@ export default function createReducer(injectedReducers) {
     voteForNewTagButton: voteForNewTagButtonReducer,
     users: usersReducer,
     form: formReducer,
+    showActiveKey: showActiveKeyReducer,
+    showOwnerKey: showOwnerKeyReducer,
+    changePasswordByPrevious: changePasswordByPreviousReducer,
+    changeEmail: changeEmailReducer,
+    deleteAccount: deleteAccountReducer,
     ...injectedReducers,
   });
 }

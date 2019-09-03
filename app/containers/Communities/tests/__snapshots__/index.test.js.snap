@@ -4,18 +4,12 @@ exports[`<Communities /> render communities [] 1`] = `
 <div
   className="d-flex justify-content-center"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Communities
-    </title>
-    <meta
-      content="Communities | Description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Communities | Description"
+    keywords={Array []}
+    language="en"
+    title="Communities"
+  />
   <div
     className="flex-grow-1"
   >
@@ -73,18 +67,16 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
 <div
   className="d-flex justify-content-center"
 >
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Communities
-    </title>
-    <meta
-      content="Communities | Description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Communities | Description"
+    keywords={
+      Array [
+        undefined,
+      ]
+    }
+    language="en"
+    title="Communities"
+  />
   <div
     className="flex-grow-1"
   >

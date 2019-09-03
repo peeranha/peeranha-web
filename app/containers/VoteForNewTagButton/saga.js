@@ -6,12 +6,11 @@ import {
 } from 'utils/communityManagement';
 
 import { getSuggestedTagsWorker } from 'containers/Tags/saga';
-
 import { selectSuggestedTags } from 'containers/Tags/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { UPVOTE, DOWNVOTE } from './constants';
 
@@ -33,9 +32,7 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    const profileInfo = yield call(() =>
-      getUserProfileWorker({ user: selectedAccount }),
-    );
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -79,9 +76,7 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
 
-    const profileInfo = yield call(() =>
-      getUserProfileWorker({ user: selectedAccount }),
-    );
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());

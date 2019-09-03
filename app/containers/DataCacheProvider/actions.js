@@ -12,6 +12,9 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
   REMOVE_USER_PROFILE,
+  GET_STAT,
+  GET_STAT_SUCCESS,
+  GET_STAT_ERROR,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -34,10 +37,11 @@ export function getCommunitiesWithTagsErr(getCommunitiesWithTagsError) {
   };
 }
 
-export function getUserProfile(user) {
+export function getUserProfile(user, getFullProfile) {
   return {
     type: GET_USER_PROFILE,
     user,
+    getFullProfile,
   };
 }
 
@@ -59,5 +63,26 @@ export function removeUserProfile(user) {
   return {
     type: REMOVE_USER_PROFILE,
     user,
+  };
+}
+
+// Get stat
+export function getStat() {
+  return {
+    type: GET_STAT,
+  };
+}
+
+export function getStatSuccess(stat) {
+  return {
+    type: GET_STAT_SUCCESS,
+    stat,
+  };
+}
+
+export function getStatErr(getStatError) {
+  return {
+    type: GET_STAT_ERROR,
+    getStatError,
   };
 }

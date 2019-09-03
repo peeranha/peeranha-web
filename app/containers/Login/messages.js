@@ -4,29 +4,35 @@
 
 import { defineMessages } from 'react-intl';
 
+import {
+  SCATTER_MODE_ERROR,
+  USER_IS_NOT_REGISTERED,
+  USER_IS_NOT_SELECTED,
+} from './constants';
+
 export default defineMessages({
-  header: {
-    id: 'app.containers.Login.header',
-    defaultMessage: 'No Peerania account exists for selected identity.',
+  authUserHasMore: {
+    id: 'app.containers.Login.authUserHasMore',
   },
-  selectAnotherIdentity: {
-    id: 'app.containers.Login.selectAnotherIdentity',
-    defaultMessage: 'Select another identity',
+  staySignedIn: {
+    id: 'app.containers.Login.staySignedIn',
   },
-  requirementToSignUp: {
-    id: 'app.containers.Login.requirementToSignUp',
-    defaultMessage: 'Sign Up for Peerania account',
+  iForgotPassword: {
+    id: 'app.containers.Login.iForgotPassword',
   },
-  loginWithScatter: {
-    id: 'app.containers.Login.loginWithScatter',
-    defaultMessage: 'Log in with Scatter',
+  weAreHappyYouAreHere: {
+    id: 'app.containers.Login.weAreHappyYouAreHere',
   },
-  doNotHaveAcc: {
-    id: 'app.containers.Login.doNotHaveAcc',
-    defaultMessage: 'Do not have an account?',
+  yourUsernameIsHow: {
+    id: 'app.containers.Login.yourUsernameIsHow',
   },
-  signUp: {
-    id: 'app.containers.Login.signUp',
-    defaultMessage: 'Sign up',
+  [SCATTER_MODE_ERROR]: {
+    id: 'app.containers.Login.scatterIsNotInstalled',
+  },
+  [USER_IS_NOT_REGISTERED]: {
+    id: 'app.containers.Login.userIsNotRegistered',
+  },
+  [USER_IS_NOT_SELECTED]: {
+    id: 'app.containers.Login.userIsNotSelected',
   },
 });

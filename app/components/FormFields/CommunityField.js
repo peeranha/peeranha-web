@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import arrowDownIcon from 'svg/arrowDown';
+import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import CommunitySelector from 'components/CommunitySelector';
 import Img from 'components/Img';
 import { Input } from 'components/Input/InputStyled';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
-import IconStyled from 'components/Icon/IconStyled';
 
 import Wrapper from './Wrapper';
 
@@ -18,7 +16,7 @@ const Div = styled.div`
 
   ${/* istanbul ignore next */ props => Input(props)};
 
-  ${IconStyled} {
+  img[alt='icon'] {
     position: absolute;
     right: 0;
   }
@@ -29,9 +27,10 @@ export const CommunityField = /* istanbul ignore next */ ({
   meta,
   label,
   tip,
+  splitInHalf,
   disabled,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta}>
+  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
     <CommunitySelector
       input={input}
       disabled={disabled}
@@ -49,7 +48,7 @@ export const CommunityField = /* istanbul ignore next */ ({
             </React.Fragment>
           )}
 
-          <Icon icon={arrowDownIcon} />
+          <img className="mr-2" src={arrowDownIcon} alt="icon" />
         </Div>
       )}
     />
@@ -62,6 +61,7 @@ CommunityField.propTypes = {
   label: PropTypes.string,
   tip: PropTypes.string,
   disabled: PropTypes.bool,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(CommunityField);

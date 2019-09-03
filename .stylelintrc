@@ -7,6 +7,7 @@
   "rules": {
     "selector-type-no-unknown": null,
     "no-duplicate-selectors": null,
-    "value-no-vendor-prefix": null
+    "value-no-vendor-prefix": null,
+    "no-descending-specificity": null
   }
 }

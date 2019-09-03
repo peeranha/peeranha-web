@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { translationMessages } from 'i18n';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -21,6 +20,7 @@ import {
 import { showLoginModal } from 'containers/Login/actions';
 import { goToCreateTagScreen } from 'containers/Tags';
 
+import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import GoToCreateTagFromBanner from 'containers/Tags/GoToCreateTagFromBanner';
 
@@ -38,18 +38,26 @@ export const TagsCollection = /* istanbul ignore next */ ({
   profile,
   showLoginModalDispatch,
 }) => {
-  const openTagForm = () =>
-    goToCreateTagScreen({ locale, showLoginModalDispatch, profile });
+  const openTagForm = e =>
+    goToCreateTagScreen({
+      locale,
+      showLoginModalDispatch,
+      profile,
+      buttonId: e.currentTarget.id,
+    });
+
+  const keywords = communities.map(comm =>
+    comm.tags.map(tag => `${comm.name} ${tag.name}`),
+  );
 
   return (
     <div>
-      <Helmet>
-        <title>{translationMessages[locale][messages.title.id]}</title>
-        <meta
-          name="description"
-          content={translationMessages[locale][messages.description.id]}
-        />
-      </Helmet>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        keywords={keywords}
+      />
 
       <Header openTagForm={openTagForm} />
 

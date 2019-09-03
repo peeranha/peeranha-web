@@ -7,10 +7,6 @@ import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
-import AccountProvider from 'containers/AccountProvider';
-import EosioProvider from 'containers/EosioProvider';
-import DataCacheProvider from 'containers/DataCacheProvider';
-
 import { HEADER_HEIGHT } from 'containers/Header/constants';
 
 const Main = styled.div`
@@ -20,7 +16,7 @@ const Main = styled.div`
   padding-bottom: 150px;
 `;
 
-const WrapStyled = styled.div`
+const WrapStyled = styled.main`
   margin-top: 10px;
   flex: 1 1 auto;
   overflow-y: -webkit-paged-y;
@@ -72,36 +68,32 @@ export class Box extends React.PureComponent {
     const { Comp, props } = this.props;
 
     return (
-      <EosioProvider>
-        <DataCacheProvider>
-          <AccountProvider>
-            <Header
-              expandLeftMenuNavigation={this.expandLeftMenuNavigation}
-              isMenuVisible={isMenuVisible}
-              showMenu={this.showMenu}
-            />
+      <React.Fragment>
+        <Header
+          expandLeftMenuNavigation={this.expandLeftMenuNavigation}
+          isMenuVisible={isMenuVisible}
+          showMenu={this.showMenu}
+        />
 
-            <Main>
-              <div className="container">
-                <div className="d-flex">
-                  <LeftMenu
-                    showMenu={this.showMenu}
-                    isNavigationExpanded={isNavigationExpanded}
-                    isMenuVisible={isMenuVisible}
-                    {...props}
-                  />
+        <Main>
+          <div className="container">
+            <div className="d-flex">
+              <LeftMenu
+                showMenu={this.showMenu}
+                isNavigationExpanded={isNavigationExpanded}
+                isMenuVisible={isMenuVisible}
+                {...props}
+              />
 
-                  <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
-                    <React.Suspense fallback={<Loader />}>
-                      <Comp {...props} />
-                    </React.Suspense>
-                  </WrapStyled>
-                </div>
-              </div>
-            </Main>
-          </AccountProvider>
-        </DataCacheProvider>
-      </EosioProvider>
+              <WrapStyled className={`${isMenuVisible ? 'd-none' : ''}`}>
+                <React.Suspense fallback={<Loader />}>
+                  <Comp {...props} />
+                </React.Suspense>
+              </WrapStyled>
+            </div>
+          </div>
+        </Main>
+      </React.Fragment>
     );
   }
 }

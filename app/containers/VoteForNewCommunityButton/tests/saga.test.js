@@ -10,7 +10,6 @@ import {
   downVoteToCreateCommunity,
 } from 'utils/communityManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import { CLEAR_SUGGESTED_COMMUNITIES } from 'containers/Communities/constants';
@@ -150,7 +149,7 @@ describe('downVoteWorker', () => {
     });
 
     it('profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -269,7 +268,7 @@ describe('upVoteWorker', () => {
     });
 
     it('profileInfo', () => {
-      getProfileInfo.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });

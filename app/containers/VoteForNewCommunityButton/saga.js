@@ -5,11 +5,10 @@ import {
   downVoteToCreateCommunity,
 } from 'utils/communityManagement';
 
-import { getProfileInfo } from 'utils/profileManagement';
-
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
@@ -34,9 +33,7 @@ export function* upVoteWorker({ communityId, buttonId }) {
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
-    );
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());
@@ -82,9 +79,7 @@ export function* downVoteWorker({ communityId, buttonId }) {
 
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield call(() =>
-      getProfileInfo(selectedAccount, eosService),
-    );
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       yield put(showLoginModal());

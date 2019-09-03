@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import Seo from 'components/Seo';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,9 +20,9 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 
-import { EMAIL_FIELD } from './constants';
-
 import { sendEmail } from './actions';
+import { EMAIL_FIELD } from './constants';
+import * as homepageSelectors from './selectors';
 
 import messages from './messages';
 
@@ -45,27 +45,33 @@ export class FaqFull extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.faqTitle.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.faqTitle.id]
+      } | ${form}`,
     };
 
     this.props.sendEmailDispatch(formData, reset, pageInfo);
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const translations = translationMessages[this.props.locale];
 
     return (
       <Box id="landing-id">
-        <Helmet>
-          <title>{translations[messages.faqTitle.id]}</title>
-          <meta
-            name="description"
-            content={translations[messages.faqDescription.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translations[messages.faqTitle.id]}
+          description={translations[messages.faqDescription.id]}
+          language={this.props.locale}
+        />
 
-        <Header sendEmail={this.sendEmail} />
+        <Header
+          sendEmailLoading={this.props.sendEmailLoading}
+          sendEmail={this.sendEmail}
+          translations={translations}
+        />
+
         <FaqMain />
+
         <Footer />
       </Box>
     );
@@ -75,13 +81,15 @@ export class FaqFull extends React.PureComponent {
 FaqFull.propTypes = {
   locale: PropTypes.string,
   sendEmailDispatch: PropTypes.func,
+  sendEmailLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
     sendEmailDispatch: (formData, reset, pageInfo) =>

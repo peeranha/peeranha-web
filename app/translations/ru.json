@@ -1,5 +1,5 @@
 {
-  "app.common.peerania": "Peerania",
+  "app.common.peeranha": "Peeranha",
   "app.common.profile": "Профиль",
   "app.common.questions": "Вопросы",
   "app.common.answers": "Ответы",
@@ -51,6 +51,86 @@
   "app.common.reputation": "Репутация",
   "app.common.en": "Английский",
   "app.common.ru": "Русский",
+  "app.common.about": "О нас",
+  "app.common.contacts": "Контакты",
+  "app.common.support": "Поддержка",
+  "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.wallet": "Кошелек",
+  "app.common.sendTokens": "Отправить токены",
+  "app.common.peers": "Пиры",
+  "app.common.submit": "Подтвердить",
+  "app.common.amount": "Количество",
+  "app.common.password": "Пароль",
+  "app.common.eosAccount": "EOS аккаунт",
+  "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.errorMessage": "Возникла ошибка",
+  "app.common.energy": "Энергия",
+  "app.common.show": "Показать",
+  "app.common.change": "Изменить",
+
+  "app.containers.ChangeEmail.newEmail": "Новая почта",
+  "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
+  "app.containers.ChangeEmail.emailsDoNotMatch": "Е-мэйлы не совпадают",
+
+  "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
+  "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
+  "app.containers.DeleteAccount.iUnderstand":
+    "Я понимаю, что эта операция не удаляет мой аккаунт на EOS блокчейне. Аккаунт удаляется только из кошелька сервиса.",
+  "app.containers.DeleteAccount.iHaveBackup":
+    "Я сделал бэкап моих EOS приватных ключей.",
+
+  "app.containers.Wallet.title": "Кошелек",
+  "app.containers.Wallet.description": "Кошелек | Описание",
+  "app.containers.Wallet.eosAccount": "EOS аккаунт",
+  "app.containers.Wallet.currentPeriod": "Текущий период в прогрессе",
+  "app.containers.Wallet.periodStillInProgress":
+    "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
+  "app.containers.Wallet.payoutPending": "Выплата в ожидании",
+  "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
+  "app.containers.Wallet.paidOut": "Выплачено",
+  "app.containers.Wallet.rewarded": "Награждено",
+  "app.containers.Wallet.week": "Неделя",
+
+  "web_integration.errors.unknownError":
+    "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
+  "web_integration.errors.accountAlreadyRegistered":
+    "Аккаунт уже зарегистрирован",
+  "web_integration.errors.invalidEncryptionKey":
+    "Неверный ключ шифрования или IV",
+  "web_integration.errors.userDidntStoreKey":
+    "Пользователь не сохранил owner key в нашем сервисе",
+  "web_integration.errors.unableToDecryptUserKey":
+    "Невозможно расшифровать данные с текущим ключом",
+  "web_integration.errors.userDidntRequestActivateAcc":
+    "Данный пользователь не активировал аккаунт",
+  "web_integration.errors.youSendTooManRequests":
+    "Вы отправили слишком много запросов за последнее время",
+  "web_integration.errors.userDidntMakeRequestToVerifyEmail":
+    "Email не был зарегистрирован или время ожидания истекло",
+  "web_integration.errors.codeExpiredOrIncorrect":
+    "Код истек или был введен некорректно",
+  "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
+  "web_integration.errors.wrongPassword":
+    "Невозможно дешифровать passphrase с данным ключом",
+  "web_integration.errors.accountWithEmailIsntRegistered":
+    "Аккаунт с данным ключом не был еще зарегистрирован",
+  "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
+    "Пользователь еще не завершил операцию или время жизни ключа истекло",
+  "web_integration.errors.invalidCipher":
+    "Неверный ключ шифрования IV in passphase",
+  "web_integration.errors.emailAlreadyInUse": "Email уже используется",
+  "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
+
+  "app.containers.Faq.title": "ЧАВО",
+  "app.containers.Faq.description": "ЧАВО: описание",
+  "app.containers.Faq.faq": "Часто задаваемые вопросы",
+  "app.containers.Faq.help": "Помощь",
+  "app.containers.Faq.didntFindAnswer": "Не нашел ответ?",
+  "app.containers.Faq.freeFeelToAsk":
+    "Спроси нашу команду. Мы поможем найти ответ.",
+  "app.containers.Faq.whatIsEnergy": "Что такое энергия?",
+  "app.containers.Faq.howToChargeMyEnergy": "Как пополнить мою энергию?",
+  "app.containers.Faq.valueOfActions": "Ценность действий",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",
@@ -86,11 +166,7 @@
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
   "app.containers.Profile.editProfile": "Редактировать профиль",
-
-  "app.common.about": "О нас",
-  "app.common.contacts": "Контакты",
-  "app.common.support": "Поддержка",
-  "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.containers.Profile.authorizationData": "Данные авторизации",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
@@ -110,7 +186,7 @@
   "app.containers.CreateTag.createTag": "Предложить тег",
   "app.containers.CreateTag.newTag": "Новый тег",
   "app.containers.CreateTag.tagIsKeyword":
-    "Тег - это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
+    "Тег – это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
   "app.containers.CreateTag.whatIsTag": "Что такое тег?",
@@ -118,7 +194,6 @@
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
-  "app.containers.Tags.backToList": "Вернуться к списку",
   "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
   "app.containers.Tags.suggestTagWhichWillbeUseful":
     "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
@@ -205,11 +280,11 @@
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
 
   "app.containers.HomePage.title":
-    "Peerania - Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
+    "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
   "app.containers.HomePage.description":
     "Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами пользователей за их вклад",
-  "app.containers.HomePage.faqTitle": "Peerania | ЧАВО",
-  "app.containers.HomePage.faqDescription": "Peerania | ЧАВО Описание",
+  "app.containers.HomePage.faqTitle": "Peeranha | ЧАВО",
+  "app.containers.HomePage.faqDescription": "Peeranha | ЧАВО Описание",
   "app.containers.HomePage.about": "О нас",
   "app.containers.HomePage.rewards": "Награды",
   "app.containers.HomePage.faq": "ЧАВО",
@@ -217,54 +292,54 @@
   "app.containers.HomePage.login": "Вход",
   "app.containers.HomePage.signUpFree": "Регистрация",
   "app.containers.HomePage.yourContributionsRewarded":
-    "Вознаграждения за Ваш Вклад",
+    "Вознаграждения за ваш вклад",
   "app.containers.HomePage.weAreDecentralized":
     "Децентрализованный веб-сайт вопросов и ответов в котором пользователи вознаграждаются за активность крипто-токенами",
   "app.containers.HomePage.getStarted": "Подписаться",
   "app.containers.HomePage.yourEmail": "Ваш email адрес",
   "app.containers.HomePage.differentThan":
-    "Peerania - это больше чем веб-сайт вопросов и ответов.",
+    "Peeranha – это больше чем веб-сайт вопросов и ответов.",
   "app.containers.HomePage.differentThan2": "Мы сообщество профессионалов где:",
 
   "app.containers.HomePage.rewardingUser":
     "Пользователи вознаграждаются крипто-токенами",
   "app.containers.HomePage.peopleSaveHours":
-    "Миллионы людей экономят часы работы ежедневно благодаря опыту других на веб-сайтах вопросов и ответов. Peerania вознаграждает пользователей за полезную активность крипто-токенами PEER.",
+    "Миллионы людей экономят часы работы ежедневно благодаря опыту других на веб-сайтах вопросов и ответов. Peeranha вознаграждает пользователей за полезную активность крипто-токенами PEER.",
 
   "app.containers.HomePage.ownershipByUsers":
     "Пользователи во главе сообщества",
-  "app.containers.HomePage.peeraniaDecentralized":
-    "Peerania открыт для всех и децентрализован. Вебсайт модерируется сообществом и принадлежит сообществу, а не разработчикам.",
+  "app.containers.HomePage.peeranhaDecentralized":
+    "Peeranha открыт для всех и децентрализован. Вебсайт модерируется сообществом и принадлежит сообществу, а не разработчикам.",
 
   "app.containers.HomePage.earlyAdopters": "Первые пользователи поощряются",
-  "app.containers.HomePage.peeraniaPhilosophy":
-    "Философия Peerania заключается в щедром поощрении первых пользователей за их время и усилия потраченные на развитие сообщества. По мере роста веб-сайта, вознаграждения будут выравниваться и распределяться среди большего числа членов сообщества.",
+  "app.containers.HomePage.peeranhaPhilosophy":
+    "Философия Peeranha заключается в щедром поощрении первых пользователей за их время и усилия потраченные на развитие сообщества. По мере роста веб-сайта, вознаграждения будут выравниваться и распределяться среди большего числа членов сообщества.",
 
   "app.containers.HomePage.simpleAndAffordable": "Простой и доступный",
   "app.containers.HomePage.getHelp": "Получайте помощь от сообщества",
   "app.containers.HomePage.askQuestionAndGetHelp":
-    "Peerania - это сообщество увлеченных специалистов из разных областей жизни. Пользователи получают ответы на свои вопросы и взаимно могут помочь другим. Ответы на многие вопросы доступны на сайте и могут быть найдены в считаные минуты.",
+    "Peeranha – это сообщество увлеченных специалистов из разных областей жизни. Пользователи получают ответы на свои вопросы, а также могут помочь другим. Ответы на многие вопросы доступны на сайте и могут быть найдены в считаные минуты.",
 
   "app.containers.HomePage.helpfulAndGenerous": "Полезный и щедрый",
   "app.containers.HomePage.shareKnowledge": "Делитесь своими знаниями",
   "app.containers.HomePage.helpCommunity":
-    "Специалисты помогают сообществу отвечая на вопросы других участников.  Ответы помогают не только пользователю который задал вопрос, но и тысячам других, которые будут искать ответ на тот же вопрос. После того, как на вопрос дан ответ, он будет доступен нынешним и будущим пользователям.",
+    "Специалисты помогают сообществу отвечая на вопросы других участников.  Ответы помогают не только пользователю который задал вопрос, но и тысячам других, которые будут искать ответ на тот же вопрос. После того как на вопрос дан ответ, он будет доступен и существующим и будущим пользователям.",
 
   "app.containers.HomePage.profitableAndModern": "Доходный и современный",
   "app.containers.HomePage.getPaidInCrypto":
     "Получайте вознаграждения крипто-токенами",
   "app.containers.HomePage.getPaidInCryptoFromWeekly":
-    "Еженедельный резерв вознаграждений из токенов распределяется среди пользователей за их полезную активность. Полученные токены могут быть проданы на открытом рынке любому, кто хочет заплатить за контент, который будет размещен на платформе, например рекламу или вакансии. Пользователи всегда будут вознаграждены за их ценный вклад в сообщество.",
+    "Еженедельный резерв вознаграждений из токенов распределяется среди пользователей за их полезную активность. Полученные токены могут быть проданы на открытом рынке любому, кто хочет заплатить за контент, который будет размещен на платформе, например, рекламу или вакансии. Пользователи всегда будут вознаграждены за их ценный вклад в сообщество.",
 
   "app.containers.HomePage.worthyAndPrestig": "Достойный и престижный",
   "app.containers.HomePage.earnReputation": "Зарабатывайте репутацию",
   "app.containers.HomePage.whetherYouAsk":
-    "По мере активного пользования веб-сайтом, пользователи также улучшают свою репутацию. Участники, которые задают вопросы и отвечают на вопросы других - это основная ценность сообщества. По мере повышения репутации пользователи открывают новые привилегии, так как их положение в сообществе возрастает!",
+    "По мере активного пользования веб-сайтом, пользователи также улучшают свою репутацию. Участники, которые задают вопросы и отвечают на вопросы других – это основная ценность сообщества. По мере повышения репутации пользователи открывают новые привилегии, так как их положение в сообществе возрастает!",
 
   "app.containers.HomePage.honorableAndFascinating": "Почетный и увлекательный",
   "app.containers.HomePage.ruleThePlatform": "Будьте во главе",
   "app.containers.HomePage.participateInModeration":
-    "Управление сообществом находится в руках его участников. Пользователи заинтересованы в процветании сообщества. Чем успешнее веб-сайт, тем выше стоимость PEER токена, который используется для вознаграждений. Благодаря встроенной в Peerania системе управления, веб-сайт модерируется лишь самими пользователями. Будучи децентрализованным проектом с открытым исходным кодом, будущее Peerania определяется ее пользователем. Ваш голос имеет значение!",
+    "Управление сообществом находится в руках его участников. Пользователи заинтересованы в процветании сообщества. Чем успешнее веб-сайт, тем выше стоимость PEER токена, который используется для вознаграждений. Благодаря встроенной в Peeranha системе управления, веб-сайт модерируется лишь самими пользователями. Будучи децентрализованным проектом с открытым исходным кодом, будущее Peeranha определяется ее пользователем. Ваш голос имеет значение!",
 
   "app.containers.HomePage.beTheFirst":
     "Чем раньше Вы присоединитесь, тем больше вознаграждений Вы получите",
@@ -273,42 +348,42 @@
 
   "app.containers.HomePage.getReward": "Подписаться",
 
-  "app.containers.HomePage.whatIsPeerania": "Что такое Peerania?",
-  "app.containers.HomePage.whatIsPeeraniaCollapsed":
-    "Peerania - это децентрализованный сайт вопросов и ответов, который награждает пользователей за полезную активность крипто-токенами. Peerania создана на блокчейне и принадлежит сообществу, а не разработчикам.",
+  "app.containers.HomePage.whatIsPeeranha": "Что такое Peeranha?",
+  "app.containers.HomePage.whatIsPeeranhaCollapsed":
+    "Peeranha - это децентрализованный сайт вопросов и ответов, который награждает пользователей за полезную активность крипто-токенами. Peeranha создана на блокчейне и принадлежит сообществу, а не разработчикам.",
 
   "app.containers.HomePage.differentFromOtherSites":
-    "В чем отличие Peerania от других веб-сайтов вопросов и ответов?",
+    "В чем отличие Peeranha от других веб-сайтов вопросов и ответов?",
   "app.containers.HomePage.differentFromOtherSitesCollapsed":
-    "В отличие от других веб-сайтов с вопросами и ответами, где разработчики владеют веб-сайтом и всеми данными, полученными от пользователей, Peerania принадлежит сообществу. Вознаграждения распределяются среди членов сообщества за их вклад и внимание, которое они уделяют веб-сайту.",
+    "В отличие от других веб-сайтов с вопросами и ответами, где разработчики владеют веб-сайтом и всеми данными, полученными от пользователей, Peeranha принадлежит сообществу. Вознаграждения распределяются среди членов сообщества за их вклад и внимание, которое они уделяют веб-сайту.",
 
   "app.containers.HomePage.howItWorks": "Как это работает?",
   "app.containers.HomePage.howItWorksCollapsed":
-    "Peerania разработан с помощью умных контрактов на блокчейне EOS. Большой по размеру контент хранится в распределенном хранилище (IPFS), и только отпечаток документов размещаются в блокчейне для экономии дорогостоящей памяти блокчейна. Репутация, привилегии, модерация, вознаграждения и все другие правила встроены в умные контракты и видны всем.",
+    "Peeranha разработан с помощью умных контрактов на блокчейне EOS. Большой по размеру контент хранится в распределенном хранилище (IPFS), и только отпечаток документов размещаются в блокчейне для экономии дорогостоящей памяти блокчейна. Репутация, привилегии, модерация, вознаграждения и все другие правила встроены в умные контракты и видны всем.",
 
   "app.containers.HomePage.whatBlockchain":
-    "На каком блокчене построен Peerania?",
+    "На каком блокчене построен Peeranha?",
   "app.containers.HomePage.whatBlockchainCollapsed":
-    "Peerania построен на блокчейне EOS. EOS предоставляет быстрое подтверждения транзакций и не требует, чтобы пользователи платили комиссию за транзакции.",
+    "Peeranha построен на блокчейне EOS. EOS предоставляет быстрое подтверждения транзакций и не требует, чтобы пользователи платили комиссию за транзакции.",
 
   "app.containers.HomePage.whatIsCryptocurrency":
-    "Какая криптовалюта используется на Peerania?",
+    "Какая криптовалюта используется на Peeranha?",
   "app.containers.HomePage.whatIsCryptocurrencyCollapsed":
-    "Peerania использует свою собственную криптовалюту (или другими словами крипто-токен) который называется PEER.",
+    "Peeranha использует свою собственную криптовалюту (или другими словами крипто-токен) который называется PEER.",
 
   "app.containers.HomePage.howEarn":
-    "Как я могу заработать крипто-токены на Peerania?",
+    "Как я могу заработать крипто-токены на Peeranha?",
   "app.containers.HomePage.howEarnCollapsed":
     "Все действия на веб-сайте, которые считаются ценными для сообщества, вознаграждаются крипто-токенами. Действия, которые вознаграждаются токенами, включают в себя размещение подробного вопроса, предоставление полезного ответа и участие в модерации.",
 
   "app.containers.HomePage.tokensReward":
     "Откуда берутся токены для вознаграждений?",
   "app.containers.HomePage.tokensRewardCollapsed":
-    "Peerania еженедельно выпускает новые токены до тех пор пока не будет достигнут максимальный запас. Для валюты это процесс известен как инфляция. Каждую неделю вновь созданные токены помещаются в резерв вознаграждений. Этот еженедельный резерв вознаграждений распределяется пропорционально полезным активностям пользователей в сообщество в течение недели. По мере роста веб-сайта и сообщества токены начнут поступать в резерв вознаграждений из дополнительных источников. Такими источниками могут быть плата за рекламу и объявления о вакансиях опубликованные на веб-сайте, пожертвования или другие способы, которыми сообщество решит монетизировать веб-сайт. Количество новых выпущенных токенов уменьшается с каждым годом и в конечном итоге уменьшается до нуля. К тому моменту еженедельный резерв вознаграждений будет состоять исключительно из источников монетизации веб-сайта.",
+    "Peeranha еженедельно выпускает новые токены, до тех пор, пока не будет достигнут максимальный запас. Для валюты этот процесс известен как инфляция. Каждую неделю вновь созданные токены помещаются в резерв вознаграждений. Этот еженедельный резерв вознаграждений распределяется пропорционально полезным действиям пользователей в сообществе в течение недели. По мере роста веб-сайта и сообщества, токены начнут поступать в резерв вознаграждений из дополнительных источников. Такими источниками могут быть плата за рекламу и объявления о вакансиях опубликованные на веб-сайте, пожертвования или другие способы, которыми сообщество решит монетизировать веб-сайт. Количество новых выпущенных токенов уменьшается с каждым годом и в конечном итоге уменьшается до нуля. К тому моменту еженедельный резерв вознаграждений будет состоять исключительно из источников монетизации веб-сайта.",
 
   "app.containers.HomePage.valueOfToken": "Чем обеспечивается ценность токена?",
   "app.containers.HomePage.valueOfTokenCollapsed":
-    "Поскольку Peerania разработана на блокчейне, PEER токены cмогут быть проданы на открытом рынке. Кроме того, Peerania включает в себя игровые элементы, и пользователи открывают дополнительные возможности с помощью токенов. Наконец, токен будет использоваться в качестве премий за ответ на вопрос если пользователь желает простимулировать отвечающих. Также публикации вакансий и рекламы на веб-сайте или любые других платные услуг на веб-сайте буду оплачиваться PEER токенами.",
+    "Поскольку Peeranha разработана на блокчейне, PEER токены cмогут быть проданы на открытом рынке. Кроме того, Peeranha включает в себя игровые элементы, и пользователи открывают дополнительные возможности с помощью токенов. Наконец, токен будет использоваться в качестве премий за ответ на вопрос если пользователь желает простимулировать отвечающих. Также публикации вакансий и рекламы на веб-сайте или любые других платные услуг на веб-сайте буду оплачиваться PEER токенами.",
 
   "app.containers.HomePage.whitePaper":
     "У вас есть подробная спецификация проекта?",
@@ -322,7 +397,7 @@
 
   "app.containers.HomePage.learnMore": "Где я могу получить больше информации?",
   "app.containers.HomePage.learnMoreCollapsed":
-    "Лучший способ больше информации о проекте это присоединиться к нашему твиттеру, прочитать наш блог или отправить нам письмо на support@peerania.com.",
+    "Лучший способ больше информации о проекте это присоединиться к нашему твиттеру, прочитать наш блог или отправить нам письмо на support@peeranha.com.",
 
   "app.containers.HomePage.getMoreAnswers": "Получи больше ответов",
   "app.containers.HomePage.ourTeam": "Наша команда",
@@ -350,13 +425,19 @@
   "app.containers.HomePage.ulyanaPopovaDescription":
     "Готова создавать варфреймы, мокапы и прототипы с эффективным, эстетичным и беспрепятственным UX-ом, чтобы модернизировать целые системы. Могу энергично шутить, чтобы поддержать рабочий процесс.",
 
+  "app.containers.HomePage.olgaFyodorova": "Ольга Федорова",
+  "app.containers.HomePage.olgaFyodorovaRole": "Маркетинг",
+  "app.containers.HomePage.olgaFyodorovaDescription":
+    "Сильные коммуникативные навыки независимо от аудитории, эффективное взаимодействие с широким кругом людей, руководителей, сотрудников, поставщиков, коллег и заявителей.",
+
   "app.containers.HomePage.steveKreynin": "Стив Крейнин",
   "app.containers.HomePage.steveKreyninRole": "Сооснователь, Президент",
   "app.containers.HomePage.steveKreyninDescription":
     "Многократно успешный предприниматель. CEO международной IT консалтинговой компании Forte Group.",
 
   "app.containers.HomePage.yourName": "Ваше имя",
-  "app.containers.HomePage.email": "Имейл",
+  "app.containers.HomePage.email": "Электронная почта",
+  "app.containers.HomePage.refCode": "Реф. код",
   "app.containers.HomePage.subject": "Тема",
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
@@ -432,24 +513,94 @@
   "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
   "app.components.FormFields.wrongEmail": "Неверный имейл",
 
-  "app.components.Footer.header": "Авторские права: Peerania",
+  "app.components.Footer.header": "Авторские права: Peeranha",
 
-  "app.containers.SignUp.eosAccount": "EOS аккаунт",
-  "app.containers.SignUp.signUpWith": "Зарегистрируйся через Scatter",
-  "app.containers.SignUp.alreadyHaveAcc": "Уже есть Peerania аккаунт?",
-  "app.containers.SignUp.login": "Войти",
-  "app.containers.SignUp.displayName": "Отображаемое имя",
-  "app.containers.SignUp.signUp": "Зарегистрироваться",
-  "app.containers.SignUp.selectedIdentity": "Выбранный аккаунт",
-  "app.containers.SignUp.isAlreadyRegistred": "уже зарегистрирован",
-  "app.containers.SignUp.loginWith": "Войти через",
-  "app.containers.SignUp.identity": "аккаунт",
+  "app.containers.Login.authUserHasMore":
+    "Авторизованный пользователь имеет больше привилегий",
+  "app.containers.Login.staySignedIn": "Оставаться авторизованным",
+  "app.containers.Login.iForgotPassword": "Я забыл свой пароль",
+  "app.containers.Login.scatterIsNotInstalled":
+    "Проверьте, установлен ли Scatter, а также его настройки",
+  "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
+  "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
+  "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
+  "app.containers.Login.yourUsernameIsHow":
+    "Имя, которое будет у Вас в Peeranha.",
+
+  "app.containers.ForgotPassword.youGotThisKey":
+    "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
+
+  "app.containers.SignUp.checkYourEmail":
+    "Проверьте свою почту. Вам должен придти код подтверждения.",
+  "app.containers.SignUp.almostDone": "Почти все",
+  "app.containers.SignUp.firstParagraphAlmostDone":
+    "Peeranha не типичное приложение. Оно движимо Peeranha блокчейном.",
+  "app.containers.SignUp.secondParagraphAlmostDone":
+    "Peeranha блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
+  "app.containers.SignUp.thirdParagraphAlmostDone":
+    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
+  "app.containers.SignUp.firstFAQAlmostDone": "Почему я должен ожидать?",
+  "app.containers.SignUp.secondFAQAlmostDone": "Когда я могу начать?",
+  "app.containers.SignUp.thirdFAQAlmostDone": "Для чего мне нужен EOS аккаунт?",
+  "app.containers.SignUp.weWillNotify":
+    "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
+  "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
+  "app.containers.SignUp.youNeedEosAccount": "Вам необходим EOS аккаунт",
+  "app.containers.SignUp.theWayEosWorks":
+    "Подход EOS работы в том, что новые аккаунты могут быть созданы только кем-то с существующим аккаунтом. Создание аккаунт также требует купить некоторое количество RAM.",
+  "app.containers.SignUp.ifYouCreateEos":
+    "Если вы создаете учетную запись EOS на этом веб-сайте, она поставляется с 0.2 EOS, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
+  "app.containers.SignUp.whyDoIneedThisService":
+    "Почему мне нужен этот сервис?",
+  "app.containers.SignUp.howMuchDoesItCost": "Как дорого это стоит?",
+  "app.containers.SignUp.ifThisWebsiteSafe":
+    "Этот вебсайт безопасен для использования?",
+  "app.containers.SignUp.whatKeysAndHowToUse":
+    "Что это за ключи и как их генерировать?",
+  "app.containers.SignUp.signUpOptions": "Опции при регистрации",
+  "app.containers.SignUp.steemitIsNotTypical":
+    "Peeranha не типичное приложение. Оно движимо Peeranha блокчейном.",
+  "app.containers.SignUp.steemitBlockchainPowers":
+    "Peeranha блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
+  "app.containers.SignUp.weAreHappyToCover":
+    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
+  "app.containers.SignUp.ifYouLikeToSkip":
+    "Если бы Вы хотели пропустить этот шаг и остаться анонимным, Вы можете сами оплатить создание аккаунта через сторонние сервисы",
+  "app.containers.SignUp.whyIHaveToWait": "Почему я должен ожидать?",
+  "app.containers.SignUp.whenCanIStart": "Когда я могу начать?",
+  "app.containers.SignUp.whatIsEosAccountFor":
+    "Для чего мне нужен EOS аккаунт?",
   "app.containers.SignUp.or": "или",
-  "app.containers.SignUp.backToSignUpOptions": "Вернуться назад",
-  "app.containers.SignUp.displayNameLength":
-    "Длина поля должна быть не меньше 3 символов и не более 20",
-  "app.containers.SignUp.signUpDescription": "Описание страницы регистрации",
-  "app.containers.SignUp.serverMessage": "Ошибка",
+  "app.containers.SignUp.doYouHaveAlreadyAccount": "Вы уже имеете EOS аккаунт?",
+  "app.containers.SignUp.youHaveToSaveKeys":
+    "Вам следует грамотно сохранить ключи",
+  "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
+  "app.containers.SignUp.iHaveEosAccount": "Я имею EOS аккаунт",
+  "app.containers.SignUp.idontHaveEosAccount": "Я не имею EOS аккаунта",
+  "app.containers.SignUp.downloadKeys": "Загрузить ключи",
+  "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
+  "app.containers.SignUp.title": "Регистрация",
+  "app.containers.SignUp.description": "Регистрация | Описание",
+  "app.containers.SignUp.continue": "Продолжить",
+  "app.containers.SignUp.email": "Почта",
+  "app.containers.SignUp.verificationCode": "Код подтверждения",
+  "app.containers.SignUp.verify": "Подтвердить",
+  "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
+  "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
+  "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
+  "app.containers.SignUp.masterKey": "Master key",
+  "app.containers.SignUp.displayName": "Имя в Peeranha",
+  "app.containers.SignUp.eosName": "Имя в EOS",
+  "app.containers.SignUp.signUp": "Зарегистрироваться",
+  "app.containers.SignUp.password": "Пароль",
+  "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
+  "app.containers.SignUp.iAcceptPrivacyPolicy":
+    "Я принимаю условия Политики Конфиденциальности.",
+  "app.containers.SignUp.iSaveMasterKey":
+    "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
+  "app.containers.SignUp.userAlreadyRegistered":
+    "Пользователь с таким identity уже зарегистрирован",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",
@@ -465,30 +616,14 @@
   "app.containers.Profile.companyTip": "Компания подсказка...",
   "app.containers.Profile.positionTip": "Позиция подсказка...",
   "app.containers.Profile.locationTip": "Местоположение подсказка...",
+  "app.containers.Profile.oldPassword": "Старый пароль",
+  "app.containers.Profile.newPassword": "Новый пароль",
+  "app.containers.Profile.confirmPassword": "Подтвердите пароль",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
 
-  "app.containers.ScatterInstaller.header":
-    "Чтобы выполнить это действие в нашем приложении установите",
-  "app.containers.ScatterInstaller.nextstep": "Следующий шаг",
-  "app.containers.ScatterInstaller.backToOptions": "Вернуться к опциям",
-
-  "app.containers.SelectAccount.header": "Scatter аккаунт не был выбран",
-  "app.containers.SelectAccount.selectIdent": "Выберите аккаунт",
-  "app.containers.SelectAccount.backToOptions": "Вернуться к опциям",
-
-  "app.containers.Login.header":
-    "Не найдено Peerania аккаунта для данного выбора",
-  "app.containers.Login.selectAnotherIdentity": "Выберите другой аккаунт",
-  "app.containers.Login.requirementToSignUp":
-    "Зарегистрируйте Peerania аккаунт",
-  "app.containers.Login.loginWithScatter": "Войти через Scatter",
-  "app.containers.Login.doNotHaveAcc": "Нет аккаунта?",
-  "app.containers.Login.signUp": "Зарегистрируйтесь",
-
-  "app.containers.UserProfileNav.profile": "Профиль",
-  "app.containers.UserProfileNav.profile": "Профиль",
+  "app.containers.ButtonGroupForAuthorizedUser.profile": "Профиль",
 
   "app.containers.ErrorBoundary.title": "Ошибка",
   "app.containers.ErrorBoundary.description": "Описание error-контейнера",

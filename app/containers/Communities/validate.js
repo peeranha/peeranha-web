@@ -2,10 +2,8 @@ import { showPopover } from 'utils/popover';
 
 import messages from 'containers/ViewQuestion/messages';
 
-import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
-
 /* eslint prefer-destructuring: 0 */
-export const createCommunityValidator = (profile, translations) => {
+export const createCommunityValidator = (profile, translations, buttonId) => {
   const MIN_RATING_TO_CREATE_COMMUNITY = 2500;
   const MIN_MOD_POINTS = 5;
 
@@ -22,7 +20,7 @@ export const createCommunityValidator = (profile, translations) => {
   }
 
   if (message) {
-    showPopover(GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID, message);
+    showPopover(buttonId, message);
     return false;
   }
 

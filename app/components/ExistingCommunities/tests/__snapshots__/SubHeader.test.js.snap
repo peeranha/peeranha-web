@@ -2,7 +2,7 @@
 
 exports[`SubHeader test 1`] = `
 <Span
-  className="d-flex align-items-end justify-content-between"
+  className="d-flex align-items-center justify-content-between"
 >
   <div
     className="d-flex align-items-center"
@@ -11,18 +11,20 @@ exports[`SubHeader test 1`] = `
       alt="communitiesHeader"
       src="IMAGE_MOCK"
     />
-    <FormattedMessage
-      id="app.common.communities"
-      values={Object {}}
-    />
-    <Span
-      bold={true}
-      className="ml-2"
-      color="#7b7b7b"
-      fontSize="30"
-    >
-      10
-    </Span>
+    <span>
+      <FormattedMessage
+        id="app.common.communities"
+        values={Object {}}
+      />
+      <Span
+        bold={true}
+        className="ml-2"
+        color="#7b7b7b"
+        fontSize="30"
+      >
+        10
+      </Span>
+    </span>
   </div>
   <div
     className="d-flex"

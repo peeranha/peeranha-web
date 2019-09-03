@@ -6,12 +6,14 @@ import {
   MONTH_3LETTERS__DAY_TIME,
   MONTH_3LETTERS__DAY_YYYY_TIME,
   DD_MM_YYYY,
+  FULL_MONTH_NAME_DAY_YEAR,
 } from './constants';
 
 const options = {
   [MONTH_3LETTERS__DAY_TIME]: 'MMM D, HH:mm',
   [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM D YYYY, HH:mm',
   [DD_MM_YYYY]: 'DD.MM.YYYY',
+  [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, D, YYYY',
 };
 
 // TODO: `date-fns/locale/${locale}/index.js` - such record means that all locales includes in bundle - impove it later
@@ -42,5 +44,8 @@ export const getFormattedDate = /* istanbul ignore next */ (
   return format(dateInMills, dateView, localeObj);
 };
 
-export const getDifferenceInMonths = /* istanbul ignore next */ date =>
-  `${differenceInMonths(Date.now(), date)}M`;
+export const getDifferenceInMonths = /* istanbul ignore next */ date => {
+  const dateInMills = date * 1000;
+
+  return `${differenceInMonths(Date.now(), dateInMills)}M`;
+};

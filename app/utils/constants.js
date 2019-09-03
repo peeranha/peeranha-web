@@ -6,11 +6,13 @@ export const IPFS_URL = 'http://localhost:8080/ipfs';
 
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
-export const SCATTER_APP_NAME = 'Peerania';
+export const SCATTER_APP_NAME = 'Peeranha';
 
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
 
+export const AWS_URL =
+  'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =
   'https://api.hsforms.com/submissions/v3/integration/submit';
 export const HUBSPOT_PORTAL_ID = '5258952';
@@ -25,6 +27,7 @@ export const GET_QUESTIONS_KEY_TYPE = 'i64';
 // Tables
 
 export const ACCOUNT_TABLE = 'account';
+export const ACCOUNTS_TABLE = 'accounts';
 export const QUESTION_TABLE = 'question';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const USER_ANSWERS_TABLE = 'usranswers';
@@ -32,12 +35,15 @@ export const TAGS_TABLE = 'tags';
 export const COMMUNITIES_TABLE = 'communities';
 export const CREATED_TAGS_TABLE = 'crtagtb';
 export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
+export const GLOBAL_STAT_TABLE = 'globalstat';
+export const PERIOD_REWARD_TABLE = 'periodreward';
 
 // Scopes
 
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
+export const ALL_STAT_SCOPE = 'allstat';
 
 // Methods
 
@@ -72,11 +78,17 @@ export const CREATE_TAG = 'crtag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
+export const SEND_TOKEN_METHOD = 'transfer';
+
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
   'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
+export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
 
 export const NO_AVATAR = 'QmUyiWb3p3W16pAGJudZsZuQ59eiW4RtHwCjDCRNqqMwPE';
 export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
+
+// Currency
+export const APP_CURRENCY = 'PEER';

@@ -1,5 +1,16 @@
 import Eosjs from 'eosjs';
-import ScatterJS from 'scatter-js/dist/scatter.cjs';
+import ecc from 'eosjs-ecc';
+import ScatterJS from 'scatterjs-core';
+import ScatterEOS from 'scatterjs-plugin-eosjs';
+
+import Cookies from 'utils/cookies';
+
+import {
+  LOGIN_WITH_SCATTER,
+  AUTH_TYPE,
+  AUTH_PRIVATE_KEY,
+  LOGIN_WITH_EMAIL,
+} from 'containers/Login/constants';
 
 import {
   BLOCKCHAIN_NAME,
@@ -17,20 +28,35 @@ class EosioService {
     this.scatterInstalled = null;
   }
 
-  init = async () => {
-    await this.initScatter();
+  init = async (
+    initWith = Cookies.get(AUTH_TYPE),
+    privateKey = Cookies.get(AUTH_PRIVATE_KEY),
+  ) => {
+    if (initWith === LOGIN_WITH_SCATTER) {
+      await this.initScatter();
 
-    if (this.scatterInstalled) {
-      this.initEosioWithScatter();
+      if (this.scatterInstalled) {
+        this.initEosioWithScatter();
+      } else {
+        this.initEosioWithoutScatter(privateKey);
+      }
     } else {
-      this.initEosioWithoutScatter();
+      this.initEosioWithoutScatter(privateKey);
+
+      const publicKey = this.privateToPublic(privateKey);
+      const selectedAccount = await this.publicToAccounts(publicKey);
+
+      this.selectedAccount = selectedAccount;
     }
 
     this.initialized = true;
   };
 
   initScatter = async () => {
+    ScatterJS.plugins(new ScatterEOS());
+
     const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+
     this.scatterInstalled = connected === true;
 
     if (this.scatterInstalled) {
@@ -41,8 +67,8 @@ class EosioService {
     }
   };
 
-  initEosioWithoutScatter = () => {
-    const eosioConfig = this.getEosioConfig();
+  initEosioWithoutScatter = key => {
+    const eosioConfig = this.getEosioConfig(key);
     this.eosInstance = Eosjs(eosioConfig);
   };
 
@@ -56,30 +82,58 @@ class EosioService {
     );
   };
 
-  getSelectedAccount = () => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
-
-    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
-
-    if (
-      this.scatterInstance.identity === undefined ||
-      this.scatterInstance.identity == null
-    )
-      return null;
-
-    const account = this.scatterInstance.identity.accounts.find(
-      x => x.blockchain === BLOCKCHAIN_NAME,
-    );
-
-    if (!account) {
+  privateToPublic = privateKey => {
+    if (!privateKey) {
       return null;
     }
 
-    return account.name;
+    return ecc.privateToPublic(privateKey);
+  };
+
+  publicToAccounts = async publicKey => {
+    if (!publicKey) {
+      return null;
+    }
+
+    const accounts = await this.eosInstance.getKeyAccounts(publicKey);
+
+    if (accounts && accounts.account_names) {
+      return accounts.account_names[0] || null;
+    }
+
+    return null;
+  };
+
+  getSelectedAccount = async () => {
+    if (Cookies.get(AUTH_TYPE) === LOGIN_WITH_EMAIL) {
+      return this.selectedAccount;
+    }
+
+    if (Cookies.get(AUTH_TYPE) === LOGIN_WITH_SCATTER) {
+      if (!this.initialized || !this.scatterInstalled) return null;
+
+      if (
+        this.scatterInstance.identity === undefined ||
+        this.scatterInstance.identity == null
+      )
+        return null;
+
+      const account = this.scatterInstance.identity.accounts.find(
+        x => x.blockchain === BLOCKCHAIN_NAME,
+      );
+
+      if (!account) {
+        return null;
+      }
+
+      return account.name;
+    }
+
+    return null;
   };
 
   forgetIdentity = async () => {
-    if (this.scatterInstance.identity) {
+    if (this.scatterInstance && this.scatterInstance.identity) {
       await this.scatterInstance.forgetIdentity();
       return true;
     }
@@ -110,13 +164,13 @@ class EosioService {
     return account.name;
   };
 
-  sendTransaction = (actor, action, data) => {
+  sendTransaction = (actor, action, data, account) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     return this.eosInstance.transaction({
       actions: [
         {
-          account: process.env.EOS_CONTRACT_ACCOUNT,
+          account: account || process.env.EOS_CONTRACT_ACCOUNT,
           name: action,
           authorization: [
             {
@@ -132,12 +186,12 @@ class EosioService {
     });
   };
 
-  getTableRow = async (table, scope, primaryKey) => {
+  getTableRow = async (table, scope, primaryKey, code) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
-      code: process.env.EOS_CONTRACT_ACCOUNT,
+      code: code || process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
       lower_bound: primaryKey,
@@ -161,12 +215,13 @@ class EosioService {
     upperBound,
     indexPosition,
     keyType,
+    code,
   ) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
-      code: process.env.EOS_CONTRACT_ACCOUNT,
+      code: code || process.env.EOS_CONTRACT_ACCOUNT,
       scope,
       table,
       lower_bound: lowerBound,
@@ -185,9 +240,10 @@ class EosioService {
     return [];
   };
 
-  getEosioConfig = () => ({
+  getEosioConfig = key => ({
     httpEndpoint: process.env.EOS_DEFAULT_HTTP_ENDPOINT,
     chainId: process.env.EOS_CHAIN_ID,
+    keyProvider: [key],
     broadcast: true,
     sign: true,
   });

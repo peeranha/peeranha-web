@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ForgotPassword /> render content === EMAIL_FORM 1`] = `
+<UNDEFINED
+  closeModal={[MockFunction]}
+  show={true}
+>
+  <ReduxForm
+    getVerificationCode={[MockFunction]}
+    locale="en"
+    verificationCodeLoading={false}
+  />
+</UNDEFINED>
+`;
+
+exports[`<ForgotPassword /> render content === NEW_PASSWORD_FORM 1`] = `
+<UNDEFINED
+  closeModal={[MockFunction]}
+  show={true}
+>
+  <Connect(ReduxForm)
+    changePassword={[MockFunction]}
+    changePasswordLoading={false}
+    locale="en"
+  />
+</UNDEFINED>
+`;
+
+exports[`<ForgotPassword /> render content === VERIFICATION_CODE_FORM 1`] = `
+<UNDEFINED
+  closeModal={[MockFunction]}
+  show={true}
+>
+  <ReduxForm
+    locale="en"
+    verifyEmail={[MockFunction]}
+    verifyEmailLoading={false}
+  />
+</UNDEFINED>
+`;

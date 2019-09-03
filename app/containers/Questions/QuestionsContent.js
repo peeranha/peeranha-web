@@ -21,15 +21,14 @@ import Tags from 'components/TagsList';
 import Base from 'components/Base';
 import BaseRounded from 'components/Base/BaseRounded';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 
-import answerIconEmptyInside from 'svg/answerIconEmptyInside';
-import bestAnswerIcon from 'svg/bestAnswer';
-import fingerDownAllQuestionsPage from 'svg/fingerDownAllQuestionsPage';
-import fingerUpAllQuestionsPage from 'svg/fingerUpAllQuestionsPage';
+import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
+import bestAnswerIcon from 'images/bestAnswer.svg?inline';
+import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
+import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 
 const BaseStyled = BaseRounded.extend`
   margin-top: 15px;
@@ -71,8 +70,10 @@ const QuestionItem = /* istanbul ignore next */ ({
         isAccepted={correct_answer_id}
       >
         <span className="d-flex align-items-center">
-          <Icon
-            icon={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
+          <img
+            className="mr-2"
+            src={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
+            alt="icon"
           />
           <Span
             color={correct_answer_id ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
@@ -85,12 +86,14 @@ const QuestionItem = /* istanbul ignore next */ ({
 
       <AdditionalInfo className="col-6 col-sm-12">
         <span className="d-flex align-items-center">
-          <Icon
-            icon={
+          <img
+            className="mr-2"
+            src={
               rating >= 0
                 ? fingerUpAllQuestionsPage
                 : fingerDownAllQuestionsPage
             }
+            alt="icon"
           />
           <Span color={TEXT_PRIMARY_DARK} bold>
             {getFormattedNum2(rating)}

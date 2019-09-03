@@ -5,16 +5,22 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
-import { LANDING_FONT } from 'style-constants';
+import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 
-import logo from 'images/Logo.svg';
-import login from 'images/Login.svg';
+import logo from 'images/Logo.svg?inline';
+import login from 'images/Login.svg?external';
+import closeIcon from 'images/close.svg?external';
+import headerNavigation from 'images/headerNavigation.svg?external';
 import bgLogin from 'images/BG_Login.png';
 
-import createdHistory from 'createdHistory';
-
+import { scrollToSection } from 'utils/animation';
 import * as routes from 'routes-config';
-import ModalDialog from 'containers/ModalDialog';
+import ModalDialog from 'components/ModalDialog';
+
+import A from 'components/A';
+import Icon from 'components/Icon';
+import Button from 'components/Button/Outlined/InfoStretching';
+import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import { showHeaderPopup, closeHeaderPopup } from './actions';
 import * as homepageSelectors from './selectors';
@@ -31,6 +37,151 @@ import {
 
 import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
+import ModalDialogChildren from './ModalDialog';
+
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+
+export class Header extends React.PureComponent {
+  state = {
+    isToggled: false,
+  };
+
+  toggle /* istanbul ignore next */ = screen => {
+    this.setState({ isToggled: !this.state.isToggled });
+    scrollToSection(typeof screen === 'string' ? `#${screen}` : ``);
+  };
+
+  render() /* istanbul ignore next */ {
+    const {
+      showHeaderPopupDispatch,
+      closeHeaderPopupDispatch,
+      translations,
+      sendEmail,
+      sendEmailLoading,
+    } = this.props;
+
+    const { isToggled } = this.state;
+
+    return (
+      <Wrapper>
+        <Box id={HEADER_ID} isToggled={isToggled}>
+          <ModalDialog
+            show={this.props.showPopup}
+            closeModal={closeHeaderPopupDispatch}
+          >
+            <ModalDialogChildren>
+              <div className="image-coins">
+                <img src={bgLogin} alt="bgLogin" />
+              </div>
+
+              <div className="close-icon" onClick={closeHeaderPopupDispatch}>
+                <Icon icon={closeIcon} />
+              </div>
+
+              <div>
+                <p className="modal-dialog-message">
+                  <FormattedMessage {...messages.platformUnderDeveloping} />
+                </p>
+                <EmailLandingForm
+                  form={SEND_EMAIL_FORM_HEADER}
+                  button={messages.getReward}
+                  sendEmail={sendEmail}
+                  sendEmailLoading={sendEmailLoading}
+                  translations={translations}
+                  modal
+                />
+              </div>
+            </ModalDialogChildren>
+          </ModalDialog>
+
+          <div className="container">
+            <div className="row">
+              <div className="col-6 col-lg-4 col-xl-5 logo">
+                <A to={routes.home()} href={routes.home()}>
+                  <img
+                    onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
+                    src={logo}
+                    alt="logo"
+                  />
+                </A>
+              </div>
+
+              <button
+                className="col-6 d-inline-block d-lg-none navbar-toggler"
+                type="button"
+                onClick={this.toggle}
+              >
+                <Icon icon={isToggled ? closeIcon : headerNavigation} />
+              </button>
+
+              <div
+                className={`col-md-12 col-lg-8 col-xl-7 ${!isToggled &&
+                  'd-none'} d-lg-block navbar`}
+              >
+                <div className="row">
+                  <div className="col-12 col-lg-7">
+                    <div className="row navigation">
+                      <span
+                        className="col-md-12 col-lg-3"
+                        onClick={() => this.toggle(SECOND_SCREEN)}
+                      >
+                        <FormattedMessage {...messages.about} />
+                      </span>
+
+                      <span
+                        className="col-md-12 col-lg-3"
+                        onClick={() => this.toggle(THIRD_SCREEN)}
+                      >
+                        <FormattedMessage {...messages.rewards} />
+                      </span>
+
+                      <span
+                        className="col-md-12 col-lg-3"
+                        onClick={() => this.toggle(FOURTH_SCREEN)}
+                      >
+                        <FormattedMessage {...messages.faq} />
+                      </span>
+
+                      <span
+                        className="col-md-12 col-lg-3"
+                        onClick={() => this.toggle(FIFTH_SCREEN)}
+                      >
+                        <FormattedMessage {...messages.team} />
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="col-md-12 col-lg-5">
+                    <div className="row">
+                      <button
+                        className="col-md-12 col-lg-6 log-in-button"
+                        onClick={showHeaderPopupDispatch}
+                      >
+                        <Icon icon={login} />
+                        <FormattedMessage {...messages.login} />
+                      </button>
+
+                      <Button
+                        className="col-md-12 col-lg-6"
+                        onClick={showHeaderPopupDispatch}
+                      >
+                        <FormattedMessage {...messages.signUpFree} />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </Wrapper>
+    );
+  }
+}
+
+/* eslint indent: 0 */
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
 
 const Box = styled.div`
   * {
@@ -47,10 +198,6 @@ const Box = styled.div`
   z-index: 9999;
   padding: 19px 0;
 
-  button {
-    cursor: pointer;
-  }
-
   .logo {
     img {
       width: 240px;
@@ -61,7 +208,7 @@ const Box = styled.div`
     padding-top: 7px;
   }
 
-  .nav-bar {
+  .navbar {
     font-size: 16px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -77,75 +224,30 @@ const Box = styled.div`
       align-items: center;
     }
 
-    .navigation button {
-      text-align: center;
-      cursor: pointer;
-      display: inline-block;
-      color: #ffffff;
-    }
-
+    .navigation span,
     .log-in-button {
-      display: flex;
-      text-align: left;
+      display: inline-block;
+      text-align: center;
+      color: ${TEXT_LIGHT};
       cursor: pointer;
-      color: #ffffff;
 
-      img {
+      ${IconStyled} {
         margin-right: 9px;
         width: 21px;
         height: 21px;
       }
 
-      span {
-        vertical-align: 5px;
-      }
-
       :hover {
-        color: #5c78d7 !important;
+        color: ${TEXT_PRIMARY};
+
+        ${IconHover} {
+          ${IconHover({ color: TEXT_PRIMARY })};
+        }
       }
     }
 
-    .sign-up-button {
-      cursor: pointer;
-      border: 1px solid #fc6655;
-      border-radius: 3px;
-      color: #fc6655;
-
-      :hover {
-        color: #fff;
-        background: #fc6655;
-      }
-    }
-  }
-
-  .header-modal-dialog {
-    max-width: 480px;
-    min-height: 280px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 50px 20px 10px 20px;
-
-    * {
-      font-family: ${LANDING_FONT};
-      font-size: 18px;
-    }
-
-    .modal-dialog-message {
+    .log-in-button {
       text-align: left;
-      font-size: 17px;
-      padding-bottom: 30px;
-    }
-
-    .image-coins {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-
-      img {
-        width: 100%;
-      }
     }
   }
 
@@ -154,6 +256,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: #17234a !important;
+    height: ${/* istanbul ignore next */ x => (x.isToggled ? `100vh` : `auto`)};
 
     > div {
       .logo img {
@@ -163,12 +266,18 @@ const Box = styled.div`
 
     .navbar-toggler {
       text-align: right;
-      color: #fff;
+
+      ${IconStyled} {
+        ${IconHover({ color: TEXT_LIGHT })};
+
+        width: 18px;
+      }
     }
 
-    .nav-bar {
+    .navbar {
+      .navigation span,
       button {
-        min-height: 40px;
+        min-height: calc(100vh / 8);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -183,10 +292,19 @@ const Box = styled.div`
       }
     }
 
-    .nav-bar.show {
-      display: flex !important;
-      justify-content: center;
-    }
+    ${/* istanbul ignore next */ x =>
+      x.isToggled
+        ? `
+      .navbar {
+        display: flex !important;
+        justify-content: center;
+
+        .log-in-button {
+          text-align: center;
+        }
+      }
+    `
+        : ``};
   }
 `;
 
@@ -214,144 +332,6 @@ const Wrapper = styled.header`
   }
 `;
 
-export class Header extends React.PureComponent {
-  state = {
-    togglerId: 'navbartogglerId',
-  };
-
-  showModalPlatformDeveloping = e => {
-    const { left } = window.$(e.target).offset();
-
-    this.props.showHeaderPopupDispatch({
-      top: 120,
-      left: left * 0.85,
-    });
-  };
-
-  closeModalPlatformDeveloping = () => {
-    this.props.closeHeaderPopupDispatch();
-  };
-
-  changeLocation = e => {
-    createdHistory.push(routes.home());
-    window.location.hash = `#${e.currentTarget.dataset.hash}`;
-  };
-
-  toggle /* istanbul ignore next */ = () => {
-    const show = window.$(`#${this.state.togglerId}`).hasClass('show');
-    const action = !show ? 'add' : 'remove';
-
-    window.$(`#${this.state.togglerId}`)[`${action}Class`]('show');
-  };
-
-  render() {
-    return (
-      <Wrapper>
-        <Box id={HEADER_ID}>
-          <ModalDialog
-            show={this.props.showPopup}
-            closeModal={this.closePopup}
-            customPosition={this.props.popupPosition}
-          >
-            <div className="header-modal-dialog">
-              <div className="image-coins">
-                <img src={bgLogin} alt="bgLogin" />
-              </div>
-
-              <div>
-                <p className="modal-dialog-message">
-                  <FormattedMessage {...messages.platformUnderDeveloping} />
-                </p>
-                <EmailLandingForm
-                  form={SEND_EMAIL_FORM_HEADER}
-                  button={messages.getReward}
-                  sendEmail={this.props.sendEmail}
-                  sendEmailLoading={this.props.sendEmailLoading}
-                />
-              </div>
-            </div>
-          </ModalDialog>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-6 col-xl-5 col-lg-4 logo">
-                <button onClick={this.changeLocation} data-hash={FIRST_SCREEN}>
-                  <img src={logo} alt="logo" />
-                </button>
-              </div>
-
-              <button
-                className="col-6 d-inline-block d-lg-none navbar-toggler navbar-dark"
-                type="button"
-                onClick={this.toggle}
-              >
-                <span className="navbar-toggler-icon" />
-              </button>
-
-              <div
-                className="col-md-12 col-xl-7 col-lg-8 nav-bar d-none d-lg-block"
-                id={this.state.togglerId}
-              >
-                <div className="row">
-                  <div className="col-md-12 col-lg-7">
-                    <div className="row navigation">
-                      <button
-                        className="col-md-12 col-lg-3"
-                        onClick={this.changeLocation}
-                        data-hash={SECOND_SCREEN}
-                      >
-                        <FormattedMessage {...messages.about} />
-                      </button>
-                      <button
-                        className="col-md-12 col-lg-3"
-                        onClick={this.changeLocation}
-                        data-hash={THIRD_SCREEN}
-                      >
-                        <FormattedMessage {...messages.rewards} />
-                      </button>
-                      <button
-                        className="col-md-12 col-lg-3"
-                        onClick={this.changeLocation}
-                        data-hash={FOURTH_SCREEN}
-                      >
-                        <FormattedMessage {...messages.faq} />
-                      </button>
-                      <button
-                        className="col-md-12 col-lg-3"
-                        onClick={this.changeLocation}
-                        data-hash={FIFTH_SCREEN}
-                      >
-                        <FormattedMessage {...messages.team} />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="col-md-12 col-lg-5">
-                    <div className="row">
-                      <button
-                        className="col-md-12 col-lg-6 log-in-button"
-                        onClick={this.showModalPlatformDeveloping}
-                      >
-                        <img src={login} alt="login" />
-                        <FormattedMessage {...messages.login} />
-                      </button>
-                      <button
-                        className="col-md-12 col-lg-6 sign-up-button"
-                        onClick={this.showModalPlatformDeveloping}
-                      >
-                        <FormattedMessage {...messages.signUpFree} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Box>
-      </Wrapper>
-    );
-  }
-}
-
 Header.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
@@ -359,6 +339,8 @@ Header.propTypes = {
   closeHeaderPopupDispatch: PropTypes.func,
   showPopup: PropTypes.bool,
   popupPosition: PropTypes.object,
+  translations: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -366,10 +348,10 @@ const mapStateToProps = createStructuredSelector({
   popupPosition: homepageSelectors.selectHeaderPopupPosition(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     dispatch,
-    showHeaderPopupDispatch: position => dispatch(showHeaderPopup(position)),
+    showHeaderPopupDispatch: () => dispatch(showHeaderPopup()),
     closeHeaderPopupDispatch: () => dispatch(closeHeaderPopup()),
   };
 }

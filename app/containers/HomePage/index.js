@@ -7,16 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+
+import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
-import { scrollToSection } from 'utils/animation';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -40,6 +39,7 @@ import {
   NAME_FIELD,
   SUBJECT_FIELD,
   MESSAGE_FIELD,
+  REFCODE_FIELD,
 } from './constants';
 
 import { sendEmail, sendMessage } from './actions';
@@ -49,8 +49,6 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    scrollToSection();
-
     this.imagesAnimation();
 
     this.headerAnimation();
@@ -156,11 +154,14 @@ export class HomePage extends React.PureComponent {
     const { reset, form } = args[2];
     const formData = {
       email: args[0].get(EMAIL_FIELD),
+      refCode: args[0].get(REFCODE_FIELD),
     };
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendEmailDispatch(formData, reset, pageInfo);
@@ -177,7 +178,9 @@ export class HomePage extends React.PureComponent {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${messages.title.defaultMessage} | ${form}`,
+      name: `${
+        translationMessages[this.props.locale][messages.title.id]
+      } | ${form}`,
     };
 
     this.props.sendMessageDispatch(formData, reset, pageInfo);
@@ -188,32 +191,36 @@ export class HomePage extends React.PureComponent {
 
     return (
       <div id={LANDING_ID}>
-        <Helmet>
-          <title>{translations[messages.title.id]}</title>
-          <meta
-            name="description"
-            content={translations[messages.description.id]}
-          />
-        </Helmet>
+        <Seo
+          title={translations[messages.title.id]}
+          description={translations[messages.description.id]}
+          language={this.props.locale}
+        />
 
         <Introduction
           sendEmailLoading={this.props.sendEmailLoading}
           sendEmail={this.sendEmail}
           translations={translations}
+          location={this.props.location}
         />
+
         <About translations={translations} />
+
         <Rewards
           translations={translations}
           sendEmail={this.sendEmail}
           sendEmailLoading={this.props.sendEmailLoading}
         />
+
         <FaqMain translations={translations} questionsNumber={5} />
+
         <Team
           translations={translations}
           sendMessage={this.sendMessage}
           sendMessageLoading={this.props.sendMessageLoading}
         />
-        <Footer />
+
+        <Footer locale={this.props.locale} />
       </div>
     );
   }
@@ -225,6 +232,7 @@ HomePage.propTypes = {
   sendMessageLoading: PropTypes.bool,
   sendEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

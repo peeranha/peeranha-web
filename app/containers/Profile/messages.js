@@ -9,13 +9,10 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   profile: {
     id: 'app.containers.Profile.profile',
-    defaultMessage: 'Profile',
   },
   profileDescription: {
     id: 'app.containers.Profile.profileDescription',
-    defaultMessage: 'Profile description',
   },
-
   reputation: {
     id: 'app.containers.Profile.reputation',
   },
@@ -81,5 +78,17 @@ export default defineMessages({
   },
   locationTip: {
     id: 'app.containers.Profile.locationTip',
+  },
+  authorizationData: {
+    id: 'app.containers.Profile.authorizationData',
+  },
+  oldPassword: {
+    id: 'app.containers.Profile.oldPassword',
+  },
+  newPassword: {
+    id: 'app.containers.Profile.newPassword',
+  },
+  confirmPassword: {
+    id: 'app.containers.Profile.confirmPassword',
   },
 });

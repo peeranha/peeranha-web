@@ -1,73 +1,80 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 
-import { LANDING_FONT } from 'style-constants';
+import WarningMessage from 'components/FormFields/WarningMessage';
 
-/* eslint indent: 0 */
-export const Wrapper = styled.div`
-  * {
-    font-family: ${LANDING_FONT};
-    text-transform: none;
-    letter-spacing: -0.9px;
+import {
+  LANDING_FONT,
+  BORDER_WARNING_LIGHT,
+  BORDER_SECONDARY_LIGHT,
+  TEXT_SECONDARY_LIGHT,
+  BORDER_DARK,
+} from 'style-constants';
+
+import { Message } from './DefaultInput';
+
+const PADDING = '0';
+const HEIGHT = '40';
+
+const Box = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: ${LANDING_FONT};
+  text-transform: none;
+  letter-spacing: -0.9px;
+  width: 100%;
+`;
+
+const Label = styled.div`
+  position: absolute;
+  left: ${PADDING}px;
+  padding-bottom: 0;
+  transition: 0.5s;
+  font-size: 14px;
+  color: ${TEXT_SECONDARY_LIGHT};
+  order: 1;
+`;
+
+const Input = styled.input`
+  border: none;
+  outline: none;
+  border-bottom: 2px solid ${BORDER_SECONDARY_LIGHT};
+  padding: 5px ${PADDING}px !important;
+  transition: 0.5s;
+  height: ${HEIGHT}px;
+  box-sizing: border-box;
+  font-size: 14px;
+  order: 2;
+
+  :focus {
+    border-color: ${BORDER_WARNING_LIGHT} !important;
   }
 
-  h6 {
-    margin: 9px 0;
-    text-align: left !important;
-
-    * {
-      font-size: 14px !important;
-      letter-spacing: -0.5px !important;
-      color: #fc6655;
-    }
+  ${/* istanbul ignore next */ x =>
+    x.error
+      ? `
+    border-color: ${BORDER_WARNING_LIGHT} !important;
+  `
+      : ``} :hover {
+    border-color: ${BORDER_DARK};
   }
 
-  .floating-label-input {
-    height: ${/* istanbul ignore next */ props =>
-      props.multiline ? 'auto' : '48px'};
-
-    width: 100%;
-
-    * ::after {
-      border-bottom: 2px solid #fc6655;
-    }
-
-    * ::before {
-      border-bottom: 2px solid #e6e6e6;
-    }
-
-    label {
-      font-size: 14px;
-      color: #9b9b9b;
-      font-family: ${LANDING_FONT};
-      z-index: 10;
-
-      + div {
-        min-height: 32px;
-      }
-    }
-
-    input {
-      font-size: 16px;
-      font-family: ${LANDING_FONT};
-      color: #282828;
-      padding: 0;
-      width: 100%;
-      height: 48px;
-      background: transparent;
-
-      ::placeholder {
-        color: #9b9b9b;
-      }
-    }
-
-    input:-webkit-autofill {
-      box-shadow: 0 0 0px 1000px #fff inset;
-    }
+  :focus + ${Label} {
+    font-size: 12px;
+    padding-bottom: ${1.2 * HEIGHT}px;
   }
+
+  ${/* istanbul ignore next */ x =>
+    x.value
+      ? `+ * {
+     font-size: 12px !important;
+     padding-bottom: ${1.2 * HEIGHT}px !important;
+   }
+  `
+      : ``};
 `;
 
 export const FloatingLabelInput = /* istanbul ignore next */ ({
@@ -75,24 +82,24 @@ export const FloatingLabelInput = /* istanbul ignore next */ ({
   label,
   disabled,
   multiline,
-  meta: { touched, error, warning },
+  meta,
 }) => (
-  <Wrapper className="floating-label-input-wrapper" multiline={multiline}>
-    <TextField
-      {...input}
-      multiline={multiline}
-      rowsMax="10"
-      className="floating-label-input"
-      label={label}
-      disabled={disabled}
-      error={!!(touched && (warning || error))}
-    />
-    <h6 className="text-danger">
-      {touched &&
-        ((error && <FormattedMessage {...error} />) ||
-          (warning && <FormattedMessage {...warning} />))}
-    </h6>
-  </Wrapper>
+  <div className="mb-4">
+    <Box>
+      <Input
+        {...input}
+        type="text"
+        disabled={disabled}
+        multiline={multiline}
+        error={meta.touched && (meta.error || meta.warning)}
+      />
+      <Label>{label}</Label>
+    </Box>
+
+    <Message className="my-1">
+      <WarningMessage {...meta} />
+    </Message>
+  </div>
 );
 
 FloatingLabelInput.propTypes = {
@@ -103,4 +110,5 @@ FloatingLabelInput.propTypes = {
   label: PropTypes.element,
 };
 
+export { Box, Label, Input };
 export default FloatingLabelInput;

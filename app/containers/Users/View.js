@@ -16,9 +16,14 @@ const View = /* istanbul ignore next */ ({
   searchText,
   isLastFetch,
   locale,
+  userCount,
 }) => (
   <div>
-    <Header sorting={sorting} dropdownFilter={dropdownFilter} />
+    <Header
+      userCount={userCount}
+      sorting={sorting}
+      dropdownFilter={dropdownFilter}
+    />
 
     <Content
       getMoreUsers={getMoreUsers}
@@ -44,6 +49,7 @@ View.propTypes = {
   searchText: PropTypes.string,
   isLastFetch: PropTypes.bool,
   locale: PropTypes.string,
+  userCount: PropTypes.number,
 };
 
 export default React.memo(View);

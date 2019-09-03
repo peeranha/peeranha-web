@@ -4,15 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
 import commonMessages from 'common-messages';
-import createCommunityIcon from 'svg/createCommunity';
+import createCommunityIcon from 'images/createCommunity.svg?inline';
 
 import Base from 'components/Base';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
-import Icon from 'components/Icon';
 
 import messages from './messages';
 import languages from './LanguagesOptions';
+import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 
 const suggestedCommunitiesRoute = routes.suggestedCommunities();
 const communitiesRoute = routes.communities();
@@ -50,11 +50,12 @@ const CommunitiesHeader = /* istanbul ignore next */ ({
 
         <div>
           <NavigationButton
+            id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
             onClick={goToCreateCommunityScreen}
-            className="d-inline-flex align-items-center p-0"
+            className="d-inline-flex align-items-center px-0"
             isLink
           >
-            <Icon icon={createCommunityIcon} />
+            <img className="mr-2" src={createCommunityIcon} alt="icon" />
             <FormattedMessage {...messages.suggestCommunity} />
           </NavigationButton>
         </div>

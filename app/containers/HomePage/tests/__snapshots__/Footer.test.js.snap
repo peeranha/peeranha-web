@@ -22,9 +22,8 @@ exports[`Footer test 1`] = `
             replace={false}
             to="/"
           >
-            <img
-              alt="logo"
-              src="IMAGE_MOCK"
+            <UNDEFINED
+              icon="IMAGE_MOCK"
             />
           </Link>
           <span
@@ -42,49 +41,33 @@ exports[`Footer test 1`] = `
           className="row align-items-center"
         >
           <div
-            className="col-12 col-lg-5 locale"
+            className="col-12 col-lg-4 locale"
           >
             <Connect(ChangeLocale) />
           </div>
           <div
-            className="col-7 d-none d-lg-flex align-items-center icons"
+            className="col-8 d-none d-lg-flex align-items-center icons"
           >
-            <a
-              href="https://twitter.com/peerania_com"
-              target="_blank"
-            >
-              <img
-                alt="twitter"
-                src="IMAGE_MOCK"
-              />
-            </a>
-            <a
-              href="https://github.com/peerania"
-              target="_blank"
-            >
-              <img
-                alt="github"
-                src="IMAGE_MOCK"
-              />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/peeraniacom/about/"
-              target="_blank"
-            >
-              <img
-                alt="linkedin"
-                src="IMAGE_MOCK"
-              />
-            </a>
-            <a
-              href="https://medium.com/peerania"
-              target="_blank"
-            >
-              <img
-                alt="medium"
-                src="IMAGE_MOCK"
-              />
-            </a>
+            <MediaLink
+              href=""
+              src="IMAGE_MOCK"
+            />
+            <MediaLink
+              href="https://twitter.com/peeranhaio"
+              src="IMAGE_MOCK"
+            />
+            <MediaLink
+              href="https://github.com/peeranha"
+              src="IMAGE_MOCK"
+            />
+            <MediaLink
+              href="https://medium.com/peeranha"
+              src="IMAGE_MOCK"
+            />
+            <MediaLink
+              href="https://www.linkedin.com/company/peeranha/about/"
+              src="IMAGE_MOCK"
+            />
           </div>
         </div>
       </div>

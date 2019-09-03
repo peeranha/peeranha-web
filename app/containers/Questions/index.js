@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { translationMessages } from 'i18n';
@@ -17,10 +16,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import InfinityLoader from 'components/InfinityLoader';
+import Seo from 'components/Seo';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   makeSelectFollowedCommunities,
@@ -41,10 +42,11 @@ import saga from './saga';
 import messages from './messages';
 
 import QuestionsContainer from './QuestionsContainer';
+import NoQuestions from './NoQuestions';
 
 const feed = routes.feed();
 
-/* eslint-disable react/prefer-stateless-function */
+/* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Questions extends React.PureComponent {
   componentDidMount() {
     this.componentDidUpdate();
@@ -104,7 +106,9 @@ export class Questions extends React.PureComponent {
     const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
-    this.initFetcher();
+    if (parentPage !== feed) {
+      this.initFetcher();
+    }
 
     this.props.getQuestionsDispatch(
       nextLoadedItems,
@@ -146,23 +150,30 @@ export class Questions extends React.PureComponent {
     };
 
     return (
-      <InfinityLoader
-        loadNextPaginatedData={this.getNextQuestions}
-        isLoading={questionsLoading}
-        isLastFetch={isLastFetch}
-      >
-        <div>
-          <Helmet>
-            <title>{translationMessages[locale][messages.title.id]}</title>
-            <meta
-              name="description"
-              content={translationMessages[locale][messages.description.id]}
-            />
-          </Helmet>
+      <div>
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+        />
 
+        <InfinityLoader
+          loadNextPaginatedData={this.getNextQuestions}
+          isLoading={questionsLoading}
+          isLastFetch={isLastFetch}
+        >
           <QuestionsContainer {...sendProps} />
-        </div>
-      </InfinityLoader>
+        </InfinityLoader>
+
+        {!questionsList.length &&
+          !questionsLoading &&
+          !communitiesLoading && (
+            <NoQuestions
+              isFeed={parentPage === feed}
+              followedCommunities={followedCommunities}
+            />
+          )}
+      </div>
     );
   }
 }

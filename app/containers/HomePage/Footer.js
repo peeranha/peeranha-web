@@ -1,26 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { LANDING_FONT } from 'style-constants';
+
+import { getLinks } from 'media-links';
+import { TEXT_PRIMARY, TEXT_DARK, LANDING_FONT } from 'style-constants';
 
 import ChangeLocale from 'containers/ChangeLocale';
 
-import logo from 'images/LogoBlack.svg';
-import medium from 'images/medium.png';
-import twitter from 'images/twitter.svg';
-import linkedin from 'images/in.svg';
-import github from 'images/github.svg';
+import Icon from 'components/Icon';
+import IconStyled from 'components/Icon/IconStyled';
+
+import logo from 'images/LogoBlack.svg?external';
+import medium from 'images/medium.svg?external';
+import twitter from 'images/twitter.svg?external';
+import linkedin from 'images/in.svg?external';
+import github from 'images/github.svg?external';
+import facebook from 'images/facebook.svg?external';
 
 import * as routes from 'routes-config';
 
 import Gradient from './Gradient';
 
 const Box = Gradient.extend`
-  color: #282828;
+  color: ${TEXT_DARK};
   padding: 36px 0 26px 0;
 
   > div {
     .logo {
-      img {
+      ${IconStyled} {
         width: 200px;
         margin-top: 5px;
       }
@@ -43,13 +50,18 @@ const Box = Gradient.extend`
         flex: 1;
         text-align: center;
         cursor: pointer;
+
+        ${IconStyled} {
+          width: 22px;
+          height: 22px;
+        }
       }
     }
   }
 
   @media only screen and (max-width: 992px) {
     padding: 20px;
-    .logo img {
+    .logo ${IconStyled} {
       width: 160px !important;
     }
 
@@ -65,7 +77,7 @@ const Box = Gradient.extend`
   }
 
   @media only screen and (max-width: 560px) {
-    .logo img {
+    .logo ${IconStyled} {
       width: 120px !important;
     }
   }
@@ -73,14 +85,21 @@ const Box = Gradient.extend`
 
 const Year = new Date().getFullYear();
 
-const Footer = () => (
+const MediaLink = /* istanbul ignore next */ ({ href, src }) =>
+  href ? (
+    <a href={href} target="_blank">
+      <Icon icon={src} hover={TEXT_PRIMARY} />
+    </a>
+  ) : null;
+
+const Footer = /* istanbul ignore next */ ({ locale }) => (
   <Box position="bottom">
     <div className="container">
       <div className="row justify-content-between align-items-center">
         <div className="col-6 logo">
           <div className="row align-items-center">
             <Link to={routes.home()} href={routes.home()} className="col-5">
-              <img src={logo} alt="logo" />
+              <Icon icon={logo} />
             </Link>
             <span className="col-lg-3 col-xl-2 d-none d-lg-inline year">
               © {Year}
@@ -89,25 +108,15 @@ const Footer = () => (
         </div>
         <div className="col-6 col-lg-3 media-section">
           <div className="row align-items-center">
-            <div className="col-12 col-lg-5 locale">
+            <div className="col-12 col-lg-4 locale">
               <ChangeLocale />
             </div>
-            <div className="col-7 d-none d-lg-flex align-items-center icons">
-              <a href="https://twitter.com/peerania_com" target="_blank">
-                <img src={twitter} alt="twitter" />
-              </a>
-              <a href="https://github.com/peerania" target="_blank">
-                <img src={github} alt="github" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/peeraniacom/about/"
-                target="_blank"
-              >
-                <img src={linkedin} alt="linkedin" />
-              </a>
-              <a href="https://medium.com/peerania" target="_blank">
-                <img src={medium} alt="medium" />
-              </a>
+            <div className="col-8 d-none d-lg-flex align-items-center icons">
+              <MediaLink href={getLinks(locale).facebook} src={facebook} />
+              <MediaLink href={getLinks(locale).twitter} src={twitter} />
+              <MediaLink href={getLinks(locale).github} src={github} />
+              <MediaLink href={getLinks(locale).medium} src={medium} />
+              <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
             </div>
           </div>
         </div>
@@ -115,5 +124,14 @@ const Footer = () => (
     </div>
   </Box>
 );
+
+MediaLink.propTypes = {
+  href: PropTypes.string,
+  src: PropTypes.string,
+};
+
+Footer.propTypes = {
+  locale: PropTypes.string,
+};
 
 export default Footer;

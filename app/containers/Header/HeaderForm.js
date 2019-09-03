@@ -20,18 +20,18 @@ import Icon from 'components/Icon';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import addIcon from 'svg/add';
-import searchIcon from 'svg/search';
-import closeIcon from 'svg/close';
-import headerNavigationIcon from 'svg/headerNavigation';
-import img from 'images/LogoBlack.svg';
+import addIcon from 'images/add.svg?external';
+import searchIcon from 'images/search.svg?inline';
+import closeIcon from 'images/close.svg?external';
+import headerNavigationIcon from 'images/headerNavigation.svg?external';
+import img from 'images/LogoBlack.svg?inline';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
 import Logo from './Logo';
 
-import UserAuthNavLinks from './UserAuthNavLinks';
-import UserProfileNav from './UserProfileNav';
+import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
+import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import { HEADER_ID } from './constants';
 
 const RoundedButtonStyled = RoundedButton.extend`
@@ -41,14 +41,13 @@ const RoundedButtonStyled = RoundedButton.extend`
 export const LoginProfile = React.memo(
   /* istanbul ignore next */ ({
     profileInfo,
-    showSignUpModalDispatch,
     showLoginModalDispatch,
     isMenuVisible,
     expandLeftMenuNavigation,
   }) => {
     if (profileInfo) {
       return (
-        <UserProfileNav
+        <ButtonGroupForAuthorizedUser
           isMenuVisible={isMenuVisible}
           profileInfo={profileInfo}
           expandLeftMenuNavigation={expandLeftMenuNavigation}
@@ -57,9 +56,8 @@ export const LoginProfile = React.memo(
     }
 
     return (
-      <UserAuthNavLinks
+      <ButtonGroupForNotAuthorizedUser
         isMenuVisible={isMenuVisible}
-        showSignUpModal={showSignUpModalDispatch}
         showLoginModal={showLoginModalDispatch}
       />
     );
@@ -78,6 +76,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
         {!props.isMenuVisible && (
           <Logo className="d-flex align-items-center">
             <Icon
+              width="20"
               onClick={props.showMenu}
               className="mr-3 d-flex d-md-none"
               icon={!props.isMenuVisible ? headerNavigationIcon : closeIcon}
@@ -106,7 +105,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 className="d-flex justify-content-center align-items-center d-lg-none"
                 onClick={addQuestionRoute}
               >
-                <Icon icon={searchIcon} noMargin />
+                <img src={searchIcon} alt="icon" />
               </RoundedButtonStyled>
 
               <LargeButton
@@ -114,7 +113,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <Icon icon={addIcon} />
+                <Icon color={BG_LIGHT} icon={addIcon} width="14" />
                 <FormattedMessage {...messages.addQuestion} />
               </LargeButton>
 
@@ -123,7 +122,7 @@ const HeaderForm = /* istanbul ignore next */ props => (
                 disabled={!props.profileInfo}
                 onClick={addQuestionRoute}
               >
-                <Icon icon={addIcon} noMargin />
+                <img src={addIcon} alt="icon" />
               </RoundedButton>
             </React.Fragment>
           )}
@@ -144,7 +143,6 @@ HeaderForm.propTypes = {
 
 LoginProfile.propTypes = {
   profileInfo: PropTypes.object,
-  showSignUpModalDispatch: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
 };
 

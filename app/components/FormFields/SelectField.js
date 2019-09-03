@@ -16,8 +16,7 @@ import {
   APP_FONT,
 } from 'style-constants';
 
-import searchIcon from 'svg/search';
-import Icon from 'components/Icon';
+import searchIcon from 'images/search.svg?inline';
 import Span from 'components/Span';
 
 import Wrapper from './Wrapper';
@@ -80,7 +79,9 @@ export const Select2 = /* istanbul ignore next */ ({
       {...input}
       components={{
         Group,
-        DropdownIndicator: () => <Icon icon={searchIcon} />,
+        DropdownIndicator: () => (
+          <img className="mr-1" src={searchIcon} alt="icon" />
+        ),
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,
       }}
@@ -133,7 +134,12 @@ export const Select2 = /* istanbul ignore next */ ({
 };
 
 export const SelectField = /* istanbul ignore next */ props => (
-  <Wrapper label={props.label} tip={props.tip} meta={props.meta}>
+  <Wrapper
+    label={props.label}
+    tip={props.tip}
+    meta={props.meta}
+    splitInHalf={props.splitInHalf}
+  >
     <Select2 {...props} />
   </Wrapper>
 );
@@ -165,6 +171,7 @@ SelectField.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.string,
   tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
 };
 
 export default React.memo(SelectField);

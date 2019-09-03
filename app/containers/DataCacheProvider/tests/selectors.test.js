@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+
 import {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -7,6 +8,9 @@ import {
   selectUsers,
   selectUsersLoading,
   selectGetUserProfileError,
+  selectStat,
+  selectStatLoading,
+  selectStatError,
 } from '../selectors';
 
 describe('selectDataCacheProviderDomain', () => {
@@ -16,6 +20,9 @@ describe('selectDataCacheProviderDomain', () => {
   const users = {};
   const usersLoading = false;
   const getUserProfileError = null;
+  const stat = 'stat';
+  const statLoading = false;
+  const getStatError = 'getStatError';
 
   const globalState = fromJS({
     communities,
@@ -24,14 +31,34 @@ describe('selectDataCacheProviderDomain', () => {
     users,
     usersLoading,
     getUserProfileError,
+    stat,
+    statLoading,
+    getStatError,
   });
 
   const mockedState = fromJS({
-    askQuestionReducer: globalState,
+    dataCacheProvider: globalState,
   });
 
   it('should select the global state', () => {
-    expect(selectDataCacheProviderDomain(mockedState)).toEqual(globalState);
+    expect(selectDataCacheProviderDomain(mockedState)).toEqual(
+      globalState.toJS(),
+    );
+  });
+
+  it('selectStat', () => {
+    const isSelectStat = selectStat();
+    expect(isSelectStat(mockedState)).toEqual(stat);
+  });
+
+  it('selectStatLoading', () => {
+    const isSelectStatLoading = selectStatLoading();
+    expect(isSelectStatLoading(mockedState)).toEqual(statLoading);
+  });
+
+  it('selectStatError', () => {
+    const isSelectStatError = selectStatError();
+    expect(isSelectStatError(mockedState)).toEqual(getStatError);
   });
 
   it('selectCommunities', () => {

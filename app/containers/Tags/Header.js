@@ -5,10 +5,10 @@ import * as routes from 'routes-config';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
-import icoTagIcon from 'images/icoTag.svg';
-import arrowLeft from 'images/arrowLeft.svg';
+import icoTagIcon from 'images/icoTag.svg?inline';
+import arrowLeft from 'images/arrowLeft.svg?inline';
 
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg';
+import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -24,6 +24,7 @@ import A from 'components/A';
 
 import messages from './messages';
 import options from './options';
+import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 
 const tagsRoute = routes.tags();
 
@@ -109,6 +110,7 @@ export const Header = /* istanbul ignore next */ ({
         <div>
           <NavigationButton
             onClick={goToCreateTagScreen}
+            id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
             className="d-inline-flex align-items-center px-0 py-1"
             isLink
           >
@@ -119,7 +121,7 @@ export const Header = /* istanbul ignore next */ ({
       </Base>
 
       <Base position="bottom">
-        <H3Styled className="d-flex align-items-end justify-content-between">
+        <H3Styled className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <MediumImageStyled
               src={currentCommunity.avatar}

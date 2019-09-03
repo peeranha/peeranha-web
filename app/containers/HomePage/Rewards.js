@@ -10,41 +10,7 @@ import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 import Section from './Section';
 
-const Box = Section.extend`
-  position: relative;
-  background: url(${bg});
-  background-size: cover;
-
-  .title {
-    color: #ffffff;
-    text-align: center;
-    line-height: 1.22;
-    font-size: 2.8em;
-  }
-
-  .content-body {
-    color: #ffffff;
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 55px;
-  }
-
-  form {
-    display: flex;
-    width: 100%;
-
-    > div:nth-child(1) {
-      flex: 2;
-      margin-right: 10px;
-    }
-
-    > div:nth-child(2) {
-      flex: 1;
-    }
-  }
-`;
-
-const Rewards = ({ sendEmailLoading, sendEmail }) => (
+const Rewards = ({ sendEmailLoading, sendEmail, translations }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -62,11 +28,12 @@ const Rewards = ({ sendEmailLoading, sendEmail }) => (
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-5 bottom-level mx-auto">
+            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
               <EmailLandingForm
                 form={SEND_EMAIL_FORM_REWARDS}
                 button={messages.getReward}
                 sendEmailLoading={sendEmailLoading}
+                translations={translations}
                 sendEmail={sendEmail}
               />
             </div>
@@ -77,9 +44,31 @@ const Rewards = ({ sendEmailLoading, sendEmail }) => (
   </Box>
 );
 
+const Box = Section.extend`
+  position: relative;
+  background: url(${bg});
+  background-size: cover;
+  background-position-x: 50%;
+
+  .title {
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.22;
+    font-size: 2.8em;
+  }
+
+  .content-body {
+    color: #ffffff;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 55px;
+  }
+`;
+
 Rewards.propTypes = {
   sendEmailLoading: PropTypes.bool,
   sendEmail: PropTypes.func,
+  translations: PropTypes.object,
 };
 
 export default Rewards;

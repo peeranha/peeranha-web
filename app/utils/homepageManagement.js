@@ -1,4 +1,5 @@
 import {
+  AWS_URL,
   HUBSPOT_URL,
   HUBSPOT_PORTAL_ID,
   HUBSPOT_SEND_EMAIL_FORM_ID,
@@ -6,31 +7,66 @@ import {
 } from './constants';
 
 export async function sendEmail(formData, pageInfo) {
-  const fields = Object.keys(formData).map(name => ({
-    name,
-    value: formData[name],
-  }));
-
-  await fetch(
-    `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
+  const fields = [
     {
+      name: 'email',
+      value: formData.email,
+    },
+  ];
+
+  if (formData.refCode !== undefined) {
+    fields.push({
+      name: 'refcode',
+      value: formData.refCode,
+    });
+  }
+
+  const fetchHubspot = async () => {
+    const res = await fetch(
+      `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_EMAIL_FORM_ID}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          submittedAt: Date.now(),
+          fields,
+          context: {
+            pageUri: pageInfo.url,
+            pageName: pageInfo.name,
+          },
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        credentials: 'same-origin',
+      },
+    );
+
+    return res;
+  };
+
+  const fetchAws = async () => {
+    const res = await fetch(AWS_URL, {
       method: 'POST',
       body: JSON.stringify({
-        submittedAt: +new Date(),
-        fields,
-        context: {
-          pageUri: pageInfo.url,
-          pageName: pageInfo.name,
-        },
+        email: formData.email,
+        codeValue: formData.refCode,
       }),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
       },
-      credentials: 'same-origin',
-    },
-  );
+    });
 
-  return true;
+    return res;
+  };
+
+  const promises = await Promise.all([fetchHubspot(), fetchAws()]);
+
+  const notSuccess = promises.find(x => x.status !== 200);
+
+  if (notSuccess) {
+    const errorMessage = await notSuccess.json();
+    throw new Error(errorMessage.error);
+  }
 }
 
 export async function sendMessage(formData, pageInfo) {
@@ -39,12 +75,12 @@ export async function sendMessage(formData, pageInfo) {
     value: formData[name],
   }));
 
-  await fetch(
+  const { status } = await fetch(
     `${HUBSPOT_URL}/${HUBSPOT_PORTAL_ID}/${HUBSPOT_SEND_MESSAGE_FORM_ID}`,
     {
       method: 'POST',
       body: JSON.stringify({
-        submittedAt: +new Date(),
+        submittedAt: Date.now(),
         fields,
         context: {
           pageUri: pageInfo.url,
@@ -58,5 +94,7 @@ export async function sendMessage(formData, pageInfo) {
     },
   );
 
-  return true;
+  if (status !== 200) {
+    throw new Error('Something went wrong...');
+  }
 }

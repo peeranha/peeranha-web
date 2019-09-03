@@ -58,6 +58,7 @@ exports[`Header test 1`] = `
     <div>
       <Button
         className="d-inline-flex align-items-center px-0 py-1"
+        id="app_containers_GO_TO_CREATE_TAG_SCREEN_BUTTON_ID_header"
         isLink={true}
         onClick={[MockFunction]}
       >
@@ -77,7 +78,7 @@ exports[`Header test 1`] = `
     position="bottom"
   >
     <Span
-      className="d-flex align-items-end justify-content-between"
+      className="d-flex align-items-center justify-content-between"
     >
       <div
         className="d-flex align-items-center"

@@ -140,9 +140,7 @@ const TopCommunities = /* istanbul ignore next */ ({
       <div className="my-3">
         <A to={communitiesRoute} href={communitiesRoute}>
           <OutlinedButton className="py-2 w-100">
-            <FormattedMessage {...messages.see} />{' '}
-            <FormattedMessage {...messages.all} />{' '}
-            <FormattedMessage {...messages.communities} />
+            <FormattedMessage {...messages.allCommunities} />
           </OutlinedButton>
         </A>
       </div>

@@ -8,7 +8,7 @@ export const initialState = fromJS({
   getUsersLoading: false,
   getUsersError: null,
   isLastFetch: false,
-  sorting: 'id',
+  sorting: 'registration_time',
   searchText: '',
   limit: 30,
 });

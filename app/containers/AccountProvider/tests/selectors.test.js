@@ -1,38 +1,48 @@
 import { fromJS } from 'immutable';
+
 import {
   selectAccountProviderDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectAccount,
   makeSelectProfileInfo,
-  selectLoginSignupError,
-  makeSelectForgetIdentityError,
   makeSelectFollowedCommunities,
+  makeSelectBalance,
 } from '../selectors';
 
 describe('selectAccountProviderDomain', () => {
   const loading = 'loading';
   const error = 'error';
   const account = 'account';
+  const balance = 'balance';
   const profileInfo = fromJS({});
-  const loginSignupError = 'loginSignupError';
-  const forgetIdentityError = 'forgetIdentityError';
 
-  const globalState = fromJS({
+  const accountProviderState = fromJS({
     loading,
     error,
     account,
     profileInfo,
-    loginSignupError,
-    forgetIdentityError,
+    balance,
+  });
+
+  const user1 = {
+    followed_communities: [1, 2, 3],
+    profile: {},
+  };
+
+  const dataCacheProviderState = fromJS({
+    users: {},
   });
 
   const mockedState = fromJS({
-    accountProvider: globalState,
+    accountProvider: accountProviderState,
+    dataCacheProvider: dataCacheProviderState,
   });
 
   it('should select the global state', () => {
-    expect(selectAccountProviderDomain(mockedState)).toEqual(globalState);
+    expect(selectAccountProviderDomain(mockedState)).toEqual(
+      accountProviderState.toJS(),
+    );
   });
 
   describe('makeSelectFollowedCommunities', () => {
@@ -42,9 +52,13 @@ describe('selectAccountProviderDomain', () => {
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
+            ...mockedState.toJS(),
+            dataCacheProvider: dataCacheProviderState.set('users', {
+              unknownUser: {},
+            }),
             accountProvider: {
-              ...globalState.toJS(),
-              profileInfo: null,
+              ...accountProviderState.toJS(),
+              account: 'unknown_account',
             },
           }),
         ),
@@ -52,20 +66,20 @@ describe('selectAccountProviderDomain', () => {
     });
 
     it('profileInfo TRUE', () => {
-      const followedCommunities = [];
-
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
+            ...mockedState.toJS(),
+            dataCacheProvider: dataCacheProviderState.set('users', {
+              user1,
+            }),
             accountProvider: {
-              ...globalState.toJS(),
-              profileInfo: {
-                followed_communities: followedCommunities,
-              },
+              ...accountProviderState.toJS(),
+              account: 'user1',
             },
           }),
         ),
-      ).toEqual(followedCommunities);
+      ).toEqual([1, 2, 3]);
     });
   });
 
@@ -84,18 +98,30 @@ describe('selectAccountProviderDomain', () => {
     expect(err(mockedState)).toEqual(error);
   });
 
+  it('makeSelectBalance', () => {
+    const isSelectedBalance = makeSelectBalance();
+    expect(isSelectedBalance(mockedState)).toEqual(balance);
+  });
+
   it('makeSelectProfileInfo', () => {
     const isProfileInfo = makeSelectProfileInfo();
-    expect(isProfileInfo(mockedState)).toEqual(profileInfo);
-  });
 
-  it('selectLoginSignupError', () => {
-    const isSelectLoginSignupError = selectLoginSignupError();
-    expect(isSelectLoginSignupError(mockedState)).toEqual(loginSignupError);
-  });
-
-  it('makeSelectForgetIdentityError', () => {
-    const forgetIdError = makeSelectForgetIdentityError();
-    expect(forgetIdError(mockedState)).toEqual(forgetIdentityError);
+    expect(
+      isProfileInfo(
+        fromJS({
+          ...mockedState.toJS(),
+          dataCacheProvider: dataCacheProviderState.set('users', {
+            user1,
+          }),
+          accountProvider: {
+            ...accountProviderState.toJS(),
+            account: 'user1',
+          },
+        }),
+      ),
+    ).toEqual({
+      ...user1,
+      balance,
+    });
   });
 });

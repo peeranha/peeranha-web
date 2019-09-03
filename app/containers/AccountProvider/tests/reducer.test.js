@@ -1,14 +1,11 @@
 import { fromJS } from 'immutable';
 
-import accountProviderReducer from '../reducer';
+import accountProviderReducer, { initialState } from '../reducer';
 
 import {
   getCurrentAccount,
   getCurrentAccountSuccess,
   getCurrentAccountError,
-  loginSignupSuccess,
-  loginSignupErr,
-  forgetIdentityErr,
 } from '../actions';
 
 describe('accountProviderReducer', () => {
@@ -28,51 +25,42 @@ describe('accountProviderReducer', () => {
     expect(accountProviderReducer(state, getCurrentAccount())).toEqual(obj);
   });
 
-  it('getCurrentAccountSuccess', () => {
-    const acc = 'user1';
-    const profileInfo = true;
-    const obj = state
-      .set('loading', false)
-      .set('profileInfo', profileInfo)
-      .set('account', acc);
-    expect(
-      accountProviderReducer(state, getCurrentAccountSuccess(acc, profileInfo)),
-    ).toEqual(obj);
+  describe('getCurrentAccountSuccess', () => {
+    it('account, balance UNDEFINED', () => {
+      const obj = state
+        .set('loading', false)
+        .set('account', initialState.get('account'))
+        .set('balance', initialState.get('balance'));
+
+      expect(accountProviderReducer(state, getCurrentAccountSuccess())).toEqual(
+        obj,
+      );
+    });
+
+    it('account, balance NOT UNDEFINED', () => {
+      const account = 'account';
+      const balance = 'balance';
+
+      const obj = state
+        .set('loading', false)
+        .set('account', account)
+        .set('balance', balance);
+
+      expect(
+        accountProviderReducer(
+          state,
+          getCurrentAccountSuccess(account, balance),
+        ),
+      ).toEqual(obj);
+    });
   });
 
   it('getCurrentAccountError', () => {
     const err = {};
     const obj = state.set('loading', false).set('error', err);
+
     expect(accountProviderReducer(state, getCurrentAccountError(err))).toEqual(
       obj,
     );
-  });
-
-  it('loginSignupSuccess', () => {
-    const acc = 'user1';
-    const profileInfo = true;
-    const obj = state.set('profileInfo', profileInfo).set('account', acc);
-
-    expect(
-      accountProviderReducer(state, loginSignupSuccess(acc, profileInfo)),
-    ).toEqual(obj);
-  });
-
-  it('loginSignupErr', () => {
-    const loginSignupError = true;
-    const obj = state.set('loginSignupError', loginSignupError);
-
-    expect(
-      accountProviderReducer(state, loginSignupErr(loginSignupError)),
-    ).toEqual(obj);
-  });
-
-  it('forgetIdentityErr', () => {
-    const forgetIdentityError = true;
-    const obj = state.set('forgetIdentityError', forgetIdentityError);
-
-    expect(
-      accountProviderReducer(state, forgetIdentityErr(forgetIdentityError)),
-    ).toEqual(obj);
   });
 });

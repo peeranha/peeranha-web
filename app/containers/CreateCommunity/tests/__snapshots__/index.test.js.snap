@@ -2,18 +2,12 @@
 
 exports[`<CreateCommunity /> render 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Community | Create
-    </title>
-    <meta
-      content="Description of CreateCommunity"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Description of CreateCommunity"
+    index={false}
+    language="en"
+    title="Community | Create"
+  />
   <UNDEFINED />
   <UNDEFINED />
 </div>

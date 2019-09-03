@@ -2,18 +2,12 @@
 
 exports[`<TagsOfCommunity /> render 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Tags
-    </title>
-    <meta
-      content="Description of Tags"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Description of Tags"
+    keywords={Array []}
+    language="en"
+    title="Tags"
+  />
   <withReducer(withSaga(Connect(Tags)))
     Aside={
       <UNDEFINED

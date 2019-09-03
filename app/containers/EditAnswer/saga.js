@@ -1,14 +1,24 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { getQuestionData } from 'containers/ViewQuestion/saga';
-
-import { getAnswer, editAnswer } from 'utils/questionsManagement';
-
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { GET_ANSWER, EDIT_ANSWER } from './constants';
+import { getAnswer, editAnswer } from 'utils/questionsManagement';
+
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { getQuestionData } from 'containers/ViewQuestion/saga';
+
+import {
+  successToastHandlingWithDefaultText,
+  errorToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
+
+import {
+  GET_ANSWER,
+  EDIT_ANSWER,
+  EDIT_ANSWER_SUCCESS,
+  EDIT_ANSWER_ERROR,
+} from './constants';
 
 import {
   getAnswerSuccess,
@@ -63,4 +73,6 @@ export function* editAnswerWorker({ answer, questionId, answerId }) {
 export default function*() {
   yield takeLatest(GET_ANSWER, getAnswerWorker);
   yield takeLatest(EDIT_ANSWER, editAnswerWorker);
+  yield takeLatest(EDIT_ANSWER_SUCCESS, successToastHandlingWithDefaultText);
+  yield takeLatest(EDIT_ANSWER_ERROR, errorToastHandlingWithDefaultText);
 }

@@ -6,10 +6,7 @@
 import { select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 
-import { GET_CURRENT_ACCOUNT_SUCCESS } from 'containers/AccountProvider/constants';
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import defaultSaga, { followHandlerWorker } from '../saga';
@@ -65,7 +62,7 @@ describe('followHandlerWorker', () => {
     });
 
     it('step, profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
+      select.mockImplementation(() => profileInfo);
       const step = generator.next(account);
       expect(step.value).toEqual(profileInfo);
     });
@@ -79,23 +76,6 @@ describe('followHandlerWorker', () => {
         props.communityIdFilter,
         account,
       );
-    });
-
-    it('removeUserProfile', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(account));
-    });
-
-    it('getUserProfileWorker', () => {
-      generator.next();
-      expect(getUserProfileWorker).toHaveBeenCalledWith({
-        user: account,
-      });
-    });
-
-    it('getCurrentAccountSuccess', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(GET_CURRENT_ACCOUNT_SUCCESS);
     });
 
     it('followHandlerSuccess', () => {

@@ -27,6 +27,9 @@ import App from 'containers/App';
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
 import ErrorBoundary from 'containers/ErrorBoundary';
+import EosioProvider from 'containers/EosioProvider';
+import DataCacheProvider from 'containers/DataCacheProvider';
+import AccountProvider from 'containers/AccountProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -36,7 +39,6 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 
 import configureStore from './configureStore';
 import createdHistory from './createdHistory';
-import './icons-config';
 
 // Import Analytics
 import './analytics';
@@ -59,9 +61,15 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ErrorBoundary>
-          <ConnectedRouter history={createdHistory}>
-            <App />
-          </ConnectedRouter>
+          <EosioProvider>
+            <DataCacheProvider>
+              <AccountProvider>
+                <ConnectedRouter history={createdHistory}>
+                  <App />
+                </ConnectedRouter>
+              </AccountProvider>
+            </DataCacheProvider>
+          </EosioProvider>
         </ErrorBoundary>
       </LanguageProvider>
     </Provider>,

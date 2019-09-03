@@ -2,18 +2,11 @@
 
 exports[`Users render 1`] = `
 <React.Fragment>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Users
-    </title>
-    <meta
-      content="Users: description"
-      name="description"
-    />
-  </HelmetWrapper>
+  <UNDEFINED
+    description="Users: description"
+    language="en"
+    title="Users"
+  />
   <UNDEFINED
     dropdownFilter={[Function]}
     getMoreUsers={[Function]}

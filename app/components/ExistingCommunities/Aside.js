@@ -7,7 +7,7 @@ import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 
-import moreVotingIcon from 'images/moreVoting.svg';
+import moreVotingIcon from 'images/moreVoting.svg?inline';
 
 import Img from 'components/Img';
 import Span from 'components/Span';

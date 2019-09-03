@@ -45,8 +45,8 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
-      name: 'Peerania',
-      short_name: 'Peerania',
+      name: 'Peeranha',
+      short_name: 'Peeranha',
       description: 'Decentralized Q&A platform',
       background_color: '#fafafa',
       theme_color: '#b1624d',

@@ -49,13 +49,18 @@ export const goToCreateTagScreen = ({
   showLoginModalDispatch,
   locale,
   communityId,
+  buttonId,
 }) => {
   if (!profile) {
     showLoginModalDispatch();
     return null;
   }
 
-  const isValid = createTagValidator(profile, translationMessages[locale]);
+  const isValid = createTagValidator(
+    profile,
+    translationMessages[locale],
+    buttonId,
+  );
 
   if (!isValid) {
     return null;
@@ -86,7 +91,7 @@ export class Tags extends React.Component {
     }
   }
 
-  goToCreateTagScreen = /* istanbul ignore next */ () => {
+  goToCreateTagScreen = /* istanbul ignore next */ e => {
     const { showLoginModalDispatch, locale, communityId, profile } = this.props;
 
     goToCreateTagScreen({
@@ -94,6 +99,7 @@ export class Tags extends React.Component {
       showLoginModalDispatch,
       locale,
       communityId,
+      buttonId: e.currentTarget.id,
     });
   };
 

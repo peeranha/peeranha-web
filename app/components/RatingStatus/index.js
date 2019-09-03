@@ -11,7 +11,6 @@ import {
 
 import { getFormattedNum } from 'utils/numbers';
 
-import Icon from 'components/Icon';
 import Span from 'components/Span';
 
 import options from './options';
@@ -30,15 +29,15 @@ const IconWithStatus = /* istanbul ignore next */ ({
   const full = options[getStatus(rating)];
 
   return (
-    <span className={className}>
-      <Icon
+    <span className={`d-flex align-items-center ${className}`}>
+      <img
         className="d-inline-flex mr-1"
-        icon={full.icon[size || 'sm']}
-        noMargin
+        src={full.icon[size || 'sm']}
+        alt="icon"
       />
 
       <Span
-        fontSize={size === 'lg' ? 20 : 14}
+        fontSize={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
         color={
           rating > options.newbie.minRating && size === 'sm'
@@ -56,7 +55,7 @@ const IconWithStatus = /* istanbul ignore next */ ({
 
 /* eslint no-nested-ternary: 0 */
 const RatingStatus = /* istanbul ignore next */ ({
-  rating,
+  rating = 0,
   size,
   intl,
   isRankOff,
@@ -90,5 +89,5 @@ IconWithStatus.propTypes = {
   size: PropTypes.string,
 };
 
-export { IconWithStatus };
+export { IconWithStatus, getStatus };
 export default React.memo(injectIntl(RatingStatus));

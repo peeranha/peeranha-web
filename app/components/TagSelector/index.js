@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
-import closeIcon from 'images/closeCircle.svg';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
@@ -41,6 +41,7 @@ export const TagSelector = /* istanbul ignore next */ ({
   tip,
   setTags,
   disabled,
+  splitInHalf,
   options = [],
 }) => {
   const value = input.value || [];
@@ -53,7 +54,7 @@ export const TagSelector = /* istanbul ignore next */ ({
   const filteredOptions = options.filter(x => !valueIds.includes(x.id));
 
   return (
-    <Wrapper label={label} tip={tip} meta={meta}>
+    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
       <Dropdown
         isOpen={isOpen}
         toggle={() => toggleOpen(!isOpen)}
@@ -102,6 +103,7 @@ TagSelector.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.string,
   tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
   setTags: PropTypes.func,
   options: PropTypes.array,
   disabled: PropTypes.bool,

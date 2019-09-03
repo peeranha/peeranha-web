@@ -4,7 +4,7 @@ describe('<TagsCollection />', () => {
   const props = {
     locale: 'en',
     profile: {},
-    communities: [{ id: 1 }],
+    communities: [{ id: 1, tags: [] }],
     communitiesLoading: false,
     showLoginModalDispatch: jest.fn(),
   };

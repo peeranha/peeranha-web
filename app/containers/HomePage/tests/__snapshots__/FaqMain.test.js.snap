@@ -2,7 +2,7 @@
 
 exports[`FaqMain FaqMain 1`] = `
 <Section
-  id="fs4"
+  id="faq"
 >
   <div
     className="container"
@@ -106,8 +106,8 @@ exports[`FaqMain Question 1`] = `
 exports[`FaqMain Questions 1`] = `
 Array [
   <Question
-    body="whatIsPeeraniaCollapsed"
-    header="whatIsPeerania"
+    body="whatIsPeeranhaCollapsed"
+    header="whatIsPeeranha"
   />,
   <Question
     body="differentFromOtherSitesCollapsed"

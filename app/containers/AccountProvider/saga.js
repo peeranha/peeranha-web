@@ -1,37 +1,41 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { COMPLETE_LOGIN } from 'containers/Login/constants';
-import { showSignUpModal, hideSignUpModal } from 'containers/SignUp/actions';
-import { showLoginModal, hideLoginModal } from 'containers/Login/actions';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
+import { getBalance } from 'utils/walletManagement';
+
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
+import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
+import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
+import { CREATE_COMMUNITY_SUCCESS } from 'containers/CreateCommunity/constants';
+import { SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
+import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
+import { SAVE_PROFILE_ACTION_SUCCESS } from 'containers/EditProfilePage/constants';
+import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
+import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 
 import {
-  NO_SCATTER,
-  NO_SELECTED_SCATTER_ACCOUNTS,
-  USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
-  USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
-  USER_IS_IN_SYSTEM_AND_SIGNUP,
-  COMPLETE_SIGNUP,
-} from 'containers/SignUp/constants';
+  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
+  DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
+} from 'containers/VoteForNewCommunityButton/constants';
 
 import {
-  getCurrentAccountSuccess,
-  getCurrentAccountError,
-  loginSignupSuccess,
-  loginSignupErr,
-  forgetIdentitySuccess,
-  forgetIdentityErr,
-} from './actions';
+  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
+  DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
+} from 'containers/VoteForNewTagButton/constants';
 
 import {
-  GET_CURRENT_ACCOUNT,
-  LOGIN_SIGNUP,
-  FORGET_IDENTITY,
-} from './constants';
+  LOGIN_WITH_EMAIL_SUCCESS,
+  LOGIN_WITH_SCATTER_SUCCESS,
+  FINISH_REGISTRATION_SUCCESS,
+} from 'containers/Login/constants';
 
+import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
+
+import { GET_CURRENT_ACCOUNT } from './constants';
+
+/* eslint func-names: 0 */
 export function* getCurrentAccountWorker() {
   try {
     const eosService = yield select(selectEos);
@@ -39,114 +43,57 @@ export function* getCurrentAccountWorker() {
     if (!eosService || !eosService.initialized)
       throw new Error('EOS is not initialized.');
 
-    const selectedScatterAccount = yield eosService.scatterInstalled
-      ? call(() => eosService.getSelectedAccount())
-      : null;
+    let profileInfo;
+    let balance;
 
-    const profileInfo = yield call(() =>
-      getProfileInfo(selectedScatterAccount, eosService),
+    const selectedScatterAccount = yield call(() =>
+      eosService.getSelectedAccount(),
     );
 
-    yield put(getCurrentAccountSuccess(selectedScatterAccount, profileInfo));
+    yield all([
+      (function*() {
+        profileInfo = yield call(() =>
+          getProfileInfo(selectedScatterAccount, eosService),
+        );
+      })(),
+      (function*() {
+        balance = yield call(() =>
+          getBalance(eosService, selectedScatterAccount),
+        );
+      })(),
+    ]);
+
+    yield put(getUserProfileSuccess(profileInfo));
+
+    yield put(getCurrentAccountSuccess(selectedScatterAccount, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
 }
 
-export function* setLoginSignupModalState(type, message) {
-  switch (type) {
-    case COMPLETE_SIGNUP:
-      yield put(hideLoginModal());
-      yield put(showSignUpModal(message));
-      break;
-
-    case COMPLETE_LOGIN:
-      yield put(hideSignUpModal());
-      yield put(showLoginModal(message));
-      break;
-
-    default:
-  }
-}
-
-export function* closeModals() {
-  yield put(hideSignUpModal());
-  yield put(hideLoginModal());
-}
-
-export function* loginSignupWorker(res) {
-  try {
-    let account;
-    const eosService = yield select(selectEos);
-
-    if (!eosService.scatterInstalled) {
-      yield setLoginSignupModalState(res.methods.type, NO_SCATTER);
-      return;
-    }
-
-    if (!eosService.selectedScatterAccount) {
-      account = yield call(() => eosService.selectAccount());
-      if (!account) {
-        yield setLoginSignupModalState(
-          res.methods.type,
-          NO_SELECTED_SCATTER_ACCOUNTS,
-        );
-        return;
-      }
-    }
-
-    yield put(loginSignupSuccess(account));
-
-    const profileInfo = yield call(() =>
-      getUserProfileWorker({ user: account }),
-    );
-
-    if (!profileInfo && res.methods.type === COMPLETE_LOGIN) {
-      yield setLoginSignupModalState(
-        res.methods.type,
-        USER_IS_ABSENT_IN_SYSTEM_AND_LOGIN,
-      );
-      return;
-    }
-
-    if (!profileInfo && res.methods.type === COMPLETE_SIGNUP) {
-      yield setLoginSignupModalState(
-        res.methods.type,
-        USER_IS_ABSENT_IN_SYSTEM_AND_SIGNUP,
-      );
-      return;
-    }
-
-    if (profileInfo && res.methods.type === COMPLETE_SIGNUP) {
-      yield setLoginSignupModalState(
-        res.methods.type,
-        USER_IS_IN_SYSTEM_AND_SIGNUP,
-      );
-      return;
-    }
-
-    yield closeModals();
-
-    yield put(loginSignupSuccess(account, profileInfo));
-  } catch (err) {
-    yield put(loginSignupErr(err));
-  }
-}
-
-export function* forgetIdentityWorker() {
-  try {
-    const eosService = yield select(selectEos);
-
-    yield eosService.forgetIdentity();
-    yield loginSignupWorker();
-    yield put(forgetIdentitySuccess());
-  } catch (err) {
-    yield put(forgetIdentityErr(err));
-  }
-}
-
 export default function* defaultSaga() {
-  yield takeEvery(GET_CURRENT_ACCOUNT, getCurrentAccountWorker);
-  yield takeEvery(LOGIN_SIGNUP, loginSignupWorker);
-  yield takeEvery(FORGET_IDENTITY, forgetIdentityWorker);
+  yield takeLatest(
+    [
+      GET_CURRENT_ACCOUNT,
+      FOLLOW_HANDLER_SUCCESS,
+      LOGIN_WITH_EMAIL_SUCCESS,
+      LOGIN_WITH_SCATTER_SUCCESS,
+      FINISH_REGISTRATION_SUCCESS,
+      SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+      ASK_QUESTION_SUCCESS,
+      CREATE_COMMUNITY_SUCCESS,
+      SUGGEST_TAG_SUCCESS,
+      EDIT_ANSWER_SUCCESS,
+      SAVE_PROFILE_ACTION_SUCCESS,
+      EDIT_QUESTION_SUCCESS,
+      FOLLOW_HANDLER_SUCCESS,
+      FINISH_REGISTRATION_SUCCESS,
+      SEND_TOKENS_SUCCESS,
+      UPVOTE_COMM_SUCCESS,
+      DOWNVOTE_COMM_SUCCESS,
+      UPVOTE_TAGS_SUCCESS,
+      DOWNVOTE_TAGS_SUCCESS,
+    ],
+    getCurrentAccountWorker,
+  );
 }

@@ -1,5 +1,4 @@
-import { scrollToSection } from 'utils/animation';
-
+import { translationMessages } from 'i18n';
 import { HomePage, mapDispatchToProps } from '../index';
 
 import messages from '../messages';
@@ -29,10 +28,6 @@ window.$ = jest.fn(() => ({
   on,
 }));
 
-jest.mock('utils/animation', () => ({
-  scrollToSection: jest.fn(),
-}));
-
 describe('HomePage', () => {
   describe('componentDidMount', () => {
     cmp.imagesAnimation = jest.fn();
@@ -42,14 +37,12 @@ describe('HomePage', () => {
     cmp.parallaxAnimation = jest.fn();
 
     it('test', () => {
-      expect(scrollToSection).toHaveBeenCalledTimes(0);
       expect(cmp.imagesAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(0);
 
       cmp.componentDidMount();
 
-      expect(scrollToSection).toHaveBeenCalledTimes(1);
       expect(cmp.imagesAnimation).toHaveBeenCalledTimes(1);
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(1);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(1);
@@ -76,7 +69,9 @@ describe('HomePage', () => {
 
       const pageInfo = {
         url: window.location.href,
-        name: `${messages.title.defaultMessage} | ${form}`,
+        name: `${
+          translationMessages[cmp.props.locale][messages.title.id]
+        } | ${form}`,
       };
 
       cmp.sendEmail(mapp, () => {}, {
@@ -112,7 +107,9 @@ describe('HomePage', () => {
 
       const pageInfo = {
         url: window.location.href,
-        name: `${messages.title.defaultMessage} | ${form}`,
+        name: `${
+          translationMessages[cmp.props.locale][messages.title.id]
+        } | ${form}`,
       };
 
       cmp.sendMessage(mapp, () => {}, {

@@ -5,8 +5,8 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import suggestTagIcon from 'images/tagsHeaderIcon.svg';
-import closeIcon from 'images/closeCircle.svg';
+import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
+import closeIcon from 'images/closeCircle.svg?inline';
 
 import A from 'components/A';
 import H3 from 'components/H3';

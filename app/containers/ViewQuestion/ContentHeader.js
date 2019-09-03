@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
-import pencilIcon from 'svg/pencil';
-import deleteIcon from 'svg/deleteIcon';
-import blockIcon from 'svg/blockIcon';
+import pencilIcon from 'images/pencil.svg?inline';
+import deleteIcon from 'images/deleteIcon.svg?inline';
+import blockIcon from 'images/blockIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
@@ -41,14 +40,18 @@ export const ContentHeader = /* istanbul ignore next */ props => (
           locale={props.locale}
         />
 
-        <div>
+        <div className="d-flex align-items-center">
           <Button
             show={props.isItWrittenByMe}
             params={props.buttonParams}
             onClick={props.editItem}
           >
-            <Span color={TEXT_PRIMARY} fontSize="16">
-              <Icon icon={pencilIcon} />
+            <Span
+              className="d-flex align-items-center"
+              color={TEXT_PRIMARY}
+              fontSize="16"
+            >
+              <img className="mr-2" src={pencilIcon} alt="icon" />
               <FormattedMessage {...messages.editButton} />
             </Span>
           </Button>
@@ -59,21 +62,32 @@ export const ContentHeader = /* istanbul ignore next */ props => (
             params={props.buttonParams}
             onClick={props.deleteItem}
           >
-            <Span color={TEXT_PRIMARY} fontSize="16">
-              <Icon icon={deleteIcon} />
+            <Span
+              className="d-flex align-items-center"
+              color={TEXT_PRIMARY}
+              fontSize="16"
+            >
+              <img className="mr-2" src={deleteIcon} alt="icon" />
               <FormattedMessage {...messages.deleteButton} />
             </Span>
           </Button>
 
           <BlockButton
+            className="d-flex align-items-center"
             isItWrittenByMe={props.isItWrittenByMe}
             id={`${props.type}_vote_to_delete_${props.answerId}`}
             params={props.buttonParams}
             onClick={props.voteToDelete}
             isVotedToDelete={props.votingStatus.isVotedToDelete}
           >
-            <Icon icon={blockIcon} />
-            <FormattedMessage {...messages.voteToDelete} />
+            <Span
+              className="d-flex align-items-center"
+              color={TEXT_PRIMARY}
+              fontSize="16"
+            >
+              <img className="mr-2" src={blockIcon} alt="icon" />
+              <FormattedMessage {...messages.voteToDelete} />
+            </Span>
           </BlockButton>
         </div>
       </Base>

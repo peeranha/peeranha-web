@@ -7,8 +7,8 @@ import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
 
-import usersHeaderFilter from 'images/communitiesHeaderFilter.svg';
-import usersHeader from 'images/usersHeader.svg';
+import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
+import usersHeader from 'images/usersHeader.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -38,7 +38,11 @@ const Button = /* istanbul ignore next */ ({ sorting }) => (
 const Menu = /* istanbul ignore next */ ({ sort, sorting }) => (
   <Ul>
     {Object.keys(options).map(x => (
-      <CheckedItem key={x} data-key={x} onClick={sort} isActive={x === sorting}>
+      <CheckedItem
+        key={x}
+        onClick={() => sort(options[x].sortBy)}
+        isActive={x === sorting}
+      >
         <FormattedMessage {...options[x].message} />
       </CheckedItem>
     ))}
@@ -49,23 +53,24 @@ const Menu = /* istanbul ignore next */ ({ sort, sorting }) => (
 export const Header = /* istanbul ignore next */ ({
   sorting,
   dropdownFilter,
-  usersNumber,
+  userCount,
 }) => (
   <Base>
-    <H3Styled className="d-flex align-items-end justify-content-between">
+    <H3Styled className="d-flex align-items-center justify-content-between">
       <div className="d-flex align-items-center">
         <MediumImageStyled src={usersHeader} alt="usersHeader" />
-        <FormattedMessage {...commonMessages.users} />
-        {usersNumber && (
+
+        <span>
+          <FormattedMessage {...commonMessages.users} />
           <Span
-            className="text-lowercase ml-3"
+            className="text-lowercase ml-2"
             color={TEXT_SECONDARY}
             fontSize="30"
             bold
           >
-            {getFormattedNum2(usersNumber)}
+            {getFormattedNum2(userCount)}
           </Span>
-        )}
+        </span>
       </div>
 
       <Dropdown
@@ -90,7 +95,7 @@ Menu.propTypes = {
 Header.propTypes = {
   dropdownFilter: PropTypes.func,
   sorting: PropTypes.string,
-  usersNumber: PropTypes.number,
+  userCount: PropTypes.number,
 };
 
 export default React.memo(Header);

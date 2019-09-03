@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  peerania: {
-    id: 'app.common.peerania',
+  peeranha: {
+    id: 'app.common.peeranha',
   },
   profile: {
     id: 'app.common.profile',
@@ -173,5 +173,41 @@ export default defineMessages({
   },
   ru: {
     id: 'app.common.ru',
+  },
+  wallet: {
+    id: 'app.common.wallet',
+  },
+  sendTokens: {
+    id: 'app.common.sendTokens',
+  },
+  peers: {
+    id: 'app.common.peers',
+  },
+  submit: {
+    id: 'app.common.submit',
+  },
+  amount: {
+    id: 'app.common.amount',
+  },
+  password: {
+    id: 'app.common.password',
+  },
+  eosAccount: {
+    id: 'app.common.eosAccount',
+  },
+  successMessage: {
+    id: 'app.common.successMessage',
+  },
+  errorMessage: {
+    id: 'app.common.errorMessage',
+  },
+  energy: {
+    id: 'app.common.energy',
+  },
+  show: {
+    id: 'app.common.show',
+  },
+  change: {
+    id: 'app.common.change',
   },
 });
