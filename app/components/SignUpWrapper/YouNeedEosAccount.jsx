@@ -25,6 +25,13 @@ import H3 from 'components/H3';
 
 import messages from 'containers/SignUp/messages';
 
+import {
+  WHY_DO_I_NEES_THIS_SERVICE_QUESTION,
+  HOW_MUCH_DOES_IT_COST_QUESTION,
+  IS_THIS_WEBSITE_SAFE_QUESTION,
+  HOW_TO_USE_KEYS_QUESTION,
+} from 'containers/Faq/constants';
+
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
 
@@ -136,7 +143,12 @@ YouNeedEosAccount.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  faqQuestions: selectFaqQuestions(['5.3', '5.4', '5.5', '5.6']),
+  faqQuestions: selectFaqQuestions([
+    WHY_DO_I_NEES_THIS_SERVICE_QUESTION,
+    HOW_MUCH_DOES_IT_COST_QUESTION,
+    IS_THIS_WEBSITE_SAFE_QUESTION,
+    HOW_TO_USE_KEYS_QUESTION,
+  ]),
 });
 
 export default connect(

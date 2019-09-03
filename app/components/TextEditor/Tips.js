@@ -14,6 +14,12 @@ import {
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
+import {
+  HOW_TO_ASK_QUESTION,
+  HOW_TO_FORMAT_QUESTION,
+  HOW_TO_TAG_QUESTION,
+} from 'containers/Faq/constants';
+
 import A from 'components/A';
 import Base from 'components/Base';
 import Label from 'components/FormFields/Label';
@@ -100,7 +106,11 @@ Tips.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  faqQuestions: selectFaqQuestions(['6.0', '6.1', '6.2']),
+  faqQuestions: selectFaqQuestions([
+    HOW_TO_ASK_QUESTION,
+    HOW_TO_FORMAT_QUESTION,
+    HOW_TO_TAG_QUESTION,
+  ]),
 });
 
 export { BaseStyled, Li, Ul };

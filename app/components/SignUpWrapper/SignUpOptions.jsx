@@ -21,6 +21,12 @@ import SecondaryLargeButton from 'components/Button/Outlined/SecondaryLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 
+import {
+  WHY_I_HAVE_TO_WAIT_QUESTION,
+  WHEN_CAN_I_START_QUESTION,
+  WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+} from 'containers/Faq/constants';
+
 import SignUpWrapper from './index';
 
 export const P = Span.extend`
@@ -154,7 +160,11 @@ SignUpOptions.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  faqQuestions: selectFaqQuestions(['5.0', '5.1', '5.2']),
+  faqQuestions: selectFaqQuestions([
+    WHY_I_HAVE_TO_WAIT_QUESTION,
+    WHEN_CAN_I_START_QUESTION,
+    WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+  ]),
 });
 
 export default connect(

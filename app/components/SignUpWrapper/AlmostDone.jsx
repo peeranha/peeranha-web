@@ -16,6 +16,12 @@ import Button from 'components/Button/Outlined/InfoLarge';
 
 import messages from 'containers/SignUp/messages';
 
+import {
+  ALMOST_DONE_1ST_QUESTION,
+  ALMOST_DONE_2ST_QUESTION,
+  ALMOST_DONE_3ST_QUESTION,
+} from 'containers/Faq/constants';
+
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
 
@@ -79,7 +85,11 @@ const AlmostDone = ({ faqQuestions }) => (
 );
 
 const mapStateToProps = createStructuredSelector({
-  faqQuestions: selectFaqQuestions(['5.7', '5.8', '5.9']),
+  faqQuestions: selectFaqQuestions([
+    ALMOST_DONE_1ST_QUESTION,
+    ALMOST_DONE_2ST_QUESTION,
+    ALMOST_DONE_3ST_QUESTION,
+  ]),
 });
 
 LeftMenu.propTypes = {

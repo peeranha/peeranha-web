@@ -23,6 +23,11 @@ import BaseTransparent from 'components/Base/BaseTransparent';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
+import {
+  WHAT_IS_COMMUNITY_QUESTION,
+  WHO_MANAGES_COMMUNITY_QUESTION,
+} from 'containers/Faq/constants';
+
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -152,7 +157,10 @@ CreateCommunity.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  faqQuestions: selectFaqQuestions(['3.0', '3.1']),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_COMMUNITY_QUESTION,
+    WHO_MANAGES_COMMUNITY_QUESTION,
+  ]),
   editingImgState: selectors.selectEditingImgState(),
   cachedProfileImg: selectors.selectCachedProfileImg(),
   createCommunityLoading: selectors.selectCreateCommunityLoading(),

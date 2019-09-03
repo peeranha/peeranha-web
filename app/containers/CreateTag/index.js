@@ -26,6 +26,11 @@ import {
   selectFaqQuestions,
 } from 'containers/DataCacheProvider/selectors';
 
+import {
+  WHAT_IS_TAG_QUESTION,
+  HOW_TO_USE_IT_QUESTION,
+} from 'containers/Faq/constants';
+
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -112,7 +117,10 @@ CreateTag.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  faqQuestions: selectFaqQuestions(['4.0', '4.1']),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_TAG_QUESTION,
+    HOW_TO_USE_IT_QUESTION,
+  ]),
   communities: selectCommunities(),
   createTagLoading: selectors.selectSuggestTagLoading(),
 });
