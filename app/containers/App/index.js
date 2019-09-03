@@ -52,6 +52,7 @@ import {
   Toast,
   Wallet,
   Search,
+  Support,
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
@@ -138,6 +139,11 @@ export default function App /* istanbul ignore next */() {
         <Route
           path={routes.userWallet(':id')}
           render={props => Wrapper(Wallet, props)}
+        />
+
+        <Route
+          path={routes.support()}
+          render={props => Wrapper(Support, props)}
         />
 
         <Route

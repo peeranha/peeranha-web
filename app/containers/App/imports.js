@@ -82,6 +82,10 @@ const Search = React.lazy(
   /* istanbul ignore next */ () => import('components/Search'),
 );
 
+const Support = React.lazy(
+  /* istanbul ignore next */ () => import('containers/Support'),
+);
+
 export {
   HomePage,
   FaqFull,
@@ -115,4 +119,5 @@ export {
   Toast,
   Wallet,
   Search,
+  Support,
 };
