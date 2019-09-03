@@ -39,6 +39,7 @@ export const tags = () => `/tags`;
 export const users = () => `/users`;
 export const appFaq = () => `/app/faq`;
 export const support = () => `/support`;
+export const search = () => `/search`;
 
 export const communitiesCreate = () => `/communities/create`;
 export const suggestedCommunities = () => `/communities/suggested`;
