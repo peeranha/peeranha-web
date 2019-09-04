@@ -29,7 +29,7 @@ const ContentStyled = styled.div`
   }
 `;
 
-const TextBlock = styled.div`
+export const TextBlock = styled.div`
   ${textBlockStyles};
 
   > * {

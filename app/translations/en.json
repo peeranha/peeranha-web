@@ -171,6 +171,9 @@
   "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
   "app.containers.SuggestedTags.tagDescription": "Description",
 
+  "app.containers.PrivacyPolicy.title": "Privacy policy",
+  "app.containers.PrivacyPolicy.description": "Privacy policy, description",
+
   "app.containers.Support.title": "Support",
   "app.containers.Support.description": "Support | Description",
   "app.containers.Support.feelFreeToAsk": "Feel free to ask",

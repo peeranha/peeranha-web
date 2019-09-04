@@ -37,6 +37,7 @@ import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
 import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
 import changeEmailReducer from 'containers/ChangeEmail/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
+import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
 
 /*
  * routeReducer
@@ -103,6 +104,7 @@ export default function createReducer(injectedReducers) {
     changePasswordByPrevious: changePasswordByPreviousReducer,
     changeEmail: changeEmailReducer,
     deleteAccount: deleteAccountReducer,
+    privacyPolicy: privacyPolicyReducer,
     ...injectedReducers,
   });
 }
