@@ -1,19 +1,20 @@
 /* eslint camelcase: 0 */
-export const home = () => `/`;
+export const home = section => `/${section ? `#${section}` : ''}`;
 export const faq = () => `/faq`;
 
 export const profileView = id => `/users/${id}`;
 
 export const profileViewActivityQuestions = id =>
-  `/users/${id}#activity#questions`;
+  `/users/${id}/#activity#questions`;
 
-export const profileViewActivityAnswers = id => `/users/${id}#activity#answers`;
+export const profileViewActivityAnswers = id =>
+  `/users/${id}/#activity#answers`;
 
 export const profileEdit = id => `/users/edit/${id}`;
 
-export const userQuestions = id => `/users/${id}#questions`;
-export const userAnswers = id => `/users/${id}#answers`;
-export const userSettings = id => `/users/${id}#settings`;
+export const userQuestions = id => `/users/${id}/#questions`;
+export const userAnswers = id => `/users/${id}/#answers`;
+export const userSettings = id => `/users/${id}/#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
 export const questions = () => `/questions`;
@@ -22,7 +23,7 @@ export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questionView = /* istanbul ignore next */ (id, answerId) =>
   answerId
-    ? `/questions/${id}#${uniqueAnswerId(answerId)}`
+    ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
 
 export const questionEdit = questionid => `/questions/${questionid}/edit`;
@@ -37,9 +38,10 @@ export const feed = () => `/feed`;
 export const communities = () => `/communities`;
 export const tags = () => `/tags`;
 export const users = () => `/users`;
-export const appFaq = code => `/app/faq${code ? `#${code}` : ``}`;
-export const support = () => `/support`;
+export const appFaq = code => `/app/faq/${code ? `#${code}` : ``}`;
+export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = () => `/search`;
+export const privacyPolicy = () => `/privacy-policy`;
 
 export const communitiesCreate = () => `/communities/create`;
 export const suggestedCommunities = () => `/communities/suggested`;
@@ -85,5 +87,3 @@ export const signup = {
     scatter: false,
   },
 };
-
-export const privacyPolicy = () => `/privacy-policy`;

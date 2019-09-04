@@ -21,12 +21,10 @@ import {
  *
  */
 
-export function sendEmail(formData, reset, pageInfo) {
+export function sendEmail(val) {
   return {
     type: SEND_EMAIL,
-    formData,
-    reset,
-    pageInfo,
+    val,
   };
 }
 
@@ -49,12 +47,10 @@ export function sendEmailErr(sendEmailError) {
  *
  */
 
-export function sendMessage(formData, reset, pageInfo) {
+export function sendMessage(val) {
   return {
     type: SEND_MESSAGE,
-    formData,
-    reset,
-    pageInfo,
+    val,
   };
 }
 

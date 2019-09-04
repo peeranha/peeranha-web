@@ -171,6 +171,12 @@
   "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
   "app.containers.SuggestedTags.tagDescription": "Description",
 
+  "app.containers.Support.title": "Support",
+  "app.containers.Support.description": "Support | Description",
+  "app.containers.Support.feelFreeToAsk": "Feel free to ask",
+  "app.containers.Support.alsoWeHighly":
+    "Also we highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
+
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
   "app.containers.CreateTag.community": "Community",
@@ -425,10 +431,14 @@
     "Successful serial entrepreneur. CEO of Forte Group, an international IT Consulting Company.",
 
   "app.containers.HomePage.yourName": "Your name",
+  "app.containers.HomePage.yourNameTip": "Your name tip",
   "app.containers.HomePage.email": "Email",
+  "app.containers.HomePage.emailTip": "Email tip",
   "app.containers.HomePage.refCode": "Ref. code",
   "app.containers.HomePage.subject": "Subject",
+  "app.containers.HomePage.subjectTip": "Subject tip",
   "app.containers.HomePage.message": "Message",
+  "app.containers.HomePage.messageTip": "Message tip",
   "app.containers.HomePage.sendMessage": "Send message",
   "app.containers.HomePage.platformUnderDeveloping":
     "The website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
