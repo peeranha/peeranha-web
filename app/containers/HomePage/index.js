@@ -17,6 +17,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { scrollToSection } from 'utils/animation';
+
 import reducer from './reducer';
 import saga from './saga';
 import * as homepageSelectors from './selectors';
@@ -35,11 +37,6 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
-  EMAIL_FIELD,
-  NAME_FIELD,
-  SUBJECT_FIELD,
-  MESSAGE_FIELD,
-  REFCODE_FIELD,
 } from './constants';
 
 import { sendEmail, sendMessage } from './actions';
@@ -54,6 +51,8 @@ export class HomePage extends React.PureComponent {
     this.headerAnimation();
 
     this.parallaxAnimation();
+
+    scrollToSection();
   }
 
   componentWillUnmount() {
@@ -150,77 +149,50 @@ export class HomePage extends React.PureComponent {
     });
   };
 
-  sendEmail = (...args) => {
-    const { reset, form } = args[2];
-    const formData = {
-      email: args[0].get(EMAIL_FIELD),
-      refCode: args[0].get(REFCODE_FIELD),
-    };
-
-    const pageInfo = {
-      url: window.location.href,
-      name: `${
-        translationMessages[this.props.locale][messages.title.id]
-      } | ${form}`,
-    };
-
-    this.props.sendEmailDispatch(formData, reset, pageInfo);
-  };
-
-  sendMessage = (...args) => {
-    const { reset, form } = args[2];
-    const formData = {
-      email: args[0].get(EMAIL_FIELD),
-      firstname: args[0].get(NAME_FIELD),
-      subject: args[0].get(SUBJECT_FIELD),
-      message: args[0].get(MESSAGE_FIELD),
-    };
-
-    const pageInfo = {
-      url: window.location.href,
-      name: `${
-        translationMessages[this.props.locale][messages.title.id]
-      } | ${form}`,
-    };
-
-    this.props.sendMessageDispatch(formData, reset, pageInfo);
-  };
-
   render() {
-    const translations = translationMessages[this.props.locale];
+    const {
+      locale,
+      sendEmailLoading,
+      location,
+      sendEmailDispatch,
+      sendMessageDispatch,
+      sendMessageLoading,
+    } = this.props;
+
+    const translations = translationMessages[locale];
 
     return (
       <div id={LANDING_ID}>
         <Seo
           title={translations[messages.title.id]}
           description={translations[messages.description.id]}
-          language={this.props.locale}
+          language={locale}
         />
 
         <Introduction
-          sendEmailLoading={this.props.sendEmailLoading}
-          sendEmail={this.sendEmail}
+          sendEmailLoading={sendEmailLoading}
+          sendEmail={sendEmailDispatch}
           translations={translations}
-          location={this.props.location}
+          location={location}
         />
 
         <About translations={translations} />
 
         <Rewards
           translations={translations}
-          sendEmail={this.sendEmail}
-          sendEmailLoading={this.props.sendEmailLoading}
+          sendEmail={sendEmailDispatch}
+          sendEmailLoading={sendEmailLoading}
         />
 
         <FaqMain translations={translations} questionsNumber={5} />
 
         <Team
           translations={translations}
-          sendMessage={this.sendMessage}
-          sendMessageLoading={this.props.sendMessageLoading}
+          sendMessage={sendMessageDispatch}
+          sendMessageLoading={sendMessageLoading}
         />
 
-        <Footer locale={this.props.locale} />
+        <Footer locale={locale} />
       </div>
     );
   }
@@ -244,10 +216,8 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    sendEmailDispatch: (formData, reset, pageInfo) =>
-      dispatch(sendEmail(formData, reset, pageInfo)),
-    sendMessageDispatch: (formData, reset, pageInfo) =>
-      dispatch(sendMessage(formData, reset, pageInfo)),
+    sendEmailDispatch: (...val) => dispatch(sendEmail(val)),
+    sendMessageDispatch: (...val) => dispatch(sendMessage(val)),
   };
 }
 

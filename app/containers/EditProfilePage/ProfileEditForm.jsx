@@ -18,7 +18,10 @@ import {
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
-import SelectField from 'components/FormFields/SelectField';
+
+import SelectField, {
+  getSelectOptions,
+} from 'components/FormFields/SelectField';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import H3 from 'components/H3';
@@ -40,13 +43,7 @@ export const AVATAR_FIELD_MARGIN = 30;
 
 const loadCities = async (v, callback) => {
   const cities = await getCitiesList(v);
-
-  const formattedCities = cities.map(x => ({
-    label: x.name,
-    value: x.name,
-  }));
-
-  callback(formattedCities);
+  callback(getSelectOptions(cities));
 };
 
 export const ProfileEditForm = ({

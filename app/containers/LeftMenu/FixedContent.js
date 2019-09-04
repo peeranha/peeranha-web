@@ -37,13 +37,6 @@ import Logout from 'containers/Logout';
 
 import { LEFT_MENU_ID } from './constants';
 
-const feedRoute = routes.feed();
-const questionsRoute = routes.questions();
-const communitiesRoute = routes.communities();
-const tagsRoute = routes.tags();
-const usersRoute = routes.users();
-const faqRoute = routes.appFaq();
-
 /* eslint-disable */
 /* istanbul ignore next */
 const LiExtended = Li.extend`
@@ -159,43 +152,47 @@ const FixedContent = /* istanbul ignore next */ ({
 
     <Ul>
       {profile && (
-        <LiExtended route={feedRoute}>
-          <A to={feedRoute} href={feedRoute}>
+        <LiExtended route={routes.feed()}>
+          <A to={routes.feed()} href={routes.feed()}>
             <Icon width="24" icon={myFeedIcon} />
             <FormattedMessage {...messages.myFeed} />
           </A>
         </LiExtended>
       )}
-      <LiExtended route={questionsRoute}>
-        <A to={questionsRoute} href={questionsRoute}>
+      <LiExtended route={routes.questions()}>
+        <A to={routes.questions()} href={routes.questions()}>
           <Icon width="24" icon={allQuestionsIcon} />
           <FormattedMessage {...messages.allQuestions} />
         </A>
       </LiExtended>
 
-      <LiExtended route={communitiesRoute}>
-        <A to={communitiesRoute} href={communitiesRoute}>
+      <LiExtended route={routes.communities()}>
+        <A to={routes.communities()} href={routes.communities()}>
           <Icon width="24" icon={communitiesIcon} />
           <FormattedMessage {...messages.communities} />
         </A>
       </LiExtended>
 
-      <LiExtended route={tagsRoute}>
-        <A to={tagsRoute} href={tagsRoute}>
+      <LiExtended route={routes.tags()}>
+        <A to={routes.tags()} href={routes.tags()}>
           <Icon width="24" icon={tagsIcon} />
           <FormattedMessage {...messages.tags} />
         </A>
       </LiExtended>
 
-      <LiExtended route={usersRoute}>
-        <A to={usersRoute} href={usersRoute}>
+      <LiExtended route={routes.users()}>
+        <A to={routes.users()} href={routes.users()}>
           <Icon width="24" icon={usersIcon} />
           <FormattedMessage {...messages.users} />
         </A>
       </LiExtended>
 
-      <LiExtended route={faqRoute}>
-        <A className="d-flex align-items-center" to={faqRoute} href={faqRoute}>
+      <LiExtended route={routes.appFaq()}>
+        <A
+          className="d-flex align-items-center"
+          to={routes.appFaq()}
+          href={routes.appFaq()}
+        >
           <Icon width="24" icon={questionRoundedIcon} />
           <FormattedMessage {...messages.faq} />
         </A>
@@ -204,28 +201,28 @@ const FixedContent = /* istanbul ignore next */ ({
 
     <UlMargin>
       <Li>
-        <A to={faqRoute} href={faqRoute}>
+        <A to={routes.home()} href={routes.home()}>
           <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.about} />
           </Span>
         </A>
       </Li>
       <Li>
-        <A to={faqRoute} href={faqRoute}>
+        <A to={routes.support()} href={routes.support()}>
           <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.contacts} />
           </Span>
         </A>
       </Li>
       <Li>
-        <A to={faqRoute} href={faqRoute}>
+        <A to={routes.support()} href={routes.support()}>
           <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.support} />
           </Span>
         </A>
       </Li>
       <Li>
-        <A to={faqRoute} href={faqRoute}>
+        <A to={routes.privacyPolicy()} href={routes.privacyPolicy()}>
           <Span color={TEXT_SECONDARY}>
             <FormattedMessage {...messages.privacyPolicy} />
           </Span>
