@@ -12,7 +12,10 @@ import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
-import SelectField from 'components/FormFields/SelectField';
+
+import SelectField, {
+  getSelectOptions,
+} from 'components/FormFields/SelectField';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -54,11 +57,6 @@ const DEFAULT_TAGS_ARRAY = [];
 for (let i = 0; i < DEFAULT_TAGS_NUMBER; i++) {
   DEFAULT_TAGS_ARRAY.push(i);
 }
-
-const languages = appLocales.map(x => ({
-  value: x,
-  label: x,
-}));
 
 /* eslint react/jsx-no-bind: 0 */
 /* eslint-disable-next-line */
@@ -135,7 +133,7 @@ const CreateCommunityForm = /* istanbul ignore next */ ({
         <Field
           name={LANGUAGE_FIELD}
           placeholder=""
-          options={languages}
+          options={getSelectOptions(appLocales)}
           label={translations[messages.communityLanguage.id]}
           tip={translations[messages.communityLanguageTip.id]}
           disabled={createCommunityLoading}

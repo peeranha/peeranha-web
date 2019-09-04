@@ -32,7 +32,7 @@ function homepageReducer(state = initialState, action) {
     case SEND_EMAIL:
       return state.set('sendEmailLoading', true);
     case SEND_EMAIL_SUCCESS:
-      return state.set('sendEmailLoading', false);
+      return state.set('sendEmailLoading', false).set('showPopup', false);
     case SEND_EMAIL_ERROR:
       return state
         .set('sendEmailLoading', false)

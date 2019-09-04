@@ -286,8 +286,14 @@ export default defineMessages({
   yourName: {
     id: 'app.containers.HomePage.yourName',
   },
+  yourNameTip: {
+    id: 'app.containers.HomePage.yourNameTip',
+  },
   email: {
     id: 'app.containers.HomePage.email',
+  },
+  emailTip: {
+    id: 'app.containers.HomePage.emailTip',
   },
   refCode: {
     id: 'app.containers.HomePage.refCode',
@@ -295,9 +301,16 @@ export default defineMessages({
   subject: {
     id: 'app.containers.HomePage.subject',
   },
+  subjectTip: {
+    id: 'app.containers.HomePage.subjectTip',
+  },
   message: {
     id: 'app.containers.HomePage.message',
   },
+  messageTip: {
+    id: 'app.containers.HomePage.messageTip',
+  },
+
   sendMessage: {
     id: 'app.containers.HomePage.sendMessage',
   },

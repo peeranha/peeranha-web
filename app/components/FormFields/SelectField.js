@@ -57,6 +57,12 @@ const DefaultOption = /* istanbul ignore next */ ({
   );
 };
 
+export const getSelectOptions = initialOptions =>
+  initialOptions.map(x => ({
+    value: x,
+    label: x,
+  }));
+
 export const Select2 = /* istanbul ignore next */ ({
   input,
   options,
