@@ -12,7 +12,7 @@ import bannerImage from 'images/faqBanner.svg?inline';
 
 import messages from './messages';
 
-export const Banner = /* istanbul ignore next */ () => (
+export const Banner = () => (
   <BaseRounded className="d-flex align-items-center py-5 my-3">
     <img className="mx-4" src={bannerImage} alt="banner" />
     <div className="ml-5 mb-2">

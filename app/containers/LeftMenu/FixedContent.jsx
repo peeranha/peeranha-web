@@ -214,4 +214,4 @@ FixedContent.propTypes = {
   isNavigationExpanded: PropTypes.bool,
 };
 
-export default React.memo(FixedContent);
+export default FixedContent;

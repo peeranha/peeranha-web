@@ -3,6 +3,8 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
+import { fromJS } from 'immutable';
+import { translationMessages } from 'i18n';
 import { select } from 'redux-saga/effects';
 
 import { sendEmail, sendMessage } from 'utils/homepageManagement';
@@ -18,8 +20,14 @@ import {
   SEND_MESSAGE,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
-  CLOSE_HEADER_POPUP,
+  EMAIL_FIELD,
+  REFCODE_FIELD,
+  NAME_FIELD,
+  MESSAGE_FIELD,
+  SUBJECT_FIELD,
 } from '../constants';
+
+import messages from '../messages';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -35,14 +43,25 @@ jest.mock('utils/homepageManagement', () => ({
 
 describe('sendEmailWorker', () => {
   const locale = 'en';
+  const email = 'email';
+  const refCode = 'refCode';
+  const formName = 'formName';
 
-  const formData = 'formData';
-  const reset = jest.fn();
-  const pageInfo = 'pageInfo';
-  const obj = { formData, reset, pageInfo };
+  const pageInfo = {
+    url: window.location.href,
+    name: `${translationMessages[locale][messages.title.id]}, ${formName}`,
+  };
+
+  const values = fromJS({
+    [EMAIL_FIELD]: email,
+    [REFCODE_FIELD]: refCode,
+  });
 
   describe('success', () => {
-    const generator = sendEmailWorker(obj);
+    const reset = jest.fn();
+    const val = [values, jest.fn(), { form: formName, reset }];
+
+    const generator = sendEmailWorker({ val });
 
     it('step, locale', () => {
       select.mockImplementation(() => locale);
@@ -51,24 +70,20 @@ describe('sendEmailWorker', () => {
     });
 
     it('step, sendEmail calling', () => {
-      const response = 'response';
-
-      sendEmail.mockImplementation(() => response);
-      const step = generator.next(locale);
-      expect(step.value).toBe(response);
+      generator.next(locale);
+      expect(sendEmail).toHaveBeenCalledWith(
+        {
+          email,
+          refCode,
+        },
+        pageInfo,
+      );
     });
 
     it('step, reset calling', () => {
-      const response = 'resp';
-
-      reset.mockImplementation(() => response);
-      const step = generator.next();
-      expect(step.value).toBe(response);
-    });
-
-    it('step, closeHeaderPopup', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(CLOSE_HEADER_POPUP);
+      expect(reset).toHaveBeenCalledTimes(0);
+      generator.next();
+      expect(reset).toHaveBeenCalledTimes(1);
     });
 
     it('step, addToast', () => {
@@ -94,14 +109,29 @@ describe('sendEmailWorker', () => {
 
 describe('sendMessageWorker', () => {
   const locale = 'en';
+  const email = 'email';
+  const formName = 'formName';
+  const message = 'message';
+  const name = 'name';
+  const subject = 'subject';
 
-  const formData = 'formData';
-  const reset = jest.fn();
-  const pageInfo = 'pageInfo';
-  const obj = { formData, reset, pageInfo };
+  const pageInfo = {
+    url: window.location.href,
+    name: `${translationMessages[locale][messages.title.id]}, ${formName}`,
+  };
+
+  const values = fromJS({
+    [EMAIL_FIELD]: email,
+    [NAME_FIELD]: name,
+    [MESSAGE_FIELD]: message,
+    [SUBJECT_FIELD]: subject,
+  });
 
   describe('success', () => {
-    const generator = sendMessageWorker(obj);
+    const reset = jest.fn();
+    const val = [values, jest.fn(), { form: formName, reset }];
+
+    const generator = sendMessageWorker({ val });
 
     it('step, locale', () => {
       select.mockImplementation(() => locale);
@@ -110,19 +140,22 @@ describe('sendMessageWorker', () => {
     });
 
     it('step, sendMessage calling', () => {
-      const response = 'response';
-
-      sendMessage.mockImplementation(() => response);
-      const step = generator.next(locale);
-      expect(step.value).toBe(response);
+      generator.next(locale);
+      expect(sendMessage).toHaveBeenCalledWith(
+        {
+          email,
+          firstname: name,
+          subject,
+          message,
+        },
+        pageInfo,
+      );
     });
 
     it('step, reset calling', () => {
-      const response = 'resp';
-
-      reset.mockImplementation(() => response);
-      const step = generator.next();
-      expect(step.value).toBe(response);
+      expect(reset).toHaveBeenCalledTimes(0);
+      generator.next();
+      expect(reset).toHaveBeenCalledTimes(1);
     });
 
     it('step, addToast', () => {

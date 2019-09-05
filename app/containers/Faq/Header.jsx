@@ -16,7 +16,7 @@ import A from 'components/A';
 
 import messages from './messages';
 
-const Header = /* istanbul ignore next */ () => (
+const Header = () => (
   <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
     <H3 className="d-flex align-items-end">
       <MediumImageStyled src={faqPageHeader} alt="faqPageHeader" />

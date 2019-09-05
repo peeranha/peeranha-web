@@ -1,38 +1,47 @@
 export default `
+  p, li {
+    letter-spacing: 0.3px;
+    line-height: 24px;
+  }
+
+  > * {
+    margin-bottom: 15px;
+  }
+
   h1 {
-    font-size: 2.5em;
+    font-size: 48px;
+    line-height: 60px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   h2 {
-    font-size: 2.25em;
+    font-size: 42px;
+    line-height: 50px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   h3 {
-    font-size: 2em;
+    font-size: 36px;
+    line-height: 44px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   h4 {
-    font-size: 1.75em;
+    font-size: 32px;
+    line-height: 40px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   h5 {
-    font-size: 1.25em;
+    font-size: 24px;
+    line-height: 30px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   h6 {
-    font-size: 1em;
+    font-size: 18px;
+    line-height: 24px;
     font-weight: 600;
-    margin-bottom: 0.5em;
   }
 
   ul { 

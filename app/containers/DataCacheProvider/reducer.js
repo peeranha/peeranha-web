@@ -55,30 +55,24 @@ function dataCacheProviderReducer(state = initialState, action) {
   switch (type) {
     case GET_STAT:
       return state.set('statLoading', true);
-
     case GET_STAT_SUCCESS:
       return state.set('statLoading', false).set('stat', stat);
-
     case GET_STAT_ERROR:
       return state.set('statLoading', false).set('getStatError', getStatError);
 
     case GET_FAQ:
       return state.set('getFaqLoading', true);
-
     case GET_FAQ_SUCCESS:
       return state.set('getFaqLoading', false).set('faq', faq);
-
     case GET_FAQ_ERROR:
       return state.set('getFaqLoading', false).set('getFaqError', getFaqError);
 
     case GET_COMMUNITIES_WITH_TAGS:
       return state.set('communitiesLoading', true);
-
     case GET_COMMUNITIES_WITH_TAGS_SUCCESS:
       return state
         .set('communitiesLoading', false)
         .set('communities', communities);
-
     case GET_COMMUNITIES_WITH_TAGS_ERROR:
       return state
         .set('communitiesLoading', false)
@@ -92,7 +86,6 @@ function dataCacheProviderReducer(state = initialState, action) {
 
     case GET_USER_PROFILE:
       return state.set('usersLoading', true);
-
     case GET_USER_PROFILE_SUCCESS:
       return state.set('usersLoading', false).set(
         'users',
@@ -103,7 +96,6 @@ function dataCacheProviderReducer(state = initialState, action) {
             })
           : state.get('users'),
       );
-
     case GET_USER_PROFILE_ERROR:
       return state
         .set('usersLoading', false)

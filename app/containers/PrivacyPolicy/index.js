@@ -55,7 +55,7 @@ export class PrivacyPolicy extends React.PureComponent {
 PrivacyPolicy.propTypes = {
   getPrivacyPolicyDispatch: PropTypes.func,
   locale: PropTypes.string,
-  privacyPolicy: PropTypes.array,
+  privacyPolicy: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -63,7 +63,7 @@ const mapStateToProps = createStructuredSelector({
   privacyPolicy: selectors.selectPrivacyPolicy(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getPrivacyPolicyDispatch: () => dispatch(getPrivacyPolicy()),
   };

@@ -60,7 +60,7 @@ for (let i = 0; i < DEFAULT_TAGS_NUMBER; i++) {
 
 /* eslint react/jsx-no-bind: 0 */
 /* eslint-disable-next-line */
-const CreateCommunityForm = /* istanbul ignore next */ ({
+const CreateCommunityForm = ({
   handleSubmit,
   createCommunity,
   createCommunityLoading,

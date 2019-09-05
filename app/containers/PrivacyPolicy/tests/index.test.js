@@ -1,10 +1,20 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import { PrivacyPolicy } from '../index';
 
-// import { PrivacyPolicy } from '../index';
+const cmp = new PrivacyPolicy();
+cmp.props = {
+  getPrivacyPolicyDispatch: jest.fn(),
+  locale: 'en',
+  privacyPolicy: null,
+};
 
 describe('<PrivacyPolicy />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('componentDidMount', () => {
+    expect(cmp.props.getPrivacyPolicyDispatch).toHaveBeenCalledTimes(0);
+    cmp.componentDidMount();
+    expect(cmp.props.getPrivacyPolicyDispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it('render', () => {
+    expect(cmp.render()).toMatchSnapshot();
   });
 });

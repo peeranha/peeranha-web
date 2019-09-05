@@ -30,15 +30,13 @@ const ContentStyled = styled.div`
 `;
 
 export const TextBlock = styled.div`
+  display: ${x => (x.isOpened ? 'block' : 'none')};
+  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
   ${textBlockStyles};
-
-  > * {
-    margin-top: 15px;
-  }
 `;
 
 const Ul = styled.ul`
-  li:not(:last-child) {
+  > li:not(:last-child) {
     margin-bottom: 15px;
   }
 `;
@@ -47,12 +45,7 @@ const Ul = styled.ul`
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
-const Question = /* istanbul ignore next */ ({
-  h3,
-  content,
-  questionCode,
-  sectionCode,
-}) => {
+const Question = ({ h3, content, questionCode, sectionCode }) => {
   const { hash } = window.location;
 
   const [isOpened, collapse] = useState(false);
@@ -85,7 +78,7 @@ const Question = /* istanbul ignore next */ ({
         </h5>
 
         <TextBlock
-          className={isOpened ? 'd-block' : 'd-none'}
+          isOpened={isOpened}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
@@ -95,7 +88,7 @@ const Question = /* istanbul ignore next */ ({
 
 const DEFAULT_QST_NUM = 5;
 
-const Section = /* istanbul ignore next */ ({ h2, blocks, sectionCode }) => {
+const Section = ({ h2, blocks, sectionCode }) => {
   const { hash } = window.location;
 
   const [isOpened, collapse] = useState(false);
@@ -155,7 +148,7 @@ const Section = /* istanbul ignore next */ ({ h2, blocks, sectionCode }) => {
   );
 };
 
-const Content = /* istanbul ignore next */ ({ faq }) => {
+const Content = ({ faq }) => {
   // scroll to section / question after component mounting
   useEffect(() => {
     scrollToSection();

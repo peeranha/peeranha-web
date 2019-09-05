@@ -63,7 +63,7 @@ export class Support extends React.PureComponent {
 Support.propTypes = {
   locale: PropTypes.string,
   sendMessageDispatch: PropTypes.func,
-  faq: PropTypes.array,
+  faq: PropTypes.object,
   sendMessageLoading: PropTypes.bool,
 };
 
@@ -73,9 +73,8 @@ const mapStateToProps = createStructuredSelector({
   sendMessageLoading: selectSendMessageLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     sendMessageDispatch: (...args) => dispatch(sendMessage(args)),
   };
 }

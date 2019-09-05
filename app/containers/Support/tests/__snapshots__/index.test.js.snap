@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Support render 1`] = `
+<div>
+  <UNDEFINED
+    description="Support | Description"
+    index={false}
+    language="en"
+    title="Support"
+  />
+  <UNDEFINED
+    locale="en"
+  />
+  <UNDEFINED
+    faq={null}
+    locale="en"
+    sendMessage={[MockFunction]}
+    sendMessageLoading={false}
+  />
+</div>
+`;

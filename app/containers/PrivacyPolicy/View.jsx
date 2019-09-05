@@ -51,6 +51,7 @@ const View = ({ privacyPolicy }) => {
           <div className="col-12 col-xl-9 p-0">
             <BaseTransparent>
               <TextBlock
+                isOpened
                 dangerouslySetInnerHTML={{ __html: question.content }}
               />
             </BaseTransparent>
