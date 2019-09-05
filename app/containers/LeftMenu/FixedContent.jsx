@@ -13,6 +13,7 @@ import {
   TEXT_PRIMARY,
   BG_TRANSPARENT,
   BORDER_SECONDARY,
+  BG_PRIMARY_DARK,
 } from 'style-constants';
 
 import { getQuestionCode } from 'utils/privacyPolicyManagement';
@@ -64,7 +65,7 @@ export const A1 = ABase.extend`
       .filter(x => x.length > 0)[0]
       .match(to.split('/').filter(x => x.length > 0)[0])
       ? `
-    background-color: rgba(53,74,137,0.11);
+    background-color: ${BG_PRIMARY_DARK}25;
     border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
 

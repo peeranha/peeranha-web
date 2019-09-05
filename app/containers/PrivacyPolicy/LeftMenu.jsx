@@ -9,6 +9,7 @@ import {
   BORDER_PRIMARY_DARK,
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
+  BG_PRIMARY_DARK,
 } from 'style-constants';
 
 import { ABase, FixedContentStyled } from 'containers/LeftMenu/FixedContent';
@@ -20,7 +21,7 @@ const A1 = ABase.extend`
   ${({ route }) =>
     (window.location.pathname + window.location.hash).match(route)
       ? `
-    background-color: rgba(53,74,137,0.11);
+    background-color: ${BG_PRIMARY_DARK}25;
     border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
   `
