@@ -1,4 +1,10 @@
 import { fromJS } from 'immutable';
+import React from 'react';
+
+import * as routes from 'routes-config';
+import { getQuestionCode } from 'utils/faqManagement';
+
+import A from 'components/A';
 
 import {
   selectDataCacheProviderDomain,
@@ -11,6 +17,10 @@ import {
   selectStat,
   selectStatLoading,
   selectStatError,
+  selectFaq,
+  selectFaqQuestions,
+  selectGetFaqError,
+  selectGetFaqLoading,
 } from '../selectors';
 
 describe('selectDataCacheProviderDomain', () => {
@@ -23,6 +33,31 @@ describe('selectDataCacheProviderDomain', () => {
   const stat = 'stat';
   const statLoading = false;
   const getStatError = 'getStatError';
+  const faq = {
+    h1: 'h1',
+    blocks: [
+      {
+        h2: 'h2',
+        blocks: [
+          {
+            h3: 'header00',
+            content: 'content22',
+          },
+        ],
+      },
+      {
+        h2: 'h22',
+        blocks: [
+          {
+            h3: 'header10',
+            content: 'content33',
+          },
+        ],
+      },
+    ],
+  };
+  const getFaqLoading = false;
+  const getFaqError = null;
 
   const globalState = fromJS({
     communities,
@@ -34,6 +69,9 @@ describe('selectDataCacheProviderDomain', () => {
     stat,
     statLoading,
     getStatError,
+    faq,
+    getFaqLoading,
+    getFaqError,
   });
 
   const mockedState = fromJS({
@@ -93,5 +131,28 @@ describe('selectDataCacheProviderDomain', () => {
     expect(isSelectGetUserProfileError(mockedState)).toEqual(
       getUserProfileError,
     );
+  });
+
+  it('selectFaq', () => {
+    const isSelectFaq = selectFaq();
+    expect(isSelectFaq(mockedState)).toEqual(faq);
+  });
+
+  it('selectGetFaqLoading', () => {
+    const isSelectGetFaqLoading = selectGetFaqLoading();
+    expect(isSelectGetFaqLoading(mockedState)).toEqual(getFaqLoading);
+  });
+
+  it('selectGetFaqError', () => {
+    const isSelectGetFaqError = selectGetFaqError();
+    expect(isSelectGetFaqError(mockedState)).toEqual(getFaqError);
+  });
+
+  it('selectFaqQuestions', () => {
+    const isSelectFaqQuestions = selectFaqQuestions(['0.0', '1.0']);
+    expect(isSelectFaqQuestions(mockedState)).toEqual([
+      <A to={routes.appFaq(getQuestionCode(0, 0))}>header00</A>,
+      <A to={routes.appFaq(getQuestionCode(1, 0))}>header10</A>,
+    ]);
   });
 });

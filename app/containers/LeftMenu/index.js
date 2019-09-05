@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import * as routes from 'routes-config';
 import styled from 'styled-components';
 import { TEXT_LIGHT, TEXT_PRIMARY_DARK } from 'style-constants';
 
@@ -19,6 +20,9 @@ import Span from 'components/Span';
 
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { selectPrivacyPolicy } from 'containers/PrivacyPolicy/selectors';
+
+import FixedContentForPrivacyPolicy from 'containers/PrivacyPolicy/LeftMenu';
 
 import FixedContent from './FixedContent';
 
@@ -54,36 +58,50 @@ const LeftMenu = /* istanbul ignore next */ ({
   isMenuVisible,
   isNavigationExpanded,
   showMenu,
-}) => (
-  <Aside
-    isMenuVisible={isMenuVisible}
-    className={`${isMenuVisible ? 'd-block' : 'd-none d-lg-block'}`}
-  >
-    <FixedContent
-      isNavigationExpanded={isNavigationExpanded}
-      isMenuVisible={isMenuVisible}
-      profile={profile}
-    />
+  privacyPolicy,
+}) => {
+  const { pathname } = window.location;
 
-    {isMenuVisible && (
-      <After onClick={showMenu}>
-        <Span color={TEXT_LIGHT}>
-          <Icon width="16" icon={closeIcon} noMargin />
-        </Span>
-      </After>
-    )}
-  </Aside>
-);
+  return (
+    <Aside
+      isMenuVisible={isMenuVisible}
+      className={`${isMenuVisible ? 'd-block' : 'd-none d-lg-block'}`}
+    >
+      {pathname === routes.privacyPolicy() ? (
+        <FixedContentForPrivacyPolicy
+          isMenuVisible={isMenuVisible}
+          privacyPolicy={privacyPolicy}
+        />
+      ) : (
+        <FixedContent
+          isNavigationExpanded={isNavigationExpanded}
+          isMenuVisible={isMenuVisible}
+          profile={profile}
+        />
+      )}
+
+      {isMenuVisible && (
+        <After onClick={showMenu}>
+          <Span color={TEXT_LIGHT}>
+            <Icon width="16" icon={closeIcon} noMargin />
+          </Span>
+        </After>
+      )}
+    </Aside>
+  );
+};
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   isNavigationExpanded: PropTypes.bool,
   showMenu: PropTypes.func,
+  privacyPolicy: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
+  privacyPolicy: selectPrivacyPolicy(),
 });
 
 const withConnect = connect(

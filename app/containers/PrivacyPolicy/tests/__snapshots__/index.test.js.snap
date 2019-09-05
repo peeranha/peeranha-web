@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PrivacyPolicy /> render 1`] = `
+<div>
+  <UNDEFINED
+    description="Privacy policy, description"
+    index={false}
+    language="en"
+    title="Privacy policy"
+  />
+  <View
+    privacyPolicy={null}
+  />
+</div>
+`;

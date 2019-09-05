@@ -41,7 +41,8 @@ export const users = () => `/users`;
 export const appFaq = code => `/app/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = () => `/search`;
-export const privacyPolicy = () => `/privacy-policy`;
+export const privacyPolicy = section =>
+  `/privacy-policy/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
 export const suggestedCommunities = () => `/communities/suggested`;

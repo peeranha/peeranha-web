@@ -107,6 +107,12 @@ const selectGetFaqError = () =>
     substate => substate.getFaqError,
   );
 
+const selectGetFaqLoading = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getFaqLoading,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -121,4 +127,5 @@ export {
   selectFaq,
   selectGetFaqError,
   selectFaqQuestions,
+  selectGetFaqLoading,
 };

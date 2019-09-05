@@ -23,18 +23,14 @@ import {
 describe('actions', () => {
   describe('sendEmail Action', () => {
     it('SEND_EMAIL', () => {
-      const formData = 'formData';
-      const reset = 'reset';
-      const pageInfo = 'pageInfo';
+      const val = 'val';
 
       const expected = {
         type: SEND_EMAIL,
-        formData,
-        reset,
-        pageInfo,
+        val,
       };
 
-      expect(sendEmail(formData, reset, pageInfo)).toEqual(expected);
+      expect(sendEmail(val)).toEqual(expected);
     });
 
     it('SEND_EMAIL_SUCCESS', () => {
@@ -58,18 +54,14 @@ describe('actions', () => {
 
   describe('sendMessage Action', () => {
     it('SEND_MESSAGE', () => {
-      const formData = 'formData';
-      const reset = 'reset';
-      const pageInfo = 'pageInfo';
+      const val = 'val';
 
       const expected = {
         type: SEND_MESSAGE,
-        formData,
-        reset,
-        pageInfo,
+        val,
       };
 
-      expect(sendMessage(formData, reset, pageInfo)).toEqual(expected);
+      expect(sendMessage(val)).toEqual(expected);
     });
 
     it('SEND_MESSAGE_SUCCESS', () => {

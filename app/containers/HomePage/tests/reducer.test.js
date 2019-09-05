@@ -31,7 +31,7 @@ describe('homepageReducer', () => {
   });
 
   it('sendEmailSuccess', () => {
-    const obj = state.set('sendEmailLoading', false);
+    const obj = state.set('sendEmailLoading', false).set('showPopup', false);
     expect(homepageReducer(state, sendEmailSuccess())).toEqual(obj);
   });
 

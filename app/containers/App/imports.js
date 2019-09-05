@@ -86,6 +86,10 @@ const Support = React.lazy(
   /* istanbul ignore next */ () => import('containers/Support'),
 );
 
+const PrivacyPolicy = React.lazy(
+  /* istanbul ignore next */ () => import('containers/PrivacyPolicy'),
+);
+
 export {
   HomePage,
   FaqFull,
@@ -120,4 +124,5 @@ export {
   Wallet,
   Search,
   Support,
+  PrivacyPolicy,
 };

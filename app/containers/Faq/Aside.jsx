@@ -8,7 +8,7 @@ import { getSectionCode } from 'utils/faqManagement';
 
 import Span from 'components/Span';
 
-const Aside = /* istanbul ignore next */ ({ faq }) => (
+const Aside = ({ faq }) => (
   <ul className="py-2">
     {faq.blocks.map(x => (
       <li className="mb-1" key={x.h2}>

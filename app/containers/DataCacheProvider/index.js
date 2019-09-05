@@ -27,7 +27,7 @@ export class DataCacheProvider extends React.Component {
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    return this.props.children;
   }
 }
 
@@ -38,10 +38,8 @@ DataCacheProvider.propTypes = {
   children: PropTypes.element,
 };
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     getCommunitiesWithTagsDispatch: () => dispatch(getCommunitiesWithTags()),
     getStatDispatch: () => dispatch(getStat()),
     getFaqDispatch: () => dispatch(getFaq()),

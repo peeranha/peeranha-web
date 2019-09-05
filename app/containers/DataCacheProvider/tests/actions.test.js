@@ -8,6 +8,9 @@ import {
   getStat,
   getStatSuccess,
   getStatErr,
+  getFaq,
+  getFaqSuccess,
+  getFaqErr,
 } from '../actions';
 
 import {
@@ -20,6 +23,9 @@ import {
   GET_STAT,
   GET_STAT_SUCCESS,
   GET_STAT_ERROR,
+  GET_FAQ,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_ERROR,
 } from '../constants';
 
 describe('DataCacheProvider actions', () => {
@@ -114,5 +120,33 @@ describe('DataCacheProvider actions', () => {
 
       expect(getStatErr(getStatError)).toEqual(expected);
     });
+  });
+
+  it('getFaq', () => {
+    const expected = {
+      type: GET_FAQ,
+    };
+
+    expect(getFaq()).toEqual(expected);
+  });
+
+  it('getFaqSuccess', () => {
+    const faq = [];
+    const expected = {
+      type: GET_FAQ_SUCCESS,
+      faq,
+    };
+
+    expect(getFaqSuccess(faq)).toEqual(expected);
+  });
+
+  it('getFaqErr', () => {
+    const getFaqError = 'getFaqError';
+    const expected = {
+      type: GET_FAQ_ERROR,
+      getFaqError,
+    };
+
+    expect(getFaqErr(getFaqError)).toEqual(expected);
   });
 });

@@ -9,11 +9,13 @@ import getHash from 'object-hash';
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
+import { getFAQ } from 'utils/faqManagement';
 
 import defaultSaga, {
   getCommunitiesWithTagsWorker,
   getUserProfileWorker,
   getStatWorker,
+  getFaqWorker,
 } from '../saga';
 
 import {
@@ -26,6 +28,9 @@ import {
   GET_STAT,
   GET_STAT_SUCCESS,
   GET_STAT_ERROR,
+  GET_FAQ,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_ERROR,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -33,6 +38,10 @@ jest.mock('redux-saga/effects', () => ({
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('utils/faqManagement', () => ({
+  getFAQ: jest.fn(),
 }));
 
 jest.mock('utils/communityManagement', () => ({
@@ -75,6 +84,35 @@ describe('getStatWorker', () => {
     const err = 'some error';
     const step = generator.throw(err);
     expect(step.value.type).toBe(GET_STAT_ERROR);
+  });
+});
+
+describe('getFaqWorker', () => {
+  const locale = 'en';
+  const faq = {};
+
+  const generator = getFaqWorker();
+
+  it('step, locale', () => {
+    select.mockImplementation(() => locale);
+    const step = generator.next();
+    expect(step.value).toEqual(locale);
+  });
+
+  it('step, faq', () => {
+    generator.next(locale);
+    expect(getFAQ).toHaveBeenCalledWith(locale);
+  });
+
+  it('step, getFaqSuccess', () => {
+    const step = generator.next(faq);
+    expect(step.value.type).toBe(GET_FAQ_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = 'some error';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(GET_FAQ_ERROR);
   });
 });
 
@@ -213,5 +251,10 @@ describe('defaultSaga', () => {
   it('GET_STAT', () => {
     const step = generator.next();
     expect(step.value).toBe(GET_STAT);
+  });
+
+  it('GET_FAQ', () => {
+    const step = generator.next();
+    expect(step.value).toBe(GET_FAQ);
   });
 });

@@ -13,6 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { scrollToSection } from 'utils/animation';
 
 import reducer from 'containers/HomePage/reducer';
 import saga from 'containers/HomePage/saga';
@@ -30,6 +31,10 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Support extends React.PureComponent {
+  componentDidUpdate() {
+    scrollToSection();
+  }
+
   render() {
     const { locale, sendMessageDispatch, faq, sendMessageLoading } = this.props;
     const translations = translationMessages[locale];
@@ -58,7 +63,7 @@ export class Support extends React.PureComponent {
 Support.propTypes = {
   locale: PropTypes.string,
   sendMessageDispatch: PropTypes.func,
-  faq: PropTypes.array,
+  faq: PropTypes.object,
   sendMessageLoading: PropTypes.bool,
 };
 
@@ -68,9 +73,8 @@ const mapStateToProps = createStructuredSelector({
   sendMessageLoading: selectSendMessageLoading(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     sendMessageDispatch: (...args) => dispatch(sendMessage(args)),
   };
 }

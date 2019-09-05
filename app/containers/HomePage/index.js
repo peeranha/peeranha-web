@@ -213,9 +213,8 @@ const mapStateToProps = createStructuredSelector({
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     sendEmailDispatch: (...val) => dispatch(sendEmail(val)),
     sendMessageDispatch: (...val) => dispatch(sendMessage(val)),
   };

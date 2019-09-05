@@ -53,6 +53,7 @@ import {
   Wallet,
   Search,
   Support,
+  PrivacyPolicy,
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
@@ -144,6 +145,11 @@ export default function App /* istanbul ignore next */() {
         <Route
           path={routes.support()}
           render={props => Wrapper(Support, props)}
+        />
+
+        <Route
+          path={routes.privacyPolicy()}
+          render={props => Wrapper(PrivacyPolicy, props)}
         />
 
         <Route

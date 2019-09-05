@@ -12,6 +12,9 @@ import {
   getStat,
   getStatSuccess,
   getStatErr,
+  getFaq,
+  getFaqSuccess,
+  getFaqErr,
 } from '../actions';
 
 /* eslint indent: 0 */
@@ -122,5 +125,33 @@ describe('dataCacheProviderReducer', () => {
     expect(
       dataCacheProviderReducer(state, getUserProfileErr(getUserProfileError)),
     ).toEqual(obj);
+  });
+
+  it('getFaq', () => {
+    const obj = state.set('getFaqLoading', true);
+    expect(dataCacheProviderReducer(state, getFaq())).toEqual(obj);
+  });
+
+  it('getFaq', () => {
+    const obj = state.set('getFaqLoading', true);
+    expect(dataCacheProviderReducer(state, getFaq())).toEqual(obj);
+  });
+
+  it('getFaqSuccess', () => {
+    const faq = [];
+    const obj = state.set('getFaqLoading', false).set('faq', faq);
+
+    expect(dataCacheProviderReducer(state, getFaqSuccess(faq))).toEqual(obj);
+  });
+
+  it('getFaqSuccess', () => {
+    const getFaqError = 'getFaqError';
+    const obj = state
+      .set('getFaqLoading', false)
+      .set('getFaqError', getFaqError);
+
+    expect(dataCacheProviderReducer(state, getFaqErr(getFaqError))).toEqual(
+      obj,
+    );
   });
 });
