@@ -22,7 +22,7 @@ import { goToCreateTagScreen } from 'containers/Tags';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import GoToCreateTagFromBanner from 'containers/Tags/GoToCreateTagFromBanner';
+import Banner from 'containers/Tags/Banner';
 
 import { createStructuredSelector } from 'reselect';
 
@@ -63,7 +63,7 @@ export const TagsCollection = /* istanbul ignore next */ ({
 
       <List communities={communities} />
 
-      <GoToCreateTagFromBanner openTagForm={openTagForm} />
+      <Banner openTagForm={openTagForm} />
 
       {communitiesLoading && <LoadingIndicator />}
     </div>

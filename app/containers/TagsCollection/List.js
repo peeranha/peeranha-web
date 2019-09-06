@@ -25,6 +25,7 @@ import SeeAllButton from 'components/Button/Outlined/InfoLarge';
 
 const Base = BaseRounded.extend`
   padding: 0;
+  margin-bottom: 15px;
   word-break: break-word;
 
   ${BaseTransparent} {

@@ -1,7 +1,7 @@
-import { NoQuestions } from '../NoQuestions';
+import { Banner } from '../Banner';
 
-describe('NoQuestions', () => {
+describe('Banner', () => {
   it('test', () => {
-    expect(NoQuestions()).toMatchSnapshot();
+    expect(Banner()).toMatchSnapshot();
   });
 });

@@ -11,7 +11,7 @@ import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
 import messages from './messages';
-import languages from './LanguagesOptions';
+import languages from './languagesOptions';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 
 const suggestedCommunitiesRoute = routes.suggestedCommunities();

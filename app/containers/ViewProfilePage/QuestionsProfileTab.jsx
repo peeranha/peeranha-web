@@ -27,7 +27,7 @@ import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
-import NoActivity from './NoActivity';
+import Banner from './Banner';
 
 /* istanbul ignore next */
 const Rating = Span.extend`
@@ -119,7 +119,7 @@ const QuestionsProfileTab = /* istanbul ignore next */ ({
 
     {!questions[0] && loading && <LoadingIndicator />}
 
-    {!questions[0] && !loading && <NoActivity />}
+    {!questions[0] && !loading && <Banner />}
   </div>
 );
 

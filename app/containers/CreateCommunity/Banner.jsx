@@ -7,24 +7,26 @@ import createdHistory from 'createdHistory';
 import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
-import bannerImage from 'images/faqBanner.svg?inline';
+import bannerImage from 'images/communityIsSuggested.svg?inline';
 
 import messages from './messages';
 
 export const Banner = () => (
   <Wrapper>
-    <img src={bannerImage} alt="banner" />
+    <img src={bannerImage} alt="create-community" />
     <div>
       <p>
-        <FormattedMessage {...messages.didntFindAnswer} />
+        <FormattedMessage {...messages.thatisgreat} />
       </p>
 
       <p>
-        <FormattedMessage {...messages.freeFeelToAsk} />
+        <FormattedMessage {...messages.communityWillAppear} />
       </p>
 
-      <Button onClick={() => createdHistory.push(routes.support())}>
-        <FormattedMessage {...messages.help} />
+      <Button
+        onClick={() => createdHistory.push(routes.suggestedCommunities())}
+      >
+        <FormattedMessage {...messages.goToList} />
       </Button>
     </div>
   </Wrapper>

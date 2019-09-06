@@ -53,7 +53,7 @@ export const QuestionsHeader = /* istanbul ignore next */ ({
   );
 
   return (
-    <Base className="d-flex align-items-center">
+    <Base className="d-flex align-items-center mb-3">
       <CommunitySelector
         isArrowed
         Button={Button}

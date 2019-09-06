@@ -47,10 +47,10 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import languages from './LanguagesOptions';
+import languages from './languagesOptions';
 
 import CommunitiesHeader from './CommunitiesHeader';
-import NothingInterestingBanner from './NothingInterestingBanner';
+import Banner from './Banner';
 
 const AsideWrapper = BaseTransparent.extend`
   flex: 0 0 ${LEFT_MENU_WIDTH}px;
@@ -154,7 +154,7 @@ export class Communities extends React.PureComponent {
           )}
 
           {isLastFetch && (
-            <NothingInterestingBanner
+            <Banner
               goToCreateCommunityScreen={this.goToCreateCommunityScreen}
             />
           )}

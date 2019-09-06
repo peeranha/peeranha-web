@@ -42,7 +42,7 @@ import saga from './saga';
 import messages from './messages';
 
 import QuestionsContainer from './QuestionsContainer';
-import NoQuestions from './NoQuestions';
+import Banner from './Banner';
 
 const feed = routes.feed();
 
@@ -168,7 +168,7 @@ export class Questions extends React.PureComponent {
         {!questionsList.length &&
           !questionsLoading &&
           !communitiesLoading && (
-            <NoQuestions
+            <Banner
               isFeed={parentPage === feed}
               followedCommunities={followedCommunities}
             />

@@ -33,7 +33,7 @@ exports[`<AllQuestions /> snapshot test 1`] = `
 </Connect(LanguageProvider)>
 `;
 
-exports[`NoQuestions <AllQuestions /> 1`] = `
+exports[`Banner <AllQuestions /> 1`] = `
 <div
   className="mt-2"
 >
@@ -41,7 +41,7 @@ exports[`NoQuestions <AllQuestions /> 1`] = `
 </div>
 `;
 
-exports[`NoQuestions <Feed /> 1`] = `
+exports[`Banner <Feed /> 1`] = `
 <div
   className="mt-2"
 >

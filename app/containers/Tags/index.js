@@ -37,7 +37,7 @@ import { createTagValidator } from './validate';
 import * as selectors from './selectors';
 
 import Header from './Header';
-import GoToCreateTagFromBanner from './GoToCreateTagFromBanner';
+import Banner from './Banner';
 
 const AsideWrapper = BaseTransparent.extend`
   flex: 0 0 ${LEFT_MENU_WIDTH}px;
@@ -128,7 +128,7 @@ export class Tags extends React.Component {
 
           <div className="my-3">{Content}</div>
 
-          <GoToCreateTagFromBanner openTagForm={this.goToCreateTagScreen} />
+          <Banner openTagForm={this.goToCreateTagScreen} />
         </div>
 
         <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>

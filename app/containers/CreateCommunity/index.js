@@ -53,7 +53,7 @@ import {
 import Form from './Form';
 import Header from './Header';
 import Tips from './Tips';
-import CommunityIsSuggestedBanner from './CommunityIsSuggestedBanner';
+import Banner from './Banner';
 
 const createCommunityRoute = routes.communitiesCreate();
 
@@ -135,7 +135,7 @@ export class CreateCommunity extends React.PureComponent {
           </Base>
         )}
 
-        {path !== createCommunityRoute && <CommunityIsSuggestedBanner />}
+        {path !== createCommunityRoute && <Banner />}
       </div>
     );
   }

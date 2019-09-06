@@ -13,7 +13,7 @@ import A from 'components/A';
 import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
-import NoActivity from './NoActivity';
+import Banner from './Banner';
 
 const Activity = /* istanbul ignore next */ ({
   userId,
@@ -43,7 +43,7 @@ const Activity = /* istanbul ignore next */ ({
   ).slice(0, 10);
 
   if (!questionsWithAnswersLoading && !questionsLoading && !myPosts[0]) {
-    return <NoActivity />;
+    return <Banner />;
   }
 
   return (

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import P from 'components/P';
-import BaseRounded from 'components/Base/BaseRounded';
+import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
 import communitySuggestBanner from 'images/communitySuggest.svg?inline';
@@ -11,37 +10,30 @@ import communitySuggestBanner from 'images/communitySuggest.svg?inline';
 import messages from './messages';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 
-export const NothingInterestingBanner = /* istanbul ignore next */ ({
-  goToCreateCommunityScreen,
-}) => (
-  <BaseRounded className="d-flex align-items-center py-5">
-    <img
-      className="mx-4"
-      src={communitySuggestBanner}
-      alt="communitySuggestBanner"
-    />
-    <div className="ml-5 mb-2">
-      <P className="mb-1" fontSize="24" bold>
+export const Banner = ({ goToCreateCommunityScreen }) => (
+  <Wrapper>
+    <img src={communitySuggestBanner} alt="create-community" />
+    <div>
+      <p>
         <FormattedMessage {...messages.didntFindAnyInteresting} />
-      </P>
+      </p>
 
-      <P>
+      <p>
         <FormattedMessage {...messages.suggestInterestingComm} />
-      </P>
+      </p>
 
       <Button
         id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_banner`}
-        className="my-4"
         onClick={goToCreateCommunityScreen}
       >
         <FormattedMessage {...messages.suggestCommunity} />
       </Button>
     </div>
-  </BaseRounded>
+  </Wrapper>
 );
 
-NothingInterestingBanner.propTypes = {
+Banner.propTypes = {
   goToCreateCommunityScreen: PropTypes.func,
 };
 
-export default React.memo(NothingInterestingBanner);
+export default React.memo(Banner);
