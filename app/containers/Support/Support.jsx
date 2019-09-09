@@ -8,6 +8,7 @@ import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Header from 'components/Header/Transparent';
+import AsideBG from 'components/Base/AsideBG';
 
 import { FORM_ID } from './constants';
 
@@ -25,7 +26,7 @@ const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
 
     <Base className="p-0">
       <div className="d-flex">
-        <div className="col-12 col-xl-9 p-0">
+        <div className="flex-grow-1">
           <BaseTransparent>
             <CallToLeaveMessage />
 
@@ -37,9 +38,9 @@ const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
           </BaseTransparent>
         </div>
 
-        <div className="col-12 col-xl-3 p-0">
+        <AsideBG className="d-none d-xl-block">
           <FaqSections faq={faq} />
-        </div>
+        </AsideBG>
       </div>
     </Base>
   </div>

@@ -15,7 +15,7 @@ import Base from 'components/Base/BaseRounded';
 import Header from 'components/Header/Simple';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { TextBlock } from 'containers/Faq/Content';
-import { BaseStyled } from 'components/TextEditor/Tips';
+import AsideBG from 'components/Base/AsideBG';
 
 const NavItem = A.extend`
   display: block;
@@ -49,7 +49,7 @@ const View = ({ privacyPolicy }) => {
 
       <Base className="p-0">
         <div className="d-flex">
-          <div className="col-12 col-xl-9 p-0">
+          <div className="flex-grow-1">
             <BaseTransparent>
               <TextBlock
                 isOpened
@@ -58,20 +58,18 @@ const View = ({ privacyPolicy }) => {
             </BaseTransparent>
           </div>
 
-          <div className="col-12 col-xl-3 p-0">
-            <BaseStyled>
-              {section.blocks.map((x, index) => (
-                <NavItem
-                  index={index}
-                  href={routes.privacyPolicy(
-                    getQuestionCode(sectionIndex, index),
-                  )}
-                >
-                  {x.h3}
-                </NavItem>
-              ))}
-            </BaseStyled>
-          </div>
+          <AsideBG className="d-none d-xl-block">
+            {section.blocks.map((x, index) => (
+              <NavItem
+                index={index}
+                href={routes.privacyPolicy(
+                  getQuestionCode(sectionIndex, index),
+                )}
+              >
+                {x.h3}
+              </NavItem>
+            ))}
+          </AsideBG>
         </div>
       </Base>
     </div>

@@ -17,6 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBG from 'components/Base/AsideBG';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -81,7 +82,7 @@ export class CreateTag extends React.PureComponent {
         {communities[0] && (
           <Base className="p-0">
             <div className="d-flex">
-              <div className="col-12 col-xl-9 p-0">
+              <div className="flex-grow-1">
                 <BaseTransparent>
                   <Form
                     communityId={+match.params.communityid}
@@ -93,9 +94,9 @@ export class CreateTag extends React.PureComponent {
                 </BaseTransparent>
               </div>
 
-              <div className="col-12 col-xl-3 p-0">
+              <AsideBG className="d-none d-xl-block">
                 <Tips faqQuestions={faqQuestions} />
-              </div>
+              </AsideBG>
             </div>
           </Base>
         )}

@@ -12,6 +12,7 @@ import closeIcon from 'images/closeCircle.svg?inline';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import Header from 'components/Header/Simple';
 import BaseRounded from 'components/Base/BaseRounded';
+import AsideBG from 'components/Base/AsideBG';
 import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -41,11 +42,13 @@ const Wrapper = ({ children, questionid, answerid }) => (
 
     <BaseRounded className="p-0">
       <div className="d-flex">
-        <div className="col-12 col-xl-9 p-0">
+        <div className="flex-grow-1">
           <BaseRounded>{children}</BaseRounded>
         </div>
 
-        <Tips className="d-none d-xl-block col-xl-3 p-0" />
+        <AsideBG className="d-none d-xl-block">
+          <Tips />
+        </AsideBG>
       </div>
     </BaseRounded>
   </div>

@@ -5,12 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import {
-  BG_SECONDARY_LIGHT,
-  BORDER_SECONDARY,
-  TEXT_PRIMARY,
-  BG_PRIMARY,
-} from 'style-constants';
+import { BORDER_SECONDARY, TEXT_PRIMARY, BG_PRIMARY } from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -21,16 +16,9 @@ import {
 } from 'containers/Faq/constants';
 
 import A from 'components/A';
-import Base from 'components/Base';
 import Label from 'components/FormFields/Label';
 
 import messages from './messages';
-
-const BaseStyled = Base.extend`
-  background: ${BG_SECONDARY_LIGHT}50;
-  word-break: break-word;
-  height: 100%;
-`;
 
 const Li = styled.li`
   ${A} {
@@ -68,35 +56,34 @@ const Ul = styled.ul`
   }
 `;
 
-const Tips = /* istanbul ignore next */ ({ className, faqQuestions }) => (
-  <div className={className}>
-    <BaseStyled>
-      <Label className="mb-3">
-        <FormattedMessage {...messages.tips} />:
-      </Label>
-      <Ul>
-        <li>
-          <FormattedMessage {...messages.putReturnsBetweenParagraphs} />
-        </li>
-        <li>
-          <FormattedMessage {...messages.addForLineBreaks} />
-        </li>
-        <li>
-          <FormattedMessage {...messages.italicAndBold} />
-        </li>
-        <li>
-          <FormattedMessage {...messages.indentCode} />
-        </li>
-        <li>
-          <FormattedMessage {...messages.backtipEscapes} />
-        </li>
-        <li>
-          <FormattedMessage {...messages.quoteByPlacing} />
-        </li>
-      </Ul>
+const Tips = /* istanbul ignore next */ ({ faqQuestions }) => (
+  <div>
+    <Label className="mb-3">
+      <FormattedMessage {...messages.tips} />:
+    </Label>
 
-      {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
-    </BaseStyled>
+    <Ul>
+      <li>
+        <FormattedMessage {...messages.putReturnsBetweenParagraphs} />
+      </li>
+      <li>
+        <FormattedMessage {...messages.addForLineBreaks} />
+      </li>
+      <li>
+        <FormattedMessage {...messages.italicAndBold} />
+      </li>
+      <li>
+        <FormattedMessage {...messages.indentCode} />
+      </li>
+      <li>
+        <FormattedMessage {...messages.backtipEscapes} />
+      </li>
+      <li>
+        <FormattedMessage {...messages.quoteByPlacing} />
+      </li>
+    </Ul>
+
+    {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
   </div>
 );
 
@@ -113,7 +100,7 @@ const mapStateToProps = createStructuredSelector({
   ]),
 });
 
-export { BaseStyled, Li, Ul };
+export { Li, Ul };
 
 export default connect(
   mapStateToProps,

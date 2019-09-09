@@ -20,6 +20,7 @@ import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBG from 'components/Base/AsideBG';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -122,15 +123,15 @@ export class CreateCommunity extends React.PureComponent {
         {path === createCommunityRoute && (
           <Base className="p-0">
             <div className="d-flex">
-              <div className="col-12 col-xl-9 p-0">
+              <div className="flex-grow-1">
                 <BaseTransparent>
                   <Form {...sendProps} />
                 </BaseTransparent>
               </div>
 
-              <div className="col-12 col-xl-3 p-0">
+              <AsideBG className="d-none d-xl-block">
                 <Tips faqQuestions={this.props.faqQuestions} />
-              </div>
+              </AsideBG>
             </div>
           </Base>
         )}

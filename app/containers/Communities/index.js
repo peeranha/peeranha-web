@@ -30,10 +30,8 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBox from 'components/Base/Aside';
 import Seo from 'components/Seo';
-
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 import {
   selectSuggestedCommunities,
@@ -51,10 +49,6 @@ import languages from './languagesOptions';
 
 import Header from './Header';
 import Banner from './Banner';
-
-const AsideWrapper = BaseTransparent.extend`
-  flex: 0 0 ${LEFT_MENU_WIDTH}px;
-`.withComponent('aside');
 
 /* eslint indent: 0 */
 /* eslint-disable react/prefer-stateless-function */
@@ -160,12 +154,12 @@ export class Communities extends React.PureComponent {
           )}
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">
+        <AsideBox className="d-none d-xl-block">
           <Aside
             suggestedCommunities={suggestedCommunities}
             communities={communities}
           />
-        </AsideWrapper>
+        </AsideBox>
       </div>
     );
   }

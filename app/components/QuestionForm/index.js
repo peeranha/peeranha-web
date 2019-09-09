@@ -15,11 +15,11 @@ import Button from 'components/Button/Contained/InfoLarge';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
 import Tips from 'components/TextEditor/Tips';
-import Base from 'components/Base';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
 import Wrapper from 'components/Header/Simple';
+import AsideBG from 'components/Base/AsideBG';
 
 import {
   strLength25x30000,
@@ -41,11 +41,6 @@ import {
 } from './constants';
 
 import messages from './messages';
-
-const Form = Base.extend`
-  position: relative;
-  border-radius: 5px;
-`.withComponent('form');
 
 export const QuestionForm = /* istanbul ignore next */ ({
   sendQuestion,
@@ -89,8 +84,8 @@ export const QuestionForm = /* istanbul ignore next */ ({
 
       <BaseRounded className="p-0">
         <div className="d-flex">
-          <div className="col-12 col-xl-9 p-0">
-            <Form onSubmit={handleSubmit(sendQuestion)}>
+          <BaseRounded className="flex-grow-1">
+            <form onSubmit={handleSubmit(sendQuestion)}>
               <div>
                 <Field
                   name={FORM_COMMUNITY}
@@ -149,10 +144,12 @@ export const QuestionForm = /* istanbul ignore next */ ({
                   {submitButtonName}
                 </Button>
               </div>
-            </Form>
-          </div>
+            </form>
+          </BaseRounded>
 
-          <Tips className="d-none d-xl-block col-xl-3 p-0" />
+          <AsideBG className="d-none d-xl-block">
+            <Tips />
+          </AsideBG>
         </div>
       </BaseRounded>
     </div>

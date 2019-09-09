@@ -1,6 +1,6 @@
 import Base from 'components/Base/BaseRounded';
 
-export default Base.extend`
+export const B1 = `
   display: flex;
   align-items: center;
   padding: 40px;
@@ -17,6 +17,10 @@ export default Base.extend`
       font-weight: 600;
     }
 
+    p {
+      line-height: 24px;
+    }
+
     button {
       margin-top: 20px;
     }
@@ -27,4 +31,8 @@ export default Base.extend`
       display: none;
     }
   }
+`;
+
+export default Base.extend`
+  ${B1};
 `;

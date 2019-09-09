@@ -21,14 +21,11 @@ import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
 import { showLoginModal } from 'containers/Login/actions';
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -38,11 +35,6 @@ import * as selectors from './selectors';
 
 import Header from './Header';
 import Banner from './Banner';
-
-const AsideWrapper = BaseTransparent.extend`
-  flex: 0 0 ${LEFT_MENU_WIDTH}px;
-  padding-top: 20px;
-`.withComponent('aside');
 
 export const goToCreateTagScreen = ({
   profile,
@@ -131,7 +123,7 @@ export class Tags extends React.Component {
           <Banner openTagForm={this.goToCreateTagScreen} />
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>
+        <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
       </div>
     );
   }

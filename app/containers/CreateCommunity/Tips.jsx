@@ -5,12 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
 import Label from 'components/FormFields/Label';
-import { BaseStyled, Li, Ul } from 'components/TextEditor/Tips';
+import { Li, Ul } from 'components/TextEditor/Tips';
 
 import messages from './messages';
 
 export const Tips = ({ faqQuestions }) => (
-  <BaseStyled>
+  <div>
     <Label className="mb-3">
       <FormattedMessage {...commonMessages.tips} />
     </Label>
@@ -30,7 +30,7 @@ export const Tips = ({ faqQuestions }) => (
     </Ul>
 
     {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
-  </BaseStyled>
+  </div>
 );
 
 Tips.propTypes = {

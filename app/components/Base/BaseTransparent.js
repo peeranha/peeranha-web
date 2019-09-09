@@ -1,6 +1,6 @@
-import BaseRounded from './BaseRounded';
+import Base from './index';
 
-export default BaseRounded.extend`
+export default Base.extend`
   background: none;
   box-shadow: none;
   border: none;
