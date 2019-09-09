@@ -5,7 +5,7 @@ import Aside from './Aside';
 import Content from './Content';
 import SubHeader from './SubHeader';
 
-import sortingOptions from './SortingOptions';
+import sortingOptions from './sortingOptions';
 
 export const ExistingCommunities = /* istanbul ignore next */ () => {
   const [sorting, changeSorting] = useState(

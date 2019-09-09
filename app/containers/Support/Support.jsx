@@ -7,6 +7,7 @@ import commonMessages from 'common-messages';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import Header from 'components/Header/Transparent';
 
 import { FORM_ID } from './constants';
 
@@ -16,11 +17,11 @@ import SendMessageForm from './SendMessageForm';
 
 const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
   <div id={FORM_ID}>
-    <BaseTransparent>
+    <Header>
       <H3>
         <FormattedMessage {...commonMessages.support} />
       </H3>
-    </BaseTransparent>
+    </Header>
 
     <Base className="p-0">
       <div className="d-flex">

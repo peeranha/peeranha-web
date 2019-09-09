@@ -18,7 +18,7 @@ import A from 'components/A';
 
 import { ANSWER_TYPE, COMMENT_TYPE } from './constants';
 
-export const UserInfo = /* istanbul ignore next */ ({
+export const UserInfo = ({
   rating,
   name,
   avatar,

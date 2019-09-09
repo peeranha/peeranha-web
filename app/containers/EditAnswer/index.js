@@ -112,7 +112,6 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
     getAnswerDispatch: (questionid, answerid) =>
       dispatch(getAnswer(questionid, answerid)),
     editAnswerDispatch: (answer, questionid, answerid) =>

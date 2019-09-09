@@ -35,11 +35,10 @@ const UlStyled = Ul.extend`
   padding: 0;
 `;
 
-/* istanbul ignore next */
 const LiStyled = Li.extend`
   display: flex;
   flex-direction: column;
-  padding: 16px ${props => (props.last ? '0' : '47px')} 16px 0;
+  padding: 16px ${x => (x.last ? '0' : '47px')} 16px 0;
 
   > :nth-child(1) {
     margin-bottom: 5px;
@@ -50,11 +49,7 @@ const LiStyled = Li.extend`
   }
 `;
 
-const MainUserInformation = /* istanbul ignore next */ ({
-  profile,
-  userId,
-  account,
-}) => (
+const MainUserInformation = ({ profile, userId, account }) => (
   <Base position="middle">
     <div className="row">
       <div className="col-12 col-lg-3 col-xl-2 d-flex justify-content-center">

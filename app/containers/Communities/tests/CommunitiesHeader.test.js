@@ -1,11 +1,11 @@
-import CommunitiesHeader from '../CommunitiesHeader';
+import Header from '../Header';
 
 const props = {
   goToCreateCommunityScreen: jest.fn(),
 };
 
-describe('CommunitiesHeader', () => {
+describe('Header', () => {
   it('test', () => {
-    expect(CommunitiesHeader(props)).toMatchSnapshot();
+    expect(Header(props)).toMatchSnapshot();
   });
 });

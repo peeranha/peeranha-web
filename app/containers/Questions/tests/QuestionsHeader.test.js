@@ -1,5 +1,5 @@
 import * as routes from 'routes-config';
-import { QuestionsHeader } from '../QuestionsHeader';
+import { Header } from '../Header';
 
 const props = {
   translations: {},
@@ -12,14 +12,14 @@ const props = {
   },
 };
 
-describe('QuestionsHeader', () => {
+describe('Header', () => {
   it('snapshot test', () => {
-    expect(QuestionsHeader(props)).toMatchSnapshot();
+    expect(Header(props)).toMatchSnapshot();
   });
 
   it('parentPage === feed', () => {
     props.parentPage = routes.feed();
     props.followedCommunities = [];
-    expect(QuestionsHeader(props)).toMatchSnapshot();
+    expect(Header(props)).toMatchSnapshot();
   });
 });

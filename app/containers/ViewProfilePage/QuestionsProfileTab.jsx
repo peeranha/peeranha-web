@@ -29,7 +29,6 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import Banner from './Banner';
 
-/* istanbul ignore next */
 const Rating = Span.extend`
   min-width: 40px;
   padding: 2px 3px;
@@ -48,10 +47,7 @@ const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = /* istanbul ignore next */ ({
-  postType,
-  isMyAnswerAccepted,
-}) => {
+const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
   if (postType === POST_TYPE_QUESTION) {
     return <img src={questionRoundedIcon} className="mr-0" alt="icon" />;
   }
@@ -63,7 +59,7 @@ const PostTypeIcon = /* istanbul ignore next */ ({
   return <img src={answerIcon} className="mr-0" alt="icon" />;
 };
 
-const Note = /* istanbul ignore next */ ({
+const Note = ({
   postType,
   isMyAnswerAccepted,
   acceptedAnswer,
@@ -100,12 +96,7 @@ const Note = /* istanbul ignore next */ ({
   </li>
 );
 
-const QuestionsProfileTab = /* istanbul ignore next */ ({
-  questions,
-  className,
-  loading,
-  locale,
-}) => (
+const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
   <div className={className}>
     <ul>
       {questions.map(x => (

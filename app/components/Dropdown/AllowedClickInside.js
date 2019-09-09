@@ -37,7 +37,7 @@ const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>
-          <img className="mx-3" src={arrowDownIcon} alt="icon" />
+          <img className="px-3" src={arrowDownIcon} alt="icon" />
         </Chevron>
       )}
     </TargetButton>

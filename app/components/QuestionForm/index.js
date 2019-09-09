@@ -19,6 +19,7 @@ import Base from 'components/Base';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
+import Wrapper from 'components/Header/Simple';
 
 import {
   strLength25x30000,
@@ -66,25 +67,25 @@ export const QuestionForm = /* istanbul ignore next */ ({
 
   return (
     <div>
-      <BaseRounded className="d-flex align-items-center justify-content-between mb-3">
-        <H3 className="d-flex align-items-end">
+      <Wrapper className="mb-3">
+        <H3>
           <MediumImageStyled src={questionIcon} alt="questionIcon" />
           <span>{formTitle}</span>
         </H3>
 
         {questionid && (
-          <A
-            to={routes.questionView(questionid)}
-            href={routes.questionView(questionid)}
-            className="d-inline-flex align-items-center"
-          >
-            <img className="mr-1" src={closeIcon} alt="x" />
-            <Span color={TEXT_PRIMARY}>
-              {intl.formatMessage({ id: commonMessages.close.id })}
-            </Span>
-          </A>
+          <div className="right-panel">
+            <A to={routes.questionView(questionid)}>
+              <button>
+                <img className="mr-1" src={closeIcon} alt="x" />
+                <Span color={TEXT_PRIMARY}>
+                  {intl.formatMessage({ id: commonMessages.close.id })}
+                </Span>
+              </button>
+            </A>
+          </div>
         )}
-      </BaseRounded>
+      </Wrapper>
 
       <BaseRounded className="p-0">
         <div className="d-flex">

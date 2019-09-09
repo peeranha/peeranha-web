@@ -41,7 +41,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import QuestionsContainer from './QuestionsContainer';
+import View from './View';
 import Banner from './Banner';
 
 const feed = routes.feed();
@@ -162,7 +162,7 @@ export class Questions extends React.PureComponent {
           isLoading={questionsLoading}
           isLastFetch={isLastFetch}
         >
-          <QuestionsContainer {...sendProps} />
+          <View {...sendProps} />
         </InfinityLoader>
 
         {!questionsList.length &&

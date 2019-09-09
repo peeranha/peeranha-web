@@ -5,7 +5,6 @@ import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
-import ArrowIcon from './ArrowIcon';
 
 export const Dropdown = /* istanbul ignore next */ ({
   button,
@@ -22,14 +21,11 @@ export const Dropdown = /* istanbul ignore next */ ({
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
+      data-icon="arrow"
     >
       {button}
 
-      {isArrowed && (
-        <ArrowIcon className="d-none d-md-flex" data-icon="arrow">
-          <img src={arrowDownIcon} alt="icon" />
-        </ArrowIcon>
-      )}
+      {isArrowed && <img src={arrowDownIcon} alt="data-icon" />}
     </button>
 
     <MenuStyled className="dropdown-menu" ariaLabelledby={id}>

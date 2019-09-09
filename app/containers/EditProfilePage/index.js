@@ -164,7 +164,6 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),
     saveImageChangesDispatch: res => dispatch(saveImageChanges(res)),
     clearImageChangesDispatch: () => dispatch(clearImageChanges()),

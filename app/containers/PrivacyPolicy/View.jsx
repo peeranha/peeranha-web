@@ -12,6 +12,7 @@ import { getIndexes, getQuestionCode } from 'utils/privacyPolicyManagement';
 import A from 'components/A';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
+import Header from 'components/Header/Simple';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { TextBlock } from 'containers/Faq/Content';
 import { BaseStyled } from 'components/TextEditor/Tips';
@@ -40,11 +41,11 @@ const View = ({ privacyPolicy }) => {
 
   return (
     <div>
-      <Base className="mb-3">
+      <Header className="mb-3">
         <H3>
           <FormattedMessage {...commonMessages.privacyPolicy} />
         </H3>
-      </Base>
+      </Header>
 
       <Base className="p-0">
         <div className="d-flex">

@@ -127,7 +127,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     suggestTagDispatch: (tag, reset) => dispatch(suggestTag(tag, reset)),
   };
 }

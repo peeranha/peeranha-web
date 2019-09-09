@@ -13,7 +13,7 @@ exports[`<Communities /> render communities [] 1`] = `
   <div
     className="flex-grow-1"
   >
-    <CommunitiesHeader
+    <Header
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={0}
@@ -80,7 +80,7 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
   <div
     className="flex-grow-1"
   >
-    <CommunitiesHeader
+    <Header
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={1}

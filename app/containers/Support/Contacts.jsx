@@ -18,6 +18,7 @@ import calendarIcon from 'images/calendar.svg?inline';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
+import Wrapper from 'components/Header/Simple';
 
 import { CONTACTS_ID, FORM_ID } from './constants';
 
@@ -46,11 +47,11 @@ const MediaList = styled.div`
 
 const Contacts = ({ locale }) => (
   <div id={CONTACTS_ID}>
-    <Base className="mb-3">
+    <Wrapper className="mb-3">
       <H3>
         <FormattedMessage {...commonMessages.contacts} />
       </H3>
-    </Base>
+    </Wrapper>
 
     <MediaList>
       <MediaItem href={getLinks(locale).facebook} target="_blank">

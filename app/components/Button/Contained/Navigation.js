@@ -7,6 +7,11 @@ import PrimaryLarge from './PrimaryLarge';
 const NavigationButton = PrimaryLarge.extend`
   padding: 6px 20px;
 
+  @media only screen and (max-width: 576px) {
+    padding: 6px 15px;
+    min-width: auto;
+  }
+
   ${({ isLink }) =>
     isLink
       ? `

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CommunitiesHeader test 1`] = `
+exports[`Header test 1`] = `
 <div>
   <Base
     className="d-flex align-items-center justify-content-between"

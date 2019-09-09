@@ -49,7 +49,7 @@ import saga from './saga';
 
 import languages from './languagesOptions';
 
-import CommunitiesHeader from './CommunitiesHeader';
+import Header from './Header';
 import Banner from './Banner';
 
 const AsideWrapper = BaseTransparent.extend`
@@ -126,7 +126,7 @@ export class Communities extends React.PureComponent {
         />
 
         <div className="flex-grow-1">
-          <CommunitiesHeader
+          <Header
             goToCreateCommunityScreen={this.goToCreateCommunityScreen}
             SubHeader={SubHeader}
             changeSorting={changeSorting}
