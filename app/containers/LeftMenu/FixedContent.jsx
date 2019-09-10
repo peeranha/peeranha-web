@@ -57,7 +57,7 @@ export const ABase = Li.extend`
 `;
 
 /* eslint-disable */
-/* istanbul ignore next */
+
 export const A1 = ABase.extend`
   ${({ to }) =>
     window.location.pathname
@@ -81,19 +81,10 @@ export const A1 = ABase.extend`
 `.withComponent(A);
 /* eslint-enable */
 
-/* istanbul ignore next */
 export const FixedContentStyled = styled.nav`
   position: ${x => (x.isMenuVisible ? 'relative' : 'fixed')};
   width: ${x => (x.isMenuVisible ? '100%' : `${LEFT_MENU_WIDTH}px`)};
   transition: 0.4s;
-
-  &.scroll-hidden {
-    top: 0px;
-  }
-
-  &.scroll-visible {
-    top: ${HEADER_HEIGHT}px;
-  }
 
   div {
     padding: 16px 0;
@@ -103,6 +94,10 @@ export const FixedContentStyled = styled.nav`
   > div:not(:last-child) {
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
+
+  &.sticky {
+    transform: translate(0px, -${HEADER_HEIGHT}px);
+  }
 `;
 
 export const A2 = A.extend`
@@ -111,11 +106,7 @@ export const A2 = A.extend`
 `.withComponent(A);
 
 /* eslint indent: 0 */
-const FixedContent = /* istanbul ignore next */ ({
-  profile,
-  isMenuVisible,
-  isNavigationExpanded,
-}) => (
+const FixedContent = ({ profile, isMenuVisible, isNavigationExpanded }) => (
   <FixedContentStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
     {profile &&
       isNavigationExpanded && (
