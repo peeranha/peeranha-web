@@ -30,6 +30,11 @@ export class Header extends React.PureComponent {
     this.animate();
   }
 
+  componentDidUpdate() {
+    $(`#${HEADER_ID}`).removeClass('sticky');
+    $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+  }
+
   animate = /* istanbul ignore next */ () => {
     let lastScrollTop = 0;
 
