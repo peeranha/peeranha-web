@@ -15,50 +15,38 @@ import commonMessages from 'common-messages';
 import P from 'components/P';
 import A from 'components/A';
 import Span from 'components/Span';
-import BaseRounded from 'components/Base/BaseRounded';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
-const Base = BaseRounded.extend`
-  padding: 0;
-  word-break: break-word;
+const Base = BaseRoundedNoPadding.extend`
+  ${MediumImageStyled} {
+    margin-top: 10px;
+  }
 
-  ${BaseTransparent} {
+  > :not(:last-child) {
     border-bottom: 1px solid ${BORDER_SECONDARY};
-    border-radius: 0;
+  }
 
-    :last-child {
-      border: none;
+  @media only screen and (max-width: 576px) {
+    ${MediumImageStyled} {
+      margin-right: 10px;
+      margin-top: 0px;
+    }
+
+    button {
+      min-width: 65px;
     }
   }
 `;
 
-const Description = `
+const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 50px;
-`;
-
-const Num = Span.extend`
-  margin-bottom: 0.25rem;
-  text-align: center;
-  font-weight: 600;
-  text-transform: lowercase;
-`;
-
-const Name = Span.extend`
-  text-align: center;
-  font-size: 14px;
-`;
-
-const LinkDescription = styled(A)`
-  ${Description};
-`;
-
-const TextDescription = styled.p`
-  ${Description};
 `;
 
 const Content = ({ communities, sorting, locale, language }) => (
@@ -68,64 +56,68 @@ const Content = ({ communities, sorting, locale, language }) => (
       .map(x => (
         <BaseTransparent key={x.value}>
           <div className="row align-items-center">
-            <div className="col-xl-4 d-flex">
-              <MediumImageStyled
-                className="mt-2"
-                src={x.avatar}
-                alt="communityAvatar"
-              />
+            <div className="col-8 col-md-4 d-flex">
+              <MediumImageStyled src={x.avatar} alt={x.name} />
               <div>
-                <P className="mb-1" fontSize="24" bold>
+                <P className="mb-1" fontSize="24" mobileFS="18" bold>
                   {x.name}
                 </P>
-                <P className="text-capitalize" fontSize="14">
+                <P className="d-none d-md-block text-capitalize" fontSize="14">
                   {x.language}
                 </P>
                 <P fontSize="14">{x.description}</P>
               </div>
             </div>
 
-            <div className="col-xl-8 d-flex align-items-center justify-content-between">
-              <TextDescription>
-                <Num>{getFormattedNum2(x.users_subscribed)}</Num>
-                <Name>
+            <div className="col-4 col-md-8 d-flex align-items-center justify-content-end justify-content-md-between">
+              <Info className="d-none d-md-flex">
+                <P className="mb-1" bold>
+                  {getFormattedNum2(x.users_subscribed)}
+                </P>
+                <P fontSize="14">
                   <FormattedMessage {...commonMessages.users} />
-                </Name>
-              </TextDescription>
+                </P>
+              </Info>
 
-              <LinkDescription
-                to={routes.questions(x.id)}
-                href={routes.questions(x.id)}
-              >
-                <Num>{getFormattedNum2(x.questions_asked)}</Num>
-                <Name color={TEXT_PRIMARY}>
-                  <FormattedMessage {...commonMessages.questions} />
-                </Name>
-              </LinkDescription>
+              <Info className="d-none d-md-flex">
+                <P className="mb-1" bold>
+                  {getFormattedNum2(x.questions_asked)}
+                </P>
+                <A to={routes.questions(x.id)}>
+                  <Span color={TEXT_PRIMARY} fontSize="14">
+                    <FormattedMessage {...commonMessages.questions} />
+                  </Span>
+                </A>
+              </Info>
 
-              <TextDescription>
-                <Num>{getFormattedNum2(x.answers_given)}</Num>
-                <Name>
+              <Info className="d-none d-md-flex">
+                <P className="mb-1" bold>
+                  {getFormattedNum2(x.answers_given)}
+                </P>
+                <P fontSize="14">
                   <FormattedMessage {...commonMessages.answers} />
-                </Name>
-              </TextDescription>
+                </P>
+              </Info>
 
-              <LinkDescription
-                to={routes.communityTags(x.id)}
-                href={routes.communityTags(x.id)}
-              >
-                <Num>{getFormattedNum2(x.tags.length)}</Num>
-                <Name color={TEXT_PRIMARY}>
-                  <FormattedMessage {...commonMessages.tags} />
-                </Name>
-              </LinkDescription>
+              <Info className="d-none d-md-flex">
+                <P className="mb-1" bold>
+                  {getFormattedNum2(x.tags.length)}
+                </P>
+                <A to={routes.communityTags(x.id)}>
+                  <Span color={TEXT_PRIMARY} fontSize="14">
+                    <FormattedMessage {...commonMessages.tags} />
+                  </Span>
+                </A>
+              </Info>
 
-              <TextDescription>
-                <Num>{getDifferenceInMonths(x.creation_time, locale)}</Num>
-                <Name>
+              <Info className="d-none d-md-flex">
+                <P className="mb-1" bold>
+                  {getDifferenceInMonths(x.creation_time, locale)}
+                </P>
+                <P fontSize="14">
                   <FormattedMessage {...commonMessages.age} />
-                </Name>
-              </TextDescription>
+                </P>
+              </Info>
 
               <FollowCommunityButton communityIdFilter={x.id} />
             </div>

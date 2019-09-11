@@ -147,11 +147,12 @@ export class Communities extends React.PureComponent {
             <LoadingIndicator />
           )}
 
-          {isLastFetch && (
-            <Banner
-              goToCreateCommunityScreen={this.goToCreateCommunityScreen}
-            />
-          )}
+          {!communitiesLoading &&
+            !suggestedCommunitiesLoading && (
+              <Banner
+                goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+              />
+            )}
         </div>
 
         <AsideBox className="d-none d-xl-block">
