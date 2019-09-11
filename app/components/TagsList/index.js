@@ -10,10 +10,12 @@ const Tag = Span.extend`
   border: 1px solid ${BORDER_PRIMARY};
   color: ${TEXT_PRIMARY};
   font-size: 14px;
+  line-height: 20px;
   border-radius: 2px;
   margin-right: 8px;
   margin-bottom: 2px;
-  padding: 2px 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const Box = styled.ul`

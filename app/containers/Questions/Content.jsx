@@ -19,7 +19,7 @@ import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
 import Tags from 'components/TagsList';
 import Base from 'components/Base';
-import BaseRounded from 'components/Base/BaseRounded';
+import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
@@ -30,21 +30,13 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 
-const BaseStyled = BaseRounded.extend`
-  margin-top: 15px;
-  overflow: hidden;
-  padding: 0;
-  word-break: break-all;
-`;
-
 const AdditionalInfo = Base.extend`
   border-bottom: 1px solid #00000013;
   border-right: 1px solid #00000013;
   display: flex;
   justify-content: center;
 
-  background: ${props =>
-    props.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT};
+  background: ${x => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
 `;
 
 /* eslint camelcase: 0 */
@@ -62,7 +54,7 @@ const QuestionItem = ({
   answers,
   correct_answer_id,
 }) => (
-  <BaseStyled className="d-flex flex-wrap">
+  <BaseNoPadding className="d-flex flex-wrap mt-3" overflowHidden>
     <Base className="d-flex flex-wrap col-12 col-sm-3 col-md-2 p-0">
       <AdditionalInfo
         className="col-6 col-sm-12"
@@ -102,14 +94,14 @@ const QuestionItem = ({
     </Base>
 
     <Base className="col-12 col-sm-9 col-md-10">
-      <p>
+      <p className="mb-1">
         <A to={routes.questionView(id)} href={routes.questionView(id)}>
-          <Span fontSize="24" bold>
+          <Span fontSize="24" mobileFS="18" bold>
             {title}
           </Span>
         </A>
       </p>
-      <p>
+      <p className="mb-2">
         <A to={routes.profileView(user)} className="d-flex align-items-center">
           <Span className="mr-2" fontSize="14">
             {userInfo.display_name}
@@ -142,7 +134,7 @@ const QuestionItem = ({
         </Tags>
       </div>
     </Base>
-  </BaseStyled>
+  </BaseNoPadding>
 );
 
 export const Content = ({ questionsList, locale, communities }) => (

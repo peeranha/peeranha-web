@@ -6,6 +6,8 @@ const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
 
+  ${x => (x.overflowHidden ? 'overflow: hidden;' : '')}
+
   @media only screen and (max-width: 576px) {
     padding: 15px 20px;
   }

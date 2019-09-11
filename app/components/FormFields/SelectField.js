@@ -30,8 +30,8 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${/* istanbul ignore next */ props =>
-    props.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
+  background: ${/* istanbul ignore next */ x =>
+    x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
 
   :hover {
     border: 1px solid ${BORDER_PRIMARY};
@@ -115,7 +115,7 @@ export const Select2 = /* istanbul ignore next */ ({
           fontFamily: APP_FONT,
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
-          minWidth: 300,
+          minWidth: 250,
           margin: `${menuIsOpen ? '10px' : '5px 0'}`,
           padding: '0 5px',
         }),
