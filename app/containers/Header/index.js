@@ -22,7 +22,7 @@ import { showLoginModal } from 'containers/Login/actions';
 
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-import HeaderForm from './HeaderForm';
+import View from './View';
 import { HEADER_ID } from './constants';
 
 export class Header extends React.PureComponent {
@@ -67,17 +67,15 @@ export class Header extends React.PureComponent {
       account,
       profileInfo,
       showLoginModalDispatch,
-      isMenuVisible,
       showMenu,
       expandLeftMenuNavigation,
     } = this.props;
 
     return (
-      <HeaderForm
+      <View
         account={account}
         profileInfo={profileInfo}
         showLoginModalDispatch={showLoginModalDispatch}
-        isMenuVisible={isMenuVisible}
         showMenu={showMenu}
         expandLeftMenuNavigation={expandLeftMenuNavigation}
       />
@@ -89,7 +87,6 @@ Header.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   expandLeftMenuNavigation: PropTypes.func,
 };
@@ -102,7 +99,6 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
     showLoginModalDispatch: () => dispatch(showLoginModal()),
   };
 }

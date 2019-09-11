@@ -6,10 +6,13 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import logoutIcon from 'images/logout.svg?inline';
 import messages from 'common-messages';
 
+import logoutIcon from 'images/logout.svg?inline';
+
 import Cookies from 'utils/cookies';
+import { getQuestionCode } from 'utils/privacyPolicyManagement';
+
 import noAvatar from 'images/ico-user-no-photo.png';
 
 import Dropdown from 'components/Dropdown';
@@ -22,6 +25,7 @@ import MediumImage from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
 import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
+import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
 
 const Info = styled.span`
   padding: 0 10px;
@@ -41,7 +45,7 @@ export const AStyled = A.extend`
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
-const Button = ({ profileInfo, onClick }) => (
+export const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
     <MediumImage
       isBordered
@@ -91,8 +95,7 @@ const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
       </Li>
       <Li>
         <AStyled to={routes.questions()}>
-          <FormattedMessage {...messages.all} />{' '}
-          <FormattedMessage {...messages.questions} />
+          <FormattedMessage {...messages.allQuestions} />
         </AStyled>
       </Li>
       <Li>
@@ -119,22 +122,22 @@ const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
 
     <Ul className="d-block d-lg-none">
       <Li>
-        <AStyled to={routes.faq()}>
+        <AStyled to={routes.home()}>
           <FormattedMessage {...messages.about} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.faq()}>
+        <AStyled to={routes.support(CONTACTS_ID)}>
           <FormattedMessage {...messages.contacts} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.faq()}>
+        <AStyled to={routes.support(FORM_ID)}>
           <FormattedMessage {...messages.support} />
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.faq()}>
+        <AStyled to={routes.privacyPolicy(getQuestionCode())}>
           <FormattedMessage {...messages.privacyPolicy} />
         </AStyled>
       </Li>
@@ -153,33 +156,24 @@ const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
   </nav>
 );
 
-const ProfileDropdown = ({
-  profileInfo,
-  isMenuVisible,
-  expandLeftMenuNavigation,
-}) =>
-  !isMenuVisible ? (
-    <Dropdown
-      isArrowed
-      className={`${isMenuVisible ? 'd-flex' : 'd-none d-md-flex'}`}
-      id={`profile_id_${Math.random()}`}
-      button={<Button profileInfo={profileInfo} />}
-      menu={
-        <Menu
-          user={profileInfo.user}
-          questionsLength={profileInfo.questions_asked}
-          questionsWithUserAnswersLength={profileInfo.answers_given}
-        />
-      }
-    />
-  ) : (
-    <Button profileInfo={profileInfo} onClick={expandLeftMenuNavigation} />
-  );
+const ProfileDropdown = ({ profileInfo }) => (
+  <Dropdown
+    isArrowed
+    className="d-none d-md-flex"
+    id="profile_dropdown_id"
+    button={<Button profileInfo={profileInfo} />}
+    menu={
+      <Menu
+        user={profileInfo.user}
+        questionsLength={profileInfo.questions_asked}
+        questionsWithUserAnswersLength={profileInfo.answers_given}
+      />
+    }
+  />
+);
 
 ProfileDropdown.propTypes = {
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
-  expandLeftMenuNavigation: PropTypes.func,
 };
 
 Menu.propTypes = {

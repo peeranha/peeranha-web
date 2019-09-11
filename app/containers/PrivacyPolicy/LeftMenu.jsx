@@ -12,12 +12,15 @@ import {
   BG_PRIMARY_DARK,
 } from 'style-constants';
 
-import { ABase, FixedContentStyled } from 'containers/LeftMenu/FixedContent';
+import { BasicLink, ViewStyled } from 'containers/LeftMenu/View';
+
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
 import A from 'components/A';
 
-const A1 = ABase.extend`
+const A1 = A.extend`
+  ${BasicLink};
+
   ${({ route }) =>
     (window.location.pathname + window.location.hash).match(route)
       ? `
@@ -33,7 +36,7 @@ const A1 = ABase.extend`
 `.withComponent(A);
 
 const LeftMenu = ({ isMenuVisible, privacyPolicy }) => (
-  <FixedContentStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
+  <ViewStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
     <div>
       {privacyPolicy &&
         privacyPolicy.blocks.map((x, sectionIndex) => (
@@ -45,7 +48,7 @@ const LeftMenu = ({ isMenuVisible, privacyPolicy }) => (
           </A1>
         ))}
     </div>
-  </FixedContentStyled>
+  </ViewStyled>
 );
 
 LeftMenu.propTypes = {

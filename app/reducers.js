@@ -38,6 +38,7 @@ import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious
 import changeEmailReducer from 'containers/ChangeEmail/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
+import sendTokensReducer from 'containers/SendTokens/reducer';
 
 /*
  * routeReducer
@@ -105,6 +106,7 @@ export default function createReducer(injectedReducers) {
     changeEmail: changeEmailReducer,
     deleteAccount: deleteAccountReducer,
     privacyPolicy: privacyPolicyReducer,
+    sendTokens: sendTokensReducer,
     ...injectedReducers,
   });
 }

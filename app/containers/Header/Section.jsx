@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Section = styled.div`
   display: flex;
   align-items: center;
-  justify-content: ${x => (x.isMenuVisible ? 'flex-start' : 'flex-end')};
+  justify-content: flex-end;
   flex: 1;
 
   > * {

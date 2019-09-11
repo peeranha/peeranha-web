@@ -54,7 +54,7 @@ const IconBG = MediumImage.extend`
   }
 `.withComponent('span');
 
-const Button = ({ balance }) => (
+export const Button = ({ balance }) => (
   <ButtonStyled>
     <IconBG bg={BG_PRIMARY}>
       <Icon width="24" icon={currencyPeerIcon} noMargin />

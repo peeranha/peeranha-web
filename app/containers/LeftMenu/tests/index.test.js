@@ -14,7 +14,6 @@ describe('<CommentForm />', () => {
   const props = {
     profile: {},
     isMenuVisible: false,
-    isNavigationExpanded: false,
     showMenu: jest.fn(),
   };
 

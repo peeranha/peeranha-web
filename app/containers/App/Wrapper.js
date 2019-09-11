@@ -12,8 +12,8 @@ import { HEADER_HEIGHT } from 'containers/Header/constants';
 const Main = styled.div`
   background: rgb(234, 236, 244);
   min-height: 100vh;
-  padding-top: ${HEADER_HEIGHT}px;
-  padding-bottom: 150px;
+  padding-top: ${x => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
+  padding-bottom: ${x => (!x.isMenuVisible ? 150 : 0)}px;
 `;
 
 const WrapStyled = styled.main`
@@ -25,7 +25,6 @@ const WrapStyled = styled.main`
 export class Box extends React.PureComponent {
   state = {
     isMenuVisible: false,
-    isNavigationExpanded: false,
   };
 
   // set default state if window resizing is happening
@@ -35,7 +34,6 @@ export class Box extends React.PureComponent {
       window.resizedFinished = setTimeout(() => {
         this.setState({
           isMenuVisible: false,
-          isNavigationExpanded: false,
         });
       }, 250);
     });
@@ -44,13 +42,12 @@ export class Box extends React.PureComponent {
   // set default state if links changing is happening
   componentWillReceiveProps(prevProps) /* istanbul ignore next */ {
     if (
-      prevProps.props.location.pathname !==
-        this.props.props.location.pathname &&
+      prevProps.props.location.pathname + prevProps.props.location.hash !==
+        this.props.props.location.pathname + this.props.props.location.hash &&
       this.state.isMenuVisible
     ) {
       this.setState({
         isMenuVisible: false,
-        isNavigationExpanded: false,
       });
     }
   }
@@ -59,28 +56,24 @@ export class Box extends React.PureComponent {
     this.setState({ isMenuVisible: !this.state.isMenuVisible });
   };
 
-  expandLeftMenuNavigation = /* istanbul ignore next */ () => {
-    this.setState({ isNavigationExpanded: !this.state.isNavigationExpanded });
-  };
-
   render() /* istanbul ignore next */ {
-    const { isMenuVisible, isNavigationExpanded } = this.state;
+    const { isMenuVisible } = this.state;
     const { Comp, props } = this.props;
 
     return (
       <React.Fragment>
-        <Header
-          expandLeftMenuNavigation={this.expandLeftMenuNavigation}
-          isMenuVisible={isMenuVisible}
-          showMenu={this.showMenu}
-        />
+        {!isMenuVisible && (
+          <Header
+            expandLeftMenuNavigation={this.expandLeftMenuNavigation}
+            showMenu={this.showMenu}
+          />
+        )}
 
-        <Main>
-          <div className="container">
+        <Main isMenuVisible={isMenuVisible}>
+          <div className={isMenuVisible ? '' : 'container'}>
             <div className="d-flex">
               <LeftMenu
                 showMenu={this.showMenu}
-                isNavigationExpanded={isNavigationExpanded}
                 isMenuVisible={isMenuVisible}
                 {...props}
               />

@@ -34,7 +34,7 @@ const ButtonStyled = IconBG.extend`
   }
 `;
 
-const Button = ({ energy }) => (
+export const Button = ({ energy }) => (
   <ButtonStyled bg={BG_LIGHT}>
     <span>{energy}</span>
     <img src={energyIcon} alt="icon" />

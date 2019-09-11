@@ -7,6 +7,7 @@ export const B1 = `
 
   img {
     width: 150px;
+    height: 150px;
     margin: 0 50px 0 25px;
   }
 
