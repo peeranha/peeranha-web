@@ -50,41 +50,48 @@ const A1 = A.extend`
   `};
 `;
 
-const MainLinks = ({ profile }) => (
-  <div>
-    {profile && (
-      <A1 to={routes.feed()}>
-        <Icon width="24" icon={myFeedIcon} />
-        <FormattedMessage {...messages.myFeed} />
+const MainLinks = ({ profile }) => {
+  const { pathname } = window.location;
+
+  return (
+    <div>
+      {profile && (
+        <A1 to={routes.feed()} disabled={pathname === routes.feed()}>
+          <Icon width="24" icon={myFeedIcon} />
+          <FormattedMessage {...messages.myFeed} />
+        </A1>
+      )}
+
+      <A1 to={routes.questions()} disabled={pathname === routes.questions()}>
+        <Icon width="24" icon={allQuestionsIcon} />
+        <FormattedMessage {...messages.allQuestions} />
       </A1>
-    )}
 
-    <A1 to={routes.questions()}>
-      <Icon width="24" icon={allQuestionsIcon} />
-      <FormattedMessage {...messages.allQuestions} />
-    </A1>
+      <A1
+        to={routes.communities()}
+        disabled={pathname === routes.communities()}
+      >
+        <Icon width="24" icon={communitiesIcon} />
+        <FormattedMessage {...messages.communities} />
+      </A1>
 
-    <A1 to={routes.communities()}>
-      <Icon width="24" icon={communitiesIcon} />
-      <FormattedMessage {...messages.communities} />
-    </A1>
+      <A1 to={routes.tags()} disabled={pathname === routes.tags()}>
+        <Icon width="24" icon={tagsIcon} />
+        <FormattedMessage {...messages.tags} />
+      </A1>
 
-    <A1 to={routes.tags()}>
-      <Icon width="24" icon={tagsIcon} />
-      <FormattedMessage {...messages.tags} />
-    </A1>
+      <A1 to={routes.users()} disabled={pathname === routes.users()}>
+        <Icon width="24" icon={usersIcon} />
+        <FormattedMessage {...messages.users} />
+      </A1>
 
-    <A1 to={routes.users()}>
-      <Icon width="24" icon={usersIcon} />
-      <FormattedMessage {...messages.users} />
-    </A1>
-
-    <A1 to={routes.appFaq()}>
-      <Icon width="24" icon={questionRoundedIcon} />
-      <FormattedMessage {...messages.faq} />
-    </A1>
-  </div>
-);
+      <A1 to={routes.appFaq()} disabled={pathname === routes.appFaq()}>
+        <Icon width="24" icon={questionRoundedIcon} />
+        <FormattedMessage {...messages.faq} />
+      </A1>
+    </div>
+  );
+};
 
 MainLinks.propTypes = {
   profile: PropTypes.object,
