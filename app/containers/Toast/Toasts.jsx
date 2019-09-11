@@ -14,10 +14,8 @@ const Toasts = ({ location, toasts, removeToast }) => (
         data-key={item.toastKey}
         onClick={removeToast}
       >
-        <div className="status">
-          <img src={toastTypes[item.type].icon} alt="status" />
-        </div>
-        <div className="content">{item.text}</div>
+        <img className="mr-3" src={toastTypes[item.type].icon} alt="status" />
+        <span className="flex-grow-1">{item.text}</span>
       </Toast>
     ))}
   </ToastBox>

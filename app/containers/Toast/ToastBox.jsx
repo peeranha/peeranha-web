@@ -26,7 +26,7 @@ const ToastBox = styled.div`
   position: fixed;
   display: flex;
   min-height: 100vh;
-  ${props => toastsLocation[props.location]};
+  ${x => toastsLocation[x.location]};
 `;
 
 export default ToastBox;
