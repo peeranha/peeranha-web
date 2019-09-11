@@ -12,7 +12,7 @@ import {
   BG_PRIMARY_DARK,
 } from 'style-constants';
 
-import { BasicLink, ViewStyled } from 'containers/LeftMenu/View';
+import { BasicLink, ViewStyled } from 'containers/LeftMenu/Styles';
 
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
