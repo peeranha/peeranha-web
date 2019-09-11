@@ -12,13 +12,19 @@ export default styled.div`
   transition: 1s;
   max-height: 95vh;
   overflow: auto;
-  animation: TT111 0.5s;
-  @keyframes TT111 {
+  animation: moveFromTopToCenter 0.5s;
+
+  @keyframes moveFromTopToCenter {
     from {
       top: -450px;
     }
     to {
       top: 0px;
     }
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 20px;
+    margin: 0 5px;
   }
 `;
