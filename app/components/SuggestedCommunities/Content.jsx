@@ -7,7 +7,7 @@ import _ from 'lodash';
 import arrowDownIcon from 'images/arrowDown.svg?inline';
 
 import P from 'components/P';
-import Base from 'components/Base/BaseRounded';
+import Base from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import InfinityLoader from 'components/InfinityLoader';
@@ -18,15 +18,34 @@ import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton'
 
 import messages from './messages';
 
-const ItemStyled = Base.extend`
+const BaseStyled = Base.extend`
   margin-bottom: 15px;
-  padding: 0;
-  word-break: break-word;
-`.withComponent('li');
 
-const Header = BaseTransparent.extend`
-  border-bottom: 1px solid ${BORDER_SECONDARY};
-  border-radius: 0;
+  > :nth-child(1) {
+    img {
+      margin-right: 15px;
+    }
+
+    button:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  > :not(:last-child) {
+    border-bottom: 1px solid ${BORDER_SECONDARY};
+  }
+
+  @media only screen and (max-width: 576px) {
+    > :nth-child(1) {
+      button {
+        margin-top: 15px;
+      }
+
+      img {
+        margin-top: 0px;
+      }
+    }
+  }
 `;
 
 const Description = BaseTransparent.extend`
@@ -49,39 +68,31 @@ const Item = x => {
   const [isOpened, changeView] = useState(false);
 
   return (
-    <ItemStyled key={x.id}>
-      <Header>
+    <BaseStyled key={x.id}>
+      <BaseTransparent>
         <div className="row align-items-center">
-          <div className="col-xl-9 d-flex align-items-center">
-            <MediumImageStyled
-              className="mr-3"
-              src={x.avatar}
-              alt="voting-community"
-            />
+          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center">
+            <MediumImageStyled src={x.avatar} alt="voting-community" />
 
             <div>
-              <P fontSize="24" bold>
+              <P fontSize="24" mobileFS="18" bold>
                 {x.name}
               </P>
-              <P className="text-capitalize" fontSize="14">
+              <P className="d-none d-sm-block text-capitalize" fontSize="14">
                 {x.language}
               </P>
               <P fontSize="14">{x.description}</P>
             </div>
           </div>
 
-          <div className="col-xl-3 d-flex justify-content-between">
-            <VoteUpButton
-              className="mr-2"
-              id={`voteup_${x.id}`}
-              communityId={x.id}
-            />
+          <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-between">
+            <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
             <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
           </div>
         </div>
-      </Header>
+      </BaseTransparent>
 
-      <Description isOpened={isOpened}>
+      <Description className="d-none d-sm-block" isOpened={isOpened}>
         <P className="mb-2" bold>
           <button onClick={() => changeView(!isOpened)}>
             <FormattedMessage {...messages.whyWeeNeedIt} />
@@ -94,7 +105,7 @@ const Item = x => {
           <BlockShadow />
         </div>
       </Description>
-    </ItemStyled>
+    </BaseStyled>
   );
 };
 
@@ -113,13 +124,13 @@ const Content = ({
       isLoading={suggestedCommunitiesLoading}
       isLastFetch={isLastFetch}
     >
-      <ul>
+      <div>
         {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc'])
           .filter(
             x => (language.sortBy ? x.language === language.sortBy : true),
           )
           .map(x => <Item key={x.id} {...x} />)}
-      </ul>
+      </div>
     </InfinityLoader>
   );
 };
@@ -132,5 +143,4 @@ Content.propTypes = {
   language: PropTypes.object,
 };
 
-export { ItemStyled, Header, Description };
 export default React.memo(Content);
