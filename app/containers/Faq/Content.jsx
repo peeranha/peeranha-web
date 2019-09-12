@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
-
+import { BORDER_SECONDARY } from 'style-constants';
 import textBlockStyles from 'text-block-styles';
 import commonMessages from 'common-messages';
 
@@ -18,16 +18,9 @@ import arrowIcon from 'images/arrowDown.svg?inline';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import Base from 'components/Base';
-import BaseRounded from 'components/Base/BaseRounded';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
+import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
-
-const ContentStyled = styled.div`
-  h4,
-  h5 {
-    cursor: pointer;
-  }
-`;
 
 export const TextBlock = styled.div`
   display: ${x => (x.isOpened ? 'block' : 'none')};
@@ -35,9 +28,22 @@ export const TextBlock = styled.div`
   ${textBlockStyles};
 `;
 
-const Ul = styled.ul`
-  > li:not(:last-child) {
-    margin-bottom: 15px;
+const SectionStyled = BaseRoundedNoPadding.extend`
+  margin-bottom: 15px;
+
+  h4,
+  h5 {
+    cursor: pointer;
+  }
+
+  ${BaseTransparent} {
+    li:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  > :not(:last-child) {
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 `;
 
@@ -66,7 +72,7 @@ const Question = ({ h3, content, questionCode, sectionCode }) => {
       <div>
         <img
           style={{ transform: `rotate(${isOpened ? '180deg' : '0deg'})` }}
-          className="px-2 mr-3"
+          className="d-none d-sm-inline-block px-2 mr-3"
           src={arrowIcon}
           alt="icon"
         />
@@ -95,7 +101,6 @@ const Section = ({ h2, blocks, sectionCode }) => {
   const [isExtendedSection, extendSection] = useState(false);
 
   const questionsNumber = isExtendedSection ? blocks.length : DEFAULT_QST_NUM;
-  const Header = isOpened ? Base : BaseRounded;
 
   const collapseSection = () => {
     createdHistory.push(routes.appFaq());
@@ -113,24 +118,28 @@ const Section = ({ h2, blocks, sectionCode }) => {
   }
 
   return (
-    <div className="mb-3" id={sectionId}>
-      <Header position="top">
-        <H4 className="d-flex align-items-center" onClick={collapseSection}>
+    <SectionStyled id={sectionId}>
+      <BaseTransparent>
+        <H4
+          className="d-flex align-items-center"
+          onClick={collapseSection}
+          mobileFS="24"
+        >
           <img
-            className="mr-4"
+            className="mr-3"
             src={isOpened ? minusIcon : plusIcon}
             alt="icon"
           />
           <span>{h2}</span>
         </H4>
-      </Header>
+      </BaseTransparent>
 
-      <Base className={isOpened ? 'd-block' : 'd-none'} position="bottom">
-        <Ul>
+      <BaseTransparent className={isOpened ? 'd-block' : 'd-none'}>
+        <ul>
           {blocks
             .slice(0, questionsNumber)
             .map(x => <Question {...x} key={x.h3} sectionCode={sectionCode} />)}
-        </Ul>
+        </ul>
 
         {blocks.length > DEFAULT_QST_NUM && (
           <Button
@@ -143,8 +152,8 @@ const Section = ({ h2, blocks, sectionCode }) => {
             }`}</span>
           </Button>
         )}
-      </Base>
-    </div>
+      </BaseTransparent>
+    </SectionStyled>
   );
 };
 
@@ -154,11 +163,7 @@ const Content = ({ faq }) => {
     scrollToSection();
   }, []);
 
-  return (
-    <ContentStyled>
-      {faq.blocks.map(x => <Section {...x} key={x.h2} />)}
-    </ContentStyled>
-  );
+  return <div>{faq.blocks.map(x => <Section {...x} key={x.h2} />)}</div>;
 };
 
 Question.propTypes = {
