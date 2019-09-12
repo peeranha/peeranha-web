@@ -45,7 +45,7 @@ const Base = BaseRounded.extend`
   }
 `;
 
-const Ul = styled.ul`
+export const SpecialGridForMobileList = styled.ul`
   @media only screen and (max-width: 576px) {
     .col-12 {
       max-width: 50%;
@@ -72,7 +72,7 @@ const Content = ({
     isLoading={existingTagsLoading}
     isLastFetch={isLastFetch}
   >
-    <Ul className="row">
+    <SpecialGridForMobileList className="row">
       <li className="col-12 col-sm-6 col-md-4">
         <Item className="d-flex align-items-center justify-content-center p-2">
           <Input
@@ -106,7 +106,7 @@ const Content = ({
           </Tag>
         </li>
       ))}
-    </Ul>
+    </SpecialGridForMobileList>
 
     {existingTagsLoading && <LoadingIndicator />}
   </InfinityLoader>
