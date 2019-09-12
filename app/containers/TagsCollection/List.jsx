@@ -17,21 +17,18 @@ import A from 'components/A';
 import P from 'components/P';
 import BlockShadow from 'components/BlockShadow';
 import TagList, { Box } from 'components/TagsList';
-import BaseRounded from 'components/Base/BaseRounded';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import SeeAllButton from 'components/Button/Outlined/InfoLarge';
 
-const Base = BaseRounded.extend`
-  padding: 0;
+const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
-  word-break: break-word;
 
   ${BaseTransparent} {
     border: 1px solid ${BORDER_TRANSPARENT};
     border-bottom-color: ${BORDER_SECONDARY};
-    border-radius: 0;
 
     :last-child {
       border-bottom-color: ${BORDER_TRANSPARENT};
@@ -45,7 +42,9 @@ const Base = BaseRounded.extend`
       border-color: ${BORDER_PRIMARY};
 
       ${SeeAllButton} {
-        display: inline-flex;
+        @media only screen and (min-width: 576px) {
+          display: inline-flex !important;
+        }
       }
     }
   }
@@ -56,52 +55,49 @@ const Base = BaseRounded.extend`
   }
 `;
 
-const List = /* istanbul ignore next */ ({ communities }) => (
+const List = ({ communities }) => (
   <Base>
     {_.orderBy(communities, y => y.popularity, 'desc').map(x => (
       <BaseTransparent key={x.value}>
-        <div className="row align-items-center">
-          <div className="col-xl-3 d-flex">
-            <MediumImageStyled
-              className="mt-1"
-              src={x.avatar}
-              alt="communityAvatar"
-            />
-            <div>
-              <P fontSize="24" bold>
-                {x.label}
-              </P>
-              <P
-                className="text-lowercase"
-                fontSize="14"
-                color={TEXT_SECONDARY}
-              >
-                <span>{`${x.tags.length} `}</span>
-                <FormattedMessage {...commonMessages.tags} />
-              </P>
-            </div>
-          </div>
-
-          <div className="col-xl-9 d-flex align-items-center">
-            <div className="position-relative flex-grow-1">
-              <TagList
-                communities={communities}
-                communityId={x.id}
-                showPopularity
+        <A to={routes.communityTags(x.id)}>
+          <div className="row align-items-center">
+            <div className="col-6 col-sm-4 col-md-3 d-flex">
+              <MediumImageStyled
+                className="mt-1"
+                src={x.avatar}
+                alt="communityAvatar"
               />
-              <BlockShadow toSide="right" />
+              <div>
+                <P fontSize="24" bold>
+                  {x.label}
+                </P>
+                <P
+                  className="text-lowercase"
+                  fontSize="14"
+                  color={TEXT_SECONDARY}
+                >
+                  <span>{`${x.tags.length} `}</span>
+                  <FormattedMessage {...commonMessages.tags} />
+                </P>
+              </div>
             </div>
 
-            <A
-              to={routes.communityTags(x.id)}
-              href={routes.communityTags(x.id)}
-            >
+            <div className="col-6 col-sm-8 col-md-9 d-flex align-items-center justify-content-end">
+              <div className="d-none d-sm-flex overflow-hidden position-relative flex-grow-1">
+                <TagList
+                  communities={communities}
+                  communityId={x.id}
+                  showPopularity
+                />
+                <BlockShadow toSide="right" />
+              </div>
+
               <SeeAllButton>
                 <FormattedMessage {...commonMessages.seeAll} />
               </SeeAllButton>
-            </A>
+            </div>
           </div>
-        </div>
+        </A>
       </BaseTransparent>
     ))}
   </Base>

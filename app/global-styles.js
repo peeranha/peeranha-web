@@ -56,4 +56,8 @@ injectGlobal`
   .popover {
     z-index: 100000;
   }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
 `;

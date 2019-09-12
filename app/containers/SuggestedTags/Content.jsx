@@ -9,10 +9,10 @@ import P from 'components/P';
 import InfinityLoader from 'components/InfinityLoader';
 import BlockShadow from 'components/BlockShadow';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import BaseTransparent from 'components/Base/BaseTransparent';
 
 import {
-  ItemStyled,
-  Header,
+  BaseStyled,
   Description,
 } from 'components/SuggestedCommunities/Content';
 
@@ -25,20 +25,29 @@ const TagLarge = Tag.extend`
   padding: 8px 20px;
   font-size: 20px;
   font-weight: 600;
+
+  @media only screen and (max-width: 576px) {
+    padding: 6px 12px;
+    font-size: 18px;
+  }
 `;
 
 const Item = x => {
   const [isOpened, changeView] = useState(false);
 
   return (
-    <ItemStyled key={x.id}>
-      <Header>
+    <BaseStyled key={x.id}>
+      <BaseTransparent>
         <div className="row align-items-center">
-          <div className="col-xl-9 d-flex align-items-center">
+          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center">
             <TagLarge>{x.name}</TagLarge>
           </div>
 
-          <div className="col-xl-3 d-flex justify-content-between">
+          <Description className="d-flex d-sm-none col-12">
+            <P>{x.description}</P>
+          </Description>
+
+          <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-between">
             <VoteUpButton
               className="mr-2"
               id={`voteup_${x.id}`}
@@ -53,9 +62,9 @@ const Item = x => {
             />
           </div>
         </div>
-      </Header>
+      </BaseTransparent>
 
-      <Description isOpened={isOpened}>
+      <Description className="d-none d-sm-block" isOpened={isOpened}>
         <P className="mb-2" bold>
           <button onClick={() => changeView(!isOpened)}>
             <FormattedMessage {...messages.tagDescription} />
@@ -68,7 +77,7 @@ const Item = x => {
           <BlockShadow />
         </div>
       </Description>
-    </ItemStyled>
+    </BaseStyled>
   );
 };
 

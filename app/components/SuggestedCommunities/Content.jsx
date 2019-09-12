@@ -18,7 +18,7 @@ import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton'
 
 import messages from './messages';
 
-const BaseStyled = Base.extend`
+export const BaseStyled = Base.extend`
   margin-bottom: 15px;
 
   > :nth-child(1) {
@@ -48,7 +48,9 @@ const BaseStyled = Base.extend`
   }
 `;
 
-const Description = BaseTransparent.extend`
+export const Description = BaseTransparent.extend`
+  word-break: break-all;
+
   ${P} {
     overflow: hidden;
     max-height: ${x => (!x.isOpened ? '100px' : 'auto')};

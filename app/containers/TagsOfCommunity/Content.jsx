@@ -45,6 +45,20 @@ const Base = BaseRounded.extend`
   }
 `;
 
+const Ul = styled.ul`
+  @media only screen and (max-width: 576px) {
+    .col-12 {
+      max-width: 50%;
+    }
+  }
+
+  @media only screen and (max-width: 442px) {
+    .col-12 {
+      max-width: 100%;
+    }
+  }
+`;
+
 const Content = ({
   tags,
   loadMoreTags,
@@ -58,8 +72,8 @@ const Content = ({
     isLoading={existingTagsLoading}
     isLastFetch={isLastFetch}
   >
-    <ul className="row">
-      <li className="col-xl-4">
+    <Ul className="row">
+      <li className="col-12 col-sm-6 col-md-4">
         <Item className="d-flex align-items-center justify-content-center p-2">
           <Input
             input={{ onChange: typeInput, value: text }}
@@ -70,7 +84,7 @@ const Content = ({
       </li>
 
       {tags.map(x => (
-        <li key={x.name} className="col-xl-4 mb-3">
+        <li key={x.name} className="col-12 col-sm-6 col-md-4 mb-3">
           <Tag>
             <Base>
               <Item>
@@ -92,7 +106,7 @@ const Content = ({
           </Tag>
         </li>
       ))}
-    </ul>
+    </Ul>
 
     {existingTagsLoading && <LoadingIndicator />}
   </InfinityLoader>
