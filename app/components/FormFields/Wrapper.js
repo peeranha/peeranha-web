@@ -29,13 +29,15 @@ export const Wrapper = /* istanbul ignore next */ ({
   return (
     <div className="mb-2">
       <Label>{label}</Label>
-      <div className="row align-items-center mb-2">
-        <div className={`col-12 col-md-${valueWidth} mb-1`}>{children}</div>
+      <div className="row align-items-center mb-3">
+        <div className={`col-12 col-md-${valueWidth}`}>{children}</div>
         {meta && (
           <WarningMessage
             {...meta}
             tip={tip}
-            className={`col-12 col-md-${tipWidth}`}
+            className={`col-12 mt-xs-1 ${
+              valueWidth > 6 ? 'mt-md-1' : 'mt-md-0'
+            } col-md-${tipWidth}`}
           />
         )}
       </div>

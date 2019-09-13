@@ -25,7 +25,7 @@ export const WarningMessage = /* istanbul ignore next */ ({
         />
       )}
 
-      <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+      <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
         {(error && intl.formatMessage({ id: error.id })) ||
           (warning && intl.formatMessage({ id: warning.id })) ||
           tip}

@@ -26,7 +26,7 @@
   "app.common.you": "Вы",
   "app.common.upload": "Загрузить",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять своими сообществами",
+  "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Спрашивали",
   "app.common.youAsked": "Вы спрашивали",
   "app.common.answered": "Ответили",
@@ -520,7 +520,7 @@
     "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.components.FormFields.wrongLength30000": "Превышено количество символов",
   "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
-  "app.components.FormFields.wrongEmail": "Неверный email",
+  "app.components.FormFields.wrongEmail": "Неправильный адрес",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

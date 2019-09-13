@@ -60,4 +60,16 @@ injectGlobal`
   .overflow-hidden {
     overflow: hidden;
   }
+
+  @media only screen and (min-width: 320px) {
+    .mt-xs-1 {
+      margin-top: 5px !important;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .mt-md-0 {
+      margin-top: 0px !important;
+    }
+  }
 `;

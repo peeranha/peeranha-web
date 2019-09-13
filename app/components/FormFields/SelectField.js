@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import styled from 'styled-components';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 
 import {
   BORDER_PRIMARY,
@@ -63,6 +63,7 @@ export const getSelectOptions = initialOptions =>
     label: x,
   }));
 
+/* eslint no-param-reassign: 0 */
 export const Select2 = /* istanbul ignore next */ ({
   input,
   options,
@@ -83,6 +84,10 @@ export const Select2 = /* istanbul ignore next */ ({
   return (
     <S
       {...input}
+      onChange={x => {
+        input.value = x;
+        input.onChange(x);
+      }}
       components={{
         Group,
         DropdownIndicator: () => (
@@ -116,7 +121,7 @@ export const Select2 = /* istanbul ignore next */ ({
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
           minWidth: 250,
-          margin: `${menuIsOpen ? '10px' : '5px 0'}`,
+          margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),
         menu: base => ({
