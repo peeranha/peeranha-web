@@ -18,7 +18,7 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
 import A from 'components/A';
 
-const A1 = A.extend`
+const SectionLink = A.extend`
   ${BasicLink};
 
   ${({ route }) =>
@@ -33,19 +33,39 @@ const A1 = A.extend`
     border-color: ${BORDER_TRANSPARENT};
     font-weight: normal;
   `};
-`.withComponent(A);
+`;
+
+const QuestionLink = A.extend`
+  ${BasicLink};
+
+  padding-left: 30px;
+  font-size: 14px;
+`;
 
 const LeftMenu = ({ isMenuVisible, privacyPolicy }) => (
   <ViewStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
     <div>
       {privacyPolicy &&
         privacyPolicy.blocks.map((x, sectionIndex) => (
-          <A1
-            to={routes.privacyPolicy(getQuestionCode(sectionIndex))}
-            route={routes.privacyPolicy(getSectionCode(sectionIndex))}
-          >
-            {x.h2}
-          </A1>
+          <div>
+            <SectionLink
+              to={routes.privacyPolicy(getQuestionCode(sectionIndex))}
+              route={routes.privacyPolicy(getSectionCode(sectionIndex))}
+            >
+              {x.h2}
+            </SectionLink>
+
+            {x.blocks.map((y, questionIndex) => (
+              <QuestionLink
+                className="d-block d-md-none"
+                to={routes.privacyPolicy(
+                  getQuestionCode(sectionIndex, questionIndex),
+                )}
+              >
+                {y.h3}
+              </QuestionLink>
+            ))}
+          </div>
         ))}
     </div>
   </ViewStyled>
