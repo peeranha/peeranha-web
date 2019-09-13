@@ -10,11 +10,16 @@ import messages from './messages';
 
 const BannerStyled = Banner.extend`
   border-bottom: 1px solid ${BORDER_SECONDARY};
+
+  @media only screen and (max-width: 768px) {
+    padding: 15px 0 0 0;
+    border-bottom: none;
+  }
 `;
 
-const CallToLeaveMessage = () => (
+export default React.memo(() => (
   <BannerStyled>
-    <img src={letterSmile} alt="leave-message" />
+    <img className="d-none d-md-block" src={letterSmile} alt="leave-message" />
     <div>
       <p>
         <FormattedMessage {...messages.feelFreeToAsk} />
@@ -24,6 +29,4 @@ const CallToLeaveMessage = () => (
       </p>
     </div>
   </BannerStyled>
-);
-
-export default React.memo(CallToLeaveMessage);
+));

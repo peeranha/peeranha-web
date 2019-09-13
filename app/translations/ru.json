@@ -451,7 +451,7 @@
   "app.containers.HomePage.messageTip": "Сообщение, подсказка",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
-    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
+    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
   "app.containers.HomePage.askQuestion": "Задать вопрос",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",
@@ -459,7 +459,7 @@
   "app.containers.HomePage.messageHasNotBeenSent":
     "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
   "app.containers.HomePage.yourEmailIsRegistred":
-    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите имейл с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
+    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
 
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
@@ -505,7 +505,7 @@
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
 
-  "app.components.FormFields.requiredField": "Необходимое поле",
+  "app.components.FormFields.requiredField": "Обязательное поле",
   "app.components.FormFields.wrongLength15x100":
     "Значение должно быть не меньше 15 и не более 100 символов",
   "app.components.FormFields.wrongLength2x15":
@@ -520,7 +520,7 @@
     "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.components.FormFields.wrongLength30000": "Превышено количество символов",
   "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
-  "app.components.FormFields.wrongEmail": "Неверный имейл",
+  "app.components.FormFields.wrongEmail": "Неверный email",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

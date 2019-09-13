@@ -30,12 +30,12 @@ export const Wrapper = /* istanbul ignore next */ ({
     <div className="mb-2">
       <Label>{label}</Label>
       <div className="row align-items-center mb-2">
-        <div className={`col-xl-${valueWidth} mb-1`}>{children}</div>
+        <div className={`col-12 col-md-${valueWidth} mb-1`}>{children}</div>
         {meta && (
           <WarningMessage
             {...meta}
             tip={tip}
-            className={`col-xl-${tipWidth}`}
+            className={`col-12 col-md-${tipWidth}`}
           />
         )}
       </div>

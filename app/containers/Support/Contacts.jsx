@@ -43,6 +43,15 @@ const MediaList = styled.div`
   ${MediaItem} :not(:last-child) {
     margin-right: 15px;
   }
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+
+    ${MediaItem} :not(:last-child) {
+      margin-right: 0px;
+      margin-bottom: 15px;
+    }
+  }
 `;
 
 const Contacts = ({ locale }) => (
@@ -81,7 +90,7 @@ const Contacts = ({ locale }) => (
 
       <MediaItem href={routes.support(FORM_ID)}>
         <img src={calendarIcon} alt="calendar" />
-        <Span color={TEXT_PRIMARY}>support@peerania.com</Span>
+        <Span color={TEXT_PRIMARY}>Support</Span>
       </MediaItem>
     </MediaList>
   </div>

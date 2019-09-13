@@ -31,6 +31,10 @@ import {
 
 const Form = styled.form`
   padding: 50px 0px 50px 30px;
+
+  @media only screen and (max-width: 768px) {
+    padding: 25px 0px 25px 0px;
+  }
 `;
 
 /* eslint-disable-next-line */
