@@ -6,6 +6,7 @@ import {
   MONTH_3LETTERS__DAY_TIME,
   MONTH_3LETTERS__DAY_YYYY_TIME,
   DD_MM_YYYY,
+  DD_MM_YY,
   FULL_MONTH_NAME_DAY_YEAR,
 } from './constants';
 
@@ -13,6 +14,7 @@ const options = {
   [MONTH_3LETTERS__DAY_TIME]: 'MMM D, HH:mm',
   [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM D YYYY, HH:mm',
   [DD_MM_YYYY]: 'DD.MM.YYYY',
+  [DD_MM_YY]: 'DD.MM.YY',
   [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, D, YYYY',
 };
 
