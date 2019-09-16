@@ -32,9 +32,14 @@ const BaseStyled = Base.extend`
   }
 
   table {
+    width: 100%;
+
     tr td {
+      :not(:last-child) {
+        padding-right: 50px;
+      }
+
       padding-bottom: 20px;
-      padding-right: 50px;
 
       :nth-child(1) {
         color: ${TEXT_DARK};
@@ -43,6 +48,29 @@ const BaseStyled = Base.extend`
 
       :nth-child(3) {
         color: ${TEXT_PRIMARY};
+      }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    h3 {
+      font-size: 28px;
+      line-height: 28px;
+    }
+
+    > :not(:nth-child(1)) {
+      margin: 20px 0;
+    }
+
+    table * {
+      text-align: left;
+      font-size: 14px !important;
+      line-height: 14px !important;
+    }
+
+    table {
+      tr td:not(:last-child) {
+        padding-right: 20px;
       }
     }
   }

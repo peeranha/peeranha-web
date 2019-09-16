@@ -47,16 +47,16 @@ const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
+const PostTypeIcon = ({ postType, isMyAnswerAccepted, className }) => {
   if (postType === POST_TYPE_QUESTION) {
-    return <img src={questionRoundedIcon} className="mr-0" alt="icon" />;
+    return <img src={questionRoundedIcon} className={className} alt="icon" />;
   }
 
   if (isMyAnswerAccepted) {
-    return <img src={bestAnswerIcon} className="mr-0" alt="icon" />;
+    return <img src={bestAnswerIcon} className={className} alt="icon" />;
   }
 
-  return <img src={answerIcon} className="mr-0" alt="icon" />;
+  return <img src={answerIcon} className={className} alt="icon" />;
 };
 
 const Note = ({
@@ -83,12 +83,23 @@ const Note = ({
       )}
     >
       <PostTypeIcon
+        className="d-none d-sm-inline-block mr-0"
         postType={postType}
         isMyAnswerAccepted={isMyAnswerAccepted}
       />
-      <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
-      <Span className="flex-grow-1">{title}</Span>
-      <PostDate fontSize="14" color={TEXT_SECONDARY}>
+
+      <Rating
+        className="d-none d-sm-inline-block"
+        acceptedAnswer={acceptedAnswer}
+      >
+        {myPostRating}
+      </Rating>
+
+      <Span className="flex-grow-1 mr-3" mobileFS="14">
+        {title}
+      </Span>
+
+      <PostDate fontSize="14" color={TEXT_SECONDARY} mobileFS="12">
         {getTimeFromDateToNow(myPostTime, locale)}{' '}
         <FormattedMessage {...commonMessages.ago} />
       </PostDate>
@@ -116,6 +127,7 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
 
 PostTypeIcon.propTypes = {
   postType: PropTypes.string,
+  className: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
 };
 

@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import MyProfileButton from 'components/UserNavigation/MyProfileButton';
+import A from 'components/A';
 
 import {
   POSITION_FIELD,
@@ -17,45 +16,38 @@ import {
 } from 'containers/Profile/constants';
 
 import messages from 'containers/Profile/messages';
-import commonMessages from 'common-messages';
-
-const RowStyled = styled.div`
-  line-height: 30px;
-`;
 
 const Blank = ({ profile, userId, account }) =>
   !profile[LOCATION_FIELD] &&
   !profile[COMPANY_FIELD] &&
   !profile[POSITION_FIELD] &&
   !profile[ABOUT_FIELD] && (
-    <Span color={TEXT_SECONDARY}>
-      <FormattedMessage {...messages.informationIsBlank} />
-      <MyProfileButton
-        userId={userId}
-        account={account}
-        href={routes.profileEdit(userId)}
-        isLink
-      >
-        <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...commonMessages.edit} />{' '}
-          <FormattedMessage {...messages.profile} />
-        </Span>
-      </MyProfileButton>
-    </Span>
+    <p>
+      <Span color={TEXT_SECONDARY} mobileFS="14">
+        <FormattedMessage {...messages.informationIsBlank} />
+      </Span>
+      {userId === account && (
+        <A className="ml-2" to={routes.profileEdit(userId)}>
+          <Span color={TEXT_PRIMARY} mobileFS="14">
+            <FormattedMessage {...messages.editProfile} />
+          </Span>
+        </A>
+      )}
+    </p>
   );
 
 const Row = ({ nameField, value }) =>
   value ? (
-    <RowStyled className="row align-items-center">
-      <div className="col-2">
+    <div className="row align-items-center pb-1">
+      <div className="col-4 col-sm-2">
         <Span color={TEXT_SECONDARY} fontSize="14">
           <FormattedMessage {...messages[nameField]} />
         </Span>
       </div>
-      <div className="col-10">
-        <Span>{value}</Span>
+      <div className="col-8 col-sm-10">
+        <Span mobileFS="14">{value}</Span>
       </div>
-    </RowStyled>
+    </div>
   ) : null;
 
 const AdditionalUserInformation = ({ profile, userId, account }) => (

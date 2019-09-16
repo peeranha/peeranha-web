@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import { BG_LIGHT, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
@@ -11,18 +11,27 @@ import { getFormattedNum2 } from 'utils/numbers';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
 import A from 'components/A';
+import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import Base from 'components/Base';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import OutlinedButton from 'components/Button/Outlined/InfoLarge';
 import MediumImage from 'components/Img/MediumImage';
 
-const CommunitiesFormStyled = styled.div`
-  overflow: hidden;
+const BaseStyled = BaseRoundedNoPadding.extend`
+  padding: 15px 20px;
 `;
 
-const BaseStyled = Base.extend`
-  padding: 15px 20px;
+const FrontSide = styled.div`
+  > div {
+    padding: 15px 20px;
+  }
+
+  @media only screen and (min-width: 576px) {
+    > div:not(:last-child) {
+      border-bottom: 1px solid ${BORDER_SECONDARY};
+    }
+  }
 `;
 
 const BackSide = styled.div`
@@ -74,69 +83,84 @@ const TopCommunities = /* istanbul ignore next */ ({
   }
 
   return (
-    <CommunitiesFormStyled>
+    <div className="overlow-hidden">
       <H4 isHeader>
         <FormattedMessage {...messages.top} />{' '}
         <span className="text-lowercase">
           <FormattedMessage {...messages.communities} />
         </span>
       </H4>
+
       <div className="row">
         {communities.map(x => (
-          <div key={x.id} className="col-xl-3 mb-2">
-            <AStyled to={communitiesRoute} href={communitiesRoute}>
-              <BaseStyled className="flex-grow-1" position="top">
-                <MediumImage src={x.avatar} alt="comm_img" />
-                <p>
-                  <Span fontSize="16" bold>
-                    {x.name}
-                  </Span>
-                </p>
-              </BaseStyled>
-
-              <BaseStyled position="bottom">
-                <div className="d-flex mb-3">
-                  <div className="d-flex flex-column flex-grow-1">
-                    <Span fontSize="16" bold>
-                      {getFormattedNum2(x.users || 9999)}
-                    </Span>
-                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                      <FormattedMessage {...messages.users} />
-                    </Span>
-                  </div>
-                  <div className="d-flex flex-column flex-grow-1">
-                    <Span fontSize="16" bold>
-                      {getFormattedNum2(x.popularity)}
-                    </Span>
-                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                      <FormattedMessage {...messages.questions} />
-                    </Span>
-                  </div>
-                </div>
-                <FollowCommunityButton communityIdFilter={x.id} />
-              </BaseStyled>
-
-              <BackSide>
-                <div className="d-flex flex-column justify-content-between">
-                  <div>
-                    <p>
-                      <Span fontSize="16" bold>
+          <div key={x.id} className="col-12 col-sm-4 col-xl-3 mb-3">
+            <BaseStyled>
+              <AStyled to={communitiesRoute}>
+                <FrontSide>
+                  <div className="d-flex align-items-center justify-content-between flex-grow-1">
+                    <div>
+                      <MediumImage src={x.avatar} alt="comm_img" />
+                      <P fontSize="16" bold>
                         {x.name}
-                      </Span>
-                    </p>
-                    <p>
-                      <Span>{x.description}</Span>
-                    </p>
+                      </P>
+                    </div>
+
+                    <div className="d-block d-sm-none">
+                      <FollowCommunityButton communityIdFilter={x.id} />
+                    </div>
                   </div>
-                  <div>
+
+                  <div className="d-none d-sm-block">
+                    <div className="d-flex mb-3">
+                      <div className="d-flex flex-column flex-grow-1">
+                        <Span fontSize="16" bold>
+                          {getFormattedNum2(x.users)}
+                        </Span>
+                        <Span
+                          className="mt-1"
+                          fontSize="14"
+                          color={TEXT_SECONDARY}
+                        >
+                          <FormattedMessage {...messages.users} />
+                        </Span>
+                      </div>
+                      <div className="d-flex flex-column flex-grow-1">
+                        <Span fontSize="16" bold>
+                          {getFormattedNum2(x.popularity)}
+                        </Span>
+                        <Span
+                          className="mt-1"
+                          fontSize="14"
+                          color={TEXT_SECONDARY}
+                        >
+                          <FormattedMessage {...messages.questions} />
+                        </Span>
+                      </div>
+                    </div>
+
                     <FollowCommunityButton communityIdFilter={x.id} />
                   </div>
-                </div>
-              </BackSide>
-            </AStyled>
+                </FrontSide>
+
+                <BackSide>
+                  <div className="d-flex flex-column justify-content-between">
+                    <div>
+                      <P fontSize="16" bold>
+                        {x.name}
+                      </P>
+                      <P>{x.description}</P>
+                    </div>
+                    <div>
+                      <FollowCommunityButton communityIdFilter={x.id} />
+                    </div>
+                  </div>
+                </BackSide>
+              </AStyled>
+            </BaseStyled>
           </div>
         ))}
       </div>
+
       <div className="my-3">
         <A to={communitiesRoute} href={communitiesRoute}>
           <OutlinedButton className="py-2 w-100">
@@ -144,7 +168,7 @@ const TopCommunities = /* istanbul ignore next */ ({
           </OutlinedButton>
         </A>
       </div>
-    </CommunitiesFormStyled>
+    </div>
   );
 };
 

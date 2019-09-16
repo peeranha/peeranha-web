@@ -614,6 +614,7 @@
   "app.containers.Profile.oldPassword": "Старый пароль",
   "app.containers.Profile.newPassword": "Новый пароль",
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
+  "app.containers.Profile.youAnswered": "Вы ответили",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

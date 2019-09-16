@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import messages from 'common-messages';
@@ -17,10 +16,6 @@ import arrowRightIcon from 'images/arrowRight.svg?inline';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 import { getFormattedNum2 } from 'utils/numbers';
-
-const CommunitiesFormStyled = styled.div`
-  overflow: hidden;
-`;
 
 const CommunityStyled = Base.extend`
   border-radius: 5px;
@@ -41,7 +36,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
   );
 
   return (
-    <CommunitiesFormStyled>
+    <div className="overflow-hidden">
       <H4 isHeader>
         <FormattedMessage {...messages.communities} />{' '}
         <Span color={TEXT_SECONDARY} fontSize="30" bold>
@@ -51,15 +46,15 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
 
       <div className="row">
         {followedCommunities.map(x => (
-          <div key={x.id} className="col-xl-3 mb-2">
-            <A to={communitiesRoute} href={communitiesRoute}>
+          <div key={x.id} className="col-12 col-sm-6 col-md-3 mb-2">
+            <A to={communitiesRoute}>
               <CommunityStyled className="d-flex">
                 <Img className="mr-2" src={x.avatar} alt="comm_img" />
                 <div className="d-flex flex-column">
                   <Span>{x.name}</Span>
                   <span>
                     <Span bold fontSize="16">
-                      {getFormattedNum2(x.users || 9999)}
+                      {getFormattedNum2(x.users)}
                     </Span>{' '}
                     <Span color={TEXT_SECONDARY} fontSize="14">
                       <FormattedMessage {...messages.users} />
@@ -72,8 +67,8 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
         ))}
 
         {userId === account && (
-          <div className="col-xl-3 d-flex justify-content-center align-items-center mb-2">
-            <A to={communitiesRoute} href={communitiesRoute}>
+          <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-center align-items-center mb-2">
+            <A className="py-2" to={communitiesRoute}>
               <Span color={TEXT_PRIMARY} fontSize="16">
                 <img className="mr-2" src={arrowRightIcon} alt="icon" />
                 <FormattedMessage {...messages.subscribeMore} />
@@ -82,7 +77,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
           </div>
         )}
       </div>
-    </CommunitiesFormStyled>
+    </div>
   );
 };
 

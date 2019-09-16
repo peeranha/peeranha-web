@@ -91,4 +91,7 @@ export default defineMessages({
   confirmPassword: {
     id: 'app.containers.Profile.confirmPassword',
   },
+  youAnswered: {
+    id: 'app.containers.Profile.youAnswered',
+  },
 });

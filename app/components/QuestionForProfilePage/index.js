@@ -104,7 +104,7 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
   route,
 }) => (
   <BaseStyled className="d-flex flex-grow-1" position="left">
-    <div className="d-flex flex-column mr-4">
+    <div className="d-none d-sm-flex flex-column mr-4">
       <Badge bold>{myPostRating}</Badge>
 
       <AcceptedQuestionBadge
@@ -122,7 +122,7 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
     <div className="d-flex flex-column flex-grow-1">
       <p>
         <A to={route} href={route}>
-          <Span fontSize="24" bold>
+          <Span fontSize="24" mobileFS="18" bold>
             {title}
           </Span>
         </A>

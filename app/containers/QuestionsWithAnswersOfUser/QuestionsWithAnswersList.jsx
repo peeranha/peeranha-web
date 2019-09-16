@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
+
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
+import { Li } from 'containers/QuestionsOfUser/QuestionsList';
 
 /* eslint camelcase: 0 */
 const Question = ({
@@ -18,20 +20,22 @@ const Question = ({
   isTheLargestRating,
   answerId,
 }) => (
-  <QuestionForProfilePage
-    route={routes.questionView(id, answerId)}
-    myPostRating={myPostRating}
-    title={title}
-    myPostTime={myPostTime}
-    locale={locale}
-    acceptedAnswer={acceptedAnswer}
-    communities={communities}
-    id={id}
-    community_id={community_id}
-    postType={postType}
-    isMyAnswerAccepted={isMyAnswerAccepted}
-    isTheLargestRating={isTheLargestRating}
-  />
+  <Li>
+    <QuestionForProfilePage
+      route={routes.questionView(id, answerId)}
+      myPostRating={myPostRating}
+      title={title}
+      myPostTime={myPostTime}
+      locale={locale}
+      acceptedAnswer={acceptedAnswer}
+      communities={communities}
+      id={id}
+      community_id={community_id}
+      postType={postType}
+      isMyAnswerAccepted={isMyAnswerAccepted}
+      isTheLargestRating={isTheLargestRating}
+    />
+  </Li>
 );
 
 const QuestionsWithAnswersList = ({ questions, locale, communities }) => (

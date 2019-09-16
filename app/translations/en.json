@@ -609,6 +609,7 @@
   "app.containers.Profile.oldPassword": "Old password",
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
+  "app.containers.Profile.youAnswered": "You answered",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 

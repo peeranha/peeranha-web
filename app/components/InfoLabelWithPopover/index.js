@@ -12,7 +12,11 @@ const InfoLabel = ({ id, children, message }) => (
     onClick={() => showPopover(id, message)}
   >
     {children}
-    <img className="ml-1" src={infoIcon} alt="popover tip" />
+    <img
+      className="d-none d-sm-inline-block ml-1"
+      src={infoIcon}
+      alt="popover tip"
+    />
   </button>
 );
 

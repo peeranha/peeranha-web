@@ -9,6 +9,7 @@ const NavigationButton = PrimaryLarge.extend`
 
   @media only screen and (max-width: 576px) {
     padding: 6px 15px;
+    font-size: 14px;
     min-width: auto;
   }
 

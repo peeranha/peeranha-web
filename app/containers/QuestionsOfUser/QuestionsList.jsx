@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
@@ -22,6 +23,22 @@ const RightBlock = Base.extend`
   min-width: 240px;
   margin-top: 15px;
   word-break: break-all;
+`;
+
+export const Li = styled.li`
+  display: flex;
+
+  @media only screen and (max-width: 768px) {
+    > div:last-child {
+      display: none !important;
+    }
+
+    > div:first-child {
+      display: flex !important;
+      border-radius: 5px;
+      border: none;
+    }
+  }
 `;
 
 const LastAnswer = ({ lastAnswer, locale, user }) => {
@@ -75,7 +92,7 @@ const Question = ({
   isMyAnswerAccepted,
   user,
 }) => (
-  <li className="d-flex">
+  <Li>
     <QuestionForProfilePage
       route={routes.questionView(id)}
       myPostRating={myPostRating}
@@ -106,7 +123,7 @@ const Question = ({
         locale={locale}
       />
     </RightBlock>
-  </li>
+  </Li>
 );
 
 const QuestionsList = ({ questions, locale, communities }) => (
