@@ -42,6 +42,15 @@ export const Div = styled.div`
   margin-bottom: ${x => (x.primary ? '20px' : '0px')};
   border-radius: 3px;
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
+
+  @media only screen and (max-width: 992px) {
+    ${x => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
+  }
+
+  @media only screen and (max-width: 400px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 `;
 
 const IHaveEOSAccountForm = ({

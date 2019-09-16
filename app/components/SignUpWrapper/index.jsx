@@ -23,8 +23,25 @@ const BaseStyled = Base.extend`
   display: flex;
   margin: 10px auto;
   max-width: 1200px;
-  padding: 0;
+  padding: 0 !important;
   overflow: hidden;
+
+  @media only screen and (max-width: 992px) {
+    max-width: 400px;
+  }
+
+  ${LeftMenu} {
+    @media only screen and (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  ${RightMenu} {
+    @media only screen and (max-width: 992px) {
+      background: ${BG_LIGHT};
+      padding: 20px 0;
+    }
+  }
 `;
 
 const SlideIndicatorsStyled = styled.div`
@@ -65,13 +82,15 @@ const SlideIndicators = () => {
 };
 
 const SignUpWrapper = ({ RightMenuChildren, LeftMenuChildren }) => (
-  <BaseStyled>
-    <LeftMenu>{LeftMenuChildren}</LeftMenu>
-    <RightMenu>
-      <SlideIndicators />
-      {RightMenuChildren}
-    </RightMenu>
-  </BaseStyled>
+  <div className="container">
+    <BaseStyled>
+      <LeftMenu>{LeftMenuChildren}</LeftMenu>
+      <RightMenu>
+        <SlideIndicators />
+        {RightMenuChildren}
+      </RightMenu>
+    </BaseStyled>
+  </div>
 );
 
 SignUpWrapper.propTypes = {

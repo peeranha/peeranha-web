@@ -11,8 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import { translationMessages } from 'i18n';
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
 
 import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
 import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
@@ -50,7 +48,7 @@ import messages from './messages';
 export class SignUp extends React.Component {
   componentWillMount() {
     if (!this.props.email && !this.props.withScatter) {
-      createdHistory.push(routes.signup.email.name);
+      // createdHistory.push(routes.signup.email.name);
     }
 
     if (!this.props.keys) {
