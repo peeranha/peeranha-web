@@ -8,7 +8,11 @@ import {
 } from 'style-constants';
 
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
-import { HEADER_HEIGHT } from 'containers/Header/constants';
+
+import {
+  HEADER_HEIGHT,
+  MOBILE_HEADER_HEIGHT,
+} from 'containers/Header/constants';
 
 import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
@@ -84,5 +88,11 @@ export const ViewStyled = styled.nav`
 
   &.sticky {
     transform: translate(0px, -${HEADER_HEIGHT}px);
+  }
+
+  @media only screen and (max-width: 576px) {
+    &.sticky {
+      transform: translate(0px, -${MOBILE_HEADER_HEIGHT}px);
+    }
   }
 `;

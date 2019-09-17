@@ -7,13 +7,20 @@ import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
-import { HEADER_HEIGHT } from 'containers/Header/constants';
+import {
+  HEADER_HEIGHT,
+  MOBILE_HEADER_HEIGHT,
+} from 'containers/Header/constants';
 
 const Main = styled.div`
   background: rgb(234, 236, 244);
   min-height: 100vh;
   padding-top: ${x => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
   padding-bottom: ${x => (!x.isMenuVisible ? 150 : 0)}px;
+
+  @media only screen and (max-width: 576px) {
+    padding-top: ${x => (!x.isMenuVisible ? MOBILE_HEADER_HEIGHT : 0)}px;
+  }
 `;
 
 const WrapStyled = styled.main`

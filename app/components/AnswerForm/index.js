@@ -30,7 +30,6 @@ export const AnswerForm = /* istanbul ignore next */ ({
     <div>
       <LargeButton
         id={sendButtonId}
-        className="my-3"
         disabled={sendAnswerLoading}
         typeAttr="submit"
       >

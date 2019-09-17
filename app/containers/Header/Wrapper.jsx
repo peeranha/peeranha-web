@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BG_LIGHT } from 'style-constants';
 
-import { HEADER_HEIGHT } from './constants';
+import { HEADER_HEIGHT, MOBILE_HEADER_HEIGHT } from './constants';
 
 const Wrapper = styled.header`
   display: flex;
@@ -22,6 +22,14 @@ const Wrapper = styled.header`
 
   &.sticky {
     transform: translate(0px, -${HEADER_HEIGHT}px);
+  }
+
+  @media only screen and (max-width: 576px) {
+    height: ${MOBILE_HEADER_HEIGHT}px;
+
+    &.sticky {
+      transform: translate(0px, -${MOBILE_HEADER_HEIGHT}px);
+    }
   }
 `;
 

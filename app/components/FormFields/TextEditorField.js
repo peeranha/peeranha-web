@@ -19,12 +19,52 @@ const Div = styled.div`
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
 
+  font-size: 16px;
+  line-height: 20px;
+
   .${TEXT_EDITOR_CLASSNAME} > div {
     border: none;
   }
 
+  * {
+    word-break: break-all;
+  }
+
   .editor-toolbar {
     border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT} !important;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .CodeMirror,
+    .CodeMirror-scroll {
+      min-height: 200px;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 5px 10px;
+
+      &:before {
+        margin-bottom: 0;
+      }
+
+      a {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+
+        &:before {
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+    line-height: 18px;
   }
 `;
 

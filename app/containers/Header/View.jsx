@@ -54,8 +54,8 @@ const RoundedButton = LargeButton.extend`
     padding: 0;
     border-radius: 50%;
     min-width: auto;
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 `;
 

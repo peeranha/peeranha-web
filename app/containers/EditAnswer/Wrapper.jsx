@@ -9,6 +9,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 
+import { Base } from 'components/QuestionForm';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import Header from 'components/Header/Simple';
 import BaseRounded from 'components/Base/BaseRounded';
@@ -40,17 +41,15 @@ const Wrapper = ({ children, questionid, answerid }) => (
       </div>
     </Header>
 
-    <BaseRounded className="p-0">
-      <div className="d-flex">
-        <div className="flex-grow-1">
-          <BaseRounded>{children}</BaseRounded>
-        </div>
-
-        <AsideBG className="d-none d-xl-block">
-          <Tips />
-        </AsideBG>
+    <Base>
+      <div>
+        <BaseRounded>{children}</BaseRounded>
       </div>
-    </BaseRounded>
+
+      <AsideBG className="d-none d-xl-block">
+        <Tips />
+      </AsideBG>
+    </Base>
   </div>
 );
 

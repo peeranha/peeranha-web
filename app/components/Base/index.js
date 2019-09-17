@@ -9,7 +9,7 @@ const Base = styled.div`
   ${x => (x.overflowHidden ? 'overflow: hidden;' : '')}
 
   @media only screen and (max-width: 576px) {
-    padding: 15px 20px;
+    padding: 15px;
   }
 
   ${x =>

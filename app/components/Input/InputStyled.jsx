@@ -38,6 +38,13 @@ const Input = ({ error, disabled }) =>
     font-size: 16px;
     line-height: 20px;
     outline: none;
+
+    @media only screen and (max-width: 576px) {
+      height: 36px;
+      min-height: 36px;
+      font-size: 14px;
+      padding: 9px 12px;
+    }
   `;
 
 const InputStyled = styled.div`

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape } from 'react-intl';
+
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
@@ -41,6 +42,25 @@ import {
 } from './constants';
 
 import messages from './messages';
+
+export const Base = BaseRounded.extend`
+  display: flex;
+  padding: 0 !important;
+
+  > *:nth-child(1) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    > *:nth-child(1) {
+      width: calc(100% - 320px);
+    }
+
+    > *:nth-child(2) {
+      width: 320px;
+    }
+  }
+`;
 
 export const QuestionForm = /* istanbul ignore next */ ({
   sendQuestion,
@@ -82,76 +102,72 @@ export const QuestionForm = /* istanbul ignore next */ ({
         )}
       </Wrapper>
 
-      <BaseRounded className="p-0">
-        <div className="d-flex">
-          <BaseRounded className="flex-grow-1">
-            <form onSubmit={handleSubmit(sendQuestion)}>
-              <div>
-                <Field
-                  name={FORM_COMMUNITY}
-                  component={CommunityField}
-                  onChange={() => change(FORM_TAGS, '')}
-                  disabled={questionLoading}
-                  label={intl.formatMessage({ id: messages.communityLabel.id })}
-                  tip={intl.formatMessage({ id: messages.communityTip.id })}
-                  options={communities}
-                  validate={[requiredForObjectField]}
-                  warn={[requiredForObjectField]}
-                  splitInHalf
-                />
-                <Field
-                  name={FORM_TITLE}
-                  component={TextInputField}
-                  disabled={questionLoading}
-                  label={intl.formatMessage({ id: messages.titleLabel.id })}
-                  tip={intl.formatMessage({ id: messages.titleTip.id })}
-                  validate={[strLength15x100, required]}
-                  warn={[strLength15x100, required]}
-                  splitInHalf
-                />
-                <Field
-                  name={FORM_CONTENT}
-                  component={TextEditorField}
-                  disabled={questionLoading}
-                  label={intl.formatMessage({ id: messages.contentLabel.id })}
-                  previewLabel={intl.formatMessage({
-                    id: messages.previewLabel.id,
-                  })}
-                  validate={[strLength25x30000, required]}
-                  warn={[strLength25x30000, required]}
-                />
+      <Base>
+        <BaseRounded>
+          <form onSubmit={handleSubmit(sendQuestion)}>
+            <div>
+              <Field
+                name={FORM_COMMUNITY}
+                component={CommunityField}
+                onChange={() => change(FORM_TAGS, '')}
+                disabled={questionLoading}
+                label={intl.formatMessage({ id: messages.communityLabel.id })}
+                tip={intl.formatMessage({ id: messages.communityTip.id })}
+                options={communities}
+                validate={[requiredForObjectField]}
+                warn={[requiredForObjectField]}
+                splitInHalf
+              />
+              <Field
+                name={FORM_TITLE}
+                component={TextInputField}
+                disabled={questionLoading}
+                label={intl.formatMessage({ id: messages.titleLabel.id })}
+                tip={intl.formatMessage({ id: messages.titleTip.id })}
+                validate={[strLength15x100, required]}
+                warn={[strLength15x100, required]}
+                splitInHalf
+              />
+              <Field
+                name={FORM_CONTENT}
+                component={TextEditorField}
+                disabled={questionLoading}
+                label={intl.formatMessage({ id: messages.contentLabel.id })}
+                previewLabel={intl.formatMessage({
+                  id: messages.previewLabel.id,
+                })}
+                validate={[strLength25x30000, required]}
+                warn={[strLength25x30000, required]}
+              />
 
-                <Field
-                  name={FORM_TAGS}
-                  label={intl.formatMessage({ id: messages.tagsLabel.id })}
-                  tip={intl.formatMessage({ id: messages.tagsTip.id })}
-                  component={TagSelector}
-                  disabled={questionLoading || !formValues[FORM_COMMUNITY]}
-                  setTags={setTags}
-                  options={
-                    formValues[FORM_COMMUNITY]
-                      ? formValues[FORM_COMMUNITY].tags
-                      : []
-                  }
-                  validate={[required, strLength1x5]}
-                  warn={[required, strLength1x5]}
-                  splitInHalf
-                />
-              </div>
+              <Field
+                name={FORM_TAGS}
+                label={intl.formatMessage({ id: messages.tagsLabel.id })}
+                tip={intl.formatMessage({ id: messages.tagsTip.id })}
+                component={TagSelector}
+                disabled={questionLoading || !formValues[FORM_COMMUNITY]}
+                setTags={setTags}
+                options={
+                  formValues[FORM_COMMUNITY]
+                    ? formValues[FORM_COMMUNITY].tags
+                    : []
+                }
+                validate={[required, strLength1x5]}
+                warn={[required, strLength1x5]}
+                splitInHalf
+              />
+            </div>
 
-              <div>
-                <Button id={submitButtonId} className="my-3">
-                  {submitButtonName}
-                </Button>
-              </div>
-            </form>
-          </BaseRounded>
+            <div>
+              <Button id={submitButtonId}>{submitButtonName}</Button>
+            </div>
+          </form>
+        </BaseRounded>
 
-          <AsideBG className="d-none d-xl-block">
-            <Tips />
-          </AsideBG>
-        </div>
-      </BaseRounded>
+        <AsideBG className="d-none d-xl-block">
+          <Tips />
+        </AsideBG>
+      </Base>
     </div>
   );
 };
