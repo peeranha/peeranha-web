@@ -41,6 +41,17 @@ const Circle = styled.div`
     transition: 0.5s all ease;
     transform: scale(1);
   }
+
+  @media only screen and (max-width: 576px) {
+    width: 10px;
+    height: 10px;
+    margin: 4px;
+
+    &:before {
+      width: 10px;
+      height: 10px;
+    }
+  }
 `;
 
 Circle.propTypes = {

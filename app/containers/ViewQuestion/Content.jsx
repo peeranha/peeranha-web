@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
-import Base from 'components/Base/BaseRounded';
+import Base from 'components/Base/BaseRoundedNoPadding';
 
 import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
 
 const BaseStyled = Base.extend`
-  padding: 0;
   word-break: break-all;
   overflow: hidden;
 `.withComponent('section');

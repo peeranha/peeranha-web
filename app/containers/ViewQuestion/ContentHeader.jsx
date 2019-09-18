@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
@@ -16,17 +17,34 @@ import Button, { BlockButton } from './Button';
 
 import messages from './messages';
 
-const BaseStyled = Base.extend`
-  padding: 0;
+const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
   flex-basis: 210px;
+
+  @media only screen and (max-width: 576px) {
+    border-right: none;
+    border-bottom: 1px solid ${BORDER_SECONDARY};
+    flex-basis: 0px;
+  }
+`;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid ${BORDER_SECONDARY};
+
+  @media only screen and (max-width: 576px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 export const ContentHeader = props => (
-  <Base position="top" className="d-flex align-items-center p-0">
-    <BaseStyled>
+  <Box>
+    <RatingBox>
       <ContentRating {...props} />
-    </BaseStyled>
+    </RatingBox>
 
     <div className="flex-grow-1">
       <Base className="d-flex align-items-center justify-content-between">
@@ -51,8 +69,10 @@ export const ContentHeader = props => (
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img className="mr-2" src={pencilIcon} alt="icon" />
-              <FormattedMessage {...messages.editButton} />
+              <img src={pencilIcon} alt="icon" />
+              <span className="d-none d-md-inline-block ml-2">
+                <FormattedMessage {...messages.editButton} />
+              </span>
             </Span>
           </Button>
 
@@ -67,8 +87,10 @@ export const ContentHeader = props => (
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img className="mr-2" src={deleteIcon} alt="icon" />
-              <FormattedMessage {...messages.deleteButton} />
+              <img src={deleteIcon} alt="icon" />
+              <span className="d-none d-md-inline-block ml-2">
+                <FormattedMessage {...messages.deleteButton} />
+              </span>
             </Span>
           </Button>
 
@@ -85,14 +107,16 @@ export const ContentHeader = props => (
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img className="mr-2" src={blockIcon} alt="icon" />
-              <FormattedMessage {...messages.voteToDelete} />
+              <img src={blockIcon} alt="icon" />
+              <span className="d-none d-md-inline-block ml-2">
+                <FormattedMessage {...messages.voteToDelete} />
+              </span>
             </Span>
           </BlockButton>
         </div>
       </Base>
     </div>
-  </Base>
+  </Box>
 );
 
 ContentHeader.propTypes = {

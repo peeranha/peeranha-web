@@ -53,11 +53,6 @@ const BaseStyled = Base.extend`
   }
 
   @media only screen and (max-width: 576px) {
-    h3 {
-      font-size: 28px;
-      line-height: 28px;
-    }
-
     > :not(:nth-child(1)) {
       margin: 20px 0;
     }

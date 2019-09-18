@@ -39,7 +39,7 @@ export const UserInfo = ({
 
     <div
       className={`d-flex justify-content-center ${
-        type !== COMMENT_TYPE ? 'flex-column' : ''
+        type !== COMMENT_TYPE ? 'flex-column' : 'flex-column flex-sm-row'
       }`}
     >
       <A

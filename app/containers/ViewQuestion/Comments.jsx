@@ -129,8 +129,10 @@ const CommentView = item => (
           onClick={() => item.toggleView(!item.isView)}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img className="mr-1" src={editSmallIcon} alt="icon" />
-            <FormattedMessage {...messages.editButton} />
+            <img src={editSmallIcon} alt="icon" />
+            <span className="d-none d-sm-inline-block ml-1">
+              <FormattedMessage {...messages.editButton} />
+            </span>
           </Span>
         </Button>
 
@@ -145,8 +147,10 @@ const CommentView = item => (
           onClick={item.deleteComment}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img className="mr-1" src={deleteSmallIcon} alt="icon" />
-            <FormattedMessage {...messages.deleteButton} />
+            <img src={deleteSmallIcon} alt="icon" />
+            <span className="d-none d-sm-inline-block ml-1">
+              <FormattedMessage {...messages.deleteButton} />
+            </span>
           </Span>
         </Button>
 
@@ -163,14 +167,19 @@ const CommentView = item => (
           }}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img className="mr-1" src={blockSmallIcon} alt="icon" />
-            <FormattedMessage {...messages.voteToDelete} />
+            <img src={blockSmallIcon} alt="icon" />
+            <span className="d-none d-sm-inline-block ml-1">
+              <FormattedMessage {...messages.voteToDelete} />
+            </span>
           </Span>
         </BlockButton>
       </CommentManage>
     </div>
 
-    <div dangerouslySetInnerHTML={{ __html: item.content }} />
+    <div
+      className="mt-xs-1 mt-md-0"
+      dangerouslySetInnerHTML={{ __html: item.content }}
+    />
   </CommentViewStyled>
 );
 
@@ -189,7 +198,8 @@ const Comment = item => {
 };
 
 const Comments = props => {
-  const DEFAULT_COMMENTS_NUMBER = 3;
+  const isPhone = window.screen.width <= 576;
+  const DEFAULT_COMMENTS_NUMBER = isPhone ? 0 : 3;
   const [isAllCommentsView, changeCommentsView] = useState(false);
 
   const commentsNum = !isAllCommentsView ? DEFAULT_COMMENTS_NUMBER : undefined;

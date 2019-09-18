@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { BG_SUCCESS, BG_PRIMARY, BG_LIGHT } from 'style-constants';
+import { BG_SUCCESS, BG_PRIMARY, BG_LIGHT, TEXT_LIGHT } from 'style-constants';
 
 import okayIcon from 'images/okay.svg?inline';
+
+import Span from 'components/Span';
 
 import messages from './messages';
 import { ButtonStyled } from './BestAnswerMarker';
@@ -27,7 +29,9 @@ export const MarkAsAcceptedIcon = ({
     return (
       <ButtonStyled bg={BG_SUCCESS} className="px-2">
         <img className="d-inline-flex mr-2" src={okayIcon} alt="icon" />
-        <FormattedMessage {...messages.theBest} />
+        <Span color={TEXT_LIGHT}>
+          <FormattedMessage {...messages.theBest} />
+        </Span>
       </ButtonStyled>
     );
   }
@@ -49,7 +53,9 @@ export const MarkAsAcceptedIcon = ({
         <ButtonStyled bg={BG_PRIMARY} className="mr-2">
           <img className="d-inline-flex" src={okayIcon} alt="icon" />
         </ButtonStyled>
-        <FormattedMessage {...messages.theBestAnswer} />
+        <Span color={TEXT_LIGHT}>
+          <FormattedMessage {...messages.theBestAnswer} />
+        </Span>
       </div>
     );
   }
@@ -71,7 +77,9 @@ export const MarkAsAcceptedIcon = ({
         <ButtonStyled className="mr-2" bg={BG_LIGHT}>
           <img className="d-inline-flex" src={okayIcon} alt="icon" />
         </ButtonStyled>
-        <FormattedMessage {...messages.theBestAnswer} />
+        <Span color={TEXT_LIGHT}>
+          <FormattedMessage {...messages.theBestAnswer} />
+        </Span>
       </div>
     );
   }

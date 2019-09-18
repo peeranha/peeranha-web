@@ -50,7 +50,7 @@ export const CommentOptions = ({
 
   return (
     <div>
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
         {commentsNumber > 0 && (
           <ButtonStyled
             toRotate={isAllCommentsView}
