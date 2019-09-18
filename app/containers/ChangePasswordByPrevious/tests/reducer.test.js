@@ -21,6 +21,7 @@ import {
   EMAIL_FIELD,
   VERIFY_EMAIL_FORM,
   CHANGE_PASSWORD_FORM,
+  EMAIL_FORM,
 } from '../constants';
 
 describe('changePasswordByPreviousReducer', () => {
@@ -37,11 +38,10 @@ describe('changePasswordByPreviousReducer', () => {
   });
 
   it('showChangePasswordModal', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
 
     expect(
-      changePasswordByPreviousReducer(state, showChangePasswordModal(content)),
+      changePasswordByPreviousReducer(state, showChangePasswordModal()),
     ).toEqual(obj);
   });
 

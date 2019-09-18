@@ -16,6 +16,7 @@ import {
   DELETE_ACCOUNT,
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_ERROR,
+  EMAIL_FORM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -29,11 +30,11 @@ export const initialState = fromJS({
 });
 
 function deleteAccountReducer(state = initialState, action) {
-  const { type, deleteAccountError, content, sendEmailError, email } = action;
+  const { type, deleteAccountError, sendEmailError, email } = action;
 
   switch (type) {
     case SHOW_DELETE_ACCOUNT_MODAL:
-      return state.set('showModal', true).set('content', content);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_DELETE_ACCOUNT_MODAL:
       return state
         .set('showModal', false)

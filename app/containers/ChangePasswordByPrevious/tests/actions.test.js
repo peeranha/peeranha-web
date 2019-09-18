@@ -23,7 +23,6 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
-  EMAIL_FORM,
   EMAIL_FIELD,
   CODE_FIELD,
   SUBMIT_EMAIL,
@@ -35,7 +34,6 @@ describe('showChangePassword actions', () => {
   it('showChangePasswordModal', () => {
     const expected = {
       type: SHOW_CHANGE_PASSWORD_MODAL,
-      content: EMAIL_FORM,
     };
 
     expect(showChangePasswordModal()).toEqual(expected);

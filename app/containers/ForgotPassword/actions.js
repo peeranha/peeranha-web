@@ -7,7 +7,6 @@
 import {
   SHOW_FORGOT_PASSWORD_MODAL,
   HIDE_FORGOT_PASSWORD_MODAL,
-  EMAIL_FORM,
   GET_VERIFICATION_CODE,
   GET_VERIFICATION_CODE_SUCCESS,
   GET_VERIFICATION_CODE_ERROR,
@@ -25,10 +24,9 @@ import {
 
 // Show | Hide (modal)
 
-export function showForgotPasswordModal(content) {
+export function showForgotPasswordModal() {
   return {
     type: SHOW_FORGOT_PASSWORD_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 

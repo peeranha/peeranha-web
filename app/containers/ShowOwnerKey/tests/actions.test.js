@@ -21,7 +21,6 @@ import {
   SHOW_OWNER_KEY_SUCCESS,
   SHOW_OWNER_KEY_ERROR,
   CODE_FIELD,
-  EMAIL_FORM,
   EMAIL_FIELD,
   PASSWORD_FIELD,
 } from '../constants';
@@ -30,7 +29,6 @@ describe('showOwnerKey actions', () => {
   it('showOwnerKeyModal', () => {
     const expected = {
       type: SHOW_OWNER_KEY_MODAL,
-      content: EMAIL_FORM,
     };
 
     expect(showOwnerKeyModal()).toEqual(expected);

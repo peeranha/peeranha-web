@@ -19,7 +19,6 @@ import {
   loginWithEmailErr,
   loginWithScatterSuccess,
   loginWithScatterErr,
-  showLoginModal,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
 } from './actions';
@@ -91,8 +90,7 @@ export function* loginWithEmailWorker({ val }) {
     Cookies.set(STORED_EMAIL, email, AUTH_IS_VALID_DAYS);
 
     if (!profileInfo) {
-      yield put(loginWithEmailSuccess(eosAccount));
-      yield put(showLoginModal(WE_ARE_HAPPY_FORM));
+      yield put(loginWithEmailSuccess(eosAccount, WE_ARE_HAPPY_FORM));
       return null;
     }
 

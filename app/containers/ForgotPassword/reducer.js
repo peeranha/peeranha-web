@@ -20,6 +20,7 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
+  EMAIL_FORM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -38,7 +39,6 @@ export const initialState = fromJS({
 function forgotPasswordReducer(state = initialState, action) {
   const {
     type,
-    content,
     getVerificationCodeError,
     verifyEmailError,
     changePasswordError,
@@ -48,7 +48,7 @@ function forgotPasswordReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_FORGOT_PASSWORD_MODAL:
-      return state.set('showModal', true).set('content', content);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_FORGOT_PASSWORD_MODAL:
       return state.set('showModal', false);
 
