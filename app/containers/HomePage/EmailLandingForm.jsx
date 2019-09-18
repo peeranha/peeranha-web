@@ -55,14 +55,14 @@ const Form = styled.form`
     flex: 1;
   }
 
-  ${/* istanbul ignore next */ x => (x.modal ? FormColumnStyle : ``)};
+  ${x => (x.modal ? FormColumnStyle : ``)};
 
   @media only screen and (max-width: 992px) {
     ${FormColumnStyle};
   }
 `;
 
-const EmailLandingForm = /* istanbul ignore next */ ({
+const EmailLandingForm = ({
   handleSubmit,
   button,
   sendEmailLoading,
@@ -105,15 +105,13 @@ EmailLandingForm.propTypes = {
   modal: PropTypes.bool,
 };
 
-const FormClone = /* istanbul ignore next */ reduxForm({})(EmailLandingForm);
+const FormClone = reduxForm({})(EmailLandingForm);
 
-export default connect(
-  /* istanbul ignore next */ () => ({
-    initialValues: {
-      [REFCODE_FIELD]: getValueFromSearchString(
-        window.location.search,
-        'refcode',
-      ),
-    },
-  }),
-)(FormClone);
+export default connect(() => ({
+  initialValues: {
+    [REFCODE_FIELD]: getValueFromSearchString(
+      window.location.search,
+      'refcode',
+    ),
+  },
+}))(FormClone);

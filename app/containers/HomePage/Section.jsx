@@ -5,7 +5,8 @@ const Section = styled.section`
   font-family: ${LANDING_FONT};
   font-weight: 400;
   overflow: hidden;
-  padding: 110px 0;
+  padding-top: 110px;
+  padding-bottom: 110px;
   font-size: 16px;
 
   h1 {
@@ -52,7 +53,8 @@ const Section = styled.section`
 
   @media only screen and (max-width: 992px) {
     font-size: 12px;
-    padding: 60px 0;
+    padding-top: 60px;
+    padding-bottom: 60px;
 
     form {
       button {

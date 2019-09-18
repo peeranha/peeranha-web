@@ -16,7 +16,7 @@ import messages from './messages';
 
 import Section from './Section';
 
-export const Question = /* istanbul ignore next */ ({ header, body }) => (
+export const Question = ({ header, body }) => (
   <div className="card">
     <div className="card-header" id={`heading${header}`}>
       <div>
@@ -46,34 +46,30 @@ export const Question = /* istanbul ignore next */ ({ header, body }) => (
   </div>
 );
 
-export const Questions = /* istanbul ignore next */ ({ questionsNumber }) =>
+export const Questions = ({ questionsNumber }) =>
   QuestionsData.slice(0, questionsNumber).map(item => (
     <Question key={item.header} {...item} />
   ));
 
-const FaqMain = /* istanbul ignore next */ ({ questionsNumber }) => (
-  <Box id={FOURTH_SCREEN}>
-    <div className="container">
-      <div className="row">
-        <div className="col-12 fourth-screen-faq" id="accordion">
-          <Questions questionsNumber={questionsNumber} />
-          <div className="card get-more-answers">
-            <div className="card-header">
-              <div className="mb-0">
-                <Link to={routes.faq()} href={routes.faq()}>
-                  <button className="get-more-answers">
-                    <img
-                      className="icon icon-getanswers"
-                      src={arrRight}
-                      alt="arrRight"
-                    />
-                    <h3 className="text">
-                      <FormattedMessage {...messages.getMoreAnswers} />
-                    </h3>
-                  </button>
-                </Link>
-              </div>
-            </div>
+const FaqMain = ({ questionsNumber }) => (
+  <Box className="container" id={FOURTH_SCREEN}>
+    <div className="fourth-screen-faq" id="accordion">
+      <Questions questionsNumber={questionsNumber} />
+      <div className="card get-more-answers">
+        <div className="card-header">
+          <div className="mb-0">
+            <Link to={routes.faq()} href={routes.faq()}>
+              <button className="get-more-answers">
+                <img
+                  className="icon icon-getanswers"
+                  src={arrRight}
+                  alt="arrRight"
+                />
+                <h3 className="text">
+                  <FormattedMessage {...messages.getMoreAnswers} />
+                </h3>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

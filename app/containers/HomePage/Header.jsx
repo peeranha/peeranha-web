@@ -46,12 +46,12 @@ export class Header extends React.PureComponent {
     isToggled: false,
   };
 
-  toggle /* istanbul ignore next */ = screen => {
+  toggle = screen => {
     this.setState({ isToggled: !this.state.isToggled });
     scrollToSection(typeof screen === 'string' ? `#${screen}` : ``);
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const {
       showHeaderPopupDispatch,
       closeHeaderPopupDispatch,
@@ -213,6 +213,10 @@ const Box = styled.div`
     padding-top: 12px;
     padding-bottom: 12px;
 
+    @media only screen and (max-width: 576px) {
+      padding-top: 24px;
+    }
+
     > .row {
       margin: 0;
     }
@@ -256,7 +260,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: #17234a !important;
-    height: ${/* istanbul ignore next */ x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${x => (x.isToggled ? `100vh` : `auto`)};
 
     > div {
       .logo img {
@@ -292,7 +296,7 @@ const Box = styled.div`
       }
     }
 
-    ${/* istanbul ignore next */ x =>
+    ${x =>
       x.isToggled
         ? `
       .navbar {
@@ -348,7 +352,7 @@ const mapStateToProps = createStructuredSelector({
   popupPosition: homepageSelectors.selectHeaderPopupPosition(),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     showHeaderPopupDispatch: () => dispatch(showHeaderPopup()),

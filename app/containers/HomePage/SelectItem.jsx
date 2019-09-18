@@ -27,14 +27,7 @@ const Ul = styled.ul`
   }
 `.withComponent('ul');
 
-const SelectItem = /* istanbul ignore next */ ({
-  input,
-  change,
-  label,
-  disabled,
-  meta,
-  items,
-}) => (
+const SelectItem = ({ input, change, label, disabled, meta, items }) => (
   <div className="mb-4">
     <Dropdown
       button={

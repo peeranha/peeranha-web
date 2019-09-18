@@ -53,7 +53,7 @@ export class FaqFull extends React.PureComponent {
     this.props.sendEmailDispatch(formData, reset, pageInfo);
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const translations = translationMessages[this.props.locale];
 
     return (
@@ -89,7 +89,7 @@ const mapStateToProps = createStructuredSelector({
   sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     sendEmailDispatch: (formData, reset, pageInfo) =>

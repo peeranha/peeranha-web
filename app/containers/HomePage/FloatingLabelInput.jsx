@@ -53,7 +53,7 @@ const Input = styled.input`
     border-color: ${BORDER_WARNING_LIGHT} !important;
   }
 
-  ${/* istanbul ignore next */ x =>
+  ${x =>
     x.error
       ? `
     border-color: ${BORDER_WARNING_LIGHT} !important;
@@ -67,7 +67,7 @@ const Input = styled.input`
     padding-bottom: ${1.2 * HEIGHT}px;
   }
 
-  ${/* istanbul ignore next */ x =>
+  ${x =>
     x.value
       ? `+ * {
      font-size: 12px !important;
@@ -77,7 +77,7 @@ const Input = styled.input`
       : ``};
 `;
 
-export const FloatingLabelInput = /* istanbul ignore next */ ({
+export const FloatingLabelInput = ({
   input,
   label,
   disabled,

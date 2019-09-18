@@ -18,11 +18,7 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = /* istanbul ignore next */ ({
-  sendEmailLoading,
-  sendEmail,
-  translations,
-}) => (
+const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -45,8 +41,8 @@ const Introduction = /* istanbul ignore next */ ({
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
         <Box className="col-lg-12 first-screen-banner">
-          <div className="row justify-content-center">
-            <h1 className="col-12 top-level">
+          <div className="d-flex justify-content-center">
+            <h1 className="top-level">
               <FormattedMessage {...messages.yourContributionsRewarded} />
             </h1>
           </div>
@@ -69,8 +65,8 @@ const Introduction = /* istanbul ignore next */ ({
             </div>
           </div>
 
-          <div className="row justify-content-center d-none d-lg-block">
-            <div className="col-12 justify-content-center icon-down">
+          <div className="d-none d-lg-flex justify-content-center">
+            <div className="justify-content-center icon-down">
               <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
                 <img src={arrowDown} alt="arrowDown" />
               </Icon>

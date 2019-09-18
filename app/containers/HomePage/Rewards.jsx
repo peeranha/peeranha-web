@@ -15,8 +15,8 @@ const Rewards = ({ sendEmailLoading, sendEmail, translations }) => (
     <div className="container">
       <div className="row justify-content-center align-items-center">
         <div className="col-12">
-          <div className="row justify-content-center">
-            <h2 className="col-12 col-lg-12 title">
+          <div className="d-flex justify-content-center">
+            <h2 className="title">
               <FormattedMessage {...messages.beTheFirst} />
             </h2>
           </div>

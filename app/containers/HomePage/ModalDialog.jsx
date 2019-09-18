@@ -8,11 +8,18 @@ export default styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 50px 20px 10px 20px;
+  padding: 50px 10px 10px 10px;
 
-  * {
+  p,
+  input {
     font-family: ${LANDING_FONT};
-    font-size: 18px;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    letter-spacing: 0.3px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 60px 5px 20px 5px;
   }
 
   .close-icon {

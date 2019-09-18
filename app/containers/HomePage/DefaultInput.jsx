@@ -17,18 +17,9 @@ const Message = styled.div`
   }
 `;
 
-const InputStyled = Input.extend`
-  font-size: 16px !important;
-`;
-
-const DefaultInput = /* istanbul ignore next */ ({
-  input,
-  disabled,
-  meta,
-  placeholder,
-}) => (
+const DefaultInput = ({ input, disabled, meta, placeholder }) => (
   <div className="d-flex flex-column">
-    <InputStyled
+    <Input
       {...input}
       type="text"
       placeholder={placeholder}
