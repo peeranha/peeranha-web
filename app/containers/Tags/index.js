@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import { DAEMON } from 'utils/constants';
@@ -156,9 +156,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
-    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+    getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

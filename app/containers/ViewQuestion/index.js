@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
@@ -370,40 +370,18 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    saveCommentDispatch: (user, qId, aId, cId, comment, toggleView) =>
-      dispatch(saveComment(user, qId, aId, cId, comment, toggleView)),
-
-    deleteCommentDispatch: (user, qId, aId, cId, bId) =>
-      dispatch(deleteComment(user, qId, aId, cId, bId)),
-
-    deleteQuestionDispatch: (user, qId, bId) =>
-      dispatch(deleteQuestion(user, qId, bId)),
-
-    deleteAnswerDispatch: (user, qId, aId, bId) =>
-      dispatch(deleteAnswer(user, qId, aId, bId)),
-
-    getQuestionDataDispatch: qId => dispatch(getQuestionData(qId)),
-
-    postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
-      dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
-
-    postCommentDispatch: (us, qid, aid, comm, reset, bId, transl, toggle) =>
-      dispatch(postComment(us, qid, aid, comm, reset, bId, transl, toggle)),
-
-    upVoteDispatch: (user, qId, aId, postbId, transl, whoWasUpvoted) =>
-      dispatch(upVote(user, qId, aId, postbId, transl, whoWasUpvoted)),
-
-    downVoteDispatch: (user, qId, aId, postbId, transl, whoWasDownvoted) =>
-      dispatch(downVote(user, qId, aId, postbId, transl, whoWasDownvoted)),
-
-    markAsAcceptedDispatch: (user, qId, corrId, bId, transl, accepted) =>
-      dispatch(markAsAccepted(user, qId, corrId, bId, transl, accepted)),
-
-    voteToDeleteDispatch: (qId, aId, cId, buttonid, whowasvoted) =>
-      dispatch(voteToDelete(qId, aId, cId, buttonid, whowasvoted)),
-
-    resetStoreDispatch: () => dispatch(resetStore()),
+    saveCommentDispatch: bindActionCreators(saveComment, dispatch),
+    deleteCommentDispatch: bindActionCreators(deleteComment, dispatch),
+    deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
+    deleteAnswerDispatch: bindActionCreators(deleteAnswer, dispatch),
+    getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
+    postAnswerDispatch: bindActionCreators(postAnswer, dispatch),
+    postCommentDispatch: bindActionCreators(postComment, dispatch),
+    upVoteDispatch: bindActionCreators(upVote, dispatch),
+    downVoteDispatch: bindActionCreators(downVote, dispatch),
+    markAsAcceptedDispatch: bindActionCreators(markAsAccepted, dispatch),
+    voteToDeleteDispatch: bindActionCreators(voteToDelete, dispatch),
+    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
   };
 }
 

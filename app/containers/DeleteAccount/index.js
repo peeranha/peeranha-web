@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -99,10 +99,16 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    deleteAccountDispatch: (...args) => dispatch(deleteAccount(args)),
-    sendEmailDispatch: (...args) => dispatch(sendEmail(args)),
-    showDeleteAccountModalDispatch: () => dispatch(showDeleteAccountModal()),
-    hideDeleteAccountModalDispatch: () => dispatch(hideDeleteAccountModal()),
+    deleteAccountDispatch: bindActionCreators(deleteAccount, dispatch),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
+    showDeleteAccountModalDispatch: bindActionCreators(
+      showDeleteAccountModal,
+      dispatch,
+    ),
+    hideDeleteAccountModalDispatch: bindActionCreators(
+      hideDeleteAccountModal,
+      dispatch,
+    ),
   };
 }
 

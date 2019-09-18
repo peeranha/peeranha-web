@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { noAccess } from 'routes-config';
 
@@ -101,7 +101,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getWeekStatDispatch: () => dispatch(getWeekStat()),
+    getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
   };
 }
 

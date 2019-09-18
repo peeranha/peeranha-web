@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -111,11 +111,16 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    hideForgotPasswordModalDispatch: () => dispatch(hideForgotPasswordModal()),
-    getVerificationCodeDispatch: val => dispatch(getVerificationCode(val)),
-    verifyEmailDispatch: val => dispatch(verifyEmail(val)),
-    changePasswordDispatch: val => dispatch(changePassword(val)),
+    hideForgotPasswordModalDispatch: bindActionCreators(
+      hideForgotPasswordModal,
+      dispatch,
+    ),
+    getVerificationCodeDispatch: bindActionCreators(
+      getVerificationCode,
+      dispatch,
+    ),
+    verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
+    changePasswordDispatch: bindActionCreators(changePassword, dispatch),
   };
 }
 

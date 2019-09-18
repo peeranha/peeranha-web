@@ -8,7 +8,7 @@ import React from 'react';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
@@ -99,7 +99,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

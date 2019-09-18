@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Seo from 'components/Seo';
@@ -89,11 +89,9 @@ const mapStateToProps = createStructuredSelector({
   sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    sendEmailDispatch: (formData, reset, pageInfo) =>
-      dispatch(sendEmail(formData, reset, pageInfo)),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
   };
 }
 

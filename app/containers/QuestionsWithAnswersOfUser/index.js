@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -105,9 +105,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getQuestionsDispatch: userId => dispatch(getQuestions(userId)),
-    resetStoreDispatch: () => dispatch(resetStore()),
+    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
   };
 }
 
@@ -120,6 +119,7 @@ const withReducer = injectReducer({
   key: 'questionsWithAnswersOfUser',
   reducer,
 });
+
 const withSaga = injectSaga({ key: 'questionsWithAnswersOfUser', saga });
 
 export default compose(

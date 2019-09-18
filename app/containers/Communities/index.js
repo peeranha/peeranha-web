@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
 
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -195,9 +195,11 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
-    getSuggestedCommunitiesDispatch: () => dispatch(getSuggestedCommunities()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    getSuggestedCommunitiesDispatch: bindActionCreators(
+      getSuggestedCommunities,
+      dispatch,
+    ),
   };
 }
 

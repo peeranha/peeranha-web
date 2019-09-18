@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -87,7 +88,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

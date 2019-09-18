@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 
@@ -126,7 +127,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
+    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
   };
 }
 

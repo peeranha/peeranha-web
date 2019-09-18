@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
 import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
@@ -352,11 +353,10 @@ const mapStateToProps = createStructuredSelector({
   popupPosition: homepageSelectors.selectHeaderPopupPosition(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    showHeaderPopupDispatch: () => dispatch(showHeaderPopup()),
-    closeHeaderPopupDispatch: () => dispatch(closeHeaderPopup()),
+    showHeaderPopupDispatch: bindActionCreators(showHeaderPopup, dispatch),
+    closeHeaderPopupDispatch: bindActionCreators(closeHeaderPopup, dispatch),
   };
 }
 

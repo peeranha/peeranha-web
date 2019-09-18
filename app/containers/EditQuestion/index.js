@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -126,13 +126,10 @@ const mapStateToProps = createStructuredSelector({
   editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getAskedQuestionDispatch: questionid =>
-      dispatch(getAskedQuestion(questionid)),
-    editQuestionDispatch: (question, questionid) =>
-      dispatch(editQuestion(question, questionid)),
+    getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
+    editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
   };
 }
 

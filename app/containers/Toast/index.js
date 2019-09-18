@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -53,10 +53,9 @@ const mapStateToProps = createStructuredSelector({
   toasts: makeSelectToasts(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    removeToastDispatch: key => dispatch(removeToast(key)),
+    removeToastDispatch: bindActionCreators(removeToast, dispatch),
   };
 }
 

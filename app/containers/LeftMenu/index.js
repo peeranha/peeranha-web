@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import * as routes from 'routes-config';
 
@@ -81,7 +81,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 
