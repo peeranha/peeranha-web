@@ -65,8 +65,8 @@ export const CommentOptions = ({
         )}
 
         <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
-          <img className="mr-1" src={dotsIcon} alt="***" />
-          <Span color={TEXT_PRIMARY}>
+          <img src={dotsIcon} alt="***" />
+          <Span className="d-none d-sm-inline-block ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
         </ButtonStyled>

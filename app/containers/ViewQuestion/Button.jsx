@@ -39,7 +39,7 @@ export const Button = ({ className, id, onClick, params, show, children }) =>
   show ? (
     <TransparentButton
       id={id}
-      className={`d-inline-flex align-items-center pl-4 ${className}`}
+      className={`d-inline-flex align-items-center pl-3 ${className}`}
       data-questionid={params.questionId}
       data-answerid={params.answerId}
       data-commentid={params.commentId}

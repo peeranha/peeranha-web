@@ -53,7 +53,7 @@ export const MarkAsAcceptedIcon = ({
         <ButtonStyled bg={BG_PRIMARY} className="mr-2">
           <img className="d-inline-flex" src={okayIcon} alt="icon" />
         </ButtonStyled>
-        <Span color={TEXT_LIGHT}>
+        <Span>
           <FormattedMessage {...messages.theBestAnswer} />
         </Span>
       </div>

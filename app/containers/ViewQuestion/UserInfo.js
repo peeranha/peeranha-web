@@ -18,6 +18,14 @@ import A from 'components/A';
 
 import { ANSWER_TYPE, COMMENT_TYPE } from './constants';
 
+const RatingStatusBox = Span.extend`
+  @media only screen and (max-width: 576px) {
+    img {
+      display: none !important;
+    }
+  }
+`;
+
 export const UserInfo = ({
   rating,
   name,
@@ -46,13 +54,15 @@ export const UserInfo = ({
         to={routes.profileView(account)}
         className="d-flex align-items-center mr-2"
       >
-        <Span className="mr-2" fontSize="14">
+        <Span className="mr-2" fontSize="14" mobileFS="12">
           {name}
         </Span>
-        <RatingStatus rating={rating} size="sm" isRankOff />
+        <RatingStatusBox>
+          <RatingStatus rating={rating} size="sm" isRankOff />
+        </RatingStatusBox>
       </A>
 
-      <Span color={TEXT_SECONDARY} fontSize="14">
+      <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
         {type === ANSWER_TYPE ? (
           <FormattedMessage {...messages.answered} />
         ) : (

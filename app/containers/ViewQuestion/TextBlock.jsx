@@ -15,23 +15,27 @@ const TextBlockStyled = styled.div`
   font-size: 19px;
   line-height: 24px;
 
-  pre {
+  code {
     padding: 15px;
-    max-height: 400px;
-    background: ${BG_SECONDARY_LIGHT}75;
-    margin: 10px 0;
   }
 
-  code {
-    background: ${BG_SECONDARY_LIGHT}75;
-    font-size: 15px;
-    line-height: 20px;
-    color: ${TEXT_DARK};
+  pre {
+    max-height: 400px;
+    margin: 10px 0;
+
+    code {
+      background: none;
+    }
   }
 
   code,
   pre {
+    background: ${BG_SECONDARY_LIGHT}75;
+    font-size: 15px;
+    line-height: 20px;
+    color: ${TEXT_DARK};
     overflow: auto;
+    display: block;
     word-break: normal;
   }
 `;

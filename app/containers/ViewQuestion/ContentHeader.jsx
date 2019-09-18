@@ -10,6 +10,7 @@ import blockIcon from 'images/blockIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
+import MediumImage from 'components/Img/MediumImage';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
@@ -37,6 +38,11 @@ const Box = styled.div`
   @media only screen and (max-width: 576px) {
     flex-direction: column;
     align-items: stretch;
+
+    ${MediumImage} {
+      width: 32px;
+      height: 32px;
+    }
   }
 `;
 
