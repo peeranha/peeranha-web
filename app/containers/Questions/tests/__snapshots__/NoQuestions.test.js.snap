@@ -27,24 +27,10 @@ exports[`<AllQuestions /> snapshot test 1`] = `
         "replace": [Function],
       }
     }
-  >
-    <AllQuestions />
-  </ConnectedRouter>
+  />
 </Connect(LanguageProvider)>
 `;
 
-exports[`Banner <AllQuestions /> 1`] = `
-<div
-  className="mt-2"
->
-  <AllQuestions />
-</div>
-`;
+exports[`Banner <AllQuestions /> 1`] = `<AllQuestionsBanner />`;
 
-exports[`Banner <Feed /> 1`] = `
-<div
-  className="mt-2"
->
-  <UNDEFINED />
-</div>
-`;
+exports[`Banner <Feed /> 1`] = `<UNDEFINED />`;

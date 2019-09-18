@@ -16,7 +16,7 @@ exports[`<CreateTag /> render 1`] = `
       className="d-flex"
     >
       <div
-        className="col-12 col-xl-9 p-0"
+        className="flex-grow-1"
       >
         <Base>
           <UNDEFINED
@@ -354,6 +354,7 @@ exports[`<CreateTag /> render 1`] = `
                 "app.containers.Profile.saveButton": "Save",
                 "app.containers.Profile.userHasntActivityYet": "This user hasn’t activity yet",
                 "app.containers.Profile.wrongUser": "Wrong user",
+                "app.containers.Profile.youAnswered": "You answered",
                 "app.containers.QuestionForm.communityLabel": "Community",
                 "app.containers.QuestionForm.communityTip": "Community tip...",
                 "app.containers.QuestionForm.contentLabel": "Body",
@@ -500,11 +501,11 @@ exports[`<CreateTag /> render 1`] = `
           />
         </Base>
       </div>
-      <div
-        className="col-12 col-xl-3 p-0"
+      <Base
+        className="d-none d-xl-block"
       >
         <UNDEFINED />
-      </div>
+      </Base>
     </div>
   </Base>
 </div>

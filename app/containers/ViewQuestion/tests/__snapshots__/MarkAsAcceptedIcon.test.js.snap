@@ -17,10 +17,14 @@ exports[`MarkAsAcceptedIcon test, return {} 1`] = `
       src="IMAGE_MOCK"
     />
   </Button>
-  <FormattedMessage
-    id="app.containers.ViewQuestion.theBestAnswer"
-    values={Object {}}
-  />
+  <Span
+    color="#FFF"
+  >
+    <FormattedMessage
+      id="app.containers.ViewQuestion.theBestAnswer"
+      values={Object {}}
+    />
+  </Span>
 </div>
 `;
 

@@ -30,7 +30,7 @@ exports[`<Tags /> render currentCommunity.tags.length > 0 1`] = `
     />
   </div>
   <Base
-    className="d-none d-xl-block pr-0"
+    className="d-none d-xl-block"
   />
 </div>
 `;

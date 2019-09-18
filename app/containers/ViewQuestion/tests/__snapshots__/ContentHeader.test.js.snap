@@ -1,11 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContentHeader test 1`] = `
-<Base
-  className="d-flex align-items-center p-0"
-  position="top"
->
-  <Base>
+<ContentHeader__Box>
+  <ContentHeader__RatingBox>
     <UNDEFINED
       userInfo={
         Object {
@@ -14,7 +11,7 @@ exports[`ContentHeader test 1`] = `
       }
       votingStatus={Object {}}
     />
-  </Base>
+  </ContentHeader__RatingBox>
   <div
     className="flex-grow-1"
   >
@@ -33,13 +30,16 @@ exports[`ContentHeader test 1`] = `
           >
             <img
               alt="icon"
-              className="mr-2"
               src="IMAGE_MOCK"
             />
-            <FormattedMessage
-              id="app.containers.ViewQuestion.editButton"
-              values={Object {}}
-            />
+            <span
+              className="d-none d-md-inline-block ml-2"
+            >
+              <FormattedMessage
+                id="app.containers.ViewQuestion.editButton"
+                values={Object {}}
+              />
+            </span>
           </Span>
         </UNDEFINED>
         <UNDEFINED
@@ -52,13 +52,16 @@ exports[`ContentHeader test 1`] = `
           >
             <img
               alt="icon"
-              className="mr-2"
               src="IMAGE_MOCK"
             />
-            <FormattedMessage
-              id="app.containers.ViewQuestion.deleteButton"
-              values={Object {}}
-            />
+            <span
+              className="d-none d-md-inline-block ml-2"
+            >
+              <FormattedMessage
+                id="app.containers.ViewQuestion.deleteButton"
+                values={Object {}}
+              />
+            </span>
           </Span>
         </UNDEFINED>
         <BlockButton
@@ -72,17 +75,20 @@ exports[`ContentHeader test 1`] = `
           >
             <img
               alt="icon"
-              className="mr-2"
               src="IMAGE_MOCK"
             />
-            <FormattedMessage
-              id="app.containers.ViewQuestion.voteToDelete"
-              values={Object {}}
-            />
+            <span
+              className="d-none d-md-inline-block ml-2"
+            >
+              <FormattedMessage
+                id="app.containers.ViewQuestion.voteToDelete"
+                values={Object {}}
+              />
+            </span>
           </Span>
         </BlockButton>
       </div>
     </Base>
   </div>
-</Base>
+</ContentHeader__Box>
 `;

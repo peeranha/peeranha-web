@@ -338,6 +338,7 @@ exports[`EditAnswer render test answerLoading is falsy 1`] = `
           "app.containers.Profile.saveButton": "Save",
           "app.containers.Profile.userHasntActivityYet": "This user hasn’t activity yet",
           "app.containers.Profile.wrongUser": "Wrong user",
+          "app.containers.Profile.youAnswered": "You answered",
           "app.containers.QuestionForm.communityLabel": "Community",
           "app.containers.QuestionForm.communityTip": "Community tip...",
           "app.containers.QuestionForm.contentLabel": "Body",

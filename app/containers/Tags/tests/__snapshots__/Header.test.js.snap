@@ -3,12 +3,10 @@
 exports[`Header test 1`] = `
 <div>
   <Base
-    className="d-flex align-items-center justify-content-between"
     position="top"
   >
     <div>
       <A
-        href="/tags"
         to="/tags"
       >
         <Button
@@ -17,18 +15,20 @@ exports[`Header test 1`] = `
         >
           <img
             alt="x"
-            className="mr-2"
             src="IMAGE_MOCK"
           />
-          <FormattedMessage
-            id="app.containers.Tags.backToList"
-            values={Object {}}
-          />
+          <span
+            className="d-none d-sm-inline ml-2"
+          >
+            <FormattedMessage
+              id="app.containers.Tags.backToList"
+              values={Object {}}
+            />
+          </span>
         </Button>
       </A>
       <A
         disabled={false}
-        href="/communities/undefined/tags"
         to="/communities/undefined/tags"
       >
         <Button
@@ -42,7 +42,6 @@ exports[`Header test 1`] = `
       </A>
       <A
         disabled={false}
-        href="/communities/undefined/tags/suggested"
         to="/communities/undefined/tags/suggested"
       >
         <Button
@@ -55,7 +54,9 @@ exports[`Header test 1`] = `
         </Button>
       </A>
     </div>
-    <div>
+    <div
+      className="right-panel"
+    >
       <Button
         className="d-inline-flex align-items-center px-0 py-1"
         id="app_containers_GO_TO_CREATE_TAG_SCREEN_BUTTON_ID_header"
@@ -77,30 +78,28 @@ exports[`Header test 1`] = `
   <Base
     position="bottom"
   >
-    <Span
-      className="d-flex align-items-center justify-content-between"
-    >
-      <div
-        className="d-flex align-items-center"
+    <Span>
+      <Img
+        alt="tags"
+      />
+      <Span
+        bold={true}
+        className="d-none d-sm-inline text-lowercase ml-3"
+        color="#7b7b7b"
+        fontSize="30"
       >
-        <Img
-          alt="communitiesHeader"
+        <span>
+          1 
+        </span>
+        <FormattedMessage
+          id="app.common.tags"
+          values={Object {}}
         />
-        <Span
-          bold={true}
-          className="text-lowercase ml-3"
-          color="#7b7b7b"
-          fontSize="30"
-        >
-          <span>
-            1 
-          </span>
-          <FormattedMessage
-            id="app.common.tags"
-            values={Object {}}
-          />
-        </Span>
-      </div>
+      </Span>
+    </Span>
+    <div
+      className="right-panel"
+    >
       <UNDEFINED
         button={
           <Button
@@ -116,7 +115,7 @@ exports[`Header test 1`] = `
           />
         }
       />
-    </Span>
+    </div>
   </Base>
 </div>
 `;

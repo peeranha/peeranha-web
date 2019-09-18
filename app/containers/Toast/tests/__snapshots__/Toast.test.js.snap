@@ -2,7 +2,7 @@
 
 exports[`<Toast /> snapshot test 1`] = `
 <div
-  className="Toast-izlmyG cUpmZk"
+  className="Toast-izlmyG imgMZW"
   type="info"
 />
 `;

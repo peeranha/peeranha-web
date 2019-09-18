@@ -35,7 +35,7 @@ export class Box extends React.PureComponent {
   };
 
   // set default state if window resizing is happening
-  componentDidMount() /* istanbul ignore next */ {
+  componentDidMount() {
     $(window).resize(() => {
       clearTimeout(window.resizedFinished);
       window.resizedFinished = setTimeout(() => {
@@ -47,7 +47,7 @@ export class Box extends React.PureComponent {
   }
 
   // set default state if links changing is happening
-  componentWillReceiveProps(prevProps) /* istanbul ignore next */ {
+  componentWillReceiveProps(prevProps) {
     if (
       prevProps.props.location.pathname + prevProps.props.location.hash !==
         this.props.props.location.pathname + this.props.props.location.hash &&
@@ -59,11 +59,11 @@ export class Box extends React.PureComponent {
     }
   }
 
-  showMenu = /* istanbul ignore next */ () => {
+  showMenu = () => {
     this.setState({ isMenuVisible: !this.state.isMenuVisible });
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const { isMenuVisible } = this.state;
     const { Comp, props } = this.props;
 
@@ -103,8 +103,6 @@ Box.propTypes = {
   props: PropTypes.object,
 };
 
-const Wrapper = /* istanbul ignore next */ (comp, props) => (
-  <Box Comp={comp} props={props} />
-);
+const Wrapper = (comp, props) => <Box Comp={comp} props={props} />;
 
 export default Wrapper;

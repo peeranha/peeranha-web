@@ -24,13 +24,16 @@ exports[` 1`] = `
         >
           <img
             alt="icon"
-            className="mr-1"
             src="IMAGE_MOCK"
           />
-          <FormattedMessage
-            id="app.containers.ViewQuestion.editButton"
-            values={Object {}}
-          />
+          <span
+            className="d-none d-sm-inline-block ml-1"
+          >
+            <FormattedMessage
+              id="app.containers.ViewQuestion.editButton"
+              values={Object {}}
+            />
+          </span>
         </Span>
       </UNDEFINED>
       <UNDEFINED
@@ -48,13 +51,16 @@ exports[` 1`] = `
         >
           <img
             alt="icon"
-            className="mr-1"
             src="IMAGE_MOCK"
           />
-          <FormattedMessage
-            id="app.containers.ViewQuestion.deleteButton"
-            values={Object {}}
-          />
+          <span
+            className="d-none d-sm-inline-block ml-1"
+          >
+            <FormattedMessage
+              id="app.containers.ViewQuestion.deleteButton"
+              values={Object {}}
+            />
+          </span>
         </Span>
       </UNDEFINED>
       <BlockButton
@@ -73,18 +79,22 @@ exports[` 1`] = `
         >
           <img
             alt="icon"
-            className="mr-1"
             src="IMAGE_MOCK"
           />
-          <FormattedMessage
-            id="app.containers.ViewQuestion.voteToDelete"
-            values={Object {}}
-          />
+          <span
+            className="d-none d-sm-inline-block ml-1"
+          >
+            <FormattedMessage
+              id="app.containers.ViewQuestion.voteToDelete"
+              values={Object {}}
+            />
+          </span>
         </Span>
       </BlockButton>
     </Comments__CommentManage>
   </div>
   <div
+    className="mt-xs-1 mt-md-0"
     dangerouslySetInnerHTML={
       Object {
         "__html": undefined,
@@ -109,43 +119,10 @@ exports[`Comments test1, Comments 1`] = `
 <div>
   <Comments__CommentsStyled
     className="my-3"
-  >
-    <Comment
-      comments={
-        Array [
-          Object {
-            "id": 1,
-            "userInfo": Object {},
-          },
-          Object {
-            "id": 2,
-            "userInfo": Object {},
-          },
-        ]
-      }
-      id={1}
-      userInfo={Object {}}
-    />
-    <Comment
-      comments={
-        Array [
-          Object {
-            "id": 1,
-            "userInfo": Object {},
-          },
-          Object {
-            "id": 2,
-            "userInfo": Object {},
-          },
-        ]
-      }
-      id={2}
-      userInfo={Object {}}
-    />
-  </Comments__CommentsStyled>
+  />
   <UNDEFINED
     changeCommentsView={[MockFunction]}
-    commentsNumber={-1}
+    commentsNumber={2}
     isAllCommentsView={false}
   />
 </div>

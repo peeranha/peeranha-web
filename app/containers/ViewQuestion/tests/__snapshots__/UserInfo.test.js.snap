@@ -20,15 +20,19 @@ exports[`UserInfo test 1`] = `
       <Span
         className="mr-2"
         fontSize="14"
+        mobileFS="12"
       />
-      <UNDEFINED
-        isRankOff={true}
-        size="sm"
-      />
+      <Span>
+        <UNDEFINED
+          isRankOff={true}
+          size="sm"
+        />
+      </Span>
     </A>
     <Span
       color="#7b7b7b"
       fontSize="14"
+      mobileFS="12"
     >
       <FormattedMessage
         id="app.common.asked"

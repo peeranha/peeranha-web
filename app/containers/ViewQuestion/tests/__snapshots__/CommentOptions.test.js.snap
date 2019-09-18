@@ -3,17 +3,17 @@
 exports[`CommentOptions test 1`] = `
 <div>
   <div
-    className="d-flex align-items-center"
+    className="d-flex align-items-center justify-content-between justify-content-sm-start"
   >
     <CommentOptions__ButtonStyled
       onClick={[Function]}
     >
       <img
         alt="***"
-        className="mr-1"
         src="IMAGE_MOCK"
       />
       <Span
+        className="d-none d-sm-inline-block ml-1"
         color="#576fed"
       >
         <FormattedMessage

@@ -56,7 +56,7 @@ import {
   PrivacyPolicy,
 } from './imports';
 
-export default function App /* istanbul ignore next */() {
+export default function App() {
   if (process.env.NODE_ENV !== 'development') {
     ReactGA.pageview(window.location.pathname);
   }

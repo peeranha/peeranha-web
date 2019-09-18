@@ -13,6 +13,6 @@ exports[`BlockButton snapshot tests 1`] = `
 
 exports[`Button snapshot tests 1`] = `
 <Button
-  className="d-inline-flex align-items-center pl-4 undefined"
+  className="d-inline-flex align-items-center pl-3 undefined"
 />
 `;

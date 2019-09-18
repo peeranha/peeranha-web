@@ -45,7 +45,7 @@ exports[`<Faq /> test 1`] = `
     </div>
   </div>
   <Base
-    className="d-none d-xl-block pr-0"
+    className="d-none d-xl-block"
   >
     <UNDEFINED
       faq={

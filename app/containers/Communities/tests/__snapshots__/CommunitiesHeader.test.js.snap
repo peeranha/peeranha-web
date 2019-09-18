@@ -3,7 +3,6 @@
 exports[`Header test 1`] = `
 <div>
   <Base
-    className="d-flex align-items-center justify-content-between"
     position="top"
   >
     <div>
@@ -34,52 +33,53 @@ exports[`Header test 1`] = `
         </Button>
       </A>
     </div>
-    <div>
-      <Button
-        className="d-inline-flex align-items-center px-0"
+    <div
+      className="right-panel"
+    >
+      <button
+        className="d-flex align-items-center"
         id="app_Communities_GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID_header"
-        isLink={true}
         onClick={[MockFunction]}
       >
         <img
           alt="icon"
-          className="mr-2"
+          className="mr-1"
           src="IMAGE_MOCK"
         />
-        <FormattedMessage
-          id="app.containers.Communities.suggestCommunity"
-          values={Object {}}
-        />
-      </Button>
+        <Span
+          color="#576fed"
+        >
+          <FormattedMessage
+            id="app.containers.Communities.suggestCommunity"
+            values={Object {}}
+          />
+        </Span>
+      </button>
     </div>
   </Base>
-  <Base
-    position="bottom"
-  >
-    <UNDEFINED
-      languages={
-        Object {
-          "all": Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
+  <UNDEFINED
+    languages={
+      Object {
+        "all": Object {
+          "message": Object {
+            "id": "app.common.all",
           },
-          "en": Object {
-            "message": Object {
-              "id": "app.common.en",
-            },
-            "sortBy": "en",
+          "sortBy": "",
+        },
+        "en": Object {
+          "message": Object {
+            "id": "app.common.en",
           },
-          "ru": Object {
-            "message": Object {
-              "id": "app.common.ru",
-            },
-            "sortBy": "ru",
+          "sortBy": "en",
+        },
+        "ru": Object {
+          "message": Object {
+            "id": "app.common.ru",
           },
-        }
+          "sortBy": "ru",
+        },
       }
-    />
-  </Base>
+    }
+  />
 </div>
 `;
