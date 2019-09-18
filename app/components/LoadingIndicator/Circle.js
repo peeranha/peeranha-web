@@ -4,8 +4,8 @@ import { BG_PRIMARY } from 'style-constants';
 
 /* eslint indent: 0 */
 const Circle = styled.div`
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background: #d3daf6;
   border-radius: 50%;
   background-color: ${BG_PRIMARY};
@@ -30,8 +30,8 @@ const Circle = styled.div`
 
   &:before {
     content: '';
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background-color: ${BG_PRIMARY};
     opacity: 0.7;
