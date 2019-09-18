@@ -16,7 +16,7 @@ const Box = BoxStyled.extend`
   height: 44px;
 `.withComponent(A);
 
-const ManageMyCommunities = /* istanbul ignore next */ () => (
+const ManageMyCommunities = () => (
   <Box to={routes.communities()} href={routes.communities()}>
     <Span color={TEXT_PRIMARY}>
       <img className="mr-2" src={arrowRightIcon} alt="icon" />

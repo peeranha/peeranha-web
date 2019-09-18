@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from 'components/Input';
 import Wrapper from './Wrapper';
 
-export const TextInputField = /* istanbul ignore next */ ({
+export const TextInputField = ({
   input,
   label,
   readOnly,

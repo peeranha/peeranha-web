@@ -59,7 +59,7 @@ const TopCommunityBadgeStyled = Badge.extend`
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = /* istanbul ignore next */ ({
+const AcceptedQuestionBadge = ({
   acceptedAnswer,
   postType,
   isMyAnswerAccepted,
@@ -75,10 +75,7 @@ const AcceptedQuestionBadge = /* istanbul ignore next */ ({
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
-const TopCommunityBadge = /* istanbul ignore next */ ({
-  isTheLargestRating,
-  postType,
-}) =>
+const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
       <img
@@ -90,7 +87,7 @@ const TopCommunityBadge = /* istanbul ignore next */ ({
   ) : null;
 
 /* eslint camelcase: 0 */
-export const QuestionForProfilePage = /* istanbul ignore next */ ({
+export const QuestionForProfilePage = ({
   myPostRating,
   title,
   myPostTime,

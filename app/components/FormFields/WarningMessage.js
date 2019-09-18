@@ -7,7 +7,7 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 import Span from 'components/Span';
 
-export const WarningMessage = /* istanbul ignore next */ ({
+export const WarningMessage = ({
   error,
   warning,
   touched,

@@ -25,12 +25,10 @@ const Blanket = styled.div`
 `;
 
 const Chevron = styled.span`
-  transform: rotate(
-    ${/* istanbul ignore next */ ({ isOpen }) => (isOpen ? '180deg' : '0deg')}
-  );
+  transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0deg')});
   transition: 0.5s;
 `;
-/* istanbul ignore next */
+
 const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
   <div className="position-relative">
     <TargetButton className="d-flex align-items-center" onClick={toggle}>

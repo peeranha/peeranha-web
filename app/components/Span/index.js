@@ -3,7 +3,6 @@ import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import { APP_FONT, TEXT_DARK } from 'style-constants';
 
-/* istanbul ignore next */
 /* eslint indent: 0 */
 const Span = styled.span`
   color: ${({ color }) => color || TEXT_DARK};

@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const HeightWidthCentered = /* istanbul ignore next */ () => (
+const HeightWidthCentered = () => (
   <Wrapper>
     <LoadingIndicator />
   </Wrapper>

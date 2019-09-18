@@ -10,7 +10,6 @@ const IconHover = ({ color }) => `
   }
 `;
 
-/* istanbul ignore next */
 const IconStyled = styled.span`
   display: inline-block;
   margin-right: ${x => (x.noMargin ? '0' : '10')}px;

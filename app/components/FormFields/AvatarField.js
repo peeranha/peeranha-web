@@ -26,8 +26,8 @@ const AvatarArea = styled.div`
   height: 100%;
   margin-bottom: 10px;
 
-  ${/* istanbul ignore next */ x => ErrorHandling(x.error)};
-  ${/* istanbul ignore next */ x => DisableHandling(x.disabled)};
+  ${x => ErrorHandling(x.error)};
+  ${x => DisableHandling(x.disabled)};
 
   border-radius: 50% !important;
 
@@ -53,14 +53,14 @@ const ButtonStyled = styled.button`
   position: absolute;
   font-size: 20px;
   color: ${TEXT_SECONDARY};
-  top: ${/* istanbul ignore next */ x => x.top}px;
-  right: ${/* istanbul ignore next */ x => x.right}px;
+  top: ${x => x.top}px;
+  right: ${x => x.right}px;
 `;
 
 const AvatarFieldStyled = styled.div`
   position: relative;
-  width: ${/* istanbul ignore next */ x => x.size}px;
-  height: ${/* istanbul ignore next */ x => x.size}px;
+  width: ${x => x.size}px;
+  height: ${x => x.size}px;
 `;
 
 function AvatarField({
@@ -74,7 +74,7 @@ function AvatarField({
   getCroppedAvatar,
   uploadImage,
   clearImageChanges,
-}) /* istanbul ignore next */ {
+}) {
   let avatarRefs;
 
   const displayAvatar = !editingImgState && cachedProfileImg;

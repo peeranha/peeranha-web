@@ -1,7 +1,7 @@
 import React from 'react';
 import Circle from './Circle';
 
-const LoadingIndicator = /* istanbul ignore next */ () => (
+const LoadingIndicator = () => (
   <div className="d-flex">
     <Circle number={1} />
     <Circle number={2} />

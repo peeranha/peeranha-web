@@ -10,7 +10,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
-export const AnswerForm = /* istanbul ignore next */ ({
+export const AnswerForm = ({
   handleSubmit,
   sendAnswer,
   sendAnswerLoading,
@@ -49,12 +49,10 @@ AnswerForm.propTypes = {
 
 let FormClone = reduxForm({})(AnswerForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ (state, props) => ({
-    initialValues: {
-      [TEXT_EDITOR_ANSWER_FORM]: props.answer,
-    },
-  }),
-)(FormClone);
+FormClone = connect((state, props) => ({
+  initialValues: {
+    [TEXT_EDITOR_ANSWER_FORM]: props.answer,
+  },
+}))(FormClone);
 
 export default React.memo(FormClone);

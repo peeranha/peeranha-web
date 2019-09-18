@@ -4,6 +4,6 @@ import Questions from 'containers/Questions';
 
 const feed = routes.feed();
 
-const Feed = /* istanbul ignore next */ () => <Questions parentPage={feed} />;
+const Feed = () => <Questions parentPage={feed} />;
 
 export default Feed;

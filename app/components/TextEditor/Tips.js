@@ -56,7 +56,7 @@ const Ul = styled.ul`
   }
 `;
 
-const Tips = /* istanbul ignore next */ ({ faqQuestions }) => (
+const Tips = ({ faqQuestions }) => (
   <div>
     <Label className="mb-3">
       <FormattedMessage {...messages.tips} />:

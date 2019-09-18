@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { TEXT_DARK } from 'style-constants';
 
-/* istanbul ignore next */
 const A = styled(Link)`
   text-decoration: none;
   color: ${TEXT_DARK};

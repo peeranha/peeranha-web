@@ -14,12 +14,12 @@ import Blanket from './Blanket';
 const modalRoot = document.getElementById('modal');
 
 export class ModalDialog extends React.PureComponent {
-  componentWillMount() /* istanbul ignore next */ {
+  componentWillMount() {
     this.el = document.createElement('div');
   }
 
   /* eslint no-unused-expressions: 0 */
-  componentWillReceiveProps(nextProps) /* istanbul ignore next */ {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.show !== this.props.show) {
       try {
         nextProps.show
@@ -31,7 +31,7 @@ export class ModalDialog extends React.PureComponent {
     }
   }
 
-  render() /* istanbul ignore next */ {
+  render() {
     const { closeModal, children } = this.props;
 
     return ReactDOM.createPortal(

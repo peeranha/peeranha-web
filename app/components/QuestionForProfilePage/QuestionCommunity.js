@@ -5,11 +5,7 @@ import { getFollowedCommunities } from 'utils/communityManagement';
 import Span from 'components/Span';
 import Img from 'components/Img';
 
-const QuestionCommunity = /* istanbul ignore next */ ({
-  communities,
-  communityId,
-  className,
-}) => {
+const QuestionCommunity = ({ communities, communityId, className }) => {
   if (!communities[0]) {
     return null;
   }

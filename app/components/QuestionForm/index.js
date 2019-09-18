@@ -62,7 +62,7 @@ export const Base = BaseRounded.extend`
   }
 `;
 
-export const QuestionForm = /* istanbul ignore next */ ({
+export const QuestionForm = ({
   sendQuestion,
   formTitle,
   questionLoading,
@@ -188,31 +188,29 @@ QuestionForm.propTypes = {
 
 let FormClone = reduxForm({})(QuestionForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ (state, props) => {
-    let initialValues = {};
-    let formValues = {};
+FormClone = connect((state, props) => {
+  let initialValues = {};
+  let formValues = {};
 
-    if (props.question) {
-      initialValues = {
-        [FORM_TITLE]: props.question.title,
-        [FORM_CONTENT]: props.question.content,
-        [FORM_COMMUNITY]: props.question.community,
-        [FORM_TAGS]: props.question.chosenTags,
-      };
-    }
-
-    const form = state.toJS().form[props.form];
-
-    if (form) {
-      formValues = form.values;
-    }
-
-    return {
-      formValues,
-      initialValues,
+  if (props.question) {
+    initialValues = {
+      [FORM_TITLE]: props.question.title,
+      [FORM_CONTENT]: props.question.content,
+      [FORM_COMMUNITY]: props.question.community,
+      [FORM_TAGS]: props.question.chosenTags,
     };
-  },
-)(FormClone);
+  }
+
+  const form = state.toJS().form[props.form];
+
+  if (form) {
+    formValues = form.values;
+  }
+
+  return {
+    formValues,
+    initialValues,
+  };
+})(FormClone);
 
 export default React.memo(injectIntl(FormClone));

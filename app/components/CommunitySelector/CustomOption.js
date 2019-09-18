@@ -13,11 +13,7 @@ const EmptyOption = styled.span`
   width: ${CELL}px;
 `;
 
-const Image = /* istanbul ignore next */ ({
-  avatar,
-  selectedOptionId,
-  optionValue,
-}) => {
+const Image = ({ avatar, selectedOptionId, optionValue }) => {
   if (selectedOptionId === optionValue)
     return <Img src={okayBlueIcon} alt="chosen" />;
 
@@ -26,14 +22,13 @@ const Image = /* istanbul ignore next */ ({
   return <Img src={avatar} alt="comm_avatar" />;
 };
 
-/* istanbul ignore next */
 export const BoxStyled = Box.extend`
   ${Img}, ${EmptyOption} {
     margin-right: 8px;
   }
 `;
 
-const CustomOption = /* istanbul ignore next */ ({
+const CustomOption = ({
   data,
   isFocused,
   optionsNumber,

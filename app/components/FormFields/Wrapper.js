@@ -4,13 +4,7 @@ import PropTypes from 'prop-types';
 import Label from './Label';
 import WarningMessage from './WarningMessage';
 
-export const Wrapper = /* istanbul ignore next */ ({
-  children,
-  tip,
-  label,
-  meta,
-  splitInHalf,
-}) => {
+export const Wrapper = ({ children, tip, label, meta, splitInHalf }) => {
   let valueWidth = 12;
   let tipWidth = 12;
 

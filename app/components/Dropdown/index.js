@@ -6,13 +6,7 @@ import arrowDownIcon from 'images/arrowDown.svg?inline';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
-export const Dropdown = /* istanbul ignore next */ ({
-  button,
-  menu,
-  id,
-  isArrowed,
-  className,
-}) => (
+export const Dropdown = ({ button, menu, id, isArrowed, className }) => (
   <DropdownStyled className={`dropdown show ${className}`}>
     <button
       id={id}

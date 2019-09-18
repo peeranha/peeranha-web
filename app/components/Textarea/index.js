@@ -9,7 +9,7 @@ import {
 } from 'style-constants';
 
 /* eslint indent: 0 */
-/* istanbul ignore next */
+
 const Textarea = styled.textarea`
   height: 90px;
   width: 100%;

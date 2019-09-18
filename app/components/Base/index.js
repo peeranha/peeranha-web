@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { BORDER_SECONDARY, BG_LIGHT } from 'style-constants';
 
-/* istanbul ignore next */
 const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;

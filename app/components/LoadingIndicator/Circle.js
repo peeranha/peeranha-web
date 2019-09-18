@@ -36,7 +36,7 @@ const Circle = styled.div`
     background-color: ${BG_PRIMARY};
     opacity: 0.7;
     animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
-    animation-delay: ${/* istanbul ignore next */ x => x.number * 200}ms;
+    animation-delay: ${x => x.number * 200}ms;
 
     transition: 0.5s all ease;
     transform: scale(1);

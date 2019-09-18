@@ -30,8 +30,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${/* istanbul ignore next */ x =>
-    x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
+  background: ${x => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${BORDER_PRIMARY};
@@ -39,11 +38,7 @@ export const Box = styled.div`
   }
 `;
 
-const DefaultOption = /* istanbul ignore next */ ({
-  data,
-  isFocused,
-  innerProps = {},
-}) => {
+const DefaultOption = ({ data, isFocused, innerProps = {} }) => {
   let isActive = false;
 
   if (isFocused) {
@@ -64,7 +59,7 @@ export const getSelectOptions = initialOptions =>
   }));
 
 /* eslint no-param-reassign: 0 */
-export const Select2 = /* istanbul ignore next */ ({
+export const Select2 = ({
   input,
   options,
   isMulti,
@@ -144,7 +139,7 @@ export const Select2 = /* istanbul ignore next */ ({
   );
 };
 
-export const SelectField = /* istanbul ignore next */ props => (
+export const SelectField = props => (
   <Wrapper
     label={props.label}
     tip={props.tip}

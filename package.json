@@ -121,8 +121,8 @@
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
       "!app/global-styles.js",
-      "!app/*/*/Loadable.{js,jsx}",
-      "!app/utils/web_integration/**/*.{js,jsx}"
+      "!app/utils/web_integration/**/*.{js,jsx}",
+      "!app/components/*.{js,jsx}"
     ],
     "coverageThreshold": {
       "global": {

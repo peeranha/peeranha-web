@@ -24,7 +24,7 @@ const Box = styled.ul`
   align-items: center;
 `;
 
-const TagsList = /* istanbul ignore next */ ({
+const TagsList = ({
   chosenTags,
   communities,
   communityId,

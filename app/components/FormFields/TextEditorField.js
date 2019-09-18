@@ -14,7 +14,6 @@ import Span from 'components/Span';
 
 import Wrapper from './Wrapper';
 
-/* istanbul ignore next */
 const Div = styled.div`
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
@@ -74,7 +73,7 @@ const PreviewWrapper = styled.div`
   border-bottom: 1px dashed ${BORDER_SECONDARY_LIGHT};
 `;
 
-export const TextEditorField = /* istanbul ignore next */ ({
+export const TextEditorField = ({
   input,
   label,
   previewLabel,

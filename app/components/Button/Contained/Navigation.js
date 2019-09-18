@@ -3,7 +3,6 @@ import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
 
-/* istanbul ignore next */
 const NavigationButton = PrimaryLarge.extend`
   padding: 6px 20px;
 
