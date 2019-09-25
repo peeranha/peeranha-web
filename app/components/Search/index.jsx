@@ -67,7 +67,7 @@ class Search extends React.PureComponent {
   render() {
     return (
       <div id={rootId}>
-        <Header className="mb-3">
+        <Header className="mb-to-sm-0 mb-from-sm-3">
           <H3>
             <MediumImageStyled src={searchIcon} alt="search" />
             <FormattedMessage {...messages.search} />

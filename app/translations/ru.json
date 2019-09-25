@@ -17,6 +17,7 @@
   "app.common.tags": "Теги",
   "app.common.myFeed": "Мой фид",
   "app.common.users": "Пользователи",
+  "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
@@ -41,6 +42,7 @@
   "app.common.no": "Нет",
   "app.common.agree": "Согласен",
   "app.common.disagree": "Не согласен",
+  "app.common.disagreeShort": "Не согл.",
   "app.common.tips": "Подсказки",
   "app.common.suggestTag": "Предложить тег",
   "app.common.seeAll": "Посмотреть все",
@@ -55,6 +57,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "Пиры",
@@ -504,6 +507,8 @@
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
+  "app.containers.ViewQuestion.showMoreAnswers":
+    "Показать больше ответов {value}",
 
   "app.components.FormFields.requiredField": "Обязательное поле",
   "app.components.FormFields.wrongLength15x100":
@@ -570,8 +575,8 @@
   "app.containers.SignUp.youHaveToSaveKeys":
     "Вам следует грамотно сохранить ключи",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
-  "app.containers.SignUp.iHaveEosAccount": "Я имею EOS аккаунт",
-  "app.containers.SignUp.idontHaveEosAccount": "Я не имею EOS аккаунта",
+  "app.containers.SignUp.iHaveEosAccount": "Есть EOS аккаунт",
+  "app.containers.SignUp.idontHaveEosAccount": "Нет EOS аккаунта",
   "app.containers.SignUp.downloadKeys": "Загрузить ключи",
   "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
   "app.containers.SignUp.title": "Регистрация",
@@ -606,15 +611,16 @@
   "app.containers.Profile.companyLabel": "Компания",
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
-  "app.containers.Profile.locationLabel": "Местоположение",
+  "app.containers.Profile.locationLabel": "Город",
   "app.containers.Profile.displayNameTip": "Отображаемое имя подсказка...",
   "app.containers.Profile.companyTip": "Компания подсказка...",
   "app.containers.Profile.positionTip": "Позиция подсказка...",
-  "app.containers.Profile.locationTip": "Местоположение подсказка...",
+  "app.containers.Profile.locationTip": "Город подсказка...",
   "app.containers.Profile.oldPassword": "Старый пароль",
   "app.containers.Profile.newPassword": "Новый пароль",
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
+  "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

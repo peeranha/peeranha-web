@@ -47,7 +47,10 @@ export const Header = ({
   );
 
   return (
-    <Wrapper className="d-flex justify-content-start mb-3" isColumnForSM>
+    <Wrapper
+      className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
+      isColumnForSM
+    >
       <CommunitySelector
         isArrowed
         Button={Button}

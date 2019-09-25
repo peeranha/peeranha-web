@@ -18,7 +18,7 @@ const Tag = styled.div`
 `;
 
 const Item = styled.div`
-  height: 110px;
+  height: ${x => (x.isInputBox ? 'auto' : '110px')};
   padding: 2px 0;
   overflow: hidden;
   word-break: break-word;
@@ -73,8 +73,11 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <SpecialGridForMobileList className="row">
-      <li className="col-12 col-sm-6 col-md-4">
-        <Item className="d-flex align-items-center justify-content-center p-2">
+      <li className="col-12 col-sm-6 col-md-4 d-sm-flex align-items-center justify-content-center mb-3">
+        <Item
+          isInputBox
+          className="d-flex align-items-center justify-content-center p-2"
+        >
           <Input
             input={{ onChange: typeInput, value: text }}
             placeholder="Find tag"
@@ -92,7 +95,7 @@ const Content = ({
                   <TagName>{x.name}</TagName>
                   <Span fontSize="14" color={TEXT_SECONDARY}>
                     <span>x </span>
-                    <span>{x.popularity}</span>
+                    <span>{`${x.questions_asked}`}</span>
                   </Span>
                 </p>
 

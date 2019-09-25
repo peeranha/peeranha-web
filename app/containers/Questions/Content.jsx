@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
 import {
@@ -11,6 +9,7 @@ import {
   BG_TRANSPARENT,
   TEXT_SECONDARY,
   BG_SUCCESS_LIGHT,
+  BORDER_DARK,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -31,12 +30,38 @@ import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?in
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 
 const AdditionalInfo = Base.extend`
-  border-bottom: 1px solid #00000013;
-  border-right: 1px solid #00000013;
   display: flex;
   justify-content: center;
+  flex: 1;
+  width: 120px;
+
+  border-right: 1px solid ${BORDER_DARK}10;
+  &:not(:last-child) {
+    border-bottom: 1px solid ${BORDER_DARK}10;
+  }
+
+  @media only screen and (max-width: 576px) {
+    width: auto;
+
+    border-bottom: 1px solid ${BORDER_DARK}10;
+    &:not(:last-child) {
+      border-right: 1px solid ${BORDER_DARK}10;
+    }
+  }
 
   background: ${x => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
+`;
+
+const Box = BaseNoPadding.extend`
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 15px;
+  flex-direction: row;
+
+  @media only screen and (max-width: 576px) {
+    flex-direction: column;
+  }
 `;
 
 /* eslint camelcase: 0 */
@@ -54,12 +79,9 @@ const QuestionItem = ({
   answers,
   correct_answer_id,
 }) => (
-  <BaseNoPadding className="d-flex flex-wrap mt-3" overflowHidden>
-    <Base className="d-flex flex-wrap col-12 col-sm-3 col-md-2 p-0">
-      <AdditionalInfo
-        className="col-6 col-sm-12"
-        isAccepted={correct_answer_id}
-      >
+  <Box>
+    <div className="d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0">
+      <AdditionalInfo isAccepted={correct_answer_id}>
         <span className="d-flex align-items-center">
           <img
             className="mr-2"
@@ -75,7 +97,7 @@ const QuestionItem = ({
         </span>
       </AdditionalInfo>
 
-      <AdditionalInfo className="col-6 col-sm-12">
+      <AdditionalInfo>
         <span className="d-flex align-items-center">
           <img
             className="mr-2"
@@ -91,9 +113,9 @@ const QuestionItem = ({
           </Span>
         </span>
       </AdditionalInfo>
-    </Base>
+    </div>
 
-    <Base className="col-12 col-sm-9 col-md-10">
+    <Base>
       <p className="mb-1">
         <A to={routes.questionView(id)} href={routes.questionView(id)}>
           <Span fontSize="24" mobileFS="18" bold>
@@ -112,10 +134,7 @@ const QuestionItem = ({
             fontSize="14"
             color={TEXT_SECONDARY}
           >
-            <FormattedMessage {...commonMessages.asked} />
-            <span className="pl-1">
-              {getFormattedDate(post_time, locale, MONTH_3LETTERS__DAY_TIME)}
-            </span>
+            {getFormattedDate(post_time, locale, MONTH_3LETTERS__DAY_TIME)}
           </Span>
         </A>
       </p>
@@ -134,7 +153,7 @@ const QuestionItem = ({
         </Tags>
       </div>
     </Base>
-  </BaseNoPadding>
+  </Box>
 );
 
 export const Content = ({ questionsList, locale, communities }) => (

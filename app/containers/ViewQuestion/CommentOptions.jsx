@@ -37,6 +37,7 @@ const CommentEditStyled = styled.div`
 
 export const CommentOptions = ({
   form,
+  isPhone,
   submitButtonId,
   submitButtonName,
   sendCommentLoading,
@@ -64,15 +65,18 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
+        <ButtonStyled
+          className="d-none d-sm-inline-flex"
+          onClick={() => changeAddCommentView(!isAddCommentHidden)}
+        >
           <img src={dotsIcon} alt="***" />
-          <Span className="d-none d-sm-inline-block ml-1" color={TEXT_PRIMARY}>
+          <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
         </ButtonStyled>
       </div>
 
-      {!isAddCommentHidden && (
+      {(!isAddCommentHidden || (isAllCommentsView && isPhone)) && (
         <CommentEditStyled>
           <CommentForm
             form={form}
@@ -95,6 +99,7 @@ CommentOptions.propTypes = {
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   sendCommentLoading: PropTypes.bool,
+  isPhone: PropTypes.bool,
   sendComment: PropTypes.func,
   answerId: PropTypes.number,
   changeCommentsView: PropTypes.func,

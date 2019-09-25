@@ -12,21 +12,32 @@ import {
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
 
+import { LEFT_MENU_WIDTH } from './constants';
+
 const Main = styled.div`
   background: rgb(234, 236, 244);
   min-height: 100vh;
   padding-top: ${x => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
-  padding-bottom: ${x => (!x.isMenuVisible ? 150 : 0)}px;
+  padding-bottom: ${x => (!x.isMenuVisible ? 75 : 0)}px;
 
   @media only screen and (max-width: 576px) {
     padding-top: ${x => (!x.isMenuVisible ? MOBILE_HEADER_HEIGHT : 0)}px;
+    padding-bottom: 0px;
   }
 `;
 
 const WrapStyled = styled.main`
   margin-top: 10px;
-  flex: 1 1 auto;
+  width: calc(100% - ${LEFT_MENU_WIDTH}px);
   overflow-y: -webkit-paged-y;
+
+  @media only screen and (max-width: 992px) {
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 576px) {
+    margin-top: 0px;
+  }
 `;
 
 export class Box extends React.PureComponent {
@@ -77,7 +88,7 @@ export class Box extends React.PureComponent {
         )}
 
         <Main isMenuVisible={isMenuVisible}>
-          <div className={isMenuVisible ? '' : 'container'}>
+          <div className={isMenuVisible ? '' : 'container container-mobile'}>
             <div className="d-flex">
               <LeftMenu
                 showMenu={this.showMenu}

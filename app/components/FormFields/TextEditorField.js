@@ -19,7 +19,7 @@ const Div = styled.div`
   ${({ disabled }) => DisableHandling(disabled)};
 
   font-size: 16px;
-  line-height: 20px;
+  line-height: 18px;
 
   .${TEXT_EDITOR_CLASSNAME} > div {
     border: none;
@@ -40,23 +40,15 @@ const Div = styled.div`
     }
 
     .editor-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      padding: 5px 10px;
+      margin: 0 10px;
+      display: block;
+      padding: 0;
+      overflow: scroll;
+      white-space: nowrap;
 
-      &:before {
-        margin-bottom: 0;
-      }
-
-      a {
-        width: 20px;
-        height: 20px;
-        font-size: 12px;
-
-        &:before {
-          line-height: 20px;
-        }
+      &:before,
+      &:after {
+        margin: 0 !important;
       }
     }
   }

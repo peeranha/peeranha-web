@@ -9,6 +9,7 @@ const Base = styled.div`
 
   @media only screen and (max-width: 576px) {
     padding: 15px;
+    border-radius: 0;
   }
 
   ${x =>

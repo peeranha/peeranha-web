@@ -10,6 +10,10 @@ import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 
+import * as routes from 'routes-config';
+
+import { getSectionCode, getQuestionCode } from 'utils/faqManagement';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaq } from 'containers/DataCacheProvider/selectors';
 
@@ -38,15 +42,17 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
 
       <div className="flex-grow-1">
         <Header />
-
-        <div className="my-3">
-          <Content faq={faq} />
-          <Banner />
-        </div>
+        <Content
+          content={faq}
+          route={routes.appFaq}
+          getSectionCode={getSectionCode}
+          getQuestionCode={getQuestionCode}
+        />
+        <Banner />
       </div>
 
       <AsideBox className="d-none d-xl-block">
-        <Aside faq={faq} />
+        <Aside content={faq} route={x => routes.appFaq(getSectionCode(x))} />
       </AsideBox>
     </div>
   );

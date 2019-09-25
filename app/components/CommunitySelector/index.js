@@ -116,6 +116,7 @@ export class CommunitySelector extends React.PureComponent {
 
     return (
       <Dropdown
+        isCommunitySelector
         isArrowed={isArrowed}
         isOpen={isOpen}
         toggle={this.toggleOpen}

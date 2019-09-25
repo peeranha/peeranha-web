@@ -6,7 +6,6 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
-import { getQuestionCode } from 'utils/privacyPolicyManagement';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
@@ -167,10 +166,7 @@ const IdontHaveEOSAccountForm = ({
                 name={I_ACCEPT_PRIVACY_POLICY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
                 label={
-                  <Link
-                    href={routes.privacyPolicy(getQuestionCode())}
-                    target="_blank"
-                  >
+                  <Link href={routes.privacyPolicy()} target="_blank">
                     {translate[messages.iAcceptPrivacyPolicy.id]}
                   </Link>
                 }

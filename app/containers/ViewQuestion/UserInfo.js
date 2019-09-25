@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import noAvatar from 'images/ico-user-no-photo.png';
 
@@ -16,7 +14,7 @@ import MediumImage from 'components/Img/MediumImage';
 import Span from 'components/Span';
 import A from 'components/A';
 
-import { ANSWER_TYPE, COMMENT_TYPE } from './constants';
+import { COMMENT_TYPE } from './constants';
 
 const RatingStatusBox = Span.extend`
   @media only screen and (max-width: 576px) {
@@ -47,7 +45,7 @@ export const UserInfo = ({
 
     <div
       className={`d-flex justify-content-center ${
-        type !== COMMENT_TYPE ? 'flex-column' : 'flex-column flex-sm-row'
+        type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
       }`}
     >
       <A
@@ -63,15 +61,7 @@ export const UserInfo = ({
       </A>
 
       <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
-        {type === ANSWER_TYPE ? (
-          <FormattedMessage {...messages.answered} />
-        ) : (
-          <FormattedMessage {...messages.asked} />
-        )}
-
-        <span>
-          {` ${getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}`}
-        </span>
+        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}
       </Span>
     </div>
   </div>

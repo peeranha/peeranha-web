@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
@@ -54,6 +54,11 @@ const RoundedButton = LargeButton.extend`
     padding: 0;
     border-radius: 50%;
     min-width: auto;
+    width: 42px;
+    height: 42px;
+  }
+
+  @media only screen and (max-width: 576px) {
     width: 36px;
     height: 36px;
   }
@@ -61,6 +66,16 @@ const RoundedButton = LargeButton.extend`
 
 const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
+  const searchFormId = 'search-form-id';
+
+  useEffect(
+    () => {
+      if (isSearchFormVisible) {
+        document.getElementById(searchFormId).focus();
+      }
+    },
+    [isSearchFormVisible],
+  );
 
   return (
     <Wrapper id={HEADER_ID}>
@@ -72,7 +87,7 @@ const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
             </button>
 
             {!isSearchFormVisible && (
-              <Logo to={routes.home()} href={routes.home()}>
+              <Logo to={routes.home()}>
                 <img src={img} alt="logo" />
               </Logo>
             )}
@@ -80,6 +95,8 @@ const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
 
           <Section>
             <SearchForm
+              searchFormId={searchFormId}
+              onBlur={() => setSearchFormVisibility(false)}
               className={`${isSearchFormVisible ? '' : 'd-none'} d-lg-flex`}
               placeholder={intl.formatMessage({
                 id: messages.search.id,

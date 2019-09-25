@@ -111,7 +111,7 @@ export class Communities extends React.PureComponent {
     const keywords = communities.map(x => x.name);
 
     return (
-      <div className="d-flex justify-content-center">
+      <div className="d-xl-flex">
         <Seo
           title={translationMessages[locale][messages.title.id]}
           description={translationMessages[locale][messages.description.id]}
@@ -119,7 +119,7 @@ export class Communities extends React.PureComponent {
           keywords={keywords}
         />
 
-        <div className="flex-grow-1">
+        <div className="flex-xl-grow-1">
           <Header
             goToCreateCommunityScreen={this.goToCreateCommunityScreen}
             SubHeader={SubHeader}
@@ -130,18 +130,16 @@ export class Communities extends React.PureComponent {
             language={this.state.language}
           />
 
-          <div className="my-3">
-            <Content
-              suggestedCommunities={suggestedCommunities}
-              suggestedCommunitiesLoading={suggestedCommunitiesLoading}
-              getSuggestedCommunities={this.getSuggestedCommunities}
-              isLastFetch={isLastFetch}
-              communities={communities}
-              sorting={sorting}
-              locale={locale}
-              language={this.state.language}
-            />
-          </div>
+          <Content
+            suggestedCommunities={suggestedCommunities}
+            suggestedCommunitiesLoading={suggestedCommunitiesLoading}
+            getSuggestedCommunities={this.getSuggestedCommunities}
+            isLastFetch={isLastFetch}
+            communities={communities}
+            sorting={sorting}
+            locale={locale}
+            language={this.state.language}
+          />
 
           {(communitiesLoading || suggestedCommunitiesLoading) && (
             <LoadingIndicator />

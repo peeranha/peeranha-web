@@ -8,10 +8,10 @@ import { getLinks } from 'media-links';
 import { TEXT_PRIMARY } from 'style-constants';
 import * as routes from 'routes-config';
 
-import mediumIcon from 'images/medium.svg?inline';
-import twitterIcon from 'images/twitter.svg?inline';
-import linkedinIcon from 'images/in.svg?inline';
-import githubIcon from 'images/github.svg?inline';
+import mediumIcon from 'images/mediumsupport.svg?inline';
+import twitterIcon from 'images/twittersupport.svg?inline';
+import linkedinIcon from 'images/linkedinsupport.svg?inline';
+import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
 import calendarIcon from 'images/calendar.svg?inline';
 
@@ -56,7 +56,7 @@ const MediaList = styled.div`
 
 const Contacts = ({ locale }) => (
   <div id={CONTACTS_ID}>
-    <Wrapper className="mb-3">
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <FormattedMessage {...commonMessages.contacts} />
       </H3>

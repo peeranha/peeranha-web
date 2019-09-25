@@ -58,7 +58,8 @@ const InputStyled = styled.div`
     position: absolute;
     right: 14px;
     cursor: pointer;
-    color: ${props => (props.isText ? TEXT_PRIMARY : TEXT_SECONDARY)};
+    background: ${BG_LIGHT};
+    color: ${x => (x.isText ? TEXT_PRIMARY : TEXT_SECONDARY)};
   }
 
   input {

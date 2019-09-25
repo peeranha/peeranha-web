@@ -17,10 +17,17 @@ import Wrapper from 'components/Header/Simple';
 import messages from './messages';
 
 const Header = () => (
-  <Wrapper className="mb-3">
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumImageStyled src={faqPageHeader} alt="faq-header" />
-      <FormattedMessage {...messages.faq} />
+
+      <span className="d-none d-md-inline-block">
+        <FormattedMessage {...messages.faq} />
+      </span>
+
+      <span className="d-inline-block d-md-none text-uppercase">
+        <FormattedMessage {...commonMessages.faq} />
+      </span>
     </H3>
 
     <div className="right-panel">

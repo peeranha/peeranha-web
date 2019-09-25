@@ -6,10 +6,12 @@ export const B1 = `
   padding: 40px;
 
   img {
+    min-width: 150px;
     width: 150px;
     height: 150px;
     object-fit: contain;
     margin: 0 50px 0 25px;
+    box-sizing: content-box;
   }
 
   div {
@@ -29,8 +31,13 @@ export const B1 = `
   }
 
   @media only screen and (max-width: 576px) {
+    flex-direction: column;
+
     img {
-      display: none;
+      width: 120px;
+      height: 120px;
+      margin: 0;
+      margin-bottom: 25px;
     }
   }
 `;

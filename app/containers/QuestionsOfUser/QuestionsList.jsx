@@ -1,9 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY_DARK, TEXT_SECONDARY } from 'style-constants';
+
+import {
+  TEXT_PRIMARY_DARK,
+  TEXT_SECONDARY,
+  BORDER_SECONDARY,
+} from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
@@ -11,6 +15,7 @@ import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
 import Base from 'components/Base';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
@@ -19,24 +24,24 @@ import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import messages from 'containers/Profile/messages';
 
 const RightBlock = Base.extend`
-  padding-left: 20px;
   min-width: 240px;
-  margin-top: 15px;
   word-break: break-all;
 `;
 
-export const Li = styled.li`
+export const Li = BaseRoundedNoPadding.extend`
   display: flex;
+  overflow: hidden;
+
+  > div:nth-child(2) {
+    border-left: 1px solid ${BORDER_SECONDARY};
+  }
 
   @media only screen and (max-width: 768px) {
-    > div:last-child {
-      display: none !important;
-    }
+    flex-direction: column;
 
-    > div:first-child {
-      display: flex !important;
-      border-radius: 5px;
-      border: none;
+    > div:nth-child(2) {
+      border-left: none;
+      border-top: 1px solid ${BORDER_SECONDARY};
     }
   }
 `;
@@ -92,7 +97,7 @@ const Question = ({
   isMyAnswerAccepted,
   user,
 }) => (
-  <Li>
+  <Li className="mb-3">
     <QuestionForProfilePage
       route={routes.questionView(id)}
       myPostRating={myPostRating}
@@ -106,10 +111,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
     />
-    <RightBlock
-      className="d-flex flex-column align-items-start"
-      position="right"
-    >
+    <RightBlock className="d-flex flex-column align-items-start">
       <span className="d-flex align-items-center mb-2">
         <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
         <Span color={TEXT_PRIMARY_DARK} bold>

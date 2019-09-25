@@ -12,8 +12,8 @@ const TextBlockStyled = styled.div`
   ${testBlockStyles}
 
   color: ${TEXT_DARK};
-  font-size: 19px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 21px;
 
   code {
     padding: 15px;
@@ -22,6 +22,10 @@ const TextBlockStyled = styled.div`
   pre {
     max-height: 400px;
     margin: 10px 0;
+
+    @media only screen and (max-width: 576px) {
+      max-height: 200px;
+    }
 
     code {
       background: none;
@@ -35,7 +39,7 @@ const TextBlockStyled = styled.div`
     line-height: 20px;
     color: ${TEXT_DARK};
     overflow: auto;
-    display: block;
+    display: flex;
     word-break: normal;
   }
 `;

@@ -17,7 +17,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import messages from './messages';
 
 export const Header = () => (
-  <Wrapper className="mb-3">
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumImageStyled src={suggestTagIcon} alt="create-tag" />
       <FormattedMessage {...messages.newTag} />

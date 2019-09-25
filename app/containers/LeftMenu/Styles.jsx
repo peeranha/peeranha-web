@@ -5,6 +5,7 @@ import {
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
   TEXT_PRIMARY,
+  TEXT_PRIMARY_DARK,
 } from 'style-constants';
 
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
@@ -23,11 +24,13 @@ export const BasicLink = css`
   border-left: 3px solid ${BORDER_TRANSPARENT};
   cursor: pointer;
 
-  :hover {
-    color: ${TEXT_PRIMARY};
+  @media only screen and (min-width: 992px) {
+    :hover {
+      color: ${TEXT_PRIMARY};
 
-    ${IconStyled} {
-      ${IconHover({ color: TEXT_PRIMARY })};
+      ${IconStyled} {
+        ${IconHover({ color: TEXT_PRIMARY })};
+      }
     }
   }
 `;
@@ -39,7 +42,7 @@ export const Aside = styled.aside`
     width: 100%;
     min-height: 100vh;`
       : `
-    flex: 0 0 ${LEFT_MENU_WIDTH}px;
+    width: ${LEFT_MENU_WIDTH}px;
     margin-top: 15px;
     margin-right: 15px;
   `};
@@ -53,8 +56,7 @@ export const After = styled.div`
   width: 50px;
   height: 100%;
   z-index: 9999;
-  background: ${BG_LIGHT};
-  border-left: 1px solid ${BORDER_SECONDARY};
+  background: ${TEXT_PRIMARY_DARK}E6;
   justify-content: center;
   padding-top: 25px;
 `;

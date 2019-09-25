@@ -20,7 +20,7 @@ export const ViewQuestionContainer = props => (
     <Question {...props} />
     <Answers {...props} />
 
-    <Base className="mt-5">
+    <Base className="mt-3">
       <AnswerForm
         form={ADD_ANSWER_FORM}
         formHeader={props.translations[messages.yourAnswer.id]}

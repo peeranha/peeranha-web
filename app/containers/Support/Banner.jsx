@@ -19,7 +19,7 @@ const BannerStyled = Banner.extend`
 
 export default React.memo(() => (
   <BannerStyled>
-    <img className="d-none d-md-block" src={letterSmile} alt="leave-message" />
+    <img src={letterSmile} alt="leave-message" />
     <div>
       <p>
         <FormattedMessage {...messages.feelFreeToAsk} />

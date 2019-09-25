@@ -88,9 +88,16 @@ const MainUserInformation = ({ profile, userId, account }) => (
             }
             alt="avatar"
           />
-          <Span fontSize="38" mobileFS="28" bold>
-            {profile.display_name}
-          </Span>
+
+          <div>
+            <Span fontSize="38" mobileFS="28" bold>
+              {profile.display_name}
+            </Span>
+
+            <span className="d-flex d-sm-none">
+              <RatingStatus rating={profile.rating} size="lg" />
+            </span>
+          </div>
         </div>
 
         <A to={routes.profileEdit(userId)}>
@@ -105,7 +112,7 @@ const MainUserInformation = ({ profile, userId, account }) => (
 
       <div className="d-flex align-items-center">
         <UlStyled>
-          <li>
+          <li className="d-none d-sm-flex">
             <Span color={TEXT_SECONDARY} fontSize="13">
               <FormattedMessage {...messages.reputation} />
             </Span>

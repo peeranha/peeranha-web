@@ -6,8 +6,6 @@ import { TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import { getQuestionCode } from 'utils/privacyPolicyManagement';
-
 import A from 'components/A';
 
 import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
@@ -42,8 +40,8 @@ export default React.memo(() => (
       <FormattedMessage {...messages.support} />
     </A>
 
-    <A to={routes.privacyPolicy(getQuestionCode())}>
-      <FormattedMessage {...messages.privacyPolicy} />
+    <A to={routes.privacyPolicy()}>
+      <FormattedMessage {...messages.privacyPolicyShort} />
     </A>
 
     <footer>

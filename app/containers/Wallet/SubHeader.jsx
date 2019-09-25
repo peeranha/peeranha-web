@@ -35,20 +35,20 @@ const BaseStyled = Base.extend`
 const SubHeader = ({ account, balance }) => (
   <BaseStyled className="d-flex" position="bottom">
     <LargeImage
-      className="d-none d-sm-block mr-4"
+      className="mr-3"
       src={walletCoinsImage}
       alt="wallet"
       bg={BG_PRIMARY_LIGHT}
       isBordered
     />
     <div>
-      <div className="mb-3">
+      <div className="mb-2">
         <Span fontSize="38" mobileFS="24" bold>
           <Icon width="24" icon={currencyPeerImage} />
           <span>{getFormattedNum3(balance)}</span>
         </Span>
         <Span
-          className="ml-2"
+          className="d-none d-sm-inline-block ml-2"
           fontSize="24"
           mobileFS="18"
           color={TEXT_SECONDARY_LIGHT}

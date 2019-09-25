@@ -6,7 +6,7 @@ import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
-import pencilIcon from 'images/pencil.svg?inline';
+import sendtokensIcon from 'images/sendtokens.svg?inline';
 
 import A from 'components/A';
 import Span from 'components/Span';
@@ -30,7 +30,7 @@ const WalletNavigation = ({ userId }) => {
       <div className="right-panel">
         <SendTokens>
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img className="mr-2" src={pencilIcon} alt="icon" />
+            <img className="mr-2" src={sendtokensIcon} alt="icon" />
             <FormattedMessage {...messages.sendTokens} />
           </Span>
         </SendTokens>

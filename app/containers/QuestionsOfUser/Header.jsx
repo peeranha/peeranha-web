@@ -7,7 +7,7 @@ import Wrapper from 'components/Header/Complex';
 import commonMessages from 'common-messages';
 
 const Header = () => (
-  <Wrapper position="bottom">
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3" position="bottom">
     <H3>
       <FormattedMessage {...commonMessages.youAsked} />
     </H3>

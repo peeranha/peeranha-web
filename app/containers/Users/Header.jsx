@@ -42,7 +42,7 @@ const Menu = ({ sort, sorting }) => (
 );
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => (
-  <Wrapper>
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumImageStyled src={usersHeader} alt="users-header" />
 

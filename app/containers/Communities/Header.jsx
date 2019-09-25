@@ -7,6 +7,7 @@ import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import createCommunityIcon from 'images/createCommunity.svg?inline';
+import addIcon from 'images/addBlue.svg?inline';
 
 import Span from 'components/Span';
 import SubHeaderWrapper from 'components/Header/Complex';
@@ -32,7 +33,7 @@ const Header = ({
   const path = window.location.pathname + window.location.hash;
 
   return (
-    <div>
+    <div className="mb-to-sm-0 mb-from-sm-3">
       <SubHeaderWrapper position="top">
         <div>
           <A to={communitiesRoute} href={communitiesRoute}>
@@ -54,8 +55,17 @@ const Header = ({
             onClick={goToCreateCommunityScreen}
             className="d-flex align-items-center"
           >
-            <img className="mr-1" src={createCommunityIcon} alt="icon" />
-            <Span color={TEXT_PRIMARY}>
+            <img
+              className="d-none d-sm-inline-block"
+              src={createCommunityIcon}
+              alt="icon"
+            />
+            <img
+              className="d-inline-block d-sm-none"
+              src={addIcon}
+              alt="icon"
+            />
+            <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.suggestCommunity} />
             </Span>
           </button>

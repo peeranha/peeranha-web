@@ -8,6 +8,7 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_TRANSPARENT,
+  BG_LIGHT,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -39,6 +40,14 @@ const CommentManage = styled.div`
     ${Span} {
       font-size: 14px;
     }
+  }
+
+  @media only screen and (max-width: 576px) {
+    position: absolute;
+    background: ${BG_LIGHT};
+    top: 0;
+    right: 0;
+    padding: 8px;
   }
 `;
 
@@ -215,6 +224,7 @@ const Comments = props => {
       </CommentsStyled>
 
       <CommentOptions
+        isPhone={isPhone}
         form={props.form}
         submitButtonId={props.submitButtonId}
         submitButtonName={props.submitButtonName}

@@ -36,15 +36,15 @@ const Blank = ({ profile, userId, account }) =>
     </p>
   );
 
-const Row = ({ nameField, value }) =>
+const Row = ({ nameField, value, isColumn }) =>
   value ? (
     <div className="row align-items-center pb-1">
-      <div className="col-4 col-sm-2">
+      <div className={isColumn ? 'col-12' : 'col-4 col-sm-2'}>
         <Span color={TEXT_SECONDARY} fontSize="14">
           <FormattedMessage {...messages[nameField]} />
         </Span>
       </div>
-      <div className="col-8 col-sm-10">
+      <div className={isColumn ? 'col-12' : 'col-8 col-sm-10'}>
         <Span mobileFS="14">{value}</Span>
       </div>
     </div>
@@ -55,7 +55,7 @@ const AdditionalUserInformation = ({ profile, userId, account }) => (
     <Row nameField="locationLabel" value={profile.profile[LOCATION_FIELD]} />
     <Row nameField="companyLabel" value={profile.profile[COMPANY_FIELD]} />
     <Row nameField="positionLabel" value={profile.profile[POSITION_FIELD]} />
-    <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
+    <Row isColumn nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
     <Blank profile={profile.profile} userId={userId} account={account} />
   </Base>
 );
@@ -69,6 +69,7 @@ AdditionalUserInformation.propTypes = {
 Row.propTypes = {
   nameField: PropTypes.string,
   value: PropTypes.string,
+  isColumn: PropTypes.bool,
 };
 
 export default React.memo(AdditionalUserInformation);

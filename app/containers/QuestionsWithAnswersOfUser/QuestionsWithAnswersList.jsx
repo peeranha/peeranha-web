@@ -20,7 +20,7 @@ const Question = ({
   isTheLargestRating,
   answerId,
 }) => (
-  <Li>
+  <Li className="mb-3">
     <QuestionForProfilePage
       route={routes.questionView(id, answerId)}
       myPostRating={myPostRating}

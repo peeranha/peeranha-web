@@ -21,6 +21,8 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
 const Base = BaseRoundedNoPadding.extend`
+  margin-bottom: 15px;
+
   ${MediumImageStyled} {
     margin-top: 10px;
   }
@@ -36,7 +38,7 @@ const Base = BaseRoundedNoPadding.extend`
     }
 
     button {
-      min-width: 65px;
+      min-width: 125px;
     }
   }
 `;
@@ -47,85 +49,94 @@ const Info = styled.div`
   justify-content: center;
   align-items: center;
   height: 50px;
+
+  p:nth-child(1) {
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  @media only screen and (max-width: 576px) {
+    &:not(:last-child) {
+      margin-right: 5px;
+      margin-bottom: 10px;
+    }
+  }
 `;
 
-const Content = ({ communities, sorting, locale, language }) => (
-  <Base>
-    {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order])
-      .filter(x => (language.sortBy ? x.language === language.sortBy : true))
-      .map(x => (
-        <BaseTransparent key={x.value}>
-          <div className="row align-items-center">
-            <div className="col-8 col-md-4 d-flex">
-              <MediumImageStyled src={x.avatar} alt={x.name} />
-              <div>
-                <P className="mb-1" fontSize="24" mobileFS="18" bold>
-                  {x.name}
-                </P>
-                <P className="d-none d-md-block text-capitalize" fontSize="14">
-                  {x.language}
-                </P>
-                <P fontSize="14">{x.description}</P>
+const Content = ({ communities, sorting, locale, language }) => {
+  if (!communities || !communities.length) return null;
+
+  return (
+    <Base>
+      {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order])
+        .filter(x => (language.sortBy ? x.language === language.sortBy : true))
+        .map(x => (
+          <BaseTransparent key={x.value}>
+            <div className="row align-items-center">
+              <div className="col-12 col-md-4 d-flex mb-to-md-2">
+                <MediumImageStyled src={x.avatar} alt={x.name} />
+                <div>
+                  <P className="mb-1" fontSize="24" mobileFS="18" bold>
+                    {x.name}
+                  </P>
+                  <P
+                    className="d-none d-md-block text-capitalize"
+                    fontSize="14"
+                  >
+                    {x.language}
+                  </P>
+                  <P fontSize="14">{x.description}</P>
+                </div>
+              </div>
+
+              <div className="col-12 col-md-8 d-flex align-items-center justify-content-between flex-wrap">
+                <Info>
+                  <P>{getFormattedNum2(x.users_subscribed)}</P>
+                  <P fontSize="14">
+                    <FormattedMessage {...commonMessages.usersShort} />
+                  </P>
+                </Info>
+
+                <Info>
+                  <P>{getFormattedNum2(x.questions_asked)}</P>
+                  <A to={routes.questions(x.id)}>
+                    <Span color={TEXT_PRIMARY} fontSize="14">
+                      <FormattedMessage {...commonMessages.questions} />
+                    </Span>
+                  </A>
+                </Info>
+
+                <Info>
+                  <P>{getFormattedNum2(x.answers_given)}</P>
+                  <P fontSize="14">
+                    <FormattedMessage {...commonMessages.answers} />
+                  </P>
+                </Info>
+
+                <Info>
+                  <P>{getFormattedNum2(x.tags.length)}</P>
+                  <A to={routes.communityTags(x.id)}>
+                    <Span color={TEXT_PRIMARY} fontSize="14">
+                      <FormattedMessage {...commonMessages.tags} />
+                    </Span>
+                  </A>
+                </Info>
+
+                <Info>
+                  <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
+                  <P fontSize="14">
+                    <FormattedMessage {...commonMessages.age} />
+                  </P>
+                </Info>
+
+                <FollowCommunityButton communityIdFilter={x.id} />
               </div>
             </div>
-
-            <div className="col-4 col-md-8 d-flex align-items-center justify-content-end justify-content-md-between">
-              <Info className="d-none d-md-flex">
-                <P className="mb-1" bold>
-                  {getFormattedNum2(x.users_subscribed)}
-                </P>
-                <P fontSize="14">
-                  <FormattedMessage {...commonMessages.users} />
-                </P>
-              </Info>
-
-              <Info className="d-none d-md-flex">
-                <P className="mb-1" bold>
-                  {getFormattedNum2(x.questions_asked)}
-                </P>
-                <A to={routes.questions(x.id)}>
-                  <Span color={TEXT_PRIMARY} fontSize="14">
-                    <FormattedMessage {...commonMessages.questions} />
-                  </Span>
-                </A>
-              </Info>
-
-              <Info className="d-none d-md-flex">
-                <P className="mb-1" bold>
-                  {getFormattedNum2(x.answers_given)}
-                </P>
-                <P fontSize="14">
-                  <FormattedMessage {...commonMessages.answers} />
-                </P>
-              </Info>
-
-              <Info className="d-none d-md-flex">
-                <P className="mb-1" bold>
-                  {getFormattedNum2(x.tags.length)}
-                </P>
-                <A to={routes.communityTags(x.id)}>
-                  <Span color={TEXT_PRIMARY} fontSize="14">
-                    <FormattedMessage {...commonMessages.tags} />
-                  </Span>
-                </A>
-              </Info>
-
-              <Info className="d-none d-md-flex">
-                <P className="mb-1" bold>
-                  {getDifferenceInMonths(x.creation_time, locale)}
-                </P>
-                <P fontSize="14">
-                  <FormattedMessage {...commonMessages.age} />
-                </P>
-              </Info>
-
-              <FollowCommunityButton communityIdFilter={x.id} />
-            </div>
-          </div>
-        </BaseTransparent>
-      ))}
-  </Base>
-);
+          </BaseTransparent>
+        ))}
+    </Base>
+  );
+};
 
 Content.propTypes = {
   communities: PropTypes.array,

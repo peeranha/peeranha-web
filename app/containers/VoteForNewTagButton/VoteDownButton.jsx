@@ -35,7 +35,7 @@ const VoteDownButton = /* istanbul ignore next */ ({
     }) =>
       !isUpvoted && !isDownvoted ? (
         <OutlinedButtonStyled onClick={onClick} id={id}>
-          <FormattedMessage {...commonMessages.disagree} />
+          <FormattedMessage {...commonMessages.disagreeShort} />
         </OutlinedButtonStyled>
       ) : (
         <AlreadyVoted
@@ -44,7 +44,7 @@ const VoteDownButton = /* istanbul ignore next */ ({
           choice={isDownvoted}
         >
           <p className="pb-1">
-            <FormattedMessage {...commonMessages.disagree} />
+            <FormattedMessage {...commonMessages.disagreeShort} />
           </p>
           <p>{`${downvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>
         </AlreadyVoted>

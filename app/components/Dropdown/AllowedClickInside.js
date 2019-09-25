@@ -9,10 +9,13 @@ import Menu from './MenuStyled';
 export const MenuStyled = Menu.extend`
   position: absolute;
   z-index: 2;
+  width: auto;
 `;
 
 const TargetButton = styled.div`
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 const Blanket = styled.div`
@@ -31,7 +34,7 @@ const Chevron = styled.span`
 
 const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
   <div className="position-relative">
-    <TargetButton className="d-flex align-items-center" onClick={toggle}>
+    <TargetButton onClick={toggle}>
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>

@@ -82,7 +82,7 @@ export const QuestionForm = ({
 
   return (
     <div>
-      <Wrapper className="mb-3">
+      <Wrapper className="mb-to-sm-0 mb-from-sm-3">
         <H3>
           <MediumImageStyled src={questionIcon} alt="questionIcon" />
           <span>{formTitle}</span>

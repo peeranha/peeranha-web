@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import arrowDownIcon from 'images/arrowDown.svg?inline';
 
@@ -18,8 +17,6 @@ import {
 
 import VoteUpButton from 'containers/VoteForNewTagButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewTagButton/VoteDownButton';
-
-import messages from './messages';
 
 const TagLarge = Tag.extend`
   padding: 8px 20px;
@@ -39,13 +36,9 @@ const Item = x => {
     <BaseStyled key={x.id}>
       <BaseTransparent>
         <div className="row align-items-center">
-          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center">
+          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center mb-to-sm-2">
             <TagLarge>{x.name}</TagLarge>
           </div>
-
-          <Description className="d-flex d-sm-none col-12">
-            <P>{x.description}</P>
-          </Description>
 
           <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-between">
             <VoteUpButton
@@ -64,13 +57,8 @@ const Item = x => {
         </div>
       </BaseTransparent>
 
-      <Description className="d-none d-sm-block" isOpened={isOpened}>
-        <P className="mb-2" bold>
-          <button onClick={() => changeView(!isOpened)}>
-            <FormattedMessage {...messages.tagDescription} />
-            <img className="ml-2" src={arrowDownIcon} alt="icon" />
-          </button>
-        </P>
+      <Description onClick={() => changeView(!isOpened)} isOpened={isOpened}>
+        <img isOpened={isOpened} src={arrowDownIcon} alt="icon" />
 
         <div className="position-relative">
           <P>{x.description}</P>

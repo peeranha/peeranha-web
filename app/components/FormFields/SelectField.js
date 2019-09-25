@@ -115,7 +115,7 @@ export const Select2 = ({
           fontFamily: APP_FONT,
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
-          minWidth: 250,
+          minWidth: 270,
           margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),

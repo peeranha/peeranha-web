@@ -24,7 +24,7 @@ const Aside = ({ existingTags }) => (
 
             <Span fontSize="14" color={TEXT_SECONDARY}>
               <span>x </span>
-              <span>{x.popularity}</span>
+              <span>{`${x.questions_asked}`}</span>
             </Span>
           </div>
         </li>

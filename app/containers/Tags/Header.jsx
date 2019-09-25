@@ -7,6 +7,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 import commonMessages from 'common-messages';
 import icoTagIcon from 'images/icoTag.svg?inline';
 import arrowLeft from 'images/arrowLeft.svg?inline';
+import addIcon from 'images/addBlue.svg?inline';
 
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
@@ -66,7 +67,7 @@ export const Header = ({
   const suggestedTagsRoute = routes.suggestedTags(currentCommunity.id);
 
   return (
-    <div>
+    <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
         <div>
           <A to={tagsRoute}>
@@ -98,8 +99,19 @@ export const Header = ({
             className="d-inline-flex align-items-center px-0 py-1"
             isLink
           >
-            <img className="mr-1" src={icoTagIcon} alt="icoTagIcon" />
-            <FormattedMessage {...commonMessages.suggestTag} />
+            <img
+              className="d-none d-sm-inline-block"
+              src={icoTagIcon}
+              alt="icon"
+            />
+            <img
+              className="d-inline-block d-sm-none"
+              src={addIcon}
+              alt="icon"
+            />
+            <span className="ml-1">
+              <FormattedMessage {...commonMessages.suggestTag} />
+            </span>
           </NavigationButton>
         </div>
       </Wrapper>

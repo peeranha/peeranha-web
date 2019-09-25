@@ -94,7 +94,7 @@ exports[` 1`] = `
     </Comments__CommentManage>
   </div>
   <div
-    className="mt-xs-1 mt-md-0"
+    className="mt-from-xs-1 mt-from-md-0"
     dangerouslySetInnerHTML={
       Object {
         "__html": undefined,

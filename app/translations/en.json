@@ -17,6 +17,7 @@
   "app.common.tags": "Tags",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
+  "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
@@ -41,6 +42,7 @@
   "app.common.no": "No",
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
+  "app.common.disagreeShort": "Disagree",
   "app.common.tips": "Tips",
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
@@ -55,6 +57,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
   "app.common.peers": "Peers",
@@ -498,6 +501,7 @@
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
+  "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
 
   "app.components.FormFields.requiredField": "Required field",
   "app.components.FormFields.wrongLength15x100":
@@ -610,6 +614,7 @@
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
   "app.containers.Profile.youAnswered": "You answered",
+  "app.containers.Profile.seeMore": "See all {questions} and {answers}",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 

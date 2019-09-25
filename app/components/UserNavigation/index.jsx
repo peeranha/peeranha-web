@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -13,6 +14,13 @@ import Wrapper from 'components/Header/Complex';
 
 import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
+const Ul = styled.ul`
+  @media only screen and (max-width: 576px) {
+    overflow: scroll;
+    display: flex;
+  }
+`;
+
 const UserNavigation = ({
   userId,
   account,
@@ -25,7 +33,7 @@ const UserNavigation = ({
 
   return (
     <Wrapper position="top">
-      <ul>
+      <Ul>
         <A to={routes.profileView(userId)}>
           <NavigationButton
             isLink={
@@ -70,7 +78,7 @@ const UserNavigation = ({
             <FormattedMessage {...messages.settings} />
           </NavigationButton>
         </A>
-      </ul>
+      </Ul>
     </Wrapper>
   );
 };

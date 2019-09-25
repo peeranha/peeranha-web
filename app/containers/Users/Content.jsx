@@ -43,7 +43,7 @@ const Content = ({
     isLoading={usersLoading}
     isLastFetch={isLastFetch}
   >
-    <SpecialGridForMobileList className="row my-3">
+    <SpecialGridForMobileList className="row">
       {/* <InputSearch inputFilter={inputFilter} searchText={searchText} /> */}
 
       {users.map(x => (

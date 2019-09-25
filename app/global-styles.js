@@ -28,6 +28,7 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
+    overflow: hidden;
   }
 
   #modal > div {
@@ -44,6 +45,13 @@ injectGlobal`
 
   .container {
     max-width: 1320px;
+
+    &.container-mobile {
+      @media only screen and (max-width: 576px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
   }
 
   #landing-id {
@@ -62,13 +70,47 @@ injectGlobal`
   }
 
   @media only screen and (min-width: 320px) {
-    .mt-xs-1 {
+    .mt-from-xs-1 {
       margin-top: 5px !important;
     }
   }
 
+  @media only screen and (min-width: 576px) {
+    .mb-from-sm-3 {
+      margin-bottom: 15px !important;
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    .mb-to-sm-0 {
+      margin-bottom: 0px !important;
+    }
+
+    .mb-to-sm-1 {
+      margin-bottom: 5px !important;
+    }
+
+    .mb-to-sm-2 {
+      margin-bottom: 10px !important;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .mb-to-md-0 {
+      margin-bottom: 0px !important;
+    }
+
+    .mb-to-md-1 {
+      margin-bottom: 5px !important;
+    }
+
+    .mb-to-md-2 {
+      margin-bottom: 10px !important;
+    }
+  }
+
   @media only screen and (min-width: 768px) {
-    .mt-md-0 {
+    .mt-from-md-0 {
       margin-top: 0px !important;
     }
   }

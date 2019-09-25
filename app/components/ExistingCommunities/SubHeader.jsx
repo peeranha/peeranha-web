@@ -6,6 +6,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
+import languageIcon from 'images/ico-languages.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -61,7 +62,7 @@ export const SubHeader = ({
     <div className="d-flex right-panel">
       <Dropdown
         className="mr-3"
-        button={<Button sorting={language} icon={communitiesHeaderFilter} />}
+        button={<Button sorting={language} icon={languageIcon} />}
         menu={
           <Menu
             changeSorting={setLang}

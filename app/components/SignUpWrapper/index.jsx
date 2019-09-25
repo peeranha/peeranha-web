@@ -15,7 +15,7 @@ const LeftMenu = styled.div`
 
 const RightMenu = styled.div`
   flex: 4;
-  padding: 40px 100px;
+  padding: 40px 80px;
   background: ${BG_SECONDARY_LIGHT}60;
 `;
 
@@ -27,19 +27,18 @@ const BaseStyled = Base.extend`
   overflow: hidden;
 
   @media only screen and (max-width: 992px) {
-    max-width: 400px;
-  }
+    max-width: 480px;
+    margin: 0px auto;
+    flex-direction: column;
 
-  ${LeftMenu} {
-    @media only screen and (max-width: 992px) {
-      display: none;
+    ${LeftMenu} {
+      order: 2;
+      padding: 40px 15px;
     }
-  }
 
-  ${RightMenu} {
-    @media only screen and (max-width: 992px) {
-      background: ${BG_LIGHT};
-      padding: 20px 0;
+    ${RightMenu} {
+      order: 1;
+      padding: 20px 0px;
     }
   }
 `;
@@ -82,7 +81,7 @@ const SlideIndicators = () => {
 };
 
 const SignUpWrapper = ({ RightMenuChildren, LeftMenuChildren }) => (
-  <div className="container">
+  <div className="container container-mobile">
     <BaseStyled>
       <LeftMenu>{LeftMenuChildren}</LeftMenu>
       <RightMenu>

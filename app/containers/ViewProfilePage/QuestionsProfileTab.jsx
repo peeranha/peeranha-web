@@ -41,6 +41,10 @@ const Rating = Span.extend`
   text-align: center;
   border-radius: 3px;
   margin: 0 20px;
+
+  @media only screen and (max-width: 576px) {
+    margin: 0 15px;
+  }
 `;
 
 const PostDate = Span.extend`
@@ -70,46 +74,52 @@ const Note = ({
   id,
   answerId,
 }) => (
-  <li>
-    <A
-      className="d-flex align-items-center py-1"
-      to={routes.questionView(
-        id,
-        postType === POST_TYPE_ANSWER ? answerId : null,
-      )}
-      href={routes.questionView(
-        id,
-        postType === POST_TYPE_ANSWER ? answerId : null,
-      )}
-    >
+  <A
+    className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
+    to={routes.questionView(
+      id,
+      postType === POST_TYPE_ANSWER ? answerId : null,
+    )}
+  >
+    <div className="d-flex align-items-center mb-to-sm-2">
       <PostTypeIcon
-        className="d-none d-sm-inline-block mr-0"
+        className="mr-0"
         postType={postType}
         isMyAnswerAccepted={isMyAnswerAccepted}
       />
 
-      <Rating
-        className="d-none d-sm-inline-block"
-        acceptedAnswer={acceptedAnswer}
+      <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
+
+      <PostDate
+        className="d-inline-block d-sm-none"
+        color={TEXT_SECONDARY}
+        fontSize="14"
+        mobileFS="12"
       >
-        {myPostRating}
-      </Rating>
-
-      <Span className="flex-grow-1 mr-3" mobileFS="14">
-        {title}
-      </Span>
-
-      <PostDate fontSize="14" color={TEXT_SECONDARY} mobileFS="12">
         {getTimeFromDateToNow(myPostTime, locale)}{' '}
         <FormattedMessage {...commonMessages.ago} />
       </PostDate>
-    </A>
-  </li>
+    </div>
+
+    <Span className="flex-grow-1 mb-to-sm-2 mr-3" mobileFS="14">
+      {title}
+    </Span>
+
+    <PostDate
+      className="d-none d-sm-inline-block"
+      color={TEXT_SECONDARY}
+      fontSize="14"
+      mobileFS="12"
+    >
+      {getTimeFromDateToNow(myPostTime, locale)}{' '}
+      <FormattedMessage {...commonMessages.ago} />
+    </PostDate>
+  </A>
 );
 
 const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
   <div className={className}>
-    <ul>
+    <div>
       {questions.map(x => (
         <Note
           {...x}
@@ -117,7 +127,7 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
           locale={locale}
         />
       ))}
-    </ul>
+    </div>
 
     {!questions[0] && loading && <LoadingIndicator />}
 

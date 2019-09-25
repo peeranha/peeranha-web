@@ -37,13 +37,15 @@ export const C3 = isColumnForSM => `
   }
 
   @media only screen and (max-width: 576px) {
+    background: none;
+    box-shadow: none;
+
     h3 {
       font-size: 28px;
       line-height: 28px;
 
       img {
         margin-right: 8px;
-        transform: scale(0.8);
       }
     }
 

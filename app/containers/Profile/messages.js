@@ -94,4 +94,7 @@ export default defineMessages({
   youAnswered: {
     id: 'app.containers.Profile.youAnswered',
   },
+  seeMore: {
+    id: 'app.containers.Profile.seeMore',
+  },
 });

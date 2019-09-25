@@ -118,7 +118,7 @@ export class Tags extends React.Component {
             tagsNumber={tagsNumber}
           />
 
-          <div className="my-3">{Content}</div>
+          <div className="mb-3">{Content}</div>
 
           <Banner openTagForm={this.goToCreateTagScreen} />
         </div>

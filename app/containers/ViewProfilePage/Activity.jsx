@@ -4,8 +4,10 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import H4 from 'components/H4';
+import Span from 'components/Span';
 import Base from 'components/Base';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
@@ -15,6 +17,7 @@ import profileMessages from 'containers/Profile/messages';
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
 
+/* eslint indent: 0 */
 const Activity = ({
   userId,
   questions,
@@ -117,6 +120,37 @@ const Activity = ({
           questions={questionsWithUserAnswers.slice(0, 10)}
           loading={questionsWithAnswersLoading}
         />
+
+        {!questionsWithAnswersLoading &&
+          !questionsLoading && (
+            <div className="mt-3">
+              <FormattedMessage
+                id={profileMessages.seeMore.id}
+                values={{
+                  questions: (
+                    <a
+                      className="text-lowercase"
+                      href={routes.userQuestions(userId)}
+                    >
+                      <Span color={TEXT_PRIMARY}>
+                        <FormattedMessage {...messages.questions} />
+                      </Span>
+                    </a>
+                  ),
+                  answers: (
+                    <a
+                      className="text-lowercase"
+                      href={routes.userAnswers(userId)}
+                    >
+                      <Span color={TEXT_PRIMARY}>
+                        <FormattedMessage {...messages.answers} />
+                      </Span>
+                    </a>
+                  ),
+                }}
+              />
+            </div>
+          )}
       </Base>
     </div>
   );

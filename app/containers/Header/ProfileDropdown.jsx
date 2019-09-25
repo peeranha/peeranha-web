@@ -11,7 +11,6 @@ import messages from 'common-messages';
 import logoutIcon from 'images/logout.svg?inline';
 
 import Cookies from 'utils/cookies';
-import { getQuestionCode } from 'utils/privacyPolicyManagement';
 
 import noAvatar from 'images/ico-user-no-photo.png';
 
@@ -137,7 +136,7 @@ const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
         </AStyled>
       </Li>
       <Li>
-        <AStyled to={routes.privacyPolicy(getQuestionCode())}>
+        <AStyled to={routes.privacyPolicy()}>
           <FormattedMessage {...messages.privacyPolicy} />
         </AStyled>
       </Li>

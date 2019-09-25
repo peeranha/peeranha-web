@@ -22,8 +22,8 @@ const AvatarArea = styled.div`
   overflow: hidden;
   position: relative;
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: ${x => x.size}px;
+  height: ${x => x.size}px;
   margin-bottom: 10px;
 
   ${x => ErrorHandling(x.error)};
@@ -57,10 +57,10 @@ const ButtonStyled = styled.button`
   right: ${x => x.right}px;
 `;
 
-const AvatarFieldStyled = styled.div`
+const Box = styled.div`
   position: relative;
   width: ${x => x.size}px;
-  height: ${x => x.size}px;
+  height: auto;
 `;
 
 function AvatarField({
@@ -80,8 +80,9 @@ function AvatarField({
   const displayAvatar = !editingImgState && cachedProfileImg;
 
   return (
-    <AvatarFieldStyled size={size}>
+    <Box size={size}>
       <AvatarArea
+        size={size}
         disabled={disabled}
         error={meta.touched && (meta.warning || meta.error)}
       >
@@ -152,7 +153,7 @@ function AvatarField({
           </ButtonStyled>
         </div>
       )}
-    </AvatarFieldStyled>
+    </Box>
   );
 }
 

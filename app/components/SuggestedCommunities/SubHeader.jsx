@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
+import languageIcon from 'images/ico-languages.svg?inline';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -26,7 +26,7 @@ const SubHeader = ({ setLang, language, languages }) => (
 
     <div className="right-panel">
       <Dropdown
-        button={<Button sorting={language} icon={communitiesHeaderFilter} />}
+        button={<Button sorting={language} icon={languageIcon} />}
         menu={
           <Menu
             changeSorting={setLang}

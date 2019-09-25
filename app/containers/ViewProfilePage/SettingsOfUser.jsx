@@ -11,7 +11,7 @@ import Cookies from 'utils/cookies';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import InfoButton from 'components/Button/Outlined/InfoLarge';
+import SecondaryButton from 'components/Button/Outlined/SecondaryLarge';
 
 import profileMessages from 'containers/Profile/messages';
 import signupMessages from 'containers/SignUp/messages';
@@ -64,6 +64,11 @@ const BaseStyled = Base.extend`
     }
 
     table {
+      tr {
+        display: flex;
+        flex-direction: column;
+      }
+
       tr td:not(:last-child) {
         padding-right: 20px;
       }
@@ -148,9 +153,9 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => (
     <div>
       <DeleteAccountButton
         render={({ onClick }) => (
-          <InfoButton onClick={onClick}>
+          <SecondaryButton onClick={onClick}>
             <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-          </InfoButton>
+          </SecondaryButton>
         )}
       />
     </div>

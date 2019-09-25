@@ -9,13 +9,14 @@ import Span from 'components/Span';
 
 export const WarningMessage = ({
   error,
+  active,
   warning,
   touched,
   className,
   tip,
   intl,
 }) =>
-  touched && (error || warning || tip) ? (
+  (touched && (error || warning)) || (active && tip) ? (
     <div className={`d-flex align-items-center ${className}`}>
       {tip && (
         <img
@@ -39,6 +40,7 @@ WarningMessage.propTypes = {
   className: PropTypes.string,
   tip: PropTypes.string,
   touched: PropTypes.bool,
+  active: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

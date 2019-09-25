@@ -30,7 +30,7 @@ const VoteDownButton = ({ id, communityId }) => (
     }) =>
       !isUpvoted && !isDownvoted ? (
         <OutlinedButtonStyled onClick={onClick} id={id}>
-          <FormattedMessage {...commonMessages.disagree} />
+          <FormattedMessage {...commonMessages.disagreeShort} />
         </OutlinedButtonStyled>
       ) : (
         <AlreadyVoted
@@ -39,7 +39,7 @@ const VoteDownButton = ({ id, communityId }) => (
           choice={isDownvoted}
         >
           <p className="pb-1">
-            <FormattedMessage {...commonMessages.disagree} />
+            <FormattedMessage {...commonMessages.disagreeShort} />
           </p>
           <p>{`${downvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>
         </AlreadyVoted>
