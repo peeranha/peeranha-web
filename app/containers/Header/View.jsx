@@ -66,7 +66,7 @@ const RoundedButton = LargeButton.extend`
 
 const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
-  const searchFormId = 'search-form-id';
+  const searchFormId = 'q';
 
   useEffect(
     () => {
