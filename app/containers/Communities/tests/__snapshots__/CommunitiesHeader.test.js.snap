@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header test 1`] = `
-<div>
+<div
+  className="mb-to-sm-0 mb-from-sm-3"
+>
   <Base
     position="top"
   >
@@ -43,10 +45,16 @@ exports[`Header test 1`] = `
       >
         <img
           alt="icon"
-          className="mr-1"
+          className="d-none d-sm-inline-block"
+          src="IMAGE_MOCK"
+        />
+        <img
+          alt="icon"
+          className="d-inline-block d-sm-none"
           src="IMAGE_MOCK"
         />
         <Span
+          className="ml-1"
           color="#576fed"
         >
           <FormattedMessage

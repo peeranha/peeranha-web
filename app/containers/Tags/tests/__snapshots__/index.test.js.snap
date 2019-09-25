@@ -23,7 +23,7 @@ exports[`<Tags /> render currentCommunity.tags.length > 0 1`] = `
       tagsNumber={10}
     />
     <div
-      className="my-3"
+      className="mb-3"
     />
     <UNDEFINED
       openTagForm={[Function]}

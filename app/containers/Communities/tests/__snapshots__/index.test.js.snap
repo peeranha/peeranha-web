@@ -2,7 +2,7 @@
 
 exports[`<Communities /> render communities [] 1`] = `
 <div
-  className="d-flex justify-content-center"
+  className="d-xl-flex"
 >
   <UNDEFINED
     description="Communities | Description"
@@ -11,7 +11,7 @@ exports[`<Communities /> render communities [] 1`] = `
     title="Communities"
   />
   <div
-    className="flex-grow-1"
+    className="flex-xl-grow-1"
   >
     <Header
       SubHeader={[Function]}
@@ -29,27 +29,23 @@ exports[`<Communities /> render communities [] 1`] = `
       setLang={[Function]}
       sorting={Object {}}
     />
-    <div
-      className="my-3"
-    >
-      <Content
-        communities={Array []}
-        getSuggestedCommunities={[Function]}
-        isLastFetch={false}
-        language={
-          Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
-          }
+    <Content
+      communities={Array []}
+      getSuggestedCommunities={[Function]}
+      isLastFetch={false}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
         }
-        locale="en"
-        sorting={Object {}}
-        suggestedCommunities={Array []}
-        suggestedCommunitiesLoading={true}
-      />
-    </div>
+      }
+      locale="en"
+      sorting={Object {}}
+      suggestedCommunities={Array []}
+      suggestedCommunitiesLoading={true}
+    />
     <UNDEFINED />
   </div>
   <Base
@@ -65,7 +61,7 @@ exports[`<Communities /> render communities [] 1`] = `
 
 exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
 <div
-  className="d-flex justify-content-center"
+  className="d-xl-flex"
 >
   <UNDEFINED
     description="Communities | Description"
@@ -78,7 +74,7 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
     title="Communities"
   />
   <div
-    className="flex-grow-1"
+    className="flex-xl-grow-1"
   >
     <Header
       SubHeader={[Function]}
@@ -96,33 +92,29 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       setLang={[Function]}
       sorting={Object {}}
     />
-    <div
-      className="my-3"
-    >
-      <Content
-        communities={
-          Array [
-            Object {
-              "id": 1,
-            },
-          ]
-        }
-        getSuggestedCommunities={[Function]}
-        isLastFetch={false}
-        language={
+    <Content
+      communities={
+        Array [
           Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
-          }
+            "id": 1,
+          },
+        ]
+      }
+      getSuggestedCommunities={[Function]}
+      isLastFetch={false}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
         }
-        locale="en"
-        sorting={Object {}}
-        suggestedCommunities={Array []}
-        suggestedCommunitiesLoading={true}
-      />
-    </div>
+      }
+      locale="en"
+      sorting={Object {}}
+      suggestedCommunities={Array []}
+      suggestedCommunitiesLoading={true}
+    />
     <UNDEFINED />
   </div>
   <Base

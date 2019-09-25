@@ -2,7 +2,7 @@
 
 exports[`Header parentPage === feed 1`] = `
 <Base
-  className="d-flex justify-content-start mb-3"
+  className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
   isColumnForSM={true}
 >
   <Connect(CommunitySelector)
@@ -16,7 +16,7 @@ exports[`Header parentPage === feed 1`] = `
 
 exports[`Header snapshot test 1`] = `
 <Base
-  className="d-flex justify-content-start mb-3"
+  className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
   isColumnForSM={true}
 >
   <Connect(CommunitySelector)

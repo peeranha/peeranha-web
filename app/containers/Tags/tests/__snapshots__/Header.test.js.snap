@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header test 1`] = `
-<div>
+<div
+  className="mb-to-sm-0 mb-from-sm-3"
+>
   <Base
     position="top"
   >
@@ -64,14 +66,23 @@ exports[`Header test 1`] = `
         onClick={[MockFunction]}
       >
         <img
-          alt="icoTagIcon"
-          className="mr-1"
+          alt="icon"
+          className="d-none d-sm-inline-block"
           src="IMAGE_MOCK"
         />
-        <FormattedMessage
-          id="app.common.suggestTag"
-          values={Object {}}
+        <img
+          alt="icon"
+          className="d-inline-block d-sm-none"
+          src="IMAGE_MOCK"
         />
+        <span
+          className="ml-1"
+        >
+          <FormattedMessage
+            id="app.common.suggestTag"
+            values={Object {}}
+          />
+        </span>
       </Button>
     </div>
   </Base>

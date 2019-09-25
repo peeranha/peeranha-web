@@ -13,16 +13,11 @@ exports[`Content Content, snapshot test 1`] = `
 `;
 
 exports[`Content QuestionItem, snapshot test 1`] = `
-<Base
-  className="d-flex flex-wrap mt-3"
-  overflowHidden={true}
->
-  <Base
-    className="d-flex flex-wrap col-12 col-sm-3 col-md-2 p-0"
+<Base>
+  <div
+    className="d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0"
   >
-    <Base
-      className="col-6 col-sm-12"
-    >
+    <Base>
       <span
         className="d-flex align-items-center"
       >
@@ -37,9 +32,7 @@ exports[`Content QuestionItem, snapshot test 1`] = `
         />
       </span>
     </Base>
-    <Base
-      className="col-6 col-sm-12"
-    >
+    <Base>
       <span
         className="d-flex align-items-center"
       >
@@ -54,10 +47,8 @@ exports[`Content QuestionItem, snapshot test 1`] = `
         />
       </span>
     </Base>
-  </Base>
-  <Base
-    className="col-12 col-sm-9 col-md-10"
-  >
+  </div>
+  <Base>
     <p
       className="mb-1"
     >
@@ -91,15 +82,7 @@ exports[`Content QuestionItem, snapshot test 1`] = `
           className="text-capitalize mr-3"
           color="#7b7b7b"
           fontSize="14"
-        >
-          <FormattedMessage
-            id="app.common.asked"
-            values={Object {}}
-          />
-          <span
-            className="pl-1"
-          />
-        </Span>
+        />
       </A>
     </p>
     <div
