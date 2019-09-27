@@ -2,6 +2,9 @@
 export const home = section => `/${section ? `#${section}` : ''}`;
 export const faq = () => `/faq`;
 
+export const notFound = () => `/404`;
+export const errorPage = () => `/error-occured`;
+
 export const profileView = id => `/users/${id}`;
 
 export const profileViewActivityQuestions = id =>

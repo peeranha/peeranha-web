@@ -17,6 +17,8 @@ import { Switch, Route } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import ErrorBoundary from 'components/ErrorBoundary';
+
 import Wrapper from './Wrapper';
 
 import {
@@ -28,6 +30,7 @@ import {
   EditProfilePage,
   ViewProfilePage,
   NotFoundPage,
+  ErrorPage,
   Questions,
   AskQuestion,
   ViewQuestion,
@@ -62,7 +65,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <ErrorBoundary>
       <Toast />
       <Login />
       <ForgotPassword />
@@ -195,6 +198,11 @@ export default function App() {
           render={props => Wrapper(Search, props)}
         />
 
+        <Route
+          path={routes.errorPage()}
+          render={props => Wrapper(ErrorPage, props)}
+        />
+
         <Route path={routes.signup.email.name}>
           <React.Suspense fallback={<Loader />}>
             <EmailEnteringForm />
@@ -233,6 +241,6 @@ export default function App() {
 
         <Route render={props => Wrapper(NotFoundPage, props)} />
       </Switch>
-    </div>
+    </ErrorBoundary>
   );
 }

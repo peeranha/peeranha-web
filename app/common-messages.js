@@ -219,4 +219,7 @@ export default defineMessages({
   change: {
     id: 'app.common.change',
   },
+  contactUs: {
+    id: 'app.common.contactUs',
+  },
 });

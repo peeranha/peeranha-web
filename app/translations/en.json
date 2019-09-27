@@ -70,6 +70,7 @@
   "app.common.energy": "Energy",
   "app.common.show": "Show",
   "app.common.change": "Change",
+  "app.common.contactUs": "Contact us",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -642,6 +643,21 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
+
+  "app.containers.ErrorPage.title": "Some error occured...",
+  "app.containers.ErrorPage.description": "Some error occured... description",
+  "app.containers.ErrorPage.weAreSorry":
+    "We're sorry, unexpected error has happened.",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "We're sorry, we couldn't find the page you requested.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Try to browse our recent {value}.",
+  "app.containers.NotFoundPage.browseOurPopular": "Browse our popular {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "If you feel something is missing that should be here, {value}.",
 
   "app.containers.QuestionForm.communityTip": "Community tip...",
   "app.containers.QuestionForm.titleTip": "Title tip...",

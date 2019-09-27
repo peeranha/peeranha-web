@@ -20,40 +20,26 @@ import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import notFoundImage from 'images/404.svg?inline';
+import errorImage from 'images/oops.svg?inline';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import notFoundPageMessages from 'containers/NotFoundPage/messages';
+import { Box } from 'containers/NotFoundPage';
 
 import A from 'components/A';
 import P from 'components/P';
 import Seo from 'components/Seo';
 import Span from 'components/Span';
-import Base from 'components/Base/BaseRounded';
 
-import messages from './messages';
-
-export const Box = Base.extend`
-  text-align: center;
-  padding-top: 50px !important;
-  padding-bottom: 150px !important;
-
-  img {
-    margin-top: 50px;
-    margin-bottom: 25px;
-  }
-
-  @media only screen and (max-width: 768px) {
-    img {
-      width: 100%;
-    }
-  }
-`;
+import errorPageMessages from './messages';
 
 const NotFound = ({ locale }) => (
   <React.Fragment>
     <Seo
-      title={translationMessages[locale][messages.title.id]}
-      description={translationMessages[locale][messages.description.id]}
+      title={translationMessages[locale][errorPageMessages.title.id]}
+      description={
+        translationMessages[locale][errorPageMessages.description.id]
+      }
       language={locale}
       index={false}
     />
@@ -61,18 +47,18 @@ const NotFound = ({ locale }) => (
     <Box>
       <div>
         <Span fontSize="24" bold>
-          <FormattedMessage {...messages.weAreSorry} />
+          <FormattedMessage {...errorPageMessages.weAreSorry} />
         </Span>
       </div>
 
       <div>
-        <img src={notFoundImage} alt="404 page" />
+        <img src={errorImage} alt="404 page" />
       </div>
 
       <div>
         <P className="text-center mb-1">
           <FormattedMessage
-            id={messages.tryToBrowse.id}
+            id={notFoundPageMessages.tryToBrowse.id}
             values={{
               value: (
                 <A className="text-lowercase" to={routes.questions()}>
@@ -86,7 +72,7 @@ const NotFound = ({ locale }) => (
         </P>
         <P className="text-center mb-1">
           <FormattedMessage
-            id={messages.browseOurPopular.id}
+            id={notFoundPageMessages.browseOurPopular.id}
             values={{
               value: (
                 <A className="text-lowercase" to={routes.communities()}>
@@ -100,7 +86,7 @@ const NotFound = ({ locale }) => (
         </P>
         <P className="text-center mb-1">
           <FormattedMessage
-            id={messages.ifYouFeelSomething.id}
+            id={notFoundPageMessages.ifYouFeelSomething.id}
             values={{
               value: (
                 <A className="text-lowercase" to={routes.support()}>

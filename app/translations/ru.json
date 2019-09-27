@@ -70,6 +70,7 @@
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
   "app.common.change": "Изменить",
+  "app.common.contactUs": "Сообщите нам",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -637,6 +638,22 @@
   "app.containers.AskQuestion.title": "Задать вопрос",
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+
+  "app.containers.ErrorPage.title": "Возникла ошибка...",
+  "app.containers.ErrorPage.description": "Возникла ошибка... описание",
+  "app.containers.ErrorPage.weAreSorry":
+    "Мы извиняемся, возникла неожиданная ошибка...",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "Мы извиняемся, такой страницы не существует.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Попробуйте посмотреть наши последние {value}.",
+  "app.containers.NotFoundPage.browseOurPopular":
+    "Посмотрите наши популярные {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
   "app.containers.Questions.noQuestions": "Вопросов нет",

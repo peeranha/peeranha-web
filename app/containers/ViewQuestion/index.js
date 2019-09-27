@@ -49,7 +49,6 @@ import saga from './saga';
 import { TEXTAREA_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
-import NoSuchQuestion from './NoSuchQuestion';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewQuestion extends React.Component {
@@ -64,6 +63,10 @@ export class ViewQuestion extends React.Component {
       nextProps.questionDataLoading !== this.props.questionDataLoading
     ) {
       setTimeout(() => scrollToSection(), 250);
+    }
+
+    if (!nextProps.questionDataLoading && !nextProps.questionData) {
+      this.props.history.push(routes.notFound());
     }
   };
 
@@ -323,8 +326,6 @@ export class ViewQuestion extends React.Component {
 
         {!questionDataLoading &&
           questionData && <ViewQuestionContainer {...sendProps} />}
-
-        {!questionDataLoading && !questionData && <NoSuchQuestion />}
 
         {questionDataLoading && <LoadingIndicator />}
       </React.Fragment>
