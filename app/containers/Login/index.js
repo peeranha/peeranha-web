@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -122,15 +122,21 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    hideLoginModalDispatch: () => dispatch(hideLoginModal()),
-    showEmailPasswordFormDispatch: email =>
-      dispatch(showEmailPasswordForm(email)),
-    loginWithEmailDispatch: val => dispatch(loginWithEmail(val)),
-    loginWithScatterDispatch: () => dispatch(loginWithScatter()),
-    showForgotPasswordModalDispatch: () => dispatch(showForgotPasswordModal()),
-    finishRegistrationDispatch: val =>
-      dispatch(finishRegistrationWithDisplayName(val)),
+    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
+    showEmailPasswordFormDispatch: bindActionCreators(
+      showEmailPasswordForm,
+      dispatch,
+    ),
+    loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
+    loginWithScatterDispatch: bindActionCreators(loginWithScatter, dispatch),
+    showForgotPasswordModalDispatch: bindActionCreators(
+      showForgotPasswordModal,
+      dispatch,
+    ),
+    finishRegistrationDispatch: bindActionCreators(
+      finishRegistrationWithDisplayName,
+      dispatch,
+    ),
   };
 }
 

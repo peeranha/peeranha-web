@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 import * as routes from 'routes-config';
 
@@ -41,8 +41,8 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import QuestionsContainer from './QuestionsContainer';
-import NoQuestions from './NoQuestions';
+import View from './View';
+import Banner from './Banner';
 
 const feed = routes.feed();
 
@@ -162,13 +162,13 @@ export class Questions extends React.PureComponent {
           isLoading={questionsLoading}
           isLastFetch={isLastFetch}
         >
-          <QuestionsContainer {...sendProps} />
+          <View {...sendProps} />
         </InfinityLoader>
 
         {!questionsList.length &&
           !questionsLoading &&
           !communitiesLoading && (
-            <NoQuestions
+            <Banner
               isFeed={parentPage === feed}
               followedCommunities={followedCommunities}
             />
@@ -214,9 +214,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getQuestionsDispatch: (limit, offset, comId, parentPage, fetcher, next) =>
-      dispatch(getQuestions(limit, offset, comId, parentPage, fetcher, next)),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
   };
 }
 

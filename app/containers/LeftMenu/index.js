@@ -8,105 +8,73 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
-import * as routes from 'routes-config';
-import styled from 'styled-components';
-import { TEXT_LIGHT, TEXT_PRIMARY_DARK } from 'style-constants';
+import { TEXT_LIGHT } from 'style-constants';
 
 import closeIcon from 'images/close.svg?external';
 import Icon from 'components/Icon';
+
+import {
+  makeSelectProfileInfo,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
+
+import { showLoginModal } from 'containers/Login/actions';
+
 import Span from 'components/Span';
 
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { selectPrivacyPolicy } from 'containers/PrivacyPolicy/selectors';
-
-import FixedContentForPrivacyPolicy from 'containers/PrivacyPolicy/LeftMenu';
-
-import FixedContent from './FixedContent';
-
-/* istanbul ignore next */
-const Aside = styled.aside`
-  ${props =>
-    props.isMenuVisible
-      ? `
-    width: 100%;
-    min-height: 100vh;`
-      : `
-    flex: 0 0 ${LEFT_MENU_WIDTH}px;
-    margin-top: 15px;
-    margin-right: 15px;
-  `};
-`;
-
-const After = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 100vh;
-  z-index: 9999;
-  background: ${TEXT_PRIMARY_DARK}E6;
-  display: flex;
-  justify-content: center;
-  padding: 25px 0;
-`;
+import View from './View';
+import { Aside, After } from './Styles';
 
 const LeftMenu = /* istanbul ignore next */ ({
   profile,
   isMenuVisible,
-  isNavigationExpanded,
   showMenu,
-  privacyPolicy,
-}) => {
-  const { pathname } = window.location;
-
-  return (
-    <Aside
+  balance,
+  showLoginModalDispatch,
+}) => (
+  <Aside
+    isMenuVisible={isMenuVisible}
+    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}`}
+  >
+    <View
       isMenuVisible={isMenuVisible}
-      className={`${isMenuVisible ? 'd-block' : 'd-none d-lg-block'}`}
-    >
-      {pathname === routes.privacyPolicy() ? (
-        <FixedContentForPrivacyPolicy
-          isMenuVisible={isMenuVisible}
-          privacyPolicy={privacyPolicy}
-        />
-      ) : (
-        <FixedContent
-          isNavigationExpanded={isNavigationExpanded}
-          isMenuVisible={isMenuVisible}
-          profile={profile}
-        />
-      )}
+      profile={profile}
+      balance={balance}
+      showLoginModal={showLoginModalDispatch}
+    />
 
-      {isMenuVisible && (
-        <After onClick={showMenu}>
-          <Span color={TEXT_LIGHT}>
-            <Icon width="16" icon={closeIcon} noMargin />
-          </Span>
-        </After>
-      )}
-    </Aside>
-  );
-};
+    <After isMenuVisible={isMenuVisible} onClick={showMenu}>
+      <Span color={TEXT_LIGHT}>
+        <Icon width="16" icon={closeIcon} noMargin />
+      </Span>
+    </After>
+  </Aside>
+);
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
-  isNavigationExpanded: PropTypes.bool,
   showMenu: PropTypes.func,
-  privacyPolicy: PropTypes.array,
+  showLoginModalDispatch: PropTypes.func,
+  balance: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
-  privacyPolicy: selectPrivacyPolicy(),
+  balance: makeSelectBalance(),
 });
+
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+  return {
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+  };
+}
 
 const withConnect = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 );
 
 export default compose(withConnect)(LeftMenu);

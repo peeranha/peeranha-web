@@ -10,17 +10,15 @@ import {
   CHANGE_PASSWORD_ERROR,
   SHOW_CHANGE_PASSWORD_MODAL,
   HIDE_CHANGE_PASSWORD_MODAL,
-  EMAIL_FORM,
   EMAIL_FIELD,
   CODE_FIELD,
 } from './constants';
 
 // Modal actions
 
-export function showChangePasswordModal(content) {
+export function showChangePasswordModal() {
   return {
     type: SHOW_CHANGE_PASSWORD_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 

@@ -5,9 +5,9 @@ import Aside from './Aside';
 import Content from './Content';
 import SubHeader from './SubHeader';
 
-import sortingOptions from './SortingOptions';
+import sortingOptions from './sortingOptions';
 
-export const ExistingCommunities = /* istanbul ignore next */ () => {
+export const ExistingCommunities = () => {
   const [sorting, changeSorting] = useState(
     sortingOptions[Object.keys(sortingOptions)[0]],
   );

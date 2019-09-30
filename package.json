@@ -39,8 +39,8 @@
     "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --fix",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
-    "test:clean": "rimraf ./coverage",
     "pretest": "npm run prettify './app/**/*.js' && npm run test:clean && npm run lint",
+    "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --no-cache",
     "test:file": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
@@ -121,8 +121,9 @@
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
       "!app/global-styles.js",
-      "!app/*/*/Loadable.{js,jsx}",
-      "!app/utils/web_integration/**/*.{js,jsx}"
+      "!app/utils/web_integration/**/*.{js,jsx}",
+      "!app/components/**/*.{js,jsx}",
+      "!app/containers/App/*.{js,jsx}"
     ],
     "coverageThreshold": {
       "global": {
@@ -188,7 +189,7 @@
     "react-redux": "5.0.7",
     "react-router-dom": "4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
-    "react-select": "^2.2.0",
+    "react-select": "^3.0.4",
     "react-simplemde-editor": "^3.6.22",
     "redux": "4.0.0",
     "redux-form": "^7.4.2",

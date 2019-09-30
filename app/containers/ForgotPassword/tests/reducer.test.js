@@ -20,6 +20,7 @@ import {
   VERIFICATION_CODE_FORM,
   VERIFICATION_CODE_FIELD,
   NEW_PASSWORD_FORM,
+  EMAIL_FORM,
 } from '../constants';
 
 describe('forgotPasswordReducer', () => {
@@ -35,12 +36,11 @@ describe('forgotPasswordReducer', () => {
   });
 
   it('SHOW_FORGOT_PASSWORD_MODAL', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
 
-    expect(
-      forgotPasswordReducer(state, showForgotPasswordModal(content)),
-    ).toEqual(obj);
+    expect(forgotPasswordReducer(state, showForgotPasswordModal())).toEqual(
+      obj,
+    );
   });
 
   it('HIDE_FORGOT_PASSWORD_MODAL', () => {

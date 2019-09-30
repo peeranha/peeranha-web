@@ -63,6 +63,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  usersShort: {
+    id: 'app.common.usersShort',
+  },
   faq: {
     id: 'app.common.faq',
   },
@@ -77,6 +80,9 @@ export default defineMessages({
   },
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
+  },
+  privacyPolicyShort: {
+    id: 'app.common.privacyPolicyShort',
   },
   asked: {
     id: 'app.common.asked',
@@ -144,6 +150,9 @@ export default defineMessages({
   disagree: {
     id: 'app.common.disagree',
   },
+  disagreeShort: {
+    id: 'app.common.disagreeShort',
+  },
   tips: {
     id: 'app.common.tips',
   },
@@ -209,5 +218,8 @@ export default defineMessages({
   },
   change: {
     id: 'app.common.change',
+  },
+  contactUs: {
+    id: 'app.common.contactUs',
   },
 });

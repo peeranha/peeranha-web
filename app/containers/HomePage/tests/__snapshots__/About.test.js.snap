@@ -23,124 +23,106 @@ exports[`About test1 1`] = `
           values={Object {}}
         />
       </h3>
-      <div
-        className="row second-screen-elements"
+      <ul
+        className="row second-screen-elements main-difference"
       >
-        <ul
-          className="col-lg-12 main-difference"
+        <li
+          className="col-lg-4"
         >
           <div
-            className="row"
+            className="card"
           >
-            <li
-              className="col-lg-4"
+            <img
+              alt="rewardingImg"
+              src="IMAGE_MOCK"
+            />
+            <div
+              className="card-body"
             >
-              <div
-                className="card row"
+              <h4
+                className="item-title"
               >
-                <div
-                  className="col-lg-12"
-                >
-                  <img
-                    alt="rewardingImg"
-                    src="IMAGE_MOCK"
-                  />
-                </div>
-                <div
-                  className="card-body"
-                >
-                  <h4
-                    className="item-title"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.rewardingUser"
-                      values={Object {}}
-                    />
-                  </h4>
-                  <p
-                    className="item-content"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.peopleSaveHours"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li
-              className="col-lg-4"
-            >
-              <div
-                className="card row"
+                <FormattedMessage
+                  id="app.containers.HomePage.rewardingUser"
+                  values={Object {}}
+                />
+              </h4>
+              <p
+                className="item-content"
               >
-                <div
-                  className="col-lg-12"
-                >
-                  <img
-                    alt="ownershipImg"
-                    src="IMAGE_MOCK"
-                  />
-                </div>
-                <div
-                  className="card-body"
-                >
-                  <h4
-                    className="item-title"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.ownershipByUsers"
-                      values={Object {}}
-                    />
-                  </h4>
-                  <p
-                    className="item-content"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.peeranhaDecentralized"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li
-              className="col-lg-4"
-            >
-              <div
-                className="card row"
-              >
-                <div>
-                  <img
-                    alt="valuingImg"
-                    src="IMAGE_MOCK"
-                  />
-                </div>
-                <div
-                  className="card-body"
-                >
-                  <h4
-                    className="item-title"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.earlyAdopters"
-                      values={Object {}}
-                    />
-                  </h4>
-                  <p
-                    className="item-content"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.peeranhaPhilosophy"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
-            </li>
+                <FormattedMessage
+                  id="app.containers.HomePage.peopleSaveHours"
+                  values={Object {}}
+                />
+              </p>
+            </div>
           </div>
-        </ul>
-      </div>
+        </li>
+        <li
+          className="col-lg-4"
+        >
+          <div
+            className="card"
+          >
+            <img
+              alt="ownershipImg"
+              src="IMAGE_MOCK"
+            />
+            <div
+              className="card-body"
+            >
+              <h4
+                className="item-title"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.ownershipByUsers"
+                  values={Object {}}
+                />
+              </h4>
+              <p
+                className="item-content"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.peeranhaDecentralized"
+                  values={Object {}}
+                />
+              </p>
+            </div>
+          </div>
+        </li>
+        <li
+          className="col-lg-4"
+        >
+          <div
+            className="card"
+          >
+            <img
+              alt="valuingImg"
+              src="IMAGE_MOCK"
+            />
+            <div
+              className="card-body"
+            >
+              <h4
+                className="item-title"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.earlyAdopters"
+                  values={Object {}}
+                />
+              </h4>
+              <p
+                className="item-content"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.peeranhaPhilosophy"
+                  values={Object {}}
+                />
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </Gradient>
   <div
@@ -152,295 +134,271 @@ exports[`About test1 1`] = `
       <ul
         className="col-lg-12 list-items"
       >
-        <div
+        <li
           className="row"
         >
-          <li
-            className="col-lg-12"
+          <div
+            className="d-none d-md-block col-lg-6 block1"
+          >
+            <img
+              alt="simpleAndAffordable"
+              className="about-page-image"
+              src="IMAGE_MOCK"
+            />
+          </div>
+          <div
+            className="col-lg-6 block2"
           >
             <div
-              className="row"
+              className="row about-page-text-animation"
             >
+              <h5
+                className="col-lg-12 text-1"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.simpleAndAffordable"
+                  values={Object {}}
+                />
+              </h5>
+              <h5
+                className="col-lg-12 text-2"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.getHelp"
+                  values={Object {}}
+                />
+              </h5>
               <div
-                className="d-none d-md-block col-lg-6 block1"
+                className="d-block d-md-none col-lg-12"
               >
                 <img
                   alt="simpleAndAffordable"
-                  className="about-page-image"
                   src="IMAGE_MOCK"
                 />
               </div>
-              <div
-                className="col-lg-6 block2"
+              <p
+                className="col-lg-12 text-3"
               >
-                <div
-                  className="row about-page-text-animation"
-                >
-                  <h5
-                    className="col-lg-12 text-1"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.simpleAndAffordable"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <h5
-                    className="col-lg-12 text-2"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.getHelp"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <div
-                    className="d-block d-md-none col-lg-12"
-                  >
-                    <img
-                      alt="simpleAndAffordable"
-                      src="IMAGE_MOCK"
-                    />
-                  </div>
-                  <p
-                    className="col-lg-12 text-3"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.askQuestionAndGetHelp"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.askQuestionAndGetHelp"
+                  values={Object {}}
+                />
+              </p>
             </div>
-          </li>
-          <li
-            className="col-lg-12"
+          </div>
+        </li>
+        <li
+          className="row"
+        >
+          <div
+            className="d-none d-md-block col-lg-6 block1"
+          >
+            <img
+              alt="helpfulAndGenerous"
+              className="about-page-image"
+              src="IMAGE_MOCK"
+            />
+          </div>
+          <div
+            className="col-lg-6 block2"
           >
             <div
-              className="row"
+              className="row about-page-text-animation"
             >
+              <h5
+                className="col-lg-12 text-1"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.helpfulAndGenerous"
+                  values={Object {}}
+                />
+              </h5>
+              <h5
+                className="col-lg-12 text-2"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.shareKnowledge"
+                  values={Object {}}
+                />
+              </h5>
               <div
-                className="d-none d-md-block col-lg-6 block1"
+                className="d-block d-md-none col-lg-12"
               >
                 <img
                   alt="helpfulAndGenerous"
-                  className="about-page-image"
                   src="IMAGE_MOCK"
                 />
               </div>
-              <div
-                className="col-lg-6 block2"
+              <p
+                className="col-lg-12 text-3"
               >
-                <div
-                  className="row about-page-text-animation"
-                >
-                  <h5
-                    className="col-lg-12 text-1"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.helpfulAndGenerous"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <h5
-                    className="col-lg-12 text-2"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.shareKnowledge"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <div
-                    className="d-block d-md-none col-lg-12"
-                  >
-                    <img
-                      alt="helpfulAndGenerous"
-                      src="IMAGE_MOCK"
-                    />
-                  </div>
-                  <p
-                    className="col-lg-12 text-3"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.helpCommunity"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.helpCommunity"
+                  values={Object {}}
+                />
+              </p>
             </div>
-          </li>
-          <li
-            className="col-lg-12"
+          </div>
+        </li>
+        <li
+          className="row"
+        >
+          <div
+            className="d-none d-md-block col-lg-6 block1"
+          >
+            <img
+              alt="profitableAndModern"
+              className="about-page-image"
+              src="IMAGE_MOCK"
+            />
+          </div>
+          <div
+            className="col-lg-6 block2"
           >
             <div
-              className="row"
+              className="row about-page-text-animation"
             >
+              <h5
+                className="col-lg-12 text-1"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.profitableAndModern"
+                  values={Object {}}
+                />
+              </h5>
+              <h5
+                className="col-lg-12 text-2"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.getPaidInCrypto"
+                  values={Object {}}
+                />
+              </h5>
               <div
-                className="d-none d-md-block col-lg-6 block1"
+                className="d-block d-md-none col-lg-12"
               >
                 <img
                   alt="profitableAndModern"
-                  className="about-page-image"
                   src="IMAGE_MOCK"
                 />
               </div>
-              <div
-                className="col-lg-6 block2"
+              <p
+                className="col-lg-12 text-3"
               >
-                <div
-                  className="row about-page-text-animation"
-                >
-                  <h5
-                    className="col-lg-12 text-1"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.profitableAndModern"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <h5
-                    className="col-lg-12 text-2"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.getPaidInCrypto"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <div
-                    className="d-block d-md-none col-lg-12"
-                  >
-                    <img
-                      alt="profitableAndModern"
-                      src="IMAGE_MOCK"
-                    />
-                  </div>
-                  <p
-                    className="col-lg-12 text-3"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.getPaidInCryptoFromWeekly"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.getPaidInCryptoFromWeekly"
+                  values={Object {}}
+                />
+              </p>
             </div>
-          </li>
-          <li
-            className="col-lg-12"
+          </div>
+        </li>
+        <li
+          className="row"
+        >
+          <div
+            className="d-none d-md-block col-lg-6 block1"
+          >
+            <img
+              alt="worthyAndPrestig"
+              className="about-page-image"
+              src="IMAGE_MOCK"
+            />
+          </div>
+          <div
+            className="col-lg-6 block2"
           >
             <div
-              className="row"
+              className="row about-page-text-animation"
             >
+              <h5
+                className="col-lg-12 text-1"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.worthyAndPrestig"
+                  values={Object {}}
+                />
+              </h5>
+              <h5
+                className="col-lg-12 text-2"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.earnReputation"
+                  values={Object {}}
+                />
+              </h5>
               <div
-                className="d-none d-md-block col-lg-6 block1"
+                className="d-block d-md-none col-lg-12"
               >
                 <img
                   alt="worthyAndPrestig"
-                  className="about-page-image"
                   src="IMAGE_MOCK"
                 />
               </div>
-              <div
-                className="col-lg-6 block2"
+              <p
+                className="col-lg-12 text-3"
               >
-                <div
-                  className="row about-page-text-animation"
-                >
-                  <h5
-                    className="col-lg-12 text-1"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.worthyAndPrestig"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <h5
-                    className="col-lg-12 text-2"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.earnReputation"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <div
-                    className="d-block d-md-none col-lg-12"
-                  >
-                    <img
-                      alt="worthyAndPrestig"
-                      src="IMAGE_MOCK"
-                    />
-                  </div>
-                  <p
-                    className="col-lg-12 text-3"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.whetherYouAsk"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.whetherYouAsk"
+                  values={Object {}}
+                />
+              </p>
             </div>
-          </li>
-          <li
-            className="col-lg-12"
+          </div>
+        </li>
+        <li
+          className="row"
+        >
+          <div
+            className="d-none d-md-block col-lg-6 block1"
+          >
+            <img
+              alt="honorableAndFascinating"
+              className="about-page-image"
+              src="IMAGE_MOCK"
+            />
+          </div>
+          <div
+            className="col-lg-6 block2"
           >
             <div
-              className="row"
+              className="row about-page-text-animation"
             >
+              <h5
+                className="col-lg-12 text-1"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.honorableAndFascinating"
+                  values={Object {}}
+                />
+              </h5>
+              <h5
+                className="col-lg-12 text-2"
+              >
+                <FormattedMessage
+                  id="app.containers.HomePage.ruleThePlatform"
+                  values={Object {}}
+                />
+              </h5>
               <div
-                className="d-none d-md-block col-lg-6 block1"
+                className="d-block d-md-none col-lg-12"
               >
                 <img
                   alt="honorableAndFascinating"
-                  className="about-page-image"
                   src="IMAGE_MOCK"
                 />
               </div>
-              <div
-                className="col-lg-6 block2"
+              <p
+                className="col-lg-12 text-3"
               >
-                <div
-                  className="row about-page-text-animation"
-                >
-                  <h5
-                    className="col-lg-12 text-1"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.honorableAndFascinating"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <h5
-                    className="col-lg-12 text-2"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.ruleThePlatform"
-                      values={Object {}}
-                    />
-                  </h5>
-                  <div
-                    className="d-block d-md-none col-lg-12"
-                  >
-                    <img
-                      alt="honorableAndFascinating"
-                      src="IMAGE_MOCK"
-                    />
-                  </div>
-                  <p
-                    className="col-lg-12 text-3"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.participateInModeration"
-                      values={Object {}}
-                    />
-                  </p>
-                </div>
-              </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.participateInModeration"
+                  values={Object {}}
+                />
+              </p>
             </div>
-          </li>
-        </div>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

@@ -14,17 +14,48 @@ import Span from 'components/Span';
 
 import Wrapper from './Wrapper';
 
-/* istanbul ignore next */
 const Div = styled.div`
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
+
+  font-size: 16px;
+  line-height: 18px;
 
   .${TEXT_EDITOR_CLASSNAME} > div {
     border: none;
   }
 
+  * {
+    word-break: break-all;
+  }
+
   .editor-toolbar {
     border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT} !important;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .CodeMirror,
+    .CodeMirror-scroll {
+      min-height: 200px;
+    }
+
+    .editor-toolbar {
+      margin: 0 10px;
+      display: block;
+      padding: 0;
+      overflow: scroll;
+      white-space: nowrap;
+
+      &:before,
+      &:after {
+        margin: 0 !important;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+    line-height: 18px;
   }
 `;
 
@@ -34,7 +65,7 @@ const PreviewWrapper = styled.div`
   border-bottom: 1px dashed ${BORDER_SECONDARY_LIGHT};
 `;
 
-export const TextEditorField = /* istanbul ignore next */ ({
+export const TextEditorField = ({
   input,
   label,
   previewLabel,

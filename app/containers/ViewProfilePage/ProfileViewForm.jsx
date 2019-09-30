@@ -8,7 +8,7 @@ import AdditionalUserInformation from './AdditionalUserInformation';
 import CommunitiesForm from './CommunitiesForm';
 import Activity from './Activity';
 
-const ProfileViewForm = /* istanbul ignore next */ ({
+const ProfileViewForm = ({
   profile,
   account,
   userId,

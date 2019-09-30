@@ -32,13 +32,13 @@ const Wrapper = styled.div`
 export class CommunitySelector extends React.PureComponent {
   state = { isOpen: false };
 
-  toggleOpen = /* istanbul ignore next */ () => {
+  toggleOpen = () => {
     if (!this.props.disabled) {
       this.setState(state => ({ isOpen: !state.isOpen }));
     }
   };
 
-  onSelectChange = /* istanbul ignore next */ x => {
+  onSelectChange = x => {
     const { input, toggle } = this.props;
 
     this.toggleOpen();
@@ -54,7 +54,7 @@ export class CommunitySelector extends React.PureComponent {
     }
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const { isOpen } = this.state;
     const {
       input = {},
@@ -116,6 +116,7 @@ export class CommunitySelector extends React.PureComponent {
 
     return (
       <Dropdown
+        isCommunitySelector
         isArrowed={isArrowed}
         isOpen={isOpen}
         toggle={this.toggleOpen}

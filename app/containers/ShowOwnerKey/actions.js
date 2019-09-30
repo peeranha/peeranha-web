@@ -13,16 +13,14 @@ import {
   SEND_EMAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
-  EMAIL_FORM,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   CODE_FIELD,
 } from './constants';
 
-export function showOwnerKeyModal(content) {
+export function showOwnerKeyModal() {
   return {
     type: SHOW_OWNER_KEY_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 

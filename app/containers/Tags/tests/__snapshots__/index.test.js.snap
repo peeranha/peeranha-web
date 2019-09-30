@@ -23,14 +23,14 @@ exports[`<Tags /> render currentCommunity.tags.length > 0 1`] = `
       tagsNumber={10}
     />
     <div
-      className="my-3"
+      className="mb-3"
     />
     <UNDEFINED
       openTagForm={[Function]}
     />
   </div>
   <Base
-    className="d-none d-xl-block pr-0"
+    className="d-none d-xl-block"
   />
 </div>
 `;

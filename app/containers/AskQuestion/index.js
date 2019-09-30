@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
@@ -102,9 +102,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    askQuestionDispatch: (user, questionData, postButtonId, translations) =>
-      dispatch(askQuestion(user, questionData, postButtonId, translations)),
+    askQuestionDispatch: bindActionCreators(askQuestion, dispatch),
   };
 }
 

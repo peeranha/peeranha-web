@@ -17,6 +17,7 @@
   "app.common.tags": "Теги",
   "app.common.myFeed": "Мой фид",
   "app.common.users": "Пользователи",
+  "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
@@ -26,7 +27,7 @@
   "app.common.you": "Вы",
   "app.common.upload": "Загрузить",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять своими сообществами",
+  "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Спрашивали",
   "app.common.youAsked": "Вы спрашивали",
   "app.common.answered": "Ответили",
@@ -41,6 +42,7 @@
   "app.common.no": "Нет",
   "app.common.agree": "Согласен",
   "app.common.disagree": "Не согласен",
+  "app.common.disagreeShort": "Не согл.",
   "app.common.tips": "Подсказки",
   "app.common.suggestTag": "Предложить тег",
   "app.common.seeAll": "Посмотреть все",
@@ -55,6 +57,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "Пиры",
@@ -67,6 +70,7 @@
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
   "app.common.change": "Изменить",
+  "app.common.contactUs": "Сообщите нам",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -442,8 +446,8 @@
 
   "app.containers.HomePage.yourName": "Ваше имя",
   "app.containers.HomePage.yourNameTip": "Ваше имя, подсказка",
-  "app.containers.HomePage.email": "Электронная почта",
-  "app.containers.HomePage.emailTip": "Электронная почта, подсказка",
+  "app.containers.HomePage.email": "Почта",
+  "app.containers.HomePage.emailTip": "Почта, подсказка",
   "app.containers.HomePage.refCode": "Реф. код",
   "app.containers.HomePage.subject": "Тема",
   "app.containers.HomePage.subjectTip": "Тема, подсказка",
@@ -451,7 +455,7 @@
   "app.containers.HomePage.messageTip": "Сообщение, подсказка",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
-    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
+    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
   "app.containers.HomePage.askQuestion": "Задать вопрос",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",
@@ -459,7 +463,7 @@
   "app.containers.HomePage.messageHasNotBeenSent":
     "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
   "app.containers.HomePage.yourEmailIsRegistred":
-    "В настоящее время веб-сайт находится в разработке. Ваш имейл адрес был получен. Вы получите имейл с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
+    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
 
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
@@ -504,8 +508,10 @@
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
+  "app.containers.ViewQuestion.showMoreAnswers":
+    "Показать больше ответов {value}",
 
-  "app.components.FormFields.requiredField": "Необходимое поле",
+  "app.components.FormFields.requiredField": "Обязательное поле",
   "app.components.FormFields.wrongLength15x100":
     "Значение должно быть не меньше 15 и не более 100 символов",
   "app.components.FormFields.wrongLength2x15":
@@ -520,7 +526,7 @@
     "Значение должно быть не меньше 25 и не более 30000 символов",
   "app.components.FormFields.wrongLength30000": "Превышено количество символов",
   "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
-  "app.components.FormFields.wrongEmail": "Неверный имейл",
+  "app.components.FormFields.wrongEmail": "Неправильный адрес",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
@@ -570,8 +576,8 @@
   "app.containers.SignUp.youHaveToSaveKeys":
     "Вам следует грамотно сохранить ключи",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
-  "app.containers.SignUp.iHaveEosAccount": "Я имею EOS аккаунт",
-  "app.containers.SignUp.idontHaveEosAccount": "Я не имею EOS аккаунта",
+  "app.containers.SignUp.iHaveEosAccount": "Есть EOS аккаунт",
+  "app.containers.SignUp.idontHaveEosAccount": "Нет EOS аккаунта",
   "app.containers.SignUp.downloadKeys": "Загрузить ключи",
   "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
   "app.containers.SignUp.title": "Регистрация",
@@ -606,14 +612,16 @@
   "app.containers.Profile.companyLabel": "Компания",
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
-  "app.containers.Profile.locationLabel": "Местоположение",
+  "app.containers.Profile.locationLabel": "Город",
   "app.containers.Profile.displayNameTip": "Отображаемое имя подсказка...",
   "app.containers.Profile.companyTip": "Компания подсказка...",
   "app.containers.Profile.positionTip": "Позиция подсказка...",
-  "app.containers.Profile.locationTip": "Местоположение подсказка...",
+  "app.containers.Profile.locationTip": "Город подсказка...",
   "app.containers.Profile.oldPassword": "Старый пароль",
   "app.containers.Profile.newPassword": "Новый пароль",
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
+  "app.containers.Profile.youAnswered": "Вы ответили",
+  "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
@@ -630,6 +638,22 @@
   "app.containers.AskQuestion.title": "Задать вопрос",
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+
+  "app.containers.ErrorPage.title": "Возникла ошибка...",
+  "app.containers.ErrorPage.description": "Возникла ошибка... описание",
+  "app.containers.ErrorPage.weAreSorry":
+    "Мы извиняемся, возникла неожиданная ошибка...",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "Мы извиняемся, такой страницы не существует.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Попробуйте посмотреть наши последние {value}.",
+  "app.containers.NotFoundPage.browseOurPopular":
+    "Посмотрите наши популярные {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
   "app.containers.Questions.noQuestions": "Вопросов нет",

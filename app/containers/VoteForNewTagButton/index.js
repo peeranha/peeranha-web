@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { DAEMON } from 'utils/constants';
 
@@ -76,10 +76,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    upVoteDispatch: (communityId, tagId, buttonId) =>
-      dispatch(upVote(communityId, tagId, buttonId)),
-    downVoteDispatch: (communityId, tagId, buttonId) =>
-      dispatch(downVote(communityId, tagId, buttonId)),
+    upVoteDispatch: bindActionCreators(upVote, dispatch),
+    downVoteDispatch: bindActionCreators(downVote, dispatch),
   };
 }
 

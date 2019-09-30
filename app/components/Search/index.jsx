@@ -5,6 +5,7 @@ import messages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?inline';
 
 import H3 from 'components/H3';
+import Header from 'components/Header/Simple';
 import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -12,6 +13,8 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 const rootId = 'search-root-id';
 
 const BaseStyled = Base.extend`
+  overflow: hidden;
+
   form {
     max-width: 320px;
   }
@@ -24,6 +27,18 @@ const BaseStyled = Base.extend`
 
   .gsc-orderby-container {
     display: none;
+  }
+
+  .gcsc-find-more-on-google-root {
+    margin: 20px 0;
+  }
+
+  .gcsc-more-maybe-branding-root {
+    margin-top: 20px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 0;
   }
 `;
 
@@ -52,12 +67,12 @@ class Search extends React.PureComponent {
   render() {
     return (
       <div id={rootId}>
-        <Base className="d-flex align-items-center justify-content-between mb-3">
-          <H3 className="d-flex align-items-center">
+        <Header className="mb-to-sm-0 mb-from-sm-3">
+          <H3>
             <MediumImageStyled src={searchIcon} alt="search" />
             <FormattedMessage {...messages.search} />
           </H3>
-        </Base>
+        </Header>
 
         <BaseStyled>
           {!this.state.isScriptLoaded && <LoadingIndicator />}

@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -77,9 +77,15 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showActiveKeyDispatch: (...args) => dispatch(showActiveKey(args)),
-    showActiveKeyModalDispatch: () => dispatch(showActiveKeyModal()),
-    hideActiveKeyModalDispatch: () => dispatch(hideActiveKeyModal()),
+    showActiveKeyDispatch: bindActionCreators(showActiveKey, dispatch),
+    showActiveKeyModalDispatch: bindActionCreators(
+      showActiveKeyModal,
+      dispatch,
+    ),
+    hideActiveKeyModalDispatch: bindActionCreators(
+      hideActiveKeyModal,
+      dispatch,
+    ),
   };
 }
 

@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import styled from 'styled-components';
 import { LANDING_FONT } from 'style-constants';
@@ -92,8 +92,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    changeLocaleDispatch: lang => dispatch(changeLocale(lang)),
+    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
   };
 }
 

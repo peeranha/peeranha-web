@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -107,12 +107,10 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getQuestionsDispatch: userId => dispatch(getQuestions(userId)),
-    resetStoreDispatch: () => dispatch(resetStore()),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
   };
 }
 

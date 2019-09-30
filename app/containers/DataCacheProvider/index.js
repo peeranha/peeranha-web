@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -40,9 +40,12 @@ DataCacheProvider.propTypes = {
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getCommunitiesWithTagsDispatch: () => dispatch(getCommunitiesWithTags()),
-    getStatDispatch: () => dispatch(getStat()),
-    getFaqDispatch: () => dispatch(getFaq()),
+    getCommunitiesWithTagsDispatch: bindActionCreators(
+      getCommunitiesWithTags,
+      dispatch,
+    ),
+    getStatDispatch: bindActionCreators(getStat, dispatch),
+    getFaqDispatch: bindActionCreators(getFaq, dispatch),
   };
 }
 

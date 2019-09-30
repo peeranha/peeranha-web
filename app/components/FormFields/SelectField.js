@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import styled from 'styled-components';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 
 import {
   BORDER_PRIMARY,
@@ -30,8 +30,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${/* istanbul ignore next */ props =>
-    props.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
+  background: ${x => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${BORDER_PRIMARY};
@@ -39,11 +38,7 @@ export const Box = styled.div`
   }
 `;
 
-const DefaultOption = /* istanbul ignore next */ ({
-  data,
-  isFocused,
-  innerProps = {},
-}) => {
+const DefaultOption = ({ data, isFocused, innerProps = {} }) => {
   let isActive = false;
 
   if (isFocused) {
@@ -63,7 +58,8 @@ export const getSelectOptions = initialOptions =>
     label: x,
   }));
 
-export const Select2 = /* istanbul ignore next */ ({
+/* eslint no-param-reassign: 0 */
+export const Select2 = ({
   input,
   options,
   isMulti,
@@ -83,6 +79,10 @@ export const Select2 = /* istanbul ignore next */ ({
   return (
     <S
       {...input}
+      onChange={x => {
+        input.value = x;
+        input.onChange(x);
+      }}
       components={{
         Group,
         DropdownIndicator: () => (
@@ -115,8 +115,8 @@ export const Select2 = /* istanbul ignore next */ ({
           fontFamily: APP_FONT,
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
-          minWidth: 300,
-          margin: `${menuIsOpen ? '10px' : '5px 0'}`,
+          minWidth: 270,
+          margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),
         menu: base => ({
@@ -139,7 +139,7 @@ export const Select2 = /* istanbul ignore next */ ({
   );
 };
 
-export const SelectField = /* istanbul ignore next */ props => (
+export const SelectField = props => (
   <Wrapper
     label={props.label}
     tip={props.tip}

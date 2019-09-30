@@ -2,19 +2,21 @@
 export const home = section => `/${section ? `#${section}` : ''}`;
 export const faq = () => `/faq`;
 
+export const notFound = () => `/404`;
+export const errorPage = () => `/error-occured`;
+
 export const profileView = id => `/users/${id}`;
 
 export const profileViewActivityQuestions = id =>
-  `/users/${id}/#activity#questions`;
+  `/users/${id}#activity-questions`;
 
-export const profileViewActivityAnswers = id =>
-  `/users/${id}/#activity#answers`;
+export const profileViewActivityAnswers = id => `/users/${id}#activity-answers`;
 
 export const profileEdit = id => `/users/edit/${id}`;
 
-export const userQuestions = id => `/users/${id}/#questions`;
-export const userAnswers = id => `/users/${id}/#answers`;
-export const userSettings = id => `/users/${id}/#settings`;
+export const userQuestions = id => `/users/${id}#questions`;
+export const userAnswers = id => `/users/${id}#answers`;
+export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
 export const questions = () => `/questions`;

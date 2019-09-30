@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
@@ -71,9 +71,15 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    hideSendTokensModalDispatch: () => dispatch(hideSendTokensModal()),
-    showSendTokensModalDispatch: () => dispatch(showSendTokensModal()),
-    sendTokensDispatch: (...args) => dispatch(sendTokens(args)),
+    hideSendTokensModalDispatch: bindActionCreators(
+      hideSendTokensModal,
+      dispatch,
+    ),
+    showSendTokensModalDispatch: bindActionCreators(
+      showSendTokensModal,
+      dispatch,
+    ),
+    sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
   };
 }
 

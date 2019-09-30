@@ -8,6 +8,6 @@ export default Button.extend`
   color: ${TEXT_LIGHT};
 
   ${IconStyled} {
-    ${/* istanbul ignore next */ () => IconHover({ color: TEXT_LIGHT })};
+    ${() => IconHover({ color: TEXT_LIGHT })};
   }
 `;

@@ -20,7 +20,6 @@ import {
   DELETE_ACCOUNT,
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_ERROR,
-  EMAIL_FORM,
   EMAIL_FIELD,
 } from '../constants';
 
@@ -28,7 +27,6 @@ describe('deleteAccount actions', () => {
   it('showDeleteAccountModal', () => {
     const expected = {
       type: SHOW_DELETE_ACCOUNT_MODAL,
-      content: EMAIL_FORM,
     };
 
     expect(showDeleteAccountModal()).toEqual(expected);

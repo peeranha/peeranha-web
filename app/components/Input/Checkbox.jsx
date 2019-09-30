@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
+
 import {
   BG_LIGHT,
   BORDER_SECONDARY,
   BG_PRIMARY,
   BORDER_TRANSPARENT,
 } from 'style-constants';
+
+import Span from 'components/Span';
 
 import checkedIcon from 'images/okay.svg?inline';
 
@@ -47,7 +50,9 @@ const Checkbox = ({ input, label, disabled }) => (
     </div>
 
     <label className="flex-grow-1" htmlFor={input.name}>
-      {label}
+      <Span fontSize="16" mobileFS="14">
+        {label}
+      </Span>
     </label>
   </div>
 );

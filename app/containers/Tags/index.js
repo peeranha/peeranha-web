@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import { DAEMON } from 'utils/constants';
@@ -21,14 +21,11 @@ import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
 import { showLoginModal } from 'containers/Login/actions';
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -37,12 +34,7 @@ import { createTagValidator } from './validate';
 import * as selectors from './selectors';
 
 import Header from './Header';
-import GoToCreateTagFromBanner from './GoToCreateTagFromBanner';
-
-const AsideWrapper = BaseTransparent.extend`
-  flex: 0 0 ${LEFT_MENU_WIDTH}px;
-  padding-top: 20px;
-`.withComponent('aside');
+import Banner from './Banner';
 
 export const goToCreateTagScreen = ({
   profile,
@@ -126,12 +118,12 @@ export class Tags extends React.Component {
             tagsNumber={tagsNumber}
           />
 
-          <div className="my-3">{Content}</div>
+          <div className="mb-3">{Content}</div>
 
-          <GoToCreateTagFromBanner openTagForm={this.goToCreateTagScreen} />
+          <Banner openTagForm={this.goToCreateTagScreen} />
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>
+        <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
       </div>
     );
   }
@@ -164,9 +156,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
-    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+    getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

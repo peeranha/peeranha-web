@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
@@ -133,7 +133,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getUsersDispatch: obj => dispatch(getUsers(obj)),
+    getUsersDispatch: bindActionCreators(getUsers, dispatch),
   };
 }
 

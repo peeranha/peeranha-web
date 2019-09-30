@@ -5,41 +5,39 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
 import H3 from 'components/H3';
-import Base from 'components/Base/BaseRounded';
+import Base from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import Header from 'components/Header/Transparent';
+import AsideBG from 'components/Base/AsideBG';
 
 import { FORM_ID } from './constants';
 
 import FaqSections from './FaqSections';
-import CallToLeaveMessage from './CallToLeaveMessage';
+import Banner from './Banner';
 import SendMessageForm from './SendMessageForm';
 
 const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
   <div id={FORM_ID}>
-    <BaseTransparent>
+    <Header>
       <H3>
         <FormattedMessage {...commonMessages.support} />
       </H3>
-    </BaseTransparent>
+    </Header>
 
-    <Base className="p-0">
-      <div className="d-flex">
-        <div className="col-12 col-xl-9 p-0">
-          <BaseTransparent>
-            <CallToLeaveMessage />
+    <Base className="d-flex">
+      <BaseTransparent className="flex-grow-1">
+        <Banner />
 
-            <SendMessageForm
-              locale={locale}
-              sendMessage={sendMessage}
-              sendMessageLoading={sendMessageLoading}
-            />
-          </BaseTransparent>
-        </div>
+        <SendMessageForm
+          locale={locale}
+          sendMessage={sendMessage}
+          sendMessageLoading={sendMessageLoading}
+        />
+      </BaseTransparent>
 
-        <div className="col-12 col-xl-3 p-0">
-          <FaqSections faq={faq} />
-        </div>
-      </div>
+      <AsideBG className="d-none d-xl-block">
+        <FaqSections faq={faq} />
+      </AsideBG>
     </Base>
   </div>
 );

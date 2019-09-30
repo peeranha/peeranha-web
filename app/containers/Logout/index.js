@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -34,7 +34,7 @@ Logout.propTypes = {
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    logoutDispatch: () => dispatch(logout()),
+    logoutDispatch: bindActionCreators(logout, dispatch),
   };
 }
 

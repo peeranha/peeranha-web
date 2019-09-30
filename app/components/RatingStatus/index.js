@@ -66,7 +66,7 @@ const RatingStatus = /* istanbul ignore next */ ({
     <RatingStatusStyled>
       <IconWithStatus size={size} rating={rating} />
       <Span
-        className={isRankOff ? 'd-none' : ''}
+        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block'}
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >

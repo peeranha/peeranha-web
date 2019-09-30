@@ -26,7 +26,6 @@ import App from 'containers/App';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
-import ErrorBoundary from 'containers/ErrorBoundary';
 import EosioProvider from 'containers/EosioProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
@@ -60,17 +59,15 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ErrorBoundary>
-          <EosioProvider>
-            <DataCacheProvider>
-              <AccountProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </AccountProvider>
-            </DataCacheProvider>
-          </EosioProvider>
-        </ErrorBoundary>
+        <EosioProvider>
+          <DataCacheProvider>
+            <AccountProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </AccountProvider>
+          </DataCacheProvider>
+        </EosioProvider>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE,

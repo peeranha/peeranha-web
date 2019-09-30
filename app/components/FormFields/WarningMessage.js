@@ -7,15 +7,16 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 import Span from 'components/Span';
 
-export const WarningMessage = /* istanbul ignore next */ ({
+export const WarningMessage = ({
   error,
+  active,
   warning,
   touched,
   className,
   tip,
   intl,
 }) =>
-  touched && (error || warning || tip) ? (
+  (touched && (error || warning)) || (active && tip) ? (
     <div className={`d-flex align-items-center ${className}`}>
       {tip && (
         <img
@@ -25,7 +26,7 @@ export const WarningMessage = /* istanbul ignore next */ ({
         />
       )}
 
-      <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+      <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
         {(error && intl.formatMessage({ id: error.id })) ||
           (warning && intl.formatMessage({ id: warning.id })) ||
           tip}
@@ -39,6 +40,7 @@ WarningMessage.propTypes = {
   className: PropTypes.string,
   tip: PropTypes.string,
   touched: PropTypes.bool,
+  active: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

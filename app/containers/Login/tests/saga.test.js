@@ -21,7 +21,6 @@ import {
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
-  WE_ARE_HAPPY_FORM,
   LOGIN_WITH_SCATTER,
   LOGIN_WITH_SCATTER_ERROR,
   LOGIN_WITH_SCATTER_SUCCESS,
@@ -282,11 +281,6 @@ describe('loginWithEmailWorker', () => {
       const step = generator.next();
       expect(step.value.type).toBe(LOGIN_WITH_EMAIL_SUCCESS);
       expect(step.value.eosAccount).toBe(selectedAccount);
-    });
-
-    it('show modal dialog @WE_ARE_HAPPY_FORM', () => {
-      const step = generator.next();
-      expect(step.value.content).toBe(WE_ARE_HAPPY_FORM);
     });
 
     it('generator has to return @null', () => {

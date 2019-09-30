@@ -11,10 +11,10 @@ import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 
 const TagsContainer = styled.ul`
-  ${/* istanbul ignore next */ props => Input(props)};
+  ${props => Input(props)};
 
   cursor: pointer;
-  height: auto;
+  height: auto !important;
 `;
 
 const RemoveTagIcon = styled.button`
@@ -34,7 +34,7 @@ const Tag = styled.li`
   border-radius: 2px;
 `;
 
-export const TagSelector = /* istanbul ignore next */ ({
+export const TagSelector = ({
   input,
   meta,
   label,

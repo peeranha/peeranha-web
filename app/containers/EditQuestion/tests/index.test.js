@@ -1,4 +1,4 @@
-import { EditQuestion, mapDispatchToProps } from '../index';
+import { EditQuestion } from '../index';
 
 const cmp = new EditQuestion();
 cmp.props = {
@@ -62,20 +62,6 @@ describe('EditQuestion', () => {
         content: 'content',
       };
       expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).editQuestionDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).getAskedQuestionDispatch()).toBe(
-        test,
-      );
     });
   });
 });

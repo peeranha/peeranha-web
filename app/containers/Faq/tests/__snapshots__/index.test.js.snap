@@ -20,35 +20,8 @@ exports[`<Faq /> test 1`] = `
     className="flex-grow-1"
   >
     <UNDEFINED />
-    <div
-      className="my-3"
-    >
-      <UNDEFINED
-        faq={
-          Object {
-            "blocks": Array [
-              Object {
-                "blocks": Array [
-                  Object {
-                    "content": "content",
-                    "h3": "h3",
-                  },
-                ],
-                "h2": "h2",
-              },
-            ],
-            "h1": "h1",
-          }
-        }
-      />
-      <UNDEFINED />
-    </div>
-  </div>
-  <Base
-    className="d-none d-xl-block pr-0"
-  >
     <UNDEFINED
-      faq={
+      content={
         Object {
           "blocks": Array [
             Object {
@@ -64,6 +37,33 @@ exports[`<Faq /> test 1`] = `
           "h1": "h1",
         }
       }
+      getQuestionCode={[Function]}
+      getSectionCode={[Function]}
+      route={[Function]}
+    />
+    <UNDEFINED />
+  </div>
+  <Base
+    className="d-none d-xl-block"
+  >
+    <UNDEFINED
+      content={
+        Object {
+          "blocks": Array [
+            Object {
+              "blocks": Array [
+                Object {
+                  "content": "content",
+                  "h3": "h3",
+                },
+              ],
+              "h2": "h2",
+            },
+          ],
+          "h1": "h1",
+        }
+      }
+      route={[Function]}
     />
   </Base>
 </div>

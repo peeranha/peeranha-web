@@ -12,7 +12,7 @@ import {
  */
 
 export async function getBalance(eosService, user) {
-  const { balance } = await eosService.getTableRow(
+  const val = await eosService.getTableRow(
     ACCOUNTS_TABLE,
     user,
     undefined,
@@ -20,7 +20,7 @@ export async function getBalance(eosService, user) {
   );
 
   // remove all chars besides of number
-  return balance.replace(/[a-zA-Z]/gim, '').trim();
+  return val ? val.balance.replace(/[a-zA-Z]/gim, '').trim() : 0;
 }
 
 /**

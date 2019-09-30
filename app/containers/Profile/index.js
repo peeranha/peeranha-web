@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Seo from 'components/Seo';
@@ -28,12 +29,12 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.PureComponent {
   componentDidMount() {
-    this.props.getUserProfileDispatch(this.props.userId);
+    this.props.getUserProfileDispatch(this.props.userId, true);
   }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.props.getUserProfileDispatch(nextProps.userId);
+      this.props.getUserProfileDispatch(nextProps.userId, true);
     }
   };
 
@@ -90,9 +91,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getUserProfileDispatch: (user, getFullProfile = true) =>
-      dispatch(getUserProfile(user, getFullProfile)),
+    getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
   };
 }
 

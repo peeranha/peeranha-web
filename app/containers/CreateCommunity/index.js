@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -20,6 +20,7 @@ import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBG from 'components/Base/AsideBG';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -53,7 +54,7 @@ import {
 import Form from './Form';
 import Header from './Header';
 import Tips from './Tips';
-import CommunityIsSuggestedBanner from './CommunityIsSuggestedBanner';
+import Banner from './Banner';
 
 const createCommunityRoute = routes.communitiesCreate();
 
@@ -122,20 +123,20 @@ export class CreateCommunity extends React.PureComponent {
         {path === createCommunityRoute && (
           <Base className="p-0">
             <div className="d-flex">
-              <div className="col-12 col-xl-9 p-0">
+              <div className="flex-grow-1">
                 <BaseTransparent>
                   <Form {...sendProps} />
                 </BaseTransparent>
               </div>
 
-              <div className="col-12 col-xl-3 p-0">
+              <AsideBG className="d-none d-xl-block">
                 <Tips faqQuestions={this.props.faqQuestions} />
-              </div>
+              </AsideBG>
             </div>
           </Base>
         )}
 
-        {path !== createCommunityRoute && <CommunityIsSuggestedBanner />}
+        {path !== createCommunityRoute && <Banner />}
       </div>
     );
   }
@@ -169,13 +170,14 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),
-    saveImageChangesDispatch: res => dispatch(saveImageChanges(res)),
-    clearImageChangesDispatch: () => dispatch(clearImageChanges()),
-    createCommunityDispatch: (comm, reset) =>
-      dispatch(createCommunity(comm, reset)),
-    setDefaultStoreDispatch: () => dispatch(setDefaultStore()),
+    uploadImageFileDispatch: bindActionCreators(
+      uploadImageFileAction,
+      dispatch,
+    ),
+    saveImageChangesDispatch: bindActionCreators(saveImageChanges, dispatch),
+    clearImageChangesDispatch: bindActionCreators(clearImageChanges, dispatch),
+    createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
+    setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
   };
 }
 

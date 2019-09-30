@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -164,12 +164,14 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    uploadImageFileDispatch: res => dispatch(uploadImageFileAction(res)),
-    saveImageChangesDispatch: res => dispatch(saveImageChanges(res)),
-    clearImageChangesDispatch: () => dispatch(clearImageChanges()),
-    setDefaultReducerDispatch: () => dispatch(setDefaultReducer()),
-    saveProfileActionDispatch: res => dispatch(saveProfileAction(res)),
+    uploadImageFileDispatch: bindActionCreators(
+      uploadImageFileAction,
+      dispatch,
+    ),
+    saveImageChangesDispatch: bindActionCreators(saveImageChanges, dispatch),
+    clearImageChangesDispatch: bindActionCreators(clearImageChanges, dispatch),
+    setDefaultReducerDispatch: bindActionCreators(setDefaultReducer, dispatch),
+    saveProfileActionDispatch: bindActionCreators(saveProfileAction, dispatch),
   };
 }
 

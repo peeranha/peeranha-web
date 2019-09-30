@@ -14,6 +14,7 @@ import {
   HIDE_CHANGE_PASSWORD_MODAL,
   VERIFY_EMAIL_FORM,
   CHANGE_PASSWORD_FORM,
+  EMAIL_FORM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -33,7 +34,6 @@ function changePasswordByPreviousReducer(state = initialState, action) {
   const {
     type,
     submitEmailError,
-    content,
     changePasswordError,
     sendEmailError,
     email,
@@ -42,7 +42,7 @@ function changePasswordByPreviousReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_CHANGE_PASSWORD_MODAL:
-      return state.set('showModal', true).set('content', content);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_CHANGE_PASSWORD_MODAL:
       return state
         .set('showModal', false)

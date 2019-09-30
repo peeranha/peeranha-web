@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Textarea from 'components/Textarea';
 import Wrapper from './Wrapper';
 
-export const TextareaField = /* istanbul ignore next */ ({
+export const TextareaField = ({
   input,
   label,
   disabled,

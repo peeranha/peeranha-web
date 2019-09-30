@@ -34,7 +34,7 @@ const ButtonStyled = IconBG.extend`
   }
 `;
 
-const Button = ({ energy }) => (
+export const Button = ({ energy }) => (
   <ButtonStyled bg={BG_LIGHT}>
     <span>{energy}</span>
     <img src={energyIcon} alt="icon" />
@@ -94,6 +94,7 @@ const EnergyDropdown = ({ energy, rating }) => {
   return (
     <Dropdown
       id={`profile_id_${Math.random()}`}
+      className="d-none d-md-flex"
       button={<Button energy={energy} />}
       menu={<Menu energy={energy} maxEnergy={maxEnergy} />}
     />
