@@ -49,7 +49,7 @@ export const Box = Base.extend`
   }
 `;
 
-const NotFound = ({ locale }) => (
+const NotFound = /* istanbul ignore next */ ({ locale }) => (
   <React.Fragment>
     <Seo
       title={translationMessages[locale][messages.title.id]}

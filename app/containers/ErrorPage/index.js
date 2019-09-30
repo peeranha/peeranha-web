@@ -33,7 +33,7 @@ import Span from 'components/Span';
 
 import errorPageMessages from './messages';
 
-const NotFound = ({ locale }) => (
+const NotFound = /* istanbul ignore next */ ({ locale }) => (
   <React.Fragment>
     <Seo
       title={translationMessages[locale][errorPageMessages.title.id]}
