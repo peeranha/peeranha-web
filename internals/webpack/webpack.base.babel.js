@@ -18,13 +18,11 @@ module.exports = options => {
   const testEnvPath = `${baseEnvPath}.test`;
   const prodEnvPath = `${baseEnvPath}.prod`;
 
-  const { NODE_ENV, NODE_TEST_ENV } = process.env;
-
   let targetEnvPath = baseEnvPath;
 
-  if (NODE_ENV === 'production' && !NODE_TEST_ENV) {
+  if (process.env.NODE_ENV === 'production') {
     targetEnvPath = prodEnvPath;
-  } else if (NODE_ENV === 'production' && NODE_TEST_ENV) {
+  } else if (process.env.NODE_ENV === 'test') {
     targetEnvPath = testEnvPath;
   }
 

@@ -3,7 +3,7 @@ import IpfsApi from 'ipfs-api';
 import { IPFS_URL } from './constants';
 
 export function getIpfsApi() {
-  return IpfsApi('localhost', '5001');
+  return IpfsApi(process.env.IPFS_HOST, process.env.IPFS_PORT);
 }
 
 export async function saveText(text) {

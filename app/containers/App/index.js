@@ -57,7 +57,7 @@ import {
 } from './imports';
 
 export default function App /* istanbul ignore next */() {
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
 
