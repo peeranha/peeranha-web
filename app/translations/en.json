@@ -94,6 +94,8 @@
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
   "app.containers.Wallet.week": "Week",
+  "app.containers.Wallet.getReward": "Get reward",
+  "app.containers.Wallet.received": "Received",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

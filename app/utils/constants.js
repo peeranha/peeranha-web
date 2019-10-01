@@ -37,6 +37,9 @@ export const CREATED_TAGS_TABLE = 'crtagtb';
 export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
 export const GLOBAL_STAT_TABLE = 'globalstat';
 export const PERIOD_REWARD_TABLE = 'periodreward';
+export const PERIOD_RATING_TABLE = 'periodrating';
+export const TOTAL_REWARD_TABLE = 'totalreward';
+export const TOTAL_RATING_TABLE = 'totalrating';
 
 // Scopes
 
@@ -44,6 +47,10 @@ export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
+export const ALL_PERIODS_SCOPE = 'allperiods';
+
+// Inf. limit
+export const INF_LIMIT = -1;
 
 // Methods
 
@@ -79,6 +86,7 @@ export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
+export const PICKUP_REWARD_METHOD = 'pickupreward';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';

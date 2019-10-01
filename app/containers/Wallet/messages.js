@@ -37,4 +37,10 @@ export default defineMessages({
   week: {
     id: 'app.containers.Wallet.week',
   },
+  getReward: {
+    id: 'app.containers.Wallet.getReward',
+  },
+  received: {
+    id: 'app.containers.Wallet.received',
+  },
 });

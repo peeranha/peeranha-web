@@ -15,16 +15,16 @@ import { FULL_MONTH_NAME_DAY_YEAR, DD_MM_YY } from 'utils/constants';
 
 import calendarImage from 'images/calendar.svg?inline';
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
-import rewardIcon from 'images/add.svg?external';
 
 import P from 'components/P';
-import Icon from 'components/Icon';
 import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import BaseRounded from 'components/Base/BaseRounded';
 import SmallImage from 'components/Img/SmallImage';
+import PickupButton from 'components/Button/Contained/InfoLarge';
+import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 
 import messages from './messages';
 
@@ -112,7 +112,7 @@ const PendingWeek = ({ period, reward, locale }) => (
       </P>
       <P className="d-flex align-items-center">
         <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="16" mobileFS={14} bold>
+        <Span fontSize="20" mobileFS={14} bold>
           {getFormattedNum3(reward)}
         </Span>
       </P>
@@ -120,8 +120,15 @@ const PendingWeek = ({ period, reward, locale }) => (
   </li>
 );
 
-const PaidOutWeek = ({ period, reward, locale }) => (
-  <BaseRoundedLi className="align-items-start mb-3">
+const PaidOutWeek = ({
+  period,
+  reward,
+  locale,
+  hasTaken,
+  pickupRewardDispatch,
+  pickupRewardProcessing,
+}) => (
+  <BaseRoundedLi className="align-items-center mb-3">
     <div>
       <P fontSize="13" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.paidOut} />
@@ -129,36 +136,55 @@ const PaidOutWeek = ({ period, reward, locale }) => (
       <WeekNumber locale={locale} period={period} />
     </div>
 
-    <div className="d-flex flex-column align-items-end">
-      <P className="mb-1" fontSize="13" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.rewarded} />
+    <div className="d-flex align-items-center justify-content-end">
+      <P className="d-flex align-items-center">
+        <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+        <Span fontSize="20" mobileFS={14} bold>
+          {getFormattedNum3(reward)}
+        </Span>
       </P>
-      <P className="d-inline-flex" fontSize="16" mobileFS={14} bold>
-        <Icon
-          color={TEXT_SUCCESS}
-          className="mr-1"
-          width="14"
-          icon={rewardIcon}
-          noMargin
-        />
 
-        <span>{getFormattedNum3(reward)}</span>
-      </P>
+      {!hasTaken && (
+        <PickupButton
+          disabled={
+            hasTaken !== false || !Number(reward) || pickupRewardProcessing
+          }
+          className="ml-4"
+          onClick={() => pickupRewardDispatch(period)}
+        >
+          <FormattedMessage {...messages.getReward} />
+        </PickupButton>
+      )}
+
+      {hasTaken && (
+        <ReceivedButton className="ml-4">
+          <FormattedMessage {...messages.received} />
+        </ReceivedButton>
+      )}
     </div>
   </BaseRoundedLi>
 );
 
 const CurrentPendingWeeks = styled.div`
   display: ${x => (x.inRow ? 'flex' : 'block')};
+  align-items: stretch;
 
   > :nth-child(1) {
     flex: 1;
     margin-right: ${x => (x.inRow ? '10px' : '0px')};
+
+    > div {
+      height: 50%;
+    }
   }
 
   > :nth-child(2) {
     flex: 1;
     margin-left: ${x => (x.inRow ? '10px' : '0px')};
+
+    > div {
+      height: 50%;
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -172,7 +198,13 @@ const CurrentPendingWeeks = styled.div`
 `;
 
 /* eslint indent: 0 */
-const Weeks = ({ locale, weekStat, getWeekStatProcessing }) => (
+const Weeks = ({
+  locale,
+  weekStat,
+  getWeekStatProcessing,
+  pickupRewardDispatch,
+  pickupRewardProcessing,
+}) => (
   <React.Fragment>
     {weekStat &&
       !getWeekStatProcessing && (
@@ -182,7 +214,16 @@ const Weeks = ({ locale, weekStat, getWeekStatProcessing }) => (
             {weekStat[1] && <PendingWeek locale={locale} {...weekStat[1]} />}
           </CurrentPendingWeeks>
 
-          {weekStat.slice(2).map(x => <PaidOutWeek locale={locale} {...x} />)}
+          {weekStat
+            .slice(2)
+            .map(x => (
+              <PaidOutWeek
+                pickupRewardDispatch={pickupRewardDispatch}
+                pickupRewardProcessing={pickupRewardProcessing}
+                locale={locale}
+                {...x}
+              />
+            ))}
         </ul>
       )}
 
@@ -210,12 +251,17 @@ PaidOutWeek.propTypes = {
   period: PropTypes.string,
   locale: PropTypes.string,
   reward: PropTypes.string,
+  hasTaken: PropTypes.bool,
+  pickupRewardDispatch: PropTypes.func,
+  pickupRewardProcessing: PropTypes.bool,
 };
 
 Weeks.propTypes = {
   weekStat: PropTypes.array,
   locale: PropTypes.string,
+  pickupRewardDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
+  pickupRewardProcessing: PropTypes.bool,
 };
 
 export default React.memo(Weeks);
