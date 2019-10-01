@@ -60,7 +60,7 @@ function loginReducer(state = initialState, action) {
       return state
         .set('loginProcessing', false)
         .set('eosAccount', eosAccount)
-        .set('showModal', initialState.get('showModal'))
+        .set('showModal', Boolean(content))
         .set('content', content || initialState.get('content'));
     case LOGIN_WITH_EMAIL_ERROR:
       return state

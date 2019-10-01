@@ -6,7 +6,7 @@ import { initialState } from './reducer';
 const selectAccountProviderDomain = state =>
   state.get('accountProvider', initialState).toJS();
 
-const makeSelectLoading = () =>
+const makeSelectAccountLoading = () =>
   createSelector(selectAccountProviderDomain, substate => substate.loading);
 
 const makeSelectError = () =>
@@ -48,7 +48,7 @@ const makeSelectFollowedCommunities = () =>
 
 export {
   selectAccountProviderDomain,
-  makeSelectLoading,
+  makeSelectAccountLoading,
   makeSelectError,
   makeSelectAccount,
   makeSelectProfileInfo,

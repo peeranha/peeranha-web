@@ -30,7 +30,7 @@ export function hideChangePasswordModal() {
 
 // Send email
 
-export function sendEmail(args) {
+export function sendEmail(...args) {
   return {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
@@ -54,7 +54,7 @@ export function sendEmailErr(sendEmailError) {
 
 // Submit email
 
-export function submitEmail(args) {
+export function submitEmail(...args) {
   return {
     type: SUBMIT_EMAIL,
     verificationCode: args[0].toJS()[CODE_FIELD],
@@ -77,7 +77,7 @@ export function submitEmailErr(submitEmailError) {
 
 // Change password
 
-export function changePassword(args) {
+export function changePassword(...args) {
   return {
     type: CHANGE_PASSWORD,
     values: args[0].toJS(),

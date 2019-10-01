@@ -25,7 +25,7 @@ export function hideActiveKeyModal() {
   };
 }
 
-export function showActiveKey(args) {
+export function showActiveKey(...args) {
   return {
     type: SHOW_ACTIVE_KEY,
     password: args[0].toJS()[PASSWORD_FIELD],

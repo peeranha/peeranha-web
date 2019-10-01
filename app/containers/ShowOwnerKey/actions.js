@@ -32,7 +32,7 @@ export function hideOwnerKeyModal() {
 
 // sendEmail
 
-export function sendEmail(args) {
+export function sendEmail(...args) {
   return {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
@@ -57,7 +57,7 @@ export function sendEmailErr(sendEmailError) {
 
 // Show owner key
 
-export function showOwnerKey(args) {
+export function showOwnerKey(...args) {
   return {
     type: SHOW_OWNER_KEY,
     verificationCode: args[0].toJS()[CODE_FIELD],
