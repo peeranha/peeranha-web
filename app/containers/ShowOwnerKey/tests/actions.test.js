@@ -59,7 +59,7 @@ describe('showOwnerKey actions', () => {
       email,
     };
 
-    expect(sendEmail(args)).toEqual(expected);
+    expect(sendEmail(...args)).toEqual(expected);
   });
 
   it('sendEmailSuccess', () => {
@@ -96,7 +96,7 @@ describe('showOwnerKey actions', () => {
       verificationCode,
     };
 
-    expect(showOwnerKey(args)).toEqual(expected);
+    expect(showOwnerKey(...args)).toEqual(expected);
   });
 
   it('showOwnerKeySuccess', () => {

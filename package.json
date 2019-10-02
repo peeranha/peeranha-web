@@ -39,7 +39,6 @@
     "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --fix",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
-    "pretest": "npm run prettify './app/**/*.js' && npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --no-cache",
     "test:file": "cross-env NODE_ENV=test jest",

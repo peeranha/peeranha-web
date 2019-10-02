@@ -60,7 +60,7 @@ describe('changePasswordByPreviousReducer', () => {
     const obj = state.set('changePasswordProcessing', true);
 
     expect(
-      changePasswordByPreviousReducer(state, changePassword(args)),
+      changePasswordByPreviousReducer(state, changePassword(...args)),
     ).toEqual(obj);
   });
 
@@ -102,7 +102,7 @@ describe('changePasswordByPreviousReducer', () => {
 
     const obj = state.set('sendEmailProcessing', true).set('email', email);
 
-    expect(changePasswordByPreviousReducer(state, sendEmail(args))).toEqual(
+    expect(changePasswordByPreviousReducer(state, sendEmail(...args))).toEqual(
       obj,
     );
   });
@@ -143,9 +143,9 @@ describe('changePasswordByPreviousReducer', () => {
       .set('submitEmailProcessing', true)
       .set('verificationCode', verificationCode);
 
-    expect(changePasswordByPreviousReducer(state, submitEmail(args))).toEqual(
-      obj,
-    );
+    expect(
+      changePasswordByPreviousReducer(state, submitEmail(...args)),
+    ).toEqual(obj);
   });
 
   it('submitEmailSuccess', () => {

@@ -36,7 +36,7 @@ describe('sendTokensReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('sendTokensProcessing', true);
 
-    expect(sendTokensReducer(state, sendTokens(args))).toEqual(obj);
+    expect(sendTokensReducer(state, sendTokens(...args))).toEqual(obj);
   });
 
   it('sendTokensSuccess', () => {

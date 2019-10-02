@@ -8,6 +8,7 @@ import {
   GET_WEEK_STAT_SUCCESS,
   GET_WEEK_STAT,
   GET_WEEK_STAT_ERROR,
+  PICKUP_REWARD_SUCCESS,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -63,6 +64,6 @@ describe('defaultSaga', () => {
 
   it('GET_WEEK_STAT', () => {
     const step = generator.next();
-    expect(step.value).toBe(GET_WEEK_STAT);
+    expect(step.value).toEqual([GET_WEEK_STAT, PICKUP_REWARD_SUCCESS]);
   });
 });

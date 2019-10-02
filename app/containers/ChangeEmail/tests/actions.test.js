@@ -62,7 +62,7 @@ describe('changeEmail actions', () => {
       email: oldEmail,
     };
 
-    expect(sendOldEmail(args)).toEqual(expected);
+    expect(sendOldEmail(...args)).toEqual(expected);
   });
 
   it('sendOldEmailSuccess', () => {
@@ -97,7 +97,7 @@ describe('changeEmail actions', () => {
       verificationCode,
     };
 
-    expect(confirmOldEmail(args)).toEqual(expected);
+    expect(confirmOldEmail(...args)).toEqual(expected);
   });
 
   it('confirmOldEmailSuccess', () => {
@@ -127,7 +127,7 @@ describe('changeEmail actions', () => {
       values: args[0].toJS(),
     };
 
-    expect(changeEmail(args)).toEqual(expected);
+    expect(changeEmail(...args)).toEqual(expected);
   });
 
   it('changeEmailSuccess', () => {
