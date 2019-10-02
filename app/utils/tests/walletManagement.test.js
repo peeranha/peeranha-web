@@ -3,15 +3,40 @@ import {
   getWeekStat,
   sendTokens,
   getNormalizedCurrency,
+  pickupReward,
 } from '../walletManagement';
 
-import { ACCOUNTS_TABLE, SEND_TOKEN_METHOD, APP_CURRENCY } from '../constants';
+import {
+  ACCOUNTS_TABLE,
+  SEND_TOKEN_METHOD,
+  APP_CURRENCY,
+  PICKUP_REWARD_METHOD,
+} from '../constants';
 
 const eosService = {
   getTableRow: jest.fn(),
   getTableRows: jest.fn(),
   sendTransaction: jest.fn(),
 };
+
+describe('pickupReward', () => {
+  it('test', async () => {
+    const user = 'user';
+    const period = 1;
+
+    await pickupReward(eosService, user, period);
+
+    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+      user,
+      PICKUP_REWARD_METHOD,
+      {
+        user,
+        period,
+      },
+      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    );
+  });
+});
 
 describe('getBalance', () => {
   const user = 'user';
