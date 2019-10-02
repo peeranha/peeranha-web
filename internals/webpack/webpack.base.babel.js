@@ -14,8 +14,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 process.noDeprecation = true;
 
 module.exports = options => {
-  // Get Object with a parsed keys from .env
-  const env = dotenv.config().parsed;
+  const baseEnvPath = path.resolve('.env');
+  const testEnvPath = `${baseEnvPath}.test`;
+  const prodEnvPath = `${baseEnvPath}.prod`;
+
+  let targetEnvPath = baseEnvPath;
+
+  if (process.env.NODE_ENV === 'production') {
+    targetEnvPath = prodEnvPath;
+  } else if (process.env.NODE_ENV === 'test') {
+    targetEnvPath = testEnvPath;
+  }
+
+  // Set the path parameter in the dotenv config
+  const env = dotenv.config({ path: targetEnvPath }).parsed;
 
   // reduce .env keys to an object
   const envKeys = Object.keys(env).reduce((prev, next) => {
