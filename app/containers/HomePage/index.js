@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import Seo from 'components/Seo';
 
@@ -215,8 +215,8 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    sendEmailDispatch: (...val) => dispatch(sendEmail(val)),
-    sendMessageDispatch: (...val) => dispatch(sendMessage(val)),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
+    sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
   };
 }
 

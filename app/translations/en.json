@@ -17,6 +17,7 @@
   "app.common.tags": "Tags",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
+  "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
@@ -41,6 +42,7 @@
   "app.common.no": "No",
   "app.common.agree": "Agree",
   "app.common.disagree": "Disagree",
+  "app.common.disagreeShort": "Disagree",
   "app.common.tips": "Tips",
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
@@ -55,6 +57,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
   "app.common.peers": "Peers",
@@ -67,6 +70,7 @@
   "app.common.energy": "Energy",
   "app.common.show": "Show",
   "app.common.change": "Change",
+  "app.common.contactUs": "Contact us",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -498,6 +502,7 @@
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
+  "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
 
   "app.components.FormFields.requiredField": "Required field",
   "app.components.FormFields.wrongLength15x100":
@@ -609,6 +614,8 @@
   "app.containers.Profile.oldPassword": "Old password",
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
+  "app.containers.Profile.youAnswered": "You answered",
+  "app.containers.Profile.seeMore": "See all {questions} and {answers}",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 
@@ -636,6 +643,21 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
+
+  "app.containers.ErrorPage.title": "Some error occured...",
+  "app.containers.ErrorPage.description": "Some error occured... description",
+  "app.containers.ErrorPage.weAreSorry":
+    "We're sorry, unexpected error has happened.",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "We're sorry, we couldn't find the page you requested.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Try to browse our recent {value}.",
+  "app.containers.NotFoundPage.browseOurPopular": "Browse our popular {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "If you feel something is missing that should be here, {value}.",
 
   "app.containers.QuestionForm.communityTip": "Community tip...",
   "app.containers.QuestionForm.titleTip": "Title tip...",

@@ -1,4 +1,4 @@
-import Base from 'components/Base';
+import Base from './index';
 
 const BaseRounded = Base.extend`
   border-radius: 5px;

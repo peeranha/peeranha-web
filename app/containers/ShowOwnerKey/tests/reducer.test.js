@@ -14,7 +14,12 @@ import {
   hideOwnerKeyModal,
 } from '../actions';
 
-import { PASSWORD_FIELD, EMAIL_FIELD, SUBMIT_EMAIL_FORM } from '../constants';
+import {
+  PASSWORD_FIELD,
+  EMAIL_FIELD,
+  SUBMIT_EMAIL_FORM,
+  EMAIL_FORM,
+} from '../constants';
 
 describe('showOwnerKeyReducer', () => {
   let state;
@@ -30,10 +35,9 @@ describe('showOwnerKeyReducer', () => {
   });
 
   it('showOwnerKeyModal', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
 
-    expect(showOwnerKeyReducer(state, showOwnerKeyModal(content))).toEqual(obj);
+    expect(showOwnerKeyReducer(state, showOwnerKeyModal())).toEqual(obj);
   });
 
   it('hideOwnerKeyModal', () => {

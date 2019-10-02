@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -82,11 +82,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    upVoteDispatch: (communityId, buttonId) =>
-      dispatch(upVote(communityId, buttonId)),
-    downVoteDispatch: (communityId, buttonId) =>
-      dispatch(downVote(communityId, buttonId)),
+    upVoteDispatch: bindActionCreators(upVote, dispatch),
+    downVoteDispatch: bindActionCreators(downVote, dispatch),
   };
 }
 

@@ -4,7 +4,7 @@ export default {
   id: {
     message: messages.date,
   },
-  popularity: {
+  questions_asked: {
     message: messages.popularity,
   },
 };

@@ -11,7 +11,7 @@ import Cookies from 'utils/cookies';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import InfoButton from 'components/Button/Outlined/InfoLarge';
+import SecondaryButton from 'components/Button/Outlined/SecondaryLarge';
 
 import profileMessages from 'containers/Profile/messages';
 import signupMessages from 'containers/SignUp/messages';
@@ -32,9 +32,14 @@ const BaseStyled = Base.extend`
   }
 
   table {
+    width: 100%;
+
     tr td {
+      :not(:last-child) {
+        padding-right: 50px;
+      }
+
       padding-bottom: 20px;
-      padding-right: 50px;
 
       :nth-child(1) {
         color: ${TEXT_DARK};
@@ -43,6 +48,29 @@ const BaseStyled = Base.extend`
 
       :nth-child(3) {
         color: ${TEXT_PRIMARY};
+      }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    > :not(:nth-child(1)) {
+      margin: 20px 0;
+    }
+
+    table * {
+      text-align: left;
+      font-size: 14px !important;
+      line-height: 14px !important;
+    }
+
+    table {
+      tr {
+        display: flex;
+        flex-direction: column;
+      }
+
+      tr td:not(:last-child) {
+        padding-right: 20px;
       }
     }
   }
@@ -125,9 +153,9 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => (
     <div>
       <DeleteAccountButton
         render={({ onClick }) => (
-          <InfoButton onClick={onClick}>
+          <SecondaryButton onClick={onClick}>
             <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-          </InfoButton>
+          </SecondaryButton>
         )}
       />
     </div>

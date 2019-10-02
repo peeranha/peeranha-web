@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 import Input from 'components/Input';
 
-const SearchForm = ({ placeholder }) => {
+const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const initialState = '';
   const [text, changeText] = useState(initialState);
 
   return (
     <form
       target="_blank"
-      className="d-none d-lg-flex"
+      className={className}
       id={`searchbox_${process.env.GOOGLE_SEARCH_FORM_ID}`}
       action={routes.search()}
     >
@@ -29,10 +29,11 @@ const SearchForm = ({ placeholder }) => {
       <Input
         type="text"
         input={{
-          id: 'q',
-          name: 'q',
+          id: searchFormId,
+          name: searchFormId,
           value: text,
           onChange: e => changeText(e.target.value),
+          onBlur,
         }}
         placeholder={placeholder}
         isSearchable
@@ -44,6 +45,9 @@ const SearchForm = ({ placeholder }) => {
 
 SearchForm.propTypes = {
   placeholder: PropTypes.string,
+  className: PropTypes.string,
+  searchFormId: PropTypes.string,
+  onBlur: PropTypes.func,
 };
 
 export default React.memo(SearchForm);

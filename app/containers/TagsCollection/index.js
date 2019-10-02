@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -22,7 +23,7 @@ import { goToCreateTagScreen } from 'containers/Tags';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import GoToCreateTagFromBanner from 'containers/Tags/GoToCreateTagFromBanner';
+import Banner from 'containers/Tags/Banner';
 
 import { createStructuredSelector } from 'reselect';
 
@@ -63,7 +64,7 @@ export const TagsCollection = /* istanbul ignore next */ ({
 
       <List communities={communities} />
 
-      <GoToCreateTagFromBanner openTagForm={openTagForm} />
+      <Banner openTagForm={openTagForm} />
 
       {communitiesLoading && <LoadingIndicator />}
     </div>
@@ -87,7 +88,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

@@ -19,6 +19,7 @@ import {
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
+  EMAIL_FORM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -36,8 +37,8 @@ export const initialState = fromJS({
 function loginReducer(state = initialState, action) {
   const {
     type,
-    content,
     email,
+    content,
     loginWithEmailError,
     eosAccount,
     loginWithScatterError,
@@ -46,7 +47,7 @@ function loginReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state.set('showModal', true).set('content', content);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_LOGIN_MODAL:
       return state.set('showModal', false);
 
@@ -60,7 +61,7 @@ function loginReducer(state = initialState, action) {
         .set('loginProcessing', false)
         .set('eosAccount', eosAccount)
         .set('showModal', initialState.get('showModal'))
-        .set('content', initialState.get('content'));
+        .set('content', content || initialState.get('content'));
     case LOGIN_WITH_EMAIL_ERROR:
       return state
         .set('loginWithEmailError', loginWithEmailError)

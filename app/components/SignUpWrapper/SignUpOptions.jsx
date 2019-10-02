@@ -30,8 +30,8 @@ import {
 import SignUpWrapper from './index';
 
 export const P = Span.extend`
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 24px;
   margin-bottom: 30px;
 `.withComponent('p');
 
@@ -42,6 +42,11 @@ export const Li = P.extend`
 
   a {
     color: ${TEXT_PRIMARY};
+  }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 16px;
+    line-height: 18px;
   }
 `.withComponent('li');
 

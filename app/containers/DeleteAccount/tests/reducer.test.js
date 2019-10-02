@@ -13,7 +13,7 @@ import {
   hideDeleteAccountModal,
 } from '../actions';
 
-import { EMAIL_FIELD, SUBMIT_EMAIL_FORM } from '../constants';
+import { EMAIL_FIELD, SUBMIT_EMAIL_FORM, EMAIL_FORM } from '../constants';
 
 describe('deleteAccountReducer', () => {
   let state;
@@ -29,12 +29,9 @@ describe('deleteAccountReducer', () => {
   });
 
   it('showDeleteAccountModal', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
 
-    expect(
-      deleteAccountReducer(state, showDeleteAccountModal(content)),
-    ).toEqual(obj);
+    expect(deleteAccountReducer(state, showDeleteAccountModal())).toEqual(obj);
   });
 
   it('hideDeleteAccountModal', () => {

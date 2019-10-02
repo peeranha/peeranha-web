@@ -65,4 +65,41 @@ export default `
      list-style-position: inside; 
      margin-left: 15px; 
   }
+
+  @media only screen and (max-width: 576px) {
+    h1 {
+      font-size: 28px;
+      line-height: 30px;
+    }
+  
+    h2 {
+      font-size: 26px;
+      line-height: 28px;
+    }
+  
+    h3 {
+      font-size: 24px;
+      line-height: 36px;
+    }
+  
+    h4 {
+      font-size: 22px;
+      line-height: 24px;
+    }
+  
+    h5 {
+      font-size: 20px;
+      line-height: 22px;
+    }
+  
+    h6 {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
 `;

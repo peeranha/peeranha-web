@@ -2,55 +2,48 @@
 
 exports[`FaqMain FaqMain 1`] = `
 <Section
+  className="container"
   id="faq"
 >
   <div
-    className="container"
+    className="fourth-screen-faq"
+    id="accordion"
   >
+    <Questions
+      questionsNumber={6}
+    />
     <div
-      className="row"
+      className="card get-more-answers"
     >
       <div
-        className="col-12 fourth-screen-faq"
-        id="accordion"
+        className="card-header"
       >
-        <Questions
-          questionsNumber={6}
-        />
         <div
-          className="card get-more-answers"
+          className="mb-0"
         >
-          <div
-            className="card-header"
+          <Link
+            href="/faq"
+            replace={false}
+            to="/faq"
           >
-            <div
-              className="mb-0"
+            <button
+              className="get-more-answers"
             >
-              <Link
-                href="/faq"
-                replace={false}
-                to="/faq"
+              <img
+                alt="arrRight"
+                className="icon icon-getanswers"
+                src="IMAGE_MOCK"
+              />
+              <h3
+                className="text"
               >
-                <button
-                  className="get-more-answers"
-                >
-                  <img
-                    alt="arrRight"
-                    className="icon icon-getanswers"
-                    src="IMAGE_MOCK"
-                  />
-                  <h3
-                    className="text"
-                  >
-                    <FormattedMessage
-                      id="app.containers.HomePage.getMoreAnswers"
-                      values={Object {}}
-                    />
-                  </h3>
-                </button>
-              </Link>
-            </div>
-          </div>
+                <FormattedMessage
+                  id="app.containers.HomePage.getMoreAnswers"
+                  values={Object {}}
+                />
+              </h3>
+            </button>
+          </Link>
         </div>
       </div>
     </div>

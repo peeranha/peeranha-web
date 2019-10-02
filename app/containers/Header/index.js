@@ -8,7 +8,7 @@ import React from 'react';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
@@ -22,19 +22,20 @@ import { showLoginModal } from 'containers/Login/actions';
 
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-import HeaderForm from './HeaderForm';
+import View from './View';
 import { HEADER_ID } from './constants';
 
 export class Header extends React.PureComponent {
   componentDidMount() /* istanbul ignore next */ {
-    this.headerLeftMenuAnimation();
+    this.animate();
   }
 
-  componentDidUpdate() /* istanbul ignore next */ {
-    setTimeout(() => this.displayHeader(), 250);
+  componentDidUpdate() {
+    $(`#${HEADER_ID}`).removeClass('sticky');
+    $(`#${LEFT_MENU_ID}`).removeClass('sticky');
   }
 
-  headerLeftMenuAnimation = /* istanbul ignore next */ () => {
+  animate = /* istanbul ignore next */ () => {
     let lastScrollTop = 0;
 
     window.addEventListener(
@@ -47,9 +48,11 @@ export class Header extends React.PureComponent {
 
         if (scrollY > innerHeight) {
           if (st > lastScrollTop) {
-            this.hideHeader();
+            $(`#${HEADER_ID}`).addClass('sticky');
+            $(`#${LEFT_MENU_ID}`).addClass('sticky');
           } else {
-            this.displayHeader();
+            $(`#${HEADER_ID}`).removeClass('sticky');
+            $(`#${LEFT_MENU_ID}`).removeClass('sticky');
           }
         }
 
@@ -59,38 +62,20 @@ export class Header extends React.PureComponent {
     );
   };
 
-  displayHeader = /* istanbul ignore next */ () => {
-    $(`#${LEFT_MENU_ID}`).addClass('scroll-visible');
-    $(`#${LEFT_MENU_ID}`).removeClass('scroll-hidden');
-
-    $(`#${HEADER_ID}`).addClass('scroll-visible');
-    $(`#${HEADER_ID}`).removeClass('scroll-hidden');
-  };
-
-  hideHeader = /* istanbul ignore next */ () => {
-    $(`#${LEFT_MENU_ID}`).addClass('scroll-hidden');
-    $(`#${LEFT_MENU_ID}`).removeClass('scroll-visible');
-
-    $(`#${HEADER_ID}`).addClass('scroll-hidden');
-    $(`#${HEADER_ID}`).removeClass('scroll-visible');
-  };
-
   render() /* istanbul ignore next */ {
     const {
       account,
       profileInfo,
       showLoginModalDispatch,
-      isMenuVisible,
       showMenu,
       expandLeftMenuNavigation,
     } = this.props;
 
     return (
-      <HeaderForm
+      <View
         account={account}
         profileInfo={profileInfo}
         showLoginModalDispatch={showLoginModalDispatch}
-        isMenuVisible={isMenuVisible}
         showMenu={showMenu}
         expandLeftMenuNavigation={expandLeftMenuNavigation}
       />
@@ -102,7 +87,6 @@ Header.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   expandLeftMenuNavigation: PropTypes.func,
 };
@@ -115,8 +99,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
   };
 }
 

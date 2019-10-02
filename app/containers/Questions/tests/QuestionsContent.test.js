@@ -1,4 +1,4 @@
-import { QuestionsContent, QuestionItem } from '../QuestionsContent';
+import { Content, QuestionItem } from '../Content';
 
 jest.mock('utils/datetime', () => ({
   getFormattedDate: jest.fn(),
@@ -21,9 +21,9 @@ const props = {
   communities: [],
 };
 
-describe('QuestionsContent', () => {
-  it('QuestionsContent, snapshot test', () => {
-    expect(QuestionsContent(props)).toMatchSnapshot();
+describe('Content', () => {
+  it('Content, snapshot test', () => {
+    expect(Content(props)).toMatchSnapshot();
   });
 
   it('QuestionItem, snapshot test', () => {

@@ -30,16 +30,10 @@ describe('loginReducer', () => {
   });
 
   it('SHOW_LOGIN_MODAL', () => {
-    const content = 'content';
-    const objWithContent = state.set('showModal', true).set('content', content);
-
     const objWithoutContent = state
       .set('showModal', true)
       .set('content', EMAIL_FORM);
 
-    expect(loginReducer(state, showLoginModal(content))).toEqual(
-      objWithContent,
-    );
     expect(loginReducer(state, showLoginModal())).toEqual(objWithoutContent);
   });
 

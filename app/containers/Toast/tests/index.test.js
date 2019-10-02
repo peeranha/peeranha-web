@@ -1,4 +1,4 @@
-import { Toast, mapDispatchToProps } from '../index';
+import { Toast } from '../index';
 import { TOP_RIGHT } from '../constants';
 
 const cmp = new Toast();
@@ -31,18 +31,6 @@ describe('<Toast />', () => {
       const removed = 'removed';
       cmp.props.removeToastDispatch.mockImplementation(() => removed);
       expect(cmp.removeToast(event)).toBe(removed);
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const obj = {};
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).removeToastDispatch(obj)).toBe(test);
     });
   });
 

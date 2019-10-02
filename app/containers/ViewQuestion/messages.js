@@ -85,4 +85,7 @@ export default defineMessages({
   communityChoice: {
     id: 'app.containers.ViewQuestion.communityChoice',
   },
+  showMoreAnswers: {
+    id: 'app.containers.ViewQuestion.showMoreAnswers',
+  },
 });

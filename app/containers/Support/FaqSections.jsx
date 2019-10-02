@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -9,9 +10,8 @@ import { TEXT_PRIMARY } from 'style-constants';
 import { getSectionCode } from 'utils/faqManagement';
 
 import A from 'components/A';
-import { BaseStyled } from 'components/TextEditor/Tips';
 
-const Base = BaseStyled.extend`
+const Base = styled.div`
   h6 {
     text-transform: uppercase;
     font-weight: bold;

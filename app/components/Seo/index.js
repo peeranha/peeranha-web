@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
 
-const Seo = /* istanbul ignore next */ ({
+const Seo = ({
   title,
   description,
   keywords,

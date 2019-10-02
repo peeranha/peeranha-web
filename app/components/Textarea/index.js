@@ -9,14 +9,14 @@ import {
 } from 'style-constants';
 
 /* eslint indent: 0 */
-/* istanbul ignore next */
+
 const Textarea = styled.textarea`
   height: 90px;
   width: 100%;
   border: 1px solid
-    ${props => (props.error ? `${BORDER_WARNING_LIGHT}` : BORDER_SECONDARY)};
+    ${x => (x.error ? `${BORDER_WARNING_LIGHT}` : BORDER_SECONDARY)};
   box-shadow: 0 0 0 3px
-    ${props => (props.error ? `${BORDER_WARNING_LIGHT}66` : BORDER_TRANSPARENT)};
+    ${x => (x.error ? `${BORDER_WARNING_LIGHT}66` : BORDER_TRANSPARENT)};
   border-radius: 3px;
   padding: 9px 42px 9px 14px;
   color: ${TEXT_DARK};
@@ -25,12 +25,16 @@ const Textarea = styled.textarea`
   line-height: 20px;
   outline: none;
 
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+    padding: 9px 12px;
+  }
+
   &:focus {
     box-shadow: 0 0 0 3px
-      ${props =>
-        props.error ? `${BORDER_WARNING_LIGHT}66` : `${BORDER_PRIMARY}66`};
-    border-color: ${props =>
-      props.error ? `${BORDER_WARNING_LIGHT}` : `${BORDER_PRIMARY}`};
+      ${x => (x.error ? `${BORDER_WARNING_LIGHT}66` : `${BORDER_PRIMARY}66`)};
+    border-color: ${x =>
+      x.error ? `${BORDER_WARNING_LIGHT}` : `${BORDER_PRIMARY}`};
   }
 
   :disabled {

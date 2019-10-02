@@ -69,6 +69,10 @@ const NavigationStyled = styled.div`
   border-radius: 5px;
   margin: 20px 30px;
   overflow: hidden;
+
+  @media only screen and (max-width: 576px) {
+    margin: 20px;
+  }
 `;
 
 const NavButton = styled.a`
@@ -78,9 +82,16 @@ const NavButton = styled.a`
   font-size: 14px;
   text-align: center;
   cursor: pointer;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
   :not(:last-child) {
     border-right: 1px solid ${BORDER_SECONDARY};
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 10px 5px;
   }
 
   ${x =>

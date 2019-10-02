@@ -14,10 +14,10 @@ exports[`Rewards test 1`] = `
         className="col-12"
       >
         <div
-          className="row justify-content-center"
+          className="d-flex justify-content-center"
         >
           <h2
-            className="col-12 col-lg-12 title"
+            className="title"
           >
             <FormattedMessage
               id="app.containers.HomePage.beTheFirst"

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
@@ -110,13 +110,10 @@ const mapStateToProps = createStructuredSelector({
   editAnswerLoading: makeSelectEditAnswer.selectEditAnswerLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getAnswerDispatch: (questionid, answerid) =>
-      dispatch(getAnswer(questionid, answerid)),
-    editAnswerDispatch: (answer, questionid, answerid) =>
-      dispatch(editAnswer(answer, questionid, answerid)),
+    getAnswerDispatch: bindActionCreators(getAnswer, dispatch),
+    editAnswerDispatch: bindActionCreators(editAnswer, dispatch),
   };
 }
 

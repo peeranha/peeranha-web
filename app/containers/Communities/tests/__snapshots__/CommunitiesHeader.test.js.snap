@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CommunitiesHeader test 1`] = `
-<div>
+exports[`Header test 1`] = `
+<div
+  className="mb-to-sm-0 mb-from-sm-3"
+>
   <Base
-    className="d-flex align-items-center justify-content-between"
     position="top"
   >
     <div>
@@ -34,52 +35,59 @@ exports[`CommunitiesHeader test 1`] = `
         </Button>
       </A>
     </div>
-    <div>
-      <Button
-        className="d-inline-flex align-items-center px-0"
+    <div
+      className="right-panel"
+    >
+      <button
+        className="d-flex align-items-center"
         id="app_Communities_GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID_header"
-        isLink={true}
         onClick={[MockFunction]}
       >
         <img
           alt="icon"
-          className="mr-2"
+          className="d-none d-sm-inline-block"
           src="IMAGE_MOCK"
         />
-        <FormattedMessage
-          id="app.containers.Communities.suggestCommunity"
-          values={Object {}}
+        <img
+          alt="icon"
+          className="d-inline-block d-sm-none"
+          src="IMAGE_MOCK"
         />
-      </Button>
+        <Span
+          className="ml-1"
+          color="#576fed"
+        >
+          <FormattedMessage
+            id="app.containers.Communities.suggestCommunity"
+            values={Object {}}
+          />
+        </Span>
+      </button>
     </div>
   </Base>
-  <Base
-    position="bottom"
-  >
-    <UNDEFINED
-      languages={
-        Object {
-          "all": Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
+  <UNDEFINED
+    languages={
+      Object {
+        "all": Object {
+          "message": Object {
+            "id": "app.common.all",
           },
-          "en": Object {
-            "message": Object {
-              "id": "app.common.en",
-            },
-            "sortBy": "en",
+          "sortBy": "",
+        },
+        "en": Object {
+          "message": Object {
+            "id": "app.common.en",
           },
-          "ru": Object {
-            "message": Object {
-              "id": "app.common.ru",
-            },
-            "sortBy": "ru",
+          "sortBy": "en",
+        },
+        "ru": Object {
+          "message": Object {
+            "id": "app.common.ru",
           },
-        }
+          "sortBy": "ru",
+        },
       }
-    />
-  </Base>
+    }
+  />
 </div>
 `;

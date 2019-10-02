@@ -16,17 +16,14 @@ import messages from 'common-messages';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
-const ButtonGroupForNotAuthorizedUser = ({ showLoginModal, isMenuVisible }) => (
+const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => (
   <React.Fragment>
-    <LargeOutlinedButton
-      className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
-      onClick={showLoginModal}
-    >
+    <LargeOutlinedButton className="d-none d-sm-flex" onClick={showLoginModal}>
       <FormattedMessage {...messages.login} />
     </LargeOutlinedButton>
 
     <LargeContainedButton
-      className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-flex'}`}
+      className="d-none d-sm-flex"
       onClick={() => createdHistory.push(routes.signup.email.name)}
     >
       <img className="mr-2" src={userIcon} alt="icon" />

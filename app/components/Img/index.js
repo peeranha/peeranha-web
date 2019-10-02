@@ -3,7 +3,6 @@ import { BORDER_SECONDARY, BG_TRANSPARENT } from 'style-constants';
 
 export const CELL = 24;
 
-/* istanbul ignore next */
 const Img = styled.img`
   border-radius: ${x => (x.notRounded ? 0 : 50)}%;
   border: ${x => (x.isBordered ? 1 : 0)}px solid ${BORDER_SECONDARY};

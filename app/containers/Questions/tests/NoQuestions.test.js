@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
-import { NoQuestions, AllQuestions } from '../NoQuestions';
+import { Banner, AllQuestions } from '../Banner';
 
 describe('<AllQuestions />', () => {
   it('snapshot test', () => {
@@ -25,7 +25,7 @@ describe('<AllQuestions />', () => {
   });
 });
 
-describe('NoQuestions', () => {
+describe('Banner', () => {
   let isFeed = true;
   let followedCommunities = [];
 
@@ -33,13 +33,13 @@ describe('NoQuestions', () => {
     isFeed = true;
     followedCommunities = [];
 
-    expect(NoQuestions({ isFeed, followedCommunities })).toMatchSnapshot();
+    expect(Banner({ isFeed, followedCommunities })).toMatchSnapshot();
   });
 
   it('<AllQuestions />', () => {
     isFeed = false;
     followedCommunities = [];
 
-    expect(NoQuestions({ isFeed, followedCommunities })).toMatchSnapshot();
+    expect(Banner({ isFeed, followedCommunities })).toMatchSnapshot();
   });
 });

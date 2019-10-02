@@ -7,19 +7,16 @@ exports[`Tosts snapshot test 1`] = `
     onClick={[MockFunction]}
     type="success"
   >
-    <div
-      className="status"
-    >
-      <img
-        alt="status"
-        src="IMAGE_MOCK"
-      />
-    </div>
-    <div
-      className="content"
+    <img
+      alt="status"
+      className="mr-3"
+      src="IMAGE_MOCK"
+    />
+    <span
+      className="flex-grow-1"
     >
       Text
-    </div>
+    </span>
   </Toast>
 </ToastBox>
 `;

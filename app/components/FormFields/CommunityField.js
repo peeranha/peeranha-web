@@ -14,7 +14,7 @@ import Wrapper from './Wrapper';
 const Div = styled.div`
   position: relative;
 
-  ${/* istanbul ignore next */ props => Input(props)};
+  ${props => Input(props)};
 
   img[alt='icon'] {
     position: absolute;
@@ -22,7 +22,7 @@ const Div = styled.div`
   }
 `;
 
-export const CommunityField = /* istanbul ignore next */ ({
+export const CommunityField = ({
   input,
   meta,
   label,

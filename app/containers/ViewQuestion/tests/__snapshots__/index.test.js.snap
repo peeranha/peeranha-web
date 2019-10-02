@@ -9,7 +9,6 @@ exports[`<ViewQuestion /> render !@questionDataLoading && !@questionData 1`] = `
     language="en"
     title="Question's page"
   />
-  <UNDEFINED />
 </React.Fragment>
 `;
 
@@ -82,9 +81,11 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.common.change": "Change",
         "app.common.close": "Close",
         "app.common.communities": "Communities",
+        "app.common.contactUs": "Contact us",
         "app.common.contacts": "Contacts",
         "app.common.date": "Date",
         "app.common.disagree": "Disagree",
+        "app.common.disagreeShort": "Disagree",
         "app.common.edit": "Edit",
         "app.common.en": "English",
         "app.common.energy": "Energy",
@@ -106,6 +107,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.common.popularity": "Popularity",
         "app.common.posts": "Posts",
         "app.common.privacyPolicy": "Privacy Policy",
+        "app.common.privacyPolicyShort": "Privacy Policy",
         "app.common.profile": "Profile",
         "app.common.questions": "Questions",
         "app.common.reputation": "Reputation",
@@ -128,6 +130,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.common.top": "Top",
         "app.common.upload": "Upload",
         "app.common.users": "Users",
+        "app.common.usersShort": "Users",
         "app.common.voting": "Voting",
         "app.common.wallet": "Wallet",
         "app.common.yes": "Yes",
@@ -232,6 +235,9 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.containers.ErrorBoundary.problemWithWebpage": "A problem occurred with this webpage",
         "app.containers.ErrorBoundary.reloadPage": "Reload page",
         "app.containers.ErrorBoundary.title": "Error",
+        "app.containers.ErrorPage.description": "Some error occured... description",
+        "app.containers.ErrorPage.title": "Some error occured...",
+        "app.containers.ErrorPage.weAreSorry": "We're sorry, unexpected error has happened.",
         "app.containers.ExistingCommunities.voteForNewCommunities": "Vote for new communities",
         "app.containers.Faq.description": "FAQ: description",
         "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
@@ -354,6 +360,12 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.containers.Login.userIsNotSelected": "User is not selected",
         "app.containers.Login.weAreHappyYouAreHere": "We are happy you are here",
         "app.containers.Login.yourUsernameIsHow": "Your username is how you'll be known on Peeranha.",
+        "app.containers.NotFoundPage.browseOurPopular": "Browse our popular {value}.",
+        "app.containers.NotFoundPage.description": "404",
+        "app.containers.NotFoundPage.ifYouFeelSomething": "If you feel something is missing that should be here, {value}.",
+        "app.containers.NotFoundPage.title": "404",
+        "app.containers.NotFoundPage.tryToBrowse": "Try to browse our recent {value}.",
+        "app.containers.NotFoundPage.weAreSorry": "We're sorry, we couldn't find the page you requested.",
         "app.containers.PrivacyPolicy.description": "Privacy policy, description",
         "app.containers.PrivacyPolicy.title": "Privacy policy",
         "app.containers.Profile.aboutLabel": "About me",
@@ -382,8 +394,10 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.containers.Profile.reputation": "Reputation",
         "app.containers.Profile.risen": "Risen",
         "app.containers.Profile.saveButton": "Save",
+        "app.containers.Profile.seeMore": "See all {questions} and {answers}",
         "app.containers.Profile.userHasntActivityYet": "This user hasn’t activity yet",
         "app.containers.Profile.wrongUser": "Wrong user",
+        "app.containers.Profile.youAnswered": "You answered",
         "app.containers.QuestionForm.communityLabel": "Community",
         "app.containers.QuestionForm.communityTip": "Community tip...",
         "app.containers.QuestionForm.contentLabel": "Body",
@@ -488,6 +502,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
         "app.containers.ViewQuestion.postCommentButton": "Post comment",
         "app.containers.ViewQuestion.questionNotExist": "This question does not exist",
         "app.containers.ViewQuestion.saveButton": "Save",
+        "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
         "app.containers.ViewQuestion.theBest": "The best",
         "app.containers.ViewQuestion.theBestAnswer": "The best answer",
         "app.containers.ViewQuestion.title": "Question's page",

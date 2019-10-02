@@ -11,7 +11,7 @@ import {
 
 import { getFormattedNum3 } from 'utils/numbers';
 import { getFormattedDate } from 'utils/datetime';
-import { FULL_MONTH_NAME_DAY_YEAR } from 'utils/constants';
+import { FULL_MONTH_NAME_DAY_YEAR, DD_MM_YY } from 'utils/constants';
 
 import calendarImage from 'images/calendar.svg?inline';
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
@@ -36,6 +36,10 @@ const BaseRoundedLi = BaseRounded.extend`
   align-items: center;
   justify-content: space-between;
 
+  > * {
+    flex: 1;
+  }
+
   ${IconStyled} {
     ${IconHover({ color: TEXT_SUCCESS })};
   }
@@ -43,11 +47,11 @@ const BaseRoundedLi = BaseRounded.extend`
 
 const WeekNumber = ({ period, locale }) => (
   <P>
-    <Span className="mr-3" fontSize="24" bold>
+    <Span className="mr-3" fontSize="24" mobileFS={21} bold>
       <FormattedMessage {...messages.week} /> {` ${period}`}
     </Span>
 
-    <Span>
+    <Span className="d-none d-md-inline-block">
       {getFormattedDate(
         RELEASE_DATE + WEEK_DURATION * period - WEEK_DURATION,
         locale,
@@ -58,6 +62,20 @@ const WeekNumber = ({ period, locale }) => (
         RELEASE_DATE + WEEK_DURATION * period,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
+      )}
+    </Span>
+
+    <Span className="d-inline-block d-md-none" mobileFS={14}>
+      {getFormattedDate(
+        RELEASE_DATE + WEEK_DURATION * period - WEEK_DURATION,
+        locale,
+        DD_MM_YY,
+      )}
+      {' — '}
+      {getFormattedDate(
+        RELEASE_DATE + WEEK_DURATION * period,
+        locale,
+        DD_MM_YY,
       )}
     </Span>
   </P>
@@ -73,7 +91,7 @@ const CurrentWeek = ({ period, locale }) => (
     </Base>
     <Base className="d-flex align-items-center" position="bottom">
       <img className="mr-3" src={calendarImage} alt="calendar" />
-      <Span>
+      <Span mobileFS={14}>
         <FormattedMessage {...messages.periodStillInProgress} />
       </Span>
     </Base>
@@ -94,7 +112,7 @@ const PendingWeek = ({ period, reward, locale }) => (
       </P>
       <P className="d-flex align-items-center">
         <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="16" bold>
+        <Span fontSize="16" mobileFS={14} bold>
           {getFormattedNum3(reward)}
         </Span>
       </P>
@@ -103,7 +121,7 @@ const PendingWeek = ({ period, reward, locale }) => (
 );
 
 const PaidOutWeek = ({ period, reward, locale }) => (
-  <BaseRoundedLi className="mb-3">
+  <BaseRoundedLi className="align-items-start mb-3">
     <div>
       <P fontSize="13" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.paidOut} />
@@ -111,11 +129,11 @@ const PaidOutWeek = ({ period, reward, locale }) => (
       <WeekNumber locale={locale} period={period} />
     </div>
 
-    <div>
+    <div className="d-flex flex-column align-items-end">
       <P className="mb-1" fontSize="13" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.rewarded} />
       </P>
-      <P fontSize="16" bold>
+      <P className="d-inline-flex" fontSize="16" mobileFS={14} bold>
         <Icon
           color={TEXT_SUCCESS}
           className="mr-1"
@@ -141,6 +159,15 @@ const CurrentPendingWeeks = styled.div`
   > :nth-child(2) {
     flex: 1;
     margin-left: ${x => (x.inRow ? '10px' : '0px')};
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+
+    > * {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
   }
 `;
 

@@ -16,10 +16,8 @@ import risenIcon from 'images/risen.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
-import Li from 'components/Li';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
-import H3 from 'components/H3';
 import A from 'components/A';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
@@ -33,119 +31,150 @@ const UlStyled = Ul.extend`
   flex-wrap: wrap;
   border: none;
   padding: 0;
-`;
 
-/* istanbul ignore next */
-const LiStyled = Li.extend`
-  display: flex;
-  flex-direction: column;
-  padding: 16px ${props => (props.last ? '0' : '47px')} 16px 0;
-
-  > :nth-child(1) {
-    margin-bottom: 5px;
+  li:last-child {
+    padding-right: 0;
   }
 
-  img {
-    margin-right: 5px;
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 45px 15px 0;
+
+    > :nth-child(1) {
+      margin-bottom: 5px;
+    }
+
+    img {
+      margin-right: 5px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding: 10px 25px 5px 0;
+    }
+
+    @media only screen and (max-width: 576px) {
+      padding: 7px 15px 7px 0;
+
+      span {
+        font-size: 14px !important;
+      }
+    }
   }
 `;
 
-const MainUserInformation = /* istanbul ignore next */ ({
-  profile,
-  userId,
-  account,
-}) => (
-  <Base position="middle">
-    <div className="row">
-      <div className="col-12 col-lg-3 col-xl-2 d-flex justify-content-center">
-        <LargeImage
-          src={
-            profile.ipfs_avatar ||
-            (userId === account ? editUserNoAvatar : noAvatar)
-          }
-          alt="avatar"
-          isBordered
-        />
+const MainUserInformation = ({ profile, userId, account }) => (
+  <Base className="d-flex align-items-start" position="middle">
+    <div className="d-flex justify-content-center">
+      <LargeImage
+        className="d-none d-md-block mr-3"
+        src={
+          profile.ipfs_avatar ||
+          (userId === account ? editUserNoAvatar : noAvatar)
+        }
+        alt="avatar"
+        isBordered
+      />
+    </div>
+
+    <div className="flex-grow-1">
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex align-items-center">
+          <LargeImage
+            className="d-block d-md-none mr-3"
+            src={
+              profile.ipfs_avatar ||
+              (userId === account ? editUserNoAvatar : noAvatar)
+            }
+            alt="avatar"
+          />
+
+          <div>
+            <Span fontSize="38" mobileFS="28" bold>
+              {profile.display_name}
+            </Span>
+
+            <span className="d-flex d-sm-none">
+              <RatingStatus rating={profile.rating} size="lg" />
+            </span>
+          </div>
+        </div>
+
+        <A to={routes.profileEdit(userId)}>
+          <TransparentButton>
+            <img src={pencilIcon} alt="icon" />
+            <span className="d-none d-sm-inline-block ml-2">
+              <FormattedMessage {...commonMessages.edit} />
+            </span>
+          </TransparentButton>
+        </A>
       </div>
 
-      <div className="col-12 col-lg-9 col-xl-10">
-        <div className="d-flex justify-content-between align-items-center">
-          <H3>{profile.display_name}</H3>
+      <div className="d-flex align-items-center">
+        <UlStyled>
+          <li className="d-none d-sm-flex">
+            <Span color={TEXT_SECONDARY} fontSize="13">
+              <FormattedMessage {...messages.reputation} />
+            </Span>
+            <RatingStatus rating={profile.rating} size="lg" />
+          </li>
 
-          <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
-            <TransparentButton>
-              <img className="mr-2" src={pencilIcon} alt="icon" />
-              <FormattedMessage {...commonMessages.edit} />
-            </TransparentButton>
-          </A>
-        </div>
+          <li>
+            <Span color={TEXT_SECONDARY} fontSize="13">
+              <FormattedMessage {...commonMessages.questions} />
+            </Span>
+            <Span
+              className="d-flex align-items-center"
+              fontSize="18"
+              margin="sm"
+              bold
+            >
+              <img src={questionRoundedIcon} alt="icon" />
+              <span>{profile.questions_asked}</span>
+            </Span>
+          </li>
 
-        <div className="d-flex align-items-center">
-          <UlStyled>
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...messages.reputation} />
-              </Span>
-              <RatingStatus rating={profile.rating} size="lg" />
-            </LiStyled>
+          <li>
+            <Span color={TEXT_SECONDARY} fontSize="13">
+              <FormattedMessage {...commonMessages.answers} />
+            </Span>
+            <Span
+              className="d-flex align-items-center"
+              fontSize="18"
+              margin="sm"
+              bold
+            >
+              <img src={answerIcon} alt="icon" />
+              <span>{profile.answers_given}</span>
+            </Span>
+          </li>
 
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...commonMessages.questions} />
-              </Span>
-              <Span
+          <li>
+            <Span color={TEXT_SECONDARY} fontSize="13">
+              <FormattedMessage {...messages.risen} />
+            </Span>
+            <Span
+              className="d-flex align-items-center"
+              fontSize="18"
+              margin="sm"
+              bold
+            >
+              <img
+                src={risenIcon}
                 className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
-                <img src={questionRoundedIcon} alt="icon" />
-                <span>{profile.questions_asked || 0}</span>
-              </Span>
-            </LiStyled>
+                alt="icon"
+              />
+              <span>{profile.correct_answers}</span>
+            </Span>
+          </li>
 
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...commonMessages.answers} />
-              </Span>
-              <Span
-                className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
-                <img src={answerIcon} alt="icon" />
-                <span>{profile.answers_given || 0}</span>
-              </Span>
-            </LiStyled>
-
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...messages.risen} />
-              </Span>
-              <Span
-                className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
-                <img
-                  src={risenIcon}
-                  className="d-flex align-items-center"
-                  alt="icon"
-                />
-                <span>{profile.correct_answers || 0}</span>
-              </Span>
-            </LiStyled>
-
-            <LiStyled last>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...messages.memberSince} />
-                <span>{getFormattedDate(profile.registration_time)}</span>
-              </Span>
-            </LiStyled>
-          </UlStyled>
-        </div>
+          <li>
+            <Span color={TEXT_SECONDARY} fontSize="13">
+              <FormattedMessage {...messages.memberSince} />
+              <span>{getFormattedDate(profile.registration_time)}</span>
+            </Span>
+          </li>
+        </UlStyled>
       </div>
     </div>
   </Base>

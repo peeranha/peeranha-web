@@ -3,9 +3,14 @@ import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
 
-/* istanbul ignore next */
 const NavigationButton = PrimaryLarge.extend`
   padding: 6px 20px;
+
+  @media only screen and (max-width: 576px) {
+    padding: 6px 15px;
+    font-size: 14px;
+    min-width: auto;
+  }
 
   ${({ isLink }) =>
     isLink

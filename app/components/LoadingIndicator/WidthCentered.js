@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   margin: 25px 0;
 `;
 
-const WidthCentered = /* istanbul ignore next */ () => (
+const WidthCentered = () => (
   <Wrapper>
     <LoadingIndicator />
   </Wrapper>

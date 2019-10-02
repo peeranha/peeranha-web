@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -45,10 +45,9 @@ const mapStateToProps = createStructuredSelector({
   initializing: makeSelectInitializing(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    initEosio: () => dispatch(initEosio()),
-    dispatch,
+    initEosio: bindActionCreators(initEosio, dispatch),
   };
 }
 

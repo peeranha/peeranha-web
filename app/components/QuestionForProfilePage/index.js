@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import {
   TEXT_PRIMARY_DARK,
@@ -20,8 +19,6 @@ import Base from 'components/Base';
 import Span from 'components/Span';
 import A from 'components/A';
 
-import messages from 'common-messages';
-
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
@@ -30,8 +27,12 @@ import {
 import QuestionCommunity from './QuestionCommunity';
 
 const BaseStyled = Base.extend`
-  margin-top: 15px;
-  word-break: break-all;
+  display: flex;
+  flex: 1;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Badge = Span.extend`
@@ -43,23 +44,38 @@ const Badge = Span.extend`
   width: 56px;
   height: 24px;
   margin-bottom: 8px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 5px;
+  }
 `;
 
 const AcceptedQuestionBadgeStyled = Badge.extend`
   background: ${BG_SUCCESS};
+  margin-right: 20px;
   border: none;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 5px;
+  }
 `;
 
 const TopCommunityBadgeStyled = Badge.extend`
   background: ${BG_PRIMARY};
+  margin-right: 20px;
   border: none;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = /* istanbul ignore next */ ({
+const AcceptedQuestionBadge = ({
   acceptedAnswer,
   postType,
   isMyAnswerAccepted,
@@ -75,10 +91,7 @@ const AcceptedQuestionBadge = /* istanbul ignore next */ ({
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
-const TopCommunityBadge = /* istanbul ignore next */ ({
-  isTheLargestRating,
-  postType,
-}) =>
+const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
       <img
@@ -90,7 +103,7 @@ const TopCommunityBadge = /* istanbul ignore next */ ({
   ) : null;
 
 /* eslint camelcase: 0 */
-export const QuestionForProfilePage = /* istanbul ignore next */ ({
+export const QuestionForProfilePage = ({
   myPostRating,
   title,
   myPostTime,
@@ -103,8 +116,8 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
   isTheLargestRating,
   route,
 }) => (
-  <BaseStyled className="d-flex flex-grow-1" position="left">
-    <div className="d-flex flex-column mr-4">
+  <BaseStyled>
+    <div className="d-flex flex-row flex-md-column">
       <Badge bold>{myPostRating}</Badge>
 
       <AcceptedQuestionBadge
@@ -122,21 +135,19 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
     <div className="d-flex flex-column flex-grow-1">
       <p>
         <A to={route} href={route}>
-          <Span fontSize="24" bold>
+          <Span fontSize="24" mobileFS="18" bold>
             {title}
           </Span>
         </A>
       </p>
+
       <p className="d-flex align-items-center my-1">
         <Span
           className="text-capitalize mr-3"
           fontSize="14"
           color={TEXT_SECONDARY}
         >
-          <FormattedMessage {...messages.asked} />
-          <span className="pl-1">
-            {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}
-          </span>
+          {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}
         </Span>
         <QuestionCommunity
           communities={communities}
@@ -170,7 +181,6 @@ QuestionForProfilePage.propTypes = {
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
-  id: PropTypes.string,
   community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,

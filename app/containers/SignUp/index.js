@@ -8,9 +8,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { translationMessages } from 'i18n';
+
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
@@ -190,15 +191,20 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    checkEmailDispatch: email => dispatch(checkEmail(email)),
-    verifyEmailDispatch: code => dispatch(verifyEmail(code)),
-    iHaveEosAccountDispatch: val => dispatch(iHaveEosAccount(val)),
-    idontHaveEosAccountDispatch: val => dispatch(idontHaveEosAccount(val)),
-    putKeysToStateDispatch: keys => dispatch(putKeysToState(keys)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
-    showScatterSignUpFormDispatch: () => dispatch(showScatterSignUpForm()),
-    signUpWithScatterDispatch: val => dispatch(signUpWithScatter(val)),
+    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
+    verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
+    iHaveEosAccountDispatch: bindActionCreators(iHaveEosAccount, dispatch),
+    idontHaveEosAccountDispatch: bindActionCreators(
+      idontHaveEosAccount,
+      dispatch,
+    ),
+    putKeysToStateDispatch: bindActionCreators(putKeysToState, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    showScatterSignUpFormDispatch: bindActionCreators(
+      showScatterSignUpForm,
+      dispatch,
+    ),
+    signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
   };
 }
 

@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
+import { bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import { makeSelectLocale } from './selectors';
@@ -57,10 +58,9 @@ const mapStateToProps = createSelector(makeSelectLocale(), locale => ({
   locale,
 }));
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    changeLocaleDispatch: locale => dispatch(changeLocale(locale)),
+    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
   };
 }
 

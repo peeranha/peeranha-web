@@ -17,6 +17,7 @@ import {
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
   SUBMIT_EMAIL_FORM,
+  EMAIL_FORM,
 } from './constants';
 
 export const initialState = fromJS({
@@ -34,7 +35,6 @@ function showOwnerKeyReducer(state = initialState, action) {
   const {
     type,
     showOwnerKeyError,
-    content,
     sendEmailError,
     password,
     ownerKey,
@@ -42,7 +42,7 @@ function showOwnerKeyReducer(state = initialState, action) {
 
   switch (type) {
     case SHOW_OWNER_KEY_MODAL:
-      return state.set('showModal', true).set('content', content);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_OWNER_KEY_MODAL:
       return state
         .set('showModal', false)

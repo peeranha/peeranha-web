@@ -8,7 +8,6 @@ import {
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
   SHOW_EMAIL_PASSWORD_MODAL,
-  EMAIL_FORM,
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
@@ -23,10 +22,9 @@ import {
 
 // Show | Hide (modal)
 
-export function showLoginModal(content) {
+export function showLoginModal() {
   return {
     type: SHOW_LOGIN_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 
@@ -73,10 +71,11 @@ export function loginWithEmail(val) {
   };
 }
 
-export function loginWithEmailSuccess(eosAccount) {
+export function loginWithEmailSuccess(eosAccount, content) {
   return {
     type: LOGIN_WITH_EMAIL_SUCCESS,
     eosAccount,
+    content,
   };
 }
 

@@ -4,34 +4,30 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import P from 'components/P';
-import BaseRounded from 'components/Base/BaseRounded';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Wrapper from 'components/Banner';
+import Button from 'components/Button/Contained/InfoLarge';
 
 import bannerImage from 'images/faqBanner.svg?inline';
 
 import messages from './messages';
 
 export const Banner = () => (
-  <BaseRounded className="d-flex align-items-center py-5 my-3">
-    <img className="mx-4" src={bannerImage} alt="banner" />
-    <div className="ml-5 mb-2">
-      <P className="mb-1" fontSize="24" bold>
+  <Wrapper>
+    <img src={bannerImage} alt="banner" />
+    <div>
+      <p>
         <FormattedMessage {...messages.didntFindAnswer} />
-      </P>
+      </p>
 
-      <P>
+      <p>
         <FormattedMessage {...messages.freeFeelToAsk} />
-      </P>
+      </p>
 
-      <LargeButton
-        className="my-4"
-        onClick={() => createdHistory.push(routes.support())}
-      >
+      <Button onClick={() => createdHistory.push(routes.support())}>
         <FormattedMessage {...messages.help} />
-      </LargeButton>
+      </Button>
     </div>
-  </BaseRounded>
+  </Wrapper>
 );
 
 export default React.memo(Banner);

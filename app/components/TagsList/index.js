@@ -10,10 +10,12 @@ const Tag = Span.extend`
   border: 1px solid ${BORDER_PRIMARY};
   color: ${TEXT_PRIMARY};
   font-size: 14px;
+  line-height: 20px;
   border-radius: 2px;
   margin-right: 8px;
   margin-bottom: 2px;
-  padding: 2px 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const Box = styled.ul`
@@ -22,7 +24,7 @@ const Box = styled.ul`
   align-items: center;
 `;
 
-const TagsList = /* istanbul ignore next */ ({
+const TagsList = ({
   chosenTags,
   communities,
   communityId,
@@ -47,8 +49,12 @@ const TagsList = /* istanbul ignore next */ ({
           </Tag>
 
           {showPopularity && (
-            <Span color={TEXT_SECONDARY} fontSize="14">
-              {x.popularity}
+            <Span
+              className="d-none d-sm-inline-block"
+              color={TEXT_SECONDARY}
+              fontSize="14"
+            >
+              {`${x.questions_asked}`}
             </Span>
           )}
         </li>

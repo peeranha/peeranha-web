@@ -54,7 +54,7 @@ const IconBG = MediumImage.extend`
   }
 `.withComponent('span');
 
-const Button = ({ balance }) => (
+export const Button = ({ balance }) => (
   <ButtonStyled>
     <IconBG bg={BG_PRIMARY}>
       <Icon width="24" icon={currencyPeerIcon} noMargin />
@@ -87,17 +87,24 @@ const Menu = ({ user }) => (
 const WalletDropdown = ({ user, balance }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
+    className="d-none d-md-flex"
     button={<Button balance={balance} />}
     menu={<Menu user={user} />}
   />
 );
 
+Button.propTypes = {
+  balance: PropTypes.string,
+};
+
 Menu.propTypes = {
   user: PropTypes.string,
+  balance: PropTypes.string,
 };
 
 WalletDropdown.propTypes = {
   user: PropTypes.string,
+  balance: PropTypes.string,
 };
 
 export { IconBG };

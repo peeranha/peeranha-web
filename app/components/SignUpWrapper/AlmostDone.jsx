@@ -60,13 +60,13 @@ const LeftMenu = ({ faqQuestions }) => (
 );
 
 const RightMenu = () => (
-  <div className="text-center pt-5">
+  <div className="text-center py-5 px-4">
     <img
       className="mb-2"
       src={almostDoneBanner}
       alt="peeranha registration almost done"
     />
-    <P className="text-center mb-4">
+    <P className="text-center mb-4" mobileFS="16">
       <FormattedMessage {...messages.weWillNotify} />
     </P>
     <div>

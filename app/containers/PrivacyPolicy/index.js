@@ -9,14 +9,21 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
+
+import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { getQuestionCode, getSectionCode } from 'utils/privacyPolicyManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Seo from 'components/Seo';
+import AsideBox from 'components/Base/Aside';
+
+import Content from 'containers/Faq/Content';
+import Aside from 'containers/Faq/Aside';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -25,7 +32,7 @@ import messages from './messages';
 
 import { getPrivacyPolicy } from './actions';
 
-import View from './View';
+import Header from './Header';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PrivacyPolicy extends React.PureComponent {
@@ -37,8 +44,10 @@ export class PrivacyPolicy extends React.PureComponent {
     const { locale, privacyPolicy } = this.props;
     const translations = translationMessages[locale];
 
+    if (!privacyPolicy) return null;
+
     return (
-      <div>
+      <div className="d-flex justify-content-center">
         <Seo
           title={translations[messages.title.id]}
           description={translations[messages.description.id]}
@@ -46,7 +55,22 @@ export class PrivacyPolicy extends React.PureComponent {
           index={false}
         />
 
-        <View privacyPolicy={privacyPolicy} />
+        <div className="flex-grow-1">
+          <Header />
+          <Content
+            content={privacyPolicy}
+            route={routes.privacyPolicy}
+            getSectionCode={getSectionCode}
+            getQuestionCode={getQuestionCode}
+          />
+        </div>
+
+        <AsideBox className="d-none d-xl-block">
+          <Aside
+            content={privacyPolicy}
+            route={x => routes.privacyPolicy(getSectionCode(x))}
+          />
+        </AsideBox>
       </div>
     );
   }
@@ -65,7 +89,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getPrivacyPolicyDispatch: () => dispatch(getPrivacyPolicy()),
+    getPrivacyPolicyDispatch: bindActionCreators(getPrivacyPolicy, dispatch),
   };
 }
 

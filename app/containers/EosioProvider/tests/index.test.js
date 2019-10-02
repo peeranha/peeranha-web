@@ -1,5 +1,5 @@
 import React from 'react';
-import { EosioProvider, mapDispatchToProps } from '../index';
+import { EosioProvider } from '../index';
 
 const child = <div>children</div>;
 React.Children.only = jest.fn().mockImplementation(() => child);
@@ -19,15 +19,6 @@ describe('<EosioProvider />', () => {
   it('render, @initializing is true', () => {
     cmp.props.initializing = true;
     expect(cmp.render()).toMatchSnapshot();
-  });
-
-  it('mapDispatchToProps test', () => {
-    const test = 'test';
-    const dispatch = () => test;
-
-    expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-    expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-    expect(mapDispatchToProps(dispatch).initEosio()).toBe(test);
   });
 
   it('componentDidMount', () => {
