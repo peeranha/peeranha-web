@@ -24,7 +24,7 @@ export function hideSendTokensModal() {
   };
 }
 
-export function sendTokens(args) {
+export function sendTokens(...args) {
   return {
     type: SEND_TOKENS,
     val: args[0].toJS(),

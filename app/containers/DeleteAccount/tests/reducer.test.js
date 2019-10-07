@@ -46,7 +46,7 @@ describe('deleteAccountReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('deleteAccountProcessing', true);
 
-    expect(deleteAccountReducer(state, deleteAccount(args))).toEqual(obj);
+    expect(deleteAccountReducer(state, deleteAccount(...args))).toEqual(obj);
   });
 
   it('deleteAccountSuccess', () => {
@@ -82,7 +82,7 @@ describe('deleteAccountReducer', () => {
 
     const obj = state.set('sendEmailProcessing', true).set('email', email);
 
-    expect(deleteAccountReducer(state, sendEmail(args))).toEqual(obj);
+    expect(deleteAccountReducer(state, sendEmail(...args))).toEqual(obj);
   });
 
   it('sendEmailSuccess', () => {

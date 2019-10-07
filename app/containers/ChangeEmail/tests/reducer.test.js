@@ -56,7 +56,7 @@ describe('changeEmailReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('changeEmailProcessing', true);
 
-    expect(changeEmailReducer(state, changeEmail(args))).toEqual(obj);
+    expect(changeEmailReducer(state, changeEmail(...args))).toEqual(obj);
   });
 
   it('changeEmailSuccess', () => {
@@ -92,7 +92,7 @@ describe('changeEmailReducer', () => {
 
     const obj = state.set('sendOldEmailProcessing', true).set('email', email);
 
-    expect(changeEmailReducer(state, sendOldEmail(args))).toEqual(obj);
+    expect(changeEmailReducer(state, sendOldEmail(...args))).toEqual(obj);
   });
 
   it('sendOldEmailSuccess', () => {
@@ -129,7 +129,7 @@ describe('changeEmailReducer', () => {
       .set('confirmOldEmailProcessing', true)
       .set('verificationCode', verificationCode);
 
-    expect(changeEmailReducer(state, confirmOldEmail(args))).toEqual(obj);
+    expect(changeEmailReducer(state, confirmOldEmail(...args))).toEqual(obj);
   });
 
   it('confirmOldEmailSuccess', () => {

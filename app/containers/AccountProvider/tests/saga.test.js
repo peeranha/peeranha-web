@@ -17,6 +17,7 @@ import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
 import { SAVE_PROFILE_ACTION_SUCCESS } from 'containers/EditProfilePage/constants';
 import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
+import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
 
 import {
   UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
@@ -130,6 +131,7 @@ describe('defaultSaga', () => {
       DOWNVOTE_COMM_SUCCESS,
       UPVOTE_TAGS_SUCCESS,
       DOWNVOTE_TAGS_SUCCESS,
+      PICKUP_REWARD_SUCCESS,
     ]);
   });
 });

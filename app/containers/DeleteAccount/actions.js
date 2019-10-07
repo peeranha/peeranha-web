@@ -30,7 +30,7 @@ export function hideDeleteAccountModal() {
 
 // sendEmail
 
-export function sendEmail(args) {
+export function sendEmail(...args) {
   return {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
@@ -54,7 +54,7 @@ export function sendEmailErr(sendEmailError) {
 
 // Show owner key
 
-export function deleteAccount(args) {
+export function deleteAccount(...args) {
   return {
     type: DELETE_ACCOUNT,
     values: args[0].toJS(),

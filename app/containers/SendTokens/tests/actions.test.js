@@ -42,7 +42,7 @@ describe('SendTokens actions', () => {
       resetForm: args[2].reset,
     };
 
-    expect(sendTokens(args)).toEqual(expected);
+    expect(sendTokens(...args)).toEqual(expected);
   });
 
   it('sendTokensSuccess', () => {

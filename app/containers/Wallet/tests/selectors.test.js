@@ -5,17 +5,23 @@ import {
   selectWeekStat,
   selectGetWeekStatProcessing,
   selectGetWeekStatError,
+  selectPickupRewardProcessing,
+  selectPickupRewardError,
 } from '../selectors';
 
 describe('selectWalletDomain', () => {
   const weekStat = true;
   const getWeekStatProcessing = true;
   const getWeekStatError = 'error';
+  const pickupRewardProcessing = true;
+  const pickupRewardError = 'pickupRewardError';
 
   const globalState = fromJS({
     weekStat,
     getWeekStatProcessing,
     getWeekStatError,
+    pickupRewardProcessing,
+    pickupRewardError,
   });
 
   const mockedState = fromJS({
@@ -41,5 +47,17 @@ describe('selectWalletDomain', () => {
   it('selectGetWeekStatError', () => {
     const isSelectGetWeekStatError = selectGetWeekStatError();
     expect(isSelectGetWeekStatError(mockedState)).toEqual(getWeekStatError);
+  });
+
+  it('selectPickupRewardProcessing', () => {
+    const isSelectPickupRewardProcessing = selectPickupRewardProcessing();
+    expect(isSelectPickupRewardProcessing(mockedState)).toEqual(
+      pickupRewardProcessing,
+    );
+  });
+
+  it('selectPickupRewardError', () => {
+    const isSelectPickupRewardError = selectPickupRewardError();
+    expect(isSelectPickupRewardError(mockedState)).toEqual(pickupRewardError);
   });
 });

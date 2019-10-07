@@ -1,13 +1,16 @@
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
-import { getWeekStat } from 'utils/walletManagement';
+import { getWeekStat, pickupReward } from 'utils/walletManagement';
 
-import defaultSaga, { getWeekStatWorker } from '../saga';
+import defaultSaga, { getWeekStatWorker, pickupRewardWorker } from '../saga';
 
 import {
   GET_WEEK_STAT_SUCCESS,
   GET_WEEK_STAT,
   GET_WEEK_STAT_ERROR,
+  PICKUP_REWARD_SUCCESS,
+  PICKUP_REWARD,
+  PICKUP_REWARD_ERROR,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -19,11 +22,51 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('utils/walletManagement', () => ({
   getWeekStat: jest.fn(),
+  pickupReward: jest.fn(),
 }));
 
 const eosService = {
   forgetIdentity: jest.fn(),
 };
+
+describe('pickupRewardWorker', () => {
+  const account = 'account';
+  const period = 1;
+  const generator = pickupRewardWorker({ period });
+
+  it('select @eosService', () => {
+    select.mockImplementation(() => eosService);
+    const step = generator.next();
+    expect(step.value).toEqual(eosService);
+  });
+
+  it('select @account', () => {
+    select.mockImplementation(() => account);
+    const step = generator.next(eosService);
+    expect(step.value).toEqual(account);
+  });
+
+  it('call @pickupReward', () => {
+    generator.next(account);
+    expect(call).toHaveBeenCalledWith(
+      pickupReward,
+      eosService,
+      account,
+      period,
+    );
+  });
+
+  it('PICKUP_REWARD_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(PICKUP_REWARD_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = 'some error';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(PICKUP_REWARD_ERROR);
+  });
+});
 
 describe('getWeekStatWorker', () => {
   const account = 'account';
@@ -63,6 +106,11 @@ describe('defaultSaga', () => {
 
   it('GET_WEEK_STAT', () => {
     const step = generator.next();
-    expect(step.value).toBe(GET_WEEK_STAT);
+    expect(step.value).toEqual([GET_WEEK_STAT, PICKUP_REWARD_SUCCESS]);
+  });
+
+  it('PICKUP_REWARD', () => {
+    const step = generator.next();
+    expect(step.value).toEqual(PICKUP_REWARD);
   });
 });

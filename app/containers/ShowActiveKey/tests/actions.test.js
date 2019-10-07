@@ -48,7 +48,7 @@ describe('showActiveKey actions', () => {
       password,
     };
 
-    expect(showActiveKey(args)).toEqual(expected);
+    expect(showActiveKey(...args)).toEqual(expected);
   });
 
   it('showActiveKeySuccess', () => {

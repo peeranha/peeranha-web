@@ -52,7 +52,7 @@ describe('showOwnerKeyReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('showOwnerKeyProcessing', true);
 
-    expect(showOwnerKeyReducer(state, showOwnerKey(args))).toEqual(obj);
+    expect(showOwnerKeyReducer(state, showOwnerKey(...args))).toEqual(obj);
   });
 
   it('showOwnerKeySuccess', () => {
@@ -96,7 +96,7 @@ describe('showOwnerKeyReducer', () => {
       .set('sendEmailProcessing', true)
       .set('password', password);
 
-    expect(showOwnerKeyReducer(state, sendEmail(args))).toEqual(obj);
+    expect(showOwnerKeyReducer(state, sendEmail(...args))).toEqual(obj);
   });
 
   it('sendEmailSuccess', () => {

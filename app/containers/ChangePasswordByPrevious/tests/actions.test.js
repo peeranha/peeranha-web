@@ -62,7 +62,7 @@ describe('showChangePassword actions', () => {
       email,
     };
 
-    expect(sendEmail(args)).toEqual(expected);
+    expect(sendEmail(...args)).toEqual(expected);
   });
 
   it('sendEmailSuccess', () => {
@@ -94,7 +94,7 @@ describe('showChangePassword actions', () => {
       values: args[0].toJS(),
     };
 
-    expect(changePassword(args)).toEqual(expected);
+    expect(changePassword(...args)).toEqual(expected);
   });
 
   it('changePasswordSuccess', () => {
@@ -131,7 +131,7 @@ describe('showChangePassword actions', () => {
       verificationCode,
     };
 
-    expect(submitEmail(args)).toEqual(expected);
+    expect(submitEmail(...args)).toEqual(expected);
   });
 
   it('submitEmailSuccess', () => {

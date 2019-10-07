@@ -1,4 +1,3 @@
-import { noAccess } from 'routes-config';
 import { Wallet } from '../index';
 
 const cmp = new Wallet();
@@ -22,29 +21,57 @@ describe('Wallet', () => {
   });
 
   describe('componentDidMount', () => {
-    it('@account is truthy', () => {
-      cmp.props.account = 'account';
-
+    it('account truthy', () => {
       expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
-      expect(cmp.props.history.push).toHaveBeenCalledTimes(0);
 
+      cmp.props.account = 'account';
       cmp.componentDidMount();
 
       expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(1);
-      expect(cmp.props.history.push).toHaveBeenCalledTimes(0);
     });
 
-    it('@account is null', () => {
-      cmp.props.account = null;
-
+    it('account falsy', () => {
       expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
-      expect(cmp.props.history.push).toHaveBeenCalledTimes(0);
 
+      cmp.props.account = null;
       cmp.componentDidMount();
 
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    it('call getWeekStatDispatch', () => {
+      const prevProps = { account: null };
+
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
+
+      cmp.props.account = 'account';
+      cmp.componentDidUpdate(prevProps);
+
       expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(1);
-      expect(cmp.props.history.push).toHaveBeenCalledTimes(1);
-      expect(cmp.props.history.push).toHaveBeenCalledWith(noAccess());
+    });
+
+    it('account falsy', () => {
+      const prevProps = { account: null };
+
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
+
+      cmp.props.account = null;
+      cmp.componentDidUpdate(prevProps);
+
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
+    });
+
+    it('prevProps account truthy', () => {
+      const prevProps = { account: 'account' };
+
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
+
+      cmp.props.account = 'account';
+      cmp.componentDidUpdate(prevProps);
+
+      expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);
     });
   });
 });

@@ -1,9 +1,19 @@
-import { getWeekStat, getWeekStatSuccess, getWeekStatErr } from '../actions';
+import {
+  getWeekStat,
+  getWeekStatSuccess,
+  getWeekStatErr,
+  pickupReward,
+  pickupRewardSuccess,
+  pickupRewardErr,
+} from '../actions';
 
 import {
   GET_WEEK_STAT,
   GET_WEEK_STAT_SUCCESS,
   GET_WEEK_STAT_ERROR,
+  PICKUP_REWARD,
+  PICKUP_REWARD_SUCCESS,
+  PICKUP_REWARD_ERROR,
 } from '../constants';
 
 describe('wallet actions', () => {
@@ -33,5 +43,33 @@ describe('wallet actions', () => {
     };
 
     expect(getWeekStatErr(getWeekStatError)).toEqual(expected);
+  });
+
+  it('pickupReward', () => {
+    const period = 1;
+    const expected = {
+      type: PICKUP_REWARD,
+      period,
+    };
+
+    expect(pickupReward(period)).toEqual(expected);
+  });
+
+  it('pickupRewardSuccess', () => {
+    const expected = {
+      type: PICKUP_REWARD_SUCCESS,
+    };
+
+    expect(pickupRewardSuccess()).toEqual(expected);
+  });
+
+  it('pickupRewardErr', () => {
+    const pickupRewardError = 'pickupRewardError';
+    const expected = {
+      type: PICKUP_REWARD_ERROR,
+      pickupRewardError,
+    };
+
+    expect(pickupRewardErr(pickupRewardError)).toEqual(expected);
   });
 });

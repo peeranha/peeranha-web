@@ -94,6 +94,8 @@
   "app.containers.Wallet.paidOut": "Выплачено",
   "app.containers.Wallet.rewarded": "Награждено",
   "app.containers.Wallet.week": "Неделя",
+  "app.containers.Wallet.getReward": "Получить награду",
+  "app.containers.Wallet.received": "Получено",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

@@ -55,7 +55,7 @@ describe('deleteAccount actions', () => {
       email,
     };
 
-    expect(sendEmail(args)).toEqual(expected);
+    expect(sendEmail(...args)).toEqual(expected);
   });
 
   it('sendEmailSuccess', () => {
@@ -87,7 +87,7 @@ describe('deleteAccount actions', () => {
       values: args[0].toJS(),
     };
 
-    expect(deleteAccount(args)).toEqual(expected);
+    expect(deleteAccount(...args)).toEqual(expected);
   });
 
   it('deleteAccountSuccess', () => {

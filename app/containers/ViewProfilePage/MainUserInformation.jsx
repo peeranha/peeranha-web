@@ -100,14 +100,16 @@ const MainUserInformation = ({ profile, userId, account }) => (
           </div>
         </div>
 
-        <A to={routes.profileEdit(userId)}>
-          <TransparentButton>
-            <img src={pencilIcon} alt="icon" />
-            <span className="d-none d-sm-inline-block ml-2">
-              <FormattedMessage {...commonMessages.edit} />
-            </span>
-          </TransparentButton>
-        </A>
+        {userId === account && (
+          <A to={routes.profileEdit(userId)}>
+            <TransparentButton>
+              <img src={pencilIcon} alt="icon" />
+              <span className="d-none d-sm-inline-block ml-2">
+                <FormattedMessage {...commonMessages.edit} />
+              </span>
+            </TransparentButton>
+          </A>
+        )}
       </div>
 
       <div className="d-flex align-items-center">

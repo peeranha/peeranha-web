@@ -38,7 +38,7 @@ describe('showActiveKeyReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('showActiveKeyProcessing', true);
 
-    expect(showActiveKeyReducer(state, showActiveKey(args))).toEqual(obj);
+    expect(showActiveKeyReducer(state, showActiveKey(...args))).toEqual(obj);
   });
 
   it('showActiveKeySuccess', () => {

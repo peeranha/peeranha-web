@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 
 import {
   selectAccountProviderDomain,
-  makeSelectLoading,
+  makeSelectAccountLoading,
   makeSelectError,
   makeSelectAccount,
   makeSelectProfileInfo,
@@ -88,8 +88,8 @@ describe('selectAccountProviderDomain', () => {
     expect(acc(mockedState)).toEqual(account);
   });
 
-  it('makeSelectLoading', () => {
-    const load = makeSelectLoading();
+  it('makeSelectAccountLoading', () => {
+    const load = makeSelectAccountLoading();
     expect(load(mockedState)).toEqual(loading);
   });
 
