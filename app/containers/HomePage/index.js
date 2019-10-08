@@ -10,14 +10,28 @@ import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
-import Seo from 'components/Seo';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { scrollToSection } from 'utils/animation';
+
+import Seo from 'components/Seo';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+import { checkEmail } from 'containers/SignUp/actions';
+import { selectEmailChecking } from 'containers/SignUp/selectors';
+
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
+import {
+  WHAT_IS_PEERANHA,
+  HOT_IT_DIFF,
+  HOW_IT_WORKS,
+  WHERE_TOKENS_COME_FROM,
+  VALUE_OF_TOKEN,
+} from 'containers/Faq/constants';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -37,9 +51,10 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
+  EMAIL_FIELD,
 } from './constants';
 
-import { sendEmail, sendMessage } from './actions';
+import { sendMessage } from './actions';
 
 import messages from './messages';
 
@@ -149,14 +164,20 @@ export class HomePage extends React.PureComponent {
     });
   };
 
+  checkEmail = val => {
+    this.props.checkEmailDispatch(val.get(EMAIL_FIELD));
+  };
+
   render() {
     const {
       locale,
-      sendEmailLoading,
       location,
-      sendEmailDispatch,
       sendMessageDispatch,
       sendMessageLoading,
+      showLoginModalDispatch,
+      emailChecking,
+      faqQuestions,
+      account,
     } = this.props;
 
     const translations = translationMessages[locale];
@@ -170,21 +191,23 @@ export class HomePage extends React.PureComponent {
         />
 
         <Introduction
-          sendEmailLoading={sendEmailLoading}
-          sendEmail={sendEmailDispatch}
+          account={account}
           translations={translations}
           location={location}
+          showLoginModal={showLoginModalDispatch}
+          checkEmail={this.checkEmail}
+          emailChecking={emailChecking}
         />
 
         <About translations={translations} />
 
         <Rewards
           translations={translations}
-          sendEmail={sendEmailDispatch}
-          sendEmailLoading={sendEmailLoading}
+          checkEmail={this.checkEmail}
+          emailChecking={emailChecking}
         />
 
-        <FaqMain translations={translations} questionsNumber={5} />
+        <FaqMain faqQuestions={faqQuestions} />
 
         <Team
           translations={translations}
@@ -200,23 +223,35 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   locale: PropTypes.string,
-  sendEmailLoading: PropTypes.bool,
+  account: PropTypes.string,
+  emailChecking: PropTypes.bool,
   sendMessageLoading: PropTypes.bool,
-  sendEmailDispatch: PropTypes.func,
+  checkEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
   location: PropTypes.object,
+  faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
+  account: makeSelectAccount(),
   locale: makeSelectLocale(),
-  sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
+  emailChecking: selectEmailChecking(),
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_PEERANHA,
+    HOT_IT_DIFF,
+    HOW_IT_WORKS,
+    WHERE_TOKENS_COME_FROM,
+    VALUE_OF_TOKEN,
+  ]),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   };
 }
 

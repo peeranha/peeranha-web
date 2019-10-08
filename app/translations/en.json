@@ -353,56 +353,6 @@
 
   "app.containers.HomePage.getReward": "Sign Up",
 
-  "app.containers.HomePage.whatIsPeeranha": "What is Peeranha?",
-  "app.containers.HomePage.whatIsPeeranhaCollapsed":
-    "Peeranha is a decentralized question and answer website that rewards users with crypto tokens for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.",
-
-  "app.containers.HomePage.differentFromOtherSites":
-    "How is Peeranha different from other questions and answers websites?",
-  "app.containers.HomePage.differentFromOtherSitesCollapsed":
-    "Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.",
-
-  "app.containers.HomePage.howItWorks": "How does it work?",
-  "app.containers.HomePage.howItWorksCollapsed":
-    "Peeranha is built using smart contracts on the EOS blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
-
-  "app.containers.HomePage.whatBlockchain":
-    "What Blockchain Peeranha is Built on?",
-  "app.containers.HomePage.whatBlockchainCollapsed":
-    "Peeranha is built on the EOS blockchain. EOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
-
-  "app.containers.HomePage.whatIsCryptocurrency":
-    "What is the cryptocurrency of Peeranha?",
-  "app.containers.HomePage.whatIsCryptocurrencyCollapsed":
-    "Peeranha uses its own crypto-token (or cryptocurrency) called PEER.",
-
-  "app.containers.HomePage.howEarn":
-    "How can I earn crypto tokens on Peeranha?",
-  "app.containers.HomePage.howEarnCollapsed":
-    "All activities on the website that are considered valuable for the community are rewarded in crypto tokens.  Contributions that earn tokens may include posting a detailed question, providing a helpful answer and participating in moderation.",
-
-  "app.containers.HomePage.tokensReward":
-    "Where do tokens for rewards come from?",
-  "app.containers.HomePage.tokensRewardCollapsed":
-    "Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.",
-
-  "app.containers.HomePage.valueOfToken":
-    "Where does the value of the token come from?",
-  "app.containers.HomePage.valueOfTokenCollapsed":
-    "Because Peeranha is blockchain based, tokens can be traded in the open market. Additionally, Peeranha incorporates game elements and users unlock additional powers by using the tokens. Finally, the token will be used as a payment method on the website for bounties to answer questions. Fees in the form of tokens will be required to publish job postings and ads on the website or any other paid services that website will provide.",
-
-  "app.containers.HomePage.whitePaper": "Do you have white paper?",
-  "app.containers.HomePage.whitePaperCollapsed":
-    "No. We are an agile team. We have a high-level vision but detailed specifications change frequently during the development process. We will create detailed documentation when a beta version of the product it ready for the public.",
-
-  "app.containers.HomePage.websiteLive": "Is the website live?",
-  "app.containers.HomePage.websiteLiveCollapsed":
-    "The website is in active development since June of 2018. A beta release is planned for the end of Q2 2019.",
-
-  "app.containers.HomePage.learnMore": "Where can I learn more?",
-  "app.containers.HomePage.learnMoreCollapsed":
-    "The best ways to learn more about to join our twitter, read our blog or send us an email to support@peeranha.com .",
-
   "app.containers.HomePage.getMoreAnswers": "Get more answers",
   "app.containers.HomePage.ourTeam": "Our team",
   "app.containers.HomePage.weAppreciate":
@@ -459,6 +409,7 @@
     "Something went wrong and your message has not been sent. Please try again.",
   "app.containers.HomePage.yourEmailIsRegistred":
     "The website is under development but your email is registered. You will receive an email with the steps to continue registration when the website is ready.",
+  "app.containers.HomePage.goToSite": "Go to site",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",

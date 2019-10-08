@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  TEXT_WARNING_LIGHT,
-  TEXT_SECONDARY,
-  TEXT_SUCCESS,
-} from 'style-constants';
+import { TEXT_WARNING_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
 import { getFormattedDate } from 'utils/datetime';
@@ -17,7 +13,6 @@ import calendarImage from 'images/calendar.svg?inline';
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
 import P from 'components/P';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -40,8 +35,8 @@ const BaseRoundedLi = BaseRounded.extend`
     flex: 1;
   }
 
-  ${IconStyled} {
-    ${IconHover({ color: TEXT_SUCCESS })};
+  ${PickupButton}, ${ReceivedButton} {
+    min-width: 140px;
   }
 `.withComponent('li');
 

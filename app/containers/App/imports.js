@@ -11,7 +11,6 @@ import Login from 'containers/Login';
 import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
-const FaqFull = React.lazy(() => import('containers/HomePage/FaqFull'));
 
 const Faq = React.lazy(() => import('containers/Faq'));
 const Users = React.lazy(() => import('containers/Users'));
@@ -45,7 +44,6 @@ const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
 
 export {
   HomePage,
-  FaqFull,
   Faq,
   Users,
   EditQuestion,

@@ -87,9 +87,7 @@ const selectFaqQuestions = questionsIndexes =>
 
           if (section && section.blocks[questionIndex]) {
             return (
-              <A
-                to={routes.appFaq(getQuestionCode(sectionIndex, questionIndex))}
-              >
+              <A to={routes.faq(getQuestionCode(sectionIndex, questionIndex))}>
                 {section.blocks[questionIndex].h3}
               </A>
             );

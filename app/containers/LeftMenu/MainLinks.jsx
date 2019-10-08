@@ -30,10 +30,7 @@ const A1 = A.extend`
   ${BasicLink};
 
   ${({ to }) =>
-    window.location.pathname
-      .split('/')
-      .filter(x => x.length > 0)[0]
-      .match(to.split('/').filter(x => x.length > 0)[0])
+    window.location.pathname === to
       ? `
     background-color: ${BG_PRIMARY_DARK}25;
     border-color: ${BORDER_PRIMARY_DARK};
@@ -85,7 +82,7 @@ const MainLinks = ({ profile }) => {
         <FormattedMessage {...messages.users} />
       </A1>
 
-      <A1 to={routes.appFaq()} disabled={pathname === routes.appFaq()}>
+      <A1 to={routes.faq()} disabled={pathname === routes.faq()}>
         <Icon width="24" icon={questionRoundedIcon} />
         <FormattedMessage {...messages.faq} />
       </A1>

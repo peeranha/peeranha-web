@@ -18,7 +18,13 @@ import {
 import Header from './Header';
 import EmailLandingForm from './EmailLandingForm';
 
-const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
+const Introduction = ({
+  translations,
+  showLoginModal,
+  checkEmail,
+  emailChecking,
+  account,
+}) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -32,11 +38,7 @@ const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
       </div>
     </div>
 
-    <Header
-      sendEmailLoading={sendEmailLoading}
-      sendEmail={sendEmail}
-      translations={translations}
-    />
+    <Header showLoginModal={showLoginModal} account={account} />
 
     <Wrapper className="container">
       <div className="row align-items-center justify-content-center">
@@ -54,12 +56,12 @@ const Introduction = ({ sendEmailLoading, sendEmail, translations }) => (
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
+            <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
               <EmailLandingForm
                 form={SEND_EMAIL_FORM_INTRODUCTION}
                 button={messages.getStarted}
-                sendEmailLoading={sendEmailLoading}
-                sendEmail={sendEmail}
+                emailChecking={emailChecking}
+                checkEmail={checkEmail}
                 translations={translations}
               />
             </div>
@@ -159,10 +161,11 @@ const Wrapper = styled.div`
 `;
 
 Introduction.propTypes = {
-  sendEmailLoading: PropTypes.bool,
-  sendEmail: PropTypes.func,
-  location: PropTypes.object,
+  emailChecking: PropTypes.bool,
+  checkEmail: PropTypes.func,
+  showLoginModal: PropTypes.func,
+  account: PropTypes.string,
   translations: PropTypes.object,
 };
 
-export default Introduction;
+export default React.memo(Introduction);

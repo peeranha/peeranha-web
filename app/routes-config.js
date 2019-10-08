@@ -1,6 +1,5 @@
 /* eslint camelcase: 0 */
-export const home = section => `/${section ? `#${section}` : ''}`;
-export const faq = () => `/faq`;
+export const home = () => `/about`;
 
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
@@ -19,7 +18,7 @@ export const userAnswers = id => `/users/${id}#answers`;
 export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
-export const questions = () => `/questions`;
+export const questions = () => `/`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
@@ -40,7 +39,7 @@ export const feed = () => `/feed`;
 export const communities = () => `/communities`;
 export const tags = () => `/tags`;
 export const users = () => `/users`;
-export const appFaq = code => `/app/faq/${code ? `#${code}` : ``}`;
+export const faq = code => `/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = () => `/search`;
 export const privacyPolicy = section =>

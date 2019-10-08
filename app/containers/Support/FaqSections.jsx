@@ -38,7 +38,7 @@ const FaqSections = ({ faq }) => (
       <ul>
         {faq.blocks.map((x, sectionIndex) => (
           <li>
-            <A to={routes.appFaq(getSectionCode(sectionIndex))}>{x.h2}</A>
+            <A to={routes.faq(getSectionCode(sectionIndex))}>{x.h2}</A>
           </li>
         ))}
       </ul>

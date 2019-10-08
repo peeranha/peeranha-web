@@ -23,7 +23,6 @@ import Wrapper from './Wrapper';
 
 import {
   HomePage,
-  FaqFull,
   Faq,
   Users,
   EditQuestion,
@@ -77,12 +76,6 @@ export default function App() {
           </React.Suspense>
         </Route>
 
-        <Route exact path={routes.faq()}>
-          <React.Suspense fallback={<Loader />}>
-            <FaqFull />
-          </React.Suspense>
-        </Route>
-
         <Route path={routes.feed()} render={props => Wrapper(Feed, props)} />
 
         <Route
@@ -125,7 +118,7 @@ export default function App() {
 
         <Route
           exact
-          path={routes.appFaq()}
+          path={routes.faq()}
           render={props => Wrapper(Faq, props)}
         />
 
