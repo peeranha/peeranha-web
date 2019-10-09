@@ -12,6 +12,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -130,7 +131,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'forgotPassword', reducer });
-const withSaga = injectSaga({ key: 'forgotPassword', saga });
+const withSaga = injectSaga({ key: 'forgotPassword', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

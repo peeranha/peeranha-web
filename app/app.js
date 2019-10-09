@@ -58,8 +58,8 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <EosioProvider>
+      <EosioProvider>
+        <LanguageProvider messages={messages}>
           <DataCacheProvider>
             <AccountProvider>
               <ConnectedRouter history={createdHistory}>
@@ -67,8 +67,8 @@ const render = messages => {
               </ConnectedRouter>
             </AccountProvider>
           </DataCacheProvider>
-        </EosioProvider>
-      </LanguageProvider>
+        </LanguageProvider>
+      </EosioProvider>
     </Provider>,
     MOUNT_NODE,
   );
