@@ -1,19 +1,24 @@
-import { buildEncryptionKeys } from '../../util/encryption-key-builder';
+const { buildEncryptionKeys } = require('../../util/encryption-key-builder');
 
-import { decryptObject, encryptObject, getRandomIv } from '../../util/cipher';
+const {
+  decryptObject,
+  encryptObject,
+  getRandomIv,
+} = require('../../util/cipher');
 
-import {
+const {
   callService,
   CHANGE_CREDENTIALS_INIT_SERVICE,
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
   CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
-} from '../../util/aws-connector';
+} = require('../../util/aws-connector');
 
 async function changeCredentialsInit(email) {
   const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
   });
+
   return response;
 }
 
@@ -33,15 +38,12 @@ async function changeCredentialsGetKeys(
   mailSecret,
 ) {
   const { authKey, encryptionKey } = buildEncryptionKeys(rawAuthKey);
-
   const passphrase = {
     requestCreationTime: Date.now(),
     ivResponseEncrypt: getRandomIv(),
     supplicant: email,
   };
-
   const encryptedPassphrase = encryptObject(passphrase, authKey);
-
   const requestBody = {
     emailConfirmRequest: {
       email,
@@ -50,20 +52,16 @@ async function changeCredentialsGetKeys(
     authByMasterKey,
     encryptedPassphrase,
   };
-
   const response = await callService(
     CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
     requestBody,
   );
-
   if (!response.OK) return response;
-
   const confirmResponse = decryptObject(
     response.body.encryptedConfirmResponse,
     authKey,
     passphrase.ivResponseEncrypt,
   );
-
   const body = {
     encryptionKey: confirmResponse.encryptionKey,
     keys: {
@@ -73,14 +71,11 @@ async function changeCredentialsGetKeys(
       ),
     },
   };
-
-  if (confirmResponse.eosKeyCarrier.ownerEosKey) {
+  if (confirmResponse.eosKeyCarrier.ownerEosKey)
     body.keys.ownerKey = decryptObject(
       confirmResponse.eosKeyCarrier.ownerEosKey,
       encryptionKey,
     );
-  }
-
   return {
     OK: true,
     body,
@@ -117,44 +112,35 @@ async function changeCredentialsComplete(
   includeOwnerKeys,
 ) {
   const userKeyModify = {};
-
   if (newProperties) {
     if (newProperties.email) userKeyModify.email = newProperties.email;
 
     if (newProperties.password) {
       const { keys } = newProperties;
-
       const hashPassword = buildEncryptionKeys(newProperties.password);
       const encryptedPwdEosKeys = {
         activeKey: encryptObject(keys.activeKey, hashPassword.encryptionKey),
       };
-
-      if (keys.ownerKey) {
+      if (keys.ownerKey)
         encryptedPwdEosKeys.ownerKey = encryptObject(
           keys.ownerKey,
           hashPassword.encryptionKey,
         );
-      }
-
       userKeyModify.hashPassword = hashPassword.authKey;
       userKeyModify.encryptedPwdEosKeys = encryptedPwdEosKeys;
     }
 
     if (newProperties.masterKey) {
       const { keys } = newProperties;
-
       const hashMasterKey = buildEncryptionKeys(newProperties.masterKey);
       const encryptedMKEosKeys = {
         activeKey: encryptObject(keys.activeKey, hashMasterKey.encryptionKey),
       };
-
-      if (includeOwnerKeys) {
+      if (includeOwnerKeys)
         encryptedMKEosKeys.ownerKey = encryptObject(
           keys.ownerKey,
           hashMasterKey.encryptionKey,
         );
-      }
-
       userKeyModify.hashMasterKey = hashMasterKey.authKey;
       userKeyModify.encryptedMKEosKeys = encryptedMKEosKeys;
     }
@@ -176,7 +162,7 @@ async function changeCredentialsComplete(
   return response;
 }
 
-export {
+module.exports = {
   changeCredentialsInit,
   changeCredentialsConfirm,
   changeCredentialsGetKeysByPwd,

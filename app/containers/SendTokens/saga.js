@@ -2,17 +2,12 @@ import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import { sendTokens } from 'utils/walletManagement';
-import Cookies from 'utils/cookies';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import {
-  AUTH_TYPE,
-  LOGIN_WITH_EMAIL,
-  STORED_EMAIL,
-} from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import {
   successToastHandlingWithDefaultText,
@@ -46,12 +41,14 @@ export function* sendTokensWorker({ resetForm, val }) {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
 
-    const email = Cookies.get(STORED_EMAIL);
+    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
     const password = val[PASSWORD_FIELD];
 
     // check password for users which logged with email
-    if (Cookies.get(AUTH_TYPE) === LOGIN_WITH_EMAIL) {
-      const response = yield call(() => login(email, password));
+    if (loginData) {
+      const response = yield call(() =>
+        login(loginData.email, password, Boolean(loginData.authToken)),
+      );
 
       if (!response.OK) {
         throw new Error(

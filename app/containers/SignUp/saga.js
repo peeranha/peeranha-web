@@ -16,7 +16,6 @@ import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import {
-  LOGIN_WITH_SCATTER,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
 } from 'containers/Login/constants';
@@ -233,7 +232,7 @@ export function* showScatterSignUpFormWorker() {
 
     const eosService = new EosioService();
 
-    yield call(() => eosService.init(LOGIN_WITH_SCATTER));
+    yield call(() => eosService.init());
 
     yield put(initEosioSuccess(eosService));
 

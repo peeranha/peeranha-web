@@ -1,11 +1,15 @@
-import bs58 from 'bs58';
-import { randomBytes } from 'crypto';
+const bs58 = require('bs58');
+const { randomBytes } = require('crypto');
 
 const masterKeyStrength = 16;
 
+// Stub
+// Secure random
 function generateMasterKey() {
   const rb = randomBytes(masterKeyStrength);
   return bs58.encode(rb);
 }
 
-export { generateMasterKey };
+module.exports = {
+  generateMasterKey,
+};

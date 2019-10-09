@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+const crypto = require('crypto');
 
 const buildEncryptionKeys = password => {
   const encryptionKey = crypto
@@ -7,13 +7,13 @@ const buildEncryptionKeys = password => {
     .digest()
     .toString('base64');
 
+  // Is this right desision?
   const authKey = crypto
     .createHash('sha256')
     .update(encryptionKey)
     .digest()
     .toString('base64');
-
   return { authKey, encryptionKey };
 };
 
-export { buildEncryptionKeys };
+module.exports = { buildEncryptionKeys };

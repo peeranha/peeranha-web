@@ -6,13 +6,11 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import Cookies from 'utils/cookies';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import A from 'components/A';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import Wrapper from 'components/Header/Complex';
-
-import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
 const Ul = styled.ul`
   @media only screen and (max-width: 576px) {
@@ -29,7 +27,7 @@ const UserNavigation = ({
 }) => {
   const path = window.location.pathname + window.location.hash;
 
-  const authType = Cookies.get(AUTH_TYPE);
+  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
   return (
     <Wrapper position="top">
@@ -70,7 +68,9 @@ const UserNavigation = ({
 
         <A
           className={
-            userId !== account || authType !== LOGIN_WITH_EMAIL ? 'd-none' : ''
+            userId !== account || (loginData && loginData.loginWithScatter)
+              ? 'd-none'
+              : ''
           }
           to={routes.userSettings(userId)}
         >

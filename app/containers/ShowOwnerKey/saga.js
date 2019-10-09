@@ -6,12 +6,10 @@ import {
   getOwnerKeyByPwd,
 } from 'utils/web_integration/src/wallet/get-owner-key/get-owner-key';
 
-import Cookies from 'utils/cookies';
-
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { errorToastHandling } from 'containers/Toast/saga';
 
 import { selectPassword } from './selectors';
@@ -47,7 +45,7 @@ export function* sendEmailWorker({ resetForm, email, password }) {
 
 export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
   try {
-    const email = Cookies.get(STORED_EMAIL);
+    const { email } = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
     const password = yield select(selectPassword());
 
     const locale = yield select(makeSelectLocale());

@@ -1,7 +1,6 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import Cookies from 'utils/cookies';
 import EosioService from 'utils/eosio';
 import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
@@ -33,15 +32,12 @@ import {
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
   USER_IS_NOT_REGISTERED,
-  AUTH_TYPE,
-  AUTH_PRIVATE_KEY,
-  AUTH_IS_VALID_DAYS,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
-  STORED_EMAIL,
+  AUTOLOGIN_DATA,
 } from './constants';
 
 import messages from './messages';
@@ -57,7 +53,7 @@ export function* loginWithEmailWorker({ val }) {
     const password = val[PASSWORD_FIELD];
     const rememberMe = Boolean(val[REMEMBER_ME_FIELD]);
 
-    const response = yield call(() => login(email, password));
+    const response = yield call(() => login(email, password, rememberMe));
 
     if (!response.OK) {
       throw new Error(
@@ -69,14 +65,7 @@ export function* loginWithEmailWorker({ val }) {
 
     const eosService = new EosioService();
 
-    Cookies.set(AUTH_TYPE, LOGIN_WITH_EMAIL, AUTH_IS_VALID_DAYS);
-
-    if (rememberMe) {
-      // TODO: do not save private key
-      Cookies.set(AUTH_PRIVATE_KEY, activeKey.private, AUTH_IS_VALID_DAYS);
-    }
-
-    yield call(() => eosService.init(LOGIN_WITH_EMAIL, activeKey.private));
+    yield call(() => eosService.init(activeKey.private));
 
     const eosAccount = yield call(() => eosService.getSelectedAccount());
 
@@ -86,8 +75,6 @@ export function* loginWithEmailWorker({ val }) {
     );
 
     yield put(initEosioSuccess(eosService));
-
-    Cookies.set(STORED_EMAIL, email, AUTH_IS_VALID_DAYS);
 
     if (!profileInfo) {
       yield put(loginWithEmailSuccess(eosAccount, WE_ARE_HAPPY_FORM));
@@ -109,11 +96,15 @@ export function* loginWithScatterWorker() {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
+    localStorage.setItem(
+      AUTOLOGIN_DATA,
+      JSON.stringify({ loginWithScatter: true }),
+    );
+
     // Reinitialize EOS (with Scatter)
     const eosService = new EosioService();
 
-    Cookies.set(AUTH_TYPE, LOGIN_WITH_SCATTER, AUTH_IS_VALID_DAYS);
-    yield call(() => eosService.init(LOGIN_WITH_SCATTER));
+    yield call(() => eosService.init());
 
     if (!eosService.scatterInstalled) {
       throw new Error(translations[messages[SCATTER_MODE_ERROR].id]);
