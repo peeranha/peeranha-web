@@ -87,7 +87,7 @@ const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
             </button>
 
             {!isSearchFormVisible && (
-              <Logo to={routes.home()}>
+              <Logo to={routes.questions()}>
                 <img src={img} alt="logo" />
               </Logo>
             )}

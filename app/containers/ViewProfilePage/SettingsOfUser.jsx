@@ -6,8 +6,6 @@ import { translationMessages } from 'i18n';
 import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
 
-import Cookies from 'utils/cookies';
-
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
@@ -24,7 +22,7 @@ import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
 import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
 
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 const BaseStyled = Base.extend`
   > :not(:nth-child(1)) {
@@ -87,7 +85,7 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => (
         <td>
           <FormattedMessage {...signupMessages.email} />
         </td>
-        <td>{Cookies.get(STORED_EMAIL)}</td>
+        <td>{JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)).email}</td>
         <td>
           <ChangeEmailButton>
             <FormattedMessage {...commonMessages.change} />{' '}

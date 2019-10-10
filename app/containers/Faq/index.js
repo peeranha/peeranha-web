@@ -44,7 +44,7 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
         <Header />
         <Content
           content={faq}
-          route={routes.appFaq}
+          route={routes.faq}
           getSectionCode={getSectionCode}
           getQuestionCode={getQuestionCode}
         />
@@ -52,7 +52,7 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
       </div>
 
       <AsideBox className="d-none d-xl-block">
-        <Aside content={faq} route={x => routes.appFaq(getSectionCode(x))} />
+        <Aside content={faq} route={x => routes.faq(getSectionCode(x))} />
       </AsideBox>
     </div>
   );

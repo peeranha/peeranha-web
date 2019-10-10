@@ -14,11 +14,11 @@ import { Box, Input, Label } from './FloatingLabelInput';
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
 const Ul = styled.ul`
-  font-size: 14px;
+  font-size: 12px;
   font-family: ${LANDING_FONT};
 
   li {
-    padding: 6px 15px;
+    padding: 12px 16px;
     cursor: pointer;
 
     :hover {

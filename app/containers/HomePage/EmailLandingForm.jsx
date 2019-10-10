@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 import styled from 'styled-components';
-
-import { getValueFromSearchString } from 'utils/url';
 
 import { validateEmail } from 'components/FormFields/validate';
 
 import DefaultInput from './DefaultInput';
 import Button from './ContainedButton';
 
-import { EMAIL_FIELD, REFCODE_FIELD } from './constants';
+import { EMAIL_FIELD } from './constants';
 import messages from './messages';
 
 const FormColumnStyle = `
@@ -47,12 +44,6 @@ const Form = styled.form`
 
   div:nth-child(2) {
     flex: 1;
-    min-width: 0;
-    margin-right: 10px;
-  }
-
-  div:nth-child(3) {
-    flex: 1;
   }
 
   ${x => (x.modal ? FormColumnStyle : ``)};
@@ -65,14 +56,14 @@ const Form = styled.form`
 const EmailLandingForm = ({
   handleSubmit,
   button,
-  sendEmailLoading,
-  sendEmail,
+  emailChecking,
+  checkEmail,
   translations,
   modal,
 }) => (
-  <Form onSubmit={handleSubmit(sendEmail)} modal={modal}>
+  <Form onSubmit={handleSubmit(checkEmail)} modal={modal}>
     <Field
-      disabled={sendEmailLoading}
+      disabled={emailChecking}
       placeholder={translations[messages.email.id]}
       name={EMAIL_FIELD}
       component={DefaultInput}
@@ -80,15 +71,8 @@ const EmailLandingForm = ({
       warn={[validateEmail]}
     />
 
-    <Field
-      disabled={sendEmailLoading}
-      name={REFCODE_FIELD}
-      component={DefaultInput}
-      placeholder={translations[messages.refCode.id]}
-    />
-
     <div className="d-flex">
-      <Button disabled={sendEmailLoading} typeAttr="submit">
+      <Button disabled={emailChecking}>
         <FormattedMessage {...button} />
       </Button>
     </div>
@@ -98,20 +82,11 @@ const EmailLandingForm = ({
 EmailLandingForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
-  sendEmail: PropTypes.func,
+  checkEmail: PropTypes.func,
   translations: PropTypes.object,
   button: PropTypes.object,
-  sendEmailLoading: PropTypes.bool,
+  emailChecking: PropTypes.bool,
   modal: PropTypes.bool,
 };
 
-const FormClone = reduxForm({})(EmailLandingForm);
-
-export default connect(() => ({
-  initialValues: {
-    [REFCODE_FIELD]: getValueFromSearchString(
-      window.location.search,
-      'refcode',
-    ),
-  },
-}))(FormClone);
+export default reduxForm({})(EmailLandingForm);

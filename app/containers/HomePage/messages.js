@@ -136,83 +136,6 @@ export default defineMessages({
     id: 'app.containers.HomePage.getReward',
   },
 
-  whatIsPeeranha: {
-    id: 'app.containers.HomePage.whatIsPeeranha',
-  },
-  whatIsPeeranhaCollapsed: {
-    id: 'app.containers.HomePage.whatIsPeeranhaCollapsed',
-  },
-
-  differentFromOtherSites: {
-    id: 'app.containers.HomePage.differentFromOtherSites',
-  },
-  differentFromOtherSitesCollapsed: {
-    id: 'app.containers.HomePage.differentFromOtherSitesCollapsed',
-  },
-
-  howItWorks: {
-    id: 'app.containers.HomePage.howItWorks',
-  },
-  howItWorksCollapsed: {
-    id: 'app.containers.HomePage.howItWorksCollapsed',
-  },
-
-  whatBlockchain: {
-    id: 'app.containers.HomePage.whatBlockchain',
-  },
-  whatBlockchainCollapsed: {
-    id: 'app.containers.HomePage.whatBlockchainCollapsed',
-  },
-
-  whatIsCryptocurrency: {
-    id: 'app.containers.HomePage.whatIsCryptocurrency',
-  },
-  whatIsCryptocurrencyCollapsed: {
-    id: 'app.containers.HomePage.whatIsCryptocurrencyCollapsed',
-  },
-
-  howEarn: {
-    id: 'app.containers.HomePage.howEarn',
-  },
-  howEarnCollapsed: {
-    id: 'app.containers.HomePage.howEarnCollapsed',
-  },
-
-  tokensReward: {
-    id: 'app.containers.HomePage.tokensReward',
-  },
-  tokensRewardCollapsed: {
-    id: 'app.containers.HomePage.tokensRewardCollapsed',
-  },
-
-  valueOfToken: {
-    id: 'app.containers.HomePage.valueOfToken',
-  },
-  valueOfTokenCollapsed: {
-    id: 'app.containers.HomePage.valueOfTokenCollapsed',
-  },
-
-  whitePaper: {
-    id: 'app.containers.HomePage.whitePaper',
-  },
-  whitePaperCollapsed: {
-    id: 'app.containers.HomePage.whitePaperCollapsed',
-  },
-
-  websiteLive: {
-    id: 'app.containers.HomePage.websiteLive',
-  },
-  websiteLiveCollapsed: {
-    id: 'app.containers.HomePage.websiteLiveCollapsed',
-  },
-
-  learnMore: {
-    id: 'app.containers.HomePage.learnMore',
-  },
-  learnMoreCollapsed: {
-    id: 'app.containers.HomePage.learnMoreCollapsed',
-  },
-
   getMoreAnswers: {
     id: 'app.containers.HomePage.getMoreAnswers',
   },
@@ -334,5 +257,9 @@ export default defineMessages({
   },
   yourEmailIsRegistred: {
     id: 'app.containers.HomePage.yourEmailIsRegistred',
+  },
+
+  goToSite: {
+    id: 'app.containers.HomePage.goToSite',
   },
 });

@@ -151,8 +151,8 @@ describe('selectDataCacheProviderDomain', () => {
   it('selectFaqQuestions', () => {
     const isSelectFaqQuestions = selectFaqQuestions(['0.0', '1.0']);
     expect(isSelectFaqQuestions(mockedState)).toEqual([
-      <A to={routes.appFaq(getQuestionCode(0, 0))}>header00</A>,
-      <A to={routes.appFaq(getQuestionCode(1, 0))}>header10</A>,
+      <A to={routes.faq(getQuestionCode(0, 0))}>header00</A>,
+      <A to={routes.faq(getQuestionCode(1, 0))}>header10</A>,
     ]);
   });
 });

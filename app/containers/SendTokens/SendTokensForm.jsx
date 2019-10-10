@@ -6,9 +6,8 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
-import Cookies from 'utils/cookies';
 
-import { LOGIN_WITH_EMAIL, AUTH_TYPE } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -19,54 +18,60 @@ import { strLength3x20, required } from 'components/FormFields/validate';
 
 import { EOS_ACCOUNT_FIELD, AMOUNT_FIELD, PASSWORD_FIELD } from './constants';
 
+/* eslint indent: 0 */
 const SendTokensForm = ({
   handleSubmit,
   sendTokens,
   locale,
   sendTokensProcessing,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.sendTokens} />
-    </H4>
+}) => {
+  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    <form onSubmit={handleSubmit(sendTokens)}>
-      <Field
-        name={EOS_ACCOUNT_FIELD}
-        disabled={sendTokensProcessing}
-        label={translationMessages[locale][commonMessages.eosAccount.id]}
-        component={TextInputField}
-        validate={[required]}
-        warn={[required]}
-      />
+  return (
+    <div>
+      <H4 className="text-center pb-3">
+        <FormattedMessage {...commonMessages.sendTokens} />
+      </H4>
 
-      <Field
-        name={AMOUNT_FIELD}
-        disabled={sendTokensProcessing}
-        label={translationMessages[locale][commonMessages.amount.id]}
-        component={NumberInputField}
-        validate={[required]}
-        warn={[required]}
-      />
-
-      {Cookies.get(AUTH_TYPE) === LOGIN_WITH_EMAIL && (
+      <form onSubmit={handleSubmit(sendTokens)}>
         <Field
-          name={PASSWORD_FIELD}
+          name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.password.id]}
+          label={translationMessages[locale][commonMessages.eosAccount.id]}
           component={TextInputField}
-          validate={[strLength3x20, required]}
-          warn={[strLength3x20, required]}
-          type="password"
+          validate={[required]}
+          warn={[required]}
         />
-      )}
 
-      <Button disabled={sendTokensProcessing} className="w-100 mb-3">
-        <FormattedMessage {...commonMessages.submit} />
-      </Button>
-    </form>
-  </div>
-);
+        <Field
+          name={AMOUNT_FIELD}
+          disabled={sendTokensProcessing}
+          label={translationMessages[locale][commonMessages.amount.id]}
+          component={NumberInputField}
+          validate={[required]}
+          warn={[required]}
+        />
+
+        {loginData &&
+          !loginData.loginWithScatter && (
+            <Field
+              name={PASSWORD_FIELD}
+              disabled={sendTokensProcessing}
+              label={translationMessages[locale][commonMessages.password.id]}
+              component={TextInputField}
+              validate={[strLength3x20, required]}
+              warn={[strLength3x20, required]}
+              type="password"
+            />
+          )}
+
+        <Button disabled={sendTokensProcessing} className="w-100 mb-3">
+          <FormattedMessage {...commonMessages.submit} />
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 SendTokensForm.propTypes = {
   handleSubmit: PropTypes.func,

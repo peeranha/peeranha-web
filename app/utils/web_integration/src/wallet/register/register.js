@@ -1,12 +1,12 @@
-import { buildEncryptionKeys } from '../../util/encryption-key-builder';
-import { encryptObject } from '../../util/cipher';
+const { buildEncryptionKeys } = require('../../util/encryption-key-builder');
+const { encryptObject } = require('../../util/cipher');
 
-import {
+const {
   callService,
   REGISTER_COMPLETE_SERVICE,
   REGISTER_INIT_SERVICE,
   REGISTER_CONFIRM_SERVICE,
-} from '../../util/aws-connector';
+} = require('../../util/aws-connector');
 
 async function registerInit(email) {
   const response = await callService(REGISTER_INIT_SERVICE, { email });
@@ -18,7 +18,6 @@ async function registerConfirmEmail(email, secretCode) {
     email,
     secretCode,
   });
-
   return response;
 }
 
@@ -65,7 +64,9 @@ async function registerComplete(
       publicOwnerKey: keys.ownerKey.public,
     };
   }
+
   const encryptedCredentials = encryptObject(credentials, encryptionKey);
+
   const requestBody = {
     email,
     encryptedCredentials,
@@ -76,4 +77,8 @@ async function registerComplete(
   return response;
 }
 
-export { registerInit, registerConfirmEmail, registerComplete };
+module.exports = {
+  registerInit,
+  registerConfirmEmail,
+  registerComplete,
+};

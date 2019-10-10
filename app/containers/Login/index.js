@@ -12,6 +12,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import ModalDialog from 'components/ModalDialog';
 
@@ -146,7 +147,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'login', reducer });
-const withSaga = injectSaga({ key: 'login', saga });
+const withSaga = injectSaga({ key: 'login', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

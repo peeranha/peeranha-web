@@ -34,26 +34,30 @@ const Box = Gradient.extend`
 
       .year {
         font-size: 16px;
-        margin-bottom: 5px;
         text-align: center;
         letter-spacing: -0.6px;
         font-family: ${LANDING_FONT};
+        margin-left: 25px;
       }
     }
 
     .media-section {
-      .locale {
-        text-align: center;
-      }
+      .icons {
+        margin-left: 35px;
 
-      .icons > * {
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
+        > * {
+          flex: 1;
+          text-align: center;
+          cursor: pointer;
 
-        ${IconStyled} {
-          width: 22px;
-          height: 22px;
+          :not(:last-child) {
+            margin-right: 12px;
+          }
+
+          ${IconStyled} {
+            width: 22px;
+            height: 22px;
+          }
         }
       }
     }
@@ -63,16 +67,6 @@ const Box = Gradient.extend`
     padding: 20px;
     .logo ${IconStyled} {
       width: 160px !important;
-    }
-
-    .media-section {
-      .locale {
-        text-align: right !important;
-      }
-
-      .icons {
-        display: none !important;
-      }
     }
   }
 
@@ -88,36 +82,32 @@ const Year = new Date().getFullYear();
 const MediaLink = ({ href, src }) =>
   href ? (
     <a href={href} target="_blank">
-      <Icon icon={src} hover={TEXT_PRIMARY} />
+      <Icon icon={src} hover={TEXT_PRIMARY} noMargin />
     </a>
   ) : null;
 
 const Footer = ({ locale }) => (
   <Box position="bottom">
     <div className="container">
-      <div className="row justify-content-between align-items-center">
-        <div className="col-6 logo">
-          <div className="row align-items-center">
-            <Link to={routes.home()} href={routes.home()} className="col-5">
-              <Icon icon={logo} />
-            </Link>
-            <span className="col-lg-3 col-xl-2 d-none d-lg-inline year">
-              © {Year}
-            </span>
-          </div>
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex align-items-center logo">
+          <Link to={routes.questions()}>
+            <Icon icon={logo} />
+          </Link>
+          <span className="d-none d-lg-inline year">© {Year}</span>
         </div>
-        <div className="col-6 col-lg-3 media-section">
-          <div className="row align-items-center">
-            <div className="col-12 col-lg-4 locale">
-              <ChangeLocale />
-            </div>
-            <div className="col-8 d-none d-lg-flex align-items-center icons">
-              <MediaLink href={getLinks(locale).facebook} src={facebook} />
-              <MediaLink href={getLinks(locale).twitter} src={twitter} />
-              <MediaLink href={getLinks(locale).github} src={github} />
-              <MediaLink href={getLinks(locale).medium} src={medium} />
-              <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
-            </div>
+
+        <div className="d-flex align-items-center justify-content-between media-section">
+          <div className="locale">
+            <ChangeLocale />
+          </div>
+
+          <div className="d-none d-lg-flex align-items-center icons">
+            <MediaLink href={getLinks(locale).facebook} src={facebook} />
+            <MediaLink href={getLinks(locale).twitter} src={twitter} />
+            <MediaLink href={getLinks(locale).github} src={github} />
+            <MediaLink href={getLinks(locale).medium} src={medium} />
+            <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
           </div>
         </div>
       </div>

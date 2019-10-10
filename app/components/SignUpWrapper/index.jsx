@@ -23,6 +23,7 @@ const BaseStyled = Base.extend`
   display: flex;
   margin: 10px auto;
   max-width: 1200px;
+  min-height: 90vh;
   padding: 0 !important;
   overflow: hidden;
 

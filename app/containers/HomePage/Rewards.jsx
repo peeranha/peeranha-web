@@ -10,7 +10,7 @@ import messages from './messages';
 import EmailLandingForm from './EmailLandingForm';
 import Section from './Section';
 
-const Rewards = ({ sendEmailLoading, sendEmail, translations }) => (
+const Rewards = ({ emailChecking, checkEmail, translations }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -28,13 +28,13 @@ const Rewards = ({ sendEmailLoading, sendEmail, translations }) => (
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-7 bottom-level mx-auto">
+            <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
               <EmailLandingForm
                 form={SEND_EMAIL_FORM_REWARDS}
                 button={messages.getReward}
-                sendEmailLoading={sendEmailLoading}
                 translations={translations}
-                sendEmail={sendEmail}
+                checkEmail={checkEmail}
+                emailChecking={emailChecking}
               />
             </div>
           </div>
@@ -66,8 +66,8 @@ const Box = Section.extend`
 `;
 
 Rewards.propTypes = {
-  sendEmailLoading: PropTypes.bool,
-  sendEmail: PropTypes.func,
+  emailChecking: PropTypes.bool,
+  checkEmail: PropTypes.func,
   translations: PropTypes.object,
 };
 

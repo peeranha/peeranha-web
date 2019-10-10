@@ -44,10 +44,6 @@ jest.mock(
   }),
 );
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
-
 describe('deleteAccountWorker', () => {
   const resetForm = jest.fn();
   const locale = 'en';

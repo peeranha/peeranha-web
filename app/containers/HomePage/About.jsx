@@ -377,4 +377,4 @@ About.propTypes = {
   translations: PropTypes.object,
 };
 
-export default About;
+export default React.memo(About);

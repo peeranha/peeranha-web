@@ -85,7 +85,7 @@ describe('loginWithScatterWorker', () => {
       EosioService.mockImplementation(() => eosService);
 
       generator.next(locale);
-      expect(eosService.init).toHaveBeenLastCalledWith(LOGIN_WITH_SCATTER);
+      expect(eosService.init).toHaveBeenLastCalledWith();
     });
 
     it('scatter is not installed', () => {
@@ -222,7 +222,7 @@ describe('loginWithEmailWorker', () => {
 
     it('call @login method', () => {
       generator.next(locale);
-      expect(login).toHaveBeenCalledWith(email, password);
+      expect(login).toHaveBeenCalledWith(email, password, rememberMe);
     });
 
     it('error handling with talking toast', () => {
@@ -252,10 +252,7 @@ describe('loginWithEmailWorker', () => {
     it('initialization of new EosService', () => {
       generator.next(loginResponse);
 
-      expect(eosService.init).toHaveBeenLastCalledWith(
-        LOGIN_WITH_EMAIL,
-        activeKey.private,
-      );
+      expect(eosService.init).toHaveBeenLastCalledWith(activeKey.private);
     });
 
     it('getting of selected @eosAccount', () => {

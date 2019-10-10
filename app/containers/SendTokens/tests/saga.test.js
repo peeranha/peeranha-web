@@ -1,10 +1,7 @@
 import { select } from 'redux-saga/effects';
 
 import { sendTokens } from 'utils/walletManagement';
-import Cookies from 'utils/cookies';
 import { login } from 'utils/web_integration/src/wallet/login/login';
-
-import { LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
 import defaultSaga, { sendTokensWorker } from '../saga';
 
@@ -17,6 +14,12 @@ import {
   PASSWORD_FIELD,
   HIDE_SENDTOKENS_MODAL,
 } from '../constants';
+
+const localStorage = {
+  getItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -33,10 +36,6 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
-
 const eosService = {
   forgetIdentity: jest.fn(),
 };
@@ -46,6 +45,8 @@ describe('sendTokensWorker', () => {
   const accountTo = 'accountTo';
   const quantity = 1000;
   const password = 'password';
+  const authToken = 'authToken';
+  const email = 'email';
 
   const locale = 'en';
   const resetForm = jest.fn();
@@ -82,7 +83,9 @@ describe('sendTokensWorker', () => {
       });
 
       it('call @login, password checking', () => {
-        Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
+        localStorage.getItem.mockImplementation(() =>
+          JSON.stringify({ authToken, email }),
+        );
 
         login.mockImplementation(() => 'login via email, success');
 
@@ -123,7 +126,9 @@ describe('sendTokensWorker', () => {
         errorCode: 1,
       };
 
-      Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
+      localStorage.getItem.mockImplementation(() =>
+        JSON.stringify({ authToken, email }),
+      );
 
       generator.next();
       generator.next(locale);
@@ -138,7 +143,9 @@ describe('sendTokensWorker', () => {
   });
 
   describe('login via scatter', () => {
-    Cookies.get.mockImplementation(() => `NOT_WITH_${LOGIN_WITH_EMAIL}`);
+    localStorage.getItem.mockImplementation(() =>
+      JSON.stringify({ loginWithScatter: true }),
+    );
 
     const generator = sendTokensWorker({ resetForm, val });
 

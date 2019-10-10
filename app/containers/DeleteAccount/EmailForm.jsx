@@ -7,8 +7,7 @@ import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
 
-import Cookies from 'utils/cookies';
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -63,7 +62,7 @@ let FormClone = reduxForm({
 
 FormClone = connect(() => ({
   initialValues: {
-    [EMAIL_FIELD]: Cookies.get(STORED_EMAIL),
+    [EMAIL_FIELD]: JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)).email,
   },
 }))(FormClone);
 

@@ -343,4 +343,4 @@ Team.propTypes = {
   sendMessage: PropTypes.func,
 };
 
-export default Team;
+export default React.memo(Team);

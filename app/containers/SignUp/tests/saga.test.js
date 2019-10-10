@@ -13,8 +13,6 @@ import { registerAccount } from 'utils/accountManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
 
-import { LOGIN_WITH_SCATTER } from 'containers/Login/constants';
-
 import defaultSaga, {
   emailCheckingWorker,
   verifyEmailWorker,
@@ -114,7 +112,7 @@ describe('showScatterSignUpFormWorker', () => {
       EosioService.mockImplementation(() => eosService);
 
       generator.next(locale);
-      expect(eosService.init).toHaveBeenLastCalledWith(LOGIN_WITH_SCATTER);
+      expect(eosService.init).toHaveBeenLastCalledWith();
     });
 
     it('put @eosServise to store', () => {

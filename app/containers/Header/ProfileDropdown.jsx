@@ -10,8 +10,6 @@ import messages from 'common-messages';
 
 import logoutIcon from 'images/logout.svg?inline';
 
-import Cookies from 'utils/cookies';
-
 import noAvatar from 'images/ico-user-no-photo.png';
 
 import Dropdown from 'components/Dropdown';
@@ -23,7 +21,7 @@ import RatingStatus from 'components/RatingStatus';
 import MediumImage from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
-import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
 
 const Info = styled.span`
@@ -33,7 +31,7 @@ const Info = styled.span`
   justify-content: center;
 `;
 
-const authType = Cookies.get(AUTH_TYPE);
+const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
 export const AStyled = A.extend`
   display: flex;
@@ -79,7 +77,7 @@ const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
           <FormattedMessage {...messages.answers} />
         </AStyled>
       </Li>
-      <Li className={authType !== LOGIN_WITH_EMAIL ? 'd-none' : ''}>
+      <Li className={loginData && loginData.loginWithScatter ? 'd-none' : ''}>
         <AStyled to={routes.userSettings(user)}>
           <FormattedMessage {...messages.settings} />
         </AStyled>

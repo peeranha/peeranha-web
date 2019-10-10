@@ -9,13 +9,13 @@ import messages from 'common-messages';
 import A from 'components/A';
 
 import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
+import ChangeLocale from 'containers/ChangeLocale';
 
 const AdditionalLinks = styled.div`
   display: flex;
   flex-direction: column;
 
-  a,
-  footer {
+  > * {
     padding: 6px 15px;
     color: ${TEXT_SECONDARY};
   }
@@ -43,6 +43,8 @@ export default React.memo(() => (
     <A to={routes.privacyPolicy()}>
       <FormattedMessage {...messages.privacyPolicyShort} />
     </A>
+
+    <ChangeLocale />
 
     <footer>
       @{new Date().getFullYear()} <FormattedMessage {...messages.peeranha} />

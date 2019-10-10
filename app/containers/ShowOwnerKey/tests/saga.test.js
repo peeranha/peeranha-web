@@ -10,8 +10,6 @@ import {
   getOwnerKeyByPwd,
 } from 'utils/web_integration/src/wallet/get-owner-key/get-owner-key';
 
-import Cookies from 'utils/cookies';
-
 import defaultSaga, { sendEmailWorker, showOwnerKeyWorker } from '../saga';
 
 import {
@@ -38,9 +36,11 @@ jest.mock(
   }),
 );
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
+const localStorage = {
+  getItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
 
 describe('showOwnerKeyWorker', () => {
   const resetForm = jest.fn();
@@ -49,7 +49,7 @@ describe('showOwnerKeyWorker', () => {
   const locale = 'en';
   const verificationCode = 'verificationCode';
 
-  Cookies.get.mockImplementation(() => email);
+  localStorage.getItem.mockImplementation(() => JSON.stringify({ email }));
 
   describe('showOwnerKeyWorker FAILED', () => {
     const generator = showOwnerKeyWorker({ resetForm, verificationCode });

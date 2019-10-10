@@ -3,14 +3,7 @@ import ecc from 'eosjs-ecc';
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 
-import Cookies from 'utils/cookies';
-
-import {
-  LOGIN_WITH_SCATTER,
-  AUTH_TYPE,
-  AUTH_PRIVATE_KEY,
-  LOGIN_WITH_EMAIL,
-} from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import {
   BLOCKCHAIN_NAME,
@@ -28,11 +21,10 @@ class EosioService {
     this.scatterInstalled = null;
   }
 
-  init = async (
-    initWith = Cookies.get(AUTH_TYPE),
-    privateKey = Cookies.get(AUTH_PRIVATE_KEY),
-  ) => {
-    if (initWith === LOGIN_WITH_SCATTER) {
+  init = async privateKey => {
+    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+
+    if (loginData && loginData.loginWithScatter) {
       await this.initScatter();
 
       if (this.scatterInstalled) {
@@ -105,11 +97,13 @@ class EosioService {
   };
 
   getSelectedAccount = async () => {
-    if (Cookies.get(AUTH_TYPE) === LOGIN_WITH_EMAIL) {
+    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+
+    if (loginData && loginData.email) {
       return this.selectedAccount;
     }
 
-    if (Cookies.get(AUTH_TYPE) === LOGIN_WITH_SCATTER) {
+    if (loginData.loginWithScatter) {
       if (!this.initialized || !this.scatterInstalled) return null;
 
       if (
