@@ -13,7 +13,7 @@ export function* initEosioWorker() {
     const response = yield call(autoLogin);
     const privateKey = response.OK ? response.body.activeKey.private : null;
 
-    yield call(() => eosioService.init(privateKey));
+    yield call(eosioService.init, privateKey);
     yield put(initEosioSuccess(eosioService));
   } catch (error) {
     yield put(initEosioError(error));

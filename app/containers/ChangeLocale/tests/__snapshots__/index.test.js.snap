@@ -1,36 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ChangeLocale mapLanguages 1`] = `
-Array [
-  <li
-    className="pl-2"
-    data-isbold={false}
-    data-locale="en"
-    onClick={[Function]}
-    role="presentation"
-  >
-    <ChangeLocale__Flag
-      alt="en"
-      src="IMAGE_MOCK"
-    />
-    <span>
-      en
-    </span>
-  </li>,
-  <li
-    className="pl-2"
-    data-isbold={false}
-    data-locale="ru"
-    onClick={[Function]}
-    role="presentation"
-  >
-    <ChangeLocale__Flag
-      alt="ru"
-      src="IMAGE_MOCK"
-    />
-    <span>
-      ru
-    </span>
-  </li>,
-]
-`;
+exports[`ChangeLocale render html 1`] = `"<div class=\\"dropdown Styled__Box-bbHzua cYrkXM\\"><button type=\\"button\\" id=\\"dropdownMenu1\\" data-toggle=\\"dropdown\\" aria-haspopup=\\"true\\" aria-expanded=\\"false\\"><img class=\\"Styled__Flag-eIvplR gtpfGX\\" src=\\"IMAGE_MOCK\\" alt=\\"country\\"/><span class=\\"caret\\">▾</span></button><ul class=\\"dropdown-menu p-0\\" aria-labelledby=\\"dropdownMenu1\\"><li class=\\"Styled__Li-hbXkCN cDmpvs\\" role=\\"presentation\\"><img class=\\"Styled__Flag-eIvplR gtpfGX\\" src=\\"IMAGE_MOCK\\" alt=\\"language\\"/></li><li class=\\"Styled__Li-hbXkCN iHZPKD\\" role=\\"presentation\\"><img class=\\"Styled__Flag-eIvplR gtpfGX\\" src=\\"IMAGE_MOCK\\" alt=\\"language\\"/></li></ul></div>"`;

@@ -6,7 +6,6 @@
 import { select } from 'redux-saga/effects';
 
 import { login } from 'utils/web_integration/src/wallet/login/login';
-import Cookies from 'utils/cookies';
 
 import defaultSaga, { showActiveKeyWorker } from '../saga';
 
@@ -27,17 +26,22 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
+const localStorage = {
+  getItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
 
 describe('showActiveKeyWorker', () => {
   const resetForm = jest.fn();
   const password = 'password';
   const email = 'email';
   const locale = 'en';
+  const authToken = 'authToken';
 
-  Cookies.get.mockImplementation(() => email);
+  localStorage.getItem.mockImplementation(() =>
+    JSON.stringify({ authToken, email }),
+  );
 
   describe('showActiveKeyWorker FAILED', () => {
     const generator = showActiveKeyWorker({ resetForm, password });
@@ -57,7 +61,7 @@ describe('showActiveKeyWorker', () => {
 
     it('call login', () => {
       generator.next(locale);
-      expect(login).toHaveBeenCalledWith(email, password);
+      expect(login).toHaveBeenCalledWith(email, password, Boolean(authToken));
     });
 
     it('error handling with talking toast', () => {

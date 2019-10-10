@@ -1,34 +1,56 @@
+import { shallow } from 'enzyme';
+import { appLocales } from 'i18n';
+import createdHistory from 'createdHistory';
+
 import { ChangeLocale } from '../index';
+import { Li } from '../Styled';
 
-const cmp = new ChangeLocale();
+jest.mock('react-intl', () => ({
+  addLocaleData: jest.fn(),
+  defineMessages: jest.fn().mockImplementation(() => ({})),
+  FormattedMessage: jest.fn().mockImplementation(() => null),
+}));
 
-cmp.props = {};
-cmp.props.changeLocaleDispatch = jest.fn();
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
 
-const event = {
-  currentTarget: {
-    dataset: {
-      locale: 'en',
-    },
-  },
+const localStorage = {
+  setItem: jest.fn(),
 };
 
-beforeEach(() => {
-  cmp.props.changeLocaleDispatch.mockClear();
-});
+const setTimeout = jest.fn().mockImplementation(x => x());
 
-/* eslint prefer-destructuring: 0 */
+Object.defineProperty(global, 'setTimeout', { value: setTimeout });
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+
+const props = {
+  changeLocaleDispatch: jest.fn(),
+  locale: 'en',
+};
+
 describe('ChangeLocale', () => {
-  it('mapLanguages', () => {
-    const langs = ['en', 'ru'];
-    expect(cmp.mapLanguages(langs)).toMatchSnapshot();
+  const renderer = shallow(ChangeLocale(props));
+
+  it('click test', () => {
+    expect(props.changeLocaleDispatch).toHaveBeenCalledTimes(0);
+    expect(global.localStorage.setItem).toHaveBeenCalledTimes(0);
+    expect(createdHistory.push).toHaveBeenCalledTimes(0);
+
+    renderer
+      .find(Li)
+      .first()
+      .simulate('click');
+
+    expect(props.changeLocaleDispatch).toHaveBeenCalledWith(appLocales[0]);
+    expect(global.localStorage.setItem).toHaveBeenCalledWith(
+      'locale',
+      appLocales[0],
+    );
+    expect(createdHistory.push).toHaveBeenCalledTimes(2);
   });
 
-  it('changeLocale', () => {
-    const locale = 'en';
-    event.currentTarget.dataset.locale = locale;
-
-    cmp.changeLocale(event);
-    expect(cmp.props.changeLocaleDispatch).toHaveBeenCalledWith(locale);
+  it('render html', () => {
+    expect(renderer.html()).toMatchSnapshot();
   });
 });

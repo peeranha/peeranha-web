@@ -45,7 +45,7 @@ export function* sendTokensWorker({ resetForm, val }) {
     const password = val[PASSWORD_FIELD];
 
     // check password for users which logged with email
-    if (loginData) {
+    if (loginData && loginData.email) {
       const response = yield call(() =>
         login(loginData.email, password, Boolean(loginData.authToken)),
       );

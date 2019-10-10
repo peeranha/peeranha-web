@@ -22,9 +22,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Box, Flag, Li } from './Styled';
 
-/* eslint global-require: 1 */
-
-const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
+/* eslint global-require: 0 */
+export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
   function setLocale(newLocale) {
     localStorage.setItem('locale', newLocale);
 

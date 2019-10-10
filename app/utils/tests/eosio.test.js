@@ -5,12 +5,6 @@
 import Eosjs from 'eosjs';
 import ecc from 'eosjs-ecc';
 import ScatterJS from 'scatterjs-core';
-import Cookies from 'utils/cookies';
-
-import {
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_EMAIL,
-} from 'containers/Login/constants';
 
 import EosioService from '../eosio';
 
@@ -21,13 +15,15 @@ import {
   BLOCKCHAIN_NAME,
 } from '../constants';
 
-jest.mock('eosjs');
+const localStorage = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+};
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-  set: jest.fn(),
-  remove: jest.fn(),
-}));
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+
+jest.mock('eosjs');
 
 jest.mock('eosjs-ecc', () => ({
   privateToPublic: jest.fn(),
@@ -74,8 +70,9 @@ describe('constructor', async () => {
 
 describe('init', () => {
   describe('initialization with scatter', () => {
-    const initWith = LOGIN_WITH_SCATTER;
-    const privateKey = 'privateKey';
+    localStorage.getItem.mockImplementation(() =>
+      JSON.stringify({ loginWithScatter: true }),
+    );
 
     it('scatter is installed', async () => {
       const service = new EosioService();
@@ -88,7 +85,7 @@ describe('init', () => {
       expect(ScatterJS.plugins).toHaveBeenCalledTimes(0);
       expect(Boolean(service.initialized)).toBe(false);
 
-      await service.init(initWith, privateKey);
+      await service.init();
 
       expect(ScatterJS.plugins).toHaveBeenCalledTimes(1);
       expect(service.scatterInstance.eos).toHaveBeenCalledTimes(1);
@@ -108,7 +105,7 @@ describe('init', () => {
       expect(Eosjs).toHaveBeenCalledTimes(0);
       expect(Boolean(service.initialized)).toBe(false);
 
-      await service.init(initWith, privateKey);
+      await service.init();
 
       expect(ScatterJS.plugins).toHaveBeenCalledTimes(1);
       expect(Eosjs).toHaveBeenCalledTimes(1);
@@ -118,10 +115,15 @@ describe('init', () => {
 
   it('initialization without scatter', async () => {
     const service = new EosioService();
-    const initWith = 'initWith';
     const privateKey = 'privateKey2';
     const publicKey = 'publicKey2';
     const username = 'user1';
+    const authToken = 'authToken';
+    const email = 'email';
+
+    localStorage.getItem.mockImplementation(() =>
+      JSON.stringify({ email, authToken }),
+    );
 
     ecc.privateToPublic.mockImplementation(() => publicKey);
 
@@ -135,7 +137,7 @@ describe('init', () => {
     expect(Boolean(service.selectedAccount)).toBe(false);
     expect(Boolean(service.initialized)).toBe(false);
 
-    await service.init(initWith, privateKey);
+    await service.init(privateKey);
 
     expect(Eosjs).toHaveBeenCalledTimes(1);
     expect(service.selectedAccount).toBe(username);
@@ -218,9 +220,14 @@ describe('getSelectedAccount', () => {
   describe('login without scatter', () => {
     const eos = new EosioService();
     const selectedAccount = 'selectedAccount';
+    const email = 'email';
+    const authToken = 'authToken';
 
     it('test', async () => {
-      Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
+      localStorage.getItem.mockImplementation(() =>
+        JSON.stringify({ authToken, email }),
+      );
+
       eos.selectedAccount = selectedAccount;
 
       const res = await eos.getSelectedAccount();
@@ -231,8 +238,11 @@ describe('getSelectedAccount', () => {
   describe('login with scatter', () => {
     const eos = new EosioService();
 
+    localStorage.getItem.mockImplementation(() =>
+      JSON.stringify({ loginWithScatter: true }),
+    );
+
     it('@initialized is false', async () => {
-      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
       eos.initialized = false;
 
       try {
@@ -243,9 +253,12 @@ describe('getSelectedAccount', () => {
     });
 
     it('@scatterInstalled is false', async () => {
-      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
       eos.initialized = true;
       eos.scatterInstalled = false;
+
+      localStorage.getItem.mockImplementation(() =>
+        JSON.stringify({ loginWithScatter: true }),
+      );
 
       try {
         await eos.getSelectedAccount();
@@ -255,11 +268,13 @@ describe('getSelectedAccount', () => {
     });
 
     it('@scatterInstance.identity is falsy', async () => {
-      Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
-
       eos.initialized = true;
       eos.scatterInstalled = true;
       eos.scatterInstance = { identity: null };
+
+      localStorage.getItem.mockImplementation(() =>
+        JSON.stringify({ loginWithScatter: true }),
+      );
 
       expect(await eos.getSelectedAccount()).toBe(null);
     });
@@ -271,7 +286,9 @@ describe('getSelectedAccount', () => {
       eos.scatterInstalled = true;
 
       it('account is true', async () => {
-        Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+        localStorage.getItem.mockImplementation(() =>
+          JSON.stringify({ loginWithScatter: true }),
+        );
 
         eos.scatterInstance = {
           identity: {
@@ -293,7 +310,9 @@ describe('getSelectedAccount', () => {
       });
 
       it('account is false', async () => {
-        Cookies.get.mockImplementation(() => LOGIN_WITH_SCATTER);
+        localStorage.getItem.mockImplementation(() =>
+          JSON.stringify({ loginWithScatter: true }),
+        );
 
         eos.scatterInstance = {
           identity: {

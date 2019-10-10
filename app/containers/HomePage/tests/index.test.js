@@ -1,5 +1,6 @@
 import { scrollToSection } from 'utils/animation';
 import { HomePage } from '../index';
+import { EMAIL_FIELD } from '../constants';
 
 jest.mock('utils/animation', () => ({
   scrollToSection: jest.fn(),
@@ -9,10 +10,12 @@ const cmp = new HomePage();
 
 cmp.props = {
   locale: 'en',
-  sendEmailLoading: true,
+  account: 'user1',
+  checkEmailDispatch: jest.fn(),
+  emailChecking: true,
   sendMessageLoading: true,
-  sendEmailDispatch: jest.fn(),
   sendMessageDispatch: jest.fn(),
+  faqQuestions: [],
 };
 
 const off = jest.fn();
@@ -24,6 +27,18 @@ window.$ = jest.fn(() => ({
 }));
 
 describe('HomePage', () => {
+  describe('checkEmail', () => {
+    const val = new Map();
+    const email = 'email';
+
+    val.set(EMAIL_FIELD, email);
+
+    it('test', () => {
+      cmp.checkEmail(val);
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledWith(email);
+    });
+  });
+
   describe('componentDidMount', () => {
     cmp.imagesAnimation = jest.fn();
 
