@@ -1,10 +1,14 @@
-const SERVER_ADDRESS = 'http://localhost:3500/';
+// const fetch = require('node-fetch');
+
+const SERVER_ADDRESS = 'https://test-api.peeranha.io/';
+// const SERVER_ADDRESS = "http://localhost:3500/";
 
 const REGISTER_INIT_SERVICE = 'wallet/register/init';
 const REGISTER_CONFIRM_SERVICE = 'wallet/register/confirm';
 const REGISTER_COMPLETE_SERVICE = 'wallet/register/complete';
 
-const LOGIN_SERVICE = 'wallet/login';
+const LOGIN_SERVICE = 'wallet/login/login';
+const LOGIN_AUTOLOGIN_DATA_SERVICE = 'wallet/login/autologin';
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
@@ -25,7 +29,6 @@ async function callService(service, props) {
     },
     body: JSON.stringify(props),
   });
-
   const response = await rawResponse.json();
   if (rawResponse.status < 200 || rawResponse.status > 208) {
     return {
@@ -39,12 +42,13 @@ async function callService(service, props) {
   };
 }
 
-export {
+module.exports = {
   callService,
   REGISTER_INIT_SERVICE,
   REGISTER_CONFIRM_SERVICE,
   REGISTER_COMPLETE_SERVICE,
   LOGIN_SERVICE,
+  LOGIN_AUTOLOGIN_DATA_SERVICE,
   GET_OWNER_KEY_INIT_SERVICE,
   GET_OWNER_KEY_COMPLETE_SERVICE,
   CHANGE_CREDENTIALS_INIT_SERVICE,

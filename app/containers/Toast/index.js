@@ -12,6 +12,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { removeToast } from './actions';
 import { TOP_RIGHT } from './constants';
@@ -65,7 +66,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'toast', reducer });
-const withSaga = injectSaga({ key: 'toast', saga });
+const withSaga = injectSaga({ key: 'toast', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

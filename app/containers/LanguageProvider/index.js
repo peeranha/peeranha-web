@@ -9,7 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
@@ -41,7 +41,7 @@ export class LanguageProvider extends React.PureComponent {
         key={this.props.locale}
         messages={this.props.messages[this.props.locale]}
       >
-        {React.Children.only(this.props.children)}
+        {this.props.children}
       </IntlProvider>
     );
   }
@@ -54,9 +54,9 @@ LanguageProvider.propTypes = {
   changeLocaleDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createSelector(makeSelectLocale(), locale => ({
-  locale,
-}));
+const mapStateToProps = createStructuredSelector({
+  locale: makeSelectLocale(),
+});
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {

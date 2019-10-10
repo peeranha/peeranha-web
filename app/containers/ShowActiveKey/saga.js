@@ -1,11 +1,10 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import Cookies from 'utils/cookies';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { errorToastHandling } from 'containers/Toast/saga';
 
@@ -18,9 +17,13 @@ export function* showActiveKeyWorker({ resetForm, password }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const email = Cookies.get(STORED_EMAIL);
+    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    const response = yield call(() => login(email, password));
+    const autoLogin = Boolean(loginData && loginData.authToken);
+
+    const response = yield call(() =>
+      login(loginData.email, password, autoLogin),
+    );
 
     if (!response.OK) {
       throw new Error(

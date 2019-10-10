@@ -12,7 +12,9 @@ import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
 import { appLocales } from 'i18n';
+import * as routes from 'routes-config';
 
+import createdHistory from 'createdHistory';
 import commonMessages from 'common-messages';
 
 import { changeLocale } from 'containers/LanguageProvider/actions';
@@ -25,7 +27,13 @@ import { Box, Flag, Li } from './Styled';
 const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
   function setLocale(newLocale) {
     localStorage.setItem('locale', newLocale);
+
+    const { pathname } = window.location;
+
+    // ReactIntl && Redux Saga conflict => redirect solution
+    createdHistory.push(routes.errorPage());
     changeLocaleDispatch(newLocale);
+    setTimeout(() => createdHistory.push(pathname), 0);
   }
 
   return (
