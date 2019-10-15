@@ -155,13 +155,8 @@ ProfileEditForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   location: PropTypes.object,
-  uploadImage: PropTypes.func,
-  getCroppedAvatar: PropTypes.func,
-  clearImageChanges: PropTypes.func,
   saveProfile: PropTypes.func,
   isProfileSaving: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
-  editingImgState: PropTypes.bool,
   profile: PropTypes.object,
 };
 

@@ -83,17 +83,11 @@ export class EditProfilePage extends React.PureComponent {
 }
 
 EditProfilePage.propTypes = {
-  uploadImageFileDispatch: PropTypes.func,
   saveProfileDispatch: PropTypes.func,
-  saveImageChangesDispatch: PropTypes.func,
-  clearImageChangesDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
-  saveProfileActionDispatch: PropTypes.func,
   profile: PropTypes.object,
   match: PropTypes.object,
   account: PropTypes.string,
-  editingImgState: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
   isProfileSaving: PropTypes.bool,
   questions: PropTypes.array,
   questionsWithUserAnswers: PropTypes.array,

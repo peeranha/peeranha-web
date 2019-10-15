@@ -223,12 +223,7 @@ CreateCommunityForm.propTypes = {
   translations: PropTypes.object,
   invalid: PropTypes.bool,
   submitting: PropTypes.bool,
-  editingImgState: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
-  getCroppedAvatar: PropTypes.func,
-  uploadImage: PropTypes.func,
   change: PropTypes.func,
-  clearImageChanges: PropTypes.func,
 };
 
 const validateTagsTitles = st => {

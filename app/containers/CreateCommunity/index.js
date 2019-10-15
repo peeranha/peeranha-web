@@ -125,14 +125,8 @@ export class CreateCommunity extends React.PureComponent {
 CreateCommunity.propTypes = {
   setDefaultStoreDispatch: PropTypes.func.isRequired,
   createCommunityDispatch: PropTypes.func.isRequired,
-  clearImageChangesDispatch: PropTypes.func.isRequired,
-  saveImageChangesDispatch: PropTypes.func.isRequired,
-  uploadImageFileDispatch: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
-  editingImgState: PropTypes.bool.isRequired,
   createCommunityLoading: PropTypes.bool.isRequired,
-  cachedProfileImg: PropTypes.string.isRequired,
-  cachedImgHash: PropTypes.string.isRequired,
   faqQuestions: PropTypes.array,
 };
 
