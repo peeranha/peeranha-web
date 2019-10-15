@@ -66,7 +66,6 @@ const UlStyled = Ul.extend`
 
 const MainUserInformation = ({ profile, userId, account }) => (
   <Base className="d-flex align-items-start" position="middle">
-    {console.log(profile)}
     <div className="d-flex justify-content-center">
       <LargeImage
         className="d-none d-md-block mr-3"
