@@ -1,25 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`<EditProfilePage> render test 1`] = `
 <Connect(Profile)
-  userId=""
+  userId={null}
 >
   <UserNavigation
-    account="user"
-    userId=""
+    account="user1"
+    userId={null}
   />
   <Base
     position="bottom"
   >
     <InjectIntl(Connect(ReduxForm))
-      cachedProfileImg={null}
-      clearImageChanges={[MockFunction]}
-      editingImgState={false}
-      getCroppedAvatar={[Function]}
       isProfileSaving={false}
-      profile={Object {}}
+      profile={
+        Object {
+          "profile": Object {},
+        }
+      }
       saveProfile={[Function]}
-      uploadImage={[Function]}
     />
   </Base>
 </Connect(Profile)>

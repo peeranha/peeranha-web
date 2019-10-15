@@ -1,9 +1,4 @@
 import {
-  uploadImageFileAction,
-  uploadImageFileSuccess,
-  uploadImageFileError,
-  clearImageChanges,
-  saveImageChanges,
   createCommunity,
   createCommunitySuccess,
   createCommunityErr,
@@ -11,11 +6,6 @@ import {
 } from '../actions';
 
 import {
-  UPLOAD_IMAGE_FILE,
-  UPLOAD_IMAGE_FILE_SUCCESS,
-  UPLOAD_IMAGE_FILE_ERROR,
-  CANCEL_IMAGE_CHANGES,
-  SAVE_IMAGE_CHANGES,
   CREATE_COMMUNITY,
   CREATE_COMMUNITY_SUCCESS,
   CREATE_COMMUNITY_ERROR,
@@ -61,63 +51,5 @@ describe('createCommunity actions', () => {
     };
 
     expect(createCommunityErr(createCommunityError)).toEqual(expected);
-  });
-
-  it('SAVE_IMAGE_CHANGES', () => {
-    const cachedProfileImg = 'cachedProfileImg';
-    const blob = 'blob';
-
-    const expected = {
-      type: SAVE_IMAGE_CHANGES,
-      cachedProfileImg,
-      blob,
-    };
-
-    expect(saveImageChanges({ cachedProfileImg, blob })).toEqual(expected);
-  });
-
-  it('CANCEL_IMAGE_CHANGES', () => {
-    const expected = {
-      type: CANCEL_IMAGE_CHANGES,
-    };
-
-    expect(clearImageChanges()).toEqual(expected);
-  });
-
-  it('UPLOAD_IMAGE_FILE', () => {
-    const file = 'file';
-
-    const expected = {
-      type: UPLOAD_IMAGE_FILE,
-      file,
-    };
-
-    expect(uploadImageFileAction(file)).toEqual(expected);
-  });
-
-  it('UPLOAD_IMAGE_FILE_SUCCESS', () => {
-    const cachedProfileImg = 'cachedProfileImg';
-    const cachedImgHash = 'cachedImgHash';
-
-    const expected = {
-      type: UPLOAD_IMAGE_FILE_SUCCESS,
-      cachedProfileImg,
-      cachedImgHash,
-    };
-
-    expect(uploadImageFileSuccess(cachedProfileImg, cachedImgHash)).toEqual(
-      expected,
-    );
-  });
-
-  it('UPLOAD_IMAGE_FILE_ERROR', () => {
-    const errorUploadImage = 'errorUploadImage';
-
-    const expected = {
-      type: UPLOAD_IMAGE_FILE_ERROR,
-      errorUploadImage,
-    };
-
-    expect(uploadImageFileError(errorUploadImage)).toEqual(expected);
   });
 });

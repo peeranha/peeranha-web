@@ -14,7 +14,7 @@ import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 import { CREATE_COMMUNITY_SUCCESS } from 'containers/CreateCommunity/constants';
 import { SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
 import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
-import { SAVE_PROFILE_ACTION_SUCCESS } from 'containers/EditProfilePage/constants';
+import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
@@ -122,7 +122,7 @@ describe('defaultSaga', () => {
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
-      SAVE_PROFILE_ACTION_SUCCESS,
+      SAVE_PROFILE_SUCCESS,
       EDIT_QUESTION_SUCCESS,
       FOLLOW_HANDLER_SUCCESS,
       FINISH_REGISTRATION_SUCCESS,

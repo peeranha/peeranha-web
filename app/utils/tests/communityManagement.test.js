@@ -1,4 +1,5 @@
 import { saveText, getText } from '../ipfs';
+import { uploadImg } from '../profileManagement';
 
 import {
   COMMUNITIES_TABLE,
@@ -36,6 +37,10 @@ import {
 jest.mock('../ipfs', () => ({
   saveText: jest.fn(),
   getText: jest.fn(),
+}));
+
+jest.mock('../profileManagement', () => ({
+  uploadImg: jest.fn(),
 }));
 
 window.BigInt = jest.fn().mockImplementation(x => x);
@@ -102,16 +107,26 @@ describe('getUnfollowedCommunities', () => {
 describe('createCommunity', () => {
   const communityIpfsHash = 'communityIpfsHash';
   const user = 'user';
+  const imgHash = 'imgHash1110100101';
+
   const community = {
     name: 'name',
     tags: [{ name: 'name' }],
+    avatar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCA',
   };
 
   it('test', async () => {
     saveText.mockImplementation(() => communityIpfsHash);
+    uploadImg.mockImplementation(() => ({ imgHash }));
     await createCommunity(eosService, user, community);
 
-    expect(saveText).toHaveBeenCalledWith(JSON.stringify(community));
+    expect(saveText).toHaveBeenCalledWith(
+      JSON.stringify({
+        ...community,
+        avatar: imgHash,
+      }),
+    );
+
     expect(eosService.sendTransaction).toHaveBeenCalledWith(
       user,
       CREATE_COMMUNITY,
