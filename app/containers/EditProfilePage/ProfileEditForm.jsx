@@ -55,13 +55,8 @@ export const ProfileEditForm = ({
   change,
   location,
   intl,
-  uploadImage,
-  getCroppedAvatar,
-  clearImageChanges,
   saveProfile,
   isProfileSaving,
-  cachedProfileImg,
-  editingImgState,
   profile,
 }) => {
   if (!location) {
@@ -80,20 +75,18 @@ export const ProfileEditForm = ({
         <H3 className="pb-3">
           <FormattedMessage {...messages.editProfile} />
         </H3>
+
         <AvatarStyled>
           <Field
             name={AVATAR_FIELD}
             component={AvatarField}
             disabled={isProfileSaving}
-            editingImgState={editingImgState}
             size={AVATAR_FIELD_WIDTH}
-            uploadImage={uploadImage}
-            cachedProfileImg={cachedProfileImg}
-            ipfsAvatar={profile.ipfs_avatar}
-            getCroppedAvatar={getCroppedAvatar}
-            clearImageChanges={clearImageChanges}
+            validate={imageValidation}
+            warn={imageValidation}
           />
         </AvatarStyled>
+
         <Field
           name={DISPLAY_NAME_FIELD}
           component={TextInputField}
@@ -104,6 +97,7 @@ export const ProfileEditForm = ({
           warn={strLength3x20}
           splitInHalf
         />
+
         <Field
           name={COMPANY_FIELD}
           component={TextInputField}
@@ -114,6 +108,7 @@ export const ProfileEditForm = ({
           warn={strLength3x20}
           splitInHalf
         />
+
         <Field
           name={POSITION_FIELD}
           component={TextInputField}
@@ -124,6 +119,7 @@ export const ProfileEditForm = ({
           warn={strLength3x20}
           splitInHalf
         />
+
         <Field
           name={LOCATION_FIELD}
           isAsync
@@ -134,6 +130,7 @@ export const ProfileEditForm = ({
           component={SelectField}
           splitInHalf
         />
+
         <Field
           name={ABOUT_FIELD}
           component={TextareaField}
@@ -172,18 +169,6 @@ const selector = formValueSelector(PROFILE_EDIT_FORM);
 
 let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
-  validate: (_, props) => {
-    const errors = {};
-    const imageError = imageValidation(
-      props.cachedProfileImg || props.profile.ipfs_avatar,
-    );
-
-    if (imageError) {
-      errors[AVATAR_FIELD] = { id: imageError.id };
-    }
-
-    return errors;
-  },
 })(ProfileEditForm);
 
 FormClone = connect((state, props) => ({

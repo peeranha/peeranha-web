@@ -8,8 +8,12 @@ import {
 } from './constants';
 
 export async function uploadImg(img) {
-  const imgHash = await saveFile(img);
+  const data = img.replace(/^data:image\/\w+;base64,/, '');
+  const buf = Buffer.from(data, 'base64');
+
+  const imgHash = await saveFile(buf);
   const imgUrl = await getFileUrl(imgHash);
+
   return { imgUrl, imgHash };
 }
 
@@ -225,14 +229,14 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
   return profile;
 }
 
-export async function saveProfile(user, profile, eosService) {
+export async function saveProfile(eosService, user, avatar, profile) {
   const ipfsProfile = await saveText(JSON.stringify(profile));
 
   await eosService.sendTransaction(user, SAVE_PROFILE_METHOD, {
     user,
     ipfs_profile: ipfsProfile,
     display_name: profile[DISPLAY_NAME_FIELD] || '',
-    ipfs_avatar: profile.ipfs_avatar,
+    ipfs_avatar: avatar,
   });
 }
 

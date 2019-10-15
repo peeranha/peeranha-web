@@ -29,9 +29,7 @@ export const Wrapper = ({ children, tip, label, meta, splitInHalf }) => {
           <WarningMessage
             {...meta}
             tip={tip}
-            className={`col-12 mt-from-xs-1 ${
-              valueWidth > 6 ? 'mt-md-1' : 'mt-from-md-0'
-            } col-md-${tipWidth}`}
+            className={`col-12 col-md-${tipWidth}`}
           />
         )}
       </div>

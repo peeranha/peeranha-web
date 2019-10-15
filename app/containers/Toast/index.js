@@ -37,11 +37,7 @@ export class Toast extends React.Component {
       removeToast: this.removeToast,
       location: this.location,
     };
-    return (
-      <React.Fragment>
-        {this.props.toasts.length > 0 ? <Toasts {...sendProps} /> : null}
-      </React.Fragment>
-    );
+    return <Toasts {...sendProps} />;
   }
 }
 

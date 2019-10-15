@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import * as routes from 'routes-config';
+import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -24,7 +26,6 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 import LargeImage from 'components/Img/LargeImage';
 
 import messages from 'containers/Profile/messages';
-import commonMessages from 'common-messages';
 
 const UlStyled = Ul.extend`
   display: flex;
@@ -65,6 +66,7 @@ const UlStyled = Ul.extend`
 
 const MainUserInformation = ({ profile, userId, account }) => (
   <Base className="d-flex align-items-start" position="middle">
+    {console.log(profile)}
     <div className="d-flex justify-content-center">
       <LargeImage
         className="d-none d-md-block mr-3"

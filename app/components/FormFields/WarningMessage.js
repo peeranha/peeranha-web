@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
@@ -6,6 +7,27 @@ import { TEXT_SECONDARY } from 'style-constants';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 import Span from 'components/Span';
+
+const Div = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  > div {
+    display: flex;
+    align-items: center;
+    position: absolute;
+  }
+
+  @media only screen and (max-width: 768px) {
+    height: auto;
+    > div {
+      position: relative;
+      display: block;
+    }
+  }
+`;
 
 export const WarningMessage = ({
   error,
@@ -17,21 +39,23 @@ export const WarningMessage = ({
   intl,
 }) =>
   (touched && (error || warning)) || (active && tip) ? (
-    <div className={`d-flex align-items-center ${className}`}>
-      {tip && (
-        <img
-          className="d-none d-xl-inline mr-2"
-          src={validationArrowIcon}
-          alt="icon"
-        />
-      )}
+    <Div className={className}>
+      <div>
+        {tip && (
+          <img
+            className="d-none d-xl-inline mr-2"
+            src={validationArrowIcon}
+            alt="icon"
+          />
+        )}
 
-      <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
-        {(error && intl.formatMessage({ id: error.id })) ||
-          (warning && intl.formatMessage({ id: warning.id })) ||
-          tip}
-      </Span>
-    </div>
+        <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
+          {(error && intl.formatMessage({ id: error.id })) ||
+            (warning && intl.formatMessage({ id: warning.id })) ||
+            tip}
+        </Span>
+      </div>
+    </Div>
   ) : null;
 
 WarningMessage.propTypes = {

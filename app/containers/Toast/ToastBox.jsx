@@ -25,7 +25,7 @@ const ToastBox = styled.div`
   z-index: 9999999999;
   position: fixed;
   display: flex;
-  min-height: 100vh;
+  max-height: 100vh;
   ${x => toastsLocation[x.location]};
 `;
 

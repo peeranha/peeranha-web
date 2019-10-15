@@ -1,4 +1,4 @@
-import { takeLatest, put, select } from 'redux-saga/effects';
+import { takeEvery, put, select } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
 import commonMessages from 'common-messages';
@@ -57,5 +57,5 @@ export function* successToastHandlingWithDefaultText() {
 }
 
 export default function*() {
-  yield takeLatest(ADD_TOAST, addToastWorker);
+  yield takeEvery(ADD_TOAST, addToastWorker);
 }

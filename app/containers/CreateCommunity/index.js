@@ -15,8 +15,6 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
-
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import BaseTransparent from 'components/Base/BaseTransparent';
@@ -34,13 +32,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import {
-  uploadImageFileAction,
-  saveImageChanges,
-  clearImageChanges,
-  createCommunity,
-  setDefaultStore,
-} from './actions';
+import { createCommunity, setDefaultStore } from './actions';
 
 import {
   COMM_NAME_FIELD,
@@ -49,6 +41,7 @@ import {
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
+  COMM_AVATAR_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -76,7 +69,7 @@ export class CreateCommunity extends React.PureComponent {
       }));
 
     const community = {
-      avatar: this.props.cachedImgHash,
+      avatar: values[COMM_AVATAR_FIELD],
       name: values[COMM_NAME_FIELD],
       language: values[LANGUAGE_FIELD].value,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
@@ -87,22 +80,9 @@ export class CreateCommunity extends React.PureComponent {
     this.props.createCommunityDispatch(community, reset);
   };
 
-  uploadImage = event => {
-    uploadImage(event, this.props.uploadImageFileDispatch);
-  };
-
-  getCroppedAvatar = obj => {
-    getCroppedAvatar(obj, this.props.saveImageChangesDispatch);
-  };
-
   render() /* istanbul ignore next */ {
     const sendProps = {
       createCommunity: this.createCommunity,
-      uploadImage: this.uploadImage,
-      getCroppedAvatar: this.getCroppedAvatar,
-      clearImageChanges: this.props.clearImageChangesDispatch,
-      editingImgState: this.props.editingImgState,
-      cachedProfileImg: this.props.cachedProfileImg,
       createCommunityLoading: this.props.createCommunityLoading,
       translations: translationMessages[this.props.locale],
     };
@@ -162,20 +142,11 @@ const mapStateToProps = createStructuredSelector({
     WHAT_IS_COMMUNITY_QUESTION,
     WHO_MANAGES_COMMUNITY_QUESTION,
   ]),
-  editingImgState: selectors.selectEditingImgState(),
-  cachedProfileImg: selectors.selectCachedProfileImg(),
   createCommunityLoading: selectors.selectCreateCommunityLoading(),
-  cachedImgHash: selectors.selectCachedImgHash(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    uploadImageFileDispatch: bindActionCreators(
-      uploadImageFileAction,
-      dispatch,
-    ),
-    saveImageChangesDispatch: bindActionCreators(saveImageChanges, dispatch),
-    clearImageChangesDispatch: bindActionCreators(clearImageChanges, dispatch),
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
   };

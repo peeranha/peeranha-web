@@ -66,11 +66,6 @@ const CreateCommunityForm = ({
   createCommunityLoading,
   translations,
   change,
-  editingImgState,
-  uploadImage,
-  cachedProfileImg,
-  getCroppedAvatar,
-  clearImageChanges,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
@@ -94,8 +89,6 @@ const CreateCommunityForm = ({
     changeTags([...tags, tags[tags.length - 1] + 1]);
   };
 
-  const imageValidationBind = imageValidation.bind(null, cachedProfileImg);
-
   return (
     <FormStyled
       size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
@@ -104,19 +97,12 @@ const CreateCommunityForm = ({
       <div className="position-static">
         <AvatarStyled>
           <Field
-            editingImgState={editingImgState}
-            uploadImage={uploadImage}
-            cachedProfileImg={cachedProfileImg}
-            ipfsAvatar={null}
-            getCroppedAvatar={getCroppedAvatar}
-            clearImageChanges={clearImageChanges}
-            disabled={createCommunityLoading}
             name={COMM_AVATAR_FIELD}
-            label={translations[messages.avatar.id]}
             component={AvatarField}
             size={AVATAR_FIELD_WIDTH}
-            validate={imageValidationBind}
-            warn={imageValidationBind}
+            validate={imageValidation}
+            warn={imageValidation}
+            disabled={createCommunityLoading}
           />
         </AvatarStyled>
 

@@ -1,6 +1,4 @@
 import { fromJS } from 'immutable';
-import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
-
 import { CreateCommunity } from '../index';
 
 import {
@@ -13,26 +11,11 @@ import {
 } from '../constants';
 
 const cmp = new CreateCommunity();
-
-jest.mock('utils/imageManagement', () => ({
-  uploadImage: jest.fn(),
-  getCroppedAvatar: jest.fn(),
-}));
-
 cmp.props = {
   setDefaultStoreDispatch: jest.fn(),
   createCommunityDispatch: jest.fn(),
-  clearImageChangesDispatch: jest.fn(),
-  saveImageChangesDispatch: jest.fn(),
-  uploadImageFileDispatch: jest.fn(),
   locale: 'en',
-  editingImgState: false,
-  createCommunityLoading: false,
-  cachedProfileImg: '',
-  cachedImgHash: '',
 };
-
-const ev = {};
 
 describe('<CreateCommunity />', () => {
   it('componentWillUnmount', () => {
@@ -74,22 +57,6 @@ describe('<CreateCommunity />', () => {
     expect(cmp.props.createCommunityDispatch).toHaveBeenCalledWith(
       community,
       obj2.reset,
-    );
-  });
-
-  it('uploadImage', () => {
-    cmp.uploadImage(ev);
-    expect(uploadImage).toHaveBeenCalledWith(
-      ev,
-      cmp.props.uploadImageFileDispatch,
-    );
-  });
-
-  it('getCroppedAvatar', () => {
-    cmp.getCroppedAvatar(ev);
-    expect(getCroppedAvatar).toHaveBeenCalledWith(
-      ev,
-      cmp.props.saveImageChangesDispatch,
     );
   });
 
