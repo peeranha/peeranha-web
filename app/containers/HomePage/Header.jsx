@@ -45,12 +45,12 @@ const Header = ({ showLoginModal, account }) => {
         <div className="container">
           <div className="d-flex flex-lg-row flex-column justify-content-between">
             <div className="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-              <A to={routes.questions()} className="logo">
+              <A to={routes.questions()} className="d-flex logo">
                 <img src={logo} alt="logo" />
               </A>
 
               <button
-                className="d-inline-block d-lg-none navbar-toggler"
+                className="d-inline-block d-lg-none navbar-toggler p-0"
                 type="button"
                 onClick={toggle}
               >

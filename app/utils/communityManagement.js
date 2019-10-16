@@ -15,6 +15,7 @@ import {
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
 } from './constants';
+import { uploadImg } from './profileManagement';
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
@@ -217,7 +218,14 @@ export async function followCommunity(
 
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
-  const communityIpfsHash = await saveText(JSON.stringify(community));
+  const { imgHash } = await uploadImg(community.avatar);
+
+  const communityIpfsHash = await saveText(
+    JSON.stringify({
+      ...community,
+      avatar: imgHash,
+    }),
+  );
 
   const suggested_tags = await Promise.all(
     community.tags.map(async x => {

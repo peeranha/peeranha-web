@@ -76,15 +76,19 @@ it('UsersFetcher', () => {
 
 /* eslint camelcase: 0 */
 it('uploadImg', async () => {
-  const txt = 'txt';
   const imgHash = 'ipfsHash';
   const imgUrl = 'url';
+  const img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCA';
 
   saveFile.mockImplementationOnce(() => imgHash);
   getFileUrl.mockImplementationOnce(() => imgUrl);
 
-  expect(await uploadImg(txt)).toEqual({ imgHash, imgUrl });
-  expect(saveFile).toHaveBeenCalledWith(txt);
+  expect(await uploadImg(img)).toEqual({ imgHash, imgUrl });
+
+  expect(saveFile).toHaveBeenCalledWith(
+    Buffer.from(img.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
+  );
+
   expect(getFileUrl).toHaveBeenCalledWith(imgHash);
 });
 
@@ -140,15 +144,16 @@ describe('getProfileInfo', async () => {
 });
 
 it('saveProfile', async () => {
+  const avatar = 'avatar';
   const user = 'user';
-  const profile = {};
+  const profile = { avatar };
   const ipfsProfile = 'ipfsProfile';
 
   saveText.mockImplementation(() => ipfsProfile);
 
   expect(cmp.sendTransaction).toHaveBeenCalledTimes(0);
 
-  await saveProfile(user, profile, cmp);
+  await saveProfile(cmp, user, avatar, profile);
 
   expect(saveText).toHaveBeenCalledWith(JSON.stringify(profile));
   expect(cmp.sendTransaction).toHaveBeenCalledTimes(1);

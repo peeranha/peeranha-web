@@ -1,7 +1,7 @@
 import messages from './messages';
 
-export const imageValidation = isValid =>
-  !isValid ? messages.fileSize : undefined;
+export const imageValidation = img =>
+  !img || (img && img.length > 2000000) ? messages.fileSize : undefined;
 
 export const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)

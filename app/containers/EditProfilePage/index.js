@@ -23,27 +23,13 @@ import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
 import Base from 'components/Base';
 
-import {
-  DISPLAY_NAME_FIELD,
-  POSITION_FIELD,
-  COMPANY_FIELD,
-  ABOUT_FIELD,
-  LOCATION_FIELD,
-} from 'containers/Profile/constants';
-
-import { uploadImage, getCroppedAvatar } from 'utils/imageManagement';
+import { LOCATION_FIELD } from 'containers/Profile/constants';
 
 import * as editProfileSelectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import {
-  uploadImageFileAction,
-  saveImageChanges,
-  clearImageChanges,
-  setDefaultReducer,
-  saveProfileAction,
-} from './actions';
+import { setDefaultReducer, saveProfile } from './actions';
 
 import ProfileEditForm from './ProfileEditForm';
 
@@ -53,68 +39,29 @@ export class EditProfilePage extends React.PureComponent {
     this.props.setDefaultReducerDispatch();
   }
 
-  uploadImage = event => {
-    uploadImage(event, this.props.uploadImageFileDispatch);
-  };
-
-  getCroppedAvatar = obj => {
-    getCroppedAvatar(obj, this.props.saveImageChangesDispatch);
-  };
-
-  saveProfile = async val => {
-    const { match, blob } = this.props;
+  saveProfile = values => {
+    const { match } = this.props;
     const userKey = match.params.id;
+
+    const valJS = values.toJS();
 
     const profile = {
       ...this.props.profile.profile,
-      [DISPLAY_NAME_FIELD]: val.get(DISPLAY_NAME_FIELD),
-      [POSITION_FIELD]: val.get(POSITION_FIELD),
-      [COMPANY_FIELD]: val.get(COMPANY_FIELD),
-      [ABOUT_FIELD]: val.get(ABOUT_FIELD),
-      [LOCATION_FIELD]: val.get(LOCATION_FIELD)
-        ? val.get(LOCATION_FIELD).value
+      ...valJS,
+      [LOCATION_FIELD]: valJS[LOCATION_FIELD]
+        ? valJS[LOCATION_FIELD].value
         : '',
     };
 
-    if (blob) {
-      const reader = new window.FileReader();
-
-      reader.onloadend = () => {
-        this.props.saveProfileActionDispatch({
-          userKey,
-          profile,
-          reader: reader.result,
-        });
-      };
-
-      reader.readAsArrayBuffer(blob);
-    } else {
-      this.props.saveProfileActionDispatch({
-        userKey,
-        profile,
-      });
-    }
+    this.props.saveProfileDispatch({ profile, userKey });
   };
 
   render() /* istanbul ignore next */ {
-    const {
-      profile,
-      match,
-      account,
-      editingImgState,
-      isProfileSaving,
-      cachedProfileImg,
-      clearImageChangesDispatch,
-    } = this.props;
+    const { profile, match, account, isProfileSaving } = this.props;
 
     const sendProps = {
-      uploadImage: this.uploadImage,
-      getCroppedAvatar: this.getCroppedAvatar,
-      clearImageChanges: clearImageChangesDispatch,
       saveProfile: this.saveProfile,
       isProfileSaving,
-      cachedProfileImg,
-      editingImgState,
       profile,
     };
 
@@ -136,16 +83,11 @@ export class EditProfilePage extends React.PureComponent {
 }
 
 EditProfilePage.propTypes = {
-  uploadImageFileDispatch: PropTypes.func,
-  saveImageChangesDispatch: PropTypes.func,
-  clearImageChangesDispatch: PropTypes.func,
+  saveProfileDispatch: PropTypes.func,
   setDefaultReducerDispatch: PropTypes.func,
-  saveProfileActionDispatch: PropTypes.func,
   profile: PropTypes.object,
   match: PropTypes.object,
   account: PropTypes.string,
-  editingImgState: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
   isProfileSaving: PropTypes.bool,
   questions: PropTypes.array,
   questionsWithUserAnswers: PropTypes.array,
@@ -154,9 +96,6 @@ EditProfilePage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   profile: (state, props) => selectUsers(props.match.params.id)(state),
   account: makeSelectAccount(),
-  editingImgState: editProfileSelectors.selectEditingImgState(),
-  cachedProfileImg: editProfileSelectors.selectCachedProfileImg(),
-  blob: editProfileSelectors.selectBlob(),
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
   questions: selectQuestions(),
   questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
@@ -164,14 +103,8 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    uploadImageFileDispatch: bindActionCreators(
-      uploadImageFileAction,
-      dispatch,
-    ),
-    saveImageChangesDispatch: bindActionCreators(saveImageChanges, dispatch),
-    clearImageChangesDispatch: bindActionCreators(clearImageChanges, dispatch),
     setDefaultReducerDispatch: bindActionCreators(setDefaultReducer, dispatch),
-    saveProfileActionDispatch: bindActionCreators(saveProfileAction, dispatch),
+    saveProfileDispatch: bindActionCreators(saveProfile, dispatch),
   };
 }
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { scrollToSection } from 'utils/animation';
-import * as arrowDown from 'images/arrow_down.svg?inline';
+import arrowDown from 'images/arrow_down.svg?inline';
 
 import messages from './messages';
 import Parallax from './Parallax';

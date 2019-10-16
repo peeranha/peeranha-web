@@ -1,174 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import AvatarEditor from 'react-avatar-editor';
+import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY } from 'style-constants';
+import { getFileUrl } from 'utils/ipfs';
 
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
-import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
 import WarningMessage from './WarningMessage';
 
-export const MAX_FILE_SIZE = 2000000; // 2mb
-
-const BORDER_EDITOR_RADIUS = 100;
-const EDITOR_COLOR = [255, 255, 255, 0.6];
-const EDITOR_SCALE = 1.5;
-const EDITOR_ROTATE = 0;
-const CROSS_ORIGIN = 'anonymous';
-
-const AvatarArea = styled.div`
-  overflow: hidden;
+const Div = styled.div`
   position: relative;
-  display: flex;
   width: ${x => x.size}px;
-  height: ${x => x.size}px;
-  margin-bottom: 10px;
 
-  ${x => ErrorHandling(x.error)};
-  ${x => DisableHandling(x.disabled)};
+  > :first-child {
+    position: relative;
+    width: inherit;
+    height: ${x => x.size}px;
+    overflow: hidden;
 
-  border-radius: 50% !important;
+    > *:nth-child(1) {
+      position: relative;
+      z-index: 1;
+      width: inherit;
+      height: inherit;
+      opacity: ${x => (x.s ? 1 : 0)};
+    }
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
-  }
-
-  input {
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    cursor: pointer;
+    > *:nth-child(2) {
+      position: absolute;
+      z-index: ${x => (x.disabled ? 2 : 0)};
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      object-fit: ${x => (x.value ? 'contain' : 'none')};
+      border-radius: 50%;
+      border: 1px solid ${BORDER_SECONDARY};
+      opacity: ${x => (!x.s ? 1 : 0)};
+    }
   }
 `;
 
-const ButtonStyled = styled.button`
-  position: absolute;
-  font-size: 20px;
-  color: ${TEXT_SECONDARY};
-  top: ${x => x.top}px;
-  right: ${x => x.right}px;
-`;
-
-const Box = styled.div`
-  position: relative;
-  width: ${x => x.size}px;
-  height: auto;
-`;
-
-function AvatarField({
-  input,
-  size,
-  disabled,
-  meta,
-  editingImgState,
-  cachedProfileImg,
-  ipfsAvatar,
-  getCroppedAvatar,
-  uploadImage,
-  clearImageChanges,
-}) {
-  let avatarRefs;
-
-  const displayAvatar = !editingImgState && cachedProfileImg;
+function AvatarField({ input, meta, size, disabled }) {
+  const [s, setS] = useState(false);
+  const [y, setY] = useState(null);
 
   return (
-    <Box size={size}>
-      <AvatarArea
-        size={size}
-        disabled={disabled}
-        error={meta.touched && (meta.warning || meta.error)}
-      >
-        {!displayAvatar && (
-          <img
-            src={cachedProfileImg || ipfsAvatar || editUserNoAvatar}
-            alt="avatar"
-          />
-        )}
+    <Div s={s} value={input.value.length} size={size} disabled={disabled}>
+      <div className="my-3">
+        <Avatar
+          {...input}
+          width={size}
+          height={size}
+          onCrop={setY}
+          onBeforeFileLoad={() => {
+            setS(true);
+          }}
+          onClose={() => {
+            input.onChange(y);
+            setS(false);
+          }}
+        />
 
-        {displayAvatar && (
-          <AvatarEditor
-            image={cachedProfileImg}
-            ref={refs => {
-              avatarRefs = refs;
-            }}
-            width={size - 0.2 * size}
-            height={size - 0.2 * size}
-            color={EDITOR_COLOR}
-            scale={EDITOR_SCALE}
-            rotate={EDITOR_ROTATE}
-            border={0.2 * size}
-            crossOrigin={CROSS_ORIGIN}
-            borderRadius={BORDER_EDITOR_RADIUS}
-          />
-        )}
-
-        {!displayAvatar && (
-          <input
-            {...input}
-            onChange={x => {
-              if (x.target.files[0].size > MAX_FILE_SIZE) {
-                clearImageChanges();
-                return;
-              }
-
-              uploadImage(x);
-            }}
-            disabled={disabled}
-            type="file"
-            value={undefined}
-            className="custom-file-input"
-          />
-        )}
-      </AvatarArea>
+        <img
+          src={
+            (input.value && input.value.length > 1000 && input.value) ||
+            (input.value &&
+              input.value.length < 1000 &&
+              getFileUrl(input.value)) ||
+            editUserNoAvatar
+          }
+          alt="icon"
+        />
+      </div>
 
       <WarningMessage {...meta} />
-
-      {displayAvatar && (
-        <div>
-          <ButtonStyled
-            top={-5}
-            right={-5}
-            disabled={disabled}
-            onClick={() => getCroppedAvatar(avatarRefs)}
-            type="button"
-          >
-            ✔
-          </ButtonStyled>
-          <ButtonStyled
-            top={5}
-            right={-25}
-            disabled={disabled}
-            onClick={clearImageChanges}
-            type="button"
-          >
-            ✕
-          </ButtonStyled>
-        </div>
-      )}
-    </Box>
+    </Div>
   );
 }
 
 AvatarField.propTypes = {
   input: PropTypes.object,
+  meta: PropTypes.object,
   size: PropTypes.number,
   disabled: PropTypes.bool,
-  meta: PropTypes.object,
-  editingImgState: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
-  ipfsAvatar: PropTypes.string,
-  getCroppedAvatar: PropTypes.func,
-  uploadImage: PropTypes.func,
-  clearImageChanges: PropTypes.func,
 };
 
-export { AvatarField };
 export default React.memo(AvatarField);

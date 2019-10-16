@@ -3,63 +3,48 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import {
   successToastHandlingWithDefaultText,
   errorToastHandlingWithDefaultText,
 } from 'containers/Toast/saga';
 
-import {
-  uploadImageFileSuccess,
-  uploadImageFileError,
-  saveProfileActionSuccess,
-  saveProfileActionError,
-} from './actions';
+import { saveProfileSuccess, saveProfileErr } from './actions';
 
 import {
-  UPLOAD_IMAGE_FILE,
-  SAVE_PROFILE_ACTION,
-  SAVE_PROFILE_ACTION_SUCCESS,
-  SAVE_PROFILE_ACTION_ERROR,
+  SAVE_PROFILE,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_ERROR,
 } from './constants';
 
-export function* uploadImageFileWorker({ file }) {
+/* eslint no-param-reassign: 0 */
+export function* saveProfileWorker({ profile, userKey }) {
   try {
-    const img = yield call(() => uploadImg(file));
-    yield put(uploadImageFileSuccess(img && img.imgUrl));
-  } catch (err) {
-    yield put(uploadImageFileError(err.message));
-  }
-}
-
-export function* saveProfileActionWorker({ obj }) {
-  try {
-    const { reader, profile, userKey } = obj;
     const eosService = yield select(selectEos);
 
-    const img = reader ? yield call(() => uploadImg(reader)) : undefined;
-    profile.ipfs_avatar = yield (img && img.imgHash) || profile.ipfs_avatar;
+    // check that it is not hash
+    if (profile[AVATAR_FIELD] && profile[AVATAR_FIELD].length > 1000) {
+      const { imgHash } = yield call(() => uploadImg(profile[AVATAR_FIELD]));
+      profile[AVATAR_FIELD] = imgHash;
+    }
 
-    yield call(() => saveProfile(userKey, profile, eosService));
+    yield call(() =>
+      saveProfile(eosService, userKey, profile[AVATAR_FIELD], profile),
+    );
 
-    yield put(saveProfileActionSuccess());
+    yield put(saveProfileSuccess());
 
     yield call(() => createdHistory.push(routes.profileView(userKey)));
-  } catch (err) {
-    yield put(saveProfileActionError(err.message));
+  } catch ({ message }) {
+    yield put(saveProfileErr(message));
   }
 }
 
 export default function*() {
-  yield takeLatest(UPLOAD_IMAGE_FILE, uploadImageFileWorker);
-  yield takeLatest(SAVE_PROFILE_ACTION, saveProfileActionWorker);
-  yield takeLatest(
-    SAVE_PROFILE_ACTION_SUCCESS,
-    successToastHandlingWithDefaultText,
-  );
-  yield takeLatest(
-    SAVE_PROFILE_ACTION_ERROR,
-    errorToastHandlingWithDefaultText,
-  );
+  yield takeLatest(SAVE_PROFILE, saveProfileWorker);
+  yield takeLatest(SAVE_PROFILE_SUCCESS, successToastHandlingWithDefaultText);
+  yield takeLatest(SAVE_PROFILE_ERROR, errorToastHandlingWithDefaultText);
 }
