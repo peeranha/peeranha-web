@@ -12,7 +12,13 @@ import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import { strLength3x20, required } from 'components/FormFields/validate';
+
+import {
+  validateEmail,
+  required,
+  strLength3x20,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import Checkbox from 'components/Input/Checkbox';
@@ -48,8 +54,8 @@ const EmailPasswordForm = /* istanbul ignore next */ ({
         disabled={loginProcessing}
         label={translationMessages[locale][signupMessages.email.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={[validateEmail, required]}
+        warn={[validateEmail, required]}
       />
 
       <Field
