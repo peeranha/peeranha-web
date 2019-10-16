@@ -30,7 +30,7 @@ export function getFileUrl(fileHash) {
     return null;
   }
 
-  return `${process.env.IPFS_HOST}:${
+  return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_HOST}:${
     process.env.IPFS_GATEWAY_PORT
   }/ipfs/${fileHash}`;
 }
