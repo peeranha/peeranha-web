@@ -1,11 +1,9 @@
 import IpfsApi from 'ipfs-api';
 
-import { IPFS_URL } from './constants';
-
 export function getIpfsApi() {
   return IpfsApi({
     host: process.env.IPFS_HOST,
-    port: process.env.IPFS_PORT,
+    port: process.env.IPFS_API_PORT,
     protocol: process.env.IPFS_PROTOCOL,
   });
 }
@@ -32,5 +30,7 @@ export function getFileUrl(fileHash) {
     return null;
   }
 
-  return `${IPFS_URL}/${fileHash}`;
+  return `${process.env.IPFS_HOST}:${
+    process.env.IPFS_GATEWAY_PORT
+  }/ipfs/${fileHash}`;
 }
