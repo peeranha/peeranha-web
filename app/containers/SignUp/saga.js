@@ -18,6 +18,7 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 import {
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
+  AUTOLOGIN_DATA,
 } from 'containers/Login/constants';
 
 import loginMessages from 'containers/Login/messages';
@@ -229,6 +230,11 @@ export function* showScatterSignUpFormWorker() {
 
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
+
+    localStorage.setItem(
+      AUTOLOGIN_DATA,
+      JSON.stringify({ loginWithScatter: true }),
+    );
 
     const eosService = new EosioService();
 
