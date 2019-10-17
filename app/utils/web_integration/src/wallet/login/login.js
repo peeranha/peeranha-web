@@ -60,6 +60,7 @@ async function login(email, password, rememberMe = false) {
 
     const peeranhaAutoLogin = {
       email,
+      eosAccountName: loginResponse.eosKeyCarrier.eosAccountName,
       authToken,
       passwordUserPart,
       encryptedKeys,
@@ -103,7 +104,7 @@ async function autoLogin() {
   );
 
   const activeKey = decryptObject(peeranhaAutoLogin.encryptedKeys, password);
-
+  activeKey.eosAccountName = peeranhaAutoLogin.eosAccountName;
   return {
     OK: true,
     body: { activeKey },

@@ -115,6 +115,8 @@ async function changeCredentialsComplete(
   if (newProperties) {
     if (newProperties.email) userKeyModify.email = newProperties.email;
 
+    if (userKeyModify.eosAccountName) userKeyModify.eosAccountName = eosAccountName;
+    
     if (newProperties.password) {
       const { keys } = newProperties;
       const hashPassword = buildEncryptionKeys(newProperties.password);

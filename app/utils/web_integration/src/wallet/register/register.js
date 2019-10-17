@@ -23,11 +23,10 @@ async function registerConfirmEmail(email, secretCode) {
 
 async function registerComplete(
   registerProperties,
-  encryptionKey,
   includeOwnerKeys = true,
   requestAccountMessage,
 ) {
-  const { email, password, masterKey, keys } = registerProperties;
+  const { email, password, masterKey, keys, eosAccountName } = registerProperties;
   const hashPassword = buildEncryptionKeys(password);
   const hashMasterKey = buildEncryptionKeys(masterKey);
 
@@ -55,6 +54,7 @@ async function registerComplete(
     hashMasterKey: hashMasterKey.authKey,
     encryptedPwdEosKeys,
     encryptedMKEosKeys,
+    eosAccountName,
   };
 
   if (requestAccountMessage) {
