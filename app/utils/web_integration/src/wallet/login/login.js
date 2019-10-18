@@ -44,14 +44,15 @@ async function login(email, password, rememberMe = false) {
     authKey,
     ivResponseEncrypt,
   );
-  
-  const { eosAccountName, eosKeyCarrier, autoLoginOptions } = loginResponse.eosKeyCarrier;
 
-  const activeKey = decryptObject(
-    eosKeyCarrier.activeEosKey,
-    encryptionKey,
-  );
-  
+  const {
+    eosAccountName,
+    eosKeyCarrier,
+    autoLoginOptions,
+  } = loginResponse.eosKeyCarrier;
+
+  const activeKey = decryptObject(eosKeyCarrier.activeEosKey, encryptionKey);
+
   window.localStorage.setItem(AUTOLOGIN_DATA, JSON.stringify({ email }));
 
   if (rememberMe) {
