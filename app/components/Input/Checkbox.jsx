@@ -15,7 +15,7 @@ import checkedIcon from 'images/okay.svg?inline';
 import Span from 'components/Span';
 import { ErrorHandling, DisableHandling } from './InputStyled';
 
-const Icon = styled.span`
+export const Icon = styled.span`
   background: ${BG_LIGHT};
   min-width: 20px;
   min-height: 20px;
@@ -39,10 +39,15 @@ const Input = Icon.extend`
   top: 0;
 `.withComponent('input');
 
+export const Label = Span.extend`
+  font-size: 16px;
+  flex: 1;
+`.withComponent('label');
+
 /* eslint jsx-a11y/label-has-for: 0 */
 const Checkbox = ({ input, label, disabled, meta }) => (
   <div className="d-flex align-items-start">
-    <div className="position-relative">
+    <div className="position-relative d-inline-flex">
       <Icon
         value={input.value}
         disabled={disabled}
@@ -57,11 +62,9 @@ const Checkbox = ({ input, label, disabled, meta }) => (
       />
     </div>
 
-    <label className="flex-grow-1" htmlFor={input.name}>
-      <Span fontSize="16" mobileFS="14">
-        {label}
-      </Span>
-    </label>
+    <Label htmlFor={input.name} mobileFS="14">
+      {label}
+    </Label>
   </div>
 );
 

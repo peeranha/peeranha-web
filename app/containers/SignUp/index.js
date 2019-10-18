@@ -50,7 +50,11 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentWillMount() {
-    if (!this.props.email && !this.props.withScatter) {
+    if (
+      !this.props.email &&
+      !this.props.withScatter &&
+      process.env.NODE_ENV !== 'development'
+    ) {
       createdHistory.push(routes.signup.email.name);
     }
 

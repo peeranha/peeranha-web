@@ -21,7 +21,7 @@ import {
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
-import Checkbox from 'components/Input/Checkbox';
+import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
 import A from 'components/A';
 
 import SignUp from './index';
@@ -48,6 +48,7 @@ export const Div = styled.div`
   margin-bottom: ${x => (x.primary ? '20px' : '0px')};
   border-radius: 3px;
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
+  position: relative;
 
   @media only screen and (max-width: 992px) {
     ${x => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
@@ -56,6 +57,26 @@ export const Div = styled.div`
   @media only screen and (max-width: 400px) {
     padding-left: 15px;
     padding-right: 15px;
+  }
+`;
+
+const EosOwnerPrivateKeyDiv = Div.extend`
+  position: relative;
+
+  > div:nth-child(2) {
+    position: absolute;
+    top: 0;
+    right: 30px;
+
+    ${Icon} {
+      min-width: 18px;
+      min-height: 18px;
+      margin-right: 6px;
+    }
+
+    ${Label} {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -77,6 +98,10 @@ const IHaveEOSAccountForm = ({
 
         if (!masterKeyValue) {
           change(MASTER_KEY_FIELD, masterKey);
+        }
+
+        if (!storeMyKeysValue) {
+          change(EOS_OWNER_PRIVATE_KEY_FIELD, '');
         }
 
         return (
@@ -103,25 +128,22 @@ const IHaveEOSAccountForm = ({
               />
             </Div>
 
-            <Div>
+            <EosOwnerPrivateKeyDiv>
               <Field
                 name={EOS_OWNER_PRIVATE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing}
+                disabled={iHaveEosAccountProcessing || !storeMyKeysValue}
                 label={translate[messages.eosOwnerPrivateKey.id]}
                 component={TextInputField}
                 validate={storeMyKeysValue ? required : null}
                 warn={storeMyKeysValue ? required : null}
               />
-            </Div>
-
-            <Div className="mb-3">
               <Field
                 name={STORE_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.storeThisKey.id]}
                 component={Checkbox}
               />
-            </Div>
+            </EosOwnerPrivateKeyDiv>
 
             <Div primary>
               <Field
@@ -270,6 +292,9 @@ FormClone = connect(state => {
   return {
     storeMyKeysValue: form.values ? form.values[STORE_KEY_FIELD] : false,
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
+    initialValues: {
+      [STORE_KEY_FIELD]: true,
+    },
     validate: props => validatePassword(props),
     warn: props => validatePassword(props),
   };
