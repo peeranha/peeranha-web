@@ -66,7 +66,7 @@ export class ViewQuestion extends React.Component {
     }
 
     if (!nextProps.questionDataLoading && !nextProps.questionData) {
-      // this.props.history.push(routes.notFound());
+      this.props.history.push(routes.notFound());
     }
   };
 

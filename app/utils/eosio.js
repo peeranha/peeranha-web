@@ -200,6 +200,7 @@ class EosioService {
       scope,
       table,
       lower_bound: primaryKey,
+      upper_bound: primaryKey,
       limit: 1,
     };
 
