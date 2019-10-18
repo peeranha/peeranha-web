@@ -21,10 +21,14 @@ class EosioService {
     this.scatterInstalled = null;
   }
 
-  init = async privateKey => {
+  init = async (
+    privateKey,
+    initWithScatter = false,
+    selectedAccount = null,
+  ) => {
     const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    if (loginData && loginData.loginWithScatter) {
+    if ((loginData && loginData.loginWithScatter) || initWithScatter) {
       await this.initScatter();
 
       if (this.scatterInstalled) {
@@ -34,14 +38,10 @@ class EosioService {
       }
     } else {
       this.initEosioWithoutScatter(privateKey);
-
-      const publicKey = this.privateToPublic(privateKey);
-      const selectedAccount = await this.publicToAccounts(publicKey);
-
-      this.selectedAccount = selectedAccount;
     }
 
     this.initialized = true;
+    this.selectedAccount = selectedAccount;
   };
 
   initScatter = async () => {
@@ -96,10 +96,21 @@ class EosioService {
     return null;
   };
 
+  getAccount = async eosName => {
+    try {
+      const accountInfo = await this.eosInstance.getAccount(eosName);
+      return accountInfo;
+    } catch (err) {
+      return null;
+    }
+  };
+
   getSelectedAccount = async () => {
     const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    if (loginData && loginData.email) {
+    if (!loginData) return null;
+
+    if (loginData.email) {
       return this.selectedAccount;
     }
 

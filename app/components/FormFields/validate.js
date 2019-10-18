@@ -1,27 +1,55 @@
 import messages from './messages';
 
-export const imageValidation = img =>
+const imageValidation = img =>
   !img || (img && img.length > 2000000) ? messages.fileSize : undefined;
 
-export const stringLength = (min, max) => value =>
+const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)
-    ? messages[`wrongLength${min}x${max}`]
+    ? { id: messages.wrongLength.id, min, max }
+    : undefined;
+
+const stringLengthMin = min => value =>
+  value && value.length < min
+    ? { id: messages.wrongLengthMin.id, min }
+    : undefined;
+
+const stringLengthMax = max => value =>
+  value && value.length > max
+    ? { id: messages.wrongLengthMax.id, max }
     : undefined;
 
 /* eslint no-useless-escape: 0 */
-export const validateEmail = email => {
+const validateEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return !re.test(email) ? messages.wrongEmail : undefined;
 };
 
-export const required = x => (!x ? messages.requiredField : undefined);
+const required = x => (!x ? messages.requiredField : undefined);
 
-export const requiredForObjectField = x =>
+const requiredForObjectField = x =>
   !x || (x && !x.value) ? messages.requiredField : undefined;
 
-export const strLength1x5 = stringLength(1, 5);
-export const strLength2x15 = stringLength(2, 15);
-export const strLength3x20 = stringLength(3, 20);
-export const strLength15x100 = stringLength(15, 100);
-export const strLength20x1000 = stringLength(20, 1000);
-export const strLength25x30000 = stringLength(25, 30000);
+const strLength1x5 = stringLength(1, 5);
+const strLength2x15 = stringLength(2, 15);
+const strLength3 = stringLengthMin(3);
+const strLength12Max = stringLengthMax(12);
+const strLength3x20 = stringLength(3, 20);
+const strLength15x100 = stringLength(15, 100);
+const strLength20x1000 = stringLength(20, 1000);
+const strLength25x30000 = stringLength(25, 30000);
+
+export {
+  imageValidation,
+  stringLength,
+  validateEmail,
+  required,
+  requiredForObjectField,
+  strLength1x5,
+  strLength2x15,
+  strLength12Max,
+  strLength3,
+  strLength3x20,
+  strLength15x100,
+  strLength20x1000,
+  strLength25x30000,
+};

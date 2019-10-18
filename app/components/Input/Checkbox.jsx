@@ -10,9 +10,10 @@ import {
   BORDER_TRANSPARENT,
 } from 'style-constants';
 
-import Span from 'components/Span';
-
 import checkedIcon from 'images/okay.svg?inline';
+
+import Span from 'components/Span';
+import { ErrorHandling, DisableHandling } from './InputStyled';
 
 const Icon = styled.span`
   background: ${BG_LIGHT};
@@ -26,6 +27,9 @@ const Icon = styled.span`
   background-color: ${x => (x.value ? BG_PRIMARY : BG_LIGHT)};
   background-repeat: no-repeat;
   background-position: center;
+
+  ${({ error }) => ErrorHandling(error)};
+  ${({ disabled }) => DisableHandling(disabled)};
 `;
 
 const Input = Icon.extend`
@@ -36,10 +40,14 @@ const Input = Icon.extend`
 `.withComponent('input');
 
 /* eslint jsx-a11y/label-has-for: 0 */
-const Checkbox = ({ input, label, disabled }) => (
+const Checkbox = ({ input, label, disabled, meta }) => (
   <div className="d-flex align-items-start">
     <div className="position-relative">
-      <Icon value={input.value} />
+      <Icon
+        value={input.value}
+        disabled={disabled}
+        error={meta.touched && (meta.error || meta.warning)}
+      />
       <Input
         {...input}
         type="checkbox"
@@ -59,6 +67,7 @@ const Checkbox = ({ input, label, disabled }) => (
 
 Checkbox.propTypes = {
   input: PropTypes.object,
+  meta: PropTypes.object,
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };

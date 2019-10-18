@@ -35,4 +35,7 @@ export default defineMessages({
   [USER_IS_NOT_SELECTED]: {
     id: 'app.containers.Login.userIsNotSelected',
   },
+  accountNotCreatedName: {
+    id: 'app.containers.Login.accountNotCreatedName',
+  },
 });

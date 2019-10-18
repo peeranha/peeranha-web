@@ -25,10 +25,10 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
       locale,
       signUpWithScatterProcessing,
       showScatterSignUpForm,
-      account,
+      eosAccountName,
     }) => {
-      if (account !== eosAccountValue) {
-        change(EOS_ACCOUNT_FIELD, account);
+      if (eosAccountName !== eosAccountValue) {
+        change(EOS_ACCOUNT_FIELD, eosAccountName);
       }
 
       return (

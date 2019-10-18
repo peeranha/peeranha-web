@@ -74,91 +74,95 @@ const BaseStyled = Base.extend`
   }
 `;
 
-const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => (
-  <BaseStyled className={className} position="bottom">
-    <H3>
-      <FormattedMessage {...profileMessages.authorizationData} />
-    </H3>
+const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
+  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    <table>
-      <tr>
-        <td>
-          <FormattedMessage {...signupMessages.email} />
-        </td>
-        <td>{JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)).email}</td>
-        <td>
-          <ChangeEmailButton>
-            <FormattedMessage {...commonMessages.change} />{' '}
-          </ChangeEmailButton>
-        </td>
-      </tr>
+  return (
+    <BaseStyled className={className} position="bottom">
+      <H3>
+        <FormattedMessage {...profileMessages.authorizationData} />
+      </H3>
 
-      <tr>
-        <td>
-          <FormattedMessage {...signupMessages.password} />
-        </td>
-        <td>• • • • • • • • • • • • •</td>
-        <td>
-          <ChangePasswordButton>
-            <FormattedMessage {...commonMessages.change} />{' '}
-          </ChangePasswordButton>
-        </td>
-      </tr>
+      <table>
+        <tr>
+          <td>
+            <FormattedMessage {...signupMessages.email} />
+          </td>
+          <td>{loginData ? loginData.email : null}</td>
+          <td>
+            <ChangeEmailButton>
+              <FormattedMessage {...commonMessages.change} />{' '}
+            </ChangeEmailButton>
+          </td>
+        </tr>
 
-      <tr>
-        <td>
-          <InfoLabel
-            id="wallet_settings_eos_active"
-            message={
-              translationMessages[locale][
-                forgotPasswordMessages.youGotThisKey.id
-              ]
-            }
-          >
-            <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-          </InfoLabel>
-        </td>
-        <td>{activeKey || `• • • • • • • • • •`}</td>
-        <td>
-          <ShowActiveKeyButton>
-            <FormattedMessage {...commonMessages.show} />
-          </ShowActiveKeyButton>
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <FormattedMessage {...signupMessages.password} />
+          </td>
+          <td>• • • • • • • • • • • • •</td>
+          <td>
+            <ChangePasswordButton>
+              <FormattedMessage {...commonMessages.change} />{' '}
+            </ChangePasswordButton>
+          </td>
+        </tr>
 
-      <tr>
-        <td>
-          <InfoLabel
-            id="wallet_settings_eos_owner"
-            message={
-              translationMessages[locale][
-                forgotPasswordMessages.youGotThisKey.id
-              ]
-            }
-          >
-            <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-          </InfoLabel>
-        </td>
-        <td>{ownerKey || `• • • • • • • • • •`}</td>
-        <td>
-          <ShowOwnerKeyButton>
-            <FormattedMessage {...commonMessages.show} />
-          </ShowOwnerKeyButton>
-        </td>
-      </tr>
-    </table>
+        <tr>
+          <td>
+            <InfoLabel
+              id="wallet_settings_eos_active"
+              message={
+                translationMessages[locale][
+                  forgotPasswordMessages.youGotThisKey.id
+                ]
+              }
+            >
+              <FormattedMessage {...signupMessages.eosActivePrivateKey} />
+            </InfoLabel>
+          </td>
+          <td>{activeKey || `• • • • • • • • • •`}</td>
+          <td>
+            <ShowActiveKeyButton>
+              <FormattedMessage {...commonMessages.show} />
+            </ShowActiveKeyButton>
+          </td>
+        </tr>
 
-    <div>
-      <DeleteAccountButton
-        render={({ onClick }) => (
-          <SecondaryButton onClick={onClick}>
-            <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-          </SecondaryButton>
-        )}
-      />
-    </div>
-  </BaseStyled>
-);
+        <tr>
+          <td>
+            <InfoLabel
+              id="wallet_settings_eos_owner"
+              message={
+                translationMessages[locale][
+                  forgotPasswordMessages.youGotThisKey.id
+                ]
+              }
+            >
+              <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
+            </InfoLabel>
+          </td>
+          <td>{ownerKey || `• • • • • • • • • •`}</td>
+          <td>
+            <ShowOwnerKeyButton>
+              <FormattedMessage {...commonMessages.show} />
+            </ShowOwnerKeyButton>
+          </td>
+        </tr>
+      </table>
+
+      <div>
+        <DeleteAccountButton
+          render={({ onClick }) => (
+            <SecondaryButton onClick={onClick}>
+              <FormattedMessage {...deleteAccountMessages.deleteAccount} />
+            </SecondaryButton>
+          )}
+        />
+      </div>
+    </BaseStyled>
+  );
+};
 
 SettingsOfUser.propTypes = {
   className: PropTypes.string,

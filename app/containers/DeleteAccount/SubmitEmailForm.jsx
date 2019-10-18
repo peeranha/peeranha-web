@@ -16,7 +16,7 @@ import Checkbox from 'components/Input/Checkbox';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import {
   CODE_FIELD,
@@ -53,8 +53,8 @@ const SubmitEmailForm = ({
         disabled={deleteAccountProcessing}
         label={translationMessages[locale][signUpMessages.verificationCode.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
       />
 
       <Field
@@ -62,8 +62,8 @@ const SubmitEmailForm = ({
         disabled={deleteAccountProcessing}
         label={translationMessages[locale][signUpMessages.password.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 
@@ -102,6 +102,8 @@ SubmitEmailForm.propTypes = {
   deleteAccount: PropTypes.func,
   locale: PropTypes.string,
   deleteAccountProcessing: PropTypes.bool,
+  iUnderstandValue: PropTypes.bool,
+  iHaveBackupValue: PropTypes.bool,
 };
 
 const formName = 'SubmitEmailForm';

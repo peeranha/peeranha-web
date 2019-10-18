@@ -48,6 +48,7 @@ export const initialState = fromJS({
   showScatterSignUpProcessing: false,
   showScatterSignUpFormError: null,
   keys: null,
+  eosAccountName: null,
 });
 
 function signUpReducer(state = initialState, action) {
@@ -63,6 +64,7 @@ function signUpReducer(state = initialState, action) {
     keys,
     verificationCode,
     encryptionKey,
+    eosAccountName,
   } = action;
 
   switch (type) {
@@ -118,7 +120,9 @@ function signUpReducer(state = initialState, action) {
     case SHOW_SCATTER_SIGNUP_FORM:
       return state.set('showScatterSignUpProcessing', true);
     case SHOW_SCATTER_SIGNUP_FORM_SUCCESS:
-      return state.set('showScatterSignUpProcessing', false);
+      return state
+        .set('showScatterSignUpProcessing', false)
+        .set('eosAccountName', eosAccountName);
     case SHOW_SCATTER_SIGNUP_FORM_ERROR:
       return state
         .set('showScatterSignUpFormError', showScatterSignUpFormError)

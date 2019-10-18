@@ -464,20 +464,14 @@
     "Показать больше ответов {value}",
 
   "app.components.FormFields.requiredField": "Обязательное поле",
-  "app.components.FormFields.wrongLength15x100":
-    "Значение должно быть не меньше 15 и не более 100 символов",
-  "app.components.FormFields.wrongLength2x15":
-    "Значение должно быть не меньше 2 и не более 15 символов",
-  "app.components.FormFields.wrongLength3x20":
-    "Значение должно быть не меньше 3 и не более 20 символов",
-  "app.components.FormFields.wrongLength1x5":
-    "Значение должно быть не меньше 1 и не более 5 символов",
-  "app.components.FormFields.wrongLength20x1000":
-    "Значение должно быть не меньше 20 и не более 1000 символов",
-  "app.components.FormFields.wrongLength25x30000":
-    "Значение должно быть не меньше 25 и не более 30000 символов",
-  "app.components.FormFields.wrongLength30000": "Превышено количество символов",
-  "app.components.FormFields.fileSize": "Размер файла не должен превышать 2МБ",
+  "app.components.FormFields.wrongLength":
+    "Значение должно быть не меньше {min} и не более {max} символов",
+  "app.components.FormFields.wrongLengthMin":
+    "Значение должно быть не меньше {min} символов",
+  "app.components.FormFields.wrongLengthMax":
+    "Значение должно быть не больше {max} символов",
+  "app.components.FormFields.fileSize":
+    "Размер файла не должен превышать {value}МБ",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
@@ -493,6 +487,7 @@
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",
+  "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
@@ -554,6 +549,9 @@
     "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
+  "app.containers.SignUp.eosAccountNotFound": "Данный EOS аккаунт не найден",
+  "app.containers.SignUp.keysDoNotMatch":
+    "Приватные ключи не соответствуют EOS аккаунт имени",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",

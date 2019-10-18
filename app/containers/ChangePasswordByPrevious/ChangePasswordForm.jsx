@@ -6,7 +6,7 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 import commonMessages from 'common-messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
@@ -39,8 +39,8 @@ const ChangePasswordForm = ({
         disabled={changePasswordProcessing}
         label={translationMessages[locale][profileMessages.oldPassword.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 
@@ -49,8 +49,6 @@ const ChangePasswordForm = ({
         disabled={changePasswordProcessing}
         label={translationMessages[locale][profileMessages.newPassword.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
         type="password"
       />
 
@@ -59,8 +57,6 @@ const ChangePasswordForm = ({
         disabled={changePasswordProcessing}
         label={translationMessages[locale][profileMessages.confirmPassword.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
         type="password"
       />
 

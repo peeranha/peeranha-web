@@ -14,7 +14,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import { EOS_ACCOUNT_FIELD, AMOUNT_FIELD, PASSWORD_FIELD } from './constants';
 
@@ -59,8 +59,8 @@ const SendTokensForm = ({
               disabled={sendTokensProcessing}
               label={translationMessages[locale][commonMessages.password.id]}
               component={TextInputField}
-              validate={[strLength3x20, required]}
-              warn={[strLength3x20, required]}
+              validate={required}
+              warn={required}
               type="password"
             />
           )}

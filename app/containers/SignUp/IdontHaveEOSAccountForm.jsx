@@ -21,9 +21,6 @@ import SignUp from './index';
 import messages from './messages';
 
 import {
-  EOS_ACTIVE_PRIVATE_KEY_FIELD,
-  EOS_OWNER_PRIVATE_KEY_FIELD,
-  STORE_KEY_FIELD,
   MASTER_KEY_FIELD,
   WHY_DO_YOU_LIKE_US_FIELD,
   PASSWORD_FIELD,
@@ -34,63 +31,24 @@ import {
 
 import { Link, Div, validatePassword } from './IHaveEOSAccountForm';
 
-const IdontHaveEOSAccountForm = ({
-  handleSubmit,
-  change,
-  iSaveMasterKeyValue,
-  iAcceptPolicyValue,
-  eosActivePrevValue,
-}) => (
-  <YouNeedEosAccount>
+const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
+  <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
     <SignUp>
       {({
         idontHaveEosAccount,
         locale,
         idontHaveEosAccountProcessing,
-        keys: { activeKey, ownerKey, masterKey, linkToDownloadAllKeys },
-        getAllKeys,
+        keys: { linkToDownloadAllKeys, masterKey },
       }) => {
         const translate = translationMessages[locale];
 
-        if (activeKey && activeKey !== eosActivePrevValue) {
-          change(EOS_ACTIVE_PRIVATE_KEY_FIELD, activeKey.private);
-          change(EOS_OWNER_PRIVATE_KEY_FIELD, ownerKey.private);
+        if (!masterKeyValue) {
           change(MASTER_KEY_FIELD, masterKey);
         }
 
         return (
           <form onSubmit={handleSubmit(idontHaveEosAccount)}>
             <Div primary>
-              <Field
-                name={EOS_ACTIVE_PRIVATE_KEY_FIELD}
-                disabled
-                readOnly
-                label={translate[messages.eosActivePrivateKey.id]}
-                component={TextInputField}
-                validate={[required]}
-                warn={[required]}
-                isRefreshable
-                onClick={getAllKeys}
-              />
-              <Field
-                name={EOS_OWNER_PRIVATE_KEY_FIELD}
-                disabled
-                readOnly
-                label={translate[messages.eosOwnerPrivateKey.id]}
-                component={TextInputField}
-                validate={[required]}
-                warn={[required]}
-                isRefreshable
-                onClick={getAllKeys}
-              />
-              <div className="mb-3">
-                <Field
-                  name={STORE_KEY_FIELD}
-                  disabled={idontHaveEosAccountProcessing}
-                  label={translate[messages.storeThisKey.id]}
-                  component={Checkbox}
-                />
-              </div>
               <Field
                 name={MASTER_KEY_FIELD}
                 label={translate[messages.masterKey.id]}
@@ -159,6 +117,8 @@ const IdontHaveEOSAccountForm = ({
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
                 component={Checkbox}
+                validate={required}
+                warn={required}
               />
             </Div>
             <Div className="mb-4">
@@ -171,15 +131,13 @@ const IdontHaveEOSAccountForm = ({
                   </Link>
                 }
                 component={Checkbox}
+                validate={required}
+                warn={required}
               />
             </Div>
             <Div>
               <SubmitButton
-                disabled={
-                  !iSaveMasterKeyValue ||
-                  !iAcceptPolicyValue ||
-                  idontHaveEosAccountProcessing
-                }
+                disabled={idontHaveEosAccountProcessing}
                 className="w-100"
               >
                 <FormattedMessage {...messages.verify} />
@@ -198,6 +156,7 @@ IdontHaveEOSAccountForm.propTypes = {
   iSaveMasterKeyValue: PropTypes.bool,
   iAcceptPolicyValue: PropTypes.bool,
   eosActivePrevValue: PropTypes.string,
+  masterKeyValue: PropTypes.string,
 };
 
 const formName = 'IdontHaveEOSAccountForm';
@@ -211,15 +170,7 @@ FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {
-    iSaveMasterKeyValue: form.values
-      ? form.values[I_SAVE_MASTER_KEY_FIELD]
-      : false,
-    iAcceptPolicyValue: form.values
-      ? form.values[I_ACCEPT_PRIVACY_POLICY_FIELD]
-      : false,
-    eosActivePrevValue: form.values
-      ? form.values[EOS_ACTIVE_PRIVATE_KEY_FIELD]
-      : false,
+    masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
     validate: props => validatePassword(props),
     warn: props => validatePassword(props),
   };

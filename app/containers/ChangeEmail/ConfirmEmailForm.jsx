@@ -14,7 +14,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import { CODE_FIELD, CONFIRM_EMAIL_FORM } from './constants';
 
@@ -43,8 +43,8 @@ const ConfirmEmailForm = ({
         disabled={confirmOldEmailProcessing}
         label={translationMessages[locale][signUpMessages.verificationCode.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
       />
 
       <Button disabled={confirmOldEmailProcessing} className="w-100 mb-3">

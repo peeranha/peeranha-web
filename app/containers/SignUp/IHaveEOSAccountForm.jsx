@@ -12,7 +12,12 @@ import * as routes from 'routes-config';
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
-import { required, strLength3x20 } from 'components/FormFields/validate';
+import {
+  required,
+  strLength3,
+  strLength12Max,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
@@ -23,6 +28,7 @@ import SignUp from './index';
 import messages from './messages';
 
 import {
+  EOS_ACCOUNT_FIELD,
   EOS_ACTIVE_PRIVATE_KEY_FIELD,
   EOS_OWNER_PRIVATE_KEY_FIELD,
   STORE_KEY_FIELD,
@@ -56,26 +62,36 @@ export const Div = styled.div`
 const IHaveEOSAccountForm = ({
   handleSubmit,
   change,
-  iSaveMasterKeyValue,
-  iAcceptPolicyValue,
-  masterKeyPrevValue,
+  storeMyKeysValue,
+  masterKeyValue,
 }) => (
-  <YouNeedEosAccount>
+  <YouNeedEosAccount route={routes.signup.dontHaveEosAccount.name}>
     <SignUp>
       {({
         iHaveEosAccount,
         locale,
         iHaveEosAccountProcessing,
-        keys: { masterKey, linkToDownloadMasterKey },
+        keys: { linkToDownloadMasterKey, masterKey },
       }) => {
         const translate = translationMessages[locale];
 
-        if (masterKey !== masterKeyPrevValue) {
+        if (!masterKeyValue) {
           change(MASTER_KEY_FIELD, masterKey);
         }
 
         return (
           <form onSubmit={handleSubmit(iHaveEosAccount)}>
+            <Div>
+              <Field
+                name={EOS_ACCOUNT_FIELD}
+                disabled={iHaveEosAccountProcessing}
+                label={translate[messages.eosName.id]}
+                component={TextInputField}
+                validate={[required, strLength12Max]}
+                warn={[required, strLength12Max]}
+              />
+            </Div>
+
             <Div>
               <Field
                 name={EOS_ACTIVE_PRIVATE_KEY_FIELD}
@@ -86,16 +102,18 @@ const IHaveEOSAccountForm = ({
                 warn={[required]}
               />
             </Div>
+
             <Div>
               <Field
                 name={EOS_OWNER_PRIVATE_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.eosOwnerPrivateKey.id]}
                 component={TextInputField}
-                validate={[required]}
-                warn={[required]}
+                validate={storeMyKeysValue ? required : null}
+                warn={storeMyKeysValue ? required : null}
               />
             </Div>
+
             <Div className="mb-3">
               <Field
                 name={STORE_KEY_FIELD}
@@ -104,6 +122,7 @@ const IHaveEOSAccountForm = ({
                 component={Checkbox}
               />
             </Div>
+
             <Div primary>
               <Field
                 name={MASTER_KEY_FIELD}
@@ -165,6 +184,8 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
                 component={Checkbox}
+                validate={required}
+                warn={required}
               />
             </Div>
             <Div className="mb-4">
@@ -177,15 +198,13 @@ const IHaveEOSAccountForm = ({
                   </Link>
                 }
                 component={Checkbox}
+                validate={required}
+                warn={required}
               />
             </Div>
             <Div>
               <SubmitButton
-                disabled={
-                  !iSaveMasterKeyValue ||
-                  !iAcceptPolicyValue ||
-                  iHaveEosAccountProcessing
-                }
+                disabled={iHaveEosAccountProcessing}
                 className="w-100"
               >
                 <FormattedMessage {...messages.verify} />
@@ -204,6 +223,8 @@ IHaveEOSAccountForm.propTypes = {
   iSaveMasterKeyValue: PropTypes.bool,
   iAcceptPolicyValue: PropTypes.bool,
   masterKeyPrevValue: PropTypes.string,
+  masterKeyValue: PropTypes.string,
+  storeMyKeysValue: PropTypes.bool,
 };
 
 const formName = 'IHaveEOSAccountForm';
@@ -222,10 +243,10 @@ export const validatePassword = (state, fields) => {
 
   const errors = {};
 
-  const passwordError = required(password) || strLength3x20(password);
+  const passwordError = required(password) || strLength3(password);
 
   const passwordConfirmError =
-    required(passwordConf) || strLength3x20(passwordConf);
+    required(passwordConf) || strLength3(passwordConf);
 
   if (passwordError) {
     errors[passwordField] = passwordError;
@@ -247,13 +268,8 @@ FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {
-    iSaveMasterKeyValue: form.values
-      ? form.values[I_SAVE_MASTER_KEY_FIELD]
-      : false,
-    iAcceptPolicyValue: form.values
-      ? form.values[I_ACCEPT_PRIVACY_POLICY_FIELD]
-      : false,
-    masterKeyPrevValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
+    storeMyKeysValue: form.values ? form.values[STORE_KEY_FIELD] : false,
+    masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
     validate: props => validatePassword(props),
     warn: props => validatePassword(props),
   };
