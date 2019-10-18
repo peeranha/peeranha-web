@@ -1,8 +1,3 @@
-// const fetch = require('node-fetch');
-
-const SERVER_ADDRESS = 'https://test-api.peeranha.io/';
-// const SERVER_ADDRESS = "http://localhost:3500/";
-
 const REGISTER_INIT_SERVICE = 'wallet/register/init';
 const REGISTER_CONFIRM_SERVICE = 'wallet/register/confirm';
 const REGISTER_COMPLETE_SERVICE = 'wallet/register/complete';
@@ -21,7 +16,7 @@ const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
   'wallet/change-credentials/complete';
 
 async function callService(service, props) {
-  const rawResponse = await fetch(SERVER_ADDRESS + service, {
+  const rawResponse = await fetch(process.env.WALLET_API_ENDPOINT + service, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

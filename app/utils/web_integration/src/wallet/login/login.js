@@ -50,6 +50,8 @@ async function login(email, password, rememberMe = false) {
     encryptionKey,
   );
 
+  const { eosAccountName } = loginResponse.eosKeyCarrier;
+
   window.localStorage.setItem(AUTOLOGIN_DATA, JSON.stringify({ email }));
 
   if (rememberMe) {
@@ -60,7 +62,7 @@ async function login(email, password, rememberMe = false) {
 
     const peeranhaAutoLogin = {
       email,
-      eosAccountName: loginResponse.eosKeyCarrier.eosAccountName,
+      eosAccountName,
       authToken,
       passwordUserPart,
       encryptedKeys,
@@ -74,7 +76,7 @@ async function login(email, password, rememberMe = false) {
 
   return {
     OK: true,
-    body: { activeKey },
+    body: { activeKey, eosAccountName },
   };
 }
 
@@ -104,10 +106,10 @@ async function autoLogin() {
   );
 
   const activeKey = decryptObject(peeranhaAutoLogin.encryptedKeys, password);
-  activeKey.eosAccountName = peeranhaAutoLogin.eosAccountName;
+
   return {
     OK: true,
-    body: { activeKey },
+    body: { activeKey, eosAccountName: peeranhaAutoLogin.eosAccountName },
   };
 }
 
