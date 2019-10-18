@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'images/validationArrow.svg?inline';
@@ -36,9 +36,10 @@ export const WarningMessage = ({
   touched,
   className,
   tip,
-  intl,
-}) =>
-  (touched && (error || warning)) || (active && tip) ? (
+}) => {
+  const err = error || warning;
+
+  return (touched && err) || (active && tip) ? (
     <Div className={className}>
       <div>
         {tip && (
@@ -50,13 +51,21 @@ export const WarningMessage = ({
         )}
 
         <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
-          {(error && intl.formatMessage({ id: error.id })) ||
-            (warning && intl.formatMessage({ id: warning.id })) ||
+          {(err && (
+            <FormattedMessage
+              id={err.id}
+              values={{
+                min: err.min,
+                max: err.max,
+              }}
+            />
+          )) ||
             tip}
         </Span>
       </div>
     </Div>
   ) : null;
+};
 
 WarningMessage.propTypes = {
   error: PropTypes.object,
@@ -65,7 +74,6 @@ WarningMessage.propTypes = {
   tip: PropTypes.string,
   touched: PropTypes.bool,
   active: PropTypes.bool,
-  intl: intlShape.isRequired,
 };
 
-export default React.memo(injectIntl(WarningMessage));
+export default React.memo(WarningMessage);

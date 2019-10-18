@@ -17,6 +17,7 @@ import * as routes from 'routes-config';
 
 import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
 import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -49,7 +50,11 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentWillMount() {
-    if (!this.props.email && !this.props.withScatter) {
+    if (
+      !this.props.email &&
+      !this.props.withScatter &&
+      process.env.NODE_ENV !== 'development'
+    ) {
       createdHistory.push(routes.signup.email.name);
     }
 
@@ -116,6 +121,7 @@ export class SignUp extends React.Component {
       showScatterSignUpProcessing,
       showScatterSignUpFormDispatch,
       account,
+      eosAccountName,
     } = this.props;
 
     return (
@@ -139,6 +145,7 @@ export class SignUp extends React.Component {
           keys: keys || {},
           locale,
           account,
+          eosAccountName,
           email,
           emailChecking,
           emailVerificationProcessing,
@@ -170,6 +177,7 @@ SignUp.propTypes = {
   showScatterSignUpFormDispatch: PropTypes.func,
   account: PropTypes.string,
   email: PropTypes.string,
+  eosAccountName: PropTypes.string,
   withScatter: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
@@ -185,6 +193,7 @@ const mapStateToProps = createStructuredSelector({
   idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
   signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
   showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
+  eosAccountName: signUpSelectors.selectEosAccountName(),
   keys: signUpSelectors.selectKeys(),
 });
 
@@ -213,7 +222,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'signUp', reducer });
-const withSaga = injectSaga({ key: 'signUp', saga });
+const withSaga = injectSaga({ key: 'signUp', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

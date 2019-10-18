@@ -67,7 +67,6 @@ const Li = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 10px;
 
   :hover {
     background: ${BG_SECONDARY_LIGHT};

@@ -18,7 +18,6 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 import {
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
-  AUTOLOGIN_DATA,
 } from 'containers/Login/constants';
 
 import loginMessages from 'containers/Login/messages';
@@ -52,6 +51,7 @@ import {
   EOS_OWNER_PRIVATE_KEY_FIELD,
   STORE_KEY_FIELD,
   WHY_DO_YOU_LIKE_US_FIELD,
+  ACCOUNT_NOT_CREATED_NAME,
 } from './constants';
 
 import {
@@ -69,7 +69,7 @@ import {
   signUpWithScatterErr,
 } from './actions';
 
-import { selectEmail, selectEncryptionKey } from './selectors';
+import { selectEmail, selectEncryptionKey, selectKeys } from './selectors';
 
 import signupMessages from './messages';
 
@@ -123,10 +123,65 @@ export function* verifyEmailWorker({ verificationCode }) {
 export function* iHaveEosAccountWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
+    const eosService = yield select(selectEos);
     const translations = translationMessages[locale];
 
     const encryptionKey = yield select(selectEncryptionKey());
     const email = yield select(selectEmail());
+
+    const accountInfo = yield call(
+      eosService.getAccount,
+      val[EOS_ACCOUNT_FIELD],
+    );
+
+    if (!accountInfo) {
+      throw new Error(
+        translationMessages[locale][signupMessages.eosAccountNotFound.id],
+      );
+    }
+
+    let isActiveKeyValid = true;
+    let isOwnerKeyValid = true;
+
+    const eosActivePublicKey = yield call(
+      eosService.privateToPublic,
+      val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
+    );
+
+    const eosOwnerPublicKey = yield call(
+      eosService.privateToPublic,
+      val[EOS_OWNER_PRIVATE_KEY_FIELD],
+    );
+
+    accountInfo.permissions.forEach(permission => {
+      if (
+        permission.perm_name === 'active' &&
+        val[EOS_ACTIVE_PRIVATE_KEY_FIELD]
+      ) {
+        isActiveKeyValid = Boolean(
+          permission.required_auth.keys.find(
+            iterKey => iterKey.key === eosActivePublicKey,
+          ),
+        );
+      }
+
+      if (
+        permission.perm_name === 'owner' &&
+        val[EOS_OWNER_PRIVATE_KEY_FIELD]
+      ) {
+        isOwnerKeyValid = Boolean(
+          permission.required_auth.keys.find(
+            iterKey => iterKey.key === eosOwnerPublicKey,
+          ),
+        );
+      }
+    });
+
+    if (!isActiveKeyValid || !isOwnerKeyValid) {
+      throw new Error(
+        translationMessages[locale][signupMessages.keysDoNotMatch.id],
+      );
+    }
 
     const props = {
       email,
@@ -140,6 +195,7 @@ export function* iHaveEosAccountWorker({ val }) {
       },
       masterKey: val[MASTER_KEY_FIELD],
       password: val[PASSWORD_FIELD],
+      eosAccountName: val[EOS_ACCOUNT_FIELD],
     };
 
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
@@ -165,6 +221,7 @@ export function* iHaveEosAccountWorker({ val }) {
 export function* idontHaveEosAccountWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
+    const keys = yield select(selectKeys());
     const translations = translationMessages[locale];
 
     const email = yield select(selectEmail());
@@ -172,19 +229,13 @@ export function* idontHaveEosAccountWorker({ val }) {
 
     const props = {
       email,
-      keys: {
-        activeKey: {
-          private: val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
-        },
-        ownerKey: {
-          private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
-        },
-      },
+      keys,
       masterKey: val[MASTER_KEY_FIELD],
       password: val[PASSWORD_FIELD],
+      eosAccountName: ACCOUNT_NOT_CREATED_NAME,
     };
 
-    const storeKeys = Boolean(val[STORE_KEY_FIELD]);
+    const storeKeys = true;
     const message = val[WHY_DO_YOU_LIKE_US_FIELD];
 
     const response = yield call(() =>
@@ -231,14 +282,9 @@ export function* showScatterSignUpFormWorker() {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify({ loginWithScatter: true }),
-    );
-
     const eosService = new EosioService();
 
-    yield call(() => eosService.init());
+    yield call(() => eosService.init(null, true));
 
     yield put(initEosioSuccess(eosService));
 
@@ -264,7 +310,7 @@ export function* showScatterSignUpFormWorker() {
     }
 
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(showScatterSignUpFormSuccess());
+    yield put(showScatterSignUpFormSuccess(user));
 
     yield call(() => createdHistory.push(routes.signup.displayName.name));
   } catch (err) {

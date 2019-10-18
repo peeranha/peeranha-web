@@ -171,9 +171,10 @@ export function showScatterSignUpForm() {
   };
 }
 
-export function showScatterSignUpFormSuccess() {
+export function showScatterSignUpFormSuccess(eosAccountName) {
   return {
     type: SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+    eosAccountName,
   };
 }
 

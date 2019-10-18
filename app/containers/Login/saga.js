@@ -1,6 +1,9 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
+
 import EosioService from 'utils/eosio';
 import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
@@ -12,6 +15,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { errorToastHandling } from 'containers/Toast/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+
+import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 
 import {
   loginWithEmailSuccess,
@@ -38,6 +43,8 @@ import {
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
+  LOGIN_WITH_EMAIL_SUCCESS,
+  LOGIN_WITH_SCATTER_SUCCESS,
 } from './constants';
 
 import messages from './messages';
@@ -61,23 +68,26 @@ export function* loginWithEmailWorker({ val }) {
       );
     }
 
-    const { activeKey } = response.body;
+    const { activeKey, eosAccountName } = response.body;
+
+    // TODO: cover by tests
+    if (eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
+      throw new Error(translations[locale][messages.accountNotCreatedName.id]);
+    }
 
     const eosService = new EosioService();
 
-    yield call(() => eosService.init(activeKey.private));
-
-    const eosAccount = yield call(() => eosService.getSelectedAccount());
+    yield call(() => eosService.init(activeKey.private, false, eosAccountName));
 
     // get profile info to know is there user in system
     const profileInfo = yield call(() =>
-      getProfileInfo(eosAccount, eosService),
+      getProfileInfo(eosAccountName, eosService),
     );
 
     yield put(initEosioSuccess(eosService));
 
     if (!profileInfo) {
-      yield put(loginWithEmailSuccess(eosAccount, WE_ARE_HAPPY_FORM));
+      yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
       return null;
     }
 
@@ -153,10 +163,21 @@ export function* finishRegistrationWorker({ val }) {
   }
 }
 
+// TODO: cover by tests
+export function* redirectToHomepageWorker() {
+  if (window.location.pathname.includes(routes.registrationStage)) {
+    yield call(() => createdHistory.push(routes.questions()));
+  }
+}
+
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
+  yield takeLatest(
+    [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
+    redirectToHomepageWorker,
+  );
   yield takeLatest(
     [
       LOGIN_WITH_SCATTER_ERROR,

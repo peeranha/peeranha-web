@@ -12,11 +12,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import {
-  strLength3x20,
-  required,
-  validateEmail,
-} from 'components/FormFields/validate';
+import { required, validateEmail } from 'components/FormFields/validate';
 
 import {
   NEW_EMAIL_FIELD,
@@ -61,8 +57,8 @@ const ChangeEmailForm = ({
         disabled={changeEmailProcessing}
         label={translationMessages[locale][signUpMessages.password.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 

@@ -79,6 +79,11 @@ const selectShowScatterSignUpFormError = () =>
 const selectEncryptionKey = () =>
   createSelector(selectSignUpDomain, substate => substate.get('encryptionKey'));
 
+const selectEosAccountName = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('eosAccountName'),
+  );
+
 export {
   selectSignUpDomain,
   selectEmail,
@@ -97,4 +102,5 @@ export {
   selectShowScatterSignUpProcessing,
   selectShowScatterSignUpFormError,
   selectEncryptionKey,
+  selectEosAccountName,
 };

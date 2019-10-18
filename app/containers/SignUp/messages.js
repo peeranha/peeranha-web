@@ -134,4 +134,10 @@ export default defineMessages({
   [USER_ALREADY_REGISTERED_ERROR]: {
     id: 'app.containers.SignUp.userAlreadyRegistered',
   },
+  eosAccountNotFound: {
+    id: 'app.containers.SignUp.eosAccountNotFound',
+  },
+  keysDoNotMatch: {
+    id: 'app.containers.SignUp.keysDoNotMatch',
+  },
 });

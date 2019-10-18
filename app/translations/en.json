@@ -458,21 +458,14 @@
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
 
   "app.components.FormFields.requiredField": "Required field",
-  "app.components.FormFields.wrongLength15x100":
-    "Value must be at least 15 characters and no longer than 100 characters",
-  "app.components.FormFields.wrongLength1x5":
-    "Value must be at least 1 characters and no longer than 5 characters",
-  "app.components.FormFields.wrongLength2x15":
-    "Value must be at least 2 characters and no longer than 15 characters",
-  "app.components.FormFields.wrongLength3x20":
-    "Value must be at least 3 characters and no longer than 20 characters",
-  "app.components.FormFields.wrongLength20x1000":
-    "Value must be at least 20 characters and no longer than 1000 characters",
-  "app.components.FormFields.wrongLength25x30000":
-    "Value must be at least 25 characters and no longer than 30000 characters",
-  "app.components.FormFields.wrongLength30000":
-    "Maximum number of characters exceeded",
-  "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
+  "app.components.FormFields.wrongLength":
+    "Value must be at least {min} characters and no longer than {max} characters",
+  "app.components.FormFields.wrongLengthMin":
+    "Value must be at least {min} characters",
+  "app.components.FormFields.wrongLengthMax":
+    "Value must be no longer than {max} characters",
+  "app.components.FormFields.fileSize":
+    "File size should be no more than {value}MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
 
   "app.containers.TagsCollection.title": "Tags collection",
@@ -489,6 +482,7 @@
   "app.containers.Login.weAreHappyYouAreHere": "We are happy you are here",
   "app.containers.Login.yourUsernameIsHow":
     "Your username is how you'll be known on Peeranha.",
+  "app.containers.Login.accountNotCreatedName": "Account is not created yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You got this key with authorization and saved in a safe place. Try to find it.",
@@ -525,7 +519,7 @@
   "app.containers.SignUp.youHaveToSaveKeys": "You have to save keys carefully",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
-  "app.containers.SignUp.idontHaveEosAccount": "I have not EOS account",
+  "app.containers.SignUp.idontHaveEosAccount": "I don't have EOS account",
   "app.containers.SignUp.downloadKeys": "Download keys",
   "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
   "app.containers.SignUp.title": "Registration",
@@ -550,6 +544,9 @@
     "I save Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
+  "app.containers.SignUp.eosAccountNotFound": "EOS account not found",
+  "app.containers.SignUp.keysDoNotMatch":
+    "Private keys do not match eos account name",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",

@@ -45,21 +45,25 @@ async function login(email, password, rememberMe = false) {
     ivResponseEncrypt,
   );
 
-  const activeKey = decryptObject(
-    loginResponse.eosKeyCarrier.activeEosKey,
-    encryptionKey,
-  );
+  const {
+    eosAccountName,
+    eosKeyCarrier,
+    autoLoginOptions,
+  } = loginResponse.eosKeyCarrier;
+
+  const activeKey = decryptObject(eosKeyCarrier.activeEosKey, encryptionKey);
 
   window.localStorage.setItem(AUTOLOGIN_DATA, JSON.stringify({ email }));
 
   if (rememberMe) {
-    const { authToken, passwordServerPart } = loginResponse.autoLoginOptions;
+    const { authToken, passwordServerPart } = autoLoginOptions;
     const passwordUserPart = getRandomKey();
     const xorArrayPassword = xorArray(passwordUserPart, passwordServerPart);
     const encryptedKeys = encryptObject(activeKey, xorArrayPassword);
 
     const peeranhaAutoLogin = {
       email,
+      eosAccountName,
       authToken,
       passwordUserPart,
       encryptedKeys,
@@ -73,7 +77,7 @@ async function login(email, password, rememberMe = false) {
 
   return {
     OK: true,
-    body: { activeKey },
+    body: { activeKey, eosAccountName },
   };
 }
 
@@ -106,7 +110,7 @@ async function autoLogin() {
 
   return {
     OK: true,
-    body: { activeKey },
+    body: { activeKey, eosAccountName: peeranhaAutoLogin.eosAccountName },
   };
 }
 

@@ -11,9 +11,18 @@ export function* initEosioWorker() {
     const eosioService = new EosioService();
 
     const response = yield call(autoLogin);
-    const privateKey = response.OK ? response.body.activeKey.private : null;
 
-    yield call(eosioService.init, privateKey);
+    if (response.OK) {
+      yield call(
+        eosioService.init,
+        response.body.activeKey.private,
+        false,
+        response.body.eosAccountName,
+      );
+    } else {
+      yield call(eosioService.init);
+    }
+
     yield put(initEosioSuccess(eosioService));
   } catch (error) {
     yield put(initEosioError(error));
