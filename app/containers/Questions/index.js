@@ -14,6 +14,7 @@ import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -43,6 +44,7 @@ import messages from './messages';
 
 import View from './View';
 import Banner from './Banner';
+import Header from './Header';
 
 const feed = routes.feed();
 
@@ -157,13 +159,12 @@ export class Questions extends React.PureComponent {
           language={locale}
         />
 
-        <InfinityLoader
-          loadNextPaginatedData={this.getNextQuestions}
-          isLoading={questionsLoading}
-          isLastFetch={isLastFetch}
-        >
-          <View {...sendProps} />
-        </InfinityLoader>
+        <Header
+          getInitQuestions={this.getInitQuestions}
+          communityIdFilter={communityIdFilter}
+          followedCommunities={followedCommunities}
+          parentPage={parentPage}
+        />
 
         {!questionsList.length &&
           !questionsLoading &&
@@ -173,6 +174,14 @@ export class Questions extends React.PureComponent {
               followedCommunities={followedCommunities}
             />
           )}
+
+        <InfinityLoader
+          loadNextPaginatedData={this.getNextQuestions}
+          isLoading={questionsLoading}
+          isLastFetch={isLastFetch}
+        >
+          <View {...sendProps} />
+        </InfinityLoader>
       </div>
     );
   }
@@ -224,7 +233,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'questionsReducer', reducer });
-const withSaga = injectSaga({ key: 'questionsReducer', saga });
+const withSaga = injectSaga({ key: 'questionsReducer', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

@@ -5,7 +5,6 @@ import * as routes from 'routes-config';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
 
-import Header from './Header';
 import Content from './Content';
 
 const feed = routes.feed();
@@ -13,8 +12,6 @@ const feed = routes.feed();
 /* eslint indent: 0 */
 export const View = props => (
   <React.Fragment>
-    <Header {...props} />
-
     {props.parentPage === feed && (
       <TopCommunities
         userId={props.account}

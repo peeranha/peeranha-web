@@ -54,7 +54,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
                   <Span>{x.name}</Span>
                   <span>
                     <Span bold fontSize="16">
-                      {getFormattedNum2(x.users)}
+                      {getFormattedNum2(x.users_subscribed)}
                     </Span>{' '}
                     <Span color={TEXT_SECONDARY} fontSize="14">
                       <FormattedMessage {...messages.users} />

@@ -15,7 +15,6 @@ import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
-import OutlinedButton from 'components/Button/Outlined/InfoLarge';
 import MediumImage from 'components/Img/MediumImage';
 
 const BaseStyled = BaseRoundedNoPadding.extend`
@@ -154,14 +153,6 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
             </BaseStyled>
           </div>
         ))}
-      </div>
-
-      <div className="my-3">
-        <A to={communitiesRoute} href={communitiesRoute}>
-          <OutlinedButton className="py-2 w-100">
-            <FormattedMessage {...messages.allCommunities} />
-          </OutlinedButton>
-        </A>
       </div>
     </div>
   );
