@@ -35,6 +35,9 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import TopCommunities from 'components/TopCommunities';
+
 import { getQuestions } from './actions';
 
 import * as questionsSelector from './selectors';
@@ -42,7 +45,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import View from './View';
+import Content from './Content';
 import Banner from './Banner';
 import Header from './Header';
 
@@ -58,8 +61,16 @@ export class Questions extends React.PureComponent {
     this.fetcher = null;
   }
 
-  componentDidUpdate() {
-    const { followedCommunities, parentPage, eosService } = this.props;
+  componentDidUpdate(prevProps) {
+    const { followedCommunities, parentPage, eosService, match } = this.props;
+
+    // location changing
+    if (
+      prevProps &&
+      prevProps.match.params.communityid !== match.params.communityid
+    ) {
+      this.fetcher = null;
+    }
 
     if (
       !this.fetcher &&
@@ -81,8 +92,8 @@ export class Questions extends React.PureComponent {
     );
   };
 
-  getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
-    const { initLoadedItems, parentPage } = this.props;
+  getInitQuestions = () => {
+    const { initLoadedItems, parentPage, match } = this.props;
     const offset = 0;
 
     this.initFetcher();
@@ -90,19 +101,14 @@ export class Questions extends React.PureComponent {
     this.props.getQuestionsDispatch(
       initLoadedItems,
       offset,
-      communityIdFilter,
+      Number(match.params.communityid) || 0,
       parentPage,
       this.fetcher,
     );
   };
 
   getNextQuestions = () => {
-    const {
-      nextLoadedItems,
-      questionsList,
-      communityIdFilter,
-      parentPage,
-    } = this.props;
+    const { nextLoadedItems, questionsList, parentPage, match } = this.props;
 
     const lastItem = questionsList[questionsList.length - 1];
     const offset = lastItem ? +lastItem.id + 1 : 0;
@@ -115,7 +121,7 @@ export class Questions extends React.PureComponent {
     this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
-      communityIdFilter,
+      Number(match.params.communityid) || 0,
       parentPage,
       this.fetcher,
       next,
@@ -129,27 +135,13 @@ export class Questions extends React.PureComponent {
       questionsLoading,
       isLastFetch,
       communities,
-      communityIdFilter,
       followedCommunities,
       parentPage,
       communitiesLoading,
       account,
       profile,
+      match,
     } = this.props;
-
-    const sendProps = {
-      profile,
-      account,
-      locale,
-      questionsList,
-      questionsLoading,
-      communitiesLoading,
-      communities,
-      getInitQuestions: this.getInitQuestions,
-      communityIdFilter,
-      followedCommunities,
-      parentPage,
-    };
 
     return (
       <div>
@@ -160,8 +152,7 @@ export class Questions extends React.PureComponent {
         />
 
         <Header
-          getInitQuestions={this.getInitQuestions}
-          communityIdFilter={communityIdFilter}
+          communityIdFilter={Number(match.params.communityid) || 0}
           followedCommunities={followedCommunities}
           parentPage={parentPage}
         />
@@ -175,13 +166,32 @@ export class Questions extends React.PureComponent {
             />
           )}
 
-        <InfinityLoader
-          loadNextPaginatedData={this.getNextQuestions}
-          isLoading={questionsLoading}
-          isLastFetch={isLastFetch}
-        >
-          <View {...sendProps} />
-        </InfinityLoader>
+        {questionsList.length > 0 &&
+          !questionsLoading &&
+          !communitiesLoading && (
+            <InfinityLoader
+              loadNextPaginatedData={this.getNextQuestions}
+              isLoading={questionsLoading}
+              isLastFetch={isLastFetch}
+            >
+              <Content
+                questionsList={questionsList}
+                locale={locale}
+                communities={communities}
+              />
+            </InfinityLoader>
+          )}
+
+        {parentPage === feed && (
+          <TopCommunities
+            userId={account}
+            account={account}
+            communities={communities}
+            profile={profile}
+          />
+        )}
+
+        {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
       </div>
     );
   }
@@ -199,7 +209,7 @@ Questions.propTypes = {
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
-  communityIdFilter: PropTypes.number,
+  match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
   eosService: PropTypes.object,
   profile: PropTypes.object,

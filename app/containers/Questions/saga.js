@@ -1,6 +1,8 @@
 import { takeLatest, call, put, select, all } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
@@ -10,6 +12,7 @@ import {
 } from 'utils/questionsManagement';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_QUESTIONS } from './constants';
@@ -75,6 +78,13 @@ export function* getQuestionsWorker({
   }
 }
 
+export function* redirectWorker() {
+  if (window.location.pathname.includes(routes.feed())) {
+    yield call(() => createdHistory.push(routes.feed()));
+  }
+}
+
 export default function*() {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
 }

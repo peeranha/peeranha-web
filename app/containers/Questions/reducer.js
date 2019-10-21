@@ -7,8 +7,6 @@
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
-
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
@@ -58,7 +56,6 @@ function questionsReducer(state = initialState, action) {
         .set('questionsError', questionsError);
 
     case LOCATION_CHANGE:
-    case FOLLOW_HANDLER_SUCCESS:
       return initialState;
 
     default:

@@ -14,10 +14,10 @@ import Wrapper from 'components/Header/Simple';
 
 import allquestionsIcon from 'images/allquestions-header.svg?inline';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
+import createdHistory from 'createdHistory';
 
 export const Header = ({
   intl,
-  getInitQuestions,
   communityIdFilter,
   followedCommunities,
   parentPage,
@@ -54,7 +54,9 @@ export const Header = ({
       <CommunitySelector
         isArrowed
         Button={Button}
-        toggle={getInitQuestions}
+        toggle={choice =>
+          createdHistory.push(routes[isFeed ? 'feed' : 'questions'](choice))
+        }
         showOnlyFollowed={isFeed}
         selectedCommunityId={communityIdFilter}
       />
@@ -73,7 +75,6 @@ export const Header = ({
 
 Header.propTypes = {
   intl: intlShape.isRequired,
-  getInitQuestions: PropTypes.func,
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
   parentPage: PropTypes.string,
