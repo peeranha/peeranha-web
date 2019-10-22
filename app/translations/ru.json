@@ -144,8 +144,8 @@
   "app.containers.TagsCollection.title": "Подборка тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
-  "app.containers.FollowCommunityButton.follow": "Подписаться",
-  "app.containers.FollowCommunityButton.unfollow": "Отписаться",
+  "app.containers.FollowCommunityButton.subscribe": "Подписаться",
+  "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",

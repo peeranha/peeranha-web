@@ -164,6 +164,11 @@ export default function App() {
         />
 
         <Route
+          path={routes.questions(':communityid')}
+          render={props => Wrapper(Questions, props)}
+        />
+
+        <Route
           path={routes.questionAsk()}
           render={props => Wrapper(AskQuestion, props)}
         />

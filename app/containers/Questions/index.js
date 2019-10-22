@@ -75,7 +75,10 @@ export class Questions extends React.PureComponent {
     if (
       !this.fetcher &&
       eosService &&
-      ((parentPage === feed && followedCommunities) || parentPage !== feed)
+      ((parentPage === feed &&
+        followedCommunities &&
+        followedCommunities.length > 0) ||
+        parentPage !== feed)
     ) {
       this.getInitQuestions();
     }

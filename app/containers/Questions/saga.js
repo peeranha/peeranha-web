@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select, all } from 'redux-saga/effects';
+import { take, takeLatest, call, put, select, all } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -11,8 +11,10 @@ import {
   getQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
 
-import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
+import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
+
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_QUESTIONS } from './constants';
@@ -53,7 +55,12 @@ export function* getQuestionsWorker({
     }
 
     // Load questions for communities where I am
-    if (communityIdFilter === 0 && parentPage === feed && followedCommunities) {
+    if (
+      communityIdFilter === 0 &&
+      parentPage === feed &&
+      followedCommunities &&
+      followedCommunities.length > 0
+    ) {
       questionsList = yield call(() =>
         getQuestionsForFollowedCommunities(limit, fetcher),
       );
@@ -78,9 +85,14 @@ export function* getQuestionsWorker({
   }
 }
 
-export function* redirectWorker() {
+// TODO: test
+export function* redirectWorker({ communityIdFilter, isFollowed }) {
+  yield take(GET_USER_PROFILE_SUCCESS);
+
   if (window.location.pathname.includes(routes.feed())) {
-    yield call(() => createdHistory.push(routes.feed()));
+    yield call(() =>
+      createdHistory.push(routes.feed(!isFollowed ? communityIdFilter : '')),
+    );
   }
 }
 

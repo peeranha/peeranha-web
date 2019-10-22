@@ -12,9 +12,9 @@ export default defineMessages({
     id: 'app.containers.FollowCommunityButton.header',
   },
   [FOLLOW_BUTTON]: {
-    id: 'app.containers.FollowCommunityButton.follow',
+    id: 'app.containers.FollowCommunityButton.subscribe',
   },
   [UNFOLLOW_BUTTON]: {
-    id: 'app.containers.FollowCommunityButton.unfollow',
+    id: 'app.containers.FollowCommunityButton.unsubscribe',
   },
 });

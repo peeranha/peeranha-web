@@ -140,8 +140,8 @@
   "app.containers.Users.description": "Users: description",
 
   "app.containers.FollowCommunityButton.header": "Header",
-  "app.containers.FollowCommunityButton.follow": "Follow",
-  "app.containers.FollowCommunityButton.unfollow": "Unfollow",
+  "app.containers.FollowCommunityButton.subscribe": "Subscribe",
+  "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
