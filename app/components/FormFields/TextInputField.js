@@ -17,6 +17,7 @@ export const TextInputField = ({
   splitInHalf,
   onClick,
   type = 'text',
+  autoComplete,
 }) => (
   <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
     <Input
@@ -27,6 +28,7 @@ export const TextInputField = ({
       isSearchable={isSearchable}
       isRefreshable={isRefreshable}
       onClick={onClick}
+      autoComplete={autoComplete}
       error={meta.touched && (meta.error || meta.warning)}
       type={type}
     />
@@ -45,6 +47,7 @@ TextInputField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,
+  autoComplete: PropTypes.string,
   onClick: PropTypes.func,
 };
 
