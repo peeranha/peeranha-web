@@ -190,18 +190,20 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
           </div>
         ))}
 
-        <div className="d-flex align-items-center justify-content-center">
-          <A
-            className="d-flex align-items-center"
-            to={routes.communities()}
-            href={routes.communities()}
-          >
-            <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-            <Span color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.allCommunities} />
-            </Span>
-          </A>
-        </div>
+        {communities.length > 9 && (
+          <div className="d-flex align-items-center justify-content-center">
+            <A
+              className="d-flex align-items-center"
+              to={routes.communities()}
+              href={routes.communities()}
+            >
+              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <Span color={TEXT_PRIMARY}>
+                <FormattedMessage {...messages.allCommunities} />
+              </Span>
+            </A>
+          </div>
+        )}
       </List>
     </div>
   );
