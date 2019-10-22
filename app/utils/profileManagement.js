@@ -259,13 +259,3 @@ export async function saveProfile(eosService, user, avatar, profile) {
     ipfs_avatar: avatar,
   });
 }
-
-// TODO: to move url to .env file later
-export async function getCitiesList(city) {
-  const cities = await fetch(
-    `http://api.geonames.org/searchJSON?q=${city}&maxRows=5&username=romrem`,
-  );
-  const citiesText = await cities.text();
-  const citiesParsed = await JSON.parse(citiesText);
-  return citiesParsed.geonames;
-}

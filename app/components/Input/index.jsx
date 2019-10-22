@@ -72,7 +72,7 @@ class Input extends React.PureComponent {
           type={this.state.isText ? 'text' : type}
           placeholder={placeholder}
           disabled={disabled}
-          autoComplete={!autoComplete ? 'new-password' : null}
+          autoComplete={autoComplete}
         />
 
         <Handler

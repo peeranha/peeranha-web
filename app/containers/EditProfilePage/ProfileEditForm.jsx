@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form/immutable';
 
 import messages from 'containers/Profile/messages';
 
@@ -19,8 +19,6 @@ import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 
-import SelectField from 'components/FormFields/SelectField';
-
 import Button from 'components/Button/Contained/InfoLarge';
 import H3 from 'components/H3';
 
@@ -30,8 +28,6 @@ import {
   strLength25x30000,
 } from 'components/FormFields/validate';
 
-import { getCitiesList } from 'utils/profileManagement';
-
 import FormStyled from './FormStyled';
 import AvatarStyled from './AvatarStyled';
 import { PROFILE_EDIT_FORM } from './constants';
@@ -39,116 +35,93 @@ import { PROFILE_EDIT_FORM } from './constants';
 export const AVATAR_FIELD_WIDTH = 120;
 export const AVATAR_FIELD_MARGIN = 30;
 
-const loadCities = async (v, callback) => {
-  const cities = await getCitiesList(v);
-
-  const formattedCities = cities.map(x => ({
-    label: x.name,
-    value: x.name,
-  }));
-
-  callback(formattedCities);
-};
-
 export const ProfileEditForm = ({
   handleSubmit,
-  change,
-  location,
   intl,
   saveProfile,
   isProfileSaving,
-  profile,
-}) => {
-  if (!location) {
-    change(LOCATION_FIELD, {
-      value: profile.profile[LOCATION_FIELD],
-      label: profile.profile[LOCATION_FIELD],
-    });
-  }
+}) => (
+  <FormStyled
+    size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
+    onSubmit={handleSubmit(saveProfile)}
+  >
+    <div className="position-static">
+      <H3 className="pb-3">
+        <FormattedMessage {...messages.editProfile} />
+      </H3>
 
-  return (
-    <FormStyled
-      size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
-      onSubmit={handleSubmit(saveProfile)}
-    >
-      <div className="position-static">
-        <H3 className="pb-3">
-          <FormattedMessage {...messages.editProfile} />
-        </H3>
-
-        <AvatarStyled>
-          <Field
-            name={AVATAR_FIELD}
-            component={AvatarField}
-            disabled={isProfileSaving}
-            size={AVATAR_FIELD_WIDTH}
-            validate={imageValidation}
-            warn={imageValidation}
-          />
-        </AvatarStyled>
-
+      <AvatarStyled>
         <Field
-          name={DISPLAY_NAME_FIELD}
-          component={TextInputField}
-          label={intl.formatMessage({ id: messages.displayNameLabel.id })}
-          tip={intl.formatMessage({ id: messages.displayNameTip.id })}
+          name={AVATAR_FIELD}
+          component={AvatarField}
           disabled={isProfileSaving}
-          validate={strLength3x20}
-          warn={strLength3x20}
-          splitInHalf
+          size={AVATAR_FIELD_WIDTH}
+          validate={imageValidation}
+          warn={imageValidation}
         />
+      </AvatarStyled>
 
-        <Field
-          name={COMPANY_FIELD}
-          component={TextInputField}
-          label={intl.formatMessage({ id: messages.companyLabel.id })}
-          tip={intl.formatMessage({ id: messages.companyTip.id })}
-          disabled={isProfileSaving}
-          validate={strLength3x20}
-          warn={strLength3x20}
-          splitInHalf
-        />
+      <Field
+        name={DISPLAY_NAME_FIELD}
+        component={TextInputField}
+        label={intl.formatMessage({ id: messages.displayNameLabel.id })}
+        tip={intl.formatMessage({ id: messages.displayNameTip.id })}
+        disabled={isProfileSaving}
+        validate={strLength3x20}
+        warn={strLength3x20}
+        splitInHalf
+      />
 
-        <Field
-          name={POSITION_FIELD}
-          component={TextInputField}
-          label={intl.formatMessage({ id: messages.positionLabel.id })}
-          tip={intl.formatMessage({ id: messages.positionTip.id })}
-          disabled={isProfileSaving}
-          validate={strLength3x20}
-          warn={strLength3x20}
-          splitInHalf
-        />
+      <Field
+        name={COMPANY_FIELD}
+        component={TextInputField}
+        label={intl.formatMessage({ id: messages.companyLabel.id })}
+        tip={intl.formatMessage({ id: messages.companyTip.id })}
+        disabled={isProfileSaving}
+        validate={strLength3x20}
+        warn={strLength3x20}
+        splitInHalf
+      />
 
-        <Field
-          name={LOCATION_FIELD}
-          isAsync
-          loadOptions={loadCities}
-          label={intl.formatMessage({ id: messages.locationLabel.id })}
-          tip={intl.formatMessage({ id: messages.locationTip.id })}
-          disabled={isProfileSaving}
-          component={SelectField}
-          splitInHalf
-        />
+      <Field
+        name={POSITION_FIELD}
+        component={TextInputField}
+        label={intl.formatMessage({ id: messages.positionLabel.id })}
+        tip={intl.formatMessage({ id: messages.positionTip.id })}
+        disabled={isProfileSaving}
+        validate={strLength3x20}
+        warn={strLength3x20}
+        splitInHalf
+      />
 
-        <Field
-          name={ABOUT_FIELD}
-          component={TextareaField}
-          label={intl.formatMessage({ id: messages.aboutLabel.id })}
-          tip={intl.formatMessage({ id: messages.companyTip.id })}
-          disabled={isProfileSaving}
-          validate={strLength25x30000}
-          warn={strLength25x30000}
-          splitInHalf
-        />
+      <Field
+        name={LOCATION_FIELD}
+        label={intl.formatMessage({ id: messages.locationLabel.id })}
+        tip={intl.formatMessage({ id: messages.locationTip.id })}
+        disabled={isProfileSaving}
+        component={TextInputField}
+        validate={strLength3x20}
+        warn={strLength3x20}
+        splitInHalf
+      />
 
-        <Button className="my-3" disabled={isProfileSaving}>
-          <FormattedMessage {...messages.saveButton} />
-        </Button>
-      </div>
-    </FormStyled>
-  );
-};
+      <Field
+        name={ABOUT_FIELD}
+        component={TextareaField}
+        label={intl.formatMessage({ id: messages.aboutLabel.id })}
+        tip={intl.formatMessage({ id: messages.companyTip.id })}
+        disabled={isProfileSaving}
+        validate={strLength25x30000}
+        warn={strLength25x30000}
+        splitInHalf
+      />
+
+      <Button className="my-3" disabled={isProfileSaving}>
+        <FormattedMessage {...messages.saveButton} />
+      </Button>
+    </div>
+  </FormStyled>
+);
 
 ProfileEditForm.propTypes = {
   intl: intlShape.isRequired,
@@ -160,8 +133,6 @@ ProfileEditForm.propTypes = {
   profile: PropTypes.object,
 };
 
-const selector = formValueSelector(PROFILE_EDIT_FORM);
-
 let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
@@ -171,7 +142,6 @@ FormClone = connect((state, props) => ({
     ...props.profile.profile,
     [DISPLAY_NAME_FIELD]: props.profile.display_name,
   },
-  location: selector(state, LOCATION_FIELD),
 }))(FormClone);
 
 export default injectIntl(FormClone);

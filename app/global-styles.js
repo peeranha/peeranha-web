@@ -69,10 +69,8 @@ injectGlobal`
     overflow: hidden;
   }
 
-  @media only screen and (min-width: 320px) {
-    .mt-from-xs-1 {
-      margin-top: 5px !important;
-    }
+  .word-break-all {
+    word-break: break-all;
   }
 
   @media only screen and (min-width: 576px) {
@@ -86,32 +84,14 @@ injectGlobal`
       margin-bottom: 0px !important;
     }
 
-    .mb-to-sm-1 {
-      margin-bottom: 5px !important;
-    }
-
     .mb-to-sm-2 {
       margin-bottom: 10px !important;
     }
   }
 
   @media only screen and (max-width: 768px) {
-    .mb-to-md-0 {
-      margin-bottom: 0px !important;
-    }
-
-    .mb-to-md-1 {
-      margin-bottom: 5px !important;
-    }
-
     .mb-to-md-2 {
       margin-bottom: 10px !important;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    .mt-from-md-0 {
-      margin-top: 0px !important;
     }
   }
 `;

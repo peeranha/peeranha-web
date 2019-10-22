@@ -106,7 +106,7 @@ const IHaveEOSAccountForm = ({
         }
 
         return (
-          <form onSubmit={handleSubmit(iHaveEosAccount)} autoComplete="off">
+          <form onSubmit={handleSubmit(iHaveEosAccount)}>
             <Div>
               <Field
                 name={EOS_ACCOUNT_FIELD}
@@ -126,7 +126,7 @@ const IHaveEOSAccountForm = ({
                 component={TextInputField}
                 validate={[required, base58Validation]}
                 warn={[required, base58Validation]}
-                autoComplete={false}
+                autoComplete="off"
               />
             </Div>
 
@@ -138,7 +138,7 @@ const IHaveEOSAccountForm = ({
                 component={TextInputField}
                 validate={storeMyKeysValue ? required : null}
                 warn={storeMyKeysValue ? required : null}
-                autoComplete={false}
+                autoComplete="off"
               />
               <Field
                 name={STORE_KEY_FIELD}
@@ -157,7 +157,7 @@ const IHaveEOSAccountForm = ({
                 warn={[required]}
                 readOnly
                 disabled
-                autoComplete={false}
+                autoComplete="off"
               />
 
               <div className="d-flex align-items-center mb-3">
@@ -193,7 +193,7 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.password.id]}
                 component={TextInputField}
                 type="password"
-                autoComplete={false}
+                autoComplete="new-password"
               />
             </Div>
             <Div>
@@ -203,7 +203,7 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.confirmPassword.id]}
                 component={TextInputField}
                 type="password"
-                autoComplete={false}
+                autoComplete="new-password"
               />
             </Div>
             <Div className="mb-4">

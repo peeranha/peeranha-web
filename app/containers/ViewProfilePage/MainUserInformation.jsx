@@ -12,7 +12,6 @@ import { getUserAvatar } from 'utils/profileManagement';
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import pencilIcon from 'images/pencil.svg?inline';
-import risenIcon from 'images/risen.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
@@ -141,25 +140,6 @@ const MainUserInformation = ({ profile, userId, account }) => (
             >
               <img src={answerIcon} alt="icon" />
               <span>{profile.answers_given}</span>
-            </Span>
-          </li>
-
-          <li>
-            <Span color={TEXT_SECONDARY} fontSize="13">
-              <FormattedMessage {...messages.risen} />
-            </Span>
-            <Span
-              className="d-flex align-items-center"
-              fontSize="18"
-              margin="sm"
-              bold
-            >
-              <img
-                src={risenIcon}
-                className="d-flex align-items-center"
-                alt="icon"
-              />
-              <span>{profile.correct_answers}</span>
             </Span>
           </li>
 
