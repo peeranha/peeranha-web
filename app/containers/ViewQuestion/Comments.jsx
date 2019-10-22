@@ -15,6 +15,8 @@ import editSmallIcon from 'images/editSmallIcon.svg?inline';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?inline';
 import blockSmallIcon from 'images/blockSmallIcon.svg?inline';
 
+import { getUserAvatar } from 'utils/profileManagement';
+
 import Span from 'components/Span';
 import Textarea from 'components/Textarea';
 
@@ -119,7 +121,7 @@ const CommentView = item => (
     <div className="d-flex justify-content-between align-items-center">
       <UserInfo
         type={COMMENT_TYPE}
-        avatar={item.userInfo.ipfs_avatar}
+        avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
         name={item.userInfo.display_name}
         rating={item.userInfo.rating}
         account={item.userInfo.user}

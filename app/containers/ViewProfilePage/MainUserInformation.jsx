@@ -7,9 +7,7 @@ import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-
-import noAvatar from 'images/noAvatar.png';
-import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
@@ -69,10 +67,7 @@ const MainUserInformation = ({ profile, userId, account }) => (
     <div className="d-flex justify-content-center">
       <LargeImage
         className="d-none d-md-block mr-3"
-        src={
-          profile.ipfs_avatar ||
-          (userId === account ? editUserNoAvatar : noAvatar)
-        }
+        src={getUserAvatar(profile.ipfs_avatar, userId, account)}
         alt="avatar"
         isBordered
       />
@@ -83,10 +78,7 @@ const MainUserInformation = ({ profile, userId, account }) => (
         <div className="d-flex align-items-center">
           <LargeImage
             className="d-block d-md-none mr-3"
-            src={
-              profile.ipfs_avatar ||
-              (userId === account ? editUserNoAvatar : noAvatar)
-            }
+            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
             alt="avatar"
           />
 

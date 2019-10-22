@@ -10,7 +10,7 @@ import messages from 'common-messages';
 
 import logoutIcon from 'images/logout.svg?inline';
 
-import noAvatar from 'images/ico-user-no-photo.png';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
@@ -46,7 +46,7 @@ export const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
     <MediumImage
       isBordered
-      src={profileInfo.ipfs_avatar || noAvatar}
+      src={getUserAvatar(profileInfo.ipfs_avatar)}
       alt="ipfs_avatar"
     />
     <Info>

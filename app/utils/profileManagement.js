@@ -1,3 +1,7 @@
+import userBodyAvatar from 'images/user2.svg?inline';
+import noAvatar from 'images/noAvatar.png';
+import editUserNoAvatar from 'images/editUserNoAvatar.png';
+
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { saveText, getText, saveFile, getFileUrl } from './ipfs';
 
@@ -5,7 +9,25 @@ import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   SAVE_PROFILE_METHOD,
+  NO_AVATAR,
 } from './constants';
+
+// TODO: test
+export function getUserAvatar(avatarHash, userId, account) {
+  if (avatarHash !== NO_AVATAR) {
+    return getFileUrl(avatarHash);
+  }
+
+  if (userId && userId === account) {
+    return editUserNoAvatar;
+  }
+
+  if (userId) {
+    return noAvatar;
+  }
+
+  return userBodyAvatar;
+}
 
 export async function uploadImg(img) {
   const data = img.replace(/^data:image\/\w+;base64,/, '');
@@ -216,8 +238,6 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
   );
 
   if (!profile || profile.user !== user) return null;
-
-  profile.ipfs_avatar = getFileUrl(profile.ipfs_avatar);
 
   if (getExtendedProfile) {
     const ipfsProfile = await getText(profile.ipfs_profile);
