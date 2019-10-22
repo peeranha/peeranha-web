@@ -4,18 +4,20 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY } from 'style-constants';
 
 import H4 from 'components/H4';
-import Span from 'components/Span';
 import Base from 'components/Base';
-import NavigationButton from 'components/Button/Contained/Navigation';
-import A from 'components/A';
+
+import { NavigationLink } from 'components/Button/Contained/Navigation';
+
+import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
 
 import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
+
+const DEFAULT_NUMBER = 10;
 
 /* eslint indent: 0 */
 const Activity = ({
@@ -43,7 +45,7 @@ const Activity = ({
     questions.concat(questionsWithUserAnswers),
     y => y.myPostTime,
     ['desc'],
-  ).slice(0, 10);
+  ).slice(0, DEFAULT_NUMBER);
 
   if (!questionsWithAnswersLoading && !questionsLoading && !myPosts[0]) {
     return <Banner />;
@@ -56,44 +58,31 @@ const Activity = ({
       </H4>
 
       <Base position="top">
-        <A
+        <NavigationLink
           to={profileViewRoute}
-          href={profileViewRoute}
           disabled={!myPosts.length}
+          isLink={path !== profileViewRoute}
         >
-          <NavigationButton
-            disabled={!myPosts.length}
-            isLink={path !== profileViewRoute}
-          >
-            <FormattedMessage {...messages.posts} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage {...messages.posts} />
+        </NavigationLink>
 
-        <A
+        <NavigationLink
           to={profileViewActivityQuestionsRoute}
-          href={profileViewActivityQuestionsRoute}
           disabled={!questions.length}
+          tabIndex={!questions.length ? '-1' : undefined}
+          isLink={path !== profileViewActivityQuestionsRoute}
         >
-          <NavigationButton
-            disabled={!questions.length}
-            isLink={path !== profileViewActivityQuestionsRoute}
-          >
-            <FormattedMessage {...messages.questions} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage {...messages.questions} />
+        </NavigationLink>
 
-        <A
-          disabled={!questionsWithUserAnswers.length}
+        <NavigationLink
           to={profileViewActivityAnswersRoute}
-          href={profileViewActivityAnswersRoute}
+          tabIndex={!questionsWithUserAnswers.length ? '-1' : undefined}
+          disabled={!questionsWithUserAnswers.length}
+          isLink={path !== profileViewActivityAnswersRoute}
         >
-          <NavigationButton
-            disabled={!questionsWithUserAnswers.length}
-            isLink={path !== profileViewActivityAnswersRoute}
-          >
-            <FormattedMessage {...messages.answers} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage {...messages.answers} />
+        </NavigationLink>
       </Base>
 
       <Base position="bottom">
@@ -109,7 +98,7 @@ const Activity = ({
           tab="questions"
           locale={locale}
           className={path === profileViewActivityQuestionsRoute ? '' : 'd-none'}
-          questions={questions.slice(0, 10)}
+          questions={questions.slice(0, DEFAULT_NUMBER)}
           loading={questionsLoading}
         />
 
@@ -117,35 +106,38 @@ const Activity = ({
           tab="answers"
           locale={locale}
           className={path === profileViewActivityAnswersRoute ? '' : 'd-none'}
-          questions={questionsWithUserAnswers.slice(0, 10)}
+          questions={questionsWithUserAnswers.slice(0, DEFAULT_NUMBER)}
           loading={questionsWithAnswersLoading}
         />
 
         {!questionsWithAnswersLoading &&
-          !questionsLoading && (
+          !questionsLoading &&
+          myPosts.length === DEFAULT_NUMBER && (
             <div className="mt-3">
               <FormattedMessage
                 id={profileMessages.seeMore.id}
                 values={{
                   questions: (
-                    <a
+                    <TransparentLinkDefault
                       className="text-lowercase"
                       href={routes.userQuestions(userId)}
+                      disabled={!questions.length}
+                      tabIndex={!questions.length ? '-1' : undefined}
                     >
-                      <Span color={TEXT_PRIMARY}>
-                        <FormattedMessage {...messages.questions} />
-                      </Span>
-                    </a>
+                      <FormattedMessage {...messages.questions} />
+                    </TransparentLinkDefault>
                   ),
                   answers: (
-                    <a
+                    <TransparentLinkDefault
                       className="text-lowercase"
                       href={routes.userAnswers(userId)}
+                      disabled={!questionsWithUserAnswers.length}
+                      tabIndex={
+                        !questionsWithUserAnswers.length ? '-1' : undefined
+                      }
                     >
-                      <Span color={TEXT_PRIMARY}>
-                        <FormattedMessage {...messages.answers} />
-                      </Span>
-                    </a>
+                      <FormattedMessage {...messages.answers} />
+                    </TransparentLinkDefault>
                   ),
                 }}
               />

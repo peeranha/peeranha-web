@@ -31,8 +31,6 @@ const Info = styled.span`
   justify-content: center;
 `;
 
-const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
-
 export const AStyled = A.extend`
   display: flex;
   flex: 1;
@@ -56,102 +54,111 @@ export const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
-  <nav>
-    <Ul>
-      <Li>
-        <AStyled to={routes.profileView(user)}>
-          <FormattedMessage {...messages.profile} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.userQuestions(user)} disabled={!questionsLength}>
-          <FormattedMessage {...messages.questions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userAnswers(user)}
-          disabled={!questionsWithUserAnswersLength}
-        >
-          <FormattedMessage {...messages.answers} />
-        </AStyled>
-      </Li>
-      <Li className={loginData && loginData.loginWithScatter ? 'd-none' : ''}>
-        <AStyled to={routes.userSettings(user)}>
-          <FormattedMessage {...messages.settings} />
-        </AStyled>
-      </Li>
-    </Ul>
+const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => {
+  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
-    <Ul className="d-block d-lg-none">
-      <Li>
-        <AStyled to={routes.feed()}>
-          <FormattedMessage {...messages.myFeed} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.questions()}>
-          <FormattedMessage {...messages.allQuestions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.communities()}>
-          <FormattedMessage {...messages.communities} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.tags()}>
-          <FormattedMessage {...messages.tags} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.users()}>
-          <FormattedMessage {...messages.users} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.faq} />
-        </AStyled>
-      </Li>
-    </Ul>
+  return (
+    <nav>
+      <Ul>
+        <Li>
+          <AStyled to={routes.profileView(user)}>
+            <FormattedMessage {...messages.profile} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled
+            to={routes.userQuestions(user)}
+            disabled={!questionsLength}
+            tabIndex={!questionsLength ? '-1' : undefined}
+          >
+            <FormattedMessage {...messages.questions} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled
+            to={routes.userAnswers(user)}
+            disabled={!questionsWithUserAnswersLength}
+            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+          >
+            <FormattedMessage {...messages.answers} />
+          </AStyled>
+        </Li>
+        <Li className={loginData && loginData.loginWithScatter ? 'd-none' : ''}>
+          <AStyled to={routes.userSettings(user)}>
+            <FormattedMessage {...messages.settings} />
+          </AStyled>
+        </Li>
+      </Ul>
 
-    <Ul className="d-block d-lg-none">
-      <Li>
-        <AStyled to={routes.home()}>
-          <FormattedMessage {...messages.about} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.support(CONTACTS_ID)}>
-          <FormattedMessage {...messages.contacts} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.support(FORM_ID)}>
-          <FormattedMessage {...messages.support} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.privacyPolicy()}>
-          <FormattedMessage {...messages.privacyPolicy} />
-        </AStyled>
-      </Li>
-    </Ul>
+      <Ul className="d-block d-lg-none">
+        <Li>
+          <AStyled to={routes.feed()}>
+            <FormattedMessage {...messages.myFeed} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.questions()}>
+            <FormattedMessage {...messages.allQuestions} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.communities()}>
+            <FormattedMessage {...messages.communities} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.tags()}>
+            <FormattedMessage {...messages.tags} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.users()}>
+            <FormattedMessage {...messages.users} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.faq()}>
+            <FormattedMessage {...messages.faq} />
+          </AStyled>
+        </Li>
+      </Ul>
 
-    <Ul>
-      <Li className="d-flex align-items-center">
-        <Logout>
-          <img className="mr-1" src={logoutIcon} alt="icon" />
-          <Span color={TEXT_PRIMARY}>
-            <FormattedMessage {...messages.logout} />
-          </Span>
-        </Logout>
-      </Li>
-    </Ul>
-  </nav>
-);
+      <Ul className="d-block d-lg-none">
+        <Li>
+          <AStyled to={routes.home()}>
+            <FormattedMessage {...messages.about} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.support(CONTACTS_ID)}>
+            <FormattedMessage {...messages.contacts} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.support(FORM_ID)}>
+            <FormattedMessage {...messages.support} />
+          </AStyled>
+        </Li>
+        <Li>
+          <AStyled to={routes.privacyPolicy()}>
+            <FormattedMessage {...messages.privacyPolicy} />
+          </AStyled>
+        </Li>
+      </Ul>
+
+      <Ul>
+        <Li className="d-flex align-items-center">
+          <Logout>
+            <img className="mr-1" src={logoutIcon} alt="icon" />
+            <Span color={TEXT_PRIMARY}>
+              <FormattedMessage {...messages.logout} />
+            </Span>
+          </Logout>
+        </Li>
+      </Ul>
+    </nav>
+  );
+};
 
 const ProfileDropdown = ({ profileInfo }) => (
   <Dropdown

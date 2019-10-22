@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { TEXT_DARK } from 'style-constants';
 
-const A = styled(Link)`
+const ACss = css`
   text-decoration: none;
   color: ${TEXT_DARK};
   font-weight: ${x => (x.bold ? '600' : 'inherit')};
@@ -18,4 +18,12 @@ const A = styled(Link)`
   }
 `;
 
-export default A;
+export const ADefault = styled.a`
+  ${ACss};
+`;
+
+const ALink = styled(Link)`
+  ${ACss};
+`;
+
+export default ALink;
