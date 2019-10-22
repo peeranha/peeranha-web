@@ -16,6 +16,7 @@ import {
   required,
   strLength3,
   strLength12Max,
+  base58Validation,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -123,8 +124,8 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.eosActivePrivateKey.id]}
                 component={TextInputField}
-                validate={[required]}
-                warn={[required]}
+                validate={[required, base58Validation]}
+                warn={[required, base58Validation]}
                 autoComplete={false}
               />
             </Div>

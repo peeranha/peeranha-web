@@ -1,18 +1,33 @@
+import bs58 from 'bs58';
 import messages from './messages';
 
+// TODO: test
+const base58Validation = base58string => {
+  try {
+    bs58.decode(base58string);
+    return undefined;
+  } catch (err) {
+    return messages.wrongBase58Format;
+  }
+};
+
+// TODO: test
 const imageValidation = img =>
   !img || (img && img.length > 2000000) ? messages.fileSize : undefined;
 
+// TODO: test
 const stringLength = (min, max) => value =>
   value && (value.length > max || value.length < min)
     ? { id: messages.wrongLength.id, min, max }
     : undefined;
 
+// TODO: test
 const stringLengthMin = min => value =>
   value && value.length < min
     ? { id: messages.wrongLengthMin.id, min }
     : undefined;
 
+// TODO: test
 const stringLengthMax = max => value =>
   value && value.length > max
     ? { id: messages.wrongLengthMax.id, max }
@@ -40,6 +55,7 @@ const strLength25x30000 = stringLength(25, 30000);
 
 export {
   imageValidation,
+  base58Validation,
   stringLength,
   validateEmail,
   required,
