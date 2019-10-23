@@ -169,21 +169,19 @@ export class Questions extends React.PureComponent {
             />
           )}
 
-        {questionsList.length > 0 &&
-          !questionsLoading &&
-          !communitiesLoading && (
-            <InfinityLoader
-              loadNextPaginatedData={this.getNextQuestions}
-              isLoading={questionsLoading}
-              isLastFetch={isLastFetch}
-            >
-              <Content
-                questionsList={questionsList}
-                locale={locale}
-                communities={communities}
-              />
-            </InfinityLoader>
-          )}
+        {questionsList.length > 0 && (
+          <InfinityLoader
+            loadNextPaginatedData={this.getNextQuestions}
+            isLoading={questionsLoading}
+            isLastFetch={isLastFetch}
+          >
+            <Content
+              questionsList={questionsList}
+              locale={locale}
+              communities={communities}
+            />
+          </InfinityLoader>
+        )}
 
         {parentPage === feed && (
           <TopCommunities
