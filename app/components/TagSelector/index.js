@@ -89,6 +89,7 @@ export const TagSelector = ({
         <Select2
           input={{
             ...input,
+            value: null,
             onChange: x => {
               setTags([...value, x]);
               toggleOpen(false);

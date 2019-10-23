@@ -134,6 +134,7 @@ export class CommunitySelector extends React.PureComponent {
               optionsNumber,
               selectedValue,
               onChange: this.onSelectChange,
+              value: null,
             }}
             options={options}
             disabled={disabled}
