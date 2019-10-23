@@ -8,7 +8,7 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 import Span from 'components/Span';
 
-const Div = styled.div`
+export const Div = styled.div`
   height: 40px;
   display: flex;
   align-items: center;

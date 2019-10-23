@@ -137,10 +137,11 @@ let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
 
-FormClone = connect((state, props) => ({
+FormClone = connect((_, props) => ({
   initialValues: {
     ...props.profile.profile,
     [DISPLAY_NAME_FIELD]: props.profile.display_name,
+    [AVATAR_FIELD]: props.profile.ipfs_avatar,
   },
 }))(FormClone);
 
