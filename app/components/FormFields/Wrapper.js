@@ -1,10 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Label from './Label';
 import WarningMessage from './WarningMessage';
 
-export const Wrapper = ({ children, tip, label, meta, splitInHalf }) => {
+const StyledBox = styled.div`
+  margin-bottom: 10px;
+  position: relative;
+
+  ${x =>
+    x.disabled
+      ? `:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    cursor: not-allowed;
+  }`
+      : ``};
+`;
+
+export const Wrapper = ({
+  children,
+  tip,
+  label,
+  meta,
+  splitInHalf,
+  disabled,
+}) => {
   let valueWidth = 12;
   let tipWidth = 12;
 
@@ -21,7 +48,7 @@ export const Wrapper = ({ children, tip, label, meta, splitInHalf }) => {
   }
 
   return (
-    <div className="mb-2">
+    <StyledBox disabled={disabled}>
       <Label>{label}</Label>
       <div className="row align-items-center mb-3">
         <div className={`col-12 col-md-${valueWidth}`}>{children}</div>
@@ -33,7 +60,7 @@ export const Wrapper = ({ children, tip, label, meta, splitInHalf }) => {
           />
         )}
       </div>
-    </div>
+    </StyledBox>
   );
 };
 
@@ -43,6 +70,7 @@ Wrapper.propTypes = {
   label: PropTypes.string,
   meta: PropTypes.object,
   splitInHalf: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(Wrapper);

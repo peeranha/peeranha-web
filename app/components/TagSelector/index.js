@@ -54,7 +54,13 @@ export const TagSelector = ({
   const filteredOptions = options.filter(x => !valueIds.includes(x.id));
 
   return (
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      disabled={disabled}
+    >
       <Dropdown
         isOpen={isOpen}
         toggle={() => toggleOpen(!isOpen)}
