@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BG_LIGHT, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
+import {
+  BG_LIGHT,
+  TEXT_SECONDARY,
+  BORDER_SECONDARY,
+  TEXT_PRIMARY,
+} from 'style-constants';
+
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+
+import allCommunitiesIcon from 'images/createCommunity.svg?inline';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
@@ -15,20 +23,13 @@ import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
-import OutlinedButton from 'components/Button/Outlined/InfoLarge';
 import MediumImage from 'components/Img/MediumImage';
-
-const BaseStyled = BaseRoundedNoPadding.extend`
-  padding: 15px 20px;
-`;
 
 const FrontSide = styled.div`
   > div {
-    padding: 15px 20px;
-  }
+    padding: 20px;
 
-  @media only screen and (min-width: 576px) {
-    > div:not(:last-child) {
+    &:not(:last-child) {
       border-bottom: 1px solid ${BORDER_SECONDARY};
     }
   }
@@ -47,7 +48,7 @@ const BackSide = styled.div`
   > div {
     position: relative;
     height: 100%;
-    padding: 15px 20px;
+    padding: 20px;
   }
 `;
 
@@ -62,6 +63,46 @@ const AStyled = A.extend`
 
   &:hover ${BackSide} {
     display: block;
+  }
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -8px;
+
+  > * {
+    flex-basis: 20%;
+    margin: 0 8px 15px 8px;
+    flex: 0 1 calc(20% - 16px);
+  }
+
+  @media only screen and (max-width: 1200px) {
+    > * {
+      flex-basis: 25%;
+      flex: 0 1 calc(25% - 16px);
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    > * {
+      flex-basis: 33%;
+      flex: 0 1 calc(33% - 16px);
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    > * {
+      flex-basis: 50%;
+      flex: 0 1 calc(50% - 16px);
+    }
+  }
+
+  @media only screen and (max-width: 360px) {
+    > * {
+      flex-basis: 100%;
+      flex: 0 1 calc(100% - 16px);
+    }
   }
 `;
 
@@ -86,30 +127,24 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
         </span>
       </H4>
 
-      <div className="row">
+      <List>
         {communities.map(x => (
-          <div key={x.id} className="col-12 col-sm-4 col-xl-3 mb-3">
-            <BaseStyled>
+          <div key={x.id}>
+            <BaseRoundedNoPadding>
               <AStyled to={communitiesRoute}>
                 <FrontSide>
-                  <div className="d-flex align-items-center justify-content-between flex-grow-1">
-                    <div>
-                      <MediumImage src={x.avatar} alt="comm_img" />
-                      <P fontSize="16" bold>
-                        {x.name}
-                      </P>
-                    </div>
-
-                    <div className="d-block d-sm-none">
-                      <FollowCommunityButton communityIdFilter={x.id} />
-                    </div>
+                  <div>
+                    <MediumImage src={x.avatar} alt="comm_img" />
+                    <P fontSize="16" bold>
+                      {x.name}
+                    </P>
                   </div>
 
-                  <div className="d-none d-sm-block">
+                  <div>
                     <div className="d-flex mb-3">
                       <div className="d-flex flex-column flex-grow-1">
                         <Span fontSize="16" bold>
-                          {getFormattedNum2(x.users)}
+                          {getFormattedNum2(x.users_subscribed)}
                         </Span>
                         <Span
                           className="mt-1"
@@ -151,18 +186,25 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
                   </div>
                 </BackSide>
               </AStyled>
-            </BaseStyled>
+            </BaseRoundedNoPadding>
           </div>
         ))}
-      </div>
 
-      <div className="my-3">
-        <A to={communitiesRoute} href={communitiesRoute}>
-          <OutlinedButton className="py-2 w-100">
-            <FormattedMessage {...messages.allCommunities} />
-          </OutlinedButton>
-        </A>
-      </div>
+        {communities.length > 9 && (
+          <div className="d-flex align-items-center justify-content-center">
+            <A
+              className="d-flex align-items-center"
+              to={routes.communities()}
+              href={routes.communities()}
+            >
+              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <Span color={TEXT_PRIMARY}>
+                <FormattedMessage {...messages.allCommunities} />
+              </Span>
+            </A>
+          </div>
+        )}
+      </List>
     </div>
   );
 };

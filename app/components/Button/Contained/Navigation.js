@@ -1,10 +1,17 @@
-import { BG_TRANSPARENT, TEXT_PRIMARY } from 'style-constants';
+import { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
 
-const NavigationButton = PrimaryLarge.extend`
+const ButtonCss = css`
   padding: 6px 20px;
+
+  :hover {
+    color: ${TEXT_LIGHT};
+  }
 
   @media only screen and (max-width: 576px) {
     padding: 6px 15px;
@@ -18,11 +25,27 @@ const NavigationButton = PrimaryLarge.extend`
     color: ${TEXT_PRIMARY};
     background: ${BG_TRANSPARENT};
 
+    :hover {
+      color: ${TEXT_PRIMARY};
+    }
+
     ${IconStyled} {
       ${IconHover({ color: TEXT_PRIMARY })};
     }
   `
       : ``};
+`;
+
+export const NavigationLinkDefault = PrimaryLarge.extend`
+  ${ButtonCss};
+`.withComponent('a');
+
+export const NavigationLink = PrimaryLarge.extend`
+  ${ButtonCss};
+`.withComponent(Link);
+
+const NavigationButton = PrimaryLarge.extend`
+  ${ButtonCss};
 `;
 
 export default NavigationButton;

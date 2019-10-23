@@ -117,9 +117,9 @@ export class CommunitySelector extends React.PureComponent {
     return (
       <Dropdown
         isCommunitySelector
-        isArrowed={isArrowed}
+        isArrowed={optionsNumber > 0 && isArrowed}
         isOpen={isOpen}
-        toggle={this.toggleOpen}
+        toggle={optionsNumber > 0 && this.toggleOpen}
         target={
           <Button
             communityAvatar={selectedValue ? selectedValue.avatar : null}

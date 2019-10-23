@@ -144,8 +144,8 @@
   "app.containers.TagsCollection.title": "Подборка тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
-  "app.containers.FollowCommunityButton.follow": "Подписаться",
-  "app.containers.FollowCommunityButton.unfollow": "Отписаться",
+  "app.containers.FollowCommunityButton.subscribe": "Подписаться",
+  "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
@@ -473,6 +473,8 @@
   "app.components.FormFields.fileSize":
     "Размер файла не должен превышать {value}МБ",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
+  "app.components.FormFields.wrongBase58Format":
+    "Неверный формат данных. Проверьте содержимое этого поля.",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

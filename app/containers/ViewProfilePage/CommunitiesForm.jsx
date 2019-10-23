@@ -23,8 +23,6 @@ const CommunityStyled = Base.extend`
   height: 100%;
 `;
 
-const communitiesRoute = routes.communities();
-
 const CommunitiesForm = ({ userId, profile, account, communities }) => {
   if ((!profile && !communities) || !profile.followed_communities[0]) {
     return null;
@@ -47,14 +45,14 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
       <div className="row">
         {followedCommunities.map(x => (
           <div key={x.id} className="col-12 col-sm-6 col-md-3 mb-2">
-            <A to={communitiesRoute}>
+            <A to={routes.questions(x.id)}>
               <CommunityStyled className="d-flex">
                 <Img className="mr-2" src={x.avatar} alt="comm_img" />
                 <div className="d-flex flex-column">
                   <Span>{x.name}</Span>
                   <span>
                     <Span bold fontSize="16">
-                      {getFormattedNum2(x.users)}
+                      {getFormattedNum2(x.users_subscribed)}
                     </Span>{' '}
                     <Span color={TEXT_SECONDARY} fontSize="14">
                       <FormattedMessage {...messages.users} />
@@ -68,7 +66,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
 
         {userId === account && (
           <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-center align-items-center mb-2">
-            <A className="py-2" to={communitiesRoute}>
+            <A className="py-2" to={routes.communities()}>
               <Span color={TEXT_PRIMARY} fontSize="16">
                 <img className="mr-2" src={arrowRightIcon} alt="icon" />
                 <FormattedMessage {...messages.subscribeMore} />

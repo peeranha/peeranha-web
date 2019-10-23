@@ -21,7 +21,7 @@ const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => {
 
   return (
     <InfoButton data-isfollowed={isFollowed} onClick={onClick}>
-      <FormattedMessage {...messages.follow} />
+      <FormattedMessage {...messages.subscribe} />
     </InfoButton>
   );
 };

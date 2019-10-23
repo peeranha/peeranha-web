@@ -76,7 +76,16 @@ export default function App() {
           </React.Suspense>
         </Route>
 
-        <Route path={routes.feed()} render={props => Wrapper(Feed, props)} />
+        <Route
+          exact
+          path={routes.feed()}
+          render={props => Wrapper(Feed, props)}
+        />
+
+        <Route
+          path={routes.feed(':communityid')}
+          render={props => Wrapper(Feed, props)}
+        />
 
         <Route
           exact
@@ -151,6 +160,11 @@ export default function App() {
         <Route
           exact
           path={routes.questions()}
+          render={props => Wrapper(Questions, props)}
+        />
+
+        <Route
+          path={routes.questions(':communityid')}
           render={props => Wrapper(Questions, props)}
         />
 

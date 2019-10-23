@@ -18,7 +18,8 @@ export const userAnswers = id => `/users/${id}#answers`;
 export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
-export const questions = () => `/`;
+export const questions = communityid =>
+  !communityid ? `/` : `/communities/${communityid}`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
@@ -35,7 +36,7 @@ export const answerEdit = (questionid, answerid) =>
 export const questionAsk = () => `/questions/ask`;
 
 export const noAccess = () => `/no-access`;
-export const feed = () => `/feed`;
+export const feed = id => `/feed/${id || ''}`;
 export const communities = () => `/communities`;
 export const tags = () => `/tags`;
 export const users = () => `/users`;

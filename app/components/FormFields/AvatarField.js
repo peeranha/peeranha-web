@@ -4,9 +4,7 @@ import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
 import { BORDER_SECONDARY } from 'style-constants';
-import { getFileUrl } from 'utils/ipfs';
-
-import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import WarningMessage from './WarningMessage';
 
@@ -67,10 +65,7 @@ function AvatarField({ input, meta, size, disabled }) {
         <img
           src={
             (input.value && input.value.length > 1000 && input.value) ||
-            (input.value &&
-              input.value.length < 1000 &&
-              getFileUrl(input.value)) ||
-            editUserNoAvatar
+            getUserAvatar(input.value)
           }
           alt="icon"
         />

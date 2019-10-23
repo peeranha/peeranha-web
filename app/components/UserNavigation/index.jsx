@@ -8,8 +8,7 @@ import messages from 'common-messages';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
-import A from 'components/A';
-import NavigationButton from 'components/Button/Contained/Navigation';
+import { NavigationLink } from 'components/Button/Contained/Navigation';
 import Wrapper from 'components/Header/Complex';
 
 const Ul = styled.ul`
@@ -32,52 +31,47 @@ const UserNavigation = ({
   return (
     <Wrapper position="top">
       <Ul>
-        <A to={routes.profileView(userId)}>
-          <NavigationButton
-            isLink={
-              path !== routes.profileView(userId) &&
-              path !== routes.profileViewActivityQuestions(userId) &&
-              path !== routes.profileViewActivityAnswers(userId) &&
-              path !== routes.profileEdit(userId)
-            }
-          >
-            <FormattedMessage {...messages.profile} />
-          </NavigationButton>
-        </A>
-
-        <A disabled={!questionsLength} to={routes.userQuestions(userId)}>
-          <NavigationButton
-            disabled={!questionsLength}
-            isLink={path !== routes.userQuestions(userId)}
-          >
-            <FormattedMessage {...messages.questions} />
-          </NavigationButton>
-        </A>
-
-        <A
-          disabled={!questionsWithUserAnswersLength}
-          to={routes.userAnswers(userId)}
+        <NavigationLink
+          to={routes.profileView(userId)}
+          isLink={
+            path !== routes.profileView(userId) &&
+            path !== routes.profileViewActivityQuestions(userId) &&
+            path !== routes.profileViewActivityAnswers(userId) &&
+            path !== routes.profileEdit(userId)
+          }
         >
-          <NavigationButton
-            disabled={!questionsWithUserAnswersLength}
-            isLink={path !== routes.userAnswers(userId)}
-          >
-            <FormattedMessage {...messages.answers} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage {...messages.profile} />
+        </NavigationLink>
 
-        <A
+        <NavigationLink
+          to={routes.userQuestions(userId)}
+          disabled={!questionsLength}
+          tabIndex={!questionsLength ? '-1' : undefined}
+          isLink={path !== routes.userQuestions(userId)}
+        >
+          <FormattedMessage {...messages.questions} />
+        </NavigationLink>
+
+        <NavigationLink
+          to={routes.userAnswers(userId)}
+          disabled={!questionsWithUserAnswersLength}
+          tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+          isLink={path !== routes.userAnswers(userId)}
+        >
+          <FormattedMessage {...messages.answers} />
+        </NavigationLink>
+
+        <NavigationLink
           className={
             userId !== account || (loginData && loginData.loginWithScatter)
               ? 'd-none'
               : ''
           }
           to={routes.userSettings(userId)}
+          isLink={path !== routes.userSettings(userId)}
         >
-          <NavigationButton isLink={path !== routes.userSettings(userId)}>
-            <FormattedMessage {...messages.settings} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage {...messages.settings} />
+        </NavigationLink>
       </Ul>
     </Wrapper>
   );

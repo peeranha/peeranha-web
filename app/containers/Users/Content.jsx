@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 
-import noAvatar from 'images/ico-user-no-photo.png';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
 
@@ -52,7 +52,7 @@ const Content = ({
             <Base className="d-flex align-items-start">
               <MediumImage
                 isBordered
-                src={x.ipfs_avatar || noAvatar}
+                src={getUserAvatar(x.ipfs_avatar)}
                 alt="ipfs_avatar"
               />
               <div className="pl-3">

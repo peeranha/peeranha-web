@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import Wrapper from 'components/Banner';
-import Button from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/SecondaryLarge';
 
 import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg?inline';
 

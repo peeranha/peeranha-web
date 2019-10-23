@@ -33,7 +33,7 @@ export function* followHandlerWorker({ communityIdFilter, isFollowed }) {
       );
     }
 
-    yield put(followHandlerSuccess());
+    yield put(followHandlerSuccess({ communityIdFilter, isFollowed }));
   } catch (err) {
     yield put(followHandlerErr(err.message));
   }

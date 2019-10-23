@@ -38,7 +38,7 @@ const Blank = ({ profile, userId, account }) =>
 
 const Row = ({ nameField, value, isColumn }) =>
   value ? (
-    <div className="row align-items-center pb-1">
+    <div className="row align-items-center word-break-all pb-1">
       <div className={isColumn ? 'col-12' : 'col-4 col-sm-2'}>
         <Span color={TEXT_SECONDARY} fontSize="14">
           <FormattedMessage {...messages[nameField]} />

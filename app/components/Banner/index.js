@@ -7,8 +7,6 @@ export const B1 = `
 
   img {
     min-width: 150px;
-    width: 150px;
-    height: 150px;
     object-fit: contain;
     margin: 0 50px 0 25px;
     box-sizing: content-box;

@@ -57,6 +57,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 warn={[required]}
                 readOnly
                 disabled
+                autoComplete="off"
               />
 
               <div className="d-flex align-items-center mb-3">
@@ -92,6 +93,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 label={translate[messages.password.id]}
                 component={TextInputField}
                 type="password"
+                autoComplete="new-password"
               />
             </Div>
             <Div>
@@ -101,6 +103,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 label={translate[messages.confirmPassword.id]}
                 component={TextInputField}
                 type="password"
+                autoComplete="new-password"
               />
             </Div>
             <Div>

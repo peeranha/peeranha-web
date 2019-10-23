@@ -140,8 +140,8 @@
   "app.containers.Users.description": "Users: description",
 
   "app.containers.FollowCommunityButton.header": "Header",
-  "app.containers.FollowCommunityButton.follow": "Follow",
-  "app.containers.FollowCommunityButton.unfollow": "Unfollow",
+  "app.containers.FollowCommunityButton.subscribe": "Subscribe",
+  "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
@@ -467,6 +467,7 @@
   "app.components.FormFields.fileSize":
     "File size should be no more than {value}MB",
   "app.components.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.wrongBase58Format": "Wrong data format. Check it.",
 
   "app.containers.TagsCollection.title": "Tags collection",
 

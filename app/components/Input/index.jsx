@@ -57,6 +57,7 @@ class Input extends React.PureComponent {
       error,
       readOnly,
       onClick,
+      autoComplete,
     } = this.props;
 
     return (
@@ -71,6 +72,7 @@ class Input extends React.PureComponent {
           type={this.state.isText ? 'text' : type}
           placeholder={placeholder}
           disabled={disabled}
+          autoComplete={autoComplete}
         />
 
         <Handler
@@ -90,6 +92,7 @@ Input.propTypes = {
   type: PropTypes.string,
   className: PropTypes.string,
   placeholder: PropTypes.string,
+  autoComplete: PropTypes.string,
   isSearchable: PropTypes.bool,
   isRefreshable: PropTypes.bool,
   disabled: PropTypes.bool,

@@ -3,5 +3,5 @@ export const FOLLOW_HANDLER_SUCCESS =
   'app/FOLLOW_BUTTON/FOLLOW_HANDLER_SUCCESS';
 export const FOLLOW_HANDLER_ERROR = 'app/FOLLOW_BUTTON/FOLLOW_HANDLER_ERROR';
 
-export const FOLLOW_BUTTON = 'follow';
-export const UNFOLLOW_BUTTON = 'unfollow';
+export const FOLLOW_BUTTON = 'subscribe';
+export const UNFOLLOW_BUTTON = 'unsubscribe';

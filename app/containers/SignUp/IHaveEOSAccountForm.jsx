@@ -16,6 +16,7 @@ import {
   required,
   strLength3,
   strLength12Max,
+  base58Validation,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -123,8 +124,9 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.eosActivePrivateKey.id]}
                 component={TextInputField}
-                validate={[required]}
-                warn={[required]}
+                validate={[required, base58Validation]}
+                warn={[required, base58Validation]}
+                autoComplete="off"
               />
             </Div>
 
@@ -136,6 +138,7 @@ const IHaveEOSAccountForm = ({
                 component={TextInputField}
                 validate={storeMyKeysValue ? required : null}
                 warn={storeMyKeysValue ? required : null}
+                autoComplete="off"
               />
               <Field
                 name={STORE_KEY_FIELD}
@@ -154,6 +157,7 @@ const IHaveEOSAccountForm = ({
                 warn={[required]}
                 readOnly
                 disabled
+                autoComplete="off"
               />
 
               <div className="d-flex align-items-center mb-3">
@@ -189,6 +193,7 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.password.id]}
                 component={TextInputField}
                 type="password"
+                autoComplete="new-password"
               />
             </Div>
             <Div>
@@ -198,6 +203,7 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.confirmPassword.id]}
                 component={TextInputField}
                 type="password"
+                autoComplete="new-password"
               />
             </Div>
             <Div className="mb-4">

@@ -8,6 +8,8 @@ import pencilIcon from 'images/pencil.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?inline';
 
+import { getUserAvatar } from 'utils/profileManagement';
+
 import Base from 'components/Base';
 import Span from 'components/Span';
 import MediumImage from 'components/Img/MediumImage';
@@ -55,7 +57,7 @@ export const ContentHeader = props => (
     <div className="flex-grow-1">
       <Base className="d-flex align-items-center justify-content-between">
         <UserInfo
-          avatar={props.userInfo.ipfs_avatar}
+          avatar={getUserAvatar(props.userInfo.ipfs_avatar)}
           name={props.userInfo.display_name}
           account={props.userInfo.user}
           rating={props.userInfo.rating}

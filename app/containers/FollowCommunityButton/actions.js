@@ -18,9 +18,11 @@ export function followHandler(communityIdFilter, isFollowed) {
   };
 }
 
-export function followHandlerSuccess() {
+export function followHandlerSuccess({ communityIdFilter, isFollowed }) {
   return {
     type: FOLLOW_HANDLER_SUCCESS,
+    communityIdFilter,
+    isFollowed,
   };
 }
 

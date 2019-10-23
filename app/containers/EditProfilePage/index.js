@@ -23,8 +23,6 @@ import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
 import Base from 'components/Base';
 
-import { LOCATION_FIELD } from 'containers/Profile/constants';
-
 import * as editProfileSelectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -48,9 +46,6 @@ export class EditProfilePage extends React.PureComponent {
     const profile = {
       ...this.props.profile.profile,
       ...valJS,
-      [LOCATION_FIELD]: valJS[LOCATION_FIELD]
-        ? valJS[LOCATION_FIELD].value
-        : '',
     };
 
     this.props.saveProfileDispatch({ profile, userKey });
