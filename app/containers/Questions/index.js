@@ -231,7 +231,6 @@ const mapStateToProps = createStructuredSelector({
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
-  communityIdFilter: questionsSelector.selectCommunityIdFilter(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

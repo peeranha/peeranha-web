@@ -20,23 +20,14 @@ export const initialState = fromJS({
   questionsList: [],
   questionsError: '',
   isLastFetch: false,
-  communityIdFilter: 0,
 });
 
 function questionsReducer(state = initialState, action) {
-  const {
-    type,
-    questionsList,
-    questionsError,
-    communityIdFilter,
-    next,
-  } = action;
+  const { type, questionsList, questionsError, next } = action;
 
   switch (type) {
     case GET_QUESTIONS:
-      return state
-        .set('questionsLoading', true)
-        .set('communityIdFilter', communityIdFilter);
+      return state.set('questionsLoading', true);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)

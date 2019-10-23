@@ -7,7 +7,6 @@ import {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
-  selectCommunityIdFilter,
   selectFollowedCommunities,
 } from '../selectors';
 
@@ -68,11 +67,6 @@ describe('selectQuestionsDomain', () => {
   it('selectIsLastFetch', () => {
     const isIsLastFetch = selectIsLastFetch();
     expect(isIsLastFetch(mockedState)).toEqual(isLastFetch);
-  });
-
-  it('selectCommunityIdFilter', () => {
-    const isSelectCommunityIdFilter = selectCommunityIdFilter();
-    expect(isSelectCommunityIdFilter(mockedState)).toEqual(communityIdFilter);
   });
 
   it('selectFollowedCommunities', () => {
