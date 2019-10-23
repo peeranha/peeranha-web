@@ -11,7 +11,6 @@ import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
 import { CREATE_COMMUNITY_SUCCESS } from 'containers/CreateCommunity/constants';
 import { SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
 import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
-import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
@@ -35,11 +34,13 @@ import {
 import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
+import { makeSelectProfileInfo } from './selectors';
 
 /* eslint func-names: 0 */
 export function* getCurrentAccountWorker() {
   try {
     const eosService = yield select(selectEos);
+    const prevProfileInfo = yield select(makeSelectProfileInfo());
 
     if (!eosService || !eosService.initialized)
       throw new Error('EOS is not initialized.');
@@ -64,7 +65,12 @@ export function* getCurrentAccountWorker() {
       })(),
     ]);
 
-    yield put(getUserProfileSuccess(profileInfo));
+    yield put(
+      getUserProfileSuccess({
+        ...profileInfo,
+        profile: prevProfileInfo && prevProfileInfo.profile,
+      }),
+    );
 
     yield put(getCurrentAccountSuccess(selectedScatterAccount, balance));
   } catch (err) {
@@ -85,7 +91,6 @@ export default function* defaultSaga() {
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
-      SAVE_PROFILE_SUCCESS,
       EDIT_QUESTION_SUCCESS,
       FOLLOW_HANDLER_SUCCESS,
       FINISH_REGISTRATION_SUCCESS,
