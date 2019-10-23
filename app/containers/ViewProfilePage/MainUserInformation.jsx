@@ -64,23 +64,27 @@ const UlStyled = Ul.extend`
 const MainUserInformation = ({ profile, userId, account }) => (
   <Base className="d-flex align-items-start" position="middle">
     <div className="d-flex justify-content-center">
-      <LargeImage
-        className="d-none d-md-block mr-3"
-        src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-        alt="avatar"
-        isBordered
-      />
+      <A to={routes.profileEdit(userId)} disabled={account !== userId}>
+        <LargeImage
+          className="d-none d-md-block mr-3"
+          src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+          alt="avatar"
+          isBordered
+        />
+      </A>
     </div>
 
     <div className="flex-grow-1">
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
-          <LargeImage
-            className="d-block d-md-none mr-3"
-            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-            alt="avatar"
-            isBordered
-          />
+          <A to={routes.profileEdit(userId)} disabled={account !== userId}>
+            <LargeImage
+              className="d-block d-md-none mr-3"
+              src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+              alt="avatar"
+              isBordered
+            />
+          </A>
 
           <div>
             <Span fontSize="38" mobileFS="28" bold>
