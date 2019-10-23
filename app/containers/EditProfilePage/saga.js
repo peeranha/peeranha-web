@@ -12,8 +12,6 @@ import {
   errorToastHandlingWithDefaultText,
 } from 'containers/Toast/saga';
 
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
-
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
 import {
@@ -36,8 +34,6 @@ export function* saveProfileWorker({ profile, userKey }) {
     yield call(() =>
       saveProfile(eosService, userKey, profile[AVATAR_FIELD], profile),
     );
-
-    yield call(getCurrentAccountWorker);
 
     yield put(saveProfileSuccess());
 
