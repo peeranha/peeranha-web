@@ -19,7 +19,13 @@ export const TextInputField = ({
   type = 'text',
   autoComplete,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    disabled={disabled}
+  >
     <Input
       input={input}
       disabled={disabled}

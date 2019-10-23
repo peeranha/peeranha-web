@@ -68,6 +68,7 @@ const EosOwnerPrivateKeyDiv = Div.extend`
     position: absolute;
     top: 0;
     right: 30px;
+    z-index: 3;
 
     ${Icon} {
       min-width: 18px;
