@@ -17,6 +17,9 @@ const {
 const { AUTOLOGIN_DATA } = require('../../../../../containers/Login/constants');
 
 async function login(email, password, rememberMe = false) {
+  // TODO: remove console.log after bugfix (invalid passphrase)
+  console.log(email, password);
+
   const { authKey, encryptionKey } = buildEncryptionKeys(password);
   const requestCreationTime = Date.now();
   const ivResponseEncrypt = getRandomIv();

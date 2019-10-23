@@ -4,7 +4,10 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import {
+  getUserProfileSuccess,
+  getUserProfile,
+} from 'containers/DataCacheProvider/actions';
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
@@ -39,6 +42,8 @@ import { makeSelectProfileInfo } from './selectors';
 /* eslint func-names: 0 */
 export function* getCurrentAccountWorker() {
   try {
+    yield put(getUserProfile());
+
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
@@ -55,7 +60,7 @@ export function* getCurrentAccountWorker() {
     yield all([
       (function*() {
         profileInfo = yield call(() =>
-          getProfileInfo(selectedScatterAccount, eosService),
+          getProfileInfo(selectedScatterAccount, eosService, !prevProfileInfo),
         );
       })(),
       (function*() {
@@ -65,12 +70,11 @@ export function* getCurrentAccountWorker() {
       })(),
     ]);
 
-    yield put(
-      getUserProfileSuccess({
-        ...profileInfo,
-        profile: prevProfileInfo && prevProfileInfo.profile,
-      }),
-    );
+    if (prevProfileInfo) {
+      profileInfo.profile = prevProfileInfo.profile;
+    }
+
+    yield put(getUserProfileSuccess(profileInfo));
 
     yield put(getCurrentAccountSuccess(selectedScatterAccount, balance));
   } catch (err) {

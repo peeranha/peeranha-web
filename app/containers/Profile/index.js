@@ -15,7 +15,12 @@ import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
+import {
+  makeSelectAccount,
+  makeSelectAccountLoading,
+} from 'containers/AccountProvider/selectors';
+
 import { getUserProfile } from 'containers/DataCacheProvider/actions';
 
 import {
@@ -39,7 +44,13 @@ export class Profile extends React.PureComponent {
   };
 
   render() {
-    const { locale, children, isProfileLoading, profile } = this.props;
+    const {
+      locale,
+      children,
+      isProfileLoading,
+      accountLoading,
+      profile,
+    } = this.props;
 
     const HelmetTitle = `${(profile && profile.display_name) ||
       translationMessages[locale][messages.wrongUser.id]} | ${
@@ -64,9 +75,15 @@ export class Profile extends React.PureComponent {
         />
 
         <div>
-          {!isProfileLoading && !profile && <NoSuchUser />}
-          {isProfileLoading && <LoadingIndicator />}
-          {!isProfileLoading && profile && profile.profile && children}
+          {!isProfileLoading && !accountLoading && !profile && <NoSuchUser />}
+
+          {(isProfileLoading || accountLoading) && <LoadingIndicator />}
+
+          {!isProfileLoading &&
+            !accountLoading &&
+            profile &&
+            profile.profile &&
+            children}
         </div>
       </div>
     );
@@ -79,6 +96,7 @@ Profile.propTypes = {
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,
+  accountLoading: PropTypes.bool,
   getUserProfileDispatch: PropTypes.func,
 };
 
@@ -86,6 +104,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   isProfileLoading: selectUsersLoading(),
+  accountLoading: makeSelectAccountLoading(),
   profile: (state, props) => selectUsers(props.userId)(state),
 });
 

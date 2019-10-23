@@ -65,7 +65,7 @@ function AvatarField({ input, meta, size, disabled }) {
         <img
           src={
             (input.value && input.value.length > 1000 && input.value) ||
-            getUserAvatar(input.value)
+            getUserAvatar(input.value, true, true)
           }
           alt="icon"
         />

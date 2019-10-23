@@ -79,6 +79,7 @@ const MainUserInformation = ({ profile, userId, account }) => (
             className="d-block d-md-none mr-3"
             src={getUserAvatar(profile.ipfs_avatar, userId, account)}
             alt="avatar"
+            isBordered
           />
 
           <div>

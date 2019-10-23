@@ -14,7 +14,7 @@ import {
 
 // TODO: test
 export function getUserAvatar(avatarHash, userId, account) {
-  if (avatarHash !== NO_AVATAR) {
+  if (avatarHash && avatarHash !== NO_AVATAR) {
     return getFileUrl(avatarHash);
   }
 
