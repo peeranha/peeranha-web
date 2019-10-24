@@ -31,6 +31,10 @@ const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const NoAccess = React.lazy(() => import('components/NoAccess'));
 const Feed = React.lazy(() => import('components/Feed'));
 const Communities = React.lazy(() => import('components/ExistingCommunities'));
+const FullWidthPreloader = React.lazy(() =>
+  import('components/LoadingIndicator/FullWidthPreloader'),
+);
+
 const SuggestedCommunities = React.lazy(() =>
   import('components/SuggestedCommunities'),
 );
@@ -77,4 +81,5 @@ export {
   Search,
   Support,
   PrivacyPolicy,
+  FullWidthPreloader,
 };

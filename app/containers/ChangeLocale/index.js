@@ -30,7 +30,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
     const { pathname } = window.location;
 
     // ReactIntl && Redux Saga conflict => redirect solution
-    createdHistory.push(routes.errorPage());
+    createdHistory.push(routes.preloaderPage());
     changeLocaleDispatch(newLocale);
     setTimeout(() => createdHistory.push(pathname), 0);
   }

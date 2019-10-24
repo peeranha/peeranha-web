@@ -58,6 +58,8 @@ export const tagsCreate = communityid =>
 
 export const registrationStage = 'signup';
 
+export const preloaderPage = () => '/preloader-page';
+
 export const signup = {
   email: {
     step: 1,
