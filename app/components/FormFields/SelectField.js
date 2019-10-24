@@ -14,6 +14,7 @@ import {
   BG_LIGHT,
   BORDER_SECONDARY_DARK,
   APP_FONT,
+  BORDER_WARNING_LIGHT,
 } from 'style-constants';
 
 import searchIcon from 'images/search.svg?inline';
@@ -73,6 +74,7 @@ export const Select2 = ({
   Group,
   CustomOption,
   placeholder,
+  error,
 }) => {
   const S = isAsync ? AsyncSelect : Select;
 
@@ -104,12 +106,12 @@ export const Select2 = ({
       styles={{
         control: (base, state) => ({
           ...base,
-          border: `1px solid ${
-            state.isFocused ? BORDER_PRIMARY : BORDER_SECONDARY
-          }`,
-          boxShadow: `0 0 0 3px ${
-            state.isFocused ? BORDER_PRIMARY : BORDER_TRANSPARENT
-          }66`,
+          border: `1px solid ${(error && BORDER_WARNING_LIGHT) ||
+            (state.isFocused && BORDER_PRIMARY) ||
+            BORDER_SECONDARY}`,
+          boxShadow: `0 0 0 3px ${(error && BORDER_WARNING_LIGHT) ||
+            (state.isFocused && BORDER_PRIMARY) ||
+            BORDER_TRANSPARENT}66`,
           borderRadius: '3px',
           color: TEXT_DARK,
           fontFamily: APP_FONT,
@@ -146,7 +148,10 @@ export const SelectField = props => (
     meta={props.meta}
     splitInHalf={props.splitInHalf}
   >
-    <Select2 {...props} />
+    <Select2
+      {...props}
+      error={props.meta.touched && (props.meta.error || props.meta.warning)}
+    />
   </Wrapper>
 );
 
@@ -159,6 +164,7 @@ DefaultOption.propTypes = {
 Select2.propTypes = {
   input: PropTypes.object,
   defaultValue: PropTypes.object,
+  error: PropTypes.object,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isMulti: PropTypes.bool,
   isClearable: PropTypes.bool,

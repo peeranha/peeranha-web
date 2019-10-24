@@ -33,6 +33,7 @@ const Div = styled.div`
       width: inherit;
       height: inherit;
       opacity: ${x => (x.s ? 1 : 0)};
+      overflow: ${x => (x.s ? 'initial' : 'hidden')};
     }
 
     > *:nth-child(2) {
