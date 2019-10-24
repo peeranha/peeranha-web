@@ -145,7 +145,11 @@ export const QuestionForm = ({
                 label={intl.formatMessage({ id: messages.tagsLabel.id })}
                 tip={intl.formatMessage({ id: messages.tagsTip.id })}
                 component={TagSelector}
-                disabled={questionLoading || !formValues[FORM_COMMUNITY]}
+                disabled={
+                  questionLoading ||
+                  !formValues[FORM_COMMUNITY] ||
+                  !formValues[FORM_COMMUNITY].value
+                }
                 setTags={setTags}
                 options={
                   formValues[FORM_COMMUNITY]

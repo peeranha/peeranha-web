@@ -464,8 +464,7 @@
     "Value must be at least {min} characters",
   "app.components.FormFields.wrongLengthMax":
     "Value must be no longer than {max} characters",
-  "app.components.FormFields.fileSize":
-    "File size should be no more than {value}MB",
+  "app.components.FormFields.fileSize": "File too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
   "app.components.FormFields.wrongBase58Format": "Wrong data format. Check it.",
 

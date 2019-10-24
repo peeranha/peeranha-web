@@ -5,6 +5,7 @@ import * as routes from 'routes-config';
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import {
@@ -26,7 +27,10 @@ export function* saveProfileWorker({ profile, userKey }) {
     const eosService = yield select(selectEos);
 
     // check that it is not hash
-    if (profile[AVATAR_FIELD] && profile[AVATAR_FIELD].length > 1000) {
+    if (
+      profile[AVATAR_FIELD] &&
+      profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT
+    ) {
       const { imgHash } = yield call(() => uploadImg(profile[AVATAR_FIELD]));
       profile[AVATAR_FIELD] = imgHash;
     }

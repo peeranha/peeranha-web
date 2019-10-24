@@ -13,7 +13,7 @@ const base58Validation = base58string => {
 
 // TODO: test
 const imageValidation = img =>
-  !img || (img && img.length > 2000000) ? messages.fileSize : undefined;
+  img && img.length > 2000000 ? messages.fileSize : undefined;
 
 // TODO: test
 const stringLength = (min, max) => value =>

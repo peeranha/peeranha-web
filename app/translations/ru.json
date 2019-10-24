@@ -470,8 +470,7 @@
     "Значение должно быть не меньше {min} символов",
   "app.components.FormFields.wrongLengthMax":
     "Значение должно быть не больше {max} символов",
-  "app.components.FormFields.fileSize":
-    "Размер файла не должен превышать {value}МБ",
+  "app.components.FormFields.fileSize": "Файл слишком большой",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
   "app.components.FormFields.wrongBase58Format":
     "Неверный формат данных. Проверьте содержимое этого поля.",
