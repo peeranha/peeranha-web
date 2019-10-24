@@ -15,6 +15,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 
 import {
   validateEmail,
+  strLength254Max,
   required,
   strLength20x1000,
   strLength15x100,
@@ -65,8 +66,8 @@ const SendMessageForm = ({
         component={TextInputField}
         label={translations[homepageMessages.email.id]}
         tip={translations[homepageMessages.emailTip.id]}
-        validate={[validateEmail, required]}
-        warn={[validateEmail, required]}
+        validate={[validateEmail, required, strLength254Max]}
+        warn={[validateEmail, required, strLength254Max]}
         splitInHalf
       />
 

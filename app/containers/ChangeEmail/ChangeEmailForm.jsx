@@ -12,7 +12,11 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { required, validateEmail } from 'components/FormFields/validate';
+import {
+  required,
+  validateEmail,
+  strLength254Max,
+} from 'components/FormFields/validate';
 
 import {
   NEW_EMAIL_FIELD,
@@ -87,9 +91,13 @@ export const validateEmails = (state, fields) => {
 
   const errors = {};
 
-  const emailError = required(email) || validateEmail(email);
+  const emailError =
+    required(email) || validateEmail(email) || strLength254Max(email);
 
-  const emailConfirmError = required(emailConf) || validateEmail(emailConf);
+  const emailConfirmError =
+    required(emailConf) ||
+    validateEmail(emailConf) ||
+    strLength254Max(emailConf);
 
   if (emailError) {
     errors[emailField] = emailError;

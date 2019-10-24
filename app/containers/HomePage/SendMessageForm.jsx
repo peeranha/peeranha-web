@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import {
   validateEmail,
+  strLength254Max,
   strLength15x100,
   required,
   strLength3x20,
@@ -49,8 +50,8 @@ const SendMessageForm = props => {
           disabled={sendMessageLoading}
           label={<FormattedMessage {...messages.email} />}
           component={FloatingLabelInput}
-          validate={[validateEmail, required]}
-          warn={[validateEmail, required]}
+          validate={[validateEmail, required, strLength254Max]}
+          warn={[validateEmail, required, strLength254Max]}
         />
 
         <Field
