@@ -72,7 +72,7 @@ export function* loginWithEmailWorker({ val }) {
 
     // TODO: cover by tests
     if (eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
-      throw new Error(translations[locale][messages.accountNotCreatedName.id]);
+      throw new Error(translations[messages.accountNotCreatedName.id]);
     }
 
     const eosService = new EosioService();
