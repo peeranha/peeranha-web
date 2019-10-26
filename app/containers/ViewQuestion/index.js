@@ -258,6 +258,13 @@ export class ViewQuestion extends React.Component {
       questionDataLoading,
       saveCommentLoading,
       communities,
+      upVoteLoading,
+      downVoteLoading,
+      markAsAcceptedLoading,
+      deleteQuestionLoading,
+      deleteAnswerLoading,
+      deleteCommentLoading,
+      voteToDeleteLoading,
     } = this.props;
 
     const sendProps = {
@@ -281,6 +288,13 @@ export class ViewQuestion extends React.Component {
       editQuestion: this.editQuestion,
       voteToDelete: this.voteToDelete,
       translations: translationMessages[locale],
+      upVoteLoading,
+      downVoteLoading,
+      markAsAcceptedLoading,
+      deleteQuestionLoading,
+      deleteAnswerLoading,
+      deleteCommentLoading,
+      voteToDeleteLoading,
     };
 
     const helmetTitle =
@@ -356,6 +370,13 @@ ViewQuestion.propTypes = {
   deleteCommentDispatch: PropTypes.func,
   voteToDeleteDispatch: PropTypes.func,
   resetStoreDispatch: PropTypes.func,
+  upVoteLoading: PropTypes.bool,
+  downVoteLoading: PropTypes.bool,
+  markAsAcceptedLoading: PropTypes.bool,
+  deleteQuestionLoading: PropTypes.bool,
+  deleteAnswerLoading: PropTypes.bool,
+  deleteCommentLoading: PropTypes.bool,
+  voteToDeleteLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -367,6 +388,14 @@ const mapStateToProps = createStructuredSelector({
   postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
   postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
   saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
+
+  upVoteLoading: makeSelectViewQuestion.selectUpVoteLoading(),
+  downVoteLoading: makeSelectViewQuestion.selectDownVoteLoading(),
+  markAsAcceptedLoading: makeSelectViewQuestion.selectMarkAsAcceptedLoading(),
+  deleteQuestionLoading: makeSelectViewQuestion.selectDeleteQuestionLoading(),
+  deleteAnswerLoading: makeSelectViewQuestion.selectDeleteAnswerLoading(),
+  deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
+  voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

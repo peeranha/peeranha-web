@@ -94,6 +94,7 @@ export const Header = ({
 
         <div className="right-panel">
           <NavigationButton
+            data-communityid={currentCommunity.id}
             onClick={goToCreateTagScreen}
             id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
             className="d-inline-flex align-items-center px-0 py-1"

@@ -1,0 +1,33 @@
+import { showPopover } from 'utils/popover';
+import messages from 'containers/ViewQuestion/messages';
+
+export default ({
+  rating,
+  translations,
+  actor,
+  creator,
+  buttonId,
+  energy,
+  minRating,
+  minEnergy,
+}) => {
+  let message;
+
+  if (actor && actor === creator) {
+    message = `${translations[messages.creatorCannot.id]}`;
+  } else if (rating < minRating) {
+    message = `${translations[messages.notEnoughRating.id]} ${minRating}`;
+  } else if (energy < minEnergy) {
+    message = `${translations[messages.notEnoughEnergy.id]} ${minEnergy}`;
+  }
+
+  if (message) {
+    showPopover(buttonId, message);
+    throw new Error(message);
+  }
+
+  return {
+    isValid: Boolean(message),
+    message,
+  };
+};

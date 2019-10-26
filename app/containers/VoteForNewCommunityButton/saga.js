@@ -6,15 +6,20 @@ import {
 } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
 import { clearSuggestedCommunities } from 'containers/Communities/actions';
 
-import { UPVOTE, DOWNVOTE } from './constants';
+import {
+  UPVOTE,
+  DOWNVOTE,
+  MIN_RATING_TO_UPVOTE,
+  MIN_RATING_TO_DOWNVOTE,
+  MIN_ENERGY_TO_UPVOTE,
+  MIN_ENERGY_TO_DOWNVOTE,
+} from './constants';
 
 import {
   upVoteSuccess,
@@ -23,40 +28,26 @@ import {
   downVoteErr,
 } from './actions';
 
-import { upVoteValidator, downVoteValidator } from './validate';
-
 /* eslint consistent-return: 0 */
 export function* upVoteWorker({ communityId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const selectedAccount = yield call(eosService.getSelectedAccount);
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,
     )[0];
 
-    const isValid = yield call(() =>
-      upVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeCommunity,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(upVoteErr('Validation Error'));
-    }
+    yield call(isValid, {
+      creator: activeCommunity.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_UPVOTE,
+      minEnergy: MIN_ENERGY_TO_UPVOTE,
+    });
 
     yield call(() =>
       upVoteToCreateCommunity(eosService, selectedAccount, communityId),
@@ -74,35 +65,23 @@ export function* upVoteWorker({ communityId, buttonId }) {
 /* eslint consistent-return: 0 */
 export function* downVoteWorker({ communityId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const selectedAccount = yield call(eosService.getSelectedAccount);
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,
     )[0];
 
-    const isValid = yield call(() =>
-      downVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeCommunity,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(downVoteErr('Validation Error'));
-    }
+    yield call(isValid, {
+      creator: activeCommunity.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_DOWNVOTE,
+      minEnergy: MIN_ENERGY_TO_DOWNVOTE,
+    });
 
     yield call(() =>
       downVoteToCreateCommunity(eosService, selectedAccount, communityId),

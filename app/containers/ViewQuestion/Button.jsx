@@ -35,10 +35,19 @@ const SpanStyled = Span.extend`
   }
 `;
 
-export const Button = ({ className, id, onClick, params, show, children }) =>
+export const Button = ({
+  className,
+  id,
+  onClick,
+  params,
+  show,
+  children,
+  disabled,
+}) =>
   show ? (
     <TransparentButton
       id={id}
+      disabled={disabled}
       className={`d-inline-flex align-items-center pl-3 ${className}`}
       data-questionid={params.questionId}
       data-answerid={params.answerId}
@@ -58,8 +67,16 @@ export const BlockButton = ({
   isVotedToDelete,
   isItWrittenByMe,
   children,
+  disabled,
 }) => (
-  <Button show params={params} onClick={onClick} id={id} className={className}>
+  <Button
+    show
+    params={params}
+    onClick={onClick}
+    id={id}
+    className={className}
+    disabled={disabled}
+  >
     <SpanStyled
       className="d-flex align-items-center"
       isItWrittenByMe={isItWrittenByMe}
@@ -77,6 +94,7 @@ Button.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   show: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 BlockButton.propTypes = {
@@ -86,6 +104,7 @@ BlockButton.propTypes = {
   params: PropTypes.object,
   isVotedToDelete: PropTypes.bool,
   isItWrittenByMe: PropTypes.bool,
+  disabled: PropTypes.bool,
   children: PropTypes.object,
 };
 

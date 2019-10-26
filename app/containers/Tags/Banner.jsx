@@ -26,6 +26,7 @@ export const Banner = ({ openTagForm }) => (
       </p>
 
       <Button
+        data-communityid=""
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_banner`}
         onClick={openTagForm}
       >

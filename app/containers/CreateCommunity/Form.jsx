@@ -48,6 +48,7 @@ import {
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
   LANGUAGE_FIELD,
+  CREATE_COMMUNITY_BUTTON,
 } from './constants';
 
 const DEFAULT_TAGS_NUMBER = 5;
@@ -206,7 +207,8 @@ const CreateCommunityForm = ({
           <LargeButton
             className="my-3"
             disabled={createCommunityLoading}
-            typeAttr="submit"
+            type="submit"
+            id={CREATE_COMMUNITY_BUTTON}
           >
             {translations[messages.createCommunity.id]}
           </LargeButton>

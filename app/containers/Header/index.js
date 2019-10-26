@@ -16,6 +16,8 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+
 import { makeSelectLocation } from 'containers/App/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
@@ -69,6 +71,7 @@ export class Header extends React.PureComponent {
       showLoginModalDispatch,
       showMenu,
       expandLeftMenuNavigation,
+      redirectToAskQuestionPageDispatch,
     } = this.props;
 
     return (
@@ -78,6 +81,7 @@ export class Header extends React.PureComponent {
         showLoginModalDispatch={showLoginModalDispatch}
         showMenu={showMenu}
         expandLeftMenuNavigation={expandLeftMenuNavigation}
+        redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
       />
     );
   }
@@ -89,6 +93,7 @@ Header.propTypes = {
   profileInfo: PropTypes.object,
   showMenu: PropTypes.func,
   expandLeftMenuNavigation: PropTypes.func,
+  redirectToAskQuestionPageDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -100,6 +105,10 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    redirectToAskQuestionPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
   };
 }
 

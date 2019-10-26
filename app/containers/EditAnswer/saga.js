@@ -6,7 +6,9 @@ import * as routes from 'routes-config';
 import { getAnswer, editAnswer } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+
 import { getQuestionData } from 'containers/ViewQuestion/saga';
+import { isValid } from 'containers/EosioProvider/saga';
 
 import {
   successToastHandlingWithDefaultText,
@@ -18,6 +20,9 @@ import {
   EDIT_ANSWER,
   EDIT_ANSWER_SUCCESS,
   EDIT_ANSWER_ERROR,
+  EDIT_ANSWER_BUTTON,
+  MIN_RATING_TO_EDIT_ANSWER,
+  MIN_ENERGY_TO_EDIT_ANSWER,
 } from './constants';
 
 import {
@@ -31,7 +36,7 @@ import {
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(eosService.getSelectedAccount);
 
     const questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
@@ -55,7 +60,13 @@ export function* getAnswerWorker({ questionId, answerId }) {
 export function* editAnswerWorker({ answer, questionId, answerId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(eosService.getSelectedAccount);
+
+    yield call(isValid, {
+      buttonId: EDIT_ANSWER_BUTTON,
+      minRating: MIN_RATING_TO_EDIT_ANSWER,
+      minEnergy: MIN_ENERGY_TO_EDIT_ANSWER,
+    });
 
     yield call(() =>
       editAnswer(user, questionId, answerId, answer, eosService),

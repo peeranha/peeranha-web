@@ -26,6 +26,7 @@ const Header = ({ openTagForm }) => (
     <div className="right-panel">
       <button
         onClick={openTagForm}
+        data-communityid=""
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_tags_collection`}
       >
         <img className="d-none d-sm-inline-block" src={icoTagIcon} alt="icon" />

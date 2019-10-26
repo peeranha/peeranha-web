@@ -41,6 +41,7 @@ export const AnswersList = props => {
               lastEditedDate={item.lastEditedDate}
               votingStatus={item.votingStatus}
               deleteItem={props.deleteAnswer}
+              deleteItemLoading={props.deleteAnswerLoading}
               editItem={props.editAnswer}
               saveComment={props.saveComment}
               deleteComment={props.deleteComment}
@@ -76,6 +77,7 @@ AnswersList.propTypes = {
   editAnswer: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,
+  deleteAnswerLoading: PropTypes.bool,
 };
 
 export default React.memo(AnswersList);

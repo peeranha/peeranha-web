@@ -3,12 +3,15 @@ import {
   CREATE_COMMUNITY_SUCCESS,
   CREATE_COMMUNITY_ERROR,
   SET_DEFAULT_STORE,
+  REDIRECT_TO_CREATE_COMMUNITY,
 } from './constants';
-/*
- *
- * createCommunity actions
- *
- */
+
+export function redirectToCreateCommunity(ev) {
+  return {
+    type: REDIRECT_TO_CREATE_COMMUNITY,
+    buttonId: ev.currentTarget.id,
+  };
+}
 
 export function createCommunity(community, reset) {
   return {

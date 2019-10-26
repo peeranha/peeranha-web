@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
 
 import Wrapper from 'components/Banner';
 import FeedBanner from 'components/Feed/Banner';
@@ -14,7 +12,7 @@ import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?
 
 import messages from './messages';
 
-export const AllQuestionsBanner = () => (
+export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => (
   <Wrapper>
     <img src={noQuestionsAllQuestionsPage} alt="questions-banner" />
     <div>
@@ -26,23 +24,32 @@ export const AllQuestionsBanner = () => (
         <FormattedMessage {...messages.thisIsNewCommunity} />
       </p>
 
-      <Button onClick={() => createdHistory.push(routes.questionAsk())}>
+      <Button id="banner-ask-question" onClick={redirectToAskQuestionPage}>
         <FormattedMessage {...commonMessages.addQuestion} />
       </Button>
     </div>
   </Wrapper>
 );
 
-export const Banner = ({ isFeed, followedCommunities }) =>
+export const Banner = ({
+  isFeed,
+  followedCommunities,
+  redirectToAskQuestionPage,
+}) =>
   isFeed && followedCommunities && !followedCommunities[0] ? (
     <FeedBanner />
   ) : (
-    <AllQuestionsBanner />
+    <AllQuestionsBanner redirectToAskQuestionPage={redirectToAskQuestionPage} />
   );
 
 Banner.propTypes = {
   isFeed: PropTypes.bool,
   followedCommunities: PropTypes.array,
+  redirectToAskQuestionPage: PropTypes.func,
+};
+
+AllQuestionsBanner.propTypes = {
+  redirectToAskQuestionPage: PropTypes.func,
 };
 
 export default React.memo(Banner);

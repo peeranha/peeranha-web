@@ -56,7 +56,7 @@ export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
 
-export const VOTE_TO_DELETE_METHOD = 'votedelete';
+export const VOTE_TO_DELETE_METHOD = 'reportforum';
 
 export const POST_QUESTION_METHOD = 'postquestion';
 export const EDIT_QUESTION_METHOD = 'modquestion';

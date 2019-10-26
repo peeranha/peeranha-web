@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+
 import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
@@ -12,19 +13,16 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  questionData: {},
   askQuestionLoading: false,
   questionError: '',
 });
 
 function askQuestionReducer(state = initialState, action) {
-  const { type, questionData, questionError } = action;
+  const { type, questionError } = action;
 
   switch (type) {
     case ASK_QUESTION:
-      return state
-        .set('askQuestionLoading', true)
-        .set('questionData', questionData);
+      return state.set('askQuestionLoading', true);
     case ASK_QUESTION_SUCCESS:
       return state.set('askQuestionLoading', false);
     case ASK_QUESTION_ERROR:

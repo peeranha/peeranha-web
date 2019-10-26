@@ -9,10 +9,6 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import { BG_LIGHT, BORDER_SECONDARY } from 'style-constants';
-import createdHistory from 'createdHistory';
-
-import LargeButton from 'components/Button/Contained/InfoLarge';
-import Icon from 'components/Icon';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -21,6 +17,9 @@ import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?inline';
 import headerNavigationIcon from 'images/headerNavigation.svg?inline';
 import img from 'images/LogoBlack.svg?inline';
+
+import LargeButton from 'components/Button/Contained/InfoLarge';
+import Icon from 'components/Icon';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -46,7 +45,7 @@ export const LoginProfile = React.memo(
   },
 );
 
-const RoundedButton = LargeButton.extend`
+const Button = LargeButton.extend`
   background-color: ${x => x.bg};
   border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
@@ -64,7 +63,13 @@ const RoundedButton = LargeButton.extend`
   }
 `;
 
-const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
+const View = ({
+  showMenu,
+  intl,
+  profileInfo,
+  showLoginModalDispatch,
+  redirectToAskQuestionPage,
+}) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
   const searchFormId = 'q';
 
@@ -104,28 +109,25 @@ const View = ({ showMenu, intl, profileInfo, showLoginModalDispatch }) => {
             />
 
             {!isSearchFormVisible && (
-              <RoundedButton
+              <Button
                 bg={BG_LIGHT}
                 className="d-flex d-lg-none"
                 onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
               >
                 <img src={searchIcon} alt="icon" />
-              </RoundedButton>
+              </Button>
             )}
 
             {!isSearchFormVisible && (
-              <RoundedButton
-                onClick={() =>
-                  !profileInfo
-                    ? showLoginModalDispatch()
-                    : createdHistory.push(routes.questionAsk())
-                }
+              <Button
+                id="header-ask-question"
+                onClick={redirectToAskQuestionPage}
               >
                 <Icon color={BG_LIGHT} icon={addIcon} width="14" noMargin />
                 <span className="d-none d-lg-inline ml-2">
                   <FormattedMessage {...messages.addQuestion} />
                 </span>
-              </RoundedButton>
+              </Button>
             )}
 
             <LoginProfile
@@ -145,6 +147,7 @@ View.propTypes = {
   isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
+  redirectToAskQuestionPage: PropTypes.func,
 };
 
 LoginProfile.propTypes = {

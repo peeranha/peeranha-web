@@ -439,6 +439,10 @@
   "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",
   "app.containers.ViewQuestion.noRootsToVote":
     "Вы не можете голосовать за свои вопросы и ответы",
+  "app.containers.ViewQuestion.creatorCannot":
+    "Создатель не может совершить это действие",
+  "app.containers.ViewQuestion.notEnoughEnergy":
+    "Чтобы выполнить это действие, Ваша энергия должна быть больше",
   "app.containers.ViewQuestion.title": "Страница вопроса",
   "app.containers.ViewQuestion.description": "Содержание вопроса",
   "app.containers.ViewQuestion.questionNotExist":
@@ -638,8 +642,5 @@
   "app.components.TextEditor.quoteByPlacing":
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
-    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-
-  "app.containers.AskQuestion.notEnoughRating":
-    "Чтобы выполнить это действие, Ваш рейтинг должен быть больше"
+    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
 }

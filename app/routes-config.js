@@ -47,6 +47,7 @@ export const privacyPolicy = section =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 export const communityTags = communityid => `/communities/${communityid}/tags`;
 

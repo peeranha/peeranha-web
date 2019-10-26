@@ -58,7 +58,7 @@ export class EditAnswer extends React.PureComponent {
     const sendProps = {
       form: EDIT_ANSWER_FORM,
       formHeader: translationMessages[locale][messages.title.id],
-      sendButtonId: `${EDIT_ANSWER_BUTTON}_${0}`,
+      sendButtonId: EDIT_ANSWER_BUTTON,
       translations: translationMessages[locale],
       sendAnswer: this.editAnswer,
       sendAnswerLoading: editAnswerLoading,

@@ -4,15 +4,34 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
+
 import {
   getUserProfileSuccess,
   getUserProfile,
 } from 'containers/DataCacheProvider/actions';
+
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
-import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
-import { CREATE_COMMUNITY_SUCCESS } from 'containers/CreateCommunity/constants';
-import { SUGGEST_TAG_SUCCESS } from 'containers/CreateTag/constants';
+
+import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
+import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
+import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
+
+import {
+  ASK_QUESTION_SUCCESS,
+  REDIRECT_TO_ASK_QUESTION_PAGE,
+} from 'containers/AskQuestion/constants';
+
+import {
+  CREATE_COMMUNITY_SUCCESS,
+  REDIRECT_TO_CREATE_COMMUNITY,
+} from 'containers/CreateCommunity/constants';
+
+import {
+  SUGGEST_TAG_SUCCESS,
+  REDIRECT_TO_CREATE_TAG,
+} from 'containers/CreateTag/constants';
+
 import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
 import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
@@ -53,9 +72,7 @@ export function* getCurrentAccountWorker() {
     let profileInfo;
     let balance;
 
-    const selectedScatterAccount = yield call(() =>
-      eosService.getSelectedAccount(),
-    );
+    const selectedScatterAccount = yield call(eosService.getSelectedAccount);
 
     yield all([
       (function*() {
@@ -83,6 +100,15 @@ export function* getCurrentAccountWorker() {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(
+    REDIRECT_TO_ASK_QUESTION_PAGE,
+    redirectToAskQuestionPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_CREATE_COMMUNITY,
+    redirectToCreateCommunityWorker,
+  );
+  yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,

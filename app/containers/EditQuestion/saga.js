@@ -1,23 +1,28 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { getQuestionData } from 'containers/ViewQuestion/saga';
-
-import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
-
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+
+import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
 
 import {
   successToastHandlingWithDefaultText,
   errorToastHandlingWithDefaultText,
 } from 'containers/Toast/saga';
 
+import { isValid } from 'containers/EosioProvider/saga';
+
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { getQuestionData } from 'containers/ViewQuestion/saga';
+
 import {
   GET_ASKED_QUESTION,
   EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   EDIT_QUESTION_ERROR,
+  EDIT_QUESTION_BUTTON,
+  MIN_RATING_TO_EDIT_QUESTION,
+  MIN_ENERGY_TO_EDIT_QUESTION,
 } from './constants';
 
 import {
@@ -30,7 +35,7 @@ import {
 export function* getAskedQuestionWorker({ questionId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(eosService.getSelectedAccount);
 
     const questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
@@ -54,7 +59,13 @@ export function* getAskedQuestionWorker({ questionId }) {
 export function* editQuestionWorker({ question, questionId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
+    const selectedAccount = yield call(eosService.getSelectedAccount);
+
+    yield call(isValid, {
+      buttonId: EDIT_QUESTION_BUTTON,
+      minRating: MIN_RATING_TO_EDIT_QUESTION,
+      minEnergy: MIN_ENERGY_TO_EDIT_QUESTION,
+    });
 
     yield call(() =>
       editQuestion(selectedAccount, questionId, question, eosService),

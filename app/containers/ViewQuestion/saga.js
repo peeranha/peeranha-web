@@ -23,13 +23,13 @@ import {
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import { isAuthorized } from 'containers/EosioProvider/saga';
 
 import {
   GET_QUESTION_DATA,
@@ -85,6 +85,7 @@ import {
   upVoteValidator,
   downVoteValidator,
   voteToDeleteValidator,
+  deleteCommentValidator,
 } from './validate';
 
 /* eslint no-param-reassign: 0 */
@@ -255,9 +256,20 @@ export function* deleteCommentWorker({
   questionId,
   answerId,
   commentId,
+  buttonId,
 }) {
   try {
     const eosService = yield select(selectEos);
+    const locale = yield select(makeSelectLocale());
+    const profileInfo = yield select(makeSelectProfileInfo());
+
+    yield call(() =>
+      deleteCommentValidator(
+        profileInfo,
+        buttonId,
+        translationMessages[locale],
+      ),
+    );
 
     yield call(() =>
       deleteComment(user, questionId, answerId, commentId, eosService),
@@ -283,21 +295,20 @@ export function* deleteAnswerWorker({
 }) {
   try {
     let questionData = yield select(selectQuestionData());
+
     const locale = yield select(makeSelectLocale());
     const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
-    const isValid = yield call(() =>
+    yield call(() =>
       deleteAnswerValidator(
         postButtonId,
         answerId,
         questionData.correct_answer_id,
         translationMessages[locale],
+        profileInfo,
       ),
     );
-
-    if (!isValid) {
-      return yield put(deleteAnswerErr());
-    }
 
     yield call(() => deleteAnswer(user, questionId, answerId, eosService));
 
@@ -318,18 +329,16 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
     const questionData = yield select(selectQuestionData());
     const locale = yield select(makeSelectLocale());
     const eosService = yield select(selectEos);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
-    const isValid = yield call(() =>
+    yield call(() =>
       deleteQuestionValidator(
         postButtonId,
         questionData.answers.length,
         translationMessages[locale],
+        profileInfo,
       ),
     );
-
-    if (!isValid) {
-      return yield put(deleteQuestionErr());
-    }
 
     yield call(() => deleteQuestion(user, questionid, eosService));
 
@@ -346,7 +355,7 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
 export function* getQuestionDataWorker({ questionId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(eosService.getSelectedAccount);
 
     const questionData = yield call(() =>
       getQuestionData({ eosService, questionId, user }),
@@ -374,12 +383,9 @@ export function* postCommentWorker({
     const eosService = yield select(selectEos);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       postCommentValidator(
         profileInfo,
         questionData,
@@ -388,10 +394,6 @@ export function* postCommentWorker({
         translations,
       ),
     );
-
-    if (!isValid) {
-      return yield put(postCommentErr());
-    }
 
     yield call(() =>
       postComment(user, questionId, answerId, comment, eosService),
@@ -427,12 +429,9 @@ export function* postAnswerWorker({
     const eosService = yield select(selectEos);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       postAnswerValidator(
         profileInfo,
         questionData,
@@ -440,10 +439,6 @@ export function* postAnswerWorker({
         translations,
       ),
     );
-
-    if (!isValid) {
-      return yield put(postAnswerErr());
-    }
 
     yield call(() => postAnswer(user, questionId, answer, eosService));
 
@@ -474,12 +469,9 @@ export function* downVoteWorker({
     const eosService = yield select(selectEos);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       downVoteValidator(
         profileInfo,
         questionData,
@@ -488,10 +480,6 @@ export function* downVoteWorker({
         translations,
       ),
     );
-
-    if (!isValid) {
-      return yield put(downVoteErr());
-    }
 
     yield call(() => downVote(user, questionId, answerId, eosService));
 
@@ -523,12 +511,9 @@ export function* upVoteWorker({
     const eosService = yield select(selectEos);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       upVoteValidator(
         profileInfo,
         questionData,
@@ -537,10 +522,6 @@ export function* upVoteWorker({
         translations,
       ),
     );
-
-    if (!isValid) {
-      return yield put(upVoteErr());
-    }
 
     yield call(() => upVote(user, questionId, answerId, eosService));
 
@@ -572,12 +553,9 @@ export function* markAsAcceptedWorker({
     const eosService = yield select(selectEos);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       markAsAcceptedValidator(
         profileInfo,
         questionData,
@@ -585,10 +563,6 @@ export function* markAsAcceptedWorker({
         translations,
       ),
     );
-
-    if (!isValid) {
-      return yield put(markAsAcceptedErr());
-    }
 
     yield call(() =>
       markAsAccepted(user, questionId, correctAnswerId, eosService),
@@ -620,16 +594,13 @@ export function* voteToDeleteWorker({
 
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
-    const user = yield call(() => eosService.getSelectedAccount());
+    const user = yield call(eosService.getSelectedAccount);
 
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(() =>
       voteToDeleteValidator(
         profileInfo,
         questionData,
@@ -642,10 +613,6 @@ export function* voteToDeleteWorker({
         },
       ),
     );
-
-    if (!isValid) {
-      return yield put(voteToDeleteErr());
-    }
 
     yield call(() =>
       voteToDelete(user, questionId, answerId, commentId, eosService),

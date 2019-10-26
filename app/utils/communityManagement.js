@@ -1,4 +1,5 @@
 import { saveText, getText, getFileUrl } from './ipfs';
+import { uploadImg } from './profileManagement';
 
 import {
   TAGS_TABLE,
@@ -15,7 +16,6 @@ import {
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
 } from './constants';
-import { uploadImg } from './profileManagement';
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];

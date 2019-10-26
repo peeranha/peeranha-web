@@ -14,6 +14,7 @@ export const ContentBody = ({
   content,
   type,
   voteToDelete,
+  voteToDeleteLoading,
   buttonParams,
   translations,
   answerId,
@@ -22,12 +23,14 @@ export const ContentBody = ({
   saveComment,
   saveCommentLoading,
   deleteComment,
+  deleteCommentLoading,
   comments,
   postCommentLoading,
   postComment,
   questionFrom,
   account,
   markAsAccepted,
+  markAsAcceptedLoading,
   userInfo,
   isTheLargestRating,
 }) => (
@@ -37,6 +40,7 @@ export const ContentBody = ({
       questionFrom={questionFrom}
       account={account}
       markAsAccepted={markAsAccepted}
+      markAsAcceptedLoading={markAsAcceptedLoading}
       correctAnswerId={questionData.correct_answer_id}
       whoWasAccepted={userInfo.user}
       isTheLargestRating={isTheLargestRating}
@@ -50,7 +54,9 @@ export const ContentBody = ({
       saveComment={saveComment}
       saveCommentLoading={saveCommentLoading}
       deleteComment={deleteComment}
+      deleteCommentLoading={deleteCommentLoading}
       voteToDelete={voteToDelete}
+      voteToDeleteLoading={voteToDeleteLoading}
       buttonParams={buttonParams}
       translations={translations}
       answerId={answerId}
@@ -83,6 +89,9 @@ ContentBody.propTypes = {
   markAsAccepted: PropTypes.func,
   userInfo: PropTypes.object,
   isTheLargestRating: PropTypes.bool,
+  voteToDeleteLoading: PropTypes.bool,
+  deleteCommentLoading: PropTypes.bool,
+  markAsAcceptedLoading: PropTypes.bool,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

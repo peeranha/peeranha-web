@@ -18,6 +18,7 @@ export const MarkAsAcceptedIcon = ({
   account,
   id,
   markAsAccepted,
+  markAsAcceptedLoading,
   whoWasAccepted,
 }) => {
   // There is accepted answer && I am not question's author
@@ -47,6 +48,7 @@ export const MarkAsAcceptedIcon = ({
         className="d-inline-flex align-items-center"
         id={id}
         onClick={markAsAccepted}
+        disabled={markAsAcceptedLoading}
         data-answerid={0}
         data-whowasaccepted={whoWasAccepted}
       >
@@ -71,6 +73,7 @@ export const MarkAsAcceptedIcon = ({
         className="d-inline-flex align-items-center"
         id={id}
         onClick={markAsAccepted}
+        disabled={markAsAcceptedLoading}
         data-answerid={answerId}
         data-whowasaccepted={whoWasAccepted}
       >
@@ -96,6 +99,7 @@ MarkAsAcceptedIcon.propTypes = {
   id: PropTypes.string,
   markAsAccepted: PropTypes.func,
   whoWasAccepted: PropTypes.string,
+  markAsAcceptedLoading: PropTypes.bool,
 };
 
 export default React.memo(MarkAsAcceptedIcon);

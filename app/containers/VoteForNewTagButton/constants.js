@@ -12,3 +12,8 @@ export const DOWNVOTE_BUTTON_ID = 'app_downvote_for_tag_DOWNVOTE_BUTTON_ID';
 
 export const UPVOTE_METHOD = 'upvotes';
 export const DOWNVOTE_METHOD = 'downvotes';
+
+export const MIN_RATING_TO_UPVOTE = 35;
+export const MIN_RATING_TO_DOWNVOTE = 35;
+export const MIN_ENERGY_TO_UPVOTE = 1;
+export const MIN_ENERGY_TO_DOWNVOTE = 1;

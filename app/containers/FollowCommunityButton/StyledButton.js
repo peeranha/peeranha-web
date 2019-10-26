@@ -10,17 +10,17 @@ import InfoButton from 'components/Button/Outlined/InfoMedium';
 import Button from './index';
 import messages from './messages';
 
-const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => {
+const B = /* istanbul ignore next */ ({ isFollowed, onClick, id }) => {
   if (isFollowed) {
     return (
-      <PrimaryButton data-isfollowed={isFollowed} onClick={onClick}>
+      <PrimaryButton id={id} data-isfollowed={isFollowed} onClick={onClick}>
         <img className="py-1" src={okayIcon} alt="icon" />
       </PrimaryButton>
     );
   }
 
   return (
-    <InfoButton data-isfollowed={isFollowed} onClick={onClick}>
+    <InfoButton id={id} data-isfollowed={isFollowed} onClick={onClick}>
       <FormattedMessage {...messages.subscribe} />
     </InfoButton>
   );
@@ -31,8 +31,8 @@ export const StyledButton = /* istanbul ignore next */ ({
 }) => (
   <Button
     communityIdFilter={communityIdFilter}
-    render={({ isFollowed, onClick }) => (
-      <B isFollowed={isFollowed} onClick={onClick} />
+    render={({ isFollowed, onClick, id }) => (
+      <B id={id} isFollowed={isFollowed} onClick={onClick} />
     )}
   />
 );
@@ -40,6 +40,7 @@ export const StyledButton = /* istanbul ignore next */ ({
 B.propTypes = {
   isFollowed: PropTypes.bool,
   onClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 
 StyledButton.propTypes = {
