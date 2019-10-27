@@ -40,7 +40,6 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
-  UPDATE_QUESTION_DATA,
 } from './constants';
 
 export const initialState = fromJS({
@@ -101,9 +100,7 @@ function viewQuestionReducer(state = initialState, action) {
     case POST_ANSWER:
       return state.set('postAnswerLoading', true);
     case POST_ANSWER_SUCCESS:
-      return state
-        .set('postAnswerLoading', false)
-        .set('questionData', questionData);
+      return state.set('postAnswerLoading', false);
     case POST_ANSWER_ERROR:
       return state
         .set('postAnswerLoading', false)
@@ -112,9 +109,7 @@ function viewQuestionReducer(state = initialState, action) {
     case POST_COMMENT:
       return state.set('postCommentLoading', true);
     case POST_COMMENT_SUCCESS:
-      return state
-        .set('postCommentLoading', false)
-        .set('questionData', questionData);
+      return state.set('postCommentLoading', false);
     case POST_COMMENT_ERROR:
       return state
         .set('postCommentLoading', false)
@@ -203,9 +198,6 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false);
-
-    case UPDATE_QUESTION_DATA:
-      return state.set('questionData', questionData);
 
     case RESET_STORE:
       return initialState;

@@ -53,6 +53,13 @@ import {
   FINISH_REGISTRATION_SUCCESS,
 } from 'containers/Login/constants';
 
+import {
+  DELETE_QUESTION_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  SAVE_COMMENT_SUCCESS,
+} from 'containers/ViewQuestion/constants';
+
 import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
@@ -130,6 +137,10 @@ export default function* defaultSaga() {
       UPVOTE_TAGS_SUCCESS,
       DOWNVOTE_TAGS_SUCCESS,
       PICKUP_REWARD_SUCCESS,
+      DELETE_QUESTION_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
+      DELETE_COMMENT_SUCCESS,
+      SAVE_COMMENT_SUCCESS,
     ],
     getCurrentAccountWorker,
   );
