@@ -49,7 +49,7 @@ export function* postQuestionWorker({ val }) {
       chosenTags: val[FORM_TAGS],
     };
 
-    yield call(checkReadinessWorker);
+    yield call(checkReadinessWorker, {});
 
     yield call(() => postQuestion(selectedAccount, questionData, eosService));
 

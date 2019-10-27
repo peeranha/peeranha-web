@@ -27,7 +27,7 @@ export function* suggestTagWorker({ tag, reset }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
 
-    yield call(checkReadinessWorker);
+    yield call(checkReadinessWorker, {});
 
     yield call(() => suggestTag(eosService, selectedAccount, tag));
 

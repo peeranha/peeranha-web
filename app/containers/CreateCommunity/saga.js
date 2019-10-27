@@ -28,7 +28,7 @@ export function* createCommunityWorker({ community, reset }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
 
-    yield call(checkReadinessWorker);
+    yield call(checkReadinessWorker, {});
 
     yield call(() => createCommunity(eosService, selectedAccount, community));
 
