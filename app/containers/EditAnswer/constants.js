@@ -1,16 +1,26 @@
-/*
- *
- * EditAnswer constants
- *
- */
+const EDIT_ANSWER_FORM = 'app_editAnswer_EDIT_ANSWER_FORM';
+const EDIT_ANSWER_BUTTON = 'app_editAnswer_EDIT_ANSWER_BUTTON';
 
-export const EDIT_ANSWER_FORM = 'app_editAnswer_EDIT_ANSWER_FORM';
-export const EDIT_ANSWER_BUTTON = 'app_editAnswer_EDIT_ANSWER_BUTTON';
+const GET_ANSWER = 'app_editAnswer/GET_ANSWER';
+const GET_ANSWER_SUCCESS = 'app_editAnswer/GET_ANSWER_SUCCESS';
+const GET_ANSWER_ERROR = 'app_editAnswer/GET_ANSWER_ERROR';
 
-export const GET_ANSWER = 'app_editAnswer/GET_ANSWER';
-export const GET_ANSWER_SUCCESS = 'app_editAnswer/GET_ANSWER_SUCCESS';
-export const GET_ANSWER_ERROR = 'app_editAnswer/GET_ANSWER_ERROR';
+const EDIT_ANSWER = 'app_editAnswer/EDIT_ANSWER';
+const EDIT_ANSWER_SUCCESS = 'app_editAnswer/EDIT_ANSWER_SUCCESS';
+const EDIT_ANSWER_ERROR = 'app_editAnswer/EDIT_ANSWER_ERROR';
 
-export const EDIT_ANSWER = 'app_editAnswer/EDIT_ANSWER';
-export const EDIT_ANSWER_SUCCESS = 'app_editAnswer/EDIT_ANSWER_SUCCESS';
-export const EDIT_ANSWER_ERROR = 'app_editAnswer/EDIT_ANSWER_ERROR';
+const MIN_RATING_TO_EDIT_ANSWER = 0;
+const MIN_ENERGY_TO_EDIT_ANSWER = 2;
+
+export {
+  EDIT_ANSWER_FORM,
+  EDIT_ANSWER_BUTTON,
+  GET_ANSWER,
+  GET_ANSWER_SUCCESS,
+  GET_ANSWER_ERROR,
+  EDIT_ANSWER,
+  EDIT_ANSWER_SUCCESS,
+  EDIT_ANSWER_ERROR,
+  MIN_RATING_TO_EDIT_ANSWER,
+  MIN_ENERGY_TO_EDIT_ANSWER,
+};

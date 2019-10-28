@@ -29,7 +29,11 @@ export class FollowCommunityButton extends React.PureComponent {
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
     const { communityIdFilter } = this.props;
 
-    this.props.followHandlerDispatch(communityIdFilter, isFollowed);
+    this.props.followHandlerDispatch(
+      communityIdFilter,
+      isFollowed,
+      e.currentTarget.id,
+    );
   };
 
   render() /* istanbul ignore next */ {
@@ -39,7 +43,11 @@ export class FollowCommunityButton extends React.PureComponent {
       ? followedCommunities.includes(communityIdFilter)
       : false;
 
-    return render({ isFollowed, onClick: this.followHandler });
+    return render({
+      isFollowed,
+      onClick: this.followHandler,
+      id: `follow_community_${communityIdFilter}`,
+    });
   }
 }
 

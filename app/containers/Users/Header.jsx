@@ -46,14 +46,9 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => (
     <H3>
       <MediumImageStyled src={usersHeader} alt="users-header" />
 
-      <span className="d-flex align-items-center">
+      <span>
         <FormattedMessage {...commonMessages.users} />
-        <Span
-          className="d-none d-sm-flex text-lowercase ml-2"
-          color={TEXT_SECONDARY}
-          fontSize="30"
-          bold
-        >
+        <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
           {getFormattedNum2(userCount)}
         </Span>
       </span>

@@ -29,6 +29,7 @@ export const BestAnswerMarker = ({
   questionFrom,
   account,
   markAsAccepted,
+  markAsAcceptedLoading,
   correctAnswerId,
   whoWasAccepted,
   isTheLargestRating,
@@ -43,6 +44,7 @@ export const BestAnswerMarker = ({
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
+        markAsAcceptedLoading={markAsAcceptedLoading}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
       />
@@ -67,6 +69,7 @@ BestAnswerMarker.propTypes = {
   correctAnswerId: PropTypes.number,
   whoWasAccepted: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
+  markAsAcceptedLoading: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

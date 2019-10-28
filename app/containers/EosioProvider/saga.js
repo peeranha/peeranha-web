@@ -1,10 +1,21 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
 import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
+import {
+  makeSelectProfileInfo,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
+
+import { showLoginModal } from 'containers/Login/actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO } from './constants';
+
+import validate from './validate';
 
 export function* initEosioWorker() {
   try {
@@ -27,6 +38,34 @@ export function* initEosioWorker() {
   } catch (error) {
     yield put(initEosioError(error));
   }
+}
+
+export function* isAuthorized() {
+  const profileInfo = yield select(makeSelectProfileInfo());
+
+  if (!profileInfo) {
+    yield put(showLoginModal());
+    throw new Error('Not authorized');
+  }
+}
+
+export function* isValid({ creator, buttonId, minRating, minEnergy }) {
+  const locale = yield select(makeSelectLocale());
+  const profileInfo = yield select(makeSelectProfileInfo());
+  const selectedAccount = yield select(makeSelectAccount());
+
+  yield call(() =>
+    validate({
+      rating: profileInfo.rating,
+      translations: translationMessages[locale],
+      actor: selectedAccount,
+      creator,
+      buttonId,
+      energy: profileInfo.energy,
+      minRating,
+      minEnergy,
+    }),
+  );
 }
 
 export default function*() {

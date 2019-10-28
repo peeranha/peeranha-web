@@ -39,7 +39,6 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
-  UPDATE_QUESTION_DATA,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -186,10 +185,9 @@ export function postAnswer(
   };
 }
 
-export function postAnswerSuccess(questionData) {
+export function postAnswerSuccess() {
   return {
     type: POST_ANSWER_SUCCESS,
-    questionData,
   };
 }
 
@@ -223,10 +221,9 @@ export function postComment(
   };
 }
 
-export function postCommentSuccess(questionData) {
+export function postCommentSuccess() {
   return {
     type: POST_COMMENT_SUCCESS,
-    questionData,
   };
 }
 
@@ -256,10 +253,11 @@ export function upVote(
   };
 }
 
-export function upVoteSuccess(questionData) {
+export function upVoteSuccess(questionData, usersForUpdate) {
   return {
     type: UP_VOTE_SUCCESS,
     questionData,
+    usersForUpdate,
   };
 }
 
@@ -289,10 +287,11 @@ export function downVote(
   };
 }
 
-export function downVoteSuccess(questionData) {
+export function downVoteSuccess(questionData, usersForUpdate) {
   return {
     type: DOWN_VOTE_SUCCESS,
     questionData,
+    usersForUpdate,
   };
 }
 
@@ -322,10 +321,11 @@ export function markAsAccepted(
   };
 }
 
-export function markAsAcceptedSuccess(questionData) {
+export function markAsAcceptedSuccess(questionData, usersForUpdate) {
   return {
     type: MARK_AS_ACCEPTED_SUCCESS,
     questionData,
+    usersForUpdate,
   };
 }
 
@@ -353,10 +353,11 @@ export function voteToDelete(
   };
 }
 
-export function voteToDeleteSuccess(questionData) {
+export function voteToDeleteSuccess(questionData, usersForUpdate) {
   return {
     type: VOTE_TO_DELETE_SUCCESS,
     questionData,
+    usersForUpdate,
   };
 }
 
@@ -370,12 +371,5 @@ export function voteToDeleteErr(voteToDeleteError) {
 export function resetStore() {
   return {
     type: RESET_STORE,
-  };
-}
-
-export function updateQuestionData(questionData) {
-  return {
-    type: UPDATE_QUESTION_DATA,
-    questionData,
   };
 }

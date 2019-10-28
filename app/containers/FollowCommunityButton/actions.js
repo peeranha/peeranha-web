@@ -10,11 +10,12 @@ import {
   FOLLOW_HANDLER_ERROR,
 } from './constants';
 
-export function followHandler(communityIdFilter, isFollowed) {
+export function followHandler(communityIdFilter, isFollowed, buttonId) {
   return {
     type: FOLLOW_HANDLER,
     communityIdFilter,
     isFollowed,
+    buttonId,
   };
 }
 

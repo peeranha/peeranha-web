@@ -21,6 +21,7 @@ export const Question = props => (
     lastEditedDate={props.questionData.lastEditedDate}
     votingStatus={props.questionData.votingStatus}
     deleteItem={props.deleteQuestion}
+    deleteItemLoading={props.deleteQuestionLoading}
     editItem={props.editQuestion}
     saveComment={props.saveComment}
     deleteComment={props.deleteComment}
@@ -40,6 +41,7 @@ Question.propTypes = {
   editQuestion: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,
+  deleteQuestionLoading: PropTypes.bool,
 };
 
 export default React.memo(Question);

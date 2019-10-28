@@ -18,9 +18,6 @@ import { DAEMON } from 'utils/constants';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
-import InfinityLoader from 'components/InfinityLoader';
-import Seo from 'components/Seo';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -35,8 +32,14 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
+import { showLoginModal } from 'containers/Login/actions';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
+
+import InfinityLoader from 'components/InfinityLoader';
+import Seo from 'components/Seo';
 
 import { getQuestions } from './actions';
 
@@ -144,6 +147,7 @@ export class Questions extends React.PureComponent {
       account,
       profile,
       match,
+      redirectToAskQuestionPageDispatch,
     } = this.props;
 
     return (
@@ -166,6 +170,7 @@ export class Questions extends React.PureComponent {
             <Banner
               isFeed={parentPage === feed}
               followedCommunities={followedCommunities}
+              redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
             />
           )}
 
@@ -212,6 +217,7 @@ Questions.propTypes = {
   nextLoadedItems: PropTypes.number,
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
+  redirectToAskQuestionPageDispatch: PropTypes.func,
   eosService: PropTypes.object,
   profile: PropTypes.object,
 };
@@ -234,6 +240,11 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    redirectToAskQuestionPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
   };
 }
 

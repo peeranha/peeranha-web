@@ -8,8 +8,8 @@ import Button from './index';
 import messages from './messages';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
 
-const B = /* istanbul ignore next */ ({ isFollowed, onClick }) => (
-  <OutlinedButton data-isfollowed={isFollowed} onClick={onClick}>
+const B = /* istanbul ignore next */ ({ isFollowed, onClick, id }) => (
+  <OutlinedButton id={id} data-isfollowed={isFollowed} onClick={onClick}>
     <FormattedMessage
       {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
     />
@@ -21,8 +21,8 @@ export const DefaultButton = /* istanbul ignore next */ ({
 }) => (
   <Button
     communityIdFilter={communityIdFilter}
-    render={({ isFollowed, onClick }) => (
-      <B isFollowed={isFollowed} onClick={onClick} />
+    render={({ isFollowed, onClick, id }) => (
+      <B id={id} isFollowed={isFollowed} onClick={onClick} />
     )}
   />
 );
@@ -30,6 +30,7 @@ export const DefaultButton = /* istanbul ignore next */ ({
 B.propTypes = {
   isFollowed: PropTypes.bool,
   onClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 
 DefaultButton.propTypes = {

@@ -56,6 +56,7 @@ import {
   Search,
   Support,
   PrivacyPolicy,
+  FullWidthPreloader,
 } from './imports';
 
 export default function App() {
@@ -75,6 +76,12 @@ export default function App() {
             <HomePage />
           </React.Suspense>
         </Route>
+
+        <Route
+          exact
+          path={routes.preloaderPage()}
+          render={props => Wrapper(FullWidthPreloader, props)}
+        />
 
         <Route
           exact

@@ -434,6 +434,10 @@
     "Number of items is achieved of maximum",
   "app.containers.ViewQuestion.noRootsToVote":
     "You cannot vote to own questions and answers",
+  "app.containers.ViewQuestion.creatorCannot":
+    "Creator cannot complete this action",
+  "app.containers.ViewQuestion.notEnoughEnergy":
+    "To complete this action, your energy has to be more than",
   "app.containers.ViewQuestion.title": "Question's page",
   "app.containers.ViewQuestion.description": "Question's description",
   "app.containers.ViewQuestion.questionNotExist":
@@ -630,8 +634,5 @@
   "app.components.TextEditor.quoteByPlacing":
     "quote by placing &gt; at start of line",
   "app.components.TextEditor.toMakeLinks":
-    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-
-  "app.containers.AskQuestion.notEnoughRating":
-    "To complete this action, your rating has to be more than"
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
 }

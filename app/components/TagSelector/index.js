@@ -90,10 +90,8 @@ export const TagSelector = ({
           input={{
             ...input,
             value: null,
-            onChange: x => {
-              setTags([...value, x]);
-              toggleOpen(false);
-            },
+            onBlur: null,
+            onChange: x => setTags([...value, x]),
           }}
           options={filteredOptions}
           disabled={disabled}

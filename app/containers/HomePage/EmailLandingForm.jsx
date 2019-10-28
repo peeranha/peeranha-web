@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 import styled from 'styled-components';
 
-import { validateEmail } from 'components/FormFields/validate';
+import { validateEmail, strLength254Max } from 'components/FormFields/validate';
 
 import DefaultInput from './DefaultInput';
 import Button from './ContainedButton';
@@ -67,8 +67,8 @@ const EmailLandingForm = ({
       placeholder={translations[messages.email.id]}
       name={EMAIL_FIELD}
       component={DefaultInput}
-      validate={[validateEmail]}
-      warn={[validateEmail]}
+      validate={[validateEmail, strLength254Max]}
+      warn={[validateEmail, strLength254Max]}
     />
 
     <div className="d-flex">

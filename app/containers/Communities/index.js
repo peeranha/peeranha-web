@@ -9,15 +9,11 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-
 import { compose, bindActionCreators } from 'redux';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
 import { DAEMON } from 'utils/constants';
-
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -27,7 +23,7 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
+import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import AsideBox from 'components/Base/Aside';
@@ -39,7 +35,6 @@ import {
   selectIsLastFetch,
 } from './selectors';
 
-import { createCommunityValidator } from './validate';
 import { getSuggestedCommunities } from './actions';
 import messages from './messages';
 import reducer from './reducer';
@@ -69,30 +64,6 @@ export class Communities extends React.PureComponent {
     this.props.getSuggestedCommunitiesDispatch();
   };
 
-  /* eslint consistent-return: 0 */
-  goToCreateCommunityScreen = e => {
-    const buttonId = e.currentTarget.id;
-
-    const { profile, locale } = this.props;
-
-    if (!profile) {
-      this.props.showLoginModalDispatch();
-      return null;
-    }
-
-    const isValid = createCommunityValidator(
-      profile,
-      translationMessages[locale],
-      buttonId,
-    );
-
-    if (!isValid) {
-      return null;
-    }
-
-    createdHistory.push(routes.communitiesCreate());
-  };
-
   render() /* istanbul ignore next */ {
     const {
       locale,
@@ -106,6 +77,7 @@ export class Communities extends React.PureComponent {
       SubHeader,
       changeSorting,
       sorting,
+      redirectToCreateCommunityDispatch,
     } = this.props;
 
     const keywords = communities.map(x => x.name);
@@ -121,7 +93,7 @@ export class Communities extends React.PureComponent {
 
         <div className="flex-xl-grow-1">
           <Header
-            goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+            goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
             SubHeader={SubHeader}
             changeSorting={changeSorting}
             sorting={sorting}
@@ -148,7 +120,7 @@ export class Communities extends React.PureComponent {
           {!communitiesLoading &&
             !suggestedCommunitiesLoading && (
               <Banner
-                goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+                goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
               />
             )}
         </div>
@@ -168,9 +140,7 @@ Communities.propTypes = {
   communities: PropTypes.array,
   suggestedCommunities: PropTypes.array,
   locale: PropTypes.string,
-  profile: PropTypes.object,
   sorting: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
   Aside: PropTypes.any,
@@ -179,6 +149,7 @@ Communities.propTypes = {
   isLastFetch: PropTypes.bool,
   communitiesLoading: PropTypes.bool,
   getSuggestedCommunitiesDispatch: PropTypes.func,
+  redirectToCreateCommunityDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -193,7 +164,10 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    redirectToCreateCommunityDispatch: bindActionCreators(
+      redirectToCreateCommunity,
+      dispatch,
+    ),
     getSuggestedCommunitiesDispatch: bindActionCreators(
       getSuggestedCommunities,
       dispatch,

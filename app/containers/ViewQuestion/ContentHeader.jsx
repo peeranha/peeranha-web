@@ -89,6 +89,7 @@ export const ContentHeader = props => (
             id={`${props.type}_delete_${props.answerId}`}
             params={props.buttonParams}
             onClick={props.deleteItem}
+            disabled={props.deleteItemLoading}
           >
             <Span
               className="d-flex align-items-center"
@@ -109,6 +110,7 @@ export const ContentHeader = props => (
             params={props.buttonParams}
             onClick={props.voteToDelete}
             isVotedToDelete={props.votingStatus.isVotedToDelete}
+            disabled={props.voteToDeleteLoading}
           >
             <Span
               className="d-flex align-items-center"
@@ -134,6 +136,8 @@ ContentHeader.propTypes = {
   postTime: PropTypes.number,
   type: PropTypes.string,
   isItWrittenByMe: PropTypes.bool,
+  deleteItemLoading: PropTypes.bool,
+  voteToDeleteLoading: PropTypes.bool,
   buttonParams: PropTypes.object,
   editItem: PropTypes.func,
   deleteItem: PropTypes.func,

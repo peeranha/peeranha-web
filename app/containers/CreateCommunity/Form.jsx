@@ -48,6 +48,7 @@ import {
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
   LANGUAGE_FIELD,
+  CREATE_COMMUNITY_BUTTON,
 } from './constants';
 
 const DEFAULT_TAGS_NUMBER = 5;
@@ -154,9 +155,9 @@ const CreateCommunityForm = ({
           </Wrapper>
 
           <FormSection name="tags" className="mt-3">
-            {tags.map(x => (
+            {tags.map((x, index) => (
               <FormSection key={x} name={`${TAG_SECTION}_${x}`}>
-                {x !== tags[0] && (
+                {index >= DEFAULT_TAGS_NUMBER && (
                   <button
                     type="button"
                     style={{ transform: 'scale(0.75)' }}
@@ -206,7 +207,8 @@ const CreateCommunityForm = ({
           <LargeButton
             className="my-3"
             disabled={createCommunityLoading}
-            typeAttr="submit"
+            type="submit"
+            id={CREATE_COMMUNITY_BUTTON}
           >
             {translations[messages.createCommunity.id]}
           </LargeButton>

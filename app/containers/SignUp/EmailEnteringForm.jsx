@@ -4,7 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
-import { validateEmail, required } from 'components/FormFields/validate';
+import {
+  validateEmail,
+  required,
+  strLength254Max,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import SignUpOptions from 'components/SignUpWrapper/SignUpOptions';
@@ -36,8 +41,8 @@ const EmailEnteringForm = ({ handleSubmit }) => (
             disabled={emailChecking}
             label={translationMessages[locale][messages.email.id]}
             component={TextInputField}
-            validate={[validateEmail, required]}
-            warn={[validateEmail, required]}
+            validate={[validateEmail, required, strLength254Max]}
+            warn={[validateEmail, required, strLength254Max]}
           />
 
           <Button disabled={emailChecking} className="w-100">

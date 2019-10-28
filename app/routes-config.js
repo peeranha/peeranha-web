@@ -47,6 +47,7 @@ export const privacyPolicy = section =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 export const communityTags = communityid => `/communities/${communityid}/tags`;
 
@@ -57,6 +58,8 @@ export const tagsCreate = communityid =>
   `/communities/${communityid || 0}/tags/create`;
 
 export const registrationStage = 'signup';
+
+export const preloaderPage = () => '/preloader-page';
 
 export const signup = {
   email: {

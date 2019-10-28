@@ -116,6 +116,7 @@ const CommentEdit = ({
   </CommentEditStyled>
 );
 
+/* eslint react/no-danger: 0 */
 const CommentView = item => (
   <CommentViewStyled>
     <div className="d-flex justify-content-between align-items-center">
@@ -156,6 +157,7 @@ const CommentView = item => (
             whowasvoted: item.userInfo.user,
           }}
           onClick={item.deleteComment}
+          disabled={item.deleteCommentLoading}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
             <img src={deleteSmallIcon} alt="icon" />
@@ -171,6 +173,7 @@ const CommentView = item => (
           isVotedToDelete={item.isVotedToDelete}
           isItWrittenByMe={item.isItWrittenByMe}
           onClick={item.voteToDelete}
+          disabled={item.voteToDeleteLoading}
           params={{
             ...item.buttonParams,
             commentId: item.id,

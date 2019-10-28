@@ -30,7 +30,8 @@ import {
 
 import FormStyled from './FormStyled';
 import AvatarStyled from './AvatarStyled';
-import { PROFILE_EDIT_FORM } from './constants';
+
+import { PROFILE_EDIT_FORM, EDIT_PROFILE_BUTTON_ID } from './constants';
 
 export const AVATAR_FIELD_WIDTH = 120;
 export const AVATAR_FIELD_MARGIN = 30;
@@ -116,7 +117,11 @@ export const ProfileEditForm = ({
         splitInHalf
       />
 
-      <Button className="my-3" disabled={isProfileSaving}>
+      <Button
+        id={EDIT_PROFILE_BUTTON_ID}
+        className="my-3"
+        disabled={isProfileSaving}
+      >
         <FormattedMessage {...messages.saveButton} />
       </Button>
     </div>

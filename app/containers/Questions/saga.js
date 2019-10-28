@@ -1,3 +1,4 @@
+/* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
 import { take, takeLatest, call, put, select, all } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
@@ -66,16 +67,26 @@ export function* getQuestionsWorker({
       );
     }
 
-    // Got questions
-    // Do mapping - to get userProfiles (question's authors)
+    const users = new Map();
 
-    /* eslint no-param-reassign: 0 */
+    questionsList.forEach(question => {
+      users.set(
+        question.user,
+        users.get(question.user)
+          ? [...users.get(question.user), question]
+          : [question],
+      );
+    });
+
+    // To avoid of fetching same user profiles - remember it and to write userInfo here
+
     yield all(
-      questionsList.map(function*(question) {
-        const userInfo = yield call(() =>
-          getUserProfileWorker({ user: question.user }),
-        );
-        question.userInfo = userInfo;
+      Array.from(users.keys()).map(function*(user) {
+        const userInfo = yield call(() => getUserProfileWorker({ user }));
+
+        users.get(user).map(cachedItem => {
+          cachedItem.userInfo = userInfo;
+        });
       }),
     );
 

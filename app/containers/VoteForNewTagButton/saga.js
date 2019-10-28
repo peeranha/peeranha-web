@@ -8,11 +8,17 @@ import {
 import { getSuggestedTagsWorker } from 'containers/Tags/saga';
 import { selectSuggestedTags } from 'containers/Tags/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-import { UPVOTE, DOWNVOTE } from './constants';
+import {
+  UPVOTE,
+  DOWNVOTE,
+  MIN_RATING_TO_UPVOTE,
+  MIN_RATING_TO_DOWNVOTE,
+  MIN_ENERGY_TO_UPVOTE,
+  MIN_ENERGY_TO_DOWNVOTE,
+} from './constants';
 
 import {
   upVoteSuccess,
@@ -21,39 +27,23 @@ import {
   downVoteErr,
 } from './actions';
 
-import { upVoteValidator, downVoteValidator } from './validate';
-
 /* eslint consistent-return: 0 */
 export function* upVoteWorker({ communityId, tagId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const storedTags = yield select(selectSuggestedTags());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const selectedAccount = yield select(makeSelectAccount());
+    const storedTags = yield select(selectSuggestedTags());
 
     const activeTag = storedTags.filter(x => x.id === +tagId)[0];
 
-    const isValid = yield call(() =>
-      upVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeTag,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(upVoteErr('Validation Error'));
-    }
+    yield call(isValid, {
+      creator: activeTag.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_UPVOTE,
+      minEnergy: MIN_ENERGY_TO_UPVOTE,
+    });
 
     yield call(() =>
       upVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
@@ -70,34 +60,20 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
 /* eslint consistent-return: 0 */
 export function* downVoteWorker({ communityId, tagId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const storedTags = yield select(selectSuggestedTags());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const selectedAccount = yield select(makeSelectAccount());
+    const storedTags = yield select(selectSuggestedTags());
 
     const activeTag = storedTags.filter(x => x.id === +tagId)[0];
 
-    const isValid = yield call(() =>
-      downVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeTag,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(downVoteErr('Validation Error'));
-    }
+    yield call(isValid, {
+      creator: activeTag.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_DOWNVOTE,
+      minEnergy: MIN_ENERGY_TO_DOWNVOTE,
+    });
 
     yield call(() =>
       downVoteToCreateTag(eosService, selectedAccount, communityId, tagId),

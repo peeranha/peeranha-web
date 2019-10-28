@@ -39,11 +39,14 @@ const ContentRating = ({
   rating,
   downVote,
   userInfo,
+  upVoteLoading,
+  downVoteLoading,
 }) => (
   <Base className="d-flex align-items-center justify-content-between">
     <button
       className="p-0"
       onClick={upVote}
+      disabled={upVoteLoading}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasupvoted={userInfo.user}
@@ -62,6 +65,7 @@ const ContentRating = ({
     <button
       className="p-0"
       onClick={downVote}
+      disabled={downVoteLoading}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasdownvoted={userInfo.user}
@@ -82,6 +86,8 @@ ContentRating.propTypes = {
   account: PropTypes.string,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
+  upVoteLoading: PropTypes.bool,
+  downVoteLoading: PropTypes.bool,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

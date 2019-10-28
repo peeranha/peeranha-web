@@ -163,7 +163,9 @@ export const QuestionForm = ({
             </div>
 
             <div>
-              <Button id={submitButtonId}>{submitButtonName}</Button>
+              <Button disabled={questionLoading} id={submitButtonId}>
+                {submitButtonName}
+              </Button>
             </div>
           </form>
         </BaseRounded>
