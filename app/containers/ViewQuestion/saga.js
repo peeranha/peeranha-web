@@ -222,6 +222,21 @@ export function* getQuestionData({
   return question;
 }
 
+// TODO: test
+export function* getParams() {
+  const questionData = yield select(selectQuestionData());
+  const eosService = yield select(selectEos);
+  const locale = yield select(makeSelectLocale());
+  const profileInfo = yield select(makeSelectProfileInfo());
+
+  return {
+    questionData,
+    eosService,
+    locale,
+    profileInfo,
+  };
+}
+
 export function* saveCommentWorker({
   user,
   questionId,
@@ -231,8 +246,7 @@ export function* saveCommentWorker({
   toggleView,
 }) {
   try {
-    const eosService = yield select(selectEos);
-    const questionData = yield select(selectQuestionData());
+    const { questionData, eosService } = yield call(getParams);
 
     yield call(() =>
       editComment(user, questionId, answerId, commentId, comment, eosService),
@@ -266,11 +280,9 @@ export function* deleteCommentWorker({
   buttonId,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-
-    const eosService = yield select(selectEos);
-    const locale = yield select(makeSelectLocale());
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(() =>
       deleteCommentValidator(
@@ -289,9 +301,8 @@ export function* deleteCommentWorker({
         x => x.id != commentId,
       );
     } else if (+answerId > 0) {
-      questionData.answers.forEach(x => {
-        x.comments = x.comments.filter(y => y.id != commentId);
-      });
+      const answer = questionData.answers.find(x => x.id == answerId);
+      answer.comments = answer.comments.filter(x => x.id != commentId);
     }
 
     yield put(deleteCommentSuccess({ ...questionData }));
@@ -307,11 +318,9 @@ export function* deleteAnswerWorker({
   postButtonId,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-
-    const locale = yield select(makeSelectLocale());
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(() =>
       deleteAnswerValidator(
@@ -335,10 +344,9 @@ export function* deleteAnswerWorker({
 
 export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
   try {
-    const questionData = yield select(selectQuestionData());
-    const locale = yield select(makeSelectLocale());
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(() =>
       deleteQuestionValidator(
@@ -361,11 +369,10 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
 
 export function* getQuestionDataWorker({ questionId }) {
   try {
-    const eosService = yield select(selectEos);
-    const user = yield call(eosService.getSelectedAccount);
+    const { eosService, profileInfo } = yield call(getParams);
 
     const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
+      getQuestionData({ eosService, questionId, user: profileInfo.user }),
     );
 
     yield put(getQuestionDataSuccess(questionData));
@@ -385,10 +392,7 @@ export function* postCommentWorker({
   toggleView,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -429,10 +433,7 @@ export function* postAnswerWorker({
   reset,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -468,11 +469,9 @@ export function* downVoteWorker({
   questionId,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-    const usersForUpdate = [whoWasDownvoted];
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasDownvoted];
 
     yield call(isAuthorized);
 
@@ -520,11 +519,9 @@ export function* upVoteWorker({
   whoWasUpvoted,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-    const usersForUpdate = [whoWasUpvoted];
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasUpvoted];
 
     yield call(isAuthorized);
 
@@ -572,11 +569,9 @@ export function* markAsAcceptedWorker({
   whoWasAccepted,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
-    const usersForUpdate = [whoWasAccepted];
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasAccepted];
 
     yield call(isAuthorized);
 
@@ -612,14 +607,11 @@ export function* voteToDeleteWorker({
   whoWasVoted,
 }) {
   try {
-    const questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
+
     const usersForUpdate = [whoWasVoted];
-
-    const eosService = yield select(selectEos);
-    const locale = yield select(makeSelectLocale());
-    const user = yield call(eosService.getSelectedAccount);
-
-    const profileInfo = yield select(makeSelectProfileInfo());
 
     yield call(isAuthorized);
 
@@ -638,7 +630,13 @@ export function* voteToDeleteWorker({
     );
 
     yield call(() =>
-      voteToDelete(user, questionId, answerId, commentId, eosService),
+      voteToDelete(
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        eosService,
+      ),
     );
 
     let item;
@@ -652,7 +650,7 @@ export function* voteToDeleteWorker({
     } else if (+answerId && commentId) {
       item = questionData.answers
         .find(x => x.id == answerId)
-        .comments(x => x.id == commentId);
+        .comments.find(x => x.id == commentId);
     }
 
     item.votingStatus.isVotedToDelete = true;
@@ -663,6 +661,7 @@ export function* voteToDeleteWorker({
   }
 }
 
+// TODO: test
 // Do not spent time for main action - update userInfo as async action after main action
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate,

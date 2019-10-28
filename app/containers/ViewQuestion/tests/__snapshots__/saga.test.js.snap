@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteAnswerWorker step, deleteAnswerSuccess 1`] = `"{\\"comments\\":[{\\"id\\":1},{\\"id\\":2}],\\"answers\\":[{\\"id\\":2,\\"comments\\":[{\\"id\\":1},{\\"id\\":2}]}]}"`;
+
+exports[`deleteCommentWorker step, deleteCommentSuccess 1`] = `"{\\"comments\\":[{\\"id\\":1},{\\"id\\":2}],\\"answers\\":[{\\"id\\":1,\\"comments\\":[{\\"id\\":1}]},{\\"id\\":2,\\"comments\\":[{\\"id\\":1},{\\"id\\":2}]}]}"`;
+
+exports[`downVoteWorker answerId === 0 isDownVoted is false test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":true,\\"isUpVoted\\":false},\\"rating\\":-1,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`downVoteWorker answerId === 0 isDownVoted is true step, DOWN_VOTE_SUCCESS 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":1,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`downVoteWorker answerId === 0 isUpVoted is true test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":true,\\"isUpVoted\\":false},\\"rating\\":-2,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`downVoteWorker answerId > 0 isDownVoted is true test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":1},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`saveCommentWorker +answerId === 0 step, saveCommentSuccess 1`] = `"{\\"comments\\":[{\\"id\\":1,\\"content\\":\\"comment\\"},{\\"id\\":2}],\\"answers\\":[{\\"id\\":1,\\"comments\\":[{\\"id\\":1},{\\"id\\":2}]},{\\"id\\":2,\\"comments\\":[{\\"id\\":1},{\\"id\\":2}]}]}"`;
+
+exports[`saveCommentWorker asnwerId > 0 test 1`] = `"{\\"comments\\":[{\\"id\\":1},{\\"id\\":2}],\\"answers\\":[{\\"id\\":1,\\"comments\\":[{\\"id\\":1,\\"content\\":\\"comment\\"},{\\"id\\":2}]},{\\"id\\":2,\\"comments\\":[{\\"id\\":1},{\\"id\\":2}]}]}"`;
+
+exports[`upVoteWorker answerId = 0 isDownVoted is true test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":true},\\"rating\\":2,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`upVoteWorker answerId = 0 isUpVoted is false test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":true},\\"rating\\":1,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`upVoteWorker answerId = 0 isUpVoted is true step, UP_VOTE_SUCCESS 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":-1,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`upVoteWorker answerId > 0 isUpVoted is true test 1`] = `"{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0,\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":-1},{\\"id\\":2,\\"votingStatus\\":{\\"isDownVoted\\":false,\\"isUpVoted\\":false},\\"rating\\":0}]}"`;
+
+exports[`voteToDeleteWorker !+answerId && !commentId step, VOTE_TO_DELETE_SUCCESS 1`] = `"{\\"votingStatus\\":{\\"isVotedToDelete\\":true},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false}}],\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true}}]}]}"`;
+
+exports[`voteToDeleteWorker !+answerId && commentId step, VOTE_TO_DELETE_SUCCESS 1`] = `"{\\"votingStatus\\":{\\"isVotedToDelete\\":false},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true}}],\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false}}]}]}"`;
+
+exports[`voteToDeleteWorker +answerId && !commentId step, VOTE_TO_DELETE_SUCCESS 1`] = `"{\\"votingStatus\\":{\\"isVotedToDelete\\":false},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false}}],\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true}}]}]}"`;
+
+exports[`voteToDeleteWorker +answerId && commentId step, VOTE_TO_DELETE_SUCCESS 1`] = `"{\\"votingStatus\\":{\\"isVotedToDelete\\":false},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false}}],\\"answers\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":false},\\"comments\\":[{\\"id\\":1,\\"votingStatus\\":{\\"isVotedToDelete\\":true}}]}]}"`;
