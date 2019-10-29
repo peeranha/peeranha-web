@@ -1,8 +1,4 @@
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
-
-import { Tags, goToCreateTagScreen } from '../index';
-import { createTagValidator } from '../validate';
+import { Tags } from '../index';
 
 const cmp = new Tags();
 
@@ -26,61 +22,7 @@ beforeEach(() => {
   };
 });
 
-jest.mock('createdHistory', () => ({
-  push: jest.fn(),
-}));
-
-jest.mock('../validate', () => ({
-  createTagValidator: jest.fn(),
-}));
-
 describe('<Tags />', () => {
-  describe('goToCreateTagScreen', () => {
-    it('profile is NULL', () => {
-      expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(0);
-
-      const step = goToCreateTagScreen({
-        profile: null,
-        showLoginModalDispatch: cmp.props.showLoginModalDispatch,
-        locale: cmp.props.locale,
-        communityId: cmp.props.communityId,
-      });
-
-      expect(step).toBe(null);
-      expect(cmp.props.showLoginModalDispatch).toHaveBeenCalledTimes(1);
-    });
-
-    it('isValid is FALSE', () => {
-      createTagValidator.mockImplementation(() => false);
-
-      const step = goToCreateTagScreen({
-        profile: {},
-        showLoginModalDispatch: cmp.props.showLoginModalDispatch,
-        locale: cmp.props.locale,
-        communityId: cmp.props.communityId,
-      });
-
-      expect(step).toBe(null);
-      expect(createTagValidator).toHaveBeenCalledTimes(1);
-    });
-
-    it('isValid is TRUE', () => {
-      createTagValidator.mockImplementation(() => true);
-
-      const step = goToCreateTagScreen({
-        profile: {},
-        showLoginModalDispatch: cmp.props.showLoginModalDispatch,
-        locale: cmp.props.locale,
-        communityId: cmp.props.communityId,
-      });
-
-      expect(step).not.toBe(null);
-      expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.tagsCreate(cmp.props.communityId),
-      );
-    });
-  });
-
   it('componentDidMount', () => {
     const {
       communityId,

@@ -8,7 +8,7 @@ exports[`Header test 1`] = `
     position="top"
   >
     <div>
-      <A
+      <A__ALink
         to="/tags"
       >
         <Button
@@ -28,8 +28,8 @@ exports[`Header test 1`] = `
             />
           </span>
         </Button>
-      </A>
-      <A
+      </A__ALink>
+      <A__ALink
         disabled={false}
         to="/communities/undefined/tags"
       >
@@ -41,8 +41,8 @@ exports[`Header test 1`] = `
             values={Object {}}
           />
         </Button>
-      </A>
-      <A
+      </A__ALink>
+      <A__ALink
         disabled={false}
         to="/communities/undefined/tags/suggested"
       >
@@ -54,7 +54,7 @@ exports[`Header test 1`] = `
             values={Object {}}
           />
         </Button>
-      </A>
+      </A__ALink>
     </div>
     <div
       className="right-panel"

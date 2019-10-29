@@ -17,14 +17,9 @@ describe('askQuestionReducer', () => {
   });
 
   it('askQuestion', () => {
-    const user = 'user';
-    const questionData = { questionData: [] };
-    const obj = state
-      .set('askQuestionLoading', true)
-      .set('questionData', questionData);
-    expect(askQuestionReducer(state, askQuestion(user, questionData))).toEqual(
-      obj,
-    );
+    const val = fromJS({});
+    const obj = state.set('askQuestionLoading', true);
+    expect(askQuestionReducer(state, askQuestion(val))).toEqual(obj);
   });
 
   it('askQuestionSuccess', () => {

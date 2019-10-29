@@ -8,7 +8,7 @@ exports[`Header test 1`] = `
     position="top"
   >
     <div>
-      <A
+      <A__ALink
         href="/communities"
         to="/communities"
       >
@@ -20,8 +20,8 @@ exports[`Header test 1`] = `
             values={Object {}}
           />
         </Button>
-      </A>
-      <A
+      </A__ALink>
+      <A__ALink
         href="/communities/suggested"
         to="/communities/suggested"
       >
@@ -33,7 +33,7 @@ exports[`Header test 1`] = `
             values={Object {}}
           />
         </Button>
-      </A>
+      </A__ALink>
     </div>
     <div
       className="right-panel"

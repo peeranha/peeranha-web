@@ -11,9 +11,7 @@ exports[`<TagsCollection /> render 1`] = `
     language="en"
     title="Tags collection"
   />
-  <UNDEFINED
-    openTagForm={[Function]}
-  />
+  <UNDEFINED />
   <UNDEFINED
     communities={
       Array [
@@ -24,8 +22,6 @@ exports[`<TagsCollection /> render 1`] = `
       ]
     }
   />
-  <UNDEFINED
-    openTagForm={[Function]}
-  />
+  <UNDEFINED />
 </div>
 `;

@@ -42,7 +42,7 @@ exports[`EditQuestion render test questionLoading is falsy 1`] = `
     }
     questionid={1}
     sendQuestion={[Function]}
-    submitButtonId="app/AskQuestion/EDIT_QUESTION_BUTTON"
+    submitButtonId="app_AskQuestion_EDIT_QUESTION_BUTTON"
     submitButtonName="Save"
   />
 </div>
