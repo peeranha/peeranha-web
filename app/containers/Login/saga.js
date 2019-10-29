@@ -70,7 +70,6 @@ export function* loginWithEmailWorker({ val }) {
 
     const { activeKey, eosAccountName } = response.body;
 
-    // TODO: cover by tests
     if (eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
       throw new Error(translations[messages.accountNotCreatedName.id]);
     }
@@ -163,7 +162,6 @@ export function* finishRegistrationWorker({ val }) {
   }
 }
 
-// TODO: cover by tests
 export function* redirectToHomepageWorker() {
   if (window.location.pathname.includes(routes.registrationStage)) {
     yield call(() => createdHistory.push(routes.questions()));

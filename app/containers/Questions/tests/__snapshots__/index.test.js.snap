@@ -6,21 +6,11 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
     language="en"
     title="Questions"
   />
-  <InfinityLoader
-    isLastFetch={false}
-    isLoading={false}
-    loadNextPaginatedData={[Function]}
-  >
-    <UNDEFINED
-      communityIdFilter={10}
-      followedCommunities={null}
-      getInitQuestions={[Function]}
-      locale="en"
-      parentPage="parentPage"
-      questionsList={Array []}
-      questionsLoading={false}
-    />
-  </InfinityLoader>
+  <InjectIntl(Component)
+    communityIdFilter={1}
+    followedCommunities={null}
+    parentPage="parentPage"
+  />
   <UNDEFINED
     followedCommunities={null}
     isFeed={false}
@@ -34,20 +24,11 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
     language="en"
     title="Questions"
   />
-  <InfinityLoader
-    isLastFetch={false}
-    isLoading={true}
-    loadNextPaginatedData={[Function]}
-  >
-    <UNDEFINED
-      communityIdFilter={10}
-      followedCommunities={null}
-      getInitQuestions={[Function]}
-      locale="en"
-      parentPage="parentPage"
-      questionsList={Array []}
-      questionsLoading={true}
-    />
-  </InfinityLoader>
+  <InjectIntl(Component)
+    communityIdFilter={1}
+    followedCommunities={null}
+    parentPage="parentPage"
+  />
+  <UNDEFINED />
 </div>
 `;

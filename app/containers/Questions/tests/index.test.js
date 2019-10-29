@@ -9,6 +9,7 @@ window.BigInt = jest.fn().mockImplementation(x => x);
 cmp.fetcher = fetcher;
 cmp.props = {
   locale: 'en',
+  match: { params: { communityid: 1 } },
   followedCommunities: [1, 2],
   questionsList: fromJS([]),
   questionsLoading: false,
@@ -72,18 +73,17 @@ describe('Questions', () => {
   describe('getInitQuestions', () => {
     it('call without params', () => {
       const offset = 0;
-      const communityIdFilter = 26;
 
       cmp.fetcher = null;
 
-      cmp.getInitQuestions(communityIdFilter);
+      cmp.getInitQuestions();
 
       expect(cmp.fetcher).not.toBe(null);
 
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.initLoadedItems,
         offset,
-        communityIdFilter,
+        cmp.props.match.params.communityid,
         cmp.props.parentPage,
         cmp.fetcher,
       );
@@ -110,7 +110,7 @@ describe('Questions', () => {
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.nextLoadedItems,
         id + 1,
-        cmp.props.communityIdFilter,
+        cmp.props.match.params.communityid,
         cmp.props.parentPage,
         cmp.fetcher,
         next,
@@ -127,7 +127,7 @@ describe('Questions', () => {
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledWith(
         cmp.props.nextLoadedItems,
         id,
-        cmp.props.communityIdFilter,
+        cmp.props.match.params.communityid,
         cmp.props.parentPage,
         cmp.fetcher,
         next,

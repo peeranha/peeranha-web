@@ -21,14 +21,9 @@ describe('questionsReducer', () => {
   });
 
   it('getQuestions', () => {
-    const communityIdFilter = 10;
-    const obj = state
-      .set('questionsLoading', true)
-      .set('communityIdFilter', communityIdFilter);
+    const obj = state.set('questionsLoading', true);
 
-    expect(
-      questionsReducer(state, getQuestions(0, 0, communityIdFilter)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getQuestions())).toEqual(obj);
   });
 
   it('getQuestionsSuccess, next is true', () => {
