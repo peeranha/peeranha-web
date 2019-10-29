@@ -32,7 +32,6 @@ import {
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
-  updateQuestionData,
 } from '../actions';
 
 import {
@@ -69,7 +68,6 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
-  UPDATE_QUESTION_DATA,
 } from '../constants';
 
 describe('ViewQuestions actions', () => {
@@ -356,12 +354,10 @@ describe('ViewQuestions actions', () => {
 
   describe('postAnswerSuccess Action', () => {
     it('POST_ANSWER_SUCCESS', () => {
-      const questionData = 'questionData';
       const expected = {
         type: POST_ANSWER_SUCCESS,
-        questionData,
       };
-      expect(postAnswerSuccess(questionData)).toEqual(expected);
+      expect(postAnswerSuccess()).toEqual(expected);
     });
   });
 
@@ -412,12 +408,10 @@ describe('ViewQuestions actions', () => {
 
   describe('postCommentSuccess Action', () => {
     it('POST_COMMENT_SUCCESS', () => {
-      const questionData = 'questionData';
       const expected = {
         type: POST_COMMENT_SUCCESS,
-        questionData,
       };
-      expect(postCommentSuccess(questionData)).toEqual(expected);
+      expect(postCommentSuccess()).toEqual(expected);
     });
   });
 
@@ -567,18 +561,6 @@ describe('ViewQuestions actions', () => {
         markAsAcceptedError,
       };
       expect(markAsAcceptedErr(markAsAcceptedError)).toEqual(expected);
-    });
-  });
-
-  describe('updateQuestionData', () => {
-    it('UPDATE_QUESTION_DATA', () => {
-      const questionData = {};
-      const expected = {
-        type: UPDATE_QUESTION_DATA,
-        questionData,
-      };
-
-      expect(updateQuestionData(questionData)).toEqual(expected);
     });
   });
 });

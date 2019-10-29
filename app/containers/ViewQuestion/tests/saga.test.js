@@ -3,8 +3,8 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { all, call } from 'redux-saga/effects';
-import _ from 'lodash';
+import { select, all, call, put } from 'redux-saga/effects';
+import cloneDeep from 'lodash/cloneDeep';
 import { translationMessages } from 'i18n';
 
 import {
@@ -24,6 +24,8 @@ import {
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 import { isAuthorized } from 'containers/EosioProvider/saga';
+import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import {
   GET_QUESTION_DATA,
@@ -97,6 +99,7 @@ jest.mock('redux-saga/effects', () => ({
   put: jest.fn().mockImplementation(res => res),
   all: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+  takeEvery: jest.fn().mockImplementation(res => res),
 }));
 
 jest.mock('createdHistory', () => ({
@@ -115,7 +118,6 @@ jest.mock('utils/questionsManagement', () => ({
   deleteComment: jest.fn(),
   editComment: jest.fn(),
   voteToDelete: jest.fn(),
-  getParams: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -170,6 +172,102 @@ describe('getQuestionData', () => {
     all.mockImplementation(() => isAll);
     const step = generator.next(question);
     expect(step.value).toBe(isAll);
+  });
+});
+
+describe('getParams', () => {
+  const questionData = 'questionData';
+  const eosService = 'eosService';
+  const locale = 'locale';
+  const profileInfo = 'profileInfo';
+
+  const generator = sagaImports.getParams();
+
+  it('select questionData', () => {
+    select.mockImplementationOnce(() => questionData);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(questionData);
+  });
+
+  it('select eosService', () => {
+    select.mockImplementationOnce(() => eosService);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(eosService);
+  });
+
+  it('select locale', () => {
+    select.mockImplementationOnce(() => locale);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(locale);
+  });
+
+  it('select profileInfo', () => {
+    select.mockImplementationOnce(() => profileInfo);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(profileInfo);
+  });
+});
+
+describe('updateQuestionDataAfterTransactionWorker', () => {
+  const account = 'account';
+  const questionData = { id: 1 };
+
+  describe('with users for update', () => {
+    const usersForUpdate = ['user1'];
+    const generator = sagaImports.updateQuestionDataAfterTransactionWorker({
+      usersForUpdate,
+      questionData,
+    });
+
+    it('select account', () => {
+      select.mockImplementationOnce(() => account);
+      const selectDescriptor = generator.next();
+      expect(selectDescriptor.value).toEqual(account);
+    });
+
+    it('call getCurrentAccountWorker', () => {
+      generator.next(account);
+      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+    });
+
+    it('removeUserProfile', () => {
+      generator.next();
+      expect(put).toHaveBeenCalledWith(removeUserProfile(usersForUpdate[0]));
+    });
+
+    it('call getQuestionDataWorker', () => {
+      call.mockImplementationOnce((x, args) => x(args));
+
+      generator.next();
+      expect(call).toHaveBeenCalledWith(sagaImports.getQuestionDataWorker, {
+        questionId: questionData.id,
+      });
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(GET_QUESTION_DATA_ERROR);
+    });
+  });
+
+  describe('without users for update', () => {
+    const usersForUpdate = null;
+    const generator = sagaImports.updateQuestionDataAfterTransactionWorker({
+      usersForUpdate,
+      questionData,
+    });
+
+    call.mockImplementationOnce((x, args) => x(args));
+
+    generator.next();
+    generator.next(account);
+    generator.next();
+
+    it('test', () => {
+      const step = generator.next();
+      expect(step.done).toBe(true);
+    });
   });
 });
 
@@ -664,7 +762,7 @@ describe('upVoteWorker', () => {
     describe('isUpVoted is true', () => {
       const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isUpVoted = true;
 
@@ -715,7 +813,7 @@ describe('upVoteWorker', () => {
     describe('isDownVoted is true', () => {
       const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isDownVoted = true;
 
@@ -733,7 +831,7 @@ describe('upVoteWorker', () => {
     describe('isUpVoted is false', () => {
       const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isUpVoted = false;
 
@@ -755,7 +853,7 @@ describe('upVoteWorker', () => {
     describe('isUpVoted is true', () => {
       const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.answers.find(x => x.id === answerId).votingStatus.isUpVoted = true;
 
@@ -808,7 +906,7 @@ describe('downVoteWorker', () => {
     describe('isDownVoted is true', () => {
       const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isDownVoted = true;
 
@@ -859,7 +957,7 @@ describe('downVoteWorker', () => {
     describe('isUpVoted is true', () => {
       const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isUpVoted = true;
 
@@ -878,7 +976,7 @@ describe('downVoteWorker', () => {
     describe('isDownVoted is false', () => {
       const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.votingStatus.isDownVoted = false;
 
@@ -901,7 +999,7 @@ describe('downVoteWorker', () => {
     describe('isDownVoted is true', () => {
       const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-      const clone = _.cloneDeep(questionData);
+      const clone = cloneDeep(questionData);
 
       clone.answers.find(
         x => x.id === answerId,
@@ -1088,7 +1186,7 @@ describe('voteToDeleteWorker', () => {
       commentId,
     });
 
-    const copy = _.cloneDeep(questionData);
+    const copy = cloneDeep(questionData);
 
     generator.next();
     generator.next({
@@ -1230,5 +1328,15 @@ describe('defaultSaga', () => {
   it('VOTE_TO_DELETE', () => {
     const step = generator.next();
     expect(step.value).toBe(VOTE_TO_DELETE);
+  });
+
+  it('updateQuestionDataAfterTransactionWorker', () => {
+    const step = generator.next();
+    expect(step.value).toEqual([
+      UP_VOTE_SUCCESS,
+      DOWN_VOTE_SUCCESS,
+      MARK_AS_ACCEPTED_SUCCESS,
+      VOTE_TO_DELETE_SUCCESS,
+    ]);
   });
 });

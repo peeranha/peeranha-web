@@ -34,10 +34,12 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import {
   makeSelectProfileInfo,
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
+
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
@@ -222,7 +224,6 @@ export function* getQuestionData({
   return question;
 }
 
-// TODO: test
 export function* getParams() {
   const questionData = yield select(selectQuestionData());
   const eosService = yield select(selectEos);
@@ -661,7 +662,6 @@ export function* voteToDeleteWorker({
   }
 }
 
-// TODO: test
 // Do not spent time for main action - update userInfo as async action after main action
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate,
