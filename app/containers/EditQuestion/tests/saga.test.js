@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
 
@@ -11,6 +11,7 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { getQuestionData } from 'containers/ViewQuestion/saga';
+import { isValid } from 'containers/EosioProvider/saga';
 
 import defaultSaga, {
   getAskedQuestionWorker,
@@ -24,6 +25,9 @@ import {
   EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   EDIT_QUESTION_ERROR,
+  EDIT_QUESTION_BUTTON,
+  MIN_RATING_TO_EDIT_QUESTION,
+  MIN_ENERGY_TO_EDIT_QUESTION,
 } from '../constants';
 
 jest.mock('createdHistory', () => ({
@@ -36,7 +40,7 @@ jest.mock('containers/ViewQuestion/saga', () => ({
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, args) => x(args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
@@ -44,6 +48,10 @@ jest.mock('redux-saga/effects', () => ({
 jest.mock('utils/questionsManagement', () => ({
   getAskedQuestion: jest.fn(),
   editQuestion: jest.fn(),
+}));
+
+jest.mock('containers/EosioProvider/saga', () => ({
+  isValid: jest.fn(),
 }));
 
 describe('getAskedQuestionWorker', () => {
@@ -87,8 +95,8 @@ describe('getAskedQuestionWorker', () => {
     });
 
     it('step, getSelectedUser', () => {
-      const step = generator.next(eos);
-      expect(step.value).toBe(user);
+      generator.next(eos);
+      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
     });
 
     it('step, getQuestionData', () => {
@@ -165,14 +173,22 @@ describe('editQuestionWorker', () => {
     expect(step.value).toEqual(eos);
   });
 
-  it('step, getSelectedAccount', () => {
-    eos.getSelectedAccount.mockImplementation(() => user);
-    const step = generator.next(eos);
-    expect(step.value).toBe(user);
+  it('step, getSelectedUser', () => {
+    generator.next(eos);
+    expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
+  });
+
+  it('isValid', () => {
+    generator.next(user);
+    expect(call).toHaveBeenCalledWith(isValid, {
+      buttonId: EDIT_QUESTION_BUTTON,
+      minRating: MIN_RATING_TO_EDIT_QUESTION,
+      minEnergy: MIN_ENERGY_TO_EDIT_QUESTION,
+    });
   });
 
   it('step, editQuestion', () => {
-    generator.next(user);
+    generator.next();
     expect(editQuestion).toHaveBeenCalledWith(user, questionId, question, eos);
   });
 

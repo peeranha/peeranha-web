@@ -25,11 +25,18 @@ describe('followHandler actions', () => {
   });
 
   it('FOLLOW_HANDLER_SUCCESS', () => {
+    const communityIdFilter = 'communityIdFilter';
+    const isFollowed = 'isFollowed';
+
     const expected = {
       type: FOLLOW_HANDLER_SUCCESS,
+      communityIdFilter,
+      isFollowed,
     };
 
-    expect(followHandlerSuccess()).toEqual(expected);
+    expect(followHandlerSuccess({ communityIdFilter, isFollowed })).toEqual(
+      expected,
+    );
   });
 
   it('FOLLOW_HANDLER_ERROR', () => {

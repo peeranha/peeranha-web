@@ -29,9 +29,9 @@ describe('followCommunityButtonReducer', () => {
   it('followHandlerSuccess', () => {
     const obj = state.set('followHandlerLoading', false);
 
-    expect(followCommunityButtonReducer(state, followHandlerSuccess())).toEqual(
-      obj,
-    );
+    expect(
+      followCommunityButtonReducer(state, followHandlerSuccess({})),
+    ).toEqual(obj);
   });
 
   it('followHandlerErr', () => {

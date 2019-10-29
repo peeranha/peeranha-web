@@ -3,13 +3,14 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import { AVATAR_FIELD } from 'containers/Profile/constants';
+import { isValid } from 'containers/EosioProvider/saga';
 
 import defaultSaga, { saveProfileWorker } from '../saga';
 
@@ -17,6 +18,9 @@ import {
   SAVE_PROFILE_SUCCESS,
   SAVE_PROFILE_ERROR,
   SAVE_PROFILE,
+  EDIT_PROFILE_BUTTON_ID,
+  MIN_RATING_TO_EDIT_PROFILE,
+  MIN_ENERGY_TO_EDIT_PROFILE,
 } from '../constants';
 
 jest.mock('createdHistory', () => ({
@@ -32,6 +36,10 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('containers/DataCacheProvider/saga', () => ({
   getUserProfileWorker: jest.fn(),
+}));
+
+jest.mock('containers/EosioProvider/saga', () => ({
+  isValid: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -59,8 +67,17 @@ describe('saveProfileWorker, AVATAR_FIELD is hash (< 1000 chars)', () => {
     expect(selectDescriptor.value).toEqual(eos);
   });
 
-  it('saveProfile', () => {
+  it('call isValid', () => {
     generator.next(eos);
+    expect(call).toHaveBeenCalledWith(isValid, {
+      buttonId: EDIT_PROFILE_BUTTON_ID,
+      minRating: MIN_RATING_TO_EDIT_PROFILE,
+      minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
+    });
+  });
+
+  it('saveProfile', () => {
+    generator.next();
 
     expect(saveProfile).toHaveBeenCalledWith(
       eos,
@@ -93,11 +110,12 @@ describe('saveProfileWorker, AVATAR_FIELD is new Image (>> 1000 chars)', () => {
   const generator = saveProfileWorker({ profile, userKey });
 
   generator.next();
+  generator.next(eos);
 
   it('uploadImg - new image', () => {
     uploadImg.mockImplementation(() => ({ imgHash }));
 
-    generator.next(eos);
+    generator.next();
     expect(uploadImg).toHaveBeenCalledWith(profile[AVATAR_FIELD]);
   });
 

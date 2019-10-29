@@ -13,6 +13,7 @@ const event = {
   preventDefault: jest.fn(),
   currentTarget: {
     dataset: { isfollowed: false },
+    id: '123',
   },
 };
 
@@ -22,6 +23,7 @@ describe('<FollowCommunityButton />', () => {
     expect(cmp.props.followHandlerDispatch).toHaveBeenCalledWith(
       cmp.props.communityIdFilter,
       JSON.parse(event.currentTarget.dataset.isfollowed),
+      event.currentTarget.id,
     );
   });
 
@@ -33,6 +35,7 @@ describe('<FollowCommunityButton />', () => {
       expect(cmp.props.render).toHaveBeenCalledWith({
         onClick: cmp.followHandler,
         isFollowed: false,
+        id: `follow_community_${cmp.props.communityIdFilter}`,
       });
     });
 
@@ -44,6 +47,7 @@ describe('<FollowCommunityButton />', () => {
       expect(cmp.props.render).toHaveBeenCalledWith({
         onClick: cmp.followHandler,
         isFollowed: true,
+        id: `follow_community_${cmp.props.communityIdFilter}`,
       });
     });
 
@@ -55,6 +59,7 @@ describe('<FollowCommunityButton />', () => {
       expect(cmp.props.render).toHaveBeenCalledWith({
         onClick: cmp.followHandler,
         isFollowed: false,
+        id: `follow_community_${cmp.props.communityIdFilter}`,
       });
     });
   });

@@ -17,7 +17,6 @@ exports[`<Communities /> render communities [] 1`] = `
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={0}
-      goToCreateCommunityScreen={[Function]}
       language={
         Object {
           "message": Object {
@@ -80,7 +79,6 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={1}
-      goToCreateCommunityScreen={[Function]}
       language={
         Object {
           "message": Object {
