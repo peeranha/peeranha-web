@@ -1,4 +1,5 @@
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
+
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
@@ -49,11 +50,12 @@ import {
   SHOW_SCATTER_SIGNUP_FORM,
   SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
+  ACCOUNT_NOT_CREATED_NAME,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, args) => x(args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
@@ -78,7 +80,10 @@ jest.mock('utils/accountManagement', () => ({
 
 jest.mock('utils/eosio');
 
-class eosService {}
+const eosService = {
+  getAccount: jest.fn(),
+  privateToPublic: jest.fn(),
+};
 
 eosService.init = jest.fn();
 eosService.getSelectedAccount = jest.fn();
@@ -87,6 +92,7 @@ eosService.selectAccount = jest.fn();
 
 beforeEach(() => {
   eosService.init.mockClear();
+  call.mockClear();
   eosService.getSelectedAccount.mockClear();
   eosService.forgetIdentity.mockClear();
   eosService.selectAccount.mockClear();
@@ -112,7 +118,7 @@ describe('showScatterSignUpFormWorker', () => {
       EosioService.mockImplementation(() => eosService);
 
       generator.next(locale);
-      expect(eosService.init).toHaveBeenLastCalledWith();
+      expect(eosService.init).toHaveBeenLastCalledWith(null, true);
     });
 
     it('put @eosServise to store', () => {
@@ -270,33 +276,23 @@ describe('idontHaveEosAccountWorker', () => {
   const encryptionKey = 'encryptionKey';
   const message = 'message';
 
-  const eosActivePrivateKey = 'eosActivePrivateKey';
-  const eosOwnerPrivateKey = 'eosOwnerPrivateKey';
   const masterKey = 'masterKey';
   const password = 'password';
-  const storeKey = false;
+  const storeKeys = true;
+  const keys = {};
 
   const val = {
-    [EOS_ACTIVE_PRIVATE_KEY_FIELD]: eosActivePrivateKey,
-    [EOS_OWNER_PRIVATE_KEY_FIELD]: eosOwnerPrivateKey,
     [MASTER_KEY_FIELD]: masterKey,
     [PASSWORD_FIELD]: password,
-    [STORE_KEY_FIELD]: storeKey,
     [WHY_DO_YOU_LIKE_US_FIELD]: message,
   };
 
   const props = {
     email,
-    keys: {
-      activeKey: {
-        private: val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
-      },
-      ownerKey: {
-        private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
-      },
-    },
+    keys,
     masterKey: val[MASTER_KEY_FIELD],
     password: val[PASSWORD_FIELD],
+    eosAccountName: ACCOUNT_NOT_CREATED_NAME,
   };
 
   describe('registerComplete FAILED', () => {
@@ -313,9 +309,15 @@ describe('idontHaveEosAccountWorker', () => {
       expect(step.value).toEqual(locale);
     });
 
+    it('select @keys', () => {
+      select.mockImplementation(() => keys);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(keys);
+    });
+
     it('select @email', () => {
       select.mockImplementation(() => email);
-      const step = generator.next(locale);
+      const step = generator.next(keys);
       expect(step.value).toEqual(email);
     });
 
@@ -332,7 +334,7 @@ describe('idontHaveEosAccountWorker', () => {
       expect(registerComplete).toHaveBeenCalledWith(
         props,
         encryptionKey,
-        Boolean(val[STORE_KEY_FIELD]),
+        storeKeys,
         message,
       );
     });
@@ -354,6 +356,7 @@ describe('idontHaveEosAccountWorker', () => {
     registerComplete.mockImplementation(() => response);
 
     generator.next();
+    generator.next(keys);
     generator.next(locale);
     generator.next(email);
     generator.next(encryptionKey);
@@ -376,9 +379,14 @@ describe('iHaveEosAccountWorker', () => {
   const email = 'email';
   const locale = 'en';
   const encryptionKey = 'encryptionKey';
+  const accountInfo = {
+    permissions: [],
+  };
 
   const eosActivePrivateKey = 'eosActivePrivateKey';
+  const eosActivePublicKey = 'eosActivePublicKey';
   const eosOwnerPrivateKey = 'eosOwnerPrivateKey';
+  const eosOwnerPublicKey = 'eosOwnerPublicKey';
   const masterKey = 'masterKey';
   const password = 'password';
   const storeKey = false;
@@ -419,9 +427,15 @@ describe('iHaveEosAccountWorker', () => {
       expect(step.value).toEqual(locale);
     });
 
+    it('select @eos', () => {
+      select.mockImplementation(() => eosService);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(eosService);
+    });
+
     it('select @encryptionKey', () => {
       select.mockImplementation(() => encryptionKey);
-      const step = generator.next(locale);
+      const step = generator.next(eosService);
       expect(step.value).toEqual(encryptionKey);
     });
 
@@ -431,10 +445,34 @@ describe('iHaveEosAccountWorker', () => {
       expect(step.value).toEqual(email);
     });
 
+    it('accountInfo', () => {
+      generator.next(email);
+      expect(call).toHaveBeenCalledWith(
+        eosService.getAccount,
+        val[EOS_ACCOUNT_FIELD],
+      );
+    });
+
+    it('get eosActivePublicKey', () => {
+      generator.next(accountInfo);
+      expect(call).toHaveBeenCalledWith(
+        eosService.privateToPublic,
+        val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
+      );
+    });
+
+    it('get eosOwnerPublicKey', () => {
+      generator.next(eosActivePublicKey);
+      expect(call).toHaveBeenCalledWith(
+        eosService.privateToPublic,
+        val[EOS_OWNER_PRIVATE_KEY_FIELD],
+      );
+    });
+
     it('registerComplete', () => {
       registerComplete.mockImplementation(() => response);
 
-      generator.next(email);
+      generator.next(eosOwnerPublicKey);
       expect(registerComplete).toHaveBeenCalledWith(
         props,
         encryptionKey,
@@ -444,6 +482,21 @@ describe('iHaveEosAccountWorker', () => {
 
     it('error handling', () => {
       const step = generator.next();
+      expect(step.value.type).toBe(I_HAVE_EOS_ACCOUNT_ERROR);
+    });
+  });
+
+  describe('no accountInfo', () => {
+    const generator = iHaveEosAccountWorker({ val });
+
+    generator.next();
+    generator.next(locale);
+    generator.next(eosService);
+    generator.next(encryptionKey);
+    generator.next(email);
+
+    it('error handling', () => {
+      const step = generator.next(null);
       expect(step.value.type).toBe(I_HAVE_EOS_ACCOUNT_ERROR);
     });
   });
@@ -460,8 +513,12 @@ describe('iHaveEosAccountWorker', () => {
 
     generator.next();
     generator.next(locale);
+    generator.next(eosService);
     generator.next(encryptionKey);
     generator.next(email);
+    generator.next(accountInfo);
+    generator.next(eosActivePublicKey);
+    generator.next(eosOwnerPublicKey);
 
     it('iHaveEosAccountSuccess', () => {
       const step = generator.next(response);

@@ -3,14 +3,15 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import { getAnswer, editAnswer } from 'utils/questionsManagement';
 
-import { getQuestionData } from 'containers/ViewQuestion/saga';
-
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+
+import { isValid } from 'containers/EosioProvider/saga';
+import { getQuestionData } from 'containers/ViewQuestion/saga';
 
 import defaultSaga, { getAnswerWorker, editAnswerWorker } from '../saga';
 
@@ -21,6 +22,9 @@ import {
   EDIT_ANSWER,
   EDIT_ANSWER_SUCCESS,
   EDIT_ANSWER_ERROR,
+  EDIT_ANSWER_BUTTON,
+  MIN_RATING_TO_EDIT_ANSWER,
+  MIN_ENERGY_TO_EDIT_ANSWER,
 } from '../constants';
 
 jest.mock('createdHistory', () => ({
@@ -31,9 +35,14 @@ jest.mock('containers/ViewQuestion/saga', () => ({
   getQuestionData: jest.fn(),
 }));
 
+jest.mock('containers/EosioProvider/saga', () => ({
+  isValid: jest.fn(),
+  isAuthorized: jest.fn(),
+}));
+
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, args) => x(args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
@@ -81,9 +90,9 @@ describe('getAnswerWorker', () => {
       expect(step.value).toEqual(eos);
     });
 
-    it('step, getSelectedUser', () => {
-      const step = generator.next(eos);
-      expect(step.value).toBe(user);
+    it('getSelectedAccount', () => {
+      generator.next(eos);
+      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
     });
 
     it('step, getQuestionData', () => {
@@ -160,14 +169,22 @@ describe('editAnswerWorker', () => {
     expect(step.value).toEqual(eos);
   });
 
-  it('step, getSelectedAccount', () => {
-    eos.getSelectedAccount.mockImplementation(() => user);
-    const step = generator.next(eos);
-    expect(step.value).toBe(user);
+  it('getSelectedAccount', () => {
+    generator.next(eos);
+    expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
+  });
+
+  it('isValid', () => {
+    generator.next(user);
+    expect(call).toHaveBeenCalledWith(isValid, {
+      buttonId: EDIT_ANSWER_BUTTON,
+      minRating: MIN_RATING_TO_EDIT_ANSWER,
+      minEnergy: MIN_ENERGY_TO_EDIT_ANSWER,
+    });
   });
 
   it('step, editAnswer', () => {
-    generator.next(user);
+    generator.next();
     expect(editAnswer).toHaveBeenCalledWith(
       user,
       questionId,
@@ -207,5 +224,15 @@ describe('defaultSaga', () => {
   it('EDIT_ANSWER', () => {
     const step = generator.next();
     expect(step.value).toBe(EDIT_ANSWER);
+  });
+
+  it('EDIT_ANSWER_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value).toBe(EDIT_ANSWER_SUCCESS);
+  });
+
+  it('EDIT_ANSWER_ERROR', () => {
+    const step = generator.next();
+    expect(step.value).toBe(EDIT_ANSWER_ERROR);
   });
 });

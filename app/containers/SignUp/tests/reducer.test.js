@@ -183,8 +183,14 @@ describe('signUpReducer', () => {
   });
 
   it('SHOW_SCATTER_SIGNUP_FORM_SUCCESS', () => {
-    const obj = state.set('showScatterSignUpProcessing', false);
-    expect(signUpReducer(state, showScatterSignUpFormSuccess())).toEqual(obj);
+    const eosAccountName = 'eosAccountName';
+    const obj = state
+      .set('showScatterSignUpProcessing', false)
+      .set('eosAccountName', eosAccountName);
+
+    expect(
+      signUpReducer(state, showScatterSignUpFormSuccess(eosAccountName)),
+    ).toEqual(obj);
   });
 
   it('SHOW_SCATTER_SIGNUP_FORM_ERROR', () => {
