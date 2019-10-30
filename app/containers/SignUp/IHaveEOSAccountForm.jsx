@@ -14,7 +14,7 @@ import downloadIcon from 'images/download.svg?inline';
 
 import {
   required,
-  strLength3,
+  strLength8x100,
   strLength12Max,
 } from 'components/FormFields/validate';
 
@@ -271,10 +271,10 @@ export const validatePassword = (state, fields) => {
 
   const errors = {};
 
-  const passwordError = required(password) || strLength3(password);
+  const passwordError = required(password) || strLength8x100(password);
 
   const passwordConfirmError =
-    required(passwordConf) || strLength3(passwordConf);
+    required(passwordConf) || strLength8x100(passwordConf);
 
   if (passwordError) {
     errors[passwordField] = passwordError;
