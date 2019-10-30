@@ -1,15 +1,4 @@
-import bs58 from 'bs58';
 import messages from './messages';
-
-// TODO: test
-const base58Validation = base58string => {
-  try {
-    bs58.decode(base58string);
-    return undefined;
-  } catch (err) {
-    return messages.wrongBase58Format;
-  }
-};
 
 // TODO: test
 const imageValidation = img =>
@@ -56,7 +45,6 @@ const strLength25x30000 = stringLength(25, 30000);
 
 export {
   imageValidation,
-  base58Validation,
   stringLength,
   validateEmail,
   required,

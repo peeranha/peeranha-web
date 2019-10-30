@@ -75,11 +75,11 @@ class EosioService {
   };
 
   privateToPublic = privateKey => {
-    if (!privateKey) {
+    try {
+      return ecc.privateToPublic(privateKey);
+    } catch (err) {
       return null;
     }
-
-    return ecc.privateToPublic(privateKey);
   };
 
   publicToAccounts = async publicKey => {

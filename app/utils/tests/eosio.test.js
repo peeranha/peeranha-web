@@ -646,7 +646,7 @@ describe('getScatterConfig', () => {
 });
 
 describe('privateToPublic', () => {
-  it('privateKey is not null', () => {
+  it('success', () => {
     const privateKey = 'privatekey';
     const publicKey = 'publickey';
 
@@ -660,14 +660,16 @@ describe('privateToPublic', () => {
     expect(ecc.privateToPublic).toHaveBeenCalledTimes(1);
   });
 
-  it('privateKey is null', () => {
+  it('error', () => {
     const privateKey = null;
 
     const eos = new EosioService();
 
-    expect(ecc.privateToPublic).toHaveBeenCalledTimes(0);
+    ecc.privateToPublic.mockImplementationOnce(() => {
+      throw new Error('');
+    });
+
     expect(eos.privateToPublic(privateKey)).toBe(null);
-    expect(ecc.privateToPublic).toHaveBeenCalledTimes(0);
   });
 });
 
