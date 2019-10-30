@@ -379,9 +379,6 @@ describe('iHaveEosAccountWorker', () => {
   const email = 'email';
   const locale = 'en';
   const encryptionKey = 'encryptionKey';
-  const accountInfo = {
-    permissions: [],
-  };
 
   const eosActivePrivateKey = 'eosActivePrivateKey';
   const eosActivePublicKey = 'eosActivePublicKey';
@@ -390,6 +387,31 @@ describe('iHaveEosAccountWorker', () => {
   const masterKey = 'masterKey';
   const password = 'password';
   const storeKey = false;
+
+  const accountInfo = {
+    permissions: [
+      {
+        perm_name: 'active',
+        required_auth: {
+          keys: [
+            {
+              key: eosActivePublicKey,
+            },
+          ],
+        },
+      },
+      {
+        perm_name: 'owner',
+        required_auth: {
+          keys: [
+            {
+              key: eosOwnerPublicKey,
+            },
+          ],
+        },
+      },
+    ],
+  };
 
   const val = {
     [EOS_ACTIVE_PRIVATE_KEY_FIELD]: eosActivePrivateKey,
