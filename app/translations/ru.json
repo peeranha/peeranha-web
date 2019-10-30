@@ -105,8 +105,7 @@
     "Неверный ключ шифрования или IV",
   "web_integration.errors.userDidntStoreKey":
     "Пользователь не сохранил owner key в нашем сервисе",
-  "web_integration.errors.unableToDecryptUserKey":
-    "Невозможно расшифровать данные с текущим ключом",
+  "web_integration.errors.unableToDecryptUserKey": "Введен неверный пароль",
   "web_integration.errors.userDidntRequestActivateAcc":
     "Данный пользователь не активировал аккаунт",
   "web_integration.errors.youSendTooManRequests":
