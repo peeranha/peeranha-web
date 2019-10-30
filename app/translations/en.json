@@ -537,7 +537,7 @@
   "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
-  "app.containers.SignUp.displayName": "Peeranha name",
+  "app.containers.SignUp.displayName": "Display name",
   "app.containers.SignUp.eosName": "EOS name",
   "app.containers.SignUp.signUp": "Sign Up",
   "app.containers.SignUp.password": "Password",
