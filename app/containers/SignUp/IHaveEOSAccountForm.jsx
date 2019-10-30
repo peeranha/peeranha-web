@@ -235,7 +235,7 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 className="w-100"
               >
-                <FormattedMessage {...messages.verify} />
+                <FormattedMessage {...messages.signUp} />
               </SubmitButton>
             </Div>
           </form>
