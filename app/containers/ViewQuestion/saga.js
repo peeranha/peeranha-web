@@ -373,7 +373,11 @@ export function* getQuestionDataWorker({ questionId }) {
     const { eosService, profileInfo } = yield call(getParams);
 
     const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user: profileInfo.user }),
+      getQuestionData({
+        eosService,
+        questionId,
+        user: profileInfo ? profileInfo.user : null,
+      }),
     );
 
     yield put(getQuestionDataSuccess(questionData));
