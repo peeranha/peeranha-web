@@ -11,6 +11,7 @@ import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
 import { clearSuggestedCommunities } from 'containers/Communities/actions';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
   UPVOTE,
@@ -31,10 +32,9 @@ import {
 /* eslint consistent-return: 0 */
 export function* upVoteWorker({ communityId, buttonId }) {
   try {
-    const storedCommunities = yield select(selectSuggestedCommunities());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
+    const selectedAccount = yield select(makeSelectAccount());
+    const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,
@@ -65,10 +65,9 @@ export function* upVoteWorker({ communityId, buttonId }) {
 /* eslint consistent-return: 0 */
 export function* downVoteWorker({ communityId, buttonId }) {
   try {
-    const storedCommunities = yield select(selectSuggestedCommunities());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
+    const selectedAccount = yield select(makeSelectAccount());
+    const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,

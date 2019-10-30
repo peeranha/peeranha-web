@@ -116,7 +116,6 @@ describe('init', () => {
   it('initialization without scatter', async () => {
     const service = new EosioService();
     const privateKey = 'privateKey2';
-    const publicKey = 'publicKey2';
     const username = 'user1';
     const authToken = 'authToken';
     const email = 'email';
@@ -125,19 +124,11 @@ describe('init', () => {
       JSON.stringify({ email, authToken }),
     );
 
-    ecc.privateToPublic.mockImplementation(() => publicKey);
-
-    Eosjs.mockImplementation(() => ({
-      getKeyAccounts: () => ({
-        account_names: [username],
-      }),
-    }));
-
     expect(Eosjs).toHaveBeenCalledTimes(0);
     expect(Boolean(service.selectedAccount)).toBe(false);
     expect(Boolean(service.initialized)).toBe(false);
 
-    await service.init(privateKey);
+    await service.init(privateKey, false, username);
 
     expect(Eosjs).toHaveBeenCalledTimes(1);
     expect(service.selectedAccount).toBe(username);
@@ -514,6 +505,7 @@ describe('getTableRow', () => {
       scope,
       table,
       lower_bound: primaryKey,
+      upper_bound: primaryKey,
       limit: 1,
     };
 
@@ -650,5 +642,117 @@ describe('getScatterConfig', () => {
       port: process.env.EOS_SCATTER_PORT,
       chainId: process.env.EOS_CHAIN_ID,
     });
+  });
+});
+
+describe('privateToPublic', () => {
+  it('privateKey is not null', () => {
+    const privateKey = 'privatekey';
+    const publicKey = 'publickey';
+
+    const eos = new EosioService();
+
+    ecc.privateToPublic.mockImplementationOnce(() => publicKey);
+
+    expect(ecc.privateToPublic).toHaveBeenCalledTimes(0);
+    expect(eos.privateToPublic(privateKey)).toBe(publicKey);
+    expect(ecc.privateToPublic).toHaveBeenCalledWith(privateKey);
+    expect(ecc.privateToPublic).toHaveBeenCalledTimes(1);
+  });
+
+  it('privateKey is null', () => {
+    const privateKey = null;
+
+    const eos = new EosioService();
+
+    expect(ecc.privateToPublic).toHaveBeenCalledTimes(0);
+    expect(eos.privateToPublic(privateKey)).toBe(null);
+    expect(ecc.privateToPublic).toHaveBeenCalledTimes(0);
+  });
+});
+
+describe('publicToAccounts', () => {
+  it('no public key', async () => {
+    const eos = new EosioService();
+
+    eos.eosInstance = {
+      getKeyAccounts: jest.fn(),
+    };
+
+    expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(0);
+    expect(await eos.publicToAccounts()).toBe(null);
+    expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(0);
+  });
+
+  describe('with public key', () => {
+    const publicKey = 'publickey';
+
+    it('there are account names', async () => {
+      const eos = new EosioService();
+      const accounts = { account_names: ['user1'] };
+
+      eos.eosInstance = {
+        getKeyAccounts: jest.fn().mockImplementationOnce(() => accounts),
+      };
+
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(0);
+      expect(await eos.publicToAccounts(publicKey)).toBe(
+        accounts.account_names[0],
+      );
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(1);
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledWith(publicKey);
+    });
+
+    it('there are no account_names', async () => {
+      const eos = new EosioService();
+      const accounts = { account_names: [] };
+
+      eos.eosInstance = {
+        getKeyAccounts: jest.fn().mockImplementationOnce(() => accounts),
+      };
+
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(0);
+      expect(await eos.publicToAccounts(publicKey)).toBe(null);
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(1);
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledWith(publicKey);
+    });
+
+    it('there are no accounts', async () => {
+      const eos = new EosioService();
+      const accounts = null;
+
+      eos.eosInstance = {
+        getKeyAccounts: jest.fn().mockImplementationOnce(() => accounts),
+      };
+
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(0);
+      expect(await eos.publicToAccounts(publicKey)).toBe(null);
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledTimes(1);
+      expect(eos.eosInstance.getKeyAccounts).toHaveBeenCalledWith(publicKey);
+    });
+  });
+});
+
+describe('getAccount', () => {
+  const eosName = 'eosname';
+  const accountInfo = {};
+  const eos = new EosioService();
+
+  eos.eosInstance = {
+    getAccount: jest.fn(),
+  };
+
+  it('success', async () => {
+    eos.eosInstance.getAccount = jest
+      .fn()
+      .mockImplementationOnce(() => accountInfo);
+
+    expect(await eos.getAccount(eosName)).toEqual(accountInfo);
+    expect(eos.eosInstance.getAccount).toHaveBeenCalledWith(eosName);
+  });
+
+  it('error', async () => {
+    eos.eosInstance.getAccount = null;
+    expect(await eos.getAccount(eosName)).toBe(null);
   });
 });
