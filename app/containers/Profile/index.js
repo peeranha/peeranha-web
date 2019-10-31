@@ -28,7 +28,6 @@ import {
   selectUsersLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import NoSuchUser from './NoSuchUser';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -75,8 +74,6 @@ export class Profile extends React.PureComponent {
         />
 
         <div>
-          {!isProfileLoading && !accountLoading && !profile && <NoSuchUser />}
-
           {(isProfileLoading || accountLoading) && <LoadingIndicator />}
 
           {!isProfileLoading &&
