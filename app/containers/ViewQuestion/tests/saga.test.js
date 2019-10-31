@@ -61,6 +61,8 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  POST_COMMENT_BUTTON,
+  POST_ANSWER_BUTTON,
 } from '../constants';
 
 import {
@@ -95,7 +97,7 @@ jest.mock('../validate', () => ({
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   all: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
@@ -180,6 +182,7 @@ describe('getParams', () => {
   const eosService = 'eosService';
   const locale = 'locale';
   const profileInfo = 'profileInfo';
+  const account = 'account';
 
   const generator = sagaImports.getParams();
 
@@ -205,6 +208,12 @@ describe('getParams', () => {
     select.mockImplementationOnce(() => profileInfo);
     const selectDescriptor = generator.next();
     expect(selectDescriptor.value).toEqual(profileInfo);
+  });
+
+  it('select account', () => {
+    select.mockImplementationOnce(() => account);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(account);
   });
 });
 
@@ -275,17 +284,14 @@ describe('updateQuestionDataAfterTransactionWorker', () => {
 describe('saveCommentWorker', () => {
   const eosService = {};
 
-  const answerId = 0;
-  const user = 'user';
   const questionId = 1;
   const commentId = 1;
   const comment = 'comment';
   const toggleView = jest.fn();
+  const profileInfo = { user: 'user' };
 
   const res = {
-    user,
     questionId,
-    answerId,
     commentId,
     comment,
     toggleView,
@@ -306,7 +312,7 @@ describe('saveCommentWorker', () => {
     });
 
     generator.next();
-    generator.next({ questionData, eosService });
+    generator.next({ questionData, eosService, profileInfo });
     generator.next();
 
     it('test', () => {
@@ -335,11 +341,11 @@ describe('saveCommentWorker', () => {
     });
 
     it('step, editComment', () => {
-      generator.next({ questionData, eosService });
+      generator.next({ questionData, eosService, profileInfo });
       expect(editComment).toHaveBeenCalledWith(
-        user,
+        profileInfo.user,
         questionId,
-        answerId,
+        0,
         commentId,
         comment,
         eosService,
@@ -368,11 +374,10 @@ describe('saveCommentWorker', () => {
 describe('deleteCommentWorker', () => {
   const eos = {};
   const locale = 'en';
-  const user = 'user';
   const questionId = 1;
   const answerId = 1;
   const commentId = 2;
-  const profileInfo = 'profileInfo';
+  const profileInfo = { user: 'user' };
   const buttonId = 'buttonId';
 
   const questionData = {
@@ -384,7 +389,6 @@ describe('deleteCommentWorker', () => {
   };
 
   const res = {
-    user,
     questionId,
     answerId,
     commentId,
@@ -410,7 +414,7 @@ describe('deleteCommentWorker', () => {
   it('step, deleteComment', () => {
     generator.next();
     expect(deleteComment).toHaveBeenCalledWith(
-      user,
+      profileInfo.user,
       questionId,
       answerId,
       commentId,
@@ -434,11 +438,10 @@ describe('deleteCommentWorker', () => {
 describe('deleteAnswerWorker', () => {
   const eos = {};
   const locale = 'en';
-  const user = 'user';
+  const profileInfo = { user: 'user' };
   const questionId = 1;
   const answerId = 1;
   const postButtonId = 'postButtonId';
-  const profileInfo = 'profileInfo';
 
   const questionData = {
     comments: [{ id: 1 }, { id: 2 }],
@@ -449,7 +452,6 @@ describe('deleteAnswerWorker', () => {
   };
 
   const res = {
-    user,
     questionId,
     answerId,
     postButtonId,
@@ -475,7 +477,12 @@ describe('deleteAnswerWorker', () => {
 
   it('step, deleteAnswer', () => {
     generator.next();
-    expect(deleteAnswer).toHaveBeenCalledWith(user, questionId, answerId, eos);
+    expect(deleteAnswer).toHaveBeenCalledWith(
+      profileInfo.user,
+      questionId,
+      answerId,
+      eos,
+    );
   });
 
   it('step, deleteAnswerSuccess', () => {
@@ -494,18 +501,16 @@ describe('deleteAnswerWorker', () => {
 describe('deleteQuestionWorker', () => {
   const eos = {};
   const locale = 'en';
-  const user = 'user';
-  const questionid = 11;
+  const questionId = 11;
   const postButtonId = 'postButtonId';
-  const profileInfo = 'profileInfo';
+  const profileInfo = { user: 'user' };
 
   const questionData = {
     answers: [],
   };
 
   const res = {
-    user,
-    questionid,
+    questionId,
     postButtonId,
     profileInfo,
   };
@@ -529,7 +534,11 @@ describe('deleteQuestionWorker', () => {
 
   it('step, deleteQuestion', () => {
     generator.next();
-    expect(deleteQuestion).toHaveBeenCalledWith(user, questionid, eos);
+    expect(deleteQuestion).toHaveBeenCalledWith(
+      profileInfo.user,
+      questionId,
+      eos,
+    );
   });
 
   it('step, deleteQuestionSuccess', () => {
@@ -552,7 +561,7 @@ describe('deleteQuestionWorker', () => {
 describe('getQuestionDataWorker', () => {
   const res = { questionId: 1 };
   const generator = sagaImports.getQuestionDataWorker(res);
-  const profileInfo = { user: 'user' };
+  const account = 'account';
   const eosService = {};
 
   it('step, getParams', () => {
@@ -561,7 +570,7 @@ describe('getQuestionDataWorker', () => {
   });
 
   it('step, getQuestionData', () => {
-    const step = generator.next({ eosService, profileInfo });
+    const step = generator.next({ eosService, account });
     expect(typeof step.value._invoke).toBe('function');
   });
 
@@ -579,20 +588,19 @@ describe('getQuestionDataWorker', () => {
 
 describe('postCommentWorker', () => {
   const res = {
-    user: 'user1',
     questionId: 1,
     answerId: 1,
     comment: 'comment',
     reset: jest.fn(),
     toggleView: jest.fn(),
-    translations: {},
     postButtonId: 'postButtonId',
   };
 
   const generator = sagaImports.postCommentWorker(res);
 
-  const profileInfo = {};
+  const profileInfo = { user: 'user' };
   const questionData = {};
+  const locale = 'en';
   const eos = {};
 
   it('step, getParams', () => {
@@ -601,7 +609,7 @@ describe('postCommentWorker', () => {
   });
 
   it('step, isAuthorized', () => {
-    generator.next({ profileInfo, eosService: eos, questionData });
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
     expect(call).toHaveBeenCalledWith(isAuthorized);
   });
 
@@ -610,16 +618,16 @@ describe('postCommentWorker', () => {
     expect(postCommentValidator).toHaveBeenCalledWith(
       profileInfo,
       questionData,
-      res.postButtonId,
+      `${POST_COMMENT_BUTTON}${res.answerId}`,
       res.answerId,
-      res.translations,
+      translationMessages[locale],
     );
   });
 
   it('step, postComment', () => {
     generator.next(true);
     expect(postComment).toHaveBeenCalledWith(
-      res.user,
+      profileInfo.user,
       res.questionId,
       res.answerId,
       res.comment,
@@ -658,17 +666,16 @@ describe('postCommentWorker', () => {
 
 describe('postAnswerWorker', () => {
   const res = {
-    user: 'user1',
     questionId: 1,
     answer: 1,
     reset: jest.fn(),
-    translations: {},
     postButtonId: 'postButtonId',
   };
 
   const generator = sagaImports.postAnswerWorker(res);
 
-  const profileInfo = {};
+  const profileInfo = { user: 'user' };
+  const locale = 'en';
   const questionData = {};
   const eos = {};
 
@@ -678,24 +685,24 @@ describe('postAnswerWorker', () => {
   });
 
   it('step, isAuthorized', () => {
-    generator.next({ profileInfo, eosService: eos, questionData });
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
     expect(call).toHaveBeenCalledWith(isAuthorized);
   });
 
   it('step, validation', () => {
-    generator.next(profileInfo);
+    generator.next();
     expect(postAnswerValidator).toHaveBeenCalledWith(
       profileInfo,
       questionData,
-      res.postButtonId,
-      res.translations,
+      POST_ANSWER_BUTTON,
+      translationMessages[locale],
     );
   });
 
   it('step, postAnswer', () => {
     generator.next();
     expect(postAnswer).toHaveBeenCalledWith(
-      res.user,
+      profileInfo.user,
       res.questionId,
       res.answer,
       eos,
@@ -728,15 +735,14 @@ describe('postAnswerWorker', () => {
 
 describe('upVoteWorker', () => {
   const res = {
-    user: 'user1',
     whoWasUpvoted: 'whoWasUpvoted',
     questionId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  const profileInfo = {};
+  const profileInfo = { user: 'user' };
   const eos = {};
+  const locale = 'en';
 
   const questionData = {
     id: 1,
@@ -772,7 +778,12 @@ describe('upVoteWorker', () => {
       });
 
       it('step, isAuthorized', () => {
-        generator.next({ profileInfo, eosService: eos, questionData: clone });
+        generator.next({
+          profileInfo,
+          eosService: eos,
+          questionData: clone,
+          locale,
+        });
         expect(call).toHaveBeenCalledWith(isAuthorized);
       });
 
@@ -783,14 +794,14 @@ describe('upVoteWorker', () => {
           clone,
           res.postButtonId,
           answerId,
-          res.translations,
+          translationMessages[locale],
         );
       });
 
       it('step, upVote', () => {
         generator.next();
         expect(upVote).toHaveBeenCalledWith(
-          res.user,
+          profileInfo.user,
           res.questionId,
           answerId,
           eos,
@@ -818,7 +829,12 @@ describe('upVoteWorker', () => {
       clone.votingStatus.isDownVoted = true;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -836,7 +852,12 @@ describe('upVoteWorker', () => {
       clone.votingStatus.isUpVoted = false;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -858,7 +879,12 @@ describe('upVoteWorker', () => {
       clone.answers.find(x => x.id === answerId).votingStatus.isUpVoted = true;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -872,15 +898,14 @@ describe('upVoteWorker', () => {
 
 describe('downVoteWorker', () => {
   const res = {
-    user: 'user1',
     whoWasDownvoted: 'whoWasDownvoted',
     questionId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  const profileInfo = {};
+  const profileInfo = { user: 'user' };
   const eos = {};
+  const locale = 'en';
 
   const questionData = {
     id: 1,
@@ -916,7 +941,12 @@ describe('downVoteWorker', () => {
       });
 
       it('step, isAuthorized', () => {
-        generator.next({ profileInfo, eosService: eos, questionData: clone });
+        generator.next({
+          profileInfo,
+          eosService: eos,
+          questionData: clone,
+          locale,
+        });
         expect(call).toHaveBeenCalledWith(isAuthorized);
       });
 
@@ -927,14 +957,14 @@ describe('downVoteWorker', () => {
           clone,
           res.postButtonId,
           answerId,
-          res.translations,
+          translationMessages[locale],
         );
       });
 
       it('step, downVote', () => {
         generator.next();
         expect(downVote).toHaveBeenCalledWith(
-          res.user,
+          profileInfo.user,
           res.questionId,
           answerId,
           eos,
@@ -962,7 +992,12 @@ describe('downVoteWorker', () => {
       clone.votingStatus.isUpVoted = true;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -981,7 +1016,12 @@ describe('downVoteWorker', () => {
       clone.votingStatus.isDownVoted = false;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -1006,7 +1046,12 @@ describe('downVoteWorker', () => {
       ).votingStatus.isDownVoted = true;
 
       generator.next();
-      generator.next({ profileInfo, eosService: eos, questionData: clone });
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
       generator.next();
       generator.next();
 
@@ -1021,23 +1066,22 @@ describe('downVoteWorker', () => {
 
 describe('markAsAcceptedWorker', () => {
   const res = {
-    user: 'user1',
     whoWasAccepted: 'whoWasAccepted',
     questionId: 1,
     correctAnswerId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  const profileInfo = {};
+  const profileInfo = { user: 'user' };
   const eos = {};
+  const locale = 'en';
 
   describe('correctAnswerId !== questionData.correctAnswerId', () => {
     const generator = sagaImports.markAsAcceptedWorker(res);
     const questionData = { correct_answer_id: 0 };
 
     generator.next();
-    generator.next({ profileInfo, eosService: eos, questionData });
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
     generator.next();
     generator.next();
 
@@ -1060,7 +1104,7 @@ describe('markAsAcceptedWorker', () => {
     });
 
     it('step, isAuthorized', () => {
-      generator.next({ profileInfo, eosService: eos, questionData });
+      generator.next({ profileInfo, eosService: eos, questionData, locale });
       expect(call).toHaveBeenCalledWith(isAuthorized);
     });
 
@@ -1070,14 +1114,14 @@ describe('markAsAcceptedWorker', () => {
         profileInfo,
         questionData,
         res.postButtonId,
-        res.translations,
+        translationMessages[locale],
       );
     });
 
     it('step, markAsAccepted', () => {
       generator.next();
       expect(markAsAccepted).toHaveBeenCalledWith(
-        res.user,
+        profileInfo.user,
         res.questionId,
         res.correctAnswerId,
         eos,

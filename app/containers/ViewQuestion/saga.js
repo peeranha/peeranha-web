@@ -230,8 +230,8 @@ export function* getParams() {
   const questionData = yield select(selectQuestionData());
   const eosService = yield select(selectEos);
   const locale = yield select(makeSelectLocale());
-  const account = yield select(makeSelectAccount());
   const profileInfo = yield select(makeSelectProfileInfo());
+  const account = yield select(makeSelectAccount());
 
   return {
     questionData,
