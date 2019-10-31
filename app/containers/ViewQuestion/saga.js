@@ -63,6 +63,8 @@ import {
   DOWN_VOTE_SUCCESS,
   MARK_AS_ACCEPTED_SUCCESS,
   VOTE_TO_DELETE_SUCCESS,
+  POST_ANSWER_BUTTON,
+  POST_COMMENT_BUTTON,
 } from './constants';
 
 import {
@@ -228,18 +230,19 @@ export function* getParams() {
   const questionData = yield select(selectQuestionData());
   const eosService = yield select(selectEos);
   const locale = yield select(makeSelectLocale());
+  const account = yield select(makeSelectAccount());
   const profileInfo = yield select(makeSelectProfileInfo());
 
   return {
     questionData,
     eosService,
     locale,
+    account,
     profileInfo,
   };
 }
 
 export function* saveCommentWorker({
-  user,
   questionId,
   answerId,
   commentId,
@@ -247,10 +250,17 @@ export function* saveCommentWorker({
   toggleView,
 }) {
   try {
-    const { questionData, eosService } = yield call(getParams);
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
     yield call(() =>
-      editComment(user, questionId, answerId, commentId, comment, eosService),
+      editComment(
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        comment,
+        eosService,
+      ),
     );
 
     let item;
@@ -274,7 +284,6 @@ export function* saveCommentWorker({
 }
 
 export function* deleteCommentWorker({
-  user,
   questionId,
   answerId,
   commentId,
@@ -294,7 +303,13 @@ export function* deleteCommentWorker({
     );
 
     yield call(() =>
-      deleteComment(user, questionId, answerId, commentId, eosService),
+      deleteComment(
+        profileInfo.user,
+        questionId,
+        answerId,
+        commentId,
+        eosService,
+      ),
     );
 
     if (+answerId === 0) {
@@ -312,12 +327,7 @@ export function* deleteCommentWorker({
   }
 }
 
-export function* deleteAnswerWorker({
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-}) {
+export function* deleteAnswerWorker({ questionId, answerId, postButtonId }) {
   try {
     const { questionData, eosService, locale, profileInfo } = yield call(
       getParams,
@@ -333,7 +343,9 @@ export function* deleteAnswerWorker({
       ),
     );
 
-    yield call(() => deleteAnswer(user, questionId, answerId, eosService));
+    yield call(() =>
+      deleteAnswer(profileInfo.user, questionId, answerId, eosService),
+    );
 
     questionData.answers = questionData.answers.filter(x => x.id != answerId);
 
@@ -343,7 +355,7 @@ export function* deleteAnswerWorker({
   }
 }
 
-export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
+export function* deleteQuestionWorker({ questionId, postButtonId }) {
   try {
     const { questionData, eosService, locale, profileInfo } = yield call(
       getParams,
@@ -358,7 +370,7 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
       ),
     );
 
-    yield call(() => deleteQuestion(user, questionid, eosService));
+    yield call(() => deleteQuestion(profileInfo.user, questionId, eosService));
 
     yield put(deleteQuestionSuccess());
 
@@ -370,13 +382,13 @@ export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
 
 export function* getQuestionDataWorker({ questionId }) {
   try {
-    const { eosService, profileInfo } = yield call(getParams);
+    const { eosService, account } = yield call(getParams);
 
     const questionData = yield call(() =>
       getQuestionData({
         eosService,
         questionId,
-        user: profileInfo ? profileInfo.user : null,
+        user: account,
       }),
     );
 
@@ -387,17 +399,16 @@ export function* getQuestionDataWorker({ questionId }) {
 }
 
 export function* postCommentWorker({
-  user,
-  postButtonId,
   answerId,
-  translations,
   questionId,
   comment,
   reset,
   toggleView,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
     yield call(isAuthorized);
 
@@ -405,14 +416,14 @@ export function* postCommentWorker({
       postCommentValidator(
         profileInfo,
         questionData,
-        postButtonId,
+        `${POST_COMMENT_BUTTON}${answerId}`,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
     yield call(() =>
-      postComment(user, questionId, answerId, comment, eosService),
+      postComment(profileInfo.user, questionId, answerId, comment, eosService),
     );
 
     yield call(updateQuestionDataAfterTransactionWorker, {
@@ -429,16 +440,11 @@ export function* postCommentWorker({
   }
 }
 
-export function* postAnswerWorker({
-  user,
-  questionId,
-  answer,
-  translations,
-  postButtonId,
-  reset,
-}) {
+export function* postAnswerWorker({ questionId, answer, reset }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
     yield call(isAuthorized);
 
@@ -446,12 +452,12 @@ export function* postAnswerWorker({
       postAnswerValidator(
         profileInfo,
         questionData,
-        postButtonId,
-        translations,
+        POST_ANSWER_BUTTON,
+        translationMessages[locale],
       ),
     );
 
-    yield call(() => postAnswer(user, questionId, answer, eosService));
+    yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
 
     yield call(updateQuestionDataAfterTransactionWorker, {
       questionData,
@@ -467,14 +473,14 @@ export function* postAnswerWorker({
 
 export function* downVoteWorker({
   whoWasDownvoted,
-  user,
   postButtonId,
   answerId,
-  translations,
   questionId,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
     const usersForUpdate = [whoWasDownvoted];
 
@@ -486,11 +492,13 @@ export function* downVoteWorker({
         questionData,
         postButtonId,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
-    yield call(() => downVote(user, questionId, answerId, eosService));
+    yield call(() =>
+      downVote(profileInfo.user, questionId, answerId, eosService),
+    );
 
     const item =
       Number(answerId) === 0
@@ -516,15 +524,15 @@ export function* downVoteWorker({
 }
 
 export function* upVoteWorker({
-  user,
   postButtonId,
   answerId,
-  translations,
   questionId,
   whoWasUpvoted,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
     const usersForUpdate = [whoWasUpvoted];
 
@@ -536,11 +544,13 @@ export function* upVoteWorker({
         questionData,
         postButtonId,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
-    yield call(() => upVote(user, questionId, answerId, eosService));
+    yield call(() =>
+      upVote(profileInfo.user, questionId, answerId, eosService),
+    );
 
     const item =
       Number(answerId) === 0
@@ -566,15 +576,15 @@ export function* upVoteWorker({
 }
 
 export function* markAsAcceptedWorker({
-  user,
   postButtonId,
-  translations,
   questionId,
   correctAnswerId,
   whoWasAccepted,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
     const usersForUpdate = [whoWasAccepted];
 
@@ -585,12 +595,12 @@ export function* markAsAcceptedWorker({
         profileInfo,
         questionData,
         postButtonId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
     yield call(() =>
-      markAsAccepted(user, questionId, correctAnswerId, eosService),
+      markAsAccepted(profileInfo.user, questionId, correctAnswerId, eosService),
     );
 
     questionData.correct_answer_id =
@@ -687,7 +697,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 }
 
 export default function*() {
-  yield takeLatest(GET_QUESTION_DATA, getQuestionDataWorker);
+  yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_COMMENT, postCommentWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
   yield takeLatest(UP_VOTE, upVoteWorker);

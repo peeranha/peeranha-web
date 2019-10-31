@@ -1,9 +1,14 @@
+/* eslint camelcase: 0 */
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getAskedQuestion, editQuestion } from 'utils/questionsManagement';
+import {
+  getAskedQuestion,
+  editQuestion,
+  getQuestionById,
+} from 'utils/questionsManagement';
 
 import {
   successToastHandlingWithDefaultText,
@@ -13,7 +18,7 @@ import {
 import { isValid } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getQuestionData } from 'containers/ViewQuestion/saga';
+import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 
 import {
   GET_ASKED_QUESTION,
@@ -35,22 +40,20 @@ import {
 export function* getAskedQuestionWorker({ questionId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(eosService.getSelectedAccount);
+    const cachedQuestion = yield select(selectQuestionData());
 
-    const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    let freshQuestion;
 
-    if (questionData.user !== user) {
-      yield put(getAskedQuestionErr());
-      yield call(() => createdHistory.push(routes.noAccess()));
+    if (!cachedQuestion) {
+      const { ipfs_link } = yield call(getQuestionById, eosService, questionId);
+      freshQuestion = yield call(getAskedQuestion, ipfs_link, eosService);
     }
 
-    const question = yield call(() =>
-      getAskedQuestion(questionData.ipfs_link, eosService),
+    yield put(
+      getAskedQuestionSuccess(
+        cachedQuestion ? cachedQuestion.content : freshQuestion,
+      ),
     );
-
-    yield put(getAskedQuestionSuccess(question));
   } catch (err) {
     yield put(getAskedQuestionErr(err));
   }

@@ -14,6 +14,8 @@ import Base from 'components/Base';
 import Span from 'components/Span';
 import MediumImage from 'components/Img/MediumImage';
 
+import { TransparentLink } from 'components/Button/Contained/Transparent';
+
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button, { BlockButton } from './Button';
@@ -67,10 +69,9 @@ export const ContentHeader = props => (
         />
 
         <div className="d-flex align-items-center">
-          <Button
-            show={props.isItWrittenByMe}
-            params={props.buttonParams}
-            onClick={props.editItem}
+          <TransparentLink
+            className={!props.isItWrittenByMe ? 'd-none' : ''}
+            to={props.editItem}
           >
             <Span
               className="d-flex align-items-center"
@@ -82,7 +83,7 @@ export const ContentHeader = props => (
                 <FormattedMessage {...messages.editButton} />
               </span>
             </Span>
-          </Button>
+          </TransparentLink>
 
           <Button
             show={props.isItWrittenByMe}

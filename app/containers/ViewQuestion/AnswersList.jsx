@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import * as routes from 'routes-config';
 
 import Button from 'components/Button/Outlined/PrimaryStretching';
 
@@ -42,7 +43,7 @@ export const AnswersList = props => {
               votingStatus={item.votingStatus}
               deleteItem={props.deleteAnswer}
               deleteItemLoading={props.deleteAnswerLoading}
-              editItem={props.editAnswer}
+              editItem={routes.answerEdit(props.questionData.id, item.id)}
               saveComment={props.saveComment}
               deleteComment={props.deleteComment}
               buttonParams={{
@@ -74,7 +75,6 @@ export const AnswersList = props => {
 AnswersList.propTypes = {
   questionData: PropTypes.object,
   deleteAnswer: PropTypes.func,
-  editAnswer: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,
   deleteAnswerLoading: PropTypes.bool,

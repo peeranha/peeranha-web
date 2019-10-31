@@ -3,11 +3,16 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getAnswer, editAnswer } from 'utils/questionsManagement';
+import {
+  getAnswer,
+  editAnswer,
+  getQuestionById,
+} from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getQuestionData } from 'containers/ViewQuestion/saga';
+import { selectAnswer } from 'containers/ViewQuestion/selectors';
+
 import { isValid } from 'containers/EosioProvider/saga';
 
 import {
@@ -36,22 +41,20 @@ import {
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
     const eosService = yield select(selectEos);
-    const user = yield call(eosService.getSelectedAccount);
+    const cachedAnswer = yield select(selectAnswer(answerId));
 
-    const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    let freshAnswer;
 
-    const answer = yield questionData.answers.filter(x => x.id == answerId)[0];
+    if (!cachedAnswer) {
+      const question = yield call(getQuestionById, eosService, questionId);
+      const answer = yield question.answers.filter(x => x.id == answerId)[0];
 
-    if (answer.user !== user) {
-      yield put(getAnswerErr());
-      yield call(() => createdHistory.push(routes.noAccess()));
+      freshAnswer = yield call(getAnswer, answer.ipfs_link);
     }
 
-    const answerBody = yield call(() => getAnswer(answer.ipfs_link));
-
-    yield put(getAnswerSuccess(answerBody));
+    yield put(
+      getAnswerSuccess(cachedAnswer ? cachedAnswer.content : freshAnswer),
+    );
   } catch (err) {
     yield put(getAnswerErr(err));
   }

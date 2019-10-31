@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as routes from 'routes-config';
 
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
@@ -27,7 +28,7 @@ export const AcceptedAnswer = props => (
             votingStatus={item.votingStatus}
             deleteItem={props.deleteAnswer}
             deleteItemLoading={props.deleteAnswerLoading}
-            editItem={props.editAnswer}
+            editItem={routes.answerEdit(props.questionData.id, item.id)}
             saveComment={props.saveComment}
             deleteComment={props.deleteComment}
             buttonParams={{
@@ -44,7 +45,6 @@ export const AcceptedAnswer = props => (
 AcceptedAnswer.propTypes = {
   questionData: PropTypes.object,
   deleteAnswer: PropTypes.func,
-  editAnswer: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,
   deleteAnswerLoading: PropTypes.bool,
