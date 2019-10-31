@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0, array-callback-return: 0 */
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {
@@ -21,23 +22,22 @@ export function* getQuestionsWorker({ userId }) {
   try {
     const questionsFromStore = yield select(selectQuestions());
     const limit = yield select(selectNumber());
+    const eosService = yield select(selectEos);
 
     const offset =
       (questionsFromStore[questionsFromStore.length - 1] &&
         +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
       0;
 
-    const eosService = yield select(selectEos);
     const idOfQuestions = yield call(() =>
       getQuestionsPostedByUser(eosService, userId, offset, limit),
     );
 
-    // async questionData getting
-    const promise1 = idOfQuestions.map(x =>
-      getQuestionById(eosService, x.question_id, userId),
+    const questions = yield all(
+      idOfQuestions.map(x =>
+        getQuestionById(eosService, x.question_id, userId),
+      ),
     );
-
-    const questions = yield all(promise1);
 
     /*
      *
@@ -48,20 +48,36 @@ export function* getQuestionsWorker({ userId }) {
      *
      */
 
-    /* eslint no-param-reassign: 0 */
-    yield questions.map(function*(x) /* istanbul ignore next */ {
+    const users = new Map();
+
+    questions.map(x => {
       x.postType = POST_TYPE_QUESTION;
       x.myPostTime = x.post_time;
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.myPostRating = x.rating;
 
       if (x.answers[0]) {
-        const userInfo = yield call(() =>
-          getUserProfileWorker({ user: x.answers[0].user }),
+        const lastAnswer = x.answers[x.answers.length - 1];
+        users.set(
+          lastAnswer.user,
+          users.get(lastAnswer.user)
+            ? [...users.get(lastAnswer.user), lastAnswer]
+            : [lastAnswer],
         );
-        x.answers[0].userInfo = userInfo;
       }
     });
+
+    // To avoid of fetching same user profiles - remember it and to write userInfo here
+
+    yield all(
+      Array.from(users.keys()).map(function*(user) {
+        const userInfo = yield call(() => getUserProfileWorker({ user }));
+
+        users.get(user).map(cachedItem => {
+          cachedItem.userInfo = userInfo;
+        });
+      }),
+    );
 
     yield put(getQuestionsSuccess(questions));
   } catch (err) {
