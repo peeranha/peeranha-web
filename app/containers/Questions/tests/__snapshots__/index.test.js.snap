@@ -8,11 +8,21 @@ exports[`Questions snapshot test @questionsLoading is falsy 1`] = `
   />
   <InjectIntl(Component)
     communityIdFilter={1}
-    followedCommunities={null}
+    followedCommunities={
+      Array [
+        1,
+        2,
+      ]
+    }
     parentPage="parentPage"
   />
   <UNDEFINED
-    followedCommunities={null}
+    followedCommunities={
+      Array [
+        1,
+        2,
+      ]
+    }
     isFeed={false}
   />
 </div>
@@ -26,7 +36,12 @@ exports[`Questions snapshot test @questionsLoading is true 1`] = `
   />
   <InjectIntl(Component)
     communityIdFilter={1}
-    followedCommunities={null}
+    followedCommunities={
+      Array [
+        1,
+        2,
+      ]
+    }
     parentPage="parentPage"
   />
   <UNDEFINED />

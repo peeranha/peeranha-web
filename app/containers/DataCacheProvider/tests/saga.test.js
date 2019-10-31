@@ -38,6 +38,7 @@ jest.mock('redux-saga/effects', () => ({
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+  takeEvery: jest.fn().mockImplementation(res => res),
 }));
 
 jest.mock('utils/faqManagement', () => ({

@@ -5,19 +5,21 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select, call } from 'redux-saga/effects';
 
-import { getAnswer, editAnswer } from 'utils/questionsManagement';
+import {
+  getAnswer,
+  editAnswer,
+  getQuestionById,
+} from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { isValid } from 'containers/EosioProvider/saga';
-import { getQuestionData } from 'containers/ViewQuestion/saga';
 
 import defaultSaga, { getAnswerWorker, editAnswerWorker } from '../saga';
 
 import {
   GET_ANSWER,
-  GET_ANSWER_SUCCESS,
   GET_ANSWER_ERROR,
   EDIT_ANSWER,
   EDIT_ANSWER_SUCCESS,
@@ -27,12 +29,10 @@ import {
   MIN_ENERGY_TO_EDIT_ANSWER,
 } from '../constants';
 
+import { getAnswerSuccess } from '../actions';
+
 jest.mock('createdHistory', () => ({
   push: jest.fn(),
-}));
-
-jest.mock('containers/ViewQuestion/saga', () => ({
-  getQuestionData: jest.fn(),
 }));
 
 jest.mock('containers/EosioProvider/saga', () => ({
@@ -42,7 +42,7 @@ jest.mock('containers/EosioProvider/saga', () => ({
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation((x, args) => x(args)),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
@@ -50,39 +50,18 @@ jest.mock('redux-saga/effects', () => ({
 jest.mock('utils/questionsManagement', () => ({
   getAnswer: jest.fn(),
   editAnswer: jest.fn(),
+  getQuestionById: jest.fn(),
 }));
 
 describe('getAnswerWorker', () => {
-  const answer = 'answer';
-  const user = 'user1';
   const questionId = 'questionId';
-  const answerId = 1;
-  const questionData = {
-    answers: [
-      {
-        id: 1,
-        ipfs_link: 'ipfs_link',
-        user,
-      },
-    ],
-  };
+  const answerId = 'answerId';
 
-  const props = {
-    user,
-    questionId,
-    answerId,
-  };
+  const eos = {};
 
-  const eos = {
-    getSelectedAccount: jest.fn(),
-  };
-
-  eos.getSelectedAccount.mockImplementation(() => user);
-  getQuestionData.mockImplementation(() => questionData);
-  getAnswer.mockImplementation(() => answer);
-
-  describe('answer`s author is current user', () => {
-    const generator = getAnswerWorker(props);
+  describe('there is cached answer', () => {
+    const generator = getAnswerWorker({ questionId, answerId });
+    const cachedAnswer = { content: {} };
 
     it('step, eosService', () => {
       select.mockImplementation(() => eos);
@@ -90,57 +69,51 @@ describe('getAnswerWorker', () => {
       expect(step.value).toEqual(eos);
     });
 
-    it('getSelectedAccount', () => {
-      generator.next(eos);
-      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
+    it('step, cachedAnswer', () => {
+      select.mockImplementation(() => cachedAnswer);
+      const step = generator.next(eos);
+      expect(step.value).toEqual(cachedAnswer);
     });
 
-    it('step, getQuestionData', () => {
-      const step = generator.next(user);
-      expect(step.value).toEqual(questionData);
+    it('put to store', () => {
+      const step = generator.next(cachedAnswer);
+      expect(step.value).toEqual(getAnswerSuccess(cachedAnswer.content));
     });
 
-    it('step, answer filtering', () => {
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(questionData.answers[0]);
-    });
-
-    it('step, getAnswer', () => {
-      const step = generator.next(questionData.answers[0]);
-      expect(step.value).toBe(answer);
-    });
-
-    it('step, getAnswerSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(GET_ANSWER_SUCCESS);
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(GET_ANSWER_ERROR);
     });
   });
 
-  describe('answer`s author is NOT current user', () => {
-    const generator = getAnswerWorker(props);
-    const questionDataUpd = {
-      answers: [
-        {
-          id: 1,
-          ipfs_link: 'ipfs_link',
-          user: 'user102021',
-        },
-      ],
+  describe('there is NO cached answer', () => {
+    const generator = getAnswerWorker({ questionId, answerId });
+    const cachedAnswer = null;
+    const question = {
+      ipfs_link: 'qwertyu1234',
+      answers: [{ id: answerId, ipfs_link: 'sdsdsd' }],
     };
+    const freshAnswer = {};
+
+    const answer = question.answers.filter(x => x.id === answerId)[0];
 
     generator.next();
     generator.next(eos);
-    generator.next(user);
-    generator.next(questionDataUpd);
 
-    it('GET_ANSWER_ERROR', () => {
-      const step = generator.next(questionDataUpd.answers[0]);
-      expect(step.value.type).toBe(GET_ANSWER_ERROR);
+    it('call @getQuestionById', () => {
+      generator.next(cachedAnswer);
+      expect(getQuestionById).toHaveBeenCalledWith(eos, questionId);
     });
 
-    it('createdHistory.push', () => {
-      generator.next();
-      expect(createdHistory.push).toHaveBeenCalledWith(routes.noAccess());
+    it('call @getAnswer', () => {
+      generator.next(question);
+      expect(getAnswer).toHaveBeenCalledWith(answer.ipfs_link);
+    });
+
+    it('put to store', () => {
+      const step = generator.next(freshAnswer);
+      expect(step.value).toEqual(getAnswerSuccess(freshAnswer));
     });
   });
 });

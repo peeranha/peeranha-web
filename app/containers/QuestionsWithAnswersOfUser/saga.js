@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: 0, array-callback-return: 0 */
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
+import maxBy from 'lodash/maxBy';
 
 import {
   getAnswersPostedByUser,
@@ -49,7 +50,7 @@ export function* getQuestionsWorker({ userId }) {
       x.postType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
 
-      const mostRatingAnswer = window._.maxBy(x.answers, 'rating');
+      const mostRatingAnswer = maxBy(x.answers, 'rating');
 
       x.answers.map(y => {
         if (y.id === answersId[index].answer_id) {

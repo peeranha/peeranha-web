@@ -47,7 +47,7 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
     if (!cachedAnswer) {
       const question = yield call(getQuestionById, eosService, questionId);
-      const answer = yield question.answers.filter(x => x.id == answerId)[0];
+      const answer = question.answers.filter(x => x.id == answerId)[0];
 
       freshAnswer = yield call(getAnswer, answer.ipfs_link);
     }

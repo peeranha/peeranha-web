@@ -1,4 +1,4 @@
-/* eslint no-param-reassign: 0, array-callback-return: 0 */
+/* eslint no-param-reassign: 0, array-callback-return: 0, func-names: 0 */
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 
 import {

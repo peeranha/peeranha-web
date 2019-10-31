@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
-import questionsReducer from '../reducer';
+import questionsReducer, { initialState } from '../reducer';
 
 import {
   getQuestions,
@@ -18,6 +19,12 @@ describe('questionsReducer', () => {
 
   it('returns the initial state', () => {
     expect(questionsReducer(state, {})).toEqual(state);
+  });
+
+  it('LOCATION_CHANGE', () => {
+    expect(questionsReducer(state, { type: LOCATION_CHANGE })).toEqual(
+      initialState,
+    );
   });
 
   it('getQuestions', () => {
