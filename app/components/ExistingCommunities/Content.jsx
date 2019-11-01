@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
@@ -68,7 +68,7 @@ const Content = ({ communities, sorting, locale, language }) => {
 
   return (
     <Base>
-      {_.orderBy(communities, y => y[sorting.sortBy], [sorting.order])
+      {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(x => (
           <BaseTransparent key={x.value}>
