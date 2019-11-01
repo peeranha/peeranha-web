@@ -1,5 +1,5 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 import { getSuggestedTags, getExistingTags } from 'utils/communityManagement';
 
@@ -66,7 +66,7 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
       `${x.name} ${x.description}`.toLowerCase().match(text.toLowerCase()),
     );
 
-    const sortedTags = _.orderBy(tagsByInput, x => x[sorting], ['desc']).slice(
+    const sortedTags = orderBy(tagsByInput, x => x[sorting], ['desc']).slice(
       sliceStart,
       sliceStart + limit,
     );
