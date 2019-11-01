@@ -10,6 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -45,8 +46,7 @@ import languages from './languagesOptions';
 import Header from './Header';
 import Banner from './Banner';
 
-/* eslint indent: 0 */
-/* eslint-disable react/prefer-stateless-function */
+/* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Communities extends React.PureComponent {
   state = {
     language: languages.all,
@@ -78,6 +78,7 @@ export class Communities extends React.PureComponent {
       changeSorting,
       sorting,
       redirectToCreateCommunityDispatch,
+      route,
     } = this.props;
 
     const keywords = communities.map(x => x.name);
@@ -113,16 +114,17 @@ export class Communities extends React.PureComponent {
             language={this.state.language}
           />
 
-          {(communitiesLoading || suggestedCommunitiesLoading) && (
-            <LoadingIndicator />
-          )}
+          {((communitiesLoading && route === routes.communities()) ||
+            (suggestedCommunitiesLoading &&
+              route === routes.suggestedCommunities())) && <LoadingIndicator />}
 
-          {!communitiesLoading &&
-            !suggestedCommunitiesLoading && (
-              <Banner
-                goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
-              />
-            )}
+          {((!communitiesLoading && route === routes.communities()) ||
+            (!suggestedCommunitiesLoading &&
+              route === routes.suggestedCommunities())) && (
+            <Banner
+              goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
+            />
+          )}
         </div>
 
         <AsideBox className="d-none d-xl-block">
@@ -140,6 +142,7 @@ Communities.propTypes = {
   communities: PropTypes.array,
   suggestedCommunities: PropTypes.array,
   locale: PropTypes.string,
+  route: PropTypes.string,
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
