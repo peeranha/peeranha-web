@@ -160,20 +160,42 @@ describe('getQuestionData', () => {
     user: 'user1',
   };
 
-  const generator = sagaImports.getQuestionData(res);
+  describe('there is cached question', () => {
+    const generator = sagaImports.getQuestionData(res);
 
-  it('getQuestionById', () => {
-    getQuestionById.mockImplementation(() => question);
-    const step = generator.next();
-    expect(step.value).toBe(question);
+    it('select questionData', () => {
+      select.mockImplementationOnce(() => question);
+      const selectDescriptor = generator.next();
+      expect(selectDescriptor.value).toEqual(question);
+    });
+
+    it('all promises', () => {
+      const isAll = true;
+
+      all.mockImplementation(() => isAll);
+      const step = generator.next(question);
+      expect(step.value).toBe(isAll);
+    });
   });
 
-  it('all promises', () => {
-    const isAll = true;
+  describe('there is NO cached question', () => {
+    const generator = sagaImports.getQuestionData(res);
 
-    all.mockImplementation(() => isAll);
-    const step = generator.next(question);
-    expect(step.value).toBe(isAll);
+    generator.next();
+
+    it('getQuestionById', () => {
+      getQuestionById.mockImplementation(() => question);
+      const step = generator.next(null);
+      expect(step.value).toBe(question);
+    });
+
+    it('all promises', () => {
+      const isAll = true;
+
+      all.mockImplementation(() => isAll);
+      const step = generator.next(question);
+      expect(step.value).toBe(isAll);
+    });
   });
 });
 

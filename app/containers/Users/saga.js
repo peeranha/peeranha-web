@@ -8,7 +8,7 @@ export function* getUsersWorker({ loadMore, fetcher }) {
   try {
     const { items } = yield call(() => fetcher.getNextItems());
 
-    yield all(items.map(user => put(getUserProfileSuccess(user))));
+    yield all(items.map(profile => put(getUserProfileSuccess(profile))));
 
     yield put(getUsersSuccess(items, loadMore));
   } catch (err) {

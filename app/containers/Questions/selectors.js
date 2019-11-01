@@ -16,8 +16,9 @@ const selectQuestionsLoading = () =>
   );
 
 const selectQuestionsList = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('questionsList'),
+  createSelector(
+    selectQuestionsDomain,
+    substate => substate.toJS().questionsList,
   );
 
 const selectQuestions = (isFeed, communityId, questionId) =>
