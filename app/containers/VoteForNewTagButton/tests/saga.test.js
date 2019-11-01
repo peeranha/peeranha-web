@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import {
   upVoteToCreateTag,
@@ -12,9 +12,7 @@ import {
 
 import { getSuggestedTagsWorker } from 'containers/Tags/saga';
 
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-
-import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import defaultSaga, { upVoteWorker, downVoteWorker } from '../saga';
 
@@ -25,15 +23,22 @@ import {
   DOWNVOTE,
   DOWNVOTE_SUCCESS,
   DOWNVOTE_ERROR,
+  MIN_RATING_TO_UPVOTE,
+  MIN_ENERGY_TO_UPVOTE,
+  MIN_RATING_TO_DOWNVOTE,
+  MIN_ENERGY_TO_DOWNVOTE,
 } from '../constants';
-
-import { upVoteValidator, downVoteValidator } from '../validate';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, args) => x(args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('containers/EosioProvider/saga', () => ({
+  isValid: jest.fn(),
+  isAuthorized: jest.fn(),
 }));
 
 jest.mock('containers/Tags/saga', () => ({
@@ -45,15 +50,6 @@ jest.mock('utils/communityManagement', () => ({
   downVoteToCreateTag: jest.fn(),
 }));
 
-jest.mock('../validate', () => ({
-  upVoteValidator: jest.fn(),
-  downVoteValidator: jest.fn(),
-}));
-
-jest.mock('containers/DataCacheProvider/saga', () => ({
-  getUserProfileWorker: jest.fn(),
-}));
-
 describe('downVoteWorker', () => {
   const props = {
     communityId: 1,
@@ -62,111 +58,72 @@ describe('downVoteWorker', () => {
   };
 
   const account = 'user1';
-  const locale = 'en';
-  const storedTags = [];
-  const profileInfo = {};
+  const storedTags = [{ id: 1, creator: 'user1' }];
 
-  const eos = {
-    getSelectedAccount: jest.fn().mockImplementation(() => account),
-  };
+  const activeTag = storedTags.filter(x => x.id === props.tagId)[0];
 
-  describe('profileInfo FALSE', () => {
-    const generator = downVoteWorker(props);
+  const eos = {};
 
-    generator.next();
-    generator.next(locale);
+  const generator = downVoteWorker(props);
+
+  it('eosService', () => {
+    select.mockImplementationOnce(() => eos);
+    const service = generator.next();
+    expect(service.value).toEqual(eos);
+  });
+
+  it('account', () => {
+    select.mockImplementationOnce(() => account);
+    const service = generator.next(eos);
+    expect(service.value).toEqual(account);
+  });
+
+  it('storedTags', () => {
+    select.mockImplementationOnce(() => storedTags);
+    const step = generator.next(account);
+    expect(step.value).toEqual(storedTags);
+  });
+
+  it('isAuthorized', () => {
     generator.next(storedTags);
-    generator.next(eos);
-    generator.next(account);
+    expect(call).toHaveBeenCalledWith(isAuthorized);
+  });
 
-    it('showLoginModal', () => {
-      const step = generator.next(null);
-      expect(step.value.type).toBe(SHOW_LOGIN_MODAL);
+  it('isValid', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(isValid, {
+      creator: activeTag.creator,
+      buttonId: props.buttonId,
+      minRating: MIN_RATING_TO_DOWNVOTE,
+      minEnergy: MIN_ENERGY_TO_DOWNVOTE,
     });
   });
 
-  describe('profileInfo TRUE, isValid FALSE', () => {
-    const isValid = false;
-    const generator = downVoteWorker(props);
-
+  it('downVoteToCreateTag', () => {
     generator.next();
-    generator.next(locale);
-    generator.next(storedTags);
-    generator.next(eos);
-    generator.next(account);
-    generator.next(profileInfo);
-
-    it('isValid', () => {
-      const step = generator.next(isValid);
-      expect(step.value.type).toBe(DOWNVOTE_ERROR);
-    });
+    expect(downVoteToCreateTag).toHaveBeenCalledWith(
+      eos,
+      account,
+      props.communityId,
+      props.tagId,
+    );
   });
 
-  describe('profileInfo TRUE, isValid TRUE', () => {
-    const isValid = true;
-    const generator = downVoteWorker(props);
+  it('getSuggestedTags', () => {
+    getSuggestedTagsWorker.mockImplementation(() => storedTags);
+    const step = generator.next();
+    expect(step.value).toEqual(storedTags);
+  });
 
-    it('locale', () => {
-      select.mockImplementationOnce(() => locale);
-      const step = generator.next();
-      expect(step.value).toEqual(locale);
-    });
+  it('DOWNVOTE_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(DOWNVOTE_SUCCESS);
+  });
 
-    it('storedTags', () => {
-      select.mockImplementationOnce(() => storedTags);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(storedTags);
-    });
-
-    it('eosService', () => {
-      select.mockImplementationOnce(() => eos);
-      const service = generator.next(storedTags);
-      expect(service.value).toEqual(eos);
-    });
-
-    it('getSelectedAccount', () => {
-      const step = generator.next(eos);
-      expect(step.value).toEqual(account);
-    });
-
-    it('profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(account);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('isValid', () => {
-      downVoteValidator.mockImplementation(() => isValid);
-      const step = generator.next(profileInfo);
-      expect(step.value).toEqual(isValid);
-    });
-
-    it('downVoteToCreateTag', () => {
-      generator.next(isValid);
-      expect(downVoteToCreateTag).toHaveBeenCalledWith(
-        eos,
-        account,
-        props.communityId,
-        props.tagId,
-      );
-    });
-
-    it('getSuggestedTags', () => {
-      getSuggestedTagsWorker.mockImplementation(() => storedTags);
-      const step = generator.next();
-      expect(step.value).toEqual(storedTags);
-    });
-
-    it('DOWNVOTE_SUCCESS', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(DOWNVOTE_SUCCESS);
-    });
-
-    it('DOWNVOTE_ERROR: error handling', () => {
-      const err = new Error('Some error');
-      const putDescriptor = generator.throw(err).value;
-      expect(putDescriptor.type).toEqual(DOWNVOTE_ERROR);
-    });
+  it('DOWNVOTE_ERROR: error handling', () => {
+    const err = new Error('Some error');
+    const putDescriptor = generator.throw(err).value;
+    expect(putDescriptor.type).toEqual(DOWNVOTE_ERROR);
   });
 });
 
@@ -178,111 +135,72 @@ describe('upVoteWorker', () => {
   };
 
   const account = 'user1';
-  const locale = 'en';
-  const storedTags = [];
-  const profileInfo = {};
+  const storedTags = [{ id: 1, creator: 'user1' }];
 
-  const eos = {
-    getSelectedAccount: jest.fn().mockImplementation(() => account),
-  };
+  const activeTag = storedTags.filter(x => x.id === props.tagId)[0];
 
-  describe('profileInfo FALSE', () => {
-    const generator = upVoteWorker(props);
+  const eos = {};
 
-    generator.next();
-    generator.next(locale);
+  const generator = upVoteWorker(props);
+
+  it('eosService', () => {
+    select.mockImplementationOnce(() => eos);
+    const service = generator.next();
+    expect(service.value).toEqual(eos);
+  });
+
+  it('account', () => {
+    select.mockImplementationOnce(() => account);
+    const service = generator.next(eos);
+    expect(service.value).toEqual(account);
+  });
+
+  it('storedTags', () => {
+    select.mockImplementationOnce(() => storedTags);
+    const step = generator.next(account);
+    expect(step.value).toEqual(storedTags);
+  });
+
+  it('isAuthorized', () => {
     generator.next(storedTags);
-    generator.next(eos);
-    generator.next(account);
+    expect(call).toHaveBeenCalledWith(isAuthorized);
+  });
 
-    it('showLoginModal', () => {
-      const step = generator.next(null);
-      expect(step.value.type).toBe(SHOW_LOGIN_MODAL);
+  it('isValid', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(isValid, {
+      creator: activeTag.creator,
+      buttonId: props.buttonId,
+      minRating: MIN_RATING_TO_UPVOTE,
+      minEnergy: MIN_ENERGY_TO_UPVOTE,
     });
   });
 
-  describe('profileInfo TRUE, isValid FALSE', () => {
-    const isValid = false;
-    const generator = upVoteWorker(props);
-
+  it('upVoteToCreateTag', () => {
     generator.next();
-    generator.next(locale);
-    generator.next(storedTags);
-    generator.next(eos);
-    generator.next(account);
-    generator.next(profileInfo);
-
-    it('isValid', () => {
-      const step = generator.next(isValid);
-      expect(step.value.type).toBe(UPVOTE_ERROR);
-    });
+    expect(upVoteToCreateTag).toHaveBeenCalledWith(
+      eos,
+      account,
+      props.communityId,
+      props.tagId,
+    );
   });
 
-  describe('profileInfo TRUE, isValid TRUE', () => {
-    const isValid = true;
-    const generator = upVoteWorker(props);
+  it('getSuggestedTags', () => {
+    getSuggestedTagsWorker.mockImplementation(() => storedTags);
+    const step = generator.next();
+    expect(step.value).toEqual(storedTags);
+  });
 
-    it('locale', () => {
-      select.mockImplementationOnce(() => locale);
-      const step = generator.next();
-      expect(step.value).toEqual(locale);
-    });
+  it('UPVOTE_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(UPVOTE_SUCCESS);
+  });
 
-    it('storedTags', () => {
-      select.mockImplementationOnce(() => storedTags);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(storedTags);
-    });
-
-    it('eosService', () => {
-      select.mockImplementationOnce(() => eos);
-      const service = generator.next(storedTags);
-      expect(service.value).toEqual(eos);
-    });
-
-    it('getSelectedAccount', () => {
-      const step = generator.next(eos);
-      expect(step.value).toEqual(account);
-    });
-
-    it('profileInfo', () => {
-      getUserProfileWorker.mockImplementation(() => profileInfo);
-      const step = generator.next(account);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('isValid', () => {
-      upVoteValidator.mockImplementation(() => isValid);
-      const step = generator.next(profileInfo);
-      expect(step.value).toEqual(isValid);
-    });
-
-    it('upVoteToCreateTag', () => {
-      generator.next(isValid);
-      expect(upVoteToCreateTag).toHaveBeenCalledWith(
-        eos,
-        account,
-        props.communityId,
-        props.tagId,
-      );
-    });
-
-    it('getSuggestedTags', () => {
-      getSuggestedTagsWorker.mockImplementation(() => storedTags);
-      const step = generator.next();
-      expect(step.value).toEqual(storedTags);
-    });
-
-    it('UPVOTE_SUCCESS', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(UPVOTE_SUCCESS);
-    });
-
-    it('UPVOTE_ERROR: error handling', () => {
-      const err = new Error('Some error');
-      const putDescriptor = generator.throw(err).value;
-      expect(putDescriptor.type).toEqual(UPVOTE_ERROR);
-    });
+  it('UPVOTE_ERROR: error handling', () => {
+    const err = new Error('Some error');
+    const putDescriptor = generator.throw(err).value;
+    expect(putDescriptor.type).toEqual(UPVOTE_ERROR);
   });
 });
 

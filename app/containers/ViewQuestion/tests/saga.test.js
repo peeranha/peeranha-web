@@ -3,7 +3,8 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select, all } from 'redux-saga/effects';
+import { select, all, call, put } from 'redux-saga/effects';
+import cloneDeep from 'lodash/cloneDeep';
 import { translationMessages } from 'i18n';
 
 import {
@@ -22,10 +23,9 @@ import {
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
+import { isAuthorized } from 'containers/EosioProvider/saga';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
-
-import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
 
 import {
   GET_QUESTION_DATA,
@@ -61,6 +61,8 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  POST_COMMENT_BUTTON,
+  POST_ANSWER_BUTTON,
 } from '../constants';
 
 import {
@@ -72,9 +74,14 @@ import {
   deleteQuestionValidator,
   deleteAnswerValidator,
   voteToDeleteValidator,
+  deleteCommentValidator,
 } from '../validate';
 
 import * as sagaImports from '../saga';
+
+jest.mock('containers/EosioProvider/saga', () => ({
+  isAuthorized: jest.fn(),
+}));
 
 jest.mock('../validate', () => ({
   postAnswerValidator: jest.fn().mockImplementation(() => true),
@@ -85,14 +92,16 @@ jest.mock('../validate', () => ({
   deleteQuestionValidator: jest.fn().mockImplementation(() => true),
   deleteAnswerValidator: jest.fn().mockImplementation(() => true),
   voteToDeleteValidator: jest.fn().mockImplementation(() => true),
+  deleteCommentValidator: jest.fn().mockImplementation(() => true),
 }));
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   all: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+  takeEvery: jest.fn().mockImplementation(res => res),
 }));
 
 jest.mock('createdHistory', () => ({
@@ -168,17 +177,208 @@ describe('getQuestionData', () => {
   });
 });
 
+describe('getParams', () => {
+  const questionData = 'questionData';
+  const eosService = 'eosService';
+  const locale = 'locale';
+  const profileInfo = 'profileInfo';
+  const account = 'account';
+
+  const generator = sagaImports.getParams();
+
+  it('select questionData', () => {
+    select.mockImplementationOnce(() => questionData);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(questionData);
+  });
+
+  it('select eosService', () => {
+    select.mockImplementationOnce(() => eosService);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(eosService);
+  });
+
+  it('select locale', () => {
+    select.mockImplementationOnce(() => locale);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(locale);
+  });
+
+  it('select profileInfo', () => {
+    select.mockImplementationOnce(() => profileInfo);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(profileInfo);
+  });
+
+  it('select account', () => {
+    select.mockImplementationOnce(() => account);
+    const selectDescriptor = generator.next();
+    expect(selectDescriptor.value).toEqual(account);
+  });
+});
+
+describe('updateQuestionDataAfterTransactionWorker', () => {
+  const account = 'account';
+  const questionData = { id: 1 };
+
+  describe('with users for update', () => {
+    const usersForUpdate = ['user1'];
+    const generator = sagaImports.updateQuestionDataAfterTransactionWorker({
+      usersForUpdate,
+      questionData,
+    });
+
+    it('select account', () => {
+      select.mockImplementationOnce(() => account);
+      const selectDescriptor = generator.next();
+      expect(selectDescriptor.value).toEqual(account);
+    });
+
+    it('call getCurrentAccountWorker', () => {
+      generator.next(account);
+      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+    });
+
+    it('removeUserProfile', () => {
+      generator.next();
+      expect(put).toHaveBeenCalledWith(removeUserProfile(usersForUpdate[0]));
+    });
+
+    it('call getQuestionDataWorker', () => {
+      call.mockImplementationOnce((x, args) => x(args));
+
+      generator.next();
+      expect(call).toHaveBeenCalledWith(sagaImports.getQuestionDataWorker, {
+        questionId: questionData.id,
+      });
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(GET_QUESTION_DATA_ERROR);
+    });
+  });
+
+  describe('without users for update', () => {
+    const usersForUpdate = null;
+    const generator = sagaImports.updateQuestionDataAfterTransactionWorker({
+      usersForUpdate,
+      questionData,
+    });
+
+    call.mockImplementationOnce((x, args) => x(args));
+
+    generator.next();
+    generator.next(account);
+    generator.next();
+
+    it('test', () => {
+      const step = generator.next();
+      expect(step.done).toBe(true);
+    });
+  });
+});
+
 /* eslint no-underscore-dangle: 0 */
 describe('saveCommentWorker', () => {
-  const eos = {};
-  const locale = 'en';
+  const eosService = {};
 
-  const answerId = 0;
-  const user = 'user';
   const questionId = 1;
   const commentId = 1;
   const comment = 'comment';
   const toggleView = jest.fn();
+  const profileInfo = { user: 'user' };
+
+  const res = {
+    questionId,
+    commentId,
+    comment,
+    toggleView,
+  };
+
+  describe('asnwerId > 0', () => {
+    const questionData = {
+      comments: [{ id: 1 }, { id: 2 }],
+      answers: [
+        { id: 1, comments: [{ id: 1 }, { id: 2 }] },
+        { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+      ],
+    };
+
+    const generator = sagaImports.saveCommentWorker({
+      ...res,
+      answerId: 1,
+    });
+
+    generator.next();
+    generator.next({ questionData, eosService, profileInfo });
+    generator.next();
+
+    it('test', () => {
+      const step = generator.next();
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+    });
+  });
+
+  describe('+answerId === 0', () => {
+    const questionData = {
+      comments: [{ id: 1 }, { id: 2 }],
+      answers: [
+        { id: 1, comments: [{ id: 1 }, { id: 2 }] },
+        { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+      ],
+    };
+
+    const generator = sagaImports.saveCommentWorker({
+      ...res,
+      answerId: 0,
+    });
+
+    it('step, getParams', () => {
+      const step = generator.next();
+      expect(typeof step.value._invoke).toBe('function');
+    });
+
+    it('step, editComment', () => {
+      generator.next({ questionData, eosService, profileInfo });
+      expect(editComment).toHaveBeenCalledWith(
+        profileInfo.user,
+        questionId,
+        0,
+        commentId,
+        comment,
+        eosService,
+      );
+    });
+
+    it('step, toggleView', () => {
+      generator.next();
+      expect(call).toHaveBeenCalledWith(toggleView, true);
+    });
+
+    it('step, saveCommentSuccess', () => {
+      const step = generator.next();
+      expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+    });
+
+    it('error handling', () => {
+      const err = 'some err';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(SAVE_COMMENT_ERROR);
+    });
+  });
+});
+
+describe('deleteCommentWorker', () => {
+  const eos = {};
+  const locale = 'en';
+  const questionId = 1;
+  const answerId = 1;
+  const commentId = 2;
+  const profileInfo = { user: 'user' };
+  const buttonId = 'buttonId';
 
   const questionData = {
     comments: [{ id: 1 }, { id: 2 }],
@@ -189,136 +389,32 @@ describe('saveCommentWorker', () => {
   };
 
   const res = {
-    user,
     questionId,
     answerId,
     commentId,
-    comment,
-    toggleView,
-  };
-
-  describe('+answerId === 0', () => {
-    const generator = sagaImports.saveCommentWorker({
-      ...res,
-      answerId: 0,
-    });
-
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(questionData);
-    });
-
-    it('step, editComment', () => {
-      generator.next(questionData);
-      expect(editComment).toHaveBeenCalledWith(
-        user,
-        questionId,
-        answerId,
-        commentId,
-        comment,
-        eos,
-      );
-    });
-
-    it('step, getCurrentAccountWorker', () => {
-      getCurrentAccountWorker.mockImplementationOnce(() => 'saveCommentWorker');
-      const step = generator.next();
-      expect(step.value).toBe('saveCommentWorker');
-    });
-
-    describe('delete comment', () => {
-      it('+answerId === 0', () => {
-        const step = generator.next();
-        expect(step.value.questionData).toEqual({
-          comments: [{ id: 2 }],
-          answers: [
-            { id: 1, comments: [{ id: 1 }, { id: 2 }] },
-            { id: 2, comments: [{ id: 1 }, { id: 2 }] },
-          ],
-        });
-      });
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step, toggleView', () => {
-      generator.next();
-      expect(res.toggleView).toHaveBeenCalledWith(true);
-    });
-
-    it('step, saveCommentSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
-    });
-
-    it('error handling', () => {
-      const err = 'some err';
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(SAVE_COMMENT_ERROR);
-    });
-  });
-
-  describe('+answerId > 0', () => {
-    const generator = sagaImports.saveCommentWorker({
-      ...res,
-      answerId: 1,
-    });
-
-    generator.next();
-    generator.next(eos);
-    generator.next(questionData);
-    generator.next();
-
-    it('test', () => {
-      const step = generator.next();
-      expect(step.value.questionData).toEqual({
-        comments: [{ id: 1 }, { id: 2 }],
-        answers: [
-          { id: 2, comments: [{ id: 1 }, { id: 2 }] },
-          { id: 1, comments: [{ id: 2 }] },
-        ],
-      });
-    });
-  });
-});
-
-describe('deleteCommentWorker', () => {
-  const eos = {};
-  const locale = 'en';
-  const user = 'user';
-  const questionId = 11;
-  const answerId = 11;
-  const commentId = 12;
-
-  const res = {
-    user,
-    questionId,
-    answerId,
-    commentId,
+    buttonId,
   };
 
   const generator = sagaImports.deleteCommentWorker(res);
 
-  it('step, eosService', () => {
-    select.mockImplementation(() => eos);
-    const step = generator.next(locale);
-    expect(step.value).toEqual(eos);
+  it('step, getParams', () => {
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
+  });
+
+  it('step, deleteCommentValidator', () => {
+    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    expect(deleteCommentValidator).toHaveBeenCalledWith(
+      profileInfo,
+      buttonId,
+      translationMessages[locale],
+    );
   });
 
   it('step, deleteComment', () => {
-    generator.next(eos);
+    generator.next();
     expect(deleteComment).toHaveBeenCalledWith(
-      user,
+      profileInfo.user,
       questionId,
       answerId,
       commentId,
@@ -326,22 +422,10 @@ describe('deleteCommentWorker', () => {
     );
   });
 
-  it('step, getCurrentAccountWorker', () => {
-    const worker = 'deleteCommentWorker';
-
-    getCurrentAccountWorker.mockImplementationOnce(() => worker);
-    const step = generator.next();
-    expect(step.value).toBe(worker);
-  });
-
-  it('step, getQuestionData', () => {
-    const step = generator.next();
-    expect(!!step.value._invoke).toBe(true);
-  });
-
   it('step, deleteCommentSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toBe(DELETE_COMMENT_SUCCESS);
+    expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
   });
 
   it('error handling', () => {
@@ -354,225 +438,143 @@ describe('deleteCommentWorker', () => {
 describe('deleteAnswerWorker', () => {
   const eos = {};
   const locale = 'en';
-  const user = 'user';
-  const questionId = 11;
-  const answerId = 11;
+  const profileInfo = { user: 'user' };
+  const questionId = 1;
+  const answerId = 1;
   const postButtonId = 'postButtonId';
 
   const questionData = {
-    answers: [],
-    correct_answer_id: 0,
+    comments: [{ id: 1 }, { id: 2 }],
+    answers: [
+      { id: 1, comments: [{ id: 1 }, { id: 2 }] },
+      { id: 2, comments: [{ id: 1 }, { id: 2 }] },
+    ],
   };
 
   const res = {
-    user,
     questionId,
     answerId,
     postButtonId,
   };
 
-  describe('isValid is true', () => {
-    const generator = sagaImports.deleteAnswerWorker(res);
+  const generator = sagaImports.deleteAnswerWorker(res);
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
-    });
-
-    it('step, makeSelectLocale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(locale);
-    });
-
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, deleteAnswerValidator', () => {
-      generator.next(eos);
-      expect(deleteAnswerValidator).toHaveBeenCalledWith(
-        postButtonId,
-        answerId,
-        questionData.correct_answer_id,
-        translationMessages[locale],
-      );
-    });
-
-    it('step, deleteAnswer', () => {
-      const isValid = true;
-      generator.next(isValid);
-      expect(deleteAnswer).toHaveBeenCalledWith(
-        user,
-        questionId,
-        answerId,
-        eos,
-      );
-    });
-
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'deleteAnswerWorker';
-
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step, deleteAnswerSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(DELETE_ANSWER_SUCCESS);
-    });
-
-    it('error handling', () => {
-      const err = 'some err';
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(DELETE_ANSWER_ERROR);
-    });
+  it('step, getParams', () => {
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
   });
 
-  describe('isValid is false', () => {
-    const generator = sagaImports.deleteAnswerWorker(res);
+  it('step, deleteAnswerValidator', () => {
+    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    expect(deleteAnswerValidator).toHaveBeenCalledWith(
+      postButtonId,
+      answerId,
+      questionData.correct_answer_id,
+      translationMessages[locale],
+      profileInfo,
+    );
+  });
 
+  it('step, deleteAnswer', () => {
     generator.next();
-    generator.next(questionData);
-    generator.next(locale);
-    generator.next(eos);
+    expect(deleteAnswer).toHaveBeenCalledWith(
+      profileInfo.user,
+      questionId,
+      answerId,
+      eos,
+    );
+  });
 
-    it('deleteQuestionErr', () => {
-      const isValid = false;
-      const step = generator.next(isValid);
-      expect(step.value.type).toBe(DELETE_ANSWER_ERROR);
-    });
+  it('step, deleteAnswerSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(DELETE_ANSWER_SUCCESS);
+    expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+  });
+
+  it('error handling', () => {
+    const err = 'some err';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(DELETE_ANSWER_ERROR);
   });
 });
 
 describe('deleteQuestionWorker', () => {
   const eos = {};
   const locale = 'en';
-  const user = 'user';
-  const questionid = 11;
+  const questionId = 11;
   const postButtonId = 'postButtonId';
+  const profileInfo = { user: 'user' };
 
   const questionData = {
     answers: [],
   };
 
   const res = {
-    user,
-    questionid,
+    questionId,
     postButtonId,
+    profileInfo,
   };
 
-  describe('isValid is true', () => {
-    const generator = sagaImports.deleteQuestionWorker(res);
+  const generator = sagaImports.deleteQuestionWorker(res);
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
-    });
-
-    it('step, makeSelectLocale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(locale);
-    });
-
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, deleteQuestionValidator', () => {
-      generator.next(eos);
-      expect(deleteQuestionValidator).toHaveBeenCalledWith(
-        postButtonId,
-        questionData.answers.length,
-        translationMessages[locale],
-      );
-    });
-
-    it('step, deleteQuestion', () => {
-      const isValid = true;
-      generator.next(isValid);
-      expect(deleteQuestion).toHaveBeenCalledWith(user, questionid, eos);
-    });
-
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'deleteQuestionWorker';
-
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, deleteQuestionSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(DELETE_QUESTION_SUCCESS);
-    });
-
-    it('createdHistory.push', () => {
-      generator.next();
-      expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
-    });
-
-    it('error handling', () => {
-      const err = 'some err';
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(DELETE_QUESTION_ERROR);
-    });
+  it('step, getParams', () => {
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
   });
 
-  describe('isValid is false', () => {
-    const generator = sagaImports.deleteQuestionWorker(res);
+  it('step, deleteQuestionValidator', () => {
+    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    expect(deleteQuestionValidator).toHaveBeenCalledWith(
+      postButtonId,
+      questionData.answers.length,
+      translationMessages[locale],
+      profileInfo,
+    );
+  });
 
+  it('step, deleteQuestion', () => {
     generator.next();
-    generator.next(questionData);
-    generator.next(locale);
-    generator.next(eos);
+    expect(deleteQuestion).toHaveBeenCalledWith(
+      profileInfo.user,
+      questionId,
+      eos,
+    );
+  });
 
-    it('deleteQuestionErr', () => {
-      const isValid = false;
-      const step = generator.next(isValid);
-      expect(step.value.type).toBe(DELETE_QUESTION_ERROR);
-    });
+  it('step, deleteQuestionSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(DELETE_QUESTION_SUCCESS);
+  });
+
+  it('createdHistory.push', () => {
+    generator.next();
+    expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
+  });
+
+  it('error handling', () => {
+    const err = 'some err';
+    const step = generator.throw(err);
+    expect(step.value.type).toBe(DELETE_QUESTION_ERROR);
   });
 });
 
 describe('getQuestionDataWorker', () => {
   const res = { questionId: 1 };
   const generator = sagaImports.getQuestionDataWorker(res);
-  const account = 'user1';
-  const eos = {
-    getSelectedAccount: jest.fn().mockImplementation(() => account),
-  };
+  const account = 'account';
+  const eosService = {};
 
-  it('step1, eosService', () => {
-    select.mockImplementation(() => eos);
+  it('step, getParams', () => {
     const step = generator.next();
-    expect(step.value).toEqual(eos);
-  });
-
-  it('step2, getSelectedAccount', () => {
-    const step = generator.next(eos);
-    expect(step.value).toBe(account);
+    expect(typeof step.value._invoke).toBe('function');
   });
 
   it('step, getQuestionData', () => {
-    const step = generator.next();
-    expect(!!step.value._invoke).toBe(true);
+    const step = generator.next({ eosService, account });
+    expect(typeof step.value._invoke).toBe('function');
   });
 
-  it('step4, getQuestionDataSuccess', () => {
+  it('step, getQuestionDataSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toBe(GET_QUESTION_DATA_SUCCESS);
   });
@@ -586,520 +588,553 @@ describe('getQuestionDataWorker', () => {
 
 describe('postCommentWorker', () => {
   const res = {
-    user: 'user1',
     questionId: 1,
     answerId: 1,
     comment: 'comment',
     reset: jest.fn(),
     toggleView: jest.fn(),
-    translations: {},
     postButtonId: 'postButtonId',
   };
 
-  describe('profileInfo true', () => {
-    const generator = sagaImports.postCommentWorker(res);
+  const generator = sagaImports.postCommentWorker(res);
 
-    const profileInfo = {};
-    const questionData = {};
-    const eos = {
-      getSelectedAccount: jest.fn().mockImplementation(() => res.user),
-    };
+  const profileInfo = { user: 'user' };
+  const questionData = {};
+  const locale = 'en';
+  const eos = {};
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
-    });
-
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('step, validation', () => {
-      generator.next(profileInfo);
-      expect(postCommentValidator).toHaveBeenCalledWith(
-        profileInfo,
-        questionData,
-        res.postButtonId,
-        res.answerId,
-        res.translations,
-      );
-    });
-
-    it('step, postComment', () => {
-      generator.next(true);
-      expect(postComment).toHaveBeenCalledWith(
-        res.user,
-        res.questionId,
-        res.answerId,
-        res.comment,
-        eos,
-      );
-    });
-
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'postCommentWorker';
-
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, toggleView', () => {
-      generator.next();
-      expect(res.toggleView).toHaveBeenCalledWith(true);
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step, reset', () => {
-      generator.next();
-      expect(res.reset).toHaveBeenCalled();
-    });
-
-    it('step, postCommentSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(POST_COMMENT_SUCCESS);
-    });
+  it('step, getParams', () => {
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.postCommentWorker(res);
-    const profileInfo = null;
+  it('step, isAuthorized', () => {
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    expect(call).toHaveBeenCalledWith(isAuthorized);
+  });
 
+  it('step, validation', () => {
     generator.next();
-    generator.next();
-    generator.next();
+    expect(postCommentValidator).toHaveBeenCalledWith(
+      profileInfo,
+      questionData,
+      `${POST_COMMENT_BUTTON}${res.answerId}`,
+      res.answerId,
+      translationMessages[locale],
+    );
+  });
 
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
+  it('step, postComment', () => {
+    generator.next(true);
+    expect(postComment).toHaveBeenCalledWith(
+      profileInfo.user,
+      res.questionId,
+      res.answerId,
+      res.comment,
+      eos,
+    );
+  });
 
-    it('error handling', () => {
-      const err = new Error('some error');
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(POST_COMMENT_ERROR);
-    });
+  it('step, updateQuestionDataAfterTransactionWorker', () => {
+    call.mockImplementationOnce((x, args) => x(args));
+
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
+  });
+
+  it('step, toggleView', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(res.toggleView, true);
+  });
+
+  it('step, reset', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(res.reset);
+  });
+
+  it('step, postCommentSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(POST_COMMENT_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = new Error('some error');
+    const putDescriptor = generator.throw(err);
+    expect(putDescriptor.value.type).toBe(POST_COMMENT_ERROR);
   });
 });
 
 describe('postAnswerWorker', () => {
   const res = {
-    user: 'user1',
     questionId: 1,
     answer: 1,
     reset: jest.fn(),
-    translations: {},
     postButtonId: 'postButtonId',
   };
 
-  describe('profileInfo true', () => {
-    const generator = sagaImports.postAnswerWorker(res);
+  const generator = sagaImports.postAnswerWorker(res);
 
-    const profileInfo = {};
-    const questionData = {};
-    const eos = {
-      getSelectedAccount: jest.fn().mockImplementation(() => res.user),
-    };
+  const profileInfo = { user: 'user' };
+  const locale = 'en';
+  const questionData = {};
+  const eos = {};
 
-    it('step1-1, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
-    });
-
-    it('step1-2, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step1-3, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('step1-4, validation', () => {
-      generator.next(profileInfo);
-      expect(postAnswerValidator).toHaveBeenCalledWith(
-        profileInfo,
-        questionData,
-        res.postButtonId,
-        res.translations,
-      );
-    });
-
-    it('step2, postAnswer', () => {
-      generator.next(true);
-      expect(postAnswer).toHaveBeenCalledWith(
-        res.user,
-        res.questionId,
-        res.answer,
-        eos,
-      );
-    });
-
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'postAnswerWorker';
-
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step4, reset', () => {
-      generator.next();
-      expect(res.reset).toHaveBeenCalled();
-    });
-
-    it('step5, POST_ANSWER_SUCCESS', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(POST_ANSWER_SUCCESS);
-    });
+  it('step, getParams', () => {
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.postAnswerWorker(res);
-    const profileInfo = null;
+  it('step, isAuthorized', () => {
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    expect(call).toHaveBeenCalledWith(isAuthorized);
+  });
 
+  it('step, validation', () => {
     generator.next();
-    generator.next();
-    generator.next();
+    expect(postAnswerValidator).toHaveBeenCalledWith(
+      profileInfo,
+      questionData,
+      POST_ANSWER_BUTTON,
+      translationMessages[locale],
+    );
+  });
 
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
+  it('step, postAnswer', () => {
+    generator.next();
+    expect(postAnswer).toHaveBeenCalledWith(
+      profileInfo.user,
+      res.questionId,
+      res.answer,
+      eos,
+    );
+  });
 
-    it('error handling', () => {
-      const err = new Error('some error');
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(POST_ANSWER_ERROR);
-    });
+  it('step, updateQuestionDataAfterTransactionWorker', () => {
+    call.mockImplementationOnce((x, args) => x(args));
+
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
+  });
+
+  it('step, reset', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(res.reset);
+  });
+
+  it('step, POST_ANSWER_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(POST_ANSWER_SUCCESS);
+  });
+
+  it('error handling', () => {
+    const err = new Error('some error');
+    const putDescriptor = generator.throw(err);
+    expect(putDescriptor.value.type).toBe(POST_ANSWER_ERROR);
   });
 });
 
 describe('upVoteWorker', () => {
   const res = {
-    user: 'user1',
     whoWasUpvoted: 'whoWasUpvoted',
     questionId: 1,
-    answerId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  describe('profileInfo is true', () => {
-    const generator = sagaImports.upVoteWorker(res);
+  const profileInfo = { user: 'user' };
+  const eos = {};
+  const locale = 'en';
 
-    const profileInfo = {};
-    const questionData = {};
-    const eos = {
-      getSelectedAccount: jest.fn().mockImplementation(() => res.user),
-    };
+  const questionData = {
+    id: 1,
+    votingStatus: { isDownVoted: false, isUpVoted: false },
+    rating: 0,
+    answers: [
+      {
+        id: 1,
+        votingStatus: { isDownVoted: false, isUpVoted: false },
+        rating: 0,
+      },
+      {
+        id: 2,
+        votingStatus: { isDownVoted: false, isUpVoted: false },
+        rating: 0,
+      },
+    ],
+  };
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
+  describe('answerId = 0', () => {
+    const answerId = 0;
+
+    describe('isUpVoted is true', () => {
+      const generator = sagaImports.upVoteWorker({ ...res, answerId });
+
+      const clone = cloneDeep(questionData);
+
+      clone.votingStatus.isUpVoted = true;
+
+      it('step, getParams', () => {
+        const step = generator.next();
+        expect(typeof step.value._invoke).toBe('function');
+      });
+
+      it('step, isAuthorized', () => {
+        generator.next({
+          profileInfo,
+          eosService: eos,
+          questionData: clone,
+          locale,
+        });
+        expect(call).toHaveBeenCalledWith(isAuthorized);
+      });
+
+      it('step, validation', () => {
+        generator.next();
+        expect(upVoteValidator).toHaveBeenCalledWith(
+          profileInfo,
+          clone,
+          res.postButtonId,
+          answerId,
+          translationMessages[locale],
+        );
+      });
+
+      it('step, upVote', () => {
+        generator.next();
+        expect(upVote).toHaveBeenCalledWith(
+          profileInfo.user,
+          res.questionId,
+          answerId,
+          eos,
+        );
+      });
+
+      it('step, UP_VOTE_SUCCESS', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(UP_VOTE_SUCCESS);
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
+
+      it('error handling', () => {
+        const err = new Error('some error');
+        const putDescriptor = generator.throw(err);
+        expect(putDescriptor.value.type).toBe(UP_VOTE_ERROR);
+      });
     });
 
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
-    });
+    describe('isDownVoted is true', () => {
+      const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-    it('step profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
-    });
+      const clone = cloneDeep(questionData);
 
-    it('step, validation', () => {
-      generator.next(profileInfo);
-      expect(upVoteValidator).toHaveBeenCalledWith(
+      clone.votingStatus.isDownVoted = true;
+
+      generator.next();
+      generator.next({
         profileInfo,
-        questionData,
-        res.postButtonId,
-        res.answerId,
-        res.translations,
-      );
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
+
+      it('test', () => {
+        const step = generator.next();
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
 
-    it('step, upVote', () => {
-      generator.next(true);
-      expect(upVote).toHaveBeenCalledWith(
-        res.user,
-        res.questionId,
-        res.answerId,
-        eos,
-      );
-    });
+    describe('isUpVoted is false', () => {
+      const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'upVoteWorker';
+      const clone = cloneDeep(questionData);
 
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
+      clone.votingStatus.isUpVoted = false;
 
-    it('step, removeUserProfile, user1 - whoWasUpvoted', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.whoWasUpvoted));
-    });
+      generator.next();
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
 
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step, UP_VOTE_SUCCESS', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(UP_VOTE_SUCCESS);
-    });
-
-    it('error handling', () => {
-      const err = new Error('some error');
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(UP_VOTE_ERROR);
+      it('test', () => {
+        const step = generator.next();
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.upVoteWorker(res);
-    const profileInfo = null;
+  describe('answerId > 0', () => {
+    const answerId = 1;
 
-    generator.next();
-    generator.next();
-    generator.next();
+    describe('isUpVoted is true', () => {
+      const generator = sagaImports.upVoteWorker({ ...res, answerId });
 
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
+      const clone = cloneDeep(questionData);
 
-    it('errorHandling', () => {
-      const errorHandling = generator.next();
-      expect(errorHandling.value.type).toBe(UP_VOTE_ERROR);
+      clone.answers.find(x => x.id === answerId).votingStatus.isUpVoted = true;
+
+      generator.next();
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
+
+      it('test', () => {
+        const step = generator.next();
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
   });
 });
 
 describe('downVoteWorker', () => {
   const res = {
-    user: 'user1',
     whoWasDownvoted: 'whoWasDownvoted',
     questionId: 1,
-    answerId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  describe('profileInfo true', () => {
-    const generator = sagaImports.downVoteWorker(res);
+  const profileInfo = { user: 'user' };
+  const eos = {};
+  const locale = 'en';
 
-    const profileInfo = {};
-    const questionData = {};
-    const eos = {
-      getSelectedAccount: jest.fn().mockImplementation(() => res.user),
-    };
+  const questionData = {
+    id: 1,
+    votingStatus: { isDownVoted: false, isUpVoted: false },
+    rating: 0,
+    answers: [
+      {
+        id: 1,
+        votingStatus: { isDownVoted: false, isUpVoted: false },
+        rating: 0,
+      },
+      {
+        id: 2,
+        votingStatus: { isDownVoted: false, isUpVoted: false },
+        rating: 0,
+      },
+    ],
+  };
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
-      const step = generator.next();
-      expect(step.value).toEqual(questionData);
+  describe('answerId === 0', () => {
+    const answerId = 0;
+
+    describe('isDownVoted is true', () => {
+      const generator = sagaImports.downVoteWorker({ ...res, answerId });
+
+      const clone = cloneDeep(questionData);
+
+      clone.votingStatus.isDownVoted = true;
+
+      it('step, getParams', () => {
+        const step = generator.next();
+        expect(typeof step.value._invoke).toBe('function');
+      });
+
+      it('step, isAuthorized', () => {
+        generator.next({
+          profileInfo,
+          eosService: eos,
+          questionData: clone,
+          locale,
+        });
+        expect(call).toHaveBeenCalledWith(isAuthorized);
+      });
+
+      it('step, validation', () => {
+        generator.next();
+        expect(downVoteValidator).toHaveBeenCalledWith(
+          profileInfo,
+          clone,
+          res.postButtonId,
+          answerId,
+          translationMessages[locale],
+        );
+      });
+
+      it('step, downVote', () => {
+        generator.next();
+        expect(downVote).toHaveBeenCalledWith(
+          profileInfo.user,
+          res.questionId,
+          answerId,
+          eos,
+        );
+      });
+
+      it('step, DOWN_VOTE_SUCCESS', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
+
+      it('error handling', () => {
+        const err = new Error('some error');
+        const putDescriptor = generator.throw(err);
+        expect(putDescriptor.value.type).toBe(DOWN_VOTE_ERROR);
+      });
     });
 
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
-    });
+    describe('isUpVoted is true', () => {
+      const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
-    });
+      const clone = cloneDeep(questionData);
 
-    it('step, validation', () => {
-      generator.next(profileInfo);
-      expect(downVoteValidator).toHaveBeenCalledWith(
+      clone.votingStatus.isUpVoted = true;
+
+      generator.next();
+      generator.next({
         profileInfo,
-        questionData,
-        res.postButtonId,
-        res.answerId,
-        res.translations,
-      );
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
+
+      it('test', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
 
-    it('step, downVote', () => {
-      generator.next(true);
-      expect(downVote).toHaveBeenCalledWith(
-        res.user,
-        res.questionId,
-        res.answerId,
-        eos,
-      );
-    });
+    describe('isDownVoted is false', () => {
+      const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'downVoteWorker';
+      const clone = cloneDeep(questionData);
 
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
+      clone.votingStatus.isDownVoted = false;
 
-    it('step, removeUserProfile, user1 - whoWasDownvoted', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.whoWasDownvoted));
-    });
+      generator.next();
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
 
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step, DOWN_VOTE_SUCCESS', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
+      it('test', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.downVoteWorker(res);
-    const profileInfo = null;
+  describe('answerId > 0', () => {
+    const answerId = 1;
 
-    generator.next();
-    generator.next();
-    generator.next();
+    describe('isDownVoted is true', () => {
+      const generator = sagaImports.downVoteWorker({ ...res, answerId });
 
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
+      const clone = cloneDeep(questionData);
 
-    it('error handling', () => {
-      const err = new Error('some error');
-      const putDescriptor = generator.throw(err);
-      expect(putDescriptor.value.type).toBe(DOWN_VOTE_ERROR);
+      clone.answers.find(
+        x => x.id === answerId,
+      ).votingStatus.isDownVoted = true;
+
+      generator.next();
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData: clone,
+        locale,
+      });
+      generator.next();
+      generator.next();
+
+      it('test', () => {
+        const step = generator.next();
+        expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
+        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+      });
     });
   });
 });
 
 describe('markAsAcceptedWorker', () => {
   const res = {
-    user: 'user1',
     whoWasAccepted: 'whoWasAccepted',
     questionId: 1,
     correctAnswerId: 1,
     postButtonId: 'postButtonId',
-    translations: {},
   };
 
-  describe('profileInfo true', () => {
+  const profileInfo = { user: 'user' };
+  const eos = {};
+  const locale = 'en';
+
+  describe('correctAnswerId !== questionData.correctAnswerId', () => {
     const generator = sagaImports.markAsAcceptedWorker(res);
+    const questionData = { correct_answer_id: 0 };
 
-    const profileInfo = {};
-    const questionData = {};
-    const eos = {
-      getSelectedAccount: jest.fn().mockImplementation(() => res.user),
-    };
+    generator.next();
+    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    generator.next();
+    generator.next();
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
+    it('step, MARK_AS_ACCEPTED_SUCCESS', () => {
       const step = generator.next();
-      expect(step.value).toEqual(questionData);
+      expect(step.value.questionData).toEqual({
+        ...questionData,
+        correct_answer_id: res.correctAnswerId,
+      });
+    });
+  });
+
+  describe('correctAnswerId == questionData.correctAnswerId', () => {
+    const generator = sagaImports.markAsAcceptedWorker(res);
+    const questionData = { correct_answer_id: 1 };
+
+    it('step, getParams', () => {
+      const step = generator.next();
+      expect(typeof step.value._invoke).toBe('function');
     });
 
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
+    it('step, isAuthorized', () => {
+      generator.next({ profileInfo, eosService: eos, questionData, locale });
+      expect(call).toHaveBeenCalledWith(isAuthorized);
     });
 
     it('step, validation', () => {
-      generator.next(profileInfo);
+      generator.next();
       expect(markAsAcceptedValidator).toHaveBeenCalledWith(
         profileInfo,
         questionData,
         res.postButtonId,
-        res.translations,
+        translationMessages[locale],
       );
     });
 
     it('step, markAsAccepted', () => {
-      generator.next(true);
+      generator.next();
       expect(markAsAccepted).toHaveBeenCalledWith(
-        res.user,
+        profileInfo.user,
         res.questionId,
         res.correctAnswerId,
         eos,
       );
     });
 
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'makeAsAcceptedWorker';
-
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, removeUserProfile, user1 - whoWasAccepted', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.whoWasAccepted));
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
     it('step, MARK_AS_ACCEPTED_SUCCESS', () => {
       const step = generator.next();
       expect(step.value.type).toBe(MARK_AS_ACCEPTED_SUCCESS);
-    });
-  });
-
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.markAsAcceptedWorker(res);
-    const profileInfo = null;
-
-    generator.next();
-    generator.next();
-    generator.next();
-
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
+      expect(step.value.questionData).toEqual({
+        ...questionData,
+        correct_answer_id: 0,
+      });
     });
 
     it('error handling', () => {
@@ -1113,57 +1148,134 @@ describe('markAsAcceptedWorker', () => {
 describe('voteToDeleteWorker', () => {
   const res = {
     questionId: 1,
-    answerId: 1,
-    commentId: 1,
     postButtonId: 'id',
     whoWasVoted: 'whoWasVoted',
   };
 
   const locale = 'en';
-  const account = 'user1';
+  const eos = {};
+  const profileInfo = { user: 'user1' };
 
-  const questionData = {};
-  const eos = {
-    getSelectedAccount: jest.fn().mockImplementation(() => res.user),
+  const questionData = {
+    votingStatus: { isVotedToDelete: false },
+    comments: [{ id: 1, votingStatus: { isVotedToDelete: false } }],
+    answers: [
+      {
+        id: 1,
+        votingStatus: { isVotedToDelete: false },
+        comments: [{ id: 1, votingStatus: { isVotedToDelete: false } }],
+      },
+    ],
   };
 
-  describe('profileInfo true', () => {
-    const generator = sagaImports.voteToDeleteWorker(res);
+  describe('+answerId && commentId', () => {
+    const answerId = 1;
+    const commentId = 1;
 
-    const profileInfo = {};
+    const generator = sagaImports.voteToDeleteWorker({
+      ...res,
+      answerId,
+      commentId,
+    });
 
-    it('step, selectQuestionData', () => {
-      select.mockImplementation(() => questionData);
+    generator.next();
+    generator.next({
+      profileInfo,
+      eosService: eos,
+      questionData,
+      locale,
+    });
+    generator.next();
+    generator.next();
+
+    it('step, VOTE_TO_DELETE_SUCCESS', () => {
       const step = generator.next();
-      expect(step.value).toEqual(questionData);
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+    });
+  });
+
+  describe('+answerId && !commentId', () => {
+    const answerId = 1;
+    const commentId = null;
+
+    const generator = sagaImports.voteToDeleteWorker({
+      ...res,
+      answerId,
+      commentId,
     });
 
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next(questionData);
-      expect(step.value).toEqual(eos);
+    generator.next();
+    generator.next({
+      profileInfo,
+      eosService: eos,
+      questionData,
+      locale,
+    });
+    generator.next();
+    generator.next();
+
+    it('step, VOTE_TO_DELETE_SUCCESS', () => {
+      const step = generator.next();
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+    });
+  });
+
+  describe('!+answerId && commentId', () => {
+    const answerId = null;
+    const commentId = 1;
+
+    const generator = sagaImports.voteToDeleteWorker({
+      ...res,
+      answerId,
+      commentId,
     });
 
-    it('step, locale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(locale);
+    const copy = cloneDeep(questionData);
+
+    generator.next();
+    generator.next({
+      profileInfo,
+      eosService: eos,
+      questionData: copy,
+      locale,
+    });
+    generator.next();
+    generator.next();
+
+    it('step, VOTE_TO_DELETE_SUCCESS', () => {
+      const step = generator.next();
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
+    });
+  });
+
+  describe('!+answerId && !commentId', () => {
+    const answerId = null;
+    const commentId = null;
+
+    const generator = sagaImports.voteToDeleteWorker({
+      ...res,
+      answerId,
+      commentId,
     });
 
-    it('step, account', () => {
-      eos.getSelectedAccount.mockImplementation(() => account);
-      const step = generator.next(locale);
-      expect(step.value).toEqual(account);
+    it('step, getParams', () => {
+      const step = generator.next();
+      expect(typeof step.value._invoke).toBe('function');
     });
 
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(account);
-      expect(step.value).toEqual(profileInfo);
+    it('step, isAuthorized', () => {
+      generator.next({
+        profileInfo,
+        eosService: eos,
+        questionData,
+        locale,
+      });
+
+      expect(call).toHaveBeenCalledWith(isAuthorized);
     });
 
     it('step, validation', () => {
-      generator.next(profileInfo);
+      generator.next();
       expect(voteToDeleteValidator).toHaveBeenCalledWith(
         profileInfo,
         questionData,
@@ -1171,60 +1283,29 @@ describe('voteToDeleteWorker', () => {
         res.postButtonId,
         {
           questionId: res.questionId,
-          answerId: res.answerId,
-          commentId: res.commentId,
+          answerId,
+          commentId,
         },
       );
     });
 
     it('step, voteToDelete', () => {
-      generator.next(true);
+      generator.next();
       expect(voteToDelete).toHaveBeenCalledWith(
-        account,
+        profileInfo.user,
         res.questionId,
-        res.answerId,
-        res.commentId,
+        answerId,
+        commentId,
         eos,
       );
     });
 
-    it('step, getCurrentAccountWorker', () => {
-      const worker = 'voteToDeleteWorker';
+    it('step, VOTE_TO_DELETE_SUCCESS', () => {
+      questionData.votingStatus.isVotedToDelete = true;
 
-      getCurrentAccountWorker.mockImplementationOnce(() => worker);
-      const step = generator.next();
-      expect(step.value).toBe(worker);
-    });
-
-    it('step, removeUserProfile, user1 - whoWasVoted', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(removeUserProfile(res.whoWasVoted));
-    });
-
-    it('step, getQuestionData', () => {
-      const step = generator.next();
-      expect(!!step.value._invoke).toBe(true);
-    });
-
-    it('step4, VOTE_TO_DELETE_SUCCESS', () => {
       const step = generator.next();
       expect(step.value.type).toBe(VOTE_TO_DELETE_SUCCESS);
-    });
-  });
-
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = sagaImports.voteToDeleteWorker(res);
-    const profileInfo = null;
-
-    generator.next();
-    generator.next();
-    generator.next(eos);
-    generator.next(locale);
-    generator.next(account);
-
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
+      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
     });
 
     it('error handling', () => {
@@ -1291,5 +1372,15 @@ describe('defaultSaga', () => {
   it('VOTE_TO_DELETE', () => {
     const step = generator.next();
     expect(step.value).toBe(VOTE_TO_DELETE);
+  });
+
+  it('updateQuestionDataAfterTransactionWorker', () => {
+    const step = generator.next();
+    expect(step.value).toEqual([
+      UP_VOTE_SUCCESS,
+      DOWN_VOTE_SUCCESS,
+      MARK_AS_ACCEPTED_SUCCESS,
+      VOTE_TO_DELETE_SUCCESS,
+    ]);
   });
 });

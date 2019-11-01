@@ -1,3 +1,7 @@
+import userBodyAvatar from 'images/user2.svg?inline';
+import noAvatar from 'images/noAvatar.png';
+import editUserNoAvatar from 'images/editUserNoAvatar.png';
+
 import { saveFile, getFileUrl, getText, saveText } from '../ipfs';
 
 import {
@@ -6,6 +10,7 @@ import {
   saveProfile,
   UsersFetcher,
   AccountsSortedBy,
+  getUserAvatar,
 } from '../profileManagement';
 
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from '../constants';
@@ -27,6 +32,42 @@ const cmp = {
 
 beforeEach(() => {
   jest.clearAllMocks();
+});
+
+describe('getUserAvatar', () => {
+  it('get file url', () => {
+    const avatarHash = 'avatarHash';
+    const userId = 'userId';
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(
+      getFileUrl(avatarHash),
+    );
+  });
+
+  it('return editUserNoAvatar', () => {
+    const avatarHash = null;
+    const userId = 'userId';
+    const account = 'userId';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(editUserNoAvatar);
+  });
+
+  it('return noAvatar', () => {
+    const avatarHash = null;
+    const userId = 'userId';
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(noAvatar);
+  });
+
+  it('return userBodyAvatar', () => {
+    const avatarHash = null;
+    const userId = null;
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(userBodyAvatar);
+  });
 });
 
 describe('Fetcher', () => {

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
-import { strLength3, required } from 'components/FormFields/validate';
+import { strLength8x100, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
@@ -66,8 +66,8 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         disabled={changePasswordLoading}
         label={translationMessages[locale][signupMessages.confirmPassword.id]}
         component={TextInputField}
-        validate={[strLength3, required]}
-        warn={[strLength3, required]}
+        validate={[strLength8x100, required]}
+        warn={[strLength8x100, required]}
         type="password"
       />
 

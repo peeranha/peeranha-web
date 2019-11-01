@@ -156,7 +156,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
                       </div>
                       <div className="d-flex flex-column flex-grow-1">
                         <Span fontSize="16" bold>
-                          {getFormattedNum2(x.popularity)}
+                          {getFormattedNum2(x.questions_asked)}
                         </Span>
                         <Span
                           className="mt-1"

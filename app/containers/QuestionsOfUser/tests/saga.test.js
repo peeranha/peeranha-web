@@ -14,6 +14,8 @@ import defaultSaga, { getQuestionsWorker } from '../saga';
 
 import { GET_QUESTIONS, GET_QUESTIONS_ERROR } from '../constants';
 
+import { getQuestionsSuccess } from '../actions';
+
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
@@ -30,7 +32,8 @@ jest.mock('utils/questionsManagement', () => ({
 describe('getQuestionsWorker', () => {
   const eosService = {};
   const limit = 10;
-  const questionsFromStore = [];
+  const questionsFromStore = [{ id: 1 }];
+  const freshQuestions = [{ id: 1, answers: [{ id: 1, user: 'user' }] }];
   const idOfQuestions = [{ question_id: 1 }];
 
   const offset =
@@ -77,6 +80,15 @@ describe('getQuestionsWorker', () => {
       idOfQuestions[0].question_id,
       userId,
     );
+  });
+
+  it('get user profiles', () => {
+    generator.next(freshQuestions);
+  });
+
+  it('getQuestionsSuccess', () => {
+    const step = generator.next();
+    expect(step.value).toEqual(getQuestionsSuccess(freshQuestions));
   });
 
   it('error handling', () => {

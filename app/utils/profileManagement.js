@@ -12,7 +12,6 @@ import {
   NO_AVATAR,
 } from './constants';
 
-// TODO: test
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
     return getFileUrl(avatarHash);

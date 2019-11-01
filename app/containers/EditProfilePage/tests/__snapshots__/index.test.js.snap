@@ -15,7 +15,10 @@ exports[`<EditProfilePage> render test 1`] = `
       isProfileSaving={false}
       profile={
         Object {
-          "profile": Object {},
+          "profile": Object {
+            "a": 11,
+            "c": 14,
+          },
         }
       }
       saveProfile={[Function]}

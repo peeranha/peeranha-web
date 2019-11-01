@@ -96,7 +96,6 @@ export function* getQuestionsWorker({
   }
 }
 
-// TODO: test
 export function* redirectWorker({ communityIdFilter, isFollowed }) {
   yield take(GET_USER_PROFILE_SUCCESS);
 

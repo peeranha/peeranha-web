@@ -54,11 +54,6 @@ export const voteToDeleteValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const postAnswerValidator = (
@@ -105,11 +100,6 @@ export const postAnswerValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 /* eslint eqeqeq: 0 */
@@ -156,11 +146,6 @@ export const postCommentValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const markAsAcceptedValidator = (
@@ -186,11 +171,6 @@ export const markAsAcceptedValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const upVoteValidator = (
@@ -224,11 +204,6 @@ export const upVoteValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const downVoteValidator = (
@@ -268,11 +243,6 @@ export const downVoteValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const deleteQuestionValidator = (
@@ -296,11 +266,6 @@ export const deleteQuestionValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const deleteAnswerValidator = (
@@ -324,11 +289,6 @@ export const deleteAnswerValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };
 
 export const deleteCommentValidator = (
@@ -348,9 +308,4 @@ export const deleteCommentValidator = (
     showPopover(postButtonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };

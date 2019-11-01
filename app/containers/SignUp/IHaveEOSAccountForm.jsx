@@ -14,9 +14,8 @@ import downloadIcon from 'images/download.svg?inline';
 
 import {
   required,
-  strLength3,
+  strLength8x100,
   strLength12Max,
-  base58Validation,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -125,8 +124,8 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.eosActivePrivateKey.id]}
                 component={TextInputField}
-                validate={[required, base58Validation]}
-                warn={[required, base58Validation]}
+                validate={required}
+                warn={required}
                 autoComplete="off"
               />
             </Div>
@@ -236,7 +235,7 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 className="w-100"
               >
-                <FormattedMessage {...messages.verify} />
+                <FormattedMessage {...messages.signUp} />
               </SubmitButton>
             </Div>
           </form>
@@ -272,10 +271,10 @@ export const validatePassword = (state, fields) => {
 
   const errors = {};
 
-  const passwordError = required(password) || strLength3(password);
+  const passwordError = required(password) || strLength8x100(password);
 
   const passwordConfirmError =
-    required(passwordConf) || strLength3(passwordConf);
+    required(passwordConf) || strLength8x100(passwordConf);
 
   if (passwordError) {
     errors[passwordField] = passwordError;

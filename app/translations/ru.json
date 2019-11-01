@@ -105,8 +105,7 @@
     "Неверный ключ шифрования или IV",
   "web_integration.errors.userDidntStoreKey":
     "Пользователь не сохранил owner key в нашем сервисе",
-  "web_integration.errors.unableToDecryptUserKey":
-    "Невозможно расшифровать данные с текущим ключом",
+  "web_integration.errors.unableToDecryptUserKey": "Введен неверный пароль",
   "web_integration.errors.userDidntRequestActivateAcc":
     "Данный пользователь не активировал аккаунт",
   "web_integration.errors.youSendTooManRequests":
@@ -542,8 +541,8 @@
   "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
-  "app.containers.SignUp.masterKey": "Master key",
-  "app.containers.SignUp.displayName": "Имя в Peeranha",
+  "app.containers.SignUp.masterKey": "Master ключ",
+  "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.eosName": "Имя в EOS",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",

@@ -1,3 +1,4 @@
+/* eslint no-empty: 0 */
 import { translationMessages } from 'i18n';
 import { showPopover } from 'utils/popover';
 
@@ -10,6 +11,7 @@ import {
   deleteQuestionValidator,
   deleteAnswerValidator,
   voteToDeleteValidator,
+  deleteCommentValidator,
 } from '../validate';
 
 import messages from '../messages';
@@ -31,6 +33,8 @@ beforeEach(() => {
     onwer: 'user1',
     rating: 0,
   };
+
+  showPopover.mockClear();
 
   questionData = {
     answers: [],
@@ -59,13 +63,15 @@ describe('voteToDeleteValidator', () => {
       questionData.user = 'user';
       profileInfo.user = 'user';
 
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translations,
-        postButtonId,
-        item,
-      );
+      try {
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translations,
+          postButtonId,
+          item,
+        );
+      } catch (err) {}
 
       expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
@@ -77,13 +83,15 @@ describe('voteToDeleteValidator', () => {
       questionData.user = 'user12';
       questionData.votingStatus.isVotedToDelete = true;
 
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translations,
-        postButtonId,
-        item,
-      );
+      try {
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translations,
+          postButtonId,
+          item,
+        );
+      } catch (err) {}
 
       expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
@@ -96,13 +104,15 @@ describe('voteToDeleteValidator', () => {
       questionData.user = 'user22';
       questionData.votingStatus.isVotedToDelete = false;
 
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translations,
-        postButtonId,
-        item,
-      );
+      try {
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translations,
+          postButtonId,
+          item,
+        );
+      } catch (err) {}
 
       expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
@@ -110,23 +120,25 @@ describe('voteToDeleteValidator', () => {
       );
     });
 
-    it('profileInfo.moderation_points <= minModerationPoints', () => {
+    it('profileInfo.energy <= minEnergy', () => {
       profileInfo.rating = 200;
-      profileInfo.moderation_points = 0;
+      profileInfo.energy = -1;
       questionData.user = 'user22';
       questionData.votingStatus.isVotedToDelete = false;
 
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translations,
-        postButtonId,
-        item,
-      );
+      try {
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translations,
+          postButtonId,
+          item,
+        );
+      } catch (err) {}
 
       expect(showPopover).toHaveBeenCalledWith(
         postButtonId,
-        `${translations[messages.notEnoughModPoints.id]} 0`,
+        `${translations[messages.notEnoughEnergy.id]} 3`,
       );
     });
   });
@@ -136,7 +148,14 @@ describe('deleteQuestionValidator', () => {
   it('answersNum > answersLimit', () => {
     const answersNum = 100;
 
-    deleteQuestionValidator(postButtonId, answersNum, translations);
+    try {
+      deleteQuestionValidator(
+        postButtonId,
+        answersNum,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
 
     expect(showPopover).toHaveBeenCalledWith(
       postButtonId,
@@ -144,16 +163,43 @@ describe('deleteQuestionValidator', () => {
     );
   });
 
+  it('profile.energy < minEnergy', () => {
+    const answersNum = 0;
+
+    profileInfo.rating = 100;
+    profileInfo.energy = 0;
+
+    try {
+      deleteQuestionValidator(
+        postButtonId,
+        answersNum,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
+
+    expect(showPopover).toHaveBeenCalledWith(
+      postButtonId,
+      `${translations[messages.notEnoughEnergy.id]} ${2}`,
+    );
+  });
+
   it('passed validation successully', () => {
     const answersNum = 0;
 
-    const calling = deleteQuestionValidator(
-      postButtonId,
-      answersNum,
-      translations,
-    );
+    profileInfo.rating = 100;
+    profileInfo.energy = 100;
 
-    expect(calling).toBe(true);
+    try {
+      deleteQuestionValidator(
+        postButtonId,
+        answersNum,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
+
+    expect(showPopover).not.toHaveBeenCalled();
   });
 });
 
@@ -162,12 +208,15 @@ describe('deleteAnswerValidator', () => {
     const answerid = 100;
     const correctAnswerId = 100;
 
-    deleteAnswerValidator(
-      postButtonId,
-      answerid,
-      correctAnswerId,
-      translations,
-    );
+    try {
+      deleteAnswerValidator(
+        postButtonId,
+        answerid,
+        correctAnswerId,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
 
     expect(showPopover).toHaveBeenCalledWith(
       postButtonId,
@@ -175,18 +224,60 @@ describe('deleteAnswerValidator', () => {
     );
   });
 
+  it('profile.energy < minEnergy', () => {
+    const answerid = 1;
+    const correctAnswerId = 2;
+
+    profileInfo.rating = 100;
+    profileInfo.energy = 0;
+
+    try {
+      deleteAnswerValidator(
+        postButtonId,
+        answerid,
+        correctAnswerId,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
+
+    expect(showPopover).toHaveBeenCalledWith(
+      postButtonId,
+      `${translations[messages.notEnoughEnergy.id]} ${2}`,
+    );
+  });
+
   it('passed validation successully', () => {
     const answerid = 100010;
     const correctAnswerId = 100;
 
-    const calling = deleteAnswerValidator(
-      postButtonId,
-      answerid,
-      correctAnswerId,
-      translations,
-    );
+    try {
+      deleteAnswerValidator(
+        postButtonId,
+        answerid,
+        correctAnswerId,
+        translations,
+        profileInfo,
+      );
+    } catch (err) {}
 
-    expect(calling).toBe(true);
+    expect(showPopover).not.toHaveBeenCalled();
+  });
+});
+
+describe('deleteCommentValidator', () => {
+  it('profile.energy < minEnergy', () => {
+    profileInfo.rating = 100;
+    profileInfo.energy = 0;
+
+    try {
+      deleteCommentValidator(profileInfo, postButtonId, translations);
+    } catch (err) {}
+
+    expect(showPopover).toHaveBeenCalledWith(
+      postButtonId,
+      `${translations[messages.notEnoughEnergy.id]} ${1}`,
+    );
   });
 });
 
@@ -234,21 +325,47 @@ describe('downVoteValidator', () => {
     }
   });
 
+  it('profileInfo.energy < minEenrgy', () => {
+    try {
+      questionData.user = 'user1';
+      profileInfo.user = 'user2';
+      profileInfo.rating = 120;
+      profileInfo.energy = 0;
+      answerId = 0;
+
+      downVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughEnergy.id]} ${5}`,
+      );
+    }
+  });
+
   it('passed validation successully', () => {
     questionData.user = 'user1';
     profileInfo.user = 'user2';
     profileInfo.rating = 10000;
+    profileInfo.energy = 250;
     answerId = 0;
 
-    const calling = downVoteValidator(
-      profileInfo,
-      questionData,
-      postButtonId,
-      answerId,
-      translations,
-    );
+    try {
+      downVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {}
 
-    expect(calling).toBe(true);
+    expect(showPopover).not.toHaveBeenCalled();
   });
 });
 
@@ -296,21 +413,46 @@ describe('upVoteValidator', () => {
     }
   });
 
+  it('profileInfo.energy < minEnergy', () => {
+    try {
+      questionData.user = 'user1';
+      profileInfo.user = 'user2';
+      profileInfo.rating = 120;
+      profileInfo.energy = 0;
+      answerId = 0;
+
+      upVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughEnergy.id]} ${1}`,
+      );
+    }
+  });
+
   it('passed validation successully', () => {
     profileInfo.rating = 100000;
     questionData.user = 'user1';
     profileInfo.user = 'user2';
     answerId = 0;
 
-    const calling = upVoteValidator(
-      profileInfo,
-      questionData,
-      postButtonId,
-      answerId,
-      translations,
-    );
+    try {
+      upVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {}
 
-    expect(calling).toBe(true);
+    expect(showPopover).not.toHaveBeenCalled();
   });
 });
 
@@ -320,19 +462,77 @@ describe('markAsAcceptedValidator', () => {
       profileInfo.user = 'user1';
       questionData.user = 'user2';
 
-      markAsAcceptedValidator(profileInfo, questionData);
-    } catch (err) {
-      expect(err.message).toBe(`No roots to complete this action`);
-    }
+      markAsAcceptedValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.noRootsToVote.id],
+      );
+    } catch (err) {}
+  });
+
+  it('profileInfo.rating < minRating', () => {
+    try {
+      profileInfo.user = 'user1';
+      profileInfo.rating = -1;
+      questionData.user = 'user2';
+
+      markAsAcceptedValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughRating.id]} 0`,
+      );
+    } catch (err) {}
+  });
+
+  it('profileInfo.energy < minEnergy', () => {
+    try {
+      profileInfo.user = 'user1';
+      profileInfo.rating = 100;
+      profileInfo.energy = 0;
+      questionData.user = 'user2';
+
+      markAsAcceptedValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughEnergy.id]} 1`,
+      );
+    } catch (err) {}
   });
 
   it('passed validation successully', () => {
     profileInfo.user = 'user1';
     questionData.user = 'user1';
+    questionData.rating = 100;
+    questionData.energy = 100;
 
-    const calling = markAsAcceptedValidator(profileInfo, questionData);
+    try {
+      markAsAcceptedValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+    } catch (err) {}
 
-    expect(calling).toBe(true);
+    expect(showPopover).not.toHaveBeenCalled();
   });
 });
 
@@ -399,20 +599,46 @@ describe('postCommentValidator', () => {
     }
   });
 
+  it('not enought energy', () => {
+    try {
+      answerId = 0;
+      profileInfo.rating = 200;
+      profileInfo.energy = 0;
+      profileInfo.user = 'user2';
+      questionData.user = 'user1';
+
+      postCommentValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughEnergy.id]} ${4}`,
+      );
+    }
+  });
+
   it('passed validation successully', () => {
     profileInfo.user = 'user2';
     profileInfo.rating = 1000;
+    profileInfo.energy = 250;
     questionData.answers = [];
 
-    const calling = postAnswerValidator(
-      profileInfo,
-      questionData,
-      postButtonId,
-      answerId,
-      translations,
-    );
-
-    expect(calling).toBe(true);
+    try {
+      postAnswerValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).not.toHaveBeenCalled();
+    }
   });
 });
 
@@ -497,18 +723,42 @@ describe('postAnswerValidator', () => {
     }
   });
 
+  it('not enough energy', () => {
+    try {
+      profileInfo.user = 'user2';
+      profileInfo.rating = 1000;
+      profileInfo.energy = 0;
+      questionData.answers = [];
+
+      postAnswerValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        `${translations[messages.notEnoughEnergy.id]} ${6}`,
+      );
+    }
+  });
+
   it('passed validation successully', () => {
     profileInfo.user = 'user2';
     profileInfo.rating = 1000;
+    profileInfo.energy = 250;
     questionData.answers = [];
 
-    const calling = postAnswerValidator(
-      profileInfo,
-      questionData,
-      postButtonId,
-      translations,
-    );
-
-    expect(calling).toBe(true);
+    try {
+      postAnswerValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).not.toHaveBeenCalled();
+    }
   });
 });

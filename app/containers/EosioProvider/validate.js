@@ -25,9 +25,4 @@ export default ({
     showPopover(buttonId, message);
     throw new Error(message);
   }
-
-  return {
-    isValid: Boolean(message),
-    message,
-  };
 };

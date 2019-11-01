@@ -1,3 +1,4 @@
+/* eslint eqeqeq: 0 */
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
@@ -18,7 +19,7 @@ export const selectAnswer = answerId =>
     selectViewQuestionDomain,
     substate =>
       substate.toJS().questionData
-        ? substate.toJS().questionData.answers.filter(x => x.id === answerId)[0]
+        ? substate.toJS().questionData.answers.filter(x => x.id == answerId)[0]
         : null,
   );
 

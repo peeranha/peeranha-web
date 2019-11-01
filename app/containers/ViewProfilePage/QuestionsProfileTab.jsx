@@ -129,7 +129,7 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
       ))}
     </div>
 
-    {!questions[0] && loading && <LoadingIndicator />}
+    {loading && <LoadingIndicator />}
 
     {!questions[0] && !loading && <Banner />}
   </div>

@@ -24,7 +24,7 @@ export const ViewQuestionContainer = props => (
       <AnswerForm
         form={ADD_ANSWER_FORM}
         formHeader={props.translations[messages.yourAnswer.id]}
-        sendButtonId={`${POST_ANSWER_BUTTON}${0}`}
+        sendButtonId={POST_ANSWER_BUTTON}
         sendAnswer={props.postAnswer}
         sendAnswerLoading={props.postAnswerLoading}
         submitButtonName={props.translations[messages.postAnswerButton.id]}

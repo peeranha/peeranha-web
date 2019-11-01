@@ -134,7 +134,7 @@ export class Questions extends React.PureComponent {
     );
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       questionsList,

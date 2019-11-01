@@ -1,5 +1,8 @@
 import { select } from 'redux-saga/effects';
 
+import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
+
 import EosioService from 'utils/eosio';
 import { getProfileInfo } from 'utils/profileManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
@@ -7,11 +10,13 @@ import { registerAccount } from 'utils/accountManagement';
 
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 
 import defaultSaga, {
   loginWithEmailWorker,
   loginWithScatterWorker,
   finishRegistrationWorker,
+  redirectToHomepageWorker,
 } from '../saga';
 
 import {
@@ -58,8 +63,13 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
+
 beforeEach(() => {
   eosService.init.mockClear();
+  createdHistory.push.mockClear();
   eosService.getSelectedAccount.mockClear();
   eosService.forgetIdentity.mockClear();
   eosService.selectAccount.mockClear();
@@ -193,6 +203,7 @@ describe('loginWithScatterWorker', () => {
 
 describe('loginWithEmailWorker', () => {
   const locale = 'en';
+  const eosAccountName = 'eosAccountName';
   const activeKey = { private: 'private', public: 'public' };
 
   const email = 'email';
@@ -232,7 +243,6 @@ describe('loginWithEmailWorker', () => {
   });
 
   describe('call @login is SUCCESS; user is not registered in Peeranha', () => {
-    const selectedAccount = null;
     const profileInfo = null;
 
     const generator = loginWithEmailWorker({ val });
@@ -240,7 +250,7 @@ describe('loginWithEmailWorker', () => {
     const loginResponse = {
       OK: true,
       errorCode: 1,
-      body: { activeKey },
+      body: { activeKey, eosAccountName },
     };
 
     EosioService.mockClear();
@@ -252,21 +262,16 @@ describe('loginWithEmailWorker', () => {
     it('initialization of new EosService', () => {
       generator.next(loginResponse);
 
-      expect(eosService.init).toHaveBeenLastCalledWith(activeKey.private);
-    });
-
-    it('getting of selected @eosAccount', () => {
-      eosService.getSelectedAccount.mockImplementation(() => selectedAccount);
-      EosioService.mockImplementation(() => eosService);
-
-      expect(eosService.getSelectedAccount).toHaveBeenCalledTimes(0);
-      generator.next();
-      expect(eosService.getSelectedAccount).toHaveBeenCalledTimes(1);
+      expect(eosService.init).toHaveBeenLastCalledWith(
+        activeKey.private,
+        false,
+        eosAccountName,
+      );
     });
 
     it('getting of profileInfo', () => {
-      generator.next(selectedAccount);
-      expect(getProfileInfo).toHaveBeenCalledWith(selectedAccount, eosService);
+      generator.next();
+      expect(getProfileInfo).toHaveBeenCalledWith(eosAccountName, eosService);
     });
 
     it('put new eosService to redux store', () => {
@@ -277,7 +282,7 @@ describe('loginWithEmailWorker', () => {
     it('@loginWithEmailSuccess put @eosAccount', () => {
       const step = generator.next();
       expect(step.value.type).toBe(LOGIN_WITH_EMAIL_SUCCESS);
-      expect(step.value.eosAccount).toBe(selectedAccount);
+      expect(step.value.eosAccount).toBe(eosAccountName);
     });
 
     it('generator has to return @null', () => {
@@ -287,15 +292,14 @@ describe('loginWithEmailWorker', () => {
   });
 
   describe('call @login is SUCCESS; user is registered in Peeranha', () => {
-    const selectedAccount = 'user1';
-    const profileInfo = { account: selectedAccount };
+    const profileInfo = { account: eosAccountName };
 
     const generator = loginWithEmailWorker({ val });
 
     const loginResponse = {
       OK: true,
       errorCode: 1,
-      body: { activeKey },
+      body: { activeKey, eosAccountName },
     };
 
     EosioService.mockClear();
@@ -305,17 +309,34 @@ describe('loginWithEmailWorker', () => {
     generator.next(locale);
     generator.next(loginResponse);
     generator.next();
-    generator.next(selectedAccount);
     generator.next(profileInfo);
 
     it('put @account and @profileInfo to store', () => {
       const step = generator.next();
-      expect(step.value.profile).toBe(profileInfo);
+      expect(step.value.profile).toEqual(profileInfo);
     });
 
     it('@loginWithEmailSuccess', () => {
       const step = generator.next();
       expect(step.value.type).toBe(LOGIN_WITH_EMAIL_SUCCESS);
+    });
+  });
+
+  describe('eosAccountName === ACCOUNT_NOT_CREATED_NAME', () => {
+    const loginResponse = {
+      OK: true,
+      errorCode: 1,
+      body: { activeKey, eosAccountName: ACCOUNT_NOT_CREATED_NAME },
+    };
+
+    const generator = loginWithEmailWorker({ val });
+
+    generator.next();
+    generator.next(locale);
+
+    it('error handling with talking toast', () => {
+      const step = generator.next(loginResponse);
+      expect(step.value.type).toBe(LOGIN_WITH_EMAIL_ERROR);
     });
   });
 });
@@ -363,6 +384,40 @@ describe('finishRegistrationWorker', () => {
   });
 });
 
+describe('redirectToHomepageWorker', () => {
+  describe('redirect - we are on sign up pages', () => {
+    const generator = redirectToHomepageWorker();
+
+    it('test', () => {
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {
+          pathname: routes.registrationStage,
+        },
+      });
+
+      generator.next();
+      expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
+    });
+  });
+
+  describe('no redirect - we are not on sign up pages', () => {
+    const generator = redirectToHomepageWorker();
+
+    it('test', () => {
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {
+          pathname: '/pathname',
+        },
+      });
+
+      generator.next();
+      expect(createdHistory.push).not.toHaveBeenCalledWith(routes.questions());
+    });
+  });
+});
+
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
@@ -379,5 +434,22 @@ describe('defaultSaga', () => {
   it('FINISH_REGISTRATION', () => {
     const step = generator.next();
     expect(step.value).toBe(FINISH_REGISTRATION);
+  });
+
+  it('redirectToHomepageWorker', () => {
+    const step = generator.next();
+    expect(step.value).toEqual([
+      LOGIN_WITH_EMAIL_SUCCESS,
+      LOGIN_WITH_SCATTER_SUCCESS,
+    ]);
+  });
+
+  it('errorToastHandling', () => {
+    const step = generator.next();
+    expect(step.value).toEqual([
+      LOGIN_WITH_SCATTER_ERROR,
+      LOGIN_WITH_EMAIL_ERROR,
+      FINISH_REGISTRATION_ERROR,
+    ]);
   });
 });

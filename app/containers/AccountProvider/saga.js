@@ -73,25 +73,13 @@ export function* getCurrentAccountWorker() {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
-    if (!eosService || !eosService.initialized)
-      throw new Error('EOS is not initialized.');
-
-    let profileInfo;
-    let balance;
-
     const selectedScatterAccount = yield call(eosService.getSelectedAccount);
 
-    yield all([
-      (function*() {
-        profileInfo = yield call(() =>
-          getProfileInfo(selectedScatterAccount, eosService, !prevProfileInfo),
-        );
-      })(),
-      (function*() {
-        balance = yield call(() =>
-          getBalance(eosService, selectedScatterAccount),
-        );
-      })(),
+    const [profileInfo, balance] = yield all([
+      call(() =>
+        getProfileInfo(selectedScatterAccount, eosService, !prevProfileInfo),
+      ),
+      call(() => getBalance(eosService, selectedScatterAccount)),
     ]);
 
     if (prevProfileInfo) {

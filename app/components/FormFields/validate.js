@@ -1,15 +1,5 @@
-import bs58 from 'bs58';
+/* eslint no-unused-vars: 0 */
 import messages from './messages';
-
-// TODO: test
-const base58Validation = base58string => {
-  try {
-    bs58.decode(base58string);
-    return undefined;
-  } catch (err) {
-    return messages.wrongBase58Format;
-  }
-};
 
 // TODO: test
 const imageValidation = img =>
@@ -46,7 +36,7 @@ const requiredForObjectField = x =>
 
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
-const strLength3 = stringLengthMin(3);
+const strLength8x100 = stringLength(8, 100);
 const strLength12Max = stringLengthMax(12);
 const strLength254Max = stringLengthMax(254);
 const strLength3x20 = stringLength(3, 20);
@@ -56,16 +46,15 @@ const strLength25x30000 = stringLength(25, 30000);
 
 export {
   imageValidation,
-  base58Validation,
   stringLength,
   validateEmail,
   required,
   requiredForObjectField,
   strLength1x5,
   strLength2x15,
+  strLength8x100,
   strLength12Max,
   strLength254Max,
-  strLength3,
   strLength3x20,
   strLength15x100,
   strLength20x1000,

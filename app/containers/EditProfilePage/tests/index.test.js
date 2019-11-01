@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { LOCATION_FIELD } from 'containers/Profile/constants';
 import { EditProfilePage } from '../index';
 
 const cmp = new EditProfilePage();
@@ -8,7 +7,10 @@ cmp.props = {
   saveProfileDispatch: jest.fn(),
   setDefaultReducerDispatch: jest.fn(),
   profile: {
-    profile: {},
+    profile: {
+      a: 11,
+      c: 14,
+    },
   },
   match: {
     params: {
@@ -30,22 +32,16 @@ describe('<EditProfilePage>', () => {
   });
 
   describe('saveProfile', () => {
-    const newMap = fromJS({});
-
-    const a = 12;
-    const b = 1234;
-
-    newMap.a = a;
-    newMap.b = b;
+    const values = fromJS({ a: 12, b: 12 });
+    const profile = {
+      ...cmp.props.profile.profile,
+      ...values.toJS(),
+    };
 
     it('test', () => {
-      cmp.saveProfile(newMap);
+      cmp.saveProfile(values);
       expect(cmp.props.saveProfileDispatch).toHaveBeenCalledWith({
-        profile: {
-          ...cmp.props.profile.profile,
-          ...newMap.toJS(),
-          [LOCATION_FIELD]: '',
-        },
+        profile,
         userKey: cmp.props.match.params.id,
       });
     });

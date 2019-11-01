@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select, takeEvery } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
 import { getAllCommunities } from 'utils/communityManagement';
@@ -97,7 +97,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 
 export default function*() {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
-  yield takeLatest(GET_USER_PROFILE, getUserProfileWorker);
+  yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
 }

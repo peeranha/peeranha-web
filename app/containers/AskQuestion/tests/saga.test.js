@@ -1,33 +1,36 @@
-/**
- * Test sagas
- */
-
-/* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+/* eslint redux-saga/yield-effects: 0, no-underscore-dangle: 0 */
+import { select, call } from 'redux-saga/effects';
 
 import {
   postQuestion,
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
+import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
-import defaultSaga, { postQuestionWorker } from '../saga';
+import {
+  FORM_TITLE,
+  FORM_CONTENT,
+  FORM_COMMUNITY,
+  FORM_TAGS,
+} from 'components/QuestionForm/constants';
+
+import defaultSaga, {
+  postQuestionWorker,
+  checkReadinessWorker,
+  redirectToAskQuestionPageWorker,
+} from '../saga';
 
 import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_ERROR,
+  MIN_RATING_TO_POST_QUESTION,
+  MIN_ENERGY_TO_POST_QUESTION,
 } from '../constants';
-
-import { postQuestionValidator } from '../validate';
-
-jest.mock('../validate', () => ({
-  postQuestionValidator: jest.fn(),
-}));
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -36,13 +39,14 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
+jest.mock('containers/EosioProvider/saga', () => ({
+  isAuthorized: jest.fn(),
+  isValid: jest.fn(),
+}));
+
 jest.mock('utils/questionsManagement', () => ({
   postQuestion: jest.fn().mockImplementation(() => true),
   getQuestionsPostedByUser: jest.fn().mockImplementation(() => true),
-}));
-
-jest.mock('containers/DataCacheProvider/saga', () => ({
-  getUserProfileWorker: jest.fn(),
 }));
 
 jest.mock('createdHistory', () => ({
@@ -50,106 +54,118 @@ jest.mock('createdHistory', () => ({
 }));
 
 describe('postQuestionWorker', () => {
-  const props = {
-    user: 'user1',
-    questionData: {},
-    postButtonId: 'postButtonId',
-    translations: {},
+  const selectedAccount = 'selectedAccount';
+  const eos = {};
+
+  const val = {
+    [FORM_TITLE]: 'title',
+    [FORM_CONTENT]: 'content',
+    [FORM_COMMUNITY]: 'community',
+    [FORM_TAGS]: 'tags',
   };
 
-  const eos = {
-    getSelectedAccount: jest.fn().mockImplementation(() => props.user),
-  };
+  const generator = postQuestionWorker({ val });
 
-  describe('profileInfo is true', () => {
-    const generator = postQuestionWorker(props);
-    const profileInfo = {};
-
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
-      const step = generator.next();
-      expect(step.value).toEqual(eos);
-    });
-
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(eos);
-      expect(step.value).toEqual(profileInfo);
-    });
-
-    it('step, validation', () => {
-      generator.next(profileInfo);
-      expect(postQuestionValidator).toHaveBeenCalledWith(
-        profileInfo,
-        props.postButtonId,
-        props.translations,
-      );
-    });
-
-    it('step, postQuestion', () => {
-      postQuestion.mockImplementation(() => true);
-
-      expect(postQuestion).toHaveBeenCalledTimes(0);
-      generator.next(true);
-      expect(postQuestion).toHaveBeenCalledTimes(1);
-    });
-
-    it('step, askQuestionSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(ASK_QUESTION_SUCCESS);
-    });
-
-    it('step, getQuestionsPostedByUser', () => {
-      generator.next();
-      expect(getQuestionsPostedByUser).toHaveBeenCalledWith(eos, props.user);
-    });
-
-    it('step, push to question page', () => {
-      const questionId = '102003';
-      const questionsPostedByUser = [{ question_id: questionId }];
-
-      generator.next(questionsPostedByUser);
-      expect(createdHistory.push).toHaveBeenCalledWith(questionId);
-    });
+  it('step, eosService', () => {
+    select.mockImplementation(() => eos);
+    const step = generator.next();
+    expect(step.value).toEqual(eos);
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = postQuestionWorker(props);
-    const profileInfo = null;
-
-    getUserProfileWorker.mockImplementation(() => profileInfo);
-
-    generator.next();
-    generator.next();
-
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(profileInfo);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
-
-    it('error handling', () => {
-      const err = new Error('some error');
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(ASK_QUESTION_ERROR);
-    });
+  it('step, selectedAccount', () => {
+    select.mockImplementation(() => selectedAccount);
+    const step = generator.next(eos);
+    expect(step.value).toEqual(selectedAccount);
   });
 
-  describe('validation is falsy', () => {
-    const generator = postQuestionWorker(props);
-    const profileInfo = {};
-    const isValid = false;
+  it('step, checkReadinessWorker', () => {
+    call.mockImplementationOnce((x, args) => x(args));
 
-    getUserProfileWorker.mockImplementation(() => profileInfo);
-    postQuestionValidator.mockImplementation(() => isValid);
+    const step = generator.next(selectedAccount);
+    expect(typeof step.value._invoke).toBe('function');
+  });
+
+  it('step, postQuestion', () => {
+    postQuestion.mockImplementation(() => true);
 
     generator.next();
-    generator.next();
-    generator.next(profileInfo);
+    expect(postQuestion).toHaveBeenCalledWith(
+      selectedAccount,
+      {
+        title: val[FORM_TITLE],
+        content: val[FORM_CONTENT],
+        community: val[FORM_COMMUNITY],
+        chosenTags: val[FORM_TAGS],
+      },
+      eos,
+    );
+  });
 
-    it('test', () => {
-      const step = generator.next(isValid);
-      expect(step.value.type).toBe(ASK_QUESTION_ERROR);
+  it('step, askQuestionSuccess', () => {
+    const step = generator.next();
+    expect(step.value.type).toBe(ASK_QUESTION_SUCCESS);
+  });
+
+  it('step, getQuestionsPostedByUser', () => {
+    generator.next();
+    expect(getQuestionsPostedByUser).toHaveBeenCalledWith(eos, selectedAccount);
+  });
+
+  it('step, push to question page', () => {
+    const questionId = '102003';
+    const questionsPostedByUser = [{ question_id: questionId }];
+
+    generator.next(questionsPostedByUser);
+    expect(createdHistory.push).toHaveBeenCalledWith(questionId);
+  });
+
+  it('handling error', () => {
+    const err = new Error('Some error');
+    const putDescriptor = generator.throw(err).value;
+    expect(putDescriptor.type).toEqual(ASK_QUESTION_ERROR);
+  });
+});
+
+describe('checkReadinessWorker', () => {
+  const buttonId = 'buttonId';
+
+  const generator = checkReadinessWorker({ buttonId });
+
+  it('isAuthorized', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(isAuthorized);
+  });
+
+  it('isValid', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(isValid, {
+      buttonId,
+      minRating: MIN_RATING_TO_POST_QUESTION,
+      minEnergy: MIN_ENERGY_TO_POST_QUESTION,
     });
+  });
+});
+
+describe('redirectToAskQuestionPageWorker', () => {
+  const buttonId = 'buttonId';
+
+  const generator = redirectToAskQuestionPageWorker({ buttonId });
+
+  call.mockImplementationOnce((x, args) => x(args));
+
+  it('step, checkReadinessWorker', () => {
+    call.mockImplementationOnce((x, args) => x(args));
+
+    const step = generator.next();
+    expect(typeof step.value._invoke).toBe('function');
+  });
+
+  it('redirect', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(
+      createdHistory.push,
+      routes.questionAsk(),
+    );
   });
 });
 
@@ -159,5 +175,15 @@ describe('defaultSaga', () => {
   it('ASK_QUESTION', () => {
     const step = generator.next();
     expect(step.value).toBe(ASK_QUESTION);
+  });
+
+  it('ASK_QUESTION_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value).toBe(ASK_QUESTION_SUCCESS);
+  });
+
+  it('ASK_QUESTION_ERROR', () => {
+    const step = generator.next();
+    expect(step.value).toBe(ASK_QUESTION_ERROR);
   });
 });

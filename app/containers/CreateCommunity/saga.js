@@ -42,7 +42,6 @@ export function* createCommunityWorker({ community, reset }) {
   }
 }
 
-// TODO: test
 export function* checkReadinessWorker({ buttonId }) {
   yield call(isAuthorized);
 
@@ -53,7 +52,6 @@ export function* checkReadinessWorker({ buttonId }) {
   });
 }
 
-// TODO: test
 /* eslint no-empty: 0 */
 export function* redirectToCreateCommunityWorker({ buttonId }) {
   try {

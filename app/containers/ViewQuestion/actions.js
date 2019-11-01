@@ -1,8 +1,4 @@
-/*
- *
- * ViewQuestion actions
- *
- */
+import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
 import {
   GET_QUESTION_DATA,
@@ -39,6 +35,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
+  TEXTAREA_COMMENT_FORM,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -62,12 +59,11 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function deleteQuestion(user, questionid, postButtonId) {
+export function deleteQuestion(questionId, ev) {
   return {
     type: DELETE_QUESTION,
-    user,
-    questionid,
-    postButtonId,
+    questionId,
+    postButtonId: ev.currentTarget.id,
   };
 }
 
@@ -84,13 +80,12 @@ export function deleteQuestionErr(deleteQuestionError) {
   };
 }
 
-export function deleteAnswer(user, questionId, answerId, postButtonId) {
+export function deleteAnswer(questionId, ev) {
   return {
     type: DELETE_ANSWER,
-    user,
     questionId,
-    answerId,
-    postButtonId,
+    answerId: ev.currentTarget.dataset.answerid,
+    postButtonId: ev.currentTarget.id,
   };
 }
 
@@ -108,14 +103,13 @@ export function deleteAnswerErr(deleteAnswerError) {
   };
 }
 
-export function deleteComment(user, questionId, answerId, commentId, buttonId) {
+export function deleteComment(questionId, ev) {
   return {
     type: DELETE_COMMENT,
-    user,
     questionId,
-    answerId,
-    commentId,
-    buttonId,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
+    buttonId: ev.currentTarget.id,
   };
 }
 
@@ -133,21 +127,15 @@ export function deleteCommentErr(deleteCommentError) {
   };
 }
 
-export function saveComment(
-  user,
-  questionId,
-  answerId,
-  commentId,
-  comment,
-  toggleView,
-) {
+export function saveComment(questionId, ...args) {
+  const { commentId, answerId, toggleView } = args[2];
+
   return {
     type: SAVE_COMMENT,
-    user,
     questionId,
     answerId,
     commentId,
-    comment,
+    comment: args[0].get(TEXTAREA_COMMENT_FORM),
     toggleView,
   };
 }
@@ -166,22 +154,12 @@ export function saveCommentErr(saveCommentError) {
   };
 }
 
-export function postAnswer(
-  user,
-  questionId,
-  answer,
-  reset,
-  postButtonId,
-  translations,
-) {
+export function postAnswer(questionId, ...args) {
   return {
     type: POST_ANSWER,
-    user,
     questionId,
-    answer,
-    reset,
-    postButtonId,
-    translations,
+    answer: args[0].get(TEXT_EDITOR_ANSWER_FORM),
+    reset: args[2].reset,
   };
 }
 
@@ -198,26 +176,14 @@ export function postAnswerErr(postAnswerError) {
   };
 }
 
-export function postComment(
-  user,
-  questionId,
-  answerId,
-  comment,
-  reset,
-  postButtonId,
-  translations,
-  toggleView,
-) {
+export function postComment(questionId, ...args) {
   return {
     type: POST_COMMENT,
-    user,
     questionId,
-    answerId,
-    comment,
-    reset,
-    postButtonId,
-    translations,
-    toggleView,
+    answerId: args[2].answerId,
+    comment: args[0].get(TEXTAREA_COMMENT_FORM),
+    reset: args[2].reset,
+    toggleView: args[2].toggleView,
   };
 }
 
@@ -234,22 +200,13 @@ export function postCommentErr(postCommentError) {
   };
 }
 
-export function upVote(
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-  translations,
-  whoWasUpvoted,
-) {
+export function upVote(questionId, ev) {
   return {
     type: UP_VOTE,
-    user,
     questionId,
-    answerId,
-    postButtonId,
-    translations,
-    whoWasUpvoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    postButtonId: ev.currentTarget.id,
+    whoWasUpvoted: ev.currentTarget.dataset.whowasupvoted,
   };
 }
 
@@ -268,22 +225,13 @@ export function upVoteErr(upVoteError) {
   };
 }
 
-export function downVote(
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-  translations,
-  whoWasDownvoted,
-) {
+export function downVote(questionId, ev) {
   return {
     type: DOWN_VOTE,
-    user,
     questionId,
-    answerId,
-    postButtonId,
-    translations,
-    whoWasDownvoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    postButtonId: ev.currentTarget.id,
+    whoWasDownvoted: ev.currentTarget.dataset.whowasdownvoted,
   };
 }
 
@@ -302,22 +250,13 @@ export function downVoteErr(downVoteError) {
   };
 }
 
-export function markAsAccepted(
-  user,
-  questionId,
-  correctAnswerId,
-  postButtonId,
-  translations,
-  whoWasAccepted,
-) {
+export function markAsAccepted(questionId, ev) {
   return {
     type: MARK_AS_ACCEPTED,
-    user,
     questionId,
-    correctAnswerId,
-    postButtonId,
-    translations,
-    whoWasAccepted,
+    correctAnswerId: ev.currentTarget.dataset.answerid,
+    postButtonId: ev.currentTarget.id,
+    whoWasAccepted: ev.currentTarget.dataset.whowasaccepted,
   };
 }
 
@@ -336,20 +275,14 @@ export function markAsAcceptedErr(markAsAcceptedError) {
   };
 }
 
-export function voteToDelete(
-  questionId,
-  answerId,
-  commentId,
-  postButtonId,
-  whoWasVoted,
-) {
+export function voteToDelete(questionId, ev) {
   return {
     type: VOTE_TO_DELETE,
     questionId,
-    answerId,
-    commentId,
-    postButtonId,
-    whoWasVoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
+    postButtonId: ev.currentTarget.id,
+    whoWasVoted: ev.currentTarget.dataset.whowasvoted,
   };
 }
 

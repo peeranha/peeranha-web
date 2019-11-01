@@ -143,7 +143,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 disabled={idontHaveEosAccountProcessing}
                 className="w-100"
               >
-                <FormattedMessage {...messages.verify} />
+                <FormattedMessage {...messages.signUp} />
               </SubmitButton>
             </Div>
           </form>
