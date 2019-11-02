@@ -33,7 +33,7 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
         )
         .set(
           'isLastFetch',
