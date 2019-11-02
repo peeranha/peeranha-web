@@ -216,6 +216,7 @@ FormClone = connect((state, props) => {
   return {
     formValues,
     initialValues,
+    enableReinitialize: true,
   };
 })(FormClone);
 
