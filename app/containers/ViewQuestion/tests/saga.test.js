@@ -26,6 +26,7 @@ import * as routes from 'routes-config';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import { getQuestionsSuccess } from 'containers/Questions/actions';
 
 import {
   GET_QUESTION_DATA,
@@ -1338,6 +1339,16 @@ describe('voteToDeleteWorker', () => {
   });
 });
 
+describe('updateQuestionList', () => {
+  const questionData = {};
+  const generator = sagaImports.updateQuestionList({ questionData });
+
+  it('put questionData', () => {
+    const step = generator.next();
+    expect(step.value).toEqual(getQuestionsSuccess(questionData));
+  });
+});
+
 describe('defaultSaga', () => {
   const generator = sagaImports.default();
 
@@ -1403,6 +1414,23 @@ describe('defaultSaga', () => {
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
+    ]);
+  });
+
+  it('updateQuestionList', () => {
+    const step = generator.next();
+    expect(step.value).toEqual([
+      GET_QUESTION_DATA,
+      POST_COMMENT,
+      POST_ANSWER,
+      UP_VOTE,
+      DOWN_VOTE,
+      MARK_AS_ACCEPTED,
+      DELETE_QUESTION,
+      DELETE_ANSWER,
+      DELETE_COMMENT,
+      SAVE_COMMENT,
+      VOTE_TO_DELETE,
     ]);
   });
 });
