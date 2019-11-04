@@ -1,12 +1,15 @@
+/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
 import A from 'components/A';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import {
   POSITION_FIELD,
@@ -52,11 +55,31 @@ const Row = ({ nameField, value, isColumn }) =>
 
 const AdditionalUserInformation = ({ profile, userId, account }) => (
   <Base position="bottom">
-    <Row nameField="locationLabel" value={profile.profile[LOCATION_FIELD]} />
-    <Row nameField="companyLabel" value={profile.profile[COMPANY_FIELD]} />
-    <Row nameField="positionLabel" value={profile.profile[POSITION_FIELD]} />
-    <Row isColumn nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
-    <Blank profile={profile.profile} userId={userId} account={account} />
+    {(!profile || !profile.profile) && <LoadingIndicator inline />}
+
+    {profile &&
+      profile.profile && (
+        <React.Fragment>
+          <Row
+            nameField="locationLabel"
+            value={profile.profile[LOCATION_FIELD]}
+          />
+          <Row
+            nameField="companyLabel"
+            value={profile.profile[COMPANY_FIELD]}
+          />
+          <Row
+            nameField="positionLabel"
+            value={profile.profile[POSITION_FIELD]}
+          />
+          <Row
+            isColumn
+            nameField="aboutLabel"
+            value={profile.profile[ABOUT_FIELD]}
+          />
+          <Blank profile={profile.profile} userId={userId} account={account} />
+        </React.Fragment>
+      )}
   </Base>
 );
 

@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './constants';
 
@@ -33,9 +32,6 @@ function usersReducer(state = initialState, action) {
       return state
         .set('getUsersLoading', false)
         .set('getUsersError', getUsersError);
-
-    case LOCATION_CHANGE:
-      return initialState;
 
     default:
       return state;

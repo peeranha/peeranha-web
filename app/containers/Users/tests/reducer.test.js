@@ -1,5 +1,3 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
-
 import usersReducer, { initialState } from '../reducer';
 import { getUsers, getUsersSuccess, getUsersErr } from '../actions';
 
@@ -12,12 +10,6 @@ describe('usersReducer', () => {
 
   it('returns the initial state', () => {
     expect(usersReducer(state, {})).toEqual(state);
-  });
-
-  it('LOCATION_CHANGE', () => {
-    expect(usersReducer(state, { type: LOCATION_CHANGE })).toEqual(
-      initialState,
-    );
   });
 
   describe('getUsers', () => {

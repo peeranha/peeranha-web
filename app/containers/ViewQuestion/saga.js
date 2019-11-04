@@ -1,4 +1,4 @@
-/* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0 */
+/* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
 
 import {
   takeEvery,
@@ -43,6 +43,8 @@ import {
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
+import { selectQuestions } from 'containers/Questions/selectors';
+import { getQuestionsSuccess } from 'containers/Questions/actions';
 
 import {
   GET_QUESTION_DATA,
@@ -106,15 +108,17 @@ import {
   deleteCommentValidator,
 } from './validate';
 
-/* eslint no-param-reassign: 0 */
 export function* getQuestionData({
   eosService,
   questionId,
   user,
 }) /* istanbul ignore next */ {
-  const question = yield call(() => getQuestionById(eosService, questionId));
+  let question = yield select(selectQuestions(null, null, questionId));
 
-  /* eslint no-bitwise: 0 */
+  if (!question) {
+    question = yield call(() => getQuestionById(eosService, questionId));
+  }
+
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag && historyFlag.flag & (1 << constantFlag);
 
@@ -129,9 +133,9 @@ export function* getQuestionData({
     const flag = history.filter(x => x.user === user)[0];
 
     return {
-      isUpVoted: !!getItemStatus(flag, ITEM_UPV_FLAG),
-      isDownVoted: !!getItemStatus(flag, ITEM_DNV_FLAG),
-      isVotedToDelete: !!getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG),
+      isUpVoted: Boolean(getItemStatus(flag, ITEM_UPV_FLAG)),
+      isDownVoted: Boolean(getItemStatus(flag, ITEM_DNV_FLAG)),
+      isVotedToDelete: Boolean(getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG)),
     };
   };
 
@@ -175,7 +179,6 @@ export function* getQuestionData({
     yield call(() => addOptions(cachedQuestion, question));
   }
 
-  /* eslint no-shadow: 0, func-names: 0 */
   function* processAnswers() {
     const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
 
@@ -696,6 +699,10 @@ export function* updateQuestionDataAfterTransactionWorker({
   }
 }
 
+export function* updateQuestionList({ questionData }) {
+  yield put(getQuestionsSuccess(questionData));
+}
+
 export default function*() {
   yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_COMMENT, postCommentWorker);
@@ -716,5 +723,21 @@ export default function*() {
       VOTE_TO_DELETE_SUCCESS,
     ],
     updateQuestionDataAfterTransactionWorker,
+  );
+  yield takeEvery(
+    [
+      GET_QUESTION_DATA,
+      POST_COMMENT,
+      POST_ANSWER,
+      UP_VOTE,
+      DOWN_VOTE,
+      MARK_AS_ACCEPTED,
+      DELETE_QUESTION,
+      DELETE_ANSWER,
+      DELETE_COMMENT,
+      SAVE_COMMENT,
+      VOTE_TO_DELETE,
+    ],
+    updateQuestionList,
   );
 }

@@ -45,7 +45,6 @@ exports[`<Communities /> render communities [] 1`] = `
       suggestedCommunities={Array []}
       suggestedCommunitiesLoading={true}
     />
-    <UNDEFINED />
   </div>
   <Base
     className="d-none d-xl-block"
@@ -113,7 +112,6 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       suggestedCommunities={Array []}
       suggestedCommunitiesLoading={true}
     />
-    <UNDEFINED />
   </div>
   <Base
     className="d-none d-xl-block"

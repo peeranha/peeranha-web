@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import uniqBy from 'lodash/uniqBy';
 
 import {
   GET_QUESTIONS,
@@ -23,7 +23,7 @@ export const initialState = fromJS({
 });
 
 function questionsReducer(state = initialState, action) {
-  const { type, questionsList, questionsError, next } = action;
+  const { type, questionsList, questionsError } = action;
 
   switch (type) {
     case GET_QUESTIONS:
@@ -33,9 +33,7 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          !next
-            ? questionsList
-            : state.get('questionsList').concat(questionsList),
+          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
         )
         .set(
           'isLastFetch',
@@ -45,9 +43,6 @@ function questionsReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
-
-    case LOCATION_CHANGE:
-      return initialState;
 
     default:
       return state;

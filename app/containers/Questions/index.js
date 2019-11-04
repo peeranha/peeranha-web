@@ -230,11 +230,15 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
   communitiesLoading: selectCommunitiesLoading(),
   followedCommunities: makeSelectFollowedCommunities(),
-  questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
+  questionsList: (state, props) =>
+    questionsSelector.selectQuestions(
+      props.parentPage,
+      Number(props.match.params.communityid),
+    )(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

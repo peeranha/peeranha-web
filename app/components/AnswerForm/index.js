@@ -49,7 +49,8 @@ AnswerForm.propTypes = {
 
 let FormClone = reduxForm({})(AnswerForm);
 
-FormClone = connect((state, props) => ({
+FormClone = connect((_, props) => ({
+  enableReinitialize: true,
   initialValues: {
     [TEXT_EDITOR_ANSWER_FORM]: props.answer,
   },

@@ -5,7 +5,6 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   GET_SUGGESTED_COMMUNITIES,
@@ -49,9 +48,6 @@ function communitiesReducer(state = initialState, action) {
         'suggestedCommunities',
         initialState.get('suggestedCommunities'),
       );
-
-    case LOCATION_CHANGE:
-      return initialState;
 
     default:
       return state;

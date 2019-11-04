@@ -4,8 +4,8 @@ import { BG_PRIMARY } from 'style-constants';
 
 /* eslint indent: 0 */
 const Circle = styled.div`
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: #d3daf6;
   border-radius: 50%;
   background-color: ${BG_PRIMARY};
@@ -30,8 +30,8 @@ const Circle = styled.div`
 
   &:before {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: ${BG_PRIMARY};
     opacity: 0.7;
@@ -43,14 +43,7 @@ const Circle = styled.div`
   }
 
   @media only screen and (max-width: 576px) {
-    width: 10px;
-    height: 10px;
     margin: 4px;
-
-    &:before {
-      width: 10px;
-      height: 10px;
-    }
   }
 `;
 

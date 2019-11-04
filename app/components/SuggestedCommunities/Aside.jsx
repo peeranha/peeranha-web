@@ -49,8 +49,8 @@ const Aside = ({ communities }) => (
     <footer>
       <A
         className="d-flex align-items-center"
-        to={routes.suggestedCommunities()}
-        href={routes.suggestedCommunities()}
+        to={routes.communities()}
+        href={routes.communities()}
       >
         <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
         <Span color={TEXT_PRIMARY}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BORDER_SECONDARY } from 'style-constants';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 import arrowDownIcon from 'images/arrowDown.svg?inline';
 
@@ -112,7 +112,7 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <div>
-        {_.orderBy(suggestedCommunities, y => y.upvotes, ['desc'])
+        {orderBy(suggestedCommunities, y => y.upvotes, ['desc'])
           .filter(
             x => (language.sortBy ? x.language === language.sortBy : true),
           )

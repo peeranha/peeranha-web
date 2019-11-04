@@ -1,7 +1,6 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
-import questionsReducer, { initialState } from '../reducer';
+import questionsReducer from '../reducer';
 
 import {
   getQuestions,
@@ -13,18 +12,12 @@ describe('questionsReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      questionsList: [{}],
+      questionsList: [{ id: 1 }],
     });
   });
 
   it('returns the initial state', () => {
     expect(questionsReducer(state, {})).toEqual(state);
-  });
-
-  it('LOCATION_CHANGE', () => {
-    expect(questionsReducer(state, { type: LOCATION_CHANGE })).toEqual(
-      initialState,
-    );
   });
 
   it('getQuestions', () => {
@@ -33,32 +26,17 @@ describe('questionsReducer', () => {
     expect(questionsReducer(state, getQuestions())).toEqual(obj);
   });
 
-  it('getQuestionsSuccess, next is true', () => {
-    const questionsList = [{}];
-    const next = true;
-
-    const obj = state
-      .set('questionsLoading', false)
-      .set('questionsList', state.get('questionsList').concat(questionsList))
-      .set('isLastFetch', true);
-
-    expect(
-      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
-    ).toEqual(obj);
-  });
-
-  it('getQuestionsSuccess, next is false', () => {
-    const questionsList = [{}];
-    const next = false;
+  it('getQuestionsSuccess', () => {
+    const questionsList = [{ id: 1 }];
 
     const obj = state
       .set('questionsLoading', false)
       .set('questionsList', questionsList)
       .set('isLastFetch', true);
 
-    expect(
-      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getQuestionsSuccess(questionsList))).toEqual(
+      obj,
+    );
   });
 
   it('getQuestionsError', () => {

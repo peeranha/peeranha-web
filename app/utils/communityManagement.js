@@ -127,10 +127,13 @@ export async function downVoteToCreateTag(
 /* eslint no-param-reassign: 0 */
 export async function getAllCommunities(eosService) {
   const lowerBound = 0;
+  const limit = -1;
+
   const communities = await eosService.getTableRows(
     COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     lowerBound,
+    limit,
   );
 
   await Promise.all(
@@ -155,6 +158,7 @@ export async function getAllCommunities(eosService) {
           TAGS_TABLE,
           getTagScope(x.id),
           lowerBound,
+          limit,
         );
 
         x.tags.forEach(y => {

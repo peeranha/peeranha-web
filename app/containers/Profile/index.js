@@ -51,9 +51,11 @@ export class Profile extends React.PureComponent {
       profile,
     } = this.props;
 
+    const translations = translationMessages[locale];
+
     const HelmetTitle = `${(profile && profile.display_name) ||
-      translationMessages[locale][messages.wrongUser.id]} | ${
-      translationMessages[locale][messages.profile.id]
+      translations[messages.wrongUser.id]} | ${
+      translations[messages.profile.id]
     }`;
 
     let keywords = '';
@@ -66,21 +68,16 @@ export class Profile extends React.PureComponent {
       <div>
         <Seo
           title={HelmetTitle}
-          description={
-            translationMessages[locale][messages.profileDescription.id]
-          }
+          description={translations[messages.profileDescription.id]}
           language={locale}
           keywords={keywords}
         />
 
         <div>
-          {(isProfileLoading || accountLoading) && <LoadingIndicator />}
+          {(isProfileLoading || accountLoading) &&
+            !profile && <LoadingIndicator />}
 
-          {!isProfileLoading &&
-            !accountLoading &&
-            profile &&
-            profile.profile &&
-            children}
+          {profile && children}
         </div>
       </div>
     );

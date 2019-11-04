@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 
 import {
   BORDER_SECONDARY,
@@ -80,7 +80,7 @@ const List = ({ communities }) => {
 
   return (
     <Base>
-      {_.orderBy(communities, y => y.popularity, 'desc').map(x => (
+      {orderBy(communities, y => y.popularity, 'desc').map(x => (
         <BaseTransparent key={x.value}>
           <A to={routes.communityTags(x.id)}>
             <div className="row align-items-center">
