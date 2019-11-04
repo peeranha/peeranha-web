@@ -30,6 +30,7 @@ import {
   showOwnerKeyModal,
   hideOwnerKeyModal,
   sendEmail,
+  removeOwnerKey,
 } from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
@@ -48,6 +49,8 @@ export class ShowOwnerKey extends React.PureComponent {
       content,
       sendEmailProcessing,
       sendEmailDispatch,
+      ownerKey,
+      removeOwnerKeyDispatch,
     } = this.props;
 
     return (
@@ -70,7 +73,13 @@ export class ShowOwnerKey extends React.PureComponent {
           )}
         </Modal>
 
-        <button onClick={showOwnerKeyModalDispatch}>{children}</button>
+        <button
+          onClick={
+            !ownerKey ? showOwnerKeyModalDispatch : removeOwnerKeyDispatch
+          }
+        >
+          {children}
+        </button>
       </React.Fragment>
     );
   }
@@ -86,7 +95,9 @@ ShowOwnerKey.propTypes = {
   sendEmailProcessing: PropTypes.bool,
   locale: PropTypes.string,
   content: PropTypes.string,
+  ownerKey: PropTypes.string,
   sendEmailDispatch: PropTypes.func,
+  removeOwnerKeyDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -103,6 +114,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     showOwnerKeyModalDispatch: bindActionCreators(showOwnerKeyModal, dispatch),
     hideOwnerKeyModalDispatch: bindActionCreators(hideOwnerKeyModal, dispatch),
+    removeOwnerKeyDispatch: bindActionCreators(removeOwnerKey, dispatch),
   };
 }
 

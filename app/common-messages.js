@@ -225,4 +225,10 @@ export default defineMessages({
   sendAnotherCode: {
     id: 'app.common.sendAnotherCode',
   },
+  copy: {
+    id: 'app.common.copy',
+  },
+  hide: {
+    id: 'app.common.hide',
+  },
 });

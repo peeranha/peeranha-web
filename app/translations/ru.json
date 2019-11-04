@@ -72,6 +72,8 @@
   "app.common.change": "Изменить",
   "app.common.contactUs": "Сообщите нам",
   "app.common.sendAnotherCode": "Отправить другой код",
+  "app.common.copy": "Копировать",
+  "app.common.hide": "Скрыть",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",

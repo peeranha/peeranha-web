@@ -45,7 +45,11 @@ async function login(email, password, rememberMe = false) {
     ivResponseEncrypt,
   );
 
-  const { eosAccountName, activeEosKey } = loginResponse.eosKeyCarrier;
+  const {
+    eosAccountName,
+    activeEosKey,
+    hasOwnerEosKey,
+  } = loginResponse.eosKeyCarrier;
 
   const activeKey = decryptObject(activeEosKey, encryptionKey);
 
@@ -63,6 +67,7 @@ async function login(email, password, rememberMe = false) {
       authToken,
       passwordUserPart,
       encryptedKeys,
+      hasOwnerEosKey,
     };
 
     window.localStorage.setItem(
@@ -73,7 +78,7 @@ async function login(email, password, rememberMe = false) {
 
   return {
     OK: true,
-    body: { activeKey, eosAccountName },
+    body: { activeKey, eosAccountName, hasOwnerEosKey },
   };
 }
 
@@ -106,7 +111,11 @@ async function autoLogin() {
 
   return {
     OK: true,
-    body: { activeKey, eosAccountName: peeranhaAutoLogin.eosAccountName },
+    body: {
+      activeKey,
+      eosAccountName: peeranhaAutoLogin.eosAccountName,
+      hasOwnerEosKey: peeranhaAutoLogin.hasOwnerEosKey,
+    },
   };
 }
 

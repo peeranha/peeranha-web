@@ -9,7 +9,7 @@ import commonMessages from 'common-messages';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import SecondaryButton from 'components/Button/Outlined/SecondaryLarge';
+import SecondaryButton from 'components/Button/Outlined/SecondarySmall';
 
 import profileMessages from 'containers/Profile/messages';
 import signupMessages from 'containers/SignUp/messages';
@@ -25,27 +25,32 @@ import DeleteAccountButton from 'containers/DeleteAccount';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 const BaseStyled = Base.extend`
-  > :not(:nth-child(1)) {
-    margin: 30px;
+  > :nth-child(2) {
+    margin: 30px 0;
+    padding: 0 30px;
   }
 
   table {
     width: 100%;
 
     tr td {
-      :not(:last-child) {
-        padding-right: 50px;
-      }
-
-      padding-bottom: 20px;
-
       :nth-child(1) {
         color: ${TEXT_DARK};
         font-weight: bold;
+        padding: 0 0 20px 0;
+        white-space: nowrap;
+      }
+
+      :nth-child(2) {
+        padding: 0 0 20px 0;
+        word-break: break-all;
       }
 
       :nth-child(3) {
         color: ${TEXT_PRIMARY};
+        padding: 0 0 20px 0;
+        text-align: right;
+        white-space: nowrap;
       }
     }
   }
@@ -67,8 +72,9 @@ const BaseStyled = Base.extend`
         flex-direction: column;
       }
 
-      tr td:not(:last-child) {
-        padding-right: 20px;
+      tr td {
+        padding: 0 30px 20px 0px !important;
+        text-align: left !important;
       }
     }
   }
@@ -83,75 +89,96 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
         <FormattedMessage {...profileMessages.authorizationData} />
       </H3>
 
-      <table>
-        <tr>
-          <td>
-            <FormattedMessage {...signupMessages.email} />
-          </td>
-          <td>{loginData ? loginData.email : null}</td>
-          <td>
-            <ChangeEmailButton>
-              <FormattedMessage {...commonMessages.change} />{' '}
-            </ChangeEmailButton>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <FormattedMessage {...signupMessages.password} />
-          </td>
-          <td>• • • • • • • • • • • • •</td>
-          <td>
-            <ChangePasswordButton>
-              <FormattedMessage {...commonMessages.change} />{' '}
-            </ChangePasswordButton>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <InfoLabel
-              id="wallet_settings_eos_active"
-              message={
-                translationMessages[locale][
-                  forgotPasswordMessages.youGotThisKey.id
-                ]
-              }
-            >
-              <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-            </InfoLabel>
-          </td>
-          <td>{activeKey || `• • • • • • • • • •`}</td>
-          <td>
-            <ShowActiveKeyButton>
-              <FormattedMessage {...commonMessages.show} />
-            </ShowActiveKeyButton>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <InfoLabel
-              id="wallet_settings_eos_owner"
-              message={
-                translationMessages[locale][
-                  forgotPasswordMessages.youGotThisKey.id
-                ]
-              }
-            >
-              <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-            </InfoLabel>
-          </td>
-          <td>{ownerKey || `• • • • • • • • • •`}</td>
-          <td>
-            <ShowOwnerKeyButton>
-              <FormattedMessage {...commonMessages.show} />
-            </ShowOwnerKeyButton>
-          </td>
-        </tr>
-      </table>
-
       <div>
+        <table>
+          <tr>
+            <td>
+              <FormattedMessage {...signupMessages.email} />
+            </td>
+            <td>{loginData ? loginData.email : null}</td>
+            <td>
+              <ChangeEmailButton>
+                <FormattedMessage {...commonMessages.change} />{' '}
+              </ChangeEmailButton>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <FormattedMessage {...signupMessages.password} />
+            </td>
+            <td>• • • • • • • • • • • • •</td>
+            <td>
+              <ChangePasswordButton>
+                <FormattedMessage {...commonMessages.change} />{' '}
+              </ChangePasswordButton>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <InfoLabel
+                id="wallet_settings_eos_active"
+                message={
+                  translationMessages[locale][
+                    forgotPasswordMessages.youGotThisKey.id
+                  ]
+                }
+              >
+                <FormattedMessage {...signupMessages.eosActivePrivateKey} />
+              </InfoLabel>
+            </td>
+            <td>{activeKey || `• • • • • • • • • •`}</td>
+
+            <td>
+              <button
+                className={!activeKey ? 'd-none' : 'mr-3'}
+                onClick={() => navigator.clipboard.writeText(activeKey)}
+              >
+                <FormattedMessage {...commonMessages.copy} />
+              </button>
+
+              <ShowActiveKeyButton activeKey={activeKey}>
+                <FormattedMessage
+                  {...commonMessages[!activeKey ? 'show' : 'hide']}
+                />
+              </ShowActiveKeyButton>
+            </td>
+          </tr>
+
+          <tr
+            className={!loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''}
+          >
+            <td>
+              <InfoLabel
+                id="wallet_settings_eos_owner"
+                message={
+                  translationMessages[locale][
+                    forgotPasswordMessages.youGotThisKey.id
+                  ]
+                }
+              >
+                <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
+              </InfoLabel>
+            </td>
+            <td>{ownerKey || `• • • • • • • • • •`}</td>
+            <td>
+              <button
+                className={!ownerKey ? 'd-none' : 'mr-3'}
+                onClick={() => navigator.clipboard.writeText(ownerKey)}
+              >
+                <FormattedMessage {...commonMessages.copy} />
+              </button>
+
+              <ShowOwnerKeyButton ownerKey={ownerKey}>
+                <FormattedMessage
+                  {...commonMessages[!ownerKey ? 'show' : 'hide']}
+                />
+              </ShowOwnerKeyButton>
+            </td>
+          </tr>
+        </table>
+
         <DeleteAccountButton
           render={({ onClick }) => (
             <SecondaryButton onClick={onClick}>
