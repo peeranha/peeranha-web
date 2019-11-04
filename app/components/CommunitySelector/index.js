@@ -97,18 +97,20 @@ export class CommunitySelector extends React.PureComponent {
       ];
     }
 
-    // Default option - All communities
-    options = [
-      {
-        options: [
-          {
-            label: translationMessages[locale][messages.allCommunities.id],
-            value: 0,
-          },
-        ],
-      },
-      ...options,
-    ];
+    // Default option - All communities - if it is not from form field
+    if (!input.name) {
+      options = [
+        {
+          options: [
+            {
+              label: translationMessages[locale][messages.allCommunities.id],
+              value: 0,
+            },
+          ],
+        },
+        ...options,
+      ];
+    }
 
     const selectedValue = getFollowedCommunities(communities, [
       selectedCommunityId,
