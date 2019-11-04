@@ -56,8 +56,9 @@ const BaseStyled = Base.extend`
   }
 
   @media only screen and (max-width: 576px) {
-    > :not(:nth-child(1)) {
+    > :nth-child(2) {
       margin: 20px 0;
+      padding: 0;
     }
 
     table * {
