@@ -551,6 +551,8 @@
   "app.containers.SignUp.eosAccountNotFound": "EOS account not found",
   "app.containers.SignUp.keysDoNotMatch":
     "Private keys do not match eos account name",
+  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
+    "Registration is successfully passed. Now you can login and continue work in our app!",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",

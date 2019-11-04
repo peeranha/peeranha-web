@@ -6,7 +6,8 @@ import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
 import IHaveEOSAccountForm from 'containers/SignUp/IHaveEOSAccountForm';
 import IdontHaveEOSAccountForm from 'containers/SignUp/IdontHaveEOSAccountForm';
 import ScatterSignUpForm from 'containers/SignUp/ScatterSignUpForm';
-import RegistrationAlmostDone from 'components/SignUpWrapper/AlmostDone';
+import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDoneWithAccount';
+import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
 import ForgotPassword from 'containers/ForgotPassword';
 
@@ -73,7 +74,8 @@ export {
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
   ScatterSignUpForm,
-  RegistrationAlmostDone,
+  RegistrationAlmostDoneWithAccount,
+  RegistrationAlmostDoneNoAccount,
   Login,
   ForgotPassword,
   Toast,

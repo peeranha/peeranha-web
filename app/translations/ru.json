@@ -556,6 +556,8 @@
   "app.containers.SignUp.eosAccountNotFound": "Данный EOS аккаунт не найден",
   "app.containers.SignUp.keysDoNotMatch":
     "Приватные ключи не соответствуют EOS аккаунт имени",
+  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
+    "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",

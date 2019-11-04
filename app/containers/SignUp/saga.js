@@ -212,7 +212,9 @@ export function* iHaveEosAccountWorker({ val }) {
 
     yield put(iHaveEosAccountSuccess());
 
-    yield call(() => createdHistory.push(routes.signup.almostDone.name));
+    yield call(() =>
+      createdHistory.push(routes.signup.almostDoneWithAccount.name),
+    );
   } catch (err) {
     yield put(iHaveEosAccountErr(err.message));
   }
@@ -250,7 +252,9 @@ export function* idontHaveEosAccountWorker({ val }) {
 
     yield put(idontHaveEosAccountSuccess());
 
-    yield call(() => createdHistory.push(routes.signup.almostDone.name));
+    yield call(() =>
+      createdHistory.push(routes.signup.almostDoneNoAccount.name),
+    );
   } catch (err) {
     yield put(idontHaveEosAccountErr(err.message));
   }
@@ -269,7 +273,9 @@ export function* signUpWithScatterWorker({ val }) {
 
     yield put(signUpWithScatterSuccess());
 
-    yield call(() => createdHistory.push(routes.signup.almostDone.name));
+    yield call(() =>
+      createdHistory.push(routes.signup.almostDoneWithAccount.name),
+    );
   } catch (err) {
     yield put(signUpWithScatterErr(err.message));
   }
