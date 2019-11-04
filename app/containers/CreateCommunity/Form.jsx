@@ -101,8 +101,8 @@ const CreateCommunityForm = ({
             name={COMM_AVATAR_FIELD}
             component={AvatarField}
             size={AVATAR_FIELD_WIDTH}
-            validate={imageValidation}
-            warn={imageValidation}
+            validate={[imageValidation, required]}
+            warn={[imageValidation, required]}
             disabled={createCommunityLoading}
           />
         </AvatarStyled>
