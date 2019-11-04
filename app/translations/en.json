@@ -73,6 +73,7 @@
   "app.common.contactUs": "Contact us",
   "app.common.sendAnotherCode": "Send another code",
   "app.common.copy": "Copy",
+  "app.common.copied": "Copied",
   "app.common.hide": "Hide",
 
   "app.containers.ChangeEmail.newEmail": "New email",

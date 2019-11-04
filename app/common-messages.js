@@ -228,6 +228,9 @@ export default defineMessages({
   copy: {
     id: 'app.common.copy',
   },
+  copied: {
+    id: 'app.common.copied',
+  },
   hide: {
     id: 'app.common.hide',
   },

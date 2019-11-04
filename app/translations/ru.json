@@ -73,6 +73,7 @@
   "app.common.contactUs": "Сообщите нам",
   "app.common.sendAnotherCode": "Отправить другой код",
   "app.common.copy": "Копировать",
+  "app.common.copied": "Скопировано",
   "app.common.hide": "Скрыть",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",

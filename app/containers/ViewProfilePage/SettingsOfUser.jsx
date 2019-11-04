@@ -6,6 +6,8 @@ import { translationMessages } from 'i18n';
 import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
 
+import { showPopover } from 'utils/popover';
+
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
@@ -84,6 +86,14 @@ const BaseStyled = Base.extend`
 const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
   const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
+  function writeToBuffer(ev) {
+    navigator.clipboard.writeText(ev.currentTarget.dataset.key);
+    showPopover(
+      ev.currentTarget.id,
+      translationMessages[locale][commonMessages.copied.id],
+    );
+  }
+
   return (
     <BaseStyled className={className} position="bottom">
       <H3>
@@ -133,8 +143,10 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
 
             <td>
               <button
+                id="viewprofile-settings-activekey"
                 className={!activeKey ? 'd-none' : 'mr-3'}
-                onClick={() => navigator.clipboard.writeText(activeKey)}
+                data-key={activeKey}
+                onClick={writeToBuffer}
               >
                 <FormattedMessage {...commonMessages.copy} />
               </button>
@@ -165,8 +177,10 @@ const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
             <td>{ownerKey || `• • • • • • • • • •`}</td>
             <td>
               <button
+                id="viewprofile-settings-ownerkey"
                 className={!ownerKey ? 'd-none' : 'mr-3'}
-                onClick={() => navigator.clipboard.writeText(ownerKey)}
+                data-key={ownerKey}
+                onClick={writeToBuffer}
               >
                 <FormattedMessage {...commonMessages.copy} />
               </button>
