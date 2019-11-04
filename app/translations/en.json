@@ -106,7 +106,8 @@
   "web_integration.errors.userDidntStoreKey":
     "User didn't store owner key in our service",
   "web_integration.errors.unableToDecryptUserKey": "Check your entered data",
-  "web_integration.errors.wrongPassword": "Wrong password or master key",
+  "web_integration.errors.wrongPassword": "Wrong password",
+  "web_integration.errors.wrongMasterKey": "Wrong master key",
   "web_integration.errors.userDidntRequestActivateAcc":
     "This user didn't request activate account",
   "web_integration.errors.youSendTooManRequests":

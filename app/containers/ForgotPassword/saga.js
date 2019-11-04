@@ -105,13 +105,14 @@ export function* changePasswordWorker({ masterKey, password }) {
     );
 
     if (!changeCredentialsGetKeysByMKResponse.OK) {
-      throw new Error(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByMKResponse.errorCode
-          ].id
-        ],
-      );
+      let message =
+        webIntegrationErrors[changeCredentialsGetKeysByMKResponse.errorCode].id;
+
+      if (changeCredentialsGetKeysByMKResponse.errorCode === 10) {
+        message = webIntegrationErrors.wrongMasterKey.id;
+      }
+
+      throw new Error(translations[message]);
     }
 
     const { keys, encryptionKey } = changeCredentialsGetKeysByMKResponse.body;

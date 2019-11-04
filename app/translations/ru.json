@@ -117,7 +117,8 @@
   "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
   "web_integration.errors.unableToDecryptUserKey":
     "Проверьте правильность введенных данных",
-  "web_integration.errors.wrongPassword": "Неверный пароль или мастер ключ",
+  "web_integration.errors.wrongPassword": "Неверный пароль",
+  "web_integration.errors.wrongMasterKey": "Неверный мастер ключ",
   "web_integration.errors.accountWithEmailIsntRegistered":
     "Аккаунт с данным ключом не был еще зарегистрирован",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
