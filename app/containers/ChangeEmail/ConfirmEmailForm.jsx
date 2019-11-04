@@ -12,6 +12,7 @@ import P from 'components/P';
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
+import TransparentButton from 'components/Button/Contained/Transparent';
 import signUpMessages from 'containers/SignUp/messages';
 
 import { required } from 'components/FormFields/validate';
@@ -23,6 +24,7 @@ const ConfirmEmailForm = ({
   locale,
   confirmOldEmail,
   confirmOldEmailProcessing,
+  sendAnotherCode,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -47,15 +49,24 @@ const ConfirmEmailForm = ({
         warn={required}
       />
 
-      <Button disabled={confirmOldEmailProcessing} className="w-100 mb-3">
+      <Button
+        disabled={confirmOldEmailProcessing}
+        className="w-100 mb-3"
+        type="submit"
+      >
         <FormattedMessage {...commonMessages.submit} />
       </Button>
+
+      <TransparentButton onClick={sendAnotherCode} type="button">
+        <FormattedMessage {...commonMessages.sendAnotherCode} />
+      </TransparentButton>
     </form>
   </div>
 );
 
 ConfirmEmailForm.propTypes = {
   handleSubmit: PropTypes.func,
+  sendAnotherCode: PropTypes.func,
   confirmOldEmail: PropTypes.func,
   locale: PropTypes.string,
   confirmOldEmailProcessing: PropTypes.bool,

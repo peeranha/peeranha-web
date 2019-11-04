@@ -20,7 +20,14 @@ import {
   VERIFICATION_CODE_FIELD,
   MASTER_KEY_FIELD,
   PASSWORD_FIELD,
+  SEND_ANOTHER_CODE,
 } from './constants';
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
+  };
+}
 
 // Show | Hide (modal)
 

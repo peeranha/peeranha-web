@@ -1,10 +1,13 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select, take } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
+import {
+  errorToastHandling,
+  successToastHandlingWithDefaultText,
+} from 'containers/Toast/saga';
 
 import {
   changeCredentialsInit,
@@ -24,11 +27,13 @@ import {
 
 import {
   GET_VERIFICATION_CODE,
+  GET_VERIFICATION_CODE_SUCCESS,
   GET_VERIFICATION_CODE_ERROR,
   VERIFY_EMAIL,
   VERIFY_EMAIL_ERROR,
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 import { selectEmail, selectVerificationCode } from './selectors';
@@ -50,6 +55,18 @@ export function* getVerificationCodeWorker({ email }) {
   } catch (err) {
     yield put(getVerificationCodeErr(err.message));
   }
+}
+
+// TODO: test
+export function* sendAnotherCode() {
+  const email = yield select(selectEmail());
+  yield call(getVerificationCodeWorker, { email, resetForm: () => null });
+}
+
+// TODO: test
+export function* sendAnotherCodeSuccess() {
+  yield take(GET_VERIFICATION_CODE_SUCCESS);
+  yield call(successToastHandlingWithDefaultText);
 }
 
 export function* verifyEmailWorker({ verificationCode }) {
@@ -124,7 +141,10 @@ export function* changePasswordWorker({ masterKey, password }) {
   }
 }
 
+// TODO: test
 export default function*() {
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(GET_VERIFICATION_CODE, getVerificationCodeWorker);
   yield takeLatest(VERIFY_EMAIL, verifyEmailWorker);
   yield takeLatest(CHANGE_PASSWORD, changePasswordWorker);

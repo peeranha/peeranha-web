@@ -4,6 +4,9 @@
  *
  */
 
+export const SEND_ANOTHER_CODE =
+  'app/ChangePasswordByPrevious/SEND_ANOTHER_CODE';
+
 export const SEND_EMAIL = 'app/ChangePasswordByPrevious/SEND_EMAIL';
 export const SEND_EMAIL_SUCCESS =
   'app/ChangePasswordByPrevious/SEND_EMAIL_SUCCESS';

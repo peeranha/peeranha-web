@@ -18,7 +18,14 @@ import {
   HIDE_CHANGE_EMAIL_MODAL,
   OLD_EMAIL_FIELD,
   CODE_FIELD,
+  SEND_ANOTHER_CODE,
 } from './constants';
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
+  };
+}
 
 export function showChangeEmailModal() {
   return {

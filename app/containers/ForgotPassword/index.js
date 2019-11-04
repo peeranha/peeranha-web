@@ -27,6 +27,7 @@ import {
   getVerificationCode,
   verifyEmail,
   changePassword,
+  sendAnotherCode,
 } from './actions';
 
 import {
@@ -53,6 +54,7 @@ export class ForgotPassword extends React.Component {
       locale,
       verifyEmailLoading,
       changePasswordLoading,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -73,6 +75,7 @@ export class ForgotPassword extends React.Component {
             locale={locale}
             verifyEmail={verifyEmailDispatch}
             verifyEmailLoading={verifyEmailLoading}
+            sendAnotherCode={sendAnotherCodeDispatch}
           />
         )}
 
@@ -93,6 +96,7 @@ ForgotPassword.propTypes = {
   hideForgotPasswordModalDispatch: PropTypes.func,
   verifyEmailDispatch: PropTypes.func,
   changePasswordDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   showModal: PropTypes.bool,
   content: PropTypes.string,
   verificationCodeLoading: PropTypes.bool,
@@ -121,6 +125,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     changePasswordDispatch: bindActionCreators(changePassword, dispatch),
   };
 }

@@ -71,6 +71,7 @@
   "app.common.show": "Show",
   "app.common.change": "Change",
   "app.common.contactUs": "Contact us",
+  "app.common.sendAnotherCode": "Send another code",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -101,11 +102,11 @@
     "Unknown error. Please submit bug report!",
   "web_integration.errors.accountAlreadyRegistered":
     "Account already registered",
-  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key or IV",
+  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key",
   "web_integration.errors.userDidntStoreKey":
     "User didn't store owner key in our service",
-  "web_integration.errors.unableToDecryptUserKey":
-    "Entered password is incorrect",
+  "web_integration.errors.unableToDecryptUserKey": "Check your entered data",
+  "web_integration.errors.wrongPassword": "Wrong password or master key",
   "web_integration.errors.userDidntRequestActivateAcc":
     "This user didn't request activate account",
   "web_integration.errors.youSendTooManRequests":
@@ -115,8 +116,6 @@
   "web_integration.errors.codeExpiredOrIncorrect":
     "Code expired or entered incorrectly",
   "web_integration.errors.passphraseIsInvalid": "The passphrase is invalid",
-  "web_integration.errors.wrongPassword":
-    "Unable to decrypt passphrase with given key",
   "web_integration.errors.accountWithEmailIsntRegistered":
     "Account with given email isn't registered yet",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":

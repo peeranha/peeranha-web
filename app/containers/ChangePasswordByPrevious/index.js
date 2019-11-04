@@ -32,6 +32,7 @@ import {
   sendEmail,
   submitEmail,
   changePassword,
+  sendAnotherCode,
 } from './actions';
 
 import {
@@ -56,6 +57,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
       submitEmailProcessing,
       changePasswordDispatch,
       changePasswordProcessing,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -74,6 +76,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
               locale={locale}
               submitEmail={submitEmailDispatch}
               submitEmailProcessing={submitEmailProcessing}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           )}
 
@@ -104,6 +107,7 @@ ChangePasswordByPrevious.propTypes = {
   submitEmailDispatch: PropTypes.func,
   submitEmailProcessing: PropTypes.bool,
   changePasswordDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   changePasswordProcessing: PropTypes.bool,
 };
 
@@ -118,6 +122,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     submitEmailDispatch: bindActionCreators(submitEmail, dispatch),
     changePasswordDispatch: bindActionCreators(changePassword, dispatch),

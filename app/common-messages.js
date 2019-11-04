@@ -222,4 +222,7 @@ export default defineMessages({
   contactUs: {
     id: 'app.common.contactUs',
   },
+  sendAnotherCode: {
+    id: 'app.common.sendAnotherCode',
+  },
 });

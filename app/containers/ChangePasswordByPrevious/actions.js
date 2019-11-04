@@ -12,7 +12,14 @@ import {
   HIDE_CHANGE_PASSWORD_MODAL,
   EMAIL_FIELD,
   CODE_FIELD,
+  SEND_ANOTHER_CODE,
 } from './constants';
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
+  };
+}
 
 // Modal actions
 

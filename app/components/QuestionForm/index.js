@@ -176,7 +176,11 @@ export const QuestionForm = ({
             </div>
 
             <div className="my-3">
-              <Button disabled={questionLoading} id={submitButtonId}>
+              <Button
+                disabled={questionLoading}
+                id={submitButtonId}
+                type="button"
+              >
                 {submitButtonName}
               </Button>
             </div>

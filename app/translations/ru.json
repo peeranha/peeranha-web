@@ -71,6 +71,7 @@
   "app.common.show": "Показать",
   "app.common.change": "Изменить",
   "app.common.contactUs": "Сообщите нам",
+  "app.common.sendAnotherCode": "Отправить другой код",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -105,7 +106,6 @@
     "Неверный ключ шифрования или IV",
   "web_integration.errors.userDidntStoreKey":
     "Пользователь не сохранил owner key в нашем сервисе",
-  "web_integration.errors.unableToDecryptUserKey": "Введен неверный пароль",
   "web_integration.errors.userDidntRequestActivateAcc":
     "Данный пользователь не активировал аккаунт",
   "web_integration.errors.youSendTooManRequests":
@@ -115,8 +115,9 @@
   "web_integration.errors.codeExpiredOrIncorrect":
     "Код истек или был введен некорректно",
   "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
-  "web_integration.errors.wrongPassword":
-    "Невозможно дешифровать passphrase с данным ключом",
+  "web_integration.errors.unableToDecryptUserKey":
+    "Проверьте правильность введенных данных",
+  "web_integration.errors.wrongPassword": "Неверный пароль или мастер ключ",
   "web_integration.errors.accountWithEmailIsntRegistered":
     "Аккаунт с данным ключом не был еще зарегистрирован",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
