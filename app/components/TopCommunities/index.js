@@ -129,7 +129,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </H4>
 
       <List>
-        {orderBy(communities, 'id', 'asc')
+        {orderBy(communities, 'questions_asked', 'ask')
           .slice(0, 9)
           .map(x => (
             <div key={x.id}>
