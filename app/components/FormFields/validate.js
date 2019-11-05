@@ -26,7 +26,7 @@ const stringLengthMax = max => value =>
 /* eslint no-useless-escape: 0 */
 const validateEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return !re.test(email) ? messages.wrongEmail : undefined;
+  return email && !re.test(email) ? messages.wrongEmail : undefined;
 };
 
 const required = x => (!x ? messages.requiredField : undefined);
