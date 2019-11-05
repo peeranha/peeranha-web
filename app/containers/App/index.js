@@ -48,7 +48,8 @@ import {
   ScatterSignUpForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
-  RegistrationAlmostDone,
+  RegistrationAlmostDoneWithAccount,
+  RegistrationAlmostDoneNoAccount,
   Login,
   ForgotPassword,
   Toast,
@@ -235,21 +236,27 @@ export default function App() {
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.haveEosAccount.name}>
+        <Route exact path={routes.signup.haveEosAccount.name}>
           <React.Suspense fallback={null}>
             <IHaveEOSAccountForm />
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.dontHaveEosAccount.name}>
+        <Route exact path={routes.signup.dontHaveEosAccount.name}>
           <React.Suspense fallback={null}>
             <IdontHaveEOSAccountForm />
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.almostDone.name}>
+        <Route path={routes.signup.almostDoneWithAccount.name}>
           <React.Suspense fallback={null}>
-            <RegistrationAlmostDone />
+            <RegistrationAlmostDoneWithAccount />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.almostDoneNoAccount.name}>
+          <React.Suspense fallback={null}>
+            <RegistrationAlmostDoneNoAccount />
           </React.Suspense>
         </Route>
 

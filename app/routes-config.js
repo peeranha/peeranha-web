@@ -87,9 +87,14 @@ export const signup = {
     name: `/${registrationStage}/i-dont-have-eos-account`,
     scatter: false,
   },
-  almostDone: {
+  almostDoneWithAccount: {
     step: 4,
-    name: `/${registrationStage}/almost-done`,
+    name: `/${registrationStage}/i-have-eos-account/almost-done`,
+    scatter: false,
+  },
+  almostDoneNoAccount: {
+    step: 4,
+    name: `/${registrationStage}/i-dont-have-eos-account/almost-done`,
     scatter: false,
   },
 };

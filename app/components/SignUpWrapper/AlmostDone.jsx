@@ -1,5 +1,5 @@
+/* eslint react/prop-types: 0 */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import almostDoneBanner from 'images/communityIsSuggested.svg?inline';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
-import Button from 'components/Button/Outlined/InfoLarge';
+import { InfoLink } from 'components/Button/Outlined/InfoLarge';
 
 import messages from 'containers/SignUp/messages';
 
@@ -24,10 +24,6 @@ import {
 
 import SignUpWrapper from './index';
 import { Li, P } from './SignUpOptions';
-
-const MainPageLink = Button.extend`
-  position: relative;
-`.withComponent(Link);
 
 const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
@@ -59,7 +55,7 @@ const LeftMenu = ({ faqQuestions }) => (
   </React.Fragment>
 );
 
-const RightMenu = () => (
+const RightMenu = ({ message }) => (
   <div className="text-center py-5 px-4">
     <img
       className="mb-2"
@@ -67,20 +63,20 @@ const RightMenu = () => (
       alt="peeranha registration almost done"
     />
     <P className="text-center mb-4" mobileFS="16">
-      <FormattedMessage {...messages.weWillNotify} />
+      {message}
     </P>
     <div>
-      <MainPageLink to={routes.questions()} className="w-100">
+      <InfoLink to={routes.questions()} className="w-100">
         <FormattedMessage {...messages.goToMainPage} />
-      </MainPageLink>
+      </InfoLink>
     </div>
   </div>
 );
 
-const AlmostDone = ({ faqQuestions }) => (
+const AlmostDone = ({ faqQuestions, message }) => (
   <SignUpWrapper
     LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
-    RightMenuChildren={<RightMenu />}
+    RightMenuChildren={<RightMenu message={message} />}
   />
 );
 
@@ -91,14 +87,6 @@ const mapStateToProps = createStructuredSelector({
     ALMOST_DONE_3ST_QUESTION,
   ]),
 });
-
-LeftMenu.propTypes = {
-  faqQuestions: PropTypes.array,
-};
-
-AlmostDone.propTypes = {
-  faqQuestions: PropTypes.array,
-};
 
 export default connect(
   mapStateToProps,

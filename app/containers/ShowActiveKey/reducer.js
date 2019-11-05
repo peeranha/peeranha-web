@@ -13,6 +13,7 @@ import {
   SHOW_ACTIVE_KEY_ERROR,
   SHOW_ACTIVE_KEY_MODAL,
   HIDE_ACTIVE_KEY_MODAL,
+  REMOVE_ACTIVE_KEY,
 } from './constants';
 
 export const initialState = fromJS({
@@ -30,6 +31,9 @@ function showActiveKeyReducer(state = initialState, action) {
       return state.set('showModal', true);
     case HIDE_ACTIVE_KEY_MODAL:
       return state.set('showModal', false);
+
+    case REMOVE_ACTIVE_KEY:
+      return state.set('activeKey', initialState.get('activeKey'));
 
     case SHOW_ACTIVE_KEY:
       return state.set('showActiveKeyProcessing', true);

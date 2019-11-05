@@ -12,6 +12,7 @@ import {
   showOwnerKeyErr,
   showOwnerKeyModal,
   hideOwnerKeyModal,
+  removeOwnerKey,
 } from '../actions';
 
 import {
@@ -34,9 +35,13 @@ describe('showOwnerKeyReducer', () => {
     expect(showOwnerKeyReducer(state, {})).toEqual(state);
   });
 
+  it('removeOwnerKey', () => {
+    const obj = state.set('ownerKey', initialState.get('ownerKey'));
+    expect(showOwnerKeyReducer(state, removeOwnerKey())).toEqual(obj);
+  });
+
   it('showOwnerKeyModal', () => {
     const obj = state.set('showModal', true).set('content', EMAIL_FORM);
-
     expect(showOwnerKeyReducer(state, showOwnerKeyModal())).toEqual(obj);
   });
 

@@ -49,4 +49,7 @@ module.exports = {
   15: {
     id: 'web_integration.errors.unableToBuildModel',
   },
+  wrongMasterKey: {
+    id: 'web_integration.errors.wrongMasterKey',
+  },
 };

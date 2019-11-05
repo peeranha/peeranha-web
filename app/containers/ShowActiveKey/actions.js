@@ -11,6 +11,7 @@ import {
   SHOW_ACTIVE_KEY_MODAL,
   HIDE_ACTIVE_KEY_MODAL,
   PASSWORD_FIELD,
+  REMOVE_ACTIVE_KEY,
 } from './constants';
 
 export function showActiveKeyModal() {
@@ -44,5 +45,11 @@ export function showActiveKeyErr(showActiveKeyError) {
   return {
     type: SHOW_ACTIVE_KEY_ERROR,
     showActiveKeyError,
+  };
+}
+
+export function removeActiveKey() {
+  return {
+    type: REMOVE_ACTIVE_KEY,
   };
 }

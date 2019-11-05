@@ -260,7 +260,7 @@ describe('signUpWithScatterWorker', () => {
   it('redirection', () => {
     generator.next();
     expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.signup.almostDone.name,
+      routes.signup.almostDoneWithAccount.name,
     );
   });
 
@@ -369,7 +369,7 @@ describe('idontHaveEosAccountWorker', () => {
     it('redirection', () => {
       generator.next();
       expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.signup.almostDone.name,
+        routes.signup.almostDoneNoAccount.name,
       );
     });
   });
@@ -550,7 +550,7 @@ describe('iHaveEosAccountWorker', () => {
     it('redirection', () => {
       generator.next();
       expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.signup.almostDone.name,
+        routes.signup.almostDoneWithAccount.name,
       );
     });
   });

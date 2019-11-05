@@ -12,6 +12,7 @@ import {
   changeEmail,
   changeEmailSuccess,
   changeEmailErr,
+  sendAnotherCode,
 } from '../actions';
 
 import {
@@ -28,9 +29,18 @@ import {
   HIDE_CHANGE_EMAIL_MODAL,
   OLD_EMAIL_FIELD,
   CODE_FIELD,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 describe('changeEmail actions', () => {
+  it('sendAnotherCode', () => {
+    const expected = {
+      type: SEND_ANOTHER_CODE,
+    };
+
+    expect(sendAnotherCode()).toEqual(expected);
+  });
+
   it('showChangeEmailModal', () => {
     const expected = {
       type: SHOW_CHANGE_EMAIL_MODAL,

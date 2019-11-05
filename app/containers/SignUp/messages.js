@@ -140,4 +140,7 @@ export default defineMessages({
   keysDoNotMatch: {
     id: 'app.containers.SignUp.keysDoNotMatch',
   },
+  registrationWithEosAccountAlmostDone: {
+    id: 'app.containers.SignUp.registrationWithEosAccountAlmostDone',
+  },
 });

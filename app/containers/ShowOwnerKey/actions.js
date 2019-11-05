@@ -16,6 +16,7 @@ import {
   EMAIL_FIELD,
   PASSWORD_FIELD,
   CODE_FIELD,
+  REMOVE_OWNER_KEY,
 } from './constants';
 
 export function showOwnerKeyModal() {
@@ -76,5 +77,11 @@ export function showOwnerKeyErr(showOwnerKeyError) {
   return {
     type: SHOW_OWNER_KEY_ERROR,
     showOwnerKeyError,
+  };
+}
+
+export function removeOwnerKey() {
+  return {
+    type: REMOVE_OWNER_KEY,
   };
 }

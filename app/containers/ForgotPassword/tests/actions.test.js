@@ -12,6 +12,7 @@ import {
   changePassword,
   changePasswordSuccess,
   changePasswordErr,
+  sendAnotherCode,
 } from '../actions';
 
 import {
@@ -30,9 +31,18 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 describe('ForgotPassword actions', () => {
+  it('sendAnotherCode', () => {
+    const expected = {
+      type: SEND_ANOTHER_CODE,
+    };
+
+    expect(sendAnotherCode()).toEqual(expected);
+  });
+
   describe('SHOW_FORGOT_PASSWORD_MODAL', () => {
     it('test', () => {
       const expected = {

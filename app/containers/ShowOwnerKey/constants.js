@@ -4,6 +4,8 @@
  *
  */
 
+export const REMOVE_OWNER_KEY = 'app/ShowOwnerKey/REMOVE_OWNER_KEY';
+
 export const SHOW_OWNER_KEY = 'app/ShowOwnerKey/SHOW_OWNER_KEY';
 export const SHOW_OWNER_KEY_SUCCESS = 'app/ShowOwnerKey/SHOW_OWNER_KEY_SUCCESS';
 export const SHOW_OWNER_KEY_ERROR = 'app/ShowOwnerKey/SHOW_OWNER_KEY_ERROR';

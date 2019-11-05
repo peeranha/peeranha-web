@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import orderBy from 'lodash/orderBy';
 
 import {
   BG_LIGHT,
@@ -128,67 +129,69 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </H4>
 
       <List>
-        {communities.map(x => (
-          <div key={x.id}>
-            <BaseRoundedNoPadding>
-              <AStyled to={communitiesRoute}>
-                <FrontSide>
-                  <div>
-                    <MediumImage src={x.avatar} alt="comm_img" />
-                    <P fontSize="16" bold>
-                      {x.name}
-                    </P>
-                  </div>
-
-                  <div>
-                    <div className="d-flex mb-3">
-                      <div className="d-flex flex-column flex-grow-1">
-                        <Span fontSize="16" bold>
-                          {getFormattedNum2(x.users_subscribed)}
-                        </Span>
-                        <Span
-                          className="mt-1"
-                          fontSize="14"
-                          color={TEXT_SECONDARY}
-                        >
-                          <FormattedMessage {...messages.users} />
-                        </Span>
-                      </div>
-                      <div className="d-flex flex-column flex-grow-1">
-                        <Span fontSize="16" bold>
-                          {getFormattedNum2(x.questions_asked)}
-                        </Span>
-                        <Span
-                          className="mt-1"
-                          fontSize="14"
-                          color={TEXT_SECONDARY}
-                        >
-                          <FormattedMessage {...messages.questions} />
-                        </Span>
-                      </div>
-                    </div>
-
-                    <FollowCommunityButton communityIdFilter={x.id} />
-                  </div>
-                </FrontSide>
-
-                <BackSide>
-                  <div className="d-flex flex-column justify-content-between">
+        {orderBy(communities, 'questions_asked', 'ask')
+          .slice(0, 9)
+          .map(x => (
+            <div key={x.id}>
+              <BaseRoundedNoPadding>
+                <AStyled to={communitiesRoute}>
+                  <FrontSide>
                     <div>
+                      <MediumImage src={x.avatar} alt="comm_img" />
                       <P fontSize="16" bold>
                         {x.name}
                       </P>
-                      <P>{x.description}</P>
                     </div>
+
                     <div>
+                      <div className="d-flex mb-3">
+                        <div className="d-flex flex-column flex-grow-1">
+                          <Span fontSize="16" bold>
+                            {getFormattedNum2(x.users_subscribed)}
+                          </Span>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.users} />
+                          </Span>
+                        </div>
+                        <div className="d-flex flex-column flex-grow-1">
+                          <Span fontSize="16" bold>
+                            {getFormattedNum2(x.questions_asked)}
+                          </Span>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.questions} />
+                          </Span>
+                        </div>
+                      </div>
+
                       <FollowCommunityButton communityIdFilter={x.id} />
                     </div>
-                  </div>
-                </BackSide>
-              </AStyled>
-            </BaseRoundedNoPadding>
-          </div>
-        ))}
+                  </FrontSide>
+
+                  <BackSide>
+                    <div className="d-flex flex-column justify-content-between">
+                      <div>
+                        <P fontSize="16" bold>
+                          {x.name}
+                        </P>
+                        <P>{x.description}</P>
+                      </div>
+                      <div>
+                        <FollowCommunityButton communityIdFilter={x.id} />
+                      </div>
+                    </div>
+                  </BackSide>
+                </AStyled>
+              </BaseRoundedNoPadding>
+            </div>
+          ))}
 
         {communities.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">

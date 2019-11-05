@@ -1,5 +1,18 @@
 # Frequently Asking Questions
 
+## How to ask
+
+### What can I discuss here?
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Sapiente assumenda, eius autem illo. Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
+
+* Элемент
+* Элемент
+* Элемент
+* Элемент
+
+### What questions should I avoid here?
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Sapiente assumenda, eius autem illo. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
+
 ## My account
 
 ### I lost my password. How to live now?

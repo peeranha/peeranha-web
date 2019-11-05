@@ -32,6 +32,7 @@ import {
   changeEmail,
   showChangeEmailModal,
   hideChangeEmailModal,
+  sendAnotherCode,
 } from './actions';
 
 import {
@@ -56,6 +57,7 @@ export class ChangeEmail extends React.PureComponent {
       confirmOldEmailDispatch,
       sendOldEmailProcessing,
       confirmOldEmailProcessing,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -74,6 +76,7 @@ export class ChangeEmail extends React.PureComponent {
               locale={locale}
               confirmOldEmail={confirmOldEmailDispatch}
               confirmOldEmailProcessing={confirmOldEmailProcessing}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           )}
 
@@ -96,6 +99,7 @@ ChangeEmail.propTypes = {
   changeEmailDispatch: PropTypes.func,
   hideChangeEmailModalDispatch: PropTypes.func,
   showChangeEmailModalDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   sendOldEmailDispatch: PropTypes.func,
   confirmOldEmailDispatch: PropTypes.func,
   children: PropTypes.any,
@@ -118,6 +122,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     changeEmailDispatch: bindActionCreators(changeEmail, dispatch),
     sendOldEmailDispatch: bindActionCreators(sendOldEmail, dispatch),
     confirmOldEmailDispatch: bindActionCreators(confirmOldEmail, dispatch),

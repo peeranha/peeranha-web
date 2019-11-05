@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
@@ -10,9 +10,11 @@ import { TEXT_PRIMARY } from 'style-constants';
 
 import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
+import icoTag from 'images/icoTag.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
+import { TransparentLink } from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
 import Tips from 'components/TextEditor/Tips';
@@ -79,6 +81,10 @@ export const QuestionForm = ({
   change(FORM_TAGS, formValues[FORM_TAGS]);
 
   const setTags = updatedTags => change(FORM_TAGS, updatedTags);
+
+  const communityId = formValues[FORM_COMMUNITY]
+    ? formValues[FORM_COMMUNITY].value
+    : 0;
 
   return (
     <div>
@@ -160,10 +166,21 @@ export const QuestionForm = ({
                 warn={[required, strLength1x5]}
                 splitInHalf
               />
+
+              <div className="pb-3">
+                <TransparentLink to={routes.tagsCreate(communityId)}>
+                  <img className="mr-2" src={icoTag} alt="icoTag" />
+                  <FormattedMessage {...commonMessages.suggestTag} />
+                </TransparentLink>
+              </div>
             </div>
 
-            <div>
-              <Button disabled={questionLoading} id={submitButtonId}>
+            <div className="my-3">
+              <Button
+                disabled={questionLoading}
+                id={submitButtonId}
+                type="button"
+              >
                 {submitButtonName}
               </Button>
             </div>
