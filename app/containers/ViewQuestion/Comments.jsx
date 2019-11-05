@@ -13,11 +13,12 @@ import {
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?inline';
-import blockSmallIcon from 'images/blockSmallIcon.svg?inline';
+import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 import Textarea from 'components/Textarea';
 
 import Button, { BlockButton } from './Button';
@@ -141,7 +142,7 @@ const CommentView = item => (
           onClick={() => item.toggleView(!item.isView)}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img src={editSmallIcon} alt="icon" />
+            <img src={editSmallIcon} alt="icon" width="12" />
             <span className="d-none d-sm-inline-block ml-1">
               <FormattedMessage {...messages.editButton} />
             </span>
@@ -160,7 +161,7 @@ const CommentView = item => (
           disabled={item.deleteCommentLoading}
         >
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img src={deleteSmallIcon} alt="icon" />
+            <img src={deleteSmallIcon} alt="icon" width="12" />
             <span className="d-none d-sm-inline-block ml-1">
               <FormattedMessage {...messages.deleteButton} />
             </span>
@@ -170,7 +171,7 @@ const CommentView = item => (
         <BlockButton
           show
           id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          isVotedToDelete={item.isVotedToDelete}
+          isVotedToDelete={item.votingStatus.isVotedToDelete}
           isItWrittenByMe={item.isItWrittenByMe}
           onClick={item.voteToDelete}
           disabled={item.voteToDeleteLoading}
@@ -180,12 +181,10 @@ const CommentView = item => (
             whowasvoted: item.userInfo.user,
           }}
         >
-          <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img src={blockSmallIcon} alt="icon" />
-            <span className="d-none d-sm-inline-block ml-1">
-              <FormattedMessage {...messages.voteToDelete} />
-            </span>
-          </Span>
+          <Icon icon={blockSmallIcon} width="12" noMargin />
+          <span className="d-none d-sm-inline-block ml-1">
+            <FormattedMessage {...messages.voteToDelete} />
+          </span>
         </BlockButton>
       </CommentManage>
     </div>

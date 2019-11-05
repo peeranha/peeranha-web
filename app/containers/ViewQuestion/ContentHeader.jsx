@@ -6,11 +6,12 @@ import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
-import blockIcon from 'images/blockIcon.svg?inline';
+import blockIcon from 'images/blockIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 
 import Base from 'components/Base';
+import Icon from 'components/Icon';
 import Span from 'components/Span';
 import MediumImage from 'components/Img/MediumImage';
 
@@ -78,7 +79,7 @@ export const ContentHeader = props => (
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img src={pencilIcon} alt="icon" />
+              <img src={pencilIcon} alt="icon" width="17" />
               <span className="d-none d-md-inline-block ml-2">
                 <FormattedMessage {...messages.editButton} />
               </span>
@@ -97,7 +98,7 @@ export const ContentHeader = props => (
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img src={deleteIcon} alt="icon" />
+              <img src={deleteIcon} alt="icon" width="17" />
               <span className="d-none d-md-inline-block ml-2">
                 <FormattedMessage {...messages.deleteButton} />
               </span>
@@ -113,16 +114,10 @@ export const ContentHeader = props => (
             isVotedToDelete={props.votingStatus.isVotedToDelete}
             disabled={props.voteToDeleteLoading}
           >
-            <Span
-              className="d-flex align-items-center"
-              color={TEXT_PRIMARY}
-              fontSize="16"
-            >
-              <img src={blockIcon} alt="icon" />
-              <span className="d-none d-md-inline-block ml-2">
-                <FormattedMessage {...messages.voteToDelete} />
-              </span>
-            </Span>
+            <Icon icon={blockIcon} width="14" noMargin />
+            <span className="d-none d-md-inline-block ml-2">
+              <FormattedMessage {...messages.voteToDelete} />
+            </span>
           </BlockButton>
         </div>
       </Base>

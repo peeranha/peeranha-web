@@ -162,16 +162,19 @@ export function* getQuestionData({
       }
     }
 
+    currentItem.isItWrittenByMe = user === currentItem.user;
+    currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
+
+    if (!currentItem.votingStatus) {
+      currentItem.votingStatus = votingStatus(currentItem.history);
+    }
+
     users.set(
       currentItem.user,
       users.get(currentItem.user)
         ? [...users.get(currentItem.user), currentItem]
         : [currentItem],
     );
-
-    currentItem.isItWrittenByMe = user === currentItem.user;
-    currentItem.votingStatus = votingStatus(currentItem.history);
-    currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
   }
 
   function* processQuestion() {
@@ -700,7 +703,9 @@ export function* updateQuestionDataAfterTransactionWorker({
 }
 
 export function* updateQuestionList({ questionData }) {
-  yield put(getQuestionsSuccess(questionData));
+  if (questionData) {
+    yield put(getQuestionsSuccess([questionData]));
+  }
 }
 
 export default function*() {

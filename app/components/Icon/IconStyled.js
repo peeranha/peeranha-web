@@ -11,7 +11,7 @@ const IconHover = ({ color }) => `
 `;
 
 const IconStyled = styled.span`
-  display: inline-block;
+  display: inline-flex;
   margin-right: ${x => (x.noMargin ? '0' : '10')}px;
   transform: rotate(${x => (x.rotate ? '180deg' : '0deg')});
   transition: 0.5s;

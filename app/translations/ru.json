@@ -435,6 +435,10 @@
   "app.containers.ViewQuestion.voteToDelete": "Блокировать",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваш рейтинг должен быть больше",
+  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
+    "Вы не можете выполнить это действие, т.к. уже проголосовали заблокировать",
+  "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
+    "Вы не можете выполнить это действие, т.к. уже голосовали",
   "app.containers.ViewQuestion.notEnoughModPoints":
     "Чтобы выполнить это действие, Ваш рейтинг модератора должен быть больше",
   "app.containers.ViewQuestion.youVoted": "Вы уже выполнили это действие ранее",
