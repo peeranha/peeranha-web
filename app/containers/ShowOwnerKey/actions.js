@@ -80,7 +80,6 @@ export function showOwnerKeyErr(showOwnerKeyError) {
   };
 }
 
-// TODO: test
 export function removeOwnerKey() {
   return {
     type: REMOVE_OWNER_KEY,

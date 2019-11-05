@@ -63,13 +63,11 @@ export function* sendEmailWorker({ resetForm, email }) {
   }
 }
 
-// TODO: test
 export function* sendAnotherCode() {
   const email = yield select(selectEmail());
   yield call(sendEmailWorker, { email, resetForm: () => null });
 }
 
-// TODO: test
 export function* sendAnotherCodeSuccess() {
   yield take(SEND_EMAIL_SUCCESS);
   yield call(successToastHandlingWithDefaultText);

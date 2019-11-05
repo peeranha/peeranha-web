@@ -9,6 +9,7 @@ import {
   sendEmail,
   sendEmailSuccess,
   sendEmailErr,
+  removeOwnerKey,
 } from '../actions';
 
 import {
@@ -23,9 +24,18 @@ import {
   CODE_FIELD,
   EMAIL_FIELD,
   PASSWORD_FIELD,
+  REMOVE_OWNER_KEY,
 } from '../constants';
 
 describe('showOwnerKey actions', () => {
+  it('removeOwnerKey', () => {
+    const expected = {
+      type: REMOVE_OWNER_KEY,
+    };
+
+    expect(removeOwnerKey()).toEqual(expected);
+  });
+
   it('showOwnerKeyModal', () => {
     const expected = {
       type: SHOW_OWNER_KEY_MODAL,

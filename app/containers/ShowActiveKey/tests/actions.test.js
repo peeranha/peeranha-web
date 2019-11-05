@@ -6,6 +6,7 @@ import {
   showActiveKey,
   showActiveKeySuccess,
   showActiveKeyErr,
+  removeActiveKey,
 } from '../actions';
 
 import {
@@ -15,6 +16,7 @@ import {
   SHOW_ACTIVE_KEY_SUCCESS,
   SHOW_ACTIVE_KEY_ERROR,
   PASSWORD_FIELD,
+  REMOVE_ACTIVE_KEY,
 } from '../constants';
 
 describe('showActiveKey actions', () => {
@@ -69,5 +71,13 @@ describe('showActiveKey actions', () => {
     };
 
     expect(showActiveKeyErr(showActiveKeyError)).toEqual(expected);
+  });
+
+  it('removeActiveKey', () => {
+    const expected = {
+      type: REMOVE_ACTIVE_KEY,
+    };
+
+    expect(removeActiveKey()).toEqual(expected);
   });
 });

@@ -12,6 +12,7 @@ import {
   submitEmail,
   submitEmailSuccess,
   submitEmailErr,
+  sendAnotherCode,
 } from '../actions';
 
 import {
@@ -28,9 +29,18 @@ import {
   SUBMIT_EMAIL,
   SUBMIT_EMAIL_SUCCESS,
   SUBMIT_EMAIL_ERROR,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 describe('showChangePassword actions', () => {
+  it('sendAnotherCode', () => {
+    const expected = {
+      type: SEND_ANOTHER_CODE,
+    };
+
+    expect(sendAnotherCode()).toEqual(expected);
+  });
+
   it('showChangePasswordModal', () => {
     const expected = {
       type: SHOW_CHANGE_PASSWORD_MODAL,

@@ -48,7 +48,6 @@ export function showActiveKeyErr(showActiveKeyError) {
   };
 }
 
-// TODO: test
 export function removeActiveKey() {
   return {
     type: REMOVE_ACTIVE_KEY,

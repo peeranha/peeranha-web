@@ -63,13 +63,11 @@ export function* sendOldEmailWorker({ resetForm, email }) {
   }
 }
 
-// TODO: test
 export function* sendAnotherCode() {
   const email = yield select(selectEmail());
   yield call(sendOldEmailWorker, { email, resetForm: () => null });
 }
 
-// TODO: test
 export function* sendAnotherCodeSuccess() {
   yield take(SEND_OLD_EMAIL_SUCCESS);
   yield call(successToastHandlingWithDefaultText);
@@ -153,7 +151,6 @@ export function* changeEmailWorker({ resetForm, values }) {
   }
 }
 
-// TODO: test
 export default function* defaultSaga() {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);

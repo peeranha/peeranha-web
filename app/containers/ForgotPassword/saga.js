@@ -57,13 +57,11 @@ export function* getVerificationCodeWorker({ email }) {
   }
 }
 
-// TODO: test
 export function* sendAnotherCode() {
   const email = yield select(selectEmail());
   yield call(getVerificationCodeWorker, { email, resetForm: () => null });
 }
 
-// TODO: test
 export function* sendAnotherCodeSuccess() {
   yield take(GET_VERIFICATION_CODE_SUCCESS);
   yield call(successToastHandlingWithDefaultText);
@@ -142,7 +140,6 @@ export function* changePasswordWorker({ masterKey, password }) {
   }
 }
 
-// TODO: test
 export default function*() {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
