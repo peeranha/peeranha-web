@@ -67,6 +67,8 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   POST_ANSWER_BUTTON,
   POST_COMMENT_BUTTON,
+  POST_COMMENT_SUCCESS,
+  POST_ANSWER_SUCCESS,
 } from './constants';
 
 import {
@@ -94,7 +96,7 @@ import {
   voteToDeleteErr,
 } from './actions';
 
-import { selectQuestionData, selectAnswer, selectComment } from './selectors';
+import { selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -116,7 +118,7 @@ export function* getQuestionData({
   let question = yield select(selectQuestions(null, null, questionId));
 
   if (!question) {
-    question = yield call(() => getQuestionById(eosService, questionId));
+    question = yield call(getQuestionById, eosService, questionId);
   }
 
   const getItemStatus = (historyFlag, constantFlag) =>
@@ -148,26 +150,20 @@ export function* getQuestionData({
 
   const users = new Map();
 
-  function* addOptions(cachedItem, currentItem) {
-    // Item's @content: IF cache is empty - take from IPFS
-    if (cachedItem && cachedItem.content) {
-      currentItem.content = cachedItem.content;
-    } else {
-      const content = yield call(() => getText(currentItem.ipfs_link));
+  function* addOptions(currentItem) {
+    if (currentItem.content) return;
 
-      try {
-        currentItem.content = JSON.parse(content);
-      } catch (err) {
-        currentItem.content = content;
-      }
+    const content = yield call(getText, currentItem.ipfs_link);
+
+    try {
+      currentItem.content = JSON.parse(content);
+    } catch (err) {
+      currentItem.content = content;
     }
 
     currentItem.isItWrittenByMe = user === currentItem.user;
     currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
-
-    if (!currentItem.votingStatus) {
-      currentItem.votingStatus = votingStatus(currentItem.history);
-    }
+    currentItem.votingStatus = votingStatus(currentItem.history);
 
     users.set(
       currentItem.user,
@@ -178,8 +174,7 @@ export function* getQuestionData({
   }
 
   function* processQuestion() {
-    const cachedQuestion = yield select(selectQuestionData());
-    yield call(() => addOptions(cachedQuestion, question));
+    yield call(addOptions, question);
   }
 
   function* processAnswers() {
@@ -187,8 +182,7 @@ export function* getQuestionData({
 
     yield all(
       question.answers.map(function*(x) {
-        const cachedAnswer = yield select(selectAnswer(x.id));
-        yield call(() => addOptions(cachedAnswer, x));
+        yield call(addOptions, x);
 
         x.isTheLargestRating =
           x.rating === mostRatingAnswer.rating &&
@@ -196,8 +190,7 @@ export function* getQuestionData({
 
         yield all(
           x.comments.map(function*(y) {
-            const cachedComment = yield select(selectComment(x.id, y.id));
-            yield call(() => addOptions(cachedComment, y));
+            yield call(addOptions, y);
           }),
         );
       }),
@@ -206,11 +199,8 @@ export function* getQuestionData({
 
   function* processCommentsOfQuestion() {
     yield all(
-      question.comments.map(function*(x) {
-        const answerId = 0; // it is unique ID for question to get comments
-        const cachedComment = yield select(selectComment(answerId, x.id));
-
-        yield call(() => addOptions(cachedComment, x));
+      question.comments.map(function*(y) {
+        yield call(addOptions, y);
       }),
     );
   }
@@ -221,7 +211,7 @@ export function* getQuestionData({
 
   yield all(
     Array.from(users.keys()).map(function*(user) {
-      const userInfo = yield call(() => getUserProfileWorker({ user }));
+      const userInfo = yield call(getUserProfileWorker, { user });
 
       users.get(user).map(cachedItem => {
         cachedItem.userInfo = userInfo;
@@ -399,8 +389,8 @@ export function* getQuestionDataWorker({ questionId }) {
     );
 
     yield put(getQuestionDataSuccess(questionData));
-  } catch (err) {
-    yield put(getQuestionDataErr(err));
+  } catch ({ message }) {
+    yield put(getQuestionDataErr(message));
   }
 }
 
@@ -432,15 +422,36 @@ export function* postCommentWorker({
       postComment(profileInfo.user, questionId, answerId, comment, eosService),
     );
 
-    yield call(updateQuestionDataAfterTransactionWorker, {
-      questionData,
-    });
+    const newComment = {
+      post_time: String(Date.now()).slice(0, -3),
+      user: profileInfo.user,
+      properties: [],
+      history: [],
+      content: comment,
+      isItWrittenByMe: true,
+      votingStatus: {},
+      userInfo: profileInfo,
+    };
+
+    if (answerId == 0) {
+      questionData.comments.push({
+        ...newComment,
+        id: questionData.comments.length + 1,
+      });
+    } else {
+      const { comments } = questionData.answers.find(x => x.id == answerId);
+
+      comments.push({
+        ...newComment,
+        id: comments.length + 1,
+      });
+    }
 
     yield call(toggleView, true);
 
     yield call(reset);
 
-    yield put(postCommentSuccess());
+    yield put(postCommentSuccess({ ...questionData }));
   } catch (err) {
     yield put(postCommentErr(err));
   }
@@ -465,13 +476,25 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
 
     yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
 
-    yield call(updateQuestionDataAfterTransactionWorker, {
-      questionData,
-    });
+    const newAnswer = {
+      id: questionData.answers.length + 1,
+      post_time: String(Date.now()).slice(0, -3),
+      user: profileInfo.user,
+      properties: [],
+      history: [],
+      isItWrittenByMe: true,
+      votingStatus: {},
+      userInfo: profileInfo,
+      comments: [],
+      rating: 0,
+      content: answer,
+    };
+
+    questionData.answers.push(newAnswer);
 
     yield call(reset);
 
-    yield put(postAnswerSuccess());
+    yield put(postAnswerSuccess({ ...questionData }));
   } catch (err) {
     yield put(postAnswerErr(err));
   }
@@ -696,7 +719,28 @@ export function* updateQuestionDataAfterTransactionWorker({
       yield put(removeUserProfile(usersForUpdate[0]));
     }
 
-    yield call(getQuestionDataWorker, { questionId: questionData.id });
+    const userInfoMe = yield call(getUserProfileWorker, { user });
+    const userInfoOpponent = yield call(getUserProfileWorker, {
+      user: usersForUpdate[0],
+    });
+
+    const changeUserInfo = item => {
+      if (item.user === user) {
+        item.userInfo = userInfoMe;
+      } else if (item.user === usersForUpdate[0]) {
+        item.userInfo = userInfoOpponent;
+      }
+    };
+
+    changeUserInfo(questionData);
+    questionData.comments.forEach(x => changeUserInfo(x));
+
+    questionData.answers.forEach(x => {
+      changeUserInfo(x);
+      x.comments.forEach(y => changeUserInfo(y));
+    });
+
+    yield put(getQuestionDataSuccess({ ...questionData }));
   } catch ({ message }) {
     yield put(getQuestionDataErr(message));
   }
@@ -726,6 +770,8 @@ export default function*() {
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
+      POST_COMMENT_SUCCESS,
+      POST_ANSWER_SUCCESS,
     ],
     updateQuestionDataAfterTransactionWorker,
   );
