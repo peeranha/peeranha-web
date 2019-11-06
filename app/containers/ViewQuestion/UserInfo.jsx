@@ -33,7 +33,7 @@ export const UserInfo = ({
   postTime,
   locale,
 }) => (
-  <div className="d-flex">
+  <A to={routes.profileView(account)} className="d-flex">
     {type !== COMMENT_TYPE && (
       <MediumImage
         className="mr-2"
@@ -48,23 +48,20 @@ export const UserInfo = ({
         type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
       }`}
     >
-      <A
-        to={routes.profileView(account)}
-        className="d-flex align-items-center mr-2"
-      >
+      <span className="d-flex align-items-center mr-2">
         <Span className="mr-2" fontSize="14" mobileFS="12">
           {name}
         </Span>
         <RatingStatusBox>
           <RatingStatus rating={rating} size="sm" isRankOff />
         </RatingStatusBox>
-      </A>
+      </span>
 
       <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}
       </Span>
     </div>
-  </div>
+  </A>
 );
 
 UserInfo.propTypes = {

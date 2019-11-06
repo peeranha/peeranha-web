@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getFollowedCommunities } from 'utils/communityManagement';
 
+import * as routes from 'routes-config';
+
+import A from 'components/A';
 import Span from 'components/Span';
 import Img from 'components/Img';
 
@@ -13,10 +16,13 @@ const QuestionCommunity = ({ communities, communityId, className }) => {
   const com = getFollowedCommunities(communities, [communityId])[0];
 
   return (
-    <Span className={`d-flex align-items-center ${className}`} fontSize="14">
+    <A
+      to={routes.questions(communityId)}
+      className={`d-flex align-items-center ${className}`}
+    >
       <Img className="mr-1" src={com.avatar} alt="comm_avatar" />
-      <span>{com.name}</span>
-    </Span>
+      <Span font-size="14">{com.name}</Span>
+    </A>
   );
 };
 
