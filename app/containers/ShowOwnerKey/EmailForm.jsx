@@ -7,8 +7,6 @@ import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
 
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
@@ -69,9 +67,10 @@ let FormClone = reduxForm({
   form: EMAIL_FORM,
 })(EmailForm);
 
-FormClone = connect(() => ({
+FormClone = connect((_, props) => ({
+  enableReinitialize: true,
   initialValues: {
-    [EMAIL_FIELD]: JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)).email,
+    [EMAIL_FIELD]: props.loginData.email,
   },
 }))(FormClone);
 

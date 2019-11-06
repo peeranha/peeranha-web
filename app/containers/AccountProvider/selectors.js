@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+
 import { selectUsers } from 'containers/DataCacheProvider/selectors';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import { initialState } from './reducer';
 
@@ -18,18 +20,23 @@ const makeSelectAccount = () =>
 const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
+const makeSelectLoginData = () =>
+  JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)) || {};
+
 const makeSelectProfileInfo = () =>
   createSelector(
     state => state,
     state => {
       const account = makeSelectAccount()(state);
       const balance = makeSelectBalance()(state);
+      const loginData = makeSelectLoginData()(state);
       const profileInfo = selectUsers(account)(state);
 
       if (typeof profileInfo === 'object') {
         return {
           ...profileInfo,
           balance,
+          loginData,
         };
       }
 
@@ -54,4 +61,5 @@ export {
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
   makeSelectBalance,
+  makeSelectLoginData,
 };

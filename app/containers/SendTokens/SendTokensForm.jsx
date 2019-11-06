@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
-
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -24,73 +21,62 @@ const SendTokensForm = ({
   sendTokens,
   locale,
   sendTokensProcessing,
-}) => {
-  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+  loginData,
+}) => (
+  <div>
+    <H4 className="text-center pb-3">
+      <FormattedMessage {...commonMessages.sendTokens} />
+    </H4>
 
-  return (
-    <div>
-      <H4 className="text-center pb-3">
-        <FormattedMessage {...commonMessages.sendTokens} />
-      </H4>
+    <form onSubmit={handleSubmit(sendTokens)}>
+      <Field
+        name={EOS_ACCOUNT_FIELD}
+        disabled={sendTokensProcessing}
+        label={translationMessages[locale][commonMessages.eosAccount.id]}
+        component={TextInputField}
+        validate={[required]}
+        warn={[required]}
+      />
 
-      <form onSubmit={handleSubmit(sendTokens)}>
+      <Field
+        name={AMOUNT_FIELD}
+        disabled={sendTokensProcessing}
+        label={translationMessages[locale][commonMessages.amount.id]}
+        component={NumberInputField}
+        validate={[required]}
+        warn={[required]}
+      />
+
+      {!loginData.loginWithScatter && (
         <Field
-          name={EOS_ACCOUNT_FIELD}
+          name={PASSWORD_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.eosAccount.id]}
+          label={translationMessages[locale][commonMessages.password.id]}
           component={TextInputField}
-          validate={[required]}
-          warn={[required]}
+          validate={required}
+          warn={required}
+          type="password"
         />
+      )}
 
-        <Field
-          name={AMOUNT_FIELD}
-          disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.amount.id]}
-          component={NumberInputField}
-          validate={[required]}
-          warn={[required]}
-        />
-
-        {loginData &&
-          !loginData.loginWithScatter && (
-            <Field
-              name={PASSWORD_FIELD}
-              disabled={sendTokensProcessing}
-              label={translationMessages[locale][commonMessages.password.id]}
-              component={TextInputField}
-              validate={required}
-              warn={required}
-              type="password"
-            />
-          )}
-
-        <Button disabled={sendTokensProcessing} className="w-100 mb-3">
-          <FormattedMessage {...commonMessages.submit} />
-        </Button>
-      </form>
-    </div>
-  );
-};
+      <Button disabled={sendTokensProcessing} className="w-100 mb-3">
+        <FormattedMessage {...commonMessages.submit} />
+      </Button>
+    </form>
+  </div>
+);
 
 SendTokensForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendTokens: PropTypes.func,
   locale: PropTypes.string,
   sendTokensProcessing: PropTypes.bool,
+  loginData: PropTypes.object,
 };
 
 const formName = 'SendTokensForm';
 
 /* eslint import/no-mutable-exports: 0 */
-let FormClone = reduxForm({
+export default reduxForm({
   form: formName,
 })(SendTokensForm);
-
-FormClone = connect((_, props) => ({
-  initialValues: {
-    [EOS_ACCOUNT_FIELD]: props.email,
-  },
-}))(FormClone);
-
-export default FormClone;

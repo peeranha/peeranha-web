@@ -17,6 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import Modal from 'components/ModalDialog';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import {
   hideSendTokensModal,
@@ -39,6 +40,7 @@ export const SendTokens = /* istanbul ignore next */ ({
   showModal,
   hideSendTokensModalDispatch,
   showSendTokensModalDispatch,
+  loginData,
 }) => (
   <React.Fragment>
     <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
@@ -46,6 +48,7 @@ export const SendTokens = /* istanbul ignore next */ ({
         locale={locale}
         sendTokens={sendTokensDispatch}
         sendTokensProcessing={sendTokensProcessing}
+        loginData={loginData}
       />
     </Modal>
 
@@ -61,10 +64,12 @@ SendTokens.propTypes = {
   hideSendTokensModalDispatch: PropTypes.func,
   showSendTokensModalDispatch: PropTypes.func,
   sendTokensDispatch: PropTypes.func,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   showModal: selectors.selectShowModal(),
   sendTokensProcessing: selectors.selectSendTokensProcessing(),
 });

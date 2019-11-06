@@ -7,15 +7,13 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-
 import {
   successToastHandlingWithDefaultText,
   errorToastHandlingWithDefaultText,
   errorToastHandling,
 } from 'containers/Toast/saga';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
@@ -39,15 +37,18 @@ export function* sendTokensWorker({ resetForm, val }) {
     const translations = translationMessages[locale];
 
     const eosService = yield select(selectEos);
-    const account = yield select(makeSelectAccount());
+    const profile = yield select(makeSelectProfileInfo());
 
-    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
     const password = val[PASSWORD_FIELD];
 
     // check password for users which logged with email
-    if (loginData && loginData.email) {
+    if (profile.loginData.email) {
       const response = yield call(() =>
-        login(loginData.email, password, Boolean(loginData.authToken)),
+        login(
+          profile.loginData.email,
+          password,
+          Boolean(profile.loginData.authToken),
+        ),
       );
 
       if (!response.OK) {
@@ -59,7 +60,7 @@ export function* sendTokensWorker({ resetForm, val }) {
 
     yield call(() =>
       sendTokens(eosService, {
-        from: account,
+        from: profile.user,
         to: val[EOS_ACCOUNT_FIELD],
         quantity: val[AMOUNT_FIELD],
       }),

@@ -53,7 +53,10 @@ async function login(email, password, rememberMe = false) {
 
   const activeKey = decryptObject(activeEosKey, encryptionKey);
 
-  window.localStorage.setItem(AUTOLOGIN_DATA, JSON.stringify({ email }));
+  window.localStorage.setItem(
+    AUTOLOGIN_DATA,
+    JSON.stringify({ email, hasOwnerEosKey }),
+  );
 
   if (rememberMe) {
     const { authToken, passwordServerPart } = loginResponse.autoLoginOptions;
