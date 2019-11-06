@@ -59,6 +59,25 @@ describe('voteToDeleteValidator', () => {
     item.answerId = null;
     item.commentId = null;
 
+    it('item was upvoted or downvoted', () => {
+      questionData.votingStatus.isUpVoted = true;
+
+      try {
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translations,
+          postButtonId,
+          item,
+        );
+      } catch (err) {}
+
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.cannotCompleteBecauseVoted.id],
+      );
+    });
+
     it('itemData.user === profileInfo.user', () => {
       questionData.user = 'user';
       profileInfo.user = 'user';
@@ -282,6 +301,25 @@ describe('deleteCommentValidator', () => {
 });
 
 describe('downVoteValidator', () => {
+  it('item was reported', () => {
+    try {
+      questionData.votingStatus.isVotedToDelete = true;
+
+      downVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.cannotCompleteBecauseBlocked.id],
+      );
+    }
+  });
+
   it('(questionData.user === profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)', () => {
     try {
       questionData.user = 'user1';
@@ -370,6 +408,25 @@ describe('downVoteValidator', () => {
 });
 
 describe('upVoteValidator', () => {
+  it('item was reported', () => {
+    try {
+      questionData.votingStatus.isVotedToDelete = true;
+
+      upVoteValidator(
+        profileInfo,
+        questionData,
+        postButtonId,
+        answerId,
+        translations,
+      );
+    } catch (err) {
+      expect(showPopover).toHaveBeenCalledWith(
+        postButtonId,
+        translations[messages.cannotCompleteBecauseBlocked.id],
+      );
+    }
+  });
+
   it('(questionData.user === profileInfo.user && answerId == 0) || (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)', () => {
     try {
       questionData.user = 'user1';

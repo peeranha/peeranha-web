@@ -441,6 +441,8 @@ exports[`<CreateTag /> render 1`] = `
                 "app.containers.ViewQuestion.alreadyAnswered": "You already answered this question",
                 "app.containers.ViewQuestion.answerIsCorrect": "You cannot delete it because your answer is marked as correct",
                 "app.containers.ViewQuestion.answers": "answers",
+                "app.containers.ViewQuestion.cannotCompleteBecauseBlocked": "Yon can't complete this action. You blocked it earlier",
+                "app.containers.ViewQuestion.cannotCompleteBecauseVoted": "Yon can't complete this action. You voted earlier",
                 "app.containers.ViewQuestion.commentButton": "Comment",
                 "app.containers.ViewQuestion.communityChoice": "Community choice",
                 "app.containers.ViewQuestion.creatorCannot": "Creator cannot complete this action",

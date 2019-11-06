@@ -707,22 +707,23 @@ export function* voteToDeleteWorker({
 
 // Do not spent time for main action - update userInfo as async action after main action
 export function* updateQuestionDataAfterTransactionWorker({
-  usersForUpdate,
+  usersForUpdate = [],
   questionData,
 }) {
   try {
+    let userInfoOpponent;
     const user = yield select(makeSelectAccount());
 
     yield call(getCurrentAccountWorker);
 
-    if (usersForUpdate && user !== usersForUpdate[0]) {
+    if (user !== usersForUpdate[0]) {
       yield put(removeUserProfile(usersForUpdate[0]));
+      userInfoOpponent = yield call(getUserProfileWorker, {
+        user: usersForUpdate[0],
+      });
     }
 
     const userInfoMe = yield call(getUserProfileWorker, { user });
-    const userInfoOpponent = yield call(getUserProfileWorker, {
-      user: usersForUpdate[0],
-    });
 
     const changeUserInfo = item => {
       if (item.user === user) {
