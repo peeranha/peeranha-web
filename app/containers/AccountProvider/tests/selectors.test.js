@@ -10,6 +10,12 @@ import {
   makeSelectBalance,
 } from '../selectors';
 
+const localStorage = {
+  getItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+
 describe('selectAccountProviderDomain', () => {
   const loading = 'loading';
   const error = 'error';
@@ -48,7 +54,11 @@ describe('selectAccountProviderDomain', () => {
   describe('makeSelectFollowedCommunities', () => {
     const isMakeSelectFollowedCommunities = makeSelectFollowedCommunities();
 
+    const loginData = {};
+
     it('profileInfo FALSE', () => {
+      localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
@@ -66,6 +76,8 @@ describe('selectAccountProviderDomain', () => {
     });
 
     it('profileInfo TRUE', () => {
+      localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
@@ -104,6 +116,10 @@ describe('selectAccountProviderDomain', () => {
   });
 
   it('makeSelectProfileInfo', () => {
+    const loginData = {};
+
+    localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+
     const isProfileInfo = makeSelectProfileInfo();
 
     expect(
@@ -122,6 +138,7 @@ describe('selectAccountProviderDomain', () => {
     ).toEqual({
       ...user1,
       balance,
+      loginData,
     });
   });
 });

@@ -26,22 +26,13 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
-const localStorage = {
-  getItem: jest.fn(),
-};
-
-Object.defineProperty(global, 'localStorage', { value: localStorage });
-
 describe('showActiveKeyWorker', () => {
   const resetForm = jest.fn();
   const password = 'password';
   const email = 'email';
   const locale = 'en';
   const authToken = 'authToken';
-
-  localStorage.getItem.mockImplementation(() =>
-    JSON.stringify({ authToken, email }),
-  );
+  const loginData = { email, authToken };
 
   describe('showActiveKeyWorker FAILED', () => {
     const generator = showActiveKeyWorker({ resetForm, password });
@@ -59,8 +50,14 @@ describe('showActiveKeyWorker', () => {
       expect(step.value).toEqual(locale);
     });
 
+    it('select loginData', () => {
+      select.mockImplementation(() => loginData);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(loginData);
+    });
+
     it('call login', () => {
-      generator.next(locale);
+      generator.next(loginData);
       expect(login).toHaveBeenCalledWith(email, password, Boolean(authToken));
     });
 
@@ -85,6 +82,7 @@ describe('showActiveKeyWorker', () => {
 
     generator.next();
     generator.next(locale);
+    generator.next(loginData);
 
     it('finish with @showActiveKeySuccess', () => {
       const step = generator.next(response);

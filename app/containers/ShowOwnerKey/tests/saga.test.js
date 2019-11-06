@@ -36,20 +36,13 @@ jest.mock(
   }),
 );
 
-const localStorage = {
-  getItem: jest.fn(),
-};
-
-Object.defineProperty(global, 'localStorage', { value: localStorage });
-
 describe('showOwnerKeyWorker', () => {
   const resetForm = jest.fn();
   const password = 'password';
   const email = 'email';
   const locale = 'en';
   const verificationCode = 'verificationCode';
-
-  localStorage.getItem.mockImplementation(() => JSON.stringify({ email }));
+  const loginData = { email };
 
   describe('showOwnerKeyWorker FAILED', () => {
     const generator = showOwnerKeyWorker({ resetForm, verificationCode });
@@ -61,9 +54,15 @@ describe('showOwnerKeyWorker', () => {
 
     getOwnerKeyByPwd.mockImplementation(() => response);
 
+    it('select loginData', () => {
+      select.mockImplementation(() => loginData);
+      const step = generator.next();
+      expect(step.value).toEqual(loginData);
+    });
+
     it('select password', () => {
       select.mockImplementation(() => password);
-      const step = generator.next();
+      const step = generator.next(loginData);
       expect(step.value).toEqual(password);
     });
 
@@ -106,6 +105,7 @@ describe('showOwnerKeyWorker', () => {
     getOwnerKeyByPwd.mockImplementation(() => response);
 
     generator.next();
+    generator.next(loginData);
     generator.next(password);
     generator.next(locale);
 

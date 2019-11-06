@@ -21,7 +21,10 @@ const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
 const makeSelectLoginData = () =>
-  JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)) || {};
+  createSelector(
+    selectAccountProviderDomain,
+    () => JSON.parse(localStorage.getItem(AUTOLOGIN_DATA)) || {},
+  );
 
 const makeSelectProfileInfo = () =>
   createSelector(

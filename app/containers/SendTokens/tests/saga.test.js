@@ -15,12 +15,6 @@ import {
   HIDE_SENDTOKENS_MODAL,
 } from '../constants';
 
-const localStorage = {
-  getItem: jest.fn(),
-};
-
-Object.defineProperty(global, 'localStorage', { value: localStorage });
-
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
   call: jest.fn().mockImplementation(func => func()),
@@ -64,6 +58,11 @@ describe('sendTokensWorker', () => {
         OK: true,
       };
 
+      const profileInfo = {
+        user: accountFrom,
+        loginData: { authToken, email },
+      };
+
       it('select @locale', () => {
         select.mockImplementation(() => locale);
         const step = generator.next();
@@ -76,20 +75,16 @@ describe('sendTokensWorker', () => {
         expect(step.value).toEqual(eosService);
       });
 
-      it('select @account', () => {
-        select.mockImplementation(() => accountFrom);
+      it('select @profileInfo', () => {
+        select.mockImplementation(() => profileInfo);
         const step = generator.next(eosService);
-        expect(step.value).toEqual(accountFrom);
+        expect(step.value).toEqual(profileInfo);
       });
 
       it('call @login, password checking', () => {
-        localStorage.getItem.mockImplementation(() =>
-          JSON.stringify({ authToken, email }),
-        );
-
         login.mockImplementation(() => 'login via email, success');
 
-        const step = generator.next(accountFrom);
+        const step = generator.next(profileInfo);
         expect(step.value).toBe('login via email, success');
       });
 
@@ -126,14 +121,15 @@ describe('sendTokensWorker', () => {
         errorCode: 1,
       };
 
-      localStorage.getItem.mockImplementation(() =>
-        JSON.stringify({ authToken, email }),
-      );
+      const profileInfo = {
+        user: accountFrom,
+        loginData: { authToken, email },
+      };
 
       generator.next();
       generator.next(locale);
       generator.next(eosService);
-      generator.next(accountFrom);
+      generator.next(profileInfo);
 
       it('error handling', () => {
         const step = generator.next(loginResponse);
@@ -143,16 +139,17 @@ describe('sendTokensWorker', () => {
   });
 
   describe('login via scatter', () => {
-    localStorage.getItem.mockImplementation(() =>
-      JSON.stringify({ loginWithScatter: true }),
-    );
-
     const generator = sendTokensWorker({ resetForm, val });
+
+    const profileInfo = {
+      user: accountFrom,
+      loginData: { loginWithScatter: true },
+    };
 
     generator.next();
     generator.next(locale);
     generator.next(eosService);
-    generator.next(accountFrom);
+    generator.next(profileInfo);
 
     it('put @sendTokensSuccess', () => {
       const step = generator.next();
