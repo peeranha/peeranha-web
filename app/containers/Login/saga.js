@@ -14,7 +14,6 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { errorToastHandling } from 'containers/Toast/saga';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -130,8 +129,6 @@ export function* loginWithScatterWorker() {
     }
 
     const profileInfo = yield call(() => getProfileInfo(user, eosService));
-
-    yield put(getUserProfileSuccess(profileInfo));
 
     if (!profileInfo) {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
