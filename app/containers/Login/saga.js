@@ -15,6 +15,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { errorToastHandling } from 'containers/Toast/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 
@@ -90,7 +91,7 @@ export function* loginWithEmailWorker({ val }) {
       return null;
     }
 
-    yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCurrentAccountWorker);
 
     yield put(loginWithEmailSuccess());
   } catch (err) {
@@ -136,6 +137,8 @@ export function* loginWithScatterWorker() {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
     }
 
+    yield call(getCurrentAccountWorker);
+
     yield put(initEosioSuccess(eosService));
 
     yield put(loginWithScatterSuccess());
@@ -155,6 +158,8 @@ export function* finishRegistrationWorker({ val }) {
     };
 
     yield call(() => registerAccount(profile, eosService));
+
+    yield call(getCurrentAccountWorker);
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {
