@@ -70,10 +70,10 @@ exports[`Header test 1`] = `
           className="d-none d-sm-inline-block"
           src="IMAGE_MOCK"
         />
-        <img
-          alt="icon"
+        <UNDEFINED
           className="d-inline-block d-sm-none"
-          src="IMAGE_MOCK"
+          icon="IMAGE_MOCK"
+          width="14"
         />
         <span
           className="ml-1"

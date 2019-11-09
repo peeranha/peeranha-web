@@ -27,7 +27,7 @@ import * as routes from 'routes-config';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
-import { getQuestionsSuccess } from 'containers/Questions/actions';
+import { getUniqQuestions } from 'containers/Questions/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import {
@@ -1408,7 +1408,7 @@ describe('updateQuestionList', () => {
 
     it('put questionData', () => {
       const step = generator.next();
-      expect(step.value).toEqual(getQuestionsSuccess([questionData]));
+      expect(step.value).toEqual(getUniqQuestions([questionData]));
     });
   });
 

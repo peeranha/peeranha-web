@@ -6,13 +6,14 @@ import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsError,
+  getUniqQuestions,
 } from '../actions';
 
 describe('questionsReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      questionsList: [{ id: 1 }],
+      questionsList: [{ id: 1 }, { id: 2 }],
     });
   });
 
@@ -31,10 +32,19 @@ describe('questionsReducer', () => {
 
     const obj = state
       .set('questionsLoading', false)
-      .set('questionsList', questionsList)
+      .set('questionsList', [{ id: 1 }, { id: 2 }, { id: 1 }])
       .set('isLastFetch', true);
 
     expect(questionsReducer(state, getQuestionsSuccess(questionsList))).toEqual(
+      obj,
+    );
+  });
+
+  it('getUniqQuestions', () => {
+    const questionsList = [{ id: 1, title: 'title' }, { id: 2 }];
+    const obj = state.set('questionsList', questionsList);
+
+    expect(questionsReducer(state, getUniqQuestions(questionsList))).toEqual(
       obj,
     );
   });
