@@ -87,11 +87,20 @@ export default defineMessages({
   asked: {
     id: 'app.common.asked',
   },
+  somebodyAsked: {
+    id: 'app.common.somebodyAsked',
+  },
   youAsked: {
     id: 'app.common.youAsked',
   },
   answered: {
     id: 'app.common.answered',
+  },
+  somebodyAnswered: {
+    id: 'app.common.somebodyAnswered',
+  },
+  youAnswered: {
+    id: 'app.common.youAnswered',
   },
   subscribeMore: {
     id: 'app.common.subscribeMore',

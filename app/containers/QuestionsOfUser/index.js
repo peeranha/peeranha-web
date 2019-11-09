@@ -58,6 +58,9 @@ export class QuestionsOfUser extends React.PureComponent {
       className,
       infinityOff,
       communities,
+      userId,
+      account,
+      displayName,
     } = this.props;
 
     return (
@@ -68,7 +71,7 @@ export class QuestionsOfUser extends React.PureComponent {
         infinityOff={infinityOff}
       >
         <div className={className}>
-          <Header />
+          <Header userId={userId} account={account} displayName={displayName} />
 
           {questions[0] && (
             <QuestionsList
@@ -88,6 +91,8 @@ export class QuestionsOfUser extends React.PureComponent {
 QuestionsOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
   questionsLoading: PropTypes.bool,
+  account: PropTypes.string,
+  displayName: PropTypes.string,
   userId: PropTypes.string,
   locale: PropTypes.string,
   questions: PropTypes.array,

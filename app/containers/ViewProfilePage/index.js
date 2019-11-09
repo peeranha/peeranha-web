@@ -73,12 +73,14 @@ const ViewProfilePage = /* istanbul ignore next */ ({
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
+        displayName={profile ? profile.display_name : null}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
+        displayName={profile ? profile.display_name : null}
         userId={userId}
       />
 
