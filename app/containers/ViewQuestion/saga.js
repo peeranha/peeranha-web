@@ -44,7 +44,7 @@ import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
-import { getQuestionsSuccess } from 'containers/Questions/actions';
+import { getUniqQuestions } from 'containers/Questions/actions';
 
 import {
   GET_QUESTION_DATA,
@@ -749,7 +749,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 export function* updateQuestionList({ questionData }) {
   if (questionData) {
-    yield put(getQuestionsSuccess([questionData]));
+    yield put(getUniqQuestions([questionData]));
   }
 }
 

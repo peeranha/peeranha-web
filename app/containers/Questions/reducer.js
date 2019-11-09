@@ -11,6 +11,7 @@ import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
+  GET_UNIQ_QUESTIONS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -31,10 +32,7 @@ function questionsReducer(state = initialState, action) {
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
-        .set(
-          'questionsList',
-          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
-        )
+        .set('questionsList', state.toJS().questionsList.concat(questionsList))
         .set(
           'isLastFetch',
           questionsList.length < initialState.get('nextLoadedItems'),
@@ -43,6 +41,12 @@ function questionsReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
+
+    case GET_UNIQ_QUESTIONS:
+      return state.set(
+        'questionsList',
+        uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+      );
 
     default:
       return state;
