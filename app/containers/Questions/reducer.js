@@ -32,7 +32,10 @@ function questionsReducer(state = initialState, action) {
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
-        .set('questionsList', state.toJS().questionsList.concat(questionsList))
+        .set(
+          'questionsList',
+          uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+        )
         .set(
           'isLastFetch',
           questionsList.length < initialState.get('nextLoadedItems'),

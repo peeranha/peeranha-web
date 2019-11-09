@@ -74,7 +74,9 @@ const Content = ({ communities, sorting, locale, language }) => {
           <BaseTransparent key={x.value}>
             <div className="row align-items-center">
               <div className="col-12 col-md-4 d-flex mb-to-md-2">
-                <MediumImageStyled src={x.avatar} alt={x.name} />
+                <div>
+                  <MediumImageStyled src={x.avatar} alt={x.name} />
+                </div>
                 <div>
                   <P className="mb-1" fontSize="24" mobileFS="18" bold>
                     {x.name}

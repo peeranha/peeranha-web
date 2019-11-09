@@ -32,7 +32,7 @@ describe('questionsReducer', () => {
 
     const obj = state
       .set('questionsLoading', false)
-      .set('questionsList', [{ id: 1 }, { id: 2 }, { id: 1 }])
+      .set('questionsList', [{ id: 1 }, { id: 2 }])
       .set('isLastFetch', true);
 
     expect(questionsReducer(state, getQuestionsSuccess(questionsList))).toEqual(
