@@ -16,8 +16,11 @@ import injectReducer from 'utils/injectReducer';
 import { selectQuestions } from 'containers/QuestionsOfUser/selectors';
 import { selectQuestionsWithUserAnswers } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
-import { selectUsers } from 'containers/DataCacheProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+  makeSelectLoginData,
+} from 'containers/AccountProvider/selectors';
 
 import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
@@ -52,7 +55,7 @@ export class EditProfilePage extends React.PureComponent {
   };
 
   render() /* istanbul ignore next */ {
-    const { profile, match, account, isProfileSaving } = this.props;
+    const { profile, match, account, isProfileSaving, loginData } = this.props;
 
     const sendProps = {
       saveProfile: this.saveProfile,
@@ -67,6 +70,7 @@ export class EditProfilePage extends React.PureComponent {
           account={account}
           questionsLength={profile ? profile.questions_asked : 0}
           questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
+          loginData={loginData}
         />
 
         <Base position="bottom">
@@ -86,10 +90,12 @@ EditProfilePage.propTypes = {
   isProfileSaving: PropTypes.bool,
   questions: PropTypes.array,
   questionsWithUserAnswers: PropTypes.array,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  profile: (state, props) => selectUsers(props.match.params.id)(state),
+  profile: makeSelectProfileInfo(),
+  loginData: makeSelectLoginData(),
   account: makeSelectAccount(),
   isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
   questions: selectQuestions(),

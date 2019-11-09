@@ -14,6 +14,16 @@ import { registerAccount } from 'utils/accountManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
 
+import {
+  EMAIL_FIELD as EMAIL_LOGIN_FIELD,
+  PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
+} from 'containers/Login/constants';
+
+import {
+  loginWithEmailWorker,
+  loginWithScatterWorker,
+} from 'containers/Login/saga';
+
 import defaultSaga, {
   emailCheckingWorker,
   verifyEmailWorker,
@@ -55,9 +65,14 @@ import {
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation((x, args) => x(args)),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('containers/Login/saga', () => ({
+  loginWithEmailWorker: jest.fn(),
+  loginWithScatterWorker: jest.fn(),
 }));
 
 jest.mock('utils/web_integration/src/wallet/register/register', () => ({
@@ -252,6 +267,11 @@ describe('signUpWithScatterWorker', () => {
     expect(registerAccount).toHaveBeenCalledTimes(1);
   });
 
+  it('loginWithScatterWorker', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(loginWithScatterWorker);
+  });
+
   it('signUpWithScatterSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toEqual(SIGNUP_WITH_SCATTER_SUCCESS);
@@ -259,9 +279,7 @@ describe('signUpWithScatterWorker', () => {
 
   it('redirection', () => {
     generator.next();
-    expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.signup.almostDoneWithAccount.name,
-    );
+    expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
   });
 
   it('error handling', () => {
@@ -345,10 +363,12 @@ describe('idontHaveEosAccountWorker', () => {
     });
   });
 
-  describe('registerComplete SUCCESS', () => {
+  describe('registerComplete SUCCESS, readyToUse true', () => {
     const response = {
       OK: true,
-      errorCode: 1,
+      body: {
+        readyToUse: true,
+      },
     };
 
     const generator = idontHaveEosAccountWorker({ val });
@@ -361,10 +381,45 @@ describe('idontHaveEosAccountWorker', () => {
     generator.next(email);
     generator.next(encryptionKey);
 
+    it('loginWithEmailWorker', () => {
+      generator.next(response);
+      expect(call).toHaveBeenCalledWith(loginWithEmailWorker, {
+        val: {
+          [EMAIL_LOGIN_FIELD]: email,
+          [PASSWORD_LOGIN_FIELD]: val[PASSWORD_FIELD],
+        },
+      });
+    });
+
     it('idontHaveEosAccountSuccess', () => {
-      const step = generator.next(response);
+      const step = generator.next();
       expect(step.value.type).toBe(I_HAVE_NOT_EOS_ACCOUNT_SUCCESS);
     });
+
+    it('redirection', () => {
+      generator.next();
+      expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
+    });
+  });
+
+  describe('registerComplete SUCCESS, readyToUse false', () => {
+    const response = {
+      OK: true,
+      body: {
+        readyToUse: false,
+      },
+    };
+
+    const generator = idontHaveEosAccountWorker({ val });
+
+    registerComplete.mockImplementation(() => response);
+
+    generator.next();
+    generator.next(keys);
+    generator.next(locale);
+    generator.next(email);
+    generator.next(encryptionKey);
+    generator.next(response);
 
     it('redirection', () => {
       generator.next();
@@ -542,16 +597,24 @@ describe('iHaveEosAccountWorker', () => {
     generator.next(eosActivePublicKey);
     generator.next(eosOwnerPublicKey);
 
+    it('loginWithEmailWorker', () => {
+      generator.next(response);
+      expect(call).toHaveBeenCalledWith(loginWithEmailWorker, {
+        val: {
+          [EMAIL_LOGIN_FIELD]: email,
+          [PASSWORD_LOGIN_FIELD]: password,
+        },
+      });
+    });
+
     it('iHaveEosAccountSuccess', () => {
-      const step = generator.next(response);
+      const step = generator.next();
       expect(step.value.type).toBe(I_HAVE_EOS_ACCOUNT_SUCCESS);
     });
 
     it('redirection', () => {
       generator.next();
-      expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.signup.almostDoneWithAccount.name,
-      );
+      expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
     });
   });
 });

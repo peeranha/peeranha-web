@@ -16,7 +16,10 @@ import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectLoginData,
+} from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
@@ -42,6 +45,7 @@ import SettingsOfUser from './SettingsOfUser';
 
 const ViewProfilePage = /* istanbul ignore next */ ({
   match,
+  loginData,
   profile,
   account,
   communities,
@@ -61,6 +65,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
       <UserNavigation
         userId={userId}
         account={account}
+        loginData={loginData}
         questionsLength={profile ? profile.questions_asked : 0}
         questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
       />
@@ -83,6 +88,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         locale={locale}
         activeKey={activeKey}
         ownerKey={ownerKey}
+        loginData={loginData}
       />
 
       <ProfileViewForm
@@ -108,6 +114,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
 };
 
 ViewProfilePage.propTypes = {
+  loginData: PropTypes.object,
   profile: PropTypes.object,
   locale: PropTypes.string,
   activeKey: PropTypes.string,
@@ -123,6 +130,7 @@ ViewProfilePage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   profile: (state, props) => selectUsers(props.match.params.id)(state),
   account: makeSelectAccount(),
   communities: selectCommunities(),

@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 
@@ -58,6 +59,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
       changePasswordDispatch,
       changePasswordProcessing,
       sendAnotherCodeDispatch,
+      loginData,
     } = this.props;
 
     return (
@@ -68,6 +70,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
               locale={locale}
               sendEmail={sendEmailDispatch}
               sendEmailProcessing={sendEmailProcessing}
+              loginData={loginData}
             />
           )}
 
@@ -109,10 +112,12 @@ ChangePasswordByPrevious.propTypes = {
   changePasswordDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
   changePasswordProcessing: PropTypes.bool,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
   sendEmailProcessing: selectors.selectSendEmailProcessing(),

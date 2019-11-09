@@ -94,4 +94,10 @@ export default defineMessages({
   showMoreAnswers: {
     id: 'app.containers.ViewQuestion.showMoreAnswers',
   },
+  cannotCompleteBecauseBlocked: {
+    id: 'app.containers.ViewQuestion.cannotCompleteBecauseBlocked',
+  },
+  cannotCompleteBecauseVoted: {
+    id: 'app.containers.ViewQuestion.cannotCompleteBecauseVoted',
+  },
 });

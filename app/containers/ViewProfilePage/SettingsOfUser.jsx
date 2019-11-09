@@ -24,8 +24,6 @@ import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
 import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
 
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-
 const BaseStyled = Base.extend`
   > :nth-child(2) {
     margin: 30px 0;
@@ -83,9 +81,13 @@ const BaseStyled = Base.extend`
   }
 `;
 
-const SettingsOfUser = ({ className, locale, activeKey, ownerKey }) => {
-  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
-
+const SettingsOfUser = ({
+  className,
+  locale,
+  activeKey,
+  ownerKey,
+  loginData,
+}) => {
   function writeToBuffer(ev) {
     navigator.clipboard.writeText(ev.currentTarget.dataset.key);
     showPopover(
@@ -211,6 +213,7 @@ SettingsOfUser.propTypes = {
   locale: PropTypes.string,
   ownerKey: PropTypes.string,
   activeKey: PropTypes.string,
+  loginData: PropTypes.object,
 };
 
 export default React.memo(SettingsOfUser);

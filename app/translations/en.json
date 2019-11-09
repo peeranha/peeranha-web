@@ -427,6 +427,10 @@
   "app.containers.ViewQuestion.voteToDelete": "Block",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your rating has to be more than",
+  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
+    "Yon can't complete this action. You blocked it earlier",
+  "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
+    "Yon can't complete this action. You voted earlier",
   "app.containers.ViewQuestion.notEnoughModPoints":
     "To complete this action, your moderation points rating has to be more than",
   "app.containers.ViewQuestion.youVoted":

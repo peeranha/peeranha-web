@@ -15,11 +15,6 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
-import {
-  SCATTER_MODE_ERROR,
-  USER_IS_NOT_SELECTED,
-} from 'containers/Login/constants';
-
 import loginMessages from 'containers/Login/messages';
 
 import { errorToastHandling } from 'containers/Toast/saga';
@@ -28,6 +23,18 @@ import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
+
+import {
+  EMAIL_FIELD as EMAIL_LOGIN_FIELD,
+  PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
+  SCATTER_MODE_ERROR,
+  USER_IS_NOT_SELECTED,
+} from 'containers/Login/constants';
+
+import {
+  loginWithEmailWorker,
+  loginWithScatterWorker,
+} from 'containers/Login/saga';
 
 import {
   EMAIL_CHECKING,
@@ -210,11 +217,16 @@ export function* iHaveEosAccountWorker({ val }) {
       );
     }
 
+    yield call(loginWithEmailWorker, {
+      val: {
+        [EMAIL_LOGIN_FIELD]: email,
+        [PASSWORD_LOGIN_FIELD]: val[PASSWORD_FIELD],
+      },
+    });
+
     yield put(iHaveEosAccountSuccess());
 
-    yield call(() =>
-      createdHistory.push(routes.signup.almostDoneWithAccount.name),
-    );
+    yield call(() => createdHistory.push(routes.questions()));
   } catch (err) {
     yield put(iHaveEosAccountErr(err.message));
   }
@@ -238,7 +250,7 @@ export function* idontHaveEosAccountWorker({ val }) {
     };
 
     const storeKeys = true;
-    const message = val[WHY_DO_YOU_LIKE_US_FIELD];
+    const message = val[WHY_DO_YOU_LIKE_US_FIELD] || 'empty';
 
     const response = yield call(() =>
       registerComplete(props, encryptionKey, storeKeys, message),
@@ -250,10 +262,23 @@ export function* idontHaveEosAccountWorker({ val }) {
       );
     }
 
+    if (response.body.readyToUse) {
+      yield call(loginWithEmailWorker, {
+        val: {
+          [EMAIL_LOGIN_FIELD]: email,
+          [PASSWORD_LOGIN_FIELD]: val[PASSWORD_FIELD],
+        },
+      });
+    }
+
     yield put(idontHaveEosAccountSuccess());
 
     yield call(() =>
-      createdHistory.push(routes.signup.almostDoneNoAccount.name),
+      createdHistory.push(
+        response.body.readyToUse
+          ? routes.questions()
+          : routes.signup.almostDoneNoAccount.name,
+      ),
     );
   } catch (err) {
     yield put(idontHaveEosAccountErr(err.message));
@@ -271,11 +296,11 @@ export function* signUpWithScatterWorker({ val }) {
 
     yield call(() => registerAccount(profile, eosService));
 
+    yield call(loginWithScatterWorker);
+
     yield put(signUpWithScatterSuccess());
 
-    yield call(() =>
-      createdHistory.push(routes.signup.almostDoneWithAccount.name),
-    );
+    yield call(() => createdHistory.push(routes.questions()));
   } catch (err) {
     yield put(signUpWithScatterErr(err.message));
   }

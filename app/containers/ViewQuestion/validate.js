@@ -40,7 +40,9 @@ export const voteToDeleteValidator = (
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   }
 
-  if (itemData.user === profileInfo.user) {
+  if (itemData.votingStatus.isUpVoted || itemData.votingStatus.isDownVoted) {
+    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+  } else if (itemData.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (itemData.votingStatus.isVotedToDelete) {
     message = `${translations[messages.youVoted.id]}`;
@@ -188,6 +190,11 @@ export const upVoteValidator = (
   let message;
 
   if (
+    (answerId == 0 && questionData.votingStatus.isVotedToDelete) ||
+    (isOwnItem[0] && isOwnItem[0].votingStatus.isVotedToDelete)
+  ) {
+    message = translations[messages.cannotCompleteBecauseBlocked.id];
+  } else if (
     (questionData.user === profileInfo.user && answerId == 0) ||
     (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
   ) {
@@ -227,6 +234,11 @@ export const downVoteValidator = (
   let message;
 
   if (
+    (answerId == 0 && questionData.votingStatus.isVotedToDelete) ||
+    (isOwnItem[0] && isOwnItem[0].votingStatus.isVotedToDelete)
+  ) {
+    message = translations[messages.cannotCompleteBecauseBlocked.id];
+  } else if (
     (questionData.user === profileInfo.user && answerId == 0) ||
     (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
   ) {

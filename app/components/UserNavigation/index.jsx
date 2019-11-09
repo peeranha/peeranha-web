@@ -6,8 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-
 import { NavigationLink } from 'components/Button/Contained/Navigation';
 import Wrapper from 'components/Header/Complex';
 
@@ -23,10 +21,9 @@ const UserNavigation = ({
   account,
   questionsLength,
   questionsWithUserAnswersLength,
+  loginData,
 }) => {
   const path = window.location.pathname + window.location.hash;
-
-  const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
 
   return (
     <Wrapper position="top">
@@ -63,9 +60,7 @@ const UserNavigation = ({
 
         <NavigationLink
           className={
-            userId !== account || (loginData && loginData.loginWithScatter)
-              ? 'd-none'
-              : ''
+            userId !== account || loginData.loginWithScatter ? 'd-none' : ''
           }
           to={routes.userSettings(userId)}
           isLink={path !== routes.userSettings(userId)}
@@ -82,6 +77,7 @@ UserNavigation.propTypes = {
   account: PropTypes.string,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
+  loginData: PropTypes.object,
 };
 
 export default UserNavigation;

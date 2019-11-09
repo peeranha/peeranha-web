@@ -9,7 +9,7 @@ import {
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { errorToastHandling } from 'containers/Toast/saga';
 
 import { selectPassword } from './selectors';
@@ -45,14 +45,14 @@ export function* sendEmailWorker({ resetForm, email, password }) {
 
 export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
   try {
-    const { email } = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+    const loginData = yield select(makeSelectLoginData());
     const password = yield select(selectPassword());
 
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
     const response = yield call(() =>
-      getOwnerKeyByPwd(email, password, verificationCode),
+      getOwnerKeyByPwd(loginData.email, password, verificationCode),
     );
 
     if (!response.OK) {

@@ -163,9 +163,10 @@ export function postAnswer(questionId, ...args) {
   };
 }
 
-export function postAnswerSuccess() {
+export function postAnswerSuccess(questionData) {
   return {
     type: POST_ANSWER_SUCCESS,
+    questionData,
   };
 }
 
@@ -187,9 +188,10 @@ export function postComment(questionId, ...args) {
   };
 }
 
-export function postCommentSuccess() {
+export function postCommentSuccess(questionData) {
   return {
     type: POST_COMMENT_SUCCESS,
+    questionData,
   };
 }
 

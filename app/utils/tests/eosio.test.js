@@ -13,6 +13,8 @@ import {
   SCATTER_IN_NOT_INSTALLED,
   DEFAULT_EOS_PERMISSION,
   BLOCKCHAIN_NAME,
+  BEST_NODE_SERVICE,
+  LOCAL_STORAGE_BESTNODE,
 } from '../constants';
 
 const localStorage = {
@@ -21,7 +23,10 @@ const localStorage = {
   removeItem: jest.fn(),
 };
 
+const fetch = jest.fn().mockImplementation(async () => null);
+
 Object.defineProperty(global, 'localStorage', { value: localStorage });
+Object.defineProperty(global, 'fetch', { value: fetch });
 
 jest.mock('eosjs');
 
@@ -54,7 +59,17 @@ beforeEach(() => {
   ScatterJS.scatter.connect.mockClear();
   ScatterJS.scatter.eos.mockClear();
   Eosjs.mockClear();
+  localStorage.getItem.mockClear();
+  localStorage.setItem.mockClear();
 });
+
+const node = {
+  protocol: 'protocol',
+  host: 'host',
+  port: 'port',
+  endpoint: 'endpoint',
+  chainId: 'chainId',
+};
 
 describe('constructor', async () => {
   const eos = new EosioService();
@@ -76,6 +91,7 @@ describe('init', () => {
 
     it('scatter is installed', async () => {
       const service = new EosioService();
+      service.getNode = () => node;
 
       ScatterJS.scatter = {
         eos: jest.fn(),
@@ -94,6 +110,7 @@ describe('init', () => {
 
     it('scatter is NOT installed', async () => {
       const service = new EosioService();
+      service.getNode = () => node;
 
       service.scatterInstalled = false;
       ScatterJS.scatter = {
@@ -115,24 +132,32 @@ describe('init', () => {
 
   it('initialization without scatter', async () => {
     const service = new EosioService();
+
     const privateKey = 'privateKey2';
     const username = 'user1';
     const authToken = 'authToken';
     const email = 'email';
+
+    service.getNode = () => node;
+    service.compareSavedAndBestNodes = jest.fn();
 
     localStorage.getItem.mockImplementation(() =>
       JSON.stringify({ email, authToken }),
     );
 
     expect(Eosjs).toHaveBeenCalledTimes(0);
+    expect(service.compareSavedAndBestNodes).toHaveBeenCalledTimes(0);
     expect(Boolean(service.selectedAccount)).toBe(false);
     expect(Boolean(service.initialized)).toBe(false);
+    expect(service.node).toBe(null);
 
     await service.init(privateKey, false, username);
 
     expect(Eosjs).toHaveBeenCalledTimes(1);
+    expect(service.compareSavedAndBestNodes).toHaveBeenCalledTimes(1);
     expect(service.selectedAccount).toBe(username);
     expect(Boolean(service.initialized)).toBe(true);
+    expect(service.node).toEqual(node);
   });
 });
 
@@ -164,6 +189,8 @@ describe('initScatter', () => {
 
 describe('initEosioWithoutScatter', () => {
   const service = new EosioService();
+  service.node = node;
+
   const key = 'key';
   const eosInstance = 'eosInstance';
 
@@ -618,11 +645,12 @@ describe('getEosioConfig', () => {
   it('test', () => {
     const eos = new EosioService();
     const key = 'key';
-    const value = eos.getEosioConfig(key);
 
-    expect(value).toEqual({
-      httpEndpoint: process.env.EOS_DEFAULT_HTTP_ENDPOINT,
-      chainId: process.env.EOS_CHAIN_ID,
+    eos.node = node;
+
+    expect(eos.getEosioConfig(key)).toEqual({
+      httpEndpoint: eos.node.endpoint,
+      chainId: eos.node.chainId,
       broadcast: true,
       keyProvider: [key],
       sign: true,
@@ -633,14 +661,15 @@ describe('getEosioConfig', () => {
 describe('getScatterConfig', () => {
   it('test', () => {
     const eos = new EosioService();
-    const value = eos.getScatterConfig();
 
-    expect(value).toEqual({
+    eos.node = node;
+
+    expect(eos.getScatterConfig()).toEqual({
       blockchain: BLOCKCHAIN_NAME,
-      protocol: process.env.EOS_SCATTER_PROTOCOL,
-      host: process.env.EOS_SCATTER_HOST,
-      port: process.env.EOS_SCATTER_PORT,
-      chainId: process.env.EOS_CHAIN_ID,
+      protocol: eos.node.protocol,
+      host: eos.node.host,
+      port: eos.node.port,
+      chainId: eos.node.chainId,
     });
   });
 });
@@ -756,5 +785,93 @@ describe('getAccount', () => {
   it('error', async () => {
     eos.eosInstance.getAccount = null;
     expect(await eos.getAccount(eosName)).toBe(null);
+  });
+});
+
+describe('getNode', () => {
+  it('node from LS is null', () => {
+    const nodeLS = null;
+    const bestNode = {};
+    const eos = new EosioService();
+
+    eos.getBestNode = () => bestNode;
+    localStorage.getItem.mockImplementation(() => JSON.stringify(nodeLS));
+
+    expect(eos.getNode()).toEqual(bestNode);
+  });
+
+  it('node from LS is not null', () => {
+    const nodeLS = {};
+    const eos = new EosioService();
+
+    localStorage.getItem.mockImplementation(() => JSON.stringify(nodeLS));
+
+    expect(eos.getNode()).toEqual(nodeLS);
+  });
+});
+
+describe('getBestNode', () => {
+  const eos = new EosioService();
+
+  eos.getBestNode();
+  expect(fetch).toHaveBeenCalledWith(
+    process.env.WALLET_API_ENDPOINT + BEST_NODE_SERVICE,
+    {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({ region: 'any' }),
+    },
+  );
+});
+
+describe('compareSavedAndBestNodes', () => {
+  it('saved note is different from best node', async () => {
+    const eos = new EosioService();
+
+    const savedNode = { endpoint: '1' };
+    const bestNode = { endpoint: '122' };
+
+    eos.getBestNode = () => bestNode;
+    localStorage.getItem.mockImplementation(() => JSON.stringify(savedNode));
+
+    await eos.compareSavedAndBestNodes();
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      LOCAL_STORAGE_BESTNODE,
+      JSON.stringify(bestNode),
+    );
+  });
+
+  it('nothing saved', async () => {
+    const eos = new EosioService();
+
+    const savedNode = null;
+    const bestNode = { endpoint: '122' };
+
+    eos.getBestNode = () => bestNode;
+    localStorage.getItem.mockImplementation(() => JSON.stringify(savedNode));
+
+    await eos.compareSavedAndBestNodes();
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      LOCAL_STORAGE_BESTNODE,
+      JSON.stringify(bestNode),
+    );
+  });
+
+  it('saved node is not different from best node', async () => {
+    const eos = new EosioService();
+
+    const savedNode = { endpoint: '122' };
+    const bestNode = { endpoint: '122' };
+
+    eos.getBestNode = () => bestNode;
+    localStorage.getItem.mockImplementation(() => JSON.stringify(savedNode));
+
+    expect(localStorage.setItem).toHaveBeenCalledTimes(0);
+    await eos.compareSavedAndBestNodes();
+    expect(localStorage.setItem).toHaveBeenCalledTimes(0);
   });
 });

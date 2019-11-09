@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TEXT_PRIMARY, TEXT_SECONDARY, TEXT_WARNING } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
 import IconStyled from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -9,29 +9,14 @@ import Span from 'components/Span';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 const SpanStyled = Span.extend`
-  color: ${x =>
-    x.isItWrittenByMe
-      ? TEXT_SECONDARY
-      : x.isVotedToDelete
-        ? TEXT_WARNING
-        : TEXT_PRIMARY};
-
-  ${IconStyled} rect {
-    fill: ${x =>
-      x.isItWrittenByMe
-        ? TEXT_SECONDARY
-        : x.isVotedToDelete
-          ? TEXT_WARNING
-          : TEXT_PRIMARY};
-  }
-
-  ${IconStyled} circle {
-    stroke: ${x =>
-      x.isItWrittenByMe
-        ? TEXT_SECONDARY
-        : x.isVotedToDelete
-          ? TEXT_WARNING
-          : TEXT_PRIMARY};
+  color: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
+  ${IconStyled} {
+    rect {
+      fill: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
+    }
+    circle {
+      stroke: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
+    }
   }
 `;
 

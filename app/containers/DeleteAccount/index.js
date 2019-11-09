@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 
@@ -48,6 +49,7 @@ export class DeleteAccount extends React.PureComponent {
       sendEmailProcessing,
       sendEmailDispatch,
       render,
+      loginData,
     } = this.props;
 
     return (
@@ -58,6 +60,7 @@ export class DeleteAccount extends React.PureComponent {
               locale={locale}
               sendEmail={sendEmailDispatch}
               sendEmailProcessing={sendEmailProcessing}
+              loginData={loginData}
             />
           )}
 
@@ -87,10 +90,12 @@ DeleteAccount.propTypes = {
   sendEmailProcessing: PropTypes.bool,
   sendEmailDispatch: PropTypes.func,
   render: PropTypes.func,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
   deleteAccountProcessing: selectors.selectDeleteAccountProcessing(),

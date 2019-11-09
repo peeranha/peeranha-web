@@ -288,10 +288,13 @@ describe('ViewQuestions actions', () => {
   });
 
   it('POST_ANSWER_SUCCESS', () => {
+    const questionData = {};
     const expected = {
       type: POST_ANSWER_SUCCESS,
+      questionData,
     };
-    expect(postAnswerSuccess()).toEqual(expected);
+
+    expect(postAnswerSuccess(questionData)).toEqual(expected);
   });
 
   it('POST_ANSWER_ERROR', () => {
@@ -317,10 +320,13 @@ describe('ViewQuestions actions', () => {
   });
 
   it('POST_COMMENT_SUCCESS', () => {
+    const questionData = {};
     const expected = {
       type: POST_COMMENT_SUCCESS,
+      questionData,
     };
-    expect(postCommentSuccess()).toEqual(expected);
+
+    expect(postCommentSuccess(questionData)).toEqual(expected);
   });
 
   it('POST_COMMENT_ERROR', () => {

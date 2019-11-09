@@ -179,7 +179,7 @@ export const QuestionForm = ({
               <Button
                 disabled={questionLoading}
                 id={submitButtonId}
-                type="button"
+                type="submit"
               >
                 {submitButtonName}
               </Button>
