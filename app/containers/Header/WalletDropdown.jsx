@@ -23,7 +23,6 @@ import Li from 'components/Li';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import MediumImage from 'components/Img/MediumImage';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import SendTokens from 'containers/SendTokens';
 
@@ -48,16 +47,13 @@ const IconBG = MediumImage.extend`
   align-items: center;
   justify-content: center;
   border: 1px solid ${BORDER_PRIMARY};
-
-  ${IconStyled} {
-    ${() => IconHover({ color: TEXT_LIGHT })};
-  }
+  color: ${x => x.color};
 `.withComponent('span');
 
 export const Button = ({ balance }) => (
   <ButtonStyled>
-    <IconBG bg={BG_PRIMARY}>
-      <Icon width="24" icon={currencyPeerIcon} noMargin />
+    <IconBG bg={BG_PRIMARY} color={TEXT_LIGHT}>
+      <Icon icon={currencyPeerIcon} width="20" />
     </IconBG>
 
     <span className="d-flex flex-column text-left">

@@ -3,20 +3,22 @@ import {
   BORDER_TRANSPARENT,
   TEXT_SECONDARY,
   TEXT_PRIMARY,
-  BORDER_PRIMARY,
   TEXT_DARK,
-  BORDER_WARNING_LIGHT,
   APP_FONT,
   BG_LIGHT,
+  BORDER_PRIMARY_RGB,
+  BORDER_WARNING_LIGHT_RGB,
 } from 'style-constants';
 
 import styled from 'styled-components';
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
-  border: 1px solid ${error ? `${BORDER_WARNING_LIGHT}` : BORDER_SECONDARY};
+  border: 1px solid ${
+    error ? `rgb(${BORDER_WARNING_LIGHT_RGB})` : BORDER_SECONDARY
+  };
   box-shadow: 0 0 0 3px ${
-    error ? `${BORDER_WARNING_LIGHT}66` : BORDER_TRANSPARENT
+    error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
   };
   border-radius: 3px;
 `;
@@ -67,9 +69,13 @@ const InputStyled = styled.div`
     ${props => Input(props)} &:focus {
       box-shadow: 0 0 0 3px
         ${props =>
-          props.error ? `${BORDER_WARNING_LIGHT}66` : `${BORDER_PRIMARY}66`};
+          props.error
+            ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
+            : `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
       border-color: ${props =>
-        props.error ? `${BORDER_WARNING_LIGHT}` : `${BORDER_PRIMARY}`};
+        props.error
+          ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
+          : `rgb(${BORDER_PRIMARY_RGB})`};
     }
 
     :disabled {

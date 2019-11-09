@@ -2,27 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconStyled from './IconStyled';
 
-const Icon = ({ icon, noMargin, className, onClick, rotate, hover, width }) => (
+const Icon = ({ icon, width, className, color, rotate }) => (
   <IconStyled
     className={className}
-    onClick={onClick}
-    noMargin={noMargin}
-    rotate={rotate}
-    hover={hover}
     width={width}
+    color={color}
     dangerouslySetInnerHTML={{ __html: icon }}
-    data-icon="icon"
+    rotate={rotate}
   />
 );
 
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
-  noMargin: PropTypes.bool,
   rotate: PropTypes.bool,
   className: PropTypes.string,
-  hover: PropTypes.string,
   width: PropTypes.string,
-  onClick: PropTypes.func,
+  color: PropTypes.string,
 };
 
 export default React.memo(Icon);

@@ -26,7 +26,7 @@ export default React.memo(({ profile, isMenuVisible }) => {
           <ProfileButton profileInfo={profile} />
         </button>
         <Icon
-          className="ml-3"
+          className="mr-3"
           icon={arrowDownIcon}
           width="16"
           rotate={visibleProfileLinks}

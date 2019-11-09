@@ -7,7 +7,7 @@ import {
   BORDER_TRANSPARENT,
   TEXT_PRIMARY,
   BG_TRANSPARENT,
-  BG_PRIMARY_DARK,
+  PRIMARY_SPECIAL,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -22,7 +22,6 @@ import questionRoundedIcon from 'images/faq.svg?external';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 
@@ -32,13 +31,9 @@ const A1 = A.extend`
   ${({ to }) =>
     window.location.pathname === to
       ? `
-    background-color: ${BG_PRIMARY_DARK}25;
+    background-color: ${PRIMARY_SPECIAL};
     border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
-
-    ${IconStyled} {
-      ${IconHover({ color: TEXT_PRIMARY })}
-    }
   `
       : `
     background-color: ${BG_TRANSPARENT};
@@ -54,13 +49,23 @@ const MainLinks = ({ profile }) => {
     <div>
       {profile && (
         <A1 to={routes.feed()} disabled={pathname === routes.feed()}>
-          <Icon width="24" icon={myFeedIcon} />
+          <Icon
+            className="mr-2"
+            width="24"
+            icon={myFeedIcon}
+            color={pathname === routes.feed() && TEXT_PRIMARY}
+          />
           <FormattedMessage {...messages.myFeed} />
         </A1>
       )}
 
       <A1 to={routes.questions()} disabled={pathname === routes.questions()}>
-        <Icon width="24" icon={allQuestionsIcon} />
+        <Icon
+          className="mr-2"
+          width="24"
+          icon={allQuestionsIcon}
+          color={pathname === routes.questions() && TEXT_PRIMARY}
+        />
         <FormattedMessage {...messages.allQuestions} />
       </A1>
 
@@ -68,22 +73,42 @@ const MainLinks = ({ profile }) => {
         to={routes.communities()}
         disabled={pathname === routes.communities()}
       >
-        <Icon width="24" icon={communitiesIcon} />
+        <Icon
+          className="mr-2"
+          width="24"
+          icon={communitiesIcon}
+          color={pathname === routes.communities() && TEXT_PRIMARY}
+        />
         <FormattedMessage {...messages.communities} />
       </A1>
 
       <A1 to={routes.tags()} disabled={pathname === routes.tags()}>
-        <Icon width="24" icon={tagsIcon} />
+        <Icon
+          className="mr-2"
+          width="24"
+          icon={tagsIcon}
+          color={pathname === routes.tags() && TEXT_PRIMARY}
+        />
         <FormattedMessage {...messages.tags} />
       </A1>
 
       <A1 to={routes.users()} disabled={pathname === routes.users()}>
-        <Icon width="24" icon={usersIcon} />
+        <Icon
+          className="mr-2"
+          width="24"
+          icon={usersIcon}
+          color={pathname === routes.users() && TEXT_PRIMARY}
+        />
         <FormattedMessage {...messages.users} />
       </A1>
 
       <A1 to={routes.faq()} disabled={pathname === routes.faq()}>
-        <Icon width="24" icon={questionRoundedIcon} />
+        <Icon
+          className="mr-2"
+          width="24"
+          icon={questionRoundedIcon}
+          color={pathname === routes.faq() && TEXT_PRIMARY}
+        />
         <FormattedMessage {...messages.faq} />
       </A1>
     </div>

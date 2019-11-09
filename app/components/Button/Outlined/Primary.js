@@ -7,17 +7,12 @@ import {
   BORDER_PRIMARY,
 } from 'style-constants';
 
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Button from '../index';
 
 const PrimaryButton = Button.extend`
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BORDER_PRIMARY};
   color: ${TEXT_PRIMARY};
-
-  ${IconStyled} {
-    ${IconHover({ color: TEXT_PRIMARY })};
-  }
 
   :hover {
     color: ${TEXT_LIGHT};

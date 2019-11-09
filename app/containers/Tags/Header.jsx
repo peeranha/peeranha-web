@@ -7,7 +7,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 import commonMessages from 'common-messages';
 import icoTagIcon from 'images/icoTag.svg?inline';
 import arrowLeft from 'images/arrowLeft.svg?inline';
-import addIcon from 'images/addBlue.svg?inline';
+import addIcon from 'images/add.svg?external';
 
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
@@ -15,6 +15,7 @@ import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
+import Icon from 'components/Icon';
 import CheckedItem from 'components/Li/CheckedItem';
 import Wrapper from 'components/Header/Complex';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -105,11 +106,13 @@ export const Header = ({
               src={icoTagIcon}
               alt="icon"
             />
-            <img
+
+            <Icon
               className="d-inline-block d-sm-none"
-              src={addIcon}
-              alt="icon"
+              icon={addIcon}
+              width="14"
             />
+
             <span className="ml-1">
               <FormattedMessage {...commonMessages.suggestTag} />
             </span>

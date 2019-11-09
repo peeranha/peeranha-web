@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
-
 import { APP_FONT, TEXT_DARK } from 'style-constants';
 
 /* eslint indent: 0 */
@@ -25,15 +23,6 @@ const Span = styled.span`
     `
         : ``};
   }
-
-  ${x =>
-    x.color
-      ? `
-    ${IconStyled} {
-      ${IconHover({ color: x.color })};
-    }
-  `
-      : ``};
 `;
 
 export default Span;

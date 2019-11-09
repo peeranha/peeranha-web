@@ -1,9 +1,9 @@
-import { BG_SECONDARY_LIGHT } from 'style-constants';
+import { SECONDARY_SPECIAL_3 } from 'style-constants';
 
 import Base from './index';
 
 export default Base.extend`
   flex: 0 0 320px;
-  background: ${BG_SECONDARY_LIGHT}50;
+  background: ${SECONDARY_SPECIAL_3};
   word-break: break-word;
 `;

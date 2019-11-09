@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TEXT_DARK, BG_SECONDARY_LIGHT } from 'style-constants';
+import { TEXT_DARK, SECONDARY_SPECIAL_3 } from 'style-constants';
 
 import testBlockStyles from 'text-block-styles';
 import TextEditor from 'components/TextEditor';
@@ -34,7 +34,7 @@ const TextBlockStyled = styled.div`
 
   code,
   pre {
-    background: ${BG_SECONDARY_LIGHT}75;
+    background: ${SECONDARY_SPECIAL_3};
     font-size: 15px;
     line-height: 20px;
     color: ${TEXT_DARK};

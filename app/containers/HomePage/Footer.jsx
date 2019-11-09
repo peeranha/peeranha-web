@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { getLinks } from 'media-links';
-import { TEXT_PRIMARY, TEXT_DARK, LANDING_FONT } from 'style-constants';
+
+import {
+  TEXT_DARK,
+  LANDING_FONT,
+  TEXT_PRIMARY,
+  SECONDARY_SPECIAL,
+} from 'style-constants';
 
 import ChangeLocale from 'containers/ChangeLocale';
 
 import Icon from 'components/Icon';
-import IconStyled from 'components/Icon/IconStyled';
 
-import logo from 'images/LogoBlack.svg?external';
+import logo from 'images/LogoBlack.svg?inline';
 import medium from 'images/medium.svg?external';
 import twitter from 'images/twitter.svg?external';
 import linkedin from 'images/in.svg?external';
@@ -27,7 +32,7 @@ const Box = Gradient.extend`
 
   > div {
     .logo {
-      ${IconStyled} {
+      img {
         width: 200px;
         margin-top: 5px;
       }
@@ -49,14 +54,16 @@ const Box = Gradient.extend`
           flex: 1;
           text-align: center;
           cursor: pointer;
+          color: ${SECONDARY_SPECIAL};
+          height: 20px;
+          overflow: hidden;
+
+          &:hover {
+            color: ${TEXT_PRIMARY};
+          }
 
           :not(:last-child) {
             margin-right: 12px;
-          }
-
-          ${IconStyled} {
-            width: 22px;
-            height: 22px;
           }
         }
       }
@@ -65,13 +72,13 @@ const Box = Gradient.extend`
 
   @media only screen and (max-width: 992px) {
     padding: 20px;
-    .logo ${IconStyled} {
+    .logo img {
       width: 160px !important;
     }
   }
 
   @media only screen and (max-width: 560px) {
-    .logo ${IconStyled} {
+    .logo img {
       width: 120px !important;
     }
   }
@@ -82,7 +89,7 @@ const Year = new Date().getFullYear();
 const MediaLink = ({ href, src }) =>
   href ? (
     <a href={href} target="_blank">
-      <Icon icon={src} hover={TEXT_PRIMARY} noMargin />
+      <Icon icon={src} width="22" />
     </a>
   ) : null;
 
@@ -92,7 +99,7 @@ const Footer = ({ locale }) => (
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center logo">
           <Link to={routes.questions()}>
-            <Icon icon={logo} />
+            <img src={logo} alt="logo" />
           </Link>
           <span className="d-none d-lg-inline year">© {Year}</span>
         </div>

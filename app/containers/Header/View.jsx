@@ -8,15 +8,19 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-import { BG_LIGHT, BORDER_SECONDARY } from 'style-constants';
+import {
+  BG_LIGHT,
+  BORDER_SECONDARY,
+  TEXT_SECONDARY_LIGHT,
+} from 'style-constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?inline';
-import headerNavigationIcon from 'images/headerNavigation.svg?inline';
-import img from 'images/LogoBlack.svg?inline';
+import headerNavigationIcon from 'images/headerNavigation.svg?external';
+import logoIcon from 'images/LogoBlack.svg?inline';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -88,12 +92,16 @@ const View = ({
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <button className="mt-1 mr-3 d-flex d-md-none" onClick={showMenu}>
-              <img src={headerNavigationIcon} alt="switch" />
+              <Icon
+                icon={headerNavigationIcon}
+                color={TEXT_SECONDARY_LIGHT}
+                width="20"
+              />
             </button>
 
             {!isSearchFormVisible && (
               <Logo to={routes.questions()}>
-                <img src={img} alt="logo" />
+                <img src={logoIcon} alt="logo" />
               </Logo>
             )}
           </div>
@@ -123,7 +131,8 @@ const View = ({
                 id="header-ask-question"
                 onClick={redirectToAskQuestionPage}
               >
-                <Icon color={BG_LIGHT} icon={addIcon} width="14" noMargin />
+                <Icon icon={addIcon} width="14" />
+
                 <span className="d-none d-lg-inline ml-2">
                   <FormattedMessage {...messages.addQuestion} />
                 </span>

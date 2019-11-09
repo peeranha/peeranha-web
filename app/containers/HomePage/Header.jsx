@@ -17,7 +17,6 @@ import { scrollToSection } from 'utils/animation';
 import A from 'components/A';
 import Icon from 'components/Icon';
 import Button from 'components/Button/Outlined/InfoLarge';
-import { IconHover } from 'components/Icon/IconStyled';
 
 import {
   HEADER_ID,
@@ -56,8 +55,8 @@ const Header = ({ showLoginModal, account }) => {
               >
                 <Icon
                   icon={isToggled ? closeIcon : headerNavigation}
+                  color={TEXT_LIGHT}
                   width="20"
-                  noMargin
                 />
               </button>
             </div>
@@ -86,7 +85,7 @@ const Header = ({ showLoginModal, account }) => {
               {!account && (
                 <React.Fragment>
                   <button className="login" onClick={showLoginModal}>
-                    <Icon className="mr-2" width="20" icon={login} noMargin />
+                    <Icon className="mr-2" width="20" icon={login} />
                     <FormattedMessage {...messages.login} />
                   </button>
 
@@ -121,7 +120,7 @@ const Box = styled.div`
   position: relative;
   top: 0;
   width: 100%;
-  background-color: #17234af2;
+  background-color: rgba(23, 35, 74, 0.95);
   z-index: 9999;
   padding: 19px 0;
 
@@ -152,7 +151,6 @@ const Box = styled.div`
 
       :hover {
         color: ${TEXT_PRIMARY};
-        ${IconHover({ color: TEXT_PRIMARY })};
       }
     }
 
@@ -165,7 +163,7 @@ const Box = styled.div`
   @media only screen and (max-width: 992px) {
     padding: 11px 0;
     position: fixed;
-    background-color: #17234a;
+    background-color: rgba(23, 35, 74, 1);
     height: ${x => (x.isToggled ? `100vh` : `auto`)};
 
     .logo img {

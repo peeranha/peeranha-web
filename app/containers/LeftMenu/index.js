@@ -22,8 +22,6 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 
-import Span from 'components/Span';
-
 import View from './View';
 import { Aside, After } from './Styles';
 
@@ -46,9 +44,7 @@ const LeftMenu = /* istanbul ignore next */ ({
     />
 
     <After isMenuVisible={isMenuVisible} onClick={showMenu}>
-      <Span color={TEXT_LIGHT}>
-        <Icon width="16" icon={closeIcon} noMargin />
-      </Span>
+      <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
     </After>
   </Aside>
 );

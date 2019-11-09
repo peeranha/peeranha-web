@@ -4,15 +4,15 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 
-import { TEXT_PRIMARY } from 'style-constants';
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
 import icoTagIcon from 'images/icoTag.svg?inline';
-import addIcon from 'images/addBlue.svg?inline';
+import addIcon from 'images/add.svg?external';
 
 import Wrapper from 'components/Header/Simple';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
-import Span from 'components/Span';
+import Icon from 'components/Icon';
+import { MediumImageStyled } from 'components/Img/MediumImage';
+import TransparentButton from 'components/Button/Contained/Transparent';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from 'containers/Tags/constants';
 
@@ -24,17 +24,19 @@ const Header = ({ openTagForm }) => (
     </H3>
 
     <div className="right-panel">
-      <button
+      <TransparentButton
         onClick={openTagForm}
         data-communityid=""
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_tags_collection`}
       >
         <img className="d-none d-sm-inline-block" src={icoTagIcon} alt="icon" />
-        <img className="d-inline-block d-sm-none" src={addIcon} alt="icon" />
-        <Span className="ml-1" color={TEXT_PRIMARY}>
+
+        <Icon className="d-inline-block d-sm-none" icon={addIcon} width="14" />
+
+        <span className="ml-1">
           <FormattedMessage {...messages.suggestTag} />
-        </Span>
-      </button>
+        </span>
+      </TransparentButton>
     </div>
   </Wrapper>
 );

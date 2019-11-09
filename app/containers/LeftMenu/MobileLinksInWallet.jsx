@@ -27,7 +27,7 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
           <WalletButton balance={balance} />
         </button>
         <Icon
-          className="ml-3"
+          className="mr-3"
           icon={arrowDownIcon}
           width="16"
           rotate={visibleWalletLinks}

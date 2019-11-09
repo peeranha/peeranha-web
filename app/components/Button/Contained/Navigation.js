@@ -2,7 +2,6 @@ import { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import PrimaryLarge from './PrimaryLarge';
 
@@ -27,10 +26,6 @@ const ButtonCss = css`
 
     :hover {
       color: ${TEXT_PRIMARY};
-    }
-
-    ${IconStyled} {
-      ${IconHover({ color: TEXT_PRIMARY })};
     }
   `
       : ``};

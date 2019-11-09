@@ -21,7 +21,7 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import Textarea from 'components/Textarea';
 
-import Button, { BlockButton } from './Button';
+import Button, { SpanStyled } from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
@@ -168,24 +168,20 @@ const CommentView = item => (
           </Span>
         </Button>
 
-        <BlockButton
-          show
+        <Button
+          show={!item.isItWrittenByMe}
           id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          isVotedToDelete={item.votingStatus.isVotedToDelete}
-          isItWrittenByMe={item.isItWrittenByMe}
+          params={item.buttonParams}
           onClick={item.voteToDelete}
           disabled={item.voteToDeleteLoading}
-          params={{
-            ...item.buttonParams,
-            commentId: item.id,
-            whowasvoted: item.userInfo.user,
-          }}
         >
-          <Icon icon={blockSmallIcon} width="12" noMargin />
-          <span className="d-none d-sm-inline-block ml-1">
-            <FormattedMessage {...messages.voteToDelete} />
-          </span>
-        </BlockButton>
+          <SpanStyled isVotedToDelete={item.votingStatus.isVotedToDelete}>
+            <Icon icon={blockSmallIcon} width="12" />
+            <span className="d-none d-md-inline-block ml-1">
+              <FormattedMessage {...messages.voteToDelete} />
+            </span>
+          </SpanStyled>
+        </Button>
       </CommentManage>
     </div>
 
