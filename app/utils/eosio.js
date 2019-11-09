@@ -11,6 +11,8 @@ import {
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
   SCATTER_IN_NOT_INSTALLED,
+  BEST_NODE_SERVICE,
+  LOCAL_STORAGE_BESTNODE,
 } from './constants';
 
 class EosioService {
@@ -19,6 +21,7 @@ class EosioService {
     this.eosInstance = null;
     this.scatterInstance = null;
     this.scatterInstalled = null;
+    this.node = null;
   }
 
   init = async (
@@ -27,6 +30,8 @@ class EosioService {
     selectedAccount = null,
   ) => {
     const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+
+    this.node = await this.getNode();
 
     if ((loginData && loginData.loginWithScatter) || initWithScatter) {
       await this.initScatter();
@@ -42,6 +47,8 @@ class EosioService {
 
     this.initialized = true;
     this.selectedAccount = selectedAccount;
+
+    this.compareSavedAndBestNodes();
   };
 
   initScatter = async () => {
@@ -246,9 +253,13 @@ class EosioService {
     return [];
   };
 
+  // TODO: delete hardcoded @chainId when API will pass it
+
   getEosioConfig = key => ({
-    httpEndpoint: process.env.EOS_DEFAULT_HTTP_ENDPOINT,
-    chainId: process.env.EOS_CHAIN_ID,
+    httpEndpoint: this.node.endpoint,
+    chainId:
+      this.node.chainId ||
+      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
     keyProvider: [key],
     broadcast: true,
     sign: true,
@@ -256,11 +267,36 @@ class EosioService {
 
   getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
-    protocol: process.env.EOS_SCATTER_PROTOCOL,
-    host: process.env.EOS_SCATTER_HOST,
-    port: process.env.EOS_SCATTER_PORT,
-    chainId: process.env.EOS_CHAIN_ID,
+    protocol: this.node.protocol,
+    host: this.node.host,
+    port: this.node.port,
+    chainId:
+      this.node.chainId ||
+      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
   });
+
+  getNode = () => {
+    const node = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
+    return node || this.getBestNode();
+  };
+
+  getBestNode = () =>
+    fetch(process.env.WALLET_API_ENDPOINT + BEST_NODE_SERVICE, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({ region: 'any' }),
+    }).then(x => x.json());
+
+  compareSavedAndBestNodes = async () => {
+    const savedNode = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
+    const bestNode = await this.getBestNode();
+
+    if (!savedNode || savedNode.endpoint !== bestNode.endpoint) {
+      localStorage.setItem(LOCAL_STORAGE_BESTNODE, JSON.stringify(bestNode));
+    }
+  };
 }
 
 export default EosioService;

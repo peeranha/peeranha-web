@@ -1,4 +1,4 @@
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -9,8 +9,8 @@ import { login } from 'utils/web_integration/src/wallet/login/login';
 import { registerAccount } from 'utils/accountManagement';
 
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import defaultSaga, {
   loginWithEmailWorker,
@@ -44,13 +44,17 @@ eosService.selectAccount = jest.fn();
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
 jest.mock('utils/accountManagement', () => ({
   registerAccount: jest.fn(),
+}));
+
+jest.mock('containers/AccountProvider/saga', () => ({
+  getCurrentAccountWorker: jest.fn(),
 }));
 
 jest.mock('utils/profileManagement', () => ({
@@ -159,11 +163,6 @@ describe('loginWithScatterWorker', () => {
       expect(getProfileInfo).toHaveBeenCalledWith(account, eosService);
     });
 
-    it('put profileInfo to store', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value).toEqual(getUserProfileSuccess(profileInfo));
-    });
-
     it('error handling, profileInfo is absent', () => {
       const step = generator.next(profileInfo);
       expect(step.value.type).toBe(LOGIN_WITH_SCATTER_ERROR);
@@ -187,7 +186,11 @@ describe('loginWithScatterWorker', () => {
     generator.next();
     generator.next();
     generator.next(account);
-    generator.next(profileInfo);
+
+    it('getCurrentAccountWorker', () => {
+      generator.next(profileInfo);
+      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+    });
 
     it('put new EosServise to store', () => {
       const step = generator.next();
@@ -285,6 +288,11 @@ describe('loginWithEmailWorker', () => {
       expect(step.value.eosAccount).toBe(eosAccountName);
     });
 
+    it('getCurrentAccountWorker', () => {
+      generator.next();
+      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+    });
+
     it('generator has to return @null', () => {
       const step = generator.next();
       expect(step.done).toBe(true);
@@ -310,11 +318,7 @@ describe('loginWithEmailWorker', () => {
     generator.next(loginResponse);
     generator.next();
     generator.next(profileInfo);
-
-    it('put @account and @profileInfo to store', () => {
-      const step = generator.next();
-      expect(step.value.profile).toEqual(profileInfo);
-    });
+    generator.next();
 
     it('@loginWithEmailSuccess', () => {
       const step = generator.next();
@@ -370,6 +374,11 @@ describe('finishRegistrationWorker', () => {
   it('registerAccount', () => {
     generator.next(eosAccount);
     expect(registerAccount).toHaveBeenCalledWith(profile, eosService);
+  });
+
+  it('getCurrentAccountWorker', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
   });
 
   it('finish registration with success', () => {

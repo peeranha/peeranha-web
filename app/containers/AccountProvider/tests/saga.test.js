@@ -50,12 +50,6 @@ import {
   DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
 } from 'containers/VoteForNewTagButton/constants';
 
-import {
-  LOGIN_WITH_EMAIL_SUCCESS,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  FINISH_REGISTRATION_SUCCESS,
-} from 'containers/Login/constants';
-
 import defaultSaga, { getCurrentAccountWorker } from '../saga';
 
 import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_ERROR } from '../constants';
@@ -185,17 +179,12 @@ describe('defaultSaga', () => {
     expect(step.value).toEqual([
       GET_CURRENT_ACCOUNT,
       FOLLOW_HANDLER_SUCCESS,
-      LOGIN_WITH_EMAIL_SUCCESS,
-      LOGIN_WITH_SCATTER_SUCCESS,
-      FINISH_REGISTRATION_SUCCESS,
       SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
-      FOLLOW_HANDLER_SUCCESS,
-      FINISH_REGISTRATION_SUCCESS,
       SEND_TOKENS_SUCCESS,
       UPVOTE_COMM_SUCCESS,
       DOWNVOTE_COMM_SUCCESS,
