@@ -52,7 +52,7 @@ const IconBG = MediumImage.extend`
 
 export const Button = ({ balance }) => (
   <ButtonStyled>
-    <IconBG bg={BG_PRIMARY} color={TEXT_LIGHT}>
+    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
       <Icon icon={currencyPeerIcon} width="20" />
     </IconBG>
 
