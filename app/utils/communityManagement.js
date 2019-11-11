@@ -1,3 +1,5 @@
+import JSBI from 'jsbi';
+
 import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
 
@@ -30,23 +32,29 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 }
 
 /* eslint-disable */
-export function getTagScope(communityId) /* istanbul ignore next */ {
+export function getTagScope(communityId) {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
-  const mask = BigInt('0xF800000000000000');
-  const mask64 = BigInt('0xFFFFFFFFFFFFFFFF');
+  const mask = JSBI.BigInt('0xF800000000000000');
+  const mask64 = JSBI.BigInt('0xFFFFFFFFFFFFFFFF');
+  const zero = JSBI.BigInt(0);
+  const five = JSBI.BigInt(5);
+  let v = JSBI.add(
+    JSBI.BigInt('3774731489195851776'),
+    JSBI.BigInt(communityId),
+  );
 
-  const zero = BigInt(0);
-  const five = BigInt(5);
-
-  let v = BigInt('3774731489195851776') + BigInt(communityId);
   let ret = '';
 
   for (let i = 0; i < 13; i++) {
-    v &= mask64;
+    v = JSBI.bitwiseAnd(v, mask64);
     if (v == zero) break;
-    const indx = (v & mask) >> BigInt(i == 12 ? 60 : 59);
-    ret += charmap[indx];
-    v <<= five;
+    const indx = JSBI.signedRightShift(
+      JSBI.bitwiseAnd(v, mask),
+      JSBI.BigInt(i == 12 ? 60 : 59),
+    );
+
+    ret = ret + charmap[indx.toString()];
+    v = JSBI.leftShift(v, five);
   }
 
   return ret;

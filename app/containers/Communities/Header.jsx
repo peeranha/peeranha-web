@@ -4,12 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY } from 'style-constants';
 
 import createCommunityIcon from 'images/createCommunity.svg?inline';
-import addIcon from 'images/addBlue.svg?inline';
+import addIcon from 'images/add.svg?external';
 
-import Span from 'components/Span';
+import Icon from 'components/Icon';
+import TransparentButton from 'components/Button/Contained/Transparent';
 import SubHeaderWrapper from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
@@ -50,7 +50,7 @@ const Header = ({
         </div>
 
         <div className="right-panel">
-          <button
+          <TransparentButton
             id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
             onClick={goToCreateCommunityScreen}
             className="d-flex align-items-center"
@@ -60,15 +60,17 @@ const Header = ({
               src={createCommunityIcon}
               alt="icon"
             />
-            <img
+
+            <Icon
               className="d-inline-block d-sm-none"
-              src={addIcon}
-              alt="icon"
+              icon={addIcon}
+              width="14"
             />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
+
+            <span className="ml-1">
               <FormattedMessage {...messages.suggestCommunity} />
-            </Span>
-          </button>
+            </span>
+          </TransparentButton>
         </div>
       </SubHeaderWrapper>
 

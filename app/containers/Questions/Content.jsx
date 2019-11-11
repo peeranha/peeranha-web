@@ -9,7 +9,7 @@ import {
   BG_TRANSPARENT,
   TEXT_SECONDARY,
   BG_SUCCESS_LIGHT,
-  BORDER_DARK,
+  SECONDARY_SPECIAL_2,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -35,17 +35,17 @@ const AdditionalInfo = Base.extend`
   flex: 1;
   width: 120px;
 
-  border-right: 1px solid ${BORDER_DARK}10;
+  border-right: 1px solid ${SECONDARY_SPECIAL_2};
   &:not(:last-child) {
-    border-bottom: 1px solid ${BORDER_DARK}10;
+    border-bottom: 1px solid ${SECONDARY_SPECIAL_2};
   }
 
   @media only screen and (max-width: 576px) {
     width: auto;
 
-    border-bottom: 1px solid ${BORDER_DARK}10;
+    border-bottom: 1px solid ${SECONDARY_SPECIAL_2};
     &:not(:last-child) {
-      border-right: 1px solid ${BORDER_DARK}10;
+      border-right: 1px solid ${SECONDARY_SPECIAL_2};
     }
   }
 

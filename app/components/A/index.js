@@ -1,20 +1,17 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { TEXT_DARK } from 'style-constants';
+import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
+import { svgDraw } from 'components/Icon/IconStyled';
 
 const ACss = css`
-  text-decoration: none;
-  color: ${TEXT_DARK};
+  text-decoration: none !important;
   font-weight: ${x => (x.bold ? '600' : 'inherit')};
   pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
-
-  :visited {
-    text-decoration: none;
-  }
+  ${svgDraw({ color: TEXT_DARK })};
 
   :hover {
-    text-decoration: none;
+    ${svgDraw({ color: TEXT_PRIMARY })};
   }
 `;
 

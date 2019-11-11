@@ -4,8 +4,7 @@ import {
   BG_LIGHT,
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
-  TEXT_PRIMARY,
-  TEXT_PRIMARY_DARK,
+  BG_PRIMARY_DARK_RGB,
 } from 'style-constants';
 
 import { LEFT_MENU_WIDTH } from 'containers/App/constants';
@@ -15,24 +14,12 @@ import {
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
 
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
-
 export const BasicLink = css`
   display: flex;
   align-items: center;
   padding: 10px 0 10px 15px;
   border-left: 3px solid ${BORDER_TRANSPARENT};
   cursor: pointer;
-
-  @media only screen and (min-width: 992px) {
-    :hover {
-      color: ${TEXT_PRIMARY};
-
-      ${IconStyled} {
-        ${IconHover({ color: TEXT_PRIMARY })};
-      }
-    }
-  }
 `;
 
 export const Aside = styled.aside`
@@ -56,7 +43,7 @@ export const After = styled.div`
   width: 50px;
   height: 100%;
   z-index: 9999;
-  background: ${TEXT_PRIMARY_DARK}E6;
+  background: rgba(${BG_PRIMARY_DARK_RGB}, 0.9);
   justify-content: center;
   padding-top: 25px;
 `;

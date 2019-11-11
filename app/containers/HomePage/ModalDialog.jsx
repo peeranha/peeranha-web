@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { LANDING_FONT, TEXT_SECONDARY } from 'style-constants';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
+import { LANDING_FONT } from 'style-constants';
 
 export default styled.div`
   max-width: 480px;
@@ -27,12 +26,6 @@ export default styled.div`
     right: 0px;
     top: 0px;
     padding: 15px 5px;
-
-    ${IconStyled} {
-      ${IconHover({ color: TEXT_SECONDARY })};
-
-      width: 18px;
-    }
   }
 
   .modal-dialog-message {

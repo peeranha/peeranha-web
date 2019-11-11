@@ -15,6 +15,8 @@ import {
   BORDER_SECONDARY_DARK,
   APP_FONT,
   BORDER_WARNING_LIGHT,
+  BORDER_PRIMARY_RGB,
+  BORDER_WARNING_LIGHT_RGB,
 } from 'style-constants';
 
 import searchIcon from 'images/search.svg?inline';
@@ -109,9 +111,10 @@ export const Select2 = ({
           border: `1px solid ${(error && BORDER_WARNING_LIGHT) ||
             (state.isFocused && BORDER_PRIMARY) ||
             BORDER_SECONDARY}`,
-          boxShadow: `0 0 0 3px ${(error && BORDER_WARNING_LIGHT) ||
-            (state.isFocused && BORDER_PRIMARY) ||
-            BORDER_TRANSPARENT}66`,
+          boxShadow: `0 0 0 3px ${(error &&
+            `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
+            (state.isFocused && `rgba(${BORDER_PRIMARY_RGB}, 0.4)`) ||
+            BORDER_TRANSPARENT}`,
           borderRadius: '3px',
           color: TEXT_DARK,
           fontFamily: APP_FONT,

@@ -4,9 +4,10 @@ import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
 import { appLocales } from 'i18n';
+import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
-import closeIcon from 'images/close.svg?inline';
+import closeIcon from 'images/close.svg?external';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
@@ -17,6 +18,7 @@ import SelectField, {
   getSelectOptions,
 } from 'components/FormFields/SelectField';
 
+import Icon from 'components/Icon';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
@@ -164,7 +166,11 @@ const CreateCommunityForm = ({
                     data-key={x}
                     onClick={removeTag}
                   >
-                    <img src={closeIcon} alt="icon" />
+                    <Icon
+                      width="16"
+                      icon={closeIcon}
+                      color={TEXT_SECONDARY_LIGHT}
+                    />
                   </button>
                 )}
 

@@ -8,5 +8,5 @@ export default styled.div`
   width: inherit;
   height: inherit;
   z-index: 400;
-  background: ${BG_PRIMARY_SPECIAL}D9;
+  background: ${BG_PRIMARY_SPECIAL};
 `;

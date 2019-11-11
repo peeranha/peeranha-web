@@ -4,16 +4,10 @@ import {
   TEXT_SECONDARY,
 } from 'style-constants';
 
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
-
 import Button from '../index';
 
 export default Button.extend`
   color: ${TEXT_SECONDARY};
   background: ${BG_SECONDARY_LIGHT};
   border: 1px solid ${BORDER_SECONDARY};
-
-  ${IconStyled} {
-    ${IconHover({ color: TEXT_SECONDARY })};
-  }
 `;

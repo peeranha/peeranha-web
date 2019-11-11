@@ -2,22 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
-import IconStyled from 'components/Icon/IconStyled';
+import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import Span from 'components/Span';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
-const SpanStyled = Span.extend`
-  color: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
-  ${IconStyled} {
-    rect {
-      fill: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
-    }
-    circle {
-      stroke: ${x => (x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY)};
-    }
-  }
+export const SpanStyled = Span.extend`
+  ${x => svgDraw({ color: x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY })};
 `;
 
 export const Button = ({
@@ -50,7 +42,6 @@ export const BlockButton = ({
   onClick,
   params,
   isVotedToDelete,
-  isItWrittenByMe,
   children,
   disabled,
 }) => (
@@ -64,7 +55,6 @@ export const BlockButton = ({
   >
     <SpanStyled
       className="d-flex align-items-center"
-      isItWrittenByMe={isItWrittenByMe}
       isVotedToDelete={isVotedToDelete}
     >
       {children}
@@ -88,7 +78,6 @@ BlockButton.propTypes = {
   onClick: PropTypes.func,
   params: PropTypes.object,
   isVotedToDelete: PropTypes.bool,
-  isItWrittenByMe: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.object,
 };

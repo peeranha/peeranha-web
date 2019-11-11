@@ -20,7 +20,7 @@ import {
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
@@ -52,8 +52,10 @@ describe('followHandlerWorker', () => {
   };
 
   describe('props.isFollowed === false', () => {
-    props.isFollowed = false;
-    const generator = followHandlerWorker(props);
+    const generator = followHandlerWorker({
+      ...props,
+      isFollowed: false,
+    });
 
     it('select eosService', () => {
       select.mockImplementationOnce(() => eos);
@@ -72,8 +74,6 @@ describe('followHandlerWorker', () => {
     });
 
     it('isValid', () => {
-      call.mockImplementationOnce((x, args) => x(args));
-
       generator.next();
       expect(call).toHaveBeenCalledWith(isValid, {
         buttonId: props.buttonId,
@@ -104,9 +104,10 @@ describe('followHandlerWorker', () => {
   });
 
   describe('props.isFollowed === true', () => {
-    props.isFollowed = true;
-
-    const generator = followHandlerWorker(props);
+    const generator = followHandlerWorker({
+      ...props,
+      isFollowed: true,
+    });
 
     generator.next();
     generator.next(eos);

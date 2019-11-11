@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { BORDER_SECONDARY, BG_LIGHT } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  BG_LIGHT,
+  SECONDARY_SPECIAL_2,
+} from 'style-constants';
 
 const Base = styled.div`
   background: ${BG_LIGHT};
@@ -19,17 +23,17 @@ const Base = styled.div`
 
   ${x =>
     x.position === 'bottom'
-      ? 'border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 2px 2px 0 #00000013;'
+      ? `border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`
       : ''}
 
   ${x =>
     x.position === 'left'
-      ? `border-top-left-radius: 5px; border-bottom-left-radius: 5px; box-shadow: 0 2px 2px 0 #00000013; border-right: 1px solid ${BORDER_SECONDARY};`
+      ? `border-top-left-radius: 5px; border-bottom-left-radius: 5px; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2}; border-right: 1px solid ${BORDER_SECONDARY};`
       : ''}
 
   ${x =>
     x.position === 'right'
-      ? 'border-top-right-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 2px 2px 0 #00000013;'
+      ? `border-top-right-radius: 5px; border-bottom-right-radius: 5px; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`
       : ''}
 
   ${x =>

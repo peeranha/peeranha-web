@@ -22,18 +22,11 @@ import Span from 'components/Span';
 import Base from 'components/Base';
 import LargeImage from 'components/Img/LargeImage';
 import SmallImage from 'components/Img/SmallImage';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 
 import messages from './messages';
 
-const BaseStyled = Base.extend`
-  ${IconStyled} {
-    ${IconHover({ color: TEXT_PRIMARY })};
-  }
-`;
-
 const SubHeader = ({ account, balance }) => (
-  <BaseStyled className="d-flex" position="bottom">
+  <Base className="d-flex" position="bottom">
     <LargeImage
       className="mr-3"
       src={walletCoinsImage}
@@ -44,7 +37,12 @@ const SubHeader = ({ account, balance }) => (
     <div>
       <div className="mb-2">
         <Span fontSize="38" mobileFS="24" bold>
-          <Icon width="24" icon={currencyPeerImage} />
+          <Icon
+            className="mr-2"
+            width="24"
+            icon={currencyPeerImage}
+            color={TEXT_PRIMARY}
+          />
           <span>{getFormattedNum3(balance)}</span>
         </Span>
         <Span
@@ -68,7 +66,7 @@ const SubHeader = ({ account, balance }) => (
         </Span>
       </div>
     </div>
-  </BaseStyled>
+  </Base>
 );
 
 SubHeader.propTypes = {

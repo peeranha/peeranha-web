@@ -8,6 +8,7 @@ import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
+  GET_UNIQ_QUESTIONS,
 } from './constants';
 
 /*
@@ -47,5 +48,12 @@ export function getQuestionsError(questionsError) {
   return {
     type: GET_QUESTIONS_ERROR,
     questionsError,
+  };
+}
+
+export function getUniqQuestions(questionsList) {
+  return {
+    type: GET_UNIQ_QUESTIONS,
+    questionsList,
   };
 }

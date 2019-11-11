@@ -10,7 +10,9 @@ exports[`QuestionsWithAnswersOfUser render questions[0] TRUE 1`] = `
   <div
     className="className"
   >
-    <Header />
+    <UNDEFINED
+      userId="userId"
+    />
     <QuestionsWithAnswersList
       communities={Array []}
       locale="en"
@@ -45,7 +47,9 @@ exports[`QuestionsWithAnswersOfUser render questionsLoading TRUE 1`] = `
   <div
     className="className"
   >
-    <Header />
+    <UNDEFINED
+      userId="userId"
+    />
     <UNDEFINED />
   </div>
 </InfinityLoader>

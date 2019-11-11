@@ -12,7 +12,7 @@ import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // Needed for redux-saga es6 generator support
-import 'babel-polyfill';
+import '@babel/polyfill';
 
 // Import all the third party stuff
 import React from 'react';

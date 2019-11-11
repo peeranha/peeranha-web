@@ -67,18 +67,19 @@
   },
   "pre-commit": "lint:staged",
   "babel": {
-    "plugins": [
-      "styled-components"
-    ],
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "modules": false
         }
       ],
-      "react",
-      "stage-0"
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "styled-components",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-syntax-dynamic-import"
     ],
     "env": {
       "production": {
@@ -86,14 +87,15 @@
           "app"
         ],
         "plugins": [
+          "lodash",
           "transform-react-remove-prop-types",
-          "transform-react-inline-elements",
-          "transform-react-constant-elements"
+          "@babel/plugin-transform-react-inline-elements",
+          "@babel/plugin-transform-react-constant-elements"
         ]
       },
       "test": {
         "plugins": [
-          "transform-es2015-modules-commonjs",
+          "@babel/plugin-transform-modules-commonjs",
           "dynamic-import-node"
         ]
       }
@@ -155,8 +157,11 @@
       "enzyme-to-json/serializer"
     ]
   },
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
+  },
   "dependencies": {
-    "babel-polyfill": "6.26.0",
+    "@babel/polyfill": "7.4.3",
     "babel-preset-es2015": "^6.24.1",
     "bs58": "^4.0.1",
     "chalk": "^2.4.1",
@@ -175,6 +180,7 @@
     "invariant": "2.2.4",
     "ip": "1.1.5",
     "jquery": "3.3.1",
+    "jsbi": "^3.1.1",
     "lodash": "4.17.10",
     "markdown-loader": "^5.0.0",
     "minimist": "1.2.0",
@@ -208,23 +214,25 @@
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
-    "add-asset-html-webpack-plugin": "2.1.3",
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.0.1",
-    "babel-loader": "7.1.4",
-    "babel-plugin-dynamic-import-node": "1.2.0",
-    "babel-plugin-react-intl": "2.4.0",
-    "babel-plugin-react-transform": "3.0.0",
-    "babel-plugin-styled-components": "1.5.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
-    "babel-plugin-transform-react-constant-elements": "6.23.0",
-    "babel-plugin-transform-react-inline-elements": "6.22.0",
-    "babel-plugin-transform-react-jsx-source": "6.22.0",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.13",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-0": "6.24.1",
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "7.4.3",
+    "@babel/plugin-transform-react-constant-elements": "7.2.0",
+    "@babel/plugin-transform-react-inline-elements": "7.2.0",
+    "@babel/preset-env": "7.4.3",
+    "@babel/preset-react": "7.0.0",
+    "@babel/register": "7.4.0",
+    "add-asset-html-webpack-plugin": "3.1.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.5",
+    "babel-plugin-dynamic-import-node": "2.2.0",
+    "babel-plugin-lodash": "3.3.4",
+    "babel-plugin-react-intl": "3.0.1",
+    "babel-plugin-styled-components": "1.10.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "bootstrap": "4.1.3",
     "circular-dependency-plugin": "5.0.2",
     "coveralls": "3.0.1",

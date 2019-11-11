@@ -19,7 +19,7 @@ import { TransparentLink } from 'components/Button/Contained/Transparent';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
-import Button, { BlockButton } from './Button';
+import Button, { SpanStyled } from './Button';
 
 import messages from './messages';
 
@@ -75,11 +75,11 @@ export const ContentHeader = props => (
             to={props.editItem}
           >
             <Span
-              className="d-flex align-items-center"
+              className="d-flex align-items-start"
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img src={pencilIcon} alt="icon" width="17" />
+              <img src={pencilIcon} alt="icon" />
               <span className="d-none d-md-inline-block ml-2">
                 <FormattedMessage {...messages.editButton} />
               </span>
@@ -94,31 +94,31 @@ export const ContentHeader = props => (
             disabled={props.deleteItemLoading}
           >
             <Span
-              className="d-flex align-items-center"
+              className="d-flex align-items-start"
               color={TEXT_PRIMARY}
               fontSize="16"
             >
-              <img src={deleteIcon} alt="icon" width="17" />
+              <img src={deleteIcon} alt="icon" />
               <span className="d-none d-md-inline-block ml-2">
                 <FormattedMessage {...messages.deleteButton} />
               </span>
             </Span>
           </Button>
 
-          <BlockButton
-            className="d-flex align-items-center"
-            isItWrittenByMe={props.isItWrittenByMe}
+          <Button
+            show={!props.isItWrittenByMe}
             id={`${props.type}_vote_to_delete_${props.answerId}`}
             params={props.buttonParams}
             onClick={props.voteToDelete}
-            isVotedToDelete={props.votingStatus.isVotedToDelete}
             disabled={props.voteToDeleteLoading}
           >
-            <Icon icon={blockIcon} width="14" noMargin />
-            <span className="d-none d-md-inline-block ml-2">
-              <FormattedMessage {...messages.voteToDelete} />
-            </span>
-          </BlockButton>
+            <SpanStyled isVotedToDelete={props.votingStatus.isVotedToDelete}>
+              <Icon icon={blockIcon} width="14" />
+              <span className="d-none d-md-inline-block ml-2">
+                <FormattedMessage {...messages.voteToDelete} />
+              </span>
+            </SpanStyled>
+          </Button>
         </div>
       </Base>
     </div>

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as routes from 'routes-config';
 
-import { BG_SECONDARY_LIGHT, BG_LIGHT, BG_PRIMARY } from 'style-constants';
+import {
+  BG_SECONDARY_LIGHT,
+  BG_LIGHT,
+  BG_PRIMARY,
+  SECONDARY_SPECIAL_3,
+} from 'style-constants';
 
 import Base from 'components/Base/BaseRounded';
 
@@ -16,7 +21,7 @@ const LeftMenu = styled.div`
 const RightMenu = styled.div`
   flex: 4;
   padding: 40px 80px;
-  background: ${BG_SECONDARY_LIGHT}60;
+  background: ${SECONDARY_SPECIAL_3};
 `;
 
 const BaseStyled = Base.extend`
