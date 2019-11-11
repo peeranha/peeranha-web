@@ -17,10 +17,12 @@ import {
   BORDER_WARNING_LIGHT,
   BORDER_PRIMARY_RGB,
   BORDER_WARNING_LIGHT_RGB,
+  TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import searchIcon from 'images/search.svg?inline';
+import searchIcon from 'images/search.svg?external';
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 
 import Wrapper from './Wrapper';
 
@@ -90,7 +92,12 @@ export const Select2 = ({
       components={{
         Group,
         DropdownIndicator: () => (
-          <img className="mr-1" src={searchIcon} alt="icon" />
+          <Icon
+            className="mr-1"
+            icon={searchIcon}
+            width="16"
+            color={TEXT_SECONDARY_LIGHT}
+          />
         ),
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,

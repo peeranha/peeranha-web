@@ -66,6 +66,7 @@ const Content = ({
   existingTagsLoading,
   typeInput,
   text,
+  clearTextField,
 }) => (
   <InfinityLoader
     loadNextPaginatedData={loadMoreTags}
@@ -82,6 +83,7 @@ const Content = ({
             input={{ onChange: typeInput, value: text }}
             placeholder="Find tag"
             isSearchable
+            onClick={clearTextField}
           />
         </Item>
       </li>
@@ -121,6 +123,7 @@ Content.propTypes = {
   isLastFetch: PropTypes.bool,
   existingTagsLoading: PropTypes.bool,
   typeInput: PropTypes.func,
+  clearTextField: PropTypes.func,
   text: PropTypes.string,
 };
 

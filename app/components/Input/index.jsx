@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import seacrhIcon from 'images/search.svg?inline';
-import closeIcon from 'images/close.svg?inline';
-import refreshIcon from 'images/reload.svg?inline';
-import eyeOpenedIcon from 'images/eyeOpened.svg?inline';
-import eyeClosedIcon from 'images/eyeСlosed.svg?inline';
+import { TEXT_SECONDARY_LIGHT } from 'style-constants';
+
+import seacrhIcon from 'images/search.svg?external';
+import closeIcon from 'images/close.svg?external';
+import refreshIcon from 'images/reload.svg?external';
+import eyeOpenedIcon from 'images/eyeOpened.svg?external';
+import eyeClosedIcon from 'images/eyeСlosed.svg?external';
+
+import Icon from 'components/Icon';
 
 import InputStyled from './InputStyled';
 
@@ -33,7 +37,11 @@ const Handler = ({
     return null;
   }
 
-  return <img onClick={onClick || null} src={src} alt="icon" />;
+  return (
+    <button onClick={onClick || null} type="button">
+      <Icon icon={src} width="18" color={TEXT_SECONDARY_LIGHT} />
+    </button>
+  );
 };
 
 class Input extends React.PureComponent {

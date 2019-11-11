@@ -56,7 +56,7 @@ const InputStyled = styled.div`
   transition: 0.5s;
   flex: 1;
 
-  img {
+  button {
     position: absolute;
     right: 14px;
     cursor: pointer;

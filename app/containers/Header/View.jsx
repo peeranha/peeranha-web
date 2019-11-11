@@ -18,7 +18,7 @@ import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import addIcon from 'images/add.svg?external';
-import searchIcon from 'images/search.svg?inline';
+import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import logoIcon from 'images/LogoBlack.svg?inline';
 
@@ -122,7 +122,11 @@ const View = ({
                 className="d-flex d-lg-none"
                 onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
               >
-                <img src={searchIcon} alt="icon" />
+                <Icon
+                  icon={searchIcon}
+                  width="16"
+                  color={TEXT_SECONDARY_LIGHT}
+                />
               </Button>
             )}
 
