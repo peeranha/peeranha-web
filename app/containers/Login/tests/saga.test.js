@@ -187,14 +187,14 @@ describe('loginWithScatterWorker', () => {
     generator.next();
     generator.next(account);
 
-    it('getCurrentAccountWorker', () => {
-      generator.next(profileInfo);
-      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+    it('put new EosServise to store', () => {
+      const step = generator.next(profileInfo);
+      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
     });
 
-    it('put new EosServise to store', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
+    it('getCurrentAccountWorker', () => {
+      generator.next();
+      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
     });
 
     it('loginWithScatterSuccess', () => {

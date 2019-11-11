@@ -134,9 +134,9 @@ export function* loginWithScatterWorker() {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
     }
 
-    yield call(getCurrentAccountWorker);
-
     yield put(initEosioSuccess(eosService));
+
+    yield call(getCurrentAccountWorker);
 
     yield put(loginWithScatterSuccess());
   } catch (err) {
