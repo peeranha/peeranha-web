@@ -71,10 +71,14 @@ describe('getQuestionsWorker', () => {
   const eos = { id: 1, getSelectedAccount: jest.fn() };
 
   describe('communityIdFilter === 0 && parentPage !== feed', () => {
-    res.communityIdFilter = 0;
-    res.parentPage = '777';
+    const communityIdFilter = 0;
+    const parentPage = '777';
 
-    const generator = getQuestionsWorker(res);
+    const generator = getQuestionsWorker({
+      ...res,
+      communityIdFilter,
+      parentPage,
+    });
 
     it('eosService', () => {
       select.mockImplementation(() => eos);
@@ -89,10 +93,8 @@ describe('getQuestionsWorker', () => {
     });
 
     it('getQuestions', () => {
-      getQuestions.mockImplementation(() => questions);
-      const step = generator.next(communities);
-
-      expect(step.value).toEqual(questions);
+      generator.next(communities);
+      expect(getQuestions).toHaveBeenCalledWith(eos, res.limit, res.offset);
     });
 
     it('questionsList mapping, get userInfo', () => {
