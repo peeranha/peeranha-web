@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
@@ -12,9 +13,11 @@ import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 import icoTag from 'images/icoTag.svg?inline';
 
+import { redirectToCreateTag } from 'containers/CreateTag/actions';
+
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
-import { TransparentLink } from 'components/Button/Contained/Transparent';
+import TransparentButton from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
 import BaseRounded from 'components/Base/BaseRounded';
 import Tips from 'components/TextEditor/Tips';
@@ -76,6 +79,7 @@ export const QuestionForm = ({
   formValues,
   intl,
   questionid,
+  redirectToCreateTagDispatch,
 }) => {
   change(FORM_COMMUNITY, formValues[FORM_COMMUNITY]);
   change(FORM_TAGS, formValues[FORM_TAGS]);
@@ -168,10 +172,15 @@ export const QuestionForm = ({
               />
 
               <div className="pb-3">
-                <TransparentLink to={routes.tagsCreate(communityId)}>
+                <TransparentButton
+                  onClick={redirectToCreateTagDispatch}
+                  data-communityid={communityId}
+                  id="question-form-suggest-tag"
+                  type="button"
+                >
                   <img className="mr-2" src={icoTag} alt="icoTag" />
                   <FormattedMessage {...commonMessages.suggestTag} />
-                </TransparentLink>
+                </TransparentButton>
               </div>
             </div>
 
@@ -200,6 +209,7 @@ QuestionForm.propTypes = {
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   sendQuestion: PropTypes.func,
+  redirectToCreateTagDispatch: PropTypes.func,
   change: PropTypes.func,
   questionLoading: PropTypes.bool,
   questionid: PropTypes.bool,
@@ -211,30 +221,40 @@ QuestionForm.propTypes = {
 
 let FormClone = reduxForm({})(QuestionForm);
 
-FormClone = connect((state, props) => {
-  let initialValues = {};
-  let formValues = {};
+const mapDispatchToProps = dispatch => ({
+  redirectToCreateTagDispatch: bindActionCreators(
+    redirectToCreateTag,
+    dispatch,
+  ),
+});
 
-  if (props.question) {
-    initialValues = {
-      [FORM_TITLE]: props.question.title,
-      [FORM_CONTENT]: props.question.content,
-      [FORM_COMMUNITY]: props.question.community,
-      [FORM_TAGS]: props.question.chosenTags,
+FormClone = connect(
+  (state, props) => {
+    let initialValues = {};
+    let formValues = {};
+
+    if (props.question) {
+      initialValues = {
+        [FORM_TITLE]: props.question.title,
+        [FORM_CONTENT]: props.question.content,
+        [FORM_COMMUNITY]: props.question.community,
+        [FORM_TAGS]: props.question.chosenTags,
+      };
+    }
+
+    const form = state.toJS().form[props.form];
+
+    if (form) {
+      formValues = form.values;
+    }
+
+    return {
+      formValues,
+      initialValues,
+      enableReinitialize: true,
     };
-  }
-
-  const form = state.toJS().form[props.form];
-
-  if (form) {
-    formValues = form.values;
-  }
-
-  return {
-    formValues,
-    initialValues,
-    enableReinitialize: true,
-  };
-})(FormClone);
+  },
+  mapDispatchToProps,
+)(FormClone);
 
 export default React.memo(injectIntl(FormClone));
