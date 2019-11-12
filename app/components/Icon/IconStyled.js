@@ -12,7 +12,7 @@ const svgDraw = ({ color }) => `
 
 const IconStyled = styled.span`
   width: ${x => x.width}px;
-  height: auto;
+  height: ${x => x.width}px;
   transform: rotate(${x => (x.rotate ? '180deg' : '0deg')});
   transition: 0.5s;
   display: inline-flex;

@@ -29,7 +29,6 @@ const Main = styled.div`
 const WrapStyled = styled.main`
   margin-top: 10px;
   width: calc(100% - ${LEFT_MENU_WIDTH}px);
-  overflow-y: -webkit-paged-y;
 
   @media only screen and (max-width: 992px) {
     width: 100%;

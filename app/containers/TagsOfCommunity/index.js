@@ -30,6 +30,15 @@ import Aside from './Aside';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TagsOfCommunity extends React.Component {
+  clearTextField = () => {
+    const text = '';
+
+    this.props.getExistingTagsDispatch({
+      communityId: this.currentCommunity.id,
+      text,
+    });
+  };
+
   typeInput = ev => {
     const text = ev.target.value;
 
@@ -102,6 +111,7 @@ export class TagsOfCommunity extends React.Component {
               existingTagsLoading={existingTagsLoading}
               typeInput={this.typeInput}
               text={text}
+              clearTextField={this.clearTextField}
             />
           }
         />
