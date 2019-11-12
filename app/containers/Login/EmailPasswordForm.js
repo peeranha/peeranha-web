@@ -8,6 +8,8 @@ import { translationMessages } from 'i18n';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
@@ -106,6 +108,7 @@ const formName = 'EmailPasswordForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailPasswordForm);
 
 FormClone = connect(

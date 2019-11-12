@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import scatterLogo from 'images/scatterLogo.svg?inline';
 
@@ -81,4 +82,5 @@ EmailForm.propTypes = {
 
 export default reduxForm({
   form: 'EmailForm',
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailForm);

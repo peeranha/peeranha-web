@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import communitySuggestImage from 'images/communitySuggest.svg?inline';
 
@@ -111,6 +112,7 @@ const formName = 'SubmitEmailForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(SubmitEmailForm);
 
 FormClone = connect(

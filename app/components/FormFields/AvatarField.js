@@ -4,6 +4,7 @@ import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import { formatStringToHtmlId } from 'utils/animation';
 
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
@@ -65,6 +66,7 @@ function AvatarField({ input, meta, size, disabled }) {
       disabled={disabled}
       value={input.value && input.value.length}
       error={meta.touched && (meta.error || meta.warning)}
+      id={formatStringToHtmlId(input.name)}
     >
       <div>
         <Avatar

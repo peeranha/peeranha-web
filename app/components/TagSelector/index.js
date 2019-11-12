@@ -60,6 +60,7 @@ export const TagSelector = ({
       meta={meta}
       splitInHalf={splitInHalf}
       disabled={disabled}
+      id={input.name}
     >
       <Dropdown
         isOpen={isOpen}

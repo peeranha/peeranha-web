@@ -5,6 +5,7 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import presentImage from 'images/2.png';
+import { scrollToErrorField } from 'utils/animation';
 
 import { strLength3x20, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -62,4 +63,5 @@ WeAreHappyYouAreHereForm.propTypes = {
 
 export default reduxForm({
   form: 'WeAreHappyYouAreHereForm',
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(WeAreHappyYouAreHereForm);

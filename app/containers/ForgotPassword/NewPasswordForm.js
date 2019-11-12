@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import { strLength8x100, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
@@ -90,6 +92,7 @@ const formName = 'NewPasswordForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(NewPasswordForm);
 
 FormClone = connect(

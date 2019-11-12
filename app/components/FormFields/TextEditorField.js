@@ -75,7 +75,13 @@ export const TextEditorField = ({
   splitInHalf,
 }) => (
   <React.Fragment>
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      id={input.name}
+    >
       <Div
         disabled={disabled}
         error={meta.touched && (meta.error || meta.warning)}

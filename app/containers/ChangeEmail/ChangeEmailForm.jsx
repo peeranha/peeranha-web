@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -118,6 +119,7 @@ export const validateEmails = (state, fields) => {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ChangeEmailForm);
 
 FormClone = connect(

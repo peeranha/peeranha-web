@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter-smile.svg?inline';
 
@@ -63,4 +64,5 @@ ShowOwnerKeyForm.propTypes = {
 
 export default reduxForm({
   form: SUBMIT_EMAIL_FORM,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ShowOwnerKeyForm);

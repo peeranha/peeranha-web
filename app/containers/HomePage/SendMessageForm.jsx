@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import {
   validateEmail,
   strLength254Max,
@@ -97,4 +99,6 @@ SendMessageForm.propTypes = {
   sendMessageLoading: PropTypes.bool,
 };
 
-export default reduxForm({})(SendMessageForm);
+export default reduxForm({
+  onSubmitFail: errors => scrollToErrorField(errors),
+})(SendMessageForm);

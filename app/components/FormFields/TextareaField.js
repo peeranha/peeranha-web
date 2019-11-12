@@ -13,7 +13,13 @@ export const TextareaField = ({
   tip,
   splitInHalf,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    id={input.name}
+  >
     <Textarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}

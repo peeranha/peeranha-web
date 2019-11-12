@@ -157,6 +157,7 @@ export const SelectField = props => (
     tip={props.tip}
     meta={props.meta}
     splitInHalf={props.splitInHalf}
+    id={props.input.name}
   >
     <Select2
       {...props}
@@ -191,6 +192,7 @@ Select2.propTypes = {
 
 SelectField.propTypes = {
   meta: PropTypes.object,
+  input: PropTypes.object,
   label: PropTypes.string,
   tip: PropTypes.string,
   splitInHalf: PropTypes.bool,

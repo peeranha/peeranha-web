@@ -5,6 +5,7 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import { required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -64,4 +65,5 @@ VerificationCodeForm.propTypes = {
 
 export default reduxForm({
   form: 'VerificationCodeForgotPasswordForm',
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(VerificationCodeForm);

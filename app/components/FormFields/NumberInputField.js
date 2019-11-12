@@ -27,7 +27,13 @@ export const NumberInputField = ({
   };
 
   return (
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      id={input.name}
+    >
       <Input
         input={{ ...input, onChange }}
         disabled={disabled}

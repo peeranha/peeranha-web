@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import { validateEmail, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
@@ -51,4 +53,5 @@ EmailForgotPasswordForm.propTypes = {
 
 export default reduxForm({
   form: 'EmailForgotPasswordForm',
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailForgotPasswordForm);
