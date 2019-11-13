@@ -11,6 +11,7 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO } from './constants';
@@ -30,6 +31,8 @@ export function* initEosioWorker() {
         false,
         response.body.eosAccountName,
       );
+
+      yield call(getCurrentAccountWorker, response.body.eosAccountName);
     } else {
       yield call(eosioService.init);
     }

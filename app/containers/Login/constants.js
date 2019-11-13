@@ -46,3 +46,4 @@ export const USER_IS_NOT_REGISTERED = 'USER_IS_NOT_REGISTERED';
 
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';
+export const PROFILE_INFO_LS = 'profileinfols';
