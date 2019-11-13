@@ -257,9 +257,7 @@ class EosioService {
 
   getEosioConfig = key => ({
     httpEndpoint: this.node.endpoint,
-    chainId:
-      this.node.chainId ||
-      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    chainId: this.node.chainId,
     keyProvider: [key],
     broadcast: true,
     sign: true,
@@ -270,9 +268,7 @@ class EosioService {
     protocol: this.node.protocol,
     host: this.node.host,
     port: this.node.port,
-    chainId:
-      this.node.chainId ||
-      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    chainId: this.node.chainId,
   });
 
   getNode = () => {
