@@ -57,6 +57,16 @@ export function getTagScope(communityId) {
     v = JSBI.leftShift(v, five);
   }
 
+  ret.split('').reverse();
+
+  for (let i = ret.length - 1; i >= 0; i--) {
+    if (ret[i] === '.') {
+      ret = ret.slice(0, i);
+    } else {
+      break;
+    }
+  }
+
   return ret;
 }
 /* eslint-enable */
