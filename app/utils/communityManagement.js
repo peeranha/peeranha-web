@@ -47,22 +47,14 @@ export function getTagScope(communityId) {
 
   for (let i = 0; i < 13; i++) {
     v = JSBI.bitwiseAnd(v, mask64);
-    if (v == zero) break;
+    if (v.toString() == zero.toString()) break;
     const indx = JSBI.signedRightShift(
       JSBI.bitwiseAnd(v, mask),
       JSBI.BigInt(i == 12 ? 60 : 59),
     );
 
-    ret = ret + charmap[indx.toString()];
+    ret += charmap[indx.toString()];
     v = JSBI.leftShift(v, five);
-  }
-
-  for (let i = ret.length - 1; i >= 0; i--) {
-    if (ret[i] === '.') {
-      ret = ret.slice(0, i);
-    } else {
-      break;
-    }
   }
 
   return ret;
