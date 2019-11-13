@@ -30,7 +30,13 @@ export const CommunityField = ({
   splitInHalf,
   disabled,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    id={input.name}
+  >
     <CommunitySelector
       input={input}
       disabled={disabled}

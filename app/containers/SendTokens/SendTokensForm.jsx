@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -79,4 +80,5 @@ const formName = 'SendTokensForm';
 /* eslint import/no-mutable-exports: 0 */
 export default reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTokensForm);

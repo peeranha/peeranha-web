@@ -12,6 +12,8 @@ import * as routes from 'routes-config';
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import {
   required,
   strLength8x100,
@@ -260,6 +262,7 @@ const formName = 'IHaveEOSAccountForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(IHaveEOSAccountForm);
 
 export const validatePassword = (state, fields) => {

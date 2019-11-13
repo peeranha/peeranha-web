@@ -13,6 +13,8 @@ import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 import icoTag from 'images/icoTag.svg?inline';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -219,7 +221,9 @@ QuestionForm.propTypes = {
   intl: intlShape.isRequired,
 };
 
-let FormClone = reduxForm({})(QuestionForm);
+let FormClone = reduxForm({
+  onSubmitFail: errors => scrollToErrorField(errors),
+})(QuestionForm);
 
 const mapDispatchToProps = dispatch => ({
   redirectToCreateTagDispatch: bindActionCreators(

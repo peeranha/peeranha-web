@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
+import { scrollToErrorField } from 'utils/animation';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import TextEditorField from 'components/FormFields/TextEditorField';
@@ -47,7 +48,9 @@ AnswerForm.propTypes = {
   sendAnswerLoading: PropTypes.bool,
 };
 
-let FormClone = reduxForm({})(AnswerForm);
+let FormClone = reduxForm({
+  onSubmitFail: errors => scrollToErrorField(errors),
+})(AnswerForm);
 
 FormClone = connect((_, props) => ({
   enableReinitialize: true,

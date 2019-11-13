@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
+import { scrollToErrorField } from 'utils/animation';
 
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -94,6 +95,7 @@ Form.propTypes = {
 
 let FormClone = reduxForm({
   form: FORM_NAME,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(Form);
 
 FormClone = connect((state, props) => {

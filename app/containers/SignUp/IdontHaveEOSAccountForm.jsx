@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
 
+import { scrollToErrorField } from 'utils/animation';
+
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
@@ -167,6 +169,7 @@ const formName = 'IdontHaveEOSAccountForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(IdontHaveEOSAccountForm);
 
 FormClone = connect(state => {

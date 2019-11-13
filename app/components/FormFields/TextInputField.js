@@ -25,6 +25,7 @@ export const TextInputField = ({
     meta={meta}
     splitInHalf={splitInHalf}
     disabled={disabled}
+    id={input.name}
   >
     <Input
       input={input}

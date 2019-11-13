@@ -9,6 +9,8 @@ import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
 
+import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
+
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -158,7 +160,11 @@ const CreateCommunityForm = ({
 
           <FormSection name="tags" className="mt-3">
             {tags.map((x, index) => (
-              <FormSection key={x} name={`${TAG_SECTION}_${x}`}>
+              <FormSection
+                key={x}
+                name={`${TAG_SECTION}_${x}`}
+                id={formatStringToHtmlId(`${TAG_SECTION}_${x}`)}
+              >
                 {index >= DEFAULT_TAGS_NUMBER && (
                   <button
                     type="button"
@@ -260,10 +266,18 @@ const validateTagsTitles = st => {
   return errors;
 };
 
-export { CreateCommunityForm, validateTagsTitles };
-
 export default reduxForm({
   form: FORM_NAME,
   validate: (state, props) => validateTagsTitles(state, props),
   warn: (state, props) => validateTagsTitles(state, props),
+  onSubmitFail: err => {
+    const errors = {
+      ...err,
+      ...err.tags,
+    };
+
+    delete errors.tags;
+
+    scrollToErrorField(errors);
+  },
 })(CreateCommunityForm);

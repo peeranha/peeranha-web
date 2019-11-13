@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
+import { formatStringToHtmlId } from 'utils/animation';
 
 import {
   BG_LIGHT,
@@ -46,7 +47,10 @@ export const Label = Span.extend`
 
 /* eslint jsx-a11y/label-has-for: 0 */
 const Checkbox = ({ input, label, disabled, meta }) => (
-  <div className="d-flex align-items-start">
+  <div
+    className="d-flex align-items-start"
+    id={formatStringToHtmlId(input.name)}
+  >
     <div className="position-relative d-inline-flex">
       <Icon
         value={input.value}

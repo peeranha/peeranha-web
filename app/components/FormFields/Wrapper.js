@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { formatStringToHtmlId } from 'utils/animation';
+
 import Label from './Label';
 import WarningMessage from './WarningMessage';
 
@@ -31,6 +33,7 @@ export const Wrapper = ({
   meta,
   splitInHalf,
   disabled,
+  id,
 }) => {
   let valueWidth = 12;
   let tipWidth = 12;
@@ -48,7 +51,7 @@ export const Wrapper = ({
   }
 
   return (
-    <StyledBox disabled={disabled}>
+    <StyledBox disabled={disabled} id={formatStringToHtmlId(id)}>
       <Label>{label}</Label>
       <div className="row align-items-center mb-3">
         <div className={`col-12 col-md-${valueWidth}`}>{children}</div>
@@ -68,6 +71,7 @@ Wrapper.propTypes = {
   children: PropTypes.any,
   tip: PropTypes.string,
   label: PropTypes.string,
+  id: PropTypes.string,
   meta: PropTypes.object,
   splitInHalf: PropTypes.bool,
   disabled: PropTypes.bool,
