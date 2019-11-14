@@ -121,7 +121,7 @@ export function* verifyEmailWorker({ verificationCode }) {
 
     yield put(verifyEmailSuccess(encryptionKey));
 
-    yield call(() => createdHistory.push(routes.signup.haveEosAccount.name));
+    yield call(createdHistory.push, routes.signup.dontHaveEosAccount.name);
   } catch (err) {
     yield put(verifyEmailErr(err.message));
   }
