@@ -24,10 +24,11 @@ export function* initEosioWorker() {
     yield call(defaultEosioService.init);
     yield put(initEosioSuccess(defaultEosioService));
 
-    const advancedEosioService = new EosioService();
     const response = yield call(autoLogin);
 
     if (response.OK) {
+      const advancedEosioService = new EosioService();
+
       yield call(
         advancedEosioService.init,
         response.body.activeKey.private,

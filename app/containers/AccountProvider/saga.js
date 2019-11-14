@@ -78,7 +78,9 @@ export function* getCurrentAccountWorker(initAccount) {
       return null;
     }
 
-    const account = yield initAccount || call(eosService.getSelectedAccount);
+    const account = yield typeof initAccount === 'string'
+      ? initAccount
+      : call(eosService.getSelectedAccount);
 
     const [profileInfo, balance] = yield all([
       call(getProfileInfo, account, eosService, !prevProfileInfo),
