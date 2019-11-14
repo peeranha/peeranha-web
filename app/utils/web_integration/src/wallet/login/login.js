@@ -30,7 +30,7 @@ async function login(email, password, rememberMe = false) {
   const requestBody = {
     email,
     encryptedPassphrase,
-    autoLogin: rememberMe,
+    autoLogin: true,
   };
 
   const response = await callService(LOGIN_SERVICE, requestBody);
@@ -53,26 +53,26 @@ async function login(email, password, rememberMe = false) {
 
   const activeKey = decryptObject(activeEosKey, encryptionKey);
 
-  window.localStorage.setItem(
+  const { authToken, passwordServerPart } = loginResponse.autoLoginOptions;
+  const passwordUserPart = getRandomKey();
+  const xorArrayPassword = xorArray(passwordUserPart, passwordServerPart);
+  const encryptedKeys = encryptObject(activeKey, xorArrayPassword);
+
+  const peeranhaAutoLogin = {
+    email,
+    eosAccountName,
+    authToken,
+    passwordUserPart,
+    encryptedKeys,
+    hasOwnerEosKey,
+  };
+
+  window.sessionStorage.setItem(
     AUTOLOGIN_DATA,
-    JSON.stringify({ email, hasOwnerEosKey }),
+    JSON.stringify(peeranhaAutoLogin),
   );
 
   if (rememberMe) {
-    const { authToken, passwordServerPart } = loginResponse.autoLoginOptions;
-    const passwordUserPart = getRandomKey();
-    const xorArrayPassword = xorArray(passwordUserPart, passwordServerPart);
-    const encryptedKeys = encryptObject(activeKey, xorArrayPassword);
-
-    const peeranhaAutoLogin = {
-      email,
-      eosAccountName,
-      authToken,
-      passwordUserPart,
-      encryptedKeys,
-      hasOwnerEosKey,
-    };
-
     window.localStorage.setItem(
       AUTOLOGIN_DATA,
       JSON.stringify(peeranhaAutoLogin),
@@ -87,7 +87,8 @@ async function login(email, password, rememberMe = false) {
 
 async function autoLogin() {
   const peeranhaAutoLogin = JSON.parse(
-    window.localStorage.getItem(AUTOLOGIN_DATA),
+    window.localStorage.getItem(AUTOLOGIN_DATA) ||
+      window.sessionStorage.getItem(AUTOLOGIN_DATA),
   );
 
   if (!(peeranhaAutoLogin && peeranhaAutoLogin.authToken)) {

@@ -18,6 +18,7 @@ export function* logoutWorker() {
     const eosService = yield select(selectEos);
 
     localStorage.removeItem(AUTOLOGIN_DATA);
+    sessionStorage.removeItem(AUTOLOGIN_DATA);
 
     yield call(() => eosService.forgetIdentity());
 
