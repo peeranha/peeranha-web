@@ -20,24 +20,24 @@ import validate from './validate';
 
 export function* initEosioWorker() {
   try {
-    const eosioService = new EosioService();
+    const defaultEosioService = new EosioService();
+    yield call(defaultEosioService.init);
+    yield put(initEosioSuccess(defaultEosioService));
 
+    const advancedEosioService = new EosioService();
     const response = yield call(autoLogin);
 
     if (response.OK) {
       yield call(
-        eosioService.init,
+        advancedEosioService.init,
         response.body.activeKey.private,
         false,
         response.body.eosAccountName,
       );
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
-    } else {
-      yield call(eosioService.init);
+      yield put(initEosioSuccess(advancedEosioService));
     }
-
-    yield put(initEosioSuccess(eosioService));
   } catch (error) {
     yield put(initEosioError(error));
   }
