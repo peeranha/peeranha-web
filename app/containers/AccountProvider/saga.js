@@ -47,7 +47,7 @@ import {
   DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
 } from 'containers/VoteForNewTagButton/constants';
 
-import { PROFILE_INFO_LS } from 'containers/Login/constants';
+import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import {
   DELETE_QUESTION_SUCCESS,
@@ -69,17 +69,28 @@ export function* getCurrentAccountWorker(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
-    const account = yield typeof initAccount === 'string'
-      ? initAccount
-      : call(eosService.getSelectedAccount);
+    let account = yield call(eosService.getSelectedAccount);
 
-    const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
+    if (!account && typeof initAccount === 'string') {
+      account = initAccount;
+    } else {
+      const autoLoginData = JSON.parse(
+        localStorage.getItem(AUTOLOGIN_DATA) ||
+          sessionStorage.getItem(AUTOLOGIN_DATA),
+      );
 
-    if (!prevProfileInfo && profileLS && account === profileLS.user) {
-      yield put(getUserProfileSuccess(profileLS));
-      yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
+      account = autoLoginData.eosAccountName;
+    }
 
-      return null;
+    if (!prevProfileInfo) {
+      const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
+
+      if (profileLS && account === profileLS.user) {
+        yield put(getUserProfileSuccess(profileLS));
+        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
+
+        return null;
+      }
     }
 
     const [profileInfo, balance] = yield all([
