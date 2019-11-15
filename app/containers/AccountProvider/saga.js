@@ -69,18 +69,18 @@ export function* getCurrentAccountWorker(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
+    const account = yield typeof initAccount === 'string'
+      ? initAccount
+      : call(eosService.getSelectedAccount);
+
     const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
 
-    if (!prevProfileInfo && profileLS && initAccount === profileLS.user) {
+    if (!prevProfileInfo && profileLS && account === profileLS.user) {
       yield put(getUserProfileSuccess(profileLS));
       yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
 
       return null;
     }
-
-    const account = yield typeof initAccount === 'string'
-      ? initAccount
-      : call(eosService.getSelectedAccount);
 
     const [profileInfo, balance] = yield all([
       call(getProfileInfo, account, eosService, !prevProfileInfo),
