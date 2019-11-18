@@ -69,11 +69,11 @@ export function* getCurrentAccountWorker(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
-    let account = yield call(eosService.getSelectedAccount);
+    let account = yield typeof initAccount === 'string'
+      ? initAccount
+      : call(eosService.getSelectedAccount);
 
-    if (!account && typeof initAccount === 'string') {
-      account = initAccount;
-    } else if (!account) {
+    if (!account) {
       const autoLoginData = JSON.parse(
         localStorage.getItem(AUTOLOGIN_DATA) ||
           sessionStorage.getItem(AUTOLOGIN_DATA),
