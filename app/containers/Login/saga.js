@@ -90,8 +90,8 @@ export function* loginWithEmailWorker({ val }) {
 
     yield call(eosService.init, activeKey.private, false, eosAccountName);
     yield put(initEosioSuccess(eosService));
-  } catch (err) {
-    yield put(loginWithEmailErr(err.message));
+  } catch ({ message }) {
+    yield put(loginWithEmailErr(message));
   }
 }
 
@@ -102,15 +102,10 @@ export function* loginWithScatterWorker() {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify({ loginWithScatter: true }),
-    );
-
     // Reinitialize EOS (with Scatter)
     const eosService = new EosioService();
 
-    yield call(eosService.init);
+    yield call(eosService.init, null, true);
 
     if (!eosService.scatterInstalled) {
       throw new Error(translations[messages[SCATTER_MODE_ERROR].id]);
@@ -134,9 +129,14 @@ export function* loginWithScatterWorker() {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
     }
 
+    localStorage.setItem(
+      AUTOLOGIN_DATA,
+      JSON.stringify({ loginWithScatter: true }),
+    );
+
     yield put(initEosioSuccess(eosService));
-  } catch (err) {
-    yield put(loginWithScatterErr(err.message));
+  } catch ({ message }) {
+    yield put(loginWithScatterErr(message));
   }
 }
 
