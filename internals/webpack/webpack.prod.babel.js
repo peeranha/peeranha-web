@@ -17,13 +17,14 @@ module.exports = require('./webpack.base.babel')({
   },
 
   optimization: {
+    runtimeChunk: 'single',
     minimize: true,
     nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: 10,
+      maxInitialRequests: Infinity,
       minSize: 0,
       cacheGroups: {
         vendor: {
@@ -32,13 +33,12 @@ module.exports = require('./webpack.base.babel')({
             const packageName = module.context.match(
               /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
             )[1];
-            // Remove @ from package names to guarantee compatibility with all servers
+
             return `npm.${packageName.replace('@', '')}`;
           },
         },
       },
     },
-    runtimeChunk: true,
   },
 
   plugins: [

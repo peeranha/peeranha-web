@@ -29,7 +29,10 @@ class EosioService {
     initWithScatter = false,
     selectedAccount = null,
   ) => {
-    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+    const loginData = JSON.parse(
+      localStorage.getItem(AUTOLOGIN_DATA) ||
+        sessionStorage.getItem(AUTOLOGIN_DATA),
+    );
 
     this.node = await this.getNode();
 
@@ -113,7 +116,10 @@ class EosioService {
   };
 
   getSelectedAccount = async () => {
-    const loginData = JSON.parse(localStorage.getItem(AUTOLOGIN_DATA));
+    const loginData = JSON.parse(
+      localStorage.getItem(AUTOLOGIN_DATA) ||
+        sessionStorage.getItem(AUTOLOGIN_DATA),
+    );
 
     if (!loginData) return null;
 
@@ -253,13 +259,9 @@ class EosioService {
     return [];
   };
 
-  // TODO: delete hardcoded @chainId when API will pass it
-
   getEosioConfig = key => ({
     httpEndpoint: this.node.endpoint,
-    chainId:
-      this.node.chainId ||
-      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    chainId: this.node.chainID,
     keyProvider: [key],
     broadcast: true,
     sign: true,
@@ -270,9 +272,7 @@ class EosioService {
     protocol: this.node.protocol,
     host: this.node.host,
     port: this.node.port,
-    chainId:
-      this.node.chainId ||
-      'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    chainId: this.node.chainID,
   });
 
   getNode = () => {

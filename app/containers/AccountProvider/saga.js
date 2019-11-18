@@ -47,6 +47,8 @@ import {
   DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
 } from 'containers/VoteForNewTagButton/constants';
 
+import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
+
 import {
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
@@ -59,32 +61,55 @@ import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
 import { GET_CURRENT_ACCOUNT } from './constants';
 import { makeSelectProfileInfo } from './selectors';
 
-/* eslint func-names: 0 */
-export function* getCurrentAccountWorker() {
+/* eslint func-names: 0, consistent-return: 0 */
+export function* getCurrentAccountWorker(initAccount) {
   try {
     yield put(getUserProfile());
 
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
-    const selectedScatterAccount = yield call(eosService.getSelectedAccount);
+    let account = yield typeof initAccount === 'string'
+      ? initAccount
+      : call(eosService.getSelectedAccount);
+
+    if (!account) {
+      const autoLoginData = JSON.parse(
+        localStorage.getItem(AUTOLOGIN_DATA) ||
+          sessionStorage.getItem(AUTOLOGIN_DATA),
+      );
+
+      account = autoLoginData.eosAccountName;
+    }
+
+    if (!prevProfileInfo) {
+      const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
+
+      if (profileLS && account === profileLS.user) {
+        yield put(getUserProfileSuccess(profileLS));
+        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
+
+        return null;
+      }
+    }
 
     const [profileInfo, balance] = yield all([
-      call(() =>
-        getProfileInfo(selectedScatterAccount, eosService, !prevProfileInfo),
-      ),
-      call(() => getBalance(eosService, selectedScatterAccount)),
+      call(getProfileInfo, account, eosService, !prevProfileInfo),
+      call(getBalance, eosService, account),
     ]);
+
+    profileInfo.balance = balance;
 
     if (prevProfileInfo) {
       profileInfo.profile = prevProfileInfo.profile;
     }
 
-    yield put(getUserProfileSuccess(profileInfo));
+    localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
-    yield put(getCurrentAccountSuccess(selectedScatterAccount, balance));
-  } catch (err) {
-    yield put(getCurrentAccountError(err));
+    yield put(getUserProfileSuccess(profileInfo));
+    yield put(getCurrentAccountSuccess(account, balance));
+  } catch ({ message }) {
+    yield put(getCurrentAccountError(message));
   }
 }
 

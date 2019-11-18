@@ -18,8 +18,9 @@ export function* logoutWorker() {
     const eosService = yield select(selectEos);
 
     localStorage.removeItem(AUTOLOGIN_DATA);
+    sessionStorage.removeItem(AUTOLOGIN_DATA);
 
-    yield call(() => eosService.forgetIdentity());
+    yield call(eosService.forgetIdentity);
 
     yield put(initEosio());
 
@@ -27,9 +28,9 @@ export function* logoutWorker() {
 
     yield put(logoutSuccess());
 
-    yield call(() => createdHistory.push(routes.questions()));
-  } catch (err) {
-    yield put(logoutErr(err.message));
+    yield call(createdHistory.push, routes.questions());
+  } catch ({ message }) {
+    yield put(logoutErr(message));
   }
 }
 

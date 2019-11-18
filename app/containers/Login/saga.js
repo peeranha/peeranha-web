@@ -5,7 +5,6 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import EosioService from 'utils/eosio';
-import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
@@ -17,6 +16,7 @@ import { errorToastHandling } from 'containers/Toast/saga';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   loginWithEmailSuccess,
@@ -60,7 +60,7 @@ export function* loginWithEmailWorker({ val }) {
     const password = val[PASSWORD_FIELD];
     const rememberMe = Boolean(val[REMEMBER_ME_FIELD]);
 
-    const response = yield call(() => login(email, password, rememberMe));
+    const response = yield call(login, email, password, rememberMe);
 
     if (!response.OK) {
       throw new Error(
@@ -74,27 +74,24 @@ export function* loginWithEmailWorker({ val }) {
       throw new Error(translations[messages.accountNotCreatedName.id]);
     }
 
-    const eosService = new EosioService();
+    yield call(getCurrentAccountWorker, eosAccountName);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
-    yield call(() => eosService.init(activeKey.private, false, eosAccountName));
-
-    // get profile info to know is there user in system
-    const profileInfo = yield call(() =>
-      getProfileInfo(eosAccountName, eosService),
-    );
-
-    yield put(initEosioSuccess(eosService));
-
+    // If user is absent - show window to finish registration
     if (!profileInfo) {
       yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
       return null;
     }
 
-    yield call(getCurrentAccountWorker);
-
     yield put(loginWithEmailSuccess());
-  } catch (err) {
-    yield put(loginWithEmailErr(err.message));
+
+    // Update eos block
+    const eosService = new EosioService();
+
+    yield call(eosService.init, activeKey.private, false, eosAccountName);
+    yield put(initEosioSuccess(eosService));
+  } catch ({ message }) {
+    yield put(loginWithEmailErr(message));
   }
 }
 
@@ -105,42 +102,40 @@ export function* loginWithScatterWorker() {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify({ loginWithScatter: true }),
-    );
-
     // Reinitialize EOS (with Scatter)
     const eosService = new EosioService();
 
-    yield call(() => eosService.init());
+    yield call(eosService.init, null, true);
 
     if (!eosService.scatterInstalled) {
       throw new Error(translations[messages[SCATTER_MODE_ERROR].id]);
     }
 
     if (!eosService.selectedScatterAccount) {
-      yield call(() => eosService.forgetIdentity());
-      user = yield call(() => eosService.selectAccount());
+      yield call(eosService.forgetIdentity);
+      user = yield call(eosService.selectAccount);
     }
 
     if (!user) {
       throw new Error(translations[messages[USER_IS_NOT_SELECTED].id]);
     }
 
-    const profileInfo = yield call(() => getProfileInfo(user, eosService));
+    yield call(getCurrentAccountWorker, user);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
       throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
     }
 
+    localStorage.setItem(
+      AUTOLOGIN_DATA,
+      JSON.stringify({ loginWithScatter: true }),
+    );
+
     yield put(initEosioSuccess(eosService));
-
-    yield call(getCurrentAccountWorker);
-
     yield put(loginWithScatterSuccess());
-  } catch (err) {
-    yield put(loginWithScatterErr(err.message));
+  } catch ({ message }) {
+    yield put(loginWithScatterErr(message));
   }
 }
 
@@ -154,7 +149,7 @@ export function* finishRegistrationWorker({ val }) {
       displayName: val[DISPLAY_NAME],
     };
 
-    yield call(() => registerAccount(profile, eosService));
+    yield call(registerAccount, profile, eosService);
 
     yield call(getCurrentAccountWorker);
 
@@ -166,7 +161,7 @@ export function* finishRegistrationWorker({ val }) {
 
 export function* redirectToHomepageWorker() {
   if (window.location.pathname.includes(routes.registrationStage)) {
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   }
 }
 

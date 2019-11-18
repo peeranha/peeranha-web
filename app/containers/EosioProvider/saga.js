@@ -11,6 +11,7 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO } from './constants';
@@ -19,22 +20,25 @@ import validate from './validate';
 
 export function* initEosioWorker() {
   try {
-    const eosioService = new EosioService();
+    const defaultEosioService = new EosioService();
+    yield call(defaultEosioService.init);
+    yield put(initEosioSuccess(defaultEosioService));
 
     const response = yield call(autoLogin);
 
     if (response.OK) {
+      const advancedEosioService = new EosioService();
+
       yield call(
-        eosioService.init,
+        advancedEosioService.init,
         response.body.activeKey.private,
         false,
         response.body.eosAccountName,
       );
-    } else {
-      yield call(eosioService.init);
-    }
 
-    yield put(initEosioSuccess(eosioService));
+      yield call(getCurrentAccountWorker, response.body.eosAccountName);
+      yield put(initEosioSuccess(advancedEosioService));
+    }
   } catch (error) {
     yield put(initEosioError(error));
   }
