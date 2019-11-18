@@ -686,7 +686,7 @@ describe('verifyEmailWorker', () => {
     it('redirection', () => {
       generator.next();
       expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.signup.haveEosAccount.name,
+        routes.signup.dontHaveEosAccount.name,
       );
     });
   });

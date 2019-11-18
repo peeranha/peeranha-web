@@ -10,13 +10,13 @@ import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 import EosioService from 'utils/eosio';
 
 import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import defaultSaga, { initEosioWorker, isAuthorized, isValid } from '../saga';
 
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS, INIT_EOSIO_ERROR } from '../constants';
 
 import validate from '../validate';
-
 const eosService = new EosioService();
 
 eosService.init = jest.fn();
@@ -28,6 +28,10 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(x => x),
   put: jest.fn().mockImplementation(x => x),
   select: jest.fn().mockImplementation(() => {}),
+}));
+
+jest.mock('containers/AccountProvider/saga', () => ({
+  getCurrentAccountWorker: jest.fn(),
 }));
 
 jest.mock('utils/web_integration/src/wallet/login/login', () => ({
@@ -128,28 +132,46 @@ describe('initEosioWorker Saga', () => {
 
   EosioService.mockImplementation(() => eosService);
 
+  const response = {
+    OK: true,
+    body: {
+      eosAccountName,
+      activeKey: {
+        private: privateKey,
+      },
+    },
+  };
+
+  it('eosioService init', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(eosService.init);
+  });
+
+  it('initEosioSuccess', () => {
+    const step = generator.next();
+    expect(step.value.eos instanceof EosioService).toBe(true);
+  });
+
   it('call @autoLogin', () => {
     generator.next();
     expect(call).toHaveBeenCalledWith(autoLogin);
   });
 
   it('init eosio', () => {
-    const response = {
-      OK: true,
-      body: {
-        eosAccountName,
-        activeKey: {
-          private: privateKey,
-        },
-      },
-    };
-
     generator.next(response);
     expect(call).toHaveBeenCalledWith(
       eosService.init,
       privateKey,
       false,
       eosAccountName,
+    );
+  });
+
+  it('getCurrentAccountWorker', () => {
+    generator.next();
+    expect(call).toHaveBeenCalledWith(
+      getCurrentAccountWorker,
+      response.body.eosAccountName,
     );
   });
 

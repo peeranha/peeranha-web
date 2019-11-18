@@ -4,7 +4,6 @@ import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import EosioService from 'utils/eosio';
-import { getProfileInfo } from 'utils/profileManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import { registerAccount } from 'utils/accountManagement';
 
@@ -33,7 +32,10 @@ import {
   DISPLAY_NAME,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
+  WE_ARE_HAPPY_FORM,
+  AUTOLOGIN_DATA,
 } from '../constants';
+import { loginWithEmailSuccess } from '../actions';
 
 class eosService {}
 
@@ -71,12 +73,22 @@ jest.mock('createdHistory', () => ({
   push: jest.fn(),
 }));
 
+const localStorage = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+
 beforeEach(() => {
   eosService.init.mockClear();
   createdHistory.push.mockClear();
   eosService.getSelectedAccount.mockClear();
   eosService.forgetIdentity.mockClear();
   eosService.selectAccount.mockClear();
+  call.mockClear();
+  localStorage.getItem.mockClear();
+  localStorage.setItem.mockClear();
 });
 
 describe('loginWithScatterWorker', () => {
@@ -99,7 +111,7 @@ describe('loginWithScatterWorker', () => {
       EosioService.mockImplementation(() => eosService);
 
       generator.next(locale);
-      expect(eosService.init).toHaveBeenLastCalledWith();
+      expect(eosService.init).toHaveBeenLastCalledWith(null, true);
     });
 
     it('scatter is not installed', () => {
@@ -157,11 +169,8 @@ describe('loginWithScatterWorker', () => {
     generator.next(locale);
     generator.next();
     generator.next();
-
-    it('getting of profileInfo', () => {
-      generator.next(account);
-      expect(getProfileInfo).toHaveBeenCalledWith(account, eosService);
-    });
+    generator.next(account);
+    generator.next();
 
     it('error handling, profileInfo is absent', () => {
       const step = generator.next(profileInfo);
@@ -186,15 +195,16 @@ describe('loginWithScatterWorker', () => {
     generator.next();
     generator.next();
     generator.next(account);
+    generator.next();
 
     it('put new EosServise to store', () => {
       const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
-    });
 
-    it('getCurrentAccountWorker', () => {
-      generator.next();
-      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        AUTOLOGIN_DATA,
+        JSON.stringify({ loginWithScatter: true }),
+      );
     });
 
     it('loginWithScatterSuccess', () => {
@@ -262,35 +272,22 @@ describe('loginWithEmailWorker', () => {
     generator.next();
     generator.next(locale);
 
-    it('initialization of new EosService', () => {
-      generator.next(loginResponse);
-
-      expect(eosService.init).toHaveBeenLastCalledWith(
-        activeKey.private,
-        false,
-        eosAccountName,
-      );
-    });
-
-    it('getting of profileInfo', () => {
-      generator.next();
-      expect(getProfileInfo).toHaveBeenCalledWith(eosAccountName, eosService);
-    });
-
-    it('put new eosService to redux store', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
-    });
-
-    it('@loginWithEmailSuccess put @eosAccount', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(LOGIN_WITH_EMAIL_SUCCESS);
-      expect(step.value.eosAccount).toBe(eosAccountName);
-    });
-
     it('getCurrentAccountWorker', () => {
-      generator.next();
-      expect(call).toHaveBeenCalledWith(getCurrentAccountWorker);
+      generator.next(loginResponse);
+      expect(getCurrentAccountWorker).toHaveBeenLastCalledWith(eosAccountName);
+    });
+
+    it('select @profileInfo', () => {
+      select.mockImplementation(() => profileInfo);
+      const step = generator.next();
+      expect(step.value).toEqual(profileInfo);
+    });
+
+    it('show WE_ARE_HAPPY_FORM', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(
+        loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM),
+      );
     });
 
     it('generator has to return @null', () => {
@@ -317,12 +314,22 @@ describe('loginWithEmailWorker', () => {
     generator.next(locale);
     generator.next(loginResponse);
     generator.next();
-    generator.next(profileInfo);
-    generator.next();
 
-    it('@loginWithEmailSuccess', () => {
+    it('eosService.init', () => {
+      generator.next(profileInfo);
+      generator.next();
+
+      expect(call).toHaveBeenCalledWith(
+        eosService.init,
+        activeKey.private,
+        false,
+        eosAccountName,
+      );
+    });
+
+    it('@initEosioSuccess', () => {
       const step = generator.next();
-      expect(step.value.type).toBe(LOGIN_WITH_EMAIL_SUCCESS);
+      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
     });
   });
 

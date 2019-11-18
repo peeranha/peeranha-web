@@ -14,7 +14,12 @@ const localStorage = {
   getItem: jest.fn(),
 };
 
+const sessionStorage = {
+  getItem: jest.fn(),
+};
+
 Object.defineProperty(global, 'localStorage', { value: localStorage });
+Object.defineProperty(global, 'sessionStorage', { value: sessionStorage });
 
 describe('selectAccountProviderDomain', () => {
   const loading = 'loading';
@@ -57,7 +62,10 @@ describe('selectAccountProviderDomain', () => {
     const loginData = {};
 
     it('profileInfo FALSE', () => {
-      localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+      localStorage.getItem.mockImplementation(() => null);
+      sessionStorage.getItem.mockImplementation(() =>
+        JSON.stringify(loginData),
+      );
 
       expect(
         isMakeSelectFollowedCommunities(

@@ -259,8 +259,6 @@ class EosioService {
     return [];
   };
 
-  // TODO: delete hardcoded @chainId when API will pass it
-
   getEosioConfig = key => ({
     httpEndpoint: this.node.endpoint,
     chainId: this.node.chainID,

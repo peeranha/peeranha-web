@@ -75,8 +75,6 @@ export function* loginWithEmailWorker({ val }) {
     }
 
     yield call(getCurrentAccountWorker, eosAccountName);
-    yield put(loginWithEmailSuccess());
-
     const profileInfo = yield select(makeSelectProfileInfo());
 
     // If user is absent - show window to finish registration
@@ -84,6 +82,8 @@ export function* loginWithEmailWorker({ val }) {
       yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
       return null;
     }
+
+    yield put(loginWithEmailSuccess());
 
     // Update eos block
     const eosService = new EosioService();
@@ -121,8 +121,6 @@ export function* loginWithScatterWorker() {
     }
 
     yield call(getCurrentAccountWorker, user);
-    yield put(loginWithScatterSuccess());
-
     const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
@@ -135,6 +133,7 @@ export function* loginWithScatterWorker() {
     );
 
     yield put(initEosioSuccess(eosService));
+    yield put(loginWithScatterSuccess());
   } catch ({ message }) {
     yield put(loginWithScatterErr(message));
   }

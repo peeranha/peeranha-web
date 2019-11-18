@@ -23,9 +23,16 @@ const localStorage = {
   removeItem: jest.fn(),
 };
 
+const sessionStorage = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+};
+
 const fetch = jest.fn().mockImplementation(async () => null);
 
 Object.defineProperty(global, 'localStorage', { value: localStorage });
+Object.defineProperty(global, 'sessionStorage', { value: sessionStorage });
 Object.defineProperty(global, 'fetch', { value: fetch });
 
 jest.mock('eosjs');
@@ -61,6 +68,9 @@ beforeEach(() => {
   Eosjs.mockClear();
   localStorage.getItem.mockClear();
   localStorage.setItem.mockClear();
+  fetch.mockClear();
+  sessionStorage.setItem.mockClear();
+  sessionStorage.getItem.mockClear();
 });
 
 const node = {
@@ -68,7 +78,7 @@ const node = {
   host: 'host',
   port: 'port',
   endpoint: 'endpoint',
-  chainId: 'chainId',
+  chainID: 'chainId',
 };
 
 describe('constructor', async () => {
@@ -141,7 +151,7 @@ describe('init', () => {
     service.getNode = () => node;
     service.compareSavedAndBestNodes = jest.fn();
 
-    localStorage.getItem.mockImplementation(() =>
+    sessionStorage.getItem.mockImplementation(() =>
       JSON.stringify({ email, authToken }),
     );
 
@@ -256,7 +266,7 @@ describe('getSelectedAccount', () => {
   describe('login with scatter', () => {
     const eos = new EosioService();
 
-    localStorage.getItem.mockImplementation(() =>
+    sessionStorage.getItem.mockImplementation(() =>
       JSON.stringify({ loginWithScatter: true }),
     );
 
@@ -650,7 +660,7 @@ describe('getEosioConfig', () => {
 
     expect(eos.getEosioConfig(key)).toEqual({
       httpEndpoint: eos.node.endpoint,
-      chainId: eos.node.chainId,
+      chainId: eos.node.chainID,
       broadcast: true,
       keyProvider: [key],
       sign: true,
@@ -669,7 +679,7 @@ describe('getScatterConfig', () => {
       protocol: eos.node.protocol,
       host: eos.node.host,
       port: eos.node.port,
-      chainId: eos.node.chainId,
+      chainId: eos.node.chainID,
     });
   });
 });

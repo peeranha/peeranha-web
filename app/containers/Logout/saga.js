@@ -28,7 +28,7 @@ export function* logoutWorker() {
 
     yield put(logoutSuccess());
 
-    yield call(createdHistory.push, routes.questions);
+    yield call(createdHistory.push, routes.questions());
   } catch ({ message }) {
     yield put(logoutErr(message));
   }
