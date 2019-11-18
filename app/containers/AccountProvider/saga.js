@@ -73,7 +73,7 @@ export function* getCurrentAccountWorker(initAccount) {
 
     if (!account && typeof initAccount === 'string') {
       account = initAccount;
-    } else {
+    } else if (!account) {
       const autoLoginData = JSON.parse(
         localStorage.getItem(AUTOLOGIN_DATA) ||
           sessionStorage.getItem(AUTOLOGIN_DATA),
