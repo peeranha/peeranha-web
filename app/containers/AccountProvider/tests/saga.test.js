@@ -5,6 +5,9 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select, all, call } from 'redux-saga/effects';
 
+import { getProfileInfo } from 'utils/profileManagement';
+import { getBalance } from 'utils/walletManagement';
+
 import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
@@ -55,10 +58,12 @@ import defaultSaga, { getCurrentAccountWorker } from '../saga';
 import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_ERROR } from '../constants';
 
 import { getCurrentAccountSuccess } from '../actions';
+import { PROFILE_INFO_LS } from 'containers/Login/constants';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
   all: jest.fn().mockImplementation(arr => arr),
@@ -72,19 +77,27 @@ jest.mock('utils/walletManagement', () => ({
   getBalance: jest.fn(),
 }));
 
+const localStorage = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+
 describe('getCurrentAccountWorker', () => {
-  const account = 'user1';
-  const balance = 100;
-  const profileInfo = { user: 'user1' };
+  describe('eos service was initialized with account', () => {
+    const account = 'account';
+    const prevProfileInfo = null;
+    const profileInfoLS = null;
 
-  const eos = {
-    scatterInstalled: true,
-    initialized: true,
-    getSelectedAccount: () => account,
-  };
+    const profileInfo = {};
+    const balance = 10;
 
-  describe('prevProfile exists', () => {
-    const prevProfileInfo = { user: 'user1', profile: {} };
+    const eos = {
+      scatterInstalled: true,
+      initialized: true,
+      getSelectedAccount: () => account,
+    };
 
     const generator = getCurrentAccountWorker();
 
@@ -105,41 +118,74 @@ describe('getCurrentAccountWorker', () => {
       expect(selectDescriptor.value).toEqual(prevProfileInfo);
     });
 
-    it('eosService.getSelectedAccount', () => {
+    it('get @account', () => {
+      localStorage.getItem.mockImplementationOnce(() => profileInfoLS);
+
       generator.next(prevProfileInfo);
       expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
     });
 
-    it('call @all', () => {
-      generator.next(account);
-      expect(all).toHaveBeenCalled();
-    });
+    it('get @profileInfo and @balance', () => {
+      getProfileInfo.mockImplementationOnce(() => profileInfo);
+      getBalance.mockImplementationOnce(() => balance);
 
-    it('put GET_USER_PROFILE_SUCCESS', () => {
-      const putDescriptor = generator.next([profileInfo, balance]);
-      expect(putDescriptor.value.type).toBe(GET_USER_PROFILE_SUCCESS);
-      expect(putDescriptor.value.profile).toEqual({
-        ...profileInfo,
-        profile: prevProfileInfo.profile,
-      });
-    });
+      const step = generator.next(account);
 
-    it('put GET_CURRENT_ACCOUNT_SUCCESS', () => {
-      const putDescriptor = generator.next();
-      expect(putDescriptor.value).toEqual(
-        getCurrentAccountSuccess(account, balance),
+      expect(step.value).toEqual([profileInfo, balance]);
+      expect(call).toHaveBeenCalledWith(getBalance, eos, account);
+      expect(call).toHaveBeenCalledWith(
+        getProfileInfo,
+        account,
+        eos,
+        !prevProfileInfo,
       );
     });
 
-    it('errorHandling', () => {
-      const err = new Error('Some error');
-      const putDescriptor = generator.throw(err).value;
-      expect(putDescriptor.type).toEqual(GET_CURRENT_ACCOUNT_ERROR);
+    it('getUserProfileSuccess', () => {
+      const updatedProfileInfo = {
+        ...profileInfo,
+        balance,
+      };
+
+      const step = generator.next([profileInfo, balance]);
+
+      expect(step.value).toEqual(getUserProfileSuccess(updatedProfileInfo));
+      expect(profileInfo).toEqual(updatedProfileInfo);
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        PROFILE_INFO_LS,
+        JSON.stringify(updatedProfileInfo),
+      );
+    });
+
+    it('getCurrentAccountSuccess', () => {
+      const step = generator.next();
+      expect(step.value).toEqual(getCurrentAccountSuccess(account, balance));
+    });
+
+    it('error handling', () => {
+      const err = 'some error';
+      const step = generator.throw(err);
+      expect(step.value.type).toBe(GET_CURRENT_ACCOUNT_ERROR);
     });
   });
 
-  describe('prevProfile not exists', () => {
+  describe('eos service was NOT initialized with account and there is no @initAccount', () => {
+    const account = null;
     const prevProfileInfo = null;
+
+    const autoLoginData = {
+      eosAccountName: 'eosAccountName111',
+    };
+
+    const profileInfo = {};
+    const balance = 10;
+
+    const eos = {
+      scatterInstalled: true,
+      initialized: true,
+      getSelectedAccount: () => account,
+    };
+
     const generator = getCurrentAccountWorker();
 
     generator.next();
@@ -148,11 +194,15 @@ describe('getCurrentAccountWorker', () => {
     generator.next(prevProfileInfo);
     generator.next(account);
 
-    it('put GET_USER_PROFILE_SUCCESS', () => {
-      const putDescriptor = generator.next([profileInfo, balance]);
-      expect(putDescriptor.value.profile).toEqual(profileInfo);
-    });
+    it('test', () => {});
   });
+
+  describe('@initAccount was passed', () => {});
+  describe('@prevProfileInfo is null', () => {
+    describe('userProfileLS is same as current account', () => {});
+    describe('userProfileLS is NOT same as current account', () => {});
+  });
+  describe('@prevProfileInfo is NOT null', () => {});
 });
 
 describe('defaultSaga', () => {
