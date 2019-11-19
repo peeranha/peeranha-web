@@ -78,6 +78,7 @@
   "app.common.copy": "Copy",
   "app.common.copied": "Copied",
   "app.common.hide": "Hide",
+  "app.common.delete": "Delete",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -470,6 +471,8 @@
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
+  "app.containers.ViewQuestion.areYouSure":
+    "Are you sure you want to delete item?",
 
   "app.components.FormFields.requiredField": "Required field",
   "app.components.FormFields.wrongLength":

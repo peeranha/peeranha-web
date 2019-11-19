@@ -1,7 +1,7 @@
 export const showPopover = (elemId, message) => {
   window.$(`#${elemId}`).attr({
     'data-content': message,
-    'data-trigger': 'focus',
+    'data-trigger': 'manual',
   });
 
   window.$(`#${elemId}`).popover('show');

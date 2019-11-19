@@ -78,6 +78,7 @@
   "app.common.copy": "Копировать",
   "app.common.copied": "Скопировано",
   "app.common.hide": "Скрыть",
+  "app.common.delete": "Удалить",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -477,6 +478,8 @@
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
   "app.containers.ViewQuestion.showMoreAnswers":
     "Показать больше ответов {value}",
+  "app.containers.ViewQuestion.areYouSure":
+    "Вы уверены, что хотите удалить данный элемент?",
 
   "app.components.FormFields.requiredField": "Обязательное поле",
   "app.components.FormFields.wrongLength":
