@@ -481,6 +481,8 @@
   "app.components.FormFields.fileSize": "File too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
   "app.components.FormFields.wrongBase58Format": "Wrong data format. Check it.",
+  "app.components.FormFields.itemAlreadyExists":
+    "Item with such name already exists",
 
   "app.containers.TagsCollection.title": "Tags collection",
 

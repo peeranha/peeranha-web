@@ -16,6 +16,7 @@ import {
   strLength2x15,
   strLength20x1000,
   requiredForObjectField,
+  valueHasNotBeInList,
 } from 'components/FormFields/validate';
 
 import {
@@ -36,7 +37,10 @@ export const Form = ({
   formValues,
   change,
 }) => {
-  change(FORM_COMMUNITY, formValues[FORM_COMMUNITY]);
+  const community = formValues[FORM_COMMUNITY];
+  const tagNames = ((community && community.tags) || []).map(x => x.name);
+
+  change(FORM_COMMUNITY, community);
 
   return (
     <form onSubmit={handleSubmit(createTag)}>
@@ -58,8 +62,8 @@ export const Form = ({
           component={TextInputField}
           label={translations[messages.name.id]}
           tip={translations[messages.nameTip.id]}
-          validate={[strLength2x15, required]}
-          warn={[strLength2x15, required]}
+          validate={[strLength2x15, required, valueHasNotBeInList(tagNames)]}
+          warn={[strLength2x15, required, valueHasNotBeInList(tagNames)]}
           splitInHalf
         />
         <Field
