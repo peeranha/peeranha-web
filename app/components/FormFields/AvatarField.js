@@ -73,8 +73,8 @@ const Div = styled.div`
       ${({ error }) => ErrorHandling(error)};
       ${({ disabled }) => DisableHandling(disabled)};
 
-      object-fit: cover;
       border-radius: 50%;
+      object-fit: scale-down;
     }
   }
 `;

@@ -256,7 +256,7 @@
   "app.containers.CreateCommunity.oneMoreTag": "One more tag",
   "app.containers.CreateCommunity.tags": "Tags",
   "app.containers.CreateCommunity.tagsAreNeeded":
-    "Tags are needed for asking questions. So you have to specify 3-30 main tags.",
+    "Tags are needed for asking questions. So you have to specify {min}-{max} main tags.",
   "app.containers.CreateCommunity.tagTitle": "Tag",
   "app.containers.CreateCommunity.tagDescription": "Description",
   "app.containers.CreateCommunity.communityTitleTip":

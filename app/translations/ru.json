@@ -266,7 +266,7 @@
   "app.containers.CreateCommunity.oneMoreTag": "Добавить тег",
   "app.containers.CreateCommunity.tags": "Теги",
   "app.containers.CreateCommunity.tagsAreNeeded":
-    "Теги необходимы при добавлении вопросов. Вы можете указать как можно больше тегов.",
+    "Теги необходимы при добавлении вопросов. Вы можете указать от {min} до {max} тегов.",
   "app.containers.CreateCommunity.tagTitle": "Тег",
   "app.containers.CreateCommunity.tagDescription": "Описание",
   "app.containers.CreateCommunity.communityTitleTip":
