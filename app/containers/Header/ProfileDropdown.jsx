@@ -91,7 +91,7 @@ const Menu = ({
       </Li>
     </Ul>
 
-    <Ul className="d-block d-lg-none">
+    <Ul className="d-none">
       <Li>
         <AStyled to={routes.feed()}>
           <FormattedMessage {...messages.myFeed} />
@@ -124,7 +124,7 @@ const Menu = ({
       </Li>
     </Ul>
 
-    <Ul className="d-block d-lg-none">
+    <Ul className="d-none">
       <Li>
         <AStyled to={routes.home()}>
           <FormattedMessage {...messages.about} />
