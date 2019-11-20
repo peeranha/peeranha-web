@@ -55,11 +55,12 @@ import {
   CREATE_COMMUNITY_BUTTON,
 } from './constants';
 
-const DEFAULT_TAGS_NUMBER = 5;
+const MIN_TAGS_NUMBER = 5;
+const MAX_TAGS_NUMBER = 25;
 const DEFAULT_TAGS_ARRAY = [];
 
 /* eslint no-plusplus: 0 */
-for (let i = 0; i < DEFAULT_TAGS_NUMBER; i++) {
+for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
   DEFAULT_TAGS_ARRAY.push(i);
 }
 
@@ -155,7 +156,10 @@ const CreateCommunityForm = ({
 
         <div>
           <Wrapper label={translations[messages.tags.id]} tip>
-            <FormattedMessage {...messages.tagsAreNeeded} />
+            <FormattedMessage
+              {...messages.tagsAreNeeded}
+              values={{ max: MAX_TAGS_NUMBER, min: MIN_TAGS_NUMBER }}
+            />
           </Wrapper>
 
           <FormSection name="tags" className="mt-3">
@@ -165,15 +169,10 @@ const CreateCommunityForm = ({
                 name={`${TAG_SECTION}_${x}`}
                 id={formatStringToHtmlId(`${TAG_SECTION}_${x}`)}
               >
-                {index >= DEFAULT_TAGS_NUMBER && (
-                  <button
-                    type="button"
-                    style={{ transform: 'scale(0.75)' }}
-                    data-key={x}
-                    onClick={removeTag}
-                  >
+                {index >= MIN_TAGS_NUMBER && (
+                  <button type="button" data-key={x} onClick={removeTag}>
                     <Icon
-                      width="16"
+                      width="14"
                       icon={closeIcon}
                       color={TEXT_SECONDARY_LIGHT}
                     />
@@ -209,6 +208,7 @@ const CreateCommunityForm = ({
             className="d-flex align-items-center"
             type="button"
             onClick={addTag}
+            disabled={tags.length === MAX_TAGS_NUMBER}
           >
             <img className="mr-2" src={icoTag} alt="icoTag" />
             <FormattedMessage {...messages.oneMoreTag} />

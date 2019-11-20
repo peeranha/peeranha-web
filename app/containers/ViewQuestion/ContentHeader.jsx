@@ -20,6 +20,7 @@ import { TransparentLink } from 'components/Button/Contained/Transparent';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button, { SpanStyled } from './Button';
+import AreYouSure from './AreYouSure';
 
 import messages from './messages';
 
@@ -86,24 +87,29 @@ export const ContentHeader = props => (
             </Span>
           </TransparentLink>
 
-          <Button
-            show={props.isItWrittenByMe}
-            id={`${props.type}_delete_${props.answerId}`}
-            params={props.buttonParams}
-            onClick={props.deleteItem}
-            disabled={props.deleteItemLoading}
-          >
-            <Span
-              className="d-flex align-items-start"
-              color={TEXT_PRIMARY}
-              fontSize="16"
-            >
-              <img src={deleteIcon} alt="icon" />
-              <span className="d-none d-md-inline-block ml-2">
-                <FormattedMessage {...messages.deleteButton} />
-              </span>
-            </Span>
-          </Button>
+          <AreYouSure
+            submitAction={props.deleteItem}
+            Button={({ onClick }) => (
+              <Button
+                show={props.isItWrittenByMe}
+                id={`${props.type}_delete_${props.answerId}`}
+                params={props.buttonParams}
+                onClick={onClick}
+                disabled={props.deleteItemLoading}
+              >
+                <Span
+                  className="d-flex align-items-start"
+                  color={TEXT_PRIMARY}
+                  fontSize="16"
+                >
+                  <img src={deleteIcon} alt="icon" />
+                  <span className="d-none d-md-inline-block ml-2">
+                    <FormattedMessage {...messages.deleteButton} />
+                  </span>
+                </Span>
+              </Button>
+            )}
+          />
 
           <Button
             show={!props.isItWrittenByMe}

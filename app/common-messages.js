@@ -243,4 +243,7 @@ export default defineMessages({
   hide: {
     id: 'app.common.hide',
   },
+  delete: {
+    id: 'app.common.delete',
+  },
 });

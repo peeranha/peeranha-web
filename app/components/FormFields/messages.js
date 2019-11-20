@@ -22,4 +22,7 @@ export default defineMessages({
   wrongBase58Format: {
     id: 'app.components.FormFields.wrongBase58Format',
   },
+  itemAlreadyExists: {
+    id: 'app.components.FormFields.itemAlreadyExists',
+  },
 });

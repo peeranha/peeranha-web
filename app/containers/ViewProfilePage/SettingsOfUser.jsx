@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
+import * as clipboard from 'clipboard-polyfill';
 
 import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
@@ -89,7 +90,7 @@ const SettingsOfUser = ({
   loginData,
 }) => {
   function writeToBuffer(ev) {
-    navigator.clipboard.writeText(ev.currentTarget.dataset.key);
+    clipboard.writeText(ev.currentTarget.dataset.key);
     showPopover(
       ev.currentTarget.id,
       translationMessages[locale][commonMessages.copied.id],

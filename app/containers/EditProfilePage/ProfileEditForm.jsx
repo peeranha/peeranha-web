@@ -26,6 +26,7 @@ import {
   imageValidation,
   strLength3x20,
   strLength25x30000,
+  required,
 } from 'components/FormFields/validate';
 
 import FormStyled from './FormStyled';
@@ -68,8 +69,8 @@ export const ProfileEditForm = ({
         label={intl.formatMessage({ id: messages.displayNameLabel.id })}
         tip={intl.formatMessage({ id: messages.displayNameTip.id })}
         disabled={isProfileSaving}
-        validate={strLength3x20}
-        warn={strLength3x20}
+        validate={[required, strLength3x20]}
+        warn={[required, strLength3x20]}
         splitInHalf
       />
 

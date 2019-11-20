@@ -34,6 +34,11 @@ const required = x => (!x ? messages.requiredField : undefined);
 const requiredForObjectField = x =>
   !x || (x && !x.value) ? messages.requiredField : undefined;
 
+const valueHasNotBeInList = list => value =>
+  list && list.find(x => x.trim().toLowerCase() === value.trim().toLowerCase())
+    ? messages.itemAlreadyExists
+    : undefined;
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
@@ -59,4 +64,5 @@ export {
   strLength15x100,
   strLength20x1000,
   strLength25x30000,
+  valueHasNotBeInList,
 };

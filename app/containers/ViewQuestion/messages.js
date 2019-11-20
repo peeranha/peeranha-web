@@ -100,4 +100,7 @@ export default defineMessages({
   cannotCompleteBecauseVoted: {
     id: 'app.containers.ViewQuestion.cannotCompleteBecauseVoted',
   },
+  areYouSure: {
+    id: 'app.containers.ViewQuestion.areYouSure',
+  },
 });

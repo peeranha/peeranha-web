@@ -1,7 +1,10 @@
+/* eslint indent: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
+
+import { BG_PRIMARY_SPECIAL } from 'style-constants';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
@@ -26,15 +29,37 @@ const Div = styled.div`
     position: relative;
     width: inherit;
     height: ${x => x.size}px;
-    margin-top: 15px;
+
+    label {
+      width: 100%;
+      height: 100%;
+    }
 
     > *:nth-child(1) {
-      position: relative;
-      z-index: 1;
-      width: inherit;
-      height: inherit;
-      opacity: ${x => (x.s ? 1 : 0)};
-      overflow: ${x => (x.s ? 'initial' : 'hidden')};
+      ${x =>
+        x.s
+          ? `
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        width: 100vw;
+        height: 100vh;
+        opacity: 1;
+        overflow: initial;
+        background: ${BG_PRIMARY_SPECIAL};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `
+          : `
+        position: relative;
+        z-index: 1;
+        width: inherit;
+        height: inherit;
+        opacity: 0;
+        overflow: hidden;
+      `};
     }
 
     > *:nth-child(2) {
@@ -48,9 +73,8 @@ const Div = styled.div`
       ${({ error }) => ErrorHandling(error)};
       ${({ disabled }) => DisableHandling(disabled)};
 
-      object-fit: none;
       border-radius: 50%;
-      opacity: ${x => (!x.s ? 1 : 0)};
+      object-fit: scale-down;
     }
   }
 `;
@@ -58,6 +82,8 @@ const Div = styled.div`
 function AvatarField({ input, meta, size, disabled }) {
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
+
+  const isPhone = window.screen.width <= 576;
 
   return (
     <Div
@@ -71,7 +97,7 @@ function AvatarField({ input, meta, size, disabled }) {
       <div>
         <Avatar
           {...input}
-          height={size}
+          imageWidth={isPhone ? 320 : 480}
           cropRadius={0.5 * size}
           onCrop={setY}
           onBeforeFileLoad={() => {

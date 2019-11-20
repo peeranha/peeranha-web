@@ -78,6 +78,7 @@
   "app.common.copy": "Copy",
   "app.common.copied": "Copied",
   "app.common.hide": "Hide",
+  "app.common.delete": "Delete",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -256,7 +257,7 @@
   "app.containers.CreateCommunity.oneMoreTag": "One more tag",
   "app.containers.CreateCommunity.tags": "Tags",
   "app.containers.CreateCommunity.tagsAreNeeded":
-    "Tags are needed for asking questions. So you have to specify 3-30 main tags.",
+    "Tags are needed for asking questions. So you have to specify {min}-{max} main tags.",
   "app.containers.CreateCommunity.tagTitle": "Tag",
   "app.containers.CreateCommunity.tagDescription": "Description",
   "app.containers.CreateCommunity.communityTitleTip":
@@ -470,6 +471,8 @@
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
+  "app.containers.ViewQuestion.areYouSure":
+    "Are you sure you want to delete item?",
 
   "app.components.FormFields.requiredField": "Required field",
   "app.components.FormFields.wrongLength":
@@ -481,6 +484,8 @@
   "app.components.FormFields.fileSize": "File too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
   "app.components.FormFields.wrongBase58Format": "Wrong data format. Check it.",
+  "app.components.FormFields.itemAlreadyExists":
+    "Item with such name already exists",
 
   "app.containers.TagsCollection.title": "Tags collection",
 

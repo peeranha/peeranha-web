@@ -91,7 +91,7 @@ const View = ({
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
-            <button className="mt-1 mr-3 d-flex d-md-none" onClick={showMenu}>
+            <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
               <Icon
                 icon={headerNavigationIcon}
                 color={TEXT_SECONDARY_LIGHT}
