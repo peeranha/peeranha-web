@@ -171,7 +171,11 @@ const CommentView = item => (
         <Button
           show={!item.isItWrittenByMe}
           id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          params={item.buttonParams}
+          params={{
+            ...item.buttonParams,
+            commentId: item.id,
+            whowasvoted: item.userInfo.user,
+          }}
           onClick={item.voteToDelete}
           disabled={item.voteToDeleteLoading}
         >
