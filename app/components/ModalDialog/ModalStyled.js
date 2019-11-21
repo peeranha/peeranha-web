@@ -16,8 +16,9 @@ export default styled.div`
     }
   }
 
-  ${IconStyled} {
+  > ${IconStyled} {
     position: absolute;
+    cursor: pointer;
     top: -18px;
     right: -8px;
     z-index: 500;
