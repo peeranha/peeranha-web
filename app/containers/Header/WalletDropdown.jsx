@@ -22,7 +22,7 @@ import Icon from 'components/Icon';
 import Li from 'components/Li';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
-import MediumImage from 'components/Img/MediumImage';
+import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import SendTokens from 'containers/SendTokens';
 
@@ -35,13 +35,14 @@ const ButtonStyled = styled.span`
   border-left: 0px;
   border-radius: 23px;
   padding-right: 25px;
+  height: 47px;
 
-  ${MediumImage} {
+  ${MediumSpecialImage} {
     margin-right: 10px;
   }
 `;
 
-const IconBG = MediumImage.extend`
+const IconBG = MediumSpecialImage.extend`
   position: relative;
   display: flex;
   align-items: center;
@@ -53,7 +54,7 @@ const IconBG = MediumImage.extend`
 export const Button = ({ balance }) => (
   <ButtonStyled>
     <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <Icon icon={currencyPeerIcon} width="20" />
+      <Icon icon={currencyPeerIcon} width="24" />
     </IconBG>
 
     <span className="d-flex flex-column text-left">
