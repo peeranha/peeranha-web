@@ -38,7 +38,6 @@ export const Form = ({
   change,
 }) => {
   const community = formValues[FORM_COMMUNITY];
-  const tagNames = ((community && community.tags) || []).map(x => x.name);
 
   change(FORM_COMMUNITY, community);
 
@@ -62,8 +61,8 @@ export const Form = ({
           component={TextInputField}
           label={translations[messages.name.id]}
           tip={translations[messages.nameTip.id]}
-          validate={[strLength2x15, required, valueHasNotBeInList(tagNames)]}
-          warn={[strLength2x15, required, valueHasNotBeInList(tagNames)]}
+          validate={[strLength2x15, required, valueHasNotBeInList]}
+          warn={[strLength2x15, required, valueHasNotBeInList]}
           splitInHalf
         />
         <Field
@@ -109,6 +108,13 @@ FormClone = connect((state, props) => {
 
   return {
     formValues: form ? form.values : {},
+    valueHasNotBeInListValidate: (
+      (form &&
+        form.values &&
+        form.values[FORM_COMMUNITY] &&
+        form.values[FORM_COMMUNITY].tags) ||
+      []
+    ).map(x => x.name),
     initialValues: {
       [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
     },
