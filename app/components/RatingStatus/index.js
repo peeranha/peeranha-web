@@ -4,6 +4,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 import {
   TEXT_WARNING_LIGHT,
+  TEXT_WARNING,
   TEXT_PRIMARY,
   TEXT_DARK,
   TEXT_SECONDARY,
@@ -16,17 +17,23 @@ import Span from 'components/Span';
 import options from './options';
 import RatingStatusStyled from './RatingStatusStyled';
 
-const getStatus = /* istanbul ignore next */ rating =>
+const getStatus = rating =>
   Object.keys(options).filter(
     x => options[x].minRating < rating && options[x].maxRating >= rating,
   )[0];
 
-const IconWithStatus = /* istanbul ignore next */ ({
-  className,
-  size,
-  rating,
-}) => {
+const IconWithStatus = ({ className, size, rating }) => {
   const full = options[getStatus(rating)];
+
+  let color = TEXT_DARK;
+
+  if (rating > options.newbie.minRating && size === 'sm') {
+    color = TEXT_WARNING_LIGHT;
+  } else if (rating < options.stranger.minRating) {
+    color = TEXT_WARNING;
+  } else if (rating < options.newbie.minRating && size === 'sm') {
+    color = TEXT_PRIMARY;
+  }
 
   return (
     <span className={`d-flex align-items-center ${className}`}>
@@ -38,14 +45,9 @@ const IconWithStatus = /* istanbul ignore next */ ({
 
       <Span
         fontSize={size === 'lg' ? 18 : 14}
+        lineHeight={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
-        color={
-          rating > options.newbie.minRating && size === 'sm'
-            ? TEXT_WARNING_LIGHT
-            : rating < options.newbie.minRating && size === 'sm'
-              ? TEXT_PRIMARY
-              : TEXT_DARK
-        }
+        color={color}
       >
         {getFormattedNum(rating)}
       </Span>
@@ -54,12 +56,7 @@ const IconWithStatus = /* istanbul ignore next */ ({
 };
 
 /* eslint no-nested-ternary: 0 */
-const RatingStatus = /* istanbul ignore next */ ({
-  rating = 0,
-  size,
-  intl,
-  isRankOff,
-}) => {
+const RatingStatus = ({ rating = 0, size, intl, isRankOff }) => {
   const full = options[getStatus(rating)];
 
   return (

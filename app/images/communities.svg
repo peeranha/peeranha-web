@@ -7,13 +7,9 @@
     <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Peerania_Communities_Table" transform="translate(-35.000000, -205.000000)" fill-rule="nonzero">
             <g id="ico_communities-copy-ico_communities_color" transform="translate(35.000000, 205.000000)">
-                <circle id="Oval" stroke="#BBBEC8" fill="#BBBEC8" cx="13" cy="9" r="5.5"></circle>
-                <circle id="Oval-Copy-5" stroke="#BBBEC8" fill="#BBBEC8" cx="9" cy="16" r="5.5"></circle>
-                <circle id="Oval-Copy-6" stroke="#BBBEC8" fill="#BBBEC8" cx="17" cy="16" r="5.5"></circle>
-
-                <circle id="Oval" fill="#FFFFFF" cx="12" cy="8" r="5"></circle>
-                <circle id="Oval-Copy-5" fill="#FFFFFF" cx="8" cy="15" r="5"></circle>
-                <circle id="Oval-Copy-6" fill="#FFFFFF" cx="16" cy="15" r="5"></circle>
+                <circle class="opacity" fill="#FFFFFF" cx="12" cy="8" r="5"></circle>
+                <circle class="opacity" fill="#FFFFFF" cx="8" cy="15" r="5"></circle>
+                <circle class="opacity" fill="#FFFFFF" cx="16" cy="15" r="5"></circle>
                 
                 <path class="opacity" d="M7.43020845,10.0321103 C7.61720517,10.0108977 7.80732994,10 8,10 C10.0378689,10 11.7909893,11.2191531 12.5697915,12.9678897 C12.3827948,12.9891023 12.1926701,13 12,13 C9.9621311,13 8.20901068,11.7808469 7.43020845,10.0321103 Z" id="Combined-Shape" fill="#A5BCFF"></path>
                 <path class="opacity" d="M12,11.9995125 C12.6279105,12.8352566 13,13.8741752 13,15 C13,16.1258248 12.6279105,17.1647434 12,18.0004875 C11.3720895,17.1647434 11,16.1258248 11,15 C11,13.8741752 11.3720895,12.8352566 12,11.9995125 Z" id="Combined-Shape" fill="#A5BCFF"></path>
