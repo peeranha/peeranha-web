@@ -16,6 +16,10 @@ const Wrapper = styled.header`
   width: 100%;
   transition: all 0.4s ease;
 
+  div.insides > * {
+    height: 40px;
+  }
+
   form {
     flex: 1;
   }

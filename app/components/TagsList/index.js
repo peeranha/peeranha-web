@@ -12,10 +12,11 @@ const Tag = Span.extend`
   font-size: 14px;
   line-height: 20px;
   border-radius: 2px;
-  margin-right: 8px;
   margin-bottom: 2px;
+  margin-right: 8px;
   padding-left: 10px;
   padding-right: 10px;
+  white-space: nowrap;
 `;
 
 const Box = styled.ul`

@@ -8,6 +8,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import { TEXT_SECONDARY_LIGHT } from 'style-constants';
+import closeIcon from 'images/close.svg?external';
+import Icon from 'components/Icon';
+
 import ModalStyled from './ModalStyled';
 import Blanket from './Blanket';
 
@@ -36,7 +40,15 @@ export class ModalDialog extends React.PureComponent {
 
     return ReactDOM.createPortal(
       <React.Fragment>
-        <ModalStyled>{children}</ModalStyled>
+        <ModalStyled>
+          <div>{children}</div>
+          <Icon
+            onClick={closeModal}
+            icon={closeIcon}
+            width="16"
+            color={TEXT_SECONDARY_LIGHT}
+          />
+        </ModalStyled>
         <Blanket onClick={closeModal} />
       </React.Fragment>,
       this.el,

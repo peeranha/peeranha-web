@@ -29,7 +29,7 @@ export const Aside = styled.aside`
     width: 100%;
     min-height: 100vh;`
       : `
-    width: ${LEFT_MENU_WIDTH}px;
+    min-width: ${LEFT_MENU_WIDTH}px;
     margin-top: 15px;
     margin-right: 15px;
   `};

@@ -31,7 +31,7 @@ const Header = ({ openTagForm }) => (
       >
         <img className="d-none d-sm-inline-block" src={icoTagIcon} alt="icon" />
 
-        <Icon className="d-inline-block d-sm-none" icon={addIcon} width="14" />
+        <Icon className="d-inline-flex d-sm-none" icon={addIcon} width="14" />
 
         <span className="ml-1">
           <FormattedMessage {...messages.suggestTag} />

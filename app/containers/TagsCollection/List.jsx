@@ -22,7 +22,7 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
-import SeeAllButton from 'components/Button/Outlined/InfoLarge';
+import SeeAllButton from 'components/Button/Outlined/InfoMedium';
 
 const TagListBox = styled.div`
   flex: 1;
@@ -36,6 +36,7 @@ const TagListBox = styled.div`
 
 const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
+  word-break: break-all;
 
   ${BaseTransparent} {
     border: 1px solid ${BORDER_TRANSPARENT};
@@ -45,27 +46,54 @@ const Base = BaseRoundedNoPadding.extend`
       border-bottom-color: ${BORDER_TRANSPARENT};
     }
 
+    ${A} {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      > *:nth-child(1) {
+        flex: 0 0 300px;
+        max-width: 300px;
+      }
+
+      > *:nth-child(2) {
+        flex: 0 0 calc(100% - 300px);
+        max-width: calc(100% - 300px);
+      }
+
+      @media only screen and (max-width: 576px) {
+        > * {
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+        }
+      }
+    }
+
     ${SeeAllButton} {
       display: none;
     }
 
     :hover {
       border-color: ${BORDER_PRIMARY};
-
       ${SeeAllButton} {
-        @media only screen and (min-width: 576px) {
-          display: inline-flex !important;
-        }
+        display: inline-flex;
       }
     }
   }
 
   ${Box} {
-    display: -webkit-inline-box;
+    flex-wrap: nowrap !important;
     overflow: hidden;
 
+    > * {
+      margin-right: 22px;
+    }
+
     @media only screen and (max-width: 576px) {
-      display: flex;
+      flex-wrap: wrap !important;
+      > * {
+        margin-right: 0px;
+      }
     }
   }
 `;
@@ -83,42 +111,40 @@ const List = ({ communities }) => {
       {orderBy(communities, y => y.popularity, 'desc').map(x => (
         <BaseTransparent key={x.value}>
           <A to={routes.communityTags(x.id)}>
-            <div className="row align-items-center">
-              <div className="col-12 col-sm-4 col-md-3 d-flex">
-                <MediumImageStyled
-                  className="mt-1"
-                  src={x.avatar}
-                  alt="communityAvatar"
+            <div className="d-flex">
+              <MediumImageStyled
+                className="mt-1"
+                src={x.avatar}
+                alt="communityAvatar"
+              />
+              <div>
+                <P fontSize="24" bold>
+                  {x.label}
+                </P>
+                <P
+                  className="text-lowercase"
+                  fontSize="14"
+                  color={TEXT_SECONDARY}
+                >
+                  <span>{`${x.tags.length} `}</span>
+                  <FormattedMessage {...commonMessages.tags} />
+                </P>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-center justify-content-end">
+              <TagListBox>
+                <TagList
+                  communities={communitiesWithLimitedTagNumber}
+                  communityId={x.id}
+                  showPopularity
                 />
-                <div>
-                  <P fontSize="24" bold>
-                    {x.label}
-                  </P>
-                  <P
-                    className="text-lowercase"
-                    fontSize="14"
-                    color={TEXT_SECONDARY}
-                  >
-                    <span>{`${x.tags.length} `}</span>
-                    <FormattedMessage {...commonMessages.tags} />
-                  </P>
-                </div>
-              </div>
+                <BlockShadow className="d-none d-sm-block" toSide="right" />
+              </TagListBox>
 
-              <div className="col-12 col-sm-8 col-md-9 d-flex align-items-center justify-content-end">
-                <TagListBox>
-                  <TagList
-                    communities={communitiesWithLimitedTagNumber}
-                    communityId={x.id}
-                    showPopularity
-                  />
-                  <BlockShadow className="d-none d-sm-block" toSide="right" />
-                </TagListBox>
-
-                <SeeAllButton>
-                  <FormattedMessage {...commonMessages.seeAll} />
-                </SeeAllButton>
-              </div>
+              <SeeAllButton>
+                <FormattedMessage {...commonMessages.seeAll} />
+              </SeeAllButton>
             </div>
           </A>
         </BaseTransparent>

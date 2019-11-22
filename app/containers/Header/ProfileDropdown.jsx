@@ -18,7 +18,7 @@ import Ul from 'components/Ul';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
-import MediumImage from 'components/Img/MediumImage';
+import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
 import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
@@ -41,7 +41,7 @@ export const AStyled = A.extend`
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
 export const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
-    <MediumImage
+    <MediumSpecialImage
       isBordered
       src={getUserAvatar(profileInfo.ipfs_avatar)}
       alt="ipfs_avatar"

@@ -22,17 +22,18 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
 
   return (
     <div className="lightbg use-default-links">
-      <div className="d-flex align-items-center justify-content-between">
-        <button onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}>
-          <WalletButton balance={balance} />
-        </button>
+      <button
+        className="d-flex align-items-center justify-content-between w-100"
+        onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
+      >
+        <WalletButton balance={balance} />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}
           width="16"
           rotate={visibleWalletLinks}
         />
-      </div>
+      </button>
 
       {visibleWalletLinks && (
         <div>
