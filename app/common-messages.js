@@ -9,6 +9,9 @@ export default defineMessages({
   peeranha: {
     id: 'app.common.peeranha',
   },
+  copyrightPeeranha: {
+    id: 'app.common.copyrightPeeranha',
+  },
   profile: {
     id: 'app.common.profile',
   },

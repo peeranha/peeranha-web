@@ -16,13 +16,17 @@ const AdditionalLinks = styled.div`
   flex-direction: column;
 
   > * {
-    padding: 6px 15px;
+    padding: 7px 15px;
     color: ${TEXT_SECONDARY};
   }
 
   footer {
-    margin-top: 10px;
+    margin: 30px 0;
     font-size: 12px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding: 30px 10px;
   }
 `;
 
@@ -47,7 +51,10 @@ export default React.memo(() => (
     <ChangeLocale />
 
     <footer>
-      @{new Date().getFullYear()} <FormattedMessage {...messages.peeranha} />
+      <FormattedMessage
+        {...messages.copyrightPeeranha}
+        values={{ year: new Date().getFullYear() }}
+      />
     </footer>
   </AdditionalLinks>
 ));

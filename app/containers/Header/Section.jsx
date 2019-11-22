@@ -7,7 +7,7 @@ const Section = styled.div`
   flex: 1;
 
   > * {
-    margin-left: 15px;
+    margin-left: 17px;
   }
 
   @media only screen and (max-width: 992px) {

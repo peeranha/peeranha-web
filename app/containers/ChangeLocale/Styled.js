@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
   LANDING_FONT,
   TEXT_DARK,
-  TEXT_SECONDARY,
   TEXT_PRIMARY,
   BORDER_SECONDARY,
   BG_SECONDARY_LIGHT,
@@ -25,12 +24,9 @@ const Box = styled.div`
     }
 
     .caret {
-      color: ${TEXT_SECONDARY};
-      font-size: 12px;
       display: inline-block;
       transition: 0.5s;
-      transform: rotate(180deg);
-      vertical-align: 2px;
+      transform: scale(0.5) rotate(180deg);
       margin-left: 5px;
     }
 
@@ -40,11 +36,11 @@ const Box = styled.div`
   }
 
   button[aria-expanded='true'] .caret {
-    transform: rotate(180deg);
+    transform: scale(0.5) rotate(180deg);
   }
 
   button[aria-expanded='false'] .caret {
-    transform: rotate(0deg);
+    transform: scale(0.5) rotate(0deg);
   }
 
   ul {

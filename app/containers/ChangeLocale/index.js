@@ -11,6 +11,8 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
+import arrowDownIcon from 'images/arrowDown.svg?inline';
+
 import { appLocales } from 'i18n';
 import * as routes from 'routes-config';
 
@@ -46,7 +48,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
       >
         <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
         <FormattedMessage {...commonMessages[locale]} />
-        <span className="caret">▾</span>
+        <img className="caret" src={arrowDownIcon} alt="data-icon" />
       </button>
 
       <ul className="dropdown-menu p-0" aria-labelledby="dropdownMenu1">
