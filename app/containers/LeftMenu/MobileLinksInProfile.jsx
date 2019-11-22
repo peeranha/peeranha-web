@@ -21,17 +21,18 @@ export default React.memo(({ profile, isMenuVisible }) => {
 
   return (
     <div className="lightbg use-default-links">
-      <div className="d-flex align-items-center justify-content-between">
-        <button onClick={() => setVisibilityProfileLinks(!visibleProfileLinks)}>
-          <ProfileButton profileInfo={profile} />
-        </button>
+      <button
+        className="d-flex align-items-center justify-content-between w-100"
+        onClick={() => setVisibilityProfileLinks(!visibleProfileLinks)}
+      >
+        <ProfileButton profileInfo={profile} />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}
           width="16"
           rotate={visibleProfileLinks}
         />
-      </div>
+      </button>
 
       {visibleProfileLinks && (
         <div>

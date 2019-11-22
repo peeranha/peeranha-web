@@ -1,14 +1,16 @@
-/* eslint indent: 0 */
+/* eslint indent: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-static-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
 import { BG_PRIMARY_SPECIAL } from 'style-constants';
+import avatarCloseIcon from 'images/avatarCloseIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
+import Icon from 'components/Icon';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
@@ -33,6 +35,33 @@ const Div = styled.div`
     label {
       width: 100%;
       height: 100%;
+    }
+
+    .reload-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 11;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      z-index: 12;
+
+      svg:not(.svg-icon) {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 10px;
+        left: 35px !important;
+      }
+
+      .close-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
     }
 
     > *:nth-child(1) {
@@ -82,8 +111,15 @@ const Div = styled.div`
 function AvatarField({ input, meta, size, disabled }) {
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
+  const [v, setV] = useState(true);
 
   const isPhone = window.screen.width <= 576;
+
+  const reload = () => {
+    setS(false);
+    setV(false);
+    setTimeout(() => setV(true), 0);
+  };
 
   return (
     <Div
@@ -95,19 +131,30 @@ function AvatarField({ input, meta, size, disabled }) {
       id={formatStringToHtmlId(input.name)}
     >
       <div>
-        <Avatar
-          {...input}
-          imageWidth={isPhone ? 320 : 480}
-          cropRadius={0.5 * size}
-          onCrop={setY}
-          onBeforeFileLoad={() => {
-            setS(true);
-          }}
-          onClose={() => {
-            input.onChange(y);
-            setS(false);
-          }}
-        />
+        {v && (
+          <div>
+            <div className="avatar-wrapper">
+              <Avatar
+                {...input}
+                imageWidth={isPhone ? 320 : 480}
+                cropRadius={0.5 * size}
+                onCrop={setY}
+                onBeforeFileLoad={() => {
+                  setS(true);
+                }}
+                onClose={() => {
+                  input.onChange(y);
+                  setS(false);
+                }}
+              />
+              <button className="close-icon" onClick={reload}>
+                <Icon icon={avatarCloseIcon} width="20" />
+              </button>
+            </div>
+
+            <div className="reload-bg" onClick={reload} />
+          </div>
+        )}
 
         <img
           src={
