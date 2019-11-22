@@ -25,6 +25,7 @@ import H4 from 'components/H4';
 import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import MediumImage from 'components/Img/MediumImage';
+import Grid from 'components/Grid';
 
 const FrontSide = styled.div`
   > div {
@@ -67,46 +68,6 @@ const AStyled = A.extend`
   }
 `;
 
-const List = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0 -8px;
-
-  > * {
-    flex-basis: 20%;
-    margin: 0 8px 15px 8px;
-    flex: 0 1 calc(20% - 16px);
-  }
-
-  @media only screen and (max-width: 1200px) {
-    > * {
-      flex-basis: 25%;
-      flex: 0 1 calc(25% - 16px);
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    > * {
-      flex-basis: 33%;
-      flex: 0 1 calc(33% - 16px);
-    }
-  }
-
-  @media only screen and (max-width: 576px) {
-    > * {
-      flex-basis: 50%;
-      flex: 0 1 calc(50% - 16px);
-    }
-  }
-
-  @media only screen and (max-width: 360px) {
-    > * {
-      flex-basis: 100%;
-      flex: 0 1 calc(100% - 16px);
-    }
-  }
-`;
-
 const communitiesRoute = routes.communities();
 
 const TopCommunities = ({ communities, profile, account, userId }) => {
@@ -128,7 +89,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
         </span>
       </H4>
 
-      <List>
+      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(communities, 'questions_asked', 'ask')
           .slice(0, 9)
           .map(x => (
@@ -207,7 +168,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
             </A>
           </div>
         )}
-      </List>
+      </Grid>
     </div>
   );
 };

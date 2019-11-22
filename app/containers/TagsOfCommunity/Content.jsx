@@ -11,10 +11,12 @@ import Input from 'components/Input';
 import BlockShadow from 'components/BlockShadow';
 import Span from 'components/Span';
 import P from 'components/P';
+import Grid from 'components/Grid';
 
-const Tag = styled.div`
-  min-height: 140px;
+const Tag = styled.li`
+  height: 140px;
   position: relative;
+  margin-bottom: 15px;
 `;
 
 const Item = styled.div`
@@ -22,11 +24,13 @@ const Item = styled.div`
   padding: 2px 0;
   overflow: hidden;
   word-break: break-word;
+  transition: 0.25s;
 `;
 
 const Base = BaseRounded.extend`
   padding: 15px;
   min-width: 100%;
+  overflow: hidden;
 
   :hover {
     position: absolute;
@@ -35,26 +39,11 @@ const Base = BaseRounded.extend`
     z-index: 100;
 
     ${Item} {
-      min-height: 110px;
-      height: auto;
+      height: 200px;
     }
 
     ${BlockShadow} {
       display: none;
-    }
-  }
-`;
-
-export const SpecialGridForMobileList = styled.ul`
-  @media only screen and (max-width: 576px) {
-    .col-12 {
-      max-width: 50%;
-    }
-  }
-
-  @media only screen and (max-width: 442px) {
-    .col-12 {
-      max-width: 100%;
     }
   }
 `;
@@ -73,8 +62,8 @@ const Content = ({
     isLoading={existingTagsLoading}
     isLastFetch={isLastFetch}
   >
-    <SpecialGridForMobileList className="row">
-      <li className="col-12 col-sm-6 col-md-4 d-sm-flex align-items-center justify-content-center mb-3">
+    <Grid xl={3} md={2} xs={1}>
+      <li className="d-sm-flex align-items-center justify-content-center mb-3">
         <Item
           isInputBox
           className="d-flex align-items-center justify-content-center p-2"
@@ -89,29 +78,27 @@ const Content = ({
       </li>
 
       {tags.map(x => (
-        <li key={x.name} className="col-12 col-sm-6 col-md-4 mb-3">
-          <Tag>
-            <Base>
-              <Item>
-                <p className="mb-3">
-                  <TagName>{x.name}</TagName>
-                  <Span fontSize="14" color={TEXT_SECONDARY}>
-                    <span>x </span>
-                    <span>{`${x.questions_asked}`}</span>
-                  </Span>
-                </p>
+        <Tag key={x.name}>
+          <Base>
+            <Item>
+              <p className="mb-3">
+                <TagName>{x.name}</TagName>
+                <Span fontSize="14" color={TEXT_SECONDARY}>
+                  <span>x </span>
+                  <span>{`${x.questions_asked}`}</span>
+                </Span>
+              </p>
 
-                <P fontSize="14" color={TEXT_SECONDARY}>
-                  {x.description}
-                </P>
+              <P fontSize="14" color={TEXT_SECONDARY}>
+                {x.description}
+              </P>
 
-                <BlockShadow />
-              </Item>
-            </Base>
-          </Tag>
-        </li>
+              <BlockShadow />
+            </Item>
+          </Base>
+        </Tag>
       ))}
-    </SpecialGridForMobileList>
+    </Grid>
 
     {existingTagsLoading && <LoadingIndicator />}
   </InfinityLoader>
