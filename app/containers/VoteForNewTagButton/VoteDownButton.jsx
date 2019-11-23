@@ -2,19 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
-import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 
-import OutlinedButton from 'components/Button/Outlined/InfoStretching';
 import AlreadyVoted from 'containers/VoteForNewCommunityButton/AlreadyVoted';
 
 import Button from './index';
+import { DisagreeButton } from './Button';
 
 import { DOWNVOTE_METHOD } from './constants';
-
-const OutlinedButtonStyled = OutlinedButton.extend`
-  border-color: ${BORDER_SECONDARY};
-  color: ${TEXT_SECONDARY};
-`;
 
 const VoteDownButton = /* istanbul ignore next */ ({
   id,
@@ -34,9 +28,9 @@ const VoteDownButton = /* istanbul ignore next */ ({
       downvotesNumber,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <OutlinedButtonStyled onClick={onClick} id={id}>
+        <DisagreeButton onClick={onClick} id={id}>
           <FormattedMessage {...commonMessages.disagreeShort} />
-        </OutlinedButtonStyled>
+        </DisagreeButton>
       ) : (
         <AlreadyVoted
           className="flex-column"

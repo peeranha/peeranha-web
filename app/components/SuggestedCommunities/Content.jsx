@@ -1,3 +1,4 @@
+/* eslint indent: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BORDER_SECONDARY } from 'style-constants';
@@ -14,6 +15,8 @@ import BlockShadow from 'components/BlockShadow';
 
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
+
+export const DEFAULT_DESCRIPTION_HEIGHT = 70;
 
 export const BaseStyled = Base.extend`
   margin-bottom: 15px;
@@ -34,25 +37,17 @@ export const BaseStyled = Base.extend`
 `;
 
 export const Description = BaseTransparent.extend`
-  display: flex;
-  align-items: flex-start;
   cursor: pointer;
   word-break: break-all;
 
   ${P} {
-    overflow: hidden;
-    max-height: ${x => (!x.isOpened ? '70px' : 'auto')};
-  }
-
-  img {
-    transition: 0.5s;
-    margin-top: 5px;
-    margin-right: 15px;
-    transform: rotate(${x => (x.isOpened ? '180deg' : '0deg')});
+    overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
+    max-height: ${x =>
+      !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
   }
 
   ${BlockShadow} {
-    display: ${x => (!x.isOpened ? 'block' : 'none')};
+    display: ${x => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
   }
 `;
 
@@ -61,26 +56,24 @@ const Item = x => {
 
   return (
     <BaseStyled key={x.id}>
-      <BaseTransparent>
-        <div className="row align-items-center">
-          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center mb-to-sm-2">
-            <MediumImageStyled src={x.avatar} alt="voting-community" />
+      <BaseTransparent className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center">
+          <MediumImageStyled src={x.avatar} alt="voting-community" />
 
-            <div>
-              <P fontSize="24" mobileFS="18" bold>
-                {x.name}
-              </P>
-              <P className="text-capitalize" fontSize="14">
-                {x.language}
-              </P>
-              <P fontSize="14">{x.description}</P>
-            </div>
+          <div>
+            <P fontSize="24" mobileFS="18" bold>
+              {x.name}
+            </P>
+            <P className="text-capitalize" fontSize="14">
+              {x.language}
+            </P>
+            <P fontSize="14">{x.description}</P>
           </div>
+        </div>
 
-          <div className="col-9 col-sm-6 col-md-3 d-flex justify-content-between">
-            <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
-            <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
-          </div>
+        <div>
+          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
+          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
         </div>
       </BaseTransparent>
 

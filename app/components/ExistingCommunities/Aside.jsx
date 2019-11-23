@@ -42,10 +42,12 @@ const Aside = ({ suggestedCommunities }) => (
           <Img className="mr-1" src={x.avatar} alt="commAvatar" />
           <Span bold>{x.name}</Span>
         </div>
+
         <P className="mb-3" fontSize="14">
           {x.description}
         </P>
-        <div className="d-flex justify-content-between">
+
+        <div>
           <VoteUpButton
             className="mr-2"
             id={`voteup_${x.id}`}

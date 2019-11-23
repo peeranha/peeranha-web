@@ -112,6 +112,7 @@ export class TagsOfCommunity extends React.Component {
               typeInput={this.typeInput}
               text={text}
               clearTextField={this.clearTextField}
+              locale={locale}
             />
           }
         />

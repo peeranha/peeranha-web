@@ -82,7 +82,12 @@ export class SuggestedTags extends React.Component {
           sortTags={this.sortTags}
           communityId={+match.params.communityid}
           currentCommunity={this.currentCommunity}
-          Aside={<Aside existingTags={existingTags} />}
+          Aside={
+            <Aside
+              existingTags={existingTags}
+              currentCommunity={this.currentCommunity}
+            />
+          }
           Content={
             <Content
               loadMoreTags={this.loadMoreTags}

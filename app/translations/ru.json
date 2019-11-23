@@ -45,6 +45,7 @@
   "app.common.yes": "Да",
   "app.common.no": "Нет",
   "app.common.agree": "Согласен",
+  "app.common.agreeShort": "Согл.",
   "app.common.disagree": "Не согласен",
   "app.common.disagreeShort": "Не согл.",
   "app.common.tips": "Подсказки",
@@ -80,6 +81,7 @@
   "app.common.copied": "Скопировано",
   "app.common.hide": "Скрыть",
   "app.common.delete": "Удалить",
+  "app.common.description": "Описание",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -229,6 +231,7 @@
   "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
   "app.containers.TagsOfCommunity.createTag": "Предложить тег",
   "app.containers.TagsOfCommunity.voteForNewTags": "Голосуйте за новые теги",
+  "app.containers.TagsOfCommunity.findTag": "Найти тег",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":

@@ -45,6 +45,7 @@
   "app.common.yes": "Yes",
   "app.common.no": "No",
   "app.common.agree": "Agree",
+  "app.common.agreeShort": "Agree",
   "app.common.disagree": "Disagree",
   "app.common.disagreeShort": "Disagree",
   "app.common.tips": "Tips",
@@ -80,6 +81,7 @@
   "app.common.copied": "Copied",
   "app.common.hide": "Hide",
   "app.common.delete": "Delete",
+  "app.common.description": "Description",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -222,6 +224,7 @@
   "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
   "app.containers.TagsOfCommunity.createTag": "Create tag",
   "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
+  "app.containers.TagsOfCommunity.findTag": "Find tag",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":

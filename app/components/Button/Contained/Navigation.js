@@ -6,7 +6,8 @@ import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import PrimaryLarge from './PrimaryLarge';
 
 const ButtonCss = css`
-  padding: 6px 20px;
+  padding: 6px 16px;
+  min-width: auto;
 
   :hover {
     color: ${TEXT_LIGHT};

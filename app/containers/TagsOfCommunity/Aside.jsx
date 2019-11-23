@@ -41,7 +41,7 @@ const Aside = ({ suggestedTags, communityId }) => (
           {x.description}
         </P>
 
-        <div className="d-flex justify-content-between">
+        <div>
           <VoteUpButton
             className="mr-2"
             id={`voteup_${x.id}`}

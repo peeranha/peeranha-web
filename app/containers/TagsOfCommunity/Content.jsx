@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import { translationMessages } from 'i18n';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import InfinityLoader from 'components/InfinityLoader';
@@ -13,22 +15,43 @@ import Span from 'components/Span';
 import P from 'components/P';
 import Grid from 'components/Grid';
 
+import messages from './messages';
+
 const Tag = styled.li`
   height: 140px;
   position: relative;
   margin-bottom: 15px;
+
+  @media only screen and (max-width: 576px) {
+    height: 110px;
+  }
 `;
 
 const Item = styled.div`
-  height: ${x => (x.isInputBox ? 'auto' : '110px')};
-  padding: 2px 0;
+  position: relative;
+  min-height: 110px;
+  max-height: 110px;
+  padding: 2px 15px;
   overflow: hidden;
   word-break: break-word;
-  transition: 0.25s;
+  transition: 0.15s;
+
+  input {
+    background: none;
+  }
+
+  p:first-child {
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    min-height: 80px;
+    max-height: 80px;
+  }
 `;
 
 const Base = BaseRounded.extend`
-  padding: 15px;
+  padding: 15px 0 !important;
   min-width: 100%;
   overflow: hidden;
 
@@ -39,7 +62,9 @@ const Base = BaseRounded.extend`
     z-index: 100;
 
     ${Item} {
-      height: 200px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-right: -17px;
     }
 
     ${BlockShadow} {
@@ -56,6 +81,7 @@ const Content = ({
   typeInput,
   text,
   clearTextField,
+  locale,
 }) => (
   <InfinityLoader
     loadNextPaginatedData={loadMoreTags}
@@ -63,14 +89,14 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <Grid xl={3} md={2} xs={1}>
-      <li className="d-sm-flex align-items-center justify-content-center mb-3">
+      <li className="d-sm-flex align-items-center justify-content-center">
         <Item
           isInputBox
           className="d-flex align-items-center justify-content-center p-2"
         >
           <Input
             input={{ onChange: typeInput, value: text }}
-            placeholder="Find tag"
+            placeholder={translationMessages[locale][messages.findTag.id]}
             isSearchable
             onClick={clearTextField}
           />
@@ -78,10 +104,14 @@ const Content = ({
       </li>
 
       {tags.map(x => (
-        <Tag key={x.name}>
+        <Tag key={x.id}>
           <Base>
-            <Item>
-              <p className="mb-3">
+            <Item
+              onMouseLeave={e => {
+                e.currentTarget.scrollTop = 0;
+              }}
+            >
+              <p>
                 <TagName>{x.name}</TagName>
                 <Span fontSize="14" color={TEXT_SECONDARY}>
                   <span>x </span>
@@ -112,6 +142,7 @@ Content.propTypes = {
   typeInput: PropTypes.func,
   clearTextField: PropTypes.func,
   text: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default React.memo(Content);

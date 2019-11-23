@@ -139,14 +139,16 @@ export const Header = ({
           )}
         </H3>
 
-        <div className="right-panel">
-          <Dropdown
-            button={<Button sorting={sorting} />}
-            menu={<Menu sortTags={sortTags} sorting={sorting} />}
-            id="tags-dropdown"
-            isArrowed
-          />
-        </div>
+        {path === communityTagsRoute && (
+          <div className="right-panel">
+            <Dropdown
+              button={<Button sorting={sorting} />}
+              menu={<Menu sortTags={sortTags} sorting={sorting} />}
+              id="tags-dropdown"
+              isArrowed
+            />
+          </div>
+        )}
       </Wrapper>
     </div>
   );
