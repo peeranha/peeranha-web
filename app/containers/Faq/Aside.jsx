@@ -8,9 +8,11 @@ import Span from 'components/Span';
 const Aside = ({ content, route }) => (
   <ul className="py-2">
     {content.blocks.map(x => (
-      <li className="mb-1" key={x.h2}>
+      <li className="mb-2" key={x.h2}>
         <a href={route(x.sectionCode)}>
-          <Span color={TEXT_PRIMARY}>{x.h2}</Span>
+          <Span color={TEXT_PRIMARY} fontSize="16" lineHeight="20">
+            {x.h2}
+          </Span>
         </a>
       </li>
     ))}
