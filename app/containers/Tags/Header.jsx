@@ -108,7 +108,7 @@ export const Header = ({
             />
 
             <Icon
-              className="d-inline-block d-sm-none"
+              className="d-inline-flex d-sm-none"
               icon={addIcon}
               width="14"
             />

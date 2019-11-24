@@ -1,3 +1,4 @@
+/* eslint consistent-return: 0 */
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import {
@@ -9,9 +10,8 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
-import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
-import { clearSuggestedCommunities } from 'containers/Communities/actions';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { getSuggestedCommunitiesSuccess } from 'containers/Communities/actions';
 
 import {
   UPVOTE,
@@ -29,11 +29,11 @@ import {
   downVoteErr,
 } from './actions';
 
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* upVoteWorker({ communityId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield select(makeSelectAccount());
+    const account = yield select(makeSelectAccount());
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
@@ -49,24 +49,31 @@ export function* upVoteWorker({ communityId, buttonId }) {
       minEnergy: MIN_ENERGY_TO_UPVOTE,
     });
 
-    yield call(() =>
-      upVoteToCreateCommunity(eosService, selectedAccount, communityId),
-    );
+    yield call(upVoteToCreateCommunity, eosService, account, communityId);
 
-    yield put(clearSuggestedCommunities());
-    yield call(() => getSuggestedCommunitiesWorker());
+    if (activeCommunity.upvotes.includes(account)) {
+      activeCommunity.upvotes = activeCommunity.upvotes.filter(
+        x => x !== account,
+      );
+    } else {
+      activeCommunity.upvotes = [...activeCommunity.upvotes, account];
+      activeCommunity.downvotes = activeCommunity.downvotes.filter(
+        x => x !== account,
+      );
+    }
 
+    yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
     yield put(upVoteSuccess());
-  } catch (err) {
-    yield put(upVoteErr(err.message));
+  } catch ({ message }) {
+    yield put(upVoteErr(message));
   }
 }
 
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* downVoteWorker({ communityId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield select(makeSelectAccount());
+    const account = yield select(makeSelectAccount());
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
@@ -82,16 +89,23 @@ export function* downVoteWorker({ communityId, buttonId }) {
       minEnergy: MIN_ENERGY_TO_DOWNVOTE,
     });
 
-    yield call(() =>
-      downVoteToCreateCommunity(eosService, selectedAccount, communityId),
-    );
+    yield call(downVoteToCreateCommunity, eosService, account, communityId);
 
-    yield put(clearSuggestedCommunities());
-    yield call(() => getSuggestedCommunitiesWorker());
+    if (activeCommunity.downvotes.includes(account)) {
+      activeCommunity.downvotes = activeCommunity.downvotes.filter(
+        x => x !== account,
+      );
+    } else {
+      activeCommunity.downvotes = [...activeCommunity.downvotes, account];
+      activeCommunity.upvotes = activeCommunity.upvotes.filter(
+        x => x !== account,
+      );
+    }
 
+    yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
     yield put(downVoteSuccess());
-  } catch (err) {
-    yield put(downVoteErr(err.message));
+  } catch ({ message }) {
+    yield put(downVoteErr(message));
   }
 }
 

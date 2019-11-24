@@ -1,3 +1,4 @@
+/* eslint consistent-return: 0 */
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import {
@@ -5,7 +6,7 @@ import {
   downVoteToCreateTag,
 } from 'utils/communityManagement';
 
-import { getSuggestedTagsWorker } from 'containers/Tags/saga';
+import { getSuggestedTagsSuccess } from 'containers/Tags/actions';
 import { selectSuggestedTags } from 'containers/Tags/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -27,11 +28,11 @@ import {
   downVoteErr,
 } from './actions';
 
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* upVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield select(makeSelectAccount());
+    const account = yield select(makeSelectAccount());
     const storedTags = yield select(selectSuggestedTags());
 
     const activeTag = storedTags.filter(x => x.id === +tagId)[0];
@@ -45,23 +46,27 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
       minEnergy: MIN_ENERGY_TO_UPVOTE,
     });
 
-    yield call(() =>
-      upVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
-    );
+    yield call(upVoteToCreateTag, eosService, account, communityId, tagId);
 
-    yield call(() => getSuggestedTagsWorker({ communityId }));
+    if (activeTag.upvotes.includes(account)) {
+      activeTag.upvotes = activeTag.upvotes.filter(x => x !== account);
+    } else {
+      activeTag.upvotes = [...activeTag.upvotes, account];
+      activeTag.downvotes = activeTag.downvotes.filter(x => x !== account);
+    }
 
+    yield put(getSuggestedTagsSuccess([...storedTags]));
     yield put(upVoteSuccess());
-  } catch (err) {
-    yield put(upVoteErr(err.message));
+  } catch ({ message }) {
+    yield put(upVoteErr(message));
   }
 }
 
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* downVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield select(makeSelectAccount());
+    const account = yield select(makeSelectAccount());
     const storedTags = yield select(selectSuggestedTags());
 
     const activeTag = storedTags.filter(x => x.id === +tagId)[0];
@@ -75,15 +80,19 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
       minEnergy: MIN_ENERGY_TO_DOWNVOTE,
     });
 
-    yield call(() =>
-      downVoteToCreateTag(eosService, selectedAccount, communityId, tagId),
-    );
+    yield call(downVoteToCreateTag, eosService, account, communityId, tagId);
 
-    yield call(() => getSuggestedTagsWorker({ communityId }));
+    if (activeTag.downvotes.includes(account)) {
+      activeTag.downvotes = activeTag.downvotes.filter(x => x !== account);
+    } else {
+      activeTag.downvotes = [...activeTag.downvotes, account];
+      activeTag.upvotes = activeTag.upvotes.filter(x => x !== account);
+    }
 
+    yield put(getSuggestedTagsSuccess([...storedTags]));
     yield put(downVoteSuccess());
-  } catch (err) {
-    yield put(downVoteErr(err.message));
+  } catch ({ message }) {
+    yield put(downVoteErr(message));
   }
 }
 
