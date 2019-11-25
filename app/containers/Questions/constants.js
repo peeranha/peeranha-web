@@ -10,4 +10,5 @@ export const GET_QUESTIONS_ERROR = 'app/Questions/GET_INIT_QUESTIONS_ERROR';
 
 export const GET_UNIQ_QUESTIONS = 'app/Questions/GET_UNIQ_QUESTIONS';
 
-export const TOP_COMMUNITY_DISPLAY_MIN_RATING = 10;
+export const TOP_COMMUNITY_DISPLAY_MIN_RATING =
+  process.env.NODE_ENV === 'production' ? 10 : 3;
