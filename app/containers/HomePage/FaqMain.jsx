@@ -9,7 +9,7 @@ import * as routes from 'routes-config';
 import { getSectionCode } from 'utils/faqManagement';
 import { ABOUT_PEERANHA_SECTION } from 'containers/Faq/constants';
 
-import plus from 'images/Plus.png';
+import plusIcon from 'images/Plus.svg?inline';
 import arrRight from 'images/arrRight.svg?inline';
 
 import { FOURTH_SCREEN } from './constants';
@@ -53,7 +53,7 @@ const FaqMain = ({ faqQuestions }) => (
   <Box className="container" id={FOURTH_SCREEN}>
     {faqQuestions.map(x => (
       <h3 className="item">
-        <img src={plus} alt="icon" />
+        <img src={plusIcon} alt="icon" />
         {x}
       </h3>
     ))}

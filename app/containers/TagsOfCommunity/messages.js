@@ -16,4 +16,7 @@ export default defineMessages({
   voteForNewTags: {
     id: 'app.containers.TagsOfCommunity.voteForNewTags',
   },
+  findTag: {
+    id: 'app.containers.TagsOfCommunity.findTag',
+  },
 });

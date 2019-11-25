@@ -10,13 +10,15 @@ const Tag = Span.extend`
   border: 1px solid ${BORDER_PRIMARY};
   color: ${TEXT_PRIMARY};
   font-size: 14px;
-  line-height: 20px;
+  height: 24px;
   border-radius: 2px;
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;
   padding-right: 10px;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 `;
 
 const Box = styled.ul`

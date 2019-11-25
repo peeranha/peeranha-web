@@ -9,6 +9,9 @@ export default defineMessages({
   peeranha: {
     id: 'app.common.peeranha',
   },
+  copyrightPeeranha: {
+    id: 'app.common.copyrightPeeranha',
+  },
   profile: {
     id: 'app.common.profile',
   },
@@ -156,6 +159,9 @@ export default defineMessages({
   agree: {
     id: 'app.common.agree',
   },
+  agreeShort: {
+    id: 'app.common.agreeShort',
+  },
   disagree: {
     id: 'app.common.disagree',
   },
@@ -245,5 +251,8 @@ export default defineMessages({
   },
   delete: {
     id: 'app.common.delete',
+  },
+  description: {
+    id: 'app.common.description',
   },
 });

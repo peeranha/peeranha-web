@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
-import OutlinedButton from 'components/Button/Outlined/InfoStretching';
 import AlreadyVoted from 'containers/VoteForNewCommunityButton/AlreadyVoted';
 
 import Button from './index';
+import AgreeButton from './Button';
 
 import { UPVOTE_METHOD } from './constants';
 
@@ -29,9 +29,9 @@ const VoteUpButton = /* istanbul ignore next */ ({
       downvotesNumber,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <OutlinedButton className={className} onClick={onClick} id={id}>
-          <FormattedMessage {...commonMessages.agree} />
-        </OutlinedButton>
+        <AgreeButton className={className} onClick={onClick} id={id}>
+          <FormattedMessage {...commonMessages.agreeShort} />
+        </AgreeButton>
       ) : (
         <AlreadyVoted
           onClick={onClick}
@@ -39,7 +39,7 @@ const VoteUpButton = /* istanbul ignore next */ ({
           choice={isUpvoted}
         >
           <p className="pb-1">
-            <FormattedMessage {...commonMessages.agree} />
+            <FormattedMessage {...commonMessages.agreeShort} />
           </p>
           <p>{`${upvotesNumber}/${downvotesNumber + upvotesNumber}`}</p>
         </AlreadyVoted>

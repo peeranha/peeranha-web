@@ -7,8 +7,10 @@ const Span = styled.span`
   opacity: ${({ opacity }) => Number(opacity) || 1};
   font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   font-size: ${({ fontSize }) => (fontSize ? Number(fontSize) : '16')}px;
-  line-height: ${({ fontSize }) =>
-    fontSize ? Math.floor(1.2 * Number(fontSize)) : '18'}px;
+  line-height: ${({ fontSize, lineHeight }) =>
+    fontSize && !lineHeight
+      ? Math.floor(1.2 * Number(fontSize))
+      : lineHeight}px;
 
   font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
   font-family: ${APP_FONT};

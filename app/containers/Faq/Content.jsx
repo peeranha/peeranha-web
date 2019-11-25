@@ -1,3 +1,4 @@
+/* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -10,12 +11,13 @@ import commonMessages from 'common-messages';
 
 import { scrollToSection } from 'utils/animation';
 
-import plusIcon from 'images/Plus.png';
-import minusIcon from 'images/Minus.png';
-import arrowIcon from 'images/arrowDown.svg?inline';
+import plusIcon from 'images/Plus.svg?inline';
+import minusIcon from 'images/Minus.svg?inline';
+import arrowIcon from 'images/arrowDown.svg?external';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
@@ -24,21 +26,6 @@ export const TextBlock = styled.div`
   display: ${x => (x.isOpened ? 'block' : 'none')};
   margin-top: ${x => (x.isOpened ? '15px' : '0px')};
   ${textBlockStyles};
-`;
-
-export const ArrowIcon = styled.img`
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 15px;
-  display: inline-block;
-  transition: 0.5s;
-  transform: rotate(${x => (x.isOpened ? '180deg' : '0deg')});
-
-  @media only screen and (max-width: 576px) {
-    transform: scale(0.8) rotate(${x => (x.isOpened ? '180deg' : '0deg')});
-    padding-right: 0px;
-    padding-left: 0px;
-  }
 `;
 
 const SectionStyled = BaseRoundedNoPadding.extend`
@@ -56,13 +43,22 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
   }
 `;
 
-/* eslint react/jsx-no-bind: 0 */
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+const ImgWrapper = styled.div`
+  margin-right: 18px;
+  width: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  @media only screen and (max-width: 576px) {
+    margin-right: 8px;
+  }
+`;
 
 const Question = ({
   h3,
@@ -88,14 +84,14 @@ const Question = ({
   }
 
   return (
-    <li className="d-flex" id={questionId}>
-      <div>
-        <ArrowIcon isOpened={isOpened} src={arrowIcon} alt="icon" />
-      </div>
+    <li className="d-flex align-items-baseline" id={questionId}>
+      <ImgWrapper>
+        <Icon rotate={isOpened} icon={arrowIcon} width="14" />
+      </ImgWrapper>
 
       <div>
         <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
-          <Span fontSize="18" mobileFS="16">
+          <Span fontSize="20" mobileFS="16">
             {h3}
           </Span>
         </h5>
@@ -142,18 +138,16 @@ const Section = ({
   }
 
   return (
-    <SectionStyled id={sectionId}>
+    <SectionStyled isOpened={isOpened} id={sectionId}>
       <BaseTransparent>
         <H4
           className="d-flex align-items-center"
           onClick={collapseSection}
           mobileFS="24"
         >
-          <img
-            className="mr-3"
-            src={isOpened ? minusIcon : plusIcon}
-            alt="icon"
-          />
+          <ImgWrapper>
+            <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
+          </ImgWrapper>
           <span>{h2}</span>
         </H4>
       </BaseTransparent>
@@ -235,4 +229,4 @@ Content.propTypes = {
   getQuestionCode: PropTypes.func,
 };
 
-export default React.memo(Content);
+export default Content;

@@ -36,7 +36,7 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
       </button>
 
       {visibleWalletLinks && (
-        <div>
+        <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
             <FormattedMessage {...messages.wallet} />
           </A>

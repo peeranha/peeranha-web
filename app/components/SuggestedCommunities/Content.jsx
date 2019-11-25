@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+/* eslint indent: 0 */
+import React, { useState, useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+
+import commonMessages from 'common-messages';
+
 import { BORDER_SECONDARY } from 'style-constants';
 import orderBy from 'lodash/orderBy';
 
-import arrowDownIcon from 'images/arrowDown.svg?inline';
+import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import P from 'components/P';
+import Icon from 'components/Icon';
 import Base from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -14,6 +20,8 @@ import BlockShadow from 'components/BlockShadow';
 
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
+
+export const DEFAULT_DESCRIPTION_HEIGHT = 70;
 
 export const BaseStyled = Base.extend`
   margin-bottom: 15px;
@@ -34,61 +42,80 @@ export const BaseStyled = Base.extend`
 `;
 
 export const Description = BaseTransparent.extend`
-  display: flex;
-  align-items: flex-start;
   cursor: pointer;
   word-break: break-all;
 
   ${P} {
-    overflow: hidden;
-    max-height: ${x => (!x.isOpened ? '70px' : 'auto')};
-  }
-
-  img {
-    transition: 0.5s;
-    margin-top: 5px;
-    margin-right: 15px;
-    transform: rotate(${x => (x.isOpened ? '180deg' : '0deg')});
+    overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
+    max-height: ${x =>
+      !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
   }
 
   ${BlockShadow} {
-    display: ${x => (!x.isOpened ? 'block' : 'none')};
+    display: ${x => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
   }
 `;
 
+const DESCRIPTION_ID = 'description-content-id';
+
 const Item = x => {
   const [isOpened, changeView] = useState(false);
+  const [isArrowVisible, changeArrowVisibility] = useState(false);
+
+  useEffect(() => {
+    const { scrollHeight } = document.getElementById(
+      `${DESCRIPTION_ID}_${x.id}`,
+    );
+
+    if (scrollHeight > DEFAULT_DESCRIPTION_HEIGHT) {
+      changeArrowVisibility(true);
+    }
+  });
 
   return (
     <BaseStyled key={x.id}>
-      <BaseTransparent>
-        <div className="row align-items-center">
-          <div className="col-12 col-sm-6 col-md-9 d-flex align-items-center mb-to-sm-2">
-            <MediumImageStyled src={x.avatar} alt="voting-community" />
+      <BaseTransparent className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
+        <div className="d-flex align-items-center mb-to-sm-2">
+          <MediumImageStyled
+            className="flex-shrink-0"
+            src={x.avatar}
+            alt="voting-community"
+          />
 
-            <div>
-              <P fontSize="24" mobileFS="18" bold>
-                {x.name}
-              </P>
-              <P className="text-capitalize" fontSize="14">
-                {x.language}
-              </P>
-              <P fontSize="14">{x.description}</P>
-            </div>
+          <div>
+            <P fontSize="24" mobileFS="18" bold>
+              {x.name}
+            </P>
+            <P fontSize="14">
+              <FormattedMessage {...commonMessages[x.language]} />
+            </P>
+            <P fontSize="14">{x.description}</P>
           </div>
+        </div>
 
-          <div className="col-9 col-sm-6 col-md-3 d-flex justify-content-between">
-            <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
-            <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
-          </div>
+        <div className="flex-shrink-0">
+          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
+          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
         </div>
       </BaseTransparent>
 
-      <Description onClick={() => changeView(!isOpened)} isOpened={isOpened}>
-        <img isOpened={isOpened} src={arrowDownIcon} alt="icon" />
+      <Description
+        onClick={() => changeView(!isOpened)}
+        isOpened={isOpened}
+        isArrowVisible={isArrowVisible}
+      >
+        <P className="d-flex align-items-center mb-2" bold>
+          <FormattedMessage {...commonMessages.description} />
+          <Icon
+            className={!isArrowVisible ? 'd-none' : 'ml-2'}
+            icon={arrowDownIcon}
+            rotate={isOpened}
+            width="12"
+          />
+        </P>
 
         <div className="position-relative">
-          <P>{x.main_description}</P>
+          <P id={`${DESCRIPTION_ID}_${x.id}`}>{x.main_description}</P>
           <BlockShadow />
         </div>
       </Description>

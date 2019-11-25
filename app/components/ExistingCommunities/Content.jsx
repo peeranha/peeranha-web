@@ -81,11 +81,8 @@ const Content = ({ communities, sorting, locale, language }) => {
                   <P className="mb-1" fontSize="24" mobileFS="18" bold>
                     {x.name}
                   </P>
-                  <P
-                    className="d-none d-md-block text-capitalize"
-                    fontSize="14"
-                  >
-                    {x.language}
+                  <P className="d-none d-md-block" fontSize="14">
+                    <FormattedMessage {...commonMessages[x.language]} />
                   </P>
                   <P fontSize="14">{x.description}</P>
                 </div>

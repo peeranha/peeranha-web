@@ -11,6 +11,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import H4 from 'components/H4';
 import Img from 'components/Img';
+import Grid from 'components/Grid';
 
 import arrowRightIcon from 'images/arrowRight.svg?inline';
 
@@ -42,9 +43,9 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
         </Span>
       </H4>
 
-      <div className="row">
+      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {followedCommunities.map(x => (
-          <div key={x.id} className="col-12 col-sm-6 col-md-3 mb-2">
+          <div key={x.id}>
             <A to={routes.questions(x.id)}>
               <CommunityStyled className="d-flex">
                 <Img className="mr-2" src={x.avatar} alt="comm_img" />
@@ -65,7 +66,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
         ))}
 
         {userId === account && (
-          <div className="col-12 col-sm-6 col-md-3 d-flex justify-content-center align-items-center mb-2">
+          <div className="d-flex justify-content-center align-items-center">
             <A className="py-2" to={routes.communities()}>
               <Span color={TEXT_PRIMARY} fontSize="16">
                 <img className="mr-2" src={arrowRightIcon} alt="icon" />
@@ -74,7 +75,7 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
             </A>
           </div>
         )}
-      </div>
+      </Grid>
     </div>
   );
 };

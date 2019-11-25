@@ -35,7 +35,7 @@ export default React.memo(({ profile, isMenuVisible }) => {
       </button>
 
       {visibleProfileLinks && (
-        <div>
+        <div className="pb-2">
           <A to={routes.profileView(profile.user)}>
             <FormattedMessage {...messages.profile} />
           </A>

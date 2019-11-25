@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import {
   BORDER_PRIMARY_DARK,
@@ -18,7 +19,7 @@ import allQuestionsIcon from 'images/allQuestions.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
-import questionRoundedIcon from 'images/faq.svg?external';
+import faqIcon from 'images/faq.svg?external';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
@@ -39,14 +40,24 @@ const A1 = A.extend`
     background-color: ${BG_TRANSPARENT};
     border-color: ${BORDER_TRANSPARENT};
     font-weight: normal;
+
+    .opacity {
+      fill: none !important;
+    }
   `};
+`;
+
+const Box = styled.div`
+  @media only screen and (max-width: 576px) {
+    padding: 10px 0 20px 0;
+  }
 `;
 
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
 
   return (
-    <div>
+    <Box>
       {profile && (
         <A1 to={routes.feed()} disabled={pathname === routes.feed()}>
           <Icon
@@ -106,12 +117,12 @@ const MainLinks = ({ profile }) => {
         <Icon
           className="mr-2"
           width="24"
-          icon={questionRoundedIcon}
+          icon={faqIcon}
           color={pathname === routes.faq() && TEXT_PRIMARY}
         />
         <FormattedMessage {...messages.faq} />
       </A1>
-    </div>
+    </Box>
   );
 };
 
