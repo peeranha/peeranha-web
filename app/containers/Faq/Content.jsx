@@ -91,7 +91,7 @@ const Question = ({
 
       <div>
         <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
-          <Span fontSize="20" mobileFS="16">
+          <Span fontSize="20" lineHeight="30" mobileFS="16">
             {h3}
           </Span>
         </h5>

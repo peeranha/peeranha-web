@@ -6,11 +6,12 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
-import energyIcon from 'images/energy.svg?inline';
+import energyIcon from 'images/energy.svg?external';
 
 import Li from 'components/Li';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
@@ -19,26 +20,13 @@ import faqMessages from 'containers/Faq/messages';
 import { AStyled } from './ProfileDropdown';
 import { IconBG } from './WalletDropdown';
 
-const ButtonStyled = IconBG.extend`
-  display: flex;
-  flex-direction: column;
-
-  span {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 14px;
-  }
-
-  img {
-    transform: scale(0.9);
-  }
-`;
-
 export const Button = ({ energy }) => (
-  <ButtonStyled bg={BG_LIGHT}>
-    <span>{energy}</span>
-    <img src={energyIcon} alt="icon" />
-  </ButtonStyled>
+  <IconBG className="d-flex flex-column" bg={BG_LIGHT}>
+    <Span fontSize="16" bold>
+      {energy}
+    </Span>
+    <Icon icon={energyIcon} width="19" />
+  </IconBG>
 );
 
 const MenuHeader = Ul.extend`
@@ -55,9 +43,11 @@ const Menu = ({ energy, maxEnergy }) => (
   <nav>
     <MenuHeader>
       <TextHeader>
-        <img src={energyIcon} alt="icon" />
+        <Icon icon={energyIcon} width="20" />
         <span className="mx-1">
-          <Span bold>{energy}</Span>
+          <Span fontSize="16" bold>
+            {energy}
+          </Span>
           <span>/</span>
           <Span color={TEXT_SECONDARY} bold>
             {maxEnergy}

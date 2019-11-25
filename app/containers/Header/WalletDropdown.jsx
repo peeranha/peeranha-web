@@ -58,8 +58,10 @@ export const Button = ({ balance }) => (
     </IconBG>
 
     <span className="d-flex flex-column text-left">
-      <Span bold>{getFormattedNum4(balance)}</Span>
-      <Span fontSize="14" color={TEXT_SECONDARY}>
+      <Span fontSize="16" bold>
+        {getFormattedNum4(balance)}
+      </Span>
+      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.peers} />
       </Span>
     </span>

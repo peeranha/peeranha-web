@@ -14,7 +14,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 
 import Dropdown from 'components/Dropdown';
 import Li from 'components/Li';
-import Ul from 'components/Ul';
+import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
@@ -33,6 +33,7 @@ const Info = styled.span`
 export const AStyled = A.extend`
   display: flex;
   flex: 1;
+  white-space: nowrap;
 
   ${x => (x.disabled ? `opacity: 0.5` : ``)};
 `;
@@ -61,34 +62,29 @@ const Menu = ({
 }) => (
   <nav>
     <Ul>
-      <Li>
-        <AStyled to={routes.profileView(user)}>
-          <FormattedMessage {...messages.profile} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userQuestions(user)}
-          disabled={!questionsLength}
-          tabIndex={!questionsLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.questions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userAnswers(user)}
-          disabled={!questionsWithUserAnswersLength}
-          tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.answers} />
-        </AStyled>
-      </Li>
-      <Li className={loginWithScatter ? 'd-none' : ''}>
-        <AStyled to={routes.userSettings(user)}>
-          <FormattedMessage {...messages.settings} />
-        </AStyled>
-      </Li>
+      <AStyled to={routes.profileView(user)}>
+        <FormattedMessage {...messages.profile} />
+      </AStyled>
+      <AStyled
+        to={routes.userQuestions(user)}
+        disabled={!questionsLength}
+        tabIndex={!questionsLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.questions} />
+      </AStyled>
+      <AStyled
+        to={routes.userAnswers(user)}
+        disabled={!questionsWithUserAnswersLength}
+        tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.answers} />
+      </AStyled>
+      <AStyled
+        to={routes.userSettings(user)}
+        className={loginWithScatter ? 'd-none' : ''}
+      >
+        <FormattedMessage {...messages.settings} />
+      </AStyled>
     </Ul>
 
     <Ul className="d-none">

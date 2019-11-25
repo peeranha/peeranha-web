@@ -8,20 +8,20 @@ const Span = styled.span`
   font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   font-size: ${({ fontSize }) => (fontSize ? Number(fontSize) : '16')}px;
   line-height: ${({ fontSize, lineHeight }) =>
-    fontSize && !lineHeight
-      ? Math.floor(1.2 * Number(fontSize))
-      : lineHeight}px;
+    fontSize && !lineHeight ? fontSize : lineHeight || fontSize}px;
 
   font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
   font-family: ${APP_FONT};
   text-align: left;
 
   @media only screen and (max-width: 576px) {
-    ${({ mobileFS }) =>
+    ${({ mobileFS, mobileLH }) =>
       mobileFS
         ? `
       font-size: ${mobileFS}px !important;
-      line-height: ${Number(mobileFS) * 1.2}px !important;
+      line-height: ${
+        mobileFS && !mobileLH ? mobileFS : mobileLH || mobileFS
+      }px !important;
     `
         : ``};
   }
