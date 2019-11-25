@@ -49,19 +49,19 @@ export function* postQuestionWorker({ val }) {
       chosenTags: val[FORM_TAGS],
     };
 
-    yield call(checkReadinessWorker, {});
-
-    yield call(() => postQuestion(selectedAccount, questionData, eosService));
+    yield call(postQuestion, selectedAccount, questionData, eosService);
 
     yield put(askQuestionSuccess());
 
-    const questionsPostedByUser = yield call(() =>
-      getQuestionsPostedByUser(eosService, selectedAccount),
+    const questionsPostedByUser = yield call(
+      getQuestionsPostedByUser,
+      eosService,
+      selectedAccount,
     );
 
-    yield call(() => createdHistory.push(questionsPostedByUser[0].question_id));
-  } catch (err) {
-    yield put(askQuestionError(err.message));
+    yield call(createdHistory.push, questionsPostedByUser[0].question_id);
+  } catch ({ message }) {
+    yield put(askQuestionError(message));
   }
 }
 

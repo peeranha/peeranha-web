@@ -28,8 +28,6 @@ export function* createCommunityWorker({ community, reset }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
 
-    // yield call(checkReadinessWorker, {});
-
     yield call(createCommunity, eosService, selectedAccount, community);
 
     yield put(createCommunitySuccess());
@@ -37,8 +35,8 @@ export function* createCommunityWorker({ community, reset }) {
     yield call(reset);
 
     yield call(createdHistory.push, routes.communitiesCreatedBanner());
-  } catch (err) {
-    yield put(createCommunityErr(err.message));
+  } catch ({ message }) {
+    yield put(createCommunityErr(message));
   }
 }
 
