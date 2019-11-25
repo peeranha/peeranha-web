@@ -35,8 +35,8 @@ export function* getStatWorker() {
     const stat = yield call(() => getStat(eosService));
 
     yield put(getStatSuccess(stat));
-  } catch (err) {
-    yield put(getStatErr(err.message));
+  } catch ({ message }) {
+    yield put(getStatErr(message));
   }
 }
 
@@ -46,8 +46,8 @@ export function* getCommunitiesWithTagsWorker() {
     const communities = yield call(() => getAllCommunities(eosService));
 
     yield put(getCommunitiesWithTagsSuccess(communities));
-  } catch (err) {
-    yield put(getCommunitiesWithTagsErr(err.message));
+  } catch ({ message }) {
+    yield put(getCommunitiesWithTagsErr(message));
   }
 }
 
@@ -57,8 +57,8 @@ export function* getFaqWorker() {
     const faq = yield call(() => getFAQ(locale));
 
     yield put(getFaqSuccess(faq));
-  } catch (err) {
-    yield put(getFaqErr(err.message));
+  } catch ({ message }) {
+    yield put(getFaqErr(message));
   }
 }
 
@@ -74,8 +74,11 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(() =>
-      getProfileInfo(user, eosService, getFullProfile),
+    const updatedUserInfo = yield call(
+      getProfileInfo,
+      user,
+      eosService,
+      getFullProfile,
     );
 
     if (
@@ -90,8 +93,8 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     yield put(getUserProfileSuccess());
 
     return yield updatedUserInfo;
-  } catch (err) {
-    yield put(getUserProfileErr(err.message));
+  } catch ({ message }) {
+    yield put(getUserProfileErr(message));
   }
 }
 

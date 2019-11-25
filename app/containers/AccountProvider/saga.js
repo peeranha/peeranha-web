@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -105,6 +105,8 @@ export function* getCurrentAccountWorker(initAccount) {
     }
 
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
+
+    yield call(updateUserEnergy, profileInfo);
 
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
