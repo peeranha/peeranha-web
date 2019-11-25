@@ -8,7 +8,7 @@ const Span = styled.span`
   font-weight: ${({ bold }) => (bold ? '600' : 'normal')};
   font-size: ${({ fontSize }) => (fontSize ? Number(fontSize) : '16')}px;
   line-height: ${({ fontSize, lineHeight }) =>
-    fontSize && !lineHeight ? fontSize : lineHeight || fontSize}px;
+    fontSize && !lineHeight ? fontSize : lineHeight || fontSize || 16}px;
 
   font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
   font-family: ${APP_FONT};
@@ -20,7 +20,7 @@ const Span = styled.span`
         ? `
       font-size: ${mobileFS}px !important;
       line-height: ${
-        mobileFS && !mobileLH ? mobileFS : mobileLH || mobileFS
+        mobileFS && !mobileLH ? mobileFS : mobileLH || mobileFS || 16
       }px !important;
     `
         : ``};

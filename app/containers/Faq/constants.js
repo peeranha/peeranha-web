@@ -1,5 +1,9 @@
 const SECTION_ID = 'section_id';
 
+const WHAT_IS_ENERGY = '2.0';
+const HOW_TO_CHARGE = '2.1';
+const VALUE_OF_ACTIONS = '2.2';
+
 const WHAT_IS_COMMUNITY_QUESTION = '3.0';
 const WHO_MANAGES_COMMUNITY_QUESTION = '3.1';
 
@@ -54,4 +58,7 @@ export {
   HOW_IT_WORKS,
   WHERE_TOKENS_COME_FROM,
   VALUE_OF_TOKEN,
+  WHAT_IS_ENERGY,
+  HOW_TO_CHARGE,
+  VALUE_OF_ACTIONS,
 };

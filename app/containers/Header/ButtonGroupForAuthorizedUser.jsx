@@ -5,9 +5,13 @@ import ProfileDropdown from './ProfileDropdown';
 import WalletDropdown from './WalletDropdown';
 import EnergyDropdown from './EnergyDropdown';
 
-const ButtonGroupForAuthorizedUser = ({ profileInfo }) => (
+const ButtonGroupForAuthorizedUser = ({ profileInfo, faqQuestions }) => (
   <React.Fragment>
-    <EnergyDropdown rating={profileInfo.rating} energy={profileInfo.energy} />
+    <EnergyDropdown
+      rating={profileInfo.rating}
+      energy={profileInfo.energy}
+      faqQuestions={faqQuestions}
+    />
     <WalletDropdown user={profileInfo.user} balance={profileInfo.balance} />
     <ProfileDropdown profileInfo={profileInfo} />
   </React.Fragment>
@@ -15,6 +19,7 @@ const ButtonGroupForAuthorizedUser = ({ profileInfo }) => (
 
 ButtonGroupForAuthorizedUser.propTypes = {
   profileInfo: PropTypes.object,
+  faqQuestions: PropTypes.array,
 };
 
 export default React.memo(ButtonGroupForAuthorizedUser);

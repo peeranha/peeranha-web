@@ -142,9 +142,6 @@
   "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
   "app.containers.Faq.freeFeelToAsk":
     "Feel free to ask our team.  We will help to find the answer.",
-  "app.containers.Faq.whatIsEnergy": "What is energy?",
-  "app.containers.Faq.howToChargeMyEnergy": "How to charge my energy?",
-  "app.containers.Faq.valueOfActions": "Value of actions",
 
   "app.containers.Users.title": "Users",
   "app.containers.Users.description": "Users: description",
