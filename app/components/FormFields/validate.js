@@ -1,4 +1,3 @@
-/* eslint no-unused-vars: 0 */
 import messages from './messages';
 
 // TODO: test
@@ -6,22 +5,20 @@ const imageValidation = img =>
   img && img.length > 2000000 ? messages.fileSize : undefined;
 
 // TODO: test
-const stringLength = (min, max) => value =>
-  value && (value.length > max || value.length < min)
+const stringLength = (min, max) => value => {
+  const val = typeof value === 'string' ? value.trim() : '';
+  return val && (val.length > max || val.length < min)
     ? { id: messages.wrongLength.id, min, max }
     : undefined;
+};
 
 // TODO: test
-const stringLengthMin = min => value =>
-  value && value.length < min
-    ? { id: messages.wrongLengthMin.id, min }
-    : undefined;
-
-// TODO: test
-const stringLengthMax = max => value =>
-  value && value.length > max
+const stringLengthMax = max => value => {
+  const val = typeof value === 'string' ? value.trim() : '';
+  return val && val.length > max
     ? { id: messages.wrongLengthMax.id, max }
     : undefined;
+};
 
 /* eslint no-useless-escape: 0 */
 const validateEmail = email => {
@@ -29,7 +26,10 @@ const validateEmail = email => {
   return email && !re.test(email) ? messages.wrongEmail : undefined;
 };
 
-const required = x => (!x ? messages.requiredField : undefined);
+const required = value => {
+  const val = typeof value === 'string' ? value.trim() : '';
+  return !val ? messages.requiredField : undefined;
+};
 
 const requiredForObjectField = x =>
   !x || (x && !x.value) ? messages.requiredField : undefined;
