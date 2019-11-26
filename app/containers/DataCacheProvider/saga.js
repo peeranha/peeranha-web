@@ -5,14 +5,12 @@ import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getFAQ } from 'utils/faqManagement';
-import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectInitLoadedItems } from 'containers/Questions/selectors';
-import { getQuestions } from 'containers/Questions/actions';
 import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import { selectUsers } from './selectors';
 
@@ -101,35 +99,6 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
   } catch ({ message }) {
     yield put(getUserProfileErr(message));
   }
-}
-
-// TODO: test
-export function* updateStoredQuestionsWorker() {
-  const eosService = yield select(selectEos);
-  const initLoadedItems = yield select(selectInitLoadedItems());
-  const offset = 0;
-  const communityIdFilter = 0;
-  const parentPage = null;
-  const fetcher = new FetcherOfQuestionsForFollowedCommunities(
-    Math.floor(1.2 * initLoadedItems),
-    [],
-    eosService,
-  );
-
-  const next = false;
-  const toUpdateQuestions = true;
-
-  yield put(
-    getQuestions(
-      initLoadedItems,
-      offset,
-      communityIdFilter,
-      parentPage,
-      fetcher,
-      next,
-      toUpdateQuestions,
-    ),
-  );
 }
 
 export default function*() {

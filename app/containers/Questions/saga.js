@@ -10,6 +10,7 @@ import {
   getQuestions,
   getQuestionsFilteredByCommunities,
   getQuestionsForFollowedCommunities,
+  FetcherOfQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
@@ -20,7 +21,13 @@ import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_QUESTIONS } from './constants';
 
-import { getQuestionsSuccess, getQuestionsError } from './actions';
+import {
+  getQuestions as getQuestionsAction,
+  getQuestionsSuccess,
+  getQuestionsError,
+} from './actions';
+
+import { selectInitLoadedItems } from './selectors';
 
 const feed = routes.feed();
 
@@ -106,6 +113,35 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
       routes.feed(!isFollowed ? communityIdFilter : ''),
     );
   }
+}
+
+// TODO: test
+export function* updateStoredQuestionsWorker() {
+  const eosService = yield select(selectEos);
+  const initLoadedItems = yield select(selectInitLoadedItems());
+  const offset = 0;
+  const communityIdFilter = 0;
+  const parentPage = null;
+  const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+    Math.floor(1.2 * initLoadedItems),
+    [],
+    eosService,
+  );
+
+  const next = false;
+  const toUpdateQuestions = true;
+
+  yield put(
+    getQuestionsAction(
+      initLoadedItems,
+      offset,
+      communityIdFilter,
+      parentPage,
+      fetcher,
+      next,
+      toUpdateQuestions,
+    ),
+  );
 }
 
 export default function*() {
