@@ -185,6 +185,13 @@ class EosioService {
   sendTransaction = (actor, action, data, account) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
+    /* eslint no-param-reassign: 0 */
+    Object.keys(data).forEach(x => {
+      if (typeof data[x] === 'string') {
+        data[x] = data[x].trim();
+      }
+    });
+
     return this.eosInstance.transaction({
       actions: [
         {

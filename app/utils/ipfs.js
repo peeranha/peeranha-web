@@ -9,7 +9,7 @@ export function getIpfsApi() {
 }
 
 export async function saveText(text) {
-  const buf = Buffer.from(text, 'utf8');
+  const buf = Buffer.from(text.trim(), 'utf8');
   const saveResult = await getIpfsApi().add(buf);
   return saveResult[0].hash;
 }

@@ -27,7 +27,7 @@ const validateEmail = email => {
 };
 
 const required = value => {
-  const val = typeof value === 'string' ? value.trim() : '';
+  const val = typeof value === 'string' ? value.trim() : value;
   return !val ? messages.requiredField : undefined;
 };
 
