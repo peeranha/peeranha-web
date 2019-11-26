@@ -44,6 +44,13 @@ const valueHasNotBeInList = (...args) => {
     : undefined;
 };
 
+const valueHasToBeLessThan = (...args) => {
+  const value = Number(args[0]);
+  const comparedValue = Number(args[2].valueHasToBeLessThan);
+
+  return value > comparedValue ? messages.valueIsMore : undefined;
+};
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
@@ -70,4 +77,5 @@ export {
   strLength20x1000,
   strLength25x30000,
   valueHasNotBeInList,
+  valueHasToBeLessThan,
 };

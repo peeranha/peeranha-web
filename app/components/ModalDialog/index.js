@@ -1,9 +1,4 @@
-/**
- *
- * ModalDialog
- *
- */
-
+/* eslint no-empty: 0, no-unused-expressions: 0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -22,16 +17,15 @@ export class ModalDialog extends React.PureComponent {
     this.el = document.createElement('div');
   }
 
-  /* eslint no-unused-expressions: 0 */
   componentWillReceiveProps(nextProps) {
     if (nextProps.show !== this.props.show) {
       try {
-        nextProps.show
-          ? modalRoot.appendChild(this.el)
-          : modalRoot.removeChild(this.el);
-      } catch (err) {
-        console.log(err);
-      }
+        if (nextProps.show && modalRoot.childElementCount === 0) {
+          modalRoot.appendChild(this.el);
+        } else if (!nextProps.show && modalRoot.childElementCount !== 0) {
+          modalRoot.removeChild(this.el);
+        }
+      } catch (err) {}
     }
   }
 
