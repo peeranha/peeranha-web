@@ -1,14 +1,11 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import {
-  getUserProfileSuccess,
-  getUserProfile,
-} from 'containers/DataCacheProvider/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
@@ -56,7 +53,11 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
+import {
+  getCurrentAccountSuccess,
+  getCurrentAccountError,
+  getCurrentAccountProcessing,
+} from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
 import { makeSelectProfileInfo } from './selectors';
@@ -64,7 +65,7 @@ import { makeSelectProfileInfo } from './selectors';
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
   try {
-    yield put(getUserProfile());
+    yield put(getCurrentAccountProcessing());
 
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
@@ -105,8 +106,6 @@ export function* getCurrentAccountWorker(initAccount) {
     }
 
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
-
-    yield call(updateUserEnergy, profileInfo);
 
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
