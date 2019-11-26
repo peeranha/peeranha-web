@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import uniqBy from 'lodash/uniqBy';
+import orderBy from 'lodash/orderBy';
 
 import {
   GET_QUESTIONS,
@@ -23,18 +24,30 @@ export const initialState = fromJS({
   isLastFetch: false,
 });
 
+// TODO: test
 function questionsReducer(state = initialState, action) {
-  const { type, questionsList, questionsError } = action;
+  const { type, questionsList, questionsError, toUpdateQuestions } = action;
 
   switch (type) {
     case GET_QUESTIONS:
-      return state.set('questionsLoading', true);
+      return state
+        .set('questionsLoading', true)
+        .set(
+          'questionsList',
+          toUpdateQuestions
+            ? initialState.get('questionsList')
+            : state.toJS().questionsList,
+        );
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+          orderBy(
+            uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+            ['id'],
+            ['asc'],
+          ),
         )
         .set(
           'isLastFetch',

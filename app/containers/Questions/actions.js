@@ -24,6 +24,7 @@ export function getQuestions(
   parentPage,
   fetcher,
   next,
+  toUpdateQuestions,
 ) {
   return {
     type: GET_QUESTIONS,
@@ -33,6 +34,7 @@ export function getQuestions(
     parentPage,
     fetcher,
     next,
+    toUpdateQuestions,
   };
 }
 

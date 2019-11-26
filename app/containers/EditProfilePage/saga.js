@@ -10,6 +10,7 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import { isValid } from 'containers/EosioProvider/saga';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import {
   successToastHandlingWithDefaultText,
@@ -43,17 +44,22 @@ export function* saveProfileWorker({ profile, userKey }) {
       profile[AVATAR_FIELD] &&
       profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT
     ) {
-      const { imgHash } = yield call(() => uploadImg(profile[AVATAR_FIELD]));
+      const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
       profile[AVATAR_FIELD] = imgHash;
     }
 
-    yield call(() =>
-      saveProfile(eosService, userKey, profile[AVATAR_FIELD], profile),
+    yield call(
+      saveProfile,
+      eosService,
+      userKey,
+      profile[AVATAR_FIELD],
+      profile,
     );
 
+    yield put(getUserProfileSuccess(profile));
     yield put(saveProfileSuccess());
 
-    yield call(() => createdHistory.push(routes.profileView(userKey)));
+    yield call(createdHistory.push, routes.profileView(userKey));
   } catch ({ message }) {
     yield put(saveProfileErr(message));
   }

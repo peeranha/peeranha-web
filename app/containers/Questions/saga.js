@@ -40,19 +40,18 @@ export function* getQuestionsWorker({
 
     // Load questions filtered for some community
     if (communityIdFilter > 0) {
-      questionsList = yield call(() =>
-        getQuestionsFilteredByCommunities(
-          eosService,
-          limit,
-          offset,
-          communityIdFilter,
-        ),
+      questionsList = yield call(
+        getQuestionsFilteredByCommunities,
+        eosService,
+        limit,
+        offset,
+        communityIdFilter,
       );
     }
 
     // Load all questions
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(() => getQuestions(eosService, limit, offset));
+      questionsList = yield call(getQuestions, eosService, limit, offset);
     }
 
     // Load questions for communities where I am
@@ -62,8 +61,10 @@ export function* getQuestionsWorker({
       followedCommunities &&
       followedCommunities.length > 0
     ) {
-      questionsList = yield call(() =>
-        getQuestionsForFollowedCommunities(limit, fetcher),
+      questionsList = yield call(
+        getQuestionsForFollowedCommunities,
+        limit,
+        fetcher,
       );
     }
 
@@ -82,7 +83,7 @@ export function* getQuestionsWorker({
 
     yield all(
       Array.from(users.keys()).map(function*(user) {
-        const userInfo = yield call(() => getUserProfileWorker({ user }));
+        const userInfo = yield call(getUserProfileWorker, { user });
 
         users.get(user).map(cachedItem => {
           cachedItem.userInfo = userInfo;
@@ -91,8 +92,8 @@ export function* getQuestionsWorker({
     );
 
     yield put(getQuestionsSuccess(questionsList, next));
-  } catch (err) {
-    yield put(getQuestionsError(err.message));
+  } catch ({ message }) {
+    yield put(getQuestionsError(message));
   }
 }
 
@@ -100,8 +101,9 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   yield take(GET_USER_PROFILE_SUCCESS);
 
   if (window.location.pathname.includes(routes.feed())) {
-    yield call(() =>
-      createdHistory.push(routes.feed(!isFollowed ? communityIdFilter : '')),
+    yield call(
+      createdHistory.push,
+      routes.feed(!isFollowed ? communityIdFilter : ''),
     );
   }
 }
