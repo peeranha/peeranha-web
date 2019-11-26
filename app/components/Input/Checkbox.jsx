@@ -67,7 +67,7 @@ const Checkbox = ({ input, label, disabled, meta }) => (
       />
     </div>
 
-    <Label htmlFor={input.name} mobileFS="14">
+    <Label htmlFor={input.name} mobileFS="14" lineHeight="20">
       {label}
     </Label>
   </div>
