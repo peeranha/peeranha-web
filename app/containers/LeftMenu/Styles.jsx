@@ -55,8 +55,8 @@ export const ViewStyled = styled.nav`
   transition: 0.4s;
 
   > div:nth-child(1) {
-    padding-bottom: 20px;
-    margin-bottom: 50px;
+    padding: ${x => (x.isMenuVisible ? '5px 10px' : '0')};
+    margin-bottom: ${x => (x.isMenuVisible ? '0px' : '50px')};
   }
 
   > div {

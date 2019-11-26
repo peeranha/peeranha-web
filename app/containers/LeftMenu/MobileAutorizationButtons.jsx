@@ -13,7 +13,7 @@ export default React.memo(({ profile, isMenuVisible, showLoginModal }) => {
   }
 
   return (
-    <div className="d-flex align-items-center lightbg">
+    <div className="d-flex align-items-center">
       <LargeOutlinedButton onClick={showLoginModal}>
         <FormattedMessage {...messages.login} />
       </LargeOutlinedButton>
