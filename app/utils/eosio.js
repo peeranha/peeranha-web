@@ -182,6 +182,7 @@ class EosioService {
     return account.name;
   };
 
+  // TODO: test
   sendTransaction = (actor, action, data, account) => {
     if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
 
