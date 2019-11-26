@@ -29,12 +29,12 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
   function setLocale(newLocale) {
     localStorage.setItem('locale', newLocale);
 
-    const { pathname } = window.location;
+    const path = window.location.pathname + window.location.hash;
 
     // ReactIntl && Redux Saga conflict => redirect solution
     createdHistory.push(routes.preloaderPage());
     changeLocaleDispatch(newLocale);
-    setTimeout(() => createdHistory.push(pathname), 0);
+    setTimeout(() => createdHistory.push(path), 0);
   }
 
   return (
