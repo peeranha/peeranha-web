@@ -68,8 +68,6 @@ const AStyled = A.extend`
   }
 `;
 
-const communitiesRoute = routes.communities();
-
 const TopCommunities = ({ communities, profile, account, userId }) => {
   if (
     account !== userId ||
@@ -96,7 +94,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
           .map(x => (
             <div key={x.id}>
               <BaseRoundedNoPadding>
-                <AStyled to={communitiesRoute}>
+                <AStyled to={routes.questions(x.id)}>
                   <FrontSide>
                     <div>
                       <MediumImage src={x.avatar} alt="comm_img" />
@@ -157,11 +155,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
 
         {communities.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
-            <A
-              className="d-flex align-items-center"
-              to={routes.communities()}
-              href={routes.communities()}
-            >
+            <A className="d-flex align-items-center" to={routes.communities()}>
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage {...messages.allCommunities} />
