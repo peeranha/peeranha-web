@@ -75,7 +75,8 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
     account !== userId ||
     !communities ||
     !profile ||
-    profile.followed_communities[0]
+    profile.followed_communities.length ||
+    !communities.length
   ) {
     return null;
   }
@@ -90,7 +91,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'questions_asked', 'ask')
+        {orderBy(communities, 'users', 'desc')
           .slice(0, 9)
           .map(x => (
             <div key={x.id}>
