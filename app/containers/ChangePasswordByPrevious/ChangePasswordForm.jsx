@@ -8,11 +8,15 @@ import commonMessages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import { required } from 'components/FormFields/validate';
+import {
+  required,
+  strLength8x100,
+  comparePasswords,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
-import { validatePassword } from 'containers/SignUp/IHaveEOSAccountForm';
 
 import signupMessages from 'containers/SignUp/messages';
 import profileMessages from 'containers/Profile/messages';
@@ -52,6 +56,8 @@ const ChangePasswordForm = ({
         label={translationMessages[locale][profileMessages.newPassword.id]}
         component={TextInputField}
         type="password"
+        validate={[required, strLength8x100, comparePasswords]}
+        warn={[required, strLength8x100, comparePasswords]}
       />
 
       <Field
@@ -60,6 +66,8 @@ const ChangePasswordForm = ({
         label={translationMessages[locale][profileMessages.confirmPassword.id]}
         component={TextInputField}
         type="password"
+        validate={[required, strLength8x100, comparePasswords]}
+        warn={[required, strLength8x100, comparePasswords]}
       />
 
       <Button disabled={changePasswordProcessing} className="w-100">
@@ -84,13 +92,14 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(ChangePasswordForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ () => ({
-    validate: state =>
-      validatePassword(state, [NEW_PASSWORD_FIELD, CONFIRM_PASSWORD_FIELD]),
-    warn: state =>
-      validatePassword(state, [NEW_PASSWORD_FIELD, CONFIRM_PASSWORD_FIELD]),
-  }),
-)(FormClone);
+FormClone = connect(state => {
+  const form = state.toJS().form[formName] || { values: {} };
+
+  return {
+    passwordList: form.values
+      ? [form.values[CONFIRM_PASSWORD_FIELD], form.values[NEW_PASSWORD_FIELD]]
+      : [],
+  };
+})(FormClone);
 
 export default FormClone;

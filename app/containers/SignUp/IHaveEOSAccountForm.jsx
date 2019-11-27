@@ -18,6 +18,7 @@ import {
   required,
   strLength8x100,
   strLength12Max,
+  comparePasswords,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -195,7 +196,8 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.password.id]}
                 component={TextInputField}
                 type="password"
-                autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
               />
             </Div>
             <Div>
@@ -205,7 +207,8 @@ const IHaveEOSAccountForm = ({
                 label={translate[messages.confirmPassword.id]}
                 component={TextInputField}
                 type="password"
-                autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
               />
             </Div>
             <Div className="mb-4">
@@ -265,47 +268,18 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(IHaveEOSAccountForm);
 
-export const validatePassword = (state, fields) => {
-  const passwordField = fields ? fields[0] : PASSWORD_FIELD;
-  const confirmPasswordField = fields ? fields[1] : PASSWORD_CONFIRM_FIELD;
-
-  const password = state.toJS()[passwordField];
-  const passwordConf = state.toJS()[confirmPasswordField];
-
-  const errors = {};
-
-  const passwordError = required(password) || strLength8x100(password);
-
-  const passwordConfirmError =
-    required(passwordConf) || strLength8x100(passwordConf);
-
-  if (passwordError) {
-    errors[passwordField] = passwordError;
-  }
-
-  if (passwordConfirmError) {
-    errors[confirmPasswordField] = passwordConfirmError;
-  }
-
-  if (password && passwordConf && password !== passwordConf) {
-    errors[passwordField] = { id: messages.passwordsDoNotMatch.id };
-    errors[confirmPasswordField] = { id: messages.passwordsDoNotMatch.id };
-  }
-
-  return errors;
-};
-
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {
     storeMyKeysValue: form.values ? form.values[STORE_KEY_FIELD] : false,
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
+    passwordList: form.values
+      ? [form.values[PASSWORD_FIELD], form.values[PASSWORD_CONFIRM_FIELD]]
+      : [],
     initialValues: {
       [STORE_KEY_FIELD]: true,
     },
-    validate: props => validatePassword(props),
-    warn: props => validatePassword(props),
   };
 })(FormClone);
 

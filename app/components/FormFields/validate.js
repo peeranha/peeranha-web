@@ -51,6 +51,15 @@ const valueHasToBeLessThan = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
+const comparePasswords = (...args) => {
+  const value = args[0];
+  const list = args[2].passwordList;
+
+  return list.filter(x => x !== value)[0]
+    ? messages.passwordsNotMatch
+    : undefined;
+};
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
@@ -78,4 +87,5 @@ export {
   strLength25x30000,
   valueHasNotBeInList,
   valueHasToBeLessThan,
+  comparePasswords,
 };
