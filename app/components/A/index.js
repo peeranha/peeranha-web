@@ -17,7 +17,7 @@ const ACss = css`
 
 export const ALinkDisabled = styled(Link)`
   ${ACss};
-  ${x => (x.disabled ? `opacity: 0.5` : ``)};
+  ${x => (x.disabled ? `opacity: 0.6` : ``)};
 `;
 
 export const ADefault = styled.a`

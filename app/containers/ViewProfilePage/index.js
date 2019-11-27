@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import * as routes from 'routes-config';
 
@@ -37,6 +38,8 @@ import {
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
+import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
+
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 
@@ -56,6 +59,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
   locale,
   activeKey,
   ownerKey,
+  redirectToEditProfilePageDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -110,6 +114,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         questionsLoading={questionsLoading}
         questionsWithAnswersLoading={questionsWithAnswersLoading}
         locale={locale}
+        redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
     </Profile>
   );
@@ -128,6 +133,7 @@ ViewProfilePage.propTypes = {
   questionsWithUserAnswers: PropTypes.array,
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
+  redirectToEditProfilePageDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -144,7 +150,14 @@ const mapStateToProps = createStructuredSelector({
   ownerKey: selectOwnerKey(),
 });
 
+const mapDispatchToProps = dispatch => ({
+  redirectToEditProfilePageDispatch: bindActionCreators(
+    redirectToEditProfilePage,
+    dispatch,
+  ),
+});
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(ViewProfilePage);

@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -17,8 +16,6 @@ import Base from 'components/Base';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
-import A from 'components/A';
-import TransparentButton from 'components/Button/Contained/Transparent';
 
 import LargeImage from 'components/Img/LargeImage';
 
@@ -61,30 +58,43 @@ const UlStyled = Ul.extend`
   }
 `;
 
-const MainUserInformation = ({ profile, userId, account }) => (
+const MainUserInformation = ({
+  profile,
+  userId,
+  account,
+  redirectToEditProfilePage,
+}) => (
   <Base className="d-flex align-items-start" position="middle">
     <div className="d-flex justify-content-center">
-      <A to={routes.profileEdit(userId)} disabled={account !== userId}>
+      <button
+        onClick={redirectToEditProfilePage}
+        data-user={userId}
+        disabled={account !== userId}
+      >
         <LargeImage
           className="d-none d-md-block mr-3"
           src={getUserAvatar(profile.ipfs_avatar, userId, account)}
           alt="avatar"
           isBordered
         />
-      </A>
+      </button>
     </div>
 
     <div className="flex-grow-1">
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
-          <A to={routes.profileEdit(userId)} disabled={account !== userId}>
+          <button
+            onClick={redirectToEditProfilePage}
+            data-user={userId}
+            disabled={account !== userId}
+          >
             <LargeImage
               className="d-block d-md-none mr-3"
               src={getUserAvatar(profile.ipfs_avatar, userId, account)}
               alt="avatar"
               isBordered
             />
-          </A>
+          </button>
 
           <div>
             <Span fontSize="38" mobileFS="28" bold>
@@ -98,14 +108,17 @@ const MainUserInformation = ({ profile, userId, account }) => (
         </div>
 
         {userId === account && (
-          <A to={routes.profileEdit(userId)}>
-            <TransparentButton>
-              <img src={pencilIcon} alt="icon" />
-              <span className="d-none d-sm-inline-block ml-2">
-                <FormattedMessage {...commonMessages.edit} />
-              </span>
-            </TransparentButton>
-          </A>
+          <button
+            onClick={redirectToEditProfilePage}
+            className="d-flex align-items-center"
+            id={`redireact-to-edit-${userId}-user-page`}
+            data-user={userId}
+          >
+            <img src={pencilIcon} alt="icon" />
+            <Span className="ml-2" color={TEXT_PRIMARY}>
+              <FormattedMessage {...commonMessages.edit} />
+            </Span>
+          </button>
         )}
       </div>
 
@@ -164,6 +177,7 @@ MainUserInformation.propTypes = {
   profile: PropTypes.object,
   userId: PropTypes.string,
   account: PropTypes.string,
+  redirectToEditProfilePage: PropTypes.func,
 };
 
 export default React.memo(MainUserInformation);

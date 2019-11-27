@@ -9,7 +9,7 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 
-import { isValid } from 'containers/EosioProvider/saga';
+import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
@@ -29,16 +29,11 @@ import {
   MIN_ENERGY_TO_EDIT_PROFILE,
 } from './constants';
 
+// TODO: test
 /* eslint no-param-reassign: 0 */
 export function* saveProfileWorker({ profile, userKey }) {
   try {
     const eosService = yield select(selectEos);
-
-    yield call(isValid, {
-      buttonId: EDIT_PROFILE_BUTTON_ID,
-      minRating: MIN_RATING_TO_EDIT_PROFILE,
-      minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
-    });
 
     // check that it is not hash
     if (
@@ -73,6 +68,26 @@ export function* saveProfileWorker({ profile, userKey }) {
   } catch ({ message }) {
     yield put(saveProfileErr(message));
   }
+}
+
+// TODO: test
+export function* checkReadinessWorker({ buttonId }) {
+  yield call(isAuthorized);
+
+  yield call(isValid, {
+    buttonId: buttonId || EDIT_PROFILE_BUTTON_ID,
+    minRating: MIN_RATING_TO_EDIT_PROFILE,
+    minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
+  });
+}
+
+// TODO: test
+/* eslint no-empty: 0 */
+export function* redirectToEditProfilePageWorker({ buttonId, user }) {
+  try {
+    yield call(checkReadinessWorker, { buttonId });
+    yield call(createdHistory.push, routes.profileEdit(user));
+  } catch (err) {}
 }
 
 export default function*() {

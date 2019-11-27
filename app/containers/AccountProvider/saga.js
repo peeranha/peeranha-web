@@ -46,6 +46,9 @@ import {
 
 import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
 
+import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
+import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
+
 import {
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
@@ -117,6 +120,10 @@ export function* getCurrentAccountWorker(initAccount) {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(
+    REDIRECT_TO_EDIT_PROFILE_PAGE,
+    redirectToEditProfilePageWorker,
+  );
   yield takeLatest(
     REDIRECT_TO_ASK_QUESTION_PAGE,
     redirectToAskQuestionPageWorker,
