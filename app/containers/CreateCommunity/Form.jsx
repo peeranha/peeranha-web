@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
@@ -38,6 +39,7 @@ import {
   strLength20x1000,
   strLength15x100,
   imageValidation,
+  valueHasNotBeInListMoreThanOneTime,
 } from 'components/FormFields/validate';
 
 import messages from './messages';
@@ -184,8 +186,16 @@ const CreateCommunityForm = ({
                   name={TAG_NAME_FIELD}
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
-                  validate={[strLength3x20, required]}
-                  warn={[strLength3x20, required]}
+                  validate={[
+                    strLength3x20,
+                    required,
+                    valueHasNotBeInListMoreThanOneTime,
+                  ]}
+                  warn={[
+                    strLength3x20,
+                    required,
+                    valueHasNotBeInListMoreThanOneTime,
+                  ]}
                   tip={translations[messages.tagTitleTip.id]}
                 />
 
@@ -240,36 +250,9 @@ CreateCommunityForm.propTypes = {
   change: PropTypes.func,
 };
 
-const validateTagsTitles = st => {
-  const state = st.toJS();
-  const errors = {
-    tags: {},
-  };
-
-  if (!state.tags) return errors;
-
-  const tags = Object.keys(state.tags).filter(x => state.tags[x]);
-
-  const notValidTitles = tags.filter(
-    x =>
-      tags
-        .map(z => state.tags[z][TAG_NAME_FIELD])
-        .filter(y => y === state.tags[x][TAG_NAME_FIELD]).length > 1,
-  );
-
-  notValidTitles.forEach(x => {
-    errors.tags[x] = {
-      [TAG_NAME_FIELD]: { id: messages.onlyTagsWithUniqueTitles.id },
-    };
-  });
-
-  return errors;
-};
-
-export default reduxForm({
+/* eslint import/no-mutable-exports: 0, consistent-return: 0 */
+let FormClone = reduxForm({
   form: FORM_NAME,
-  validate: (state, props) => validateTagsTitles(state, props),
-  warn: (state, props) => validateTagsTitles(state, props),
   onSubmitFail: err => {
     const errors = {
       ...err,
@@ -281,3 +264,18 @@ export default reduxForm({
     scrollToErrorField(errors);
   },
 })(CreateCommunityForm);
+
+FormClone = connect(state => {
+  const form = state.toJS().form[FORM_NAME] || { values: {} };
+
+  if (form.values && form.values.tags) {
+    const { tags } = form.values;
+    const tagNames = Object.keys(tags).map(x => tags[x][TAG_NAME_FIELD]);
+
+    return {
+      valueHasNotBeInListValidate: tagNames,
+    };
+  }
+})(FormClone);
+
+export default FormClone;

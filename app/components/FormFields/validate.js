@@ -44,6 +44,17 @@ const valueHasNotBeInList = (...args) => {
     : undefined;
 };
 
+const valueHasNotBeInListMoreThanOneTime = (...args) => {
+  const value = args[0];
+  const list = args[2].valueHasNotBeInListValidate;
+
+  return list &&
+    list.filter(x => x.trim().toLowerCase() === value.trim().toLowerCase())
+      .length > 1
+    ? messages.itemAlreadyExists
+    : undefined;
+};
+
 const valueHasToBeLessThan = (...args) => {
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
@@ -88,4 +99,5 @@ export {
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,
+  valueHasNotBeInListMoreThanOneTime,
 };
