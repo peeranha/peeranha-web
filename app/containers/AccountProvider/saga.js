@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -104,6 +104,8 @@ export function* getCurrentAccountWorker(initAccount) {
     if (prevProfileInfo) {
       profileInfo.profile = prevProfileInfo.profile;
     }
+
+    yield call(updateUserEnergy, profileInfo);
 
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 

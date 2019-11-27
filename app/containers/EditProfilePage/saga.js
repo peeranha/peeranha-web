@@ -7,10 +7,11 @@ import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
-import { AVATAR_FIELD } from 'containers/Profile/constants';
+import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 
 import { isValid } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   successToastHandlingWithDefaultText,
@@ -56,7 +57,16 @@ export function* saveProfileWorker({ profile, userKey }) {
       profile,
     );
 
-    yield put(getUserProfileSuccess(profile));
+    const fullProfileInfo = yield select(makeSelectProfileInfo());
+
+    yield put(
+      getUserProfileSuccess({
+        ...fullProfileInfo,
+        profile,
+        display_name: profile[DISPLAY_NAME_FIELD],
+      }),
+    );
+
     yield put(saveProfileSuccess());
 
     yield call(createdHistory.push, routes.profileView(userKey));
