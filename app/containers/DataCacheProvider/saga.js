@@ -13,6 +13,11 @@ import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
+import {
+  LOGIN_WITH_SCATTER_SUCCESS,
+  LOGIN_WITH_EMAIL,
+} from 'containers/Login/constants';
+
 import { selectUsers } from './selectors';
 
 import {
@@ -126,7 +131,12 @@ export default function*() {
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(
-    [LOGOUT_SUCCESS, SAVE_PROFILE_SUCCESS],
+    [
+      LOGOUT_SUCCESS,
+      LOGIN_WITH_SCATTER_SUCCESS,
+      LOGIN_WITH_EMAIL,
+      SAVE_PROFILE_SUCCESS,
+    ],
     updateStoredQuestionsWorker,
   );
   yield takeEvery(GET_USER_PROFILE_SUCCESS, updateUserEnergyWorker);

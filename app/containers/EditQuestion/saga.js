@@ -15,7 +15,7 @@ import {
   errorToastHandlingWithDefaultText,
 } from 'containers/Toast/saga';
 
-import { isValid } from 'containers/EosioProvider/saga';
+import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
@@ -66,12 +66,6 @@ export function* editQuestionWorker({ question, questionId }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
 
-    yield call(isValid, {
-      buttonId: EDIT_QUESTION_BUTTON,
-      minRating: MIN_RATING_TO_EDIT_QUESTION,
-      minEnergy: MIN_ENERGY_TO_EDIT_QUESTION,
-    });
-
     yield call(editQuestion, selectedAccount, questionId, question, eosService);
 
     if (cachedQuestion) {
@@ -84,6 +78,26 @@ export function* editQuestionWorker({ question, questionId }) {
   } catch ({ message }) {
     yield put(editQuestionErr(message));
   }
+}
+
+// TODO: test
+export function* checkReadinessWorker({ buttonId }) {
+  yield call(isAuthorized);
+
+  yield call(isValid, {
+    buttonId: buttonId || EDIT_QUESTION_BUTTON,
+    minRating: MIN_RATING_TO_EDIT_QUESTION,
+    minEnergy: MIN_ENERGY_TO_EDIT_QUESTION,
+  });
+}
+
+// TODO: test
+/* eslint no-empty: 0 */
+export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
+  try {
+    yield call(checkReadinessWorker, { buttonId });
+    yield call(createdHistory.push, link);
+  } catch (err) {}
 }
 
 export default function*() {

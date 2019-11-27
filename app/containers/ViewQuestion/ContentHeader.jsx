@@ -15,8 +15,6 @@ import Icon from 'components/Icon';
 import Span from 'components/Span';
 import MediumImage from 'components/Img/MediumImage';
 
-import { TransparentLink } from 'components/Button/Contained/Transparent';
-
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button, { SpanStyled } from './Button';
@@ -71,9 +69,13 @@ export const ContentHeader = props => (
         />
 
         <div className="d-flex align-items-center">
-          <TransparentLink
+          <button
             className={!props.isItWrittenByMe ? 'd-none' : ''}
-            to={props.editItem}
+            onClick={props.editItem[0]}
+            data-link={props.editItem[1]}
+            id={`redirect-to-edit-item-${props.answerId}-${props.questionId}-${
+              props.commentId
+            }`}
           >
             <Span
               className="d-flex align-items-start"
@@ -85,7 +87,7 @@ export const ContentHeader = props => (
                 <FormattedMessage {...messages.editButton} />
               </span>
             </Span>
-          </TransparentLink>
+          </button>
 
           <AreYouSure
             submitAction={props.deleteItem}
@@ -145,6 +147,8 @@ ContentHeader.propTypes = {
   deleteItem: PropTypes.func,
   voteToDelete: PropTypes.func,
   answerId: PropTypes.number,
+  questionId: PropTypes.number,
+  commentId: PropTypes.number,
   votingStatus: PropTypes.object,
 };
 

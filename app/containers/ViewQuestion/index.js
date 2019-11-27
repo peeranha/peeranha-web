@@ -23,6 +23,8 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
+import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
 
 import {
   saveComment,
@@ -105,6 +107,8 @@ export class ViewQuestion extends React.Component {
       downVoteDispatch,
       markAsAcceptedDispatch,
       voteToDeleteDispatch,
+      redirectToEditQuestionPageDispatch,
+      redirectToEditAnswerPageDispatch,
     } = this.props;
 
     const translations = translationMessages[locale];
@@ -135,6 +139,8 @@ export class ViewQuestion extends React.Component {
       deleteAnswerLoading,
       deleteCommentLoading,
       voteToDeleteLoading,
+      redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
+      redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
     };
 
     const helmetTitle =
@@ -217,6 +223,8 @@ ViewQuestion.propTypes = {
   deleteAnswerLoading: PropTypes.bool,
   deleteCommentLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
+  redirectToEditQuestionPageDispatch: PropTypes.func,
+  redirectToEditAnswerPageDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -280,6 +288,14 @@ export function mapDispatchToProps(dispatch, props) /* istanbul ignore next */ {
     ),
     getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
     resetStoreDispatch: bindActionCreators(resetStore, dispatch),
+    redirectToEditQuestionPageDispatch: bindActionCreators(
+      redirectToEditQuestionPage,
+      dispatch,
+    ),
+    redirectToEditAnswerPageDispatch: bindActionCreators(
+      redirectToEditAnswerPage,
+      dispatch,
+    ),
   };
 }
 

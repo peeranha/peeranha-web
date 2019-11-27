@@ -29,10 +29,21 @@ import {
   REDIRECT_TO_CREATE_TAG,
 } from 'containers/CreateTag/constants';
 
-import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
-import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
+import {
+  EDIT_ANSWER_SUCCESS,
+  REDIRECT_TO_EDIT_ANSWER_PAGE,
+} from 'containers/EditAnswer/constants';
+
+import {
+  EDIT_QUESTION_SUCCESS,
+  REDIRECT_TO_EDIT_QUESTION_PAGE,
+} from 'containers/EditQuestion/constants';
+
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
+
+import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
+import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 
 import {
   UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
@@ -120,6 +131,14 @@ export function* getCurrentAccountWorker(initAccount) {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(
+    REDIRECT_TO_EDIT_ANSWER_PAGE,
+    redirectToEditAnswerPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_EDIT_QUESTION_PAGE,
+    redirectToEditQuestionPageWorker,
+  );
   yield takeLatest(
     REDIRECT_TO_EDIT_PROFILE_PAGE,
     redirectToEditProfilePageWorker,
