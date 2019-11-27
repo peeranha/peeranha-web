@@ -42,9 +42,10 @@ export function editQuestion(question, questionId) {
   };
 }
 
-export function editQuestionSuccess() {
+export function editQuestionSuccess(questionData) {
   return {
     type: EDIT_QUESTION_SUCCESS,
+    questionData,
   };
 }
 

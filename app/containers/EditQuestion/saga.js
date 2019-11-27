@@ -19,6 +19,7 @@ import { isValid } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
+import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import {
   GET_ASKED_QUESTION,
@@ -63,6 +64,7 @@ export function* editQuestionWorker({ question, questionId }) {
   try {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
+    const cachedQuestion = yield select(selectQuestionData());
 
     yield call(isValid, {
       buttonId: EDIT_QUESTION_BUTTON,
@@ -70,14 +72,17 @@ export function* editQuestionWorker({ question, questionId }) {
       minEnergy: MIN_ENERGY_TO_EDIT_QUESTION,
     });
 
-    yield call(() =>
-      editQuestion(selectedAccount, questionId, question, eosService),
-    );
+    yield call(editQuestion, selectedAccount, questionId, question, eosService);
 
-    yield put(editQuestionSuccess());
-    yield call(() => createdHistory.push(routes.questionView(questionId)));
-  } catch (err) {
-    yield put(editQuestionErr(err));
+    if (cachedQuestion) {
+      cachedQuestion.title = question.title;
+      cachedQuestion.content = question;
+    }
+
+    yield put(editQuestionSuccess({ ...cachedQuestion }));
+    yield call(createdHistory.push, routes.questionView(questionId));
+  } catch ({ message }) {
+    yield put(editQuestionErr(message));
   }
 }
 
@@ -86,4 +91,5 @@ export default function*() {
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
   yield takeLatest(EDIT_QUESTION_SUCCESS, successToastHandlingWithDefaultText);
   yield takeLatest(EDIT_QUESTION_ERROR, errorToastHandlingWithDefaultText);
+  yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);
 }

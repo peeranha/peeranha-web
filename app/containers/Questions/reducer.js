@@ -61,7 +61,11 @@ function questionsReducer(state = initialState, action) {
     case GET_UNIQ_QUESTIONS:
       return state.set(
         'questionsList',
-        uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+        orderBy(
+          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+          ['id'],
+          ['asc'],
+        ).filter(x => !x.isDeleted),
       );
 
     default:
