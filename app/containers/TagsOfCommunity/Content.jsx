@@ -119,7 +119,7 @@ const Content = ({
                 </Span>
               </p>
 
-              <P fontSize="14" color={TEXT_SECONDARY}>
+              <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                 {x.description}
               </P>
 

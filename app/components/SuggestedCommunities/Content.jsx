@@ -13,13 +13,16 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 import P from 'components/P';
 import Icon from 'components/Icon';
 import Base from 'components/Base/BaseRoundedNoPadding';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import InfinityLoader from 'components/InfinityLoader';
 import BlockShadow from 'components/BlockShadow';
 
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
+import { DescriptionBlock } from 'components/ExistingCommunities/Content';
+
+import messages from './messages';
 
 export const DEFAULT_DESCRIPTION_HEIGHT = 70;
 
@@ -41,11 +44,13 @@ export const BaseStyled = Base.extend`
   }
 `;
 
-export const Description = BaseTransparent.extend`
+export const Description = BaseSpecial.extend`
   cursor: pointer;
   word-break: break-all;
 
   ${P} {
+    font-size: 16px;
+    line-height: 19px;
     overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
     max-height: ${x =>
       !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
@@ -74,30 +79,32 @@ const Item = x => {
 
   return (
     <BaseStyled key={x.id}>
-      <BaseTransparent className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
-        <div className="d-flex align-items-center mb-to-sm-2">
+      <BaseSpecial className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
+        <DescriptionBlock className="flex-grow-1 mb-to-sm-2">
           <MediumImageStyled
             className="flex-shrink-0"
             src={x.avatar}
-            alt="voting-community"
+            alt={x.name}
           />
 
           <div>
-            <P fontSize="24" mobileFS="18" bold>
+            <P fontSize="24" lineHeight="31" bold>
               {x.name}
             </P>
-            <P fontSize="14">
+            <P className="d-none d-md-block" fontSize="14" lineHeight="18">
               <FormattedMessage {...commonMessages[x.language]} />
             </P>
-            <P fontSize="14">{x.description}</P>
+            <P fontSize="14" lineHeight="18">
+              {x.description}
+            </P>
           </div>
-        </div>
+        </DescriptionBlock>
 
         <div className="flex-shrink-0">
           <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
           <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
         </div>
-      </BaseTransparent>
+      </BaseSpecial>
 
       <Description
         onClick={() => changeView(!isOpened)}
@@ -105,7 +112,7 @@ const Item = x => {
         isArrowVisible={isArrowVisible}
       >
         <P className="d-flex align-items-center mb-2" bold>
-          <FormattedMessage {...commonMessages.description} />
+          <FormattedMessage {...messages.whyWeeNeedIt} />
           <Icon
             className={!isArrowVisible ? 'd-none' : 'ml-2'}
             icon={arrowDownIcon}

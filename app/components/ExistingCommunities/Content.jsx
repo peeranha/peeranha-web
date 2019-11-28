@@ -23,7 +23,7 @@ import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
-const Base = BaseRoundedNoPadding.extend`
+export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
 
   > :not(:last-child) {
@@ -31,7 +31,7 @@ const Base = BaseRoundedNoPadding.extend`
   }
 `;
 
-const DescriptionBlock = styled.div`
+export const DescriptionBlock = styled.div`
   display: flex;
   align-items: start;
   flex-shrink: 0;
@@ -47,7 +47,7 @@ const DescriptionBlock = styled.div`
   }
 `;
 
-const InfoBlock = styled.div`
+export const InfoBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
