@@ -78,8 +78,6 @@ const CreateCommunityForm = ({
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
   const removeTag = e => {
-    if (tags.length === 5) return;
-
     const { key } = e.currentTarget.dataset;
     const index = tags.findIndex(x => x === +key);
 
@@ -270,7 +268,9 @@ FormClone = connect(state => {
 
   if (form.values && form.values.tags) {
     const { tags } = form.values;
-    const tagNames = Object.keys(tags).map(x => tags[x][TAG_NAME_FIELD]);
+    const tagNames = Object.keys(tags)
+      .filter(x => tags[x])
+      .map(x => tags[x][TAG_NAME_FIELD]);
 
     return {
       valueHasNotBeInListValidate: tagNames,
