@@ -124,6 +124,7 @@ const List = ({ communities }) => {
                 <P
                   className="text-lowercase"
                   fontSize="14"
+                  lineHeight="18"
                   color={TEXT_SECONDARY}
                 >
                   <span>{`${x.tags.length} `}</span>

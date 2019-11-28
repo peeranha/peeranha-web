@@ -56,6 +56,7 @@ const TagsList = ({
               className="d-none d-sm-inline-block"
               color={TEXT_SECONDARY}
               fontSize="14"
+              lineHeight="18"
             >
               {`${x.questions_asked}`}
             </Span>
