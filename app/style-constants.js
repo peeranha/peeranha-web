@@ -17,6 +17,7 @@ const blueRGB = `118, 153, 255`;
 const darkBlueRGB = `80, 101, 165`;
 const pinkRGB = `252, 102, 85`;
 const graySpecialRGB = `40, 40, 40`;
+const transparentSpecialRGB = `255, 255, 255`;
 
 const graySpecial = `rgba(${graySpecialRGB}, 0.5)`;
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
@@ -30,6 +31,7 @@ export const SECONDARY_SPECIAL = graySpecial;
 export const SECONDARY_SPECIAL_2 = graySpecial2;
 export const SECONDARY_SPECIAL_3 = graySpecial3;
 export const PRIMARY_SPECIAL = primarySpecial;
+export const TRANSPARENT_SPECIAL = transparentSpecialRGB;
 
 export const TEXT_LIGHT = white;
 export const TEXT_DARK = black;

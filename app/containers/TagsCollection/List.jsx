@@ -52,13 +52,13 @@ const Base = BaseRoundedNoPadding.extend`
       flex-wrap: wrap;
 
       > *:nth-child(1) {
-        flex: 0 0 300px;
-        max-width: 300px;
+        flex: 0 0 320px;
+        max-width: 320px;
       }
 
       > *:nth-child(2) {
-        flex: 0 0 calc(100% - 300px);
-        max-width: calc(100% - 300px);
+        flex: 0 0 calc(100% - 320px);
+        max-width: calc(100% - 320px);
       }
 
       @media only screen and (max-width: 576px) {
