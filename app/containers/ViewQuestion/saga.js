@@ -74,6 +74,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
+  SAVE_COMMENT_BUTTON,
 } from './constants';
 
 import {
@@ -113,6 +114,7 @@ import {
   downVoteValidator,
   voteToDeleteValidator,
   deleteCommentValidator,
+  editCommentValidator,
 } from './validate';
 
 export function* getQuestionData({
@@ -243,6 +245,7 @@ export function* getParams() {
   };
 }
 
+// TODO: test (with validation)
 export function* saveCommentWorker({
   questionId,
   answerId,
@@ -251,17 +254,25 @@ export function* saveCommentWorker({
   toggleView,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    yield call(() =>
-      editComment(
-        profileInfo.user,
-        questionId,
-        answerId,
-        commentId,
-        comment,
-        eosService,
-      ),
+    yield call(
+      editCommentValidator,
+      profileInfo,
+      `${SAVE_COMMENT_BUTTON}${answerId}`,
+      translationMessages[locale],
+    );
+
+    yield call(
+      editComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      comment,
+      eosService,
     );
 
     let item;
@@ -279,8 +290,8 @@ export function* saveCommentWorker({
     yield call(toggleView, true);
 
     yield put(saveCommentSuccess({ ...questionData }));
-  } catch (err) {
-    yield put(saveCommentErr(err));
+  } catch ({ message }) {
+    yield put(saveCommentErr(message));
   }
 }
 
