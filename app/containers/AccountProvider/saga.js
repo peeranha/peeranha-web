@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -29,10 +29,21 @@ import {
   REDIRECT_TO_CREATE_TAG,
 } from 'containers/CreateTag/constants';
 
-import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
-import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
+import {
+  EDIT_ANSWER_SUCCESS,
+  REDIRECT_TO_EDIT_ANSWER_PAGE,
+} from 'containers/EditAnswer/constants';
+
+import {
+  EDIT_QUESTION_SUCCESS,
+  REDIRECT_TO_EDIT_QUESTION_PAGE,
+} from 'containers/EditQuestion/constants';
+
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
+
+import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
+import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 
 import {
   UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
@@ -45,6 +56,9 @@ import {
 } from 'containers/VoteForNewTagButton/constants';
 
 import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
+
+import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
+import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
 
 import {
   DELETE_QUESTION_SUCCESS,
@@ -105,6 +119,8 @@ export function* getCurrentAccountWorker(initAccount) {
       profileInfo.profile = prevProfileInfo.profile;
     }
 
+    yield call(updateUserEnergy, profileInfo);
+
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
     yield put(getUserProfileSuccess(profileInfo));
@@ -115,6 +131,18 @@ export function* getCurrentAccountWorker(initAccount) {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(
+    REDIRECT_TO_EDIT_ANSWER_PAGE,
+    redirectToEditAnswerPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_EDIT_QUESTION_PAGE,
+    redirectToEditQuestionPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_EDIT_PROFILE_PAGE,
+    redirectToEditProfilePageWorker,
+  );
   yield takeLatest(
     REDIRECT_TO_ASK_QUESTION_PAGE,
     redirectToAskQuestionPageWorker,

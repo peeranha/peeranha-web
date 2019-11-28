@@ -67,9 +67,10 @@ export function deleteQuestion(questionId, ev) {
   };
 }
 
-export function deleteQuestionSuccess() {
+export function deleteQuestionSuccess(questionData) {
   return {
     type: DELETE_QUESTION_SUCCESS,
+    questionData,
   };
 }
 

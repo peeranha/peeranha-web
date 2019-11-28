@@ -69,6 +69,11 @@ import {
   POST_COMMENT_BUTTON,
   POST_COMMENT_SUCCESS,
   POST_ANSWER_SUCCESS,
+  GET_QUESTION_DATA_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  SAVE_COMMENT_SUCCESS,
 } from './constants';
 
 import {
@@ -357,20 +362,19 @@ export function* deleteQuestionWorker({ questionId, postButtonId }) {
       getParams,
     );
 
-    yield call(() =>
-      deleteQuestionValidator(
-        postButtonId,
-        questionData.answers.length,
-        translationMessages[locale],
-        profileInfo,
-      ),
+    yield call(
+      deleteQuestionValidator,
+      postButtonId,
+      questionData.answers.length,
+      translationMessages[locale],
+      profileInfo,
     );
 
-    yield call(() => deleteQuestion(profileInfo.user, questionId, eosService));
+    yield call(deleteQuestion, profileInfo.user, questionId, eosService);
 
-    yield put(deleteQuestionSuccess());
+    yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }));
 
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(deleteQuestionErr(err));
   }
@@ -778,17 +782,17 @@ export default function*() {
   );
   yield takeEvery(
     [
-      GET_QUESTION_DATA,
-      POST_COMMENT,
-      POST_ANSWER,
-      UP_VOTE,
-      DOWN_VOTE,
-      MARK_AS_ACCEPTED,
-      DELETE_QUESTION,
-      DELETE_ANSWER,
-      DELETE_COMMENT,
-      SAVE_COMMENT,
-      VOTE_TO_DELETE,
+      GET_QUESTION_DATA_SUCCESS,
+      POST_COMMENT_SUCCESS,
+      POST_ANSWER_SUCCESS,
+      UP_VOTE_SUCCESS,
+      DOWN_VOTE_SUCCESS,
+      MARK_AS_ACCEPTED_SUCCESS,
+      DELETE_QUESTION_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
+      DELETE_COMMENT_SUCCESS,
+      SAVE_COMMENT_SUCCESS,
+      VOTE_TO_DELETE_SUCCESS,
     ],
     updateQuestionList,
   );

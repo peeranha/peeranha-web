@@ -12,7 +12,12 @@ import { scrollToErrorField } from 'utils/animation';
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
-import { required } from 'components/FormFields/validate';
+import {
+  required,
+  comparePasswords,
+  strLength8x100,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import TextareaField from 'components/FormFields/TextareaField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
@@ -31,7 +36,7 @@ import {
   I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
-import { Link, Div, validatePassword } from './IHaveEOSAccountForm';
+import { Link, Div } from './IHaveEOSAccountForm';
 
 const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
@@ -96,6 +101,8 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 component={TextInputField}
                 type="password"
                 autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
               />
             </Div>
             <Div>
@@ -106,6 +113,8 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 component={TextInputField}
                 type="password"
                 autoComplete="new-password"
+                validate={[required, strLength8x100, comparePasswords]}
+                warn={[required, strLength8x100, comparePasswords]}
               />
             </Div>
             <Div>
@@ -177,8 +186,9 @@ FormClone = connect(state => {
 
   return {
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
-    validate: props => validatePassword(props),
-    warn: props => validatePassword(props),
+    passwordList: form.values
+      ? [form.values[PASSWORD_FIELD], form.values[PASSWORD_CONFIRM_FIELD]]
+      : [],
   };
 })(FormClone);
 

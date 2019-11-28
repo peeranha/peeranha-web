@@ -89,7 +89,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'users', 'desc')
+        {orderBy(communities, 'users_subscribed', 'desc')
           .slice(0, 9)
           .map(x => (
             <div key={x.id}>

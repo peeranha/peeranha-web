@@ -44,11 +44,31 @@ const valueHasNotBeInList = (...args) => {
     : undefined;
 };
 
+const valueHasNotBeInListMoreThanOneTime = (...args) => {
+  const value = args[0];
+  const list = args[2].valueHasNotBeInListValidate;
+
+  return list &&
+    list.filter(x => x.trim().toLowerCase() === value.trim().toLowerCase())
+      .length > 1
+    ? messages.itemAlreadyExists
+    : undefined;
+};
+
 const valueHasToBeLessThan = (...args) => {
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
 
   return value > comparedValue ? messages.valueIsMore : undefined;
+};
+
+const comparePasswords = (...args) => {
+  const value = args[0];
+  const list = args[2].passwordList;
+
+  return list.filter(x => x !== value)[0]
+    ? messages.passwordsNotMatch
+    : undefined;
 };
 
 const strLength1x5 = stringLength(1, 5);
@@ -78,4 +98,6 @@ export {
   strLength25x30000,
   valueHasNotBeInList,
   valueHasToBeLessThan,
+  comparePasswords,
+  valueHasNotBeInListMoreThanOneTime,
 };

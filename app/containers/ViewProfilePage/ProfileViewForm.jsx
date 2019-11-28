@@ -19,9 +19,15 @@ const ProfileViewForm = ({
   questionsWithAnswersLoading,
   locale,
   className,
+  redirectToEditProfilePage,
 }) => (
   <div className={className}>
-    <MainUserInformation profile={profile} userId={userId} account={account} />
+    <MainUserInformation
+      profile={profile}
+      userId={userId}
+      account={account}
+      redirectToEditProfilePage={redirectToEditProfilePage}
+    />
 
     <AdditionalUserInformation
       profile={profile}
@@ -66,6 +72,7 @@ ProfileViewForm.propTypes = {
   questionsWithAnswersLoading: PropTypes.bool,
   locale: PropTypes.string,
   className: PropTypes.string,
+  redirectToEditProfilePage: PropTypes.func,
 };
 
 export default ProfileViewForm;

@@ -489,6 +489,7 @@
     "Item with such name already exists",
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
+  "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
 
   "app.containers.TagsCollection.title": "Tags collection",
 

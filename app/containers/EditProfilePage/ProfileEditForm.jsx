@@ -144,6 +144,7 @@ let FormClone = reduxForm({
 })(ProfileEditForm);
 
 FormClone = connect((_, props) => ({
+  enableReinitialize: true,
   initialValues: {
     ...props.profile.profile,
     [DISPLAY_NAME_FIELD]: props.profile.display_name,

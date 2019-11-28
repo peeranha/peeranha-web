@@ -497,6 +497,7 @@
     "Элемент с таким именем уже существует",
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
+  "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

@@ -13,7 +13,7 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { selectAnswer } from 'containers/ViewQuestion/selectors';
 
-import { isValid } from 'containers/EosioProvider/saga';
+import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import {
   successToastHandlingWithDefaultText,
@@ -65,23 +65,33 @@ export function* editAnswerWorker({ answer, questionId, answerId }) {
     const eosService = yield select(selectEos);
     const user = yield call(eosService.getSelectedAccount);
 
-    yield call(isValid, {
-      buttonId: EDIT_ANSWER_BUTTON,
-      minRating: MIN_RATING_TO_EDIT_ANSWER,
-      minEnergy: MIN_ENERGY_TO_EDIT_ANSWER,
-    });
-
-    yield call(() =>
-      editAnswer(user, questionId, answerId, answer, eosService),
-    );
+    yield call(editAnswer, user, questionId, answerId, answer, eosService);
 
     yield put(editAnswerSuccess());
-    yield call(() =>
-      createdHistory.push(routes.questionView(questionId, answerId)),
-    );
-  } catch (err) {
-    yield put(editAnswerErr(err));
+    yield call(createdHistory.push, routes.questionView(questionId, answerId));
+  } catch ({ message }) {
+    yield put(editAnswerErr(message));
   }
+}
+
+// TODO: test
+export function* checkReadinessWorker({ buttonId }) {
+  yield call(isAuthorized);
+
+  yield call(isValid, {
+    buttonId: buttonId || EDIT_ANSWER_BUTTON,
+    minRating: MIN_RATING_TO_EDIT_ANSWER,
+    minEnergy: MIN_ENERGY_TO_EDIT_ANSWER,
+  });
+}
+
+// TODO: test
+/* eslint no-empty: 0 */
+export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
+  try {
+    yield call(checkReadinessWorker, { buttonId });
+    yield call(createdHistory.push, link);
+  } catch (err) {}
 }
 
 export default function*() {
