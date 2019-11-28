@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.PureComponent {
   };
 
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV === 'production' && !process.env.NODE_TEST_ENV) {
+    if (process.env.NODE_ENV === 'production' && !process.env.IS_TEST_ENV) {
       createdHistory.push(routes.errorPage());
     } else {
       this.setState({
