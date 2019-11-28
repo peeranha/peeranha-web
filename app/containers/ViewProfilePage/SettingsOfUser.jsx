@@ -12,7 +12,7 @@ import { showPopover } from 'utils/popover';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import SecondaryButton from 'components/Button/Outlined/SecondarySmall';
+import SecondaryButton from 'components/Button/Outlined/SecondaryMedium';
 
 import profileMessages from 'containers/Profile/messages';
 import signupMessages from 'containers/SignUp/messages';

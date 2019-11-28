@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
-import arrowDownIcon from 'images/arrowDown.svg?inline';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import { appLocales } from 'i18n';
 import * as routes from 'routes-config';
@@ -22,7 +22,10 @@ import commonMessages from 'common-messages';
 import { changeLocale } from 'containers/LanguageProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import { Box, Flag, Li } from './Styled';
+import Span from 'components/Span';
+import Dropdown from 'components/Dropdown';
+
+import { Flag, Li } from './Styled';
 
 /* eslint global-require: 0 */
 export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
@@ -38,33 +41,39 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
   }
 
   return (
-    <Box className="dropdown">
-      <button
-        type="button"
-        id="dropdownMenu1"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-        <FormattedMessage {...commonMessages[locale]} />
-        <img className="caret" src={arrowDownIcon} alt="data-icon" />
-      </button>
-
-      <ul className="dropdown-menu p-0" aria-labelledby="dropdownMenu1">
-        {appLocales.map(x => (
-          <Li
-            key={x}
-            role="presentation"
-            onClick={() => setLocale(x)}
-            isBold={x === locale}
+    <Dropdown
+      className="mr-3"
+      button={
+        <React.Fragment>
+          <Span
+            className="d-flex align-items-center mr-1"
+            fontSize="16"
+            lineHeight="20"
+            color={TEXT_SECONDARY}
           >
-            <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-            <FormattedMessage {...commonMessages[x]} />
-          </Li>
-        ))}
-      </ul>
-    </Box>
+            <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
+            <FormattedMessage {...commonMessages[locale]} />
+          </Span>
+        </React.Fragment>
+      }
+      menu={
+        <ul>
+          {appLocales.map(x => (
+            <Li
+              key={x}
+              role="presentation"
+              onClick={() => setLocale(x)}
+              isBold={x === locale}
+            >
+              <Flag src={require(`images/${x}_lang.png`)} alt="language" />
+              <FormattedMessage {...commonMessages[x]} />
+            </Li>
+          ))}
+        </ul>
+      }
+      id="choose-language-dropdown"
+      isArrowed
+    />
   );
 };
 
