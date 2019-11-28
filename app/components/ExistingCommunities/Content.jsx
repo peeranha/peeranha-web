@@ -5,7 +5,11 @@ import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
-import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  TEXT_PRIMARY,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -14,52 +18,72 @@ import commonMessages from 'common-messages';
 
 import P from 'components/P';
 import A from 'components/A';
-import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
 const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
 
-  ${MediumImageStyled} {
-    margin-top: 10px;
-  }
-
   > :not(:last-child) {
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
+`;
 
-  @media only screen and (max-width: 576px) {
-    ${MediumImageStyled} {
-      margin-right: 10px;
-      margin-top: 0px;
-    }
+const DescriptionBlock = styled.div`
+  display: flex;
+  align-items: start;
+  flex-shrink: 0;
+  width: 300px;
 
-    button {
-      min-width: 125px;
-    }
+  ${MediumImageStyled} {
+    margin-top: 6px;
+  }
+
+  > div {
+    word-break: break-word;
+    margin-right: 15px;
+  }
+`;
+
+const InfoBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin-top: 6px;
+
+  button {
+    min-width: 105px;
+    margin-top: 6px;
   }
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
+  align-items: start;
+  padding: 0 10px;
 
   p:nth-child(1) {
-    margin-bottom: 5px;
+    font-size: 16px;
+    line-height: 25px;
     font-weight: 600;
   }
 
-  @media only screen and (max-width: 576px) {
-    &:not(:last-child) {
-      margin-right: 5px;
-      margin-bottom: 10px;
-    }
+  p:nth-child(2) {
+    color: ${TEXT_SECONDARY};
+  }
+
+  a:nth-child(2) {
+    color: ${TEXT_PRIMARY};
+  }
+
+  p:nth-child(2),
+  a:nth-child(2) {
+    font-size: 13px;
+    line-height: 18px;
   }
 `;
 
@@ -71,67 +95,69 @@ const Content = ({ communities, sorting, locale, language }) => {
       {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(x => (
-          <BaseTransparent key={x.value}>
-            <div className="row align-items-center">
-              <div className="col-12 col-md-4 d-flex mb-to-md-2">
-                <div>
-                  <MediumImageStyled src={x.avatar} alt={x.name} />
-                </div>
-                <div>
-                  <P className="mb-1" fontSize="24" mobileFS="18" bold>
-                    {x.name}
-                  </P>
-                  <P className="d-none d-md-block" fontSize="14">
-                    <FormattedMessage {...commonMessages[x.language]} />
-                  </P>
-                  <P fontSize="14">{x.description}</P>
-                </div>
+          <BaseSpecial
+            className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+            key={x.value}
+          >
+            <DescriptionBlock>
+              <MediumImageStyled
+                className="flex-shrink-0"
+                src={x.avatar}
+                alt={x.name}
+              />
+
+              <div>
+                <P fontSize="24" lineHeight="31" bold>
+                  {x.name}
+                </P>
+                <P className="d-none d-md-block" fontSize="14" lineHeight="18">
+                  <FormattedMessage {...commonMessages[x.language]} />
+                </P>
+                <P fontSize="14" lineHeight="18">
+                  {x.description}
+                </P>
               </div>
+            </DescriptionBlock>
 
-              <div className="col-12 col-md-8 d-flex align-items-center justify-content-between flex-wrap">
-                <Info>
-                  <P>{getFormattedNum2(x.users_subscribed)}</P>
-                  <P fontSize="14">
-                    <FormattedMessage {...commonMessages.usersShort} />
-                  </P>
-                </Info>
+            <InfoBlock className="flex-wrap flex-sm-nowrap">
+              <Info>
+                <P>{getFormattedNum2(x.users_subscribed)}</P>
+                <P>
+                  <FormattedMessage {...commonMessages.usersShort} />
+                </P>
+              </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(x.questions_asked)}</P>
-                  <A to={routes.questions(x.id)}>
-                    <Span color={TEXT_PRIMARY} fontSize="14">
-                      <FormattedMessage {...commonMessages.questions} />
-                    </Span>
-                  </A>
-                </Info>
+              <Info>
+                <P>{getFormattedNum2(x.questions_asked)}</P>
+                <A to={routes.questions(x.id)}>
+                  <FormattedMessage {...commonMessages.questions} />
+                </A>
+              </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(x.answers_given)}</P>
-                  <P fontSize="14">
-                    <FormattedMessage {...commonMessages.answers} />
-                  </P>
-                </Info>
+              <Info>
+                <P>{getFormattedNum2(x.answers_given)}</P>
+                <P>
+                  <FormattedMessage {...commonMessages.answers} />
+                </P>
+              </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(x.tags.length)}</P>
-                  <A to={routes.communityTags(x.id)}>
-                    <Span color={TEXT_PRIMARY} fontSize="14">
-                      <FormattedMessage {...commonMessages.tags} />
-                    </Span>
-                  </A>
-                </Info>
+              <Info>
+                <P>{getFormattedNum2(x.tags.length)}</P>
+                <A to={routes.communityTags(x.id)}>
+                  <FormattedMessage {...commonMessages.tags} />
+                </A>
+              </Info>
 
-                <Info>
-                  <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
-                  <P fontSize="14">
-                    <FormattedMessage {...commonMessages.age} />
-                  </P>
-                </Info>
+              <Info>
+                <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
+                <P>
+                  <FormattedMessage {...commonMessages.age} />
+                </P>
+              </Info>
 
-                <FollowCommunityButton communityIdFilter={x.id} />
-              </div>
-            </div>
-          </BaseTransparent>
+              <FollowCommunityButton communityIdFilter={x.id} />
+            </InfoBlock>
+          </BaseSpecial>
         ))}
     </Base>
   );

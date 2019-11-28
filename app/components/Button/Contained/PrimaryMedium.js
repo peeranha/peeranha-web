@@ -1,6 +1,6 @@
 import Primary from './Primary';
 
 export default Primary.extend`
-  padding: 5px 15px;
+  padding: 6px 16px;
   min-width: 92px;
 `;
