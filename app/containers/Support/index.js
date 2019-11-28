@@ -13,7 +13,6 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { scrollToSection } from 'utils/animation';
 
 import reducer from 'containers/HomePage/reducer';
 import saga from 'containers/HomePage/saga';
@@ -31,10 +30,6 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Support extends React.PureComponent {
-  componentDidUpdate() {
-    scrollToSection();
-  }
-
   render() {
     const { locale, sendMessageDispatch, faq, sendMessageLoading } = this.props;
     const translations = translationMessages[locale];

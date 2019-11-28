@@ -1,5 +1,5 @@
 /* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -8,8 +8,6 @@ import createdHistory from 'createdHistory';
 import { BORDER_SECONDARY } from 'style-constants';
 import textBlockStyles from 'text-block-styles';
 import commonMessages from 'common-messages';
-
-import { scrollToSection } from 'utils/animation';
 
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
@@ -183,26 +181,19 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode }) => {
-  // scroll to section / question after component mounting
-  useEffect(() => {
-    scrollToSection();
-  }, []);
-
-  return (
-    <div className="mb-3">
-      {content.blocks.map(x => (
-        <Section
-          {...x}
-          key={x.h2}
-          route={route}
-          getSectionCode={getSectionCode}
-          getQuestionCode={getQuestionCode}
-        />
-      ))}
-    </div>
-  );
-};
+const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
+  <div className="mb-3">
+    {content.blocks.map(x => (
+      <Section
+        {...x}
+        key={x.h2}
+        route={route}
+        getSectionCode={getSectionCode}
+        getQuestionCode={getQuestionCode}
+      />
+    ))}
+  </div>
+);
 
 Question.propTypes = {
   h3: PropTypes.string,

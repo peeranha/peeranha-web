@@ -15,8 +15,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import * as routes from 'routes-config';
 
-import { scrollToSection } from 'utils/animation';
-
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
@@ -60,13 +58,6 @@ export class ViewQuestion extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (
-      nextProps.questionData &&
-      nextProps.questionDataLoading !== this.props.questionDataLoading
-    ) {
-      setTimeout(scrollToSection, 250);
-    }
-
     if (!nextProps.questionDataLoading && !nextProps.questionData) {
       this.props.history.push(routes.notFound());
     }

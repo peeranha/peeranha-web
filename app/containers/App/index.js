@@ -16,6 +16,8 @@ import ReactGA from 'react-ga';
 import { Switch, Route } from 'react-router-dom';
 import * as routes from 'routes-config';
 
+import { ScrollTo } from 'utils/animation';
+
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
 
@@ -70,6 +72,8 @@ export default function App() {
       <Toast />
       <Login />
       <ForgotPassword />
+
+      <ScrollTo />
 
       <Switch>
         <Route exact path={routes.home()}>
