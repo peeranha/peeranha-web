@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { BG_SUCCESS, BG_PRIMARY, BG_LIGHT, TEXT_LIGHT } from 'style-constants';
 
 import okayIcon from 'images/okay.svg?inline';
 
-import Span from 'components/Span';
+import { Icon as AcceptAnswerEdit } from 'components/Input/Checkbox';
+import AcceptAnswerView from 'components/Button/Contained/SuccessSmall';
 
 import messages from './messages';
-import { ButtonStyled } from './BestAnswerMarker';
 
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 export const MarkAsAcceptedIcon = ({
@@ -28,61 +27,29 @@ export const MarkAsAcceptedIcon = ({
     account !== questionFrom
   ) {
     return (
-      <ButtonStyled bg={BG_SUCCESS} className="px-2">
+      <AcceptAnswerView className="mr-2">
         <img className="d-inline-flex mr-2" src={okayIcon} alt="icon" />
-        <Span color={TEXT_LIGHT}>
-          <FormattedMessage {...messages.theBest} />
-        </Span>
-      </ButtonStyled>
+        <FormattedMessage {...messages.theBest} />
+      </AcceptAnswerView>
     );
   }
 
-  // There is accepted answer && I am question's author
-  if (
-    correctAnswerId === answerId &&
-    answerId !== 0 &&
-    account === questionFrom
-  ) {
+  // I am question's author
+  if (answerId !== 0 && account === questionFrom) {
     return (
       <div
-        className="d-inline-flex align-items-center"
+        className="d-inline-flex align-items-center mr-2"
         id={id}
         onClick={markAsAccepted}
         disabled={markAsAcceptedLoading}
-        data-answerid={0}
+        data-answerid={correctAnswerId === answerId ? 0 : answerId}
         data-whowasaccepted={whoWasAccepted}
       >
-        <ButtonStyled bg={BG_PRIMARY} className="mr-2">
-          <img className="d-inline-flex" src={okayIcon} alt="icon" />
-        </ButtonStyled>
-        <Span>
-          <FormattedMessage {...messages.theBestAnswer} />
-        </Span>
-      </div>
-    );
-  }
-
-  // There is no accepted answer && I am question's author
-  if (
-    correctAnswerId !== answerId &&
-    questionFrom === account &&
-    answerId !== 0
-  ) {
-    return (
-      <div
-        className="d-inline-flex align-items-center"
-        id={id}
-        onClick={markAsAccepted}
-        disabled={markAsAcceptedLoading}
-        data-answerid={answerId}
-        data-whowasaccepted={whoWasAccepted}
-      >
-        <ButtonStyled className="mr-2" bg={BG_LIGHT}>
-          <img className="d-inline-flex" src={okayIcon} alt="icon" />
-        </ButtonStyled>
-        <Span>
-          <FormattedMessage {...messages.theBestAnswer} />
-        </Span>
+        <AcceptAnswerEdit
+          className="mr-2"
+          value={correctAnswerId === answerId}
+        />
+        <FormattedMessage {...messages.theBestAnswer} />
       </div>
     );
   }

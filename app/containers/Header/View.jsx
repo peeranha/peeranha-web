@@ -36,9 +36,14 @@ import SearchForm from './SearchForm';
 import { HEADER_ID } from './constants';
 
 export const LoginProfile = React.memo(
-  ({ profileInfo, showLoginModalDispatch }) => {
+  ({ profileInfo, showLoginModalDispatch, faqQuestions }) => {
     if (profileInfo) {
-      return <ButtonGroupForAuthorizedUser profileInfo={profileInfo} />;
+      return (
+        <ButtonGroupForAuthorizedUser
+          faqQuestions={faqQuestions}
+          profileInfo={profileInfo}
+        />
+      );
     }
 
     return (
@@ -73,6 +78,7 @@ const View = ({
   profileInfo,
   showLoginModalDispatch,
   redirectToAskQuestionPage,
+  faqQuestions,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
   const searchFormId = 'q';
@@ -146,6 +152,7 @@ const View = ({
             <LoginProfile
               showLoginModalDispatch={showLoginModalDispatch}
               profileInfo={profileInfo}
+              faqQuestions={faqQuestions}
             />
           </Section>
         </div>
@@ -161,11 +168,13 @@ View.propTypes = {
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
+  faqQuestions: PropTypes.array,
 };
 
 LoginProfile.propTypes = {
   profileInfo: PropTypes.object,
   showLoginModalDispatch: PropTypes.func,
+  faqQuestions: PropTypes.array,
 };
 
 export default injectIntl(React.memo(View));

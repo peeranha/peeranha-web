@@ -68,14 +68,13 @@ const AStyled = A.extend`
   }
 `;
 
-const communitiesRoute = routes.communities();
-
 const TopCommunities = ({ communities, profile, account, userId }) => {
   if (
     account !== userId ||
     !communities ||
     !profile ||
-    profile.followed_communities[0]
+    profile.followed_communities.length ||
+    !communities.length
   ) {
     return null;
   }
@@ -90,12 +89,12 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'questions_asked', 'ask')
+        {orderBy(communities, 'users_subscribed', 'desc')
           .slice(0, 9)
           .map(x => (
             <div key={x.id}>
               <BaseRoundedNoPadding>
-                <AStyled to={communitiesRoute}>
+                <AStyled to={routes.questions(x.id)}>
                   <FrontSide>
                     <div>
                       <MediumImage src={x.avatar} alt="comm_img" />
@@ -156,11 +155,7 @@ const TopCommunities = ({ communities, profile, account, userId }) => {
 
         {communities.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
-            <A
-              className="d-flex align-items-center"
-              to={routes.communities()}
-              href={routes.communities()}
-            >
+            <A className="d-flex align-items-center" to={routes.communities()}>
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage {...messages.allCommunities} />

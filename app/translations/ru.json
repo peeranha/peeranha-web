@@ -145,9 +145,6 @@
   "app.containers.Faq.didntFindAnswer": "Не нашел ответ?",
   "app.containers.Faq.freeFeelToAsk":
     "Спроси нашу команду. Мы поможем найти ответ.",
-  "app.containers.Faq.whatIsEnergy": "Что такое энергия?",
-  "app.containers.Faq.howToChargeMyEnergy": "Как пополнить мою энергию?",
-  "app.containers.Faq.valueOfActions": "Ценность действий",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",
@@ -498,6 +495,9 @@
     "Неверный формат данных. Проверьте содержимое этого поля.",
   "app.components.FormFields.itemAlreadyExists":
     "Элемент с таким именем уже существует",
+  "app.components.FormFields.valueIsMore":
+    "Это значение больше, чем Вы можете себе позволить",
+  "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

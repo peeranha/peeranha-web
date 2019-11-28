@@ -104,6 +104,7 @@ export const postAnswerValidator = (
   }
 };
 
+// TODO: retest
 /* eslint eqeqeq: 0 */
 export const postCommentValidator = (
   profileInfo,
@@ -115,26 +116,28 @@ export const postCommentValidator = (
   const maxCommentsNumber = 200;
 
   const MIN_RATING_FOR_MY_ITEM = 0;
-  const MIN_RATING_FOR_OTHER_ITEMS = 30;
+  const MIN_RATING_FOR_OTHER_ITEMS = 35;
   const MIN_ENERGY = 4;
 
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+  let item = questionData;
+
+  if (+answerId > 0) {
+    item = questionData.answers.find(x => x.id == answerId);
+  }
 
   let message;
 
-  if (questionData.comments.length === maxCommentsNumber) {
+  if (item.comments.length === maxCommentsNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
-    ((questionData.user === profileInfo.user && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)) &&
+    item.user === profileInfo.user &&
     profileInfo.rating < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
-    ((questionData.user !== profileInfo.user && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user !== profileInfo.user)) &&
+    item.user !== profileInfo.user &&
     profileInfo.rating < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${

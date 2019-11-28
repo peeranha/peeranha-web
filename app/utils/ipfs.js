@@ -8,8 +8,25 @@ export function getIpfsApi() {
   });
 }
 
+// TODO: test
 export async function saveText(text) {
-  const buf = Buffer.from(text, 'utf8');
+  let parsedText;
+
+  try {
+    parsedText = JSON.parse(text);
+
+    Object.keys(parsedText).forEach(x => {
+      if (typeof parsedText[x] === 'string') {
+        parsedText[x] = parsedText[x].trim();
+      }
+    });
+
+    parsedText = JSON.stringify(parsedText);
+  } catch (err) {
+    parsedText = text;
+  }
+
+  const buf = Buffer.from(parsedText, 'utf8');
   const saveResult = await getIpfsApi().add(buf);
   return saveResult[0].hash;
 }

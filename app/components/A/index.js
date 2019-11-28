@@ -15,12 +15,15 @@ const ACss = css`
   }
 `;
 
+export const ALinkDisabled = styled(Link)`
+  ${ACss};
+  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+`;
+
 export const ADefault = styled.a`
   ${ACss};
 `;
 
-const ALink = styled(Link)`
+export default styled(Link)`
   ${ACss};
 `;
-
-export default ALink;

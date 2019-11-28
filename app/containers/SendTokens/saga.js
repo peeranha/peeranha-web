@@ -43,12 +43,11 @@ export function* sendTokensWorker({ resetForm, val }) {
 
     // check password for users which logged with email
     if (profile.loginData.email) {
-      const response = yield call(() =>
-        login(
-          profile.loginData.email,
-          password,
-          Boolean(profile.loginData.authToken),
-        ),
+      const response = yield call(
+        login,
+        profile.loginData.email,
+        password,
+        Boolean(profile.loginData.authToken),
       );
 
       if (!response.OK) {
@@ -58,19 +57,17 @@ export function* sendTokensWorker({ resetForm, val }) {
       }
     }
 
-    yield call(() =>
-      sendTokens(eosService, {
-        from: profile.user,
-        to: val[EOS_ACCOUNT_FIELD],
-        quantity: val[AMOUNT_FIELD],
-      }),
-    );
+    yield call(sendTokens, eosService, {
+      from: profile.user,
+      to: val[EOS_ACCOUNT_FIELD],
+      quantity: val[AMOUNT_FIELD],
+    });
 
     yield put(sendTokensSuccess());
     yield put(hideSendTokensModal());
     yield call(resetForm);
-  } catch (err) {
-    yield put(sendTokensErr(err.message));
+  } catch ({ message }) {
+    yield put(sendTokensErr(message));
   }
 }
 

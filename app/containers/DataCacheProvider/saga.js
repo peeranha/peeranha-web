@@ -2,12 +2,21 @@ import { takeLatest, call, put, select, takeEvery } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
 import { getAllCommunities } from 'utils/communityManagement';
-import { getProfileInfo } from 'utils/profileManagement';
+import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getFAQ } from 'utils/faqManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
+import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
+import {
+  LOGIN_WITH_SCATTER_SUCCESS,
+  LOGIN_WITH_EMAIL,
+} from 'containers/Login/constants';
 
 import { selectUsers } from './selectors';
 
@@ -20,6 +29,8 @@ import {
   getStatErr,
   getFaqErr,
   getFaqSuccess,
+  updateUserEnergySuccess,
+  updateUserEnergyErr,
 } from './actions';
 
 import {
@@ -27,38 +38,39 @@ import {
   GET_USER_PROFILE,
   GET_STAT,
   GET_FAQ,
+  GET_USER_PROFILE_SUCCESS,
 } from './constants';
 
 export function* getStatWorker() {
   try {
     const eosService = yield select(selectEos);
-    const stat = yield call(() => getStat(eosService));
+    const stat = yield call(getStat, eosService);
 
     yield put(getStatSuccess(stat));
-  } catch (err) {
-    yield put(getStatErr(err.message));
+  } catch ({ message }) {
+    yield put(getStatErr(message));
   }
 }
 
 export function* getCommunitiesWithTagsWorker() {
   try {
     const eosService = yield select(selectEos);
-    const communities = yield call(() => getAllCommunities(eosService));
+    const communities = yield call(getAllCommunities, eosService);
 
     yield put(getCommunitiesWithTagsSuccess(communities));
-  } catch (err) {
-    yield put(getCommunitiesWithTagsErr(err.message));
+  } catch ({ message }) {
+    yield put(getCommunitiesWithTagsErr(message));
   }
 }
 
 export function* getFaqWorker() {
   try {
     const locale = yield select(makeSelectLocale());
-    const faq = yield call(() => getFAQ(locale));
+    const faq = yield call(getFAQ, locale);
 
     yield put(getFaqSuccess(faq));
-  } catch (err) {
-    yield put(getFaqErr(err.message));
+  } catch ({ message }) {
+    yield put(getFaqErr(message));
   }
 }
 
@@ -74,8 +86,11 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     }
 
     // get userProfile and put to STORE
-    const updatedUserInfo = yield call(() =>
-      getProfileInfo(user, eosService, getFullProfile),
+    const updatedUserInfo = yield call(
+      getProfileInfo,
+      user,
+      eosService,
+      getFullProfile,
     );
 
     if (
@@ -90,8 +105,23 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     yield put(getUserProfileSuccess());
 
     return yield updatedUserInfo;
-  } catch (err) {
-    yield put(getUserProfileErr(err.message));
+  } catch ({ message }) {
+    yield put(getUserProfileErr(message));
+  }
+}
+
+// TODO: test
+export function* updateUserEnergyWorker({ profile }) {
+  try {
+    const account = yield select(makeSelectAccount());
+    const profileInfoCopy = { ...profile };
+
+    if (profile.user === account) {
+      yield call(updateUserEnergy, profileInfoCopy);
+      yield put(updateUserEnergySuccess(profileInfoCopy));
+    }
+  } catch ({ message }) {
+    yield put(updateUserEnergyErr(message));
   }
 }
 
@@ -100,4 +130,14 @@ export default function*() {
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
+  yield takeLatest(
+    [
+      LOGOUT_SUCCESS,
+      LOGIN_WITH_SCATTER_SUCCESS,
+      LOGIN_WITH_EMAIL,
+      SAVE_PROFILE_SUCCESS,
+    ],
+    updateStoredQuestionsWorker,
+  );
+  yield takeEvery(GET_USER_PROFILE_SUCCESS, updateUserEnergyWorker);
 }

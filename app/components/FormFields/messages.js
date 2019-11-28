@@ -25,4 +25,10 @@ export default defineMessages({
   itemAlreadyExists: {
     id: 'app.components.FormFields.itemAlreadyExists',
   },
+  valueIsMore: {
+    id: 'app.components.FormFields.valueIsMore',
+  },
+  passwordsNotMatch: {
+    id: 'app.components.FormFields.passwordsNotMatch',
+  },
 });

@@ -1,14 +1,11 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo } from 'utils/profileManagement';
+import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import {
-  getUserProfileSuccess,
-  getUserProfile,
-} from 'containers/DataCacheProvider/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
@@ -32,10 +29,21 @@ import {
   REDIRECT_TO_CREATE_TAG,
 } from 'containers/CreateTag/constants';
 
-import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
-import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
+import {
+  EDIT_ANSWER_SUCCESS,
+  REDIRECT_TO_EDIT_ANSWER_PAGE,
+} from 'containers/EditAnswer/constants';
+
+import {
+  EDIT_QUESTION_SUCCESS,
+  REDIRECT_TO_EDIT_QUESTION_PAGE,
+} from 'containers/EditQuestion/constants';
+
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
+
+import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
+import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 
 import {
   UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
@@ -49,6 +57,9 @@ import {
 
 import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
 
+import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
+import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
+
 import {
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
@@ -56,7 +67,11 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { getCurrentAccountSuccess, getCurrentAccountError } from './actions';
+import {
+  getCurrentAccountSuccess,
+  getCurrentAccountError,
+  getCurrentAccountProcessing,
+} from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
 import { makeSelectProfileInfo } from './selectors';
@@ -64,7 +79,7 @@ import { makeSelectProfileInfo } from './selectors';
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
   try {
-    yield put(getUserProfile());
+    yield put(getCurrentAccountProcessing());
 
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
@@ -104,6 +119,8 @@ export function* getCurrentAccountWorker(initAccount) {
       profileInfo.profile = prevProfileInfo.profile;
     }
 
+    yield call(updateUserEnergy, profileInfo);
+
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
     yield put(getUserProfileSuccess(profileInfo));
@@ -114,6 +131,18 @@ export function* getCurrentAccountWorker(initAccount) {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(
+    REDIRECT_TO_EDIT_ANSWER_PAGE,
+    redirectToEditAnswerPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_EDIT_QUESTION_PAGE,
+    redirectToEditQuestionPageWorker,
+  );
+  yield takeLatest(
+    REDIRECT_TO_EDIT_PROFILE_PAGE,
+    redirectToEditProfilePageWorker,
+  );
   yield takeLatest(
     REDIRECT_TO_ASK_QUESTION_PAGE,
     redirectToAskQuestionPageWorker,

@@ -18,7 +18,7 @@ import {
   strLength254Max,
   required,
   strLength20x1000,
-  strLength15x100,
+  strLength3x20,
 } from 'components/FormFields/validate';
 
 import homepageMessages from 'containers/HomePage/messages';
@@ -53,8 +53,8 @@ const SendMessageForm = ({
         disabled={sendMessageLoading}
         name={NAME_FIELD}
         component={TextInputField}
-        validate={[strLength15x100, required]}
-        warn={[strLength15x100, required]}
+        validate={[strLength3x20, required]}
+        warn={[strLength3x20, required]}
         label={translations[homepageMessages.yourName.id]}
         tip={translations[homepageMessages.yourNameTip.id]}
         splitInHalf

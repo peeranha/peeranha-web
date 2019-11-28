@@ -1,3 +1,4 @@
+/* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -13,15 +14,13 @@ import logoutIcon from 'images/logout.svg?inline';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import Dropdown from 'components/Dropdown';
-import Li from 'components/Li';
-import Ul from 'components/Ul';
+import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import A from 'components/A';
+import A, { ALinkDisabled } from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
-import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
 
 const Info = styled.span`
   padding: 0 10px;
@@ -30,15 +29,6 @@ const Info = styled.span`
   justify-content: center;
 `;
 
-export const AStyled = A.extend`
-  display: flex;
-  flex: 1;
-
-  ${x => (x.disabled ? `opacity: 0.5` : ``)};
-`;
-
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-static-element-interactions: 0 */
 export const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
     <MediumSpecialImage
@@ -61,101 +51,38 @@ const Menu = ({
 }) => (
   <nav>
     <Ul>
-      <Li>
-        <AStyled to={routes.profileView(user)}>
-          <FormattedMessage {...messages.profile} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userQuestions(user)}
-          disabled={!questionsLength}
-          tabIndex={!questionsLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.questions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userAnswers(user)}
-          disabled={!questionsWithUserAnswersLength}
-          tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.answers} />
-        </AStyled>
-      </Li>
-      <Li className={loginWithScatter ? 'd-none' : ''}>
-        <AStyled to={routes.userSettings(user)}>
-          <FormattedMessage {...messages.settings} />
-        </AStyled>
-      </Li>
-    </Ul>
-
-    <Ul className="d-none">
-      <Li>
-        <AStyled to={routes.feed()}>
-          <FormattedMessage {...messages.myFeed} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.questions()}>
-          <FormattedMessage {...messages.allQuestions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.communities()}>
-          <FormattedMessage {...messages.communities} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.tags()}>
-          <FormattedMessage {...messages.tags} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.users()}>
-          <FormattedMessage {...messages.users} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.faq} />
-        </AStyled>
-      </Li>
-    </Ul>
-
-    <Ul className="d-none">
-      <Li>
-        <AStyled to={routes.home()}>
-          <FormattedMessage {...messages.about} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.support(CONTACTS_ID)}>
-          <FormattedMessage {...messages.contacts} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.support(FORM_ID)}>
-          <FormattedMessage {...messages.support} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.privacyPolicy()}>
-          <FormattedMessage {...messages.privacyPolicy} />
-        </AStyled>
-      </Li>
+      <A to={routes.profileView(user)}>
+        <FormattedMessage {...messages.profile} />
+      </A>
+      <ALinkDisabled
+        to={routes.userQuestions(user)}
+        disabled={!questionsLength}
+        tabIndex={!questionsLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.questions} />
+      </ALinkDisabled>
+      <ALinkDisabled
+        to={routes.userAnswers(user)}
+        disabled={!questionsWithUserAnswersLength}
+        tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.answers} />
+      </ALinkDisabled>
+      <A
+        to={routes.userSettings(user)}
+        className={loginWithScatter ? 'd-none' : ''}
+      >
+        <FormattedMessage {...messages.settings} />
+      </A>
     </Ul>
 
     <Ul>
-      <Li className="d-flex align-items-center">
-        <Logout>
-          <img className="mr-1" src={logoutIcon} alt="icon" />
-          <Span color={TEXT_PRIMARY}>
-            <FormattedMessage {...messages.logout} />
-          </Span>
-        </Logout>
-      </Li>
+      <Logout>
+        <img className="mr-1" src={logoutIcon} alt="icon" />
+        <Span color={TEXT_PRIMARY}>
+          <FormattedMessage {...messages.logout} />
+        </Span>
+      </Logout>
     </Ul>
   </nav>
 );

@@ -1,4 +1,3 @@
-/* eslint no-unused-vars: 0 */
 import messages from './messages';
 
 // TODO: test
@@ -6,22 +5,20 @@ const imageValidation = img =>
   img && img.length > 2000000 ? messages.fileSize : undefined;
 
 // TODO: test
-const stringLength = (min, max) => value =>
-  value && (value.length > max || value.length < min)
+const stringLength = (min, max) => value => {
+  const val = typeof value === 'string' ? value.trim() : '';
+  return val && (val.length > max || val.length < min)
     ? { id: messages.wrongLength.id, min, max }
     : undefined;
+};
 
 // TODO: test
-const stringLengthMin = min => value =>
-  value && value.length < min
-    ? { id: messages.wrongLengthMin.id, min }
-    : undefined;
-
-// TODO: test
-const stringLengthMax = max => value =>
-  value && value.length > max
+const stringLengthMax = max => value => {
+  const val = typeof value === 'string' ? value.trim() : '';
+  return val && val.length > max
     ? { id: messages.wrongLengthMax.id, max }
     : undefined;
+};
 
 /* eslint no-useless-escape: 0 */
 const validateEmail = email => {
@@ -29,7 +26,10 @@ const validateEmail = email => {
   return email && !re.test(email) ? messages.wrongEmail : undefined;
 };
 
-const required = x => (!x ? messages.requiredField : undefined);
+const required = value => {
+  const val = typeof value === 'string' ? value.trim() : value;
+  return !val ? messages.requiredField : undefined;
+};
 
 const requiredForObjectField = x =>
   !x || (x && !x.value) ? messages.requiredField : undefined;
@@ -41,6 +41,33 @@ const valueHasNotBeInList = (...args) => {
   return list &&
     list.find(x => x.trim().toLowerCase() === value.trim().toLowerCase())
     ? messages.itemAlreadyExists
+    : undefined;
+};
+
+const valueHasNotBeInListMoreThanOneTime = (...args) => {
+  const value = args[0];
+  const list = args[2].valueHasNotBeInListValidate;
+
+  return list &&
+    list.filter(x => x.trim().toLowerCase() === value.trim().toLowerCase())
+      .length > 1
+    ? messages.itemAlreadyExists
+    : undefined;
+};
+
+const valueHasToBeLessThan = (...args) => {
+  const value = Number(args[0]);
+  const comparedValue = Number(args[2].valueHasToBeLessThan);
+
+  return value > comparedValue ? messages.valueIsMore : undefined;
+};
+
+const comparePasswords = (...args) => {
+  const value = args[0];
+  const list = args[2].passwordList;
+
+  return list.filter(x => x !== value)[0]
+    ? messages.passwordsNotMatch
     : undefined;
 };
 
@@ -70,4 +97,7 @@ export {
   strLength20x1000,
   strLength25x30000,
   valueHasNotBeInList,
+  valueHasToBeLessThan,
+  comparePasswords,
+  valueHasNotBeInListMoreThanOneTime,
 };

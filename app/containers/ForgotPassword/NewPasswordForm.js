@@ -7,12 +7,16 @@ import PropTypes from 'prop-types';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import { strLength8x100, required } from 'components/FormFields/validate';
+import {
+  strLength8x100,
+  required,
+  comparePasswords,
+} from 'components/FormFields/validate';
+
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import { validatePassword } from 'containers/SignUp/IHaveEOSAccountForm';
 
 import signupMessages from 'containers/SignUp/messages';
 import loginMessages from 'containers/Login/messages';
@@ -58,8 +62,8 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         disabled={changePasswordLoading}
         label={translationMessages[locale][signupMessages.password.id]}
         component={TextInputField}
-        validate={required}
-        warn={required}
+        validate={[required, strLength8x100, comparePasswords]}
+        warn={[required, strLength8x100, comparePasswords]}
         type="password"
       />
 
@@ -68,8 +72,8 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         disabled={changePasswordLoading}
         label={translationMessages[locale][signupMessages.confirmPassword.id]}
         component={TextInputField}
-        validate={[strLength8x100, required]}
-        warn={[strLength8x100, required]}
+        validate={[required, strLength8x100, comparePasswords]}
+        warn={[required, strLength8x100, comparePasswords]}
         type="password"
       />
 
@@ -95,11 +99,14 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(NewPasswordForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ () => ({
-    validate: state => validatePassword(state),
-    warn: state => validatePassword(state),
-  }),
-)(FormClone);
+FormClone = connect(state => {
+  const form = state.toJS().form[formName] || { values: {} };
+
+  return {
+    passwordList: form.values
+      ? [form.values[PASSWORD_FIELD], form.values[NEW_PASSWORD_FIELD]]
+      : [],
+  };
+})(FormClone);
 
 export default FormClone;

@@ -23,7 +23,10 @@ export const Question = props => (
     votingStatus={props.questionData.votingStatus}
     deleteItem={props.deleteQuestion}
     deleteItemLoading={props.deleteQuestionLoading}
-    editItem={routes.questionEdit(props.questionData.id)}
+    editItem={[
+      props.redirectToEditQuestionPage,
+      routes.questionEdit(props.questionData.id),
+    ]}
     saveComment={props.saveComment}
     deleteComment={props.deleteComment}
     buttonParams={{
@@ -41,6 +44,7 @@ Question.propTypes = {
   deleteQuestion: PropTypes.func,
   editQuestion: PropTypes.func,
   saveComment: PropTypes.func,
+  redirectToEditQuestionPage: PropTypes.func,
   deleteComment: PropTypes.func,
   deleteQuestionLoading: PropTypes.bool,
 };

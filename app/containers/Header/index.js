@@ -17,12 +17,16 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-
 import { makeSelectLocation } from 'containers/App/selectors';
-
 import { showLoginModal } from 'containers/Login/actions';
-
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
+import {
+  WHAT_IS_ENERGY,
+  HOW_TO_CHARGE,
+  VALUE_OF_ACTIONS,
+} from 'containers/Faq/constants';
 
 import View from './View';
 import { HEADER_ID } from './constants';
@@ -72,6 +76,7 @@ export class Header extends React.PureComponent {
       showMenu,
       expandLeftMenuNavigation,
       redirectToAskQuestionPageDispatch,
+      faqQuestions,
     } = this.props;
 
     return (
@@ -82,6 +87,7 @@ export class Header extends React.PureComponent {
         showMenu={showMenu}
         expandLeftMenuNavigation={expandLeftMenuNavigation}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+        faqQuestions={faqQuestions}
       />
     );
   }
@@ -94,12 +100,18 @@ Header.propTypes = {
   showMenu: PropTypes.func,
   expandLeftMenuNavigation: PropTypes.func,
   redirectToAskQuestionPageDispatch: PropTypes.func,
+  faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
   profileInfo: makeSelectProfileInfo(),
   location: makeSelectLocation(),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_ENERGY,
+    HOW_TO_CHARGE,
+    VALUE_OF_ACTIONS,
+  ]),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

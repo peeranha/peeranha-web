@@ -18,6 +18,8 @@ import {
   GET_FAQ,
   GET_FAQ_SUCCESS,
   GET_FAQ_ERROR,
+  UPDATE_USER_ENERGY_SUCCESS,
+  UPDATE_USER_ENERGY_ERROR,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -108,5 +110,21 @@ export function getFaqErr(getFaqError) {
   return {
     type: GET_FAQ_ERROR,
     getFaqError,
+  };
+}
+
+// Update energy
+
+export function updateUserEnergySuccess(profile) {
+  return {
+    type: UPDATE_USER_ENERGY_SUCCESS,
+    profile,
+  };
+}
+
+export function updateUserEnergyErr(updateUserEnergyError) {
+  return {
+    type: UPDATE_USER_ENERGY_ERROR,
+    updateUserEnergyError,
   };
 }

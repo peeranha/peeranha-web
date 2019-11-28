@@ -19,14 +19,12 @@ import { getFormattedNum4 } from 'utils/numbers';
 
 import Dropdown from 'components/Dropdown';
 import Icon from 'components/Icon';
-import Li from 'components/Li';
-import Ul from 'components/Ul';
+import A from 'components/A';
+import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import SendTokens from 'containers/SendTokens';
-
-import { AStyled } from './ProfileDropdown';
 
 const ButtonStyled = styled.span`
   display: flex;
@@ -58,8 +56,10 @@ export const Button = ({ balance }) => (
     </IconBG>
 
     <span className="d-flex flex-column text-left">
-      <Span bold>{getFormattedNum4(balance)}</Span>
-      <Span fontSize="14" color={TEXT_SECONDARY}>
+      <Span fontSize="16" bold>
+        {getFormattedNum4(balance)}
+      </Span>
+      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.peers} />
       </Span>
     </span>
@@ -68,16 +68,12 @@ export const Button = ({ balance }) => (
 
 const Menu = ({ user }) => (
   <Ul>
-    <Li>
-      <AStyled to={routes.userWallet(user)}>
-        <FormattedMessage {...messages.wallet} />
-      </AStyled>
-    </Li>
-    <Li>
-      <SendTokens>
-        <FormattedMessage {...messages.sendTokens} />
-      </SendTokens>
-    </Li>
+    <A to={routes.userWallet(user)}>
+      <FormattedMessage {...messages.wallet} />
+    </A>
+    <SendTokens>
+      <FormattedMessage {...messages.sendTokens} />
+    </SendTokens>
   </Ul>
 );
 
