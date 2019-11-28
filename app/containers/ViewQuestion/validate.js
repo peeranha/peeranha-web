@@ -331,7 +331,7 @@ export const editCommentValidator = (
   postButtonId,
   translations,
 ) => {
-  const MIN_ENERGY = 0;
+  const MIN_ENERGY = 1;
 
   let message;
 
