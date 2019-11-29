@@ -52,12 +52,7 @@ const TagsList = ({
           </Tag>
 
           {showPopularity && (
-            <Span
-              className="d-none d-sm-inline-block"
-              color={TEXT_SECONDARY}
-              fontSize="14"
-              lineHeight="18"
-            >
+            <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
               {`${x.questions_asked}`}
             </Span>
           )}
