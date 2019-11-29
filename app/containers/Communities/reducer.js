@@ -31,7 +31,14 @@ function communitiesReducer(state = initialState, action) {
 
   switch (type) {
     case GET_SUGGESTED_COMMUNITIES:
-      return state.set('getSuggestedCommunitiesLoading', true);
+      return state
+        .set('getSuggestedCommunitiesLoading', true)
+        .set(
+          'suggestedCommunities',
+          init
+            ? initialState('suggestedCommunities')
+            : state.toJS().suggestedCommunities,
+        );
     case GET_SUGGESTED_COMMUNITIES_SUCCESS:
       return state
         .set('getSuggestedCommunitiesLoading', false)

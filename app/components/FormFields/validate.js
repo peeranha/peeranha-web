@@ -51,9 +51,8 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list &&
-    list.filter(
-      x => x && x.trim().toLowerCase() === value && value.trim().toLowerCase(),
-    ).length > 1
+    list.filter(x => x && x.trim().toLowerCase() === value.trim().toLowerCase())
+      .length > 1
     ? messages.itemAlreadyExists
     : undefined;
 };
