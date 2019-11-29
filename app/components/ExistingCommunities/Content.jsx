@@ -36,6 +36,7 @@ export const DescriptionBlock = styled.div`
   align-items: start;
   flex-shrink: 0;
   width: 300px;
+  margin-right: 15px;
 
   ${MediumImageStyled} {
     margin-top: 6px;
@@ -43,7 +44,6 @@ export const DescriptionBlock = styled.div`
 
   > div {
     word-break: break-word;
-    margin-right: 15px;
   }
 `;
 

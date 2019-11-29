@@ -36,8 +36,8 @@ const TagListBox = styled.div`
 const TagsBlock = styled.div`
   display: flex;
   align-items: center;
-  flex: 0 0 calc(100% - 300px);
-  max-width: calc(100% - 300px);
+  flex: 0 0 calc(100% - 300px - 15px);
+  max-width: calc(100% - 300px - 15px);
   margin-top: 6px;
 
   @media only screen and (max-width: 768px) {
