@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -44,6 +45,10 @@ export const TagSelector = ({
   splitInHalf,
   options = [],
 }) => {
+  if (input) {
+    input.value = input.value.toJS ? input.value.toJS() : input.value;
+  }
+
   const value = input.value || [];
 
   const [isOpen, toggleOpen] = useState(false);

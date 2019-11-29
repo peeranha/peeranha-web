@@ -83,9 +83,6 @@ export const QuestionForm = ({
   questionid,
   redirectToCreateTagDispatch,
 }) => {
-  change(FORM_COMMUNITY, formValues[FORM_COMMUNITY]);
-  change(FORM_TAGS, formValues[FORM_TAGS]);
-
   const setTags = updatedTags => change(FORM_TAGS, updatedTags);
 
   const communityId = formValues[FORM_COMMUNITY]

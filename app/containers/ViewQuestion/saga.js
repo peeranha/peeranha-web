@@ -754,7 +754,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 }
 
 export function* updateQuestionList({ questionData }) {
-  if (questionData) {
+  if (questionData && questionData.id) {
     yield put(getUniqQuestions([questionData]));
   }
 }
