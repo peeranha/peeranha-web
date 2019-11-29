@@ -306,22 +306,20 @@ export function* deleteCommentWorker({
       getParams,
     );
 
-    yield call(() =>
-      deleteCommentValidator(
-        profileInfo,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      deleteCommentValidator,
+      profileInfo,
+      buttonId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      deleteComment(
-        profileInfo.user,
-        questionId,
-        answerId,
-        commentId,
-        eosService,
-      ),
+    yield call(
+      deleteComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      eosService,
     );
 
     if (+answerId === 0) {
@@ -334,8 +332,8 @@ export function* deleteCommentWorker({
     }
 
     yield put(deleteCommentSuccess({ ...questionData }));
-  } catch (err) {
-    yield put(deleteCommentErr(err));
+  } catch ({ message }) {
+    yield put(deleteCommentErr(message));
   }
 }
 
