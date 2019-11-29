@@ -24,8 +24,9 @@ export const BestAnswerMarker = ({
   if (+answerId === 0) return null;
 
   return (
-    <div className="d-flex mb-3">
+    <div className="d-flex">
       <MarkAsAcceptedIcon
+        className="mb-3"
         id={`${MARK_AS_BUTTON}${answerId}`}
         answerId={answerId}
         questionFrom={questionFrom}
@@ -37,7 +38,7 @@ export const BestAnswerMarker = ({
       />
 
       {isTheLargestRating ? (
-        <CommunityChoiceButton bg={BG_PRIMARY}>
+        <CommunityChoiceButton className="mb-3" bg={BG_PRIMARY}>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </CommunityChoiceButton>

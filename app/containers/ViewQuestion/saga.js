@@ -40,7 +40,6 @@ import {
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
-import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
@@ -185,15 +184,9 @@ export function* getQuestionData({
   }
 
   function* processAnswers() {
-    const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
-
     yield all(
       question.answers.map(function*(x) {
         yield call(addOptions, x);
-
-        x.isTheLargestRating =
-          x.rating === mostRatingAnswer.rating &&
-          x.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
         yield all(
           x.comments.map(function*(y) {

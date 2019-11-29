@@ -70,7 +70,7 @@ export function* editQuestionWorker({ question, questionId }) {
 
     if (cachedQuestion) {
       cachedQuestion.title = question.title;
-      cachedQuestion.content = question;
+      cachedQuestion.content = question.content;
     }
 
     yield put(editQuestionSuccess({ ...cachedQuestion }));

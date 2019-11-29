@@ -45,10 +45,10 @@ export function editAnswer(answer, questionId, answerId) {
   };
 }
 
-export function editAnswerSuccess(answer) {
+export function editAnswerSuccess(questionData) {
   return {
     type: EDIT_ANSWER_SUCCESS,
-    answer,
+    questionData,
   };
 }
 
