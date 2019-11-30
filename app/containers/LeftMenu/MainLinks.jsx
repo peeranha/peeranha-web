@@ -9,6 +9,7 @@ import {
   TEXT_PRIMARY,
   BG_TRANSPARENT,
   PRIMARY_SPECIAL,
+  TEXT_DARK,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -36,6 +37,7 @@ const A1 = A.extend`
     background-color: ${PRIMARY_SPECIAL};
     border-color: ${BORDER_PRIMARY_DARK};
     font-weight: bold;
+    color: ${TEXT_DARK} !important;
 
     ${svgDraw({ color: TEXT_PRIMARY })};
   `

@@ -12,7 +12,7 @@ const Header = ({ userId, account, displayName }) => (
     <H3>
       <FormattedMessage
         {...commonMessages[
-          account && userId !== account ? 'somebodyAsked' : 'youAsked'
+          account && userId === account ? 'youAsked' : 'somebodyAsked'
         ]}
         values={{
           account: displayName,
