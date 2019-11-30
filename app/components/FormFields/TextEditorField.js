@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
@@ -30,7 +30,7 @@ const Div = styled.div`
   }
 
   .editor-toolbar {
-    border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT} !important;
+    border-bottom: 1px solid ${BORDER_SECONDARY} !important;
   }
 
   @media only screen and (max-width: 768px) {
@@ -61,8 +61,8 @@ const Div = styled.div`
 
 const PreviewWrapper = styled.div`
   padding: 10px 0;
-  border-top: 1px dashed ${BORDER_SECONDARY_LIGHT};
-  border-bottom: 1px dashed ${BORDER_SECONDARY_LIGHT};
+  border-top: 1px dashed ${BORDER_SECONDARY};
+  border-bottom: 1px dashed ${BORDER_SECONDARY};
 `;
 
 export const TextEditorField = ({
