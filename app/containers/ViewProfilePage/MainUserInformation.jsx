@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
-import pencilIcon from 'images/pencil.svg?inline';
+import eosIconImage from 'images/eosIcon.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
@@ -23,9 +23,11 @@ import messages from 'containers/Profile/messages';
 
 const UlStyled = Ul.extend`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   border: none;
   padding: 0;
+  overflow-x auto;
+  white-space: nowrap;
 
   li:last-child {
     padding-right: 0;
@@ -36,12 +38,23 @@ const UlStyled = Ul.extend`
     flex-direction: column;
     padding: 15px 45px 15px 0;
 
-    > :nth-child(1) {
-      margin-bottom: 5px;
+    > *:nth-child(1) {
+      font-size: 13px;
+      line-height: 25px;
+      color: ${TEXT_SECONDARY};
     }
 
-    img {
-      margin-right: 5px;
+    > *:nth-child(2) {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: ${TEXT_DARK};
+
+      img {
+        margin-right: 5px;
+        height: 18px;
+      }
     }
 
     @media only screen and (max-width: 768px) {
@@ -58,119 +71,107 @@ const UlStyled = Ul.extend`
   }
 `;
 
+export const Box = Base.extend`
+  > div {
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+
+    > *:nth-child(1) {
+      display: flex;
+      justify-content: flex-start;
+      align-items: start;
+      flex: 0 0 150px;
+
+      @media only screen and (max-width: 576px) {
+        flex: 0 0 90px;
+      }
+    }
+
+    > *:nth-child(2) {
+      flex: 0 0 calc(100% - 150px);
+      max-width: calc(100% - 150px);
+      overflow: hidden;
+
+      @media only screen and (max-width: 576px) {
+        flex: 0 0 calc(100% - 90px);
+        max-width: calc(100% - 90px);
+      }
+    }
+  }
+`;
+
 const MainUserInformation = ({
   profile,
   userId,
   account,
   redirectToEditProfilePage,
 }) => (
-  <Base className="d-flex align-items-start" position="middle">
-    <div className="d-flex justify-content-center">
-      <button
-        onClick={redirectToEditProfilePage}
-        data-user={userId}
-        disabled={account !== userId}
-      >
-        <LargeImage
-          className="d-none d-md-block mr-3"
-          src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-          alt="avatar"
-          isBordered
-        />
-      </button>
-    </div>
+  <Box position="middle">
+    <div>
+      <div>
+        <button
+          onClick={redirectToEditProfilePage}
+          data-user={userId}
+          disabled={account !== userId}
+        >
+          <LargeImage
+            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+            alt="avatar"
+            isBordered
+          />
+        </button>
+      </div>
 
-    <div className="flex-grow-1">
-      <div className="d-flex justify-content-between align-items-center">
+      <div>
         <div className="d-flex align-items-center">
-          <button
-            onClick={redirectToEditProfilePage}
-            data-user={userId}
-            disabled={account !== userId}
-          >
-            <LargeImage
-              className="d-block d-md-none mr-3"
-              src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-              alt="avatar"
-              isBordered
-            />
-          </button>
-
-          <div>
-            <Span fontSize="38" mobileFS="28" bold>
-              {profile.display_name}
-            </Span>
-
-            <span className="d-flex d-sm-none">
-              <RatingStatus rating={profile.rating} size="lg" />
-            </span>
-          </div>
+          <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+            {profile.display_name}
+          </Span>
         </div>
 
-        {userId === account && (
-          <button
-            onClick={redirectToEditProfilePage}
-            className="d-flex align-items-center"
-            id={`redireact-to-edit-${userId}-user-page`}
-            data-user={userId}
-          >
-            <img src={pencilIcon} alt="icon" />
-            <Span className="ml-2" color={TEXT_PRIMARY}>
-              <FormattedMessage {...commonMessages.edit} />
-            </Span>
-          </button>
-        )}
-      </div>
-
-      <div className="d-flex align-items-center">
-        <UlStyled>
-          <li className="d-none d-sm-flex">
-            <Span color={TEXT_SECONDARY} fontSize="13">
+        <div className="d-flex align-items-center">
+          <UlStyled>
+            <li>
               <FormattedMessage {...messages.reputation} />
-            </Span>
-            <RatingStatus rating={profile.rating} size="lg" />
-          </li>
+              <RatingStatus rating={profile.rating} size="lg" />
+            </li>
 
-          <li>
-            <Span color={TEXT_SECONDARY} fontSize="13">
+            <li>
               <FormattedMessage {...commonMessages.questions} />
-            </Span>
-            <Span
-              className="d-flex align-items-center"
-              fontSize="18"
-              margin="sm"
-              bold
-            >
-              <img src={questionRoundedIcon} alt="icon" />
-              <span>{profile.questions_asked}</span>
-            </Span>
-          </li>
+              <span>
+                <img src={questionRoundedIcon} alt="icon" />
+                {profile.questions_asked}
+              </span>
+            </li>
 
-          <li>
-            <Span color={TEXT_SECONDARY} fontSize="13">
+            <li>
               <FormattedMessage {...commonMessages.answers} />
-            </Span>
-            <Span
-              className="d-flex align-items-center"
-              fontSize="18"
-              margin="sm"
-              bold
-            >
-              <img src={answerIcon} alt="icon" />
-              <span>{profile.answers_given}</span>
-            </Span>
-          </li>
+              <span>
+                <img src={answerIcon} alt="icon" />
+                {profile.answers_given}
+              </span>
+            </li>
 
-          <li>
-            <Span color={TEXT_SECONDARY} fontSize="13">
-              <FormattedMessage {...messages.memberSince} />
-              <span>{getFormattedDate(profile.registration_time)}</span>
-            </Span>
-          </li>
-        </UlStyled>
+            <li>
+              <FormattedMessage {...commonMessages.eosAccount} />
+              <span>
+                <img src={eosIconImage} alt="icon" />
+                {account}
+              </span>
+            </li>
+
+            <li>
+              <span>
+                <FormattedMessage {...messages.memberSince} />
+                {getFormattedDate(profile.registration_time)}
+              </span>
+            </li>
+          </UlStyled>
+        </div>
       </div>
     </div>
-  </Base>
+  </Box>
 );
 
 MainUserInformation.propTypes = {

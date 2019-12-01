@@ -6,6 +6,7 @@ export const CELL = 24;
 const Img = styled.img`
   border-radius: ${x => (x.notRounded ? 0 : 50)}%;
   border: ${x => (x.isBordered ? 1 : 0)}px solid ${BORDER_SECONDARY};
+  padding: ${x => (x.isBordered ? '1' : '0')}px;
 
   width: ${x => (x.size ? Math.floor(x.size * CELL) : CELL)}px;
   height: ${x => (x.size ? Math.floor(x.size * CELL) : CELL)}px;

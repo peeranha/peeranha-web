@@ -118,7 +118,7 @@ const QuestionItem = ({
     <Base>
       <p className="mb-1">
         <A to={routes.questionView(id)} href={routes.questionView(id)}>
-          <Span fontSize="24" lineHeight="31" mobileFS="18" mobile="21" bold>
+          <Span fontSize="24" lineHeight="31" mobileFS="18" mobileLH="21" bold>
             {title}
           </Span>
         </A>
