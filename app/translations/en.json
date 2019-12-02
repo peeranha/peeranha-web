@@ -431,7 +431,7 @@
   "app.containers.ViewQuestion.lastEdited": "Last edited",
   "app.containers.ViewQuestion.voteToDelete": "Block",
   "app.containers.ViewQuestion.notEnoughRating":
-    "To complete this action, your rating has to be more than",
+    "To complete this action, your rating has to be at least",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Yon can't complete this action. You blocked it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -449,7 +449,7 @@
   "app.containers.ViewQuestion.creatorCannot":
     "Creator cannot complete this action",
   "app.containers.ViewQuestion.notEnoughEnergy":
-    "To complete this action, your energy has to be more than",
+    "To complete this action, your energy has to be at least",
   "app.containers.ViewQuestion.title": "Question's page",
   "app.containers.ViewQuestion.description": "Question's description",
   "app.containers.ViewQuestion.questionNotExist":

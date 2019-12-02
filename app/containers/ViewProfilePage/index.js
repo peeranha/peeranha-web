@@ -72,6 +72,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         loginData={loginData}
         questionsLength={profile ? profile.questions_asked : 0}
         questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
+        redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
       <QuestionsOfUser

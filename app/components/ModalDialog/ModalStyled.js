@@ -35,11 +35,17 @@ export default styled.div`
     transition: 1s;
     max-height: 95vh;
     overflow: auto;
+  }
 
-    @media only screen and (max-width: 414px) {
-      width: auto;
+  @media only screen and (max-width: 414px) {
+    > div {
+      width: calc(100vw - 30px);
       padding: 20px;
-      margin: 0 10px;
+    }
+
+    > ${IconStyled} {
+      right: 16px;
+      top: -24px;
     }
   }
 `;

@@ -8,7 +8,7 @@ import {
   TEXT_DARK,
   LANDING_FONT,
   TEXT_PRIMARY,
-  SECONDARY_SPECIAL,
+  TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
 import ChangeLocale from 'containers/ChangeLocale';
@@ -54,7 +54,7 @@ const Box = Gradient.extend`
           flex: 1;
           text-align: center;
           cursor: pointer;
-          color: ${SECONDARY_SPECIAL};
+          color: ${TEXT_SECONDARY_LIGHT};
           height: 20px;
           overflow: hidden;
 

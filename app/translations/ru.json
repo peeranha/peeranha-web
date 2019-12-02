@@ -439,7 +439,7 @@
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Блокировать",
   "app.containers.ViewQuestion.notEnoughRating":
-    "Чтобы выполнить это действие, Ваш рейтинг должен быть больше",
+    "Чтобы выполнить это действие, Ваш рейтинг должен быть не меньше",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали заблокировать",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -455,7 +455,7 @@
   "app.containers.ViewQuestion.creatorCannot":
     "Создатель не может совершить это действие",
   "app.containers.ViewQuestion.notEnoughEnergy":
-    "Чтобы выполнить это действие, Ваша энергия должна быть больше",
+    "Чтобы выполнить это действие, Ваша энергия должна быть не меньше",
   "app.containers.ViewQuestion.title": "Страница вопроса",
   "app.containers.ViewQuestion.description": "Содержание вопроса",
   "app.containers.ViewQuestion.questionNotExist":

@@ -25,7 +25,7 @@ import H3 from 'components/H3';
 import {
   imageValidation,
   strLength3x20,
-  strLength25x30000,
+  strLength20x1000,
   required,
 } from 'components/FormFields/validate';
 
@@ -113,8 +113,8 @@ export const ProfileEditForm = ({
         label={intl.formatMessage({ id: messages.aboutLabel.id })}
         tip={intl.formatMessage({ id: messages.companyTip.id })}
         disabled={isProfileSaving}
-        validate={strLength25x30000}
-        warn={strLength25x30000}
+        validate={strLength20x1000}
+        warn={strLength20x1000}
         splitInHalf
       />
 

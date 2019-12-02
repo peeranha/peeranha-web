@@ -1,12 +1,35 @@
+import { useEffect } from 'react';
 import { HEADER_HEIGHT } from 'containers/Header/constants';
+
+export function ScrollTo() /* istanbul ignore next */ {
+  const { pathname, hash } = window.location;
+
+  useEffect(
+    () => {
+      window.scrollTo(0, 0);
+    },
+    [pathname],
+  );
+
+  useEffect(
+    () => {
+      setTimeout(scrollToSection, 250);
+    },
+    [hash],
+  );
+
+  return null;
+}
 
 export function scrollToSection(
   hash = window.location.hash,
 ) /* istanbul ignore next */ {
-  if (hash) {
+  const hsh = window.$(hash);
+
+  if (hsh && hsh.offset()) {
     window.$('html, body').animate(
       {
-        scrollTop: window.$(hash).offset().top - HEADER_HEIGHT,
+        scrollTop: hsh.offset().top - HEADER_HEIGHT,
       },
       250,
     );

@@ -17,6 +17,7 @@ import { DAEMON } from 'utils/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Modal from 'components/ModalDialog';
+import Button from 'components/Button/Contained/TransparentSmall';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -56,13 +57,13 @@ export class ShowActiveKey extends React.PureComponent {
           />
         </Modal>
 
-        <button
+        <Button
           onClick={
             !activeKey ? showActiveKeyModalDispatch : removeActiveKeyDispatch
           }
         >
           {children}
-        </button>
+        </Button>
       </React.Fragment>
     );
   }

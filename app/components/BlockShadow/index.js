@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BG_LIGHT, BG_TRANSPARENT } from 'style-constants';
+import { TRANSPARENT_SPECIAL } from 'style-constants';
 
 export default styled.div`
   position: absolute;
@@ -9,7 +9,7 @@ export default styled.div`
   height: 100%;
   background-image: linear-gradient(
     to ${x => x.toSide || 'bottom'},
-    ${BG_TRANSPARENT} 75%,
-    ${BG_LIGHT}
+    rgba(${TRANSPARENT_SPECIAL}, 0) 75%,
+    rgba(${TRANSPARENT_SPECIAL}, 1) 100%
   );
 `;

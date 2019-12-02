@@ -7,7 +7,7 @@ import WarningMessage from 'components/FormFields/WarningMessage';
 import {
   LANDING_FONT,
   BORDER_WARNING_LIGHT,
-  BORDER_SECONDARY_LIGHT,
+  BORDER_SECONDARY,
   TEXT_SECONDARY_LIGHT,
   BORDER_DARK,
 } from 'style-constants';
@@ -41,7 +41,7 @@ const Label = styled.div`
 const Input = styled.input`
   border: none;
   outline: none;
-  border-bottom: 2px solid ${BORDER_SECONDARY_LIGHT};
+  border-bottom: 1px solid ${BORDER_SECONDARY};
   padding: 5px ${PADDING}px !important;
   transition: 0.5s;
   height: ${HEIGHT}px;

@@ -13,8 +13,6 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { scrollToSection } from 'utils/animation';
-
 import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -66,8 +64,6 @@ export class HomePage extends React.PureComponent {
     this.headerAnimation();
 
     this.parallaxAnimation();
-
-    scrollToSection();
   }
 
   componentWillUnmount() {

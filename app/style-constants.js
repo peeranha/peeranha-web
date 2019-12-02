@@ -17,19 +17,20 @@ const blueRGB = `118, 153, 255`;
 const darkBlueRGB = `80, 101, 165`;
 const pinkRGB = `252, 102, 85`;
 const graySpecialRGB = `40, 40, 40`;
+const transparentSpecialRGB = `255, 255, 255`;
 
-const graySpecial = `rgba(${graySpecialRGB}, 0.5)`;
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
 const graySpecial3 = 'rgba(250, 250, 250, 1)';
 const primarySpecial = 'rgba(53, 74, 137, 0.11)';
+const secondarySpecial = '#c2c6d8';
 
 export const LANDING_FONT = 'Open Sans, sans-serif';
 export const APP_FONT = 'Source Sans Pro, sans-serif';
 
-export const SECONDARY_SPECIAL = graySpecial;
 export const SECONDARY_SPECIAL_2 = graySpecial2;
 export const SECONDARY_SPECIAL_3 = graySpecial3;
 export const PRIMARY_SPECIAL = primarySpecial;
+export const TRANSPARENT_SPECIAL = transparentSpecialRGB;
 
 export const TEXT_LIGHT = white;
 export const TEXT_DARK = black;
@@ -41,9 +42,7 @@ export const TEXT_WARNING_LIGHT = pink;
 export const TEXT_PRIMARY_DARK = darkblue;
 export const TEXT_PRIMARY = blue;
 
-export const BORDER_SECONDARY_DARK = darkgray;
-export const BORDER_SECONDARY = gray;
-export const BORDER_SECONDARY_LIGHT = lightgray;
+export const BORDER_SECONDARY = secondarySpecial;
 export const BORDER_PRIMARY_DARK = darkblue;
 export const BORDER_PRIMARY = blue;
 export const BORDER_PRIMARY_RGB = blueRGB;

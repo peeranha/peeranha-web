@@ -18,6 +18,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
+import Button from 'components/Button/Contained/TransparentSmall';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -76,13 +77,13 @@ export class ShowOwnerKey extends React.PureComponent {
           )}
         </Modal>
 
-        <button
+        <Button
           onClick={
             !ownerKey ? showOwnerKeyModalDispatch : removeOwnerKeyDispatch
           }
         >
           {children}
-        </button>
+        </Button>
       </React.Fragment>
     );
   }

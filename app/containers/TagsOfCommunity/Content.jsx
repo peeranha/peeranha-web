@@ -31,10 +31,11 @@ const Item = styled.div`
   position: relative;
   min-height: 110px;
   max-height: 110px;
-  padding: 2px 15px;
   overflow: hidden;
   word-break: break-word;
   transition: 0.15s;
+  margin-right: ${x => (!x.isInputBox ? '-17px' : '0')};
+  padding: ${x => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
     background: none;
@@ -64,7 +65,6 @@ const Base = BaseRounded.extend`
     ${Item} {
       max-height: 200px;
       overflow-y: auto;
-      margin-right: -17px;
     }
 
     ${BlockShadow} {
@@ -119,7 +119,7 @@ const Content = ({
                 </Span>
               </p>
 
-              <P fontSize="14" color={TEXT_SECONDARY}>
+              <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
                 {x.description}
               </P>
 

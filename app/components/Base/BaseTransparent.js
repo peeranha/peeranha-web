@@ -1,6 +1,7 @@
+import { css } from 'styled-components';
 import Base from './index';
 
-export default Base.extend`
+export const S = css`
   background: none;
   box-shadow: none;
   border: none;
@@ -8,4 +9,13 @@ export default Base.extend`
   :hover {
     box-shadow: none;
   }
+`;
+
+export const BaseSpecial = Base.extend`
+  ${S};
+  padding: 15px 30px;
+`;
+
+export default Base.extend`
+  ${S};
 `;

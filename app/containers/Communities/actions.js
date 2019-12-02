@@ -10,9 +10,10 @@ import {
   GET_SUGGESTED_COMMUNITIES_ERROR,
 } from './constants';
 
-export function getSuggestedCommunities() {
+export function getSuggestedCommunities(init) {
   return {
     type: GET_SUGGESTED_COMMUNITIES,
+    init,
   };
 }
 

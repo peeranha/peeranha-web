@@ -43,7 +43,7 @@ injectGlobal`
   }
 
   .container {
-    max-width: 1320px;
+    max-width: 1360px;
 
     &.container-mobile {
       @media only screen and (max-width: 576px) {

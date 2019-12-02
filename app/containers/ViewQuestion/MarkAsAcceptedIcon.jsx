@@ -19,6 +19,7 @@ export const MarkAsAcceptedIcon = ({
   markAsAccepted,
   markAsAcceptedLoading,
   whoWasAccepted,
+  className,
 }) => {
   // There is accepted answer && I am not question's author
   if (
@@ -27,7 +28,7 @@ export const MarkAsAcceptedIcon = ({
     account !== questionFrom
   ) {
     return (
-      <AcceptAnswerView className="mr-2">
+      <AcceptAnswerView className={`mr-2 ${className}`}>
         <img className="d-inline-flex mr-2" src={okayIcon} alt="icon" />
         <FormattedMessage {...messages.theBest} />
       </AcceptAnswerView>
@@ -38,7 +39,7 @@ export const MarkAsAcceptedIcon = ({
   if (answerId !== 0 && account === questionFrom) {
     return (
       <div
-        className="d-inline-flex align-items-center mr-2"
+        className={`d-inline-flex align-items-center mr-2 ${className}`}
         id={id}
         onClick={markAsAccepted}
         disabled={markAsAcceptedLoading}
@@ -66,6 +67,7 @@ MarkAsAcceptedIcon.propTypes = {
   id: PropTypes.string,
   markAsAccepted: PropTypes.func,
   whoWasAccepted: PropTypes.string,
+  className: PropTypes.string,
   markAsAcceptedLoading: PropTypes.bool,
 };
 

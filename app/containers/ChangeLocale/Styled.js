@@ -1,52 +1,5 @@
 import styled from 'styled-components';
-
-import {
-  LANDING_FONT,
-  TEXT_DARK,
-  TEXT_PRIMARY,
-  BORDER_SECONDARY,
-  BG_SECONDARY_LIGHT,
-} from 'style-constants';
-
-const Box = styled.div`
-  button {
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    align-items: center;
-
-    .locale {
-      color: ${TEXT_DARK};
-      font-size: 16px;
-      padding: 0 5px;
-      letter-spacing: -0.6px;
-      vertical-align: 1px;
-    }
-
-    .caret {
-      display: inline-block;
-      transition: 0.5s;
-      transform: scale(0.5) rotate(180deg);
-      margin-left: 5px;
-    }
-
-    :hover .locale {
-      color: ${TEXT_PRIMARY};
-    }
-  }
-
-  button[aria-expanded='true'] .caret {
-    transform: scale(0.5) rotate(180deg);
-  }
-
-  button[aria-expanded='false'] .caret {
-    transform: scale(0.5) rotate(0deg);
-  }
-
-  ul {
-    box-shadow: -2px 2px 5px ${BORDER_SECONDARY};
-  }
-`;
+import { LANDING_FONT, BG_SECONDARY_LIGHT } from 'style-constants';
 
 const Flag = styled.img`
   margin-right: 8px;
@@ -69,4 +22,4 @@ const Li = styled.li`
   }
 `;
 
-export { Box, Flag, Li };
+export { Flag, Li };

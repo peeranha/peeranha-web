@@ -324,3 +324,23 @@ export const deleteCommentValidator = (
     throw new Error(message);
   }
 };
+
+// TODO: test
+export const editCommentValidator = (
+  profileInfo,
+  postButtonId,
+  translations,
+) => {
+  const MIN_ENERGY = 1;
+
+  let message;
+
+  if (profileInfo.energy < MIN_ENERGY) {
+    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+  }
+
+  if (message) {
+    showPopover(postButtonId, message);
+    throw new Error(message);
+  }
+};
