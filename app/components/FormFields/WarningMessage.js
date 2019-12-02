@@ -6,25 +6,22 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 
-import Span from 'components/Span';
-
 export const Div = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
   position: relative;
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic;
+  color: ${TEXT_SECONDARY};
 
   > div {
     display: flex;
     align-items: center;
-    position: absolute;
-  }
 
-  @media only screen and (max-width: 768px) {
-    height: auto;
-    > div {
-      position: relative;
-      display: block;
+    img {
+      margin-right: 12px;
     }
   }
 `;
@@ -44,24 +41,22 @@ export const WarningMessage = ({
       <div>
         {tip && (
           <img
-            className="d-none d-xl-inline mr-2"
+            className="d-none d-xl-inline"
             src={validationArrowIcon}
             alt="icon"
           />
         )}
 
-        <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12" isItalic>
-          {(err && (
-            <FormattedMessage
-              id={err.id}
-              values={{
-                min: err.min,
-                max: err.max,
-              }}
-            />
-          )) ||
-            tip}
-        </Span>
+        {(err && (
+          <FormattedMessage
+            id={err.id}
+            values={{
+              min: err.min,
+              max: err.max,
+            }}
+          />
+        )) ||
+          tip}
       </div>
     </Div>
   ) : null;

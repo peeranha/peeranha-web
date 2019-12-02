@@ -120,6 +120,7 @@ const CreateCommunityForm = ({
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
           tip={translations[messages.communityTitleTip.id]}
+          splitInHalf
         />
 
         <Field
@@ -132,6 +133,7 @@ const CreateCommunityForm = ({
           component={SelectField}
           validate={[required]}
           warn={[required]}
+          splitInHalf
         />
 
         <Field
@@ -142,6 +144,7 @@ const CreateCommunityForm = ({
           validate={[strLength15x100, required]}
           warn={[strLength15x100, required]}
           tip={translations[messages.shortDescriptionTip.id]}
+          splitInHalf
         />
 
         <Field
@@ -152,10 +155,11 @@ const CreateCommunityForm = ({
           validate={[strLength20x1000, required]}
           warn={[strLength20x1000, required]}
           tip={translations[messages.whyWeNeedItTip.id]}
+          splitInHalf
         />
 
         <div>
-          <Wrapper label={translations[messages.tags.id]} tip>
+          <Wrapper label={translations[messages.tags.id]} splitInHalf>
             <FormattedMessage
               {...messages.tagsAreNeeded}
               values={{ max: MAX_TAGS_NUMBER, min: MIN_TAGS_NUMBER }}
@@ -195,6 +199,7 @@ const CreateCommunityForm = ({
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   tip={translations[messages.tagTitleTip.id]}
+                  splitInHalf
                 />
 
                 <Field
@@ -205,6 +210,7 @@ const CreateCommunityForm = ({
                   validate={[strLength20x1000, required]}
                   warn={[strLength20x1000, required]}
                   tip={translations[messages.tagDescriptionTip.id]}
+                  splitInHalf
                 />
               </FormSection>
             ))}

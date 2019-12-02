@@ -1,6 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="4" height="38" viewBox="0 0 4 38">
-    <g fill="#bdbdbd" fill-rule="nonzero" stroke="#bdbdbd">
-        <path d="M4 15.968l-2.573 2.555L4 21.115v.495l-.464.461-3.524-3.548L3.56 15l.44.443v.525z"/>
-        <path d="M3 0h1v16H3zM3 21.2h1v16H3z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="38px" viewBox="0 0 4 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>CE0FABE9-7433-4F5F-B589-353B19ADD8DD</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Peerania_LK_ProfileEdit_01" transform="translate(-802.000000, -307.000000)" fill="#D8D8D8" fill-rule="nonzero">
+            <g id="Hint-arrow" transform="translate(802.000000, 307.000000)">
+                <g>
+                    <path d="M4,15.9676295 L1.42655488,18.523171 L4,21.1146452 L4,21.6097686 L3.53551237,22.0710247 L0.0123413164,18.523171 L3.560195,15 L4,15.4428862 L4,15.9676295 Z" id="Combined-Shape"></path>
+                    <rect id="Rectangle" x="3" y="0" width="1" height="16"></rect>
+                    <rect id="Rectangle-Copy-9" x="3" y="21.2" width="1" height="16"></rect>
+                </g>
+            </g>
+        </g>
     </g>
 </svg>
