@@ -16,12 +16,12 @@ import Grid from 'components/Grid';
 import arrowRightIcon from 'images/arrowRight.svg?inline';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
-import { getFormattedNum2 } from 'utils/numbers';
 
 const CommunityStyled = Base.extend`
   border-radius: 5px;
   padding: 12px 20px;
-  height: 100%;
+  height: 68px;
+  word-break: break-word;
 `;
 
 const CommunitiesForm = ({ userId, profile, account, communities }) => {
@@ -47,19 +47,11 @@ const CommunitiesForm = ({ userId, profile, account, communities }) => {
         {followedCommunities.map(x => (
           <div key={x.id}>
             <A to={routes.questions(x.id)}>
-              <CommunityStyled className="d-flex">
-                <Img className="mr-2" src={x.avatar} alt="comm_img" />
-                <div className="d-flex flex-column">
+              <CommunityStyled>
+                <span className="d-flex align-items-center">
+                  <Img className="mr-2" src={x.avatar} alt="comm_img" />
                   <Span>{x.name}</Span>
-                  <span>
-                    <Span bold fontSize="16">
-                      {getFormattedNum2(x.users_subscribed)}
-                    </Span>{' '}
-                    <Span color={TEXT_SECONDARY} fontSize="14">
-                      <FormattedMessage {...messages.users} />
-                    </Span>
-                  </span>
-                </div>
+                </span>
               </CommunityStyled>
             </A>
           </div>

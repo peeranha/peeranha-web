@@ -34,7 +34,10 @@ import {
   COMMENT_TYPE,
 } from './constants';
 
+import AreYouSure from './AreYouSure';
+
 const CommentManage = styled.div`
+  display: flex;
   opacity: 0;
 
   button {
@@ -149,24 +152,34 @@ const CommentView = item => (
           </Span>
         </Button>
 
-        <Button
-          show={item.isItWrittenByMe}
-          id={`comment__${item.answerId}${item.id}`}
-          params={{
-            ...item.buttonParams,
-            commentId: item.id,
-            whowasvoted: item.userInfo.user,
-          }}
-          onClick={item.deleteComment}
-          disabled={item.deleteCommentLoading}
-        >
-          <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img src={deleteSmallIcon} alt="icon" width="12" />
-            <span className="d-none d-sm-inline-block ml-1">
-              <FormattedMessage {...messages.deleteButton} />
-            </span>
-          </Span>
-        </Button>
+        <div id={`delete-comment-${item.answerId}${item.id}`}>
+          <AreYouSure
+            submitAction={item.deleteComment}
+            Button={({ onClick }) => (
+              <Button
+                show={item.isItWrittenByMe}
+                id={`delete-comment-${item.answerId}${item.id}`}
+                params={{
+                  ...item.buttonParams,
+                  commentId: item.id,
+                  whowasvoted: item.userInfo.user,
+                }}
+                onClick={onClick}
+                disabled={item.deleteCommentLoading}
+              >
+                <Span
+                  className="d-flex align-items-center"
+                  color={TEXT_PRIMARY}
+                >
+                  <img src={deleteSmallIcon} alt="icon" width="12" />
+                  <span className="d-none d-sm-inline-block ml-1">
+                    <FormattedMessage {...messages.deleteButton} />
+                  </span>
+                </Span>
+              </Button>
+            )}
+          />
+        </div>
 
         <Button
           show={!item.isItWrittenByMe}

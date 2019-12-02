@@ -5,6 +5,7 @@ const Button = styled.button`
   border-radius: 3px;
   text-align: center;
   transition: 0.5s;
+  min-height: 30px;
 
   display: inline-flex;
   align-items: center;
@@ -14,6 +15,10 @@ const Button = styled.button`
   overflow: hidden;
   pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
   opacity: ${x => (x.disabled ? '0.7' : '1')};
+
+  @media only screen and (max-width: 768px) {
+    min-height: auto;
+  }
 
   :after {
     content: '';

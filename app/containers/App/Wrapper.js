@@ -28,7 +28,7 @@ const Main = styled.div`
 
 const WrapStyled = styled.main`
   margin-top: 10px;
-  width: calc(100% - ${LEFT_MENU_WIDTH}px);
+  width: calc(100% - ${LEFT_MENU_WIDTH}px - 17px);
 
   @media only screen and (max-width: 992px) {
     width: 100%;
@@ -56,13 +56,8 @@ export class Box extends React.PureComponent {
     });
   }
 
-  // set default state if links changing is happening
-  componentWillReceiveProps(prevProps) {
-    if (
-      prevProps.props.location.pathname + prevProps.props.location.hash !==
-        this.props.props.location.pathname + this.props.props.location.hash &&
-      this.state.isMenuVisible
-    ) {
+  componentWillReceiveProps() {
+    if (this.state.isMenuVisible) {
       this.setState({
         isMenuVisible: false,
       });

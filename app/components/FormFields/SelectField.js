@@ -12,7 +12,6 @@ import {
   BORDER_SECONDARY,
   TEXT_DARK,
   BG_LIGHT,
-  BORDER_SECONDARY_DARK,
   APP_FONT,
   BORDER_WARNING_LIGHT,
   BORDER_PRIMARY_RGB,
@@ -143,7 +142,7 @@ export const Select2 = ({
         menuList: base => ({
           ...base,
           paddingBottom: 0,
-          boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY_DARK}` : `none`,
+          boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY}` : `none`,
           borderRadius: '3px',
         }),
       }}

@@ -21,6 +21,7 @@ import {
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
+import Img from 'components/Img/SmallImage';
 import A from 'components/A';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
@@ -51,16 +52,13 @@ const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = ({ postType, isMyAnswerAccepted, className }) => {
-  if (postType === POST_TYPE_QUESTION) {
-    return <img src={questionRoundedIcon} className={className} alt="icon" />;
-  }
+const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
+  let icon = answerIcon;
 
-  if (isMyAnswerAccepted) {
-    return <img src={bestAnswerIcon} className={className} alt="icon" />;
-  }
+  if (postType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
+  if (isMyAnswerAccepted) icon = bestAnswerIcon;
 
-  return <img src={answerIcon} className={className} alt="icon" />;
+  return <Img src={icon} notRounded alt="icon" />;
 };
 
 const Note = ({
@@ -83,7 +81,6 @@ const Note = ({
   >
     <div className="d-flex align-items-center mb-to-sm-2">
       <PostTypeIcon
-        className="mr-0"
         postType={postType}
         isMyAnswerAccepted={isMyAnswerAccepted}
       />
@@ -101,7 +98,12 @@ const Note = ({
       </PostDate>
     </div>
 
-    <Span className="flex-grow-1 mb-to-sm-2 mr-3" mobileFS="14">
+    <Span
+      fontSize="16"
+      lineHeight="30"
+      mobileFS="14"
+      className="flex-grow-1 mb-to-sm-2 mr-3"
+    >
       {title}
     </Span>
 
@@ -137,7 +139,6 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
 
 PostTypeIcon.propTypes = {
   postType: PropTypes.string,
-  className: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
 };
 

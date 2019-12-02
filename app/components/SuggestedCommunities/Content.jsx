@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import commonMessages from 'common-messages';
 
 import { BORDER_SECONDARY } from 'style-constants';
-import orderBy from 'lodash/orderBy';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
@@ -146,7 +145,7 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <div>
-        {orderBy(suggestedCommunities, y => y.upvotes, ['desc'])
+        {suggestedCommunities
           .filter(
             x => (language.sortBy ? x.language === language.sortBy : true),
           )

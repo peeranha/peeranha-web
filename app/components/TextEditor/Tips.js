@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TEXT_PRIMARY, BG_PRIMARY, SECONDARY_SPECIAL_2 } from 'style-constants';
+import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -30,7 +30,7 @@ const Li = styled.li`
 `;
 
 const Ul = styled.ul`
-  border-bottom: 1px solid ${SECONDARY_SPECIAL_2};
+  border-bottom: 1px solid ${BORDER_SECONDARY};
   padding-bottom: 20px;
   margin-bottom: 20px;
 

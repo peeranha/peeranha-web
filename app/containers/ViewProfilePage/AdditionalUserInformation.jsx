@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
-import Base from 'components/Base';
 import Span from 'components/Span';
 import A from 'components/A';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -19,6 +18,8 @@ import {
 } from 'containers/Profile/constants';
 
 import messages from 'containers/Profile/messages';
+
+import { Box } from './MainUserInformation';
 
 const Blank = ({ profile, userId, account }) =>
   !profile[LOCATION_FIELD] &&
@@ -39,22 +40,20 @@ const Blank = ({ profile, userId, account }) =>
     </p>
   );
 
-const Row = ({ nameField, value, isColumn }) =>
+const Row = ({ nameField, value }) =>
   value ? (
-    <div className="row align-items-center word-break-all pb-1">
-      <div className={isColumn ? 'col-12' : 'col-4 col-sm-2'}>
-        <Span color={TEXT_SECONDARY} fontSize="14">
-          <FormattedMessage {...messages[nameField]} />
-        </Span>
-      </div>
-      <div className={isColumn ? 'col-12' : 'col-8 col-sm-10'}>
-        <Span mobileFS="14">{value}</Span>
-      </div>
+    <div className="d-flex align-items-start mb-2">
+      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="24">
+        <FormattedMessage {...messages[nameField]} />
+      </Span>
+      <Span mobileFS="16" lineHeight="24" mobileLH="20">
+        {value}
+      </Span>
     </div>
   ) : null;
 
 const AdditionalUserInformation = ({ profile, userId, account }) => (
-  <Base position="bottom">
+  <Box position="bottom">
     {(!profile || !profile.profile) && <LoadingIndicator inline />}
 
     {profile &&
@@ -72,15 +71,11 @@ const AdditionalUserInformation = ({ profile, userId, account }) => (
             nameField="positionLabel"
             value={profile.profile[POSITION_FIELD]}
           />
-          <Row
-            isColumn
-            nameField="aboutLabel"
-            value={profile.profile[ABOUT_FIELD]}
-          />
+          <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
           <Blank profile={profile.profile} userId={userId} account={account} />
         </React.Fragment>
       )}
-  </Base>
+  </Box>
 );
 
 AdditionalUserInformation.propTypes = {

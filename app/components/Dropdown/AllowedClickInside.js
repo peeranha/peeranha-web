@@ -8,7 +8,7 @@ import Menu from './MenuStyled';
 
 export const MenuStyled = Menu.extend`
   position: absolute;
-  z-index: 2;
+  z-index: 10002;
   width: auto;
 `;
 
@@ -24,7 +24,7 @@ const Blanket = styled.div`
   top: 0;
   right: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 10001;
 `;
 
 const Chevron = styled.span`

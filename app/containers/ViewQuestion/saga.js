@@ -40,7 +40,6 @@ import {
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
-import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
@@ -185,15 +184,9 @@ export function* getQuestionData({
   }
 
   function* processAnswers() {
-    const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
-
     yield all(
       question.answers.map(function*(x) {
         yield call(addOptions, x);
-
-        x.isTheLargestRating =
-          x.rating === mostRatingAnswer.rating &&
-          x.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
         yield all(
           x.comments.map(function*(y) {
@@ -306,22 +299,20 @@ export function* deleteCommentWorker({
       getParams,
     );
 
-    yield call(() =>
-      deleteCommentValidator(
-        profileInfo,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      deleteCommentValidator,
+      profileInfo,
+      buttonId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      deleteComment(
-        profileInfo.user,
-        questionId,
-        answerId,
-        commentId,
-        eosService,
-      ),
+    yield call(
+      deleteComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      eosService,
     );
 
     if (+answerId === 0) {
@@ -334,8 +325,8 @@ export function* deleteCommentWorker({
     }
 
     yield put(deleteCommentSuccess({ ...questionData }));
-  } catch (err) {
-    yield put(deleteCommentErr(err));
+  } catch ({ message }) {
+    yield put(deleteCommentErr(message));
   }
 }
 
@@ -763,7 +754,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 }
 
 export function* updateQuestionList({ questionData }) {
-  if (questionData) {
+  if (questionData && questionData.id) {
     yield put(getUniqQuestions([questionData]));
   }
 }

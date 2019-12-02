@@ -6,7 +6,14 @@ const imageValidation = img =>
 
 // TODO: test
 const stringLength = (min, max) => value => {
-  const val = typeof value === 'string' ? value.trim() : '';
+  let val = value;
+
+  if (value && value.toJS) {
+    val = value.toJS();
+  } else if (value && value.trim) {
+    val = value.trim();
+  }
+
   return val && (val.length > max || val.length < min)
     ? { id: messages.wrongLength.id, min, max }
     : undefined;
@@ -31,8 +38,10 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
-const requiredForObjectField = x =>
-  !x || (x && !x.value) ? messages.requiredField : undefined;
+const requiredForObjectField = value => {
+  const val = value && value.toJS ? value.toJS() : value;
+  return !val || (val && !val.value) ? messages.requiredField : undefined;
+};
 
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
@@ -51,9 +60,8 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list &&
-    list.filter(
-      x => x && x.trim().toLowerCase() === value && value.trim().toLowerCase(),
-    ).length > 1
+    list.filter(x => x && x.trim().toLowerCase() === value.trim().toLowerCase())
+      .length > 1
     ? messages.itemAlreadyExists
     : undefined;
 };

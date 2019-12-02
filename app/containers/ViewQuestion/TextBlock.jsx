@@ -17,6 +17,11 @@ const TextBlockStyled = styled.div`
 
   code {
     padding: 15px;
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
   }
 
   pre {

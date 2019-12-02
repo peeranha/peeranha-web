@@ -9,7 +9,7 @@ import {
   BG_TRANSPARENT,
   TEXT_SECONDARY,
   BG_SUCCESS_LIGHT,
-  SECONDARY_SPECIAL_2,
+  BORDER_SECONDARY,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -35,17 +35,17 @@ const AdditionalInfo = Base.extend`
   flex: 1;
   width: 120px;
 
-  border-right: 1px solid ${SECONDARY_SPECIAL_2};
+  border-right: 1px solid ${BORDER_SECONDARY};
   &:not(:last-child) {
-    border-bottom: 1px solid ${SECONDARY_SPECIAL_2};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 
   @media only screen and (max-width: 576px) {
     width: auto;
 
-    border-bottom: 1px solid ${SECONDARY_SPECIAL_2};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
     &:not(:last-child) {
-      border-right: 1px solid ${SECONDARY_SPECIAL_2};
+      border-right: 1px solid ${BORDER_SECONDARY};
     }
   }
 
@@ -118,12 +118,12 @@ const QuestionItem = ({
     <Base>
       <p className="mb-1">
         <A to={routes.questionView(id)} href={routes.questionView(id)}>
-          <Span fontSize="24" mobileFS="18" bold>
+          <Span fontSize="24" lineHeight="31" mobileFS="18" mobileLH="21" bold>
             {title}
           </Span>
         </A>
       </p>
-      <p className="mb-2">
+      <p className="mb-3">
         <A to={routes.profileView(user)} className="d-flex align-items-center">
           <Span className="mr-2" fontSize="14">
             {userInfo.display_name}

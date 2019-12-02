@@ -12,6 +12,8 @@ import {
   errorToastHandlingWithDefaultText,
 } from 'containers/Toast/saga';
 
+import { getSuggestedCommunities } from 'containers/Communities/actions';
+
 import { createCommunitySuccess, createCommunityErr } from './actions';
 
 import {
@@ -29,6 +31,8 @@ export function* createCommunityWorker({ community, reset }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
 
     yield call(createCommunity, eosService, selectedAccount, community);
+
+    yield put(getSuggestedCommunities(true));
 
     yield put(createCommunitySuccess());
 
