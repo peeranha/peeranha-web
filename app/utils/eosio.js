@@ -193,6 +193,8 @@ class EosioService {
       }
     });
 
+    // createPushActionBody(data);
+
     return this.eosInstance.transaction({
       actions: [
         {
@@ -228,6 +230,7 @@ class EosioService {
     const response = await this.eosInstance.getTableRows(request);
 
     if (response && response.rows && response.rows.length) {
+      // parseTableRows(response.rows[0]);
       return response.rows[0];
     }
 
@@ -261,6 +264,7 @@ class EosioService {
     const response = await this.eosInstance.getTableRows(request);
 
     if (response && response.rows) {
+      // response.rows.forEach(x => parseTableRows(x));
       return response.rows;
     }
 
