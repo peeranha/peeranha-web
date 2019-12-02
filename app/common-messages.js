@@ -90,6 +90,9 @@ export default defineMessages({
   asked: {
     id: 'app.common.asked',
   },
+  askedWhen: {
+    id: 'app.common.askedWhen',
+  },
   somebodyAsked: {
     id: 'app.common.somebodyAsked',
   },
@@ -254,5 +257,14 @@ export default defineMessages({
   },
   description: {
     id: 'app.common.description',
+  },
+  questionsNumber: {
+    id: 'app.common.questionsNumber',
+  },
+  answersNumber: {
+    id: 'app.common.answersNumber',
+  },
+  postsNumber: {
+    id: 'app.common.postsNumber',
   },
 });

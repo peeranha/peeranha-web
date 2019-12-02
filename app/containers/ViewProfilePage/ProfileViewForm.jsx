@@ -57,6 +57,7 @@ const ProfileViewForm = ({
       questionsLoading={questionsLoading}
       questionsWithAnswersLoading={questionsWithAnswersLoading}
       locale={locale}
+      profile={profile}
     />
   </div>
 );

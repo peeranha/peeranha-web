@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import {
   TEXT_PRIMARY_DARK,
   BORDER_PRIMARY_DARK,
-  BG_PRIMARY,
   BG_SUCCESS,
   TEXT_SECONDARY,
+  BG_PRIMARY_DARK,
 } from 'style-constants';
+
+import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
@@ -17,7 +20,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import A from 'components/A';
+import { AProps } from 'components/A';
 
 import {
   POST_TYPE_ANSWER,
@@ -41,8 +44,8 @@ const Badge = Span.extend`
   border-radius: 3px;
   padding: 4px 10px;
   text-align: center;
-  width: 56px;
-  height: 24px;
+  width: 57px;
+  height: 26px;
   margin-bottom: 8px;
   margin-right: 20px;
   display: flex;
@@ -65,7 +68,7 @@ const AcceptedQuestionBadgeStyled = Badge.extend`
 `;
 
 const TopCommunityBadgeStyled = Badge.extend`
-  background: ${BG_PRIMARY};
+  background: ${BG_PRIMARY_DARK};
   margin-right: 20px;
   border: none;
 
@@ -133,13 +136,9 @@ export const QuestionForProfilePage = ({
     </div>
 
     <div className="d-flex flex-column flex-grow-1">
-      <p>
-        <A to={route} href={route}>
-          <Span fontSize="24" mobileFS="18" bold>
-            {title}
-          </Span>
-        </A>
-      </p>
+      <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
+        {title}
+      </AProps>
 
       <p className="d-flex align-items-center my-1">
         <Span
@@ -147,7 +146,16 @@ export const QuestionForProfilePage = ({
           fontSize="14"
           color={TEXT_SECONDARY}
         >
-          {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}
+          <FormattedMessage
+            {...commonMessages.askedWhen}
+            values={{
+              when: getFormattedDate(
+                myPostTime,
+                locale,
+                MONTH_3LETTERS__DAY_TIME,
+              ),
+            }}
+          />
         </Span>
         <QuestionCommunity
           communities={communities}

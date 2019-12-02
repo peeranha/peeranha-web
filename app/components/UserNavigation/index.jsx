@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import { TEXT_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
@@ -66,7 +66,23 @@ const UserNavigation = ({
             tabIndex={!questionsLength ? '-1' : undefined}
             isLink={path !== routes.userQuestions(userId)}
           >
-            <FormattedMessage {...messages.questions} />
+            <FormattedMessage
+              {...messages.questionsNumber}
+              values={{
+                number: (
+                  <Span
+                    fontSize="14"
+                    color={
+                      path !== routes.userQuestions(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                  >
+                    {questionsLength}
+                  </Span>
+                ),
+              }}
+            />
           </NavigationLink>
 
           <NavigationLink
@@ -75,7 +91,23 @@ const UserNavigation = ({
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
             isLink={path !== routes.userAnswers(userId)}
           >
-            <FormattedMessage {...messages.answers} />
+            <FormattedMessage
+              {...messages.answersNumber}
+              values={{
+                number: (
+                  <Span
+                    fontSize="14"
+                    color={
+                      path !== routes.userAnswers(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                  >
+                    {questionsWithUserAnswersLength}
+                  </Span>
+                ),
+              }}
+            />
           </NavigationLink>
 
           <NavigationLink
