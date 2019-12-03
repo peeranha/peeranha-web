@@ -27,6 +27,8 @@ function getAccountStatus(account) {
   switch (true) {
     case rt < 0:
       return -1;
+    case rt < 100:
+      return 0;
     case rt < 500:
       return 1;
     case rt < 1000:
