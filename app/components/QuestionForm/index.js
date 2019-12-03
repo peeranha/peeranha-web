@@ -7,7 +7,7 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY, SECONDARY_SPECIAL_3 } from 'style-constants';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
@@ -21,15 +21,14 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
-import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
 import Wrapper from 'components/Header/Simple';
-import AsideBG from 'components/Base/AsideBG';
 import FormBox from 'components/Form';
+import TipsBase from 'components/Base/TipsBase';
 
 import {
   strLength25x30000,
@@ -51,37 +50,6 @@ import {
 } from './constants';
 
 import messages from './messages';
-
-export const Base = BaseRoundedNoPadding.extend`
-  display: flex;
-
-  > *:nth-child(1) {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  @media only screen and (min-width: 1200px) {
-    > *:nth-child(1) {
-      flex: 0 0 calc(100% - 340px);
-      max-width: calc(100% - 340px);
-    }
-
-    > *:nth-child(2) {
-      flex: 0 0 340px;
-      max-width: 340px;
-      padding: 47px 36px;
-      background: ${SECONDARY_SPECIAL_3};
-      word-break: break-word;
-    }
-  }
-
-  @media only screen and (max-width: 992px) {
-    align-items: baseline;
-    > *:nth-child(2) {
-      display: none;
-    }
-  }
-`;
 
 export const QuestionForm = ({
   sendQuestion,
@@ -125,7 +93,7 @@ export const QuestionForm = ({
         )}
       </Wrapper>
 
-      <Base>
+      <TipsBase>
         <BaseSpecialOne>
           <FormBox onSubmit={handleSubmit(sendQuestion)}>
             <Field
@@ -203,10 +171,8 @@ export const QuestionForm = ({
           </FormBox>
         </BaseSpecialOne>
 
-        <AsideBG className="d-none d-xl-block">
-          <Tips />
-        </AsideBG>
-      </Base>
+        <Tips />
+      </TipsBase>
     </div>
   );
 };

@@ -15,9 +15,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
-import Base from 'components/Base/BaseRounded';
-import BaseTransparent from 'components/Base/BaseTransparent';
-import AsideBG from 'components/Base/AsideBG';
+import TipsBase from 'components/Base/TipsBase';
+import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -80,25 +79,19 @@ export class CreateTag extends React.PureComponent {
         <Header />
 
         {communities[0] && (
-          <Base className="p-0">
-            <div className="d-flex">
-              <div className="flex-grow-1">
-                <BaseTransparent>
-                  <Form
-                    communityId={+match.params.communityid}
-                    communities={communities}
-                    createTagLoading={createTagLoading}
-                    createTag={this.createTag}
-                    translations={translationMessages[locale]}
-                  />
-                </BaseTransparent>
-              </div>
+          <TipsBase className="overflow-hidden">
+            <BaseSpecialOne>
+              <Form
+                communityId={+match.params.communityid}
+                communities={communities}
+                createTagLoading={createTagLoading}
+                createTag={this.createTag}
+                translations={translationMessages[locale]}
+              />
+            </BaseSpecialOne>
 
-              <AsideBG className="d-none d-xl-block">
-                <Tips faqQuestions={faqQuestions} />
-              </AsideBG>
-            </div>
-          </Base>
+            <Tips faqQuestions={faqQuestions} />
+          </TipsBase>
         )}
 
         {!communities.length && <LoadingIndicator />}

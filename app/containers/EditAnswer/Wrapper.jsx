@@ -9,11 +9,10 @@ import { TEXT_PRIMARY } from 'style-constants';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 
-import { Base } from 'components/QuestionForm';
+import TipsBase from 'components/Base/TipsBase';
+import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import Header from 'components/Header/Simple';
-import BaseRounded from 'components/Base/BaseRounded';
-import AsideBG from 'components/Base/AsideBG';
 import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -23,7 +22,7 @@ import messages from './messages';
 
 const Wrapper = ({ children, questionid, answerid }) => (
   <div>
-    <Header className="mb-3">
+    <Header className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumImageStyled src={myFeedIcon} alt="edit-answer-icon" />
         <FormattedMessage {...messages.editAnswer} />
@@ -41,15 +40,10 @@ const Wrapper = ({ children, questionid, answerid }) => (
       </div>
     </Header>
 
-    <Base>
-      <div>
-        <BaseRounded>{children}</BaseRounded>
-      </div>
-
-      <AsideBG className="d-none d-xl-block">
-        <Tips />
-      </AsideBG>
-    </Base>
+    <TipsBase className="overflow-hidden">
+      <BaseSpecialOne>{children}</BaseSpecialOne>
+      <Tips />
+    </TipsBase>
   </div>
 );
 

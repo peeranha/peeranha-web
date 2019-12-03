@@ -7,7 +7,7 @@ import commonMessages from 'common-messages';
 import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
-import communitySuggestBanner from 'images/communitySuggest.svg?inline';
+import communitySuggestBanner from 'images/box_with_tags.svg?inline';
 
 import messages from './messages';
 

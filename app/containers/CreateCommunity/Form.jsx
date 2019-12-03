@@ -12,7 +12,7 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 
-import { ExtendedBase } from 'containers/EditProfilePage/Box';
+import { ExtendedBase } from 'components/Base/AvatarBase';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';

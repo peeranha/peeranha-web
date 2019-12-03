@@ -6,7 +6,7 @@ export const B1 = `
   padding: 40px;
 
   img {
-    min-width: 150px;
+    min-height: 140px;
     object-fit: contain;
     margin: 0 50px 0 25px;
     box-sizing: content-box;
@@ -34,6 +34,7 @@ export const B1 = `
     img {
       width: 120px;
       height: 120px;
+      min-height: auto;
       margin: 0;
       margin-bottom: 25px;
     }

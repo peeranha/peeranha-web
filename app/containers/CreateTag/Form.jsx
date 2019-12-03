@@ -10,6 +10,7 @@ import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import CommunityField from 'components/FormFields/CommunityField';
 import Button from 'components/Button/Contained/InfoLarge';
+import FormBox from 'components/Form';
 
 import {
   required,
@@ -34,57 +35,47 @@ export const Form = ({
   handleSubmit,
   translations,
   communities,
-  formValues,
-  change,
-}) => {
-  const community = formValues[FORM_COMMUNITY];
+}) => (
+  <FormBox onSubmit={handleSubmit(createTag)}>
+    <Field
+      name={FORM_COMMUNITY}
+      component={CommunityField}
+      disabled={createTagLoading}
+      label={translations[messages.community.id]}
+      tip={translations[messages.communityTip.id]}
+      options={communities}
+      validate={[requiredForObjectField]}
+      warn={[requiredForObjectField]}
+      splitInHalf
+    />
 
-  change(FORM_COMMUNITY, community);
+    <Field
+      disabled={createTagLoading}
+      name={NAME_FIELD}
+      component={TextInputField}
+      label={translations[messages.name.id]}
+      tip={translations[messages.nameTip.id]}
+      validate={[strLength2x15, required, valueHasNotBeInList]}
+      warn={[strLength2x15, required, valueHasNotBeInList]}
+      splitInHalf
+    />
 
-  return (
-    <form onSubmit={handleSubmit(createTag)}>
-      <div>
-        <Field
-          name={FORM_COMMUNITY}
-          component={CommunityField}
-          disabled={createTagLoading}
-          label={translations[messages.community.id]}
-          tip={translations[messages.communityTip.id]}
-          options={communities}
-          validate={[requiredForObjectField]}
-          warn={[requiredForObjectField]}
-          splitInHalf
-        />
-        <Field
-          disabled={createTagLoading}
-          name={NAME_FIELD}
-          component={TextInputField}
-          label={translations[messages.name.id]}
-          tip={translations[messages.nameTip.id]}
-          validate={[strLength2x15, required, valueHasNotBeInList]}
-          warn={[strLength2x15, required, valueHasNotBeInList]}
-          splitInHalf
-        />
-        <Field
-          disabled={createTagLoading}
-          name={DESCRIPTION_FIELD}
-          component={TextareaField}
-          label={translations[messages.descriptionField.id]}
-          tip={translations[messages.descriptionFieldTip.id]}
-          validate={[strLength20x1000, required]}
-          warn={[strLength20x1000, required]}
-          splitInHalf
-        />
-      </div>
+    <Field
+      disabled={createTagLoading}
+      name={DESCRIPTION_FIELD}
+      component={TextareaField}
+      label={translations[messages.descriptionField.id]}
+      tip={translations[messages.descriptionFieldTip.id]}
+      validate={[strLength20x1000, required]}
+      warn={[strLength20x1000, required]}
+      splitInHalf
+    />
 
-      <div>
-        <Button className="my-3" disabled={createTagLoading}>
-          {translations[messages.createTag.id]}
-        </Button>
-      </div>
-    </form>
-  );
-};
+    <Button type="submit" disabled={createTagLoading}>
+      {translations[messages.createTag.id]}
+    </Button>
+  </FormBox>
+);
 
 Form.propTypes = {
   createTagLoading: PropTypes.bool,
@@ -92,8 +83,6 @@ Form.propTypes = {
   handleSubmit: PropTypes.func,
   translations: PropTypes.object,
   communities: PropTypes.array,
-  formValues: PropTypes.object,
-  change: PropTypes.func,
 };
 
 let FormClone = reduxForm({
@@ -107,7 +96,6 @@ FormClone = connect((state, props) => {
   const form = state.toJS().form[FORM_NAME];
 
   return {
-    formValues: form ? form.values : {},
     valueHasNotBeInListValidate: (
       (form &&
         form.values &&

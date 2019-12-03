@@ -5,16 +5,17 @@ export default styled.form`
     margin-bottom: 38px;
   }
 
-  > button,
-  > div > button {
-    &[type='button'] {
+  > * {
+    &:nth-last-child(2) {
       margin-bottom: 30px;
-      display: flex;
     }
+  }
+
+  > button {
+    display: flex;
 
     &[type='submit'] {
       margin-bottom: 12px;
-      display: flex;
     }
   }
 

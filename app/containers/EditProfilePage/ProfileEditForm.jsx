@@ -20,6 +20,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 
 import Button from 'components/Button/Contained/InfoLarge';
+import Box from 'components/Base/AvatarBase';
 import H3 from 'components/H3';
 import FormBox from 'components/Form';
 
@@ -31,11 +32,6 @@ import {
 } from 'components/FormFields/validate';
 
 import { PROFILE_EDIT_FORM, EDIT_PROFILE_BUTTON_ID } from './constants';
-
-import Box from './Box';
-
-export const AVATAR_FIELD_WIDTH = 120;
-export const AVATAR_FIELD_MARGIN = 30;
 
 export const ProfileEditForm = ({
   handleSubmit,
