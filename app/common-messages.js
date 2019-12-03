@@ -33,8 +33,8 @@ export default defineMessages({
   search: {
     id: 'app.common.search',
   },
-  addQuestion: {
-    id: 'app.common.addQuestion',
+  askQuestion: {
+    id: 'app.common.askQuestion',
   },
   signUp: {
     id: 'app.common.signUp',

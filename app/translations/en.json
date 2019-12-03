@@ -15,7 +15,7 @@
   "app.common.login": "Log in",
   "app.common.signUp": "Sign Up",
   "app.common.all": "All",
-  "app.common.addQuestion": "Add question",
+  "app.common.askQuestion": "Ask question",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
@@ -479,7 +479,7 @@
   "app.containers.ViewQuestion.areYouSure":
     "Are you sure you want to delete item?",
 
-  "app.components.FormFields.requiredField": "Required field",
+  "app.components.FormFields.requiredField": "You can’t leave this field empty",
   "app.components.FormFields.wrongLength":
     "Value must be at least {min} characters and no longer than {max} characters",
   "app.components.FormFields.wrongLengthMin":

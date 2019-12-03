@@ -103,6 +103,7 @@ export const TagSelector = ({
           disabled={disabled}
           autoFocus
           menuIsOpen
+          isWrapped
         />
       </Dropdown>
     </Wrapper>

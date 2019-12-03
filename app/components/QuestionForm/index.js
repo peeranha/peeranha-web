@@ -7,7 +7,7 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, SECONDARY_SPECIAL_3 } from 'style-constants';
 
 import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
@@ -21,13 +21,15 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
-import BaseRounded from 'components/Base/BaseRounded';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
+import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
 import Wrapper from 'components/Header/Simple';
 import AsideBG from 'components/Base/AsideBG';
+import FormBox from 'components/Form';
 
 import {
   strLength25x30000,
@@ -50,21 +52,33 @@ import {
 
 import messages from './messages';
 
-export const Base = BaseRounded.extend`
+export const Base = BaseRoundedNoPadding.extend`
   display: flex;
-  padding: 0 !important;
 
   > *:nth-child(1) {
-    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 
   @media only screen and (min-width: 1200px) {
     > *:nth-child(1) {
-      width: calc(100% - 320px);
+      flex: 0 0 calc(100% - 340px);
+      max-width: calc(100% - 340px);
     }
 
     > *:nth-child(2) {
-      width: 320px;
+      flex: 0 0 340px;
+      max-width: 340px;
+      padding: 47px 36px;
+      background: ${SECONDARY_SPECIAL_3};
+      word-break: break-word;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    align-items: baseline;
+    > *:nth-child(2) {
+      display: none;
     }
   }
 `;
@@ -112,88 +126,82 @@ export const QuestionForm = ({
       </Wrapper>
 
       <Base>
-        <BaseRounded>
-          <form onSubmit={handleSubmit(sendQuestion)}>
-            <div>
-              <Field
-                name={FORM_COMMUNITY}
-                component={CommunityField}
-                onChange={() => change(FORM_TAGS, '')}
-                disabled={questionLoading}
-                label={intl.formatMessage({ id: messages.communityLabel.id })}
-                tip={intl.formatMessage({ id: messages.communityTip.id })}
-                options={communities}
-                validate={[requiredForObjectField]}
-                warn={[requiredForObjectField]}
-                splitInHalf
-              />
-              <Field
-                name={FORM_TITLE}
-                component={TextInputField}
-                disabled={questionLoading}
-                label={intl.formatMessage({ id: messages.titleLabel.id })}
-                tip={intl.formatMessage({ id: messages.titleTip.id })}
-                validate={[strLength15x100, required]}
-                warn={[strLength15x100, required]}
-                splitInHalf
-              />
-              <Field
-                name={FORM_CONTENT}
-                component={TextEditorField}
-                disabled={questionLoading}
-                label={intl.formatMessage({ id: messages.contentLabel.id })}
-                previewLabel={intl.formatMessage({
-                  id: messages.previewLabel.id,
-                })}
-                validate={[strLength25x30000, required]}
-                warn={[strLength25x30000, required]}
-              />
+        <BaseSpecialOne>
+          <FormBox onSubmit={handleSubmit(sendQuestion)}>
+            <Field
+              name={FORM_COMMUNITY}
+              component={CommunityField}
+              onChange={() => change(FORM_TAGS, '')}
+              disabled={questionLoading}
+              label={intl.formatMessage({ id: messages.communityLabel.id })}
+              tip={intl.formatMessage({ id: messages.communityTip.id })}
+              options={communities}
+              validate={[requiredForObjectField]}
+              warn={[requiredForObjectField]}
+              splitInHalf
+            />
+            <Field
+              name={FORM_TITLE}
+              component={TextInputField}
+              disabled={questionLoading}
+              label={intl.formatMessage({ id: messages.titleLabel.id })}
+              tip={intl.formatMessage({ id: messages.titleTip.id })}
+              validate={[strLength15x100, required]}
+              warn={[strLength15x100, required]}
+              splitInHalf
+            />
+            <Field
+              name={FORM_CONTENT}
+              component={TextEditorField}
+              disabled={questionLoading}
+              label={intl.formatMessage({ id: messages.contentLabel.id })}
+              previewLabel={intl.formatMessage({
+                id: messages.previewLabel.id,
+              })}
+              validate={[strLength25x30000, required]}
+              warn={[strLength25x30000, required]}
+            />
 
-              <Field
-                name={FORM_TAGS}
-                label={intl.formatMessage({ id: messages.tagsLabel.id })}
-                tip={intl.formatMessage({ id: messages.tagsTip.id })}
-                component={TagSelector}
-                disabled={
-                  questionLoading ||
-                  !formValues[FORM_COMMUNITY] ||
-                  !formValues[FORM_COMMUNITY].value
-                }
-                setTags={setTags}
-                options={
-                  formValues[FORM_COMMUNITY]
-                    ? formValues[FORM_COMMUNITY].tags
-                    : []
-                }
-                validate={[required, strLength1x5]}
-                warn={[required, strLength1x5]}
-                splitInHalf
-              />
+            <Field
+              name={FORM_TAGS}
+              label={intl.formatMessage({ id: messages.tagsLabel.id })}
+              tip={intl.formatMessage({ id: messages.tagsTip.id })}
+              component={TagSelector}
+              disabled={
+                questionLoading ||
+                !formValues[FORM_COMMUNITY] ||
+                !formValues[FORM_COMMUNITY].value
+              }
+              setTags={setTags}
+              options={
+                formValues[FORM_COMMUNITY]
+                  ? formValues[FORM_COMMUNITY].tags
+                  : []
+              }
+              validate={[required, strLength1x5]}
+              warn={[required, strLength1x5]}
+              splitInHalf
+            />
 
-              <div className="pb-3">
-                <TransparentButton
-                  onClick={redirectToCreateTagDispatch}
-                  data-communityid={communityId}
-                  id="question-form-suggest-tag"
-                  type="button"
-                >
-                  <img className="mr-2" src={icoTag} alt="icoTag" />
-                  <FormattedMessage {...commonMessages.suggestTag} />
-                </TransparentButton>
-              </div>
-            </div>
+            <TransparentButton
+              onClick={redirectToCreateTagDispatch}
+              data-communityid={communityId}
+              id="question-form-suggest-tag"
+              type="button"
+            >
+              <img className="mr-2" src={icoTag} alt="icoTag" />
+              <FormattedMessage {...commonMessages.suggestTag} />
+            </TransparentButton>
 
-            <div className="my-3">
-              <Button
-                disabled={questionLoading}
-                id={submitButtonId}
-                type="submit"
-              >
-                {submitButtonName}
-              </Button>
-            </div>
-          </form>
-        </BaseRounded>
+            <Button
+              disabled={questionLoading}
+              id={submitButtonId}
+              type="submit"
+            >
+              {submitButtonName}
+            </Button>
+          </FormBox>
+        </BaseSpecialOne>
 
         <AsideBG className="d-none d-xl-block">
           <Tips />

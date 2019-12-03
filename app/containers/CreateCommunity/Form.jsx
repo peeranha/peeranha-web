@@ -12,6 +12,8 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 
+import { ExtendedBase } from 'containers/EditProfilePage/Box';
+
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -22,16 +24,9 @@ import SelectField, {
 } from 'components/FormFields/SelectField';
 
 import Icon from 'components/Icon';
+import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
-
-import FormStyled from 'containers/EditProfilePage/FormStyled';
-import AvatarStyled from 'containers/EditProfilePage/AvatarStyled';
-
-import {
-  AVATAR_FIELD_WIDTH,
-  AVATAR_FIELD_MARGIN,
-} from 'containers/EditProfilePage/ProfileEditForm';
 
 import {
   strLength3x20,
@@ -96,22 +91,16 @@ const CreateCommunityForm = ({
   };
 
   return (
-    <FormStyled
-      size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
-      onSubmit={handleSubmit(createCommunity)}
-    >
-      <div className="position-static">
-        <AvatarStyled>
-          <Field
-            name={COMM_AVATAR_FIELD}
-            component={AvatarField}
-            size={AVATAR_FIELD_WIDTH}
-            validate={[imageValidation, required]}
-            warn={[imageValidation, required]}
-            disabled={createCommunityLoading}
-          />
-        </AvatarStyled>
+    <ExtendedBase>
+      <Field
+        name={COMM_AVATAR_FIELD}
+        component={AvatarField}
+        validate={[imageValidation, required]}
+        warn={[imageValidation, required]}
+        disabled={createCommunityLoading}
+      />
 
+      <FormBox onSubmit={handleSubmit(createCommunity)}>
         <Field
           disabled={createCommunityLoading}
           name={COMM_NAME_FIELD}
@@ -166,7 +155,7 @@ const CreateCommunityForm = ({
             />
           </Wrapper>
 
-          <FormSection name="tags" className="mt-3">
+          <FormSection name="tags">
             {tags.map((x, index) => (
               <FormSection
                 key={x}
@@ -200,6 +189,7 @@ const CreateCommunityForm = ({
                   ]}
                   tip={translations[messages.tagTitleTip.id]}
                   splitInHalf
+                  insideOfSection
                 />
 
                 <Field
@@ -217,30 +207,25 @@ const CreateCommunityForm = ({
           </FormSection>
         </div>
 
-        <div>
-          <TransparentButton
-            className="d-flex align-items-center"
-            type="button"
-            onClick={addTag}
-            disabled={tags.length === MAX_TAGS_NUMBER}
-          >
-            <img className="mr-2" src={icoTag} alt="icoTag" />
-            <FormattedMessage {...messages.oneMoreTag} />
-          </TransparentButton>
-        </div>
+        <TransparentButton
+          className="d-flex align-items-center"
+          type="button"
+          onClick={addTag}
+          disabled={tags.length === MAX_TAGS_NUMBER}
+        >
+          <img className="mr-2" src={icoTag} alt="icoTag" />
+          <FormattedMessage {...messages.oneMoreTag} />
+        </TransparentButton>
 
-        <div>
-          <LargeButton
-            className="my-3"
-            disabled={createCommunityLoading}
-            type="submit"
-            id={CREATE_COMMUNITY_BUTTON}
-          >
-            {translations[messages.createCommunity.id]}
-          </LargeButton>
-        </div>
-      </div>
-    </FormStyled>
+        <LargeButton
+          disabled={createCommunityLoading}
+          type="submit"
+          id={CREATE_COMMUNITY_BUTTON}
+        >
+          {translations[messages.createCommunity.id]}
+        </LargeButton>
+      </FormBox>
+    </ExtendedBase>
   );
 };
 

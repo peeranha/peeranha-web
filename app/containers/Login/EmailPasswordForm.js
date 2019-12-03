@@ -70,7 +70,7 @@ const EmailPasswordForm = /* istanbul ignore next */ ({
         <FormattedMessage {...signupMessages.continue} />
       </Button>
 
-      <div className="d-flex justify-content-between">
+      <div className="d-flex align-items-center justify-content-between">
         <Field
           name={REMEMBER_ME_FIELD}
           disabled={loginProcessing}

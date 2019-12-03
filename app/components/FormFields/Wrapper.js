@@ -12,7 +12,7 @@ const CL = 350;
 const StyledBox = styled.div`
   position: relative;
   max-width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: ${x => (!x.insideOfSection ? '15px' : '10px')};
 
   > *:nth-child(2) {
     display: flex;
@@ -74,11 +74,13 @@ export const Wrapper = ({
   splitInHalf,
   disabled,
   id,
+  insideOfSection,
 }) => (
   <StyledBox
     disabled={disabled}
     id={formatStringToHtmlId(id)}
     splitInHalf={splitInHalf}
+    insideOfSection={insideOfSection}
   >
     <Label>{label}</Label>
     <div>
@@ -96,6 +98,7 @@ Wrapper.propTypes = {
   meta: PropTypes.object,
   splitInHalf: PropTypes.bool,
   disabled: PropTypes.bool,
+  insideOfSection: PropTypes.bool,
 };
 
 export default React.memo(Wrapper);

@@ -24,7 +24,6 @@ import {
 
 import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
-import Base from 'components/Base';
 
 import * as editProfileSelectors from './selectors';
 import reducer from './reducer';
@@ -73,9 +72,7 @@ export class EditProfilePage extends React.PureComponent {
           loginData={loginData}
         />
 
-        <Base position="bottom">
-          <ProfileEditForm {...sendProps} />
-        </Base>
+        <ProfileEditForm {...sendProps} />
       </Profile>
     );
   }

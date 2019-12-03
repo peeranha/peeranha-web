@@ -16,6 +16,11 @@ export const BaseSpecial = Base.extend`
   padding: 15px 30px;
 `;
 
+export const BaseSpecialOne = Base.extend`
+  ${S};
+  padding: 30px;
+`;
+
 export default Base.extend`
   ${S};
 `;

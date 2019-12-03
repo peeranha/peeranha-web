@@ -25,7 +25,7 @@ export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => (
       </p>
 
       <Button id="banner-ask-question" onClick={redirectToAskQuestionPage}>
-        <FormattedMessage {...commonMessages.addQuestion} />
+        <FormattedMessage {...commonMessages.askQuestion} />
       </Button>
     </div>
   </Wrapper>

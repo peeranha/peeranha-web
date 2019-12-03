@@ -11,6 +11,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
 import Icon from 'components/Icon';
+import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
@@ -20,7 +21,7 @@ export const HASH_CHARS_LIMIT = 1000;
 
 const Div = styled.div`
   position: relative;
-  width: ${x => x.size}px;
+  width: 120px;
 
   ${WarningMessageDiv} {
     display: flex;
@@ -30,7 +31,7 @@ const Div = styled.div`
   > :first-child {
     position: relative;
     width: inherit;
-    height: ${x => x.size}px;
+    height: 120px;
 
     label {
       width: 100%;
@@ -108,7 +109,7 @@ const Div = styled.div`
   }
 `;
 
-function AvatarField({ input, meta, size, disabled }) {
+function AvatarField({ input, meta, disabled }) {
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
   const [v, setV] = useState(true);
@@ -124,7 +125,6 @@ function AvatarField({ input, meta, size, disabled }) {
   return (
     <Div
       s={s}
-      size={size}
       disabled={disabled}
       value={input.value && input.value.length}
       error={meta.touched && (meta.error || meta.warning)}
@@ -137,7 +137,7 @@ function AvatarField({ input, meta, size, disabled }) {
               <Avatar
                 {...input}
                 imageWidth={isPhone ? 320 : 480}
-                cropRadius={0.5 * size}
+                cropRadius={60}
                 onCrop={setY}
                 onBeforeFileLoad={() => {
                   setS(true);
@@ -156,7 +156,8 @@ function AvatarField({ input, meta, size, disabled }) {
           </div>
         )}
 
-        <img
+        <LargeImage
+          isBordered
           src={
             input.value && input.value.length > HASH_CHARS_LIMIT
               ? input.value

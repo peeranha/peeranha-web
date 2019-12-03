@@ -13,6 +13,9 @@ const MediumSpecialImage = Img.extend`
 const MediumImageStyled = MediumImage.extend`
   background: #dfe3f2;
   margin-right: 18px;
+  border-width: 1px;
+  border-radius: 50%;
+  padding: 1px;
 `;
 
 export { MediumImageStyled, MediumSpecialImage };

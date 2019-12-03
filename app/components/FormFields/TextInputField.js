@@ -18,6 +18,7 @@ export const TextInputField = ({
   onClick,
   type = 'text',
   autoComplete,
+  insideOfSection,
 }) => (
   <Wrapper
     label={label}
@@ -26,6 +27,7 @@ export const TextInputField = ({
     splitInHalf={splitInHalf}
     disabled={disabled}
     id={input.name}
+    insideOfSection={insideOfSection}
   >
     <Input
       input={input}
@@ -56,6 +58,7 @@ TextInputField.propTypes = {
   type: PropTypes.string,
   autoComplete: PropTypes.string,
   onClick: PropTypes.func,
+  insideOfSection: PropTypes.bool,
 };
 
 export default React.memo(TextInputField);

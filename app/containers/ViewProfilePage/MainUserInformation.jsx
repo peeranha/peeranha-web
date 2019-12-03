@@ -74,7 +74,7 @@ const UlStyled = Ul.extend`
 export const Box = Base.extend`
   > div {
     display: flex;
-    align-items: center;
+    align-items: start;
     word-break: break-word;
 
     > *:nth-child(1) {

@@ -144,7 +144,7 @@ const View = ({
                 <Icon icon={addIcon} width="14" />
 
                 <span className="d-none d-lg-inline ml-2">
-                  <FormattedMessage {...messages.addQuestion} />
+                  <FormattedMessage {...messages.askQuestion} />
                 </span>
               </Button>
             )}

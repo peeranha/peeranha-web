@@ -78,6 +78,7 @@ export const Select2 = ({
   CustomOption,
   placeholder,
   error,
+  isWrapped,
 }) => {
   const S = isAsync ? AsyncSelect : Select;
 
@@ -127,6 +128,7 @@ export const Select2 = ({
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
           minWidth: 270,
+          minHeight: 40,
           margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),
@@ -135,7 +137,7 @@ export const Select2 = ({
           color: TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
-          position: 'relative',
+          position: isWrapped ? 'relative' : 'absolute',
           margin: 0,
           boxShadow: 'none',
         }),
@@ -184,6 +186,7 @@ Select2.propTypes = {
   loadOptions: PropTypes.func,
   autoFocus: PropTypes.bool,
   menuIsOpen: PropTypes.bool,
+  isWrapped: PropTypes.bool,
   Group: PropTypes.any,
   CustomOption: PropTypes.any,
   placeholder: PropTypes.string,

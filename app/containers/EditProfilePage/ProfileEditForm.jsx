@@ -21,6 +21,7 @@ import AvatarField from 'components/FormFields/AvatarField';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import H3 from 'components/H3';
+import FormBox from 'components/Form';
 
 import {
   imageValidation,
@@ -29,10 +30,9 @@ import {
   required,
 } from 'components/FormFields/validate';
 
-import FormStyled from './FormStyled';
-import AvatarStyled from './AvatarStyled';
-
 import { PROFILE_EDIT_FORM, EDIT_PROFILE_BUTTON_ID } from './constants';
+
+import Box from './Box';
 
 export const AVATAR_FIELD_WIDTH = 120;
 export const AVATAR_FIELD_MARGIN = 30;
@@ -43,25 +43,19 @@ export const ProfileEditForm = ({
   saveProfile,
   isProfileSaving,
 }) => (
-  <FormStyled
-    size={AVATAR_FIELD_WIDTH + AVATAR_FIELD_MARGIN}
-    onSubmit={handleSubmit(saveProfile)}
-  >
-    <div className="position-static">
-      <H3 className="pb-3">
+  <Box position="bottom">
+    <Field
+      name={AVATAR_FIELD}
+      component={AvatarField}
+      disabled={isProfileSaving}
+      validate={imageValidation}
+      warn={imageValidation}
+    />
+
+    <FormBox onSubmit={handleSubmit(saveProfile)}>
+      <H3>
         <FormattedMessage {...messages.editProfile} />
       </H3>
-
-      <AvatarStyled>
-        <Field
-          name={AVATAR_FIELD}
-          component={AvatarField}
-          disabled={isProfileSaving}
-          size={AVATAR_FIELD_WIDTH}
-          validate={imageValidation}
-          warn={imageValidation}
-        />
-      </AvatarStyled>
 
       <Field
         name={DISPLAY_NAME_FIELD}
@@ -120,13 +114,13 @@ export const ProfileEditForm = ({
 
       <Button
         id={EDIT_PROFILE_BUTTON_ID}
-        className="my-3"
         disabled={isProfileSaving}
+        type="submit"
       >
         <FormattedMessage {...messages.saveButton} />
       </Button>
-    </div>
-  </FormStyled>
+    </FormBox>
+  </Box>
 );
 
 ProfileEditForm.propTypes = {
@@ -146,9 +140,9 @@ let FormClone = reduxForm({
 FormClone = connect((_, props) => ({
   enableReinitialize: true,
   initialValues: {
-    ...props.profile.profile,
-    [DISPLAY_NAME_FIELD]: props.profile.display_name,
-    [AVATAR_FIELD]: props.profile.ipfs_avatar,
+    ...(props.profile ? props.profile.profile : {}),
+    [DISPLAY_NAME_FIELD]: props.profile && props.profile.display_name,
+    [AVATAR_FIELD]: props.profile && props.profile.ipfs_avatar,
   },
 }))(FormClone);
 

@@ -13,6 +13,8 @@ const ButtonCss = css`
   color: ${TEXT_PRIMARY};
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BORDER_TRANSPARENT};
+  height: auto;
+  min-height: auto;
 `;
 
 export const TransparentLinkDefault = Button.extend`

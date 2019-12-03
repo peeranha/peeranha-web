@@ -15,7 +15,7 @@
   "app.common.login": "Вход",
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
-  "app.common.addQuestion": "Добавить вопрос",
+  "app.common.askQuestion": "Задать вопрос",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
@@ -486,7 +486,8 @@
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
 
-  "app.components.FormFields.requiredField": "Обязательное поле",
+  "app.components.FormFields.requiredField":
+    "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
     "Значение должно быть не меньше {min} и не более {max} символов",
   "app.components.FormFields.wrongLengthMin":
@@ -507,8 +508,8 @@
 
   "app.containers.Login.authUserHasMore":
     "Авторизованный пользователь имеет больше привилегий",
-  "app.containers.Login.staySignedIn": "Оставаться авторизованным",
-  "app.containers.Login.iForgotPassword": "Я забыл свой пароль",
+  "app.containers.Login.staySignedIn": "Запомнить меня",
+  "app.containers.Login.iForgotPassword": "Я забыл пароль",
   "app.containers.Login.scatterIsNotInstalled":
     "Проверьте, установлен ли Scatter, а также его настройки",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
