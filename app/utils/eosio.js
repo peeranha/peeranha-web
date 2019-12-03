@@ -15,6 +15,8 @@ import {
   LOCAL_STORAGE_BESTNODE,
 } from './constants';
 
+import { parseTableRows, createPushActionBody } from './ipfs';
+
 class EosioService {
   constructor() {
     this.initialized = false;
@@ -193,7 +195,7 @@ class EosioService {
       }
     });
 
-    // createPushActionBody(data);
+    createPushActionBody(data);
 
     return this.eosInstance.transaction({
       actions: [
@@ -230,7 +232,7 @@ class EosioService {
     const response = await this.eosInstance.getTableRows(request);
 
     if (response && response.rows && response.rows.length) {
-      // parseTableRows(response.rows[0]);
+      parseTableRows(response.rows[0]);
       return response.rows[0];
     }
 
@@ -264,7 +266,7 @@ class EosioService {
     const response = await this.eosInstance.getTableRows(request);
 
     if (response && response.rows) {
-      // response.rows.forEach(x => parseTableRows(x));
+      response.rows.forEach(x => parseTableRows(x));
       return response.rows;
     }
 
@@ -298,7 +300,7 @@ class EosioService {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
-      body: JSON.stringify({ region: 'any' }),
+      body: JSON.stringify({ region: process.env.NODE_REGION }),
     }).then(x => x.json());
 
   compareSavedAndBestNodes = async () => {
