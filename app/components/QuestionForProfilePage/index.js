@@ -32,6 +32,7 @@ import QuestionCommunity from './QuestionCommunity';
 const BaseStyled = Base.extend`
   display: flex;
   flex: 1;
+  word-break: break-word;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;

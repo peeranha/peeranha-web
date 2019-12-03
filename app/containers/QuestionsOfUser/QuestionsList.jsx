@@ -31,7 +31,7 @@ const RightBlock = Base.extend`
 
   @media only screen and (min-width: 768px) {
     padding: 25px 20px;
-    flex-basis: 0 0 240px;
+    flex: 0 0 240px;
     width: 240px;
   }
 `;

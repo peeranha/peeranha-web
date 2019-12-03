@@ -70,6 +70,7 @@ const Activity = ({
             values={{
               number: (
                 <Span
+                  className="ml-1"
                   fontSize="14"
                   color={path !== profileViewRoute ? TEXT_SECONDARY : 'inherit'}
                 >
@@ -91,6 +92,7 @@ const Activity = ({
             values={{
               number: (
                 <Span
+                  className="ml-1"
                   fontSize="14"
                   color={
                     path !== profileViewActivityQuestionsRoute
@@ -116,6 +118,7 @@ const Activity = ({
             values={{
               number: (
                 <Span
+                  className="ml-1"
                   fontSize="14"
                   color={
                     path !== profileViewActivityAnswersRoute

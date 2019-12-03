@@ -71,6 +71,7 @@ const UserNavigation = ({
               values={{
                 number: (
                   <Span
+                    className="ml-1"
                     fontSize="14"
                     color={
                       path !== routes.userQuestions(userId)
@@ -96,6 +97,7 @@ const UserNavigation = ({
               values={{
                 number: (
                   <Span
+                    className="ml-1"
                     fontSize="14"
                     color={
                       path !== routes.userAnswers(userId)
@@ -127,7 +129,7 @@ const UserNavigation = ({
                 : 'd-none'
             }
             onClick={redirectToEditProfilePage}
-            id={`redireact-to-edit-${userId}-user-page`}
+            id={`redireact-to-edit-${userId}-user-page-1`}
             data-user={userId}
             isLink
           >
@@ -143,7 +145,7 @@ const UserNavigation = ({
                 ? 'd-inline-flex'
                 : 'd-none'
             }`}
-            id={`redireact-to-edit-${userId}-user-page`}
+            id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
             <img src={pencilIcon} alt="icon" />

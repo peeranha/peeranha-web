@@ -3,11 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import * as routes from 'routes-config';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
-import A from 'components/A';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import {
@@ -21,7 +19,7 @@ import messages from 'containers/Profile/messages';
 
 import { Box } from './MainUserInformation';
 
-const Blank = ({ profile, userId, account }) =>
+const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
   !profile[LOCATION_FIELD] &&
   !profile[COMPANY_FIELD] &&
   !profile[POSITION_FIELD] &&
@@ -30,13 +28,18 @@ const Blank = ({ profile, userId, account }) =>
       <Span color={TEXT_SECONDARY} mobileFS="14">
         <FormattedMessage {...messages.informationIsBlank} />
       </Span>
-      {userId === account && (
-        <A className="ml-2" to={routes.profileEdit(userId)}>
-          <Span color={TEXT_PRIMARY} mobileFS="14">
-            <FormattedMessage {...messages.editProfile} />
-          </Span>
-        </A>
-      )}
+      <button
+        onClick={redirectToEditProfilePage}
+        className={`align-items-center ${
+          userId === account ? 'd-inline-flex' : 'd-none'
+        }`}
+        id={`add-user-info-edit-${userId}`}
+        data-user={userId}
+      >
+        <Span className="ml-2" color={TEXT_PRIMARY} mobileFS="14">
+          <FormattedMessage {...messages.editProfile} />
+        </Span>
+      </button>
     </p>
   );
 
@@ -52,7 +55,12 @@ const Row = ({ nameField, value }) =>
     </div>
   ) : null;
 
-const AdditionalUserInformation = ({ profile, userId, account }) => (
+const AdditionalUserInformation = ({
+  profile,
+  userId,
+  account,
+  redirectToEditProfilePage,
+}) => (
   <Box position="bottom">
     {(!profile || !profile.profile) && <LoadingIndicator inline />}
 
@@ -72,7 +80,13 @@ const AdditionalUserInformation = ({ profile, userId, account }) => (
             value={profile.profile[POSITION_FIELD]}
           />
           <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
-          <Blank profile={profile.profile} userId={userId} account={account} />
+
+          <Blank
+            profile={profile.profile}
+            userId={userId}
+            account={account}
+            redirectToEditProfilePage={redirectToEditProfilePage}
+          />
         </React.Fragment>
       )}
   </Box>
@@ -82,6 +96,7 @@ AdditionalUserInformation.propTypes = {
   profile: PropTypes.object,
   userId: PropTypes.string,
   account: PropTypes.string,
+  redirectToEditProfilePage: PropTypes.func,
 };
 
 Row.propTypes = {

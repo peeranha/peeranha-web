@@ -157,7 +157,7 @@ const MainUserInformation = ({
               <FormattedMessage {...commonMessages.eosAccount} />
               <span>
                 <img src={eosIconImage} alt="icon" />
-                {account}
+                {userId}
               </span>
             </li>
 

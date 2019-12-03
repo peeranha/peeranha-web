@@ -33,6 +33,7 @@ const ProfileViewForm = ({
       profile={profile}
       userId={userId}
       account={account}
+      redirectToEditProfilePage={redirectToEditProfilePage}
     />
 
     <CommunitiesForm
