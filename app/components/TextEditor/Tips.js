@@ -23,7 +23,8 @@ import messages from './messages';
 const Li = styled.li`
   ${A} {
     color: ${TEXT_PRIMARY};
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   margin-bottom: 10px;
@@ -31,14 +32,15 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 25px;
 
   li {
     display: flex;
-    align-items: center;
+    align-items: start;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 20px;
 
     :before {
       content: '';
@@ -48,6 +50,8 @@ const Ul = styled.ul`
       background: ${BG_PRIMARY};
       margin-right: 10px;
       display: inline-flex;
+      position: relative;
+      top: 8px;
     }
 
     span {

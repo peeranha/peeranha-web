@@ -9,6 +9,8 @@ import Banner from 'components/Banner/Transparent';
 import messages from './messages';
 
 const BannerStyled = Banner.extend`
+  padding-top: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid ${BORDER_SECONDARY};
 
   @media only screen and (max-width: 768px) {

@@ -16,9 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
-import Base from 'components/Base/BaseRounded';
-import BaseTransparent from 'components/Base/BaseTransparent';
-import AsideBG from 'components/Base/AsideBG';
+import TipsBase from 'components/Base/TipsBase';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -101,19 +99,10 @@ export class CreateCommunity extends React.PureComponent {
         <Header />
 
         {path === createCommunityRoute && (
-          <Base className="p-0">
-            <div className="d-flex">
-              <div className="flex-grow-1">
-                <BaseTransparent>
-                  <Form {...sendProps} />
-                </BaseTransparent>
-              </div>
-
-              <AsideBG className="d-none d-xl-block">
-                <Tips faqQuestions={this.props.faqQuestions} />
-              </AsideBG>
-            </div>
-          </Base>
+          <TipsBase className="overflow-hidden">
+            <Form {...sendProps} />
+            <Tips faqQuestions={this.props.faqQuestions} />
+          </TipsBase>
         )}
 
         {path !== createCommunityRoute && <Banner />}

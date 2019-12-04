@@ -4,12 +4,13 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import H4 from 'components/H4';
 import Base from 'components/Base';
+import Span from 'components/Span';
 
 import { NavigationLink } from 'components/Button/Contained/Navigation';
-
 import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
 
 import profileMessages from 'containers/Profile/messages';
@@ -27,6 +28,7 @@ const Activity = ({
   questionsWithAnswersLoading,
   questionsLoading,
   locale,
+  profile,
 }) => {
   const path = window.location.pathname + window.location.hash;
 
@@ -63,7 +65,20 @@ const Activity = ({
           disabled={!myPosts.length}
           isLink={path !== profileViewRoute}
         >
-          <FormattedMessage {...messages.posts} />
+          <FormattedMessage
+            {...messages.postsNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={path !== profileViewRoute ? TEXT_SECONDARY : 'inherit'}
+                >
+                  {profile.questions_asked + profile.answers_given}
+                </Span>
+              ),
+            }}
+          />
         </NavigationLink>
 
         <NavigationLink
@@ -72,7 +87,24 @@ const Activity = ({
           tabIndex={!questions.length ? '-1' : undefined}
           isLink={path !== profileViewActivityQuestionsRoute}
         >
-          <FormattedMessage {...messages.questions} />
+          <FormattedMessage
+            {...messages.questionsNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== profileViewActivityQuestionsRoute
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                >
+                  {profile.questions_asked}
+                </Span>
+              ),
+            }}
+          />
         </NavigationLink>
 
         <NavigationLink
@@ -81,7 +113,24 @@ const Activity = ({
           disabled={!questionsWithUserAnswers.length}
           isLink={path !== profileViewActivityAnswersRoute}
         >
-          <FormattedMessage {...messages.answers} />
+          <FormattedMessage
+            {...messages.answersNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== profileViewActivityAnswersRoute
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                >
+                  {profile.answers_given}
+                </Span>
+              ),
+            }}
+          />
         </NavigationLink>
       </Base>
 
@@ -155,6 +204,7 @@ Activity.propTypes = {
   questionsWithAnswersLoading: PropTypes.bool,
   questionsLoading: PropTypes.bool,
   locale: PropTypes.string,
+  profile: PropTypes.object,
 };
 
 export default Activity;

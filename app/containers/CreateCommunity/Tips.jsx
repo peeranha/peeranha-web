@@ -14,6 +14,7 @@ export const Tips = ({ faqQuestions }) => (
     <Label className="mb-3">
       <FormattedMessage {...commonMessages.tips} />
     </Label>
+
     <Ul>
       <li>
         <FormattedMessage {...messages.imageWillBeTheFace} />

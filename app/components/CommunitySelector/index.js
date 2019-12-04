@@ -145,6 +145,7 @@ export class CommunitySelector extends React.PureComponent {
             CustomOption={CustomOption}
             autoFocus
             menuIsOpen
+            isWrapped
           />
           <ManageMyCommunities />
         </Wrapper>

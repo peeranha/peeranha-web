@@ -4,6 +4,10 @@
   "app.common.profile": "Profile",
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
+  "app.common.posts": "Posts",
+  "app.common.questionsNumber": "Questions {number}",
+  "app.common.answersNumber": "Answers {number}",
+  "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
@@ -11,7 +15,7 @@
   "app.common.login": "Log in",
   "app.common.signUp": "Sign Up",
   "app.common.all": "All",
-  "app.common.addQuestion": "Add question",
+  "app.common.askQuestion": "Ask question",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
@@ -23,13 +27,13 @@
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
-  "app.common.posts": "Posts",
   "app.common.ago": "ago",
   "app.common.you": "You",
   "app.common.upload": "Upload",
   "app.common.allQuestions": "All questions",
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
+  "app.common.askedWhen": "Asked {when}",
   "app.common.somebodyAsked": "{account} asked",
   "app.common.somebodyAnswered": "{account} answered",
   "app.common.youAnswered": "You answered",
@@ -475,7 +479,7 @@
   "app.containers.ViewQuestion.areYouSure":
     "Are you sure you want to delete item?",
 
-  "app.components.FormFields.requiredField": "Required field",
+  "app.components.FormFields.requiredField": "You can’t leave this field empty",
   "app.components.FormFields.wrongLength":
     "Value must be at least {min} characters and no longer than {max} characters",
   "app.components.FormFields.wrongLengthMin":

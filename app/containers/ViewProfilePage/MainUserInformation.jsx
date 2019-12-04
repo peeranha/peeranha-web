@@ -74,7 +74,7 @@ const UlStyled = Ul.extend`
 export const Box = Base.extend`
   > div {
     display: flex;
-    align-items: center;
+    align-items: start;
     word-break: break-word;
 
     > *:nth-child(1) {
@@ -157,7 +157,7 @@ const MainUserInformation = ({
               <FormattedMessage {...commonMessages.eosAccount} />
               <span>
                 <img src={eosIconImage} alt="icon" />
-                {account}
+                {userId}
               </span>
             </li>
 

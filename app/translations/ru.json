@@ -4,6 +4,10 @@
   "app.common.profile": "Профиль",
   "app.common.questions": "Вопросы",
   "app.common.answers": "Ответы",
+  "app.common.posts": "Посты",
+  "app.common.questionsNumber": "Вопросы {number}",
+  "app.common.answersNumber": "Ответы {number}",
+  "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
   "app.common.edit": "Править",
   "app.common.logout": "Выход",
@@ -11,7 +15,7 @@
   "app.common.login": "Вход",
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
-  "app.common.addQuestion": "Добавить вопрос",
+  "app.common.askQuestion": "Задать вопрос",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
@@ -23,13 +27,13 @@
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
   "app.common.see": "Посмотреть",
-  "app.common.posts": "Посты",
   "app.common.ago": "Назад",
   "app.common.you": "Вы",
   "app.common.upload": "Загрузить",
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Управлять сообществами",
-  "app.common.asked": "Спрашивали",
+  "app.common.asked": "Задано",
+  "app.common.askedWhen": "Задано {when}",
   "app.common.somebodyAsked": "{account} спрашивал",
   "app.common.somebodyAnswered": "{account} отвечал",
   "app.common.youAnswered": "Вы отвечали",
@@ -482,7 +486,8 @@
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
 
-  "app.components.FormFields.requiredField": "Обязательное поле",
+  "app.components.FormFields.requiredField":
+    "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
     "Значение должно быть не меньше {min} и не более {max} символов",
   "app.components.FormFields.wrongLengthMin":
@@ -503,8 +508,8 @@
 
   "app.containers.Login.authUserHasMore":
     "Авторизованный пользователь имеет больше привилегий",
-  "app.containers.Login.staySignedIn": "Оставаться авторизованным",
-  "app.containers.Login.iForgotPassword": "Я забыл свой пароль",
+  "app.containers.Login.staySignedIn": "Запомнить меня",
+  "app.containers.Login.iForgotPassword": "Я забыл пароль",
   "app.containers.Login.scatterIsNotInstalled":
     "Проверьте, установлен ли Scatter, а также его настройки",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",

@@ -24,8 +24,16 @@ import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import messages from 'containers/Profile/messages';
 
 const RightBlock = Base.extend`
-  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   word-break: break-all;
+
+  @media only screen and (min-width: 768px) {
+    padding: 25px 20px;
+    flex: 0 0 240px;
+    width: 240px;
+  }
 `;
 
 export const Li = BaseRoundedNoPadding.extend`
@@ -59,7 +67,7 @@ const LastAnswer = ({ lastAnswer, locale, user }) => {
     <span className="d-flex flex-column">
       {lastAnswer.userInfo && (
         <A to={routes.profileView(user)} className="d-flex align-items-center">
-          <Span className="mr-2" fontSize="14">
+          <Span className="mr-2" fontSize="14" lineHeight="18">
             {lastAnswer.userInfo.display_name}
           </Span>
           <RatingStatus
@@ -70,7 +78,7 @@ const LastAnswer = ({ lastAnswer, locale, user }) => {
         </A>
       )}
 
-      <Span fontSize="14" color={TEXT_SECONDARY}>
+      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.lastAnswer} />{' '}
         {getFormattedDate(
           lastAnswer.post_time,
@@ -111,7 +119,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
     />
-    <RightBlock className="d-flex flex-column align-items-start">
+    <RightBlock>
       <span className="d-flex align-items-center mb-2">
         <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
         <Span color={TEXT_PRIMARY_DARK} bold>

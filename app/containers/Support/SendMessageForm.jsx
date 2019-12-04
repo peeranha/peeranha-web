@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
+import FormBox from 'components/Form';
 
 import SelectField, {
   getSelectOptions,
@@ -30,14 +30,6 @@ import {
   MESSAGE_FIELD,
 } from 'containers/HomePage/constants';
 
-const Form = styled.form`
-  padding: 50px 0px 50px 30px;
-
-  @media only screen and (max-width: 768px) {
-    padding: 25px 0px 25px 0px;
-  }
-`;
-
 /* eslint-disable-next-line */
 const SendMessageForm = ({
   handleSubmit,
@@ -48,7 +40,7 @@ const SendMessageForm = ({
   const translations = translationMessages[locale];
 
   return (
-    <Form onSubmit={handleSubmit(sendMessage)}>
+    <FormBox onSubmit={handleSubmit(sendMessage)}>
       <Field
         disabled={sendMessageLoading}
         name={NAME_FIELD}
@@ -99,10 +91,10 @@ const SendMessageForm = ({
         splitInHalf
       />
 
-      <Button className="my-3" disabled={sendMessageLoading}>
+      <Button type="submit" disabled={sendMessageLoading}>
         {translations[homepageMessages.sendMessage.id]}
       </Button>
-    </Form>
+    </FormBox>
   );
 };
 

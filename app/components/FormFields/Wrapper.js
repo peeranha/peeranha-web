@@ -7,9 +7,49 @@ import { formatStringToHtmlId } from 'utils/animation';
 import Label from './Label';
 import WarningMessage from './WarningMessage';
 
+const CL = 350;
+
 const StyledBox = styled.div`
-  margin-bottom: 10px;
   position: relative;
+  max-width: 100%;
+  margin-bottom: ${x => (!x.insideOfSection ? '15px' : '10px')};
+
+  > *:nth-child(2) {
+    display: flex;
+    align-items: ${x => (x.splitInHalf ? 'center' : 'initial')};
+    flex-direction: ${x => (x.splitInHalf ? 'row' : 'column')};
+
+    > div:nth-child(1) {
+      flex: 0 0 ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
+      max-width: ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
+    }
+
+    > div:nth-child(2) {
+      flex: 0 0 ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
+      max-width: ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
+      padding-left: ${x => (x.splitInHalf ? '30px' : '0px')};
+      margin-top: ${x => (x.splitInHalf ? '0px' : '8px')};
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    > div:nth-child(2) {
+      align-items: initial;
+      flex-direction: column;
+
+      > div:nth-child(1) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      > div:nth-child(2) {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 0px;
+        margin-top: 8px;
+      }
+    }
+  }
 
   ${x =>
     x.disabled
@@ -34,38 +74,21 @@ export const Wrapper = ({
   splitInHalf,
   disabled,
   id,
-}) => {
-  let valueWidth = 12;
-  let tipWidth = 12;
-
-  // ratio 2 : 1 if there is tip in row
-  if (tip) {
-    valueWidth = 8;
-    tipWidth = 4;
-  }
-
-  // to split form in half
-  if (splitInHalf) {
-    valueWidth = 6;
-    tipWidth = 6;
-  }
-
-  return (
-    <StyledBox disabled={disabled} id={formatStringToHtmlId(id)}>
-      <Label>{label}</Label>
-      <div className="row align-items-center mb-3">
-        <div className={`col-12 col-md-${valueWidth}`}>{children}</div>
-        {meta && (
-          <WarningMessage
-            {...meta}
-            tip={tip}
-            className={`col-12 col-md-${tipWidth}`}
-          />
-        )}
-      </div>
-    </StyledBox>
-  );
-};
+  insideOfSection,
+}) => (
+  <StyledBox
+    disabled={disabled}
+    id={formatStringToHtmlId(id)}
+    splitInHalf={splitInHalf}
+    insideOfSection={insideOfSection}
+  >
+    <Label>{label}</Label>
+    <div>
+      <div>{children}</div>
+      {meta && <WarningMessage {...meta} tip={tip} />}
+    </div>
+  </StyledBox>
+);
 
 Wrapper.propTypes = {
   children: PropTypes.any,
@@ -75,6 +98,7 @@ Wrapper.propTypes = {
   meta: PropTypes.object,
   splitInHalf: PropTypes.bool,
   disabled: PropTypes.bool,
+  insideOfSection: PropTypes.bool,
 };
 
 export default React.memo(Wrapper);

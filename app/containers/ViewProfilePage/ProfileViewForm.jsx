@@ -33,6 +33,7 @@ const ProfileViewForm = ({
       profile={profile}
       userId={userId}
       account={account}
+      redirectToEditProfilePage={redirectToEditProfilePage}
     />
 
     <CommunitiesForm
@@ -57,6 +58,7 @@ const ProfileViewForm = ({
       questionsLoading={questionsLoading}
       questionsWithAnswersLoading={questionsWithAnswersLoading}
       locale={locale}
+      profile={profile}
     />
   </div>
 );

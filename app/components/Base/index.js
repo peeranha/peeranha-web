@@ -12,7 +12,7 @@ const Base = styled.div`
   ${x => (x.overflowHidden ? 'overflow: hidden;' : '')}
 
   @media only screen and (max-width: 576px) {
-    padding: 15px;
+    padding: ${x => (!x.nullMobilePadding ? '15px' : '0px')};
     border-radius: 0;
   }
 

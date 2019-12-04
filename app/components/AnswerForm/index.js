@@ -8,6 +8,7 @@ import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import TextEditorField from 'components/FormFields/TextEditorField';
 import LargeButton from 'components/Button/Contained/InfoLarge';
+import FormBox from 'components/Form';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
 
@@ -18,26 +19,18 @@ export const AnswerForm = ({
   sendButtonId,
   submitButtonName,
 }) => (
-  <form onSubmit={handleSubmit(sendAnswer)}>
-    <div>
-      <Field
-        name={TEXT_EDITOR_ANSWER_FORM}
-        component={TextEditorField}
-        disabled={sendAnswerLoading}
-        validate={[strLength25x30000, required]}
-        warn={[strLength25x30000, required]}
-      />
-    </div>
-    <div>
-      <LargeButton
-        id={sendButtonId}
-        disabled={sendAnswerLoading}
-        typeAttr="submit"
-      >
-        {submitButtonName}
-      </LargeButton>
-    </div>
-  </form>
+  <FormBox onSubmit={handleSubmit(sendAnswer)}>
+    <Field
+      name={TEXT_EDITOR_ANSWER_FORM}
+      component={TextEditorField}
+      disabled={sendAnswerLoading}
+      validate={[strLength25x30000, required]}
+      warn={[strLength25x30000, required]}
+    />
+    <LargeButton id={sendButtonId} disabled={sendAnswerLoading} type="submit">
+      {submitButtonName}
+    </LargeButton>
+  </FormBox>
 );
 
 AnswerForm.propTypes = {

@@ -5,10 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
 import H3 from 'components/H3';
-import Base from 'components/Base/BaseRoundedNoPadding';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import TipsBase from 'components/Base/TipsBase';
+import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Header from 'components/Header/Transparent';
-import AsideBG from 'components/Base/AsideBG';
 
 import { FORM_ID } from './constants';
 
@@ -24,21 +23,20 @@ const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
       </H3>
     </Header>
 
-    <Base className="d-flex">
-      <BaseTransparent className="flex-grow-1">
+    <TipsBase className="overflow-hidden">
+      <BaseSpecialOne>
         <Banner />
+        <BaseSpecialOne nullMobilePadding>
+          <SendMessageForm
+            locale={locale}
+            sendMessage={sendMessage}
+            sendMessageLoading={sendMessageLoading}
+          />
+        </BaseSpecialOne>
+      </BaseSpecialOne>
 
-        <SendMessageForm
-          locale={locale}
-          sendMessage={sendMessage}
-          sendMessageLoading={sendMessageLoading}
-        />
-      </BaseTransparent>
-
-      <AsideBG className="d-none d-xl-block">
-        <FaqSections faq={faq} />
-      </AsideBG>
-    </Base>
+      <FaqSections faq={faq} />
+    </TipsBase>
   </div>
 );
 

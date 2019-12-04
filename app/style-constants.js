@@ -9,7 +9,7 @@ const blue = '#576fed';
 const purple = 'rgba(39, 56, 104, 0.85)';
 const darkblue = '#5065A5';
 const transparent = 'rgba(0, 0, 0, 0)';
-const green = '#49b562';
+const green = '#28A745';
 const lightgreen = '#ebffe7';
 const darkred = '#dc3545';
 

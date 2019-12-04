@@ -23,8 +23,6 @@ import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 
 import messages from './messages';
 
-import { RELEASE_DATE, WEEK_DURATION } from './constants';
-
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
   display: flex;
@@ -48,13 +46,15 @@ const WeekNumber = ({ period, locale }) => (
 
     <Span className="d-none d-md-inline-block">
       {getFormattedDate(
-        RELEASE_DATE + WEEK_DURATION * period - WEEK_DURATION,
+        process.env.RELEASE_DATE +
+          process.env.WEEK_DURATION * period -
+          process.env.WEEK_DURATION,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
       {' — '}
       {getFormattedDate(
-        RELEASE_DATE + WEEK_DURATION * period,
+        process.env.RELEASE_DATE + process.env.WEEK_DURATION * period,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
@@ -62,13 +62,15 @@ const WeekNumber = ({ period, locale }) => (
 
     <Span className="d-inline-block d-md-none" mobileFS={14}>
       {getFormattedDate(
-        RELEASE_DATE + WEEK_DURATION * period - WEEK_DURATION,
+        process.env.RELEASE_DATE +
+          process.env.WEEK_DURATION * period -
+          process.env.WEEK_DURATION,
         locale,
         DD_MM_YY,
       )}
       {' — '}
       {getFormattedDate(
-        RELEASE_DATE + WEEK_DURATION * period,
+        process.env.RELEASE_DATE + process.env.WEEK_DURATION * period,
         locale,
         DD_MM_YY,
       )}

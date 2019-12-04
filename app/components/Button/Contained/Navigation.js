@@ -8,6 +8,8 @@ import PrimaryLarge from './PrimaryLarge';
 const ButtonCss = css`
   padding: 6px 16px;
   min-width: auto;
+  font-size: 16px;
+  line-height: 20px;
 
   :hover {
     color: ${TEXT_LIGHT};

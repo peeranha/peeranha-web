@@ -33,8 +33,8 @@ export default defineMessages({
   search: {
     id: 'app.common.search',
   },
-  addQuestion: {
-    id: 'app.common.addQuestion',
+  askQuestion: {
+    id: 'app.common.askQuestion',
   },
   signUp: {
     id: 'app.common.signUp',
@@ -89,6 +89,9 @@ export default defineMessages({
   },
   asked: {
     id: 'app.common.asked',
+  },
+  askedWhen: {
+    id: 'app.common.askedWhen',
   },
   somebodyAsked: {
     id: 'app.common.somebodyAsked',
@@ -254,5 +257,14 @@ export default defineMessages({
   },
   description: {
     id: 'app.common.description',
+  },
+  questionsNumber: {
+    id: 'app.common.questionsNumber',
+  },
+  answersNumber: {
+    id: 'app.common.answersNumber',
+  },
+  postsNumber: {
+    id: 'app.common.postsNumber',
   },
 });
