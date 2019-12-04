@@ -7,7 +7,7 @@ import testBlockStyles from 'text-block-styles';
 import TextEditor from 'components/TextEditor';
 
 const TextBlockStyled = styled.div`
-  word-break: break-all;
+  word-break: break-word;
 
   ${testBlockStyles}
 
@@ -24,9 +24,17 @@ const TextBlockStyled = styled.div`
     max-width: 100%;
   }
 
+  p, li {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
   pre {
     max-height: 400px;
-    margin: 10px 0;
 
     @media only screen and (max-width: 576px) {
       max-height: 200px;
@@ -40,7 +48,7 @@ const TextBlockStyled = styled.div`
   code,
   pre {
     background: ${SECONDARY_SPECIAL_3};
-    font-size: 15px;
+    font-size: 14px;
     line-height: 20px;
     color: ${TEXT_DARK};
     overflow: auto;

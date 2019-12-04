@@ -1,4 +1,6 @@
+/* eslint indent: 0 */
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg?inline';
@@ -13,22 +15,43 @@ import emptyFingerDown from 'images/emptyFingerDown.svg?inline';
 import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
-import Base from 'components/Base';
 import Span from 'components/Span';
-import MediumImage from 'components/Img/MediumImage';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
-const MediumImageStyled = MediumImage.extend`
-  ${x =>
-    x.src === greenFingerUpSingleQuestion
-      ? `border: 1px solid ${BORDER_SUCCESS};`
-      : ``};
+const ImgBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  ${x =>
-    x.src === redFingerDownSingleQuestion
-      ? `border: 1px solid ${BORDER_WARNING_LIGHT};`
-      : ``};
+  :after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 21px);
+    left: calc(50% - 21px);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    ${x =>
+      x.src === greenFingerUpSingleQuestion
+        ? `border: 1px solid ${BORDER_SUCCESS};`
+        : ``};
+
+    ${x =>
+      x.src === redFingerDownSingleQuestion
+        ? `border: 1px solid ${BORDER_WARNING_LIGHT};`
+        : ``};
+  }
+
+  @media only screen and (max-width: 576px) {
+    ${x =>
+      x.src === greenFingerUpSingleQuestion ||
+      x.src === redFingerDownSingleQuestion
+        ? `width: 42px; height: 42px;`
+        : ``};
+  }
 `;
 
 const ContentRating = ({
@@ -42,9 +65,8 @@ const ContentRating = ({
   upVoteLoading,
   downVoteLoading,
 }) => (
-  <Base className="d-flex align-items-center justify-content-between">
+  <React.Fragment>
     <button
-      className="p-0"
       onClick={upVote}
       disabled={upVoteLoading}
       id={`${UP_VOTE_BUTTON}${answerId}`}
@@ -63,7 +85,6 @@ const ContentRating = ({
     </Span>
 
     <button
-      className="p-0"
       onClick={downVote}
       disabled={downVoteLoading}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
@@ -76,7 +97,7 @@ const ContentRating = ({
         votingStatus={votingStatus}
       />
     </button>
-  </Base>
+  </React.Fragment>
 );
 
 ContentRating.propTypes = {
@@ -104,7 +125,11 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
     src = fingerUpSingleQuestionPage;
   }
 
-  return <MediumImageStyled src={src} alt="voteup" />;
+  return (
+    <ImgBox src={src}>
+      <img src={src} alt="voteup" />
+    </ImgBox>
+  );
 }
 
 UpvoteIcon.propTypes = {
@@ -126,7 +151,11 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
     src = fingerDownSingleQuestionPage;
   }
 
-  return <MediumImageStyled src={src} alt="votedown" />;
+  return (
+    <ImgBox src={src}>
+      <img src={src} alt="votedown" />
+    </ImgBox>
+  );
 }
 
 DownvoteIcon.propTypes = {

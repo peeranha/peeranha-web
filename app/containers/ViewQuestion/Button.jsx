@@ -5,62 +5,55 @@ import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
-import Span from 'components/Span';
-
 /* eslint no-nested-ternary: 0, indent: 0 */
-export const SpanStyled = Span.extend`
+export const SpanStyled = TransparentButton.extend`
   ${x => svgDraw({ color: x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY })};
+
+  display: inline-flex;
+  align-items: center;
+  margin-left: 30px;
+
+  > *:last-child {
+    margin-left: 7px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    margin-left: 8px;
+    > *:last-child {
+      display: none;
+    }
+  }
 `;
 
 export const Button = ({
-  className,
   id,
   onClick,
-  params,
+  params = {},
   show,
   children,
   disabled,
-}) =>
-  show ? (
-    <TransparentButton
-      id={id}
-      disabled={disabled}
-      className={`d-inline-flex align-items-center pl-3 ${className}`}
-      data-questionid={params.questionId}
-      data-answerid={params.answerId}
-      data-commentid={params.commentId}
-      data-whowasvoted={params.whowasvoted}
-      onClick={onClick}
-    >
-      {children}
-    </TransparentButton>
-  ) : null;
-
-export const BlockButton = ({
-  className,
-  id,
-  onClick,
-  params,
   isVotedToDelete,
-  children,
-  disabled,
-}) => (
-  <Button
-    show
-    params={params}
-    onClick={onClick}
-    id={id}
-    className={className}
-    disabled={disabled}
-  >
+  className,
+}) => {
+  const z = {};
+
+  Object.keys(params).forEach(x => {
+    z[`data-${x}`] = params[x];
+  });
+
+  return show ? (
     <SpanStyled
-      className="d-flex align-items-center"
+      {...z}
+      id={id}
+      className={className}
+      disabled={disabled}
+      onClick={onClick}
       isVotedToDelete={isVotedToDelete}
     >
       {children}
     </SpanStyled>
-  </Button>
-);
+  ) : null;
+};
 
 Button.propTypes = {
   params: PropTypes.object,
@@ -70,16 +63,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   show: PropTypes.bool,
   disabled: PropTypes.bool,
-};
-
-BlockButton.propTypes = {
-  className: PropTypes.string,
-  id: PropTypes.string,
-  onClick: PropTypes.func,
-  params: PropTypes.object,
   isVotedToDelete: PropTypes.bool,
-  disabled: PropTypes.bool,
-  children: PropTypes.object,
 };
 
 export default React.memo(Button);

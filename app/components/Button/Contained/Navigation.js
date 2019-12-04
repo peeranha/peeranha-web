@@ -9,7 +9,7 @@ const ButtonCss = css`
   padding: 6px 16px;
   min-width: auto;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 18px;
 
   :hover {
     color: ${TEXT_LIGHT};

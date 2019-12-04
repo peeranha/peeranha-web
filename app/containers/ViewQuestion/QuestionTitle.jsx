@@ -9,10 +9,10 @@ import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommuni
 export const QuestionTitle = ({ title, tags, communityId, communities }) =>
   title ? (
     <Base position="middle">
-      <H3 className="mb-2">{title}</H3>
+      <H3>{title}</H3>
 
       <TagList
-        className="my-1"
+        className="my-2"
         chosenTags={tags}
         communityId={communityId}
         communities={communities}

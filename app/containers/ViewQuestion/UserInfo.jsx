@@ -16,14 +16,6 @@ import A from 'components/A';
 
 import { COMMENT_TYPE } from './constants';
 
-const RatingStatusBox = Span.extend`
-  @media only screen and (max-width: 576px) {
-    img {
-      display: none !important;
-    }
-  }
-`;
-
 export const UserInfo = ({
   rating,
   name,
@@ -49,15 +41,13 @@ export const UserInfo = ({
       }`}
     >
       <span className="d-flex align-items-center mr-2">
-        <Span className="mr-2" fontSize="14" mobileFS="12">
+        <Span className="mr-2" fontSize="14" lineHeight="18">
           {name}
         </Span>
-        <RatingStatusBox>
-          <RatingStatus rating={rating} size="sm" isRankOff />
-        </RatingStatusBox>
+        <RatingStatus rating={rating} size="sm" isRankOff />
       </span>
 
-      <Span color={TEXT_SECONDARY} fontSize="14" mobileFS="12">
+      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}
       </Span>
     </div>
