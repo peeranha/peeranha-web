@@ -52,7 +52,9 @@ const TextBlockStyled = styled.div`
 export const TextBlock = ({ content, className }) => (
   <TextBlockStyled
     className={`text-block ${className}`}
-    dangerouslySetInnerHTML={{ __html: TextEditor.getHtmlText(content) }}
+    dangerouslySetInnerHTML={{
+      __html: TextEditor.getHtmlText(String(content)),
+    }}
   />
 );
 
