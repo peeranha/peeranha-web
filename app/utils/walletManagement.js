@@ -1,3 +1,4 @@
+/* eslint camelcase: 0 */
 import { getFormattedNum3 } from './numbers';
 
 import {
@@ -11,6 +12,8 @@ import {
   TOTAL_RATING_TABLE,
   ALL_PERIODS_SCOPE,
   INF_LIMIT,
+  USER_SUPPLY_TABLE,
+  USER_SUPPLY_SCOPE,
 } from './constants';
 
 /**
@@ -26,7 +29,7 @@ export async function getBalance(eosService, user) {
   );
 
   // remove all chars besides of number
-  return val ? val.balance.replace(/[a-zA-Z]/gim, '').trim() : 0;
+  return val ? convertPeerValueToNumberValue(val.balance) : 0;
 }
 
 /**
@@ -34,6 +37,15 @@ export async function getBalance(eosService, user) {
  */
 
 export async function getWeekStat(eosService, user) {
+  function getUserSupplyValues() {
+    return eosService.getTableRow(
+      USER_SUPPLY_TABLE,
+      USER_SUPPLY_SCOPE,
+      undefined,
+      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    );
+  }
+
   function getTotalReward() {
     return eosService.getTableRows(
       TOTAL_REWARD_TABLE,
@@ -91,24 +103,36 @@ export async function getWeekStat(eosService, user) {
     totalRating,
     periodRating,
     weekRewards,
+    userSupplyValues,
   ] = await Promise.all([
     getTotalReward(),
     getTotalRating(),
     getPeriodRating(),
     getWeekRewards(),
+    getUserSupplyValues(),
   ]);
 
   const normalizedRewards = periodRating.map(x => {
     try {
-      const totalRewardForPeriod = Number(
-        totalReward
-          .find(y => y.period === x.period)
-          .total_reward.replace(/[a-zA-Z]/gim, '')
-          .trim(),
-      );
-
       const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
         .total_rating_to_reward;
+
+      let totalRewardForPeriod;
+
+      if (totalReward.length) {
+        totalRewardForPeriod = convertPeerValueToNumberValue(
+          totalReward.find(y => y.period === x.period).total_reward,
+        );
+      } else {
+        const { user_max_supply, user_supply } = userSupplyValues;
+
+        totalRewardForPeriod = createGetRewardPool(
+          x.period,
+          totalRatingForPeriod,
+          convertPeerValueToNumberValue(user_supply),
+          convertPeerValueToNumberValue(user_max_supply),
+        );
+      }
 
       const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
 
@@ -128,7 +152,32 @@ export async function getWeekStat(eosService, user) {
     }
   });
 
-  return normalizedRewards.reverse();
+  const numberOfPeriods = Math.floor(
+    (Date.now() / 1000 - +process.env.RELEASE_DATE) /
+      +process.env.WEEK_DURATION,
+  );
+
+  // Fill by periods with 0 reward - they not stored in blockchain
+  return new Array(numberOfPeriods)
+    .fill()
+    .map((_, index) => {
+      const existingPeriod = normalizedRewards.find(
+        y => y.period === index + 1,
+      );
+
+      return {
+        reward: 0,
+        ...(existingPeriod || normalizedRewards[0]),
+        period: index + 1,
+        periodStarted:
+          +process.env.RELEASE_DATE +
+          +process.env.WEEK_DURATION * (index + 1) -
+          +process.env.WEEK_DURATION,
+        periodFinished:
+          +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
+      };
+    })
+    .reverse();
 }
 
 export async function sendTokens(eosService, info) {
@@ -165,4 +214,33 @@ export function getNormalizedCurrency(value) {
   const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
 
   return `${num} ${APP_CURRENCY}`;
+}
+
+// TODO: test
+export function createGetRewardPool(
+  period,
+  totalRating,
+  userSupply,
+  maxUserSupply,
+) {
+  const inflationRewardPool =
+    Number(process.env.START_POOL) *
+    Number(process.env.POOL_REDUSE_COEFFICIENT) **
+      Math.floor(period / Number(process.env.INFLATION_PERIOD));
+
+  let rewardPool = totalRating * Number(process.env.RATING_TOKEN_COFICIENT);
+
+  if (rewardPool > inflationRewardPool) {
+    rewardPool = inflationRewardPool;
+  }
+  if (maxUserSupply - userSupply < rewardPool) {
+    return maxUserSupply - userSupply;
+  }
+
+  return rewardPool;
+}
+
+// TODO: test
+export function convertPeerValueToNumberValue(val) {
+  return Number(val.replace(/[a-zA-Z]/gim, '').trim());
 }

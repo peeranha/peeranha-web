@@ -38,53 +38,38 @@ const BaseRoundedLi = BaseRounded.extend`
   }
 `.withComponent('li');
 
-const WeekNumber = ({ period, locale }) => (
+const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => (
   <P>
     <Span className="mr-3" fontSize="24" mobileFS={21} bold>
       <FormattedMessage {...messages.week} /> {` ${period}`}
     </Span>
 
     <Span className="d-none d-md-inline-block">
-      {getFormattedDate(
-        +process.env.RELEASE_DATE +
-          +process.env.WEEK_DURATION * period -
-          +process.env.WEEK_DURATION,
-        locale,
-        FULL_MONTH_NAME_DAY_YEAR,
-      )}
+      {getFormattedDate(periodStarted, locale, FULL_MONTH_NAME_DAY_YEAR)}
       {' — '}
-      {getFormattedDate(
-        +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * period,
-        locale,
-        FULL_MONTH_NAME_DAY_YEAR,
-      )}
+      {getFormattedDate(periodFinished, locale, FULL_MONTH_NAME_DAY_YEAR)}
     </Span>
 
     <Span className="d-inline-block d-md-none" mobileFS={14}>
-      {getFormattedDate(
-        +process.env.RELEASE_DATE +
-          +process.env.WEEK_DURATION * period -
-          +process.env.WEEK_DURATION,
-        locale,
-        DD_MM_YY,
-      )}
+      {getFormattedDate(periodStarted, locale, DD_MM_YY)}
       {' — '}
-      {getFormattedDate(
-        +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * period,
-        locale,
-        DD_MM_YY,
-      )}
+      {getFormattedDate(periodFinished, locale, DD_MM_YY)}
     </Span>
   </P>
 );
 
-const CurrentWeek = ({ period, locale }) => (
+const CurrentWeek = ({ period, locale, periodStarted, periodFinished }) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.currentPeriod} />
       </P>
-      <WeekNumber locale={locale} period={period} />
+      <WeekNumber
+        locale={locale}
+        period={period}
+        periodStarted={periodStarted}
+        periodFinished={periodFinished}
+      />
     </Base>
     <Base className="d-flex align-items-center" position="bottom">
       <img className="mr-3" src={calendarImage} alt="calendar" />
@@ -95,13 +80,24 @@ const CurrentWeek = ({ period, locale }) => (
   </li>
 );
 
-const PendingWeek = ({ period, reward, locale }) => (
+const PendingWeek = ({
+  period,
+  reward,
+  locale,
+  periodStarted,
+  periodFinished,
+}) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.payoutPending} />
       </P>
-      <WeekNumber locale={locale} period={period} />
+      <WeekNumber
+        locale={locale}
+        period={period}
+        periodStarted={periodStarted}
+        periodFinished={periodFinished}
+      />
     </Base>
     <Base position="bottom">
       <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
@@ -124,13 +120,20 @@ const PaidOutWeek = ({
   hasTaken,
   pickupRewardDispatch,
   pickupRewardProcessing,
+  periodStarted,
+  periodFinished,
 }) => (
   <BaseRoundedLi className="align-items-center mb-3">
     <div>
       <P fontSize="13" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.paidOut} />
       </P>
-      <WeekNumber locale={locale} period={period} />
+      <WeekNumber
+        locale={locale}
+        period={period}
+        periodStarted={periodStarted}
+        periodFinished={periodFinished}
+      />
     </div>
 
     <div className="d-flex align-items-center justify-content-end">
@@ -231,17 +234,23 @@ const Weeks = ({
 WeekNumber.propTypes = {
   period: PropTypes.string,
   locale: PropTypes.string,
+  periodStarted: PropTypes.number,
+  periodFinished: PropTypes.number,
 };
 
 CurrentWeek.propTypes = {
   period: PropTypes.string,
   locale: PropTypes.string,
+  periodStarted: PropTypes.number,
+  periodFinished: PropTypes.number,
 };
 
 PendingWeek.propTypes = {
   period: PropTypes.string,
   locale: PropTypes.string,
   reward: PropTypes.string,
+  periodStarted: PropTypes.number,
+  periodFinished: PropTypes.number,
 };
 
 PaidOutWeek.propTypes = {
@@ -251,6 +260,8 @@ PaidOutWeek.propTypes = {
   hasTaken: PropTypes.bool,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
+  periodStarted: PropTypes.number,
+  periodFinished: PropTypes.number,
 };
 
 Weeks.propTypes = {
