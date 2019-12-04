@@ -46,15 +46,15 @@ const WeekNumber = ({ period, locale }) => (
 
     <Span className="d-none d-md-inline-block">
       {getFormattedDate(
-        process.env.RELEASE_DATE +
-          process.env.WEEK_DURATION * period -
-          process.env.WEEK_DURATION,
+        +process.env.RELEASE_DATE +
+          +process.env.WEEK_DURATION * period -
+          +process.env.WEEK_DURATION,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
       {' — '}
       {getFormattedDate(
-        process.env.RELEASE_DATE + process.env.WEEK_DURATION * period,
+        +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * period,
         locale,
         FULL_MONTH_NAME_DAY_YEAR,
       )}
@@ -62,15 +62,15 @@ const WeekNumber = ({ period, locale }) => (
 
     <Span className="d-inline-block d-md-none" mobileFS={14}>
       {getFormattedDate(
-        process.env.RELEASE_DATE +
-          process.env.WEEK_DURATION * period -
-          process.env.WEEK_DURATION,
+        +process.env.RELEASE_DATE +
+          +process.env.WEEK_DURATION * period -
+          +process.env.WEEK_DURATION,
         locale,
         DD_MM_YY,
       )}
       {' — '}
       {getFormattedDate(
-        process.env.RELEASE_DATE + process.env.WEEK_DURATION * period,
+        +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * period,
         locale,
         DD_MM_YY,
       )}
