@@ -14,6 +14,8 @@ export const Div = styled.div`
   font-size: 14px;
   line-height: 18px;
   font-style: italic;
+  max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
+  overflow: hidden;
   color: ${TEXT_SECONDARY};
 
   > div {
@@ -45,7 +47,7 @@ export const WarningMessage = ({
       <div>
         {(tip || isSpecialPosition) && (
           <img
-            className="d-none d-xl-inline"
+            className={`${!isSpecialPosition ? 'd-none' : ''} d-md-inline`}
             src={validationArrowIcon}
             alt="icon"
           />
