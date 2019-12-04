@@ -22,10 +22,14 @@ export const HASH_CHARS_LIMIT = 1000;
 const Div = styled.div`
   position: relative;
   width: 120px;
+  display: flex;
+  flex-direction: column;
 
   ${WarningMessageDiv} {
+    width: 120px;
     display: flex;
     justify-content: center;
+    text-align: center;
   }
 
   > :first-child {
@@ -167,7 +171,7 @@ function AvatarField({ input, meta, disabled }) {
         />
       </div>
 
-      <WarningMessage {...meta} />
+      <WarningMessage {...meta} isSpecialPosition />
     </Div>
   );
 }
