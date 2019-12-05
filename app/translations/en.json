@@ -501,7 +501,7 @@
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
-  "app.containers.Login.iForgotPassword": "I forgot my password",
+  "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the Scatter and network settings are installed",
   "app.containers.Login.userIsNotRegistered": "User is not registered",

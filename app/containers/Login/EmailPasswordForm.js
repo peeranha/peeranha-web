@@ -13,7 +13,7 @@ import { scrollToErrorField } from 'utils/animation';
 import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import TransparentButton from 'components/Button/Contained/Transparent';
+import TransparentButton from 'components/Button/Contained/TransparentSmall';
 
 import { validateEmail, required } from 'components/FormFields/validate';
 
@@ -76,16 +76,14 @@ const EmailPasswordForm = /* istanbul ignore next */ ({
           disabled={loginProcessing}
           component={Checkbox}
           label={
-            <Span fontSize="14" color={TEXT_PRIMARY}>
+            <Span fontSize="14" lineHeight="20" color={TEXT_PRIMARY}>
               <FormattedMessage {...loginMessages.staySignedIn} />
             </Span>
           }
         />
 
         <TransparentButton onClick={showIForgotPasswordModal}>
-          <Span fontSize="14" color={TEXT_PRIMARY}>
-            <FormattedMessage {...loginMessages.iForgotPassword} />
-          </Span>
+          <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>
     </form>
