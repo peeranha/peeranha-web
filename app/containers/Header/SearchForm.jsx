@@ -10,7 +10,6 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
 
   return (
     <form
-      target="_blank"
       className={className}
       id={`searchbox_${process.env.GOOGLE_SEARCH_FORM_ID}`}
       action={routes.search()}
