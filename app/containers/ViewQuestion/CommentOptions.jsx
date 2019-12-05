@@ -18,7 +18,10 @@ const ButtonStyled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 40px;
+
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
 `;
 
 const CommentEditStyled = styled.div`
@@ -29,7 +32,6 @@ const CommentEditStyled = styled.div`
 
 export const CommentOptions = ({
   form,
-  isPhone,
   submitButtonId,
   submitButtonName,
   sendCommentLoading,
@@ -47,21 +49,19 @@ export const CommentOptions = ({
         {commentsNumber > 0 && (
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
-            <Span className="mr-1 text-lowercase" color={TEXT_SECONDARY}>
+            <Span className="text-lowercase" color={TEXT_SECONDARY}>
               <FormattedMessage {...messages.moreComments} />
+              <Icon
+                className="ml-1"
+                rotate={isAllCommentsView}
+                icon={arrowDownOutlined}
+                width="9"
+              />
             </Span>
-            <Icon
-              rotate={isAllCommentsView}
-              icon={arrowDownOutlined}
-              width="9"
-            />
           </ButtonStyled>
         )}
 
-        <ButtonStyled
-          className="d-none d-sm-inline-flex"
-          onClick={() => changeAddCommentView(!isAddCommentHidden)}
-        >
+        <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
           <img src={dotsIcon} alt="***" />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
@@ -69,7 +69,7 @@ export const CommentOptions = ({
         </ButtonStyled>
       </div>
 
-      {(!isAddCommentHidden || (isAllCommentsView && isPhone)) && (
+      {!isAddCommentHidden && (
         <CommentEditStyled>
           <CommentForm
             form={form}

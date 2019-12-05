@@ -86,6 +86,8 @@
   "app.common.hide": "Hide",
   "app.common.delete": "Delete",
   "app.common.description": "Description",
+  "app.common.preview": "Preview",
+  "app.common.answer": "Answer",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",

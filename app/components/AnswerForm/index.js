@@ -7,7 +7,7 @@ import { scrollToErrorField } from 'utils/animation';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import TextEditorField from 'components/FormFields/TextEditorField';
-import LargeButton from 'components/Button/Contained/InfoLarge';
+import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 
 import { TEXT_EDITOR_ANSWER_FORM } from './constants';
@@ -18,6 +18,8 @@ export const AnswerForm = ({
   sendAnswerLoading,
   sendButtonId,
   submitButtonName,
+  label,
+  previewLabel,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     <Field
@@ -26,10 +28,12 @@ export const AnswerForm = ({
       disabled={sendAnswerLoading}
       validate={[strLength25x30000, required]}
       warn={[strLength25x30000, required]}
+      label={label}
+      previewLabel={previewLabel}
     />
-    <LargeButton id={sendButtonId} disabled={sendAnswerLoading} type="submit">
+    <Button id={sendButtonId} disabled={sendAnswerLoading} type="submit">
       {submitButtonName}
-    </LargeButton>
+    </Button>
   </FormBox>
 );
 
@@ -38,6 +42,8 @@ AnswerForm.propTypes = {
   sendAnswer: PropTypes.func,
   sendButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
+  label: PropTypes.string,
+  previewLabel: PropTypes.string,
   sendAnswerLoading: PropTypes.bool,
 };
 

@@ -63,6 +63,11 @@ const CommentEditStyled = styled.li`
 const CommentsStyled = styled.ul`
   margin-top: 30px;
 
+  ${CommentEditStyled} {
+    padding: 0;
+    border: none;
+  }
+
   li {
     border: 1px solid ${BORDER_SECONDARY};
     padding: 9px 28px 9px 38px;
@@ -181,6 +186,7 @@ const CommentView = item => (
           }}
           onClick={item.voteToDelete}
           disabled={item.voteToDeleteLoading}
+          isVotedToDelete={item.votingStatus.isVotedToDelete}
         >
           <Icon icon={blockSmallIcon} width="12" />
           <FormattedMessage {...messages.voteToDelete} />
@@ -231,7 +237,6 @@ const Comments = props => {
       )}
 
       <CommentOptions
-        isPhone={isPhone}
         form={props.form}
         submitButtonId={props.submitButtonId}
         submitButtonName={props.submitButtonName}
