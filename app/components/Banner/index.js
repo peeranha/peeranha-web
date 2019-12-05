@@ -3,23 +3,21 @@ import Base from 'components/Base/BaseRounded';
 export const B1 = `
   display: flex;
   align-items: center;
-  padding: 40px;
+  height: 253px;
 
   img {
-    min-height: 140px;
-    object-fit: contain;
-    margin: 0 50px 0 25px;
-    box-sizing: content-box;
+    margin: 0px 100px 0px 57px;
   }
 
   div {
     p:nth-child(1) {
-      margin-bottom: 5px;
       font-size: 24px;
+      line-height: 31px;
       font-weight: 600;
     }
 
     p {
+      font-size: 16px;
       line-height: 24px;
     }
 
@@ -30,6 +28,7 @@ export const B1 = `
 
   @media only screen and (max-width: 576px) {
     flex-direction: column;
+    height: auto;
 
     img {
       width: 120px;

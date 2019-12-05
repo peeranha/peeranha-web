@@ -9,13 +9,14 @@ import Banner from 'components/Banner/Transparent';
 import messages from './messages';
 
 const BannerStyled = Banner.extend`
-  padding-top: 20px;
-  margin-bottom: 20px;
   border-bottom: 1px solid ${BORDER_SECONDARY};
+  padding: 20px 0 50px;
+  height: 200px;
+  margin-bottom: 20px;
 
-  @media only screen and (max-width: 768px) {
-    padding: 15px 0 0 0;
+  @media only screen and (max-width: 576px) {
     border-bottom: none;
+    padding: 0;
   }
 `;
 
