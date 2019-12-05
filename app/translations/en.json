@@ -172,7 +172,7 @@
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
-    "Information about you is currently blank.",
+    "Information about user is currently blank.",
   "app.containers.Profile.activity": "Activity",
   "app.containers.Profile.userHasntActivityYet":
     "This user hasn’t activity yet",

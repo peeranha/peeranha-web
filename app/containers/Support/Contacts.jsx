@@ -13,7 +13,7 @@ import twitterIcon from 'images/twittersupport.svg?inline';
 import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
-import calendarIcon from 'images/calendar.svg?inline';
+import calendarIcon from 'images/ico_email.svg?inline';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -90,7 +90,7 @@ const Contacts = ({ locale }) => (
 
       <MediaItem href={routes.support(FORM_ID)}>
         <img src={calendarIcon} alt="calendar" />
-        <Span color={TEXT_PRIMARY}>Support</Span>
+        <Span color={TEXT_PRIMARY}>support@peeranha.com</Span>
       </MediaItem>
     </MediaList>
   </div>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg fill="#576FED" width="28px" height="19px" viewBox="0 0 28 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>83625F97-256B-47CA-9F02-533DDFFF3F8E</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="28" height="19" rx="2"></rect>
+    </defs>
+    <g fill="#E4EBFF" id="Peeranha" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g id="Peerania_Contacts" transform="translate(-1236.000000, -225.000000)">
+            <g id="ico_email" transform="translate(1236.000000, 225.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <rect stroke="#576FED" x="0.5" y="0.5" width="27" height="18" rx="2"></rect>
+                <path d="M0.5,1.78849633 L14.0003678,10.4070347 L27.5,1.81252242 L27.5,0.5 L0.5,0.5 L0.5,1.78849633 Z" id="Rectangle" stroke="#576FED" fill="#E4EBFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
