@@ -1,6 +1,6 @@
 import Success from './Success';
+import Small from '../Small';
 
 export default Success.extend`
-  padding: 4px 8px;
-  font-size: 14px;
+  ${Small};
 `;

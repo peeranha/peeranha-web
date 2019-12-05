@@ -1,6 +1,6 @@
 import Info from './Info';
+import Large from '../Large';
 
 export default Info.extend`
-  min-width: 92px;
-  padding: 12px 18px;
+  ${Large};
 `;

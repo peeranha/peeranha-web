@@ -3,21 +3,15 @@ import { Link } from 'react-router-dom';
 
 import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 
-import PrimaryLarge from './PrimaryLarge';
+import Primary from './Primary';
+import Medium from '../Medium';
 
 const ButtonCss = css`
-  padding: 6px 16px;
+  ${Medium};
   min-width: auto;
-  font-size: 16px;
-  line-height: 18px;
 
   :hover {
     color: ${TEXT_LIGHT};
-  }
-
-  @media only screen and (max-width: 576px) {
-    font-size: 14px;
-    min-width: auto;
   }
 
   ${({ isLink }) =>
@@ -33,15 +27,15 @@ const ButtonCss = css`
       : ``};
 `;
 
-export const NavigationLinkDefault = PrimaryLarge.extend`
+export const NavigationLinkDefault = Primary.extend`
   ${ButtonCss};
 `.withComponent('a');
 
-export const NavigationLink = PrimaryLarge.extend`
+export const NavigationLink = Primary.extend`
   ${ButtonCss};
 `.withComponent(Link);
 
-const NavigationButton = PrimaryLarge.extend`
+const NavigationButton = Primary.extend`
   ${ButtonCss};
 `;
 
