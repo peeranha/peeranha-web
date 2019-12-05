@@ -2,7 +2,10 @@ import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { getWeekStat, pickupReward } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 
 import {
   GET_WEEK_STAT,
@@ -20,13 +23,13 @@ import {
 export function* getWeekStatWorker() {
   try {
     const eosService = yield select(selectEos);
-    const account = yield select(makeSelectAccount());
+    const profile = yield select(makeSelectProfileInfo());
 
-    const weekStat = yield call(() => getWeekStat(eosService, account));
+    const weekStat = yield call(getWeekStat, eosService, profile);
 
     yield put(getWeekStatSuccess(weekStat));
-  } catch (err) {
-    yield put(getWeekStatErr(err.message));
+  } catch ({ message }) {
+    yield put(getWeekStatErr(message));
   }
 }
 

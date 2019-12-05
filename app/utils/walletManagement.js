@@ -36,7 +36,7 @@ export async function getBalance(eosService, user) {
  * @reward - string, example - '1000.000000 PEER'
  */
 
-export async function getWeekStat(eosService, user) {
+export async function getWeekStat(eosService, profile) {
   function getUserSupplyValues() {
     return eosService.getTableRow(
       USER_SUPPLY_TABLE,
@@ -75,7 +75,7 @@ export async function getWeekStat(eosService, user) {
   function getPeriodRating() {
     return eosService.getTableRows(
       PERIOD_RATING_TABLE,
-      user,
+      profile.user,
       0,
       INF_LIMIT,
       undefined,
@@ -88,7 +88,7 @@ export async function getWeekStat(eosService, user) {
   function getWeekRewards() {
     return eosService.getTableRows(
       PERIOD_REWARD_TABLE,
-      user,
+      profile.user,
       0,
       INF_LIMIT,
       undefined,
@@ -117,11 +117,11 @@ export async function getWeekStat(eosService, user) {
       const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
         .total_rating_to_reward;
 
-      let totalRewardForPeriod;
+      let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
 
-      if (totalReward.length) {
+      if (totalRewardForPeriod) {
         totalRewardForPeriod = convertPeerValueToNumberValue(
-          totalReward.find(y => y.period === x.period).total_reward,
+          totalRewardForPeriod.total_reward,
         );
       } else {
         const { user_max_supply, user_supply } = userSupplyValues;
@@ -133,7 +133,6 @@ export async function getWeekStat(eosService, user) {
           convertPeerValueToNumberValue(user_max_supply),
         );
       }
-
       const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
 
       const periodReward =
@@ -177,6 +176,7 @@ export async function getWeekStat(eosService, user) {
           +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
       };
     })
+    .filter(x => x.periodFinished > profile.registration_time)
     .reverse();
 }
 
