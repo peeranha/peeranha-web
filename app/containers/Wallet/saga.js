@@ -42,7 +42,7 @@ export function* pickupRewardWorker({ period }) {
 
     yield put(pickupRewardSuccess());
   } catch (err) {
-    yield put(pickupRewardErr(err.message));
+    yield put(pickupRewardErr(err));
   }
 }
 

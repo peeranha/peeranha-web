@@ -10,11 +10,6 @@ import {
   getQuestionById,
 } from 'utils/questionsManagement';
 
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -25,7 +20,6 @@ import {
   GET_ASKED_QUESTION,
   EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
-  EDIT_QUESTION_ERROR,
   EDIT_QUESTION_BUTTON,
   MIN_RATING_TO_EDIT_QUESTION,
   MIN_ENERGY_TO_EDIT_QUESTION,
@@ -77,8 +71,8 @@ export function* editQuestionWorker({ question, questionId }) {
 
     yield put(editQuestionSuccess({ ...cachedQuestion }));
     yield call(createdHistory.push, routes.questionView(questionId));
-  } catch ({ message }) {
-    yield put(editQuestionErr(message));
+  } catch (err) {
+    yield put(editQuestionErr(err));
   }
 }
 
@@ -105,7 +99,5 @@ export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
 export default function*() {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
-  yield takeLatest(EDIT_QUESTION_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(EDIT_QUESTION_ERROR, errorToastHandlingWithDefaultText);
   yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);
 }

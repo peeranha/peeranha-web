@@ -2,6 +2,7 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
+import { OtherError } from 'utils/errors';
 import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
 import {
@@ -49,7 +50,7 @@ export function* isAuthorized() {
 
   if (!profileInfo) {
     yield put(showLoginModal());
-    throw new Error('Not authorized');
+    throw new OtherError('Not authorized');
   }
 }
 

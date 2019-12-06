@@ -7,14 +7,14 @@ import {
 } from 'utils/web_integration/src/wallet/get-owner-key/get-owner-key';
 
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
+import { WebIntegrationError } from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
 
 import { selectPassword } from './selectors';
 
-import { SHOW_OWNER_KEY, SEND_EMAIL, SHOW_OWNER_KEY_ERROR } from './constants';
+import { SHOW_OWNER_KEY, SEND_EMAIL } from './constants';
 
 import {
   showOwnerKeySuccess,
@@ -28,10 +28,10 @@ export function* sendEmailWorker({ resetForm, email, password }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => getOwnerKeyInitByPwd(email, password));
+    const response = yield call(getOwnerKeyInitByPwd, email, password);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -39,7 +39,7 @@ export function* sendEmailWorker({ resetForm, email, password }) {
     yield put(sendEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(sendEmailErr(err.message));
+    yield put(sendEmailErr(err));
   }
 }
 
@@ -51,12 +51,15 @@ export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      getOwnerKeyByPwd(loginData.email, password, verificationCode),
+    const response = yield call(
+      getOwnerKeyByPwd,
+      loginData.email,
+      password,
+      verificationCode,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -66,12 +69,11 @@ export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
     yield put(showOwnerKeySuccess(keys.ownerKey.private));
     yield call(resetForm);
   } catch (err) {
-    yield put(showOwnerKeyErr(err.message));
+    yield put(showOwnerKeyErr(err));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest(SHOW_OWNER_KEY, showOwnerKeyWorker);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
-  yield takeLatest([SHOW_OWNER_KEY_ERROR], errorToastHandling);
 }

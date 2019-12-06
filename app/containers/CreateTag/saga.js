@@ -6,17 +6,10 @@ import { suggestTag } from 'utils/communityManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
 import { suggestTagSuccess, suggestTagErr } from './actions';
 
 import {
   SUGGEST_TAG,
-  SUGGEST_TAG_SUCCESS,
-  SUGGEST_TAG_ERROR,
   MIN_ENERGY_TO_CREATE_TAG,
   MIN_RATING_TO_CREATE_TAG,
   CREATE_TAG_BUTTON,
@@ -34,8 +27,8 @@ export function* suggestTagWorker({ tag, reset }) {
     yield call(reset);
 
     yield call(createdHistory.push, routes.suggestedTags(tag.communityId));
-  } catch ({ message }) {
-    yield put(suggestTagErr(message));
+  } catch (err) {
+    yield put(suggestTagErr(err));
   }
 }
 
@@ -59,6 +52,4 @@ export function* redirectToCreateTagWorker({ buttonId, communityId }) {
 
 export default function*() {
   yield takeLatest(SUGGEST_TAG, suggestTagWorker);
-  yield takeLatest(SUGGEST_TAG_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(SUGGEST_TAG_ERROR, errorToastHandlingWithDefaultText);
 }

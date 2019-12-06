@@ -16,6 +16,7 @@ import {
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
+import { OtherError } from './errors';
 
 class EosioService {
   constructor() {
@@ -162,9 +163,9 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new OtherError(EOS_IS_NOT_INIT);
 
-    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
+    if (!this.scatterInstalled) throw new OtherError(SCATTER_IN_NOT_INSTALLED);
 
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
@@ -186,7 +187,7 @@ class EosioService {
 
   // TODO: test
   sendTransaction = (actor, action, data, account) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new OtherError(EOS_IS_NOT_INIT);
 
     /* eslint no-param-reassign: 0 */
     Object.keys(data).forEach(x => {
@@ -217,7 +218,7 @@ class EosioService {
   };
 
   getTableRow = async (table, scope, primaryKey, code) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new OtherError(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
@@ -249,7 +250,7 @@ class EosioService {
     keyType,
     code,
   ) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new OtherError(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
@@ -283,10 +284,12 @@ class EosioService {
 
   getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
-    protocol: this.node.protocol,
-    host: this.node.host,
-    port: this.node.port,
-    chainId: this.node.chainID,
+    protocol: 'http' || this.node.protocol,
+    host: '127.0.0.1' || this.node.host,
+    port: '8888' || this.node.port,
+    chainId:
+      'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f' ||
+      this.node.chainID,
   });
 
   getNode = () => {

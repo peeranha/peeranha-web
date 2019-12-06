@@ -31,18 +31,24 @@ export function* followHandlerWorker({
     });
 
     if (isFollowed) {
-      yield call(() =>
-        unfollowCommunity(eosService, communityIdFilter, selectedAccount),
+      yield call(
+        unfollowCommunity,
+        eosService,
+        communityIdFilter,
+        selectedAccount,
       );
     } else {
-      yield call(() =>
-        followCommunity(eosService, communityIdFilter, selectedAccount),
+      yield call(
+        followCommunity,
+        eosService,
+        communityIdFilter,
+        selectedAccount,
       );
     }
 
     yield put(followHandlerSuccess({ communityIdFilter, isFollowed }));
   } catch (err) {
-    yield put(followHandlerErr(err.message));
+    yield put(followHandlerErr(err));
   }
 }
 

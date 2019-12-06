@@ -10,9 +10,9 @@ import {
   changeCredentialsGetKeysByPwd,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
+import { WebIntegrationError } from 'utils/errors';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { logout } from 'containers/Logout/actions';
 
 import { selectEmail } from './selectors';
@@ -20,8 +20,6 @@ import { selectEmail } from './selectors';
 import {
   DELETE_ACCOUNT,
   SEND_EMAIL,
-  SEND_EMAIL_ERROR,
-  DELETE_ACCOUNT_ERROR,
   PASSWORD_FIELD,
   CODE_FIELD,
 } from './constants';
@@ -38,10 +36,10 @@ export function* sendEmailWorker({ resetForm, email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => changeCredentialsInit(email));
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -49,7 +47,7 @@ export function* sendEmailWorker({ resetForm, email }) {
     yield put(sendEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(sendEmailErr(err.message));
+    yield put(sendEmailErr(err));
   }
 }
 
@@ -62,22 +60,27 @@ export function* deleteAccountWorker({ resetForm, values }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      changeCredentialsConfirm(email, verificationCode),
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
 
-    const changeCredentialsGetKeysByPwdResponse = yield call(() =>
-      changeCredentialsGetKeysByPwd(email, password, verificationCode),
+    const changeCredentialsGetKeysByPwdResponse = yield call(
+      changeCredentialsGetKeysByPwd,
+      email,
+      password,
+      verificationCode,
     );
 
     if (!changeCredentialsGetKeysByPwdResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -90,12 +93,15 @@ export function* deleteAccountWorker({ resetForm, values }) {
 
     const newProps = null;
 
-    const changeCredentialsCompleteResponse = yield call(() =>
-      changeCredentialsComplete(newProps, email, encryptionKey),
+    const changeCredentialsCompleteResponse = yield call(
+      changeCredentialsComplete,
+      newProps,
+      email,
+      encryptionKey,
     );
 
     if (!changeCredentialsCompleteResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -109,15 +115,11 @@ export function* deleteAccountWorker({ resetForm, values }) {
     yield put(deleteAccountSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(deleteAccountErr(err.message));
+    yield put(deleteAccountErr(err));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest(DELETE_ACCOUNT, deleteAccountWorker);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
-  yield takeLatest(
-    [SEND_EMAIL_ERROR, DELETE_ACCOUNT_ERROR],
-    errorToastHandling,
-  );
 }
