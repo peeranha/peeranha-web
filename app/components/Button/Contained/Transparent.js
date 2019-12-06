@@ -15,6 +15,8 @@ const ButtonCss = css`
   border: 1px solid ${BORDER_TRANSPARENT};
   height: auto;
   min-height: auto;
+  font-size: 16px;
+  line-height: 18px;
 `;
 
 export const TransparentLinkDefault = Button.extend`

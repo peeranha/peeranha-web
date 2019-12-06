@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { translationMessages } from 'i18n';
+import commonMessages from 'common-messages';
 
 import AnswerForm from 'components/AnswerForm';
 import Base from 'components/Base/BaseRounded';
@@ -15,27 +17,33 @@ import {
   QUESTION_IS_RENDERED_ID,
 } from './constants';
 
-export const ViewQuestionContainer = props => (
-  <article id={QUESTION_IS_RENDERED_ID}>
-    <Question {...props} />
-    <Answers {...props} />
+export const ViewQuestionContainer = props => {
+  const msg = translationMessages[props.locale];
 
-    <Base className="mt-3">
-      <AnswerForm
-        form={ADD_ANSWER_FORM}
-        formHeader={props.translations[messages.yourAnswer.id]}
-        sendButtonId={POST_ANSWER_BUTTON}
-        sendAnswer={props.postAnswer}
-        sendAnswerLoading={props.postAnswerLoading}
-        submitButtonName={props.translations[messages.postAnswerButton.id]}
-      />
-    </Base>
-  </article>
-);
+  return (
+    <article id={QUESTION_IS_RENDERED_ID}>
+      <Question {...props} />
+      <Answers {...props} />
+
+      <Base className="mt-3">
+        <AnswerForm
+          form={ADD_ANSWER_FORM}
+          formHeader={msg[messages.yourAnswer.id]}
+          sendButtonId={POST_ANSWER_BUTTON}
+          sendAnswer={props.postAnswer}
+          sendAnswerLoading={props.postAnswerLoading}
+          submitButtonName={msg[messages.postAnswerButton.id]}
+          previewLabel={msg[commonMessages.preview.id]}
+        />
+      </Base>
+    </article>
+  );
+};
 
 ViewQuestionContainer.propTypes = {
   postAnswer: PropTypes.func,
   postAnswerLoading: PropTypes.bool,
+  locale: PropTypes.string,
   translations: PropTypes.object,
 };
 

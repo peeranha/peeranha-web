@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import {
-  TEXT_PRIMARY,
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_TRANSPARENT,
-  BG_LIGHT,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -21,7 +19,7 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import Textarea from 'components/Textarea';
 
-import Button, { SpanStyled } from './Button';
+import Button from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
@@ -41,24 +39,19 @@ const CommentManage = styled.div`
   opacity: 0;
 
   button {
-    padding-left: 15px !important;
+    margin-left: 13px;
+    font-size: 14px;
 
-    ${Span} {
-      font-size: 14px;
+    > *:last-child {
+      margin-left: 4px;
     }
   }
 
   @media only screen and (max-width: 576px) {
     position: absolute;
-    background: ${BG_LIGHT};
     top: 0;
     right: 0;
-    padding: 8px;
   }
-`;
-
-const CommentViewStyled = styled.li`
-  position: relative;
 `;
 
 const CommentEditStyled = styled.li`
@@ -68,9 +61,16 @@ const CommentEditStyled = styled.li`
 `;
 
 const CommentsStyled = styled.ul`
-  ${CommentViewStyled} {
+  margin-top: 30px;
+
+  ${CommentEditStyled} {
+    padding: 0;
+    border: none;
+  }
+
+  li {
     border: 1px solid ${BORDER_SECONDARY};
-    padding: 5px 15px 8px 15px;
+    padding: 9px 28px 9px 38px;
 
     :first-child {
       border-top-left-radius: 3px;
@@ -92,6 +92,12 @@ const CommentsStyled = styled.ul`
       ${CommentManage} {
         opacity: 1;
       }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    li {
+      padding: 5px 15px;
     }
   }
 `;
@@ -122,8 +128,8 @@ const CommentEdit = ({
 
 /* eslint react/no-danger: 0 */
 const CommentView = item => (
-  <CommentViewStyled>
-    <div className="d-flex justify-content-between align-items-center">
+  <li>
+    <div className="d-flex justify-content-between align-items-center position-relative">
       <UserInfo
         type={COMMENT_TYPE}
         avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
@@ -144,12 +150,8 @@ const CommentView = item => (
           }}
           onClick={() => item.toggleView(!item.isView)}
         >
-          <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <img src={editSmallIcon} alt="icon" width="12" />
-            <span className="d-none d-sm-inline-block ml-1">
-              <FormattedMessage {...messages.editButton} />
-            </span>
-          </Span>
+          <img src={editSmallIcon} alt="icon" />
+          <FormattedMessage {...messages.editButton} />
         </Button>
 
         <div id={`delete-comment-${item.answerId}${item.id}`}>
@@ -167,15 +169,8 @@ const CommentView = item => (
                 onClick={onClick}
                 disabled={item.deleteCommentLoading}
               >
-                <Span
-                  className="d-flex align-items-center"
-                  color={TEXT_PRIMARY}
-                >
-                  <img src={deleteSmallIcon} alt="icon" width="12" />
-                  <span className="d-none d-sm-inline-block ml-1">
-                    <FormattedMessage {...messages.deleteButton} />
-                  </span>
-                </Span>
+                <img src={deleteSmallIcon} alt="icon" />
+                <FormattedMessage {...messages.deleteButton} />
               </Button>
             )}
           />
@@ -191,22 +186,21 @@ const CommentView = item => (
           }}
           onClick={item.voteToDelete}
           disabled={item.voteToDeleteLoading}
+          isVotedToDelete={item.votingStatus.isVotedToDelete}
         >
-          <SpanStyled isVotedToDelete={item.votingStatus.isVotedToDelete}>
-            <Icon icon={blockSmallIcon} width="12" />
-            <span className="d-none d-md-inline-block ml-1">
-              <FormattedMessage {...messages.voteToDelete} />
-            </span>
-          </SpanStyled>
+          <Icon icon={blockSmallIcon} width="12" />
+          <FormattedMessage {...messages.voteToDelete} />
         </Button>
       </CommentManage>
     </div>
 
-    <div
-      className="mt-xs-1 mt-md-0"
+    <Span
+      fontSize="16"
+      lineHeight="20"
+      className="d-block mb-2"
       dangerouslySetInnerHTML={{ __html: item.content }}
     />
-  </CommentViewStyled>
+  </li>
 );
 
 const Comment = item => {
@@ -232,16 +226,17 @@ const Comments = props => {
 
   return (
     <div>
-      <CommentsStyled className="my-3">
-        {props.comments
-          .slice(0, commentsNum)
-          .map(item => (
-            <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
-          ))}
-      </CommentsStyled>
+      {props.comments.length > 0 && (
+        <CommentsStyled>
+          {props.comments
+            .slice(0, commentsNum)
+            .map(item => (
+              <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
+            ))}
+        </CommentsStyled>
+      )}
 
       <CommentOptions
-        isPhone={isPhone}
         form={props.form}
         submitButtonId={props.submitButtonId}
         submitButtonName={props.submitButtonName}

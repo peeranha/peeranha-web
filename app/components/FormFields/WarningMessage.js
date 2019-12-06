@@ -1,3 +1,4 @@
+/* eslint indent: 0 */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -7,21 +8,25 @@ import { TEXT_SECONDARY } from 'style-constants';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 
 export const Div = styled.div`
-  height: 40px;
   display: flex;
   align-items: center;
   position: relative;
   font-size: 14px;
   line-height: 18px;
   font-style: italic;
+  max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
+  overflow: hidden;
   color: ${TEXT_SECONDARY};
 
   > div {
     display: flex;
     align-items: center;
+    flex-direction: ${x => (x.isSpecialPosition ? 'column' : 'row')};
 
     img {
-      margin-right: 12px;
+      margin-right: ${x => (x.isSpecialPosition ? '0px' : '12px')};
+      transform: ${x =>
+        x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
     }
   }
 `;
@@ -33,15 +38,16 @@ export const WarningMessage = ({
   touched,
   className,
   tip,
+  isSpecialPosition,
 }) => {
   const err = error || warning;
 
   return (touched && err) || (active && tip) ? (
-    <Div className={className}>
+    <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
-        {tip && (
+        {(tip || isSpecialPosition) && (
           <img
-            className="d-none d-xl-inline"
+            className={`${!isSpecialPosition ? 'd-none' : ''} d-md-inline`}
             src={validationArrowIcon}
             alt="icon"
           />
@@ -69,6 +75,7 @@ WarningMessage.propTypes = {
   tip: PropTypes.string,
   touched: PropTypes.bool,
   active: PropTypes.bool,
+  isSpecialPosition: PropTypes.bool,
 };
 
 export default React.memo(WarningMessage);

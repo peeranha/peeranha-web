@@ -4,43 +4,39 @@ export default `
     line-height: 24px;
   }
 
-  > * {
-    margin-bottom: 15px;
-  }
-
   h1 {
-    font-size: 48px;
-    line-height: 60px;
+    font-size: 38px;
+    line-height: 48px;
     font-weight: 600;
   }
 
   h2 {
-    font-size: 42px;
-    line-height: 50px;
-    font-weight: 600;
-  }
-
-  h3 {
-    font-size: 36px;
+    font-size: 34px;
     line-height: 44px;
     font-weight: 600;
   }
 
-  h4 {
-    font-size: 32px;
+  h3 {
+    font-size: 30px;
     line-height: 40px;
     font-weight: 600;
   }
 
+  h4 {
+    font-size: 26px;
+    line-height: 36px;
+    font-weight: 600;
+  }
+
   h5 {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 22px;
+    line-height: 32px;
     font-weight: 600;
   }
 
   h6 {
     font-size: 18px;
-    line-height: 24px;
+    line-height: 30px;
     font-weight: 600;
   }
 

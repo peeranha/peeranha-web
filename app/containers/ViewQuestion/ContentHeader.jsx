@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
@@ -10,42 +10,51 @@ import blockIcon from 'images/blockIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 
-import Base from 'components/Base';
 import Icon from 'components/Icon';
-import Span from 'components/Span';
-import MediumImage from 'components/Img/MediumImage';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
-import Button, { SpanStyled } from './Button';
+import Button from './Button';
 import AreYouSure from './AreYouSure';
 
 import messages from './messages';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
-  flex-basis: 210px;
+  flex-basis: 193px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   @media only screen and (max-width: 576px) {
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
-    flex-basis: 0px;
   }
+`;
+
+const ItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 0 30px;
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   border-bottom: 1px solid ${BORDER_SECONDARY};
+  height: 77px;
 
   @media only screen and (max-width: 576px) {
     flex-direction: column;
     align-items: stretch;
+    height: auto;
 
-    ${MediumImage} {
-      width: 32px;
-      height: 32px;
+    > div {
+      flex-basis: 60px;
+      padding: 0 15px;
     }
   }
 `;
@@ -56,80 +65,59 @@ export const ContentHeader = props => (
       <ContentRating {...props} />
     </RatingBox>
 
-    <div className="flex-grow-1">
-      <Base className="d-flex align-items-center justify-content-between">
-        <UserInfo
-          avatar={getUserAvatar(props.userInfo.ipfs_avatar)}
-          name={props.userInfo.display_name}
-          account={props.userInfo.user}
-          rating={props.userInfo.rating}
-          type={props.type}
-          postTime={props.postTime}
-          locale={props.locale}
-        />
+    <ItemInfo>
+      <UserInfo
+        avatar={getUserAvatar(props.userInfo.ipfs_avatar)}
+        name={props.userInfo.display_name}
+        account={props.userInfo.user}
+        rating={props.userInfo.rating}
+        type={props.type}
+        postTime={props.postTime}
+        locale={props.locale}
+      />
 
-        <div className="d-flex align-items-center">
-          <button
-            className={!props.isItWrittenByMe ? 'd-none' : ''}
-            onClick={props.editItem[0]}
-            data-link={props.editItem[1]}
-            id={`redirect-to-edit-item-${props.answerId}-${props.questionId}-${
-              props.commentId
-            }`}
-          >
-            <Span
-              className="d-flex align-items-start"
-              color={TEXT_PRIMARY}
-              fontSize="16"
+      <div className="d-flex align-items-center">
+        <Button
+          show={!props.isItWrittenByMe}
+          id={`${props.type}_vote_to_delete_${props.answerId}`}
+          params={props.buttonParams}
+          onClick={props.voteToDelete}
+          disabled={props.voteToDeleteLoading}
+          isVotedToDelete={props.votingStatus.isVotedToDelete}
+        >
+          <Icon icon={blockIcon} width="14" />
+          <FormattedMessage {...messages.voteToDelete} />
+        </Button>
+
+        <Button
+          show={props.isItWrittenByMe}
+          onClick={props.editItem[0]}
+          params={{ ...props.buttonParams, link: props.editItem[1] }}
+          id={`redirect-to-edit-item-${props.answerId}-${props.questionId}-${
+            props.commentId
+          }`}
+        >
+          <img src={pencilIcon} alt="icon" />
+          <FormattedMessage {...messages.editButton} />
+        </Button>
+
+        <AreYouSure
+          submitAction={props.deleteItem}
+          Button={({ onClick }) => (
+            <Button
+              show={props.isItWrittenByMe}
+              id={`${props.type}_delete_${props.answerId}`}
+              params={props.buttonParams}
+              onClick={onClick}
+              disabled={props.deleteItemLoading}
             >
-              <img src={pencilIcon} alt="icon" />
-              <span className="d-none d-md-inline-block ml-2">
-                <FormattedMessage {...messages.editButton} />
-              </span>
-            </Span>
-          </button>
-
-          <AreYouSure
-            submitAction={props.deleteItem}
-            Button={({ onClick }) => (
-              <Button
-                show={props.isItWrittenByMe}
-                id={`${props.type}_delete_${props.answerId}`}
-                params={props.buttonParams}
-                onClick={onClick}
-                disabled={props.deleteItemLoading}
-              >
-                <Span
-                  className="d-flex align-items-start"
-                  color={TEXT_PRIMARY}
-                  fontSize="16"
-                >
-                  <img src={deleteIcon} alt="icon" />
-                  <span className="d-none d-md-inline-block ml-2">
-                    <FormattedMessage {...messages.deleteButton} />
-                  </span>
-                </Span>
-              </Button>
-            )}
-          />
-
-          <Button
-            show={!props.isItWrittenByMe}
-            id={`${props.type}_vote_to_delete_${props.answerId}`}
-            params={props.buttonParams}
-            onClick={props.voteToDelete}
-            disabled={props.voteToDeleteLoading}
-          >
-            <SpanStyled isVotedToDelete={props.votingStatus.isVotedToDelete}>
-              <Icon icon={blockIcon} width="14" />
-              <span className="d-none d-md-inline-block ml-2">
-                <FormattedMessage {...messages.voteToDelete} />
-              </span>
-            </SpanStyled>
-          </Button>
-        </div>
-      </Base>
-    </div>
+              <img src={deleteIcon} alt="icon" />
+              <FormattedMessage {...messages.deleteButton} />
+            </Button>
+          )}
+        />
+      </div>
+    </ItemInfo>
   </Box>
 );
 

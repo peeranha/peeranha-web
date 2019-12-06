@@ -267,4 +267,10 @@ export default defineMessages({
   postsNumber: {
     id: 'app.common.postsNumber',
   },
+  answer: {
+    id: 'app.common.answer',
+  },
+  preview: {
+    id: 'app.common.preview',
+  },
 });

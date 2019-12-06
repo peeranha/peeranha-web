@@ -12,7 +12,7 @@ import { showPopover } from 'utils/popover';
 import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import InfoLabel from 'components/InfoLabelWithPopover';
-import SecondaryButton from 'components/Button/Outlined/SecondaryMedium';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 import profileMessages from 'containers/Profile/messages';
 import signupMessages from 'containers/SignUp/messages';
@@ -199,9 +199,9 @@ const SettingsOfUser = ({
 
         <DeleteAccountButton
           render={({ onClick }) => (
-            <SecondaryButton onClick={onClick}>
+            <InfoButton onClick={onClick}>
               <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-            </SecondaryButton>
+            </InfoButton>
           )}
         />
       </div>

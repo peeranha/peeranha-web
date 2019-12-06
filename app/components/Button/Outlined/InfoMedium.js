@@ -1,6 +1,6 @@
 import Info from './Info';
+import Medium from '../Medium';
 
 export default Info.extend`
-  padding: 6px 16px;
-  min-width: 92px;
+  ${Medium};
 `;

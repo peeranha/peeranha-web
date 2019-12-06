@@ -14,8 +14,8 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
-  LOGIN_WITH_SCATTER_SUCCESS,
   LOGIN_WITH_EMAIL,
+  LOGIN_WITH_SCATTER,
 } from 'containers/Login/constants';
 
 import { selectUsers } from './selectors';
@@ -133,7 +133,7 @@ export default function*() {
   yield takeLatest(
     [
       LOGOUT_SUCCESS,
-      LOGIN_WITH_SCATTER_SUCCESS,
+      LOGIN_WITH_SCATTER,
       LOGIN_WITH_EMAIL,
       SAVE_PROFILE_SUCCESS,
     ],

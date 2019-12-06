@@ -2,10 +2,10 @@ import { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Info from './Info';
+import Large from '../Large';
 
 const ButtonCss = css`
-  padding: 12px 18px;
-  min-width: 92px;
+  ${Large};
 `;
 
 export const InfoLink = Info.extend`

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
 
 import Button from 'components/Button/Outlined/PrimaryStretching';
-import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
 
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
@@ -20,15 +18,7 @@ export const AnswersList = props => {
   const { answers } = props.questionData;
 
   const visibleNumber = allVisible ? answers.length : DEFAULT_NUMBER;
-  const visibleAnswers = orderBy(answers, 'rating', 'desc')
-    .slice(0, visibleNumber)
-    .map(x => ({ ...x, isTheLargestRating: false }));
-
-  const [Q1, Q2] = visibleAnswers;
-
-  if ((Q1 && Q2 && Q1.rating > Q2.rating) || (Q1 && !Q2)) {
-    Q1.isTheLargestRating = Q1.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
-  }
+  const visibleAnswers = answers.slice(0, visibleNumber);
 
   return (
     <React.Fragment>

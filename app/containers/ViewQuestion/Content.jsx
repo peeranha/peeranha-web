@@ -9,7 +9,7 @@ import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
 
 const BaseStyled = Base.extend`
-  word-break: break-all;
+  word-break: break-word;
   overflow: hidden;
 `.withComponent('section');
 

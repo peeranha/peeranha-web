@@ -17,7 +17,7 @@ import { DAEMON } from 'utils/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Modal from 'components/ModalDialog';
-import Button from 'components/Button/Contained/TransparentSmall';
+import Button from 'components/Button/Contained/Transparent';
 
 import * as selectors from './selectors';
 import reducer from './reducer';

@@ -60,9 +60,14 @@ const Div = styled.div`
 `;
 
 const PreviewWrapper = styled.div`
-  padding: 10px 0;
-  border-top: 1px dashed ${BORDER_SECONDARY};
-  border-bottom: 1px dashed ${BORDER_SECONDARY};
+  background: linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: top, right, bottom, left;
+  background-repeat: repeat-x, repeat-y;
+  background-size: 8px 1px, 1px 8px;
+  padding: 12px 0;
 `;
 
 export const TextEditorField = ({

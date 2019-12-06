@@ -11,14 +11,16 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
+import commonMessages from 'common-messages';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+
 import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 
 import * as makeSelectEditAnswer from './selectors';
 import reducer from './reducer';
@@ -53,24 +55,25 @@ export class EditAnswer extends React.PureComponent {
       match,
     } = this.props;
 
+    const msg = translationMessages[locale];
+
     const { questionid, answerid } = match.params;
 
     const sendProps = {
       form: EDIT_ANSWER_FORM,
-      formHeader: translationMessages[locale][messages.title.id],
+      formHeader: msg[messages.title.id],
       sendButtonId: EDIT_ANSWER_BUTTON,
-      translations: translationMessages[locale],
       sendAnswer: this.editAnswer,
       sendAnswerLoading: editAnswerLoading,
-      submitButtonName:
-        translationMessages[locale][messages.submitButtonName.id],
+      submitButtonName: msg[messages.submitButtonName.id],
       answer,
+      locale,
+      label: msg[commonMessages.answer.id],
+      previewLabel: msg[commonMessages.preview.id],
     };
 
-    const helmetTitle = answer || sendProps.translations[messages.title.id];
-
-    const helmetDescription =
-      answer || sendProps.translations[messages.title.description];
+    const helmetTitle = answer || msg[messages.title.id];
+    const helmetDescription = answer || msg[messages.title.description];
 
     return (
       <div>

@@ -86,6 +86,8 @@
   "app.common.hide": "Hide",
   "app.common.delete": "Delete",
   "app.common.description": "Description",
+  "app.common.preview": "Preview",
+  "app.common.answer": "Answer",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -170,7 +172,7 @@
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
-    "Information about you is currently blank.",
+    "Information about user is currently blank.",
   "app.containers.Profile.activity": "Activity",
   "app.containers.Profile.userHasntActivityYet":
     "This user hasn’t activity yet",
@@ -501,7 +503,7 @@
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
-  "app.containers.Login.iForgotPassword": "I forgot my password",
+  "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the Scatter and network settings are installed",
   "app.containers.Login.userIsNotRegistered": "User is not registered",

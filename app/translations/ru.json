@@ -175,7 +175,8 @@
   "app.containers.Profile.reputation": "Репутация",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
-  "app.containers.Profile.informationIsBlank": "Информация о Вас отсутствует",
+  "app.containers.Profile.informationIsBlank":
+    "Информация о пользователе отсутствует",
   "app.containers.Profile.userHasntActivityYet":
     "Пользователь не имеет активность пока",
   "app.containers.Profile.heHasnoAnswersAndQuestions":

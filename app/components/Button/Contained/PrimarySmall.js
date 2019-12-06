@@ -1,6 +1,6 @@
 import Primary from './Primary';
+import Small from '../Small';
 
 export default Primary.extend`
-  padding: 4px 8px;
-  font-size: 14px;
+  ${Small};
 `;

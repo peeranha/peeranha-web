@@ -5,27 +5,22 @@ import styled from 'styled-components';
 import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import dotsIcon from 'images/dots.svg?inline';
-import arrowDownOutlined from 'images/arrowDownOutlined.png';
+import arrowDownOutlined from 'images/arrowDown.svg?external';
 
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 import Textarea from 'components/Textarea';
 
 import CommentForm from './CommentForm';
 import messages from './messages';
 
-const Img = styled.img`
-  position: relative;
-`;
-
 const ButtonStyled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
 
-  ${Img} {
-    transition: 0.5s;
-    transform: rotate(${x => (x.toRotate ? '180deg' : '0deg')});
+  &:not(:last-child) {
+    margin-right: 40px;
   }
 `;
 
@@ -37,7 +32,6 @@ const CommentEditStyled = styled.div`
 
 export const CommentOptions = ({
   form,
-  isPhone,
   submitButtonId,
   submitButtonName,
   sendCommentLoading,
@@ -50,25 +44,24 @@ export const CommentOptions = ({
   const [isAddCommentHidden, changeAddCommentView] = useState(true);
 
   return (
-    <div>
+    <div className="my-3">
       <div className="d-flex align-items-center justify-content-between justify-content-sm-start">
         {commentsNumber > 0 && (
-          <ButtonStyled
-            toRotate={isAllCommentsView}
-            onClick={() => changeCommentsView(!isAllCommentsView)}
-          >
+          <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
-            <Span className="mr-1 text-lowercase" color={TEXT_SECONDARY}>
+            <Span className="text-lowercase" color={TEXT_SECONDARY}>
               <FormattedMessage {...messages.moreComments} />
+              <Icon
+                className="ml-1"
+                rotate={isAllCommentsView}
+                icon={arrowDownOutlined}
+                width="9"
+              />
             </Span>
-            <Img src={arrowDownOutlined} alt="*" />
           </ButtonStyled>
         )}
 
-        <ButtonStyled
-          className="d-none d-sm-inline-flex"
-          onClick={() => changeAddCommentView(!isAddCommentHidden)}
-        >
+        <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
           <img src={dotsIcon} alt="***" />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
@@ -76,7 +69,7 @@ export const CommentOptions = ({
         </ButtonStyled>
       </div>
 
-      {(!isAddCommentHidden || (isAllCommentsView && isPhone)) && (
+      {!isAddCommentHidden && (
         <CommentEditStyled>
           <CommentForm
             form={form}
