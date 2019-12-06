@@ -73,7 +73,6 @@ class EosioService {
   };
 
   initEosioWithoutScatter = key => {
-    console.log(key);
     const eosioConfig = this.getEosioConfig(key);
     this.eosInstance = Eosjs(eosioConfig);
   };
