@@ -73,6 +73,7 @@ class EosioService {
   };
 
   initEosioWithoutScatter = key => {
+    console.log(key);
     const eosioConfig = this.getEosioConfig(key);
     this.eosInstance = Eosjs(eosioConfig);
   };
@@ -284,12 +285,10 @@ class EosioService {
 
   getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
-    protocol: 'http' || this.node.protocol,
-    host: '127.0.0.1' || this.node.host,
-    port: '8888' || this.node.port,
-    chainId:
-      'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f' ||
-      this.node.chainID,
+    protocol: this.node.protocol,
+    host: this.node.host,
+    port: this.node.port,
+    chainId: this.node.chainID,
   });
 
   getNode = () => {
