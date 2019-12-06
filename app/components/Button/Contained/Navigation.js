@@ -9,6 +9,8 @@ import Medium from '../Medium';
 const ButtonCss = css`
   ${Medium};
   min-width: auto;
+  font-size: 16px;
+  line-height: 20px;
 
   :hover {
     color: ${TEXT_LIGHT};
