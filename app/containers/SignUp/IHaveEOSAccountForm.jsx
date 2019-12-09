@@ -39,7 +39,6 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
-  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
 export const Link = A.extend`
@@ -216,20 +215,6 @@ const IHaveEOSAccountForm = ({
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={
-                  <Link href={routes.privacyPolicy()} target="_blank">
-                    {translate[messages.iAcceptPrivacyPolicy.id]}
-                  </Link>
-                }
                 component={Checkbox}
                 validate={required}
                 warn={required}

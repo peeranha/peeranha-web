@@ -33,7 +33,6 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
-  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
 import { Link, Div } from './IHaveEOSAccountForm';
@@ -130,20 +129,6 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={
-                  <Link href={routes.privacyPolicy()} target="_blank">
-                    {translate[messages.iAcceptPrivacyPolicy.id]}
-                  </Link>
-                }
                 component={Checkbox}
                 validate={required}
                 warn={required}
