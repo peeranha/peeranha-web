@@ -26,8 +26,3 @@ export const GET_FAQ_SUCCESS = 'app/DataCacheProvider/GET_FAQ_SUCCESS';
 export const GET_FAQ_ERROR = 'app/DataCacheProvider/GET_FAQ_ERROR';
 
 export const REMOVE_USER_PROFILE = 'app/DataCacheProvider/REMOVE_USER_PROFILE';
-
-export const UPDATE_USER_ENERGY_SUCCESS =
-  'app/DataCacheProvider/UPDATE_USER_ENERGY_SUCCESS';
-export const UPDATE_USER_ENERGY_ERROR =
-  'app/DataCacheProvider/UPDATE_USER_ENERGY_ERROR';

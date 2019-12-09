@@ -3,6 +3,7 @@ import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
 import { ApplicationError } from 'utils/errors';
+import { updateAcc } from 'utils/accountManagement';
 import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
 import {
@@ -39,6 +40,7 @@ export function* initEosioWorker() {
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
       yield put(initEosioSuccess(advancedEosioService));
+      yield call(updateAcc, response.body.eosAccountName, advancedEosioService);
     }
   } catch (error) {
     yield put(initEosioError(error));

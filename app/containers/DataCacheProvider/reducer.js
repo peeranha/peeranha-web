@@ -20,7 +20,6 @@ import {
   GET_FAQ,
   GET_FAQ_SUCCESS,
   GET_FAQ_ERROR,
-  UPDATE_USER_ENERGY_SUCCESS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -88,7 +87,6 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_USER_PROFILE:
       return state.set('usersLoading', true);
     case GET_USER_PROFILE_SUCCESS:
-    case UPDATE_USER_ENERGY_SUCCESS:
       return state.set('usersLoading', false).set(
         'users',
         profile

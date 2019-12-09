@@ -12,62 +12,6 @@ import {
   NO_AVATAR,
 } from './constants';
 
-const statusToEnergy = {
-  0: 50,
-  1: 100,
-  2: 150,
-  3: 200,
-  4: 250,
-  5: 300,
-  6: 350,
-};
-
-function getAccountStatus(account) {
-  const rt = account.rating;
-  switch (true) {
-    case rt < 0:
-      return -1;
-    case rt < 100:
-      return 0;
-    case rt < 500:
-      return 1;
-    case rt < 1000:
-      return 2;
-    case rt < 2500:
-      return 3;
-    case rt < 5000:
-      return 4;
-    case rt < 10000:
-      return 5;
-    default:
-      return 6;
-  }
-}
-
-// TODO: test
-/* eslint no-param-reassign: 0 */
-export function updateUserEnergy(profile) {
-  const currentTime = Math.floor(Date.now() / 1000);
-  const currentPeriod = Math.floor(
-    (currentTime - profile.registration_time) /
-      process.env.ACCOUNT_STAT_RESET_PERIOD,
-  );
-
-  const periodsHavePassed = currentPeriod - profile.last_update_period;
-
-  if (periodsHavePassed > 0) {
-    if (profile.rating <= 0) {
-      profile.rating +=
-        periodsHavePassed * process.env.BAN_RATING_INCREMENT_PER_PERIOD;
-      if (profile.rating > 0) profile.rating = 1;
-    } else {
-      profile.energy = statusToEnergy[getAccountStatus(profile)];
-    }
-
-    profile.last_update_period = currentPeriod;
-  }
-}
-
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
     return getFileUrl(avatarHash);
