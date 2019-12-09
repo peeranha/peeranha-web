@@ -32,7 +32,7 @@ export function* getSuggestedCommunitiesWorker() {
 
     yield put(getSuggestedCommunitiesSuccess(communities));
   } catch (err) {
-    yield put(getSuggestedCommunitiesErr(err.message));
+    yield put(getSuggestedCommunitiesErr(err));
   }
 }
 

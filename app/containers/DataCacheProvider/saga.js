@@ -43,8 +43,8 @@ export function* getStatWorker() {
     const stat = yield call(getStat, eosService);
 
     yield put(getStatSuccess(stat));
-  } catch ({ message }) {
-    yield put(getStatErr(message));
+  } catch (err) {
+    yield put(getStatErr(err));
   }
 }
 
@@ -54,8 +54,8 @@ export function* getCommunitiesWithTagsWorker() {
     const communities = yield call(getAllCommunities, eosService);
 
     yield put(getCommunitiesWithTagsSuccess(communities));
-  } catch ({ message }) {
-    yield put(getCommunitiesWithTagsErr(message));
+  } catch (err) {
+    yield put(getCommunitiesWithTagsErr(err));
   }
 }
 
@@ -65,8 +65,8 @@ export function* getFaqWorker() {
     const faq = yield call(getFAQ, locale);
 
     yield put(getFaqSuccess(faq));
-  } catch ({ message }) {
-    yield put(getFaqErr(message));
+  } catch (err) {
+    yield put(getFaqErr(err));
   }
 }
 
@@ -101,8 +101,8 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     yield put(getUserProfileSuccess());
 
     return yield updatedUserInfo;
-  } catch ({ message }) {
-    yield put(getUserProfileErr(message));
+  } catch (err) {
+    yield put(getUserProfileErr(err));
   }
 }
 
