@@ -4,7 +4,7 @@ import { takeEvery, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import messages from 'common-messages';
 
-import { OtherError, WebIntegrationError } from 'utils/errors';
+import { ApplicationError, WebIntegrationError } from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -29,7 +29,7 @@ export function* errHandling(error) {
       console.log(errorValue);
     }
 
-    if (errorValue instanceof OtherError) {
+    if (errorValue instanceof ApplicationError) {
       return null;
     }
 

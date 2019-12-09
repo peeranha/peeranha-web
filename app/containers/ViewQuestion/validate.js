@@ -1,5 +1,5 @@
 import { showPopover } from 'utils/popover';
-import { OtherError } from 'utils/errors';
+import { ApplicationError } from 'utils/errors';
 
 import messages from './messages';
 
@@ -55,7 +55,7 @@ export const voteToDeleteValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -101,7 +101,7 @@ export const postAnswerValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -150,7 +150,7 @@ export const postCommentValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -175,7 +175,7 @@ export const markAsAcceptedValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -213,7 +213,7 @@ export const upVoteValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -257,7 +257,7 @@ export const downVoteValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -280,7 +280,7 @@ export const deleteQuestionValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -303,7 +303,7 @@ export const deleteAnswerValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -322,7 +322,7 @@ export const deleteCommentValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };
 
@@ -342,6 +342,6 @@ export const editCommentValidator = (
 
   if (message) {
     showPopover(postButtonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };

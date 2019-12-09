@@ -6,7 +6,7 @@ import {
   HUBSPOT_SEND_MESSAGE_FORM_ID,
 } from './constants';
 
-import { OtherError } from './errors';
+import { ApplicationError } from './errors';
 
 export async function sendEmail(formData, pageInfo) {
   const fields = [
@@ -67,7 +67,7 @@ export async function sendEmail(formData, pageInfo) {
 
   if (notSuccess) {
     const errorMessage = await notSuccess.json();
-    throw new OtherError(errorMessage.error);
+    throw new ApplicationError(errorMessage.error);
   }
 }
 
@@ -97,6 +97,6 @@ export async function sendMessage(formData, pageInfo) {
   );
 
   if (status !== 200) {
-    throw new OtherError('Something went wrong...');
+    throw new ApplicationError('Something went wrong...');
   }
 }

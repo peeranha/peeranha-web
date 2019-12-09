@@ -5,9 +5,9 @@ export class WebIntegrationError extends Error {
   }
 }
 
-export class OtherError extends Error {
+export class ApplicationError extends Error {
   constructor(...args) {
     super(...args);
-    Error.captureStackTrace(this, OtherError);
+    Error.captureStackTrace(this, ApplicationError);
   }
 }

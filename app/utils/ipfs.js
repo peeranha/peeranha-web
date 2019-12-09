@@ -2,7 +2,7 @@
 import IpfsApi from 'ipfs-api';
 import bs58 from 'bs58';
 
-import { OtherError } from './errors';
+import { ApplicationError } from './errors';
 
 export function getIpfsApi() {
   return IpfsApi({
@@ -59,7 +59,7 @@ export function getFileUrl(fileHash) {
 // TODO: test
 export function HashToString(byteArray) {
   if (byteArray.length < 2) {
-    throw new OtherError('Provided byte array is not IpfsHash');
+    throw new ApplicationError('Provided byte array is not IpfsHash');
   }
   const res = [byteArray[0], byteArray.length - 1];
   res.push(...byteArray.slice(1));
@@ -69,7 +69,7 @@ export function HashToString(byteArray) {
 export function StringToHash(stringHash) {
   const buf_array = bs58.decode(stringHash);
   if (buf_array.length < 2 || buf_array[1] != buf_array.length - 2) {
-    throw new OtherError('Provided string is not IpfsHash');
+    throw new ApplicationError('Provided string is not IpfsHash');
   }
   const res = [buf_array[0]];
   res.push(...buf_array.slice(2));

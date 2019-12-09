@@ -1,5 +1,5 @@
 import { showPopover } from 'utils/popover';
-import { OtherError } from 'utils/errors';
+import { ApplicationError } from 'utils/errors';
 
 import messages from 'containers/ViewQuestion/messages';
 
@@ -25,6 +25,6 @@ export default ({
 
   if (message) {
     showPopover(buttonId, message);
-    throw new OtherError(message);
+    throw new ApplicationError(message);
   }
 };

@@ -16,7 +16,7 @@ import {
   USER_SUPPLY_SCOPE,
 } from './constants';
 
-import { OtherError } from './errors';
+import { ApplicationError } from './errors';
 
 /**
  * @balance - string, example - '1000.000000 PEER'
@@ -210,7 +210,7 @@ export async function pickupReward(eosService, user, period) {
 
 export function getNormalizedCurrency(value) {
   if (!Number(value)) {
-    throw new OtherError(`Value has to be number`);
+    throw new ApplicationError(`Value has to be number`);
   }
 
   const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
