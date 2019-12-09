@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 
-import { appLocales } from 'i18n';
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
@@ -18,10 +17,6 @@ import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
-
-import SelectField, {
-  getSelectOptions,
-} from 'components/FormFields/SelectField';
 
 import Icon from 'components/Icon';
 import FormBox from 'components/Form';
@@ -48,7 +43,6 @@ import {
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
-  LANGUAGE_FIELD,
   CREATE_COMMUNITY_BUTTON,
 } from './constants';
 
@@ -61,8 +55,8 @@ for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
   DEFAULT_TAGS_ARRAY.push(i);
 }
 
-/* eslint react/jsx-no-bind: 0 */
-/* eslint-disable-next-line */
+// TODO: return language for multi lang.
+
 const CreateCommunityForm = ({
   handleSubmit,
   createCommunity,
@@ -113,19 +107,6 @@ const CreateCommunityForm = ({
         />
 
         <Field
-          name={LANGUAGE_FIELD}
-          placeholder=""
-          options={getSelectOptions(appLocales)}
-          label={translations[messages.communityLanguage.id]}
-          tip={translations[messages.communityLanguageTip.id]}
-          disabled={createCommunityLoading}
-          component={SelectField}
-          validate={[required]}
-          warn={[required]}
-          splitInHalf
-        />
-
-        <Field
           disabled={createCommunityLoading}
           name={COMM_SHORT_DESCRIPTION_FIELD}
           component={TextInputField}
@@ -163,7 +144,12 @@ const CreateCommunityForm = ({
                 id={formatStringToHtmlId(`${TAG_SECTION}_${x}`)}
               >
                 {index >= MIN_TAGS_NUMBER && (
-                  <button type="button" data-key={x} onClick={removeTag}>
+                  <button
+                    type="button"
+                    data-key={x}
+                    onClick={removeTag}
+                    tabIndex="-1"
+                  >
                     <Icon
                       width="14"
                       icon={closeIcon}
@@ -212,6 +198,7 @@ const CreateCommunityForm = ({
           type="button"
           onClick={addTag}
           disabled={tags.length === MAX_TAGS_NUMBER}
+          tabIndex="-1"
         >
           <img className="mr-2" src={icoTag} alt="icoTag" />
           <FormattedMessage {...messages.oneMoreTag} />

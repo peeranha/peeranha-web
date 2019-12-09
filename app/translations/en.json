@@ -483,7 +483,7 @@
 
   "app.components.FormFields.requiredField": "You can’t leave this field empty",
   "app.components.FormFields.wrongLength":
-    "Value must be at least {min} characters and no longer than {max} characters",
+    "Leave at least {min} char. but no more than {max}",
   "app.components.FormFields.wrongLengthMin":
     "Value must be at least {min} characters",
   "app.components.FormFields.wrongLengthMax":
