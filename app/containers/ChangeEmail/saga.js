@@ -10,28 +10,22 @@ import {
   changeCredentialsGetKeysByPwd,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
+import { WebIntegrationError } from 'utils/errors';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
-import {
-  errorToastHandling,
-  successToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
+import { successHandling } from 'containers/Toast/saga';
 import { logout } from 'containers/Logout/actions';
 
 import { selectEmail, selectVerificationCode } from './selectors';
 
 import {
   CHANGE_EMAIL,
-  CHANGE_EMAIL_ERROR,
   SEND_OLD_EMAIL,
-  SEND_OLD_EMAIL_SUCCESS,
-  SEND_OLD_EMAIL_ERROR,
   CONFIRM_OLD_EMAIL,
-  CONFIRM_OLD_EMAIL_ERROR,
   NEW_EMAIL_FIELD,
   PASSWORD_FIELD,
   SEND_ANOTHER_CODE,
+  SEND_OLD_EMAIL_SUCCESS,
 } from './constants';
 
 import {
@@ -48,10 +42,10 @@ export function* sendOldEmailWorker({ resetForm, email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => changeCredentialsInit(email));
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -59,7 +53,7 @@ export function* sendOldEmailWorker({ resetForm, email }) {
     yield put(sendOldEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(sendOldEmailErr(err.message));
+    yield put(sendOldEmailErr(err));
   }
 }
 
@@ -70,7 +64,7 @@ export function* sendAnotherCode() {
 
 export function* sendAnotherCodeSuccess() {
   yield take(SEND_OLD_EMAIL_SUCCESS);
-  yield call(successToastHandlingWithDefaultText);
+  yield call(successHandling);
 }
 
 export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
@@ -80,12 +74,14 @@ export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      changeCredentialsConfirm(email, verificationCode),
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -93,7 +89,7 @@ export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
     yield put(confirmOldEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(confirmOldEmailErr(err.message));
+    yield put(confirmOldEmailErr(err));
   }
 }
 
@@ -108,12 +104,15 @@ export function* changeEmailWorker({ resetForm, values }) {
     const newEmail = values[NEW_EMAIL_FIELD];
     const password = values[PASSWORD_FIELD];
 
-    const changeCredentialsGetKeysByPwdResponse = yield call(() =>
-      changeCredentialsGetKeysByPwd(oldEmail, password, verificationCode),
+    const changeCredentialsGetKeysByPwdResponse = yield call(
+      changeCredentialsGetKeysByPwd,
+      oldEmail,
+      password,
+      verificationCode,
     );
 
     if (!changeCredentialsGetKeysByPwdResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -128,12 +127,15 @@ export function* changeEmailWorker({ resetForm, values }) {
       email: newEmail,
     };
 
-    const changeCredentialsCompleteResponse = yield call(() =>
-      changeCredentialsComplete(newProps, oldEmail, encryptionKey),
+    const changeCredentialsCompleteResponse = yield call(
+      changeCredentialsComplete,
+      newProps,
+      oldEmail,
+      encryptionKey,
     );
 
     if (!changeCredentialsCompleteResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -147,7 +149,7 @@ export function* changeEmailWorker({ resetForm, values }) {
     yield put(changeEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(changeEmailErr(err.message));
+    yield put(changeEmailErr(err));
   }
 }
 
@@ -157,8 +159,4 @@ export default function* defaultSaga() {
   yield takeLatest(SEND_OLD_EMAIL, sendOldEmailWorker);
   yield takeLatest(CONFIRM_OLD_EMAIL, confirmOldEmailWorker);
   yield takeLatest(CHANGE_EMAIL, changeEmailWorker);
-  yield takeLatest(
-    [CHANGE_EMAIL_ERROR, SEND_OLD_EMAIL_ERROR, CONFIRM_OLD_EMAIL_ERROR],
-    errorToastHandling,
-  );
 }

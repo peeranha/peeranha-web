@@ -4,22 +4,14 @@ import { translationMessages } from 'i18n';
 import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
+import { WebIntegrationError } from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-  errorToastHandling,
-} from 'containers/Toast/saga';
-
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   SEND_TOKENS,
-  SEND_TOKENS_SUCCESS,
-  SEND_TOKENS_ERROR,
   EOS_ACCOUNT_FIELD,
   AMOUNT_FIELD,
   PASSWORD_FIELD,
@@ -51,7 +43,7 @@ export function* sendTokensWorker({ resetForm, val }) {
       );
 
       if (!response.OK) {
-        throw new Error(
+        throw new WebIntegrationError(
           translations[webIntegrationErrors[response.errorCode].id],
         );
       }
@@ -66,14 +58,11 @@ export function* sendTokensWorker({ resetForm, val }) {
     yield put(sendTokensSuccess());
     yield put(hideSendTokensModal());
     yield call(resetForm);
-  } catch ({ message }) {
-    yield put(sendTokensErr(message));
+  } catch (err) {
+    yield put(sendTokensErr(err));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest(SEND_TOKENS, sendTokensWorker);
-  yield takeLatest(SEND_TOKENS_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(SEND_TOKENS_ERROR, errorToastHandlingWithDefaultText);
-  yield takeLatest([SEND_TOKENS_ERROR], errorToastHandling);
 }

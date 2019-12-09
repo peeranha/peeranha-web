@@ -1,39 +1,32 @@
-/*
- *
- * LanguageProvider
- *
- * this component connects the redux state language locale to the
- * IntlProvider component and i18n messages (loaded from `app/translations`)
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
 import { bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+// import { translationMessages } from 'i18n';
 
 import { makeSelectLocale } from './selectors';
 import { changeLocale } from './actions';
 
-/* eslint react/no-did-mount-set-state: 0 prefer-destructuring: 0  */
+/* eslint prefer-destructuring: 0  */
 export class LanguageProvider extends React.PureComponent {
-  componentWillMount() {
-    const languages = Object.keys(translationMessages);
-    let locale = localStorage.getItem('locale');
+  /* TODO: Uncomment if will be more than 1 lang. */
 
-    // if (!locale) - find the first suitable language in window.navigator.languages
-    if (!locale) {
-      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
-    }
+  // componentWillMount() {
+  //   const languages = Object.keys(translationMessages);
+  //   let locale = localStorage.getItem('locale');
 
-    if (locale) {
-      this.props.changeLocaleDispatch(locale);
-    }
-  }
+  //   // if (!locale) - find the first suitable language in window.navigator.languages
+  //   if (!locale) {
+  //     locale = window.navigator.languages.filter(x => languages.includes(x))[0];
+  //   }
 
-  // eslint-disable-line react/prefer-stateless-function
+  //   if (locale) {
+  //     this.props.changeLocaleDispatch(locale);
+  //   }
+  // }
+
   render() {
     return (
       <IntlProvider
@@ -51,7 +44,7 @@ LanguageProvider.propTypes = {
   locale: PropTypes.string,
   messages: PropTypes.object,
   children: PropTypes.element,
-  changeLocaleDispatch: PropTypes.func,
+  // changeLocaleDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -19,15 +19,9 @@ import {
 } from 'containers/ViewQuestion/selectors';
 
 import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
-import {
   GET_ANSWER,
   EDIT_ANSWER,
   EDIT_ANSWER_SUCCESS,
-  EDIT_ANSWER_ERROR,
   EDIT_ANSWER_BUTTON,
   MIN_RATING_TO_EDIT_ANSWER,
   MIN_ENERGY_TO_EDIT_ANSWER,
@@ -78,8 +72,8 @@ export function* editAnswerWorker({ answer, questionId, answerId }) {
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
     yield call(createdHistory.push, routes.questionView(questionId, answerId));
-  } catch ({ message }) {
-    yield put(editAnswerErr(message));
+  } catch (err) {
+    yield put(editAnswerErr(err));
   }
 }
 
@@ -106,7 +100,5 @@ export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
 export default function*() {
   yield takeLatest(GET_ANSWER, getAnswerWorker);
   yield takeLatest(EDIT_ANSWER, editAnswerWorker);
-  yield takeLatest(EDIT_ANSWER_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(EDIT_ANSWER_ERROR, errorToastHandlingWithDefaultText);
   yield takeLatest(EDIT_ANSWER_SUCCESS, updateQuestionList);
 }

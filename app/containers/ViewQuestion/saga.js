@@ -283,8 +283,8 @@ export function* saveCommentWorker({
     yield call(toggleView, true);
 
     yield put(saveCommentSuccess({ ...questionData }));
-  } catch ({ message }) {
-    yield put(saveCommentErr(message));
+  } catch (err) {
+    yield put(saveCommentErr(err));
   }
 }
 
@@ -325,8 +325,8 @@ export function* deleteCommentWorker({
     }
 
     yield put(deleteCommentSuccess({ ...questionData }));
-  } catch ({ message }) {
-    yield put(deleteCommentErr(message));
+  } catch (err) {
+    yield put(deleteCommentErr(err));
   }
 }
 
@@ -336,18 +336,21 @@ export function* deleteAnswerWorker({ questionId, answerId, postButtonId }) {
       getParams,
     );
 
-    yield call(() =>
-      deleteAnswerValidator(
-        postButtonId,
-        answerId,
-        questionData.correct_answer_id,
-        translationMessages[locale],
-        profileInfo,
-      ),
+    yield call(
+      deleteAnswerValidator,
+      postButtonId,
+      answerId,
+      questionData.correct_answer_id,
+      translationMessages[locale],
+      profileInfo,
     );
 
-    yield call(() =>
-      deleteAnswer(profileInfo.user, questionId, answerId, eosService),
+    yield call(
+      deleteAnswer,
+      profileInfo.user,
+      questionId,
+      answerId,
+      eosService,
     );
 
     questionData.answers = questionData.answers.filter(x => x.id != answerId);
@@ -386,17 +389,15 @@ export function* getQuestionDataWorker({ questionId }) {
   try {
     const { eosService, account } = yield call(getParams);
 
-    const questionData = yield call(() =>
-      getQuestionData({
-        eosService,
-        questionId,
-        user: account,
-      }),
-    );
+    const questionData = yield call(getQuestionData, {
+      eosService,
+      questionId,
+      user: account,
+    });
 
     yield put(getQuestionDataSuccess(questionData));
-  } catch ({ message }) {
-    yield put(getQuestionDataErr(message));
+  } catch (err) {
+    yield put(getQuestionDataErr(err));
   }
 }
 
@@ -414,18 +415,22 @@ export function* postCommentWorker({
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      postCommentValidator(
-        profileInfo,
-        questionData,
-        `${POST_COMMENT_BUTTON}${answerId}`,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      postCommentValidator,
+      profileInfo,
+      questionData,
+      `${POST_COMMENT_BUTTON}${answerId}`,
+      answerId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      postComment(profileInfo.user, questionId, answerId, comment, eosService),
+    yield call(
+      postComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      comment,
+      eosService,
     );
 
     const newComment = {
@@ -471,13 +476,12 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      postAnswerValidator(
-        profileInfo,
-        questionData,
-        POST_ANSWER_BUTTON,
-        translationMessages[locale],
-      ),
+    yield call(
+      postAnswerValidator,
+      profileInfo,
+      questionData,
+      POST_ANSWER_BUTTON,
+      translationMessages[locale],
     );
 
     yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
@@ -521,19 +525,16 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      downVoteValidator(
-        profileInfo,
-        questionData,
-        postButtonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      downVoteValidator,
+      profileInfo,
+      questionData,
+      postButtonId,
+      answerId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      downVote(profileInfo.user, questionId, answerId, eosService),
-    );
+    yield call(downVote, profileInfo.user, questionId, answerId, eosService);
 
     const item =
       Number(answerId) === 0
@@ -553,8 +554,8 @@ export function* downVoteWorker({
     }
 
     yield put(downVoteSuccess({ ...questionData }, usersForUpdate));
-  } catch ({ message }) {
-    yield put(downVoteErr(message));
+  } catch (err) {
+    yield put(downVoteErr(err));
   }
 }
 
@@ -573,19 +574,16 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      upVoteValidator(
-        profileInfo,
-        questionData,
-        postButtonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      upVoteValidator,
+      profileInfo,
+      questionData,
+      postButtonId,
+      answerId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      upVote(profileInfo.user, questionId, answerId, eosService),
-    );
+    yield call(upVote, profileInfo.user, questionId, answerId, eosService);
 
     const item =
       Number(answerId) === 0
@@ -605,8 +603,8 @@ export function* upVoteWorker({
     }
 
     yield put(upVoteSuccess({ ...questionData }, usersForUpdate));
-  } catch ({ message }) {
-    yield put(upVoteErr(message));
+  } catch (err) {
+    yield put(upVoteErr(err));
   }
 }
 
@@ -625,17 +623,20 @@ export function* markAsAcceptedWorker({
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      markAsAcceptedValidator(
-        profileInfo,
-        questionData,
-        postButtonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      markAsAcceptedValidator,
+      profileInfo,
+      questionData,
+      postButtonId,
+      translationMessages[locale],
     );
 
-    yield call(() =>
-      markAsAccepted(profileInfo.user, questionId, correctAnswerId, eosService),
+    yield call(
+      markAsAccepted,
+      profileInfo.user,
+      questionId,
+      correctAnswerId,
+      eosService,
     );
 
     questionData.correct_answer_id =
@@ -644,8 +645,8 @@ export function* markAsAcceptedWorker({
         : Number(correctAnswerId);
 
     yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate));
-  } catch ({ message }) {
-    yield put(markAsAcceptedErr(message));
+  } catch (err) {
+    yield put(markAsAcceptedErr(err));
   }
 }
 
@@ -665,28 +666,26 @@ export function* voteToDeleteWorker({
 
     yield call(isAuthorized);
 
-    yield call(() =>
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translationMessages[locale],
-        postButtonId,
-        {
-          questionId,
-          answerId,
-          commentId,
-        },
-      ),
-    );
-
-    yield call(() =>
-      voteToDelete(
-        profileInfo.user,
+    yield call(
+      voteToDeleteValidator,
+      profileInfo,
+      questionData,
+      translationMessages[locale],
+      postButtonId,
+      {
         questionId,
         answerId,
         commentId,
-        eosService,
-      ),
+      },
+    );
+
+    yield call(
+      voteToDelete,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      eosService,
     );
 
     let item;
@@ -706,8 +705,8 @@ export function* voteToDeleteWorker({
     item.votingStatus.isVotedToDelete = true;
 
     yield put(voteToDeleteSuccess({ ...questionData }, usersForUpdate));
-  } catch ({ message }) {
-    yield put(voteToDeleteErr(message));
+  } catch (err) {
+    yield put(voteToDeleteErr(err));
   }
 }
 
@@ -748,8 +747,8 @@ export function* updateQuestionDataAfterTransactionWorker({
     });
 
     yield put(getQuestionDataSuccess({ ...questionData }));
-  } catch ({ message }) {
-    yield put(getQuestionDataErr(message));
+  } catch (err) {
+    yield put(getQuestionDataErr(err));
   }
 }
 

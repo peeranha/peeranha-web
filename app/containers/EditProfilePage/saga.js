@@ -13,17 +13,10 @@ import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
 import { saveProfileSuccess, saveProfileErr } from './actions';
 
 import {
   SAVE_PROFILE,
-  SAVE_PROFILE_SUCCESS,
-  SAVE_PROFILE_ERROR,
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
   MIN_ENERGY_TO_EDIT_PROFILE,
@@ -65,8 +58,8 @@ export function* saveProfileWorker({ profile, userKey }) {
     yield put(saveProfileSuccess());
 
     yield call(createdHistory.push, routes.profileView(userKey));
-  } catch ({ message }) {
-    yield put(saveProfileErr(message));
+  } catch (err) {
+    yield put(saveProfileErr(err));
   }
 }
 
@@ -92,6 +85,4 @@ export function* redirectToEditProfilePageWorker({ buttonId, user }) {
 
 export default function*() {
   yield takeLatest(SAVE_PROFILE, saveProfileWorker);
-  yield takeLatest(SAVE_PROFILE_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(SAVE_PROFILE_ERROR, errorToastHandlingWithDefaultText);
 }

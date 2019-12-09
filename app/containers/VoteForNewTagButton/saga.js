@@ -57,8 +57,8 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
     yield put(upVoteSuccess());
-  } catch ({ message }) {
-    yield put(upVoteErr(message));
+  } catch (err) {
+    yield put(upVoteErr(err));
   }
 }
 
@@ -91,8 +91,8 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
     yield put(downVoteSuccess());
-  } catch ({ message }) {
-    yield put(downVoteErr(message));
+  } catch (err) {
+    yield put(downVoteErr(err));
   }
 }
 

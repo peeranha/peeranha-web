@@ -19,19 +19,12 @@ import {
   FORM_TAGS,
 } from 'components/QuestionForm/constants';
 
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import { askQuestionSuccess, askQuestionError } from './actions';
 
 import {
   ASK_QUESTION,
-  ASK_QUESTION_SUCCESS,
-  ASK_QUESTION_ERROR,
   POST_QUESTION_BUTTON,
   MIN_RATING_TO_POST_QUESTION,
   MIN_ENERGY_TO_POST_QUESTION,
@@ -60,8 +53,8 @@ export function* postQuestionWorker({ val }) {
     );
 
     yield call(createdHistory.push, questionsPostedByUser[0].question_id);
-  } catch ({ message }) {
-    yield put(askQuestionError(message));
+  } catch (err) {
+    yield put(askQuestionError(err));
   }
 }
 
@@ -85,6 +78,4 @@ export function* redirectToAskQuestionPageWorker({ buttonId }) {
 
 export default function*() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
-  yield takeLatest(ASK_QUESTION_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(ASK_QUESTION_ERROR, errorToastHandlingWithDefaultText);
 }

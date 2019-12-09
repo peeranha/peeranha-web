@@ -7,19 +7,12 @@ import { createCommunity } from 'utils/communityManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
-import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
 import { getSuggestedCommunities } from 'containers/Communities/actions';
 
 import { createCommunitySuccess, createCommunityErr } from './actions';
 
 import {
   CREATE_COMMUNITY,
-  CREATE_COMMUNITY_SUCCESS,
-  CREATE_COMMUNITY_ERROR,
   CREATE_COMMUNITY_BUTTON,
   MIN_RATING_TO_CREATE_COMMUNITY,
   MIN_ENERGY_TO_CREATE_COMMUNITY,
@@ -39,8 +32,8 @@ export function* createCommunityWorker({ community, reset }) {
     yield call(reset);
 
     yield call(createdHistory.push, routes.communitiesCreatedBanner());
-  } catch ({ message }) {
-    yield put(createCommunityErr(message));
+  } catch (err) {
+    yield put(createCommunityErr(err));
   }
 }
 
@@ -64,9 +57,4 @@ export function* redirectToCreateCommunityWorker({ buttonId }) {
 
 export default function*() {
   yield takeLatest(CREATE_COMMUNITY, createCommunityWorker);
-  yield takeLatest(
-    CREATE_COMMUNITY_SUCCESS,
-    successToastHandlingWithDefaultText,
-  );
-  yield takeLatest(CREATE_COMMUNITY_ERROR, errorToastHandlingWithDefaultText);
 }

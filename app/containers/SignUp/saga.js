@@ -14,10 +14,10 @@ import EosioService from 'utils/eosio';
 import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
+import { WebIntegrationError } from 'utils/errors';
 
 import loginMessages from 'containers/Login/messages';
 
-import { errorToastHandling } from 'containers/Toast/saga';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
@@ -42,13 +42,7 @@ import {
   I_HAVE_EOS_ACCOUNT,
   I_HAVE_NOT_EOS_ACCOUNT,
   SHOW_SCATTER_SIGNUP_FORM,
-  EMAIL_CHECKING_ERROR,
-  EMAIL_VERIFICATION_ERROR,
-  I_HAVE_EOS_ACCOUNT_ERROR,
-  I_HAVE_NOT_EOS_ACCOUNT_ERROR,
-  SHOW_SCATTER_SIGNUP_FORM_ERROR,
   SIGNUP_WITH_SCATTER,
-  SIGNUP_WITH_SCATTER_ERROR,
   USER_ALREADY_REGISTERED_ERROR,
   EOS_ACCOUNT_FIELD,
   DISPLAY_NAME_FIELD,
@@ -85,19 +79,19 @@ export function* emailCheckingWorker({ email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => registerInit(email));
+    const response = yield call(registerInit, email);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
 
     yield put(checkEmailSuccess());
 
-    yield call(() => createdHistory.push(routes.signup.emailVerification.name));
+    yield call(createdHistory.push, routes.signup.emailVerification.name);
   } catch (err) {
-    yield put(checkEmailErr(err.message));
+    yield put(checkEmailErr(err));
   }
 }
 
@@ -107,12 +101,10 @@ export function* verifyEmailWorker({ verificationCode }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      registerConfirmEmail(email, verificationCode),
-    );
+    const response = yield call(registerConfirmEmail, email, verificationCode);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -123,7 +115,7 @@ export function* verifyEmailWorker({ verificationCode }) {
 
     yield call(createdHistory.push, routes.signup.dontHaveEosAccount.name);
   } catch (err) {
-    yield put(verifyEmailErr(err.message));
+    yield put(verifyEmailErr(err));
   }
 }
 
@@ -142,7 +134,7 @@ export function* iHaveEosAccountWorker({ val }) {
     );
 
     if (!accountInfo) {
-      throw new Error(
+      throw new WebIntegrationError(
         translationMessages[locale][signupMessages.eosAccountNotFound.id],
       );
     }
@@ -185,7 +177,7 @@ export function* iHaveEosAccountWorker({ val }) {
     });
 
     if (!isActiveKeyValid || !isOwnerKeyValid) {
-      throw new Error(
+      throw new WebIntegrationError(
         translationMessages[locale][signupMessages.keysDoNotMatch.id],
       );
     }
@@ -207,12 +199,15 @@ export function* iHaveEosAccountWorker({ val }) {
 
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
 
-    const response = yield call(() =>
-      registerComplete(props, encryptionKey, storeKeys),
+    const response = yield call(
+      registerComplete,
+      props,
+      encryptionKey,
+      storeKeys,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -226,9 +221,9 @@ export function* iHaveEosAccountWorker({ val }) {
 
     yield put(iHaveEosAccountSuccess());
 
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
-    yield put(iHaveEosAccountErr(err.message));
+    yield put(iHaveEosAccountErr(err));
   }
 }
 
@@ -252,12 +247,16 @@ export function* idontHaveEosAccountWorker({ val }) {
     const storeKeys = true;
     const message = val[WHY_DO_YOU_LIKE_US_FIELD] || 'empty';
 
-    const response = yield call(() =>
-      registerComplete(props, encryptionKey, storeKeys, message),
+    const response = yield call(
+      registerComplete,
+      props,
+      encryptionKey,
+      storeKeys,
+      message,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -273,15 +272,14 @@ export function* idontHaveEosAccountWorker({ val }) {
 
     yield put(idontHaveEosAccountSuccess());
 
-    yield call(() =>
-      createdHistory.push(
-        response.body.readyToUse
-          ? routes.questions()
-          : routes.signup.almostDoneNoAccount.name,
-      ),
+    yield call(
+      createdHistory.push,
+      response.body.readyToUse
+        ? routes.questions()
+        : routes.signup.almostDoneNoAccount.name,
     );
   } catch (err) {
-    yield put(idontHaveEosAccountErr(err.message));
+    yield put(idontHaveEosAccountErr(err));
   }
 }
 
@@ -294,15 +292,15 @@ export function* signUpWithScatterWorker({ val }) {
 
     const eosService = yield select(selectEos);
 
-    yield call(() => registerAccount(profile, eosService));
+    yield call(registerAccount, profile, eosService);
 
     yield call(loginWithScatterWorker);
 
     yield put(signUpWithScatterSuccess());
 
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
-    yield put(signUpWithScatterErr(err.message));
+    yield put(signUpWithScatterErr(err));
   }
 }
 
@@ -315,27 +313,31 @@ export function* showScatterSignUpFormWorker() {
 
     const eosService = new EosioService();
 
-    yield call(() => eosService.init(null, true));
+    yield call(eosService.init, null, true);
 
     yield put(initEosioSuccess(eosService));
 
     if (!eosService.scatterInstalled) {
-      throw new Error(translations[loginMessages[SCATTER_MODE_ERROR].id]);
+      throw new WebIntegrationError(
+        translations[loginMessages[SCATTER_MODE_ERROR].id],
+      );
     }
 
     if (!eosService.selectedScatterAccount) {
-      yield call(() => eosService.forgetIdentity());
-      user = yield call(() => eosService.selectAccount());
+      yield call(eosService.forgetIdentity);
+      user = yield call(eosService.selectAccount);
     }
 
     if (!user) {
-      throw new Error(translations[loginMessages[USER_IS_NOT_SELECTED].id]);
+      throw new WebIntegrationError(
+        translations[loginMessages[USER_IS_NOT_SELECTED].id],
+      );
     }
 
-    const profileInfo = yield call(() => getProfileInfo(user, eosService));
+    const profileInfo = yield call(getProfileInfo, user, eosService);
 
     if (profileInfo) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
       );
     }
@@ -343,9 +345,9 @@ export function* showScatterSignUpFormWorker() {
     yield put(getUserProfileSuccess(profileInfo));
     yield put(showScatterSignUpFormSuccess(user));
 
-    yield call(() => createdHistory.push(routes.signup.displayName.name));
+    yield call(createdHistory.push, routes.signup.displayName.name);
   } catch (err) {
-    yield put(showScatterSignUpFormErr(err.message));
+    yield put(showScatterSignUpFormErr(err));
   }
 }
 
@@ -356,15 +358,4 @@ export default function*() {
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
   yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
-  yield takeLatest(
-    [
-      EMAIL_CHECKING_ERROR,
-      EMAIL_VERIFICATION_ERROR,
-      I_HAVE_EOS_ACCOUNT_ERROR,
-      I_HAVE_NOT_EOS_ACCOUNT_ERROR,
-      SHOW_SCATTER_SIGNUP_FORM_ERROR,
-      SIGNUP_WITH_SCATTER_ERROR,
-    ],
-    errorToastHandling,
-  );
 }

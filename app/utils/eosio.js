@@ -16,6 +16,7 @@ import {
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
+import { ApplicationError } from './errors';
 
 class EosioService {
   constructor() {
@@ -162,9 +163,10 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
-    if (!this.scatterInstalled) throw new Error(SCATTER_IN_NOT_INSTALLED);
+    if (!this.scatterInstalled)
+      throw new ApplicationError(SCATTER_IN_NOT_INSTALLED);
 
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
@@ -186,7 +188,7 @@ class EosioService {
 
   // TODO: test
   sendTransaction = (actor, action, data, account) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     /* eslint no-param-reassign: 0 */
     Object.keys(data).forEach(x => {
@@ -217,7 +219,7 @@ class EosioService {
   };
 
   getTableRow = async (table, scope, primaryKey, code) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,
@@ -249,7 +251,7 @@ class EosioService {
     keyType,
     code,
   ) => {
-    if (!this.initialized) throw new Error(EOS_IS_NOT_INIT);
+    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     const request = {
       json: true,

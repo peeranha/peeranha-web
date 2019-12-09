@@ -1,27 +1,14 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import {
-  errorToastHandling,
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
+import { sendMessage } from 'utils/homepageManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
-import {
-  EMAIL_CHECKING,
-  EMAIL_CHECKING_ERROR,
-} from 'containers/SignUp/constants';
-
+import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import { emailCheckingWorker } from 'containers/SignUp/saga';
-
-import { sendMessage } from 'utils/homepageManagement';
 
 import {
   SEND_MESSAGE,
-  SEND_MESSAGE_SUCCESS,
-  SEND_MESSAGE_ERROR,
   EMAIL_FIELD,
   NAME_FIELD,
   SUBJECT_FIELD,
@@ -55,20 +42,17 @@ export function* sendMessageWorker({ val }) {
       name: `${translationMessages[locale][messages.title.id]}, ${form}`,
     };
 
-    yield call(() => sendMessage(formData, pageInfo));
+    yield call(sendMessage, formData, pageInfo);
 
     yield call(reset);
 
     yield put(sendMessageSuccess());
-  } catch ({ message }) {
-    yield put(sendMessageErr(message));
+  } catch (err) {
+    yield put(sendMessageErr(err));
   }
 }
 
 export default function*() {
   yield takeLatest(SEND_MESSAGE, sendMessageWorker);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
-  yield takeLatest(SEND_MESSAGE_SUCCESS, successToastHandlingWithDefaultText);
-  yield takeLatest(SEND_MESSAGE_ERROR, errorToastHandlingWithDefaultText);
-  yield takeLatest(EMAIL_CHECKING_ERROR, errorToastHandling);
 }
