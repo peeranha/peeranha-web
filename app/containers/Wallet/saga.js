@@ -1,4 +1,4 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { takeEvery, takeLatest, put, call, select } from 'redux-saga/effects';
 import { getWeekStat, pickupReward } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -28,25 +28,25 @@ export function* getWeekStatWorker() {
     const weekStat = yield call(getWeekStat, eosService, profile);
 
     yield put(getWeekStatSuccess(weekStat));
-  } catch ({ message }) {
-    yield put(getWeekStatErr(message));
+  } catch (err) {
+    yield put(getWeekStatErr(err));
   }
 }
 
-export function* pickupRewardWorker({ period }) {
+export function* pickupRewardWorker({ period, buttonId }) {
   try {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
 
     yield call(pickupReward, eosService, account, period);
 
-    yield put(pickupRewardSuccess());
+    yield put(pickupRewardSuccess(buttonId));
   } catch (err) {
-    yield put(pickupRewardErr(err));
+    yield put(pickupRewardErr(err, buttonId));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest([GET_WEEK_STAT, PICKUP_REWARD_SUCCESS], getWeekStatWorker);
-  yield takeLatest(PICKUP_REWARD, pickupRewardWorker);
+  yield takeEvery(PICKUP_REWARD, pickupRewardWorker);
 }

@@ -153,7 +153,7 @@ const selectVoteToDeleteError = () =>
 
 const selectIds = () =>
   createSelector(selectViewQuestionDomain, substate => [
-    ...substate.get('ids'),
+    ...substate.toJS().ids,
   ]);
 
 export {

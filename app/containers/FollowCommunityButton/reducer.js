@@ -18,18 +18,18 @@ function followCommunityButtonReducer(state = initialState, action) {
     case FOLLOW_HANDLER:
       return state
         .set('followHandlerLoading', true)
-        .set('ids', state.toJS().ids.add(buttonId));
+        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
     case FOLLOW_HANDLER_SUCCESS:
       state.toJS().ids.delete(buttonId);
       return state
         .set('followHandlerLoading', false)
-        .set('ids', state.toJS().ids);
+        .set('ids', new Set([...state.toJS().ids]));
     case FOLLOW_HANDLER_ERROR:
       state.toJS().ids.delete(buttonId);
       return state
         .set('followHandlerLoading', false)
         .set('followHandlerError', followHandlerError)
-        .set('ids', state.toJS().ids);
+        .set('ids', new Set([...state.toJS().ids]));
 
     default:
       return state;

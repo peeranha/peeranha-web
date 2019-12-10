@@ -14,6 +14,7 @@ const View = ({
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
+  ids,
 }) => (
   <React.Fragment>
     <NavHeader userId={userId} />
@@ -24,6 +25,7 @@ const View = ({
       getWeekStatProcessing={getWeekStatProcessing}
       pickupRewardDispatch={pickupRewardDispatch}
       pickupRewardProcessing={pickupRewardProcessing}
+      ids={ids}
     />
   </React.Fragment>
 );
@@ -34,6 +36,7 @@ View.propTypes = {
   account: PropTypes.string,
   balance: PropTypes.string,
   weekStat: PropTypes.array,
+  ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,

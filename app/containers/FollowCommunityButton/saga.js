@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
@@ -46,5 +46,5 @@ export function* followHandlerWorker({
 }
 
 export default function*() {
-  yield takeLatest(FOLLOW_HANDLER, followHandlerWorker);
+  yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

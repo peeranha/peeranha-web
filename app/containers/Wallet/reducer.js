@@ -21,10 +21,17 @@ export const initialState = fromJS({
   pickupRewardProcessing: false,
   pickupRewardError: null,
   weekStat: null,
+  ids: new Set(),
 });
 
 function walletReducer(state = initialState, action) {
-  const { type, getWeekStatError, weekStat, pickupRewardError } = action;
+  const {
+    type,
+    getWeekStatError,
+    weekStat,
+    pickupRewardError,
+    buttonId,
+  } = action;
 
   switch (type) {
     case GET_WEEK_STAT:
@@ -39,13 +46,20 @@ function walletReducer(state = initialState, action) {
         .set('getWeekStatError', getWeekStatError);
 
     case PICKUP_REWARD:
-      return state.set('pickupRewardProcessing', true);
+      return state
+        .set('pickupRewardProcessing', true)
+        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
     case PICKUP_REWARD_SUCCESS:
-      return state.set('pickupRewardProcessing', false);
-    case PICKUP_REWARD_ERROR:
+      state.toJS().ids.delete(buttonId);
       return state
         .set('pickupRewardProcessing', false)
-        .set('pickupRewardError', pickupRewardError);
+        .set('ids', new Set([...state.toJS().ids]));
+    case PICKUP_REWARD_ERROR:
+      state.toJS().ids.delete(buttonId);
+      return state
+        .set('pickupRewardProcessing', false)
+        .set('pickupRewardError', pickupRewardError)
+        .set('ids', new Set([...state.toJS().ids]));
 
     default:
       return state;

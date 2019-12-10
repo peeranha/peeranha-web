@@ -766,16 +766,16 @@ export function* updateQuestionList({ questionData }) {
 
 export default function*() {
   yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
-  yield takeLatest(POST_COMMENT, postCommentWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
-  yield takeLatest(UP_VOTE, upVoteWorker);
-  yield takeLatest(DOWN_VOTE, downVoteWorker);
-  yield takeLatest(MARK_AS_ACCEPTED, markAsAcceptedWorker);
-  yield takeLatest(DELETE_QUESTION, deleteQuestionWorker);
-  yield takeLatest(DELETE_ANSWER, deleteAnswerWorker);
-  yield takeLatest(DELETE_COMMENT, deleteCommentWorker);
-  yield takeLatest(SAVE_COMMENT, saveCommentWorker);
-  yield takeLatest(VOTE_TO_DELETE, voteToDeleteWorker);
+  yield takeEvery(POST_COMMENT, postCommentWorker);
+  yield takeEvery(UP_VOTE, upVoteWorker);
+  yield takeEvery(DOWN_VOTE, downVoteWorker);
+  yield takeEvery(MARK_AS_ACCEPTED, markAsAcceptedWorker);
+  yield takeEvery(DELETE_QUESTION, deleteQuestionWorker);
+  yield takeEvery(DELETE_ANSWER, deleteAnswerWorker);
+  yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
+  yield takeEvery(SAVE_COMMENT, saveCommentWorker);
+  yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(
     [
       UP_VOTE_SUCCESS,

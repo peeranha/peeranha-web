@@ -57,6 +57,7 @@ export class Wallet extends React.PureComponent {
       getWeekStatProcessing,
       pickupRewardDispatch,
       pickupRewardProcessing,
+      ids,
     } = this.props;
 
     return (
@@ -77,6 +78,7 @@ export class Wallet extends React.PureComponent {
           getWeekStatProcessing={getWeekStatProcessing}
           pickupRewardDispatch={pickupRewardDispatch}
           pickupRewardProcessing={pickupRewardProcessing}
+          ids={ids}
         />
       </div>
     );
@@ -91,6 +93,7 @@ Wallet.propTypes = {
   getWeekStatDispatch: PropTypes.func,
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
+  ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardProcessing: PropTypes.bool,
 };
@@ -102,6 +105,7 @@ const mapStateToProps = createStructuredSelector({
   weekStat: selectors.selectWeekStat(),
   getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
   pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
+  ids: selectors.selectIds(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

@@ -111,10 +111,7 @@ export class ViewQuestion extends React.Component {
       voteToDeleteDispatch,
       redirectToEditQuestionPageDispatch,
       redirectToEditAnswerPageDispatch,
-      ids,
     } = this.props;
-
-    console.log(ids);
 
     const translations = translationMessages[locale];
 

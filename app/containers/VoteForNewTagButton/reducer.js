@@ -24,30 +24,34 @@ function voteForNewTagButtonReducer(state = initialState, action) {
     case UPVOTE:
       return state
         .set('upVoteLoading', true)
-        .set('ids', state.toJS().ids.add(buttonId));
+        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
     case UPVOTE_SUCCESS:
       state.toJS().ids.delete(buttonId);
-      return state.set('upVoteLoading', false).set('ids', state.toJS().ids);
+      return state
+        .set('upVoteLoading', false)
+        .set('ids', new Set([...state.toJS().ids]));
     case UPVOTE_ERROR:
       state.toJS().ids.delete(buttonId);
       return state
         .set('upVoteLoading', false)
         .set('upVoteError', upVoteError)
-        .set('ids', state.toJS().ids);
+        .set('ids', new Set([...state.toJS().ids]));
 
     case DOWNVOTE:
       return state
         .set('downVoteLoading', true)
-        .set('ids', state.toJS().ids.add(buttonId));
+        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
     case DOWNVOTE_SUCCESS:
       state.toJS().ids.delete(buttonId);
-      return state.set('downVoteLoading', false).set('ids', state.toJS().ids);
+      return state
+        .set('downVoteLoading', false)
+        .set('ids', new Set([...state.toJS().ids]));
     case DOWNVOTE_ERROR:
       state.toJS().ids.delete(buttonId);
       return state
         .set('downVoteLoading', false)
         .set('downVoteError', downVoteError)
-        .set('ids', state.toJS().ids);
+        .set('ids', new Set([...state.toJS().ids]));
 
     default:
       return state;

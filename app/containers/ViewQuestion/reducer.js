@@ -98,7 +98,7 @@ function viewQuestionReducer(state = initialState, action) {
     case DELETE_COMMENT:
     case SAVE_COMMENT:
     case VOTE_TO_DELETE:
-      state.set('ids', state.toJS().ids.add(buttonId));
+      state.set('ids', new Set([...state.toJS().ids.add(buttonId)]));
       break;
 
     case POST_COMMENT_SUCCESS:
@@ -120,7 +120,7 @@ function viewQuestionReducer(state = initialState, action) {
     case VOTE_TO_DELETE_SUCCESS:
     case VOTE_TO_DELETE_ERROR:
       state.toJS().ids.delete(buttonId);
-      state.set('ids', state.toJS().ids);
+      state.set('ids', new Set([...state.toJS().ids]));
       break;
   }
 

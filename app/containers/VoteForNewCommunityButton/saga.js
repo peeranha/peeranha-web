@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0 */
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 
 import {
   upVoteToCreateCommunity,
@@ -110,6 +110,6 @@ export function* downVoteWorker({ communityId, buttonId }) {
 }
 
 export default function*() {
-  yield takeLatest(UPVOTE, upVoteWorker);
-  yield takeLatest(DOWNVOTE, downVoteWorker);
+  yield takeEvery(UPVOTE, upVoteWorker);
+  yield takeEvery(DOWNVOTE, downVoteWorker);
 }
