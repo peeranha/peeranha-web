@@ -13,7 +13,7 @@ const Button = styled.button`
   position: relative;
   overflow: hidden;
   pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
-  opacity: ${x => (x.disabled ? '0.7' : '1')};
+  opacity: ${x => (x.disabled ? '0.5' : '1')};
 
   :after {
     content: '';

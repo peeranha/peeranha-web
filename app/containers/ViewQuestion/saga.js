@@ -65,7 +65,6 @@ import {
   MARK_AS_ACCEPTED_SUCCESS,
   VOTE_TO_DELETE_SUCCESS,
   POST_ANSWER_BUTTON,
-  POST_COMMENT_BUTTON,
   POST_COMMENT_SUCCESS,
   POST_ANSWER_SUCCESS,
   GET_QUESTION_DATA_SUCCESS,
@@ -73,7 +72,6 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
-  SAVE_COMMENT_BUTTON,
 } from './constants';
 
 import {
@@ -245,6 +243,7 @@ export function* saveCommentWorker({
   commentId,
   comment,
   toggleView,
+  buttonId,
 }) {
   try {
     const { questionData, eosService, profileInfo, locale } = yield call(
@@ -254,7 +253,7 @@ export function* saveCommentWorker({
     yield call(
       editCommentValidator,
       profileInfo,
-      `${SAVE_COMMENT_BUTTON}${answerId}`,
+      buttonId,
       translationMessages[locale],
     );
 
@@ -282,9 +281,9 @@ export function* saveCommentWorker({
 
     yield call(toggleView, true);
 
-    yield put(saveCommentSuccess({ ...questionData }));
+    yield put(saveCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(saveCommentErr(err));
+    yield put(saveCommentErr(err, buttonId));
   }
 }
 
@@ -324,13 +323,13 @@ export function* deleteCommentWorker({
       answer.comments = answer.comments.filter(x => x.id != commentId);
     }
 
-    yield put(deleteCommentSuccess({ ...questionData }));
+    yield put(deleteCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(deleteCommentErr(err));
+    yield put(deleteCommentErr(err, buttonId));
   }
 }
 
-export function* deleteAnswerWorker({ questionId, answerId, postButtonId }) {
+export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
     const { questionData, eosService, locale, profileInfo } = yield call(
       getParams,
@@ -338,7 +337,7 @@ export function* deleteAnswerWorker({ questionId, answerId, postButtonId }) {
 
     yield call(
       deleteAnswerValidator,
-      postButtonId,
+      buttonId,
       answerId,
       questionData.correct_answer_id,
       translationMessages[locale],
@@ -355,13 +354,13 @@ export function* deleteAnswerWorker({ questionId, answerId, postButtonId }) {
 
     questionData.answers = questionData.answers.filter(x => x.id != answerId);
 
-    yield put(deleteAnswerSuccess({ ...questionData }));
+    yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(deleteAnswerErr(err));
+    yield put(deleteAnswerErr(err, buttonId));
   }
 }
 
-export function* deleteQuestionWorker({ questionId, postButtonId }) {
+export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
     const { questionData, eosService, locale, profileInfo } = yield call(
       getParams,
@@ -369,7 +368,7 @@ export function* deleteQuestionWorker({ questionId, postButtonId }) {
 
     yield call(
       deleteQuestionValidator,
-      postButtonId,
+      buttonId,
       questionData.answers.length,
       translationMessages[locale],
       profileInfo,
@@ -377,11 +376,13 @@ export function* deleteQuestionWorker({ questionId, postButtonId }) {
 
     yield call(deleteQuestion, profileInfo.user, questionId, eosService);
 
-    yield put(deleteQuestionSuccess({ ...questionData, isDeleted: true }));
+    yield put(
+      deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
+    );
 
     yield call(createdHistory.push, routes.questions());
   } catch (err) {
-    yield put(deleteQuestionErr(err));
+    yield put(deleteQuestionErr(err, buttonId));
   }
 }
 
@@ -407,6 +408,7 @@ export function* postCommentWorker({
   comment,
   reset,
   toggleView,
+  buttonId,
 }) {
   try {
     const { questionData, eosService, profileInfo, locale } = yield call(
@@ -419,7 +421,7 @@ export function* postCommentWorker({
       postCommentValidator,
       profileInfo,
       questionData,
-      `${POST_COMMENT_BUTTON}${answerId}`,
+      buttonId,
       answerId,
       translationMessages[locale],
     );
@@ -462,9 +464,9 @@ export function* postCommentWorker({
 
     yield call(reset);
 
-    yield put(postCommentSuccess({ ...questionData }));
+    yield put(postCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(postCommentErr(err));
+    yield put(postCommentErr(err, buttonId));
   }
 }
 
@@ -512,7 +514,7 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
 
 export function* downVoteWorker({
   whoWasDownvoted,
-  postButtonId,
+  buttonId,
   answerId,
   questionId,
 }) {
@@ -529,7 +531,7 @@ export function* downVoteWorker({
       downVoteValidator,
       profileInfo,
       questionData,
-      postButtonId,
+      buttonId,
       answerId,
       translationMessages[locale],
     );
@@ -553,14 +555,14 @@ export function* downVoteWorker({
       item.votingStatus.isDownVoted = true;
     }
 
-    yield put(downVoteSuccess({ ...questionData }, usersForUpdate));
+    yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    yield put(downVoteErr(err));
+    yield put(downVoteErr(err, buttonId));
   }
 }
 
 export function* upVoteWorker({
-  postButtonId,
+  buttonId,
   answerId,
   questionId,
   whoWasUpvoted,
@@ -578,7 +580,7 @@ export function* upVoteWorker({
       upVoteValidator,
       profileInfo,
       questionData,
-      postButtonId,
+      buttonId,
       answerId,
       translationMessages[locale],
     );
@@ -602,14 +604,14 @@ export function* upVoteWorker({
       item.votingStatus.isUpVoted = true;
     }
 
-    yield put(upVoteSuccess({ ...questionData }, usersForUpdate));
+    yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    yield put(upVoteErr(err));
+    yield put(upVoteErr(err, buttonId));
   }
 }
 
 export function* markAsAcceptedWorker({
-  postButtonId,
+  buttonId,
   questionId,
   correctAnswerId,
   whoWasAccepted,
@@ -627,7 +629,7 @@ export function* markAsAcceptedWorker({
       markAsAcceptedValidator,
       profileInfo,
       questionData,
-      postButtonId,
+      buttonId,
       translationMessages[locale],
     );
 
@@ -644,9 +646,11 @@ export function* markAsAcceptedWorker({
         ? 0
         : Number(correctAnswerId);
 
-    yield put(markAsAcceptedSuccess({ ...questionData }, usersForUpdate));
+    yield put(
+      markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
+    );
   } catch (err) {
-    yield put(markAsAcceptedErr(err));
+    yield put(markAsAcceptedErr(err, buttonId));
   }
 }
 
@@ -654,7 +658,7 @@ export function* voteToDeleteWorker({
   questionId,
   answerId,
   commentId,
-  postButtonId,
+  buttonId,
   whoWasVoted,
 }) {
   try {
@@ -671,7 +675,7 @@ export function* voteToDeleteWorker({
       profileInfo,
       questionData,
       translationMessages[locale],
-      postButtonId,
+      buttonId,
       {
         questionId,
         answerId,
@@ -704,9 +708,11 @@ export function* voteToDeleteWorker({
 
     item.votingStatus.isVotedToDelete = true;
 
-    yield put(voteToDeleteSuccess({ ...questionData }, usersForUpdate));
+    yield put(
+      voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
+    );
   } catch (err) {
-    yield put(voteToDeleteErr(err));
+    yield put(voteToDeleteErr(err, buttonId));
   }
 }
 

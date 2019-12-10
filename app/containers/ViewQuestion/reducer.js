@@ -66,6 +66,7 @@ export const initialState = fromJS({
   saveCommentError: null,
   voteToDeleteLoading: false,
   voteToDeleteError: null,
+  ids: new Set(),
 });
 
 function viewQuestionReducer(state = initialState, action) {
@@ -83,7 +84,45 @@ function viewQuestionReducer(state = initialState, action) {
     deleteCommentError,
     saveCommentError,
     voteToDeleteError,
+    buttonId,
   } = action;
+
+  /* eslint default-case: 0 */
+  switch (type) {
+    case POST_COMMENT:
+    case UP_VOTE:
+    case DOWN_VOTE:
+    case MARK_AS_ACCEPTED:
+    case DELETE_QUESTION:
+    case DELETE_ANSWER:
+    case DELETE_COMMENT:
+    case SAVE_COMMENT:
+    case VOTE_TO_DELETE:
+      state.set('ids', state.toJS().ids.add(buttonId));
+      break;
+
+    case POST_COMMENT_SUCCESS:
+    case POST_COMMENT_ERROR:
+    case UP_VOTE_SUCCESS:
+    case UP_VOTE_ERROR:
+    case DOWN_VOTE_SUCCESS:
+    case DOWN_VOTE_ERROR:
+    case MARK_AS_ACCEPTED_SUCCESS:
+    case MARK_AS_ACCEPTED_ERROR:
+    case DELETE_QUESTION_SUCCESS:
+    case DELETE_QUESTION_ERROR:
+    case DELETE_ANSWER_SUCCESS:
+    case DELETE_ANSWER_ERROR:
+    case DELETE_COMMENT_SUCCESS:
+    case DELETE_COMMENT_ERROR:
+    case SAVE_COMMENT_SUCCESS:
+    case SAVE_COMMENT_ERROR:
+    case VOTE_TO_DELETE_SUCCESS:
+    case VOTE_TO_DELETE_ERROR:
+      state.toJS().ids.delete(buttonId);
+      state.set('ids', state.toJS().ids);
+      break;
+  }
 
   switch (type) {
     case GET_QUESTION_DATA:

@@ -16,6 +16,7 @@ import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
+import Button from 'components/Button/Contained/Transparent';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -66,7 +67,8 @@ const ContentRating = ({
   downVoteLoading,
 }) => (
   <React.Fragment>
-    <button
+    <Button
+      className="overflow-initial"
       onClick={upVote}
       disabled={upVoteLoading}
       id={`${UP_VOTE_BUTTON}${answerId}`}
@@ -78,13 +80,14 @@ const ContentRating = ({
         userInfo={userInfo}
         votingStatus={votingStatus}
       />
-    </button>
+    </Button>
 
     <Span fontSize="20" bold>
       {getFormattedNum(rating)}
     </Span>
 
-    <button
+    <Button
+      className="overflow-initial"
       onClick={downVote}
       disabled={downVoteLoading}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
@@ -96,7 +99,7 @@ const ContentRating = ({
         userInfo={userInfo}
         votingStatus={votingStatus}
       />
-    </button>
+    </Button>
   </React.Fragment>
 );
 

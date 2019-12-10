@@ -109,7 +109,10 @@ export class ViewQuestion extends React.Component {
       voteToDeleteDispatch,
       redirectToEditQuestionPageDispatch,
       redirectToEditAnswerPageDispatch,
+      ids,
     } = this.props;
+
+    console.log(ids, upVoteLoading);
 
     const translations = translationMessages[locale];
 
@@ -225,6 +228,7 @@ ViewQuestion.propTypes = {
   voteToDeleteLoading: PropTypes.bool,
   redirectToEditQuestionPageDispatch: PropTypes.func,
   redirectToEditAnswerPageDispatch: PropTypes.func,
+  ids: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -243,6 +247,7 @@ const mapStateToProps = createStructuredSelector({
   deleteAnswerLoading: makeSelectViewQuestion.selectDeleteAnswerLoading(),
   deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
   voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
+  ids: makeSelectViewQuestion.selectIds(),
 });
 
 export function mapDispatchToProps(dispatch, props) /* istanbul ignore next */ {
