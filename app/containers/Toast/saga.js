@@ -87,6 +87,6 @@ export function* loggerWorker(error) {
 export default function*() {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(errHandlingTypes, errHandling);
-  yield takeEvery(otherTypes, loggerWorker);
+  yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
   yield takeEvery(successHandlingTypes, successHandling);
 }
