@@ -27,17 +27,18 @@ export function upVote(communityId, buttonId) {
   };
 }
 
-export function upVoteSuccess(communities) {
+export function upVoteSuccess(buttonId) {
   return {
     type: UPVOTE_SUCCESS,
-    communities,
+    buttonId,
   };
 }
 
-export function upVoteErr(upVoteError) {
+export function upVoteErr(upVoteError, buttonId) {
   return {
     type: UPVOTE_ERROR,
     upVoteError,
+    buttonId,
   };
 }
 
@@ -55,16 +56,17 @@ export function downVote(communityId, buttonId) {
   };
 }
 
-export function downVoteSuccess(communities) {
+export function downVoteSuccess(buttonId) {
   return {
     type: DOWNVOTE_SUCCESS,
-    communities,
+    buttonId,
   };
 }
 
-export function downVoteErr(downVoteError) {
+export function downVoteErr(downVoteError, buttonId) {
   return {
     type: DOWNVOTE_ERROR,
     downVoteError,
+    buttonId,
   };
 }

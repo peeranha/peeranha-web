@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import PositiveChoice from 'components/Button/Contained/Primary';
 import NegativeChoice from 'components/Button/Contained/Transparent';
 
-const AlreadyVoted = ({ choice, children, className, onClick }) => {
+const AlreadyVoted = ({
+  choice,
+  children,
+  className,
+  onClick,
+  id,
+  disabled,
+}) => {
   let Comp = choice ? PositiveChoice : NegativeChoice;
 
   Comp = Comp.extend`
@@ -13,7 +20,13 @@ const AlreadyVoted = ({ choice, children, className, onClick }) => {
   `;
 
   return (
-    <Comp onClick={onClick} className={className} choice={choice}>
+    <Comp
+      onClick={onClick}
+      className={className}
+      choice={choice}
+      id={id}
+      disabled={disabled}
+    >
       {children}
     </Comp>
   );
@@ -21,8 +34,10 @@ const AlreadyVoted = ({ choice, children, className, onClick }) => {
 
 AlreadyVoted.propTypes = {
   choice: PropTypes.bool,
+  disabled: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
+  id: PropTypes.string,
   onClick: PropTypes.func,
 };
 

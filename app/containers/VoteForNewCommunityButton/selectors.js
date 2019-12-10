@@ -2,31 +2,36 @@ import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 const selectVoteForNewCommunityButtonDomain = state =>
-  state.get('voteForNewCommunityButton', initialState);
+  state.get('voteForNewCommunityButton', initialState).toJS();
 
 const selectUpVoteLoading = () =>
   createSelector(
     selectVoteForNewCommunityButtonDomain,
-    substate => substate.toJS().upVoteLoading,
+    substate => substate.upVoteLoading,
   );
 
 const selectUpVoteError = () =>
   createSelector(
     selectVoteForNewCommunityButtonDomain,
-    substate => substate.toJS().upVoteError,
+    substate => substate.upVoteError,
   );
 
 const selectDownVoteLoading = () =>
   createSelector(
     selectVoteForNewCommunityButtonDomain,
-    substate => substate.toJS().downVoteLoading,
+    substate => substate.downVoteLoading,
   );
 
 const selectDownVoteError = () =>
   createSelector(
     selectVoteForNewCommunityButtonDomain,
-    substate => substate.toJS().downVoteError,
+    substate => substate.downVoteError,
   );
+
+const selectIds = () =>
+  createSelector(selectVoteForNewCommunityButtonDomain, substate => [
+    ...substate.ids,
+  ]);
 
 export {
   selectVoteForNewCommunityButtonDomain,
@@ -34,4 +39,5 @@ export {
   selectUpVoteError,
   selectDownVoteLoading,
   selectDownVoteError,
+  selectIds,
 };

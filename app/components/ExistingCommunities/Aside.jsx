@@ -48,12 +48,8 @@ const Aside = ({ suggestedCommunities }) => (
         </P>
 
         <div>
-          <VoteUpButton
-            className="mr-2"
-            id={`voteup_${x.id}`}
-            communityId={x.id}
-          />
-          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
+          <VoteUpButton className="mr-2" communityId={x.id} />
+          <VoteDownButton communityId={x.id} />
         </div>
       </Item>
     ))}

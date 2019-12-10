@@ -63,9 +63,9 @@ export function* upVoteWorker({ communityId, buttonId }) {
     }
 
     yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
-    yield put(upVoteSuccess());
+    yield put(upVoteSuccess(buttonId));
   } catch (err) {
-    yield put(upVoteErr(err));
+    yield put(upVoteErr(err, buttonId));
   }
 }
 
@@ -103,9 +103,9 @@ export function* downVoteWorker({ communityId, buttonId }) {
     }
 
     yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
-    yield put(downVoteSuccess());
+    yield put(downVoteSuccess(buttonId));
   } catch (err) {
-    yield put(downVoteErr(err));
+    yield put(downVoteErr(err, buttonId));
   }
 }
 
