@@ -359,7 +359,7 @@
   "app.containers.HomePage.whatBlockchain":
     "What Blockchain Peeranha is Built on?",
   "app.containers.HomePage.whatBlockchainCollapsed":
-    "Peeranha is built on the EOS blockchain. EOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
+    "Peeranha is powered by TELOS blockchain. TELOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
 
   "app.containers.HomePage.whatIsCryptocurrency":
     "What is the cryptocurrency of Peeranha?",
