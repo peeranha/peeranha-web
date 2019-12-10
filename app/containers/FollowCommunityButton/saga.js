@@ -30,25 +30,18 @@ export function* followHandlerWorker({
       minEnergy: MIN_ENERGY_TO_FOLLOW,
     });
 
-    if (isFollowed) {
-      yield call(
-        unfollowCommunity,
-        eosService,
-        communityIdFilter,
-        selectedAccount,
-      );
-    } else {
-      yield call(
-        followCommunity,
-        eosService,
-        communityIdFilter,
-        selectedAccount,
-      );
-    }
+    yield call(
+      isFollowed ? unfollowCommunity : followCommunity,
+      eosService,
+      communityIdFilter,
+      selectedAccount,
+    );
 
-    yield put(followHandlerSuccess({ communityIdFilter, isFollowed }));
+    yield put(
+      followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }),
+    );
   } catch (err) {
-    yield put(followHandlerErr(err));
+    yield put(followHandlerErr(err, buttonId));
   }
 }
 

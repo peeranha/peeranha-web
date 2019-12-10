@@ -19,17 +19,23 @@ export function followHandler(communityIdFilter, isFollowed, buttonId) {
   };
 }
 
-export function followHandlerSuccess({ communityIdFilter, isFollowed }) {
+export function followHandlerSuccess({
+  communityIdFilter,
+  isFollowed,
+  buttonId,
+}) {
   return {
     type: FOLLOW_HANDLER_SUCCESS,
     communityIdFilter,
     isFollowed,
+    buttonId,
   };
 }
 
-export function followHandlerErr(followHandlerError) {
+export function followHandlerErr(followHandlerError, buttonId) {
   return {
     type: FOLLOW_HANDLER_ERROR,
     followHandlerError,
+    buttonId,
   };
 }

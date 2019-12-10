@@ -10,35 +10,49 @@ import InfoButton from 'components/Button/Outlined/InfoMedium';
 import Button from './index';
 import messages from './messages';
 
-const B = /* istanbul ignore next */ ({ isFollowed, onClick, id }) => {
+const B = ({ isFollowed, onClick, id, disabled }) => {
   if (isFollowed) {
     return (
-      <PrimaryButton id={id} data-isfollowed={isFollowed} onClick={onClick}>
+      <PrimaryButton
+        id={id}
+        data-isfollowed={isFollowed}
+        onClick={onClick}
+        disabled={disabled}
+      >
         <img className="py-1" src={okayIcon} alt="icon" />
       </PrimaryButton>
     );
   }
 
   return (
-    <InfoButton id={id} data-isfollowed={isFollowed} onClick={onClick}>
+    <InfoButton
+      id={id}
+      data-isfollowed={isFollowed}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <FormattedMessage {...messages.subscribe} />
     </InfoButton>
   );
 };
 
-export const StyledButton = /* istanbul ignore next */ ({
-  communityIdFilter,
-}) => (
+export const StyledButton = ({ communityIdFilter }) => (
   <Button
     communityIdFilter={communityIdFilter}
-    render={({ isFollowed, onClick, id }) => (
-      <B id={id} isFollowed={isFollowed} onClick={onClick} />
+    render={({ isFollowed, onClick, id, disabled }) => (
+      <B
+        id={id}
+        isFollowed={isFollowed}
+        onClick={onClick}
+        disabled={disabled}
+      />
     )}
   />
 );
 
 B.propTypes = {
   isFollowed: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   id: PropTypes.string.isRequired,
 };

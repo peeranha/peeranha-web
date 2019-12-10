@@ -20,6 +20,7 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 import { followHandler } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.PureComponent {
@@ -37,7 +38,9 @@ export class FollowCommunityButton extends React.PureComponent {
   };
 
   render() /* istanbul ignore next */ {
-    const { communityIdFilter, followedCommunities, render } = this.props;
+    const { communityIdFilter, followedCommunities, render, ids } = this.props;
+    const id = `follow_community_${communityIdFilter}`;
+    const disabled = ids.includes(id);
 
     const isFollowed = followedCommunities
       ? followedCommunities.includes(communityIdFilter)
@@ -46,7 +49,8 @@ export class FollowCommunityButton extends React.PureComponent {
     return render({
       isFollowed,
       onClick: this.followHandler,
-      id: `follow_community_${communityIdFilter}`,
+      id,
+      disabled,
     });
   }
 }
@@ -54,12 +58,14 @@ export class FollowCommunityButton extends React.PureComponent {
 FollowCommunityButton.propTypes = {
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
+  ids: PropTypes.array,
   followHandlerDispatch: PropTypes.func,
   render: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   followedCommunities: makeSelectFollowedCommunities(),
+  ids: selectIds(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
