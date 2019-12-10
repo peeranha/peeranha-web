@@ -82,7 +82,10 @@ export const ContentHeader = props => (
           id={`${props.type}_vote_to_delete_${props.answerId}`}
           params={props.buttonParams}
           onClick={props.voteToDelete}
-          disabled={props.voteToDeleteLoading}
+          disabled={
+            props.voteToDeleteLoading &&
+            props.isDisabled(`${props.type}_vote_to_delete_${props.answerId}`)
+          }
           isVotedToDelete={props.votingStatus.isVotedToDelete}
         >
           <Icon icon={blockIcon} width="14" />
@@ -109,7 +112,10 @@ export const ContentHeader = props => (
               id={`${props.type}_delete_${props.answerId}`}
               params={props.buttonParams}
               onClick={onClick}
-              disabled={props.deleteItemLoading}
+              disabled={
+                props.deleteItemLoading &&
+                props.isDisabled(`${props.type}_delete_${props.answerId}`)
+              }
             >
               <img src={deleteIcon} alt="icon" />
               <FormattedMessage {...messages.deleteButton} />
@@ -130,6 +136,7 @@ ContentHeader.propTypes = {
   isItWrittenByMe: PropTypes.bool,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
+  isDisabled: PropTypes.func,
   buttonParams: PropTypes.object,
   editItem: PropTypes.func,
   deleteItem: PropTypes.func,

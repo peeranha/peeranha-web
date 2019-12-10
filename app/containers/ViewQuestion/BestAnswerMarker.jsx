@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { BG_PRIMARY } from 'style-constants';
+import { formatStringToHtmlId } from 'utils/animation';
 
 import crownIcon from 'images/crownIcon.svg?inline';
 import CommunityChoiceButton from 'components/Button/Contained/PrimarySmall';
@@ -20,6 +21,7 @@ export const BestAnswerMarker = ({
   correctAnswerId,
   whoWasAccepted,
   isTheLargestRating,
+  isDisabled,
 }) => {
   if (+answerId === 0) return null;
 
@@ -32,7 +34,10 @@ export const BestAnswerMarker = ({
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
-        markAsAcceptedLoading={markAsAcceptedLoading}
+        disabled={
+          markAsAcceptedLoading &&
+          isDisabled(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))
+        }
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
       />
@@ -56,6 +61,7 @@ BestAnswerMarker.propTypes = {
   whoWasAccepted: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
+  isDisabled: PropTypes.func,
 };
 
 export default React.memo(BestAnswerMarker);

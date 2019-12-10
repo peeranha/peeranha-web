@@ -65,12 +65,13 @@ const ContentRating = ({
   userInfo,
   upVoteLoading,
   downVoteLoading,
+  isDisabled,
 }) => (
   <React.Fragment>
     <Button
       className="overflow-initial"
       onClick={upVote}
-      disabled={upVoteLoading}
+      disabled={upVoteLoading && isDisabled(`${UP_VOTE_BUTTON}${answerId}`)}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasupvoted={userInfo.user}
@@ -89,7 +90,7 @@ const ContentRating = ({
     <Button
       className="overflow-initial"
       onClick={downVote}
-      disabled={downVoteLoading}
+      disabled={downVoteLoading && isDisabled(`${DOWN_VOTE_BUTTON}${answerId}`)}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasdownvoted={userInfo.user}
@@ -112,6 +113,7 @@ ContentRating.propTypes = {
   downVote: PropTypes.func,
   upVoteLoading: PropTypes.bool,
   downVoteLoading: PropTypes.bool,
+  isDisabled: PropTypes.func,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

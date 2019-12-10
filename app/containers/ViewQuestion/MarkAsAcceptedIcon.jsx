@@ -4,12 +4,11 @@ import { FormattedMessage } from 'react-intl';
 
 import okayIcon from 'images/okay.svg?inline';
 
-import { Icon as AcceptAnswerEdit } from 'components/Input/Checkbox';
+import Checkbox from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessSmall';
 
 import messages from './messages';
 
-/* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 export const MarkAsAcceptedIcon = ({
   correctAnswerId,
   answerId,
@@ -17,7 +16,7 @@ export const MarkAsAcceptedIcon = ({
   account,
   id,
   markAsAccepted,
-  markAsAcceptedLoading,
+  disabled,
   whoWasAccepted,
   className,
 }) => {
@@ -38,19 +37,19 @@ export const MarkAsAcceptedIcon = ({
   // I am question's author
   if (answerId !== 0 && account === questionFrom) {
     return (
-      <div
-        className={`d-inline-flex align-items-center mr-2 ${className}`}
-        id={id}
-        onClick={markAsAccepted}
-        disabled={markAsAcceptedLoading}
-        data-answerid={correctAnswerId === answerId ? 0 : answerId}
-        data-whowasaccepted={whoWasAccepted}
-      >
-        <AcceptAnswerEdit
-          className="mr-2"
-          value={correctAnswerId === answerId}
+      <div className={className}>
+        <Checkbox
+          input={{
+            name: id,
+            value: correctAnswerId === answerId,
+            onChange: markAsAccepted,
+            'data-answerid': correctAnswerId === answerId ? 0 : answerId,
+            'data-whowasaccepted': whoWasAccepted,
+          }}
+          label={<FormattedMessage {...messages.theBestAnswer} />}
+          disabled={disabled}
+          meta={{}}
         />
-        <FormattedMessage {...messages.theBestAnswer} />
       </div>
     );
   }
@@ -69,6 +68,7 @@ MarkAsAcceptedIcon.propTypes = {
   whoWasAccepted: PropTypes.string,
   className: PropTypes.string,
   markAsAcceptedLoading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(MarkAsAcceptedIcon);
