@@ -24,21 +24,29 @@ import saga from './saga';
 import { upVote, downVote } from './actions';
 
 import { UPVOTE_METHOD, DOWNVOTE_METHOD } from './constants';
+import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class VoteForNewTagButton extends React.PureComponent {
-  [UPVOTE_METHOD] = () => {
-    const { communityId, tagId, buttonId } = this.props;
-    this.props.upVoteDispatch(communityId, tagId, buttonId);
+  [UPVOTE_METHOD] = e => {
+    const { communityId, tagId } = this.props;
+    this.props.upVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
-  [DOWNVOTE_METHOD] = () => {
-    const { communityId, tagId, buttonId } = this.props;
-    this.props.downVoteDispatch(communityId, tagId, buttonId);
+  [DOWNVOTE_METHOD] = e => {
+    const { communityId, tagId } = this.props;
+    this.props.downVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
   render() /* istanbul ignore next */ {
-    const { tagId, clickMethod, render, suggestedTags, account } = this.props;
+    const {
+      tagId,
+      clickMethod,
+      render,
+      suggestedTags,
+      account,
+      ids,
+    } = this.props;
 
     const tag = suggestedTags.filter(x => x.id === +tagId)[0];
 
@@ -47,12 +55,17 @@ export class VoteForNewTagButton extends React.PureComponent {
     const isUpvoted = tag.upvotes.includes(account);
     const isDownvoted = tag.downvotes.includes(account);
 
+    const id = `vote-tag-${clickMethod}-${tagId}`;
+    const disabled = ids.includes(id);
+
     return render({
       upvotesNumber: tag.upvotes.length,
       downvotesNumber: tag.downvotes.length,
       isUpvoted,
       isDownvoted,
       onClick: this[clickMethod],
+      id,
+      disabled,
     });
   }
 }
@@ -60,10 +73,10 @@ export class VoteForNewTagButton extends React.PureComponent {
 VoteForNewTagButton.propTypes = {
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   tagId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  buttonId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   upVoteDispatch: PropTypes.func,
   downVoteDispatch: PropTypes.func,
   suggestedTags: PropTypes.array,
+  ids: PropTypes.array,
   account: PropTypes.string,
   clickMethod: PropTypes.string,
   render: PropTypes.func,
@@ -72,6 +85,7 @@ VoteForNewTagButton.propTypes = {
 const mapStateToProps = createStructuredSelector({
   suggestedTags: selectSuggestedTags(),
   account: makeSelectAccount(),
+  ids: selectIds(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

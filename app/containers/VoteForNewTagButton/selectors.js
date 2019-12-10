@@ -6,31 +6,36 @@ import { initialState } from './reducer';
  */
 
 const selectVoteForNewTagButtonDomain = state =>
-  state.get('voteForNewTagButton', initialState);
+  state.get('voteForNewTagButton', initialState).toJS();
 
 const selectUpVoteLoading = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.toJS().upVoteLoading,
+    substate => substate.upVoteLoading,
   );
 
 const selectUpVoteError = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.toJS().upVoteError,
+    substate => substate.upVoteError,
   );
 
 const selectDownVoteLoading = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.toJS().downVoteLoading,
+    substate => substate.downVoteLoading,
   );
 
 const selectDownVoteError = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.toJS().downVoteError,
+    substate => substate.downVoteError,
   );
+
+const selectIds = () =>
+  createSelector(selectVoteForNewTagButtonDomain, substate => [
+    ...substate.ids,
+  ]);
 
 export {
   selectVoteForNewTagButtonDomain,
@@ -38,4 +43,5 @@ export {
   selectUpVoteError,
   selectDownVoteLoading,
   selectDownVoteError,
+  selectIds,
 };

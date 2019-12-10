@@ -11,7 +11,6 @@ import AgreeButton from './Button';
 import { UPVOTE_METHOD } from './constants';
 
 const VoteUpButton = /* istanbul ignore next */ ({
-  id,
   communityId,
   className,
   tagId,
@@ -19,7 +18,6 @@ const VoteUpButton = /* istanbul ignore next */ ({
   <Button
     communityId={communityId}
     tagId={tagId}
-    buttonId={id}
     clickMethod={UPVOTE_METHOD}
     render={({
       isUpvoted,
@@ -27,9 +25,16 @@ const VoteUpButton = /* istanbul ignore next */ ({
       onClick,
       upvotesNumber,
       downvotesNumber,
+      id,
+      disabled,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <AgreeButton className={className} onClick={onClick} id={id}>
+        <AgreeButton
+          className={className}
+          onClick={onClick}
+          id={id}
+          disabled={disabled}
+        >
           <FormattedMessage {...commonMessages.agreeShort} />
         </AgreeButton>
       ) : (
@@ -37,6 +42,8 @@ const VoteUpButton = /* istanbul ignore next */ ({
           onClick={onClick}
           className={`flex-column ${className}`}
           choice={isUpvoted}
+          id={id}
+          disabled={disabled}
         >
           <p className="pb-1">
             <FormattedMessage {...commonMessages.agreeShort} />
