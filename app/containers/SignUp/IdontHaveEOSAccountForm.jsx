@@ -19,7 +19,6 @@ import {
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
-import TextareaField from 'components/FormFields/TextareaField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
@@ -29,7 +28,6 @@ import messages from './messages';
 
 import {
   MASTER_KEY_FIELD,
-  WHY_DO_YOU_LIKE_US_FIELD,
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
@@ -114,14 +112,6 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 autoComplete="new-password"
                 validate={[required, strLength8x100, comparePasswords]}
                 warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div>
-              <Field
-                name={WHY_DO_YOU_LIKE_US_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.whyYouLikeUs.id]}
-                component={TextareaField}
               />
             </Div>
             <Div className="mb-4">
