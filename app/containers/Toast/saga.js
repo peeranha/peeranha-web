@@ -78,7 +78,11 @@ export function* addToastWorker() {
 export function* loggerWorker(error) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
-    yield call(putLogEvent, error[key].message, error[key].stack);
+    yield call(
+      putLogEvent,
+      typeof error[key] === 'string' ? error[key] : error[key].message,
+      error[key].stack,
+    );
   } catch (err) {
     console.log('Logger error: ', err.message);
   }
