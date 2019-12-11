@@ -16,7 +16,7 @@ import {
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
-import { ApplicationError } from './errors';
+import { ApplicationError, BlockchainError } from './errors';
 
 class EosioService {
   constructor() {
@@ -232,7 +232,7 @@ class EosioService {
       return res;
     } catch (err) {
       this.isScatterWindowOpened = false;
-      throw new ApplicationError(err);
+      throw new BlockchainError(err);
     }
   };
 

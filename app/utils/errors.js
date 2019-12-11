@@ -11,3 +11,10 @@ export class ApplicationError extends Error {
     Error.captureStackTrace(this, ApplicationError);
   }
 }
+
+export class BlockchainError extends Error {
+  constructor(...args) {
+    super(...args);
+    Error.captureStackTrace(this, BlockchainError);
+  }
+}

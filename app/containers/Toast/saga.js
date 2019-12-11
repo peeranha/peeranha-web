@@ -5,9 +5,14 @@ import { translationMessages } from 'i18n';
 import { putLogEvent } from 'utils/logger';
 import messages from 'common-messages';
 
-import { ApplicationError, WebIntegrationError } from 'utils/errors';
+import {
+  ApplicationError,
+  WebIntegrationError,
+  BlockchainError,
+} from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
 
 import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
@@ -36,6 +41,24 @@ export function* errHandling(error) {
 
     if (errorValue instanceof WebIntegrationError) {
       throw errorValue.message;
+    }
+
+    if (errorValue instanceof BlockchainError) {
+      let errorCode = null;
+
+      try {
+        errorCode = Object.keys(blockchainErrorMsgs).find(x =>
+          errorValue.message
+            .toLowerCase()
+            .includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
+        );
+      } catch (err) {
+        throw new Error('Unknown error');
+      }
+
+      if (errorCode) {
+        throw msg[blockchainErrorMsgs[errorCode].id];
+      }
     }
 
     throw new Error('Unknown error');

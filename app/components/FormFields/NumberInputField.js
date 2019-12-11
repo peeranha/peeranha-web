@@ -16,13 +16,18 @@ export const NumberInputField = ({
   tip,
   splitInHalf,
   onClick,
+  dotRestriction = 6,
   type = 'text',
 }) => {
   const onChange = x => {
-    const lastChar = x.target.value;
+    const inputValue = x.target.value;
+    const inputAfterDot = String(inputValue).split('.')[1];
 
-    if (Number(lastChar) || !lastChar) {
-      input.onChange(lastChar);
+    if (
+      (Number(inputValue) || !inputValue) &&
+      (!inputAfterDot || inputAfterDot.length <= dotRestriction)
+    ) {
+      input.onChange(inputValue);
     }
   };
 
@@ -62,6 +67,7 @@ NumberInputField.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   onClick: PropTypes.func,
+  dotRestriction: PropTypes.number,
 };
 
 export default React.memo(NumberInputField);

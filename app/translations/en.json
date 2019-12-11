@@ -629,6 +629,8 @@
   "app.containers.ErrorPage.description": "Some error occured... description",
   "app.containers.ErrorPage.weAreSorry":
     "We're sorry, unexpected error has happened.",
+  "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
+  "app.containers.ErrorPage.cannotTransferToSelf": "Cannot transfer to self",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
