@@ -25,6 +25,7 @@ class EosioService {
     this.scatterInstance = null;
     this.scatterInstalled = null;
     this.node = null;
+    this.isScatterWindowOpened = false;
   }
 
   init = async (
@@ -187,7 +188,7 @@ class EosioService {
   };
 
   // TODO: test
-  sendTransaction = (actor, action, data, account) => {
+  sendTransaction = async (actor, action, data, account) => {
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     /* eslint no-param-reassign: 0 */
@@ -199,23 +200,38 @@ class EosioService {
 
     createPushActionBody(data);
 
-    return this.eosInstance.transaction({
-      actions: [
-        {
-          account: account || process.env.EOS_CONTRACT_ACCOUNT,
-          name: action,
-          authorization: [
+    if (!this.isScatterWindowOpened) {
+      try {
+        this.isScatterWindowOpened = true;
+
+        const res = await this.eosInstance.transaction({
+          actions: [
             {
-              actor,
-              permission: DEFAULT_EOS_PERMISSION,
+              account: account || process.env.EOS_CONTRACT_ACCOUNT,
+              name: action,
+              authorization: [
+                {
+                  actor,
+                  permission: DEFAULT_EOS_PERMISSION,
+                },
+              ],
+              data: {
+                ...data,
+              },
             },
           ],
-          data: {
-            ...data,
-          },
-        },
-      ],
-    });
+        });
+
+        this.isScatterWindowOpened = false;
+
+        return res;
+      } catch (err) {
+        this.isScatterWindowOpened = false;
+        throw new ApplicationError(err);
+      }
+    } else {
+      throw new ApplicationError('Scatter window is already opened');
+    }
   };
 
   getTableRow = async (table, scope, primaryKey, code) => {
