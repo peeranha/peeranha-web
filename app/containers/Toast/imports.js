@@ -89,7 +89,10 @@ import {
 } from 'containers/ShowOwnerKey/constants';
 
 import { FOLLOW_HANDLER_ERROR } from 'containers/FollowCommunityButton/constants';
-import { PICKUP_REWARD_ERROR } from 'containers/Wallet/constants';
+import {
+  PICKUP_REWARD_ERROR,
+  GET_WEEK_STAT_ERROR,
+} from 'containers/Wallet/constants';
 
 import {
   UPVOTE_ERROR as COMMUNITY_UPVOTE_ERROR,
@@ -112,7 +115,46 @@ import {
   DELETE_COMMENT_ERROR,
   SAVE_COMMENT_ERROR,
   VOTE_TO_DELETE_ERROR,
+  GET_QUESTION_DATA_ERROR,
 } from 'containers/ViewQuestion/constants';
+
+import { GET_CURRENT_ACCOUNT_ERROR } from 'containers/AccountProvider/constants';
+import { GET_SUGGESTED_COMMUNITIES_ERROR } from 'containers/Communities/constants';
+
+import {
+  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_USER_PROFILE_ERROR,
+  GET_STAT_ERROR,
+  GET_FAQ_ERROR,
+} from 'containers/DataCacheProvider/constants';
+
+import { GET_QUESTIONS_ERROR } from 'containers/Questions/constants';
+import { GET_QUESTIONS_ERROR as GET_Q_USER_ERROR } from 'containers/QuestionsOfUser/constants';
+import { GET_QUESTIONS_ERROR as GET_QA_USER_ERROR } from 'containers/QuestionsWithAnswersOfUser/constants';
+
+import {
+  GET_SUGGESTED_TAGS_ERROR,
+  GET_EXISTING_TAGS_ERROR,
+} from 'containers/Tags/constants';
+
+import { GET_USERS_ERROR } from 'containers/Users/constants';
+
+export const otherTypes = [
+  GET_CURRENT_ACCOUNT_ERROR,
+  GET_SUGGESTED_COMMUNITIES_ERROR,
+  GET_COMMUNITIES_WITH_TAGS_ERROR,
+  GET_USER_PROFILE_ERROR,
+  GET_STAT_ERROR,
+  GET_FAQ_ERROR,
+  GET_QUESTIONS_ERROR,
+  GET_Q_USER_ERROR,
+  GET_QA_USER_ERROR,
+  GET_SUGGESTED_TAGS_ERROR,
+  GET_EXISTING_TAGS_ERROR,
+  GET_USERS_ERROR,
+  GET_QUESTION_DATA_ERROR,
+  GET_WEEK_STAT_ERROR,
+];
 
 export const errHandlingTypes = [
   ASK_QUESTION_ERROR,

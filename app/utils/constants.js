@@ -60,6 +60,7 @@ export const INF_LIMIT = -1;
 export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
+export const UPDATE_ACC = 'updateacc';
 
 export const VOTE_TO_DELETE_METHOD = 'reportforum';
 

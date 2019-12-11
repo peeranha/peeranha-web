@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
 
@@ -69,7 +69,9 @@ export class CreateCommunity extends React.PureComponent {
     const community = {
       avatar: values[COMM_AVATAR_FIELD],
       name: values[COMM_NAME_FIELD],
-      language: values[LANGUAGE_FIELD].value,
+      language: values[LANGUAGE_FIELD]
+        ? values[LANGUAGE_FIELD].value
+        : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       tags,

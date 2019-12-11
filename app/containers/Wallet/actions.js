@@ -37,22 +37,25 @@ export function getWeekStatErr(getWeekStatError) {
 
 // Pickup reward actions
 
-export function pickupReward(period) {
+export function pickupReward(period, buttonId) {
   return {
     type: PICKUP_REWARD,
     period,
+    buttonId,
   };
 }
 
-export function pickupRewardSuccess() {
+export function pickupRewardSuccess(buttonId) {
   return {
     type: PICKUP_REWARD_SUCCESS,
+    buttonId,
   };
 }
 
-export function pickupRewardErr(pickupRewardError) {
+export function pickupRewardErr(pickupRewardError, buttonId) {
   return {
     type: PICKUP_REWARD_ERROR,
     pickupRewardError,
+    buttonId,
   };
 }

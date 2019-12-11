@@ -19,7 +19,6 @@ import {
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
-import TextareaField from 'components/FormFields/TextareaField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
@@ -29,11 +28,9 @@ import messages from './messages';
 
 import {
   MASTER_KEY_FIELD,
-  WHY_DO_YOU_LIKE_US_FIELD,
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
-  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
 import { Link, Div } from './IHaveEOSAccountForm';
@@ -117,33 +114,11 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 warn={[required, strLength8x100, comparePasswords]}
               />
             </Div>
-            <Div>
-              <Field
-                name={WHY_DO_YOU_LIKE_US_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.whyYouLikeUs.id]}
-                component={TextareaField}
-              />
-            </Div>
             <Div className="mb-4">
               <Field
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={
-                  <Link href={routes.privacyPolicy()} target="_blank">
-                    {translate[messages.iAcceptPrivacyPolicy.id]}
-                  </Link>
-                }
                 component={Checkbox}
                 validate={required}
                 warn={required}

@@ -153,7 +153,7 @@ export async function getWeekStat(eosService, profile) {
     }
   });
 
-  const numberOfPeriods = Math.floor(
+  const numberOfPeriods = Math.ceil(
     (Date.now() / 1000 - +process.env.RELEASE_DATE) /
       +process.env.WEEK_DURATION,
   );

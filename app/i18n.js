@@ -1,28 +1,20 @@
-/**
- * i18n.js
- *
- * This will setup the i18n language files and locale data for your app.
- *
- *   IMPORTANT: This file is used by the internal build
- *   script `extract-intl`, and must use CommonJS module syntax
- *   You CANNOT use import/export in this file.
- */
+// TODO: return 'ru' when it be needed
+
 const addLocaleData = require('react-intl').addLocaleData; //eslint-disable-line
 const enLocaleData = require('react-intl/locale-data/en');
-const ruLocaleData = require('react-intl/locale-data/ru');
+// const ruLocaleData = require('react-intl/locale-data/ru');
 
 const enTranslationMessages = require('./translations/en.json');
-const ruTranslationMessages = require('./translations/ru.json');
+// const ruTranslationMessages = require('./translations/ru.json');
 
 addLocaleData(enLocaleData);
-addLocaleData(ruLocaleData);
+// addLocaleData(ruLocaleData);
 
 const DEFAULT_LOCALE = 'en';
 
 // prettier-ignore
 const appLocales = [
   'en',
-  'ru',
 ];
 
 const formatTranslationMessages = (locale, messages) => {
@@ -42,7 +34,7 @@ const formatTranslationMessages = (locale, messages) => {
 
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
-  ru: formatTranslationMessages('ru', ruTranslationMessages),
+  // ru: formatTranslationMessages('ru', ruTranslationMessages),
 };
 
 exports.appLocales = appLocales;

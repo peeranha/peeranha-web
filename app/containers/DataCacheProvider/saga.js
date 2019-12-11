@@ -2,7 +2,7 @@ import { takeLatest, call, put, select, takeEvery } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
 import { getAllCommunities } from 'utils/communityManagement';
-import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getFAQ } from 'utils/faqManagement';
 
@@ -11,7 +11,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
   LOGIN_WITH_EMAIL,
@@ -29,8 +28,6 @@ import {
   getStatErr,
   getFaqErr,
   getFaqSuccess,
-  updateUserEnergySuccess,
-  updateUserEnergyErr,
 } from './actions';
 
 import {
@@ -38,7 +35,6 @@ import {
   GET_USER_PROFILE,
   GET_STAT,
   GET_FAQ,
-  GET_USER_PROFILE_SUCCESS,
 } from './constants';
 
 export function* getStatWorker() {
@@ -47,8 +43,8 @@ export function* getStatWorker() {
     const stat = yield call(getStat, eosService);
 
     yield put(getStatSuccess(stat));
-  } catch ({ message }) {
-    yield put(getStatErr(message));
+  } catch (err) {
+    yield put(getStatErr(err));
   }
 }
 
@@ -58,8 +54,8 @@ export function* getCommunitiesWithTagsWorker() {
     const communities = yield call(getAllCommunities, eosService);
 
     yield put(getCommunitiesWithTagsSuccess(communities));
-  } catch ({ message }) {
-    yield put(getCommunitiesWithTagsErr(message));
+  } catch (err) {
+    yield put(getCommunitiesWithTagsErr(err));
   }
 }
 
@@ -69,8 +65,8 @@ export function* getFaqWorker() {
     const faq = yield call(getFAQ, locale);
 
     yield put(getFaqSuccess(faq));
-  } catch ({ message }) {
-    yield put(getFaqErr(message));
+  } catch (err) {
+    yield put(getFaqErr(err));
   }
 }
 
@@ -105,23 +101,8 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     yield put(getUserProfileSuccess());
 
     return yield updatedUserInfo;
-  } catch ({ message }) {
-    yield put(getUserProfileErr(message));
-  }
-}
-
-// TODO: test
-export function* updateUserEnergyWorker({ profile }) {
-  try {
-    const account = yield select(makeSelectAccount());
-    const profileInfoCopy = { ...profile };
-
-    if (profile.user === account) {
-      yield call(updateUserEnergy, profileInfoCopy);
-      yield put(updateUserEnergySuccess(profileInfoCopy));
-    }
-  } catch ({ message }) {
-    yield put(updateUserEnergyErr(message));
+  } catch (err) {
+    yield put(getUserProfileErr(err));
   }
 }
 
@@ -139,5 +120,4 @@ export default function*() {
     ],
     updateStoredQuestionsWorker,
   );
-  yield takeEvery(GET_USER_PROFILE_SUCCESS, updateUserEnergyWorker);
 }

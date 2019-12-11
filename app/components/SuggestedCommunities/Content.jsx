@@ -100,8 +100,8 @@ const Item = x => {
         </DescriptionBlock>
 
         <div className="flex-shrink-0">
-          <VoteUpButton id={`voteup_${x.id}`} communityId={x.id} />
-          <VoteDownButton id={`downvote_${x.id}`} communityId={x.id} />
+          <VoteUpButton communityId={x.id} />
+          <VoteDownButton communityId={x.id} />
         </div>
       </BaseSpecial>
 

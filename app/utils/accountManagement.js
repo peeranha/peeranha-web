@@ -2,10 +2,17 @@ import { saveText } from './ipfs';
 
 import {
   REGISTER_ACC,
+  UPDATE_ACC,
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   NO_AVATAR,
 } from './constants';
+
+export async function updateAcc(user, eosService) {
+  await eosService.sendTransaction(user, UPDATE_ACC, {
+    user,
+  });
+}
 
 export async function registerAccount(profile, eosService) {
   const profileText = JSON.stringify(profile);

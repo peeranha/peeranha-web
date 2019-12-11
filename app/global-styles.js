@@ -68,6 +68,10 @@ injectGlobal`
     overflow: hidden;
   }
 
+  .overflow-initial {
+    overflow: initial;
+  }
+
   .word-break-all {
     word-break: break-all;
   }

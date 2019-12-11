@@ -10,15 +10,10 @@ import { DisagreeButton } from './Button';
 
 import { DOWNVOTE_METHOD } from './constants';
 
-const VoteDownButton = /* istanbul ignore next */ ({
-  id,
-  communityId,
-  tagId,
-}) => (
+const VoteDownButton = ({ communityId, tagId }) => (
   <Button
     communityId={communityId}
     tagId={tagId}
-    buttonId={id}
     clickMethod={DOWNVOTE_METHOD}
     render={({
       isUpvoted,
@@ -26,9 +21,11 @@ const VoteDownButton = /* istanbul ignore next */ ({
       onClick,
       upvotesNumber,
       downvotesNumber,
+      id,
+      disabled,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <DisagreeButton onClick={onClick} id={id}>
+        <DisagreeButton onClick={onClick} id={id} disabled={disabled}>
           <FormattedMessage {...commonMessages.disagreeShort} />
         </DisagreeButton>
       ) : (
@@ -36,6 +33,8 @@ const VoteDownButton = /* istanbul ignore next */ ({
           className="flex-column"
           onClick={onClick}
           choice={isDownvoted}
+          id={id}
+          disabled={disabled}
         >
           <p className="pb-1">
             <FormattedMessage {...commonMessages.disagreeShort} />

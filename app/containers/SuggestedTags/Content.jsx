@@ -63,16 +63,11 @@ const Item = x => {
         <div>
           <VoteUpButton
             className="mr-2"
-            id={`voteup_${x.id}`}
             communityId={x.communityId}
             tagId={x.id}
           />
 
-          <VoteDownButton
-            id={`downvote_${x.id}`}
-            communityId={x.communityId}
-            tagId={x.id}
-          />
+          <VoteDownButton communityId={x.communityId} tagId={x.id} />
         </div>
       </BaseTransparent>
 

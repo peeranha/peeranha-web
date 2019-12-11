@@ -34,6 +34,8 @@ import { getPrivacyPolicy } from './actions';
 
 import Header from './Header';
 
+// TODO: back left menu link (sign up (with \ without) checkbox agreement)
+
 /* eslint-disable react/prefer-stateless-function */
 export class PrivacyPolicy extends React.PureComponent {
   componentDidMount() {

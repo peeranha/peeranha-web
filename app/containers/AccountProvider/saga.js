@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
-import { getProfileInfo, updateUserEnergy } from 'utils/profileManagement';
+import { getProfileInfo } from 'utils/profileManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -94,7 +94,9 @@ export function* getCurrentAccountWorker(initAccount) {
           sessionStorage.getItem(AUTOLOGIN_DATA),
       );
 
-      account = autoLoginData.eosAccountName;
+      if (autoLoginData) {
+        account = autoLoginData.eosAccountName;
+      }
     }
 
     if (!prevProfileInfo) {
@@ -113,20 +115,20 @@ export function* getCurrentAccountWorker(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    profileInfo.balance = balance;
+    if (profileInfo) {
+      profileInfo.balance = balance;
 
-    if (prevProfileInfo) {
-      profileInfo.profile = prevProfileInfo.profile;
+      if (prevProfileInfo) {
+        profileInfo.profile = prevProfileInfo.profile;
+      }
     }
-
-    yield call(updateUserEnergy, profileInfo);
 
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
-  } catch ({ message }) {
-    yield put(getCurrentAccountError(message));
+  } catch (err) {
+    yield put(getCurrentAccountError(err));
   }
 }
 

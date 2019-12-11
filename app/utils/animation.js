@@ -37,7 +37,7 @@ export function scrollToSection(
 }
 
 export function formatStringToHtmlId(str) /* istanbul ignore next */ {
-  return str ? str.replace(/[/.]/gim, '_') : '';
+  return str ? str.replace(/[/._]/gim, '-') : '';
 }
 
 export function scrollToErrorField(errors) /* istanbul ignore next */ {

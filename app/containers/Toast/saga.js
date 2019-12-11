@@ -1,7 +1,8 @@
 /* eslint consistent-return: 0 */
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put, select, call } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
+import { putLogEvent } from 'utils/logger';
 import messages from 'common-messages';
 
 import { ApplicationError, WebIntegrationError } from 'utils/errors';
@@ -12,7 +13,7 @@ import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
 import { makeSelectToasts } from './selectors';
 
-import { errHandlingTypes, successHandlingTypes } from './imports';
+import { errHandlingTypes, successHandlingTypes, otherTypes } from './imports';
 
 export function* errHandling(error) {
   const locale = yield select(makeSelectLocale());
@@ -74,8 +75,27 @@ export function* addToastWorker() {
   yield put(removeToast(toastKey));
 }
 
+export function* loggerWorker(error) {
+  try {
+    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
+
+    if (error[key] instanceof ApplicationError) {
+      return null;
+    }
+
+    yield call(
+      putLogEvent,
+      typeof error[key] === 'string' ? error[key] : error[key].message,
+      error[key].stack,
+    );
+  } catch (err) {
+    console.log('Logger error: ', err.message);
+  }
+}
+
 export default function*() {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(errHandlingTypes, errHandling);
+  yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
   yield takeEvery(successHandlingTypes, successHandling);
 }

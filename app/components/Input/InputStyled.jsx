@@ -24,7 +24,7 @@ const ErrorHandling = error => `
 `;
 
 const DisableHandling = disabled => `
-  opacity: ${disabled ? 0.6 : 1};
+  opacity: ${disabled ? 0.5 : 1};
 `;
 
 const Input = ({ error, disabled }) =>

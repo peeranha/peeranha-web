@@ -44,10 +44,6 @@ export default React.memo(() => (
       <FormattedMessage {...messages.support} />
     </A>
 
-    <A to={routes.privacyPolicy()}>
-      <FormattedMessage {...messages.privacyPolicyShort} />
-    </A>
-
     <ChangeLocale />
 
     <footer>

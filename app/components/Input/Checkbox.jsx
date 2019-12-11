@@ -48,10 +48,7 @@ export const Label = Span.extend`
 
 /* eslint jsx-a11y/label-has-for: 0 */
 const Checkbox = ({ input, label, disabled, meta }) => (
-  <div
-    className="d-flex align-items-start"
-    id={formatStringToHtmlId(input.name)}
-  >
+  <div className="d-flex align-items-start">
     <div className="position-relative d-inline-flex">
       <Icon
         value={input.value}
@@ -61,13 +58,17 @@ const Checkbox = ({ input, label, disabled, meta }) => (
       <Input
         {...input}
         type="checkbox"
-        id={input.name}
+        id={formatStringToHtmlId(input.name)}
         name={input.name}
         disabled={disabled}
       />
     </div>
 
-    <Label htmlFor={input.name} mobileFS="14" lineHeight="20">
+    <Label
+      htmlFor={formatStringToHtmlId(input.name)}
+      mobileFS="14"
+      lineHeight="20"
+    >
       {label}
     </Label>
   </div>

@@ -28,6 +28,9 @@ const selectPickupRewardProcessing = () =>
 const selectPickupRewardError = () =>
   createSelector(selectWalletDomain, substate => substate.pickupRewardError);
 
+const selectIds = () =>
+  createSelector(selectWalletDomain, substate => [...substate.ids]);
+
 export {
   selectWalletDomain,
   selectGetWeekStatProcessing,
@@ -35,4 +38,5 @@ export {
   selectGetWeekStatError,
   selectPickupRewardProcessing,
   selectPickupRewardError,
+  selectIds,
 };

@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
@@ -30,28 +30,21 @@ export function* followHandlerWorker({
       minEnergy: MIN_ENERGY_TO_FOLLOW,
     });
 
-    if (isFollowed) {
-      yield call(
-        unfollowCommunity,
-        eosService,
-        communityIdFilter,
-        selectedAccount,
-      );
-    } else {
-      yield call(
-        followCommunity,
-        eosService,
-        communityIdFilter,
-        selectedAccount,
-      );
-    }
+    yield call(
+      isFollowed ? unfollowCommunity : followCommunity,
+      eosService,
+      communityIdFilter,
+      selectedAccount,
+    );
 
-    yield put(followHandlerSuccess({ communityIdFilter, isFollowed }));
+    yield put(
+      followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }),
+    );
   } catch (err) {
-    yield put(followHandlerErr(err));
+    yield put(followHandlerErr(err, buttonId));
   }
 }
 
 export default function*() {
-  yield takeLatest(FOLLOW_HANDLER, followHandlerWorker);
+  yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

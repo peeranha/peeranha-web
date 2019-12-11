@@ -38,7 +38,7 @@ const Handler = ({
   }
 
   return (
-    <button onClick={onClick || null} type="button">
+    <button onClick={onClick || null} type="button" tabIndex="-1">
       <Icon icon={src} width="18" color={TEXT_SECONDARY_LIGHT} />
     </button>
   );
