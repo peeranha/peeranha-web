@@ -236,7 +236,7 @@ exports[`EditAnswer render test answerLoading is falsy 1`] = `
           "app.containers.HomePage.howItWorks": "How does it work?",
           "app.containers.HomePage.howItWorksCollapsed": "Peeranha is built using smart contracts on the EOS blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
           "app.containers.HomePage.learnMore": "Where can I learn more?",
-          "app.containers.HomePage.learnMoreCollapsed": "The best ways to learn more about to join our twitter, read our blog or send us an email to support@peeranha.com .",
+          "app.containers.HomePage.learnMoreCollapsed": "The best ways to learn more about to join our twitter, read our blog or send us an email to hello@peeranha.io .",
           "app.containers.HomePage.login": "Log in",
           "app.containers.HomePage.message": "Message",
           "app.containers.HomePage.messageHasNotBeenSent": "Something went wrong and your message has not been sent. Please try again.",
