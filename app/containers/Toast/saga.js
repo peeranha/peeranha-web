@@ -78,7 +78,16 @@ export function* addToastWorker() {
 export function* loggerWorker(error) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
-    yield call(putLogEvent, error[key].message, error[key].stack);
+
+    if (error[key] instanceof ApplicationError) {
+      return null;
+    }
+
+    yield call(
+      putLogEvent,
+      typeof error[key] === 'string' ? error[key] : error[key].message,
+      error[key].stack,
+    );
   } catch (err) {
     console.log('Logger error: ', err.message);
   }
@@ -87,6 +96,6 @@ export function* loggerWorker(error) {
 export default function*() {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(errHandlingTypes, errHandling);
-  yield takeEvery(otherTypes, loggerWorker);
+  yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
   yield takeEvery(successHandlingTypes, successHandling);
 }

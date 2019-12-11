@@ -122,6 +122,7 @@ const PaidOutWeek = ({
   pickupRewardProcessing,
   periodStarted,
   periodFinished,
+  ids,
 }) => (
   <BaseRoundedLi className="align-items-center mb-3">
     <div>
@@ -146,11 +147,16 @@ const PaidOutWeek = ({
 
       {!hasTaken && (
         <PickupButton
-          disabled={
-            hasTaken !== false || !Number(reward) || pickupRewardProcessing
-          }
           className="ml-4"
-          onClick={() => pickupRewardDispatch(period)}
+          id={`pickup-reward-${period}`}
+          onClick={() =>
+            pickupRewardDispatch(period, `pickup-reward-${period}`)
+          }
+          disabled={
+            hasTaken !== false ||
+            !Number(reward) ||
+            (pickupRewardProcessing && ids.includes(`pickup-reward-${period}`))
+          }
         >
           <FormattedMessage {...messages.getReward} />
         </PickupButton>
@@ -204,6 +210,7 @@ const Weeks = ({
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
+  ids,
 }) => (
   <React.Fragment>
     {weekStat &&
@@ -221,6 +228,7 @@ const Weeks = ({
                 pickupRewardDispatch={pickupRewardDispatch}
                 pickupRewardProcessing={pickupRewardProcessing}
                 locale={locale}
+                ids={ids}
                 {...x}
               />
             ))}
@@ -262,10 +270,12 @@ PaidOutWeek.propTypes = {
   pickupRewardProcessing: PropTypes.bool,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
+  ids: PropTypes.array,
 };
 
 Weeks.propTypes = {
   weekStat: PropTypes.array,
+  ids: PropTypes.array,
   locale: PropTypes.string,
   pickupRewardDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,

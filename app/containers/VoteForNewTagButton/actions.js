@@ -22,17 +22,18 @@ export function upVote(communityId, tagId, buttonId) {
   };
 }
 
-export function upVoteSuccess(tags) {
+export function upVoteSuccess(buttonId) {
   return {
     type: UPVOTE_SUCCESS,
-    tags,
+    buttonId,
   };
 }
 
-export function upVoteErr(upVoteError) {
+export function upVoteErr(upVoteError, buttonId) {
   return {
     type: UPVOTE_ERROR,
     upVoteError,
+    buttonId,
   };
 }
 
@@ -51,16 +52,17 @@ export function downVote(communityId, tagId, buttonId) {
   };
 }
 
-export function downVoteSuccess(tags) {
+export function downVoteSuccess(buttonId) {
   return {
     type: DOWNVOTE_SUCCESS,
-    tags,
+    buttonId,
   };
 }
 
-export function downVoteErr(downVoteError) {
+export function downVoteErr(downVoteError, buttonId) {
   return {
     type: DOWNVOTE_ERROR,
     downVoteError,
+    buttonId,
   };
 }

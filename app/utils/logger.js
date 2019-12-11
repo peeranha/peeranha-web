@@ -8,8 +8,12 @@ const cloudwatchlogs = new AWS.CloudWatchLogs({
 });
 
 export function putLogEvent(message, stacktrace, token) {
-  if (typeof message !== 'string' || process.env.NODE_ENV === 'development') {
-    throw new ApplicationError('Message has to be string; env - not be dev');
+  if (typeof message !== 'string') {
+    throw new ApplicationError('Message has to be string');
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    throw new ApplicationError('Env has not to dev.');
   }
 
   cloudwatchlogs.putLogEvents(

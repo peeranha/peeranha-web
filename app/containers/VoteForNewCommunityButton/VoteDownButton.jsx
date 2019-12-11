@@ -10,10 +10,9 @@ import AlreadyVoted from './AlreadyVoted';
 
 import { DOWNVOTE_METHOD } from './constants';
 
-const VoteDownButton = ({ id, communityId }) => (
+const VoteDownButton = ({ communityId }) => (
   <Button
     communityId={communityId}
-    id={id}
     clickMethod={DOWNVOTE_METHOD}
     render={({
       isUpvoted,
@@ -21,9 +20,11 @@ const VoteDownButton = ({ id, communityId }) => (
       onClick,
       upvotesNumber,
       downvotesNumber,
+      id,
+      disabled,
     }) =>
       !isUpvoted && !isDownvoted ? (
-        <DisagreeButton onClick={onClick} id={id}>
+        <DisagreeButton onClick={onClick} id={id} disabled={disabled}>
           <FormattedMessage {...commonMessages.disagreeShort} />
         </DisagreeButton>
       ) : (
@@ -31,6 +32,8 @@ const VoteDownButton = ({ id, communityId }) => (
           className="flex-column"
           onClick={onClick}
           choice={isDownvoted}
+          id={id}
+          disabled={disabled}
         >
           <p className="pb-1">
             <FormattedMessage {...commonMessages.disagreeShort} />

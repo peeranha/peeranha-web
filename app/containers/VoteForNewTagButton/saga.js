@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0 */
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 
 import {
   upVoteToCreateTag,
@@ -56,9 +56,9 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
     }
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
-    yield put(upVoteSuccess());
+    yield put(upVoteSuccess(buttonId));
   } catch (err) {
-    yield put(upVoteErr(err));
+    yield put(upVoteErr(err, buttonId));
   }
 }
 
@@ -90,13 +90,13 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
     }
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
-    yield put(downVoteSuccess());
+    yield put(downVoteSuccess(buttonId));
   } catch (err) {
-    yield put(downVoteErr(err));
+    yield put(downVoteErr(err, buttonId));
   }
 }
 
 export default function*() {
-  yield takeLatest(UPVOTE, upVoteWorker);
-  yield takeLatest(DOWNVOTE, downVoteWorker);
+  yield takeEvery(UPVOTE, upVoteWorker);
+  yield takeEvery(DOWNVOTE, downVoteWorker);
 }

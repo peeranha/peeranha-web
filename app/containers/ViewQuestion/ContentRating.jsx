@@ -16,6 +16,7 @@ import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
+import Button from 'components/Button/Contained/Transparent';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -62,13 +63,13 @@ const ContentRating = ({
   rating,
   downVote,
   userInfo,
-  upVoteLoading,
-  downVoteLoading,
+  ids,
 }) => (
   <React.Fragment>
-    <button
+    <Button
+      className="overflow-initial"
       onClick={upVote}
-      disabled={upVoteLoading}
+      disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasupvoted={userInfo.user}
@@ -78,15 +79,16 @@ const ContentRating = ({
         userInfo={userInfo}
         votingStatus={votingStatus}
       />
-    </button>
+    </Button>
 
     <Span fontSize="20" bold>
       {getFormattedNum(rating)}
     </Span>
 
-    <button
+    <Button
+      className="overflow-initial"
       onClick={downVote}
-      disabled={downVoteLoading}
+      disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
       data-whowasdownvoted={userInfo.user}
@@ -96,7 +98,7 @@ const ContentRating = ({
         userInfo={userInfo}
         votingStatus={votingStatus}
       />
-    </button>
+    </Button>
   </React.Fragment>
 );
 
@@ -107,8 +109,7 @@ ContentRating.propTypes = {
   account: PropTypes.string,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
-  upVoteLoading: PropTypes.bool,
-  downVoteLoading: PropTypes.bool,
+  ids: PropTypes.array,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
