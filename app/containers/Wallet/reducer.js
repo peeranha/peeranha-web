@@ -21,7 +21,7 @@ export const initialState = fromJS({
   pickupRewardProcessing: false,
   pickupRewardError: null,
   weekStat: null,
-  ids: new Set(),
+  ids: [],
 });
 
 function walletReducer(state = initialState, action) {
@@ -48,18 +48,16 @@ function walletReducer(state = initialState, action) {
     case PICKUP_REWARD:
       return state
         .set('pickupRewardProcessing', true)
-        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
+        .set('ids', [...state.toJS().ids, buttonId]);
     case PICKUP_REWARD_SUCCESS:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('pickupRewardProcessing', false)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
     case PICKUP_REWARD_ERROR:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('pickupRewardProcessing', false)
         .set('pickupRewardError', pickupRewardError)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
     default:
       return state;

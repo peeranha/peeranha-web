@@ -33,7 +33,7 @@ export const ContentBody = ({
   markAsAcceptedLoading,
   userInfo,
   isTheLargestRating,
-  isDisabled,
+  ids,
 }) => (
   <Base position="bottom">
     <BestAnswerMarker
@@ -45,7 +45,7 @@ export const ContentBody = ({
       correctAnswerId={questionData.correct_answer_id}
       whoWasAccepted={userInfo.user}
       isTheLargestRating={isTheLargestRating}
-      isDisabled={isDisabled}
+      ids={ids}
     />
 
     <TextBlock content={content} />
@@ -68,7 +68,7 @@ export const ContentBody = ({
       submitButtonName={translations[messages.postCommentButton.id]}
       sendCommentLoading={postCommentLoading}
       sendComment={postComment}
-      isDisabled={isDisabled}
+      ids={ids}
     />
   </Base>
 );
@@ -95,7 +95,7 @@ ContentBody.propTypes = {
   voteToDeleteLoading: PropTypes.bool,
   deleteCommentLoading: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
-  isDisabled: PropTypes.func,
+  ids: PropTypes.array,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

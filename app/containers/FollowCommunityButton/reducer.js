@@ -8,7 +8,7 @@ import {
 export const initialState = fromJS({
   followHandlerLoading: false,
   followHandlerError: null,
-  ids: new Set(),
+  ids: [],
 });
 
 function followCommunityButtonReducer(state = initialState, action) {
@@ -18,18 +18,16 @@ function followCommunityButtonReducer(state = initialState, action) {
     case FOLLOW_HANDLER:
       return state
         .set('followHandlerLoading', true)
-        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
+        .set('ids', [...state.toJS().ids, buttonId]);
     case FOLLOW_HANDLER_SUCCESS:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('followHandlerLoading', false)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
     case FOLLOW_HANDLER_ERROR:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('followHandlerLoading', false)
         .set('followHandlerError', followHandlerError)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
     default:
       return state;

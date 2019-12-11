@@ -19,7 +19,7 @@ export const initialState = fromJS({
   upVoteError: null,
   downVoteLoading: false,
   downVoteError: null,
-  ids: new Set(),
+  ids: [],
 });
 
 function voteForNewCommunityButtonReducer(state = initialState, action) {
@@ -29,34 +29,30 @@ function voteForNewCommunityButtonReducer(state = initialState, action) {
     case UPVOTE:
       return state
         .set('upVoteLoading', true)
-        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
+        .set('ids', [...state.toJS().ids, buttonId]);
     case UPVOTE_SUCCESS:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('upVoteLoading', false)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
     case UPVOTE_ERROR:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('upVoteLoading', false)
         .set('upVoteError', upVoteError)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
     case DOWNVOTE:
       return state
         .set('downVoteLoading', true)
-        .set('ids', new Set([...state.toJS().ids.add(buttonId)]));
+        .set('ids', [...state.toJS().ids, buttonId]);
     case DOWNVOTE_SUCCESS:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('downVoteLoading', false)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
     case DOWNVOTE_ERROR:
-      state.toJS().ids.delete(buttonId);
       return state
         .set('downVoteLoading', false)
         .set('downVoteError', downVoteError)
-        .set('ids', new Set([...state.toJS().ids]));
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
     default:
       return state;

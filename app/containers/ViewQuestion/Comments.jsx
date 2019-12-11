@@ -167,10 +167,9 @@ const CommentView = item => (
                   whowasvoted: item.userInfo.user,
                 }}
                 onClick={onClick}
-                disabled={
-                  item.deleteCommentLoading &&
-                  item.isDisabled(`delete-comment-${item.answerId}${item.id}`)
-                }
+                disabled={item.ids.includes(
+                  `delete-comment-${item.answerId}${item.id}`,
+                )}
               >
                 <img src={deleteSmallIcon} alt="icon" />
                 <FormattedMessage {...messages.deleteButton} />
@@ -188,10 +187,9 @@ const CommentView = item => (
             whowasvoted: item.userInfo.user,
           }}
           onClick={item.voteToDelete}
-          disabled={
-            item.voteToDeleteLoading &&
-            item.isDisabled(`comment_vote_to_delete_${item.answerId}${item.id}`)
-          }
+          disabled={item.ids.includes(
+            `comment_vote_to_delete_${item.answerId}${item.id}`,
+          )}
           isVotedToDelete={item.votingStatus.isVotedToDelete}
         >
           <Icon icon={blockSmallIcon} width="12" />

@@ -17,11 +17,10 @@ export const BestAnswerMarker = ({
   questionFrom,
   account,
   markAsAccepted,
-  markAsAcceptedLoading,
   correctAnswerId,
   whoWasAccepted,
   isTheLargestRating,
-  isDisabled,
+  ids,
 }) => {
   if (+answerId === 0) return null;
 
@@ -34,10 +33,9 @@ export const BestAnswerMarker = ({
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
-        disabled={
-          markAsAcceptedLoading &&
-          isDisabled(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))
-        }
+        disabled={ids.includes(
+          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
+        )}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
       />
@@ -61,7 +59,7 @@ BestAnswerMarker.propTypes = {
   whoWasAccepted: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
-  isDisabled: PropTypes.func,
+  ids: PropTypes.array,
 };
 
 export default React.memo(BestAnswerMarker);

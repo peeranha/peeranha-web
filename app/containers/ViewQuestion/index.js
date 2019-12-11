@@ -80,8 +80,6 @@ export class ViewQuestion extends React.Component {
     window.$(window).off();
   }
 
-  isDisabled = id => this.props.ids.includes(id);
-
   render() /* istanbul ignore next */ {
     const {
       locale,
@@ -111,6 +109,7 @@ export class ViewQuestion extends React.Component {
       voteToDeleteDispatch,
       redirectToEditQuestionPageDispatch,
       redirectToEditAnswerPageDispatch,
+      ids,
     } = this.props;
 
     const translations = translationMessages[locale];
@@ -143,7 +142,7 @@ export class ViewQuestion extends React.Component {
       voteToDeleteLoading,
       redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
       redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
-      isDisabled: this.isDisabled,
+      ids,
     };
 
     const helmetTitle =
