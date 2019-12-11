@@ -200,37 +200,39 @@ class EosioService {
 
     createPushActionBody(data);
 
-    if (!this.isScatterWindowOpened) {
-      try {
-        this.isScatterWindowOpened = true;
-
-        const res = await this.eosInstance.transaction({
-          actions: [
-            {
-              account: account || process.env.EOS_CONTRACT_ACCOUNT,
-              name: action,
-              authorization: [
-                {
-                  actor,
-                  permission: DEFAULT_EOS_PERMISSION,
-                },
-              ],
-              data: {
-                ...data,
-              },
-            },
-          ],
-        });
-
-        this.isScatterWindowOpened = false;
-
-        return res;
-      } catch (err) {
-        this.isScatterWindowOpened = false;
-        throw new ApplicationError(err);
-      }
-    } else {
+    if (this.isScatterWindowOpened) {
       throw new ApplicationError('Scatter window is already opened');
+    }
+
+    if (this.scatterInstance) {
+      this.isScatterWindowOpened = true;
+    }
+
+    try {
+      const res = await this.eosInstance.transaction({
+        actions: [
+          {
+            account: account || process.env.EOS_CONTRACT_ACCOUNT,
+            name: action,
+            authorization: [
+              {
+                actor,
+                permission: DEFAULT_EOS_PERMISSION,
+              },
+            ],
+            data: {
+              ...data,
+            },
+          },
+        ],
+      });
+
+      this.isScatterWindowOpened = false;
+
+      return res;
+    } catch (err) {
+      this.isScatterWindowOpened = false;
+      throw new ApplicationError(err);
     }
   };
 
