@@ -14,9 +14,10 @@ const {
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
 } = require('../../util/aws-connector');
 
-async function changeCredentialsInit(email) {
+async function changeCredentialsInit(email, isDelete = false) {
   const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
+    isDelete,
   });
 
   return response;
