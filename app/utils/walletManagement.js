@@ -162,9 +162,7 @@ export async function getWeekStat(eosService, profile) {
   return new Array(numberOfPeriods)
     .fill()
     .map((_, index) => {
-      const existingPeriod = normalizedRewards.find(
-        y => y.period === index + 1,
-      );
+      const existingPeriod = normalizedRewards.find(y => y.period === index);
 
       return {
         reward: 0,
