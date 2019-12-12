@@ -88,6 +88,7 @@
   "app.common.description": "Description",
   "app.common.preview": "Preview",
   "app.common.answer": "Answer",
+  "app.common.showMore": "Show more {value}",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",

@@ -5,13 +5,24 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import createdHistory from 'createdHistory';
-import { BORDER_SECONDARY } from 'style-constants';
+
 import textBlockStyles from 'text-block-styles';
 import commonMessages from 'common-messages';
 
+import {
+  BORDER_SECONDARY,
+  BG_SECONDARY_SPECIAL_4,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
+  TEXT_PRIMARY,
+  TEXT_DARK,
+  BORDER_PRIMARY_LIGHT,
+} from 'style-constants';
+
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
-import arrowIcon from 'images/arrowDown.svg?external';
+import arrowIconFilled from 'images/arrowDown.svg?external';
+import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
@@ -34,14 +45,13 @@ const SectionStyled = BaseRoundedNoPadding.extend`
     cursor: pointer;
   }
 
-  ${BaseTransparent} {
-    li:not(:last-child) {
-      margin-bottom: 15px;
-    }
-  }
-
   > :not(:last-child) {
     border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+  }
+
+  ${Button} {
+    margin-left: 43px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -57,6 +67,27 @@ const ImgWrapper = styled.div`
     margin-right: 8px;
   }
 `;
+
+const QuestionBox = BaseTransparent.extend`
+  display: flex;
+  align-items: baseline;
+  padding: 10px 30px;
+  background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
+  border: 1px solid
+    ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+
+  h5 span {
+    color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
+  }
+
+  &:first-child {
+    padding-top: 15px;
+  }
+
+  &:last-child {
+    padding-bottom: 15px;
+  }
+`.withComponent('li');
 
 const Question = ({
   h3,
@@ -82,9 +113,9 @@ const Question = ({
   }
 
   return (
-    <li className="d-flex align-items-baseline" id={questionId}>
+    <QuestionBox id={questionId} isOpened={isOpened}>
       <ImgWrapper>
-        <Icon rotate={isOpened} icon={arrowIcon} width="14" />
+        <Icon rotate={isOpened} icon={arrowIconFilled} width="14" />
       </ImgWrapper>
 
       <div>
@@ -99,7 +130,7 @@ const Question = ({
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-    </li>
+    </QuestionBox>
   );
 };
 
@@ -150,7 +181,7 @@ const Section = ({
         </H4>
       </BaseTransparent>
 
-      <BaseTransparent className={isOpened ? 'd-block' : 'd-none'}>
+      <div className={isOpened ? 'd-block' : 'd-none'}>
         <ul>
           {blocks
             .slice(0, questionsNumber)
@@ -166,17 +197,23 @@ const Section = ({
         </ul>
 
         {blocks.length > DEFAULT_QST_NUM && (
-          <Button
-            className="ml-5 mt-3"
-            onClick={extendSection.bind(null, !isExtendedSection)}
-          >
-            <FormattedMessage {...commonMessages.seeAll} />
-            <span className="ml-1">{`${questionsNumber}/${
-              blocks.length
-            }`}</span>
-          </Button>
+          <BaseTransparent className="pt-1">
+            <Button onClick={extendSection.bind(null, !isExtendedSection)}>
+              <FormattedMessage
+                {...commonMessages.showMore}
+                values={{ value: `${questionsNumber}/${blocks.length}` }}
+              />
+              <Icon
+                className="ml-2"
+                rotate={isExtendedSection}
+                isTransition={false}
+                icon={arrowIconNotFilled}
+                width="8"
+              />
+            </Button>
+          </BaseTransparent>
         )}
-      </BaseTransparent>
+      </div>
     </SectionStyled>
   );
 };

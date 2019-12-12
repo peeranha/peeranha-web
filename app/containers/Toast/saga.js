@@ -1,8 +1,7 @@
 /* eslint consistent-return: 0 */
-import { takeEvery, put, select, call } from 'redux-saga/effects';
+import { takeEvery, put, select } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
-import { putLogEvent } from 'utils/logger';
 import messages from 'common-messages';
 
 import {
@@ -106,11 +105,11 @@ export function* loggerWorker(error) {
       return null;
     }
 
-    yield call(
-      putLogEvent,
-      typeof error[key] === 'string' ? error[key] : error[key].message,
-      error[key].stack,
-    );
+    // yield call(
+    //   putLogEvent,
+    //   typeof error[key] === 'string' ? error[key] : error[key].message,
+    //   error[key].stack,
+    // );
   } catch (err) {
     console.log('Logger error: ', err.message);
   }

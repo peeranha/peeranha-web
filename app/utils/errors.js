@@ -1,20 +1,35 @@
 export class WebIntegrationError extends Error {
   constructor(...args) {
     super(...args);
-    Error.captureStackTrace(this, WebIntegrationError);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, WebIntegrationError);
+    } else {
+      this.stack = new Error().stack;
+    }
   }
 }
 
 export class ApplicationError extends Error {
   constructor(...args) {
     super(...args);
-    Error.captureStackTrace(this, ApplicationError);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApplicationError);
+    } else {
+      this.stack = new Error().stack;
+    }
   }
 }
 
 export class BlockchainError extends Error {
   constructor(...args) {
     super(...args);
-    Error.captureStackTrace(this, BlockchainError);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, BlockchainError);
+    } else {
+      this.stack = new Error().stack;
+    }
   }
 }

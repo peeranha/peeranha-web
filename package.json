@@ -162,7 +162,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
-    "aws-sdk": "^2.586.0",
     "babel-preset-es2015": "^6.24.1",
     "bs58": "^4.0.1",
     "chalk": "^2.4.1",
