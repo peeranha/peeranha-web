@@ -38,11 +38,12 @@ export function getQuestions(
   };
 }
 
-export function getQuestionsSuccess(questionsList, next) {
+export function getQuestionsSuccess(questionsList, next, toUpdateQuestions) {
   return {
     type: GET_QUESTIONS_SUCCESS,
     questionsList,
     next,
+    toUpdateQuestions,
   };
 }
 

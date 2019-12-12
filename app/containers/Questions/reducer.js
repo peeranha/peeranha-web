@@ -1,9 +1,4 @@
-/*
- *
- * Questions reducer
- *
- */
-
+/* eslint indent: 0 */
 import { fromJS } from 'immutable';
 import uniqBy from 'lodash/uniqBy';
 import orderBy from 'lodash/orderBy';
@@ -30,24 +25,19 @@ function questionsReducer(state = initialState, action) {
 
   switch (type) {
     case GET_QUESTIONS:
-      return state
-        .set('questionsLoading', true)
-        .set(
-          'questionsList',
-          toUpdateQuestions
-            ? initialState.get('questionsList')
-            : state.toJS().questionsList,
-        );
+      return state.set('questionsLoading', true);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          orderBy(
-            uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
-            ['id'],
-            ['asc'],
-          ),
+          toUpdateQuestions
+            ? questionsList
+            : orderBy(
+                uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+                ['id'],
+                ['asc'],
+              ),
         )
         .set(
           'isLastFetch',

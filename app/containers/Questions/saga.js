@@ -38,6 +38,7 @@ export function* getQuestionsWorker({
   parentPage,
   fetcher,
   next,
+  toUpdateQuestions,
 }) {
   try {
     const eosService = yield select(selectEos);
@@ -98,9 +99,9 @@ export function* getQuestionsWorker({
       }),
     );
 
-    yield put(getQuestionsSuccess(questionsList, next));
-  } catch ({ message }) {
-    yield put(getQuestionsError(message));
+    yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions));
+  } catch (err) {
+    yield put(getQuestionsError(err));
   }
 }
 
