@@ -46,7 +46,7 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         disabled={changePasswordLoading}
         label={
           <InfoLabel
-            id={MASTER_KEY_FIELD}
+            id="new-password-form-info-label"
             message={translationMessages[locale][messages.youGotThisKey.id]}
           >
             <FormattedMessage {...signupMessages.masterKey} />
