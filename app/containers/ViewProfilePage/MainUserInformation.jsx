@@ -10,7 +10,6 @@ import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
-import eosIconImage from 'images/eosIcon.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
@@ -155,10 +154,7 @@ const MainUserInformation = ({
 
             <li>
               <FormattedMessage {...commonMessages.eosAccount} />
-              <span>
-                <img src={eosIconImage} alt="icon" />
-                {userId}
-              </span>
+              <span>{userId}</span>
             </li>
 
             <li>
