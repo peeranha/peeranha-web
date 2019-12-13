@@ -76,13 +76,12 @@ export function* loginWithEmailWorker({ val }) {
     yield call(getCurrentAccountWorker, eosAccountName);
     const profileInfo = yield select(makeSelectProfileInfo());
 
+    yield put(loginWithEmailSuccess());
+
     // If user is absent - show window to finish registration
     if (!profileInfo) {
       yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
-      return null;
     }
-
-    yield put(loginWithEmailSuccess());
 
     // Update eos block
     const eosService = new EosioService();
