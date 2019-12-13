@@ -491,7 +491,9 @@
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
-    "Значение должно быть не меньше {min} и не более {max} символов",
+    "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongLengthOfList":
+    "Оставьте не менее {min} и не более {max} элементов",
   "app.components.FormFields.wrongLengthMin":
     "Значение должно быть не меньше {min} символов",
   "app.components.FormFields.wrongLengthMax":
