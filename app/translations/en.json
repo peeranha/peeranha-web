@@ -354,7 +354,7 @@
 
   "app.containers.HomePage.howItWorks": "How does it work?",
   "app.containers.HomePage.howItWorksCollapsed":
-    "Peeranha is built using smart contracts on the EOS blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
+    "Peeranha is built using smart contracts on Telos blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
 
   "app.containers.HomePage.whatBlockchain":
     "What Blockchain Peeranha is Built on?",
