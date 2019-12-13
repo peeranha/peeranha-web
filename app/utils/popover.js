@@ -6,5 +6,10 @@ export const showPopover = (elemId, message) => {
 
   window.$(`#${elemId}`).popover('show');
 
-  setTimeout(() => window.$(`.popover`).remove(), 2500);
+  setTimeout(closePopover, 2500);
+};
+
+export const closePopover = () => {
+  window.$(`.popover`).remove();
+  return null;
 };
