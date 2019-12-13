@@ -137,9 +137,7 @@ export function* changeEmailWorker({ resetForm, values }) {
     if (!changeCredentialsCompleteResponse.OK) {
       throw new WebIntegrationError(
         translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByPwdResponse.errorCode
-          ].id
+          webIntegrationErrors[changeCredentialsCompleteResponse.errorCode].id
         ],
       );
     }

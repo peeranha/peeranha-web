@@ -16,7 +16,7 @@ import {
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
-import { ApplicationError } from './errors';
+import { ApplicationError, BlockchainError } from './errors';
 
 class EosioService {
   constructor() {
@@ -232,7 +232,7 @@ class EosioService {
       return res;
     } catch (err) {
       this.isScatterWindowOpened = false;
-      throw new ApplicationError(err);
+      throw new BlockchainError(err);
     }
   };
 
@@ -303,10 +303,10 @@ class EosioService {
 
   getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
-    protocol: this.node.protocol,
-    host: this.node.host,
-    port: this.node.port,
-    chainId: this.node.chainID,
+    protocol: process.env.SCATTER_PROTOCOL || this.node.protocol,
+    host: process.env.SCATTER_HOST || this.node.host,
+    port: process.env.SCATTER_PORT || this.node.port,
+    chainId: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
   getNode = () => {

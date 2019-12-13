@@ -28,6 +28,7 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
+    overflow: hidden;
   }
 
   #modal > div {

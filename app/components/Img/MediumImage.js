@@ -16,6 +16,7 @@ const MediumImageStyled = MediumImage.extend`
   border-width: 1px;
   border-radius: 50%;
   padding: 1px;
+  flex-shrink: 0;
 `;
 
 export { MediumImageStyled, MediumSpecialImage };

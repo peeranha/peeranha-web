@@ -11,7 +11,7 @@ const stringLength = (min, max) => value => {
   if (value && value.toJS) {
     val = value.toJS();
   } else if (value && value.trim) {
-    val = value.trim();
+    val = value.trim().replace(/  +/g, ' ');
   }
 
   return val && (val.length > max || val.length < min)
@@ -21,7 +21,9 @@ const stringLength = (min, max) => value => {
 
 // TODO: test
 const stringLengthMax = max => value => {
-  const val = typeof value === 'string' ? value.trim() : '';
+  const val =
+    typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
+
   return val && val.length > max
     ? { id: messages.wrongLengthMax.id, max }
     : undefined;

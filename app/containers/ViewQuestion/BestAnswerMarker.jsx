@@ -27,7 +27,7 @@ export const BestAnswerMarker = ({
   return (
     <div className="d-flex">
       <MarkAsAcceptedIcon
-        className="mb-3"
+        className="mb-3 mr-3"
         id={`${MARK_AS_BUTTON}${answerId}`}
         answerId={answerId}
         questionFrom={questionFrom}

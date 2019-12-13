@@ -273,4 +273,7 @@ export default defineMessages({
   preview: {
     id: 'app.common.preview',
   },
+  showMore: {
+    id: 'app.common.showMore',
+  },
 });

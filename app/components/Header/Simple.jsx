@@ -40,6 +40,10 @@ export const C3 = isColumnForSM => `
     background: none;
     box-shadow: none;
 
+    > *:nth-child(1) {
+      margin-right: 20px;
+    }
+
     h3 {
       font-size: 28px;
       line-height: 28px;

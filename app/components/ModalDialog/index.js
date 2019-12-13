@@ -30,7 +30,9 @@ export class ModalDialog extends React.PureComponent {
   }
 
   render() {
-    const { closeModal, children } = this.props;
+    const { closeModal, children, show } = this.props;
+
+    if (!show) return null;
 
     return ReactDOM.createPortal(
       <React.Fragment>

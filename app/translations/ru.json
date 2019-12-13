@@ -86,6 +86,7 @@
   "app.common.hide": "Скрыть",
   "app.common.delete": "Удалить",
   "app.common.description": "Описание",
+  "app.common.showMore": "Показать больше {value}",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -626,6 +627,9 @@
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
     "Мы извиняемся, возникла неожиданная ошибка...",
+  "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
+  "app.containers.ErrorPage.cannotTransferToSelf":
+    "Нельзя отправлять самому себе",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
