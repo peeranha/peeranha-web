@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, take } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
@@ -20,6 +20,7 @@ import loginMessages from 'containers/Login/messages';
 
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { successHandling } from 'containers/Toast/saga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -53,6 +54,8 @@ import {
   STORE_KEY_FIELD,
   WHY_DO_YOU_LIKE_US_FIELD,
   ACCOUNT_NOT_CREATED_NAME,
+  EMAIL_CHECKING_SUCCESS,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 import {
@@ -117,6 +120,16 @@ export function* verifyEmailWorker({ verificationCode }) {
   } catch (err) {
     yield put(verifyEmailErr(err));
   }
+}
+
+export function* sendAnotherCode() {
+  const email = yield select(selectEmail());
+  yield call(emailCheckingWorker, { email });
+}
+
+export function* sendAnotherCodeSuccess() {
+  yield take(EMAIL_CHECKING_SUCCESS);
+  yield call(successHandling);
 }
 
 export function* iHaveEosAccountWorker({ val }) {
@@ -352,6 +365,8 @@ export function* showScatterSignUpFormWorker() {
 }
 
 export default function*() {
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
   yield takeLatest(EMAIL_VERIFICATION, verifyEmailWorker);
   yield takeLatest(I_HAVE_EOS_ACCOUNT, iHaveEosAccountWorker);

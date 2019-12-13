@@ -40,6 +40,11 @@ const selectFinishRegistrationError = () =>
     substate.get('finishRegistrationWithDisplayNameError'),
   );
 
+const selectLoginWithScatterProcessing = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('loginWithScatterProcessing'),
+  );
+
 export {
   selectLoginDomain,
   makeSelectContent,
@@ -51,4 +56,5 @@ export {
   selectLoginWithScatterError,
   selectFinishRegistrationProcessing,
   selectFinishRegistrationError,
+  selectLoginWithScatterProcessing,
 };

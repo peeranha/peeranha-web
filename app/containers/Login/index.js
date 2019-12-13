@@ -62,6 +62,7 @@ export class Login extends React.Component {
       showEmailPasswordFormDispatch,
       loginWithEmailDispatch,
       finishRegistrationDispatch,
+      loginWithScatterProcessing,
     } = this.props;
 
     return (
@@ -71,6 +72,7 @@ export class Login extends React.Component {
             locale={locale}
             loginWithScatter={loginWithScatterDispatch}
             showEmailPasswordForm={showEmailPasswordFormDispatch}
+            loginWithScatterProcessing={loginWithScatterProcessing}
           />
         )}
 
@@ -81,6 +83,7 @@ export class Login extends React.Component {
             loginProcessing={loginProcessing}
             loginWithScatter={loginWithScatterDispatch}
             showIForgotPasswordModal={this.showIForgotPasswordModal}
+            loginWithScatterProcessing={loginWithScatterProcessing}
             email={email}
           />
         )}
@@ -105,6 +108,7 @@ Login.propTypes = {
   email: PropTypes.string,
   loginProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
+  loginWithScatterProcessing: PropTypes.bool,
   loginWithScatterDispatch: PropTypes.func,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
@@ -119,6 +123,7 @@ const mapStateToProps = createStructuredSelector({
   email: selectors.makeSelectEmail(),
   loginProcessing: selectors.makeSelectLoginProcessing(),
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
+  loginWithScatterProcessing: selectors.selectLoginWithScatterProcessing(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

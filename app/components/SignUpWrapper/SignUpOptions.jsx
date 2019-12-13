@@ -100,7 +100,11 @@ const RightMenuWithoutScatter = ({
       </div>
 
       <div className="mb-3">
-        <SecondaryLargeButton onClick={showScatterSignUpForm} className="w-100">
+        <SecondaryLargeButton
+          onClick={showScatterSignUpForm}
+          className="w-100"
+          disabled={showScatterSignUpProcessing}
+        >
           <img src={scatterLogo} alt="scatter logo" />
         </SecondaryLargeButton>
       </div>

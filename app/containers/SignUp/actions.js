@@ -26,6 +26,7 @@ import {
   SHOW_SCATTER_SIGNUP_FORM,
   SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 /*
@@ -78,6 +79,12 @@ export function verifyEmailErr(verifyEmailError) {
   return {
     type: EMAIL_VERIFICATION_ERROR,
     verifyEmailError,
+  };
+}
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
   };
 }
 

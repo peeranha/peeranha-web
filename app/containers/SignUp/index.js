@@ -41,6 +41,7 @@ import {
   putKeysToState,
   showScatterSignUpForm,
   signUpWithScatter,
+  sendAnotherCode,
 } from './actions';
 
 import { EMAIL_FIELD } from './constants';
@@ -122,6 +123,7 @@ export class SignUp extends React.Component {
       showScatterSignUpFormDispatch,
       account,
       eosAccountName,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -141,6 +143,7 @@ export class SignUp extends React.Component {
           showLoginModal: showLoginModalDispatch,
           showScatterSignUpForm: showScatterSignUpFormDispatch,
           signUpWithScatter: signUpWithScatterDispatch,
+          sendAnotherCode: sendAnotherCodeDispatch,
           getAllKeys: this.getAllKeys,
           keys: keys || {},
           locale,
@@ -181,6 +184,7 @@ SignUp.propTypes = {
   withScatter: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -213,6 +217,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
   };
 }
 
