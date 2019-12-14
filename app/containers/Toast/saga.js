@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0 */
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put, select, call } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
 import messages from 'common-messages';
@@ -10,7 +10,10 @@ import {
   BlockchainError,
 } from 'utils/errors';
 
+import { logError } from 'utils/web_integration/src/logger/index';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
 
 import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
@@ -101,15 +104,20 @@ export function* loggerWorker(error) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
 
+    const user = yield select(makeSelectAccount());
+
     if (error[key] instanceof ApplicationError) {
       return null;
     }
 
-    // yield call(
-    //   putLogEvent,
-    //   typeof error[key] === 'string' ? error[key] : error[key].message,
-    //   error[key].stack,
-    // );
+    yield call(logError, {
+      user: user || 'none',
+      error: JSON.stringify({
+        message:
+          typeof error[key] === 'string' ? error[key] : error[key].message,
+        stack: error[key].stack,
+      }),
+    });
   } catch (err) {
     console.log('Logger error: ', err.message);
   }

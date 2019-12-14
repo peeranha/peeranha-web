@@ -15,6 +15,8 @@ const CHANGE_CREDENTIALS_GET_KEYS_SERVICE =
 const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
   'wallet/change-credentials/complete';
 
+const LOGGER_SERVICE = 'status/ui/report-error';
+
 async function callService(service, props) {
   const rawResponse = await fetch(process.env.WALLET_API_ENDPOINT + service, {
     method: 'POST',
@@ -50,4 +52,5 @@ module.exports = {
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
   CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
+  LOGGER_SERVICE,
 };
