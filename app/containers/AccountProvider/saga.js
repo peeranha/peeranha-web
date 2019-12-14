@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest, all } from 'redux-saga/effects';
+import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
@@ -76,7 +76,7 @@ import {
   updateAccErr,
 } from './actions';
 
-import { GET_CURRENT_ACCOUNT } from './constants';
+import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_SUCCESS } from './constants';
 import { makeSelectProfileInfo } from './selectors';
 
 /* eslint func-names: 0, consistent-return: 0 */
@@ -137,10 +137,15 @@ export function* getCurrentAccountWorker(initAccount) {
 
 export function* updateAccWorker({ eos }) {
   try {
-    const profileInfo = yield select(makeSelectProfileInfo());
-    const { selectedAccount } = eos;
+    const account = yield call(eos.getSelectedAccount);
+    let profileInfo = yield select(makeSelectProfileInfo());
 
-    if (selectedAccount) {
+    if (!profileInfo) {
+      yield take(GET_CURRENT_ACCOUNT_SUCCESS);
+      profileInfo = yield select(makeSelectProfileInfo());
+    }
+
+    if (account) {
       yield call(updateAcc, profileInfo, eos);
       yield call(getCurrentAccountWorker);
       yield put(updateAccSuccess());
