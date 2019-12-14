@@ -89,6 +89,7 @@
   "app.common.preview": "Preview",
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
+  "app.common.poweredByTelos": "Powered by {image}",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",

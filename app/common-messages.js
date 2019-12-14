@@ -276,4 +276,7 @@ export default defineMessages({
   showMore: {
     id: 'app.common.showMore',
   },
+  poweredByTelos: {
+    id: 'app.common.poweredByTelos',
+  },
 });
