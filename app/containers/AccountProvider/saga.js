@@ -1,6 +1,7 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
+import { updateAcc } from 'utils/accountManagement';
 import { getBalance } from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -71,6 +72,8 @@ import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
   getCurrentAccountProcessing,
+  updateAccSuccess,
+  updateAccErr,
 } from './actions';
 
 import { GET_CURRENT_ACCOUNT } from './constants';
@@ -129,6 +132,21 @@ export function* getCurrentAccountWorker(initAccount) {
     yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
+  }
+}
+
+export function* updateAccWorker({ eos }) {
+  try {
+    const profileInfo = yield select(makeSelectProfileInfo());
+    const { selectedAccount } = eos;
+
+    if (selectedAccount) {
+      yield call(updateAcc, profileInfo, eos);
+      yield call(getCurrentAccountWorker);
+      yield put(updateAccSuccess());
+    }
+  } catch (err) {
+    yield put(updateAccErr(err));
   }
 }
 

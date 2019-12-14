@@ -13,7 +13,6 @@ import {
   SCATTER_IN_NOT_INSTALLED,
   BEST_NODE_SERVICE,
   LOCAL_STORAGE_BESTNODE,
-  UPDATE_ACC,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -32,7 +31,7 @@ class EosioService {
   init = async (
     privateKey,
     initWithScatter = false,
-    // selectedAccount = null,
+    selectedAccount = null,
   ) => {
     const loginData = JSON.parse(
       localStorage.getItem(AUTOLOGIN_DATA) ||
@@ -54,15 +53,9 @@ class EosioService {
     }
 
     this.initialized = true;
-    this.selectedAccount = await this.getSelectedAccount();
+    this.selectedAccount = selectedAccount;
 
     this.compareSavedAndBestNodes();
-
-    if (this.selectedAccount) {
-      this.sendTransaction(this.selectedAccount, UPDATE_ACC, {
-        user: this.selectedAccount,
-      });
-    }
   };
 
   initScatter = async () => {

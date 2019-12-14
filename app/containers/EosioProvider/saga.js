@@ -12,10 +12,14 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+
+import {
+  getCurrentAccountWorker,
+  updateAccWorker,
+} from 'containers/AccountProvider/saga';
 
 import { initEosioSuccess, initEosioError } from './actions';
-import { INIT_EOSIO } from './constants';
+import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
 
@@ -75,4 +79,5 @@ export function* isValid({ creator, buttonId, minRating, minEnergy }) {
 
 export default function*() {
   yield takeLatest(INIT_EOSIO, initEosioWorker);
+  yield takeLatest(INIT_EOSIO_SUCCESS, updateAccWorker);
 }
