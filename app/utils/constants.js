@@ -25,6 +25,10 @@ export const LOCAL_STORAGE_BESTNODE = 'best_node_data';
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
 
+const GOOGLE_SEARCH_FORM_KEY = 'AIzaSyB_io3-m8FPtDkLboDqfHqAZKKVr_uBRiE';
+const GOOGLE_SEARCH_FORM_CX = '012465490266412806753:wrajkcmcuob';
+export const GOOGLE_SEARCH_FORM_PATH = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_SEARCH_FORM_KEY}&cx=${GOOGLE_SEARCH_FORM_CX}`;
+
 // Tables
 
 export const ACCOUNT_TABLE = 'account';

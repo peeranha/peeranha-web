@@ -87,8 +87,8 @@ async function login(email, password, rememberMe = false) {
 
 async function autoLogin() {
   const peeranhaAutoLogin = JSON.parse(
-    window.localStorage.getItem(AUTOLOGIN_DATA) ||
-      window.sessionStorage.getItem(AUTOLOGIN_DATA),
+    window.sessionStorage.getItem(AUTOLOGIN_DATA) ||
+      window.localStorage.getItem(AUTOLOGIN_DATA),
   );
 
   if (!(peeranhaAutoLogin && peeranhaAutoLogin.authToken)) {

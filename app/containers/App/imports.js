@@ -41,7 +41,7 @@ const SuggestedCommunities = React.lazy(() =>
 );
 const Wallet = React.lazy(() => import('containers/Wallet'));
 
-const Search = React.lazy(() => import('components/Search'));
+const Search = React.lazy(() => import('containers/Search'));
 
 const Support = React.lazy(() => import('containers/Support'));
 

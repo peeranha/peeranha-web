@@ -215,7 +215,13 @@ export default function App() {
         />
 
         <Route
+          exact
           path={routes.search()}
+          render={props => Wrapper(Search, props)}
+        />
+
+        <Route
+          path={routes.search(':q')}
           render={props => Wrapper(Search, props)}
         />
 

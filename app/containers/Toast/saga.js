@@ -30,13 +30,6 @@ export function* errHandling(error) {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
     const errorValue = error[key];
 
-    if (
-      process.env.NODE_ENV !== 'production' ||
-      (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV)
-    ) {
-      console.log(errorValue);
-    }
-
     if (errorValue instanceof ApplicationError) {
       return null;
     }
@@ -105,6 +98,13 @@ export function* loggerWorker(error) {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
 
     const user = yield select(makeSelectAccount());
+
+    if (
+      process.env.NODE_ENV !== 'production' ||
+      (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV)
+    ) {
+      console.log(error[key]);
+    }
 
     if (error[key] instanceof ApplicationError) {
       return null;

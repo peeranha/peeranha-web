@@ -145,6 +145,7 @@ import {
 } from 'containers/Tags/constants';
 
 import { GET_USERS_ERROR } from 'containers/Users/constants';
+import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -213,6 +214,7 @@ export const errHandlingTypes = [
   DELETE_COMMENT_ERROR,
   SAVE_COMMENT_ERROR,
   VOTE_TO_DELETE_ERROR,
+  GET_RESULTS_ERROR,
 ];
 
 export const successHandlingTypes = [
