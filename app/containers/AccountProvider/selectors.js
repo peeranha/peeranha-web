@@ -25,8 +25,8 @@ const makeSelectLoginData = () =>
     selectAccountProviderDomain,
     () =>
       JSON.parse(
-        localStorage.getItem(AUTOLOGIN_DATA) ||
-          sessionStorage.getItem(AUTOLOGIN_DATA),
+        sessionStorage.getItem(AUTOLOGIN_DATA) ||
+          localStorage.getItem(AUTOLOGIN_DATA),
       ) || {},
   );
 

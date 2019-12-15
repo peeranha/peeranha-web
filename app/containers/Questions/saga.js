@@ -1,5 +1,13 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import { take, takeLatest, call, put, select, all } from 'redux-saga/effects';
+import {
+  take,
+  takeLatest,
+  call,
+  put,
+  select,
+  all,
+  takeEvery,
+} from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -146,6 +154,6 @@ export function* updateStoredQuestionsWorker() {
 }
 
 export default function*() {
-  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
 }

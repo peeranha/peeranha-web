@@ -34,8 +34,8 @@ class EosioService {
     selectedAccount = null,
   ) => {
     const loginData = JSON.parse(
-      localStorage.getItem(AUTOLOGIN_DATA) ||
-        sessionStorage.getItem(AUTOLOGIN_DATA),
+      sessionStorage.getItem(AUTOLOGIN_DATA) ||
+        localStorage.getItem(AUTOLOGIN_DATA),
     );
 
     this.node = await this.getNode();
@@ -121,8 +121,8 @@ class EosioService {
 
   getSelectedAccount = async () => {
     const loginData = JSON.parse(
-      localStorage.getItem(AUTOLOGIN_DATA) ||
-        sessionStorage.getItem(AUTOLOGIN_DATA),
+      sessionStorage.getItem(AUTOLOGIN_DATA) ||
+        localStorage.getItem(AUTOLOGIN_DATA),
     );
 
     if (!loginData) return null;

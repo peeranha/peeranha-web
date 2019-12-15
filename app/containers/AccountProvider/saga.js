@@ -60,6 +60,7 @@ import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   DELETE_QUESTION_SUCCESS,
@@ -76,7 +77,12 @@ import {
   updateAccErr,
 } from './actions';
 
-import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_SUCCESS } from './constants';
+import {
+  GET_CURRENT_ACCOUNT,
+  GET_CURRENT_ACCOUNT_SUCCESS,
+  UPDATE_ACC_SUCCESS,
+} from './constants';
+
 import { makeSelectProfileInfo } from './selectors';
 
 /* eslint func-names: 0, consistent-return: 0 */
@@ -93,8 +99,8 @@ export function* getCurrentAccountWorker(initAccount) {
 
     if (!account) {
       const autoLoginData = JSON.parse(
-        localStorage.getItem(AUTOLOGIN_DATA) ||
-          sessionStorage.getItem(AUTOLOGIN_DATA),
+        sessionStorage.getItem(AUTOLOGIN_DATA) ||
+          localStorage.getItem(AUTOLOGIN_DATA),
       );
 
       if (autoLoginData) {
@@ -177,6 +183,7 @@ export default function* defaultSaga() {
     redirectToCreateCommunityWorker,
   );
   yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
+  yield takeLatest(UPDATE_ACC_SUCCESS, updateStoredQuestionsWorker);
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,
