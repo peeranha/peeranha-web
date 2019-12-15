@@ -262,7 +262,7 @@ Total supply of PEER token is 100,000,000 PEER
 
 ### What is emission rate?
 
-New tokens are created once per week when it is time to reward users. Maximum starting emission is 30,000 PEER per week. Emission is reduced by 10% every 52 weeks.
+New tokens are created once per week when it is time to reward users. Maximum starting emission is 300,000 PEER per week. Emission is reduced by 10% every 52 weeks.
 
 ## Rewards
 
@@ -275,7 +275,7 @@ To prevent abuse of the system, there a safety period of one additional week bef
 
 The maximum size of the weekly reward pool is equal to maximum weekly emission of the token. However, it depends on the user activity during that period.
 
-If total rating points earned by all of the users during the week and multiplied by 8 is less than maximum token emission that reward is simply 8 PEER per rating point. Otherwise reward pool size is equal to maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
+If total rating points earned by all of the users during the week and multiplied by 10 is less than maximum token emission that reward is simply 10 PEER per rating point. Otherwise reward pool size is equal to maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
 
 
 
