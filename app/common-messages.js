@@ -279,4 +279,7 @@ export default defineMessages({
   poweredByTelos: {
     id: 'app.common.poweredByTelos',
   },
+  noResults: {
+    id: 'app.common.noResults',
+  },
 });

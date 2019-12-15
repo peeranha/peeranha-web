@@ -42,7 +42,7 @@ export const tags = () => `/tags`;
 export const users = () => `/users`;
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
-export const search = () => `/search`;
+export const search = q => `/search/${q || ''}`;
 export const privacyPolicy = section =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
 

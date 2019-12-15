@@ -90,6 +90,10 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.noResults": "No results",
+
+  "app.containers.Search.title": "Search",
+  "app.containers.Search.description": "Search: description",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -664,7 +668,8 @@
     "for linebreak add 2 spaces at end",
   "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
   "app.components.TextEditor.indentCode": "indent code by 4 spaces",
-  "app.components.TextEditor.backtipEscapes": "use backtick escapes for code blocks`like _so_`",
+  "app.components.TextEditor.backtipEscapes":
+    "use backtick escapes for code blocks`like _so_`",
   "app.components.TextEditor.quoteByPlacing":
     "quote by placing &gt; at start of line",
   "app.components.TextEditor.toMakeLinks":

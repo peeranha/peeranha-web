@@ -39,6 +39,7 @@ import changeEmailReducer from 'containers/ChangeEmail/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
+import searchReducer from 'containers/Search/reducer';
 
 /*
  * routeReducer
@@ -107,6 +108,7 @@ export default function createReducer(injectedReducers) {
     deleteAccount: deleteAccountReducer,
     privacyPolicy: privacyPolicyReducer,
     sendTokens: sendTokensReducer,
+    search: searchReducer,
     ...injectedReducers,
   });
 }

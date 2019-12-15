@@ -88,6 +88,10 @@
   "app.common.description": "Описание",
   "app.common.showMore": "Показать больше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.noResults": "Нет результатов",
+
+  "app.containers.Search.title": "Поиск",
+  "app.containers.Search.description": "Поиск: описание",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",

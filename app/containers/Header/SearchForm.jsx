@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import createdHistory from 'createdHistory';
+
 import * as routes from 'routes-config';
 import Input from 'components/Input';
 
@@ -11,20 +13,11 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   return (
     <form
       className={className}
-      id={`searchbox_${process.env.GOOGLE_SEARCH_FORM_ID}`}
-      action={routes.search()}
+      onSubmit={e => {
+        e.preventDefault();
+        createdHistory.push(routes.search(text));
+      }}
     >
-      <input
-        value={process.env.GOOGLE_SEARCH_FORM_ID}
-        name="cx"
-        type="hidden"
-      />
-      <input
-        value={process.env.GOOGLE_SEARCH_FORM_ID}
-        name="cof"
-        type="hidden"
-      />
-
       <Input
         type="text"
         input={{
@@ -36,7 +29,10 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
         }}
         placeholder={placeholder}
         isSearchable
-        onClick={() => changeText(initialState)}
+        onClick={() => {
+          changeText(initialState);
+          createdHistory.push(routes.search(''));
+        }}
       />
     </form>
   );
