@@ -22,25 +22,31 @@ import { EMAIL_FIELD } from './constants';
 
 import loginMessages from './messages';
 
-export const LoginWithScatter = /* istanbul ignore next */ ({
+export const LoginWithScatter = ({
   loginWithScatter,
+  loginWithScatterProcessing,
 }) => (
   <div className="pt-5">
     <P fontSize="14" className="text-center text-uppercase mb-3">
       <FormattedMessage {...signupMessages.or} />
     </P>
 
-    <SecondaryLargeButton className="w-100" onClick={loginWithScatter}>
+    <SecondaryLargeButton
+      className="w-100"
+      onClick={loginWithScatter}
+      disabled={loginWithScatterProcessing}
+    >
       <img src={scatterLogo} alt="scatter logo" />
     </SecondaryLargeButton>
   </div>
 );
 
-const EmailForm = /* istanbul ignore next */ ({
+const EmailForm = ({
   handleSubmit,
   showEmailPasswordForm,
   locale,
   loginWithScatter,
+  loginWithScatterProcessing,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -65,12 +71,16 @@ const EmailForm = /* istanbul ignore next */ ({
       </Button>
     </form>
 
-    <LoginWithScatter loginWithScatter={loginWithScatter} />
+    <LoginWithScatter
+      loginWithScatter={loginWithScatter}
+      loginWithScatterProcessing={loginWithScatterProcessing}
+    />
   </div>
 );
 
 LoginWithScatter.propTypes = {
   loginWithScatter: PropTypes.func,
+  loginWithScatterProcessing: PropTypes.bool,
 };
 
 EmailForm.propTypes = {
@@ -78,6 +88,7 @@ EmailForm.propTypes = {
   showEmailPasswordForm: PropTypes.func,
   loginWithScatter: PropTypes.func,
   locale: PropTypes.string,
+  loginWithScatterProcessing: PropTypes.bool,
 };
 
 export default reduxForm({

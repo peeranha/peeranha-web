@@ -168,7 +168,7 @@ const Activity = ({
                 values={{
                   questions: (
                     <TransparentLinkDefault
-                      className="text-lowercase"
+                      className="d-inline text-lowercase"
                       href={routes.userQuestions(userId)}
                       disabled={!questions.length}
                       tabIndex={!questions.length ? '-1' : undefined}
@@ -178,7 +178,7 @@ const Activity = ({
                   ),
                   answers: (
                     <TransparentLinkDefault
-                      className="text-lowercase"
+                      className="d-inline text-lowercase"
                       href={routes.userAnswers(userId)}
                       disabled={!questionsWithUserAnswers.length}
                       tabIndex={

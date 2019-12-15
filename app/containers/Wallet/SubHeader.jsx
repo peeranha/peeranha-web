@@ -13,7 +13,6 @@ import {
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
-import eosIconImage from 'images/eosIcon.svg?inline';
 
 import { getFormattedNum3 } from 'utils/numbers';
 
@@ -21,7 +20,6 @@ import Icon from 'components/Icon';
 import Span from 'components/Span';
 import Base from 'components/Base';
 import LargeImage from 'components/Img/LargeImage';
-import SmallImage from 'components/Img/SmallImage';
 
 import messages from './messages';
 
@@ -61,7 +59,6 @@ const SubHeader = ({ account, balance }) => (
           <FormattedMessage {...messages.eosAccount} />
         </Span>
         <Span className="d-flex align-items-center" fontSize="18" bold>
-          <SmallImage className="mr-1" src={eosIconImage} alt="icon" noScale />
           <span>{account}</span>
         </Span>
       </div>

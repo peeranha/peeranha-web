@@ -17,6 +17,7 @@ import { Switch, Route } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import { ScrollTo } from 'utils/animation';
+import { closePopover as Popover } from 'utils/popover';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -74,6 +75,7 @@ export default function App() {
       <ForgotPassword />
 
       <ScrollTo />
+      <Popover />
 
       <Switch>
         <Route exact path={routes.home()}>

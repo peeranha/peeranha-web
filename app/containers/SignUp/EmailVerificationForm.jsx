@@ -28,7 +28,7 @@ const EmailVerificationForm = ({ handleSubmit }) => (
       verifyEmail,
       locale,
       emailVerificationProcessing,
-      checkEmail,
+      sendAnotherCode,
       showLoginModal,
       showScatterSignUpForm,
       showScatterSignUpProcessing,
@@ -56,7 +56,7 @@ const EmailVerificationForm = ({ handleSubmit }) => (
           />
 
           <SendAnotherCodeButton
-            onClick={checkEmail}
+            onClick={sendAnotherCode}
             className="mb-3"
             type="button"
           >

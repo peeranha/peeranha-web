@@ -73,7 +73,7 @@
   "app.common.submit": "Подтвердить",
   "app.common.amount": "Количество",
   "app.common.password": "Пароль",
-  "app.common.eosAccount": "EOS аккаунт",
+  "app.common.eosAccount": "Telos аккаунт",
   "app.common.successMessage": "Действие было выполнено успешно!",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
@@ -87,6 +87,7 @@
   "app.common.delete": "Удалить",
   "app.common.description": "Описание",
   "app.common.showMore": "Показать больше {value}",
+  "app.common.poweredByTelos": "Powered by {image}",
 
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
@@ -95,13 +96,13 @@
   "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
   "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
   "app.containers.DeleteAccount.iUnderstand":
-    "Я понимаю, что эта операция не удаляет мой аккаунт на EOS блокчейне. Аккаунт удаляется только из кошелька сервиса.",
+    "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
   "app.containers.DeleteAccount.iHaveBackup":
-    "Я сделал бэкап моих EOS приватных ключей.",
+    "Я сделал бэкап моих Telos приватных ключей.",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
-  "app.containers.Wallet.eosAccount": "EOS аккаунт",
+  "app.containers.Wallet.eosAccount": "Telos аккаунт",
   "app.containers.Wallet.currentPeriod": "Текущий период в прогрессе",
   "app.containers.Wallet.periodStillInProgress":
     "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
@@ -491,7 +492,9 @@
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
-    "Значение должно быть не меньше {min} и не более {max} символов",
+    "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongLengthOfList":
+    "Оставьте не менее {min} и не более {max} элементов",
   "app.components.FormFields.wrongLengthMin":
     "Значение должно быть не меньше {min} символов",
   "app.components.FormFields.wrongLengthMax":
@@ -536,11 +539,11 @@
   "app.containers.SignUp.weWillNotify":
     "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
-  "app.containers.SignUp.youNeedEosAccount": "Вам необходим EOS аккаунт",
+  "app.containers.SignUp.youNeedEosAccount": "Вам необходим {image} аккаунт",
   "app.containers.SignUp.theWayEosWorks":
-    "Подход EOS работы в том, что новые аккаунты могут быть созданы только кем-то с существующим аккаунтом. Создание аккаунт также требует купить некоторое количество RAM.",
+    "Подход Telos работы в том, что новые аккаунты могут быть созданы только кем-то с существующим аккаунтом. Создание аккаунт также требует купить некоторое количество RAM.",
   "app.containers.SignUp.ifYouCreateEos":
-    "Если вы создаете учетную запись EOS на этом веб-сайте, она поставляется с 0.2 EOS, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
+    "Если вы создаете учетную запись Telos на этом веб-сайте, она поставляется с 0.2 Telos, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
   "app.containers.SignUp.signUpOptions": "Опции при регистрации",
   "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha не типичное приложение. Оно движимо Peeranha блокчейном.",
@@ -551,12 +554,13 @@
   "app.containers.SignUp.ifYouLikeToSkip":
     "Если бы Вы хотели пропустить этот шаг и остаться анонимным, Вы можете сами оплатить создание аккаунта через сторонние сервисы",
   "app.containers.SignUp.or": "или",
-  "app.containers.SignUp.doYouHaveAlreadyAccount": "Вы уже имеете EOS аккаунт?",
+  "app.containers.SignUp.doYouHaveAlreadyAccount":
+    "Вы уже имеете Telos аккаунт?",
   "app.containers.SignUp.youHaveToSaveKeys":
     "Вам следует грамотно сохранить ключи",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
-  "app.containers.SignUp.iHaveEosAccount": "Есть EOS аккаунт",
-  "app.containers.SignUp.idontHaveEosAccount": "Нет EOS аккаунта",
+  "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
+  "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
   "app.containers.SignUp.downloadKeys": "Загрузить ключи",
   "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
   "app.containers.SignUp.title": "Регистрация",
@@ -566,12 +570,12 @@
   "app.containers.SignUp.verificationCode": "Код подтверждения",
   "app.containers.SignUp.verify": "Подтвердить",
   "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
-  "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
-  "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
+  "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
   "app.containers.SignUp.masterKey": "Master ключ",
   "app.containers.SignUp.displayName": "Отображаемое имя",
-  "app.containers.SignUp.eosName": "Имя в EOS",
+  "app.containers.SignUp.eosName": "Имя в Telos",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
@@ -581,9 +585,9 @@
     "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
-  "app.containers.SignUp.eosAccountNotFound": "Данный EOS аккаунт не найден",
+  "app.containers.SignUp.eosAccountNotFound": "Данный Telos аккаунт не найден",
   "app.containers.SignUp.keysDoNotMatch":
-    "Приватные ключи не соответствуют EOS аккаунт имени",
+    "Приватные ключи не соответствуют Telos аккаунт имени",
   "app.containers.SignUp.registrationWithEosAccountAlmostDone":
     "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
 

@@ -42,7 +42,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
         idontHaveEosAccount,
         locale,
         idontHaveEosAccountProcessing,
-        keys: { linkToDownloadAllKeys, masterKey },
+        keys: { linkToDownloadMasterKey, masterKey },
       }) => {
         const translate = translationMessages[locale];
 
@@ -76,8 +76,8 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
 
               <div className="mb-3">
                 <Link
-                  href={linkToDownloadAllKeys}
-                  download="info.txt"
+                  href={linkToDownloadMasterKey}
+                  download="peeranha-keys.txt"
                   className="d-flex align-items-center"
                 >
                   <img

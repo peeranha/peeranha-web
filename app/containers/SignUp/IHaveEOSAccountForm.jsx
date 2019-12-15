@@ -175,7 +175,7 @@ const IHaveEOSAccountForm = ({
               <div className="mb-3">
                 <Link
                   href={linkToDownloadMasterKey}
-                  download="info.txt"
+                  download="peeranha-keys.txt"
                   className="d-flex align-items-center"
                 >
                   <img

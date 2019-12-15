@@ -63,6 +63,12 @@ injectGlobal`
 
   .popover {
     z-index: 100000;
+
+    @media only screen and (max-width: 576px) {
+      width: 200px;
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 
   .overflow-hidden {

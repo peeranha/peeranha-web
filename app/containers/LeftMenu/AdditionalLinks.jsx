@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
+import telosIcon from 'images/telosIconLight.svg?inline';
+
 import { TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -17,7 +19,12 @@ const AdditionalLinks = styled.div`
 
   > * {
     padding: 7px 15px;
-    color: ${TEXT_SECONDARY};
+
+    span,
+    a:hover,
+    a {
+      color: ${TEXT_SECONDARY};
+    }
   }
 
   footer {
@@ -47,10 +54,24 @@ export default React.memo(() => (
     <ChangeLocale />
 
     <footer>
-      <FormattedMessage
-        {...messages.copyrightPeeranha}
-        values={{ year: new Date().getFullYear() }}
-      />
+      <div>
+        <FormattedMessage
+          {...messages.copyrightPeeranha}
+          values={{ year: new Date().getFullYear() }}
+        />
+      </div>
+      <div className="mt-2">
+        <FormattedMessage
+          {...messages.poweredByTelos}
+          values={{ image: <img src={telosIcon} alt="telos" /> }}
+        >
+          {(...chunks) => (
+            <a href="https://www.telosfoundation.io/" target="_blank">
+              {chunks}
+            </a>
+          )}
+        </FormattedMessage>
+      </div>
     </footer>
   </AdditionalLinks>
 ));

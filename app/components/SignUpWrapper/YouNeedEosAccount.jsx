@@ -13,7 +13,7 @@ import Button from 'components/Button/Outlined/InfoLarge';
 import A from 'components/A';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import eosIcon from 'images/eosIcon.svg?inline';
+import telosIcon from 'images/telosIcon.svg?inline';
 
 import H3 from 'components/H3';
 
@@ -38,8 +38,12 @@ const LeftMenu = ({ faqQuestions, route }) => (
     </div>
 
     <H3 className="d-flex align-items-center mb-4">
-      <img className="mr-4" src={eosIcon} alt="EOS icon" />
-      <FormattedMessage {...messages.youNeedEosAccount} />
+      <FormattedMessage
+        {...messages.youNeedEosAccount}
+        values={{
+          image: <img src={telosIcon} alt="telos" />,
+        }}
+      />
     </H3>
 
     <A to={route}>
