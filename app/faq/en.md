@@ -67,16 +67,66 @@ Master Key is required to restore access to account if user forgets the password
 
 **It is very important to save Master Key in a safe place. We will not be able to restore access to your account if Master Key is lost.**
 
+## Energy
 
-## Questions and Answers
+### What is energy?
 
-### Ask Question
+### How to charge energy?
 
-### Answer
+### How much energy charged per action?
 
-### Comment
+## Communities
 
+### What is community?
 
+### How new communities are created?
 
+## Questions, Answers and Comments
 
+### How to ask questions?
 
+### How to format questions?
+
+### How to tag question?
+
+### How questions, answers and comments are moderated?
+
+### What are delete votes requirements for questions, answers and comments?
+
+## Status, Rating and Previliges
+
+### What user statuses are available on Peeranha?
+
+### How can I earn rating points?
+
+### What privileges are available to Peeranha users and what are rating requirements?
+
+## Token
+
+### What is the name of Peeranha token?
+
+Token name is PEER
+
+### Is it listed on any exchange?
+
+No, PEER is not listed on any exchange yet. We will notify the community as soon as this happens.
+
+### What is total supply?
+
+Total supply of PEER token is 100,000,000 PEER
+
+### What is token allocation?
+
+60% of PEER will be created by emission and used as initial rewards to users for the contributions
+20% founders and team rewards with 4 year vesting period
+20% funding
+
+### What is emissing rate?
+
+New tokens are created once per week when it is time to reward users. Maximum starting emission is 30000 PEER per week. Emission is reduced by 10% every 52 weeks.
+
+## Rewards
+
+### How user rewards are calculated?
+
+### When rewards are paid out?

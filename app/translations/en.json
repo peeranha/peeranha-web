@@ -48,10 +48,10 @@
   "app.common.age": "Age",
   "app.common.yes": "Yes",
   "app.common.no": "No",
-  "app.common.agree": "Agree",
-  "app.common.agreeShort": "Agree",
-  "app.common.disagree": "Disagree",
-  "app.common.disagreeShort": "Disagree",
+  "app.common.agree": "Upvote",
+  "app.common.agreeShort": "Upvote",
+  "app.common.disagree": "Downvote",
+  "app.common.disagreeShort": "Downvote",
   "app.common.tips": "Tips",
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
@@ -436,7 +436,7 @@
   "app.containers.EditQuestion.title": "Edit question",
 
   "app.containers.ViewQuestion.lastEdited": "Last edited",
-  "app.containers.ViewQuestion.voteToDelete": "Delete",
+  "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your rating has to be at least",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
@@ -656,12 +656,12 @@
 
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
-    "put returns between paragraphs",
+    "markdown is supporte",
   "app.components.TextEditor.addForLineBreaks":
     "for linebreak add 2 spaces at end",
   "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
   "app.components.TextEditor.indentCode": "indent code by 4 spaces",
-  "app.components.TextEditor.backtipEscapes": "backtick escapes `like _so_`",
+  "app.components.TextEditor.backtipEscapes": "use backtick escapes for code blocks`like _so_`",
   "app.components.TextEditor.quoteByPlacing":
     "quote by placing &gt; at start of line",
   "app.components.TextEditor.toMakeLinks":

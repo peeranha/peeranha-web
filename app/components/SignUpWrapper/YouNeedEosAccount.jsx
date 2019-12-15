@@ -23,7 +23,7 @@ import {
   HOW_STORE_MY_KEYS_QUESTION,
   CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
   CAN_I_DELETE_ACCOUNT_QUESTION,
-  WHAT_IS_MASTER_KEY,
+  WHAT_IS_MASTER_KEY_QUESTION,
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
@@ -99,7 +99,7 @@ const mapStateToProps = createStructuredSelector({
     HOW_STORE_MY_KEYS_QUESTION,
     CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
     CAN_I_DELETE_ACCOUNT_QUESTION,
-    WHAT_IS_MASTER_KEY,
+    WHAT_IS_MASTER_KEY_QUESTION,
   ]),
 });
 
