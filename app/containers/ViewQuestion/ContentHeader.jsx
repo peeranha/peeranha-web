@@ -103,23 +103,25 @@ export const ContentHeader = props => (
           <FormattedMessage {...messages.editButton} />
         </Button>
 
-        <AreYouSure
-          submitAction={props.deleteItem}
-          Button={({ onClick }) => (
-            <Button
-              show={props.isItWrittenByMe}
-              id={`${props.type}_delete_${props.answerId}`}
-              params={props.buttonParams}
-              onClick={onClick}
-              disabled={props.ids.includes(
-                `${props.type}_delete_${props.answerId}`,
-              )}
-            >
-              <img src={deleteIcon} alt="icon" />
-              <FormattedMessage {...messages.deleteButton} />
-            </Button>
-          )}
-        />
+        <div id={`${props.type}_delete_${props.answerId}`}>
+          <AreYouSure
+            submitAction={props.deleteItem}
+            Button={({ onClick }) => (
+              <Button
+                show={props.isItWrittenByMe}
+                id={`${props.type}_delete_${props.answerId}`}
+                params={props.buttonParams}
+                onClick={onClick}
+                disabled={props.ids.includes(
+                  `${props.type}_delete_${props.answerId}`,
+                )}
+              >
+                <img src={deleteIcon} alt="icon" />
+                <FormattedMessage {...messages.deleteButton} />
+              </Button>
+            )}
+          />
+        </div>
       </div>
     </ItemInfo>
   </Box>

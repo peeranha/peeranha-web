@@ -14,6 +14,7 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
+  LOGIN_WITH_SCATTER,
   LOGIN_WITH_SCATTER_SUCCESS,
   LOGIN_WITH_SCATTER_ERROR,
   FINISH_REGISTRATION,
@@ -29,6 +30,7 @@ export const initialState = fromJS({
   loginProcessing: false,
   loginWithEmailError: null,
   eosAccount: null,
+  loginWithScatterProcessing: false,
   loginWithScatterError: null,
   finishRegistrationProcessing: false,
   finishRegistrationWithDisplayNameError: null,
@@ -67,12 +69,17 @@ function loginReducer(state = initialState, action) {
         .set('loginWithEmailError', loginWithEmailError)
         .set('loginProcessing', false);
 
+    case LOGIN_WITH_SCATTER:
+      return state.set('loginWithScatterProcessing', true);
     case LOGIN_WITH_SCATTER_SUCCESS:
       return state
+        .set('loginWithScatterProcessing', false)
         .set('showModal', initialState.get('showModal'))
         .set('content', initialState.get('content'));
     case LOGIN_WITH_SCATTER_ERROR:
-      return state.set('loginWithScatterError', loginWithScatterError);
+      return state
+        .set('loginWithScatterProcessing', false)
+        .set('loginWithScatterError', loginWithScatterError);
 
     case FINISH_REGISTRATION:
       return state.set('finishRegistrationProcessing', true);

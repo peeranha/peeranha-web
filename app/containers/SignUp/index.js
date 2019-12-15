@@ -41,6 +41,7 @@ import {
   putKeysToState,
   showScatterSignUpForm,
   signUpWithScatter,
+  sendAnotherCode,
 } from './actions';
 
 import { EMAIL_FIELD } from './constants';
@@ -71,7 +72,9 @@ export class SignUp extends React.Component {
 
   getMasterKey = () => {
     const masterKey = generateMasterKey();
-    const linkToDownloadMasterKey = this.getLinkToDownloadKeys({ masterKey });
+    const linkToDownloadMasterKey = this.getLinkToDownloadKeys(
+      `Peeranha Master Key: ${masterKey}`,
+    );
 
     this.props.putKeysToStateDispatch({
       masterKey,
@@ -82,23 +85,14 @@ export class SignUp extends React.Component {
   getAllKeys = async () => {
     const { activeKey, ownerKey } = await generateKeys();
 
-    const linkToDownloadAllKeys = this.getLinkToDownloadKeys({
-      masterKey: this.props.keys.masterKey,
-      activeKey,
-      ownerKey,
-    });
-
     this.props.putKeysToStateDispatch({
       activeKey,
       ownerKey,
-      linkToDownloadAllKeys,
     });
   };
 
   getLinkToDownloadKeys = keys => {
-    const text = JSON.stringify({ keys });
-    const data = new Blob([text], { type: 'text/plain' });
-
+    const data = new Blob([keys], { type: 'text/plain' });
     return window.URL.createObjectURL(data);
   };
 
@@ -122,6 +116,7 @@ export class SignUp extends React.Component {
       showScatterSignUpFormDispatch,
       account,
       eosAccountName,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -141,7 +136,7 @@ export class SignUp extends React.Component {
           showLoginModal: showLoginModalDispatch,
           showScatterSignUpForm: showScatterSignUpFormDispatch,
           signUpWithScatter: signUpWithScatterDispatch,
-          getAllKeys: this.getAllKeys,
+          sendAnotherCode: sendAnotherCodeDispatch,
           keys: keys || {},
           locale,
           account,
@@ -181,6 +176,7 @@ SignUp.propTypes = {
   withScatter: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -213,6 +209,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
   };
 }
 

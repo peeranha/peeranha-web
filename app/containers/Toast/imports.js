@@ -116,9 +116,16 @@ import {
   SAVE_COMMENT_ERROR,
   VOTE_TO_DELETE_ERROR,
   GET_QUESTION_DATA_ERROR,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { GET_CURRENT_ACCOUNT_ERROR } from 'containers/AccountProvider/constants';
+import {
+  GET_CURRENT_ACCOUNT_ERROR,
+  UPDATE_ACC_ERROR,
+} from 'containers/AccountProvider/constants';
+
 import { GET_SUGGESTED_COMMUNITIES_ERROR } from 'containers/Communities/constants';
 
 import {
@@ -154,6 +161,7 @@ export const otherTypes = [
   GET_USERS_ERROR,
   GET_QUESTION_DATA_ERROR,
   GET_WEEK_STAT_ERROR,
+  UPDATE_ACC_ERROR,
 ];
 
 export const errHandlingTypes = [
@@ -219,4 +227,7 @@ export const successHandlingTypes = [
   EDIT_QUESTION_SUCCESS,
   SEND_MESSAGE_SUCCESS,
   SEND_TOKENS_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
 ];

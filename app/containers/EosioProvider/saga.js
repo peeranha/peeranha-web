@@ -3,7 +3,6 @@ import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
 import { ApplicationError } from 'utils/errors';
-import { updateAcc } from 'utils/accountManagement';
 import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
 import {
@@ -13,10 +12,14 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+
+import {
+  getCurrentAccountWorker,
+  updateAccWorker,
+} from 'containers/AccountProvider/saga';
 
 import { initEosioSuccess, initEosioError } from './actions';
-import { INIT_EOSIO } from './constants';
+import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
 
@@ -40,7 +43,6 @@ export function* initEosioWorker() {
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
       yield put(initEosioSuccess(advancedEosioService));
-      yield call(updateAcc, response.body.eosAccountName, advancedEosioService);
     }
   } catch (error) {
     yield put(initEosioError(error));
@@ -77,4 +79,5 @@ export function* isValid({ creator, buttonId, minRating, minEnergy }) {
 
 export default function*() {
   yield takeLatest(INIT_EOSIO, initEosioWorker);
+  yield takeLatest(INIT_EOSIO_SUCCESS, updateAccWorker);
 }

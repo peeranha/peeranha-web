@@ -54,7 +54,7 @@ export const Li = BaseRoundedNoPadding.extend`
   }
 `;
 
-const LastAnswer = ({ lastAnswer, locale, user }) => {
+const LastAnswer = ({ lastAnswer, locale }) => {
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color={TEXT_SECONDARY}>
@@ -66,7 +66,10 @@ const LastAnswer = ({ lastAnswer, locale, user }) => {
   return (
     <span className="d-flex flex-column">
       {lastAnswer.userInfo && (
-        <A to={routes.profileView(user)} className="d-flex align-items-center">
+        <A
+          to={routes.profileView(lastAnswer.user)}
+          className="d-flex align-items-center"
+        >
           <Span className="mr-2" fontSize="14" lineHeight="18">
             {lastAnswer.userInfo.display_name}
           </Span>
@@ -103,7 +106,6 @@ const Question = ({
   community_id,
   postType,
   isMyAnswerAccepted,
-  user,
 }) => (
   <Li className="mb-3">
     <QuestionForProfilePage
@@ -127,11 +129,7 @@ const Question = ({
         </Span>
       </span>
 
-      <LastAnswer
-        user={user}
-        lastAnswer={answers[answers.length - 1]}
-        locale={locale}
-      />
+      <LastAnswer lastAnswer={answers[answers.length - 1]} locale={locale} />
     </RightBlock>
   </Li>
 );
@@ -167,7 +165,6 @@ Question.propTypes = {
   communities: PropTypes.array,
   id: PropTypes.string,
   postType: PropTypes.string,
-  user: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

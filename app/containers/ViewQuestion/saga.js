@@ -44,6 +44,7 @@ import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
 import { getUniqQuestions } from 'containers/Questions/actions';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   GET_QUESTION_DATA,
@@ -801,6 +802,6 @@ export default function*() {
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
     ],
-    updateQuestionList,
+    updateStoredQuestionsWorker,
   );
 }

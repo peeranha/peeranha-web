@@ -29,13 +29,14 @@ import loginMessages from './messages';
 
 import { LoginWithScatter } from './EmailForm';
 
-const EmailPasswordForm = /* istanbul ignore next */ ({
+const EmailPasswordForm = ({
   handleSubmit,
   login,
   locale,
   loginProcessing,
   showIForgotPasswordModal,
   loginWithScatter,
+  loginWithScatterProcessing,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -88,7 +89,10 @@ const EmailPasswordForm = /* istanbul ignore next */ ({
       </div>
     </form>
 
-    <LoginWithScatter loginWithScatter={loginWithScatter} />
+    <LoginWithScatter
+      loginWithScatterProcessing={loginWithScatterProcessing}
+      loginWithScatter={loginWithScatter}
+    />
   </div>
 );
 
@@ -97,6 +101,7 @@ EmailPasswordForm.propTypes = {
   login: PropTypes.func,
   locale: PropTypes.string,
   loginProcessing: PropTypes.bool,
+  loginWithScatterProcessing: PropTypes.bool,
   showIForgotPasswordModal: PropTypes.func,
   loginWithScatter: PropTypes.func,
 };
@@ -109,12 +114,10 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailPasswordForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ (state, props) => ({
-    initialValues: {
-      [EMAIL_FIELD]: props.email,
-    },
-  }),
-)(FormClone);
+FormClone = connect((state, props) => ({
+  initialValues: {
+    [EMAIL_FIELD]: props.email,
+  },
+}))(FormClone);
 
 export default FormClone;
