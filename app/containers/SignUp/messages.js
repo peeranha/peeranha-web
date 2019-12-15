@@ -83,11 +83,11 @@ export default defineMessages({
   signUpOptions: {
     id: 'app.containers.SignUp.signUpOptions',
   },
-  steemitIsNotTypical: {
-    id: 'app.containers.SignUp.steemitIsNotTypical',
+  peeranhaIsNotTypical: {
+    id: 'app.containers.SignUp.peeranhaIsNotTypical',
   },
-  steemitBlockchainPowers: {
-    id: 'app.containers.SignUp.steemitBlockchainPowers',
+  telosBlockchainPowers: {
+    id: 'app.containers.SignUp.telosBlockchainPowers',
   },
   weAreHappyToCover: {
     id: 'app.containers.SignUp.weAreHappyToCover',

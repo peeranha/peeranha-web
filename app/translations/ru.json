@@ -545,9 +545,9 @@
   "app.containers.SignUp.ifYouCreateEos":
     "Если вы создаете учетную запись Telos на этом веб-сайте, она поставляется с 0.2 Telos, поставленными на центральный процессор и пропускную способность сети, а также 4 КБ ОЗУ.",
   "app.containers.SignUp.signUpOptions": "Опции при регистрации",
-  "app.containers.SignUp.steemitIsNotTypical":
+  "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha не типичное приложение. Оно движимо Peeranha блокчейном.",
-  "app.containers.SignUp.steemitBlockchainPowers":
+  "app.containers.SignUp.telosBlockchainPowers":
     "Peeranha блокчейн используется большим количеством приложений по всему миру и большим количеством людей сообществ. Чтобы помочь защитить их от ботов берется небольшая плата за создание новых аккаунтов.",
   "app.containers.SignUp.weAreHappyToCover":
     "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",

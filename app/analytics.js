@@ -1,2 +1,2 @@
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-131203854-1');
+ReactGA.initialize('UA-154624214-1');

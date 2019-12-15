@@ -90,7 +90,7 @@ const Contacts = ({ locale }) => (
 
       <MediaItem href={routes.support(FORM_ID)}>
         <img src={calendarIcon} alt="calendar" />
-        <Span color={TEXT_PRIMARY}>support@peeranha.com</Span>
+        <Span color={TEXT_PRIMARY}>hello@peeranha.io</Span>
       </MediaItem>
     </MediaList>
   </div>
