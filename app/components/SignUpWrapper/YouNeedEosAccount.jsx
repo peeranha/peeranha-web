@@ -20,10 +20,10 @@ import H3 from 'components/H3';
 import messages from 'containers/SignUp/messages';
 
 import {
-  WHY_DO_I_NEES_THIS_SERVICE_QUESTION,
-  HOW_MUCH_DOES_IT_COST_QUESTION,
-  IS_THIS_WEBSITE_SAFE_QUESTION,
-  HOW_TO_USE_KEYS_QUESTION,
+  HOW_STORE_MY_KEYS_QUESTION,
+  CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+  CAN_I_DELETE_ACCOUNT_QUESTION,
+  WHAT_IS_MASTER_KEY,
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
@@ -96,10 +96,10 @@ YouNeedEosAccount.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   faqQuestions: selectFaqQuestions([
-    WHY_DO_I_NEES_THIS_SERVICE_QUESTION,
-    HOW_MUCH_DOES_IT_COST_QUESTION,
-    IS_THIS_WEBSITE_SAFE_QUESTION,
-    HOW_TO_USE_KEYS_QUESTION,
+    HOW_STORE_MY_KEYS_QUESTION,
+    CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+    CAN_I_DELETE_ACCOUNT_QUESTION,
+    WHAT_IS_MASTER_KEY,
   ]),
 });
 

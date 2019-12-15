@@ -22,9 +22,9 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 
 import {
-  WHY_I_HAVE_TO_WAIT_QUESTION,
-  WHEN_CAN_I_START_QUESTION,
-  WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+  HOW_STORE_MY_KEYS_QUESTION,
+  CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+  CAN_I_DELETE_ACCOUNT_QUESTION,
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
@@ -64,10 +64,10 @@ const LeftMenu = ({ faqQuestions }) => (
 
     <div className="mb-4">
       <P>
-        <FormattedMessage {...messages.steemitIsNotTypical} />
+        <FormattedMessage {...messages.peeranhaIsNotTypical} />
       </P>
       <P>
-        <FormattedMessage {...messages.steemitBlockchainPowers} />
+        <FormattedMessage {...messages.telosBlockchainPowers} />
       </P>
       <P>
         <FormattedMessage {...messages.weAreHappyToCover} />
@@ -166,9 +166,9 @@ SignUpOptions.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   faqQuestions: selectFaqQuestions([
-    WHY_I_HAVE_TO_WAIT_QUESTION,
-    WHEN_CAN_I_START_QUESTION,
-    WHAT_IS_EOS_ACCOUNT_FOR_QUESTION,
+    HOW_STORE_MY_KEYS_QUESTION,
+    CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+    CAN_I_DELETE_ACCOUNT_QUESTION,
   ]),
 });
 

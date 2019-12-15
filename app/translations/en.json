@@ -13,7 +13,7 @@
   "app.common.logout": "Log out",
   "app.common.search": "Search",
   "app.common.login": "Log in",
-  "app.common.signUp": "Sign Up",
+  "app.common.signUp": "Sign up",
   "app.common.all": "All",
   "app.common.askQuestion": "Ask question",
   "app.common.add": "Add",
@@ -30,7 +30,7 @@
   "app.common.ago": "ago",
   "app.common.you": "You",
   "app.common.upload": "Upload",
-  "app.common.allQuestions": "All questions",
+  "app.common.allQuestions": "Questions",
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
   "app.common.askedWhen": "Asked {when}",
@@ -69,7 +69,7 @@
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
-  "app.common.peers": "Peers",
+  "app.common.peers": "PEER",
   "app.common.submit": "Submit",
   "app.common.amount": "Amount",
   "app.common.password": "Password",
@@ -311,7 +311,7 @@
   "app.containers.HomePage.faq": "FAQ",
   "app.containers.HomePage.team": "Team",
   "app.containers.HomePage.login": "Log in",
-  "app.containers.HomePage.signUpFree": "Sign Up",
+  "app.containers.HomePage.signUpFree": "Sign up",
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
@@ -366,7 +366,7 @@
   "app.containers.HomePage.rewardsPool":
     "Rewards are distributed weekly to all contributors.  As the number of weekly contributors goes up, rewards per user go down over time. Joining early means enjoying higher levels of rewards for your pioneering contributions to an early community.",
 
-  "app.containers.HomePage.getReward": "Sign Up",
+  "app.containers.HomePage.getReward": "Sign up",
 
   "app.containers.HomePage.getMoreAnswers": "Get more answers",
   "app.containers.HomePage.ourTeam": "Our team",
@@ -436,11 +436,11 @@
   "app.containers.EditQuestion.title": "Edit question",
 
   "app.containers.ViewQuestion.lastEdited": "Last edited",
-  "app.containers.ViewQuestion.voteToDelete": "Block",
+  "app.containers.ViewQuestion.voteToDelete": "Delete",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your rating has to be at least",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
-    "Yon can't complete this action. You blocked it earlier",
+    "Yon can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
     "Yon can't complete this action. You voted earlier",
   "app.containers.ViewQuestion.notEnoughModPoints":
@@ -521,9 +521,9 @@
     "Check your email. You get verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
+    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
   "app.containers.SignUp.secondParagraphAlmostDone":
-    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+    "Telos blockchain powers many decentralized applications like Peeranha, and is run by community members all around the world. Telos blockchain account is required to use these applications. Fee is required to create Telos account.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
   "app.containers.SignUp.weWillNotify":
@@ -531,22 +531,23 @@
   "app.containers.SignUp.goToMainPage": "Go to main page",
   "app.containers.SignUp.youNeedEosAccount": "You nees EOS account",
   "app.containers.SignUp.theWayEosWorks":
-    "The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.",
+    "If you do not have Telos account then we will create it for you and cover the fee for account creation. You can still sign up using email address if already have Telos account and would like the convenience of login into application using email and password from any device.",
   "app.containers.SignUp.ifYouCreateEos":
-    "If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.",
+    "Sounds too complicated? Do not worry! Just remember to click Download Keys link and safe the file in a safe place. Master Key is the only way to restore access to your account if forgot password.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
-  "app.containers.SignUp.steemitIsNotTypical":
-    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
-  "app.containers.SignUp.steemitBlockchainPowers":
-    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+  "app.containers.SignUp.peeranhaIsNotTypical":
+    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
+  "app.containers.SignUp.telosBlockchainPowers":
+    "Telos blockchain powers many decentralized applications like Peeranha, and is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
+    "Choose email sign up option if would like to access Peeranha using email and password from any device. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, then Scatter sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
-    "If you'd like to skip the queue or stay anonymous, you can pay the account creation fee using a third party service.",
+    "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
-  "app.containers.SignUp.youHaveToSaveKeys": "You have to save keys carefully",
+  "app.containers.SignUp.youHaveToSaveKeys":
+    "Master Key is the only way to restore access to your account if forgot password! Save it in a safe place!",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have EOS account",
@@ -565,13 +566,13 @@
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
   "app.containers.SignUp.eosName": "EOS name",
-  "app.containers.SignUp.signUp": "Sign Up",
+  "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
   "app.containers.SignUp.iAcceptPrivacyPolicy":
     "I accept terms of Privacy Policy.",
   "app.containers.SignUp.iSaveMasterKey":
-    "I save Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
+    "I saved Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
   "app.containers.SignUp.eosAccountNotFound": "EOS account not found",
