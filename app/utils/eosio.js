@@ -209,7 +209,7 @@ class EosioService {
     }
 
     try {
-      const res = await this.eosInstance.transaction({
+      const transaction = {
         actions: [
           {
             account: account || process.env.EOS_CONTRACT_ACCOUNT,
@@ -225,7 +225,65 @@ class EosioService {
             },
           },
         ],
-      });
+      };
+
+      const transactionHeader = {
+        blocksBehind: 3,
+        expireSeconds: 60,
+      };
+
+      let pushTransactionArgs;
+      let serverTransactionPushArgs;
+
+      try {
+        // TODO: Call new API endpoint here
+        serverTransactionPushArgs = await signPayForCpu(
+          transaction,
+          transactionHeader,
+        );
+      } catch (error) {
+        console.error(
+          `Error when requesting server signature: `,
+          error.message,
+        );
+      }
+
+      if (serverTransactionPushArgs) {
+        // just to initialize the ABIs and other structures on api
+        // https://github.com/EOSIO/eosjs/blob/master/src/eosjs-api.ts#L214-L254
+
+        // TODO: this.eosApi should be now used instead of this.eosInstance
+        await this.eosApi.transact(tx, {
+          ...transactionHeader,
+          sign: false,
+          broadcast: false,
+        });
+
+        // this.eosApi should be now used instead of this.eosInstance
+        const requiredKeys = await this.eosApi.signatureProvider.getAvailableKeys();
+        // must use server tx here because blocksBehind header might lead to different TAPOS tx header
+        const serializedTx = serverTransactionPushArgs.serializedTransaction;
+        const signArgs = {
+          chainId: this.eosApi.chainId,
+          requiredKeys,
+          serializedTransaction: serializedTx,
+          abis: [],
+        };
+        pushTransactionArgs = await this.eosApi.signatureProvider.sign(
+          signArgs,
+        );
+        // add server signature
+        pushTransactionArgs.signatures.unshift(
+          serverTransactionPushArgs.signatures[0],
+        );
+
+        const res = wallet.eosApi.pushSignedTransaction(pushTransactionArgs);
+
+        this.isScatterWindowOpened = false;
+
+        return res;
+      }
+      const res = await this.eosInstance.transaction(transaction);
 
       this.isScatterWindowOpened = false;
 
