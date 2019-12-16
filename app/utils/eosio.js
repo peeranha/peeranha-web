@@ -1,7 +1,9 @@
-import Eosjs from 'eosjs';
+/* eslint no-param-reassign: 0, indent: 0 */
+import { Api, JsonRpc } from 'eosjs';
 import ecc from 'eosjs-ecc';
-import ScatterJS from 'scatterjs-core';
-import ScatterEOS from 'scatterjs-plugin-eosjs';
+import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
+import ScatterJS from '@scatterjs/core';
+import ScatterEOS from '@scatterjs/eosjs2';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
@@ -10,13 +12,13 @@ import {
   DEFAULT_EOS_PERMISSION,
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
-  SCATTER_IN_NOT_INSTALLED,
-  BEST_NODE_SERVICE,
   LOCAL_STORAGE_BESTNODE,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
+import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
+import { getBestNode } from './web_integration/src/wallet/get-best-node/get-best-node';
 
 class EosioService {
   constructor() {
@@ -33,59 +35,70 @@ class EosioService {
     initWithScatter = false,
     selectedAccount = null,
   ) => {
-    const loginData = JSON.parse(
+    const autologinData = JSON.parse(
       sessionStorage.getItem(AUTOLOGIN_DATA) ||
         localStorage.getItem(AUTOLOGIN_DATA),
     );
 
     this.node = await this.getNode();
 
-    if ((loginData && loginData.loginWithScatter) || initWithScatter) {
-      await this.initScatter();
+    if ((autologinData && autologinData.loginWithScatter) || initWithScatter) {
+      await this.initEosioWithScatter();
+      this.selectedAccount = await this.selectAccount();
 
-      if (this.scatterInstalled) {
-        this.initEosioWithScatter();
-      } else {
-        this.initEosioWithoutScatter(privateKey);
+      if (!this.scatterInstalled) {
+        this.initEosioWithoutScatter();
+        this.selectedAccount = null;
       }
     } else {
       this.initEosioWithoutScatter(privateKey);
+      this.selectedAccount = selectedAccount;
     }
 
     this.initialized = true;
-    this.selectedAccount = selectedAccount;
-
     this.compareSavedAndBestNodes();
   };
 
-  initScatter = async () => {
+  initEosioWithScatter = async () => {
+    const scatterConfig = this.getScatterConfig();
+
     ScatterJS.plugins(new ScatterEOS());
 
-    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    const network = ScatterJS.Network.fromJson(scatterConfig);
+    const rpc = new JsonRpc(network.fullhost());
+    const connected = await ScatterJS.connect(
+      SCATTER_APP_NAME,
+      { network },
+    );
 
     this.scatterInstalled = connected === true;
 
     if (this.scatterInstalled) {
-      this.scatterInstance = ScatterJS.scatter;
+      const eos = ScatterJS.eos(network, Api, { rpc });
+
+      await ScatterJS.login();
+
       window.scatter = null;
-    } else {
-      this.scatterInstance = null;
+      this.eosApi = {
+        transact: eos.transact,
+        authorityProvider: rpc,
+      };
     }
   };
 
   initEosioWithoutScatter = key => {
-    const eosioConfig = this.getEosioConfig(key);
-    this.eosInstance = Eosjs(eosioConfig);
-  };
+    const keys = key ? [key] : [];
+    const signatureProvider = new JsSignatureProvider(keys);
+    const rpc = new JsonRpc(this.node.endpoint, { fetch });
 
-  initEosioWithScatter = () => {
-    const scatterConfig = this.getScatterConfig();
-    const eosOptions = {};
-    this.eosInstance = this.scatterInstance.eos(
-      scatterConfig,
-      Eosjs,
-      eosOptions,
-    );
+    const api = new Api({
+      rpc,
+      signatureProvider,
+      textDecoder: new TextDecoder(),
+      textEncoder: new TextEncoder(),
+    });
+
+    this.eosApi = api;
   };
 
   privateToPublic = privateKey => {
@@ -101,7 +114,9 @@ class EosioService {
       return null;
     }
 
-    const accounts = await this.eosInstance.getKeyAccounts(publicKey);
+    const accounts = await this.eosApi.authorityProvider.history_get_key_accounts(
+      publicKey,
+    );
 
     if (accounts && accounts.account_names) {
       return accounts.account_names[0] || null;
@@ -112,7 +127,10 @@ class EosioService {
 
   getAccount = async eosName => {
     try {
-      const accountInfo = await this.eosInstance.getAccount(eosName);
+      const accountInfo = await this.eosApi.authorityProvider.get_account(
+        eosName,
+      );
+
       return accountInfo;
     } catch (err) {
       return null;
@@ -120,43 +138,19 @@ class EosioService {
   };
 
   getSelectedAccount = async () => {
-    const loginData = JSON.parse(
+    const autologinData = JSON.parse(
       sessionStorage.getItem(AUTOLOGIN_DATA) ||
         localStorage.getItem(AUTOLOGIN_DATA),
     );
 
-    if (!loginData) return null;
+    if (!autologinData) return null;
 
-    if (loginData.email) {
-      return this.selectedAccount;
-    }
-
-    if (loginData.loginWithScatter) {
-      if (!this.initialized || !this.scatterInstalled) return null;
-
-      if (
-        this.scatterInstance.identity === undefined ||
-        this.scatterInstance.identity == null
-      )
-        return null;
-
-      const account = this.scatterInstance.identity.accounts.find(
-        x => x.blockchain === BLOCKCHAIN_NAME,
-      );
-
-      if (!account) {
-        return null;
-      }
-
-      return account.name;
-    }
-
-    return null;
+    return this.selectedAccount;
   };
 
   forgetIdentity = async () => {
-    if (this.scatterInstance && this.scatterInstance.identity) {
-      await this.scatterInstance.forgetIdentity();
+    if (ScatterJS.scatter && ScatterJS.scatter.identity) {
+      await ScatterJS.scatter.logout();
       return true;
     }
 
@@ -164,16 +158,11 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
-
-    if (!this.scatterInstalled)
-      throw new ApplicationError(SCATTER_IN_NOT_INSTALLED);
-
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
     let result;
     try {
-      result = await this.scatterInstance.getIdentity(requiredFields);
+      result = await ScatterJS.scatter.getIdentity(requiredFields);
     } catch (error) {
       return null;
     }
@@ -184,14 +173,14 @@ class EosioService {
       return null;
     }
 
+    this.selectedAccount = account.name;
+
     return account.name;
   };
 
-  // TODO: test
   sendTransaction = async (actor, action, data, account) => {
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
-    /* eslint no-param-reassign: 0 */
     Object.keys(data).forEach(x => {
       if (typeof data[x] === 'string') {
         data[x] = data[x].trim();
@@ -201,7 +190,7 @@ class EosioService {
     createPushActionBody(data);
 
     if (this.isScatterWindowOpened) {
-      throw new ApplicationError('Scatter window is already opened');
+      throw new Error('Scatter window is already opened');
     }
 
     if (this.scatterInstance) {
@@ -232,62 +221,50 @@ class EosioService {
         expireSeconds: 60,
       };
 
-      let pushTransactionArgs;
-      let serverTransactionPushArgs;
+      if (!this.eosApi.signatureProvider) {
+        await this.eosApi.transact(transaction, {
+          ...transactionHeader,
+        });
 
-      try {
-        // TODO: Call new API endpoint here
-        serverTransactionPushArgs = await signPayForCpu(
-          transaction,
-          transactionHeader,
-        );
-      } catch (error) {
-        console.error(
-          `Error when requesting server signature: `,
-          error.message,
-        );
+        return;
+      }
+
+      const serverTransactionPushArgs = await payForCpu(
+        transaction,
+        transactionHeader,
+      );
+
+      if (!serverTransactionPushArgs) {
+        throw new Error('No server args');
       }
 
       if (serverTransactionPushArgs) {
-        // just to initialize the ABIs and other structures on api
-        // https://github.com/EOSIO/eosjs/blob/master/src/eosjs-api.ts#L214-L254
-
-        // TODO: this.eosApi should be now used instead of this.eosInstance
-        await this.eosApi.transact(tx, {
+        await this.eosApi.transact(transaction, {
           ...transactionHeader,
           sign: false,
           broadcast: false,
         });
 
-        // this.eosApi should be now used instead of this.eosInstance
         const requiredKeys = await this.eosApi.signatureProvider.getAvailableKeys();
-        // must use server tx here because blocksBehind header might lead to different TAPOS tx header
         const serializedTx = serverTransactionPushArgs.serializedTransaction;
         const signArgs = {
-          chainId: this.eosApi.chainId,
+          chainId: this.node.chainID,
           requiredKeys,
           serializedTransaction: serializedTx,
           abis: [],
         };
-        pushTransactionArgs = await this.eosApi.signatureProvider.sign(
+
+        const pushTransactionArgs = await this.eosApi.signatureProvider.sign(
           signArgs,
         );
-        // add server signature
+
         pushTransactionArgs.signatures.unshift(
           serverTransactionPushArgs.signatures[0],
         );
 
-        const res = wallet.eosApi.pushSignedTransaction(pushTransactionArgs);
-
+        await this.eosApi.pushSignedTransaction(pushTransactionArgs);
         this.isScatterWindowOpened = false;
-
-        return res;
       }
-      const res = await this.eosInstance.transaction(transaction);
-
-      this.isScatterWindowOpened = false;
-
-      return res;
     } catch (err) {
       this.isScatterWindowOpened = false;
       throw new BlockchainError(err);
@@ -307,7 +284,9 @@ class EosioService {
       limit: 1,
     };
 
-    const response = await this.eosInstance.getTableRows(request);
+    const response = await this.eosApi.authorityProvider.get_table_rows(
+      request,
+    );
 
     if (response && response.rows && response.rows.length) {
       parseTableRows(response.rows[0]);
@@ -341,7 +320,9 @@ class EosioService {
       key_type: keyType,
     };
 
-    const response = await this.eosInstance.getTableRows(request);
+    const response = await this.eosApi.authorityProvider.get_table_rows(
+      request,
+    );
 
     if (response && response.rows) {
       response.rows.forEach(x => parseTableRows(x));
@@ -350,14 +331,6 @@ class EosioService {
 
     return [];
   };
-
-  getEosioConfig = key => ({
-    httpEndpoint: this.node.endpoint,
-    chainId: this.node.chainID,
-    keyProvider: [key],
-    broadcast: true,
-    sign: true,
-  });
 
   getScatterConfig = () => ({
     blockchain: BLOCKCHAIN_NAME,
@@ -369,21 +342,12 @@ class EosioService {
 
   getNode = () => {
     const node = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
-    return node || this.getBestNode();
+    return node || getBestNode();
   };
-
-  getBestNode = () =>
-    fetch(process.env.WALLET_API_ENDPOINT + BEST_NODE_SERVICE, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify({ region: process.env.NODE_REGION }),
-    }).then(x => x.json());
 
   compareSavedAndBestNodes = async () => {
     const savedNode = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
-    const bestNode = await this.getBestNode();
+    const bestNode = await getBestNode();
 
     if (!savedNode || savedNode.endpoint !== bestNode.endpoint) {
       localStorage.setItem(LOCAL_STORAGE_BESTNODE, JSON.stringify(bestNode));

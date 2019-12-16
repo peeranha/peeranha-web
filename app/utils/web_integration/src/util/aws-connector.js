@@ -16,6 +16,8 @@ const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
   'wallet/change-credentials/complete';
 
 const LOGGER_SERVICE = 'status/ui/report-error';
+const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
+const BEST_NODE_SERVICE = 'status/eos-endpoints/get-best';
 
 async function callService(service, props) {
   const rawResponse = await fetch(process.env.WALLET_API_ENDPOINT + service, {
@@ -53,4 +55,6 @@ module.exports = {
   CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
   LOGGER_SERVICE,
+  PAY_FOR_CPU_SERVICE,
+  BEST_NODE_SERVICE,
 };

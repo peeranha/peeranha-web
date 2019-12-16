@@ -95,8 +95,6 @@ export function* loginWithEmailWorker({ val }) {
 
 export function* loginWithScatterWorker() {
   try {
-    let user = null;
-
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
@@ -111,18 +109,13 @@ export function* loginWithScatterWorker() {
       );
     }
 
-    if (!eosService.selectedScatterAccount) {
-      yield call(eosService.forgetIdentity);
-      user = yield call(eosService.selectAccount);
-    }
-
-    if (!user) {
+    if (!eosService.selectedAccount) {
       throw new WebIntegrationError(
         translations[messages[USER_IS_NOT_SELECTED].id],
       );
     }
 
-    yield call(getCurrentAccountWorker, user);
+    yield call(getCurrentAccountWorker, eosService.selectedAccount);
     const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
