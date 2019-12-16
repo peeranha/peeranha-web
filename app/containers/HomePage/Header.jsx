@@ -44,7 +44,7 @@ const Header = ({ showLoginModal, account }) => {
         <div className="container">
           <div className="d-flex flex-lg-row flex-column justify-content-between">
             <div className="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-              <A to={routes.questions()} className="d-flex logo">
+              <A to={routes.home()} className="d-flex logo">
                 <img src={logo} alt="logo" />
               </A>
 
