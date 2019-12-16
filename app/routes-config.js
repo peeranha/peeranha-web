@@ -1,5 +1,5 @@
 /* eslint camelcase: 0 */
-export const home = () => `/about`;
+export const home = () => `/`;
 
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
@@ -19,7 +19,7 @@ export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
 export const questions = communityid =>
-  !communityid ? `/` : `/communities/${communityid}`;
+  !communityid ? `/questions` : `/communities/${communityid}`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
