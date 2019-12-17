@@ -91,7 +91,10 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
+  "app.common.iAcceptPrivacyPolicy":
+    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service : description",
@@ -580,8 +583,6 @@
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iAcceptPrivacyPolicy":
-    "I accept terms of {privacyPolicy} and {termsOfService}",
   "app.containers.SignUp.iSaveMasterKey":
     "I saved Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":

@@ -9,8 +9,6 @@ import styled from 'styled-components';
 import { BG_PRIMARY_LIGHT, BG_TRANSPARENT } from 'style-constants';
 import * as routes from 'routes-config';
 
-import commonMessages from 'common-messages';
-
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
@@ -27,7 +25,8 @@ import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
-import A from 'components/A';
+import IAcceptTerms from 'components/IAcceptTerms';
+import { ADefault } from 'components/A';
 
 import SignUp from './index';
 import messages from './messages';
@@ -43,10 +42,6 @@ import {
   I_SAVE_MASTER_KEY_FIELD,
   I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
-
-export const Link = A.extend`
-  position: relative;
-`.withComponent('a');
 
 export const Div = styled.div`
   padding: ${x => (x.primary ? '20px' : '0px')} 30px;
@@ -176,7 +171,7 @@ const IHaveEOSAccountForm = ({
               </div>
 
               <div className="mb-3">
-                <Link
+                <ADefault
                   href={linkToDownloadMasterKey}
                   download="peeranha-keys.txt"
                   className="d-flex align-items-center"
@@ -188,7 +183,7 @@ const IHaveEOSAccountForm = ({
                     alt="downloadIcon"
                   />
                   <FormattedMessage {...messages.downloadKeys} />
-                </Link>
+                </ADefault>
               </div>
             </Div>
             <Div>
@@ -227,28 +222,7 @@ const IHaveEOSAccountForm = ({
               <Field
                 name={I_ACCEPT_PRIVACY_POLICY_FIELD}
                 disabled={iHaveEosAccountProcessing}
-                label={
-                  <FormattedMessage
-                    {...messages.iAcceptPrivacyPolicy}
-                    values={{
-                      privacyPolicy: (
-                        <Link href={routes.privacyPolicy()} target="_blank">
-                          <FormattedMessage {...commonMessages.privacyPolicy} />
-                        </Link>
-                      ),
-                      termsOfService: (
-                        <Link
-                          href={routes.termsAndConditions()}
-                          target="_blank"
-                        >
-                          <FormattedMessage
-                            {...commonMessages.termsOfService}
-                          />
-                        </Link>
-                      ),
-                    }}
-                  />
-                }
+                label={<IAcceptTerms />}
                 component={Checkbox}
                 validate={required}
                 warn={required}

@@ -5,14 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
-import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
-
 import { required, strLength3x20 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import SignUpOptions from 'components/SignUpWrapper/SignUpOptions';
 import Checkbox from 'components/Input/Checkbox';
+import IAcceptTerms from 'components/IAcceptTerms';
 
 import SignUp from './index';
 
@@ -25,8 +23,6 @@ import {
 import messages from './messages';
 
 import { Form } from './EmailVerificationForm';
-
-import { Link } from './IHaveEOSAccountForm';
 
 const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
   <SignUp withScatter>
@@ -69,23 +65,7 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
             <Field
               name={I_ACCEPT_PRIVACY_POLICY_FIELD}
               disabled={signUpWithScatterProcessing}
-              label={
-                <FormattedMessage
-                  {...messages.iAcceptPrivacyPolicy}
-                  values={{
-                    privacyPolicy: (
-                      <Link href={routes.privacyPolicy()} target="_blank">
-                        <FormattedMessage {...commonMessages.privacyPolicy} />
-                      </Link>
-                    ),
-                    termsOfService: (
-                      <Link href={routes.termsAndConditions()} target="_blank">
-                        <FormattedMessage {...commonMessages.termsOfService} />
-                      </Link>
-                    ),
-                  }}
-                />
-              }
+              label={<IAcceptTerms />}
               component={Checkbox}
               validate={required}
               warn={required}

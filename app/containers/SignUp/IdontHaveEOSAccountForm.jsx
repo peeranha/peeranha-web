@@ -6,7 +6,6 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -23,6 +22,8 @@ import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
+import IAcceptTerms from 'components/IAcceptTerms';
+import { ADefault } from 'components/A';
 
 import SignUp from './index';
 import messages from './messages';
@@ -35,7 +36,7 @@ import {
   I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
-import { Link, Div } from './IHaveEOSAccountForm';
+import { Div } from './IHaveEOSAccountForm';
 
 const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
@@ -77,7 +78,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
               </div>
 
               <div className="mb-3">
-                <Link
+                <ADefault
                   href={linkToDownloadMasterKey}
                   download="peeranha-keys.txt"
                   className="d-flex align-items-center"
@@ -89,7 +90,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                     alt="downloadIcon"
                   />
                   <FormattedMessage {...messages.downloadKeys} />
-                </Link>
+                </ADefault>
               </div>
             </Div>
             <Div>
@@ -130,28 +131,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
               <Field
                 name={I_ACCEPT_PRIVACY_POLICY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
-                label={
-                  <FormattedMessage
-                    {...messages.iAcceptPrivacyPolicy}
-                    values={{
-                      privacyPolicy: (
-                        <Link href={routes.privacyPolicy()} target="_blank">
-                          <FormattedMessage {...commonMessages.privacyPolicy} />
-                        </Link>
-                      ),
-                      termsOfService: (
-                        <Link
-                          href={routes.termsAndConditions()}
-                          target="_blank"
-                        >
-                          <FormattedMessage
-                            {...commonMessages.termsOfService}
-                          />
-                        </Link>
-                      ),
-                    }}
-                  />
-                }
+                label={<IAcceptTerms />}
                 component={Checkbox}
                 validate={required}
                 warn={required}

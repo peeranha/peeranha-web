@@ -89,7 +89,10 @@
   "app.common.description": "Описание",
   "app.common.showMore": "Показать больше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
+  "app.containers.SignUp.iAcceptPrivacyPolicy":
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -588,8 +591,6 @@
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy} и {termsOfService}",
   "app.containers.SignUp.iSaveMasterKey":
     "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
