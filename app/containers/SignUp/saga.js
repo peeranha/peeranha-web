@@ -319,8 +319,6 @@ export function* signUpWithScatterWorker({ val }) {
 
 export function* showScatterSignUpFormWorker() {
   try {
-    let user = null;
-
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
@@ -336,18 +334,17 @@ export function* showScatterSignUpFormWorker() {
       );
     }
 
-    if (!eosService.selectedScatterAccount) {
-      yield call(eosService.forgetIdentity);
-      user = yield call(eosService.selectAccount);
-    }
-
-    if (!user) {
+    if (!eosService.selectedAccount) {
       throw new WebIntegrationError(
         translations[loginMessages[USER_IS_NOT_SELECTED].id],
       );
     }
 
-    const profileInfo = yield call(getProfileInfo, user, eosService);
+    const profileInfo = yield call(
+      getProfileInfo,
+      eosService.selectedAccount,
+      eosService,
+    );
 
     if (profileInfo) {
       throw new WebIntegrationError(
@@ -356,7 +353,7 @@ export function* showScatterSignUpFormWorker() {
     }
 
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(showScatterSignUpFormSuccess(user));
+    yield put(showScatterSignUpFormSuccess(eosService.selectedAccount));
 
     yield call(createdHistory.push, routes.signup.displayName.name);
   } catch (err) {

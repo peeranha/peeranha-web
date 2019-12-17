@@ -18,7 +18,6 @@ export const HUBSPOT_SEND_EMAIL_FORM_ID =
   '05305f90-6546-4718-88e8-2d2c8e79c00c';
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
   'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
-export const BEST_NODE_SERVICE = 'status/eos-endpoints/get-best';
 
 export const LOCAL_STORAGE_BESTNODE = 'best_node_data';
 
