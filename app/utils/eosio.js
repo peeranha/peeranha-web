@@ -13,6 +13,7 @@ import {
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
   LOCAL_STORAGE_BESTNODE,
+  SCATTER_IN_NOT_INSTALLED,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -44,18 +45,20 @@ class EosioService {
 
     if ((autologinData && autologinData.loginWithScatter) || initWithScatter) {
       await this.initEosioWithScatter();
-      this.selectedAccount = await this.selectAccount();
 
-      if (!this.scatterInstalled) {
+      if (this.scatterInstalled) {
+        this.selectedAccount = await this.selectAccount();
+      } else {
         this.initEosioWithoutScatter();
         this.selectedAccount = null;
+
+        throw new Error(SCATTER_IN_NOT_INSTALLED);
       }
     } else {
       this.initEosioWithoutScatter(privateKey);
       this.selectedAccount = selectedAccount;
     }
 
-    this.initialized = true;
     this.compareSavedAndBestNodes();
   };
 
@@ -76,9 +79,9 @@ class EosioService {
     if (this.scatterInstalled) {
       const eos = ScatterJS.eos(network, Api, { rpc });
 
-      await ScatterJS.login();
-
       window.scatter = null;
+
+      this.initialized = true;
       this.eosApi = {
         transact: eos.transact,
         authorityProvider: rpc,
@@ -99,6 +102,7 @@ class EosioService {
     });
 
     this.eosApi = api;
+    this.initialized = true;
   };
 
   privateToPublic = privateKey => {
@@ -150,14 +154,13 @@ class EosioService {
 
   forgetIdentity = async () => {
     if (ScatterJS.scatter && ScatterJS.scatter.identity) {
-      await ScatterJS.scatter.logout();
-      return true;
+      await ScatterJS.scatter.forgetIdentity();
     }
-
-    return null;
   };
 
   selectAccount = async () => {
+    await this.forgetIdentity();
+
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
     let result;
@@ -189,46 +192,49 @@ class EosioService {
 
     createPushActionBody(data);
 
-    if (this.isScatterWindowOpened) {
-      throw new Error('Scatter window is already opened');
-    }
-
-    if (this.scatterInstance) {
-      this.isScatterWindowOpened = true;
-    }
-
-    try {
-      const transaction = {
-        actions: [
-          {
-            account: account || process.env.EOS_CONTRACT_ACCOUNT,
-            name: action,
-            authorization: [
-              {
-                actor,
-                permission: DEFAULT_EOS_PERMISSION,
-              },
-            ],
-            data: {
-              ...data,
+    const transaction = {
+      actions: [
+        {
+          account: account || process.env.EOS_CONTRACT_ACCOUNT,
+          name: action,
+          authorization: [
+            {
+              actor,
+              permission: DEFAULT_EOS_PERMISSION,
             },
+          ],
+          data: {
+            ...data,
           },
-        ],
-      };
+        },
+      ],
+    };
 
-      const transactionHeader = {
-        blocksBehind: 3,
-        expireSeconds: 60,
-      };
+    const transactionHeader = {
+      blocksBehind: 3,
+      expireSeconds: 60,
+    };
 
-      if (!this.eosApi.signatureProvider) {
+    if (!this.eosApi.signatureProvider) {
+      if (this.isScatterWindowOpened) {
+        throw new ApplicationError('Popup is already opened');
+      }
+
+      try {
+        this.isScatterWindowOpened = true;
+
         await this.eosApi.transact(transaction, {
           ...transactionHeader,
         });
 
+        this.isScatterWindowOpened = false;
         return;
+      } catch (err) {
+        throw err;
       }
+    }
 
+    try {
       const serverTransactionPushArgs = await payForCpu(
         transaction,
         transactionHeader,
@@ -238,36 +244,32 @@ class EosioService {
         throw new Error('No server args');
       }
 
-      if (serverTransactionPushArgs) {
-        await this.eosApi.transact(transaction, {
-          ...transactionHeader,
-          sign: false,
-          broadcast: false,
-        });
+      await this.eosApi.transact(transaction, {
+        ...transactionHeader,
+        sign: false,
+        broadcast: false,
+      });
 
-        const requiredKeys = await this.eosApi.signatureProvider.getAvailableKeys();
-        const serializedTx = serverTransactionPushArgs.serializedTransaction;
-        const signArgs = {
-          chainId: this.node.chainID,
-          requiredKeys,
-          serializedTransaction: serializedTx,
-          abis: [],
-        };
+      const requiredKeys = await this.eosApi.signatureProvider.getAvailableKeys();
+      const serializedTx = serverTransactionPushArgs.serializedTransaction;
+      const signArgs = {
+        chainId: this.node.chainID,
+        requiredKeys,
+        serializedTransaction: serializedTx,
+        abis: [],
+      };
 
-        const pushTransactionArgs = await this.eosApi.signatureProvider.sign(
-          signArgs,
-        );
+      const pushTransactionArgs = await this.eosApi.signatureProvider.sign(
+        signArgs,
+      );
 
-        pushTransactionArgs.signatures.unshift(
-          serverTransactionPushArgs.signatures[0],
-        );
+      pushTransactionArgs.signatures.unshift(
+        serverTransactionPushArgs.signatures[0],
+      );
 
-        await this.eosApi.pushSignedTransaction(pushTransactionArgs);
-        this.isScatterWindowOpened = false;
-      }
+      await this.eosApi.pushSignedTransaction(pushTransactionArgs);
     } catch (err) {
-      this.isScatterWindowOpened = false;
-      throw new BlockchainError(err);
+      throw new BlockchainError(err.message);
     }
   };
 
