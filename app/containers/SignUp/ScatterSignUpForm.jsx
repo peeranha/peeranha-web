@@ -5,18 +5,28 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
+import * as routes from 'routes-config';
+import commonMessages from 'common-messages';
+
 import { required, strLength3x20 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import SignUpOptions from 'components/SignUpWrapper/SignUpOptions';
+import Checkbox from 'components/Input/Checkbox';
 
 import SignUp from './index';
 
-import { EOS_ACCOUNT_FIELD, DISPLAY_NAME_FIELD } from './constants';
+import {
+  EOS_ACCOUNT_FIELD,
+  DISPLAY_NAME_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
+} from './constants';
 
 import messages from './messages';
 
 import { Form } from './EmailVerificationForm';
+
+import { Link } from './IHaveEOSAccountForm';
 
 const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
   <SignUp withScatter>
@@ -56,7 +66,35 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               warn={[strLength3x20, required]}
             />
 
-            <Button disabled={signUpWithScatterProcessing} className="w-100">
+            <Field
+              name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+              disabled={signUpWithScatterProcessing}
+              label={
+                <FormattedMessage
+                  {...messages.iAcceptPrivacyPolicy}
+                  values={{
+                    privacyPolicy: (
+                      <Link href={routes.privacyPolicy()} target="_blank">
+                        <FormattedMessage {...commonMessages.privacyPolicy} />
+                      </Link>
+                    ),
+                    termsOfService: (
+                      <Link href={routes.termsAndConditions()} target="_blank">
+                        <FormattedMessage {...commonMessages.termsOfService} />
+                      </Link>
+                    ),
+                  }}
+                />
+              }
+              component={Checkbox}
+              validate={required}
+              warn={required}
+            />
+
+            <Button
+              disabled={signUpWithScatterProcessing}
+              className="w-100 my-3"
+            >
               <FormattedMessage {...messages.continue} />
             </Button>
           </Form>
