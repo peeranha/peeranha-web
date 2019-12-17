@@ -13,7 +13,7 @@ import messages from './messages';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 
-export const Banner = ({ openTagForm }) => (
+export const Banner = ({ openTagForm, communityId }) => (
   <Wrapper>
     <img src={communitySuggestBanner} alt="tags-banner" />
     <div>
@@ -26,7 +26,7 @@ export const Banner = ({ openTagForm }) => (
       </p>
 
       <Button
-        data-communityid=""
+        data-communityid={communityId}
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_banner`}
         onClick={openTagForm}
       >
@@ -38,6 +38,7 @@ export const Banner = ({ openTagForm }) => (
 
 Banner.propTypes = {
   openTagForm: PropTypes.func,
+  communityId: PropTypes.number,
 };
 
 export default React.memo(Banner);
