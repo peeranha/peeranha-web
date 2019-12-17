@@ -131,7 +131,7 @@ const PaidOutWeek = ({
       </P>
       <WeekNumber
         locale={locale}
-        period={period}
+        period={period + 1}
         periodStarted={periodStarted}
         periodFinished={periodFinished}
       />

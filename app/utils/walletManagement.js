@@ -167,7 +167,7 @@ export async function getWeekStat(eosService, profile) {
       return {
         reward: 0,
         ...(existingPeriod || normalizedRewards[0]),
-        period: index + 1,
+        period: index,
         periodStarted:
           +process.env.RELEASE_DATE +
           +process.env.WEEK_DURATION * (index + 1) -

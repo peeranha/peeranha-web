@@ -79,7 +79,10 @@ export class Tags extends React.Component {
 
           <div className="mb-3">{Content}</div>
 
-          <Banner openTagForm={redirectToCreateTagDispatch} />
+          <Banner
+            openTagForm={redirectToCreateTagDispatch}
+            communityId={currentCommunity.id}
+          />
         </div>
 
         <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
