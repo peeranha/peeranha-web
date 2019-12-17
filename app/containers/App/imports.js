@@ -14,6 +14,7 @@ import ForgotPassword from 'containers/ForgotPassword';
 const HomePage = React.lazy(() => import('containers/HomePage'));
 
 const Faq = React.lazy(() => import('containers/Faq'));
+const TermsOfService = React.lazy(() => import('containers/TermsOfService'));
 const Users = React.lazy(() => import('containers/Users'));
 const EditQuestion = React.lazy(() => import('containers/EditQuestion'));
 const EditProfilePage = React.lazy(() => import('containers/EditProfilePage'));
@@ -84,4 +85,5 @@ export {
   Support,
   PrivacyPolicy,
   FullWidthPreloader,
+  TermsOfService,
 };

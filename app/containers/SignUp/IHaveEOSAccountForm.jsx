@@ -9,6 +9,8 @@ import styled from 'styled-components';
 import { BG_PRIMARY_LIGHT, BG_TRANSPARENT } from 'style-constants';
 import * as routes from 'routes-config';
 
+import commonMessages from 'common-messages';
+
 import dangerIcon from 'images/dangerIcon.svg?inline';
 import downloadIcon from 'images/download.svg?inline';
 
@@ -39,6 +41,7 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
 export const Link = A.extend`
@@ -215,6 +218,37 @@ const IHaveEOSAccountForm = ({
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                disabled={iHaveEosAccountProcessing}
+                label={
+                  <FormattedMessage
+                    {...messages.iAcceptPrivacyPolicy}
+                    values={{
+                      privacyPolicy: (
+                        <Link href={routes.privacyPolicy()} target="_blank">
+                          <FormattedMessage {...commonMessages.privacyPolicy} />
+                        </Link>
+                      ),
+                      termsOfService: (
+                        <Link
+                          href={routes.termsAndConditions()}
+                          target="_blank"
+                        >
+                          <FormattedMessage
+                            {...commonMessages.termsOfService}
+                          />
+                        </Link>
+                      ),
+                    }}
+                  />
+                }
                 component={Checkbox}
                 validate={required}
                 warn={required}

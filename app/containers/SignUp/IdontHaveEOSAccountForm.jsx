@@ -6,6 +6,7 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
+import commonMessages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -31,6 +32,7 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
 import { Link, Div } from './IHaveEOSAccountForm';
@@ -119,6 +121,37 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                disabled={idontHaveEosAccountProcessing}
+                label={
+                  <FormattedMessage
+                    {...messages.iAcceptPrivacyPolicy}
+                    values={{
+                      privacyPolicy: (
+                        <Link href={routes.privacyPolicy()} target="_blank">
+                          <FormattedMessage {...commonMessages.privacyPolicy} />
+                        </Link>
+                      ),
+                      termsOfService: (
+                        <Link
+                          href={routes.termsAndConditions()}
+                          target="_blank"
+                        >
+                          <FormattedMessage
+                            {...commonMessages.termsOfService}
+                          />
+                        </Link>
+                      ),
+                    }}
+                  />
+                }
                 component={Checkbox}
                 validate={required}
                 warn={required}

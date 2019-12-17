@@ -50,7 +50,7 @@ export const voteToDeleteValidator = (
   } else if (profileInfo.rating < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < minEnergy) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${minEnergy}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -96,7 +96,7 @@ export const postAnswerValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -145,7 +145,7 @@ export const postCommentValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_ITEMS}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -170,7 +170,7 @@ export const markAsAcceptedValidator = (
   } else if (profileInfo.rating < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -208,7 +208,7 @@ export const upVoteValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_TO_UPVOTE}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -252,7 +252,7 @@ export const downVoteValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_TO_DOWNVOTE}`;
   } else if (profileInfo.energy < minEnergy) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${minEnergy}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -275,7 +275,7 @@ export const deleteQuestionValidator = (
   if (answersNum > ANSWERS_LIMIT) {
     message = `${translations[messages.youHaveAnswers.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -298,7 +298,7 @@ export const deleteAnswerValidator = (
   if (+answerid === correctAnswerId) {
     message = `${translations[messages.answerIsCorrect.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -317,7 +317,7 @@ export const deleteCommentValidator = (
   let message;
 
   if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
@@ -337,7 +337,7 @@ export const editCommentValidator = (
   let message;
 
   if (profileInfo.energy < MIN_ENERGY) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${MIN_ENERGY}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {

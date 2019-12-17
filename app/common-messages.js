@@ -84,6 +84,9 @@ export default defineMessages({
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
   },
+  termsOfService: {
+    id: 'app.common.termsOfService',
+  },
   privacyPolicyShort: {
     id: 'app.common.privacyPolicyShort',
   },

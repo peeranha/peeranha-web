@@ -2,7 +2,9 @@ import React from 'react';
 import { createSelector } from 'reselect';
 import * as routes from 'routes-config';
 
-import { getQuestionCode } from 'utils/faqManagement';
+import { getQuestionCode } from 'utils/mdManagement';
+import { SECTION_ID } from 'containers/Faq/constants';
+
 import A from 'components/A';
 
 import { initialState } from './reducer';
@@ -87,7 +89,11 @@ const selectFaqQuestions = questionsIndexes =>
 
           if (section && section.blocks[questionIndex]) {
             return (
-              <A to={routes.faq(getQuestionCode(sectionIndex, questionIndex))}>
+              <A
+                to={routes.faq(
+                  getQuestionCode(SECTION_ID, sectionIndex, questionIndex),
+                )}
+              >
                 {section.blocks[questionIndex].h3}
               </A>
             );

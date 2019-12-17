@@ -18,8 +18,6 @@ const Wrapper = styled.header`
 
   div.insides > * {
     height: 40px;
-    padding-top: 8px;
-    padding-bottom: 8px;
   }
 
   form {

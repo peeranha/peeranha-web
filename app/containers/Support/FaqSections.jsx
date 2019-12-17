@@ -7,7 +7,8 @@ import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import { getSectionCode } from 'utils/faqManagement';
+import { getSectionCode } from 'utils/mdManagement';
+import { SECTION_ID } from 'containers/Faq/constants';
 
 import A from 'components/A';
 
@@ -38,7 +39,9 @@ const FaqSections = ({ faq }) => (
       <ul>
         {faq.blocks.map((x, sectionIndex) => (
           <li>
-            <A to={routes.faq(getSectionCode(sectionIndex))}>{x.h2}</A>
+            <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
+              {x.h2}
+            </A>
           </li>
         ))}
       </ul>
