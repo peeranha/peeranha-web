@@ -10,7 +10,6 @@ import {
   registerComplete,
 } from 'utils/web_integration/src/wallet/register/register';
 
-import EosioService from 'utils/eosio';
 import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
@@ -18,12 +17,12 @@ import { WebIntegrationError } from 'utils/errors';
 
 import loginMessages from 'containers/Login/messages';
 
-import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { successHandling } from 'containers/Toast/saga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { initEosioWorker } from 'containers/EosioProvider/saga';
 
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
@@ -319,14 +318,11 @@ export function* signUpWithScatterWorker({ val }) {
 
 export function* showScatterSignUpFormWorker() {
   try {
+    yield call(initEosioWorker, { initWithScatter: true });
+
+    const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-
-    const eosService = new EosioService();
-
-    yield call(eosService.init, null, true);
-
-    yield put(initEosioSuccess(eosService));
 
     if (!eosService.scatterInstalled) {
       throw new WebIntegrationError(
