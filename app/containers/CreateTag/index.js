@@ -52,7 +52,9 @@ export class CreateTag extends React.PureComponent {
     const tag = {
       name: args[0].get(NAME_FIELD),
       description: args[0].get(DESCRIPTION_FIELD),
-      communityId: args[0].get(FORM_COMMUNITY).id,
+      communityId: Number(
+        args[0].get(FORM_COMMUNITY).id || this.props.match.params.communityid,
+      ),
     };
 
     this.props.suggestTagDispatch(tag, reset);
