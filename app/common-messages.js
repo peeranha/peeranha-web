@@ -84,6 +84,9 @@ export default defineMessages({
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
   },
+  termsOfService: {
+    id: 'app.common.termsOfService',
+  },
   privacyPolicyShort: {
     id: 'app.common.privacyPolicyShort',
   },
@@ -281,5 +284,11 @@ export default defineMessages({
   },
   noResults: {
     id: 'app.common.noResults',
+  },
+  iAcceptPrivacyPolicy: {
+    id: 'app.common.iAcceptPrivacyPolicy',
+  },
+  termsOfTelos: {
+    id: 'app.common.termsOfTelos',
   },
 });

@@ -6,8 +6,8 @@ import { TEXT_WARNING_LIGHT, BORDER_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 
-import { getSectionCode } from 'utils/faqManagement';
-import { ABOUT_PEERANHA_SECTION } from 'containers/Faq/constants';
+import { getSectionCode } from 'utils/mdManagement';
+import { ABOUT_PEERANHA_SECTION, SECTION_ID } from 'containers/Faq/constants';
 
 import plusIcon from 'images/Plus.svg?inline';
 import arrRight from 'images/arrRight.svg?inline';
@@ -60,7 +60,7 @@ const FaqMain = ({ faqQuestions }) => (
 
     <h3 className="item item-all">
       <img src={arrRight} alt="icon" />
-      <a href={routes.faq(getSectionCode(ABOUT_PEERANHA_SECTION))}>
+      <a href={routes.faq(getSectionCode(SECTION_ID, ABOUT_PEERANHA_SECTION))}>
         <FormattedMessage {...messages.getMoreAnswers} />
       </a>
     </h3>

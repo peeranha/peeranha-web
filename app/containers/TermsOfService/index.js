@@ -1,9 +1,3 @@
-/**
- *
- * PrivacyPolicy
- *
- */
-
 import React from 'react';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
@@ -30,22 +24,22 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { getPrivacyPolicy } from './actions';
+import { getTerms } from './actions';
 
 import Header from './Header';
 import { SECTION_ID } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
-export class PrivacyPolicy extends React.PureComponent {
+export class TermsOfService extends React.PureComponent {
   componentDidMount() {
-    this.props.getPrivacyPolicyDispatch();
+    this.props.getTermsDispatch();
   }
 
   render() {
-    const { locale, privacyPolicy } = this.props;
+    const { locale, terms } = this.props;
     const translations = translationMessages[locale];
 
-    if (!privacyPolicy) return null;
+    if (!terms) return null;
 
     return (
       <div className="d-flex justify-content-center">
@@ -59,8 +53,8 @@ export class PrivacyPolicy extends React.PureComponent {
         <div className="flex-grow-1">
           <Header />
           <Content
-            content={privacyPolicy}
-            route={routes.privacyPolicy}
+            content={terms}
+            route={routes.termsAndConditions}
             getSectionCode={getSectionCode.bind(null, SECTION_ID)}
             getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
           />
@@ -68,8 +62,10 @@ export class PrivacyPolicy extends React.PureComponent {
 
         <AsideBox className="d-none d-xl-block">
           <Aside
-            content={privacyPolicy}
-            route={x => routes.privacyPolicy(getSectionCode(SECTION_ID, x))}
+            content={terms}
+            route={x =>
+              routes.termsAndConditions(getSectionCode(SECTION_ID, x))
+            }
           />
         </AsideBox>
       </div>
@@ -77,20 +73,20 @@ export class PrivacyPolicy extends React.PureComponent {
   }
 }
 
-PrivacyPolicy.propTypes = {
-  getPrivacyPolicyDispatch: PropTypes.func,
+TermsOfService.propTypes = {
+  getTermsDispatch: PropTypes.func,
   locale: PropTypes.string,
-  privacyPolicy: PropTypes.object,
+  terms: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  privacyPolicy: selectors.selectPrivacyPolicy(),
+  terms: selectors.selectTerms(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getPrivacyPolicyDispatch: bindActionCreators(getPrivacyPolicy, dispatch),
+    getTermsDispatch: bindActionCreators(getTerms, dispatch),
   };
 }
 
@@ -99,11 +95,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'privacyPolicy', reducer });
-const withSaga = injectSaga({ key: 'privacyPolicy', saga });
+const withReducer = injectReducer({ key: 'termsOfService', reducer });
+const withSaga = injectSaga({ key: 'termsOfService', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(PrivacyPolicy);
+)(TermsOfService);

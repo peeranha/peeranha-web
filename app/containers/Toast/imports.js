@@ -146,6 +146,7 @@ import {
 
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
+import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -163,6 +164,7 @@ export const otherTypes = [
   GET_QUESTION_DATA_ERROR,
   GET_WEEK_STAT_ERROR,
   UPDATE_ACC_ERROR,
+  GET_TERMS_ERROR,
 ];
 
 export const errHandlingTypes = [

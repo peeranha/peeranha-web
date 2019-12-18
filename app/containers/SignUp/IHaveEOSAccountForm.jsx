@@ -25,7 +25,8 @@ import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
-import A from 'components/A';
+import IAcceptTerms from 'components/IAcceptTerms';
+import { ADefault } from 'components/A';
 
 import SignUp from './index';
 import messages from './messages';
@@ -39,11 +40,8 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
-
-export const Link = A.extend`
-  position: relative;
-`.withComponent('a');
 
 export const Div = styled.div`
   padding: ${x => (x.primary ? '20px' : '0px')} 30px;
@@ -173,7 +171,7 @@ const IHaveEOSAccountForm = ({
               </div>
 
               <div className="mb-3">
-                <Link
+                <ADefault
                   href={linkToDownloadMasterKey}
                   download="peeranha-keys.txt"
                   className="d-flex align-items-center"
@@ -185,7 +183,7 @@ const IHaveEOSAccountForm = ({
                     alt="downloadIcon"
                   />
                   <FormattedMessage {...messages.downloadKeys} />
-                </Link>
+                </ADefault>
               </div>
             </Div>
             <Div>
@@ -215,6 +213,16 @@ const IHaveEOSAccountForm = ({
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                disabled={iHaveEosAccountProcessing}
+                label={<IAcceptTerms />}
                 component={Checkbox}
                 validate={required}
                 warn={required}

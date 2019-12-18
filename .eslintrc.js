@@ -35,6 +35,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/extensions': 0,
     'jsx-a11y/anchor-is-valid': 0,
+    'react/jsx-no-bind': 0,
     indent: [
       2,
       2,

@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Button as EnergyButton } from 'containers/Header/EnergyDropdown';
 
+/* eslint no-unreachable: 0 */
 export default React.memo(({ profile, isMenuVisible }) => {
+  // TODO: return if energy will be needed
+  return null;
+
   if (!profile || !isMenuVisible) {
     return null;
   }
