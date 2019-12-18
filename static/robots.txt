@@ -11,4 +11,4 @@ Disallow: /communities/suggested/
 Disallow: /communities/*/tags/suggested/
 Disallow: /communities/*/tags/create/
 
-Sitemap: https://peeranha.com/sitemap.xml
+Sitemap: https://peeranha.io/sitemap.xml
