@@ -4,7 +4,7 @@ import getHash from 'object-hash';
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
-import { getFAQ } from 'utils/faqManagement';
+import { getMD } from 'utils/mdManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -61,8 +61,9 @@ export function* getCommunitiesWithTagsWorker() {
 
 export function* getFaqWorker() {
   try {
+    const prefix = 'faq';
     const locale = yield select(makeSelectLocale());
-    const faq = yield call(getFAQ, locale);
+    const faq = yield call(getMD, prefix, locale);
 
     yield put(getFaqSuccess(faq));
   } catch (err) {

@@ -1,4 +1,6 @@
-export function parseMD(md) {
+import { ApplicationError } from './errors';
+
+function parseMD(md) {
   const getRegExp = tag => {
     const str = `<${tag}.*`;
     const regexp = new RegExp(str, 'gim');
@@ -58,3 +60,34 @@ export function parseMD(md) {
 
   return { h1, blocks: H2BlocksObject };
 }
+
+/* eslint global-require: 0 */
+function getMD(prefix, locale) {
+  let md = null;
+
+  switch (prefix) {
+    case 'faq':
+      md = require(`faq/${locale}.md`);
+      break;
+    case 'privacy-policy':
+      md = require(`privacy-policy/${locale}.md`);
+      break;
+    case 'terms-of-service':
+      md = require(`terms-of-service/${locale}.md`);
+      break;
+    default:
+      throw new ApplicationError('There are no passed args');
+  }
+
+  return parseMD(md);
+}
+
+function getSectionCode(sectionId, sectionIndex = 0) {
+  return `${sectionId}_${sectionIndex}`;
+}
+
+function getQuestionCode(sectionId, sectionIndex = 0, questionIndex = 0) {
+  return `${sectionId}_${sectionIndex}_${questionIndex}`;
+}
+
+export { parseMD, getMD, getSectionCode, getQuestionCode };

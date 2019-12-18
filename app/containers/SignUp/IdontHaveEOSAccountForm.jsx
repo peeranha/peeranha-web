@@ -22,6 +22,8 @@ import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
+import IAcceptTerms from 'components/IAcceptTerms';
+import { ADefault } from 'components/A';
 
 import SignUp from './index';
 import messages from './messages';
@@ -31,9 +33,10 @@ import {
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
   I_SAVE_MASTER_KEY_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
 
-import { Link, Div } from './IHaveEOSAccountForm';
+import { Div } from './IHaveEOSAccountForm';
 
 const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
@@ -75,7 +78,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
               </div>
 
               <div className="mb-3">
-                <Link
+                <ADefault
                   href={linkToDownloadMasterKey}
                   download="peeranha-keys.txt"
                   className="d-flex align-items-center"
@@ -87,7 +90,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                     alt="downloadIcon"
                   />
                   <FormattedMessage {...messages.downloadKeys} />
-                </Link>
+                </ADefault>
               </div>
             </Div>
             <Div>
@@ -119,6 +122,16 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 name={I_SAVE_MASTER_KEY_FIELD}
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
+                component={Checkbox}
+                validate={required}
+                warn={required}
+              />
+            </Div>
+            <Div className="mb-4">
+              <Field
+                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                disabled={idontHaveEosAccountProcessing}
+                label={<IAcceptTerms />}
                 component={Checkbox}
                 validate={required}
                 warn={required}

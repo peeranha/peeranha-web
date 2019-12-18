@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
 
-import { getSectionCode, getQuestionCode } from 'utils/faqManagement';
+import { getSectionCode, getQuestionCode } from 'utils/mdManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaq } from 'containers/DataCacheProvider/selectors';
@@ -26,6 +26,7 @@ import Header from './Header';
 import Content from './Content';
 import Aside from './Aside';
 import Banner from './Banner';
+import { SECTION_ID } from './constants';
 
 export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
   const translations = translationMessages[locale];
@@ -45,14 +46,17 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
         <Content
           content={faq}
           route={routes.faq}
-          getSectionCode={getSectionCode}
-          getQuestionCode={getQuestionCode}
+          getSectionCode={getSectionCode.bind(null, SECTION_ID)}
+          getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
         />
         <Banner />
       </div>
 
       <AsideBox className="d-none d-xl-block">
-        <Aside content={faq} route={x => routes.faq(getSectionCode(x))} />
+        <Aside
+          content={faq}
+          route={x => routes.faq(getSectionCode(SECTION_ID, x))}
+        />
       </AsideBox>
     </div>
   );

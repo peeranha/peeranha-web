@@ -45,6 +45,8 @@ export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
 export const privacyPolicy = section =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
+export const termsAndConditions = section =>
+  `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;

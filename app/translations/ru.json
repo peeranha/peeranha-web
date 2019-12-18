@@ -66,6 +66,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
@@ -88,7 +89,14 @@
   "app.common.description": "Описание",
   "app.common.showMore": "Показать больше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
+  "app.containers.SignUp.iAcceptPrivacyPolicy":
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+
+  "app.containers.TermsOfService.title": "Условия обслуживания",
+  "app.containers.TermsOfService.description":
+    "Условия обслуживания : описание",
 
   "app.containers.Search.title": "Поиск",
   "app.containers.Search.description": "Поиск: описание",
@@ -466,7 +474,7 @@
   "app.containers.ViewQuestion.creatorCannot":
     "Создатель не может совершить это действие",
   "app.containers.ViewQuestion.notEnoughEnergy":
-    "Чтобы выполнить это действие, Ваша энергия должна быть не меньше",
+    "Мы обнаружили подозрительную активность в лице Вашего аккаунта и временно заблокировали некоторые действия на вебсайте",
   "app.containers.ViewQuestion.title": "Страница вопроса",
   "app.containers.ViewQuestion.description": "Содержание вопроса",
   "app.containers.ViewQuestion.questionNotExist":
@@ -583,8 +591,6 @@
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iAcceptPrivacyPolicy":
-    "Я принимаю условия Политики Конфиденциальности.",
   "app.containers.SignUp.iSaveMasterKey":
     "Я сохранил Master Key в безопасное место. Понимаю, что если я забуду пароль, Master Key - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":

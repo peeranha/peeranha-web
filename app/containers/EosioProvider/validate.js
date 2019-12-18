@@ -20,7 +20,7 @@ export default ({
   } else if (rating < minRating) {
     message = `${translations[messages.notEnoughRating.id]} ${minRating}`;
   } else if (energy < minEnergy) {
-    message = `${translations[messages.notEnoughEnergy.id]} ${minEnergy}`;
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {

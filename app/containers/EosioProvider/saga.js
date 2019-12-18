@@ -1,3 +1,4 @@
+/* eslint consistent-return: 0, no-shadow: 0 */
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
@@ -12,6 +13,7 @@ import {
 
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import {
   getCurrentAccountWorker,
@@ -22,27 +24,55 @@ import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
+import { selectScatter } from './selectors';
 
-export function* initEosioWorker() {
+export function* initEosioWorker({
+  key = null,
+  initWithScatter = false,
+  selectedAccount = null,
+}) {
   try {
-    const defaultEosioService = new EosioService();
-    yield call(defaultEosioService.init);
-    yield put(initEosioSuccess(defaultEosioService));
+    const autoLoginData = JSON.parse(
+      sessionStorage.getItem(AUTOLOGIN_DATA) ||
+        localStorage.getItem(AUTOLOGIN_DATA),
+    );
+
+    const eosService = new EosioService();
+
+    if ((autoLoginData && autoLoginData.loginWithScatter) || initWithScatter) {
+      try {
+        let scatter = yield select(selectScatter());
+
+        if (!scatter) {
+          scatter = yield call(eosService.initScatter);
+        }
+
+        yield call(eosService.initEosioWithScatter, scatter);
+        yield put(initEosioSuccess(eosService, scatter));
+      } catch (err) {
+        yield call(eosService.initEosioWithoutScatter);
+        yield put(initEosioSuccess(eosService));
+      }
+
+      return null;
+    }
+
+    yield call(eosService.initEosioWithoutScatter, key, selectedAccount);
+    yield put(initEosioSuccess(eosService));
 
     const response = yield call(autoLogin);
 
     if (response.OK) {
-      const advancedEosioService = new EosioService();
+      const eosService = new EosioService();
 
       yield call(
-        advancedEosioService.init,
+        eosService.initEosioWithoutScatter,
         response.body.activeKey.private,
-        false,
         response.body.eosAccountName,
       );
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
-      yield put(initEosioSuccess(advancedEosioService));
+      yield put(initEosioSuccess(eosService));
     }
   } catch (error) {
     yield put(initEosioError(error));

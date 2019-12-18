@@ -40,6 +40,7 @@ import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
+import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 
 /*
  * routeReducer
@@ -109,6 +110,7 @@ export default function createReducer(injectedReducers) {
     privacyPolicy: privacyPolicyReducer,
     sendTokens: sendTokensReducer,
     search: searchReducer,
+    termsOfService: termsOfServiceReducer,
     ...injectedReducers,
   });
 }

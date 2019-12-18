@@ -9,10 +9,16 @@ import { required, strLength3x20 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import SignUpOptions from 'components/SignUpWrapper/SignUpOptions';
+import Checkbox from 'components/Input/Checkbox';
+import IAcceptTerms from 'components/IAcceptTerms';
 
 import SignUp from './index';
 
-import { EOS_ACCOUNT_FIELD, DISPLAY_NAME_FIELD } from './constants';
+import {
+  EOS_ACCOUNT_FIELD,
+  DISPLAY_NAME_FIELD,
+  I_ACCEPT_PRIVACY_POLICY_FIELD,
+} from './constants';
 
 import messages from './messages';
 
@@ -56,7 +62,19 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               warn={[strLength3x20, required]}
             />
 
-            <Button disabled={signUpWithScatterProcessing} className="w-100">
+            <Field
+              name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+              disabled={signUpWithScatterProcessing}
+              label={<IAcceptTerms />}
+              component={Checkbox}
+              validate={required}
+              warn={required}
+            />
+
+            <Button
+              disabled={signUpWithScatterProcessing}
+              className="w-100 my-3"
+            >
               <FormattedMessage {...messages.continue} />
             </Button>
           </Form>

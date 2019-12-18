@@ -13,7 +13,6 @@ import {
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
   LOCAL_STORAGE_BESTNODE,
-  SCATTER_IN_NOT_INSTALLED,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -24,45 +23,15 @@ import { getBestNode } from './web_integration/src/wallet/get-best-node/get-best
 class EosioService {
   constructor() {
     this.initialized = false;
-    this.eosInstance = null;
-    this.scatterInstance = null;
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
   }
 
-  init = async (
-    privateKey,
-    initWithScatter = false,
-    selectedAccount = null,
-  ) => {
-    const autologinData = JSON.parse(
-      sessionStorage.getItem(AUTOLOGIN_DATA) ||
-        localStorage.getItem(AUTOLOGIN_DATA),
-    );
-
+  initScatter = async () => {
     this.node = await this.getNode();
-
-    if ((autologinData && autologinData.loginWithScatter) || initWithScatter) {
-      await this.initEosioWithScatter();
-
-      if (this.scatterInstalled) {
-        this.selectedAccount = await this.selectAccount();
-      } else {
-        this.initEosioWithoutScatter();
-        this.selectedAccount = null;
-
-        throw new Error(SCATTER_IN_NOT_INSTALLED);
-      }
-    } else {
-      this.initEosioWithoutScatter(privateKey);
-      this.selectedAccount = selectedAccount;
-    }
-
     this.compareSavedAndBestNodes();
-  };
 
-  initEosioWithScatter = async () => {
     const scatterConfig = this.getScatterConfig();
 
     ScatterJS.plugins(new ScatterEOS());
@@ -74,22 +43,34 @@ class EosioService {
       { network },
     );
 
-    this.scatterInstalled = connected === true;
+    if (!connected) throw new Error('No connection with Scatter');
 
-    if (this.scatterInstalled) {
-      const eos = ScatterJS.eos(network, Api, { rpc });
+    const eos = ScatterJS.eos(network, Api, { rpc });
 
-      window.scatter = null;
+    window.scatter = null;
 
-      this.initialized = true;
-      this.eosApi = {
-        transact: eos.transact,
-        authorityProvider: rpc,
-      };
-    }
+    return {
+      transact: eos.transact,
+      authorityProvider: rpc,
+    };
   };
 
-  initEosioWithoutScatter = key => {
+  initEosioWithScatter = async scatterInstance => {
+    if (!this.node) {
+      this.node = await this.getNode();
+      this.compareSavedAndBestNodes();
+    }
+
+    this.selectedAccount = await this.selectAccount();
+    this.initialized = true;
+    this.scatterInstalled = Boolean(scatterInstance);
+    this.eosApi = scatterInstance;
+  };
+
+  initEosioWithoutScatter = async (key, account) => {
+    this.node = await this.getNode();
+    this.compareSavedAndBestNodes();
+
     const keys = key ? [key] : [];
     const signatureProvider = new JsSignatureProvider(keys);
     const rpc = new JsonRpc(this.node.endpoint, { fetch });
@@ -103,6 +84,7 @@ class EosioService {
 
     this.eosApi = api;
     this.initialized = true;
+    this.selectedAccount = account;
   };
 
   privateToPublic = privateKey => {

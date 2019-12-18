@@ -66,6 +66,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.termsOfService": "Terms of Service",
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
@@ -90,7 +91,13 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
+  "app.common.iAcceptPrivacyPolicy":
+    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+
+  "app.containers.TermsOfService.title": "Terms of Service",
+  "app.containers.TermsOfService.description": "Terms of Service : description",
 
   "app.containers.Search.title": "Search",
   "app.containers.Search.description": "Search: description",
@@ -208,11 +215,13 @@
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
   "app.containers.CreateTag.community": "Community",
-  "app.containers.CreateTag.communityTip": "Some community tip...",
+  "app.containers.CreateTag.communityTip":
+    "Community where tag will be created",
   "app.containers.CreateTag.name": "Name",
-  "app.containers.CreateTag.nameTip": "Some name tip...",
+  "app.containers.CreateTag.nameTip": "Unique name of the new tag",
   "app.containers.CreateTag.descriptionField": "Description",
-  "app.containers.CreateTag.descriptionFieldTip": "Some descriptions tip...",
+  "app.containers.CreateTag.descriptionFieldTip":
+    "Description when to use the tag",
   "app.containers.CreateTag.createTag": "Create tag",
   "app.containers.CreateTag.newTag": "New tag",
   "app.containers.CreateTag.tagIsKeyword":
@@ -274,14 +283,14 @@
   "app.containers.CreateCommunity.tagTitle": "Tag",
   "app.containers.CreateCommunity.tagDescription": "Description",
   "app.containers.CreateCommunity.communityTitleTip":
-    "Some community title tip...",
+    "Name of the new community",
   "app.containers.CreateCommunity.shortDescriptionTip":
-    "Some community description tip...",
+    "Short information about the community purpose.",
   "app.containers.CreateCommunity.whyWeNeedItTip":
-    "Some community main description tip...",
-  "app.containers.CreateCommunity.tagTitleTip": "Some tag title tip...",
+    "This information is visible to users who vote for new communities.",
+  "app.containers.CreateCommunity.tagTitleTip": "Unique name of the tag",
   "app.containers.CreateCommunity.tagDescriptionTip":
-    "Some tag description tip...",
+    "Description when to use the tag",
   "app.containers.CreateCommunity.imageWillBeTheFace":
     "Image will be the face of community",
   "app.containers.CreateCommunity.specifyMemorableTitle":
@@ -294,7 +303,7 @@
     "Form should allow only tags with unique names",
   "app.containers.CreateCommunity.communityLanguage": "Language",
   "app.containers.CreateCommunity.communityLanguageTip":
-    "Some language field tip...",
+    "Questions in the community will be allowed only in selected language",
   "app.containers.CreateCommunity.thatisgreat": "That's great!",
   "app.containers.CreateCommunity.communityWillAppear":
     "Your community will appear in the list and other users can vote for it. 100 votes are needed for communuty be created.",
@@ -461,7 +470,7 @@
   "app.containers.ViewQuestion.creatorCannot":
     "Creator cannot complete this action",
   "app.containers.ViewQuestion.notEnoughEnergy":
-    "To complete this action, your energy has to be at least",
+    "We detected suspicious amount of activity from your account and temporarily locked any actions on the website",
   "app.containers.ViewQuestion.title": "Question's page",
   "app.containers.ViewQuestion.description": "Question's description",
   "app.containers.ViewQuestion.questionNotExist":
@@ -576,8 +585,6 @@
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iAcceptPrivacyPolicy":
-    "I accept terms of Privacy Policy.",
   "app.containers.SignUp.iSaveMasterKey":
     "I saved Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
@@ -597,10 +604,11 @@
   "app.containers.Profile.aboutLabel": "About me",
   "app.containers.Profile.saveButton": "Save",
   "app.containers.Profile.locationLabel": "Location",
-  "app.containers.Profile.displayNameTip": "Display name tip...",
-  "app.containers.Profile.companyTip": "Company tip...",
-  "app.containers.Profile.positionTip": "Position tip...",
-  "app.containers.Profile.locationTip": "Location tip...",
+  "app.containers.Profile.displayNameTip":
+    "This is how your name will appear on the website",
+  "app.containers.Profile.companyTip": "Optional",
+  "app.containers.Profile.positionTip": "Optional",
+  "app.containers.Profile.locationTip": "Optional",
   "app.containers.Profile.oldPassword": "Old password",
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
@@ -651,9 +659,12 @@
   "app.containers.NotFoundPage.ifYouFeelSomething":
     "If you feel something is missing that should be here, {value}.",
 
-  "app.containers.QuestionForm.communityTip": "Community tip...",
-  "app.containers.QuestionForm.titleTip": "Title tip...",
-  "app.containers.QuestionForm.tagsTip": "Tags tip...",
+  "app.containers.QuestionForm.communityTip":
+    "Make sure that the question is relevant to the selected community",
+  "app.containers.QuestionForm.titleTip":
+    "Short and descriptive title of the question",
+  "app.containers.QuestionForm.tagsTip":
+    "Tags that are relevant to the question",
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.contentLabel": "Body",

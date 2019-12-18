@@ -41,7 +41,7 @@ const BaseRoundedLi = BaseRounded.extend`
 const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => (
   <P>
     <Span className="mr-3" fontSize="24" mobileFS={21} bold>
-      <FormattedMessage {...messages.week} /> {` ${period}`}
+      <FormattedMessage {...messages.week} /> {` ${period + 1}`}
     </Span>
 
     <Span className="d-none d-md-inline-block">
@@ -131,7 +131,7 @@ const PaidOutWeek = ({
       </P>
       <WeekNumber
         locale={locale}
-        period={period + 1}
+        period={period}
         periodStarted={periodStarted}
         periodFinished={periodFinished}
       />

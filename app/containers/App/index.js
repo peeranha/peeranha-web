@@ -61,6 +61,7 @@ import {
   Support,
   PrivacyPolicy,
   FullWidthPreloader,
+  TermsOfService,
 } from './imports';
 
 export default function App() {
@@ -143,6 +144,12 @@ export default function App() {
           exact
           path={routes.faq()}
           render={props => Wrapper(Faq, props)}
+        />
+
+        <Route
+          exact
+          path={routes.termsAndConditions()}
+          render={props => Wrapper(TermsOfService, props)}
         />
 
         <Route

@@ -6,9 +6,9 @@
 
 Peeranha is a decentralized question and answer website that rewards users with crypto tokens (PEER) for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.
 
-### How is Peeranha different from other questions and answers websites?
+### How is Peeranha different from other question and answer websites?
 
-Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.
+Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions.
 
 ### How does it work?
 
@@ -16,11 +16,13 @@ Peeranha is built using smart contracts on the Telos blockchain. Large content i
 
 ### Where do tokens for rewards come from?
 
-Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.
+Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across to userss’ whomwhich contributions to the community during the week.
 
-### What Blockchain Peeranha is built on?
+Peeranha continually creates new tokens once a week until the total supply of tokens is reached. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users whom contributed to the community during the week.
 
-Peeranha is powered by TELOS blockchain. TELOS provides short confirmation times for transactions and does not require users to pay any transaction fees.
+### What Blockchain is Peeranha built on?
+
+Peeranha is powered by Telos blockchain. Telos provides short confirmation times for transactions and does not require users to pay any transaction fees.
 
 ### What is the cryptocurrency of Peeranha?
 
@@ -28,146 +30,89 @@ Peeranha uses its own crypto-token (or cryptocurrency) called PEER.
 
 ### How can I earn crypto tokens on Peeranha?
 
-All activities on the website that are considered valuable for the community are rewarded in crypto tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer and participating in moderation.
+All activities on the website that are considered valuable for the community are rewarded in PEER tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer or acting as a moderator.
 
 ### Where can I learn more?
 
-The best ways to learn more about to join our twitter, read our blog or send us an email to hello@peeranha.io. You can also post your question in Peeranha community on the website.
+The best ways to learn more about us is to join our twitter, read our blog or send us an email to hello@peeranha.io. You can also post your questions on the Peeranha community on the website.
 
 
 ## Account
 
-### Are my keys safe if sign up with email? 
+### Are my keys safe if I sign up with email? 
 
 We believe that you should be the only one who has access to your private keys. Centralized servers are a single point of failure and a potential risk of mass hacks of user accounts.
 
-Peeranha will transport and store your privates keys only in encrypted format. 
+Peeranha will transport and store your privates keys only in encrypted format.
 
-If create new account, then private keys are generated inside the application on your device. 
+If you create a new account, then your private keys are generated inside the application on your device. 
 
-Two encrypted copies of your keys are sent to Peeranha API and saved in our database:
+Two encrypted copies of your keys are sent to Peeranha’s API and saved in our database:
 - The first copy is encrypted using your password and used when you normally use the account;
 - The second copy is encrypted using your Master key and used to recover access to the account in case if you forget the password.
 
-**It is very important to save Master Key in a safe place. We will not be able to restore access to your account if Master Key is lost.**
+**It is very important to save your Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
 
-When access account, encrypted keys are sent to application and decrypted inside the application using your password or Master Key.
+When accessing your account, encrypted keys are sent to the application and decrypted inside the application using your password or Master Key.
 
-### Can I sign up with email if already have Telos account?
+### Can I sign up with email if I already have a Telos account?
 
-Yes, you can. You will need to provide at least active key for your account. However, we will never transport or store your key unencrypted. The key will be encrypted using your password and Master Key in the application and only after it is encrypted sent to our API.
+Yes you can. You will need to provide at least your active key for your account. However, we will never transport or store your key unencrypted. The key will be encrypted using your password and Master Key in the application and only after it is encrypted it is sent to our API.
 
 ### Can I delete my Peeranha account?
 
-You will be able to delete your Peeranha wallet account (keys store) at any time if choose the option to sign up using email address. However, it is not possible to delete Telos account itself from the blockchain after it is created.
+You will be able to delete your Peeranha wallet account (keys store) at any time if you choose the option to sign up using your email address. However, it is not possible to delete your Telos account from the blockchain after it is created.
 
-### What is Master Key?
+### What is my Master Key?
 
-Master Key is required to restore access to account if user forgets the password.
+Your Master Key is required to restore access to your account if you forget your password.
 
-**It is very important to save Master Key in a safe place. We will not be able to restore access to your account if Master Key is lost.**
+**It is very important to save Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
 
-## Energy
-
-### What is energy?
-
-In order to prevent spam attacks and reduce system abuse, each user is given a certain amount of energy to intract with the system. The energy is re-charged automatically every 3 days.
-
-Amount of energy depends on the user status:
-
-| User Status | Energy |
-| ----------- | ----------- |
-| Stranger | 50 |
-| Newbie | 100 |
-| Junior | 150 |
-| Resident | 200 |
-| Senior | 250 |
-| Hero | 300 |
-| Superhero | 350 |
-
-
-### How to charge energy?
-
-Energy is re-charged automatically every 3 days.
-
-### How much energy charged per action?
-
-| Action | Energy |
-| ----------- | ----------- |
-|Downvote question|5|
-|Downvote answer|3|
-|Upvote question|1|
-|Upvote answer|1|
-|Post question|10|
-|Post answer|6|
-|Post comment|4|
-|Modify question|2|
-|Modify answer|2|
-|Modify comment|1|
-|Delete question|2|
-|Delete answer|2|
-|Delete comment|1|
-|Mark answer as correct|1|
-|Update profile|1|
-|Suggest tag|75|
-|Suggest community|125|
-|Vote for community|1|
-|Vote for tag|1|
-|Follow community|1|
-|Report inappropriate profile|5|
-|Vote to delete question|3|
-|Vote to delete answer|2|
-|Vote to delete comment|1|
 
 ## Communities
 
 ### What is community?
-Community is an area on the website dedicated to question and answers for a specific topic.
+Communities are  an area on the website dedicated to question and answers for a specific topic.
 
-### How new communities and tags are created?
+### How are new communities and tags created?
 
-Communities and tags are created by community voting.
-Peeranha team will be able to create communities without voting during the first year. Contact support if interested to create a community for your project.
+Communities and tags are created by community voting. During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
 
 ## Questions, Answers and Comments
 
-### How to ask questions?
+### What is a good question?
 
-1. Make sure that the question is relevant to the community where you ask it
-1. Ask question that requires a solution or explanation, not an opinion
+1. Try to ask questions that are relevant to the community where you ask it
+1. Ask questions that requires a solution or explanation, not state an opinion
 1. Provide as much detail as possible
-1. Provide code examples if applicable
+1. Provide code examples, if applicable
 
 
-### How to format questions and answers?
+### How should I format questions and answers?
 
 Questions and answers can be formatted using HTML editor or markdown syntax.
 
-Markdown cheat-sheet: https://www.markdownguide.org/cheat-sheet/
+Markdown cheat-sheet can be found here: https://www.markdownguide.org/cheat-sheet/
 
-### How to tag question?
 
-Select the tags that are most relevant to the question. At least one tag is required for each question.
+### Do I have to tag my question?
 
-### How questions, answers and comments are moderated?
+Yes, a one tag is required for each question. You should select the tags that are most relevant to the question.
 
-Questions, answers and comments are moderated by the community through voting.
+### How are questions, answers and comments moderated?
 
-Peeranha team reserves few moderator users for duration of 1 year, that can delete questions, answers, comments without voting while the community is maturing.
+Questions, answers and comments are moderated by the community through voting. 
 
-### What are delete votes requirements for questions, answers and comments?
+For the first year, the Peeranha team will act as moderators (can delete questions, answers, and comments without voting) but as the community matures, this function will be moved to other individuals in the community.  
 
-User impact in the voting depends on the status:
+### How can questions, answers and comments be deleted?
 
-Question, answer or comment is delete after it receives enough voting points.
+Users must vote to delete a question, answer or comment. 
 
-| Item | Required voting points |
-| ----------- | ----------- |
-|Question|150|
-|Answer|125|
-|Comment|50|
+A User’s weight  in the voting depends on the user’s status.
 
-### Will I be notified if my question is deleted by moderation?
+### Will I be notified if my question is deleted?
 
 Notifications are not available in the first release. This functionality will be added in the future versions.
 
@@ -198,84 +143,79 @@ Notifications are not available in the first release. This functionality will be
 |Answer upvoted|10|
 |Question downvoted|-2|
 |Answer downvoted|-2|
-|Delete own question|-10|
-|Delete own answer|-5|
+|Delete own question|-2|
+|Delete own answer|-2|
 |Delete own comment|0|
 |Accept answer as correct|2|
 |Question deleted by moderation|-15|
 |Answer deleted by moderation|-10|
-|Comment deleted by moderation|-5|
+|Comment deleted by moderation|-2|
 |Suggested tag created|75|
 |Suggested tag deleted|-50|
 |Suggested community created|200|
 |Suggested community deleted|-150|
 
-### What privileges are available to Peeranha users and what are rating requirements?
+### What privileges are available to Peeranha users and what are ratings requirements?
 
 | Action or Event | Required rating |
 | ----------- | ----------- |
 |Post question| 0|
 |Post answer| 0|
-|Post comment under own question or answer|0|
-|Post comment any under question or comment|35|
-|Upvote question or answer|35|
-|Downvote question or answer|100|
-|Vote to delete|100|
-|Suggest tag|500|
-|Suggest community|2500|
-|Vote for new tag|35|
-|Vote for new community|100|
-|Report inappropriate user profile|50|
-
-### User voting impact
-
-There are several types of voting on the website. User impact in the voting depends on the user status:
-* Stranger (0 ... 99) - _impact - 0 points_
-* Newbie (100 ... 499) - _impact - 1 points_
-* Junior (500-999) - _impact -2 points_
-* Resident (1000 ... 2499) - _impact - 3 points_
-* Senior (2500 ... 4999) - _impact - 4 points_
-* Hero (5000 ... 9999) - _impact - 5 points_
-* Superhero (10000+) - _impact - 6 points_
-
-Impact defines, how many points will be added for voting based on User status (Voting for adding/removing community, adding/removing tags, deleting questions, answers and comments)
+|Post comment under one’s own question or answer|0|
+|Post comment under question or comment|35|
+|Upvote a question or answer|35|
+|Downvote a question or answer|100|
+|Vote to delete a question, comment, or answer|100|
+|Suggest a tag|500|
+|Suggest a community|2500|
+|Vote for a new tag|35|
+|Vote for a new community|100|
+|Report an inappropriate user profile|50|
 
 ## Token
 
-### What is the name of Peeranha token?
+### What is the name of token on Peeranha?
 
-Token name is PEER
+PEER
 
-### Is it listed on any exchange?
+### Is PEER listed on any exchange?
 
 No, PEER is not listed on any exchange yet. We will notify the community as soon as this happens.
 
 ### What is total supply?
 
-Total supply of PEER token is 100,000,000 PEER
+The total supply of the PEER token is 100,000,000 PEER
 
-### What is token allocation?
+### What is the token allocation?
 
-* 60% of PEER will be created by emission and used as initial rewards to users for the contributions
-* 20% founders and team rewards
-* 20% funding
+* 60% of PEER will be created by emission and used as initial rewards to users for their contributions
+* 20% for founders and team rewards
+* 20% for funding
+
 
 ### What is emission rate?
 
-New tokens are created once per week when it is time to reward users. Maximum starting emission is 300,000 PEER per week. Emission is reduced by 10% every 52 weeks.
+New tokens are created once per week. The maximum starting emission is 100,000 PEER per week (depends on user activity). The emission is reduced by 10% every 52 weeks.
 
 ## Rewards
 
-### When rewards are paid out?
+### When are rewards paid out?
 
-Rewards are paid out weekly, starting from Peeranha launch date on December 17th, 2019.
-To prevent abuse of the system, there a safety period of one additional week before rewards are available for users to be received. For example, estimated rewards for week 1 will be visible after beginning of week 2 but available to be received only after the beginning of week 3.
+Rewards are paid out weekly, starting from Peeranha’s launch date on December 16th, 2019. 
 
-### How user rewards are calculated?
+To prevent abuse of the system, there is a  safety period of one additional week before rewards are available for users. 
 
-The maximum size of the weekly reward pool is equal to maximum weekly emission of the token. However, it depends on the user activity during that period.
+For example:
+* Week 1: users engage on site 
+* Week 2: rewards are allocated but not distributed 
+* Week 3: rewards from week 1’s contributions are distributed  estimated rewards for week 1 will be visible after the start of week 2 but available to be received only after the start of week 3.
 
-If total rating points earned by all of the users during the week and multiplied by 10 is less than maximum token emission that reward is simply 10 PEER per rating point. Otherwise reward pool size is equal to maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
 
+### How are user rewards calculated?
 
+Exact user rewards depends on the user activity during a given period. The maximum size of the weekly reward pool is equal to maximum weekly emission of the token. 
+
+If total rating points earned by all of the users during the week multiplied by 10 is less than maximum token emission, then the reward is simply 10 PEERs per rating point. 
+
+Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
 
