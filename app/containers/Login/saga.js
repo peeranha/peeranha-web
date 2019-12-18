@@ -4,7 +4,6 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import EosioService from 'utils/eosio';
 import { registerAccount } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
@@ -17,6 +16,7 @@ import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { initEosioWorker } from 'containers/EosioProvider/saga';
 
 import {
   loginWithEmailSuccess,
@@ -83,11 +83,10 @@ export function* loginWithEmailWorker({ val }) {
       yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
     }
 
-    // Update eos block
-    const eosService = new EosioService();
-
-    yield call(eosService.init, activeKey.private, false, eosAccountName);
-    yield put(initEosioSuccess(eosService));
+    yield call(initEosioWorker, {
+      key: activeKey.private,
+      selectedAccount: eosAccountName,
+    });
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
@@ -95,13 +94,11 @@ export function* loginWithEmailWorker({ val }) {
 
 export function* loginWithScatterWorker() {
   try {
+    yield call(initEosioWorker, { initWithScatter: true });
+
+    const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-
-    // Reinitialize EOS (with Scatter)
-    const eosService = new EosioService();
-
-    yield call(eosService.init, null, true);
 
     if (!eosService.scatterInstalled) {
       throw new WebIntegrationError(
