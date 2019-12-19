@@ -21,6 +21,14 @@ import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getBestNode } from './web_integration/src/wallet/get-best-node/get-best-node';
 
+if (!window.TextDecoder) {
+  window.TextDecoder = TextDecoder;
+}
+
+if (!window.TextEncoder) {
+  window.TextEncoder = TextEncoder;
+}
+
 class EosioService {
   constructor() {
     this.initialized = false;
@@ -213,6 +221,7 @@ class EosioService {
         this.isScatterWindowOpened = false;
         return;
       } catch (err) {
+        this.isScatterWindowOpened = false;
         throw err;
       }
     }
