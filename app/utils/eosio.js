@@ -4,6 +4,7 @@ import ecc from 'eosjs-ecc';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
 import ScatterJS from '@scatterjs/core';
 import ScatterEOS from '@scatterjs/eosjs2';
+import { TextEncoder, TextDecoder } from 'text-encoding';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
