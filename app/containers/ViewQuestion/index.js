@@ -51,12 +51,19 @@ import ViewQuestionContainer from './ViewQuestionContainer';
 /* eslint-disable react/prefer-stateless-function */
 export class ViewQuestion extends React.Component {
   componentWillMount() {
+    window.isRendered = false;
     this.props.resetStoreDispatch();
   }
 
   componentDidMount() {
     this.questionId = this.props.match.params.id;
     this.props.getQuestionDataDispatch(this.questionId);
+  }
+
+  componentDidUpdate() {
+    if (this.props.questionData && !this.props.questionDataLoading) {
+      window.isRendered = true;
+    }
   }
 
   componentWillReceiveProps = nextProps => {
