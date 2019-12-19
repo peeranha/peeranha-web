@@ -11,17 +11,13 @@ import Answers from './Answers';
 
 import messages from './messages';
 
-import {
-  POST_ANSWER_BUTTON,
-  ADD_ANSWER_FORM,
-  QUESTION_IS_RENDERED_ID,
-} from './constants';
+import { POST_ANSWER_BUTTON, ADD_ANSWER_FORM } from './constants';
 
 export const ViewQuestionContainer = props => {
   const msg = translationMessages[props.locale];
 
   return (
-    <article id={QUESTION_IS_RENDERED_ID}>
+    <article>
       <Question {...props} />
       <Answers {...props} />
 

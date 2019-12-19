@@ -4,8 +4,6 @@
  *
  */
 
-export const QUESTION_IS_RENDERED_ID = 'question-is-rendered';
-
 export const ITEM_UPV_FLAG = 0;
 export const ITEM_DNV_FLAG = 1;
 export const ITEM_VOTED_TO_DEL_FLAG = 2;
