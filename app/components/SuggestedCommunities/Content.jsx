@@ -45,7 +45,6 @@ export const BaseStyled = Base.extend`
 
 export const Description = BaseSpecial.extend`
   cursor: pointer;
-  word-break: break-all;
 
   ${P} {
     font-size: 16px;
@@ -81,7 +80,7 @@ const Item = x => {
       <BaseSpecial className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
         <DescriptionBlock className="flex-grow-1 mb-to-sm-2">
           <MediumImageStyled
-            className="flex-shrink-0"
+            className="bg-transparent"
             src={x.avatar}
             alt={x.name}
           />

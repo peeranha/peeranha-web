@@ -34,7 +34,12 @@ import Button from 'components/Button/Outlined/PrimaryLarge';
 export const TextBlock = styled.div`
   display: ${x => (x.isOpened ? 'block' : 'none')};
   margin-top: ${x => (x.isOpened ? '15px' : '0px')};
+
   ${textBlockStyles};
+
+  > * {
+    margin-bottom: 5px;
+  }
 `;
 
 const SectionStyled = BaseRoundedNoPadding.extend`

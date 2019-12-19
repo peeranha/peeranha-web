@@ -122,7 +122,11 @@ export const Header = ({
 
       <Wrapper position="bottom">
         <H3>
-          <MediumImageStyled src={currentCommunity.avatar} alt="tags" />
+          <MediumImageStyled
+            className="bg-transparent"
+            src={currentCommunity.avatar}
+            alt="tags"
+          />
 
           {currentCommunity.name}
 

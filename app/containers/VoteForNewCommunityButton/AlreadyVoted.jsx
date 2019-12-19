@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PositiveChoice from 'components/Button/Contained/Primary';
+import PositiveChoice from 'components/Button/Contained/PrimaryMedium';
 import NegativeChoice from 'components/Button/Contained/Transparent';
 
 const AlreadyVoted = ({
@@ -15,7 +15,6 @@ const AlreadyVoted = ({
   let Comp = choice ? PositiveChoice : NegativeChoice;
 
   Comp = Comp.extend`
-    padding: 0 20px;
     height: 50px;
   `;
 

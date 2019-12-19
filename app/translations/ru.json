@@ -573,7 +573,7 @@
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
   "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
   "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
-  "app.containers.SignUp.downloadKeys": "Загрузить ключи",
+  "app.containers.SignUp.downloadKeys": "Загрузить ключ",
   "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
   "app.containers.SignUp.title": "Регистрация",
   "app.containers.SignUp.description": "Регистрация | Описание",

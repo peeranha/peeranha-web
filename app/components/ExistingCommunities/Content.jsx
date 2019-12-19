@@ -41,10 +41,6 @@ export const DescriptionBlock = styled.div`
   ${MediumImageStyled} {
     margin-top: 6px;
   }
-
-  > div {
-    word-break: break-word;
-  }
 `;
 
 export const InfoBlock = styled.div`
@@ -101,7 +97,7 @@ const Content = ({ communities, sorting, locale, language }) => {
           >
             <DescriptionBlock>
               <MediumImageStyled
-                className="flex-shrink-0"
+                className="bg-transparent"
                 src={x.avatar}
                 alt={x.name}
               />

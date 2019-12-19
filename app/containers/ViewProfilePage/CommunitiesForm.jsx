@@ -21,7 +21,6 @@ const CommunityStyled = Base.extend`
   border-radius: 5px;
   padding: 12px 20px;
   height: 68px;
-  word-break: break-word;
 `;
 
 const CommunitiesForm = ({ userId, profile, account, communities }) => {

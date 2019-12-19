@@ -61,7 +61,6 @@ const AStyled = A.extend`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  word-break: break-all;
 
   &:hover ${BackSide} {
     display: block;

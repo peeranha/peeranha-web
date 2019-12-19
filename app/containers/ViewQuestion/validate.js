@@ -227,31 +227,33 @@ export const downVoteValidator = (
   const MIN_RATING_TO_DOWNVOTE = 100;
   const MIN_ENERGY_TO_DOWNVOTE_QUESTION = 5;
   const MIN_ENERGY_TO_DOWNVOTE_ANSWER = 3;
+  const MIN_ENERGY_TO_CHANGE_DECISION = 1;
 
   const minEnergy =
     answerId == 0
       ? MIN_ENERGY_TO_DOWNVOTE_QUESTION
       : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
 
-  const isOwnItem = questionData.answers.filter(x => x.id === +answerId);
-
   let message;
 
-  if (
-    (answerId == 0 && questionData.votingStatus.isVotedToDelete) ||
-    (isOwnItem[0] && isOwnItem[0].votingStatus.isVotedToDelete)
-  ) {
+  const item =
+    answerId == 0
+      ? questionData
+      : questionData.answers.find(x => x.id === +answerId);
+
+  if (item.votingStatus.isVotedToDelete) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
-  } else if (
-    (questionData.user === profileInfo.user && answerId == 0) ||
-    (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
-  ) {
+  } else if (item.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING_TO_DOWNVOTE) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_TO_DOWNVOTE}`;
-  } else if (profileInfo.energy < minEnergy) {
+  } else if (
+    (item.votingStatus.isDownVoted &&
+      profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
+    (!item.votingStatus.isDownVoted && profileInfo.energy < minEnergy)
+  ) {
     message = translations[messages.notEnoughEnergy.id];
   }
 

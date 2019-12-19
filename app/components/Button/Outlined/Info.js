@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
@@ -8,6 +10,14 @@ import {
 } from 'style-constants';
 
 import Button from '../index';
+
+export const hover = css`
+  :hover {
+    color: ${TEXT_LIGHT};
+    background: ${BG_WARNING_LIGHT};
+    border-color: ${BORDER_TRANSPARENT};
+  }
+`;
 
 const OutlinedButton = Button.extend`
   background: ${BG_TRANSPARENT};

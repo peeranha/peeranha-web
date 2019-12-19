@@ -17,6 +17,8 @@ injectGlobal`
     position: relative;
     font-family: Source Sans Pro, sans-serif;
     background: ${BG_PRIMARY_LIGHT};
+    word-break: break-word;
+    word-wrap: break-word;
   }
 
   button, a {
@@ -80,7 +82,7 @@ injectGlobal`
   }
 
   .word-break-all {
-    word-break: break-all;
+    word-break1: break-all;
   }
 
   @media only screen and (min-width: 576px) {

@@ -32,7 +32,6 @@ const Item = styled.div`
   min-height: 110px;
   max-height: 110px;
   overflow: hidden;
-  word-break: break-word;
   transition: 0.15s;
   margin-right: ${x => (!x.isInputBox ? '-17px' : '0')};
   padding: ${x => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};

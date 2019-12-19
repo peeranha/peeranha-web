@@ -25,10 +25,6 @@ const Div = styled.div`
     border: none;
   }
 
-  * {
-    word-break: break-all;
-  }
-
   .editor-toolbar {
     border-bottom: 1px solid ${BORDER_SECONDARY} !important;
   }
