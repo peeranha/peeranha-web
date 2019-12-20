@@ -330,23 +330,28 @@ class EosioService {
   });
 
   handleCaseWithInvalidNode = async errorMsg => {
-    if (!this.isInvalidNodeHandling) {
-      this.isInvalidNodeHandling = true;
+    try {
+      if (!this.isInvalidNodeHandling) {
+        this.isInvalidNodeHandling = true;
 
-      const storedNodes = this.getStoredNodes();
+        const storedNodes = this.getStoredNodes();
 
-      if (!storedNodes || !storedNodes.length) throw new Error(errorMsg);
+        if (!storedNodes || !storedNodes.length) throw new Error(errorMsg);
 
-      const freshNodes = storedNodes.filter((_, index) => index !== 0);
-      localStorage.setItem(ENDPOINTS_LIST, JSON.stringify(freshNodes));
+        const freshNodes = storedNodes.filter((_, index) => index !== 0);
+        localStorage.setItem(ENDPOINTS_LIST, JSON.stringify(freshNodes));
 
-      if (this.eosApi.signatureProvider) {
-        await this.initEosioWithoutScatter();
-      } else {
-        await this.initEosioWithScatter();
+        if (this.eosApi.signatureProvider) {
+          await this.initEosioWithoutScatter();
+        } else {
+          await this.initEosioWithScatter();
+        }
+
+        this.isInvalidNodeHandling = false;
       }
-
+    } catch (err) {
       this.isInvalidNodeHandling = false;
+      throw err;
     }
   };
 
