@@ -8,7 +8,6 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
-import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
@@ -135,8 +134,9 @@ export function* getCurrentAccountWorker(initAccount) {
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
     if (
-      process.env.NODE_ENV !== 'production' ||
-      (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV)
+      profileInfo &&
+      (process.env.NODE_ENV !== 'production' ||
+        (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV))
     ) {
       console.log(
         JSON.stringify({
@@ -200,7 +200,6 @@ export default function* defaultSaga() {
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,
-      FOLLOW_HANDLER_SUCCESS,
       SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
