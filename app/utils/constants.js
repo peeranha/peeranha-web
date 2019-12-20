@@ -19,7 +19,7 @@ export const HUBSPOT_SEND_EMAIL_FORM_ID =
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
   'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
 
-export const LOCAL_STORAGE_BESTNODE = 'best_node_data';
+export const ENDPOINTS_LIST = 'best_nodes_list';
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
