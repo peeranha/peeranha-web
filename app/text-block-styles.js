@@ -62,6 +62,12 @@ export default `
      margin-left: 15px; 
   }
 
+  table {
+    td, th {
+      padding: 5px 10px;
+    }
+  }
+
   @media only screen and (max-width: 576px) {
     h1 {
       font-size: 28px;

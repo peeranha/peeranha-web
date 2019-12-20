@@ -44,7 +44,6 @@ const BaseStyled = Base.extend`
 
       :nth-child(2) {
         padding: 0 0 20px 0;
-        word-break: break-all;
       }
 
       :nth-child(3) {

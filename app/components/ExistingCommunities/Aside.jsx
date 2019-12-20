@@ -20,15 +20,12 @@ import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton'
 import messages from './messages';
 
 const Item = styled.div`
-  word-break: break-word;
   border-bottom: 1px solid ${BORDER_SECONDARY};
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
 
-const Header = Span.extend`
-  word-break: break-word;
-`.withComponent('header');
+const Header = Span.extend``.withComponent('header');
 
 const Aside = ({ suggestedCommunities }) => (
   <div>

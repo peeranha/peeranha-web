@@ -5,7 +5,6 @@ const S = css`
   display: flex;
   flex-direction: row;
   align-items: start;
-  word-break: break-word;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;

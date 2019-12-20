@@ -20,7 +20,6 @@ export default BaseRoundedNoPadding.extend`
       max-width: 340px;
       padding: 47px 36px;
       background: ${SECONDARY_SPECIAL_3};
-      word-break: break-word;
     }
   }
 

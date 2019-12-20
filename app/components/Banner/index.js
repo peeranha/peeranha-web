@@ -7,6 +7,7 @@ export const B1 = `
 
   img {
     margin: 0px 100px 0px 57px;
+    flex-shrink: 0;
   }
 
   div {

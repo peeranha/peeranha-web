@@ -567,7 +567,7 @@
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
-  "app.containers.SignUp.downloadKeys": "Download keys",
+  "app.containers.SignUp.downloadKeys": "Download key",
   "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
   "app.containers.SignUp.title": "Registration",
   "app.containers.SignUp.description": "Registration | Description",

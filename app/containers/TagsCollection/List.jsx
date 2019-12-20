@@ -83,7 +83,7 @@ const List = ({ communities }) => {
           >
             <DescriptionBlock>
               <MediumImageStyled
-                className="flex-shrink-0"
+                className="bg-transparent"
                 src={x.avatar}
                 alt={x.name}
               />

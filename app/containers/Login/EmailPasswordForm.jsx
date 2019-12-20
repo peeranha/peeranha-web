@@ -83,7 +83,7 @@ const EmailPasswordForm = ({
           }
         />
 
-        <TransparentButton onClick={showIForgotPasswordModal}>
+        <TransparentButton onClick={showIForgotPasswordModal} type="button">
           <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>

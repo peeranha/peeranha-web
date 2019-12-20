@@ -134,6 +134,19 @@ export function* getCurrentAccountWorker(initAccount) {
 
     localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
 
+    if (
+      process.env.NODE_ENV !== 'production' ||
+      (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV)
+    ) {
+      console.log(
+        JSON.stringify({
+          user: profileInfo.user,
+          energy: profileInfo.energy,
+          rating: profileInfo.rating,
+        }),
+      );
+    }
+
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {

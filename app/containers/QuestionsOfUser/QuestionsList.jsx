@@ -27,7 +27,6 @@ const RightBlock = Base.extend`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  word-break: break-all;
 
   @media only screen and (min-width: 768px) {
     padding: 25px 20px;

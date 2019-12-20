@@ -7,8 +7,6 @@ import testBlockStyles from 'text-block-styles';
 import TextEditor from 'components/TextEditor';
 
 const TextBlockStyled = styled.div`
-  word-break: break-word;
-
   ${testBlockStyles}
 
   color: ${TEXT_DARK};
@@ -53,7 +51,7 @@ const TextBlockStyled = styled.div`
     color: ${TEXT_DARK};
     overflow: auto;
     display: flex;
-    word-break: normal;
+    word-break1: normal;
   }
 `;
 

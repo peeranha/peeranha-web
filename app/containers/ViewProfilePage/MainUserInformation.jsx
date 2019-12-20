@@ -74,7 +74,6 @@ export const Box = Base.extend`
   > div {
     display: flex;
     align-items: start;
-    word-break: break-word;
 
     > *:nth-child(1) {
       display: flex;
