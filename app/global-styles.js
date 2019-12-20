@@ -81,10 +81,6 @@ injectGlobal`
     overflow: initial;
   }
 
-  .word-break-all {
-    word-break1: break-all;
-  }
-
   @media only screen and (min-width: 576px) {
     .mb-from-sm-3 {
       margin-bottom: 15px !important;
