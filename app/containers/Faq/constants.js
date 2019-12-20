@@ -9,19 +9,20 @@ const ALMOST_DONE_1ST_QUESTION = '1.0';
 const ALMOST_DONE_2ST_QUESTION = '1.1';
 const ALMOST_DONE_3ST_QUESTION = '1.2';
 
-const WHAT_IS_ENERGY = '2.0';
-const HOW_TO_CHARGE = '2.1';
-const VALUE_OF_ACTIONS = '2.2';
+// Questions currently do not exist
+const WHAT_IS_ENERGY = '0.0';
+const HOW_TO_CHARGE = '0.1';
+const VALUE_OF_ACTIONS = '0.2';
 
-const WHAT_IS_COMMUNITY_QUESTION = '3.0';
-const WHO_MANAGES_COMMUNITY_QUESTION = '3.1';
+const WHAT_IS_COMMUNITY_QUESTION = '2.0';
+const WHO_MANAGES_COMMUNITY_QUESTION = '2.1';
 
-const WHAT_IS_TAG_QUESTION = '4.0';
-const HOW_TO_USE_IT_QUESTION = '4.1';
+const WHAT_IS_TAG_QUESTION = '3.0';
+const HOW_TO_USE_IT_QUESTION = '3.1';
 
-const HOW_TO_ASK_QUESTION = '5.0';
-const HOW_TO_FORMAT_QUESTION = '5.1';
-const HOW_TO_TAG_QUESTION = '5.2';
+const HOW_TO_ASK_QUESTION = '4.0';
+const HOW_TO_FORMAT_QUESTION = '4.1';
+const HOW_TO_TAG_QUESTION = '4.2';
 
 const ABOUT_PEERANHA_SECTION = '0';
 
