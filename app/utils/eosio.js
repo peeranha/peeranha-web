@@ -87,7 +87,7 @@ class EosioService {
       rpc,
       signatureProvider,
       textDecoder: new TextDecoder(),
-      textEncoder: new TextEncoder(),
+      textEncoder: new TextEncoder()
     });
 
     this.eosApi = api;
@@ -213,9 +213,11 @@ class EosioService {
       try {
         this.isScatterWindowOpened = true;
 
-        await this.eosApi.transact(transaction, {
+        const txResult = await this.eosApi.transact(transaction, {
           ...transactionHeader,
         });
+
+        await this.waitForTransactionToComplete(txResult);
 
         this.isScatterWindowOpened = false;
         return;
@@ -258,11 +260,39 @@ class EosioService {
         serverTransactionPushArgs.signatures[0],
       );
 
-      await this.eosApi.pushSignedTransaction(pushTransactionArgs);
+      const txResult = await this.eosApi.pushSignedTransaction(pushTransactionArgs);
+      await this.waitForTransactionToComplete(txResult);
+
     } catch (err) {
       throw new BlockchainError(err.message);
     }
   };
+
+  waitForTransactionToComplete = async (txResult) => {
+    if (!txResult || !txResult.processed || !txResult.processed.receipt || txResult.processed.receipt.status !== "executed") {
+      throw new BlockchainError("Transaction execution failed. Transaction id " + txResult.transaction_id);
+    }
+    
+    if (!txResult.processed.block_num) {
+      let waitCycle = 0;
+      let success = false;
+      while( waitCycle < 30 ){
+        waitCycle++;
+        console.log("Waiting for transaction to complete. Tx id " + txResult.transaction_id);
+        await this.sleep(1000);          
+        
+        let txReceipt = await this.eosApi.authorityProvider.history_get_transaction(txResult.transaction_id);
+        if (txReceipt && txReceipt.block_num) {
+          success = true;
+          break;
+        }
+      }
+
+      if (!success) {
+        console.log("Gave up on waiting for tx to complete. Tx id " + txResult.transaction_id);
+      }
+    }
+  }
 
   getTableRow = async (table, scope, primaryKey, code) => {
     const limit = 1;
@@ -393,6 +423,10 @@ class EosioService {
 
     return serverNode;
   };
+
+  sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
 
 export default EosioService;
