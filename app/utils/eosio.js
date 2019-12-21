@@ -20,7 +20,7 @@ import {
 import { parseTableRows, createPushActionBody } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
-import { getBestNode } from './web_integration/src/wallet/get-best-node/get-best-node';
+import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
 
 if (!window.TextDecoder) {
   window.TextDecoder = TextDecoder;
@@ -205,7 +205,9 @@ class EosioService {
       expireSeconds: 60,
     };
 
-    if (!this.eosApi.signatureProvider) {
+    const initializedWithScatter = !this.eosApi.signatureProvider;
+
+    if (initializedWithScatter) {
       if (this.isScatterWindowOpened) {
         throw new ApplicationError('Popup is already opened');
       }
@@ -334,20 +336,21 @@ class EosioService {
       if (!this.isInvalidNodeHandling) {
         this.isInvalidNodeHandling = true;
 
-        const storedNodes = this.getStoredNodes();
+        const { nodes, date } = this.getStoredNodes();
 
-        if (!storedNodes || !storedNodes.length) throw new Error(errorMsg);
+        if (!nodes.length) throw new Error(errorMsg);
 
-        const freshNodes = storedNodes.filter((_, index) => index !== 0);
-        localStorage.setItem(ENDPOINTS_LIST, JSON.stringify(freshNodes));
+        nodes[0].isInvalid = true;
 
-        if (this.eosApi.signatureProvider) {
-          await this.initEosioWithoutScatter();
-        } else {
-          await this.initEosioWithScatter();
-        }
+        localStorage.setItem(
+          ENDPOINTS_LIST,
+          JSON.stringify({
+            date,
+            nodes,
+          }),
+        );
 
-        this.isInvalidNodeHandling = false;
+        window.location.reload();
       }
     } catch (err) {
       this.isInvalidNodeHandling = false;
@@ -355,43 +358,66 @@ class EosioService {
     }
   };
 
-  getStoredNodes = () => JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
+  getStoredNodes = () => {
+    try {
+      const { nodes, date } = JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
+
+      return {
+        date,
+        nodes: nodes && nodes.length > 0 ? nodes.filter(x => !x.isInvalid) : [],
+      };
+    } catch (err) {
+      return { nodes: [] };
+    }
+  };
 
   getServerNode = async () => {
     try {
-      const { allEndpoints } = await getBestNode();
+      const { allEndpoints } = await getNodes();
 
       if (!allEndpoints.length) throw new Error('No server nodes');
 
       const endpointsSortedByRating = orderBy(allEndpoints, 'rating', 'desc');
+
       const bestServerNode = endpointsSortedByRating[0];
 
       localStorage.setItem(
         ENDPOINTS_LIST,
-        JSON.stringify(endpointsSortedByRating),
+        JSON.stringify({
+          date: Date.now(),
+          nodes: endpointsSortedByRating,
+        }),
       );
 
       return bestServerNode;
     } catch (err) {
-      return {
-        host: process.env.EOS_HOST_DEFAULT,
-        endpoint: process.env.EOS_ENDPOINT_DEFAULT,
-        protocol: process.env.EOS_PROTOCOL_DEFAULT,
-        port: process.env.EOS_PORT_DEFAULT,
-        chainId: process.env.EOS_CHAINID_DEFAULT,
-      };
+      return this.getDefaultEosConfig();
     }
   };
 
-  getNode = async () => {
-    const storedNodes = this.getStoredNodes();
-    const serverNodePromise = this.getServerNode();
+  getDefaultEosConfig = () => ({
+    host: process.env.EOS_HOST_DEFAULT,
+    endpoint: process.env.EOS_ENDPOINT_DEFAULT,
+    protocol: process.env.EOS_PROTOCOL_DEFAULT,
+    port: process.env.EOS_PORT_DEFAULT,
+    chainId: process.env.EOS_CHAINID_DEFAULT,
+  });
 
-    if (storedNodes && storedNodes.length > 0) return storedNodes[0];
+  getNode = async () => {
+    const { nodes, date } = this.getStoredNodes();
+    let serverNodePromise;
+
+    if (!date || Date.now() - +process.env.NEW_ENDPOINT_PERIOD > date) {
+      serverNodePromise = this.getServerNode();
+    }
+
+    if (nodes.length) return nodes[0];
 
     const serverNode = await serverNodePromise;
 
-    return serverNode;
+    if (serverNode) return serverNode;
+
+    return this.getDefaultEosConfig();
   };
 }
 
