@@ -1,9 +1,12 @@
+/* eslint indent: 0 */
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   FOLLOW_HANDLER,
@@ -20,7 +23,7 @@ export function* followHandlerWorker({
 }) {
   try {
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
+    const prevProfileInfo = yield select(makeSelectProfileInfo());
 
     yield call(isAuthorized);
 
@@ -34,7 +37,20 @@ export function* followHandlerWorker({
       isFollowed ? unfollowCommunity : followCommunity,
       eosService,
       communityIdFilter,
-      selectedAccount,
+      prevProfileInfo.user,
+    );
+
+    const profileInfo = yield select(makeSelectProfileInfo());
+
+    yield put(
+      getUserProfileSuccess({
+        ...profileInfo,
+        followed_communities: isFollowed
+          ? profileInfo.followed_communities.filter(
+              commId => commId !== +communityIdFilter,
+            )
+          : [...profileInfo.followed_communities, +communityIdFilter],
+      }),
     );
 
     yield put(

@@ -1,10 +1,11 @@
-/* eslint no-param-reassign: 0, indent: 0 */
+/* eslint no-param-reassign: 0, indent: 0, consistent-return: 0 */
 import { Api, JsonRpc } from 'eosjs';
 import ecc from 'eosjs-ecc';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
 import ScatterJS from '@scatterjs/core';
 import ScatterEOS from '@scatterjs/eosjs2';
 import { TextEncoder, TextDecoder } from 'text-encoding';
+import orderBy from 'lodash/orderBy';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
@@ -13,7 +14,7 @@ import {
   DEFAULT_EOS_PERMISSION,
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
-  LOCAL_STORAGE_BESTNODE,
+  ENDPOINTS_LIST,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -35,11 +36,11 @@ class EosioService {
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
+    this.isInvalidNodeHandling = false;
   }
 
   initScatter = async () => {
     this.node = await this.getNode();
-    this.compareSavedAndBestNodes();
 
     const scatterConfig = this.getScatterConfig();
 
@@ -67,7 +68,6 @@ class EosioService {
   initEosioWithScatter = async scatterInstance => {
     if (!this.node) {
       this.node = await this.getNode();
-      this.compareSavedAndBestNodes();
     }
 
     this.selectedAccount = await this.selectAccount();
@@ -78,7 +78,6 @@ class EosioService {
 
   initEosioWithoutScatter = async (key, account) => {
     this.node = await this.getNode();
-    this.compareSavedAndBestNodes();
 
     const keys = key ? [key] : [];
     const signatureProvider = new JsSignatureProvider(keys);
@@ -266,28 +265,20 @@ class EosioService {
   };
 
   getTableRow = async (table, scope, primaryKey, code) => {
-    if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
+    const limit = 1;
 
-    const request = {
-      json: true,
-      code: code || process.env.EOS_CONTRACT_ACCOUNT,
-      scope,
+    const res = await this.getTableRows(
       table,
-      lower_bound: primaryKey,
-      upper_bound: primaryKey,
-      limit: 1,
-    };
-
-    const response = await this.eosApi.authorityProvider.get_table_rows(
-      request,
+      scope,
+      primaryKey,
+      limit,
+      primaryKey,
+      undefined,
+      undefined,
+      code,
     );
 
-    if (response && response.rows && response.rows.length) {
-      parseTableRows(response.rows[0]);
-      return response.rows[0];
-    }
-
-    return null;
+    return res[0];
   };
 
   getTableRows = async (
@@ -302,28 +293,32 @@ class EosioService {
   ) => {
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
-    const request = {
-      json: true,
-      code: code || process.env.EOS_CONTRACT_ACCOUNT,
-      scope,
-      table,
-      lower_bound: lowerBound,
-      upper_bound: upperBound,
-      limit,
-      index_position: indexPosition,
-      key_type: keyType,
-    };
+    try {
+      const request = {
+        json: true,
+        code: code || process.env.EOS_CONTRACT_ACCOUNT,
+        scope,
+        table,
+        lower_bound: lowerBound,
+        upper_bound: upperBound,
+        limit,
+        index_position: indexPosition,
+        key_type: keyType,
+      };
 
-    const response = await this.eosApi.authorityProvider.get_table_rows(
-      request,
-    );
+      const response = await this.eosApi.authorityProvider.get_table_rows(
+        request,
+      );
 
-    if (response && response.rows) {
-      response.rows.forEach(x => parseTableRows(x));
-      return response.rows;
+      if (response && response.rows) {
+        response.rows.forEach(x => parseTableRows(x));
+        return response.rows;
+      }
+
+      return [];
+    } catch (err) {
+      await this.handleCaseWithInvalidNode(err.message);
     }
-
-    return [];
   };
 
   getScatterConfig = () => ({
@@ -334,18 +329,69 @@ class EosioService {
     chainId: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
-  getNode = () => {
-    const node = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
-    return node || getBestNode();
+  handleCaseWithInvalidNode = async errorMsg => {
+    try {
+      if (!this.isInvalidNodeHandling) {
+        this.isInvalidNodeHandling = true;
+
+        const storedNodes = this.getStoredNodes();
+
+        if (!storedNodes || !storedNodes.length) throw new Error(errorMsg);
+
+        const freshNodes = storedNodes.filter((_, index) => index !== 0);
+        localStorage.setItem(ENDPOINTS_LIST, JSON.stringify(freshNodes));
+
+        if (this.eosApi.signatureProvider) {
+          await this.initEosioWithoutScatter();
+        } else {
+          await this.initEosioWithScatter();
+        }
+
+        this.isInvalidNodeHandling = false;
+      }
+    } catch (err) {
+      this.isInvalidNodeHandling = false;
+      throw err;
+    }
   };
 
-  compareSavedAndBestNodes = async () => {
-    const savedNode = JSON.parse(localStorage.getItem(LOCAL_STORAGE_BESTNODE));
-    const bestNode = await getBestNode();
+  getStoredNodes = () => JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
 
-    if (!savedNode || savedNode.endpoint !== bestNode.endpoint) {
-      localStorage.setItem(LOCAL_STORAGE_BESTNODE, JSON.stringify(bestNode));
+  getServerNode = async () => {
+    try {
+      const { allEndpoints } = await getBestNode();
+
+      if (!allEndpoints.length) throw new Error('No server nodes');
+
+      const endpointsSortedByRating = orderBy(allEndpoints, 'rating', 'desc');
+      const bestServerNode = endpointsSortedByRating[0];
+
+      localStorage.setItem(
+        ENDPOINTS_LIST,
+        JSON.stringify(endpointsSortedByRating),
+      );
+
+      return bestServerNode;
+    } catch (err) {
+      return {
+        host: process.env.EOS_HOST_DEFAULT,
+        endpoint: process.env.EOS_ENDPOINT_DEFAULT,
+        protocol: process.env.EOS_PROTOCOL_DEFAULT,
+        port: process.env.EOS_PORT_DEFAULT,
+        chainId: process.env.EOS_CHAINID_DEFAULT,
+      };
     }
+  };
+
+  getNode = async () => {
+    const storedNodes = this.getStoredNodes();
+    const serverNodePromise = this.getServerNode();
+
+    if (storedNodes && storedNodes.length > 0) return storedNodes[0];
+
+    const serverNode = await serverNodePromise;
+
+    return serverNode;
   };
 }
 

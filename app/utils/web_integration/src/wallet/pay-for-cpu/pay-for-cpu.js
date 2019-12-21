@@ -10,7 +10,7 @@ export async function payForCpu(transaction, transactionHeaders) {
   });
 
   if (!response.OK) {
-    return response;
+    return null;
   }
 
   const pushTransactionArgs = {
