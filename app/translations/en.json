@@ -549,7 +549,7 @@
   "app.containers.SignUp.theWayEosWorks":
     "If you do not have Telos account then we will create it for you and cover the fee for account creation. You can still sign up using email address if already have Telos account and would like the convenience of login into application using email and password from any device.",
   "app.containers.SignUp.ifYouCreateEos":
-    "Sounds too complicated? Do not worry! Just remember to click Download Keys link and safe the file in a safe place. Master Key is the only way to restore access to your account if forgot password.",
+    "Sounds too complicated? Do not worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
@@ -563,7 +563,7 @@
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Master Key is the only way to restore access to your account if forgot password! Save it in a safe place!",
+    "Master Key is the only way to restore access to your account if you forget your password! Write your Master Key on a piece of paper and store it in a secure location. Alternatively, store your Master Key in a password manager like 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
@@ -586,7 +586,7 @@
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
   "app.containers.SignUp.iSaveMasterKey":
-    "I saved Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
+    "I saved Master Key in a safe place. Understand that if I forget my password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
   "app.containers.SignUp.eosAccountNotFound": "Telos account not found",
