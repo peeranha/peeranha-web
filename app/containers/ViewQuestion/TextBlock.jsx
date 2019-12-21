@@ -51,7 +51,7 @@ const TextBlockStyled = styled.div`
     color: ${TEXT_DARK};
     overflow: auto;
     display: flex;
-    word-break1: normal;
+    word-break: normal;
   }
 `;
 
