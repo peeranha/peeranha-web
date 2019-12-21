@@ -6,7 +6,7 @@ export async function getBestNode() {
   });
 
   if (!response.OK) {
-    return response;
+    return null;
   }
 
   return response.body;
