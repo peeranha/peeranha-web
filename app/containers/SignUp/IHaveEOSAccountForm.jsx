@@ -130,24 +130,6 @@ const IHaveEOSAccountForm = ({
               />
             </Div>
 
-            <EosOwnerPrivateKeyDiv>
-              <Field
-                name={EOS_OWNER_PRIVATE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing || !storeMyKeysValue}
-                label={translate[messages.eosOwnerPrivateKey.id]}
-                component={TextInputField}
-                validate={storeMyKeysValue ? required : null}
-                warn={storeMyKeysValue ? required : null}
-                autoComplete="off"
-              />
-              <Field
-                name={STORE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.storeThisKey.id]}
-                component={Checkbox}
-              />
-            </EosOwnerPrivateKeyDiv>
-
             <Div primary>
               <Field
                 name={MASTER_KEY_FIELD}
@@ -168,22 +150,6 @@ const IHaveEOSAccountForm = ({
                   alt="dangerIcon"
                 />
                 <FormattedMessage {...messages.youHaveToSaveKeys} />
-              </div>
-
-              <div className="mb-3">
-                <ADefault
-                  href={linkToDownloadMasterKey}
-                  download="peeranha-keys.txt"
-                  className="d-flex align-items-center"
-                >
-                  <img
-                    width="20px"
-                    className="mr-2"
-                    src={downloadIcon}
-                    alt="downloadIcon"
-                  />
-                  <FormattedMessage {...messages.downloadKeys} />
-                </ADefault>
               </div>
             </Div>
             <Div>

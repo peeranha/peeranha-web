@@ -281,14 +281,29 @@ class EosioService {
   };
 
   awaitTransactionToBlock = async blockId => {
-    try {
-      await this.eosApi.authorityProvider.get_block(blockId);
-    } catch ({ message }) {
-      if (message.match('Could not find block')) {
-        await this.awaitTransactionToBlock(blockId);
-      } else {
-        throw new Error(message);
+    let waitCycle = 0;
+    let success = false;
+    while (waitCycle < 20) {
+      console.log('Waiting for transaction to complete...');
+      try {
+        await this.eosApi.authorityProvider.get_block(blockId);
+        success = true;
+        break;
+      } catch ({ message }) {
+        if (!message.match('Could not find block')) {
+          throw new Error(message);
+        }
       }
+      await this.sleep(500);
+      waitCycle++;
+    }
+
+    if (!success) {
+      console.log(
+        `Gave up on waiting for tx to complete. Tx id ${
+          txResult.transaction_id
+        }`,
+      );
     }
   };
 
@@ -445,6 +460,8 @@ class EosioService {
 
     return this.getDefaultEosConfig();
   };
+
+  sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default EosioService;

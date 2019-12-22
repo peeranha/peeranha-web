@@ -76,22 +76,6 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
                 />
                 <FormattedMessage {...messages.youHaveToSaveKeys} />
               </div>
-
-              <div className="mb-3">
-                <ADefault
-                  href={linkToDownloadMasterKey}
-                  download="peeranha-keys.txt"
-                  className="d-flex align-items-center"
-                >
-                  <img
-                    width="20px"
-                    className="mr-2"
-                    src={downloadIcon}
-                    alt="downloadIcon"
-                  />
-                  <FormattedMessage {...messages.downloadKeys} />
-                </ADefault>
-              </div>
             </Div>
             <Div>
               <Field
