@@ -674,7 +674,7 @@
 
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
-    "markdown is supporte",
+    "markdown is supported",
   "app.components.TextEditor.addForLineBreaks":
     "for linebreak add 2 spaces at end",
   "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
