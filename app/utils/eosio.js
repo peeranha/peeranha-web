@@ -171,7 +171,13 @@ class EosioService {
     return account.name;
   };
 
-  sendTransaction = async (actor, action, data, account) => {
+  sendTransaction = async (
+    actor,
+    action,
+    data,
+    account,
+    waitForGettingToBlock,
+  ) => {
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     Object.keys(data).forEach(x => {
@@ -215,9 +221,13 @@ class EosioService {
       try {
         this.isScatterWindowOpened = true;
 
-        await this.eosApi.transact(transaction, {
+        const trx = await this.eosApi.transact(transaction, {
           ...transactionHeader,
         });
+
+        if (waitForGettingToBlock) {
+          await this.awaitTransactionToBlock(trx.processed.block_num);
+        }
 
         this.isScatterWindowOpened = false;
         return;
@@ -260,9 +270,25 @@ class EosioService {
         serverTransactionPushArgs.signatures[0],
       );
 
-      await this.eosApi.pushSignedTransaction(pushTransactionArgs);
-    } catch (err) {
-      throw new BlockchainError(err.message);
+      const trx = await this.eosApi.pushSignedTransaction(pushTransactionArgs);
+
+      if (waitForGettingToBlock) {
+        await this.awaitTransactionToBlock(trx.processed.block_num);
+      }
+    } catch ({ message }) {
+      throw new BlockchainError(message);
+    }
+  };
+
+  awaitTransactionToBlock = async blockId => {
+    try {
+      await this.eosApi.authorityProvider.get_block(blockId);
+    } catch ({ message }) {
+      if (message.match('Could not find block')) {
+        await this.awaitTransactionToBlock(blockId);
+      } else {
+        throw new Error(message);
+      }
     }
   };
 

@@ -64,12 +64,18 @@ export function getTagScope(communityId) {
 export async function suggestTag(eosService, selectedAccount, tag) {
   const tagIpfsHash = await saveText(JSON.stringify(tag));
 
-  await eosService.sendTransaction(selectedAccount, CREATE_TAG, {
-    user: selectedAccount,
-    community_id: +tag.communityId,
-    name: tag.name,
-    ipfs_description: tagIpfsHash,
-  });
+  await eosService.sendTransaction(
+    selectedAccount,
+    CREATE_TAG,
+    {
+      user: selectedAccount,
+      community_id: +tag.communityId,
+      name: tag.name,
+      ipfs_description: tagIpfsHash,
+    },
+    null,
+    true,
+  );
 }
 
 export async function getSuggestedTags(
@@ -250,12 +256,18 @@ export async function createCommunity(eosService, selectedAccount, community) {
     }),
   );
 
-  await eosService.sendTransaction(selectedAccount, CREATE_COMMUNITY, {
-    user: selectedAccount,
-    name: community.name,
-    ipfs_description: communityIpfsHash,
-    suggested_tags,
-  });
+  await eosService.sendTransaction(
+    selectedAccount,
+    CREATE_COMMUNITY,
+    {
+      user: selectedAccount,
+      name: community.name,
+      ipfs_description: communityIpfsHash,
+      suggested_tags,
+    },
+    null,
+    true,
+  );
 }
 
 export async function upVoteToCreateCommunity(

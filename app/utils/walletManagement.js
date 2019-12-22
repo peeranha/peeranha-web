@@ -191,6 +191,7 @@ export async function sendTokens(eosService, info) {
       memo: '',
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
   );
 }
 
@@ -203,6 +204,7 @@ export async function pickupReward(eosService, user, period) {
       period,
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
   );
 }
 

@@ -252,6 +252,8 @@ export async function postQuestion(user, questionData, eosService) {
       community_id: questionData.community.value,
       tags: questionData.chosenTags.map(x => x.value),
     },
+    null,
+    true,
   );
 
   return question;
@@ -285,11 +287,17 @@ export async function getAnswer(link) {
 export async function postAnswer(user, questionId, answer, eosService) {
   const ipfsLink = await saveText(answer);
 
-  await eosService.sendTransaction(user, POST_ANSWER_METHOD, {
+  await eosService.sendTransaction(
     user,
-    question_id: +questionId,
-    ipfs_link: ipfsLink,
-  });
+    POST_ANSWER_METHOD,
+    {
+      user,
+      question_id: +questionId,
+      ipfs_link: ipfsLink,
+    },
+    null,
+    true,
+  );
 }
 
 export async function editAnswer(
