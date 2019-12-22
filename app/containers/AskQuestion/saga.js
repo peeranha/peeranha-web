@@ -52,7 +52,9 @@ export function* postQuestionWorker({ val }) {
       selectedAccount,
     );
 
-    yield call(createdHistory.push, questionsPostedByUser[0].question_id);
+    if (questionsPostedByUser.length > 0)
+      yield call(createdHistory.push, questionsPostedByUser[0].question_id);
+    else yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(askQuestionError(err));
   }
