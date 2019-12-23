@@ -130,24 +130,6 @@ const IHaveEOSAccountForm = ({
               />
             </Div>
 
-            <EosOwnerPrivateKeyDiv>
-              <Field
-                name={EOS_OWNER_PRIVATE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing || !storeMyKeysValue}
-                label={translate[messages.eosOwnerPrivateKey.id]}
-                component={TextInputField}
-                validate={storeMyKeysValue ? required : null}
-                warn={storeMyKeysValue ? required : null}
-                autoComplete="off"
-              />
-              <Field
-                name={STORE_KEY_FIELD}
-                disabled={iHaveEosAccountProcessing}
-                label={translate[messages.storeThisKey.id]}
-                component={Checkbox}
-              />
-            </EosOwnerPrivateKeyDiv>
-
             <Div primary>
               <Field
                 name={MASTER_KEY_FIELD}

@@ -34,14 +34,18 @@ export async function registerAccount(profile, eosService) {
   const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
-  await eosService.sendTransaction(profile.accountName, REGISTER_ACC, {
-    user: profile.accountName,
-    display_name: profile.displayName,
-    ipfs_profile: ipfsHash,
-    ipfs_avatar: NO_AVATAR,
-  });
-
-  // TODO: add here wait for transaction to be added to a block
+  await eosService.sendTransaction(
+    profile.accountName,
+    REGISTER_ACC,
+    {
+      user: profile.accountName,
+      display_name: profile.displayName,
+      ipfs_profile: ipfsHash,
+      ipfs_avatar: NO_AVATAR,
+    },
+    null,
+    true,
+  );
 
   return true;
 }
