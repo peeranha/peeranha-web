@@ -299,11 +299,7 @@ class EosioService {
     }
 
     if (!success) {
-      console.log(
-        `Gave up on waiting for tx to complete. Tx id ${
-          txResult.transaction_id
-        }`,
-      );
+      console.log('Gave up on waiting for tx to complete.');
     }
   };
 
