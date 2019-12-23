@@ -316,9 +316,11 @@ export function* signUpWithScatterWorker({ val }) {
   }
 }
 
-export function* showScatterSignUpFormWorker() {
+export function* showScatterSignUpFormWorker({ noInitEosio }) {
   try {
-    yield call(initEosioWorker, { initWithScatter: true });
+    if (!noInitEosio) {
+      yield call(initEosioWorker, { initWithScatter: true });
+    }
 
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
