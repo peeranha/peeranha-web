@@ -3,6 +3,7 @@ import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
 import { getBalance } from 'utils/walletManagement';
+import { MODERATOR_KEY } from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -152,6 +153,16 @@ export function* getCurrentAccountWorker(initAccount) {
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
+}
+
+export function* isAvailableAction(isValid) {
+  const profileInfo = yield select(makeSelectProfileInfo());
+
+  if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
+    return true;
+  }
+
+  yield call(isValid);
 }
 
 export function* updateAccWorker({ eos }) {
