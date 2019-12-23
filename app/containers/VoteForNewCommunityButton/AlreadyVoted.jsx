@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import PositiveChoice from 'components/Button/Contained/PrimaryMedium';
-import NegativeChoice from 'components/Button/Contained/Transparent';
+import NegativeChoice from 'components/Button/Contained/TransparentMedium';
 
 const AlreadyVoted = ({
   choice,

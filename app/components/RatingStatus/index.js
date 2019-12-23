@@ -29,9 +29,9 @@ const IconWithStatus = ({ className, size, rating }) => {
 
   if (rating > options.newbie.minRating && size === 'sm') {
     color = TEXT_WARNING_LIGHT;
-  } else if (rating < options.stranger.minRating) {
+  } else if (rating <= options.banned.maxRating) {
     color = TEXT_WARNING;
-  } else if (rating < options.newbie.minRating && size === 'sm') {
+  } else if (rating <= options.newbie.minRating && size === 'sm') {
     color = TEXT_PRIMARY;
   }
 

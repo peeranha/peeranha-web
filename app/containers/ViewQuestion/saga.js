@@ -779,12 +779,11 @@ export default function*() {
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(
     [
+      POST_COMMENT_SUCCESS,
       UP_VOTE_SUCCESS,
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,
-      VOTE_TO_DELETE_SUCCESS,
-      POST_COMMENT_SUCCESS,
-      POST_ANSWER_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
     ],
     updateQuestionDataAfterTransactionWorker,
   );

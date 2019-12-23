@@ -10,7 +10,7 @@ import {
   BORDER_WARNING_LIGHT_RGB,
 } from 'style-constants';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
@@ -49,6 +49,28 @@ const Input = ({ error, disabled }) =>
     }
   `;
 
+export const Styles = css`
+  width: 100%;
+  background: ${BG_LIGHT};
+  ${props => Input(props)};
+
+  &:focus {
+    box-shadow: 0 0 0 3px
+      ${props =>
+        props.error
+          ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
+          : `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
+    border-color: ${props =>
+      props.error
+        ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
+        : `rgb(${BORDER_PRIMARY_RGB})`};
+  }
+
+  :disabled {
+    ${() => DisableHandling(true)};
+  }
+`;
+
 const InputStyled = styled.div`
   position: relative;
   display: flex;
@@ -64,23 +86,7 @@ const InputStyled = styled.div`
   }
 
   input {
-    width: 100%;
-    background: ${BG_LIGHT};
-    ${props => Input(props)} &:focus {
-      box-shadow: 0 0 0 3px
-        ${props =>
-          props.error
-            ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
-            : `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
-      border-color: ${props =>
-        props.error
-          ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-          : `rgb(${BORDER_PRIMARY_RGB})`};
-    }
-
-    :disabled {
-      ${() => DisableHandling(true)};
-    }
+    ${Styles};
   }
 `;
 

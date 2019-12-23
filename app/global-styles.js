@@ -17,7 +17,12 @@ injectGlobal`
     position: relative;
     font-family: Source Sans Pro, sans-serif;
     background: ${BG_PRIMARY_LIGHT};
-    word-break: break-word;
+    word-break: break-all;
+
+    @supports (word-break: break-word) {
+      word-break: break-word;
+    }
+
     word-wrap: break-word;
   }
 
