@@ -27,6 +27,7 @@ export const Icon = styled.span`
   background-color: ${x => (x.value ? BG_PRIMARY_DARK : BG_LIGHT)};
   background-repeat: no-repeat;
   background-position: center;
+  z-index: 10;
 
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
@@ -39,6 +40,7 @@ const Input = Icon.extend`
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 20;
 `.withComponent('input');
 
 export const Label = Span.extend`

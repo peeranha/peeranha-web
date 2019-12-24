@@ -7,12 +7,13 @@ import * as routes from 'routes-config';
 import { registerAccount } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
-import { WebIntegrationError } from 'utils/errors';
+import { WebIntegrationError, ApplicationError } from 'utils/errors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -25,6 +26,7 @@ import {
   loginWithScatterErr,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
+  hideLoginModal,
 } from './actions';
 
 import {
@@ -116,7 +118,11 @@ export function* loginWithScatterWorker() {
     const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
-      throw new WebIntegrationError(
+      yield call(showScatterSignUpFormWorker, { noInitEosio: true });
+
+      yield put(hideLoginModal());
+
+      throw new ApplicationError(
         translations[messages[USER_IS_NOT_REGISTERED].id],
       );
     }

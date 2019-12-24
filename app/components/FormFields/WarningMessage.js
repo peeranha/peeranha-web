@@ -15,7 +15,7 @@ export const Div = styled.div`
   line-height: 18px;
   font-style: italic;
   max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
-  overflow: hidden;
+  word-break: normal;
   color: ${TEXT_SECONDARY};
 
   > div {

@@ -21,7 +21,7 @@ import messages from './messages';
 const options = {
   banned: {
     minRating: -99999999999999999999,
-    maxRating: 0,
+    maxRating: -1,
     maxEnergy: 0,
     messageId: messages.banned.id,
     icon: {
@@ -30,7 +30,7 @@ const options = {
     },
   },
   stranger: {
-    minRating: 0,
+    minRating: -1,
     maxRating: 100,
     maxEnergy: 50,
     messageId: messages.stranger.id,

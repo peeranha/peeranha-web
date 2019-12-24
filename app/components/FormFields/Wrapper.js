@@ -14,8 +14,9 @@ const StyledBox = styled.div`
   max-width: 100%;
   margin-bottom: ${x => (!x.insideOfSection ? '15px' : '10px')};
 
-  > *:nth-child(2) {
+  > div:nth-child(2) {
     display: flex;
+    flex-wrap: nowrap;
     align-items: ${x => (x.splitInHalf ? 'center' : 'initial')};
     flex-direction: ${x => (x.splitInHalf ? 'row' : 'column')};
 
@@ -35,6 +36,7 @@ const StyledBox = styled.div`
   @media only screen and (max-width: 768px) {
     > div:nth-child(2) {
       align-items: initial;
+      flex-wrap: nowrap;
       flex-direction: column;
 
       > div:nth-child(1) {
