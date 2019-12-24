@@ -35,14 +35,14 @@ export const WarningMessage = ({
   error,
   active,
   warning,
-  touched,
   className,
   tip,
   isSpecialPosition,
+  visited,
 }) => {
   const err = error || warning;
 
-  return (touched && err) || (active && tip) ? (
+  return (visited && err) || (active && tip) ? (
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (
@@ -73,7 +73,7 @@ WarningMessage.propTypes = {
   warning: PropTypes.object,
   className: PropTypes.string,
   tip: PropTypes.string,
-  touched: PropTypes.bool,
+  visited: PropTypes.bool,
   active: PropTypes.bool,
   isSpecialPosition: PropTypes.bool,
 };
