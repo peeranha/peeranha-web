@@ -33,18 +33,30 @@ const BaseStyled = Base.extend`
   overflow: hidden;
 
   @media only screen and (max-width: 992px) {
-    max-width: 480px;
+    margin: -15px;
+
+    ${LeftMenu} {
+      flex: 7;
+      padding: 40px 15px;
+    }
+
+    ${RightMenu} {
+      flex: 8;
+      padding: 20px 0px;
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
     margin: 0px auto;
     flex-direction: column;
 
     ${LeftMenu} {
       order: 2;
-      padding: 40px 15px;
     }
 
     ${RightMenu} {
       order: 1;
-      padding: 20px 0px;
+      flex-basis: 100vh;
     }
   }
 `;
