@@ -68,7 +68,7 @@ export const postAnswerValidator = (
   const maxAnswersNumber = 200;
 
   const MIN_RATING_FOR_MY_QUESTION = 0;
-  const MIN_RATING_FOR_OTHER_QUESTIONS = 10;
+  const MIN_RATING_FOR_OTHER_QUESTIONS = 0;
   const MIN_ENERGY = 6;
 
   const isAnswered = !!questionData.answers.filter(
