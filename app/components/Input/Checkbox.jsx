@@ -28,6 +28,7 @@ export const Icon = styled.span`
   background-repeat: no-repeat;
   background-position: center;
   z-index: 10;
+  cursor: pointer;
 
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
@@ -45,7 +46,10 @@ const Input = Icon.extend`
 
 export const Label = Span.extend`
   font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
   flex: 1;
+  opacity: ${x => (x.disabled ? '0.6' : '1')};
 `.withComponent('label');
 
 /* eslint jsx-a11y/label-has-for: 0 */
@@ -66,12 +70,7 @@ const Checkbox = ({ input, label, disabled, meta }) => (
       />
     </div>
 
-    <Label
-      htmlFor={formatStringToHtmlId(input.name)}
-      mobileFS="14"
-      lineHeight="22"
-      mobileLH="22"
-    >
+    <Label htmlFor={formatStringToHtmlId(input.name)} disabled={disabled}>
       {label}
     </Label>
   </div>

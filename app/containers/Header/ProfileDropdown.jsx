@@ -16,7 +16,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import A, { ALinkDisabled } from 'components/A';
+import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 
@@ -54,20 +54,20 @@ const Menu = ({
       <A to={routes.profileView(user)}>
         <FormattedMessage {...messages.profile} />
       </A>
-      <ALinkDisabled
+      <A
         to={routes.userQuestions(user)}
         disabled={!questionsLength}
         tabIndex={!questionsLength ? '-1' : undefined}
       >
         <FormattedMessage {...messages.questions} />
-      </ALinkDisabled>
-      <ALinkDisabled
+      </A>
+      <A
         to={routes.userAnswers(user)}
         disabled={!questionsWithUserAnswersLength}
         tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
       >
         <FormattedMessage {...messages.answers} />
-      </ALinkDisabled>
+      </A>
       <A
         to={routes.userSettings(user)}
         className={loginWithScatter ? 'd-none' : ''}
