@@ -90,6 +90,7 @@
   "app.common.preview": "Preview",
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
+  "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
