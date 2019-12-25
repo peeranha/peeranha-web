@@ -37,13 +37,15 @@ export class ModalDialog extends React.PureComponent {
     return ReactDOM.createPortal(
       <React.Fragment>
         <ModalStyled>
-          <div>{children}</div>
-          <Icon
-            onClick={closeModal}
-            icon={closeIcon}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
-          />
+          <div className="d-flex justify-content-end">
+            <Icon
+              onClick={closeModal}
+              icon={closeIcon}
+              width="16"
+              color={TEXT_SECONDARY_LIGHT}
+            />
+          </div>
+          <div className="modal-children">{children}</div>
         </ModalStyled>
         <Blanket onClick={closeModal} />
       </React.Fragment>,
