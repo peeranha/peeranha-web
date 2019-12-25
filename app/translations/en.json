@@ -306,6 +306,7 @@
   "app.containers.CreateCommunity.communityWillAppear":
     "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
   "app.containers.CreateCommunity.goToList": "Go to list",
+  "app.containers.CreateCommunity.maxTagsNumberReached": "Max tags number was reached",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",

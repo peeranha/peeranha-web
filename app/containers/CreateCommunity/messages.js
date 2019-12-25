@@ -91,4 +91,7 @@ export default defineMessages({
   goToList: {
     id: 'app.containers.CreateCommunity.goToList',
   },
+  maxTagsNumberReached: {
+    id: 'app.containers.CreateCommunity.maxTagsNumberReached',
+  },
 });
