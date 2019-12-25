@@ -18,6 +18,7 @@ import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { initEosioWorker } from 'containers/EosioProvider/saga';
+import { hideLeftMenu } from 'containers/AppWrapper/actions';
 
 import {
   loginWithEmailSuccess,
@@ -48,6 +49,7 @@ import {
 
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
+import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -160,6 +162,12 @@ export function* finishRegistrationWorker({ val }) {
 }
 
 export function* redirectToHomepageWorker() {
+  const isLeftMenuVisible = yield select(selectIsMenuVisible());
+
+  if (isLeftMenuVisible) {
+    yield put(hideLeftMenu());
+  }
+
   if (window.location.pathname.includes(routes.registrationStage)) {
     yield call(createdHistory.push, routes.questions());
   }
@@ -169,6 +177,10 @@ export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
+  yield takeLatest(
+    [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
+    redirectToHomepageWorker,
+  );
   yield takeLatest(
     [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
     redirectToHomepageWorker,
