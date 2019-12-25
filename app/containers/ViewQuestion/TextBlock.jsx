@@ -44,6 +44,7 @@ const TextBlockStyled = styled.div`
   }
 
   code,
+  blockquote p,
   pre {
     background: ${SECONDARY_SPECIAL_3};
     font-size: 14px;
@@ -53,6 +54,22 @@ const TextBlockStyled = styled.div`
     display: flex;
     word-break: normal;
   }
+
+  blockquote {
+    p {
+      padding: 15px;
+    }
+
+    p::before {
+      content: '«';
+    }
+  
+     p::after {
+      content: '»';
+    }
+  }
+
+   
 `;
 
 export const TextBlock = ({ content, className }) => (

@@ -18,6 +18,7 @@ import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import {
   getCurrentAccountWorker,
   updateAccWorker,
+  isAvailableAction,
 } from 'containers/AccountProvider/saga';
 
 import { initEosioSuccess, initEosioError } from './actions';
@@ -93,7 +94,7 @@ export function* isValid({ creator, buttonId, minRating, minEnergy }) {
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
 
-  yield call(() =>
+  yield call(isAvailableAction, () =>
     validate({
       rating: profileInfo.rating,
       translations: translationMessages[locale],

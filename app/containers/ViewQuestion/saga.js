@@ -40,7 +40,10 @@ import {
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import {
+  getCurrentAccountWorker,
+  isAvailableAction,
+} from 'containers/AccountProvider/saga';
 import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
 import { getUniqQuestions } from 'containers/Questions/actions';
@@ -251,11 +254,8 @@ export function* saveCommentWorker({
       getParams,
     );
 
-    yield call(
-      editCommentValidator,
-      profileInfo,
-      buttonId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
     );
 
     yield call(
@@ -299,11 +299,12 @@ export function* deleteCommentWorker({
       getParams,
     );
 
-    yield call(
-      deleteCommentValidator,
-      profileInfo,
-      buttonId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      deleteCommentValidator(
+        profileInfo,
+        buttonId,
+        translationMessages[locale],
+      ),
     );
 
     yield call(
@@ -336,13 +337,14 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       getParams,
     );
 
-    yield call(
-      deleteAnswerValidator,
-      buttonId,
-      answerId,
-      questionData.correct_answer_id,
-      translationMessages[locale],
-      profileInfo,
+    yield call(isAvailableAction, () =>
+      deleteAnswerValidator(
+        buttonId,
+        answerId,
+        questionData.correct_answer_id,
+        translationMessages[locale],
+        profileInfo,
+      ),
     );
 
     yield call(
@@ -367,12 +369,13 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       getParams,
     );
 
-    yield call(
-      deleteQuestionValidator,
-      buttonId,
-      questionData.answers.length,
-      translationMessages[locale],
-      profileInfo,
+    yield call(isAvailableAction, () =>
+      deleteQuestionValidator(
+        buttonId,
+        questionData.answers.length,
+        translationMessages[locale],
+        profileInfo,
+      ),
     );
 
     yield call(deleteQuestion, profileInfo.user, questionId, eosService);
@@ -418,13 +421,14 @@ export function* postCommentWorker({
 
     yield call(isAuthorized);
 
-    yield call(
-      postCommentValidator,
-      profileInfo,
-      questionData,
-      buttonId,
-      answerId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      postCommentValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
     );
 
     yield call(
@@ -479,12 +483,13 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
 
     yield call(isAuthorized);
 
-    yield call(
-      postAnswerValidator,
-      profileInfo,
-      questionData,
-      POST_ANSWER_BUTTON,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      postAnswerValidator(
+        profileInfo,
+        questionData,
+        POST_ANSWER_BUTTON,
+        translationMessages[locale],
+      ),
     );
 
     yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
@@ -528,13 +533,14 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(
-      downVoteValidator,
-      profileInfo,
-      questionData,
-      buttonId,
-      answerId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      downVoteValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
     );
 
     yield call(downVote, profileInfo.user, questionId, answerId, eosService);
@@ -577,13 +583,14 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(
-      upVoteValidator,
-      profileInfo,
-      questionData,
-      buttonId,
-      answerId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      upVoteValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
     );
 
     yield call(upVote, profileInfo.user, questionId, answerId, eosService);
@@ -626,12 +633,13 @@ export function* markAsAcceptedWorker({
 
     yield call(isAuthorized);
 
-    yield call(
-      markAsAcceptedValidator,
-      profileInfo,
-      questionData,
-      buttonId,
-      translationMessages[locale],
+    yield call(isAvailableAction, () =>
+      markAsAcceptedValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        translationMessages[locale],
+      ),
     );
 
     yield call(
@@ -671,17 +679,18 @@ export function* voteToDeleteWorker({
 
     yield call(isAuthorized);
 
-    yield call(
-      voteToDeleteValidator,
-      profileInfo,
-      questionData,
-      translationMessages[locale],
-      buttonId,
-      {
-        questionId,
-        answerId,
-        commentId,
-      },
+    yield call(isAvailableAction, () =>
+      voteToDeleteValidator(
+        profileInfo,
+        questionData,
+        translationMessages[locale],
+        buttonId,
+        {
+          questionId,
+          answerId,
+          commentId,
+        },
+      ),
     );
 
     yield call(
@@ -779,12 +788,11 @@ export default function*() {
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(
     [
+      POST_COMMENT_SUCCESS,
       UP_VOTE_SUCCESS,
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,
-      VOTE_TO_DELETE_SUCCESS,
-      POST_COMMENT_SUCCESS,
-      POST_ANSWER_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
     ],
     updateQuestionDataAfterTransactionWorker,
   );
