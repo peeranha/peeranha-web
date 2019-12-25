@@ -21,8 +21,10 @@ export class ModalDialog extends React.PureComponent {
     if (nextProps.show !== this.props.show) {
       try {
         if (nextProps.show && modalRoot.childElementCount === 0) {
+          document.getElementsByTagName('body')[0].style.position = 'fixed';
           modalRoot.appendChild(this.el);
         } else if (!nextProps.show && modalRoot.childElementCount !== 0) {
+          document.getElementsByTagName('body')[0].style.position = 'relative';
           modalRoot.removeChild(this.el);
         }
       } catch (err) {}
