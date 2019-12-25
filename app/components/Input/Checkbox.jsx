@@ -69,7 +69,8 @@ const Checkbox = ({ input, label, disabled, meta }) => (
     <Label
       htmlFor={formatStringToHtmlId(input.name)}
       mobileFS="14"
-      lineHeight="20"
+      lineHeight="22"
+      mobileLH="22"
     >
       {label}
     </Label>

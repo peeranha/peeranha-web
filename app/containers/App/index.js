@@ -22,7 +22,7 @@ import { closePopover as Popover } from 'utils/popover';
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
 
-import Wrapper from './Wrapper';
+import Wrapper from 'containers/AppWrapper';
 
 import {
   HomePage,

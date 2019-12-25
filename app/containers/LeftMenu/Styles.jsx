@@ -7,7 +7,7 @@ import {
   BG_PRIMARY_DARK_RGB,
 } from 'style-constants';
 
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
+import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 
 import {
   HEADER_HEIGHT,
