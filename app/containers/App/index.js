@@ -20,6 +20,7 @@ import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import ProgressIndicator from 'containers/ProgressIndicator';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
@@ -72,6 +73,8 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Toast />
+      <ProgressIndicator />
+
       <Login />
       <ForgotPassword />
 
