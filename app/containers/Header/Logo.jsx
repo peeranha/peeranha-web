@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
+import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 
 const Logo = styled.div`
   display: flex;

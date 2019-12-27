@@ -80,13 +80,13 @@ export const Header = ({
             </NavigationButton>
           </A>
 
-          <A to={communityTagsRoute} disabled={path === communityTagsRoute}>
+          <A to={communityTagsRoute}>
             <NavigationButton isLink={path !== communityTagsRoute}>
               <FormattedMessage {...commonMessages.tags} />
             </NavigationButton>
           </A>
 
-          <A to={suggestedTagsRoute} disabled={path === suggestedTagsRoute}>
+          <A to={suggestedTagsRoute}>
             <NavigationButton isLink={path !== suggestedTagsRoute}>
               <FormattedMessage {...commonMessages.voting} />
             </NavigationButton>

@@ -27,7 +27,8 @@ import { EMAIL_FIELD, PASSWORD_FIELD, REMEMBER_ME_FIELD } from './constants';
 
 import loginMessages from './messages';
 
-import { LoginWithScatter } from './EmailForm';
+import Header from './Header';
+import Footer from './Footer';
 
 const EmailPasswordForm = ({
   handleSubmit,
@@ -39,13 +40,7 @@ const EmailPasswordForm = ({
   loginWithScatterProcessing,
 }) => (
   <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.login} />
-    </H4>
-
-    <P className="py-3">
-      <FormattedMessage {...loginMessages.authUserHasMore} />
-    </P>
+    <Header />
 
     <form onSubmit={handleSubmit(login)}>
       <Field
@@ -89,7 +84,7 @@ const EmailPasswordForm = ({
       </div>
     </form>
 
-    <LoginWithScatter
+    <Footer
       loginWithScatterProcessing={loginWithScatterProcessing}
       loginWithScatter={loginWithScatter}
     />

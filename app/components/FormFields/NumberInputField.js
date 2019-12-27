@@ -20,15 +20,31 @@ export const NumberInputField = ({
   type = 'text',
 }) => {
   const onChange = x => {
-    const inputValue = x.target.value;
-    const inputAfterDot = String(inputValue).split('.')[1];
+    try {
+      const inputValue = String(x.target.value);
+      const lastChar = inputValue[inputValue.length - 1];
+      const inputBeforeDot = inputValue.split('.')[0];
+      const inputAfterDot = inputValue.split('.')[1];
 
-    if (
-      (Number(inputValue) || !inputValue) &&
-      (!inputAfterDot || inputAfterDot.length <= dotRestriction)
-    ) {
-      input.onChange(inputValue);
-    }
+      if (lastChar === undefined) {
+        input.onChange('');
+        return;
+      }
+
+      if (lastChar === '.' && inputValue.length > input.value.length) {
+        input.onChange(`${inputBeforeDot}.0`);
+        return;
+      }
+
+      if (lastChar.match(/[0-9.]/) && !inputAfterDot) {
+        input.onChange(inputValue);
+        return;
+      }
+
+      if (lastChar.match(/[0-9.]/) && inputAfterDot.length <= dotRestriction) {
+        input.onChange(inputValue);
+      }
+    } catch (err) {}
   };
 
   return (

@@ -1,4 +1,4 @@
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
+import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 import BaseTransparent from './BaseTransparent';
 
 export default BaseTransparent.extend`

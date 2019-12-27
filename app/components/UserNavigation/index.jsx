@@ -52,8 +52,6 @@ const UserNavigation = ({
             to={routes.profileView(userId)}
             isLink={
               path !== routes.profileView(userId) &&
-              path !== routes.profileViewActivityQuestions(userId) &&
-              path !== routes.profileViewActivityAnswers(userId) &&
               path !== routes.profileEdit(userId)
             }
           >

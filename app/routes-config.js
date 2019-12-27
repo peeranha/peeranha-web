@@ -6,11 +6,6 @@ export const errorPage = () => `/error-occured`;
 
 export const profileView = id => `/users/${id}`;
 
-export const profileViewActivityQuestions = id =>
-  `/users/${id}#activity-questions`;
-
-export const profileViewActivityAnswers = id => `/users/${id}#activity-answers`;
-
 export const profileEdit = id => `/users/edit/${id}`;
 
 export const userQuestions = id => `/users/${id}#questions`;
@@ -23,7 +18,7 @@ export const questions = communityid =>
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questionView = /* istanbul ignore next */ (id, answerId) =>
+export const questionView = (id, answerId) =>
   answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;

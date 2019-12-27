@@ -10,6 +10,7 @@ import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
+import { showPopover } from 'utils/popover';
 
 import { ExtendedBase } from 'components/Base/AvatarBase';
 
@@ -50,6 +51,8 @@ const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
 const DEFAULT_TAGS_ARRAY = [];
 
+const ADD_TAG_BUTTON_ID = 'add-tag-to-new-community';
+
 /* eslint no-plusplus: 0 */
 for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
   DEFAULT_TAGS_ARRAY.push(i);
@@ -81,7 +84,16 @@ const CreateCommunityForm = ({
   };
 
   const addTag = () => {
-    changeTags([...tags, tags[tags.length - 1] + 1]);
+    if (tags.length < MAX_TAGS_NUMBER) {
+      changeTags([...tags, tags[tags.length - 1] + 1]);
+    }
+
+    if (tags.length === MAX_TAGS_NUMBER) {
+      showPopover(
+        ADD_TAG_BUTTON_ID,
+        translations[messages.maxTagsNumberReached.id],
+      );
+    }
   };
 
   return (
@@ -197,8 +209,8 @@ const CreateCommunityForm = ({
           className="d-flex align-items-center"
           type="button"
           onClick={addTag}
-          disabled={tags.length === MAX_TAGS_NUMBER}
           tabIndex="-1"
+          id={ADD_TAG_BUTTON_ID}
         >
           <img className="mr-2" src={icoTag} alt="icoTag" />
           <FormattedMessage {...messages.oneMoreTag} />
