@@ -1,8 +1,7 @@
-import { Keygen } from 'eosjs-keygen';
+const { Keygen } = require('eosjs-keygen');
 
 async function generateKeys() {
   const keys = await Keygen.generateMasterKeys();
-
   return {
     activeKey: {
       private: keys.privateKeys.active,
@@ -15,4 +14,6 @@ async function generateKeys() {
   };
 }
 
-export { generateKeys };
+module.exports = {
+  generateKeys,
+};

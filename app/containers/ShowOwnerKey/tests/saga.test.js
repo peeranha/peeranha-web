@@ -10,8 +10,6 @@ import {
   getOwnerKeyByPwd,
 } from 'utils/web_integration/src/wallet/get-owner-key/get-owner-key';
 
-import Cookies from 'utils/cookies';
-
 import defaultSaga, { sendEmailWorker, showOwnerKeyWorker } from '../saga';
 
 import {
@@ -38,18 +36,13 @@ jest.mock(
   }),
 );
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
-
 describe('showOwnerKeyWorker', () => {
   const resetForm = jest.fn();
   const password = 'password';
   const email = 'email';
   const locale = 'en';
   const verificationCode = 'verificationCode';
-
-  Cookies.get.mockImplementation(() => email);
+  const loginData = { email };
 
   describe('showOwnerKeyWorker FAILED', () => {
     const generator = showOwnerKeyWorker({ resetForm, verificationCode });
@@ -61,9 +54,15 @@ describe('showOwnerKeyWorker', () => {
 
     getOwnerKeyByPwd.mockImplementation(() => response);
 
+    it('select loginData', () => {
+      select.mockImplementation(() => loginData);
+      const step = generator.next();
+      expect(step.value).toEqual(loginData);
+    });
+
     it('select password', () => {
       select.mockImplementation(() => password);
-      const step = generator.next();
+      const step = generator.next(loginData);
       expect(step.value).toEqual(password);
     });
 
@@ -106,6 +105,7 @@ describe('showOwnerKeyWorker', () => {
     getOwnerKeyByPwd.mockImplementation(() => response);
 
     generator.next();
+    generator.next(loginData);
     generator.next(password);
     generator.next(locale);
 

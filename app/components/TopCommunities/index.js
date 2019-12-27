@@ -2,27 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import orderBy from 'lodash/orderBy';
 
-import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import {
+  BG_LIGHT,
+  TEXT_SECONDARY,
+  BORDER_SECONDARY,
+  TEXT_PRIMARY,
+} from 'style-constants';
+
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+
+import allCommunitiesIcon from 'images/createCommunity.svg?inline';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 
 import A from 'components/A';
+import P from 'components/P';
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import Base from 'components/Base';
-import OutlinedButton from 'components/Button/Outlined/InfoLarge';
+import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import MediumImage from 'components/Img/MediumImage';
+import Grid from 'components/Grid';
 
-const CommunitiesFormStyled = styled.div`
-  overflow: hidden;
-`;
+const FrontSide = styled.div`
+  > div {
+    padding: 20px;
 
-const BaseStyled = Base.extend`
-  padding: 15px 20px;
+    &:not(:last-child) {
+      border-bottom: 1px solid ${BORDER_SECONDARY};
+    }
+  }
 `;
 
 const BackSide = styled.div`
@@ -38,7 +50,7 @@ const BackSide = styled.div`
   > div {
     position: relative;
     height: 100%;
-    padding: 15px 20px;
+    padding: 20px;
   }
 `;
 
@@ -49,102 +61,109 @@ const AStyled = A.extend`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  word-break: break-all;
 
   &:hover ${BackSide} {
     display: block;
   }
 `;
 
-const communitiesRoute = routes.communities();
-
-const TopCommunities = /* istanbul ignore next */ ({
-  communities,
-  profile,
-  account,
-  userId,
-}) => {
+const TopCommunities = ({ communities, profile, account, userId }) => {
   if (
     account !== userId ||
     !communities ||
     !profile ||
-    profile.followed_communities[0]
+    profile.followed_communities.length ||
+    !communities.length
   ) {
     return null;
   }
 
   return (
-    <CommunitiesFormStyled>
+    <div className="overlow-hidden">
       <H4 isHeader>
         <FormattedMessage {...messages.top} />{' '}
         <span className="text-lowercase">
           <FormattedMessage {...messages.communities} />
         </span>
       </H4>
-      <div className="row">
-        {communities.map(x => (
-          <div key={x.id} className="col-xl-3 mb-2">
-            <AStyled to={communitiesRoute} href={communitiesRoute}>
-              <BaseStyled className="flex-grow-1" position="top">
-                <MediumImage src={x.avatar} alt="comm_img" />
-                <p>
-                  <Span fontSize="16" bold>
-                    {x.name}
-                  </Span>
-                </p>
-              </BaseStyled>
 
-              <BaseStyled position="bottom">
-                <div className="d-flex mb-3">
-                  <div className="d-flex flex-column flex-grow-1">
-                    <Span fontSize="16" bold>
-                      {getFormattedNum2(x.users || 9999)}
-                    </Span>
-                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                      <FormattedMessage {...messages.users} />
-                    </Span>
-                  </div>
-                  <div className="d-flex flex-column flex-grow-1">
-                    <Span fontSize="16" bold>
-                      {getFormattedNum2(x.popularity)}
-                    </Span>
-                    <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                      <FormattedMessage {...messages.questions} />
-                    </Span>
-                  </div>
-                </div>
-                <FollowCommunityButton communityIdFilter={x.id} />
-              </BaseStyled>
-
-              <BackSide>
-                <div className="d-flex flex-column justify-content-between">
-                  <div>
-                    <p>
-                      <Span fontSize="16" bold>
+      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+        {orderBy(communities, 'users_subscribed', 'desc')
+          .slice(0, 9)
+          .map(x => (
+            <div key={x.id}>
+              <BaseRoundedNoPadding>
+                <AStyled to={routes.questions(x.id)}>
+                  <FrontSide>
+                    <div>
+                      <MediumImage src={x.avatar} alt="comm_img" />
+                      <P fontSize="16" bold>
                         {x.name}
-                      </Span>
-                    </p>
-                    <p>
-                      <Span>{x.description}</Span>
-                    </p>
-                  </div>
-                  <div>
-                    <FollowCommunityButton communityIdFilter={x.id} />
-                  </div>
-                </div>
-              </BackSide>
-            </AStyled>
+                      </P>
+                    </div>
+
+                    <div>
+                      <div className="d-flex mb-3">
+                        <div className="d-flex flex-column flex-grow-1">
+                          <Span fontSize="16" bold>
+                            {getFormattedNum2(x.users_subscribed)}
+                          </Span>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.users} />
+                          </Span>
+                        </div>
+                        <div className="d-flex flex-column flex-grow-1">
+                          <Span fontSize="16" bold>
+                            {getFormattedNum2(x.questions_asked)}
+                          </Span>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.questions} />
+                          </Span>
+                        </div>
+                      </div>
+
+                      <FollowCommunityButton communityIdFilter={x.id} />
+                    </div>
+                  </FrontSide>
+
+                  <BackSide>
+                    <div className="d-flex flex-column justify-content-between">
+                      <div>
+                        <P fontSize="16" bold>
+                          {x.name}
+                        </P>
+                        <P>{x.description}</P>
+                      </div>
+                      <div>
+                        <FollowCommunityButton communityIdFilter={x.id} />
+                      </div>
+                    </div>
+                  </BackSide>
+                </AStyled>
+              </BaseRoundedNoPadding>
+            </div>
+          ))}
+
+        {communities.length > 9 && (
+          <div className="d-flex align-items-center justify-content-center">
+            <A className="d-flex align-items-center" to={routes.communities()}>
+              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <Span color={TEXT_PRIMARY}>
+                <FormattedMessage {...messages.allCommunities} />
+              </Span>
+            </A>
           </div>
-        ))}
-      </div>
-      <div className="my-3">
-        <A to={communitiesRoute} href={communitiesRoute}>
-          <OutlinedButton className="py-2 w-100">
-            <FormattedMessage {...messages.allCommunities} />
-          </OutlinedButton>
-        </A>
-      </div>
-    </CommunitiesFormStyled>
+        )}
+      </Grid>
+    </div>
   );
 };
 

@@ -1,48 +1,49 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import Cookies from 'utils/cookies';
-import EosioService from 'utils/eosio';
-import { getProfileInfo } from 'utils/profileManagement';
+import createdHistory from 'createdHistory';
+import * as routes from 'routes-config';
+
 import { registerAccount } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
+import { WebIntegrationError, ApplicationError } from 'utils/errors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { initEosioSuccess } from 'containers/EosioProvider/actions';
-import { errorToastHandling } from 'containers/Toast/saga';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
+
+import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { initEosioWorker } from 'containers/EosioProvider/saga';
 
 import {
   loginWithEmailSuccess,
   loginWithEmailErr,
   loginWithScatterSuccess,
   loginWithScatterErr,
-  showLoginModal,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
+  hideLoginModal,
 } from './actions';
 
 import {
   FINISH_REGISTRATION,
-  FINISH_REGISTRATION_ERROR,
   LOGIN_WITH_EMAIL,
-  LOGIN_WITH_EMAIL_ERROR,
   LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_ERROR,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
   USER_IS_NOT_REGISTERED,
-  AUTH_TYPE,
-  AUTH_PRIVATE_KEY,
-  AUTH_IS_VALID_DAYS,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
-  STORED_EMAIL,
+  AUTOLOGIN_DATA,
+  LOGIN_WITH_EMAIL_SUCCESS,
+  LOGIN_WITH_SCATTER_SUCCESS,
 } from './constants';
 
 import messages from './messages';
@@ -58,91 +59,83 @@ export function* loginWithEmailWorker({ val }) {
     const password = val[PASSWORD_FIELD];
     const rememberMe = Boolean(val[REMEMBER_ME_FIELD]);
 
-    const response = yield call(() => login(email, password));
+    const response = yield call(login, email, password, rememberMe);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
 
-    const { activeKey } = response.body;
+    const { activeKey, eosAccountName } = response.body;
 
-    const eosService = new EosioService();
-
-    Cookies.set(AUTH_TYPE, LOGIN_WITH_EMAIL, AUTH_IS_VALID_DAYS);
-
-    if (rememberMe) {
-      // TODO: do not save private key
-      Cookies.set(AUTH_PRIVATE_KEY, activeKey.private, AUTH_IS_VALID_DAYS);
+    if (eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
+      throw new WebIntegrationError(
+        translations[messages.accountNotCreatedName.id],
+      );
     }
 
-    yield call(() => eosService.init(LOGIN_WITH_EMAIL, activeKey.private));
-
-    const eosAccount = yield call(() => eosService.getSelectedAccount());
-
-    // get profile info to know is there user in system
-    const profileInfo = yield call(() =>
-      getProfileInfo(eosAccount, eosService),
-    );
-
-    yield put(initEosioSuccess(eosService));
-
-    Cookies.set(STORED_EMAIL, email, AUTH_IS_VALID_DAYS);
-
-    if (!profileInfo) {
-      yield put(loginWithEmailSuccess(eosAccount));
-      yield put(showLoginModal(WE_ARE_HAPPY_FORM));
-      return null;
-    }
-
-    yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCurrentAccountWorker, eosAccountName);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     yield put(loginWithEmailSuccess());
+
+    // If user is absent - show window to finish registration
+    if (!profileInfo) {
+      yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
+    }
+
+    yield call(initEosioWorker, {
+      key: activeKey.private,
+      selectedAccount: eosAccountName,
+    });
   } catch (err) {
-    yield put(loginWithEmailErr(err.message));
+    yield put(loginWithEmailErr(err));
   }
 }
 
 export function* loginWithScatterWorker() {
   try {
-    let user = null;
+    yield call(initEosioWorker, { initWithScatter: true });
 
+    const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    // Reinitialize EOS (with Scatter)
-    const eosService = new EosioService();
-
-    Cookies.set(AUTH_TYPE, LOGIN_WITH_SCATTER, AUTH_IS_VALID_DAYS);
-    yield call(() => eosService.init(LOGIN_WITH_SCATTER));
-
     if (!eosService.scatterInstalled) {
-      throw new Error(translations[messages[SCATTER_MODE_ERROR].id]);
+      throw new WebIntegrationError(
+        translations[messages[SCATTER_MODE_ERROR].id],
+      );
     }
 
-    if (!eosService.selectedScatterAccount) {
-      yield call(() => eosService.forgetIdentity());
-      user = yield call(() => eosService.selectAccount());
+    if (!eosService.selectedAccount) {
+      throw new WebIntegrationError(
+        translations[messages[USER_IS_NOT_SELECTED].id],
+      );
     }
 
-    if (!user) {
-      throw new Error(translations[messages[USER_IS_NOT_SELECTED].id]);
-    }
-
-    const profileInfo = yield call(() => getProfileInfo(user, eosService));
-
-    yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCurrentAccountWorker, eosService.selectedAccount);
+    const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
-      throw new Error(translations[messages[USER_IS_NOT_REGISTERED].id]);
+      yield call(showScatterSignUpFormWorker, { noInitEosio: true });
+
+      yield put(hideLoginModal());
+
+      throw new ApplicationError(
+        translations[messages[USER_IS_NOT_REGISTERED].id],
+      );
     }
 
-    yield put(initEosioSuccess(eosService));
+    localStorage.setItem(
+      AUTOLOGIN_DATA,
+      JSON.stringify({ loginWithScatter: true }),
+    );
 
+    yield put(initEosioSuccess(eosService));
     yield put(loginWithScatterSuccess());
   } catch (err) {
-    yield put(loginWithScatterErr(err.message));
+    yield put(loginWithScatterErr(err));
   }
 }
 
@@ -156,11 +149,19 @@ export function* finishRegistrationWorker({ val }) {
       displayName: val[DISPLAY_NAME],
     };
 
-    yield call(() => registerAccount(profile, eosService));
+    yield call(registerAccount, profile, eosService);
+
+    yield call(getCurrentAccountWorker);
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {
-    yield put(finishRegistrationWithDisplayNameErr(err.message));
+    yield put(finishRegistrationWithDisplayNameErr(err));
+  }
+}
+
+export function* redirectToHomepageWorker() {
+  if (window.location.pathname.includes(routes.registrationStage)) {
+    yield call(createdHistory.push, routes.questions());
   }
 }
 
@@ -169,11 +170,7 @@ export default function*() {
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
   yield takeLatest(
-    [
-      LOGIN_WITH_SCATTER_ERROR,
-      LOGIN_WITH_EMAIL_ERROR,
-      FINISH_REGISTRATION_ERROR,
-    ],
-    errorToastHandling,
+    [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
+    redirectToHomepageWorker,
   );
 }

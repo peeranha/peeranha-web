@@ -8,13 +8,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+
+import {
+  makeSelectAccount,
+  makeSelectAccountLoading,
+} from 'containers/AccountProvider/selectors';
+
 import { getUserProfile } from 'containers/DataCacheProvider/actions';
 
 import {
@@ -22,27 +28,34 @@ import {
   selectUsersLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import NoSuchUser from './NoSuchUser';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.PureComponent {
   componentDidMount() {
-    this.props.getUserProfileDispatch(this.props.userId);
+    this.props.getUserProfileDispatch(this.props.userId, true);
   }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.props.getUserProfileDispatch(nextProps.userId);
+      this.props.getUserProfileDispatch(nextProps.userId, true);
     }
   };
 
   render() {
-    const { locale, children, isProfileLoading, profile } = this.props;
+    const {
+      locale,
+      children,
+      isProfileLoading,
+      accountLoading,
+      profile,
+    } = this.props;
+
+    const translations = translationMessages[locale];
 
     const HelmetTitle = `${(profile && profile.display_name) ||
-      translationMessages[locale][messages.wrongUser.id]} | ${
-      translationMessages[locale][messages.profile.id]
+      translations[messages.wrongUser.id]} | ${
+      translations[messages.profile.id]
     }`;
 
     let keywords = '';
@@ -55,17 +68,16 @@ export class Profile extends React.PureComponent {
       <div>
         <Seo
           title={HelmetTitle}
-          description={
-            translationMessages[locale][messages.profileDescription.id]
-          }
+          description={translations[messages.profileDescription.id]}
           language={locale}
           keywords={keywords}
         />
 
         <div>
-          {!isProfileLoading && !profile && <NoSuchUser />}
-          {isProfileLoading && <LoadingIndicator />}
-          {!isProfileLoading && profile && profile.profile && children}
+          {(isProfileLoading || accountLoading) &&
+            !profile && <LoadingIndicator />}
+
+          {profile && children}
         </div>
       </div>
     );
@@ -78,6 +90,7 @@ Profile.propTypes = {
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,
+  accountLoading: PropTypes.bool,
   getUserProfileDispatch: PropTypes.func,
 };
 
@@ -85,14 +98,13 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   isProfileLoading: selectUsersLoading(),
+  accountLoading: makeSelectAccountLoading(),
   profile: (state, props) => selectUsers(props.userId)(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getUserProfileDispatch: (user, getFullProfile = true) =>
-      dispatch(getUserProfile(user, getFullProfile)),
+    getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
   };
 }
 

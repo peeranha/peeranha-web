@@ -1,5 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { getFileUrl } from 'utils/ipfs';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
@@ -8,12 +8,9 @@ export function* getUsersWorker({ loadMore, fetcher }) {
   try {
     const { items } = yield call(() => fetcher.getNextItems());
 
-    const users = items.map(x => ({
-      ...x,
-      ipfs_avatar: getFileUrl(x.ipfs_avatar),
-    }));
+    yield all(items.map(profile => put(getUserProfileSuccess(profile))));
 
-    yield put(getUsersSuccess(users, loadMore));
+    yield put(getUsersSuccess(items, loadMore));
   } catch (err) {
     yield put(getUsersErr(err.message));
   }

@@ -9,9 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import { noAccess } from 'routes-config';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -30,20 +28,21 @@ import saga from './saga';
 import messages from './messages';
 import * as selectors from './selectors';
 
-import { getWeekStat } from './actions';
+import { getWeekStat, pickupReward } from './actions';
 
 import View from './View';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Wallet extends React.PureComponent {
   componentDidMount() {
-    this.props.getWeekStatDispatch();
-    this.componentDidUpdate();
+    if (this.props.account) {
+      this.props.getWeekStatDispatch();
+    }
   }
 
-  componentDidUpdate() {
-    if (!this.props.account) {
-      this.props.history.push(noAccess());
+  componentDidUpdate(prevProps) {
+    if (!prevProps.account && this.props.account) {
+      this.props.getWeekStatDispatch();
     }
   }
 
@@ -56,6 +55,9 @@ export class Wallet extends React.PureComponent {
       balance,
       weekStat,
       getWeekStatProcessing,
+      pickupRewardDispatch,
+      pickupRewardProcessing,
+      ids,
     } = this.props;
 
     return (
@@ -74,6 +76,9 @@ export class Wallet extends React.PureComponent {
           balance={balance}
           weekStat={weekStat}
           getWeekStatProcessing={getWeekStatProcessing}
+          pickupRewardDispatch={pickupRewardDispatch}
+          pickupRewardProcessing={pickupRewardProcessing}
+          ids={ids}
         />
       </div>
     );
@@ -85,10 +90,12 @@ Wallet.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
-  history: PropTypes.object,
   getWeekStatDispatch: PropTypes.func,
+  pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
+  ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
+  pickupRewardProcessing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -97,11 +104,14 @@ const mapStateToProps = createStructuredSelector({
   balance: makeSelectBalance(),
   weekStat: selectors.selectWeekStat(),
   getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
+  pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
+  ids: selectors.selectIds(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getWeekStatDispatch: () => dispatch(getWeekStat()),
+    getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
+    pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
   };
 }
 

@@ -7,9 +7,9 @@
 import { fromJS } from 'immutable';
 
 import {
-  GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   GET_CURRENT_ACCOUNT_ERROR,
+  GET_CURRENT_ACCOUNT_PROCESSING,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,7 +23,7 @@ function accountProviderReducer(state = initialState, action) {
   const { type, err, account, balance } = action;
 
   switch (type) {
-    case GET_CURRENT_ACCOUNT:
+    case GET_CURRENT_ACCOUNT_PROCESSING:
       return state.set('loading', true);
     case GET_CURRENT_ACCOUNT_SUCCESS:
       return state

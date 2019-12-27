@@ -18,7 +18,6 @@ import {
 import {
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
-  EMAIL_FORM,
   EMAIL_FIELD,
   SHOW_EMAIL_PASSWORD_MODAL,
   LOGIN_WITH_SCATTER,
@@ -34,18 +33,10 @@ import {
 
 describe('Login actions', () => {
   it('showLoginModal', () => {
-    const content = 'content';
-    const expectedWithContent = {
-      type: SHOW_LOGIN_MODAL,
-      content,
-    };
-
     const expectedWithoutContent = {
       type: SHOW_LOGIN_MODAL,
-      content: EMAIL_FORM,
     };
 
-    expect(showLoginModal(content)).toEqual(expectedWithContent);
     expect(showLoginModal()).toEqual(expectedWithoutContent);
   });
 
@@ -112,13 +103,15 @@ describe('Login actions', () => {
 
   it('loginWithEmailSuccess', () => {
     const eosAccount = 'eosAccount';
+    const content = 'content';
 
     const expected = {
       type: LOGIN_WITH_EMAIL_SUCCESS,
       eosAccount,
+      content,
     };
 
-    expect(loginWithEmailSuccess(eosAccount)).toEqual(expected);
+    expect(loginWithEmailSuccess(eosAccount, content)).toEqual(expected);
   });
 
   it('loginWithEmailErr', () => {

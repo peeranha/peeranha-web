@@ -1,32 +1,17 @@
-/*
- * AskQuestion Messages
- *
- * This contains all the text for the AskQuestion component.
- */
-
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  wrongLength1x5: {
-    id: 'app.components.FormFields.wrongLength1x5',
+  wrongLength: {
+    id: 'app.components.FormFields.wrongLength',
   },
-  wrongLength2x15: {
-    id: 'app.components.FormFields.wrongLength2x15',
+  wrongLengthOfList: {
+    id: 'app.components.FormFields.wrongLengthOfList',
   },
-  wrongLength3x20: {
-    id: 'app.components.FormFields.wrongLength3x20',
+  wrongLengthMin: {
+    id: 'app.components.FormFields.wrongLengthMin',
   },
-  wrongLength15x100: {
-    id: 'app.components.FormFields.wrongLength15x100',
-  },
-  wrongLength20x1000: {
-    id: 'app.components.FormFields.wrongLength20x1000',
-  },
-  wrongLength25x30000: {
-    id: 'app.components.FormFields.wrongLength25x30000',
-  },
-  wrongLength30000: {
-    id: 'app.components.FormFields.wrongLength30000',
+  wrongLengthMax: {
+    id: 'app.components.FormFields.wrongLengthMax',
   },
   requiredField: {
     id: 'app.components.FormFields.requiredField',
@@ -36,5 +21,17 @@ export default defineMessages({
   },
   wrongEmail: {
     id: 'app.components.FormFields.wrongEmail',
+  },
+  wrongBase58Format: {
+    id: 'app.components.FormFields.wrongBase58Format',
+  },
+  itemAlreadyExists: {
+    id: 'app.components.FormFields.itemAlreadyExists',
+  },
+  valueIsMore: {
+    id: 'app.components.FormFields.valueIsMore',
+  },
+  passwordsNotMatch: {
+    id: 'app.components.FormFields.passwordsNotMatch',
   },
 });

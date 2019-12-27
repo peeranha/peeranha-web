@@ -1,3 +1,5 @@
+import JSBI from 'jsbi';
+
 import { saveText, getText } from '../ipfs';
 
 import {
@@ -127,9 +129,12 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
 
       expect(fetcher.communitiesMap[communities[0]]).toEqual({
         items: [],
-        lowerBound: `${BigInt(communities[0]) << BigInt(36)}`,
-        lastKeyFetched: `${BigInt(communities[0]) << BigInt(36)}`,
-        uppperBound: `${BigInt(communities[0] + 1) << BigInt(36)}`,
+        lowerBound: JSBI.leftShift(JSBI.BigInt(1), JSBI.BigInt(36)).toString(),
+        lastKeyFetched: JSBI.leftShift(
+          JSBI.BigInt(1),
+          JSBI.BigInt(36),
+        ).toString(),
+        uppperBound: JSBI.leftShift(JSBI.BigInt(2), JSBI.BigInt(36)).toString(),
         more: true,
       });
     });
@@ -306,9 +311,12 @@ describe('getQuestionsFilteredByCommunities', () => {
     expect(eosService.getTableRows).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,
-      String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+      JSBI.add(
+        JSBI.leftShift(JSBI.BigInt(communityId), JSBI.BigInt(36)),
+        JSBI.BigInt(offset),
+      ).toString(),
       limit,
-      String(BigInt(communityId + 1) << BigInt(36)),
+      JSBI.leftShift(JSBI.BigInt(communityId + 1), JSBI.BigInt(36)).toString(),
       GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
       GET_QUESTIONS_KEY_TYPE,
     );

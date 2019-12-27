@@ -6,9 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
-
-import Cookies from 'utils/cookies';
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -59,11 +57,13 @@ EmailForm.propTypes = {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: EMAIL_FORM,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailForm);
 
-FormClone = connect(() => ({
+FormClone = connect((_, props) => ({
+  enableReinitialize: true,
   initialValues: {
-    [EMAIL_FIELD]: Cookies.get(STORED_EMAIL),
+    [EMAIL_FIELD]: props.loginData.email,
   },
 }))(FormClone);
 

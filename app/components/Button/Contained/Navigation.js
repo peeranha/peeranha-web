@@ -1,11 +1,20 @@
-import { BG_TRANSPARENT, TEXT_PRIMARY } from 'style-constants';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
+import { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import PrimaryLarge from './PrimaryLarge';
+import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 
-/* istanbul ignore next */
-const NavigationButton = PrimaryLarge.extend`
-  padding: 6px 20px;
+import Primary from './Primary';
+import Medium from '../Medium';
+
+const ButtonCss = css`
+  ${Medium};
+  min-width: auto;
+  font-size: 16px;
+  line-height: 20px;
+
+  :hover {
+    color: ${TEXT_LIGHT};
+  }
 
   ${({ isLink }) =>
     isLink
@@ -13,11 +22,23 @@ const NavigationButton = PrimaryLarge.extend`
     color: ${TEXT_PRIMARY};
     background: ${BG_TRANSPARENT};
 
-    ${IconStyled} {
-      ${IconHover({ color: TEXT_PRIMARY })};
+    :hover {
+      color: ${TEXT_PRIMARY};
     }
   `
       : ``};
+`;
+
+export const NavigationLinkDefault = Primary.extend`
+  ${ButtonCss};
+`.withComponent('a');
+
+export const NavigationLink = Primary.extend`
+  ${ButtonCss};
+`.withComponent(Link);
+
+const NavigationButton = Primary.extend`
+  ${ButtonCss};
 `;
 
 export default NavigationButton;

@@ -21,15 +21,15 @@ import {
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
+import Img from 'components/Img/SmallImage';
 import A from 'components/A';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
-import NoActivity from './NoActivity';
+import Banner from './Banner';
 
-/* istanbul ignore next */
 const Rating = Span.extend`
   min-width: 40px;
   padding: 2px 3px;
@@ -42,28 +42,26 @@ const Rating = Span.extend`
   text-align: center;
   border-radius: 3px;
   margin: 0 20px;
+
+  @media only screen and (max-width: 576px) {
+    margin: 0 15px;
+  }
 `;
 
 const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = /* istanbul ignore next */ ({
-  postType,
-  isMyAnswerAccepted,
-}) => {
-  if (postType === POST_TYPE_QUESTION) {
-    return <img src={questionRoundedIcon} className="mr-0" alt="icon" />;
-  }
+const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
+  let icon = answerIcon;
 
-  if (isMyAnswerAccepted) {
-    return <img src={bestAnswerIcon} className="mr-0" alt="icon" />;
-  }
+  if (postType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
+  if (isMyAnswerAccepted) icon = bestAnswerIcon;
 
-  return <img src={answerIcon} className="mr-0" alt="icon" />;
+  return <Img src={icon} notRounded alt="icon" />;
 };
 
-const Note = /* istanbul ignore next */ ({
+const Note = ({
   postType,
   isMyAnswerAccepted,
   acceptedAnswer,
@@ -74,40 +72,56 @@ const Note = /* istanbul ignore next */ ({
   id,
   answerId,
 }) => (
-  <li>
-    <A
-      className="d-flex align-items-center py-1"
-      to={routes.questionView(
-        id,
-        postType === POST_TYPE_ANSWER ? answerId : null,
-      )}
-      href={routes.questionView(
-        id,
-        postType === POST_TYPE_ANSWER ? answerId : null,
-      )}
-    >
+  <A
+    className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
+    to={routes.questionView(
+      id,
+      postType === POST_TYPE_ANSWER ? answerId : null,
+    )}
+  >
+    <div className="d-flex align-items-center mb-to-sm-2">
       <PostTypeIcon
         postType={postType}
         isMyAnswerAccepted={isMyAnswerAccepted}
       />
+
       <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
-      <Span className="flex-grow-1">{title}</Span>
-      <PostDate fontSize="14" color={TEXT_SECONDARY}>
+
+      <PostDate
+        className="d-inline-block d-sm-none"
+        color={TEXT_SECONDARY}
+        fontSize="14"
+        mobileFS="12"
+      >
         {getTimeFromDateToNow(myPostTime, locale)}{' '}
         <FormattedMessage {...commonMessages.ago} />
       </PostDate>
-    </A>
-  </li>
+    </div>
+
+    <Span
+      fontSize="16"
+      lineHeight="30"
+      mobileFS="14"
+      className="flex-grow-1 mb-to-sm-2 mr-3"
+    >
+      {title}
+    </Span>
+
+    <PostDate
+      className="d-none d-sm-inline-block"
+      color={TEXT_SECONDARY}
+      fontSize="14"
+      mobileFS="12"
+    >
+      {getTimeFromDateToNow(myPostTime, locale)}{' '}
+      <FormattedMessage {...commonMessages.ago} />
+    </PostDate>
+  </A>
 );
 
-const QuestionsProfileTab = /* istanbul ignore next */ ({
-  questions,
-  className,
-  loading,
-  locale,
-}) => (
+const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
   <div className={className}>
-    <ul>
+    <div>
       {questions.map(x => (
         <Note
           {...x}
@@ -115,11 +129,11 @@ const QuestionsProfileTab = /* istanbul ignore next */ ({
           locale={locale}
         />
       ))}
-    </ul>
+    </div>
 
-    {!questions[0] && loading && <LoadingIndicator />}
+    {loading && <LoadingIndicator inline />}
 
-    {!questions[0] && !loading && <NoActivity />}
+    {!questions[0] && !loading && <Banner />}
   </div>
 );
 

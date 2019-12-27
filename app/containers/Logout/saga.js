@@ -3,15 +3,12 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import Cookies from 'utils/cookies';
-
-import { AUTH_TYPE, AUTH_PRIVATE_KEY } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { initEosio } from 'containers/EosioProvider/actions';
 
-import { LOGOUT, LOGOUT_ERROR } from './constants';
+import { LOGOUT } from './constants';
 
 import { logoutSuccess, logoutErr } from './actions';
 
@@ -19,10 +16,10 @@ export function* logoutWorker() {
   try {
     const eosService = yield select(selectEos);
 
-    Cookies.remove(AUTH_TYPE);
-    Cookies.remove(AUTH_PRIVATE_KEY);
+    localStorage.removeItem(AUTOLOGIN_DATA);
+    sessionStorage.removeItem(AUTOLOGIN_DATA);
 
-    yield call(() => eosService.forgetIdentity());
+    yield call(eosService.forgetIdentity);
 
     yield put(initEosio());
 
@@ -30,13 +27,12 @@ export function* logoutWorker() {
 
     yield put(logoutSuccess());
 
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
-    yield put(logoutErr(err.message));
+    yield put(logoutErr(err));
   }
 }
 
 export default function*() {
   yield takeLatest(LOGOUT, logoutWorker);
-  yield takeLatest(LOGOUT_ERROR, errorToastHandling);
 }

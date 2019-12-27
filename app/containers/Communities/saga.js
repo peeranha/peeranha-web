@@ -23,13 +23,16 @@ export function* getSuggestedCommunitiesWorker() {
       ? +storedComm[storedComm.length - 1].id + 1
       : 0;
 
-    const communities = yield call(() =>
-      getSuggestedCommunities(eosService, lowerBound, limit),
+    const communities = yield call(
+      getSuggestedCommunities,
+      eosService,
+      lowerBound,
+      limit,
     );
 
     yield put(getSuggestedCommunitiesSuccess(communities));
   } catch (err) {
-    yield put(getSuggestedCommunitiesErr(err.message));
+    yield put(getSuggestedCommunitiesErr(err));
   }
 }
 

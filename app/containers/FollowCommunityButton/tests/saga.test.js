@@ -3,11 +3,10 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-
-import { SHOW_LOGIN_MODAL } from 'containers/Login/constants';
+import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import defaultSaga, { followHandlerWorker } from '../saga';
 
@@ -15,13 +14,20 @@ import {
   FOLLOW_HANDLER,
   FOLLOW_HANDLER_SUCCESS,
   FOLLOW_HANDLER_ERROR,
+  MIN_RATING_TO_FOLLOW,
+  MIN_ENERGY_TO_FOLLOW,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+}));
+
+jest.mock('containers/EosioProvider/saga', () => ({
+  isAuthorized: jest.fn(),
+  isValid: jest.fn(),
 }));
 
 jest.mock('utils/communityManagement', () => ({
@@ -37,40 +43,47 @@ describe('followHandlerWorker', () => {
   const props = {
     communityIdFilter: 1,
     isFollowed: false,
+    buttonId: 'buttonId',
   };
 
   const account = 'user1';
-  let profileInfo = {};
-
   const eos = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
   };
 
   describe('props.isFollowed === false', () => {
-    props.isFollowed = false;
-    const generator = followHandlerWorker(props);
+    const generator = followHandlerWorker({
+      ...props,
+      isFollowed: false,
+    });
 
-    it('eosService init step1', () => {
+    it('select eosService', () => {
       select.mockImplementationOnce(() => eos);
       const service = generator.next();
       expect(service.value).toEqual(eos);
     });
 
     it('getSelectedAccount', () => {
-      const step = generator.next(eos);
-      expect(step.value).toEqual(account);
+      generator.next(eos);
+      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
     });
 
-    it('step, profileInfo', () => {
-      select.mockImplementation(() => profileInfo);
-      const step = generator.next(account);
-      expect(step.value).toEqual(profileInfo);
+    it('isAuthorized', () => {
+      generator.next(account);
+      expect(call).toHaveBeenCalledWith(isAuthorized);
+    });
+
+    it('isValid', () => {
+      generator.next();
+      expect(call).toHaveBeenCalledWith(isValid, {
+        buttonId: props.buttonId,
+        minRating: MIN_RATING_TO_FOLLOW,
+        minEnergy: MIN_ENERGY_TO_FOLLOW,
+      });
     });
 
     it('props.isFollowed === false', () => {
-      profileInfo = true;
-
-      generator.next(profileInfo);
+      generator.next();
       expect(followCommunity).toHaveBeenCalledWith(
         eos,
         props.communityIdFilter,
@@ -90,37 +103,19 @@ describe('followHandlerWorker', () => {
     });
   });
 
-  describe('profileInfo false => showLoginModal', () => {
-    const generator = followHandlerWorker(props);
-
-    generator.next();
-    generator.next(eos);
-    generator.next(account);
-
-    it('showLoginModal', () => {
-      const showLoginModal = generator.next(null);
-      expect(showLoginModal.value.type).toBe(SHOW_LOGIN_MODAL);
-    });
-
-    it('error handling', () => {
-      const err = new Error('some error');
-      const putDescriptor = generator.throw(err).value;
-      expect(putDescriptor.type).toBe(FOLLOW_HANDLER_ERROR);
-    });
-  });
-
   describe('props.isFollowed === true', () => {
-    props.isFollowed = true;
-    profileInfo = true;
-
-    const generator = followHandlerWorker(props);
+    const generator = followHandlerWorker({
+      ...props,
+      isFollowed: true,
+    });
 
     generator.next();
     generator.next(eos);
     generator.next(account);
-    generator.next(profileInfo);
+    generator.next();
 
     it('props.isFollowed === true', () => {
+      generator.next();
       expect(unfollowCommunity).toHaveBeenCalledWith(
         eos,
         props.communityIdFilter,

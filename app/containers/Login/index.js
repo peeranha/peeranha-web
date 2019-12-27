@@ -8,10 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import ModalDialog from 'components/ModalDialog';
 
@@ -61,6 +62,7 @@ export class Login extends React.Component {
       showEmailPasswordFormDispatch,
       loginWithEmailDispatch,
       finishRegistrationDispatch,
+      loginWithScatterProcessing,
     } = this.props;
 
     return (
@@ -70,6 +72,7 @@ export class Login extends React.Component {
             locale={locale}
             loginWithScatter={loginWithScatterDispatch}
             showEmailPasswordForm={showEmailPasswordFormDispatch}
+            loginWithScatterProcessing={loginWithScatterProcessing}
           />
         )}
 
@@ -80,6 +83,7 @@ export class Login extends React.Component {
             loginProcessing={loginProcessing}
             loginWithScatter={loginWithScatterDispatch}
             showIForgotPasswordModal={this.showIForgotPasswordModal}
+            loginWithScatterProcessing={loginWithScatterProcessing}
             email={email}
           />
         )}
@@ -104,6 +108,7 @@ Login.propTypes = {
   email: PropTypes.string,
   loginProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
+  loginWithScatterProcessing: PropTypes.bool,
   loginWithScatterDispatch: PropTypes.func,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
@@ -118,19 +123,26 @@ const mapStateToProps = createStructuredSelector({
   email: selectors.makeSelectEmail(),
   loginProcessing: selectors.makeSelectLoginProcessing(),
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
+  loginWithScatterProcessing: selectors.selectLoginWithScatterProcessing(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    hideLoginModalDispatch: () => dispatch(hideLoginModal()),
-    showEmailPasswordFormDispatch: email =>
-      dispatch(showEmailPasswordForm(email)),
-    loginWithEmailDispatch: val => dispatch(loginWithEmail(val)),
-    loginWithScatterDispatch: () => dispatch(loginWithScatter()),
-    showForgotPasswordModalDispatch: () => dispatch(showForgotPasswordModal()),
-    finishRegistrationDispatch: val =>
-      dispatch(finishRegistrationWithDisplayName(val)),
+    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
+    showEmailPasswordFormDispatch: bindActionCreators(
+      showEmailPasswordForm,
+      dispatch,
+    ),
+    loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
+    loginWithScatterDispatch: bindActionCreators(loginWithScatter, dispatch),
+    showForgotPasswordModalDispatch: bindActionCreators(
+      showForgotPasswordModal,
+      dispatch,
+    ),
+    finishRegistrationDispatch: bindActionCreators(
+      finishRegistrationWithDisplayName,
+      dispatch,
+    ),
   };
 }
 
@@ -140,7 +152,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'login', reducer });
-const withSaga = injectSaga({ key: 'login', saga });
+const withSaga = injectSaga({ key: 'login', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

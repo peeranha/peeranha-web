@@ -12,11 +12,11 @@ import {
   changePassword,
   changePasswordSuccess,
   changePasswordErr,
+  sendAnotherCode,
 } from '../actions';
 
 import {
   SHOW_FORGOT_PASSWORD_MODAL,
-  EMAIL_FORM,
   HIDE_FORGOT_PASSWORD_MODAL,
   EMAIL_FIELD,
   GET_VERIFICATION_CODE,
@@ -31,24 +31,22 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 describe('ForgotPassword actions', () => {
+  it('sendAnotherCode', () => {
+    const expected = {
+      type: SEND_ANOTHER_CODE,
+    };
+
+    expect(sendAnotherCode()).toEqual(expected);
+  });
+
   describe('SHOW_FORGOT_PASSWORD_MODAL', () => {
-    it('with content', () => {
-      const content = 'content';
+    it('test', () => {
       const expected = {
         type: SHOW_FORGOT_PASSWORD_MODAL,
-        content,
-      };
-
-      expect(showForgotPasswordModal(content)).toEqual(expected);
-    });
-
-    it('without content', () => {
-      const expected = {
-        type: SHOW_FORGOT_PASSWORD_MODAL,
-        content: EMAIL_FORM,
       };
 
       expect(showForgotPasswordModal()).toEqual(expected);

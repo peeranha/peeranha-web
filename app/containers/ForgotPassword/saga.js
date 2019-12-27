@@ -1,10 +1,7 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select, take } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
 
 import {
   changeCredentialsInit,
@@ -12,6 +9,11 @@ import {
   changeCredentialsGetKeysByMK,
   changeCredentialsComplete,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+
+import { WebIntegrationError } from 'utils/errors';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { successHandling } from 'containers/Toast/saga';
 
 import {
   getVerificationCodeSuccess,
@@ -24,11 +26,10 @@ import {
 
 import {
   GET_VERIFICATION_CODE,
-  GET_VERIFICATION_CODE_ERROR,
+  GET_VERIFICATION_CODE_SUCCESS,
   VERIFY_EMAIL,
-  VERIFY_EMAIL_ERROR,
   CHANGE_PASSWORD,
-  CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 import { selectEmail, selectVerificationCode } from './selectors';
@@ -38,18 +39,28 @@ export function* getVerificationCodeWorker({ email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => changeCredentialsInit(email));
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
 
     yield put(getVerificationCodeSuccess());
   } catch (err) {
-    yield put(getVerificationCodeErr(err.message));
+    yield put(getVerificationCodeErr(err));
   }
+}
+
+export function* sendAnotherCode() {
+  const email = yield select(selectEmail());
+  yield call(getVerificationCodeWorker, { email, resetForm: () => null });
+}
+
+export function* sendAnotherCodeSuccess() {
+  yield take(GET_VERIFICATION_CODE_SUCCESS);
+  yield call(successHandling);
 }
 
 export function* verifyEmailWorker({ verificationCode }) {
@@ -59,19 +70,21 @@ export function* verifyEmailWorker({ verificationCode }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      changeCredentialsConfirm(email, verificationCode),
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
 
     yield put(verifyEmailSuccess());
   } catch (err) {
-    yield put(verifyEmailErr(err.message));
+    yield put(verifyEmailErr(err));
   }
 }
 
@@ -83,18 +96,22 @@ export function* changePasswordWorker({ masterKey, password }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const changeCredentialsGetKeysByMKResponse = yield call(() =>
-      changeCredentialsGetKeysByMK(email, masterKey, verificationCode),
+    const changeCredentialsGetKeysByMKResponse = yield call(
+      changeCredentialsGetKeysByMK,
+      email,
+      masterKey,
+      verificationCode,
     );
 
     if (!changeCredentialsGetKeysByMKResponse.OK) {
-      throw new Error(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByMKResponse.errorCode
-          ].id
-        ],
-      );
+      let message =
+        webIntegrationErrors[changeCredentialsGetKeysByMKResponse.errorCode].id;
+
+      if (changeCredentialsGetKeysByMKResponse.errorCode === 10) {
+        message = webIntegrationErrors.wrongMasterKey.id;
+      }
+
+      throw new WebIntegrationError(translations[message]);
     }
 
     const { keys, encryptionKey } = changeCredentialsGetKeysByMKResponse.body;
@@ -104,12 +121,15 @@ export function* changePasswordWorker({ masterKey, password }) {
       password,
     };
 
-    const changeCredentialsCompleteResponse = yield call(() =>
-      changeCredentialsComplete(changePassword, email, encryptionKey),
+    const changeCredentialsCompleteResponse = yield call(
+      changeCredentialsComplete,
+      changePassword,
+      email,
+      encryptionKey,
     );
 
     if (!changeCredentialsCompleteResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByMKResponse.errorCode
@@ -120,16 +140,14 @@ export function* changePasswordWorker({ masterKey, password }) {
 
     yield put(changePasswordSuccess());
   } catch (err) {
-    yield put(changePasswordErr(err.message));
+    yield put(changePasswordErr(err));
   }
 }
 
 export default function*() {
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(GET_VERIFICATION_CODE, getVerificationCodeWorker);
   yield takeLatest(VERIFY_EMAIL, verifyEmailWorker);
   yield takeLatest(CHANGE_PASSWORD, changePasswordWorker);
-  yield takeLatest(
-    [GET_VERIFICATION_CODE_ERROR, VERIFY_EMAIL_ERROR, CHANGE_PASSWORD_ERROR],
-    errorToastHandling,
-  );
 }

@@ -1,6 +1,6 @@
 import Transparent from './Transparent';
+import Large from '../Large';
 
 export default Transparent.extend`
-  min-width: 92px;
-  padding: 11px 16px;
+  ${Large};
 `;

@@ -1,3 +1,5 @@
+import JSBI from 'jsbi';
+
 import { saveText, getText } from './ipfs';
 
 import {
@@ -38,12 +40,19 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.communitiesMap = {};
 
     communities.forEach(community_id => {
-      const lowerBound = BigInt(community_id) << BigInt(36);
+      const lowerBound = JSBI.leftShift(
+        JSBI.BigInt(community_id),
+        JSBI.BigInt(36),
+      );
+
       this.communitiesMap[community_id] = {
         items: [],
-        lowerBound: `${lowerBound}`,
-        lastKeyFetched: `${lowerBound}`,
-        uppperBound: `${BigInt(community_id + 1) << BigInt(36)}`,
+        lowerBound: lowerBound.toString(),
+        lastKeyFetched: lowerBound.toString(),
+        uppperBound: JSBI.leftShift(
+          JSBI.BigInt(community_id + 1),
+          JSBI.BigInt(36),
+        ).toString(),
         more: true,
       };
     });
@@ -53,8 +62,6 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
   getNextItems = /* istanbul ignore next */ async fetchCount => {
     if (!this.hasMore) return [];
-
-    const inc = BigInt(1);
 
     const fill_fetcher = async community_id => {
       if (
@@ -79,11 +86,13 @@ export class FetcherOfQuestionsForFollowedCommunities {
       this.communitiesMap[community_id].items.push(...fetch_res);
 
       if (fetch_res.length === limit) {
-        this.communitiesMap[community_id].lastKeyFetched = `${BigInt(
-          this.communitiesMap[community_id].lowerBound,
-        ) +
-          BigInt(fetch_res[fetch_res.length - 1].id) +
-          inc}`;
+        this.communitiesMap[community_id].lastKeyFetched = JSBI.add(
+          JSBI.add(
+            JSBI.BigInt(this.communitiesMap[community_id].lowerBound),
+            JSBI.BigInt(fetch_res[fetch_res.length - 1].id),
+          ),
+          JSBI.BigInt(1),
+        ).toString();
       } else {
         this.communitiesMap[community_id].more = false;
       }
@@ -108,7 +117,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       fetchCount = availableItems;
     }
 
-    const minIdInitializer = BigInt(1) << BigInt(65);
+    const minIdInitializer = JSBI.leftShift(JSBI.BigInt(1), JSBI.BigInt(65));
     const items = [];
 
     for (let i = 0; i < fetchCount; i++) {
@@ -118,8 +127,10 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
       this.communities.forEach(community_id => {
         if (this.communitiesMap[community_id].items.length) {
-          const currId = BigInt(this.communitiesMap[community_id].items[0].id);
-          if (currId < minId) {
+          const currId = JSBI.BigInt(
+            this.communitiesMap[community_id].items[0].id,
+          );
+          if (JSBI.lessThan(currId, minId)) {
             minId = currId;
             communityWithMinId = community_id;
           }
@@ -189,9 +200,12 @@ export async function getQuestionsFilteredByCommunities(
   const questions = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
-    String((BigInt(communityId) << BigInt(36)) + BigInt(offset)),
+    JSBI.add(
+      JSBI.leftShift(JSBI.BigInt(communityId), JSBI.BigInt(36)),
+      JSBI.BigInt(offset),
+    ).toString(),
     limit,
-    String(BigInt(communityId + 1) << BigInt(36)),
+    JSBI.leftShift(JSBI.BigInt(communityId + 1), JSBI.BigInt(36)).toString(),
     GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
     GET_QUESTIONS_KEY_TYPE,
   );
@@ -238,6 +252,8 @@ export async function postQuestion(user, questionData, eosService) {
       community_id: questionData.community.value,
       tags: questionData.chosenTags.map(x => x.value),
     },
+    null,
+    true,
   );
 
   return question;
@@ -271,11 +287,17 @@ export async function getAnswer(link) {
 export async function postAnswer(user, questionId, answer, eosService) {
   const ipfsLink = await saveText(answer);
 
-  await eosService.sendTransaction(user, POST_ANSWER_METHOD, {
+  await eosService.sendTransaction(
     user,
-    question_id: +questionId,
-    ipfs_link: ipfsLink,
-  });
+    POST_ANSWER_METHOD,
+    {
+      user,
+      question_id: +questionId,
+      ipfs_link: ipfsLink,
+    },
+    null,
+    true,
+  );
 }
 
 export async function editAnswer(

@@ -14,8 +14,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 process.noDeprecation = true;
 
 module.exports = options => {
-  // Get Object with a parsed keys from .env
-  const env = dotenv.config().parsed;
+  const baseEnvPath = path.resolve('.env');
+  const testEnvPath = `${baseEnvPath}.test`;
+  const prodEnvPath = `${baseEnvPath}.prod`;
+
+  let targetEnvPath = baseEnvPath;
+
+  if (process.env.NODE_ENV === 'production') {
+    targetEnvPath = prodEnvPath;
+  } else if (process.env.NODE_ENV === 'test') {
+    targetEnvPath = testEnvPath;
+  }
+
+  // Set the path parameter in the dotenv config
+  const env = dotenv.config({ path: targetEnvPath }).parsed;
 
   // reduce .env keys to an object
   const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -103,7 +115,8 @@ module.exports = options => {
               loader: 'image-webpack-loader',
               options: {
                 mozjpeg: {
-                  enabled: false,
+                  enabled: true,
+                  progressive: true,
                   // NOTE: mozjpeg is disabled as it causes errors in some Linux environments
                   // Try enabling it in your environment by switching the config to:
                   // enabled: true,
@@ -116,7 +129,7 @@ module.exports = options => {
                   optimizationLevel: 7,
                 },
                 pngquant: {
-                  quality: '65-90',
+                  quality: [0.7, 0.8],
                   speed: 4,
                 },
               },

@@ -17,6 +17,13 @@ injectGlobal`
     position: relative;
     font-family: Source Sans Pro, sans-serif;
     background: ${BG_PRIMARY_LIGHT};
+    word-break: break-all;
+
+    @supports (word-break: break-word) {
+      word-break: break-word;
+    }
+
+    word-wrap: break-word;
   }
 
   button, a {
@@ -28,6 +35,7 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
+    overflow: hidden;
   }
 
   #modal > div {
@@ -43,7 +51,14 @@ injectGlobal`
   }
 
   .container {
-    max-width: 1320px;
+    max-width: 1360px;
+
+    &.container-mobile {
+      @media only screen and (max-width: 576px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
   }
 
   #landing-id {
@@ -55,5 +70,41 @@ injectGlobal`
 
   .popover {
     z-index: 100000;
+
+    @media only screen and (max-width: 576px) {
+      width: 200px;
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .overflow-initial {
+    overflow: initial;
+  }
+
+  @media only screen and (min-width: 576px) {
+    .mb-from-sm-3 {
+      margin-bottom: 15px !important;
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    .mb-to-sm-0 {
+      margin-bottom: 0px !important;
+    }
+
+    .mb-to-sm-2 {
+      margin-bottom: 10px !important;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .mb-to-md-2 {
+      margin-bottom: 10px !important;
+    }
   }
 `;

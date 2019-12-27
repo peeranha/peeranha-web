@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from 'components/Input';
 import Wrapper from './Wrapper';
 
-export const NumberInputField = /* istanbul ignore next */ ({
+export const NumberInputField = ({
   input,
   label,
   readOnly,
@@ -16,18 +16,29 @@ export const NumberInputField = /* istanbul ignore next */ ({
   tip,
   splitInHalf,
   onClick,
+  dotRestriction = 6,
   type = 'text',
 }) => {
   const onChange = x => {
-    const lastChar = x.target.value;
+    const inputValue = x.target.value;
+    const inputAfterDot = String(inputValue).split('.')[1];
 
-    if (Number(lastChar) || !lastChar) {
-      input.onChange(lastChar);
+    if (
+      (Number(inputValue) || !inputValue) &&
+      (!inputAfterDot || inputAfterDot.length <= dotRestriction)
+    ) {
+      input.onChange(inputValue);
     }
   };
 
   return (
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      id={input.name}
+    >
       <Input
         input={{ ...input, onChange }}
         disabled={disabled}
@@ -56,6 +67,7 @@ NumberInputField.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   onClick: PropTypes.func,
+  dotRestriction: PropTypes.number,
 };
 
 export default React.memo(NumberInputField);

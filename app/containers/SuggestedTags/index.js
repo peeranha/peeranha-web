@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 
@@ -81,7 +82,12 @@ export class SuggestedTags extends React.Component {
           sortTags={this.sortTags}
           communityId={+match.params.communityid}
           currentCommunity={this.currentCommunity}
-          Aside={<Aside existingTags={existingTags} />}
+          Aside={
+            <Aside
+              existingTags={existingTags}
+              currentCommunity={this.currentCommunity}
+            />
+          }
           Content={
             <Content
               loadMoreTags={this.loadMoreTags}
@@ -126,7 +132,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
+    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
   };
 }
 

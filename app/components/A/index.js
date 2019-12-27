@@ -1,22 +1,35 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { TEXT_DARK } from 'style-constants';
+import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
+import { svgDraw } from 'components/Icon/IconStyled';
+import Span from 'components/Span';
 
-/* istanbul ignore next */
-const A = styled(Link)`
-  text-decoration: none;
-  color: ${TEXT_DARK};
+const ACss = css`
+  text-decoration: none !important;
   font-weight: ${x => (x.bold ? '600' : 'inherit')};
   pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
-
-  :visited {
-    text-decoration: none;
-  }
+  ${svgDraw({ color: TEXT_DARK })};
+  cursor: pointer;
 
   :hover {
-    text-decoration: none;
+    ${svgDraw({ color: TEXT_PRIMARY })};
   }
 `;
 
-export default A;
+export const AProps = Span.extend`
+  ${ACss};
+`.withComponent(Link);
+
+export const ALinkDisabled = styled(Link)`
+  ${ACss};
+  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+`;
+
+export const ADefault = styled.a`
+  ${ACss};
+`;
+
+export default styled(Link)`
+  ${ACss};
+`;

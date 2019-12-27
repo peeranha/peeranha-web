@@ -1,4 +1,6 @@
+/* eslint no-shadow: 0 */
 import { fromJS } from 'immutable';
+
 import {
   selectQuestionsDomain,
   selectQuestionsLoading,
@@ -7,8 +9,8 @@ import {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
-  selectCommunityIdFilter,
   selectFollowedCommunities,
+  selectQuestions,
 } from '../selectors';
 
 describe('selectQuestionsDomain', () => {
@@ -35,9 +37,79 @@ describe('selectQuestionsDomain', () => {
   const mockedState = fromJS({
     questionsReducer: globalState,
   });
-
   it('should select the global state', () => {
     expect(selectQuestionsDomain(mockedState)).toEqual(globalState);
+  });
+
+  describe('selectQuestions', () => {
+    const account = 'user1';
+    const followedCommunities = [1, 2, 3];
+
+    const questionsList = [
+      {
+        id: 1,
+        community_id: 1,
+      },
+      {
+        id: 2,
+        community_id: 2,
+      },
+      {
+        id: 3,
+        community_id: 3,
+      },
+      {
+        id: 4,
+        community_id: 4,
+      },
+      {
+        id: 5,
+        community_id: 5,
+      },
+      {
+        id: 6,
+        community_id: 6,
+      },
+    ];
+
+    const state = fromJS({
+      accountProvider: {
+        account,
+      },
+      dataCacheProvider: {
+        users: {
+          [account]: {
+            followed_communities: followedCommunities,
+          },
+        },
+      },
+      questionsReducer: {
+        questionsList,
+      },
+    });
+
+    it('communityId is TRUE', () => {
+      const communityId = 2;
+      expect(selectQuestions(null, communityId, null)(state)).toEqual([
+        questionsList[1],
+      ]);
+    });
+
+    it('isFeed is TRUE', () => {
+      const isFeed = true;
+      expect(selectQuestions(isFeed, null, null)(state)).toEqual([
+        questionsList[0],
+        questionsList[1],
+        questionsList[2],
+      ]);
+    });
+
+    it('questionId is TRUE', () => {
+      const questionId = 5;
+      expect(selectQuestions(null, null, questionId)(state)).toEqual(
+        questionsList[4],
+      );
+    });
   });
 
   it('selectQuestionsLoading', () => {
@@ -68,11 +140,6 @@ describe('selectQuestionsDomain', () => {
   it('selectIsLastFetch', () => {
     const isIsLastFetch = selectIsLastFetch();
     expect(isIsLastFetch(mockedState)).toEqual(isLastFetch);
-  });
-
-  it('selectCommunityIdFilter', () => {
-    const isSelectCommunityIdFilter = selectCommunityIdFilter();
-    expect(isSelectCommunityIdFilter(mockedState)).toEqual(communityIdFilter);
   });
 
   it('selectFollowedCommunities', () => {

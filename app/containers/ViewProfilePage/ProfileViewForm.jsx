@@ -8,7 +8,7 @@ import AdditionalUserInformation from './AdditionalUserInformation';
 import CommunitiesForm from './CommunitiesForm';
 import Activity from './Activity';
 
-const ProfileViewForm = /* istanbul ignore next */ ({
+const ProfileViewForm = ({
   profile,
   account,
   userId,
@@ -19,14 +19,21 @@ const ProfileViewForm = /* istanbul ignore next */ ({
   questionsWithAnswersLoading,
   locale,
   className,
+  redirectToEditProfilePage,
 }) => (
   <div className={className}>
-    <MainUserInformation profile={profile} userId={userId} account={account} />
+    <MainUserInformation
+      profile={profile}
+      userId={userId}
+      account={account}
+      redirectToEditProfilePage={redirectToEditProfilePage}
+    />
 
     <AdditionalUserInformation
       profile={profile}
       userId={userId}
       account={account}
+      redirectToEditProfilePage={redirectToEditProfilePage}
     />
 
     <CommunitiesForm
@@ -51,6 +58,7 @@ const ProfileViewForm = /* istanbul ignore next */ ({
       questionsLoading={questionsLoading}
       questionsWithAnswersLoading={questionsWithAnswersLoading}
       locale={locale}
+      profile={profile}
     />
   </div>
 );
@@ -66,6 +74,7 @@ ProfileViewForm.propTypes = {
   questionsWithAnswersLoading: PropTypes.bool,
   locale: PropTypes.string,
   className: PropTypes.string,
+  redirectToEditProfilePage: PropTypes.func,
 };
 
 export default ProfileViewForm;

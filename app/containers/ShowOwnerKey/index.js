@@ -8,15 +8,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
+import Button from 'components/Button/Contained/Transparent';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -30,6 +32,7 @@ import {
   showOwnerKeyModal,
   hideOwnerKeyModal,
   sendEmail,
+  removeOwnerKey,
 } from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
@@ -48,6 +51,9 @@ export class ShowOwnerKey extends React.PureComponent {
       content,
       sendEmailProcessing,
       sendEmailDispatch,
+      ownerKey,
+      removeOwnerKeyDispatch,
+      loginData,
     } = this.props;
 
     return (
@@ -58,6 +64,7 @@ export class ShowOwnerKey extends React.PureComponent {
               locale={locale}
               sendEmail={sendEmailDispatch}
               sendEmailProcessing={sendEmailProcessing}
+              loginData={loginData}
             />
           )}
 
@@ -70,7 +77,13 @@ export class ShowOwnerKey extends React.PureComponent {
           )}
         </Modal>
 
-        <button onClick={showOwnerKeyModalDispatch}>{children}</button>
+        <Button
+          onClick={
+            !ownerKey ? showOwnerKeyModalDispatch : removeOwnerKeyDispatch
+          }
+        >
+          {children}
+        </Button>
       </React.Fragment>
     );
   }
@@ -86,11 +99,15 @@ ShowOwnerKey.propTypes = {
   sendEmailProcessing: PropTypes.bool,
   locale: PropTypes.string,
   content: PropTypes.string,
+  ownerKey: PropTypes.string,
   sendEmailDispatch: PropTypes.func,
+  removeOwnerKeyDispatch: PropTypes.func,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
   showOwnerKeyProcessing: selectors.selectShowOwnerKeyProcessing(),
@@ -99,10 +116,11 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showOwnerKeyDispatch: (...args) => dispatch(showOwnerKey(args)),
-    sendEmailDispatch: (...args) => dispatch(sendEmail(args)),
-    showOwnerKeyModalDispatch: () => dispatch(showOwnerKeyModal()),
-    hideOwnerKeyModalDispatch: () => dispatch(hideOwnerKeyModal()),
+    showOwnerKeyDispatch: bindActionCreators(showOwnerKey, dispatch),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
+    showOwnerKeyModalDispatch: bindActionCreators(showOwnerKeyModal, dispatch),
+    hideOwnerKeyModalDispatch: bindActionCreators(hideOwnerKeyModal, dispatch),
+    removeOwnerKeyDispatch: bindActionCreators(removeOwnerKey, dispatch),
   };
 }
 

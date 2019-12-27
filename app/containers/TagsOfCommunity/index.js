@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { getFollowedCommunities } from 'utils/communityManagement';
 
@@ -29,6 +30,15 @@ import Aside from './Aside';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TagsOfCommunity extends React.Component {
+  clearTextField = () => {
+    const text = '';
+
+    this.props.getExistingTagsDispatch({
+      communityId: this.currentCommunity.id,
+      text,
+    });
+  };
+
   typeInput = ev => {
     const text = ev.target.value;
 
@@ -101,6 +111,8 @@ export class TagsOfCommunity extends React.Component {
               existingTagsLoading={existingTagsLoading}
               typeInput={this.typeInput}
               text={text}
+              clearTextField={this.clearTextField}
+              locale={locale}
             />
           }
         />
@@ -140,7 +152,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
+    getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
   };
 }
 

@@ -1,160 +1,179 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import * as routes from 'routes-config';
-import { TEXT_SECONDARY } from 'style-constants';
+
+import commonMessages from 'common-messages';
+import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-
-import noAvatar from 'images/noAvatar.png';
-import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
-import pencilIcon from 'images/pencil.svg?inline';
-import risenIcon from 'images/risen.svg?inline';
 
 import Base from 'components/Base';
 import Ul from 'components/Ul';
-import Li from 'components/Li';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
-import H3 from 'components/H3';
-import A from 'components/A';
-import TransparentButton from 'components/Button/Contained/Transparent';
 
 import LargeImage from 'components/Img/LargeImage';
 
 import messages from 'containers/Profile/messages';
-import commonMessages from 'common-messages';
 
 const UlStyled = Ul.extend`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   border: none;
   padding: 0;
-`;
+  overflow-x auto;
+  white-space: nowrap;
 
-/* istanbul ignore next */
-const LiStyled = Li.extend`
-  display: flex;
-  flex-direction: column;
-  padding: 16px ${props => (props.last ? '0' : '47px')} 16px 0;
-
-  > :nth-child(1) {
-    margin-bottom: 5px;
+  li:last-child {
+    padding-right: 0;
   }
 
-  img {
-    margin-right: 5px;
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 45px 15px 0;
+
+    > *:nth-child(1) {
+      font-size: 13px;
+      line-height: 25px;
+      color: ${TEXT_SECONDARY};
+    }
+
+    > *:nth-child(2) {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: ${TEXT_DARK};
+
+      img {
+        margin-right: 5px;
+        height: 18px;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      padding: 10px 25px 5px 0;
+    }
+
+    @media only screen and (max-width: 576px) {
+      padding: 7px 15px 7px 0;
+
+      span {
+        font-size: 14px !important;
+      }
+    }
   }
 `;
 
-const MainUserInformation = /* istanbul ignore next */ ({
+export const Box = Base.extend`
+  > div {
+    display: flex;
+    align-items: start;
+
+    > *:nth-child(1) {
+      display: flex;
+      justify-content: flex-start;
+      align-items: start;
+      flex: 0 0 150px;
+
+      @media only screen and (max-width: 576px) {
+        flex: 0 0 90px;
+      }
+    }
+
+    > *:nth-child(2) {
+      flex: 0 0 calc(100% - 150px);
+      max-width: calc(100% - 150px);
+      overflow: hidden;
+
+      @media only screen and (max-width: 576px) {
+        flex: 0 0 calc(100% - 90px);
+        max-width: calc(100% - 90px);
+      }
+    }
+  }
+`;
+
+const MainUserInformation = ({
   profile,
   userId,
   account,
+  redirectToEditProfilePage,
 }) => (
-  <Base position="middle">
-    <div className="row">
-      <div className="col-12 col-lg-3 col-xl-2 d-flex justify-content-center">
-        <LargeImage
-          src={
-            profile.ipfs_avatar ||
-            (userId === account ? editUserNoAvatar : noAvatar)
-          }
-          alt="avatar"
-          isBordered
-        />
+  <Box position="middle">
+    <div>
+      <div>
+        <button
+          onClick={redirectToEditProfilePage}
+          data-user={userId}
+          disabled={account !== userId}
+        >
+          <LargeImage
+            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+            alt="avatar"
+            isBordered
+          />
+        </button>
       </div>
 
-      <div className="col-12 col-lg-9 col-xl-10">
-        <div className="d-flex justify-content-between align-items-center">
-          <H3>{profile.display_name}</H3>
-
-          <A to={routes.profileEdit(userId)} href={routes.profileEdit(userId)}>
-            <TransparentButton>
-              <img className="mr-2" src={pencilIcon} alt="icon" />
-              <FormattedMessage {...commonMessages.edit} />
-            </TransparentButton>
-          </A>
+      <div>
+        <div className="d-flex align-items-center">
+          <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+            {profile.display_name}
+          </Span>
         </div>
 
         <div className="d-flex align-items-center">
           <UlStyled>
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...messages.reputation} />
-              </Span>
+            <li>
+              <FormattedMessage {...messages.reputation} />
               <RatingStatus rating={profile.rating} size="lg" />
-            </LiStyled>
+            </li>
 
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...commonMessages.questions} />
-              </Span>
-              <Span
-                className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
+            <li>
+              <FormattedMessage {...commonMessages.questions} />
+              <span>
                 <img src={questionRoundedIcon} alt="icon" />
-                <span>{profile.questions_asked || 0}</span>
-              </Span>
-            </LiStyled>
+                {profile.questions_asked}
+              </span>
+            </li>
 
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...commonMessages.answers} />
-              </Span>
-              <Span
-                className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
+            <li>
+              <FormattedMessage {...commonMessages.answers} />
+              <span>
                 <img src={answerIcon} alt="icon" />
-                <span>{profile.answers_given || 0}</span>
-              </Span>
-            </LiStyled>
+                {profile.answers_given}
+              </span>
+            </li>
 
-            <LiStyled>
-              <Span color={TEXT_SECONDARY} fontSize="13">
-                <FormattedMessage {...messages.risen} />
-              </Span>
-              <Span
-                className="d-flex align-items-center"
-                fontSize="18"
-                margin="sm"
-                bold
-              >
-                <img
-                  src={risenIcon}
-                  className="d-flex align-items-center"
-                  alt="icon"
-                />
-                <span>{profile.correct_answers || 0}</span>
-              </Span>
-            </LiStyled>
+            <li>
+              <FormattedMessage {...commonMessages.eosAccount} />
+              <span>{userId}</span>
+            </li>
 
-            <LiStyled last>
-              <Span color={TEXT_SECONDARY} fontSize="13">
+            <li>
+              <span>
                 <FormattedMessage {...messages.memberSince} />
-                <span>{getFormattedDate(profile.registration_time)}</span>
-              </Span>
-            </LiStyled>
+                {getFormattedDate(profile.registration_time)}
+              </span>
+            </li>
           </UlStyled>
         </div>
       </div>
     </div>
-  </Base>
+  </Box>
 );
 
 MainUserInformation.propTypes = {
   profile: PropTypes.object,
   userId: PropTypes.string,
   account: PropTypes.string,
+  redirectToEditProfilePage: PropTypes.func,
 };
 
 export default React.memo(MainUserInformation);

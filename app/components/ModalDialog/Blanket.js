@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BG_PRIMARY_SPECIAL } from 'style-constants';
 
 export default styled.div`
   position: absolute;
@@ -7,5 +8,5 @@ export default styled.div`
   width: inherit;
   height: inherit;
   z-index: 400;
-  background: rgba(0, 0, 0, 0.3);
+  background: ${BG_PRIMARY_SPECIAL};
 `;

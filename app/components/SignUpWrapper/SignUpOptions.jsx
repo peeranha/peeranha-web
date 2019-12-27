@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
@@ -11,6 +13,7 @@ import scatterLogo from 'images/scatterLogo.svg?inline';
 
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
@@ -18,11 +21,17 @@ import SecondaryLargeButton from 'components/Button/Outlined/SecondaryLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 
+import {
+  HOW_STORE_MY_KEYS_QUESTION,
+  CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+  CAN_I_DELETE_ACCOUNT_QUESTION,
+} from 'containers/Faq/constants';
+
 import SignUpWrapper from './index';
 
 export const P = Span.extend`
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 24px;
   margin-bottom: 30px;
 `.withComponent('p');
 
@@ -34,9 +43,14 @@ export const Li = P.extend`
   a {
     color: ${TEXT_PRIMARY};
   }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
 `.withComponent('li');
 
-const LeftMenu = () => (
+const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
     <div className="mb-4">
       <Link to={routes.questions()} href={routes.questions()}>
@@ -50,10 +64,10 @@ const LeftMenu = () => (
 
     <div className="mb-4">
       <P>
-        <FormattedMessage {...messages.steemitIsNotTypical} />
+        <FormattedMessage {...messages.peeranhaIsNotTypical} />
       </P>
       <P>
-        <FormattedMessage {...messages.steemitBlockchainPowers} />
+        <FormattedMessage {...messages.telosBlockchainPowers} />
       </P>
       <P>
         <FormattedMessage {...messages.weAreHappyToCover} />
@@ -63,23 +77,9 @@ const LeftMenu = () => (
       </P>
     </div>
 
-    <ul className="mb-4">
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whyIHaveToWait} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whenCanIStart} />
-        </Link>
-      </Li>
-      <Li>
-        <Link to={routes.faq()} href={routes.faq()}>
-          <FormattedMessage {...messages.whatIsEosAccountFor} />
-        </Link>
-      </Li>
-    </ul>
+    {faqQuestions && (
+      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+    )}
   </React.Fragment>
 );
 
@@ -100,7 +100,11 @@ const RightMenuWithoutScatter = ({
       </div>
 
       <div className="mb-3">
-        <SecondaryLargeButton onClick={showScatterSignUpForm} className="w-100">
+        <SecondaryLargeButton
+          onClick={showScatterSignUpForm}
+          className="w-100"
+          disabled={showScatterSignUpProcessing}
+        >
           <img src={scatterLogo} alt="scatter logo" />
         </SecondaryLargeButton>
       </div>
@@ -125,9 +129,10 @@ const SignUpOptions = ({
   showScatterSignUpForm,
   showScatterSignUpProcessing,
   withScatter,
+  faqQuestions,
 }) => (
   <SignUpWrapper
-    LeftMenuChildren={<LeftMenu />}
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={
       !withScatter ? (
         <RightMenuWithoutScatter
@@ -143,6 +148,10 @@ const SignUpOptions = ({
   />
 );
 
+LeftMenu.propTypes = {
+  faqQuestions: PropTypes.array,
+};
+
 RightMenuWithoutScatter.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
@@ -156,6 +165,18 @@ SignUpOptions.propTypes = {
   showScatterSignUpForm: PropTypes.func,
   showScatterSignUpProcessing: PropTypes.bool,
   withScatter: PropTypes.bool,
+  faqQuestions: PropTypes.array,
 };
 
-export default React.memo(SignUpOptions);
+const mapStateToProps = createStructuredSelector({
+  faqQuestions: selectFaqQuestions([
+    HOW_STORE_MY_KEYS_QUESTION,
+    CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+    CAN_I_DELETE_ACCOUNT_QUESTION,
+  ]),
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(SignUpOptions);

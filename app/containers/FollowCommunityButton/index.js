@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,6 +20,7 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 import { followHandler } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.PureComponent {
@@ -29,36 +30,47 @@ export class FollowCommunityButton extends React.PureComponent {
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
     const { communityIdFilter } = this.props;
 
-    this.props.followHandlerDispatch(communityIdFilter, isFollowed);
+    this.props.followHandlerDispatch(
+      communityIdFilter,
+      isFollowed,
+      e.currentTarget.id,
+    );
   };
 
   render() /* istanbul ignore next */ {
-    const { communityIdFilter, followedCommunities, render } = this.props;
+    const { communityIdFilter, followedCommunities, render, ids } = this.props;
+    const id = `follow_community_${communityIdFilter}`;
+    const disabled = ids.includes(id);
 
     const isFollowed = followedCommunities
       ? followedCommunities.includes(communityIdFilter)
       : false;
 
-    return render({ isFollowed, onClick: this.followHandler });
+    return render({
+      isFollowed,
+      onClick: this.followHandler,
+      id,
+      disabled,
+    });
   }
 }
 
 FollowCommunityButton.propTypes = {
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
+  ids: PropTypes.array,
   followHandlerDispatch: PropTypes.func,
   render: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   followedCommunities: makeSelectFollowedCommunities(),
+  ids: selectIds(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    followHandlerDispatch: (communityIdFilter, isFollowed) =>
-      dispatch(followHandler(communityIdFilter, isFollowed)),
+    followHandlerDispatch: bindActionCreators(followHandler, dispatch),
   };
 }
 

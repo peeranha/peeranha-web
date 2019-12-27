@@ -5,10 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import {
   TEXT_PRIMARY_DARK,
   BORDER_PRIMARY_DARK,
-  BG_PRIMARY,
   BG_SUCCESS,
   TEXT_SECONDARY,
+  BG_PRIMARY_DARK,
 } from 'style-constants';
+
+import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
@@ -18,9 +20,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import A from 'components/A';
-
-import messages from 'common-messages';
+import { AProps } from 'components/A';
 
 import {
   POST_TYPE_ANSWER,
@@ -30,8 +30,12 @@ import {
 import QuestionCommunity from './QuestionCommunity';
 
 const BaseStyled = Base.extend`
-  margin-top: 15px;
-  word-break: break-all;
+  display: flex;
+  flex: 1;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Badge = Span.extend`
@@ -40,26 +44,41 @@ const Badge = Span.extend`
   border-radius: 3px;
   padding: 4px 10px;
   text-align: center;
-  width: 56px;
-  height: 24px;
+  width: 57px;
+  height: 26px;
   margin-bottom: 8px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 5px;
+  }
 `;
 
 const AcceptedQuestionBadgeStyled = Badge.extend`
   background: ${BG_SUCCESS};
+  margin-right: 20px;
   border: none;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 5px;
+  }
 `;
 
 const TopCommunityBadgeStyled = Badge.extend`
-  background: ${BG_PRIMARY};
+  background: ${BG_PRIMARY_DARK};
+  margin-right: 20px;
   border: none;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = /* istanbul ignore next */ ({
+const AcceptedQuestionBadge = ({
   acceptedAnswer,
   postType,
   isMyAnswerAccepted,
@@ -75,10 +94,7 @@ const AcceptedQuestionBadge = /* istanbul ignore next */ ({
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
-const TopCommunityBadge = /* istanbul ignore next */ ({
-  isTheLargestRating,
-  postType,
-}) =>
+const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
       <img
@@ -90,7 +106,7 @@ const TopCommunityBadge = /* istanbul ignore next */ ({
   ) : null;
 
 /* eslint camelcase: 0 */
-export const QuestionForProfilePage = /* istanbul ignore next */ ({
+export const QuestionForProfilePage = ({
   myPostRating,
   title,
   myPostTime,
@@ -103,8 +119,8 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
   isTheLargestRating,
   route,
 }) => (
-  <BaseStyled className="d-flex flex-grow-1" position="left">
-    <div className="d-flex flex-column mr-4">
+  <BaseStyled>
+    <div className="d-flex flex-row flex-md-column">
       <Badge bold>{myPostRating}</Badge>
 
       <AcceptedQuestionBadge
@@ -120,23 +136,26 @@ export const QuestionForProfilePage = /* istanbul ignore next */ ({
     </div>
 
     <div className="d-flex flex-column flex-grow-1">
-      <p>
-        <A to={route} href={route}>
-          <Span fontSize="24" bold>
-            {title}
-          </Span>
-        </A>
-      </p>
+      <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
+        {title}
+      </AProps>
+
       <p className="d-flex align-items-center my-1">
         <Span
           className="text-capitalize mr-3"
           fontSize="14"
           color={TEXT_SECONDARY}
         >
-          <FormattedMessage {...messages.asked} />
-          <span className="pl-1">
-            {getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME)}
-          </span>
+          <FormattedMessage
+            {...commonMessages.askedWhen}
+            values={{
+              when: getFormattedDate(
+                myPostTime,
+                locale,
+                MONTH_3LETTERS__DAY_TIME,
+              ),
+            }}
+          />
         </Span>
         <QuestionCommunity
           communities={communities}
@@ -170,7 +189,6 @@ QuestionForProfilePage.propTypes = {
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
-  id: PropTypes.string,
   community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,

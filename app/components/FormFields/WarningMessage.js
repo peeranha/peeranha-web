@@ -1,45 +1,81 @@
+/* eslint indent: 0 */
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 
-import Span from 'components/Span';
+export const Div = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic;
+  max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
+  word-break: normal;
+  color: ${TEXT_SECONDARY};
 
-export const WarningMessage = /* istanbul ignore next */ ({
+  > div {
+    display: flex;
+    align-items: center;
+    flex-direction: ${x => (x.isSpecialPosition ? 'column' : 'row')};
+
+    img {
+      margin-right: ${x => (x.isSpecialPosition ? '0px' : '12px')};
+      transform: ${x =>
+        x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
+    }
+  }
+`;
+
+export const WarningMessage = ({
   error,
+  active,
   warning,
-  touched,
   className,
   tip,
-  intl,
-}) =>
-  touched && (error || warning || tip) ? (
-    <div className={`d-flex align-items-center ${className}`}>
-      {tip && (
-        <img
-          className="d-none d-xl-inline mr-2"
-          src={validationArrowIcon}
-          alt="icon"
-        />
-      )}
+  isSpecialPosition,
+  visited,
+}) => {
+  const err = error || warning;
 
-      <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-        {(error && intl.formatMessage({ id: error.id })) ||
-          (warning && intl.formatMessage({ id: warning.id })) ||
+  return (visited && err) || (active && tip) ? (
+    <Div className={className} isSpecialPosition={isSpecialPosition}>
+      <div>
+        {(tip || isSpecialPosition) && (
+          <img
+            className={`${!isSpecialPosition ? 'd-none' : ''} d-md-inline`}
+            src={validationArrowIcon}
+            alt="icon"
+          />
+        )}
+
+        {(err && (
+          <FormattedMessage
+            id={err.id}
+            values={{
+              min: err.min,
+              max: err.max,
+            }}
+          />
+        )) ||
           tip}
-      </Span>
-    </div>
+      </div>
+    </Div>
   ) : null;
+};
 
 WarningMessage.propTypes = {
   error: PropTypes.object,
   warning: PropTypes.object,
   className: PropTypes.string,
   tip: PropTypes.string,
-  touched: PropTypes.bool,
-  intl: intlShape.isRequired,
+  visited: PropTypes.bool,
+  active: PropTypes.bool,
+  isSpecialPosition: PropTypes.bool,
 };
 
-export default React.memo(injectIntl(WarningMessage));
+export default React.memo(WarningMessage);

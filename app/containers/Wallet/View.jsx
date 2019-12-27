@@ -12,6 +12,9 @@ const View = ({
   balance,
   weekStat,
   getWeekStatProcessing,
+  pickupRewardDispatch,
+  pickupRewardProcessing,
+  ids,
 }) => (
   <React.Fragment>
     <NavHeader userId={userId} />
@@ -20,6 +23,9 @@ const View = ({
       locale={locale}
       weekStat={weekStat}
       getWeekStatProcessing={getWeekStatProcessing}
+      pickupRewardDispatch={pickupRewardDispatch}
+      pickupRewardProcessing={pickupRewardProcessing}
+      ids={ids}
     />
   </React.Fragment>
 );
@@ -30,7 +36,10 @@ View.propTypes = {
   account: PropTypes.string,
   balance: PropTypes.string,
   weekStat: PropTypes.array,
+  ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
+  pickupRewardDispatch: PropTypes.func,
+  pickupRewardProcessing: PropTypes.bool,
 };
 
 export default React.memo(View);

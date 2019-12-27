@@ -1,13 +1,15 @@
 /* eslint camelcase: 0 */
-export const home = () => `/`;
-export const faq = () => `/faq`;
+export const home = () => `/about`;
+
+export const notFound = () => `/404`;
+export const errorPage = () => `/error-occured`;
 
 export const profileView = id => `/users/${id}`;
 
 export const profileViewActivityQuestions = id =>
-  `/users/${id}#activity#questions`;
+  `/users/${id}#activity-questions`;
 
-export const profileViewActivityAnswers = id => `/users/${id}#activity#answers`;
+export const profileViewActivityAnswers = id => `/users/${id}#activity-answers`;
 
 export const profileEdit = id => `/users/edit/${id}`;
 
@@ -16,13 +18,14 @@ export const userAnswers = id => `/users/${id}#answers`;
 export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
-export const questions = () => `/questions`;
+export const questions = communityid =>
+  !communityid ? `/` : `/communities/${communityid}`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questionView = /* istanbul ignore next */ (id, answerId) =>
   answerId
-    ? `/questions/${id}#${uniqueAnswerId(answerId)}`
+    ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
 
 export const questionEdit = questionid => `/questions/${questionid}/edit`;
@@ -33,14 +36,20 @@ export const answerEdit = (questionid, answerid) =>
 export const questionAsk = () => `/questions/ask`;
 
 export const noAccess = () => `/no-access`;
-export const feed = () => `/feed`;
+export const feed = id => `/feed/${id || ''}`;
 export const communities = () => `/communities`;
 export const tags = () => `/tags`;
 export const users = () => `/users`;
-export const appFaq = () => `/app/faq`;
-export const support = () => `/support`;
+export const faq = code => `/faq/${code ? `#${code}` : ``}`;
+export const support = section => `/support/${section ? `#${section}` : ''}`;
+export const search = q => `/search/${q || ''}`;
+export const privacyPolicy = section =>
+  `/privacy-policy/${section ? `#${section}` : ''}`;
+export const termsAndConditions = section =>
+  `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 export const communityTags = communityid => `/communities/${communityid}/tags`;
 
@@ -51,6 +60,8 @@ export const tagsCreate = communityid =>
   `/communities/${communityid || 0}/tags/create`;
 
 export const registrationStage = 'signup';
+
+export const preloaderPage = () => '/preloader-page';
 
 export const signup = {
   email: {
@@ -78,11 +89,14 @@ export const signup = {
     name: `/${registrationStage}/i-dont-have-eos-account`,
     scatter: false,
   },
-  almostDone: {
+  almostDoneWithAccount: {
     step: 4,
-    name: `/${registrationStage}/almost-done`,
+    name: `/${registrationStage}/i-have-eos-account/almost-done`,
+    scatter: false,
+  },
+  almostDoneNoAccount: {
+    step: 4,
+    name: `/${registrationStage}/i-dont-have-eos-account/almost-done`,
     scatter: false,
   },
 };
-
-export const privacyPolicy = () => `/privacy-policy`;

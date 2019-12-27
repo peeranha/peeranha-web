@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
@@ -14,27 +14,59 @@ import Span from 'components/Span';
 
 import Wrapper from './Wrapper';
 
-/* istanbul ignore next */
 const Div = styled.div`
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
+
+  font-size: 16px;
+  line-height: 18px;
 
   .${TEXT_EDITOR_CLASSNAME} > div {
     border: none;
   }
 
   .editor-toolbar {
-    border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT} !important;
+    border-bottom: 1px solid ${BORDER_SECONDARY} !important;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .CodeMirror,
+    .CodeMirror-scroll {
+      min-height: 200px;
+    }
+
+    .editor-toolbar {
+      margin: 0 10px;
+      display: block;
+      padding: 0;
+      overflow: scroll;
+      white-space: nowrap;
+
+      &:before,
+      &:after {
+        margin: 0 !important;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    font-size: 14px;
+    line-height: 18px;
   }
 `;
 
 const PreviewWrapper = styled.div`
-  padding: 10px 0;
-  border-top: 1px dashed ${BORDER_SECONDARY_LIGHT};
-  border-bottom: 1px dashed ${BORDER_SECONDARY_LIGHT};
+  background: linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
+    linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: top, right, bottom, left;
+  background-repeat: repeat-x, repeat-y;
+  background-size: 8px 1px, 1px 8px;
+  padding: 12px 0;
 `;
 
-export const TextEditorField = /* istanbul ignore next */ ({
+export const TextEditorField = ({
   input,
   label,
   previewLabel,
@@ -44,7 +76,13 @@ export const TextEditorField = /* istanbul ignore next */ ({
   splitInHalf,
 }) => (
   <React.Fragment>
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      id={input.name}
+    >
       <Div
         disabled={disabled}
         error={meta.touched && (meta.error || meta.warning)}

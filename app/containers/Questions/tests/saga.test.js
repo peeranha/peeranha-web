@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select, all } from 'redux-saga/effects';
+import { select, all, take } from 'redux-saga/effects';
 
 import {
   getQuestions,
@@ -12,8 +12,13 @@ import {
 } from 'utils/questionsManagement';
 
 import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
 
-import defaultSaga, { getQuestionsWorker } from '../saga';
+import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
+import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
+
+import defaultSaga, { getQuestionsWorker, redirectWorker } from '../saga';
+
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
@@ -25,6 +30,7 @@ jest.mock('redux-saga/effects', () => ({
   call: jest.fn().mockImplementation(func => func()),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
+  take: jest.fn().mockImplementation(res => res),
   all: jest.fn().mockImplementation(res => res),
 }));
 
@@ -42,6 +48,10 @@ jest.mock('utils/profileManagement', () => ({
   getProfileInfo: jest.fn(),
 }));
 
+jest.mock('createdHistory', () => ({
+  push: jest.fn(),
+}));
+
 describe('getQuestionsWorker', () => {
   const res = {
     limit: 10,
@@ -51,7 +61,7 @@ describe('getQuestionsWorker', () => {
     next: true,
   };
 
-  const communities = [];
+  const communities = [{ id: 1 }];
   const questions = [
     {
       user: 'user1',
@@ -61,10 +71,14 @@ describe('getQuestionsWorker', () => {
   const eos = { id: 1, getSelectedAccount: jest.fn() };
 
   describe('communityIdFilter === 0 && parentPage !== feed', () => {
-    res.communityIdFilter = 0;
-    res.parentPage = '777';
+    const communityIdFilter = 0;
+    const parentPage = '777';
 
-    const generator = getQuestionsWorker(res);
+    const generator = getQuestionsWorker({
+      ...res,
+      communityIdFilter,
+      parentPage,
+    });
 
     it('eosService', () => {
       select.mockImplementation(() => eos);
@@ -79,10 +93,8 @@ describe('getQuestionsWorker', () => {
     });
 
     it('getQuestions', () => {
-      getQuestions.mockImplementation(() => questions);
-      const step = generator.next(communities);
-
-      expect(step.value).toEqual(questions);
+      generator.next(communities);
+      expect(getQuestions).toHaveBeenCalledWith(eos, res.limit, res.offset);
     });
 
     it('questionsList mapping, get userInfo', () => {
@@ -132,12 +144,58 @@ describe('getQuestionsWorker', () => {
     generator.next();
     generator.next(eos);
 
-    it('getQuestionsFilteredByCommunities', () => {
+    it('getQuestionsForFollowedCommunities', () => {
       generator.next(communities);
       expect(getQuestionsForFollowedCommunities).toHaveBeenCalledWith(
         res.limit,
         res.fetcher,
       );
+    });
+  });
+});
+
+describe('redirectWorker', () => {
+  const communityIdFilter = 1;
+  const isFollowed = true;
+
+  describe('feed page', () => {
+    const generator = redirectWorker({ communityIdFilter, isFollowed });
+
+    it('wait for user profile getting', () => {
+      generator.next();
+      expect(take).toHaveBeenCalledWith(GET_USER_PROFILE_SUCCESS);
+    });
+
+    it('redirect', () => {
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {
+          pathname: routes.feed(),
+        },
+      });
+
+      generator.next();
+      expect(createdHistory.push).toHaveBeenCalledWith(
+        routes.feed(!isFollowed ? communityIdFilter : ''),
+      );
+    });
+  });
+
+  describe('not feed page', () => {
+    const generator = redirectWorker({ communityIdFilter, isFollowed });
+
+    generator.next();
+
+    it('no redirect', () => {
+      Object.defineProperty(window, 'location', {
+        writable: true,
+        value: {
+          pathname: '/ddadasdas',
+        },
+      });
+
+      const step = generator.next();
+      expect(step.done).toBe(true);
     });
   });
 });
@@ -148,5 +206,10 @@ describe('defaultSaga', () => {
   it('GET_QUESTIONS', () => {
     const step = generator.next();
     expect(step.value).toBe(GET_QUESTIONS);
+  });
+
+  it('FOLLOW_HANDLER_SUCCESS', () => {
+    const step = generator.next();
+    expect(step.value).toBe(FOLLOW_HANDLER_SUCCESS);
   });
 });

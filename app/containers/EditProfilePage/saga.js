@@ -1,65 +1,88 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
+
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
+
+import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+
+import { saveProfileSuccess, saveProfileErr } from './actions';
 
 import {
-  successToastHandlingWithDefaultText,
-  errorToastHandlingWithDefaultText,
-} from 'containers/Toast/saga';
-
-import {
-  uploadImageFileSuccess,
-  uploadImageFileError,
-  saveProfileActionSuccess,
-  saveProfileActionError,
-} from './actions';
-
-import {
-  UPLOAD_IMAGE_FILE,
-  SAVE_PROFILE_ACTION,
-  SAVE_PROFILE_ACTION_SUCCESS,
-  SAVE_PROFILE_ACTION_ERROR,
+  SAVE_PROFILE,
+  EDIT_PROFILE_BUTTON_ID,
+  MIN_RATING_TO_EDIT_PROFILE,
+  MIN_ENERGY_TO_EDIT_PROFILE,
 } from './constants';
 
-export function* uploadImageFileWorker({ file }) {
+// TODO: test
+/* eslint no-param-reassign: 0 */
+export function* saveProfileWorker({ profile, userKey }) {
   try {
-    const img = yield call(() => uploadImg(file));
-    yield put(uploadImageFileSuccess(img && img.imgUrl));
+    const eosService = yield select(selectEos);
+
+    // check that it is not hash
+    if (
+      profile[AVATAR_FIELD] &&
+      profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT
+    ) {
+      const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
+      profile[AVATAR_FIELD] = imgHash;
+    }
+
+    yield call(
+      saveProfile,
+      eosService,
+      userKey,
+      profile[AVATAR_FIELD],
+      profile,
+    );
+
+    const fullProfileInfo = yield select(makeSelectProfileInfo());
+
+    yield put(
+      getUserProfileSuccess({
+        ...fullProfileInfo,
+        profile,
+        display_name: profile[DISPLAY_NAME_FIELD],
+      }),
+    );
+
+    yield put(saveProfileSuccess());
+
+    yield call(createdHistory.push, routes.profileView(userKey));
   } catch (err) {
-    yield put(uploadImageFileError(err.message));
+    yield put(saveProfileErr(err));
   }
 }
 
-export function* saveProfileActionWorker({ obj }) {
+// TODO: test
+export function* checkReadinessWorker({ buttonId }) {
+  yield call(isAuthorized);
+
+  yield call(isValid, {
+    buttonId: buttonId || EDIT_PROFILE_BUTTON_ID,
+    minRating: MIN_RATING_TO_EDIT_PROFILE,
+    minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
+  });
+}
+
+// TODO: test
+/* eslint no-empty: 0 */
+export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   try {
-    const { reader, profile, userKey } = obj;
-    const eosService = yield select(selectEos);
-
-    const img = reader ? yield call(() => uploadImg(reader)) : undefined;
-    profile.ipfs_avatar = yield (img && img.imgHash) || profile.ipfs_avatar;
-
-    yield call(() => saveProfile(userKey, profile, eosService));
-
-    yield put(saveProfileActionSuccess());
-
-    yield call(() => createdHistory.push(routes.profileView(userKey)));
-  } catch (err) {
-    yield put(saveProfileActionError(err.message));
-  }
+    yield call(checkReadinessWorker, { buttonId });
+    yield call(createdHistory.push, routes.profileEdit(user));
+  } catch (err) {}
 }
 
 export default function*() {
-  yield takeLatest(UPLOAD_IMAGE_FILE, uploadImageFileWorker);
-  yield takeLatest(SAVE_PROFILE_ACTION, saveProfileActionWorker);
-  yield takeLatest(
-    SAVE_PROFILE_ACTION_SUCCESS,
-    successToastHandlingWithDefaultText,
-  );
-  yield takeLatest(
-    SAVE_PROFILE_ACTION_ERROR,
-    errorToastHandlingWithDefaultText,
-  );
+  yield takeLatest(SAVE_PROFILE, saveProfileWorker);
 }

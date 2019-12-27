@@ -1,20 +1,41 @@
-import { takeLatest, call, put, select, all } from 'redux-saga/effects';
+/* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
+import {
+  take,
+  takeLatest,
+  call,
+  put,
+  select,
+  all,
+  takeEvery,
+} from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
   getQuestionsForFollowedCommunities,
+  FetcherOfQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
+
+import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
+import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
 import { GET_QUESTIONS } from './constants';
 
-import { getQuestionsSuccess, getQuestionsError } from './actions';
+import {
+  getQuestions as getQuestionsAction,
+  getQuestionsSuccess,
+  getQuestionsError,
+} from './actions';
+
+import { selectInitLoadedItems } from './selectors';
 
 const feed = routes.feed();
 
@@ -25,6 +46,7 @@ export function* getQuestionsWorker({
   parentPage,
   fetcher,
   next,
+  toUpdateQuestions,
 }) {
   try {
     const eosService = yield select(selectEos);
@@ -34,47 +56,104 @@ export function* getQuestionsWorker({
 
     // Load questions filtered for some community
     if (communityIdFilter > 0) {
-      questionsList = yield call(() =>
-        getQuestionsFilteredByCommunities(
-          eosService,
-          limit,
-          offset,
-          communityIdFilter,
-        ),
+      questionsList = yield call(
+        getQuestionsFilteredByCommunities,
+        eosService,
+        limit,
+        offset,
+        communityIdFilter,
       );
     }
 
     // Load all questions
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(() => getQuestions(eosService, limit, offset));
+      questionsList = yield call(getQuestions, eosService, limit, offset);
     }
 
     // Load questions for communities where I am
-    if (communityIdFilter === 0 && parentPage === feed && followedCommunities) {
-      questionsList = yield call(() =>
-        getQuestionsForFollowedCommunities(limit, fetcher),
+    if (
+      communityIdFilter === 0 &&
+      parentPage === feed &&
+      followedCommunities &&
+      followedCommunities.length > 0
+    ) {
+      questionsList = yield call(
+        getQuestionsForFollowedCommunities,
+        limit,
+        fetcher,
       );
     }
 
-    // Got questions
-    // Do mapping - to get userProfiles (question's authors)
+    const users = new Map();
 
-    /* eslint no-param-reassign: 0 */
+    questionsList.forEach(question => {
+      users.set(
+        question.user,
+        users.get(question.user)
+          ? [...users.get(question.user), question]
+          : [question],
+      );
+    });
+
+    // To avoid of fetching same user profiles - remember it and to write userInfo here
+
     yield all(
-      questionsList.map(function*(question) {
-        const userInfo = yield call(() =>
-          getUserProfileWorker({ user: question.user }),
-        );
-        question.userInfo = userInfo;
+      Array.from(users.keys()).map(function*(user) {
+        const userInfo = yield call(getUserProfileWorker, { user });
+
+        users.get(user).map(cachedItem => {
+          cachedItem.userInfo = userInfo;
+        });
       }),
     );
 
-    yield put(getQuestionsSuccess(questionsList, next));
+    yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions));
   } catch (err) {
-    yield put(getQuestionsError(err.message));
+    yield put(getQuestionsError(err));
   }
 }
 
+export function* redirectWorker({ communityIdFilter, isFollowed }) {
+  yield take(GET_USER_PROFILE_SUCCESS);
+
+  if (window.location.pathname.includes(routes.feed())) {
+    yield call(
+      createdHistory.push,
+      routes.feed(!isFollowed ? communityIdFilter : ''),
+    );
+  }
+}
+
+// TODO: test
+export function* updateStoredQuestionsWorker() {
+  const eosService = yield select(selectEos);
+  const initLoadedItems = yield select(selectInitLoadedItems());
+  const offset = 0;
+  const communityIdFilter = 0;
+  const parentPage = null;
+  const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+    Math.floor(1.2 * initLoadedItems),
+    [],
+    eosService,
+  );
+
+  const next = false;
+  const toUpdateQuestions = true;
+
+  yield put(
+    getQuestionsAction(
+      initLoadedItems,
+      offset,
+      communityIdFilter,
+      parentPage,
+      fetcher,
+      next,
+      toUpdateQuestions,
+    ),
+  );
+}
+
 export default function*() {
-  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
 }

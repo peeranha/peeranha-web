@@ -5,70 +5,12 @@
  */
 
 import {
-  UPLOAD_IMAGE_FILE,
-  UPLOAD_IMAGE_FILE_SUCCESS,
-  UPLOAD_IMAGE_FILE_ERROR,
-  EDIT_IMAGE_STATUS,
-  CANCEL_IMAGE_CHANGES,
-  SAVE_IMAGE_CHANGES,
-  SAVE_PROFILE_ACTION,
-  SAVE_PROFILE_ACTION_SUCCESS,
-  SAVE_PROFILE_ACTION_ERROR,
+  SAVE_PROFILE,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_ERROR,
   SET_DEFAULT_REDUCER,
+  REDIRECT_TO_EDIT_PROFILE_PAGE,
 } from './constants';
-
-/*
- *
- * uploadImageFile actions
- *
- */
-
-export function uploadImageFileAction(file) {
-  return {
-    type: UPLOAD_IMAGE_FILE,
-    file,
-  };
-}
-
-export function uploadImageFileSuccess(cachedProfileImg) {
-  return {
-    type: UPLOAD_IMAGE_FILE_SUCCESS,
-    cachedProfileImg,
-  };
-}
-
-export function uploadImageFileError(errorUploadImage) {
-  return {
-    type: UPLOAD_IMAGE_FILE_ERROR,
-    errorUploadImage,
-  };
-}
-
-/*
- *
- * editing actions
- *
- */
-
-export function editImage() {
-  return {
-    type: EDIT_IMAGE_STATUS,
-  };
-}
-
-export function clearImageChanges() {
-  return {
-    type: CANCEL_IMAGE_CHANGES,
-  };
-}
-
-export function saveImageChanges(obj) {
-  return {
-    type: SAVE_IMAGE_CHANGES,
-    cachedProfileImg: obj.cachedProfileImg,
-    blob: obj.blob,
-  };
-}
 
 /*
  *
@@ -76,28 +18,38 @@ export function saveImageChanges(obj) {
  *
  */
 
-export function saveProfileAction(obj) {
+export function saveProfile({ profile, userKey }) {
   return {
-    type: SAVE_PROFILE_ACTION,
-    obj,
+    type: SAVE_PROFILE,
+    profile,
+    userKey,
   };
 }
 
-export function saveProfileActionSuccess() {
+export function saveProfileSuccess() {
   return {
-    type: SAVE_PROFILE_ACTION_SUCCESS,
+    type: SAVE_PROFILE_SUCCESS,
   };
 }
 
-export function saveProfileActionError(errorSaveProfile) {
+export function saveProfileErr(saveProfileError) {
   return {
-    type: SAVE_PROFILE_ACTION_ERROR,
-    errorSaveProfile,
+    type: SAVE_PROFILE_ERROR,
+    saveProfileError,
   };
 }
 
 export function setDefaultReducer() {
   return {
     type: SET_DEFAULT_REDUCER,
+  };
+}
+
+// TODO: test
+export function redirectToEditProfilePage(ev) {
+  return {
+    type: REDIRECT_TO_EDIT_PROFILE_PAGE,
+    buttonId: ev.currentTarget.id,
+    user: ev.currentTarget.dataset.user,
   };
 }

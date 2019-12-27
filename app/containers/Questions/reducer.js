@@ -1,16 +1,13 @@
-/*
- *
- * Questions reducer
- *
- */
-
+/* eslint indent: 0 */
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import uniqBy from 'lodash/uniqBy';
+import orderBy from 'lodash/orderBy';
 
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
+  GET_UNIQ_QUESTIONS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -20,31 +17,27 @@ export const initialState = fromJS({
   questionsList: [],
   questionsError: '',
   isLastFetch: false,
-  communityIdFilter: 0,
 });
 
+// TODO: test
 function questionsReducer(state = initialState, action) {
-  const {
-    type,
-    questionsList,
-    questionsError,
-    communityIdFilter,
-    next,
-  } = action;
+  const { type, questionsList, questionsError, toUpdateQuestions } = action;
 
   switch (type) {
     case GET_QUESTIONS:
-      return state
-        .set('questionsLoading', true)
-        .set('communityIdFilter', communityIdFilter);
+      return state.set('questionsLoading', true);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          !next
+          toUpdateQuestions
             ? questionsList
-            : state.get('questionsList').concat(questionsList),
+            : orderBy(
+                uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+                ['id'],
+                ['asc'],
+              ),
         )
         .set(
           'isLastFetch',
@@ -55,8 +48,15 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set('questionsError', questionsError);
 
-    case LOCATION_CHANGE:
-      return initialState;
+    case GET_UNIQ_QUESTIONS:
+      return state.set(
+        'questionsList',
+        orderBy(
+          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+          ['id'],
+          ['asc'],
+        ).filter(x => !x.isDeleted),
+      );
 
     default:
       return state;

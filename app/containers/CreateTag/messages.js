@@ -48,10 +48,4 @@ export default defineMessages({
   usingTheRightTags: {
     id: 'app.containers.CreateTag.usingTheRightTags',
   },
-  whatIsTag: {
-    id: 'app.containers.CreateTag.whatIsTag',
-  },
-  howToUseIt: {
-    id: 'app.containers.CreateTag.howToUseIt',
-  },
 });

@@ -25,13 +25,4 @@ export default defineMessages({
   toMakeLinks: {
     id: 'app.components.TextEditor.toMakeLinks',
   },
-  howToAsk: {
-    id: 'app.components.TextEditor.howToAsk',
-  },
-  howToFormat: {
-    id: 'app.components.TextEditor.howToFormat',
-  },
-  howToTag: {
-    id: 'app.components.TextEditor.howToTag',
-  },
 });

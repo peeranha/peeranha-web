@@ -18,7 +18,14 @@ import {
   HIDE_CHANGE_EMAIL_MODAL,
   OLD_EMAIL_FIELD,
   CODE_FIELD,
+  SEND_ANOTHER_CODE,
 } from './constants';
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
+  };
+}
 
 export function showChangeEmailModal() {
   return {
@@ -34,7 +41,7 @@ export function hideChangeEmailModal() {
 
 // Send old email actions
 
-export function sendOldEmail(args) {
+export function sendOldEmail(...args) {
   return {
     type: SEND_OLD_EMAIL,
     email: args[0].toJS()[OLD_EMAIL_FIELD],
@@ -57,7 +64,7 @@ export function sendOldEmailErr(sendOldEmailError) {
 
 // Confirm old email actions
 
-export function confirmOldEmail(args) {
+export function confirmOldEmail(...args) {
   return {
     type: CONFIRM_OLD_EMAIL,
     verificationCode: args[0].toJS()[CODE_FIELD],
@@ -80,7 +87,7 @@ export function confirmOldEmailErr(confirmOldEmailError) {
 
 // Change email actions
 
-export function changeEmail(args) {
+export function changeEmail(...args) {
   return {
     type: CHANGE_EMAIL,
     values: args[0].toJS(),

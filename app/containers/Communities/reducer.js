@@ -5,13 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   GET_SUGGESTED_COMMUNITIES,
   GET_SUGGESTED_COMMUNITIES_SUCCESS,
   GET_SUGGESTED_COMMUNITIES_ERROR,
-  CLEAR_SUGGESTED_COMMUNITIES,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,18 +20,33 @@ export const initialState = fromJS({
   isLastFetch: false,
 });
 
+// TODO: test
 function communitiesReducer(state = initialState, action) {
-  const { type, getSuggestedCommunitiesError, suggestedCommunities } = action;
+  const {
+    type,
+    getSuggestedCommunitiesError,
+    suggestedCommunities,
+    init,
+  } = action;
 
   switch (type) {
     case GET_SUGGESTED_COMMUNITIES:
-      return state.set('getSuggestedCommunitiesLoading', true);
+      return state
+        .set('getSuggestedCommunitiesLoading', true)
+        .set(
+          'suggestedCommunities',
+          init
+            ? initialState('suggestedCommunities')
+            : state.toJS().suggestedCommunities,
+        );
     case GET_SUGGESTED_COMMUNITIES_SUCCESS:
       return state
         .set('getSuggestedCommunitiesLoading', false)
         .set(
           'suggestedCommunities',
-          state.toJS().suggestedCommunities.concat(suggestedCommunities),
+          init
+            ? suggestedCommunities
+            : state.toJS().suggestedCommunities.concat(suggestedCommunities),
         )
         .set(
           'isLastFetch',
@@ -43,15 +56,6 @@ function communitiesReducer(state = initialState, action) {
       return state
         .set('getSuggestedCommunitiesLoading', false)
         .set('getSuggestedCommunitiesError', getSuggestedCommunitiesError);
-
-    case CLEAR_SUGGESTED_COMMUNITIES:
-      return state.set(
-        'suggestedCommunities',
-        initialState.get('suggestedCommunities'),
-      );
-
-    case LOCATION_CHANGE:
-      return initialState;
 
     default:
       return state;

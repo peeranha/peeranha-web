@@ -1,83 +1,58 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import { addToast } from 'containers/Toast/actions';
+import { sendMessage } from 'utils/homepageManagement';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
-import { sendEmail, sendMessage } from 'utils/homepageManagement';
-
-import { SEND_EMAIL, SEND_MESSAGE } from './constants';
+import { EMAIL_CHECKING } from 'containers/SignUp/constants';
+import { emailCheckingWorker } from 'containers/SignUp/saga';
 
 import {
-  sendEmailSuccess,
-  sendEmailErr,
-  sendMessageSuccess,
-  sendMessageErr,
-  closeHeaderPopup,
-} from './actions';
+  SEND_MESSAGE,
+  EMAIL_FIELD,
+  NAME_FIELD,
+  SUBJECT_FIELD,
+  MESSAGE_FIELD,
+} from './constants';
+
+import { sendMessageSuccess, sendMessageErr } from './actions';
 
 import messages from './messages';
 
-export function* sendEmailWorker({ formData, reset, pageInfo }) {
+export function* sendMessageWorker({ val }) {
   const locale = yield select(makeSelectLocale());
 
   try {
-    yield call(() => sendEmail(formData, pageInfo));
+    const { reset, form } = val[2];
 
-    yield call(() => reset());
+    const subject =
+      typeof val[0].get(SUBJECT_FIELD) === 'object'
+        ? val[0].get(SUBJECT_FIELD).value
+        : val[0].get(SUBJECT_FIELD);
 
-    yield put(closeHeaderPopup());
+    const formData = {
+      email: val[0].get(EMAIL_FIELD),
+      firstname: val[0].get(NAME_FIELD),
+      subject,
+      message: val[0].get(MESSAGE_FIELD),
+    };
 
-    yield put(
-      addToast({
-        type: 'success',
-        text: translationMessages[locale][messages.yourEmailIsRegistred.id],
-      }),
-    );
+    const pageInfo = {
+      url: window.location.href,
+      name: `${translationMessages[locale][messages.title.id]}, ${form}`,
+    };
 
-    yield put(sendEmailSuccess());
-  } catch (err) {
-    yield put(
-      addToast({
-        type: 'error',
-        text:
-          err.message ||
-          translationMessages[locale][messages.messageHasNotBeenSent.id],
-      }),
-    );
-    yield put(sendEmailErr(err));
-  }
-}
+    yield call(sendMessage, formData, pageInfo);
 
-export function* sendMessageWorker({ formData, reset, pageInfo }) {
-  const locale = yield select(makeSelectLocale());
-
-  try {
-    yield call(() => sendMessage(formData, pageInfo));
-
-    yield call(() => reset());
-
-    yield put(
-      addToast({
-        type: 'success',
-        text: translationMessages[locale][messages.yourEmailIsRegistred.id],
-      }),
-    );
+    yield call(reset);
 
     yield put(sendMessageSuccess());
   } catch (err) {
-    yield put(
-      addToast({
-        type: 'error',
-        text: translationMessages[locale][messages.messageHasNotBeenSent.id],
-      }),
-    );
-
     yield put(sendMessageErr(err));
   }
 }
 
 export default function*() {
-  yield takeLatest(SEND_EMAIL, sendEmailWorker);
   yield takeLatest(SEND_MESSAGE, sendMessageWorker);
+  yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
 }

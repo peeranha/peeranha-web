@@ -83,26 +83,17 @@ export default defineMessages({
   signUpOptions: {
     id: 'app.containers.SignUp.signUpOptions',
   },
-  steemitIsNotTypical: {
-    id: 'app.containers.SignUp.steemitIsNotTypical',
+  peeranhaIsNotTypical: {
+    id: 'app.containers.SignUp.peeranhaIsNotTypical',
   },
-  steemitBlockchainPowers: {
-    id: 'app.containers.SignUp.steemitBlockchainPowers',
+  telosBlockchainPowers: {
+    id: 'app.containers.SignUp.telosBlockchainPowers',
   },
   weAreHappyToCover: {
     id: 'app.containers.SignUp.weAreHappyToCover',
   },
   ifYouLikeToSkip: {
     id: 'app.containers.SignUp.ifYouLikeToSkip',
-  },
-  whyIHaveToWait: {
-    id: 'app.containers.SignUp.whyIHaveToWait',
-  },
-  whenCanIStart: {
-    id: 'app.containers.SignUp.whenCanIStart',
-  },
-  whatIsEosAccountFor: {
-    id: 'app.containers.SignUp.whatIsEosAccountFor',
   },
   or: {
     id: 'app.containers.SignUp.or',
@@ -119,18 +110,6 @@ export default defineMessages({
   ifYouCreateEos: {
     id: 'app.containers.SignUp.ifYouCreateEos',
   },
-  whyDoIneedThisService: {
-    id: 'app.containers.SignUp.whyDoIneedThisService',
-  },
-  howMuchDoesItCost: {
-    id: 'app.containers.SignUp.howMuchDoesItCost',
-  },
-  ifThisWebsiteSafe: {
-    id: 'app.containers.SignUp.ifThisWebsiteSafe',
-  },
-  whatKeysAndHowToUse: {
-    id: 'app.containers.SignUp.whatKeysAndHowToUse',
-  },
   checkYourEmail: {
     id: 'app.containers.SignUp.checkYourEmail',
   },
@@ -146,15 +125,6 @@ export default defineMessages({
   thirdParagraphAlmostDone: {
     id: 'app.containers.SignUp.thirdParagraphAlmostDone',
   },
-  firstFAQAlmostDone: {
-    id: 'app.containers.SignUp.firstFAQAlmostDone',
-  },
-  secondFAQAlmostDone: {
-    id: 'app.containers.SignUp.secondFAQAlmostDone',
-  },
-  thirdFAQAlmostDone: {
-    id: 'app.containers.SignUp.thirdFAQAlmostDone',
-  },
   weWillNotify: {
     id: 'app.containers.SignUp.weWillNotify',
   },
@@ -163,5 +133,14 @@ export default defineMessages({
   },
   [USER_ALREADY_REGISTERED_ERROR]: {
     id: 'app.containers.SignUp.userAlreadyRegistered',
+  },
+  eosAccountNotFound: {
+    id: 'app.containers.SignUp.eosAccountNotFound',
+  },
+  keysDoNotMatch: {
+    id: 'app.containers.SignUp.keysDoNotMatch',
+  },
+  registrationWithEosAccountAlmostDone: {
+    id: 'app.containers.SignUp.registrationWithEosAccountAlmostDone',
   },
 });

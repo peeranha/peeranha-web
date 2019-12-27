@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import { select } from 'redux-saga/effects';
+import { select, call, take } from 'redux-saga/effects';
 
 import {
   changeCredentialsInit,
@@ -16,6 +16,8 @@ import defaultSaga, {
   getVerificationCodeWorker,
   verifyEmailWorker,
   changePasswordWorker,
+  sendAnotherCode,
+  sendAnotherCodeSuccess,
 } from '../saga';
 
 import {
@@ -28,12 +30,14 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
-  call: jest.fn().mockImplementation(func => func()),
+  call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
+  take: jest.fn(),
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
@@ -46,6 +50,46 @@ jest.mock(
     changeCredentialsComplete: jest.fn(),
   }),
 );
+
+beforeEach(() => {
+  call.mockClear();
+});
+
+describe('sendAnotherCodeSuccess', () => {
+  const generator = sendAnotherCodeSuccess();
+
+  it('take GET_VERIFICATION_CODE_SUCCESS', () => {
+    generator.next();
+    expect(take).toHaveBeenCalledWith(GET_VERIFICATION_CODE_SUCCESS);
+  });
+
+  it('call successToastHandlingWithDefaultText', () => {
+    call.mockImplementationOnce(() => null);
+
+    expect(call).toHaveBeenCalledTimes(0);
+    generator.next();
+    expect(call).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('sendAnotherCode', () => {
+  const generator = sendAnotherCode();
+  const email = 'email@email.em';
+
+  it('select email', () => {
+    select.mockImplementation(() => email);
+    const step = generator.next();
+    expect(step.value).toEqual(email);
+  });
+
+  it('call sendOldEmailWorker', () => {
+    call.mockImplementationOnce(() => email);
+
+    expect(call).toHaveBeenCalledTimes(0);
+    generator.next(email);
+    expect(call).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe('getVerificationCodeWorker', () => {
   const email = 'email';
@@ -285,6 +329,16 @@ describe('changePasswordWorker', () => {
 
 describe('defaultSaga', () => {
   const generator = defaultSaga();
+
+  it('SEND_ANOTHER_CODE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SEND_ANOTHER_CODE);
+  });
+
+  it('SEND_ANOTHER_CODE', () => {
+    const step = generator.next();
+    expect(step.value).toBe(SEND_ANOTHER_CODE);
+  });
 
   it('GET_VERIFICATION_CODE', () => {
     const step = generator.next();

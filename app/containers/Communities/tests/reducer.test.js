@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 import suggestedCommunitiesReducer, { initialState } from '../reducer';
 
 import {
@@ -20,12 +19,6 @@ describe('suggestedCommunitiesReducer', () => {
 
   it('returns the initial state', () => {
     expect(suggestedCommunitiesReducer(state, {})).toEqual(state);
-  });
-
-  it('LOCATION_CHANGE', () => {
-    expect(
-      suggestedCommunitiesReducer(state, { type: LOCATION_CHANGE }),
-    ).toEqual(initialState);
   });
 
   it('getSuggestedCommunities', () => {

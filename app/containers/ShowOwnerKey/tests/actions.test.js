@@ -9,6 +9,7 @@ import {
   sendEmail,
   sendEmailSuccess,
   sendEmailErr,
+  removeOwnerKey,
 } from '../actions';
 
 import {
@@ -21,16 +22,23 @@ import {
   SHOW_OWNER_KEY_SUCCESS,
   SHOW_OWNER_KEY_ERROR,
   CODE_FIELD,
-  EMAIL_FORM,
   EMAIL_FIELD,
   PASSWORD_FIELD,
+  REMOVE_OWNER_KEY,
 } from '../constants';
 
 describe('showOwnerKey actions', () => {
+  it('removeOwnerKey', () => {
+    const expected = {
+      type: REMOVE_OWNER_KEY,
+    };
+
+    expect(removeOwnerKey()).toEqual(expected);
+  });
+
   it('showOwnerKeyModal', () => {
     const expected = {
       type: SHOW_OWNER_KEY_MODAL,
-      content: EMAIL_FORM,
     };
 
     expect(showOwnerKeyModal()).toEqual(expected);
@@ -61,7 +69,7 @@ describe('showOwnerKey actions', () => {
       email,
     };
 
-    expect(sendEmail(args)).toEqual(expected);
+    expect(sendEmail(...args)).toEqual(expected);
   });
 
   it('sendEmailSuccess', () => {
@@ -98,7 +106,7 @@ describe('showOwnerKey actions', () => {
       verificationCode,
     };
 
-    expect(showOwnerKey(args)).toEqual(expected);
+    expect(showOwnerKey(...args)).toEqual(expected);
   });
 
   it('showOwnerKeySuccess', () => {

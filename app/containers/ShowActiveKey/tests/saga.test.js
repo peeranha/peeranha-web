@@ -6,7 +6,6 @@
 import { select } from 'redux-saga/effects';
 
 import { login } from 'utils/web_integration/src/wallet/login/login';
-import Cookies from 'utils/cookies';
 
 import defaultSaga, { showActiveKeyWorker } from '../saga';
 
@@ -27,17 +26,13 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
-
 describe('showActiveKeyWorker', () => {
   const resetForm = jest.fn();
   const password = 'password';
   const email = 'email';
   const locale = 'en';
-
-  Cookies.get.mockImplementation(() => email);
+  const authToken = 'authToken';
+  const loginData = { email, authToken };
 
   describe('showActiveKeyWorker FAILED', () => {
     const generator = showActiveKeyWorker({ resetForm, password });
@@ -55,9 +50,15 @@ describe('showActiveKeyWorker', () => {
       expect(step.value).toEqual(locale);
     });
 
+    it('select loginData', () => {
+      select.mockImplementation(() => loginData);
+      const step = generator.next(locale);
+      expect(step.value).toEqual(loginData);
+    });
+
     it('call login', () => {
-      generator.next(locale);
-      expect(login).toHaveBeenCalledWith(email, password);
+      generator.next(loginData);
+      expect(login).toHaveBeenCalledWith(email, password, Boolean(authToken));
     });
 
     it('error handling with talking toast', () => {
@@ -81,6 +82,7 @@ describe('showActiveKeyWorker', () => {
 
     generator.next();
     generator.next(locale);
+    generator.next(loginData);
 
     it('finish with @showActiveKeySuccess', () => {
       const step = generator.next(response);

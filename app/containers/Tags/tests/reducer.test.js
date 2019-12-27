@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import tagsReducer, { initialState } from '../reducer';
 
@@ -26,10 +25,6 @@ describe('tagsReducer', () => {
 
   it('returns the initial state', () => {
     expect(tagsReducer(state, {})).toEqual(state);
-  });
-
-  it('LOCATION_CHANGE', () => {
-    expect(tagsReducer(state, { type: LOCATION_CHANGE })).toEqual(initialState);
   });
 
   describe('getExistingTags', () => {

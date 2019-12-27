@@ -1,4 +1,4 @@
-import { EditAnswer, mapDispatchToProps } from '../index';
+import { EditAnswer } from '../index';
 
 const cmp = new EditAnswer();
 cmp.props = {
@@ -44,18 +44,6 @@ describe('EditAnswer', () => {
     it('answerLoading is true', () => {
       cmp.props.answerLoading = true;
       expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).getAnswerDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).editAnswerDispatch()).toBe(test);
     });
   });
 });

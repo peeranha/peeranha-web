@@ -6,20 +6,14 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
-
-import Cookies from 'utils/cookies';
-import { STORED_EMAIL } from 'containers/Login/constants';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import {
-  validateEmail,
-  required,
-  strLength3x20,
-} from 'components/FormFields/validate';
+import { validateEmail, required } from 'components/FormFields/validate';
 
 import { EMAIL_FIELD, EMAIL_FORM, PASSWORD_FIELD } from './constants';
 
@@ -50,8 +44,8 @@ const EmailForm = ({
         disabled={sendEmailProcessing}
         label={translationMessages[locale][signUpMessages.password.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 
@@ -72,11 +66,13 @@ EmailForm.propTypes = {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: EMAIL_FORM,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(EmailForm);
 
-FormClone = connect(() => ({
+FormClone = connect((_, props) => ({
+  enableReinitialize: true,
   initialValues: {
-    [EMAIL_FIELD]: Cookies.get(STORED_EMAIL),
+    [EMAIL_FIELD]: props.loginData.email,
   },
 }))(FormClone);
 

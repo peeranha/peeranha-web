@@ -1,6 +1,14 @@
-/* eslint consistent-return: 0 */
+/* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
 
-import { takeLatest, call, put, select, all } from 'redux-saga/effects';
+import {
+  takeEvery,
+  takeLatest,
+  call,
+  put,
+  select,
+  all,
+} from 'redux-saga/effects';
+
 import { translationMessages } from 'i18n';
 
 import createdHistory from 'createdHistory';
@@ -23,13 +31,23 @@ import {
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants';
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+
+import {
+  makeSelectProfileInfo,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
+
+import {
+  getCurrentAccountWorker,
+  isAvailableAction,
+} from 'containers/AccountProvider/saga';
+import { isAuthorized } from 'containers/EosioProvider/saga';
+import { selectQuestions } from 'containers/Questions/selectors';
+import { getUniqQuestions } from 'containers/Questions/actions';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   GET_QUESTION_DATA,
@@ -46,6 +64,18 @@ import {
   ITEM_UPV_FLAG,
   ITEM_DNV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
+  UP_VOTE_SUCCESS,
+  DOWN_VOTE_SUCCESS,
+  MARK_AS_ACCEPTED_SUCCESS,
+  VOTE_TO_DELETE_SUCCESS,
+  POST_ANSWER_BUTTON,
+  POST_COMMENT_SUCCESS,
+  POST_ANSWER_SUCCESS,
+  GET_QUESTION_DATA_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  SAVE_COMMENT_SUCCESS,
 } from './constants';
 
 import {
@@ -71,10 +101,9 @@ import {
   saveCommentErr,
   voteToDeleteSuccess,
   voteToDeleteErr,
-  updateQuestionData,
 } from './actions';
 
-import { selectQuestionData, selectAnswer, selectComment } from './selectors';
+import { selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -85,17 +114,21 @@ import {
   upVoteValidator,
   downVoteValidator,
   voteToDeleteValidator,
+  deleteCommentValidator,
+  editCommentValidator,
 } from './validate';
 
-/* eslint no-param-reassign: 0 */
 export function* getQuestionData({
   eosService,
   questionId,
   user,
 }) /* istanbul ignore next */ {
-  const question = yield call(() => getQuestionById(eosService, questionId));
+  let question = yield select(selectQuestions(null, null, questionId));
 
-  /* eslint no-bitwise: 0 */
+  if (!question) {
+    question = yield call(getQuestionById, eosService, questionId);
+  }
+
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag && historyFlag.flag & (1 << constantFlag);
 
@@ -110,9 +143,9 @@ export function* getQuestionData({
     const flag = history.filter(x => x.user === user)[0];
 
     return {
-      isUpVoted: !!getItemStatus(flag, ITEM_UPV_FLAG),
-      isDownVoted: !!getItemStatus(flag, ITEM_DNV_FLAG),
-      isVotedToDelete: !!getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG),
+      isUpVoted: Boolean(getItemStatus(flag, ITEM_UPV_FLAG)),
+      isDownVoted: Boolean(getItemStatus(flag, ITEM_DNV_FLAG)),
+      isVotedToDelete: Boolean(getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG)),
     };
   };
 
@@ -123,53 +156,43 @@ export function* getQuestionData({
     return (lastEditedDate && lastEditedDate.value) || null;
   };
 
-  function* addOptions(cachedItem, currentItem) {
-    // Item's @content: IF cache is empty - take from IPFS
-    if (cachedItem && cachedItem.content) {
-      currentItem.content = cachedItem.content;
-    } else {
-      const content = yield call(() => getText(currentItem.ipfs_link));
+  const users = new Map();
 
-      try {
-        currentItem.content = JSON.parse(content);
-      } catch (err) {
-        currentItem.content = content;
-      }
+  function* addOptions(currentItem) {
+    if (currentItem.content) return;
+
+    const content = yield call(getText, currentItem.ipfs_link);
+
+    try {
+      currentItem.content = JSON.parse(content);
+    } catch (err) {
+      currentItem.content = content;
     }
 
-    // Items's @userInfo: IF cache is empty - take from IPFS
-    const userInfo = yield call(() =>
-      getUserProfileWorker({ user: currentItem.user }),
-    );
-
-    currentItem.userInfo = userInfo;
     currentItem.isItWrittenByMe = user === currentItem.user;
-    currentItem.votingStatus = votingStatus(currentItem.history);
     currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
+    currentItem.votingStatus = votingStatus(currentItem.history);
+
+    users.set(
+      currentItem.user,
+      users.get(currentItem.user)
+        ? [...users.get(currentItem.user), currentItem]
+        : [currentItem],
+    );
   }
 
   function* processQuestion() {
-    const cachedQuestion = yield select(selectQuestionData());
-    yield call(() => addOptions(cachedQuestion, question));
+    yield call(addOptions, question);
   }
 
-  /* eslint no-shadow: 0, func-names: 0 */
   function* processAnswers() {
-    const mostRatingAnswer = window._.maxBy(question.answers, 'rating');
-
     yield all(
       question.answers.map(function*(x) {
-        const cachedAnswer = yield select(selectAnswer(x.id));
-        yield call(() => addOptions(cachedAnswer, x));
-
-        x.isTheLargestRating =
-          x.rating === mostRatingAnswer.rating &&
-          x.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
+        yield call(addOptions, x);
 
         yield all(
           x.comments.map(function*(y) {
-            const cachedComment = yield select(selectComment(x.id, y.id));
-            yield call(() => addOptions(cachedComment, y));
+            yield call(addOptions, y);
           }),
         );
       }),
@@ -178,179 +201,204 @@ export function* getQuestionData({
 
   function* processCommentsOfQuestion() {
     yield all(
-      question.comments.map(function*(x) {
-        const answerId = 0; // it is unique ID for question to get comments
-        const cachedComment = yield select(selectComment(answerId, x.id));
-
-        yield call(() => addOptions(cachedComment, x));
+      question.comments.map(function*(y) {
+        yield call(addOptions, y);
       }),
     );
   }
 
   yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
 
+  // To avoid of fetching same user profiles - remember it and to write userInfo here
+
+  yield all(
+    Array.from(users.keys()).map(function*(user) {
+      const userInfo = yield call(getUserProfileWorker, { user });
+
+      users.get(user).map(cachedItem => {
+        cachedItem.userInfo = userInfo;
+      });
+    }),
+  );
+
   return question;
 }
 
+export function* getParams() {
+  const questionData = yield select(selectQuestionData());
+  const eosService = yield select(selectEos);
+  const locale = yield select(makeSelectLocale());
+  const profileInfo = yield select(makeSelectProfileInfo());
+  const account = yield select(makeSelectAccount());
+
+  return {
+    questionData,
+    eosService,
+    locale,
+    account,
+    profileInfo,
+  };
+}
+
+// TODO: test (with validation)
 export function* saveCommentWorker({
-  user,
   questionId,
   answerId,
   commentId,
   comment,
   toggleView,
+  buttonId,
 }) {
   try {
-    const eosService = yield select(selectEos);
-    const cachedQues = yield select(selectQuestionData());
-
-    yield call(() =>
-      editComment(user, questionId, answerId, commentId, comment, eosService),
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
     );
 
-    yield call(getCurrentAccountWorker);
+    yield call(isAvailableAction, () =>
+      editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
+    );
 
-    // Delete comment from cache to update it after
+    yield call(
+      editComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      comment,
+      eosService,
+    );
+
+    let item;
+
     if (+answerId === 0) {
-      yield put(
-        updateQuestionData({
-          ...cachedQues,
-          comments: cachedQues.comments.filter(x => x.id !== +commentId),
-        }),
-      );
-    } else {
-      const answer = cachedQues.answers.filter(x => x.id === +answerId)[0];
-      const updatedComm = answer.comments.filter(y => y.id !== +commentId);
-
-      yield put(
-        updateQuestionData({
-          ...cachedQues,
-          answers: [
-            ...cachedQues.answers.filter(x => x.id !== +answerId),
-            {
-              ...answer,
-              comments: updatedComm,
-            },
-          ],
-        }),
-      );
+      item = questionData.comments.find(x => x.id == commentId);
+    } else if (+answerId > 0) {
+      item = questionData.answers
+        .find(x => x.id == answerId)
+        .comments.find(x => x.id == commentId);
     }
 
-    const questionData = yield getQuestionData({
-      eosService,
-      questionId,
-      user,
-    });
+    item.content = comment;
 
-    yield call(() => toggleView(true));
+    yield call(toggleView, true);
 
-    yield put(saveCommentSuccess(questionData));
+    yield put(saveCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(saveCommentErr(err));
+    yield put(saveCommentErr(err, buttonId));
   }
 }
 
 export function* deleteCommentWorker({
-  user,
   questionId,
   answerId,
   commentId,
+  buttonId,
 }) {
   try {
-    const eosService = yield select(selectEos);
-
-    yield call(() =>
-      deleteComment(user, questionId, answerId, commentId, eosService),
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
     );
 
-    yield call(getCurrentAccountWorker);
-
-    const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
+    yield call(isAvailableAction, () =>
+      deleteCommentValidator(
+        profileInfo,
+        buttonId,
+        translationMessages[locale],
+      ),
     );
 
-    yield put(deleteCommentSuccess(questionData));
+    yield call(
+      deleteComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      eosService,
+    );
+
+    if (+answerId === 0) {
+      questionData.comments = questionData.comments.filter(
+        x => x.id != commentId,
+      );
+    } else if (+answerId > 0) {
+      const answer = questionData.answers.find(x => x.id == answerId);
+      answer.comments = answer.comments.filter(x => x.id != commentId);
+    }
+
+    yield put(deleteCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(deleteCommentErr(err));
+    yield put(deleteCommentErr(err, buttonId));
   }
 }
 
-export function* deleteAnswerWorker({
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-}) {
+export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    let questionData = yield select(selectQuestionData());
-    const locale = yield select(makeSelectLocale());
-    const eosService = yield select(selectEos);
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       deleteAnswerValidator(
-        postButtonId,
+        buttonId,
         answerId,
         questionData.correct_answer_id,
         translationMessages[locale],
+        profileInfo,
       ),
     );
 
-    if (!isValid) {
-      return yield put(deleteAnswerErr());
-    }
-
-    yield call(() => deleteAnswer(user, questionId, answerId, eosService));
-
-    yield call(getCurrentAccountWorker);
-
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
+    yield call(
+      deleteAnswer,
+      profileInfo.user,
+      questionId,
+      answerId,
+      eosService,
     );
 
-    yield put(deleteAnswerSuccess(questionData));
+    questionData.answers = questionData.answers.filter(x => x.id != answerId);
+
+    yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(deleteAnswerErr(err));
+    yield put(deleteAnswerErr(err, buttonId));
   }
 }
 
-export function* deleteQuestionWorker({ user, questionid, postButtonId }) {
+export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const questionData = yield select(selectQuestionData());
-    const locale = yield select(makeSelectLocale());
-    const eosService = yield select(selectEos);
+    const { questionData, eosService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       deleteQuestionValidator(
-        postButtonId,
+        buttonId,
         questionData.answers.length,
         translationMessages[locale],
+        profileInfo,
       ),
     );
 
-    if (!isValid) {
-      return yield put(deleteQuestionErr());
-    }
+    yield call(deleteQuestion, profileInfo.user, questionId, eosService);
 
-    yield call(() => deleteQuestion(user, questionid, eosService));
+    yield put(
+      deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
+    );
 
-    yield call(getCurrentAccountWorker);
-
-    yield put(deleteQuestionSuccess());
-
-    yield call(() => createdHistory.push(routes.questions()));
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
-    yield put(deleteQuestionErr(err));
+    yield put(deleteQuestionErr(err, buttonId));
   }
 }
 
 export function* getQuestionDataWorker({ questionId }) {
   try {
-    const eosService = yield select(selectEos);
-    const user = yield call(() => eosService.getSelectedAccount());
+    const { eosService, account } = yield call(getParams);
 
-    const questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    const questionData = yield call(getQuestionData, {
+      eosService,
+      questionId,
+      user: account,
+    });
 
     yield put(getQuestionDataSuccess(questionData));
   } catch (err) {
@@ -359,102 +407,112 @@ export function* getQuestionDataWorker({ questionId }) {
 }
 
 export function* postCommentWorker({
-  user,
-  postButtonId,
   answerId,
-  translations,
   questionId,
   comment,
   reset,
   toggleView,
+  buttonId,
 }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    yield call(isAuthorized);
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
-
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       postCommentValidator(
         profileInfo,
         questionData,
-        postButtonId,
+        buttonId,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
-    if (!isValid) {
-      return yield put(postCommentErr());
+    yield call(
+      postComment,
+      profileInfo.user,
+      questionId,
+      answerId,
+      comment,
+      eosService,
+    );
+
+    const newComment = {
+      post_time: String(Date.now()).slice(0, -3),
+      user: profileInfo.user,
+      properties: [],
+      history: [],
+      content: comment,
+      isItWrittenByMe: true,
+      votingStatus: {},
+      userInfo: profileInfo,
+    };
+
+    if (answerId == 0) {
+      questionData.comments.push({
+        ...newComment,
+        id: questionData.comments.length + 1,
+      });
+    } else {
+      const { comments } = questionData.answers.find(x => x.id == answerId);
+
+      comments.push({
+        ...newComment,
+        id: comments.length + 1,
+      });
     }
 
-    yield call(() =>
-      postComment(user, questionId, answerId, comment, eosService),
-    );
+    yield call(toggleView, true);
 
-    yield call(getCurrentAccountWorker);
+    yield call(reset);
 
-    yield call(() => toggleView(true));
-
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
-
-    yield call(() => reset());
-
-    yield put(postCommentSuccess(questionData));
+    yield put(postCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
-    yield put(postCommentErr(err));
+    yield put(postCommentErr(err, buttonId));
   }
 }
 
-export function* postAnswerWorker({
-  user,
-  questionId,
-  answer,
-  translations,
-  postButtonId,
-  reset,
-}) {
+export function* postAnswerWorker({ questionId, answer, reset }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    yield call(isAuthorized);
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
-
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       postAnswerValidator(
         profileInfo,
         questionData,
-        postButtonId,
-        translations,
+        POST_ANSWER_BUTTON,
+        translationMessages[locale],
       ),
     );
 
-    if (!isValid) {
-      return yield put(postAnswerErr());
-    }
+    yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
 
-    yield call(() => postAnswer(user, questionId, answer, eosService));
+    const newAnswer = {
+      id: questionData.answers.length + 1,
+      post_time: String(Date.now()).slice(0, -3),
+      user: profileInfo.user,
+      properties: [],
+      history: [],
+      isItWrittenByMe: true,
+      votingStatus: {},
+      userInfo: profileInfo,
+      comments: [],
+      rating: 0,
+      content: answer,
+    };
 
-    yield call(getCurrentAccountWorker);
+    questionData.answers.push(newAnswer);
 
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    yield call(reset);
 
-    yield call(() => reset());
-    yield put(postAnswerSuccess(questionData));
+    yield put(postAnswerSuccess({ ...questionData }));
   } catch (err) {
     yield put(postAnswerErr(err));
   }
@@ -462,149 +520,146 @@ export function* postAnswerWorker({
 
 export function* downVoteWorker({
   whoWasDownvoted,
-  user,
-  postButtonId,
+  buttonId,
   answerId,
-  translations,
   questionId,
 }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasDownvoted];
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       downVoteValidator(
         profileInfo,
         questionData,
-        postButtonId,
+        buttonId,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
-    if (!isValid) {
-      return yield put(downVoteErr());
+    yield call(downVote, profileInfo.user, questionId, answerId, eosService);
+
+    const item =
+      Number(answerId) === 0
+        ? questionData
+        : questionData.answers.find(x => x.id == answerId);
+
+    if (item.votingStatus.isDownVoted) {
+      item.rating += 1;
+      item.votingStatus.isDownVoted = false;
+    } else if (item.votingStatus.isUpVoted) {
+      item.rating -= 2;
+      item.votingStatus.isDownVoted = true;
+      item.votingStatus.isUpVoted = false;
+    } else if (!item.votingStatus.isDownVoted) {
+      item.rating -= 1;
+      item.votingStatus.isDownVoted = true;
     }
 
-    yield call(() => downVote(user, questionId, answerId, eosService));
-
-    yield call(getCurrentAccountWorker);
-
-    yield put(removeUserProfile(whoWasDownvoted));
-
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
-
-    yield put(downVoteSuccess(questionData));
+    yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    yield put(downVoteErr(err));
+    yield put(downVoteErr(err, buttonId));
   }
 }
 
 export function* upVoteWorker({
-  user,
-  postButtonId,
+  buttonId,
   answerId,
-  translations,
   questionId,
   whoWasUpvoted,
 }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasUpvoted];
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       upVoteValidator(
         profileInfo,
         questionData,
-        postButtonId,
+        buttonId,
         answerId,
-        translations,
+        translationMessages[locale],
       ),
     );
 
-    if (!isValid) {
-      return yield put(upVoteErr());
+    yield call(upVote, profileInfo.user, questionId, answerId, eosService);
+
+    const item =
+      Number(answerId) === 0
+        ? questionData
+        : questionData.answers.find(x => x.id == answerId);
+
+    if (item.votingStatus.isUpVoted) {
+      item.rating -= 1;
+      item.votingStatus.isUpVoted = false;
+    } else if (item.votingStatus.isDownVoted) {
+      item.rating += 2;
+      item.votingStatus.isUpVoted = true;
+      item.votingStatus.isDownVoted = false;
+    } else if (!item.votingStatus.isUpVoted) {
+      item.rating += 1;
+      item.votingStatus.isUpVoted = true;
     }
 
-    yield call(() => upVote(user, questionId, answerId, eosService));
-
-    yield call(getCurrentAccountWorker);
-
-    yield put(removeUserProfile(whoWasUpvoted));
-
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
-
-    yield put(upVoteSuccess(questionData));
+    yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
-    yield put(upVoteErr(err));
+    yield put(upVoteErr(err, buttonId));
   }
 }
 
 export function* markAsAcceptedWorker({
-  user,
-  postButtonId,
-  translations,
+  buttonId,
   questionId,
   correctAnswerId,
   whoWasAccepted,
 }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    const usersForUpdate = [whoWasAccepted];
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    yield call(isAuthorized);
 
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       markAsAcceptedValidator(
         profileInfo,
         questionData,
-        postButtonId,
-        translations,
+        buttonId,
+        translationMessages[locale],
       ),
     );
 
-    if (!isValid) {
-      return yield put(markAsAcceptedErr());
-    }
-
-    yield call(() =>
-      markAsAccepted(user, questionId, correctAnswerId, eosService),
+    yield call(
+      markAsAccepted,
+      profileInfo.user,
+      questionId,
+      correctAnswerId,
+      eosService,
     );
 
-    yield call(getCurrentAccountWorker);
+    questionData.correct_answer_id =
+      questionData.correct_answer_id == correctAnswerId
+        ? 0
+        : Number(correctAnswerId);
 
-    yield put(removeUserProfile(whoWasAccepted));
-
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
+    yield put(
+      markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
     );
-
-    yield put(markAsAcceptedSuccess(questionData));
   } catch (err) {
-    yield put(markAsAcceptedErr(err));
+    yield put(markAsAcceptedErr(err, buttonId));
   }
 }
 
@@ -612,29 +667,24 @@ export function* voteToDeleteWorker({
   questionId,
   answerId,
   commentId,
-  postButtonId,
+  buttonId,
   whoWasVoted,
 }) {
   try {
-    let questionData = yield select(selectQuestionData());
+    const { questionData, eosService, profileInfo, locale } = yield call(
+      getParams,
+    );
 
-    const eosService = yield select(selectEos);
-    const locale = yield select(makeSelectLocale());
-    const user = yield call(() => eosService.getSelectedAccount());
+    const usersForUpdate = [whoWasVoted];
 
-    const profileInfo = yield select(makeSelectProfileInfo());
+    yield call(isAuthorized);
 
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
-
-    const isValid = yield call(() =>
+    yield call(isAvailableAction, () =>
       voteToDeleteValidator(
         profileInfo,
         questionData,
         translationMessages[locale],
-        postButtonId,
+        buttonId,
         {
           questionId,
           answerId,
@@ -643,39 +693,123 @@ export function* voteToDeleteWorker({
       ),
     );
 
-    if (!isValid) {
-      return yield put(voteToDeleteErr());
+    yield call(
+      voteToDelete,
+      profileInfo.user,
+      questionId,
+      answerId,
+      commentId,
+      eosService,
+    );
+
+    let item;
+
+    if (!+answerId && !commentId) {
+      item = questionData;
+    } else if (!+answerId && commentId) {
+      item = questionData.comments.find(x => x.id == commentId);
+    } else if (+answerId && !commentId) {
+      item = questionData.answers.find(x => x.id == answerId);
+    } else if (+answerId && commentId) {
+      item = questionData.answers
+        .find(x => x.id == answerId)
+        .comments.find(x => x.id == commentId);
     }
 
-    yield call(() =>
-      voteToDelete(user, questionId, answerId, commentId, eosService),
+    item.votingStatus.isVotedToDelete = true;
+
+    yield put(
+      voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
     );
+  } catch (err) {
+    yield put(voteToDeleteErr(err, buttonId));
+  }
+}
+
+// Do not spent time for main action - update userInfo as async action after main action
+export function* updateQuestionDataAfterTransactionWorker({
+  usersForUpdate = [],
+  questionData,
+}) {
+  try {
+    let userInfoOpponent;
+    const user = yield select(makeSelectAccount());
 
     yield call(getCurrentAccountWorker);
 
-    // Delete user profile from DataCacheProvider - to update them after accepting action
-    yield put(removeUserProfile(whoWasVoted));
+    if (user !== usersForUpdate[0]) {
+      yield put(removeUserProfile(usersForUpdate[0]));
+      userInfoOpponent = yield call(getUserProfileWorker, {
+        user: usersForUpdate[0],
+      });
+    }
 
-    questionData = yield call(() =>
-      getQuestionData({ eosService, questionId, user }),
-    );
+    const userInfoMe = yield call(getUserProfileWorker, { user });
 
-    yield put(voteToDeleteSuccess(questionData));
+    const changeUserInfo = item => {
+      if (item.user === user) {
+        item.userInfo = userInfoMe;
+      } else if (item.user === usersForUpdate[0]) {
+        item.userInfo = userInfoOpponent;
+      }
+    };
+
+    changeUserInfo(questionData);
+    questionData.comments.forEach(x => changeUserInfo(x));
+
+    questionData.answers.forEach(x => {
+      changeUserInfo(x);
+      x.comments.forEach(y => changeUserInfo(y));
+    });
+
+    yield put(getQuestionDataSuccess({ ...questionData }));
   } catch (err) {
-    yield put(voteToDeleteErr(err));
+    yield put(getQuestionDataErr(err));
+  }
+}
+
+export function* updateQuestionList({ questionData }) {
+  if (questionData && questionData.id) {
+    yield put(getUniqQuestions([questionData]));
   }
 }
 
 export default function*() {
-  yield takeLatest(GET_QUESTION_DATA, getQuestionDataWorker);
-  yield takeLatest(POST_COMMENT, postCommentWorker);
+  yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
-  yield takeLatest(UP_VOTE, upVoteWorker);
-  yield takeLatest(DOWN_VOTE, downVoteWorker);
-  yield takeLatest(MARK_AS_ACCEPTED, markAsAcceptedWorker);
-  yield takeLatest(DELETE_QUESTION, deleteQuestionWorker);
-  yield takeLatest(DELETE_ANSWER, deleteAnswerWorker);
-  yield takeLatest(DELETE_COMMENT, deleteCommentWorker);
-  yield takeLatest(SAVE_COMMENT, saveCommentWorker);
-  yield takeLatest(VOTE_TO_DELETE, voteToDeleteWorker);
+  yield takeEvery(POST_COMMENT, postCommentWorker);
+  yield takeEvery(UP_VOTE, upVoteWorker);
+  yield takeEvery(DOWN_VOTE, downVoteWorker);
+  yield takeEvery(MARK_AS_ACCEPTED, markAsAcceptedWorker);
+  yield takeEvery(DELETE_QUESTION, deleteQuestionWorker);
+  yield takeEvery(DELETE_ANSWER, deleteAnswerWorker);
+  yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
+  yield takeEvery(SAVE_COMMENT, saveCommentWorker);
+  yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
+  yield takeEvery(
+    [
+      POST_COMMENT_SUCCESS,
+      UP_VOTE_SUCCESS,
+      DOWN_VOTE_SUCCESS,
+      MARK_AS_ACCEPTED_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
+    ],
+    updateQuestionDataAfterTransactionWorker,
+  );
+  yield takeEvery(
+    [
+      GET_QUESTION_DATA_SUCCESS,
+      POST_COMMENT_SUCCESS,
+      POST_ANSWER_SUCCESS,
+      UP_VOTE_SUCCESS,
+      DOWN_VOTE_SUCCESS,
+      MARK_AS_ACCEPTED_SUCCESS,
+      DELETE_QUESTION_SUCCESS,
+      DELETE_ANSWER_SUCCESS,
+      DELETE_COMMENT_SUCCESS,
+      SAVE_COMMENT_SUCCESS,
+      VOTE_TO_DELETE_SUCCESS,
+    ],
+    updateStoredQuestionsWorker,
+  );
 }

@@ -11,6 +11,7 @@ import {
   EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   EDIT_QUESTION_ERROR,
+  REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from './constants';
 
 export function getAskedQuestion(questionId) {
@@ -42,9 +43,10 @@ export function editQuestion(question, questionId) {
   };
 }
 
-export function editQuestionSuccess() {
+export function editQuestionSuccess(questionData) {
   return {
     type: EDIT_QUESTION_SUCCESS,
+    questionData,
   };
 }
 
@@ -52,5 +54,14 @@ export function editQuestionErr(editQuestionError) {
   return {
     type: EDIT_QUESTION_ERROR,
     editQuestionError,
+  };
+}
+
+// TODO: test
+export function redirectToEditQuestionPage(ev) {
+  return {
+    type: REDIRECT_TO_EDIT_QUESTION_PAGE,
+    buttonId: ev.currentTarget.id,
+    link: ev.currentTarget.dataset.link,
   };
 }

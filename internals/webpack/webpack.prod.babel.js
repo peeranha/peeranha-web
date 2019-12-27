@@ -17,12 +17,28 @@ module.exports = require('./webpack.base.babel')({
   },
 
   optimization: {
+    runtimeChunk: 'single',
     minimize: true,
     nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
-    splitChunks: { chunks: 'all' },
-    runtimeChunk: true,
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(
+              /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
+            )[1];
+
+            return `npm.${packageName.replace('@', '')}`;
+          },
+        },
+      },
+    },
   },
 
   plugins: [

@@ -36,8 +36,18 @@ import {
   voteToDelete,
   voteToDeleteSuccess,
   voteToDeleteErr,
-  updateQuestionData,
 } from '../actions';
+
+const questionId = 1;
+const val = new Map();
+const props = {};
+
+const ev = {
+  currentTarget: {
+    id: '',
+    dataset: {},
+  },
+};
 
 describe('viewQuestionReducer', () => {
   let state;
@@ -53,7 +63,9 @@ describe('viewQuestionReducer', () => {
 
   it('voteToDelete', () => {
     const obj = state.set('voteToDeleteLoading', true);
-    expect(viewQuestionReducer(state, voteToDelete())).toEqual(obj);
+    expect(viewQuestionReducer(state, voteToDelete(questionId, ev))).toEqual(
+      obj,
+    );
   });
 
   it('voteToDeleteSuccess', () => {
@@ -80,7 +92,9 @@ describe('viewQuestionReducer', () => {
 
   it('saveComment', () => {
     const obj = state.set('saveCommentLoading', true);
-    expect(viewQuestionReducer(state, saveComment())).toEqual(obj);
+    expect(
+      viewQuestionReducer(state, saveComment(questionId, val, null, props)),
+    ).toEqual(obj);
   });
 
   it('saveCommentSuccess', () => {
@@ -107,7 +121,9 @@ describe('viewQuestionReducer', () => {
 
   it('deleteComment', () => {
     const obj = state.set('deleteCommentLoading', true);
-    expect(viewQuestionReducer(state, deleteComment())).toEqual(obj);
+    expect(viewQuestionReducer(state, deleteComment(questionId, ev))).toEqual(
+      obj,
+    );
   });
 
   it('deleteCommentSuccess', () => {
@@ -134,7 +150,9 @@ describe('viewQuestionReducer', () => {
 
   it('deleteAnswer', () => {
     const obj = state.set('deleteAnswerLoading', true);
-    expect(viewQuestionReducer(state, deleteAnswer())).toEqual(obj);
+    expect(viewQuestionReducer(state, deleteAnswer(questionId, ev))).toEqual(
+      obj,
+    );
   });
 
   it('deleteAnswerSuccess', () => {
@@ -161,7 +179,9 @@ describe('viewQuestionReducer', () => {
 
   it('deleteQuestion', () => {
     const obj = state.set('deleteQuestionLoading', true);
-    expect(viewQuestionReducer(state, deleteQuestion())).toEqual(obj);
+    expect(viewQuestionReducer(state, deleteQuestion(questionId, ev))).toEqual(
+      obj,
+    );
   });
 
   it('deleteQuestionSuccess', () => {
@@ -212,18 +232,15 @@ describe('viewQuestionReducer', () => {
 
   it('postAnswer', () => {
     const obj = state.set('postAnswerLoading', true);
-    expect(viewQuestionReducer(state, postAnswer())).toEqual(obj);
+    expect(
+      viewQuestionReducer(state, postAnswer(questionId, val, null, props)),
+    ).toEqual(obj);
   });
 
   it('postAnswerSuccess', () => {
-    const questionData = 'questionData';
-    const obj = state
-      .set('postAnswerLoading', false)
-      .set('questionData', questionData);
+    const obj = state.set('postAnswerLoading', false);
 
-    expect(viewQuestionReducer(state, postAnswerSuccess(questionData))).toEqual(
-      obj,
-    );
+    expect(viewQuestionReducer(state, postAnswerSuccess())).toEqual(obj);
   });
 
   it('postAnswerErr', () => {
@@ -239,18 +256,15 @@ describe('viewQuestionReducer', () => {
 
   it('postComment', () => {
     const obj = state.set('postCommentLoading', true);
-    expect(viewQuestionReducer(state, postComment())).toEqual(obj);
+    expect(
+      viewQuestionReducer(state, postComment(questionId, val, null, props)),
+    ).toEqual(obj);
   });
 
   it('postCommentSuccess', () => {
-    const questionData = 'questionData';
-    const obj = state
-      .set('postCommentLoading', false)
-      .set('questionData', questionData);
+    const obj = state.set('postCommentLoading', false);
 
-    expect(
-      viewQuestionReducer(state, postCommentSuccess(questionData)),
-    ).toEqual(obj);
+    expect(viewQuestionReducer(state, postCommentSuccess())).toEqual(obj);
   });
 
   it('postCommentErr', () => {
@@ -266,7 +280,7 @@ describe('viewQuestionReducer', () => {
 
   it('upVote', () => {
     const obj = state.set('upVoteLoading', true);
-    expect(viewQuestionReducer(state, upVote())).toEqual(obj);
+    expect(viewQuestionReducer(state, upVote(questionId, ev))).toEqual(obj);
   });
 
   it('upVoteSuccess', () => {
@@ -291,7 +305,7 @@ describe('viewQuestionReducer', () => {
 
   it('downVote', () => {
     const obj = state.set('downVoteLoading', true);
-    expect(viewQuestionReducer(state, downVote())).toEqual(obj);
+    expect(viewQuestionReducer(state, downVote(questionId, ev))).toEqual(obj);
   });
 
   it('downVoteSuccess', () => {
@@ -316,7 +330,9 @@ describe('viewQuestionReducer', () => {
 
   it('markAsAccepted', () => {
     const obj = state.set('markAsAcceptedLoading', true);
-    expect(viewQuestionReducer(state, markAsAccepted())).toEqual(obj);
+    expect(viewQuestionReducer(state, markAsAccepted(questionId, ev))).toEqual(
+      obj,
+    );
   });
 
   it('markAsAcceptedSuccess', () => {
@@ -338,15 +354,6 @@ describe('viewQuestionReducer', () => {
 
     expect(
       viewQuestionReducer(state, markAsAcceptedErr(markAsAcceptedError)),
-    ).toEqual(obj);
-  });
-
-  it('updateQuestionData', () => {
-    const questionData = {};
-    const obj = state.set('questionData', questionData);
-
-    expect(
-      viewQuestionReducer(state, updateQuestionData(questionData)),
     ).toEqual(obj);
   });
 });

@@ -1,5 +1,7 @@
 import Transparent from './Transparent';
+import Small from '../Small';
 
 export default Transparent.extend`
-  padding: 4px;
+  ${Small};
+  padding: 0 4px;
 `;

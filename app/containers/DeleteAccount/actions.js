@@ -7,7 +7,6 @@
 import {
   SHOW_DELETE_ACCOUNT_MODAL,
   HIDE_DELETE_ACCOUNT_MODAL,
-  EMAIL_FORM,
   SEND_EMAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
@@ -17,10 +16,9 @@ import {
   EMAIL_FIELD,
 } from './constants';
 
-export function showDeleteAccountModal(content) {
+export function showDeleteAccountModal() {
   return {
     type: SHOW_DELETE_ACCOUNT_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 
@@ -32,7 +30,7 @@ export function hideDeleteAccountModal() {
 
 // sendEmail
 
-export function sendEmail(args) {
+export function sendEmail(...args) {
   return {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
@@ -56,7 +54,7 @@ export function sendEmailErr(sendEmailError) {
 
 // Show owner key
 
-export function deleteAccount(args) {
+export function deleteAccount(...args) {
   return {
     type: DELETE_ACCOUNT,
     values: args[0].toJS(),

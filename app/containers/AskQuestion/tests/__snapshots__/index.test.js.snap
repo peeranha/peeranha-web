@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AskQuestion snapshot test 1`] = `
+exports[`AskQuestion render 1`] = `
 <div>
   <UNDEFINED
     description="Ask question | Description"
@@ -9,10 +9,11 @@ exports[`AskQuestion snapshot test 1`] = `
     title="Ask question"
   />
   <UNDEFINED
+    communities={Array []}
     form="app/AskQuestion/ASK_QUESTION_FORM"
     formTitle="Ask question"
     questionLoading={false}
-    sendQuestion={[Function]}
+    sendQuestion={[MockFunction]}
     submitButtonId="app_post_question_button"
     submitButtonName="Post question"
   />

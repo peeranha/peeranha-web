@@ -8,17 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
-
-import InfinityLoader from 'components/InfinityLoader';
-import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -34,6 +32,15 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
+import { showLoginModal } from 'containers/Login/actions';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import TopCommunities from 'components/TopCommunities';
+
+import InfinityLoader from 'components/InfinityLoader';
+import Seo from 'components/Seo';
+
 import { getQuestions } from './actions';
 
 import * as questionsSelector from './selectors';
@@ -41,8 +48,9 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import QuestionsContainer from './QuestionsContainer';
-import NoQuestions from './NoQuestions';
+import Content from './Content';
+import Banner from './Banner';
+import Header from './Header';
 
 const feed = routes.feed();
 
@@ -56,13 +64,24 @@ export class Questions extends React.PureComponent {
     this.fetcher = null;
   }
 
-  componentDidUpdate() {
-    const { followedCommunities, parentPage, eosService } = this.props;
+  componentDidUpdate(prevProps) {
+    const { followedCommunities, parentPage, eosService, match } = this.props;
+
+    // location changing
+    if (
+      prevProps &&
+      prevProps.match.params.communityid !== match.params.communityid
+    ) {
+      this.fetcher = null;
+    }
 
     if (
       !this.fetcher &&
       eosService &&
-      ((parentPage === feed && followedCommunities) || parentPage !== feed)
+      ((parentPage === feed &&
+        followedCommunities &&
+        followedCommunities.length > 0) ||
+        parentPage !== feed)
     ) {
       this.getInitQuestions();
     }
@@ -79,8 +98,8 @@ export class Questions extends React.PureComponent {
     );
   };
 
-  getInitQuestions = (communityIdFilter = this.props.communityIdFilter) => {
-    const { initLoadedItems, parentPage } = this.props;
+  getInitQuestions = () => {
+    const { initLoadedItems, parentPage, match } = this.props;
     const offset = 0;
 
     this.initFetcher();
@@ -88,19 +107,14 @@ export class Questions extends React.PureComponent {
     this.props.getQuestionsDispatch(
       initLoadedItems,
       offset,
-      communityIdFilter,
+      Number(match.params.communityid) || 0,
       parentPage,
       this.fetcher,
     );
   };
 
   getNextQuestions = () => {
-    const {
-      nextLoadedItems,
-      questionsList,
-      communityIdFilter,
-      parentPage,
-    } = this.props;
+    const { nextLoadedItems, questionsList, parentPage, match } = this.props;
 
     const lastItem = questionsList[questionsList.length - 1];
     const offset = lastItem ? +lastItem.id + 1 : 0;
@@ -113,41 +127,28 @@ export class Questions extends React.PureComponent {
     this.props.getQuestionsDispatch(
       nextLoadedItems,
       offset,
-      communityIdFilter,
+      Number(match.params.communityid) || 0,
       parentPage,
       this.fetcher,
       next,
     );
   };
 
-  render() {
+  render() /* istanbul ignore next */ {
     const {
       locale,
       questionsList,
       questionsLoading,
       isLastFetch,
       communities,
-      communityIdFilter,
       followedCommunities,
       parentPage,
       communitiesLoading,
       account,
       profile,
+      match,
+      redirectToAskQuestionPageDispatch,
     } = this.props;
-
-    const sendProps = {
-      profile,
-      account,
-      locale,
-      questionsList,
-      questionsLoading,
-      communitiesLoading,
-      communities,
-      getInitQuestions: this.getInitQuestions,
-      communityIdFilter,
-      followedCommunities,
-      parentPage,
-    };
 
     return (
       <div>
@@ -157,22 +158,46 @@ export class Questions extends React.PureComponent {
           language={locale}
         />
 
-        <InfinityLoader
-          loadNextPaginatedData={this.getNextQuestions}
-          isLoading={questionsLoading}
-          isLastFetch={isLastFetch}
-        >
-          <QuestionsContainer {...sendProps} />
-        </InfinityLoader>
+        <Header
+          communityIdFilter={Number(match.params.communityid) || 0}
+          followedCommunities={followedCommunities}
+          parentPage={parentPage}
+        />
 
         {!questionsList.length &&
           !questionsLoading &&
           !communitiesLoading && (
-            <NoQuestions
+            <Banner
               isFeed={parentPage === feed}
               followedCommunities={followedCommunities}
+              redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
             />
           )}
+
+        {questionsList.length > 0 && (
+          <InfinityLoader
+            loadNextPaginatedData={this.getNextQuestions}
+            isLoading={questionsLoading}
+            isLastFetch={isLastFetch}
+          >
+            <Content
+              questionsList={questionsList}
+              locale={locale}
+              communities={communities}
+            />
+          </InfinityLoader>
+        )}
+
+        {parentPage === feed && (
+          <TopCommunities
+            userId={account}
+            account={account}
+            communities={communities}
+            profile={profile}
+          />
+        )}
+
+        {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
       </div>
     );
   }
@@ -190,8 +215,9 @@ Questions.propTypes = {
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
   nextLoadedItems: PropTypes.number,
-  communityIdFilter: PropTypes.number,
+  match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
+  redirectToAskQuestionPageDispatch: PropTypes.func,
   eosService: PropTypes.object,
   profile: PropTypes.object,
 };
@@ -204,19 +230,25 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
   communitiesLoading: selectCommunitiesLoading(),
   followedCommunities: makeSelectFollowedCommunities(),
-  questionsList: questionsSelector.selectQuestionsList(),
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
-  communityIdFilter: questionsSelector.selectCommunityIdFilter(),
+  questionsList: (state, props) =>
+    questionsSelector.selectQuestions(
+      props.parentPage,
+      Number(props.match.params.communityid),
+    )(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getQuestionsDispatch: (limit, offset, comId, parentPage, fetcher, next) =>
-      dispatch(getQuestions(limit, offset, comId, parentPage, fetcher, next)),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    redirectToAskQuestionPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
   };
 }
 
@@ -226,7 +258,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'questionsReducer', reducer });
-const withSaga = injectSaga({ key: 'questionsReducer', saga });
+const withSaga = injectSaga({ key: 'questionsReducer', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

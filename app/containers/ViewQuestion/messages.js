@@ -52,6 +52,9 @@ export default defineMessages({
   notEnoughModPoints: {
     id: 'app.containers.ViewQuestion.notEnoughModPoints',
   },
+  creatorCannot: {
+    id: 'app.containers.ViewQuestion.creatorCannot',
+  },
   youVoted: {
     id: 'app.containers.ViewQuestion.youVoted',
   },
@@ -63,6 +66,9 @@ export default defineMessages({
   },
   noRootsToVote: {
     id: 'app.containers.ViewQuestion.noRootsToVote',
+  },
+  notEnoughEnergy: {
+    id: 'app.containers.ViewQuestion.notEnoughEnergy',
   },
   youHaveAnswers: {
     id: 'app.containers.ViewQuestion.youHaveAnswers',
@@ -84,5 +90,17 @@ export default defineMessages({
   },
   communityChoice: {
     id: 'app.containers.ViewQuestion.communityChoice',
+  },
+  showMoreAnswers: {
+    id: 'app.containers.ViewQuestion.showMoreAnswers',
+  },
+  cannotCompleteBecauseBlocked: {
+    id: 'app.containers.ViewQuestion.cannotCompleteBecauseBlocked',
+  },
+  cannotCompleteBecauseVoted: {
+    id: 'app.containers.ViewQuestion.cannotCompleteBecauseVoted',
+  },
+  areYouSure: {
+    id: 'app.containers.ViewQuestion.areYouSure',
   },
 });

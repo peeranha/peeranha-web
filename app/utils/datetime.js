@@ -2,10 +2,14 @@ import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import differenceInMonths from 'date-fns/difference_in_calendar_months';
 
+import ru from 'date-fns/locale/ru/index.js';
+import en from 'date-fns/locale/en/index.js';
+
 import {
   MONTH_3LETTERS__DAY_TIME,
   MONTH_3LETTERS__DAY_YYYY_TIME,
   DD_MM_YYYY,
+  DD_MM_YY,
   FULL_MONTH_NAME_DAY_YEAR,
 } from './constants';
 
@@ -13,23 +17,25 @@ const options = {
   [MONTH_3LETTERS__DAY_TIME]: 'MMM D, HH:mm',
   [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM D YYYY, HH:mm',
   [DD_MM_YYYY]: 'DD.MM.YYYY',
+  [DD_MM_YY]: 'DD.MM.YY',
   [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, D, YYYY',
 };
 
-// TODO: `date-fns/locale/${locale}/index.js` - such record means that all locales includes in bundle - impove it later
+const translations = {
+  ru,
+  en,
+};
 
-/* eslint global-require: 1 */
 export const getTimeFromDateToNow = /* istanbul ignore next */ (
   date,
   locale,
 ) => {
   const dateInMills = date * 1000;
-  const localeObj = { locale: require(`date-fns/locale/${locale}/index.js`) };
+  const localeObj = { locale: translations[locale] };
 
   return distanceInWordsToNow(dateInMills, localeObj);
 };
 
-/* eslint global-require: 1 */
 export const getFormattedDate = /* istanbul ignore next */ (
   date,
   locale,
@@ -37,7 +43,7 @@ export const getFormattedDate = /* istanbul ignore next */ (
 ) => {
   const dateInMills = date * 1000;
   const localeObj = {
-    locale: () => require(`date-fns/locale/${locale}/index.js`),
+    locale: translations[locale],
   };
   const dateView = options[dateFormat || DD_MM_YYYY];
 

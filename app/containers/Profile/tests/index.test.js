@@ -30,7 +30,7 @@ describe('Profile', () => {
 
     cmp.props.userId = userId;
     cmp.componentDidMount();
-    expect(cmp.props.getUserProfileDispatch).toHaveBeenCalledWith(userId);
+    expect(cmp.props.getUserProfileDispatch).toHaveBeenCalledWith(userId, true);
   });
 
   describe('componentWillReceiveProps', () => {
@@ -44,6 +44,7 @@ describe('Profile', () => {
       cmp.componentWillReceiveProps(nextProps);
       expect(cmp.props.getUserProfileDispatch).toHaveBeenCalledWith(
         nextProps.userId,
+        true,
       );
     });
   });

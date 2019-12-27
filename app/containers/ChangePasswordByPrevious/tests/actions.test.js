@@ -12,6 +12,7 @@ import {
   submitEmail,
   submitEmailSuccess,
   submitEmailErr,
+  sendAnotherCode,
 } from '../actions';
 
 import {
@@ -23,19 +24,26 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
-  EMAIL_FORM,
   EMAIL_FIELD,
   CODE_FIELD,
   SUBMIT_EMAIL,
   SUBMIT_EMAIL_SUCCESS,
   SUBMIT_EMAIL_ERROR,
+  SEND_ANOTHER_CODE,
 } from '../constants';
 
 describe('showChangePassword actions', () => {
+  it('sendAnotherCode', () => {
+    const expected = {
+      type: SEND_ANOTHER_CODE,
+    };
+
+    expect(sendAnotherCode()).toEqual(expected);
+  });
+
   it('showChangePasswordModal', () => {
     const expected = {
       type: SHOW_CHANGE_PASSWORD_MODAL,
-      content: EMAIL_FORM,
     };
 
     expect(showChangePasswordModal()).toEqual(expected);
@@ -64,7 +72,7 @@ describe('showChangePassword actions', () => {
       email,
     };
 
-    expect(sendEmail(args)).toEqual(expected);
+    expect(sendEmail(...args)).toEqual(expected);
   });
 
   it('sendEmailSuccess', () => {
@@ -96,7 +104,7 @@ describe('showChangePassword actions', () => {
       values: args[0].toJS(),
     };
 
-    expect(changePassword(args)).toEqual(expected);
+    expect(changePassword(...args)).toEqual(expected);
   });
 
   it('changePasswordSuccess', () => {
@@ -133,7 +141,7 @@ describe('showChangePassword actions', () => {
       verificationCode,
     };
 
-    expect(submitEmail(args)).toEqual(expected);
+    expect(submitEmail(...args)).toEqual(expected);
   });
 
   it('submitEmailSuccess', () => {

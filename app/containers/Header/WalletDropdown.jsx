@@ -19,15 +19,12 @@ import { getFormattedNum4 } from 'utils/numbers';
 
 import Dropdown from 'components/Dropdown';
 import Icon from 'components/Icon';
-import Li from 'components/Li';
-import Ul from 'components/Ul';
+import A from 'components/A';
+import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import MediumImage from 'components/Img/MediumImage';
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
+import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import SendTokens from 'containers/SendTokens';
-
-import { AStyled } from './ProfileDropdown';
 
 const ButtonStyled = styled.span`
   display: flex;
@@ -36,33 +33,33 @@ const ButtonStyled = styled.span`
   border-left: 0px;
   border-radius: 23px;
   padding-right: 25px;
+  height: 47px;
 
-  ${MediumImage} {
+  ${MediumSpecialImage} {
     margin-right: 10px;
   }
 `;
 
-const IconBG = MediumImage.extend`
+const IconBG = MediumSpecialImage.extend`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid ${BORDER_PRIMARY};
-
-  ${IconStyled} {
-    ${() => IconHover({ color: TEXT_LIGHT })};
-  }
+  color: ${x => x.color};
 `.withComponent('span');
 
-const Button = ({ balance }) => (
+export const Button = ({ balance }) => (
   <ButtonStyled>
-    <IconBG bg={BG_PRIMARY}>
-      <Icon width="24" icon={currencyPeerIcon} noMargin />
+    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+      <Icon icon={currencyPeerIcon} width="24" />
     </IconBG>
 
     <span className="d-flex flex-column text-left">
-      <Span bold>{getFormattedNum4(balance)}</Span>
-      <Span fontSize="14" color={TEXT_SECONDARY}>
+      <Span fontSize="16" bold>
+        {getFormattedNum4(balance)}
+      </Span>
+      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.peers} />
       </Span>
     </span>
@@ -71,33 +68,36 @@ const Button = ({ balance }) => (
 
 const Menu = ({ user }) => (
   <Ul>
-    <Li>
-      <AStyled to={routes.userWallet(user)}>
-        <FormattedMessage {...messages.wallet} />
-      </AStyled>
-    </Li>
-    <Li>
-      <SendTokens>
-        <FormattedMessage {...messages.sendTokens} />
-      </SendTokens>
-    </Li>
+    <A to={routes.userWallet(user)}>
+      <FormattedMessage {...messages.wallet} />
+    </A>
+    <SendTokens>
+      <FormattedMessage {...messages.sendTokens} />
+    </SendTokens>
   </Ul>
 );
 
 const WalletDropdown = ({ user, balance }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
+    className="d-none d-md-flex"
     button={<Button balance={balance} />}
     menu={<Menu user={user} />}
   />
 );
 
+Button.propTypes = {
+  balance: PropTypes.string,
+};
+
 Menu.propTypes = {
   user: PropTypes.string,
+  balance: PropTypes.string,
 };
 
 WalletDropdown.propTypes = {
   user: PropTypes.string,
+  balance: PropTypes.string,
 };
 
 export { IconBG };

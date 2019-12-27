@@ -2,13 +2,24 @@ import { fromJS } from 'immutable';
 
 import {
   selectAccountProviderDomain,
-  makeSelectLoading,
+  makeSelectAccountLoading,
   makeSelectError,
   makeSelectAccount,
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
   makeSelectBalance,
 } from '../selectors';
+
+const localStorage = {
+  getItem: jest.fn(),
+};
+
+const sessionStorage = {
+  getItem: jest.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', { value: localStorage });
+Object.defineProperty(global, 'sessionStorage', { value: sessionStorage });
 
 describe('selectAccountProviderDomain', () => {
   const loading = 'loading';
@@ -48,7 +59,14 @@ describe('selectAccountProviderDomain', () => {
   describe('makeSelectFollowedCommunities', () => {
     const isMakeSelectFollowedCommunities = makeSelectFollowedCommunities();
 
+    const loginData = {};
+
     it('profileInfo FALSE', () => {
+      localStorage.getItem.mockImplementation(() => null);
+      sessionStorage.getItem.mockImplementation(() =>
+        JSON.stringify(loginData),
+      );
+
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
@@ -66,6 +84,8 @@ describe('selectAccountProviderDomain', () => {
     });
 
     it('profileInfo TRUE', () => {
+      localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+
       expect(
         isMakeSelectFollowedCommunities(
           fromJS({
@@ -88,8 +108,8 @@ describe('selectAccountProviderDomain', () => {
     expect(acc(mockedState)).toEqual(account);
   });
 
-  it('makeSelectLoading', () => {
-    const load = makeSelectLoading();
+  it('makeSelectAccountLoading', () => {
+    const load = makeSelectAccountLoading();
     expect(load(mockedState)).toEqual(loading);
   });
 
@@ -104,6 +124,10 @@ describe('selectAccountProviderDomain', () => {
   });
 
   it('makeSelectProfileInfo', () => {
+    const loginData = {};
+
+    localStorage.getItem.mockImplementation(() => JSON.stringify(loginData));
+
     const isProfileInfo = makeSelectProfileInfo();
 
     expect(
@@ -122,6 +146,7 @@ describe('selectAccountProviderDomain', () => {
     ).toEqual({
       ...user1,
       balance,
+      loginData,
     });
   });
 });

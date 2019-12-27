@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from 'components/Input';
 import Wrapper from './Wrapper';
 
-export const TextInputField = /* istanbul ignore next */ ({
+export const TextInputField = ({
   input,
   label,
   readOnly,
@@ -17,8 +17,18 @@ export const TextInputField = /* istanbul ignore next */ ({
   splitInHalf,
   onClick,
   type = 'text',
+  autoComplete,
+  insideOfSection,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    disabled={disabled}
+    id={input.name}
+    insideOfSection={insideOfSection}
+  >
     <Input
       input={input}
       disabled={disabled}
@@ -27,6 +37,7 @@ export const TextInputField = /* istanbul ignore next */ ({
       isSearchable={isSearchable}
       isRefreshable={isRefreshable}
       onClick={onClick}
+      autoComplete={autoComplete}
       error={meta.touched && (meta.error || meta.warning)}
       type={type}
     />
@@ -45,7 +56,9 @@ TextInputField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,
+  autoComplete: PropTypes.string,
   onClick: PropTypes.func,
+  insideOfSection: PropTypes.bool,
 };
 
 export default React.memo(TextInputField);

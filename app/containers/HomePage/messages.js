@@ -136,83 +136,6 @@ export default defineMessages({
     id: 'app.containers.HomePage.getReward',
   },
 
-  whatIsPeeranha: {
-    id: 'app.containers.HomePage.whatIsPeeranha',
-  },
-  whatIsPeeranhaCollapsed: {
-    id: 'app.containers.HomePage.whatIsPeeranhaCollapsed',
-  },
-
-  differentFromOtherSites: {
-    id: 'app.containers.HomePage.differentFromOtherSites',
-  },
-  differentFromOtherSitesCollapsed: {
-    id: 'app.containers.HomePage.differentFromOtherSitesCollapsed',
-  },
-
-  howItWorks: {
-    id: 'app.containers.HomePage.howItWorks',
-  },
-  howItWorksCollapsed: {
-    id: 'app.containers.HomePage.howItWorksCollapsed',
-  },
-
-  whatBlockchain: {
-    id: 'app.containers.HomePage.whatBlockchain',
-  },
-  whatBlockchainCollapsed: {
-    id: 'app.containers.HomePage.whatBlockchainCollapsed',
-  },
-
-  whatIsCryptocurrency: {
-    id: 'app.containers.HomePage.whatIsCryptocurrency',
-  },
-  whatIsCryptocurrencyCollapsed: {
-    id: 'app.containers.HomePage.whatIsCryptocurrencyCollapsed',
-  },
-
-  howEarn: {
-    id: 'app.containers.HomePage.howEarn',
-  },
-  howEarnCollapsed: {
-    id: 'app.containers.HomePage.howEarnCollapsed',
-  },
-
-  tokensReward: {
-    id: 'app.containers.HomePage.tokensReward',
-  },
-  tokensRewardCollapsed: {
-    id: 'app.containers.HomePage.tokensRewardCollapsed',
-  },
-
-  valueOfToken: {
-    id: 'app.containers.HomePage.valueOfToken',
-  },
-  valueOfTokenCollapsed: {
-    id: 'app.containers.HomePage.valueOfTokenCollapsed',
-  },
-
-  whitePaper: {
-    id: 'app.containers.HomePage.whitePaper',
-  },
-  whitePaperCollapsed: {
-    id: 'app.containers.HomePage.whitePaperCollapsed',
-  },
-
-  websiteLive: {
-    id: 'app.containers.HomePage.websiteLive',
-  },
-  websiteLiveCollapsed: {
-    id: 'app.containers.HomePage.websiteLiveCollapsed',
-  },
-
-  learnMore: {
-    id: 'app.containers.HomePage.learnMore',
-  },
-  learnMoreCollapsed: {
-    id: 'app.containers.HomePage.learnMoreCollapsed',
-  },
-
   getMoreAnswers: {
     id: 'app.containers.HomePage.getMoreAnswers',
   },
@@ -286,8 +209,14 @@ export default defineMessages({
   yourName: {
     id: 'app.containers.HomePage.yourName',
   },
+  yourNameTip: {
+    id: 'app.containers.HomePage.yourNameTip',
+  },
   email: {
     id: 'app.containers.HomePage.email',
+  },
+  emailTip: {
+    id: 'app.containers.HomePage.emailTip',
   },
   refCode: {
     id: 'app.containers.HomePage.refCode',
@@ -295,9 +224,16 @@ export default defineMessages({
   subject: {
     id: 'app.containers.HomePage.subject',
   },
+  subjectTip: {
+    id: 'app.containers.HomePage.subjectTip',
+  },
   message: {
     id: 'app.containers.HomePage.message',
   },
+  messageTip: {
+    id: 'app.containers.HomePage.messageTip',
+  },
+
   sendMessage: {
     id: 'app.containers.HomePage.sendMessage',
   },
@@ -321,5 +257,9 @@ export default defineMessages({
   },
   yourEmailIsRegistred: {
     id: 'app.containers.HomePage.yourEmailIsRegistred',
+  },
+
+  goToSite: {
+    id: 'app.containers.HomePage.goToSite',
   },
 });

@@ -2,8 +2,6 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
-export const IPFS_URL = 'http://localhost:8080/ipfs';
-
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
 export const SCATTER_APP_NAME = 'Peeranha';
@@ -21,8 +19,15 @@ export const HUBSPOT_SEND_EMAIL_FORM_ID =
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
   'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
 
+export const ENDPOINTS_LIST = 'best_nodes_list';
+
+export const MODERATOR_KEY = 48;
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
+
+const GOOGLE_SEARCH_FORM_KEY = 'AIzaSyA8OYoejHkhBWJnokE78JYndPY8M-4eN7U';
+const GOOGLE_SEARCH_FORM_CX = '012465490266412806753:wrajkcmcuob';
+export const GOOGLE_SEARCH_FORM_PATH = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_SEARCH_FORM_KEY}&cx=${GOOGLE_SEARCH_FORM_CX}`;
 
 // Tables
 
@@ -37,6 +42,10 @@ export const CREATED_TAGS_TABLE = 'crtagtb';
 export const CREATED_COMMUNITIES_TABLE = 'crcommtb';
 export const GLOBAL_STAT_TABLE = 'globalstat';
 export const PERIOD_REWARD_TABLE = 'periodreward';
+export const PERIOD_RATING_TABLE = 'periodrating';
+export const TOTAL_REWARD_TABLE = 'totalreward';
+export const TOTAL_RATING_TABLE = 'totalrating';
+export const USER_SUPPLY_TABLE = 'stat';
 
 // Scopes
 
@@ -44,14 +53,20 @@ export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
+export const ALL_PERIODS_SCOPE = 'allperiods';
+export const USER_SUPPLY_SCOPE = 'PEER';
+
+// Inf. limit
+export const INF_LIMIT = -1;
 
 // Methods
 
 export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
+export const UPDATE_ACC = 'updateacc';
 
-export const VOTE_TO_DELETE_METHOD = 'votedelete';
+export const VOTE_TO_DELETE_METHOD = 'reportforum';
 
 export const POST_QUESTION_METHOD = 'postquestion';
 export const EDIT_QUESTION_METHOD = 'modquestion';
@@ -79,12 +94,14 @@ export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
+export const PICKUP_REWARD_METHOD = 'pickupreward';
 
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
   'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
+export const DD_MM_YY = 'datetime/DD_MM_YY';
 export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
 
 export const NO_AVATAR = 'QmUyiWb3p3W16pAGJudZsZuQ59eiW4RtHwCjDCRNqqMwPE';

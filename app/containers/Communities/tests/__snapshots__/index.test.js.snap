@@ -2,7 +2,7 @@
 
 exports[`<Communities /> render communities [] 1`] = `
 <div
-  className="d-flex justify-content-center"
+  className="d-xl-flex"
 >
   <UNDEFINED
     description="Communities | Description"
@@ -11,13 +11,12 @@ exports[`<Communities /> render communities [] 1`] = `
     title="Communities"
   />
   <div
-    className="flex-grow-1"
+    className="flex-xl-grow-1"
   >
-    <CommunitiesHeader
+    <Header
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={0}
-      goToCreateCommunityScreen={[Function]}
       language={
         Object {
           "message": Object {
@@ -29,31 +28,26 @@ exports[`<Communities /> render communities [] 1`] = `
       setLang={[Function]}
       sorting={Object {}}
     />
-    <div
-      className="my-3"
-    >
-      <Content
-        communities={Array []}
-        getSuggestedCommunities={[Function]}
-        isLastFetch={false}
-        language={
-          Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
-          }
+    <Content
+      communities={Array []}
+      getSuggestedCommunities={[Function]}
+      isLastFetch={false}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
         }
-        locale="en"
-        sorting={Object {}}
-        suggestedCommunities={Array []}
-        suggestedCommunitiesLoading={true}
-      />
-    </div>
-    <UNDEFINED />
+      }
+      locale="en"
+      sorting={Object {}}
+      suggestedCommunities={Array []}
+      suggestedCommunitiesLoading={true}
+    />
   </div>
   <Base
-    className="d-none d-xl-block pr-0"
+    className="d-none d-xl-block"
   >
     <Aside
       communities={Array []}
@@ -65,7 +59,7 @@ exports[`<Communities /> render communities [] 1`] = `
 
 exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
 <div
-  className="d-flex justify-content-center"
+  className="d-xl-flex"
 >
   <UNDEFINED
     description="Communities | Description"
@@ -78,13 +72,12 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
     title="Communities"
   />
   <div
-    className="flex-grow-1"
+    className="flex-xl-grow-1"
   >
-    <CommunitiesHeader
+    <Header
       SubHeader={[Function]}
       changeSorting={[MockFunction]}
       communitiesNumber={1}
-      goToCreateCommunityScreen={[Function]}
       language={
         Object {
           "message": Object {
@@ -96,37 +89,32 @@ exports[`<Communities /> render communities [{ id: 1 }] 1`] = `
       setLang={[Function]}
       sorting={Object {}}
     />
-    <div
-      className="my-3"
-    >
-      <Content
-        communities={
-          Array [
-            Object {
-              "id": 1,
-            },
-          ]
-        }
-        getSuggestedCommunities={[Function]}
-        isLastFetch={false}
-        language={
+    <Content
+      communities={
+        Array [
           Object {
-            "message": Object {
-              "id": "app.common.all",
-            },
-            "sortBy": "",
-          }
+            "id": 1,
+          },
+        ]
+      }
+      getSuggestedCommunities={[Function]}
+      isLastFetch={false}
+      language={
+        Object {
+          "message": Object {
+            "id": "app.common.all",
+          },
+          "sortBy": "",
         }
-        locale="en"
-        sorting={Object {}}
-        suggestedCommunities={Array []}
-        suggestedCommunitiesLoading={true}
-      />
-    </div>
-    <UNDEFINED />
+      }
+      locale="en"
+      sorting={Object {}}
+      suggestedCommunities={Array []}
+      suggestedCommunitiesLoading={true}
+    />
   </div>
   <Base
-    className="d-none d-xl-block pr-0"
+    className="d-none d-xl-block"
   >
     <Aside
       communities={

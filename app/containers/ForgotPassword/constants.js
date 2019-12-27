@@ -4,6 +4,9 @@ import {
 } from 'containers/SignUp/constants';
 
 // Action types
+
+const SEND_ANOTHER_CODE = 'containers/ForgotPassword/SEND_ANOTHER_CODE';
+
 const SHOW_FORGOT_PASSWORD_MODAL =
   'containers/ForgotPassword/SHOW_FORGOT_PASSWORD_MODAL';
 const HIDE_FORGOT_PASSWORD_MODAL =
@@ -58,4 +61,5 @@ export {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_ERROR,
+  SEND_ANOTHER_CODE,
 };

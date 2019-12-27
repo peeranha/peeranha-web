@@ -9,6 +9,7 @@ import {
   showActiveKeyErr,
   showActiveKeyModal,
   hideActiveKeyModal,
+  removeActiveKey,
 } from '../actions';
 
 describe('showActiveKeyReducer', () => {
@@ -22,6 +23,11 @@ describe('showActiveKeyReducer', () => {
 
   it('returns the initial state', () => {
     expect(showActiveKeyReducer(state, {})).toEqual(state);
+  });
+
+  it('removeActiveKey', () => {
+    const obj = state.set('activeKey', initialState.get('activeKey'));
+    expect(showActiveKeyReducer(state, removeActiveKey())).toEqual(obj);
   });
 
   it('showActiveKeyModal', () => {
@@ -38,7 +44,7 @@ describe('showActiveKeyReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('showActiveKeyProcessing', true);
 
-    expect(showActiveKeyReducer(state, showActiveKey(args))).toEqual(obj);
+    expect(showActiveKeyReducer(state, showActiveKey(...args))).toEqual(obj);
   });
 
   it('showActiveKeySuccess', () => {

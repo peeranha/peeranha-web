@@ -8,15 +8,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
+import Button from 'components/Button/Contained/Transparent';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -32,6 +34,7 @@ import {
   sendEmail,
   submitEmail,
   changePassword,
+  sendAnotherCode,
 } from './actions';
 
 import {
@@ -56,6 +59,8 @@ export class ChangePasswordByPrevious extends React.PureComponent {
       submitEmailProcessing,
       changePasswordDispatch,
       changePasswordProcessing,
+      sendAnotherCodeDispatch,
+      loginData,
     } = this.props;
 
     return (
@@ -66,6 +71,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
               locale={locale}
               sendEmail={sendEmailDispatch}
               sendEmailProcessing={sendEmailProcessing}
+              loginData={loginData}
             />
           )}
 
@@ -74,6 +80,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
               locale={locale}
               submitEmail={submitEmailDispatch}
               submitEmailProcessing={submitEmailProcessing}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           )}
 
@@ -86,7 +93,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
           )}
         </Modal>
 
-        <button onClick={showChangePasswordModalDispatch}>{children}</button>
+        <Button onClick={showChangePasswordModalDispatch}>{children}</Button>
       </React.Fragment>
     );
   }
@@ -104,11 +111,14 @@ ChangePasswordByPrevious.propTypes = {
   submitEmailDispatch: PropTypes.func,
   submitEmailProcessing: PropTypes.bool,
   changePasswordDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   changePasswordProcessing: PropTypes.bool,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
   sendEmailProcessing: selectors.selectSendEmailProcessing(),
@@ -116,13 +126,20 @@ const mapStateToProps = createStructuredSelector({
   changePasswordProcessing: selectors.selectChangePasswordProcessing(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    sendEmailDispatch: (...args) => dispatch(sendEmail(args)),
-    submitEmailDispatch: (...args) => dispatch(submitEmail(args)),
-    changePasswordDispatch: (...args) => dispatch(changePassword(args)),
-    showChangePasswordModalDispatch: () => dispatch(showChangePasswordModal()),
-    hideChangePasswordModalDispatch: () => dispatch(hideChangePasswordModal()),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
+    submitEmailDispatch: bindActionCreators(submitEmail, dispatch),
+    changePasswordDispatch: bindActionCreators(changePassword, dispatch),
+    showChangePasswordModalDispatch: bindActionCreators(
+      showChangePasswordModal,
+      dispatch,
+    ),
+    hideChangePasswordModalDispatch: bindActionCreators(
+      hideChangePasswordModal,
+      dispatch,
+    ),
   };
 }
 

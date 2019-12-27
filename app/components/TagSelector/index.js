@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -11,10 +12,10 @@ import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 
 const TagsContainer = styled.ul`
-  ${/* istanbul ignore next */ props => Input(props)};
+  ${props => Input(props)};
 
   cursor: pointer;
-  height: auto;
+  height: auto !important;
 `;
 
 const RemoveTagIcon = styled.button`
@@ -34,7 +35,7 @@ const Tag = styled.li`
   border-radius: 2px;
 `;
 
-export const TagSelector = /* istanbul ignore next */ ({
+export const TagSelector = ({
   input,
   meta,
   label,
@@ -44,6 +45,10 @@ export const TagSelector = /* istanbul ignore next */ ({
   splitInHalf,
   options = [],
 }) => {
+  if (input) {
+    input.value = input.value.toJS ? input.value.toJS() : input.value;
+  }
+
   const value = input.value || [];
 
   const [isOpen, toggleOpen] = useState(false);
@@ -54,7 +59,14 @@ export const TagSelector = /* istanbul ignore next */ ({
   const filteredOptions = options.filter(x => !valueIds.includes(x.id));
 
   return (
-    <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+    <Wrapper
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      disabled={disabled}
+      id={input.name}
+    >
       <Dropdown
         isOpen={isOpen}
         toggle={() => toggleOpen(!isOpen)}
@@ -83,15 +95,15 @@ export const TagSelector = /* istanbul ignore next */ ({
         <Select2
           input={{
             ...input,
-            onChange: x => {
-              setTags([...value, x]);
-              toggleOpen(false);
-            },
+            value: null,
+            onBlur: null,
+            onChange: x => setTags([...value, x]),
           }}
           options={filteredOptions}
           disabled={disabled}
           autoFocus
           menuIsOpen
+          isWrapped
         />
       </Dropdown>
     </Wrapper>

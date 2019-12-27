@@ -26,6 +26,7 @@ exports[`<TagsOfCommunity /> render 1`] = `
     }
     Content={
       <UNDEFINED
+        clearTextField={[Function]}
         existingTagsLoading={false}
         isLastFetch={false}
         loadMoreTags={[Function]}

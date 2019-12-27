@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -13,9 +14,9 @@ import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
 import {
-  strLength3x20,
   required,
   validateEmail,
+  strLength254Max,
 } from 'components/FormFields/validate';
 
 import {
@@ -61,8 +62,8 @@ const ChangeEmailForm = ({
         disabled={changeEmailProcessing}
         label={translationMessages[locale][signUpMessages.password.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 
@@ -91,9 +92,13 @@ export const validateEmails = (state, fields) => {
 
   const errors = {};
 
-  const emailError = required(email) || validateEmail(email);
+  const emailError =
+    required(email) || validateEmail(email) || strLength254Max(email);
 
-  const emailConfirmError = required(emailConf) || validateEmail(emailConf);
+  const emailConfirmError =
+    required(emailConf) ||
+    validateEmail(emailConf) ||
+    strLength254Max(emailConf);
 
   if (emailError) {
     errors[emailField] = emailError;
@@ -114,6 +119,7 @@ export const validateEmails = (state, fields) => {
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ChangeEmailForm);
 
 FormClone = connect(

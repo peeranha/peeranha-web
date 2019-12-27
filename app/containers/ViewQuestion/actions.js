@@ -1,8 +1,4 @@
-/*
- *
- * ViewQuestion actions
- *
- */
+import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
 
 import {
   GET_QUESTION_DATA,
@@ -39,7 +35,9 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
-  UPDATE_QUESTION_DATA,
+  TEXTAREA_COMMENT_FORM,
+  SAVE_COMMENT_BUTTON,
+  POST_COMMENT_BUTTON,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -63,126 +61,117 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function deleteQuestion(user, questionid, postButtonId) {
+export function deleteQuestion(questionId, ev) {
   return {
     type: DELETE_QUESTION,
-    user,
-    questionid,
-    postButtonId,
+    questionId,
+    buttonId: ev.currentTarget.id,
   };
 }
 
-export function deleteQuestionSuccess() {
+export function deleteQuestionSuccess(questionData, buttonId) {
   return {
     type: DELETE_QUESTION_SUCCESS,
-  };
-}
-
-export function deleteQuestionErr(deleteQuestionError) {
-  return {
-    type: DELETE_QUESTION_ERROR,
-    deleteQuestionError,
-  };
-}
-
-export function deleteAnswer(user, questionId, answerId, postButtonId) {
-  return {
-    type: DELETE_ANSWER,
-    user,
-    questionId,
-    answerId,
-    postButtonId,
-  };
-}
-
-export function deleteAnswerSuccess(questionData) {
-  return {
-    type: DELETE_ANSWER_SUCCESS,
     questionData,
-  };
-}
-
-export function deleteAnswerErr(deleteAnswerError) {
-  return {
-    type: DELETE_ANSWER_ERROR,
-    deleteAnswerError,
-  };
-}
-
-export function deleteComment(user, questionId, answerId, commentId, buttonId) {
-  return {
-    type: DELETE_COMMENT,
-    user,
-    questionId,
-    answerId,
-    commentId,
     buttonId,
   };
 }
 
-export function deleteCommentSuccess(questionData) {
+export function deleteQuestionErr(deleteQuestionError, buttonId) {
+  return {
+    type: DELETE_QUESTION_ERROR,
+    deleteQuestionError,
+    buttonId,
+  };
+}
+
+export function deleteAnswer(questionId, ev) {
+  return {
+    type: DELETE_ANSWER,
+    questionId,
+    answerId: ev.currentTarget.dataset.answerid,
+    buttonId: ev.currentTarget.id,
+  };
+}
+
+export function deleteAnswerSuccess(questionData, buttonId) {
+  return {
+    type: DELETE_ANSWER_SUCCESS,
+    questionData,
+    buttonId,
+  };
+}
+
+export function deleteAnswerErr(deleteAnswerError, buttonId) {
+  return {
+    type: DELETE_ANSWER_ERROR,
+    deleteAnswerError,
+    buttonId,
+  };
+}
+
+export function deleteComment(questionId, ev) {
+  return {
+    type: DELETE_COMMENT,
+    questionId,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
+    buttonId: ev.currentTarget.id,
+  };
+}
+
+export function deleteCommentSuccess(questionData, buttonId) {
   return {
     type: DELETE_COMMENT_SUCCESS,
     questionData,
+    buttonId,
   };
 }
 
-export function deleteCommentErr(deleteCommentError) {
+export function deleteCommentErr(deleteCommentError, buttonId) {
   return {
     type: DELETE_COMMENT_ERROR,
     deleteCommentError,
+    buttonId,
   };
 }
 
-export function saveComment(
-  user,
-  questionId,
-  answerId,
-  commentId,
-  comment,
-  toggleView,
-) {
+export function saveComment(questionId, ...args) {
+  const { commentId, answerId, toggleView } = args[2];
+
   return {
     type: SAVE_COMMENT,
-    user,
     questionId,
     answerId,
     commentId,
-    comment,
+    comment: args[0].get(TEXTAREA_COMMENT_FORM),
     toggleView,
+    buttonId: `${SAVE_COMMENT_BUTTON}${answerId}`,
   };
 }
 
-export function saveCommentSuccess(questionData) {
+export function saveCommentSuccess(questionData, buttonId) {
   return {
     type: SAVE_COMMENT_SUCCESS,
     questionData,
+    buttonId,
   };
 }
 
-export function saveCommentErr(saveCommentError) {
+export function saveCommentErr(saveCommentError, buttonId) {
   return {
     type: SAVE_COMMENT_ERROR,
     saveCommentError,
+    buttonId,
   };
 }
 
-export function postAnswer(
-  user,
-  questionId,
-  answer,
-  reset,
-  postButtonId,
-  translations,
-) {
+export function postAnswer(questionId, ...args) {
   return {
     type: POST_ANSWER,
-    user,
     questionId,
-    answer,
-    reset,
-    postButtonId,
-    translations,
+    answer: args[0].get(TEXT_EDITOR_ANSWER_FORM),
+    reset: args[2].reset,
   };
 }
 
@@ -200,182 +189,145 @@ export function postAnswerErr(postAnswerError) {
   };
 }
 
-export function postComment(
-  user,
-  questionId,
-  answerId,
-  comment,
-  reset,
-  postButtonId,
-  translations,
-  toggleView,
-) {
+export function postComment(questionId, ...args) {
   return {
     type: POST_COMMENT,
-    user,
     questionId,
-    answerId,
-    comment,
-    reset,
-    postButtonId,
-    translations,
-    toggleView,
+    answerId: args[2].answerId,
+    comment: args[0].get(TEXTAREA_COMMENT_FORM),
+    reset: args[2].reset,
+    toggleView: args[2].toggleView,
+    buttonId: `${POST_COMMENT_BUTTON}${args[2].answerId}`,
   };
 }
 
-export function postCommentSuccess(questionData) {
+export function postCommentSuccess(questionData, buttonId) {
   return {
     type: POST_COMMENT_SUCCESS,
     questionData,
+    buttonId,
   };
 }
 
-export function postCommentErr(postCommentError) {
+export function postCommentErr(postCommentError, buttonId) {
   return {
     type: POST_COMMENT_ERROR,
     postCommentError,
+    buttonId,
   };
 }
 
-export function upVote(
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-  translations,
-  whoWasUpvoted,
-) {
+export function upVote(questionId, ev) {
   return {
     type: UP_VOTE,
-    user,
     questionId,
-    answerId,
-    postButtonId,
-    translations,
-    whoWasUpvoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    buttonId: ev.currentTarget.id,
+    whoWasUpvoted: ev.currentTarget.dataset.whowasupvoted,
   };
 }
 
-export function upVoteSuccess(questionData) {
+export function upVoteSuccess(questionData, usersForUpdate, buttonId) {
   return {
     type: UP_VOTE_SUCCESS,
     questionData,
+    usersForUpdate,
+    buttonId,
   };
 }
 
-export function upVoteErr(upVoteError) {
+export function upVoteErr(upVoteError, buttonId) {
   return {
     type: UP_VOTE_ERROR,
     upVoteError,
+    buttonId,
   };
 }
 
-export function downVote(
-  user,
-  questionId,
-  answerId,
-  postButtonId,
-  translations,
-  whoWasDownvoted,
-) {
+export function downVote(questionId, ev) {
   return {
     type: DOWN_VOTE,
-    user,
     questionId,
-    answerId,
-    postButtonId,
-    translations,
-    whoWasDownvoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    buttonId: ev.currentTarget.id,
+    whoWasDownvoted: ev.currentTarget.dataset.whowasdownvoted,
   };
 }
 
-export function downVoteSuccess(questionData) {
+export function downVoteSuccess(questionData, usersForUpdate, buttonId) {
   return {
     type: DOWN_VOTE_SUCCESS,
     questionData,
+    usersForUpdate,
+    buttonId,
   };
 }
 
-export function downVoteErr(downVoteError) {
+export function downVoteErr(downVoteError, buttonId) {
   return {
     type: DOWN_VOTE_ERROR,
     downVoteError,
+    buttonId,
   };
 }
 
-export function markAsAccepted(
-  user,
-  questionId,
-  correctAnswerId,
-  postButtonId,
-  translations,
-  whoWasAccepted,
-) {
+export function markAsAccepted(questionId, ev) {
   return {
     type: MARK_AS_ACCEPTED,
-    user,
     questionId,
-    correctAnswerId,
-    postButtonId,
-    translations,
-    whoWasAccepted,
+    correctAnswerId: ev.currentTarget.dataset.answerid,
+    buttonId: ev.currentTarget.id,
+    whoWasAccepted: ev.currentTarget.dataset.whowasaccepted,
   };
 }
 
-export function markAsAcceptedSuccess(questionData) {
+export function markAsAcceptedSuccess(questionData, usersForUpdate, buttonId) {
   return {
     type: MARK_AS_ACCEPTED_SUCCESS,
     questionData,
+    usersForUpdate,
+    buttonId,
   };
 }
 
-export function markAsAcceptedErr(markAsAcceptedError) {
+export function markAsAcceptedErr(markAsAcceptedError, buttonId) {
   return {
     type: MARK_AS_ACCEPTED_ERROR,
     markAsAcceptedError,
+    buttonId,
   };
 }
 
-export function voteToDelete(
-  questionId,
-  answerId,
-  commentId,
-  postButtonId,
-  whoWasVoted,
-) {
+export function voteToDelete(questionId, ev) {
   return {
     type: VOTE_TO_DELETE,
     questionId,
-    answerId,
-    commentId,
-    postButtonId,
-    whoWasVoted,
+    answerId: ev.currentTarget.dataset.answerid,
+    commentId: ev.currentTarget.dataset.commentid,
+    buttonId: ev.currentTarget.id,
+    whoWasVoted: ev.currentTarget.dataset.whowasvoted,
   };
 }
 
-export function voteToDeleteSuccess(questionData) {
+export function voteToDeleteSuccess(questionData, usersForUpdate, buttonId) {
   return {
     type: VOTE_TO_DELETE_SUCCESS,
     questionData,
+    usersForUpdate,
+    buttonId,
   };
 }
 
-export function voteToDeleteErr(voteToDeleteError) {
+export function voteToDeleteErr(voteToDeleteError, buttonId) {
   return {
     type: VOTE_TO_DELETE_ERROR,
     voteToDeleteError,
+    buttonId,
   };
 }
 
 export function resetStore() {
   return {
     type: RESET_STORE,
-  };
-}
-
-export function updateQuestionData(questionData) {
-  return {
-    type: UPDATE_QUESTION_DATA,
-    questionData,
   };
 }

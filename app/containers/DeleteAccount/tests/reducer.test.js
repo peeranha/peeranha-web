@@ -13,7 +13,7 @@ import {
   hideDeleteAccountModal,
 } from '../actions';
 
-import { EMAIL_FIELD, SUBMIT_EMAIL_FORM } from '../constants';
+import { EMAIL_FIELD, SUBMIT_EMAIL_FORM, EMAIL_FORM } from '../constants';
 
 describe('deleteAccountReducer', () => {
   let state;
@@ -29,12 +29,9 @@ describe('deleteAccountReducer', () => {
   });
 
   it('showDeleteAccountModal', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
 
-    expect(
-      deleteAccountReducer(state, showDeleteAccountModal(content)),
-    ).toEqual(obj);
+    expect(deleteAccountReducer(state, showDeleteAccountModal())).toEqual(obj);
   });
 
   it('hideDeleteAccountModal', () => {
@@ -49,7 +46,7 @@ describe('deleteAccountReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('deleteAccountProcessing', true);
 
-    expect(deleteAccountReducer(state, deleteAccount(args))).toEqual(obj);
+    expect(deleteAccountReducer(state, deleteAccount(...args))).toEqual(obj);
   });
 
   it('deleteAccountSuccess', () => {
@@ -85,7 +82,7 @@ describe('deleteAccountReducer', () => {
 
     const obj = state.set('sendEmailProcessing', true).set('email', email);
 
-    expect(deleteAccountReducer(state, sendEmail(args))).toEqual(obj);
+    expect(deleteAccountReducer(state, sendEmail(...args))).toEqual(obj);
   });
 
   it('sendEmailSuccess', () => {

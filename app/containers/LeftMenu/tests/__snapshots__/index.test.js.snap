@@ -30,7 +30,6 @@ exports[`<CommentForm /> snapshot test 1`] = `
   >
     <Connect(LeftMenu)
       isMenuVisible={false}
-      isNavigationExpanded={false}
       profile={Object {}}
       showMenu={[MockFunction]}
     />

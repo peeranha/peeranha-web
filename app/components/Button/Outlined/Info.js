@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
@@ -7,17 +9,20 @@ import {
   BORDER_WARNING_LIGHT,
 } from 'style-constants';
 
-import IconStyled, { IconHover } from 'components/Icon/IconStyled';
 import Button from '../index';
+
+export const hover = css`
+  :hover {
+    color: ${TEXT_LIGHT};
+    background: ${BG_WARNING_LIGHT};
+    border-color: ${BORDER_TRANSPARENT};
+  }
+`;
 
 const OutlinedButton = Button.extend`
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BORDER_WARNING_LIGHT};
   color: ${TEXT_WARNING_LIGHT};
-
-  ${IconStyled} {
-    ${IconHover({ color: TEXT_WARNING_LIGHT })};
-  }
 
   :hover {
     color: ${TEXT_LIGHT};

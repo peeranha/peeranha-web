@@ -1,7 +1,14 @@
 import { fromJS } from 'immutable';
 import getWeekStatReducer from '../reducer';
 
-import { getWeekStat, getWeekStatSuccess, getWeekStatErr } from '../actions';
+import {
+  getWeekStat,
+  getWeekStatSuccess,
+  getWeekStatErr,
+  pickupReward,
+  pickupRewardSuccess,
+  pickupRewardErr,
+} from '../actions';
 
 describe('getWeekStatReducer', () => {
   let state;
@@ -42,5 +49,29 @@ describe('getWeekStatReducer', () => {
     expect(getWeekStatReducer(state, getWeekStatErr(getWeekStatError))).toEqual(
       obj,
     );
+  });
+
+  it('pickupReward', () => {
+    const period = 1;
+    const obj = state.set('pickupRewardProcessing', true);
+
+    expect(getWeekStatReducer(state, pickupReward(period))).toEqual(obj);
+  });
+
+  it('pickupRewardSuccess', () => {
+    const obj = state.set('pickupRewardProcessing', false);
+
+    expect(getWeekStatReducer(state, pickupRewardSuccess())).toEqual(obj);
+  });
+
+  it('pickupRewardErr', () => {
+    const pickupRewardError = 'pickupRewardError';
+    const obj = state
+      .set('pickupRewardProcessing', false)
+      .set('pickupRewardError', pickupRewardError);
+
+    expect(
+      getWeekStatReducer(state, pickupRewardErr(pickupRewardError)),
+    ).toEqual(obj);
   });
 });

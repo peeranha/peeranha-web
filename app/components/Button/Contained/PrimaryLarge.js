@@ -1,6 +1,6 @@
 import Primary from './Primary';
+import Large from '../Large';
 
 export default Primary.extend`
-  min-width: 92px;
-  padding: 11px 16px;
+  ${Large};
 `;

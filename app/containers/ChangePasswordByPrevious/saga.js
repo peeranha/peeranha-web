@@ -1,5 +1,5 @@
 import { translationMessages } from 'i18n';
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { take, takeLatest, put, call, select } from 'redux-saga/effects';
 
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
@@ -10,22 +10,22 @@ import {
   changeCredentialsGetKeysByPwd,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { errorToastHandling } from 'containers/Toast/saga';
+import { WebIntegrationError } from 'utils/errors';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { successHandling } from 'containers/Toast/saga';
 import { logout } from 'containers/Logout/actions';
 
 import { selectEmail, selectVerificationCode } from './selectors';
 
 import {
   SEND_EMAIL,
+  SEND_EMAIL_SUCCESS,
   SUBMIT_EMAIL,
   CHANGE_PASSWORD,
-  SEND_EMAIL_ERROR,
-  SUBMIT_EMAIL_ERROR,
-  CHANGE_PASSWORD_ERROR,
   NEW_PASSWORD_FIELD,
   OLD_PASSWORD_FIELD,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 import {
@@ -42,10 +42,10 @@ export function* sendEmailWorker({ resetForm, email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() => changeCredentialsInit(email));
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -53,8 +53,18 @@ export function* sendEmailWorker({ resetForm, email }) {
     yield put(sendEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(sendEmailErr(err.message));
+    yield put(sendEmailErr(err));
   }
+}
+
+export function* sendAnotherCode() {
+  const email = yield select(selectEmail());
+  yield call(sendEmailWorker, { email, resetForm: () => null });
+}
+
+export function* sendAnotherCodeSuccess() {
+  yield take(SEND_EMAIL_SUCCESS);
+  yield call(successHandling);
 }
 
 export function* submitEmailWorker({ resetForm, verificationCode }) {
@@ -64,12 +74,14 @@ export function* submitEmailWorker({ resetForm, verificationCode }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(() =>
-      changeCredentialsConfirm(email, verificationCode),
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
     );
 
     if (!response.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
@@ -77,7 +89,7 @@ export function* submitEmailWorker({ resetForm, verificationCode }) {
     yield put(submitEmailSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(submitEmailErr(err.message));
+    yield put(submitEmailErr(err));
   }
 }
 
@@ -92,12 +104,15 @@ export function* changePasswordWorker({ resetForm, values }) {
     const oldPassword = values[OLD_PASSWORD_FIELD];
     const newPassword = values[NEW_PASSWORD_FIELD];
 
-    const changeCredentialsGetKeysByPwdResponse = yield call(() =>
-      changeCredentialsGetKeysByPwd(oldEmail, oldPassword, verificationCode),
+    const changeCredentialsGetKeysByPwdResponse = yield call(
+      changeCredentialsGetKeysByPwd,
+      oldEmail,
+      oldPassword,
+      verificationCode,
     );
 
     if (!changeCredentialsGetKeysByPwdResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -113,12 +128,15 @@ export function* changePasswordWorker({ resetForm, values }) {
       password: newPassword,
     };
 
-    const changeCredentialsCompleteResponse = yield call(() =>
-      changeCredentialsComplete(newProps, oldEmail, encryptionKey),
+    const changeCredentialsCompleteResponse = yield call(
+      changeCredentialsComplete,
+      newProps,
+      oldEmail,
+      encryptionKey,
     );
 
     if (!changeCredentialsCompleteResponse.OK) {
-      throw new Error(
+      throw new WebIntegrationError(
         translations[
           webIntegrationErrors[
             changeCredentialsGetKeysByPwdResponse.errorCode
@@ -132,16 +150,14 @@ export function* changePasswordWorker({ resetForm, values }) {
     yield put(changePasswordSuccess());
     yield call(resetForm);
   } catch (err) {
-    yield put(changePasswordErr(err.message));
+    yield put(changePasswordErr(err));
   }
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
   yield takeLatest(SUBMIT_EMAIL, submitEmailWorker);
   yield takeLatest(CHANGE_PASSWORD, changePasswordWorker);
-  yield takeLatest(
-    [SEND_EMAIL_ERROR, SUBMIT_EMAIL_ERROR, CHANGE_PASSWORD_ERROR],
-    errorToastHandling,
-  );
 }

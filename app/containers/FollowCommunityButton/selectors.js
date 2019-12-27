@@ -2,22 +2,28 @@ import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
 const selectFollowCommunityButtonDomain = state =>
-  state.get('followCommunityButton', initialState);
+  state.get('followCommunityButton', initialState).toJS();
 
 const selectFollowHandlerLoading = () =>
   createSelector(
     selectFollowCommunityButtonDomain,
-    substate => substate.toJS().followHandlerLoading,
+    substate => substate.followHandlerLoading,
   );
 
 const selectFollowHandlerError = () =>
   createSelector(
     selectFollowCommunityButtonDomain,
-    substate => substate.toJS().followHandlerError,
+    substate => substate.followHandlerError,
   );
+
+const selectIds = () =>
+  createSelector(selectFollowCommunityButtonDomain, substate => [
+    ...substate.ids,
+  ]);
 
 export {
   selectFollowCommunityButtonDomain,
   selectFollowHandlerLoading,
   selectFollowHandlerError,
+  selectIds,
 };

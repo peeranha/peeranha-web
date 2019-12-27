@@ -13,16 +13,15 @@ import {
   SEND_EMAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
-  EMAIL_FORM,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   CODE_FIELD,
+  REMOVE_OWNER_KEY,
 } from './constants';
 
-export function showOwnerKeyModal(content) {
+export function showOwnerKeyModal() {
   return {
     type: SHOW_OWNER_KEY_MODAL,
-    content: content || EMAIL_FORM,
   };
 }
 
@@ -34,7 +33,7 @@ export function hideOwnerKeyModal() {
 
 // sendEmail
 
-export function sendEmail(args) {
+export function sendEmail(...args) {
   return {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
@@ -59,7 +58,7 @@ export function sendEmailErr(sendEmailError) {
 
 // Show owner key
 
-export function showOwnerKey(args) {
+export function showOwnerKey(...args) {
   return {
     type: SHOW_OWNER_KEY,
     verificationCode: args[0].toJS()[CODE_FIELD],
@@ -78,5 +77,11 @@ export function showOwnerKeyErr(showOwnerKeyError) {
   return {
     type: SHOW_OWNER_KEY_ERROR,
     showOwnerKeyError,
+  };
+}
+
+export function removeOwnerKey() {
+  return {
+    type: REMOVE_OWNER_KEY,
   };
 }

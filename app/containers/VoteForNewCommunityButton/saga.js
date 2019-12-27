@@ -1,4 +1,5 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+/* eslint consistent-return: 0 */
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 
 import {
   upVoteToCreateCommunity,
@@ -6,15 +7,20 @@ import {
 } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import { selectSuggestedCommunities } from 'containers/Communities/selectors';
-import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
-import { clearSuggestedCommunities } from 'containers/Communities/actions';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { getSuggestedCommunitiesSuccess } from 'containers/Communities/actions';
 
-import { UPVOTE, DOWNVOTE } from './constants';
+import {
+  UPVOTE,
+  DOWNVOTE,
+  MIN_RATING_TO_UPVOTE,
+  MIN_RATING_TO_DOWNVOTE,
+  MIN_ENERGY_TO_UPVOTE,
+  MIN_ENERGY_TO_DOWNVOTE,
+} from './constants';
 
 import {
   upVoteSuccess,
@@ -23,101 +29,87 @@ import {
   downVoteErr,
 } from './actions';
 
-import { upVoteValidator, downVoteValidator } from './validate';
-
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* upVoteWorker({ communityId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const storedCommunities = yield select(selectSuggestedCommunities());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const account = yield select(makeSelectAccount());
+    const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,
     )[0];
 
-    const isValid = yield call(() =>
-      upVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeCommunity,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(upVoteErr('Validation Error'));
+    yield call(isValid, {
+      creator: activeCommunity.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_UPVOTE,
+      minEnergy: MIN_ENERGY_TO_UPVOTE,
+    });
+
+    yield call(upVoteToCreateCommunity, eosService, account, communityId);
+
+    if (activeCommunity.upvotes.includes(account)) {
+      activeCommunity.upvotes = activeCommunity.upvotes.filter(
+        x => x !== account,
+      );
+    } else {
+      activeCommunity.upvotes = [...activeCommunity.upvotes, account];
+      activeCommunity.downvotes = activeCommunity.downvotes.filter(
+        x => x !== account,
+      );
     }
 
-    yield call(() =>
-      upVoteToCreateCommunity(eosService, selectedAccount, communityId),
-    );
-
-    yield put(clearSuggestedCommunities());
-    yield call(() => getSuggestedCommunitiesWorker());
-
-    yield put(upVoteSuccess());
+    yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
+    yield put(upVoteSuccess(buttonId));
   } catch (err) {
-    yield put(upVoteErr(err.message));
+    yield put(upVoteErr(err, buttonId));
   }
 }
 
-/* eslint consistent-return: 0 */
+// TODO: test
 export function* downVoteWorker({ communityId, buttonId }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const storedCommunities = yield select(selectSuggestedCommunities());
-
     const eosService = yield select(selectEos);
-    const selectedAccount = yield call(() => eosService.getSelectedAccount());
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      yield put(showLoginModal());
-      throw new Error('Not authorized');
-    }
+    const account = yield select(makeSelectAccount());
+    const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
       x => x.id === +communityId,
     )[0];
 
-    const isValid = yield call(() =>
-      downVoteValidator(
-        profileInfo,
-        locale,
-        selectedAccount,
-        activeCommunity,
-        buttonId,
-      ),
-    );
+    yield call(isAuthorized);
 
-    if (!isValid) {
-      return yield put(downVoteErr('Validation Error'));
+    yield call(isValid, {
+      creator: activeCommunity.creator,
+      buttonId,
+      minRating: MIN_RATING_TO_DOWNVOTE,
+      minEnergy: MIN_ENERGY_TO_DOWNVOTE,
+    });
+
+    yield call(downVoteToCreateCommunity, eosService, account, communityId);
+
+    if (activeCommunity.downvotes.includes(account)) {
+      activeCommunity.downvotes = activeCommunity.downvotes.filter(
+        x => x !== account,
+      );
+    } else {
+      activeCommunity.downvotes = [...activeCommunity.downvotes, account];
+      activeCommunity.upvotes = activeCommunity.upvotes.filter(
+        x => x !== account,
+      );
     }
 
-    yield call(() =>
-      downVoteToCreateCommunity(eosService, selectedAccount, communityId),
-    );
-
-    yield put(clearSuggestedCommunities());
-    yield call(() => getSuggestedCommunitiesWorker());
-
-    yield put(downVoteSuccess());
+    yield put(getSuggestedCommunitiesSuccess([...storedCommunities], true));
+    yield put(downVoteSuccess(buttonId));
   } catch (err) {
-    yield put(downVoteErr(err.message));
+    yield put(downVoteErr(err, buttonId));
   }
 }
 
 export default function*() {
-  yield takeLatest(UPVOTE, upVoteWorker);
-  yield takeLatest(DOWNVOTE, downVoteWorker);
+  yield takeEvery(UPVOTE, upVoteWorker);
+  yield takeEvery(DOWNVOTE, downVoteWorker);
 }

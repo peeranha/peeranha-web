@@ -8,21 +8,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   selectCommunities,
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
-import { goToCreateTagScreen } from 'containers/Tags';
+import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import GoToCreateTagFromBanner from 'containers/Tags/GoToCreateTagFromBanner';
+import Banner from 'containers/Tags/Banner';
 
 import { createStructuredSelector } from 'reselect';
 
@@ -35,17 +34,8 @@ export const TagsCollection = /* istanbul ignore next */ ({
   locale,
   communities,
   communitiesLoading,
-  profile,
-  showLoginModalDispatch,
+  redirectToCreateTagDispatch,
 }) => {
-  const openTagForm = e =>
-    goToCreateTagScreen({
-      locale,
-      showLoginModalDispatch,
-      profile,
-      buttonId: e.currentTarget.id,
-    });
-
   const keywords = communities.map(comm =>
     comm.tags.map(tag => `${comm.name} ${tag.name}`),
   );
@@ -59,11 +49,11 @@ export const TagsCollection = /* istanbul ignore next */ ({
         keywords={keywords}
       />
 
-      <Header openTagForm={openTagForm} />
+      <Header openTagForm={redirectToCreateTagDispatch} />
 
       <List communities={communities} />
 
-      <GoToCreateTagFromBanner openTagForm={openTagForm} />
+      <Banner openTagForm={redirectToCreateTagDispatch} />
 
       {communitiesLoading && <LoadingIndicator />}
     </div>
@@ -72,22 +62,23 @@ export const TagsCollection = /* istanbul ignore next */ ({
 
 TagsCollection.propTypes = {
   locale: PropTypes.string,
-  profile: PropTypes.object,
   communities: PropTypes.array,
   communitiesLoading: PropTypes.bool,
-  showLoginModalDispatch: PropTypes.func,
+  redirectToCreateTagDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  profile: makeSelectProfileInfo(),
   communities: selectCommunities(),
   communitiesLoading: selectCommunitiesLoading(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    redirectToCreateTagDispatch: bindActionCreators(
+      redirectToCreateTag,
+      dispatch,
+    ),
   };
 }
 

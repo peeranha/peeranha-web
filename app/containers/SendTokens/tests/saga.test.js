@@ -1,10 +1,7 @@
 import { select } from 'redux-saga/effects';
 
 import { sendTokens } from 'utils/walletManagement';
-import Cookies from 'utils/cookies';
 import { login } from 'utils/web_integration/src/wallet/login/login';
-
-import { LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
 import defaultSaga, { sendTokensWorker } from '../saga';
 
@@ -33,10 +30,6 @@ jest.mock('utils/web_integration/src/wallet/login/login', () => ({
   login: jest.fn(),
 }));
 
-jest.mock('utils/cookies', () => ({
-  get: jest.fn(),
-}));
-
 const eosService = {
   forgetIdentity: jest.fn(),
 };
@@ -46,6 +39,8 @@ describe('sendTokensWorker', () => {
   const accountTo = 'accountTo';
   const quantity = 1000;
   const password = 'password';
+  const authToken = 'authToken';
+  const email = 'email';
 
   const locale = 'en';
   const resetForm = jest.fn();
@@ -63,6 +58,11 @@ describe('sendTokensWorker', () => {
         OK: true,
       };
 
+      const profileInfo = {
+        user: accountFrom,
+        loginData: { authToken, email },
+      };
+
       it('select @locale', () => {
         select.mockImplementation(() => locale);
         const step = generator.next();
@@ -75,18 +75,16 @@ describe('sendTokensWorker', () => {
         expect(step.value).toEqual(eosService);
       });
 
-      it('select @account', () => {
-        select.mockImplementation(() => accountFrom);
+      it('select @profileInfo', () => {
+        select.mockImplementation(() => profileInfo);
         const step = generator.next(eosService);
-        expect(step.value).toEqual(accountFrom);
+        expect(step.value).toEqual(profileInfo);
       });
 
       it('call @login, password checking', () => {
-        Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
-
         login.mockImplementation(() => 'login via email, success');
 
-        const step = generator.next(accountFrom);
+        const step = generator.next(profileInfo);
         expect(step.value).toBe('login via email, success');
       });
 
@@ -123,12 +121,15 @@ describe('sendTokensWorker', () => {
         errorCode: 1,
       };
 
-      Cookies.get.mockImplementation(() => LOGIN_WITH_EMAIL);
+      const profileInfo = {
+        user: accountFrom,
+        loginData: { authToken, email },
+      };
 
       generator.next();
       generator.next(locale);
       generator.next(eosService);
-      generator.next(accountFrom);
+      generator.next(profileInfo);
 
       it('error handling', () => {
         const step = generator.next(loginResponse);
@@ -138,14 +139,17 @@ describe('sendTokensWorker', () => {
   });
 
   describe('login via scatter', () => {
-    Cookies.get.mockImplementation(() => `NOT_WITH_${LOGIN_WITH_EMAIL}`);
-
     const generator = sendTokensWorker({ resetForm, val });
+
+    const profileInfo = {
+      user: accountFrom,
+      loginData: { loginWithScatter: true },
+    };
 
     generator.next();
     generator.next(locale);
     generator.next(eosService);
-    generator.next(accountFrom);
+    generator.next(profileInfo);
 
     it('put @sendTokensSuccess', () => {
       const step = generator.next();

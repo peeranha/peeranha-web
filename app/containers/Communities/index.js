@@ -9,15 +9,12 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
+import * as routes from 'routes-config';
 
-import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
 import { DAEMON } from 'utils/constants';
-
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -27,13 +24,11 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
+import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBox from 'components/Base/Aside';
 import Seo from 'components/Seo';
-
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
 
 import {
   selectSuggestedCommunities,
@@ -41,23 +36,17 @@ import {
   selectIsLastFetch,
 } from './selectors';
 
-import { createCommunityValidator } from './validate';
 import { getSuggestedCommunities } from './actions';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import languages from './LanguagesOptions';
+import languages from './languagesOptions';
 
-import CommunitiesHeader from './CommunitiesHeader';
-import NothingInterestingBanner from './NothingInterestingBanner';
+import Header from './Header';
+import Banner from './Banner';
 
-const AsideWrapper = BaseTransparent.extend`
-  flex: 0 0 ${LEFT_MENU_WIDTH}px;
-`.withComponent('aside');
-
-/* eslint indent: 0 */
-/* eslint-disable react/prefer-stateless-function */
+/* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Communities extends React.PureComponent {
   state = {
     language: languages.all,
@@ -75,30 +64,6 @@ export class Communities extends React.PureComponent {
     this.props.getSuggestedCommunitiesDispatch();
   };
 
-  /* eslint consistent-return: 0 */
-  goToCreateCommunityScreen = e => {
-    const buttonId = e.currentTarget.id;
-
-    const { profile, locale } = this.props;
-
-    if (!profile) {
-      this.props.showLoginModalDispatch();
-      return null;
-    }
-
-    const isValid = createCommunityValidator(
-      profile,
-      translationMessages[locale],
-      buttonId,
-    );
-
-    if (!isValid) {
-      return null;
-    }
-
-    createdHistory.push(routes.communitiesCreate());
-  };
-
   render() /* istanbul ignore next */ {
     const {
       locale,
@@ -112,12 +77,14 @@ export class Communities extends React.PureComponent {
       SubHeader,
       changeSorting,
       sorting,
+      redirectToCreateCommunityDispatch,
+      route,
     } = this.props;
 
     const keywords = communities.map(x => x.name);
 
     return (
-      <div className="d-flex justify-content-center">
+      <div className="d-xl-flex">
         <Seo
           title={translationMessages[locale][messages.title.id]}
           description={translationMessages[locale][messages.description.id]}
@@ -125,9 +92,9 @@ export class Communities extends React.PureComponent {
           keywords={keywords}
         />
 
-        <div className="flex-grow-1">
-          <CommunitiesHeader
-            goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+        <div className="flex-xl-grow-1">
+          <Header
+            goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
             SubHeader={SubHeader}
             changeSorting={changeSorting}
             sorting={sorting}
@@ -136,36 +103,36 @@ export class Communities extends React.PureComponent {
             language={this.state.language}
           />
 
-          <div className="my-3">
-            <Content
-              suggestedCommunities={suggestedCommunities}
-              suggestedCommunitiesLoading={suggestedCommunitiesLoading}
-              getSuggestedCommunities={this.getSuggestedCommunities}
-              isLastFetch={isLastFetch}
-              communities={communities}
-              sorting={sorting}
-              locale={locale}
-              language={this.state.language}
-            />
-          </div>
+          <Content
+            suggestedCommunities={suggestedCommunities}
+            suggestedCommunitiesLoading={suggestedCommunitiesLoading}
+            getSuggestedCommunities={this.getSuggestedCommunities}
+            isLastFetch={isLastFetch}
+            communities={communities}
+            sorting={sorting}
+            locale={locale}
+            language={this.state.language}
+          />
 
-          {(communitiesLoading || suggestedCommunitiesLoading) && (
-            <LoadingIndicator />
-          )}
+          {((communitiesLoading && route === routes.communities()) ||
+            (suggestedCommunitiesLoading &&
+              route === routes.suggestedCommunities())) && <LoadingIndicator />}
 
-          {isLastFetch && (
-            <NothingInterestingBanner
-              goToCreateCommunityScreen={this.goToCreateCommunityScreen}
+          {((!communitiesLoading && route === routes.communities()) ||
+            (!suggestedCommunitiesLoading &&
+              route === routes.suggestedCommunities())) && (
+            <Banner
+              goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
             />
           )}
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">
+        <AsideBox className="d-none d-xl-block">
           <Aside
             suggestedCommunities={suggestedCommunities}
             communities={communities}
           />
-        </AsideWrapper>
+        </AsideBox>
       </div>
     );
   }
@@ -175,9 +142,8 @@ Communities.propTypes = {
   communities: PropTypes.array,
   suggestedCommunities: PropTypes.array,
   locale: PropTypes.string,
-  profile: PropTypes.object,
+  route: PropTypes.string,
   sorting: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
   Aside: PropTypes.any,
@@ -186,6 +152,7 @@ Communities.propTypes = {
   isLastFetch: PropTypes.bool,
   communitiesLoading: PropTypes.bool,
   getSuggestedCommunitiesDispatch: PropTypes.func,
+  redirectToCreateCommunityDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -200,9 +167,14 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
-    getSuggestedCommunitiesDispatch: () => dispatch(getSuggestedCommunities()),
+    redirectToCreateCommunityDispatch: bindActionCreators(
+      redirectToCreateCommunity,
+      dispatch,
+    ),
+    getSuggestedCommunitiesDispatch: bindActionCreators(
+      getSuggestedCommunities,
+      dispatch,
+    ),
   };
 }
 

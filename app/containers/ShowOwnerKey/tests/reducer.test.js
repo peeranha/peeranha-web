@@ -12,9 +12,15 @@ import {
   showOwnerKeyErr,
   showOwnerKeyModal,
   hideOwnerKeyModal,
+  removeOwnerKey,
 } from '../actions';
 
-import { PASSWORD_FIELD, EMAIL_FIELD, SUBMIT_EMAIL_FORM } from '../constants';
+import {
+  PASSWORD_FIELD,
+  EMAIL_FIELD,
+  SUBMIT_EMAIL_FORM,
+  EMAIL_FORM,
+} from '../constants';
 
 describe('showOwnerKeyReducer', () => {
   let state;
@@ -29,11 +35,14 @@ describe('showOwnerKeyReducer', () => {
     expect(showOwnerKeyReducer(state, {})).toEqual(state);
   });
 
-  it('showOwnerKeyModal', () => {
-    const content = 'content';
-    const obj = state.set('showModal', true).set('content', content);
+  it('removeOwnerKey', () => {
+    const obj = state.set('ownerKey', initialState.get('ownerKey'));
+    expect(showOwnerKeyReducer(state, removeOwnerKey())).toEqual(obj);
+  });
 
-    expect(showOwnerKeyReducer(state, showOwnerKeyModal(content))).toEqual(obj);
+  it('showOwnerKeyModal', () => {
+    const obj = state.set('showModal', true).set('content', EMAIL_FORM);
+    expect(showOwnerKeyReducer(state, showOwnerKeyModal())).toEqual(obj);
   });
 
   it('hideOwnerKeyModal', () => {
@@ -48,7 +57,7 @@ describe('showOwnerKeyReducer', () => {
     const args = [fromJS({}), () => null, { reset: jest.fn() }];
     const obj = state.set('showOwnerKeyProcessing', true);
 
-    expect(showOwnerKeyReducer(state, showOwnerKey(args))).toEqual(obj);
+    expect(showOwnerKeyReducer(state, showOwnerKey(...args))).toEqual(obj);
   });
 
   it('showOwnerKeySuccess', () => {
@@ -92,7 +101,7 @@ describe('showOwnerKeyReducer', () => {
       .set('sendEmailProcessing', true)
       .set('password', password);
 
-    expect(showOwnerKeyReducer(state, sendEmail(args))).toEqual(obj);
+    expect(showOwnerKeyReducer(state, sendEmail(...args))).toEqual(obj);
   });
 
   it('sendEmailSuccess', () => {

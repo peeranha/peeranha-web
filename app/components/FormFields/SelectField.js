@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import styled from 'styled-components';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 
 import {
   BORDER_PRIMARY,
@@ -12,12 +12,16 @@ import {
   BORDER_SECONDARY,
   TEXT_DARK,
   BG_LIGHT,
-  BORDER_SECONDARY_DARK,
   APP_FONT,
+  BORDER_WARNING_LIGHT,
+  BORDER_PRIMARY_RGB,
+  BORDER_WARNING_LIGHT_RGB,
+  TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import searchIcon from 'images/search.svg?inline';
+import searchIcon from 'images/search.svg?external';
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 
 import Wrapper from './Wrapper';
 
@@ -30,8 +34,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${/* istanbul ignore next */ props =>
-    props.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT};
+  background: ${x => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${BORDER_PRIMARY};
@@ -39,11 +42,7 @@ export const Box = styled.div`
   }
 `;
 
-const DefaultOption = /* istanbul ignore next */ ({
-  data,
-  isFocused,
-  innerProps = {},
-}) => {
+const DefaultOption = ({ data, isFocused, innerProps = {} }) => {
   let isActive = false;
 
   if (isFocused) {
@@ -57,7 +56,14 @@ const DefaultOption = /* istanbul ignore next */ ({
   );
 };
 
-export const Select2 = /* istanbul ignore next */ ({
+export const getSelectOptions = initialOptions =>
+  initialOptions.map(x => ({
+    value: x,
+    label: x,
+  }));
+
+/* eslint no-param-reassign: 0 */
+export const Select2 = ({
   input,
   options,
   isMulti,
@@ -71,16 +77,27 @@ export const Select2 = /* istanbul ignore next */ ({
   Group,
   CustomOption,
   placeholder,
+  error,
+  isWrapped,
 }) => {
   const S = isAsync ? AsyncSelect : Select;
 
   return (
     <S
       {...input}
+      onChange={x => {
+        input.value = x;
+        input.onChange(x);
+      }}
       components={{
         Group,
         DropdownIndicator: () => (
-          <img className="mr-1" src={searchIcon} alt="icon" />
+          <Icon
+            className="mr-1"
+            icon={searchIcon}
+            width="16"
+            color={TEXT_SECONDARY_LIGHT}
+          />
         ),
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,
@@ -98,19 +115,21 @@ export const Select2 = /* istanbul ignore next */ ({
       styles={{
         control: (base, state) => ({
           ...base,
-          border: `1px solid ${
-            state.isFocused ? BORDER_PRIMARY : BORDER_SECONDARY
-          }`,
-          boxShadow: `0 0 0 3px ${
-            state.isFocused ? BORDER_PRIMARY : BORDER_TRANSPARENT
-          }66`,
+          border: `1px solid ${(error && BORDER_WARNING_LIGHT) ||
+            (state.isFocused && BORDER_PRIMARY) ||
+            BORDER_SECONDARY}`,
+          boxShadow: `0 0 0 3px ${(error &&
+            `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
+            (state.isFocused && `rgba(${BORDER_PRIMARY_RGB}, 0.4)`) ||
+            BORDER_TRANSPARENT}`,
           borderRadius: '3px',
           color: TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
           background: `${BG_LIGHT} !important`,
-          minWidth: 300,
-          margin: `${menuIsOpen ? '10px' : '5px 0'}`,
+          minWidth: 270,
+          minHeight: 40,
+          margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),
         menu: base => ({
@@ -118,14 +137,14 @@ export const Select2 = /* istanbul ignore next */ ({
           color: TEXT_DARK,
           fontFamily: APP_FONT,
           fontSize: '16px',
-          position: 'relative',
+          position: isWrapped ? 'relative' : 'absolute',
           margin: 0,
           boxShadow: 'none',
         }),
         menuList: base => ({
           ...base,
           paddingBottom: 0,
-          boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY_DARK}` : `none`,
+          boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY}` : `none`,
           borderRadius: '3px',
         }),
       }}
@@ -133,14 +152,18 @@ export const Select2 = /* istanbul ignore next */ ({
   );
 };
 
-export const SelectField = /* istanbul ignore next */ props => (
+export const SelectField = props => (
   <Wrapper
     label={props.label}
     tip={props.tip}
     meta={props.meta}
     splitInHalf={props.splitInHalf}
+    id={props.input.name}
   >
-    <Select2 {...props} />
+    <Select2
+      {...props}
+      error={props.meta.touched && (props.meta.error || props.meta.warning)}
+    />
   </Wrapper>
 );
 
@@ -153,6 +176,7 @@ DefaultOption.propTypes = {
 Select2.propTypes = {
   input: PropTypes.object,
   defaultValue: PropTypes.object,
+  error: PropTypes.object,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isMulti: PropTypes.bool,
   isClearable: PropTypes.bool,
@@ -162,6 +186,7 @@ Select2.propTypes = {
   loadOptions: PropTypes.func,
   autoFocus: PropTypes.bool,
   menuIsOpen: PropTypes.bool,
+  isWrapped: PropTypes.bool,
   Group: PropTypes.any,
   CustomOption: PropTypes.any,
   placeholder: PropTypes.string,
@@ -169,6 +194,7 @@ Select2.propTypes = {
 
 SelectField.propTypes = {
   meta: PropTypes.object,
+  input: PropTypes.object,
   label: PropTypes.string,
   tip: PropTypes.string,
   splitInHalf: PropTypes.bool,

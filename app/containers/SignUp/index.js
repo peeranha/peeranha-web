@@ -8,14 +8,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { translationMessages } from 'i18n';
+
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
 import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -25,7 +27,6 @@ import Seo from 'components/Seo';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -40,6 +41,7 @@ import {
   putKeysToState,
   showScatterSignUpForm,
   signUpWithScatter,
+  sendAnotherCode,
 } from './actions';
 
 import { EMAIL_FIELD } from './constants';
@@ -49,7 +51,11 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class SignUp extends React.Component {
   componentWillMount() {
-    if (!this.props.email && !this.props.withScatter) {
+    if (
+      !this.props.email &&
+      !this.props.withScatter &&
+      process.env.NODE_ENV !== 'development'
+    ) {
       createdHistory.push(routes.signup.email.name);
     }
 
@@ -66,7 +72,9 @@ export class SignUp extends React.Component {
 
   getMasterKey = () => {
     const masterKey = generateMasterKey();
-    const linkToDownloadMasterKey = this.getLinkToDownloadKeys({ masterKey });
+    const linkToDownloadMasterKey = this.getLinkToDownloadKeys(
+      `Peeranha Master Key: ${masterKey}`,
+    );
 
     this.props.putKeysToStateDispatch({
       masterKey,
@@ -77,23 +85,14 @@ export class SignUp extends React.Component {
   getAllKeys = async () => {
     const { activeKey, ownerKey } = await generateKeys();
 
-    const linkToDownloadAllKeys = this.getLinkToDownloadKeys({
-      masterKey: this.props.keys.masterKey,
-      activeKey,
-      ownerKey,
-    });
-
     this.props.putKeysToStateDispatch({
       activeKey,
       ownerKey,
-      linkToDownloadAllKeys,
     });
   };
 
   getLinkToDownloadKeys = keys => {
-    const text = JSON.stringify({ keys });
-    const data = new Blob([text], { type: 'text/plain' });
-
+    const data = new Blob([keys], { type: 'text/plain' });
     return window.URL.createObjectURL(data);
   };
 
@@ -116,6 +115,8 @@ export class SignUp extends React.Component {
       showScatterSignUpProcessing,
       showScatterSignUpFormDispatch,
       account,
+      eosAccountName,
+      sendAnotherCodeDispatch,
     } = this.props;
 
     return (
@@ -135,10 +136,11 @@ export class SignUp extends React.Component {
           showLoginModal: showLoginModalDispatch,
           showScatterSignUpForm: showScatterSignUpFormDispatch,
           signUpWithScatter: signUpWithScatterDispatch,
-          getAllKeys: this.getAllKeys,
+          sendAnotherCode: sendAnotherCodeDispatch,
           keys: keys || {},
           locale,
           account,
+          eosAccountName,
           email,
           emailChecking,
           emailVerificationProcessing,
@@ -170,9 +172,11 @@ SignUp.propTypes = {
   showScatterSignUpFormDispatch: PropTypes.func,
   account: PropTypes.string,
   email: PropTypes.string,
+  eosAccountName: PropTypes.string,
   withScatter: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -185,20 +189,27 @@ const mapStateToProps = createStructuredSelector({
   idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
   signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
   showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
+  eosAccountName: signUpSelectors.selectEosAccountName(),
   keys: signUpSelectors.selectKeys(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    checkEmailDispatch: email => dispatch(checkEmail(email)),
-    verifyEmailDispatch: code => dispatch(verifyEmail(code)),
-    iHaveEosAccountDispatch: val => dispatch(iHaveEosAccount(val)),
-    idontHaveEosAccountDispatch: val => dispatch(idontHaveEosAccount(val)),
-    putKeysToStateDispatch: keys => dispatch(putKeysToState(keys)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
-    showScatterSignUpFormDispatch: () => dispatch(showScatterSignUpForm()),
-    signUpWithScatterDispatch: val => dispatch(signUpWithScatter(val)),
+    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
+    verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
+    iHaveEosAccountDispatch: bindActionCreators(iHaveEosAccount, dispatch),
+    idontHaveEosAccountDispatch: bindActionCreators(
+      idontHaveEosAccount,
+      dispatch,
+    ),
+    putKeysToStateDispatch: bindActionCreators(putKeysToState, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    showScatterSignUpFormDispatch: bindActionCreators(
+      showScatterSignUpForm,
+      dispatch,
+    ),
+    signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
   };
 }
 

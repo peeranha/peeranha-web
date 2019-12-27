@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
@@ -17,6 +17,11 @@ import injectReducer from 'utils/injectReducer';
 import Modal from 'components/ModalDialog';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
+import {
+  makeSelectLoginData,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
 
 import {
   hideSendTokensModal,
@@ -39,6 +44,8 @@ export const SendTokens = /* istanbul ignore next */ ({
   showModal,
   hideSendTokensModalDispatch,
   showSendTokensModalDispatch,
+  loginData,
+  balance,
 }) => (
   <React.Fragment>
     <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
@@ -46,6 +53,8 @@ export const SendTokens = /* istanbul ignore next */ ({
         locale={locale}
         sendTokens={sendTokensDispatch}
         sendTokensProcessing={sendTokensProcessing}
+        loginData={loginData}
+        valueHasToBeLessThan={balance}
       />
     </Modal>
 
@@ -61,19 +70,29 @@ SendTokens.propTypes = {
   hideSendTokensModalDispatch: PropTypes.func,
   showSendTokensModalDispatch: PropTypes.func,
   sendTokensDispatch: PropTypes.func,
+  loginData: PropTypes.object,
+  balance: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  loginData: makeSelectLoginData(),
+  balance: makeSelectBalance(),
   showModal: selectors.selectShowModal(),
   sendTokensProcessing: selectors.selectSendTokensProcessing(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    hideSendTokensModalDispatch: () => dispatch(hideSendTokensModal()),
-    showSendTokensModalDispatch: () => dispatch(showSendTokensModal()),
-    sendTokensDispatch: (...args) => dispatch(sendTokens(args)),
+    hideSendTokensModalDispatch: bindActionCreators(
+      hideSendTokensModal,
+      dispatch,
+    ),
+    showSendTokensModalDispatch: bindActionCreators(
+      showSendTokensModal,
+      dispatch,
+    ),
+    sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
   };
 }
 

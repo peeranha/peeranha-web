@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -17,7 +17,7 @@ import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import { initEosio } from './actions';
-import { makeSelectInitializing } from './selectors';
+import { makeSelectInitializing, makeSelectEos } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -29,7 +29,11 @@ export class EosioProvider extends React.Component {
   render() {
     return (
       <div>
-        {!this.props.initializing ? this.props.children : <LoadingIndicator />}
+        {!this.props.initializing && this.props.eos ? (
+          this.props.children
+        ) : (
+          <LoadingIndicator />
+        )}
       </div>
     );
   }
@@ -39,16 +43,17 @@ EosioProvider.propTypes = {
   initEosio: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
+  eos: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   initializing: makeSelectInitializing(),
+  eos: makeSelectEos(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    initEosio: () => dispatch(initEosio()),
-    dispatch,
+    initEosio: bindActionCreators(initEosio, dispatch),
   };
 }
 

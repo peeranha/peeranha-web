@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import * as routes from 'routes-config';
+
 import Communities from 'containers/Communities';
 
 import Aside from './Aside';
 import Content from './Content';
 import SubHeader from './SubHeader';
 
-import sortingOptions from './SortingOptions';
+import sortingOptions from './sortingOptions';
 
-export const ExistingCommunities = /* istanbul ignore next */ () => {
+export const ExistingCommunities = () => {
   const [sorting, changeSorting] = useState(
     sortingOptions[Object.keys(sortingOptions)[0]],
   );
@@ -19,6 +21,7 @@ export const ExistingCommunities = /* istanbul ignore next */ () => {
       SubHeader={SubHeader}
       sorting={sorting}
       changeSorting={changeSorting}
+      route={routes.communities()}
     />
   );
 };

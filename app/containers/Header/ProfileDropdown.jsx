@@ -1,3 +1,4 @@
+/* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -6,22 +7,20 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import logoutIcon from 'images/logout.svg?inline';
 import messages from 'common-messages';
 
-import Cookies from 'utils/cookies';
-import noAvatar from 'images/ico-user-no-photo.png';
+import logoutIcon from 'images/logout.svg?inline';
+
+import { getUserAvatar } from 'utils/profileManagement';
 
 import Dropdown from 'components/Dropdown';
-import Li from 'components/Li';
-import Ul from 'components/Ul';
+import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import A from 'components/A';
+import A, { ALinkDisabled } from 'components/A';
 import RatingStatus from 'components/RatingStatus';
-import MediumImage from 'components/Img/MediumImage';
+import { MediumSpecialImage } from 'components/Img/MediumImage';
 
 import Logout from 'containers/Logout';
-import { AUTH_TYPE, LOGIN_WITH_EMAIL } from 'containers/Login/constants';
 
 const Info = styled.span`
   padding: 0 10px;
@@ -30,22 +29,11 @@ const Info = styled.span`
   justify-content: center;
 `;
 
-const authType = Cookies.get(AUTH_TYPE);
-
-export const AStyled = A.extend`
-  display: flex;
-  flex: 1;
-
-  ${x => (x.disabled ? `opacity: 0.5` : ``)};
-`;
-
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-static-element-interactions: 0 */
-const Button = ({ profileInfo, onClick }) => (
+export const Button = ({ profileInfo, onClick }) => (
   <span className="d-flex" onClick={onClick}>
-    <MediumImage
+    <MediumSpecialImage
       isBordered
-      src={profileInfo.ipfs_avatar || noAvatar}
+      src={getUserAvatar(profileInfo.ipfs_avatar)}
       alt="ipfs_avatar"
     />
     <Info>
@@ -55,137 +43,76 @@ const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
+const Menu = ({
+  user,
+  questionsLength,
+  questionsWithUserAnswersLength,
+  loginWithScatter,
+}) => (
   <nav>
     <Ul>
-      <Li>
-        <AStyled to={routes.profileView(user)}>
-          <FormattedMessage {...messages.profile} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.userQuestions(user)} disabled={!questionsLength}>
-          <FormattedMessage {...messages.questions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled
-          to={routes.userAnswers(user)}
-          disabled={!questionsWithUserAnswersLength}
-        >
-          <FormattedMessage {...messages.answers} />
-        </AStyled>
-      </Li>
-      <Li className={authType !== LOGIN_WITH_EMAIL ? 'd-none' : ''}>
-        <AStyled to={routes.userSettings(user)}>
-          <FormattedMessage {...messages.settings} />
-        </AStyled>
-      </Li>
-    </Ul>
-
-    <Ul className="d-block d-lg-none">
-      <Li>
-        <AStyled to={routes.feed()}>
-          <FormattedMessage {...messages.myFeed} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.questions()}>
-          <FormattedMessage {...messages.all} />{' '}
-          <FormattedMessage {...messages.questions} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.communities()}>
-          <FormattedMessage {...messages.communities} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.tags()}>
-          <FormattedMessage {...messages.tags} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.users()}>
-          <FormattedMessage {...messages.users} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.faq} />
-        </AStyled>
-      </Li>
-    </Ul>
-
-    <Ul className="d-block d-lg-none">
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.about} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.contacts} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.support} />
-        </AStyled>
-      </Li>
-      <Li>
-        <AStyled to={routes.faq()}>
-          <FormattedMessage {...messages.privacyPolicy} />
-        </AStyled>
-      </Li>
+      <A to={routes.profileView(user)}>
+        <FormattedMessage {...messages.profile} />
+      </A>
+      <ALinkDisabled
+        to={routes.userQuestions(user)}
+        disabled={!questionsLength}
+        tabIndex={!questionsLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.questions} />
+      </ALinkDisabled>
+      <ALinkDisabled
+        to={routes.userAnswers(user)}
+        disabled={!questionsWithUserAnswersLength}
+        tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+      >
+        <FormattedMessage {...messages.answers} />
+      </ALinkDisabled>
+      <A
+        to={routes.userSettings(user)}
+        className={loginWithScatter ? 'd-none' : ''}
+      >
+        <FormattedMessage {...messages.settings} />
+      </A>
     </Ul>
 
     <Ul>
-      <Li className="d-flex align-items-center">
-        <Logout>
-          <img className="mr-1" src={logoutIcon} alt="icon" />
-          <Span color={TEXT_PRIMARY}>
-            <FormattedMessage {...messages.logout} />
-          </Span>
-        </Logout>
-      </Li>
+      <Logout>
+        <img className="mr-1" src={logoutIcon} alt="icon" />
+        <Span color={TEXT_PRIMARY}>
+          <FormattedMessage {...messages.logout} />
+        </Span>
+      </Logout>
     </Ul>
   </nav>
 );
 
-const ProfileDropdown = ({
-  profileInfo,
-  isMenuVisible,
-  expandLeftMenuNavigation,
-}) =>
-  !isMenuVisible ? (
-    <Dropdown
-      isArrowed
-      className={`${isMenuVisible ? 'd-flex' : 'd-none d-md-flex'}`}
-      id={`profile_id_${Math.random()}`}
-      button={<Button profileInfo={profileInfo} />}
-      menu={
-        <Menu
-          user={profileInfo.user}
-          questionsLength={profileInfo.questions_asked}
-          questionsWithUserAnswersLength={profileInfo.answers_given}
-        />
-      }
-    />
-  ) : (
-    <Button profileInfo={profileInfo} onClick={expandLeftMenuNavigation} />
-  );
+const ProfileDropdown = ({ profileInfo }) => (
+  <Dropdown
+    isArrowed
+    className="d-none d-md-flex"
+    id="profile_dropdown_id"
+    button={<Button profileInfo={profileInfo} />}
+    menu={
+      <Menu
+        user={profileInfo.user}
+        questionsLength={profileInfo.questions_asked}
+        questionsWithUserAnswersLength={profileInfo.answers_given}
+        loginWithScatter={profileInfo.loginData.loginWithScatter}
+      />
+    }
+  />
+);
 
 ProfileDropdown.propTypes = {
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
-  expandLeftMenuNavigation: PropTypes.func,
 };
 
 Menu.propTypes = {
   user: PropTypes.string,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
+  loginWithScatter: PropTypes.bool,
 };
 
 Button.propTypes = {

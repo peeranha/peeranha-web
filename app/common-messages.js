@@ -9,6 +9,9 @@ export default defineMessages({
   peeranha: {
     id: 'app.common.peeranha',
   },
+  copyrightPeeranha: {
+    id: 'app.common.copyrightPeeranha',
+  },
   profile: {
     id: 'app.common.profile',
   },
@@ -30,8 +33,8 @@ export default defineMessages({
   search: {
     id: 'app.common.search',
   },
-  addQuestion: {
-    id: 'app.common.addQuestion',
+  askQuestion: {
+    id: 'app.common.askQuestion',
   },
   signUp: {
     id: 'app.common.signUp',
@@ -63,6 +66,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  usersShort: {
+    id: 'app.common.usersShort',
+  },
   faq: {
     id: 'app.common.faq',
   },
@@ -78,14 +84,32 @@ export default defineMessages({
   privacyPolicy: {
     id: 'app.common.privacyPolicy',
   },
+  termsOfService: {
+    id: 'app.common.termsOfService',
+  },
+  privacyPolicyShort: {
+    id: 'app.common.privacyPolicyShort',
+  },
   asked: {
     id: 'app.common.asked',
+  },
+  askedWhen: {
+    id: 'app.common.askedWhen',
+  },
+  somebodyAsked: {
+    id: 'app.common.somebodyAsked',
   },
   youAsked: {
     id: 'app.common.youAsked',
   },
   answered: {
     id: 'app.common.answered',
+  },
+  somebodyAnswered: {
+    id: 'app.common.somebodyAnswered',
+  },
+  youAnswered: {
+    id: 'app.common.youAnswered',
   },
   subscribeMore: {
     id: 'app.common.subscribeMore',
@@ -141,8 +165,14 @@ export default defineMessages({
   agree: {
     id: 'app.common.agree',
   },
+  agreeShort: {
+    id: 'app.common.agreeShort',
+  },
   disagree: {
     id: 'app.common.disagree',
+  },
+  disagreeShort: {
+    id: 'app.common.disagreeShort',
   },
   tips: {
     id: 'app.common.tips',
@@ -209,5 +239,56 @@ export default defineMessages({
   },
   change: {
     id: 'app.common.change',
+  },
+  contactUs: {
+    id: 'app.common.contactUs',
+  },
+  sendAnotherCode: {
+    id: 'app.common.sendAnotherCode',
+  },
+  copy: {
+    id: 'app.common.copy',
+  },
+  copied: {
+    id: 'app.common.copied',
+  },
+  hide: {
+    id: 'app.common.hide',
+  },
+  delete: {
+    id: 'app.common.delete',
+  },
+  description: {
+    id: 'app.common.description',
+  },
+  questionsNumber: {
+    id: 'app.common.questionsNumber',
+  },
+  answersNumber: {
+    id: 'app.common.answersNumber',
+  },
+  postsNumber: {
+    id: 'app.common.postsNumber',
+  },
+  answer: {
+    id: 'app.common.answer',
+  },
+  preview: {
+    id: 'app.common.preview',
+  },
+  showMore: {
+    id: 'app.common.showMore',
+  },
+  poweredByTelos: {
+    id: 'app.common.poweredByTelos',
+  },
+  noResults: {
+    id: 'app.common.noResults',
+  },
+  iAcceptPrivacyPolicy: {
+    id: 'app.common.iAcceptPrivacyPolicy',
+  },
+  termsOfTelos: {
+    id: 'app.common.termsOfTelos',
   },
 });

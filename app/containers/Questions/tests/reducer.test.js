@@ -6,13 +6,14 @@ import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsError,
+  getUniqQuestions,
 } from '../actions';
 
 describe('questionsReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      questionsList: [{}],
+      questionsList: [{ id: 1 }, { id: 2 }],
     });
   });
 
@@ -21,42 +22,31 @@ describe('questionsReducer', () => {
   });
 
   it('getQuestions', () => {
-    const communityIdFilter = 10;
-    const obj = state
-      .set('questionsLoading', true)
-      .set('communityIdFilter', communityIdFilter);
+    const obj = state.set('questionsLoading', true);
 
-    expect(
-      questionsReducer(state, getQuestions(0, 0, communityIdFilter)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getQuestions())).toEqual(obj);
   });
 
-  it('getQuestionsSuccess, next is true', () => {
-    const questionsList = [{}];
-    const next = true;
+  it('getQuestionsSuccess', () => {
+    const questionsList = [{ id: 1 }];
 
     const obj = state
       .set('questionsLoading', false)
-      .set('questionsList', state.get('questionsList').concat(questionsList))
+      .set('questionsList', [{ id: 1 }, { id: 2 }])
       .set('isLastFetch', true);
 
-    expect(
-      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getQuestionsSuccess(questionsList))).toEqual(
+      obj,
+    );
   });
 
-  it('getQuestionsSuccess, next is false', () => {
-    const questionsList = [{}];
-    const next = false;
+  it('getUniqQuestions', () => {
+    const questionsList = [{ id: 1, title: 'title' }, { id: 2 }];
+    const obj = state.set('questionsList', questionsList);
 
-    const obj = state
-      .set('questionsLoading', false)
-      .set('questionsList', questionsList)
-      .set('isLastFetch', true);
-
-    expect(
-      questionsReducer(state, getQuestionsSuccess(questionsList, next)),
-    ).toEqual(obj);
+    expect(questionsReducer(state, getUniqQuestions(questionsList))).toEqual(
+      obj,
+    );
   });
 
   it('getQuestionsError', () => {

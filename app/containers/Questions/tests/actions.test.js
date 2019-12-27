@@ -2,12 +2,14 @@ import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsError,
+  getUniqQuestions,
 } from '../actions';
 
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
+  GET_UNIQ_QUESTIONS,
 } from '../constants';
 
 describe('actions', () => {
@@ -68,6 +70,19 @@ describe('actions', () => {
       };
 
       expect(getQuestionsError(questionsError)).toEqual(expected);
+    });
+  });
+
+  describe('getUniqQuestions Action', () => {
+    it('GET_UNIQ_QUESTIONS', () => {
+      const questionsList = 'questionsList';
+
+      const expected = {
+        type: GET_UNIQ_QUESTIONS,
+        questionsList,
+      };
+
+      expect(getUniqQuestions(questionsList)).toEqual(expected);
     });
   });
 });

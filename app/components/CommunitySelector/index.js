@@ -32,13 +32,13 @@ const Wrapper = styled.div`
 export class CommunitySelector extends React.PureComponent {
   state = { isOpen: false };
 
-  toggleOpen = /* istanbul ignore next */ () => {
+  toggleOpen = () => {
     if (!this.props.disabled) {
       this.setState(state => ({ isOpen: !state.isOpen }));
     }
   };
 
-  onSelectChange = /* istanbul ignore next */ x => {
+  onSelectChange = x => {
     const { input, toggle } = this.props;
 
     this.toggleOpen();
@@ -54,7 +54,7 @@ export class CommunitySelector extends React.PureComponent {
     }
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const { isOpen } = this.state;
     const {
       input = {},
@@ -97,18 +97,20 @@ export class CommunitySelector extends React.PureComponent {
       ];
     }
 
-    // Default option - All communities
-    options = [
-      {
-        options: [
-          {
-            label: translationMessages[locale][messages.allCommunities.id],
-            value: 0,
-          },
-        ],
-      },
-      ...options,
-    ];
+    // Default option - All communities - if it is not from form field
+    if (!input.name) {
+      options = [
+        {
+          options: [
+            {
+              label: translationMessages[locale][messages.allCommunities.id],
+              value: 0,
+            },
+          ],
+        },
+        ...options,
+      ];
+    }
 
     const selectedValue = getFollowedCommunities(communities, [
       selectedCommunityId,
@@ -116,9 +118,10 @@ export class CommunitySelector extends React.PureComponent {
 
     return (
       <Dropdown
-        isArrowed={isArrowed}
+        isCommunitySelector
+        isArrowed={optionsNumber > 0 && isArrowed}
         isOpen={isOpen}
-        toggle={this.toggleOpen}
+        toggle={optionsNumber > 0 && this.toggleOpen}
         target={
           <Button
             communityAvatar={selectedValue ? selectedValue.avatar : null}
@@ -133,6 +136,8 @@ export class CommunitySelector extends React.PureComponent {
               optionsNumber,
               selectedValue,
               onChange: this.onSelectChange,
+              onBlur: null,
+              value: null,
             }}
             options={options}
             disabled={disabled}
@@ -140,6 +145,7 @@ export class CommunitySelector extends React.PureComponent {
             CustomOption={CustomOption}
             autoFocus
             menuIsOpen
+            isWrapped
           />
           <ManageMyCommunities />
         </Wrapper>

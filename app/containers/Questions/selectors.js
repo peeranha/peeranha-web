@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+
 import { initialState } from './reducer';
 
 /**
@@ -19,6 +21,31 @@ const selectQuestionsList = () =>
     substate => substate.toJS().questionsList,
   );
 
+const selectQuestions = (isFeed, communityId, questionId) =>
+  createSelector(
+    state => state,
+    state => {
+      const followedCommunities = makeSelectFollowedCommunities()(state);
+      const questionsList = selectQuestionsList()(state);
+
+      if (communityId) {
+        return questionsList.filter(x => x.community_id === communityId);
+      }
+
+      if (isFeed) {
+        return questionsList.filter(x =>
+          followedCommunities.includes(x.community_id),
+        );
+      }
+
+      if (questionId) {
+        return questionsList.find(x => x.id === questionId);
+      }
+
+      return questionsList;
+    },
+  );
+
 const selectQuestionsError = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsError'),
@@ -37,11 +64,6 @@ const selectNextLoadedItems = () =>
 const selectIsLastFetch = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('isLastFetch'),
-  );
-
-const selectCommunityIdFilter = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('communityIdFilter'),
   );
 
 const selectFollowedCommunities = () =>
@@ -67,8 +89,8 @@ export {
   selectInitLoadedItems,
   selectNextLoadedItems,
   selectIsLastFetch,
-  selectCommunityIdFilter,
   selectFollowedCommunities,
   selectFollowHandlerLoading,
   selectFollowHandlerError,
+  selectQuestions,
 };

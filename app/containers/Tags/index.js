@@ -8,66 +8,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { translationMessages } from 'i18n';
+import { compose, bindActionCreators } from 'redux';
 
 import { DAEMON } from 'utils/constants';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import createdHistory from 'createdHistory';
-import * as routes from 'routes-config';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
-import { LEFT_MENU_WIDTH } from 'containers/App/constants';
+import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import BaseTransparent from 'components/Base/BaseTransparent';
+import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
 import saga from './saga';
 import { getSuggestedTags, getExistingTags } from './actions';
-import { createTagValidator } from './validate';
 import * as selectors from './selectors';
 
 import Header from './Header';
-import GoToCreateTagFromBanner from './GoToCreateTagFromBanner';
-
-const AsideWrapper = BaseTransparent.extend`
-  flex: 0 0 ${LEFT_MENU_WIDTH}px;
-  padding-top: 20px;
-`.withComponent('aside');
-
-export const goToCreateTagScreen = ({
-  profile,
-  showLoginModalDispatch,
-  locale,
-  communityId,
-  buttonId,
-}) => {
-  if (!profile) {
-    showLoginModalDispatch();
-    return null;
-  }
-
-  const isValid = createTagValidator(
-    profile,
-    translationMessages[locale],
-    buttonId,
-  );
-
-  if (!isValid) {
-    return null;
-  }
-
-  createdHistory.push(routes.tagsCreate(communityId));
-};
+import Banner from './Banner';
 
 /* eslint consistent-return: 0 */
 /* eslint-disable react/prefer-stateless-function */
@@ -91,18 +53,6 @@ export class Tags extends React.Component {
     }
   }
 
-  goToCreateTagScreen = /* istanbul ignore next */ e => {
-    const { showLoginModalDispatch, locale, communityId, profile } = this.props;
-
-    goToCreateTagScreen({
-      profile,
-      showLoginModalDispatch,
-      locale,
-      communityId,
-      buttonId: e.currentTarget.id,
-    });
-  };
-
   render() /* istanbul ignore next */ {
     const {
       sorting,
@@ -111,6 +61,7 @@ export class Tags extends React.Component {
       sortTags,
       Content,
       Aside,
+      redirectToCreateTagDispatch,
     } = this.props;
 
     if (!currentCommunity.tags.length) return <LoadingIndicator />;
@@ -119,29 +70,30 @@ export class Tags extends React.Component {
       <div className="d-flex justify-content-center">
         <div className="flex-grow-1">
           <Header
-            goToCreateTagScreen={this.goToCreateTagScreen}
+            goToCreateTagScreen={redirectToCreateTagDispatch}
             sortTags={sortTags}
             sorting={sorting}
             currentCommunity={currentCommunity}
             tagsNumber={tagsNumber}
           />
 
-          <div className="my-3">{Content}</div>
+          <div className="mb-3">{Content}</div>
 
-          <GoToCreateTagFromBanner openTagForm={this.goToCreateTagScreen} />
+          <Banner
+            openTagForm={redirectToCreateTagDispatch}
+            communityId={currentCommunity.id}
+          />
         </div>
 
-        <AsideWrapper className="d-none d-xl-block pr-0">{Aside}</AsideWrapper>
+        <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
       </div>
     );
   }
 }
 
 Tags.propTypes = {
-  locale: PropTypes.string,
   sorting: PropTypes.string,
-  profile: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
+  redirectToCreateTagDispatch: PropTypes.func,
   getSuggestedTagsDispatch: PropTypes.func,
   getExistingTagsDispatch: PropTypes.func,
   Aside: PropTypes.any,
@@ -164,9 +116,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: obj => dispatch(getSuggestedTags(obj)),
-    getExistingTagsDispatch: obj => dispatch(getExistingTags(obj)),
-    showLoginModalDispatch: () => dispatch(showLoginModal()),
+    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+    getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
+    redirectToCreateTagDispatch: bindActionCreators(
+      redirectToCreateTag,
+      dispatch,
+    ),
   };
 }
 

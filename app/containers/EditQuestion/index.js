@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -46,11 +46,13 @@ export class EditQuestion extends React.Component {
 
   editQuestion = values => {
     const { questionid } = this.props.match.params;
+    const val = values.toJS();
+
     const question = {
-      title: values.get(FORM_TITLE),
-      content: values.get(FORM_CONTENT),
-      community: values.get(FORM_COMMUNITY),
-      chosenTags: values.get(FORM_TAGS),
+      title: val[FORM_TITLE],
+      content: val[FORM_CONTENT],
+      community: val[FORM_COMMUNITY],
+      chosenTags: val[FORM_TAGS],
     };
 
     this.props.editQuestionDispatch(question, questionid);
@@ -126,13 +128,10 @@ const mapStateToProps = createStructuredSelector({
   editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getAskedQuestionDispatch: questionid =>
-      dispatch(getAskedQuestion(questionid)),
-    editQuestionDispatch: (question, questionid) =>
-      dispatch(editQuestion(question, questionid)),
+    getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
+    editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
   };
 }
 

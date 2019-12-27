@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -58,6 +58,9 @@ export class QuestionsOfUser extends React.PureComponent {
       className,
       infinityOff,
       communities,
+      userId,
+      account,
+      displayName,
     } = this.props;
 
     return (
@@ -68,7 +71,7 @@ export class QuestionsOfUser extends React.PureComponent {
         infinityOff={infinityOff}
       >
         <div className={className}>
-          <Header />
+          <Header userId={userId} account={account} displayName={displayName} />
 
           {questions[0] && (
             <QuestionsList
@@ -88,6 +91,8 @@ export class QuestionsOfUser extends React.PureComponent {
 QuestionsOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
   questionsLoading: PropTypes.bool,
+  account: PropTypes.string,
+  displayName: PropTypes.string,
   userId: PropTypes.string,
   locale: PropTypes.string,
   questions: PropTypes.array,
@@ -107,12 +112,10 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-/* istanbul ignore next */
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    getQuestionsDispatch: userId => dispatch(getQuestions(userId)),
-    resetStoreDispatch: () => dispatch(resetStore()),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
   };
 }
 

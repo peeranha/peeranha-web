@@ -2,34 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconStyled from './IconStyled';
 
-const Icon = /* istanbul ignore next */ ({
+const Icon = ({
   icon,
-  noMargin,
-  className,
-  onClick,
-  rotate,
-  hover,
   width,
+  className,
+  color,
+  rotate,
+  onClick,
+  isTransition,
 }) => (
   <IconStyled
     className={className}
-    onClick={onClick}
-    noMargin={noMargin}
-    rotate={rotate}
-    hover={hover}
     width={width}
+    color={color}
     dangerouslySetInnerHTML={{ __html: icon }}
-    data-icon="icon"
+    rotate={rotate}
+    onClick={onClick}
+    isTransition={isTransition}
   />
 );
 
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
-  noMargin: PropTypes.bool,
   rotate: PropTypes.bool,
+  isTransition: PropTypes.bool,
   className: PropTypes.string,
-  hover: PropTypes.string,
   width: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
 };
 

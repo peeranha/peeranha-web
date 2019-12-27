@@ -5,13 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import { PASSWORD_FIELD } from './constants';
 
@@ -33,8 +34,8 @@ const ShowActiveKeyForm = ({
         disabled={showActiveKeyProcessing}
         label={translationMessages[locale][commonMessages.password.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
         type="password"
       />
 
@@ -54,4 +55,5 @@ ShowActiveKeyForm.propTypes = {
 
 export default reduxForm({
   form: 'ShowActiveKeyForm',
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ShowActiveKeyForm);

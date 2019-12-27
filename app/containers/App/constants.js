@@ -9,4 +9,4 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LEFT_MENU_WIDTH = 210;
+export const LEFT_MENU_WIDTH = 200;

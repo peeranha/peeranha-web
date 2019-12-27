@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Toast /> render snapshot test toasts === MAP 1`] = `<React.Fragment />`;
+exports[`<Toast /> render snapshot test toasts === MAP 1`] = `
+<Toasts
+  location="app/Toast/TOP_RIGHT"
+  removeToast={[Function]}
+  toasts={Map {}}
+/>
+`;
 
-exports[`<Toast /> render snapshot test toasts === Map.set 1`] = `<React.Fragment />`;
+exports[`<Toast /> render snapshot test toasts === Map.set 1`] = `
+<Toasts
+  location="app/Toast/TOP_RIGHT"
+  removeToast={[Function]}
+  toasts={
+    Map {
+      "obj" => Object {},
+    }
+  }
+/>
+`;

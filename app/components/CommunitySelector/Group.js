@@ -13,7 +13,7 @@ const Box = styled.div`
   }
 `;
 
-const Group = /* istanbul ignore next */ ({ children, selectProps }) => (
+const Group = ({ children, selectProps }) => (
   <Box>
     {children.map(x => (
       <CustomOption

@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter-smile.svg?inline';
 
@@ -14,7 +15,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import { CODE_FIELD, SUBMIT_EMAIL_FORM } from './constants';
 
@@ -43,8 +44,8 @@ const ShowOwnerKeyForm = ({
         disabled={showOwnerKeyProcessing}
         label={translationMessages[locale][signUpMessages.verificationCode.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
       />
 
       <Button disabled={showOwnerKeyProcessing} className="w-100 mb-3">
@@ -63,4 +64,5 @@ ShowOwnerKeyForm.propTypes = {
 
 export default reduxForm({
   form: SUBMIT_EMAIL_FORM,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ShowOwnerKeyForm);

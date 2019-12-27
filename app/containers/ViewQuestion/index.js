@@ -8,14 +8,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import * as routes from 'routes-config';
-
 import { scrollToSection } from 'utils/animation';
+
+import * as routes from 'routes-config';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -23,8 +23,8 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-
-import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
+import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
+import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
 
 import {
   saveComment,
@@ -46,16 +46,24 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-import { TEXTAREA_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
-
 import ViewQuestionContainer from './ViewQuestionContainer';
-import NoSuchQuestion from './NoSuchQuestion';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewQuestion extends React.Component {
+  componentWillMount() {
+    window.isRendered = false;
+    this.props.resetStoreDispatch();
+  }
+
   componentDidMount() {
     this.questionId = this.props.match.params.id;
     this.props.getQuestionDataDispatch(this.questionId);
+  }
+
+  componentDidUpdate() {
+    if (this.props.questionData && !this.props.questionDataLoading) {
+      window.isRendered = true;
+    }
   }
 
   componentWillReceiveProps = nextProps => {
@@ -63,187 +71,21 @@ export class ViewQuestion extends React.Component {
       nextProps.questionData &&
       nextProps.questionDataLoading !== this.props.questionDataLoading
     ) {
-      setTimeout(() => scrollToSection(), 250);
+      setTimeout(scrollToSection, 250);
+    }
+
+    if (!nextProps.questionDataLoading && !nextProps.questionData) {
+      this.props.history.push(routes.notFound());
+    }
+
+    if (nextProps.account && nextProps.account !== this.props.account) {
+      this.props.getQuestionDataDispatch(this.questionId);
     }
   };
 
   componentWillUnmount() {
-    this.props.resetStoreDispatch();
     window.$(window).off();
   }
-
-  /**
-   *
-   * Question methods
-   *
-   */
-
-  deleteQuestion = e => {
-    const { id } = e.currentTarget;
-    this.props.deleteQuestionDispatch(this.props.account, this.questionId, id);
-  };
-
-  editQuestion = e => {
-    const { questionid } = e.currentTarget.dataset;
-    this.props.history.push(routes.questionEdit(questionid));
-  };
-
-  /**
-   *
-   * Answer methods
-   *
-   */
-
-  postAnswer = (...args) => {
-    const answer = args[0].get(TEXT_EDITOR_ANSWER_FORM);
-    const postButtonId = args[2].sendButtonId;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.postAnswerDispatch(
-      this.props.account,
-      this.questionId,
-      answer,
-      args[2].reset,
-      postButtonId,
-      translations,
-    );
-  };
-
-  editAnswer = e => {
-    const { questionid, answerid } = e.currentTarget.dataset;
-    this.props.history.push(routes.answerEdit(questionid, answerid));
-  };
-
-  deleteAnswer = e => {
-    const { id } = e.currentTarget;
-    const { answerid } = e.currentTarget.dataset;
-    this.props.deleteAnswerDispatch(
-      this.props.account,
-      this.questionId,
-      answerid,
-      id,
-    );
-  };
-
-  /**
-   *
-   * Comment methods
-   *
-   */
-
-  postComment = (...args) => {
-    const postButtonId = `${POST_COMMENT_BUTTON}${args[2].answerId}`;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.postCommentDispatch(
-      this.props.account,
-      this.questionId,
-      args[2].answerId,
-      args[0].get(TEXTAREA_COMMENT_FORM),
-      args[2].reset,
-      postButtonId,
-      translations,
-      args[2].toggleView,
-    );
-  };
-
-  saveComment = (...args) => {
-    const comment = args[0].get(TEXTAREA_COMMENT_FORM);
-    const { commentId, answerId, toggleView } = args[2];
-
-    this.props.saveCommentDispatch(
-      this.props.account,
-      this.questionId,
-      answerId,
-      commentId,
-      comment,
-      toggleView,
-    );
-  };
-
-  deleteComment = e => {
-    const { id } = e.currentTarget;
-    const { commentid, answerid } = e.currentTarget.dataset;
-    this.props.deleteCommentDispatch(
-      this.props.account,
-      this.questionId,
-      answerid,
-      commentid,
-      id,
-    );
-  };
-
-  /**
-   *
-   * Other methods
-   *
-   */
-
-  markAsAccepted = e => {
-    const { answerid, whowasaccepted } = e.currentTarget.dataset;
-
-    const postButtonId = e.currentTarget.id;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.markAsAcceptedDispatch(
-      this.props.account,
-      this.questionId,
-      answerid,
-      postButtonId,
-      translations,
-      whowasaccepted,
-    );
-  };
-
-  upVote = e => {
-    const { answerid, whowasupvoted } = e.currentTarget.dataset;
-
-    const postButtonId = e.currentTarget.id;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.upVoteDispatch(
-      this.props.account,
-      this.questionId,
-      +answerid,
-      postButtonId,
-      translations,
-      whowasupvoted,
-    );
-  };
-
-  downVote = e => {
-    const { answerid, whowasdownvoted } = e.currentTarget.dataset;
-
-    const postButtonId = e.currentTarget.id;
-    const translations = translationMessages[this.props.locale];
-
-    this.props.downVoteDispatch(
-      this.props.account,
-      this.questionId,
-      +answerid,
-      postButtonId,
-      translations,
-      whowasdownvoted,
-    );
-  };
-
-  voteToDelete = e => {
-    const { id } = e.currentTarget;
-    const {
-      questionid,
-      answerid,
-      commentid,
-      whowasvoted,
-    } = e.currentTarget.dataset;
-
-    this.props.voteToDeleteDispatch(
-      questionid,
-      answerid,
-      commentid,
-      id,
-      whowasvoted,
-    );
-  };
 
   render() /* istanbul ignore next */ {
     const {
@@ -255,7 +97,29 @@ export class ViewQuestion extends React.Component {
       questionDataLoading,
       saveCommentLoading,
       communities,
+      upVoteLoading,
+      downVoteLoading,
+      markAsAcceptedLoading,
+      deleteQuestionLoading,
+      deleteAnswerLoading,
+      deleteCommentLoading,
+      voteToDeleteLoading,
+      postAnswerDispatch,
+      deleteAnswerDispatch,
+      deleteQuestionDispatch,
+      postCommentDispatch,
+      saveCommentDispatch,
+      deleteCommentDispatch,
+      upVoteDispatch,
+      downVoteDispatch,
+      markAsAcceptedDispatch,
+      voteToDeleteDispatch,
+      redirectToEditQuestionPageDispatch,
+      redirectToEditAnswerPageDispatch,
+      ids,
     } = this.props;
+
+    const translations = translationMessages[locale];
 
     const sendProps = {
       account,
@@ -265,28 +129,36 @@ export class ViewQuestion extends React.Component {
       postAnswerLoading,
       postCommentLoading,
       saveCommentLoading,
-      upVote: this.upVote,
-      downVote: this.downVote,
-      postAnswer: this.postAnswer,
-      editAnswer: this.editAnswer,
-      deleteAnswer: this.deleteAnswer,
-      postComment: this.postComment,
-      saveComment: this.saveComment,
-      deleteComment: this.deleteComment,
-      markAsAccepted: this.markAsAccepted,
-      deleteQuestion: this.deleteQuestion,
-      editQuestion: this.editQuestion,
-      voteToDelete: this.voteToDelete,
-      translations: translationMessages[locale],
+      postAnswer: postAnswerDispatch,
+      deleteAnswer: deleteAnswerDispatch,
+      deleteQuestion: deleteQuestionDispatch,
+      postComment: postCommentDispatch,
+      saveComment: saveCommentDispatch,
+      deleteComment: deleteCommentDispatch,
+      upVote: upVoteDispatch,
+      downVote: downVoteDispatch,
+      markAsAccepted: markAsAcceptedDispatch,
+      voteToDelete: voteToDeleteDispatch,
+      translations,
+      upVoteLoading,
+      downVoteLoading,
+      markAsAcceptedLoading,
+      deleteQuestionLoading,
+      deleteAnswerLoading,
+      deleteCommentLoading,
+      voteToDeleteLoading,
+      redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
+      redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
+      ids,
     };
 
     const helmetTitle =
       (questionData && questionData.content.title) ||
-      sendProps.translations[messages.title.id];
+      translations[messages.title.id];
 
     const helmetDescription =
       (questionData && questionData.content.content) ||
-      sendProps.translations[messages.title.description];
+      translations[messages.title.description];
 
     const articlePublishedTime =
       questionData && questionData.post_time
@@ -324,8 +196,6 @@ export class ViewQuestion extends React.Component {
         {!questionDataLoading &&
           questionData && <ViewQuestionContainer {...sendProps} />}
 
-        {!questionDataLoading && !questionData && <NoSuchQuestion />}
-
         {questionDataLoading && <LoadingIndicator />}
       </React.Fragment>
     );
@@ -355,6 +225,16 @@ ViewQuestion.propTypes = {
   deleteCommentDispatch: PropTypes.func,
   voteToDeleteDispatch: PropTypes.func,
   resetStoreDispatch: PropTypes.func,
+  upVoteLoading: PropTypes.bool,
+  downVoteLoading: PropTypes.bool,
+  markAsAcceptedLoading: PropTypes.bool,
+  deleteQuestionLoading: PropTypes.bool,
+  deleteAnswerLoading: PropTypes.bool,
+  deleteCommentLoading: PropTypes.bool,
+  voteToDeleteLoading: PropTypes.bool,
+  redirectToEditQuestionPageDispatch: PropTypes.func,
+  redirectToEditAnswerPageDispatch: PropTypes.func,
+  ids: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -366,44 +246,67 @@ const mapStateToProps = createStructuredSelector({
   postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
   postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
   saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
+  upVoteLoading: makeSelectViewQuestion.selectUpVoteLoading(),
+  downVoteLoading: makeSelectViewQuestion.selectDownVoteLoading(),
+  markAsAcceptedLoading: makeSelectViewQuestion.selectMarkAsAcceptedLoading(),
+  deleteQuestionLoading: makeSelectViewQuestion.selectDeleteQuestionLoading(),
+  deleteAnswerLoading: makeSelectViewQuestion.selectDeleteAnswerLoading(),
+  deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
+  voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
+  ids: makeSelectViewQuestion.selectIds(),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch, props) /* istanbul ignore next */ {
+  const questionId = Number(props.match.params.id);
+
   return {
-    dispatch,
-    saveCommentDispatch: (user, qId, aId, cId, comment, toggleView) =>
-      dispatch(saveComment(user, qId, aId, cId, comment, toggleView)),
-
-    deleteCommentDispatch: (user, qId, aId, cId, bId) =>
-      dispatch(deleteComment(user, qId, aId, cId, bId)),
-
-    deleteQuestionDispatch: (user, qId, bId) =>
-      dispatch(deleteQuestion(user, qId, bId)),
-
-    deleteAnswerDispatch: (user, qId, aId, bId) =>
-      dispatch(deleteAnswer(user, qId, aId, bId)),
-
-    getQuestionDataDispatch: qId => dispatch(getQuestionData(qId)),
-
-    postAnswerDispatch: (user, qId, answer, reset, postbId, transl) =>
-      dispatch(postAnswer(user, qId, answer, reset, postbId, transl)),
-
-    postCommentDispatch: (us, qid, aid, comm, reset, bId, transl, toggle) =>
-      dispatch(postComment(us, qid, aid, comm, reset, bId, transl, toggle)),
-
-    upVoteDispatch: (user, qId, aId, postbId, transl, whoWasUpvoted) =>
-      dispatch(upVote(user, qId, aId, postbId, transl, whoWasUpvoted)),
-
-    downVoteDispatch: (user, qId, aId, postbId, transl, whoWasDownvoted) =>
-      dispatch(downVote(user, qId, aId, postbId, transl, whoWasDownvoted)),
-
-    markAsAcceptedDispatch: (user, qId, corrId, bId, transl, accepted) =>
-      dispatch(markAsAccepted(user, qId, corrId, bId, transl, accepted)),
-
-    voteToDeleteDispatch: (qId, aId, cId, buttonid, whowasvoted) =>
-      dispatch(voteToDelete(qId, aId, cId, buttonid, whowasvoted)),
-
-    resetStoreDispatch: () => dispatch(resetStore()),
+    postAnswerDispatch: bindActionCreators(
+      postAnswer.bind(null, questionId),
+      dispatch,
+    ),
+    deleteAnswerDispatch: bindActionCreators(
+      deleteAnswer.bind(null, questionId),
+      dispatch,
+    ),
+    deleteQuestionDispatch: bindActionCreators(
+      deleteQuestion.bind(null, questionId),
+      dispatch,
+    ),
+    postCommentDispatch: bindActionCreators(
+      postComment.bind(null, questionId),
+      dispatch,
+    ),
+    saveCommentDispatch: bindActionCreators(
+      saveComment.bind(null, questionId),
+      dispatch,
+    ),
+    deleteCommentDispatch: bindActionCreators(
+      deleteComment.bind(null, questionId),
+      dispatch,
+    ),
+    upVoteDispatch: bindActionCreators(upVote.bind(null, questionId), dispatch),
+    downVoteDispatch: bindActionCreators(
+      downVote.bind(null, questionId),
+      dispatch,
+    ),
+    markAsAcceptedDispatch: bindActionCreators(
+      markAsAccepted.bind(null, questionId),
+      dispatch,
+    ),
+    voteToDeleteDispatch: bindActionCreators(
+      voteToDelete.bind(null, questionId),
+      dispatch,
+    ),
+    getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
+    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
+    redirectToEditQuestionPageDispatch: bindActionCreators(
+      redirectToEditQuestionPage,
+      dispatch,
+    ),
+    redirectToEditAnswerPageDispatch: bindActionCreators(
+      redirectToEditAnswerPage,
+      dispatch,
+    ),
   };
 }
 

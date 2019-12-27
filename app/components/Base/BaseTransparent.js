@@ -1,6 +1,7 @@
-import BaseRounded from './BaseRounded';
+import { css } from 'styled-components';
+import Base from './index';
 
-export default BaseRounded.extend`
+export const S = css`
   background: none;
   box-shadow: none;
   border: none;
@@ -8,4 +9,18 @@ export default BaseRounded.extend`
   :hover {
     box-shadow: none;
   }
+`;
+
+export const BaseSpecial = Base.extend`
+  ${S};
+  padding: 15px 30px;
+`;
+
+export const BaseSpecialOne = Base.extend`
+  ${S};
+  padding: 30px;
+`;
+
+export default Base.extend`
+  ${S};
 `;

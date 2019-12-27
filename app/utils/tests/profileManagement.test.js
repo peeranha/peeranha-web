@@ -1,3 +1,7 @@
+import userBodyAvatar from 'images/user2.svg?inline';
+import noAvatar from 'images/noAvatar.png';
+import editUserNoAvatar from 'images/editUserNoAvatar.png';
+
 import { saveFile, getFileUrl, getText, saveText } from '../ipfs';
 
 import {
@@ -6,6 +10,7 @@ import {
   saveProfile,
   UsersFetcher,
   AccountsSortedBy,
+  getUserAvatar,
 } from '../profileManagement';
 
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from '../constants';
@@ -27,6 +32,42 @@ const cmp = {
 
 beforeEach(() => {
   jest.clearAllMocks();
+});
+
+describe('getUserAvatar', () => {
+  it('get file url', () => {
+    const avatarHash = 'avatarHash';
+    const userId = 'userId';
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(
+      getFileUrl(avatarHash),
+    );
+  });
+
+  it('return editUserNoAvatar', () => {
+    const avatarHash = null;
+    const userId = 'userId';
+    const account = 'userId';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(editUserNoAvatar);
+  });
+
+  it('return noAvatar', () => {
+    const avatarHash = null;
+    const userId = 'userId';
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(noAvatar);
+  });
+
+  it('return userBodyAvatar', () => {
+    const avatarHash = null;
+    const userId = null;
+    const account = 'account';
+
+    expect(getUserAvatar(avatarHash, userId, account)).toBe(userBodyAvatar);
+  });
 });
 
 describe('Fetcher', () => {
@@ -76,15 +117,19 @@ it('UsersFetcher', () => {
 
 /* eslint camelcase: 0 */
 it('uploadImg', async () => {
-  const txt = 'txt';
   const imgHash = 'ipfsHash';
   const imgUrl = 'url';
+  const img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCA';
 
   saveFile.mockImplementationOnce(() => imgHash);
   getFileUrl.mockImplementationOnce(() => imgUrl);
 
-  expect(await uploadImg(txt)).toEqual({ imgHash, imgUrl });
-  expect(saveFile).toHaveBeenCalledWith(txt);
+  expect(await uploadImg(img)).toEqual({ imgHash, imgUrl });
+
+  expect(saveFile).toHaveBeenCalledWith(
+    Buffer.from(img.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
+  );
+
   expect(getFileUrl).toHaveBeenCalledWith(imgHash);
 });
 
@@ -140,15 +185,16 @@ describe('getProfileInfo', async () => {
 });
 
 it('saveProfile', async () => {
+  const avatar = 'avatar';
   const user = 'user';
-  const profile = {};
+  const profile = { avatar };
   const ipfsProfile = 'ipfsProfile';
 
   saveText.mockImplementation(() => ipfsProfile);
 
   expect(cmp.sendTransaction).toHaveBeenCalledTimes(0);
 
-  await saveProfile(user, profile, cmp);
+  await saveProfile(cmp, user, avatar, profile);
 
   expect(saveText).toHaveBeenCalledWith(JSON.stringify(profile));
   expect(cmp.sendTransaction).toHaveBeenCalledTimes(1);

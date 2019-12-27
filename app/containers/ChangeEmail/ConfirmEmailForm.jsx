@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter-smile.svg?inline';
 
@@ -12,9 +13,10 @@ import P from 'components/P';
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
+import TransparentButton from 'components/Button/Contained/Transparent';
 import signUpMessages from 'containers/SignUp/messages';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import { required } from 'components/FormFields/validate';
 
 import { CODE_FIELD, CONFIRM_EMAIL_FORM } from './constants';
 
@@ -23,6 +25,7 @@ const ConfirmEmailForm = ({
   locale,
   confirmOldEmail,
   confirmOldEmailProcessing,
+  sendAnotherCode,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -43,19 +46,28 @@ const ConfirmEmailForm = ({
         disabled={confirmOldEmailProcessing}
         label={translationMessages[locale][signUpMessages.verificationCode.id]}
         component={TextInputField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
+        validate={required}
+        warn={required}
       />
 
-      <Button disabled={confirmOldEmailProcessing} className="w-100 mb-3">
+      <Button
+        disabled={confirmOldEmailProcessing}
+        className="w-100 mb-3"
+        type="submit"
+      >
         <FormattedMessage {...commonMessages.submit} />
       </Button>
+
+      <TransparentButton onClick={sendAnotherCode} type="button">
+        <FormattedMessage {...commonMessages.sendAnotherCode} />
+      </TransparentButton>
     </form>
   </div>
 );
 
 ConfirmEmailForm.propTypes = {
   handleSubmit: PropTypes.func,
+  sendAnotherCode: PropTypes.func,
   confirmOldEmail: PropTypes.func,
   locale: PropTypes.string,
   confirmOldEmailProcessing: PropTypes.bool,
@@ -63,4 +75,5 @@ ConfirmEmailForm.propTypes = {
 
 export default reduxForm({
   form: CONFIRM_EMAIL_FORM,
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(ConfirmEmailForm);

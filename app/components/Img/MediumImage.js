@@ -5,10 +5,19 @@ const MediumImage = Img.extend`
   height: ${CELL * 1.75}px;
 `;
 
+const MediumSpecialImage = Img.extend`
+  width: 47px;
+  height: 47px;
+`;
+
 const MediumImageStyled = MediumImage.extend`
   background: #dfe3f2;
   margin-right: 18px;
+  border-width: 1px;
+  border-radius: 50%;
+  padding: 1px;
+  flex-shrink: 0;
 `;
 
-export { MediumImageStyled };
+export { MediumImageStyled, MediumSpecialImage };
 export default MediumImage;

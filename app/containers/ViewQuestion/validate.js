@@ -1,4 +1,5 @@
 import { showPopover } from 'utils/popover';
+import { ApplicationError } from 'utils/errors';
 
 import messages from './messages';
 
@@ -10,11 +11,14 @@ export const voteToDeleteValidator = (
   postButtonId,
   item,
 ) => {
-  const minRatingToVoteToDelete = 100;
-  const minModerationPoints = 0;
+  const MIN_RATING = 100;
+  const MIN_ENERGY_TO_DELETE_QUESTION = 3;
+  const MIN_ENERGY_TO_DELETE_ANSWER = 2;
+  const MIN_ENERGY_TO_DELETE_COMMENT = 1;
 
   let message;
   let itemData;
+  let minEnergy;
 
   /*
    * Input data: @questionId, @answerId, @commentId
@@ -23,36 +27,36 @@ export const voteToDeleteValidator = (
 
   if (!+item.answerId && !+item.commentId) {
     itemData = questionData;
+    minEnergy = MIN_ENERGY_TO_DELETE_QUESTION;
   } else if (!+item.answerId && +item.commentId) {
     itemData = questionData.comments.filter(x => x.id == item.commentId)[0];
+    minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   } else if (+item.answerId && !+item.commentId) {
     itemData = questionData.answers.filter(x => x.id == item.answerId)[0];
+    minEnergy = MIN_ENERGY_TO_DELETE_ANSWER;
   } else if (+item.answerId && +item.commentId) {
     itemData = questionData.answers
       .filter(x => x.id == item.answerId)[0]
       .comments.filter(y => y.id == item.commentId)[0];
+    minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   }
 
-  if (itemData.user === profileInfo.user) {
+  if (itemData.votingStatus.isUpVoted || itemData.votingStatus.isDownVoted) {
+    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+  } else if (itemData.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (itemData.votingStatus.isVotedToDelete) {
     message = `${translations[messages.youVoted.id]}`;
-  } else if (profileInfo.rating < minRatingToVoteToDelete) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${minRatingToVoteToDelete}`;
-  } else if (profileInfo.moderation_points <= minModerationPoints) {
-    message = `${
-      translations[messages.notEnoughModPoints.id]
-    } ${minModerationPoints}`;
+  } else if (profileInfo.rating < MIN_RATING) {
+    message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
+  } else if (profileInfo.energy < minEnergy) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
 export const postAnswerValidator = (
@@ -62,8 +66,11 @@ export const postAnswerValidator = (
   translations,
 ) => {
   const maxAnswersNumber = 200;
-  const minRatingForMyQuestion = 0;
-  const minRatingForOtherQuestions = 10;
+
+  const MIN_RATING_FOR_MY_QUESTION = 0;
+  const MIN_RATING_FOR_OTHER_QUESTIONS = 0;
+  const MIN_ENERGY = 6;
+
   const isAnswered = !!questionData.answers.filter(
     x => x.user === profileInfo.user,
   ).length;
@@ -76,28 +83,29 @@ export const postAnswerValidator = (
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
     questionData.user === profileInfo.user &&
-    profileInfo.rating < minRatingForMyQuestion
+    profileInfo.rating < MIN_RATING_FOR_MY_QUESTION
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingForMyQuestion}`;
+    } ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
     questionData.user !== profileInfo.user &&
-    profileInfo.rating < minRatingForOtherQuestions
+    profileInfo.rating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingForOtherQuestions}`;
+    } ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
+// TODO: retest
 /* eslint eqeqeq: 0 */
 export const postCommentValidator = (
   profileInfo,
@@ -107,46 +115,68 @@ export const postCommentValidator = (
   translations,
 ) => {
   const maxCommentsNumber = 200;
-  const minRatingForMyItem = 0;
-  const minRatingForOtherItems = 30;
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+
+  const MIN_RATING_FOR_MY_ITEM = 0;
+  const MIN_RATING_FOR_OTHER_ITEMS = 35;
+  const MIN_ENERGY = 4;
+
+  let item = questionData;
+
+  if (+answerId > 0) {
+    item = questionData.answers.find(x => x.id == answerId);
+  }
 
   let message;
 
-  if (questionData.comments.length === maxCommentsNumber) {
+  if (item.comments.length === maxCommentsNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
-    ((questionData.user === profileInfo.user && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)) &&
-    profileInfo.rating < minRatingForMyItem
+    item.user === profileInfo.user &&
+    profileInfo.rating < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingForMyItem}`;
+    } ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
-    ((questionData.user !== profileInfo.user && answerId == 0) ||
-      (isOwnItem[0] && isOwnItem[0].user !== profileInfo.user)) &&
-    profileInfo.rating < minRatingForOtherItems
+    item.user !== profileInfo.user &&
+    profileInfo.rating < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingForOtherItems}`;
+    } ${MIN_RATING_FOR_OTHER_ITEMS}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
-export const markAsAcceptedValidator = (profileInfo, questionData) => {
+export const markAsAcceptedValidator = (
+  profileInfo,
+  questionData,
+  postButtonId,
+  translations,
+) => {
+  const MIN_RATING = 0;
+  const MIN_ENERGY = 1;
+
+  let message;
+
   if (profileInfo.user !== questionData.user) {
-    return false;
+    message = `${translations[messages.noRootsToVote.id]}`;
+  } else if (profileInfo.rating < MIN_RATING) {
+    message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
-  return true;
+  if (message) {
+    showPopover(postButtonId, message);
+    throw new ApplicationError(message);
+  }
 };
 
 export const upVoteValidator = (
@@ -156,28 +186,35 @@ export const upVoteValidator = (
   answerId,
   translations,
 ) => {
-  const minRatingToUpvote = 35;
+  const MIN_RATING_TO_UPVOTE = 35;
+  const MIN_ENERGY = 1;
+
   const isOwnItem = questionData.answers.filter(x => x.id === +answerId);
 
   let message;
 
   if (
+    (answerId == 0 && questionData.votingStatus.isVotedToDelete) ||
+    (isOwnItem[0] && isOwnItem[0].votingStatus.isVotedToDelete)
+  ) {
+    message = translations[messages.cannotCompleteBecauseBlocked.id];
+  } else if (
     (questionData.user === profileInfo.user && answerId == 0) ||
     (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.rating < minRatingToUpvote) {
+  } else if (profileInfo.rating < MIN_RATING_TO_UPVOTE) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingToUpvote}`;
+    } ${MIN_RATING_TO_UPVOTE}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
 export const downVoteValidator = (
@@ -187,49 +224,66 @@ export const downVoteValidator = (
   answerId,
   translations,
 ) => {
-  const minRatingToDownvote = 100;
-  const isOwnItem = questionData.answers.filter(x => x.id === +answerId);
+  const MIN_RATING_TO_DOWNVOTE = 100;
+  const MIN_ENERGY_TO_DOWNVOTE_QUESTION = 5;
+  const MIN_ENERGY_TO_DOWNVOTE_ANSWER = 3;
+  const MIN_ENERGY_TO_CHANGE_DECISION = 1;
+
+  const minEnergy =
+    answerId == 0
+      ? MIN_ENERGY_TO_DOWNVOTE_QUESTION
+      : MIN_ENERGY_TO_DOWNVOTE_ANSWER;
 
   let message;
 
-  if (
-    (questionData.user === profileInfo.user && answerId == 0) ||
-    (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
-  ) {
+  const item =
+    answerId == 0
+      ? questionData
+      : questionData.answers.find(x => x.id === +answerId);
+
+  if (item.votingStatus.isVotedToDelete) {
+    message = translations[messages.cannotCompleteBecauseBlocked.id];
+  } else if (item.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.rating < minRatingToDownvote) {
+  } else if (profileInfo.rating < MIN_RATING_TO_DOWNVOTE) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${minRatingToDownvote}`;
+    } ${MIN_RATING_TO_DOWNVOTE}`;
+  } else if (
+    (item.votingStatus.isDownVoted &&
+      profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
+    (!item.votingStatus.isDownVoted && profileInfo.energy < minEnergy)
+  ) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
 export const deleteQuestionValidator = (
   postButtonId,
   answersNum,
   translations,
+  profileInfo,
 ) => {
-  const answersLimit = 0;
+  const ANSWERS_LIMIT = 0;
+  const MIN_ENERGY = 2;
 
   let message;
 
-  if (answersNum > answersLimit) {
+  if (answersNum > ANSWERS_LIMIT) {
     message = `${translations[messages.youHaveAnswers.id]}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
   }
-
-  return true;
 };
 
 export const deleteAnswerValidator = (
@@ -237,17 +291,59 @@ export const deleteAnswerValidator = (
   answerid,
   correctAnswerId,
   translations,
+  profileInfo,
 ) => {
+  const MIN_ENERGY = 2;
+
   let message;
 
   if (+answerid === correctAnswerId) {
     message = `${translations[messages.answerIsCorrect.id]}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {
     showPopover(postButtonId, message);
-    return false;
+    throw new ApplicationError(message);
+  }
+};
+
+export const deleteCommentValidator = (
+  profileInfo,
+  postButtonId,
+  translations,
+) => {
+  const MIN_ENERGY = 1;
+
+  let message;
+
+  if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
   }
 
-  return true;
+  if (message) {
+    showPopover(postButtonId, message);
+    throw new ApplicationError(message);
+  }
+};
+
+// TODO: test
+export const editCommentValidator = (
+  profileInfo,
+  postButtonId,
+  translations,
+) => {
+  const MIN_ENERGY = 1;
+
+  let message;
+
+  if (profileInfo.energy < MIN_ENERGY) {
+    message = translations[messages.notEnoughEnergy.id];
+  }
+
+  if (message) {
+    showPopover(postButtonId, message);
+    throw new ApplicationError(message);
+  }
 };

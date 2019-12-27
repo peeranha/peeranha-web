@@ -16,18 +16,23 @@ import ReactGA from 'react-ga';
 import { Switch, Route } from 'react-router-dom';
 import * as routes from 'routes-config';
 
+import { ScrollTo } from 'utils/animation';
+import { closePopover as Popover } from 'utils/popover';
+
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import ErrorBoundary from 'components/ErrorBoundary';
+
 import Wrapper from './Wrapper';
 
 import {
   HomePage,
-  FaqFull,
   Faq,
   Users,
   EditQuestion,
   EditProfilePage,
   ViewProfilePage,
   NotFoundPage,
+  ErrorPage,
   Questions,
   AskQuestion,
   ViewQuestion,
@@ -46,23 +51,32 @@ import {
   ScatterSignUpForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
-  RegistrationAlmostDone,
+  RegistrationAlmostDoneWithAccount,
+  RegistrationAlmostDoneNoAccount,
   Login,
   ForgotPassword,
   Toast,
   Wallet,
+  Search,
+  Support,
+  PrivacyPolicy,
+  FullWidthPreloader,
+  TermsOfService,
 } from './imports';
 
-export default function App /* istanbul ignore next */() {
-  if (process.env.NODE_ENV !== 'development') {
+export default function App() {
+  if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
 
   return (
-    <div>
+    <ErrorBoundary>
       <Toast />
       <Login />
       <ForgotPassword />
+
+      <ScrollTo />
+      <Popover />
 
       <Switch>
         <Route exact path={routes.home()}>
@@ -71,13 +85,22 @@ export default function App /* istanbul ignore next */() {
           </React.Suspense>
         </Route>
 
-        <Route exact path={routes.faq()}>
-          <React.Suspense fallback={<Loader />}>
-            <FaqFull />
-          </React.Suspense>
-        </Route>
+        <Route
+          exact
+          path={routes.preloaderPage()}
+          render={props => Wrapper(FullWidthPreloader, props)}
+        />
 
-        <Route path={routes.feed()} render={props => Wrapper(Feed, props)} />
+        <Route
+          exact
+          path={routes.feed()}
+          render={props => Wrapper(Feed, props)}
+        />
+
+        <Route
+          path={routes.feed(':communityid')}
+          render={props => Wrapper(Feed, props)}
+        />
 
         <Route
           exact
@@ -119,8 +142,14 @@ export default function App /* istanbul ignore next */() {
 
         <Route
           exact
-          path={routes.appFaq()}
+          path={routes.faq()}
           render={props => Wrapper(Faq, props)}
+        />
+
+        <Route
+          exact
+          path={routes.termsAndConditions()}
+          render={props => Wrapper(TermsOfService, props)}
         />
 
         <Route
@@ -140,8 +169,23 @@ export default function App /* istanbul ignore next */() {
         />
 
         <Route
+          path={routes.support()}
+          render={props => Wrapper(Support, props)}
+        />
+
+        <Route
+          path={routes.privacyPolicy()}
+          render={props => Wrapper(PrivacyPolicy, props)}
+        />
+
+        <Route
           exact
           path={routes.questions()}
+          render={props => Wrapper(Questions, props)}
+        />
+
+        <Route
+          path={routes.questions(':communityid')}
           render={props => Wrapper(Questions, props)}
         />
 
@@ -177,6 +221,22 @@ export default function App /* istanbul ignore next */() {
           render={props => Wrapper(NoAccess, props)}
         />
 
+        <Route
+          exact
+          path={routes.search()}
+          render={props => Wrapper(Search, props)}
+        />
+
+        <Route
+          path={routes.search(':q')}
+          render={props => Wrapper(Search, props)}
+        />
+
+        <Route
+          path={routes.errorPage()}
+          render={props => Wrapper(ErrorPage, props)}
+        />
+
         <Route path={routes.signup.email.name}>
           <React.Suspense fallback={<Loader />}>
             <EmailEnteringForm />
@@ -195,26 +255,32 @@ export default function App /* istanbul ignore next */() {
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.haveEosAccount.name}>
+        <Route exact path={routes.signup.haveEosAccount.name}>
           <React.Suspense fallback={null}>
             <IHaveEOSAccountForm />
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.dontHaveEosAccount.name}>
+        <Route exact path={routes.signup.dontHaveEosAccount.name}>
           <React.Suspense fallback={null}>
             <IdontHaveEOSAccountForm />
           </React.Suspense>
         </Route>
 
-        <Route path={routes.signup.almostDone.name}>
+        <Route path={routes.signup.almostDoneWithAccount.name}>
           <React.Suspense fallback={null}>
-            <RegistrationAlmostDone />
+            <RegistrationAlmostDoneWithAccount />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.almostDoneNoAccount.name}>
+          <React.Suspense fallback={null}>
+            <RegistrationAlmostDoneNoAccount />
           </React.Suspense>
         </Route>
 
         <Route render={props => Wrapper(NotFoundPage, props)} />
       </Switch>
-    </div>
+    </ErrorBoundary>
   );
 }

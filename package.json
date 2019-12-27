@@ -21,12 +21,15 @@
     "preinstall": "npm run npmcheckversion",
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean",
-    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build": "webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "build:test": "cross-env NODE_ENV=test npm run build",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
-    "start:production": "npm run test && npm run build && npm run start:prod",
+    "start:production": "npm run test && npm run build:prod && npm run start:prod",
+    "start:test": "npm run test && npm run build:test && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "presetup": "npm i chalk shelljs",
     "setup": "node ./internals/scripts/setup.js",
@@ -40,7 +43,6 @@
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "test:clean": "rimraf ./coverage",
-    "pretest": "npm run prettify './app/**/*.js' && npm run test:clean && npm run lint",
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --no-cache",
     "test:file": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
@@ -65,18 +67,19 @@
   },
   "pre-commit": "lint:staged",
   "babel": {
-    "plugins": [
-      "styled-components"
-    ],
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "modules": false
         }
       ],
-      "react",
-      "stage-0"
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "styled-components",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-syntax-dynamic-import"
     ],
     "env": {
       "production": {
@@ -84,14 +87,15 @@
           "app"
         ],
         "plugins": [
+          "lodash",
           "transform-react-remove-prop-types",
-          "transform-react-inline-elements",
-          "transform-react-constant-elements"
+          "@babel/plugin-transform-react-inline-elements",
+          "@babel/plugin-transform-react-constant-elements"
         ]
       },
       "test": {
         "plugins": [
-          "transform-es2015-modules-commonjs",
+          "@babel/plugin-transform-modules-commonjs",
           "dynamic-import-node"
         ]
       }
@@ -116,13 +120,15 @@
   },
   "jest": {
     "collectCoverageFrom": [
+      "!app/*.{js}",
       "app/**/*.{js}",
       "!app/**/*.test.{js,jsx}",
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
       "!app/global-styles.js",
-      "!app/*/*/Loadable.{js,jsx}",
-      "!app/utils/web_integration/**/*.{js,jsx}"
+      "!app/utils/web_integration/**/*.{js,jsx}",
+      "!app/components/**/*.{js,jsx}",
+      "!app/containers/App/*.{js,jsx}"
     ],
     "coverageThreshold": {
       "global": {
@@ -151,16 +157,23 @@
       "enzyme-to-json/serializer"
     ]
   },
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
+  },
   "dependencies": {
-    "babel-polyfill": "6.26.0",
+    "@babel/polyfill": "7.4.3",
+    "@scatterjs/core": "^2.7.48",
+    "@scatterjs/eosjs2": "^1.5.30",
     "babel-preset-es2015": "^6.24.1",
     "bs58": "^4.0.1",
     "chalk": "^2.4.1",
+    "clipboard-polyfill": "^2.8.6",
     "compression": "1.7.2",
     "copy-webpack-plugin": "^5.0.3",
     "cross-env": "5.2.0",
     "crypto": "^1.0.1",
     "date-fns": "^1.29.0",
+    "eosjs": "^20.0.0",
     "eosjs-keygen": "^1.3.2",
     "express": "4.16.3",
     "fontfaceobserver": "2.0.13",
@@ -171,6 +184,7 @@
     "invariant": "2.2.4",
     "ip": "1.1.5",
     "jquery": "3.3.1",
+    "jsbi": "^3.1.1",
     "lodash": "4.17.10",
     "markdown-loader": "^5.0.0",
     "minimist": "1.2.0",
@@ -179,7 +193,7 @@
     "popper.js": "1.14.4",
     "prop-types": "15.6.1",
     "react": "^16.8.3",
-    "react-avatar-editor": "^11.0.4",
+    "react-avatar-edit": "^0.8.3",
     "react-dom": "^16.8.3",
     "react-ga": "^2.5.6",
     "react-helmet": "5.2.0",
@@ -188,7 +202,7 @@
     "react-redux": "5.0.7",
     "react-router-dom": "4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
-    "react-select": "^2.2.0",
+    "react-select": "^3.0.4",
     "react-simplemde-editor": "^3.6.22",
     "redux": "4.0.0",
     "redux-form": "^7.4.2",
@@ -198,29 +212,30 @@
     "saga-monitor": "^1.0.2",
     "sanitize.css": "4.1.0",
     "scatterjs-core": "^2.7.18",
-    "scatterjs-plugin-eosjs": "^1.5.1",
     "styled-components": "3.3.2",
     "warning": "4.0.1",
     "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
-    "add-asset-html-webpack-plugin": "2.1.3",
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.0.1",
-    "babel-loader": "7.1.4",
-    "babel-plugin-dynamic-import-node": "1.2.0",
-    "babel-plugin-react-intl": "2.4.0",
-    "babel-plugin-react-transform": "3.0.0",
-    "babel-plugin-styled-components": "1.5.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
-    "babel-plugin-transform-react-constant-elements": "6.23.0",
-    "babel-plugin-transform-react-inline-elements": "6.22.0",
-    "babel-plugin-transform-react-jsx-source": "6.22.0",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.13",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-0": "6.24.1",
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "7.4.3",
+    "@babel/plugin-transform-react-constant-elements": "7.2.0",
+    "@babel/plugin-transform-react-inline-elements": "7.2.0",
+    "@babel/preset-env": "7.4.3",
+    "@babel/preset-react": "7.0.0",
+    "@babel/register": "7.4.0",
+    "add-asset-html-webpack-plugin": "3.1.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.5",
+    "babel-plugin-dynamic-import-node": "2.2.0",
+    "babel-plugin-lodash": "3.3.4",
+    "babel-plugin-react-intl": "3.0.1",
+    "babel-plugin-styled-components": "1.10.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
     "bootstrap": "4.1.3",
     "circular-dependency-plugin": "5.0.2",
     "coveralls": "3.0.1",
@@ -229,7 +244,6 @@
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "enzyme-to-json": "3.3.4",
-    "eosjs": "16.0.7",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-airbnb-base": "12.1.0",
@@ -246,7 +260,7 @@
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "husky": "0.14.3",
-    "image-webpack-loader": "4.3.1",
+    "image-webpack-loader": "6.0.0",
     "imports-loader": "0.8.0",
     "ipfs-api": "24.0.1",
     "jest": "23.6.0",

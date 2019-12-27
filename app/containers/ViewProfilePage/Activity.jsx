@@ -4,24 +4,31 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import H4 from 'components/H4';
 import Base from 'components/Base';
-import NavigationButton from 'components/Button/Contained/Navigation';
-import A from 'components/A';
+import Span from 'components/Span';
+
+import { NavigationLink } from 'components/Button/Contained/Navigation';
+import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
 
 import profileMessages from 'containers/Profile/messages';
 
 import QuestionsProfileTab from './QuestionsProfileTab';
-import NoActivity from './NoActivity';
+import Banner from './Banner';
 
-const Activity = /* istanbul ignore next */ ({
+const DEFAULT_NUMBER = 10;
+
+/* eslint indent: 0 */
+const Activity = ({
   userId,
   questions,
   questionsWithUserAnswers,
   questionsWithAnswersLoading,
   questionsLoading,
   locale,
+  profile,
 }) => {
   const path = window.location.pathname + window.location.hash;
 
@@ -40,10 +47,10 @@ const Activity = /* istanbul ignore next */ ({
     questions.concat(questionsWithUserAnswers),
     y => y.myPostTime,
     ['desc'],
-  ).slice(0, 10);
+  ).slice(0, DEFAULT_NUMBER);
 
   if (!questionsWithAnswersLoading && !questionsLoading && !myPosts[0]) {
-    return <NoActivity />;
+    return <Banner />;
   }
 
   return (
@@ -53,44 +60,78 @@ const Activity = /* istanbul ignore next */ ({
       </H4>
 
       <Base position="top">
-        <A
+        <NavigationLink
           to={profileViewRoute}
-          href={profileViewRoute}
           disabled={!myPosts.length}
+          isLink={path !== profileViewRoute}
         >
-          <NavigationButton
-            disabled={!myPosts.length}
-            isLink={path !== profileViewRoute}
-          >
-            <FormattedMessage {...messages.posts} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage
+            {...messages.postsNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={path !== profileViewRoute ? TEXT_SECONDARY : 'inherit'}
+                >
+                  {profile.questions_asked + profile.answers_given}
+                </Span>
+              ),
+            }}
+          />
+        </NavigationLink>
 
-        <A
+        <NavigationLink
           to={profileViewActivityQuestionsRoute}
-          href={profileViewActivityQuestionsRoute}
           disabled={!questions.length}
+          tabIndex={!questions.length ? '-1' : undefined}
+          isLink={path !== profileViewActivityQuestionsRoute}
         >
-          <NavigationButton
-            disabled={!questions.length}
-            isLink={path !== profileViewActivityQuestionsRoute}
-          >
-            <FormattedMessage {...messages.questions} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage
+            {...messages.questionsNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== profileViewActivityQuestionsRoute
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                >
+                  {profile.questions_asked}
+                </Span>
+              ),
+            }}
+          />
+        </NavigationLink>
 
-        <A
-          disabled={!questionsWithUserAnswers.length}
+        <NavigationLink
           to={profileViewActivityAnswersRoute}
-          href={profileViewActivityAnswersRoute}
+          tabIndex={!questionsWithUserAnswers.length ? '-1' : undefined}
+          disabled={!questionsWithUserAnswers.length}
+          isLink={path !== profileViewActivityAnswersRoute}
         >
-          <NavigationButton
-            disabled={!questionsWithUserAnswers.length}
-            isLink={path !== profileViewActivityAnswersRoute}
-          >
-            <FormattedMessage {...messages.answers} />
-          </NavigationButton>
-        </A>
+          <FormattedMessage
+            {...messages.answersNumber}
+            values={{
+              number: (
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== profileViewActivityAnswersRoute
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                >
+                  {profile.answers_given}
+                </Span>
+              ),
+            }}
+          />
+        </NavigationLink>
       </Base>
 
       <Base position="bottom">
@@ -106,7 +147,7 @@ const Activity = /* istanbul ignore next */ ({
           tab="questions"
           locale={locale}
           className={path === profileViewActivityQuestionsRoute ? '' : 'd-none'}
-          questions={questions.slice(0, 10)}
+          questions={questions.slice(0, DEFAULT_NUMBER)}
           loading={questionsLoading}
         />
 
@@ -114,9 +155,43 @@ const Activity = /* istanbul ignore next */ ({
           tab="answers"
           locale={locale}
           className={path === profileViewActivityAnswersRoute ? '' : 'd-none'}
-          questions={questionsWithUserAnswers.slice(0, 10)}
+          questions={questionsWithUserAnswers.slice(0, DEFAULT_NUMBER)}
           loading={questionsWithAnswersLoading}
         />
+
+        {!questionsWithAnswersLoading &&
+          !questionsLoading &&
+          myPosts.length === DEFAULT_NUMBER && (
+            <div className="mt-3">
+              <FormattedMessage
+                id={profileMessages.seeMore.id}
+                values={{
+                  questions: (
+                    <TransparentLinkDefault
+                      className="d-inline text-lowercase"
+                      href={routes.userQuestions(userId)}
+                      disabled={!questions.length}
+                      tabIndex={!questions.length ? '-1' : undefined}
+                    >
+                      <FormattedMessage {...messages.questions} />
+                    </TransparentLinkDefault>
+                  ),
+                  answers: (
+                    <TransparentLinkDefault
+                      className="d-inline text-lowercase"
+                      href={routes.userAnswers(userId)}
+                      disabled={!questionsWithUserAnswers.length}
+                      tabIndex={
+                        !questionsWithUserAnswers.length ? '-1' : undefined
+                      }
+                    >
+                      <FormattedMessage {...messages.answers} />
+                    </TransparentLinkDefault>
+                  ),
+                }}
+              />
+            </div>
+          )}
       </Base>
     </div>
   );
@@ -129,6 +204,7 @@ Activity.propTypes = {
   questionsWithAnswersLoading: PropTypes.bool,
   questionsLoading: PropTypes.bool,
   locale: PropTypes.string,
+  profile: PropTypes.object,
 };
 
 export default Activity;

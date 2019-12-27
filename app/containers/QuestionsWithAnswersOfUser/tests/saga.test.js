@@ -5,14 +5,12 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import {
-  getAnswersPostedByUser,
-  getQuestionById,
-} from 'utils/questionsManagement';
+import { getAnswersPostedByUser } from 'utils/questionsManagement';
 
 import defaultSaga, { getQuestionsWorker } from '../saga';
 
 import { GET_QUESTIONS, GET_QUESTIONS_ERROR } from '../constants';
+import { getQuestionsSuccess } from '../actions';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -30,8 +28,11 @@ jest.mock('utils/questionsManagement', () => ({
 describe('getQuestionsWorker', () => {
   const eosService = {};
   const limit = 10;
-  const questionsFromStore = [];
-  const answersId = [{ question_id: 1, answer_id: 1 }];
+  const questionsFromStore = [{ id: 1 }];
+  const freshQuestions = [
+    { id: 1, answers: [{ id: 1, user: 'user', rating: 10 }] },
+  ];
+  const answersId = [{ answer_id: 1 }, { answer_id: 2 }];
 
   const offset =
     (questionsFromStore[questionsFromStore.length - 1] &&
@@ -72,11 +73,11 @@ describe('getQuestionsWorker', () => {
 
   it('getQuestionById', () => {
     generator.next(answersId);
-    expect(getQuestionById).toHaveBeenCalledWith(
-      eosService,
-      answersId[0].question_id,
-      userId,
-    );
+  });
+
+  it('getQuestionsSuccess', () => {
+    const step = generator.next(freshQuestions);
+    expect(step.value).toEqual(getQuestionsSuccess(freshQuestions));
   });
 
   it('error handling', () => {

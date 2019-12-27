@@ -1,23 +1,21 @@
-import { translationMessages } from 'i18n';
-import { HomePage, mapDispatchToProps } from '../index';
+import { scrollToSection } from 'utils/animation';
+import { HomePage } from '../index';
+import { EMAIL_FIELD } from '../constants';
 
-import messages from '../messages';
-
-import {
-  EMAIL_FIELD,
-  NAME_FIELD,
-  SUBJECT_FIELD,
-  MESSAGE_FIELD,
-} from '../constants';
+jest.mock('utils/animation', () => ({
+  scrollToSection: jest.fn(),
+}));
 
 const cmp = new HomePage();
 
 cmp.props = {
   locale: 'en',
-  sendEmailLoading: true,
+  account: 'user1',
+  checkEmailDispatch: jest.fn(),
+  emailChecking: true,
   sendMessageLoading: true,
-  sendEmailDispatch: jest.fn(),
   sendMessageDispatch: jest.fn(),
+  faqQuestions: [],
 };
 
 const off = jest.fn();
@@ -29,6 +27,18 @@ window.$ = jest.fn(() => ({
 }));
 
 describe('HomePage', () => {
+  describe('checkEmail', () => {
+    const val = new Map();
+    const email = 'email';
+
+    val.set(EMAIL_FIELD, email);
+
+    it('test', () => {
+      cmp.checkEmail(val);
+      expect(cmp.props.checkEmailDispatch).toHaveBeenCalledWith(email);
+    });
+  });
+
   describe('componentDidMount', () => {
     cmp.imagesAnimation = jest.fn();
 
@@ -40,12 +50,14 @@ describe('HomePage', () => {
       expect(cmp.imagesAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(0);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(0);
+      expect(scrollToSection).toHaveBeenCalledTimes(0);
 
       cmp.componentDidMount();
 
       expect(cmp.imagesAnimation).toHaveBeenCalledTimes(1);
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(1);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(1);
+      expect(scrollToSection).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -57,89 +69,9 @@ describe('HomePage', () => {
     });
   });
 
-  describe('sendEmail', () => {
-    it('test', () => {
-      const mapp = new Map().set(EMAIL_FIELD, EMAIL_FIELD);
-      const form = 'form1';
-      const reset = jest.fn();
-
-      const formData = {
-        email: mapp.get(EMAIL_FIELD),
-      };
-
-      const pageInfo = {
-        url: window.location.href,
-        name: `${
-          translationMessages[cmp.props.locale][messages.title.id]
-        } | ${form}`,
-      };
-
-      cmp.sendEmail(mapp, () => {}, {
-        form,
-        reset,
-      });
-
-      expect(cmp.props.sendEmailDispatch).toHaveBeenCalledWith(
-        formData,
-        reset,
-        pageInfo,
-      );
-    });
-  });
-
-  describe('sendMessage', () => {
-    it('test', () => {
-      const mapp = new Map()
-        .set(EMAIL_FIELD, EMAIL_FIELD)
-        .set(NAME_FIELD, NAME_FIELD)
-        .set(SUBJECT_FIELD, SUBJECT_FIELD)
-        .set(MESSAGE_FIELD, MESSAGE_FIELD);
-
-      const form = 'form122';
-      const reset = jest.fn();
-
-      const formData = {
-        email: mapp.get(EMAIL_FIELD),
-        firstname: mapp.get(NAME_FIELD),
-        subject: mapp.get(SUBJECT_FIELD),
-        message: mapp.get(MESSAGE_FIELD),
-      };
-
-      const pageInfo = {
-        url: window.location.href,
-        name: `${
-          translationMessages[cmp.props.locale][messages.title.id]
-        } | ${form}`,
-      };
-
-      cmp.sendMessage(mapp, () => {}, {
-        form,
-        reset,
-      });
-
-      expect(cmp.props.sendMessageDispatch).toHaveBeenCalledWith(
-        formData,
-        reset,
-        pageInfo,
-      );
-    });
-  });
-
   describe('render', () => {
     it('test', () => {
       expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
-  describe('mapDispatchToProps', () => {
-    it('mapDispatchToProps test', () => {
-      const test = 'test';
-      const dispatch = () => test;
-
-      expect(typeof mapDispatchToProps(dispatch) === 'object').toBe(true);
-      expect(mapDispatchToProps(dispatch).dispatch).toBe(dispatch);
-      expect(mapDispatchToProps(dispatch).sendEmailDispatch()).toBe(test);
-      expect(mapDispatchToProps(dispatch).sendMessageDispatch()).toBe(test);
     });
   });
 });

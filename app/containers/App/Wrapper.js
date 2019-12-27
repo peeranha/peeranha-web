@@ -7,80 +7,85 @@ import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
-import { HEADER_HEIGHT } from 'containers/Header/constants';
+import {
+  HEADER_HEIGHT,
+  MOBILE_HEADER_HEIGHT,
+} from 'containers/Header/constants';
+
+import { LEFT_MENU_WIDTH } from './constants';
 
 const Main = styled.div`
   background: rgb(234, 236, 244);
   min-height: 100vh;
-  padding-top: ${HEADER_HEIGHT}px;
-  padding-bottom: 150px;
+  padding-top: ${x => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
+  padding-bottom: ${x => (!x.isMenuVisible ? 75 : 0)}px;
+
+  @media only screen and (max-width: 576px) {
+    padding-top: ${x => (!x.isMenuVisible ? MOBILE_HEADER_HEIGHT : 0)}px;
+    padding-bottom: 0px;
+  }
 `;
 
 const WrapStyled = styled.main`
   margin-top: 10px;
-  flex: 1 1 auto;
-  overflow-y: -webkit-paged-y;
+  width: calc(100% - ${LEFT_MENU_WIDTH}px - 17px);
+
+  @media only screen and (max-width: 992px) {
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 576px) {
+    margin-top: 0px;
+  }
 `;
 
 export class Box extends React.PureComponent {
   state = {
     isMenuVisible: false,
-    isNavigationExpanded: false,
   };
 
   // set default state if window resizing is happening
-  componentDidMount() /* istanbul ignore next */ {
+  componentDidMount() {
     $(window).resize(() => {
       clearTimeout(window.resizedFinished);
       window.resizedFinished = setTimeout(() => {
         this.setState({
           isMenuVisible: false,
-          isNavigationExpanded: false,
         });
       }, 250);
     });
   }
 
-  // set default state if links changing is happening
-  componentWillReceiveProps(prevProps) /* istanbul ignore next */ {
-    if (
-      prevProps.props.location.pathname !==
-        this.props.props.location.pathname &&
-      this.state.isMenuVisible
-    ) {
+  componentWillReceiveProps() {
+    if (this.state.isMenuVisible) {
       this.setState({
         isMenuVisible: false,
-        isNavigationExpanded: false,
       });
     }
   }
 
-  showMenu = /* istanbul ignore next */ () => {
+  showMenu = () => {
     this.setState({ isMenuVisible: !this.state.isMenuVisible });
   };
 
-  expandLeftMenuNavigation = /* istanbul ignore next */ () => {
-    this.setState({ isNavigationExpanded: !this.state.isNavigationExpanded });
-  };
-
-  render() /* istanbul ignore next */ {
-    const { isMenuVisible, isNavigationExpanded } = this.state;
+  render() {
+    const { isMenuVisible } = this.state;
     const { Comp, props } = this.props;
 
     return (
       <React.Fragment>
-        <Header
-          expandLeftMenuNavigation={this.expandLeftMenuNavigation}
-          isMenuVisible={isMenuVisible}
-          showMenu={this.showMenu}
-        />
+        {!isMenuVisible && (
+          <Header
+            expandLeftMenuNavigation={this.expandLeftMenuNavigation}
+            showMenu={this.showMenu}
+          />
+        )}
 
-        <Main>
-          <div className="container">
+        <Main isMenuVisible={isMenuVisible}>
+          <div className={isMenuVisible ? '' : 'container container-mobile'}>
             <div className="d-flex">
               <LeftMenu
                 showMenu={this.showMenu}
-                isNavigationExpanded={isNavigationExpanded}
                 isMenuVisible={isMenuVisible}
                 {...props}
               />
@@ -103,8 +108,6 @@ Box.propTypes = {
   props: PropTypes.object,
 };
 
-const Wrapper = /* istanbul ignore next */ (comp, props) => (
-  <Box Comp={comp} props={props} />
-);
+const Wrapper = (comp, props) => <Box Comp={comp} props={props} />;
 
 export default Wrapper;

@@ -1,4 +1,7 @@
+import JSBI from 'jsbi';
+
 import { saveText, getText, getFileUrl } from './ipfs';
+import { uploadImg } from './profileManagement';
 
 import {
   TAGS_TABLE,
@@ -29,23 +32,29 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 }
 
 /* eslint-disable */
-export function getTagScope(communityId) /* istanbul ignore next */ {
+export function getTagScope(communityId) {
   const charmap = '.12345abcdefghijklmnopqrstuvwxyz';
-  const mask = BigInt('0xF800000000000000');
-  const mask64 = BigInt('0xFFFFFFFFFFFFFFFF');
+  const mask = JSBI.BigInt('0xF800000000000000');
+  const mask64 = JSBI.BigInt('0xFFFFFFFFFFFFFFFF');
+  const zero = JSBI.BigInt(0);
+  const five = JSBI.BigInt(5);
+  let v = JSBI.add(
+    JSBI.BigInt('3774731489195851776'),
+    JSBI.BigInt(communityId),
+  );
 
-  const zero = BigInt(0);
-  const five = BigInt(5);
-
-  let v = BigInt('3774731489195851776') + BigInt(communityId);
   let ret = '';
 
   for (let i = 0; i < 13; i++) {
-    v &= mask64;
-    if (v == zero) break;
-    const indx = (v & mask) >> BigInt(i == 12 ? 60 : 59);
-    ret += charmap[indx];
-    v <<= five;
+    v = JSBI.bitwiseAnd(v, mask64);
+    if (v.toString() == zero.toString()) break;
+    const indx = JSBI.signedRightShift(
+      JSBI.bitwiseAnd(v, mask),
+      JSBI.BigInt(i == 12 ? 60 : 59),
+    );
+
+    ret += charmap[indx.toString()];
+    v = JSBI.leftShift(v, five);
   }
 
   return ret;
@@ -55,12 +64,18 @@ export function getTagScope(communityId) /* istanbul ignore next */ {
 export async function suggestTag(eosService, selectedAccount, tag) {
   const tagIpfsHash = await saveText(JSON.stringify(tag));
 
-  await eosService.sendTransaction(selectedAccount, CREATE_TAG, {
-    user: selectedAccount,
-    community_id: +tag.communityId,
-    name: tag.name,
-    ipfs_description: tagIpfsHash,
-  });
+  await eosService.sendTransaction(
+    selectedAccount,
+    CREATE_TAG,
+    {
+      user: selectedAccount,
+      community_id: +tag.communityId,
+      name: tag.name,
+      ipfs_description: tagIpfsHash,
+    },
+    null,
+    true,
+  );
 }
 
 export async function getSuggestedTags(
@@ -126,10 +141,13 @@ export async function downVoteToCreateTag(
 /* eslint no-param-reassign: 0 */
 export async function getAllCommunities(eosService) {
   const lowerBound = 0;
+  const limit = -1;
+
   const communities = await eosService.getTableRows(
     COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     lowerBound,
+    limit,
   );
 
   await Promise.all(
@@ -154,6 +172,7 @@ export async function getAllCommunities(eosService) {
           TAGS_TABLE,
           getTagScope(x.id),
           lowerBound,
+          limit,
         );
 
         x.tags.forEach(y => {
@@ -217,7 +236,14 @@ export async function followCommunity(
 
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
-  const communityIpfsHash = await saveText(JSON.stringify(community));
+  const { imgHash } = await uploadImg(community.avatar);
+
+  const communityIpfsHash = await saveText(
+    JSON.stringify({
+      ...community,
+      avatar: imgHash,
+    }),
+  );
 
   const suggested_tags = await Promise.all(
     community.tags.map(async x => {
@@ -230,12 +256,18 @@ export async function createCommunity(eosService, selectedAccount, community) {
     }),
   );
 
-  await eosService.sendTransaction(selectedAccount, CREATE_COMMUNITY, {
-    user: selectedAccount,
-    name: community.name,
-    ipfs_description: communityIpfsHash,
-    suggested_tags,
-  });
+  await eosService.sendTransaction(
+    selectedAccount,
+    CREATE_COMMUNITY,
+    {
+      user: selectedAccount,
+      name: community.name,
+      ipfs_description: communityIpfsHash,
+      suggested_tags,
+    },
+    null,
+    true,
+  );
 }
 
 export async function upVoteToCreateCommunity(

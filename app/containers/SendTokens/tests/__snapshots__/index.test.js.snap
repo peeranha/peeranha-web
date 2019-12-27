@@ -6,7 +6,7 @@ exports[`<SendTokens /> render 1`] = `
     closeModal={[MockFunction]}
     show={true}
   >
-    <Connect(ReduxForm)
+    <ReduxForm
       locale="en"
       sendTokens={[MockFunction]}
       sendTokensProcessing={false}

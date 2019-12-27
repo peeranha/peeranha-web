@@ -1,24 +1,51 @@
 import styled from 'styled-components';
 import { BG_LIGHT } from 'style-constants';
 
+import IconStyled from 'components/Icon/IconStyled';
+
 export default styled.div`
   position: relative;
-  z-index: 500;
-  background: ${BG_LIGHT};
-  width: 420px;
-  margin: 0 15px;
-  padding: 30px;
-  border-radius: 5px;
-  transition: 1s;
-  max-height: 95vh;
-  overflow: auto;
-  animation: TT111 0.5s;
-  @keyframes TT111 {
+  animation: moveFromTopToCenter 0.5s;
+
+  @keyframes moveFromTopToCenter {
     from {
       top: -450px;
     }
     to {
       top: 0px;
+    }
+  }
+
+  > ${IconStyled} {
+    position: absolute;
+    cursor: pointer;
+    top: -18px;
+    right: -8px;
+    z-index: 500;
+  }
+
+  > div {
+    position: relative;
+    z-index: 500;
+    background: ${BG_LIGHT};
+    width: 410px;
+    margin: 0 15px;
+    padding: 30px;
+    border-radius: 5px;
+    transition: 1s;
+    max-height: 95vh;
+    overflow: auto;
+  }
+
+  @media only screen and (max-width: 414px) {
+    > div {
+      width: calc(100vw - 30px);
+      padding: 20px;
+    }
+
+    > ${IconStyled} {
+      right: 16px;
+      top: -24px;
     }
   }
 `;

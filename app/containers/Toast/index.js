@@ -8,10 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import { removeToast } from './actions';
 import { TOP_RIGHT } from './constants';
@@ -36,11 +37,7 @@ export class Toast extends React.Component {
       removeToast: this.removeToast,
       location: this.location,
     };
-    return (
-      <React.Fragment>
-        {this.props.toasts.length > 0 ? <Toasts {...sendProps} /> : null}
-      </React.Fragment>
-    );
+    return <Toasts {...sendProps} />;
   }
 }
 
@@ -53,10 +50,9 @@ const mapStateToProps = createStructuredSelector({
   toasts: makeSelectToasts(),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    removeToastDispatch: key => dispatch(removeToast(key)),
+    removeToastDispatch: bindActionCreators(removeToast, dispatch),
   };
 }
 
@@ -66,7 +62,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'toast', reducer });
-const withSaga = injectSaga({ key: 'toast', saga });
+const withSaga = injectSaga({ key: 'toast', saga, mode: DAEMON });
 
 export default compose(
   withReducer,

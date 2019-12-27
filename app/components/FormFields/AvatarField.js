@@ -1,173 +1,186 @@
-import React from 'react';
+/* eslint indent: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-static-element-interactions: 0 */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import AvatarEditor from 'react-avatar-editor';
+import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { BG_PRIMARY_SPECIAL } from 'style-constants';
+import avatarCloseIcon from 'images/avatarCloseIcon.svg?external';
 
-import editUserNoAvatar from 'images/editUserNoAvatar.png';
+import { getUserAvatar } from 'utils/profileManagement';
+import { formatStringToHtmlId } from 'utils/animation';
+
+import Icon from 'components/Icon';
+import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
-import WarningMessage from './WarningMessage';
+import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 
-export const MAX_FILE_SIZE = 2000000; // 2mb
+// < 1000 chars - hash, >> 1000 - is base64 (new image)
+export const HASH_CHARS_LIMIT = 1000;
 
-const BORDER_EDITOR_RADIUS = 100;
-const EDITOR_COLOR = [255, 255, 255, 0.6];
-const EDITOR_SCALE = 1.5;
-const EDITOR_ROTATE = 0;
-const CROSS_ORIGIN = 'anonymous';
-
-const AvatarArea = styled.div`
-  overflow: hidden;
+const Div = styled.div`
   position: relative;
+  width: 120px;
   display: flex;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 10px;
+  flex-direction: column;
 
-  ${/* istanbul ignore next */ x => ErrorHandling(x.error)};
-  ${/* istanbul ignore next */ x => DisableHandling(x.disabled)};
-
-  border-radius: 50% !important;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
+  ${WarningMessageDiv} {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 
-  input {
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    cursor: pointer;
+  > :first-child {
+    position: relative;
+    width: inherit;
+    height: 120px;
+
+    label {
+      width: 100%;
+      height: 100%;
+    }
+
+    .reload-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 11;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      z-index: 12;
+
+      svg:not(.svg-icon) {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 10px;
+        left: 35px !important;
+      }
+
+      .close-icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+    }
+
+    > *:nth-child(1) {
+      ${x =>
+        x.s
+          ? `
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10000;
+        width: 100vw;
+        height: 100vh;
+        opacity: 1;
+        overflow: initial;
+        background: ${BG_PRIMARY_SPECIAL};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `
+          : `
+        position: relative;
+        z-index: 1;
+        width: inherit;
+        height: inherit;
+        opacity: 0;
+        overflow: hidden;
+      `};
+    }
+
+    > *:nth-child(2) {
+      position: absolute;
+      z-index: ${x => (x.disabled ? 2 : 0)};
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+
+      ${({ error }) => ErrorHandling(error)};
+      ${({ disabled }) => DisableHandling(disabled)};
+
+      border-radius: 50%;
+      object-fit: scale-down;
+    }
   }
 `;
 
-const ButtonStyled = styled.button`
-  position: absolute;
-  font-size: 20px;
-  color: ${TEXT_SECONDARY};
-  top: ${/* istanbul ignore next */ x => x.top}px;
-  right: ${/* istanbul ignore next */ x => x.right}px;
-`;
+function AvatarField({ input, meta, disabled }) {
+  const [s, setS] = useState(false);
+  const [y, setY] = useState(null);
+  const [v, setV] = useState(true);
 
-const AvatarFieldStyled = styled.div`
-  position: relative;
-  width: ${/* istanbul ignore next */ x => x.size}px;
-  height: ${/* istanbul ignore next */ x => x.size}px;
-`;
+  const isPhone = window.screen.width <= 576;
 
-function AvatarField({
-  input,
-  size,
-  disabled,
-  meta,
-  editingImgState,
-  cachedProfileImg,
-  ipfsAvatar,
-  getCroppedAvatar,
-  uploadImage,
-  clearImageChanges,
-}) /* istanbul ignore next */ {
-  let avatarRefs;
-
-  const displayAvatar = !editingImgState && cachedProfileImg;
+  const reload = () => {
+    setS(false);
+    setV(false);
+    setTimeout(() => setV(true), 0);
+  };
 
   return (
-    <AvatarFieldStyled size={size}>
-      <AvatarArea
-        disabled={disabled}
-        error={meta.touched && (meta.warning || meta.error)}
-      >
-        {!displayAvatar && (
-          <img
-            src={cachedProfileImg || ipfsAvatar || editUserNoAvatar}
-            alt="avatar"
-          />
+    <Div
+      s={s}
+      disabled={disabled}
+      value={input.value && input.value.length}
+      error={meta.touched && (meta.error || meta.warning)}
+      id={formatStringToHtmlId(input.name)}
+    >
+      <div>
+        {v && (
+          <div>
+            <div className="avatar-wrapper">
+              <Avatar
+                {...input}
+                imageWidth={isPhone ? 320 : 480}
+                cropRadius={60}
+                onCrop={setY}
+                onBeforeFileLoad={() => {
+                  setS(true);
+                }}
+                onClose={() => {
+                  input.onChange(y);
+                  setS(false);
+                }}
+              />
+              <button className="close-icon" onClick={reload}>
+                <Icon icon={avatarCloseIcon} width="20" />
+              </button>
+            </div>
+
+            <div className="reload-bg" onClick={reload} />
+          </div>
         )}
 
-        {displayAvatar && (
-          <AvatarEditor
-            image={cachedProfileImg}
-            ref={refs => {
-              avatarRefs = refs;
-            }}
-            width={size - 0.2 * size}
-            height={size - 0.2 * size}
-            color={EDITOR_COLOR}
-            scale={EDITOR_SCALE}
-            rotate={EDITOR_ROTATE}
-            border={0.2 * size}
-            crossOrigin={CROSS_ORIGIN}
-            borderRadius={BORDER_EDITOR_RADIUS}
-          />
-        )}
+        <LargeImage
+          isBordered
+          src={
+            input.value && input.value.length > HASH_CHARS_LIMIT
+              ? input.value
+              : getUserAvatar(input.value, true, true)
+          }
+          alt="icon"
+        />
+      </div>
 
-        {!displayAvatar && (
-          <input
-            {...input}
-            onChange={x => {
-              if (x.target.files[0].size > MAX_FILE_SIZE) {
-                clearImageChanges();
-                return;
-              }
-
-              uploadImage(x);
-            }}
-            disabled={disabled}
-            type="file"
-            value={undefined}
-            className="custom-file-input"
-          />
-        )}
-      </AvatarArea>
-
-      <WarningMessage {...meta} />
-
-      {displayAvatar && (
-        <div>
-          <ButtonStyled
-            top={-5}
-            right={-5}
-            disabled={disabled}
-            onClick={() => getCroppedAvatar(avatarRefs)}
-            type="button"
-          >
-            ✔
-          </ButtonStyled>
-          <ButtonStyled
-            top={5}
-            right={-25}
-            disabled={disabled}
-            onClick={clearImageChanges}
-            type="button"
-          >
-            ✕
-          </ButtonStyled>
-        </div>
-      )}
-    </AvatarFieldStyled>
+      <WarningMessage {...meta} isSpecialPosition />
+    </Div>
   );
 }
 
 AvatarField.propTypes = {
   input: PropTypes.object,
+  meta: PropTypes.object,
   size: PropTypes.number,
   disabled: PropTypes.bool,
-  meta: PropTypes.object,
-  editingImgState: PropTypes.bool,
-  cachedProfileImg: PropTypes.string,
-  ipfsAvatar: PropTypes.string,
-  getCroppedAvatar: PropTypes.func,
-  uploadImage: PropTypes.func,
-  clearImageChanges: PropTypes.func,
 };
 
-export { AvatarField };
 export default React.memo(AvatarField);

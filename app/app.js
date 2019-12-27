@@ -12,7 +12,7 @@ import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // Needed for redux-saga es6 generator support
-import 'babel-polyfill';
+import '@babel/polyfill';
 
 // Import all the third party stuff
 import React from 'react';
@@ -26,7 +26,6 @@ import App from 'containers/App';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
-import ErrorBoundary from 'containers/ErrorBoundary';
 import EosioProvider from 'containers/EosioProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
@@ -59,19 +58,17 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <ErrorBoundary>
-          <EosioProvider>
-            <DataCacheProvider>
-              <AccountProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </AccountProvider>
-            </DataCacheProvider>
-          </EosioProvider>
-        </ErrorBoundary>
-      </LanguageProvider>
+      <EosioProvider>
+        <LanguageProvider messages={messages}>
+          <DataCacheProvider>
+            <AccountProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </AccountProvider>
+          </DataCacheProvider>
+        </LanguageProvider>
+      </EosioProvider>
     </Provider>,
     MOUNT_NODE,
   );

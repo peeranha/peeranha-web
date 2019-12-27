@@ -6,8 +6,8 @@ import { Input } from './InputStyled';
 export default styled.input`
   ${x => Input({ error: x.error, warning: x.warning })};
 
-  height: 48px;
-  min-height: 48px;
+  height: 48px !important;
+  min-height: 48px !important;
   background: ${BG_LIGHT};
   font-family: ${LANDING_FONT};
   padding-left: 15px;

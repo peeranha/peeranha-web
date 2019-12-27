@@ -8,14 +8,28 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { showLoginModal } from 'containers/Login/actions';
+import { checkEmail } from 'containers/SignUp/actions';
+import { selectEmailChecking } from 'containers/SignUp/selectors';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+
+import {
+  WHAT_IS_PEERANHA,
+  HOT_IT_DIFF,
+  HOW_IT_WORKS,
+  WHERE_TOKENS_COME_FROM,
+  VALUE_OF_TOKEN,
+} from 'containers/Faq/constants';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -36,13 +50,9 @@ import {
   SECOND_SCREEN,
   THIRD_SCREEN,
   EMAIL_FIELD,
-  NAME_FIELD,
-  SUBJECT_FIELD,
-  MESSAGE_FIELD,
-  REFCODE_FIELD,
 } from './constants';
 
-import { sendEmail, sendMessage } from './actions';
+import { sendMessage } from './actions';
 
 import messages from './messages';
 
@@ -150,77 +160,58 @@ export class HomePage extends React.PureComponent {
     });
   };
 
-  sendEmail = (...args) => {
-    const { reset, form } = args[2];
-    const formData = {
-      email: args[0].get(EMAIL_FIELD),
-      refCode: args[0].get(REFCODE_FIELD),
-    };
-
-    const pageInfo = {
-      url: window.location.href,
-      name: `${
-        translationMessages[this.props.locale][messages.title.id]
-      } | ${form}`,
-    };
-
-    this.props.sendEmailDispatch(formData, reset, pageInfo);
-  };
-
-  sendMessage = (...args) => {
-    const { reset, form } = args[2];
-    const formData = {
-      email: args[0].get(EMAIL_FIELD),
-      firstname: args[0].get(NAME_FIELD),
-      subject: args[0].get(SUBJECT_FIELD),
-      message: args[0].get(MESSAGE_FIELD),
-    };
-
-    const pageInfo = {
-      url: window.location.href,
-      name: `${
-        translationMessages[this.props.locale][messages.title.id]
-      } | ${form}`,
-    };
-
-    this.props.sendMessageDispatch(formData, reset, pageInfo);
+  checkEmail = val => {
+    this.props.checkEmailDispatch(val.get(EMAIL_FIELD));
   };
 
   render() {
-    const translations = translationMessages[this.props.locale];
+    const {
+      locale,
+      location,
+      sendMessageDispatch,
+      sendMessageLoading,
+      showLoginModalDispatch,
+      emailChecking,
+      faqQuestions,
+      account,
+    } = this.props;
+
+    const translations = translationMessages[locale];
 
     return (
       <div id={LANDING_ID}>
         <Seo
           title={translations[messages.title.id]}
           description={translations[messages.description.id]}
-          language={this.props.locale}
+          language={locale}
         />
 
         <Introduction
-          sendEmailLoading={this.props.sendEmailLoading}
-          sendEmail={this.sendEmail}
+          account={account}
           translations={translations}
-          location={this.props.location}
+          location={location}
+          showLoginModal={showLoginModalDispatch}
+          checkEmail={this.checkEmail}
+          emailChecking={emailChecking}
         />
 
         <About translations={translations} />
 
         <Rewards
           translations={translations}
-          sendEmail={this.sendEmail}
-          sendEmailLoading={this.props.sendEmailLoading}
+          checkEmail={this.checkEmail}
+          emailChecking={emailChecking}
         />
 
-        <FaqMain translations={translations} questionsNumber={5} />
+        <FaqMain faqQuestions={faqQuestions} />
 
         <Team
           translations={translations}
-          sendMessage={this.sendMessage}
-          sendMessageLoading={this.props.sendMessageLoading}
+          sendMessage={sendMessageDispatch}
+          sendMessageLoading={sendMessageLoading}
         />
 
-        <Footer locale={this.props.locale} />
+        <Footer locale={locale} />
       </div>
     );
   }
@@ -228,26 +219,35 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   locale: PropTypes.string,
-  sendEmailLoading: PropTypes.bool,
+  account: PropTypes.string,
+  emailChecking: PropTypes.bool,
   sendMessageLoading: PropTypes.bool,
-  sendEmailDispatch: PropTypes.func,
+  checkEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
+  showLoginModalDispatch: PropTypes.func,
   location: PropTypes.object,
+  faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
+  account: makeSelectAccount(),
   locale: makeSelectLocale(),
-  sendEmailLoading: homepageSelectors.selectSendEmailLoading(),
+  emailChecking: selectEmailChecking(),
   sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
+  faqQuestions: selectFaqQuestions([
+    WHAT_IS_PEERANHA,
+    HOT_IT_DIFF,
+    HOW_IT_WORKS,
+    WHERE_TOKENS_COME_FROM,
+    VALUE_OF_TOKEN,
+  ]),
 });
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    dispatch,
-    sendEmailDispatch: (formData, reset, pageInfo) =>
-      dispatch(sendEmail(formData, reset, pageInfo)),
-    sendMessageDispatch: (formData, reset, pageInfo) =>
-      dispatch(sendMessage(formData, reset, pageInfo)),
+    sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
+    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   };
 }
 

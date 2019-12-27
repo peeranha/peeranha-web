@@ -1,46 +1,57 @@
 {
   "app.common.peeranha": "Peeranha",
+  "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
+  "app.common.posts": "Posts",
+  "app.common.questionsNumber": "Questions {number}",
+  "app.common.answersNumber": "Answers {number}",
+  "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
   "app.common.login": "Log in",
-  "app.common.signUp": "Sign Up",
+  "app.common.signUp": "Sign up",
   "app.common.all": "All",
-  "app.common.addQuestion": "Add question",
+  "app.common.askQuestion": "Ask question",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
+  "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
-  "app.common.posts": "Posts",
   "app.common.ago": "ago",
   "app.common.you": "You",
   "app.common.upload": "Upload",
-  "app.common.allQuestions": "All questions",
+  "app.common.allQuestions": "Questions",
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
+  "app.common.askedWhen": "Asked {when}",
+  "app.common.somebodyAsked": "{account} asked",
+  "app.common.somebodyAnswered": "{account} answered",
+  "app.common.youAnswered": "You answered",
   "app.common.youAsked": "You asked",
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
   "app.common.nothingToSeeYet": "Nothing to see yet",
   "app.common.close": "Close",
   "app.common.subscribed": "Subscribed",
-  "app.common.newest": "Newest",
+  "app.common.newest": "Latest",
   "app.common.oldest": "Oldest",
   "app.common.age": "Age",
   "app.common.yes": "Yes",
   "app.common.no": "No",
-  "app.common.agree": "Agree",
-  "app.common.disagree": "Disagree",
+  "app.common.agree": "Upvote",
+  "app.common.agreeShort": "Upvote",
+  "app.common.disagree": "Downvote",
+  "app.common.disagreeShort": "Downvote",
   "app.common.tips": "Tips",
   "app.common.suggestTag": "Suggest tag",
   "app.common.seeAll": "See all",
@@ -55,18 +66,41 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.termsOfService": "Terms of Service",
+  "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
-  "app.common.peers": "Peers",
+  "app.common.peers": "PEER",
   "app.common.submit": "Submit",
   "app.common.amount": "Amount",
   "app.common.password": "Password",
-  "app.common.eosAccount": "EOS account",
-  "app.common.successMessage": "Action has been completed successfully",
+  "app.common.eosAccount": "Telos account",
+  "app.common.successMessage": "Action completed successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
   "app.common.show": "Show",
   "app.common.change": "Change",
+  "app.common.contactUs": "Contact us",
+  "app.common.sendAnotherCode": "Send another code",
+  "app.common.copy": "Copy",
+  "app.common.copied": "Copied",
+  "app.common.hide": "Hide",
+  "app.common.delete": "Delete",
+  "app.common.description": "Description",
+  "app.common.preview": "Preview",
+  "app.common.answer": "Answer",
+  "app.common.showMore": "Show more {value}",
+  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.noResults": "No results",
+  "app.common.iAcceptPrivacyPolicy":
+    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+
+  "app.containers.TermsOfService.title": "Terms of Service",
+  "app.containers.TermsOfService.description": "Terms of Service: description",
+
+  "app.containers.Search.title": "Search",
+  "app.containers.Search.description": "Search: description",
 
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
@@ -75,46 +109,46 @@
   "app.containers.DeleteAccount.deleteAccount": "Delete account",
   "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
   "app.containers.DeleteAccount.iUnderstand":
-    "I understand that this operation does not remove my account on EOS blockchain. Account is removed only from wallet service.",
+    "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
   "app.containers.DeleteAccount.iHaveBackup":
-    "I have back up of my EOS private keys.",
+    "I have back up for my Telos private keys.",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
-  "app.containers.Wallet.eosAccount": "EOS account",
+  "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details on the next week.",
+    "This period is still in progress. You will see more details in the next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
   "app.containers.Wallet.week": "Week",
-
+  "app.containers.Wallet.getReward": "Get reward",
+  "app.containers.Wallet.received": "Received",
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",
   "web_integration.errors.accountAlreadyRegistered":
     "Account already registered",
-  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key or IV",
+  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key",
   "web_integration.errors.userDidntStoreKey":
-    "User didn't store owner key in our service",
-  "web_integration.errors.unableToDecryptUserKey":
-    "Unable to decrypt user key modify with given key",
+    "User did not store owner key in our service",
+  "web_integration.errors.unableToDecryptUserKey": "Check  entered data",
+  "web_integration.errors.wrongPassword": "Wrong password",
+  "web_integration.errors.wrongMasterKey": "Wrong master key",
   "web_integration.errors.userDidntRequestActivateAcc":
-    "This user didn't request activate account",
+    "This user did not request to activate account",
   "web_integration.errors.youSendTooManRequests":
-    "You send too many requests in last period",
+    "You sent too many requests in the last period",
   "web_integration.errors.userDidntMakeRequestToVerifyEmail":
-    "Email isn't request registration or request expired",
+    "Email does not require registration or request expired",
   "web_integration.errors.codeExpiredOrIncorrect":
     "Code expired or entered incorrectly",
   "web_integration.errors.passphraseIsInvalid": "The passphrase is invalid",
-  "web_integration.errors.wrongPassword":
-    "Unable to decrypt passphrase with given key",
   "web_integration.errors.accountWithEmailIsntRegistered":
     "Account with given email isn't registered yet",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
-    "User isn't request opertion or request expired",
+    "User did not request the opertion or request expired",
   "web_integration.errors.invalidCipher": "Invalid cipher IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email already in use",
   "web_integration.errors.unableToBuildModel": "Unable to build model",
@@ -126,16 +160,13 @@
   "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
   "app.containers.Faq.freeFeelToAsk":
     "Feel free to ask our team.  We will help to find the answer.",
-  "app.containers.Faq.whatIsEnergy": "What is energy?",
-  "app.containers.Faq.howToChargeMyEnergy": "How to charge my energy?",
-  "app.containers.Faq.valueOfActions": "Value of actions",
 
   "app.containers.Users.title": "Users",
   "app.containers.Users.description": "Users: description",
 
   "app.containers.FollowCommunityButton.header": "Header",
-  "app.containers.FollowCommunityButton.follow": "Follow",
-  "app.containers.FollowCommunityButton.unfollow": "Unfollow",
+  "app.containers.FollowCommunityButton.subscribe": "Subscribe",
+  "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
@@ -153,13 +184,13 @@
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
-    "Information about you is currently blank.",
+    "Information about user is currently unavailable.",
   "app.containers.Profile.activity": "Activity",
   "app.containers.Profile.userHasntActivityYet":
-    "This user hasn’t activity yet",
+    "This user has no activity yet",
   "app.containers.Profile.heHasnoAnswersAndQuestions":
-    "He has no answers and questions.",
-  "app.containers.Profile.answered": "answered",
+    "No answers or questions noted.",
+  "app.containers.Profile.answered": "Answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
@@ -171,53 +202,63 @@
   "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
   "app.containers.SuggestedTags.tagDescription": "Description",
 
+  "app.containers.PrivacyPolicy.title": "Privacy policy",
+  "app.containers.PrivacyPolicy.description": "Privacy policy, description",
+
+  "app.containers.Support.title": "Support",
+  "app.containers.Support.description": "Support | Description",
+  "app.containers.Support.feelFreeToAsk": "Feel free to ask",
+  "app.containers.Support.alsoWeHighly":
+    "We highly appreciate your feedback, opinion, and suggestions for our platform. Please, send us a few lines or even better let us know if you have 15 minutes to chat.",
+
   "app.containers.CreateTag.title": "Create tag",
   "app.containers.CreateTag.description": "Create tag | Description",
   "app.containers.CreateTag.community": "Community",
-  "app.containers.CreateTag.communityTip": "Some community tip...",
+  "app.containers.CreateTag.communityTip":
+    "Community where tag will be created",
   "app.containers.CreateTag.name": "Name",
-  "app.containers.CreateTag.nameTip": "Some name tip...",
+  "app.containers.CreateTag.nameTip": "Unique name of the new tag",
   "app.containers.CreateTag.descriptionField": "Description",
-  "app.containers.CreateTag.descriptionFieldTip": "Some descriptions tip...",
+  "app.containers.CreateTag.descriptionFieldTip":
+    "Instructions on how to use tag",
   "app.containers.CreateTag.createTag": "Create tag",
   "app.containers.CreateTag.newTag": "New tag",
   "app.containers.CreateTag.tagIsKeyword":
-    "A tag is a keyword or label that categorizes your question with other, similar questions.",
+    "A tag is used as a keyword or a label to categorize your question.",
   "app.containers.CreateTag.usingTheRightTags":
-    "Using the right tags makes it easier for others to find and answer your question.",
-  "app.containers.CreateTag.whatIsTag": "What is a tag?",
-  "app.containers.CreateTag.howToUseIt": "How to use it?",
+    "Using the right tags makes it easier for other users to find your questions.",
 
   "app.containers.Tags.backToList": "Back to list",
-  "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tag?",
-  "app.containers.Tags.youHaveAlreadyVoted": "You have already voted",
+  "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
+  "app.containers.Tags.youHaveAlreadyVoted": "You already voted",
   "app.containers.Tags.suggestTagWhichWillbeUseful":
-    "Suggest tag, which will be useful to you and 100 other users who will vote for it.",
+    "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
   "app.containers.Tags.creatorCannotUpvoteOwnComm":
-    "Creator cannot upvote own tag",
+    "Creators cannot upvote their own tag",
 
   "app.containers.TagsOfCommunity.title": "Tags",
   "app.containers.TagsOfCommunity.description": "Description of Tags",
   "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
   "app.containers.TagsOfCommunity.createTag": "Create tag",
   "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
+  "app.containers.TagsOfCommunity.findTag": "Find a tag",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
     "Suggested communities | Description",
   "app.containers.SuggestedCommunities.votingForNewComm":
     "Vote for new community",
-  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why we need it?",
+  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why do we need it?",
 
   "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
     "You have already voted",
   "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
-    "Creator cannot upvote own community",
+    "Creators cannot upvote their own community",
   "app.containers.VoteForNewCommunityButton.youCannotChange":
-    "You can’t change your vote. Are you sure?",
+    "You cannot change your vote. Are you sure?",
 
   "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
-    "Creator cannot upvote own tag",
+    "Creators cannot upvote their own tag",
 
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",
@@ -237,43 +278,39 @@
   "app.containers.CreateCommunity.oneMoreTag": "One more tag",
   "app.containers.CreateCommunity.tags": "Tags",
   "app.containers.CreateCommunity.tagsAreNeeded":
-    "Tags are needed for asking questions. So you have to specify 3-30 main tags.",
+    "Tags are needed for asking questions. You are required to specify {min}-{max} main tags.",
   "app.containers.CreateCommunity.tagTitle": "Tag",
   "app.containers.CreateCommunity.tagDescription": "Description",
-  "app.containers.CreateCommunity.communityTitleTip":
-    "Some community title tip...",
+  "app.containers.CreateCommunity.communityTitleTip": "Name of new community",
   "app.containers.CreateCommunity.shortDescriptionTip":
-    "Some community description tip...",
+    "Brief description about the community and its purpose.",
   "app.containers.CreateCommunity.whyWeNeedItTip":
-    "Some community main description tip...",
-  "app.containers.CreateCommunity.tagTitleTip": "Some tag title tip...",
+    "This information is visible to users who vote for new communities.",
+  "app.containers.CreateCommunity.tagTitleTip": "Unique name of the tag",
   "app.containers.CreateCommunity.tagDescriptionTip":
-    "Some tag description tip...",
+    "Description when to use the tag",
   "app.containers.CreateCommunity.imageWillBeTheFace":
     "Image will be the face of community",
   "app.containers.CreateCommunity.specifyMemorableTitle":
     "Specify a memorable title",
   "app.containers.CreateCommunity.communityDescriptionShouldBe":
-    "Community description should be concise and describe to whom it will be useful",
+    "Community description should be concise and have a clear description for its users",
   "app.containers.CreateCommunity.writeWhyDoWeeNeed":
-    "Write why do we need this community to attract the attention of other users and collect votes",
-  "app.containers.CreateCommunity.whatIsCommunity": "What is community?",
-  "app.containers.CreateCommunity.whoManagesCommunities":
-    "Who manages the communities?",
+    "Describe how this community will attract the attention of other users and collect votes",
   "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
     "Form should allow only tags with unique names",
   "app.containers.CreateCommunity.communityLanguage": "Language",
   "app.containers.CreateCommunity.communityLanguageTip":
-    "Some language field tip...",
+    "Questions in the community will only be allowed in the selected language",
   "app.containers.CreateCommunity.thatisgreat": "That's great!",
   "app.containers.CreateCommunity.communityWillAppear":
-    "Your community will appear in the list and other users can vote for it. 100 votes are needed for communuty be created.",
+    "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
   "app.containers.CreateCommunity.goToList": "Go to list",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
   "app.containers.Communities.suggestInterestingComm":
-    "Suggest community, which will be interesting to you and 100 other users who will vote for it.",
+    "Suggest a community, which will be interesting to you and 100 other users who will vote for it.",
 
   "app.containers.HomePage.title":
     "Peeranha - Decentralized Q&A website with crypto rewards",
@@ -286,11 +323,11 @@
   "app.containers.HomePage.faq": "FAQ",
   "app.containers.HomePage.team": "Team",
   "app.containers.HomePage.login": "Log in",
-  "app.containers.HomePage.signUpFree": "Sign Up",
+  "app.containers.HomePage.signUpFree": "Sign up",
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
-    "Decentralized questions and answers website that rewards users with crypto tokens for their contributions.",
+    "Decentralized website with questions and answers that rewards users with crypto tokens for their contributions.",
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
   "app.containers.HomePage.differentThan":
@@ -300,11 +337,11 @@
 
   "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
   "app.containers.HomePage.peopleSaveHours":
-    "Millions of people save hours of work through the knowledge of others on Q&A websites on a daily basis. Peeranha’s users are rewarded with PEER crypto tokens for valuable activities.",
+    "On daily basis, millions of people save hundreds of hours through knowledge of others on Q&A websites. Peeranha’s users are rewarded with PEER crypto tokens for valuable contributions.",
 
   "app.containers.HomePage.ownershipByUsers": "Ownership by Users",
   "app.containers.HomePage.peeranhaDecentralized":
-    "Peeranha is truly permissionless and decentralized. Website governance is decided for the community, by the community. Peeranha puts power in the hands of the contributors, not the developers.",
+    "Peeranha is completely permissionless and decentralized. Website governance is created for the community, by the community. Peeranha puts power in the hands of the contributors, not the developers.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
   "app.containers.HomePage.peeranhaPhilosophy":
@@ -313,7 +350,7 @@
   "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
   "app.containers.HomePage.getHelp": "Getting Help from the Community",
   "app.containers.HomePage.askQuestionAndGetHelp":
-    "Peeranha has passionate experts from all areas of life ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
+    "Peeranha has passionate experts from all areas of life that are ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
 
   "app.containers.HomePage.helpfulAndGenerous": "Helpful and generous",
   "app.containers.HomePage.shareKnowledge": "Sharing Knowledge",
@@ -323,80 +360,30 @@
   "app.containers.HomePage.profitableAndModern": "Profitable and modern",
   "app.containers.HomePage.getPaidInCrypto": "Receiving Crypto Token Rewards",
   "app.containers.HomePage.getPaidInCryptoFromWeekly":
-    "A weekly pool of reward tokens is distributed to users for their contributions. Contributions include asking and answering questions. These reward tokens can be sold on the open market to anyone wanting to pay for content to be placed on the platform. This paid content may include product advertisements or job openings. Users will always be rewarded for their valuable contributions. ",
+    "A weekly pool of reward tokens is distributed to users for their contributions. Contributions consist of posting and answering questions. Reward tokens can be sold on the open market to anyone wanting to pay for content to be placed on the platform. An example of paid content can be product advertisements or job openings. Users are always rewarded for their valuable contributions. ",
 
   "app.containers.HomePage.worthyAndPrestig": "Worthy and prestigious",
   "app.containers.HomePage.earnReputation": "Earning Reputation",
   "app.containers.HomePage.whetherYouAsk":
-    "As users build their level of contributions, they also improve their reputation. The community recognizes valuable contributors who answer questions for others. Earning a high reputation unlocks privileges as a user’s standing within the community increases!",
+    "As users build their level of contributions, they also improve their reputation. The community recognizes valuable contributors that answer questions for others. Earning a high reputation unlocks privileges and the user’s standing within the community increases!",
 
   "app.containers.HomePage.honorableAndFascinating":
     "Honorable and fascinating",
   "app.containers.HomePage.ruleThePlatform": "Governing the Community",
   "app.containers.HomePage.participateInModeration":
-    "Governing the community is in the hands of the members. Making the best decisions for the platform result in a higher token value. Through the governance structure built into Peeranha, the website is moderated by its users. As a decentralized, open source project, the future is decided by you the user. Much like a local community, your voice matters.",
+    "Governing the community is in the hands of its members. The best decisions for the platform result in higher token values. Through the governance structure built into Peeranha, the website is moderated by its users. As a decentralized, open source project, the future is decided by the user. Much like a local community, your voice matters.",
 
   "app.containers.HomePage.beTheFirst":
     "Joining early means enjoying higher levels of rewards",
   "app.containers.HomePage.rewardsPool":
-    "Rewards are distributed weekly to all contributors.  As the number of weekly contributors goes up, rewards per user go down over time. Joining early means enjoying higher levels of rewards for your pioneering contributions to an early community.",
+    "Rewards are distributed weekly to all contributors.  As the number of weekly contributors goes up, rewards per user decrease over time. Joining early means enjoying higher levels of rewards for your pioneering contributions to an early community.",
 
-  "app.containers.HomePage.getReward": "Sign Up",
-
-  "app.containers.HomePage.whatIsPeeranha": "What is Peeranha?",
-  "app.containers.HomePage.whatIsPeeranhaCollapsed":
-    "Peeranha is a decentralized question and answer website that rewards users with crypto tokens for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.",
-
-  "app.containers.HomePage.differentFromOtherSites":
-    "How is Peeranha different from other questions and answers websites?",
-  "app.containers.HomePage.differentFromOtherSitesCollapsed":
-    "Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions and the attention they give to the website.",
-
-  "app.containers.HomePage.howItWorks": "How does it work?",
-  "app.containers.HomePage.howItWorksCollapsed":
-    "Peeranha is built using smart contracts on Telos blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.",
-
-  "app.containers.HomePage.whatBlockchain":
-    "What Blockchain Peeranha is Built on?",
-  "app.containers.HomePage.whatBlockchainCollapsed":
-    "Peeranha is powered by TELOS blockchain. TELOS provides short confirmation times for transactions and does not require users to pay any transaction fees.",
-
-  "app.containers.HomePage.whatIsCryptocurrency":
-    "What is the cryptocurrency of Peeranha?",
-  "app.containers.HomePage.whatIsCryptocurrencyCollapsed":
-    "Peeranha uses its own crypto-token (or cryptocurrency) called PEER.",
-
-  "app.containers.HomePage.howEarn":
-    "How can I earn crypto tokens on Peeranha?",
-  "app.containers.HomePage.howEarnCollapsed":
-    "All activities on the website that are considered valuable for the community are rewarded in crypto tokens.  Contributions that earn tokens may include posting a detailed question, providing a helpful answer and participating in moderation.",
-
-  "app.containers.HomePage.tokensReward":
-    "Where do tokens for rewards come from?",
-  "app.containers.HomePage.tokensRewardCollapsed":
-    "Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally to users’ contributions to the community during the week. As the website and community grow, additional sources begin to contribute tokens to the weekly reward pool. Such sources can be fees for the ads and job postings published on the website, donations, or other ways that the community decides to monetize the website. The rate of new token creation reduces every year and eventually decreases to zero. At this point, the weekly reward pool will solely consist of tokens monetized by the website.",
-
-  "app.containers.HomePage.valueOfToken":
-    "Where does the value of the token come from?",
-  "app.containers.HomePage.valueOfTokenCollapsed":
-    "Because Peeranha is blockchain based, tokens can be traded in the open market. Additionally, Peeranha incorporates game elements and users unlock additional powers by using the tokens. Finally, the token will be used as a payment method on the website for bounties to answer questions. Fees in the form of tokens will be required to publish job postings and ads on the website or any other paid services that website will provide.",
-
-  "app.containers.HomePage.whitePaper": "Do you have white paper?",
-  "app.containers.HomePage.whitePaperCollapsed":
-    "No. We are an agile team. We have a high-level vision but detailed specifications change frequently during the development process. We will create detailed documentation when a beta version of the product it ready for the public.",
-
-  "app.containers.HomePage.websiteLive": "Is the website live?",
-  "app.containers.HomePage.websiteLiveCollapsed":
-    "The website is in active development since June of 2018. A beta release is planned for the end of Q2 2019.",
-
-  "app.containers.HomePage.learnMore": "Where can I learn more?",
-  "app.containers.HomePage.learnMoreCollapsed":
-    "The best ways to learn more about to join our twitter, read our blog or send us an email to hello@peeranha.io .",
+  "app.containers.HomePage.getReward": "Sign up",
 
   "app.containers.HomePage.getMoreAnswers": "Get more answers",
   "app.containers.HomePage.ourTeam": "Our team",
   "app.containers.HomePage.weAppreciate":
-    "We highly appreciate your feedback, opinion or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
+    "We highly appreciate your feedback, opinions or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
 
   "app.containers.HomePage.sergeyIlin": "Sergey Ilin",
   "app.containers.HomePage.sergeyIlinRole": "Co-founder, CTO",
@@ -407,7 +394,7 @@
   "app.containers.HomePage.nikitaSyrRole":
     "Back-end and Smart-contract Developer",
   "app.containers.HomePage.nikitaSyrDescription":
-    "Blockchain app technician, interesting in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+    "Blockchain app technician, interested in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
 
   "app.containers.HomePage.romRem": "Roman Remniov",
   "app.containers.HomePage.romRemRole": "Front-end Developer",
@@ -417,26 +404,30 @@
   "app.containers.HomePage.ulyanaPopova": "Ulyana Popova",
   "app.containers.HomePage.ulyanaPopovaRole": "UX and UI Designer",
   "app.containers.HomePage.ulyanaPopovaDescription":
-    "Ready to produce wire-frames, mock-ups, and prototypes which implement the modernization of systems with an effective, efficient, aesthetic, and uncluttered user experience. Able to use humour and energy to keep the momentum going.",
+    "Ready to produce wire-frames, mock-ups, and prototypes which help implement the modernization of systems with an effective, efficient, aesthetic and uncluttered user experience. Able to use humor and energy to keep the momentum going.",
 
   "app.containers.HomePage.olgaFyodorova": "Olga Fedorova",
   "app.containers.HomePage.olgaFyodorovaRole": "Marketing",
   "app.containers.HomePage.olgaFyodorovaDescription":
-    "Strong communication skills regardless of the audience, interacting effectively with a wide range of people, executives, staff, suppliers, colleagues and applicants.",
+    "Strong communication skills regardless of the audience and is able interact effectively with a wide range of people, executives, staff, suppliers, colleagues and applicants.",
 
   "app.containers.HomePage.steveKreynin": "Steve Kreynin",
   "app.containers.HomePage.steveKreyninRole": "Co-founder, President",
   "app.containers.HomePage.steveKreyninDescription":
-    "Successful serial entrepreneur. CEO of Forte Group, an international IT Consulting Company.",
+    "Successful serial entrepreneur, CEO of Forte Group, an international IT Consulting Company.",
 
   "app.containers.HomePage.yourName": "Your name",
+  "app.containers.HomePage.yourNameTip": "Type your name",
   "app.containers.HomePage.email": "Email",
+  "app.containers.HomePage.emailTip": "Type your email",
   "app.containers.HomePage.refCode": "Ref. code",
   "app.containers.HomePage.subject": "Subject",
+  "app.containers.HomePage.subjectTip": "Choose subject of question",
   "app.containers.HomePage.message": "Message",
+  "app.containers.HomePage.messageTip": "Describe problem",
   "app.containers.HomePage.sendMessage": "Send message",
   "app.containers.HomePage.platformUnderDeveloping":
-    "The website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
+    "Website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
   "app.containers.HomePage.askQuestion": "Ask question",
   "app.containers.HomePage.review": "Review",
   "app.containers.HomePage.systemError": "System error",
@@ -444,7 +435,8 @@
   "app.containers.HomePage.messageHasNotBeenSent":
     "Something went wrong and your message has not been sent. Please try again.",
   "app.containers.HomePage.yourEmailIsRegistred":
-    "The website is under development but your email is registered. You will receive an email with the steps to continue registration when the website is ready.",
+    "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
+  "app.containers.HomePage.goToSite": "Go to site",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
@@ -456,9 +448,13 @@
   "app.containers.EditQuestion.title": "Edit question",
 
   "app.containers.ViewQuestion.lastEdited": "Last edited",
-  "app.containers.ViewQuestion.voteToDelete": "Block",
+  "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
-    "To complete this action, your rating has to be more than",
+    "To complete this action, your rating has to be at least",
+  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
+    "You can't complete this action. You voted to delete it earlier",
+  "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
+    "You can't complete this action. You voted earlier",
   "app.containers.ViewQuestion.notEnoughModPoints":
     "To complete this action, your moderation points rating has to be more than",
   "app.containers.ViewQuestion.youVoted":
@@ -466,11 +462,15 @@
   "app.containers.ViewQuestion.alreadyAnswered":
     "You already answered this question",
   "app.containers.ViewQuestion.itemsMax":
-    "Number of items is achieved of maximum",
+    "Number of items is reached the maximum",
   "app.containers.ViewQuestion.noRootsToVote":
-    "You cannot vote to own questions and answers",
-  "app.containers.ViewQuestion.title": "Question's page",
-  "app.containers.ViewQuestion.description": "Question's description",
+    "You cannot vote on your own questions and answers",
+  "app.containers.ViewQuestion.creatorCannot":
+    "Creator cannot complete this action",
+  "app.containers.ViewQuestion.notEnoughEnergy":
+    "We detected suspicious activity on your account and temporarily locked all access on the website",
+  "app.containers.ViewQuestion.title": "Questions page",
+  "app.containers.ViewQuestion.description": "Question description",
   "app.containers.ViewQuestion.questionNotExist":
     "This question does not exist",
   "app.containers.ViewQuestion.deleteButton": "Delete",
@@ -478,36 +478,41 @@
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
-  "app.containers.ViewQuestion.answers": "answers",
+  "app.containers.ViewQuestion.answers": "Answers",
   "app.containers.ViewQuestion.postAnswerButton": "Post answer",
   "app.containers.ViewQuestion.yourAnswer": "Your answer",
   "app.containers.ViewQuestion.youHaveAnswers":
-    "You cannot delete it because you already have some answers by your question",
+    "Cannot be deleted as some of the questions have been answered",
   "app.containers.ViewQuestion.answerIsCorrect":
-    "You cannot delete it because your answer is marked as correct",
+    "Cannot be deleted because the answer is marked as correct",
   "app.containers.ViewQuestion.theBest": "The best",
   "app.containers.ViewQuestion.theBestAnswer": "The best answer",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
+  "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
+  "app.containers.ViewQuestion.areYouSure":
+    "Are you sure you want to delete the item?",
 
-  "app.components.FormFields.requiredField": "Required field",
-  "app.components.FormFields.wrongLength15x100":
-    "Value must be at least 15 characters and no longer than 100 characters",
-  "app.components.FormFields.wrongLength1x5":
-    "Value must be at least 1 characters and no longer than 5 characters",
-  "app.components.FormFields.wrongLength2x15":
-    "Value must be at least 2 characters and no longer than 15 characters",
-  "app.components.FormFields.wrongLength3x20":
-    "Value must be at least 3 characters and no longer than 20 characters",
-  "app.components.FormFields.wrongLength20x1000":
-    "Value must be at least 20 characters and no longer than 1000 characters",
-  "app.components.FormFields.wrongLength25x30000":
-    "Value must be at least 25 characters and no longer than 30000 characters",
-  "app.components.FormFields.wrongLength30000":
-    "Maximum number of characters exceeded",
-  "app.components.FormFields.fileSize": "File size should be no more than 2 MB",
+  "app.components.FormFields.requiredField":
+    "You cannot leave this field empty",
+  "app.components.FormFields.wrongLength":
+    "Leave at least {min} char. but no more than {max}",
+  "app.components.FormFields.wrongLengthOfList":
+    "Leave at least {min} item but no more than {max}",
+  "app.components.FormFields.wrongLengthMin":
+    "Value must be at least {min} characters",
+  "app.components.FormFields.wrongLengthMax":
+    "Value must be no longer than {max} characters",
+  "app.components.FormFields.fileSize": "The file is too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.wrongBase58Format":
+    "Wrong data format. Recheck your inputs.",
+  "app.components.FormFields.itemAlreadyExists":
+    "Item with that name exists already ",
+  "app.components.FormFields.valueIsMore":
+    "This value is more than you can afford",
+  "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
 
   "app.containers.TagsCollection.title": "Tags collection",
 
@@ -515,63 +520,54 @@
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
-  "app.containers.Login.iForgotPassword": "I forgot my password",
+  "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the Scatter and network settings are installed",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
-  "app.containers.Login.weAreHappyYouAreHere": "We are happy you are here",
+  "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
-    "Your username is how you'll be known on Peeranha.",
+    "The username is how you'll be known on Peeranha.",
+  "app.containers.Login.accountNotCreatedName": "Account is not created yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
-    "You got this key with authorization and saved in a safe place. Try to find it.",
+    "You received this key with the authorization which was saved in a safe place. Try to find it.",
 
   "app.containers.SignUp.checkYourEmail":
-    "Check your email. You get verification code.",
+    "Check your email for the verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
+    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
   "app.containers.SignUp.secondParagraphAlmostDone":
-    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+    "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications. A fee is required to create Telos account.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
-  "app.containers.SignUp.firstFAQAlmostDone": "Why I have to wait?",
-  "app.containers.SignUp.secondFAQAlmostDone": "When can I start?",
-  "app.containers.SignUp.thirdFAQAlmostDone": "What is EOS account for?",
   "app.containers.SignUp.weWillNotify":
-    "We will notify you when your account will be ready. Usually it takes no longer, than 4 hours.",
+    "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
   "app.containers.SignUp.goToMainPage": "Go to main page",
-  "app.containers.SignUp.youNeedEosAccount": "You nees EOS account",
+  "app.containers.SignUp.youNeedEosAccount": "You need {image} account",
   "app.containers.SignUp.theWayEosWorks":
-    "The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.",
+    "If you do not have Telos account then we will create it for you and cover the fee for account creation. If you already have a Telos account you can sign-up using an email address, in order to have a convenient log-in into the application from any device. ",
   "app.containers.SignUp.ifYouCreateEos":
-    "If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.",
-  "app.containers.SignUp.whyDoIneedThisService": "Why do I need this service?",
-  "app.containers.SignUp.howMuchDoesItCost": "How much does it cost?",
-  "app.containers.SignUp.ifThisWebsiteSafe": "Is this website safe to use?",
-  "app.containers.SignUp.whatKeysAndHowToUse":
-    "What are those keys and how do I generate them?",
+    "Sounds too complicated? Don’t  worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
-  "app.containers.SignUp.steemitIsNotTypical":
-    "Peeranha is not a typical social app. It's powered by the Peeranha blockchain.",
-  "app.containers.SignUp.steemitBlockchainPowers":
-    "The Peeranha blockchain powers many real time content apps like Peeranha, and is run by community members all around the world. To help protect them against bots and name squatters, a small fee is charged to create new accounts.",
+  "app.containers.SignUp.peeranhaIsNotTypical":
+    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
+  "app.containers.SignUp.telosBlockchainPowers":
+    "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
+    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than Scatter sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
-    "If you'd like to skip the queue or stay anonymous, you can pay the account creation fee using a third party service.",
-  "app.containers.SignUp.whyIHaveToWait": "Why I have to wait?",
-  "app.containers.SignUp.whenCanIStart": "When can I start?",
-  "app.containers.SignUp.whatIsEosAccountFor": "What is EOS account for?",
+    "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
-  "app.containers.SignUp.youHaveToSaveKeys": "You have to save keys carefully",
+  "app.containers.SignUp.youHaveToSaveKeys":
+    "Master Key is the only way to restore access to your account if you forget your password! Write your Master Key on a piece of paper and store it in a secure location. Alternatively, store your Master Key in a password manager like 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
-  "app.containers.SignUp.iHaveEosAccount": "I have EOS account",
-  "app.containers.SignUp.idontHaveEosAccount": "I have not EOS account",
-  "app.containers.SignUp.downloadKeys": "Download keys",
+  "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
+  "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
+  "app.containers.SignUp.downloadKeys": "Download key",
   "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
   "app.containers.SignUp.title": "Registration",
   "app.containers.SignUp.description": "Registration | Description",
@@ -580,21 +576,24 @@
   "app.containers.SignUp.verificationCode": "Verification code",
   "app.containers.SignUp.verify": "Verify",
   "app.containers.SignUp.sendAnotherCode": "Send another code",
-  "app.containers.SignUp.eosActivePrivateKey": "EOS Active Private Key",
-  "app.containers.SignUp.eosOwnerPrivateKey": "EOS Owner Private Key",
+  "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
-  "app.containers.SignUp.displayName": "Peeranha name",
-  "app.containers.SignUp.eosName": "EOS name",
-  "app.containers.SignUp.signUp": "Sign Up",
+  "app.containers.SignUp.displayName": "Display name",
+  "app.containers.SignUp.eosName": "Telos name",
+  "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iAcceptPrivacyPolicy":
-    "I accept terms of Privacy Policy.",
   "app.containers.SignUp.iSaveMasterKey":
-    "I save Master Key in a safe place. Understand that if I forget password then Master Key is the only way to restore access to my account.",
+    "I saved Master Key in a safe place. I understand that if I forget my password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
+  "app.containers.SignUp.eosAccountNotFound": "Telos account not be found",
+  "app.containers.SignUp.keysDoNotMatch":
+    "Private keys do not match Telos account name",
+  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
+    "Registration is successfully passed. Now you can login and continue work in our app!",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",
@@ -605,13 +604,16 @@
   "app.containers.Profile.aboutLabel": "About me",
   "app.containers.Profile.saveButton": "Save",
   "app.containers.Profile.locationLabel": "Location",
-  "app.containers.Profile.displayNameTip": "Display name tip...",
-  "app.containers.Profile.companyTip": "Company tip...",
-  "app.containers.Profile.positionTip": "Position tip...",
-  "app.containers.Profile.locationTip": "Location tip...",
+  "app.containers.Profile.displayNameTip":
+    "This is how your name will appear on the website",
+  "app.containers.Profile.companyTip": "Optional",
+  "app.containers.Profile.positionTip": "Optional",
+  "app.containers.Profile.locationTip": "Optional",
   "app.containers.Profile.oldPassword": "Old password",
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
+  "app.containers.Profile.youAnswered": "You answered",
+  "app.containers.Profile.seeMore": "See all {questions} and {answers}",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 
@@ -633,16 +635,37 @@
     "Subscribe to communities to keep track of topics that you are interested in.",
   "app.containers.Questions.noQuestionsYet": "No questions yet.",
   "app.containers.Questions.thisIsNewCommunity":
-    "This is a new community, you can be the first and your question may be the most popular.",
+    "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
 
-  "app.containers.QuestionForm.communityTip": "Community tip...",
-  "app.containers.QuestionForm.titleTip": "Title tip...",
-  "app.containers.QuestionForm.tagsTip": "Tags tip...",
+  "app.containers.ErrorPage.title": "Some error occured...",
+  "app.containers.ErrorPage.description": "Some error occured... description",
+  "app.containers.ErrorPage.weAreSorry":
+    "We're sorry, unexpected error has occured.",
+  "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
+  "app.containers.ErrorPage.cannotTransferToSelf":
+    "Cannot transfer to yourself",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "We're sorry, we couldn't find the page you requested.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Try to browse our recent {value}.",
+  "app.containers.NotFoundPage.browseOurPopular": "Browse our popular {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "If you feel something is missing that should be here, {value}.",
+
+  "app.containers.QuestionForm.communityTip":
+    "Make sure that the question is relevant to the selected community",
+  "app.containers.QuestionForm.titleTip":
+    "Short and descriptive title of the question",
+  "app.containers.QuestionForm.tagsTip":
+    "Tags that are relevant to the question",
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.contentLabel": "Body",
@@ -652,20 +675,15 @@
 
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
-    "put returns between paragraphs",
+    "markdown is supported",
   "app.components.TextEditor.addForLineBreaks":
     "for linebreak add 2 spaces at end",
   "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
   "app.components.TextEditor.indentCode": "indent code by 4 spaces",
-  "app.components.TextEditor.backtipEscapes": "backtick escapes `like _so_`",
+  "app.components.TextEditor.backtipEscapes":
+    "use backtick escapes for code blocks`like _so_`",
   "app.components.TextEditor.quoteByPlacing":
-    "quote by placing &gt; at start of line",
+    "quote by placing > at start of line",
   "app.components.TextEditor.toMakeLinks":
-    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
-  "app.components.TextEditor.howToAsk": "How to ask?",
-  "app.components.TextEditor.howToFormat": "How to format?",
-  "app.components.TextEditor.howToTag": "How to tag?",
-
-  "app.containers.AskQuestion.notEnoughRating":
-    "To complete this action, your rating has to be more than"
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
 }

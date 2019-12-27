@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -17,6 +17,7 @@ import { DAEMON } from 'utils/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Modal from 'components/ModalDialog';
+import Button from 'components/Button/Contained/Transparent';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -28,6 +29,7 @@ import {
   showActiveKey,
   showActiveKeyModal,
   hideActiveKeyModal,
+  removeActiveKey,
 } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -41,6 +43,8 @@ export class ShowActiveKey extends React.PureComponent {
       showModal,
       showActiveKeyProcessing,
       locale,
+      activeKey,
+      removeActiveKeyDispatch,
     } = this.props;
 
     return (
@@ -53,7 +57,13 @@ export class ShowActiveKey extends React.PureComponent {
           />
         </Modal>
 
-        <button onClick={showActiveKeyModalDispatch}>{children}</button>
+        <Button
+          onClick={
+            !activeKey ? showActiveKeyModalDispatch : removeActiveKeyDispatch
+          }
+        >
+          {children}
+        </Button>
       </React.Fragment>
     );
   }
@@ -63,10 +73,12 @@ ShowActiveKey.propTypes = {
   showActiveKeyDispatch: PropTypes.func,
   hideActiveKeyModalDispatch: PropTypes.func,
   showActiveKeyModalDispatch: PropTypes.func,
+  removeActiveKeyDispatch: PropTypes.func,
   children: PropTypes.any,
   showActiveKeyProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
   locale: PropTypes.string,
+  activeKey: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -77,9 +89,16 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showActiveKeyDispatch: (...args) => dispatch(showActiveKey(args)),
-    showActiveKeyModalDispatch: () => dispatch(showActiveKeyModal()),
-    hideActiveKeyModalDispatch: () => dispatch(hideActiveKeyModal()),
+    showActiveKeyDispatch: bindActionCreators(showActiveKey, dispatch),
+    removeActiveKeyDispatch: bindActionCreators(removeActiveKey, dispatch),
+    showActiveKeyModalDispatch: bindActionCreators(
+      showActiveKeyModal,
+      dispatch,
+    ),
+    hideActiveKeyModalDispatch: bindActionCreators(
+      hideActiveKeyModal,
+      dispatch,
+    ),
   };
 }
 

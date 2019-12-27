@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Textarea from 'components/Textarea';
 import Wrapper from './Wrapper';
 
-export const TextareaField = /* istanbul ignore next */ ({
+export const TextareaField = ({
   input,
   label,
   disabled,
@@ -13,7 +13,13 @@ export const TextareaField = /* istanbul ignore next */ ({
   tip,
   splitInHalf,
 }) => (
-  <Wrapper label={label} tip={tip} meta={meta} splitInHalf={splitInHalf}>
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    id={input.name}
+  >
     <Textarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}
