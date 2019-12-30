@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
 
-import { BG_PRIMARY_SPECIAL } from 'style-constants';
-import avatarCloseIcon from 'images/avatarCloseIcon.svg?external';
+import { BG_PRIMARY_SPECIAL, BORDER_DARK } from 'style-constants';
+import avatarCloseIcon from 'images/avatarCloseIcon.png';
+import addIcon from 'images/tick.png';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
-import Icon from 'components/Icon';
 import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
@@ -55,17 +55,29 @@ const Div = styled.div`
       position: relative;
       z-index: 12;
 
-      svg:not(.svg-icon) {
+      svg,
+      .close-icon {
         position: absolute;
-        transform: rotate(45deg);
+        border: 1px solid ${BORDER_DARK};
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+      }
+
+      svg:not(.svg-icon) {
         top: 10px;
         left: 35px !important;
+        background-image: url(${addIcon});
+        background-size: 12px 12px;
       }
 
       .close-icon {
-        position: absolute;
         top: 10px;
         left: 10px;
+        background-image: url(${avatarCloseIcon});
+        background-size: 10px 10px;
       }
     }
 
@@ -142,6 +154,7 @@ function AvatarField({ input, meta, disabled }) {
                 {...input}
                 imageWidth={isPhone ? 320 : 480}
                 cropRadius={60}
+                closeIconColor="transparent"
                 onCrop={setY}
                 onBeforeFileLoad={() => {
                   setS(true);
@@ -151,9 +164,7 @@ function AvatarField({ input, meta, disabled }) {
                   setS(false);
                 }}
               />
-              <button className="close-icon" onClick={reload}>
-                <Icon icon={avatarCloseIcon} width="20" />
-              </button>
+              <button className="close-icon" onClick={reload} />
             </div>
 
             <div className="reload-bg" onClick={reload} />
