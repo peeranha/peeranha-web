@@ -23,11 +23,18 @@ export const NumberInputField = ({
     try {
       const inputValue = String(x.target.value);
       const lastChar = inputValue[inputValue.length - 1];
-      const inputBeforeDot = inputValue.split('.')[0];
       const inputAfterDot = inputValue.split('.')[1];
 
       if (lastChar === undefined) {
         input.onChange('');
+        return;
+      }
+
+      if (
+        lastChar === '.' &&
+        inputValue.length > input.value.length &&
+        input.value.includes('.')
+      ) {
         return;
       }
 
@@ -37,11 +44,6 @@ export const NumberInputField = ({
         inputValue[1].match(/[0-9]/)
       ) {
         input.onChange(lastChar);
-        return;
-      }
-
-      if (lastChar === '.' && inputValue.length > input.value.length) {
-        input.onChange(`${inputBeforeDot}.0`);
         return;
       }
 
@@ -58,6 +60,12 @@ export const NumberInputField = ({
     }
   };
 
+  const onBlur = () => {
+    if (input.value.slice(-1) === '.') {
+      input.onChange(input.value.slice(0, -1));
+    }
+  };
+
   return (
     <Wrapper
       label={label}
@@ -67,7 +75,7 @@ export const NumberInputField = ({
       id={input.name}
     >
       <Input
-        input={{ ...input, onChange }}
+        input={{ ...input, onChange, onBlur }}
         disabled={disabled}
         readOnly={readOnly}
         placeholder={placeholder}
