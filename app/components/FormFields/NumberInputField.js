@@ -31,6 +31,15 @@ export const NumberInputField = ({
         return;
       }
 
+      if (
+        inputValue[0] === '0' &&
+        inputValue[1] &&
+        inputValue[1].match(/[0-9]/)
+      ) {
+        input.onChange(lastChar);
+        return;
+      }
+
       if (lastChar === '.' && inputValue.length > input.value.length) {
         input.onChange(`${inputBeforeDot}.0`);
         return;
@@ -44,7 +53,9 @@ export const NumberInputField = ({
       if (lastChar.match(/[0-9.]/) && inputAfterDot.length <= dotRestriction) {
         input.onChange(inputValue);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
