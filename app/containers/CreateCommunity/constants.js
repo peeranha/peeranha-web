@@ -26,5 +26,5 @@ export const CREATE_COMMUNITY_ERROR =
 
 export const SET_DEFAULT_STORE = 'app/CreateCommunity/SET_DEFAULT_STORE';
 
-export const MIN_RATING_TO_CREATE_COMMUNITY = 2500;
+export const MIN_RATING_TO_CREATE_COMMUNITY = 500;
 export const MIN_ENERGY_TO_CREATE_COMMUNITY = 125;
