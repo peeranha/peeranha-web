@@ -92,7 +92,8 @@
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
-  "app.common.iAcceptPrivacyPolicy": "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.iAcceptPrivacyPolicy":
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
   "app.common.inProgress": "Выполняется",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
@@ -318,7 +319,8 @@
   "app.containers.CreateCommunity.communityWillAppear":
     "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать.",
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
-  "app.containers.CreateCommunity.maxTagsNumberReached": "Максимальное число тегов было достигнуто",
+  "app.containers.CreateCommunity.maxTagsNumberReached":
+    "Максимальное число тегов было достигнуто",
 
   "app.containers.HomePage.title":
     "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
@@ -646,6 +648,7 @@
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
+  "app.containers.ErrorPage.notEnoughCPU": "Недостаточно CPU",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

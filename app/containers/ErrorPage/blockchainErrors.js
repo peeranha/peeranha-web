@@ -9,4 +9,8 @@ export default defineMessages({
     id: 'app.containers.ErrorPage.cannotTransferToSelf',
     keywords: 'Cannot transfer to self',
   },
+  notEnoughCPU: {
+    id: 'app.containers.ErrorPage.notEnoughCPU',
+    keywords: '3080004',
+  },
 });
