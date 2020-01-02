@@ -23,7 +23,6 @@ export const NumberInputField = ({
     try {
       const inputValue = String(x.target.value);
       const lastChar = inputValue[inputValue.length - 1];
-      const inputBeforeDot = inputValue.split('.')[0];
       const inputAfterDot = inputValue.split('.')[1];
 
       if (lastChar === undefined) {
@@ -31,8 +30,20 @@ export const NumberInputField = ({
         return;
       }
 
-      if (lastChar === '.' && inputValue.length > input.value.length) {
-        input.onChange(`${inputBeforeDot}.0`);
+      if (
+        lastChar === '.' &&
+        inputValue.length > input.value.length &&
+        input.value.includes('.')
+      ) {
+        return;
+      }
+
+      if (
+        inputValue[0] === '0' &&
+        inputValue[1] &&
+        inputValue[1].match(/[0-9]/)
+      ) {
+        input.onChange(lastChar);
         return;
       }
 
@@ -44,7 +55,15 @@ export const NumberInputField = ({
       if (lastChar.match(/[0-9.]/) && inputAfterDot.length <= dotRestriction) {
         input.onChange(inputValue);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onBlur = () => {
+    if (input.value.slice(-1) === '.') {
+      input.onChange(input.value.slice(0, -1));
+    }
   };
 
   return (
@@ -56,7 +75,7 @@ export const NumberInputField = ({
       id={input.name}
     >
       <Input
-        input={{ ...input, onChange }}
+        input={{ ...input, onChange, onBlur }}
         disabled={disabled}
         readOnly={readOnly}
         placeholder={placeholder}

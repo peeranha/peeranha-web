@@ -92,7 +92,8 @@
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
-  "app.common.iAcceptPrivacyPolicy": "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.iAcceptPrivacyPolicy":
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
   "app.common.inProgress": "Выполняется",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
@@ -318,7 +319,8 @@
   "app.containers.CreateCommunity.communityWillAppear":
     "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать.",
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
-  "app.containers.CreateCommunity.maxTagsNumberReached": "Максимальное число тегов было достигнуто",
+  "app.containers.CreateCommunity.maxTagsNumberReached":
+    "Максимальное число тегов было достигнуто",
 
   "app.containers.HomePage.title":
     "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
@@ -494,7 +496,8 @@
   "app.containers.ViewQuestion.answerIsCorrect":
     "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
   "app.containers.ViewQuestion.theBest": "Лучший",
-  "app.containers.ViewQuestion.theBestAnswer": "Лучший ответ",
+  "app.containers.ViewQuestion.theBestAnswer": "Отмечен как лучший",
+  "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
@@ -502,6 +505,7 @@
     "Показать больше ответов {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn": "Отметить лучший ответ в своем вопросе и получи +10 очков рейтинга",
 
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
@@ -646,6 +650,7 @@
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
+  "app.containers.ErrorPage.notEnoughCPU": "Недостаточно CPU",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

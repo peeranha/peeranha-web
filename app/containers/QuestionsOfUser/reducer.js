@@ -1,16 +1,9 @@
-/*
- *
- * QuestionsOfUser reducer
- *
- */
-
 import { fromJS } from 'immutable';
 
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  RESET_STORE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,11 +15,16 @@ export const initialState = fromJS({
 });
 
 function questionsOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questions } = action;
+  const { type, getQuestionsError, questions, init } = action;
 
   switch (type) {
     case GET_QUESTIONS:
-      return state.set('questionsLoading', true);
+      return state
+        .set('questionsLoading', true)
+        .set(
+          'questions',
+          init ? initialState.get('questions') : state.get('questions'),
+        );
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
@@ -36,9 +34,6 @@ function questionsOfUserReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('getQuestionsError', getQuestionsError);
-
-    case RESET_STORE:
-      return initialState;
 
     default:
       return state;
