@@ -88,6 +88,9 @@ export default defineMessages({
   theBestAnswer: {
     id: 'app.containers.ViewQuestion.theBestAnswer',
   },
+  markAsBest: {
+    id: 'app.containers.ViewQuestion.markAsBest',
+  },
   communityChoice: {
     id: 'app.containers.ViewQuestion.communityChoice',
   },
@@ -102,5 +105,8 @@ export default defineMessages({
   },
   areYouSure: {
     id: 'app.containers.ViewQuestion.areYouSure',
+  },
+  markThisQuestionAndGetEarn: {
+    id: 'app.containers.ViewQuestion.markThisQuestionAndGetEarn',
   },
 });

@@ -496,7 +496,8 @@
   "app.containers.ViewQuestion.answerIsCorrect":
     "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
   "app.containers.ViewQuestion.theBest": "Лучший",
-  "app.containers.ViewQuestion.theBestAnswer": "Лучший ответ",
+  "app.containers.ViewQuestion.theBestAnswer": "Отмечен как лучший",
+  "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
@@ -504,6 +505,7 @@
     "Показать больше ответов {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn": "Отметить лучший ответ в своем вопросе и получи +10 очков рейтинга",
 
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
