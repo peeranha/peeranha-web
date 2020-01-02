@@ -40,7 +40,14 @@ const validateEmail = email => {
 };
 
 const required = value => {
-  const val = typeof value === 'string' ? value.trim() : value;
+  let val = value;
+
+  if (Number(value) >= 0) {
+    val = Number(value);
+  } else if (typeof value === 'string') {
+    val = val.trim();
+  }
+
   return !val ? messages.requiredField : undefined;
 };
 

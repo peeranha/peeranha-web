@@ -1,9 +1,3 @@
-/**
- *
- * Profile
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,6 +9,9 @@ import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
+import { getQuestions as getQuestionsWithAnsw } from 'containers/QuestionsWithAnswersOfUser/actions';
+import { getQuestions } from 'containers/QuestionsOfUser/actions';
 
 import {
   makeSelectAccount,
@@ -33,13 +30,19 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class Profile extends React.PureComponent {
   componentDidMount() {
-    this.props.getUserProfileDispatch(this.props.userId, true);
+    this.fetch(this.props.userId);
   }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.userId !== this.props.userId) {
-      this.props.getUserProfileDispatch(nextProps.userId, true);
+      this.fetch(nextProps.userId);
     }
+  };
+
+  fetch = userId => {
+    this.props.getUserProfileDispatch(userId, true);
+    this.props.getQuestionsDispatch(userId, true);
+    this.props.getQuestionsWithAnswDispatch(userId, true);
   };
 
   render() {
@@ -92,6 +95,8 @@ Profile.propTypes = {
   isProfileLoading: PropTypes.bool,
   accountLoading: PropTypes.bool,
   getUserProfileDispatch: PropTypes.func,
+  getQuestionsDispatch: PropTypes.func,
+  getQuestionsWithAnswDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -105,6 +110,11 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
+    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    getQuestionsWithAnswDispatch: bindActionCreators(
+      getQuestionsWithAnsw,
+      dispatch,
+    ),
   };
 }
 

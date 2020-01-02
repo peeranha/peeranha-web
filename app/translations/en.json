@@ -94,8 +94,8 @@
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
-  "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.iAcceptPrivacyPolicy": "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.inProgress": "In progress",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -488,13 +488,14 @@
   "app.containers.ViewQuestion.answerIsCorrect":
     "Cannot be deleted because the answer is marked as correct",
   "app.containers.ViewQuestion.theBest": "The best",
-  "app.containers.ViewQuestion.theBestAnswer": "The best answer",
+  "app.containers.ViewQuestion.theBestAnswer": "Marked as the best",
+  "app.containers.ViewQuestion.markAsBest": "Mark as the best",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
-  "app.containers.ViewQuestion.areYouSure":
-    "Are you sure you want to delete the item?",
+  "app.containers.ViewQuestion.areYouSure": "Are you sure you want to delete the item?",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn": "Mark the best answer to this question and earn +10 extra raiting",
 
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
@@ -649,8 +650,8 @@
   "app.containers.ErrorPage.weAreSorry":
     "We're sorry, unexpected error has occured.",
   "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
-  "app.containers.ErrorPage.cannotTransferToSelf":
-    "Cannot transfer to yourself",
+  "app.containers.ErrorPage.cannotTransferToSelf": "Cannot transfer to yourself",
+  "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

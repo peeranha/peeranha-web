@@ -294,4 +294,7 @@ export default defineMessages({
   termsOfTelos: {
     id: 'app.common.termsOfTelos',
   },
+  inProgress: {
+    id: 'app.common.inProgress',
+  },
 });

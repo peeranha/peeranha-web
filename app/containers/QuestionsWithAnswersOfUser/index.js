@@ -12,6 +12,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import InfinityLoader from 'components/InfinityLoader';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -24,64 +25,44 @@ import * as select from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getQuestions, resetStore } from './actions';
-
 import QuestionsWithAnswersList from './QuestionsWithAnswersList';
 import Header from './Header';
+import { getQuestions } from './actions';
 
-/* eslint-disable react/prefer-stateless-function */
-export class QuestionsWithAnswersOfUser extends React.PureComponent {
-  componentDidMount() {
-    this.fetchQuestions();
-  }
+export const QuestionsWithAnswersOfUser = ({
+  locale,
+  communities,
+  questions,
+  questionsLoading,
+  isLastFetch,
+  className,
+  infinityOff,
+  displayName,
+  account,
+  userId,
+  getQuestionsDispatch,
+}) => (
+  <InfinityLoader
+    loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
+    isLoading={questionsLoading}
+    isLastFetch={isLastFetch}
+    infinityOff={infinityOff}
+  >
+    <div className={className}>
+      <Header userId={userId} account={account} displayName={displayName} />
 
-  componentWillUnmount() {
-    this.props.resetStoreDispatch();
-  }
+      {questions.length > 0 && (
+        <QuestionsWithAnswersList
+          questions={questions}
+          locale={locale}
+          communities={communities}
+        />
+      )}
 
-  fetchQuestions = () => {
-    const { getQuestionsDispatch, userId } = this.props;
-    getQuestionsDispatch(userId);
-  };
-
-  render() {
-    const {
-      locale,
-      communities,
-      questions,
-      questionsLoading,
-      isLastFetch,
-      className,
-      infinityOff,
-      displayName,
-      account,
-      userId,
-    } = this.props;
-
-    return (
-      <InfinityLoader
-        loadNextPaginatedData={this.fetchQuestions}
-        isLoading={questionsLoading}
-        isLastFetch={isLastFetch}
-        infinityOff={infinityOff}
-      >
-        <div className={className}>
-          <Header userId={userId} account={account} displayName={displayName} />
-
-          {questions[0] && (
-            <QuestionsWithAnswersList
-              questions={questions}
-              locale={locale}
-              communities={communities}
-            />
-          )}
-
-          {questionsLoading && <LoadingIndicator />}
-        </div>
-      </InfinityLoader>
-    );
-  }
-}
+      {questionsLoading && <LoadingIndicator />}
+    </div>
+  </InfinityLoader>
+);
 
 QuestionsWithAnswersOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
@@ -91,8 +72,6 @@ QuestionsWithAnswersOfUser.propTypes = {
   className: PropTypes.string,
   displayName: PropTypes.string,
   account: PropTypes.string,
-  getQuestionsDispatch: PropTypes.func,
-  resetStoreDispatch: PropTypes.func,
   locale: PropTypes.string,
   communities: PropTypes.array,
   questions: PropTypes.array,
@@ -109,7 +88,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
   };
 }
@@ -119,12 +97,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({
-  key: 'questionsWithAnswersOfUser',
-  reducer,
-});
-
-const withSaga = injectSaga({ key: 'questionsWithAnswersOfUser', saga });
+const key = 'questionsWithAnswersOfUser';
+const withReducer = injectReducer({ key, reducer });
+const withSaga = injectSaga({ key, saga, mode: DAEMON });
 
 export default compose(
   withReducer,

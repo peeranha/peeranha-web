@@ -10,7 +10,6 @@ import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  RESET_STORE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,11 +21,18 @@ export const initialState = fromJS({
 });
 
 function questionsWithAnswersOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questionsWithUserAnswers } = action;
+  const { type, getQuestionsError, questionsWithUserAnswers, init } = action;
 
   switch (type) {
     case GET_QUESTIONS:
-      return state.set('questionsLoading', true);
+      return state
+        .set('questionsLoading', true)
+        .set(
+          'questionsWithUserAnswers',
+          init
+            ? initialState.get('questionsWithUserAnswers')
+            : state.get('questionsWithUserAnswers'),
+        );
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
@@ -44,9 +50,6 @@ function questionsWithAnswersOfUserReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('getQuestionsError', getQuestionsError);
-
-    case RESET_STORE:
-      return initialState;
 
     default:
       return state;

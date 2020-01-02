@@ -1,20 +1,14 @@
-/*
- *
- * QuestionsOfUser actions
- *
- */
-
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
-  RESET_STORE,
 } from './constants';
 
-export function getQuestions(userId) {
+export function getQuestions(userId, init) {
   return {
     type: GET_QUESTIONS,
     userId,
+    init,
   };
 }
 
@@ -29,11 +23,5 @@ export function getQuestionsErr(getQuestionsError) {
   return {
     type: GET_QUESTIONS_ERROR,
     getQuestionsError,
-  };
-}
-
-export function resetStore() {
-  return {
-    type: RESET_STORE,
   };
 }

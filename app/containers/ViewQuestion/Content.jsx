@@ -23,6 +23,7 @@ export const Content = props => (
       tags={props.questionData.tags}
       communityId={props.questionData.community_id}
       communities={props.communities}
+      isItWrittenByMe={props.isItWrittenByMe}
     />
     <ContentBody {...props} />
   </BaseStyled>

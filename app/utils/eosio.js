@@ -231,9 +231,9 @@ class EosioService {
 
         this.isScatterWindowOpened = false;
         return;
-      } catch (err) {
+      } catch ({ message }) {
         this.isScatterWindowOpened = false;
-        throw err;
+        throw new BlockchainError(message);
       }
     }
 
