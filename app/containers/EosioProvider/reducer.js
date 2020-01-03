@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS, INIT_EOSIO_ERROR } from './constants';
 
 export const initialState = fromJS({
@@ -27,6 +28,8 @@ function eosioProviderReducer(state = initialState, action) {
         .set('scatter', scatter || state.get('scatter'));
     case INIT_EOSIO_ERROR:
       return state.set('initializing', false).set('error', error);
+    case LOGOUT_SUCCESS:
+      return state.set('scatter', initialState.get('scatter'));
     default:
       return state;
   }

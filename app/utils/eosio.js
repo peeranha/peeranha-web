@@ -15,6 +15,8 @@ import {
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
   ENDPOINTS_LIST,
+  SCATTER_TIMEOUT_ERROR,
+  SCATTER_TIMEOUT_DURATION,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -143,8 +145,13 @@ class EosioService {
   };
 
   forgetIdentity = async () => {
-    if (ScatterJS.scatter && ScatterJS.scatter.identity) {
-      await ScatterJS.scatter.forgetIdentity();
+    try {
+      if (ScatterJS.scatter && ScatterJS.scatter.identity) {
+        await this.isScatterClosed();
+        await ScatterJS.scatter.forgetIdentity();
+      }
+    } catch ({ message }) {
+      console.log(message);
     }
   };
 
@@ -169,6 +176,22 @@ class EosioService {
     this.selectedAccount = account.name;
 
     return account.name;
+  };
+
+  isScatterClosed = async () => {
+    // Race - if identity is unavailable - wait $SCATTER_TIMEOUT_DURATION -
+    const identity = await Promise.race([
+      ScatterJS.scatter.getIdentity(),
+      new Promise(res => {
+        setTimeout(() => {
+          res(SCATTER_TIMEOUT_ERROR);
+        }, SCATTER_TIMEOUT_DURATION);
+      }),
+    ]);
+
+    if (identity === SCATTER_TIMEOUT_ERROR) {
+      throw new Error(SCATTER_TIMEOUT_ERROR);
+    }
   };
 
   sendTransaction = async (
@@ -220,6 +243,8 @@ class EosioService {
 
       try {
         this.isScatterWindowOpened = true;
+
+        await this.isScatterClosed();
 
         const trx = await this.eosApi.transact(transaction, {
           ...transactionHeader,
