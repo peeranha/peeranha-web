@@ -6,6 +6,7 @@ export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
 export const SCATTER_APP_NAME = 'Peeranha';
 
+export const FAILED_TRX_LS = 'failed_transaction';
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
 export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';

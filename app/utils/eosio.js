@@ -17,6 +17,7 @@ import {
   ENDPOINTS_LIST,
   SCATTER_TIMEOUT_ERROR,
   SCATTER_TIMEOUT_DURATION,
+  FAILED_TRX_LS,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -78,7 +79,7 @@ class EosioService {
     this.eosApi = scatterInstance;
   };
 
-  initEosioWithoutScatter = async (key, account) => {
+  initEosioWithoutScatter = async (key, acc) => {
     this.node = await this.getNode();
 
     const keys = key ? [key] : [];
@@ -94,7 +95,29 @@ class EosioService {
 
     this.eosApi = api;
     this.initialized = true;
-    this.selectedAccount = account;
+    this.selectedAccount = acc;
+
+    const failedTransaction = JSON.parse(localStorage.getItem(FAILED_TRX_LS));
+
+    if (failedTransaction && key) {
+      const {
+        actor,
+        action,
+        data,
+        account,
+        waitForGettingToBlock,
+      } = failedTransaction;
+
+      localStorage.setItem(FAILED_TRX_LS, null);
+
+      await this.sendTransaction(
+        actor,
+        action,
+        data,
+        account,
+        waitForGettingToBlock,
+      );
+    }
   };
 
   privateToPublic = privateKey => {
@@ -301,6 +324,18 @@ class EosioService {
         await this.awaitTransactionToBlock(trx.processed.block_num);
       }
     } catch ({ message }) {
+      const failedTransaction = JSON.stringify({
+        actor,
+        action,
+        data,
+        account,
+        waitForGettingToBlock,
+      });
+
+      localStorage.setItem(FAILED_TRX_LS, failedTransaction);
+
+      await this.handleCaseWithInvalidNode(message);
+
       throw new BlockchainError(message);
     }
   };
@@ -400,7 +435,10 @@ class EosioService {
 
         const { nodes, date } = this.getStoredNodes();
 
-        if (!nodes.length) throw new Error(errorMsg);
+        if (!nodes.length) {
+          localStorage.setItem(FAILED_TRX_LS, null);
+          throw new Error(errorMsg);
+        }
 
         nodes[0].isInvalid = true;
 
