@@ -94,7 +94,8 @@
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
-  "app.common.iAcceptPrivacyPolicy": "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.iAcceptPrivacyPolicy":
+    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
   "app.common.inProgress": "In progress",
 
   "app.containers.TermsOfService.title": "Terms of Service",
@@ -307,7 +308,8 @@
   "app.containers.CreateCommunity.communityWillAppear":
     "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
   "app.containers.CreateCommunity.goToList": "Go to list",
-  "app.containers.CreateCommunity.maxTagsNumberReached": "Max tags number was reached",
+  "app.containers.CreateCommunity.maxTagsNumberReached":
+    "Max tags number was reached",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
@@ -494,8 +496,10 @@
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
-  "app.containers.ViewQuestion.areYouSure": "Are you sure you want to delete the item?",
-  "app.containers.ViewQuestion.markThisQuestionAndGetEarn": "Mark the best answer to this question and earn +2 extra rating",
+  "app.containers.ViewQuestion.areYouSure":
+    "Are you sure you want to delete the item?",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
+    "Mark the best answer to this question and earn +2 reputation points",
 
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
@@ -650,7 +654,8 @@
   "app.containers.ErrorPage.weAreSorry":
     "We're sorry, unexpected error has occured.",
   "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
-  "app.containers.ErrorPage.cannotTransferToSelf": "Cannot transfer to yourself",
+  "app.containers.ErrorPage.cannotTransferToSelf":
+    "Cannot transfer to yourself",
   "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
   "app.containers.ErrorPage.checkScatterConnection": "Check Scatter connection",
 
