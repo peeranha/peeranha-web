@@ -22,7 +22,6 @@ import { successHandling } from 'containers/Toast/saga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { initEosioWorker } from 'containers/EosioProvider/saga';
 
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
@@ -316,15 +315,13 @@ export function* signUpWithScatterWorker({ val }) {
   }
 }
 
-export function* showScatterSignUpFormWorker({ noInitEosio }) {
+export function* showScatterSignUpFormWorker() {
   try {
-    if (!noInitEosio) {
-      yield call(initEosioWorker, { initWithScatter: true });
-    }
-
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
+
+    yield call(eosService.initEosioWithScatter);
 
     if (!eosService.scatterInstalled) {
       throw new WebIntegrationError(

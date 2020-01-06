@@ -11,14 +11,13 @@ import { WebIntegrationError, ApplicationError } from 'utils/errors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { initEosioSuccess } from 'containers/EosioProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { initEosioWorker } from 'containers/EosioProvider/saga';
 import { hideLeftMenu } from 'containers/AppWrapper/actions';
+import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 import {
   loginWithEmailSuccess,
@@ -49,7 +48,6 @@ import {
 
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
-import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -87,10 +85,13 @@ export function* loginWithEmailWorker({ val }) {
       yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
     }
 
-    yield call(initEosioWorker, {
-      key: activeKey.private,
-      selectedAccount: eosAccountName,
-    });
+    const eosService = yield select(selectEos);
+
+    yield call(
+      eosService.initEosioWithoutScatter,
+      activeKey.private,
+      eosAccountName,
+    );
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
@@ -98,11 +99,11 @@ export function* loginWithEmailWorker({ val }) {
 
 export function* loginWithScatterWorker() {
   try {
-    yield call(initEosioWorker, { initWithScatter: true });
-
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
+
+    yield call(eosService.initEosioWithScatter);
 
     if (!eosService.scatterInstalled) {
       throw new WebIntegrationError(
@@ -120,7 +121,7 @@ export function* loginWithScatterWorker() {
     const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
-      yield call(showScatterSignUpFormWorker, { noInitEosio: true });
+      yield call(showScatterSignUpFormWorker);
 
       yield put(hideLoginModal());
 
@@ -134,7 +135,6 @@ export function* loginWithScatterWorker() {
       JSON.stringify({ loginWithScatter: true }),
     );
 
-    yield put(initEosioSuccess(eosService));
     yield put(loginWithScatterSuccess());
   } catch (err) {
     yield put(loginWithScatterErr(err));

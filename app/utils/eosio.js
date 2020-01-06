@@ -8,6 +8,7 @@ import { TextEncoder, TextDecoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
 
 import {
   BLOCKCHAIN_NAME,
@@ -17,7 +18,6 @@ import {
   ENDPOINTS_LIST,
   SCATTER_TIMEOUT_ERROR,
   SCATTER_TIMEOUT_DURATION,
-  FAILED_TRX_LS,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -34,12 +34,14 @@ if (!window.TextEncoder) {
 }
 
 class EosioService {
+  #key;
+
   constructor() {
     this.initialized = false;
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
-    this.isInvalidNodeHandling = false;
+    this.#key = null;
   }
 
   initScatter = async () => {
@@ -62,21 +64,27 @@ class EosioService {
 
     window.scatter = null;
 
-    return {
+    this.scatterInstance = {
       transact: eos.transact,
       authorityProvider: rpc,
     };
   };
 
-  initEosioWithScatter = async scatterInstance => {
-    if (!this.node) {
-      this.node = await this.getNode();
-    }
+  initEosioWithScatter = async () => {
+    try {
+      if (!this.scatterInstance) {
+        await this.initScatter();
+      }
 
-    this.selectedAccount = await this.selectAccount();
-    this.initialized = true;
-    this.scatterInstalled = Boolean(scatterInstance);
-    this.eosApi = scatterInstance;
+      this.selectedAccount = await this.selectAccount();
+      this.initialized = true;
+      this.scatterInstalled = Boolean(this.scatterInstance);
+      this.eosApi = this.scatterInstance;
+    } catch (err) {
+      this.scatterInstance = null;
+      this.scatterInstalled = false;
+      this.initialized = false;
+    }
   };
 
   initEosioWithoutScatter = async (key, acc) => {
@@ -96,28 +104,7 @@ class EosioService {
     this.eosApi = api;
     this.initialized = true;
     this.selectedAccount = acc;
-
-    const failedTransaction = JSON.parse(localStorage.getItem(FAILED_TRX_LS));
-
-    if (failedTransaction && key) {
-      const {
-        actor,
-        action,
-        data,
-        account,
-        waitForGettingToBlock,
-      } = failedTransaction;
-
-      localStorage.setItem(FAILED_TRX_LS, null);
-
-      await this.sendTransaction(
-        actor,
-        action,
-        data,
-        account,
-        waitForGettingToBlock,
-      );
-    }
+    this.#key = key;
   };
 
   privateToPublic = privateKey => {
@@ -170,7 +157,6 @@ class EosioService {
   forgetIdentity = async () => {
     try {
       if (ScatterJS.scatter && ScatterJS.scatter.identity) {
-        await this.isScatterClosed();
         await ScatterJS.scatter.forgetIdentity();
       }
     } catch ({ message }) {
@@ -179,8 +165,6 @@ class EosioService {
   };
 
   selectAccount = async () => {
-    await this.forgetIdentity();
-
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
     let result;
@@ -224,6 +208,8 @@ class EosioService {
     account,
     waitForGettingToBlock,
   ) => {
+    const { endpoint } = this.node;
+
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     Object.keys(data).forEach(x => {
@@ -324,19 +310,28 @@ class EosioService {
         await this.awaitTransactionToBlock(trx.processed.block_num);
       }
     } catch ({ message }) {
-      const failedTransaction = JSON.stringify({
+      const isHandled = Object.keys(blockchainErrors).find(x =>
+        message.match(blockchainErrors[x].keywords.toLowerCase()),
+      );
+
+      if (isHandled) throw new BlockchainError(message);
+
+      const method = this.sendTransaction.bind(
+        null,
         actor,
         action,
         data,
         account,
         waitForGettingToBlock,
-      });
+      );
 
-      localStorage.setItem(FAILED_TRX_LS, failedTransaction);
+      const res = await this.handleCaseWithInvalidNode(
+        method,
+        message,
+        endpoint,
+      );
 
-      await this.handleCaseWithInvalidNode(message);
-
-      throw new BlockchainError(message);
+      return res;
     }
   };
 
@@ -390,6 +385,8 @@ class EosioService {
     keyType,
     code,
   ) => {
+    const { endpoint } = this.node;
+
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     try {
@@ -415,8 +412,26 @@ class EosioService {
       }
 
       return [];
-    } catch (err) {
-      await this.handleCaseWithInvalidNode(err.message);
+    } catch ({ message }) {
+      const method = this.getTableRows.bind(
+        null,
+        table,
+        scope,
+        lowerBound,
+        limit,
+        upperBound,
+        indexPosition,
+        keyType,
+        code,
+      );
+
+      const res = await this.handleCaseWithInvalidNode(
+        method,
+        message,
+        endpoint,
+      );
+
+      return res;
     }
   };
 
@@ -428,32 +443,36 @@ class EosioService {
     chainId: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
-  handleCaseWithInvalidNode = async errorMsg => {
+  handleCaseWithInvalidNode = async (method, errorMsg, endpoint) => {
     try {
-      if (!this.isInvalidNodeHandling) {
-        this.isInvalidNodeHandling = true;
+      const { nodes, date } = this.getStoredNodes();
 
-        const { nodes, date } = this.getStoredNodes();
+      if (!nodes.length && this.getDefaultEosConfig().endpoint === endpoint)
+        throw new Error(errorMsg);
 
-        if (!nodes.length) {
-          localStorage.setItem(FAILED_TRX_LS, null);
-          throw new Error(errorMsg);
-        }
-
-        nodes[0].isInvalid = true;
-
+      if (nodes.find(x => x.endpoint === endpoint)) {
         localStorage.setItem(
           ENDPOINTS_LIST,
           JSON.stringify({
             date,
-            nodes,
+            nodes: nodes.filter(x => x.endpoint !== endpoint),
           }),
         );
-
-        window.location.reload();
       }
+
+      const initializedWithScatter = this.eosApi
+        ? Boolean(!this.eosApi.signatureProvider)
+        : false;
+
+      if (initializedWithScatter) {
+        // Scatter bug - In Scatter JS 20.0 there is no way to reconnect with another node without reload
+        window.location.reload();
+      } else {
+        await this.initEosioWithoutScatter(this.#key, this.selectedAccount);
+      }
+
+      return await method();
     } catch (err) {
-      this.isInvalidNodeHandling = false;
       throw err;
     }
   };
@@ -464,7 +483,7 @@ class EosioService {
 
       return {
         date,
-        nodes: nodes && nodes.length > 0 ? nodes.filter(x => !x.isInvalid) : [],
+        nodes: nodes || [],
       };
     } catch (err) {
       return { nodes: [] };

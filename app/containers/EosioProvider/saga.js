@@ -25,7 +25,6 @@ import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
-import { selectScatter } from './selectors';
 
 export function* initEosioWorker({
   key = null,
@@ -42,14 +41,8 @@ export function* initEosioWorker({
 
     if ((autoLoginData && autoLoginData.loginWithScatter) || initWithScatter) {
       try {
-        let scatter = yield select(selectScatter());
-
-        if (!scatter) {
-          scatter = yield call(eosService.initScatter);
-        }
-
-        yield call(eosService.initEosioWithScatter, scatter);
-        yield put(initEosioSuccess(eosService, scatter));
+        yield call(eosService.initEosioWithScatter);
+        yield put(initEosioSuccess(eosService));
       } catch (err) {
         yield call(eosService.initEosioWithoutScatter);
         yield put(initEosioSuccess(eosService));
