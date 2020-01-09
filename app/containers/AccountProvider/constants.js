@@ -14,3 +14,5 @@ export const GET_CURRENT_ACCOUNT_PROCESSING =
 
 export const UPDATE_ACC_SUCCESS = 'app/AccountProvider/UPDATE_ACC_SUCCESS';
 export const UPDATE_ACC_ERROR = 'app/AccountProvider/UPDATE_ACC_ERROR';
+
+export const UPDATE_ACC_PERIOD = 600000; // 10 min
