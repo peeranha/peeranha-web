@@ -24,6 +24,8 @@ export const Content = props => (
       communityId={props.questionData.community_id}
       communities={props.communities}
       isItWrittenByMe={props.isItWrittenByMe}
+      correctAnswerId={props.questionData.correct_answer_id}
+      answersNumber={props.questionData.answers.length}
     />
     <ContentBody {...props} />
   </BaseStyled>
@@ -39,6 +41,7 @@ Content.propTypes = {
   postTime: PropTypes.number,
   lastEditedDate: PropTypes.number,
   communities: PropTypes.array,
+  isItWrittenByMe: PropTypes.bool,
 };
 
 export default React.memo(Content);

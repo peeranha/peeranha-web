@@ -27,7 +27,7 @@ export const MarkAnswerNotification = styled.div`
   background-color: ${BG_SUCCESS_LIGHT};
   padding: 5px 15px 5px 10px;
   font-size: 16px;
-  line-height: 30px;
+  line-height: 20px;
   margin-bottom: 8px;
 `;
 

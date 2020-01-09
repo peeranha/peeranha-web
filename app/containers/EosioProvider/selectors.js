@@ -21,16 +21,10 @@ const makeSelectEos = () =>
 const makeSelectError = () =>
   createSelector(selectEosioProviderDomain, substate => substate.get('error'));
 
-const selectScatter = () =>
-  createSelector(selectEosioProviderDomain, substate =>
-    substate.get('scatter'),
-  );
-
 export {
   selectEosioProviderDomain,
   selectEos,
   makeSelectInitializing,
   makeSelectEos,
   makeSelectError,
-  selectScatter,
 };

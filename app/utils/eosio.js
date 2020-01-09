@@ -8,6 +8,7 @@ import { TextEncoder, TextDecoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
 
 import {
   BLOCKCHAIN_NAME,
@@ -15,6 +16,8 @@ import {
   SCATTER_APP_NAME,
   EOS_IS_NOT_INIT,
   ENDPOINTS_LIST,
+  SCATTER_TIMEOUT_ERROR,
+  SCATTER_TIMEOUT_DURATION,
 } from './constants';
 
 import { parseTableRows, createPushActionBody } from './ipfs';
@@ -31,12 +34,14 @@ if (!window.TextEncoder) {
 }
 
 class EosioService {
+  #key;
+
   constructor() {
     this.initialized = false;
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
-    this.isInvalidNodeHandling = false;
+    this.#key = null;
   }
 
   initScatter = async () => {
@@ -59,24 +64,30 @@ class EosioService {
 
     window.scatter = null;
 
-    return {
+    this.scatterInstance = {
       transact: eos.transact,
       authorityProvider: rpc,
     };
   };
 
-  initEosioWithScatter = async scatterInstance => {
-    if (!this.node) {
-      this.node = await this.getNode();
-    }
+  initEosioWithScatter = async () => {
+    try {
+      if (!this.scatterInstance) {
+        await this.initScatter();
+      }
 
-    this.selectedAccount = await this.selectAccount();
-    this.initialized = true;
-    this.scatterInstalled = Boolean(scatterInstance);
-    this.eosApi = scatterInstance;
+      this.selectedAccount = await this.selectAccount();
+      this.initialized = true;
+      this.scatterInstalled = Boolean(this.scatterInstance);
+      this.eosApi = this.scatterInstance;
+    } catch (err) {
+      this.scatterInstance = null;
+      this.scatterInstalled = false;
+      this.initialized = false;
+    }
   };
 
-  initEosioWithoutScatter = async (key, account) => {
+  initEosioWithoutScatter = async (key, acc) => {
     this.node = await this.getNode();
 
     const keys = key ? [key] : [];
@@ -92,7 +103,8 @@ class EosioService {
 
     this.eosApi = api;
     this.initialized = true;
-    this.selectedAccount = account;
+    this.selectedAccount = acc;
+    this.#key = key;
   };
 
   privateToPublic = privateKey => {
@@ -143,14 +155,16 @@ class EosioService {
   };
 
   forgetIdentity = async () => {
-    if (ScatterJS.scatter && ScatterJS.scatter.identity) {
-      await ScatterJS.scatter.forgetIdentity();
+    try {
+      if (ScatterJS.scatter && ScatterJS.scatter.identity) {
+        await ScatterJS.scatter.forgetIdentity();
+      }
+    } catch ({ message }) {
+      console.log(message);
     }
   };
 
   selectAccount = async () => {
-    await this.forgetIdentity();
-
     const requiredFields = { accounts: [this.getScatterConfig()] };
 
     let result;
@@ -171,6 +185,22 @@ class EosioService {
     return account.name;
   };
 
+  isScatterClosed = async () => {
+    // Race - if identity is unavailable - wait $SCATTER_TIMEOUT_DURATION -
+    const identity = await Promise.race([
+      ScatterJS.scatter.getIdentity(),
+      new Promise(res => {
+        setTimeout(() => {
+          res(SCATTER_TIMEOUT_ERROR);
+        }, SCATTER_TIMEOUT_DURATION);
+      }),
+    ]);
+
+    if (identity === SCATTER_TIMEOUT_ERROR) {
+      throw new Error(SCATTER_TIMEOUT_ERROR);
+    }
+  };
+
   sendTransaction = async (
     actor,
     action,
@@ -178,6 +208,8 @@ class EosioService {
     account,
     waitForGettingToBlock,
   ) => {
+    const { endpoint } = this.node;
+
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     Object.keys(data).forEach(x => {
@@ -220,6 +252,8 @@ class EosioService {
 
       try {
         this.isScatterWindowOpened = true;
+
+        await this.isScatterClosed();
 
         const trx = await this.eosApi.transact(transaction, {
           ...transactionHeader,
@@ -276,7 +310,28 @@ class EosioService {
         await this.awaitTransactionToBlock(trx.processed.block_num);
       }
     } catch ({ message }) {
-      throw new BlockchainError(message);
+      const isHandled = Object.keys(blockchainErrors).find(x =>
+        message.match(blockchainErrors[x].keywords.toLowerCase()),
+      );
+
+      if (isHandled) throw new BlockchainError(message);
+
+      const method = this.sendTransaction.bind(
+        null,
+        actor,
+        action,
+        data,
+        account,
+        waitForGettingToBlock,
+      );
+
+      const res = await this.handleCaseWithInvalidNode(
+        method,
+        message,
+        endpoint,
+      );
+
+      return res;
     }
   };
 
@@ -330,6 +385,8 @@ class EosioService {
     keyType,
     code,
   ) => {
+    const { endpoint } = this.node;
+
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 
     try {
@@ -355,8 +412,26 @@ class EosioService {
       }
 
       return [];
-    } catch (err) {
-      await this.handleCaseWithInvalidNode(err.message);
+    } catch ({ message }) {
+      const method = this.getTableRows.bind(
+        null,
+        table,
+        scope,
+        lowerBound,
+        limit,
+        upperBound,
+        indexPosition,
+        keyType,
+        code,
+      );
+
+      const res = await this.handleCaseWithInvalidNode(
+        method,
+        message,
+        endpoint,
+      );
+
+      return res;
     }
   };
 
@@ -368,29 +443,36 @@ class EosioService {
     chainId: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
-  handleCaseWithInvalidNode = async errorMsg => {
+  handleCaseWithInvalidNode = async (method, errorMsg, endpoint) => {
     try {
-      if (!this.isInvalidNodeHandling) {
-        this.isInvalidNodeHandling = true;
+      const { nodes, date } = this.getStoredNodes();
 
-        const { nodes, date } = this.getStoredNodes();
+      if (!nodes.length && this.getDefaultEosConfig().endpoint === endpoint)
+        throw new Error(errorMsg);
 
-        if (!nodes.length) throw new Error(errorMsg);
-
-        nodes[0].isInvalid = true;
-
+      if (nodes.find(x => x.endpoint === endpoint)) {
         localStorage.setItem(
           ENDPOINTS_LIST,
           JSON.stringify({
             date,
-            nodes,
+            nodes: nodes.filter(x => x.endpoint !== endpoint),
           }),
         );
-
-        window.location.reload();
       }
+
+      const initializedWithScatter = this.eosApi
+        ? Boolean(!this.eosApi.signatureProvider)
+        : false;
+
+      if (initializedWithScatter) {
+        // Scatter bug - In Scatter JS 20.0 there is no way to reconnect with another node without reload
+        window.location.reload();
+      } else {
+        await this.initEosioWithoutScatter(this.#key, this.selectedAccount);
+      }
+
+      return await method();
     } catch (err) {
-      this.isInvalidNodeHandling = false;
       throw err;
     }
   };
@@ -401,7 +483,7 @@ class EosioService {
 
       return {
         date,
-        nodes: nodes && nodes.length > 0 ? nodes.filter(x => !x.isInvalid) : [],
+        nodes: nodes || [],
       };
     } catch (err) {
       return { nodes: [] };

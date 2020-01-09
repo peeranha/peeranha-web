@@ -18,11 +18,17 @@ export const QuestionTitle = ({
   communityId,
   communities,
   isItWrittenByMe,
+  correctAnswerId,
+  answersNumber,
 }) =>
   title ? (
     <Base position="middle">
       <MarkAnswerNotification
-        className={isItWrittenByMe ? 'd-inline-flex' : 'd-none'}
+        className={
+          !correctAnswerId && isItWrittenByMe && answersNumber
+            ? 'd-inline-flex'
+            : 'd-none'
+        }
       >
         <img className="mr-2" src={checkIcon} alt="icon" />
         <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
@@ -50,6 +56,9 @@ QuestionTitle.propTypes = {
   tags: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
+  isItWrittenByMe: PropTypes.bool,
+  correctAnswerId: PropTypes.number,
+  answersNumber: PropTypes.number,
 };
 
 export default React.memo(QuestionTitle);
