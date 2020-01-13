@@ -1,9 +1,10 @@
 /* eslint no-param-reassign: 0, indent: 0, consistent-return: 0 */
-import { Api, JsonRpc } from 'eosjs';
+import Eosjs16 from 'eosjs16';
+import { Api, JsonRpc } from 'eosjs20';
 import ecc from 'eosjs-ecc';
-import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
-import ScatterJS from '@scatterjs/core';
-import ScatterEOS from '@scatterjs/eosjs2';
+import { JsSignatureProvider } from 'eosjs20/dist/eosjs-jssig';
+import ScatterJS from 'scatterjs-core';
+import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { TextEncoder, TextDecoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
 
@@ -45,43 +46,37 @@ class EosioService {
   }
 
   initScatter = async () => {
-    this.node = await this.getNode();
-
-    const scatterConfig = this.getScatterConfig();
-
     ScatterJS.plugins(new ScatterEOS());
 
-    const network = ScatterJS.Network.fromJson(scatterConfig);
-    const rpc = new JsonRpc(network.fullhost());
-    const connected = await ScatterJS.connect(
-      SCATTER_APP_NAME,
-      { network },
-    );
+    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
 
     if (!connected) throw new Error('No connection with Scatter');
-
-    const eos = ScatterJS.eos(network, Api, { rpc });
-
-    window.scatter = null;
-
-    this.scatterInstance = {
-      transact: eos.transact,
-      authorityProvider: rpc,
-    };
   };
 
   initEosioWithScatter = async () => {
     try {
-      if (!this.scatterInstance) {
-        await this.initScatter();
-      }
+      await this.initScatter();
+      this.node = await this.getNode();
+
+      const scatterConfig = this.getScatterConfig();
+      const eosOptions = {};
 
       this.selectedAccount = await this.selectAccount();
       this.initialized = true;
-      this.scatterInstalled = Boolean(this.scatterInstance);
-      this.eosApi = this.scatterInstance;
+      this.scatterInstalled = true;
+
+      const api = ScatterJS.scatter.eos(scatterConfig, Eosjs16, eosOptions);
+
+      this.eosApi = {
+        transaction: api.transaction,
+        authorityProvider: {
+          get_table_rows: api.getTableRows,
+          history_get_key_accounts: api.getKeyAccounts,
+          get_account: api.getKeyAccounts,
+          get_block: api.getBlock,
+        },
+      };
     } catch (err) {
-      this.scatterInstance = null;
       this.scatterInstalled = false;
       this.initialized = false;
     }
@@ -246,24 +241,23 @@ class EosioService {
     const initializedWithScatter = !this.eosApi.signatureProvider;
 
     if (initializedWithScatter) {
-      if (this.isScatterWindowOpened) {
-        throw new ApplicationError('Popup is already opened');
-      }
-
       try {
+        if (this.isScatterWindowOpened) {
+          throw new ApplicationError('Scatter window is already opened');
+        }
+
         this.isScatterWindowOpened = true;
 
         await this.isScatterClosed();
 
-        const trx = await this.eosApi.transact(transaction, {
-          ...transactionHeader,
-        });
+        const trx = await this.eosApi.transaction(transaction);
 
         if (waitForGettingToBlock) {
           await this.awaitTransactionToBlock(trx.processed.block_num);
         }
 
         this.isScatterWindowOpened = false;
+
         return;
       } catch ({ message }) {
         this.isScatterWindowOpened = false;
@@ -465,8 +459,7 @@ class EosioService {
         : false;
 
       if (initializedWithScatter) {
-        // Scatter bug - In Scatter JS 20.0 there is no way to reconnect with another node without reload
-        window.location.reload();
+        await this.initEosioWithScatter();
       } else {
         await this.initEosioWithoutScatter(this.#key, this.selectedAccount);
       }
