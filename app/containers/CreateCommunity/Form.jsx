@@ -125,7 +125,7 @@ const CreateCommunityForm = ({
           component={TextInputField}
           label={translations[messages.shortDescription.id]}
           validate={[strLength15x250, required]}
-          warn={[strLength15x100, required]}
+          warn={[strLength15x250, required]}
           tip={translations[messages.shortDescriptionTip.id]}
           splitInHalf
         />
