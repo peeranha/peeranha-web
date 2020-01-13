@@ -28,7 +28,7 @@ import {
   strLength3x20,
   required,
   strLength20x1000,
-  strLength15x100,
+  strLength15x250,
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
 } from 'components/FormFields/validate';
@@ -123,7 +123,7 @@ const CreateCommunityForm = ({
           name={COMM_SHORT_DESCRIPTION_FIELD}
           component={TextInputField}
           label={translations[messages.shortDescription.id]}
-          validate={[strLength15x100, required]}
+          validate={[strLength15x250, required]}
           warn={[strLength15x100, required]}
           tip={translations[messages.shortDescriptionTip.id]}
           splitInHalf
