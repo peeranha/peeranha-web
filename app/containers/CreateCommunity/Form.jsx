@@ -28,6 +28,7 @@ import {
   strLength3x20,
   required,
   strLength20x1000,
+  strLength15x100,
   strLength15x250,
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
