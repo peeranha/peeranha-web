@@ -119,6 +119,7 @@ export {
   strLength254Max,
   strLength3x20,
   strLength15x100,
+  strLength15x250,
   strLength20x1000,
   strLength25x30000,
   valueHasNotBeInList,
