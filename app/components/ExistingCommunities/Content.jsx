@@ -104,7 +104,7 @@ const Content = ({ communities, sorting, locale, language }) => {
 
               <div>
                 <P fontSize="24" lineHeight="31" bold>
-                  {x.name}
+                  <A to={routes.questions(x.id)}>{x.name}</A>
                 </P>
                 <P className="d-none d-md-block" fontSize="14" lineHeight="18">
                   <FormattedMessage {...commonMessages[x.language]} />
