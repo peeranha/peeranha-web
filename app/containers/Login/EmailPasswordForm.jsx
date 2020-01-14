@@ -5,13 +5,10 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import P from 'components/P';
-import H4 from 'components/H4';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/TransparentSmall';
 
@@ -84,10 +81,7 @@ const EmailPasswordForm = ({
       </div>
     </form>
 
-    <Footer
-      loginWithScatterProcessing={loginWithScatterProcessing}
-      loginWithScatter={loginWithScatter}
-    />
+    <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />
   </div>
 );
 

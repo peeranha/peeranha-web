@@ -321,6 +321,7 @@ export function* showScatterSignUpFormWorker() {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
+    yield call(eosService.forgetIdentity);
     yield call(eosService.initEosioWithScatter);
 
     if (!eosService.scatterInstalled) {

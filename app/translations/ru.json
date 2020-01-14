@@ -95,6 +95,8 @@
   "app.common.iAcceptPrivacyPolicy":
     "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
   "app.common.inProgress": "Выполняется",
+  "app.common.loginViaWallet": "Войти через кошелек",
+  "app.common.signUpViaWallet": "Регистрация через кошелек",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -505,7 +507,8 @@
     "Показать больше ответов {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
-  "app.containers.ViewQuestion.markThisQuestionAndGetEarn": "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
+    "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
 
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
@@ -651,7 +654,8 @@
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
   "app.containers.ErrorPage.notEnoughCPU": "Недостаточно CPU",
-  "app.containers.ErrorPage.checkScatterConnection": "Проверьте подключение к Scatter",
+  "app.containers.ErrorPage.checkScatterConnection":
+    "Проверьте подключение к Scatter",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
