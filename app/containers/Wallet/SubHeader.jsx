@@ -7,7 +7,6 @@ import commonMessages from 'common-messages';
 import {
   BG_PRIMARY_LIGHT,
   TEXT_SECONDARY_LIGHT,
-  TEXT_SECONDARY,
   TEXT_PRIMARY,
 } from 'style-constants';
 
@@ -18,7 +17,6 @@ import { getFormattedNum3 } from 'utils/numbers';
 
 import Icon from 'components/Icon';
 import Span from 'components/Span';
-import Base from 'components/Base';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 

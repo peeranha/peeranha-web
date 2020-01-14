@@ -120,9 +120,9 @@
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
   "app.containers.Wallet.eosAccount": "Telos account",
-  "app.containers.Wallet.currentPeriod": "Current period in progress",
+  "app.containers.Wallet.currentPeriod": "Current and settlement periods",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details in the next week.",
+    "These periods are still in progress. You will see more details next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
