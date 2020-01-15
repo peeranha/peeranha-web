@@ -9,7 +9,7 @@ export const initialState = fromJS({
   isLastFetch: false,
   sorting: 'registration_time',
   searchText: '',
-  limit: 30,
+  limit: 50,
 });
 
 function usersReducer(state = initialState, action) {

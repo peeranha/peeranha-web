@@ -97,6 +97,8 @@
   "app.common.iAcceptPrivacyPolicy":
     "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
   "app.common.inProgress": "In progress",
+  "app.common.loginViaWallet": "Login via wallet",
+  "app.common.signUpViaWallet": "Sign up via wallet",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -118,9 +120,9 @@
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
   "app.containers.Wallet.eosAccount": "Telos account",
-  "app.containers.Wallet.currentPeriod": "Current period in progress",
+  "app.containers.Wallet.currentPeriod": "Current and settlement periods",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details in the next week.",
+    "These periods are still in progress. You will see more details next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
@@ -529,7 +531,7 @@
   "app.containers.Login.staySignedIn": "Stay signed in",
   "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
-    "Check whether the Scatter and network settings are installed",
+    "Check whether the wallet and network settings are installed",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
@@ -563,7 +565,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than Scatter sign up option is available.",
+    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
@@ -657,7 +659,7 @@
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Cannot transfer to yourself",
   "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
-  "app.containers.ErrorPage.checkScatterConnection": "Check Scatter connection",
+  "app.containers.ErrorPage.checkScatterConnection": "Check wallet connection",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

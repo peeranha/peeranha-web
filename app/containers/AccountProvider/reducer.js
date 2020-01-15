@@ -17,6 +17,7 @@ export const initialState = fromJS({
   error: null,
   account: null,
   balance: null,
+  lastUpdate: null,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -28,6 +29,7 @@ function accountProviderReducer(state = initialState, action) {
     case GET_CURRENT_ACCOUNT_SUCCESS:
       return state
         .set('loading', false)
+        .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
         .set('balance', balance || initialState.get('balance'));
     case GET_CURRENT_ACCOUNT_ERROR:

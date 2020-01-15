@@ -297,4 +297,10 @@ export default defineMessages({
   inProgress: {
     id: 'app.common.inProgress',
   },
+  loginViaWallet: {
+    id: 'app.common.loginViaWallet',
+  },
+  signUpViaWallet: {
+    id: 'app.common.signUpViaWallet',
+  },
 });

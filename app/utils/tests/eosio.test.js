@@ -2,7 +2,7 @@
  * Tests EOSIO
  */
 
-import Eosjs from 'eosjs';
+import Eosjs from 'eosjs20';
 import ecc from 'eosjs-ecc';
 import ScatterJS from 'scatterjs-core';
 
@@ -35,7 +35,7 @@ Object.defineProperty(global, 'localStorage', { value: localStorage });
 Object.defineProperty(global, 'sessionStorage', { value: sessionStorage });
 Object.defineProperty(global, 'fetch', { value: fetch });
 
-jest.mock('eosjs');
+jest.mock('eosjs20');
 
 jest.mock('eosjs-ecc', () => ({
   privateToPublic: jest.fn(),

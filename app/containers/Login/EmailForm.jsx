@@ -41,10 +41,7 @@ const EmailForm = ({
       </Button>
     </form>
 
-    <Footer
-      loginWithScatter={loginWithScatter}
-      loginWithScatterProcessing={loginWithScatterProcessing}
-    />
+    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
   </div>
 );
 

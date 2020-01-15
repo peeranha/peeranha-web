@@ -38,33 +38,54 @@ const BaseRoundedLi = BaseRounded.extend`
   }
 `.withComponent('li');
 
-const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => (
-  <P>
-    <Span className="mr-3" fontSize="24" mobileFS={21} bold>
-      <FormattedMessage {...messages.week} /> {` ${period + 1}`}
-    </Span>
+const WeekNumber = ({
+  period,
+  locale,
+  periodStarted,
+  periodFinished,
+  currentWeeksNumber,
+}) => {
+  let week = ` ${period + 1}`;
 
-    <Span className="d-none d-md-inline-block">
-      {getFormattedDate(periodStarted, locale, FULL_MONTH_NAME_DAY_YEAR)}
-      {' — '}
-      {getFormattedDate(periodFinished, locale, FULL_MONTH_NAME_DAY_YEAR)}
-    </Span>
+  if (currentWeeksNumber === 2) {
+    week = ` ${period + 1}-${period + 2}`;
+  }
 
-    <Span className="d-inline-block d-md-none" mobileFS={14}>
-      {getFormattedDate(periodStarted, locale, DD_MM_YY)}
-      {' — '}
-      {getFormattedDate(periodFinished, locale, DD_MM_YY)}
-    </Span>
-  </P>
-);
+  return (
+    <P>
+      <Span className="mr-3" fontSize="24" mobileFS={21} bold>
+        <FormattedMessage {...messages.week} /> {week}
+      </Span>
 
-const CurrentWeek = ({ period, locale, periodStarted, periodFinished }) => (
+      <Span className="d-none d-md-inline-block">
+        {getFormattedDate(periodStarted, locale, FULL_MONTH_NAME_DAY_YEAR)}
+        {' — '}
+        {getFormattedDate(periodFinished, locale, FULL_MONTH_NAME_DAY_YEAR)}
+      </Span>
+
+      <Span className="d-inline-block d-md-none" mobileFS={14}>
+        {getFormattedDate(periodStarted, locale, DD_MM_YY)}
+        {' — '}
+        {getFormattedDate(periodFinished, locale, DD_MM_YY)}
+      </Span>
+    </P>
+  );
+};
+
+const CurrentWeek = ({
+  period,
+  locale,
+  periodStarted,
+  periodFinished,
+  currentWeeksNumber,
+}) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.currentPeriod} />
       </P>
       <WeekNumber
+        currentWeeksNumber={currentWeeksNumber}
         locale={locale}
         period={period}
         periodStarted={periodStarted}
@@ -211,39 +232,55 @@ const Weeks = ({
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-}) => (
-  <React.Fragment>
-    {weekStat &&
-      !getWeekStatProcessing && (
-        <ul className="mt-3">
-          <CurrentPendingWeeks inRow={weekStat.length >= 2}>
-            {weekStat[0] && <CurrentWeek locale={locale} {...weekStat[0]} />}
-            {weekStat[1] && <PendingWeek locale={locale} {...weekStat[1]} />}
-          </CurrentPendingWeeks>
+}) => {
+  const currentWeeksNumber =
+    weekStat && ((weekStat[0] && weekStat[1] && 2) || (weekStat[0] && 1) || 0);
 
-          {weekStat
-            .slice(2)
-            .map(x => (
-              <PaidOutWeek
-                pickupRewardDispatch={pickupRewardDispatch}
-                pickupRewardProcessing={pickupRewardProcessing}
-                locale={locale}
-                ids={ids}
-                {...x}
-              />
-            ))}
-        </ul>
-      )}
+  const pendingWeek = weekStat ? weekStat[2] : null;
 
-    {getWeekStatProcessing && <LoadingIndicator />}
-  </React.Fragment>
-);
+  return (
+    <>
+      {weekStat &&
+        !getWeekStatProcessing && (
+          <ul className="mt-3">
+            <CurrentPendingWeeks inRow={weekStat.length >= 2}>
+              {currentWeeksNumber && (
+                <CurrentWeek
+                  currentWeeksNumber={currentWeeksNumber}
+                  locale={locale}
+                  {...weekStat[currentWeeksNumber === 2 ? 1 : 0]}
+                  periodFinished={weekStat[0].periodFinished}
+                />
+              )}
+
+              {pendingWeek && <PendingWeek locale={locale} {...pendingWeek} />}
+            </CurrentPendingWeeks>
+
+            {weekStat
+              .slice(3)
+              .map(x => (
+                <PaidOutWeek
+                  pickupRewardDispatch={pickupRewardDispatch}
+                  pickupRewardProcessing={pickupRewardProcessing}
+                  locale={locale}
+                  ids={ids}
+                  {...x}
+                />
+              ))}
+          </ul>
+        )}
+
+      {getWeekStatProcessing && <LoadingIndicator />}
+    </>
+  );
+};
 
 WeekNumber.propTypes = {
   period: PropTypes.string,
   locale: PropTypes.string,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
+  currentWeeksNumber: PropTypes.number,
 };
 
 CurrentWeek.propTypes = {
@@ -251,6 +288,7 @@ CurrentWeek.propTypes = {
   locale: PropTypes.string,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
+  currentWeeksNumber: PropTypes.number,
 };
 
 PendingWeek.propTypes = {

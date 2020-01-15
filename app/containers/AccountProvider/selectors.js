@@ -20,6 +20,9 @@ const makeSelectAccount = () =>
 const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
+const selectLastUpdate = () =>
+  createSelector(selectAccountProviderDomain, substate => substate.lastUpdate);
+
 const makeSelectLoginData = () =>
   createSelector(
     selectAccountProviderDomain,
@@ -69,4 +72,5 @@ export {
   makeSelectFollowedCommunities,
   makeSelectBalance,
   makeSelectLoginData,
+  selectLastUpdate,
 };

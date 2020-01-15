@@ -22,6 +22,7 @@ export default styled.div`
     border-radius: 5px;
     transition: 1s;
     padding: 30px;
+    overflow: hidden;
   }
 
   @media only screen and (max-width: 414px) {

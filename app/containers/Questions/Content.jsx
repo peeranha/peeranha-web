@@ -117,14 +117,17 @@ const QuestionItem = ({
 
     <Base>
       <p className="mb-1">
-        <A to={routes.questionView(id)} href={routes.questionView(id)}>
+        <A to={routes.questionView(id)}>
           <Span fontSize="24" lineHeight="31" mobileFS="18" mobileLH="21" bold>
             {title}
           </Span>
         </A>
       </p>
       <p className="mb-3">
-        <A to={routes.profileView(user)} className="d-flex align-items-center">
+        <A
+          to={routes.profileView(user)}
+          className="d-inline-flex align-items-center"
+        >
           <Span className="mr-2" fontSize="14">
             {userInfo.display_name}
           </Span>
