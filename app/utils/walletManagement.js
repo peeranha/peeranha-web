@@ -163,7 +163,7 @@ export async function getWeekStat(eosService, profile) {
     .fill()
     .map((_, index) => {
       const existingPeriod = normalizedRewards.find(
-        y => y.period === index + 2,
+        y => y.period === index + 1,
       );
 
       return {
@@ -198,7 +198,7 @@ export async function sendTokens(eosService, info) {
 }
 
 export async function pickupReward(eosService, user, periodIndex) {
-  const period = periodIndex + 2;
+  const period = periodIndex + 1;
   await eosService.sendTransaction(
     user,
     PICKUP_REWARD_METHOD,
