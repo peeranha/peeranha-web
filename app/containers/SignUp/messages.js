@@ -47,6 +47,9 @@ export default defineMessages({
   displayName: {
     id: 'app.containers.SignUp.displayName',
   },
+  referralCode: {
+    id: 'app.containers.SignUp.referralCode',
+  },
   password: {
     id: 'app.containers.SignUp.password',
   },

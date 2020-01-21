@@ -9,7 +9,7 @@ export const EMAIL_FIELD = 'email';
 export const PASSWORD_FIELD = 'password';
 export const REMEMBER_ME_FIELD = 'remember';
 export const DISPLAY_NAME = 'display_name';
-
+export const REFERRAL_CODE = 'referral_code';
 // Content
 export const EMAIL_FORM = 'EMAIL_FORM';
 export const EMAIL_PASSWORD_FORM = 'EMAIL_PASSWORD_FORM';

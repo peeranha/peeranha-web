@@ -11,7 +11,7 @@ import {
 } from 'utils/web_integration/src/wallet/register/register';
 
 import { getProfileInfo } from 'utils/profileManagement';
-import { registerAccount } from 'utils/accountManagement';
+import { registerAccount, sendReferralCode } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -29,6 +29,7 @@ import {
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
+  REFERRAL_CODE,
 } from 'containers/Login/constants';
 
 import { followHandlerWorker } from 'containers/FollowCommunityButton/saga';
@@ -321,12 +322,19 @@ export function* idontHaveEosAccountWorker({ val }) {
 
 export function* signUpWithScatterWorker({ val }) {
   try {
+    const accountName = val[EOS_ACCOUNT_FIELD];
     const profile = {
-      accountName: val[EOS_ACCOUNT_FIELD],
+      accountName,
       displayName: val[DISPLAY_NAME_FIELD],
     };
 
     const eosService = yield select(selectEos);
+
+    const referralCode = val[REFERRAL_CODE];
+
+    if (referralCode) {
+      yield call(sendReferralCode, accountName, referralCode, eosService);
+    }
 
     yield call(registerAccount, profile, eosService);
 

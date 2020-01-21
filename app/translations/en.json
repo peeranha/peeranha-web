@@ -199,6 +199,11 @@
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
+  "app.containers.Profile.referralProgram": "Referral Program",
+  "app.containers.Profile.referralLink": "Your referral link",
+  "app.containers.Profile.referralCode": "Your referral code",
+  "app.containers.Profile.referralText":
+    "Share the link or code with your friends and earn +2 reputation points",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
@@ -537,6 +542,8 @@
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",
+  "app.containers.Login.referralMessage":
+    "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
@@ -590,6 +597,7 @@
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
+  "app.containers.SignUp.referralCode": "Referral code",
   "app.containers.SignUp.eosName": "Telos name",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",

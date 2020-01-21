@@ -26,6 +26,9 @@ export default defineMessages({
   yourUsernameIsHow: {
     id: 'app.containers.Login.yourUsernameIsHow',
   },
+  referralMessage: {
+    id: 'app.containers.Login.referralMessage',
+  },
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
   },

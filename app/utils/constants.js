@@ -67,6 +67,8 @@ export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
 export const UPDATE_ACC = 'updateacc';
+export const INVITE_USER = 'inviteuser';
+export const REWARD_REFER = 'rewardrefer';
 
 export const VOTE_TO_DELETE_METHOD = 'reportforum';
 

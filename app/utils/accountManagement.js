@@ -6,11 +6,12 @@ import {
   ALL_ACCOUNTS_SCOPE,
   NO_AVATAR,
   UPDATE_ACC,
+  INVITE_USER,
 } from './constants';
 
 import { ApplicationError } from './errors';
 
-export async function updateAcc(profile, eosService) {
+export const updateAcc = async (profile, eosService) => {
   if (!profile) throw new ApplicationError('No profile');
 
   const currentTime = Math.floor(Date.now() / 1000);
@@ -28,9 +29,9 @@ export async function updateAcc(profile, eosService) {
   } else {
     throw new ApplicationError('Period is not finished');
   }
-}
+};
 
-export async function registerAccount(profile, eosService) {
+export const registerAccount = async (profile, eosService) => {
   const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
@@ -48,9 +49,9 @@ export async function registerAccount(profile, eosService) {
   );
 
   return true;
-}
+};
 
-export async function isUserInSystem(user, eosService) {
+export const isUserInSystem = async (user, eosService) => {
   const profile = await eosService.getTableRow(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
@@ -58,4 +59,21 @@ export async function isUserInSystem(user, eosService) {
   );
 
   return Boolean(profile);
-}
+};
+
+export const sendReferralCode = async (
+  accountName,
+  referralCode,
+  eosService,
+) => {
+  await eosService.sendTransaction(
+    accountName,
+    INVITE_USER,
+    {
+      inviter: referralCode,
+      invited_user: accountName,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    false,
+  );
+};

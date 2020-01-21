@@ -11,9 +11,10 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import { ScrollTo } from 'utils/animation';
@@ -66,11 +67,26 @@ import {
   TermsOfService,
   RedirectTo,
 } from './imports';
+import { getValueFromSearchString } from '../../utils/url';
+import { getCookie, setCookie } from '../../utils/cookie';
+import { REFERRAL_CODE_URI } from './constants';
 
-export default function App() {
+const App = ({ location }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
+
+  useEffect(() => {
+    if (!getCookie(REFERRAL_CODE_URI)) {
+      const value = getValueFromSearchString(
+        location.search,
+        REFERRAL_CODE_URI,
+      );
+      if (value) {
+        setCookie({ name: REFERRAL_CODE_URI, value });
+      }
+    }
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -302,4 +318,9 @@ export default function App() {
       </Switch>
     </ErrorBoundary>
   );
-}
+};
+
+App.propTypes = {
+  location: PropTypes.string,
+};
+export default withRouter(App);

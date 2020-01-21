@@ -4,7 +4,7 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { registerAccount } from 'utils/accountManagement';
+import { registerAccount, sendReferralCode } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
@@ -45,6 +45,7 @@ import {
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_SCATTER_SUCCESS,
   FINISH_REGISTRATION_SUCCESS,
+  REFERRAL_CODE,
 } from './constants';
 
 import messages from './messages';
@@ -152,6 +153,11 @@ export function* finishRegistrationWorker({ val }) {
       accountName,
       displayName: val[DISPLAY_NAME],
     };
+    const referralCode = val[REFERRAL_CODE];
+
+    if (referralCode) {
+      yield call(sendReferralCode, accountName, referralCode, eosService);
+    }
 
     yield call(registerAccount, profile, eosService);
 

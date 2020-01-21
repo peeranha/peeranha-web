@@ -82,6 +82,18 @@ export default defineMessages({
   authorizationData: {
     id: 'app.containers.Profile.authorizationData',
   },
+  referralProgram: {
+    id: 'app.containers.Profile.referralProgram',
+  },
+  referralLink: {
+    id: 'app.containers.Profile.referralLink',
+  },
+  referralCode: {
+    id: 'app.containers.Profile.referralCode',
+  },
+  referralText: {
+    id: 'app.containers.Profile.referralText',
+  },
   oldPassword: {
     id: 'app.containers.Profile.oldPassword',
   },
