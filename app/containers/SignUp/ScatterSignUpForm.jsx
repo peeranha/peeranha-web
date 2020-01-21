@@ -70,14 +70,6 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               warn={[strLength3x20, required]}
             />
 
-            <Field
-              name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-              disabled={signUpWithScatterProcessing}
-              label={<IAcceptTerms />}
-              component={Checkbox}
-              validate={required}
-              warn={required}
-            />
             <P className="text-center py-3">
               <FormattedMessage {...loginMessages.referralMessage} />
             </P>
@@ -87,6 +79,15 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               label={translationMessages[locale][messages.referralCode.id]}
               component={TextInputField}
               validate={[strLength12Max]}
+            />
+
+            <Field
+              name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+              disabled={signUpWithScatterProcessing}
+              label={<IAcceptTerms />}
+              component={Checkbox}
+              validate={required}
+              warn={required}
             />
             <Button
               disabled={signUpWithScatterProcessing}
