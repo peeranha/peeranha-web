@@ -14,7 +14,7 @@ export const userSettings = id => `/users/${id}#settings`;
 export const userWallet = id => `/users/${id}/wallet`;
 
 export const questions = communityid =>
-  !communityid ? `/` : `/communities/${communityid}`;
+  !communityid ? `/` : `/questions/${communityid}`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
