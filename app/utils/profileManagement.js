@@ -106,8 +106,6 @@ export class Fetcher {
         fetch_param.key_type,
       );
 
-      fetchRes = { rows: fetchRes };
-
       if (!fetchRes.more) {
         this.hasMoreToFetch = false;
       }
@@ -140,8 +138,6 @@ export class Fetcher {
         fetch_param.index_position,
         fetch_param.key_type,
       );
-
-      fetchRes = { rows: fetchRes };
 
       fetchRes.rows.forEach(item => {
         if (!idSet.has(item[this.PRIMARY_KEY])) this.itemArray.push(item);
