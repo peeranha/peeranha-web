@@ -41,7 +41,7 @@ export const LabelStyles = css`
 
 const Label = AcceptAnswerView.extend`
   ${LabelStyles};
-
+  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
   background: ${x => (!x.value ? BG_TRANSPARENT : BG_SUCCESS)};
   border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
   color: ${x => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
@@ -73,7 +73,7 @@ export const MarkAsAcceptedIcon = ({
     account !== questionFrom
   ) {
     return (
-      <Label className={`mr-2 ${className}`} value>
+      <Label className={`mr-2 ${className}`} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
         <FormattedMessage {...messages.theBest} />
       </Label>
