@@ -25,6 +25,7 @@ import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
+import { logout } from '../Logout/actions';
 
 export function* initEosioWorker({
   key = null,
@@ -67,6 +68,8 @@ export function* initEosioWorker({
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
       yield put(initEosioSuccess(eosService));
+    } else {
+      yield put(logout());
     }
   } catch (error) {
     yield put(initEosioError(error));
