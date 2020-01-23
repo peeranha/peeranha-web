@@ -52,7 +52,7 @@ export const suggestedTags = communityid =>
   `/communities/${communityid}/tags/suggested`;
 
 export const tagsCreate = communityid =>
-  `/communities/${communityid || 0}/tags/create`;
+  `/tags/community/${communityid || 0}/create`;
 
 export const registrationStage = 'signup';
 
