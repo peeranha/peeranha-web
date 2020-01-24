@@ -14,6 +14,7 @@ import {
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import { logout } from 'containers/Logout/actions';
 
 import {
   getCurrentAccountWorker,
@@ -25,7 +26,6 @@ import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
-import { logout } from '../Logout/actions';
 
 export function* initEosioWorker({
   key = null,
