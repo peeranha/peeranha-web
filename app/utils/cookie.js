@@ -10,7 +10,7 @@ export const getCookie = name => {
 
 export const setCookie = ({ name, value, options = { expires: {} } }) => {
   const optionsCopy = options;
-  if (optionsCopy.expires.toUTCString) {
+  if (optionsCopy.expires && optionsCopy.expires.toUTCString) {
     optionsCopy.expires = options.expires.toUTCString();
   }
 

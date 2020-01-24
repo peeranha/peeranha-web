@@ -3,7 +3,12 @@ import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
 import { getBalance } from 'utils/walletManagement';
-import { MODERATOR_KEY } from 'utils/constants';
+import {
+  MODERATOR_KEY,
+  INVITED_USERS_SCOPE,
+  INVITED_USERS_TABLE,
+  REWARD_REFER,
+} from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -68,6 +73,10 @@ import {
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
+
+import { getFormattedNum4 } from 'utils/numbers';
+import { getCookie, setCookie } from 'utils/cookie';
+import { addToast } from 'containers/Toast/actions';
 
 import {
   getCurrentAccountSuccess,
@@ -165,6 +174,51 @@ export function* isAvailableAction(isValid) {
   yield call(isValid);
 }
 
+const getInvitedTable = async eosService => {
+  const invitedUsers = await eosService.getTableRows(
+    INVITED_USERS_TABLE,
+    INVITED_USERS_SCOPE,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+  return invitedUsers;
+};
+
+function* updateRefer(user, eosService) {
+  const invitedUsersInfo = yield call(() => getInvitedTable(eosService));
+  const info = invitedUsersInfo.find(({ inviter }) => inviter === user);
+
+  if (info) {
+    const reward = +getFormattedNum4(info.common_reward);
+    const cookieName = `reward_${user}`;
+    if (reward && !getCookie(cookieName)) {
+      setCookie({ name: cookieName, value: true });
+      yield put(
+        addToast({
+          type: 'success',
+          text: 'You received referral reward!',
+        }),
+      );
+    }
+  }
+}
+
+const rewardRefer = async (user, eosService) => {
+  await eosService.sendTransaction(
+    user,
+    REWARD_REFER,
+    {
+      invited_user: user,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    null,
+  );
+};
+
 export function* updateAccWorker({ eos }) {
   try {
     const account = yield call(eos.getSelectedAccount);
@@ -176,6 +230,10 @@ export function* updateAccWorker({ eos }) {
     }
 
     if (account) {
+      if (profileInfo.pay_out_rating > 35) {
+        yield call(rewardRefer, profileInfo.user, eos);
+      }
+      yield call(updateRefer, profileInfo.user, eos);
       yield call(updateAcc, profileInfo, eos);
       yield call(getCurrentAccountWorker);
       yield put(updateAccSuccess());

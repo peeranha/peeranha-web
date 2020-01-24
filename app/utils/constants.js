@@ -48,6 +48,7 @@ export const PERIOD_RATING_TABLE = 'periodrating';
 export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
+export const INVITED_USERS_TABLE = 'invited';
 
 // Scopes
 
@@ -57,6 +58,7 @@ export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
+export const INVITED_USERS_SCOPE = 'allinvited';
 
 // Inf. limit
 export const INF_LIMIT = -1;
