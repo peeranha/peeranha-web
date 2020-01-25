@@ -14,6 +14,7 @@ import {
 import { showLoginModal } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import { logout } from 'containers/Logout/actions';
 
 import {
   getCurrentAccountWorker,
@@ -67,6 +68,8 @@ export function* initEosioWorker({
 
       yield call(getCurrentAccountWorker, response.body.eosAccountName);
       yield put(initEosioSuccess(eosService));
+    } else {
+      yield put(logout());
     }
   } catch (error) {
     yield put(initEosioError(error));
