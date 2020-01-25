@@ -21,9 +21,11 @@ export function* logoutWorker() {
     yield call(eosService.forgetIdentity);
     yield call(eosService.initEosioWithoutScatter);
 
-    yield call(createdHistory.push, routes.questions());
     yield put(getCurrentAccountSuccess());
+
     yield put(logoutSuccess());
+
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(logoutErr(err));
   }

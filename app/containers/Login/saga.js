@@ -79,7 +79,6 @@ export function* loginWithEmailWorker({ val }) {
     const profileInfo = yield select(makeSelectProfileInfo());
 
     yield put(loginWithEmailSuccess());
-    yield call(createdHistory.push, routes.feed());
 
     // If user is absent - show window to finish registration
     if (!profileInfo) {
@@ -138,7 +137,6 @@ export function* loginWithScatterWorker() {
     );
 
     yield put(loginWithScatterSuccess());
-    yield call(createdHistory.push, routes.feed());
   } catch (err) {
     yield put(loginWithScatterErr(err));
   }
