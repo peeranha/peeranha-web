@@ -13,6 +13,7 @@ import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 import icoTag from 'images/icoTag.svg?inline';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
@@ -97,6 +98,7 @@ export const QuestionForm = ({
         <BaseSpecialOne>
           <FormBox onSubmit={handleSubmit(sendQuestion)}>
             <Field
+              className={isSingleCommunityWebsite() ? 'd-none' : ''}
               name={FORM_COMMUNITY}
               component={CommunityField}
               onChange={() => change(FORM_TAGS, '')}
@@ -214,6 +216,17 @@ FormClone = connect(
         [FORM_CONTENT]: props.question.content,
         [FORM_COMMUNITY]: props.question.community,
         [FORM_TAGS]: props.question.chosenTags,
+      };
+    }
+
+    const singleCommId = isSingleCommunityWebsite();
+
+    if (singleCommId) {
+      initialValues = {
+        ...initialValues,
+        [FORM_COMMUNITY]: props.communities.find(
+          ({ id }) => id === singleCommId,
+        ),
       };
     }
 

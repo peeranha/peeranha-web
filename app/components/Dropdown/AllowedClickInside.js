@@ -28,8 +28,12 @@ const Blanket = styled.div`
 `;
 
 const Chevron = styled.span`
-  transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0deg')});
-  transition: 0.5s;
+  padding-left: 15px;
+
+  img {
+    transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0deg')});
+    transition: 0.5s;
+  }
 `;
 
 const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
@@ -38,7 +42,7 @@ const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
       {target}
       {isArrowed && (
         <Chevron isOpen={isOpen}>
-          <img className="px-3" src={arrowDownIcon} alt="icon" />
+          <img src={arrowDownIcon} alt="icon" />
         </Chevron>
       )}
     </TargetButton>

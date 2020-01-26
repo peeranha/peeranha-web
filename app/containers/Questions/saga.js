@@ -21,9 +21,10 @@ import {
   FetcherOfQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
-
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 
@@ -49,10 +50,16 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
+    const singleCommId = isSingleCommunityWebsite();
+
     const eosService = yield select(selectEos);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
 
     let questionsList = [];
+
+    if (singleCommId) {
+      communityIdFilter = singleCommId;
+    }
 
     // Load questions filtered for some community
     if (communityIdFilter > 0) {

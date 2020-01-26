@@ -11,7 +11,10 @@ import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { bindActionCreators } from 'redux';
 
-import { getFollowedCommunities } from 'utils/communityManagement';
+import {
+  getFollowedCommunities,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getSuggestedTags } from 'containers/Tags/actions';
@@ -63,9 +66,10 @@ export class SuggestedTags extends React.Component {
       existingTags,
     } = this.props;
 
+    const commId = isSingleCommunityWebsite() || +match.params.communityid;
+
     this.currentCommunity =
-      getFollowedCommunities(communities, [+match.params.communityid])[0] ||
-      emptyCommunity;
+      getFollowedCommunities(communities, [commId])[0] || emptyCommunity;
 
     const keywords = this.currentCommunity.tags.map(x => x.name);
 
@@ -80,7 +84,7 @@ export class SuggestedTags extends React.Component {
 
         <Tags
           sortTags={this.sortTags}
-          communityId={+match.params.communityid}
+          communityId={commId}
           currentCommunity={this.currentCommunity}
           Aside={
             <Aside

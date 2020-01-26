@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +26,7 @@ const SubHeader = ({ setLang, language, languages }) => (
     </H3>
 
     <div className="right-panel">
-      <Dropdown
+      {/* <Dropdown
         button={<Button sorting={language} icon={languageIcon} />}
         menu={
           <Menu
@@ -36,7 +37,7 @@ const SubHeader = ({ setLang, language, languages }) => (
         }
         id="choose-language-dropdown"
         isArrowed
-      />
+      /> */}
     </div>
   </SubHeaderWrapper>
 );

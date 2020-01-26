@@ -1,3 +1,4 @@
+/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -14,6 +15,8 @@ import {
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import myFeedIcon from 'images/myFeed.svg?external';
 import allQuestionsIcon from 'images/allQuestions.svg?external';
@@ -58,18 +61,21 @@ const Box = styled.div`
   }
 `;
 
+const singleCommId = isSingleCommunityWebsite();
+
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const routeKey = pathname.split('/').filter(x => x)[0];
 
   return (
     <Box>
-      {profile && (
-        <A1 to={routes.feed()} name="feed" routeKey={routeKey}>
-          <Icon className="mr-2" width="24" icon={myFeedIcon} />
-          <FormattedMessage {...messages.myFeed} />
-        </A1>
-      )}
+      {!isSingleCommunityWebsite() &&
+        profile && (
+          <A1 to={routes.feed()} name="feed" routeKey={routeKey}>
+            <Icon className="mr-2" width="24" icon={myFeedIcon} />
+            <FormattedMessage {...messages.myFeed} />
+          </A1>
+        )}
 
       <A1
         to={routes.questions()}
@@ -80,12 +86,18 @@ const MainLinks = ({ profile }) => {
         <FormattedMessage {...messages.allQuestions} />
       </A1>
 
-      <A1 to={routes.communities()} name="communities" routeKey={routeKey}>
-        <Icon className="mr-2" width="24" icon={communitiesIcon} />
-        <FormattedMessage {...messages.communities} />
-      </A1>
+      {!singleCommId && (
+        <A1 to={routes.communities()} name="communities" routeKey={routeKey}>
+          <Icon className="mr-2" width="24" icon={communitiesIcon} />
+          <FormattedMessage {...messages.communities} />
+        </A1>
+      )}
 
-      <A1 to={routes.tags()} name="tags" routeKey={routeKey}>
+      <A1
+        to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
+        name="tags"
+        routeKey={routeKey}
+      >
         <Icon className="mr-2" width="24" icon={tagsIcon} />
         <FormattedMessage {...messages.tags} />
       </A1>

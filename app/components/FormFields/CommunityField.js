@@ -30,6 +30,7 @@ export const CommunityField = ({
   tip,
   splitInHalf,
   disabled,
+  className,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
@@ -37,6 +38,7 @@ export const CommunityField = ({
 
   return (
     <Wrapper
+      className={className}
       label={label}
       tip={tip}
       meta={meta}
@@ -72,6 +74,7 @@ CommunityField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
+  className: PropTypes.string,
   tip: PropTypes.string,
   disabled: PropTypes.bool,
   splitInHalf: PropTypes.bool,

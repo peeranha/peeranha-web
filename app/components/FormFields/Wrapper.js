@@ -77,8 +77,10 @@ export const Wrapper = ({
   disabled,
   id,
   insideOfSection,
+  className,
 }) => (
   <StyledBox
+    className={className}
     disabled={disabled}
     id={formatStringToHtmlId(id)}
     splitInHalf={splitInHalf}
@@ -95,6 +97,7 @@ export const Wrapper = ({
 Wrapper.propTypes = {
   children: PropTypes.any,
   tip: PropTypes.string,
+  className: PropTypes.string,
   label: PropTypes.string,
   id: PropTypes.string,
   meta: PropTypes.object,
