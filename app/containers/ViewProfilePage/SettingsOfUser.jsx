@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { translationMessages } from 'i18n';
 import * as clipboard from 'clipboard-polyfill';
 
@@ -25,9 +24,9 @@ import ShowOwnerKeyButton from 'containers/ShowOwnerKey';
 import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
 import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
-import * as routes from '../../routes-config';
+import ReferralProgram from './ReferralProgram';
 
-const BaseStyled = Base.extend`
+export const BaseStyled = Base.extend`
   > :nth-child(2) {
     margin: 30px 0;
     padding: 0 30px;
@@ -118,8 +117,8 @@ const SettingsOfUser = ({
   activeKey,
   ownerKey,
   loginData,
+  user,
 }) => {
-  const { eosAccountName: referralCode } = loginData;
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(
@@ -127,11 +126,13 @@ const SettingsOfUser = ({
       translationMessages[locale][commonMessages.copied.id],
     );
   };
-  const referralLink = `https://peeranha.io/users/${referralCode}`;
 
   return (
     <div>
-      <BaseStyled className={className} position="bottom">
+      <BaseStyled
+        className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
+        position="bottom"
+      >
         <H3>
           <FormattedMessage {...profileMessages.authorizationData} />
         </H3>
@@ -242,51 +243,11 @@ const SettingsOfUser = ({
         </div>
       </BaseStyled>
 
-      <BaseStyled className={className} style={{ marginTop: '10px' }}>
-        <div>
-          <H3>
-            <FormattedMessage {...profileMessages.referralProgram} />
-          </H3>
-          <FormattedMessage {...profileMessages.referralText} />
-        </div>
-        <div>
-          <table id="referral">
-            <tr>
-              <td id="link">
-                <FormattedMessage {...profileMessages.referralLink} />
-                <Link to={routes.profileView(referralCode)}>
-                  {referralLink}
-                </Link>
-              </td>
-              <td>
-                <button
-                  id="referral-link-copy"
-                  data-key={referralLink}
-                  onClick={writeToBuffer}
-                >
-                  <FormattedMessage {...commonMessages.copy} />{' '}
-                </button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <FormattedMessage {...profileMessages.referralCode} />
-                <p id="code">{referralCode}</p>
-              </td>
-              <td>
-                <button
-                  id="referral-code-copy"
-                  data-key={referralCode}
-                  onClick={writeToBuffer}
-                >
-                  <FormattedMessage {...commonMessages.copy} />{' '}
-                </button>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </BaseStyled>
+      <ReferralProgram
+        className={className}
+        user={user}
+        writeToBuffer={writeToBuffer}
+      />
     </div>
   );
 };
@@ -297,6 +258,7 @@ SettingsOfUser.propTypes = {
   ownerKey: PropTypes.string,
   activeKey: PropTypes.string,
   loginData: PropTypes.object,
+  user: PropTypes.string,
 };
 
 export default React.memo(SettingsOfUser);

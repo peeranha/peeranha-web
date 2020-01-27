@@ -174,11 +174,11 @@ export function* isAvailableAction(isValid) {
   yield call(isValid);
 }
 
-const getInvitedTable = async eosService => {
+const getInvitedTable = async (user, eosService) => {
   const invitedUsers = await eosService.getTableRows(
     INVITED_USERS_TABLE,
     INVITED_USERS_SCOPE,
-    undefined,
+    user,
     undefined,
     undefined,
     undefined,
@@ -189,13 +189,16 @@ const getInvitedTable = async eosService => {
 };
 
 function* updateRefer(user, eosService) {
-  const invitedUsersInfo = yield call(() => getInvitedTable(eosService));
+  const cookieName = `reward_${user}`;
+  if (getCookie(cookieName)) {
+    return;
+  }
+  const invitedUsersInfo = yield call(() => getInvitedTable(user, eosService));
   const info = invitedUsersInfo.find(({ inviter }) => inviter === user);
 
   if (info) {
     const reward = +getFormattedNum4(info.common_reward);
-    const cookieName = `reward_${user}`;
-    if (reward && !getCookie(cookieName)) {
+    if (reward) {
       setCookie({ name: cookieName, value: true });
       yield put(
         addToast({

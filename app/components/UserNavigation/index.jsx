@@ -39,7 +39,6 @@ const UserNavigation = ({
   account,
   questionsLength,
   questionsWithUserAnswersLength,
-  loginData,
   redirectToEditProfilePage,
 }) => {
   const path = window.location.pathname + window.location.hash;
@@ -111,9 +110,7 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            className={
-              userId !== account || loginData.loginWithScatter ? 'd-none' : ''
-            }
+            className={userId !== account ? 'd-none' : ''}
             to={routes.userSettings(userId)}
             isLink={path !== routes.userSettings(userId)}
           >

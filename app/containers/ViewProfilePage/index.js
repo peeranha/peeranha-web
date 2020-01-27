@@ -96,6 +96,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         activeKey={activeKey}
         ownerKey={ownerKey}
         loginData={loginData}
+        user={profile.user}
       />
 
       <ProfileViewForm
