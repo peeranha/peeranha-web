@@ -9,6 +9,7 @@ import {
   isSingleCommunityWebsite,
   hasCommunitySingleWebsite,
 } from 'utils/communityManagement';
+import { REFERRAL_CODE_URI } from './containers/App/constants';
 
 const singleCommId = isSingleCommunityWebsite();
 
@@ -121,6 +122,8 @@ export const tagsCreate = communityid =>
 export const registrationStage = 'signup';
 
 export const preloaderPage = () => '/preloader-page';
+
+export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const signup = {
   email: {

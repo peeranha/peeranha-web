@@ -89,6 +89,7 @@ import {
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
+  REFERRAL_REWARD_RATING,
   UPDATE_ACC_SUCCESS,
 } from './constants';
 
@@ -193,7 +194,7 @@ function* updateRefer(user, eosService) {
   if (getCookie(cookieName)) {
     return;
   }
-  const invitedUsersInfo = yield call(() => getInvitedTable(user, eosService));
+  const invitedUsersInfo = yield call(getInvitedTable, user, eosService);
   const info = invitedUsersInfo.find(({ inviter }) => inviter === user);
 
   if (info) {
@@ -233,7 +234,7 @@ export function* updateAccWorker({ eos }) {
     }
 
     if (account) {
-      if (profileInfo.pay_out_rating > 35) {
+      if (profileInfo.pay_out_rating > REFERRAL_REWARD_RATING) {
         yield call(rewardRefer, profileInfo.user, eos);
       }
       yield call(updateRefer, profileInfo.user, eos);

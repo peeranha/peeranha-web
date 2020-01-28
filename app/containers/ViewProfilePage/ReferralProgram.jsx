@@ -11,7 +11,9 @@ import profileMessages from '../Profile/messages';
 import { BaseStyled } from './SettingsOfUser';
 
 const ReferralProgram = ({ className, user, writeToBuffer }) => {
-  const referralLink = `https://peeranha.io/users/${user}`;
+  const referralLink = `${process.env.PEERANHA_URL}${routes.referralPage(
+    user,
+  )}`;
   return (
     <>
       <BaseStyled className={className} style={{ marginTop: '10px' }}>
@@ -22,11 +24,12 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
           <FormattedMessage {...profileMessages.referralText} />
         </div>
         <div>
+          1
           <table id="referral">
             <tr>
               <td id="link">
                 <FormattedMessage {...profileMessages.referralLink} />
-                <Link to={routes.profileView(user)}>{referralLink}</Link>
+                <Link to={routes.referralPage(user)}>{referralLink}</Link>
               </td>
               <td>
                 <button
