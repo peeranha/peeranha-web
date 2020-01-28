@@ -24,7 +24,6 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
           <FormattedMessage {...profileMessages.referralText} />
         </div>
         <div>
-          1
           <table id="referral">
             <tr>
               <td id="link">

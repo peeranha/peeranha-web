@@ -2,7 +2,10 @@ import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
-import { getBalance } from 'utils/walletManagement';
+import {
+  convertPeerValueToNumberValue,
+  getBalance,
+} from 'utils/walletManagement';
 import {
   MODERATOR_KEY,
   INVITED_USERS_SCOPE,
@@ -74,7 +77,6 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { getFormattedNum4 } from 'utils/numbers';
 import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
@@ -198,7 +200,7 @@ function* updateRefer(user, eosService) {
   const info = invitedUsersInfo.find(({ inviter }) => inviter === user);
 
   if (info) {
-    const reward = +getFormattedNum4(info.common_reward);
+    const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
       setCookie({ name: cookieName, value: true });
       yield put(
