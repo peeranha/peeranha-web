@@ -61,11 +61,7 @@ export const isUserInSystem = async (user, eosService) => {
   return Boolean(profile);
 };
 
-export const sendReferralCode = async (
-  accountName,
-  referralCode,
-  eosService,
-) => {
+export const inviteUser = async (accountName, referralCode, eosService) => {
   await eosService.sendTransaction(
     accountName,
     INVITE_USER,

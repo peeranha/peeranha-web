@@ -4,7 +4,11 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { registerAccount, sendReferralCode } from 'utils/accountManagement';
+import {
+  registerAccount,
+  inviteUser,
+  isUserInSystem,
+} from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
@@ -27,6 +31,7 @@ import {
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
   hideLoginModal,
+  finishRegistrationReferralError,
 } from './actions';
 
 import {
@@ -50,6 +55,7 @@ import {
 
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
+import { addToast } from '../Toast/actions';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -144,6 +150,26 @@ export function* loginWithScatterWorker() {
   }
 }
 
+export function* sendReferralCode(accountName, referralCode, eosService) {
+  const isUserIn = yield call(isUserInSystem, referralCode, eosService);
+
+  if (isUserIn) {
+    try {
+      yield call(inviteUser, accountName, referralCode, eosService);
+    } catch (err) {
+      return;
+    }
+    return true;
+  }
+  yield put(
+    addToast({
+      type: 'error',
+      text: "Inviter isn't register yet",
+    }),
+  );
+  yield put(finishRegistrationReferralError());
+}
+
 export function* finishRegistrationWorker({ val }) {
   try {
     const eosService = yield select(selectEos);
@@ -156,7 +182,15 @@ export function* finishRegistrationWorker({ val }) {
     const referralCode = val[REFERRAL_CODE];
 
     if (referralCode) {
-      yield call(sendReferralCode, accountName, referralCode, eosService);
+      const ok = yield call(
+        sendReferralCode,
+        accountName,
+        referralCode,
+        eosService,
+      );
+      if (!ok) {
+        return;
+      }
     }
 
     yield call(registerAccount, profile, eosService);

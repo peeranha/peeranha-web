@@ -92,6 +92,9 @@ import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
   REFERRAL_REWARD_RATING,
+  NO_REFERRAL_INVITER,
+  REFERRAL_REWARD_RECEIVED,
+  REFERRAL_REWARD_SENT,
   UPDATE_ACC_SUCCESS,
 } from './constants';
 
@@ -177,32 +180,29 @@ export function* isAvailableAction(isValid) {
   yield call(isValid);
 }
 
-const getInvitedTable = async (user, eosService) => {
-  const invitedUsers = await eosService.getTableRows(
+const getReferralInfo = async (user, eosService) => {
+  const info = await eosService.getTableRow(
     INVITED_USERS_TABLE,
     INVITED_USERS_SCOPE,
     user,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
-  return invitedUsers;
+  return info;
 };
 
 function* updateRefer(user, eosService) {
-  const cookieName = `reward_${user}`;
-  if (getCookie(cookieName)) {
+  const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
+  const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
+  if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
     return;
   }
-  const invitedUsersInfo = yield call(getInvitedTable, user, eosService);
-  const info = invitedUsersInfo.find(({ inviter }) => inviter === user);
+
+  const info = yield call(getReferralInfo, user, eosService);
 
   if (info) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
-      setCookie({ name: cookieName, value: true });
+      setCookie({ name: receivedCookieName, value: true });
       yield put(
         addToast({
           type: 'success',
@@ -210,19 +210,26 @@ function* updateRefer(user, eosService) {
         }),
       );
     }
+  } else {
+    setCookie({
+      name: noInviterCookieName,
+      value: true,
+    });
   }
 }
 
 const rewardRefer = async (user, eosService) => {
-  await eosService.sendTransaction(
-    user,
-    REWARD_REFER,
-    {
-      invited_user: user,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    null,
-  );
+  try {
+    await eosService.sendTransaction(
+      user,
+      REWARD_REFER,
+      {
+        invited_user: user,
+      },
+      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+      null,
+    );
+  } catch (err) {}
 };
 
 export function* updateAccWorker({ eos }) {
@@ -236,10 +243,17 @@ export function* updateAccWorker({ eos }) {
     }
 
     if (account) {
-      if (profileInfo.pay_out_rating > REFERRAL_REWARD_RATING) {
-        yield call(rewardRefer, profileInfo.user, eos);
+      const { user } = profileInfo;
+      const cookieName = `${REFERRAL_REWARD_SENT}_${user}`;
+      if (
+        profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
+        !getCookie(cookieName)
+      ) {
+        yield call(rewardRefer, user, eos);
+        setCookie({ name: cookieName, value: true });
       }
-      yield call(updateRefer, profileInfo.user, eos);
+
+      yield call(updateRefer, user, eos);
       yield call(updateAcc, profileInfo, eos);
       yield call(getCurrentAccountWorker);
       yield put(updateAccSuccess());

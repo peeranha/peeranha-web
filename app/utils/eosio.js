@@ -512,7 +512,7 @@ class EosioService {
     endpoint: process.env.EOS_ENDPOINT_DEFAULT,
     protocol: process.env.EOS_PROTOCOL_DEFAULT,
     port: process.env.EOS_PORT_DEFAULT,
-    chainId: process.env.EOS_CHAINID_DEFAULT,
+    chainID: process.env.EOS_CHAINID_DEFAULT,
   });
 
   getNode = async () => {

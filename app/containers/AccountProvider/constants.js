@@ -17,3 +17,7 @@ export const UPDATE_ACC_ERROR = 'app/AccountProvider/UPDATE_ACC_ERROR';
 
 export const UPDATE_ACC_PERIOD = 600000; // 10 min
 export const REFERRAL_REWARD_RATING = 35;
+
+export const REFERRAL_REWARD_RECEIVED = 'reward_received';
+export const REFERRAL_REWARD_SENT = 'reward_sent';
+export const NO_REFERRAL_INVITER = 'no_referral';

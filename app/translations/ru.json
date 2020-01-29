@@ -208,7 +208,7 @@
   "app.containers.Profile.referralLink": "Ваша реферальная ссылка",
   "app.containers.Profile.referralCode": "Ваш реферальный код",
   "app.containers.Profile.referralText":
-    "Поделитесь реферальной ссылкой или кодом с вашими друзьями и заработайте +2 очка репутации",
+    "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",

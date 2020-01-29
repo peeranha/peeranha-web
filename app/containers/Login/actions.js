@@ -18,6 +18,7 @@ import {
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
+  FINISH_REGISTRATION_REFERRAL_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -109,3 +110,7 @@ export function finishRegistrationWithDisplayNameErr(
     finishRegistrationWithDisplayNameError,
   };
 }
+
+export const finishRegistrationReferralError = () => ({
+  type: FINISH_REGISTRATION_REFERRAL_ERROR,
+});

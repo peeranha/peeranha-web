@@ -11,7 +11,7 @@ import {
 } from 'utils/web_integration/src/wallet/register/register';
 
 import { getProfileInfo } from 'utils/profileManagement';
-import { registerAccount, sendReferralCode } from 'utils/accountManagement';
+import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -38,6 +38,7 @@ import {
   loginWithEmailWorker,
   loginWithScatterWorker,
   redirectToFeedWorker,
+  sendReferralCode,
 } from 'containers/Login/saga';
 
 import {
@@ -333,7 +334,15 @@ export function* signUpWithScatterWorker({ val }) {
     const referralCode = val[REFERRAL_CODE];
 
     if (referralCode) {
-      yield call(sendReferralCode, accountName, referralCode, eosService);
+      const ok = yield call(
+        sendReferralCode,
+        accountName,
+        referralCode,
+        eosService,
+      );
+      if (!ok) {
+        return;
+      }
     }
 
     yield call(registerAccount, profile, eosService);

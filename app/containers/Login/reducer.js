@@ -21,6 +21,7 @@ import {
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
   EMAIL_FORM,
+  FINISH_REGISTRATION_REFERRAL_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -95,6 +96,8 @@ function loginReducer(state = initialState, action) {
           finishRegistrationWithDisplayNameError,
         )
         .set('finishRegistrationProcessing', false);
+    case FINISH_REGISTRATION_REFERRAL_ERROR:
+      return state.set('finishRegistrationProcessing', false);
 
     default:
       return state;
