@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
@@ -77,10 +79,14 @@ WeAreHappyYouAreHereForm.propTypes = {
   finishRegistration: PropTypes.func,
 };
 
-export default reduxForm({
-  form: 'WeAreHappyYouAreHereForm',
-  initialValues: {
-    [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
-  },
-  onSubmitFail: errors => scrollToErrorField(errors),
-})(WeAreHappyYouAreHereForm);
+export default compose(
+  connect(() => ({
+    initialValues: {
+      [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
+    },
+  })),
+  reduxForm({
+    form: 'WeAreHappyYouAreHereForm',
+    onSubmitFail: errors => scrollToErrorField(errors),
+  }),
+)(WeAreHappyYouAreHereForm);
