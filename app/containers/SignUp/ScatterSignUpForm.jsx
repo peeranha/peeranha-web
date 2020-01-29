@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
@@ -111,12 +112,14 @@ ScatterSignUpForm.propTypes = {
 const formName = 'ScatterSignUpForm';
 
 /* eslint import/no-mutable-exports: 0 */
-let FormClone = reduxForm({
-  form: formName,
-  initialValues: {
-    [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
-  },
-})(ScatterSignUpForm);
+let FormClone = compose(
+  connect(() => ({
+    initialValues: {
+      [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
+    },
+  })),
+  reduxForm({ form: formName }),
+)(ScatterSignUpForm);
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };

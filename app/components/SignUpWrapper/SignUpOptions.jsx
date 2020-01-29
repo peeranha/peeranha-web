@@ -112,7 +112,7 @@ const RightMenuWithoutScatter = ({
   </div>
 );
 
-const SignUpOptions = ({
+export const SignUpOptions = ({
   children,
   showLoginModal,
   showScatterSignUpForm,

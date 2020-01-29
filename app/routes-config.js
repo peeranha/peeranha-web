@@ -143,22 +143,22 @@ export const signup = {
   },
   haveEosAccount: {
     step: 3,
-    name: `/${registrationStage}/i-have-eos-account`,
+    name: `/${registrationStage}/i-have-telos-account`,
     scatter: false,
   },
   dontHaveEosAccount: {
     step: 3,
-    name: `/${registrationStage}/i-dont-have-eos-account`,
+    name: `/${registrationStage}/i-dont-have-telos-account`,
     scatter: false,
   },
   almostDoneWithAccount: {
     step: 4,
-    name: `/${registrationStage}/i-have-eos-account/almost-done`,
+    name: `/${registrationStage}/i-have-telos-account/almost-done`,
     scatter: false,
   },
   almostDoneNoAccount: {
     step: 4,
-    name: `/${registrationStage}/i-dont-have-eos-account/almost-done`,
+    name: `/${registrationStage}/i-dont-have-telos-account/almost-done`,
     scatter: false,
   },
 };
