@@ -10,7 +10,6 @@ import * as routes from 'routes-config';
 import { scrollToErrorField } from 'utils/animation';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
-import downloadIcon from 'images/download.svg?inline';
 
 import {
   required,
@@ -23,7 +22,7 @@ import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
-import { ADefault } from 'components/A';
+import Img from 'components/Img';
 
 import SignUp from './index';
 import messages from './messages';
@@ -45,7 +44,7 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
         idontHaveEosAccount,
         locale,
         idontHaveEosAccountProcessing,
-        keys: { linkToDownloadMasterKey, masterKey },
+        keys: { masterKey },
       }) => {
         const translate = translationMessages[locale];
 
@@ -68,8 +67,9 @@ const IdontHaveEOSAccountForm = ({ handleSubmit, change, masterKeyValue }) => (
               />
 
               <div className="d-flex align-items-center mb-3">
-                <img
-                  width="20px"
+                <Img
+                  notRounded
+                  size={0.8}
                   className="mr-2"
                   src={dangerIcon}
                   alt="dangerIcon"
