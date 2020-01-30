@@ -133,7 +133,7 @@ export const signup = {
   },
   displayName: {
     step: 1,
-    name: `/${registrationStage}/with-scatter/display-name`,
+    name: `/${registrationStage}/with-wallet/display-name`,
     scatter: true,
   },
   emailVerification: {
