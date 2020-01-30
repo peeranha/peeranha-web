@@ -150,7 +150,12 @@ export function* loginWithScatterWorker() {
   }
 }
 
-export function* sendReferralCode(accountName, referralCode, eosService) {
+export function* sendReferralCode(
+  accountName,
+  referralCode,
+  eosService,
+  error,
+) {
   const isUserIn = yield call(isUserInSystem, referralCode, eosService);
 
   if (isUserIn) {
@@ -167,7 +172,7 @@ export function* sendReferralCode(accountName, referralCode, eosService) {
       text: "Inviter isn't register yet",
     }),
   );
-  yield put(finishRegistrationReferralError());
+  yield put(error());
 }
 
 export function* finishRegistrationWorker({ val }) {
@@ -187,6 +192,7 @@ export function* finishRegistrationWorker({ val }) {
         accountName,
         referralCode,
         eosService,
+        finishRegistrationReferralError,
       );
       if (!ok) {
         return;

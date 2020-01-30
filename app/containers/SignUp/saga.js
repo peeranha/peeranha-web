@@ -76,6 +76,7 @@ import {
   showScatterSignUpFormSuccess,
   signUpWithScatterSuccess,
   signUpWithScatterErr,
+  signUpWithScatterReferralErr,
 } from './actions';
 
 import { selectEmail, selectEncryptionKey, selectKeys } from './selectors';
@@ -339,6 +340,7 @@ export function* signUpWithScatterWorker({ val }) {
         accountName,
         referralCode,
         eosService,
+        signUpWithScatterReferralErr,
       );
       if (!ok) {
         return;
