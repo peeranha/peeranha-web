@@ -10,6 +10,7 @@ import {
   required,
   strLength3x20,
   strLength12Max,
+  onlyLettersAndNumbers,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
@@ -79,7 +80,7 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               disabled={signUpWithScatterProcessing}
               label={translationMessages[locale][messages.referralCode.id]}
               component={TextInputField}
-              validate={[strLength12Max]}
+              validate={[strLength12Max, onlyLettersAndNumbers]}
             />
 
             <Field

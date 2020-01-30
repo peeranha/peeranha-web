@@ -95,9 +95,13 @@ const comparePasswords = (...args) => {
     : undefined;
 };
 
+const onlyLettersAndNumbers = str =>
+  !str || /^[a-z0-9]+$/i.test(str) ? undefined : messages.onlyLettersAndNumbers;
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
+const strLength12 = stringLength(12, 12);
 const strLength12Max = stringLengthMax(12);
 const strLength254Max = stringLengthMax(254);
 const strLength3x20 = stringLength(3, 20);
@@ -115,6 +119,7 @@ export {
   strLength1x5,
   strLength2x15,
   strLength8x100,
+  strLength12,
   strLength12Max,
   strLength254Max,
   strLength3x20,
@@ -126,4 +131,5 @@ export {
   valueHasToBeLessThan,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
+  onlyLettersAndNumbers,
 };

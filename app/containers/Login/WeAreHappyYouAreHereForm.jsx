@@ -13,6 +13,7 @@ import {
   strLength3x20,
   strLength12Max,
   required,
+  onlyLettersAndNumbers,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
@@ -63,7 +64,7 @@ const WeAreHappyYouAreHereForm = ({
         disabled={finishRegistrationProcessing}
         label={translationMessages[locale][signupMessages.referralCode.id]}
         component={TextInputField}
-        validate={[strLength12Max]}
+        validate={[strLength12Max, onlyLettersAndNumbers]}
       />
       <Button disabled={finishRegistrationProcessing} className="w-100">
         <FormattedMessage {...signupMessages.continue} />

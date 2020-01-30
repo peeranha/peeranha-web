@@ -534,6 +534,8 @@
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
+  "app.components.FormFields.onlyLettersAndNumbers":
+    "Значение должно содержать только буквы и цифры",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
