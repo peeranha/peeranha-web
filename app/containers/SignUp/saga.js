@@ -33,6 +33,7 @@ import {
 import {
   loginWithEmailWorker,
   loginWithScatterWorker,
+  redirectToFeedWorker,
 } from 'containers/Login/saga';
 
 import {
@@ -54,6 +55,7 @@ import {
   ACCOUNT_NOT_CREATED_NAME,
   EMAIL_CHECKING_SUCCESS,
   SEND_ANOTHER_CODE,
+  SIGNUP_WITH_SCATTER_SUCCESS,
 } from './constants';
 
 import {
@@ -308,8 +310,6 @@ export function* signUpWithScatterWorker({ val }) {
     yield call(loginWithScatterWorker);
 
     yield put(signUpWithScatterSuccess());
-
-    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(signUpWithScatterErr(err));
   }
@@ -366,4 +366,5 @@ export default function*() {
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
   yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
+  yield takeLatest(SIGNUP_WITH_SCATTER_SUCCESS, redirectToFeedWorker);
 }

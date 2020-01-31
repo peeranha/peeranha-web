@@ -32,7 +32,7 @@ const selectQuestions = (isFeed, communityId, questionId) =>
         return questionsList.filter(x => x.community_id === communityId);
       }
 
-      if (isFeed) {
+      if (isFeed && followedCommunities) {
         return questionsList.filter(x =>
           followedCommunities.includes(x.community_id),
         );
