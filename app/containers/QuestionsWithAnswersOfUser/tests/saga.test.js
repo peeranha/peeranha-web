@@ -7,7 +7,7 @@ import { select } from 'redux-saga/effects';
 
 import { getAnswersPostedByUser } from 'utils/questionsManagement';
 
-import defaultSaga, { getQuestionsWorker } from '../saga';
+import defaultSaga, { getQuestionsWithAnswersWorker } from '../saga';
 
 import { GET_QUESTIONS, GET_QUESTIONS_ERROR } from '../constants';
 import { getQuestionsSuccess } from '../actions';
@@ -41,7 +41,7 @@ describe('getQuestionsWorker', () => {
 
   const userId = 'userId';
 
-  const generator = getQuestionsWorker({ userId });
+  const generator = getQuestionsWithAnswersWorker({ userId });
 
   it('step, questionsFromStore', () => {
     select.mockImplementation(() => questionsFromStore);

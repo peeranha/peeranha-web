@@ -49,7 +49,8 @@ import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import ProfileViewForm from './ProfileViewForm';
 import SettingsOfUser from './SettingsOfUser';
 import saga from '../QuestionsWithAnswersOfUser/saga';
-import reducer from '../QuestionsWithAnswersOfUser/reducer';
+import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
+import questionsOfUserReducer from '../QuestionsOfUser/reducer';
 
 const ViewProfilePage = /* istanbul ignore next */ ({
   match,
@@ -160,12 +161,21 @@ const withConnect = connect(
   }),
 );
 
-const key = 'questionsWithAnswersOfUser';
-const withReducer = injectReducer({ key, reducer });
+const key = 'questionsOfUser';
+const withQuestionsWithAnswersReducer = injectReducer({
+  key,
+  reducer: questionsWithAnswersOfUserReducer,
+});
+const withQuestionsReducer = injectReducer({
+  key,
+  reducer: questionsOfUserReducer,
+});
+
 const withSaga = injectSaga({ key, saga, mode: DAEMON });
 
 export default compose(
-  withReducer,
+  withQuestionsWithAnswersReducer,
+  withQuestionsReducer,
   withSaga,
   withConnect,
 )(ViewProfilePage);
