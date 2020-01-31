@@ -8,11 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
+import { bindActionCreators } from 'redux';
 
 import InfinityLoader from 'components/InfinityLoader';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -22,8 +18,6 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import * as select from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
 import QuestionsWithAnswersList from './QuestionsWithAnswersList';
 import Header from './Header';
@@ -75,34 +69,19 @@ QuestionsWithAnswersOfUser.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
   questions: PropTypes.array,
+  getQuestionsDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  account: makeSelectAccount(),
-  communities: selectCommunities(),
-  questions: select.selectQuestionsWithUserAnswers(),
-  questionsLoading: select.selectQuestionsLoading(),
-  isLastFetch: select.selectIsLastFetch(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+export default connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    account: makeSelectAccount(),
+    communities: selectCommunities(),
+    questions: select.selectQuestionsWithUserAnswers(),
+    questionsLoading: select.selectQuestionsLoading(),
+    isLastFetch: select.selectIsLastFetch(),
+  }),
+  dispatch => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const key = 'questionsWithAnswersOfUser';
-const withReducer = injectReducer({ key, reducer });
-const withSaga = injectSaga({ key, saga, mode: DAEMON });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  }),
 )(QuestionsWithAnswersOfUser);

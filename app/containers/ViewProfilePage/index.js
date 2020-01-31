@@ -7,9 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import * as routes from 'routes-config';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
 import UserNavigation from 'components/UserNavigation';
@@ -45,6 +48,8 @@ import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 
 import ProfileViewForm from './ProfileViewForm';
 import SettingsOfUser from './SettingsOfUser';
+import saga from '../QuestionsWithAnswersOfUser/saga';
+import reducer from '../QuestionsWithAnswersOfUser/reducer';
 
 const ViewProfilePage = /* istanbul ignore next */ ({
   match,
@@ -96,7 +101,8 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         activeKey={activeKey}
         ownerKey={ownerKey}
         loginData={loginData}
-        user={profile.user}
+        user={profile ? profile.user : null}
+        isAvailable={profile && account === profile.user}
       />
 
       <ProfileViewForm
@@ -132,28 +138,34 @@ ViewProfilePage.propTypes = {
   redirectToEditProfilePageDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  loginData: makeSelectLoginData(),
-  profile: (state, props) => selectUsers(props.match.params.id)(state),
-  account: makeSelectAccount(),
-  communities: selectCommunities(),
-  questions: selectQuestions(),
-  questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
-  questionsLoading: selectQuestionsLoading(),
-  questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-  activeKey: selectActiveKey(),
-  ownerKey: selectOwnerKey(),
-});
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    loginData: makeSelectLoginData(),
+    profile: (state, props) => selectUsers(props.match.params.id)(state),
+    account: makeSelectAccount(),
+    communities: selectCommunities(),
+    questions: selectQuestions(),
+    questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
+    questionsLoading: selectQuestionsLoading(),
+    questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
+    activeKey: selectActiveKey(),
+    ownerKey: selectOwnerKey(),
+  }),
+  dispatch => ({
+    redirectToEditProfilePageDispatch: bindActionCreators(
+      redirectToEditProfilePage,
+      dispatch,
+    ),
+  }),
+);
 
-const mapDispatchToProps = dispatch => ({
-  redirectToEditProfilePageDispatch: bindActionCreators(
-    redirectToEditProfilePage,
-    dispatch,
-  ),
-});
+const key = 'questionsWithAnswersOfUser';
+const withReducer = injectReducer({ key, reducer });
+const withSaga = injectSaga({ key, saga, mode: DAEMON });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
 )(ViewProfilePage);

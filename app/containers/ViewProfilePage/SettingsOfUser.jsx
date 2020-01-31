@@ -25,6 +25,7 @@ import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
 import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
 import ReferralProgram from './ReferralProgram';
+import NotFound from '../ErrorPage';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
@@ -118,6 +119,7 @@ const SettingsOfUser = ({
   ownerKey,
   loginData,
   user,
+  isAvailable,
 }) => {
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
@@ -127,7 +129,7 @@ const SettingsOfUser = ({
     );
   };
 
-  return (
+  return isAvailable ? (
     <div>
       <BaseStyled
         className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
@@ -249,6 +251,10 @@ const SettingsOfUser = ({
         writeToBuffer={writeToBuffer}
       />
     </div>
+  ) : (
+    <div className={className}>
+      <NotFound withSeo={false} />
+    </div>
   );
 };
 
@@ -259,6 +265,7 @@ SettingsOfUser.propTypes = {
   activeKey: PropTypes.string,
   loginData: PropTypes.object,
   user: PropTypes.string,
+  isAvailable: PropTypes.string,
 };
 
 export default React.memo(SettingsOfUser);
