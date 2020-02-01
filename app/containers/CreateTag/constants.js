@@ -11,5 +11,5 @@ export const SUGGEST_TAG = 'app/CreateTag/SUGGEST_TAG';
 export const SUGGEST_TAG_SUCCESS = 'app/CreateTag/SUGGEST_TAG_SUCCESS';
 export const SUGGEST_TAG_ERROR = 'app/CreateTag/SUGGEST_TAG_ERROR';
 
-export const MIN_RATING_TO_CREATE_TAG = 500;
+export const MIN_RATING_TO_CREATE_TAG = 100;
 export const MIN_ENERGY_TO_CREATE_TAG = 75;

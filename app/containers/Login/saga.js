@@ -162,16 +162,14 @@ export function* finishRegistrationWorker({ val }) {
   }
 }
 
-export function* redirectToHomepageWorker() {
+export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
-  if (window.location.pathname.includes(routes.registrationStage)) {
-    yield call(createdHistory.push, routes.questions());
-  }
+  yield call(createdHistory.push, routes.feed());
 }
 
 export default function*() {
@@ -180,10 +178,10 @@ export default function*() {
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
   yield takeLatest(
     [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
-    redirectToHomepageWorker,
+    redirectToFeedWorker,
   );
   yield takeLatest(
     [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
-    redirectToHomepageWorker,
+    redirectToFeedWorker,
   );
 }
