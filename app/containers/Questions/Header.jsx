@@ -15,6 +15,7 @@ import Wrapper from 'components/Header/Simple';
 import allquestionsIcon from 'images/allquestions-header.svg?inline';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
 import createdHistory from 'createdHistory';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export const Header = ({
   intl,
@@ -46,25 +47,29 @@ export const Header = ({
     </H3>
   );
 
+  const singleCommId = isSingleCommunityWebsite();
+
   return (
     <Wrapper
       className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <CommunitySelector
-        isArrowed
-        Button={Button}
-        toggle={choice =>
-          createdHistory.push(routes[isFeed ? 'feed' : 'questions'](choice))
-        }
-        showOnlyFollowed={isFeed}
-        selectedCommunityId={communityIdFilter}
-      />
+      <div className="mr-4">
+        <CommunitySelector
+          isArrowed
+          Button={Button}
+          toggle={choice =>
+            createdHistory.push(routes[isFeed ? 'feed' : 'questions'](choice))
+          }
+          showOnlyFollowed={isFeed}
+          selectedCommunityId={communityIdFilter}
+        />
+      </div>
 
-      {communityIdFilter > 0 && (
+      {(singleCommId || communityIdFilter > 0) && (
         <div className="right-panel">
           <FollowCommunityButton
-            communityIdFilter={communityIdFilter}
+            communityIdFilter={singleCommId || communityIdFilter}
             followedCommunities={followedCommunities}
           />
         </div>

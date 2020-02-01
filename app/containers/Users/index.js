@@ -10,7 +10,10 @@ import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectStat } from 'containers/DataCacheProvider/selectors';
+import {
+  selectStat,
+  selectCommunities,
+} from 'containers/DataCacheProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { UsersFetcher, AccountsSortedBy } from 'utils/profileManagement';
@@ -23,6 +26,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import View from './View';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export class Users extends React.PureComponent {
   componentDidMount() {
@@ -79,10 +83,18 @@ export class Users extends React.PureComponent {
       searchText,
       isLastFetch,
       stat,
+      communities,
     } = this.props;
 
+    const singleCommId = isSingleCommunityWebsite();
+    const communityInfo = communities.find(x => x.id === singleCommId);
+
+    const userCount = singleCommId
+      ? (communityInfo && communityInfo.users_subscribed) || 0
+      : stat.user_count;
+
     return (
-      <React.Fragment>
+      <>
         <Seo
           title={translationMessages[locale][messages.title.id]}
           description={translationMessages[locale][messages.description.id]}
@@ -90,7 +102,7 @@ export class Users extends React.PureComponent {
         />
 
         <View
-          userCount={stat.user_count}
+          userCount={userCount}
           getMoreUsers={this.getMoreUsers}
           dropdownFilter={this.dropdownFilter}
           inputFilter={this.inputFilter}
@@ -101,7 +113,7 @@ export class Users extends React.PureComponent {
           isLastFetch={isLastFetch}
           locale={locale}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -117,11 +129,13 @@ Users.propTypes = {
   limit: PropTypes.number,
   eosService: PropTypes.object,
   stat: PropTypes.object,
+  communities: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   eosService: selectEos,
   locale: makeSelectLocale(),
+  communities: selectCommunities(),
   users: selectors.selectUsers(),
   usersLoading: selectors.selectUsersLoading(),
   limit: selectors.selectLimit(),

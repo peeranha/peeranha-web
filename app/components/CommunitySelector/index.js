@@ -14,6 +14,7 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 import {
   getFollowedCommunities,
   getUnfollowedCommunities,
+  isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 
 import Dropdown, { MenuStyled } from 'components/Dropdown/AllowedClickInside';
@@ -112,6 +113,8 @@ export class CommunitySelector extends React.PureComponent {
       ];
     }
 
+    const singleCommunityId = isSingleCommunityWebsite();
+
     const selectedValue = getFollowedCommunities(communities, [
       selectedCommunityId,
     ])[0];
@@ -119,9 +122,9 @@ export class CommunitySelector extends React.PureComponent {
     return (
       <Dropdown
         isCommunitySelector
-        isArrowed={optionsNumber > 0 && isArrowed}
+        isArrowed={optionsNumber > 0 && !singleCommunityId && isArrowed}
         isOpen={isOpen}
-        toggle={optionsNumber > 0 && this.toggleOpen}
+        toggle={optionsNumber > 0 && !singleCommunityId && this.toggleOpen}
         target={
           <Button
             communityAvatar={selectedValue ? selectedValue.avatar : null}

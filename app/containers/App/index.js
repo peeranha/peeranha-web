@@ -18,6 +18,7 @@ import * as routes from 'routes-config';
 
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ProgressIndicator from 'containers/ProgressIndicator';
@@ -63,6 +64,7 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
+  RedirectTo,
 } from './imports';
 
 export default function App() {
@@ -90,26 +92,38 @@ export default function App() {
 
         <Route
           exact
+          path={routes.redirectTo(':to')}
+          render={props => <RedirectTo {...props} />}
+        />
+
+        <Route
+          exact
           path={routes.preloaderPage()}
           render={props => Wrapper(FullWidthPreloader, props)}
         />
 
-        <Route
-          exact
-          path={routes.feed()}
-          render={props => Wrapper(Feed, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.feed()}
+            render={props => Wrapper(Feed, props)}
+          />
+        )}
 
-        <Route
-          path={routes.feed(':communityid')}
-          render={props => Wrapper(Feed, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            path={routes.feed(':communityid')}
+            render={props => Wrapper(Feed, props)}
+          />
+        )}
 
-        <Route
-          exact
-          path={routes.communities()}
-          render={props => Wrapper(Communities, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.communities()}
+            render={props => Wrapper(Communities, props)}
+          />
+        )}
 
         <Route
           path={routes.communitiesCreate()}
@@ -121,11 +135,13 @@ export default function App() {
           render={props => Wrapper(SuggestedCommunities, props)}
         />
 
-        <Route
-          exact
-          path={routes.tags()}
-          render={props => Wrapper(TagsCollection, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.tags()}
+            render={props => Wrapper(TagsCollection, props)}
+          />
+        )}
 
         <Route
           exact

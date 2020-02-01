@@ -13,6 +13,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -48,13 +49,12 @@ import Header from './Header';
 export class CreateTag extends React.PureComponent {
   createTag = (...args) => {
     const { reset } = args[2];
+    const values = args[0].toJS();
 
     const tag = {
-      name: args[0].get(NAME_FIELD),
-      description: args[0].get(DESCRIPTION_FIELD),
-      communityId: Number(
-        args[0].get(FORM_COMMUNITY).id || this.props.match.params.communityid,
-      ),
+      name: values[NAME_FIELD],
+      description: values[DESCRIPTION_FIELD],
+      communityId: +values[FORM_COMMUNITY].id,
     };
 
     this.props.suggestTagDispatch(tag, reset);
@@ -68,6 +68,8 @@ export class CreateTag extends React.PureComponent {
       match,
       faqQuestions,
     } = this.props;
+
+    const commId = isSingleCommunityWebsite() || +match.params.communityid;
 
     return (
       <div>
@@ -84,7 +86,7 @@ export class CreateTag extends React.PureComponent {
           <TipsBase className="overflow-hidden">
             <BaseSpecialOne>
               <Form
-                communityId={+match.params.communityid}
+                communityId={commId}
                 communities={communities}
                 createTagLoading={createTagLoading}
                 createTag={this.createTag}

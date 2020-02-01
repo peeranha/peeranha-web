@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import { getFollowedCommunities } from 'utils/communityManagement';
+import {
+  getFollowedCommunities,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import TextareaField from 'components/FormFields/TextareaField';
@@ -38,6 +41,7 @@ export const Form = ({
 }) => (
   <FormBox onSubmit={handleSubmit(createTag)}>
     <Field
+      className={isSingleCommunityWebsite() ? 'd-none' : ''}
       name={FORM_COMMUNITY}
       component={CommunityField}
       disabled={createTagLoading}
