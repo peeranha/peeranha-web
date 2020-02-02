@@ -25,6 +25,7 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
+  isGeneral,
 }) => {
   if (+answerId === 0) return null;
 
@@ -37,11 +38,10 @@ export const BestAnswerMarker = ({
         questionFrom={questionFrom}
         account={account}
         markAsAccepted={markAsAccepted}
-        disabled={ids.includes(
-          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
-        )}
+        disabled={ids.includes(formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`))}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
+        isGeneral={isGeneral}
       />
 
       {isTheLargestRating ? (

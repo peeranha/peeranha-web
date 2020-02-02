@@ -19,6 +19,7 @@ const Question = ({
   postType,
   isTheLargestRating,
   answerId,
+  isGeneral,
 }) => (
   <Li className="mb-3">
     <QuestionForProfilePage
@@ -34,6 +35,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isTheLargestRating={isTheLargestRating}
+      isGeneral={isGeneral}
     />
   </Li>
 );

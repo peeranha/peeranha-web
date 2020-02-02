@@ -13,10 +13,7 @@ const BaseStyled = Base.extend`
 `.withComponent('section');
 
 export const Content = props => (
-  <BaseStyled
-    className={props.className}
-    id={routes.uniqueAnswerId(props.answerId)}
-  >
+  <BaseStyled className={props.className} id={routes.uniqueAnswerId(props.answerId)}>
     <ContentHeader {...props} />
     <QuestionTitle
       title={props.title}
@@ -26,6 +23,8 @@ export const Content = props => (
       isItWrittenByMe={props.isItWrittenByMe}
       correctAnswerId={props.questionData.correct_answer_id}
       answersNumber={props.questionData.answers.length}
+      isGeneral={props.questionData.isGeneral}
+      user={props.userInfo.user}
     />
     <ContentBody {...props} />
   </BaseStyled>

@@ -501,7 +501,9 @@ class EosioService {
         }),
       );
 
-      return bestServerNode;
+      return bestServerNode
+        ? { ...bestServerNode, chainId: bestServerNode.chainID }
+        : null;
     } catch (err) {
       return this.getDefaultEosConfig();
     }

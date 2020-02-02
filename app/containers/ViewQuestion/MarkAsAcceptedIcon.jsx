@@ -65,13 +65,12 @@ export const MarkAsAcceptedIcon = ({
   disabled,
   whoWasAccepted,
   className,
+  isGeneral,
 }) => {
+  if (isGeneral) return null;
+
   // There is accepted answer && I am not question's author
-  if (
-    correctAnswerId === answerId &&
-    answerId !== 0 &&
-    account !== questionFrom
-  ) {
+  if (correctAnswerId === answerId && answerId !== 0 && account !== questionFrom) {
     return (
       <Label className={`mr-2 ${className}`} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
@@ -93,11 +92,7 @@ export const MarkAsAcceptedIcon = ({
         id={id}
       >
         <Icon />
-        <FormattedMessage
-          {...messages[
-            correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest'
-          ]}
-        />
+        <FormattedMessage {...messages[correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest']} />
       </Label>
     );
   }

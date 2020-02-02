@@ -27,10 +27,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
-import {
-  selectCommunities,
-  selectCommunitiesLoading,
-} from 'containers/DataCacheProvider/selectors';
+import { selectCommunities, selectCommunitiesLoading } from 'containers/DataCacheProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
@@ -41,7 +38,7 @@ import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
-import { getQuestions } from './actions';
+import { getQuestions, setTypeFilter, setCreatedFilter } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -65,23 +62,19 @@ export class Questions extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { followedCommunities, parentPage, eosService, match } = this.props;
+    const { followedCommunities, parentPage, eosService, match, typeFilter, createdFilter } = this.props;
 
     // location changing
-    if (
-      prevProps &&
-      prevProps.match.params.communityid !== match.params.communityid
-    ) {
+    if (prevProps && prevProps.match.params.communityid !== match.params.communityid) {
       this.fetcher = null;
     }
 
     if (
-      !this.fetcher &&
-      eosService &&
-      ((parentPage === feed &&
-        followedCommunities &&
-        followedCommunities.length > 0) ||
-        parentPage !== feed)
+      (prevProps && typeFilter !== prevProps.typeFilter) ||
+      (prevProps && createdFilter !== prevProps.createdFilter) ||
+      (!this.fetcher &&
+        eosService &&
+        ((parentPage === feed && followedCommunities && followedCommunities.length > 0) || parentPage !== feed))
     ) {
       this.getInitQuestions();
     }
@@ -148,6 +141,9 @@ export class Questions extends React.PureComponent {
       profile,
       match,
       redirectToAskQuestionPageDispatch,
+      typeFilter,
+      createdFilter,
+      setTypeFilterDispatch,
     } = this.props;
 
     return (
@@ -162,6 +158,9 @@ export class Questions extends React.PureComponent {
           communityIdFilter={Number(match.params.communityid) || 0}
           followedCommunities={followedCommunities}
           parentPage={parentPage}
+          typeFilter={typeFilter}
+          createdFilter={createdFilter}
+          setTypeFilter={setTypeFilterDispatch}
         />
 
         {!questionsList.length &&
@@ -184,17 +183,14 @@ export class Questions extends React.PureComponent {
               questionsList={questionsList}
               locale={locale}
               communities={communities}
+              typeFilter={typeFilter}
+              createdFilter={createdFilter}
             />
           </InfinityLoader>
         )}
 
         {parentPage === feed && (
-          <TopCommunities
-            userId={account}
-            account={account}
-            communities={communities}
-            profile={profile}
-          />
+          <TopCommunities userId={account} account={account} communities={communities} profile={profile} />
         )}
 
         {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
@@ -233,22 +229,20 @@ const mapStateToProps = createStructuredSelector({
   questionsLoading: questionsSelector.selectQuestionsLoading(),
   initLoadedItems: questionsSelector.selectInitLoadedItems(),
   nextLoadedItems: questionsSelector.selectNextLoadedItems(),
+  typeFilter: questionsSelector.selectTypeFilter(),
+  createdFilter: questionsSelector.selectCreatedFilter(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
   questionsList: (state, props) =>
-    questionsSelector.selectQuestions(
-      props.parentPage,
-      Number(props.match.params.communityid),
-    )(state),
+    questionsSelector.selectQuestions(props.parentPage, Number(props.match.params.communityid))(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
+    setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
+    setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    redirectToAskQuestionPageDispatch: bindActionCreators(
-      redirectToAskQuestionPage,
-      dispatch,
-    ),
+    redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
   };
 }
 

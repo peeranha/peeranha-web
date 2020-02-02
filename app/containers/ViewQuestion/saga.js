@@ -76,6 +76,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
+  QUESTION_PROPERTIES,
 } from './constants';
 
 import {
@@ -118,6 +119,11 @@ import {
   editCommentValidator,
 } from './validate';
 
+export const isGeneralQuestion = properties =>
+  Boolean(
+    properties.find(({ key }) => key === QUESTION_PROPERTIES.GENERAL_KEY),
+  );
+
 export function* getQuestionData({
   eosService,
   questionId,
@@ -128,6 +134,8 @@ export function* getQuestionData({
   if (!question) {
     question = yield call(getQuestionById, eosService, questionId);
   }
+
+  question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag && historyFlag.flag & (1 << constantFlag);
@@ -150,10 +158,11 @@ export function* getQuestionData({
   };
 
   const getlastEditedDate = properties => {
-    const LAST_EDITED_KEY = 3;
-    const lastEditedDate = properties.filter(x => x.key === LAST_EDITED_KEY)[0];
+    const lastEditedDate = properties.find(
+      ({ key }) => key === QUESTION_PROPERTIES.LAST_EDITED_KEY,
+    );
 
-    return (lastEditedDate && lastEditedDate.value) || null;
+    return lastEditedDate ? lastEditedDate.value : null;
   };
 
   const users = new Map();

@@ -251,6 +251,7 @@ export async function postQuestion(user, questionData, eosService) {
       ipfs_link: ipfsLink,
       community_id: questionData.community.value,
       tags: questionData.chosenTags.map(x => x.value),
+      type: questionData.type,
     },
     null,
     true,
