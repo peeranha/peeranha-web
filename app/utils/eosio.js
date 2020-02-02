@@ -434,7 +434,7 @@ class EosioService {
     protocol: process.env.SCATTER_PROTOCOL || this.node.protocol,
     host: process.env.SCATTER_HOST || this.node.host,
     port: process.env.SCATTER_PORT || this.node.port,
-    chainId: process.env.SCATTER_CHAINID || this.node.chainID,
+    chainID: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
   handleCaseWithInvalidNode = async (method, errorMsg, endpoint) => {
@@ -512,7 +512,7 @@ class EosioService {
     endpoint: process.env.EOS_ENDPOINT_DEFAULT,
     protocol: process.env.EOS_PROTOCOL_DEFAULT,
     port: process.env.EOS_PORT_DEFAULT,
-    chainId: process.env.EOS_CHAINID_DEFAULT,
+    chainID: process.env.EOS_CHAINID_DEFAULT,
   });
 
   getNode = async () => {
