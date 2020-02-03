@@ -44,6 +44,7 @@ import {
   AUTOLOGIN_DATA,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_SCATTER_SUCCESS,
+  FINISH_REGISTRATION_SUCCESS,
 } from './constants';
 
 import messages from './messages';
@@ -164,12 +165,15 @@ export function* finishRegistrationWorker({ val }) {
 
 export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
+  const profileInfo = yield select(makeSelectProfileInfo());
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
-  yield call(createdHistory.push, routes.feed());
+  if (profileInfo) {
+    yield call(createdHistory.push, routes.feed());
+  }
 }
 
 export default function*() {
@@ -177,11 +181,11 @@ export default function*() {
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
   yield takeLatest(
-    [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
-    redirectToFeedWorker,
-  );
-  yield takeLatest(
-    [LOGIN_WITH_EMAIL_SUCCESS, LOGIN_WITH_SCATTER_SUCCESS],
+    [
+      LOGIN_WITH_EMAIL_SUCCESS,
+      LOGIN_WITH_SCATTER_SUCCESS,
+      FINISH_REGISTRATION_SUCCESS,
+    ],
     redirectToFeedWorker,
   );
 }
