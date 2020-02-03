@@ -15,7 +15,10 @@ import { WebIntegrationError, ApplicationError } from 'utils/errors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import {
+  getCurrentAccountWorker,
+  getReferralInfo,
+} from 'containers/AccountProvider/saga';
 import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -156,6 +159,10 @@ export function* sendReferralCode(
   eosService,
   error,
 ) {
+  const info = yield call(getReferralInfo, accountName, eosService);
+  if (info) {
+    return true;
+  }
   const isUserIn = yield call(isUserInSystem, referralCode, eosService);
 
   if (isUserIn) {

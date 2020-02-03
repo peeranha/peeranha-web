@@ -183,7 +183,7 @@ export function* isAvailableAction(isValid) {
   yield call(isValid);
 }
 
-const getReferralInfo = async (user, eosService) => {
+export const getReferralInfo = async (user, eosService) => {
   const info = await eosService.getTableRow(
     INVITED_USERS_TABLE,
     INVITED_USERS_SCOPE,
