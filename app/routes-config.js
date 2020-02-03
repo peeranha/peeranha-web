@@ -117,7 +117,7 @@ export const suggestedTags = communityid =>
     : `/tags/suggested`;
 
 export const tagsCreate = communityid =>
-  !singleCommId ? `tags/community/${communityid || 0}/create` : `/tags/create`;
+  !singleCommId ? `/tags/community/${communityid || 0}/create` : `/tags/create`;
 
 export const registrationStage = 'signup';
 
