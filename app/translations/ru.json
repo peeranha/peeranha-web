@@ -97,6 +97,7 @@
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.signUpViaWallet": "Регистрация через кошелек",
+  "app.common.receivedReward": "Вы получили реферальную награду",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -552,6 +553,8 @@
     "Имя, которое будет у Вас в Peeranha.",
   "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
+  "app.containers.Login.inviterIsNotRegisterYet":
+    "Пригласитель еще не зарегистрирован",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",

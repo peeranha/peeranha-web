@@ -162,14 +162,16 @@ export function* sendReferralCode(
     try {
       yield call(inviteUser, accountName, referralCode, eosService);
     } catch (err) {
+      yield put(error());
       return;
     }
     return true;
   }
+  const locale = yield select(makeSelectLocale());
   yield put(
     addToast({
       type: 'error',
-      text: "Inviter isn't register yet",
+      text: translationMessages[locale][messages.inviterIsNotRegisterYet.id],
     }),
   );
   yield put(error());

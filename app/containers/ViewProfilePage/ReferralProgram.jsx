@@ -11,7 +11,7 @@ import profileMessages from '../Profile/messages';
 import { BaseStyled } from './SettingsOfUser';
 
 const ReferralProgram = ({ className, user, writeToBuffer }) => {
-  const referralLink = `${process.env.PEERANHA_URL}${routes.referralPage(
+  const referralLink = `${process.env.APP_LOCATION}${routes.referralPage(
     user,
   )}`;
   return (

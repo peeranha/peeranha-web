@@ -12,6 +12,7 @@ import {
   INVITED_USERS_TABLE,
   REWARD_REFER,
 } from 'utils/constants';
+import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -99,6 +100,8 @@ import {
 } from './constants';
 
 import { makeSelectProfileInfo } from './selectors';
+import { translationMessages } from '../../i18n';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -202,11 +205,12 @@ function* updateRefer(user, eosService) {
   if (info) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
+      const locale = yield select(makeSelectLocale());
       setCookie({ name: receivedCookieName, value: true });
       yield put(
         addToast({
           type: 'success',
-          text: 'You received referral reward!',
+          text: translationMessages[locale][commonMessages.receivedReward.id],
         }),
       );
     }
@@ -229,7 +233,10 @@ const rewardRefer = async (user, eosService) => {
       process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
       null,
     );
-  } catch (err) {}
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
 
 export function* updateAccWorker({ eos }) {
@@ -249,8 +256,10 @@ export function* updateAccWorker({ eos }) {
         profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
         !getCookie(cookieName)
       ) {
-        yield call(rewardRefer, user, eos);
-        setCookie({ name: cookieName, value: true });
+        const ok = yield call(rewardRefer, user, eos);
+        if (ok) {
+          setCookie({ name: cookieName, value: true });
+        }
       }
 
       yield call(updateRefer, user, eos);

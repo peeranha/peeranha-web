@@ -41,4 +41,7 @@ export default defineMessages({
   accountNotCreatedName: {
     id: 'app.containers.Login.accountNotCreatedName',
   },
+  inviterIsNotRegisterYet: {
+    id: 'app.containers.Login.inviterIsNotRegisterYet',
+  },
 });

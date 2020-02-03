@@ -99,6 +99,7 @@
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.signUpViaWallet": "Sign up via wallet",
+  "app.common.receivedReward": "You received referral reward",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -547,6 +548,7 @@
   "app.containers.Login.referralMessage":
     "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
+  "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
