@@ -111,6 +111,7 @@ export function finishRegistrationWithDisplayNameErr(
   };
 }
 
-export const finishRegistrationReferralError = () => ({
+export const finishRegistrationReferralErr = finishRegistrationReferralError => ({
   type: FINISH_REGISTRATION_REFERRAL_ERROR,
+  finishRegistrationReferralError,
 });

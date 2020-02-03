@@ -167,8 +167,9 @@ export function signUpWithScatterErr(signUpWithScatterError) {
   };
 }
 
-export const signUpWithScatterReferralErr = () => ({
+export const signUpWithScatterReferralErr = signUpWithScatterReferralError => ({
   type: SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
+  signUpWithScatterReferralError,
 });
 
 /*

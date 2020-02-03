@@ -34,7 +34,7 @@ import {
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
   hideLoginModal,
-  finishRegistrationReferralError,
+  finishRegistrationReferralErr,
 } from './actions';
 
 import {
@@ -169,19 +169,15 @@ export function* sendReferralCode(
     try {
       yield call(inviteUser, accountName, referralCode, eosService);
     } catch (err) {
-      yield put(error());
+      yield put(error(err));
       return;
     }
     return true;
   }
   const locale = yield select(makeSelectLocale());
-  yield put(
-    addToast({
-      type: 'error',
-      text: translationMessages[locale][messages.inviterIsNotRegisterYet.id],
-    }),
-  );
-  yield put(error());
+  const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
+  yield put(addToast({ type: 'error', text }));
+  yield put(error(new Error(text)));
 }
 
 export function* finishRegistrationWorker({ val }) {
@@ -201,7 +197,7 @@ export function* finishRegistrationWorker({ val }) {
         accountName,
         referralCode,
         eosService,
-        finishRegistrationReferralError,
+        finishRegistrationReferralErr,
       );
       if (!ok) {
         return;
