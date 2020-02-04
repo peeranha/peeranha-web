@@ -44,7 +44,13 @@ import TextInputField from 'components/FormFields/TextInputField';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import CommunityField from 'components/FormFields/CommunityField';
 
-import { FORM_TITLE, FORM_TYPE, FORM_CONTENT, FORM_COMMUNITY, FORM_TAGS } from './constants';
+import {
+  FORM_TITLE,
+  FORM_TYPE,
+  FORM_CONTENT,
+  FORM_COMMUNITY,
+  FORM_TAGS,
+} from './constants';
 
 import messages from './messages';
 import QuestionTypeField, { QUESTION_TYPES } from './QuestionTypeField';
@@ -65,7 +71,9 @@ export const QuestionForm = ({
 }) => {
   const setTags = updatedTags => change(FORM_TAGS, updatedTags);
 
-  const communityId = formValues[FORM_COMMUNITY] ? formValues[FORM_COMMUNITY].value : 0;
+  const communityId = formValues[FORM_COMMUNITY]
+    ? formValues[FORM_COMMUNITY].value
+    : 0;
 
   return (
     <div>
@@ -80,7 +88,9 @@ export const QuestionForm = ({
             <A to={routes.questionView(questionid)}>
               <button>
                 <img className="mr-1" src={closeIcon} alt="x" />
-                <Span color={TEXT_PRIMARY}>{intl.formatMessage({ id: commonMessages.close.id })}</Span>
+                <Span color={TEXT_PRIMARY}>
+                  {intl.formatMessage({ id: commonMessages.close.id })}
+                </Span>
               </button>
             </A>
           </div>
@@ -151,9 +161,17 @@ export const QuestionForm = ({
               label={intl.formatMessage({ id: messages.tagsLabel.id })}
               tip={intl.formatMessage({ id: messages.tagsTip.id })}
               component={TagSelector}
-              disabled={questionLoading || !formValues[FORM_COMMUNITY] || !formValues[FORM_COMMUNITY].value}
+              disabled={
+                questionLoading ||
+                !formValues[FORM_COMMUNITY] ||
+                !formValues[FORM_COMMUNITY].value
+              }
               setTags={setTags}
-              options={formValues[FORM_COMMUNITY] ? formValues[FORM_COMMUNITY].tags : []}
+              options={
+                formValues[FORM_COMMUNITY]
+                  ? formValues[FORM_COMMUNITY].tags
+                  : []
+              }
               validate={[required, strLength1x5]}
               warn={[required, strLength1x5]}
               splitInHalf
@@ -169,7 +187,11 @@ export const QuestionForm = ({
               <FormattedMessage {...commonMessages.suggestTag} />
             </TransparentButton>
 
-            <Button disabled={questionLoading} id={submitButtonId} type="submit">
+            <Button
+              disabled={questionLoading}
+              id={submitButtonId}
+              type="submit"
+            >
               {submitButtonName}
             </Button>
           </FormBox>
@@ -201,7 +223,10 @@ let FormClone = reduxForm({
 })(QuestionForm);
 
 const mapDispatchToProps = dispatch => ({
-  redirectToCreateTagDispatch: bindActionCreators(redirectToCreateTag, dispatch),
+  redirectToCreateTagDispatch: bindActionCreators(
+    redirectToCreateTag,
+    dispatch,
+  ),
 });
 
 FormClone = connect(
@@ -226,7 +251,9 @@ FormClone = connect(
     if (singleCommId) {
       initialValues = {
         ...initialValues,
-        [FORM_COMMUNITY]: props.communities.find(({ id }) => id === singleCommId),
+        [FORM_COMMUNITY]: props.communities.find(
+          ({ id }) => id === singleCommId,
+        ),
       };
     }
 

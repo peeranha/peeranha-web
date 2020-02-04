@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { TEXT_PRIMARY_DARK, BORDER_PRIMARY_DARK, BG_SUCCESS, TEXT_SECONDARY, BG_PRIMARY_DARK } from 'style-constants';
+import {
+  TEXT_PRIMARY_DARK,
+  BORDER_PRIMARY_DARK,
+  BG_SUCCESS,
+  TEXT_SECONDARY,
+  BG_PRIMARY_DARK,
+} from 'style-constants';
 
 import commonMessages from 'common-messages';
 
@@ -17,7 +23,10 @@ import Span from 'components/Span';
 import { AProps } from 'components/A';
 import QuestionType from 'components/Labels/QuestionType';
 
-import { POST_TYPE_ANSWER, POST_TYPE_QUESTION } from 'containers/Profile/constants';
+import {
+  POST_TYPE_ANSWER,
+  POST_TYPE_QUESTION,
+} from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
 
@@ -25,21 +34,16 @@ const BaseStyled = Base.extend`
   display: flex;
   flex: 1;
   position: relative;
+  border-radius: ${({ isBordered }) => (isBordered ? '5px' : 'none')};
 
   ${QuestionType} {
     position: absolute;
-    top: 3px;
+    top: 5px;
     right: 5px;
   }
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
-
-    ${QuestionType} {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
   }
 `;
 
@@ -83,17 +87,30 @@ const TopCommunityBadgeStyled = Badge.extend`
 `;
 
 /* eslint indent: 0 */
-const AcceptedQuestionBadge = ({ acceptedAnswer, postType, isMyAnswerAccepted }) =>
-  (postType === POST_TYPE_QUESTION && acceptedAnswer) || (postType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
+const AcceptedQuestionBadge = ({
+  acceptedAnswer,
+  postType,
+  isMyAnswerAccepted,
+}) =>
+  (postType === POST_TYPE_QUESTION && acceptedAnswer) ||
+  (postType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
     <AcceptedQuestionBadgeStyled>
-      <img className="d-flex align-items-center justify-content-center" src={okayIcon} alt="icon" />
+      <img
+        className="d-flex align-items-center justify-content-center"
+        src={okayIcon}
+        alt="icon"
+      />
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
 const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
   isTheLargestRating && postType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
-      <img className="d-flex align-items-center justify-content-center" src={crownIcon} alt="icon" />
+      <img
+        className="d-flex align-items-center justify-content-center"
+        src={crownIcon}
+        alt="icon"
+      />
     </TopCommunityBadgeStyled>
   ) : null;
 
@@ -111,11 +128,14 @@ export const QuestionForProfilePage = ({
   isTheLargestRating,
   route,
   isGeneral,
+  isBordered,
 }) => (
-  <BaseStyled>
-    <QuestionType isGeneral={isGeneral} size="sm">
-      <FormattedMessage {...commonMessages[isGeneral ? 'general' : 'expert']} />
-    </QuestionType>
+  <BaseStyled bordered={!isGeneral} isBordered={isBordered}>
+    {!isGeneral && (
+      <QuestionType size="sm">
+        <FormattedMessage {...commonMessages.expert} />
+      </QuestionType>
+    )}
 
     <div className="d-flex flex-row flex-md-column">
       <Badge bold>{myPostRating}</Badge>
@@ -126,7 +146,10 @@ export const QuestionForProfilePage = ({
         isMyAnswerAccepted={isMyAnswerAccepted}
       />
 
-      <TopCommunityBadge postType={postType} isTheLargestRating={isTheLargestRating} />
+      <TopCommunityBadge
+        postType={postType}
+        isTheLargestRating={isTheLargestRating}
+      />
     </div>
 
     <div className="d-flex flex-column flex-grow-1">
@@ -135,15 +158,26 @@ export const QuestionForProfilePage = ({
       </AProps>
 
       <p className="d-flex align-items-center my-1">
-        <Span className="text-capitalize mr-3" fontSize="14" color={TEXT_SECONDARY}>
+        <Span
+          className="text-capitalize mr-3"
+          fontSize="14"
+          color={TEXT_SECONDARY}
+        >
           <FormattedMessage
             {...commonMessages.askedWhen}
             values={{
-              when: getFormattedDate(myPostTime, locale, MONTH_3LETTERS__DAY_TIME),
+              when: getFormattedDate(
+                myPostTime,
+                locale,
+                MONTH_3LETTERS__DAY_TIME,
+              ),
             }}
           />
         </Span>
-        <QuestionCommunity communities={communities} communityId={community_id} />
+        <QuestionCommunity
+          communities={communities}
+          communityId={community_id}
+        />
       </p>
     </div>
   </BaseStyled>
@@ -177,6 +211,8 @@ QuestionForProfilePage.propTypes = {
   isMyAnswerAccepted: PropTypes.bool,
   isTheLargestRating: PropTypes.bool,
   route: PropTypes.string,
+  isGeneral: PropTypes.bool,
+  isBordered: PropTypes.bool,
 };
 
 export default React.memo(QuestionForProfilePage);

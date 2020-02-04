@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
-import { TEXT_PRIMARY_DARK, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
+import {
+  TEXT_PRIMARY_DARK,
+  TEXT_SECONDARY,
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+} from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
@@ -34,7 +39,7 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   overflow: hidden;
-
+  border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -61,17 +66,28 @@ const LastAnswer = ({ lastAnswer, locale }) => {
   return (
     <span className="d-flex flex-column">
       {lastAnswer.userInfo && (
-        <A to={routes.profileView(lastAnswer.user)} className="d-flex align-items-center">
+        <A
+          to={routes.profileView(lastAnswer.user)}
+          className="d-flex align-items-center"
+        >
           <Span className="mr-2" fontSize="14" lineHeight="18">
             {lastAnswer.userInfo.display_name}
           </Span>
-          <RatingStatus rating={lastAnswer.userInfo.rating} size="sm" isRankOff />
+          <RatingStatus
+            rating={lastAnswer.userInfo.rating}
+            size="sm"
+            isRankOff
+          />
         </A>
       )}
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.lastAnswer} />{' '}
-        {getFormattedDate(lastAnswer.post_time, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        {getFormattedDate(
+          lastAnswer.post_time,
+          locale,
+          MONTH_3LETTERS__DAY_YYYY_TIME,
+        )}
       </Span>
     </span>
   );
@@ -92,7 +108,7 @@ const Question = ({
   isMyAnswerAccepted,
   isGeneral,
 }) => (
-  <Li className="mb-3">
+  <Li className="mb-3" bordered={!isGeneral}>
     <QuestionForProfilePage
       route={routes.questionView(id, null, community_id)}
       myPostRating={myPostRating}
@@ -106,6 +122,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isGeneral={isGeneral}
+      isBordered={false}
     />
     <RightBlock>
       <span className="d-flex align-items-center mb-2">
@@ -123,7 +140,14 @@ const Question = ({
 const QuestionsList = ({ questions, locale, communities }) => (
   <div>
     <ul>
-      {questions.map(x => <Question {...x} locale={locale} communities={communities} key={`question_${x.id}`} />)}
+      {questions.map(x => (
+        <Question
+          {...x}
+          locale={locale}
+          communities={communities}
+          key={`question_${x.id}`}
+        />
+      ))}
     </ul>
   </div>
 );
@@ -146,6 +170,7 @@ Question.propTypes = {
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isGeneral: PropTypes.bool,
 };
 
 QuestionsList.propTypes = {

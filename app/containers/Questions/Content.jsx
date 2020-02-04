@@ -135,21 +135,18 @@ const QuestionItem = ({
       </div>
 
       <Base>
-        <QuestionType
-          onMouseEnter={() => !isGeneral && toggleExpertPopover(true)}
-          onMouseLeave={() => !isGeneral && toggleExpertPopover(false)}
-          isGeneral={isGeneral}
-          size="sm"
-        >
-          {isGeneral ? (
-            <FormattedMessage {...commonMessages.general} />
-          ) : (
+        {!isGeneral && (
+          <QuestionType
+            onMouseEnter={() => toggleExpertPopover(true)}
+            onMouseLeave={() => toggleExpertPopover(false)}
+            size="sm"
+          >
             <div>
               {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
               <FormattedMessage {...commonMessages.expert} />
             </div>
-          )}
-        </QuestionType>
+          </QuestionType>
+        )}
         <p className="mb-1">
           <A to={routes.questionView(id, null, community_id)}>
             <Span

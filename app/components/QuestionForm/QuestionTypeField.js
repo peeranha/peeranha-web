@@ -6,7 +6,11 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 
-import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_PRIMARY_RGB } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_PRIMARY_RGB,
+} from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
@@ -44,12 +48,31 @@ const Button = B.extend`
   }
 
   flex: 1;
-  border: 1px solid ${x => (x.currentValue == x.value ? `${BORDER_PRIMARY} !important` : BORDER_SECONDARY)};
+  border: 1px solid
+    ${x =>
+      +x.currentValue === +x.value
+        ? `${BORDER_PRIMARY} !important`
+        : BORDER_SECONDARY}};
 
-  box-shadow: ${x => (x.currentValue == x.value ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`)};
+  box-shadow: ${x =>
+    +x.currentValue === +x.value
+      ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
+      : `none`};
+
+  @media only screen and (max-width: 576px) {
+    height: 36px;
+  }
 `;
 
-const QuestionTypeField = ({ input, label, disabled, meta, tip, splitInHalf, insideOfSection }) => {
+const QuestionTypeField = ({
+  input,
+  label,
+  disabled,
+  meta,
+  tip,
+  splitInHalf,
+  insideOfSection,
+}) => {
   function chooseQuestionType(event) {
     event.preventDefault();
     input.onChange(event.currentTarget.value);

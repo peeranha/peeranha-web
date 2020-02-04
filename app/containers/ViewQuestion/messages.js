@@ -109,9 +109,6 @@ export default defineMessages({
   markThisQuestionAndGetEarn: {
     id: 'app.containers.ViewQuestion.markThisQuestionAndGetEarn',
   },
-  generalQuestion: {
-    id: 'app.containers.ViewQuestion.generalQuestion',
-  },
   expertQuestion: {
     id: 'app.containers.ViewQuestion.expertQuestion',
   },

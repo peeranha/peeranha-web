@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import _orderBy from 'lodash/orderBy';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
@@ -31,7 +32,7 @@ const Activity = ({
   profile,
 }) => {
   // concat 2 mass and sort by postTime and slice
-  const myPosts = window._.orderBy(
+  const myPosts = _orderBy(
     questions.concat(questionsWithUserAnswers),
     y => y.myPostTime,
     ['desc'],

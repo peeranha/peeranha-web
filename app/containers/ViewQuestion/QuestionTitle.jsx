@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
 
 import checkIcon from 'images/okayGreen.svg?inline';
-import coinsIcon from 'images/coins.svg?inline';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -12,11 +10,11 @@ import TagList from 'components/TagsList';
 import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
-import SendTokens from 'containers/SendTokens';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
 
+// eslint-disable-next-line no-unused-vars
 const B = Button.extend`
   display: inline-flex;
   align-items: center;
@@ -36,21 +34,28 @@ export const QuestionTitle = ({
 }) =>
   title ? (
     <Base position="middle" bordered={!isGeneral}>
-      <div className="d-flex justify-content-between mb-1">
-        <SendTokens>
-          <B>
-            <img className="mr-1" src={coinsIcon} alt="icon" />
-            <FormattedMessage {...commonMessages.tipQuestion} />
-          </B>
-        </SendTokens>
-
-        <QuestionType size="md" isGeneral={isGeneral}>
-          <FormattedMessage {...messages[isGeneral ? 'generalQuestion' : 'expertQuestion']} />
-        </QuestionType>
+      <div className="expert-question">
+        {/*
+          <SendTokens>
+            <B>
+              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <FormattedMessage {...commonMessages.tipQuestion} />
+            </B>
+          </SendTokens>
+        */}
+        {!isGeneral && (
+          <QuestionType size="md">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        )}
       </div>
 
       <MarkAnswerNotification
-        className={!correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral ? 'd-inline-flex' : 'd-none'}
+        className={
+          !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+            ? 'd-inline-flex'
+            : 'd-none'
+        }
       >
         <img className="mr-2" src={checkIcon} alt="icon" />
         <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
@@ -58,8 +63,17 @@ export const QuestionTitle = ({
 
       <H3>{title}</H3>
 
-      <TagList className="my-2" chosenTags={tags} communityId={communityId} communities={communities}>
-        <QuestionCommunity className="my-1" communities={communities} communityId={communityId} />
+      <TagList
+        className="my-2"
+        chosenTags={tags}
+        communityId={communityId}
+        communities={communities}
+      >
+        <QuestionCommunity
+          className="my-1"
+          communities={communities}
+          communityId={communityId}
+        />
       </TagList>
     </Base>
   ) : null;

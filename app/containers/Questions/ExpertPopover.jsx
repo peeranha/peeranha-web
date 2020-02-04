@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import { translationMessages } from 'i18n';
 
-const Div = styled.div`
+const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
   width: 300px;
@@ -40,7 +40,7 @@ const Div = styled.div`
 `;
 
 const ExpertPopover = ({ locale }) => (
-  <Div>
+  <Base>
     <FormattedMessage {...commonMessages.expertPopoverText} />
     <br />
     <br />
@@ -54,7 +54,7 @@ const ExpertPopover = ({ locale }) => (
         </>
       ))}
     </ul>
-  </Div>
+  </Base>
 );
 
 ExpertPopover.propTypes = {
