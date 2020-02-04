@@ -335,6 +335,7 @@ class EosioService {
     while (waitCycle < 20) {
       console.log('Waiting for transaction to complete...');
       try {
+        // eslint-disable-next-line no-await-in-loop
         await this.eosApi.authorityProvider.get_block(blockId);
         success = true;
         break;
@@ -343,7 +344,9 @@ class EosioService {
           throw new Error(message);
         }
       }
+      // eslint-disable-next-line no-await-in-loop
       await this.sleep(500);
+      // eslint-disable-next-line no-plusplus
       waitCycle++;
     }
 
@@ -434,7 +437,7 @@ class EosioService {
     protocol: process.env.SCATTER_PROTOCOL || this.node.protocol,
     host: process.env.SCATTER_HOST || this.node.host,
     port: process.env.SCATTER_PORT || this.node.port,
-    chainID: process.env.SCATTER_CHAINID || this.node.chainID,
+    chainId: process.env.SCATTER_CHAINID || this.node.chainID,
   });
 
   handleCaseWithInvalidNode = async (method, errorMsg, endpoint) => {
