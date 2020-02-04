@@ -87,6 +87,7 @@ import {
   getCurrentAccountProcessing,
   updateAccSuccess,
   updateAccErr,
+  rewardReferErr,
 } from './actions';
 
 import {
@@ -233,9 +234,8 @@ const rewardRefer = async (user, eosService) => {
       process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
       null,
     );
-    return true;
   } catch (err) {
-    return false;
+    return err;
   }
 };
 
@@ -256,8 +256,11 @@ export function* updateAccWorker({ eos }) {
         profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
         !getCookie(cookieName)
       ) {
-        const ok = yield call(rewardRefer, user, eos);
-        if (ok) {
+        const err = yield call(rewardRefer, user, eos);
+
+        if (err instanceof Error) {
+          yield put(rewardReferErr(err));
+        } else {
           setCookie({ name: cookieName, value: true });
         }
       }
