@@ -249,23 +249,26 @@ export function* updateAccWorker({ eos }) {
       profileInfo = yield select(makeSelectProfileInfo());
     }
 
+    const { user } = profileInfo;
+    yield call(updateRefer, user, eos);
+
     if (account) {
-      const { user } = profileInfo;
-      const cookieName = `${REFERRAL_REWARD_SENT}_${user}`;
+      const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
+      const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
       if (
         profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
-        !getCookie(cookieName)
+        !getCookie(sentCookieName) &&
+        !getCookie(noInviterCookieName)
       ) {
         const err = yield call(rewardRefer, user, eos);
 
         if (err instanceof Error) {
           yield put(rewardReferErr(err));
         } else {
-          setCookie({ name: cookieName, value: true });
+          setCookie({ name: sentCookieName, value: true });
         }
       }
 
-      yield call(updateRefer, user, eos);
       yield call(updateAcc, profileInfo, eos);
       yield call(getCurrentAccountWorker);
       yield put(updateAccSuccess());
