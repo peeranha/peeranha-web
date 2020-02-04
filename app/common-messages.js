@@ -303,4 +303,7 @@ export default defineMessages({
   signUpViaWallet: {
     id: 'app.common.signUpViaWallet',
   },
+  receivedReward: {
+    id: 'app.common.receivedReward',
+  },
 });

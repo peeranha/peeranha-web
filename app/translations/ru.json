@@ -97,6 +97,7 @@
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.signUpViaWallet": "Регистрация через кошелек",
+  "app.common.receivedReward": "Вы получили реферальную награду",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -204,6 +205,11 @@
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
   "app.containers.Profile.editProfile": "Редактировать профиль",
   "app.containers.Profile.authorizationData": "Данные авторизации",
+  "app.containers.Profile.referralProgram": "Реферальная программа",
+  "app.containers.Profile.referralLink": "Ваша реферальная ссылка",
+  "app.containers.Profile.referralCode": "Ваш реферальный код",
+  "app.containers.Profile.referralText":
+    "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
@@ -529,6 +535,8 @@
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
+  "app.components.FormFields.onlyLettersAndNumbers":
+    "Значение должно содержать только буквы и цифры",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
@@ -543,7 +551,10 @@
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",
+  "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
+  "app.containers.Login.inviterIsNotRegisterYet":
+    "Пригласитель еще не зарегистрирован",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
@@ -596,6 +607,7 @@
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
   "app.containers.SignUp.masterKey": "Master ключ",
   "app.containers.SignUp.displayName": "Отображаемое имя",
+  "app.containers.SignUp.referralCode": "Реферальный код",
   "app.containers.SignUp.eosName": "Имя в Telos",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",

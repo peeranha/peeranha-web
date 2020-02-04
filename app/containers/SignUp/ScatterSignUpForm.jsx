@@ -1,14 +1,20 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
-import { required, strLength3x20 } from 'components/FormFields/validate';
+import {
+  required,
+  strLength3x20,
+  strLength12Max,
+  onlyLettersAndNumbers,
+} from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
-import SignUpOptions from 'components/SignUpWrapper/SignUpOptions';
+import { SignUpOptions, P } from 'components/SignUpWrapper/SignUpOptions';
 import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 
@@ -23,6 +29,10 @@ import {
 import messages from './messages';
 
 import { Form } from './EmailVerificationForm';
+import loginMessages from '../Login/messages';
+import { REFERRAL_CODE } from '../Login/constants';
+import { getCookie } from '../../utils/cookie';
+import { REFERRAL_CODE_URI } from '../App/constants';
 
 const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
   <SignUp withScatter>
@@ -62,6 +72,17 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               warn={[strLength3x20, required]}
             />
 
+            <P className="text-center py-3">
+              <FormattedMessage {...loginMessages.referralMessage} />
+            </P>
+            <Field
+              name={REFERRAL_CODE}
+              disabled={signUpWithScatterProcessing}
+              label={translationMessages[locale][messages.referralCode.id]}
+              component={TextInputField}
+              validate={[strLength12Max, onlyLettersAndNumbers]}
+            />
+
             <Field
               name={I_ACCEPT_PRIVACY_POLICY_FIELD}
               disabled={signUpWithScatterProcessing}
@@ -70,7 +91,6 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
               validate={required}
               warn={required}
             />
-
             <Button
               disabled={signUpWithScatterProcessing}
               className="w-100 my-3"
@@ -93,9 +113,14 @@ ScatterSignUpForm.propTypes = {
 const formName = 'ScatterSignUpForm';
 
 /* eslint import/no-mutable-exports: 0 */
-let FormClone = reduxForm({
-  form: formName,
-})(ScatterSignUpForm);
+let FormClone = compose(
+  connect(() => ({
+    initialValues: {
+      [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
+    },
+  })),
+  reduxForm({ form: formName }),
+)(ScatterSignUpForm);
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };

@@ -15,9 +15,11 @@ import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
 
 import { selectQuestionsWithUserAnswers, selectNumber } from './selectors';
-import { GET_QUESTIONS } from './constants';
+import { GET_QUESTIONS as GET_QUESTIONS_WITH_ANSWERS } from './constants';
+import { GET_QUESTIONS } from '../QuestionsOfUser/constants';
+import { getQuestionsWorker as getQuestions } from '../QuestionsOfUser/saga';
 
-export function* getQuestionsWorker({ userId }) {
+export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
     const questionsFromStore = yield select(selectQuestionsWithUserAnswers());
     const limit = yield select(selectNumber());
@@ -74,5 +76,6 @@ export function* getQuestionsWorker({ userId }) {
 }
 
 export default function*() {
-  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS_WITH_ANSWERS, getQuestionsWithAnswersWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestions);
 }

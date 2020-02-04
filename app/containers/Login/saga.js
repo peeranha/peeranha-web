@@ -4,14 +4,21 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { registerAccount } from 'utils/accountManagement';
+import {
+  registerAccount,
+  inviteUser,
+  isUserInSystem,
+} from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
+import {
+  getCurrentAccountWorker,
+  getReferralInfo,
+} from 'containers/AccountProvider/saga';
 import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -27,6 +34,7 @@ import {
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
   hideLoginModal,
+  finishRegistrationReferralErr,
 } from './actions';
 
 import {
@@ -45,10 +53,12 @@ import {
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_SCATTER_SUCCESS,
   FINISH_REGISTRATION_SUCCESS,
+  REFERRAL_CODE,
 } from './constants';
 
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
+import { addToast } from '../Toast/actions';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -143,6 +153,33 @@ export function* loginWithScatterWorker() {
   }
 }
 
+export function* sendReferralCode(
+  accountName,
+  referralCode,
+  eosService,
+  error,
+) {
+  const info = yield call(getReferralInfo, accountName, eosService);
+  if (info) {
+    return true;
+  }
+  const isUserIn = yield call(isUserInSystem, referralCode, eosService);
+
+  if (isUserIn) {
+    try {
+      yield call(inviteUser, accountName, referralCode, eosService);
+    } catch (err) {
+      yield put(error(err));
+      return;
+    }
+    return true;
+  }
+  const locale = yield select(makeSelectLocale());
+  const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
+  yield put(addToast({ type: 'error', text }));
+  yield put(error(new Error(text)));
+}
+
 export function* finishRegistrationWorker({ val }) {
   try {
     const eosService = yield select(selectEos);
@@ -152,6 +189,20 @@ export function* finishRegistrationWorker({ val }) {
       accountName,
       displayName: val[DISPLAY_NAME],
     };
+    const referralCode = val[REFERRAL_CODE];
+
+    if (referralCode) {
+      const ok = yield call(
+        sendReferralCode,
+        accountName,
+        referralCode,
+        eosService,
+        finishRegistrationReferralErr,
+      );
+      if (!ok) {
+        return;
+      }
+    }
 
     yield call(registerAccount, profile, eosService);
 

@@ -99,6 +99,7 @@
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.signUpViaWallet": "Sign up via wallet",
+  "app.common.receivedReward": "You received referral reward",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -199,6 +200,11 @@
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
+  "app.containers.Profile.referralProgram": "Referral Program",
+  "app.containers.Profile.referralLink": "Your referral link",
+  "app.containers.Profile.referralCode": "Your referral code",
+  "app.containers.Profile.referralText":
+    "Share the link or the code with your friend and you both will receive 100 PEER tokens after your friend earns 35 reputation points.",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
@@ -522,6 +528,8 @@
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
   "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
+  "app.components.FormFields.onlyLettersAndNumbers":
+    "Value must contain only letters and numbers",
 
   "app.containers.TagsCollection.title": "Tags collection",
 
@@ -537,7 +545,10 @@
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",
+  "app.containers.Login.referralMessage":
+    "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
+  "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
@@ -590,6 +601,7 @@
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
+  "app.containers.SignUp.referralCode": "Referral code",
   "app.containers.SignUp.eosName": "Telos name",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",

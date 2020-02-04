@@ -2,8 +2,17 @@ import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
-import { getBalance } from 'utils/walletManagement';
-import { MODERATOR_KEY } from 'utils/constants';
+import {
+  convertPeerValueToNumberValue,
+  getBalance,
+} from 'utils/walletManagement';
+import {
+  MODERATOR_KEY,
+  INVITED_USERS_SCOPE,
+  INVITED_USERS_TABLE,
+  REWARD_REFER,
+} from 'utils/constants';
+import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
@@ -69,21 +78,31 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
+import { getCookie, setCookie } from 'utils/cookie';
+import { addToast } from 'containers/Toast/actions';
+
 import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
   getCurrentAccountProcessing,
   updateAccSuccess,
   updateAccErr,
+  rewardReferErr,
 } from './actions';
 
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
+  REFERRAL_REWARD_RATING,
+  NO_REFERRAL_INVITER,
+  REFERRAL_REWARD_RECEIVED,
+  REFERRAL_REWARD_SENT,
   UPDATE_ACC_SUCCESS,
 } from './constants';
 
 import { makeSelectProfileInfo } from './selectors';
+import { translationMessages } from '../../i18n';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -165,6 +184,61 @@ export function* isAvailableAction(isValid) {
   yield call(isValid);
 }
 
+export const getReferralInfo = async (user, eosService) => {
+  const info = await eosService.getTableRow(
+    INVITED_USERS_TABLE,
+    INVITED_USERS_SCOPE,
+    user,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+  return info;
+};
+
+function* updateRefer(user, eosService) {
+  const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
+  const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
+  if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
+    return;
+  }
+
+  const info = yield call(getReferralInfo, user, eosService);
+
+  if (info) {
+    const reward = +convertPeerValueToNumberValue(info.common_reward);
+    if (reward) {
+      const locale = yield select(makeSelectLocale());
+      setCookie({ name: receivedCookieName, value: true });
+      yield put(
+        addToast({
+          type: 'success',
+          text: translationMessages[locale][commonMessages.receivedReward.id],
+        }),
+      );
+    }
+  } else {
+    setCookie({
+      name: noInviterCookieName,
+      value: true,
+    });
+  }
+}
+
+const rewardRefer = async (user, eosService) => {
+  try {
+    await eosService.sendTransaction(
+      user,
+      REWARD_REFER,
+      {
+        invited_user: user,
+      },
+      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+      null,
+    );
+  } catch (err) {
+    return err;
+  }
+};
+
 export function* updateAccWorker({ eos }) {
   try {
     const account = yield call(eos.getSelectedAccount);
@@ -176,6 +250,22 @@ export function* updateAccWorker({ eos }) {
     }
 
     if (account) {
+      const { user } = profileInfo;
+      const cookieName = `${REFERRAL_REWARD_SENT}_${user}`;
+      if (
+        profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
+        !getCookie(cookieName)
+      ) {
+        const err = yield call(rewardRefer, user, eos);
+
+        if (err instanceof Error) {
+          yield put(rewardReferErr(err));
+        } else {
+          setCookie({ name: cookieName, value: true });
+        }
+      }
+
+      yield call(updateRefer, user, eos);
       yield call(updateAcc, profileInfo, eos);
       yield call(getCurrentAccountWorker);
       yield put(updateAccSuccess());

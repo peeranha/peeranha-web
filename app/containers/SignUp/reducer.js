@@ -26,6 +26,7 @@ import {
   SIGNUP_WITH_SCATTER,
   SIGNUP_WITH_SCATTER_SUCCESS,
   SIGNUP_WITH_SCATTER_ERROR,
+  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
   SHOW_SCATTER_SIGNUP_FORM,
   SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
@@ -116,6 +117,8 @@ function signUpReducer(state = initialState, action) {
       return state
         .set('signUpWithScatterError', signUpWithScatterError)
         .set('signUpWithScatterProcessing', false);
+    case SIGNUP_WITH_SCATTER_REFERRAL_ERROR:
+      return state.set('signUpWithScatterProcessing', false);
 
     case SHOW_SCATTER_SIGNUP_FORM:
       return state.set('showScatterSignUpProcessing', true);

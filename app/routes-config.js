@@ -9,6 +9,7 @@ import {
   isSingleCommunityWebsite,
   hasCommunitySingleWebsite,
 } from 'utils/communityManagement';
+import { REFERRAL_CODE_URI } from './containers/App/constants';
 
 const singleCommId = isSingleCommunityWebsite();
 
@@ -116,11 +117,13 @@ export const suggestedTags = communityid =>
     : `/tags/suggested`;
 
 export const tagsCreate = communityid =>
-  !singleCommId ? `tags/community/${communityid || 0}/create` : `/tags/create`;
+  !singleCommId ? `/tags/community/${communityid || 0}/create` : `/tags/create`;
 
 export const registrationStage = 'signup';
 
 export const preloaderPage = () => '/preloader-page';
+
+export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const signup = {
   email: {
@@ -130,7 +133,7 @@ export const signup = {
   },
   displayName: {
     step: 1,
-    name: `/${registrationStage}/with-scatter/display-name`,
+    name: `/${registrationStage}/with-wallet/display-name`,
     scatter: true,
   },
   emailVerification: {
@@ -140,22 +143,22 @@ export const signup = {
   },
   haveEosAccount: {
     step: 3,
-    name: `/${registrationStage}/i-have-eos-account`,
+    name: `/${registrationStage}/i-have-telos-account`,
     scatter: false,
   },
   dontHaveEosAccount: {
     step: 3,
-    name: `/${registrationStage}/i-dont-have-eos-account`,
+    name: `/${registrationStage}/i-dont-have-telos-account`,
     scatter: false,
   },
   almostDoneWithAccount: {
     step: 4,
-    name: `/${registrationStage}/i-have-eos-account/almost-done`,
+    name: `/${registrationStage}/i-have-telos-account/almost-done`,
     scatter: false,
   },
   almostDoneNoAccount: {
     step: 4,
-    name: `/${registrationStage}/i-dont-have-eos-account/almost-done`,
+    name: `/${registrationStage}/i-dont-have-telos-account/almost-done`,
     scatter: false,
   },
 };

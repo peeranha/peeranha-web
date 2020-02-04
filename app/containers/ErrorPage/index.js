@@ -33,16 +33,18 @@ import Span from 'components/Span';
 
 import errorPageMessages from './messages';
 
-const NotFound = /* istanbul ignore next */ ({ locale }) => (
+const NotFound = ({ locale, withSeo = true }) => (
   <React.Fragment>
-    <Seo
-      title={translationMessages[locale][errorPageMessages.title.id]}
-      description={
-        translationMessages[locale][errorPageMessages.description.id]
-      }
-      language={locale}
-      index={false}
-    />
+    {withSeo && (
+      <Seo
+        title={translationMessages[locale][errorPageMessages.title.id]}
+        description={
+          translationMessages[locale][errorPageMessages.description.id]
+        }
+        language={locale}
+        index={false}
+      />
+    )}
 
     <Box>
       <div>
@@ -105,6 +107,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => (
 
 NotFound.propTypes = {
   locale: PropTypes.string,
+  withSeo: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -43,12 +43,7 @@ export const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({
-  user,
-  questionsLength,
-  questionsWithUserAnswersLength,
-  loginWithScatter,
-}) => (
+const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
   <nav>
     <Ul>
       <A to={routes.profileView(user)}>
@@ -68,10 +63,7 @@ const Menu = ({
       >
         <FormattedMessage {...messages.answers} />
       </A>
-      <A
-        to={routes.userSettings(user)}
-        className={loginWithScatter ? 'd-none' : ''}
-      >
+      <A to={routes.userSettings(user)}>
         <FormattedMessage {...messages.settings} />
       </A>
     </Ul>
@@ -98,7 +90,6 @@ const ProfileDropdown = ({ profileInfo }) => (
         user={profileInfo.user}
         questionsLength={profileInfo.questions_asked}
         questionsWithUserAnswersLength={profileInfo.answers_given}
-        loginWithScatter={profileInfo.loginData.loginWithScatter}
       />
     }
   />
