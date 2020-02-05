@@ -122,7 +122,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isGeneral={isGeneral}
-      isBordered={false}
+      bordered={false}
     />
     <RightBlock>
       <span className="d-flex align-items-center mb-2">

@@ -34,7 +34,7 @@ const BaseStyled = Base.extend`
   display: flex;
   flex: 1;
   position: relative;
-  border-radius: ${({ isBordered }) => (isBordered ? '5px' : 'none')};
+  border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
 
   ${QuestionType} {
     position: absolute;
@@ -128,9 +128,9 @@ export const QuestionForProfilePage = ({
   isTheLargestRating,
   route,
   isGeneral,
-  isBordered,
+  bordered,
 }) => (
-  <BaseStyled bordered={!isGeneral} isBordered={isBordered}>
+  <BaseStyled bordered={bordered && !isGeneral}>
     {!isGeneral && (
       <QuestionType size="sm">
         <FormattedMessage {...commonMessages.expert} />
@@ -212,7 +212,7 @@ QuestionForProfilePage.propTypes = {
   isTheLargestRating: PropTypes.bool,
   route: PropTypes.string,
   isGeneral: PropTypes.bool,
-  isBordered: PropTypes.bool,
+  bordered: PropTypes.bool,
 };
 
 export default React.memo(QuestionForProfilePage);

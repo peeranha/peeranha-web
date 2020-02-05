@@ -12,25 +12,22 @@ const Base = styled.div`
   padding: 20px 30px;
 
   overflow: ${({ overflowHidden }) => (overflowHidden ? 'hidden' : 'initial')};
-  border: ${({ bordered, isBordered }) =>
-    bordered && isBordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
+  border: ${({ bordered }) =>
+    bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
   box-shadow: ${({ bordered, position }) =>
     bordered && !position
       ? `0 0 0 1px rgba(${BORDER_PRIMARY_RGB}, 0.4) !important`
       : `none`};
 
   .expert-question {
-    position: absolute;
-    right: 45px;
+    display: inline;
+    float: right;
+    margin-top: 10px;
   }
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};
     border-radius: 0;
-
-    .expert-question {
-      right: 0;
-    }
   }
 
   ${x =>
