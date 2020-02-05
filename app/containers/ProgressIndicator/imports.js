@@ -53,6 +53,7 @@ import {
   selectDeleteCommentLoading,
   selectSaveCommentLoading,
   selectVoteToDeleteLoading,
+  selectChangeQuestionTypeLoading,
 } from 'containers/ViewQuestion/selectors';
 import {
   selectUpVoteLoading as upvoteCommunity,
@@ -105,6 +106,7 @@ export default {
   selectDeleteCommentLoading: selectDeleteCommentLoading(),
   selectSaveCommentLoading: selectSaveCommentLoading(),
   selectVoteToDeleteLoading: selectVoteToDeleteLoading(),
+  selectChangeQuestionTypeLoading: selectChangeQuestionTypeLoading(),
   upvoteCommunity: upvoteCommunity(),
   downvoteCommunity: downvoteCommunity(),
   upvoteTag: upvoteTag(),

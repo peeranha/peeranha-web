@@ -151,6 +151,16 @@ const selectVoteToDeleteError = () =>
     substate.get('voteToDeleteError'),
   );
 
+const selectChangeQuestionTypeLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('changeQuestionTypeLoading'),
+  );
+
+const selectChangeQuestionTypeError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('changeQuestionTypeError'),
+  );
+
 const selectIds = () =>
   createSelector(selectViewQuestionDomain, substate => [
     ...substate.toJS().ids,
@@ -181,5 +191,7 @@ export {
   selectSaveCommentError,
   selectVoteToDeleteLoading,
   selectVoteToDeleteError,
+  selectChangeQuestionTypeLoading,
+  selectChangeQuestionTypeError,
   selectIds,
 };

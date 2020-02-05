@@ -518,6 +518,10 @@
   "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
     "Mark the best answer to this question and earn +2 reputation points",
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
+  "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
+    "Change type & Restore Rating",
+  "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
+    " Change type",
 
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",

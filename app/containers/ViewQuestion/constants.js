@@ -54,6 +54,12 @@ export const VOTE_TO_DELETE = 'app/ViewQuestion/VOTE_TO_DELETE';
 export const VOTE_TO_DELETE_SUCCESS = 'app/ViewQuestion/VOTE_TO_DELETE_SUCCESS';
 export const VOTE_TO_DELETE_ERROR = 'app/ViewQuestion/VOTE_TO_DELETE_ERROR';
 
+export const CHANGE_QUESTION_TYPE = 'app/ViewQuestion/CHANGE_QUESTION_TYPE';
+export const CHANGE_QUESTION_TYPE_SUCCESS =
+  'app/ViewQuestion/CHANGE_QUESTION_TYPE_SUCCESS';
+export const CHANGE_QUESTION_TYPE_ERROR =
+  'app/ViewQuestion/CHANGE_QUESTION_TYPE_ERROR';
+
 export const MARK_AS_ACCEPTED = 'app/ViewQuestion/MARK_AS_ACCEPTED';
 export const MARK_AS_ACCEPTED_SUCCESS =
   'app/ViewQuestion/MARK_AS_ACCEPTED_SUCCESS';

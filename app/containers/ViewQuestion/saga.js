@@ -28,6 +28,7 @@ import {
   deleteComment,
   editComment,
   voteToDelete,
+  changeQuestionType,
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -48,6 +49,7 @@ import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
+import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
   GET_QUESTION_DATA,
@@ -77,6 +79,7 @@ import {
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
   QUESTION_PROPERTIES,
+  CHANGE_QUESTION_TYPE,
 } from './constants';
 
 import {
@@ -102,6 +105,8 @@ import {
   saveCommentErr,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  changeQuestionTypeErr,
+  changeQuestionTypeSuccess,
 } from './actions';
 
 import { selectQuestionData } from './selectors';
@@ -123,6 +128,9 @@ export const isGeneralQuestion = properties =>
   Boolean(
     properties.find(({ key }) => key === QUESTION_PROPERTIES.GENERAL_KEY),
   );
+
+export const getQuestionTypeValue = isGeneral =>
+  isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
 
 export function* getQuestionData({
   eosService,
@@ -777,6 +785,23 @@ export function* updateQuestionDataAfterTransactionWorker({
   }
 }
 
+function* changeQuestionTypeWorker({ ratingRestore, buttonId }) {
+  const { questionData, eosService, profileInfo } = yield call(getParams);
+
+  try {
+    yield call(
+      changeQuestionType,
+      profileInfo.user,
+      questionData.id,
+      getQuestionTypeValue(!questionData.isGeneral),
+      ratingRestore,
+      eosService,
+    );
+    yield put(changeQuestionTypeSuccess(buttonId));
+  } catch (err) {
+    yield put(changeQuestionTypeErr(err, buttonId));
+  }
+}
 export function* updateQuestionList({ questionData }) {
   if (questionData && questionData.id) {
     yield put(getUniqQuestions([questionData]));
@@ -795,6 +820,7 @@ export default function*() {
   yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
+  yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(
     [
       POST_COMMENT_SUCCESS,

@@ -526,6 +526,10 @@
     "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
+  "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
+    "Изменить тип с восстановление рейтинга",
+  "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
+    "Изменить тип без восстановление рейтинга",
 
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
