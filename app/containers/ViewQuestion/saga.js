@@ -80,6 +80,7 @@ import {
   SAVE_COMMENT_SUCCESS,
   QUESTION_PROPERTIES,
   CHANGE_QUESTION_TYPE,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 } from './constants';
 
 import {
@@ -844,6 +845,7 @@ export default function*() {
       DELETE_COMMENT_SUCCESS,
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
+      CHANGE_QUESTION_TYPE_SUCCESS,
     ],
     updateStoredQuestionsWorker,
   );
