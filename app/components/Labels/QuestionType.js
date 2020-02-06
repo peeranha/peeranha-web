@@ -17,14 +17,16 @@ export default styled.div`
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
   background: ${BG_PRIMARY_SPECIAL_2};
   color: ${TEXT_PRIMARY};
+  position: relative;
   padding: 0 9px;
   display: inline-flex;
   align-items: center;
   border-radius: 3px;
 
+  .q-type:nth-child(2) {
+    white-space: nowrap;
+  }
+
   @media only screen and (max-width: 576px) {
-    display: inline;
-    margin-top: 68px;
-    margin-right: 15px;
   }
 `;

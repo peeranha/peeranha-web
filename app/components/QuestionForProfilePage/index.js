@@ -37,7 +37,6 @@ const BaseStyled = Base.extend`
   border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
 
   ${QuestionType} {
-    position: absolute;
     top: 5px;
     right: 5px;
   }

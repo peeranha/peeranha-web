@@ -37,6 +37,10 @@ const Base = styled.div`
       margin-left: -1em;
     }
   }
+
+  @media only screen and (max-width: 300px) {
+    width: ${() => window.innerWidth}px;
+  }
 `;
 
 const ExpertPopover = ({ locale }) => (

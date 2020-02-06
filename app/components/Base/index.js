@@ -10,6 +10,7 @@ import {
 const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
+  flex-grow: 1;
 
   overflow: ${({ overflowHidden }) => (overflowHidden ? 'hidden' : 'initial')};
   border: ${({ bordered }) =>
@@ -18,12 +19,8 @@ const Base = styled.div`
     bordered && !position
       ? `0 0 0 1px rgba(${BORDER_PRIMARY_RGB}, 0.4) !important`
       : `none`};
-
-  .expert-question {
-    display: inline;
-    float: right;
-    margin-top: 10px;
-  }
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};

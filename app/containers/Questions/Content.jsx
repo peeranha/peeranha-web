@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
@@ -63,20 +64,16 @@ const Box = BaseNoPadding.extend`
   flex-direction: row;
   position: relative;
 
-  ${QuestionType} {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-  }
-
   @media only screen and (max-width: 576px) {
     flex-direction: column;
+  }
+`;
 
-    ${QuestionType} {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-    }
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @media only screen and (max-width: 576px) {
   }
 `;
 
@@ -135,31 +132,33 @@ const QuestionItem = ({
       </div>
 
       <Base>
-        {!isGeneral && (
-          <QuestionType
-            onMouseEnter={() => toggleExpertPopover(true)}
-            onMouseLeave={() => toggleExpertPopover(false)}
-            size="sm"
-          >
-            <div>
-              {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
-              <FormattedMessage {...commonMessages.expert} />
-            </div>
-          </QuestionType>
-        )}
-        <p className="mb-1">
-          <A to={routes.questionView(id, null, community_id)}>
-            <Span
-              fontSize="24"
-              lineHeight="31"
-              mobileFS="18"
-              mobileLH="21"
-              bold
+        <TitleContainer>
+          <p className="mb-1">
+            <A to={routes.questionView(id, null, community_id)}>
+              <Span
+                fontSize="24"
+                lineHeight="31"
+                mobileFS="18"
+                mobileLH="21"
+                bold
+              >
+                {title}
+              </Span>
+            </A>
+          </p>
+          {!isGeneral && (
+            <QuestionType
+              onMouseEnter={() => toggleExpertPopover(true)}
+              onMouseLeave={() => toggleExpertPopover(false)}
+              size="sm"
             >
-              {title}
-            </Span>
-          </A>
-        </p>
+              <div className="q-type">
+                {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
+                <FormattedMessage {...commonMessages.expert} />
+              </div>
+            </QuestionType>
+          )}
+        </TitleContainer>
         <p className="mb-3">
           <A
             to={routes.profileView(user)}
