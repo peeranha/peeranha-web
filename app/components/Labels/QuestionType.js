@@ -21,12 +21,14 @@ export default styled.div`
   padding: 0 9px;
   display: inline-flex;
   align-items: center;
+  margin: auto 0;
   border-radius: 3px;
 
-  .q-type:nth-child(2) {
+  > span {
     white-space: nowrap;
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 320px) {
+    display: none;
   }
 `;

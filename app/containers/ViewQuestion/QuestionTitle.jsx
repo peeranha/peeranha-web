@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import checkIcon from 'images/okayGreen.svg?inline';
@@ -22,6 +23,20 @@ const B = Button.extend`
   padding-bottom: 0;
 `.withComponent('span');
 
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  > div:last-child {
+    margin-top: 10px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    > div:last-child {
+      margin-top: 0;
+    }
+  }
+`;
+
 export const QuestionTitle = ({
   title,
   tags,
@@ -34,8 +49,9 @@ export const QuestionTitle = ({
 }) =>
   title ? (
     <Base position="middle" bordered={!isGeneral}>
-      <div className="expert-question">
-        {/*
+      <TitleContainer>
+        <div>
+          {/*
           <SendTokens>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
@@ -43,38 +59,41 @@ export const QuestionTitle = ({
             </B>
           </SendTokens>
         */}
+
+          <MarkAnswerNotification
+            className={
+              !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+                ? 'd-inline-flex'
+                : 'd-none'
+            }
+          >
+            <img className="mr-2" src={checkIcon} alt="icon" />
+            <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
+          </MarkAnswerNotification>
+
+          <H3>{title}</H3>
+
+          <TagList
+            className="my-2"
+            chosenTags={tags}
+            communityId={communityId}
+            communities={communities}
+          >
+            <QuestionCommunity
+              className="my-1"
+              communities={communities}
+              communityId={communityId}
+            />
+          </TagList>
+        </div>
         {!isGeneral && (
-          <QuestionType size="md">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
+          <div>
+            <QuestionType size="md">
+              <FormattedMessage {...messages.expertQuestion} />
+            </QuestionType>
+          </div>
         )}
-      </div>
-
-      <MarkAnswerNotification
-        className={
-          !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
-            ? 'd-inline-flex'
-            : 'd-none'
-        }
-      >
-        <img className="mr-2" src={checkIcon} alt="icon" />
-        <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
-      </MarkAnswerNotification>
-
-      <H3>{title}</H3>
-
-      <TagList
-        className="my-2"
-        chosenTags={tags}
-        communityId={communityId}
-        communities={communities}
-      >
-        <QuestionCommunity
-          className="my-1"
-          communities={communities}
-          communityId={communityId}
-        />
-      </TagList>
+      </TitleContainer>
     </Base>
   ) : null;
 

@@ -152,10 +152,8 @@ const QuestionItem = ({
               onMouseLeave={() => toggleExpertPopover(false)}
               size="sm"
             >
-              <div className="q-type">
-                {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
-                <FormattedMessage {...commonMessages.expert} />
-              </div>
+              {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
+              <FormattedMessage {...commonMessages.expert} />
             </QuestionType>
           )}
         </TitleContainer>

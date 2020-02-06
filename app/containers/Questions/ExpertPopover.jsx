@@ -17,6 +17,7 @@ const Base = styled.div`
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);}
   padding: 15px;
+  word-wrap: break-word;
 
   span {
     color: ${TEXT_DARK};
@@ -36,10 +37,6 @@ const Base = styled.div`
       width: 1em;
       margin-left: -1em;
     }
-  }
-
-  @media only screen and (max-width: 300px) {
-    width: ${() => window.innerWidth}px;
   }
 `;
 

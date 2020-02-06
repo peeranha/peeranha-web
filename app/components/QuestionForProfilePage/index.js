@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -85,6 +86,12 @@ const TopCommunityBadgeStyled = Badge.extend`
   }
 `;
 
+const TypeContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
+
 /* eslint indent: 0 */
 const AcceptedQuestionBadge = ({
   acceptedAnswer,
@@ -130,12 +137,6 @@ export const QuestionForProfilePage = ({
   bordered,
 }) => (
   <BaseStyled bordered={bordered && !isGeneral}>
-    {!isGeneral && (
-      <QuestionType size="sm">
-        <FormattedMessage {...commonMessages.expert} />
-      </QuestionType>
-    )}
-
     <div className="d-flex flex-row flex-md-column">
       <Badge bold>{myPostRating}</Badge>
 
@@ -179,6 +180,13 @@ export const QuestionForProfilePage = ({
         />
       </p>
     </div>
+    {!isGeneral && (
+      <TypeContainer>
+        <QuestionType size="sm">
+          <FormattedMessage {...commonMessages.expert} />
+        </QuestionType>
+      </TypeContainer>
+    )}
   </BaseStyled>
 );
 
