@@ -49,6 +49,12 @@ export const Div = styled.div`
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
   position: relative;
 
+  #i-save-master-key,
+  #i-accept-privacy-policy {
+    height: 22px;
+    width: 22px;
+  }
+
   @media only screen and (max-width: 992px) {
     ${x => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
   }
