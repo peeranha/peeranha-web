@@ -717,10 +717,14 @@
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
   "app.containers.QuestionForm.questionType": "Тип вопроса",
   "app.containers.QuestionForm.questionTypeTip": "Необязательное",
-  "app.containers.QuestionForm.questionOfBadFormat":
-    "Если Ваш вопрос не соответствует выбранному формату, он будет удален или сдвинут",
-  "app.containers.QuestionForm.generalQuestionIsAsked":
-    "Общий вопрос задается с целью поинтересоваться мнением или идеей",
+  "app.containers.QuestionForm.generalQuestionDescriptionLabel":
+    "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.containers.QuestionForm.generalQuestionDescriptionList": [
+    "Обмен мнением",
+    "Мозговой штурм;",
+    "Отзыв;",
+    "Ответ широко известен."
+  ],
 
   "app.components.TextEditor.tips": "Подсказки",
   "app.components.TextEditor.putReturnsBetweenParagraphs":

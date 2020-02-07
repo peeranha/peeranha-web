@@ -106,7 +106,7 @@
   "app.common.expertPopoverLabel": "A question that asks one of the following:",
   "app.common.expertPopoverList": [
     "A solution to a problem that requires expert knowledge or experience;",
-    " Source of information or resources on a specific subject that is not easily found;",
+    "Source of information or resources on a specific subject that is not easily found;",
     "Explanation or clarification of the information that is complicated to comprehend."
   ],
 

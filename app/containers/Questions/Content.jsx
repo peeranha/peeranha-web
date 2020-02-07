@@ -39,8 +39,11 @@ const AdditionalInfo = Base.extend`
   flex: 1;
   width: 120px;
 
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-right: 1px solid ${BORDER_SECONDARY};
   &:not(:last-child) {
+    border-top-left-radius: 5px;
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 
