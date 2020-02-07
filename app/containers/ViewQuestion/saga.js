@@ -795,7 +795,7 @@ function* changeQuestionTypeWorker({ ratingRestore, buttonId }) {
       profileInfo.user,
       questionData.id,
       getQuestionTypeValue(!questionData.isGeneral),
-      ratingRestore,
+      +ratingRestore,
       eosService,
     );
     yield put(changeQuestionTypeSuccess(buttonId));
