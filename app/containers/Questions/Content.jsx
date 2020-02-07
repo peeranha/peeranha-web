@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
@@ -69,19 +68,6 @@ const Box = BaseNoPadding.extend`
   }
 `;
 
-export const TypeContainer = styled.div`
-  display: inline-block;
-  position: relative;
-  float: right;
-  top: -15px;
-  right: -25px;
-
-  @media only screen and (max-width: 576px) {
-    top: -10px;
-    right: -10px;
-  }
-`;
-
 /* eslint camelcase: 0 */
 const QuestionItem = ({
   id,
@@ -138,16 +124,14 @@ const QuestionItem = ({
 
       <Base>
         {!isGeneral && (
-          <TypeContainer>
-            <QuestionType
-              onMouseEnter={() => toggleExpertPopover(true)}
-              onMouseLeave={() => toggleExpertPopover(false)}
-              size="sm"
-            >
-              {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
-              <FormattedMessage {...commonMessages.expert} />
-            </QuestionType>
-          </TypeContainer>
+          <QuestionType
+            onMouseEnter={() => toggleExpertPopover(true)}
+            onMouseLeave={() => toggleExpertPopover(false)}
+            size="sm"
+          >
+            {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
+            <FormattedMessage {...commonMessages.expert} />
+          </QuestionType>
         )}
         <p className="mb-1">
           <A to={routes.questionView(id, null, community_id)}>

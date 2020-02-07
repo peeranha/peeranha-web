@@ -28,7 +28,6 @@ import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
-import { TypeContainer } from 'containers/Questions/Content';
 
 import QuestionCommunity from './QuestionCommunity';
 
@@ -134,11 +133,9 @@ export const QuestionForProfilePage = ({
 }) => (
   <BaseStyled bordered={bordered && !isGeneral}>
     {!isGeneral && (
-      <TypeContainer>
-        <QuestionType size="sm">
-          <FormattedMessage {...commonMessages.expert} />
-        </QuestionType>
-      </TypeContainer>
+      <QuestionType size="sm">
+        <FormattedMessage {...commonMessages.expert} />
+      </QuestionType>
     )}
     <ContentContainer>
       <div className="d-flex flex-row flex-md-column">

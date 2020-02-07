@@ -13,7 +13,6 @@ import Button from 'components/Button/Outlined/InfoMedium';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
-import { TypeContainer } from '../Questions/Content';
 
 // eslint-disable-next-line no-unused-vars
 const B = Button.extend`
@@ -36,11 +35,9 @@ export const QuestionTitle = ({
   title ? (
     <Base position="middle" bordered={!isGeneral}>
       {!isGeneral && (
-        <TypeContainer>
-          <QuestionType size="md">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
-        </TypeContainer>
+        <QuestionType size="md">
+          <FormattedMessage {...messages.expertQuestion} />
+        </QuestionType>
       )}
       <div>
         {/*
