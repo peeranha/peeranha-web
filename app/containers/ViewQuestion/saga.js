@@ -451,13 +451,13 @@ export function* postCommentWorker({
       userInfo: profileInfo,
     };
 
-    if (answerId === 0) {
+    if (answerId == 0) {
       questionData.comments.push({
         ...newComment,
         id: questionData.comments.length + 1,
       });
     } else {
-      const { comments } = questionData.answers.find(x => x.id === answerId);
+      const { comments } = questionData.answers.find(x => x.id == answerId);
 
       comments.push({
         ...newComment,
