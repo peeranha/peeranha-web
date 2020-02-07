@@ -21,7 +21,6 @@ export default styled.div`
   padding: 0 9px;
   display: inline-flex;
   align-items: center;
-  margin: auto 0;
   border-radius: 3px;
 
   > span {

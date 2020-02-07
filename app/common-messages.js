@@ -315,10 +315,10 @@ export default defineMessages({
   receivedReward: {
     id: 'app.common.receivedReward',
   },
-  expertPopoverText: {
-    id: 'app.common.expertPopoverText',
+  expertPopoverLabel: {
+    id: 'app.common.expertPopoverLabel',
   },
-  expertPopover: {
-    id: 'app.common.expertPopover',
+  expertPopoverList: {
+    id: 'app.common.expertPopoverList',
   },
 });

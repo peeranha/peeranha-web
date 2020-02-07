@@ -101,8 +101,8 @@
   "app.common.expert": "Экспертный",
   "app.common.tipQuestion": "Чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
-  "app.common.expertPopoverText": "Вопрос, который спрашивает следующее:",
-  "app.common.expertPopover": [
+  "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
+  "app.common.expertPopoverList": [
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."

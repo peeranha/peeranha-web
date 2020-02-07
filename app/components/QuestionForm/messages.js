@@ -40,10 +40,10 @@ export default defineMessages({
   questionTypeTip: {
     id: 'app.containers.QuestionForm.questionTypeTip',
   },
-  questionOfBadFormat: {
-    id: 'app.containers.QuestionForm.questionOfBadFormat',
+  generalQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionLabel',
   },
-  generalQuestionIsAsked: {
-    id: 'app.containers.QuestionForm.generalQuestionIsAsked',
+  generalQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
   },
 });

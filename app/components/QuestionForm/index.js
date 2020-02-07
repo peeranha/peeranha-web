@@ -29,7 +29,6 @@ import H3 from 'components/H3';
 import A from 'components/A';
 import Wrapper from 'components/Header/Simple';
 import FormBox from 'components/Form';
-import P from 'components/P';
 import TipsBase from 'components/Base/TipsBase';
 
 import {
@@ -54,8 +53,10 @@ import {
 
 import messages from './messages';
 import QuestionTypeField, { QUESTION_TYPES } from './QuestionTypeField';
+import DescriptionList from '../DescriptionList';
 
 export const QuestionForm = ({
+  locale,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -125,13 +126,12 @@ export const QuestionForm = ({
                   splitInHalf
                 />
 
-                <P lineHeight="24">
-                  <FormattedMessage {...messages.questionOfBadFormat} />
-                </P>
-
-                <P lineHeight="24" className="mb-3">
-                  <FormattedMessage {...messages.generalQuestionIsAsked} />
-                </P>
+                <DescriptionList
+                  locale={locale}
+                  label={messages.generalQuestionDescriptionLabel.id}
+                  items={messages.generalQuestionDescriptionList.id}
+                />
+                <br />
               </>
             )}
             <Field
@@ -204,6 +204,7 @@ export const QuestionForm = ({
 };
 
 QuestionForm.propTypes = {
+  locale: PropTypes.string,
   formTitle: PropTypes.string,
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
