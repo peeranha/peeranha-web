@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import checkIcon from 'images/okayGreen.svg?inline';
@@ -14,6 +13,7 @@ import Button from 'components/Button/Outlined/InfoMedium';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
+import { TypeContainer } from '../Questions/Content';
 
 // eslint-disable-next-line no-unused-vars
 const B = Button.extend`
@@ -22,20 +22,6 @@ const B = Button.extend`
   padding-top: 0;
   padding-bottom: 0;
 `.withComponent('span');
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  > div:last-child {
-    margin-top: 10px;
-  }
-
-  @media only screen and (max-width: 576px) {
-    > div:last-child {
-      margin-top: 0;
-    }
-  }
-`;
 
 export const QuestionTitle = ({
   title,
@@ -49,9 +35,15 @@ export const QuestionTitle = ({
 }) =>
   title ? (
     <Base position="middle" bordered={!isGeneral}>
-      <TitleContainer>
-        <div>
-          {/*
+      {!isGeneral && (
+        <TypeContainer>
+          <QuestionType size="md">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        </TypeContainer>
+      )}
+      <div>
+        {/*
           <SendTokens>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
@@ -60,40 +52,32 @@ export const QuestionTitle = ({
           </SendTokens>
         */}
 
-          <MarkAnswerNotification
-            className={
-              !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
-                ? 'd-inline-flex'
-                : 'd-none'
-            }
-          >
-            <img className="mr-2" src={checkIcon} alt="icon" />
-            <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
-          </MarkAnswerNotification>
+        <MarkAnswerNotification
+          className={
+            !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+              ? 'd-inline-flex'
+              : 'd-none'
+          }
+        >
+          <img className="mr-2" src={checkIcon} alt="icon" />
+          <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
+        </MarkAnswerNotification>
 
-          <H3>{title}</H3>
+        <H3>{title}</H3>
 
-          <TagList
-            className="my-2"
-            chosenTags={tags}
-            communityId={communityId}
+        <TagList
+          className="my-2"
+          chosenTags={tags}
+          communityId={communityId}
+          communities={communities}
+        >
+          <QuestionCommunity
+            className="my-1"
             communities={communities}
-          >
-            <QuestionCommunity
-              className="my-1"
-              communities={communities}
-              communityId={communityId}
-            />
-          </TagList>
-        </div>
-        {!isGeneral && (
-          <div>
-            <QuestionType size="md">
-              <FormattedMessage {...messages.expertQuestion} />
-            </QuestionType>
-          </div>
-        )}
-      </TitleContainer>
+            communityId={communityId}
+          />
+        </TagList>
+      </div>
     </Base>
   ) : null;
 

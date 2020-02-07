@@ -28,19 +28,13 @@ import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
+import { TypeContainer } from 'containers/Questions/Content';
 
 import QuestionCommunity from './QuestionCommunity';
 
 const BaseStyled = Base.extend`
-  display: flex;
-  flex: 1;
   position: relative;
   border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
-
-  ${QuestionType} {
-    top: 5px;
-    right: 5px;
-  }
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -86,10 +80,12 @@ const TopCommunityBadgeStyled = Badge.extend`
   }
 `;
 
-const TypeContainer = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
+const ContentContainer = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 /* eslint indent: 0 */
@@ -137,49 +133,6 @@ export const QuestionForProfilePage = ({
   bordered,
 }) => (
   <BaseStyled bordered={bordered && !isGeneral}>
-    <div className="d-flex flex-row flex-md-column">
-      <Badge bold>{myPostRating}</Badge>
-
-      <AcceptedQuestionBadge
-        acceptedAnswer={acceptedAnswer}
-        postType={postType}
-        isMyAnswerAccepted={isMyAnswerAccepted}
-      />
-
-      <TopCommunityBadge
-        postType={postType}
-        isTheLargestRating={isTheLargestRating}
-      />
-    </div>
-
-    <div className="d-flex flex-column flex-grow-1">
-      <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
-        {title}
-      </AProps>
-
-      <p className="d-flex align-items-center my-1">
-        <Span
-          className="text-capitalize mr-3"
-          fontSize="14"
-          color={TEXT_SECONDARY}
-        >
-          <FormattedMessage
-            {...commonMessages.askedWhen}
-            values={{
-              when: getFormattedDate(
-                myPostTime,
-                locale,
-                MONTH_3LETTERS__DAY_TIME,
-              ),
-            }}
-          />
-        </Span>
-        <QuestionCommunity
-          communities={communities}
-          communityId={community_id}
-        />
-      </p>
-    </div>
     {!isGeneral && (
       <TypeContainer>
         <QuestionType size="sm">
@@ -187,6 +140,51 @@ export const QuestionForProfilePage = ({
         </QuestionType>
       </TypeContainer>
     )}
+    <ContentContainer>
+      <div className="d-flex flex-row flex-md-column">
+        <Badge bold>{myPostRating}</Badge>
+
+        <AcceptedQuestionBadge
+          acceptedAnswer={acceptedAnswer}
+          postType={postType}
+          isMyAnswerAccepted={isMyAnswerAccepted}
+        />
+
+        <TopCommunityBadge
+          postType={postType}
+          isTheLargestRating={isTheLargestRating}
+        />
+      </div>
+
+      <div className="d-flex flex-column flex-grow-1">
+        <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
+          {title}
+        </AProps>
+
+        <p className="d-flex align-items-center my-1">
+          <Span
+            className="text-capitalize mr-3"
+            fontSize="14"
+            color={TEXT_SECONDARY}
+          >
+            <FormattedMessage
+              {...commonMessages.askedWhen}
+              values={{
+                when: getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_TIME,
+                ),
+              }}
+            />
+          </Span>
+          <QuestionCommunity
+            communities={communities}
+            communityId={community_id}
+          />
+        </p>
+      </div>
+    </ContentContainer>
   </BaseStyled>
 );
 

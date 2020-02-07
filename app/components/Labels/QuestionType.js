@@ -27,7 +27,7 @@ export default styled.div`
     white-space: nowrap;
   }
 
-  @media only screen and (max-width: 320px) {
+  @media only screen and (max-width: 150px) {
     display: none;
   }
 `;

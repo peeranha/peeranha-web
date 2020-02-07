@@ -69,11 +69,16 @@ const Box = BaseNoPadding.extend`
   }
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+export const TypeContainer = styled.div`
+  display: inline-block;
+  position: relative;
+  float: right;
+  top: -15px;
+  right: -25px;
+
   @media only screen and (max-width: 576px) {
+    top: -10px;
+    right: -10px;
   }
 `;
 
@@ -132,21 +137,8 @@ const QuestionItem = ({
       </div>
 
       <Base>
-        <TitleContainer>
-          <p className="mb-1">
-            <A to={routes.questionView(id, null, community_id)}>
-              <Span
-                fontSize="24"
-                lineHeight="31"
-                mobileFS="18"
-                mobileLH="21"
-                bold
-              >
-                {title}
-              </Span>
-            </A>
-          </p>
-          {!isGeneral && (
+        {!isGeneral && (
+          <TypeContainer>
             <QuestionType
               onMouseEnter={() => toggleExpertPopover(true)}
               onMouseLeave={() => toggleExpertPopover(false)}
@@ -155,8 +147,21 @@ const QuestionItem = ({
               {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
               <FormattedMessage {...commonMessages.expert} />
             </QuestionType>
-          )}
-        </TitleContainer>
+          </TypeContainer>
+        )}
+        <p className="mb-1">
+          <A to={routes.questionView(id, null, community_id)}>
+            <Span
+              fontSize="24"
+              lineHeight="31"
+              mobileFS="18"
+              mobileLH="21"
+              bold
+            >
+              {title}
+            </Span>
+          </A>
+        </p>
         <p className="mb-3">
           <A
             to={routes.profileView(user)}
