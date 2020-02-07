@@ -16,9 +16,7 @@ Peeranha is built using smart contracts on the Telos blockchain. Large content i
 
 ### Where do tokens for rewards come from?
 
-Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across to userss’ whomwhich contributions to the community during the week.
-
-Peeranha continually creates new tokens once a week until the total supply of tokens is reached. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users whom contributed to the community during the week.
+Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users who contributed to the community during the week.
 
 ### What Blockchain is Peeranha built on?
 
@@ -98,7 +96,7 @@ Markdown cheat-sheet can be found here: https://www.markdownguide.org/cheat-shee
 
 ### Do I have to tag my question?
 
-Yes, a one tag is required for each question. You should select the tags that are most relevant to the question.
+Yes, at least one tag is required for each question. You should select the tags that are most relevant to the question.
 
 ### How are questions, answers and comments moderated?
 
@@ -117,7 +115,7 @@ A User’s weight  in the voting depends on the user’s status.
 Notifications are not available in the first release. This functionality will be added in the future versions.
 
 
-## Status, Rating and Previliges
+## Status, Rating and Privileges
 
 ### What user statuses are available on Peeranha?
 
@@ -135,20 +133,24 @@ Notifications are not available in the first release. This functionality will be
 
 | Action or Event | Rating points |
 | ----------- | ----------- |
-|Answer accepted as correct|15|
+|Expert answer accepted as correct|15|
 |Upvote question|0|
 |Downvote question|-1|
 |Downvote answer|-1|
-|Question upvoted|5|
-|Answer upvoted|10|
-|Question downvoted|-2|
-|Answer downvoted|-2|
+|Expert question upvoted|5|
+|General question upvoted|1|
+|Expert answer upvoted|10|
+|General answer upvoted|1|
+|Expert question downvoted|-2|
+|General question downvoted|-1|
+|Expert answer downvoted|-2|
+|General answer downvoted |-1|
 |Delete own question|-2|
 |Delete own answer|-2|
 |Delete own comment|0|
 |Accept answer as correct|2|
-|Question deleted by moderation|-15|
-|Answer deleted by moderation|-10|
+|Question deleted by moderation|-5|
+|Answer deleted by moderation|-5|
 |Comment deleted by moderation|-2|
 |Suggested tag created|75|
 |Suggested tag deleted|-50|
@@ -166,11 +168,10 @@ Notifications are not available in the first release. This functionality will be
 |Upvote a question or answer|35|
 |Downvote a question or answer|100|
 |Vote to delete a question, comment, or answer|100|
-|Suggest a tag|500|
-|Suggest a community|2500|
+|Suggest a tag|100|
+|Suggest a community|500|
 |Vote for a new tag|35|
 |Vote for a new community|100|
-|Report an inappropriate user profile|50|
 
 ## Token
 
