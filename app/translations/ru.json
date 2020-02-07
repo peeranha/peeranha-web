@@ -552,6 +552,8 @@
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
   "app.components.FormFields.onlyLettersAndNumbers":
     "Значение должно содержать только буквы и цифры",
+  "app.components.FormFields.withoutDoubleSpace":
+    "Значение не должно содержать двойного пробела",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
@@ -719,11 +721,18 @@
   "app.containers.QuestionForm.questionTypeTip": "Необязательное",
   "app.containers.QuestionForm.generalQuestionDescriptionLabel":
     "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.containers.QuestionForm.expertQuestionDescriptionLabel":
+    "Вопрос, который спрашивает следующее:",
   "app.containers.QuestionForm.generalQuestionDescriptionList": [
     "Обмен мнением",
     "Мозговой штурм;",
     "Отзыв;",
     "Ответ широко известен."
+  ],
+  "app.containers.QuestionForm.expertQuestionDescriptionList": [
+    "Решение проблемы, требующее экспертных знаний или опыта;",
+    "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
+    "Пояснение или разъяснение информации, которую трудно понять."
   ],
 
   "app.components.TextEditor.tips": "Подсказки",

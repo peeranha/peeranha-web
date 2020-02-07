@@ -43,7 +43,13 @@ export default defineMessages({
   generalQuestionDescriptionLabel: {
     id: 'app.containers.QuestionForm.generalQuestionDescriptionLabel',
   },
+  expertQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionLabel',
+  },
   generalQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
+  },
+  expertQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
 });

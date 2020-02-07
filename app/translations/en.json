@@ -544,7 +544,8 @@
   "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
   "app.components.FormFields.onlyLettersAndNumbers":
     "Value must contain only letters and numbers",
-
+  "app.components.FormFields.withoutDoubleSpace":
+    "Value must not contain a double space",
   "app.containers.TagsCollection.title": "Tags collection",
 
   "app.components.Footer.header": "Copyright: Peeranha",
@@ -713,13 +714,19 @@
   "app.containers.QuestionForm.questionTypeTip": "Optional",
   "app.containers.QuestionForm.generalQuestionDescriptionLabel":
     "A question not requiring expertise or experience to answer that can be one of the following:",
+  "app.containers.QuestionForm.expertQuestionDescriptionLabel":
+    "A question that asks one of the following:",
   "app.containers.QuestionForm.generalQuestionDescriptionList": [
     "Subjective opinion exchange;",
     "Brainstorming;",
     "Feedback or review request;",
     "Answer is widely known."
   ],
-
+  "app.containers.QuestionForm.expertQuestionDescriptionList": [
+    "A solution to a problem that requires expert knowledge or experience;",
+    "Source of information or resources on a specific subject that is not easily found;",
+    "Explanation or clarification of the information that is complicated to comprehend."
+  ],
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
     "markdown is supported",

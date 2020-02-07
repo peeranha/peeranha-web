@@ -36,6 +36,7 @@ import {
   strLength15x100,
   strLength1x5,
   required,
+  withoutDoubleSpace,
   requiredForObjectField,
 } from 'components/FormFields/validate';
 
@@ -128,8 +129,16 @@ export const QuestionForm = ({
 
                 <DescriptionList
                   locale={locale}
-                  label={messages.generalQuestionDescriptionLabel.id}
-                  items={messages.generalQuestionDescriptionList.id}
+                  label={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionLabel.id
+                      : messages.expertQuestionDescriptionLabel.id
+                  }
+                  items={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionList.id
+                      : messages.expertQuestionDescriptionList.id
+                  }
                 />
                 <br />
               </>
@@ -140,7 +149,7 @@ export const QuestionForm = ({
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.titleLabel.id })}
               tip={intl.formatMessage({ id: messages.titleTip.id })}
-              validate={[strLength15x100, required]}
+              validate={[withoutDoubleSpace, strLength15x100, required]}
               warn={[strLength15x100, required]}
               splitInHalf
             />
