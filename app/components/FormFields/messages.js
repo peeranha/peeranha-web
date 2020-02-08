@@ -37,4 +37,7 @@ export default defineMessages({
   onlyLettersAndNumbers: {
     id: 'app.components.FormFields.onlyLettersAndNumbers',
   },
+  withoutDoubleSpace: {
+    id: 'app.components.FormFields.withoutDoubleSpace',
+  },
 });

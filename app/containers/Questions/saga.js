@@ -27,6 +27,7 @@ import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constan
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
+import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
 import { GET_QUESTIONS } from './constants';
 
@@ -94,6 +95,8 @@ export function* getQuestionsWorker({
     const users = new Map();
 
     questionsList.forEach(question => {
+      question.isGeneral = isGeneralQuestion(question.properties);
+
       users.set(
         question.user,
         users.get(question.user)

@@ -121,6 +121,8 @@ import {
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
+  CHANGE_QUESTION_TYPE_ERROR,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
 import {
@@ -225,6 +227,7 @@ export const errHandlingTypes = [
   VOTE_TO_DELETE_ERROR,
   GET_RESULTS_ERROR,
   INIT_EOSIO_ERROR,
+  CHANGE_QUESTION_TYPE_ERROR,
 ];
 
 export const successHandlingTypes = [
@@ -242,4 +245,5 @@ export const successHandlingTypes = [
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 ];

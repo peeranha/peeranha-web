@@ -22,6 +22,7 @@ import {
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
   USER_ANSWERS_TABLE,
+  CHANGE_QUESTION_TYPE_METHOD,
 } from './constants';
 
 /* eslint-disable  */
@@ -251,6 +252,7 @@ export async function postQuestion(user, questionData, eosService) {
       ipfs_link: ipfsLink,
       community_id: questionData.community.value,
       tags: questionData.chosenTags.map(x => x.value),
+      type: questionData.type,
     },
     null,
     true,
@@ -414,3 +416,18 @@ export async function getQuestionById(eosService, questionId) {
 
   return question;
 }
+
+export const changeQuestionType = async (
+  user,
+  questionId,
+  type,
+  ratingRestore,
+  eosService,
+) => {
+  await eosService.sendTransaction(user, CHANGE_QUESTION_TYPE_METHOD, {
+    user,
+    question_id: +questionId,
+    type,
+    restore_rating: ratingRestore,
+  });
+};

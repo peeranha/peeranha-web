@@ -7,6 +7,7 @@ import {
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
   BORDER_SECONDARY,
+  BORDER_PRIMARY,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -38,7 +39,7 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   overflow: hidden;
-
+  border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -105,8 +106,9 @@ const Question = ({
   community_id,
   postType,
   isMyAnswerAccepted,
+  isGeneral,
 }) => (
-  <Li className="mb-3">
+  <Li className="mb-3" bordered={!isGeneral}>
     <QuestionForProfilePage
       route={routes.questionView(id, null, community_id)}
       myPostRating={myPostRating}
@@ -119,6 +121,8 @@ const Question = ({
       community_id={community_id}
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
+      isGeneral={isGeneral}
+      bordered={false}
     />
     <RightBlock>
       <span className="d-flex align-items-center mb-2">
@@ -166,6 +170,7 @@ Question.propTypes = {
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isGeneral: PropTypes.bool,
 };
 
 QuestionsList.propTypes = {

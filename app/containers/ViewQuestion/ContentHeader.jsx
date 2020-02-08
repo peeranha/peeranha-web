@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,6 +11,7 @@ import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import { MODERATOR_KEY } from 'utils/constants';
 
 import Icon from 'components/Icon';
 
@@ -18,6 +21,8 @@ import Button from './Button';
 import AreYouSure from './AreYouSure';
 
 import messages from './messages';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { changeQuestionType } from './actions';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -59,73 +64,116 @@ const Box = styled.div`
   }
 `;
 
-export const ContentHeader = props => (
-  <Box>
-    <RatingBox>
-      <ContentRating {...props} />
-    </RatingBox>
+const ContentHeader = props => {
+  const {
+    userInfo,
+    type,
+    postTime,
+    locale,
+    isModerator,
+    isItWrittenByMe,
+    answerId,
+    buttonParams,
+    voteToDelete,
+    ids,
+    votingStatus: { isVotedToDelete },
+    editItem,
+    questionId,
+    commentId,
+    deleteItem,
+    changeQuestionTypeDispatch,
+  } = props;
+  const changeQuestionTypeWithRatingRestore = event =>
+    changeQuestionTypeDispatch(true, event);
+  const changeQuestionTypeWithoutRatingRestore = event =>
+    changeQuestionTypeDispatch(false, event);
 
-    <ItemInfo>
-      <UserInfo
-        avatar={getUserAvatar(props.userInfo.ipfs_avatar)}
-        name={props.userInfo.display_name}
-        account={props.userInfo.user}
-        rating={props.userInfo.rating}
-        type={props.type}
-        postTime={props.postTime}
-        locale={props.locale}
-      />
+  return (
+    <Box>
+      <RatingBox>
+        <ContentRating {...props} />
+      </RatingBox>
 
-      <div className="d-flex align-items-center">
-        <Button
-          show={!props.isItWrittenByMe}
-          id={`${props.type}_vote_to_delete_${props.answerId}`}
-          params={props.buttonParams}
-          onClick={props.voteToDelete}
-          disabled={props.ids.includes(
-            `${props.type}_vote_to_delete_${props.answerId}`,
-          )}
-          isVotedToDelete={props.votingStatus.isVotedToDelete}
-        >
-          <Icon icon={blockIcon} width="14" />
-          <FormattedMessage {...messages.voteToDelete} />
-        </Button>
+      <ItemInfo>
+        <UserInfo
+          avatar={getUserAvatar(userInfo.ipfs_avatar)}
+          name={userInfo.display_name}
+          account={userInfo.user}
+          rating={userInfo.rating}
+          type={type}
+          postTime={postTime}
+          locale={locale}
+        />
 
-        <Button
-          show={props.isItWrittenByMe}
-          onClick={props.editItem[0]}
-          params={{ ...props.buttonParams, link: props.editItem[1] }}
-          id={`redirect-to-edit-item-${props.answerId}-${props.questionId}-${
-            props.commentId
-          }`}
-        >
-          <img src={pencilIcon} alt="icon" />
-          <FormattedMessage {...messages.editButton} />
-        </Button>
-
-        <div id={`${props.type}_delete_${props.answerId}`}>
-          <AreYouSure
-            submitAction={props.deleteItem}
-            Button={({ onClick }) => (
-              <Button
-                show={props.isItWrittenByMe}
-                id={`${props.type}_delete_${props.answerId}`}
-                params={props.buttonParams}
-                onClick={onClick}
-                disabled={props.ids.includes(
-                  `${props.type}_delete_${props.answerId}`,
-                )}
-              >
-                <img src={deleteIcon} alt="icon" />
-                <FormattedMessage {...messages.deleteButton} />
-              </Button>
+        <div className="d-flex align-items-center">
+          <Button
+            id={`${type}_change_type_with_rating_restore_${answerId}`}
+            show={isModerator}
+            onClick={changeQuestionTypeWithRatingRestore}
+            disabled={ids.includes(
+              `${type}_change_type_with_rating_restore_${answerId}`,
             )}
-          />
+          >
+            <FormattedMessage
+              {...messages.changeQuestionTypeWithRatingRestore}
+            />
+          </Button>
+          <Button
+            id={`${type}_change_type_without_rating_restore_${answerId}`}
+            show={isModerator}
+            onClick={changeQuestionTypeWithoutRatingRestore}
+            disabled={ids.includes(
+              `${type}_change_type_without_rating_restore_${answerId}`,
+            )}
+          >
+            <FormattedMessage
+              {...messages.changeQuestionTypeWithoutRatingRestore}
+            />
+          </Button>
+          <Button
+            show={!isItWrittenByMe}
+            id={`${type}_vote_to_delete_${answerId}`}
+            params={buttonParams}
+            onClick={voteToDelete}
+            disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
+            isVotedToDelete={isVotedToDelete}
+          >
+            <Icon icon={blockIcon} width="14" />
+            <FormattedMessage {...messages.voteToDelete} />
+          </Button>
+
+          <Button
+            show={isItWrittenByMe}
+            onClick={editItem[0]}
+            params={{ ...buttonParams, link: editItem[1] }}
+            id={`redirect-to-edit-item-${answerId}-${questionId}-${commentId}`}
+          >
+            <img src={pencilIcon} alt="icon" />
+            <FormattedMessage {...messages.editButton} />
+          </Button>
+
+          <div id={`${type}_delete_${answerId}`}>
+            <AreYouSure
+              submitAction={deleteItem}
+              Button={({ onClick }) => (
+                <Button
+                  show={isItWrittenByMe}
+                  id={`${type}_delete_${answerId}`}
+                  params={buttonParams}
+                  onClick={onClick}
+                  disabled={ids.includes(`${type}_delete_${answerId}`)}
+                >
+                  <img src={deleteIcon} alt="icon" />
+                  <FormattedMessage {...messages.deleteButton} />
+                </Button>
+              )}
+            />
+          </div>
         </div>
-      </div>
-    </ItemInfo>
-  </Box>
-);
+      </ItemInfo>
+    </Box>
+  );
+};
 
 ContentHeader.propTypes = {
   userInfo: PropTypes.object,
@@ -145,6 +193,26 @@ ContentHeader.propTypes = {
   questionId: PropTypes.number,
   commentId: PropTypes.number,
   votingStatus: PropTypes.object,
+  isModerator: PropTypes.bool,
+  changeQuestionTypeDispatch: PropTypes.func,
+  questionData: PropTypes.object,
 };
 
-export default React.memo(ContentHeader);
+export default React.memo(
+  connect(
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return {
+        isModerator: profileInfo
+          ? profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)
+          : false,
+      };
+    },
+    dispatch => ({
+      changeQuestionTypeDispatch: bindActionCreators(
+        changeQuestionType,
+        dispatch,
+      ),
+    }),
+  )(ContentHeader),
+);

@@ -303,7 +303,22 @@ export default defineMessages({
   signUpViaWallet: {
     id: 'app.common.signUpViaWallet',
   },
+  general: {
+    id: 'app.common.general',
+  },
+  expert: {
+    id: 'app.common.expert',
+  },
+  tipQuestion: {
+    id: 'app.common.tipQuestion',
+  },
   receivedReward: {
     id: 'app.common.receivedReward',
+  },
+  expertPopoverLabel: {
+    id: 'app.common.expertPopoverLabel',
+  },
+  expertPopoverList: {
+    id: 'app.common.expertPopoverList',
   },
 });

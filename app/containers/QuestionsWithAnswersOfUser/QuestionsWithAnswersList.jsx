@@ -19,6 +19,7 @@ const Question = ({
   postType,
   isTheLargestRating,
   answerId,
+  isGeneral,
 }) => (
   <Li className="mb-3">
     <QuestionForProfilePage
@@ -34,6 +35,8 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isTheLargestRating={isTheLargestRating}
+      isGeneral={isGeneral}
+      bordered
     />
   </Li>
 );
@@ -66,6 +69,7 @@ Question.propTypes = {
   postType: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isGeneral: PropTypes.bool,
 };
 
 QuestionsWithAnswersList.propTypes = {

@@ -36,6 +36,7 @@ import {
   strLength15x100,
   strLength1x5,
   required,
+  withoutDoubleSpace,
   requiredForObjectField,
 } from 'components/FormFields/validate';
 
@@ -45,14 +46,18 @@ import CommunityField from 'components/FormFields/CommunityField';
 
 import {
   FORM_TITLE,
+  FORM_TYPE,
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
 } from './constants';
 
 import messages from './messages';
+import QuestionTypeField, { QUESTION_TYPES } from './QuestionTypeField';
+import DescriptionList from '../DescriptionList';
 
 export const QuestionForm = ({
+  locale,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -110,13 +115,41 @@ export const QuestionForm = ({
               warn={[requiredForObjectField]}
               splitInHalf
             />
+            {!questionid && (
+              <>
+                <Field
+                  name={FORM_TYPE}
+                  component={QuestionTypeField}
+                  disabled={questionLoading}
+                  onChange={val => change(FORM_TYPE, val[0])}
+                  label={intl.formatMessage({ id: messages.questionType.id })}
+                  tip={intl.formatMessage({ id: messages.questionTypeTip.id })}
+                  splitInHalf
+                />
+
+                <DescriptionList
+                  locale={locale}
+                  label={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionLabel.id
+                      : messages.expertQuestionDescriptionLabel.id
+                  }
+                  items={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionList.id
+                      : messages.expertQuestionDescriptionList.id
+                  }
+                />
+                <br />
+              </>
+            )}
             <Field
               name={FORM_TITLE}
               component={TextInputField}
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.titleLabel.id })}
               tip={intl.formatMessage({ id: messages.titleTip.id })}
-              validate={[strLength15x100, required]}
+              validate={[withoutDoubleSpace, strLength15x100, required]}
               warn={[strLength15x100, required]}
               splitInHalf
             />
@@ -180,6 +213,7 @@ export const QuestionForm = ({
 };
 
 QuestionForm.propTypes = {
+  locale: PropTypes.string,
   formTitle: PropTypes.string,
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
@@ -207,7 +241,10 @@ const mapDispatchToProps = dispatch => ({
 
 FormClone = connect(
   (state, props) => {
-    let initialValues = {};
+    let initialValues = {
+      [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
+    };
+
     let formValues = {};
 
     if (props.question) {

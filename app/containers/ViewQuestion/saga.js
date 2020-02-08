@@ -28,6 +28,7 @@ import {
   deleteComment,
   editComment,
   voteToDelete,
+  changeQuestionType,
 } from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -48,6 +49,7 @@ import { isAuthorized } from 'containers/EosioProvider/saga';
 import { selectQuestions } from 'containers/Questions/selectors';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
+import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
   GET_QUESTION_DATA,
@@ -76,6 +78,9 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   SAVE_COMMENT_SUCCESS,
+  QUESTION_PROPERTIES,
+  CHANGE_QUESTION_TYPE,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 } from './constants';
 
 import {
@@ -101,6 +106,8 @@ import {
   saveCommentErr,
   voteToDeleteSuccess,
   voteToDeleteErr,
+  changeQuestionTypeErr,
+  changeQuestionTypeSuccess,
 } from './actions';
 
 import { selectQuestionData } from './selectors';
@@ -118,6 +125,14 @@ import {
   editCommentValidator,
 } from './validate';
 
+export const isGeneralQuestion = properties =>
+  Boolean(
+    properties.find(({ key }) => key === QUESTION_PROPERTIES.GENERAL_KEY),
+  );
+
+export const getQuestionTypeValue = isGeneral =>
+  isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
+
 export function* getQuestionData({
   eosService,
   questionId,
@@ -128,6 +143,8 @@ export function* getQuestionData({
   if (!question) {
     question = yield call(getQuestionById, eosService, questionId);
   }
+
+  question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag && historyFlag.flag & (1 << constantFlag);
@@ -150,10 +167,11 @@ export function* getQuestionData({
   };
 
   const getlastEditedDate = properties => {
-    const LAST_EDITED_KEY = 3;
-    const lastEditedDate = properties.filter(x => x.key === LAST_EDITED_KEY)[0];
+    const lastEditedDate = properties.find(
+      ({ key }) => key === QUESTION_PROPERTIES.LAST_EDITED_KEY,
+    );
 
-    return (lastEditedDate && lastEditedDate.value) || null;
+    return lastEditedDate ? lastEditedDate.value : null;
   };
 
   const users = new Map();
@@ -768,6 +786,23 @@ export function* updateQuestionDataAfterTransactionWorker({
   }
 }
 
+function* changeQuestionTypeWorker({ ratingRestore, buttonId }) {
+  const { questionData, eosService, profileInfo } = yield call(getParams);
+
+  try {
+    yield call(
+      changeQuestionType,
+      profileInfo.user,
+      questionData.id,
+      getQuestionTypeValue(!questionData.isGeneral),
+      eosService.scatterInstalled ? +ratingRestore : ratingRestore,
+      eosService,
+    );
+    yield put(changeQuestionTypeSuccess(buttonId));
+  } catch (err) {
+    yield put(changeQuestionTypeErr(err, buttonId));
+  }
+}
 export function* updateQuestionList({ questionData }) {
   if (questionData && questionData.id) {
     yield put(getUniqQuestions([questionData]));
@@ -786,6 +821,7 @@ export default function*() {
   yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
+  yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(
     [
       POST_COMMENT_SUCCESS,
@@ -809,6 +845,7 @@ export default function*() {
       DELETE_COMMENT_SUCCESS,
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
+      CHANGE_QUESTION_TYPE_SUCCESS,
     ],
     updateStoredQuestionsWorker,
   );

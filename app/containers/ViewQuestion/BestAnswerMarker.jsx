@@ -25,6 +25,7 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
+  isGeneral,
 }) => {
   if (+answerId === 0) return null;
 
@@ -42,6 +43,7 @@ export const BestAnswerMarker = ({
         )}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
+        isGeneral={isGeneral}
       />
 
       {isTheLargestRating ? (
@@ -64,6 +66,7 @@ BestAnswerMarker.propTypes = {
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
+  isGeneral: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

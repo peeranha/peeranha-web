@@ -109,4 +109,13 @@ export default defineMessages({
   markThisQuestionAndGetEarn: {
     id: 'app.containers.ViewQuestion.markThisQuestionAndGetEarn',
   },
+  expertQuestion: {
+    id: 'app.containers.ViewQuestion.expertQuestion',
+  },
+  changeQuestionTypeWithRatingRestore: {
+    id: 'app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore',
+  },
+  changeQuestionTypeWithoutRatingRestore: {
+    id: 'app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore',
+  },
 });

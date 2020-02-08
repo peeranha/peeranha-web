@@ -7,19 +7,12 @@ import { initialState } from './reducer';
  * Direct selector to the questions state domain
  */
 
-const selectQuestionsDomain = state =>
-  state.get('questionsReducer', initialState);
+const selectQuestionsDomain = state => state.get('questionsReducer', initialState);
 
 const selectQuestionsLoading = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('questionsLoading'),
-  );
+  createSelector(selectQuestionsDomain, substate => substate.get('questionsLoading'));
 
-const selectQuestionsList = () =>
-  createSelector(
-    selectQuestionsDomain,
-    substate => substate.toJS().questionsList,
-  );
+const selectQuestionsList = () => createSelector(selectQuestionsDomain, substate => substate.toJS().questionsList);
 
 const selectQuestions = (isFeed, communityId, questionId) =>
   createSelector(
@@ -46,40 +39,26 @@ const selectQuestions = (isFeed, communityId, questionId) =>
     },
   );
 
-const selectQuestionsError = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('questionsError'),
-  );
+const selectQuestionsError = () => createSelector(selectQuestionsDomain, substate => substate.get('questionsError'));
 
-const selectInitLoadedItems = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('initLoadedItems'),
-  );
+const selectInitLoadedItems = () => createSelector(selectQuestionsDomain, substate => substate.get('initLoadedItems'));
 
-const selectNextLoadedItems = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('nextLoadedItems'),
-  );
+const selectNextLoadedItems = () => createSelector(selectQuestionsDomain, substate => substate.get('nextLoadedItems'));
 
-const selectIsLastFetch = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('isLastFetch'),
-  );
+const selectIsLastFetch = () => createSelector(selectQuestionsDomain, substate => substate.get('isLastFetch'));
 
 const selectFollowedCommunities = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('followedCommunities'),
-  );
+  createSelector(selectQuestionsDomain, substate => substate.get('followedCommunities'));
 
 const selectFollowHandlerLoading = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('followHandlerLoading'),
-  );
+  createSelector(selectQuestionsDomain, substate => substate.get('followHandlerLoading'));
 
 const selectFollowHandlerError = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.get('followHandlerError'),
-  );
+  createSelector(selectQuestionsDomain, substate => substate.get('followHandlerError'));
+
+const selectTypeFilter = () => createSelector(selectQuestionsDomain, substate => substate.get('typeFilter'));
+
+const selectCreatedFilter = () => createSelector(selectQuestionsDomain, substate => substate.get('createdFilter'));
 
 export {
   selectQuestionsDomain,
@@ -93,4 +72,6 @@ export {
   selectFollowHandlerLoading,
   selectFollowHandlerError,
   selectQuestions,
+  selectTypeFilter,
+  selectCreatedFilter,
 };
