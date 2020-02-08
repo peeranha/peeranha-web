@@ -725,7 +725,8 @@
   "app.containers.QuestionForm.expertQuestionDescriptionList": [
     "A solution to a problem that requires expert knowledge or experience;",
     "Source of information or resources on a specific subject that is not easily found;",
-    "Explanation or clarification of the information that is complicated to comprehend."
+    "Explanation or clarification of the information that is complicated to comprehend;",
+    "Ask for an instruction or a recipe."
   ],
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
