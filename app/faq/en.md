@@ -86,6 +86,43 @@ Communities and tags are created by community voting. During the first year, the
 1. Provide as much detail as possible
 1. Provide code examples, if applicable
 
+### What are the differences between General and Expert Question?
+
+#### Criteria:
+
+General question: 
+A question not requiring expertise or experience to answer that can be one of the following:
+- Subjective opinion exchange;
+- Brainstorming;
+- Feedback or review request;
+- Answer is widely known.
+
+
+Expert question: 
+A question that asks one of the following:
+- A solution to a problem that requires expert knowledge or experience;
+- Source of information or resources on a specific subject that is not easily found;
+- Ask for instruction or recipe;
+- Explanation or clarification of the information that is complicated to comprehend.
+
+
+#### Rewards:
+
+General question:
+Rewards for Question and Answer Upvote is 1 point
+
+Users can not mark an answer as "The best".
+
+
+Expert question:
+Reward for Question Upvote is 5 points, Answer - 10 points.
+
+Users can mark answer as the best to gain 2 extra points and reward an answerer with 15 points.
+
+
+#### Moderation:
+If moderators decide that a wrong question type was chosen, they can change its type and the rewards will change according to the question type.
+
 
 ### How should I format questions and answers?
 
@@ -145,13 +182,13 @@ Notifications are not available in the first release. This functionality will be
 |General question downvoted|-1|
 |Expert answer downvoted|-2|
 |General answer downvoted |-1|
-|Delete own question|-2|
-|Delete own answer|-2|
+|Delete own question|-1|
+|Delete own answer|-1|
 |Delete own comment|0|
 |Accept answer as correct|2|
-|Question deleted by moderation|-5|
-|Answer deleted by moderation|-5|
-|Comment deleted by moderation|-2|
+|Question deleted by moderation|-2|
+|Answer deleted by moderation|-2|
+|Comment deleted by moderation|-1|
 |Suggested tag created|75|
 |Suggested tag deleted|-50|
 |Suggested community created|200|
