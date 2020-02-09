@@ -28,8 +28,12 @@ export const userWallet = id => `/users/${id}/wallet`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questions = communityid => {
+export const questions = (communityid, redirectToAllQuestions) => {
   const origin = hasCommunitySingleWebsite(communityid);
+
+  if (redirectToAllQuestions) {
+    return redirectTo(`${process.env.APP_LOCATION}`);
+  }
 
   if (origin && communityid !== singleCommId) {
     return communityid
@@ -69,6 +73,10 @@ export const noAccess = () => `/no-access`;
 export const feed = communityid => {
   const origin = hasCommunitySingleWebsite(communityid);
 
+  if (singleCommId) {
+    return redirectTo(`${process.env.APP_LOCATION}/feed`);
+  }
+
   if (origin && communityid !== singleCommId) {
     return redirectTo(`/feed/${communityid || ''}`);
   }
@@ -86,7 +94,14 @@ export const tags = () => `/tags`;
 export const redirectTo = to =>
   `/redirect/${to[0] === ':' ? to : encodeURIComponent(to)}`;
 
-export const users = () => `/users`;
+export const users = redirectToAllUsers => {
+  if (redirectToAllUsers) {
+    return redirectTo(`${process.env.APP_LOCATION}/users`);
+  }
+
+  return '/users';
+};
+
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;

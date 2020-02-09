@@ -30,7 +30,7 @@ export const Header = ({
 
   if (!isFeed) {
     defaultAvatar = allquestionsIcon;
-    defaultLabel = intl.formatMessage({ id: messages.allQuestions.id });
+    defaultLabel = intl.formatMessage({ id: messages.questions.id });
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({ id: messages.myFeed.id });

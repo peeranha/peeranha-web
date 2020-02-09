@@ -21,13 +21,13 @@ import {
 } from './constants';
 
 export function isSingleCommunityWebsite() {
-  return communitiesConfig[window.location.origin];
+  return Object.keys(communitiesConfig).find(
+    id => communitiesConfig[id].origin === window.location.origin,
+  );
 }
 
 export function hasCommunitySingleWebsite(commId) {
-  return Object.keys(communitiesConfig).find(
-    x => communitiesConfig[x] === commId,
-  );
+  return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 }
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {

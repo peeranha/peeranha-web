@@ -83,7 +83,7 @@ const MainLinks = ({ profile }) => {
         routeKey={routeKey || 'questions'}
       >
         <Icon className="mr-2" width="24" icon={allQuestionsIcon} />
-        <FormattedMessage {...messages.allQuestions} />
+        <FormattedMessage {...messages.questions} />
       </A1>
 
       {!singleCommId && (
