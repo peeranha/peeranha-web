@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import _orderBy from 'lodash/orderBy';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
@@ -10,7 +11,7 @@ import H4 from 'components/H4';
 import Base from 'components/Base';
 import Span from 'components/Span';
 
-import { NavigationLink } from 'components/Button/Contained/Navigation';
+import Button from 'components/Button/Contained/Navigation';
 import { TransparentLinkDefault } from 'components/Button/Contained/Transparent';
 
 import profileMessages from 'containers/Profile/messages';
@@ -30,20 +31,8 @@ const Activity = ({
   locale,
   profile,
 }) => {
-  const path = window.location.pathname + window.location.hash;
-
-  const profileViewRoute = routes.profileView(userId);
-  const profileViewActivityQuestionsRoute = routes.profileViewActivityQuestions(
-    userId,
-  );
-  const profileViewActivityAnswersRoute = routes.profileViewActivityAnswers(
-    userId,
-  );
-
-  let myPosts = [];
-
   // concat 2 mass and sort by postTime and slice
-  myPosts = window._.orderBy(
+  const myPosts = _orderBy(
     questions.concat(questionsWithUserAnswers),
     y => y.myPostTime,
     ['desc'],
@@ -53,6 +42,8 @@ const Activity = ({
     return <Banner />;
   }
 
+  const [tab, setTab] = useState('posts');
+
   return (
     <div>
       <H4 isHeader>
@@ -60,10 +51,10 @@ const Activity = ({
       </H4>
 
       <Base position="top">
-        <NavigationLink
-          to={profileViewRoute}
+        <Button
           disabled={!myPosts.length}
-          isLink={path !== profileViewRoute}
+          isLink={tab !== 'posts'}
+          onClick={() => setTab('posts')}
         >
           <FormattedMessage
             {...messages.postsNumber}
@@ -72,20 +63,20 @@ const Activity = ({
                 <Span
                   className="ml-1"
                   fontSize="14"
-                  color={path !== profileViewRoute ? TEXT_SECONDARY : 'inherit'}
+                  color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 >
                   {profile.questions_asked + profile.answers_given}
                 </Span>
               ),
             }}
           />
-        </NavigationLink>
+        </Button>
 
-        <NavigationLink
-          to={profileViewActivityQuestionsRoute}
+        <Button
           disabled={!questions.length}
           tabIndex={!questions.length ? '-1' : undefined}
-          isLink={path !== profileViewActivityQuestionsRoute}
+          isLink={tab !== 'quest'}
+          onClick={() => setTab('quest')}
         >
           <FormattedMessage
             {...messages.questionsNumber}
@@ -94,24 +85,20 @@ const Activity = ({
                 <Span
                   className="ml-1"
                   fontSize="14"
-                  color={
-                    path !== profileViewActivityQuestionsRoute
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
+                  color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 >
                   {profile.questions_asked}
                 </Span>
               ),
             }}
           />
-        </NavigationLink>
+        </Button>
 
-        <NavigationLink
-          to={profileViewActivityAnswersRoute}
+        <Button
           tabIndex={!questionsWithUserAnswers.length ? '-1' : undefined}
           disabled={!questionsWithUserAnswers.length}
-          isLink={path !== profileViewActivityAnswersRoute}
+          isLink={tab !== 'answ'}
+          onClick={() => setTab('answ')}
         >
           <FormattedMessage
             {...messages.answersNumber}
@@ -120,41 +107,34 @@ const Activity = ({
                 <Span
                   className="ml-1"
                   fontSize="14"
-                  color={
-                    path !== profileViewActivityAnswersRoute
-                      ? TEXT_SECONDARY
-                      : 'inherit'
-                  }
+                  color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
                 >
                   {profile.answers_given}
                 </Span>
               ),
             }}
           />
-        </NavigationLink>
+        </Button>
       </Base>
 
       <Base position="bottom">
         <QuestionsProfileTab
-          tab="posts"
           locale={locale}
-          className={path === profileViewRoute ? '' : 'd-none'}
+          className={tab === 'posts' ? '' : 'd-none'}
           questions={myPosts}
           loading={questionsWithAnswersLoading || questionsLoading}
         />
 
         <QuestionsProfileTab
-          tab="questions"
           locale={locale}
-          className={path === profileViewActivityQuestionsRoute ? '' : 'd-none'}
+          className={tab === 'quest' ? '' : 'd-none'}
           questions={questions.slice(0, DEFAULT_NUMBER)}
           loading={questionsLoading}
         />
 
         <QuestionsProfileTab
-          tab="answers"
           locale={locale}
-          className={path === profileViewActivityAnswersRoute ? '' : 'd-none'}
+          className={tab === 'answ' ? '' : 'd-none'}
           questions={questionsWithUserAnswers.slice(0, DEFAULT_NUMBER)}
           loading={questionsWithAnswersLoading}
         />

@@ -5,10 +5,11 @@ import * as routes from 'routes-config';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import icoTagIcon from 'images/icoTag.svg?inline';
 import arrowLeft from 'images/arrowLeft.svg?inline';
 import addIcon from 'images/add.svg?external';
-
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
 
 import H3 from 'components/H3';
@@ -71,22 +72,24 @@ export const Header = ({
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
         <div>
-          <A to={tagsRoute}>
-            <NavigationButton className="pl-0" isLink>
-              <img src={arrowLeft} alt="x" />
-              <span className="d-none d-sm-inline ml-2">
-                <FormattedMessage {...messages.backToList} />
-              </span>
-            </NavigationButton>
-          </A>
+          {!isSingleCommunityWebsite() && (
+            <A to={tagsRoute}>
+              <NavigationButton className="pl-0" isLink>
+                <img src={arrowLeft} alt="x" />
+                <span className="d-none d-sm-inline ml-2">
+                  <FormattedMessage {...messages.backToList} />
+                </span>
+              </NavigationButton>
+            </A>
+          )}
 
-          <A to={communityTagsRoute} disabled={path === communityTagsRoute}>
+          <A to={communityTagsRoute}>
             <NavigationButton isLink={path !== communityTagsRoute}>
               <FormattedMessage {...commonMessages.tags} />
             </NavigationButton>
           </A>
 
-          <A to={suggestedTagsRoute} disabled={path === suggestedTagsRoute}>
+          <A to={suggestedTagsRoute}>
             <NavigationButton isLink={path !== suggestedTagsRoute}>
               <FormattedMessage {...commonMessages.voting} />
             </NavigationButton>

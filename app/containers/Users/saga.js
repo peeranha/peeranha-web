@@ -1,18 +1,37 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
+import { selectLimit } from './selectors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export function* getUsersWorker({ loadMore, fetcher }) {
   try {
-    const { items } = yield call(() => fetcher.getNextItems());
+    let users = [];
 
-    yield all(items.map(profile => put(getUserProfileSuccess(profile))));
+    const limit = yield select(selectLimit());
+    const singleCommId = isSingleCommunityWebsite();
 
-    yield put(getUsersSuccess(items, loadMore));
+    const { more, items: mainUsers } = yield call(() => fetcher.getNextItems());
+
+    users = mainUsers;
+
+    // Fix blockchain bug (items limit in response !== required limit if $more is true)
+    if (users.length < limit && more) {
+      const { items: addUsers } = yield call(() => fetcher.getNextItems());
+      users = [...users, ...addUsers];
+    }
+
+    if (singleCommId) {
+      users = users.filter(x => x.followed_communities.includes(singleCommId));
+    }
+
+    yield all(users.map(profile => put(getUserProfileSuccess(profile))));
+
+    yield put(getUsersSuccess(users, loadMore));
   } catch (err) {
-    yield put(getUsersErr(err.message));
+    yield put(getUsersErr(err));
   }
 }
 

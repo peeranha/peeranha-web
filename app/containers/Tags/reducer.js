@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   GET_SUGGESTED_TAGS,
@@ -84,6 +85,9 @@ function tagsReducer(state = initialState, action) {
       return state
         .set('existingTagsLoading', false)
         .set('getExistingTagsError', getExistingTagsError);
+
+    case LOCATION_CHANGE:
+      return state.set('text', initialState.get('text'));
 
     default:
       return state;

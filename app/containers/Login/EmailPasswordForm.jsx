@@ -5,13 +5,10 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import P from 'components/P';
-import H4 from 'components/H4';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/TransparentSmall';
 
@@ -27,7 +24,8 @@ import { EMAIL_FIELD, PASSWORD_FIELD, REMEMBER_ME_FIELD } from './constants';
 
 import loginMessages from './messages';
 
-import { LoginWithScatter } from './EmailForm';
+import Header from './Header';
+import Footer from './Footer';
 
 const EmailPasswordForm = ({
   handleSubmit,
@@ -39,13 +37,7 @@ const EmailPasswordForm = ({
   loginWithScatterProcessing,
 }) => (
   <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.login} />
-    </H4>
-
-    <P className="py-3">
-      <FormattedMessage {...loginMessages.authUserHasMore} />
-    </P>
+    <Header />
 
     <form onSubmit={handleSubmit(login)}>
       <Field
@@ -89,10 +81,7 @@ const EmailPasswordForm = ({
       </div>
     </form>
 
-    <LoginWithScatter
-      loginWithScatterProcessing={loginWithScatterProcessing}
-      loginWithScatter={loginWithScatter}
-    />
+    <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />
   </div>
 );
 

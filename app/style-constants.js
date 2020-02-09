@@ -12,6 +12,7 @@ const transparent = 'rgba(0, 0, 0, 0)';
 const green = '#28A745';
 const lightgreen = '#ebffe7';
 const darkred = '#dc3545';
+const blue2 = '#dfe3f2';
 
 const blueRGB = `118, 153, 255`;
 const darkBlueRGB = `80, 101, 165`;
@@ -68,3 +69,4 @@ export const BG_TRANSPARENT = transparent;
 export const BG_SUCCESS_LIGHT = lightgreen;
 export const BG_SECONDARY_LIGHT = lightgray;
 export const BG_WARNING_LIGHT = pink;
+export const BG_PRIMARY_SPECIAL_2 = blue2;

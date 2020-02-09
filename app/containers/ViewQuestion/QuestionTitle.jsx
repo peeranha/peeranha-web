@@ -1,28 +1,80 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import checkIcon from 'images/okayGreen.svg?inline';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
 import TagList from 'components/TagsList';
+import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
+import Button from 'components/Button/Outlined/InfoMedium';
 
-export const QuestionTitle = ({ title, tags, communityId, communities }) =>
+import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
+import messages from './messages';
+
+// eslint-disable-next-line no-unused-vars
+const B = Button.extend`
+  display: inline-flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+`.withComponent('span');
+
+export const QuestionTitle = ({
+  title,
+  tags,
+  communityId,
+  communities,
+  isItWrittenByMe,
+  correctAnswerId,
+  answersNumber,
+  isGeneral,
+}) =>
   title ? (
-    <Base position="middle">
-      <H3>{title}</H3>
+    <Base position="middle" bordered={!isGeneral}>
+      {!isGeneral && (
+        <QuestionType size="md">
+          <FormattedMessage {...messages.expertQuestion} />
+        </QuestionType>
+      )}
+      <div>
+        {/*
+          <SendTokens>
+            <B>
+              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <FormattedMessage {...commonMessages.tipQuestion} />
+            </B>
+          </SendTokens>
+        */}
 
-      <TagList
-        className="my-2"
-        chosenTags={tags}
-        communityId={communityId}
-        communities={communities}
-      >
-        <QuestionCommunity
-          className="my-1"
-          communities={communities}
+        <MarkAnswerNotification
+          className={
+            !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+              ? 'd-inline-flex'
+              : 'd-none'
+          }
+        >
+          <img className="mr-2" src={checkIcon} alt="icon" />
+          <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
+        </MarkAnswerNotification>
+
+        <H3>{title}</H3>
+
+        <TagList
+          className="my-2"
+          chosenTags={tags}
           communityId={communityId}
-        />
-      </TagList>
+          communities={communities}
+        >
+          <QuestionCommunity
+            className="my-1"
+            communities={communities}
+            communityId={communityId}
+          />
+        </TagList>
+      </div>
     </Base>
   ) : null;
 
@@ -31,6 +83,10 @@ QuestionTitle.propTypes = {
   tags: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
+  isItWrittenByMe: PropTypes.bool,
+  isGeneral: PropTypes.bool,
+  correctAnswerId: PropTypes.number,
+  answersNumber: PropTypes.number,
 };
 
 export default React.memo(QuestionTitle);

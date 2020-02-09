@@ -10,7 +10,6 @@ import { BG_PRIMARY_LIGHT, BG_TRANSPARENT } from 'style-constants';
 import * as routes from 'routes-config';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
-import downloadIcon from 'images/download.svg?inline';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -26,7 +25,7 @@ import SubmitButton from 'components/Button/Contained/InfoLarge';
 import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
-import { ADefault } from 'components/A';
+import Img from 'components/Img';
 
 import SignUp from './index';
 import messages from './messages';
@@ -50,6 +49,12 @@ export const Div = styled.div`
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
   position: relative;
 
+  #i-save-master-key,
+  #i-accept-privacy-policy {
+    height: 22px;
+    width: 22px;
+  }
+
   @media only screen and (max-width: 992px) {
     ${x => (x.primary ? `background: ${BG_TRANSPARENT};` : '')};
   }
@@ -60,6 +65,7 @@ export const Div = styled.div`
   }
 `;
 
+// eslint-disable-next-line no-unused-vars
 const EosOwnerPrivateKeyDiv = Div.extend`
   position: relative;
 
@@ -93,7 +99,7 @@ const IHaveEOSAccountForm = ({
         iHaveEosAccount,
         locale,
         iHaveEosAccountProcessing,
-        keys: { linkToDownloadMasterKey, masterKey },
+        keys: { masterKey },
       }) => {
         const translate = translationMessages[locale];
 
@@ -143,8 +149,9 @@ const IHaveEOSAccountForm = ({
               />
 
               <div className="d-flex align-items-center mb-3">
-                <img
-                  width="20px"
+                <Img
+                  notRounded
+                  size={0.85}
                   className="mr-2"
                   src={dangerIcon}
                   alt="dangerIcon"

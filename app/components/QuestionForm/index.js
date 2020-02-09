@@ -13,6 +13,7 @@ import questionIcon from 'images/question.svg?inline';
 import closeIcon from 'images/closeCircle.svg?inline';
 import icoTag from 'images/icoTag.svg?inline';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
@@ -35,6 +36,7 @@ import {
   strLength15x100,
   strLength1x5,
   required,
+  withoutDoubleSpace,
   requiredForObjectField,
 } from 'components/FormFields/validate';
 
@@ -44,14 +46,18 @@ import CommunityField from 'components/FormFields/CommunityField';
 
 import {
   FORM_TITLE,
+  FORM_TYPE,
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
 } from './constants';
 
 import messages from './messages';
+import QuestionTypeField, { QUESTION_TYPES } from './QuestionTypeField';
+import DescriptionList from '../DescriptionList';
 
 export const QuestionForm = ({
+  locale,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -97,6 +103,7 @@ export const QuestionForm = ({
         <BaseSpecialOne>
           <FormBox onSubmit={handleSubmit(sendQuestion)}>
             <Field
+              className={isSingleCommunityWebsite() ? 'd-none' : ''}
               name={FORM_COMMUNITY}
               component={CommunityField}
               onChange={() => change(FORM_TAGS, '')}
@@ -108,13 +115,41 @@ export const QuestionForm = ({
               warn={[requiredForObjectField]}
               splitInHalf
             />
+            {!questionid && (
+              <>
+                <Field
+                  name={FORM_TYPE}
+                  component={QuestionTypeField}
+                  disabled={questionLoading}
+                  onChange={val => change(FORM_TYPE, val[0])}
+                  label={intl.formatMessage({ id: messages.questionType.id })}
+                  tip={intl.formatMessage({ id: messages.questionTypeTip.id })}
+                  splitInHalf
+                />
+
+                <DescriptionList
+                  locale={locale}
+                  label={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionLabel.id
+                      : messages.expertQuestionDescriptionLabel.id
+                  }
+                  items={
+                    +formValues[FORM_TYPE]
+                      ? messages.generalQuestionDescriptionList.id
+                      : messages.expertQuestionDescriptionList.id
+                  }
+                />
+                <br />
+              </>
+            )}
             <Field
               name={FORM_TITLE}
               component={TextInputField}
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.titleLabel.id })}
               tip={intl.formatMessage({ id: messages.titleTip.id })}
-              validate={[strLength15x100, required]}
+              validate={[withoutDoubleSpace, strLength15x100, required]}
               warn={[strLength15x100, required]}
               splitInHalf
             />
@@ -178,6 +213,7 @@ export const QuestionForm = ({
 };
 
 QuestionForm.propTypes = {
+  locale: PropTypes.string,
   formTitle: PropTypes.string,
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
@@ -205,7 +241,10 @@ const mapDispatchToProps = dispatch => ({
 
 FormClone = connect(
   (state, props) => {
-    let initialValues = {};
+    let initialValues = {
+      [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
+    };
+
     let formValues = {};
 
     if (props.question) {
@@ -214,6 +253,17 @@ FormClone = connect(
         [FORM_CONTENT]: props.question.content,
         [FORM_COMMUNITY]: props.question.community,
         [FORM_TAGS]: props.question.chosenTags,
+      };
+    }
+
+    const singleCommId = isSingleCommunityWebsite();
+
+    if (singleCommId) {
+      initialValues = {
+        ...initialValues,
+        [FORM_COMMUNITY]: props.communities.find(
+          ({ id }) => id === singleCommId,
+        ),
       };
     }
 

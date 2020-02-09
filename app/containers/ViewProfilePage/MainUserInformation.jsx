@@ -20,7 +20,7 @@ import LargeImage from 'components/Img/LargeImage';
 
 import messages from 'containers/Profile/messages';
 
-const UlStyled = Ul.extend`
+export const UlStyled = Ul.extend`
   display: flex;
   flex-wrap: nowrap;
   border: none;

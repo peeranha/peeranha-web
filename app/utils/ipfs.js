@@ -6,7 +6,7 @@ import { ApplicationError } from './errors';
 
 export function getIpfsApi() {
   return IpfsApi({
-    host: process.env.IPFS_HOST,
+    host: process.env.IPFS_API_HOST,
     port: process.env.IPFS_API_PORT,
     protocol: process.env.IPFS_PROTOCOL,
   });
@@ -42,18 +42,22 @@ export async function saveFile(file) {
 }
 
 export async function getText(hash) {
-  const getResult = await getIpfsApi().get(hash);
-  return getResult[0].content.toString('utf8');
+  const response = await fetch(getFileUrl(hash)).then(x => x.text());
+  return response;
 }
 
-export function getFileUrl(fileHash) {
+export function getFileUrl(hash) {
   if (window.renderedByPuppeteer) {
     return null;
   }
 
-  return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_HOST}:${
-    process.env.IPFS_GATEWAY_PORT
-  }/ipfs/${fileHash}`;
+  if (process.env.IPFS_GATEWAY_PORT && process.env.NODE_ENV === 'development') {
+    return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_API_HOST}:${
+      process.env.IPFS_GATEWAY_PORT
+    }/ipfs/${hash}`;
+  }
+
+  return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_CDN_HOST}/${hash}`;
 }
 
 // TODO: test

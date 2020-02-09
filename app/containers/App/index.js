@@ -11,18 +11,21 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import ProgressIndicator from 'containers/ProgressIndicator';
 import ErrorBoundary from 'components/ErrorBoundary';
 
-import Wrapper from './Wrapper';
+import Wrapper from 'containers/AppWrapper';
 
 import {
   HomePage,
@@ -62,16 +65,34 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
+  RedirectTo,
 } from './imports';
+import { getValueFromSearchString } from '../../utils/url';
+import { getCookie, setCookie } from '../../utils/cookie';
+import { REFERRAL_CODE_URI } from './constants';
 
-export default function App() {
+const App = ({ location }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
 
+  useEffect(() => {
+    if (!getCookie(REFERRAL_CODE_URI)) {
+      const value = getValueFromSearchString(
+        location.search,
+        REFERRAL_CODE_URI,
+      );
+      if (value) {
+        setCookie({ name: REFERRAL_CODE_URI, value });
+      }
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <Toast />
+      <ProgressIndicator />
+
       <Login />
       <ForgotPassword />
 
@@ -87,26 +108,38 @@ export default function App() {
 
         <Route
           exact
+          path={routes.redirectTo(':to')}
+          render={props => <RedirectTo {...props} />}
+        />
+
+        <Route
+          exact
           path={routes.preloaderPage()}
           render={props => Wrapper(FullWidthPreloader, props)}
         />
 
-        <Route
-          exact
-          path={routes.feed()}
-          render={props => Wrapper(Feed, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.feed()}
+            render={props => Wrapper(Feed, props)}
+          />
+        )}
 
-        <Route
-          path={routes.feed(':communityid')}
-          render={props => Wrapper(Feed, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            path={routes.feed(':communityid')}
+            render={props => Wrapper(Feed, props)}
+          />
+        )}
 
-        <Route
-          exact
-          path={routes.communities()}
-          render={props => Wrapper(Communities, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.communities()}
+            render={props => Wrapper(Communities, props)}
+          />
+        )}
 
         <Route
           path={routes.communitiesCreate()}
@@ -118,11 +151,13 @@ export default function App() {
           render={props => Wrapper(SuggestedCommunities, props)}
         />
 
-        <Route
-          exact
-          path={routes.tags()}
-          render={props => Wrapper(TagsCollection, props)}
-        />
+        {!isSingleCommunityWebsite() && (
+          <Route
+            exact
+            path={routes.tags()}
+            render={props => Wrapper(TagsCollection, props)}
+          />
+        )}
 
         <Route
           exact
@@ -283,4 +318,9 @@ export default function App() {
       </Switch>
     </ErrorBoundary>
   );
-}
+};
+
+App.propTypes = {
+  location: PropTypes.string,
+};
+export default withRouter(App);

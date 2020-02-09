@@ -66,12 +66,14 @@ import {
   I_HAVE_NOT_EOS_ACCOUNT_ERROR,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
   SIGNUP_WITH_SCATTER_ERROR,
+  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
 } from 'containers/SignUp/constants';
 
 import {
   LOGIN_WITH_SCATTER_ERROR,
   LOGIN_WITH_EMAIL_ERROR,
   FINISH_REGISTRATION_ERROR,
+  FINISH_REGISTRATION_REFERRAL_ERROR,
 } from 'containers/Login/constants';
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
@@ -119,10 +121,13 @@ import {
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
+  CHANGE_QUESTION_TYPE_ERROR,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
 import {
   GET_CURRENT_ACCOUNT_ERROR,
+  REWARD_REFER_ERROR,
   UPDATE_ACC_ERROR,
 } from 'containers/AccountProvider/constants';
 
@@ -147,6 +152,7 @@ import {
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
+import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -190,6 +196,9 @@ export const errHandlingTypes = [
   LOGIN_WITH_SCATTER_ERROR,
   LOGIN_WITH_EMAIL_ERROR,
   FINISH_REGISTRATION_ERROR,
+  FINISH_REGISTRATION_REFERRAL_ERROR,
+  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
+  REWARD_REFER_ERROR,
   LOGOUT_ERROR,
   SEND_TOKENS_ERROR,
   SHOW_ACTIVE_KEY_ERROR,
@@ -217,6 +226,8 @@ export const errHandlingTypes = [
   SAVE_COMMENT_ERROR,
   VOTE_TO_DELETE_ERROR,
   GET_RESULTS_ERROR,
+  INIT_EOSIO_ERROR,
+  CHANGE_QUESTION_TYPE_ERROR,
 ];
 
 export const successHandlingTypes = [
@@ -234,4 +245,5 @@ export const successHandlingTypes = [
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
+  CHANGE_QUESTION_TYPE_SUCCESS,
 ];

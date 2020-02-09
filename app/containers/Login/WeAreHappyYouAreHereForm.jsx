@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
@@ -7,7 +9,12 @@ import PropTypes from 'prop-types';
 import presentImage from 'images/2.png';
 import { scrollToErrorField } from 'utils/animation';
 
-import { strLength3x20, required } from 'components/FormFields/validate';
+import {
+  strLength3x20,
+  strLength12Max,
+  required,
+  onlyLettersAndNumbers,
+} from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import P from 'components/P';
@@ -15,9 +22,11 @@ import H4 from 'components/H4';
 
 import signupMessages from 'containers/SignUp/messages';
 
-import { DISPLAY_NAME } from './constants';
+import { DISPLAY_NAME, REFERRAL_CODE } from './constants';
 
 import loginMessages from './messages';
+import { getCookie } from '../../utils/cookie';
+import { REFERRAL_CODE_URI } from '../App/constants';
 
 const WeAreHappyYouAreHereForm = ({
   handleSubmit,
@@ -47,6 +56,16 @@ const WeAreHappyYouAreHereForm = ({
         warn={[strLength3x20, required]}
       />
 
+      <P className="text-center py-3">
+        <FormattedMessage {...loginMessages.referralMessage} />
+      </P>
+      <Field
+        name={REFERRAL_CODE}
+        disabled={finishRegistrationProcessing}
+        label={translationMessages[locale][signupMessages.referralCode.id]}
+        component={TextInputField}
+        validate={[strLength12Max, onlyLettersAndNumbers]}
+      />
       <Button disabled={finishRegistrationProcessing} className="w-100">
         <FormattedMessage {...signupMessages.continue} />
       </Button>
@@ -61,7 +80,14 @@ WeAreHappyYouAreHereForm.propTypes = {
   finishRegistration: PropTypes.func,
 };
 
-export default reduxForm({
-  form: 'WeAreHappyYouAreHereForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
-})(WeAreHappyYouAreHereForm);
+export default compose(
+  connect(() => ({
+    initialValues: {
+      [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
+    },
+  })),
+  reduxForm({
+    form: 'WeAreHappyYouAreHereForm',
+    onSubmitFail: errors => scrollToErrorField(errors),
+  }),
+)(WeAreHappyYouAreHereForm);

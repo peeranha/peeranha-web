@@ -40,7 +40,14 @@ const validateEmail = email => {
 };
 
 const required = value => {
-  const val = typeof value === 'string' ? value.trim() : value;
+  let val = value;
+
+  if (Number(value) >= 0) {
+    val = Number(value);
+  } else if (typeof value === 'string') {
+    val = val.trim();
+  }
+
   return !val ? messages.requiredField : undefined;
 };
 
@@ -88,13 +95,21 @@ const comparePasswords = (...args) => {
     : undefined;
 };
 
+const onlyLettersAndNumbers = str =>
+  !str || /^[a-z0-9]+$/i.test(str) ? undefined : messages.onlyLettersAndNumbers;
+
+const withoutDoubleSpace = str =>
+  str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
+const strLength12 = stringLength(12, 12);
 const strLength12Max = stringLengthMax(12);
 const strLength254Max = stringLengthMax(254);
 const strLength3x20 = stringLength(3, 20);
 const strLength15x100 = stringLength(15, 100);
+const strLength15x250 = stringLength(15, 250);
 const strLength20x1000 = stringLength(20, 1000);
 const strLength25x30000 = stringLength(25, 30000);
 
@@ -107,14 +122,18 @@ export {
   strLength1x5,
   strLength2x15,
   strLength8x100,
+  strLength12,
   strLength12Max,
   strLength254Max,
   strLength3x20,
   strLength15x100,
+  strLength15x250,
   strLength20x1000,
   strLength25x30000,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
+  onlyLettersAndNumbers,
+  withoutDoubleSpace,
 };

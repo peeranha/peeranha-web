@@ -11,10 +11,12 @@ import {
 } from 'utils/errors';
 
 import { logError } from 'utils/web_integration/src/logger/index';
+import { ENDPOINTS_LIST } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
 import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
@@ -110,12 +112,22 @@ export function* loggerWorker(error) {
       return null;
     }
 
+    const endpointsData = JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
+    const loginData = JSON.parse(
+      sessionStorage.getItem(AUTOLOGIN_DATA) ||
+        localStorage.getItem(AUTOLOGIN_DATA),
+    );
+
     yield call(logError, {
       user: user || 'none',
       error: JSON.stringify({
         message:
           typeof error[key] === 'string' ? error[key] : error[key].message,
         stack: error[key].stack,
+        node:
+          (endpointsData && endpointsData.nodes[0]) ||
+          process.env.EOS_ENDPOINT_DEFAULT,
+        isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
       }),
     });
   } catch (err) {

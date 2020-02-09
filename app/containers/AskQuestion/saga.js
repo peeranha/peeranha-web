@@ -17,6 +17,7 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
+  FORM_TYPE,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -40,6 +41,7 @@ export function* postQuestionWorker({ val }) {
       content: val[FORM_CONTENT],
       community: val[FORM_COMMUNITY],
       chosenTags: val[FORM_TAGS],
+      type: +val[FORM_TYPE],
     };
 
     yield call(postQuestion, selectedAccount, questionData, eosService);
@@ -52,9 +54,10 @@ export function* postQuestionWorker({ val }) {
       selectedAccount,
     );
 
-    if (questionsPostedByUser.length > 0)
-      yield call(createdHistory.push, questionsPostedByUser[0].question_id);
-    else yield call(createdHistory.push, routes.questions());
+    yield call(
+      createdHistory.push,
+      routes.questionView(questionsPostedByUser[0].question_id),
+    );
   } catch (err) {
     yield put(askQuestionError(err));
   }

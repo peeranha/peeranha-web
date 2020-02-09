@@ -21,8 +21,10 @@ export class ModalDialog extends React.PureComponent {
     if (nextProps.show !== this.props.show) {
       try {
         if (nextProps.show && modalRoot.childElementCount === 0) {
+          document.getElementsByTagName('body')[0].style.position = 'fixed';
           modalRoot.appendChild(this.el);
         } else if (!nextProps.show && modalRoot.childElementCount !== 0) {
+          document.getElementsByTagName('body')[0].style.position = 'relative';
           modalRoot.removeChild(this.el);
         }
       } catch (err) {}
@@ -37,13 +39,15 @@ export class ModalDialog extends React.PureComponent {
     return ReactDOM.createPortal(
       <React.Fragment>
         <ModalStyled>
-          <div>{children}</div>
-          <Icon
-            onClick={closeModal}
-            icon={closeIcon}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
-          />
+          <div className="d-flex justify-content-end">
+            <Icon
+              onClick={closeModal}
+              icon={closeIcon}
+              width="16"
+              color={TEXT_SECONDARY_LIGHT}
+            />
+          </div>
+          <div className="modal-children">{children}</div>
         </ModalStyled>
         <Blanket onClick={closeModal} />
       </React.Fragment>,

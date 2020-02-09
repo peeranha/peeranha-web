@@ -38,6 +38,9 @@ import {
   TEXTAREA_COMMENT_FORM,
   SAVE_COMMENT_BUTTON,
   POST_COMMENT_BUTTON,
+  CHANGE_QUESTION_TYPE,
+  CHANGE_QUESTION_TYPE_SUCCESS,
+  CHANGE_QUESTION_TYPE_ERROR,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -331,3 +334,20 @@ export function resetStore() {
     type: RESET_STORE,
   };
 }
+
+export const changeQuestionType = (ratingRestore, event) => ({
+  type: CHANGE_QUESTION_TYPE,
+  ratingRestore,
+  buttonId: event.currentTarget.id,
+});
+
+export const changeQuestionTypeSuccess = buttonId => ({
+  type: CHANGE_QUESTION_TYPE_SUCCESS,
+  buttonId,
+});
+
+export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
+  type: CHANGE_QUESTION_TYPE_ERROR,
+  changeQuestionTypeError,
+  buttonId,
+});

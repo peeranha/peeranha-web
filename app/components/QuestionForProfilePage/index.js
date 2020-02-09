@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -21,6 +22,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps } from 'components/A';
+import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
@@ -30,8 +32,8 @@ import {
 import QuestionCommunity from './QuestionCommunity';
 
 const BaseStyled = Base.extend`
-  display: flex;
-  flex: 1;
+  position: relative;
+  border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -71,6 +73,14 @@ const TopCommunityBadgeStyled = Badge.extend`
   background: ${BG_PRIMARY_DARK};
   margin-right: 20px;
   border: none;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -118,51 +128,60 @@ export const QuestionForProfilePage = ({
   isMyAnswerAccepted,
   isTheLargestRating,
   route,
+  isGeneral,
+  bordered,
 }) => (
-  <BaseStyled>
-    <div className="d-flex flex-row flex-md-column">
-      <Badge bold>{myPostRating}</Badge>
+  <BaseStyled bordered={bordered && !isGeneral}>
+    {!isGeneral && (
+      <QuestionType size="sm">
+        <FormattedMessage {...commonMessages.expert} />
+      </QuestionType>
+    )}
+    <ContentContainer>
+      <div className="d-flex flex-row flex-md-column">
+        <Badge bold>{myPostRating}</Badge>
 
-      <AcceptedQuestionBadge
-        acceptedAnswer={acceptedAnswer}
-        postType={postType}
-        isMyAnswerAccepted={isMyAnswerAccepted}
-      />
-
-      <TopCommunityBadge
-        postType={postType}
-        isTheLargestRating={isTheLargestRating}
-      />
-    </div>
-
-    <div className="d-flex flex-column flex-grow-1">
-      <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
-        {title}
-      </AProps>
-
-      <p className="d-flex align-items-center my-1">
-        <Span
-          className="text-capitalize mr-3"
-          fontSize="14"
-          color={TEXT_SECONDARY}
-        >
-          <FormattedMessage
-            {...commonMessages.askedWhen}
-            values={{
-              when: getFormattedDate(
-                myPostTime,
-                locale,
-                MONTH_3LETTERS__DAY_TIME,
-              ),
-            }}
-          />
-        </Span>
-        <QuestionCommunity
-          communities={communities}
-          communityId={community_id}
+        <AcceptedQuestionBadge
+          acceptedAnswer={acceptedAnswer}
+          postType={postType}
+          isMyAnswerAccepted={isMyAnswerAccepted}
         />
-      </p>
-    </div>
+
+        <TopCommunityBadge
+          postType={postType}
+          isTheLargestRating={isTheLargestRating}
+        />
+      </div>
+
+      <div className="d-flex flex-column flex-grow-1">
+        <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
+          {title}
+        </AProps>
+
+        <p className="d-flex align-items-center my-1">
+          <Span
+            className="text-capitalize mr-3"
+            fontSize="14"
+            color={TEXT_SECONDARY}
+          >
+            <FormattedMessage
+              {...commonMessages.askedWhen}
+              values={{
+                when: getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_TIME,
+                ),
+              }}
+            />
+          </Span>
+          <QuestionCommunity
+            communities={communities}
+            communityId={community_id}
+          />
+        </p>
+      </div>
+    </ContentContainer>
   </BaseStyled>
 );
 
@@ -194,6 +213,8 @@ QuestionForProfilePage.propTypes = {
   isMyAnswerAccepted: PropTypes.bool,
   isTheLargestRating: PropTypes.bool,
   route: PropTypes.string,
+  isGeneral: PropTypes.bool,
+  bordered: PropTypes.bool,
 };
 
 export default React.memo(QuestionForProfilePage);

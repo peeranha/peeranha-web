@@ -6,11 +6,15 @@ import { BG_PRIMARY } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
 
 import crownIcon from 'images/crownIcon.svg?inline';
-import CommunityChoiceButton from 'components/Button/Contained/PrimarySmall';
+import Button from 'components/Button/Contained/PrimaryMedium';
 
-import MarkAsAcceptedIcon from './MarkAsAcceptedIcon';
+import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
+
+const Label = Button.extend`
+  ${LabelStyles};
+`;
 
 export const BestAnswerMarker = ({
   answerId,
@@ -21,6 +25,7 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
+  isGeneral,
 }) => {
   if (+answerId === 0) return null;
 
@@ -28,7 +33,7 @@ export const BestAnswerMarker = ({
     <div className="d-flex">
       <MarkAsAcceptedIcon
         className="mb-3 mr-3"
-        id={`${MARK_AS_BUTTON}${answerId}`}
+        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
         answerId={answerId}
         questionFrom={questionFrom}
         account={account}
@@ -38,13 +43,14 @@ export const BestAnswerMarker = ({
         )}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
+        isGeneral={isGeneral}
       />
 
       {isTheLargestRating ? (
-        <CommunityChoiceButton className="mb-3" bg={BG_PRIMARY}>
+        <Label className="mb-3" bg={BG_PRIMARY}>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
-        </CommunityChoiceButton>
+        </Label>
       ) : null}
     </div>
   );
@@ -60,6 +66,7 @@ BestAnswerMarker.propTypes = {
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
+  isGeneral: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

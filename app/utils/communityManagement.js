@@ -1,4 +1,5 @@
 import JSBI from 'jsbi';
+import communitiesConfig from 'communities-config';
 
 import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
@@ -18,6 +19,16 @@ import {
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
 } from './constants';
+
+export function isSingleCommunityWebsite() {
+  return communitiesConfig[window.location.origin];
+}
+
+export function hasCommunitySingleWebsite(commId) {
+  return Object.keys(communitiesConfig).find(
+    x => communitiesConfig[x] === commId,
+  );
+}
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];

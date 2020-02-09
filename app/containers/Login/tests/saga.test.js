@@ -15,7 +15,7 @@ import defaultSaga, {
   loginWithEmailWorker,
   loginWithScatterWorker,
   finishRegistrationWorker,
-  redirectToHomepageWorker,
+  redirectToFeedWorker,
 } from '../saga';
 
 import {
@@ -400,9 +400,9 @@ describe('finishRegistrationWorker', () => {
   });
 });
 
-describe('redirectToHomepageWorker', () => {
+describe('redirectToFeedWorker', () => {
   describe('redirect - we are on sign up pages', () => {
-    const generator = redirectToHomepageWorker();
+    const generator = redirectToFeedWorker();
 
     it('test', () => {
       Object.defineProperty(window, 'location', {
@@ -418,7 +418,7 @@ describe('redirectToHomepageWorker', () => {
   });
 
   describe('no redirect - we are not on sign up pages', () => {
-    const generator = redirectToHomepageWorker();
+    const generator = redirectToFeedWorker();
 
     it('test', () => {
       Object.defineProperty(window, 'location', {
@@ -452,7 +452,7 @@ describe('defaultSaga', () => {
     expect(step.value).toBe(FINISH_REGISTRATION);
   });
 
-  it('redirectToHomepageWorker', () => {
+  it('redirectToFeedWorker', () => {
     const step = generator.next();
     expect(step.value).toEqual([
       LOGIN_WITH_EMAIL_SUCCESS,

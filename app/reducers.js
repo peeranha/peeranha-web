@@ -41,6 +41,7 @@ import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
 import termsOfServiceReducer from 'containers/TermsOfService/reducer';
+import appWrapperReducer from 'containers/AppWrapper/reducer';
 
 /*
  * routeReducer
@@ -111,6 +112,7 @@ export default function createReducer(injectedReducers) {
     sendTokens: sendTokensReducer,
     search: searchReducer,
     termsOfService: termsOfServiceReducer,
+    appWrapper: appWrapperReducer,
     ...injectedReducers,
   });
 }

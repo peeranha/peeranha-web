@@ -279,6 +279,9 @@ export default defineMessages({
   showMore: {
     id: 'app.common.showMore',
   },
+  showLess: {
+    id: 'app.common.showLess',
+  },
   poweredByTelos: {
     id: 'app.common.poweredByTelos',
   },
@@ -290,5 +293,32 @@ export default defineMessages({
   },
   termsOfTelos: {
     id: 'app.common.termsOfTelos',
+  },
+  inProgress: {
+    id: 'app.common.inProgress',
+  },
+  loginViaWallet: {
+    id: 'app.common.loginViaWallet',
+  },
+  signUpViaWallet: {
+    id: 'app.common.signUpViaWallet',
+  },
+  general: {
+    id: 'app.common.general',
+  },
+  expert: {
+    id: 'app.common.expert',
+  },
+  tipQuestion: {
+    id: 'app.common.tipQuestion',
+  },
+  receivedReward: {
+    id: 'app.common.receivedReward',
+  },
+  expertPopoverLabel: {
+    id: 'app.common.expertPopoverLabel',
+  },
+  expertPopoverList: {
+    id: 'app.common.expertPopoverList',
   },
 });

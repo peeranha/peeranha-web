@@ -17,10 +17,11 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-import { makeSelectLocation } from 'containers/App/selectors';
 import { showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import { showLeftMenu } from 'containers/AppWrapper/actions';
+import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
 import {
   WHAT_IS_ENERGY,
@@ -73,19 +74,20 @@ export class Header extends React.PureComponent {
       account,
       profileInfo,
       showLoginModalDispatch,
-      showMenu,
-      expandLeftMenuNavigation,
+      showLeftMenuDispatch,
       redirectToAskQuestionPageDispatch,
       faqQuestions,
+      isMenuVisible,
     } = this.props;
+
+    if (isMenuVisible) return null;
 
     return (
       <View
         account={account}
         profileInfo={profileInfo}
         showLoginModalDispatch={showLoginModalDispatch}
-        showMenu={showMenu}
-        expandLeftMenuNavigation={expandLeftMenuNavigation}
+        showMenu={showLeftMenuDispatch}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         faqQuestions={faqQuestions}
       />
@@ -97,16 +99,16 @@ Header.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
   profileInfo: PropTypes.object,
-  showMenu: PropTypes.func,
-  expandLeftMenuNavigation: PropTypes.func,
+  showLeftMenuDispatch: PropTypes.func,
   redirectToAskQuestionPageDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
+  isMenuVisible: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   account: makeSelectAccount(),
   profileInfo: makeSelectProfileInfo(),
-  location: makeSelectLocation(),
+  isMenuVisible: selectIsMenuVisible(),
   faqQuestions: selectFaqQuestions([
     WHAT_IS_ENERGY,
     HOW_TO_CHARGE,
@@ -117,6 +119,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,
       dispatch,

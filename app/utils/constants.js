@@ -8,6 +8,8 @@ export const SCATTER_APP_NAME = 'Peeranha';
 
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
+export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';
+export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
 
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
@@ -46,6 +48,7 @@ export const PERIOD_RATING_TABLE = 'periodrating';
 export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
+export const INVITED_USERS_TABLE = 'invited';
 
 // Scopes
 
@@ -55,6 +58,7 @@ export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
+export const INVITED_USERS_SCOPE = 'allinvited';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -65,8 +69,11 @@ export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
 export const UPDATE_ACC = 'updateacc';
+export const INVITE_USER = 'inviteuser';
+export const REWARD_REFER = 'rewardrefer';
 
 export const VOTE_TO_DELETE_METHOD = 'reportforum';
+export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
 export const EDIT_QUESTION_METHOD = 'modquestion';

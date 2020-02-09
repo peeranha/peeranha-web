@@ -44,6 +44,7 @@ export const AskQuestion = ({
     />
 
     <QuestionForm
+      locale={locale}
       form={ASK_QUESTION_FORM}
       formTitle={translationMessages[locale][messages.title.id]}
       submitButtonId={POST_QUESTION_BUTTON}

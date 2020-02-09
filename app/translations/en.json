@@ -90,11 +90,25 @@
   "app.common.preview": "Preview",
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
+  "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
     "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+  "app.common.inProgress": "In progress",
+  "app.common.loginViaWallet": "Login via wallet",
+  "app.common.signUpViaWallet": "Sign up via wallet",
+  "app.common.general": "General",
+  "app.common.expert": "Expert",
+  "app.common.tipQuestion": "Tip question",
+  "app.common.receivedReward": "You received referral reward",
+  "app.common.expertPopoverLabel": "A question that asks one of the following:",
+  "app.common.expertPopoverList": [
+    "A solution to a problem that requires expert knowledge or experience;",
+    "Source of information or resources on a specific subject that is not easily found;",
+    "Explanation or clarification of the information that is complicated to comprehend."
+  ],
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -116,9 +130,9 @@
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
   "app.containers.Wallet.eosAccount": "Telos account",
-  "app.containers.Wallet.currentPeriod": "Current period in progress",
+  "app.containers.Wallet.currentPeriod": "Current and settlement periods",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details in the next week.",
+    "These periods are still in progress. You will see more details next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
@@ -195,6 +209,11 @@
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
+  "app.containers.Profile.referralProgram": "Referral Program",
+  "app.containers.Profile.referralLink": "Your referral link",
+  "app.containers.Profile.referralCode": "Your referral code",
+  "app.containers.Profile.referralText":
+    "Share the link or the code with your friend and you both will receive 100 PEER tokens after your friend earns 35 reputation points.",
 
   "app.containers.SuggestedTags.title": "Suggested tags",
   "app.containers.SuggestedTags.description": "Suggested tags | Description",
@@ -306,6 +325,8 @@
   "app.containers.CreateCommunity.communityWillAppear":
     "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
   "app.containers.CreateCommunity.goToList": "Go to list",
+  "app.containers.CreateCommunity.maxTagsNumberReached":
+    "Max tags number was reached",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
@@ -486,13 +507,21 @@
   "app.containers.ViewQuestion.answerIsCorrect":
     "Cannot be deleted because the answer is marked as correct",
   "app.containers.ViewQuestion.theBest": "The best",
-  "app.containers.ViewQuestion.theBestAnswer": "The best answer",
+  "app.containers.ViewQuestion.theBestAnswer": "Marked as the best",
+  "app.containers.ViewQuestion.markAsBest": "Mark as the best",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Are you sure you want to delete the item?",
+  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
+    "Mark the best answer to this question and earn +2 reputation points",
+  "app.containers.ViewQuestion.expertQuestion": "Expert question",
+  "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
+    "Change type & Restore Rating",
+  "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
+    " Change type",
 
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
@@ -513,7 +542,10 @@
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
   "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
-
+  "app.components.FormFields.onlyLettersAndNumbers":
+    "Value must contain only letters and numbers",
+  "app.components.FormFields.withoutDoubleSpace":
+    "Value must not contain a double space",
   "app.containers.TagsCollection.title": "Tags collection",
 
   "app.components.Footer.header": "Copyright: Peeranha",
@@ -522,13 +554,16 @@
   "app.containers.Login.staySignedIn": "Stay signed in",
   "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
-    "Check whether the Scatter and network settings are installed",
+    "Check whether the wallet and network settings are installed",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",
+  "app.containers.Login.referralMessage":
+    "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
+  "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
@@ -556,7 +591,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than Scatter sign up option is available.",
+    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
@@ -581,6 +616,7 @@
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
+  "app.containers.SignUp.referralCode": "Referral code",
   "app.containers.SignUp.eosName": "Telos name",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
@@ -649,6 +685,8 @@
   "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Cannot transfer to yourself",
+  "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
+  "app.containers.ErrorPage.checkScatterConnection": "Check wallet connection",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
@@ -672,7 +710,24 @@
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.previewLabel": "Preview",
-
+  "app.containers.QuestionForm.questionType": "Question Type",
+  "app.containers.QuestionForm.questionTypeTip": "Optional",
+  "app.containers.QuestionForm.generalQuestionDescriptionLabel":
+    "A question not requiring expertise or experience to answer that can be one of the following:",
+  "app.containers.QuestionForm.expertQuestionDescriptionLabel":
+    "A question that asks one of the following:",
+  "app.containers.QuestionForm.generalQuestionDescriptionList": [
+    "Subjective opinion exchange;",
+    "Brainstorming;",
+    "Feedback or review request;",
+    "Answer is widely known."
+  ],
+  "app.containers.QuestionForm.expertQuestionDescriptionList": [
+    "A solution to a problem that requires expert knowledge or experience;",
+    "Source of information or resources on a specific subject that is not easily found;",
+    "Explanation or clarification of the information that is complicated to comprehend;",
+    "Ask for an instruction or a recipe."
+  ],
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
     "markdown is supported",

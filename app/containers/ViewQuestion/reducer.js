@@ -40,6 +40,9 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
   RESET_STORE,
+  CHANGE_QUESTION_TYPE,
+  CHANGE_QUESTION_TYPE_SUCCESS,
+  CHANGE_QUESTION_TYPE_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -239,6 +242,19 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false)
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+
+    case CHANGE_QUESTION_TYPE:
+      return state
+        .set('changeQuestionTypeLoading', true)
+        .set('ids', [...state.toJS().ids, buttonId]);
+    case CHANGE_QUESTION_TYPE_SUCCESS:
+      return state
+        .set('changeQuestionTypeLoading', false)
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+    case CHANGE_QUESTION_TYPE_ERROR:
+      return state
+        .set('changeQuestionTypeLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
     case RESET_STORE:

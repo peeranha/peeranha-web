@@ -16,7 +16,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import A, { ALinkDisabled } from 'components/A';
+import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 
@@ -43,35 +43,27 @@ export const Button = ({ profileInfo, onClick }) => (
   </span>
 );
 
-const Menu = ({
-  user,
-  questionsLength,
-  questionsWithUserAnswersLength,
-  loginWithScatter,
-}) => (
+const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
   <nav>
     <Ul>
       <A to={routes.profileView(user)}>
         <FormattedMessage {...messages.profile} />
       </A>
-      <ALinkDisabled
+      <A
         to={routes.userQuestions(user)}
         disabled={!questionsLength}
         tabIndex={!questionsLength ? '-1' : undefined}
       >
         <FormattedMessage {...messages.questions} />
-      </ALinkDisabled>
-      <ALinkDisabled
+      </A>
+      <A
         to={routes.userAnswers(user)}
         disabled={!questionsWithUserAnswersLength}
         tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
       >
         <FormattedMessage {...messages.answers} />
-      </ALinkDisabled>
-      <A
-        to={routes.userSettings(user)}
-        className={loginWithScatter ? 'd-none' : ''}
-      >
+      </A>
+      <A to={routes.userSettings(user)}>
         <FormattedMessage {...messages.settings} />
       </A>
     </Ul>
@@ -98,7 +90,6 @@ const ProfileDropdown = ({ profileInfo }) => (
         user={profileInfo.user}
         questionsLength={profileInfo.questions_asked}
         questionsWithUserAnswersLength={profileInfo.answers_given}
-        loginWithScatter={profileInfo.loginData.loginWithScatter}
       />
     }
   />

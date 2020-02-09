@@ -6,7 +6,6 @@ import * as routes from 'routes-config';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
-import { initEosio } from 'containers/EosioProvider/actions';
 
 import { LOGOUT } from './constants';
 
@@ -20,14 +19,12 @@ export function* logoutWorker() {
     sessionStorage.removeItem(AUTOLOGIN_DATA);
 
     yield call(eosService.forgetIdentity);
+    yield call(eosService.initEosioWithoutScatter);
 
-    yield put(initEosio());
-
+    yield call(createdHistory.push, routes.questions());
     yield put(getCurrentAccountSuccess());
 
     yield put(logoutSuccess());
-
-    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(logoutErr(err));
   }

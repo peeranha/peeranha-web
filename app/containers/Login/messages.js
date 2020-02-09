@@ -26,6 +26,9 @@ export default defineMessages({
   yourUsernameIsHow: {
     id: 'app.containers.Login.yourUsernameIsHow',
   },
+  referralMessage: {
+    id: 'app.containers.Login.referralMessage',
+  },
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
   },
@@ -37,5 +40,8 @@ export default defineMessages({
   },
   accountNotCreatedName: {
     id: 'app.containers.Login.accountNotCreatedName',
+  },
+  inviterIsNotRegisterYet: {
+    id: 'app.containers.Login.inviterIsNotRegisterYet',
   },
 });

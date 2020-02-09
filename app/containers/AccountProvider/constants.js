@@ -14,3 +14,11 @@ export const GET_CURRENT_ACCOUNT_PROCESSING =
 
 export const UPDATE_ACC_SUCCESS = 'app/AccountProvider/UPDATE_ACC_SUCCESS';
 export const UPDATE_ACC_ERROR = 'app/AccountProvider/UPDATE_ACC_ERROR';
+export const REWARD_REFER_ERROR = 'app/AccountProvider/REWARD_REFER_ERROR';
+
+export const UPDATE_ACC_PERIOD = 600000; // 10 min
+export const REFERRAL_REWARD_RATING = 25;
+
+export const REFERRAL_REWARD_RECEIVED = 'reward_received';
+export const REFERRAL_REWARD_SENT = 'reward_sent';
+export const NO_REFERRAL_INVITER = 'no_referral';

@@ -1,3 +1,4 @@
+import { BG_PRIMARY_SPECIAL_2 } from 'style-constants';
 import Img, { CELL } from './index';
 
 const MediumImage = Img.extend`
@@ -11,7 +12,7 @@ const MediumSpecialImage = Img.extend`
 `;
 
 const MediumImageStyled = MediumImage.extend`
-  background: #dfe3f2;
+  background: ${BG_PRIMARY_SPECIAL_2};
   margin-right: 18px;
   border-width: 1px;
   border-radius: 50%;

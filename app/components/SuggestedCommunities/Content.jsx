@@ -1,4 +1,4 @@
-/* eslint indent: 0 */
+/* eslint indent: 0, no-unused-vars: 0 */
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -89,9 +89,9 @@ const Item = x => {
             <P fontSize="24" lineHeight="31" bold>
               {x.name}
             </P>
-            <P className="d-none d-md-block" fontSize="14" lineHeight="18">
+            {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
               <FormattedMessage {...commonMessages[x.language]} />
-            </P>
+            </P> */}
             <P fontSize="14" lineHeight="18">
               {x.description}
             </P>

@@ -14,6 +14,7 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import loginMessages from 'containers/Login/messages';
 
@@ -22,18 +23,22 @@ import { successHandling } from 'containers/Toast/saga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { initEosioWorker } from 'containers/EosioProvider/saga';
 
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_SELECTED,
+  REFERRAL_CODE,
 } from 'containers/Login/constants';
+
+import { followHandlerWorker } from 'containers/FollowCommunityButton/saga';
 
 import {
   loginWithEmailWorker,
   loginWithScatterWorker,
+  redirectToFeedWorker,
+  sendReferralCode,
 } from 'containers/Login/saga';
 
 import {
@@ -55,6 +60,7 @@ import {
   ACCOUNT_NOT_CREATED_NAME,
   EMAIL_CHECKING_SUCCESS,
   SEND_ANOTHER_CODE,
+  SIGNUP_WITH_SCATTER_SUCCESS,
 } from './constants';
 
 import {
@@ -70,6 +76,7 @@ import {
   showScatterSignUpFormSuccess,
   signUpWithScatterSuccess,
   signUpWithScatterErr,
+  signUpWithScatterReferralErr,
 } from './actions';
 
 import { selectEmail, selectEncryptionKey, selectKeys } from './selectors';
@@ -231,6 +238,16 @@ export function* iHaveEosAccountWorker({ val }) {
       },
     });
 
+    const singleCommId = isSingleCommunityWebsite();
+
+    if (singleCommId) {
+      yield call(followHandlerWorker, {
+        communityIdFilter: singleCommId,
+        isFollowed: false,
+        buttonId: '',
+      });
+    }
+
     yield put(iHaveEosAccountSuccess());
 
     yield call(createdHistory.push, routes.questions());
@@ -282,6 +299,16 @@ export function* idontHaveEosAccountWorker({ val }) {
       });
     }
 
+    const singleCommId = isSingleCommunityWebsite();
+
+    if (singleCommId) {
+      yield call(followHandlerWorker, {
+        communityIdFilter: singleCommId,
+        isFollowed: false,
+        buttonId: '',
+      });
+    }
+
     yield put(idontHaveEosAccountSuccess());
 
     yield call(
@@ -297,34 +324,57 @@ export function* idontHaveEosAccountWorker({ val }) {
 
 export function* signUpWithScatterWorker({ val }) {
   try {
+    const accountName = val[EOS_ACCOUNT_FIELD];
     const profile = {
-      accountName: val[EOS_ACCOUNT_FIELD],
+      accountName,
       displayName: val[DISPLAY_NAME_FIELD],
     };
 
     const eosService = yield select(selectEos);
 
+    const referralCode = val[REFERRAL_CODE];
+
+    if (referralCode) {
+      const ok = yield call(
+        sendReferralCode,
+        accountName,
+        referralCode,
+        eosService,
+        signUpWithScatterReferralErr,
+      );
+      if (!ok) {
+        return;
+      }
+    }
+
     yield call(registerAccount, profile, eosService);
 
     yield call(loginWithScatterWorker);
 
-    yield put(signUpWithScatterSuccess());
+    const singleCommId = isSingleCommunityWebsite();
 
-    yield call(createdHistory.push, routes.questions());
+    if (singleCommId) {
+      yield call(followHandlerWorker, {
+        communityIdFilter: singleCommId,
+        isFollowed: false,
+        buttonId: '',
+      });
+    }
+
+    yield put(signUpWithScatterSuccess());
   } catch (err) {
     yield put(signUpWithScatterErr(err));
   }
 }
 
-export function* showScatterSignUpFormWorker({ noInitEosio }) {
+export function* showScatterSignUpFormWorker() {
   try {
-    if (!noInitEosio) {
-      yield call(initEosioWorker, { initWithScatter: true });
-    }
-
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
+
+    yield call(eosService.forgetIdentity);
+    yield call(eosService.initEosioWithScatter);
 
     if (!eosService.scatterInstalled) {
       throw new WebIntegrationError(
@@ -368,4 +418,5 @@ export default function*() {
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
   yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
+  yield takeLatest(SIGNUP_WITH_SCATTER_SUCCESS, redirectToFeedWorker);
 }

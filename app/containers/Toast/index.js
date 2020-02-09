@@ -29,7 +29,9 @@ export class Toast extends React.Component {
     this.location = TOP_RIGHT;
   }
 
-  removeToast = e => this.props.removeToastDispatch(e.target.dataset.key);
+  removeToast = e => {
+    this.props.removeToastDispatch(e.currentTarget.dataset.key);
+  };
 
   render() /* istanbul ignore next */ {
     const sendProps = {

@@ -34,4 +34,22 @@ export default defineMessages({
   tagsTip: {
     id: 'app.containers.QuestionForm.tagsTip',
   },
+  questionType: {
+    id: 'app.containers.QuestionForm.questionType',
+  },
+  questionTypeTip: {
+    id: 'app.containers.QuestionForm.questionTypeTip',
+  },
+  generalQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionLabel',
+  },
+  expertQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionLabel',
+  },
+  generalQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
+  },
+  expertQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
+  },
 });

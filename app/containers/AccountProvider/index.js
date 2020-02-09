@@ -14,14 +14,24 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
-import { getCurrentAccount } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { getCurrentAccount } from './actions';
+import { selectLastUpdate } from './selectors';
+import { UPDATE_ACC_PERIOD } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AccountProvider extends React.Component {
   componentDidMount() {
     this.props.getCurrentAccountDispatch();
+
+    setInterval(() => {
+      const diff = Date.now() - this.props.lastUpdate;
+
+      if (diff > UPDATE_ACC_PERIOD) {
+        this.props.getCurrentAccountDispatch();
+      }
+    }, UPDATE_ACC_PERIOD / 5);
   }
 
   render() /* istanbul ignore next */ {
@@ -32,9 +42,12 @@ export class AccountProvider extends React.Component {
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
   children: PropTypes.array,
+  lastUpdate: PropTypes.number,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  lastUpdate: selectLastUpdate(),
+});
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {

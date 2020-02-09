@@ -27,6 +27,7 @@ import {
   SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
   SEND_ANOTHER_CODE,
+  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
 } from './constants';
 
 /*
@@ -165,6 +166,11 @@ export function signUpWithScatterErr(signUpWithScatterError) {
     signUpWithScatterError,
   };
 }
+
+export const signUpWithScatterReferralErr = signUpWithScatterReferralError => ({
+  type: SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
+  signUpWithScatterReferralError,
+});
 
 /*
  *

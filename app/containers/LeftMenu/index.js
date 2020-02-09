@@ -21,6 +21,8 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
+import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { showLeftMenu } from 'containers/AppWrapper/actions';
 
 import View from './View';
 import { Aside, After } from './Styles';
@@ -28,13 +30,13 @@ import { Aside, After } from './Styles';
 const LeftMenu = /* istanbul ignore next */ ({
   profile,
   isMenuVisible,
-  showMenu,
   balance,
   showLoginModalDispatch,
+  showLeftMenuDispatch,
 }) => (
   <Aside
     isMenuVisible={isMenuVisible}
-    className={`${isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}`}
+    className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}
   >
     <View
       isMenuVisible={isMenuVisible}
@@ -43,7 +45,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       showLoginModal={showLoginModalDispatch}
     />
 
-    <After isMenuVisible={isMenuVisible} onClick={showMenu}>
+    <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
       <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
     </After>
   </Aside>
@@ -51,20 +53,22 @@ const LeftMenu = /* istanbul ignore next */ ({
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
-  showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
+  showLeftMenuDispatch: PropTypes.func,
   balance: PropTypes.number,
+  isMenuVisible: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
   balance: makeSelectBalance(),
+  isMenuVisible: selectIsMenuVisible(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
   };
 }
 

@@ -15,11 +15,10 @@ export function initEosio(key, initWithScatter, selectedAccount) {
   };
 }
 
-export function initEosioSuccess(eos, scatter) {
+export function initEosioSuccess(eos) {
   return {
     type: INIT_EOSIO_SUCCESS,
     eos,
-    scatter,
   };
 }
 

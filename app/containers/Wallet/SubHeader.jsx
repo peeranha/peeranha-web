@@ -7,7 +7,6 @@ import commonMessages from 'common-messages';
 import {
   BG_PRIMARY_LIGHT,
   TEXT_SECONDARY_LIGHT,
-  TEXT_SECONDARY,
   TEXT_PRIMARY,
 } from 'style-constants';
 
@@ -18,52 +17,57 @@ import { getFormattedNum3 } from 'utils/numbers';
 
 import Icon from 'components/Icon';
 import Span from 'components/Span';
-import Base from 'components/Base';
 import LargeImage from 'components/Img/LargeImage';
+import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 
 import messages from './messages';
 
 const SubHeader = ({ account, balance }) => (
-  <Base className="d-flex" position="bottom">
-    <LargeImage
-      className="mr-3"
-      src={walletCoinsImage}
-      alt="wallet"
-      bg={BG_PRIMARY_LIGHT}
-      isBordered
-    />
+  <Box position="bottom">
     <div>
-      <div className="mb-2">
-        <Span fontSize="38" mobileFS="24" bold>
-          <Icon
-            className="mr-2"
-            width="24"
-            icon={currencyPeerImage}
-            color={TEXT_PRIMARY}
-          />
-          <span>{getFormattedNum3(balance)}</span>
-        </Span>
-        <Span
-          className="d-none d-sm-inline-block ml-2"
-          fontSize="24"
-          mobileFS="18"
-          color={TEXT_SECONDARY_LIGHT}
-          bold
-        >
-          <FormattedMessage {...commonMessages.peers} />
-        </Span>
+      <div>
+        <LargeImage
+          className="mr-3"
+          src={walletCoinsImage}
+          alt="wallet"
+          bg={BG_PRIMARY_LIGHT}
+          isBordered
+        />
       </div>
 
-      <div className="d-flex flex-column">
-        <Span fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.eosAccount} />
-        </Span>
-        <Span className="d-flex align-items-center" fontSize="18" bold>
-          <span>{account}</span>
-        </Span>
+      <div>
+        <div className="d-flex align-items-center">
+          <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+            <Icon
+              className="mr-2"
+              width="24"
+              icon={currencyPeerImage}
+              color={TEXT_PRIMARY}
+            />
+            <span>{getFormattedNum3(balance)}</span>
+          </Span>
+          <Span
+            className="d-none d-sm-inline-block ml-2"
+            fontSize="24"
+            mobileFS="18"
+            color={TEXT_SECONDARY_LIGHT}
+            bold
+          >
+            <FormattedMessage {...commonMessages.peers} />
+          </Span>
+        </div>
+
+        <div className="d-flex align-items-center">
+          <UlStyled>
+            <li>
+              <FormattedMessage {...messages.eosAccount} />
+              <span>{account}</span>
+            </li>
+          </UlStyled>
+        </div>
       </div>
     </div>
-  </Base>
+  </Box>
 );
 
 SubHeader.propTypes = {

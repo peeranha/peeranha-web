@@ -8,10 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import { bindActionCreators } from 'redux';
 
 import InfinityLoader from 'components/InfinityLoader';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -21,67 +18,45 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import * as select from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-
-import { getQuestions, resetStore } from './actions';
 
 import QuestionsWithAnswersList from './QuestionsWithAnswersList';
 import Header from './Header';
+import { getQuestions } from './actions';
 
-/* eslint-disable react/prefer-stateless-function */
-export class QuestionsWithAnswersOfUser extends React.PureComponent {
-  componentDidMount() {
-    this.fetchQuestions();
-  }
+export const QuestionsWithAnswersOfUser = ({
+  locale,
+  communities,
+  questions,
+  questionsLoading,
+  isLastFetch,
+  className,
+  infinityOff,
+  displayName,
+  account,
+  userId,
+  getQuestionsDispatch,
+}) => (
+  <InfinityLoader
+    loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
+    isLoading={questionsLoading}
+    isLastFetch={isLastFetch}
+    infinityOff={infinityOff}
+  >
+    <div className={className}>
+      <Header userId={userId} account={account} displayName={displayName} />
 
-  componentWillUnmount() {
-    this.props.resetStoreDispatch();
-  }
+      {questions.length > 0 && (
+        <QuestionsWithAnswersList
+          questions={questions}
+          locale={locale}
+          communities={communities}
+        />
+      )}
 
-  fetchQuestions = () => {
-    const { getQuestionsDispatch, userId } = this.props;
-    getQuestionsDispatch(userId);
-  };
-
-  render() {
-    const {
-      locale,
-      communities,
-      questions,
-      questionsLoading,
-      isLastFetch,
-      className,
-      infinityOff,
-      displayName,
-      account,
-      userId,
-    } = this.props;
-
-    return (
-      <InfinityLoader
-        loadNextPaginatedData={this.fetchQuestions}
-        isLoading={questionsLoading}
-        isLastFetch={isLastFetch}
-        infinityOff={infinityOff}
-      >
-        <div className={className}>
-          <Header userId={userId} account={account} displayName={displayName} />
-
-          {questions[0] && (
-            <QuestionsWithAnswersList
-              questions={questions}
-              locale={locale}
-              communities={communities}
-            />
-          )}
-
-          {questionsLoading && <LoadingIndicator />}
-        </div>
-      </InfinityLoader>
-    );
-  }
-}
+      {questionsLoading && <LoadingIndicator />}
+    </div>
+  </InfinityLoader>
+);
 
 QuestionsWithAnswersOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
@@ -91,43 +66,22 @@ QuestionsWithAnswersOfUser.propTypes = {
   className: PropTypes.string,
   displayName: PropTypes.string,
   account: PropTypes.string,
-  getQuestionsDispatch: PropTypes.func,
-  resetStoreDispatch: PropTypes.func,
   locale: PropTypes.string,
   communities: PropTypes.array,
   questions: PropTypes.array,
+  getQuestionsDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  account: makeSelectAccount(),
-  communities: selectCommunities(),
-  questions: select.selectQuestionsWithUserAnswers(),
-  questionsLoading: select.selectQuestionsLoading(),
-  isLastFetch: select.selectIsLastFetch(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    resetStoreDispatch: bindActionCreators(resetStore, dispatch),
+export default connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    account: makeSelectAccount(),
+    communities: selectCommunities(),
+    questions: select.selectQuestionsWithUserAnswers(),
+    questionsLoading: select.selectQuestionsLoading(),
+    isLastFetch: select.selectIsLastFetch(),
+  }),
+  dispatch => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({
-  key: 'questionsWithAnswersOfUser',
-  reducer,
-});
-
-const withSaga = injectSaga({ key: 'questionsWithAnswersOfUser', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  }),
 )(QuestionsWithAnswersOfUser);

@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import scatterLogo from 'images/scatterLogo.svg?inline';
 
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
@@ -17,9 +16,9 @@ import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
-import SecondaryLargeButton from 'components/Button/Outlined/SecondaryLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
+import { LoginViaWallet } from 'containers/Login/Footer';
 
 import {
   HOW_STORE_MY_KEYS_QUESTION,
@@ -93,23 +92,13 @@ const RightMenuWithoutScatter = ({
   <div className="py-5">
     {children}
     <Div className="py-5">
-      <div className="text-center mb-3">
-        <Span className="text-uppercase" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.or} />
-        </Span>
-      </div>
+      <LoginViaWallet
+        action={showScatterSignUpForm}
+        processing={showScatterSignUpProcessing}
+        text={<FormattedMessage {...commonMessages.signUpViaWallet} />}
+      />
 
-      <div className="mb-3">
-        <SecondaryLargeButton
-          onClick={showScatterSignUpForm}
-          className="w-100"
-          disabled={showScatterSignUpProcessing}
-        >
-          <img src={scatterLogo} alt="scatter logo" />
-        </SecondaryLargeButton>
-      </div>
-
-      <div className="text-center">
+      <div className="text-center mt-3">
         <FormattedMessage {...messages.doYouHaveAlreadyAccount} />{' '}
         <TransparentButton
           className="py-1"
@@ -123,7 +112,7 @@ const RightMenuWithoutScatter = ({
   </div>
 );
 
-const SignUpOptions = ({
+export const SignUpOptions = ({
   children,
   showLoginModal,
   showScatterSignUpForm,
