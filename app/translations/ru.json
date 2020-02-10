@@ -183,6 +183,7 @@
   "app.containers.Users.description": "Пользователи: описание",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
+  "app.containers.TagsCollection.description": "Описание тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
@@ -705,6 +706,7 @@
     "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
+  "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",

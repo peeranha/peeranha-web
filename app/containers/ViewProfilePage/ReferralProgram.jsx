@@ -25,37 +25,40 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
         </div>
         <div>
           <table id="referral">
-            <tr>
-              <td id="link">
-                <FormattedMessage {...profileMessages.referralLink} />
-                <Link to={routes.referralPage(user)}>{referralLink}</Link>
-              </td>
-              <td>
-                <button
-                  id="referral-link-copy"
-                  data-key={referralLink}
-                  onClick={writeToBuffer}
-                >
-                  <FormattedMessage {...commonMessages.copy} />{' '}
-                </button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <FormattedMessage {...profileMessages.referralCode} />
-                <p id="code">{user}</p>
-              </td>
-              <td>
-                <button
-                  id="referral-code-copy"
-                  data-key={user}
-                  onClick={writeToBuffer}
-                >
-                  <FormattedMessage {...commonMessages.copy} />{' '}
-                </button>
-              </td>
-            </tr>
+            <thead>
+              <tr>
+                <td id="link">
+                  <FormattedMessage {...profileMessages.referralLink} />
+                  <Link to={routes.referralPage(user)}>{referralLink}</Link>
+                </td>
+                <td>
+                  <button
+                    id="referral-link-copy"
+                    data-key={referralLink}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />{' '}
+                  </button>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <FormattedMessage {...profileMessages.referralCode} />
+                  <p id="code">{user}</p>
+                </td>
+                <td>
+                  <button
+                    id="referral-code-copy"
+                    data-key={user}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />{' '}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </BaseStyled>

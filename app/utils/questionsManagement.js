@@ -230,9 +230,9 @@ export async function voteToDelete(
 ) {
   await eosService.sendTransaction(user, VOTE_TO_DELETE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId || 0,
-    comment_id: +commentId || 0,
+    question_id: questionId,
+    answer_id: answerId || 0,
+    comment_id: commentId || 0,
   });
 }
 
@@ -313,8 +313,8 @@ export async function editAnswer(
 
   await eosService.sendTransaction(user, EDIT_ANSWER_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
     ipfs_link: ipfsLink,
   });
 }
@@ -322,8 +322,8 @@ export async function editAnswer(
 export async function deleteAnswer(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, DEL_ANSWER_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 
@@ -338,8 +338,8 @@ export async function postComment(
 
   await eosService.sendTransaction(user, POST_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
     ipfs_link: ipfsLink,
   });
 }
@@ -356,9 +356,9 @@ export async function editComment(
 
   await eosService.sendTransaction(user, EDIT_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
-    comment_id: +commentId,
+    question_id: questionId,
+    answer_id: answerId,
+    comment_id: commentId,
     ipfs_link: ipfsLink,
   });
 }
@@ -372,25 +372,25 @@ export async function deleteComment(
 ) {
   await eosService.sendTransaction(user, DEL_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
-    comment_id: +commentId,
+    question_id: questionId,
+    answer_id: answerId,
+    comment_id: commentId,
   });
 }
 
 export async function upVote(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, UP_VOTE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 
 export async function downVote(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, DOWN_VOTE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 

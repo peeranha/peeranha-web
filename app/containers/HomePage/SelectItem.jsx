@@ -30,6 +30,7 @@ const Ul = styled.ul`
 const SelectItem = ({ input, change, label, disabled, meta, items }) => (
   <div className="mb-4">
     <Dropdown
+      id="subject-choose"
       button={
         <Box>
           <Input

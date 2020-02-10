@@ -87,7 +87,7 @@ const WalletDropdown = ({ user, balance }) => (
 );
 
 Button.propTypes = {
-  balance: PropTypes.string,
+  balance: PropTypes.number,
 };
 
 Menu.propTypes = {
@@ -97,7 +97,7 @@ Menu.propTypes = {
 
 WalletDropdown.propTypes = {
   user: PropTypes.string,
-  balance: PropTypes.string,
+  balance: PropTypes.number,
 };
 
 export { IconBG };

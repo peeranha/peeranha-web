@@ -71,7 +71,7 @@ export default React.memo(() => (
       <div className="mt-2">
         <FormattedMessage
           {...messages.poweredByTelos}
-          values={{ image: <img src={telosIcon} alt="telos" /> }}
+          values={{ image: <img key="telos" src={telosIcon} alt="telos" /> }}
         >
           {(...chunks) => (
             <a href="https://www.telosfoundation.io/" target="_blank">

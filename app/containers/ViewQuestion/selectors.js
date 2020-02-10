@@ -19,7 +19,7 @@ export const selectAnswer = answerId =>
     selectViewQuestionDomain,
     substate =>
       substate.toJS().questionData
-        ? substate.toJS().questionData.answers.filter(x => x.id == answerId)[0]
+        ? substate.toJS().questionData.answers.find(x => x.id === answerId)
         : null,
   );
 

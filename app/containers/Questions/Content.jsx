@@ -94,23 +94,15 @@ const QuestionItem = ({
   return (
     <Box bordered={!isGeneral}>
       <div className="d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0">
-        <AdditionalInfo isAccepted={correct_answer_id && !isGeneral}>
+        <AdditionalInfo isAccepted={correct_answer_id}>
           <span className="d-flex align-items-center">
             <img
               className="mr-2"
-              src={
-                correct_answer_id && !isGeneral
-                  ? bestAnswerIcon
-                  : answerIconEmptyInside
-              }
+              src={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
               alt="icon"
             />
             <Span
-              color={
-                correct_answer_id && !isGeneral
-                  ? TEXT_SUCCESS
-                  : TEXT_PRIMARY_DARK
-              }
+              color={correct_answer_id ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
               bold
             >
               {getFormattedNum(answers.length)}

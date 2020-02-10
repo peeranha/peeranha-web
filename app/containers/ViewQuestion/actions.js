@@ -224,7 +224,7 @@ export function upVote(questionId, ev) {
   return {
     type: UP_VOTE,
     questionId,
-    answerId: ev.currentTarget.dataset.answerid,
+    answerId: +ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasUpvoted: ev.currentTarget.dataset.whowasupvoted,
   };
@@ -251,7 +251,7 @@ export function downVote(questionId, ev) {
   return {
     type: DOWN_VOTE,
     questionId,
-    answerId: ev.currentTarget.dataset.answerid,
+    answerId: +ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasDownvoted: ev.currentTarget.dataset.whowasdownvoted,
   };
@@ -305,7 +305,7 @@ export function voteToDelete(questionId, ev) {
   return {
     type: VOTE_TO_DELETE,
     questionId,
-    answerId: ev.currentTarget.dataset.answerid,
+    answerId: +ev.currentTarget.dataset.answerid,
     commentId: ev.currentTarget.dataset.commentid,
     buttonId: ev.currentTarget.id,
     whoWasVoted: ev.currentTarget.dataset.whowasvoted,

@@ -8,7 +8,7 @@ import { QUESTION_TYPE } from './constants';
 export const Question = props => (
   <Content
     {...props}
-    answerId="0"
+    answerId={0}
     type={QUESTION_TYPE}
     key={`${QUESTION_TYPE}${props.questionData.id}`}
     comments={props.questionData.comments}

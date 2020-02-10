@@ -27,7 +27,7 @@ export const BestAnswerMarker = ({
   ids,
   isGeneral,
 }) => {
-  if (+answerId === 0) return null;
+  if (answerId === 0) return null;
 
   return (
     <div className="d-flex">
@@ -57,7 +57,7 @@ export const BestAnswerMarker = ({
 };
 
 BestAnswerMarker.propTypes = {
-  answerId: PropTypes.string,
+  answerId: PropTypes.number,
   questionFrom: PropTypes.string,
   account: PropTypes.string,
   markAsAccepted: PropTypes.func,

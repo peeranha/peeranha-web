@@ -288,12 +288,12 @@ export function* saveCommentWorker({
 
     let item;
 
-    if (+answerId === 0) {
-      item = questionData.comments.find(x => x.id == commentId);
-    } else if (+answerId > 0) {
+    if (answerId === 0) {
+      item = questionData.comments.find(x => x.id === commentId);
+    } else if (answerId > 0) {
       item = questionData.answers
-        .find(x => x.id == answerId)
-        .comments.find(x => x.id == commentId);
+        .find(x => x.id === answerId)
+        .comments.find(x => x.id === commentId);
     }
 
     item.content = comment;
@@ -334,13 +334,13 @@ export function* deleteCommentWorker({
       eosService,
     );
 
-    if (+answerId === 0) {
+    if (answerId === 0) {
       questionData.comments = questionData.comments.filter(
-        x => x.id != commentId,
+        x => x.id !== commentId,
       );
-    } else if (+answerId > 0) {
-      const answer = questionData.answers.find(x => x.id == answerId);
-      answer.comments = answer.comments.filter(x => x.id != commentId);
+    } else if (answerId > 0) {
+      const answer = questionData.answers.find(x => x.id === answerId);
+      answer.comments = answer.comments.filter(x => x.id !== commentId);
     }
 
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
@@ -373,7 +373,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       eosService,
     );
 
-    questionData.answers = questionData.answers.filter(x => x.id != answerId);
+    questionData.answers = questionData.answers.filter(x => x.id !== answerId);
 
     yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
@@ -469,13 +469,13 @@ export function* postCommentWorker({
       userInfo: profileInfo,
     };
 
-    if (answerId == 0) {
+    if (answerId === 0) {
       questionData.comments.push({
         ...newComment,
         id: questionData.comments.length + 1,
       });
     } else {
-      const { comments } = questionData.answers.find(x => x.id == answerId);
+      const { comments } = questionData.answers.find(x => x.id === answerId);
 
       comments.push({
         ...newComment,
@@ -564,9 +564,9 @@ export function* downVoteWorker({
     yield call(downVote, profileInfo.user, questionId, answerId, eosService);
 
     const item =
-      Number(answerId) === 0
+      answerId === 0
         ? questionData
-        : questionData.answers.find(x => x.id == answerId);
+        : questionData.answers.find(x => x.id === answerId);
 
     if (item.votingStatus.isDownVoted) {
       item.rating += 1;
@@ -614,9 +614,9 @@ export function* upVoteWorker({
     yield call(upVote, profileInfo.user, questionId, answerId, eosService);
 
     const item =
-      Number(answerId) === 0
+      answerId === 0
         ? questionData
-        : questionData.answers.find(x => x.id == answerId);
+        : questionData.answers.find(x => x.id === answerId);
 
     if (item.votingStatus.isUpVoted) {
       item.rating -= 1;
@@ -669,9 +669,7 @@ export function* markAsAcceptedWorker({
     );
 
     questionData.correct_answer_id =
-      questionData.correct_answer_id == correctAnswerId
-        ? 0
-        : Number(correctAnswerId);
+      questionData.correct_answer_id === correctAnswerId ? 0 : correctAnswerId;
 
     yield put(
       markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
@@ -722,16 +720,16 @@ export function* voteToDeleteWorker({
 
     let item;
 
-    if (!+answerId && !commentId) {
+    if (!answerId && !commentId) {
       item = questionData;
-    } else if (!+answerId && commentId) {
-      item = questionData.comments.find(x => x.id == commentId);
-    } else if (+answerId && !commentId) {
-      item = questionData.answers.find(x => x.id == answerId);
-    } else if (+answerId && commentId) {
+    } else if (!answerId && commentId) {
+      item = questionData.comments.find(x => x.id === commentId);
+    } else if (answerId && !commentId) {
+      item = questionData.answers.find(x => x.id === answerId);
+    } else if (answerId && commentId) {
       item = questionData.answers
-        .find(x => x.id == answerId)
-        .comments.find(x => x.id == commentId);
+        .find(x => x.id === answerId)
+        .comments.find(x => x.id === commentId);
     }
 
     item.votingStatus.isVotedToDelete = true;

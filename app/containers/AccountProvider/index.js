@@ -41,7 +41,7 @@ export class AccountProvider extends React.Component {
 
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
-  children: PropTypes.array,
+  children: PropTypes.object,
   lastUpdate: PropTypes.number,
 };
 

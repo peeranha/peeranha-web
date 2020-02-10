@@ -110,7 +110,7 @@ ContentRating.propTypes = {
   upVote: PropTypes.func,
   downVote: PropTypes.func,
   ids: PropTypes.array,
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
 };
 
 function UpvoteIcon({ account, userInfo, votingStatus }) {

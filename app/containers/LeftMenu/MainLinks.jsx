@@ -34,8 +34,8 @@ import { BasicLink } from './Styles';
 const A1 = A.extend`
   ${BasicLink};
 
-  ${({ routeKey, name }) =>
-    routeKey === name
+  ${({ route, name }) =>
+    route === name
       ? `
     background-color: ${PRIMARY_SPECIAL};
     border-color: ${BORDER_PRIMARY_DARK};
@@ -65,29 +65,25 @@ const singleCommId = isSingleCommunityWebsite();
 
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
-  const routeKey = pathname.split('/').filter(x => x)[0];
+  const route = pathname.split('/').filter(x => x)[0];
 
   return (
     <Box>
       {!isSingleCommunityWebsite() &&
         profile && (
-          <A1 to={routes.feed()} name="feed" routeKey={routeKey}>
+          <A1 to={routes.feed()} name="feed" route={route}>
             <Icon className="mr-2" width="24" icon={myFeedIcon} />
             <FormattedMessage {...messages.myFeed} />
           </A1>
         )}
 
-      <A1
-        to={routes.questions()}
-        name="questions"
-        routeKey={routeKey || 'questions'}
-      >
+      <A1 to={routes.questions()} name="questions" route={route || 'questions'}>
         <Icon className="mr-2" width="24" icon={allQuestionsIcon} />
         <FormattedMessage {...messages.questions} />
       </A1>
 
       {!singleCommId && (
-        <A1 to={routes.communities()} name="communities" routeKey={routeKey}>
+        <A1 to={routes.communities()} name="communities" route={route}>
           <Icon className="mr-2" width="24" icon={communitiesIcon} />
           <FormattedMessage {...messages.communities} />
         </A1>
@@ -96,18 +92,18 @@ const MainLinks = ({ profile }) => {
       <A1
         to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
         name="tags"
-        routeKey={routeKey}
+        route={route}
       >
         <Icon className="mr-2" width="24" icon={tagsIcon} />
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      <A1 to={routes.users()} name="users" routeKey={routeKey}>
+      <A1 to={routes.users()} name="users" route={route}>
         <Icon className="mr-2" width="24" icon={usersIcon} />
         <FormattedMessage {...messages.users} />
       </A1>
 
-      <A1 to={routes.faq()} name="faq" routeKey={routeKey}>
+      <A1 to={routes.faq()} name="faq" route={route}>
         <Icon className="mr-2" width="24" icon={faqIcon} />
         <FormattedMessage {...messages.faq} />
       </A1>

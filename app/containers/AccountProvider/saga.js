@@ -248,11 +248,12 @@ export function* updateAccWorker({ eos }) {
       yield take(GET_CURRENT_ACCOUNT_SUCCESS);
       profileInfo = yield select(makeSelectProfileInfo());
     }
-
-    const { user } = profileInfo;
-    yield call(updateRefer, user, eos);
+    if (profileInfo) {
+      yield call(updateRefer, profileInfo.user, eos);
+    }
 
     if (account) {
+      const { user } = profileInfo;
       const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
       const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
       const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;

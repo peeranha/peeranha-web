@@ -57,7 +57,10 @@ export const Button = ({
 
 Button.propTypes = {
   params: PropTypes.object,
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
   id: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,

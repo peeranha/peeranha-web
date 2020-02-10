@@ -52,7 +52,7 @@ const Box = Section.extend`
 const FaqMain = ({ faqQuestions }) => (
   <Box className="container" id={FOURTH_SCREEN}>
     {faqQuestions.map(x => (
-      <h3 className="item">
+      <h3 className="item" key={x.props.children}>
         <img src={plusIcon} alt="icon" />
         {x}
       </h3>
