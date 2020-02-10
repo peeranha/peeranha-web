@@ -4,6 +4,11 @@ import messages from './messages';
 const imageValidation = img =>
   img && img.length > 2000000 ? messages.fileSize : undefined;
 
+const byteLength = val => encodeURI(val).split(/%..|./).length - 1;
+
+const maxByteLength = val =>
+  byteLength(val) > 256 ? messages.wrongByteLength : undefined;
+
 // TODO: test
 const stringLength = (min, max) => value => {
   let val = value;
@@ -148,4 +153,5 @@ export {
   valueHasNotBeInListMoreThanOneTime,
   validateTelosName,
   withoutDoubleSpace,
+  maxByteLength,
 };

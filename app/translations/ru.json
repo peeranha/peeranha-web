@@ -555,6 +555,8 @@
     "Значение должно содержать только буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Значение не должно содержать двойного пробела",
+  "app.components.FormFields.wrongByteLength":
+    "Байтовая длина строки слишком большая",
   "app.components.FormFields.numbersFromTo":
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
