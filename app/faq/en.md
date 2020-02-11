@@ -111,13 +111,13 @@ A question that asks one of the following:
 General question:
 Rewards for Question and Answer Upvote is 1 point, Answer - 2 points.
 
-Users can not mark an answer as "The best".
+Users can mark answer as the best to gain 1 extra point and reward an answerer with 3 points.
 
 
 Expert question:
 Reward for Question Upvote is 5 points, Answer - 10 points.
 
-Users can mark answer as the best to gain 1 extra points and reward an answerer with 3 points.
+Users can mark answer as the best to gain 2 extra points and reward an answerer with 15 points.
 
 
 #### Moderation:
