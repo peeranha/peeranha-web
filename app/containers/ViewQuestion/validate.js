@@ -25,16 +25,16 @@ export const voteToDeleteValidator = (
    * Output data: @itemData, information about item, which was clicked to vote to delete
    */
 
-  if (!+item.answerId && !+item.commentId) {
+  if (!item.answerId && !item.commentId) {
     itemData = questionData;
     minEnergy = MIN_ENERGY_TO_DELETE_QUESTION;
-  } else if (!+item.answerId && +item.commentId) {
+  } else if (!item.answerId && item.commentId) {
     itemData = questionData.comments.filter(x => x.id === item.commentId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
-  } else if (+item.answerId && !+item.commentId) {
+  } else if (item.answerId && !item.commentId) {
     itemData = questionData.answers.filter(x => x.id === item.answerId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_ANSWER;
-  } else if (+item.answerId && +item.commentId) {
+  } else if (item.answerId && item.commentId) {
     itemData = questionData.answers
       .filter(x => x.id === item.answerId)[0]
       .comments.filter(y => y.id === item.commentId)[0];

@@ -92,7 +92,7 @@ export function deleteAnswer(questionId, ev) {
   return {
     type: DELETE_ANSWER,
     questionId,
-    answerId: ev.currentTarget.dataset.answerid,
+    answerId: +ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
   };
 }
@@ -117,8 +117,8 @@ export function deleteComment(questionId, ev) {
   return {
     type: DELETE_COMMENT,
     questionId,
-    answerId: ev.currentTarget.dataset.answerid,
-    commentId: ev.currentTarget.dataset.commentid,
+    answerId: +ev.currentTarget.dataset.answerid,
+    commentId: +ev.currentTarget.dataset.commentid,
     buttonId: ev.currentTarget.id,
   };
 }
@@ -306,7 +306,7 @@ export function voteToDelete(questionId, ev) {
     type: VOTE_TO_DELETE,
     questionId,
     answerId: +ev.currentTarget.dataset.answerid,
-    commentId: ev.currentTarget.dataset.commentid,
+    commentId: +ev.currentTarget.dataset.commentid,
     buttonId: ev.currentTarget.id,
     whoWasVoted: ev.currentTarget.dataset.whowasvoted,
   };

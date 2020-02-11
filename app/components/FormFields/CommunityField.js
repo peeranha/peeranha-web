@@ -56,10 +56,10 @@ export const CommunityField = ({
             disabled={disabled}
           >
             {communityAvatar && (
-              <React.Fragment>
+              <>
                 <Img className="mr-2" src={communityAvatar} alt="comm_img" />
                 <Span>{communityLabel}</Span>
-              </React.Fragment>
+              </>
             )}
 
             <img className="mr-2" src={arrowDownIcon} alt="icon" />
@@ -80,4 +80,4 @@ CommunityField.propTypes = {
   splitInHalf: PropTypes.bool,
 };
 
-export default React.memo(CommunityField);
+export default CommunityField;
