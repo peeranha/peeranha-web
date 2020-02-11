@@ -109,7 +109,7 @@ A question that asks one of the following:
 #### Rewards:
 
 General question:
-Rewards for Question and Answer Upvote is 1 point
+Rewards for Question and Answer Upvote is 1 point, Answer - 2 points.
 
 Users can not mark an answer as "The best".
 
@@ -117,7 +117,7 @@ Users can not mark an answer as "The best".
 Expert question:
 Reward for Question Upvote is 5 points, Answer - 10 points.
 
-Users can mark answer as the best to gain 2 extra points and reward an answerer with 15 points.
+Users can mark answer as the best to gain 1 extra points and reward an answerer with 3 points.
 
 
 #### Moderation:
