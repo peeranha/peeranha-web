@@ -1,10 +1,17 @@
-import PeeranhaLogo from 'images/LogoBlack.svg?inline';
+import OntLogo from 'images/ont.svg?inline';
 
-const ONT_ID = 10001111;
+const PROD_ONT_ID = 10001111;
+
+const TEST_BLOCKCHAIN_ID = 2;
 
 export default {
-  [ONT_ID]: {
-    src: PeeranhaLogo,
+  [PROD_ONT_ID]: {
+    src: OntLogo,
     origin: 'http://localhost:3001',
+  },
+
+  [TEST_BLOCKCHAIN_ID]: {
+    src: OntLogo,
+    origin: 'https://blockchain-test.peeranha.io',
   },
 };
