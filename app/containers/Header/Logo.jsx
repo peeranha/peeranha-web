@@ -4,15 +4,14 @@ import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 
 const Logo = styled.div`
   display: flex;
+  justify-content: left;
   width: ${LEFT_MENU_WIDTH}px;
 
-  justify-content: left;
   img {
     width: 180px;
-    position: relative;
     height: 40px;
-    top: 5px;
-    cursor: pointer;
+    object-fit: contain;
+    margin-top: 5px;
   }
 
   @media only screen and (max-width: 992px) {

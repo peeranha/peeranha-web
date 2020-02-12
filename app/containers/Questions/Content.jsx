@@ -16,6 +16,7 @@ import {
 
 import { getFormattedDate } from 'utils/datetime';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
 import Tags from 'components/TagsList';
@@ -88,6 +89,8 @@ const QuestionItem = ({
   isGeneral,
 }) => {
   const [isExpertPopoverVisible, toggleExpertPopover] = useState(false);
+  const singleCommunityId = isSingleCommunityWebsite();
+
   return (
     <Box bordered={!isGeneral}>
       <div className="d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0">
@@ -182,11 +185,13 @@ const QuestionItem = ({
             communityId={community_id}
             communities={communities}
           >
-            <QuestionCommunity
-              className="my-1"
-              communities={communities}
-              communityId={community_id}
-            />
+            {!singleCommunityId ? (
+              <QuestionCommunity
+                className="my-1"
+                communities={communities}
+                communityId={community_id}
+              />
+            ) : null}
           </Tags>
         </div>
       </Base>

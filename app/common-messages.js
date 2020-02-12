@@ -63,6 +63,9 @@ export default defineMessages({
   allQuestions: {
     id: 'app.common.allQuestions',
   },
+  allUsers: {
+    id: 'app.common.allUsers',
+  },
   users: {
     id: 'app.common.users',
   },
