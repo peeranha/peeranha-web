@@ -543,12 +543,16 @@
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
   "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
-  "app.components.FormFields.onlyLettersAndNumbers":
-    "Value must contain only letters and numbers",
+  "app.components.FormFields.onlyLettersAndNumbersFromTo":
+    "Value must contain only letters and numbers from {min} to {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Value must not contain a double space",
-  "app.containers.TagsCollection.title": "Tags collection",
+  "app.components.FormFields.numbersFromTo":
+    "Value must contain digits from {min} to {max}",
+  "app.components.FormFields.onlyOneDotValue":
+    "Value must contain only one dot",
 
+  "app.containers.TagsCollection.title": "Tags collection",
   "app.components.Footer.header": "Copyright: Peeranha",
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
