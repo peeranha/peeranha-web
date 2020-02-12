@@ -101,11 +101,11 @@ export async function getWeekStat(eosService, profile) {
   }
 
   const [
-    totalReward,
-    totalRating,
-    periodRating,
-    weekRewards,
-    userSupplyValues,
+    { rows: totalReward },
+    { rows: totalRating },
+    { rows: periodRating },
+    { rows: weekRewards },
+    { rows: userSupplyValues },
   ] = await Promise.all([
     getTotalReward(),
     getTotalRating(),

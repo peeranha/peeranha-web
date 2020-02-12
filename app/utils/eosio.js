@@ -89,14 +89,12 @@ class EosioService {
     const signatureProvider = new JsSignatureProvider(keys);
     const rpc = new JsonRpc(this.node.endpoint, { fetch });
 
-    const api = new Api({
+    this.eosApi = new Api({
       rpc,
       signatureProvider,
       textDecoder: new TextDecoder(),
       textEncoder: new TextEncoder(),
     });
-
-    this.eosApi = api;
     this.initialized = true;
     this.selectedAccount = acc;
     this.#key = key;
@@ -358,7 +356,7 @@ class EosioService {
   getTableRow = async (table, scope, primaryKey, code) => {
     const limit = 1;
 
-    const res = await this.getTableRows(
+    const { rows } = await this.getTableRows(
       table,
       scope,
       primaryKey,
@@ -369,7 +367,7 @@ class EosioService {
       code,
     );
 
-    return res[0];
+    return rows[0];
   };
 
   getTableRows = async (
@@ -405,7 +403,7 @@ class EosioService {
 
       if (response && response.rows) {
         response.rows.forEach(x => parseTableRows(x));
-        return response.rows;
+        return response;
       }
 
       return [];
