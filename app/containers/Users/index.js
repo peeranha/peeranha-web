@@ -16,6 +16,7 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { UsersFetcher, AccountsSortedBy } from 'utils/profileManagement';
 
 import messages from './messages';
@@ -26,7 +27,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 import View from './View';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export class Users extends React.PureComponent {
   componentDidMount() {
@@ -86,7 +86,7 @@ export class Users extends React.PureComponent {
       communities,
     } = this.props;
 
-    const singleCommId = isSingleCommunityWebsite();
+    const singleCommId = +isSingleCommunityWebsite();
     const communityInfo = communities.find(x => x.id === singleCommId);
 
     const userCount = singleCommId

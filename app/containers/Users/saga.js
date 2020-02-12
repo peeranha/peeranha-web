@@ -1,17 +1,17 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
 import { selectLimit } from './selectors';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export function* getUsersWorker({ loadMore, fetcher }) {
   try {
     let users = [];
 
     const limit = yield select(selectLimit());
-    const singleCommId = isSingleCommunityWebsite();
+    const singleCommId = +isSingleCommunityWebsite();
 
     const { more, items: mainUsers } = yield call(() => fetcher.getNextItems());
 

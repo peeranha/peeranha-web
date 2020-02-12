@@ -31,32 +31,21 @@ export const uniqueAnswerId = answerId => `ans${answerId}`;
 export const questions = (communityid, redirectToAllQuestions) => {
   const origin = hasCommunitySingleWebsite(communityid);
 
-  if (redirectToAllQuestions) {
-    return redirectTo(`${process.env.APP_LOCATION}`);
+  if (origin) {
+    return redirectTo(origin);
   }
 
-  if (origin && communityid !== singleCommId) {
-    return communityid
-      ? redirectTo(origin)
-      : redirectTo(`/questions/community/${communityid}/`);
+  if (redirectToAllQuestions) {
+    return redirectTo(`${process.env.APP_LOCATION}`);
   }
 
   return !communityid ? `/` : `/questions/community/${communityid}/`;
 };
 
-export const questionView = (id, answerId, commId) => {
-  const origin = hasCommunitySingleWebsite(commId);
-
-  if (origin && commId !== singleCommId) {
-    return answerId
-      ? redirectTo(`${origin}/questions/${id}/#${uniqueAnswerId(answerId)}`)
-      : redirectTo(`${origin}/questions/${id}`);
-  }
-
-  return answerId
+export const questionView = (id, answerId) =>
+  answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
-};
 
 export const questionEdit = questionid =>
   !singleCommId ? `/questions/${questionid}/edit` : `/${questionid}/edit`;

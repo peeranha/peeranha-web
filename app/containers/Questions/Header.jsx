@@ -66,7 +66,7 @@ export const Header = ({
         />
       </div>
 
-      {(singleCommId || communityIdFilter > 0) && (
+      {(!singleCommId || communityIdFilter > 0) && (
         <div className="right-panel">
           <FollowCommunityButton
             communityIdFilter={singleCommId || communityIdFilter}

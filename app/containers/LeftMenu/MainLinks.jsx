@@ -61,15 +61,14 @@ const Box = styled.div`
   }
 `;
 
-const singleCommId = isSingleCommunityWebsite();
-
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const route = pathname.split('/').filter(x => x)[0];
+  const singleCommId = +isSingleCommunityWebsite();
 
   return (
     <Box>
-      {!isSingleCommunityWebsite() &&
+      {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
             <Icon className="mr-2" width="24" icon={myFeedIcon} />
