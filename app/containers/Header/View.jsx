@@ -114,7 +114,7 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {singleCommunityId && (
+      {singleCommunityId ? (
         <SingleModeSubHeader>
           <div className="container">
             <A to={routes.questions(null, true)}>
@@ -137,7 +137,7 @@ const View = ({
             </A>
           </div>
         </SingleModeSubHeader>
-      )}
+      ) : null}
 
       <MainSubHeader>
         <div className="container">

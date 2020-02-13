@@ -86,7 +86,7 @@ export class Users extends React.PureComponent {
       communities,
     } = this.props;
 
-    const singleCommId = +isSingleCommunityWebsite();
+    const singleCommId = isSingleCommunityWebsite();
     const communityInfo = communities.find(x => x.id === singleCommId);
 
     const userCount = singleCommId

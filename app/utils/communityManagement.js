@@ -20,11 +20,10 @@ import {
   VOTE_TO_DELETE_TAG,
 } from './constants';
 
-export function isSingleCommunityWebsite() {
-  return Object.keys(communitiesConfig).find(
+export const isSingleCommunityWebsite = () =>
+  +Object.keys(communitiesConfig).find(
     id => communitiesConfig[id].origin === window.location.origin,
   );
-}
 
 export function hasCommunitySingleWebsite(commId) {
   return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;

@@ -28,8 +28,8 @@ export const userWallet = id => `/users/${id}/wallet`;
 
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questions = (communityid, redirectToAllQuestions) => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const questions = (communityId, redirectToAllQuestions) => {
+  const origin = hasCommunitySingleWebsite(communityId);
 
   if (origin) {
     return redirectTo(origin);
@@ -39,7 +39,7 @@ export const questions = (communityid, redirectToAllQuestions) => {
     return redirectTo(`${process.env.APP_LOCATION}`);
   }
 
-  return !communityid ? `/` : `/questions/community/${communityid}/`;
+  return !communityId ? `/` : `/questions/community/${communityId}/`;
 };
 
 export const questionView = (id, answerId) =>
@@ -47,30 +47,30 @@ export const questionView = (id, answerId) =>
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
 
-export const questionEdit = questionid =>
-  !singleCommId ? `/questions/${questionid}/edit` : `/${questionid}/edit`;
+export const questionEdit = questionId =>
+  !singleCommId ? `/questions/${questionId}/edit` : `/${questionId}/edit`;
 
-export const answerEdit = (questionid, answerid) =>
+export const answerEdit = (questionId, answerId) =>
   !singleCommId
-    ? `/questions/${questionid}/answers/${answerid}/edit`
-    : `/${questionid}/answers/${answerid}/edit`;
+    ? `/questions/${questionId}/answers/${answerId}/edit`
+    : `/${questionId}/answers/${answerId}/edit`;
 
 export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
 export const noAccess = () => `/no-access`;
 
-export const feed = communityid => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const feed = communityId => {
+  const origin = hasCommunitySingleWebsite(communityId);
 
   if (singleCommId) {
     return redirectTo(`${process.env.APP_LOCATION}/feed`);
   }
 
-  if (origin && communityid !== singleCommId) {
-    return redirectTo(`/feed/${communityid || ''}`);
+  if (origin && communityId !== singleCommId) {
+    return redirectTo(`/feed/${communityId || ''}`);
   }
 
-  return `/feed/${communityid || ''}`;
+  return `/feed/${communityId || ''}`;
 };
 
 export const communities = () =>
@@ -105,23 +105,16 @@ export const communitiesCreate = () => `/communities/create`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 
-export const communityTags = communityid => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const communityTags = communityId =>
+  !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
 
-  if (origin && communityid !== singleCommId) {
-    return redirectTo(`${origin}/tags`);
-  }
-
-  return !singleCommId ? `/communities/${communityid}/tags` : `/tags`;
-};
-
-export const suggestedTags = communityid =>
+export const suggestedTags = communityId =>
   !singleCommId
-    ? `/communities/${communityid}/tags/suggested`
+    ? `/communities/${communityId}/tags/suggested`
     : `/tags/suggested`;
 
-export const tagsCreate = communityid =>
-  !singleCommId ? `/tags/community/${communityid || 0}/create` : `/tags/create`;
+export const tagsCreate = communityId =>
+  !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
 export const registrationStage = 'signup';
 

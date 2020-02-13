@@ -8,26 +8,26 @@ import { selectLimit } from './selectors';
 
 export function* getUsersWorker({ loadMore, fetcher }) {
   try {
-    let users = [];
-
     const limit = yield select(selectLimit());
-    const singleCommId = +isSingleCommunityWebsite();
+    const singleCommunityId = isSingleCommunityWebsite();
+    let users = [];
+    let more = true;
+    while (users.length < limit && more) {
+      const { more: hasMore, items } = yield call(() => fetcher.getNextItems());
+      if (singleCommunityId) {
+        users = [
+          ...users,
+          ...items.filter(user =>
+            user.followed_communities.includes(singleCommunityId),
+          ),
+        ];
+      } else {
+        users = [...users, ...items];
+      }
 
-    const { more, items: mainUsers } = yield call(() => fetcher.getNextItems());
-
-    users = mainUsers;
-
-    // Fix blockchain bug (items limit in response !== required limit if $more is true)
-    if (users.length < limit && more) {
-      const { items: addUsers } = yield call(() => fetcher.getNextItems());
-      users = [...users, ...addUsers];
+      more = hasMore;
+      yield all(users.map(profile => put(getUserProfileSuccess(profile))));
     }
-
-    if (singleCommId) {
-      users = users.filter(x => x.followed_communities.includes(singleCommId));
-    }
-
-    yield all(users.map(profile => put(getUserProfileSuccess(profile))));
 
     yield put(getUsersSuccess(users, loadMore));
   } catch (err) {

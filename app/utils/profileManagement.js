@@ -117,7 +117,7 @@ export class Fetcher {
 
       await fetchAtLeast(this.firstFetchCount);
 
-      if (this.itemArray.length > this.firstFetchCount) {
+      if (this.itemArray.length >= this.firstFetchCount) {
         itemsToReturn.items = this.itemArray.splice(0, this.firstFetchCount);
       } else {
         itemsToReturn.items = this.itemArray;
@@ -137,7 +137,7 @@ export class Fetcher {
     // Need additional fetch
     await fetchAtLeast(this.fetchCount);
 
-    if (this.itemArray.length > this.fetchCount) {
+    if (this.itemArray.length >= this.fetchCount) {
       itemsToReturn.items = this.itemArray.splice(0, this.fetchCount);
     } else {
       itemsToReturn.items = this.itemArray;

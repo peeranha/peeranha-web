@@ -69,7 +69,7 @@ export class CreateTag extends React.PureComponent {
       faqQuestions,
     } = this.props;
 
-    const commId = +isSingleCommunityWebsite() || +match.params.communityid;
+    const commId = isSingleCommunityWebsite() || +match.params.communityid;
 
     return (
       <div>
