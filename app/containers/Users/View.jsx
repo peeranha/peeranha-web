@@ -35,7 +35,7 @@ const View = ({
       locale={locale}
     />
 
-    {usersLoading && <LoadingIndicator />}
+    {usersLoading && !(userCount === users.length) && <LoadingIndicator />}
   </div>
 );
 

@@ -59,14 +59,16 @@ export const Header = ({
           isArrowed
           Button={Button}
           toggle={choice =>
-            createdHistory.push(routes[isFeed ? 'feed' : 'questions'](choice))
+            createdHistory.push(
+              routes[isFeed ? 'feed' : 'questions'](choice, false, false),
+            )
           }
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
         />
       </div>
 
-      {(!singleCommId || communityIdFilter > 0) && (
+      {communityIdFilter > 0 && (
         <div className="right-panel">
           <FollowCommunityButton
             communityIdFilter={singleCommId || communityIdFilter}

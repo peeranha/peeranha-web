@@ -1,6 +1,6 @@
 import OntLogo from 'images/ont.svg?inline';
 
-const PROD_ONT_ID = 3;
+const PROD_ONT_ID = 123;
 
 const TEST_BLOCKCHAIN_ID = 2;
 
