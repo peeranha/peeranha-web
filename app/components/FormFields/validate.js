@@ -112,6 +112,9 @@ const validateTelosName = str => {
   return undefined;
 };
 
+const withoutDoubleSpace = str =>
+  str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
+
 const strLength1x5 = stringLength(1, 5);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
@@ -144,4 +147,5 @@ export {
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
   validateTelosName,
+  withoutDoubleSpace,
 };
