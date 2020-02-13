@@ -551,10 +551,14 @@
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
-  "app.components.FormFields.onlyLettersAndNumbers":
-    "Значение должно содержать только буквы и цифры",
+  "app.components.FormFields.onlyLettersAndNumbersFromTo":
+    "Значение должно содержать только буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Значение не должно содержать двойного пробела",
+  "app.components.FormFields.numbersFromTo":
+    "Значение должно содержать только цифры от {min} до {max}",
+  "app.components.FormFields.onlyOneDotValue":
+    "Значение должно содержать только 1 точку",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
