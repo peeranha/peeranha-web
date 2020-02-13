@@ -11,21 +11,20 @@ import { scrollToErrorField } from 'utils/animation';
 
 import {
   strLength3x20,
-  strLength12Max,
   required,
-  onlyLettersAndNumbers,
+  validateTelosName,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import P from 'components/P';
 import H4 from 'components/H4';
 
+import { getCookie } from 'utils/cookie';
 import signupMessages from 'containers/SignUp/messages';
 
 import { DISPLAY_NAME, REFERRAL_CODE } from './constants';
 
 import loginMessages from './messages';
-import { getCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from '../App/constants';
 
 const WeAreHappyYouAreHereForm = ({
@@ -64,7 +63,7 @@ const WeAreHappyYouAreHereForm = ({
         disabled={finishRegistrationProcessing}
         label={translationMessages[locale][signupMessages.referralCode.id]}
         component={TextInputField}
-        validate={[strLength12Max, onlyLettersAndNumbers]}
+        validate={[validateTelosName]}
       />
       <Button disabled={finishRegistrationProcessing} className="w-100">
         <FormattedMessage {...signupMessages.continue} />

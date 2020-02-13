@@ -16,8 +16,8 @@ import { scrollToErrorField } from 'utils/animation';
 import {
   required,
   strLength8x100,
-  strLength12Max,
   comparePasswords,
+  validateTelosName,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -119,8 +119,8 @@ const IHaveEOSAccountForm = ({
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.eosName.id]}
                 component={TextInputField}
-                validate={[required, strLength12Max]}
-                warn={[required, strLength12Max]}
+                validate={[required, validateTelosName]}
+                warn={[required, validateTelosName]}
               />
             </Div>
 
