@@ -51,7 +51,7 @@ const Wallets = styled.div`
 
 export const LoginViaWallet = ({ action, processing, text }) => (
   <>
-    <B onClick={action} disabled={processing}>
+    <B onClick={action || null} disabled={!!processing}>
       {text || <FormattedMessage {...messages.loginViaWallet} />}
     </B>
 

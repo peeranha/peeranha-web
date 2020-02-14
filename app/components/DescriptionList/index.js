@@ -37,7 +37,7 @@ export const DescriptionList = ({ label, items, locale }) => (
     <FormattedMessage id={label} />
     <ul>
       {translationMessages[locale][items].map(item => (
-        <li>
+        <li key={item}>
           <span>{item}</span>
         </li>
       ))}
@@ -48,7 +48,7 @@ export const DescriptionList = ({ label, items, locale }) => (
 DescriptionList.propTypes = {
   label: PropTypes.string,
   locale: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.string,
 };
 
 export default React.memo(DescriptionList);

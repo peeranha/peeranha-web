@@ -183,6 +183,7 @@
   "app.containers.Users.description": "Пользователи: описание",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
+  "app.containers.TagsCollection.description": "Описание тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
@@ -555,6 +556,8 @@
     "Значение должно содержать только буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Значение не должно содержать двойного пробела",
+  "app.components.FormFields.wrongByteLength":
+    "Байтовая длина строки слишком большая",
   "app.components.FormFields.numbersFromTo":
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
@@ -703,6 +706,7 @@
     "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
+  "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",

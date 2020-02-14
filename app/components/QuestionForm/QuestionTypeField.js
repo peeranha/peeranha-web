@@ -94,6 +94,7 @@ const QuestionTypeField = ({
             onClick={chooseQuestionType}
             value={questionType.value}
             currentValue={input.value}
+            key={questionType.label}
             disabled={disabled}
           >
             <FormattedMessage {...messages[questionType.label]} />
@@ -114,4 +115,4 @@ QuestionTypeField.propTypes = {
   insideOfSection: PropTypes.bool,
 };
 
-export default React.memo(QuestionTypeField);
+export default QuestionTypeField;

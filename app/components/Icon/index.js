@@ -16,7 +16,7 @@ const Icon = ({
     width={width}
     color={color}
     dangerouslySetInnerHTML={{ __html: icon }}
-    rotate={rotate}
+    rotate={rotate || null}
     onClick={onClick}
     isTransition={isTransition}
   />

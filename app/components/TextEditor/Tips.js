@@ -60,6 +60,15 @@ const Ul = styled.ul`
   }
 `;
 
+const messagesArray = [
+  messages.putReturnsBetweenParagraphs,
+  messages.addForLineBreaks,
+  messages.italicAndBold,
+  messages.indentCode,
+  messages.backtipEscapes,
+  messages.quoteByPlacing,
+];
+
 const Tips = ({ faqQuestions }) => (
   <div>
     <Label className="mb-3">
@@ -67,27 +76,16 @@ const Tips = ({ faqQuestions }) => (
     </Label>
 
     <Ul>
-      <li>
-        <FormattedMessage {...messages.putReturnsBetweenParagraphs} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.addForLineBreaks} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.italicAndBold} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.indentCode} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.backtipEscapes} />
-      </li>
-      <li>
-        <FormattedMessage {...messages.quoteByPlacing} />
-      </li>
+      {messagesArray.map(x => (
+        <li key={x.id}>
+          <FormattedMessage {...x} />{' '}
+        </li>
+      ))}
     </Ul>
 
-    {faqQuestions && <ul>{faqQuestions.map(x => <Li>{x}</Li>)}</ul>}
+    {faqQuestions && (
+      <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
+    )}
   </div>
 );
 

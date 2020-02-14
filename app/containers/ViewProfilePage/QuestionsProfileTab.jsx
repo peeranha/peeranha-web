@@ -71,6 +71,7 @@ const Note = ({
   locale,
   id,
   answerId,
+  // eslint-disable-next-line camelcase
   community_id,
 }) => (
   <A
@@ -152,7 +153,8 @@ Note.propTypes = {
   title: PropTypes.string,
   myPostTime: PropTypes.number,
   locale: PropTypes.string,
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
+  community_id: PropTypes.number,
   id: PropTypes.string,
 };
 

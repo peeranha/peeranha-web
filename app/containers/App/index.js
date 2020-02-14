@@ -321,6 +321,6 @@ const App = ({ location }) => {
 };
 
 App.propTypes = {
-  location: PropTypes.string,
+  location: PropTypes.object,
 };
 export default withRouter(App);

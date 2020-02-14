@@ -262,11 +262,11 @@ Comments.propTypes = {
   submitButtonName: PropTypes.string,
   sendCommentLoading: PropTypes.bool,
   sendComment: PropTypes.func,
-  answerId: PropTypes.string,
+  answerId: PropTypes.number,
 };
 
 CommentEdit.propTypes = {
-  answerId: PropTypes.string,
+  answerId: PropTypes.number,
   id: PropTypes.string,
   content: PropTypes.string,
   translations: PropTypes.object,

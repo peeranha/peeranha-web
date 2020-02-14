@@ -34,31 +34,23 @@ const CustomOption = ({
   optionsNumber,
   selectedValue,
   innerProps = {},
-}) => {
-  let isActive = false;
+}) => (
+  <BoxStyled {...innerProps} isActive={!!isFocused}>
+    <Image
+      avatar={data.avatar}
+      selectedOptionId={selectedValue ? selectedValue.id : 0}
+      optionValue={data.value}
+    />
 
-  if (isFocused) {
-    isActive = true;
-  }
+    <Span>{data.label}</Span>
 
-  return (
-    <BoxStyled {...innerProps} isActive={isActive}>
-      <Image
-        avatar={data.avatar}
-        selectedOptionId={selectedValue ? selectedValue.id : 0}
-        optionValue={data.value}
-      />
-
-      <Span>{data.label}</Span>
-
-      {!data.value ? (
-        <Span className="pl-2" color={TEXT_SECONDARY}>
-          {optionsNumber}
-        </Span>
-      ) : null}
-    </BoxStyled>
-  );
-};
+    {!data.value ? (
+      <Span className="pl-2" color={TEXT_SECONDARY}>
+        {optionsNumber}
+      </Span>
+    ) : null}
+  </BoxStyled>
+);
 
 Image.propTypes = {
   avatar: PropTypes.string,
@@ -70,7 +62,7 @@ CustomOption.propTypes = {
   data: PropTypes.object,
   isFocused: PropTypes.bool,
   optionsNumber: PropTypes.number,
-  selectedValue: PropTypes.number,
+  selectedValue: PropTypes.object,
   innerProps: PropTypes.object,
 };
 

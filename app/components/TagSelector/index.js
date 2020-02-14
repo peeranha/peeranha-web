@@ -76,7 +76,7 @@ export const TagSelector = ({
             error={meta.touched && (meta.warning || meta.error)}
           >
             {value.map(x => (
-              <Tag>
+              <Tag key={x.label}>
                 <span>{x.label}</span>
                 <RemoveTagIcon
                   type="button"
@@ -121,4 +121,4 @@ TagSelector.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default React.memo(TagSelector);
+export default TagSelector;

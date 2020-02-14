@@ -53,7 +53,7 @@ const CommentForm = ({
 );
 
 CommentForm.propTypes = {
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   handleSubmit: PropTypes.func,

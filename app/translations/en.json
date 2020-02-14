@@ -547,12 +547,15 @@
     "Value must contain only letters and numbers from {min} to {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Value must not contain a double space",
+  "app.components.FormFields.wrongByteLength": "Value byte length is too long",
   "app.components.FormFields.numbersFromTo":
     "Value must contain digits from {min} to {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Value must contain only one dot",
 
   "app.containers.TagsCollection.title": "Tags collection",
+  "app.containers.TagsCollection.description": "Tags Description",
+
   "app.components.Footer.header": "Copyright: Peeranha",
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
@@ -668,6 +671,7 @@
   "app.containers.ErrorBoundary.reloadPage": "Reload page",
 
   "app.containers.Questions.title": "Questions",
+  "app.containers.Questions.description": "Description",
   "app.containers.Questions.noQuestions": "No questions",
   "app.containers.Questions.allCommunities": "All communities",
   "app.containers.Questions.youDontHaveFeedToRead":

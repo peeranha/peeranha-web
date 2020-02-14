@@ -41,9 +41,12 @@ const Seo = ({
 Seo.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  keywords: PropTypes.string,
+  keywords: PropTypes.array,
   language: PropTypes.string.isRequired,
-  articlePublishedTime: PropTypes.string,
+  articlePublishedTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   articleModifiedTime: PropTypes.string,
   index: PropTypes.bool,
 };

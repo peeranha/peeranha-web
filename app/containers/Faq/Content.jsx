@@ -240,8 +240,8 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
 Question.propTypes = {
   h3: PropTypes.string,
   content: PropTypes.string,
-  questionCode: PropTypes.string,
-  sectionCode: PropTypes.string,
+  questionCode: PropTypes.number,
+  sectionCode: PropTypes.number,
   route: PropTypes.func,
   getQuestionCode: PropTypes.func,
 };
@@ -249,7 +249,7 @@ Question.propTypes = {
 Section.propTypes = {
   h2: PropTypes.string,
   blocks: PropTypes.array,
-  sectionCode: PropTypes.string,
+  sectionCode: PropTypes.number,
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,

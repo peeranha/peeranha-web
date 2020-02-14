@@ -48,7 +48,7 @@ const Content = ({
   >
     <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
       {users.map(x => (
-        <A to={routes.profileView(x.user)} key={x.name}>
+        <A to={routes.profileView(x.user)} key={x.user}>
           <User>
             <MediumImage
               isBordered

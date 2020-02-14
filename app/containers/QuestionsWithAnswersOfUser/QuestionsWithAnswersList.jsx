@@ -68,7 +68,7 @@ Question.propTypes = {
   isMyAnswerAccepted: PropTypes.bool,
   postType: PropTypes.string,
   isTheLargestRating: PropTypes.bool,
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
   isGeneral: PropTypes.bool,
 };
 
