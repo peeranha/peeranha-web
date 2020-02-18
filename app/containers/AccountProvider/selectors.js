@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import { getCookie } from 'utils/cookie';
 import { selectUsers } from 'containers/DataCacheProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
@@ -26,11 +27,7 @@ const selectLastUpdate = () =>
 const makeSelectLoginData = () =>
   createSelector(
     selectAccountProviderDomain,
-    () =>
-      JSON.parse(
-        sessionStorage.getItem(AUTOLOGIN_DATA) ||
-          localStorage.getItem(AUTOLOGIN_DATA),
-      ) || {},
+    () => JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {},
   );
 
 const makeSelectProfileInfo = () =>

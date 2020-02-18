@@ -4,6 +4,7 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
+import { setCookie } from 'utils/cookie';
 import {
   registerAccount,
   inviteUser,
@@ -12,6 +13,7 @@ import {
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -142,10 +144,13 @@ export function* loginWithScatterWorker() {
       );
     }
 
-    localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify({ loginWithScatter: true }),
-    );
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify({ loginWithScatter: true }),
+      options: {
+        domain: '.peeranha.io',
+      },
+    });
 
     yield put(loginWithScatterSuccess());
   } catch (err) {
@@ -217,13 +222,16 @@ export function* finishRegistrationWorker({ val }) {
 export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
+  const singleCommunityId = isSingleCommunityWebsite();
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
-  if (profileInfo) {
+  if (profileInfo && !singleCommunityId) {
     yield call(createdHistory.push, routes.feed());
+  } else if (singleCommunityId) {
+    yield call(createdHistory.push, routes.questions());
   }
 }
 

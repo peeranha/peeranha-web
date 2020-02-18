@@ -117,10 +117,7 @@ export function* getCurrentAccountWorker(initAccount) {
       : call(eosService.getSelectedAccount);
 
     if (!account) {
-      const autoLoginData = JSON.parse(
-        sessionStorage.getItem(AUTOLOGIN_DATA) ||
-          localStorage.getItem(AUTOLOGIN_DATA),
-      );
+      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
       if (autoLoginData) {
         account = autoLoginData.eosAccountName;
@@ -207,7 +204,11 @@ function* updateRefer(user, eosService) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
       const locale = yield select(makeSelectLocale());
-      setCookie({ name: receivedCookieName, value: true });
+      setCookie({
+        name: receivedCookieName,
+        value: true,
+        options: { domain: '.peeranha.io' },
+      });
       yield put(
         addToast({
           type: 'success',
@@ -219,6 +220,7 @@ function* updateRefer(user, eosService) {
     setCookie({
       name: noInviterCookieName,
       value: true,
+      options: { domain: '.peeranha.io' },
     });
   }
 }
@@ -268,7 +270,11 @@ export function* updateAccWorker({ eos }) {
         if (err instanceof Error) {
           yield put(rewardReferErr(err));
         } else {
-          setCookie({ name: sentCookieName, value: true });
+          setCookie({
+            name: sentCookieName,
+            value: true,
+            options: { domain: '.peeranha.io' },
+          });
         }
       }
 

@@ -83,7 +83,11 @@ const App = ({ location }) => {
         REFERRAL_CODE_URI,
       );
       if (value) {
-        setCookie({ name: REFERRAL_CODE_URI, value });
+        setCookie({
+          name: REFERRAL_CODE_URI,
+          value,
+          options: { domain: '.peeranha.io' },
+        });
       }
     }
   }, []);

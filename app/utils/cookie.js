@@ -8,9 +8,13 @@ export const getCookie = name => {
   return matches ? decodeURIComponent(matches[1]) : '';
 };
 
-export const setCookie = ({ name, value, options = { expires: {} } }) => {
+export const setCookie = ({
+  name,
+  value,
+  options = { path: '/', domain: '.peeranha.io' },
+}) => {
   const optionsCopy = options;
-  if (optionsCopy.expires && optionsCopy.expires.toUTCString) {
+  if (optionsCopy.expires instanceof Date) {
     optionsCopy.expires = options.expires.toUTCString();
   }
 
@@ -29,4 +33,8 @@ export const setCookie = ({ name, value, options = { expires: {} } }) => {
 };
 
 export const deleteCookie = name =>
-  setCookie({ name, value: '', options: { 'max-age': -1 } });
+  setCookie({
+    name,
+    value: '',
+    options: { 'max-age': -1, domain: '.peeranha.io' },
+  });
