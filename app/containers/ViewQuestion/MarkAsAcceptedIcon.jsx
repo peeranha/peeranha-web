@@ -65,10 +65,7 @@ export const MarkAsAcceptedIcon = ({
   disabled,
   whoWasAccepted,
   className,
-  isGeneral,
 }) => {
-  if (isGeneral) return null;
-
   // There is accepted answer && I am not question's author
   if (
     correctAnswerId === answerId &&
@@ -120,7 +117,6 @@ MarkAsAcceptedIcon.propTypes = {
   className: PropTypes.string,
   markAsAcceptedLoading: PropTypes.bool,
   disabled: PropTypes.bool,
-  isGeneral: PropTypes.bool,
 };
 
 export default React.memo(MarkAsAcceptedIcon);
