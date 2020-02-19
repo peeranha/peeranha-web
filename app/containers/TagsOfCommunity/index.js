@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import {
   getFollowedCommunities,
+  hasCommunitySingleWebsite,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 
@@ -33,6 +34,20 @@ import Aside from './Aside';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TagsOfCommunity extends React.Component {
+  constructor(props) {
+    super(props);
+    const {
+      match: {
+        params: { communityid },
+      },
+    } = props;
+    const origin = hasCommunitySingleWebsite(communityid);
+
+    if (origin) {
+      window.open(decodeURIComponent(`${origin}/tags`), '_parent');
+    }
+  }
+
   clearTextField = () => {
     const text = '';
 
