@@ -108,8 +108,15 @@ export const communitiesCreate = () => `/communities/create`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 
-export const communityTags = communityId =>
-  !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
+export const communityTags = communityId => {
+  const origin = hasCommunitySingleWebsite(communityId);
+
+  if (origin && communityId !== singleCommId) {
+    return redirectTo(`${origin}/tags`);
+  }
+
+  return !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
+};
 
 export const suggestedTags = communityId =>
   !singleCommId
