@@ -34,20 +34,6 @@ import Aside from './Aside';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TagsOfCommunity extends React.Component {
-  constructor(props) {
-    super(props);
-    const {
-      match: {
-        params: { communityid },
-      },
-    } = props;
-    const origin = hasCommunitySingleWebsite(communityid);
-
-    if (origin) {
-      window.open(decodeURIComponent(`${origin}/tags`), '_parent');
-    }
-  }
-
   clearTextField = () => {
     const text = '';
 
@@ -81,6 +67,20 @@ export class TagsOfCommunity extends React.Component {
       loadMore: true,
     });
   };
+
+  componentDidUpdate() {
+    const {
+      match: {
+        params: { communityid },
+      },
+    } = this.props;
+    const origin = hasCommunitySingleWebsite(communityid);
+    const singleCommunityId = isSingleCommunityWebsite();
+
+    if (origin && singleCommunityId !== communityid) {
+      window.open(decodeURIComponent(`${origin}/tags`), '_parent');
+    }
+  }
 
   render() /* istanbul ignore next */ {
     const {

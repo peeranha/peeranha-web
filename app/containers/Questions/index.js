@@ -15,7 +15,10 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
-import { hasCommunitySingleWebsite } from 'utils/communityManagement';
+import {
+  hasCommunitySingleWebsite,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -57,20 +60,6 @@ const feed = routes.feed();
 
 /* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Questions extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    const {
-      match: {
-        params: { communityid },
-      },
-    } = props;
-    const origin = hasCommunitySingleWebsite(communityid);
-
-    if (origin) {
-      window.open(decodeURIComponent(origin), '_parent');
-    }
-  }
-
   componentDidMount() {
     this.componentDidUpdate();
   }
@@ -90,6 +79,13 @@ export class Questions extends React.PureComponent {
       typeFilter,
       createdFilter,
     } = this.props;
+
+    const origin = hasCommunitySingleWebsite(communityid);
+    const singleCommunityId = isSingleCommunityWebsite();
+
+    if (origin && singleCommunityId !== communityid) {
+      window.open(decodeURIComponent(origin), '_parent');
+    }
 
     // location changing
     if (prevProps && prevProps.match.params.communityid !== communityid) {

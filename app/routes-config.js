@@ -45,10 +45,17 @@ export const questions = (
   return !communityId ? `/` : `/questions/community/${communityId}/`;
 };
 
-export const questionView = (id, answerId) =>
-  answerId
+export const questionView = (id, answerId, communityId) => {
+  const origin = hasCommunitySingleWebsite(communityId);
+
+  if (origin && communityId !== singleCommId) {
+    return redirectTo(`${origin}/questions/${id}`);
+  }
+
+  return answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
+};
 
 export const questionEdit = questionId =>
   !singleCommId ? `/questions/${questionId}/edit` : `/${questionId}/edit`;
