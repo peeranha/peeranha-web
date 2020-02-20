@@ -13,6 +13,7 @@ import Button from 'components/Button/Outlined/InfoMedium';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
+import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 // eslint-disable-next-line no-unused-vars
 const B = Button.extend`
@@ -68,11 +69,13 @@ export const QuestionTitle = ({
           communityId={communityId}
           communities={communities}
         >
-          <QuestionCommunity
-            className="my-1"
-            communities={communities}
-            communityId={communityId}
-          />
+          {!isSingleCommunityWebsite() ? (
+            <QuestionCommunity
+              className="my-1"
+              communities={communities}
+              communityId={communityId}
+            />
+          ) : null}
         </TagList>
       </div>
     </Base>

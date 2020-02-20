@@ -11,6 +11,11 @@ import {
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 
+const userRedirect = where => id =>
+  isSingleCommunityWebsite()
+    ? redirectTo(`${process.env.APP_LOCATION}/users/${id}${where}`)
+    : `/users/${id}${where}`;
+
 const singleCommId = isSingleCommunityWebsite();
 
 export const home = () => `/about`;
@@ -18,14 +23,13 @@ export const home = () => `/about`;
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
 
-export const profileView = id => `/users/${id}`;
+export const profileView = userRedirect('');
 export const profileEdit = id => `/users/edit/${id}`;
 
-export const userQuestions = id => `/users/${id}#questions`;
-export const userAnswers = id => `/users/${id}#answers`;
-export const userSettings = id => `/users/${id}#settings`;
-export const userWallet = id => `/users/${id}/wallet`;
-
+export const userQuestions = userRedirect('#questions');
+export const userAnswers = userRedirect('#answers');
+export const userSettings = userRedirect('#settings');
+export const userWallet = userRedirect('/wallet');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = (

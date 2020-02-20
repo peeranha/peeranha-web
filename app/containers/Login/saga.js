@@ -64,6 +64,7 @@ import {
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
+import { initEosioSuccess } from '../EosioProvider/actions';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -108,6 +109,8 @@ export function* loginWithEmailWorker({ val }) {
       activeKey.private,
       eosAccountName,
     );
+
+    yield put(initEosioSuccess(eosService));
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
