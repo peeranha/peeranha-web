@@ -13,7 +13,10 @@ import {
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  followCommunity,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -212,6 +215,12 @@ export function* finishRegistrationWorker({ val }) {
     yield call(registerAccount, profile, eosService);
 
     yield call(getCurrentAccountWorker);
+
+    const singleCommunityId = isSingleCommunityWebsite();
+
+    if (singleCommunityId) {
+      yield call(followCommunity, eosService, singleCommunityId, accountName);
+    }
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {

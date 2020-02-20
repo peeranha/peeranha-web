@@ -14,7 +14,10 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  followCommunity,
+} from 'utils/communityManagement';
 
 import loginMessages from 'containers/Login/messages';
 
@@ -31,8 +34,6 @@ import {
   USER_IS_NOT_SELECTED,
   REFERRAL_CODE,
 } from 'containers/Login/constants';
-
-import { followHandlerWorker } from 'containers/FollowCommunityButton/saga';
 
 import {
   loginWithEmailWorker,
@@ -238,16 +239,6 @@ export function* iHaveEosAccountWorker({ val }) {
       },
     });
 
-    const singleCommId = isSingleCommunityWebsite();
-
-    if (singleCommId) {
-      yield call(followHandlerWorker, {
-        communityIdFilter: singleCommId,
-        isFollowed: false,
-        buttonId: '',
-      });
-    }
-
     yield put(iHaveEosAccountSuccess());
 
     yield call(createdHistory.push, routes.questions());
@@ -299,16 +290,6 @@ export function* idontHaveEosAccountWorker({ val }) {
       });
     }
 
-    const singleCommId = isSingleCommunityWebsite();
-
-    if (singleCommId) {
-      yield call(followHandlerWorker, {
-        communityIdFilter: singleCommId,
-        isFollowed: false,
-        buttonId: '',
-      });
-    }
-
     yield put(idontHaveEosAccountSuccess());
 
     yield call(
@@ -354,11 +335,7 @@ export function* signUpWithScatterWorker({ val }) {
     const singleCommId = isSingleCommunityWebsite();
 
     if (singleCommId) {
-      yield call(followHandlerWorker, {
-        communityIdFilter: singleCommId,
-        isFollowed: false,
-        buttonId: '',
-      });
+      yield call(followCommunity, eosService, singleCommId, accountName);
     }
 
     yield put(signUpWithScatterSuccess());
