@@ -78,7 +78,7 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { getCookie, setCookie } from 'utils/cookie';
+import { deleteCookie, getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
 import {
@@ -125,7 +125,7 @@ export function* getCurrentAccountWorker(initAccount) {
     }
 
     if (!prevProfileInfo) {
-      const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
+      const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
 
       if (profileLS && account === profileLS.user) {
         yield put(getUserProfileSuccess(profileLS));
@@ -148,7 +148,15 @@ export function* getCurrentAccountWorker(initAccount) {
       }
     }
 
-    localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
+    deleteCookie(PROFILE_INFO_LS);
+    setCookie({
+      name: PROFILE_INFO_LS,
+      value: JSON.stringify(profileInfo),
+      options: {
+        path: '/',
+        domain: '.peeranha.io',
+      },
+    });
 
     if (
       profileInfo &&
