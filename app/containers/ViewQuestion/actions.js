@@ -278,7 +278,7 @@ export function markAsAccepted(questionId, ev) {
   return {
     type: MARK_AS_ACCEPTED,
     questionId,
-    correctAnswerId: ev.currentTarget.dataset.answerid,
+    correctAnswerId: +ev.currentTarget.dataset.answerid,
     buttonId: ev.currentTarget.id,
     whoWasAccepted: ev.currentTarget.dataset.whowasaccepted,
   };

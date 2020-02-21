@@ -47,7 +47,7 @@ Seo.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  articleModifiedTime: PropTypes.string,
+  articleModifiedTime: PropTypes.instanceOf(Date),
   index: PropTypes.bool,
 };
 

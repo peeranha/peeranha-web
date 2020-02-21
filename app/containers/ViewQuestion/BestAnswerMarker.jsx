@@ -14,6 +14,7 @@ import messages from './messages';
 
 const Label = Button.extend`
   ${LabelStyles};
+  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
 `;
 
 export const BestAnswerMarker = ({
@@ -45,7 +46,7 @@ export const BestAnswerMarker = ({
       />
 
       {isTheLargestRating ? (
-        <Label className="mb-3" bg={BG_PRIMARY}>
+        <Label className="mb-3" bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
