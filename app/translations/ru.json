@@ -525,7 +525,7 @@
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
   "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
-    "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
+    "Отметить лучший ответ в своем вопросе и получи +{rating} очков рейтинга",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":

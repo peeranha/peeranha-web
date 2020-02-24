@@ -517,7 +517,7 @@
   "app.containers.ViewQuestion.areYouSure":
     "Are you sure you want to delete the item?",
   "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
-    "Mark the best answer to this question and earn +2 reputation points",
+    "Mark the best answer to this question and earn +{rating} reputation points",
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
     "Change type & Restore Rating",

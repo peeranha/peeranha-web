@@ -52,13 +52,16 @@ export const QuestionTitle = ({
 
         <MarkAnswerNotification
           className={
-            !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+            !correctAnswerId && isItWrittenByMe && answersNumber
               ? 'd-inline-flex'
               : 'd-none'
           }
         >
           <img className="mr-2" src={checkIcon} alt="icon" />
-          <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
+          <FormattedMessage
+            {...messages.markThisQuestionAndGetEarn}
+            values={{ rating: isGeneral ? 1 : 2 }}
+          />
         </MarkAnswerNotification>
 
         <H3>{title}</H3>
