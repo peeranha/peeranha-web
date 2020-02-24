@@ -215,7 +215,10 @@ function* updateRefer(user, eosService) {
       setCookie({
         name: receivedCookieName,
         value: true,
-        options: { domain: '.peeranha.io' },
+        options: {
+          domain: '.peeranha.io',
+          expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+        },
       });
       yield put(
         addToast({
@@ -228,7 +231,10 @@ function* updateRefer(user, eosService) {
     setCookie({
       name: noInviterCookieName,
       value: true,
-      options: { domain: '.peeranha.io' },
+      options: {
+        domain: '.peeranha.io',
+        expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+      },
     });
   }
 }
@@ -281,7 +287,10 @@ export function* updateAccWorker({ eos }) {
           setCookie({
             name: sentCookieName,
             value: true,
-            options: { domain: '.peeranha.io' },
+            options: {
+              domain: '.peeranha.io',
+              expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+            },
           });
         }
       }

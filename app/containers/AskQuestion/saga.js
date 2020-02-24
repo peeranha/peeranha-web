@@ -35,13 +35,14 @@ export function* postQuestionWorker({ val }) {
   try {
     const eosService = yield select(selectEos);
     const selectedAccount = yield select(makeSelectAccount());
+    const community = val[FORM_COMMUNITY];
 
     const questionData = {
       title: val[FORM_TITLE],
       content: val[FORM_CONTENT],
-      community: val[FORM_COMMUNITY],
       chosenTags: val[FORM_TAGS],
       type: +val[FORM_TYPE],
+      community,
     };
 
     yield call(postQuestion, selectedAccount, questionData, eosService);
@@ -56,7 +57,11 @@ export function* postQuestionWorker({ val }) {
 
     yield call(
       createdHistory.push,
-      routes.questionView(questionsPostedByUser[0].question_id),
+      routes.questionView(
+        questionsPostedByUser[0].question_id,
+        false,
+        community.id,
+      ),
     );
   } catch (err) {
     yield put(askQuestionError(err));

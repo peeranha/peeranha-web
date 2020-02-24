@@ -106,8 +106,11 @@ export default defineMessages({
   areYouSure: {
     id: 'app.containers.ViewQuestion.areYouSure',
   },
-  markThisQuestionAndGetEarn: {
-    id: 'app.containers.ViewQuestion.markThisQuestionAndGetEarn',
+  markExpertQuestionAndGetEarn: {
+    id: 'app.containers.ViewQuestion.markExpertQuestionAndGetEarn',
+  },
+  markGeneralQuestionAndGetEarn: {
+    id: 'app.containers.ViewQuestion.markGeneralQuestionAndGetEarn',
   },
   expertQuestion: {
     id: 'app.containers.ViewQuestion.expertQuestion',

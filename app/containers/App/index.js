@@ -86,7 +86,10 @@ const App = ({ location }) => {
         setCookie({
           name: REFERRAL_CODE_URI,
           value,
-          options: { domain: '.peeranha.io' },
+          options: {
+            domain: '.peeranha.io',
+            expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+          },
         });
       }
     }

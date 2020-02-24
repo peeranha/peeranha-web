@@ -59,8 +59,9 @@ export const QuestionTitle = ({
         >
           <img className="mr-2" src={checkIcon} alt="icon" />
           <FormattedMessage
-            {...messages.markThisQuestionAndGetEarn}
-            values={{ rating: isGeneral ? 1 : 2 }}
+            {...(isGeneral
+              ? messages.markGeneralQuestionAndGetEarn
+              : messages.markExpertQuestionAndGetEarn)}
           />
         </MarkAnswerNotification>
 
