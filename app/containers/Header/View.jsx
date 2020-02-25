@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import {
@@ -76,6 +77,14 @@ const Button = LargeButton.extend`
   }
 `;
 
+const Base = styled.div`
+  display: flex;
+  margin-left: auto;
+  height: 27px;
+  align-items: center;
+  justify-content: center;
+`;
+
 const View = ({
   showMenu,
   intl,
@@ -118,7 +127,7 @@ const View = ({
         <SingleModeSubHeader>
           <div className="container">
             <A to={routes.questions(null, true)}>
-              <img src={peeranhaLogo} alt="logo" />
+              <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
             </A>
 
             {profileInfo && (
@@ -132,9 +141,15 @@ const View = ({
             <A to={routes.communities()}>
               <FormattedMessage {...messages.allCommunities} />
             </A>
-            <A to={routes.users(true)}>
-              <FormattedMessage {...messages.allUsers} />
-            </A>
+            <Base>
+              {singleCommunityId ? (
+                <LoginProfile
+                  showLoginModalDispatch={showLoginModalDispatch}
+                  profileInfo={profileInfo}
+                  faqQuestions={faqQuestions}
+                />
+              ) : null}
+            </Base>
           </div>
         </SingleModeSubHeader>
       ) : null}
@@ -191,11 +206,13 @@ const View = ({
                 </Button>
               )}
 
-              <LoginProfile
-                showLoginModalDispatch={showLoginModalDispatch}
-                profileInfo={profileInfo}
-                faqQuestions={faqQuestions}
-              />
+              {!singleCommunityId ? (
+                <LoginProfile
+                  showLoginModalDispatch={showLoginModalDispatch}
+                  profileInfo={profileInfo}
+                  faqQuestions={faqQuestions}
+                />
+              ) : null}
             </Section>
           </div>
         </div>
