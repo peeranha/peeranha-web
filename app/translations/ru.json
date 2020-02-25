@@ -582,6 +582,7 @@
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",
+  "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",

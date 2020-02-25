@@ -16,6 +16,7 @@ import { EMAIL_FIELD } from './constants';
 
 import Header from './Header';
 import Footer from './Footer';
+import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailForm = ({
   handleSubmit,
@@ -39,6 +40,8 @@ const EmailForm = ({
       <Button className="w-100">
         <FormattedMessage {...signupMessages.continue} />
       </Button>
+
+      <IDontHaveAnAccount />
     </form>
 
     <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />

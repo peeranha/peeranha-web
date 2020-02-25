@@ -574,6 +574,7 @@
     "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
   "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
+  "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",

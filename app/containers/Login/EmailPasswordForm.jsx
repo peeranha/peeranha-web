@@ -26,6 +26,7 @@ import loginMessages from './messages';
 
 import Header from './Header';
 import Footer from './Footer';
+import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailPasswordForm = ({
   handleSubmit,
@@ -79,6 +80,8 @@ const EmailPasswordForm = ({
           <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>
+
+      <IDontHaveAnAccount />
     </form>
 
     <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />
