@@ -1,11 +1,18 @@
+/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import commonMessages from 'common-messages';
 
+import coinsIcon from 'images/coins.svg?inline';
+
+import SendTokens from 'containers/SendTokens';
 import Base from 'components/Base';
 
 import TextBlock from './TextBlock';
 import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
+import { B } from './QuestionTitle';
 
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
@@ -34,19 +41,33 @@ export const ContentBody = ({
   userInfo,
   isTheLargestRating,
   ids,
+  isItWrittenByMe,
 }) => (
   <Base position="bottom">
-    <BestAnswerMarker
-      answerId={answerId}
-      questionFrom={questionFrom}
-      account={account}
-      markAsAccepted={markAsAccepted}
-      markAsAcceptedLoading={markAsAcceptedLoading}
-      correctAnswerId={questionData.correct_answer_id}
-      whoWasAccepted={userInfo.user}
-      isTheLargestRating={isTheLargestRating}
-      ids={ids}
-    />
+    <div>
+      {!isItWrittenByMe &&
+        answerId !== 0 && (
+          <SendTokens form="tip-answer" account={userInfo.user}>
+            <B className="mr-3">
+              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <FormattedMessage {...commonMessages.tipAnswer} />
+            </B>
+          </SendTokens>
+        )}
+
+      <BestAnswerMarker
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        markAsAcceptedLoading={markAsAcceptedLoading}
+        correctAnswerId={questionData.correct_answer_id}
+        whoWasAccepted={userInfo.user}
+        isTheLargestRating={isTheLargestRating}
+        ids={ids}
+        isGeneral={questionData.isGeneral}
+      />
+    </div>
 
     <TextBlock content={content} />
 

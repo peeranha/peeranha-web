@@ -190,10 +190,14 @@ export async function sendTokens(eosService, info) {
     {
       from: info.from,
       to: info.to,
-      quantity: getNormalizedCurrency(info.quantity),
+      quantity: getNormalizedCurrency(
+        info.quantity,
+        info.precision,
+        info.symbol,
+      ),
       memo: '',
     },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    info.contractAccount,
     true,
   );
 }
@@ -212,14 +216,14 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
-export function getNormalizedCurrency(value) {
-  if (!Number(value)) {
+export function getNormalizedCurrency(quantity, precision, symbol) {
+  if (!Number(quantity)) {
     throw new ApplicationError(`Value has to be number`);
   }
 
-  const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
+  const num = getFormattedNum3(Number(quantity), precision).replace(/ /gim, '');
 
-  return `${num} ${APP_CURRENCY}`;
+  return `${num} ${symbol}`;
 }
 
 // TODO: test

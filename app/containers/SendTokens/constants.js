@@ -14,3 +14,5 @@ export const SEND_TOKENS_ERROR = 'app/SendTokens/SEND_TOKENS_ERROR';
 export const EOS_ACCOUNT_FIELD = 'app/SendTokens/EOS_ACCOUNT_FIELD';
 export const AMOUNT_FIELD = 'app/SendTokens/AMOUNT_FIELD';
 export const PASSWORD_FIELD = 'app/SendTokens/PASSWORD_FIELD';
+export const CURRENCY_FIELD = 'app/SendTokens/CURRENCY_FIELD';
+export const WALLET_FIELD = 'app/SendTokens/WALLET_FIELD';

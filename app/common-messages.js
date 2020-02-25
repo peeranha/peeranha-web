@@ -327,4 +327,16 @@ export default defineMessages({
   expertPopoverList: {
     id: 'app.common.expertPopoverList',
   },
+  chooseCrypto: {
+    id: 'app.common.chooseCrypto',
+  },
+  chooseWallet: {
+    id: 'app.common.chooseWallet',
+  },
+  tip: {
+    id: 'app.common.tip',
+  },
+  tipAnswer: {
+    id: 'app.common.tipAnswer',
+  },
 });

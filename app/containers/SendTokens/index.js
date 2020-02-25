@@ -1,9 +1,4 @@
-/**
- *
- * SendTokens
- *
- */
-
+/* eslint react/no-children-prop: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -21,6 +16,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectLoginData,
   makeSelectBalance,
+  makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -46,21 +42,32 @@ export const SendTokens = /* istanbul ignore next */ ({
   showSendTokensModalDispatch,
   loginData,
   balance,
-}) => (
-  <React.Fragment>
-    <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
-      <SendTokensForm
-        locale={locale}
-        sendTokens={sendTokensDispatch}
-        sendTokensProcessing={sendTokensProcessing}
-        loginData={loginData}
-        valueHasToBeLessThan={balance}
+  account,
+  form = 'send-tokens',
+}) => {
+  return (
+    <>
+      <Modal
+        show={showModal && showModal === form}
+        closeModal={hideSendTokensModalDispatch}
+        children={
+          <SendTokensForm
+            locale={locale}
+            sendTokens={sendTokensDispatch}
+            sendTokensProcessing={sendTokensProcessing}
+            loginData={loginData}
+            valueHasToBeLessThan={balance}
+            account={account}
+          />
+        }
       />
-    </Modal>
 
-    <Button onClick={showSendTokensModalDispatch}>{children}</Button>
-  </React.Fragment>
-);
+      <Button onClick={() => showSendTokensModalDispatch(form)}>
+        {children}
+      </Button>
+    </>
+  );
+};
 
 SendTokens.propTypes = {
   locale: PropTypes.string,

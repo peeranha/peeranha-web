@@ -1,0 +1,70 @@
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+import {
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_PRIMARY_RGB,
+} from 'style-constants';
+
+import { Wrapper } from 'components/FormFields/Wrapper';
+
+const Option = styled.div`
+  padding: 8px 14px;
+  height: 40px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+  img {
+    height: 20px;
+  }
+
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+
+  border: 1px solid
+    ${x => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
+  box-shadow: ${x =>
+    x.isCurrentValue ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
+`;
+
+const CurrencyField = ({ input, label, disabled, meta, options }) => {
+  if (!options) return null;
+
+  const value = input.value.toJS ? input.value.toJS() : input.value;
+
+  return (
+    <Wrapper
+      className="mb-0"
+      label={label}
+      meta={meta}
+      disabled={disabled}
+      id={input.name}
+    >
+      {options.map(option => (
+        <Option
+          onClick={() => input.onChange(option)}
+          isCurrentValue={value.name === option.name}
+          disabled={disabled}
+        >
+          <img src={option.logo} alt="logo" />
+          {option.name && <span className="ml-2">{option.name}</span>}
+        </Option>
+      ))}
+    </Wrapper>
+  );
+};
+
+CurrencyField.propTypes = {
+  input: PropTypes.object,
+  meta: PropTypes.object,
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
+  options: PropTypes.array,
+};
+
+export default CurrencyField;

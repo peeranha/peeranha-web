@@ -104,6 +104,10 @@
   "app.common.general": "General",
   "app.common.expert": "Expert",
   "app.common.tipQuestion": "Tip question",
+  "app.common.chooseCrypto": "Choose Crypto",
+  "app.common.chooseWallet": "Choose Wallet",
+  "app.common.tip": "Tip",
+  "app.common.tipAnswer": "Tip answer",
   "app.common.receivedReward": "You received referral reward",
   "app.common.expertPopoverLabel": "A question that asks one of the following:",
   "app.common.expertPopoverList": [

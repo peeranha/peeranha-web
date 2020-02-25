@@ -12,9 +12,10 @@ import {
   SEND_TOKENS_ERROR,
 } from './constants';
 
-export function showSendTokensModal() {
+export function showSendTokensModal(form) {
   return {
     type: SHOW_SENDTOKENS_MODAL,
+    form,
   };
 }
 

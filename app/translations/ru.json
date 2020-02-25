@@ -102,6 +102,10 @@
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
   "app.common.tipQuestion": "Чаевые",
+  "app.common.chooseCrypto": "Выберите валюту",
+  "app.common.chooseWallet": "Выберите кошелек",
+  "app.common.tip": "Вознаградить",
+  "app.common.tipAnswer": "Вознаградить ответ",
   "app.common.receivedReward": "Вы получили реферальную награду",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [

@@ -1,6 +1,7 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
+import { CURRENCIES, WALLETS } from 'wallet-config';
 import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
@@ -10,11 +11,15 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
+import Eosio from 'utils/eosio';
+
 import {
   SEND_TOKENS,
   EOS_ACCOUNT_FIELD,
   AMOUNT_FIELD,
   PASSWORD_FIELD,
+  CURRENCY_FIELD,
+  WALLET_FIELD,
 } from './constants';
 
 import {
@@ -28,13 +33,13 @@ export function* sendTokensWorker({ resetForm, val }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const eosService = yield select(selectEos);
+    const eosService = new Eosio();
     const profile = yield select(makeSelectProfileInfo());
 
     const password = val[PASSWORD_FIELD];
 
     // check password for users which logged with email
-    if (profile.loginData.email) {
+    if (val[WALLET_FIELD].name === WALLETS.PEERANHA.name) {
       const response = yield call(
         login,
         profile.loginData.email,
@@ -47,12 +52,20 @@ export function* sendTokensWorker({ resetForm, val }) {
           translations[webIntegrationErrors[response.errorCode].id],
         );
       }
+    } else if (
+      val[WALLET_FIELD].name === WALLETS.SQRL.name ||
+      val[WALLET_FIELD].name === WALLETS.SCATTER.name
+    ) {
+      yield call(eosService.initEosioWithScatter);
     }
 
     yield call(sendTokens, eosService, {
-      from: profile.user,
+      from: eosService.selectedAccount,
       to: val[EOS_ACCOUNT_FIELD],
       quantity: val[AMOUNT_FIELD],
+      precision: val[CURRENCY_FIELD].precision,
+      symbol: val[CURRENCY_FIELD].symbol,
+      contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
 
     yield put(sendTokensSuccess());

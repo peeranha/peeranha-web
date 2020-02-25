@@ -21,11 +21,11 @@ export const initialState = fromJS({
 });
 
 function sendTokensReducer(state = initialState, action) {
-  const { type, sendTokensError } = action;
+  const { type, sendTokensError, form } = action;
 
   switch (type) {
     case SHOW_SENDTOKENS_MODAL:
-      return state.set('showModal', true);
+      return state.set('showModal', form);
     case HIDE_SENDTOKENS_MODAL:
       return state.set('showModal', false);
 
