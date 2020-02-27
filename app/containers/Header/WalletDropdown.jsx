@@ -42,6 +42,10 @@ const ButtonStyled = styled.span`
   ${MediumSpecialImage}, ${SmallSpecialImage} {
     margin-right: 10px;
   }
+
+  > span {
+    margin-bottom: 1px;
+  }
 `;
 
 const IconBG = MediumSpecialImage.extend`

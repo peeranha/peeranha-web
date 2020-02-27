@@ -71,15 +71,12 @@ const Note = ({
   locale,
   id,
   answerId,
-  // eslint-disable-next-line camelcase
-  community_id,
 }) => (
   <A
     className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
     to={routes.questionView(
       id,
       postType === POST_TYPE_ANSWER ? answerId : null,
-      community_id,
     )}
   >
     <div className="d-flex align-items-center mb-to-sm-2">
@@ -154,7 +151,6 @@ Note.propTypes = {
   myPostTime: PropTypes.number,
   locale: PropTypes.string,
   answerId: PropTypes.number,
-  community_id: PropTypes.number,
   id: PropTypes.string,
 };
 

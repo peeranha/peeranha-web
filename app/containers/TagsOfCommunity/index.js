@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 
 import {
   getFollowedCommunities,
-  hasCommunitySingleWebsite,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 
@@ -67,20 +66,6 @@ export class TagsOfCommunity extends React.Component {
       loadMore: true,
     });
   };
-
-  componentDidUpdate() {
-    const {
-      match: {
-        params: { communityid },
-      },
-    } = this.props;
-    const origin = hasCommunitySingleWebsite(communityid);
-    const singleCommunityId = isSingleCommunityWebsite();
-
-    if (origin && singleCommunityId !== communityid) {
-      window.open(decodeURIComponent(`${origin}/tags`), '_parent');
-    }
-  }
 
   render() /* istanbul ignore next */ {
     const {

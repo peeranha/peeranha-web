@@ -47,10 +47,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
-import {
-  hasCommunitySingleWebsite,
-  isSingleCommunityWebsite,
-} from '../../utils/communityManagement';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ViewQuestion extends React.Component {
@@ -66,16 +62,7 @@ export class ViewQuestion extends React.Component {
 
   componentDidUpdate() {
     const { questionData, questionDataLoading } = this.props;
-    const commId = questionData ? questionData.community_id : null;
-    const origin = hasCommunitySingleWebsite(commId);
-    const singleCommunityId = isSingleCommunityWebsite();
 
-    if (origin && questionData.community_id !== singleCommunityId) {
-      window.open(
-        decodeURIComponent(`${origin}/questions/${questionData.id}`),
-        '_parent',
-      );
-    }
     if (questionData && !questionDataLoading) {
       window.isRendered = true;
     }

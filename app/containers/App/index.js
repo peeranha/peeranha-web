@@ -65,7 +65,6 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  RedirectTo,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -112,12 +111,6 @@ const App = ({ location }) => {
             <HomePage />
           </React.Suspense>
         </Route>
-
-        <Route
-          exact
-          path={routes.redirectTo(':to')}
-          render={props => <RedirectTo {...props} />}
-        />
 
         <Route
           exact

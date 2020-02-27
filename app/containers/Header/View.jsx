@@ -28,7 +28,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
-import A from 'components/A';
+import { ADefault } from 'components/A';
 
 import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
 import Section from './Section';
@@ -126,23 +126,25 @@ const View = ({
       {singleCommunityId ? (
         <SingleModeSubHeader>
           <div className="container">
-            <A to={routes.questions(null, true)}>
+            <ADefault href={`${process.env.APP_LOCATION}${routes.questions()}`}>
               <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
-            </A>
+            </ADefault>
 
             {profileInfo && (
-              <A to={routes.feed()}>
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
                 <FormattedMessage {...messages.myFeed} />
-              </A>
+              </ADefault>
             )}
-            <A to={routes.questions(null, true)}>
+            <ADefault href={process.env.APP_LOCATION}>
               <FormattedMessage {...messages.allQuestions} />
-            </A>
-            <A to={routes.communities()}>
+            </ADefault>
+            <ADefault
+              href={`${process.env.APP_LOCATION}${routes.communities()}`}
+            >
               <FormattedMessage {...messages.allCommunities} />
-            </A>
+            </ADefault>
             <Base>
-              {singleCommunityId ? (
+              {profileInfo ? (
                 <LoginProfile
                   showLoginModalDispatch={showLoginModalDispatch}
                   profileInfo={profileInfo}
@@ -206,7 +208,7 @@ const View = ({
                 </Button>
               )}
 
-              {!singleCommunityId ? (
+              {!singleCommunityId || !profileInfo ? (
                 <LoginProfile
                   showLoginModalDispatch={showLoginModalDispatch}
                   profileInfo={profileInfo}

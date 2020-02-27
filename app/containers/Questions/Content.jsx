@@ -140,7 +140,7 @@ const QuestionItem = ({
           </QuestionType>
         )}
         <p className="mb-1">
-          <A to={routes.questionView(id, null, community_id)}>
+          <A to={routes.questionView(id, null)}>
             <Span
               fontSize="24"
               lineHeight="31"
