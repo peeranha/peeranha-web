@@ -108,7 +108,7 @@ const Menu = ({ user }) => (
 const WalletDropdown = ({ user, balance }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
-    className="d-none d-md-flex"
+    className="d-none d-md-flex mr-3"
     button={<Button balance={balance} />}
     menu={<Menu user={user} />}
   />

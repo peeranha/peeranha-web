@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import { LEFT_MENU_ID } from './constants';
 
 import AdditionalLinks from './AdditionalLinks';
@@ -10,9 +12,14 @@ import MobileLinksInProfile from './MobileLinksInProfile';
 import MobileAdditionalLinks from './MobileAdditionalLinks';
 import MobileAutorizationButtons from './MobileAutorizationButtons';
 import { ViewStyled } from './Styles';
+import MobileSubHeader from './MobileSubHeader';
+
+const single = isSingleCommunityWebsite();
 
 const View = ({ profile, isMenuVisible, balance, showLoginModal }) => (
-  <ViewStyled id={LEFT_MENU_ID} isMenuVisible={isMenuVisible}>
+  <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
+    {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
+
     <MobileAutorizationButtons
       profile={profile}
       isMenuVisible={isMenuVisible}

@@ -34,7 +34,7 @@ const Info = styled.span`
 `;
 
 export const Button = ({ profileInfo, onClick }) => (
-  <span className={`d-flex ${single ? 'ml-3' : ''}`} onClick={onClick}>
+  <span className="d-flex" onClick={onClick}>
     {single ? (
       <SmallSpecialImage
         isBordered

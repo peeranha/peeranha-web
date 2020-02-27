@@ -55,6 +55,10 @@ export const SingleModeSubHeader = styled.div`
     margin-right: 25px;
     white-space: nowrap;
   }
+
+  @media only screen and (max-width: 576px) {
+    display: none;
+  }
 `;
 
 export const MainSubHeader = styled.div`
