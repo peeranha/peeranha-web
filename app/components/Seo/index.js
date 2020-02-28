@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 const Seo = ({
   title,
@@ -11,9 +14,10 @@ const Seo = ({
   articlePublishedTime,
   articleModifiedTime,
   index,
+  communityName,
 }) => (
   <Helmet>
-    <title>{title}</title>
+    <title>{`${communityName}${title} - Peeranha`}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
     <meta property="og:description" content={description} />
@@ -49,6 +53,18 @@ Seo.propTypes = {
   ]),
   articleModifiedTime: PropTypes.instanceOf(Date),
   index: PropTypes.bool,
+  communityName: PropTypes.string,
 };
 
-export default React.memo(Seo);
+export default React.memo(
+  connect(state => {
+    const single = isSingleCommunityWebsite();
+    const communities = selectCommunities()(state);
+    if (!single || !communities.length) {
+      return { communityName: '' };
+    }
+
+    const { name } = communities.find(({ id }) => id === single);
+    return { communityName: `${name} ` };
+  })(Seo),
+);

@@ -54,7 +54,7 @@ export const Header = ({
       className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <div className="mr-4">
+      <div className={`mr-${singleCommId ? 3 : 4}`}>
         <CommunitySelector
           isArrowed
           Button={Button}
@@ -67,15 +67,12 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
       </div>
-
-      {communityIdFilter > 0 && (
-        <div className="right-panel">
-          <FollowCommunityButton
-            communityIdFilter={singleCommId || communityIdFilter}
-            followedCommunities={followedCommunities}
-          />
-        </div>
-      )}
+      <div className="right-panel">
+        <FollowCommunityButton
+          communityIdFilter={singleCommId || communityIdFilter}
+          followedCommunities={followedCommunities}
+        />
+      </div>
     </Wrapper>
   );
 };

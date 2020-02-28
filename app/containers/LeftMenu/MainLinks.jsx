@@ -56,6 +56,8 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
+  margin-bottom: 50px;
+  padding-bottom: 25px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
   }

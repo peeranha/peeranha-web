@@ -8,7 +8,6 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-import RatingStatus from 'components/RatingStatus';
 import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 
 import Logout from 'containers/Logout';
@@ -39,9 +38,6 @@ export default React.memo(({ profile, isMenuVisible }) => {
         <div className="pb-2">
           <A to={routes.profileView(profile.user)}>
             <FormattedMessage {...messages.profile} />
-            <div className="ml-2" style={{ 'margin-top': '2px' }}>
-              <RatingStatus rating={profile.rating} size="sm" isRankOff />
-            </div>
           </A>
 
           <A to={routes.userQuestions(profile.user)}>

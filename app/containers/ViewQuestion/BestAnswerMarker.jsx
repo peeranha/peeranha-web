@@ -15,6 +15,9 @@ import messages from './messages';
 const Label = Button.extend`
   ${LabelStyles};
   pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
+  overflow: hidden;
+  height: 1%;
+  min-height: 32px;
 `;
 
 export const BestAnswerMarker = ({
