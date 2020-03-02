@@ -76,12 +76,16 @@ const EmailPasswordForm = ({
           }
         />
 
-        <TransparentButton onClick={showIForgotPasswordModal} type="button">
+        <TransparentButton
+          disabled={loginProcessing}
+          onClick={showIForgotPasswordModal}
+          type="button"
+        >
           <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>
 
-      <IDontHaveAnAccount />
+      <IDontHaveAnAccount disabled={loginProcessing} />
     </form>
 
     <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />

@@ -49,6 +49,10 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
+  const displaySubscribeButton =
+    singleCommId ||
+    (!isFeed && window.location.pathname !== routes.questions());
+
   return (
     <Wrapper
       className="d-flex flex-row justify-content-start mb-to-sm-0 mb-from-sm-3"
@@ -67,7 +71,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
       </div>
-      {!isFeed && window.location.pathname !== routes.questions() ? (
+      {displaySubscribeButton ? (
         <div className="right-panel m-0 align-self-center">
           <FollowCommunityButton
             communityIdFilter={singleCommId || communityIdFilter}

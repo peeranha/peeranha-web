@@ -28,7 +28,7 @@ const Base = styled.div`
   }
 `;
 
-const IDontHaveAnAccount = ({ hideLoginModalDispatch }) => (
+const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => (
   <Base>
     <FormattedMessage {...loginMessages.iDontHaveAnAccount} />
     <TransparentButton
@@ -36,6 +36,7 @@ const IDontHaveAnAccount = ({ hideLoginModalDispatch }) => (
         createdHistory.push(routes.signup.email.name);
         hideLoginModalDispatch();
       }}
+      disabled={disabled}
       type="button"
     >
       <FormattedMessage {...signupMessages.signUp} />
@@ -45,6 +46,7 @@ const IDontHaveAnAccount = ({ hideLoginModalDispatch }) => (
 
 IDontHaveAnAccount.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
+  disabled: PropTypes.func,
 };
 
 export default connect(

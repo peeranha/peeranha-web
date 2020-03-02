@@ -30,6 +30,7 @@ import {
   voteToDelete,
   changeQuestionType,
 } from 'utils/questionsManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
@@ -411,6 +412,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
 export function* getQuestionDataWorker({ questionId }) {
   try {
     const { eosService, account } = yield call(getParams);
+    const single = isSingleCommunityWebsite();
 
     const questionData = yield call(getQuestionData, {
       eosService,
@@ -418,6 +420,14 @@ export function* getQuestionDataWorker({ questionId }) {
       user: account,
     });
 
+    if (single && questionData.community_id !== single) {
+      window.open(
+        `${process.env.APP_LOCATION}${routes.questions(
+          questionData.community_id,
+        )}`,
+        '_parent',
+      );
+    }
     yield put(getQuestionDataSuccess(questionData));
   } catch (err) {
     yield put(getQuestionDataErr(err));

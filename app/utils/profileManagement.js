@@ -122,9 +122,11 @@ export class Fetcher {
       } else {
         itemsToReturn.items = this.itemArray;
         this.itemArray = [];
-        itemsToReturn.more = false;
       }
 
+      if (!itemsToReturn.items.length) {
+        itemsToReturn.more = false;
+      }
       return itemsToReturn;
     }
 
@@ -142,6 +144,9 @@ export class Fetcher {
     } else {
       itemsToReturn.items = this.itemArray;
       this.itemArray = [];
+    }
+
+    if (!itemsToReturn.items.length) {
       itemsToReturn.more = false;
     }
 

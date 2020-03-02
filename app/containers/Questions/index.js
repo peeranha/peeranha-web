@@ -15,6 +15,7 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -51,8 +52,10 @@ import messages from './messages';
 import Content from './Content';
 import Banner from './Banner';
 import Header from './Header';
+import NotFound from '../ErrorPage';
 
 const feed = routes.feed();
+const single = isSingleCommunityWebsite();
 
 /* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Questions extends React.PureComponent {
@@ -154,14 +157,16 @@ export class Questions extends React.PureComponent {
       communitiesLoading,
       account,
       profile,
-      match,
+      match: { params, path },
       redirectToAskQuestionPageDispatch,
       typeFilter,
       createdFilter,
       setTypeFilterDispatch,
     } = this.props;
 
-    return (
+    const display = !(single && path === routes.questions(':communityid'));
+
+    return display ? (
       <div>
         <Seo
           title={translationMessages[locale][messages.title.id]}
@@ -170,7 +175,7 @@ export class Questions extends React.PureComponent {
         />
 
         <Header
-          communityIdFilter={Number(match.params.communityid) || 0}
+          communityIdFilter={Number(params.communityid) || 0}
           followedCommunities={followedCommunities}
           parentPage={parentPage}
           typeFilter={typeFilter}
@@ -215,6 +220,8 @@ export class Questions extends React.PureComponent {
 
         {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
       </div>
+    ) : (
+      <NotFound />
     );
   }
 }

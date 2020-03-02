@@ -17,6 +17,7 @@ const CustomButton = styled.div`
   margin-top: 16px;
   color: ${TEXT_PRIMARY};
   font-size: 14px;
+  cursor: pointer;
 
   @media only screen and (max-width: 576px) {
     margin-top: 12px;

@@ -70,6 +70,8 @@ import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 
+const single = isSingleCommunityWebsite();
+
 const App = ({ location }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
@@ -118,7 +120,7 @@ const App = ({ location }) => {
           render={props => Wrapper(FullWidthPreloader, props)}
         />
 
-        {!isSingleCommunityWebsite() && (
+        {!single && (
           <Route
             exact
             path={routes.feed()}
@@ -126,14 +128,14 @@ const App = ({ location }) => {
           />
         )}
 
-        {!isSingleCommunityWebsite() && (
+        {!single && (
           <Route
             path={routes.feed(':communityid')}
             render={props => Wrapper(Feed, props)}
           />
         )}
 
-        {!isSingleCommunityWebsite() && (
+        {!single && (
           <Route
             exact
             path={routes.communities()}
@@ -141,17 +143,21 @@ const App = ({ location }) => {
           />
         )}
 
-        <Route
-          path={routes.communitiesCreate()}
-          render={props => Wrapper(CreateCommunity, props)}
-        />
+        {!single && (
+          <Route
+            path={routes.communitiesCreate()}
+            render={props => Wrapper(CreateCommunity, props)}
+          />
+        )}
 
-        <Route
-          path={routes.suggestedCommunities()}
-          render={props => Wrapper(SuggestedCommunities, props)}
-        />
+        {!single && (
+          <Route
+            path={routes.suggestedCommunities()}
+            render={props => Wrapper(SuggestedCommunities, props)}
+          />
+        )}
 
-        {!isSingleCommunityWebsite() && (
+        {!single && (
           <Route
             exact
             path={routes.tags()}
