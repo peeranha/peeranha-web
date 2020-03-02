@@ -6,10 +6,10 @@ import { FormattedMessage } from 'react-intl';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 
+import { TEXT_PRIMARY } from 'style-constants';
 import Button from './index';
 import messages from './messages';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
-import { TEXT_PRIMARY } from '../../style-constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -17,6 +17,10 @@ const CustomButton = styled.div`
   margin-top: 16px;
   color: ${TEXT_PRIMARY};
   font-size: 14px;
+
+  @media only screen and (max-width: 576px) {
+    margin-top: 12px;
+  }
 `;
 
 const B = ({ isFollowed, onClick, id, disabled }) =>

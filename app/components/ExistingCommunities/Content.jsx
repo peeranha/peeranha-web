@@ -27,10 +27,6 @@ import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
-
-  > :not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
-  }
 `;
 
 export const DescriptionBlock = styled.div`
@@ -92,76 +88,91 @@ const Content = ({ communities, sorting, locale, language }) => {
     <Base>
       {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
-        .map(({ value, avatar, name, id, description, tags, ...x }) => {
-          const origin = hasCommunitySingleWebsite(id);
-          return (
-            <BaseSpecial
-              className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
-              key={value}
-            >
-              <DescriptionBlock>
-                <MediumImageStyled
-                  className="bg-transparent"
-                  src={avatar}
-                  alt={name}
-                />
+        .map(
+          (
+            { value, avatar, name, id, description, tags, ...x },
+            index,
+            arr,
+          ) => {
+            const origin = hasCommunitySingleWebsite(id);
+            return (
+              <BaseSpecial
+                origin={origin}
+                last={arr.length - 1 === index}
+                first={!index}
+                className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+                key={value}
+              >
+                <DescriptionBlock>
+                  <MediumImageStyled
+                    className="bg-transparent"
+                    src={avatar}
+                    alt={name}
+                  />
 
-                <div>
-                  <P fontSize="24" lineHeight="31" bold>
-                    <ADefault href={origin || routes.questions(id)}>
-                      {name}
-                    </ADefault>
-                  </P>
-                  {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
+                  <div>
+                    <P fontSize="24" lineHeight="31" bold>
+                      <ADefault href={origin || routes.questions(id)}>
+                        {name}
+                      </ADefault>
+                    </P>
+                    {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
                   <FormattedMessage {...commonMessages[x.language]} />
                 </P> */}
-                  <P fontSize="14" lineHeight="18">
-                    {description}
-                  </P>
-                </div>
-              </DescriptionBlock>
+                    <P fontSize="14" lineHeight="18">
+                      {description}
+                    </P>
+                    <ADefault
+                      style={{ fontSize: '14px', color: TEXT_PRIMARY }}
+                      href={origin}
+                    >
+                      {origin ? origin.replace('https://', '') : ''}
+                    </ADefault>
+                  </div>
+                </DescriptionBlock>
 
-              <InfoBlock className="flex-wrap flex-sm-nowrap">
-                <Info>
-                  <P>{getFormattedNum2(x.users_subscribed)}</P>
-                  <P>
-                    <FormattedMessage {...commonMessages.usersShort} />
-                  </P>
-                </Info>
+                <InfoBlock className="flex-wrap flex-sm-nowrap">
+                  <Info>
+                    <P>{getFormattedNum2(x.users_subscribed)}</P>
+                    <P>
+                      <FormattedMessage {...commonMessages.usersShort} />
+                    </P>
+                  </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(x.questions_asked)}</P>
-                  <ADefault href={routes.questions(id)}>
-                    <FormattedMessage {...commonMessages.questions} />
-                  </ADefault>
-                </Info>
+                  <Info>
+                    <P>{getFormattedNum2(x.questions_asked)}</P>
+                    <ADefault href={routes.questions(id)}>
+                      <FormattedMessage {...commonMessages.questions} />
+                    </ADefault>
+                  </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(x.answers_given)}</P>
-                  <P>
-                    <FormattedMessage {...commonMessages.answers} />
-                  </P>
-                </Info>
+                  <Info>
+                    <P>{getFormattedNum2(x.answers_given)}</P>
+                    <P>
+                      <FormattedMessage {...commonMessages.answers} />
+                    </P>
+                  </Info>
 
-                <Info>
-                  <P>{getFormattedNum2(tags.length)}</P>
-                  <A to={routes.communityTags(id)}>
-                    <FormattedMessage {...commonMessages.tags} />
-                  </A>
-                </Info>
+                  <Info>
+                    <P>{getFormattedNum2(tags.length)}</P>
+                    <A to={routes.communityTags(id)}>
+                      <FormattedMessage {...commonMessages.tags} />
+                    </A>
+                  </Info>
 
-                <Info>
-                  <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
-                  <P>
-                    <FormattedMessage {...commonMessages.age} />
-                  </P>
-                </Info>
+                  <Info>
+                    <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
+                    <P>
+                      <FormattedMessage {...commonMessages.age} />
+                    </P>
+                  </Info>
 
-                <FollowCommunityButton communityIdFilter={id} />
-              </InfoBlock>
-            </BaseSpecial>
-          );
-        })}
+                  <FollowCommunityButton communityIdFilter={id} />
+                </InfoBlock>
+              </BaseSpecial>
+            );
+          },
+        )}
     </Base>
   );
 };

@@ -51,7 +51,7 @@ export const Header = ({
 
   return (
     <Wrapper
-      className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
+      className="d-flex flex-row justify-content-start mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
       <div className={`mr-${singleCommId ? 3 : 4}`}>
@@ -67,12 +67,14 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
       </div>
-      <div className="right-panel">
-        <FollowCommunityButton
-          communityIdFilter={singleCommId || communityIdFilter}
-          followedCommunities={followedCommunities}
-        />
-      </div>
+      {!isFeed && window.location.pathname !== routes.questions() ? (
+        <div className="right-panel m-0 align-self-center">
+          <FollowCommunityButton
+            communityIdFilter={singleCommId || communityIdFilter}
+            followedCommunities={followedCommunities}
+          />
+        </div>
+      ) : null}
     </Wrapper>
   );
 };
