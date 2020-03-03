@@ -12,6 +12,7 @@ import {
 
 import { logError } from 'utils/web_integration/src/logger/index';
 import { ENDPOINTS_LIST } from 'utils/constants';
+import { getCookie } from 'utils/cookie';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -113,10 +114,7 @@ export function* loggerWorker(error) {
     }
 
     const endpointsData = JSON.parse(localStorage.getItem(ENDPOINTS_LIST));
-    const loginData = JSON.parse(
-      sessionStorage.getItem(AUTOLOGIN_DATA) ||
-        localStorage.getItem(AUTOLOGIN_DATA),
-    );
+    const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
     yield call(logError, {
       user: user || 'none',

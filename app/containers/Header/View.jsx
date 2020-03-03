@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import {
@@ -27,7 +28,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
-import A from 'components/A';
+import { ADefault } from 'components/A';
 
 import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
 import Section from './Section';
@@ -76,6 +77,14 @@ const Button = LargeButton.extend`
   }
 `;
 
+const Base = styled.div`
+  display: flex;
+  margin-left: auto;
+  height: 27px;
+  align-items: center;
+  justify-content: center;
+`;
+
 const View = ({
   showMenu,
   intl,
@@ -114,30 +123,38 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {singleCommunityId && (
+      {singleCommunityId ? (
         <SingleModeSubHeader>
           <div className="container">
-            <A to={routes.questions(null, true)}>
-              <img src={peeranhaLogo} alt="logo" />
-            </A>
+            <ADefault href={`${process.env.APP_LOCATION}${routes.questions()}`}>
+              <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
+            </ADefault>
 
             {profileInfo && (
-              <A to={routes.feed()}>
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
                 <FormattedMessage {...messages.myFeed} />
-              </A>
+              </ADefault>
             )}
-            <A to={routes.questions(null, true)}>
+            <ADefault href={process.env.APP_LOCATION}>
               <FormattedMessage {...messages.allQuestions} />
-            </A>
-            <A to={routes.communities()}>
+            </ADefault>
+            <ADefault
+              href={`${process.env.APP_LOCATION}${routes.communities()}`}
+            >
               <FormattedMessage {...messages.allCommunities} />
-            </A>
-            <A to={routes.users(true)}>
-              <FormattedMessage {...messages.allUsers} />
-            </A>
+            </ADefault>
+            <Base>
+              {profileInfo ? (
+                <LoginProfile
+                  showLoginModalDispatch={showLoginModalDispatch}
+                  profileInfo={profileInfo}
+                  faqQuestions={faqQuestions}
+                />
+              ) : null}
+            </Base>
           </div>
         </SingleModeSubHeader>
-      )}
+      ) : null}
 
       <MainSubHeader>
         <div className="container">
@@ -191,11 +208,13 @@ const View = ({
                 </Button>
               )}
 
-              <LoginProfile
-                showLoginModalDispatch={showLoginModalDispatch}
-                profileInfo={profileInfo}
-                faqQuestions={faqQuestions}
-              />
+              {!singleCommunityId || !profileInfo ? (
+                <LoginProfile
+                  showLoginModalDispatch={showLoginModalDispatch}
+                  profileInfo={profileInfo}
+                  faqQuestions={faqQuestions}
+                />
+              ) : null}
             </Section>
           </div>
         </div>

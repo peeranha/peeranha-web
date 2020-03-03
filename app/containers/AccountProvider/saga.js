@@ -117,10 +117,7 @@ export function* getCurrentAccountWorker(initAccount) {
       : call(eosService.getSelectedAccount);
 
     if (!account) {
-      const autoLoginData = JSON.parse(
-        sessionStorage.getItem(AUTOLOGIN_DATA) ||
-          localStorage.getItem(AUTOLOGIN_DATA),
-      );
+      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
       if (autoLoginData) {
         account = autoLoginData.eosAccountName;
@@ -128,7 +125,7 @@ export function* getCurrentAccountWorker(initAccount) {
     }
 
     if (!prevProfileInfo) {
-      const profileLS = JSON.parse(localStorage.getItem(PROFILE_INFO_LS));
+      const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
 
       if (profileLS && account === profileLS.user) {
         yield put(getUserProfileSuccess(profileLS));
@@ -151,21 +148,14 @@ export function* getCurrentAccountWorker(initAccount) {
       }
     }
 
-    localStorage.setItem(PROFILE_INFO_LS, JSON.stringify(profileInfo));
-
-    if (
-      profileInfo &&
-      (process.env.NODE_ENV !== 'production' ||
-        (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV))
-    ) {
-      console.log(
-        JSON.stringify({
-          user: profileInfo.user,
-          energy: profileInfo.energy,
-          rating: profileInfo.rating,
-        }),
-      );
-    }
+    setCookie({
+      name: PROFILE_INFO_LS,
+      value: JSON.stringify(profileInfo),
+      options: {
+        path: '/',
+        allowSubdomains: true,
+      },
+    });
 
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
@@ -207,7 +197,14 @@ function* updateRefer(user, eosService) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
     if (reward) {
       const locale = yield select(makeSelectLocale());
-      setCookie({ name: receivedCookieName, value: true });
+      setCookie({
+        name: receivedCookieName,
+        value: true,
+        options: {
+          allowSubdomains: true,
+          neverExpires: true,
+        },
+      });
       yield put(
         addToast({
           type: 'success',
@@ -219,6 +216,10 @@ function* updateRefer(user, eosService) {
     setCookie({
       name: noInviterCookieName,
       value: true,
+      options: {
+        allowSubdomains: true,
+        neverExpires: true,
+      },
     });
   }
 }
@@ -268,7 +269,14 @@ export function* updateAccWorker({ eos }) {
         if (err instanceof Error) {
           yield put(rewardReferErr(err));
         } else {
-          setCookie({ name: sentCookieName, value: true });
+          setCookie({
+            name: sentCookieName,
+            value: true,
+            options: {
+              allowSubdomains: true,
+              neverExpires: true,
+            },
+          });
         }
       }
 

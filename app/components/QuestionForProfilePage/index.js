@@ -15,13 +15,14 @@ import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
-import { AProps } from 'components/A';
+import { AProps, APropsDefault } from 'components/A';
 import QuestionType from 'components/Labels/QuestionType';
 
 import {
@@ -30,6 +31,8 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
+
+const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
@@ -130,60 +133,75 @@ export const QuestionForProfilePage = ({
   route,
   isGeneral,
   bordered,
-}) => (
-  <BaseStyled bordered={bordered && !isGeneral}>
-    {!isGeneral && (
-      <QuestionType size="sm">
-        <FormattedMessage {...commonMessages.expert} />
-      </QuestionType>
-    )}
-    <ContentContainer>
-      <div className="d-flex flex-row flex-md-column">
-        <Badge bold>{myPostRating}</Badge>
+}) => {
+  let Link = AProps;
+  let href = route;
+  if (single && single !== community_id) {
+    Link = APropsDefault;
+    href = `${process.env.APP_LOCATION}${route}`;
+  }
+  return (
+    <BaseStyled bordered={bordered && !isGeneral}>
+      {!isGeneral && (
+        <QuestionType size="sm">
+          <FormattedMessage {...commonMessages.expert} />
+        </QuestionType>
+      )}
+      <ContentContainer>
+        <div className="d-flex flex-row flex-md-column">
+          <Badge bold>{myPostRating}</Badge>
 
-        <AcceptedQuestionBadge
-          acceptedAnswer={acceptedAnswer}
-          postType={postType}
-          isMyAnswerAccepted={isMyAnswerAccepted}
-        />
-
-        <TopCommunityBadge
-          postType={postType}
-          isTheLargestRating={isTheLargestRating}
-        />
-      </div>
-
-      <div className="d-flex flex-column flex-grow-1">
-        <AProps to={route} fontSize="24" lineHeight="28" mobileFS="18" bold>
-          {title}
-        </AProps>
-
-        <p className="d-flex align-items-center my-1">
-          <Span
-            className="text-capitalize mr-3"
-            fontSize="14"
-            color={TEXT_SECONDARY}
-          >
-            <FormattedMessage
-              {...commonMessages.askedWhen}
-              values={{
-                when: getFormattedDate(
-                  myPostTime,
-                  locale,
-                  MONTH_3LETTERS__DAY_TIME,
-                ),
-              }}
-            />
-          </Span>
-          <QuestionCommunity
-            communities={communities}
-            communityId={community_id}
+          <AcceptedQuestionBadge
+            acceptedAnswer={acceptedAnswer}
+            postType={postType}
+            isMyAnswerAccepted={isMyAnswerAccepted}
           />
-        </p>
-      </div>
-    </ContentContainer>
-  </BaseStyled>
-);
+
+          <TopCommunityBadge
+            postType={postType}
+            isTheLargestRating={isTheLargestRating}
+          />
+        </div>
+
+        <div className="d-flex flex-column flex-grow-1">
+          <Link
+            to={href}
+            href={href}
+            fontSize="24"
+            lineHeight="28"
+            mobileFS="18"
+            bold
+          >
+            {title}
+          </Link>
+
+          <p className="d-flex align-items-center my-1">
+            <Span
+              className="text-capitalize mr-3"
+              fontSize="14"
+              color={TEXT_SECONDARY}
+            >
+              <FormattedMessage
+                {...commonMessages.askedWhen}
+                values={{
+                  when: getFormattedDate(
+                    myPostTime,
+                    locale,
+                    MONTH_3LETTERS__DAY_TIME,
+                  ),
+                }}
+              />
+            </Span>
+            <QuestionCommunity
+              communities={communities}
+              communityId={community_id}
+            />
+          </p>
+        </div>
+      </ContentContainer>
+    </BaseStyled>
+  );
+};
 
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,

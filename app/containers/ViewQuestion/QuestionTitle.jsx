@@ -13,6 +13,7 @@ import Button from 'components/Button/Outlined/InfoMedium';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
+import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 // eslint-disable-next-line no-unused-vars
 const B = Button.extend`
@@ -51,13 +52,17 @@ export const QuestionTitle = ({
 
         <MarkAnswerNotification
           className={
-            !correctAnswerId && isItWrittenByMe && answersNumber && !isGeneral
+            !correctAnswerId && isItWrittenByMe && answersNumber
               ? 'd-inline-flex'
               : 'd-none'
           }
         >
           <img className="mr-2" src={checkIcon} alt="icon" />
-          <FormattedMessage {...messages.markThisQuestionAndGetEarn} />
+          <FormattedMessage
+            {...(isGeneral
+              ? messages.markGeneralQuestionAndGetEarn
+              : messages.markExpertQuestionAndGetEarn)}
+          />
         </MarkAnswerNotification>
 
         <H3>{title}</H3>
@@ -68,11 +73,13 @@ export const QuestionTitle = ({
           communityId={communityId}
           communities={communities}
         >
-          <QuestionCommunity
-            className="my-1"
-            communities={communities}
-            communityId={communityId}
-          />
+          {!isSingleCommunityWebsite() ? (
+            <QuestionCommunity
+              className="my-1"
+              communities={communities}
+              communityId={communityId}
+            />
+          ) : null}
         </TagList>
       </div>
     </Base>

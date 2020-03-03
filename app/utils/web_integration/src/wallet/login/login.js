@@ -15,6 +15,7 @@ const {
 } = require('../../util/aws-connector');
 
 const { AUTOLOGIN_DATA } = require('../../../../../containers/Login/constants');
+const { setCookie, getCookie } = require('../../../../cookie');
 
 async function login(email, password, rememberMe = false) {
   const { authKey, encryptionKey } = buildEncryptionKeys(password);
@@ -67,16 +68,26 @@ async function login(email, password, rememberMe = false) {
     hasOwnerEosKey,
   };
 
-  window.sessionStorage.setItem(
-    AUTOLOGIN_DATA,
-    JSON.stringify(peeranhaAutoLogin),
-  );
-
   if (rememberMe) {
-    window.localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify(peeranhaAutoLogin),
-    );
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify(peeranhaAutoLogin),
+      options: {
+        path: '/',
+        allowSubdomains: true,
+        neverExpires: true,
+      },
+    });
+  } else {
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify(peeranhaAutoLogin),
+      options: {
+        path: '/',
+        allowSubdomains: true,
+        expires: 0,
+      },
+    });
   }
 
   return {
@@ -86,10 +97,7 @@ async function login(email, password, rememberMe = false) {
 }
 
 async function autoLogin() {
-  const peeranhaAutoLogin = JSON.parse(
-    window.sessionStorage.getItem(AUTOLOGIN_DATA) ||
-      window.localStorage.getItem(AUTOLOGIN_DATA),
-  );
+  const peeranhaAutoLogin = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
   if (!(peeranhaAutoLogin && peeranhaAutoLogin.authToken)) {
     return {

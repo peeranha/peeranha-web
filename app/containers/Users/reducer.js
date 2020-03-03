@@ -1,6 +1,11 @@
 import { fromJS } from 'immutable';
 
-import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './constants';
+import {
+  GET_USERS,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR,
+  CHANGE_SORTING_TYPE,
+} from './constants';
 
 export const initialState = fromJS({
   users: [],
@@ -32,6 +37,9 @@ function usersReducer(state = initialState, action) {
       return state
         .set('getUsersLoading', false)
         .set('getUsersError', getUsersError);
+
+    case CHANGE_SORTING_TYPE:
+      return state.set('sorting', sorting || state.get('sorting'));
 
     default:
       return state;

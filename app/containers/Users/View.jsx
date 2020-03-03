@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _sortBy from 'lodash/sortBy';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
@@ -28,14 +29,15 @@ const View = ({
     <Content
       getMoreUsers={getMoreUsers}
       inputFilter={inputFilter}
-      users={users}
+      users={sorting === 'rating' ? _sortBy(users, sorting).reverse() : users}
+      sorting={sorting}
       usersLoading={usersLoading}
       searchText={searchText}
       isLastFetch={isLastFetch}
       locale={locale}
     />
 
-    {usersLoading && <LoadingIndicator />}
+    {usersLoading && !(userCount === users.length) && <LoadingIndicator />}
   </div>
 );
 

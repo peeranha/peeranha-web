@@ -1,17 +1,24 @@
 import OntLogo from 'images/ont.svg?inline';
 
-const PROD_ONT_ID = 10001111;
-
-const TEST_BLOCKCHAIN_ID = 2;
-
-export default {
-  [PROD_ONT_ID]: {
-    src: OntLogo,
-    origin: 'http://localhost:3001',
+const communitiesConfig = {
+  prod: {
+    2: {
+      origin: 'https://ontology.peeranha.io',
+      src: OntLogo,
+    },
   },
-
-  [TEST_BLOCKCHAIN_ID]: {
-    src: OntLogo,
-    origin: 'https://blockchain-test.peeranha.io',
+  test: {
+    2: {
+      origin: 'https://blockchain-test.peeranha.io',
+      src: OntLogo,
+    },
+  },
+  dev: {
+    2: {
+      origin: 'http://localhost:13000',
+      src: OntLogo,
+    },
   },
 };
+
+export default communitiesConfig[process.env.ENV];

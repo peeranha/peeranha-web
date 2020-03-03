@@ -17,4 +17,7 @@ export default defineMessages({
   [UNFOLLOW_BUTTON]: {
     id: 'app.containers.FollowCommunityButton.unsubscribe',
   },
+  subscribeToThisCommunity: {
+    id: 'app.containers.FollowCommunityButton.subscribeToThisCommunity',
+  },
 });

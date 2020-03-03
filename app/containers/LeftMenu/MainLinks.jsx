@@ -56,20 +56,21 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
+  margin-bottom: 50px;
+  padding-bottom: 25px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
   }
 `;
 
-const singleCommId = isSingleCommunityWebsite();
-
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const route = pathname.split('/').filter(x => x)[0];
+  const singleCommId = +isSingleCommunityWebsite();
 
   return (
     <Box>
-      {!isSingleCommunityWebsite() &&
+      {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
             <Icon className="mr-2" width="24" icon={myFeedIcon} />

@@ -46,6 +46,9 @@ const Label = AcceptAnswerView.extend`
   border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
   color: ${x => (!x.value ? TEXT_DARK : TEXT_LIGHT)};
   padding: ${x => (!x.value ? '0 10px 0 5px' : '0px 10px')};
+  overflow: hidden;
+  height: 1%;
+  min-height: 32px;
 
   ${Icon} {
     background-color: ${BG_LIGHT};
@@ -65,10 +68,7 @@ export const MarkAsAcceptedIcon = ({
   disabled,
   whoWasAccepted,
   className,
-  isGeneral,
 }) => {
-  if (isGeneral) return null;
-
   // There is accepted answer && I am not question's author
   if (
     correctAnswerId === answerId &&
@@ -120,7 +120,6 @@ MarkAsAcceptedIcon.propTypes = {
   className: PropTypes.string,
   markAsAcceptedLoading: PropTypes.bool,
   disabled: PropTypes.bool,
-  isGeneral: PropTypes.bool,
 };
 
 export default React.memo(MarkAsAcceptedIcon);

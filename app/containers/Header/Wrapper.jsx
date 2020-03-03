@@ -43,17 +43,21 @@ export const SingleModeSubHeader = styled.div`
     }
   }
 
-  img {
+  #peeranha-logo {
     width: 100px;
     margin-top: 10px;
   }
 
-  a {
+  div > a {
     font-size: 14px;
     line-height: 18px;
     color: ${TEXT_SECONDARY};
     margin-right: 25px;
     white-space: nowrap;
+  }
+
+  @media only screen and (max-width: 576px) {
+    display: none;
   }
 `;
 

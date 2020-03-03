@@ -79,7 +79,6 @@ const ContentHeader = props => {
     ids,
     votingStatus: { isVotedToDelete },
     editItem,
-    questionId,
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
@@ -151,7 +150,9 @@ const ContentHeader = props => {
             show={isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${questionId}-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${
+              buttonParams.questionId
+            }-${commentId}`}
           >
             <img src={pencilIcon} alt="icon" />
             <FormattedMessage {...messages.editButton} />

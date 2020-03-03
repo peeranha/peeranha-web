@@ -22,15 +22,18 @@ import { TEXT_PRIMARY } from 'style-constants';
 
 import notFoundImage from 'images/404.svg?inline';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import A from 'components/A';
+import A, { ADefault } from 'components/A';
 import P from 'components/P';
 import Seo from 'components/Seo';
 import Span from 'components/Span';
 import Base from 'components/Base/BaseRounded';
 
 import messages from './messages';
+
+const single = isSingleCommunityWebsite();
 
 export const Box = Base.extend`
   text-align: center;
@@ -89,11 +92,16 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => (
             id={messages.browseOurPopular.id}
             values={{
               value: (
-                <A className="text-lowercase" to={routes.communities()}>
+                <ADefault
+                  href={`${
+                    single ? process.env.APP_LOCATION : ''
+                  }${routes.communities()}`}
+                  className="text-lowercase"
+                >
                   <Span color={TEXT_PRIMARY}>
                     <FormattedMessage {...commonMessages.communities} />
                   </Span>
-                </A>
+                </ADefault>
               ),
             }}
           />

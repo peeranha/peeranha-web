@@ -3,6 +3,7 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
 import EosioService from 'utils/eosio';
+import { getCookie } from 'utils/cookie';
 import { ApplicationError } from 'utils/errors';
 import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
@@ -33,11 +34,7 @@ export function* initEosioWorker({
   selectedAccount = null,
 }) {
   try {
-    const autoLoginData = JSON.parse(
-      sessionStorage.getItem(AUTOLOGIN_DATA) ||
-        localStorage.getItem(AUTOLOGIN_DATA),
-    );
-
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     const eosService = new EosioService();
 
     if ((autoLoginData && autoLoginData.loginWithScatter) || initWithScatter) {

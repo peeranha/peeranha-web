@@ -25,6 +25,7 @@ import { parseTableRows, createPushActionBody } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
+import { getCookie } from './cookie';
 
 if (!window.TextDecoder) {
   window.TextDecoder = TextDecoder;
@@ -137,12 +138,9 @@ class EosioService {
   };
 
   getSelectedAccount = async () => {
-    const autologinData = JSON.parse(
-      sessionStorage.getItem(AUTOLOGIN_DATA) ||
-        localStorage.getItem(AUTOLOGIN_DATA),
-    );
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
-    if (!autologinData) return null;
+    if (!autoLoginData) return null;
 
     return this.selectedAccount;
   };

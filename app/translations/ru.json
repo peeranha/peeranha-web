@@ -2,6 +2,7 @@
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Профиль",
+  "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",
   "app.common.answers": "Ответы",
   "app.common.posts": "Посты",
@@ -21,7 +22,6 @@
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.myFeed": "Мой фид",
-  "app.common.allUsers": "Все пользователи",
   "app.common.users": "Пользователи",
   "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
@@ -188,6 +188,8 @@
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
   "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Подписаться на это сообщество",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
@@ -524,8 +526,10 @@
     "Показать больше ответов {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
-  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
-    "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
+  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn":
+    "Отметить лучший ответ в своем вопросе и получи +2 очка рейтинга",
+  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
+    "Отметить лучший ответ в своем вопросе и получи +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
@@ -580,6 +584,7 @@
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",
+  "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",

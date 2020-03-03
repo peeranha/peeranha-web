@@ -15,6 +15,7 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -27,7 +28,10 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
-import { selectCommunities, selectCommunitiesLoading } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectCommunitiesLoading,
+} from 'containers/DataCacheProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
@@ -48,8 +52,10 @@ import messages from './messages';
 import Content from './Content';
 import Banner from './Banner';
 import Header from './Header';
+import NotFound from '../ErrorPage';
 
 const feed = routes.feed();
+const single = isSingleCommunityWebsite();
 
 /* eslint react/prefer-stateless-function: 0, indent: 0 */
 export class Questions extends React.PureComponent {
@@ -62,10 +68,19 @@ export class Questions extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { followedCommunities, parentPage, eosService, match, typeFilter, createdFilter } = this.props;
+    const {
+      followedCommunities,
+      parentPage,
+      eosService,
+      match: {
+        params: { communityid },
+      },
+      typeFilter,
+      createdFilter,
+    } = this.props;
 
     // location changing
-    if (prevProps && prevProps.match.params.communityid !== match.params.communityid) {
+    if (prevProps && prevProps.match.params.communityid !== communityid) {
       this.fetcher = null;
     }
 
@@ -74,7 +89,10 @@ export class Questions extends React.PureComponent {
       (prevProps && createdFilter !== prevProps.createdFilter) ||
       (!this.fetcher &&
         eosService &&
-        ((parentPage === feed && followedCommunities && followedCommunities.length > 0) || parentPage !== feed))
+        ((parentPage === feed &&
+          followedCommunities &&
+          followedCommunities.length > 0) ||
+          parentPage !== feed))
     ) {
       this.getInitQuestions();
     }
@@ -139,14 +157,16 @@ export class Questions extends React.PureComponent {
       communitiesLoading,
       account,
       profile,
-      match,
+      match: { params, path },
       redirectToAskQuestionPageDispatch,
       typeFilter,
       createdFilter,
       setTypeFilterDispatch,
     } = this.props;
 
-    return (
+    const display = !(single && path === routes.questions(':communityid'));
+
+    return display ? (
       <div>
         <Seo
           title={translationMessages[locale][messages.title.id]}
@@ -155,7 +175,7 @@ export class Questions extends React.PureComponent {
         />
 
         <Header
-          communityIdFilter={Number(match.params.communityid) || 0}
+          communityIdFilter={Number(params.communityid) || 0}
           followedCommunities={followedCommunities}
           parentPage={parentPage}
           typeFilter={typeFilter}
@@ -190,11 +210,18 @@ export class Questions extends React.PureComponent {
         )}
 
         {parentPage === feed && (
-          <TopCommunities userId={account} account={account} communities={communities} profile={profile} />
+          <TopCommunities
+            userId={account}
+            account={account}
+            communities={communities}
+            profile={profile}
+          />
         )}
 
         {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
       </div>
+    ) : (
+      <NotFound />
     );
   }
 }
@@ -216,6 +243,9 @@ Questions.propTypes = {
   redirectToAskQuestionPageDispatch: PropTypes.func,
   eosService: PropTypes.object,
   profile: PropTypes.object,
+  typeFilter: PropTypes.any,
+  createdFilter: PropTypes.any,
+  setTypeFilterDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -233,7 +263,10 @@ const mapStateToProps = createStructuredSelector({
   createdFilter: questionsSelector.selectCreatedFilter(),
   isLastFetch: questionsSelector.selectIsLastFetch(),
   questionsList: (state, props) =>
-    questionsSelector.selectQuestions(props.parentPage, Number(props.match.params.communityid))(state),
+    questionsSelector.selectQuestions(
+      props.parentPage,
+      Number(props.match.params.communityid),
+    )(state),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -242,7 +275,10 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    redirectToAskQuestionPageDispatch: bindActionCreators(redirectToAskQuestionPage, dispatch),
+    redirectToAskQuestionPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
   };
 }
 

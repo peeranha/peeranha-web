@@ -46,7 +46,6 @@ export const ContentBody = ({
       whoWasAccepted={userInfo.user}
       isTheLargestRating={isTheLargestRating}
       ids={ids}
-      isGeneral={questionData.isGeneral}
     />
 
     <TextBlock content={content} />

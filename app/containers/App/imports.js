@@ -10,7 +10,6 @@ import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDo
 import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
 import ForgotPassword from 'containers/ForgotPassword';
-import RedirectTo from 'components/Redirect';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
 
@@ -87,5 +86,4 @@ export {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  RedirectTo,
 };

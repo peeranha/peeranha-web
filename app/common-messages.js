@@ -15,6 +15,9 @@ export default defineMessages({
   profile: {
     id: 'app.common.profile',
   },
+  myCommunities: {
+    id: 'app.common.myCommunities',
+  },
   questions: {
     id: 'app.common.questions',
   },
@@ -62,9 +65,6 @@ export default defineMessages({
   },
   allQuestions: {
     id: 'app.common.allQuestions',
-  },
-  allUsers: {
-    id: 'app.common.allUsers',
   },
   users: {
     id: 'app.common.users',

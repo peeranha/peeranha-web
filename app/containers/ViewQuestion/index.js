@@ -61,7 +61,9 @@ export class ViewQuestion extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.questionData && !this.props.questionDataLoading) {
+    const { questionData, questionDataLoading } = this.props;
+
+    if (questionData && !questionDataLoading) {
       window.isRendered = true;
     }
   }

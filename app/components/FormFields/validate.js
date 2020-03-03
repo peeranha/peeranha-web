@@ -121,9 +121,9 @@ const withoutDoubleSpace = str =>
   str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
 
 const strLength1x5 = stringLength(1, 5);
+const strLength1x1000 = stringLength(1, 1000);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
-const strLength12 = stringLength(12, 12);
 const strLength254Max = stringLengthMax(254);
 const strLength3x20 = stringLength(3, 20);
 const strLength15x100 = stringLength(15, 100);
@@ -138,9 +138,9 @@ export {
   required,
   requiredForObjectField,
   strLength1x5,
+  strLength1x1000,
   strLength2x15,
   strLength8x100,
-  strLength12,
   strLength254Max,
   strLength3x20,
   strLength15x100,

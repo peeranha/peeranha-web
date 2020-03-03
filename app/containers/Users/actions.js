@@ -1,4 +1,9 @@
-import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from './constants';
+import {
+  GET_USERS,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR,
+  CHANGE_SORTING_TYPE,
+} from './constants';
 
 export function getUsers({ searchText, loadMore, sorting, fetcher }) {
   return {
@@ -24,3 +29,8 @@ export function getUsersErr(getUsersError) {
     getUsersError,
   };
 }
+
+export const changeSortingType = sorting => ({
+  type: CHANGE_SORTING_TYPE,
+  sorting,
+});

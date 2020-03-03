@@ -36,14 +36,13 @@ import { EDIT_ANSWER_FORM, EDIT_ANSWER_BUTTON } from './constants';
 export class EditAnswer extends React.PureComponent {
   componentDidMount() {
     const { questionid, answerid } = this.props.match.params;
-    this.props.getAnswerDispatch(questionid, answerid);
+    this.props.getAnswerDispatch(+questionid, +answerid);
   }
 
   editAnswer = values => {
     const { questionid, answerid } = this.props.match.params;
     const answer = values.get(TEXT_EDITOR_ANSWER_FORM);
-
-    this.props.editAnswerDispatch(answer, questionid, answerid);
+    this.props.editAnswerDispatch(answer, +questionid, +answerid);
   };
 
   render() {

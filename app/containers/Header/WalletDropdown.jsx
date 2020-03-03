@@ -23,8 +23,12 @@ import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
+import { SmallSpecialImage } from 'components/Img/SmallImage';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import SendTokens from 'containers/SendTokens';
+
+const single = isSingleCommunityWebsite();
 
 const ButtonStyled = styled.span`
   display: flex;
@@ -32,11 +36,15 @@ const ButtonStyled = styled.span`
   border: 1px solid ${BORDER_PRIMARY};
   border-left: 0px;
   border-radius: 23px;
-  padding-right: 25px;
-  height: 47px;
+  padding-right: ${single ? 15 : 25}px;
+  height: ${single ? 27 : 47}px;
 
-  ${MediumSpecialImage} {
+  ${MediumSpecialImage}, ${SmallSpecialImage} {
     margin-right: 10px;
+  }
+
+  > span {
+    margin-bottom: 1px;
   }
 `;
 
@@ -49,17 +57,37 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
+const IconSM = SmallSpecialImage.extend`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${BORDER_PRIMARY};
+  color: ${x => x.color};
+`.withComponent('span');
+
 export const Button = ({ balance }) => (
   <ButtonStyled>
-    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <Icon icon={currencyPeerIcon} width="24" />
-    </IconBG>
+    {!single ? (
+      <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+        <Icon icon={currencyPeerIcon} width="24" />
+      </IconBG>
+    ) : (
+      <IconSM className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+        <Icon icon={currencyPeerIcon} width="17" />
+      </IconSM>
+    )}
 
-    <span className="d-flex flex-column text-left">
-      <Span fontSize="16" bold>
+    <span className={`d-flex flex-${single ? 'row' : 'column'} text-left`}>
+      <Span className="align-middle" fontSize="16" bold>
         {getFormattedNum4(balance)}
       </Span>
-      <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
+      <Span
+        className={single ? 'ml-1 align-middle' : ''}
+        fontSize="14"
+        lineHeight="18"
+        color={TEXT_SECONDARY}
+      >
         <FormattedMessage {...messages.peers} />
       </Span>
     </span>
@@ -80,7 +108,7 @@ const Menu = ({ user }) => (
 const WalletDropdown = ({ user, balance }) => (
   <Dropdown
     id={`profile_id_${Math.random()}`}
-    className="d-none d-md-flex"
+    className="d-none d-md-flex mr-3"
     button={<Button balance={balance} />}
     menu={<Menu user={user} />}
   />

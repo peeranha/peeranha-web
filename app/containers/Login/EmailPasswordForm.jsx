@@ -26,6 +26,7 @@ import loginMessages from './messages';
 
 import Header from './Header';
 import Footer from './Footer';
+import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailPasswordForm = ({
   handleSubmit,
@@ -75,13 +76,19 @@ const EmailPasswordForm = ({
           }
         />
 
-        <TransparentButton onClick={showIForgotPasswordModal} type="button">
+        <TransparentButton
+          disabled={loginProcessing}
+          onClick={showIForgotPasswordModal}
+          type="button"
+        >
           <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>
+
+      <IDontHaveAnAccount disabled={loginProcessing} />
     </form>
 
-    <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />
+    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
   </div>
 );
 

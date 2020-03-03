@@ -402,8 +402,8 @@ export async function markAsAccepted(
 ) {
   await eosService.sendTransaction(user, MARK_AS_CORRECT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +correctAnswerId,
+    question_id: questionId,
+    answer_id: correctAnswerId,
   });
 }
 
