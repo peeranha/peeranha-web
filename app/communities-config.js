@@ -1,5 +1,5 @@
-import OntLogo from 'images/communities-logs/ont.svg?inline';
-import TelosLogo from 'images/communities-logs/telos.png';
+import OntLogo from 'images/communities-logos/ont.svg?inline';
+import TelosLogo from 'images/communities-logos/telos.png';
 
 const communitiesConfig = {
   prod: {
