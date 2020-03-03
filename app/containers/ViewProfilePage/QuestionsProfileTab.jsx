@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import {
   TEXT_SECONDARY,
   BORDER_SUCCESS,
@@ -22,13 +24,15 @@ import {
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
 import Img from 'components/Img/SmallImage';
-import A from 'components/A';
+import A, { ADefault } from 'components/A';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import Banner from './Banner';
+
+const single = isSingleCommunityWebsite();
 
 const Rating = Span.extend`
   min-width: 40px;
@@ -71,24 +75,54 @@ const Note = ({
   locale,
   id,
   answerId,
-}) => (
-  <A
-    className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
-    to={routes.questionView(
-      id,
-      postType === POST_TYPE_ANSWER ? answerId : null,
-    )}
-  >
-    <div className="d-flex align-items-center mb-to-sm-2">
-      <PostTypeIcon
-        postType={postType}
-        isMyAnswerAccepted={isMyAnswerAccepted}
-      />
+  ...postInfo
+}) => {
+  let Link = A;
+  let route = routes.questionView(
+    id,
+    postType === POST_TYPE_ANSWER ? answerId : null,
+  );
+  if (single && single !== postInfo.community_id) {
+    Link = ADefault;
+    route = `${process.env.APP_LOCATION}${route}`;
+  }
 
-      <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
+  return (
+    <Link
+      className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
+      to={route}
+      href={route}
+    >
+      <div className="d-flex align-items-center mb-to-sm-2">
+        <PostTypeIcon
+          postType={postType}
+          isMyAnswerAccepted={isMyAnswerAccepted}
+        />
+
+        <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
+
+        <PostDate
+          className="d-inline-block d-sm-none"
+          color={TEXT_SECONDARY}
+          fontSize="14"
+          mobileFS="12"
+        >
+          {getTimeFromDateToNow(myPostTime, locale)}{' '}
+          <FormattedMessage {...commonMessages.ago} />
+        </PostDate>
+      </div>
+
+      <Span
+        fontSize="16"
+        lineHeight="30"
+        mobileFS="14"
+        className="flex-grow-1 mb-to-sm-2 mr-3"
+      >
+        {title}
+      </Span>
 
       <PostDate
-        className="d-inline-block d-sm-none"
+        className="d-none d-sm-inline-block"
         color={TEXT_SECONDARY}
         fontSize="14"
         mobileFS="12"
@@ -96,28 +130,9 @@ const Note = ({
         {getTimeFromDateToNow(myPostTime, locale)}{' '}
         <FormattedMessage {...commonMessages.ago} />
       </PostDate>
-    </div>
-
-    <Span
-      fontSize="16"
-      lineHeight="30"
-      mobileFS="14"
-      className="flex-grow-1 mb-to-sm-2 mr-3"
-    >
-      {title}
-    </Span>
-
-    <PostDate
-      className="d-none d-sm-inline-block"
-      color={TEXT_SECONDARY}
-      fontSize="14"
-      mobileFS="12"
-    >
-      {getTimeFromDateToNow(myPostTime, locale)}{' '}
-      <FormattedMessage {...commonMessages.ago} />
-    </PostDate>
-  </A>
-);
+    </Link>
+  );
+};
 
 const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
   <div className={className}>

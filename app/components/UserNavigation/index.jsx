@@ -51,7 +51,8 @@ const UserNavigation = ({
             to={routes.profileView(userId)}
             isLink={
               path !== routes.profileView(userId) &&
-              path !== routes.profileEdit(userId)
+              path !== routes.profileEdit(userId) &&
+              path !== routes.userCommunities(userId)
             }
           >
             <FormattedMessage {...messages.profile} />

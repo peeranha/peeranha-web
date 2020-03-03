@@ -107,7 +107,12 @@ const ViewProfilePage = /* istanbul ignore next */ ({
       />
 
       <ProfileViewForm
-        className={path === routes.profileView(userId) ? '' : 'd-none'}
+        className={
+          path === routes.profileView(userId) ||
+          path === routes.userCommunities(userId)
+            ? ''
+            : 'd-none'
+        }
         userId={userId}
         profile={profile}
         account={account}

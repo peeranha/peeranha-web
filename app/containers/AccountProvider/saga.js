@@ -78,7 +78,7 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import { deleteCookie, getCookie, setCookie } from 'utils/cookie';
+import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
 import {
@@ -148,29 +148,14 @@ export function* getCurrentAccountWorker(initAccount) {
       }
     }
 
-    deleteCookie(PROFILE_INFO_LS);
     setCookie({
       name: PROFILE_INFO_LS,
       value: JSON.stringify(profileInfo),
       options: {
         path: '/',
-        domain: '.peeranha.io',
+        allowSubdomains: true,
       },
     });
-
-    if (
-      profileInfo &&
-      (process.env.NODE_ENV !== 'production' ||
-        (process.env.NODE_ENV === 'production' && process.env.IS_TEST_ENV))
-    ) {
-      console.log(
-        JSON.stringify({
-          user: profileInfo.user,
-          energy: profileInfo.energy,
-          rating: profileInfo.rating,
-        }),
-      );
-    }
 
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getCurrentAccountSuccess(account, balance));
@@ -216,8 +201,8 @@ function* updateRefer(user, eosService) {
         name: receivedCookieName,
         value: true,
         options: {
-          domain: '.peeranha.io',
-          expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+          allowSubdomains: true,
+          neverExpires: true,
         },
       });
       yield put(
@@ -232,8 +217,8 @@ function* updateRefer(user, eosService) {
       name: noInviterCookieName,
       value: true,
       options: {
-        domain: '.peeranha.io',
-        expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+        allowSubdomains: true,
+        neverExpires: true,
       },
     });
   }
@@ -288,8 +273,8 @@ export function* updateAccWorker({ eos }) {
             name: sentCookieName,
             value: true,
             options: {
-              domain: '.peeranha.io',
-              expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+              allowSubdomains: true,
+              neverExpires: true,
             },
           });
         }

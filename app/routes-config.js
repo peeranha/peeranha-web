@@ -21,6 +21,7 @@ export const profileView = userRedirect('');
 export const profileEdit = id => `/users/edit/${id}`;
 
 export const userQuestions = userRedirect('#questions');
+export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
 export const userWallet = userRedirect('/wallet');

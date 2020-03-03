@@ -74,8 +74,8 @@ async function login(email, password, rememberMe = false) {
       value: JSON.stringify(peeranhaAutoLogin),
       options: {
         path: '/',
-        domain: '.peeranha.io',
-        expires: 'Tue, 19 Jan 2038 01:14:07 GMT',
+        allowSubdomains: true,
+        neverExpires: true,
       },
     });
   } else {
@@ -84,7 +84,7 @@ async function login(email, password, rememberMe = false) {
       value: JSON.stringify(peeranhaAutoLogin),
       options: {
         path: '/',
-        domain: '.peeranha.io',
+        allowSubdomains: true,
         expires: 0,
       },
     });

@@ -41,6 +41,7 @@ const ProfileViewForm = ({
       profile={profile}
       account={account}
       communities={communities}
+      questions={questions}
     />
 
     <TopCommunities
@@ -48,6 +49,7 @@ const ProfileViewForm = ({
       account={account}
       communities={communities}
       profile={profile}
+      questions={questions}
     />
 
     <Activity

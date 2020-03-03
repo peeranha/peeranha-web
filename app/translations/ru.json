@@ -2,6 +2,7 @@
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Профиль",
+  "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",
   "app.common.answers": "Ответы",
   "app.common.posts": "Посты",
@@ -187,6 +188,8 @@
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
   "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Подписаться на это сообщество",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",

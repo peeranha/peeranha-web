@@ -21,6 +21,8 @@ import {
   MIN_RATING_TO_EDIT_PROFILE,
   MIN_ENERGY_TO_EDIT_PROFILE,
 } from './constants';
+import { setCookie } from '../../utils/cookie';
+import { PROFILE_INFO_LS } from '../Login/constants';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
@@ -46,14 +48,21 @@ export function* saveProfileWorker({ profile, userKey }) {
     );
 
     const fullProfileInfo = yield select(makeSelectProfileInfo());
+    const updatedProfileInfo = {
+      ...fullProfileInfo,
+      profile,
+      display_name: profile[DISPLAY_NAME_FIELD],
+    };
 
-    yield put(
-      getUserProfileSuccess({
-        ...fullProfileInfo,
-        profile,
-        display_name: profile[DISPLAY_NAME_FIELD],
-      }),
-    );
+    setCookie({
+      name: PROFILE_INFO_LS,
+      value: JSON.stringify(updatedProfileInfo),
+      options: {
+        path: '/',
+        allowSubdomains: true,
+      },
+    });
+    yield put(getUserProfileSuccess(updatedProfileInfo));
 
     yield put(saveProfileSuccess());
 

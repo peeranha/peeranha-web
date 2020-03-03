@@ -1,17 +1,24 @@
 import OntLogo from 'images/ont.svg?inline';
 
-const logos = {
-  2: OntLogo,
+const communitiesConfig = {
+  prod: {
+    2: {
+      origin: 'https://ontology.peeranha.io',
+      src: OntLogo,
+    },
+  },
+  test: {
+    2: {
+      origin: 'https://blockchain-test.peeranha.io',
+      src: OntLogo,
+    },
+  },
+  dev: {
+    2: {
+      origin: 'http://localhost:13000',
+      src: OntLogo,
+    },
+  },
 };
 
-const singleCommunities = process.env.SINGLE_COMMUNITIES.split(';')
-  .map(x => x.split(','))
-  .reduce((acc, [id, origin]) => {
-    acc[id] = {
-      origin,
-      src: logos[id],
-    };
-    return acc;
-  }, {});
-
-export default singleCommunities;
+export default communitiesConfig[process.env.ENV];

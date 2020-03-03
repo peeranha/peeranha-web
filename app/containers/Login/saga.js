@@ -154,7 +154,7 @@ export function* loginWithScatterWorker() {
       name: AUTOLOGIN_DATA,
       value: JSON.stringify({ loginWithScatter: true }),
       options: {
-        domain: '.peeranha.io',
+        allowSubdomains: true,
       },
     });
 

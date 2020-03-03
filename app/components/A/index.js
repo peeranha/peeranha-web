@@ -27,6 +27,10 @@ export const ADefault = styled.a`
   ${ACss};
 `;
 
+export const APropsDefault = Span.extend`
+  ${ACss};
+`.withComponent(ADefault);
+
 export default styled(Link)`
   ${ACss};
 `;

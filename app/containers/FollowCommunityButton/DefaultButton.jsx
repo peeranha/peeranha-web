@@ -31,10 +31,9 @@ const B = ({ isFollowed, onClick, id, disabled }) =>
       data-isfollowed={isFollowed}
       onClick={onClick}
       disabled={disabled}
+      className={isFollowed ? 'd-none' : ''}
     >
-      <FormattedMessage
-        {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
-      />
+      <FormattedMessage {...messages.subscribeToThisCommunity} />
     </CustomButton>
   ) : (
     <OutlinedButton

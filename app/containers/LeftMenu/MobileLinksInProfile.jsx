@@ -40,6 +40,10 @@ export default React.memo(({ profile, isMenuVisible }) => {
             <FormattedMessage {...messages.profile} />
           </A>
 
+          <A to={routes.userCommunities(profile.user)}>
+            <FormattedMessage {...messages.myCommunities} />
+          </A>
+
           <A to={routes.userQuestions(profile.user)}>
             <FormattedMessage {...messages.questions} />
           </A>

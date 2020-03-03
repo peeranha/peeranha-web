@@ -88,7 +88,7 @@ const EmailPasswordForm = ({
       <IDontHaveAnAccount disabled={loginProcessing} />
     </form>
 
-    <Footer action={loginWithScatterProcessing} processing={loginWithScatter} />
+    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
   </div>
 );
 

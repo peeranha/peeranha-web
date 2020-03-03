@@ -79,6 +79,9 @@ const Menu = ({
       <A to={routes.profileView(user)}>
         <FormattedMessage {...messages.profile} />
       </A>
+      <A to={routes.userCommunities(user)}>
+        <FormattedMessage {...messages.myCommunities} />
+      </A>
       <A
         to={routes.userQuestions(user)}
         disabled={!questionsLength}

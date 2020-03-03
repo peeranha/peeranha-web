@@ -1,3 +1,6 @@
+export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
+export const DOMAIN = '.peeranha.io';
+
 export const getCookie = name => {
   const matches = document.cookie.match(
     new RegExp(
@@ -11,7 +14,7 @@ export const getCookie = name => {
 export const setCookie = ({
   name,
   value,
-  options = { path: '/', domain: '.peeranha.io' },
+  options = { path: '/', allowSubdomains: true },
 }) => {
   const optionsCopy = options;
   if (optionsCopy.expires instanceof Date) {
@@ -23,6 +26,12 @@ export const setCookie = ({
   )}`;
 
   document.cookie = Object.keys(optionsCopy).reduce((acc, optionKey) => {
+    if (optionKey === 'neverExpires') {
+      return `${acc}; expires=${NEVER_EXPIRES}`;
+    } else if (optionKey === 'allowSubdomains') {
+      return `${acc}; domain=${DOMAIN}`;
+    }
+
     let res = `; ${optionKey}`;
     const optionValue = optionsCopy[optionKey];
     if (optionValue !== true) {
@@ -36,5 +45,5 @@ export const deleteCookie = name =>
   setCookie({
     name,
     value: '',
-    options: { 'max-age': -1, domain: '.peeranha.io' },
+    options: { 'max-age': -1, allowSubdomains: true },
   });

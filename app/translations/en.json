@@ -2,6 +2,7 @@
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
+  "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
@@ -181,6 +182,8 @@
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.subscribe": "Subscribe",
   "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Subscribe to this community",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",

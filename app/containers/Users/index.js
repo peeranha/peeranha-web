@@ -22,11 +22,13 @@ import { UsersFetcher, AccountsSortedBy } from 'utils/profileManagement';
 import messages from './messages';
 
 import * as selectors from './selectors';
-import { getUsers } from './actions';
+import { changeSortingType, getUsers } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 import View from './View';
+
+const singleCommId = isSingleCommunityWebsite();
 
 export class Users extends React.PureComponent {
   componentDidMount() {
@@ -62,11 +64,29 @@ export class Users extends React.PureComponent {
   };
 
   dropdownFilter = sorting => {
+    const {
+      stat,
+      communities,
+      users,
+      getUsersDispatch,
+      changeSortingTypeDispatch,
+    } = this.props;
     this.fetcher = null;
     this.initFetcher(sorting);
 
+    const communityInfo = communities.find(x => x.id === singleCommId);
+
+    const userCount = singleCommId
+      ? (communityInfo && communityInfo.users_subscribed) || 0
+      : stat.user_count;
+
+    if (userCount === users.length) {
+      changeSortingTypeDispatch(sorting);
+      return;
+    }
+
     if (this.fetcher) {
-      this.props.getUsersDispatch({ sorting, fetcher: this.fetcher });
+      getUsersDispatch({ sorting, fetcher: this.fetcher });
     }
   };
 
@@ -74,7 +94,7 @@ export class Users extends React.PureComponent {
     //    this.props.getUsersDispatch({ searchText });
   };
 
-  render() /* istanbul ignore next */ {
+  render() {
     const {
       locale,
       users,
@@ -86,7 +106,6 @@ export class Users extends React.PureComponent {
       communities,
     } = this.props;
 
-    const singleCommId = isSingleCommunityWebsite();
     const communityInfo = communities.find(x => x.id === singleCommId);
 
     const userCount = singleCommId
@@ -130,6 +149,7 @@ Users.propTypes = {
   eosService: PropTypes.object,
   stat: PropTypes.object,
   communities: PropTypes.array,
+  changeSortingTypeDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -148,6 +168,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getUsersDispatch: bindActionCreators(getUsers, dispatch),
+    changeSortingTypeDispatch: bindActionCreators(changeSortingType, dispatch),
   };
 }
 
