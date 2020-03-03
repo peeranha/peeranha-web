@@ -41,7 +41,11 @@ const LeftMenu = ({ faqQuestions, route }) => (
       <FormattedMessage
         {...messages.youNeedEosAccount}
         values={{
-          image: <img src={telosIcon} alt="telos" />,
+          image: (
+            <a href="https://www.telosfoundation.io/" target="_blank">
+              <img src={telosIcon} alt="telos" />
+            </a>
+          ),
         }}
       />
     </H3>

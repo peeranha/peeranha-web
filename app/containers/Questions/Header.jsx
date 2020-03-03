@@ -55,7 +55,8 @@ export const Header = ({
 
   return (
     <Wrapper
-      className="d-flex flex-row justify-content-start mb-to-sm-0 mb-from-sm-3"
+      single={singleCommId}
+      className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
       <div className={`mr-${singleCommId ? 3 : 4}`}>
@@ -72,7 +73,7 @@ export const Header = ({
         />
       </div>
       {displaySubscribeButton ? (
-        <div className="right-panel m-0 align-self-center">
+        <div className="right-panel m-0">
           <FollowCommunityButton
             communityIdFilter={singleCommId || communityIdFilter}
             followedCommunities={followedCommunities}
