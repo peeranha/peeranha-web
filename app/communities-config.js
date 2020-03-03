@@ -1,9 +1,14 @@
-import OntLogo from 'images/ont.svg?inline';
+import OntLogo from 'images/communities-logs/ont.svg?inline';
+import TelosLogo from 'images/communities-logs/telos.png';
 
 const communitiesConfig = {
   prod: {
     2: {
-      origin: 'https://ontology.peeranha.io',
+      origin: 'https://telos.peeranha.io',
+      src: TelosLogo,
+    },
+    3: {
+      origin: 'https://ont.peeranha.io',
       src: OntLogo,
     },
   },
