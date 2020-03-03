@@ -46,10 +46,8 @@ const TagsList = ({
   return (
     <Box>
       {questionTags.map(x => (
-        <li className="d-flex flex-column">
-          <Tag className={className} key={x.name}>
-            {x.name}
-          </Tag>
+        <li key={x.name} className="d-flex flex-column">
+          <Tag className={className}>{x.name}</Tag>
 
           {showPopularity && (
             <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">

@@ -6,7 +6,7 @@ import selectors from './imports';
 import View from './View';
 
 const ProgressIndicator = props => {
-  const inProgress = Object.keys(props).find(x => props[x] === true);
+  const inProgress = !!Object.keys(props).find(x => props[x] === true);
   return <View inProgress={inProgress} />;
 };
 

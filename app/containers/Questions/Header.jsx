@@ -30,7 +30,7 @@ export const Header = ({
 
   if (!isFeed) {
     defaultAvatar = allquestionsIcon;
-    defaultLabel = intl.formatMessage({ id: messages.allQuestions.id });
+    defaultLabel = intl.formatMessage({ id: messages.questions.id });
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
@@ -49,31 +49,37 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
+  const displaySubscribeButton =
+    singleCommId ||
+    (!isFeed && window.location.pathname !== routes.questions());
+
   return (
     <Wrapper
+      single={singleCommId}
       className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <div className="mr-4">
+      <div className={`mr-${singleCommId ? 3 : 4}`}>
         <CommunitySelector
           isArrowed
           Button={Button}
           toggle={choice =>
-            createdHistory.push(routes[isFeed ? 'feed' : 'questions'](choice))
+            createdHistory.push(
+              routes[isFeed ? 'feed' : 'questions'](choice, false, false),
+            )
           }
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
         />
       </div>
-
-      {(singleCommId || communityIdFilter > 0) && (
-        <div className="right-panel">
+      {displaySubscribeButton ? (
+        <div className="right-panel m-0">
           <FollowCommunityButton
             communityIdFilter={singleCommId || communityIdFilter}
             followedCommunities={followedCommunities}
           />
         </div>
-      )}
+      ) : null}
     </Wrapper>
   );
 };

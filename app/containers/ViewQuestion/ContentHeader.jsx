@@ -23,6 +23,7 @@ import AreYouSure from './AreYouSure';
 import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType } from './actions';
+import { QUESTION_TYPE } from './constants';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -78,7 +79,6 @@ const ContentHeader = props => {
     ids,
     votingStatus: { isVotedToDelete },
     editItem,
-    questionId,
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
@@ -106,30 +106,34 @@ const ContentHeader = props => {
         />
 
         <div className="d-flex align-items-center">
-          <Button
-            id={`${type}_change_type_with_rating_restore_${answerId}`}
-            show={isModerator}
-            onClick={changeQuestionTypeWithRatingRestore}
-            disabled={ids.includes(
-              `${type}_change_type_with_rating_restore_${answerId}`,
-            )}
-          >
-            <FormattedMessage
-              {...messages.changeQuestionTypeWithRatingRestore}
-            />
-          </Button>
-          <Button
-            id={`${type}_change_type_without_rating_restore_${answerId}`}
-            show={isModerator}
-            onClick={changeQuestionTypeWithoutRatingRestore}
-            disabled={ids.includes(
-              `${type}_change_type_without_rating_restore_${answerId}`,
-            )}
-          >
-            <FormattedMessage
-              {...messages.changeQuestionTypeWithoutRatingRestore}
-            />
-          </Button>
+          {type === QUESTION_TYPE && (
+            <>
+              <Button
+                id={`${type}_change_type_with_rating_restore_${answerId}`}
+                show={isModerator}
+                onClick={changeQuestionTypeWithRatingRestore}
+                disabled={ids.includes(
+                  `${type}_change_type_with_rating_restore_${answerId}`,
+                )}
+              >
+                <FormattedMessage
+                  {...messages.changeQuestionTypeWithRatingRestore}
+                />
+              </Button>
+              <Button
+                id={`${type}_change_type_without_rating_restore_${answerId}`}
+                show={isModerator}
+                onClick={changeQuestionTypeWithoutRatingRestore}
+                disabled={ids.includes(
+                  `${type}_change_type_without_rating_restore_${answerId}`,
+                )}
+              >
+                <FormattedMessage
+                  {...messages.changeQuestionTypeWithoutRatingRestore}
+                />
+              </Button>
+            </>
+          )}
           <Button
             show={!isItWrittenByMe}
             id={`${type}_vote_to_delete_${answerId}`}
@@ -146,7 +150,9 @@ const ContentHeader = props => {
             show={isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${questionId}-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${
+              buttonParams.questionId
+            }-${commentId}`}
           >
             <img src={pencilIcon} alt="icon" />
             <FormattedMessage {...messages.editButton} />
@@ -186,7 +192,7 @@ ContentHeader.propTypes = {
   voteToDeleteLoading: PropTypes.bool,
   ids: PropTypes.array,
   buttonParams: PropTypes.object,
-  editItem: PropTypes.func,
+  editItem: PropTypes.array,
   deleteItem: PropTypes.func,
   voteToDelete: PropTypes.func,
   answerId: PropTypes.number,
@@ -204,7 +210,7 @@ export default React.memo(
       const profileInfo = makeSelectProfileInfo()(state);
       return {
         isModerator: profileInfo
-          ? profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)
+          ? !!profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)
           : false,
       };
     },

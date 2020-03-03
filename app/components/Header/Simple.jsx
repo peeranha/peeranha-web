@@ -59,4 +59,13 @@ export const C3 = isColumnForSM => `
 
 export default BaseRounded.extend`
   ${({ isColumnForSM }) => C3(isColumnForSM)};
+  flex-direction: row;
+
+  @media only screen and (max-width: 576px) {
+    flex-direction: ${({ single }) => (single ? 'column' : 'row')};
+    align-items: ${({ single }) => (single ? 'flex-start' : 'center')};
+    &:nth-child(2) {
+      justify-items: flex-start;
+    }
+  }
 `;

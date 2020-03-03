@@ -46,7 +46,6 @@ export const ContentBody = ({
       whoWasAccepted={userInfo.user}
       isTheLargestRating={isTheLargestRating}
       ids={ids}
-      isGeneral={questionData.isGeneral}
     />
 
     <TextBlock content={content} />
@@ -97,7 +96,7 @@ ContentBody.propTypes = {
   deleteCommentLoading: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
 };
 
 export default React.memo(ContentBody);

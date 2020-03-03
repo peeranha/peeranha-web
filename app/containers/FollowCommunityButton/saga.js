@@ -15,6 +15,8 @@ import {
 } from './constants';
 
 import { followHandlerSuccess, followHandlerErr } from './actions';
+import { setCookie } from '../../utils/cookie';
+import { PROFILE_INFO_LS } from '../Login/constants';
 
 export function* followHandlerWorker({
   communityIdFilter,
@@ -41,18 +43,24 @@ export function* followHandlerWorker({
     );
 
     const profileInfo = yield select(makeSelectProfileInfo());
+    const updatedProfileInfo = {
+      ...profileInfo,
+      followed_communities: isFollowed
+        ? profileInfo.followed_communities.filter(
+            commId => commId !== +communityIdFilter,
+          )
+        : [...profileInfo.followed_communities, +communityIdFilter],
+    };
+    setCookie({
+      name: PROFILE_INFO_LS,
+      value: JSON.stringify(updatedProfileInfo),
+      options: {
+        path: '/',
+        allowSubdomains: true,
+      },
+    });
 
-    yield put(
-      getUserProfileSuccess({
-        ...profileInfo,
-        followed_communities: isFollowed
-          ? profileInfo.followed_communities.filter(
-              commId => commId !== +communityIdFilter,
-            )
-          : [...profileInfo.followed_communities, +communityIdFilter],
-      }),
-    );
-
+    yield put(getUserProfileSuccess(updatedProfileInfo));
     yield put(
       followHandlerSuccess({ communityIdFilter, isFollowed, buttonId }),
     );

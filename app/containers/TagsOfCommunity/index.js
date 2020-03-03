@@ -101,12 +101,7 @@ export class TagsOfCommunity extends React.Component {
           communityId={commId}
           tagsNumber={this.currentCommunity.tags.length}
           currentCommunity={this.currentCommunity}
-          Aside={
-            <Aside
-              suggestedTags={suggestedTags}
-              communityId={+match.params.communityid}
-            />
-          }
+          Aside={<Aside suggestedTags={suggestedTags} communityId={commId} />}
           Content={
             <Content
               tags={existingTags}

@@ -96,7 +96,7 @@ export class SuggestedTags extends React.Component {
             <Content
               loadMoreTags={this.loadMoreTags}
               isLastFetch={isLastFetch}
-              communityId={+match.params.communityid}
+              communityId={commId}
               suggestedTagsLoading={suggestedTagsLoading}
               suggestedTags={suggestedTags}
             />

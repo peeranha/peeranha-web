@@ -4,6 +4,7 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
+import { setCookie } from 'utils/cookie';
 import {
   registerAccount,
   inviteUser,
@@ -12,6 +13,10 @@ import {
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError, ApplicationError } from 'utils/errors';
+import {
+  followCommunity,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -59,6 +64,7 @@ import {
 import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
+import { initEosioSuccess } from '../EosioProvider/actions';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -103,6 +109,8 @@ export function* loginWithEmailWorker({ val }) {
       activeKey.private,
       eosAccountName,
     );
+
+    yield put(initEosioSuccess(eosService));
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
@@ -142,10 +150,13 @@ export function* loginWithScatterWorker() {
       );
     }
 
-    localStorage.setItem(
-      AUTOLOGIN_DATA,
-      JSON.stringify({ loginWithScatter: true }),
-    );
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify({ loginWithScatter: true }),
+      options: {
+        allowSubdomains: true,
+      },
+    });
 
     yield put(loginWithScatterSuccess());
   } catch (err) {
@@ -208,6 +219,12 @@ export function* finishRegistrationWorker({ val }) {
 
     yield call(getCurrentAccountWorker);
 
+    const singleCommunityId = isSingleCommunityWebsite();
+
+    if (singleCommunityId) {
+      yield call(followCommunity, eosService, singleCommunityId, accountName);
+    }
+
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {
     yield put(finishRegistrationWithDisplayNameErr(err));
@@ -217,13 +234,16 @@ export function* finishRegistrationWorker({ val }) {
 export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
+  const singleCommunityId = isSingleCommunityWebsite();
 
   if (isLeftMenuVisible) {
     yield put(hideLeftMenu());
   }
 
-  if (profileInfo) {
+  if (profileInfo && !singleCommunityId) {
     yield call(createdHistory.push, routes.feed());
+  } else if (singleCommunityId) {
+    yield call(createdHistory.push, routes.questions());
   }
 }
 

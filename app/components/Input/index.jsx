@@ -104,7 +104,7 @@ Input.propTypes = {
   isSearchable: PropTypes.bool,
   isRefreshable: PropTypes.bool,
   disabled: PropTypes.bool,
-  error: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
 };
@@ -112,7 +112,7 @@ Input.propTypes = {
 Handler.propTypes = {
   isRefreshable: PropTypes.bool,
   isSearchable: PropTypes.bool,
-  isPassword: PropTypes.bool,
+  isPassword: PropTypes.array,
   onClick: PropTypes.func,
   value: PropTypes.string,
 };

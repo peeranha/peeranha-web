@@ -110,7 +110,7 @@ const Question = ({
 }) => (
   <Li className="mb-3" bordered={!isGeneral}>
     <QuestionForProfilePage
-      route={routes.questionView(id, null, community_id)}
+      route={routes.questionView(id, null)}
       myPostRating={myPostRating}
       title={title}
       myPostTime={myPostTime}

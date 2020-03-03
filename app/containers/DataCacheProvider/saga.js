@@ -15,8 +15,10 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_SCATTER,
+  PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
+import { setCookie } from '../../utils/cookie';
 import { selectUsers } from './selectors';
 
 import {
@@ -96,6 +98,14 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
         cachedUserInfo &&
         getHash(updatedUserInfo) !== getHash(cachedUserInfo))
     ) {
+      setCookie({
+        name: PROFILE_INFO_LS,
+        value: JSON.stringify(updatedUserInfo),
+        options: {
+          path: '/',
+          allowSubdomains: true,
+        },
+      });
       yield put(getUserProfileSuccess(updatedUserInfo));
     }
 

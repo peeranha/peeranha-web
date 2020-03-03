@@ -14,6 +14,10 @@ import messages from './messages';
 
 const Label = Button.extend`
   ${LabelStyles};
+  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
+  overflow: hidden;
+  height: 1%;
+  min-height: 32px;
 `;
 
 export const BestAnswerMarker = ({
@@ -25,9 +29,8 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
-  isGeneral,
 }) => {
-  if (+answerId === 0) return null;
+  if (answerId === 0) return null;
 
   return (
     <div className="d-flex">
@@ -43,11 +46,10 @@ export const BestAnswerMarker = ({
         )}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
-        isGeneral={isGeneral}
       />
 
       {isTheLargestRating ? (
-        <Label className="mb-3" bg={BG_PRIMARY}>
+        <Label className="mb-3" bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
@@ -57,7 +59,7 @@ export const BestAnswerMarker = ({
 };
 
 BestAnswerMarker.propTypes = {
-  answerId: PropTypes.string,
+  answerId: PropTypes.number,
   questionFrom: PropTypes.string,
   account: PropTypes.string,
   markAsAccepted: PropTypes.func,
@@ -66,7 +68,6 @@ BestAnswerMarker.propTypes = {
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
-  isGeneral: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

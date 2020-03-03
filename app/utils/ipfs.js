@@ -103,7 +103,11 @@ export function createPushActionBody(v) {
     } else {
       Object.keys(v).forEach(key => {
         if (key.startsWith('ipfs_')) {
-          v[key] = StringToHash(v[key]);
+          if (!(key instanceof Array)) {
+            v[key] = StringToHash(v[key]);
+          } else {
+            console.error('Ipfs is an array value instead of string');
+          }
         } else {
           createPushActionBody(v[key]);
         }

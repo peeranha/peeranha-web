@@ -61,7 +61,7 @@ export class Profile extends React.PureComponent {
       translations[messages.profile.id]
     }`;
 
-    let keywords = '';
+    let keywords = [];
 
     if (profile && profile.profile) {
       keywords = Object.values(profile.profile);

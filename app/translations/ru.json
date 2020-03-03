@@ -2,6 +2,7 @@
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Профиль",
+  "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",
   "app.common.answers": "Ответы",
   "app.common.posts": "Посты",
@@ -182,10 +183,13 @@
   "app.containers.Users.description": "Пользователи: описание",
 
   "app.containers.TagsCollection.title": "Подборка тегов",
+  "app.containers.TagsCollection.description": "Описание тегов",
 
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
   "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Подписаться на это сообщество",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
@@ -522,8 +526,10 @@
     "Показать больше ответов {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Вы уверены, что хотите удалить данный элемент?",
-  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
-    "Отметить лучший ответ в своем вопросе и получи +2 очков рейтинга",
+  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn":
+    "Отметить лучший ответ в своем вопросе и получи +2 очка рейтинга",
+  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
+    "Отметить лучший ответ в своем вопросе и получи +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
@@ -554,6 +560,8 @@
     "Значение должно содержать только буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Значение не должно содержать двойного пробела",
+  "app.components.FormFields.wrongByteLength":
+    "Байтовая длина строки слишком большая",
   "app.components.FormFields.numbersFromTo":
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
@@ -576,6 +584,7 @@
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",
+  "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
@@ -702,6 +711,7 @@
     "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
+  "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",

@@ -8,7 +8,7 @@ import messages from 'common-messages';
 import InfoButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/TransparentLarge';
 import TextareaField from 'components/FormFields/TextareaField';
-import { strLength20x1000, required } from 'components/FormFields/validate';
+import { strLength1x1000, required } from 'components/FormFields/validate';
 
 import { TEXTAREA_COMMENT_FORM } from './constants';
 
@@ -28,8 +28,8 @@ const CommentForm = ({
         name={TEXTAREA_COMMENT_FORM}
         disabled={sendCommentLoading}
         component={TextareaField}
-        validate={[strLength20x1000, required]}
-        warn={[strLength20x1000, required]}
+        validate={[strLength1x1000, required]}
+        warn={[strLength1x1000, required]}
       />
     </div>
     <div>
@@ -53,7 +53,7 @@ const CommentForm = ({
 );
 
 CommentForm.propTypes = {
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   handleSubmit: PropTypes.func,

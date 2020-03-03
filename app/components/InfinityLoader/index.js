@@ -47,7 +47,11 @@ InfinityLoader.propTypes = {
   isLoading: PropTypes.bool,
   infinityOff: PropTypes.bool,
   isLastFetch: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.element,
+    PropTypes.object,
+  ]),
 };
 
 export default InfinityLoader;

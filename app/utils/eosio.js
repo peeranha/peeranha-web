@@ -25,6 +25,7 @@ import { parseTableRows, createPushActionBody } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
+import { getCookie } from './cookie';
 
 if (!window.TextDecoder) {
   window.TextDecoder = TextDecoder;
@@ -89,14 +90,12 @@ class EosioService {
     const signatureProvider = new JsSignatureProvider(keys);
     const rpc = new JsonRpc(this.node.endpoint, { fetch });
 
-    const api = new Api({
+    this.eosApi = new Api({
       rpc,
       signatureProvider,
       textDecoder: new TextDecoder(),
       textEncoder: new TextEncoder(),
     });
-
-    this.eosApi = api;
     this.initialized = true;
     this.selectedAccount = acc;
     this.#key = key;
@@ -139,12 +138,9 @@ class EosioService {
   };
 
   getSelectedAccount = async () => {
-    const autologinData = JSON.parse(
-      sessionStorage.getItem(AUTOLOGIN_DATA) ||
-        localStorage.getItem(AUTOLOGIN_DATA),
-    );
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
-    if (!autologinData) return null;
+    if (!autoLoginData) return null;
 
     return this.selectedAccount;
   };
@@ -358,7 +354,7 @@ class EosioService {
   getTableRow = async (table, scope, primaryKey, code) => {
     const limit = 1;
 
-    const res = await this.getTableRows(
+    const { rows } = await this.getTableRows(
       table,
       scope,
       primaryKey,
@@ -369,7 +365,7 @@ class EosioService {
       code,
     );
 
-    return res[0];
+    return rows[0];
   };
 
   getTableRows = async (
@@ -405,7 +401,7 @@ class EosioService {
 
       if (response && response.rows) {
         response.rows.forEach(x => parseTableRows(x));
-        return response.rows;
+        return response;
       }
 
       return [];

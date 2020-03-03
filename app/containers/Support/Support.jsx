@@ -41,7 +41,7 @@ const Support = ({ faq, locale, sendMessage, sendMessageLoading }) => (
 );
 
 Support.propTypes = {
-  faq: PropTypes.array,
+  faq: PropTypes.object,
   locale: PropTypes.string,
   sendMessage: PropTypes.func,
   sendMessageLoading: PropTypes.bool,

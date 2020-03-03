@@ -40,6 +40,9 @@ export default defineMessages({
   withoutDoubleSpace: {
     id: 'app.components.FormFields.withoutDoubleSpace',
   },
+  wrongByteLength: {
+    id: 'app.components.FormFields.wrongByteLength',
+  },
   numbersFromTo: {
     id: 'app.components.FormFields.numbersFromTo',
   },

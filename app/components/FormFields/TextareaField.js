@@ -39,4 +39,4 @@ TextareaField.propTypes = {
   placeholder: PropTypes.string,
 };
 
-export default React.memo(TextareaField);
+export default TextareaField;

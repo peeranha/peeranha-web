@@ -39,7 +39,7 @@ Content.propTypes = {
   locale: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  answerId: PropTypes.number,
   postTime: PropTypes.number,
   lastEditedDate: PropTypes.number,
   communities: PropTypes.array,

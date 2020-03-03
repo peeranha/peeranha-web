@@ -20,14 +20,13 @@ import {
   VOTE_TO_DELETE_TAG,
 } from './constants';
 
-export function isSingleCommunityWebsite() {
-  return communitiesConfig[window.location.origin];
-}
+export const isSingleCommunityWebsite = () =>
+  +Object.keys(communitiesConfig).find(
+    id => communitiesConfig[id].origin === window.location.origin,
+  );
 
 export function hasCommunitySingleWebsite(commId) {
-  return Object.keys(communitiesConfig).find(
-    x => communitiesConfig[x] === commId,
-  );
+  return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 }
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
@@ -95,7 +94,7 @@ export async function getSuggestedTags(
   lowerBound,
   limit,
 ) {
-  const tags = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     CREATED_TAGS_TABLE,
     getTagScope(communityId),
     lowerBound,
@@ -103,13 +102,13 @@ export async function getSuggestedTags(
   );
 
   await Promise.all(
-    tags.map(async x => {
+    rows.map(async x => {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
       x.description = ipfsDescription.description;
     }),
   );
 
-  return tags;
+  return rows;
 }
 
 export async function getExistingTags(tags) {
@@ -154,7 +153,7 @@ export async function getAllCommunities(eosService) {
   const lowerBound = 0;
   const limit = -1;
 
-  const communities = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     lowerBound,
@@ -162,7 +161,7 @@ export async function getAllCommunities(eosService) {
   );
 
   await Promise.all(
-    communities.map(async x => {
+    rows.map(async x => {
       x.label = x.name;
       x.value = x.id;
 
@@ -179,12 +178,12 @@ export async function getAllCommunities(eosService) {
 
       // Tags for community
       const promise2 = async () => {
-        x.tags = await eosService.getTableRows(
+        x.tags = (await eosService.getTableRows(
           TAGS_TABLE,
           getTagScope(x.id),
           lowerBound,
           limit,
-        );
+        )).rows;
 
         x.tags.forEach(y => {
           y.label = y.name;
@@ -196,11 +195,11 @@ export async function getAllCommunities(eosService) {
     }),
   );
 
-  return communities;
+  return rows;
 }
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
-  const communities = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     CREATED_COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
     lowerBound,
@@ -208,7 +207,7 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   );
 
   await Promise.all(
-    communities.map(async x => {
+    rows.map(async x => {
       const { avatar, description, main_description, language } = JSON.parse(
         await getText(x.ipfs_description),
       );
@@ -220,7 +219,7 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
     }),
   );
 
-  return communities;
+  return rows;
 }
 
 export async function unfollowCommunity(

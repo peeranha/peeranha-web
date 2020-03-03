@@ -38,7 +38,7 @@ const FaqSections = ({ faq }) => (
     {faq && (
       <ul>
         {faq.blocks.map((x, sectionIndex) => (
-          <li>
+          <li key={x.h2}>
             <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
               {x.h2}
             </A>
@@ -50,7 +50,7 @@ const FaqSections = ({ faq }) => (
 );
 
 FaqSections.propTypes = {
-  faq: PropTypes.array,
+  faq: PropTypes.object,
 };
 
 export default React.memo(FaqSections);

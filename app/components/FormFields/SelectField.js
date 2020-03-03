@@ -176,7 +176,7 @@ DefaultOption.propTypes = {
 Select2.propTypes = {
   input: PropTypes.object,
   defaultValue: PropTypes.object,
-  error: PropTypes.object,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isMulti: PropTypes.bool,
   isClearable: PropTypes.bool,
@@ -200,4 +200,4 @@ SelectField.propTypes = {
   splitInHalf: PropTypes.bool,
 };
 
-export default React.memo(SelectField);
+export default SelectField;

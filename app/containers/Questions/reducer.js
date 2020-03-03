@@ -25,7 +25,14 @@ export const initialState = fromJS({
 
 // TODO: test
 function questionsReducer(state = initialState, action) {
-  const { type, questionsList, questionsError, toUpdateQuestions, typeFilter, createdFilter } = action;
+  const {
+    type,
+    questionsList,
+    questionsError,
+    toUpdateQuestions,
+    typeFilter,
+    createdFilter,
+  } = action;
 
   switch (type) {
     case SET_TYPE_FILTER:
@@ -42,18 +49,26 @@ function questionsReducer(state = initialState, action) {
           'questionsList',
           toUpdateQuestions
             ? questionsList
-            : orderBy(uniqBy(state.toJS().questionsList.concat(questionsList), 'id'), ['id'], ['asc']),
+            : orderBy(
+                uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
+                ['id'],
+                ['asc'],
+              ),
         )
-        .set('isLastFetch', questionsList.length < initialState.get('nextLoadedItems'));
+        .set('isLastFetch', questionsList.length === 0);
     case GET_QUESTIONS_ERROR:
-      return state.set('questionsLoading', false).set('questionsError', questionsError);
+      return state
+        .set('questionsLoading', false)
+        .set('questionsError', questionsError);
 
     case GET_UNIQ_QUESTIONS:
       return state.set(
         'questionsList',
-        orderBy(uniqBy(questionsList.concat(state.toJS().questionsList), 'id'), ['id'], ['asc']).filter(
-          x => !x.isDeleted,
-        ),
+        orderBy(
+          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+          ['id'],
+          ['asc'],
+        ).filter(x => !x.isDeleted),
       );
 
     default:

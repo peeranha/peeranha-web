@@ -35,6 +35,10 @@ const Tag = styled.li`
   border-radius: 2px;
 `;
 
+const Base = styled.div`
+  margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
+`;
+
 export const TagSelector = ({
   input,
   meta,
@@ -59,54 +63,56 @@ export const TagSelector = ({
   const filteredOptions = options.filter(x => !valueIds.includes(x.id));
 
   return (
-    <Wrapper
-      label={label}
-      tip={tip}
-      meta={meta}
-      splitInHalf={splitInHalf}
-      disabled={disabled}
-      id={input.name}
-    >
-      <Dropdown
-        isOpen={isOpen}
-        toggle={() => toggleOpen(!isOpen)}
-        target={
-          <TagsContainer
-            disabled={disabled}
-            error={meta.touched && (meta.warning || meta.error)}
-          >
-            {value.map(x => (
-              <Tag>
-                <span>{x.label}</span>
-                <RemoveTagIcon
-                  type="button"
-                  onClick={e => {
-                    e.stopPropagation();
-                    setTags(value.filter(y => y.id !== x.id));
-                  }}
-                >
-                  <img src={closeIcon} alt="X" />
-                </RemoveTagIcon>
-              </Tag>
-            ))}
-          </TagsContainer>
-        }
+    <Base isOpen={isOpen}>
+      <Wrapper
+        label={label}
+        tip={tip}
+        meta={meta}
+        splitInHalf={splitInHalf}
+        disabled={disabled}
+        id={input.name}
       >
-        <Select2
-          input={{
-            ...input,
-            value: null,
-            onBlur: null,
-            onChange: x => setTags([...value, x]),
-          }}
-          options={filteredOptions}
-          disabled={disabled}
-          autoFocus
-          menuIsOpen
-          isWrapped
-        />
-      </Dropdown>
-    </Wrapper>
+        <Dropdown
+          isOpen={isOpen}
+          toggle={() => toggleOpen(!isOpen)}
+          target={
+            <TagsContainer
+              disabled={disabled}
+              error={meta.touched && (meta.warning || meta.error)}
+            >
+              {value.map(x => (
+                <Tag key={x.label}>
+                  <span>{x.label}</span>
+                  <RemoveTagIcon
+                    type="button"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setTags(value.filter(y => y.id !== x.id));
+                    }}
+                  >
+                    <img src={closeIcon} alt="X" />
+                  </RemoveTagIcon>
+                </Tag>
+              ))}
+            </TagsContainer>
+          }
+        >
+          <Select2
+            input={{
+              ...input,
+              value: null,
+              onBlur: null,
+              onChange: x => setTags([...value, x]),
+            }}
+            options={filteredOptions}
+            disabled={disabled}
+            autoFocus
+            menuIsOpen
+            isWrapped
+          />
+        </Dropdown>
+      </Wrapper>
+    </Base>
   );
 };
 
@@ -121,4 +127,4 @@ TagSelector.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default React.memo(TagSelector);
+export default TagSelector;

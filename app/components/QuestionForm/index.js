@@ -36,6 +36,7 @@ import {
   strLength15x100,
   strLength1x5,
   required,
+  maxByteLength,
   withoutDoubleSpace,
   requiredForObjectField,
 } from 'components/FormFields/validate';
@@ -149,7 +150,12 @@ export const QuestionForm = ({
               disabled={questionLoading}
               label={intl.formatMessage({ id: messages.titleLabel.id })}
               tip={intl.formatMessage({ id: messages.titleTip.id })}
-              validate={[withoutDoubleSpace, strLength15x100, required]}
+              validate={[
+                withoutDoubleSpace,
+                strLength15x100,
+                maxByteLength,
+                required,
+              ]}
               warn={[strLength15x100, required]}
               splitInHalf
             />

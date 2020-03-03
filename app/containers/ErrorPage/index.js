@@ -20,18 +20,22 @@ import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import { TEXT_PRIMARY } from 'style-constants';
 
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import errorImage from 'images/oops.svg?inline';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import notFoundPageMessages from 'containers/NotFoundPage/messages';
 import { Box } from 'containers/NotFoundPage';
 
-import A from 'components/A';
+import A, { ADefault } from 'components/A';
 import P from 'components/P';
 import Seo from 'components/Seo';
 import Span from 'components/Span';
 
 import errorPageMessages from './messages';
+
+const single = isSingleCommunityWebsite();
 
 const NotFound = ({ locale, withSeo = true }) => (
   <React.Fragment>
@@ -77,11 +81,16 @@ const NotFound = ({ locale, withSeo = true }) => (
             id={notFoundPageMessages.browseOurPopular.id}
             values={{
               value: (
-                <A className="text-lowercase" to={routes.communities()}>
+                <ADefault
+                  href={`${
+                    single ? process.env.APP_LOCATION : ''
+                  }${routes.communities()}`}
+                  className="text-lowercase"
+                >
                   <Span color={TEXT_PRIMARY}>
                     <FormattedMessage {...commonMessages.communities} />
                   </Span>
-                </A>
+                </ADefault>
               ),
             }}
           />

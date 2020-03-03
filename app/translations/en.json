@@ -2,6 +2,7 @@
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
+  "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
@@ -30,7 +31,7 @@
   "app.common.ago": "ago",
   "app.common.you": "You",
   "app.common.upload": "Upload",
-  "app.common.allQuestions": "Questions",
+  "app.common.allQuestions": "All questions",
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
   "app.common.askedWhen": "Asked {when}",
@@ -181,6 +182,8 @@
   "app.containers.FollowCommunityButton.header": "Header",
   "app.containers.FollowCommunityButton.subscribe": "Subscribe",
   "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Subscribe to this community",
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
@@ -515,8 +518,10 @@
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
   "app.containers.ViewQuestion.areYouSure":
     "Are you sure you want to delete the item?",
-  "app.containers.ViewQuestion.markThisQuestionAndGetEarn":
+  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn":
     "Mark the best answer to this question and earn +2 reputation points",
+  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
+    "Mark the best answer to this question and earn +1 reputation point",
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
     "Change type & Restore Rating",
@@ -526,7 +531,7 @@
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
-    "Leave at least {min} char. but no more than {max}",
+    "Leave at least {min} char but no more than {max}",
   "app.components.FormFields.wrongLengthOfList":
     "Leave at least {min} item but no more than {max}",
   "app.components.FormFields.wrongLengthMin":
@@ -546,10 +551,14 @@
     "Value must contain only letters and numbers from {min} to {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Value must not contain a double space",
+  "app.components.FormFields.wrongByteLength": "Value byte length is too long",
   "app.components.FormFields.numbersFromTo":
     "Value must contain digits from {min} to {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Value must contain only one dot",
+
+  "app.containers.TagsCollection.title": "Tags collection",
+  "app.containers.TagsCollection.description": "Tags Description",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.components.Footer.header": "Copyright: Peeranha",
@@ -568,6 +577,7 @@
     "This is the code your friend gave you.",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
   "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
+  "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
 
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
@@ -667,6 +677,7 @@
   "app.containers.ErrorBoundary.reloadPage": "Reload page",
 
   "app.containers.Questions.title": "Questions",
+  "app.containers.Questions.description": "Description",
   "app.containers.Questions.noQuestions": "No questions",
   "app.containers.Questions.allCommunities": "All communities",
   "app.containers.Questions.youDontHaveFeedToRead":

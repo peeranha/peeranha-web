@@ -1,3 +1,6 @@
+export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
+export const DOMAIN = '.peeranha.io';
+
 export const getCookie = name => {
   const matches = document.cookie.match(
     new RegExp(
@@ -8,9 +11,13 @@ export const getCookie = name => {
   return matches ? decodeURIComponent(matches[1]) : '';
 };
 
-export const setCookie = ({ name, value, options = { expires: {} } }) => {
+export const setCookie = ({
+  name,
+  value,
+  options = { path: '/', allowSubdomains: true },
+}) => {
   const optionsCopy = options;
-  if (optionsCopy.expires && optionsCopy.expires.toUTCString) {
+  if (optionsCopy.expires instanceof Date) {
     optionsCopy.expires = options.expires.toUTCString();
   }
 
@@ -19,6 +26,12 @@ export const setCookie = ({ name, value, options = { expires: {} } }) => {
   )}`;
 
   document.cookie = Object.keys(optionsCopy).reduce((acc, optionKey) => {
+    if (optionKey === 'neverExpires') {
+      return `${acc}; expires=${NEVER_EXPIRES}`;
+    } else if (optionKey === 'allowSubdomains') {
+      return `${acc}; domain=${DOMAIN}`;
+    }
+
     let res = `; ${optionKey}`;
     const optionValue = optionsCopy[optionKey];
     if (optionValue !== true) {
@@ -29,4 +42,8 @@ export const setCookie = ({ name, value, options = { expires: {} } }) => {
 };
 
 export const deleteCookie = name =>
-  setCookie({ name, value: '', options: { 'max-age': -1 } });
+  setCookie({
+    name,
+    value: '',
+    options: { 'max-age': -1, allowSubdomains: true },
+  });

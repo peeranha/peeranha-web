@@ -79,8 +79,8 @@ const Checkbox = ({ input, label, disabled, meta }) => (
 Checkbox.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   disabled: PropTypes.bool,
 };
 
-export default React.memo(Checkbox);
+export default Checkbox;

@@ -48,7 +48,7 @@ export class Fetcher {
     // No abstract classes in JS:(
     if (new.target === Fetcher)
       throw new TypeError(
-        'Cannot construct Fetcer instances directly(abstract)',
+        'Cannot construct Fetcher instances directly(abstract)',
       );
     if (!this.TABLE) throw new TypeError('Must override TABLE method');
 
@@ -58,7 +58,7 @@ export class Fetcher {
       throw new TypeError('Must override PRIMARY_KEY method');
 
     if (this.firstFetchCount < 1 || this.fetchCount < 1)
-      throw new TypeError('Fetch counts must be grather than 1');
+      throw new TypeError('Fetch counts must be grater than 1');
 
     this.sortType = sortType;
     this.firstFetchCount = firstFetchCount;
@@ -86,68 +86,30 @@ export class Fetcher {
     const fetchAtLeast = async count => {
       if (!this.hasMoreToFetch) return;
 
-      const fetch_param = {
-        table: this.TABLE,
-        scope: this.SCOPE,
-        limit: count + 2,
-        lower_bound: this.lastKeyFetched,
-      };
-
-      fetch_param.index_position = this.sortType.indexPosition;
-      fetch_param.key_type = this.sortType.keyType;
-
-      let fetchRes = await this.eosService.getTableRows(
+      const { rows, more } = await this.eosService.getTableRows(
         this.TABLE,
         this.SCOPE,
-        fetch_param.lower_bound,
-        fetch_param.limit,
+        this.lastKeyFetched,
+        count,
         undefined,
-        fetch_param.index_position,
-        fetch_param.key_type,
+        this.sortType.indexPosition,
+        this.sortType.keyType,
       );
 
-      fetchRes = { rows: fetchRes };
-
-      if (!fetchRes.more) {
+      if (!more) {
         this.hasMoreToFetch = false;
       }
 
-      if (!fetchRes.rows.length) return;
+      if (!rows.length) return;
 
-      this.lastKeyFetched = this.sortType.keyFunc(
-        fetchRes.rows[fetchRes.rows.length - 1][this.sortType.keyName],
-      );
+      this.lastKeyFetched =
+        this.sortType.keyFunc(rows[rows.length - 1][this.sortType.keyName]) + 1;
 
-      this.itemArray.push(...fetchRes.rows);
+      this.itemArray.push(...rows);
 
-      const idSet = new Set();
-
-      fetchRes.rows.forEach(item => {
-        idSet.add(item[this.PRIMARY_KEY]);
-      });
-
-      delete fetch_param.limit;
-
-      fetch_param.lower_bound = this.lastKeyFetched;
-      fetch_param.upper_bound = this.lastKeyFetched + 1;
-
-      fetchRes = await this.eosService.getTableRows(
-        this.TABLE,
-        this.SCOPE,
-        fetch_param.lower_bound,
-        fetch_param.limit,
-        undefined,
-        fetch_param.index_position,
-        fetch_param.key_type,
-      );
-
-      fetchRes = { rows: fetchRes };
-
-      fetchRes.rows.forEach(item => {
-        if (!idSet.has(item[this.PRIMARY_KEY])) this.itemArray.push(item);
-      });
-
-      this.lastKeyFetched += 1;
+      if (this.itemArray.length < count && more) {
+        await fetchAtLeast(count - this.itemArray.length);
+      }
     };
 
     if (!this.lastKeyFetched) {
@@ -155,14 +117,16 @@ export class Fetcher {
 
       await fetchAtLeast(this.firstFetchCount);
 
-      if (this.itemArray.length > this.firstFetchCount) {
+      if (this.itemArray.length >= this.firstFetchCount) {
         itemsToReturn.items = this.itemArray.splice(0, this.firstFetchCount);
       } else {
         itemsToReturn.items = this.itemArray;
         this.itemArray = [];
-        itemsToReturn.more = false;
       }
 
+      if (!itemsToReturn.items.length) {
+        itemsToReturn.more = false;
+      }
       return itemsToReturn;
     }
 
@@ -175,11 +139,14 @@ export class Fetcher {
     // Need additional fetch
     await fetchAtLeast(this.fetchCount);
 
-    if (this.itemArray.length > this.fetchCount) {
+    if (this.itemArray.length >= this.fetchCount) {
       itemsToReturn.items = this.itemArray.splice(0, this.fetchCount);
     } else {
       itemsToReturn.items = this.itemArray;
       this.itemArray = [];
+    }
+
+    if (!itemsToReturn.items.length) {
       itemsToReturn.more = false;
     }
 

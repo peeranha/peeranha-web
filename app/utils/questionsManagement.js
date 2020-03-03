@@ -74,7 +74,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       const limit =
         this.firstFetchCount - this.communitiesMap[community_id].items.length;
 
-      const fetch_res = await this.eosService.getTableRows(
+      const { rows } = await this.eosService.getTableRows(
         QUESTION_TABLE,
         ALL_QUESTIONS_SCOPE,
         this.communitiesMap[community_id].lastKeyFetched,
@@ -84,13 +84,13 @@ export class FetcherOfQuestionsForFollowedCommunities {
         GET_QUESTIONS_KEY_TYPE,
       );
 
-      this.communitiesMap[community_id].items.push(...fetch_res);
+      this.communitiesMap[community_id].items.push(...rows);
 
-      if (fetch_res.length === limit) {
+      if (rows.length === limit) {
         this.communitiesMap[community_id].lastKeyFetched = JSBI.add(
           JSBI.add(
             JSBI.BigInt(this.communitiesMap[community_id].lowerBound),
-            JSBI.BigInt(fetch_res[fetch_res.length - 1].id),
+            JSBI.BigInt(rows[rows.length - 1].id),
           ),
           JSBI.BigInt(1),
         ).toString();
@@ -153,14 +153,14 @@ export async function getQuestionsPostedByUser(
   offset = 0,
   limit,
 ) {
-  const questions = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     USER_QUESTIONS_TABLE,
     user,
     offset,
     limit,
   );
 
-  return questions;
+  return rows;
 }
 
 export async function getAnswersPostedByUser(
@@ -169,26 +169,26 @@ export async function getAnswersPostedByUser(
   offset = 0,
   limit,
 ) {
-  const answers = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     USER_ANSWERS_TABLE,
     user,
     offset,
     limit,
   );
 
-  return answers;
+  return rows;
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export async function getQuestions(eosService, limit, offset) {
-  const questions = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
     offset,
     limit,
   );
 
-  return questions;
+  return rows;
 }
 
 /* eslint no-bitwise: 0 no-undef: 0 */
@@ -198,7 +198,7 @@ export async function getQuestionsFilteredByCommunities(
   offset,
   communityId,
 ) {
-  const questions = await eosService.getTableRows(
+  const { rows } = await eosService.getTableRows(
     QUESTION_TABLE,
     ALL_QUESTIONS_SCOPE,
     JSBI.add(
@@ -211,7 +211,7 @@ export async function getQuestionsFilteredByCommunities(
     GET_QUESTIONS_KEY_TYPE,
   );
 
-  return questions;
+  return rows;
 }
 
 /* eslint no-undef: 0 */
@@ -230,9 +230,9 @@ export async function voteToDelete(
 ) {
   await eosService.sendTransaction(user, VOTE_TO_DELETE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId || 0,
-    comment_id: +commentId || 0,
+    question_id: questionId,
+    answer_id: answerId || 0,
+    comment_id: commentId || 0,
   });
 }
 
@@ -313,8 +313,8 @@ export async function editAnswer(
 
   await eosService.sendTransaction(user, EDIT_ANSWER_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
     ipfs_link: ipfsLink,
   });
 }
@@ -322,8 +322,8 @@ export async function editAnswer(
 export async function deleteAnswer(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, DEL_ANSWER_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 
@@ -338,8 +338,8 @@ export async function postComment(
 
   await eosService.sendTransaction(user, POST_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
     ipfs_link: ipfsLink,
   });
 }
@@ -356,9 +356,9 @@ export async function editComment(
 
   await eosService.sendTransaction(user, EDIT_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
-    comment_id: +commentId,
+    question_id: questionId,
+    answer_id: answerId,
+    comment_id: commentId,
     ipfs_link: ipfsLink,
   });
 }
@@ -372,25 +372,25 @@ export async function deleteComment(
 ) {
   await eosService.sendTransaction(user, DEL_COMMENT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
-    comment_id: +commentId,
+    question_id: questionId,
+    answer_id: answerId,
+    comment_id: commentId,
   });
 }
 
 export async function upVote(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, UP_VOTE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 
 export async function downVote(user, questionId, answerId, eosService) {
   await eosService.sendTransaction(user, DOWN_VOTE_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +answerId,
+    question_id: questionId,
+    answer_id: answerId,
   });
 }
 
@@ -402,8 +402,8 @@ export async function markAsAccepted(
 ) {
   await eosService.sendTransaction(user, MARK_AS_CORRECT_METHOD, {
     user,
-    question_id: +questionId,
-    answer_id: +correctAnswerId,
+    question_id: questionId,
+    answer_id: correctAnswerId,
   });
 }
 

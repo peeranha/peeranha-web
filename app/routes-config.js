@@ -5,11 +5,10 @@
  */
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
-import {
-  isSingleCommunityWebsite,
-  hasCommunitySingleWebsite,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
+
+const userRedirect = where => id => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
 
@@ -18,75 +17,44 @@ export const home = () => `/about`;
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
 
-export const profileView = id => `/users/${id}`;
+export const profileView = userRedirect('');
 export const profileEdit = id => `/users/edit/${id}`;
 
-export const userQuestions = id => `/users/${id}#questions`;
-export const userAnswers = id => `/users/${id}#answers`;
-export const userSettings = id => `/users/${id}#settings`;
-export const userWallet = id => `/users/${id}/wallet`;
-
+export const userQuestions = userRedirect('#questions');
+export const userCommunities = userRedirect('#communities');
+export const userAnswers = userRedirect('#answers');
+export const userSettings = userRedirect('#settings');
+export const userWallet = userRedirect('/wallet');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questions = communityid => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const questions = communityId =>
+  !communityId ? `/` : `/questions/community/${communityId}/`;
 
-  if (origin && communityid !== singleCommId) {
-    return communityid
-      ? redirectTo(origin)
-      : redirectTo(`/questions/community/${communityid}/`);
-  }
-
-  return !communityid ? `/` : `/questions/community/${communityid}/`;
-};
-
-export const questionView = (id, answerId, commId) => {
-  const origin = hasCommunitySingleWebsite(commId);
-
-  if (origin && commId !== singleCommId) {
-    return answerId
-      ? redirectTo(`${origin}/questions/${id}/#${uniqueAnswerId(answerId)}`)
-      : redirectTo(`${origin}/questions/${id}`);
-  }
-
-  return answerId
+export const questionView = (id, answerId) =>
+  answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
-};
 
-export const questionEdit = questionid =>
-  !singleCommId ? `/questions/${questionid}/edit` : `/${questionid}/edit`;
+export const questionEdit = questionId =>
+  !singleCommId ? `/questions/${questionId}/edit` : `/${questionId}/edit`;
 
-export const answerEdit = (questionid, answerid) =>
+export const answerEdit = (questionId, answerId) =>
   !singleCommId
-    ? `/questions/${questionid}/answers/${answerid}/edit`
-    : `/${questionid}/answers/${answerid}/edit`;
+    ? `/questions/${questionId}/answers/${answerId}/edit`
+    : `/${questionId}/answers/${answerId}/edit`;
 
 export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
 export const noAccess = () => `/no-access`;
 
-export const feed = communityid => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const feed = communityId => `/feed/${communityId || ''}`;
 
-  if (origin && communityid !== singleCommId) {
-    return redirectTo(`/feed/${communityid || ''}`);
-  }
-
-  return `/feed/${communityid || ''}`;
-};
-
-export const communities = () =>
-  !singleCommId
-    ? `/communities`
-    : redirectTo(`${process.env.APP_LOCATION}/communities`);
+export const communities = () => `/communities`;
 
 export const tags = () => `/tags`;
 
-export const redirectTo = to =>
-  `/redirect/${to[0] === ':' ? to : encodeURIComponent(to)}`;
+export const users = () => '/users';
 
-export const users = () => `/users`;
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
@@ -101,23 +69,16 @@ export const communitiesCreate = () => `/communities/create`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 
-export const communityTags = communityid => {
-  const origin = hasCommunitySingleWebsite(communityid);
+export const communityTags = communityId =>
+  !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
 
-  if (origin && communityid !== singleCommId) {
-    return redirectTo(`${origin}/tags`);
-  }
-
-  return !singleCommId ? `/communities/${communityid}/tags` : `/tags`;
-};
-
-export const suggestedTags = communityid =>
+export const suggestedTags = communityId =>
   !singleCommId
-    ? `/communities/${communityid}/tags/suggested`
+    ? `/communities/${communityId}/tags/suggested`
     : `/tags/suggested`;
 
-export const tagsCreate = communityid =>
-  !singleCommId ? `/tags/community/${communityid || 0}/create` : `/tags/create`;
+export const tagsCreate = communityId =>
+  !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
 export const registrationStage = 'signup';
 

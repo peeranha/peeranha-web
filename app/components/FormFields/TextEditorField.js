@@ -115,4 +115,4 @@ TextEditorField.propTypes = {
   splitInHalf: PropTypes.bool,
 };
 
-export default React.memo(TextEditorField);
+export default TextEditorField;

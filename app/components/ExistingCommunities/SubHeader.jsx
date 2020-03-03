@@ -30,9 +30,9 @@ const Menu = ({ changeSorting, sorting, options }) => (
   <Ul>
     {Object.keys(options).map(x => (
       <CheckedItem
-        key={`${options[x].message}_${options[x].order}`}
+        key={`${options[x].message.id}_${options[x].order}`}
         onClick={() => changeSorting(options[x])}
-        isActive={sorting.message === options[x].message}
+        isActive={sorting.message.id === options[x].message.id}
       >
         <FormattedMessage {...options[x].message} />
       </CheckedItem>

@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -12,6 +13,7 @@ import messages from 'common-messages';
 import logoutIcon from 'images/logout.svg?inline';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
@@ -19,35 +21,66 @@ import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
+import { SmallSpecialImage } from 'components/Img/SmallImage';
 
 import Logout from 'containers/Logout';
+import { selectIsMenuVisible } from '../AppWrapper/selectors';
+
+const single = isSingleCommunityWebsite();
 
 const Info = styled.span`
   padding: 0 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ isMenuVisible }) =>
+    single && !isMenuVisible ? 'row' : 'column'};
   justify-content: center;
+  > span:nth-child(1) {
+    display: flex;
+    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${x => (single && !x.isMenuVisible ? 7 : 'auto')}px;
+  }
 `;
 
-export const Button = ({ profileInfo, onClick }) => (
+const B = ({ profileInfo, onClick, isMenuVisible }) => (
   <span className="d-flex" onClick={onClick}>
-    <MediumSpecialImage
-      isBordered
-      src={getUserAvatar(profileInfo.ipfs_avatar)}
-      alt="ipfs_avatar"
-    />
-    <Info>
-      <Span bold>{profileInfo.display_name}</Span>
+    {single ? (
+      <SmallSpecialImage
+        isBordered
+        src={getUserAvatar(profileInfo.ipfs_avatar)}
+        alt="ipfs_avatar"
+      />
+    ) : (
+      <MediumSpecialImage
+        isBordered
+        src={getUserAvatar(profileInfo.ipfs_avatar)}
+        alt="ipfs_avatar"
+      />
+    )}
+    <Info isMenuVisible={isMenuVisible}>
+      <Span className={single ? 'align-middle' : ''} bold>
+        {profileInfo.display_name}
+      </Span>
       <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
     </Info>
   </span>
 );
 
-const Menu = ({ user, questionsLength, questionsWithUserAnswersLength }) => (
+export const Button = connect(state => ({
+  isMenuVisible: selectIsMenuVisible()(state),
+}))(B);
+
+const Menu = ({
+  profileInfo: { user },
+  questionsLength,
+  questionsWithUserAnswersLength,
+}) => (
   <nav>
     <Ul>
       <A to={routes.profileView(user)}>
         <FormattedMessage {...messages.profile} />
+      </A>
+      <A to={routes.userCommunities(user)}>
+        <FormattedMessage {...messages.myCommunities} />
       </A>
       <A
         to={routes.userQuestions(user)}
@@ -87,7 +120,7 @@ const ProfileDropdown = ({ profileInfo }) => (
     button={<Button profileInfo={profileInfo} />}
     menu={
       <Menu
-        user={profileInfo.user}
+        profileInfo={profileInfo}
         questionsLength={profileInfo.questions_asked}
         questionsWithUserAnswersLength={profileInfo.answers_given}
       />
@@ -100,10 +133,16 @@ ProfileDropdown.propTypes = {
 };
 
 Menu.propTypes = {
-  user: PropTypes.string,
+  profileInfo: PropTypes.object,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
   loginWithScatter: PropTypes.bool,
+};
+
+B.propTypes = {
+  profileInfo: PropTypes.object,
+  onClick: PropTypes.func,
+  isMenuVisible: PropTypes.bool,
 };
 
 Button.propTypes = {

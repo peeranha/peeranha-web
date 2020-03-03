@@ -61,4 +61,4 @@ TextInputField.propTypes = {
   insideOfSection: PropTypes.bool,
 };
 
-export default React.memo(TextInputField);
+export default TextInputField;

@@ -61,7 +61,9 @@ export class ViewQuestion extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.questionData && !this.props.questionDataLoading) {
+    const { questionData, questionDataLoading } = this.props;
+
+    if (questionData && !questionDataLoading) {
       window.isRendered = true;
     }
   }
@@ -158,7 +160,7 @@ export class ViewQuestion extends React.Component {
 
     const helmetDescription =
       (questionData && questionData.content.content) ||
-      translations[messages.title.description];
+      translations[messages.title.id];
 
     const articlePublishedTime =
       questionData && questionData.post_time
@@ -180,7 +182,7 @@ export class ViewQuestion extends React.Component {
 
     const tags = community.tags.filter(x => tagIds.includes(x.id));
 
-    const keywords = `${tags.map(x => x.name)}, ${helmetTitle}`;
+    const keywords = [...tags.map(x => x.name), helmetTitle];
 
     return (
       <React.Fragment>
