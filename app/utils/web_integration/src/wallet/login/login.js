@@ -73,7 +73,7 @@ async function login(email, password, rememberMe = false) {
       name: AUTOLOGIN_DATA,
       value: JSON.stringify(peeranhaAutoLogin),
       options: {
-        path: '/',
+        defaultPath: true,
         allowSubdomains: true,
         neverExpires: true,
       },
@@ -83,7 +83,7 @@ async function login(email, password, rememberMe = false) {
       name: AUTOLOGIN_DATA,
       value: JSON.stringify(peeranhaAutoLogin),
       options: {
-        path: '/',
+        defaultPath: true,
         allowSubdomains: true,
         expires: 0,
       },

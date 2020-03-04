@@ -55,7 +55,7 @@ export function* followHandlerWorker({
       name: PROFILE_INFO_LS,
       value: JSON.stringify(updatedProfileInfo),
       options: {
-        path: '/',
+        defaultPath: true,
         allowSubdomains: true,
       },
     });

@@ -133,6 +133,7 @@ export const QuestionForProfilePage = ({
   route,
   isGeneral,
   bordered,
+  isAnswer,
 }) => {
   let Link = AProps;
   let href = route;
@@ -182,7 +183,7 @@ export const QuestionForProfilePage = ({
               color={TEXT_SECONDARY}
             >
               <FormattedMessage
-                {...commonMessages.askedWhen}
+                {...commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen']}
                 values={{
                   when: getFormattedDate(
                     myPostTime,
@@ -233,6 +234,7 @@ QuestionForProfilePage.propTypes = {
   route: PropTypes.string,
   isGeneral: PropTypes.bool,
   bordered: PropTypes.bool,
+  isAnswer: PropTypes.bool,
 };
 
 export default React.memo(QuestionForProfilePage);

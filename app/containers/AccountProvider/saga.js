@@ -152,7 +152,7 @@ export function* getCurrentAccountWorker(initAccount) {
       name: PROFILE_INFO_LS,
       value: JSON.stringify(profileInfo),
       options: {
-        path: '/',
+        defaultPath: true,
         allowSubdomains: true,
       },
     });
@@ -203,6 +203,7 @@ function* updateRefer(user, eosService) {
         options: {
           allowSubdomains: true,
           neverExpires: true,
+          defaultPath: true,
         },
       });
       yield put(
@@ -219,6 +220,7 @@ function* updateRefer(user, eosService) {
       options: {
         allowSubdomains: true,
         neverExpires: true,
+        defaultPath: true,
       },
     });
   }
@@ -275,6 +277,7 @@ export function* updateAccWorker({ eos }) {
             options: {
               allowSubdomains: true,
               neverExpires: true,
+              defaultPath: true,
             },
           });
         }

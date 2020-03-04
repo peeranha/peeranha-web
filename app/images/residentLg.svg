@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="37" height="16" viewBox="0 0 37 16">
-    <g fill="#FDE2DF" fill-rule="evenodd" stroke="#F76F60">
-        <circle cx="8" cy="8" r="7.5"/>
-        <circle cx="8" cy="8" r="5.5"/>
-        <circle cx="18" cy="8" r="7.5"/>
-        <circle cx="18" cy="8" r="5.5"/>
-        <circle cx="29" cy="8" r="7.5"/>
-        <circle cx="29" cy="8" r="5.5"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>F6E288A6-0537-4A54-8C7A-E15249FA81AE</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ico_resident_big" fill="#FDE2DF" stroke="#F76F60">
+            <circle id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
+            <circle id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
+        </g>
     </g>
 </svg>

@@ -37,6 +37,7 @@ const Question = ({
       isTheLargestRating={isTheLargestRating}
       isGeneral={isGeneral}
       bordered
+      isAnswer
     />
   </Li>
 );

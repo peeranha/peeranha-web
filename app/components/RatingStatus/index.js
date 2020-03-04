@@ -19,7 +19,7 @@ import RatingStatusStyled from './RatingStatusStyled';
 
 const getStatus = rating =>
   Object.keys(options).filter(
-    x => options[x].minRating < rating && options[x].maxRating >= rating,
+    x => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({ className, size, rating }) => {
@@ -27,11 +27,11 @@ const IconWithStatus = ({ className, size, rating }) => {
 
   let color = TEXT_DARK;
 
-  if (rating > options.newbie.minRating && size === 'sm') {
+  if (rating > options.resident.minRating && size === 'sm') {
     color = TEXT_WARNING_LIGHT;
   } else if (rating <= options.banned.maxRating) {
     color = TEXT_WARNING;
-  } else if (rating <= options.newbie.minRating && size === 'sm') {
+  } else if (rating <= options.resident.minRating && size === 'sm') {
     color = TEXT_PRIMARY;
   }
 
