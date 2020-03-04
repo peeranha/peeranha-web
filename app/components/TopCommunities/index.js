@@ -109,6 +109,12 @@ const TopCommunities = ({
     [window.location.hash, questions],
   );
 
+  let AllCommunitiesLink = A;
+  let allCommunitiesRoute = routes.communities();
+  if (single) {
+    AllCommunitiesLink = ADefault;
+    allCommunitiesRoute = `${process.env.APP_LOCATION}${allCommunitiesRoute}`;
+  }
   return (
     <div className="overlow-hidden" ref={ref}>
       <H4 isHeader>
@@ -196,12 +202,16 @@ const TopCommunities = ({
 
         {communities.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
-            <A className="d-flex align-items-center" to={routes.communities()}>
+            <AllCommunitiesLink
+              className="d-flex align-items-center"
+              to={allCommunitiesRoute}
+              href={allCommunitiesRoute}
+            >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage {...messages.allCommunities} />
               </Span>
-            </A>
+            </AllCommunitiesLink>
           </div>
         )}
       </Grid>

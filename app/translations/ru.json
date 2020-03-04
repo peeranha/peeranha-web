@@ -35,6 +35,7 @@
   "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
+  "app.common.answeredWhen": "Ответил {when}",
   "app.common.somebodyAsked": "{account} спрашивал",
   "app.common.somebodyAnswered": "{account} отвечал",
   "app.common.youAnswered": "Вы отвечали",

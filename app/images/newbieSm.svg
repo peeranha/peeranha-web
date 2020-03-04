@@ -1,3 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9">
-    <circle cx="4.5" cy="4.5" r="4" fill="#FDE2DF" fill-rule="nonzero" stroke="#F76F60"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="9px" viewBox="0 0 13 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>D26CA253-1DAF-4FA0-9D26-F42174A76D23</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Status_big" transform="translate(-56.000000, -99.000000)" fill="#DDE2FB" fill-rule="nonzero" stroke="#576FED">
+            <g id="Status_Newbie" transform="translate(56.000000, 99.000000)">
+                <circle id="Status_Stranger" cx="4.5" cy="4.5" r="4"></circle>
+                <circle id="Status_Stranger-Copy" cx="8.5" cy="4.5" r="4"></circle>
+            </g>
+        </g>
+    </g>
 </svg>

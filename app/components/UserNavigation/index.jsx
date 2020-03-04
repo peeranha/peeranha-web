@@ -137,7 +137,9 @@ const UserNavigation = ({
           <button
             onClick={redirectToEditProfilePage}
             className={`align-items-center ${
-              userId === account && path === routes.profileView(account)
+              userId === account &&
+              (path === routes.profileView(account) ||
+                path === routes.userCommunities(account))
                 ? 'd-inline-flex'
                 : 'd-none'
             }`}

@@ -35,6 +35,7 @@
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
   "app.common.askedWhen": "Asked {when}",
+  "app.common.answeredWhen": "Answered {when}",
   "app.common.somebodyAsked": "{account} asked",
   "app.common.somebodyAnswered": "{account} answered",
   "app.common.youAnswered": "You answered",
