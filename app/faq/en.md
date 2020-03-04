@@ -186,7 +186,8 @@ Notifications are not available in the first release. This functionality will be
 |Delete own question|-1|
 |Delete own answer|-1|
 |Delete own comment|0|
-|Accept answer as correct|2|
+|Accept answer  as correct for Expert Question|2|
+|Accept answer as correct for General Question|1|
 |Question deleted by moderation|-2|
 |Answer deleted by moderation|-2|
 |Comment deleted by moderation|-1|
