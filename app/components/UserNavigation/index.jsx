@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -34,6 +34,8 @@ const Ul = styled.ul`
   }
 `;
 
+const hashes = ['#questions', '#answers', '#settings'];
+
 const UserNavigation = ({
   userId,
   account,
@@ -42,9 +44,20 @@ const UserNavigation = ({
   redirectToEditProfilePage,
 }) => {
   const path = window.location.pathname + window.location.hash;
-
+  const ref = useRef(null);
+  useEffect(
+    () => {
+      if (
+        hashes.includes(window.location.hash) ||
+        path === routes.profileView(userId)
+      ) {
+        window.scrollTo(0, 0);
+      }
+    },
+    [window.location.hash],
+  );
   return (
-    <Wrapper position="top">
+    <Wrapper position="top" ref={ref}>
       <Ul>
         <div className="d-flex align-items-center">
           <NavigationLink

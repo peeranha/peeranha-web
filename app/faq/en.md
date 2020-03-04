@@ -109,7 +109,7 @@ A question that asks one of the following:
 #### Rewards:
 
 General question:
-Rewards for Question and Answer Upvote is 1 point, Answer - 2 points.
+Rewards for Question Upvote is 1 point, Answer - 2 points.
 
 Users can mark answer as the best to gain 1 extra point and reward an answerer with 3 points.
 
@@ -171,6 +171,7 @@ Notifications are not available in the first release. This functionality will be
 | Action or Event | Rating points |
 | ----------- | ----------- |
 |Expert answer accepted as correct|15|
+|General answer accepted as correct|3|
 |Upvote question|0|
 |Downvote question|-1|
 |Downvote answer|-1|

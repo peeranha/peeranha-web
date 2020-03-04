@@ -102,8 +102,15 @@ const TopCommunities = ({
   const ref = useRef(null);
   useEffect(
     () => {
+      let offset = 75;
+      if (single && window.innerWidth > 576) {
+        offset = 113;
+      } else if (window.innerWidth < 577) {
+        offset = 55;
+      }
+
       if (window.location.hash === '#communities') {
-        window.scrollTo(0, ref.current.offsetTop - 110);
+        window.scrollTo(0, ref.current.offsetTop - offset);
       }
     },
     [window.location.hash, questions],

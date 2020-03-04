@@ -155,6 +155,7 @@ export function* loginWithScatterWorker() {
       value: JSON.stringify({ loginWithScatter: true }),
       options: {
         allowSubdomains: true,
+        defaultPath: true,
       },
     });
 

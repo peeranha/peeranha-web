@@ -90,6 +90,7 @@ const App = ({ location }) => {
           options: {
             allowSubdomains: true,
             neverExpires: true,
+            defaultPath: true,
           },
         });
       }

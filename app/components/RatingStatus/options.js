@@ -30,8 +30,8 @@ const options = {
     },
   },
   stranger: {
-    minRating: -1,
-    maxRating: 100,
+    minRating: 0,
+    maxRating: 99,
     maxEnergy: 50,
     messageId: messages.stranger.id,
     icon: {
@@ -41,7 +41,7 @@ const options = {
   },
   newbie: {
     minRating: 100,
-    maxRating: 500,
+    maxRating: 499,
     maxEnergy: 100,
     messageId: messages.newbie.id,
     icon: {
@@ -51,7 +51,7 @@ const options = {
   },
   jrResident: {
     minRating: 500,
-    maxRating: 1000,
+    maxRating: 999,
     maxEnergy: 150,
     messageId: messages.jrResident.id,
     icon: {
@@ -61,7 +61,7 @@ const options = {
   },
   resident: {
     minRating: 1000,
-    maxRating: 2500,
+    maxRating: 2499,
     maxEnergy: 200,
     messageId: messages.resident.id,
     icon: {
@@ -71,7 +71,7 @@ const options = {
   },
   srResident: {
     minRating: 2500,
-    maxRating: 5000,
+    maxRating: 4999,
     maxEnergy: 250,
     messageId: messages.srResident.id,
     icon: {
@@ -81,7 +81,7 @@ const options = {
   },
   heroResident: {
     minRating: 5000,
-    maxRating: 10000,
+    maxRating: 9999,
     maxEnergy: 300,
     messageId: messages.heroResident.id,
     icon: {

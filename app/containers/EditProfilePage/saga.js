@@ -58,7 +58,7 @@ export function* saveProfileWorker({ profile, userKey }) {
       name: PROFILE_INFO_LS,
       value: JSON.stringify(updatedProfileInfo),
       options: {
-        path: '/',
+        defaultPath: true,
         allowSubdomains: true,
       },
     });

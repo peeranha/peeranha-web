@@ -19,7 +19,7 @@ import RatingStatusStyled from './RatingStatusStyled';
 
 const getStatus = rating =>
   Object.keys(options).filter(
-    x => options[x].minRating < rating && options[x].maxRating >= rating,
+    x => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({ className, size, rating }) => {
