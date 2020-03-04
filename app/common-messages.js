@@ -99,6 +99,9 @@ export default defineMessages({
   askedWhen: {
     id: 'app.common.askedWhen',
   },
+  answeredWhen: {
+    id: 'app.common.answeredWhen',
+  },
   somebodyAsked: {
     id: 'app.common.somebodyAsked',
   },

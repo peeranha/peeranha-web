@@ -1,6 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-    <g fill="none" fill-rule="nonzero">
-        <circle cx="8" cy="8" r="7.5" stroke="#DC3545"/>
-        <path stroke="none" fill="#DC3545" d="M2.404 13.39L13.01 2.781l.708.708L3.11 14.096z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>7896A908-7D43-42E1-B7CA-238DA6556C3D</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ico_banned_big" fill-rule="nonzero">
+            <g id="Status_Banned-Copy">
+                <circle id="Oval-Copy-7" stroke="#DC3545" cx="8" cy="8" r="7.5"></circle>
+                <polygon id="Rectangle" fill="#DC3545" transform="translate(8.060660, 8.439340) rotate(-45.000000) translate(-8.060660, -8.439340) " points="0.560660172 7.93933983 15.5606602 7.93933983 15.5606602 8.93933983 0.560660172 8.93933983"></polygon>
+            </g>
+        </g>
     </g>
 </svg>

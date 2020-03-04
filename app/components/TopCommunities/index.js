@@ -102,13 +102,26 @@ const TopCommunities = ({
   const ref = useRef(null);
   useEffect(
     () => {
+      let offset = 75;
+      if (single && window.innerWidth > 576) {
+        offset = 113;
+      } else if (window.innerWidth < 577) {
+        offset = 55;
+      }
+
       if (window.location.hash === '#communities') {
-        window.scrollTo(0, ref.current.offsetTop - 110);
+        window.scrollTo(0, ref.current.offsetTop - offset);
       }
     },
     [window.location.hash, questions],
   );
 
+  let AllCommunitiesLink = A;
+  let allCommunitiesRoute = routes.communities();
+  if (single) {
+    AllCommunitiesLink = ADefault;
+    allCommunitiesRoute = `${process.env.APP_LOCATION}${allCommunitiesRoute}`;
+  }
   return (
     <div className="overlow-hidden" ref={ref}>
       <H4 isHeader>
@@ -196,12 +209,16 @@ const TopCommunities = ({
 
         {communities.length > 9 && (
           <div className="d-flex align-items-center justify-content-center">
-            <A className="d-flex align-items-center" to={routes.communities()}>
+            <AllCommunitiesLink
+              className="d-flex align-items-center"
+              to={allCommunitiesRoute}
+              href={allCommunitiesRoute}
+            >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage {...messages.allCommunities} />
               </Span>
-            </A>
+            </AllCommunitiesLink>
           </div>
         )}
       </Grid>

@@ -54,8 +54,14 @@ const CommunitiesForm = ({
   const ref = useRef(null);
   useEffect(
     () => {
+      let offset = 75;
+      if (single && window.innerWidth > 576) {
+        offset = 113;
+      } else if (window.innerWidth < 577) {
+        offset = 55;
+      }
+
       if (window.location.hash === '#communities') {
-        const offset = window.innerWidth > 576 ? 110 : 57;
         window.scrollTo(0, ref.current.offsetTop - offset);
       }
     },

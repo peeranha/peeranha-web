@@ -102,7 +102,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
         name: PROFILE_INFO_LS,
         value: JSON.stringify(updatedUserInfo),
         options: {
-          path: '/',
+          defaultPath: true,
           allowSubdomains: true,
         },
       });

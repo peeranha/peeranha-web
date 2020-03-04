@@ -1,3 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="19" height="16" viewBox="0 0 19 16">
-    <path fill="#FFECCC" fill-rule="nonzero" stroke="#FF8500" d="M2.176 15.5h14.648l1.501-13.908-4.543 5.455L9.5.877l-4.282 6.17L.675 1.592 2.176 15.5z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="16px" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>0794B84C-FA91-45C8-8AAF-AED1E140C336</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ico_Super_hero_big" fill="#FFECCC" fill-rule="nonzero" stroke="#FF8500">
+            <path d="M2.17620056,15.5 L16.8237994,15.5 L18.3252842,1.59150956 L13.7819765,7.04702131 L9.5,0.876968587 L5.21802347,7.04702131 L0.674715797,1.59150956 L2.17620056,15.5 Z" id="Status_SuperHero-Copy"></path>
+        </g>
+    </g>
 </svg>
