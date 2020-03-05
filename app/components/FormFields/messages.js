@@ -34,8 +34,8 @@ export default defineMessages({
   passwordsNotMatch: {
     id: 'app.components.FormFields.passwordsNotMatch',
   },
-  onlyLettersAndNumbersFromTo: {
-    id: 'app.components.FormFields.onlyLettersAndNumbersFromTo',
+  onlyLowerCaseLettersAndNumbersFromTo: {
+    id: 'app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo',
   },
   withoutDoubleSpace: {
     id: 'app.components.FormFields.withoutDoubleSpace',
