@@ -557,6 +557,12 @@
     "Value must contain digits from {min} to {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Value must contain only one dot",
+  "app.components.FormFields.telosNameLength":
+    "Telos account name must be 12 characters long",
+  "app.components.FormFields.telosCorrectSymbols":
+    "Only a-z letters and 1-5 numbers are allowed",
+  "app.components.FormFields.notAbleChangeAfterCreation":
+    "You will not be able to change it after creation",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",

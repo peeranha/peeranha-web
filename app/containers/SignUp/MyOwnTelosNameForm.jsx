@@ -1,15 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
+import Img from 'components/Img';
 import Input from 'components/Input';
-import Wrapper from '../../components/FormFields/Wrapper';
-// import okay from 'images/okayGreen.svg?inline';
-// import notOkay from 'images/notOkayRed.svg?inline';
+import Wrapper from 'components/FormFields/Wrapper';
+import messages from 'components/FormFields/messages';
+
+import okay from 'images/okayGreen.svg?inline';
+import notOkay from 'images/notOkayRed.svg?inline';
 
 import {
-  required,
-  validateTelosName,
-} from '../../components/FormFields/validate';
+  telosCorrectSymbols,
+  telosNameLength,
+} from 'components/FormFields/validate';
+
+const Div = styled.div`
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+
+  img {
+    margin-right: 3px;
+  }
+`;
 
 export const MyOwnTelosNameForm = ({
   input,
@@ -28,23 +43,13 @@ export const MyOwnTelosNameForm = ({
   insideOfSection,
 }) => {
   const { value } = input;
-  //                   validate={[required, validateTelosName]}
-  const lowerCase = /^[a-z.]+$/.test(value);
-  const incorrectNumbers = /[06789]+/gm.test(value);
-  const isCorrectSymbols = /[a-z1-5]+/gm.test(value);
-  const correctLength = value.length >= 2 && value.length <= 12;
-  console.log('=====', {
-    incorrectNumbers,
-    lowerCase,
-    isCorrectSymbols,
-    correctLength,
-  });
-  console.log(value, '!', required(value), '!', validateTelosName(value));
+  const correctSymbols = telosCorrectSymbols(value);
+  const correctLength = telosNameLength(value);
+
   return (
     <Wrapper
       label={label}
       tip={tip}
-      meta={meta}
       splitInHalf={splitInHalf}
       disabled={disabled}
       id={input.name}
@@ -62,6 +67,18 @@ export const MyOwnTelosNameForm = ({
         error={meta.touched && (meta.error || meta.warning)}
         type={type}
       />
+      <Div>
+        <Img src={!correctLength ? okay : notOkay} alt="marker" />
+        <FormattedMessage {...messages.telosNameLength} />
+      </Div>
+      <Div>
+        <Img src={!correctSymbols ? okay : notOkay} alt="marker" />
+        <FormattedMessage {...messages.telosCorrectSymbols} />
+      </Div>
+      <Div>
+        <Img src={notOkay} alt="not okay" />
+        <FormattedMessage {...messages.notAbleChangeAfterCreation} />
+      </Div>
     </Wrapper>
   );
 };

@@ -567,6 +567,12 @@
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Значение должно содержать только 1 точку",
+  "app.components.FormFields.telosNameLength":
+    "Имя Телос аккаунта должно содержать только 12 символов",
+  "app.components.FormFields.telosCorrectSymbols":
+    "Только a-z буквы и 1-5 цифры разрешены",
+  "app.components.FormFields.notAbleChangeAfterCreation":
+    "У Вас не будет возможности изменить его после создания",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

@@ -20,7 +20,7 @@ const communitiesConfig = {
   },
   dev: {
     2: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:13000',
       src: OntLogo,
     },
   },

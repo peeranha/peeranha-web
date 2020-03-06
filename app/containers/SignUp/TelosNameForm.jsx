@@ -30,7 +30,7 @@ const Base = styled.div`
 
   > h6 {
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
   }
 
   div {

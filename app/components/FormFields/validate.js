@@ -108,10 +108,14 @@ const validateTelosName = str => {
     if (str.replace(/[^.]*[.]?[^.]*/, '').length) {
       return messages.onlyOneDotValue;
     }
-    if (!/^[a-z1-5\.]+$/i.test(str)) {
-      return { ...messages.onlyLettersAndNumbersFromTo, min: 1, max: 5 };
+    if (!/^[a-z1-5\.]+$/.test(str)) {
+      return {
+        ...messages.onlyLowerCaseLettersAndNumbersFromTo,
+        min: 1,
+        max: 5,
+      };
     }
-    return stringLength(2, 12)(str);
+    return stringLength(12, 12)(str);
   }
 
   return undefined;
@@ -119,6 +123,22 @@ const validateTelosName = str => {
 
 const withoutDoubleSpace = str =>
   str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
+
+const telosCorrectSymbols = str => {
+  if (!/^[a-z1-5]+$/.test(str)) {
+    return {
+      ...messages.onlyLowerCaseLettersAndNumbersFromTo,
+      min: 1,
+      max: 5,
+    };
+  }
+  return undefined;
+};
+
+const telosNameLength = str =>
+  !str || str.length !== 12
+    ? { ...messages.wrongLength, min: 12, max: 12 }
+    : undefined;
 
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);
@@ -154,4 +174,6 @@ export {
   validateTelosName,
   withoutDoubleSpace,
   maxByteLength,
+  telosCorrectSymbols,
+  telosNameLength,
 };

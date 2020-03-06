@@ -49,4 +49,13 @@ export default defineMessages({
   onlyOneDotValue: {
     id: 'app.components.FormFields.onlyOneDotValue',
   },
+  telosNameLength: {
+    id: 'app.components.FormFields.telosNameLength',
+  },
+  telosCorrectSymbols: {
+    id: 'app.components.FormFields.telosCorrectSymbols',
+  },
+  notAbleChangeAfterCreation: {
+    id: 'app.components.FormFields.notAbleChangeAfterCreation',
+  },
 });

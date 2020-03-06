@@ -15,6 +15,8 @@ import {
   required,
   comparePasswords,
   strLength8x100,
+  telosCorrectSymbols,
+  telosNameLength,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -93,8 +95,6 @@ const IdontHaveEOSAccountForm = ({
                 disabled={idontHaveEosAccountProcessing}
                 label={translate[messages.eosName.id]}
                 component={TelosNameForm}
-                type="password"
-                autoComplete="new-password"
               />
             </Div>
             {isMyOwnTelosName ? (
@@ -103,6 +103,7 @@ const IdontHaveEOSAccountForm = ({
                   name={MY_OWN_TELOS_NAME_FIELD}
                   disabled={idontHaveEosAccountProcessing}
                   component={MyOwnTelosNameForm}
+                  validate={[required, telosCorrectSymbols, telosNameLength]}
                 />
               </Div>
             ) : null}
