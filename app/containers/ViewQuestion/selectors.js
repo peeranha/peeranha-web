@@ -19,7 +19,25 @@ const selectQuestionData = () =>
         return questionData;
       }
 
-      const { userInfo } = questionData;
+      const { userInfo, answers } = questionData;
+      const { user, rating } = profileInfo;
+
+      answers.forEach(answer => {
+        const { comments, userInfo: answerUserInfo } = answer;
+        if (answerUserInfo.user === user && answerUserInfo.rating !== rating) {
+          answerUserInfo.rating = rating;
+        }
+        comments.forEach(comment => {
+          const { userInfo: commentUserInfo } = comment;
+          if (
+            commentUserInfo.user === user &&
+            commentUserInfo.rating !== rating
+          ) {
+            commentUserInfo.rating = rating;
+          }
+        });
+      });
+
       if (
         userInfo.user === profileInfo.user &&
         userInfo.rating !== profileInfo.rating

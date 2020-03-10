@@ -58,4 +58,7 @@ export default defineMessages({
   notAbleChangeAfterCreation: {
     id: 'app.components.FormFields.notAbleChangeAfterCreation',
   },
+  thisTelosNameIsAvailable: {
+    id: 'app.components.FormFields.thisTelosNameIsAvailable',
+  },
 });

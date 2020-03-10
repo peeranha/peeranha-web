@@ -33,7 +33,7 @@ async function registerComplete(
     masterKey,
     keys,
     eosAccountName,
-    telosName,
+    eosName,
   } = registerProperties;
 
   const hashPassword = buildEncryptionKeys(password);
@@ -71,6 +71,7 @@ async function registerComplete(
       info: requestAccountMessage,
       publicActiveKey: keys.activeKey.public,
       publicOwnerKey: keys.ownerKey.public,
+      eosName,
     };
   }
 
@@ -79,7 +80,6 @@ async function registerComplete(
   const requestBody = {
     email,
     encryptedCredentials,
-    telosName,
   };
 
   const response = await callService(REGISTER_COMPLETE_SERVICE, requestBody);

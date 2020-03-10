@@ -140,6 +140,14 @@ const telosNameLength = str =>
     ? { ...messages.wrongLength, min: 12, max: 12 }
     : undefined;
 
+const isTelosNameAvailable = async (eosService, telosName) => {
+  const account = await eosService.getAccount(telosName);
+  if (account) {
+    return messages.thisTelosNameIsAvailable;
+  }
+  return undefined;
+};
+
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);
 const strLength2x15 = stringLength(2, 15);
@@ -176,4 +184,5 @@ export {
   maxByteLength,
   telosCorrectSymbols,
   telosNameLength,
+  isTelosNameAvailable,
 };

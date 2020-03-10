@@ -17,6 +17,7 @@ import {
   strLength8x100,
   telosCorrectSymbols,
   telosNameLength,
+  isTelosNameAvailable,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
@@ -43,12 +44,14 @@ import {
 import { Div } from './IHaveEOSAccountForm';
 import TelosNameForm from './TelosNameForm';
 import MyOwnTelosNameForm from './MyOwnTelosNameForm';
+import { selectEos } from '../EosioProvider/selectors';
 
 const IdontHaveEOSAccountForm = ({
   handleSubmit,
   change,
   masterKeyValue,
   isMyOwnTelosName,
+  eosService,
 }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
     <SignUp>
@@ -103,6 +106,7 @@ const IdontHaveEOSAccountForm = ({
                   name={MY_OWN_TELOS_NAME_FIELD}
                   disabled={idontHaveEosAccountProcessing}
                   component={MyOwnTelosNameForm}
+                  eosService={eosService}
                   validate={[required, telosCorrectSymbols, telosNameLength]}
                 />
               </Div>
@@ -174,6 +178,7 @@ IdontHaveEOSAccountForm.propTypes = {
   eosActivePrevValue: PropTypes.string,
   masterKeyValue: PropTypes.string,
   isMyOwnTelosName: PropTypes.bool,
+  eosService: PropTypes.object,
 };
 
 const formName = 'IdontHaveEOSAccountForm';
@@ -181,13 +186,36 @@ const formName = 'IdontHaveEOSAccountForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
+  touchOnChange: true,
+  asyncChangeFields: [MY_OWN_TELOS_NAME_FIELD],
   onSubmitFail: errors => scrollToErrorField(errors),
+
+  shouldAsyncValidate: ({ blurredField }) =>
+    blurredField === MY_OWN_TELOS_NAME_FIELD,
+
+  asyncValidate: async (value, dispatch, { eosService }) => {
+    const telosName = value.get(MY_OWN_TELOS_NAME_FIELD);
+    const correctSymbols = telosCorrectSymbols(telosName);
+    const correctLength = telosNameLength(telosName);
+
+    if (!correctSymbols && !correctLength) {
+      const validation = await isTelosNameAvailable(eosService, telosName);
+      if (validation) {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        return Promise.reject({
+          [MY_OWN_TELOS_NAME_FIELD]: validation,
+        });
+      }
+    }
+    return undefined;
+  },
 })(IdontHaveEOSAccountForm);
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {
+    eosService: selectEos(state),
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
     passwordList: form.values
       ? [form.values[PASSWORD_FIELD], form.values[PASSWORD_CONFIRM_FIELD]]

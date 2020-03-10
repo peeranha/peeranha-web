@@ -573,6 +573,8 @@
     "Только a-z буквы и 1-5 цифры разрешены",
   "app.components.FormFields.notAbleChangeAfterCreation":
     "У Вас не будет возможности изменить его после создания",
+  "app.components.FormFields.thisTelosNameIsAvailable":
+    "Это Телос имя не занято",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

@@ -45,6 +45,7 @@ export const MyOwnTelosNameForm = ({
   const { value } = input;
   const correctSymbols = telosCorrectSymbols(value);
   const correctLength = telosNameLength(value);
+  const isAvailable = !correctSymbols && !correctLength && !meta.error;
 
   return (
     <Wrapper
@@ -76,6 +77,10 @@ export const MyOwnTelosNameForm = ({
         <FormattedMessage {...messages.telosCorrectSymbols} />
       </Div>
       <Div>
+        <Img src={isAvailable ? okay : notOkay} alt="not okay" />
+        <FormattedMessage {...messages.thisTelosNameIsAvailable} />
+      </Div>
+      <Div>
         <Img src={notOkay} alt="not okay" />
         <FormattedMessage {...messages.notAbleChangeAfterCreation} />
       </Div>
@@ -98,6 +103,7 @@ MyOwnTelosNameForm.propTypes = {
   autoComplete: PropTypes.string,
   onClick: PropTypes.func,
   insideOfSection: PropTypes.bool,
+  eosService: PropTypes.object,
 };
 
 export default MyOwnTelosNameForm;

@@ -93,7 +93,7 @@ const SlideIndicators = () => {
 
   return (
     <SlideIndicatorsStyled step={currentStep}>
-      {new Array(maxStep).fill().map(() => <div />)}
+      {new Array(maxStep).fill().map(() => <div key={Math.random()} />)}
     </SlideIndicatorsStyled>
   );
 };
