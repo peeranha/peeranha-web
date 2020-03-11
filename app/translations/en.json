@@ -564,7 +564,7 @@
   "app.components.FormFields.notAbleChangeAfterCreation":
     "You will not be able to change it after creation",
   "app.components.FormFields.thisTelosNameIsAvailable":
-    "This Telos name is not taken",
+    "This Telos name is available",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",

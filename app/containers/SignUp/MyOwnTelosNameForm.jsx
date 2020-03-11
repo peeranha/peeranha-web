@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import Img from 'components/Img';
 import Input from 'components/Input';
 import Wrapper from 'components/FormFields/Wrapper';
 import messages from 'components/FormFields/messages';
 
 import okay from 'images/okayGreen.svg?inline';
 import notOkay from 'images/notOkayRed.svg?inline';
+import dangerIcon from 'images/dangerIcon.svg?inline';
 
 import {
   telosCorrectSymbols,
@@ -18,11 +18,13 @@ import {
 
 const Div = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 15px;
   align-items: center;
 
   img {
-    margin-right: 3px;
+    height: 13px;
+    width: 13px;
+    margin-right: 10px;
   }
 `;
 
@@ -69,19 +71,19 @@ export const MyOwnTelosNameForm = ({
         type={type}
       />
       <Div>
-        <Img src={!correctLength ? okay : notOkay} alt="marker" />
+        <img src={!correctLength ? okay : notOkay} alt="marker" />
         <FormattedMessage {...messages.telosNameLength} />
       </Div>
       <Div>
-        <Img src={!correctSymbols ? okay : notOkay} alt="marker" />
+        <img src={!correctSymbols ? okay : notOkay} alt="marker" />
         <FormattedMessage {...messages.telosCorrectSymbols} />
       </Div>
       <Div>
-        <Img src={isAvailable ? okay : notOkay} alt="not okay" />
+        <img src={isAvailable ? okay : notOkay} alt="not okay" />
         <FormattedMessage {...messages.thisTelosNameIsAvailable} />
       </Div>
       <Div>
-        <Img src={notOkay} alt="not okay" />
+        <img src={dangerIcon} alt="not okay" />
         <FormattedMessage {...messages.notAbleChangeAfterCreation} />
       </Div>
     </Wrapper>
