@@ -109,4 +109,13 @@ export default defineMessages({
   seeMore: {
     id: 'app.containers.Profile.seeMore',
   },
+  tipText: {
+    id: 'app.containers.Profile.tipText',
+  },
+  crypto: {
+    id: 'app.containers.Profile.crypto',
+  },
+  account: {
+    id: 'app.containers.Profile.account',
+  },
 });

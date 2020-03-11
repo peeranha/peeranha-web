@@ -16,7 +16,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectLoginData,
   makeSelectBalance,
-  makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -44,30 +43,28 @@ export const SendTokens = /* istanbul ignore next */ ({
   balance,
   account,
   form = 'send-tokens',
-}) => {
-  return (
-    <>
-      <Modal
-        show={showModal && showModal === form}
-        closeModal={hideSendTokensModalDispatch}
-        children={
-          <SendTokensForm
-            locale={locale}
-            sendTokens={sendTokensDispatch}
-            sendTokensProcessing={sendTokensProcessing}
-            loginData={loginData}
-            valueHasToBeLessThan={balance}
-            account={account}
-          />
-        }
-      />
+}) => (
+  <>
+    <Modal
+      show={showModal && showModal === form}
+      closeModal={hideSendTokensModalDispatch}
+      children={
+        <SendTokensForm
+          locale={locale}
+          sendTokens={sendTokensDispatch}
+          sendTokensProcessing={sendTokensProcessing}
+          loginData={loginData}
+          valueHasToBeLessThan={balance}
+          account={account}
+        />
+      }
+    />
 
-      <Button onClick={() => showSendTokensModalDispatch(form)}>
-        {children}
-      </Button>
-    </>
-  );
-};
+    <Button onClick={() => showSendTokensModalDispatch(form)}>
+      {children}
+    </Button>
+  </>
+);
 
 SendTokens.propTypes = {
   locale: PropTypes.string,

@@ -44,7 +44,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: sqrlWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
   },
   HEART: {
     name: 'HEART',
@@ -53,7 +53,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: hexWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
   },
 };
 

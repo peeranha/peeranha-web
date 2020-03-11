@@ -678,6 +678,10 @@
   "app.containers.Profile.confirmPassword": "Confirm password",
   "app.containers.Profile.youAnswered": "You answered",
   "app.containers.Profile.seeMore": "See all {questions} and {answers}",
+  "app.containers.Profile.tipText":
+    "Set up wallets for crypto tokens to get tips from other users.",
+  "app.containers.Profile.crypto": "Crypto",
+  "app.containers.Profile.account": "Account",
 
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 

@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BG_PRIMARY } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
 
+import commonMessages from 'common-messages';
+
+import coinsIcon from 'images/coins.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
 import Button from 'components/Button/Contained/PrimaryMedium';
+import SendTokens from 'containers/SendTokens';
 
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
+import { B } from './QuestionTitle';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 
@@ -18,6 +24,52 @@ const Label = Button.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
+  min-width: 143px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 455px) {
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      margin-bottom: 10px;
+    }
+
+    > button {
+      width: 165px;
+    }
+  }
+
+  @media only screen and (max-width: 276px) {
+    justify-content: center;
+  }
+`;
+
+const Base = styled.div`
+  display: flex;
+  width: 241px;
+  height: 32px;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 276px) {
+    overflow: hidden;
+    height: 1%;
+    justify-content: center;
+    flex-direction: column;
+    > button:nth-child(1) {
+      margin-bottom: 10px;
+      width: 130px;
+    }
+
+    > button:nth-child(2) {
+      margin-bottom: 0;
+      width: 98px;
+    }
+  }
 `;
 
 export const BestAnswerMarker = ({
@@ -29,32 +81,42 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
+  isItWrittenByMe,
 }) => {
   if (answerId === 0) return null;
-
+  const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
-    <div className="d-flex">
-      <MarkAsAcceptedIcon
-        className="mb-3 mr-3"
-        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-        answerId={answerId}
-        questionFrom={questionFrom}
-        account={account}
-        markAsAccepted={markAsAccepted}
-        disabled={ids.includes(
-          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
+    <Div>
+      <Base>
+        {displayTips && (
+          <SendTokens form="tip-answer" account={whoWasAccepted}>
+            <B>
+              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <FormattedMessage {...commonMessages.tipAnswer} />
+            </B>
+          </SendTokens>
         )}
-        correctAnswerId={correctAnswerId}
-        whoWasAccepted={whoWasAccepted}
-      />
-
+        <MarkAsAcceptedIcon
+          className=""
+          id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
+          answerId={answerId}
+          questionFrom={questionFrom}
+          account={account}
+          markAsAccepted={markAsAccepted}
+          disabled={ids.includes(
+            formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
+          )}
+          correctAnswerId={correctAnswerId}
+          whoWasAccepted={whoWasAccepted}
+        />
+      </Base>
       {isTheLargestRating ? (
-        <Label className="mb-3" bg={BG_PRIMARY} inactive>
+        <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
       ) : null}
-    </div>
+    </Div>
   );
 };
 
@@ -68,6 +130,7 @@ BestAnswerMarker.propTypes = {
   isTheLargestRating: PropTypes.bool,
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
+  isItWrittenByMe: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

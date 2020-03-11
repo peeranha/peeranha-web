@@ -686,6 +686,10 @@
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
   "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
+  "app.containers.Profile.tipText":
+    "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
+  "app.containers.Profile.crypto": "Крипто-кошелёк",
+  "app.containers.Profile.account": "Аккаунт",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

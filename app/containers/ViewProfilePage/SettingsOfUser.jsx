@@ -26,6 +26,7 @@ import ChangeEmailButton from 'containers/ChangeEmail';
 import DeleteAccountButton from 'containers/DeleteAccount';
 import ReferralProgram from './ReferralProgram';
 import NotFound from '../ErrorPage';
+import Tip from './Tip';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
@@ -105,7 +106,7 @@ export const BaseStyled = Base.extend`
       }
 
       tr td {
-        padding: 0 30px 20px 0px !important;
+        padding: 0 30px 20px 0px;
         text-align: left !important;
       }
     }
@@ -129,7 +130,7 @@ const SettingsOfUser = ({
     );
   };
 
-  return isAvailable ? (
+  return !isAvailable ? (
     <div>
       <BaseStyled
         className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
@@ -247,6 +248,8 @@ const SettingsOfUser = ({
           />
         </div>
       </BaseStyled>
+
+      <Tip className={`${className}  d-flex flex-column`} />
 
       <ReferralProgram
         className={className}

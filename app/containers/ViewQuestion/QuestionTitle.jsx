@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
@@ -20,12 +21,17 @@ import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 // eslint-disable-next-line no-unused-vars
 export const B = Button.extend`
-  display: inline-flex;
   align-items: center;
   padding-top: 0;
   padding-bottom: 0;
-  margin-bottom: 10px;
+  min-height: 32px;
+  transition-property: none;
+  width: 100%;
 `.withComponent('span');
+
+const Div = styled.div`
+  min-width: 140px;
+`;
 
 export const QuestionTitle = ({
   title,
@@ -45,7 +51,7 @@ export const QuestionTitle = ({
           <FormattedMessage {...messages.expertQuestion} />
         </QuestionType>
       )}
-      <div>
+      <Div>
         {!isItWrittenByMe && (
           <SendTokens form="tip-question" account={user}>
             <B>
@@ -86,7 +92,7 @@ export const QuestionTitle = ({
             />
           ) : null}
         </TagList>
-      </div>
+      </Div>
     </Base>
   ) : null;
 
@@ -99,6 +105,7 @@ QuestionTitle.propTypes = {
   isGeneral: PropTypes.bool,
   correctAnswerId: PropTypes.number,
   answersNumber: PropTypes.number,
+  user: PropTypes.string,
 };
 
 export default React.memo(QuestionTitle);
