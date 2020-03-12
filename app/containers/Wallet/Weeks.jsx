@@ -243,7 +243,7 @@ const Weeks = ({
         !getWeekStatProcessing && (
           <ul className="mt-3">
             <CurrentPendingWeeks inRow={weekStat.length >= 2}>
-              {currentWeeksNumber && (
+              {!!currentWeeksNumber && (
                 <CurrentWeek
                   currentWeeksNumber={currentWeeksNumber}
                   locale={locale}
