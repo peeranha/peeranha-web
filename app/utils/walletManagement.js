@@ -105,7 +105,7 @@ export async function getWeekStat(eosService, profile) {
     { rows: totalRating },
     { rows: periodRating },
     { rows: weekRewards },
-    { rows: userSupplyValues },
+    userSupplyValues,
   ] = await Promise.all([
     getTotalReward(),
     getTotalRating(),
@@ -153,10 +153,11 @@ export async function getWeekStat(eosService, profile) {
     }
   });
 
-  const numberOfPeriods = Math.ceil(
-    (Date.now() / 1000 - +process.env.RELEASE_DATE) /
-      +process.env.WEEK_DURATION,
-  );
+  const numberOfPeriods =
+    Math.ceil(
+      (Date.now() / 1000 - +process.env.RELEASE_DATE) /
+        +process.env.WEEK_DURATION,
+    ) - 1;
 
   // Fill by periods with 0 reward - they not stored in blockchain
   return new Array(numberOfPeriods)
