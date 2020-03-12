@@ -5,15 +5,14 @@ import styled from 'styled-components';
 import Input from 'components/Input';
 
 const Div = styled.div`
-  width: 355px;
+  display: flex;
+  justify-items: center;
+  width: 100%;
+  max-width: 355px;
   margin-right: 0 !important;
 
   input {
     padding-right: 14px;
-  }
-
-  @media only screen and (max-width: 660px) {
-    width: 100%;
   }
 `;
 

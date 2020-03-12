@@ -7,6 +7,7 @@ import MainUserInformation from './MainUserInformation';
 import AdditionalUserInformation from './AdditionalUserInformation';
 import CommunitiesForm from './CommunitiesForm';
 import Activity from './Activity';
+import Tip from './Tip';
 
 const ProfileViewForm = ({
   profile,
@@ -35,6 +36,8 @@ const ProfileViewForm = ({
       account={account}
       redirectToEditProfilePage={redirectToEditProfilePage}
     />
+
+    <Tip className={className} profile={profile} account={account} />
 
     <CommunitiesForm
       userId={userId}
