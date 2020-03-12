@@ -8,7 +8,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import _isEqual from 'lodash/isEqual';
-import _isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
 
 import commonMessages from 'common-messages';
 
@@ -26,14 +26,130 @@ import AccountField from '../AccountField';
 
 import profileMessages from '../../Profile/messages';
 import { saveCryptoAccounts } from './actions';
-import { DAEMON, ONCE_TILL_UNMOUNT } from '../../../utils/constants';
+import { DAEMON } from '../../../utils/constants';
+import { selectIsSaveCryptoAccountsProcessing } from './selectors';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    padding: 23px 27px;
+  }
+`;
+
+const Base = styled.div`
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
 const Form = styled.form`
   width: 100%;
   max-width: 541px;
   margin-top: 15px;
 `;
 
-const Div = styled.div`
+const DivTable = styled.div`
+  width: 100%;
+
+  > div,
+  > div {
+    width: 100% !important;
+  }
+`;
+
+const DivHeader = styled.div`
+  font-size: 14px !important;
+  height: 30px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  > div {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 10px !important;
+    font-weight: 400 !important;
+    color: ${TEXT_SECONDARY_LIGHT}!important;
+  }
+
+  @media only screen and (max-width: 355px) {
+    display: none;
+  }
+`;
+
+const HeadCryptoColumn = styled.div`
+  width: 160px;
+`;
+
+const HeadAccountColumn = styled.div`
+  width: 100%;
+  max-width: 380px;
+`;
+
+const DivBody = styled.div`
+  width: 100%;
+`;
+
+const BodyRow = styled.div`
+  border: 1px solid ${BORDER_SECONDARY};
+  display: inline-flex;
+  width: 100%;
+  :not(:last-child) {
+    border-bottom: 0;
+  }
+
+  @media only screen and (max-width: 355px) {
+    display: flex;
+    flex-direction: column;
+    max-width: 379px;
+  }
+`;
+
+const BodyCryptoColumn = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 8px 10px;
+  height: 57px;
+  width: 160px;
+
+  > img {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    height: 47px;
+  }
+`;
+
+const BodyAccountColumn = styled.div`
+  margin-right: 0;
+  width: 100%;
+  max-width: 380px;
+  padding: 8px 16px 8px 8px;
+  align-items: center;
+
+  > span {
+    height: fit-content;
+  }
+
+  @media only screen and (max-width: 576px) {
+    height: 47px;
+    padding: 4px 12px 4px 4px;
+  }
+
+  @media only screen and (max-width: 355px) {
+    padding: 4px 4px 4px 4px;
+  }
+`;
+
+const SaveCancelButtons = styled.div`
   display: flex;
   justify-content: space-between;
   width: 200px;
@@ -52,131 +168,21 @@ const Div = styled.div`
   }
 `;
 
-const Table = styled.table`
-  width: 100%;
-
-  > thead,
-  > tbody {
-    width: 100% !important;
-  }
-`;
-
-const THead = styled.thead`
-  @media only screen and (max-width: 355px) {
-    display: none;
-  }
-`;
-
-const THeadTR = styled.tr`
-  font-size: 14px !important;
-  height: 30px;
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-
-  > td {
-    display: flex;
-    align-items: center;
-    padding: 0 0 0 10px !important;
-    font-weight: 400 !important;
-    color: ${TEXT_SECONDARY_LIGHT}!important;
-  }
-`;
-
-const THeadCrypto = styled.td`
-  width: 160px;
-`;
-
-const THeadAccount = styled.td`
-  width: 100%;
-  max-width: 380px;
-`;
-
-const TBody = styled.tbody`
-  width: 100%;
-`;
-
-const TBodyTrTdCrypto = styled.td`
-  display: flex;
-  align-items: center;
-  padding: 8px 8px 8px 10px;
-  height: 57px;
-  width: 160px;
-
-  > img {
-    height: 24px;
-    width: 24px;
-    margin-right: 10px;
-  }
-
-  @media only screen and (max-width: 576px) {
-    height: 47px;
-  }
-`;
-
-const TBodyTrTdAccount = styled.td`
-  margin-right: 0;
-  width: 100%;
-  max-width: 380px;
-  padding: 8px 16px 8px 8px;
-
-  @media only screen and (max-width: 576px) {
-    height: 47px;
-    padding: 4px 12px 4px 4px;
-  }
-
-  @media only screen and (max-width: 355px) {
-    padding: 4px 4px 4px 4px;
-  }
-`;
-
-const TBodyTR = styled.tr`
-  border: 1px solid ${BORDER_SECONDARY};
-  display: inline-flex;
-  width: 100%;
-  :not(:last-child) {
-    border-bottom: 0;
-  }
-
-  @media only screen and (max-width: 355px) {
-    display: flex;
-    flex-direction: column;
-    max-width: 379px;
-  }
-`;
-
-const Base = styled.div`
-  padding: 20px 30px;
-  background-color: white;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  h4 {
-    padding: 23px 27px;
-  }
-`;
-
 const Tip = ({
   className,
   handleSubmit,
   changed,
   reset,
   profile,
-  account,
+  isMine,
   saveCryptoAccountsDispatch,
+  cryptoAccounts,
+  isSaveCryptoAccountsProcessing,
 }) => {
-  console.log(profile);
-  const isMine = account && account === profile.user;
   const saveAccounts = form =>
     saveCryptoAccountsDispatch({
       cryptoAccounts: form.toJS(),
+      resetForm: reset,
       profile,
     });
 
@@ -188,50 +194,55 @@ const Tip = ({
       <Base>
         <FormattedMessage {...profileMessages.tipText} />
         <Form>
-          <Table className={changed ? 'mb-4' : ''}>
-            <THead>
-              <THeadTR>
-                <THeadCrypto className="pl-2">
-                  <FormattedMessage {...profileMessages.crypto} />
-                </THeadCrypto>
-                <THeadAccount>
-                  <FormattedMessage {...profileMessages.account} />
-                </THeadAccount>
-              </THeadTR>
-            </THead>
-            <TBody>
+          <DivTable className={changed ? 'mb-4' : ''}>
+            <DivHeader>
+              <HeadCryptoColumn className="pl-2">
+                <FormattedMessage {...profileMessages.crypto} />
+              </HeadCryptoColumn>
+              <HeadAccountColumn>
+                <FormattedMessage {...profileMessages.account} />
+              </HeadAccountColumn>
+            </DivHeader>
+            <DivBody>
               {Object.keys(CURRENCIES).map(currency => {
                 const { logo, name } = CURRENCIES[currency];
                 return (
-                  <TBodyTR key={currency}>
-                    <TBodyTrTdCrypto>
+                  <BodyRow key={currency}>
+                    <BodyCryptoColumn>
                       <img src={logo} alt={`${name}_logo`} />
                       <p>{name}</p>
-                    </TBodyTrTdCrypto>
-                    <TBodyTrTdAccount className="d-flex justify-content-start">
+                    </BodyCryptoColumn>
+                    <BodyAccountColumn className="d-flex justify-content-start">
                       {isMine ? (
                         <Field
-                          name={`${name}_FIELD`}
+                          name={name}
                           component={AccountField}
+                          disabled={isSaveCryptoAccountsProcessing}
                         />
                       ) : (
-                        <p>my_account</p>
+                        <span>{cryptoAccounts[name]}</span>
                       )}
-                    </TBodyTrTdAccount>
-                  </TBodyTR>
+                    </BodyAccountColumn>
+                  </BodyRow>
                 );
               })}
-            </TBody>
-          </Table>
+            </DivBody>
+          </DivTable>
           {changed && (
-            <Div>
-              <ContainedButton onClick={handleSubmit(saveAccounts)}>
+            <SaveCancelButtons>
+              <ContainedButton
+                onClick={handleSubmit(saveAccounts)}
+                disabled={isSaveCryptoAccountsProcessing}
+              >
                 <FormattedMessage {...profileMessages.saveButton} />
               </ContainedButton>
-              <OutlinedButton onClick={reset}>
+              <OutlinedButton
+                onClick={reset}
+                disabled={isSaveCryptoAccountsProcessing}
+              >
                 <FormattedMessage {...commonMessages.cancel} />
               </OutlinedButton>
-            </Div>
+            </SaveCancelButtons>
           )}
         </Form>
       </Base>
@@ -240,35 +251,44 @@ const Tip = ({
 };
 
 Tip.propTypes = {
+  isMine: PropTypes.bool,
   changed: PropTypes.bool,
+  isSaveCryptoAccountsProcessing: PropTypes.bool,
   className: PropTypes.string,
   reset: PropTypes.func,
   handleSubmit: PropTypes.func,
   saveCryptoAccountsDispatch: PropTypes.func,
   profile: PropTypes.object,
   account: PropTypes.string,
+  cryptoAccounts: PropTypes.object,
 };
 
 const FORM_NAME = 'tip_form';
 
 export default compose(
   injectReducer({ key: 'editCryptoAccounts', reducer }),
-  injectSaga({ key: 'editCryptoAccounts', saga, mode: ONCE_TILL_UNMOUNT }),
+  injectSaga({ key: 'editCryptoAccounts', saga, mode: DAEMON }),
   connect(
-    state => {
+    (state, { profile, account }) => {
+      const isSaveCryptoAccountsProcessing = selectIsSaveCryptoAccountsProcessing()(
+        state,
+      );
       const form = state.get('form').toJS();
+      const cryptoAccounts = _get(profile, ['profile', 'cryptoAccounts'], {});
 
-      const { values, initial } = form[FORM_NAME]
-        ? form[FORM_NAME]
-        : { values: null, initial: null };
+      const { values, initial } = _get(form, FORM_NAME, {
+        values: {},
+        initial: {},
+      });
+      const isMine = account && account === profile.user;
 
       return {
-        values: values || initial,
+        isMine,
         enableReinitialize: true,
-        initialValues: {
-          PEER_FIELD: 'my_peer_account',
-        },
-        changed: !_isEqual(values, initial),
+        initialValues: cryptoAccounts,
+        isSaveCryptoAccountsProcessing,
+        cryptoAccounts: values || initial,
+        changed: isMine && !_isEqual(values, initial),
       };
     },
     dispatch => ({

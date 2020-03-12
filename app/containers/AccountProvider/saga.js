@@ -103,6 +103,7 @@ import {
 import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { SAVE_CRYPTO_ACCOUNTS_SUCCESS } from '../ViewProfilePage/Tip/constants';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -334,6 +335,7 @@ export default function* defaultSaga() {
       DELETE_ANSWER_SUCCESS,
       DELETE_COMMENT_SUCCESS,
       SAVE_COMMENT_SUCCESS,
+      SAVE_CRYPTO_ACCOUNTS_SUCCESS,
     ],
     getCurrentAccountWorker,
   );

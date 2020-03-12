@@ -16,15 +16,20 @@ const Div = styled.div`
   }
 `;
 
-const AccountField = ({ input, meta }) => (
+const AccountField = ({ input, meta, disabled }) => (
   <Div>
-    <Input input={input} error={meta.touched && (meta.error || meta.warning)} />
+    <Input
+      input={input}
+      disabled={disabled}
+      error={meta.touched && (meta.error || meta.warning)}
+    />
   </Div>
 );
 
 AccountField.propTypes = {
-  input: PropTypes.object,
   meta: PropTypes.object,
+  input: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default AccountField;

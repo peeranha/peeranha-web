@@ -64,6 +64,7 @@ import {
   selectDownVoteLoading as downvoteTag,
 } from 'containers/VoteForNewTagButton/selectors';
 import { selectPickupRewardProcessing } from 'containers/Wallet/selectors';
+import { selectIsSaveCryptoAccountsProcessing } from '../ViewProfilePage/Tip/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
@@ -112,4 +113,5 @@ export default {
   upvoteTag: upvoteTag(),
   downvoteTag: downvoteTag(),
   selectPickupRewardProcessing: selectPickupRewardProcessing(),
+  selectIsSaveCryptoAccountsProcessing: selectIsSaveCryptoAccountsProcessing(),
 };

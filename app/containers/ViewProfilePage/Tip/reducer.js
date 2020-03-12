@@ -6,25 +6,26 @@ import {
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  cryptoAccounts: {},
+});
 
 const cryptoAccountsReducer = (state = initialState, action) => {
-  const { type, getUsersError, users, sorting, loadMore, searchText } = action;
+  const { type } = action;
 
   switch (type) {
     case SAVE_CRYPTO_ACCOUNTS:
-      debugger
-      return state;
-
-    case SAVE_CRYPTO_ACCOUNTS_ERROR:
-      return state;
+      return state.set('isSaveCryptoAccountsProcessing', true);
 
     case SAVE_CRYPTO_ACCOUNTS_SUCCESS:
-      return state;
+      return state.set('isSaveCryptoAccountsProcessing', false);
+
+    case SAVE_CRYPTO_ACCOUNTS_ERROR:
+      return state.set('isSaveCryptoAccountsProcessing', false);
 
     default:
       return state;
   }
-}
+};
 
 export default cryptoAccountsReducer;

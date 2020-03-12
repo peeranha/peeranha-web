@@ -4,14 +4,12 @@ import {
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 } from './constants';
 
-export const saveCryptoAccounts = (cryptoAccounts, profile) => {
-  debugger
-  return ({
-    type: SAVE_CRYPTO_ACCOUNTS,
-    cryptoAccounts,
-    profile,
-  });
-}
+export const saveCryptoAccounts = ({ cryptoAccounts, profile, resetForm }) => ({
+  type: SAVE_CRYPTO_ACCOUNTS,
+  cryptoAccounts,
+  profile,
+  resetForm,
+});
 
 export const saveCryptoAccountsSuccess = () => ({
   type: SAVE_CRYPTO_ACCOUNTS_SUCCESS,
