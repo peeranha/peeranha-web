@@ -1,26 +1,32 @@
 import React from 'react';
-import { compose } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
 
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import _isEqual from 'lodash/isEqual';
 import _isEmpty from 'lodash/isEmpty';
 
+import commonMessages from 'common-messages';
+
 import { CURRENCIES } from 'wallet-config';
 import { FormattedMessage } from 'react-intl';
-
 import H4 from 'components/H4';
 import ContainedButton from 'components/Button/Contained/InfoLarge';
 import OutlinedButton from 'components/Button/Outlined/InfoLarge';
+import { BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from 'style-constants';
 
-import commonMessages from 'common-messages';
+import reducer from './reducer';
+import saga from './saga';
 
-import profileMessages from '../Profile/messages';
-import AccountField from './AccountField';
-import { BORDER_SECONDARY, TEXT_SECONDARY_LIGHT } from '../../style-constants';
+import AccountField from '../AccountField';
 
+import profileMessages from '../../Profile/messages';
+import { saveCryptoAccounts } from './actions';
+import { DAEMON, ONCE_TILL_UNMOUNT } from '../../../utils/constants';
 const Form = styled.form`
   width: 100%;
   max-width: 541px;
@@ -157,8 +163,23 @@ const Container = styled.div`
   }
 `;
 
-const Tip = ({ className, handleSubmit, changed, reset, profile, account }) => {
+const Tip = ({
+  className,
+  handleSubmit,
+  changed,
+  reset,
+  profile,
+  account,
+  saveCryptoAccountsDispatch,
+}) => {
+  console.log(profile);
   const isMine = account && account === profile.user;
+  const saveAccounts = form =>
+    saveCryptoAccountsDispatch({
+      cryptoAccounts: form.toJS(),
+      profile,
+    });
+
   return (
     <Container className={className} style={{ marginTop: '10px' }}>
       <H4>
@@ -166,7 +187,7 @@ const Tip = ({ className, handleSubmit, changed, reset, profile, account }) => {
       </H4>
       <Base>
         <FormattedMessage {...profileMessages.tipText} />
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Table className={changed ? 'mb-4' : ''}>
             <THead>
               <THeadTR>
@@ -204,8 +225,12 @@ const Tip = ({ className, handleSubmit, changed, reset, profile, account }) => {
           </Table>
           {changed && (
             <Div>
-              <ContainedButton>Save</ContainedButton>
-              <OutlinedButton onClick={reset}>Cancel</OutlinedButton>
+              <ContainedButton onClick={handleSubmit(saveAccounts)}>
+                <FormattedMessage {...profileMessages.saveButton} />
+              </ContainedButton>
+              <OutlinedButton onClick={reset}>
+                <FormattedMessage {...commonMessages.cancel} />
+              </OutlinedButton>
             </Div>
           )}
         </Form>
@@ -219,6 +244,7 @@ Tip.propTypes = {
   className: PropTypes.string,
   reset: PropTypes.func,
   handleSubmit: PropTypes.func,
+  saveCryptoAccountsDispatch: PropTypes.func,
   profile: PropTypes.object,
   account: PropTypes.string,
 };
@@ -226,22 +252,32 @@ Tip.propTypes = {
 const FORM_NAME = 'tip_form';
 
 export default compose(
-  connect(state => {
-    const form = state.get('form').toJS();
+  injectReducer({ key: 'editCryptoAccounts', reducer }),
+  injectSaga({ key: 'editCryptoAccounts', saga, mode: ONCE_TILL_UNMOUNT }),
+  connect(
+    state => {
+      const form = state.get('form').toJS();
 
-    const { values, initial } = !_isEmpty(form)
-      ? form[FORM_NAME]
-      : { values: null, initial: null };
+      const { values, initial } = form[FORM_NAME]
+        ? form[FORM_NAME]
+        : { values: null, initial: null };
 
-    return {
-      values: values || initial,
-      enableReinitialize: true,
-      initialValues: {
-        PEER_FIELD: 'my_peer_account',
-      },
-      changed: !_isEqual(values, initial),
-    };
-  }),
+      return {
+        values: values || initial,
+        enableReinitialize: true,
+        initialValues: {
+          PEER_FIELD: 'my_peer_account',
+        },
+        changed: !_isEqual(values, initial),
+      };
+    },
+    dispatch => ({
+      saveCryptoAccountsDispatch: bindActionCreators(
+        saveCryptoAccounts,
+        dispatch,
+      ),
+    }),
+  ),
   reduxForm({
     form: FORM_NAME,
   }),

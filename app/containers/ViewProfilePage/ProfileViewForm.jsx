@@ -7,7 +7,7 @@ import MainUserInformation from './MainUserInformation';
 import AdditionalUserInformation from './AdditionalUserInformation';
 import CommunitiesForm from './CommunitiesForm';
 import Activity from './Activity';
-import Tip from './Tip';
+import Tip from './Tip/Tip';
 
 const ProfileViewForm = ({
   profile,
