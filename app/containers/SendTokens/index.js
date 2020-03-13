@@ -2,12 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import _get from 'lodash/get';
 
 import Modal from 'components/ModalDialog';
 
@@ -30,6 +30,7 @@ import saga from './saga';
 
 import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
+import { selectUsers } from '../DataCacheProvider/selectors';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
@@ -43,22 +44,23 @@ export const SendTokens = /* istanbul ignore next */ ({
   balance,
   account,
   form = 'send-tokens',
+  cryptoAccounts,
 }) => (
   <>
     <Modal
       show={showModal && showModal === form}
       closeModal={hideSendTokensModalDispatch}
-      children={
-        <SendTokensForm
-          locale={locale}
-          sendTokens={sendTokensDispatch}
-          sendTokensProcessing={sendTokensProcessing}
-          loginData={loginData}
-          valueHasToBeLessThan={balance}
-          account={account}
-        />
-      }
-    />
+    >
+      <SendTokensForm
+        locale={locale}
+        sendTokens={sendTokensDispatch}
+        sendTokensProcessing={sendTokensProcessing}
+        loginData={loginData}
+        valueHasToBeLessThan={balance}
+        account={account}
+        cryptoAccounts={cryptoAccounts}
+      />
+    </Modal>
 
     <Button onClick={() => showSendTokensModalDispatch(form)}>
       {children}
@@ -76,34 +78,8 @@ SendTokens.propTypes = {
   sendTokensDispatch: PropTypes.func,
   loginData: PropTypes.object,
   balance: PropTypes.number,
+  cryptoAccounts: PropTypes.object,
 };
-
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  loginData: makeSelectLoginData(),
-  balance: makeSelectBalance(),
-  showModal: selectors.selectShowModal(),
-  sendTokensProcessing: selectors.selectSendTokensProcessing(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    hideSendTokensModalDispatch: bindActionCreators(
-      hideSendTokensModal,
-      dispatch,
-    ),
-    showSendTokensModalDispatch: bindActionCreators(
-      showSendTokensModal,
-      dispatch,
-    ),
-    sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
 
 const withReducer = injectReducer({ key: 'sendTokens', reducer });
 const withSaga = injectSaga({ key: 'sendTokens', saga, mode: DAEMON });
@@ -111,5 +87,29 @@ const withSaga = injectSaga({ key: 'sendTokens', saga, mode: DAEMON });
 export default compose(
   withReducer,
   withSaga,
-  withConnect,
+  connect(
+    (state, { account }) => {
+      const profile = selectUsers(account)(state);
+
+      return {
+        cryptoAccounts: _get(profile, ['profile', 'cryptoAccounts'], {}),
+        locale: makeSelectLocale()(state),
+        loginData: makeSelectLoginData()(state),
+        balance: makeSelectBalance()(state),
+        showModal: selectors.selectShowModal()(state),
+        sendTokensProcessing: selectors.selectSendTokensProcessing()(state),
+      };
+    },
+    dispatch => ({
+      hideSendTokensModalDispatch: bindActionCreators(
+        hideSendTokensModal,
+        dispatch,
+      ),
+      showSendTokensModalDispatch: bindActionCreators(
+        showSendTokensModal,
+        dispatch,
+      ),
+      sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
+    }),
+  ),
 )(SendTokens);

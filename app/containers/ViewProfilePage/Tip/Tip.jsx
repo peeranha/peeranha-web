@@ -145,7 +145,7 @@ const BodyAccountColumn = styled.div`
   }
 
   @media only screen and (max-width: 355px) {
-    padding: 4px 4px 4px 4px;
+    padding: 4px 4px 4px ${({ isMine }) => (isMine ? 4 : 8)}px;
   }
 `;
 
@@ -212,7 +212,10 @@ const Tip = ({
                       <img src={logo} alt={`${name}_logo`} />
                       <p>{name}</p>
                     </BodyCryptoColumn>
-                    <BodyAccountColumn className="d-flex justify-content-start">
+                    <BodyAccountColumn
+                      isMine={isMine}
+                      className="d-flex justify-content-start"
+                    >
                       {isMine ? (
                         <Field
                           name={name}
@@ -276,19 +279,18 @@ export default compose(
       const form = state.get('form').toJS();
       const cryptoAccounts = _get(profile, ['profile', 'cryptoAccounts'], {});
 
-      const { values, initial } = _get(form, FORM_NAME, {
-        values: {},
-        initial: {},
-      });
       const isMine = account && account === profile.user;
+      const { values } = _get(form, FORM_NAME, {
+        values: cryptoAccounts,
+      });
 
       return {
         isMine,
         enableReinitialize: true,
         initialValues: cryptoAccounts,
         isSaveCryptoAccountsProcessing,
-        cryptoAccounts: values || initial,
-        changed: isMine && !_isEqual(values, initial),
+        cryptoAccounts: values,
+        changed: isMine && !_isEqual(values, cryptoAccounts),
       };
     },
     dispatch => ({

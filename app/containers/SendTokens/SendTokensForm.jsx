@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
-import { CURRENCIES, CURRENCIES_VALUES, WALLETS } from 'wallet-config';
+import { CURRENCIES, WALLETS } from 'wallet-config';
 import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
@@ -33,10 +33,10 @@ const SendTokensForm = ({
   sendTokens,
   locale,
   sendTokensProcessing,
-  loginData,
   account,
   currencyValue,
   walletValue,
+  cryptoAccounts,
 }) => {
   function changeCurrency(value) {
     change(CURRENCY_FIELD, value);
@@ -63,7 +63,7 @@ const SendTokensForm = ({
             disabled={sendTokensProcessing}
             label={translationMessages[locale][commonMessages.chooseCrypto.id]}
             component={CurrencyField}
-            options={CURRENCIES_VALUES}
+            options={cryptoAccounts}
             validate={[required]}
             warn={[required]}
           />
@@ -124,7 +124,10 @@ SendTokensForm.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   sendTokensProcessing: PropTypes.bool,
-  loginData: PropTypes.object,
+  walletValue: PropTypes.object,
+  currencyValue: PropTypes.object,
+  change: PropTypes.func,
+  cryptoAccounts: PropTypes.object,
 };
 
 const formName = 'SendTokensForm';
@@ -134,17 +137,21 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTokensForm);
 
-FormClone = connect((state, props) => {
+FormClone = connect((state, { account, cryptoAccounts }) => {
   const form = state.toJS().form[formName] || { values: {} };
 
   return {
+    cryptoAccounts: Object.keys(cryptoAccounts).map(name => ({
+      name,
+      logo: CURRENCIES[name].logo,
+    })),
     currencyValue: form.values ? form.values[CURRENCY_FIELD] : null,
     walletValue: form.values ? form.values[WALLET_FIELD] : null,
     enableReinitialize: true,
     initialValues: {
       [CURRENCY_FIELD]: CURRENCIES.PEER,
       [WALLET_FIELD]: CURRENCIES.PEER.wallets[0],
-      [EOS_ACCOUNT_FIELD]: props.account,
+      [EOS_ACCOUNT_FIELD]: account,
     },
   };
 })(FormClone);
