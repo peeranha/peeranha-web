@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Input from 'components/Input';
+import WarningMessage from '../../components/FormFields/WarningMessage';
 
 const Div = styled.div`
   display: flex;
+  flex-direction: column;
   justify-items: center;
   width: 100%;
   max-width: 355px;
@@ -13,6 +15,10 @@ const Div = styled.div`
 
   input {
     padding-right: 14px;
+  }
+
+  > div:nth-child(2) {
+    margin-top: 10px;
   }
 `;
 
@@ -23,6 +29,7 @@ const AccountField = ({ input, meta, disabled }) => (
       disabled={disabled}
       error={meta.touched && (meta.error || meta.warning)}
     />
+    {meta && <WarningMessage {...meta} />}
   </Div>
 );
 

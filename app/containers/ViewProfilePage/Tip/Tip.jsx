@@ -9,6 +9,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
+import _pickBy from 'lodash/pickBy';
+import _isEmpty from 'lodash/isEmpty';
 
 import commonMessages from 'common-messages';
 
@@ -28,6 +30,7 @@ import profileMessages from '../../Profile/messages';
 import { saveCryptoAccounts } from './actions';
 import { DAEMON } from '../../../utils/constants';
 import { selectIsSaveCryptoAccountsProcessing } from './selectors';
+import { validateTelosName } from '../../../components/FormFields/validate';
 
 const Container = styled.div`
   display: flex;
@@ -181,7 +184,7 @@ const Tip = ({
 }) => {
   const saveAccounts = form =>
     saveCryptoAccountsDispatch({
-      cryptoAccounts: form.toJS(),
+      cryptoAccounts: _pickBy(form.toJS(), value => !_isEmpty(value)),
       resetForm: reset,
       profile,
     });
@@ -220,6 +223,7 @@ const Tip = ({
                         <Field
                           name={name}
                           component={AccountField}
+                          validate={[validateTelosName]}
                           disabled={isSaveCryptoAccountsProcessing}
                         />
                       ) : (

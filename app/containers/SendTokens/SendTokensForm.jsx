@@ -25,6 +25,7 @@ import {
 } from './constants';
 
 import CurrencyField from './CurrencyField';
+import messages from '../Profile/messages';
 
 /* eslint indent: 0 */
 const SendTokensForm = ({
@@ -83,7 +84,7 @@ const SendTokensForm = ({
         <Field
           name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing || Boolean(account)}
-          label={translationMessages[locale][commonMessages.eosAccount.id]}
+          label={translationMessages[locale][messages.account.id]}
           component={TextInputField}
           validate={[required]}
           warn={[required]}
@@ -137,8 +138,10 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTokensForm);
 
-FormClone = connect((state, { account, cryptoAccounts }) => {
+FormClone = connect((state, { cryptoAccounts }) => {
   const form = state.toJS().form[formName] || { values: {} };
+
+  const a = form.values[CURRENCY_FIELD];
 
   return {
     cryptoAccounts: Object.keys(cryptoAccounts).map(name => ({
@@ -149,9 +152,9 @@ FormClone = connect((state, { account, cryptoAccounts }) => {
     walletValue: form.values ? form.values[WALLET_FIELD] : null,
     enableReinitialize: true,
     initialValues: {
-      [CURRENCY_FIELD]: CURRENCIES.PEER,
-      [WALLET_FIELD]: CURRENCIES.PEER.wallets[0],
-      [EOS_ACCOUNT_FIELD]: account,
+      [CURRENCY_FIELD]: Object.keys(cryptoAccounts)[0],
+      [WALLET_FIELD]: CURRENCIES[a || 'PEER'].wallets[0],
+      [EOS_ACCOUNT_FIELD]: cryptoAccounts[a || 'PEER'] || '',
     },
   };
 })(FormClone);
