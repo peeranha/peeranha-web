@@ -19,6 +19,7 @@ const selectQuestionData = () =>
         return questionData;
       }
 
+      // update profile question data if profile itself has updated
       const { userInfo, answers } = questionData;
       const { user, rating } = profileInfo;
 

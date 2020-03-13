@@ -141,11 +141,15 @@ const telosNameLength = str =>
     : undefined;
 
 const isTelosNameAvailable = async (eosService, telosName) => {
-  const account = await eosService.getAccount(telosName);
-  if (account) {
-    return messages.thisTelosNameIsAvailable;
+  try {
+    const account = await eosService.getAccount(telosName);
+    if (account) {
+      return messages.thisTelosNameIsAvailable;
+    }
+    return undefined;
+  } catch (e) {
+    return undefined;
   }
-  return undefined;
 };
 
 const strLength1x5 = stringLength(1, 5);
