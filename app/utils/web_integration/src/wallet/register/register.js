@@ -33,6 +33,7 @@ async function registerComplete(
     masterKey,
     keys,
     eosAccountName,
+    eosName,
   } = registerProperties;
 
   const hashPassword = buildEncryptionKeys(password);
@@ -70,6 +71,7 @@ async function registerComplete(
       info: requestAccountMessage,
       publicActiveKey: keys.activeKey.public,
       publicOwnerKey: keys.ownerKey.public,
+      eosName,
     };
   }
 

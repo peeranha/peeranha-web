@@ -233,10 +233,9 @@ const Weeks = ({
   pickupRewardProcessing,
   ids,
 }) => {
-  const currentWeeksNumber =
-    weekStat && ((weekStat[0] && weekStat[1] && 2) || (weekStat[0] && 1) || 0);
+  const currentWeeksNumber = weekStat && ((weekStat[0] && 1) || 0);
 
-  const pendingWeek = weekStat ? weekStat[2] : null;
+  const pendingWeek = weekStat ? weekStat[1] : null;
 
   return (
     <>
@@ -244,7 +243,7 @@ const Weeks = ({
         !getWeekStatProcessing && (
           <ul className="mt-3">
             <CurrentPendingWeeks inRow={weekStat.length >= 2}>
-              {currentWeeksNumber && (
+              {!!currentWeeksNumber && (
                 <CurrentWeek
                   currentWeeksNumber={currentWeeksNumber}
                   locale={locale}
@@ -257,7 +256,7 @@ const Weeks = ({
             </CurrentPendingWeeks>
 
             {weekStat
-              .slice(3)
+              .slice(2)
               .map(x => (
                 <PaidOutWeek
                   pickupRewardDispatch={pickupRewardDispatch}
