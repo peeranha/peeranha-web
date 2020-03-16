@@ -22,16 +22,25 @@ const Div = styled.div`
   }
 `;
 
-const AccountField = ({ input, meta, disabled }) => (
-  <Div>
-    <Input
-      input={input}
-      disabled={disabled}
-      error={meta.touched && (meta.error || meta.warning)}
-    />
-    {meta && <WarningMessage {...meta} />}
-  </Div>
-);
+const AccountField = ({ input, meta, disabled }) => {
+  if (meta.error && meta.error.size) {
+    // eslint-disable-next-line no-param-reassign
+    meta.error = {
+      id: meta.error.get('id'),
+    };
+  }
+  console.log(meta.error);
+  return (
+    <Div>
+      <Input
+        input={input}
+        disabled={disabled}
+        error={meta.touched && (meta.error || meta.warning)}
+      />
+      {meta && <WarningMessage {...meta} />}
+    </Div>
+  );
+};
 
 AccountField.propTypes = {
   meta: PropTypes.object,

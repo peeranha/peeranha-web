@@ -51,7 +51,6 @@ const IdontHaveEOSAccountForm = ({
   change,
   masterKeyValue,
   isMyOwnTelosName,
-  eosService,
 }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
     <SignUp>
@@ -106,7 +105,6 @@ const IdontHaveEOSAccountForm = ({
                   name={MY_OWN_TELOS_NAME_FIELD}
                   disabled={idontHaveEosAccountProcessing}
                   component={MyOwnTelosNameForm}
-                  eosService={eosService}
                   validate={[required, telosCorrectSymbols, telosNameLength]}
                 />
               </Div>
@@ -199,11 +197,11 @@ let FormClone = reduxForm({
     const correctLength = telosNameLength(telosName);
 
     if (!correctSymbols && !correctLength) {
-      const validation = await isTelosNameAvailable(eosService, telosName);
-      if (validation) {
+      const isAvailable = await isTelosNameAvailable(eosService, telosName);
+      if (!isAvailable) {
         // eslint-disable-next-line prefer-promise-reject-errors
         return Promise.reject({
-          [MY_OWN_TELOS_NAME_FIELD]: validation,
+          [MY_OWN_TELOS_NAME_FIELD]: messages.thisTelosNameIsAvailable,
         });
       }
     }

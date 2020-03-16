@@ -579,7 +579,8 @@
     "У Вас не будет возможности изменить его после создания",
   "app.components.FormFields.thisTelosNameIsAvailable":
     "Это Телос имя не занято",
-
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "Это Телос имя занято",
   "app.components.Footer.header": "Авторские права: Peeranha",
 
   "app.containers.Login.authUserHasMore":

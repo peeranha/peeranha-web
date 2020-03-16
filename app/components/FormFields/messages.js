@@ -61,4 +61,7 @@ export default defineMessages({
   thisTelosNameIsAvailable: {
     id: 'app.components.FormFields.thisTelosNameIsAvailable',
   },
+  thisTelosNameIsntAvailable: {
+    id: 'app.components.FormFields.thisTelosNameIsntAvailable',
+  },
 });

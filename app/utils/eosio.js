@@ -73,7 +73,7 @@ class EosioService {
         authorityProvider: {
           get_table_rows: api.getTableRows,
           history_get_key_accounts: api.getKeyAccounts,
-          get_account: api.getKeyAccounts,
+          get_account: api.getAccount,
           get_block: api.getBlock,
         },
       };

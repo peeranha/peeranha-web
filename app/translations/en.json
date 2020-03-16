@@ -570,6 +570,8 @@
   "app.components.FormFields.thisTelosNameIsAvailable":
     "This Telos name is available",
 
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "This Telos name is not available",
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 

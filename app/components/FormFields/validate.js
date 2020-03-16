@@ -115,7 +115,7 @@ const validateTelosName = str => {
         max: 5,
       };
     }
-    return stringLength(12, 12)(str);
+    return stringLength(2, 12)(str);
   }
 
   return undefined;
@@ -141,15 +141,8 @@ const telosNameLength = str =>
     : undefined;
 
 const isTelosNameAvailable = async (eosService, telosName) => {
-  try {
-    const account = await eosService.getAccount(telosName);
-    if (account) {
-      return messages.thisTelosNameIsAvailable;
-    }
-    return undefined;
-  } catch (e) {
-    return undefined;
-  }
+  const account = await eosService.getAccount(telosName);
+  return !account;
 };
 
 const strLength1x5 = stringLength(1, 5);
