@@ -19,6 +19,7 @@ import {
   telosNameLength,
   isTelosNameAvailable,
 } from 'components/FormFields/validate';
+import formFieldsMessages from 'components/FormFields/messages';
 
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
@@ -201,9 +202,13 @@ let FormClone = reduxForm({
       if (!isAvailable) {
         // eslint-disable-next-line prefer-promise-reject-errors
         return Promise.reject({
-          [MY_OWN_TELOS_NAME_FIELD]: messages.thisTelosNameIsAvailable,
+          [MY_OWN_TELOS_NAME_FIELD]:
+            formFieldsMessages.thisTelosNameIsntAvailable,
         });
       }
+      return Promise.resolve({
+        [MY_OWN_TELOS_NAME_FIELD]: undefined,
+      });
     }
     return undefined;
   },
