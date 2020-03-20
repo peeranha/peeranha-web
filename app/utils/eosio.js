@@ -137,13 +137,10 @@ class EosioService {
     }
   };
 
-  getSelectedAccount = async () => {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-
-    if (!autoLoginData) return null;
-
-    return this.selectedAccount;
-  };
+  getSelectedAccount = async () =>
+    this.selectedAccount ||
+    JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
+    null;
 
   forgetIdentity = async () => {
     try {

@@ -79,6 +79,7 @@ import {
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
 import {
+  SELECT_ACCOUNT_ERROR,
   SEND_TOKENS_ERROR,
   SEND_TOKENS_SUCCESS,
 } from 'containers/SendTokens/constants';
@@ -233,6 +234,7 @@ export const errHandlingTypes = [
   INIT_EOSIO_ERROR,
   CHANGE_QUESTION_TYPE_ERROR,
   SAVE_CRYPTO_ACCOUNTS_ERROR,
+  SELECT_ACCOUNT_ERROR,
 ];
 
 export const successHandlingTypes = [

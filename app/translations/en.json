@@ -108,6 +108,7 @@
   "app.common.chooseWallet": "Choose Wallet",
   "app.common.tip": "Tip",
   "app.common.tipAnswer": "Tip answer",
+  "app.common.sendTip": "Send tip",
   "app.common.receivedReward": "You received referral reward",
   "app.common.expertPopoverLabel": "A question that asks one of the following:",
   "app.common.expertPopoverList": [
@@ -684,7 +685,10 @@
     "Set up wallets for crypto tokens to get tips from other users.",
   "app.containers.Profile.crypto": "Crypto",
   "app.containers.Profile.account": "Account",
-
+  "app.containers.Profile.sendFromAccount": "Send from account",
+  "app.containers.Profile.sendToAccount": "Send to account",
+  "app.containers.Profile.changeAccount": "Change account",
+  "app.containers.Profile.chooseAccount": "Choose account",
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 
   "app.containers.ButtonGroupForAuthorizedUser.profile": "Profile",

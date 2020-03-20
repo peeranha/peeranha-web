@@ -106,6 +106,7 @@
   "app.common.chooseWallet": "Выберите кошелек",
   "app.common.tip": "Вознаградить",
   "app.common.tipAnswer": "Вознаградить ответ",
+  "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
@@ -691,6 +692,10 @@
     "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
   "app.containers.Profile.crypto": "Крипто-кошелёк",
   "app.containers.Profile.account": "Аккаунт",
+  "app.containers.Profile.sendFromAccount": "Отправить с аккаунта",
+  "app.containers.Profile.sendToAccount": "Отправить на аккаунт",
+  "app.containers.Profile.changeAccount": "Изменить аккаунт",
+  "app.containers.Profile.chooseAccount": "Выбрать аккаунт",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

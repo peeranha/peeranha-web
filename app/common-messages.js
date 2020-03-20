@@ -339,4 +339,7 @@ export default defineMessages({
   tipAnswer: {
     id: 'app.common.tipAnswer',
   },
+  sendTip: {
+    id: 'app.common.sendTip',
+  },
 });

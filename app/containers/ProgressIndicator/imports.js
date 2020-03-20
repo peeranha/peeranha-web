@@ -29,7 +29,10 @@ import {
   selectFinishRegistrationProcessing,
   makeSelectLoginProcessing,
 } from 'containers/Login/selectors';
-import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
+import {
+  selectSendTokensProcessing,
+  selectedAccountProcessingSelector,
+} from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
 import {
   selectShowOwnerKeyProcessing,
@@ -114,4 +117,5 @@ export default {
   downvoteTag: downvoteTag(),
   selectPickupRewardProcessing: selectPickupRewardProcessing(),
   selectIsSaveCryptoAccountsProcessing: selectIsSaveCryptoAccountsProcessing(),
+  selectedAccountProcessing: selectedAccountProcessingSelector(),
 };

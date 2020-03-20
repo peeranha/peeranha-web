@@ -9,7 +9,7 @@ import {
   SEND_TOKENS_SUCCESS,
   SEND_TOKENS,
   SEND_TOKENS_ERROR,
-  EOS_ACCOUNT_FIELD,
+  EOS_SEND_TO_ACCOUNT_FIELD,
   AMOUNT_FIELD,
   PASSWORD_FIELD,
   HIDE_SENDTOKENS_MODAL,
@@ -46,7 +46,7 @@ describe('sendTokensWorker', () => {
   const resetForm = jest.fn();
 
   const val = {
-    [EOS_ACCOUNT_FIELD]: accountTo,
+    [EOS_SEND_TO_ACCOUNT_FIELD]: accountTo,
     [AMOUNT_FIELD]: quantity,
     [PASSWORD_FIELD]: password,
   };

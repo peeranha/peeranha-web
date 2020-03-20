@@ -16,6 +16,10 @@ export const WALLETS = {
     name: 'Sqrl',
     logo: sqrlWallet,
   },
+  SCATTER_SQRL: {
+    names: ['Scatter', 'Sqrl'],
+    logo: [peeranhaLogo, sqrlWallet],
+  },
 };
 
 export const CURRENCIES = {
@@ -26,7 +30,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: peeranhaLogo,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL],
   },
   TLOS: {
     name: 'TLOS',
@@ -35,7 +39,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: telosWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL],
   },
   SQRL: {
     name: 'SQRL',
@@ -44,7 +48,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: sqrlWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SQRL],
   },
   HEART: {
     name: 'HEART',
@@ -53,7 +57,7 @@ export const CURRENCIES = {
     contractAccount: 'peeranha',
     blockchain: 'Telos',
     logo: hexWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL],
   },
 };
 

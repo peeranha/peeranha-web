@@ -30,6 +30,7 @@ const Option = styled.div`
     ${x => (!x.isCurrentValue ? BORDER_SECONDARY : BORDER_PRIMARY)};
   box-shadow: ${x =>
     x.isCurrentValue ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
+  ${x => (x.disabled ? `opacity: 0.6` : ``)};
 `;
 
 const CurrencyField = ({ input, label, disabled, meta, options }) => {
@@ -51,8 +52,22 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
           isCurrentValue={value.name === option.name}
           disabled={disabled}
         >
-          <img src={option.logo} alt="logo" />
-          {option.name && <span className="ml-2">{option.name}</span>}
+          {!Array.isArray(option.logo) ? (
+            <>
+              <img src={option.logo} alt="logo" />
+              {option.name && <span className="ml-2">{option.name}</span>}
+            </>
+          ) : (
+            option.logo.map((logo, i) => (
+              <>
+                <img src={logo} alt="logo" />
+                <span className="ml-2">{option.names[i]}</span>
+                {i !== option.logo.length - 1 ? (
+                  <span className="pl-1 pr-1">/</span>
+                ) : null}
+              </>
+            ))
+          )}
         </Option>
       ))}
     </Wrapper>

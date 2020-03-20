@@ -182,21 +182,20 @@ export async function getWeekStat(eosService, profile) {
     .reverse();
 }
 
-export async function sendTokens(eosService, info) {
+export async function sendTokens(
+  eosService,
+  { from, to, quantity, precision, symbol, contractAccount },
+) {
   await eosService.sendTransaction(
-    info.from,
+    from,
     SEND_TOKEN_METHOD,
     {
-      from: info.from,
-      to: info.to,
-      quantity: getNormalizedCurrency(
-        info.quantity,
-        info.precision,
-        info.symbol,
-      ),
+      from,
+      to,
+      quantity: getNormalizedCurrency(quantity, precision, symbol),
       memo: '',
     },
-    info.contractAccount,
+    contractAccount,
     true,
   );
 }
