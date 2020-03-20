@@ -86,6 +86,13 @@ const SendTokensForm = ({
     },
     [selectedAccount],
   );
+  useEffect(
+    () => {
+      change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
+      return undefined;
+    },
+    [fromAccountValue],
+  );
 
   const disabled = sendTokensProcessing || selectedAccountProcessing;
 
@@ -259,7 +266,7 @@ FormClone = connect(
         [CURRENCY_FIELD]: CURRENCIES[initialCurrency],
         [WALLET_FIELD]: CURRENCIES[initialCurrency].wallets[profile ? 0 : 1],
         [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
-        [EOS_SEND_FROM_ACCOUNT_FIELD]: fromAccountValue,
+        [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
       },
     };
   },

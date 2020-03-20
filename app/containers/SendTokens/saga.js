@@ -110,7 +110,13 @@ export function* selectAccountWorker() {
 
     const selectedAccount = yield call(eosService.getSelectedAccount);
 
-    yield put(selectAccountSuccess(selectedAccount));
+    yield put(
+      selectAccountSuccess(
+        selectedAccount.eosAccountName
+          ? selectedAccount.eosAccountName
+          : selectedAccount,
+      ),
+    );
   } catch (err) {
     yield put(selectAccountErr(err));
   }
