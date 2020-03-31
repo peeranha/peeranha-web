@@ -1,6 +1,6 @@
 import OntLogo from 'images/communities-logos/ont.svg?inline';
 import TelosLogo from 'images/communities-logos/telos.png';
-import AgeronaLogo from 'images/communities-logos/agerona.png';
+import AgeronaLogo from 'images/communities-logos/agerona.svg?inline';
 
 const communitiesConfig = {
   prod: {
