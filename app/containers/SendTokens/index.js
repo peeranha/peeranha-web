@@ -59,6 +59,7 @@ export const SendTokens = /* istanbul ignore next */ ({
         valueHasToBeLessThan={balance}
         account={account}
         cryptoAccounts={cryptoAccounts}
+        isSendTokens={form === 'send-tokens'}
       />
     </Modal>
 

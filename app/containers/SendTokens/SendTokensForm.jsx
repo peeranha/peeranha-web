@@ -30,6 +30,7 @@ import {
 
 import CurrencyField from './CurrencyField';
 import messages from '../Profile/messages';
+import walletMessages from '../Wallet/messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { TEXT_PRIMARY } from '../../style-constants';
 import { removeSelectedAccount, selectAccount } from './actions';
@@ -63,6 +64,7 @@ const SendTokensForm = ({
   removeSelectedAccountDispatch,
   selectedAccountProcessing,
   isPeer,
+  isSendTokens,
 }) => {
   const changeCurrency = value => {
     change(CURRENCY_FIELD, value);
@@ -81,14 +83,18 @@ const SendTokensForm = ({
   useEffect(() => () => removeSelectedAccountDispatch(), []);
   useEffect(
     () => {
-      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedAccount);
+      if (!isSendTokens) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedAccount);
+      }
       return undefined;
     },
     [selectedAccount],
   );
   useEffect(
     () => {
-      change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
+      if (!isSendTokens) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
+      }
       return undefined;
     },
     [fromAccountValue],
@@ -105,67 +111,80 @@ const SendTokensForm = ({
       </H4>
 
       <form onSubmit={handleSubmit(sendTokens)}>
-        <Field
-          name={CURRENCY_FIELD}
-          onChange={changeCurrency}
-          disabled={disabled}
-          label={translationMessages[locale][commonMessages.chooseCrypto.id]}
-          component={CurrencyField}
-          options={currencies}
-          validate={[required]}
-          warn={[required]}
-        />
+        {!isSendTokens && (
+          <Field
+            name={CURRENCY_FIELD}
+            onChange={changeCurrency}
+            disabled={disabled}
+            label={translationMessages[locale][commonMessages.chooseCrypto.id]}
+            component={CurrencyField}
+            options={currencies}
+            validate={[required]}
+            warn={[required]}
+          />
+        )}
 
         <Field
           name={EOS_SEND_TO_ACCOUNT_FIELD}
           disabled={disabled || Boolean(account)}
-          label={translationMessages[locale][messages.sendToAccount.id]}
-          component={TextInputField}
-          validate={[required]}
-          warn={[required]}
-        />
-
-        <Field
-          name={WALLET_FIELD}
-          onChange={changeWallet}
-          disabled={disabled}
-          label={translationMessages[locale][commonMessages.chooseWallet.id]}
-          options={
-            currencyValue
-              ? currencyValue.wallets.filter(
-                  wallet =>
-                    !(wallet.name === WALLETS.PEERANHA.name && !profile),
-                )
-              : null
+          label={
+            translationMessages[locale][
+              isSendTokens
+                ? walletMessages.eosAccount.id
+                : messages.sendToAccount.id
+            ]
           }
-          component={CurrencyField}
-          validate={[required]}
-          warn={[required]}
-        />
-
-        <div className="d-flex">
-          <Label>
-            {translationMessages[locale][messages.sendFromAccount.id]}
-          </Label>
-          {!isPeer && (
-            <B onClick={selectAccountDispatch} type="button">
-              <FormattedMessage
-                {...messages[
-                  selectedAccount ? 'changeAccount' : 'chooseAccount'
-                ]}
-              />
-            </B>
-          )}
-        </div>
-
-        <Field
-          name={EOS_SEND_FROM_ACCOUNT_FIELD}
           component={TextInputField}
           validate={[required]}
           warn={[required]}
-          disabled
         />
 
+        {!isSendTokens && (
+          <>
+            <Field
+              name={WALLET_FIELD}
+              onChange={changeWallet}
+              disabled={disabled}
+              label={
+                translationMessages[locale][commonMessages.chooseWallet.id]
+              }
+              options={
+                currencyValue
+                  ? currencyValue.wallets.filter(
+                      wallet =>
+                        !(wallet.name === WALLETS.PEERANHA.name && !profile),
+                    )
+                  : null
+              }
+              component={CurrencyField}
+              validate={[required]}
+              warn={[required]}
+            />
+
+            <div className="d-flex">
+              <Label>
+                {translationMessages[locale][messages.sendFromAccount.id]}
+              </Label>
+              {!isPeer && (
+                <B onClick={selectAccountDispatch} type="button">
+                  <FormattedMessage
+                    {...messages[
+                      selectedAccount ? 'changeAccount' : 'chooseAccount'
+                    ]}
+                  />
+                </B>
+              )}
+            </div>
+
+            <Field
+              name={EOS_SEND_FROM_ACCOUNT_FIELD}
+              component={TextInputField}
+              validate={[required]}
+              warn={[required]}
+              disabled
+            />
+          </>
+        )}
         <Field
           name={AMOUNT_FIELD}
           disabled={disabled}
@@ -205,6 +224,7 @@ SendTokensForm.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   isPeer: PropTypes.bool,
+  isSendTokens: PropTypes.bool,
   sendTokensProcessing: PropTypes.bool,
   walletValue: PropTypes.object,
   currencyValue: PropTypes.object,
@@ -231,7 +251,6 @@ FormClone = connect(
     const form = state.toJS().form[formName] || { values: {} };
     const profile = makeSelectProfileInfo()(state);
     const selectedAccount = selectedAccountSelector()(state);
-
     if (!cryptoAccounts[CURRENCIES.PEER.name]) {
       // eslint-disable-next-line no-param-reassign
       cryptoAccounts[CURRENCIES.PEER.name] = account;

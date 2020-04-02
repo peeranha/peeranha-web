@@ -37,8 +37,6 @@ const ProfileViewForm = ({
       redirectToEditProfilePage={redirectToEditProfilePage}
     />
 
-    <Tip className={className} profile={profile} account={account} />
-
     <CommunitiesForm
       userId={userId}
       profile={profile}

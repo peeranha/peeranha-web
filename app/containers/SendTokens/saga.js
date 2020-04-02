@@ -71,7 +71,7 @@ export function* sendTokensWorker({ resetForm, val }) {
     ) {
       yield call(eosService.initEosioWithScatter);
     }
-
+    console.log(val);
     yield call(sendTokens, eosService, {
       from: val[EOS_SEND_FROM_ACCOUNT_FIELD],
       to: val[EOS_SEND_TO_ACCOUNT_FIELD],
@@ -85,6 +85,9 @@ export function* sendTokensWorker({ resetForm, val }) {
     yield put(hideSendTokensModal());
     yield call(resetForm);
   } catch (err) {
+    console.log(err);
+
+    debugger
     yield put(sendTokensErr(err));
   }
 }

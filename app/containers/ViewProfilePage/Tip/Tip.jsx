@@ -43,7 +43,7 @@ const Container = styled.div`
   flex-direction: column;
 
   h4 {
-    padding: 23px 27px;
+    margin-bottom: 14px;
   }
 `;
 
@@ -60,6 +60,11 @@ const Form = styled.form`
   width: 100%;
   max-width: 541px;
   margin-top: 15px;
+  padding: 0 30px;
+
+  @media only screen and (max-width: 576px) {
+    padding: 0;
+  }
 `;
 
 const DivTable = styled.div`
@@ -223,17 +228,17 @@ const asyncValidate = async (
 };
 
 const Tip = ({
-  className,
-  handleSubmit,
-  changed,
-  reset,
-  profile,
-  isMine,
-  saveCryptoAccountsDispatch,
-  cryptoAccounts,
-  isSaveCryptoAccountsProcessing,
-  valid,
-}) => {
+               className,
+               handleSubmit,
+               changed,
+               reset,
+               profile,
+               isMine,
+               saveCryptoAccountsDispatch,
+               cryptoAccounts,
+               isSaveCryptoAccountsProcessing,
+               valid,
+             }) => {
   const saveAccounts = form =>
     saveCryptoAccountsDispatch({
       cryptoAccounts: _pickBy(form.toJS(), value => !_isEmpty(value)),
@@ -244,10 +249,10 @@ const Tip = ({
 
   return (
     <Container className={className} style={{ marginTop: '10px' }}>
-      <H4>
-        <FormattedMessage {...commonMessages.tip} />
-      </H4>
       <Base>
+        <H4>
+          <FormattedMessage {...commonMessages.tip} />
+        </H4>
         <FormattedMessage {...profileMessages.tipText} />
         <Form>
           <DivTable className={changed ? 'mb-4' : ''}>
@@ -265,7 +270,7 @@ const Tip = ({
                 return (
                   <BodyRow key={currency}>
                     <BodyCryptoColumn>
-                      <img src={logo} alt={`${name}_logo`} />
+                      <img src={logo} alt={`${name}_logo`}/>
                       <p>{name}</p>
                     </BodyCryptoColumn>
                     <BodyAccountColumn

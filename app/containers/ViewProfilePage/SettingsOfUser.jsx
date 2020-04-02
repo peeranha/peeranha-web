@@ -12,6 +12,7 @@ import Base from 'components/Base/BaseRounded';
 import ReferralProgram from './ReferralProgram';
 import NotFound from '../ErrorPage';
 import AuthorizationData from './AuthorizationData';
+import Tip from './Tip/Tip';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
@@ -106,6 +107,8 @@ const SettingsOfUser = ({
   loginData,
   user,
   isAvailable,
+  account,
+  profile,
 }) => {
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
@@ -131,6 +134,8 @@ const SettingsOfUser = ({
         user={user}
         writeToBuffer={writeToBuffer}
       />
+
+      <Tip className={className} profile={profile} account={account} />
     </div>
   ) : (
     <div className={className}>
@@ -147,6 +152,8 @@ SettingsOfUser.propTypes = {
   loginData: PropTypes.object,
   user: PropTypes.string,
   isAvailable: PropTypes.bool,
+  profile: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default React.memo(SettingsOfUser);

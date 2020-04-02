@@ -155,7 +155,7 @@ export async function getWeekStat(eosService, profile) {
   const numberOfPeriods =
     Math.ceil(
       (Date.now() / 1000 - +process.env.RELEASE_DATE) /
-        +process.env.WEEK_DURATION,
+      +process.env.WEEK_DURATION,
     ) - 1;
 
   // Fill by periods with 0 reward - they not stored in blockchain
@@ -234,7 +234,7 @@ export function createGetRewardPool(
   const inflationRewardPool =
     Number(process.env.START_POOL) *
     Number(process.env.POOL_REDUSE_COEFFICIENT) **
-      Math.floor(period / Number(process.env.INFLATION_PERIOD));
+    Math.floor(period / Number(process.env.INFLATION_PERIOD));
 
   let rewardPool = totalRating * Number(process.env.RATING_TOKEN_COFICIENT);
 
