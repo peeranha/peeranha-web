@@ -10,16 +10,11 @@ import {
   SEND_TOKENS,
   SEND_TOKENS_SUCCESS,
   SEND_TOKENS_ERROR,
-  SELECT_ACCOUNT,
-  SELECT_ACCOUNT_SUCCESS,
-  SELECT_ACCOUNT_ERROR,
-  REMOVE_SELECTED_ACCOUNT,
 } from './constants';
 
-export function showSendTokensModal(form) {
+export function showSendTokensModal() {
   return {
     type: SHOW_SENDTOKENS_MODAL,
-    form,
   };
 }
 
@@ -49,21 +44,3 @@ export function sendTokensErr(sendTokensError) {
     sendTokensError,
   };
 }
-
-export const selectAccount = () => ({
-  type: SELECT_ACCOUNT,
-});
-
-export const selectAccountSuccess = selectedAccount => ({
-  type: SELECT_ACCOUNT_SUCCESS,
-  selectedAccount,
-});
-
-export const selectAccountErr = selectAccountError => ({
-  type: SELECT_ACCOUNT_ERROR,
-  selectAccountError,
-});
-
-export const removeSelectedAccount = () => ({
-  type: REMOVE_SELECTED_ACCOUNT,
-});

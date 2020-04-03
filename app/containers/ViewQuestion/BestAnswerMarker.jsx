@@ -11,12 +11,12 @@ import commonMessages from 'common-messages';
 import coinsIcon from 'images/coins.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
 import Button from 'components/Button/Contained/PrimaryMedium';
-import SendTokens from 'containers/SendTokens';
 
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
+import SendTips from '../SendTips';
 
 const Label = Button.extend`
   ${LabelStyles};
@@ -89,12 +89,12 @@ export const BestAnswerMarker = ({
     <Div>
       <Base>
         {displayTips && (
-          <SendTokens form="tip-answer" account={whoWasAccepted}>
+          <SendTips form="tip-answer" account={whoWasAccepted}>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
               <FormattedMessage {...commonMessages.tipAnswer} />
             </B>
-          </SendTokens>
+          </SendTips>
         )}
         <MarkAsAcceptedIcon
           className=""

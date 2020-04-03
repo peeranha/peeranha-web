@@ -29,10 +29,7 @@ import {
   selectFinishRegistrationProcessing,
   makeSelectLoginProcessing,
 } from 'containers/Login/selectors';
-import {
-  selectSendTokensProcessing,
-  selectedAccountProcessingSelector,
-} from 'containers/SendTokens/selectors';
+import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
 import {
   selectShowOwnerKeyProcessing,
@@ -68,6 +65,10 @@ import {
 } from 'containers/VoteForNewTagButton/selectors';
 import { selectPickupRewardProcessing } from 'containers/Wallet/selectors';
 import { selectIsSaveCryptoAccountsProcessing } from '../ViewProfilePage/Tip/selectors';
+import {
+  selectedAccountProcessingSelector,
+  selectSendTipsProcessing,
+} from '../SendTips/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
@@ -118,4 +119,5 @@ export default {
   selectPickupRewardProcessing: selectPickupRewardProcessing(),
   selectIsSaveCryptoAccountsProcessing: selectIsSaveCryptoAccountsProcessing(),
   selectedAccountProcessing: selectedAccountProcessingSelector(),
+  selectSendTipsProcessing: selectSendTipsProcessing(),
 };

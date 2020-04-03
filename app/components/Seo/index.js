@@ -51,7 +51,10 @@ Seo.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  articleModifiedTime: PropTypes.instanceOf(Date),
+  articleModifiedTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   index: PropTypes.bool,
   communityName: PropTypes.string,
 };

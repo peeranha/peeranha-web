@@ -12,12 +12,12 @@ import H3 from 'components/H3';
 import TagList from 'components/TagsList';
 import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
-import SendTokens from 'containers/SendTokens';
 import Button from 'components/Button/Outlined/InfoMedium';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import SendTips from '../SendTips';
 
 // eslint-disable-next-line no-unused-vars
 export const B = Button.extend`
@@ -53,12 +53,12 @@ export const QuestionTitle = ({
       )}
       <Div>
         {!isItWrittenByMe && (
-          <SendTokens form="tip-question" account={user}>
+          <SendTips form="tip-question" account={user}>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
-          </SendTokens>
+          </SendTips>
         )}
 
         <MarkAnswerNotification

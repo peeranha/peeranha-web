@@ -20,20 +20,9 @@ const selectSendTokensProcessing = () =>
 const selectSendTokensError = () =>
   createSelector(selectSendTokensDomain, substate => substate.sendTokensError);
 
-const selectedAccountSelector = () =>
-  createSelector(selectSendTokensDomain, substate => substate.selectedAccount);
-
-const selectedAccountProcessingSelector = () =>
-  createSelector(
-    selectSendTokensDomain,
-    substate => substate.selectAccountProcessing,
-  );
-
 export {
   selectSendTokensDomain,
   selectShowModal,
   selectSendTokensProcessing,
   selectSendTokensError,
-  selectedAccountSelector,
-  selectedAccountProcessingSelector,
 };
