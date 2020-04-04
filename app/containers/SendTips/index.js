@@ -28,7 +28,7 @@ import Button from '../SendTokens/StyledButton';
 import SendTipsForm from './SendTipsForm';
 import { selectUsers } from '../DataCacheProvider/selectors';
 
-export const SendTips = /* istanbul ignore next */ ({
+export const SendTips = ({
   locale,
   sendTipsDispatch,
   sendTipsProcessing,

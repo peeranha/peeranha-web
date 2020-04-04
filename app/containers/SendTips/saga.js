@@ -31,7 +31,7 @@ import {
   selectAccountErr,
 } from './actions';
 import messages from '../Login/messages';
-import { SCATTER_MODE_ERROR } from '../Login/constants';
+import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { selectEos } from '../EosioProvider/selectors';
 
@@ -93,22 +93,30 @@ export function* selectAccountWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    let eosService = yield select(selectEos);
+    const eosService = yield select(selectEos);
 
-    if (!eosService) {
-      eosService = new Eosio();
-      yield put(initEosioSuccess(eosService));
+    if (eosService.selectedAccount) {
+      yield call(eosService.forgetIdentity);
     }
-    yield call(eosService.forgetIdentity);
-    yield call(eosService.initEosioWithScatter);
 
     if (!eosService.scatterInstalled) {
-      throw new WebIntegrationError(
-        translations[messages[SCATTER_MODE_ERROR].id],
-      );
+      yield call(eosService.initEosioWithScatter);
+      if (!eosService.scatterInstalled) {
+        throw new WebIntegrationError(
+          translations[messages[SCATTER_MODE_ERROR].id],
+        );
+      }
     }
 
-    const selectedAccount = yield call(eosService.getSelectedAccount);
+    const {
+      selectedAccount = yield call(eosService.selectAccount),
+    } = eosService;
+
+    if (!selectedAccount) {
+      throw new WebIntegrationError(
+        translations[messages[USER_IS_NOT_SELECTED].id],
+      );
+    }
 
     yield put(
       selectAccountSuccess(

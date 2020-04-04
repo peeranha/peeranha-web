@@ -79,7 +79,6 @@ import {
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
 import {
-  SELECT_ACCOUNT_ERROR,
   SEND_TOKENS_ERROR,
   SEND_TOKENS_SUCCESS,
 } from 'containers/SendTokens/constants';
@@ -158,6 +157,7 @@ import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 } from '../ViewProfilePage/Tip/constants';
+import { SELECT_ACCOUNT_ERROR, SEND_TIPS_ERROR } from '../SendTips/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -235,6 +235,7 @@ export const errHandlingTypes = [
   CHANGE_QUESTION_TYPE_ERROR,
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SELECT_ACCOUNT_ERROR,
+  SEND_TIPS_ERROR,
 ];
 
 export const successHandlingTypes = [

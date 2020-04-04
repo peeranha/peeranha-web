@@ -10,6 +10,8 @@ import { translationMessages } from 'i18n';
 import commonMessages from 'common-messages';
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import { scrollToErrorField } from 'utils/animation';
+import _get from 'lodash/get';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -227,36 +229,36 @@ let FormClone = reduxForm({
 })(SendTipsForm);
 
 FormClone = connect(
-  (state, { cryptoAccounts, account }) => {
-    const form = state.toJS().form[formName] || { values: {} };
+  (state, { cryptoAccounts: cryptoAccs, account }) => {
     const profile = makeSelectProfileInfo()(state);
-    const selectedAccount = selectedAccountSelector()(state);
+
+    const cryptoAccounts = _cloneDeep(cryptoAccs);
+    const formValues = _get(state.toJS(), ['form', formName, 'values'], {});
+
     if (!cryptoAccounts[CURRENCIES.PEER.name]) {
-      // eslint-disable-next-line no-param-reassign
       cryptoAccounts[CURRENCIES.PEER.name] = account;
     }
     if (!cryptoAccounts[CURRENCIES.TLOS.name]) {
-      // eslint-disable-next-line no-param-reassign
       cryptoAccounts[CURRENCIES.TLOS.name] = account;
     }
 
     const initialCurrency = Object.keys(cryptoAccounts)[0];
-    const currencyValue = form.values[CURRENCY_FIELD];
-    const walletValue = form.values[WALLET_FIELD];
+    const currencyValue = _get(formValues, CURRENCY_FIELD, null);
+    const walletValue = _get(formValues, WALLET_FIELD, null);
+    const fromAccountValue = _get(profile, 'user', null);
 
     const isPeer = !!(
       walletValue &&
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
-    const fromAccountValue = profile ? profile.user : null;
 
     return {
       isPeer,
       profile,
       cryptoAccounts,
-      selectedAccount,
       fromAccountValue,
+      selectedAccount: selectedAccountSelector()(state),
       currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       currencyValue,
