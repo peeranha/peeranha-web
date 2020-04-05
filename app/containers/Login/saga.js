@@ -132,9 +132,14 @@ export function* loginWithScatterWorker() {
     }
 
     if (!eosService.selectedAccount) {
-      throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
-      );
+      console.log('User is not selected. Retry...');
+      yield call(eosService.selectAccount);
+      if (!eosService.selectedAccount) {
+        console.log('Unable to retry.');
+        throw new WebIntegrationError(
+          translations[messages[USER_IS_NOT_SELECTED].id],
+        );
+      }
     }
 
     yield call(getCurrentAccountWorker, eosService.selectedAccount);

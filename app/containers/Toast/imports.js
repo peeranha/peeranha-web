@@ -157,7 +157,11 @@ import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 } from '../ViewProfilePage/Tip/constants';
-import { SELECT_ACCOUNT_ERROR, SEND_TIPS_ERROR } from '../SendTips/constants';
+import {
+  SELECT_ACCOUNT_ERROR,
+  SEND_TIPS_ERROR,
+  SEND_TIPS_SUCCESS,
+} from '../SendTips/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -255,4 +259,5 @@ export const successHandlingTypes = [
   DELETE_COMMENT_SUCCESS,
   CHANGE_QUESTION_TYPE_SUCCESS,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
+  SEND_TIPS_SUCCESS,
 ];
