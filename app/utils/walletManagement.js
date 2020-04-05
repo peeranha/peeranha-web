@@ -186,7 +186,15 @@ export async function sendTokens(
   eosService,
   { from, to, quantity, precision, symbol, contractAccount },
 ) {
-  console.log({ from, to, quantity, precision, symbol, contractAccount });
+  console.log({
+    from,
+    to,
+    quantity,
+    precision,
+    symbol,
+    contractAccount,
+    eosService,
+  });
   await eosService.sendTransaction(
     from,
     SEND_TOKEN_METHOD,
