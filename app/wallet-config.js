@@ -1,6 +1,7 @@
 import telosWallet from 'images/telosWallet.svg?inline';
 import sqrlWallet from 'images/sqrlWallet.svg?inline';
 import peeranhaLogo from 'images/currencyPeer.svg?inline';
+import scatterLogo from 'images/scatterLogo.svg?inline';
 
 export const WALLETS = {
   PEERANHA: {
@@ -9,15 +10,15 @@ export const WALLETS = {
   },
   SCATTER: {
     name: 'Scatter',
-    logo: peeranhaLogo,
+    logo: scatterLogo,
   },
   SQRL: {
     name: 'Sqrl',
     logo: sqrlWallet,
   },
   SCATTER_SQRL: {
-    names: ['Scatter', 'Sqrl'],
-    logo: [peeranhaLogo, sqrlWallet],
+    names: ['', 'Sqrl'],
+    logo: [scatterLogo, sqrlWallet],
   },
 };
 
@@ -34,7 +35,7 @@ export const CURRENCIES = {
   TLOS: {
     name: 'TLOS',
     symbol: 'TLOS',
-    precision: 6,
+    precision: 4,
     contractAccount: 'eosio.token',
     blockchain: 'Telos',
     logo: telosWallet,
@@ -43,7 +44,7 @@ export const CURRENCIES = {
   SQRL: {
     name: 'SQRL',
     symbol: 'SQRL',
-    precision: 6,
+    precision: 4,
     contractAccount: 'sqrlwalletio',
     blockchain: 'Telos',
     logo: sqrlWallet,

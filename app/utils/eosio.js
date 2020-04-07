@@ -46,17 +46,17 @@ class EosioService {
     this.#key = null;
   }
 
-  initScatter = async () => {
+  initScatter = async appName => {
     ScatterJS.plugins(new ScatterEOS());
 
-    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    const connected = await ScatterJS.scatter.connect(appName);
 
     if (!connected) throw new Error('No connection with Scatter');
   };
 
-  initEosioWithScatter = async () => {
+  initEosioWithScatter = async (appName = SCATTER_APP_NAME) => {
     try {
-      await this.initScatter();
+      await this.initScatter(appName);
       this.node = await this.getNode();
 
       const scatterConfig = this.getScatterConfig();
@@ -65,6 +65,7 @@ class EosioService {
       this.selectedAccount = await this.selectAccount();
       this.initialized = true;
       this.scatterInstalled = true;
+      this.withScatter = true;
 
       const api = ScatterJS.scatter.eos(scatterConfig, Eosjs16, eosOptions);
 
@@ -98,6 +99,7 @@ class EosioService {
     });
     this.initialized = true;
     this.selectedAccount = acc;
+    this.withScatter = false;
     this.#key = key;
   };
 
@@ -146,6 +148,7 @@ class EosioService {
     try {
       if (ScatterJS.scatter && ScatterJS.scatter.identity) {
         await ScatterJS.scatter.forgetIdentity();
+        this.selectedAccount = null;
       }
     } catch ({ message }) {
       console.log(message);

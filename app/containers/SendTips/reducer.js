@@ -16,6 +16,8 @@ import {
   SEND_TIPS,
   SEND_TIPS_SUCCESS,
   SEND_TIPS_ERROR,
+  ADD_TIPS_EOS_SERVICE,
+  REMOVE_TIPS_EOS_SERVICE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,10 +25,11 @@ export const initialState = fromJS({
   sendTipsProcessing: false,
   sendTipsError: null,
   selectedAccount: null,
+  tipsEosService: null,
 });
 
 function sendTipsReducer(state = initialState, action) {
-  const { type, sendTipsError, form, selectedAccount } = action;
+  const { type, sendTipsError, form, selectedAccount, tipsEosService } = action;
 
   switch (type) {
     case SHOW_SEND_TIPS_MODAL:
@@ -56,6 +59,11 @@ function sendTipsReducer(state = initialState, action) {
 
     case REMOVE_SELECTED_ACCOUNT:
       return state.set('selectedAccount', null);
+
+    case ADD_TIPS_EOS_SERVICE:
+      return state.set('tipsEosService', tipsEosService);
+    case REMOVE_TIPS_EOS_SERVICE:
+      return state.set('tipsEosService', null);
 
     default:
       return state;

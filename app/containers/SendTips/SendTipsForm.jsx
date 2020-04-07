@@ -34,11 +34,16 @@ import CurrencyField from './CurrencyField';
 import messages from '../Profile/messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { TEXT_PRIMARY } from '../../style-constants';
-import { removeSelectedAccount, selectAccount } from './actions';
+import {
+  removeSelectedAccount,
+  removeTipsEosService,
+  selectAccount,
+} from './actions';
 import {
   selectedAccountProcessingSelector,
   selectedAccountSelector,
 } from './selectors';
+import { makeSelectEos } from '../EosioProvider/selectors';
 
 const B = styled.button`
   padding-bottom: 6px;
@@ -62,13 +67,18 @@ const SendTipsForm = ({
   fromAccountValue,
   selectedAccount,
   selectAccountDispatch,
+  removeTipsEosServiceDispatch,
   removeSelectedAccountDispatch,
   selectedAccountProcessing,
   isPeer,
+  withScatter,
 }) => {
   const changeCurrency = value => {
     change(CURRENCY_FIELD, value);
-    change(WALLET_FIELD, CURRENCIES[value.name].wallets[profile ? 0 : 1]);
+    change(
+      WALLET_FIELD,
+      CURRENCIES[value.name].wallets[profile && !withScatter ? 0 : 1],
+    );
     change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[value.name]);
   };
 
@@ -80,7 +90,13 @@ const SendTipsForm = ({
     );
   };
 
-  useEffect(() => () => removeSelectedAccountDispatch(), []);
+  useEffect(
+    () => () => {
+      removeSelectedAccountDispatch();
+      removeTipsEosServiceDispatch();
+    },
+    [],
+  );
   useEffect(
     () => {
       change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedAccount);
@@ -135,7 +151,10 @@ const SendTipsForm = ({
               currencyValue
                 ? currencyValue.wallets.filter(
                     wallet =>
-                      !(wallet.name === WALLETS.PEERANHA.name && !profile),
+                      !(
+                        wallet.name === WALLETS.PEERANHA.name &&
+                        (!profile || withScatter)
+                      ),
                   )
                 : null
             }
@@ -207,6 +226,7 @@ SendTipsForm.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   isPeer: PropTypes.bool,
+  withScatter: PropTypes.bool,
   sendTipsProcessing: PropTypes.bool,
   walletValue: PropTypes.object,
   currencyValue: PropTypes.object,
@@ -218,6 +238,7 @@ SendTipsForm.propTypes = {
   selectedAccount: PropTypes.string,
   selectAccountDispatch: PropTypes.func,
   selectedAccountProcessing: PropTypes.bool,
+  removeTipsEosServiceDispatch: PropTypes.func,
   removeSelectedAccountDispatch: PropTypes.func,
 };
 
@@ -231,6 +252,7 @@ let FormClone = reduxForm({
 FormClone = connect(
   (state, { cryptoAccounts: cryptoAccs, account }) => {
     const profile = makeSelectProfileInfo()(state);
+    const { withScatter } = makeSelectEos()(state);
 
     const cryptoAccounts = _cloneDeep(cryptoAccs);
     const formValues = _get(state.toJS(), ['form', formName, 'values'], {});
@@ -245,7 +267,7 @@ FormClone = connect(
     const initialCurrency = Object.keys(cryptoAccounts)[0];
     const currencyValue = _get(formValues, CURRENCY_FIELD, null);
     const walletValue = _get(formValues, WALLET_FIELD, null);
-    const fromAccountValue = _get(profile, 'user', null);
+    const fromAccountValue = _get(!withScatter ? profile : {}, 'user', null);
 
     const isPeer = !!(
       walletValue &&
@@ -258,6 +280,7 @@ FormClone = connect(
       profile,
       cryptoAccounts,
       fromAccountValue,
+      withScatter,
       selectedAccount: selectedAccountSelector()(state),
       currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
@@ -265,7 +288,8 @@ FormClone = connect(
       enableReinitialize: true,
       initialValues: {
         [CURRENCY_FIELD]: CURRENCIES[initialCurrency],
-        [WALLET_FIELD]: CURRENCIES[initialCurrency].wallets[profile ? 0 : 1],
+        [WALLET_FIELD]:
+          CURRENCIES[initialCurrency].wallets[profile && !withScatter ? 0 : 1],
         [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
         [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
       },
@@ -275,6 +299,10 @@ FormClone = connect(
     selectAccountDispatch: bindActionCreators(selectAccount, dispatch),
     removeSelectedAccountDispatch: bindActionCreators(
       removeSelectedAccount,
+      dispatch,
+    ),
+    removeTipsEosServiceDispatch: bindActionCreators(
+      removeTipsEosService,
       dispatch,
     ),
   }),

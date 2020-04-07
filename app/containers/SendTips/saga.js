@@ -29,21 +29,23 @@ import {
   selectAccountSuccess,
   sendTipsErr,
   selectAccountErr,
+  addTipsEosService,
 } from './actions';
 import messages from '../Login/messages';
 import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
-import { initEosioSuccess } from '../EosioProvider/actions';
+import { selectTipsEosService } from './selectors';
+import { SEND_TIPS_SCATTER_APP_NAME } from '../../utils/constants';
 import { selectEos } from '../EosioProvider/selectors';
 
 export function* sendTipsWorker({ resetForm, val }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    let eosService = yield select(selectEos);
+    let eosService = yield select(selectTipsEosService());
 
     if (!eosService) {
       eosService = new Eosio();
-      yield put(initEosioSuccess(eosService));
+      yield put(addTipsEosService(eosService));
     }
 
     const profile = yield select(makeSelectProfileInfo());
@@ -52,6 +54,8 @@ export function* sendTipsWorker({ resetForm, val }) {
 
     // check password for users which logged with email
     if (val[WALLET_FIELD].name === WALLETS.PEERANHA.name) {
+      eosService = yield select(selectEos);
+
       const response = yield call(
         login,
         profile.loginData.email,
@@ -65,9 +69,10 @@ export function* sendTipsWorker({ resetForm, val }) {
         );
       }
     } else if (
-      val[WALLET_FIELD].names ||
-      val[WALLET_FIELD].name === WALLETS.SQRL.name ||
-      val[WALLET_FIELD].name === WALLETS.SCATTER.name
+      (val[WALLET_FIELD].names ||
+        val[WALLET_FIELD].name === WALLETS.SQRL.name ||
+        val[WALLET_FIELD].name === WALLETS.SCATTER.name) &&
+      !eosService.initialized
     ) {
       yield call(eosService.initEosioWithScatter);
     }
@@ -93,29 +98,36 @@ export function* selectAccountWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    const eosService = yield select(selectEos);
+    let tipsEosService = yield select(selectTipsEosService());
 
-    if (eosService.selectedAccount) {
-      yield call(eosService.forgetIdentity);
+    if (!tipsEosService) {
+      tipsEosService = new Eosio();
+      yield put(addTipsEosService(tipsEosService));
+      yield call(
+        tipsEosService.initEosioWithScatter,
+        SEND_TIPS_SCATTER_APP_NAME,
+      );
+    } else {
+      yield call(tipsEosService.forgetIdentity);
     }
 
-    if (!eosService.scatterInstalled) {
-      yield call(eosService.initEosioWithScatter);
-      if (!eosService.scatterInstalled) {
+    if (!tipsEosService.scatterInstalled) {
+      yield call(tipsEosService.initEosioWithScatter);
+      if (!tipsEosService.scatterInstalled) {
         throw new WebIntegrationError(
           translations[messages[SCATTER_MODE_ERROR].id],
         );
       }
     }
 
-    const {
-      selectedAccount = yield call(eosService.selectAccount),
-    } = eosService;
-
+    let { selectedAccount } = tipsEosService;
     if (!selectedAccount) {
-      throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
-      );
+      selectedAccount = yield call(tipsEosService.selectAccount);
+      if (!selectedAccount) {
+        throw new WebIntegrationError(
+          translations[messages[USER_IS_NOT_SELECTED].id],
+        );
+      }
     }
 
     yield put(

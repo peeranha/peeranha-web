@@ -26,6 +26,9 @@ const selectedAccountProcessingSelector = () =>
     substate => substate.selectAccountProcessing,
   );
 
+const selectTipsEosService = () =>
+  createSelector(selectSendTipsDomain, substate => substate.tipsEosService);
+
 export {
   selectSendTipsDomain,
   selectShowModal,
@@ -33,4 +36,5 @@ export {
   selectSendTipsError,
   selectedAccountSelector,
   selectedAccountProcessingSelector,
+  selectTipsEosService,
 };

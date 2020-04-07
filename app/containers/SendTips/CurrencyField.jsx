@@ -61,7 +61,9 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
             option.logo.map((logo, i) => (
               <>
                 <img src={logo} alt="logo" />
-                <span className="ml-2">{option.names[i]}</span>
+                {!!option.names[i] && (
+                  <span className="ml-2">{option.names[i]}</span>
+                )}
                 {i !== option.logo.length - 1 ? (
                   <span className="pl-1 pr-1">/</span>
                 ) : null}

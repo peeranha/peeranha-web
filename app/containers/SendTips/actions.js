@@ -14,6 +14,8 @@ import {
   SEND_TIPS,
   SEND_TIPS_SUCCESS,
   SEND_TIPS_ERROR,
+  ADD_TIPS_EOS_SERVICE,
+  REMOVE_TIPS_EOS_SERVICE,
 } from './constants';
 
 export function showSendTipsModal(form) {
@@ -66,4 +68,13 @@ export const selectAccountErr = selectAccountError => ({
 
 export const removeSelectedAccount = () => ({
   type: REMOVE_SELECTED_ACCOUNT,
+});
+
+export const addTipsEosService = tipsEosService => ({
+  type: ADD_TIPS_EOS_SERVICE,
+  tipsEosService,
+});
+
+export const removeTipsEosService = () => ({
+  type: REMOVE_TIPS_EOS_SERVICE,
 });
