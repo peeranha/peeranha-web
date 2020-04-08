@@ -74,7 +74,7 @@ export function* sendTipsWorker({ resetForm, val }) {
         val[WALLET_FIELD].name === WALLETS.SCATTER.name) &&
       !eosService.initialized
     ) {
-      yield call(eosService.initEosioWithScatter);
+      yield call(eosService.initEosioWithScatter, SEND_TIPS_SCATTER_APP_NAME);
     }
 
     yield call(sendTokens, eosService, {

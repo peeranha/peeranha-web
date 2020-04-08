@@ -44,6 +44,7 @@ class EosioService {
     this.node = null;
     this.isScatterWindowOpened = false;
     this.#key = null;
+    this.withScatter = false;
   }
 
   initScatter = async appName => {

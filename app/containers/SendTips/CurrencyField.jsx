@@ -62,10 +62,12 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
               <>
                 <img src={logo} alt="logo" />
                 {!!option.names[i] && (
-                  <span className="ml-2">{option.names[i]}</span>
+                  <span style={{ fontWeight: 600 }}>{option.names[i]}</span>
                 )}
                 {i !== option.logo.length - 1 ? (
-                  <span className="pl-1 pr-1">/</span>
+                  <span className="pl-1 pr-1" style={{ fontWeight: 900 }}>
+                    /
+                  </span>
                 ) : null}
               </>
             ))

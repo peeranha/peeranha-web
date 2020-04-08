@@ -137,7 +137,7 @@ const telosCorrectSymbols = str => {
 
 const telosNameLength = str =>
   !str || str.length !== 12
-    ? { ...messages.wrongLength, min: 12, max: 12 }
+    ? { ...messages.wrongExactLength, min: 12 }
     : undefined;
 
 const isTelosNameAvailable = async (eosService, telosName) => {

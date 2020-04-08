@@ -35,6 +35,7 @@ import saga from './saga';
 
 import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
+import { selectEos } from '../EosioProvider/selectors';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
@@ -46,6 +47,7 @@ export const SendTokens = /* istanbul ignore next */ ({
   showSendTokensModalDispatch,
   loginData,
   balance,
+  eosService,
 }) => (
   <React.Fragment>
     <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
@@ -55,6 +57,7 @@ export const SendTokens = /* istanbul ignore next */ ({
         sendTokensProcessing={sendTokensProcessing}
         loginData={loginData}
         valueHasToBeLessThan={balance}
+        eosService={eosService}
       />
     </Modal>
 
@@ -72,9 +75,11 @@ SendTokens.propTypes = {
   sendTokensDispatch: PropTypes.func,
   loginData: PropTypes.object,
   balance: PropTypes.number,
+  eosService: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
+  eosService: selectEos,
   locale: makeSelectLocale(),
   loginData: makeSelectLoginData(),
   balance: makeSelectBalance(),

@@ -3,7 +3,7 @@ import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Field, reduxForm, stopAsyncValidation } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form/immutable';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -11,7 +11,6 @@ import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
 import _pickBy from 'lodash/pickBy';
 import _isEmpty from 'lodash/isEmpty';
-import _debounce from 'lodash/debounce';
 
 import commonMessages from 'common-messages';
 
@@ -223,22 +222,22 @@ const asyncValidate = async (
     // eslint-disable-next-line prefer-promise-reject-errors
     return Promise.reject(errors);
   }
-  dispatch(stopAsyncValidation);
+
   return undefined;
 };
 
 const Tip = ({
-               className,
-               handleSubmit,
-               changed,
-               reset,
-               profile,
-               isMine,
-               saveCryptoAccountsDispatch,
-               cryptoAccounts,
-               isSaveCryptoAccountsProcessing,
-               valid,
-             }) => {
+  className,
+  handleSubmit,
+  changed,
+  reset,
+  profile,
+  isMine,
+  saveCryptoAccountsDispatch,
+  cryptoAccounts,
+  isSaveCryptoAccountsProcessing,
+  valid,
+}) => {
   const saveAccounts = form =>
     saveCryptoAccountsDispatch({
       cryptoAccounts: _pickBy(form.toJS(), value => !_isEmpty(value)),
@@ -270,7 +269,7 @@ const Tip = ({
                 return (
                   <BodyRow key={currency}>
                     <BodyCryptoColumn>
-                      <img src={logo} alt={`${name}_logo`}/>
+                      <img src={logo} alt={`${name}_logo`} />
                       <p>{name}</p>
                     </BodyCryptoColumn>
                     <BodyAccountColumn
@@ -375,6 +374,6 @@ export default compose(
     form: FORM_NAME,
     touchOnChange: true,
     shouldAsyncValidate: () => true,
-    asyncValidate: _debounce(asyncValidate, 500, { leading: true }),
+    asyncValidate,
   }),
 )(Tip);
