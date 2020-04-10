@@ -102,6 +102,11 @@
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
   "app.common.tipQuestion": "Чаевые",
+  "app.common.chooseCrypto": "Выберите валюту",
+  "app.common.chooseWallet": "Выберите кошелек",
+  "app.common.tip": "Вознаградить",
+  "app.common.tipAnswer": "Вознаградить ответ",
+  "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
@@ -542,6 +547,8 @@
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongExactLength":
+    "Значение должно быть длины {min} символов",
   "app.components.FormFields.wrongLengthOfList":
     "Оставьте не менее {min} и не более {max} элементов",
   "app.components.FormFields.wrongLengthMin":
@@ -575,7 +582,12 @@
     "У Вас не будет возможности изменить его после создания",
   "app.components.FormFields.thisTelosNameIsAvailable":
     "Это Телос имя не занято",
-
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "Это Телос имя занято",
+  "app.components.FormFields.atLeastOneLetter":
+    "Телос имя должно содержать хотя бы одну букву",
+  "app.components.FormFields.exactFromAndToAccounts":
+    "Отправитель и получатель не могут быть одним и тем же",
   "app.components.Footer.header": "Авторские права: Peeranha",
 
   "app.containers.Login.authUserHasMore":
@@ -682,6 +694,14 @@
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
   "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
+  "app.containers.Profile.tipText":
+    "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
+  "app.containers.Profile.crypto": "Крипто-кошелёк",
+  "app.containers.Profile.account": "Аккаунт",
+  "app.containers.Profile.sendFromAccount": "Отправить с аккаунта",
+  "app.containers.Profile.sendToAccount": "Отправить на аккаунт",
+  "app.containers.Profile.changeAccount": "Изменить аккаунт",
+  "app.containers.Profile.chooseAccount": "Выбрать аккаунт",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",

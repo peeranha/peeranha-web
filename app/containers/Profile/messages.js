@@ -109,4 +109,25 @@ export default defineMessages({
   seeMore: {
     id: 'app.containers.Profile.seeMore',
   },
+  tipText: {
+    id: 'app.containers.Profile.tipText',
+  },
+  crypto: {
+    id: 'app.containers.Profile.crypto',
+  },
+  account: {
+    id: 'app.containers.Profile.account',
+  },
+  sendFromAccount: {
+    id: 'app.containers.Profile.sendFromAccount',
+  },
+  sendToAccount: {
+    id: 'app.containers.Profile.sendToAccount',
+  },
+  changeAccount: {
+    id: 'app.containers.Profile.changeAccount',
+  },
+  chooseAccount: {
+    id: 'app.containers.Profile.chooseAccount',
+  },
 });

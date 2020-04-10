@@ -14,6 +14,7 @@ import dangerIcon from 'images/dangerIcon.svg?inline';
 import {
   telosCorrectSymbols,
   telosNameLength,
+  atLeastOneLetter,
 } from 'components/FormFields/validate';
 
 const Div = styled.div`
@@ -47,6 +48,7 @@ export const MyOwnTelosNameForm = ({
   const { value } = input;
   const correctSymbols = telosCorrectSymbols(value);
   const correctLength = telosNameLength(value);
+  const oneLetterAtLeast = atLeastOneLetter(value);
   const isAvailable = !correctSymbols && !correctLength && !meta.error;
 
   return (
@@ -77,6 +79,10 @@ export const MyOwnTelosNameForm = ({
       <Div>
         <img src={!correctSymbols ? okay : notOkay} alt="marker" />
         <FormattedMessage {...messages.telosCorrectSymbols} />
+      </Div>
+      <Div>
+        <img src={!oneLetterAtLeast ? okay : notOkay} alt="marker" />
+        <FormattedMessage {...messages.atLeastOneLetter} />
       </Div>
       <Div>
         <img src={isAvailable ? okay : notOkay} alt="not okay" />

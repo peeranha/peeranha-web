@@ -44,19 +44,20 @@ class EosioService {
     this.node = null;
     this.isScatterWindowOpened = false;
     this.#key = null;
+    this.withScatter = false;
   }
 
-  initScatter = async () => {
+  initScatter = async appName => {
     ScatterJS.plugins(new ScatterEOS());
 
-    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    const connected = await ScatterJS.scatter.connect(appName);
 
     if (!connected) throw new Error('No connection with Scatter');
   };
 
-  initEosioWithScatter = async () => {
+  initEosioWithScatter = async (appName = SCATTER_APP_NAME) => {
     try {
-      await this.initScatter();
+      await this.initScatter(appName);
       this.node = await this.getNode();
 
       const scatterConfig = this.getScatterConfig();
@@ -65,6 +66,7 @@ class EosioService {
       this.selectedAccount = await this.selectAccount();
       this.initialized = true;
       this.scatterInstalled = true;
+      this.withScatter = true;
 
       const api = ScatterJS.scatter.eos(scatterConfig, Eosjs16, eosOptions);
 
@@ -73,7 +75,7 @@ class EosioService {
         authorityProvider: {
           get_table_rows: api.getTableRows,
           history_get_key_accounts: api.getKeyAccounts,
-          get_account: api.getKeyAccounts,
+          get_account: api.getAccount,
           get_block: api.getBlock,
         },
       };
@@ -98,6 +100,7 @@ class EosioService {
     });
     this.initialized = true;
     this.selectedAccount = acc;
+    this.withScatter = false;
     this.#key = key;
   };
 
@@ -137,18 +140,16 @@ class EosioService {
     }
   };
 
-  getSelectedAccount = async () => {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-
-    if (!autoLoginData) return null;
-
-    return this.selectedAccount;
-  };
+  getSelectedAccount = async () =>
+    this.selectedAccount ||
+    JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
+    null;
 
   forgetIdentity = async () => {
     try {
       if (ScatterJS.scatter && ScatterJS.scatter.identity) {
         await ScatterJS.scatter.forgetIdentity();
+        this.selectedAccount = null;
       }
     } catch ({ message }) {
       console.log(message);

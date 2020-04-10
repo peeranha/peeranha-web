@@ -7,7 +7,6 @@ import {
   PERIOD_RATING_TABLE,
   SEND_TOKEN_METHOD,
   PICKUP_REWARD_METHOD,
-  APP_CURRENCY,
   TOTAL_REWARD_TABLE,
   TOTAL_RATING_TABLE,
   ALL_PERIODS_SCOPE,
@@ -183,17 +182,29 @@ export async function getWeekStat(eosService, profile) {
     .reverse();
 }
 
-export async function sendTokens(eosService, info) {
+export async function sendTokens(
+  eosService,
+  { from, to, quantity, precision, symbol, contractAccount },
+) {
+  console.log({
+    from,
+    to,
+    quantity,
+    precision,
+    symbol,
+    contractAccount,
+    eosService,
+  });
   await eosService.sendTransaction(
-    info.from,
+    from,
     SEND_TOKEN_METHOD,
     {
-      from: info.from,
-      to: info.to,
-      quantity: getNormalizedCurrency(info.quantity),
+      from,
+      to,
+      quantity: getNormalizedCurrency(quantity, precision, symbol),
       memo: '',
     },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    contractAccount,
     true,
   );
 }
@@ -212,14 +223,14 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
-export function getNormalizedCurrency(value) {
-  if (!Number(value)) {
+export function getNormalizedCurrency(quantity, precision, symbol) {
+  if (!Number(quantity)) {
     throw new ApplicationError(`Value has to be number`);
   }
 
-  const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
+  const num = getFormattedNum3(Number(quantity), precision).replace(/ /gim, '');
 
-  return `${num} ${APP_CURRENCY}`;
+  return `${num} ${symbol}`;
 }
 
 // TODO: test

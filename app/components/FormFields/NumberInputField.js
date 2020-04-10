@@ -21,7 +21,19 @@ export const NumberInputField = ({
 }) => {
   const onChange = x => {
     try {
-      const inputValue = String(x.target.value);
+      let inputValue = String(x.target.value);
+      inputValue = inputValue.replace(/[^0-9.]/, '');
+      const forbiddenPattern = inputValue.match(/\..*?(\.)/);
+      if (forbiddenPattern) {
+        inputValue = inputValue.replace(
+          forbiddenPattern[0],
+          forbiddenPattern[0]
+            .split('')
+            .splice(0, forbiddenPattern[0].length - 1)
+            .join(''),
+        );
+      }
+
       const lastChar = inputValue[inputValue.length - 1];
       const inputAfterDot = inputValue.split('.')[1];
 
@@ -105,4 +117,4 @@ NumberInputField.propTypes = {
   dotRestriction: PropTypes.number,
 };
 
-export default React.memo(NumberInputField);
+export default NumberInputField;

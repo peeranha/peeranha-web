@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Base from 'components/Base';
 
@@ -9,6 +10,15 @@ import BestAnswerMarker from './BestAnswerMarker';
 
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
+
+const Div = styled.div`
+  margin-bottom: 16px;
+  width: 422px;
+
+  @media only screen and (max-width: 422px) {
+    width: 100%;
+  }
+`;
 
 export const ContentBody = ({
   content,
@@ -34,19 +44,24 @@ export const ContentBody = ({
   userInfo,
   isTheLargestRating,
   ids,
+  isItWrittenByMe,
 }) => (
   <Base position="bottom">
-    <BestAnswerMarker
-      answerId={answerId}
-      questionFrom={questionFrom}
-      account={account}
-      markAsAccepted={markAsAccepted}
-      markAsAcceptedLoading={markAsAcceptedLoading}
-      correctAnswerId={questionData.correct_answer_id}
-      whoWasAccepted={userInfo.user}
-      isTheLargestRating={isTheLargestRating}
-      ids={ids}
-    />
+    <Div>
+      <BestAnswerMarker
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        markAsAcceptedLoading={markAsAcceptedLoading}
+        correctAnswerId={questionData.correct_answer_id}
+        whoWasAccepted={userInfo.user}
+        isTheLargestRating={isTheLargestRating}
+        ids={ids}
+        isGeneral={questionData.isGeneral}
+        isItWrittenByMe={isItWrittenByMe}
+      />
+    </Div>
 
     <TextBlock content={content} />
 
@@ -97,6 +112,7 @@ ContentBody.propTypes = {
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
   answerId: PropTypes.number,
+  isItWrittenByMe: PropTypes.bool,
 };
 
 export default React.memo(ContentBody);

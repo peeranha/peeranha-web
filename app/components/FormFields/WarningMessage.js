@@ -42,7 +42,11 @@ export const WarningMessage = ({
 }) => {
   const err = error || warning;
 
-  return (visited && err) || (active && tip) ? (
+  if (err && err.size) {
+    err.id = err.get('id');
+  }
+
+  return ((visited || (err && err.visited)) && err) || (active && tip) ? (
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (

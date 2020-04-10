@@ -7,9 +7,9 @@ export const getFormattedNum = num => numeral(num).format('0,0');
 export const getFormattedNum2 = num => numeral(num).format('0a');
 
 // 1000000 => 1 000 000.000000
-export const getFormattedNum3 = num =>
+export const getFormattedNum3 = (num, precision = 6) =>
   numeral(num)
-    .format('0,0.000000')
+    .format(`0,0.${'0'.repeat(precision)}`)
     .replace(/,/gim, ' ');
 
 // 1000000 => 1 000 000.00

@@ -13,7 +13,7 @@ const communitiesConfig = {
     },
   },
   test: {
-    2: {
+    1: {
       origin: 'https://blockchain-test.peeranha.io',
       src: OntLogo,
     },

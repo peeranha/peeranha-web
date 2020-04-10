@@ -22,6 +22,7 @@ import {
   sendTokensErr,
   hideSendTokensModal,
 } from './actions';
+import { CURRENCIES } from '../../wallet-config';
 
 export function* sendTokensWorker({ resetForm, val }) {
   try {
@@ -53,6 +54,7 @@ export function* sendTokensWorker({ resetForm, val }) {
       from: profile.user,
       to: val[EOS_ACCOUNT_FIELD],
       quantity: val[AMOUNT_FIELD],
+      ...CURRENCIES.PEER,
     });
 
     yield put(sendTokensSuccess());

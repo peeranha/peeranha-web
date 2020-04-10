@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
 import checkIcon from 'images/okayGreen.svg?inline';
+import coinsIcon from 'images/coins.svg?inline';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -14,14 +17,21 @@ import Button from 'components/Button/Outlined/InfoMedium';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import SendTips from '../SendTips';
 
 // eslint-disable-next-line no-unused-vars
-const B = Button.extend`
-  display: inline-flex;
+export const B = Button.extend`
   align-items: center;
   padding-top: 0;
   padding-bottom: 0;
+  min-height: 32px;
+  transition-property: none;
+  width: 100%;
 `.withComponent('span');
+
+const Div = styled.div`
+  min-width: 140px;
+`;
 
 export const QuestionTitle = ({
   title,
@@ -32,6 +42,7 @@ export const QuestionTitle = ({
   correctAnswerId,
   answersNumber,
   isGeneral,
+  user,
 }) =>
   title ? (
     <Base position="middle" bordered={!isGeneral}>
@@ -40,15 +51,15 @@ export const QuestionTitle = ({
           <FormattedMessage {...messages.expertQuestion} />
         </QuestionType>
       )}
-      <div>
-        {/*
-          <SendTokens>
+      <Div>
+        {!isItWrittenByMe && (
+          <SendTips form="tip-question" account={user}>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
-          </SendTokens>
-        */}
+          </SendTips>
+        )}
 
         <MarkAnswerNotification
           className={
@@ -81,7 +92,7 @@ export const QuestionTitle = ({
             />
           ) : null}
         </TagList>
-      </div>
+      </Div>
     </Base>
   ) : null;
 
@@ -94,6 +105,7 @@ QuestionTitle.propTypes = {
   isGeneral: PropTypes.bool,
   correctAnswerId: PropTypes.number,
   answersNumber: PropTypes.number,
+  user: PropTypes.string,
 };
 
 export default React.memo(QuestionTitle);

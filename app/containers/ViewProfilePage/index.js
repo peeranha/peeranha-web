@@ -102,6 +102,8 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         activeKey={activeKey}
         ownerKey={ownerKey}
         loginData={loginData}
+        profile={profile}
+        account={account}
         user={profile ? profile.user : null}
         isAvailable={profile && account === profile.user}
       />

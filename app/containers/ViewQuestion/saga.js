@@ -33,7 +33,10 @@ import {
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { removeUserProfile } from 'containers/DataCacheProvider/actions';
+import {
+  getUserProfileSuccess,
+  removeUserProfile,
+} from 'containers/DataCacheProvider/actions';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -125,6 +128,7 @@ import {
   deleteCommentValidator,
   editCommentValidator,
 } from './validate';
+import { selectUsers } from '../DataCacheProvider/selectors';
 
 export const isGeneralQuestion = properties =>
   Boolean(
@@ -428,6 +432,33 @@ export function* getQuestionDataWorker({ questionId }) {
         '_parent',
       );
     }
+
+    const { userInfo, answers } = questionData;
+    const profileInfo = yield select(selectUsers(userInfo.user));
+
+    if (!profileInfo.profile) {
+      const ipfsProfile = userInfo.ipfs_profile;
+      const profile = JSON.parse(yield call(getText, ipfsProfile));
+      yield put(getUserProfileSuccess({ ...userInfo, profile }));
+    }
+
+    yield all(
+      answers.map(function*({ userInfo: answerUserInfo }) {
+        const answerProfileInfo = yield select(selectUsers(userInfo.user));
+        if (!answerProfileInfo.profile) {
+          const profile = JSON.parse(
+            yield call(getText, answerUserInfo.ipfs_profile),
+          );
+          yield put(
+            getUserProfileSuccess({
+              ...answerUserInfo,
+              profile,
+            }),
+          );
+        }
+      }),
+    );
+
     yield put(getQuestionDataSuccess(questionData));
   } catch (err) {
     yield put(getQuestionDataErr(err));

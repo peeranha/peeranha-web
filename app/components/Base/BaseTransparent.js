@@ -18,11 +18,16 @@ export const BaseSpecial = Base.extend`
   border-left: ${({ origin }) => (origin ? `1px solid ${BORDER_PRIMARY}` : 0)};
   border-right: ${({ origin }) => (origin ? `1px solid ${BORDER_PRIMARY}` : 0)};
   border-top: ${({ origin }) => (origin ? `1px solid ${BORDER_PRIMARY}` : 0)};
-  border-bottom: ${({ last, origin }) => {
+  border-bottom: ${({ last, origin, overOrigin }) => {
+    if (overOrigin || last) {
+      return 0;
+    }
+
     if (origin) {
       return `1px solid ${BORDER_PRIMARY}`;
     }
-    return last ? 0 : `1px solid ${BORDER_SECONDARY}`;
+
+    return `1px solid ${BORDER_SECONDARY}`;
   }};
   border-top-left-radius: ${({ first }) => (first ? 5 : 0)}px;
   border-top-right-radius: ${({ first }) => (first ? 5 : 0)}px;

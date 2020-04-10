@@ -12,11 +12,32 @@ import TextInputField from 'components/FormFields/TextInputField';
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 
-import { required, valueHasToBeLessThan } from 'components/FormFields/validate';
+import {
+  isTelosNameAvailable,
+  required,
+  telosCorrectSymbols,
+  telosNameLength,
+  valueHasToBeLessThan,
+} from 'components/FormFields/validate';
 
 import { EOS_ACCOUNT_FIELD, AMOUNT_FIELD, PASSWORD_FIELD } from './constants';
+import messages from './../ErrorPage/blockchainErrors';
 
-/* eslint indent: 0 */
+const asyncValidate = async (value, dispatch, { eosService }) => {
+  const telosName = value.get(EOS_ACCOUNT_FIELD);
+
+  const isAvailable = await isTelosNameAvailable(eosService, telosName);
+  if (isAvailable) {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return Promise.reject({
+      [EOS_ACCOUNT_FIELD]: messages.accountDoesNotExist,
+    });
+  }
+  return Promise.resolve({
+    [EOS_ACCOUNT_FIELD]: undefined,
+  });
+};
+
 const SendTokensForm = ({
   handleSubmit,
   sendTokens,
@@ -35,7 +56,7 @@ const SendTokensForm = ({
         disabled={sendTokensProcessing}
         label={translationMessages[locale][commonMessages.eosAccount.id]}
         component={TextInputField}
-        validate={[required]}
+        validate={[required, telosCorrectSymbols, telosNameLength]}
         warn={[required]}
       />
 
@@ -73,6 +94,7 @@ SendTokensForm.propTypes = {
   locale: PropTypes.string,
   sendTokensProcessing: PropTypes.bool,
   loginData: PropTypes.object,
+  eosService: PropTypes.object,
 };
 
 const formName = 'SendTokensForm';
@@ -80,5 +102,8 @@ const formName = 'SendTokensForm';
 /* eslint import/no-mutable-exports: 0 */
 export default reduxForm({
   form: formName,
+  asyncValidate,
+  asyncBlurFields: [EOS_ACCOUNT_FIELD],
+  shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
   onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTokensForm);

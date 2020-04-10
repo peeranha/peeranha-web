@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import * as clipboard from 'clipboard-polyfill';
 
@@ -9,23 +8,11 @@ import commonMessages from 'common-messages';
 
 import { showPopover } from 'utils/popover';
 
-import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
-import InfoLabel from 'components/InfoLabelWithPopover';
-import InfoButton from 'components/Button/Outlined/InfoMedium';
-
-import profileMessages from 'containers/Profile/messages';
-import signupMessages from 'containers/SignUp/messages';
-import forgotPasswordMessages from 'containers/ForgotPassword/messages';
-import deleteAccountMessages from 'containers/DeleteAccount/messages';
-
-import ShowActiveKeyButton from 'containers/ShowActiveKey';
-import ShowOwnerKeyButton from 'containers/ShowOwnerKey';
-import ChangePasswordButton from 'containers/ChangePasswordByPrevious';
-import ChangeEmailButton from 'containers/ChangeEmail';
-import DeleteAccountButton from 'containers/DeleteAccount';
 import ReferralProgram from './ReferralProgram';
 import NotFound from '../ErrorPage';
+import AuthorizationData from './AuthorizationData';
+import Tip from './Tip/Tip';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
@@ -105,7 +92,7 @@ export const BaseStyled = Base.extend`
       }
 
       tr td {
-        padding: 0 30px 20px 0px !important;
+        padding: 0 30px 20px 0px;
         text-align: left !important;
       }
     }
@@ -120,6 +107,8 @@ const SettingsOfUser = ({
   loginData,
   user,
   isAvailable,
+  account,
+  profile,
 }) => {
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
@@ -131,128 +120,22 @@ const SettingsOfUser = ({
 
   return isAvailable ? (
     <div>
-      <BaseStyled
-        className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
-        position="bottom"
-      >
-        <H3>
-          <FormattedMessage {...profileMessages.authorizationData} />
-        </H3>
-
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <td>
-                  <FormattedMessage {...signupMessages.email} />
-                </td>
-                <td>{loginData ? loginData.email : null}</td>
-                <td>
-                  <ChangeEmailButton>
-                    <FormattedMessage {...commonMessages.change} />{' '}
-                  </ChangeEmailButton>
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <FormattedMessage {...signupMessages.password} />
-                </td>
-                <td>• • • • • • • • • • • • •</td>
-                <td>
-                  <ChangePasswordButton>
-                    <FormattedMessage {...commonMessages.change} />{' '}
-                  </ChangePasswordButton>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <InfoLabel
-                    id="wallet_settings_eos_active"
-                    message={
-                      translationMessages[locale][
-                        forgotPasswordMessages.youGotThisKey.id
-                      ]
-                    }
-                  >
-                    <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-                  </InfoLabel>
-                </td>
-                <td>{activeKey || `• • • • • • • • • •`}</td>
-
-                <td>
-                  <button
-                    id="viewprofile-settings-activekey"
-                    className={!activeKey ? 'd-none' : 'mr-3'}
-                    data-key={activeKey}
-                    onClick={writeToBuffer}
-                  >
-                    <FormattedMessage {...commonMessages.copy} />
-                  </button>
-
-                  <ShowActiveKeyButton activeKey={activeKey}>
-                    <FormattedMessage
-                      {...commonMessages[!activeKey ? 'show' : 'hide']}
-                    />
-                  </ShowActiveKeyButton>
-                </td>
-              </tr>
-
-              <tr
-                className={
-                  !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
-                }
-              >
-                <td>
-                  <InfoLabel
-                    id="wallet_settings_eos_owner"
-                    message={
-                      translationMessages[locale][
-                        forgotPasswordMessages.youGotThisKey.id
-                      ]
-                    }
-                  >
-                    <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-                  </InfoLabel>
-                </td>
-                <td>{ownerKey || `• • • • • • • • • •`}</td>
-                <td>
-                  <button
-                    id="viewprofile-settings-ownerkey"
-                    className={!ownerKey ? 'd-none' : 'mr-3'}
-                    data-key={ownerKey}
-                    onClick={writeToBuffer}
-                  >
-                    <FormattedMessage {...commonMessages.copy} />
-                  </button>
-
-                  <ShowOwnerKeyButton ownerKey={ownerKey}>
-                    <FormattedMessage
-                      {...commonMessages[!ownerKey ? 'show' : 'hide']}
-                    />
-                  </ShowOwnerKeyButton>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <DeleteAccountButton
-            render={({ onClick }) => (
-              <InfoButton onClick={onClick}>
-                <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-              </InfoButton>
-            )}
-          />
-        </div>
-      </BaseStyled>
+      <AuthorizationData
+        locale={locale}
+        ownerKey={ownerKey}
+        loginData={loginData}
+        activeKey={activeKey}
+        className={className}
+        writeToBuffer={writeToBuffer}
+      />
 
       <ReferralProgram
         className={className}
         user={user}
         writeToBuffer={writeToBuffer}
       />
+
+      <Tip className={className} profile={profile} account={account} />
     </div>
   ) : (
     <div className={className}>
@@ -269,6 +152,8 @@ SettingsOfUser.propTypes = {
   loginData: PropTypes.object,
   user: PropTypes.string,
   isAvailable: PropTypes.bool,
+  profile: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default React.memo(SettingsOfUser);
