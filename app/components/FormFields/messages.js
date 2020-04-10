@@ -67,4 +67,11 @@ export default defineMessages({
   thisTelosNameIsntAvailable: {
     id: 'app.components.FormFields.thisTelosNameIsntAvailable',
   },
+  atLeastOneLetter: {
+    id: 'app.components.FormFields.atLeastOneLetter',
+  },
+  exactFromAndToAccounts: {
+    id: 'app.components.FormFields.exactFromAndToAccounts',
+    visited: true,
+  },
 });

@@ -1,5 +1,8 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
+import { getFormValues } from 'redux-form/lib/immutable';
+import _isEqual from 'lodash/isEqual';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import { WALLETS } from 'wallet-config';
 import { sendTokens } from 'utils/walletManagement';
@@ -10,6 +13,7 @@ import { WebIntegrationError } from 'utils/errors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
+import formFieldsMessages from 'components/FormFields/messages.js';
 import Eosio from 'utils/eosio';
 
 import {
@@ -21,6 +25,7 @@ import {
   SELECT_ACCOUNT,
   EOS_SEND_TO_ACCOUNT_FIELD,
   EOS_SEND_FROM_ACCOUNT_FIELD,
+  TIPS_PRESELECT,
 } from './constants';
 
 import {
@@ -36,6 +41,8 @@ import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
 import { selectTipsEosService } from './selectors';
 import { SEND_TIPS_SCATTER_APP_NAME } from '../../utils/constants';
 import { selectEos } from '../EosioProvider/selectors';
+import { formName } from './SendTipsForm';
+import { getCookie, setCookie } from '../../utils/cookie';
 
 export function* sendTipsWorker({ resetForm, val }) {
   try {
@@ -86,6 +93,34 @@ export function* sendTipsWorker({ resetForm, val }) {
       contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
 
+    // update preselect tips values
+    const tipsPreselect = {
+      [CURRENCY_FIELD]: val[CURRENCY_FIELD].name,
+      [AMOUNT_FIELD]: {
+        [val[CURRENCY_FIELD].name]: val[AMOUNT_FIELD],
+      },
+      [WALLET_FIELD]: val[WALLET_FIELD].name,
+    };
+
+    const tipsPreselectCookie = JSON.parse(getCookie(TIPS_PRESELECT) || '{}');
+    const tipsPreselectToSave = _cloneDeep(tipsPreselect);
+    tipsPreselectToSave[AMOUNT_FIELD] = {
+      ...tipsPreselectCookie[AMOUNT_FIELD],
+      ...tipsPreselect[AMOUNT_FIELD],
+    };
+
+    if (!_isEqual(tipsPreselectToSave, tipsPreselectCookie)) {
+      setCookie({
+        name: TIPS_PRESELECT,
+        value: JSON.stringify(tipsPreselectToSave),
+        options: {
+          allowSubdomains: true,
+          neverExpires: true,
+          defaultPath: true,
+        },
+      });
+    }
+
     yield put(sendTipsSuccess());
     yield put(hideSendTipsModal());
     yield call(resetForm);
@@ -128,6 +163,15 @@ export function* selectAccountWorker() {
           translations[messages[USER_IS_NOT_SELECTED].id],
         );
       }
+    }
+    const receiver = (yield select(getFormValues(formName))).get(
+      EOS_SEND_TO_ACCOUNT_FIELD,
+    );
+
+    if (receiver === selectedAccount) {
+      throw new WebIntegrationError(
+        translations[formFieldsMessages.exactFromAndToAccounts.id],
+      );
     }
 
     yield put(

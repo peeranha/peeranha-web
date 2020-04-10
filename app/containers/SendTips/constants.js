@@ -27,3 +27,5 @@ export const SELECT_ACCOUNT_ERROR = 'app/SendTips/SELECT_ACCOUNT_ERROR';
 export const REMOVE_SELECTED_ACCOUNT = 'app/SendTips/REMOVE_SELECTED_ACCOUNT';
 export const ADD_TIPS_EOS_SERVICE = 'app/SendTips/ADD_TIPS_EOS_SERVICE';
 export const REMOVE_TIPS_EOS_SERVICE = 'app/SendTips/REMOVE_TIPS_EOS_SERVICE';
+
+export const TIPS_PRESELECT = 'tipsPreselect';

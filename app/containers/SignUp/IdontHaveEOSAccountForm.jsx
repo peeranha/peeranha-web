@@ -18,6 +18,7 @@ import {
   telosCorrectSymbols,
   telosNameLength,
   isTelosNameAvailable,
+  atLeastOneLetter,
 } from 'components/FormFields/validate';
 import formFieldsMessages from 'components/FormFields/messages';
 
@@ -106,7 +107,12 @@ const IdontHaveEOSAccountForm = ({
                   name={MY_OWN_TELOS_NAME_FIELD}
                   disabled={idontHaveEosAccountProcessing}
                   component={MyOwnTelosNameForm}
-                  validate={[required, telosCorrectSymbols, telosNameLength]}
+                  validate={[
+                    required,
+                    telosCorrectSymbols,
+                    telosNameLength,
+                    atLeastOneLetter,
+                  ]}
                 />
               </Div>
             ) : null}
@@ -186,31 +192,23 @@ const formName = 'IdontHaveEOSAccountForm';
 let FormClone = reduxForm({
   form: formName,
   touchOnChange: true,
-  asyncChangeFields: [MY_OWN_TELOS_NAME_FIELD],
+  asyncBlurFields: [MY_OWN_TELOS_NAME_FIELD],
   onSubmitFail: errors => scrollToErrorField(errors),
-
-  shouldAsyncValidate: ({ blurredField }) =>
-    blurredField === MY_OWN_TELOS_NAME_FIELD,
-
-  asyncValidate: async (value, dispatch, { eosService }) => {
+  shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
+  asyncValidate: async (value, _, { eosService }) => {
     const telosName = value.get(MY_OWN_TELOS_NAME_FIELD);
-    const correctSymbols = telosCorrectSymbols(telosName);
-    const correctLength = telosNameLength(telosName);
 
-    if (!correctSymbols && !correctLength) {
-      const isAvailable = await isTelosNameAvailable(eosService, telosName);
-      if (!isAvailable) {
-        // eslint-disable-next-line prefer-promise-reject-errors
-        return Promise.reject({
-          [MY_OWN_TELOS_NAME_FIELD]:
-            formFieldsMessages.thisTelosNameIsntAvailable,
-        });
-      }
-      return Promise.resolve({
-        [MY_OWN_TELOS_NAME_FIELD]: undefined,
+    const isAvailable = await isTelosNameAvailable(eosService, telosName);
+    if (!isAvailable) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      return Promise.reject({
+        [MY_OWN_TELOS_NAME_FIELD]:
+          formFieldsMessages.thisTelosNameIsntAvailable,
       });
     }
-    return undefined;
+    return Promise.resolve({
+      [MY_OWN_TELOS_NAME_FIELD]: undefined,
+    });
   },
 })(IdontHaveEOSAccountForm);
 

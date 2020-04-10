@@ -46,7 +46,7 @@ export const WarningMessage = ({
     err.id = err.get('id');
   }
 
-  return (visited && err) || (active && tip) ? (
+  return ((visited || (err && err.visited)) && err) || (active && tip) ? (
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (

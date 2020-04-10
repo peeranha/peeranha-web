@@ -29,7 +29,7 @@ export const setCookie = ({
   document.cookie = Object.keys(optionsCopy).reduce((acc, optionKey) => {
     if (optionKey === 'neverExpires') {
       return `${acc}; expires=${NEVER_EXPIRES}`;
-    } else if (optionKey === 'allowSubdomains') {
+    } else if (optionKey === 'allowSubdomains' && process.env.ENV !== 'dev') {
       return `${acc}; domain=${DOMAIN}`;
     } else if (optionKey === 'defaultPath') {
       return `${acc}; path=${DEFAULD_PATH}`;

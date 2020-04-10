@@ -139,7 +139,7 @@
   "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "These periods are still in progress. You will see more details next week.",
+    "This period is still in progress. You will see more details next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
@@ -571,10 +571,14 @@
   "app.components.FormFields.notAbleChangeAfterCreation":
     "You will not be able to change it after creation",
   "app.components.FormFields.thisTelosNameIsAvailable":
-    "This Telos name is available",
+    "This Telos account name is available",
 
   "app.components.FormFields.thisTelosNameIsntAvailable":
-    "This Telos name is not available",
+    "This Telos account name is not available",
+  "app.components.FormFields.atLeastOneLetter":
+    "Telos name must contain at least one letter",
+  "app.components.FormFields.exactFromAndToAccounts":
+    "Sender and receiver cannot be the same",
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 

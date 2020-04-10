@@ -195,7 +195,6 @@ const asyncValidate = async (
     currency =>
       values[currency] &&
       values[currency] !== account &&
-      !validateTelosName(values[currency]) &&
       initialValues.get(currency) !== values[currency],
   );
 
@@ -373,7 +372,10 @@ export default compose(
   reduxForm({
     form: FORM_NAME,
     touchOnChange: true,
-    shouldAsyncValidate: () => true,
+    asyncBlurFields: Object.keys(CURRENCIES).map(
+      currency => CURRENCIES[currency].name,
+    ),
+    shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
     asyncValidate,
   }),
 )(Tip);

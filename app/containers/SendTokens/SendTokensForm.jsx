@@ -25,22 +25,17 @@ import messages from './../ErrorPage/blockchainErrors';
 
 const asyncValidate = async (value, dispatch, { eosService }) => {
   const telosName = value.get(EOS_ACCOUNT_FIELD);
-  const correctSymbols = telosCorrectSymbols(telosName);
-  const correctLength = telosNameLength(telosName);
 
-  if (!correctSymbols && !correctLength) {
-    const isAvailable = await isTelosNameAvailable(eosService, telosName);
-    if (isAvailable) {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      return Promise.reject({
-        [EOS_ACCOUNT_FIELD]: messages.accountDoesNotExist,
-      });
-    }
-    return Promise.resolve({
-      [EOS_ACCOUNT_FIELD]: undefined,
+  const isAvailable = await isTelosNameAvailable(eosService, telosName);
+  if (isAvailable) {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return Promise.reject({
+      [EOS_ACCOUNT_FIELD]: messages.accountDoesNotExist,
     });
   }
-  return undefined;
+  return Promise.resolve({
+    [EOS_ACCOUNT_FIELD]: undefined,
+  });
 };
 
 const SendTokensForm = ({
@@ -107,7 +102,8 @@ const formName = 'SendTokensForm';
 /* eslint import/no-mutable-exports: 0 */
 export default reduxForm({
   form: formName,
-  shouldAsyncValidate: ({ blurredField }) => blurredField === EOS_ACCOUNT_FIELD,
   asyncValidate,
+  asyncBlurFields: [EOS_ACCOUNT_FIELD],
+  shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
   onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTokensForm);

@@ -140,6 +140,9 @@ const telosNameLength = str =>
     ? { ...messages.wrongExactLength, min: 12 }
     : undefined;
 
+const atLeastOneLetter = str =>
+  !str || !/.*[a-z].*/i.test(str) ? messages.atLeastOneLetter : undefined;
+
 const isTelosNameAvailable = async (eosService, telosName) => {
   const account = await eosService.getAccount(telosName);
   return !account;
@@ -182,4 +185,5 @@ export {
   telosCorrectSymbols,
   telosNameLength,
   isTelosNameAvailable,
+  atLeastOneLetter,
 };

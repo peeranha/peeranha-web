@@ -17,6 +17,7 @@ export const WALLETS = {
     logo: sqrlWallet,
   },
   SCATTER_SQRL: {
+    name: 'Scatter/Sqrl',
     names: ['', 'Sqrl'],
     logo: [scatterLogo, sqrlWallet],
   },

@@ -117,4 +117,4 @@ NumberInputField.propTypes = {
   dotRestriction: PropTypes.number,
 };
 
-export default React.memo(NumberInputField);
+export default NumberInputField;

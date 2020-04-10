@@ -48,6 +48,7 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
     >
       {options.map(option => (
         <Option
+          key={option.name}
           onClick={() => input.onChange(option)}
           isCurrentValue={value.name === option.name}
           disabled={disabled}
@@ -59,7 +60,7 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
             </>
           ) : (
             option.logo.map((logo, i) => (
-              <>
+              <React.Fragment key={logo}>
                 <img src={logo} alt="logo" />
                 {!!option.names[i] && (
                   <span style={{ fontWeight: 600 }}>{option.names[i]}</span>
@@ -69,7 +70,7 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
                     /
                   </span>
                 ) : null}
-              </>
+              </React.Fragment>
             ))
           )}
         </Option>

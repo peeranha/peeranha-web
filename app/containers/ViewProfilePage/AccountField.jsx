@@ -29,7 +29,7 @@ const AccountField = ({ input, meta, disabled }) => {
       id: meta.error.get('id'),
     };
   }
-  console.log(meta.error);
+
   return (
     <Div>
       <Input
