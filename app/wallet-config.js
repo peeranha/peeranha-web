@@ -49,8 +49,6 @@ export const CURRENCIES = {
     contractAccount: 'sqrlwalletio',
     blockchain: 'Telos',
     logo: sqrlWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SQRL],
+    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL],
   },
 };
-
-export const CURRENCIES_VALUES = Object.values(CURRENCIES);
