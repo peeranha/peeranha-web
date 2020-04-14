@@ -24,14 +24,15 @@ const Label = Button.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
-  min-width: 143px;
+  min-width: 167px;
 `;
 
 const Div = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media only screen and (max-width: 455px) {
+  @media only screen and (max-width: ${({ isShorter }) =>
+  isShorter ? 400 : 455}px) {
     display: flex;
     flex-direction: column;
 
@@ -86,7 +87,7 @@ export const BestAnswerMarker = ({
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
-    <Div>
+    <Div isShorter={answerId !== correctAnswerId}>
       <Base>
         {displayTips && (
           <SendTips form="tip-answer" account={whoWasAccepted}>
@@ -110,7 +111,7 @@ export const BestAnswerMarker = ({
           whoWasAccepted={whoWasAccepted}
         />
       </Base>
-      {isTheLargestRating ? (
+      {true ? (
         <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />

@@ -60,9 +60,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
           x.myPostTime = y.post_time;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
 
-          x.isTheLargestRating =
-            y.rating === mostRatingAnswer.rating &&
-            y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
+          x.isTheLargestRating = true
 
           x.myPostRating = y.rating;
           x.answerId = y.id;

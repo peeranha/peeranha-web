@@ -13,9 +13,9 @@ import messages from './messages';
 
 const Div = styled.div`
   margin-bottom: 16px;
-  width: 422px;
+  width: ${({ isShorter }) => (isShorter ? 310 : 422)}px;
 
-  @media only screen and (max-width: 422px) {
+  @media only screen and (max-width: ${({ isShorter }) => (isShorter ? 310 : 422)}px) {
     width: 100%;
   }
 `;
@@ -47,7 +47,7 @@ export const ContentBody = ({
   isItWrittenByMe,
 }) => (
   <Base position="bottom">
-    <Div>
+    <Div isShorter={questionData.correct_answer_id !== answerId}>
       <BestAnswerMarker
         answerId={answerId}
         questionFrom={questionFrom}
@@ -63,7 +63,7 @@ export const ContentBody = ({
       />
     </Div>
 
-    <TextBlock content={content} />
+    <TextBlock content={content}/>
 
     <Comments
       locale={locale}
