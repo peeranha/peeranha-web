@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import Base from 'components/Base';
 
@@ -10,15 +9,6 @@ import BestAnswerMarker from './BestAnswerMarker';
 
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
-
-const Div = styled.div`
-  margin-bottom: 16px;
-  width: ${({ isShorter }) => (isShorter ? 310 : 422)}px;
-
-  @media only screen and (max-width: ${({ isShorter }) => (isShorter ? 310 : 422)}px) {
-    width: 100%;
-  }
-`;
 
 export const ContentBody = ({
   content,
@@ -47,23 +37,21 @@ export const ContentBody = ({
   isItWrittenByMe,
 }) => (
   <Base position="bottom">
-    <Div isShorter={questionData.correct_answer_id !== answerId}>
-      <BestAnswerMarker
-        answerId={answerId}
-        questionFrom={questionFrom}
-        account={account}
-        markAsAccepted={markAsAccepted}
-        markAsAcceptedLoading={markAsAcceptedLoading}
-        correctAnswerId={questionData.correct_answer_id}
-        whoWasAccepted={userInfo.user}
-        isTheLargestRating={isTheLargestRating}
-        ids={ids}
-        isGeneral={questionData.isGeneral}
-        isItWrittenByMe={isItWrittenByMe}
-      />
-    </Div>
+    <BestAnswerMarker
+      answerId={answerId}
+      questionFrom={questionFrom}
+      account={account}
+      markAsAccepted={markAsAccepted}
+      markAsAcceptedLoading={markAsAcceptedLoading}
+      correctAnswerId={questionData.correct_answer_id}
+      whoWasAccepted={userInfo.user}
+      isTheLargestRating={isTheLargestRating}
+      ids={ids}
+      isGeneral={questionData.isGeneral}
+      isItWrittenByMe={isItWrittenByMe}
+    />
 
-    <TextBlock content={content}/>
+    <TextBlock content={content} />
 
     <Comments
       locale={locale}

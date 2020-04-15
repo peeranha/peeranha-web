@@ -24,52 +24,20 @@ const Label = Button.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
-  min-width: 167px;
+  max-width: 167px;
 `;
 
 const Div = styled.div`
+  max-width: 600px;
   display: flex;
-  justify-content: space-between;
+  flex-flow: row wrap;
 
-  @media only screen and (max-width: ${({ isShorter }) =>
-  isShorter ? 400 : 455}px) {
-    display: flex;
-    flex-direction: column;
-
-    > div {
-      margin-bottom: 10px;
-    }
-
-    > button {
-      width: 165px;
-    }
+  > button:not(:last-child) {
+    margin-right: 16px;
   }
 
-  @media only screen and (max-width: 276px) {
-    justify-content: center;
-  }
-`;
-
-const Base = styled.div`
-  display: flex;
-  width: 241px;
-  height: 32px;
-  justify-content: space-between;
-
-  @media only screen and (max-width: 276px) {
-    overflow: hidden;
-    height: 1%;
-    justify-content: center;
-    flex-direction: column;
-    > button:nth-child(1) {
-      margin-bottom: 10px;
-      width: 130px;
-    }
-
-    > button:nth-child(2) {
-      margin-bottom: 0;
-      width: 98px;
-    }
+  > button {
+    margin-bottom: 10px;
   }
 `;
 
@@ -87,31 +55,29 @@ export const BestAnswerMarker = ({
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
-    <Div isShorter={answerId !== correctAnswerId}>
-      <Base>
-        {displayTips && (
-          <SendTips form="tip-answer" account={whoWasAccepted}>
-            <B>
-              <img className="mr-1" src={coinsIcon} alt="icon" />
-              <FormattedMessage {...commonMessages.tipAnswer} />
-            </B>
-          </SendTips>
+    <Div short={answerId !== correctAnswerId}>
+      {displayTips && (
+        <SendTips form="tip-answer" account={whoWasAccepted}>
+          <B>
+            <img className="mr-1" src={coinsIcon} alt="icon" />
+            <FormattedMessage {...commonMessages.tipAnswer} />
+          </B>
+        </SendTips>
+      )}
+      <MarkAsAcceptedIcon
+        className=""
+        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        disabled={ids.includes(
+          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
         )}
-        <MarkAsAcceptedIcon
-          className=""
-          id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-          answerId={answerId}
-          questionFrom={questionFrom}
-          account={account}
-          markAsAccepted={markAsAccepted}
-          disabled={ids.includes(
-            formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
-          )}
-          correctAnswerId={correctAnswerId}
-          whoWasAccepted={whoWasAccepted}
-        />
-      </Base>
-      {true ? (
+        correctAnswerId={correctAnswerId}
+        whoWasAccepted={whoWasAccepted}
+      />
+      {isTheLargestRating ? (
         <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />

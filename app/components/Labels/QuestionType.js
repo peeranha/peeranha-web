@@ -18,12 +18,12 @@ export const TypeContainer = styled.div`
   display: inline-block;
   position: relative;
   float: right;
-  top: -15px;
-  right: -25px;
+  top: ${({ top }) => top || '-15px'};
+  right: ${({ right }) => right || '-25px'};
 
   @media only screen and (max-width: 576px) {
-    top: -10px;
-    right: -10px;
+    top: ${({ topMedia }) => topMedia || '-10px'};
+    right: ${({ rightMedia }) => rightMedia || '-10px'};
   }
 `;
 

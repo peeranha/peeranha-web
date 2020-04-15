@@ -26,11 +26,32 @@ export const B = Button.extend`
   padding-bottom: 0;
   min-height: 32px;
   transition-property: none;
-  width: 100%;
+  width: max-content;
 `.withComponent('span');
 
 const Div = styled.div`
   min-width: 140px;
+`;
+
+const Top = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 310px) {
+    flex-direction: column-reverse;
+    justify-content: start;
+
+    > div {
+      margin-bottom: 5px;
+      left: 0;
+    }
+
+    > button,
+    > div {
+      width: fit-content;
+    }
+  }
 `;
 
 export const QuestionTitle = ({
@@ -45,13 +66,13 @@ export const QuestionTitle = ({
   user,
 }) =>
   title ? (
-    <Base position="middle" bordered={!isGeneral}>
-      {!isGeneral && (
-        <QuestionType size="md">
-          <FormattedMessage {...messages.expertQuestion} />
-        </QuestionType>
-      )}
-      <Div>
+    <Base
+      paddingTop="5"
+      paddingTopMedia="5px"
+      position="middle"
+      bordered={!isGeneral}
+    >
+      <Top>
         {!isItWrittenByMe && (
           <SendTips form="tip-question" account={user}>
             <B>
@@ -60,7 +81,13 @@ export const QuestionTitle = ({
             </B>
           </SendTips>
         )}
-
+        {!isGeneral && (
+          <QuestionType size="md" top="0px" topMedia="0px">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        )}
+      </Top>
+      <Div>
         <MarkAnswerNotification
           className={
             !correctAnswerId && isItWrittenByMe && answersNumber
