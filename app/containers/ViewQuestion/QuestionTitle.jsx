@@ -68,18 +68,20 @@ export const QuestionTitle = ({
   title ? (
     <Base
       paddingTop="5"
-      paddingTopMedia="5px"
+      paddingTopMedia="5"
       position="middle"
       bordered={!isGeneral}
     >
       <Top>
-        {!isItWrittenByMe && (
+        {!isItWrittenByMe ? (
           <SendTips form="tip-question" account={user}>
             <B>
               <img className="mr-1" src={coinsIcon} alt="icon" />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
           </SendTips>
+        ) : (
+          <div />
         )}
         {!isGeneral && (
           <QuestionType size="md" top="0px" topMedia="0px">

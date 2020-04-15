@@ -67,7 +67,7 @@ const Box = BaseNoPadding.extend`
   flex-direction: row;
   position: relative;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 575px) {
     flex-direction: column;
   }
 `;

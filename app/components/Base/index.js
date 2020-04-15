@@ -25,7 +25,7 @@ const Base = styled.div`
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};
-    padding-top: ${({ paddingTopMedia }) => paddingTopMedia || '0px'};
+    ${({ paddingTopMedia }) => `padding-top: ${paddingTopMedia}px;`}
     border-radius: 0;
   }
 
