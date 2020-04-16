@@ -6,6 +6,10 @@ import { BORDER_PRIMARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 
+import { singleCommunityFonts } from 'utils/communityManagement';
+
+const fonts = singleCommunityFonts();
+
 const Tag = Span.extend`
   border: 1px solid ${BORDER_PRIMARY};
   color: ${TEXT_PRIMARY};
@@ -47,7 +51,7 @@ const TagsList = ({
     <Box>
       {questionTags.map(x => (
         <li key={x.name} className="d-flex flex-column">
-          <Tag letterSpacing="1px" className={className}>
+          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
             {x.name}
           </Tag>
 

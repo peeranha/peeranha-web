@@ -16,10 +16,13 @@ const styles = {
   mobileSubHeader: <TelosMobileSubHeader />,
   customSubHeader: <TelosSubHeader />,
   fonts: {
+    h3LetterSpacing: '1px',
+    tagsLetterSpacing: '1px',
+    questionTitleLetterSpacing: '1px',
+    h3: 'Neue Haas Grotesk Display Pro Medium',
     main: 'Neue Haas Grotesk Display Pro Light',
     questionItemTitle: 'Neue Haas Grotesk Display Pro Medium',
-    h3: 'Neue Haas Grotesk Display Pro Medium',
-    h3LetterSpacing: '1px',
+    questionTitleFont: 'Neue Haas Grotesk Display Pro Medium',
   },
   colors: {
     blue: '#5D6DFE',

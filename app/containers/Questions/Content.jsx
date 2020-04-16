@@ -16,7 +16,10 @@ import {
 
 import { getFormattedDate } from 'utils/datetime';
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityFonts,
+} from 'utils/communityManagement';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
 import Tags from 'components/TagsList';
@@ -33,6 +36,8 @@ import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?in
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import QuestionType from 'components/Labels/QuestionType';
 import ExpertPopover from './ExpertPopover';
+
+const fonts = singleCommunityFonts();
 
 const AdditionalInfo = Base.extend`
   display: flex;
@@ -146,8 +151,8 @@ const QuestionItem = ({
               lineHeight="31"
               mobileFS="18"
               mobileLH="21"
-              letterSpacing="1px"
-              fontFamily="Neue Haas Grotesk Display Pro Medium"
+              letterSpacing={fonts.questionTitleLetterSpacing}
+              fontFamily={fonts.questionTitleFont}
               bold
             >
               {title}
