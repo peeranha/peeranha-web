@@ -146,6 +146,8 @@ const QuestionItem = ({
               lineHeight="31"
               mobileFS="18"
               mobileLH="21"
+              letterSpacing="1px"
+              fontFamily="Neue Haas Grotesk Display Pro Medium"
               bold
             >
               {title}

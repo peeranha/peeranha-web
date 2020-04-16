@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
-import { BG_PRIMARY_LIGHT, BG_LIGHT } from 'style-constants';
+import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT } from 'style-constants';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -15,7 +15,7 @@ injectGlobal`
     scroll-behavior: smooth;
     min-height: 100%;
     position: relative;
-    font-family: Source Sans Pro, sans-serif;
+    font-family: ${APP_FONT};
     background: ${BG_PRIMARY_LIGHT};
     word-break: break-all;
 

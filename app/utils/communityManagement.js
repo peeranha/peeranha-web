@@ -1,6 +1,8 @@
 import JSBI from 'jsbi';
 import communitiesConfig from 'communities-config';
 
+import _get from 'lodash/get';
+
 import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
 
@@ -24,6 +26,15 @@ export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
     id => communitiesConfig[id].origin === window.location.origin,
   );
+
+export const singleCommunityStyles = () =>
+  _get(communitiesConfig, [isSingleCommunityWebsite(), 'styles'], {});
+
+export const singleCommunityColors = () =>
+  _get(singleCommunityStyles(), 'colors', {});
+
+export const singleCommunityFonts = () =>
+  _get(singleCommunityStyles(), 'fonts', {});
 
 export function hasCommunitySingleWebsite(commId) {
   return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;

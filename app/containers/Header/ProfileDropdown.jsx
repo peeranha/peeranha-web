@@ -13,7 +13,10 @@ import messages from 'common-messages';
 import logoutIcon from 'images/logout.svg?inline';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
@@ -27,12 +30,13 @@ import Logout from 'containers/Logout';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 
 const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
 const Info = styled.span`
   padding: 0 10px;
   display: flex;
   flex-direction: ${({ isMenuVisible }) =>
-    single && !isMenuVisible ? 'row' : 'column'};
+    !styles.withoutSubHeader && !isMenuVisible ? 'row' : 'column'};
   justify-content: center;
   > span:nth-child(1) {
     display: flex;
@@ -43,7 +47,7 @@ const Info = styled.span`
 
 const B = ({ profileInfo, onClick, isMenuVisible }) => (
   <span className="d-flex" onClick={onClick}>
-    {single ? (
+    {!styles.withoutSubHeader ? (
       <SmallSpecialImage
         isBordered
         src={getUserAvatar(profileInfo.ipfs_avatar)}

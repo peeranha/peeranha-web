@@ -20,6 +20,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
+import 'fonts/stylesheet.css';
 
 // Import root app
 import App from 'containers/App';

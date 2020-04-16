@@ -1,5 +1,8 @@
 import { TEXT_DARK } from 'style-constants';
+import { singleCommunityFonts } from 'utils/communityManagement';
 import Text from '../Span';
+
+const fonts = singleCommunityFonts();
 
 const H3 = Text.extend`
   color: ${TEXT_DARK};
@@ -8,6 +11,8 @@ const H3 = Text.extend`
   line-height: 48px;
   display: flex;
   align-items: center;
+  font-family: ${fonts.h3};
+  letter-spacing: ${fonts.h3LetterSpacing};
 
   @media only screen and (max-width: 576px) {
     font-size: 28px;

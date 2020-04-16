@@ -13,8 +13,9 @@ const Span = styled.span`
       : lineHeight || +fontSize + 2 || 16}px;
 
   font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
-  font-family: ${APP_FONT};
+  font-family: ${({ fontFamily }) => fontFamily || APP_FONT};
   text-align: left;
+  letter-spacing: ${({ letterSpacing }) => letterSpacing || 'normal'};
 
   @media only screen and (max-width: 576px) {
     ${({ mobileFS, mobileLH }) =>

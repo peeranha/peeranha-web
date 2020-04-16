@@ -6,9 +6,14 @@ import {
 } from 'containers/Header/constants';
 
 import { LEFT_MENU_WIDTH } from './constants';
+import { singleCommunityColors } from '../../utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Main = styled.div`
-  background: rgb(234, 236, 244);
+  background: ${colors.mainBackground
+    ? colors.mainBackground
+    : 'rgb(234, 236, 244)'};
   min-height: 100vh;
   padding-top: ${x => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
   padding-bottom: ${x => (!x.isMenuVisible ? 75 : 0)}px;

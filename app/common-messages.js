@@ -291,6 +291,9 @@ export default defineMessages({
   poweredByTelos: {
     id: 'app.common.poweredByTelos',
   },
+  poweredByPeeranha: {
+    id: 'app.common.poweredByPeeranha',
+  },
   noResults: {
     id: 'app.common.noResults',
   },

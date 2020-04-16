@@ -14,12 +14,17 @@ import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
 
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import messages from './messages';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 import SendTips from '../SendTips';
 
-// eslint-disable-next-line no-unused-vars
+const styles = singleCommunityStyles();
+
 export const B = Button.extend`
   align-items: center;
   padding-top: 0;
@@ -76,7 +81,11 @@ export const QuestionTitle = ({
         {!isItWrittenByMe ? (
           <SendTips form="tip-question" account={user}>
             <B>
-              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <img
+                className="mr-1"
+                src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                alt="icon"
+              />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
           </SendTips>

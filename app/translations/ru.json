@@ -92,6 +92,7 @@
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
