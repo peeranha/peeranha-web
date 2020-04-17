@@ -115,10 +115,12 @@ const MainLinks = ({ profile }) => {
         <FormattedMessage {...messages.users} />
       </A1>
 
-      <A1 to={routes.faq()} name="faq" route={route}>
-        <Icon className="mr-2" width="24" icon={faqIcon} />
-        <FormattedMessage {...messages.faq} />
-      </A1>
+      {!styles.withoutFAQ && (
+        <A1 to={routes.faq()} name="faq" route={route}>
+          <Icon className="mr-2" width="24" icon={faqIcon} />
+          <FormattedMessage {...messages.faq} />
+        </A1>
+      )}
     </Box>
   );
 };

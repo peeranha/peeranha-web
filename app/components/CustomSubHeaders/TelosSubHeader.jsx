@@ -49,6 +49,7 @@ const Div = styled.div`
 `;
 
 const Link = styled.a`
+  color: #fff;
   white-space: nowrap;
   :hover {
     color: rgba(255, 255, 255, 0.4);

@@ -15,6 +15,7 @@ const styles = {
   leftMenuLogo: TelosLogo,
   mobileSubHeader: <TelosMobileSubHeader />,
   customSubHeader: <TelosSubHeader />,
+  withoutFAQ: true,
   fonts: {
     h3LetterSpacing: '1px',
     tagsLetterSpacing: '1px',
