@@ -24,10 +24,14 @@ import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import SendTokens from 'containers/SendTokens';
 
+const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const ButtonStyled = styled.span`
@@ -36,8 +40,8 @@ const ButtonStyled = styled.span`
   border: 1px solid ${BORDER_PRIMARY};
   border-left: 0px;
   border-radius: 23px;
-  padding-right: ${!styles.withoutSubHeader ? 15 : 25}px;
-  height: ${!styles.withoutSubHeader ? 27 : 47}px;
+  padding-right: ${!styles.withoutSubHeader && single ? 15 : 25}px;
+  height: ${!styles.withoutSubHeader && single ? 27 : 47}px;
 
   ${MediumSpecialImage}, ${SmallSpecialImage} {
     margin-right: 10px;
@@ -68,7 +72,7 @@ const IconSM = SmallSpecialImage.extend`
 
 export const Button = ({ balance }) => (
   <ButtonStyled>
-    {styles.withoutSubHeader ? (
+    {styles.withoutSubHeader || !single ? (
       <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
         <Icon icon={currencyPeerIcon} width="24" />
       </IconBG>
@@ -80,14 +84,16 @@ export const Button = ({ balance }) => (
 
     <span
       className={`d-flex flex-${
-        !styles.withoutSubHeader ? 'row' : 'column'
+        !styles.withoutSubHeader && single ? 'row' : 'column'
       } text-left`}
     >
       <Span className="align-middle" fontSize="16" bold>
         {getFormattedNum4(balance)}
       </Span>
       <Span
-        className={!styles.withoutSubHeader ? 'ml-1 align-middle' : ''}
+        className={
+          !styles.withoutSubHeader && single ? 'ml-1 align-middle' : ''
+        }
         fontSize="14"
         lineHeight="18"
         color={TEXT_SECONDARY}

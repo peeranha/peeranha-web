@@ -86,6 +86,7 @@ import {
 import { selectEmail, selectEncryptionKey, selectKeys } from './selectors';
 
 import signupMessages from './messages';
+import { REDIRECT_TO_FEED } from '../App/constants';
 
 export function* emailCheckingWorker({ email }) {
   try {
@@ -402,5 +403,8 @@ export default function*() {
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
   yield takeLatest(SIGNUP_WITH_SCATTER, signUpWithScatterWorker);
   yield takeLatest(SHOW_SCATTER_SIGNUP_FORM, showScatterSignUpFormWorker);
-  yield takeLatest(SIGNUP_WITH_SCATTER_SUCCESS, redirectToFeedWorker);
+  yield takeLatest(
+    [SIGNUP_WITH_SCATTER_SUCCESS, REDIRECT_TO_FEED],
+    redirectToFeedWorker,
+  );
 }

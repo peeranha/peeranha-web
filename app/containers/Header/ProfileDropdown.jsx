@@ -36,7 +36,7 @@ const Info = styled.span`
   padding: 0 10px;
   display: flex;
   flex-direction: ${({ isMenuVisible }) =>
-    !styles.withoutSubHeader && !isMenuVisible ? 'row' : 'column'};
+    !styles.withoutSubHeader && single && !isMenuVisible ? 'row' : 'column'};
   justify-content: center;
   > span:nth-child(1) {
     display: flex;
@@ -47,7 +47,7 @@ const Info = styled.span`
 
 const B = ({ profileInfo, onClick, isMenuVisible }) => (
   <span className="d-flex" onClick={onClick}>
-    {!styles.withoutSubHeader ? (
+    {!styles.withoutSubHeader && single ? (
       <SmallSpecialImage
         isBordered
         src={getUserAvatar(profileInfo.ipfs_avatar)}

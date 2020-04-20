@@ -60,15 +60,15 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <EosioProvider>
-        <LanguageProvider messages={messages}>
-          <DataCacheProvider>
-            <AccountProvider>
+        <AccountProvider>
+          <LanguageProvider messages={messages}>
+            <DataCacheProvider>
               <ConnectedRouter history={createdHistory}>
                 <App />
               </ConnectedRouter>
-            </AccountProvider>
-          </DataCacheProvider>
-        </LanguageProvider>
+            </DataCacheProvider>
+          </LanguageProvider>
+        </AccountProvider>
       </EosioProvider>
     </Provider>,
     MOUNT_NODE,

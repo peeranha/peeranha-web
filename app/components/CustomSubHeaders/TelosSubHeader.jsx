@@ -73,7 +73,11 @@ A.propTypes = {
 };
 
 export const Links = () => (
-  <div>{telosLinks.map(({ text, href }) => <A text={text} href={href} />)}</div>
+  <div>
+    {telosLinks.map(({ text, href }) => (
+      <A text={text} href={href} key={href} />
+    ))}
+  </div>
 );
 
 const TelosSubHeader = () => (
