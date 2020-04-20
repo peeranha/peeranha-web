@@ -22,6 +22,7 @@ export const Header = ({
   communityIdFilter,
   followedCommunities,
   parentPage,
+  setTypeFilter,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -63,11 +64,12 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice =>
+          toggle={choice => {
             createdHistory.push(
               routes[isFeed ? 'feed' : 'questions'](choice, false, false),
-            )
-          }
+            );
+            setTypeFilter(choice);
+          }}
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
         />
@@ -89,6 +91,7 @@ Header.propTypes = {
   communityIdFilter: PropTypes.number,
   followedCommunities: PropTypes.array,
   parentPage: PropTypes.string,
+  setTypeFilter: PropTypes.func,
 };
 
 export default injectIntl(React.memo(Header));

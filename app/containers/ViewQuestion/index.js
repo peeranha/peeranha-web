@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -48,161 +48,148 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 
-/* eslint-disable react/prefer-stateless-function */
-export class ViewQuestion extends React.Component {
-  componentWillMount() {
+export const ViewQuestion = ({
+  locale,
+  account,
+  questionData,
+  postAnswerLoading,
+  postCommentLoading,
+  questionDataLoading,
+  saveCommentLoading,
+  communities,
+  upVoteLoading,
+  downVoteLoading,
+  markAsAcceptedLoading,
+  deleteQuestionLoading,
+  deleteAnswerLoading,
+  deleteCommentLoading,
+  voteToDeleteLoading,
+  postAnswerDispatch,
+  deleteAnswerDispatch,
+  deleteQuestionDispatch,
+  postCommentDispatch,
+  saveCommentDispatch,
+  deleteCommentDispatch,
+  upVoteDispatch,
+  downVoteDispatch,
+  markAsAcceptedDispatch,
+  voteToDeleteDispatch,
+  getQuestionDataDispatch,
+  redirectToEditQuestionPageDispatch,
+  redirectToEditAnswerPageDispatch,
+  ids,
+  resetStoreDispatch,
+  match,
+  history,
+}) => {
+  useEffect(() => {
     window.isRendered = false;
-    this.props.resetStoreDispatch();
-  }
+    resetStoreDispatch();
+    getQuestionDataDispatch(match.params.id);
 
-  componentDidMount() {
-    this.questionId = this.props.match.params.id;
-    this.props.getQuestionDataDispatch(this.questionId);
-  }
+    return () => {
+      window.$(window).off();
+    };
+  }, []);
 
-  componentDidUpdate() {
-    const { questionData, questionDataLoading } = this.props;
+  useEffect(
+    () => {
+      if (questionData) {
+        setTimeout(scrollToSection, 250);
+      }
 
-    if (questionData && !questionDataLoading) {
-      window.isRendered = true;
-    }
-  }
+      if (questionData && !questionDataLoading) {
+        window.isRendered = true;
+      }
 
-  componentWillReceiveProps = nextProps => {
-    if (
-      nextProps.questionData &&
-      nextProps.questionDataLoading !== this.props.questionDataLoading
-    ) {
-      setTimeout(scrollToSection, 250);
-    }
+      if (!questionDataLoading && !questionData) {
+        history.push(routes.notFound());
+      }
+    },
+    [questionData, questionDataLoading],
+  );
 
-    if (!nextProps.questionDataLoading && !nextProps.questionData) {
-      this.props.history.push(routes.notFound());
-    }
+  const translations = translationMessages[locale];
 
-    if (nextProps.account && nextProps.account !== this.props.account) {
-      this.props.getQuestionDataDispatch(this.questionId);
-    }
+  const sendProps = {
+    account,
+    locale,
+    communities,
+    questionData,
+    postAnswerLoading,
+    postCommentLoading,
+    saveCommentLoading,
+    postAnswer: postAnswerDispatch,
+    deleteAnswer: deleteAnswerDispatch,
+    deleteQuestion: deleteQuestionDispatch,
+    postComment: postCommentDispatch,
+    saveComment: saveCommentDispatch,
+    deleteComment: deleteCommentDispatch,
+    upVote: upVoteDispatch,
+    downVote: downVoteDispatch,
+    markAsAccepted: markAsAcceptedDispatch,
+    voteToDelete: voteToDeleteDispatch,
+    translations,
+    upVoteLoading,
+    downVoteLoading,
+    markAsAcceptedLoading,
+    deleteQuestionLoading,
+    deleteAnswerLoading,
+    deleteCommentLoading,
+    voteToDeleteLoading,
+    redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
+    redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
+    ids,
   };
 
-  componentWillUnmount() {
-    window.$(window).off();
-  }
+  const helmetTitle =
+    (questionData && questionData.content.title) ||
+    translations[messages.title.id];
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      account,
-      questionData,
-      postAnswerLoading,
-      postCommentLoading,
-      questionDataLoading,
-      saveCommentLoading,
-      communities,
-      upVoteLoading,
-      downVoteLoading,
-      markAsAcceptedLoading,
-      deleteQuestionLoading,
-      deleteAnswerLoading,
-      deleteCommentLoading,
-      voteToDeleteLoading,
-      postAnswerDispatch,
-      deleteAnswerDispatch,
-      deleteQuestionDispatch,
-      postCommentDispatch,
-      saveCommentDispatch,
-      deleteCommentDispatch,
-      upVoteDispatch,
-      downVoteDispatch,
-      markAsAcceptedDispatch,
-      voteToDeleteDispatch,
-      redirectToEditQuestionPageDispatch,
-      redirectToEditAnswerPageDispatch,
-      ids,
-    } = this.props;
+  const helmetDescription =
+    (questionData && questionData.content.content) ||
+    translations[messages.title.id];
 
-    const translations = translationMessages[locale];
+  const articlePublishedTime =
+    questionData && questionData.post_time
+      ? new Date(questionData.post_time * 1000)
+      : ``;
 
-    const sendProps = {
-      account,
-      locale,
-      communities,
-      questionData,
-      postAnswerLoading,
-      postCommentLoading,
-      saveCommentLoading,
-      postAnswer: postAnswerDispatch,
-      deleteAnswer: deleteAnswerDispatch,
-      deleteQuestion: deleteQuestionDispatch,
-      postComment: postCommentDispatch,
-      saveComment: saveCommentDispatch,
-      deleteComment: deleteCommentDispatch,
-      upVote: upVoteDispatch,
-      downVote: downVoteDispatch,
-      markAsAccepted: markAsAcceptedDispatch,
-      voteToDelete: voteToDeleteDispatch,
-      translations,
-      upVoteLoading,
-      downVoteLoading,
-      markAsAcceptedLoading,
-      deleteQuestionLoading,
-      deleteAnswerLoading,
-      deleteCommentLoading,
-      voteToDeleteLoading,
-      redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
-      redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
-      ids,
-    };
+  const articleModifiedTime =
+    questionData && questionData.lastEditedDate
+      ? new Date(questionData.lastEditedDate * 1000)
+      : ``;
 
-    const helmetTitle =
-      (questionData && questionData.content.title) ||
-      translations[messages.title.id];
+  const tagIds = questionData ? questionData.tags : [];
 
-    const helmetDescription =
-      (questionData && questionData.content.content) ||
-      translations[messages.title.id];
+  const commId = questionData ? questionData.community_id : null;
 
-    const articlePublishedTime =
-      questionData && questionData.post_time
-        ? new Date(questionData.post_time * 1000)
-        : ``;
+  const community = communities.filter(x => x.id === commId)[0] || {
+    tags: [],
+  };
 
-    const articleModifiedTime =
-      questionData && questionData.lastEditedDate
-        ? new Date(questionData.lastEditedDate * 1000)
-        : ``;
+  const tags = community.tags.filter(x => tagIds.includes(x.id));
 
-    const tagIds = questionData ? questionData.tags : [];
+  const keywords = [...tags.map(x => x.name), helmetTitle];
 
-    const commId = questionData ? questionData.community_id : null;
+  return (
+    <React.Fragment>
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        keywords={keywords}
+        articlePublishedTime={articlePublishedTime}
+        articleModifiedTime={articleModifiedTime}
+      />
 
-    const community = communities.filter(x => x.id === commId)[0] || {
-      tags: [],
-    };
+      {!questionDataLoading &&
+        questionData && <ViewQuestionContainer {...sendProps} />}
 
-    const tags = community.tags.filter(x => tagIds.includes(x.id));
-
-    const keywords = [...tags.map(x => x.name), helmetTitle];
-
-    return (
-      <React.Fragment>
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          keywords={keywords}
-          articlePublishedTime={articlePublishedTime}
-          articleModifiedTime={articleModifiedTime}
-        />
-
-        {!questionDataLoading &&
-          questionData && <ViewQuestionContainer {...sendProps} />}
-
-        {questionDataLoading && <LoadingIndicator />}
-      </React.Fragment>
-    );
-  }
-}
+      {questionDataLoading && <LoadingIndicator />}
+    </React.Fragment>
+  );
+};
 
 ViewQuestion.propTypes = {
   account: PropTypes.string,
@@ -239,29 +226,33 @@ ViewQuestion.propTypes = {
   ids: PropTypes.array,
 };
 
-const mapStateToProps = createStructuredSelector({
-  account: makeSelectAccount(),
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
-  questionData: makeSelectViewQuestion.selectQuestionData(),
-  postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
-  postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
-  saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
-  upVoteLoading: makeSelectViewQuestion.selectUpVoteLoading(),
-  downVoteLoading: makeSelectViewQuestion.selectDownVoteLoading(),
-  markAsAcceptedLoading: makeSelectViewQuestion.selectMarkAsAcceptedLoading(),
-  deleteQuestionLoading: makeSelectViewQuestion.selectDeleteQuestionLoading(),
-  deleteAnswerLoading: makeSelectViewQuestion.selectDeleteAnswerLoading(),
-  deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
-  voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
-  ids: makeSelectViewQuestion.selectIds(),
-});
-
-export function mapDispatchToProps(dispatch, props) /* istanbul ignore next */ {
-  const questionId = Number(props.match.params.id);
-
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    account: makeSelectAccount(),
+    locale: makeSelectLocale(),
+    communities: selectCommunities(),
+    questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
+    questionData: makeSelectViewQuestion.selectQuestionData(),
+    postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
+    postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
+    saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
+    upVoteLoading: makeSelectViewQuestion.selectUpVoteLoading(),
+    downVoteLoading: makeSelectViewQuestion.selectDownVoteLoading(),
+    markAsAcceptedLoading: makeSelectViewQuestion.selectMarkAsAcceptedLoading(),
+    deleteQuestionLoading: makeSelectViewQuestion.selectDeleteQuestionLoading(),
+    deleteAnswerLoading: makeSelectViewQuestion.selectDeleteAnswerLoading(),
+    deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
+    voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
+    ids: makeSelectViewQuestion.selectIds(),
+  }),
+  (
+    dispatch,
+    {
+      match: {
+        params: { id: questionId },
+      },
+    },
+  ) => ({
     postAnswerDispatch: bindActionCreators(
       postAnswer.bind(null, questionId),
       dispatch,
@@ -309,12 +300,7 @@ export function mapDispatchToProps(dispatch, props) /* istanbul ignore next */ {
       redirectToEditAnswerPage,
       dispatch,
     ),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });

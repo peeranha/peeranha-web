@@ -9,36 +9,27 @@ import { bindActionCreators } from 'redux';
 import { makeSelectLocale } from './selectors';
 import { changeLocale } from './actions';
 
-/* eslint prefer-destructuring: 0  */
-export class LanguageProvider extends React.PureComponent {
-  /* TODO: Uncomment if will be more than 1 lang. */
+export const LanguageProvider = ({
+  children,
+  locale,
+  messages,
+  // changeLocaleDispatch,
+}) => (
+  /* useEffect(() => {
+    const languages = Object.keys(translationMessages);
+    let locale = localStorage.getItem('locale');
+    // find the first suitable language in window.navigator.languages
+    if (!locale) {
+      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
+    } else {
+      changeLocaleDispatch(locale)
+    }
+  }, []) */
 
-  // componentWillMount() {
-  //   const languages = Object.keys(translationMessages);
-  //   let locale = localStorage.getItem('locale');
-
-  //   // if (!locale) - find the first suitable language in window.navigator.languages
-  //   if (!locale) {
-  //     locale = window.navigator.languages.filter(x => languages.includes(x))[0];
-  //   }
-
-  //   if (locale) {
-  //     this.props.changeLocaleDispatch(locale);
-  //   }
-  // }
-
-  render() {
-    return (
-      <IntlProvider
-        locale={this.props.locale}
-        key={this.props.locale}
-        messages={this.props.messages[this.props.locale]}
-      >
-        {this.props.children}
-      </IntlProvider>
-    );
-  }
-}
+  <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
+    {children}
+  </IntlProvider>
+);
 
 LanguageProvider.propTypes = {
   locale: PropTypes.string,
@@ -47,17 +38,11 @@ LanguageProvider.propTypes = {
   // changeLocaleDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
-  };
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+  }),
+  dispatch => ({
+    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
+  }),
 )(LanguageProvider);

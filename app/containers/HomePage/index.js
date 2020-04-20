@@ -3,7 +3,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
@@ -56,166 +56,153 @@ import { sendMessage } from './actions';
 
 import messages from './messages';
 
-/* eslint-disable react/prefer-stateless-function */
-export class HomePage extends React.PureComponent {
-  componentDidMount() {
-    this.imagesAnimation();
+const imagesAnimation = () => {
+  window.$(window).on('DOMMouseScroll mousewheel', event => {
+    const { scrollY } = event.currentTarget;
+    const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
+    const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
 
-    this.headerAnimation();
+    const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
-    this.parallaxAnimation();
-  }
+    if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
+      animatedImagesArray.each(function() {
+        const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
+        const translatorMax = 30;
+        const step = translatorMax * 0.15;
 
-  componentWillUnmount() {
-    window.$(window).off();
-  }
+        const matrix = window
+          .$(this)
+          .css('transform')
+          .replace(/[^0-9\-.,]/g, '')
+          .split(',');
 
-  imagesAnimation /* istanbul ignore next */ = () => {
-    window.$(window).on('DOMMouseScroll mousewheel', event => {
-      const { scrollY } = event.currentTarget;
-      const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
-      const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
+        const translateY = +(matrix[13] || matrix[5]) || 0;
+        const imageY = window.$(this).offset().top;
 
-      const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
+        // Check if image is in area of scrolling
+        if (
+          scrollY + window.innerHeight / 2 > imageY &&
+          scrollY - window.innerHeight / 2 < imageY
+        ) {
+          if (Math.abs(direction * step + translateY) < translatorMax) {
+            // Image translating
+            window.$(this).css({
+              transform: `translate(0px, ${direction * step + translateY}px)`,
+            });
 
-      if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-        animatedImagesArray.each(function() {
-          const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
-          const translatorMax = 30;
-          const step = translatorMax * 0.15;
-
-          const matrix = window
-            .$(this)
-            .css('transform')
-            .replace(/[^0-9\-.,]/g, '')
-            .split(',');
-
-          const translateY = +(matrix[13] || matrix[5]) || 0;
-          const imageY = window.$(this).offset().top;
-
-          // Check if image is in area of scrolling
-          if (
-            scrollY + window.innerHeight / 2 > imageY &&
-            scrollY - window.innerHeight / 2 < imageY
-          ) {
-            if (Math.abs(direction * step + translateY) < translatorMax) {
-              // Image translating
-              window.$(this).css({
-                transform: `translate(0px, ${direction * step + translateY}px)`,
+            // Text translating
+            window
+              .$(this)
+              .parent()
+              .parent()
+              .find(`.${ANIMATE_TEXT}`)
+              .css({
+                transform: `translate(0px, ${-direction * step -
+                  translateY}px)`,
               });
-
-              // Text translating
-              window
-                .$(this)
-                .parent()
-                .parent()
-                .find(`.${ANIMATE_TEXT}`)
-                .css({
-                  transform: `translate(0px, ${-direction * step -
-                    translateY}px)`,
-                });
-            }
           }
-        });
-      }
-    });
-  };
-
-  headerAnimation /* istanbul ignore next */ = () => {
-    window.$(window).on('scroll', event => {
-      const { scrollY } = event.currentTarget;
-      const { innerHeight } = window;
-
-      const show = window.$(`#${HEADER_ID}`).hasClass('scroll');
-
-      if (scrollY > innerHeight * 0.9 && !show) {
-        window.$(`#${HEADER_ID}`).addClass('scroll');
-      } else if (scrollY < innerHeight * 0.9 && show) {
-        window.$(`#${HEADER_ID}`).removeClass('scroll');
-      }
-    });
-  };
-
-  parallaxAnimation /* istanbul ignore next */ = () => {
-    const patterns = window.$(`#${LANDING_ID}`).find('.pattern');
-
-    let x = 0;
-    let y = 0;
-
-    window.$(window).on('mousemove', event => {
-      x = event.pageX;
-      y = event.pageY;
-    });
-
-    window.requestAnimationFrame(function animation() {
-      patterns.each(function() {
-        const modifier = 50;
-
-        window.$(this).css({
-          transform: `translate(${x / modifier}px, ${y / modifier}px)`,
-        });
+        }
       });
+    }
+  });
+};
 
-      window.requestAnimationFrame(animation);
+const headerAnimation = () => {
+  window.$(window).on('scroll', event => {
+    const { scrollY } = event.currentTarget;
+    const { innerHeight } = window;
+
+    const show = window.$(`#${HEADER_ID}`).hasClass('scroll');
+
+    if (scrollY > innerHeight * 0.9 && !show) {
+      window.$(`#${HEADER_ID}`).addClass('scroll');
+    } else if (scrollY < innerHeight * 0.9 && show) {
+      window.$(`#${HEADER_ID}`).removeClass('scroll');
+    }
+  });
+};
+
+const parallaxAnimation = () => {
+  const patterns = window.$(`#${LANDING_ID}`).find('.pattern');
+
+  let x = 0;
+  let y = 0;
+
+  window.$(window).on('mousemove', event => {
+    x = event.pageX;
+    y = event.pageY;
+  });
+
+  window.requestAnimationFrame(function animation() {
+    patterns.each(function() {
+      const modifier = 50;
+
+      window.$(this).css({
+        transform: `translate(${x / modifier}px, ${y / modifier}px)`,
+      });
     });
-  };
 
-  checkEmail = val => {
-    this.props.checkEmailDispatch(val.get(EMAIL_FIELD));
-  };
+    window.requestAnimationFrame(animation);
+  });
+};
 
-  render() {
-    const {
-      locale,
-      location,
-      sendMessageDispatch,
-      sendMessageLoading,
-      showLoginModalDispatch,
-      emailChecking,
-      faqQuestions,
-      account,
-    } = this.props;
+export const HomePage = ({
+  locale,
+  location,
+  sendMessageDispatch,
+  sendMessageLoading,
+  showLoginModalDispatch,
+  emailChecking,
+  faqQuestions,
+  account,
+  checkEmailDispatch,
+}) => {
+  const verifyEmail = val => checkEmailDispatch(val.get(EMAIL_FIELD));
+  const translations = translationMessages[locale];
 
-    const translations = translationMessages[locale];
+  useEffect(() => {
+    imagesAnimation();
+    headerAnimation();
+    parallaxAnimation();
+  }, []);
 
-    return (
-      <div id={LANDING_ID}>
-        <Seo
-          title={translations[messages.title.id]}
-          description={translations[messages.description.id]}
-          language={locale}
-        />
+  return (
+    <div id={LANDING_ID}>
+      <Seo
+        title={translations[messages.title.id]}
+        description={translations[messages.description.id]}
+        language={locale}
+      />
 
-        <Introduction
-          account={account}
-          translations={translations}
-          location={location}
-          showLoginModal={showLoginModalDispatch}
-          checkEmail={this.checkEmail}
-          emailChecking={emailChecking}
-        />
+      <Introduction
+        account={account}
+        translations={translations}
+        location={location}
+        showLoginModal={showLoginModalDispatch}
+        checkEmail={verifyEmail}
+        emailChecking={emailChecking}
+      />
 
-        <About translations={translations} />
+      <About translations={translations} />
 
-        <Rewards
-          translations={translations}
-          checkEmail={this.checkEmail}
-          emailChecking={emailChecking}
-        />
+      <Rewards
+        translations={translations}
+        checkEmail={verifyEmail}
+        emailChecking={emailChecking}
+      />
 
-        <FaqMain faqQuestions={faqQuestions} />
+      <FaqMain faqQuestions={faqQuestions} />
 
-        <Team
-          translations={translations}
-          sendMessage={sendMessageDispatch}
-          sendMessageLoading={sendMessageLoading}
-        />
+      <Team
+        translations={translations}
+        sendMessage={sendMessageDispatch}
+        sendMessageLoading={sendMessageLoading}
+      />
 
-        <Footer locale={locale} />
-      </div>
-    );
-  }
-}
+      <Footer locale={locale} />
+    </div>
+  );
+};
 
 HomePage.propTypes = {
   locale: PropTypes.string,
@@ -229,31 +216,25 @@ HomePage.propTypes = {
   faqQuestions: PropTypes.array,
 };
 
-const mapStateToProps = createStructuredSelector({
-  account: makeSelectAccount(),
-  locale: makeSelectLocale(),
-  emailChecking: selectEmailChecking(),
-  sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
-  faqQuestions: selectFaqQuestions([
-    WHAT_IS_PEERANHA,
-    HOT_IT_DIFF,
-    HOW_IT_WORKS,
-    WHERE_TOKENS_COME_FROM,
-    VALUE_OF_TOKEN,
-  ]),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    account: makeSelectAccount(),
+    locale: makeSelectLocale(),
+    emailChecking: selectEmailChecking(),
+    sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
+    faqQuestions: selectFaqQuestions([
+      WHAT_IS_PEERANHA,
+      HOT_IT_DIFF,
+      HOW_IT_WORKS,
+      WHERE_TOKENS_COME_FROM,
+      VALUE_OF_TOKEN,
+    ]),
+  }),
+  dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'homepage', reducer });

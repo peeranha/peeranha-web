@@ -4,26 +4,18 @@
  *
  */
 
-import React from 'react';
+import { useEffect, Children } from 'react';
 import PropTypes from 'prop-types';
 
 /* eslint-disable react/prefer-stateless-function */
-export class InfinityLoader extends React.PureComponent {
-  componentWillMount() {
-    window.addEventListener('scroll', this.onScroll, false);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll, false);
-  }
-
-  onScroll = () => {
-    const {
-      loadNextPaginatedData,
-      isLoading,
-      isLastFetch,
-      infinityOff,
-    } = this.props;
+export const InfinityLoader = ({
+  children,
+  loadNextPaginatedData,
+  isLoading,
+  isLastFetch,
+  infinityOff,
+}) => {
+  const onScroll = () => {
     const offsetHeightFromBottom = 100;
 
     if (
@@ -37,10 +29,13 @@ export class InfinityLoader extends React.PureComponent {
     }
   };
 
-  render() {
-    return React.Children.toArray(this.props.children);
-  }
-}
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll, false);
+    return () => window.removeEventListener('scroll', onScroll, false);
+  });
+
+  return Children.toArray(children);
+};
 
 InfinityLoader.propTypes = {
   loadNextPaginatedData: PropTypes.func,
