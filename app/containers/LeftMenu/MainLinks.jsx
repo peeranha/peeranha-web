@@ -11,6 +11,7 @@ import {
   BG_TRANSPARENT,
   PRIMARY_SPECIAL,
   TEXT_DARK,
+  APP_FONT,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -20,6 +21,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
   singleCommunityColors,
+  singleCommunityFonts,
 } from 'utils/communityManagement';
 
 import myFeedIcon from 'images/myFeed.svg?external';
@@ -37,6 +39,7 @@ import { BasicLink } from './Styles';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
+const fonts = singleCommunityFonts();
 
 const A1 = A.extend`
   ${BasicLink};
@@ -46,7 +49,7 @@ const A1 = A.extend`
       ? `
     background-color: ${PRIMARY_SPECIAL};
     border-color: ${BORDER_PRIMARY_DARK};
-    font-family: Neue Haas Grotesk Display Pro Medium;
+    font-family: ${fonts.mainLinksSelected || APP_FONT};
     letter-spacing: 0.5px;
     font-weight: bold;
     color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
@@ -59,7 +62,7 @@ const A1 = A.extend`
     background-color: ${BG_TRANSPARENT};
     border-color: ${BORDER_TRANSPARENT};
     font-weight: normal;
-    font-family: Neue Haas Grotesk Display Pro Light;
+    font-family: ${fonts.mainLinksNotSelected || APP_FONT};
     .opacity {
       fill: none !important;
     }

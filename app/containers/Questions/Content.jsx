@@ -12,6 +12,7 @@ import {
   TEXT_SECONDARY,
   BG_SUCCESS_LIGHT,
   BORDER_SECONDARY,
+  APP_FONT,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -152,7 +153,7 @@ const QuestionItem = ({
               mobileFS="18"
               mobileLH="21"
               letterSpacing={fonts.questionTitleLetterSpacing}
-              fontFamily={fonts.questionTitleFont}
+              fontFamily={fonts.questionTitleFont || APP_FONT}
               bold
             >
               {title}
