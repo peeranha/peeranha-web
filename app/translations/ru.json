@@ -146,6 +146,11 @@
   "app.containers.Wallet.week": "Неделя",
   "app.containers.Wallet.getReward": "Получить награду",
   "app.containers.Wallet.received": "Получено",
+  "app.containers.Wallet.thisIsRegistrationWeek":
+    "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
+  "app.containers.Wallet.registrationWeek": "Неделя регистрации",
+  "app.containers.Wallet.yourWalletWasSuccessfullySet":
+    "Ваш кошелёк был успешно настроен в этот период",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
