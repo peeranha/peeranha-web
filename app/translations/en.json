@@ -147,6 +147,12 @@
   "app.containers.Wallet.week": "Week",
   "app.containers.Wallet.getReward": "Get reward",
   "app.containers.Wallet.received": "Received",
+  "app.containers.Wallet.thisIsRegistrationWeek":
+    "This is registration week. We are setting up your wallet. Reward for this week will be applied to the next week.",
+  "app.containers.Wallet.registrationWeek": "Registration week",
+  "app.containers.Wallet.yourWalletWasSuccessfullySet":
+    "Your wallet was successfully set during this period",
+
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",
   "web_integration.errors.accountAlreadyRegistered":

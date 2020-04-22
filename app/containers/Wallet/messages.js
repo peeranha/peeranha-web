@@ -43,4 +43,13 @@ export default defineMessages({
   received: {
     id: 'app.containers.Wallet.received',
   },
+  thisIsRegistrationWeek: {
+    id: 'app.containers.Wallet.thisIsRegistrationWeek',
+  },
+  registrationWeek: {
+    id: 'app.containers.Wallet.registrationWeek',
+  },
+  yourWalletWasSuccessfullySet: {
+    id: 'app.containers.Wallet.yourWalletWasSuccessfullySet',
+  },
 });
