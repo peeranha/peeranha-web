@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -48,111 +48,105 @@ import { EMAIL_FIELD } from './constants';
 
 import messages from './messages';
 
-/* eslint-disable react/prefer-stateless-function */
-export class SignUp extends React.Component {
-  componentWillMount() {
-    if (
-      !this.props.email &&
-      !this.props.withScatter &&
-      process.env.NODE_ENV !== 'development'
-    ) {
-      createdHistory.push(routes.signup.email.name);
-    }
-
-    if (!this.props.keys) {
-      this.getMasterKey();
-      this.getAllKeys();
-    }
-  }
-
-  checkEmail = values => {
-    const email = values.get ? values.get(EMAIL_FIELD) : this.props.email;
-    this.props.checkEmailDispatch(email);
+export const SignUp = ({
+  locale,
+  children,
+  email,
+  emailChecking,
+  emailVerificationProcessing,
+  iHaveEosAccountProcessing,
+  idontHaveEosAccountProcessing,
+  idontHaveEosAccountDispatch,
+  iHaveEosAccountDispatch,
+  verifyEmailDispatch,
+  showLoginModalDispatch,
+  signUpWithScatterDispatch,
+  keys,
+  signUpWithScatterProcessing,
+  showScatterSignUpProcessing,
+  showScatterSignUpFormDispatch,
+  putKeysToStateDispatch,
+  account,
+  withScatter,
+  checkEmailDispatch,
+  eosAccountName,
+  sendAnotherCodeDispatch,
+}) => {
+  const checkEmailMethod = values => {
+    const post = values.get ? values.get(EMAIL_FIELD) : email;
+    checkEmailDispatch(post);
   };
 
-  getMasterKey = () => {
+  const getLinkToDownloadKeys = k => {
+    const data = new Blob([k], { type: 'text/plain' });
+    return window.URL.createObjectURL(data);
+  };
+
+  const getMasterKey = () => {
     const masterKey = generateMasterKey();
-    const linkToDownloadMasterKey = this.getLinkToDownloadKeys(
+    const linkToDownloadMasterKey = getLinkToDownloadKeys(
       `Peeranha Master Key: ${masterKey}`,
     );
 
-    this.props.putKeysToStateDispatch({
+    putKeysToStateDispatch({
       masterKey,
       linkToDownloadMasterKey,
     });
   };
 
-  getAllKeys = async () => {
+  const getAllKeys = async () => {
     const { activeKey, ownerKey } = await generateKeys();
 
-    this.props.putKeysToStateDispatch({
+    putKeysToStateDispatch({
       activeKey,
       ownerKey,
     });
   };
 
-  getLinkToDownloadKeys = keys => {
-    const data = new Blob([keys], { type: 'text/plain' });
-    return window.URL.createObjectURL(data);
-  };
+  useEffect(() => {
+    if (!email && !withScatter && process.env.NODE_ENV !== 'development') {
+      createdHistory.push(routes.signup.email.name);
+    }
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      children,
-      email,
-      emailChecking,
-      emailVerificationProcessing,
-      iHaveEosAccountProcessing,
-      idontHaveEosAccountProcessing,
-      idontHaveEosAccountDispatch,
-      iHaveEosAccountDispatch,
-      verifyEmailDispatch,
-      showLoginModalDispatch,
-      signUpWithScatterDispatch,
-      keys,
-      signUpWithScatterProcessing,
-      showScatterSignUpProcessing,
-      showScatterSignUpFormDispatch,
-      account,
-      eosAccountName,
-      sendAnotherCodeDispatch,
-    } = this.props;
+    if (!keys) {
+      getMasterKey();
+      getAllKeys();
+    }
+  }, []);
 
-    return (
-      <React.Fragment>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          index={false}
-        />
+  return (
+    <>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        index={false}
+      />
 
-        {children({
-          checkEmail: this.checkEmail,
-          verifyEmail: verifyEmailDispatch,
-          iHaveEosAccount: iHaveEosAccountDispatch,
-          idontHaveEosAccount: idontHaveEosAccountDispatch,
-          showLoginModal: showLoginModalDispatch,
-          showScatterSignUpForm: showScatterSignUpFormDispatch,
-          signUpWithScatter: signUpWithScatterDispatch,
-          sendAnotherCode: sendAnotherCodeDispatch,
-          keys: keys || {},
-          locale,
-          account,
-          eosAccountName,
-          email,
-          emailChecking,
-          emailVerificationProcessing,
-          iHaveEosAccountProcessing,
-          idontHaveEosAccountProcessing,
-          signUpWithScatterProcessing,
-          showScatterSignUpProcessing,
-        })}
-      </React.Fragment>
-    );
-  }
-}
+      {children({
+        checkEmail: checkEmailMethod,
+        verifyEmail: verifyEmailDispatch,
+        iHaveEosAccount: iHaveEosAccountDispatch,
+        idontHaveEosAccount: idontHaveEosAccountDispatch,
+        showLoginModal: showLoginModalDispatch,
+        showScatterSignUpForm: showScatterSignUpFormDispatch,
+        signUpWithScatter: signUpWithScatterDispatch,
+        sendAnotherCode: sendAnotherCodeDispatch,
+        keys: keys || {},
+        locale,
+        account,
+        eosAccountName,
+        email,
+        emailChecking,
+        emailVerificationProcessing,
+        iHaveEosAccountProcessing,
+        idontHaveEosAccountProcessing,
+        signUpWithScatterProcessing,
+        showScatterSignUpProcessing,
+      })}
+    </>
+  );
+};
 
 SignUp.propTypes = {
   locale: PropTypes.string,
@@ -179,22 +173,21 @@ SignUp.propTypes = {
   sendAnotherCodeDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  account: makeSelectAccount(),
-  email: signUpSelectors.selectEmail(),
-  emailChecking: signUpSelectors.selectEmailChecking(),
-  emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
-  iHaveEosAccountProcessing: signUpSelectors.selectIHaveEosAccountProcessing(),
-  idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
-  signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
-  showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
-  eosAccountName: signUpSelectors.selectEosAccountName(),
-  keys: signUpSelectors.selectKeys(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    account: makeSelectAccount(),
+    email: signUpSelectors.selectEmail(),
+    emailChecking: signUpSelectors.selectEmailChecking(),
+    emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
+    iHaveEosAccountProcessing: signUpSelectors.selectIHaveEosAccountProcessing(),
+    idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
+    signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
+    showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
+    eosAccountName: signUpSelectors.selectEosAccountName(),
+    keys: signUpSelectors.selectKeys(),
+  }),
+  dispatch => ({
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
     verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
     iHaveEosAccountDispatch: bindActionCreators(iHaveEosAccount, dispatch),
@@ -210,12 +203,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     ),
     signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
     sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'signUp', reducer });

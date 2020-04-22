@@ -19,7 +19,7 @@ export const initialState = fromJS({
   questionsList: [],
   questionsError: '',
   isLastFetch: false,
-  typeFilter: null,
+  typeFilter: 0,
   createdFilter: null,
 });
 

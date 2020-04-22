@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -18,18 +18,20 @@ import saga from './saga';
 
 import { getCommunitiesWithTags, getStat, getFaq } from './actions';
 
-/* eslint-disable react/prefer-stateless-function */
-export class DataCacheProvider extends React.Component {
-  componentDidMount() {
-    this.props.getStatDispatch();
-    this.props.getFaqDispatch();
-    this.props.getCommunitiesWithTagsDispatch();
-  }
+export const DataCacheProvider = ({
+  children,
+  getStatDispatch,
+  getFaqDispatch,
+  getCommunitiesWithTagsDispatch,
+}) => {
+  useEffect(() => {
+    getStatDispatch();
+    getFaqDispatch();
+    getCommunitiesWithTagsDispatch();
+  });
 
-  render() {
-    return this.props.children;
-  }
-}
+  return children;
+};
 
 DataCacheProvider.propTypes = {
   getCommunitiesWithTagsDispatch: PropTypes.func,
@@ -38,20 +40,16 @@ DataCacheProvider.propTypes = {
   children: PropTypes.element,
 };
 
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  null,
+  dispatch => ({
     getCommunitiesWithTagsDispatch: bindActionCreators(
       getCommunitiesWithTags,
       dispatch,
     ),
     getStatDispatch: bindActionCreators(getStat, dispatch),
     getFaqDispatch: bindActionCreators(getFaq, dispatch),
-  };
-}
-
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'dataCacheProvider', reducer });

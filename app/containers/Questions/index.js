@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -57,174 +57,168 @@ import NotFound from '../ErrorPage';
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
-/* eslint react/prefer-stateless-function: 0, indent: 0 */
-export class Questions extends React.PureComponent {
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
+export const Questions = ({
+  locale,
+  questionsList,
+  questionsLoading,
+  isLastFetch,
+  communities,
+  followedCommunities,
+  parentPage,
+  communitiesLoading,
+  account,
+  profile,
+  match: { params, path },
+  redirectToAskQuestionPageDispatch,
+  typeFilter,
+  createdFilter,
+  setTypeFilterDispatch,
+  eosService,
+  initLoadedItems,
+  nextLoadedItems,
+  getQuestionsDispatch,
+}) => {
+  let fetcher = null;
 
-  componentWillUnmount() {
-    this.fetcher = null;
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      followedCommunities,
-      parentPage,
-      eosService,
-      match: {
-        params: { communityid },
-      },
-      typeFilter,
-      createdFilter,
-    } = this.props;
-
-    // location changing
-    if (prevProps && prevProps.match.params.communityid !== communityid) {
-      this.fetcher = null;
-    }
-
-    if (
-      (prevProps && typeFilter !== prevProps.typeFilter) ||
-      (prevProps && createdFilter !== prevProps.createdFilter) ||
-      (!this.fetcher &&
-        eosService &&
-        ((parentPage === feed &&
-          followedCommunities &&
-          followedCommunities.length > 0) ||
-          parentPage !== feed))
-    ) {
-      this.getInitQuestions();
-    }
-  }
-
-  initFetcher = () => {
-    const { eosService, initLoadedItems, followedCommunities } = this.props;
+  const initFetcher = () => {
     const MARGIN = 1.2;
 
-    this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
+    fetcher = new FetcherOfQuestionsForFollowedCommunities(
       Math.floor(MARGIN * initLoadedItems),
       followedCommunities || [],
       eosService,
     );
   };
 
-  getInitQuestions = () => {
-    const { initLoadedItems, parentPage, match } = this.props;
+  const getInitQuestions = () => {
     const offset = 0;
 
-    this.initFetcher();
+    initFetcher();
 
-    this.props.getQuestionsDispatch(
+    getQuestionsDispatch(
       initLoadedItems,
       offset,
-      Number(match.params.communityid) || 0,
+      Number(params.communityid) || 0,
       parentPage,
-      this.fetcher,
+      fetcher,
     );
   };
 
-  getNextQuestions = () => {
-    const { nextLoadedItems, questionsList, parentPage, match } = this.props;
-
+  const getNextQuestions = () => {
     const lastItem = questionsList[questionsList.length - 1];
     const offset = lastItem ? +lastItem.id + 1 : 0;
     const next = true;
 
     if (parentPage !== feed) {
-      this.initFetcher();
+      initFetcher();
     }
 
-    this.props.getQuestionsDispatch(
+    getQuestionsDispatch(
       nextLoadedItems,
       offset,
-      Number(match.params.communityid) || 0,
+      Number(params.communityid) || 0,
       parentPage,
-      this.fetcher,
+      fetcher,
       next,
     );
   };
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      questionsList,
-      questionsLoading,
-      isLastFetch,
-      communities,
-      followedCommunities,
-      parentPage,
-      communitiesLoading,
-      account,
-      profile,
-      match: { params, path },
-      redirectToAskQuestionPageDispatch,
-      typeFilter,
-      createdFilter,
-      setTypeFilterDispatch,
-    } = this.props;
+  useEffect(
+    () => {
+      fetcher = null;
 
-    const display = !(single && path === routes.questions(':communityid'));
+      return () => {
+        fetcher = null;
+      };
+    },
+    [params.communityid],
+  );
 
-    return display ? (
-      <div>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-        />
+  useEffect(
+    () => {
+      if (
+        !fetcher &&
+        eosService &&
+        ((parentPage === feed &&
+          followedCommunities &&
+          followedCommunities.length > 0) ||
+          parentPage !== feed)
+      ) {
+        getInitQuestions();
+      }
+    },
+    [fetcher, eosService],
+  );
 
-        <Header
-          communityIdFilter={Number(params.communityid) || 0}
+  useEffect(
+    () => {
+      if (!fetcher) {
+        getInitQuestions();
+      }
+    },
+    [typeFilter, createdFilter],
+  );
+
+  const display = !(single && path === routes.questions(':communityid'));
+  const displayBanner =
+    !questionsList.length && !questionsLoading && !communitiesLoading;
+
+  return display ? (
+    <div>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+      />
+
+      <Header
+        communityIdFilter={Number(params.communityid) || 0}
+        followedCommunities={followedCommunities}
+        parentPage={parentPage}
+        typeFilter={typeFilter}
+        createdFilter={createdFilter}
+        setTypeFilter={setTypeFilterDispatch}
+      />
+
+      {displayBanner && (
+        <Banner
+          isFeed={parentPage === feed}
           followedCommunities={followedCommunities}
-          parentPage={parentPage}
-          typeFilter={typeFilter}
-          createdFilter={createdFilter}
-          setTypeFilter={setTypeFilterDispatch}
+          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
+      )}
 
-        {!questionsList.length &&
-          !questionsLoading &&
-          !communitiesLoading && (
-            <Banner
-              isFeed={parentPage === feed}
-              followedCommunities={followedCommunities}
-              redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-            />
-          )}
-
-        {questionsList.length > 0 && (
-          <InfinityLoader
-            loadNextPaginatedData={this.getNextQuestions}
-            isLoading={questionsLoading}
-            isLastFetch={isLastFetch}
-          >
-            <Content
-              questionsList={questionsList}
-              locale={locale}
-              communities={communities}
-              typeFilter={typeFilter}
-              createdFilter={createdFilter}
-            />
-          </InfinityLoader>
-        )}
-
-        {parentPage === feed && (
-          <TopCommunities
-            userId={account}
-            account={account}
+      {questionsList.length > 0 && (
+        <InfinityLoader
+          loadNextPaginatedData={getNextQuestions}
+          isLoading={questionsLoading}
+          isLastFetch={isLastFetch}
+        >
+          <Content
+            questionsList={questionsList}
+            locale={locale}
             communities={communities}
-            profile={profile}
+            typeFilter={typeFilter}
+            createdFilter={createdFilter}
           />
-        )}
+        </InfinityLoader>
+      )}
 
-        {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
-      </div>
-    ) : (
-      <NotFound />
-    );
-  }
-}
+      {parentPage === feed && (
+        <TopCommunities
+          userId={account}
+          account={account}
+          communities={communities}
+          profile={profile}
+        />
+      )}
+
+      {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
+    </div>
+  ) : (
+    <NotFound />
+  );
+};
 
 Questions.propTypes = {
   locale: PropTypes.string,
@@ -248,29 +242,28 @@ Questions.propTypes = {
   setTypeFilterDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  account: makeSelectAccount(),
-  profile: makeSelectProfileInfo(),
-  eosService: selectEos,
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  communitiesLoading: selectCommunitiesLoading(),
-  followedCommunities: makeSelectFollowedCommunities(),
-  questionsLoading: questionsSelector.selectQuestionsLoading(),
-  initLoadedItems: questionsSelector.selectInitLoadedItems(),
-  nextLoadedItems: questionsSelector.selectNextLoadedItems(),
-  typeFilter: questionsSelector.selectTypeFilter(),
-  createdFilter: questionsSelector.selectCreatedFilter(),
-  isLastFetch: questionsSelector.selectIsLastFetch(),
-  questionsList: (state, props) =>
-    questionsSelector.selectQuestions(
-      props.parentPage,
-      Number(props.match.params.communityid),
-    )(state),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    account: makeSelectAccount(),
+    profile: makeSelectProfileInfo(),
+    eosService: selectEos,
+    locale: makeSelectLocale(),
+    communities: selectCommunities(),
+    communitiesLoading: selectCommunitiesLoading(),
+    followedCommunities: makeSelectFollowedCommunities(),
+    questionsLoading: questionsSelector.selectQuestionsLoading(),
+    initLoadedItems: questionsSelector.selectInitLoadedItems(),
+    nextLoadedItems: questionsSelector.selectNextLoadedItems(),
+    typeFilter: questionsSelector.selectTypeFilter(),
+    createdFilter: questionsSelector.selectCreatedFilter(),
+    isLastFetch: questionsSelector.selectIsLastFetch(),
+    questionsList: (state, props) =>
+      questionsSelector.selectQuestions(
+        props.parentPage,
+        Number(props.match.params.communityid),
+      )(state),
+  }),
+  dispatch => ({
     setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
     setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
@@ -279,12 +272,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       redirectToAskQuestionPage,
       dispatch,
     ),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'questionsReducer', reducer });
