@@ -2,12 +2,19 @@ import { injectGlobal } from 'styled-components';
 import reset from 'reset-css';
 import { BG_PRIMARY_LIGHT, BG_LIGHT, APP_FONT } from 'style-constants';
 
+import _get from 'lodash/get';
+
+import { singleCommunityStyles } from './utils/communityManagement';
+
+const styles = singleCommunityStyles();
+
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   ${reset};
 
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
+  ${_get(styles, 'fontFace', '')}
 
   html,
   body {
