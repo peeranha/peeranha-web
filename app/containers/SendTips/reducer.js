@@ -26,16 +26,26 @@ export const initialState = fromJS({
   sendTipsError: null,
   selectedAccount: null,
   tipsEosService: null,
+  whoWillBeTipped: null,
 });
 
 function sendTipsReducer(state = initialState, action) {
-  const { type, sendTipsError, form, selectedAccount, tipsEosService } = action;
+  const {
+    type,
+    sendTipsError,
+    form,
+    selectedAccount,
+    tipsEosService,
+    whoWillBeTipped,
+  } = action;
 
   switch (type) {
     case SHOW_SEND_TIPS_MODAL:
-      return state.set('showModal', form);
+      return state
+        .set('showModal', form)
+        .set('whoWillBeTipped', whoWillBeTipped);
     case HIDE_SEND_TIPS_MODAL:
-      return state.set('showModal', '');
+      return state.set('showModal', '').set('whoWillBeTipped', '');
 
     case SEND_TIPS:
       return state.set('sendTipsProcessing', true);

@@ -135,10 +135,6 @@ const BodyCryptoColumn = styled.div`
     width: 24px;
     margin-right: 10px;
   }
-
-  @media only screen and (max-width: 576px) {
-    height: 47px;
-  }
 `;
 
 const BodyAccountColumn = styled.div`
@@ -150,11 +146,6 @@ const BodyAccountColumn = styled.div`
 
   > span {
     height: fit-content;
-  }
-
-  @media only screen and (max-width: 576px) {
-    height: 47px;
-    padding: 4px 12px 4px 4px;
   }
 
   @media only screen and (max-width: 355px) {

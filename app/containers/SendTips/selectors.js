@@ -29,6 +29,9 @@ const selectedAccountProcessingSelector = () =>
 const selectTipsEosService = () =>
   createSelector(selectSendTipsDomain, substate => substate.tipsEosService);
 
+const selectWhoWillBeTipped = () =>
+  createSelector(selectSendTipsDomain, substate => substate.whoWillBeTipped);
+
 export {
   selectSendTipsDomain,
   selectShowModal,
@@ -37,4 +40,5 @@ export {
   selectedAccountSelector,
   selectedAccountProcessingSelector,
   selectTipsEosService,
+  selectWhoWillBeTipped,
 };

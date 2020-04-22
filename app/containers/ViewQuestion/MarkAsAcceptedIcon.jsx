@@ -50,6 +50,7 @@ const Label = AcceptAnswerView.extend`
   height: 1%;
   min-height: 32px;
   transition-property: none;
+  width: max-content;
 
   ${Icon} {
     background-color: ${BG_LIGHT};

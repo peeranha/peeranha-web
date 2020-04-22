@@ -75,6 +75,7 @@ const SendTipsForm = ({
   sendTipsProcessing,
   selectedAccountProcessing,
   isPeer,
+  wallets,
   withScatter,
   tipsPreselect,
 }) => {
@@ -120,7 +121,10 @@ const SendTipsForm = ({
   );
   useEffect(
     () => {
-      if (walletValue && walletValue.name !== WALLETS.SCATTER_SQRL.name) {
+      if (
+        (walletValue && walletValue.name !== WALLETS.SCATTER_SQRL.name) ||
+        withScatter
+      ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
       }
       return undefined;
@@ -163,17 +167,7 @@ const SendTipsForm = ({
             onChange={changeWallet}
             disabled={disabled}
             label={translationMessages[locale][commonMessages.chooseWallet.id]}
-            options={
-              currencyValue
-                ? currencyValue.wallets.filter(
-                    wallet =>
-                      !(
-                        wallet.name === WALLETS.PEERANHA.name &&
-                        (!profile || withScatter)
-                      ),
-                  )
-                : null
-            }
+            options={wallets}
             component={CurrencyField}
             validate={[required]}
             warn={[required]}
@@ -210,6 +204,7 @@ const SendTipsForm = ({
           disabled={disabled}
           label={translationMessages[locale][commonMessages.amount.id]}
           component={NumberInputField}
+          dotRestriction={_get(currencyValue, 'precision', 6)}
           validate={!isPeer ? [required] : [required, valueHasToBeLessThan]}
           warn={!isPeer ? [required] : [required, valueHasToBeLessThan]}
         />
@@ -245,6 +240,7 @@ SendTipsForm.propTypes = {
   account: PropTypes.string,
   isPeer: PropTypes.bool,
   withScatter: PropTypes.bool,
+  wallets: PropTypes.arrayOf(PropTypes.object),
   sendTipsProcessing: PropTypes.bool,
   walletValue: PropTypes.object,
   currencyValue: PropTypes.object,
@@ -295,35 +291,54 @@ FormClone = connect(
       profile
     );
 
+    const wallets = currencyValue
+      ? currencyValue.wallets.filter(
+          wallet =>
+            !(
+              wallet.name === WALLETS.PEERANHA.name &&
+              (!profile || withScatter)
+            ),
+        )
+      : [];
+
+    const initialValues = {
+      [CURRENCY_FIELD]: tipsPreselect
+        ? CURRENCIES[tipsPreselect[CURRENCY_FIELD]]
+        : CURRENCIES[initialCurrency],
+      [WALLET_FIELD]: tipsPreselect
+        ? Object.values(WALLETS).find(
+            ({ name }) => name === tipsPreselect[WALLET_FIELD],
+          )
+        : _get(
+            CURRENCIES,
+            [initialCurrency, 'wallets', profile && !withScatter ? 0 : 1],
+            wallets[0],
+          ),
+      [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
+      [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
+      [AMOUNT_FIELD]: tipsPreselect
+        ? _get(tipsPreselect, [AMOUNT_FIELD, tipsPreselect[CURRENCY_FIELD]], '')
+        : '',
+    };
+
     return {
       isPeer,
       profile,
-      tipsPreselect,
-      cryptoAccounts,
-      walletValue,
-      fromAccountValue,
+      wallets,
       withScatter,
+      walletValue,
+      tipsPreselect,
+      currencyValue,
+      cryptoAccounts,
+      fromAccountValue,
       selectedAccount: selectedAccountSelector()(state),
       currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
-      currencyValue,
       enableReinitialize: true,
       initialValues: {
-        [CURRENCY_FIELD]: tipsPreselect
-          ? CURRENCIES[tipsPreselect[CURRENCY_FIELD]]
-          : CURRENCIES[initialCurrency],
-        [WALLET_FIELD]: tipsPreselect
-          ? Object.values(WALLETS).find(
-              ({ name }) => name === tipsPreselect[WALLET_FIELD],
-            )
-          : CURRENCIES[initialCurrency].wallets[
-              profile && !withScatter ? 0 : 1
-            ],
-        [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
-        [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
-        [AMOUNT_FIELD]: tipsPreselect
-          ? tipsPreselect[AMOUNT_FIELD][tipsPreselect[CURRENCY_FIELD]]
-          : '',
+        ...initialValues,
+        [WALLET_FIELD]:
+          wallets.length === 1 ? wallets[0] : initialValues[WALLET_FIELD],
       },
     };
   },

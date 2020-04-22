@@ -1,3 +1,6 @@
+import _get from 'lodash/get';
+import { CURRENCIES } from 'wallet-config';
+
 import messages from './messages';
 
 // TODO: test
@@ -85,6 +88,12 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
 };
 
 const valueHasToBeLessThan = (...args) => {
+  if (
+    _get(args, [2, 'currencyValue', 'name'], CURRENCIES.PEER.name) !==
+    CURRENCIES.PEER.name
+  ) {
+    return undefined;
+  }
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
 

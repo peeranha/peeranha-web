@@ -41,10 +41,11 @@ export const SendTips = ({
   account,
   form = 'send-Tips',
   cryptoAccounts,
+  whoWillBeTipped,
 }) => (
   <>
     <Modal
-      show={!!showModal && showModal === form}
+      show={!!showModal && showModal === form && account === whoWillBeTipped}
       closeModal={hideSendTipsModalDispatch}
     >
       <SendTipsForm
@@ -58,7 +59,9 @@ export const SendTips = ({
       />
     </Modal>
 
-    <Button onClick={() => showSendTipsModalDispatch(form)}>{children}</Button>
+    <Button onClick={() => showSendTipsModalDispatch(form, account)}>
+      {children}
+    </Button>
   </>
 );
 
@@ -66,6 +69,7 @@ SendTips.propTypes = {
   locale: PropTypes.string,
   children: PropTypes.any,
   showModal: PropTypes.string,
+  whoWillBeTipped: PropTypes.string,
   sendTipsProcessing: PropTypes.bool,
   hideSendTipsModalDispatch: PropTypes.func,
   showSendTipsModalDispatch: PropTypes.func,
@@ -91,6 +95,7 @@ export default compose(
         loginData: makeSelectLoginData()(state),
         balance: makeSelectBalance()(state),
         showModal: selectors.selectShowModal()(state),
+        whoWillBeTipped: selectors.selectWhoWillBeTipped()(state),
         sendTipsProcessing: selectors.selectSendTipsProcessing()(state),
       };
     },

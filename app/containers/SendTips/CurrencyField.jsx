@@ -17,6 +17,7 @@ const Option = styled.div`
   display: inline-flex;
   align-items: center;
   margin-bottom: 12px;
+  white-space: nowrap;
   cursor: pointer;
   img {
     height: 20px;

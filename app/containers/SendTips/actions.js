@@ -18,12 +18,11 @@ import {
   REMOVE_TIPS_EOS_SERVICE,
 } from './constants';
 
-export function showSendTipsModal(form) {
-  return {
-    type: SHOW_SEND_TIPS_MODAL,
-    form,
-  };
-}
+export const showSendTipsModal = (form, whoWillBeTipped) => ({
+  type: SHOW_SEND_TIPS_MODAL,
+  form,
+  whoWillBeTipped,
+});
 
 export function hideSendTipsModal() {
   return {

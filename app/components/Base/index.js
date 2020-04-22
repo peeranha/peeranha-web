@@ -11,6 +11,7 @@ const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
   flex-grow: 1;
+  padding-top: ${({ paddingTop }) => paddingTop || 20}px;
 
   overflow: ${({ overflowHidden }) => (overflowHidden ? 'hidden' : 'initial')};
   border: ${({ bordered }) =>
@@ -24,6 +25,7 @@ const Base = styled.div`
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};
+    ${({ paddingTopMedia }) => `padding-top: ${paddingTopMedia}px;`}
     border-radius: 0;
   }
 
