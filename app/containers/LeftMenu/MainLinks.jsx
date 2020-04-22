@@ -11,12 +11,18 @@ import {
   BG_TRANSPARENT,
   PRIMARY_SPECIAL,
   TEXT_DARK,
+  APP_FONT,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+  singleCommunityColors,
+  singleCommunityFonts,
+} from 'utils/communityManagement';
 
 import myFeedIcon from 'images/myFeed.svg?external';
 import allQuestionsIcon from 'images/allQuestions.svg?external';
@@ -31,6 +37,10 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 
+const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
+const fonts = singleCommunityFonts();
+
 const A1 = A.extend`
   ${BasicLink};
 
@@ -39,16 +49,20 @@ const A1 = A.extend`
       ? `
     background-color: ${PRIMARY_SPECIAL};
     border-color: ${BORDER_PRIMARY_DARK};
+    font-family: ${fonts.mainLinksSelected || APP_FONT};
+    letter-spacing: 0.5px;
     font-weight: bold;
-    color: ${TEXT_DARK} !important;
-
+    color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
+    :hover {
+      color: ${colors.mainLinks};
+    }
     ${svgDraw({ color: TEXT_PRIMARY })};
   `
       : `
     background-color: ${BG_TRANSPARENT};
     border-color: ${BORDER_TRANSPARENT};
     font-weight: normal;
-
+    font-family: ${fonts.mainLinksNotSelected || APP_FONT};
     .opacity {
       fill: none !important;
     }
@@ -56,7 +70,7 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: ${styles.withoutAdditionalLinks ? 0 : 50}px;
   padding-bottom: 25px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
@@ -104,10 +118,12 @@ const MainLinks = ({ profile }) => {
         <FormattedMessage {...messages.users} />
       </A1>
 
-      <A1 to={routes.faq()} name="faq" route={route}>
-        <Icon className="mr-2" width="24" icon={faqIcon} />
-        <FormattedMessage {...messages.faq} />
-      </A1>
+      {!styles.withoutFAQ && (
+        <A1 to={routes.faq()} name="faq" route={route}>
+          <Icon className="mr-2" width="24" icon={faqIcon} />
+          <FormattedMessage {...messages.faq} />
+        </A1>
+      )}
     </Box>
   );
 };

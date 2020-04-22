@@ -1,7 +1,13 @@
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
-const singleCommunityId = isSingleCommunityWebsite();
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
 export const HEADER_ID = 'containers_header_HEADER_ID';
-export const HEADER_HEIGHT = singleCommunityId ? 120 : 80;
-export const MOBILE_HEADER_HEIGHT = singleCommunityId ? 56 : 60;
+export const HEADER_HEIGHT =
+  (single && !styles.withoutSubHeader) || styles.customSubHeader ? 120 : 80;
+export const MOBILE_HEADER_HEIGHT =
+  (single && !styles.withoutSubHeader) || styles.customSubHeader ? 56 : 60;

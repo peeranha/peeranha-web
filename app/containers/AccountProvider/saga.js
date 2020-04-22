@@ -1,5 +1,6 @@
 import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 
+import _get from 'lodash/get';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
 import {
@@ -127,7 +128,11 @@ export function* getCurrentAccountWorker(initAccount) {
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
 
-      if (profileLS && account === profileLS.user) {
+      if (
+        profileLS &&
+        (account === profileLS.user ||
+          (account && account.eosAccountName === profileLS.user))
+      ) {
         yield put(getUserProfileSuccess(profileLS));
         yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
 
@@ -136,7 +141,12 @@ export function* getCurrentAccountWorker(initAccount) {
     }
 
     const [profileInfo, balance] = yield all([
-      call(getProfileInfo, account, eosService, !prevProfileInfo),
+      call(
+        getProfileInfo,
+        _get(account, 'eosAccountName', account),
+        eosService,
+        !prevProfileInfo,
+      ),
       call(getBalance, eosService, account),
     ]);
 

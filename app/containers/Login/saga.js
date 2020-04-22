@@ -252,12 +252,4 @@ export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
-  yield takeLatest(
-    [
-      LOGIN_WITH_EMAIL_SUCCESS,
-      LOGIN_WITH_SCATTER_SUCCESS,
-      FINISH_REGISTRATION_SUCCESS,
-    ],
-    redirectToFeedWorker,
-  );
 }

@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BG_PRIMARY } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
 
@@ -17,6 +18,8 @@ import { B } from './QuestionTitle';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 import SendTips from '../SendTips';
+
+const styles = singleCommunityStyles();
 
 const Label = Button.extend`
   ${LabelStyles};
@@ -55,28 +58,34 @@ export const BestAnswerMarker = ({
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
-    <Div short={answerId !== correctAnswerId}>
-      {displayTips && (
-        <SendTips form="tip-answer" account={whoWasAccepted}>
-          <B>
-            <img className="mr-1" src={coinsIcon} alt="icon" />
-            <FormattedMessage {...commonMessages.tipAnswer} />
-          </B>
-        </SendTips>
-      )}
-      <MarkAsAcceptedIcon
-        className=""
-        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-        answerId={answerId}
-        questionFrom={questionFrom}
-        account={account}
-        markAsAccepted={markAsAccepted}
-        disabled={ids.includes(
-          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
+    <Div>
+      <Base>
+        {displayTips && (
+          <SendTips form="tip-answer" account={whoWasAccepted}>
+            <B>
+              <img
+                className="mr-1"
+                src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                alt="icon"
+              />
+              <FormattedMessage {...commonMessages.tipAnswer} />
+            </B>
+          </SendTips>
         )}
-        correctAnswerId={correctAnswerId}
-        whoWasAccepted={whoWasAccepted}
-      />
+        <MarkAsAcceptedIcon
+          className=""
+          id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
+          answerId={answerId}
+          questionFrom={questionFrom}
+          account={account}
+          markAsAccepted={markAsAccepted}
+          disabled={ids.includes(
+            formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
+          )}
+          correctAnswerId={correctAnswerId}
+          whoWasAccepted={whoWasAccepted}
+        />
+      </Base>
       {isTheLargestRating ? (
         <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />

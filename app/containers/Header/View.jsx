@@ -24,7 +24,10 @@ import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -106,11 +109,12 @@ const View = ({
   );
 
   const singleCommunityId = isSingleCommunityWebsite();
+  const styles = singleCommunityStyles();
 
   const Logo = () => {
     if (isSearchFormVisible) return null;
 
-    const src = singleCommunityId
+    const src = styles.withoutSubHeader
       ? communitiesConfig[singleCommunityId].src
       : peeranhaLogo;
 
@@ -123,7 +127,7 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {singleCommunityId ? (
+      {singleCommunityId && !styles.withoutSubHeader ? (
         <SingleModeSubHeader>
           <div className="container">
             <ADefault href={`${process.env.APP_LOCATION}${routes.questions()}`}>
@@ -155,6 +159,10 @@ const View = ({
           </div>
         </SingleModeSubHeader>
       ) : null}
+
+      {singleCommunityId && styles.customSubHeader
+        ? styles.customSubHeader
+        : null}
 
       <MainSubHeader>
         <div className="container">
@@ -208,7 +216,7 @@ const View = ({
                 </Button>
               )}
 
-              {!singleCommunityId || !profileInfo ? (
+              {!singleCommunityId.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
                   showLoginModalDispatch={showLoginModalDispatch}
                   profileInfo={profileInfo}

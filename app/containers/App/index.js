@@ -14,9 +14,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
+import injectSaga from 'utils/injectSaga';
+import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -27,6 +31,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
 
+import saga from './saga';
 import {
   HomePage,
   Faq,
@@ -69,10 +74,13 @@ import {
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
+import { AUTOLOGIN_DATA } from '../Login/constants';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
-const App = ({ location }) => {
+const App = ({ location, profile, redirectToFeedDispatch }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -96,6 +104,17 @@ const App = ({ location }) => {
       }
     }
   }, []);
+
+  useEffect(
+    () => {
+      const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+
+      if (loginData && !single && location.pathname === '/' && profile) {
+        redirectToFeedDispatch();
+      }
+    },
+    [!!profile],
+  );
 
   return (
     <ErrorBoundary>
@@ -329,5 +348,17 @@ const App = ({ location }) => {
 
 App.propTypes = {
   location: PropTypes.object,
+  profile: PropTypes.object,
+  redirectToFeedDispatch: PropTypes.func,
 };
-export default withRouter(App);
+
+export default compose(
+  withRouter,
+  injectSaga({ key: 'app', saga, mode: DAEMON }),
+  connect(
+    state => ({ profile: makeSelectProfileInfo()(state) }),
+    dispatch => ({
+      redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    }),
+  ),
+)(App);
