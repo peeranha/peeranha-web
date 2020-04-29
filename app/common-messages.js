@@ -27,6 +27,18 @@ export default defineMessages({
   settings: {
     id: 'app.common.settings',
   },
+  notifications: {
+    id: 'app.common.notifications',
+  },
+  messageCenter: {
+    id: 'app.common.messageCenter',
+  },
+  archive: {
+    id: 'app.common.archive',
+  },
+  markAllAsRead: {
+    id: 'app.common.markAllAsRead',
+  },
   edit: {
     id: 'app.common.edit',
   },

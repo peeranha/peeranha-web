@@ -134,7 +134,7 @@ const QuestionItem = ({
         </AdditionalInfo>
       </div>
 
-      <Base>
+      <Base bottomRightRadius topRightRadius>
         {!isGeneral && (
           <QuestionType
             onMouseEnter={() => toggleExpertPopover(true)}

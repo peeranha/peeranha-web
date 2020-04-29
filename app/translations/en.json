@@ -10,6 +10,10 @@
   "app.common.answersNumber": "Answers {number}",
   "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
+  "app.common.notifications": "Notifications",
+  "app.common.messageCenter": "Message Center",
+  "app.common.archive": "Archive",
+  "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
@@ -474,6 +478,16 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
+
+  "app.containers.Notifications.youHaveNoNotifications": "You have no notifications.",
+  "app.containers.Notifications.yourQuestionWasUpVoted": "Your Question was Upvoted",
+  "app.containers.Notifications.yourQuestionWasDownVoted": "Your Question was Downvoted",
+  "app.containers.Notifications.yourAnswerWasUpVoted": "Your Answer was Upvoted",
+  "app.containers.Notifications.yourAnswerWasDownVoted": "Your Answer was Downvoted",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest": "Your Answer was marked as the best",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion": "Somebody answered your Question",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion": "Somebody left a comment to your Question",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer": "Somebody left a comment to your Answer",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",

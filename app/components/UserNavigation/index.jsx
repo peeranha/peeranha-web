@@ -34,6 +34,10 @@ const Ul = styled.ul`
   }
 `;
 
+const Div = styled.div`
+  white-space: nowrap;
+`;
+
 const hashes = ['#questions', '#answers', '#settings'];
 
 const UserNavigation = ({
@@ -59,7 +63,7 @@ const UserNavigation = ({
   return (
     <Wrapper position="top" ref={ref}>
       <Ul>
-        <div className="d-flex align-items-center">
+        <Div className="d-flex align-items-center">
           <NavigationLink
             to={routes.profileView(userId)}
             isLink={
@@ -131,6 +135,14 @@ const UserNavigation = ({
             <FormattedMessage {...messages.settings} />
           </NavigationLink>
 
+          <NavigationLink
+            className={userId !== account ? 'd-none' : ''}
+            to={routes.userNotifications(userId)}
+            isLink={path !== routes.userNotifications(userId)}
+          >
+            <FormattedMessage {...messages.notifications} />
+          </NavigationLink>
+
           <NavigationButton
             className={
               userId === account && path === routes.profileView(account)
@@ -144,7 +156,7 @@ const UserNavigation = ({
           >
             <FormattedMessage {...messages.edit} />
           </NavigationButton>
-        </div>
+        </Div>
 
         <div className="d-none d-md-block">
           <button

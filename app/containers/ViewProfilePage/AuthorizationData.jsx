@@ -31,6 +31,7 @@ const AuthorizationData = ({
 }) => (
   <BaseStyled
     position="bottom"
+    notRoundedStyle
     className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
   >
     <H3>
