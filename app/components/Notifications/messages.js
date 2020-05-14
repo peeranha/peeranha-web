@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  youHaveNoNotifications: {
-    id: 'app.containers.Notifications.youHaveNoNotifications',
+  youHaveNoNewNotifications: {
+    id: 'app.containers.Notifications.youHaveNoNewNotifications',
   },
   yourQuestionWasUpVoted: {
     id: 'app.containers.Notifications.yourQuestionWasUpVoted',

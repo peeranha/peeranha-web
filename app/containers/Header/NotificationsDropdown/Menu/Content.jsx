@@ -1,11 +1,4 @@
-import React, {
-  memo,
-  useCallback,
-  useRef,
-  useState,
-  useEffect,
-  useMemo,
-} from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -19,7 +12,6 @@ import messages from 'components/Notifications/messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import Notification from 'components/Notifications/Notification';
-import WidthCentered from 'components/LoadingIndicator/WidthCentered';
 
 import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
@@ -34,16 +26,16 @@ import saga from 'components/Notifications/saga';
 import reducer from 'components/Notifications/reducer';
 
 import {
-  selectNotificationsLoading,
-  selectReadNotifications,
+  selectReadNotificationsUnread,
+  selectUnreadNotificationsLoading,
 } from 'components/Notifications/selectors';
 
 import {
-  loadMoreNotifications,
-  setReadNotifications,
+  loadMoreUnreadNotifications,
+  markAsReadNotificationsUnread,
 } from 'components/Notifications/actions';
 
-import { THRESHOLD } from '../constants';
+import { HEADER_AND_FOOTER_HEIGHT, MENU_HEIGHT, THRESHOLD } from '../constants';
 
 const Container = styled.div`
   width: 100%;
@@ -52,6 +44,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: ${({ empty }) => (empty ? 10 : 0)}px 0;
   overflow: hidden;
 
@@ -71,29 +64,21 @@ const Content = ({
   loading,
   notifications,
   readNotifications,
-  loadMoreNotificationsDispatch,
-  setReadNotificationsDispatch,
+  markAsReadNotificationsUnreadDispatch,
+  loadMoreUnreadNotificationsDispatch,
 }) => {
   const listRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
-  const [contentHeight, setContentHeight] = useState(0);
-  const displayMainLoader = useMemo(() => loading && !notifications.length, [
-    loading,
-    notifications.length,
-  ]);
-
-  useEffect(() => {
-    if (!notifications.length) {
-      loadMoreNotificationsDispatch(true);
-    }
-  }, []);
+  const [contentHeight, setContentHeight] = useState(
+    MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT,
+  );
 
   const onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
     setScrollPosition(scrollTop);
     if (clientHeight + scrollTop > scrollHeight - rowHeight * 2 && !loading) {
-      loadMoreNotificationsDispatch();
+      loadMoreUnreadNotificationsDispatch();
     }
   };
 
@@ -133,7 +118,7 @@ const Content = ({
 
         const union = rangeUnionWithIntersection(readNotifications, newRange);
         if (!_isEqual(union, readNotifications)) {
-          setReadNotificationsDispatch(union);
+          markAsReadNotificationsUnreadDispatch(union);
         }
       }
     },
@@ -142,10 +127,12 @@ const Content = ({
 
   const rowRenderer = ({ index, key, style: { top } }) => (
     <Notification
+      small
       key={key}
       top={top}
       height={rowHeight}
       notificationsNumber={notifications.length}
+      paddingHorizontal="15"
       {...notifications[index]}
     />
   );
@@ -161,25 +148,23 @@ const Content = ({
       {!notifications.length ? (
         <>
           <img alt="1" src={bellIcon} />
-          <FormattedMessage {...messages.youHaveNoNotifications} />
+          <FormattedMessage {...messages.youHaveNoNewNotifications} />
         </>
       ) : (
         <AutoSizer onResize={onResize}>
-          {({ height, width }) =>
-            console.log(height, width) || (
-              <List
-                ref={listRef}
-                width={width || 100}
-                height={height}
-                rowHeight={rowHeight}
-                onScroll={onScroll}
-                overscanRowCount={5}
-                rowRenderer={rowRenderer}
-                rowCount={notifications.length}
-                onRowsRendered={onRowsRendered}
-              />
-            )
-          }
+          {({ height, width }) => (
+            <List
+              ref={listRef}
+              width={width || 100}
+              height={height}
+              rowHeight={rowHeight}
+              onScroll={onScroll}
+              overscanRowCount={5}
+              rowRenderer={rowRenderer}
+              rowCount={notifications.length}
+              onRowsRendered={onRowsRendered}
+            />
+          )}
         </AutoSizer>
       )}
     </Container>
@@ -192,8 +177,8 @@ Content.propTypes = {
   rowHeight: PropTypes.number.isRequired,
   notifications: PropTypes.arrayOf(PropTypes.object),
   readNotifications: PropTypes.arrayOf(PropTypes.number),
-  setReadNotificationsDispatch: PropTypes.func,
-  loadMoreNotificationsDispatch: PropTypes.func,
+  markAsReadNotificationsUnreadDispatch: PropTypes.func,
+  loadMoreUnreadNotificationsDispatch: PropTypes.func,
 };
 
 export default memo(
@@ -202,16 +187,16 @@ export default memo(
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
       state => ({
-        loading: selectNotificationsLoading()(state),
-        readNotifications: selectReadNotifications()(state),
+        loading: selectUnreadNotificationsLoading()(state),
+        readNotifications: selectReadNotificationsUnread()(state),
       }),
       dispatch => ({
-        setReadNotificationsDispatch: bindActionCreators(
-          setReadNotifications,
+        markAsReadNotificationsUnreadDispatch: bindActionCreators(
+          markAsReadNotificationsUnread,
           dispatch,
         ),
-        loadMoreNotificationsDispatch: bindActionCreators(
-          loadMoreNotifications,
+        loadMoreUnreadNotificationsDispatch: bindActionCreators(
+          loadMoreUnreadNotifications,
           dispatch,
         ),
       }),

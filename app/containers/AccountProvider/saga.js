@@ -104,6 +104,7 @@ import {
 import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -139,7 +140,6 @@ export function* getCurrentAccountWorker(initAccount) {
         return null;
       }
     }
-
     const [profileInfo, balance] = yield all([
       call(
         getProfileInfo,
@@ -149,6 +149,8 @@ export function* getCurrentAccountWorker(initAccount) {
       ),
       call(getBalance, eosService, account),
     ]);
+
+    yield call(getNotificationsInfoWorker, profileInfo.user);
 
     if (profileInfo) {
       profileInfo.balance = balance;

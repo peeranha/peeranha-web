@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { bindActionCreators } from 'redux';
 
 import {
   BG_LIGHT,
@@ -15,7 +16,11 @@ import Span from 'components/Span';
 import notificationsActiveIcon from 'images/Notifications_Gray.svg?inline';
 import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?inline';
 import Menu from './Menu';
-import { selectNotifications } from '../../../components/Notifications/selectors';
+import {
+  selectUnreadNotifications,
+  unreadNotificationsCount,
+} from '../../../components/Notifications/selectors';
+import { filterUnreadTimestamps } from '../../../components/Notifications/actions';
 
 const Button = styled.div`
   position: relative;
@@ -49,23 +54,35 @@ const Div = styled.div`
   min-width: 24px;
 `;
 
-const NotificationsDropdown = ({ notifications }) => {
+const NotificationsDropdown = ({
+  unreadCount,
+  notifications,
+  filterUreadTimestampsDispatch,
+}) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
-  const onClick = useCallback(() => setVisibility(!visible), [visible]);
-  const number = useMemo(
-    () => (notifications.length < 100 ? notifications.length : '...'),
-    [notifications.length],
+  const onClick = useCallback(
+    () => {
+      if (visible) {
+        filterUreadTimestampsDispatch();
+      }
+
+      setVisibility(!visible);
+    },
+    [visible],
   );
+  const number = useMemo(() => (unreadCount < 100 ? unreadCount : '...'), [
+    unreadCount,
+  ]);
 
   return (
     <Button
       className="d-flex flex-column"
-      active={!!notifications.length}
+      active={!!unreadCount}
       onClick={onClick}
       innerRef={ref}
     >
-      {!!notifications.length && (
+      {!!unreadCount && (
         <Div>
           <Span fontSize="13" color="white">
             {number}
@@ -73,27 +90,39 @@ const NotificationsDropdown = ({ notifications }) => {
         </Div>
       )}
       <img
-        src={
-          notifications.length
-            ? notificationsActiveIcon
-            : notificationsDisabledIcon
-        }
+        src={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon}
         width="19"
         alt="notifications_icon"
       />
       {visible && (
-        <Menu onClose={onClick} parentRef={ref} notifications={notifications} />
+        <Menu
+          onClose={onClick}
+          parentRef={ref}
+          unreadCount={unreadCount}
+          notifications={notifications}
+        />
       )}
     </Button>
   );
 };
 
 NotificationsDropdown.propTypes = {
+  unreadCount: PropTypes.number,
   notifications: PropTypes.arrayOf(PropTypes.object),
+  filterUreadTimestampsDispatch: PropTypes.func,
 };
 
 export default React.memo(
-  connect(state => ({
-    notifications: selectNotifications()(state),
-  }))(NotificationsDropdown),
+  connect(
+    state => ({
+      unreadCount: unreadNotificationsCount()(state),
+      notifications: selectUnreadNotifications()(state),
+    }),
+    dispatch => ({
+      filterUreadTimestampsDispatch: bindActionCreators(
+        filterUnreadTimestamps,
+        dispatch,
+      ),
+    }),
+  )(NotificationsDropdown),
 );

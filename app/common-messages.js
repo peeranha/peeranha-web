@@ -357,4 +357,16 @@ export default defineMessages({
   sendTip: {
     id: 'app.common.sendTip',
   },
+  rightNow: {
+    id: 'app.common.rightNow',
+  },
+  minutesAgo: {
+    id: 'app.common.minutesAgo',
+  },
+  hoursAgo: {
+    id: 'app.common.hoursAgo',
+  },
+  yesterday: {
+    id: 'app.common.yesterday',
+  },
 });

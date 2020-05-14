@@ -1,38 +1,224 @@
-/*
- *
- * ForgotPassword reducer
- *
- */
-
 import { fromJS } from 'immutable';
+
+import _pull from 'lodash/pull';
+import _update from 'lodash/update';
+import _isPlainObject from 'lodash/isPlainObject';
 
 import {
   LOAD_MORE_NOTIFICATIONS,
   LOAD_MORE_NOTIFICATIONS_SUCCESS,
-  SET_READ_NOTIFICATIONS,
+  LOAD_MORE_NOTIFICATIONS_ERROR,
+  SET_NOTIFICATIONS_INFO,
+  LOAD_MORE_UNREAD_NOTIFICATIONS,
+  LOAD_MORE_UNREAD_NOTIFICATIONS_SUCCESS,
+  LOAD_MORE_UNREAD_NOTIFICATIONS_ERROR,
+  CLEAR_NOTIFICATIONS_DATA,
+  MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS,
+  MARK_AS_READ_NOTIFICATIONS_ALL,
+  MARK_AS_READ_NOTIFICATIONS_UNREAD,
+  MARK_AS_READ_SUCCESS,
+  FILTER_UNREAD_TIMESTAMPS,
 } from './constants';
 
-export const initialState = fromJS({
-  notifications: [],
-  readNotifications: [0, 0],
-  loading: false,
-});
+const initialStateObject = {
+  all: {
+    count: 0,
+    lastTimestamp: 0,
+    loading: false,
+    readNotifications: [0, 0],
+  },
+  unread: {
+    count: 0,
+    lastTimestamp: 0,
+    loading: false,
+    timestamps: [],
+    readNotifications: [0, 0],
+  },
+  notifications: {},
+  isInfoLoaded: false,
+  loadMoreNotificationsError: null,
+  loadMoreUnreadNotificationsErr: null,
+};
 
-function notifiationsReducer(state = initialState, action) {
-  const { type, readNotifications, notifications } = action;
+export const initialState = fromJS(initialStateObject);
+
+function notificationsReducer(state = initialState, action) {
+  const {
+    all,
+    type,
+    leave,
+    unread,
+    timestamps,
+    notifications = [],
+    readNotifications,
+    loadMoreNotificationsError,
+    loadMoreUnreadNotificationsErr,
+  } = action;
+  const allSubState =
+    state.get('all') && state.get('all').toJS
+      ? state.get('all').toJS()
+      : state.get('all');
+  const unreadSubState =
+    state.get('unread') && state.get('unread').toJS
+      ? state.get('unread').toJS()
+      : state.get('unread');
+  const n = state.get('notifications');
+
+  const stateNotifications = !_isPlainObject(n)
+    ? Object.fromEntries(n || [])
+    : n;
 
   switch (type) {
-    case SET_READ_NOTIFICATIONS:
-      return state.set('readNotifications', readNotifications);
+    case MARK_AS_READ_NOTIFICATIONS_ALL:
+      return state.set('all', { ...allSubState, readNotifications });
+    case MARK_AS_READ_NOTIFICATIONS_UNREAD:
+      return state.set('unread', { ...unreadSubState, readNotifications });
+    case MARK_AS_READ_SUCCESS:
+      Object.keys(stateNotifications).forEach(timestamp => {
+        if (timestamps.includes(+timestamp)) {
+          _update(stateNotifications, timestamp, notification => ({
+            ...notification,
+            read: true,
+          }));
+        }
+      });
 
+      if (!leave) {
+        _pull(unreadSubState.timestamps, ...timestamps);
+      }
+
+      return state
+        .set('notifications', { ...stateNotifications })
+        .set('unread', {
+          ...unreadSubState,
+          count: Math.max(0, unreadSubState.count - timestamps.length),
+        });
     case LOAD_MORE_NOTIFICATIONS:
-      return state.set('loading', true);
+      return state.set('all', {
+        ...allSubState,
+        loading: true,
+      });
     case LOAD_MORE_NOTIFICATIONS_SUCCESS:
-      return state.set('notifications', notifications).set('loading', false);
+      if (notifications.length) {
+        notifications.forEach(notification => {
+          if (!stateNotifications[notification.timestamp]) {
+            stateNotifications[notification.timestamp] = notification;
+          }
+        });
+        return state
+          .set('notifications', {
+            ...stateNotifications,
+          })
+          .set('all', {
+            ...allSubState,
+            lastTimestamp:
+              notifications[notifications.length - 1].timestamp - 1,
+            loading: false,
+          });
+      }
+
+      return state.set('all', { ...allSubState, loading: false });
+    case LOAD_MORE_NOTIFICATIONS_ERROR:
+      return state
+        .set('all', {
+          ...allSubState,
+          loading: false,
+        })
+        .set('loadMoreNotificationsError', loadMoreNotificationsError);
+
+    case LOAD_MORE_UNREAD_NOTIFICATIONS:
+      return state.set('unread', {
+        ...unreadSubState,
+        loading: true,
+      });
+    case LOAD_MORE_UNREAD_NOTIFICATIONS_SUCCESS:
+      if (notifications.length) {
+        const newNots = notifications.filter(
+          ({ timestamp }) => !stateNotifications[timestamp],
+        );
+        newNots.forEach(notification => {
+          stateNotifications[notification.timestamp] = notification;
+        });
+
+        return state
+          .set('notifications', {
+            ...stateNotifications,
+          })
+          .set('unread', {
+            ...unreadSubState,
+            timestamps: unreadSubState.timestamps.concat(
+              newNots.map(({ timestamp }) => timestamp),
+            ),
+            lastTimestamp:
+              notifications[notifications.length - 1].timestamp - 1,
+            loading: false,
+          });
+      }
+
+      return state.set('unread', { ...unreadSubState, loading: false });
+    case LOAD_MORE_UNREAD_NOTIFICATIONS_ERROR:
+      return state
+        .set('unread', {
+          ...unreadSubState,
+          loading: false,
+        })
+        .set('loadMoreUnreadNotificationsErr', loadMoreUnreadNotificationsErr);
+
+    case MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS:
+      Object.keys(stateNotifications).forEach(timestamp => {
+        _update(stateNotifications, timestamp, notification => ({
+          ...notification,
+          read: true,
+        }));
+      });
+      return state
+        .set('unread', {
+          count: 0,
+          lastTimestamp: 0,
+          loading: false,
+          timestamps: [],
+          readNotifications: [0, 0],
+        })
+        .set('notifications', { ...stateNotifications });
+
+    case FILTER_UNREAD_TIMESTAMPS:
+      return state.set('unread', {
+        ...unreadSubState,
+        readNotifications: [0, 0],
+        timestamps: unreadSubState.timestamps.filter(
+          timestamp => !stateNotifications[timestamp].read,
+        ),
+      });
+    case SET_NOTIFICATIONS_INFO:
+      return state
+        .set('all', {
+          ...allSubState,
+          count: all,
+        })
+        .set('unread', {
+          ...unreadSubState,
+          count: unread,
+        })
+        .set('isInfoLoaded', true);
+
+    case CLEAR_NOTIFICATIONS_DATA:
+      return state
+        .set('all', initialStateObject.all)
+        .set('unread', initialStateObject.unread)
+        .set('isInfoLoaded', initialStateObject.isInfoLoaded)
+        .set('notifications', initialStateObject.notifications)
+        .set(
+          'loadMoreNotificationsError',
+          initialStateObject.loadMoreNotificationsError,
+        )
+        .set(
+          'loadMoreUnreadNotificationsErr',
+          initialStateObject.loadMoreUnreadNotificationsErr,
+        );
 
     default:
       return state;
   }
 }
 
-export default notifiationsReducer;
+export default notificationsReducer;

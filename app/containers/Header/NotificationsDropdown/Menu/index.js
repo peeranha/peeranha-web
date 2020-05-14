@@ -26,6 +26,14 @@ const MenuContainer = styled.div`
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   cursor: default;
+
+  @media only screen and (max-width: 992px) {
+    left: -20px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    left: -280px;
+  }
 `;
 
 const useDetectOutsideClick = (onClose, parentRef) => {
@@ -51,7 +59,7 @@ const useDetectOutsideClick = (onClose, parentRef) => {
   return ref;
 };
 
-const Menu = ({ notifications, onClose, parentRef }) => {
+const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   const ref = useDetectOutsideClick(onClose, parentRef);
   const empty = useMemo(() => !notifications.length, [notifications.length]);
 
@@ -62,7 +70,7 @@ const Menu = ({ notifications, onClose, parentRef }) => {
       }}
     >
       <MenuContainer innerRef={ref}>
-        <Header notificationsNumber={notifications.length} onClose={onClose} />
+        <Header notificationsNumber={unreadCount} onClose={onClose} />
         <Content
           notifications={notifications}
           empty={empty}
@@ -79,6 +87,7 @@ const Menu = ({ notifications, onClose, parentRef }) => {
 Menu.propTypes = {
   onClose: PropTypes.func,
   parentRef: PropTypes.object,
+  unreadCount: PropTypes.number,
   notifications: PropTypes.arrayOf(PropTypes.object),
 };
 

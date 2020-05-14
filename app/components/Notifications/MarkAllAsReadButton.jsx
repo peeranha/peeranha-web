@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
@@ -11,6 +11,9 @@ import { TEXT_PRIMARY } from 'style-constants';
 import closeCircleIcon from 'images/closeCircle.svg?inline';
 
 import { markAllNotificationsAsRead } from './actions';
+import injectSaga from '../../utils/injectSaga';
+import notificationsSaga from './saga';
+import { DAEMON } from '../../utils/constants';
 
 const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
   <button
@@ -28,13 +31,16 @@ MarkAllAsReadButton.propTypes = {
 };
 
 export default memo(
-  connect(
-    null,
-    dispatch => ({
-      markAllAsReadDispatch: bindActionCreators(
-        markAllNotificationsAsRead,
-        dispatch,
-      ),
-    }),
+  compose(
+    injectSaga({ key: 'notifications', saga: notificationsSaga, mode: DAEMON }),
+    connect(
+      null,
+      dispatch => ({
+        markAllAsReadDispatch: bindActionCreators(
+          markAllNotificationsAsRead,
+          dispatch,
+        ),
+      }),
+    ),
   )(MarkAllAsReadButton),
 );

@@ -9,34 +9,41 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
+import { List, WindowScroller } from 'react-virtualized';
 
-import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
+
 import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT } from 'style-constants';
 
+import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
+
 import { ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
 import {
-  selectNotifications,
-  selectNotificationsLoading,
-  selectReadNotifications,
+  allNotificationsCount,
+  selectAllNotifications,
+  selectAllNotificationsLoading,
+  selectReadNotificationsAll,
 } from './selectors';
 
 import saga from './saga';
-import { loadMoreNotifications, setReadNotifications } from './actions';
+import { loadMoreNotifications, markAsReadNotificationsAll } from './actions';
 
 import Header from './Header';
 import Wrapper from '../Header/Complex';
 
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
-import { rangeUnionWithIntersection } from '../../utils/rangeOperations';
-import _isEqual from 'lodash/isEqual';
-import injectReducer from '../../utils/injectReducer';
 import reducer from './reducer';
-import LoadingIndicator from '../LoadingIndicator';
 import WidthCentered from '../LoadingIndicator/WidthCentered';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   @media only screen and (max-width: 576px) {
@@ -44,138 +51,211 @@ const Container = styled.div`
   }
 `;
 
-const Content = Wrapper.extend`
+const Content = styled.div`
+  background: ${BG_LIGHT};
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   width: 100%;
+  padding: 0;
   height: ${({ height }) => height}px;
 `;
 
 const SubHeader = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
   min-height: ${({ height }) => height}px;
   display: flex;
   width: 100%;
   padding: 0 10px;
-  margin-bottom: 10px;
   border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
+`;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  background: ${colors.mainBackground
+    ? colors.mainBackground
+    : 'rgb(234, 236, 244)'};
 `;
 
 const Notifications = ({
   loading,
+  allCount,
   className,
   notifications,
   readNotifications,
-  setReadNotificationsDispatch,
   loadMoreNotificationsDispatch,
+  markAsReadNotificationsAllDispatch,
 }) => {
-  const empty = useMemo(() => !notifications.length, [notifications.length]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
+  const [containerWidth, setContainerWidth] = useState(0);
   const [y, setY] = useState(0);
   const ref = useRef(null);
-  const r = useRef(null);
+  const containerRef = useRef(null);
 
-  const onScroll = useCallback(e => {
-    setScrollPosition(e.currentTarget.scrollY);
-  }, []);
+  const rowHeight = useMemo(
+    () => (containerWidth <= 768 ? ROW_HEIGHT_FOR_SMALL : ROW_HEIGHT),
+    [containerWidth],
+  );
+
+  const { indexToStart, indexToStop } = useMemo(
+    () => {
+      const calc = Array.from(new Array(notifications.length).keys()).filter(
+        x =>
+          x * rowHeight + ROW_HEIGHT + y + VERTICAL_OFFSET >= scrollPosition &&
+          x * rowHeight + ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
+            window.innerHeight,
+      );
+      const { 0: start, [calc.length - 1]: stop } = calc;
+      return {
+        indexToStart: start || 0,
+        indexToStop: stop || 0,
+      };
+    },
+    [notifications.length, rowHeight, scrollPosition],
+  );
+
+  const recalculateRanges = useCallback(
+    () => {
+      const range = `${indexToStart}-${indexToStop}-${rowHeight}`;
+
+      const union = rangeUnionWithIntersection(readNotifications, [
+        indexToStart,
+        indexToStop,
+      ]);
+
+      if (!_isEqual(union, readNotifications)) {
+        markAsReadNotificationsAllDispatch(union);
+      }
+
+      setCalculatedRanges({
+        ...calculatedRanges,
+        [range]: union,
+      });
+    },
+    [notifications.length, indexToStart, indexToStop, rowHeight],
+  );
+
+  const onScroll = useCallback(
+    ({ scrollTop }) => {
+      setScrollPosition(scrollTop);
+      recalculateRanges();
+
+      if (!loading && indexToStop + 10 >= notifications.length) {
+        loadMoreNotificationsDispatch();
+      }
+    },
+    [notifications.length, indexToStop, loading],
+  );
+
+  const onResize = useCallback(
+    () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.getBoundingClientRect().width);
+      }
+    },
+    [containerRef.current],
+  );
 
   useEffect(() => {
-    loadMoreNotificationsDispatch(true);
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
+    loadMoreNotificationsDispatch();
   }, []);
+
+  useEffect(
+    () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.getBoundingClientRect().width);
+      }
+    },
+    [containerRef.current],
+  );
+  useEffect(
+    () => {
+      recalculateRanges();
+    },
+    [notifications.length],
+  );
 
   useEffect(
     () => {
       setY(
         (ref &&
           ref.current &&
-          ref.current.getBoundingClientRect().top - ROW_HEIGHT) ||
+          ref.current.getBoundingClientRect().top - rowHeight) ||
           0,
       );
     },
-    [ref.current],
+    [ref.current, rowHeight],
   );
 
-  const displayNotifications = useMemo(() => {
-    const a = Array.from(new Array(notifications.length).keys()).filter(
-      x =>
-        (x + 1) * ROW_HEIGHT + y + VERTICAL_OFFSET >= scrollPosition &&
-        (x + 1) * ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
-          window.innerHeight,
-    );
+  const rowRenderer = ({ index, key, style: { top } }) => (
+    <Notification
+      key={key}
+      top={top}
+      index={index}
+      height={rowHeight}
+      notificationsNumber={notifications.length}
+      paddingHorizontal="36"
+      {...notifications[index]}
+    />
+  );
 
-    const { 0: startIndex, [a.length - 1]: stopIndex } = a;
-    const range = `${startIndex}-${stopIndex}`;
-
-    if (!loading && stopIndex + 10 >= notifications.length) {
-      loadMoreNotificationsDispatch();
-    }
-
-    if (calculatedRanges[range]) {
-      return calculatedRanges[range];
-    }
-
-    const newRange = _cloneDeep(notifications)
-      .map((n, i) => ({ ...n, top: (i + 1) * ROW_HEIGHT }))
-      .filter((_, index) => index >= startIndex && index <= stopIndex);
-
-    const union = rangeUnionWithIntersection(readNotifications, [
-      startIndex,
-      stopIndex,
-    ]);
-
-    if (!_isEqual(union, readNotifications)) {
-      setReadNotificationsDispatch(union);
-    }
-
-    setCalculatedRanges({
-      ...calculatedRanges,
-      [range]: newRange,
-    });
-
-    return newRange;
-  });
+  rowRenderer.propTypes = {
+    index: PropTypes.number,
+    key: PropTypes.string,
+    style: PropTypes.object,
+  };
 
   return (
     <Container className={`${className} overflow-hidden`}>
       <Wrapper className="mb-3" position="bottom">
-        <Header notificationsNumber={notifications.length} />
+        <Header notificationsNumber={allCount} />
       </Wrapper>
 
-      <Content innerRef={r} height={(notifications.length + 1) * ROW_HEIGHT}>
-        <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
-          <MarkAllAsReadButton />
-        </SubHeader>
-        {displayNotifications.map(({ top, ...props }, index) => (
-          <Notification
-            {...props}
-            index={index}
-            height={ROW_HEIGHT}
-            top={top}
-            paddingHorizontal="36"
-            key={`${(index + 1) * ROW_HEIGHT}`}
-            notificationsNumber={notifications.length}
-          />
-        ))}
-      </Content>
-      {loading && <WidthCentered />}
+      {!!allCount && (
+        <Content
+          innerRef={containerRef}
+          height={notifications.length * rowHeight + ROW_HEIGHT}
+        >
+          <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
+            <MarkAllAsReadButton />
+          </SubHeader>
+          <WindowScroller onResize={onResize} onScroll={onScroll}>
+            {({ height, isScrolling, registerChild, scrollTop }) => (
+              <div ref={registerChild}>
+                <List
+                  autoHeight
+                  height={height}
+                  isScrolling={isScrolling}
+                  rowCount={notifications.length}
+                  rowHeight={rowHeight}
+                  rowRenderer={rowRenderer}
+                  scrollTop={scrollTop}
+                  width={containerWidth}
+                />
+              </div>
+            )}
+          </WindowScroller>,
+        </Content>
+      )}
+      {loading && (
+        <LoaderContainer>
+          <WidthCentered inline />
+        </LoaderContainer>
+      )}
     </Container>
   );
 };
 
 Notifications.propTypes = {
   loading: PropTypes.bool,
+  allCount: PropTypes.number,
   className: PropTypes.string,
-  setReadNotificationsDispatch: PropTypes.func,
   loadMoreNotificationsDispatch: PropTypes.func,
+  markAsReadNotificationsAllDispatch: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.object),
   readNotifications: PropTypes.arrayOf(PropTypes.number),
 };
@@ -186,17 +266,18 @@ export default React.memo(
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
       state => ({
-        notifications: selectNotifications()(state),
-        loading: selectNotificationsLoading()(state),
-        readNotifications: selectReadNotifications()(state),
+        allCount: allNotificationsCount()(state),
+        notifications: selectAllNotifications()(state),
+        loading: selectAllNotificationsLoading()(state),
+        readNotifications: selectReadNotificationsAll()(state),
       }),
       dispatch => ({
         loadMoreNotificationsDispatch: bindActionCreators(
           loadMoreNotifications,
           dispatch,
         ),
-        setReadNotificationsDispatch: bindActionCreators(
-          setReadNotifications,
+        markAsReadNotificationsAllDispatch: bindActionCreators(
+          markAsReadNotificationsAll,
           dispatch,
         ),
       }),
