@@ -1,7 +1,8 @@
+import { timeConverter } from 'utils/converters';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
-import { timeConverter } from './utils';
-import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
 
 const selectNotificationsDomain = state =>
   state.get('notifications', initialState).toJS();
