@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
 import {
   HEADER_HEIGHT,
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
 
 import { LEFT_MENU_WIDTH } from './constants';
-import { singleCommunityColors } from '../../utils/communityManagement';
 
 const colors = singleCommunityColors();
 

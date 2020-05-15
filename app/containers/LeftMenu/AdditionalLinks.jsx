@@ -23,7 +23,7 @@ const AdditionalLinks = styled.div`
   flex-direction: column;
 
   > * {
-    padding: 7px 15px;
+    padding: 10px 15px;
 
     span,
     a:hover,

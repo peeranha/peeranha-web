@@ -76,6 +76,7 @@ export const QuestionTitle = ({
       paddingTopMedia="5"
       position="middle"
       bordered={!isGeneral}
+      withoutBR
     >
       <Top>
         {!isItWrittenByMe ? (

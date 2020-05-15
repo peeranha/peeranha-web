@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
+import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 
 import QuestionsOfUser from 'containers/QuestionsOfUser';
@@ -107,6 +108,12 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         user={profile ? profile.user : null}
         isAvailable={profile && account === profile.user}
       />
+
+      {path === routes.userNotifications(userId) && (
+        <Notifications
+          className={path === routes.userNotifications(userId) ? '' : 'd-none'}
+        />
+      )}
 
       <ProfileViewForm
         className={

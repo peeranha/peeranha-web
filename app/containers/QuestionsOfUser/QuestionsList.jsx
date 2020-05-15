@@ -108,7 +108,7 @@ const Question = ({
   isMyAnswerAccepted,
   isGeneral,
 }) => (
-  <Li className="mb-3" bordered={!isGeneral}>
+  <Li className="mb-3" bordered={isGeneral}>
     <QuestionForProfilePage
       route={routes.questionView(id, null)}
       myPostRating={myPostRating}
@@ -122,7 +122,7 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isGeneral={isGeneral}
-      bordered={false}
+      bordered
     />
     <RightBlock>
       <span className="d-flex align-items-center mb-2">

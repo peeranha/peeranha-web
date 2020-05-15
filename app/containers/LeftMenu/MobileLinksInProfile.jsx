@@ -56,6 +56,10 @@ export default React.memo(({ profile, isMenuVisible }) => {
             <FormattedMessage {...messages.settings} />
           </A>
 
+          <A to={routes.userNotifications(profile.user)}>
+            <FormattedMessage {...messages.notifications} />
+          </A>
+
           <Logout>
             <FormattedMessage {...messages.logout} />
           </Logout>

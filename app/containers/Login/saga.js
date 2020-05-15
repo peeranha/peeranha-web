@@ -55,9 +55,6 @@ import {
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
-  LOGIN_WITH_EMAIL_SUCCESS,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  FINISH_REGISTRATION_SUCCESS,
   REFERRAL_CODE,
 } from './constants';
 
@@ -65,6 +62,7 @@ import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -110,6 +108,8 @@ export function* loginWithEmailWorker({ val }) {
       eosAccountName,
     );
 
+    yield call(getNotificationsInfoWorker, profileInfo.user);
+
     yield put(initEosioSuccess(eosService));
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -149,6 +149,8 @@ export function* loginWithScatterWorker() {
         translations[messages[USER_IS_NOT_REGISTERED].id],
       );
     }
+
+    yield call(getNotificationsInfoWorker, profileInfo.user);
 
     setCookie({
       name: AUTOLOGIN_DATA,

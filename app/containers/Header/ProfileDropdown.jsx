@@ -103,6 +103,9 @@ const Menu = ({
       <A to={routes.userSettings(user)}>
         <FormattedMessage {...messages.settings} />
       </A>
+      <A to={routes.userNotifications(user)}>
+        <FormattedMessage {...messages.notifications} />
+      </A>
     </Ul>
 
     <Ul>

@@ -10,6 +10,10 @@
   "app.common.answersNumber": "Ответы {number}",
   "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
+  "app.common.notifications": "Уведомления",
+  "app.common.messageCenter": "Центр Уведомлений",
+  "app.common.archive": "Архив",
+  "app.common.markAllAsRead": "Пометить все как прочитанные",
   "app.common.edit": "Править",
   "app.common.logout": "Выход",
   "app.common.search": "Поиск",
@@ -115,6 +119,10 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.common.rightNow": "Прямо сейчас",
+  "app.common.minutesAgo": "{minutes} минут назад",
+  "app.common.hoursAgo": "{hours} часов назад",
+  "app.common.yesterday": "Вчера",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -481,6 +489,25 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
+
+  "app.containers.Notifications.youHaveNoNewNotifications":
+    "У вас нет новых уведомлений",
+  "app.containers.Notifications.yourQuestionWasUpVoted":
+    "Вашему вопросу поставили лайк",
+  "app.containers.Notifications.yourQuestionWasDownVoted":
+    "Вашему вопросу поставили дизлайк",
+  "app.containers.Notifications.yourAnswerWasUpVoted":
+    "Вашему ответу поставили лайк",
+  "app.containers.Notifications.yourAnswerWasDownVoted":
+    "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
+    "Ваш ответ был помечен как лучший",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion":
+    "Кто-то ответил на ваш вопрос",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
+    "Кто-то оставил комментарий к вашему вопросу",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
+    "Кто-то оставил комментарий к вашему ответу",
 
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",

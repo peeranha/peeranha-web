@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import ProfileDropdown from './ProfileDropdown';
 import WalletDropdown from './WalletDropdown';
 import EnergyDropdown from './EnergyDropdown';
+import NotificationsDropdown from './NotificationsDropdown';
 
 const ButtonGroupForAuthorizedUser = ({ profileInfo, faqQuestions }) => (
   <React.Fragment>
+    <NotificationsDropdown />
     <EnergyDropdown
       rating={profileInfo.rating}
       energy={profileInfo.energy}

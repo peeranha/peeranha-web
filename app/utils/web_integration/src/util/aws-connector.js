@@ -19,14 +19,24 @@ const LOGGER_SERVICE = 'status/ui/report-error';
 const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
 const BEST_NODE_SERVICE = 'status/eos-endpoints/get-all';
 
-async function callService(service, props) {
-  const rawResponse = await fetch(process.env.WALLET_API_ENDPOINT + service, {
-    method: 'POST',
+const NOTIFICATIONS_GET_SERVICE = 'notifications/get';
+const NOTIFICATIONS_INFO_SERVICE = 'notifications/info';
+const NOTIFICATIONS_READ_SERVICE = 'notifications/read';
+
+async function callService(service, props, isGet = false) {
+  const url = new URL(process.env.WALLET_API_ENDPOINT + service);
+
+  if (isGet) {
+    url.search = new URLSearchParams(props).toString();
+  }
+
+  const rawResponse = await fetch(url, {
+    method: isGet ? 'GET' : 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(props),
+    ...(!isGet ? { body: JSON.stringify(props) } : {}),
   });
   const response = await rawResponse.json();
   if (rawResponse.status < 200 || rawResponse.status > 208) {
@@ -57,4 +67,7 @@ module.exports = {
   LOGGER_SERVICE,
   PAY_FOR_CPU_SERVICE,
   BEST_NODE_SERVICE,
+  NOTIFICATIONS_GET_SERVICE,
+  NOTIFICATIONS_INFO_SERVICE,
+  NOTIFICATIONS_READ_SERVICE,
 };

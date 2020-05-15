@@ -13,6 +13,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
+import notificationsSaga from 'components/Notifications/saga';
+import notificationsReducer from 'components/Notifications/reducer';
+
 import reducer from './reducer';
 import saga from './saga';
 import { getCurrentAccount } from './actions';
@@ -57,6 +60,8 @@ const withReducer = injectReducer({ key: 'accountProvider', reducer });
 const withSaga = injectSaga({ key: 'accountProvider', saga, mode: DAEMON });
 
 export default compose(
+  injectReducer({ key: 'notifications', reducer: notificationsReducer }),
+  injectSaga({ key: 'notifications', saga: notificationsSaga, mode: DAEMON }),
   withReducer,
   withSaga,
   withConnect,

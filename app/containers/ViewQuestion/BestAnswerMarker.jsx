@@ -59,33 +59,31 @@ export const BestAnswerMarker = ({
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
     <Div>
-      <Base>
-        {displayTips && (
-          <SendTips form="tip-answer" account={whoWasAccepted}>
-            <B>
-              <img
-                className="mr-1"
-                src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-                alt="icon"
-              />
-              <FormattedMessage {...commonMessages.tipAnswer} />
-            </B>
-          </SendTips>
+      {displayTips && (
+        <SendTips form="tip-answer" account={whoWasAccepted}>
+          <B>
+            <img
+              className="mr-1"
+              src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+              alt="icon"
+            />
+            <FormattedMessage {...commonMessages.tipAnswer} />
+          </B>
+        </SendTips>
+      )}
+      <MarkAsAcceptedIcon
+        className=""
+        id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        disabled={ids.includes(
+          formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
         )}
-        <MarkAsAcceptedIcon
-          className=""
-          id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
-          answerId={answerId}
-          questionFrom={questionFrom}
-          account={account}
-          markAsAccepted={markAsAccepted}
-          disabled={ids.includes(
-            formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`),
-          )}
-          correctAnswerId={correctAnswerId}
-          whoWasAccepted={whoWasAccepted}
-        />
-      </Base>
+        correctAnswerId={correctAnswerId}
+        whoWasAccepted={whoWasAccepted}
+      />
       {isTheLargestRating ? (
         <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />

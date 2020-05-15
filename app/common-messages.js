@@ -27,6 +27,18 @@ export default defineMessages({
   settings: {
     id: 'app.common.settings',
   },
+  notifications: {
+    id: 'app.common.notifications',
+  },
+  messageCenter: {
+    id: 'app.common.messageCenter',
+  },
+  archive: {
+    id: 'app.common.archive',
+  },
+  markAllAsRead: {
+    id: 'app.common.markAllAsRead',
+  },
   edit: {
     id: 'app.common.edit',
   },
@@ -344,5 +356,17 @@ export default defineMessages({
   },
   sendTip: {
     id: 'app.common.sendTip',
+  },
+  rightNow: {
+    id: 'app.common.rightNow',
+  },
+  minutesAgo: {
+    id: 'app.common.minutesAgo',
+  },
+  hoursAgo: {
+    id: 'app.common.hoursAgo',
+  },
+  yesterday: {
+    id: 'app.common.yesterday',
   },
 });

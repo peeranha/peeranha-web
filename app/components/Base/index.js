@@ -20,8 +20,10 @@ const Base = styled.div`
     bordered && !position
       ? `0 0 0 1px rgba(${BORDER_PRIMARY_RGB}, 0.4) !important`
       : `none`};
-  border-top-right-radius: ${({ bordered }) => (bordered ? 'none' : '5px')};
-  border-bottom-right-radius: ${({ bordered }) => (bordered ? 'none' : '5px')};
+  border-top-right-radius: ${({ bordered, topRightRadius, withoutBR }) =>
+    (bordered || topRightRadius) && !withoutBR ? '5px' : 'none'};
+  border-bottom-right-radius: ${({ bordered, bottomRightRadius, withoutBR }) =>
+    (bordered || bottomRightRadius) && !withoutBR ? '5px' : 'none'};
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};

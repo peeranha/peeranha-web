@@ -10,6 +10,10 @@
   "app.common.answersNumber": "Answers {number}",
   "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
+  "app.common.notifications": "Notifications",
+  "app.common.messageCenter": "Message Center",
+  "app.common.archive": "Archive",
+  "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
@@ -117,6 +121,10 @@
     "Source of information or resources on a specific subject that is not easily found;",
     "Explanation or clarification of the information that is complicated to comprehend."
   ],
+  "app.common.rightNow": "Right now",
+  "app.common.minutesAgo": "{minutes} minutes ago",
+  "app.common.hoursAgo": "{hours} hours ago",
+  "app.common.yesterday": "Yesterday",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -474,6 +482,25 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
+
+  "app.containers.Notifications.youHaveNoNewNotifications":
+    "You have no new notifications.",
+  "app.containers.Notifications.yourQuestionWasUpVoted":
+    "Your question was upvoted",
+  "app.containers.Notifications.yourQuestionWasDownVoted":
+    "Your question was downvoted",
+  "app.containers.Notifications.yourAnswerWasUpVoted":
+    "Your answer was upvoted",
+  "app.containers.Notifications.yourAnswerWasDownVoted":
+    "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
+    "Your answer was marked as the best",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion":
+    "Somebody answered your question",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
+    "Somebody left a comment to your question",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
+    "Somebody left a comment to your answer",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
