@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { BORDER_SECONDARY } from 'style-constants';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import {
+  BORDER_SECONDARY,
+  secondarySpecial,
+  black,
+  white,
+} from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
+import shareIcon from 'images/shareIcon.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?external';
+import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?inline';
+import facebook from 'images/social-media-logos/logo-facebook-glyph-24.svg?inline';
+import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
+import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?inline';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { MODERATOR_KEY } from 'utils/constants';
+import {
+  getTwitterShareLink,
+  getFacebookShareLink,
+  getTelegramShareLink,
+  getRedditShareLink,
+} from 'utils/url';
+import { MODERATOR_KEY, APP_TWITTER_NICKNAME } from 'utils/constants';
 
 import Icon from 'components/Icon';
+import Input from 'components/Input';
+import SocialMediaShareLink from 'components/SocialMediaShareLink';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
@@ -65,6 +83,44 @@ const Box = styled.div`
   }
 `;
 
+const DropdownBox = styled.div`
+  position: relative;
+`;
+
+const DropdownModal = styled.div`
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -10px;
+  z-index: 9;
+
+  padding: 15px;
+  padding-bottom: 10px;
+  width: 300px;
+
+  background-color: ${white};
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 ${secondarySpecial};
+
+  p {
+    margin-bottom: 10px;
+
+    color: ${black};
+  }
+
+  input {
+    padding-right: 14px;
+  }
+`;
+
+const DropdownModalFooter = styled.footer`
+  display: flex;
+  padding-top: 15px;
+
+  a {
+    margin-right: 15px;
+  }
+`;
+
 const ContentHeader = props => {
   const {
     userInfo,
@@ -82,11 +138,16 @@ const ContentHeader = props => {
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
+    questionData,
+    intl,
   } = props;
+
   const changeQuestionTypeWithRatingRestore = event =>
     changeQuestionTypeDispatch(true, event);
   const changeQuestionTypeWithoutRatingRestore = event =>
     changeQuestionTypeDispatch(false, event);
+
+  const [isSharingModalHidden, changeSharingModalView] = useState(true);
 
   return (
     <Box>
@@ -146,6 +207,74 @@ const ContentHeader = props => {
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
+          {questionData.user === userInfo.user && (
+            <DropdownBox>
+              <Button
+                show={questionData.user === userInfo.user}
+                onClick={() => changeSharingModalView(!isSharingModalHidden)}
+              >
+                <img src={shareIcon} alt="icon" />
+                <FormattedMessage {...messages.shareButton} />
+              </Button>
+
+              {!isSharingModalHidden && (
+                <DropdownModal>
+                  <p>
+                    <b>
+                      <FormattedMessage {...messages.shareTitle} />
+                    </b>
+                  </p>
+                  <Input
+                    input={{ value: window.location.href }}
+                    readOnly
+                    type="text"
+                  />
+                  <DropdownModalFooter>
+                    <SocialMediaShareLink
+                      link={getTwitterShareLink(
+                        window.location.href,
+                        questionData.content.title,
+                        APP_TWITTER_NICKNAME,
+                      )}
+                      icon={twitter}
+                      altText={intl.formatMessage({
+                        id: messages.shareTwitter.id,
+                      })}
+                    />
+                    <SocialMediaShareLink
+                      link={getFacebookShareLink(window.location.href)}
+                      icon={facebook}
+                      altText={intl.formatMessage({
+                        id: messages.shareFacebook.id,
+                      })}
+                    />
+                    <SocialMediaShareLink
+                      link={getTelegramShareLink(
+                        window.location.href,
+                        questionData.content.title,
+                      )}
+                      icon={telegram}
+                      altText={intl.formatMessage({
+                        id: messages.shareTelegram.id,
+                      })}
+                    />
+                    <SocialMediaShareLink
+                      link={getRedditShareLink(
+                        window.location.href,
+                        questionData.content.title,
+                        questionData.content.content,
+                      )}
+                      icon={reddit}
+                      altText={intl.formatMessage({
+                        id: messages.shareReddit.id,
+                      })}
+                    />
+                  </DropdownModalFooter>
+                </DropdownModal>
+              )}
+            </DropdownBox>
+          )}
+
           <Button
             show={isItWrittenByMe}
             onClick={editItem[0]}
@@ -202,6 +331,8 @@ ContentHeader.propTypes = {
   isModerator: PropTypes.bool,
   changeQuestionTypeDispatch: PropTypes.func,
   questionData: PropTypes.object,
+  isQuestion: PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
 export default React.memo(
@@ -220,5 +351,5 @@ export default React.memo(
         dispatch,
       ),
     }),
-  )(ContentHeader),
+  )(injectIntl(ContentHeader)),
 );

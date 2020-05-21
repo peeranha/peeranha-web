@@ -25,6 +25,24 @@ export default defineMessages({
   editButton: {
     id: 'app.containers.ViewQuestion.editButton',
   },
+  shareButton: {
+    id: 'app.containers.ViewQuestion.shareButton',
+  },
+  shareTitle: {
+    id: 'app.containers.ViewQuestion.shareTitle',
+  },
+  shareTwitter: {
+    id: 'app.containers.ViewQuestion.shareTwitter',
+  },
+  shareFacebook: {
+    id: 'app.containers.ViewQuestion.shareFacebook',
+  },
+  shareTelegram: {
+    id: 'app.containers.ViewQuestion.shareTelegram',
+  },
+  shareReddit: {
+    id: 'app.containers.ViewQuestion.shareReddit',
+  },
   moreComments: {
     id: 'app.containers.ViewQuestion.moreComments',
   },

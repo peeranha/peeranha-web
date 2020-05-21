@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { APP_MAIN_IMG, APP_MAIN_NAME } from 'utils/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 const Seo = ({
@@ -20,7 +21,15 @@ const Seo = ({
     <title>{`${communityName}${title} - Peeranha`}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
-    <meta property="og:description" content={description} />
+    <meta property="og:url" content={window.location.href} />
+    <meta property="og:site_name" content={APP_MAIN_NAME} />
+    <meta property="og:image" content={APP_MAIN_IMG} />
+    <meta name="twitter:title" property="og:title" content={title} />
+    <meta
+      name="twitter:description"
+      property="og:description"
+      content={description}
+    />
     <meta property="og:locale" content={language} />
     <meta httpEquiv="content-language" content={appLocales} />
     <meta property="article:section" content={description} />
