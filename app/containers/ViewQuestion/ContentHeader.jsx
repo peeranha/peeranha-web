@@ -65,6 +65,10 @@ const Box = styled.div`
   }
 `;
 
+const Div = styled.div`
+  white-space: nowrap;
+`;
+
 const ContentHeader = props => {
   const {
     userInfo,
@@ -146,19 +150,21 @@ const ContentHeader = props => {
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
-          <Button
-            show={isItWrittenByMe}
-            onClick={editItem[0]}
-            params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${
-              buttonParams.questionId
-            }-${commentId}`}
-          >
-            <img src={pencilIcon} alt="icon" />
-            <FormattedMessage {...messages.editButton} />
-          </Button>
+          <Div>
+            <Button
+              show={isItWrittenByMe}
+              onClick={editItem[0]}
+              params={{ ...buttonParams, link: editItem[1] }}
+              id={`redirect-to-edit-item-${answerId}-${
+                buttonParams.questionId
+              }-${commentId}`}
+            >
+              <img src={pencilIcon} alt="icon" />
+              <FormattedMessage {...messages.editButton} />
+            </Button>
+          </Div>
 
-          <div id={`${type}_delete_${answerId}`}>
+          <Div id={`${type}_delete_${answerId}`}>
             <AreYouSure
               submitAction={deleteItem}
               Button={({ onClick }) => (
@@ -174,7 +180,7 @@ const ContentHeader = props => {
                 </Button>
               )}
             />
-          </div>
+          </Div>
         </div>
       </ItemInfo>
     </Box>

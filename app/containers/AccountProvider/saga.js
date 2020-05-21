@@ -177,7 +177,7 @@ export function* getCurrentAccountWorker(initAccount) {
     });
 
     yield put(getUserProfileSuccess(profileInfo));
-    yield call(getCommunityPropertyWorker);
+    yield call(getCommunityPropertyWorker, profileInfo);
     yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -312,10 +312,10 @@ export function* updateAccWorker({ eos }) {
   }
 }
 
-export function* getCommunityPropertyWorker() {
+export function* getCommunityPropertyWorker(profile) {
   try {
     if (single) {
-      const profileInfo = yield select(makeSelectProfileInfo());
+      const profileInfo = profile || (yield select(makeSelectProfileInfo()));
       const eosService = yield select(selectEos);
 
       const info = yield call(
