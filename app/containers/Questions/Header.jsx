@@ -16,6 +16,7 @@ import allquestionsIcon from 'images/allquestions-header.svg?inline';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
 import createdHistory from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import QuestionFilter from './QuestionFilter';
 
 export const Header = ({
   intl,
@@ -51,16 +52,16 @@ export const Header = ({
   const singleCommId = isSingleCommunityWebsite();
 
   const displaySubscribeButton =
-    singleCommId ||
+    !!singleCommId ||
     (!isFeed && window.location.pathname !== routes.questions());
 
   return (
     <Wrapper
       single={singleCommId}
-      className="d-flex justify-content-start mb-to-sm-0 mb-from-sm-3"
+      className="d-flex mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <div className={`mr-${singleCommId ? 3 : 4}`}>
+      <div className="d-flex align-items-center">
         <CommunitySelector
           isArrowed
           Button={Button}
@@ -73,15 +74,16 @@ export const Header = ({
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
         />
+        {!!displaySubscribeButton && (
+          <div className={`right-panel m-0 ml-${singleCommId ? 3 : 4}`}>
+            <FollowCommunityButton
+              communityIdFilter={singleCommId || communityIdFilter}
+              followedCommunities={followedCommunities}
+            />
+          </div>
+        )}
       </div>
-      {displaySubscribeButton ? (
-        <div className="right-panel m-0">
-          <FollowCommunityButton
-            communityIdFilter={singleCommId || communityIdFilter}
-            followedCommunities={followedCommunities}
-          />
-        </div>
-      ) : null}
+      {!!singleCommId && <QuestionFilter />}
     </Wrapper>
   );
 };

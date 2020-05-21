@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
-
+import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
@@ -23,6 +25,10 @@ import {
 } from 'utils/communityManagement';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
 
+import topQuestionActiveIcon from 'images/starActive.svg?inline';
+import topQuestionsInactiveIcon from 'images/star.svg?inline';
+import arrowDownIcon from 'images/arrowDownCircleTwo.svg?inline';
+
 import Tags from 'components/TagsList';
 import Base from 'components/Base';
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -37,7 +43,17 @@ import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?in
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import QuestionType from 'components/Labels/QuestionType';
 import ExpertPopover from './ExpertPopover';
+import {
+  addToTopQuestions,
+  downQuestion,
+  moveQuestion,
+  removeFromTopQuestions,
+  upQuestion,
+} from './actions';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import * as questionsSelector from './selectors';
 
+const single = isSingleCommunityWebsite();
 const fonts = singleCommunityFonts();
 
 const AdditionalInfo = Base.extend`
@@ -45,7 +61,7 @@ const AdditionalInfo = Base.extend`
   justify-content: center;
   flex: 1;
   width: 120px;
-
+  padding: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -72,14 +88,46 @@ const Box = BaseNoPadding.extend`
   margin-bottom: 15px;
   flex-direction: row;
   position: relative;
+  transition: none;
+`;
 
-  @media only screen and (max-width: 575px) {
-    flex-direction: column;
+const Button = styled.button`
+  position: relative;
+  float: right;
+  top: -15px;
+  right: -25px;
+  cursor: pointer;
+
+  @media only screen and (max-width: 576px) {
+    top: -10px;
+    right: -10px;
+  }
+`;
+
+const Div = styled.div`
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  > div {
+    height: 50%;
+    display: flex;
+    align-items: center;
+
+    > button img {
+      width: 20px;
+    }
+  }
+
+  > div:nth-child(1) button img {
+    transform: rotate(180deg);
   }
 `;
 
 /* eslint camelcase: 0 */
-const QuestionItem = ({
+const QI = ({
   id,
   title,
   user,
@@ -93,15 +141,107 @@ const QuestionItem = ({
   answers,
   correct_answer_id,
   isGeneral,
+  first,
+  last,
+  index,
+  isTopQuestion,
+  profileInfo,
+  questionFilter,
+  addToTopQuestionsDispatch,
+  removeFromTopQuestionsDispatch,
+  upQuestionDispatch,
+  downQuestionDispatch,
+  pinActionProcessing,
+  moveQuestionDispatch,
 }) => {
   const [isExpertPopoverVisible, toggleExpertPopover] = useState(false);
-  const singleCommunityId = isSingleCommunityWebsite();
+  const ref = useRef(null);
+
+  const changePinType = useCallback(
+    () => {
+      if (isTopQuestion) {
+        removeFromTopQuestionsDispatch(id);
+      } else {
+        addToTopQuestionsDispatch(id);
+      }
+    },
+    [id, isTopQuestion],
+  );
+
+  const pinIcon = useMemo(
+    () => {
+      if (isTopQuestion) {
+        return topQuestionActiveIcon;
+      } else if (profileInfo && profileInfo.isAdmin) {
+        return topQuestionsInactiveIcon;
+      }
+
+      return undefined;
+    },
+    [isTopQuestion, profileInfo],
+  );
+
+  const displayPin = useMemo(() => !!profileInfo && profileInfo.isAdmin, [
+    profileInfo,
+  ]);
+
+  const displayPinMove = useMemo(
+    () => displayPin && isTopQuestion && questionFilter === 1,
+    [isTopQuestion, displayPin, questionFilter],
+  );
+
+  const upQuestionMethod = useCallback(
+    () => {
+      upQuestionDispatch(id);
+    },
+    [id],
+  );
+
+  const downQuestionMethod = useCallback(
+    () => {
+      downQuestionDispatch(id);
+    },
+    [id],
+  );
+
+  const onDragStart = useCallback(
+    e => {
+      e.dataTransfer.setData('id', id);
+    },
+    [index, id],
+  );
+
+  const onDrop = useCallback(
+    e => {
+      const data = e.dataTransfer.getData('id');
+
+      if (data !== id) {
+        moveQuestionDispatch(data, index);
+      }
+
+      e.dataTransfer.clearData();
+      e.preventDefault();
+    },
+    [index, id],
+  );
+
+  const onDragOver = useCallback(e => {
+    e.preventDefault();
+  }, []);
 
   return (
-    <Box bordered={!isGeneral}>
+    <Box
+      innerRef={ref}
+      bordered={!isGeneral}
+      index={index}
+      draggable={profileInfo && profileInfo.isAdmin && questionFilter === 1}
+      onDrop={onDrop}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+    >
       <div className="d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0">
         <AdditionalInfo isAccepted={correct_answer_id}>
-          <span className="d-flex align-items-center">
+          <span className="d-flex align-items-center justify-content-center">
             <img
               className="mr-2"
               src={correct_answer_id ? bestAnswerIcon : answerIconEmptyInside}
@@ -117,7 +257,7 @@ const QuestionItem = ({
         </AdditionalInfo>
 
         <AdditionalInfo>
-          <span className="d-flex align-items-center">
+          <span className="d-flex align-items-center justify-content-center">
             <img
               className="mr-2"
               src={
@@ -133,8 +273,42 @@ const QuestionItem = ({
           </span>
         </AdditionalInfo>
       </div>
+      {displayPinMove && (
+        <Div first={first} last={last}>
+          <div className="">
+            {!first && (
+              <button disabled={pinActionProcessing} onClick={upQuestionMethod}>
+                <img src={arrowDownIcon} alt="up" />
+              </button>
+            )}
+          </div>
+          <div className="">
+            {!last && (
+              <button
+                disabled={pinActionProcessing}
+                onClick={downQuestionMethod}
+              >
+                <img src={arrowDownIcon} alt="down" />
+              </button>
+            )}
+          </div>
+        </Div>
+      )}
+      <Base
+        className={displayPinMove ? 'pl-0' : ''}
+        bottomRightRadius
+        topRightRadius
+      >
+        {!!pinIcon && (
+          <Button
+            className="ml-2"
+            onClick={changePinType}
+            disabled={pinActionProcessing}
+          >
+            <img src={pinIcon} width="20" alt="top" />
+          </Button>
+        )}
 
-      <Base bottomRightRadius topRightRadius>
         {!isGeneral && (
           <QuestionType
             onMouseEnter={() => toggleExpertPopover(true)}
@@ -145,6 +319,7 @@ const QuestionItem = ({
             <FormattedMessage {...commonMessages.expert} />
           </QuestionType>
         )}
+
         <p className="mb-1">
           <A to={routes.questionView(id, null)}>
             <Span
@@ -185,7 +360,7 @@ const QuestionItem = ({
             communityId={community_id}
             communities={communities}
           >
-            {!singleCommunityId ? (
+            {!single ? (
               <QuestionCommunity
                 className="my-1"
                 communities={communities}
@@ -199,11 +374,34 @@ const QuestionItem = ({
   );
 };
 
+const QuestionItem = connect(
+  state => ({
+    profileInfo: makeSelectProfileInfo()(state),
+    questionFilter: questionsSelector.selectQuestionFilter()(state),
+    pinActionProcessing: questionsSelector.selectTopQuestionActionProcessing()(
+      state,
+    ),
+  }),
+  dispatch => ({
+    addToTopQuestionsDispatch: bindActionCreators(addToTopQuestions, dispatch),
+    removeFromTopQuestionsDispatch: bindActionCreators(
+      removeFromTopQuestions,
+      dispatch,
+    ),
+    upQuestionDispatch: bindActionCreators(upQuestion, dispatch),
+    downQuestionDispatch: bindActionCreators(downQuestion, dispatch),
+    moveQuestionDispatch: bindActionCreators(moveQuestion, dispatch),
+  }),
+)(QI);
+
 export const Content = ({ questionsList, locale, communities }) => (
-  <div>
-    {questionsList.map(item => (
+  <div className="position-relative">
+    {questionsList.map((item, index) => (
       <QuestionItem
         {...item}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
         locale={locale}
         communities={communities}
         key={item.id}
@@ -212,7 +410,7 @@ export const Content = ({ questionsList, locale, communities }) => (
   </div>
 );
 
-QuestionItem.propTypes = {
+QI.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   user: PropTypes.string,
@@ -226,6 +424,18 @@ QuestionItem.propTypes = {
   answers: PropTypes.array,
   correct_answer_id: PropTypes.number,
   isGeneral: PropTypes.bool,
+  first: PropTypes.bool,
+  last: PropTypes.bool,
+  index: PropTypes.number,
+  isTopQuestion: PropTypes.bool,
+  addToTopQuestionsDispatch: PropTypes.func,
+  removeFromTopQuestionsDispatch: PropTypes.func,
+  profileInfo: PropTypes.object,
+  questionFilter: PropTypes.number,
+  upQuestionDispatch: PropTypes.func,
+  downQuestionDispatch: PropTypes.func,
+  pinActionProcessing: PropTypes.bool,
+  moveQuestionDispatch: PropTypes.bool,
 };
 
 Content.propTypes = {

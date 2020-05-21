@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -42,7 +42,12 @@ import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
-import { getQuestions, setTypeFilter, setCreatedFilter } from './actions';
+import {
+  getQuestions,
+  setTypeFilter,
+  setCreatedFilter,
+  loadTopCommunityQuestions,
+} from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -77,61 +82,82 @@ export const Questions = ({
   initLoadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
+  topQuestionsLoaded,
+  questionFilter,
+  loadTopQuestionsDispatch,
 }) => {
-  let fetcher = null;
+  const [fetcher, setFetcher] = useState(null);
 
-  const initFetcher = () => {
-    const MARGIN = 1.2;
+  const initFetcher = useCallback(
+    () => {
+      const MARGIN = 1.2;
 
-    fetcher = new FetcherOfQuestionsForFollowedCommunities(
-      Math.floor(MARGIN * initLoadedItems),
-      followedCommunities || [],
-      eosService,
-    );
-  };
+      setFetcher(
+        new FetcherOfQuestionsForFollowedCommunities(
+          Math.floor(MARGIN * initLoadedItems),
+          followedCommunities || [],
+          eosService,
+        ),
+      );
+    },
+    [initLoadedItems, followedCommunities, eosService],
+  );
 
-  const getInitQuestions = () => {
-    const offset = 0;
+  const getInitQuestions = useCallback(
+    () => {
+      const offset = 0;
 
-    initFetcher();
-
-    getQuestionsDispatch(
-      initLoadedItems,
-      offset,
-      Number(params.communityid) || 0,
-      parentPage,
-      fetcher,
-    );
-  };
-
-  const getNextQuestions = () => {
-    const lastItem = questionsList[questionsList.length - 1];
-    const offset = lastItem ? +lastItem.id + 1 : 0;
-    const next = true;
-
-    if (parentPage !== feed) {
       initFetcher();
-    }
 
-    getQuestionsDispatch(
+      getQuestionsDispatch(
+        initLoadedItems,
+        offset,
+        Number(params.communityid) || 0,
+        parentPage,
+        fetcher,
+      );
+    },
+    [initLoadedItems, params.communityid, parentPage, fetcher],
+  );
+
+  const getNextQuestions = useCallback(
+    () => {
+      const lastItem = questionsList[questionsList.length - 1];
+      const offset = lastItem ? +lastItem.id + 1 : 0;
+      const next = true;
+
+      if (parentPage !== feed) {
+        initFetcher();
+      }
+
+      getQuestionsDispatch(
+        nextLoadedItems,
+        offset,
+        Number(params.communityid) || 0,
+        parentPage,
+        fetcher,
+        next,
+      );
+    },
+    [
+      questionsList,
+      questionsList.length,
       nextLoadedItems,
-      offset,
-      Number(params.communityid) || 0,
+      params.communityid,
       parentPage,
       fetcher,
-      next,
-    );
-  };
+    ],
+  );
 
   useEffect(
     () => {
-      fetcher = null;
+      setFetcher(null);
 
       return () => {
-        fetcher = null;
+        setFetcher(null);
       };
     },
-    [params.communityid],
+    [params.communityid, questionFilter],
   );
 
   useEffect(
@@ -159,9 +185,20 @@ export const Questions = ({
     [typeFilter, createdFilter],
   );
 
+  useEffect(() => {
+    if (single) {
+      loadTopQuestionsDispatch();
+    }
+  }, []);
+
   const display = !(single && path === routes.questions(':communityid'));
   const displayBanner =
     !questionsList.length && !questionsLoading && !communitiesLoading;
+
+  const lastFetched = useMemo(
+    () => (!questionFilter ? isLastFetch : topQuestionsLoaded),
+    [isLastFetch, topQuestionsLoaded, questionFilter],
+  );
 
   return display ? (
     <div>
@@ -192,7 +229,7 @@ export const Questions = ({
         <InfinityLoader
           loadNextPaginatedData={getNextQuestions}
           isLoading={questionsLoading}
-          isLastFetch={isLastFetch}
+          isLastFetch={lastFetched}
         >
           <Content
             questionsList={questionsList}
@@ -240,6 +277,9 @@ Questions.propTypes = {
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
+  topQuestionsLoaded: PropTypes.bool,
+  questionFilter: PropTypes.number,
+  loadTopQuestionsDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -257,6 +297,8 @@ const withConnect = connect(
     typeFilter: questionsSelector.selectTypeFilter(),
     createdFilter: questionsSelector.selectCreatedFilter(),
     isLastFetch: questionsSelector.selectIsLastFetch(),
+    topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
+    questionFilter: questionsSelector.selectQuestionFilter(),
     questionsList: (state, props) =>
       questionsSelector.selectQuestions(
         props.parentPage,
@@ -270,6 +312,10 @@ const withConnect = connect(
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,
+      dispatch,
+    ),
+    loadTopQuestionsDispatch: bindActionCreators(
+      loadTopCommunityQuestions,
       dispatch,
     ),
   }),

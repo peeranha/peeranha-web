@@ -3,15 +3,19 @@ import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
 import _get from 'lodash/get';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
 } from 'utils/walletManagement';
 import {
   MODERATOR_KEY,
+  COMMUNITY_ADMIN_KEY,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
   REWARD_REFER,
+  ALL_PROPERTY_COMMUNITY_TABLE,
+  ALL_PROPERTY_COMMUNITY_SCOPE,
 } from 'utils/constants';
 import commonMessages from 'common-messages';
 
@@ -82,6 +86,8 @@ import {
 import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+
 import {
   getCurrentAccountSuccess,
   getCurrentAccountError,
@@ -104,7 +110,8 @@ import {
 import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
+
+const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -170,6 +177,7 @@ export function* getCurrentAccountWorker(initAccount) {
     });
 
     yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCommunityPropertyWorker);
     yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -302,6 +310,34 @@ export function* updateAccWorker({ eos }) {
   } catch (err) {
     yield put(updateAccErr(err));
   }
+}
+
+export function* getCommunityPropertyWorker() {
+  try {
+    if (single) {
+      const profileInfo = yield select(makeSelectProfileInfo());
+      const eosService = yield select(selectEos);
+
+      const info = yield call(
+        eosService.getTableRow,
+        ALL_PROPERTY_COMMUNITY_TABLE,
+        ALL_PROPERTY_COMMUNITY_SCOPE,
+        profileInfo.user,
+      );
+
+      if (info) {
+        const { properties } = info;
+        const isAdmin = properties.find(
+          ({ value }) => value === COMMUNITY_ADMIN_KEY,
+        );
+
+        if (isAdmin) {
+          yield put(getUserProfileSuccess({ ...profileInfo, isAdmin: true }));
+        }
+      }
+    }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
 }
 
 export default function* defaultSaga() {

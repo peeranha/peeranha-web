@@ -139,10 +139,10 @@ export const getQuestionTypeValue = isGeneral =>
   isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
 
 export function* getQuestionData({
-  eosService,
   questionId,
   user,
 }) /* istanbul ignore next */ {
+  const eosService = yield select(selectEos);
   let question = yield select(selectQuestions(null, null, questionId));
 
   if (!question) {
@@ -415,11 +415,10 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
 
 export function* getQuestionDataWorker({ questionId }) {
   try {
-    const { eosService, account } = yield call(getParams);
+    const { account } = yield call(getParams);
     const single = isSingleCommunityWebsite();
 
     const questionData = yield call(getQuestionData, {
-      eosService,
       questionId,
       user: account,
     });
