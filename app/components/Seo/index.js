@@ -24,12 +24,8 @@ const Seo = ({
     <meta property="og:url" content={window.location.href} />
     <meta property="og:site_name" content={APP_MAIN_NAME} />
     <meta property="og:image" content={APP_MAIN_IMG} />
-    <meta name="twitter:title" property="og:title" content={title} />
-    <meta
-      name="twitter:description"
-      property="og:description"
-      content={description}
-    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:locale" content={language} />
     <meta httpEquiv="content-language" content={appLocales} />
     <meta property="article:section" content={description} />

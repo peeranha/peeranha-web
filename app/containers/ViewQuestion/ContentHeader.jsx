@@ -5,10 +5,17 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import {
+  FacebookShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+} from 'react-share';
+
+import {
   BORDER_SECONDARY,
-  secondarySpecial,
-  black,
-  white,
+  SECONDARY_SPECIAL,
+  BG_BLACK,
+  BG_LIGHT,
 } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
@@ -21,17 +28,10 @@ import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?inlin
 import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?inline';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import {
-  getTwitterShareLink,
-  getFacebookShareLink,
-  getTelegramShareLink,
-  getRedditShareLink,
-} from 'utils/url';
 import { MODERATOR_KEY, APP_TWITTER_NICKNAME } from 'utils/constants';
 
 import Icon from 'components/Icon';
 import Input from 'components/Input';
-import SocialMediaShareLink from 'components/SocialMediaShareLink';
 
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
@@ -97,14 +97,14 @@ const DropdownModal = styled.div`
   padding-bottom: 10px;
   width: 300px;
 
-  background-color: ${white};
+  background-color: ${BG_LIGHT};
   border-radius: 3px;
-  box-shadow: 0 2px 4px 0 ${secondarySpecial};
+  box-shadow: 0 2px 4px 0 ${SECONDARY_SPECIAL};
 
   p {
     margin-bottom: 10px;
 
-    color: ${black};
+    color: ${BG_BLACK};
   }
 
   input {
@@ -116,7 +116,7 @@ const DropdownModalFooter = styled.footer`
   display: flex;
   padding-top: 15px;
 
-  a {
+  button {
     margin-right: 15px;
   }
 `;
@@ -230,45 +230,48 @@ const ContentHeader = props => {
                     type="text"
                   />
                   <DropdownModalFooter>
-                    <SocialMediaShareLink
-                      link={getTwitterShareLink(
-                        window.location.href,
-                        questionData.content.title,
-                        APP_TWITTER_NICKNAME,
-                      )}
-                      icon={twitter}
-                      altText={intl.formatMessage({
-                        id: messages.shareTwitter.id,
-                      })}
-                    />
-                    <SocialMediaShareLink
-                      link={getFacebookShareLink(window.location.href)}
-                      icon={facebook}
-                      altText={intl.formatMessage({
-                        id: messages.shareFacebook.id,
-                      })}
-                    />
-                    <SocialMediaShareLink
-                      link={getTelegramShareLink(
-                        window.location.href,
-                        questionData.content.title,
-                      )}
-                      icon={telegram}
-                      altText={intl.formatMessage({
-                        id: messages.shareTelegram.id,
-                      })}
-                    />
-                    <SocialMediaShareLink
-                      link={getRedditShareLink(
-                        window.location.href,
-                        questionData.content.title,
-                        questionData.content.content,
-                      )}
-                      icon={reddit}
-                      altText={intl.formatMessage({
-                        id: messages.shareReddit.id,
-                      })}
-                    />
+                    <FacebookShareButton url={window.location.href}>
+                      <img
+                        src={facebook}
+                        alt={intl.formatMessage({
+                          id: messages.shareFacebook.id,
+                        })}
+                      />
+                    </FacebookShareButton>
+                    <RedditShareButton
+                      url={window.location.href}
+                      title={questionData.content.title}
+                    >
+                      <img
+                        src={reddit}
+                        alt={intl.formatMessage({
+                          id: messages.shareReddit.id,
+                        })}
+                      />
+                    </RedditShareButton>
+                    <TelegramShareButton
+                      url={window.location.href}
+                      title={questionData.content.title}
+                    >
+                      <img
+                        src={telegram}
+                        alt={intl.formatMessage({
+                          id: messages.shareTelegram.id,
+                        })}
+                      />
+                    </TelegramShareButton>
+                    <TwitterShareButton
+                      url={window.location.href}
+                      title={questionData.content.title}
+                      via={APP_TWITTER_NICKNAME}
+                    >
+                      <img
+                        src={twitter}
+                        alt={intl.formatMessage({
+                          id: messages.shareTwitter.id,
+                        })}
+                      />
+                    </TwitterShareButton>
                   </DropdownModalFooter>
                 </DropdownModal>
               )}

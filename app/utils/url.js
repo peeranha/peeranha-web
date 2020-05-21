@@ -24,27 +24,3 @@ export const getValueFromSearchString = (search, key) => {
     return parseSearchString(search).find(x => x.key === key).value;
   } catch (err) {}
 };
-
-export const getTwitterShareLink = (url, text, via) => {
-  try {
-    return `https://twitter.com/share?url=${url}&text=${text}&via=${via}`;
-  } catch (err) {}
-};
-
-export const getFacebookShareLink = url => {
-  try {
-    return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  } catch (err) {}
-};
-
-export const getTelegramShareLink = (url, text) => {
-  try {
-    return `https://t.me/share/url?url=${url}&text=${text}`;
-  } catch (err) {}
-};
-
-export const getRedditShareLink = (url, title, text) => {
-  try {
-    return `http://www.reddit.com/submit?url=${url}&title=${title}&text=${text}`;
-  } catch (err) {}
-};
