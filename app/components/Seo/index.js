@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { APP_MAIN_IMG, APP_MAIN_NAME } from 'utils/constants';
+import { APP_MAIN_NAME } from 'utils/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 const Seo = ({
@@ -23,7 +23,6 @@ const Seo = ({
     {keywords && <meta name="keywords" content={keywords} />}
     <meta property="og:url" content={window.location.href} />
     <meta property="og:site_name" content={APP_MAIN_NAME} />
-    <meta property="og:image" content={APP_MAIN_IMG} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content={language} />

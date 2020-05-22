@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import {
-  FacebookShareButton,
   RedditShareButton,
   TelegramShareButton,
   TwitterShareButton,
@@ -23,7 +22,6 @@ import shareIcon from 'images/shareIcon.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?external';
 import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?inline';
-import facebook from 'images/social-media-logos/logo-facebook-glyph-24.svg?inline';
 import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
 import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?inline';
 
@@ -230,36 +228,6 @@ const ContentHeader = props => {
                     type="text"
                   />
                   <DropdownModalFooter>
-                    <FacebookShareButton url={window.location.href}>
-                      <img
-                        src={facebook}
-                        alt={intl.formatMessage({
-                          id: messages.shareFacebook.id,
-                        })}
-                      />
-                    </FacebookShareButton>
-                    <RedditShareButton
-                      url={window.location.href}
-                      title={questionData.content.title}
-                    >
-                      <img
-                        src={reddit}
-                        alt={intl.formatMessage({
-                          id: messages.shareReddit.id,
-                        })}
-                      />
-                    </RedditShareButton>
-                    <TelegramShareButton
-                      url={window.location.href}
-                      title={questionData.content.title}
-                    >
-                      <img
-                        src={telegram}
-                        alt={intl.formatMessage({
-                          id: messages.shareTelegram.id,
-                        })}
-                      />
-                    </TelegramShareButton>
                     <TwitterShareButton
                       url={window.location.href}
                       title={questionData.content.title}
@@ -272,6 +240,28 @@ const ContentHeader = props => {
                         })}
                       />
                     </TwitterShareButton>
+                    <TelegramShareButton
+                      url={window.location.href}
+                      title={questionData.content.title}
+                    >
+                      <img
+                        src={telegram}
+                        alt={intl.formatMessage({
+                          id: messages.shareTelegram.id,
+                        })}
+                      />
+                    </TelegramShareButton>
+                    <RedditShareButton
+                      url={window.location.href}
+                      title={questionData.content.title}
+                    >
+                      <img
+                        src={reddit}
+                        alt={intl.formatMessage({
+                          id: messages.shareReddit.id,
+                        })}
+                      />
+                    </RedditShareButton>
                   </DropdownModalFooter>
                 </DropdownModal>
               )}

@@ -34,9 +34,6 @@ export default defineMessages({
   shareTwitter: {
     id: 'app.containers.ViewQuestion.shareTwitter',
   },
-  shareFacebook: {
-    id: 'app.containers.ViewQuestion.shareFacebook',
-  },
   shareTelegram: {
     id: 'app.containers.ViewQuestion.shareTelegram',
   },

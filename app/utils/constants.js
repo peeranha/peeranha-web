@@ -120,5 +120,4 @@ export const APP_CURRENCY = 'PEER';
 
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
-export const APP_MAIN_IMG = '/peeranha-logo.png';
 export const APP_MAIN_NAME = 'Peeranha';

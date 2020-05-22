@@ -548,7 +548,6 @@
   "app.containers.ViewQuestion.shareButton": "Поделиться",
   "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот вопрос",
   "app.containers.ViewQuestion.shareTwitter": "Поделиться в Twitter",
-  "app.containers.ViewQuestion.shareFacebook": "Поделиться в Facebook",
   "app.containers.ViewQuestion.shareTelegram": "Поделиться в Telegram",
   "app.containers.ViewQuestion.shareReddit": "Поделиться в Reddit",
   "app.containers.ViewQuestion.saveButton": "Сохранить",
