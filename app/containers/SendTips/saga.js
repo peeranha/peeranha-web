@@ -1,14 +1,22 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import { getFormValues } from 'redux-form/lib/immutable';
+
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
+import _omit from 'lodash/omit';
 
 import { WALLETS } from 'wallet-config';
 import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
+import { SEND_TIPS_SCATTER_APP_NAME } from 'utils/constants';
+import { getCookie, setCookie } from 'utils/cookie';
+import {
+  callService,
+  NOTIFICATIONS_TIPS_SERVICE,
+} from 'utils/web_integration/src/util/aws-connector';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -39,12 +47,16 @@ import {
 import messages from '../Login/messages';
 import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
 import { selectTipsEosService } from './selectors';
-import { SEND_TIPS_SCATTER_APP_NAME } from '../../utils/constants';
 import { selectEos } from '../EosioProvider/selectors';
 import { formName } from './SendTipsForm';
-import { getCookie, setCookie } from '../../utils/cookie';
 
-export function* sendTipsWorker({ resetForm, val }) {
+export function* sendTipsWorker({
+  resetForm,
+  val,
+  communityId,
+  questionId,
+  answerId,
+}) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -84,7 +96,7 @@ export function* sendTipsWorker({ resetForm, val }) {
       yield call(eosService.initEosioWithScatter, SEND_TIPS_SCATTER_APP_NAME);
     }
 
-    yield call(sendTokens, eosService, {
+    const { response, data } = yield call(sendTokens, eosService, {
       from: val[EOS_SEND_FROM_ACCOUNT_FIELD],
       to: val[EOS_SEND_TO_ACCOUNT_FIELD],
       quantity: val[AMOUNT_FIELD],
@@ -92,6 +104,20 @@ export function* sendTipsWorker({ resetForm, val }) {
       symbol: val[CURRENCY_FIELD].symbol,
       contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
+
+    yield call(
+      callService,
+      NOTIFICATIONS_TIPS_SERVICE,
+      {
+        ..._omit(data, 'memo'),
+        communityId,
+        questionId,
+        answerId,
+        transactionId: response.transaction_id,
+        block: response.processed.block_num,
+      },
+      true,
+    );
 
     // update preselect tips values
     const tipsPreselect = {

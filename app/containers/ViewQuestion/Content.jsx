@@ -20,14 +20,10 @@ export const Content = props => (
     <ContentHeader {...props} />
     <QuestionTitle
       title={props.title}
-      tags={props.questionData.tags}
-      communityId={props.questionData.community_id}
       communities={props.communities}
       isItWrittenByMe={props.isItWrittenByMe}
-      correctAnswerId={props.questionData.correct_answer_id}
-      answersNumber={props.questionData.answers.length}
-      isGeneral={props.questionData.isGeneral}
       user={props.userInfo.user}
+      questionData={props.questionData}
     />
     <ContentBody {...props} />
   </BaseStyled>
