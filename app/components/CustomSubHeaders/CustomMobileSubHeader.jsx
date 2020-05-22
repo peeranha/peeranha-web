@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import TelosLogo from 'images/communities-logos/telos-logo-dark_TM.png';
 
 import Arrow from '../Arrow';
-import { Links } from './TelosSubHeader';
+import { Links } from './CustomSubHeader';
 
 const Div = styled.div`
   display: flex;
@@ -37,9 +37,11 @@ const Div = styled.div`
   }
 `;
 
-const TelosMobileSubHeader = () => {
+const CustomMobileSubHeader = ({ config }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
+  const { links } = config;
+
   return (
     <Div visible={visible}>
       <button className="d-flex justify-content-between" onClick={setVis}>
@@ -52,9 +54,9 @@ const TelosMobileSubHeader = () => {
         />
         <Arrow className="mt-auto mb-auto" color="white" rotate={visible} />
       </button>
-      {visible && <Links />}
+      {visible && <Links links={links} />}
     </Div>
   );
 };
 
-export default TelosMobileSubHeader;
+export default CustomMobileSubHeader;
