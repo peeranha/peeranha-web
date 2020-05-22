@@ -10,13 +10,13 @@ import {
 } from 'utils/walletManagement';
 import {
   MODERATOR_KEY,
-  COMMUNITY_ADMIN_KEY,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
   REWARD_REFER,
   ALL_PROPERTY_COMMUNITY_TABLE,
   ALL_PROPERTY_COMMUNITY_SCOPE,
 } from 'utils/constants';
+import { isUserAdmin } from 'utils/userProperties';
 import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -326,10 +326,7 @@ export function* getCommunityPropertyWorker(profile) {
       );
 
       if (info) {
-        const { properties } = info;
-        const isAdmin = properties.find(
-          ({ value }) => value === COMMUNITY_ADMIN_KEY,
-        );
+        const isAdmin = isUserAdmin(info.properties);
 
         if (isAdmin) {
           yield put(getUserProfileSuccess({ ...profileInfo, isAdmin: true }));
