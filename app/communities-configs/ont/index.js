@@ -26,6 +26,9 @@ export const CustomSubHeaderConfig = {
     header: {
       background: '#121212',
     },
+    subitems: {
+      background: '#121212',
+    },
   },
   links: [
     {
@@ -34,28 +37,90 @@ export const CustomSubHeaderConfig = {
     },
     {
       text: 'Developer',
-      href: 'https://developer.ont.io/',
+      subitems: [
+        {
+          text: 'Developer Center',
+          href: 'https://developer.ont.io/',
+        },
+        {
+          text: 'Bounty Program',
+          href: 'https://bounty.ont.io/',
+        },
+      ],
     },
     {
       text: 'dApps',
-      href: 'https://oodapp.io/',
+      subitems: [
+        {
+          text: 'dApp List',
+          href: 'https://oodapp.io/',
+        },
+        {
+          text: 'Submit a dApp',
+          href: 'https://submit.oodapp.io/',
+        },
+      ],
     },
     {
       text: 'Wallets',
-      href: 'hhttps://onto.app/',
+      subitems: [
+        {
+          text: 'ONTO',
+          href: 'https://onto.app/',
+        },
+        {
+          text: 'OWallet',
+          href: 'https://github.com/ontio/owallet',
+        },
+      ],
     },
     {
       text: 'Trust Ecosystem',
-      href: 'https://ontid.ont.io/',
+      subitems: [
+        {
+          text: 'ONT ID',
+          href: 'https://ontid.ont.io/',
+        },
+        {
+          text: 'Node',
+          href: 'https://node.ont.io/',
+        },
+        {
+          text: 'PAX',
+          href: 'https://pax.ont.io/',
+        },
+      ],
     },
 
     {
       text: 'Global Workshop',
-      href: 'https://ont.io/global_uni_workshop',
+      subitems: [
+        {
+          text: 'University Workshop',
+          href: 'https://ont.io/global_uni_workshop',
+        },
+        {
+          text: 'Course',
+          href: 'https://ont.io/global_uni_workshop/course',
+        },
+      ],
     },
     {
       text: 'About',
-      href: 'https://ont.io/aboutus',
+      subitems: [
+        {
+          text: 'About us',
+          href: 'https://ont.io/aboutus',
+        },
+        {
+          text: 'News',
+          href: 'https://medium.com/ontologynetwork',
+        },
+        {
+          text: 'Contact us',
+          href: 'https://ont.io/contactUs',
+        },
+      ],
     },
     {
       text: 'Consultation',
@@ -71,7 +136,9 @@ export const OntStyles = {
   withoutAdditionalLinks: true,
   coinsIcon: coinsBlueIcon,
   leftMenuLogo: OntLogo,
-  mobileSubHeader: <CustomMobileSubHeader config={CustomSubHeaderConfig} />,
+  mobileSubHeader: (
+    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={OntLogo} />
+  ),
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,
   fonts: {

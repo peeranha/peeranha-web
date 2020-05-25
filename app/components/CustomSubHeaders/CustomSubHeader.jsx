@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   position: relative;
-  padding: 6px 0;
   background: ${props => props.styles.background || `rgb(${'80, 101, 165'})`};
 
   > div > div {
@@ -29,7 +28,7 @@ const Div = styled.div`
 `;
 
 const Link = styled.a`
-  margin: 6px 0;
+  padding: 12px 0;
   margin-left: 14px;
 
   color: #fff;
@@ -46,6 +45,66 @@ const Link = styled.a`
   }
 `;
 
+const SubitemsWrapper = styled.div`
+  position: relative;
+
+  padding: 12px 0;
+  margin-left: 14px;
+
+  :hover {
+    > div {
+      display: flex;
+    }
+  }
+`;
+
+const SubitemsTitle = styled.span`
+  color: #fff;
+
+  cursor: pointer;
+
+  :hover {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  transition: color 170ms ease-in-out;
+
+  @media only screen and (max-width: 576px) {
+    padding: 0 !important;
+  }
+`;
+
+const Subitems = styled.div`
+  position: absolute;
+  top: 100%;
+  right: -14px;
+  z-index: 99;
+
+  display: none;
+  width: 200px;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+
+  background: ${props => props.styles.background || `rgb(${'80, 101, 165'})`};
+
+  @media only screen and (max-width: 576px) {
+    position: relative;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0;
+    margin: 6px 14px;
+  }
+`;
+
 export const A = ({ href, text }) => (
   <Link href={href} target="_blank">
     {text}
@@ -57,14 +116,40 @@ A.propTypes = {
   text: PropTypes.string,
 };
 
-export const Links = ({ links }) => (
+export const B = ({ text, subitems, styles }) => (
+  <SubitemsWrapper>
+    <SubitemsTitle>{text}</SubitemsTitle>
+    <Subitems styles={styles}>
+      {subitems.map(({ text, href }) => (
+        <Link href={href} target="_blank">
+          {text}
+        </Link>
+      ))}
+    </Subitems>
+  </SubitemsWrapper>
+);
+
+B.propTypes = {
+  text: PropTypes.string.isRequired,
+  subitems: PropTypes.array.isRequired,
+};
+
+export const Links = ({ links, styles }) => (
   <div>
-    {links.map(({ text, href }) => <A text={text} href={href} key={href} />)}
+    {links.map(
+      ({ text, href, subitems }) =>
+        href ? (
+          <A text={text} href={href} key={href} />
+        ) : (
+          <B text={text} subitems={subitems} key={href} styles={styles} />
+        ),
+    )}
   </div>
 );
 
 Links.propTypes = {
   links: PropTypes.array.isRequired,
+  styles: PropTypes.object,
 };
 
 const CustomSubHeader = ({ config }) => {
@@ -73,7 +158,7 @@ const CustomSubHeader = ({ config }) => {
   return (
     <Div styles={styles.header}>
       <div className="container h-100">
-        <Links links={links} />
+        <Links links={links} styles={styles.subitems} />
       </div>
     </Div>
   );

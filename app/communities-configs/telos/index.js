@@ -58,7 +58,9 @@ export const TelosStyles = {
   withoutAdditionalLinks: true,
   coinsIcon: coinsBlueIcon,
   leftMenuLogo: TelosLogo,
-  mobileSubHeader: <CustomMobileSubHeader config={CustomSubHeaderConfig} />,
+  mobileSubHeader: (
+    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={TelosLogo} />
+  ),
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,
   fonts: {

@@ -12,8 +12,8 @@ const Div = styled.div`
   position: relative;
   padding: 2px 0 2px 5px;
   width: 100%;
-  height: ${({ visible }) => (visible ? 260 : 70)}px;
-  background: #041238;
+  height: ${({ visible }) => (visible ? 'auto' : '70px')};
+  background: ${props => props.styles.background || `rgb(${'80, 101, 165'})`};
 
   * {
     padding: 10px 0 10px 15px;
@@ -37,24 +37,18 @@ const Div = styled.div`
   }
 `;
 
-const CustomMobileSubHeader = ({ config }) => {
+const CustomMobileSubHeader = ({ config, logo }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
-  const { links } = config;
+  const { styles, links } = config;
 
   return (
-    <Div visible={visible}>
+    <Div visible={visible} styles={styles.header}>
       <button className="d-flex justify-content-between" onClick={setVis}>
-        <img
-          className="align-self-start"
-          id="telos-logo"
-          width="100px"
-          src={TelosLogo}
-          alt="telos"
-        />
+        <img className="align-self-start" width="100px" src={logo} alt="" />
         <Arrow className="mt-auto mb-auto" color="white" rotate={visible} />
       </button>
-      {visible && <Links links={links} />}
+      {visible && <Links links={links} styles={styles.subitems} />}
     </Div>
   );
 };
