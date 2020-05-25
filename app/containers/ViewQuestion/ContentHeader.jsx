@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import { BORDER_SECONDARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
+import shareIcon from 'images/shareIcon.svg?inline';
 import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?external';
 
@@ -19,6 +21,7 @@ import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
 import AreYouSure from './AreYouSure';
+import SharingModal from './SharingModal';
 
 import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -65,8 +68,8 @@ const Box = styled.div`
   }
 `;
 
-const Div = styled.div`
-  white-space: nowrap;
+const DropdownBox = styled.div`
+  position: relative;
 `;
 
 const ContentHeader = props => {
@@ -86,11 +89,15 @@ const ContentHeader = props => {
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
+    questionData,
   } = props;
+
   const changeQuestionTypeWithRatingRestore = event =>
     changeQuestionTypeDispatch(true, event);
   const changeQuestionTypeWithoutRatingRestore = event =>
     changeQuestionTypeDispatch(false, event);
+
+  const [isSharingModalHidden, changeSharingModalView] = useState(true);
 
   return (
     <Box>
@@ -150,21 +157,33 @@ const ContentHeader = props => {
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
-          <Div>
-            <Button
-              show={isItWrittenByMe}
-              onClick={editItem[0]}
-              params={{ ...buttonParams, link: editItem[1] }}
-              id={`redirect-to-edit-item-${answerId}-${
-                buttonParams.questionId
-              }-${commentId}`}
-            >
-              <img src={pencilIcon} alt="icon" />
-              <FormattedMessage {...messages.editButton} />
-            </Button>
-          </Div>
+          {questionData.user === userInfo.user && (
+            <DropdownBox>
+              <Button
+                show={questionData.user === userInfo.user}
+                onClick={() => changeSharingModalView(!isSharingModalHidden)}
+              >
+                <img src={shareIcon} alt="icon" />
+                <FormattedMessage {...messages.shareButton} />
+              </Button>
 
-          <Div id={`${type}_delete_${answerId}`}>
+              {!isSharingModalHidden && <SharingModal questionData={questionData} />}
+            </DropdownBox>
+          )}
+
+          <Button
+            show={isItWrittenByMe}
+            onClick={editItem[0]}
+            params={{ ...buttonParams, link: editItem[1] }}
+            id={`redirect-to-edit-item-${answerId}-${
+              buttonParams.questionId
+            }-${commentId}`}
+          >
+            <img src={pencilIcon} alt="icon" />
+            <FormattedMessage {...messages.editButton} />
+          </Button>
+
+          <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
               submitAction={deleteItem}
               Button={({ onClick }) => (
@@ -180,7 +199,7 @@ const ContentHeader = props => {
                 </Button>
               )}
             />
-          </Div>
+          </div>
         </div>
       </ItemInfo>
     </Box>
@@ -208,6 +227,7 @@ ContentHeader.propTypes = {
   isModerator: PropTypes.bool,
   changeQuestionTypeDispatch: PropTypes.func,
   questionData: PropTypes.object,
+  isQuestion: PropTypes.bool,
 };
 
 export default React.memo(

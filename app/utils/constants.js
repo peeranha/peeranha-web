@@ -129,3 +129,7 @@ export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
 
 // Currency
 export const APP_CURRENCY = 'PEER';
+
+// Social Media Data
+export const APP_TWITTER_NICKNAME = 'peeranhaio';
+export const APP_MAIN_NAME = 'Peeranha';
