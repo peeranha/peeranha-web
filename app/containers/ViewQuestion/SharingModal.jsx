@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
@@ -7,6 +7,7 @@ import {
   TelegramShareButton,
   TwitterShareButton,
 } from 'react-share';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT } from 'style-constants';
 
@@ -47,18 +48,25 @@ const DropdownModal = styled.div`
 
 const DropdownModalFooter = styled.footer`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 15px;
 
   button {
     margin-right: 15px;
   }
+
+  .copy-btn {
+    color: #576fed;
+
+    cursor: pointer;
+  }
 `;
 
 const SharingModal = props => {
-  const {
-    questionData,
-    intl,
-  } = props;
+  const { questionData, intl } = props;
+
+  const [isNotLinkCopied, changeStatusCopyLink] = useState(true);
 
   return (
     <DropdownModal>
@@ -69,40 +77,48 @@ const SharingModal = props => {
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />
       <DropdownModalFooter>
-        <TwitterShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-          via={APP_TWITTER_NICKNAME}
+        <div>
+          <TwitterShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+            via={APP_TWITTER_NICKNAME}
+          >
+            <img
+              src={twitter}
+              alt={intl.formatMessage({
+                id: messages.shareTwitter.id,
+              })}
+            />
+          </TwitterShareButton>
+          <TelegramShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+          >
+            <img
+              src={telegram}
+              alt={intl.formatMessage({
+                id: messages.shareTelegram.id,
+              })}
+            />
+          </TelegramShareButton>
+          <RedditShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+          >
+            <img
+              src={reddit}
+              alt={intl.formatMessage({
+                id: messages.shareReddit.id,
+              })}
+            />
+          </RedditShareButton>
+        </div>
+        <CopyToClipboard
+          text={window.location.href}
+          onCopy={() => changeStatusCopyLink(!isNotLinkCopied)}
         >
-          <img
-            src={twitter}
-            alt={intl.formatMessage({
-              id: messages.shareTwitter.id,
-            })}
-          />
-        </TwitterShareButton>
-        <TelegramShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-        >
-          <img
-            src={telegram}
-            alt={intl.formatMessage({
-              id: messages.shareTelegram.id,
-            })}
-          />
-        </TelegramShareButton>
-        <RedditShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-        >
-          <img
-            src={reddit}
-            alt={intl.formatMessage({
-              id: messages.shareReddit.id,
-            })}
-          />
-        </RedditShareButton>
+          <span class="copy-btn">{isNotLinkCopied ? 'Copy' : 'Copied'}</span>
+        </CopyToClipboard>
       </DropdownModalFooter>
     </DropdownModal>
   );
