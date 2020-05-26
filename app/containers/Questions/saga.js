@@ -354,7 +354,7 @@ function* moveQuestionWorker({ id, position }) {
         user,
         community_id: single,
         question_id: id,
-        new_position: position + 1,
+        new_position: position,
       });
       yield put(moveQuestionSuccess(id, position));
     }
