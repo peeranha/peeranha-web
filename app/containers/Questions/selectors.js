@@ -37,14 +37,19 @@ const selectQuestionFilter = () =>
     substate.get('questionFilter'),
   );
 
-const selectQuestions = (isFeed, communityId, questionId) =>
+const selectQuestions = (
+  isFeed,
+  communityId,
+  questionId,
+  getTopQuestions = false,
+) =>
   createSelector(
     makeSelectFollowedCommunities(),
     selectQuestionsList(),
     selectTopQuestions(),
     selectQuestionFilter(),
     (followedCommunities, questionsList, topQuestions, questionFilter) => {
-      if (questionFilter && !questionId) {
+      if ((questionFilter && !questionId) || getTopQuestions) {
         return topQuestions;
       }
 

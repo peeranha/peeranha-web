@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 
 import { injectIntl, intlShape } from 'react-intl';
@@ -16,7 +17,12 @@ import allquestionsIcon from 'images/allquestions-header.svg?inline';
 import myFeedIcon from 'images/myFeedHeader.svg?inline';
 import createdHistory from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import QuestionFilter from './QuestionFilter';
+
+import { selectQuestions, selectTopQuestionsLoaded } from './selectors';
+
+const single = isSingleCommunityWebsite();
 
 export const Header = ({
   intl,
@@ -24,6 +30,8 @@ export const Header = ({
   followedCommunities,
   parentPage,
   setTypeFilter,
+  topQuestions,
+  topQuestionsLoaded,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -49,15 +57,17 @@ export const Header = ({
     </H3>
   );
 
-  const singleCommId = isSingleCommunityWebsite();
-
   const displaySubscribeButton =
-    !!singleCommId ||
-    (!isFeed && window.location.pathname !== routes.questions());
+    !!single || (!isFeed && window.location.pathname !== routes.questions());
+
+  const displayQuestionFilter = useMemo(
+    () => !!single && topQuestionsLoaded && !!topQuestions.length,
+    [single, topQuestionsLoaded, topQuestions.length],
+  );
 
   return (
     <Wrapper
-      single={singleCommId}
+      single={single}
       className="d-flex mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
@@ -75,15 +85,15 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
         {!!displaySubscribeButton && (
-          <div className={`right-panel m-0 ml-${singleCommId ? 3 : 4}`}>
+          <div className={`right-panel m-0 ml-${single ? 3 : 4}`}>
             <FollowCommunityButton
-              communityIdFilter={singleCommId || communityIdFilter}
+              communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
             />
           </div>
         )}
       </div>
-      {!!singleCommId && <QuestionFilter />}
+      {displayQuestionFilter && <QuestionFilter />}
     </Wrapper>
   );
 };
@@ -95,5 +105,12 @@ Header.propTypes = {
   parentPage: PropTypes.string,
   setTypeFilter: PropTypes.func,
 };
-
-export default injectIntl(React.memo(Header));
+//
+export default injectIntl(
+  React.memo(
+    connect(state => ({
+      topQuestionsLoaded: selectTopQuestionsLoaded()(state),
+      topQuestions: selectQuestions(null, null, null, true)(state),
+    }))(Header),
+  ),
+);

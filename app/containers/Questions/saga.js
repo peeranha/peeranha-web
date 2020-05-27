@@ -14,7 +14,7 @@ import createdHistory from 'createdHistory';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getCookie } from 'utils/cookie';
+import { getCookie, setCookie } from 'utils/cookie';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
@@ -74,12 +74,14 @@ import {
   downQuestionErr,
   moveQuestionErr,
   moveQuestionSuccess,
+  changeQuestionFilter,
 } from './actions';
 
 import {
   selectInitLoadedItems,
   selectTopQuestionsLoaded,
   selectTopQuestions,
+  selectQuestions,
 } from './selectors';
 
 const feed = routes.feed();
@@ -277,6 +279,20 @@ function* addToTopCommunityWorker({ id }) {
         },
       );
 
+      const topQuestions = yield select(
+        selectQuestions(null, null, null, true),
+      );
+      if (!topQuestions.length) {
+        yield put(changeQuestionFilter(0));
+        setCookie({
+          name: QUESTION_FILTER,
+          value: 0,
+          options: {
+            defaultPath: true,
+            neverExpires: true,
+          },
+        });
+      }
       yield put(addToTopQuestionsSuccess(id));
     }
   } catch (e) {
@@ -300,7 +316,20 @@ function* removeFromTopCommunityWorker({ id }) {
           question_id: id,
         },
       );
-
+      const topQuestions = yield select(
+        selectQuestions(null, null, null, true),
+      );
+      if (topQuestions.length === 1) {
+        yield put(changeQuestionFilter(0));
+        setCookie({
+          name: QUESTION_FILTER,
+          value: 0,
+          options: {
+            defaultPath: true,
+            neverExpires: true,
+          },
+        });
+      }
       yield put(removeFromTopQuestionsSuccess(id));
     }
   } catch (e) {

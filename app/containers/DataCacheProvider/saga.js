@@ -5,6 +5,7 @@ import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
+import { setCookie } from 'utils/cookie';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -18,8 +19,7 @@ import {
   PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
-import { setCookie } from '../../utils/cookie';
-import { selectUsers } from './selectors';
+import { selectStat, selectUsers } from './selectors';
 
 import {
   getCommunitiesWithTagsSuccess,
@@ -30,6 +30,7 @@ import {
   getStatErr,
   getFaqErr,
   getFaqSuccess,
+  getCommunitiesWithTags,
 } from './actions';
 
 import {
@@ -45,6 +46,7 @@ export function* getStatWorker() {
     const stat = yield call(getStat, eosService);
 
     yield put(getStatSuccess(stat));
+    yield put(getCommunitiesWithTags());
   } catch (err) {
     yield put(getStatErr(err));
   }
@@ -53,7 +55,12 @@ export function* getStatWorker() {
 export function* getCommunitiesWithTagsWorker() {
   try {
     const eosService = yield select(selectEos);
-    const communities = yield call(getAllCommunities, eosService);
+    const stat = yield select(selectStat());
+    const communities = yield call(
+      getAllCommunities,
+      eosService,
+      stat.communities_count,
+    );
 
     yield put(getCommunitiesWithTagsSuccess(communities));
   } catch (err) {

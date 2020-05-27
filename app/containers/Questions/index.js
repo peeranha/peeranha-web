@@ -54,7 +54,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import Content from './Content';
+import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
