@@ -58,6 +58,8 @@ import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
+import { getCookie } from '../../utils/cookie';
+import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -191,13 +193,36 @@ export const Questions = ({
     }
   }, []);
 
-  const display = !(single && path === routes.questions(':communityid'));
-  const displayBanner =
-    !questionsList.length && !questionsLoading && !communitiesLoading;
+  const display = useMemo(
+    () => !(single && path === routes.questions(':communityid')),
+    [single, path],
+  );
+
+  const displayBanner = useMemo(
+    () =>
+      !(getCookie(QUESTION_FILTER) === '1' || questionFilter === 1)
+        ? !questionsList.length && !questionsLoading && !communitiesLoading
+        : false,
+    [
+      questionsList.length,
+      questionsLoading,
+      communitiesLoading,
+      topQuestionsLoaded,
+      questionFilter,
+    ],
+  );
 
   const lastFetched = useMemo(
     () => (!questionFilter ? isLastFetch : topQuestionsLoaded),
     [isLastFetch, topQuestionsLoaded, questionFilter],
+  );
+
+  const displayLoader = useMemo(
+    () =>
+      questionsLoading ||
+      communitiesLoading ||
+      (getCookie(QUESTION_FILTER) === '1' && !topQuestionsLoaded),
+    [questionsLoading, communitiesLoading, topQuestionsLoaded],
   );
 
   return display ? (
@@ -250,7 +275,7 @@ export const Questions = ({
         />
       )}
 
-      {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
+      {displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />

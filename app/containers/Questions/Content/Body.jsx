@@ -27,6 +27,7 @@ import topQuestionActiveIcon from 'images/starActive.svg?inline';
 import topQuestionsInactiveIcon from 'images/star.svg?inline';
 
 import ExpertPopover from '../ExpertPopover';
+import TopQuestionPopover from '../TopQuestionPopover';
 
 const single = isSingleCommunityWebsite();
 const fonts = singleCommunityFonts();
@@ -68,8 +69,25 @@ const Body = ({
   removeFromTopQuestionsDispatch,
 }) => {
   const [isExpertPopoverVisible, toggleExpertPopover] = useState(false);
-  const onMouseEnter = useCallback(() => toggleExpertPopover(true), []);
-  const onMouseLeave = useCallback(() => toggleExpertPopover(false), []);
+  const [isTopQuestionPopoverVisible, toggleTopQuestionPopover] = useState(
+    false,
+  );
+  const expertPopoverOnMouseEnter = useCallback(
+    () => toggleExpertPopover(true),
+    [],
+  );
+  const expertPopoverOnMouseLeave = useCallback(
+    () => toggleExpertPopover(false),
+    [],
+  );
+  const topQuestionPopoverOnMouseEnter = useCallback(
+    () => toggleTopQuestionPopover(true),
+    [],
+  );
+  const topQuestionOnMouseLeave = useCallback(
+    () => toggleTopQuestionPopover(false),
+    [],
+  );
 
   const changePinType = useCallback(
     () => {
@@ -107,15 +125,20 @@ const Body = ({
           active={displayPin}
           onClick={displayPin ? changePinType : null}
           disabled={topQuestionActionProcessing}
+          onMouseEnter={!displayPin ? topQuestionPopoverOnMouseEnter : null}
+          onMouseLeave={!displayPin ? topQuestionOnMouseLeave : null}
         >
+          {isTopQuestionPopoverVisible && (
+            <TopQuestionPopover locale={locale} />
+          )}
           <img src={pinIcon} width="20" alt="top" />
         </Button>
       )}
 
       {!isGeneral && (
         <QuestionType
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onMouseEnter={expertPopoverOnMouseEnter}
+          onMouseLeave={expertPopoverOnMouseLeave}
           size="sm"
         >
           {isExpertPopoverVisible && <ExpertPopover locale={locale} />}
