@@ -28,4 +28,10 @@ export default defineMessages({
   somebodyLeftACommentToYourAnswer: {
     id: 'app.containers.Notifications.somebodyLeftACommentToYourAnswer',
   },
+  yourQuestionWasTipped: {
+    id: 'app.containers.Notifications.yourQuestionWasTipped',
+  },
+  yourAnswerWasTipped: {
+    id: 'app.containers.Notifications.yourAnswerWasTipped',
+  },
 });

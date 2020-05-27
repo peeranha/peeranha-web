@@ -55,7 +55,6 @@ export const BestAnswerMarker = ({
   ids,
   isItWrittenByMe,
   questionId,
-  communityId,
 }) => {
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
@@ -67,7 +66,6 @@ export const BestAnswerMarker = ({
           questionId={questionId}
           answerId={answerId}
           account={whoWasAccepted}
-          communityId={communityId}
         >
           <B>
             <img
@@ -113,7 +111,6 @@ BestAnswerMarker.propTypes = {
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,
-  communityId: PropTypes.number,
   questionId: PropTypes.string,
 };
 

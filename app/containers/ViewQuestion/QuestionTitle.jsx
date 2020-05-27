@@ -86,7 +86,6 @@ export const QuestionTitle = ({
         {!isItWrittenByMe ? (
           <SendTips
             form="tip-question"
-            communityId={communityId}
             questionId={id}
             answerId={0}
             account={user}

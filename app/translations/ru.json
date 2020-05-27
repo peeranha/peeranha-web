@@ -508,6 +508,10 @@
     "Кто-то оставил комментарий к вашему вопросу",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
     "Кто-то оставил комментарий к вашему ответу",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "Вашему вопросу отправили чаевые",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "Вашему ответу отправили чаевые",
 
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",

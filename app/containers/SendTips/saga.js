@@ -50,13 +50,7 @@ import { selectTipsEosService } from './selectors';
 import { selectEos } from '../EosioProvider/selectors';
 import { formName } from './SendTipsForm';
 
-export function* sendTipsWorker({
-  resetForm,
-  val,
-  communityId,
-  questionId,
-  answerId,
-}) {
+export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -105,19 +99,13 @@ export function* sendTipsWorker({
       contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
 
-    yield call(
-      callService,
-      NOTIFICATIONS_TIPS_SERVICE,
-      {
-        ..._omit(data, 'memo'),
-        communityId,
-        questionId,
-        answerId,
-        transactionId: response.transaction_id,
-        block: response.processed.block_num,
-      },
-      true,
-    );
+    yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
+      ..._omit(data, 'memo'),
+      questionId,
+      answerId,
+      transactionId: response.transaction_id,
+      block: response.processed.block_num,
+    });
 
     // update preselect tips values
     const tipsPreselect = {
