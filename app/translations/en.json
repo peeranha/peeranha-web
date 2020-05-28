@@ -753,7 +753,7 @@
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
   "app.containers.Questions.topQuestionPopover":
-    "A question that specified as top and frequently asked at this community.",
+    "Top question of this community.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

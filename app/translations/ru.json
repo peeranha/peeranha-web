@@ -786,7 +786,7 @@
     "Это новое сообщество, Вы можете стать первым и Ваш вопрос может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
   "app.containers.Questions.topQuestionPopover":
-    "Частозадаваемый вопрос этого сообщества",
+    "Часто задаваемый вопрос этого сообщества.",
 
   "app.containers.QuestionForm.communityTip": "Сообщество подсказка...",
   "app.containers.QuestionForm.titleTip": "Заголовок подсказка...",
