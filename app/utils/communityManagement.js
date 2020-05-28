@@ -160,16 +160,26 @@ export async function downVoteToCreateTag(
 }
 
 /* eslint no-param-reassign: 0 */
-export async function getAllCommunities(eosService) {
-  const lowerBound = 0;
-  const limit = -1;
+export async function getAllCommunities(eosService, count) {
+  let limit = count;
+  let rows = [];
+  let more = true;
+  let lowerBound = 0;
 
-  const { rows } = await eosService.getTableRows(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    lowerBound,
-    limit,
-  );
+  while (rows.length < count && more && limit > 0) {
+    // eslint-disable-next-line no-await-in-loop
+    const { rows: newRows, more: hasMore } = await eosService.getTableRows(
+      COMMUNITIES_TABLE,
+      ALL_COMMUNITIES_SCOPE,
+      lowerBound,
+      limit,
+    );
+
+    rows = [...rows, ...newRows];
+    more = hasMore;
+    lowerBound = rows[rows.length - 1].id;
+    limit -= newRows.length;
+  }
 
   await Promise.all(
     rows.map(async x => {
