@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -27,65 +27,63 @@ import {
 
 import messages from './messages';
 
-/* eslint-disable react/prefer-stateless-function */
-export class Profile extends React.PureComponent {
-  componentDidMount() {
-    this.fetch(this.props.userId);
-  }
+export const Profile = ({
+  userId,
+  locale,
+  children,
+  isProfileLoading,
+  accountLoading,
+  profile,
+  getUserProfileDispatch,
+  getQuestionsDispatch,
+  getQuestionsWithAnswersDispatch,
+}) => {
+  const fetch = useCallback(id => {
+    getUserProfileDispatch(id, true);
+    getQuestionsDispatch(id, true);
+    getQuestionsWithAnswersDispatch(id, true);
+  }, []);
 
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.userId !== this.props.userId) {
-      this.fetch(nextProps.userId);
-    }
-  };
+  const translations = useMemo(() => translationMessages[locale], [locale]);
 
-  fetch = userId => {
-    this.props.getUserProfileDispatch(userId, true);
-    this.props.getQuestionsDispatch(userId, true);
-    this.props.getQuestionsWithAnswDispatch(userId, true);
-  };
+  const HelmetTitle = useMemo(
+    () =>
+      `${(profile && profile.display_name) ||
+        translations[messages.wrongUser.id]} | ${
+        translations[messages.profile.id]
+      }`,
+    [profile, profile.display_name, translations],
+  );
 
-  render() {
-    const {
-      locale,
-      children,
-      isProfileLoading,
-      accountLoading,
-      profile,
-    } = this.props;
+  const keywords = useMemo(
+    () => (profile && profile.profile ? Object.values(profile.profile) : []),
+    [profile],
+  );
 
-    const translations = translationMessages[locale];
+  const displayLoader = useMemo(
+    () => (isProfileLoading || accountLoading) && !profile,
+    [isProfileLoading, accountLoading, profile],
+  );
 
-    const HelmetTitle = `${(profile && profile.display_name) ||
-      translations[messages.wrongUser.id]} | ${
-      translations[messages.profile.id]
-    }`;
+  useEffect(() => fetch(userId), [fetch, userId]);
 
-    let keywords = [];
+  return (
+    <div>
+      <Seo
+        title={HelmetTitle}
+        description={translations[messages.profileDescription.id]}
+        language={locale}
+        keywords={keywords}
+      />
 
-    if (profile && profile.profile) {
-      keywords = Object.values(profile.profile);
-    }
-
-    return (
       <div>
-        <Seo
-          title={HelmetTitle}
-          description={translations[messages.profileDescription.id]}
-          language={locale}
-          keywords={keywords}
-        />
+        {displayLoader && <LoadingIndicator />}
 
-        <div>
-          {(isProfileLoading || accountLoading) &&
-            !profile && <LoadingIndicator />}
-
-          {profile && children}
-        </div>
+        {profile && children}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Profile.propTypes = {
   children: PropTypes.array,
@@ -96,7 +94,7 @@ Profile.propTypes = {
   accountLoading: PropTypes.bool,
   getUserProfileDispatch: PropTypes.func,
   getQuestionsDispatch: PropTypes.func,
-  getQuestionsWithAnswDispatch: PropTypes.func,
+  getQuestionsWithAnswersDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -111,7 +109,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getUserProfileDispatch: bindActionCreators(getUserProfile, dispatch),
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-    getQuestionsWithAnswDispatch: bindActionCreators(
+    getQuestionsWithAnswersDispatch: bindActionCreators(
       getQuestionsWithAnsw,
       dispatch,
     ),

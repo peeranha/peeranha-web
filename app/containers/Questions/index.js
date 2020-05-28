@@ -107,19 +107,20 @@ export const Questions = ({
 
   const getInitQuestions = useCallback(
     () => {
-      const offset = 0;
+      if (!questionFilter) {
+        const offset = 0;
 
-      initFetcher();
-
-      getQuestionsDispatch(
-        initLoadedItems,
-        offset,
-        Number(params.communityid) || 0,
-        parentPage,
-        fetcher,
-      );
+        initFetcher();
+        getQuestionsDispatch(
+          initLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          fetcher,
+        );
+      }
     },
-    [initLoadedItems, params.communityid, parentPage, fetcher],
+    [initLoadedItems, params.communityid, parentPage, fetcher, questionFilter],
   );
 
   const getNextQuestions = useCallback(
@@ -128,18 +129,20 @@ export const Questions = ({
       const offset = lastItem ? +lastItem.id + 1 : 0;
       const next = true;
 
-      if (parentPage !== feed) {
-        initFetcher();
-      }
+      if (!questionFilter) {
+        if (parentPage !== feed) {
+          initFetcher();
+        }
 
-      getQuestionsDispatch(
-        nextLoadedItems,
-        offset,
-        Number(params.communityid) || 0,
-        parentPage,
-        fetcher,
-        next,
-      );
+        getQuestionsDispatch(
+          nextLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          fetcher,
+          next,
+        );
+      }
     },
     [
       questionsList,
@@ -148,6 +151,7 @@ export const Questions = ({
       params.communityid,
       parentPage,
       fetcher,
+      questionFilter,
     ],
   );
 
@@ -170,21 +174,22 @@ export const Questions = ({
         ((parentPage === feed &&
           followedCommunities &&
           followedCommunities.length > 0) ||
-          parentPage !== feed)
+          parentPage !== feed) &&
+        !questionFilter
       ) {
         getInitQuestions();
       }
     },
-    [fetcher, eosService],
+    [fetcher, eosService, questionFilter],
   );
 
   useEffect(
     () => {
-      if (!fetcher) {
+      if (!fetcher && !questionFilter) {
         getInitQuestions();
       }
     },
-    [typeFilter, createdFilter],
+    [typeFilter, createdFilter, questionFilter],
   );
 
   useEffect(() => {

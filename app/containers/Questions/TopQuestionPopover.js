@@ -12,16 +12,15 @@ import messages from './messages';
 const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
-  width: 290px;
+  width: 192px;
   z-index: 10;
-  height: 55px;
-  left: -266px;
+  height: 25px;
+  left: -172px;
   top: 25px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);}
-  padding: 10px;
+  padding: 5px 10px;
   text-align: start;
-  text-indent: .7em;
 
   span {
     width: 100%;

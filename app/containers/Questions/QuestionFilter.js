@@ -29,7 +29,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ left }) => (left ? 45 : 55)}%;
+  width: ${({ left }) => (left ? 50 : 50)}%;
   border: 1px solid ${({ active }) => (active ? 'blue' : 'black')};
   border-top-left-radius: ${({ left }) => (left ? '5px' : 0)};
   border-bottom-left-radius: ${({ left }) => (left ? '5px' : 0)};
@@ -51,15 +51,15 @@ const cookieFilterSetter = value => ({
   },
 });
 
-const QuestionFilter = ({ changeQuestionFilterDispatch }) => {
+const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
   const [filter, setFilterValue] = useState(+(getCookie(QUESTION_FILTER) || 1));
 
   useEffect(() => {
     const cookieValue = getCookie(QUESTION_FILTER);
 
-    if (!cookieValue) {
+    if (!cookieValue || cookieValue === '1') {
       setCookie(cookieFilterSetter(1));
-      setFilter(1);
+      changeQuestionFilterDispatch(1);
     }
   }, []);
 
@@ -77,19 +77,20 @@ const QuestionFilter = ({ changeQuestionFilterDispatch }) => {
   const setAllFilter = useCallback(() => setFilter(0), [filter]);
   const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
 
-  return (
+  return display ? (
     <Container>
-      <Button active={!filter} left onClick={setAllFilter}>
+      <Button active={!!filter} onClick={setQuestionFilter} left>
+        <FormattedMessage {...commonMessages.top} />
+      </Button>
+      <Button active={!filter} onClick={setAllFilter}>
         <FormattedMessage {...commonMessages.all} />
       </Button>
-      <Button active={!!filter} onClick={setQuestionFilter}>
-        Top
-      </Button>
     </Container>
-  );
+  ) : null;
 };
 
 QuestionFilter.propTypes = {
+  display: PropTypes.bool,
   changeQuestionFilterDispatch: PropTypes.func,
 };
 
