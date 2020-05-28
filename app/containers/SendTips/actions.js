@@ -35,6 +35,8 @@ export function sendTips(...args) {
     type: SEND_TIPS,
     val: args[0].toJS(),
     resetForm: args[2].reset,
+    questionId: args[4],
+    answerId: args[5],
   };
 }
 

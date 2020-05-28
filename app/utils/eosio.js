@@ -300,6 +300,7 @@ class EosioService {
       if (waitForGettingToBlock) {
         await this.awaitTransactionToBlock(trx.processed.block_num);
       }
+      return trx;
     } catch ({ message }) {
       const isHandled = Object.keys(blockchainErrors).find(x =>
         message.match(blockchainErrors[x].keywords.toLowerCase()),

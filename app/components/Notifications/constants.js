@@ -3,6 +3,7 @@ import questionIcon from 'images/question2.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?inline';
 import upVoteIcon from 'images/fingerUpSingleQuestionPage.svg?inline';
+import coinsIcon from 'images/coins.svg?inline';
 
 import messages from './messages';
 
@@ -81,5 +82,13 @@ export const NOTIFICATIONS_TYPES = {
   8: {
     ...messages.somebodyLeftACommentToYourAnswer,
     src: answerIcon,
+  },
+  9: {
+    ...messages.yourQuestionWasTipped,
+    src: coinsIcon,
+  },
+  10: {
+    ...messages.yourAnswerWasTipped,
+    src: coinsIcon,
   },
 };

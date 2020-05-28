@@ -17,3 +17,13 @@ export const getFormattedNum4 = num =>
   numeral(num)
     .format('0,0.00')
     .replace(/,/gim, ' ');
+
+export const trimRightZeros = num => {
+  const trimmed = num.replace(new RegExp('[0]+$'), '');
+
+  if (trimmed[trimmed.length - 1] === '.') {
+    return trimmed.replace('.', '');
+  }
+
+  return trimmed;
+};

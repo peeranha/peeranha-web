@@ -501,6 +501,10 @@
     "Somebody left a comment to your question",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
     "Somebody left a comment to your answer",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "You question was tipped {quantity}",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "You answer was tipped {quantity}",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",

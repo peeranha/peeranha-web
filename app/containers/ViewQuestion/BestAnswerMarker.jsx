@@ -54,13 +54,19 @@ export const BestAnswerMarker = ({
   isTheLargestRating,
   ids,
   isItWrittenByMe,
+  questionId,
 }) => {
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
     <Div>
       {displayTips && (
-        <SendTips form="tip-answer" account={whoWasAccepted}>
+        <SendTips
+          form="tip-answer"
+          questionId={questionId}
+          answerId={answerId}
+          account={whoWasAccepted}
+        >
           <B>
             <img
               className="mr-1"
@@ -105,6 +111,7 @@ BestAnswerMarker.propTypes = {
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,
+  questionId: PropTypes.string,
 };
 
 export default React.memo(BestAnswerMarker);

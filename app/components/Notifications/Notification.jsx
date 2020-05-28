@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,8 @@ import {
   BG_SECONDARY_SPECIAL_4,
   BORDER_SECONDARY_LIGHT,
 } from 'style-constants';
+
+import { trimRightZeros } from 'utils/numbers';
 
 import { NOTIFICATIONS_TYPES } from './constants';
 
@@ -94,29 +96,40 @@ const Notification = ({
   small,
   index,
   height,
-  createdBy,
   paddingHorizontal,
   notificationsNumber,
 }) => {
-  console.log({
-    top,
-    data,
-    time,
-    type,
-    read,
-    small,
-    index,
-    height,
-    createdBy,
-    paddingHorizontal,
-    notificationsNumber,
-  });
   const ref = useRef(null);
   const [width, setWidth] = useState(0);
   useEffect(
     () => (ref && ref.current ? setWidth(ref.current.offsetWidth) : null),
     [ref, ref.current],
   );
+
+  const href = useMemo(
+    () =>
+      data.answer_id
+        ? routes.questionView(data.question_id, data.answer_id)
+        : routes.questionView(data.question_id),
+    [data],
+  );
+
+  const values = useMemo(
+    () => {
+      if (type < 9) {
+        return {};
+      }
+
+      return {
+        quantity: data.quantity
+          .split(' ')
+          .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+          .join(' '),
+      };
+    },
+    [data],
+  );
+
   return (
     <Container
       top={top}
@@ -131,22 +144,15 @@ const Notification = ({
       paddingHorizontal={paddingHorizontal || 0}
     >
       <Span fontSize="16">
-        <FormattedMessage id={NOTIFICATIONS_TYPES[type].id} />
+        <FormattedMessage id={NOTIFICATIONS_TYPES[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
-        <Link
-          to={
-            data.answer_id
-              ? routes.questionView(data.question_id, data.answer_id)
-              : routes.questionView(data.question_id)
-          }
-          className="d-flex align-items-center"
-        >
+        <Link to={href} href={href} className="d-flex align-items-center">
           <img src={NOTIFICATIONS_TYPES[type].src} alt="icon" />
           <span>{data.title}</span>
         </Link>
       </div>
-      <div className="d-flex align-items-center">
+      <div className="d-flex aligsn-items-center">
         <Time time={time} />
       </div>
     </Container>
@@ -162,7 +168,6 @@ Notification.propTypes = {
   small: PropTypes.bool,
   index: PropTypes.number,
   height: PropTypes.number,
-  createdBy: PropTypes.string,
   paddingHorizontal: PropTypes.string,
   notificationsNumber: PropTypes.number,
 };

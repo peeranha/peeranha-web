@@ -112,6 +112,7 @@ const ViewProfilePage = /* istanbul ignore next */ ({
       {path === routes.userNotifications(userId) && (
         <Notifications
           className={path === routes.userNotifications(userId) ? '' : 'd-none'}
+          isAvailable={profile && account === profile.user}
         />
       )}
 
