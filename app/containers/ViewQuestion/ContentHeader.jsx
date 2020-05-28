@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import { BORDER_SECONDARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?inline';
-import shareIcon from 'images/shareIcon.svg?inline';
+import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?inline';
 import blockIcon from 'images/blockIcon.svg?external';
 
@@ -163,7 +163,7 @@ const ContentHeader = props => {
                 show={questionData.user === userInfo.user}
                 onClick={() => changeSharingModalView(!isSharingModalHidden)}
               >
-                <img src={shareIcon} alt="icon" />
+                <Icon icon={shareIcon} width="14" />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
