@@ -18,7 +18,7 @@ const byColor = {
 
 const Arrow = ({ rotate, className, width = 16, color = 'default' }) => (
   <Container className={className} rotate={rotate}>
-    <img src={byColor[color]} width={width} alt="arrow" />
+    <img src={byColor[color] || byColor["default"]} width={width} alt="arrow" />
   </Container>
 );
 

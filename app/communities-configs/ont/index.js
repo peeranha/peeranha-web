@@ -2,32 +2,30 @@ import React from 'react';
 import coinsBlueIcon from 'images/coinsBlue.svg?inline';
 import OntLogo from 'images/communities-logos/ont.svg?inline';
 
-import MediumEOT from 'fonts/Telos/NeueHaasDisplay-Mediu.eot';
-import MediumWOFF from 'fonts/Telos/NeueHaasDisplay-Mediu.woff';
-import MediumTTF from 'fonts/Telos/NeueHaasDisplay-Mediu.ttf';
-
-import LightEOT from 'fonts/Telos/NeueHaasDisplay-Light.eot';
-import LightWOFF from 'fonts/Telos/NeueHaasDisplay-Light.woff';
-import LightTTF from 'fonts/Telos/NeueHaasDisplay-Light.ttf';
-
-import ThinEOT from 'fonts/Telos/NeueHaasDisplay-Thin.eot';
-import ThinWOFF from 'fonts/Telos/NeueHaasDisplay-Thin.woff';
-import ThinTTF from 'fonts/Telos/NeueHaasDisplay-Thin.ttf';
-
-import RomanEOT from 'fonts/Telos/NeueHaasDisplay-Roman.eot';
-import RomanWOFF from 'fonts/Telos/NeueHaasDisplay-Roman.woff';
-import RomanTTF from 'fonts/Telos/NeueHaasDisplay-Roman.ttf';
+import RobotoRegularEOT from 'fonts/Roboto/Roboto-Regular.eot';
+import RobotoRegularWOFF from 'fonts/Roboto/Roboto-Regular.woff';
+import RobotoRegularTTF from 'fonts/Roboto/Roboto-Regular.ttf';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 export const CustomSubHeaderConfig = {
   styles: {
+    bg: {
+      header: '#ffffff',
+      dropdown: '#ffffff',
+    },
+    color: {
+      a: 'rgba(0,0,0,0.6)',
+    },
+    font: {
+      body: 'Roboto-Regular, Arial, sans-serif',
+    },
     header: {
-      background: '#121212',
+      background: '#ffffff',
     },
     subitems: {
-      background: '#121212',
+      background: '#ffffff',
     },
   },
   links: [
@@ -145,61 +143,25 @@ export const OntStyles = {
     h3LetterSpacing: '1px',
     tagsLetterSpacing: '1px',
     questionTitleLetterSpacing: '1px',
-    h3: 'Neue Haas Grotesk Display Pro Medium, Source Sans Pro, sans-serif',
-    main: 'Neue Haas Grotesk Display Pro Light, Source Sans Pro, sans-serif',
-    questionItemTitle:
-      'Neue Haas Grotesk Display Pro Medium, Source Sans Pro, sans-serif',
-    questionTitleFont:
-      'Neue Haas Grotesk Display Pro Medium, Source Sans Pro, sans-serif',
+    h3: 'Roboto-Regular, Arial, sans-serif',
+    main: 'Roboto-Regular, Arial, sans-serif',
+    questionItemTitle: 'Roboto-Regular, Arial, sans-serif',
+    questionTitleFont: 'Roboto-Regular, Arial, sans-serif',
   },
   colors: {
-    blue: '#5D6DFE',
-    black: '#02003D',
-    warningLight: '#FF4026',
-    darkBlue: '#4452C5',
+    blue: 'rgba(0,0,0,.6)',
+    black: '#000000',
+    warningLight: '#000000',
+    darkBlue: 'rgba(0,0,0,.6)',
     mainBackground: '#fafafa',
-    mainLinks: '#5463E8',
+    mainLinks: 'rgba(0,0,0,.6)',
   },
   fontFace: `@font-face {
-    font-family: 'Neue Haas Grotesk Display Pro Medium';
-    src: url(${MediumEOT});
-    src: local('Neue Haas Grotesk Display Pro 65 Medium'), local('NeueHaasDisplay-Mediu'),
-      url(${MediumEOT}?#iefix) format('embedded-opentype'),
-      url(${MediumWOFF}) format('woff'),
-      url(${MediumTTF}) format('truetype');
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Neue Haas Grotesk Display Pro Light';
-    src: url(${LightEOT});
-    src: local('Neue Haas Grotesk Display Pro 65 Light'), local('NeueHaasDisplay-Light'),
-      url(${LightEOT}?#iefix) format('embedded-opentype'),
-      url(${LightWOFF}) format('woff'),
-      url(${LightTTF}) format('truetype');
-    font-weight: 100 !important;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Neue Haas Grotesk Display Pro Thin';
-    src: url(${ThinEOT});
-    src: local('Neue Haas Grotesk Display Pro 65 Light'), local('NeueHaasDisplay-Thin'),
-      url(${ThinEOT}?#iefix) format('embedded-opentype'),
-      url(${ThinWOFF}) format('woff'),
-      url(${ThinTTF}) format('truetype');
-    font-weight: 100 !important;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Neue Haas Grotesk Display Pro Roman';
-    src: url(${RomanEOT});
-    src: local('Neue Haas Grotesk Display Pro 65 Roman'), local('NeueHaasDisplay-Thin'),
-      url(${RomanEOT}?#iefix) format('embedded-opentype'),
-      url(${RomanWOFF}) format('woff'),
-      url(${RomanTTF}) format('truetype');
-    font-weight: 100 !important;
+    font-family: 'Roboto-Regular';
+    src: 
+      url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
+      url(${RobotoRegularWOFF}) format('woff'),
+      url(${RobotoRegularTTF}) format('truetype');
     font-style: normal;
   }`,
 };

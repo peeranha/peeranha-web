@@ -1,6 +1,7 @@
 import React from 'react';
+
 import coinsBlueIcon from 'images/coinsBlue.svg?inline';
-import TelosLogo from 'images/communities-logos/telos.png';
+import TelosLogo from 'images/communities-logos/telos-logo-dark_TM.png';
 
 import MediumEOT from 'fonts/Telos/NeueHaasDisplay-Mediu.eot';
 import MediumWOFF from 'fonts/Telos/NeueHaasDisplay-Mediu.woff';
@@ -23,6 +24,17 @@ import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHe
 
 export const CustomSubHeaderConfig = {
   styles: {
+    bg: {
+      header: '#041238',
+      dropdown: '#ffffff',
+    },
+    color: {
+      a: '#ffffff',
+      arrow: 'white',
+    },
+    font: {
+      body: 'Neue Haas Grotesk Display Pro Medium, Source Sans Pro, sans-serif'
+    },
     header: {
       background: '#041238',
     },

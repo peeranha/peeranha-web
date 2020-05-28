@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import { BG_PRIMARY_DARK_RGB } from 'style-constants';
+// import { BG_PRIMARY_DARK_RGB, APP_FONT } from 'style-constants';
+
+import Arrow from '../Arrow';
 
 const Div = styled.div`
   position: relative;
-  background: ${props => props.styles.background || `rgb(${'80, 101, 165'})`};
+
+  color: ${props => props.styles.color.a || `#ffffff`};
+
+  background: ${props => props.styles.bg.header || `rgb(${'80, 101, 165'})`};
+  border-bottom: 1px solid
+    ${props =>
+      props.styles.bg.header === `#ffffff`
+        ? `#c2c6d8`
+        : props.styles.bg.header};
 
   > div > div {
     position: relative;
@@ -17,12 +27,24 @@ const Div = styled.div`
     align-items: center;
     justify-content: flex-end;
 
-    font-family: Neue Haas Grotesk Display Pro Roman;
+    font-family: ${props => props.styles.font.body || `inherit`};
     font-size: 15px;
     letter-spacing: 1px;
   }
 
-  @media only screen and (max-width: 576px) {
+  a {
+    color: ${props => props.styles.color.a || `#ffffff`};
+
+    :visited {
+      color: ${props => props.styles.color.a || `#ffffff`};
+    }
+  }
+
+  span {
+    color: ${props => props.styles.color.a || `#ffffff`};
+  }
+
+  @media only screen and (max-width: 991px) {
     display: none;
   }
 `;
@@ -31,18 +53,13 @@ const Link = styled.a`
   padding: 12px 0;
   margin-left: 14px;
 
-  color: #fff;
   white-space: nowrap;
 
   :hover {
-    color: rgba(255, 255, 255, 0.4);
+    opacity: 0.6;
   }
 
   transition: color 170ms ease-in-out;
-
-  :visited {
-    color: #fff;
-  }
 `;
 
 const SubitemsWrapper = styled.div`
@@ -50,27 +67,41 @@ const SubitemsWrapper = styled.div`
 
   padding: 12px 0;
   margin-left: 14px;
-
-  :hover {
-    > div {
-      display: flex;
-    }
-  }
 `;
 
-const SubitemsTitle = styled.span`
-  color: #fff;
-
+const SubitemsTitle = styled.button`
+  display: flex;
+  justify-content: space-between;
+  
   cursor: pointer;
 
   :hover {
-    color: rgba(255, 255, 255, 0.4);
+    opacity: 0.6;
   }
 
   transition: color 170ms ease-in-out;
 
-  @media only screen and (max-width: 576px) {
+  > span {
+    padding: 0;
+    margin-right: 8px;
+  }
+
+  > div {
+    padding: 0;
+  }
+
+  img {
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 991px) {
     padding: 0 !important;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 576px) {
+    // width: 100%;
+    // padding: 0 !important;
   }
 `;
 
@@ -80,7 +111,7 @@ const Subitems = styled.div`
   right: -14px;
   z-index: 99;
 
-  display: none;
+  display: flex;
   width: 200px;
   flex-direction: column;
   align-items: center;
@@ -88,7 +119,7 @@ const Subitems = styled.div`
 
   background: ${props => props.styles.background || `rgb(${'80, 101, 165'})`};
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 991px) {
     position: relative;
     top: 0;
     right: 0;
@@ -96,6 +127,8 @@ const Subitems = styled.div`
     display: flex;
     align-items: flex-start;
     width: 100%;
+    padding: 0 !important;
+    padding-top: 10px !important;
   }
 
   a {
@@ -116,18 +149,33 @@ A.propTypes = {
   text: PropTypes.string,
 };
 
-export const B = ({ text, subitems, styles }) => (
-  <SubitemsWrapper>
-    <SubitemsTitle>{text}</SubitemsTitle>
-    <Subitems styles={styles}>
-      {subitems.map(({ text, href }) => (
-        <Link href={href} target="_blank">
-          {text}
-        </Link>
-      ))}
-    </Subitems>
-  </SubitemsWrapper>
-);
+export const B = ({ text, subitems, styles }) => {
+  const [visible, setVisibility] = useState(false);
+  const setVis = useCallback(() => setVisibility(!visible), [visible]);
+
+  return (
+    <SubitemsWrapper>
+      <SubitemsTitle onClick={setVis}>
+        <span>{text}</span>
+        <Arrow
+          className="mt-auto mb-auto"
+          // color={styles.color.arrow}
+          color={"default"}
+          rotate={visible}
+        />
+      </SubitemsTitle>
+      {visible && (
+        <Subitems styles={styles}>
+          {subitems.map(({ text, href }) => (
+            <Link href={href} target="_blank">
+              {text}
+            </Link>
+          ))}
+        </Subitems>
+      )}
+    </SubitemsWrapper>
+  );
+};
 
 B.propTypes = {
   text: PropTypes.string.isRequired,
@@ -156,7 +204,7 @@ const CustomSubHeader = ({ config }) => {
   const { styles, links } = config;
 
   return (
-    <Div styles={styles.header}>
+    <Div styles={styles}>
       <div className="container h-100">
         <Links links={links} styles={styles.subitems} />
       </div>

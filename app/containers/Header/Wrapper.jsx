@@ -18,7 +18,7 @@ export const Wrapper = styled.header`
     transform: translate(0px, -${HEADER_HEIGHT}px);
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 991px) {
     height: ${MOBILE_HEADER_HEIGHT}px;
 
     &.sticky {
@@ -56,7 +56,7 @@ export const SingleModeSubHeader = styled.div`
     white-space: nowrap;
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 991px) {
     display: none;
   }
 `;
