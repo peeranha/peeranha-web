@@ -49,6 +49,8 @@ export const ContentBody = ({
       ids={ids}
       isGeneral={questionData.isGeneral}
       isItWrittenByMe={isItWrittenByMe}
+      communityId={questionData.community_id}
+      questionId={questionData.id}
     />
 
     <TextBlock content={content} />

@@ -501,6 +501,10 @@
     "Somebody left a comment to your question",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
     "Somebody left a comment to your answer",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "You question was tipped {quantity}",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "You answer was tipped {quantity}",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
@@ -539,6 +543,11 @@
     "This question does not exist",
   "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
+  "app.containers.ViewQuestion.shareButton": "Share",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
+  "app.containers.ViewQuestion.shareTwitter": "Share Twitter",
+  "app.containers.ViewQuestion.shareTelegram": "Share Telegram",
+  "app.containers.ViewQuestion.shareReddit": "Share Reddit",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
@@ -752,6 +761,8 @@
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.topQuestionPopover":
+    "Top question of this community.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

@@ -186,27 +186,21 @@ export async function sendTokens(
   eosService,
   { from, to, quantity, precision, symbol, contractAccount },
 ) {
-  console.log({
+  const data = {
     from,
     to,
-    quantity,
-    precision,
-    symbol,
-    contractAccount,
-    eosService,
-  });
-  await eosService.sendTransaction(
+    quantity: getNormalizedCurrency(quantity, precision, symbol),
+    memo: '',
+  };
+
+  const response = await eosService.sendTransaction(
     from,
     SEND_TOKEN_METHOD,
-    {
-      from,
-      to,
-      quantity: getNormalizedCurrency(quantity, precision, symbol),
-      memo: '',
-    },
+    data,
     contractAccount,
     true,
   );
+  return { response, data };
 }
 
 export async function pickupReward(eosService, user, periodIndex) {

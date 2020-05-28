@@ -42,6 +42,9 @@ export const SendTips = ({
   form = 'send-Tips',
   cryptoAccounts,
   whoWillBeTipped,
+  communityId,
+  questionId,
+  answerId,
 }) => (
   <>
     <Modal
@@ -50,7 +53,9 @@ export const SendTips = ({
     >
       <SendTipsForm
         locale={locale}
-        sendTips={sendTipsDispatch}
+        sendTips={(...args) =>
+          sendTipsDispatch(...args, communityId, questionId, answerId)
+        }
         sendTipsProcessing={sendTipsProcessing}
         loginData={loginData}
         valueHasToBeLessThan={balance}
@@ -77,6 +82,9 @@ SendTips.propTypes = {
   loginData: PropTypes.object,
   balance: PropTypes.number,
   cryptoAccounts: PropTypes.object,
+  communityId: PropTypes.number,
+  questionId: PropTypes.string,
+  answerId: PropTypes.number,
 };
 
 const withReducer = injectReducer({ key: 'sendTips', reducer });

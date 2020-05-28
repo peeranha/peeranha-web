@@ -69,6 +69,7 @@ import {
   selectedAccountProcessingSelector,
   selectSendTipsProcessing,
 } from '../SendTips/selectors';
+import { selectTopQuestionActionProcessing } from '../Questions/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
@@ -120,4 +121,5 @@ export default {
   selectIsSaveCryptoAccountsProcessing: selectIsSaveCryptoAccountsProcessing(),
   selectedAccountProcessing: selectedAccountProcessingSelector(),
   selectSendTipsProcessing: selectSendTipsProcessing(),
+  selectPinActionProcessing: selectTopQuestionActionProcessing(),
 };

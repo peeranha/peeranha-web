@@ -296,6 +296,7 @@ export async function postAnswer(user, questionId, answer, eosService) {
       user,
       question_id: +questionId,
       ipfs_link: ipfsLink,
+      official_answer: 0,
     },
     null,
     true,

@@ -61,16 +61,20 @@ const Top = styled.div`
 
 export const QuestionTitle = ({
   title,
-  tags,
-  communityId,
   communities,
   isItWrittenByMe,
-  correctAnswerId,
-  answersNumber,
-  isGeneral,
   user,
-}) =>
-  title ? (
+  questionData,
+}) => {
+  const {
+    tags,
+    community_id: communityId,
+    correct_answer_id: correctAnswerId,
+    answers,
+    isGeneral,
+    id,
+  } = questionData;
+  return title ? (
     <Base
       paddingTop="5"
       paddingTopMedia="5"
@@ -80,7 +84,12 @@ export const QuestionTitle = ({
     >
       <Top>
         {!isItWrittenByMe ? (
-          <SendTips form="tip-question" account={user}>
+          <SendTips
+            form="tip-question"
+            questionId={id}
+            answerId={0}
+            account={user}
+          >
             <B>
               <img
                 className="mr-1"
@@ -102,7 +111,7 @@ export const QuestionTitle = ({
       <Div>
         <MarkAnswerNotification
           className={
-            !correctAnswerId && isItWrittenByMe && answersNumber
+            !correctAnswerId && isItWrittenByMe && answers.length
               ? 'd-inline-flex'
               : 'd-none'
           }
@@ -134,6 +143,7 @@ export const QuestionTitle = ({
       </Div>
     </Base>
   ) : null;
+};
 
 QuestionTitle.propTypes = {
   title: PropTypes.string,
@@ -145,6 +155,7 @@ QuestionTitle.propTypes = {
   correctAnswerId: PropTypes.number,
   answersNumber: PropTypes.number,
   user: PropTypes.string,
+  questionData: PropTypes.object,
 };
 
 export default React.memo(QuestionTitle);

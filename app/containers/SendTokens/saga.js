@@ -50,13 +50,19 @@ export function* sendTokensWorker({ resetForm, val }) {
       }
     }
 
-    yield call(sendTokens, eosService, {
+    const a = yield call(sendTokens, eosService, {
       from: profile.user,
       to: val[EOS_ACCOUNT_FIELD],
       quantity: val[AMOUNT_FIELD],
       ...CURRENCIES.PEER,
     });
-
+    console.log(a);
+    /* from: "tuesdaytest1"
+to: "yuliachorno2"
+quantity: "0.001"
+precision: 4
+symbol: "TLOS"
+contractAccount: "eosio.token" */
     yield put(sendTokensSuccess());
     yield put(hideSendTokensModal());
     yield call(resetForm);

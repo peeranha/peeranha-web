@@ -38,6 +38,7 @@ const secondarySpecial = '#c2c6d8';
 
 export const LANDING_FONT = 'Open Sans, sans-serif';
 export const APP_FONT = _get(fonts, 'main', 'Source Sans Pro, sans-serif');
+export const SECONDARY_SPECIAL = secondarySpecial;
 export const SECONDARY_SPECIAL_2 = graySpecial2;
 export const SECONDARY_SPECIAL_3 = graySpecial3;
 export const BG_SECONDARY_SPECIAL_4 = graySpecial4;
@@ -74,6 +75,7 @@ export const BG_PRIMARY_DARK = darkblue;
 export const BG_PRIMARY_DARK_RGB = darkBlueRGB;
 export const BG_PRIMARY_SPECIAL = purple;
 export const BG_LIGHT = white;
+export const BG_BLACK = black;
 export const BG_TRANSPARENT = transparent;
 export const BG_SUCCESS_LIGHT = lightgreen;
 export const BG_SECONDARY_LIGHT = lightgray;

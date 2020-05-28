@@ -23,6 +23,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   getCurrentAccountWorker,
   getReferralInfo,
+  getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
 import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
@@ -110,6 +111,8 @@ export function* loginWithEmailWorker({ val }) {
 
     yield call(getNotificationsInfoWorker, profileInfo.user);
 
+    yield call(getCommunityPropertyWorker);
+
     yield put(initEosioSuccess(eosService));
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -151,6 +154,8 @@ export function* loginWithScatterWorker() {
     }
 
     yield call(getNotificationsInfoWorker, profileInfo.user);
+
+    yield call(getCommunityPropertyWorker);
 
     setCookie({
       name: AUTOLOGIN_DATA,

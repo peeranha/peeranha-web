@@ -25,6 +25,7 @@ export const HUBSPOT_SEND_MESSAGE_FORM_ID =
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
 export const MODERATOR_KEY = 48;
+export const COMMUNITY_ADMIN_KEY = 7;
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
 
@@ -50,6 +51,8 @@ export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
 export const INVITED_USERS_TABLE = 'invited';
+export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
+export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 
 // Scopes
 
@@ -60,6 +63,8 @@ export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
 export const INVITED_USERS_SCOPE = 'allinvited';
+export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
+export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -104,6 +109,13 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
 
+// Top community questions methods
+export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
+export const REMOVE_FROM_TOP_COMMUNITY_METHOD = 'remfrmtopcom';
+export const UP_QUESTION_METHOD = 'upquestion';
+export const DOWN_QUESTION_METHOD = 'downquestion';
+export const MOVE_QUESTION_METHOD = 'movequestion';
+
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
@@ -117,3 +129,7 @@ export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
 
 // Currency
 export const APP_CURRENCY = 'PEER';
+
+// Social Media Data
+export const APP_TWITTER_NICKNAME = 'peeranhaio';
+export const APP_MAIN_NAME = 'Peeranha';

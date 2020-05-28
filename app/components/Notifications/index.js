@@ -42,6 +42,7 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered from '../LoadingIndicator/WidthCentered';
+import NotFound from '../../containers/ErrorPage';
 
 const colors = singleCommunityColors();
 
@@ -84,6 +85,7 @@ const Notifications = ({
   loading,
   allCount,
   className,
+  isAvailable,
   notifications,
   readNotifications,
   loadMoreNotificationsDispatch,
@@ -209,7 +211,7 @@ const Notifications = ({
     style: PropTypes.object,
   };
 
-  return (
+  return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
       <Wrapper className="mb-3" position="bottom">
         <Header notificationsNumber={allCount} />
@@ -247,6 +249,10 @@ const Notifications = ({
         </LoaderContainer>
       )}
     </Container>
+  ) : (
+    <div className={className}>
+      <NotFound withSeo={false} />
+    </div>
   );
 };
 
@@ -254,6 +260,7 @@ Notifications.propTypes = {
   loading: PropTypes.bool,
   allCount: PropTypes.number,
   className: PropTypes.string,
+  isAvailable: PropTypes.bool,
   loadMoreNotificationsDispatch: PropTypes.func,
   markAsReadNotificationsAllDispatch: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.object),
