@@ -46,6 +46,11 @@ export const Header = ({
     defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
   }
 
+  const displayQuestionFilter = useMemo(
+    () => !!single && topQuestionsLoaded && !!topQuestions.length,
+    [single, topQuestionsLoaded, topQuestions.length],
+  );
+
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
@@ -59,11 +64,6 @@ export const Header = ({
 
   const displaySubscribeButton =
     !!single || (!isFeed && window.location.pathname !== routes.questions());
-
-  const displayQuestionFilter = useMemo(
-    () => !!single && topQuestionsLoaded && !!topQuestions.length,
-    [single, topQuestionsLoaded, topQuestions.length],
-  );
 
   return (
     <Wrapper
@@ -93,7 +93,7 @@ export const Header = ({
           </div>
         )}
       </div>
-      {displayQuestionFilter && <QuestionFilter />}
+      <QuestionFilter display={displayQuestionFilter} />
     </Wrapper>
   );
 };

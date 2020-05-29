@@ -102,14 +102,12 @@ export function* getQuestionsWorker({
 
     let questionsList = [];
 
-    const questionFilter = Boolean(+getCookie(QUESTION_FILTER));
-
     if (single) {
       communityIdFilter = single;
     }
 
     // Load questions filtered for some community
-    if (communityIdFilter > 0 && !questionFilter) {
+    if (communityIdFilter > 0) {
       questionsList = yield call(
         getQuestionsFilteredByCommunities,
         eosService,
@@ -120,7 +118,7 @@ export function* getQuestionsWorker({
     }
 
     // Load all questions
-    if (communityIdFilter === 0 && parentPage !== feed && !questionFilter) {
+    if (communityIdFilter === 0 && parentPage !== feed) {
       questionsList = yield call(getQuestions, eosService, limit, offset);
     }
 
@@ -129,8 +127,7 @@ export function* getQuestionsWorker({
       communityIdFilter === 0 &&
       parentPage === feed &&
       followedCommunities &&
-      followedCommunities.length > 0 &&
-      !questionFilter
+      followedCommunities.length > 0
     ) {
       questionsList = yield call(
         getQuestionsForFollowedCommunities,
@@ -164,14 +161,7 @@ export function* getQuestionsWorker({
       }),
     );
 
-    yield put(
-      getQuestionsSuccess(
-        questionsList,
-        next,
-        toUpdateQuestions,
-        questionFilter,
-      ),
-    );
+    yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
@@ -228,6 +218,17 @@ function* loadTopCommunityQuestionsWorker() {
     const eosService = yield select(selectEos);
 
     if (single) {
+      if (!getCookie(QUESTION_FILTER)) {
+        yield put(changeQuestionFilter(1));
+        setCookie({
+          name: QUESTION_FILTER,
+          value: 1,
+          options: {
+            defaultPath: true,
+            neverExpires: true,
+          },
+        });
+      }
       const topQuestions = yield select(selectTopQuestions());
       const topQuestionsLoaded = yield select(selectTopQuestionsLoaded());
       if (!topQuestions.length && !topQuestionsLoaded) {

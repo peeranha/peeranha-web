@@ -60,7 +60,9 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
 
     const sliceStart = yield loadMore ? storedTags.length : 0;
 
-    const { tags } = communities.filter(x => x.id === +communityId)[0];
+    const { tags } = communities.filter(x => x.id === +communityId)[0] || {
+      tags: [],
+    };
 
     const tagsByInput = tags.filter(x =>
       `${x.name} ${x.description}`.toLowerCase().match(text.toLowerCase()),
@@ -71,7 +73,7 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
       sliceStart + limit,
     );
 
-    const existingTags = yield call(() => getExistingTags(sortedTags));
+    const existingTags = yield call(getExistingTags, sortedTags);
 
     yield put(getExistingTagsSuccess(existingTags, loadMore));
   } catch (err) {

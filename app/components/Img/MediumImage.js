@@ -18,6 +18,8 @@ const MediumImageStyled = MediumImage.extend`
   border-radius: 50%;
   padding: 1px;
   flex-shrink: 0;
+  font-size: 8px;
+  line-height: 8px;
 `;
 
 export { MediumImageStyled, MediumSpecialImage };
