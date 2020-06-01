@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -31,94 +31,114 @@ import messages from './messages';
 import Content from './Content';
 import Aside from './Aside';
 
-/* eslint-disable react/prefer-stateless-function */
-export class TagsOfCommunity extends React.Component {
-  clearTextField = () => {
-    const text = '';
+const single = isSingleCommunityWebsite();
 
-    this.props.getExistingTagsDispatch({
-      communityId: this.currentCommunity.id,
-      text,
-    });
-  };
+export const TagsOfCommunity = ({
+  locale,
+  match,
+  communities,
+  emptyCommunity,
+  existingTags,
+  isLastFetch,
+  existingTagsLoading,
+  text,
+  suggestedTags,
+  getExistingTagsDispatch,
+}) => {
+  const communityId = useMemo(() => single || +match.params.communityid, [
+    match.params.communityid,
+    single,
+  ]);
 
-  typeInput = ev => {
-    const text = ev.target.value;
+  const currentCommunity = useMemo(
+    () =>
+      getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
+    [communities, communityId, emptyCommunity],
+  );
 
-    this.props.getExistingTagsDispatch({
-      communityId: this.currentCommunity.id,
-      text,
-    });
-  };
+  const typeInput = useCallback(
+    ev =>
+      getExistingTagsDispatch({
+        communityId: currentCommunity.id,
+        text: ev.target.value,
+      }),
+    [currentCommunity.id],
+  );
 
-  sortTags = ev => {
-    const { key } = ev.currentTarget.dataset;
+  const clearTextField = useCallback(
+    () =>
+      getExistingTagsDispatch({
+        communityId: currentCommunity.id,
+        text: '',
+      }),
+    [currentCommunity.id],
+  );
 
-    this.props.getExistingTagsDispatch({
-      communityId: this.currentCommunity.id,
-      sorting: key,
-    });
-  };
+  const sortTags = useCallback(
+    ev =>
+      getExistingTagsDispatch({
+        communityId: currentCommunity.id,
+        sorting: ev.currentTarget.dataset.key,
+      }),
+    [currentCommunity.id],
+  );
 
-  loadMoreTags = () => {
-    this.props.getExistingTagsDispatch({
-      communityId: this.currentCommunity.id,
-      loadMore: true,
-    });
-  };
+  const loadMoreTags = useCallback(
+    () =>
+      getExistingTagsDispatch({
+        communityId: currentCommunity.id,
+        loadMore: true,
+      }),
+    [currentCommunity.id],
+  );
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      match,
-      communities,
-      emptyCommunity,
-      existingTags,
-      isLastFetch,
-      existingTagsLoading,
-      text,
-      suggestedTags,
-    } = this.props;
+  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
+    currentCommunity.tags,
+  ]);
 
-    const commId = isSingleCommunityWebsite() || +match.params.communityid;
+  useEffect(
+    () => {
+      getExistingTagsDispatch({
+        loadMore: false,
+        communityId: currentCommunity.id,
+      });
+    },
+    [communities.length, currentCommunity],
+  );
 
-    this.currentCommunity =
-      getFollowedCommunities(communities, [commId])[0] || emptyCommunity;
+  return (
+    <div>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        keywords={keywords}
+      />
 
-    const keywords = this.currentCommunity.tags.map(x => x.name);
-
-    return (
-      <div>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          keywords={keywords}
-        />
-
-        <Tags
-          sortTags={this.sortTags}
-          communityId={commId}
-          tagsNumber={this.currentCommunity.tags.length}
-          currentCommunity={this.currentCommunity}
-          Aside={<Aside suggestedTags={suggestedTags} communityId={commId} />}
-          Content={
-            <Content
-              tags={existingTags}
-              loadMoreTags={this.loadMoreTags}
-              isLastFetch={isLastFetch}
-              existingTagsLoading={existingTagsLoading}
-              typeInput={this.typeInput}
-              text={text}
-              clearTextField={this.clearTextField}
-              locale={locale}
-            />
-          }
-        />
-      </div>
-    );
-  }
-}
+      <Tags
+        sortTags={sortTags}
+        communityId={communityId}
+        tagsNumber={currentCommunity.tags.length}
+        currentCommunity={currentCommunity}
+        Aside={
+          <Aside suggestedTags={suggestedTags} communityId={communityId} />
+        }
+        Content={
+          <Content
+            tags={existingTags}
+            loadMoreTags={loadMoreTags}
+            isLastFetch={isLastFetch}
+            existingTagsLoading={existingTagsLoading}
+            typeInput={typeInput}
+            text={text}
+            clearTextField={clearTextField}
+            locale={locale}
+          />
+        }
+      />
+    </div>
+  );
+};
 
 TagsOfCommunity.defaultProps = {
   emptyCommunity: {

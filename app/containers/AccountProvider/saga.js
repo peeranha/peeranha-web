@@ -135,7 +135,6 @@ export function* getCurrentAccountWorker(initAccount) {
 
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
-
       if (
         profileLS &&
         (account === profileLS.user ||
@@ -157,7 +156,9 @@ export function* getCurrentAccountWorker(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    yield call(getNotificationsInfoWorker, profileInfo.user);
+    if (profileInfo) {
+      yield call(getNotificationsInfoWorker, profileInfo.user);
+    }
 
     if (profileInfo) {
       profileInfo.balance = balance;
