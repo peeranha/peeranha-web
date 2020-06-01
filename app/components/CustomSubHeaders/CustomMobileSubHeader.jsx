@@ -79,7 +79,7 @@ const CustomMobileSubHeader = ({ config, logo }) => {
           rotate={visible}
         />
       </button>
-      {visible && <Links links={links} styles={styles.subitems} />}
+      {visible && <Links links={links} styles={styles} device={"mobile"} />}
     </Div>
   );
 };

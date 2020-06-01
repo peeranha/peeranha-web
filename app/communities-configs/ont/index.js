@@ -24,9 +24,25 @@ export const CustomSubHeaderConfig = {
     header: {
       background: '#ffffff',
     },
-    subitems: {
-      background: '#ffffff',
-    },
+    subHeader: `
+      > div > div {
+        float: left;
+      }
+    `,
+    subitems: `
+      @media only screen and (min-width: 992px) {
+        background: #fafafa;
+      }
+    `,
+    subHeaderItem: `
+      font-size: 13px;
+
+      @media only screen and (min-width: 992px) {
+        :first-child {
+          margin-left: 0;
+        }
+      }        
+    `,
   },
   links: [
     {
