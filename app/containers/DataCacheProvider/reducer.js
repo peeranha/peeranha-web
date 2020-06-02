@@ -8,18 +8,18 @@ import { fromJS } from 'immutable';
 
 import {
   GET_COMMUNITIES_WITH_TAGS,
-  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
   GET_COMMUNITIES_WITH_TAGS_ERROR,
-  GET_USER_PROFILE,
-  GET_USER_PROFILE_SUCCESS,
-  GET_USER_PROFILE_ERROR,
-  REMOVE_USER_PROFILE,
-  GET_STAT,
-  GET_STAT_SUCCESS,
-  GET_STAT_ERROR,
+  GET_COMMUNITIES_WITH_TAGS_SUCCESS,
   GET_FAQ,
-  GET_FAQ_SUCCESS,
   GET_FAQ_ERROR,
+  GET_FAQ_SUCCESS,
+  GET_STAT,
+  GET_STAT_ERROR,
+  GET_STAT_SUCCESS,
+  GET_USER_PROFILE,
+  GET_USER_PROFILE_ERROR,
+  GET_USER_PROFILE_SUCCESS,
+  REMOVE_USER_PROFILE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -91,9 +91,12 @@ function dataCacheProviderReducer(state = initialState, action) {
         'users',
         profile
           ? fromJS({
-              ...state.get('users').toJS(),
-              [profile.user]: profile,
-            })
+            ...state.get('users').toJS(),
+            [profile.user]: {
+              ...state.get('users').toJS()[profile.user],
+              ...profile,
+            },
+          })
           : state.get('users'),
       );
     case GET_USER_PROFILE_ERROR:

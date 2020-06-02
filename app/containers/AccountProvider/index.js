@@ -1,20 +1,12 @@
-/**
- *
- * AccountProvider
- *
- */
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
-
-import notificationsSaga from 'components/Notifications/saga';
-import notificationsReducer from 'components/Notifications/reducer';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -47,22 +39,18 @@ AccountProvider.propTypes = {
   lastUpdate: PropTypes.number,
 };
 
-const withConnect = connect(
-  createStructuredSelector({
-    lastUpdate: selectLastUpdate(),
-  }),
-  dispatch => ({
-    getCurrentAccountDispatch: bindActionCreators(getCurrentAccount, dispatch),
-  }),
-);
-
-const withReducer = injectReducer({ key: 'accountProvider', reducer });
-const withSaga = injectSaga({ key: 'accountProvider', saga, mode: DAEMON });
-
 export default compose(
-  injectReducer({ key: 'notifications', reducer: notificationsReducer }),
-  injectSaga({ key: 'notifications', saga: notificationsSaga, mode: DAEMON }),
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'accountProvider', reducer }),
+  injectSaga({ key: 'accountProvider', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      lastUpdate: selectLastUpdate(),
+    }),
+    dispatch => ({
+      getCurrentAccountDispatch: bindActionCreators(
+        getCurrentAccount,
+        dispatch,
+      ),
+    }),
+  ),
 )(AccountProvider);

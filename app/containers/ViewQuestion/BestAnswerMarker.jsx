@@ -11,6 +11,8 @@ import commonMessages from 'common-messages';
 
 import coinsIcon from 'images/coins.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
+import officialIcon from 'images/officialWhite.svg?inline';
+
 import Button from 'components/Button/Contained/PrimaryMedium';
 
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
@@ -28,6 +30,7 @@ const Label = Button.extend`
   height: 1%;
   min-height: 32px;
   max-width: 167px;
+  color: white;
 `;
 
 const Div = styled.div`
@@ -45,17 +48,18 @@ const Div = styled.div`
 `;
 
 export const BestAnswerMarker = ({
-  answerId,
-  questionFrom,
-  account,
-  markAsAccepted,
-  correctAnswerId,
-  whoWasAccepted,
-  isTheLargestRating,
-  ids,
-  isItWrittenByMe,
-  questionId,
-}) => {
+                                   answerId,
+                                   questionFrom,
+                                   account,
+                                   markAsAccepted,
+                                   correctAnswerId,
+                                   whoWasAccepted,
+                                   isTheLargestRating,
+                                   ids,
+                                   isItWrittenByMe,
+                                   questionId,
+                                   isOfficial,
+                                 }) => {
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
@@ -77,6 +81,7 @@ export const BestAnswerMarker = ({
           </B>
         </SendTips>
       )}
+
       <MarkAsAcceptedIcon
         className=""
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
@@ -90,12 +95,25 @@ export const BestAnswerMarker = ({
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
       />
+
       {isTheLargestRating ? (
         <Label bg={BG_PRIMARY} inactive>
-          <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
+          <img className="d-inline-flex mr-2" src={crownIcon} alt="icon"/>
           <FormattedMessage {...messages.communityChoice} />
         </Label>
       ) : null}
+
+      {isOfficial && (
+        <Label bg={BG_PRIMARY} inactive>
+          <img
+            className="d-inline-flex mr-2"
+            height="20"
+            src={officialIcon}
+            alt="icon"
+          />
+          <FormattedMessage {...messages.officialAnswer} />
+        </Label>
+      )}
     </Div>
   );
 };
@@ -112,6 +130,7 @@ BestAnswerMarker.propTypes = {
   ids: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,
   questionId: PropTypes.string,
+  isOfficial: PropTypes.bool,
 };
 
 export default React.memo(BestAnswerMarker);

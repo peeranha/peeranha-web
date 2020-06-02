@@ -5,12 +5,12 @@
  */
 
 import {
-  GET_ANSWER,
-  GET_ANSWER_SUCCESS,
-  GET_ANSWER_ERROR,
   EDIT_ANSWER,
-  EDIT_ANSWER_SUCCESS,
   EDIT_ANSWER_ERROR,
+  EDIT_ANSWER_SUCCESS,
+  GET_ANSWER,
+  GET_ANSWER_ERROR,
+  GET_ANSWER_SUCCESS,
   REDIRECT_TO_EDIT_ANSWER_PAGE,
 } from './constants';
 
@@ -22,12 +22,10 @@ export function getAnswer(questionId, answerId) {
   };
 }
 
-export function getAnswerSuccess(answer) {
-  return {
-    type: GET_ANSWER_SUCCESS,
-    answer,
-  };
-}
+export const getAnswerSuccess = answer => ({
+  type: GET_ANSWER_SUCCESS,
+  answer,
+});
 
 export function getAnswerErr(getAnswerError) {
   return {
@@ -36,12 +34,13 @@ export function getAnswerErr(getAnswerError) {
   };
 }
 
-export function editAnswer(answer, questionId, answerId) {
+export function editAnswer(answer, questionId, answerId, official) {
   return {
     type: EDIT_ANSWER,
     answer,
     questionId,
     answerId,
+    official,
   };
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
@@ -7,7 +7,7 @@ import Span from 'components/Span';
 
 import { BG_LIGHT, TEXT_DARK } from 'style-constants';
 
-import messages from './messages';
+import messages from '../../messages';
 
 const Base = styled.div`
   position: absolute;
@@ -18,7 +18,7 @@ const Base = styled.div`
   left: -172px;
   top: 25px;
   border-radius: 5px;
-  box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);}
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 5px 10px;
   text-align: start;
 
@@ -39,4 +39,4 @@ TopQuestionPopover.propTypes = {
   locale: PropTypes.string,
 };
 
-export default TopQuestionPopover;
+export default memo(TopQuestionPopover);

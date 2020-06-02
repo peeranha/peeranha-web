@@ -11,7 +11,7 @@ import Answers from './Answers';
 
 import messages from './messages';
 
-import { POST_ANSWER_BUTTON, ADD_ANSWER_FORM } from './constants';
+import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 
 export const ViewQuestionContainer = props => {
   const msg = translationMessages[props.locale];
@@ -23,6 +23,8 @@ export const ViewQuestionContainer = props => {
 
       <Base className="mt-3">
         <AnswerForm
+          answer=""
+          communityId={props.questionData.community_id}
           form={ADD_ANSWER_FORM}
           formHeader={msg[messages.yourAnswer.id]}
           sendButtonId={POST_ANSWER_BUTTON}
@@ -30,6 +32,7 @@ export const ViewQuestionContainer = props => {
           sendAnswerLoading={props.postAnswerLoading}
           submitButtonName={msg[messages.postAnswerButton.id]}
           previewLabel={msg[commonMessages.preview.id]}
+          properties={[]}
         />
       </Base>
     </article>
@@ -41,6 +44,7 @@ ViewQuestionContainer.propTypes = {
   postAnswerLoading: PropTypes.bool,
   locale: PropTypes.string,
   translations: PropTypes.object,
+  questionData: PropTypes.object,
 };
 
 export default React.memo(ViewQuestionContainer);

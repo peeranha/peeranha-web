@@ -5,7 +5,7 @@ import ecc from 'eosjs-ecc';
 import { JsSignatureProvider } from 'eosjs20/dist/eosjs-jssig';
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
-import { TextEncoder, TextDecoder } from 'text-encoding';
+import { TextDecoder, TextEncoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
@@ -14,14 +14,14 @@ import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
 import {
   BLOCKCHAIN_NAME,
   DEFAULT_EOS_PERMISSION,
-  SCATTER_APP_NAME,
-  EOS_IS_NOT_INIT,
   ENDPOINTS_LIST,
-  SCATTER_TIMEOUT_ERROR,
+  EOS_IS_NOT_INIT,
+  SCATTER_APP_NAME,
   SCATTER_TIMEOUT_DURATION,
+  SCATTER_TIMEOUT_ERROR,
 } from './constants';
 
-import { parseTableRows, createPushActionBody } from './ipfs';
+import { createPushActionBody, parseTableRows } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
@@ -255,7 +255,7 @@ class EosioService {
 
         this.isScatterWindowOpened = false;
 
-        return;
+        return trx;
       } catch (e) {
         this.isScatterWindowOpened = false;
         throw new BlockchainError(e.message);

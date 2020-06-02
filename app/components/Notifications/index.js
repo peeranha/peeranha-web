@@ -1,7 +1,7 @@
 import React, {
-  useMemo,
-  useEffect,
   useCallback,
+  useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -131,6 +131,8 @@ const Notifications = ({
 
       if (!_isEqual(union, readNotifications)) {
         markAsReadNotificationsAllDispatch(union);
+      } else if (notifications.length === 1) {
+        markAsReadNotificationsAllDispatch([0, 0]);
       }
 
       setCalculatedRanges({

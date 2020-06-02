@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -48,15 +48,14 @@ export const Profile = ({
 
   const HelmetTitle = useMemo(
     () =>
-      `${(profile && profile.display_name) ||
-        translations[messages.wrongUser.id]} | ${
+      `${profile?.display_name ?? translations[messages.wrongUser.id]} | ${
         translations[messages.profile.id]
       }`,
-    [profile, profile.display_name, translations],
+    [profile, translations],
   );
 
   const keywords = useMemo(
-    () => (profile && profile.profile ? Object.values(profile.profile) : []),
+    () => (profile?.profile ? Object.values(profile.profile) : []),
     [profile],
   );
 

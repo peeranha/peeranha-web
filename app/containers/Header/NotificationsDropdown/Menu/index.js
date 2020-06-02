@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef, useEffect } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -64,13 +64,14 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   const empty = useMemo(() => !notifications.length, [notifications.length]);
 
   return (
-    <button
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div
       onClick={e => {
         e.stopPropagation();
       }}
     >
       <MenuContainer innerRef={ref}>
-        <Header notificationsNumber={unreadCount} onClose={onClose} />
+        <Header notificationsNumber={unreadCount} onClose={onClose}/>
         <Content
           notifications={notifications}
           empty={empty}
@@ -78,9 +79,9 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           width={MENU_WIDTH}
           rowHeight={ROW_HEIGHT}
         />
-        <Footer empty={empty} onClose={onClose} />
+        <Footer empty={empty} onClose={onClose}/>
       </MenuContainer>
-    </button>
+    </div>
   );
 };
 

@@ -6,6 +6,8 @@ import styled from 'styled-components';
 
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
 
+import { officialAnswersCount } from 'utils/properties';
+
 import {
   addToTopQuestions,
   downQuestion,
@@ -70,13 +72,14 @@ const QI = ({
 }) => {
   const ref = useRef(null);
 
-  const displayPin = useMemo(() => !!profileInfo && profileInfo.isAdmin, [
-    profileInfo,
-  ]);
+  const displayTopQuestion = useMemo(
+    () => !!profileInfo && profileInfo.isAdmin,
+    [profileInfo],
+  );
 
-  const displayPinMove = useMemo(
-    () => displayPin && isTopQuestion && questionFilter === 1,
-    [isTopQuestion, displayPin, questionFilter],
+  const displayTopQuestionMove = useMemo(
+    () => displayTopQuestion && isTopQuestion && questionFilter === 1,
+    [isTopQuestion, displayTopQuestion, questionFilter],
   );
 
   const upQuestionMethod = useCallback(
@@ -118,6 +121,10 @@ const QI = ({
     e.preventDefault();
   }, []);
 
+  const offAnswersCount = useMemo(() => officialAnswersCount({ answers }), [
+    answers,
+  ]);
+
   return (
     <Box
       index={index}
@@ -132,9 +139,10 @@ const QI = ({
         correctAnswerId={correct_answer_id}
         answers={answers}
         rating={rating}
+        officialAnswersCount={offAnswersCount}
       />
       <Div>
-        {displayPinMove && (
+        {displayTopQuestionMove && (
           <MoveSection
             first={first}
             last={last}
@@ -145,7 +153,7 @@ const QI = ({
         )}
         <Body
           id={id}
-          displayPin={displayPin}
+          displayTopQuestion={displayTopQuestion}
           title={title}
           user={user}
           userInfo={userInfo}
@@ -155,7 +163,7 @@ const QI = ({
           communities={communities}
           tags={tags}
           isGeneral={isGeneral}
-          displayPinMove={displayPinMove}
+          displayTopQuestionMove={displayTopQuestionMove}
           profileInfo={profileInfo}
           isTopQuestion={isTopQuestion}
           topQuestionActionProcessing={topQuestionActionProcessing}

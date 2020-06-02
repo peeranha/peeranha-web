@@ -1,15 +1,9 @@
-/**
- *
- * EditAnswer
- *
- */
-
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 
 import commonMessages from 'common-messages';
 
@@ -20,80 +14,127 @@ import Seo from 'components/Seo';
 import AnswerForm from 'components/AnswerForm';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { TEXT_EDITOR_ANSWER_FORM } from 'components/AnswerForm/constants';
+import {
+  ANSWER_TYPE_FORM,
+  TEXT_EDITOR_ANSWER_FORM,
+} from 'components/AnswerForm/constants';
 
-import * as makeSelectEditAnswer from './selectors';
+import {
+  selectAnswer,
+  selectAnswerLoading,
+  selectEditAnswerLoading,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
 import Wrapper from './Wrapper';
 
-import { getAnswer, editAnswer } from './actions';
-import { EDIT_ANSWER_FORM, EDIT_ANSWER_BUTTON } from './constants';
+import { editAnswer, getAnswer } from './actions';
+import { EDIT_ANSWER_BUTTON, EDIT_ANSWER_FORM } from './constants';
+import NotFound from '../ErrorPage';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
-/* eslint-disable react/prefer-stateless-function */
-export class EditAnswer extends React.PureComponent {
-  componentDidMount() {
-    const { questionid, answerid } = this.props.match.params;
-    this.props.getAnswerDispatch(+questionid, +answerid);
-  }
+const EditAnswer = ({
+                      match: {
+                        params: { questionid, answerid },
+                      },
+                      locale,
+                      answer,
+                      profile,
+                      answerLoading,
+                      editAnswerLoading,
+                      getAnswerDispatch,
+                      editAnswerDispatch,
+                    }) => {
+  useEffect(
+    () => {
+      getAnswerDispatch(+questionid, +answerid);
+    },
+    [questionid, answerid],
+  );
 
-  editAnswer = values => {
-    const { questionid, answerid } = this.props.match.params;
-    const answer = values.get(TEXT_EDITOR_ANSWER_FORM);
-    this.props.editAnswerDispatch(answer, +questionid, +answerid);
-  };
+  const sendAnswer = useCallback(
+    values =>
+      editAnswerDispatch(
+        values.get(TEXT_EDITOR_ANSWER_FORM),
+        +questionid,
+        +answerid,
+        values.get(ANSWER_TYPE_FORM),
+      ),
+    [questionid, answerid],
+  );
 
-  render() {
-    const {
-      locale,
-      answer,
-      answerLoading,
-      editAnswerLoading,
-      match,
-    } = this.props;
+  const msg = useMemo(() => translationMessages[locale], [locale]);
+  const { properties, communityId, content } = useMemo(
+    () => answer || { properties: [] },
+    [answer],
+  );
 
-    const msg = translationMessages[locale];
-
-    const { questionid, answerid } = match.params;
-
-    const sendProps = {
+  const sendProps = useMemo(
+    () => ({
       form: EDIT_ANSWER_FORM,
       formHeader: msg[messages.title.id],
       sendButtonId: EDIT_ANSWER_BUTTON,
-      sendAnswer: this.editAnswer,
+      sendAnswer,
       sendAnswerLoading: editAnswerLoading,
       submitButtonName: msg[messages.submitButtonName.id],
-      answer,
+      answer: content,
       locale,
       label: msg[commonMessages.answer.id],
       previewLabel: msg[commonMessages.preview.id],
-    };
+      properties,
+      communityId,
+    }),
+    [
+      sendAnswer,
+      editAnswerLoading,
+      answer,
+      locale,
+      properties,
+      communityId,
+      content,
+    ],
+  );
 
-    const helmetTitle = answer || msg[messages.title.id];
-    const helmetDescription = answer || msg[messages.title.description];
+  const [title, description] = useMemo(
+    () => [
+      answer || msg[messages.title.id],
+      answer || msg[messages.title.description],
+    ],
+    [answer],
+  );
 
-    return (
-      <div>
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          index={false}
-        />
+  const available = useMemo(
+    () => !!profile && !!answer && answer.user === profile.user,
+    [answer, profile],
+  );
 
-        {!answerLoading && (
-          <Wrapper questionid={questionid} answerid={answerid}>
-            <AnswerForm {...sendProps} />
-          </Wrapper>
-        )}
+  return (
+    <div>
+      {available ? (
+        <>
+          <Seo
+            title={title}
+            description={description}
+            language={locale}
+            index={false}
+          />
 
-        {answerLoading && <LoadingIndicator />}
-      </div>
-    );
-  }
-}
+          {!answerLoading && (
+            <Wrapper questionid={questionid} answerid={answerid}>
+              <AnswerForm {...sendProps} />
+            </Wrapper>
+          )}
+
+          {answerLoading && <LoadingIndicator/>}
+        </>
+      ) : (
+        <NotFound withSeo={false}/>
+      )}
+    </div>
+  );
+};
 
 EditAnswer.propTypes = {
   answerLoading: PropTypes.bool,
@@ -103,32 +144,25 @@ EditAnswer.propTypes = {
   match: PropTypes.object,
   getAnswerDispatch: PropTypes.func,
   editAnswerDispatch: PropTypes.func,
+  properties: PropTypes.array,
+  communityId: PropTypes.number,
+  profile: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  answer: makeSelectEditAnswer.selectAnswer(),
-  answerLoading: makeSelectEditAnswer.selectAnswerLoading(),
-  editAnswerLoading: makeSelectEditAnswer.selectEditAnswerLoading(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    getAnswerDispatch: bindActionCreators(getAnswer, dispatch),
-    editAnswerDispatch: bindActionCreators(editAnswer, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'editAnswer', reducer });
-const withSaga = injectSaga({ key: 'editAnswer', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'editAnswer', reducer }),
+  injectSaga({ key: 'editAnswer', saga }),
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+      answer: selectAnswer(),
+      answerLoading: selectAnswerLoading(),
+      editAnswerLoading: selectEditAnswerLoading(),
+      profile: makeSelectProfileInfo(),
+    }),
+    dispatch => ({
+      getAnswerDispatch: bindActionCreators(getAnswer, dispatch),
+      editAnswerDispatch: bindActionCreators(editAnswer, dispatch),
+    }),
+  ),
 )(EditAnswer);

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -15,6 +15,7 @@ import {
 
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 
+import officialIcon from 'images/official.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
@@ -57,42 +58,64 @@ const Div = Base.extend`
   background: ${x => (x.isAccepted ? BG_SUCCESS_LIGHT : BG_TRANSPARENT)};
 `;
 
-const AdditionalInfo = ({ correctAnswerId, answers, rating }) => (
-  <Container className="">
-    <Div isAccepted={correctAnswerId}>
-      <span className="d-flex align-items-center justify-content-center">
-        <img
-          className="mr-2"
-          src={correctAnswerId ? bestAnswerIcon : answerIconEmptyInside}
-          alt="icon"
-        />
-        <Span color={correctAnswerId ? TEXT_SUCCESS : TEXT_PRIMARY_DARK} bold>
-          {getFormattedNum(answers.length)}
-        </Span>
-      </span>
-    </Div>
+const AdditionalInfo = ({
+                          correctAnswerId,
+                          answers,
+                          rating,
+                          officialAnswersCount,
+                        }) => {
+  const icon = useMemo(
+    () => (correctAnswerId ? bestAnswerIcon : answerIconEmptyInside),
+    [answers.length, correctAnswerId],
+  );
+  return (
+    <Container>
+      <Div isAccepted={correctAnswerId}>
+        <span className="d-flex align-items-center justify-content-center">
+          <img className="mr-2" src={icon} alt="icon"/>
+          <Span
+            className={officialAnswersCount ? 'mr-2' : ''}
+            color={correctAnswerId ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
+            bold
+          >
+            {getFormattedNum(answers.length)}
+          </Span>
+          {!!officialAnswersCount && (
+            <>
+              <img width="18" className="mr-2" src={officialIcon} alt="icon"/>
+              <Span color={TEXT_PRIMARY_DARK} bold>
+                {officialAnswersCount}
+              </Span>
+            </>
+          )}
+        </span>
+      </Div>
 
-    <Div>
-      <span className="d-flex align-items-center justify-content-center">
-        <img
-          className="mr-2"
-          src={
-            rating >= 0 ? fingerUpAllQuestionsPage : fingerDownAllQuestionsPage
-          }
-          alt="icon"
-        />
-        <Span color={TEXT_PRIMARY_DARK} bold>
-          {getFormattedNum2(rating)}
-        </Span>
-      </span>
-    </Div>
-  </Container>
-);
+      <Div>
+        <span className="d-flex align-items-center justify-content-center">
+          <img
+            className="mr-2"
+            src={
+              rating >= 0
+                ? fingerUpAllQuestionsPage
+                : fingerDownAllQuestionsPage
+            }
+            alt="icon"
+          />
+          <Span color={TEXT_PRIMARY_DARK} bold>
+            {getFormattedNum2(rating)}
+          </Span>
+        </span>
+      </Div>
+    </Container>
+  );
+};
 
 AdditionalInfo.propTypes = {
   answers: PropTypes.array,
   rating: PropTypes.number,
   correctAnswerId: PropTypes.number,
+  officialAnswersCount: PropTypes.number,
 };
 
 export default memo(AdditionalInfo);
