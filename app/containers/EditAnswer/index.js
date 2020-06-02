@@ -36,17 +36,17 @@ import NotFound from '../ErrorPage';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const EditAnswer = ({
-                      match: {
-                        params: { questionid, answerid },
-                      },
-                      locale,
-                      answer,
-                      profile,
-                      answerLoading,
-                      editAnswerLoading,
-                      getAnswerDispatch,
-                      editAnswerDispatch,
-                    }) => {
+  match: {
+    params: { questionid, answerid },
+  },
+  locale,
+  answer,
+  profile,
+  answerLoading,
+  editAnswerLoading,
+  getAnswerDispatch,
+  editAnswerDispatch,
+}) => {
   useEffect(
     () => {
       getAnswerDispatch(+questionid, +answerid);
@@ -99,8 +99,8 @@ const EditAnswer = ({
 
   const [title, description] = useMemo(
     () => [
-      answer || msg[messages.title.id],
-      answer || msg[messages.title.description],
+      answer?.content ?? msg[messages.title.id],
+      answer?.content ?? msg[messages.title.description],
     ],
     [answer],
   );
@@ -127,10 +127,10 @@ const EditAnswer = ({
             </Wrapper>
           )}
 
-          {answerLoading && <LoadingIndicator/>}
+          {answerLoading && <LoadingIndicator />}
         </>
       ) : (
-        <NotFound withSeo={false}/>
+        <NotFound withSeo={false} />
       )}
     </div>
   );
@@ -140,7 +140,7 @@ EditAnswer.propTypes = {
   answerLoading: PropTypes.bool,
   editAnswerLoading: PropTypes.bool,
   locale: PropTypes.string,
-  answer: PropTypes.string,
+  answer: PropTypes.object,
   match: PropTypes.object,
   getAnswerDispatch: PropTypes.func,
   editAnswerDispatch: PropTypes.func,

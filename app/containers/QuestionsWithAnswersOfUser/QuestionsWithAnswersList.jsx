@@ -36,6 +36,7 @@ const Question = ({
       isMyAnswerAccepted={isMyAnswerAccepted}
       isTheLargestRating={isTheLargestRating}
       isGeneral={isGeneral}
+      bordered={!isGeneral}
       isAnswer
     />
   </Li>

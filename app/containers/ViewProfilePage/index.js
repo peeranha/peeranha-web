@@ -47,7 +47,7 @@ import saga from '../QuestionsWithAnswersOfUser/saga';
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
 
-const ViewProfilePage = /* istanbul ignore next */ ({
+const ViewProfilePage = ({
   match,
   loginData,
   profile,

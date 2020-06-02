@@ -68,7 +68,7 @@ const Content = ({
   loadMoreUnreadNotificationsDispatch,
 }) => {
   const listRef = useRef(null);
-
+  console.log(notifications);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [contentHeight, setContentHeight] = useState(
@@ -125,18 +125,17 @@ const Content = ({
     [scrollPosition],
   );
 
-  const rowRenderer = ({ index, key, style: { top } }) =>
-    console.log(top) || (
-      <Notification
-        small
-        key={key}
-        top={top}
-        height={rowHeight}
-        notificationsNumber={notifications.length}
-        paddingHorizontal="15"
-        {...notifications[index]}
-      />
-    );
+  const rowRenderer = ({ index, key, style: { top } }) => (
+    <Notification
+      small
+      key={key}
+      top={top}
+      height={rowHeight}
+      notificationsNumber={notifications.length}
+      paddingHorizontal="15"
+      {...notifications[index]}
+    />
+  );
 
   rowRenderer.propTypes = {
     index: PropTypes.number,
@@ -173,7 +172,6 @@ const Content = ({
 };
 
 Content.propTypes = {
-  empty: PropTypes.bool,
   loading: PropTypes.bool,
   rowHeight: PropTypes.number.isRequired,
   notifications: PropTypes.arrayOf(PropTypes.object),

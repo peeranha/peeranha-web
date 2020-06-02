@@ -50,7 +50,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
 Wrapper.propTypes = {
   children: PropTypes.any,
   questionid: PropTypes.string,
-  answerid: PropTypes.number,
+  answerid: PropTypes.string,
 };
 
 export default React.memo(Wrapper);

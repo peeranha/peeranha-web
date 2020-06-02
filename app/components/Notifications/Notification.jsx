@@ -34,7 +34,7 @@ const Container = styled.div`
   padding: 0 ${({ paddingHorizontal }) => paddingHorizontal || 0}px;
   ${({ read }) => !read && `background: ${BG_SECONDARY_SPECIAL_4};`};
   border-bottom: ${({ last, withoutBorder }) =>
-  last || withoutBorder ? 'none' : `1px solid ${BORDER_SECONDARY_LIGHT}`};
+    last || withoutBorder ? 'none' : `1px solid ${BORDER_SECONDARY_LIGHT}`};
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
 
@@ -48,7 +48,7 @@ const Container = styled.div`
   }
 
   ${({ small }) =>
-  small ? '' : '  @media only screen and (max-width: 768px) {'};
+    small ? '' : '  @media only screen and (max-width: 768px) {'};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   padding: 10px ${({ paddingHorizontal }) => paddingHorizontal || 0}px;
@@ -101,6 +101,7 @@ const Notification = ({
 }) => {
   const ref = useRef(null);
   const [width, setWidth] = useState(0);
+
   useEffect(
     () => (ref && ref.current ? setWidth(ref.current.offsetWidth) : null),
     [ref, ref.current],
