@@ -4,9 +4,9 @@
     <title>60E097A8-B61A-41F8-B01E-F17335D8E394</title>
     <desc>Created with sketchtool.</desc>
     <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Status_big" transform="translate(-56.000000, -167.000000)" fill="#FDE2DF" fill-rule="nonzero" stroke="#F76F60">
+        <g id="Status_big" transform="translate(-56.000000, -167.000000)" fill-rule="nonzero">
             <g id="Status_Resident" transform="translate(56.000000, 167.000000)">
-                <circle id="Oval-Copy-7" cx="4.5" cy="4.5" r="4"></circle>
+                <circle class="fill stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4"></circle>
             </g>
         </g>
     </g>

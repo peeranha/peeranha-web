@@ -12,6 +12,7 @@ import {
   PRIMARY_SPECIAL,
   TEXT_DARK,
   APP_FONT,
+  BORDER_PRIMARY,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -120,7 +121,7 @@ const MainLinks = ({ profile }) => {
 
       {!styles.withoutFAQ && (
         <A1 to={routes.faq()} name="faq" route={route}>
-          <Icon className="mr-2" width="24" icon={faqIcon} />
+          <Icon className="mr-2" width="24" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.faq} />
         </A1>
       )}

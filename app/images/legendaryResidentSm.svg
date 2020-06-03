@@ -4,8 +4,8 @@
     <title>310ED2D7-CA7C-4713-A866-5170CDA41E38</title>
     <desc>Created with sketchtool.</desc>
     <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Status_big" transform="translate(-56.000000, -269.000000)" fill="#FFECCC" fill-rule="nonzero" stroke="#FF8500">
-            <path d="M57.4475214,277.5 L65.5524786,277.5 L66.3239164,270.55706 L63.9641803,273.310085 L61.5,269.860233 L59.0358197,273.310085 L56.6760836,270.55706 L57.4475214,277.5 Z" id="Status_SuperHero"></path>
+        <g id="Status_big" transform="translate(-56.000000, -269.000000)" fill-rule="nonzero">
+            <path class="fill stroke" d="M57.4475214,277.5 L65.5524786,277.5 L66.3239164,270.55706 L63.9641803,273.310085 L61.5,269.860233 L59.0358197,273.310085 L56.6760836,270.55706 L57.4475214,277.5 Z" id="Status_SuperHero"></path>
         </g>
     </g>
 </svg>

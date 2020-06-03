@@ -1,20 +1,20 @@
-import bannedSm from 'images/bannedSm.svg?inline';
-import strangerSm from 'images/strangerSm.svg?inline';
-import newbieSm from 'images/newbieSm.svg?inline';
-import jrResidentSm from 'images/jrResidentSm.svg?inline';
-import residentSm from 'images/residentSm.svg?inline';
-import srResidentSm from 'images/srResidentSm.svg?inline';
-import heroResidentSm from 'images/heroResidentSm.svg?inline';
-import legendaryResidentSm from 'images/legendaryResidentSm.svg?inline';
+import bannedSm from 'images/bannedSm.svg?external';
+import strangerSm from 'images/strangerSm.svg?external';
+import newbieSm from 'images/newbieSm.svg?external';
+import jrResidentSm from 'images/jrResidentSm.svg?external';
+import residentSm from 'images/residentSm.svg?external';
+import srResidentSm from 'images/srResidentSm.svg?external';
+import heroResidentSm from 'images/heroResidentSm.svg?external';
+import legendaryResidentSm from 'images/legendaryResidentSm.svg?external';
 
-import bannedLg from 'images/bannedLg.svg?inline';
-import strangerLg from 'images/strangerLg.svg?inline';
-import newbieLg from 'images/newbieLg.svg?inline';
-import jrResidentLg from 'images/jrResidentLg.svg?inline';
-import residentLg from 'images/residentLg.svg?inline';
-import srResidentLg from 'images/srResidentLg.svg?inline';
-import heroResidentLg from 'images/heroResidentLg.svg?inline';
-import legendaryResidentLg from 'images/legendaryResidentLg.svg?inline';
+import bannedLg from 'images/bannedLg.svg?external';
+import strangerLg from 'images/strangerLg.svg?external';
+import newbieLg from 'images/newbieLg.svg?external';
+import jrResidentLg from 'images/jrResidentLg.svg?external';
+import residentLg from 'images/residentLg.svg?external';
+import srResidentLg from 'images/srResidentLg.svg?external';
+import heroResidentLg from 'images/heroResidentLg.svg?external';
+import legendaryResidentLg from 'images/legendaryResidentLg.svg?external';
 
 import messages from './messages';
 
@@ -27,6 +27,16 @@ const options = {
     icon: {
       sm: bannedSm,
       lg: bannedLg,
+      size: {
+        sm: {
+          width: '9',
+          height: '9',
+        },
+        lg: {
+          width: '16',
+          height: '16',
+        },
+      },
     },
   },
   stranger: {
@@ -37,6 +47,16 @@ const options = {
     icon: {
       sm: strangerSm,
       lg: strangerLg,
+      size: {
+        sm: {
+          width: '9',
+          height: '9',
+        },
+        lg: {
+          width: '16',
+          height: '16',
+        },
+      },
     },
   },
   newbie: {
@@ -47,6 +67,16 @@ const options = {
     icon: {
       sm: newbieSm,
       lg: newbieLg,
+      size: {
+        sm: {
+          width: '13',
+          height: '9',
+        },
+        lg: {
+          width: '26',
+          height: '16',
+        },
+      },
     },
   },
   jrResident: {
@@ -57,6 +87,16 @@ const options = {
     icon: {
       sm: jrResidentSm,
       lg: jrResidentLg,
+      size: {
+        sm: {
+          width: '17',
+          height: '9',
+        },
+        lg: {
+          width: '36',
+          height: '16',
+        },
+      },
     },
   },
   resident: {
@@ -67,6 +107,16 @@ const options = {
     icon: {
       sm: residentSm,
       lg: residentLg,
+      size: {
+        sm: {
+          width: '9',
+          height: '9',
+        },
+        lg: {
+          width: '16',
+          height: '16',
+        },
+      },
     },
   },
   srResident: {
@@ -77,6 +127,16 @@ const options = {
     icon: {
       sm: srResidentSm,
       lg: srResidentLg,
+      size: {
+        sm: {
+          width: '15',
+          height: '9',
+        },
+        lg: {
+          width: '26',
+          height: '16',
+        },
+      },
     },
   },
   heroResident: {
@@ -87,6 +147,16 @@ const options = {
     icon: {
       sm: heroResidentSm,
       lg: heroResidentLg,
+      size: {
+        sm: {
+          width: '21',
+          height: '9',
+        },
+        lg: {
+          width: '36',
+          height: '16',
+        },
+      },
     },
   },
   legResident: {
@@ -97,6 +167,16 @@ const options = {
     icon: {
       sm: legendaryResidentSm,
       lg: legendaryResidentLg,
+      size: {
+        sm: {
+          width: '11',
+          height: '9',
+        },
+        lg: {
+          width: '19',
+          height: '16',
+        },
+      },
     },
   },
 };

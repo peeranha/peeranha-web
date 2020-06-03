@@ -166,11 +166,17 @@ export const OntStyles = {
   },
   colors: {
     blue: 'rgba(0,0,0,.6)',
+    blueRGB: '40,40,40',
+    blue2: '#cccccc',
+    secondarySpecial: 'rgba(0,0,0,.4)',
     black: '#000000',
     warningLight: '#000000',
     darkBlue: 'rgba(0,0,0,.6)',
     mainBackground: '#fafafa',
     mainLinks: 'rgba(0,0,0,.6)',
+    attentionColor: '#2fa3f1',
+    linkColor: '#2fa3f1',
+    purple: 'rgba(0,0,0,.6)',
   },
   fontFace: `@font-face {
     font-family: 'Roboto-Regular';

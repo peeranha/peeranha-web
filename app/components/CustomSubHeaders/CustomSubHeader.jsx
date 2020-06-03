@@ -217,7 +217,7 @@ export const B = ({ text, subitems, styles, device }) => {
             <Subitems styles={styles.subitems}>
               <div>
                 {subitems.map(({ text, href }) => (
-                  <Link href={href} target="_blank">
+                  <Link key={href} href={href} target="_blank">
                     {text}
                   </Link>
                 ))}
@@ -232,13 +232,12 @@ export const B = ({ text, subitems, styles, device }) => {
             <Arrow
               className="mt-auto mb-auto"
               color={'small'}
-              rotate={visible}
             />
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>
             <div>
               {subitems.map(({ text, href }) => (
-                <Link href={href} target="_blank">
+                <Link key={href} href={href} target="_blank">
                   {text}
                 </Link>
               ))}
@@ -265,7 +264,7 @@ export const Links = ({ links, styles, device = 'desktop' }) => (
           <B
             text={text}
             subitems={subitems}
-            key={href}
+            key={text}
             styles={styles}
             device={device}
           />

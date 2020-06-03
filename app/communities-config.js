@@ -20,15 +20,21 @@ const communitiesConfig = {
   test: {
     1: {
       origin: 'https://blockchain-test.peeranha.io',
+    },
+    2: {
+      origin: 'https://community1-test.peeranha.io/',
       src: TelosLogo,
       styles: TelosStyles,
+    },
+    3: {
+      origin: 'https://community2-test.peeranha.io/',
+      src: OntLogo,
+      styles: OntStyles,
     },
   },
   dev: {
     1: {
       origin: 'http://localhost:3000',
-      // src: TelosLogo,
-      // styles: TelosStyles,
     },
   },
 };

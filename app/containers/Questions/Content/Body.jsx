@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
-import { TEXT_SECONDARY, APP_FONT } from 'style-constants';
+import { TEXT_SECONDARY, APP_FONT, ATTENTION_COLOR } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import {
@@ -23,11 +23,12 @@ import RatingStatus from 'components/RatingStatus';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import QuestionType from 'components/Labels/QuestionType';
 
-import topQuestionActiveIcon from 'images/starActive.svg?inline';
-import topQuestionsInactiveIcon from 'images/star.svg?inline';
+import topQuestionActiveIcon from 'images/starActive.svg?external';
+import topQuestionsInactiveIcon from 'images/star.svg?external';
 
 import ExpertPopover from '../ExpertPopover';
 import TopQuestionPopover from '../TopQuestionPopover';
+import Icon from 'components/Icon';
 
 const single = isSingleCommunityWebsite();
 const fonts = singleCommunityFonts();
@@ -45,6 +46,14 @@ const Button = styled.button`
   @media only screen and (max-width: 576px) {
     top: -10px;
     right: -10px;
+  }
+
+  .fill {
+    fill: ${ATTENTION_COLOR};
+  }
+
+  .stroke {
+    stroke: ${ATTENTION_COLOR};
   }
 `;
 
@@ -131,7 +140,7 @@ const Body = ({
           {isTopQuestionPopoverVisible && (
             <TopQuestionPopover locale={locale} />
           )}
-          <img src={pinIcon} width="20" alt="top" />
+          <Icon icon={pinIcon} width="20" />
         </Button>
       )}
 

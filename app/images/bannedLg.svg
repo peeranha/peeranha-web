@@ -6,8 +6,8 @@
     <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="ico_banned_big" fill-rule="nonzero">
             <g id="Status_Banned-Copy">
-                <circle id="Oval-Copy-7" stroke="#DC3545" cx="8" cy="8" r="7.5"></circle>
-                <polygon id="Rectangle" fill="#DC3545" transform="translate(8.060660, 8.439340) rotate(-45.000000) translate(-8.060660, -8.439340) " points="0.560660172 7.93933983 15.5606602 7.93933983 15.5606602 8.93933983 0.560660172 8.93933983"></polygon>
+                <circle class="stroke" id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
+                <polygon class="fill" id="Rectangle" transform="translate(8.060660, 8.439340) rotate(-45.000000) translate(-8.060660, -8.439340) " points="0.560660172 7.93933983 15.5606602 7.93933983 15.5606602 8.93933983 0.560660172 8.93933983"></polygon>
             </g>
         </g>
     </g>

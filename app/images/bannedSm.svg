@@ -6,8 +6,8 @@
     <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Status_big" transform="translate(-56.000000, -31.000000)" fill-rule="nonzero">
             <g id="Status_Banned" transform="translate(56.000000, 31.000000)">
-                <circle id="Oval-Copy-7" stroke="#DC3545" cx="4.5" cy="4.5" r="4"></circle>
-                <rect id="Rectangle" fill="#DC3545" transform="translate(4.500000, 4.500000) rotate(-45.000000) translate(-4.500000, -4.500000) " x="1" y="4" width="7" height="1"></rect>
+                <circle class="stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4"></circle>
+                <rect class="fill" id="Rectangle" transform="translate(4.500000, 4.500000) rotate(-45.000000) translate(-4.500000, -4.500000) " x="1" y="4" width="7" height="1"></rect>
             </g>
         </g>
     </g>

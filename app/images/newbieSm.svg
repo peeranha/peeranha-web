@@ -6,8 +6,8 @@
     <g id="Peeranha" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Status_big" transform="translate(-56.000000, -99.000000)" fill="#DDE2FB" fill-rule="nonzero" stroke="#576FED">
             <g id="Status_Newbie" transform="translate(56.000000, 99.000000)">
-                <circle id="Status_Stranger" cx="4.5" cy="4.5" r="4"></circle>
-                <circle id="Status_Stranger-Copy" cx="8.5" cy="4.5" r="4"></circle>
+                <circle class="fill stroke" id="Status_Stranger" cx="4.5" cy="4.5" r="4"></circle>
+                <circle class="fill stroke" id="Status_Stranger-Copy" cx="8.5" cy="4.5" r="4"></circle>
             </g>
         </g>
     </g>

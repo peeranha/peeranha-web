@@ -6,12 +6,12 @@
     <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="ico_Newbie_big-ico_newbie_big" fill="#DDE2FB" fill-rule="nonzero" stroke="#576FED">
             <g id="ico_stranger_big-1">
-                <circle id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
-                <circle id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
+                <circle class="fill stroke" id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
+                <circle class="fill stroke" id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
             </g>
             <g id="ico_stranger_big-2" transform="translate(10.000000, 0.000000)">
-                <circle id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
-                <circle id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
+                <circle class="fill stroke" id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
+                <circle class="fill stroke" id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
             </g>
         </g>
     </g>

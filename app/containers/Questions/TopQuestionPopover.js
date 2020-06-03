@@ -14,7 +14,6 @@ const Base = styled.div`
   background-color: ${BG_LIGHT};
   width: 192px;
   z-index: 10;
-  height: 25px;
   left: -172px;
   top: 25px;
   border-radius: 5px;

@@ -88,6 +88,7 @@ export const TelosStyles = {
   },
   colors: {
     blue: '#5D6DFE',
+    blueRGB: '93,109,254',
     black: '#02003D',
     warningLight: '#FF4026',
     darkBlue: '#4452C5',

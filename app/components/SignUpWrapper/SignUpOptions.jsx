@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, LINK_COLOR } from 'style-constants';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
@@ -40,7 +40,7 @@ export const Li = P.extend`
   margin-bottom: 10px;
 
   a {
-    color: ${TEXT_PRIMARY};
+    color: ${LINK_COLOR};
   }
 
   @media only screen and (max-width: 576px) {
@@ -77,7 +77,7 @@ const LeftMenu = ({ faqQuestions }) => (
     </div>
 
     {faqQuestions && (
-      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+      <ul className="mb-4">{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
     )}
   </React.Fragment>
 );
