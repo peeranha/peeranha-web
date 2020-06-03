@@ -110,29 +110,32 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {!styles?.customSubHeader && !!single && (
-        <SingleModeSubHeader>
-          <div className="container">
-            <ADefault href={`${process.env.APP_LOCATION}${routes.questions()}`}>
-              <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
-            </ADefault>
-
-            {profileInfo && (
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <FormattedMessage {...messages.myFeed} />
+      {!styles?.customSubHeader &&
+        !!single && (
+          <SingleModeSubHeader>
+            <div className="container">
+              <ADefault
+                href={`${process.env.APP_LOCATION}${routes.questions()}`}
+              >
+                <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
               </ADefault>
-            )}
-            <ADefault href={process.env.APP_LOCATION}>
-              <FormattedMessage {...messages.allQuestions} />
-            </ADefault>
-            <ADefault
-              href={`${process.env.APP_LOCATION}${routes.communities()}`}
-            >
-              <FormattedMessage {...messages.allCommunities} />
-            </ADefault>
-          </div>
-        </SingleModeSubHeader>
-      )}
+
+              {profileInfo && (
+                <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
+                  <FormattedMessage {...messages.myFeed} />
+                </ADefault>
+              )}
+              <ADefault href={process.env.APP_LOCATION}>
+                <FormattedMessage {...messages.allQuestions} />
+              </ADefault>
+              <ADefault
+                href={`${process.env.APP_LOCATION}${routes.communities()}`}
+              >
+                <FormattedMessage {...messages.allCommunities} />
+              </ADefault>
+            </div>
+          </SingleModeSubHeader>
+        )}
       {styles?.customSubHeader ?? null}
       <MainSubHeader>
         <div className="container">
