@@ -229,6 +229,7 @@ function* loadTopCommunityQuestionsWorker() {
           },
         });
       }
+
       const topQuestions = yield select(selectTopQuestions());
       const topQuestionsLoaded = yield select(selectTopQuestionsLoaded());
       if (!topQuestions.length && !topQuestionsLoaded) {
@@ -240,7 +241,8 @@ function* loadTopCommunityQuestionsWorker() {
         );
 
         const questionFilter = +getCookie(QUESTION_FILTER) || 0;
-        if (data) {
+
+        if (data?.['top_questions'].length) {
           yield put(
             loadTopCommunityQuestionsSuccess(
               yield all(
@@ -255,6 +257,15 @@ function* loadTopCommunityQuestionsWorker() {
           );
         } else {
           yield put(loadTopCommunityQuestionsSuccess([]));
+          yield put(changeQuestionFilter(0));
+          setCookie({
+            name: QUESTION_FILTER,
+            value: 0,
+            options: {
+              defaultPath: true,
+              neverExpires: true,
+            },
+          });
         }
       }
     }
@@ -283,6 +294,7 @@ function* addToTopCommunityWorker({ id }) {
       const topQuestions = yield select(
         selectQuestions(null, null, null, true),
       );
+
       if (!topQuestions.length) {
         yield put(changeQuestionFilter(0));
         setCookie({

@@ -49,12 +49,13 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
   </nav>
 );
 
-/* eslint no-unreachable: 0 */
 const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
   const { maxEnergy } = userStatusOptions[getStatus(rating)];
 
   // TODO: return if energy will be needed
-  return null;
+  if (process.env.ENV === 'prod') {
+    return null;
+  }
 
   return (
     <Dropdown

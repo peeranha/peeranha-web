@@ -149,15 +149,10 @@ export function* markAllAsReadWorker() {
   try {
     const { user } = yield select(makeSelectProfileInfo());
 
-    const response = yield call(
-      callService,
-      NOTIFICATIONS_READ_SERVICE,
-      {
-        user,
-        markAllAsRead: true,
-      },
-      true,
-    );
+    const response = yield call(callService, NOTIFICATIONS_READ_SERVICE, {
+      user,
+      markAllAsRead: true,
+    });
     if (response.OK) {
       yield put(markAllNotificationsAsReadSuccess());
     } else {
@@ -178,16 +173,11 @@ export function* markAsRead(notifications, first, last, leave = false) {
       .map(({ timestamp }) => timestamp);
 
     if (timestamps.length) {
-      const response = yield call(
-        callService,
-        NOTIFICATIONS_READ_SERVICE,
-        {
-          user,
-          timestamps,
-          markAllAsRead: false,
-        },
-        true,
-      );
+      const response = yield call(callService, NOTIFICATIONS_READ_SERVICE, {
+        user,
+        timestamps,
+        markAllAsRead: false,
+      });
 
       if (response.OK) {
         yield put(markAsReadSuccess(timestamps, leave));
