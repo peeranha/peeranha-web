@@ -48,18 +48,18 @@ const Div = styled.div`
 `;
 
 export const BestAnswerMarker = ({
-                                   answerId,
-                                   questionFrom,
-                                   account,
-                                   markAsAccepted,
-                                   correctAnswerId,
-                                   whoWasAccepted,
-                                   isTheLargestRating,
-                                   ids,
-                                   isItWrittenByMe,
-                                   questionId,
-                                   isOfficial,
-                                 }) => {
+  answerId,
+  questionFrom,
+  account,
+  markAsAccepted,
+  correctAnswerId,
+  whoWasAccepted,
+  isTheLargestRating,
+  ids,
+  isItWrittenByMe,
+  questionId,
+  isOfficial,
+}) => {
   if (answerId === 0) return null;
   const displayTips = !isItWrittenByMe && answerId !== 0;
   return (
@@ -98,7 +98,7 @@ export const BestAnswerMarker = ({
 
       {isTheLargestRating ? (
         <Label bg={BG_PRIMARY} inactive>
-          <img className="d-inline-flex mr-2" src={crownIcon} alt="icon"/>
+          <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
       ) : null}

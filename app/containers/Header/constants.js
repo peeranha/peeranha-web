@@ -11,3 +11,5 @@ export const HEADER_HEIGHT =
   (single && !styles.withoutSubHeader) || styles.customSubHeader ? 120 : 80;
 export const MOBILE_HEADER_HEIGHT =
   (single && !styles.withoutSubHeader) || styles.customSubHeader ? 56 : 60;
+
+export const SEARCH_FORM_ID = 'q';

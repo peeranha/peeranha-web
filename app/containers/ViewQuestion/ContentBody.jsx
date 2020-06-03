@@ -13,7 +13,7 @@ import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
 import messages from './messages';
 
 export const ContentBody = ({
-                              content,
+  content,
   type,
   voteToDelete,
   voteToDeleteLoading,
@@ -27,17 +27,17 @@ export const ContentBody = ({
   deleteComment,
   deleteCommentLoading,
   comments,
-                              postCommentLoading,
-                              postComment,
-                              questionFrom,
-                              account,
-                              markAsAccepted,
-                              markAsAcceptedLoading,
-                              userInfo,
-                              isTheLargestRating,
-                              ids,
-                              isItWrittenByMe,
-                            }) => {
+  postCommentLoading,
+  postComment,
+  questionFrom,
+  account,
+  markAsAccepted,
+  markAsAcceptedLoading,
+  userInfo,
+  isTheLargestRating,
+  ids,
+  isItWrittenByMe,
+}) => {
   const isOfficial = useMemo(
     () =>
       isAnswerOfficial(
@@ -65,7 +65,7 @@ export const ContentBody = ({
         isOfficial={isOfficial}
       />
 
-      <TextBlock content={content}/>
+      <TextBlock content={content} />
 
       <Comments
         locale={locale}
