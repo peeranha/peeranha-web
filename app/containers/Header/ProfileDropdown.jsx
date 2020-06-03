@@ -62,7 +62,7 @@ const B = ({ profileInfo, onClick, isMenuVisible }) => (
     )}
     <Info isMenuVisible={isMenuVisible}>
       <Span className={single ? 'align-middle' : ''} bold>
-        {profileInfo.display_name}
+        {profileInfo?.['display_name']}
       </Span>
       <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
     </Info>

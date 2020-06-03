@@ -3,16 +3,16 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ACCOUNTS_TABLE,
-  PERIOD_REWARD_TABLE,
-  PERIOD_RATING_TABLE,
-  SEND_TOKEN_METHOD,
-  PICKUP_REWARD_METHOD,
-  TOTAL_REWARD_TABLE,
-  TOTAL_RATING_TABLE,
   ALL_PERIODS_SCOPE,
   INF_LIMIT,
-  USER_SUPPLY_TABLE,
+  PERIOD_RATING_TABLE,
+  PERIOD_REWARD_TABLE,
+  PICKUP_REWARD_METHOD,
+  SEND_TOKEN_METHOD,
+  TOTAL_RATING_TABLE,
+  TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
+  USER_SUPPLY_TABLE,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -200,6 +200,7 @@ export async function sendTokens(
     contractAccount,
     true,
   );
+
   return { response, data };
 }
 

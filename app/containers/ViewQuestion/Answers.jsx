@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 
@@ -9,15 +9,19 @@ import AnswersList from './AnswersList';
 import AcceptedAnswer from './AcceptedAnswer';
 
 export const Answers = props => {
-  const answersList = props.questionData.answers;
+  const {
+    questionData: { answers },
+  } = props;
 
-  if (!answersList.length || !answersList[0].content) return null;
+  if (!answers.length || !answers[0].content) return null;
 
-  const sortedByRatingAnswers = orderBy(answersList, 'rating', 'desc').map(
-    x => ({
-      ...x,
-      isTheLargestRating: false,
-    }),
+  const sortedByRatingAnswers = useMemo(
+    () =>
+      orderBy(answers, 'rating', 'desc').map(x => ({
+        ...x,
+        isTheLargestRating: false,
+      })),
+    [answers],
   );
 
   const [A1, A2] = sortedByRatingAnswers;
@@ -33,8 +37,8 @@ export const Answers = props => {
 
   return (
     <div>
-      <AnswersTitle answersNum={answersList.length} />
-      <AcceptedAnswer {...props} questionData={questionDataWithSortedAnswers} />
+      <AnswersTitle answersNum={answers.length}/>
+      <AcceptedAnswer {...props} questionData={questionDataWithSortedAnswers}/>
       <AnswersList {...props} questionData={questionDataWithSortedAnswers} />
     </div>
   );

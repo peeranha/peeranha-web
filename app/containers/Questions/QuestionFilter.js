@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useCallback } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -17,6 +17,7 @@ import { getCookie, setCookie } from 'utils/cookie';
 
 import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
+import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 const Container = styled.div`
   display: flex;
@@ -39,8 +40,10 @@ const Button = styled.button`
     ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
 
   box-shadow: ${({ active }) =>
-    active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
+  active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
 `;
+
+const single = isSingleCommunityWebsite();
 
 const cookieFilterSetter = value => ({
   name: QUESTION_FILTER,
@@ -52,6 +55,8 @@ const cookieFilterSetter = value => ({
 });
 
 const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
+  if (!single) return null;
+
   const [filter, setFilterValue] = useState(+(getCookie(QUESTION_FILTER) || 1));
 
   useEffect(() => {

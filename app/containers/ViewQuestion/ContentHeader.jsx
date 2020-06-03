@@ -108,7 +108,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(userInfo.ipfs_avatar)}
-          name={userInfo.display_name}
+          name={userInfo?.['display_name']}
           account={userInfo.user}
           rating={userInfo.rating}
           type={type}
@@ -163,11 +163,13 @@ const ContentHeader = props => {
                 show={questionData.user === userInfo.user}
                 onClick={() => changeSharingModalView(!isSharingModalHidden)}
               >
-                <img src={shareIcon} alt="icon" />
+                <img src={shareIcon} alt="icon"/>
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
-              {!isSharingModalHidden && <SharingModal questionData={questionData} />}
+              {!isSharingModalHidden && (
+                <SharingModal questionData={questionData}/>
+              )}
             </DropdownBox>
           )}
 

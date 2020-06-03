@@ -369,4 +369,7 @@ export default defineMessages({
   yesterday: {
     id: 'app.common.yesterday',
   },
+  official: {
+    id: 'app.common.official',
+  },
 });

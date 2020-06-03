@@ -14,10 +14,10 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getSuggestedTags } from 'containers/Tags/actions';
 
 import {
-  selectSuggestedTags,
-  selectIsLastFetchForSuggestedTags,
-  selectSuggestedTagsLoading,
   selectExistingTags,
+  selectIsLastFetchForSuggestedTags,
+  selectSuggestedTags,
+  selectSuggestedTagsLoading,
 } from 'containers/Tags/selectors';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';

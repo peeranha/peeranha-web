@@ -13,11 +13,11 @@ import {
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import {
-  selectText,
   selectExistingTags,
   selectExistingTagsLoading,
   selectIsLastFetchForExistingTags,
   selectSuggestedTags,
+  selectText,
 } from 'containers/Tags/selectors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';

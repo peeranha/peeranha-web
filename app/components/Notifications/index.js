@@ -1,7 +1,7 @@
 import React, {
-  useMemo,
-  useEffect,
   useCallback,
+  useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -30,6 +30,7 @@ import {
   selectAllNotifications,
   selectAllNotificationsLoading,
   selectReadNotificationsAll,
+  unreadNotificationsCount,
 } from './selectors';
 
 import saga from './saga';
@@ -83,6 +84,7 @@ const LoaderContainer = styled.div`
 
 const Notifications = ({
   loading,
+  unreadCount,
   allCount,
   className,
   isAvailable,
@@ -131,6 +133,8 @@ const Notifications = ({
 
       if (!_isEqual(union, readNotifications)) {
         markAsReadNotificationsAllDispatch(union);
+      } else if (notifications.length === 1) {
+        markAsReadNotificationsAllDispatch([0, 0]);
       }
 
       setCalculatedRanges({
@@ -223,7 +227,7 @@ const Notifications = ({
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
           <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
-            <MarkAllAsReadButton />
+            {!!unreadCount && <MarkAllAsReadButton />}
           </SubHeader>
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
@@ -258,6 +262,7 @@ const Notifications = ({
 
 Notifications.propTypes = {
   loading: PropTypes.bool,
+  unreadCount: PropTypes.number,
   allCount: PropTypes.number,
   className: PropTypes.string,
   isAvailable: PropTypes.bool,
@@ -277,6 +282,7 @@ export default React.memo(
         notifications: selectAllNotifications()(state),
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
+        unreadCount: unreadNotificationsCount()(state),
       }),
       dispatch => ({
         loadMoreNotificationsDispatch: bindActionCreators(

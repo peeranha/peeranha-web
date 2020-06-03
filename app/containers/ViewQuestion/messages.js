@@ -136,4 +136,7 @@ export default defineMessages({
   changeQuestionTypeWithoutRatingRestore: {
     id: 'app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore',
   },
+  officialAnswer: {
+    id: 'app.containers.ViewQuestion.officialAnswer',
+  },
 });
