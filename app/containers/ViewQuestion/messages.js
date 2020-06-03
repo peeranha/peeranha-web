@@ -31,6 +31,12 @@ export default defineMessages({
   shareTitle: {
     id: 'app.containers.ViewQuestion.shareTitle',
   },
+  copy: {
+    id: 'app.containers.ViewQuestion.copy',
+  },
+  copied: {
+    id: 'app.containers.ViewQuestion.copied',
+  },
   moreComments: {
     id: 'app.containers.ViewQuestion.moreComments',
   },

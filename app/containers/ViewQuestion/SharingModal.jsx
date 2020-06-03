@@ -107,7 +107,7 @@ const SharingModal = props => {
           text={window.location.href}
           onCopy={() => changeStatusCopyLink(!isNotLinkCopied)}
         >
-          <span class="copy-btn">{isNotLinkCopied ? 'Copy' : 'Copied'}</span>
+          <span class="copy-btn">{isNotLinkCopied ? <FormattedMessage {...messages.copy} /> : <FormattedMessage {...messages.copied} />}</span>
         </CopyToClipboard>
       </DropdownModalFooter>
     </DropdownModal>

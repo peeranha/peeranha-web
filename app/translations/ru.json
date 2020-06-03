@@ -547,6 +547,8 @@
   "app.containers.ViewQuestion.editButton": "Редактировать",
   "app.containers.ViewQuestion.shareButton": "Поделиться",
   "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот вопрос",
+  "app.containers.ViewQuestion.copy": "Копировать",
+  "app.containers.ViewQuestion.copied": "Скопировано",
   "app.containers.ViewQuestion.saveButton": "Сохранить",
   "app.containers.ViewQuestion.commentButton": "Комментировать",
   "app.containers.ViewQuestion.postCommentButton": "Отправить",
