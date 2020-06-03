@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   RedditShareButton,
   TelegramShareButton,
@@ -9,15 +9,16 @@ import {
 } from 'react-share';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT } from 'style-constants';
+import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT, TEXT_PRIMARY } from 'style-constants';
 
-import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?inline';
-import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
-import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?inline';
+import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?external';
+import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
+import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
 
 import { APP_TWITTER_NICKNAME } from 'utils/constants';
 
 import Input from 'components/Input';
+import Icon from 'components/Icon';
 
 import messages from './messages';
 
@@ -61,10 +62,14 @@ const DropdownModalFooter = styled.footer`
 
     cursor: pointer;
   }
+
+  .fill {
+    fill: ${TEXT_PRIMARY};
+  }
 `;
 
 const SharingModal = props => {
-  const { questionData, intl } = props;
+  const { questionData } = props;
 
   const [isNotLinkCopied, changeStatusCopyLink] = useState(true);
 
@@ -83,34 +88,19 @@ const SharingModal = props => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <img
-              src={twitter}
-              alt={intl.formatMessage({
-                id: messages.shareTwitter.id,
-              })}
-            />
+            <Icon icon={twitter} width="24" />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <img
-              src={telegram}
-              alt={intl.formatMessage({
-                id: messages.shareTelegram.id,
-              })}
-            />
+            <Icon icon={telegram} width="24" />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <img
-              src={reddit}
-              alt={intl.formatMessage({
-                id: messages.shareReddit.id,
-              })}
-            />
+            <Icon icon={reddit} width="24" />
           </RedditShareButton>
         </div>
         <CopyToClipboard
@@ -126,7 +116,6 @@ const SharingModal = props => {
 
 SharingModal.propTypes = {
   questionData: PropTypes.object.isRequired,
-  intl: intlShape.isRequired,
 };
 
-export default React.memo(injectIntl(SharingModal));
+export default React.memo(SharingModal);
