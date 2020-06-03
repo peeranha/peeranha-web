@@ -7,17 +7,17 @@
 import { fromJS } from 'immutable';
 
 import {
-  SELECT_ACCOUNT,
-  SELECT_ACCOUNT_SUCCESS,
-  SELECT_ACCOUNT_ERROR,
-  REMOVE_SELECTED_ACCOUNT,
-  SHOW_SEND_TIPS_MODAL,
-  HIDE_SEND_TIPS_MODAL,
-  SEND_TIPS,
-  SEND_TIPS_SUCCESS,
-  SEND_TIPS_ERROR,
   ADD_TIPS_EOS_SERVICE,
+  HIDE_SEND_TIPS_MODAL,
+  REMOVE_SELECTED_ACCOUNT,
   REMOVE_TIPS_EOS_SERVICE,
+  SELECT_ACCOUNT,
+  SELECT_ACCOUNT_ERROR,
+  SELECT_ACCOUNT_SUCCESS,
+  SEND_TIPS,
+  SEND_TIPS_ERROR,
+  SEND_TIPS_SUCCESS,
+  SHOW_SEND_TIPS_MODAL,
 } from './constants';
 
 export const initialState = fromJS({
@@ -29,7 +29,7 @@ export const initialState = fromJS({
   whoWillBeTipped: null,
 });
 
-function sendTipsReducer(state = initialState, action) {
+const sendTipsReducer = (state = initialState, action) => {
   const {
     type,
     sendTipsError,
@@ -78,6 +78,6 @@ function sendTipsReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default sendTipsReducer;

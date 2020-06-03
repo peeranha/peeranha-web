@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -25,7 +25,7 @@ export const UlStyled = Ul.extend`
   flex-wrap: nowrap;
   border: none;
   padding: 0;
-  overflow-x auto;
+  overflow-x: auto;
   white-space: nowrap;
 
   li:last-child {
@@ -124,7 +124,7 @@ const MainUserInformation = ({
       <div>
         <div className="d-flex align-items-center">
           <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-            {profile.display_name}
+            {profile?.['display_name']}
           </Span>
         </div>
 

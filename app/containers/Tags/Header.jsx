@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
@@ -29,6 +29,8 @@ import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
 
 const tagsRoute = routes.tags();
+
+const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
@@ -63,16 +65,29 @@ export const Header = ({
   currentCommunity,
   tagsNumber,
 }) => {
-  const path = window.location.pathname + window.location.hash;
+  const path = useMemo(() => window.location.pathname + window.location.hash, [
+    window.location,
+  ]);
 
-  const communityTagsRoute = routes.communityTags(currentCommunity.id);
-  const suggestedTagsRoute = routes.suggestedTags(currentCommunity.id);
+  const communityTagsRoute = useMemo(
+    () => routes.communityTags(currentCommunity.id),
+    [currentCommunity.id],
+  );
+  const suggestedTagsRoute = useMemo(
+    () => routes.suggestedTags(currentCommunity.id),
+    [currentCommunity.id],
+  );
+
+  const displaySortTagDropdown = useMemo(
+    () => path === communityTagsRoute && !!tagsNumber,
+    [path, communityTagsRoute, tagsNumber],
+  );
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
         <div>
-          {!isSingleCommunityWebsite() && (
+          {!single && (
             <A to={tagsRoute}>
               <NavigationButton className="pl-0" isLink>
                 <img src={arrowLeft} alt="x" />
@@ -131,9 +146,9 @@ export const Header = ({
             alt="tags"
           />
 
-          {currentCommunity.name}
+          {`${currentCommunity.name || ''} `}
 
-          {tagsNumber && (
+          {!!tagsNumber && (
             <Span
               className="d-none d-sm-inline text-lowercase ml-3"
               color={TEXT_SECONDARY}
@@ -146,7 +161,7 @@ export const Header = ({
           )}
         </H3>
 
-        {path === communityTagsRoute && (
+        {displaySortTagDropdown && (
           <div className="right-panel">
             <Dropdown
               button={<Button sorting={sorting} />}

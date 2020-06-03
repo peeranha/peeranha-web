@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import messages from 'containers/Profile/messages';
 
 import {
-  AVATAR_FIELD,
-  DISPLAY_NAME_FIELD,
-  POSITION_FIELD,
-  COMPANY_FIELD,
   ABOUT_FIELD,
+  AVATAR_FIELD,
+  COMPANY_FIELD,
+  DISPLAY_NAME_FIELD,
   LOCATION_FIELD,
+  POSITION_FIELD,
 } from 'containers/Profile/constants';
 
 import TextareaField from 'components/FormFields/TextareaField';
@@ -26,12 +26,12 @@ import FormBox from 'components/Form';
 
 import {
   imageValidation,
-  strLength3x20,
-  strLength20x1000,
   required,
+  strLength20x1000,
+  strLength3x20,
 } from 'components/FormFields/validate';
 
-import { PROFILE_EDIT_FORM, EDIT_PROFILE_BUTTON_ID } from './constants';
+import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
 
 export const ProfileEditForm = ({
   handleSubmit,
@@ -136,9 +136,9 @@ let FormClone = reduxForm({
 FormClone = connect((_, props) => ({
   enableReinitialize: true,
   initialValues: {
-    ...(props.profile ? props.profile.profile : {}),
-    [DISPLAY_NAME_FIELD]: props.profile && props.profile.display_name,
-    [AVATAR_FIELD]: props.profile && props.profile.ipfs_avatar,
+    ...(props?.profile?.profile || {}),
+    [DISPLAY_NAME_FIELD]: props?.profile?.['display_name'],
+    [AVATAR_FIELD]: props?.profile?.['ipfs_avatar'],
   },
 }))(FormClone);
 

@@ -1,7 +1,7 @@
 import React, {
-  useMemo,
-  useEffect,
   useCallback,
+  useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -30,6 +30,7 @@ import {
   selectAllNotifications,
   selectAllNotificationsLoading,
   selectReadNotificationsAll,
+  unreadNotificationsCount,
 } from './selectors';
 
 import saga from './saga';
@@ -42,6 +43,7 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered from '../LoadingIndicator/WidthCentered';
+import NotFound from '../../containers/ErrorPage';
 
 const colors = singleCommunityColors();
 
@@ -82,8 +84,10 @@ const LoaderContainer = styled.div`
 
 const Notifications = ({
   loading,
+  unreadCount,
   allCount,
   className,
+  isAvailable,
   notifications,
   readNotifications,
   loadMoreNotificationsDispatch,
@@ -129,6 +133,8 @@ const Notifications = ({
 
       if (!_isEqual(union, readNotifications)) {
         markAsReadNotificationsAllDispatch(union);
+      } else if (notifications.length === 1) {
+        markAsReadNotificationsAllDispatch([0, 0]);
       }
 
       setCalculatedRanges({
@@ -209,7 +215,7 @@ const Notifications = ({
     style: PropTypes.object,
   };
 
-  return (
+  return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
       <Wrapper className="mb-3" position="bottom">
         <Header notificationsNumber={allCount} />
@@ -221,7 +227,7 @@ const Notifications = ({
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
           <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
-            <MarkAllAsReadButton />
+            {!!unreadCount && <MarkAllAsReadButton />}
           </SubHeader>
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
@@ -247,13 +253,19 @@ const Notifications = ({
         </LoaderContainer>
       )}
     </Container>
+  ) : (
+    <div className={className}>
+      <NotFound withSeo={false} />
+    </div>
   );
 };
 
 Notifications.propTypes = {
   loading: PropTypes.bool,
+  unreadCount: PropTypes.number,
   allCount: PropTypes.number,
   className: PropTypes.string,
+  isAvailable: PropTypes.bool,
   loadMoreNotificationsDispatch: PropTypes.func,
   markAsReadNotificationsAllDispatch: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.object),
@@ -270,6 +282,7 @@ export default React.memo(
         notifications: selectAllNotifications()(state),
         loading: selectAllNotificationsLoading()(state),
         readNotifications: selectReadNotificationsAll()(state),
+        unreadCount: unreadNotificationsCount()(state),
       }),
       dispatch => ({
         loadMoreNotificationsDispatch: bindActionCreators(

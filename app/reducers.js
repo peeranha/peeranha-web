@@ -42,6 +42,7 @@ import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
 import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
+import notificationsReducer from './components/Notifications/reducer';
 
 /*
  * routeReducer
@@ -74,8 +75,8 @@ export function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default function createReducer(injectedReducers) {
-  return combineReducers({
+export default injectedReducers =>
+  combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
     signUp: signUpReducer,
@@ -113,6 +114,7 @@ export default function createReducer(injectedReducers) {
     search: searchReducer,
     termsOfService: termsOfServiceReducer,
     appWrapper: appWrapperReducer,
+    sendTips: searchReducer,
+    notifications: notificationsReducer,
     ...injectedReducers,
   });
-}

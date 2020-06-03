@@ -22,6 +22,7 @@ const BEST_NODE_SERVICE = 'status/eos-endpoints/get-all';
 const NOTIFICATIONS_GET_SERVICE = 'notifications/get';
 const NOTIFICATIONS_INFO_SERVICE = 'notifications/info';
 const NOTIFICATIONS_READ_SERVICE = 'notifications/read';
+const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
 async function callService(service, props, isGet = false) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
@@ -70,4 +71,5 @@ module.exports = {
   NOTIFICATIONS_GET_SERVICE,
   NOTIFICATIONS_INFO_SERVICE,
   NOTIFICATIONS_READ_SERVICE,
+  NOTIFICATIONS_TIPS_SERVICE,
 };

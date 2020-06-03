@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
@@ -22,27 +22,27 @@ import {
 } from './constants';
 
 import {
-  selectAllNotificationsLastTimestamp,
+  allNotificationsCount,
+  isInfoLoadedSelect,
   selectAllNotifications,
+  selectAllNotificationsLastTimestamp,
+  selectReadNotificationsAll,
+  selectReadNotificationsUnread,
   selectUnreadNotifications,
   selectUnreadNotificationsLastTimestamp,
   unreadNotificationsCount,
-  allNotificationsCount,
-  selectReadNotificationsAll,
-  selectReadNotificationsUnread,
-  isInfoLoadedSelect,
 } from './selectors';
 
 import {
-  setNotificationsInfo,
   loadMoreNotificationsErr,
   loadMoreNotificationsSuccess,
   loadMoreUnreadNotificationsErr,
   loadMoreUnreadNotificationsSuccess,
-  markAllNotificationsAsReadSuccess,
   markAllNotificationsAsReadErr,
-  markAsReadSuccess,
+  markAllNotificationsAsReadSuccess,
   markAsReadErr,
+  markAsReadSuccess,
+  setNotificationsInfo,
 } from './actions';
 import { titleConverterMapper } from './utils';
 
@@ -141,7 +141,7 @@ export function* getNotificationsInfoWorker(user) {
   yield put(setNotificationsInfo(notificationsInfo));
 
   if (notificationsInfo.unread) {
-    yield call(loadMoreUnreadNotificationsWorker, { init: true });
+    yield call(loadMoreUnreadNotificationsWorker);
   }
 }
 

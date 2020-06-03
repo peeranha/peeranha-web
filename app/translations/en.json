@@ -125,17 +125,14 @@
   "app.common.minutesAgo": "{minutes} minutes ago",
   "app.common.hoursAgo": "{hours} hours ago",
   "app.common.yesterday": "Yesterday",
-
+  "app.common.official": "Official",
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
-
   "app.containers.Search.title": "Search",
   "app.containers.Search.description": "Search: description",
-
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
-
   "app.containers.DeleteAccount.deleteAccount": "Delete account",
   "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
   "app.containers.DeleteAccount.iUnderstand":
@@ -501,6 +498,10 @@
     "Somebody left a comment to your question",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
     "Somebody left a comment to your answer",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "You question was tipped {quantity}",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "You answer was tipped {quantity}",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
@@ -571,8 +572,8 @@
   "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
     "Change type & Restore Rating",
   "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
-    " Change type",
-
+    "Change type",
+  "app.containers.ViewQuestion.officialAnswer": "Official answer",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
@@ -611,7 +612,6 @@
     "You will not be able to change it after creation",
   "app.components.FormFields.thisTelosNameIsAvailable":
     "This Telos account name is available",
-
   "app.components.FormFields.thisTelosNameIsntAvailable":
     "This Telos account name is not available",
   "app.components.FormFields.atLeastOneLetter":
@@ -757,6 +757,8 @@
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.topQuestionPopover":
+    "Top question of this community",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

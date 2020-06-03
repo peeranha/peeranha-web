@@ -31,4 +31,7 @@ export default defineMessages({
   readMyFeed: {
     id: 'app.containers.Questions.readMyFeed',
   },
+  topQuestionPopover: {
+    id: 'app.containers.Questions.topQuestionPopover',
+  },
 });

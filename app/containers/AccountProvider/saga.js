@@ -1,18 +1,25 @@
-import { call, put, select, takeLatest, all, take } from 'redux-saga/effects';
+import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import _get from 'lodash/get';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
 } from 'utils/walletManagement';
 import {
-  MODERATOR_KEY,
+  ALL_PROPERTY_COMMUNITY_SCOPE,
+  ALL_PROPERTY_COMMUNITY_TABLE,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
+  MODERATOR_KEY,
   REWARD_REFER,
 } from 'utils/constants';
+import {
+  findOfficialRepresentativeProperty,
+  isUserAdmin,
+} from 'utils/properties';
 import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -36,8 +43,8 @@ import {
 } from 'containers/CreateCommunity/constants';
 
 import {
-  SUGGEST_TAG_SUCCESS,
   REDIRECT_TO_CREATE_TAG,
+  SUGGEST_TAG_SUCCESS,
 } from 'containers/CreateTag/constants';
 
 import {
@@ -57,45 +64,47 @@ import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 
 import {
-  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
   DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
+  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
 } from 'containers/VoteForNewCommunityButton/constants';
 
 import {
-  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
   DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
+  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
 } from 'containers/VoteForNewTagButton/constants';
 
-import { PROFILE_INFO_LS, AUTOLOGIN_DATA } from 'containers/Login/constants';
+import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
-  DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
 import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+
 import {
-  getCurrentAccountSuccess,
   getCurrentAccountError,
   getCurrentAccountProcessing,
-  updateAccSuccess,
-  updateAccErr,
+  getCurrentAccountSuccess,
   rewardReferErr,
+  updateAccErr,
+  updateAccSuccess,
 } from './actions';
 
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
-  REFERRAL_REWARD_RATING,
   NO_REFERRAL_INVITER,
+  REFERRAL_REWARD_RATING,
   REFERRAL_REWARD_RECEIVED,
   REFERRAL_REWARD_SENT,
   UPDATE_ACC_SUCCESS,
@@ -104,7 +113,8 @@ import {
 import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
+
+const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
 export function* getCurrentAccountWorker(initAccount) {
@@ -128,7 +138,6 @@ export function* getCurrentAccountWorker(initAccount) {
 
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
-
       if (
         profileLS &&
         (account === profileLS.user ||
@@ -150,7 +159,9 @@ export function* getCurrentAccountWorker(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    yield call(getNotificationsInfoWorker, profileInfo.user);
+    if (profileInfo) {
+      yield call(getNotificationsInfoWorker, profileInfo.user);
+    }
 
     if (profileInfo) {
       profileInfo.balance = balance;
@@ -170,6 +181,7 @@ export function* getCurrentAccountWorker(initAccount) {
     });
 
     yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCommunityPropertyWorker, profileInfo);
     yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -302,6 +314,45 @@ export function* updateAccWorker({ eos }) {
   } catch (err) {
     yield put(updateAccErr(err));
   }
+}
+
+export function* getCommunityPropertyWorker(profile) {
+  try {
+    if (single) {
+      const profileInfo = profile || (yield select(makeSelectProfileInfo()));
+      const eosService = yield select(selectEos);
+
+      const info = yield call(
+        eosService.getTableRow,
+        ALL_PROPERTY_COMMUNITY_TABLE,
+        ALL_PROPERTY_COMMUNITY_SCOPE,
+        profileInfo.user,
+      );
+
+      if (info) {
+        const isAdmin = isUserAdmin(info.properties);
+        const officialRepresentativeInfo = findOfficialRepresentativeProperty(
+          info.properties,
+        );
+
+        if (isAdmin) {
+          yield put(getUserProfileSuccess({ ...profileInfo, isAdmin: true }));
+        }
+
+        if (officialRepresentativeInfo) {
+          yield put(
+            getUserProfileSuccess({
+              ...profile,
+              isOfficialRepresentative: !!officialRepresentativeInfo,
+              officialRepresentativeCommunity:
+                officialRepresentativeInfo.community,
+            }),
+          );
+        }
+      }
+    }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
 }
 
 export default function* defaultSaga() {

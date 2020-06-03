@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -20,7 +20,6 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
@@ -31,65 +30,59 @@ import * as selectors from './selectors';
 import Header from './Header';
 import Banner from './Banner';
 
-/* eslint consistent-return: 0 */
-/* eslint-disable react/prefer-stateless-function */
-export class Tags extends React.Component {
-  componentDidMount() {
-    const {
-      communityId,
-      getSuggestedTagsDispatch,
-      getExistingTagsDispatch,
-    } = this.props;
-
-    getExistingTagsDispatch({ communityId });
-    getSuggestedTagsDispatch({ communityId });
-  }
-
-  componentDidUpdate(prevProps) {
-    const { communityId, getExistingTagsDispatch, communities } = this.props;
-
-    if (!prevProps.communities.length && communities.length) {
+export const Tags = ({
+  communityId,
+  communities,
+  sorting,
+  currentCommunity,
+  tagsNumber,
+  sortTags,
+  Content,
+  Aside,
+  redirectToCreateTagDispatch,
+  getExistingTagsDispatch,
+  getSuggestedTagsDispatch,
+}) => {
+  useEffect(
+    () => {
       getExistingTagsDispatch({ communityId });
-    }
-  }
+      getSuggestedTagsDispatch({ communityId });
+    },
+    [communityId],
+  );
 
-  render() /* istanbul ignore next */ {
-    const {
-      sorting,
-      currentCommunity,
-      tagsNumber,
-      sortTags,
-      Content,
-      Aside,
-      redirectToCreateTagDispatch,
-    } = this.props;
+  useEffect(
+    () => {
+      if (!communities.length) {
+        getExistingTagsDispatch({ communityId });
+      }
+    },
+    [communities.length],
+  );
 
-    if (!currentCommunity.tags.length) return <LoadingIndicator />;
+  return (
+    <div className="d-flex justify-content-center">
+      <div className="flex-grow-1">
+        <Header
+          goToCreateTagScreen={redirectToCreateTagDispatch}
+          sortTags={sortTags}
+          sorting={sorting}
+          currentCommunity={currentCommunity}
+          tagsNumber={tagsNumber}
+        />
 
-    return (
-      <div className="d-flex justify-content-center">
-        <div className="flex-grow-1">
-          <Header
-            goToCreateTagScreen={redirectToCreateTagDispatch}
-            sortTags={sortTags}
-            sorting={sorting}
-            currentCommunity={currentCommunity}
-            tagsNumber={tagsNumber}
-          />
+        <div className="mb-3">{Content}</div>
 
-          <div className="mb-3">{Content}</div>
-
-          <Banner
-            openTagForm={redirectToCreateTagDispatch}
-            communityId={currentCommunity.id}
-          />
-        </div>
-
-        <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
+        <Banner
+          openTagForm={redirectToCreateTagDispatch}
+          communityId={currentCommunity.id}
+        />
       </div>
-    );
-  }
-}
+
+      <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
+    </div>
+  );
+};
 
 Tags.propTypes = {
   sorting: PropTypes.string,

@@ -1,14 +1,9 @@
-/**
- *
- * Questions
- *
- */
-
-import React, { useEffect } from 'react';
+/* eslint no-unused-expressions: 0 */
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
 import * as routes from 'routes-config';
 
@@ -23,8 +18,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
-  makeSelectFollowedCommunities,
   makeSelectAccount,
+  makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
@@ -42,17 +37,24 @@ import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
-import { getQuestions, setTypeFilter, setCreatedFilter } from './actions';
+import {
+  getQuestions,
+  loadTopCommunityQuestions,
+  setCreatedFilter,
+  setTypeFilter,
+} from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import Content from './Content';
+import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
+import { getCookie } from '../../utils/cookie';
+import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -77,61 +79,89 @@ export const Questions = ({
   initLoadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
+  topQuestionsLoaded,
+  questionFilter,
+  loadTopQuestionsDispatch,
 }) => {
-  let fetcher = null;
+  const [fetcher, setFetcher] = useState(null);
 
-  const initFetcher = () => {
-    const MARGIN = 1.2;
+  const initFetcher = useCallback(
+    () => {
+      const MARGIN = 1.2;
+      const f = new FetcherOfQuestionsForFollowedCommunities(
+        Math.floor(MARGIN * initLoadedItems),
+        followedCommunities || [],
+        eosService,
+      );
+      setFetcher(f);
+      return f;
+    },
+    [initLoadedItems, followedCommunities, eosService],
+  );
 
-    fetcher = new FetcherOfQuestionsForFollowedCommunities(
-      Math.floor(MARGIN * initLoadedItems),
-      followedCommunities || [],
-      eosService,
-    );
-  };
+  const getInitQuestions = useCallback(
+    () => {
+      if (!questionFilter) {
+        const offset = 0;
+        const f = initFetcher();
 
-  const getInitQuestions = () => {
-    const offset = 0;
+        getQuestionsDispatch(
+          initLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          f,
+        );
+      }
+    },
+    [initLoadedItems, params.communityid, parentPage, fetcher, questionFilter],
+  );
 
-    initFetcher();
+  const getNextQuestions = useCallback(
+    () => {
+      const lastItem = questionsList[questionsList.length - 1];
+      const offset = lastItem ? +lastItem.id + 1 : 0;
+      const next = true;
 
-    getQuestionsDispatch(
-      initLoadedItems,
-      offset,
-      Number(params.communityid) || 0,
-      parentPage,
-      fetcher,
-    );
-  };
+      if (!questionFilter) {
+        const f = do {
+          if (parentPage !== feed) {
+            initFetcher();
+          } else {
+            fetcher;
+          }
+        };
 
-  const getNextQuestions = () => {
-    const lastItem = questionsList[questionsList.length - 1];
-    const offset = lastItem ? +lastItem.id + 1 : 0;
-    const next = true;
-
-    if (parentPage !== feed) {
-      initFetcher();
-    }
-
-    getQuestionsDispatch(
+        getQuestionsDispatch(
+          nextLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          f,
+          next,
+        );
+      }
+    },
+    [
+      questionsList,
+      questionsList.length,
       nextLoadedItems,
-      offset,
-      Number(params.communityid) || 0,
+      params.communityid,
       parentPage,
       fetcher,
-      next,
-    );
-  };
+      questionFilter,
+    ],
+  );
 
   useEffect(
     () => {
-      fetcher = null;
+      setFetcher(null);
 
       return () => {
-        fetcher = null;
+        setFetcher(null);
       };
     },
-    [params.communityid],
+    [params.communityid, questionFilter],
   );
 
   useEffect(
@@ -142,26 +172,61 @@ export const Questions = ({
         ((parentPage === feed &&
           followedCommunities &&
           followedCommunities.length > 0) ||
-          parentPage !== feed)
+          parentPage !== feed) &&
+        !questionFilter
       ) {
         getInitQuestions();
       }
     },
-    [fetcher, eosService],
+    [fetcher, eosService, questionFilter],
   );
 
   useEffect(
     () => {
-      if (!fetcher) {
+      if (!fetcher && !questionFilter) {
         getInitQuestions();
       }
     },
-    [typeFilter, createdFilter],
+    [typeFilter, createdFilter, questionFilter],
   );
 
-  const display = !(single && path === routes.questions(':communityid'));
-  const displayBanner =
-    !questionsList.length && !questionsLoading && !communitiesLoading;
+  useEffect(() => {
+    if (single) {
+      loadTopQuestionsDispatch();
+    }
+  }, []);
+
+  const display = useMemo(
+    () => !(single && path === routes.questions(':communityid')),
+    [single, path],
+  );
+
+  const displayBanner = useMemo(
+    () =>
+      !(getCookie(QUESTION_FILTER) === '1' || questionFilter === 1)
+        ? !questionsList.length && !questionsLoading && !communitiesLoading
+        : false,
+    [
+      questionsList.length,
+      questionsLoading,
+      communitiesLoading,
+      topQuestionsLoaded,
+      questionFilter,
+    ],
+  );
+
+  const lastFetched = useMemo(
+    () => (!questionFilter ? isLastFetch : topQuestionsLoaded),
+    [isLastFetch, topQuestionsLoaded, questionFilter],
+  );
+
+  const displayLoader = useMemo(
+    () =>
+      questionsLoading ||
+      communitiesLoading ||
+      (getCookie(QUESTION_FILTER) === '1' && !topQuestionsLoaded),
+    [questionsLoading, communitiesLoading, topQuestionsLoaded],
+  );
 
   return display ? (
     <div>
@@ -192,7 +257,7 @@ export const Questions = ({
         <InfinityLoader
           loadNextPaginatedData={getNextQuestions}
           isLoading={questionsLoading}
-          isLastFetch={isLastFetch}
+          isLastFetch={lastFetched}
         >
           <Content
             questionsList={questionsList}
@@ -213,7 +278,7 @@ export const Questions = ({
         />
       )}
 
-      {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
+      {displayLoader && <LoadingIndicator />}
     </div>
   ) : (
     <NotFound />
@@ -240,6 +305,9 @@ Questions.propTypes = {
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
+  topQuestionsLoaded: PropTypes.bool,
+  questionFilter: PropTypes.number,
+  loadTopQuestionsDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -257,6 +325,8 @@ const withConnect = connect(
     typeFilter: questionsSelector.selectTypeFilter(),
     createdFilter: questionsSelector.selectCreatedFilter(),
     isLastFetch: questionsSelector.selectIsLastFetch(),
+    topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
+    questionFilter: questionsSelector.selectQuestionFilter(),
     questionsList: (state, props) =>
       questionsSelector.selectQuestions(
         props.parentPage,
@@ -270,6 +340,10 @@ const withConnect = connect(
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,
+      dispatch,
+    ),
+    loadTopQuestionsDispatch: bindActionCreators(
+      loadTopCommunityQuestions,
       dispatch,
     ),
   }),

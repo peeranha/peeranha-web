@@ -1,10 +1,4 @@
-/**
- *
- * SuggestedCommunities
- *
- */
-
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -20,10 +14,10 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getSuggestedTags } from 'containers/Tags/actions';
 
 import {
-  selectSuggestedTags,
-  selectIsLastFetchForSuggestedTags,
-  selectSuggestedTagsLoading,
   selectExistingTags,
+  selectIsLastFetchForSuggestedTags,
+  selectSuggestedTags,
+  selectSuggestedTagsLoading,
 } from 'containers/Tags/selectors';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -36,76 +30,83 @@ import messages from './messages';
 import Content from './Content';
 import Aside from './Aside';
 
-/* eslint-disable react/prefer-stateless-function */
-export class SuggestedTags extends React.Component {
-  sortTags = ev => {
-    const sorting = ev.currentTarget.dataset.key;
+const single = isSingleCommunityWebsite();
 
-    this.props.getSuggestedTagsDispatch({
-      sorting,
-      communityId: this.currentCommunity.id,
-    });
-  };
+export const SuggestedTags = ({
+  locale,
+  match,
+  communities,
+  suggestedTags,
+  emptyCommunity,
+  isLastFetch,
+  suggestedTagsLoading,
+  existingTags,
+  getSuggestedTagsDispatch,
+}) => {
+  const commId = useMemo(() => single || +match.params.communityid, [
+    single,
+    match.params.communityid,
+  ]);
 
-  loadMoreTags = () => {
-    this.props.getSuggestedTagsDispatch({
-      communityId: this.currentCommunity.id,
-      loadMore: true,
-    });
-  };
+  const currentCommunity = useMemo(
+    () => getFollowedCommunities(communities, [commId])[0] || emptyCommunity,
+    [communities, commId, emptyCommunity],
+  );
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      match,
-      communities,
-      suggestedTags,
-      emptyCommunity,
-      isLastFetch,
-      suggestedTagsLoading,
-      existingTags,
-    } = this.props;
+  const sortTags = useCallback(
+    ev =>
+      getSuggestedTagsDispatch({
+        sorting: ev.currentTarget.dataset.key,
+        communityId: currentCommunity.id,
+      }),
+    [currentCommunity.id],
+  );
 
-    const commId = isSingleCommunityWebsite() || +match.params.communityid;
+  const loadMoreTags = useCallback(
+    () =>
+      getSuggestedTagsDispatch({
+        communityId: currentCommunity.id,
+        loadMore: true,
+      }),
+    [currentCommunity.id],
+  );
 
-    this.currentCommunity =
-      getFollowedCommunities(communities, [commId])[0] || emptyCommunity;
+  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
+    currentCommunity.tags,
+  ]);
 
-    const keywords = this.currentCommunity.tags.map(x => x.name);
+  return (
+    <div>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        keywords={keywords}
+      />
 
-    return (
-      <div>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          keywords={keywords}
-        />
-
-        <Tags
-          sortTags={this.sortTags}
-          communityId={commId}
-          currentCommunity={this.currentCommunity}
-          Aside={
-            <Aside
-              existingTags={existingTags}
-              currentCommunity={this.currentCommunity}
-            />
-          }
-          Content={
-            <Content
-              loadMoreTags={this.loadMoreTags}
-              isLastFetch={isLastFetch}
-              communityId={commId}
-              suggestedTagsLoading={suggestedTagsLoading}
-              suggestedTags={suggestedTags}
-            />
-          }
-        />
-      </div>
-    );
-  }
-}
+      <Tags
+        sortTags={sortTags}
+        communityId={commId}
+        currentCommunity={currentCommunity}
+        Aside={
+          <Aside
+            existingTags={existingTags}
+            currentCommunity={currentCommunity}
+          />
+        }
+        Content={
+          <Content
+            loadMoreTags={loadMoreTags}
+            isLastFetch={isLastFetch}
+            communityId={commId}
+            suggestedTagsLoading={suggestedTagsLoading}
+            suggestedTags={suggestedTags}
+          />
+        }
+      />
+    </div>
+  );
+};
 
 SuggestedTags.defaultProps = {
   emptyCommunity: {
