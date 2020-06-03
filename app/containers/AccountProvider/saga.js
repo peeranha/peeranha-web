@@ -345,7 +345,7 @@ export function* getCommunityPropertyWorker(profile) {
               ...profile,
               isOfficialRepresentative: !!officialRepresentativeInfo,
               officialRepresentativeCommunity:
-              officialRepresentativeInfo.community,
+                officialRepresentativeInfo.community,
             }),
           );
         }

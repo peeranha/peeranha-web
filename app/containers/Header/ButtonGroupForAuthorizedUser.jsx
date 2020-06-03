@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import ProfileDropdown from './ProfileDropdown';
@@ -24,4 +24,4 @@ ButtonGroupForAuthorizedUser.propTypes = {
   faqQuestions: PropTypes.array,
 };
 
-export default React.memo(ButtonGroupForAuthorizedUser);
+export default memo(ButtonGroupForAuthorizedUser);

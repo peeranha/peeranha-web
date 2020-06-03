@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -28,114 +28,104 @@ import saga from './saga';
 
 import View from './View';
 
-const singleCommId = isSingleCommunityWebsite();
+const single = isSingleCommunityWebsite();
 
-export class Users extends React.PureComponent {
-  componentDidMount() {
-    this.fetcher = null;
-    this.initFetcher();
+const Users = ({
+  locale,
+  users,
+  usersLoading,
+  sorting,
+  searchText,
+  isLastFetch,
+  stat,
+  communities,
+  limit,
+  eosService,
+  getUsersDispatch,
+  changeSortingTypeDispatch,
+}) => {
+  const [fetcher, setFetcher] = useState(null);
 
-    if (this.fetcher) {
-      this.props.getUsersDispatch({ loadMore: false, fetcher: this.fetcher });
-    }
-  }
+  const initFetcher = useCallback(
+    (sortKey = sorting) => {
+      if (!fetcher && eosService) {
+        const f = new UsersFetcher(
+          limit,
+          limit,
+          AccountsSortedBy[sortKey],
+          eosService,
+        );
+        return f;
+      }
 
-  componentDidUpdate() {
-    this.initFetcher();
-  }
+      return fetcher;
+    },
+    [sorting, eosService, limit, fetcher],
+  );
 
-  initFetcher = (sorting = this.props.sorting) => {
-    const { limit, eosService } = this.props;
+  const getMoreUsers = useCallback(
+    () => {
+      if (fetcher) {
+        getUsersDispatch({ loadMore: true, fetcher });
+      }
+    },
+    [fetcher],
+  );
 
-    if (!this.fetcher && eosService) {
-      this.fetcher = new UsersFetcher(
-        limit,
-        limit,
-        AccountsSortedBy[sorting],
-        eosService,
-      );
-    }
-  };
+  const communityInfo = useMemo(() => communities.find(x => x.id === single), [
+    communities,
+  ]);
 
-  getMoreUsers = () => {
-    if (this.fetcher) {
-      this.props.getUsersDispatch({ loadMore: true, fetcher: this.fetcher });
-    }
-  };
+  const userCount = useMemo(
+    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.user_count),
+    [stat, communityInfo],
+  );
 
-  dropdownFilter = sorting => {
-    const {
-      stat,
-      communities,
-      users,
-      getUsersDispatch,
-      changeSortingTypeDispatch,
-    } = this.props;
-    this.fetcher = null;
-    this.initFetcher(sorting);
+  const dropdownFilter = useCallback(
+    sortKey => {
+      setFetcher(null);
+      const f = initFetcher(sortKey);
 
-    const communityInfo = communities.find(x => x.id === singleCommId);
+      if (userCount === users.length) {
+        changeSortingTypeDispatch(sortKey);
+        return;
+      }
 
-    const userCount = singleCommId
-      ? (communityInfo && communityInfo.users_subscribed) || 0
-      : stat.user_count;
+      getUsersDispatch({ sorting: sortKey, fetcher: f });
+    },
+    [userCount, communityInfo, users, initFetcher],
+  );
 
-    if (userCount === users.length) {
-      changeSortingTypeDispatch(sorting);
-      return;
-    }
+  useEffect(
+    () => {
+      const f = initFetcher();
+      getUsersDispatch({ loadMore: false, fetcher: f });
+    },
+    [initFetcher],
+  );
 
-    if (this.fetcher) {
-      getUsersDispatch({ sorting, fetcher: this.fetcher });
-    }
-  };
+  return (
+    <>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+      />
 
-  inputFilter = () => {
-    //    this.props.getUsersDispatch({ searchText });
-  };
-
-  render() {
-    const {
-      locale,
-      users,
-      usersLoading,
-      sorting,
-      searchText,
-      isLastFetch,
-      stat,
-      communities,
-    } = this.props;
-
-    const communityInfo = communities.find(x => x.id === singleCommId);
-
-    const userCount = singleCommId
-      ? (communityInfo && communityInfo.users_subscribed) || 0
-      : stat.user_count;
-
-    return (
-      <>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-        />
-
-        <View
-          userCount={userCount}
-          getMoreUsers={this.getMoreUsers}
-          dropdownFilter={this.dropdownFilter}
-          inputFilter={this.inputFilter}
-          users={users}
-          usersLoading={usersLoading}
-          sorting={sorting}
-          searchText={searchText}
-          isLastFetch={isLastFetch}
-          locale={locale}
-        />
-      </>
-    );
-  }
-}
+      <View
+        userCount={userCount}
+        getMoreUsers={getMoreUsers}
+        dropdownFilter={dropdownFilter}
+        users={users}
+        usersLoading={usersLoading}
+        sorting={sorting}
+        searchText={searchText}
+        isLastFetch={isLastFetch}
+        locale={locale}
+      />
+    </>
+  );
+};
 
 Users.propTypes = {
   locale: PropTypes.string,
@@ -152,36 +142,28 @@ Users.propTypes = {
   changeSortingTypeDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  eosService: selectEos,
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  users: selectors.selectUsers(),
-  usersLoading: selectors.selectUsersLoading(),
-  limit: selectors.selectLimit(),
-  sorting: selectors.selectSorting(),
-  searchText: selectors.selectSearchText(),
-  isLastFetch: selectors.selectIsLastFetch(),
-  stat: selectStat(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    getUsersDispatch: bindActionCreators(getUsers, dispatch),
-    changeSortingTypeDispatch: bindActionCreators(changeSortingType, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'users', reducer });
-const withSaga = injectSaga({ key: 'users', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'users', reducer }),
+  injectSaga({ key: 'users', saga }),
+  connect(
+    createStructuredSelector({
+      eosService: selectEos,
+      locale: makeSelectLocale(),
+      communities: selectCommunities(),
+      users: selectors.selectUsers(),
+      usersLoading: selectors.selectUsersLoading(),
+      limit: selectors.selectLimit(),
+      sorting: selectors.selectSorting(),
+      searchText: selectors.selectSearchText(),
+      isLastFetch: selectors.selectIsLastFetch(),
+      stat: selectStat(),
+    }),
+    dispatch => ({
+      getUsersDispatch: bindActionCreators(getUsers, dispatch),
+      changeSortingTypeDispatch: bindActionCreators(
+        changeSortingType,
+        dispatch,
+      ),
+    }),
+  ),
 )(Users);
