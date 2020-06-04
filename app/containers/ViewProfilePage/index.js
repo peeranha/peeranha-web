@@ -1,9 +1,3 @@
-/**
- *
- * ViewProfilePage
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -33,8 +27,8 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import {
-  selectQuestionsLoading,
   selectQuestions,
+  selectQuestionsLoading,
 } from 'containers/QuestionsOfUser/selectors';
 
 import {
@@ -53,7 +47,7 @@ import saga from '../QuestionsWithAnswersOfUser/saga';
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
 
-const ViewProfilePage = /* istanbul ignore next */ ({
+const ViewProfilePage = ({
   match,
   loginData,
   profile,
@@ -77,22 +71,22 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         userId={userId}
         account={account}
         loginData={loginData}
-        questionsLength={profile ? profile.questions_asked : 0}
-        questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
+        questionsLength={profile?.questions_asked ?? 0}
+        questionsWithUserAnswersLength={profile?.answers_given ?? 0}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
-        displayName={profile ? profile.display_name : null}
+        displayName={profile?.display_name}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
-        displayName={profile ? profile.display_name : null}
+        displayName={profile?.display_name}
         userId={userId}
       />
 
@@ -105,14 +99,14 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         loginData={loginData}
         profile={profile}
         account={account}
-        user={profile ? profile.user : null}
+        user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
       />
 
       {path === routes.userNotifications(userId) && (
         <Notifications
           className={path === routes.userNotifications(userId) ? '' : 'd-none'}
-          isAvailable={profile && account === profile.user}
+          isAvailable={account === profile?.user}
         />
       )}
 

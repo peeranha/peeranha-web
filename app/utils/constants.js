@@ -26,6 +26,7 @@ export const ENDPOINTS_LIST = 'best_nodes_list';
 
 export const MODERATOR_KEY = 48;
 export const COMMUNITY_ADMIN_KEY = 7;
+export const COMMUNITY_OFFICIAL_REPRESENTATIVE_KEY = [2, 4];
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
 

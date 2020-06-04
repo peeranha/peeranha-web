@@ -31,6 +31,14 @@ const communitiesConfig = {
       src: OntLogo,
       styles: OntStyles,
     },
+    2: {
+      origin: 'https://community1-test.peeranha.io',
+      src: OntLogo,
+    },
+    3: {
+      origin: 'https://community2-test.peeranha.io',
+      src: OntLogo,
+    },
   },
   dev: {
     1: {

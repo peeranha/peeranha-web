@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef, useEffect } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -61,10 +61,11 @@ const useDetectOutsideClick = (onClose, parentRef) => {
 
 const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   const ref = useDetectOutsideClick(onClose, parentRef);
-  const empty = useMemo(() => !notifications.length, [notifications.length]);
+  const empty = useMemo(() => !unreadCount, [unreadCount]);
 
   return (
-    <button
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div
       onClick={e => {
         e.stopPropagation();
       }}
@@ -73,14 +74,13 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
         <Header notificationsNumber={unreadCount} onClose={onClose} />
         <Content
           notifications={notifications}
-          empty={empty}
           height={MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT}
           width={MENU_WIDTH}
           rowHeight={ROW_HEIGHT}
         />
         <Footer empty={empty} onClose={onClose} />
       </MenuContainer>
-    </button>
+    </div>
   );
 };
 

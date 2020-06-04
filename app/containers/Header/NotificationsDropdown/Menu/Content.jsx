@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
 
-import { List, AutoSizer } from 'react-virtualized';
+import { AutoSizer, List } from 'react-virtualized';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'components/Notifications/messages';
@@ -68,7 +68,7 @@ const Content = ({
   loadMoreUnreadNotificationsDispatch,
 }) => {
   const listRef = useRef(null);
-
+  console.log(notifications);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [contentHeight, setContentHeight] = useState(
@@ -172,7 +172,6 @@ const Content = ({
 };
 
 Content.propTypes = {
-  empty: PropTypes.bool,
   loading: PropTypes.bool,
   rowHeight: PropTypes.number.isRequired,
   notifications: PropTypes.arrayOf(PropTypes.object),

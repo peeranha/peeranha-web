@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import {
   BG_LIGHT,
-  BORDER_PRIMARY,
   BG_WARNING_LIGHT,
+  BORDER_PRIMARY,
   BORDER_SECONDARY_LIGHT,
 } from 'style-constants';
 
@@ -22,7 +22,7 @@ import {
 } from '../../../components/Notifications/selectors';
 import { filterUnreadTimestamps } from '../../../components/Notifications/actions';
 
-const Button = styled.div`
+const Container = styled.div`
   position: relative;
   border-radius: 50%;
   width: 47px;
@@ -76,7 +76,7 @@ const NotificationsDropdown = ({
   ]);
 
   return (
-    <Button
+    <Container
       className="d-flex flex-column"
       active={!!unreadCount}
       onClick={onClick}
@@ -102,7 +102,7 @@ const NotificationsDropdown = ({
           notifications={notifications}
         />
       )}
-    </Button>
+    </Container>
   );
 };
 

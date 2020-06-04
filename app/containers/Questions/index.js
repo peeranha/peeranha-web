@@ -1,14 +1,9 @@
-/**
- *
- * Questions
- *
- */
-
-import React, { useEffect, useCallback, useMemo, useState } from 'react';
+/* eslint no-unused-expressions: 0 */
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
 import * as routes from 'routes-config';
 
@@ -23,8 +18,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
-  makeSelectFollowedCommunities,
   makeSelectAccount,
+  makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
@@ -44,9 +39,9 @@ import Seo from 'components/Seo';
 
 import {
   getQuestions,
-  setTypeFilter,
-  setCreatedFilter,
   loadTopCommunityQuestions,
+  setCreatedFilter,
+  setTypeFilter,
 } from './actions';
 
 import * as questionsSelector from './selectors';
@@ -93,14 +88,13 @@ export const Questions = ({
   const initFetcher = useCallback(
     () => {
       const MARGIN = 1.2;
-
-      setFetcher(
-        new FetcherOfQuestionsForFollowedCommunities(
-          Math.floor(MARGIN * initLoadedItems),
-          followedCommunities || [],
-          eosService,
-        ),
+      const f = new FetcherOfQuestionsForFollowedCommunities(
+        Math.floor(MARGIN * initLoadedItems),
+        followedCommunities || [],
+        eosService,
       );
+      setFetcher(f);
+      return f;
     },
     [initLoadedItems, followedCommunities, eosService],
   );
@@ -109,14 +103,14 @@ export const Questions = ({
     () => {
       if (!questionFilter) {
         const offset = 0;
+        const f = initFetcher();
 
-        initFetcher();
         getQuestionsDispatch(
           initLoadedItems,
           offset,
           Number(params.communityid) || 0,
           parentPage,
-          fetcher,
+          f,
         );
       }
     },
@@ -130,16 +124,20 @@ export const Questions = ({
       const next = true;
 
       if (!questionFilter) {
-        if (parentPage !== feed) {
-          initFetcher();
-        }
+        const f = do {
+          if (parentPage !== feed) {
+            initFetcher();
+          } else {
+            fetcher;
+          }
+        };
 
         getQuestionsDispatch(
           nextLoadedItems,
           offset,
           Number(params.communityid) || 0,
           parentPage,
-          fetcher,
+          f,
           next,
         );
       }

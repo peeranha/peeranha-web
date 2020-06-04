@@ -1,28 +1,28 @@
 import JSBI from 'jsbi';
 
-import { saveText, getText } from './ipfs';
+import { getText, saveText } from './ipfs';
 
 import {
+  ALL_QUESTIONS_SCOPE,
+  CHANGE_QUESTION_TYPE_METHOD,
+  DEL_ANSWER_METHOD,
+  DEL_COMMENT_METHOD,
+  DEL_QUESTION_METHOD,
+  DOWN_VOTE_METHOD,
+  EDIT_ANSWER_METHOD,
+  EDIT_COMMENT_METHOD,
+  EDIT_QUESTION_METHOD,
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
-  QUESTION_TABLE,
-  USER_QUESTIONS_TABLE,
-  ALL_QUESTIONS_SCOPE,
-  POST_QUESTION_METHOD,
-  EDIT_QUESTION_METHOD,
-  DEL_QUESTION_METHOD,
-  POST_ANSWER_METHOD,
-  EDIT_ANSWER_METHOD,
-  DEL_ANSWER_METHOD,
-  POST_COMMENT_METHOD,
-  EDIT_COMMENT_METHOD,
-  DEL_COMMENT_METHOD,
-  UP_VOTE_METHOD,
-  DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
-  VOTE_TO_DELETE_METHOD,
+  POST_ANSWER_METHOD,
+  POST_COMMENT_METHOD,
+  POST_QUESTION_METHOD,
+  QUESTION_TABLE,
+  UP_VOTE_METHOD,
   USER_ANSWERS_TABLE,
-  CHANGE_QUESTION_TYPE_METHOD,
+  USER_QUESTIONS_TABLE,
+  VOTE_TO_DELETE_METHOD,
 } from './constants';
 
 /* eslint-disable  */
@@ -145,6 +145,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
     return items;
   };
 }
+
 /* eslint-enable  */
 
 export async function getQuestionsPostedByUser(
@@ -286,7 +287,13 @@ export async function getAnswer(link) {
   return answer;
 }
 
-export async function postAnswer(user, questionId, answer, eosService) {
+export const postAnswer = async (
+  user,
+  questionId,
+  answer,
+  official,
+  eosService,
+) => {
   const ipfsLink = await saveText(answer);
 
   await eosService.sendTransaction(
@@ -296,18 +303,19 @@ export async function postAnswer(user, questionId, answer, eosService) {
       user,
       question_id: +questionId,
       ipfs_link: ipfsLink,
-      official_answer: 0,
+      official_answer: +official,
     },
     null,
     true,
   );
-}
+};
 
 export async function editAnswer(
   user,
   questionId,
   answerId,
   textAnswer,
+  official,
   eosService,
 ) {
   const ipfsLink = await saveText(textAnswer);
@@ -317,6 +325,7 @@ export async function editAnswer(
     question_id: questionId,
     answer_id: answerId,
     ipfs_link: ipfsLink,
+    official_answer: +official,
   });
 }
 

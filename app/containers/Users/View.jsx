@@ -10,7 +10,6 @@ import Content from './Content';
 const View = ({
   getMoreUsers,
   dropdownFilter,
-  inputFilter,
   users,
   usersLoading,
   sorting,
@@ -28,7 +27,6 @@ const View = ({
 
     <Content
       getMoreUsers={getMoreUsers}
-      inputFilter={inputFilter}
       users={sorting === 'rating' ? _sortBy(users, sorting).reverse() : users}
       sorting={sorting}
       usersLoading={usersLoading}
@@ -44,7 +42,6 @@ const View = ({
 View.propTypes = {
   getMoreUsers: PropTypes.func,
   dropdownFilter: PropTypes.func,
-  inputFilter: PropTypes.func,
   users: PropTypes.array,
   usersLoading: PropTypes.bool,
   sorting: PropTypes.string,

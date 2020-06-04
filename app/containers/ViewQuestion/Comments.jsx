@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import {
-  BORDER_SECONDARY,
   BORDER_PRIMARY,
+  BORDER_SECONDARY,
   BORDER_TRANSPARENT,
 } from 'style-constants';
 
@@ -27,9 +27,9 @@ import CommentForm from './CommentForm';
 import messages from './messages';
 
 import {
-  SAVE_COMMENT_FORM,
-  SAVE_COMMENT_BUTTON,
   COMMENT_TYPE,
+  SAVE_COMMENT_BUTTON,
+  SAVE_COMMENT_FORM,
 } from './constants';
 
 import AreYouSure from './AreYouSure';
@@ -133,7 +133,7 @@ const CommentView = item => (
       <UserInfo
         type={COMMENT_TYPE}
         avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
-        name={item.userInfo.display_name}
+        name={item.userInfo?.display_name ?? ''}
         rating={item.userInfo.rating}
         account={item.userInfo.user}
         postTime={item.post_time}

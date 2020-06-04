@@ -1,12 +1,12 @@
 /* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
 
 import {
-  takeEvery,
-  takeLatest,
+  all,
   call,
   put,
   select,
-  all,
+  takeEvery,
+  takeLatest,
 } from 'redux-saga/effects';
 
 import { translationMessages } from 'i18n';
@@ -17,18 +17,18 @@ import * as routes from 'routes-config';
 import { getText } from 'utils/ipfs';
 
 import {
-  getQuestionById,
-  postComment,
-  postAnswer,
-  upVote,
-  downVote,
-  markAsAccepted,
-  deleteQuestion,
+  changeQuestionType,
   deleteAnswer,
   deleteComment,
+  deleteQuestion,
+  downVote,
   editComment,
+  getQuestionById,
+  markAsAccepted,
+  postAnswer,
+  postComment,
+  upVote,
   voteToDelete,
-  changeQuestionType,
 } from 'utils/questionsManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -41,8 +41,8 @@ import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
-  makeSelectProfileInfo,
   makeSelectAccount,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -56,77 +56,77 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
-  GET_QUESTION_DATA,
-  POST_COMMENT,
-  POST_ANSWER,
-  UP_VOTE,
-  DOWN_VOTE,
-  MARK_AS_ACCEPTED,
-  DELETE_QUESTION,
-  DELETE_ANSWER,
-  DELETE_COMMENT,
-  SAVE_COMMENT,
-  VOTE_TO_DELETE,
-  ITEM_UPV_FLAG,
-  ITEM_DNV_FLAG,
-  ITEM_VOTED_TO_DEL_FLAG,
-  UP_VOTE_SUCCESS,
-  DOWN_VOTE_SUCCESS,
-  MARK_AS_ACCEPTED_SUCCESS,
-  VOTE_TO_DELETE_SUCCESS,
-  POST_ANSWER_BUTTON,
-  POST_COMMENT_SUCCESS,
-  POST_ANSWER_SUCCESS,
-  GET_QUESTION_DATA_SUCCESS,
-  DELETE_QUESTION_SUCCESS,
-  DELETE_ANSWER_SUCCESS,
-  DELETE_COMMENT_SUCCESS,
-  SAVE_COMMENT_SUCCESS,
-  QUESTION_PROPERTIES,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
+  DELETE_ANSWER,
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_QUESTION,
+  DELETE_QUESTION_SUCCESS,
+  DOWN_VOTE,
+  DOWN_VOTE_SUCCESS,
+  GET_QUESTION_DATA,
+  GET_QUESTION_DATA_SUCCESS,
+  ITEM_DNV_FLAG,
+  ITEM_UPV_FLAG,
+  ITEM_VOTED_TO_DEL_FLAG,
+  MARK_AS_ACCEPTED,
+  MARK_AS_ACCEPTED_SUCCESS,
+  POST_ANSWER,
+  POST_ANSWER_BUTTON,
+  POST_ANSWER_SUCCESS,
+  POST_COMMENT,
+  POST_COMMENT_SUCCESS,
+  QUESTION_PROPERTIES,
+  SAVE_COMMENT,
+  SAVE_COMMENT_SUCCESS,
+  UP_VOTE,
+  UP_VOTE_SUCCESS,
+  VOTE_TO_DELETE,
+  VOTE_TO_DELETE_SUCCESS,
 } from './constants';
 
 import {
-  getQuestionDataSuccess,
-  getQuestionDataErr,
-  postCommentSuccess,
-  postCommentErr,
-  postAnswerSuccess,
-  postAnswerErr,
-  upVoteSuccess,
-  upVoteErr,
-  downVoteSuccess,
-  downVoteErr,
-  markAsAcceptedSuccess,
-  markAsAcceptedErr,
-  deleteQuestionSuccess,
-  deleteQuestionErr,
-  deleteAnswerSuccess,
-  deleteAnswerErr,
-  deleteCommentSuccess,
-  deleteCommentErr,
-  saveCommentSuccess,
-  saveCommentErr,
-  voteToDeleteSuccess,
-  voteToDeleteErr,
   changeQuestionTypeErr,
   changeQuestionTypeSuccess,
+  deleteAnswerErr,
+  deleteAnswerSuccess,
+  deleteCommentErr,
+  deleteCommentSuccess,
+  deleteQuestionErr,
+  deleteQuestionSuccess,
+  downVoteErr,
+  downVoteSuccess,
+  getQuestionDataErr,
+  getQuestionDataSuccess,
+  markAsAcceptedErr,
+  markAsAcceptedSuccess,
+  postAnswerErr,
+  postAnswerSuccess,
+  postCommentErr,
+  postCommentSuccess,
+  saveCommentErr,
+  saveCommentSuccess,
+  upVoteErr,
+  upVoteSuccess,
+  voteToDeleteErr,
+  voteToDeleteSuccess,
 } from './actions';
 
 import { selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
+  deleteCommentValidator,
   deleteQuestionValidator,
+  downVoteValidator,
+  editCommentValidator,
+  markAsAcceptedValidator,
   postAnswerValidator,
   postCommentValidator,
-  markAsAcceptedValidator,
   upVoteValidator,
-  downVoteValidator,
   voteToDeleteValidator,
-  deleteCommentValidator,
-  editCommentValidator,
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 
@@ -533,7 +533,7 @@ export function* postCommentWorker({
   }
 }
 
-export function* postAnswerWorker({ questionId, answer, reset }) {
+export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
     const { questionData, eosService, profileInfo, locale } = yield call(
       getParams,
@@ -550,13 +550,20 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
       ),
     );
 
-    yield call(postAnswer, profileInfo.user, questionId, answer, eosService);
+    yield call(
+      postAnswer,
+      profileInfo.user,
+      questionId,
+      answer,
+      official,
+      eosService,
+    );
 
     const newAnswer = {
       id: questionData.answers.length + 1,
       post_time: String(Date.now()).slice(0, -3),
       user: profileInfo.user,
-      properties: [],
+      properties: official ? [{ key: 10, value: 1 }] : [],
       history: [],
       isItWrittenByMe: true,
       votingStatus: {},
@@ -570,7 +577,7 @@ export function* postAnswerWorker({ questionId, answer, reset }) {
 
     yield call(reset);
 
-    yield put(postAnswerSuccess({ ...questionData }));
+    yield put(postAnswerSuccess(questionData));
   } catch (err) {
     yield put(postAnswerErr(err));
   }

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Base from 'components/Base';
+
+import { isAnswerOfficial } from 'utils/properties';
 
 import TextBlock from './TextBlock';
 import Comments from './Comments';
@@ -35,48 +37,59 @@ export const ContentBody = ({
   isTheLargestRating,
   ids,
   isItWrittenByMe,
-}) => (
-  <Base position="bottom">
-    <BestAnswerMarker
-      answerId={answerId}
-      questionFrom={questionFrom}
-      account={account}
-      markAsAccepted={markAsAccepted}
-      markAsAcceptedLoading={markAsAcceptedLoading}
-      correctAnswerId={questionData.correct_answer_id}
-      whoWasAccepted={userInfo.user}
-      isTheLargestRating={isTheLargestRating}
-      ids={ids}
-      isGeneral={questionData.isGeneral}
-      isItWrittenByMe={isItWrittenByMe}
-      communityId={questionData.community_id}
-      questionId={questionData.id}
-    />
+}) => {
+  const isOfficial = useMemo(
+    () =>
+      isAnswerOfficial(
+        questionData.answers.find(({ id }) => id === answerId) || { id: 0 },
+      ),
+    [questionData.answers, answerId],
+  );
 
-    <TextBlock content={content} />
+  return (
+    <Base position="bottom">
+      <BestAnswerMarker
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        markAsAcceptedLoading={markAsAcceptedLoading}
+        correctAnswerId={questionData.correct_answer_id}
+        whoWasAccepted={userInfo.user}
+        isTheLargestRating={isTheLargestRating}
+        ids={ids}
+        isGeneral={questionData.isGeneral}
+        isItWrittenByMe={isItWrittenByMe}
+        communityId={questionData.community_id}
+        questionId={questionData.id}
+        isOfficial={isOfficial}
+      />
 
-    <Comments
-      locale={locale}
-      type={type}
-      saveComment={saveComment}
-      saveCommentLoading={saveCommentLoading}
-      deleteComment={deleteComment}
-      deleteCommentLoading={deleteCommentLoading}
-      voteToDelete={voteToDelete}
-      voteToDeleteLoading={voteToDeleteLoading}
-      buttonParams={buttonParams}
-      translations={translations}
-      answerId={answerId}
-      comments={comments}
-      form={`${ADD_COMMENT_FORM}${answerId}`}
-      submitButtonId={POST_COMMENT_BUTTON}
-      submitButtonName={translations[messages.postCommentButton.id]}
-      sendCommentLoading={postCommentLoading}
-      sendComment={postComment}
-      ids={ids}
-    />
-  </Base>
-);
+      <TextBlock content={content} />
+
+      <Comments
+        locale={locale}
+        type={type}
+        saveComment={saveComment}
+        saveCommentLoading={saveCommentLoading}
+        deleteComment={deleteComment}
+        deleteCommentLoading={deleteCommentLoading}
+        voteToDelete={voteToDelete}
+        voteToDeleteLoading={voteToDeleteLoading}
+        buttonParams={buttonParams}
+        translations={translations}
+        answerId={answerId}
+        comments={comments}
+        form={`${ADD_COMMENT_FORM}${answerId}`}
+        submitButtonId={POST_COMMENT_BUTTON}
+        submitButtonName={translations[messages.postCommentButton.id]}
+        sendCommentLoading={postCommentLoading}
+        sendComment={postComment}
+        ids={ids}
+      />
+    </Base>
+  );
+};
 
 ContentBody.propTypes = {
   type: PropTypes.string,

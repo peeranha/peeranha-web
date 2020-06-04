@@ -160,9 +160,9 @@ export const ViewQuestion = ({
       ? new Date(questionData.lastEditedDate * 1000)
       : ``;
 
-  const tagIds = questionData ? questionData.tags : [];
+  const tagIds = questionData?.tags ?? [];
 
-  const commId = questionData ? questionData.community_id : null;
+  const commId = questionData?.community_id ?? null;
 
   const community = communities.filter(x => x.id === commId)[0] || {
     tags: [],

@@ -10,7 +10,7 @@ export const PASSWORD_FIELD = 'password';
 export const REMEMBER_ME_FIELD = 'remember';
 export const DISPLAY_NAME = 'display_name';
 export const REFERRAL_CODE = 'referral_code';
-// Content
+// Title
 export const EMAIL_FORM = 'EMAIL_FORM';
 export const EMAIL_PASSWORD_FORM = 'EMAIL_PASSWORD_FORM';
 export const WE_ARE_HAPPY_FORM = 'WE_ARE_HAPPY_FORM';

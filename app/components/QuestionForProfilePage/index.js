@@ -36,7 +36,7 @@ const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (!bordered ? '5px' : 'none')};
+  border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
