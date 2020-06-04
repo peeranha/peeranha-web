@@ -542,8 +542,6 @@
   "app.containers.ViewQuestion.editButton": "Edit",
   "app.containers.ViewQuestion.shareButton": "Share",
   "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
-  "app.containers.ViewQuestion.copy": "Copy",
-  "app.containers.ViewQuestion.copied": "Copied",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",

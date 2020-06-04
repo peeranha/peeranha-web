@@ -148,6 +148,7 @@ const ContentHeader = props => {
               </Button>
             </>
           )}
+
           <Button
             show={!isItWrittenByMe}
             id={`${type}_vote_to_delete_${answerId}`}
@@ -160,7 +161,7 @@ const ContentHeader = props => {
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
-          {questionData.user === userInfo.user && (
+          {type === QUESTION_TYPE && (
             <DropdownBox>
               <Button
                 show={true}

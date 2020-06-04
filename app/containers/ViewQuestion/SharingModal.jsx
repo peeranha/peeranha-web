@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,20 +7,33 @@ import {
   TelegramShareButton,
   TwitterShareButton,
 } from 'react-share';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { translationMessages } from 'i18n';
+import * as clipboard from 'clipboard-polyfill';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT, TEXT_PRIMARY } from 'style-constants';
+import {
+  SECONDARY_SPECIAL,
+  BG_BLACK,
+  BG_LIGHT,
+  TEXT_PRIMARY,
+} from 'style-constants';
+import { APP_TWITTER_NICKNAME } from 'utils/constants';
+
+import commonMessages from 'common-messages';
+import messages from './messages';
+
+import { showPopover } from 'utils/popover';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?external';
 import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
 import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
 
-import { APP_TWITTER_NICKNAME } from 'utils/constants';
-
 import Input from 'components/Input';
 import Icon from 'components/Icon';
-
-import messages from './messages';
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -68,10 +81,15 @@ const DropdownModalFooter = styled.footer`
   }
 `;
 
-const SharingModal = props => {
-  const { questionData } = props;
+const SharingModal = ({ questionData, locale }) => {
 
-  const [isNotLinkCopied, changeStatusCopyLink] = useState(true);
+  const writeToBuffer = event => {
+    clipboard.writeText(event.currentTarget.dataset.key);
+    showPopover(
+      event.currentTarget.id,
+      translationMessages[locale][commonMessages.copied.id],
+    );
+  };
 
   return (
     <DropdownModal>
@@ -103,12 +121,14 @@ const SharingModal = props => {
             <Icon icon={reddit} width="24" />
           </RedditShareButton>
         </div>
-        <CopyToClipboard
-          text={window.location.href}
-          onCopy={() => changeStatusCopyLink(!isNotLinkCopied)}
+        <button
+          id="share-link-copy"
+          data-key={window.location.href}
+          onClick={writeToBuffer}
+          className="copy-btn"
         >
-          <span class="copy-btn">{isNotLinkCopied ? <FormattedMessage {...messages.copy} /> : <FormattedMessage {...messages.copied} />}</span>
-        </CopyToClipboard>
+          <FormattedMessage {...commonMessages.copy} />{' '}
+        </button>
       </DropdownModalFooter>
     </DropdownModal>
   );
@@ -116,6 +136,13 @@ const SharingModal = props => {
 
 SharingModal.propTypes = {
   questionData: PropTypes.object.isRequired,
+  locale: PropTypes.string,
 };
 
-export default React.memo(SharingModal);
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+  }),
+);
+
+export default compose(withConnect)(SharingModal);
