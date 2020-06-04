@@ -10,7 +10,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import logoutIcon from 'images/logout.svg?inline';
+import logoutIcon from 'images/logout.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 
@@ -20,6 +20,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
+import Icon from 'components/Icon';
 
 import Logout from 'containers/Logout';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
@@ -93,7 +94,7 @@ const Menu = memo(
 
       <Ul>
         <Logout>
-          <img className="mr-1" src={logoutIcon} alt="icon" />
+          <Icon className="mr-1" icon={logoutIcon} width="24" />
           <Span color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.logout} />
           </Span>

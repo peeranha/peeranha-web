@@ -10,7 +10,7 @@ import { getFormattedNum3 } from 'utils/numbers';
 import { getFormattedDate } from 'utils/datetime';
 import { FULL_MONTH_NAME_DAY_YEAR, DD_MM_YY } from 'utils/constants';
 
-import calendarImage from 'images/calendar.svg?inline';
+import calendarImage from 'images/calendar.svg?external';
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
 import P from 'components/P';
@@ -21,6 +21,7 @@ import BaseRounded from 'components/Base/BaseRounded';
 import SmallImage from 'components/Img/SmallImage';
 import PickupButton from 'components/Button/Contained/InfoLarge';
 import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
+import Icon from 'components/Icon';
 
 import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -97,7 +98,7 @@ const CurrentWeek = ({
       />
     </Base>
     <Base className="d-flex align-items-center" position="bottom">
-      <img className="mr-3" src={calendarImage} alt="calendar" />
+      <Icon className="mr-3" icon={calendarImage} width="34" />
       <Span mobileFS={14}>
         <FormattedMessage
           {...messages[

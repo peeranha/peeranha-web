@@ -8,10 +8,10 @@
             <g id="ico_see_all-ico_archive" transform="translate(25.000000, 276.000000)">
                 <g id="Group" transform="translate(2.000000, 1.000000)">
                     <g id="Group-2" fill="#7699FF" fill-opacity="0.2" stroke="#576FED">
-                        <circle id="Oval" cx="7.5" cy="7.5" r="7"></circle>
+                        <circle class="fill stroke" id="Oval" cx="7.5" cy="7.5" r="7"></circle>
                     </g>
-                    <rect id="Rectangle" fill="#576FED" x="6" y="4" width="1" height="5"></rect>
-                    <rect id="Rectangle-Copy" fill="#576FED" transform="translate(8.500000, 8.500000) rotate(90.000000) translate(-8.500000, -8.500000) " x="8" y="7" width="1" height="3"></rect>
+                    <rect class="fill" id="Rectangle" fill="#576FED" x="6" y="4" width="1" height="5"></rect>
+                    <rect class="fill" id="Rectangle-Copy" fill="#576FED" transform="translate(8.500000, 8.500000) rotate(90.000000) translate(-8.500000, -8.500000) " x="8" y="7" width="1" height="3"></rect>
                 </g>
             </g>
         </g>

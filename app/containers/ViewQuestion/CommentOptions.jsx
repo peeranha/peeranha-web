@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
-import dotsIcon from 'images/dots.svg?inline';
+import dotsIcon from 'images/dots.svg?external';
 import arrowDownOutlined from 'images/arrowDown.svg?external';
 
 import Span from 'components/Span';
@@ -62,7 +62,7 @@ export const CommentOptions = ({
         )}
 
         <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
-          <img src={dotsIcon} alt="***" />
+          <Icon icon={dotsIcon} width="18" fill={BORDER_PRIMARY} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>

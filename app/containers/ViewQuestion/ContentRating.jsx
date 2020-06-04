@@ -3,20 +3,21 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg?inline';
-import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg?inline';
-import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg?inline';
-import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg?inline';
-import disabledFingerUp from 'images/disabledFingerUp.svg?inline';
-import disabledFingerDown from 'images/disabledFingerDown.svg?inline';
-import emptyFingerUp from 'images/emptyFingerUp.svg?inline';
-import emptyFingerDown from 'images/emptyFingerDown.svg?inline';
+import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg?external';
+import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg?external';
+import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg?external';
+import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg?external';
+import disabledFingerUp from 'images/disabledFingerUp.svg?external';
+import disabledFingerDown from 'images/disabledFingerDown.svg?external';
+import emptyFingerUp from 'images/emptyFingerUp.svg?external';
+import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
 import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
+import Icon from 'components/Icon';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -128,7 +129,7 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <img src={src} alt="voteup" />
+      <Icon icon={src} width="24" />
     </ImgBox>
   );
 }
@@ -154,7 +155,7 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <img src={src} alt="votedown" />
+      <Icon icon={src} width="24" />
     </ImgBox>
   );
 }

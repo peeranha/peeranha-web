@@ -5,10 +5,10 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
-import pencilIcon from 'images/pencil.svg?inline';
-import closeIcon from 'images/closeCircle.svg?inline';
+import pencilIcon from 'images/pencil.svg?external';
+import closeIcon from 'images/closeCircle.svg?external';
 
 import NavigationButton, {
   NavigationLink,
@@ -17,6 +17,7 @@ import NavigationButton, {
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
+import Icon from 'components/Icon';
 
 const Ul = styled.ul`
   display: flex;
@@ -171,7 +172,7 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <img src={pencilIcon} alt="icon" />
+            <Icon icon={pencilIcon} width="18" />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.edit} />
             </Span>
@@ -185,7 +186,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <img src={closeIcon} alt="x" />
+            <Icon icon={closeIcon} width="18" fill={BORDER_PRIMARY} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>

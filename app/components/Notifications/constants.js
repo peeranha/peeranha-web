@@ -1,9 +1,9 @@
-import answerIcon from 'images/answer.svg?inline';
-import questionIcon from 'images/question2.svg?inline';
-import bestAnswerIcon from 'images/bestAnswer.svg?inline';
-import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?inline';
-import upVoteIcon from 'images/fingerUpSingleQuestionPage.svg?inline';
-import coinsIcon from 'images/coins.svg?inline';
+import answerIcon from 'images/answer.svg?external';
+import questionIcon from 'images/question2.svg?external';
+import bestAnswerIcon from 'images/bestAnswer.svg?external';
+import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?external';
+import upVoteIcon from 'images/fingerUpSingleQuestionPage.svg?external';
+import coinsIcon from 'images/coins.svg?external';
 
 import messages from './messages';
 
