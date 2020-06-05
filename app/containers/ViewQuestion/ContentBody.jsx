@@ -63,6 +63,7 @@ export const ContentBody = ({
         communityId={questionData.community_id}
         questionId={questionData.id}
         isOfficial={isOfficial}
+        userInfo={userInfo}
       />
 
       <TextBlock content={content} />

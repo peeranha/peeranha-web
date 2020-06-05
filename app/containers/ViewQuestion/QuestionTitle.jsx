@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import commonMessages from 'common-messages';
@@ -13,15 +14,17 @@ import TagList from 'components/TagsList';
 import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
+import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
+import SendTips from '../SendTips';
 
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
 import messages from './messages';
-import SendTips from '../SendTips';
 
 const styles = singleCommunityStyles();
 
@@ -62,9 +65,9 @@ const Top = styled.div`
 export const QuestionTitle = ({
   title,
   communities,
-  isItWrittenByMe,
   user,
   questionData,
+  profileInfo,
 }) => {
   const {
     tags,
@@ -74,6 +77,9 @@ export const QuestionTitle = ({
     isGeneral,
     id,
   } = questionData;
+
+  const isItWrittenByMe = !!profileInfo ? user === profileInfo.user : false;
+
   return title ? (
     <Base
       paddingTop="5"
@@ -83,7 +89,7 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {!isItWrittenByMe ? (
+        {(!profileInfo || (!!profileInfo && !isItWrittenByMe)) && (
           <SendTips
             form="tip-question"
             questionId={id}
@@ -99,8 +105,6 @@ export const QuestionTitle = ({
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
           </SendTips>
-        ) : (
-          <div />
         )}
         {!isGeneral && (
           <QuestionType size="md" top="0px" topMedia="0px">
@@ -156,6 +160,16 @@ QuestionTitle.propTypes = {
   answersNumber: PropTypes.number,
   user: PropTypes.string,
   questionData: PropTypes.object,
+  profileInfo: PropTypes.object,
 };
 
-export default React.memo(QuestionTitle);
+export default React.memo(
+  connect(
+    state => {
+      return {
+        profileInfo: makeSelectProfileInfo()(state),
+      };
+    },
+    null,
+  )(QuestionTitle),
+);
