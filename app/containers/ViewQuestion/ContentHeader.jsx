@@ -117,7 +117,7 @@ const ContentHeader = props => {
           postTime={postTime}
           locale={locale}
         />
-        {!!profileInfo ? 'user login' : 'user not login'}
+        
         <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
             <>
