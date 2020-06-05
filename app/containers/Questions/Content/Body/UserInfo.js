@@ -21,7 +21,7 @@ const UserInfo = ({ user, userInfo, postTime, locale }) => (
       <Span className="mr-2" fontSize="14">
         {userInfo?.['display_name']}
       </Span>
-      <RatingStatus rating={userInfo.rating} size="sm" isRankOff/>
+      <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
       <Span
         className="text-capitalize mr-3"
         fontSize="14"

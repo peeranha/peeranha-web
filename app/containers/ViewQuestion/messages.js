@@ -31,15 +31,6 @@ export default defineMessages({
   shareTitle: {
     id: 'app.containers.ViewQuestion.shareTitle',
   },
-  shareTwitter: {
-    id: 'app.containers.ViewQuestion.shareTwitter',
-  },
-  shareTelegram: {
-    id: 'app.containers.ViewQuestion.shareTelegram',
-  },
-  shareReddit: {
-    id: 'app.containers.ViewQuestion.shareReddit',
-  },
   moreComments: {
     id: 'app.containers.ViewQuestion.moreComments',
   },

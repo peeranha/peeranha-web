@@ -37,8 +37,8 @@ export const Answers = props => {
 
   return (
     <div>
-      <AnswersTitle answersNum={answers.length}/>
-      <AcceptedAnswer {...props} questionData={questionDataWithSortedAnswers}/>
+      <AnswersTitle answersNum={answers.length} />
+      <AcceptedAnswer {...props} questionData={questionDataWithSortedAnswers} />
       <AnswersList {...props} questionData={questionDataWithSortedAnswers} />
     </div>
   );
