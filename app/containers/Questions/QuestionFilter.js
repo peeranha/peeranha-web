@@ -40,7 +40,7 @@ const Button = styled.button`
     ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
 
   box-shadow: ${({ active }) =>
-  active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
+    active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
 `;
 
 const single = isSingleCommunityWebsite();

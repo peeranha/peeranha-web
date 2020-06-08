@@ -91,12 +91,12 @@ function dataCacheProviderReducer(state = initialState, action) {
         'users',
         profile
           ? fromJS({
-            ...state.get('users').toJS(),
-            [profile.user]: {
-              ...state.get('users').toJS()[profile.user],
-              ...profile,
-            },
-          })
+              ...state.get('users').toJS(),
+              [profile.user]: {
+                ...state.get('users').toJS()[profile.user],
+                ...profile,
+              },
+            })
           : state.get('users'),
       );
     case GET_USER_PROFILE_ERROR:

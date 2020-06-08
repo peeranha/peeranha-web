@@ -59,11 +59,11 @@ const Div = Base.extend`
 `;
 
 const AdditionalInfo = ({
-                          correctAnswerId,
-                          answers,
-                          rating,
-                          officialAnswersCount,
-                        }) => {
+  correctAnswerId,
+  answers,
+  rating,
+  officialAnswersCount,
+}) => {
   const icon = useMemo(
     () => (correctAnswerId ? bestAnswerIcon : answerIconEmptyInside),
     [answers.length, correctAnswerId],
@@ -72,7 +72,7 @@ const AdditionalInfo = ({
     <Container>
       <Div isAccepted={correctAnswerId}>
         <span className="d-flex align-items-center justify-content-center">
-          <img className="mr-2" src={icon} alt="icon"/>
+          <img className="mr-2" src={icon} alt="icon" />
           <Span
             className={officialAnswersCount ? 'mr-2' : ''}
             color={correctAnswerId ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
@@ -82,7 +82,7 @@ const AdditionalInfo = ({
           </Span>
           {!!officialAnswersCount && (
             <>
-              <img width="18" className="mr-2" src={officialIcon} alt="icon"/>
+              <img width="18" className="mr-2" src={officialIcon} alt="icon" />
               <Span color={TEXT_PRIMARY_DARK} bold>
                 {officialAnswersCount}
               </Span>

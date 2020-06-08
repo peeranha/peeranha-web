@@ -39,17 +39,17 @@ const PreviewWrapper = styled.div`
 `;
 
 export const AnswerForm = ({
-                             handleSubmit,
-                             sendAnswer,
-                             sendAnswerLoading,
-                             sendButtonId,
-                             submitButtonName,
-                             label,
-                             previewLabel,
-                             textEditorValue,
-                             answerTypeLabel,
-                             isOfficialRepresentative,
-                           }) => (
+  handleSubmit,
+  sendAnswer,
+  sendAnswerLoading,
+  sendButtonId,
+  submitButtonName,
+  label,
+  previewLabel,
+  textEditorValue,
+  answerTypeLabel,
+  isOfficialRepresentative,
+}) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     <Field
       name={TEXT_EDITOR_ANSWER_FORM}
@@ -73,7 +73,7 @@ export const AnswerForm = ({
     <Wrapper label={previewLabel} className="mt-3">
       <PreviewWrapper>
         {textEditorValue ? (
-          <TextBlock className="my-2" content={textEditorValue}/>
+          <TextBlock className="my-2" content={textEditorValue} />
         ) : (
           <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
             <FormattedMessage {...messages.nothingToSeeYet} />

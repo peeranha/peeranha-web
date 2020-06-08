@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ import blockIcon from 'images/blockIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY } from 'utils/constants';
+import { useOnClickOutside } from 'utils/click-listners';
 
 import Icon from 'components/Icon';
 
@@ -97,7 +98,9 @@ const ContentHeader = props => {
   const changeQuestionTypeWithoutRatingRestore = event =>
     changeQuestionTypeDispatch(false, event);
 
-  const [isSharingModalHidden, changeSharingModalView] = useState(true);
+  const ref = useRef();
+  const [isModalOpen, setModalOpen] = useState(false);
+  useOnClickOutside(ref, () => setModalOpen(false));
 
   return (
     <Box>
@@ -145,6 +148,7 @@ const ContentHeader = props => {
               </Button>
             </>
           )}
+
           <Button
             show={!isItWrittenByMe}
             id={`${type}_vote_to_delete_${answerId}`}
@@ -157,18 +161,21 @@ const ContentHeader = props => {
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
-          {questionData.user === userInfo.user && (
+          {type === QUESTION_TYPE && (
             <DropdownBox>
               <Button
-                show={questionData.user === userInfo.user}
-                onClick={() => changeSharingModalView(!isSharingModalHidden)}
+                show={true}
+                disabled={isModalOpen}
+                onClick={() => setModalOpen(true)}
               >
                 <Icon icon={shareIcon} width="14" />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
-              {!isSharingModalHidden && (
-                <SharingModal questionData={questionData} />
+              {isModalOpen && (
+                <div ref={ref}>
+                  <SharingModal questionData={questionData} />
+                </div>
               )}
             </DropdownBox>
           )}

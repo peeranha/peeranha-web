@@ -1,24 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   RedditShareButton,
   TelegramShareButton,
   TwitterShareButton,
 } from 'react-share';
+import { translationMessages } from 'i18n';
+import * as clipboard from 'clipboard-polyfill';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import { SECONDARY_SPECIAL, BG_BLACK, BG_LIGHT } from 'style-constants';
-
-import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?inline';
-import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
-import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?inline';
-
+import {
+  SECONDARY_SPECIAL,
+  BG_BLACK,
+  BG_LIGHT,
+  TEXT_PRIMARY,
+} from 'style-constants';
 import { APP_TWITTER_NICKNAME } from 'utils/constants';
 
-import Input from 'components/Input';
-
+import commonMessages from 'common-messages';
 import messages from './messages';
+
+import { showPopover } from 'utils/popover';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
+import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?external';
+import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
+import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
+
+import Input from 'components/Input';
+import Icon from 'components/Icon';
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -47,15 +62,36 @@ const DropdownModal = styled.div`
 
 const DropdownModalFooter = styled.footer`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 15px;
 
   button {
     margin-right: 15px;
   }
+
+  .copy-btn {
+    margin-right: 0;
+
+    color: #576fed;
+
+    cursor: pointer;
+  }
+
+  .fill {
+    fill: ${TEXT_PRIMARY};
+  }
 `;
 
-const SharingModal = props => {
-  const { questionData, intl } = props;
+const SharingModal = ({ questionData, locale }) => {
+
+  const writeToBuffer = event => {
+    clipboard.writeText(event.currentTarget.dataset.key);
+    showPopover(
+      event.currentTarget.id,
+      translationMessages[locale][commonMessages.copied.id],
+    );
+  };
 
   return (
     <DropdownModal>
@@ -66,40 +102,35 @@ const SharingModal = props => {
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />
       <DropdownModalFooter>
-        <TwitterShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-          via={APP_TWITTER_NICKNAME}
+        <div>
+          <TwitterShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+            via={APP_TWITTER_NICKNAME}
+          >
+            <Icon icon={twitter} width="24" />
+          </TwitterShareButton>
+          <TelegramShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+          >
+            <Icon icon={telegram} width="24" />
+          </TelegramShareButton>
+          <RedditShareButton
+            url={window.location.href}
+            title={questionData.content.title}
+          >
+            <Icon icon={reddit} width="24" />
+          </RedditShareButton>
+        </div>
+        <button
+          id="share-link-copy"
+          data-key={window.location.href}
+          onClick={writeToBuffer}
+          className="copy-btn"
         >
-          <img
-            src={twitter}
-            alt={intl.formatMessage({
-              id: messages.shareTwitter.id,
-            })}
-          />
-        </TwitterShareButton>
-        <TelegramShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-        >
-          <img
-            src={telegram}
-            alt={intl.formatMessage({
-              id: messages.shareTelegram.id,
-            })}
-          />
-        </TelegramShareButton>
-        <RedditShareButton
-          url={window.location.href}
-          title={questionData.content.title}
-        >
-          <img
-            src={reddit}
-            alt={intl.formatMessage({
-              id: messages.shareReddit.id,
-            })}
-          />
-        </RedditShareButton>
+          <FormattedMessage {...commonMessages.copy} />{' '}
+        </button>
       </DropdownModalFooter>
     </DropdownModal>
   );
@@ -107,7 +138,13 @@ const SharingModal = props => {
 
 SharingModal.propTypes = {
   questionData: PropTypes.object.isRequired,
-  intl: intlShape.isRequired,
+  locale: PropTypes.string,
 };
 
-export default React.memo(injectIntl(SharingModal));
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+  }),
+);
+
+export default compose(withConnect)(SharingModal);

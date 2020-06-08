@@ -58,7 +58,7 @@ const Content = ({
             />
             <div>
               <P fontSize="14">{x?.['display_name']}</P>
-              <IconWithStatus className="py-1" size="sm" rating={x.rating}/>
+              <IconWithStatus className="py-1" size="sm" rating={x.rating} />
               <P fontSize="14" color={TEXT_SECONDARY}>
                 {getTimeFromDateToNow(x.registration_time, locale)}
               </P>
