@@ -15,7 +15,6 @@ import {
   removeFromTopQuestions,
   upQuestion,
 } from '../actions';
-import { makeSelectProfileInfo } from '../../AccountProvider/selectors';
 import * as questionsSelector from '../selectors';
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
@@ -63,6 +62,7 @@ const QI = ({
   isTopQuestion,
   profileInfo,
   questionFilter,
+  isModerator,
   addToTopQuestionsDispatch,
   removeFromTopQuestionsDispatch,
   upQuestionDispatch,
@@ -72,14 +72,9 @@ const QI = ({
 }) => {
   const ref = useRef(null);
 
-  const displayTopQuestion = useMemo(
-    () => !!profileInfo && profileInfo.isAdmin,
-    [profileInfo],
-  );
-
   const displayTopQuestionMove = useMemo(
-    () => displayTopQuestion && isTopQuestion && questionFilter === 1,
-    [isTopQuestion, displayTopQuestion, questionFilter],
+    () => isModerator && isTopQuestion && questionFilter === 1,
+    [isTopQuestion, isModerator, questionFilter],
   );
 
   const upQuestionMethod = useCallback(
@@ -130,7 +125,7 @@ const QI = ({
       index={index}
       innerRef={ref}
       bordered={!isGeneral}
-      draggable={profileInfo && profileInfo.isAdmin && questionFilter === 1}
+      draggable={isModerator && questionFilter === 1}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragStart={onDragStart}
@@ -153,7 +148,7 @@ const QI = ({
         )}
         <Body
           id={id}
-          displayTopQuestion={displayTopQuestion}
+          isModerator={isModerator}
           title={title}
           user={user}
           userInfo={userInfo}
@@ -177,7 +172,6 @@ const QI = ({
 
 const QuestionItem = connect(
   state => ({
-    profileInfo: makeSelectProfileInfo()(state),
     questionFilter: questionsSelector.selectQuestionFilter()(state),
     topQuestionActionProcessing: questionsSelector.selectTopQuestionActionProcessing()(
       state,
@@ -195,7 +189,13 @@ const QuestionItem = connect(
   }),
 )(QI);
 
-export const Content = ({ questionsList, locale, communities }) => (
+export const Content = ({
+  questionsList,
+  locale,
+  communities,
+  isModerator,
+  profileInfo,
+}) => (
   <div className="position-relative">
     {questionsList.map((item, index) => (
       <QuestionItem
@@ -206,6 +206,8 @@ export const Content = ({ questionsList, locale, communities }) => (
         locale={locale}
         communities={communities}
         key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
       />
     ))}
   </div>
@@ -228,6 +230,7 @@ QI.propTypes = {
   first: PropTypes.bool,
   last: PropTypes.bool,
   index: PropTypes.number,
+  isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
   addToTopQuestionsDispatch: PropTypes.func,
   removeFromTopQuestionsDispatch: PropTypes.func,
@@ -243,6 +246,8 @@ Content.propTypes = {
   questionsList: PropTypes.array,
   locale: PropTypes.string,
   communities: PropTypes.array,
+  isModerator: PropTypes.bool,
+  profileInfo: PropTypes.object,
 };
 
 export { QuestionItem };

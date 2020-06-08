@@ -75,12 +75,11 @@ import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
-const App = ({ location, profile, redirectToFeedDispatch }) => {
+const App = ({ location, redirectToFeedDispatch }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -105,16 +104,13 @@ const App = ({ location, profile, redirectToFeedDispatch }) => {
     }
   }, []);
 
-  useEffect(
-    () => {
-      const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+  useEffect(() => {
+    const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
-      if (loginData && !single && location.pathname === '/' && profile) {
-        redirectToFeedDispatch();
-      }
-    },
-    [!!profile],
-  );
+    if (loginData && !single && location.pathname === '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -348,7 +344,6 @@ const App = ({ location, profile, redirectToFeedDispatch }) => {
 
 App.propTypes = {
   location: PropTypes.object,
-  profile: PropTypes.object,
   redirectToFeedDispatch: PropTypes.func,
 };
 
@@ -356,7 +351,7 @@ export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
   connect(
-    state => ({ profile: makeSelectProfileInfo()(state) }),
+    null,
     dispatch => ({
       redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
     }),

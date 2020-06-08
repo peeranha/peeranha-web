@@ -34,7 +34,7 @@ import {
 export const initialState = fromJS({
   initLoadedItems: 25,
   nextLoadedItems: 10,
-  questionsLoading: false,
+  questionsLoading: true,
   questionsList: [],
   questionsError: '',
   isLastFetch: false,

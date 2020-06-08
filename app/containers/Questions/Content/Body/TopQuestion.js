@@ -25,8 +25,8 @@ const TopQuestion = ({
   id,
   locale,
   profileInfo,
-  displayTopQuestion,
   isTopQuestion,
+  isModerator,
   addToTopQuestionsDispatch,
   removeFromTopQuestionsDispatch,
   topQuestionActionProcessing,
@@ -36,7 +36,7 @@ const TopQuestion = ({
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
-  const changePinType = useCallback(
+  const onClick = useCallback(
     () => {
       if (isTopQuestion) {
         removeFromTopQuestionsDispatch(id);
@@ -51,36 +51,41 @@ const TopQuestion = ({
     () => {
       if (isTopQuestion) {
         return topQuestionActiveIcon;
-      } else if (profileInfo && profileInfo.isAdmin) {
+      } else if (isModerator) {
         return topQuestionsInactiveIcon;
       }
 
       return undefined;
     },
-    [isTopQuestion, profileInfo],
+    [isTopQuestion, profileInfo, isModerator],
   );
 
-  return topQuestionIcon ? (
-    <Button
-      className="ml-2"
-      active={displayTopQuestion}
-      onClick={displayTopQuestion ? changePinType : null}
-      disabled={topQuestionActionProcessing}
-      onMouseEnter={!displayTopQuestion ? onMouseEnter : null}
-      onMouseLeave={!displayTopQuestion ? onMouseLeave : null}
-    >
-      {visible && <TopQuestionPopover locale={locale} />}
-      <img src={topQuestionIcon} width="20" alt="top" />
-    </Button>
-  ) : null;
+  const options = useMemo(
+    () => (!isModerator ? { onClick, onMouseEnter, onMouseLeave } : {}),
+    [isModerator, onMouseEnter, onMouseLeave],
+  );
+
+  return (
+    !!topQuestionIcon && (
+      <Button
+        {...options}
+        className="ml-2"
+        active={!isModerator}
+        disabled={topQuestionActionProcessing}
+      >
+        {visible && <TopQuestionPopover locale={locale} />}
+        <img src={topQuestionIcon} width="20" alt="top" />
+      </Button>
+    )
+  );
 };
 
 TopQuestion.propTypes = {
   id: PropTypes.string,
   locale: PropTypes.string,
   profileInfo: PropTypes.object,
-  displayTopQuestion: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
+  isModerator: PropTypes.bool,
   addToTopQuestionsDispatch: PropTypes.func,
   removeFromTopQuestionsDispatch: PropTypes.func,
   topQuestionActionProcessing: PropTypes.bool,

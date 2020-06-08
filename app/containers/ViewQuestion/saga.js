@@ -147,6 +147,10 @@ export function* getQuestionData({
 
   if (!question) {
     question = yield call(getQuestionById, eosService, questionId);
+
+    if (!question) {
+      return null;
+    }
   }
 
   question.isGeneral = isGeneralQuestion(question.properties);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import { BG_PRIMARY_LIGHT } from 'style-constants';
@@ -14,7 +14,7 @@ const Div = styled.div`
   z-index: 1000000;
 `;
 
-export default React.memo(() => (
+export default memo(() => (
   <Div>
     <LoadingIndicator />
   </Div>

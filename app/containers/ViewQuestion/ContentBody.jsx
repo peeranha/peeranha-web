@@ -41,7 +41,10 @@ export const ContentBody = ({
   const isOfficial = useMemo(
     () =>
       isAnswerOfficial(
-        questionData.answers.find(({ id }) => id === answerId) || { id: 0 },
+        questionData.answers.find(({ id }) => id === answerId) || {
+          id: 0,
+          properties: [],
+        },
       ),
     [questionData.answers, answerId],
   );

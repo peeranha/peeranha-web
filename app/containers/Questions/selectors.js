@@ -3,10 +3,6 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the questions state domain
- */
-
 const selectQuestionsDomain = state =>
   state.get('questionsReducer', initialState);
 

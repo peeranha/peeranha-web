@@ -12,7 +12,7 @@ import TagsContainer from './TagsContainer';
 const Body = ({
   id,
   user,
-  displayTopQuestion,
+  isModerator,
   title,
   userInfo,
   postTime,
@@ -38,7 +38,7 @@ const Body = ({
       locale={locale}
       profileInfo={profileInfo}
       isTopQuestion={isTopQuestion}
-      displayTopQuestion={displayTopQuestion}
+      isModerator={isModerator}
       topQuestionActionProcessing={topQuestionActionProcessing}
       addToTopQuestionsDispatch={addToTopQuestionsDispatch}
       removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
@@ -66,7 +66,6 @@ const Body = ({
 Body.propTypes = {
   id: PropTypes.string,
   user: PropTypes.string,
-  displayTopQuestion: PropTypes.bool,
   title: PropTypes.string,
   userInfo: PropTypes.object,
   postTime: PropTypes.number,
@@ -76,6 +75,7 @@ Body.propTypes = {
   tags: PropTypes.array,
   profileInfo: PropTypes.object,
   isGeneral: PropTypes.bool,
+  isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,

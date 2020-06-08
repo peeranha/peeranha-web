@@ -11,7 +11,7 @@
   "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
-  "app.common.messageCenter": "Центр Уведомлений",
+  "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
   "app.common.edit": "Править",
