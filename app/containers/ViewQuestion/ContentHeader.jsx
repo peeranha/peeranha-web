@@ -80,7 +80,6 @@ const ContentHeader = props => {
     postTime,
     locale,
     isModerator,
-    isItWrittenByMe,
     answerId,
     buttonParams,
     voteToDelete,
@@ -91,8 +90,11 @@ const ContentHeader = props => {
     deleteItem,
     changeQuestionTypeDispatch,
     questionData,
+    profileInfo,
   } = props;
 
+  const isItWrittenByMe = !!profileInfo ? userInfo.user === profileInfo.user : false;
+  
   const changeQuestionTypeWithRatingRestore = event =>
     changeQuestionTypeDispatch(true, event);
   const changeQuestionTypeWithoutRatingRestore = event =>
@@ -118,7 +120,7 @@ const ContentHeader = props => {
           postTime={postTime}
           locale={locale}
         />
-
+        
         <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
             <>
@@ -150,7 +152,7 @@ const ContentHeader = props => {
           )}
 
           <Button
-            show={!isItWrittenByMe}
+            show={!profileInfo || (!!profileInfo && !isItWrittenByMe)}
             id={`${type}_vote_to_delete_${answerId}`}
             params={buttonParams}
             onClick={voteToDelete}
@@ -181,7 +183,7 @@ const ContentHeader = props => {
           )}
 
           <Button
-            show={isItWrittenByMe}
+            show={!!profileInfo && isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${
@@ -197,7 +199,7 @@ const ContentHeader = props => {
               submitAction={deleteItem}
               Button={({ onClick }) => (
                 <Button
-                  show={isItWrittenByMe}
+                  show={!!profileInfo && isItWrittenByMe}
                   id={`${type}_delete_${answerId}`}
                   params={buttonParams}
                   onClick={onClick}
@@ -221,7 +223,6 @@ ContentHeader.propTypes = {
   lastEditedDate: PropTypes.number,
   postTime: PropTypes.number,
   type: PropTypes.string,
-  isItWrittenByMe: PropTypes.bool,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
   ids: PropTypes.array,
@@ -236,7 +237,7 @@ ContentHeader.propTypes = {
   isModerator: PropTypes.bool,
   changeQuestionTypeDispatch: PropTypes.func,
   questionData: PropTypes.object,
-  isQuestion: PropTypes.bool,
+  profileInfo: PropTypes.object,
 };
 
 export default React.memo(
@@ -244,6 +245,7 @@ export default React.memo(
     state => {
       const profileInfo = makeSelectProfileInfo()(state);
       return {
+        profileInfo: profileInfo,
         isModerator: profileInfo
           ? !!profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)
           : false,

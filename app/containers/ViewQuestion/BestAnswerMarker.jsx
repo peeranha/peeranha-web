@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +8,8 @@ import { BG_PRIMARY } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
 import commonMessages from 'common-messages';
 
 import coinsIcon from 'images/coins.svg?inline';
@@ -14,7 +17,6 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import officialIcon from 'images/officialWhite.svg?inline';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
-
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import { MARK_AS_BUTTON } from './constants';
@@ -56,12 +58,19 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
-  isItWrittenByMe,
   questionId,
   isOfficial,
+  profileInfo,
+  userInfo,
 }) => {
   if (answerId === 0) return null;
-  const displayTips = !isItWrittenByMe && answerId !== 0;
+
+  const isItWrittenByMe = !!profileInfo
+    ? userInfo.user === profileInfo.user
+    : false;
+
+  const displayTips = !profileInfo || (!!profileInfo && !isItWrittenByMe && answerId !== 0);
+
   return (
     <Div>
       {displayTips && (
@@ -131,6 +140,17 @@ BestAnswerMarker.propTypes = {
   isItWrittenByMe: PropTypes.bool,
   questionId: PropTypes.string,
   isOfficial: PropTypes.bool,
+  profileInfo: PropTypes.object,
+  userInfo: PropTypes.object,
 };
 
-export default React.memo(BestAnswerMarker);
+export default React.memo(
+  connect(
+    state => {
+      return {
+        profileInfo: makeSelectProfileInfo()(state),
+      };
+    },
+    null,
+  )(BestAnswerMarker),
+);
