@@ -22,15 +22,15 @@ const Button = styled.button`
 `;
 
 const TopQuestion = ({
-                       id,
-                       locale,
-                       profileInfo,
-                       displayTopQuestion,
-                       isTopQuestion,
-                       addToTopQuestionsDispatch,
-                       removeFromTopQuestionsDispatch,
-                       topQuestionActionProcessing,
-                     }) => {
+  id,
+  locale,
+  profileInfo,
+  displayTopQuestion,
+  isTopQuestion,
+  addToTopQuestionsDispatch,
+  removeFromTopQuestionsDispatch,
+  topQuestionActionProcessing,
+}) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -69,8 +69,8 @@ const TopQuestion = ({
       onMouseEnter={!displayTopQuestion ? onMouseEnter : null}
       onMouseLeave={!displayTopQuestion ? onMouseLeave : null}
     >
-      {visible && <TopQuestionPopover locale={locale}/>}
-      <img src={topQuestionIcon} width="20" alt="top"/>
+      {visible && <TopQuestionPopover locale={locale} />}
+      <img src={topQuestionIcon} width="20" alt="top" />
     </Button>
   ) : null;
 };

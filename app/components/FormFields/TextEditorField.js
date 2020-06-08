@@ -69,7 +69,7 @@ export const TextEditorField = ({
       disabled={disabled}
       error={meta.touched && (meta.error || meta.warning)}
     >
-      <TextEditor {...input} disabled={disabled}/>
+      <TextEditor {...input} disabled={disabled} />
     </Div>
   </Wrapper>
 );

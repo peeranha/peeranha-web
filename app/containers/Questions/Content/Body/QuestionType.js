@@ -19,7 +19,7 @@ const QuestionType = ({ locale, isGeneral }) => {
       onMouseLeave={onMouseLeave}
       size="sm"
     >
-      {visible && <ExpertPopover locale={locale}/>}
+      {visible && <ExpertPopover locale={locale} />}
 
       <FormattedMessage {...commonMessages.expert} />
     </Container>

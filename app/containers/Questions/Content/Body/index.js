@@ -10,24 +10,24 @@ import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
 
 const Body = ({
-                id,
-                user,
-                displayTopQuestion,
-                title,
-                userInfo,
-                postTime,
-                locale,
-                communityId,
-                communities,
-                tags,
-                profileInfo,
-                isGeneral,
-                isTopQuestion,
-                displayTopQuestionMove,
-                topQuestionActionProcessing,
-                addToTopQuestionsDispatch,
-                removeFromTopQuestionsDispatch,
-              }) => (
+  id,
+  user,
+  displayTopQuestion,
+  title,
+  userInfo,
+  postTime,
+  locale,
+  communityId,
+  communities,
+  tags,
+  profileInfo,
+  isGeneral,
+  isTopQuestion,
+  displayTopQuestionMove,
+  topQuestionActionProcessing,
+  addToTopQuestionsDispatch,
+  removeFromTopQuestionsDispatch,
+}) => (
   <Base
     className={displayTopQuestionMove ? 'pl-0' : ''}
     bottomRightRadius
@@ -44,9 +44,9 @@ const Body = ({
       removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
     />
 
-    <QuestionType locale={locale} isGeneral={isGeneral}/>
+    <QuestionType locale={locale} isGeneral={isGeneral} />
 
-    <Title title={title} id={id}/>
+    <Title title={title} id={id} />
 
     <UserInfo
       user={user}
