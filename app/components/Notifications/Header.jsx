@@ -11,10 +11,12 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import notificationsIcon from 'images/Notifications_Bright.svg?inline';
+import notificationsIcon from 'images/Notifications_Bright.svg?external';
 
 import H3 from '../H3';
 import Span from '../Span';
+import Icon from 'components/Icon';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 const Container = styled.div`
   display: flex;
@@ -24,24 +26,11 @@ const Container = styled.div`
   }
 `;
 
-const Icon = styled.div`
-  width: 43px;
-  height: 43px;
-  min-width: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${BG_SECONDARY_LIGHT};
-  border: 1px solid ${BORDER_SECONDARY};
-  border-radius: 50%;
-  margin-right: 20px;
-`;
-
 const Header = ({ notificationsNumber }) => (
   <Container>
-    <Icon>
-      <img src={notificationsIcon} width="25" alt="notifications_icon" />
-    </Icon>
+    <MediumIconStyled>
+      <Icon icon={notificationsIcon} width="25" />
+    </MediumIconStyled>
     <H3>
       <FormattedMessage {...messages.messageCenter} />
     </H3>

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-const svgDraw = ({ color }) => `
+const svgDraw = ({ color, fill }) => `
   color: ${color};
+
   .fill {
-    fill: ${color};
+    fill: ${fill};
   }
+
   .stroke {
     stroke: ${color};
   } 
@@ -22,7 +24,15 @@ const IconStyled = styled.span`
     height: inherit;
   }
 
-  ${x => (x.color ? svgDraw({ color: `${x.color} !important` }) : ``)};
+  ${x =>
+    x.color
+      ? svgDraw({
+          color: `${x.color} ${!!x.isColorImportant ? `!important` : ``}`,
+          fill: `${x.fill || x.color} ${
+            !!x.isColorImportant ? `!important` : ``
+          }`,
+        })
+      : ``};
 `;
 
 export { svgDraw };

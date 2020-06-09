@@ -7,12 +7,13 @@ import { FormattedMessage } from 'react-intl';
 import { userNotifications } from 'routes-config';
 import messages from 'common-messages';
 
-import { BORDER_SECONDARY_LIGHT, TEXT_PRIMARY } from 'style-constants';
+import { BORDER_SECONDARY_LIGHT, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
+import { Icon15 } from 'components/Icon/IconWithSizes';
 
-import clockIcon from 'images/clockIcon.svg?inline';
-import notificationsIcon from 'images/notificationsBlue.svg?inline';
+import clockIcon from 'images/clockIcon.svg?external';
+import notificationsIcon from 'images/notificationsBlue.svg?external';
 
 import { makeSelectProfileInfo } from '../../../AccountProvider/selectors';
 
@@ -38,12 +39,12 @@ const Footer = ({ onClose, profile, empty }) => (
     <Link onClick={onClose} to={userNotifications(profile)}>
       {empty ? (
         <>
-          <img className="mr-2" src={clockIcon} alt="archive" />
+          <Icon15 className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.archive} />
         </>
       ) : (
         <>
-          <img className="mr-2" src={notificationsIcon} alt="notifications" />
+          <Icon15 className="mr-2" icon={notificationsIcon} />
           <FormattedMessage {...messages.seeAll} />
         </>
       )}

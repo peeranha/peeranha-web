@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
-import closeIcon from 'images/closeCircle.svg?inline';
+import closeIcon from 'images/closeCircle.svg?external';
 
 import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 const TagsContainer = styled.ul`
   ${props => Input(props)};
@@ -90,7 +91,7 @@ export const TagSelector = ({
                       setTags(value.filter(y => y.id !== x.id));
                     }}
                   >
-                    <img src={closeIcon} alt="X" />
+                    <Icon18 icon={closeIcon} fill={BORDER_PRIMARY} />
                   </RemoveTagIcon>
                 </Tag>
               ))}

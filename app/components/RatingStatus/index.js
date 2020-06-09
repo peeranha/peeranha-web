@@ -16,6 +16,7 @@ import Span from 'components/Span';
 
 import options from './options';
 import RatingStatusStyled from './RatingStatusStyled';
+import Icon from 'components/Icon';
 
 const getStatus = rating =>
   Object.keys(options).filter(
@@ -37,10 +38,12 @@ const IconWithStatus = ({ className, size, rating }) => {
 
   return (
     <span className={`d-flex align-items-center ${className}`}>
-      <img
+      <Icon
         className="d-inline-flex mr-1"
-        src={full.icon[size || 'sm']}
-        alt="icon"
+        icon={full.icon[size || 'sm']}
+        width={full.icon.size[size || 'sm'].width}
+        height={full.icon.size[size || 'sm'].height}
+        isColorImportant={true}
       />
 
       <Span

@@ -7,8 +7,8 @@
         <g id="Status_big" transform="translate(-116.000000, -61.000000)" fill="#DDE2FB" fill-rule="nonzero" stroke="#576FED">
             <g id="ico_stranger_big" transform="translate(116.000000, 61.000000)">
                 <g>
-                    <circle id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
-                    <circle id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
+                    <circle class="fill stroke" id="Oval-Copy-7" cx="8" cy="8" r="7.5"></circle>
+                    <circle class="fill stroke" id="Oval-Copy-12" cx="8" cy="8" r="5.5"></circle>
                 </g>
             </g>
         </g>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64">
   <g stroke-width="3" transform="translate(0.5, 0.5)">
-    <polygon fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="32,5.846 40.498,23.065 59.5,25.826 45.75,39.229 48.996,58.154 32,49.219 15.004,58.154 18.25,39.229 4.5,25.826 23.502,23.065 " stroke-linejoin="miter" />
+    <polygon class="stroke" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="32,5.846 40.498,23.065 59.5,25.826 45.75,39.229 48.996,58.154 32,49.219 15.004,58.154 18.25,39.229 4.5,25.826 23.502,23.065 " stroke-linejoin="miter" />
   </g>
 </svg>

@@ -7,18 +7,17 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
-import questionIcon from 'images/question.svg?inline';
+import questionIcon from 'images/question.svg?external';
 import closeIcon from 'images/closeCircle.svg?inline';
-import icoTag from 'images/icoTag.svg?inline';
+import icoTag from 'images/icoTag.svg?external';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
@@ -30,6 +29,9 @@ import A from 'components/A';
 import Wrapper from 'components/Header/Simple';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
+import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import {
   strLength25x30000,
@@ -82,7 +84,9 @@ export const QuestionForm = ({
     <div>
       <Wrapper className="mb-to-sm-0 mb-from-sm-3">
         <H3>
-          <MediumImageStyled src={questionIcon} alt="questionIcon" />
+          <MediumIconStyled>
+            <Icon icon={questionIcon} width="43" />
+          </MediumIconStyled>
           <span>{formTitle}</span>
         </H3>
 
@@ -198,7 +202,7 @@ export const QuestionForm = ({
               id="question-form-suggest-tag"
               type="button"
             >
-              <img className="mr-2" src={icoTag} alt="icoTag" />
+              <Icon18 className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
               <FormattedMessage {...commonMessages.suggestTag} />
             </TransparentButton>
 

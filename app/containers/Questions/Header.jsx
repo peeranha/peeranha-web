@@ -9,12 +9,13 @@ import messages from 'common-messages';
 import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
 
 import CommunitySelector from 'components/CommunitySelector';
-import { MediumImageStyled } from 'components/Img/MediumImage';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
+import { Icon24 } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
-import allquestionsIcon from 'images/allquestions-header.svg?inline';
-import myFeedIcon from 'images/myFeedHeader.svg?inline';
+import allquestionsIcon from 'images/allquestions-header.svg?external';
+import myFeedIcon from 'images/myFeedHeader.svg?external';
 import createdHistory from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -54,10 +55,10 @@ export const Header = ({
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
-      <MediumImageStyled
-        src={communityAvatar || defaultAvatar}
-        alt="communityAvatar"
-      />
+      <MediumIconStyled>
+        <Icon24 icon={communityAvatar || defaultAvatar} />
+      </MediumIconStyled>
+
       <span>{communityLabel || defaultLabel}</span>
     </H3>
   );

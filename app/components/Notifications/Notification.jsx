@@ -19,6 +19,7 @@ import { trimRightZeros } from 'utils/numbers';
 import { NOTIFICATIONS_TYPES } from './constants';
 
 import Span from '../Span';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 const Container = styled.div`
   position: absolute;
@@ -38,9 +39,13 @@ const Container = styled.div`
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
 
-  > div:nth-child(2) a img {
+  > div:nth-child(2) a > span:first-child {
     width: 20px;
     margin-right: 8px;
+    flex-shrink: 0;
+
+    svg {
+    }
   }
 
   > div:nth-child(3) {
@@ -150,7 +155,7 @@ const Notification = ({
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <Link to={href} href={href} className="d-flex align-items-center">
-          <img src={NOTIFICATIONS_TYPES[type].src} alt="icon" />
+          <Icon18 icon={NOTIFICATIONS_TYPES[type].src} />
           <span>{data.title}</span>
         </Link>
       </div>

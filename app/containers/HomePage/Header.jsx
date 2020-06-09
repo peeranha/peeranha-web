@@ -15,7 +15,7 @@ import headerNavigation from 'images/headerNavigation.svg?external';
 import { scrollToSection } from 'utils/animation';
 
 import A from 'components/A';
-import Icon from 'components/Icon';
+import { Icon20 } from 'components/Icon/IconWithSizes';
 import Button from 'components/Button/Outlined/InfoLarge';
 
 import {
@@ -53,10 +53,9 @@ const Header = ({ showLoginModal, account }) => {
                 type="button"
                 onClick={toggle}
               >
-                <Icon
+                <Icon20
                   icon={isToggled ? closeIcon : headerNavigation}
                   color={TEXT_LIGHT}
-                  width="20"
                 />
               </button>
             </div>
@@ -85,7 +84,7 @@ const Header = ({ showLoginModal, account }) => {
               {!account && (
                 <React.Fragment>
                   <button className="login" onClick={showLoginModal}>
-                    <Icon className="mr-2" width="20" icon={login} />
+                    <Icon20 className="mr-2" icon={login} />
                     <FormattedMessage {...messages.login} />
                   </button>
 

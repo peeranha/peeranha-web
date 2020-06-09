@@ -658,11 +658,11 @@
     "Sounds too complicated? Don’t  worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.peeranhaIsNotTypical":
-    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
+    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than wallet sign up option is available.",
+    "If you prefer to use a wallet application to manage your Telos blockchain account, then wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",

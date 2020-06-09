@@ -50,7 +50,7 @@ const LeftMenu = ({ faqQuestions }) => (
     </div>
 
     {faqQuestions && (
-      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
+      <ul className="mb-4">{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
     )}
   </React.Fragment>
 );

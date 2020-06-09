@@ -25,6 +25,7 @@ import {
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
+import { Icon14, Icon20 } from 'components/Icon/IconWithSizes';
 import { ADefault } from 'components/A';
 
 import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
@@ -142,10 +143,9 @@ const View = ({
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
-                <Icon
+                <Icon20
                   icon={headerNavigationIcon}
                   color={TEXT_SECONDARY_LIGHT}
-                  width="20"
                 />
               </button>
 
@@ -181,7 +181,7 @@ const View = ({
                     id="header-ask-question"
                     onClick={redirectToAskQuestionPage}
                   >
-                    <Icon icon={addIcon} width="14" />
+                    <Icon14 icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
                       <FormattedMessage {...messages.askQuestion} />
