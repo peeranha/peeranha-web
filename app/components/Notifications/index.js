@@ -114,16 +114,9 @@ const Notifications = ({
     () => {
       const calc = Array.from(new Array(notifications.length).keys()).filter(
         x =>
-          console.log('=======',
-            x,
-            x * rowHeight + ROW_HEIGHT + y + VERTICAL_OFFSET >=
-              scrollPosition &&
-              x * rowHeight + ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
-                window.innerHeight,
-          ) ||
-          (x * rowHeight + ROW_HEIGHT + y + VERTICAL_OFFSET >= scrollPosition &&
-            x * rowHeight + ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
-              window.innerHeight),
+          x * rowHeight + ROW_HEIGHT + y + VERTICAL_OFFSET >= scrollPosition &&
+          x * rowHeight + ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
+            window.innerHeight,
       );
       const { 0: start, [calc.length - 1]: stop } = calc;
       return [start || 0, stop || 0];
@@ -203,7 +196,6 @@ const Notifications = ({
 
   useEffect(
     () => {
-      console.log('==========', ref?.current, ref?.current?.getBoundingClientRect());
       setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
     },
     [ref.current, rowHeight],
