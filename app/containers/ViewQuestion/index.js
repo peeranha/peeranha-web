@@ -1,9 +1,3 @@
-/**
- *
- * ViewQuestion
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -91,6 +85,13 @@ export const ViewQuestion = ({
       window.$(window).off();
     };
   }, []);
+
+  useEffect(
+    () => {
+      getQuestionDataDispatch(match.params.id);
+    },
+    [match],
+  );
 
   useEffect(
     () => {

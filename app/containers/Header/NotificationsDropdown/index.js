@@ -38,6 +38,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  @media only screen and (max-width: 992px) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
 `;
 
 const Div = styled.div`
@@ -51,6 +58,10 @@ const Div = styled.div`
   right: -6px;
   border-radius: 8.5px 50%;
   min-width: 24px;
+
+  @media only screen and (max-width: 992px) {
+    min-width: 20px;
+  }
 `;
 
 const NotificationsDropdown = ({

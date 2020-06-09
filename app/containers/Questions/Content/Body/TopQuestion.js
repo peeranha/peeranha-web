@@ -6,6 +6,7 @@ import topQuestionActiveIcon from 'images/starActive.svg?inline';
 import topQuestionsInactiveIcon from 'images/star.svg?inline';
 
 import TopQuestionPopover from './TopQuestionPopover';
+import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
 
 const Button = styled.button`
   position: relative;
@@ -27,6 +28,7 @@ const TopQuestion = ({
   profileInfo,
   isTopQuestion,
   isModerator,
+  topQuestionsCount,
   addToTopQuestionsDispatch,
   removeFromTopQuestionsDispatch,
   topQuestionActionProcessing,
@@ -51,7 +53,7 @@ const TopQuestion = ({
     () => {
       if (isTopQuestion) {
         return topQuestionActiveIcon;
-      } else if (isModerator) {
+      } else if (isModerator && topQuestionsCount < MAX_TOP_QUESTIONS_COUNT) {
         return topQuestionsInactiveIcon;
       }
 
@@ -61,7 +63,7 @@ const TopQuestion = ({
   );
 
   const options = useMemo(
-    () => (!isModerator ? { onClick, onMouseEnter, onMouseLeave } : {}),
+    () => (isModerator ? { onClick } : { onMouseEnter, onMouseLeave }),
     [isModerator, onMouseEnter, onMouseLeave],
   );
 
@@ -70,7 +72,7 @@ const TopQuestion = ({
       <Button
         {...options}
         className="ml-2"
-        active={!isModerator}
+        active={isModerator}
         disabled={topQuestionActionProcessing}
       >
         {visible && <TopQuestionPopover locale={locale} />}
@@ -86,6 +88,7 @@ TopQuestion.propTypes = {
   profileInfo: PropTypes.object,
   isTopQuestion: PropTypes.bool,
   isModerator: PropTypes.bool,
+  topQuestionsCount: PropTypes.number,
   addToTopQuestionsDispatch: PropTypes.func,
   removeFromTopQuestionsDispatch: PropTypes.func,
   topQuestionActionProcessing: PropTypes.bool,

@@ -23,6 +23,7 @@ const Body = ({
   profileInfo,
   isGeneral,
   isTopQuestion,
+  topQuestionsCount,
   displayTopQuestionMove,
   topQuestionActionProcessing,
   addToTopQuestionsDispatch,
@@ -39,6 +40,7 @@ const Body = ({
       profileInfo={profileInfo}
       isTopQuestion={isTopQuestion}
       isModerator={isModerator}
+      topQuestionsCount={topQuestionsCount}
       topQuestionActionProcessing={topQuestionActionProcessing}
       addToTopQuestionsDispatch={addToTopQuestionsDispatch}
       removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
@@ -77,6 +79,7 @@ Body.propTypes = {
   isGeneral: PropTypes.bool,
   isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
+  topQuestionsCount: PropTypes.number,
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
   addToTopQuestionsDispatch: PropTypes.func,

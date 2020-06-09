@@ -1,9 +1,5 @@
-/*
- *
- * Questions constants
- *
- */
 export const QUESTION_FILTER = 'questionFilter';
+export const MAX_TOP_QUESTIONS_COUNT = 24;
 
 export const GET_QUESTIONS = 'app/Questions/GET_INIT_QUESTIONS';
 export const GET_QUESTIONS_SUCCESS = 'app/Questions/GET_INIT_QUESTIONS_SUCCESS';

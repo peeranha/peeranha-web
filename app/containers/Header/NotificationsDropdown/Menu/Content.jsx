@@ -117,7 +117,8 @@ const Content = ({
         });
 
         const union = rangeUnionWithIntersection(readNotifications, newRange);
-        if (!_isEqual(union, readNotifications)) {
+
+        if (!_isEqual(union, readNotifications) || _isEqual(union, [0, 0])) {
           markAsReadNotificationsUnreadDispatch(union);
         }
       }

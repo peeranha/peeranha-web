@@ -15,7 +15,11 @@ import {
   removeFromTopQuestions,
   upQuestion,
 } from '../actions';
-import * as questionsSelector from '../selectors';
+import {
+  selectQuestionFilter,
+  selectTopQuestionActionProcessing,
+  selectTopQuestions,
+} from '../selectors';
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
@@ -63,6 +67,7 @@ const QI = ({
   profileInfo,
   questionFilter,
   isModerator,
+  topQuestions,
   addToTopQuestionsDispatch,
   removeFromTopQuestionsDispatch,
   upQuestionDispatch,
@@ -100,6 +105,7 @@ const QI = ({
 
   const onDrop = useCallback(
     e => {
+      e.preventDefault();
       const data = e.dataTransfer.getData('id');
 
       if (data !== id) {
@@ -161,6 +167,7 @@ const QI = ({
           displayTopQuestionMove={displayTopQuestionMove}
           profileInfo={profileInfo}
           isTopQuestion={isTopQuestion}
+          topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}
           addToTopQuestionsDispatch={addToTopQuestionsDispatch}
           removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
@@ -172,10 +179,9 @@ const QI = ({
 
 const QuestionItem = connect(
   state => ({
-    questionFilter: questionsSelector.selectQuestionFilter()(state),
-    topQuestionActionProcessing: questionsSelector.selectTopQuestionActionProcessing()(
-      state,
-    ),
+    questionFilter: selectQuestionFilter()(state),
+    topQuestions: selectTopQuestions()(state),
+    topQuestionActionProcessing: selectTopQuestionActionProcessing()(state),
   }),
   dispatch => ({
     addToTopQuestionsDispatch: bindActionCreators(addToTopQuestions, dispatch),
@@ -240,6 +246,7 @@ QI.propTypes = {
   downQuestionDispatch: PropTypes.func,
   topQuestionActionProcessing: PropTypes.bool,
   moveQuestionDispatch: PropTypes.func,
+  topQuestions: PropTypes.array,
 };
 
 Content.propTypes = {
