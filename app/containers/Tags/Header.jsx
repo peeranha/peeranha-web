@@ -17,11 +17,10 @@ import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
-import Icon from 'components/Icon';
+import { Icon14, Icon18 } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
 import Wrapper from 'components/Header/Complex';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
@@ -36,7 +35,7 @@ const single = isSingleCommunityWebsite();
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <Icon className="mr-2" icon={communitiesHeaderFilter} width="18" />
+      <Icon18 className="mr-2" icon={communitiesHeaderFilter} />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>
@@ -119,19 +118,17 @@ export const Header = ({
             isLink
           >
             <MediumIcon>
-              <Icon
+              <Icon18
                 className="d-none d-sm-inline-block"
                 icon={icoTagIcon}
-                width="18"
                 isColorImportant={true}
                 fill={BORDER_PRIMARY}
               />
             </MediumIcon>
 
-            <Icon
+            <Icon14
               className="d-inline-flex d-sm-none"
               icon={addIcon}
-              width="14"
             />
 
             <span className="ml-1">

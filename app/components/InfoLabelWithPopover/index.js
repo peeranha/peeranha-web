@@ -6,7 +6,7 @@ import { BORDER_PRIMARY } from 'style-constants';
 import infoIcon from 'images/icon-information.svg?external';
 import { showPopover } from 'utils/popover';
 
-import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 const InfoLabel = ({ id, children, message }) => (
   <button
@@ -17,7 +17,7 @@ const InfoLabel = ({ id, children, message }) => (
   >
     {children}
 
-    <Icon className="d-none d-sm-inline-block ml-1" icon={infoIcon} width="18" fill={BORDER_PRIMARY} />
+    <Icon18 className="d-none d-sm-inline-block ml-1" icon={infoIcon} fill={BORDER_PRIMARY} />
   </button>
 );
 

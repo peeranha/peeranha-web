@@ -16,8 +16,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
-import Icon from 'components/Icon';
-
+import { Icon14, Icon18 } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -157,7 +156,7 @@ const ContentHeader = props => {
             disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
             isVotedToDelete={isVotedToDelete}
           >
-            <Icon icon={blockIcon} width="14" fill={BORDER_PRIMARY} />
+            <Icon14 icon={blockIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
@@ -168,7 +167,7 @@ const ContentHeader = props => {
                 disabled={isModalOpen}
                 onClick={() => setModalOpen(true)}
               >
-                <Icon icon={shareIcon} width="14" />
+                <Icon14 icon={shareIcon} />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
@@ -188,7 +187,7 @@ const ContentHeader = props => {
               buttonParams.questionId
             }-${commentId}`}
           >
-            <Icon icon={pencilIcon} width="18" />
+            <Icon18 icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -203,7 +202,7 @@ const ContentHeader = props => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <Icon icon={deleteIcon} width="18" fill={BORDER_PRIMARY} />
+                  <Icon18 icon={deleteIcon} fill={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

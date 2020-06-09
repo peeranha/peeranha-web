@@ -20,9 +20,9 @@ import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
-import Icon from 'components/Icon';
-
+import { Icon24 } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
+
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 
 const Info = styled.span`
@@ -94,7 +94,7 @@ const Menu = memo(
 
       <Ul>
         <Logout>
-          <Icon className="mr-1" icon={logoutIcon} width="24" />
+          <Icon24 className="mr-1" icon={logoutIcon} />
           <Span color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.logout} />
           </Span>

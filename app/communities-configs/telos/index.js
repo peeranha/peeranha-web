@@ -1,23 +1,23 @@
 import React from 'react';
 
 import coinsBlueIcon from 'images/coinsBlue.svg?inline';
-import TelosLogo from 'images/communities-logos/telos-logo-dark.svg?inline';
+import TelosLogo from './images/telos-logo-dark.svg?inline';
 
-import MediumEOT from 'fonts/Telos/NeueHaasDisplay-Mediu.eot';
-import MediumWOFF from 'fonts/Telos/NeueHaasDisplay-Mediu.woff';
-import MediumTTF from 'fonts/Telos/NeueHaasDisplay-Mediu.ttf';
+import MediumEOT from './fonts/NeueHaasDisplay-Mediu.eot';
+import MediumWOFF from './fonts/NeueHaasDisplay-Mediu.woff';
+import MediumTTF from './fonts/NeueHaasDisplay-Mediu.ttf';
 
-import LightEOT from 'fonts/Telos/NeueHaasDisplay-Light.eot';
-import LightWOFF from 'fonts/Telos/NeueHaasDisplay-Light.woff';
-import LightTTF from 'fonts/Telos/NeueHaasDisplay-Light.ttf';
+import LightEOT from './fonts/NeueHaasDisplay-Light.eot';
+import LightWOFF from './fonts/NeueHaasDisplay-Light.woff';
+import LightTTF from './fonts/NeueHaasDisplay-Light.ttf';
 
-import ThinEOT from 'fonts/Telos/NeueHaasDisplay-Thin.eot';
-import ThinWOFF from 'fonts/Telos/NeueHaasDisplay-Thin.woff';
-import ThinTTF from 'fonts/Telos/NeueHaasDisplay-Thin.ttf';
+import ThinEOT from './fonts/NeueHaasDisplay-Thin.eot';
+import ThinWOFF from './fonts/NeueHaasDisplay-Thin.woff';
+import ThinTTF from './fonts/NeueHaasDisplay-Thin.ttf';
 
-import RomanEOT from 'fonts/Telos/NeueHaasDisplay-Roman.eot';
-import RomanWOFF from 'fonts/Telos/NeueHaasDisplay-Roman.woff';
-import RomanTTF from 'fonts/Telos/NeueHaasDisplay-Roman.ttf';
+import RomanEOT from './fonts/NeueHaasDisplay-Roman.eot';
+import RomanWOFF from './fonts/NeueHaasDisplay-Roman.woff';
+import RomanTTF from './fonts/NeueHaasDisplay-Roman.ttf';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';

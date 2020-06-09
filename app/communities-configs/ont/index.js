@@ -1,10 +1,11 @@
 import React from 'react';
-import coinsBlueIcon from 'images/coinsBlue.svg?inline';
-import OntLogo from 'images/communities-logos/ont.svg?inline';
 
-import RobotoRegularEOT from 'fonts/Roboto/Roboto-Regular.eot';
-import RobotoRegularWOFF from 'fonts/Roboto/Roboto-Regular.woff';
-import RobotoRegularTTF from 'fonts/Roboto/Roboto-Regular.ttf';
+import coinsBlueIcon from 'images/coinsBlue.svg?inline';
+import OntLogo from './images/ont.svg?inline';
+
+import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
+import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
+import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';

@@ -18,7 +18,7 @@ import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import { getFormattedNum4 } from 'utils/numbers';
 
 import Dropdown from 'components/Dropdown';
-import Icon from 'components/Icon';
+import { Icon24 } from 'components/Icon/IconWithSizes';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
@@ -57,7 +57,7 @@ const IconBG = MediumSpecialImage.extend`
 export const Button = memo(({ balance }) => (
   <ButtonStyled>
     <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <Icon icon={currencyPeerIcon} width="24" />
+      <Icon24 icon={currencyPeerIcon} />
     </IconBG>
 
     <span className="d-flex flex-column text-left">

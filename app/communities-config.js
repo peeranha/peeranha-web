@@ -1,5 +1,5 @@
-import OntLogo from 'images/communities-logos/ont.svg?inline';
-import TelosLogo from 'images/communities-logos/telos-logo-light.svg?inline';
+import OntLogo from './communities-configs/ont/images/ont.svg?inline';
+import TelosLogo from './communities-configs/telos/images/telos-logo-light.svg?inline';
 
 import { TelosStyles } from './communities-configs/telos';
 import { OntStyles } from './communities-configs/ont';

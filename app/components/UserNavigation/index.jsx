@@ -13,11 +13,10 @@ import closeIcon from 'images/closeCircle.svg?external';
 import NavigationButton, {
   NavigationLink,
 } from 'components/Button/Contained/Navigation';
-
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
-import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 const Ul = styled.ul`
   display: flex;
@@ -172,7 +171,7 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <Icon icon={pencilIcon} width="18" />
+            <Icon18 icon={pencilIcon} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.edit} />
             </Span>
@@ -186,7 +185,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <Icon icon={closeIcon} width="18" fill={BORDER_PRIMARY} />
+            <Icon18 icon={closeIcon} fill={BORDER_PRIMARY} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>

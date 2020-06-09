@@ -8,7 +8,7 @@ import commonMessages from 'common-messages';
 import createCommunityIcon from 'images/createCommunity.svg?inline';
 import addIcon from 'images/add.svg?external';
 
-import Icon from 'components/Icon';
+import { Icon14 } from 'components/Icon/IconWithSizes';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import SubHeaderWrapper from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
@@ -61,10 +61,9 @@ const Header = ({
               alt="icon"
             />
 
-            <Icon
+            <Icon14
               className="d-inline-flex d-sm-none"
               icon={addIcon}
-              width="14"
             />
 
             <span className="ml-1">

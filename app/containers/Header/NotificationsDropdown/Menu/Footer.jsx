@@ -10,7 +10,7 @@ import messages from 'common-messages';
 import { BORDER_SECONDARY_LIGHT, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
-import Icon from 'components/Icon';
+import { Icon15 } from 'components/Icon/IconWithSizes';
 
 import clockIcon from 'images/clockIcon.svg?external';
 import notificationsIcon from 'images/notificationsBlue.svg?external';
@@ -39,12 +39,12 @@ const Footer = ({ onClose, profile, empty }) => (
     <Link onClick={onClose} to={userNotifications(profile)}>
       {empty ? (
         <>
-          <Icon className="mr-2" icon={clockIcon} width="15" fill={BORDER_PRIMARY} />
+          <Icon15 className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.archive} />
         </>
       ) : (
         <>
-          <Icon className="mr-2" icon={notificationsIcon} width="15" />
+          <Icon15 className="mr-2" icon={notificationsIcon} />
           <FormattedMessage {...messages.seeAll} />
         </>
       )}

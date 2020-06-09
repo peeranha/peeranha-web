@@ -12,7 +12,7 @@ import A, { ADefault } from 'components/A';
 import H4 from 'components/H4';
 import Img from 'components/Img';
 import Grid from 'components/Grid';
-import Icon from 'components/Icon';
+import { Icon15 } from 'components/Icon/IconWithSizes';
 
 import arrowRightIcon from 'images/arrowRight.svg?external';
 
@@ -106,7 +106,7 @@ const CommunitiesForm = ({
           <div className="d-flex justify-content-center align-items-center">
             <LinkForMore className="py-2" href={moreRoute} to={moreRoute}>
               <Span color={TEXT_PRIMARY} fontSize="16">
-                <Icon className="mr-2" icon={arrowRightIcon} width="15" />
+                <Icon15 className="mr-2" icon={arrowRightIcon} />
                 <FormattedMessage {...messages.subscribeMore} />
               </Span>
             </LinkForMore>

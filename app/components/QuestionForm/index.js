@@ -18,7 +18,6 @@ import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import TagSelector from 'components/TagSelector';
@@ -31,6 +30,7 @@ import Wrapper from 'components/Header/Simple';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
 import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import {
@@ -202,12 +202,7 @@ export const QuestionForm = ({
               id="question-form-suggest-tag"
               type="button"
             >
-              <Icon
-                className="mr-2"
-                icon={icoTag}
-                width="18"
-                fill={BORDER_PRIMARY}
-              />
+              <Icon18 className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
               <FormattedMessage {...commonMessages.suggestTag} />
             </TransparentButton>
 

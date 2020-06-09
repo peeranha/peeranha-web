@@ -16,7 +16,7 @@ import Span from 'components/Span';
 import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
 import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
 import Menu from './Menu';
-import Icon from 'components/Icon';
+import { Icon19 } from 'components/Icon/IconWithSizes';
 
 import {
   selectUnreadNotifications,
@@ -91,7 +91,7 @@ const NotificationsDropdown = ({
           </Span>
         </Div>
       )}
-      <Icon icon={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon} width="19" />
+      <Icon19 icon={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon} />
       {visible && (
         <Menu
           onClose={onClick}

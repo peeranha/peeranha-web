@@ -10,7 +10,7 @@ import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
-import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 const TagsContainer = styled.ul`
   ${props => Input(props)};
@@ -91,7 +91,7 @@ export const TagSelector = ({
                       setTags(value.filter(y => y.id !== x.id));
                     }}
                   >
-                    <Icon icon={closeIcon} width="18" fill={BORDER_PRIMARY} />
+                    <Icon18 icon={closeIcon} fill={BORDER_PRIMARY} />
                   </RemoveTagIcon>
                 </Tag>
               ))}

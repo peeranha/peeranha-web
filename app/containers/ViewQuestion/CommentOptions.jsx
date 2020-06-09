@@ -9,9 +9,10 @@ import arrowDownOutlined from 'images/arrowDown.svg?external';
 
 import Span from 'components/Span';
 import Icon from 'components/Icon';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 import Textarea from 'components/Textarea';
-
 import CommentForm from './CommentForm';
+
 import messages from './messages';
 
 const ButtonStyled = styled.button`
@@ -62,7 +63,7 @@ export const CommentOptions = ({
         )}
 
         <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
-          <Icon icon={dotsIcon} width="18" fill={BORDER_PRIMARY} />
+          <Icon18 icon={dotsIcon} fill={BORDER_PRIMARY} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
