@@ -34,7 +34,11 @@ import {
 } from './selectors';
 
 import saga from './saga';
-import { loadMoreNotifications, markAsReadNotificationsAll } from './actions';
+import {
+  loadMoreNotifications,
+  markAsReadNotificationsAll,
+  filterReadTimestamps,
+} from './actions';
 
 import Header from './Header';
 import Wrapper from '../Header/Complex';
@@ -92,6 +96,7 @@ const Notifications = ({
   readNotifications,
   loadMoreNotificationsDispatch,
   markAsReadNotificationsAllDispatch,
+  filterReadNotificationsDispatch,
 }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
@@ -105,7 +110,7 @@ const Notifications = ({
     [containerWidth],
   );
 
-  const { indexToStart, indexToStop } = useMemo(
+  const [indexToStart, indexToStop] = useMemo(
     () => {
       const calc = Array.from(new Array(notifications.length).keys()).filter(
         x =>
@@ -114,12 +119,9 @@ const Notifications = ({
             window.innerHeight,
       );
       const { 0: start, [calc.length - 1]: stop } = calc;
-      return {
-        indexToStart: start || 0,
-        indexToStop: stop || 0,
-      };
+      return [start || 0, stop || 0];
     },
-    [notifications.length, rowHeight, scrollPosition],
+    [notifications.length, rowHeight, scrollPosition, y, window.innerHeight],
   );
 
   const recalculateRanges = useCallback(
@@ -159,22 +161,29 @@ const Notifications = ({
 
   const onResize = useCallback(
     () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.getBoundingClientRect().width);
-      }
+      setContainerWidth(containerRef?.current?.getBoundingClientRect().width);
+      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
     },
-    [containerRef.current],
+    [containerRef.current, rowHeight],
   );
-
-  useEffect(() => {
-    loadMoreNotificationsDispatch();
-  }, []);
 
   useEffect(
     () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.getBoundingClientRect().width);
-      }
+      loadMoreNotificationsDispatch();
+      return () => {
+        if (isAvailable) {
+          filterReadNotificationsDispatch();
+        }
+      };
+    },
+    [isAvailable],
+  );
+
+  useEffect(
+    () => {
+      setContainerWidth(
+        containerRef.current?.getBoundingClientRect().width ?? 0,
+      );
     },
     [containerRef.current],
   );
@@ -187,12 +196,7 @@ const Notifications = ({
 
   useEffect(
     () => {
-      setY(
-        (ref &&
-          ref.current &&
-          ref.current.getBoundingClientRect().top - rowHeight) ||
-          0,
-      );
+      setY(ref?.current?.getBoundingClientRect().top - rowHeight || 0);
     },
     [ref.current, rowHeight],
   );
@@ -241,6 +245,7 @@ const Notifications = ({
                   rowRenderer={rowRenderer}
                   scrollTop={scrollTop}
                   width={containerWidth}
+                  style={{ outline: 'none' }}
                 />
               </div>
             )}
@@ -270,6 +275,7 @@ Notifications.propTypes = {
   markAsReadNotificationsAllDispatch: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.object),
   readNotifications: PropTypes.arrayOf(PropTypes.number),
+  filterReadNotificationsDispatch: PropTypes.func,
 };
 
 export default React.memo(
@@ -291,6 +297,10 @@ export default React.memo(
         ),
         markAsReadNotificationsAllDispatch: bindActionCreators(
           markAsReadNotificationsAll,
+          dispatch,
+        ),
+        filterReadNotificationsDispatch: bindActionCreators(
+          filterReadTimestamps,
           dispatch,
         ),
       }),

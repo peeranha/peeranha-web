@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import _pull from 'lodash/pull';
+import _uniq from 'lodash/uniq';
 import _update from 'lodash/update';
 import _isPlainObject from 'lodash/isPlainObject';
 
@@ -17,7 +17,7 @@ import {
   MARK_AS_READ_NOTIFICATIONS_ALL,
   MARK_AS_READ_NOTIFICATIONS_UNREAD,
   MARK_AS_READ_SUCCESS,
-  FILTER_UNREAD_TIMESTAMPS,
+  FILTER_READ_TIMESTAMPS,
 } from './constants';
 
 const initialStateObject = {
@@ -35,6 +35,7 @@ const initialStateObject = {
     readNotifications: [0, 0],
   },
   notifications: {},
+  readTimestamps: [],
   isInfoLoaded: false,
   loadMoreNotificationsError: null,
   loadMoreUnreadNotificationsErr: null,
@@ -46,7 +47,6 @@ function notificationsReducer(state = initialState, action) {
   const {
     all,
     type,
-    leave,
     unread,
     timestamps,
     notifications = [],
@@ -54,19 +54,21 @@ function notificationsReducer(state = initialState, action) {
     loadMoreNotificationsError,
     loadMoreUnreadNotificationsErr,
   } = action;
-  const allSubState =
-    state.get('all') && state.get('all').toJS
-      ? state.get('all').toJS()
-      : state.get('all');
-  const unreadSubState =
-    state.get('unread') && state.get('unread').toJS
-      ? state.get('unread').toJS()
-      : state.get('unread');
+  const allSubState = state.get('all')?.toJS
+    ? state.get('all').toJS()
+    : state.get('all');
+  const unreadSubState = state.get('unread')?.toJS
+    ? state.get('unread').toJS()
+    : state.get('unread');
   const n = state.get('notifications');
 
   const stateNotifications = !_isPlainObject(n)
     ? Object.fromEntries(n || [])
     : n;
+
+  const stateReadTimestamps = state.get('readTimestamps')?.toJS
+    ? state.get('readTimestamps').toJS()
+    : state.get('readTimestamps');
 
   switch (type) {
     case MARK_AS_READ_NOTIFICATIONS_ALL:
@@ -74,25 +76,9 @@ function notificationsReducer(state = initialState, action) {
     case MARK_AS_READ_NOTIFICATIONS_UNREAD:
       return state.set('unread', { ...unreadSubState, readNotifications });
     case MARK_AS_READ_SUCCESS:
-      Object.keys(stateNotifications).forEach(timestamp => {
-        if (timestamps.includes(+timestamp)) {
-          _update(stateNotifications, timestamp, notification => ({
-            ...notification,
-            read: true,
-          }));
-        }
-      });
-
-      if (!leave) {
-        _pull(unreadSubState.timestamps, ...timestamps);
-      }
-
       return state
         .set('notifications', { ...stateNotifications })
-        .set('unread', {
-          ...unreadSubState,
-          count: Math.max(0, unreadSubState.count - timestamps.length),
-        });
+        .set('readTimestamps', _uniq(stateReadTimestamps.concat(timestamps)));
     case LOAD_MORE_NOTIFICATIONS:
       return state.set('all', {
         ...allSubState,
@@ -171,6 +157,7 @@ function notificationsReducer(state = initialState, action) {
           read: true,
         }));
       });
+
       return state
         .set('unread', {
           count: 0,
@@ -181,14 +168,27 @@ function notificationsReducer(state = initialState, action) {
         })
         .set('notifications', { ...stateNotifications });
 
-    case FILTER_UNREAD_TIMESTAMPS:
-      return state.set('unread', {
-        ...unreadSubState,
-        readNotifications: [0, 0],
-        timestamps: unreadSubState.timestamps.filter(
-          timestamp => !stateNotifications[timestamp].read,
-        ),
+    case FILTER_READ_TIMESTAMPS:
+      Object.keys(stateNotifications).forEach(timestamp => {
+        if (stateReadTimestamps.includes(+timestamp)) {
+          _update(stateNotifications, timestamp, notification => ({
+            ...notification,
+            read: true,
+          }));
+        }
       });
+
+      return state
+        .set('unread', {
+          ...unreadSubState,
+          readNotifications: [0, 0],
+          count: Math.max(0, unreadSubState.count - stateReadTimestamps.length),
+          timestamps: unreadSubState.timestamps.filter(
+            timestamp => !stateNotifications[timestamp].read,
+          ),
+        })
+        .set('readTimestamps', [])
+        .set('notifications', stateNotifications);
     case SET_NOTIFICATIONS_INFO:
       return state
         .set('all', {

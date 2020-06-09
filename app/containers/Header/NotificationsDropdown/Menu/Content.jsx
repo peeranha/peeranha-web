@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -68,7 +68,7 @@ const Content = ({
   loadMoreUnreadNotificationsDispatch,
 }) => {
   const listRef = useRef(null);
-  console.log(notifications);
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [contentHeight, setContentHeight] = useState(
@@ -117,13 +117,18 @@ const Content = ({
         });
 
         const union = rangeUnionWithIntersection(readNotifications, newRange);
-        if (!_isEqual(union, readNotifications)) {
+
+        if (!_isEqual(union, readNotifications) || _isEqual(union, [0, 0])) {
           markAsReadNotificationsUnreadDispatch(union);
         }
       }
     },
     [scrollPosition],
   );
+
+  useEffect(() => {
+    loadMoreUnreadNotificationsDispatch();
+  }, []);
 
   const rowRenderer = ({ index, key, style: { top } }) => (
     <Notification
@@ -163,6 +168,7 @@ const Content = ({
               rowRenderer={rowRenderer}
               rowCount={notifications.length}
               onRowsRendered={onRowsRendered}
+              style={{ outline: 'none' }}
             />
           )}
         </AutoSizer>

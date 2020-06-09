@@ -6,9 +6,13 @@ import WalletDropdown from './WalletDropdown';
 import EnergyDropdown from './EnergyDropdown';
 import NotificationsDropdown from './NotificationsDropdown';
 
-const ButtonGroupForAuthorizedUser = ({ profileInfo, faqQuestions }) => (
+const ButtonGroupForAuthorizedUser = ({
+  profileInfo,
+  faqQuestions,
+  isSearchFormVisible,
+}) => (
   <React.Fragment>
-    <NotificationsDropdown />
+    {!isSearchFormVisible && <NotificationsDropdown />}
     <EnergyDropdown
       rating={profileInfo.rating}
       energy={profileInfo.energy}
@@ -22,6 +26,7 @@ const ButtonGroupForAuthorizedUser = ({ profileInfo, faqQuestions }) => (
 ButtonGroupForAuthorizedUser.propTypes = {
   profileInfo: PropTypes.object,
   faqQuestions: PropTypes.array,
+  isSearchFormVisible: PropTypes.bool,
 };
 
 export default memo(ButtonGroupForAuthorizedUser);

@@ -22,7 +22,7 @@ import {
   selectUnreadNotifications,
   unreadNotificationsCount,
 } from '../../../components/Notifications/selectors';
-import { filterUnreadTimestamps } from '../../../components/Notifications/actions';
+import { filterReadTimestamps } from '../../../components/Notifications/actions';
 
 const Container = styled.div`
   position: relative;
@@ -38,6 +38,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  @media only screen and (max-width: 992px) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
 `;
 
 const Div = styled.div`
@@ -49,24 +56,25 @@ const Div = styled.div`
   position: absolute;
   top: -6px;
   right: -6px;
-  border-top-right-radius: 8.5px 50%;
-  border-bottom-right-radius: 8.5px 50%;
-  border-top-left-radius: 8.5px 50%;
-  border-bottom-left-radius: 8.5px 50%;
+  border-radius: 8.5px 50%;
   min-width: 24px;
+
+  @media only screen and (max-width: 992px) {
+    min-width: 20px;
+  }
 `;
 
 const NotificationsDropdown = ({
   unreadCount,
   notifications,
-  filterUreadTimestampsDispatch,
+  filterReadTimestampsDispatch,
 }) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
   const onClick = useCallback(
     () => {
       if (visible) {
-        filterUreadTimestampsDispatch();
+        filterReadTimestampsDispatch();
       }
 
       setVisibility(!visible);
@@ -107,7 +115,7 @@ const NotificationsDropdown = ({
 NotificationsDropdown.propTypes = {
   unreadCount: PropTypes.number,
   notifications: PropTypes.arrayOf(PropTypes.object),
-  filterUreadTimestampsDispatch: PropTypes.func,
+  filterReadTimestampsDispatch: PropTypes.func,
 };
 
 export default React.memo(
@@ -117,8 +125,8 @@ export default React.memo(
       notifications: selectUnreadNotifications()(state),
     }),
     dispatch => ({
-      filterUreadTimestampsDispatch: bindActionCreators(
-        filterUnreadTimestamps,
+      filterReadTimestampsDispatch: bindActionCreators(
+        filterReadTimestamps,
         dispatch,
       ),
     }),

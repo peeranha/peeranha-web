@@ -31,7 +31,7 @@ const Container = styled.div`
     flex-grow: 1;
   }
 `;
-// d-flex flex-row flex-sm-column flex-grow-1 flex-sm-grow-0
+
 const Div = Base.extend`
   display: flex;
   justify-content: center;
@@ -41,6 +41,22 @@ const Div = Base.extend`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 1px solid ${BORDER_SECONDARY};
+
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > img {
+      width: 18px;
+      margin-right: 8px;
+    }
+
+    > span {
+      font-weight: 600;
+    }
+  }
+
   &:not(:last-child) {
     border-top-left-radius: 5px;
     border-bottom: 1px solid ${BORDER_SECONDARY};
@@ -65,46 +81,49 @@ const AdditionalInfo = ({
   officialAnswersCount,
 }) => {
   const icon = useMemo(
-    () => (correctAnswerId ? bestAnswerIcon : answerIconEmptyInside),
-    [answers.length, correctAnswerId],
+    () => {
+      if (officialAnswersCount) {
+        return officialIcon;
+      }
+
+      return correctAnswerId ? bestAnswerIcon : answerIconEmptyInside;
+    },
+    [correctAnswerId],
   );
+
+  const color = useMemo(
+    () =>
+      !correctAnswerId || officialAnswersCount
+        ? TEXT_PRIMARY_DARK
+        : TEXT_SUCCESS,
+    [officialAnswersCount, correctAnswerId],
+  );
+
+  const [src, formattedRating] = useMemo(
+    () => [
+      rating >= 0 ? fingerUpAllQuestionsPage : fingerDownAllQuestionsPage,
+      getFormattedNum2(rating),
+    ],
+    [rating],
+  );
+
+  const formattedAnswerCount = useMemo(() => getFormattedNum(answers.length), [
+    answers.length,
+  ]);
+
   return (
     <Container>
       <Div isAccepted={correctAnswerId}>
-        <span className="d-flex align-items-center justify-content-center">
-          <img className="mr-2" src={icon} alt="icon" />
-          <Span
-            className={officialAnswersCount ? 'mr-2' : ''}
-            color={correctAnswerId ? TEXT_SUCCESS : TEXT_PRIMARY_DARK}
-            bold
-          >
-            {getFormattedNum(answers.length)}
-          </Span>
-          {!!officialAnswersCount && (
-            <>
-              <img width="18" className="mr-2" src={officialIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY_DARK} bold>
-                {officialAnswersCount}
-              </Span>
-            </>
-          )}
+        <span>
+          <img src={icon} alt="icon" />
+          <Span color={color}>{formattedAnswerCount}</Span>
         </span>
       </Div>
 
       <Div>
-        <span className="d-flex align-items-center justify-content-center">
-          <img
-            className="mr-2"
-            src={
-              rating >= 0
-                ? fingerUpAllQuestionsPage
-                : fingerDownAllQuestionsPage
-            }
-            alt="icon"
-          />
-          <Span color={TEXT_PRIMARY_DARK} bold>
-            {getFormattedNum2(rating)}
-          </Span>
+        <span>
+          <img src={src} alt="icon" />
+          <Span color={TEXT_PRIMARY_DARK}>{formattedRating}</Span>
         </span>
       </Div>
     </Container>

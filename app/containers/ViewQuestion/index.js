@@ -1,9 +1,3 @@
-/**
- *
- * ViewQuestion
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -94,6 +88,13 @@ export const ViewQuestion = ({
 
   useEffect(
     () => {
+      getQuestionDataDispatch(match.params.id);
+    },
+    [match],
+  );
+
+  useEffect(
+    () => {
       if (questionData) {
         setTimeout(scrollToSection, 250);
       }
@@ -174,14 +175,16 @@ export const ViewQuestion = ({
 
   return (
     <React.Fragment>
-      <Seo
-        title={helmetTitle}
-        description={helmetDescription}
-        language={locale}
-        keywords={keywords}
-        articlePublishedTime={articlePublishedTime}
-        articleModifiedTime={articleModifiedTime}
-      />
+      {process.env.ENV !== 'dev' && (
+        <Seo
+          title={helmetTitle}
+          description={helmetDescription}
+          language={locale}
+          keywords={keywords}
+          articlePublishedTime={articlePublishedTime}
+          articleModifiedTime={articleModifiedTime}
+        />
+      )}
 
       {!questionDataLoading &&
         questionData && <ViewQuestionContainer {...sendProps} />}

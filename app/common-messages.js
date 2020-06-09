@@ -30,8 +30,8 @@ export default defineMessages({
   notifications: {
     id: 'app.common.notifications',
   },
-  messageCenter: {
-    id: 'app.common.messageCenter',
+  notificationCenter: {
+    id: 'app.common.notificationCenter',
   },
   archive: {
     id: 'app.common.archive',

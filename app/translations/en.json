@@ -11,7 +11,7 @@
   "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
-  "app.common.messageCenter": "Message Center",
+  "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",

@@ -9,7 +9,7 @@ import messages from './messages';
 
 export const ROW_HEIGHT = 40;
 export const VERTICAL_OFFSET = 5 * ROW_HEIGHT;
-export const NOTIFICATIONS_REQUEST_LIMIT = 20;
+export const NOTIFICATIONS_REQUEST_LIMIT = 50;
 export const MARK_AS_READ_DELAY = 1000;
 
 export const MARK_ALL_NOTIFICATIONS_AS_READ =
@@ -47,7 +47,7 @@ export const CLEAR_NOTIFICATIONS_DATA =
 export const SET_NOTIFICATIONS_INFO =
   'app/Notifications/SET_NOTIFICATIONS_INFO';
 
-export const FILTER_UNREAD_TIMESTAMPS =
+export const FILTER_READ_TIMESTAMPS =
   'app/Notifications/FILTER_UNREAD_TIMESTAMPS';
 
 export const NOTIFICATIONS_TYPES = {

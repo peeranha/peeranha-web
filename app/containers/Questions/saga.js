@@ -82,6 +82,7 @@ import {
   selectTopQuestionsLoaded,
   selectTopQuestions,
   selectQuestions,
+  selectQuestionFilter,
 } from './selectors';
 
 const feed = routes.feed();
@@ -245,13 +246,13 @@ function* loadTopCommunityQuestionsWorker() {
         if (data?.['top_questions'].length) {
           yield put(
             loadTopCommunityQuestionsSuccess(
-              yield all(
+              (yield all(
                 data.top_questions.map(function*(questionId) {
                   return yield call(getQuestionData, {
                     questionId,
                   });
                 }),
-              ),
+              )).filter(x => !!x),
               questionFilter,
             ),
           );
@@ -267,6 +268,11 @@ function* loadTopCommunityQuestionsWorker() {
             },
           });
         }
+      } else {
+        const questionFilter = yield select(selectQuestionFilter());
+        yield put(
+          loadTopCommunityQuestionsSuccess(topQuestions, questionFilter),
+        );
       }
     }
   } catch (e) {

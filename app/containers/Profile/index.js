@@ -68,12 +68,14 @@ export const Profile = ({
 
   return (
     <div>
-      <Seo
-        title={HelmetTitle}
-        description={translations[messages.profileDescription.id]}
-        language={locale}
-        keywords={keywords}
-      />
+      {process.env.ENV !== 'dev' && (
+        <Seo
+          title={HelmetTitle}
+          description={translations[messages.profileDescription.id]}
+          language={locale}
+          keywords={keywords}
+        />
+      )}
 
       <div>
         {displayLoader && <LoadingIndicator />}
