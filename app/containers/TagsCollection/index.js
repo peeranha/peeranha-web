@@ -49,9 +49,11 @@ export const TagsCollection = /* istanbul ignore next */ ({
 
       <List communities={communities} />
 
-      <Banner openTagForm={redirectToCreateTagDispatch} />
-
-      {communitiesLoading && <LoadingIndicator />}
+      {communitiesLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <Banner openTagForm={redirectToCreateTagDispatch} />
+      )}
     </div>
   );
 };

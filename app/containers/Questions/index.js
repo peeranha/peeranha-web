@@ -11,6 +11,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getCookie } from 'utils/cookie';
+import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -53,7 +55,6 @@ import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
-import { getCookie } from '../../utils/cookie';
 import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
@@ -194,6 +195,8 @@ export const Questions = ({
     if (single) {
       loadTopQuestionsDispatch();
     }
+
+
   }, []);
 
   const display = useMemo(
@@ -226,6 +229,12 @@ export const Questions = ({
       communitiesLoading ||
       (getCookie(QUESTION_FILTER) === '1' && !topQuestionsLoaded),
     [questionsLoading, communitiesLoading, topQuestionsLoaded],
+  );
+
+  const isModerator = useMemo(
+    () =>
+      isUserTopCommunityQuestionsModerator(profile?.permissions ?? [], single),
+    [profile],
   );
 
   return display ? (
@@ -265,6 +274,8 @@ export const Questions = ({
             communities={communities}
             typeFilter={typeFilter}
             createdFilter={createdFilter}
+            isModerator={isModerator}
+            profileInfo={profile}
           />
         </InfinityLoader>
       )}
@@ -310,50 +321,45 @@ Questions.propTypes = {
   loadTopQuestionsDispatch: PropTypes.func,
 };
 
-const withConnect = connect(
-  createStructuredSelector({
-    account: makeSelectAccount(),
-    profile: makeSelectProfileInfo(),
-    eosService: selectEos,
-    locale: makeSelectLocale(),
-    communities: selectCommunities(),
-    communitiesLoading: selectCommunitiesLoading(),
-    followedCommunities: makeSelectFollowedCommunities(),
-    questionsLoading: questionsSelector.selectQuestionsLoading(),
-    initLoadedItems: questionsSelector.selectInitLoadedItems(),
-    nextLoadedItems: questionsSelector.selectNextLoadedItems(),
-    typeFilter: questionsSelector.selectTypeFilter(),
-    createdFilter: questionsSelector.selectCreatedFilter(),
-    isLastFetch: questionsSelector.selectIsLastFetch(),
-    topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
-    questionFilter: questionsSelector.selectQuestionFilter(),
-    questionsList: (state, props) =>
-      questionsSelector.selectQuestions(
-        props.parentPage,
-        Number(props.match.params.communityid),
-      )(state),
-  }),
-  dispatch => ({
-    setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
-    setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
-    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    redirectToAskQuestionPageDispatch: bindActionCreators(
-      redirectToAskQuestionPage,
-      dispatch,
-    ),
-    loadTopQuestionsDispatch: bindActionCreators(
-      loadTopCommunityQuestions,
-      dispatch,
-    ),
-  }),
-);
-
-const withReducer = injectReducer({ key: 'questionsReducer', reducer });
-const withSaga = injectSaga({ key: 'questionsReducer', saga, mode: DAEMON });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'questionsReducer', reducer }),
+  injectSaga({ key: 'questionsReducer', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      account: makeSelectAccount(),
+      profile: makeSelectProfileInfo(),
+      eosService: selectEos,
+      locale: makeSelectLocale(),
+      communities: selectCommunities(),
+      communitiesLoading: selectCommunitiesLoading(),
+      followedCommunities: makeSelectFollowedCommunities(),
+      questionsLoading: questionsSelector.selectQuestionsLoading(),
+      initLoadedItems: questionsSelector.selectInitLoadedItems(),
+      nextLoadedItems: questionsSelector.selectNextLoadedItems(),
+      typeFilter: questionsSelector.selectTypeFilter(),
+      createdFilter: questionsSelector.selectCreatedFilter(),
+      isLastFetch: questionsSelector.selectIsLastFetch(),
+      topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
+      questionFilter: questionsSelector.selectQuestionFilter(),
+      questionsList: (state, props) =>
+        questionsSelector.selectQuestions(
+          props.parentPage,
+          Number(props.match.params.communityid),
+        )(state),
+    }),
+    dispatch => ({
+      setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
+      setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
+      getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+      showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+      redirectToAskQuestionPageDispatch: bindActionCreators(
+        redirectToAskQuestionPage,
+        dispatch,
+      ),
+      loadTopQuestionsDispatch: bindActionCreators(
+        loadTopCommunityQuestions,
+        dispatch,
+      ),
+    }),
+  ),
 )(Questions);

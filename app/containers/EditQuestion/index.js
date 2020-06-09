@@ -1,10 +1,4 @@
-/**
- *
- * EditQuestion
- *
- */
-
-import React from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -37,75 +31,82 @@ import messages from './messages';
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
-/* eslint-disable react/prefer-stateless-function */
-export class EditQuestion extends React.Component {
-  componentDidMount() {
-    const { questionid } = this.props.match.params;
-    this.props.getAskedQuestionDispatch(questionid);
-  }
+const EditQuestion = ({
+  match: {
+    params: { questionid },
+  },
+  locale,
+  question,
+  questionLoading,
+  editQuestionLoading,
+  communities,
+  editQuestionDispatch,
+  getAskedQuestionDispatch,
+}) => {
+  useEffect(
+    () => {
+      getAskedQuestionDispatch(questionid);
+    },
+    [questionid, getAskedQuestionDispatch],
+  );
 
-  editQuestion = values => {
-    const { questionid } = this.props.match.params;
-    const val = values.toJS();
+  const sendQuestion = useCallback(
+    values => {
+      const val = values.toJS();
 
-    const question = {
-      title: val[FORM_TITLE],
-      content: val[FORM_CONTENT],
-      community: val[FORM_COMMUNITY],
-      chosenTags: val[FORM_TAGS],
-    };
+      editQuestionDispatch(
+        {
+          title: val[FORM_TITLE],
+          content: val[FORM_CONTENT],
+          community: val[FORM_COMMUNITY],
+          chosenTags: val[FORM_TAGS],
+        },
+        questionid,
+      );
+    },
+    [questionid],
+  );
 
-    this.props.editQuestionDispatch(question, questionid);
-  };
-
-  render() {
-    const { questionid } = this.props.match.params;
-
-    const {
-      locale,
-      question,
-      questionLoading,
-      editQuestionLoading,
-      communities,
-    } = this.props;
-
-    const sendProps = {
+  const sendProps = useMemo(
+    () => ({
       form: EDIT_QUESTION_FORM,
       formTitle: translationMessages[locale][messages.title.id],
       submitButtonId: EDIT_QUESTION_BUTTON,
       submitButtonName:
         translationMessages[locale][messages.submitButtonName.id],
-      sendQuestion: this.editQuestion,
+      sendQuestion,
       questionLoading: editQuestionLoading,
       communities,
       question,
       questionid,
-    };
+    }),
+    [questionid, question, communities, editQuestionLoading, sendQuestion],
+  );
 
-    const helmetTitle =
-      (question && question.title) ||
-      translationMessages[locale][messages.title.id];
+  const [helmetTitle, helmetDescription] = useMemo(
+    () => [
+      question?.title ?? translationMessages[locale][messages.title.id],
+      question?.content ??
+        translationMessages[locale][messages.title.description],
+    ],
+    [question],
+  );
 
-    const helmetDescription =
-      (question && question.content) ||
-      translationMessages[locale][messages.title.description];
+  return (
+    <div>
+      <Seo
+        title={helmetTitle}
+        description={helmetDescription}
+        language={locale}
+        index={false}
+      />
 
-    return (
-      <div>
-        <Seo
-          title={helmetTitle}
-          description={helmetDescription}
-          language={locale}
-          index={false}
-        />
+      {!questionLoading && <QuestionForm {...sendProps} />}
 
-        {!questionLoading && <QuestionForm {...sendProps} />}
-
-        {questionLoading && <LoadingIndicator />}
-      </div>
-    );
-  }
-}
+      {questionLoading && <LoadingIndicator />}
+    </div>
+  );
+};
 
 EditQuestion.propTypes = {
   locale: PropTypes.string,
@@ -119,32 +120,21 @@ EditQuestion.propTypes = {
   editQuestionLoading: PropTypes.bool,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  account: makeSelectAccount(),
-  communities: selectCommunities(),
-  question: makeSelectEditQuestion.selectQuestion(),
-  questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
-  editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
-    editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'editQuestion', reducer });
-const withSaga = injectSaga({ key: 'editQuestion', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'editQuestion', reducer }),
+  injectSaga({ key: 'editQuestion', saga }),
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+      account: makeSelectAccount(),
+      communities: selectCommunities(),
+      question: makeSelectEditQuestion.selectQuestion(),
+      questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
+      editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
+    }),
+    dispatch => ({
+      getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
+      editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
+    }),
+  ),
 )(EditQuestion);

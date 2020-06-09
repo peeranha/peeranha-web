@@ -42,11 +42,17 @@ const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 export const LoginProfile = memo(
-  ({ profileInfo, showLoginModalDispatch, faqQuestions }) =>
+  ({
+    profileInfo,
+    showLoginModalDispatch,
+    faqQuestions,
+    isSearchFormVisible,
+  }) =>
     profileInfo ? (
       <ButtonGroupForAuthorizedUser
         faqQuestions={faqQuestions}
         profileInfo={profileInfo}
+        isSearchFormVisible={isSearchFormVisible}
       />
     ) : (
       <ButtonGroupForNotAuthorizedUser
@@ -192,6 +198,7 @@ const View = ({
 
               {!single.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
+                  isSearchFormVisible={isSearchFormVisible}
                   showLoginModalDispatch={showLoginModalDispatch}
                   profileInfo={profileInfo}
                   faqQuestions={faqQuestions}
@@ -216,6 +223,7 @@ View.propTypes = {
 };
 
 LoginProfile.propTypes = {
+  isSearchFormVisible: PropTypes.bool,
   profileInfo: PropTypes.object,
   showLoginModalDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,

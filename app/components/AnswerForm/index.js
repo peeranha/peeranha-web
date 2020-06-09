@@ -8,6 +8,10 @@ import { Field, reduxForm } from 'redux-form/immutable';
 
 import messages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
+import {
+  isAnswerOfficial,
+  isUserOfficialCommunityRepresentative,
+} from 'utils/properties';
 import { required, strLength25x30000 } from 'components/FormFields/validate';
 
 import TextEditorField from 'components/FormFields/TextEditorField';
@@ -16,6 +20,8 @@ import FormBox from 'components/Form';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
 import { ADD_ANSWER_FORM } from 'containers/ViewQuestion/constants';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -23,11 +29,8 @@ import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 import Wrapper from '../FormFields/Wrapper';
 import Span from '../Span';
 import Checkbox from '../Input/Checkbox';
-import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from '../../containers/AccountProvider/selectors';
-import { isAnswerOfficial } from '../../utils/properties';
 
-const PreviewWrapper = styled.div`
+export const PreviewWrapper = styled.div`
   background: linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
     linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 0%),
     linear-gradient(to right, #dcdcdc 50%, rgba(255, 255, 255, 0) 0%),
@@ -102,31 +105,31 @@ AnswerForm.propTypes = {
   properties: PropTypes.array,
 };
 
-let FormClone = reduxForm({
+const FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(AnswerForm);
 
-FormClone = connect((state, { answer, communityId, properties }) => {
-  const form = state.toJS().form[ADD_ANSWER_FORM] || { values: {} };
-  const locale = makeSelectLocale()(state);
-  const translate = translationMessages[locale];
-  const profileInfo = makeSelectProfileInfo()(state);
-  const isOfficialRepresentative =
-    (!!profileInfo &&
-      profileInfo.isOfficialRepresentative &&
-      profileInfo.officialRepresentativeCommunity === communityId) ||
-    isAnswerOfficial({ properties, id: true });
+export default React.memo(
+  connect((state, { answer, communityId, properties }) => {
+    const form = state.toJS().form[ADD_ANSWER_FORM] || { values: {} };
+    const locale = makeSelectLocale()(state);
+    const translate = translationMessages[locale];
+    const profileInfo = makeSelectProfileInfo()(state);
+    const official = isAnswerOfficial({ properties, id: true });
+    const isOfficialRepresentative = isUserOfficialCommunityRepresentative(
+      profileInfo?.permissions,
+      communityId,
+    );
 
-  return {
-    enableReinitialize: true,
-    isOfficialRepresentative,
-    textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
-    answerTypeLabel: translate[messages.official.id],
-    initialValues: {
-      [TEXT_EDITOR_ANSWER_FORM]: answer,
-      [ANSWER_TYPE_FORM]: isOfficialRepresentative,
-    },
-  };
-})(FormClone);
-
-export default React.memo(FormClone);
+    return {
+      enableReinitialize: true,
+      isOfficialRepresentative,
+      textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
+      answerTypeLabel: translate[messages.official.id],
+      initialValues: {
+        [TEXT_EDITOR_ANSWER_FORM]: answer,
+        [ANSWER_TYPE_FORM]: official,
+      },
+    };
+  })(FormClone),
+);

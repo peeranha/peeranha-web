@@ -16,7 +16,7 @@ import {
 
 import { trimRightZeros } from 'utils/numbers';
 
-import { NOTIFICATIONS_TYPES } from './constants';
+import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
 
 import Span from '../Span';
 import { Icon18 } from 'components/Icon/IconWithSizes';
@@ -33,14 +33,15 @@ const Container = styled.div`
   top: ${({ top }) => top}px;
   min-height: ${({ height }) => height}px;
   padding: 0 ${({ paddingHorizontal }) => paddingHorizontal || 0}px;
-  ${({ read }) => !read && `background: ${BG_SECONDARY_SPECIAL_4};`};
+  ${({ read, small }) =>
+    !read && !small && `background: ${BG_SECONDARY_SPECIAL_4};`};
   border-bottom: ${({ last, withoutBorder }) =>
     last || withoutBorder ? 'none' : `1px solid ${BORDER_SECONDARY_LIGHT}`};
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
 
   > div:nth-child(2) a > span:first-child {
-    width: 20px;
+    height: 20px;
     margin-right: 8px;
     flex-shrink: 0;
 
@@ -52,8 +53,10 @@ const Container = styled.div`
     justify-self: end;
   }
 
-  ${({ small }) =>
-    small ? '' : '  @media only screen and (max-width: 768px) {'};
+  ${({ height }) =>
+    height !== ROW_HEIGHT
+      ? ''
+      : '  @media only screen and (max-width: 768px) {'};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   padding: 10px ${({ paddingHorizontal }) => paddingHorizontal || 0}px;
@@ -65,7 +68,7 @@ const Container = styled.div`
       font-size: 13px;
 
       > img {
-        width: 13px;
+        height: 13px;
         margin-right: 4px;
       }
     }
@@ -73,11 +76,12 @@ const Container = styled.div`
 
   > div:nth-child(3) {
     justify-self: start;
+
     > span {
       font-size: 12px;
     }
   }
-  ${({ small }) => (small ? '' : '}')};
+  ${({ height }) => (height !== ROW_HEIGHT ? '' : '}')};
 `;
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => (
@@ -88,7 +92,7 @@ const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => (
     )}
     {!!hours && <FormattedMessage {...messages.hoursAgo} values={{ hours }} />}
     {!!yesterday && <FormattedMessage {...messages.yesterday} />}
-    {!!fullDate && <Span>{fullDate}</Span>}
+    {!!fullDate && fullDate}
   </Span>
 );
 
@@ -159,7 +163,7 @@ const Notification = ({
           <span>{data.title}</span>
         </Link>
       </div>
-      <div className="d-flex aligsn-items-center">
+      <div className="d-flex align-items-center">
         <Time time={time} />
       </div>
     </Container>

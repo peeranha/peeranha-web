@@ -3,7 +3,6 @@ import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 import _get from 'lodash/get';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
@@ -16,10 +15,6 @@ import {
   MODERATOR_KEY,
   REWARD_REFER,
 } from 'utils/constants';
-import {
-  findOfficialRepresentativeProperty,
-  isUserAdmin,
-} from 'utils/properties';
 import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -114,10 +109,8 @@ import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 
-const single = isSingleCommunityWebsite();
-
 /* eslint func-names: 0, consistent-return: 0 */
-export function* getCurrentAccountWorker(initAccount) {
+export const getCurrentAccountWorker = function*(initAccount) {
   try {
     yield put(getCurrentAccountProcessing());
 
@@ -186,7 +179,7 @@ export function* getCurrentAccountWorker(initAccount) {
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
-}
+};
 
 export function* isAvailableAction(isValid) {
   const profileInfo = yield select(makeSelectProfileInfo());
@@ -318,38 +311,23 @@ export function* updateAccWorker({ eos }) {
 
 export function* getCommunityPropertyWorker(profile) {
   try {
-    if (single) {
-      const profileInfo = profile || (yield select(makeSelectProfileInfo()));
-      const eosService = yield select(selectEos);
+    const profileInfo = profile || (yield select(makeSelectProfileInfo()));
+    const eosService = yield select(selectEos);
 
-      const info = yield call(
-        eosService.getTableRow,
-        ALL_PROPERTY_COMMUNITY_TABLE,
-        ALL_PROPERTY_COMMUNITY_SCOPE,
-        profileInfo.user,
+    const info = yield call(
+      eosService.getTableRow,
+      ALL_PROPERTY_COMMUNITY_TABLE,
+      ALL_PROPERTY_COMMUNITY_SCOPE,
+      profileInfo.user,
+    );
+
+    if (info) {
+      yield put(
+        getUserProfileSuccess({
+          ...profile,
+          permissions: info.properties,
+        }),
       );
-
-      if (info) {
-        const isAdmin = isUserAdmin(info.properties);
-        const officialRepresentativeInfo = findOfficialRepresentativeProperty(
-          info.properties,
-        );
-
-        if (isAdmin) {
-          yield put(getUserProfileSuccess({ ...profileInfo, isAdmin: true }));
-        }
-
-        if (officialRepresentativeInfo) {
-          yield put(
-            getUserProfileSuccess({
-              ...profile,
-              isOfficialRepresentative: !!officialRepresentativeInfo,
-              officialRepresentativeCommunity:
-                officialRepresentativeInfo.community,
-            }),
-          );
-        }
-      }
     }
     // eslint-disable-next-line no-empty
   } catch (e) {}

@@ -112,7 +112,7 @@ export function* loadMoreUnreadNotificationsWorker() {
       {
         user,
         all: false,
-        limit: 5 || NOTIFICATIONS_REQUEST_LIMIT,
+        limit: NOTIFICATIONS_REQUEST_LIMIT,
         timestamp: !notifications.length
           ? Math.round(now.valueOf() / 1000)
           : lastTimestamp,
@@ -163,7 +163,7 @@ export function* markAllAsReadWorker() {
   }
 }
 
-export function* markAsRead(notifications, first, last, leave = false) {
+export function* markAsRead(notifications, first, last) {
   try {
     yield delay(MARK_AS_READ_DELAY);
     const { user } = yield select(makeSelectProfileInfo());
@@ -180,7 +180,7 @@ export function* markAsRead(notifications, first, last, leave = false) {
       });
 
       if (response.OK) {
-        yield put(markAsReadSuccess(timestamps, leave));
+        yield put(markAsReadSuccess(timestamps));
       } else {
         throw new Error(response);
       }
@@ -201,7 +201,7 @@ export function* markAsReadUnreadWorker() {
   const [first, last] = yield select(selectReadNotificationsUnread());
   const notifications = yield select(selectUnreadNotifications());
 
-  yield call(markAsRead, notifications, first, last, true);
+  yield call(markAsRead, notifications, first, last);
 }
 
 export default function*() {

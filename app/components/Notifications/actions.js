@@ -14,7 +14,7 @@ import {
   MARK_ALL_NOTIFICATIONS_AS_READ_ERROR,
   SET_NOTIFICATIONS_INFO,
   CLEAR_NOTIFICATIONS_DATA,
-  FILTER_UNREAD_TIMESTAMPS,
+  FILTER_READ_TIMESTAMPS,
 } from './constants';
 
 export const markAllNotificationsAsRead = () => ({
@@ -67,10 +67,9 @@ export const markAsReadNotificationsUnread = readNotifications => ({
   readNotifications,
 });
 
-export const markAsReadSuccess = (timestamps, leave) => ({
+export const markAsReadSuccess = timestamps => ({
   type: MARK_AS_READ_SUCCESS,
   timestamps,
-  leave,
 });
 
 export const markAsReadErr = markAsReadError => ({
@@ -87,6 +86,6 @@ export const clearNotificationsData = () => ({
   type: CLEAR_NOTIFICATIONS_DATA,
 });
 
-export const filterUnreadTimestamps = () => ({
-  type: FILTER_UNREAD_TIMESTAMPS,
+export const filterReadTimestamps = () => ({
+  type: FILTER_READ_TIMESTAMPS,
 });

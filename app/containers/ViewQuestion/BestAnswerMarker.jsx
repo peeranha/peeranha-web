@@ -8,8 +8,6 @@ import { BG_PRIMARY } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-
 import commonMessages from 'common-messages';
 
 import coinsIcon from 'images/coins.svg?external';
@@ -25,6 +23,8 @@ import { Icon18 } from 'components/Icon/IconWithSizes';
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
 const styles = singleCommunityStyles();
 
 const Label = Button.extend`
@@ -35,6 +35,7 @@ const Label = Button.extend`
   min-height: 32px;
   max-width: 180px;
   color: white;
+  background: ${({ bg }) => bg || 'inherit'};
 `;
 
 const Div = styled.div`
@@ -67,11 +68,12 @@ export const BestAnswerMarker = ({
 }) => {
   if (answerId === 0) return null;
 
-  const isItWrittenByMe = !!profileInfo
+  const isItWrittenByMe = profileInfo
     ? userInfo.user === profileInfo.user
     : false;
 
-  const displayTips = !profileInfo || (!!profileInfo && !isItWrittenByMe && answerId !== 0);
+  const displayTips =
+    !profileInfo || (!!profileInfo && !isItWrittenByMe && answerId !== 0);
 
   return (
     <Div>
@@ -91,7 +93,6 @@ export const BestAnswerMarker = ({
       )}
 
       <MarkAsAcceptedIcon
-        className=""
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
         answerId={answerId}
         questionFrom={questionFrom}
@@ -104,15 +105,15 @@ export const BestAnswerMarker = ({
         whoWasAccepted={whoWasAccepted}
       />
 
-      {isTheLargestRating ? (
+      {isTheLargestRating && (
         <Label bg={BG_PRIMARY} inactive>
           <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
-      ) : null}
+      )}
 
       {isOfficial && (
-        <Label bg={BG_PRIMARY} inactive>
+        <Label bg="rgb(93, 109, 254)" inactive>
           <img
             className="d-inline-flex mr-2"
             height="20"
@@ -145,11 +146,9 @@ BestAnswerMarker.propTypes = {
 
 export default React.memo(
   connect(
-    state => {
-      return {
-        profileInfo: makeSelectProfileInfo()(state),
-      };
-    },
+    state => ({
+      profileInfo: makeSelectProfileInfo()(state),
+    }),
     null,
   )(BestAnswerMarker),
 );

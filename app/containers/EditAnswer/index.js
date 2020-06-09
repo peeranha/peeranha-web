@@ -106,7 +106,7 @@ const EditAnswer = ({
   );
 
   const available = useMemo(
-    () => !!profile && !!answer && answer.user === profile.user,
+    () => !!profile && answer?.user === profile.user,
     [answer, profile],
   );
 

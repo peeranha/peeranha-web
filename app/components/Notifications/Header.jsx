@@ -32,7 +32,7 @@ const Header = ({ notificationsNumber }) => (
       <Icon icon={notificationsIcon} width="25" />
     </MediumIconStyled>
     <H3>
-      <FormattedMessage {...messages.messageCenter} />
+      <FormattedMessage {...messages.notificationCenter} />
     </H3>
     <Span
       fontSize="38"

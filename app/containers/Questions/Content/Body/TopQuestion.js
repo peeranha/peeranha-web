@@ -6,6 +6,7 @@ import topQuestionActiveIcon from 'images/starActive.svg?inline';
 import topQuestionsInactiveIcon from 'images/star.svg?inline';
 
 import TopQuestionPopover from './TopQuestionPopover';
+import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
 
 const Button = styled.button`
   position: relative;
@@ -25,8 +26,9 @@ const TopQuestion = ({
   id,
   locale,
   profileInfo,
-  displayTopQuestion,
   isTopQuestion,
+  isModerator,
+  topQuestionsCount,
   addToTopQuestionsDispatch,
   removeFromTopQuestionsDispatch,
   topQuestionActionProcessing,
@@ -36,7 +38,7 @@ const TopQuestion = ({
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
-  const changePinType = useCallback(
+  const onClick = useCallback(
     () => {
       if (isTopQuestion) {
         removeFromTopQuestionsDispatch(id);
@@ -51,36 +53,42 @@ const TopQuestion = ({
     () => {
       if (isTopQuestion) {
         return topQuestionActiveIcon;
-      } else if (profileInfo && profileInfo.isAdmin) {
+      } else if (isModerator && topQuestionsCount < MAX_TOP_QUESTIONS_COUNT) {
         return topQuestionsInactiveIcon;
       }
 
       return undefined;
     },
-    [isTopQuestion, profileInfo],
+    [isTopQuestion, profileInfo, isModerator],
   );
 
-  return topQuestionIcon ? (
-    <Button
-      className="ml-2"
-      active={displayTopQuestion}
-      onClick={displayTopQuestion ? changePinType : null}
-      disabled={topQuestionActionProcessing}
-      onMouseEnter={!displayTopQuestion ? onMouseEnter : null}
-      onMouseLeave={!displayTopQuestion ? onMouseLeave : null}
-    >
-      {visible && <TopQuestionPopover locale={locale} />}
-      <img src={topQuestionIcon} width="20" alt="top" />
-    </Button>
-  ) : null;
+  const options = useMemo(
+    () => (isModerator ? { onClick } : { onMouseEnter, onMouseLeave }),
+    [isModerator, onMouseEnter, onMouseLeave],
+  );
+
+  return (
+    !!topQuestionIcon && (
+      <Button
+        {...options}
+        className="ml-2"
+        active={isModerator}
+        disabled={topQuestionActionProcessing}
+      >
+        {visible && <TopQuestionPopover locale={locale} />}
+        <img src={topQuestionIcon} width="20" alt="top" />
+      </Button>
+    )
+  );
 };
 
 TopQuestion.propTypes = {
   id: PropTypes.string,
   locale: PropTypes.string,
   profileInfo: PropTypes.object,
-  displayTopQuestion: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
+  isModerator: PropTypes.bool,
+  topQuestionsCount: PropTypes.number,
   addToTopQuestionsDispatch: PropTypes.func,
   removeFromTopQuestionsDispatch: PropTypes.func,
   topQuestionActionProcessing: PropTypes.bool,

@@ -12,9 +12,9 @@ import messages from '../../messages';
 const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
-  width: 192px;
+  width: 205px;
   z-index: 10;
-  left: -172px;
+  left: -182px;
   top: 25px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
