@@ -6,12 +6,14 @@ import { intlShape } from 'react-intl';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
+import Icon from 'components/Icon';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
+
 import closeIcon from 'images/closeCircle.svg?inline';
 import questionIcon from 'images/question.svg?inline';
 
 import A from '../A';
 import Span from '../Span';
-import { MediumImageStyled } from '../Img/MediumImage';
 
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
@@ -19,7 +21,9 @@ import H3 from '../H3';
 const Header = ({ formTitle, questionId, intl }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
-      <MediumImageStyled src={questionIcon} alt="questionIcon" />
+      <MediumIconStyled>
+        <Icon icon={questionIcon} width="43" />
+      </MediumIconStyled>
       <span>{formTitle}</span>
     </H3>
 

@@ -6,11 +6,8 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
+import { BORDER_PRIMARY } from 'style-constants';
 
-import icoTag from 'images/icoTag.svg?inline';
-import questionIcon from 'images/question.svg?external';
-import closeIcon from 'images/closeCircle.svg?inline';
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
@@ -25,9 +22,7 @@ import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
-import Icon from 'components/Icon';
 import { Icon18 } from 'components/Icon/IconWithSizes';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import {
   FORM_TITLE,
@@ -59,9 +54,10 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
       id="question-form-suggest-tag"
       type="button"
     >
-      <img className="mr-2" src={icoTag} alt="icoTag" />
+      <Icon18 className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
       <FormattedMessage {...commonMessages.suggestTag} />
     </TransparentButton>
+
   );
 });
 
