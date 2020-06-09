@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -36,7 +36,7 @@ const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
         id={`add-user-info-edit-${userId}`}
         data-user={userId}
       >
-        <Span className="ml-2" color={TEXT_PRIMARY} mobileFS="14">
+        <Span className="ml-2" color={LINK_COLOR} mobileFS="14">
           <FormattedMessage {...messages.editProfile} />
         </Span>
       </button>

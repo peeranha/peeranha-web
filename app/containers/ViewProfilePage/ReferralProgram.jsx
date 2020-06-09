@@ -36,6 +36,7 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
                     id="referral-link-copy"
                     data-key={referralLink}
                     onClick={writeToBuffer}
+                    className={'link-btn'}
                   >
                     <FormattedMessage {...commonMessages.copy} />{' '}
                   </button>
@@ -53,6 +54,7 @@ const ReferralProgram = ({ className, user, writeToBuffer }) => {
                     id="referral-code-copy"
                     data-key={user}
                     onClick={writeToBuffer}
+                    className={'link-btn'}
                   >
                     <FormattedMessage {...commonMessages.copy} />{' '}
                   </button>

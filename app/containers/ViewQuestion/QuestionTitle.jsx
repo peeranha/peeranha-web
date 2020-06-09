@@ -6,7 +6,7 @@ import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
 import checkIcon from 'images/okayGreen.svg?inline';
-import coinsIcon from 'images/coins.svg?inline';
+import coinsIcon from 'images/coins.svg?external';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -16,6 +16,7 @@ import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommuni
 import Button from 'components/Button/Outlined/InfoMedium';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
+import { Icon18 } from 'components/Icon/IconWithSizes';
 
 import {
   isSingleCommunityWebsite,
@@ -97,10 +98,9 @@ export const QuestionTitle = ({
             account={user}
           >
             <B>
-              <img
+              <Icon18
                 className="mr-1"
-                src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-                alt="icon"
+                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>

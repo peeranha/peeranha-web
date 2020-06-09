@@ -1,6 +1,6 @@
 import React from 'react';
 
-import coinsBlueIcon from 'images/coinsBlue.svg?inline';
+import coinsBlueIcon from 'images/coinsBlue.svg?external';
 import TelosLogo from './images/telos-logo-dark.svg?inline';
 
 import MediumEOT from './fonts/NeueHaasDisplay-Mediu.eot';

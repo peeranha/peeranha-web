@@ -6,7 +6,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 
-import moreVotingIcon from 'images/moreVoting.svg?inline';
+import moreVotingIcon from 'images/moreVoting.svg?external';
 
 import Span from 'components/Span';
 import P from 'components/P';
@@ -14,7 +14,7 @@ import A from 'components/A';
 
 import VoteUpButton from 'containers/VoteForNewTagButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewTagButton/VoteDownButton';
-
+import { Icon18 } from 'components/Icon/IconWithSizes';
 import { Header, Item } from 'components/ExistingCommunities/Aside';
 
 import messages from './messages';
@@ -59,7 +59,7 @@ const Aside = ({ suggestedTags, communityId }) => (
         to={routes.suggestedTags(communityId)}
         href={routes.suggestedTags(communityId)}
       >
-        <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
+        <Icon18 className="mr-2" icon={moreVotingIcon} fill={TEXT_PRIMARY} />
         <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.moreVoting} />
         </Span>
