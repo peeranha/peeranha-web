@@ -10,7 +10,8 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButto
 
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { MediumImageStyled } from 'components/Img/MediumImage';
+import Icon from 'components/Icon';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
@@ -38,13 +39,16 @@ export const Header = ({
 
   let defaultAvatar = null;
   let defaultLabel = null;
+  let defaultAvatarWidth = null;
 
   if (!isFeed) {
     defaultAvatar = allquestionsIcon;
     defaultLabel = intl.formatMessage({ id: messages.questions.id });
+    defaultAvatarWidth = '24';
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
+    defaultAvatarWidth = '38';
   }
 
   const displayQuestionFilter = useMemo(
@@ -55,9 +59,16 @@ export const Header = ({
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
-      <MediumIconStyled>
-        <Icon24 icon={communityAvatar || defaultAvatar} />
-      </MediumIconStyled>
+      {communityAvatar ? (
+        <MediumImageStyled
+          src={communityAvatar}
+          alt="communityAvatar"
+        />
+      ) : (
+        <MediumIconStyled>
+          <Icon icon={defaultAvatar} width={defaultAvatarWidth} />
+        </MediumIconStyled>
+      )}
 
       <span>{communityLabel || defaultLabel}</span>
     </H3>

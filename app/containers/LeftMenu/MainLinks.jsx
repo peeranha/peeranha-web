@@ -13,6 +13,7 @@ import {
   TEXT_DARK,
   APP_FONT,
   BORDER_PRIMARY,
+  BORDER_DARK,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -45,6 +46,8 @@ const fonts = singleCommunityFonts();
 const A1 = A.extend`
   ${BasicLink};
 
+  letter-spacing: 0 !important;
+
   ${({ route, name }) =>
     route === name
       ? `
@@ -54,6 +57,7 @@ const A1 = A.extend`
     letter-spacing: 0.5px;
     font-weight: bold;
     color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
+
     :hover {
       color: ${colors.mainLinks};
     }
@@ -66,6 +70,14 @@ const A1 = A.extend`
     font-family: ${fonts.mainLinksNotSelected || APP_FONT};
     .opacity {
       fill: none !important;
+    }
+    .fill {
+      fill: ${BORDER_DARK};
+    }  
+    :hover {
+      .fill {
+        fill: ${BORDER_PRIMARY};
+      }
     }
   `};
 `;
@@ -88,7 +100,7 @@ const MainLinks = ({ profile }) => {
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
-            <Icon24 className="mr-2" icon={myFeedIcon} />
+            <Icon24 className="mr-2" icon={myFeedIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage {...messages.myFeed} />
           </A1>
         )}
@@ -121,7 +133,7 @@ const MainLinks = ({ profile }) => {
 
       {!styles.withoutFAQ && (
         <A1 to={routes.faq()} name="faq" route={route}>
-          <Icon24 className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+          <Icon24 className="mr-2" icon={faqIcon} />
           <FormattedMessage {...messages.faq} />
         </A1>
       )}

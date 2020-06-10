@@ -106,13 +106,6 @@ export const QuestionTitle = ({
             </B>
           </SendTips>
         )}
-        {!isGeneral && (
-          <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
-        )}
-      </Top>
-      <Div>
         <MarkAnswerNotification
           className={
             !correctAnswerId && isItWrittenByMe && answers.length
@@ -127,7 +120,13 @@ export const QuestionTitle = ({
               : messages.markExpertQuestionAndGetEarn)}
           />
         </MarkAnswerNotification>
-
+        {!isGeneral && (
+          <QuestionType size="md" top="0px" topMedia="0px">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        )}
+      </Top>
+      <Div>
         <H3>{title}</H3>
 
         <TagList

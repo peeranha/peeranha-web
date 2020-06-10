@@ -12,7 +12,7 @@ import disabledFingerDown from 'images/disabledFingerDown.svg?external';
 import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
-import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
+import { BORDER_SUCCESS, BORDER_WARNING_LIGHT, BORDER_PRIMARY_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
@@ -129,7 +129,7 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <Icon24 icon={src} fill={BORDER_PRIMARY_LIGHT} />
     </ImgBox>
   );
 }
@@ -155,7 +155,7 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <Icon24 icon={src} fill={BORDER_PRIMARY_LIGHT} />
     </ImgBox>
   );
 }

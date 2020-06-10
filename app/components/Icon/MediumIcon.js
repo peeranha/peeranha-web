@@ -16,8 +16,8 @@ const MediumIconStyled = MediumIcon.extend`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 47px;
-  height: 47px;
+  width: 42px;
+  height: 42px;
 
   border: 1px solid ${BORDER_SECONDARY};
 

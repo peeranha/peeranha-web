@@ -57,7 +57,7 @@ const IconBG = MediumSpecialImage.extend`
 export const Button = memo(({ balance }) => (
   <ButtonStyled>
     <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <Icon24 icon={currencyPeerIcon} />
+      <Icon24 icon={currencyPeerIcon} fill={TEXT_LIGHT} />
     </IconBG>
 
     <span className="d-flex flex-column text-left">

@@ -32,6 +32,10 @@ const AdditionalLinks = styled.div`
     }
   }
 
+  a {
+    padding: 7px 15px;
+  }
+
   footer {
     margin: ${styles.withoutAdditionalLinks ? 0 : 30}px 0;
     font-size: 12px;
