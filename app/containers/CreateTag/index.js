@@ -1,10 +1,4 @@
-/**
- *
- * CreateCommunity
- *
- */
-
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -45,65 +39,73 @@ import Form from './Form';
 import Tips from './Tips';
 import Header from './Header';
 
-/* eslint-disable react/prefer-stateless-function */
+const single = isSingleCommunityWebsite();
+
+const CreateTag = ({
+  locale,
+  createTagLoading,
+  communities,
+  match,
+  faqQuestions,
+  suggestTagDispatch,
+}) => {
+  const commId = useMemo(() => single || +match.params.communityid, [match]);
+
+  const createTag = useCallback(
+    (...args) => {
+      const values = args[0].toJS();
+
+      suggestTagDispatch(
+        {
+          name: values[NAME_FIELD],
+          description: values[DESCRIPTION_FIELD],
+          communityId: +values[FORM_COMMUNITY].id,
+        },
+        args[2].reset,
+      );
+    },
+    [suggestTagDispatch],
+  );
+  console.log(communities);
+  return (
+    <div>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        index={false}
+      />
+
+      <Header />
+
+      {communities[0] && (
+        <TipsBase className="overflow-hidden">
+          <BaseSpecialOne>
+            <Form
+              communityId={commId}
+              communities={communities}
+              createTagLoading={createTagLoading}
+              createTag={createTag}
+              translations={translationMessages[locale]}
+            />
+          </BaseSpecialOne>
+
+          <Tips faqQuestions={faqQuestions} />
+        </TipsBase>
+      )}
+
+      {!communities.length && <LoadingIndicator />}
+    </div>
+  );
+};
+
+/*
 export class CreateTag extends React.PureComponent {
-  createTag = (...args) => {
-    const { reset } = args[2];
-    const values = args[0].toJS();
 
-    const tag = {
-      name: values[NAME_FIELD],
-      description: values[DESCRIPTION_FIELD],
-      communityId: +values[FORM_COMMUNITY].id,
-    };
 
-    this.props.suggestTagDispatch(tag, reset);
-  };
-
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      createTagLoading,
-      communities,
-      match,
-      faqQuestions,
-    } = this.props;
-
-    const commId = isSingleCommunityWebsite() || +match.params.communityid;
-
-    return (
-      <div>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          index={false}
-        />
-
-        <Header />
-
-        {communities[0] && (
-          <TipsBase className="overflow-hidden">
-            <BaseSpecialOne>
-              <Form
-                communityId={commId}
-                communities={communities}
-                createTagLoading={createTagLoading}
-                createTag={this.createTag}
-                translations={translationMessages[locale]}
-              />
-            </BaseSpecialOne>
-
-            <Tips faqQuestions={faqQuestions} />
-          </TipsBase>
-        )}
-
-        {!communities.length && <LoadingIndicator />}
-      </div>
-    );
-  }
+  render() {
 }
-
+*/
 CreateTag.propTypes = {
   locale: PropTypes.string,
   match: PropTypes.object,
@@ -113,32 +115,21 @@ CreateTag.propTypes = {
   faqQuestions: PropTypes.array,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  faqQuestions: selectFaqQuestions([
-    WHAT_IS_TAG_QUESTION,
-    HOW_TO_USE_IT_QUESTION,
-  ]),
-  communities: selectCommunities(),
-  createTagLoading: selectors.selectSuggestTagLoading(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'createTag', reducer });
-const withSaga = injectSaga({ key: 'createTag', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'createTag', reducer }),
+  injectSaga({ key: 'createTag', saga }),
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+      faqQuestions: selectFaqQuestions([
+        WHAT_IS_TAG_QUESTION,
+        HOW_TO_USE_IT_QUESTION,
+      ]),
+      communities: selectCommunities(),
+      createTagLoading: selectors.selectSuggestTagLoading(),
+    }),
+    dispatch => ({
+      suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
+    }),
+  ),
 )(CreateTag);

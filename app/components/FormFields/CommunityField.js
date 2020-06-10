@@ -48,7 +48,7 @@ export const CommunityField = ({
       <CommunitySelector
         input={input}
         disabled={disabled}
-        selectedCommunityId={input.value ? input.value.id : 0}
+        selectedCommunityId={input.value?.id ?? 0}
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"

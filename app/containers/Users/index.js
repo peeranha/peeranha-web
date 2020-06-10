@@ -47,14 +47,15 @@ const Users = ({
   const [fetcher, setFetcher] = useState(null);
 
   const initFetcher = useCallback(
-    (sortKey = sorting) => {
-      if (!fetcher && eosService) {
+    (sortKey = sorting, reinitialize = false) => {
+      if ((!fetcher && eosService) || reinitialize) {
         const f = new UsersFetcher(
           limit,
           limit,
           AccountsSortedBy[sortKey],
           eosService,
         );
+        setFetcher(f);
         return f;
       }
 
@@ -83,25 +84,24 @@ const Users = ({
 
   const dropdownFilter = useCallback(
     sortKey => {
-      setFetcher(null);
-      const f = initFetcher(sortKey);
-
       if (userCount === users.length) {
         changeSortingTypeDispatch(sortKey);
-        return;
+      } else {
+        const f = initFetcher(sortKey, true);
+        getUsersDispatch({ sorting: sortKey, fetcher: f });
       }
-
-      getUsersDispatch({ sorting: sortKey, fetcher: f });
     },
-    [userCount, communityInfo, users, initFetcher],
+    [userCount, communityInfo, users, initFetcher, setFetcher],
   );
 
   useEffect(
     () => {
-      const f = initFetcher();
-      getUsersDispatch({ loadMore: false, fetcher: f });
+      if (!fetcher) {
+        const f = initFetcher();
+        getUsersDispatch({ loadMore: false, fetcher: f });
+      }
     },
-    [initFetcher],
+    [initFetcher, fetcher],
   );
 
   return (

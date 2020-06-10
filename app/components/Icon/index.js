@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  BG_PRIMARY_SPECIAL_2,
-  BORDER_PRIMARY,
-} from 'style-constants';
+import { BG_PRIMARY_SPECIAL_2, BORDER_PRIMARY } from 'style-constants';
 
 import IconStyled from './IconStyled';
 

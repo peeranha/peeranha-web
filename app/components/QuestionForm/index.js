@@ -57,7 +57,6 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
       <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
       <FormattedMessage {...commonMessages.suggestTag} />
     </TransparentButton>
-
   );
 });
 
@@ -164,49 +163,49 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (state, { question, form: formName, communities }) =>
-        console.log(question?.community) || {
-          formValues: state.toJS().form[formName]?.values ?? {},
-          initialValues: {
-            [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
-            ...(question
-              ? {
-                  [FORM_TITLE]: question?.title,
-                  [FORM_CONTENT]: question?.content,
-                  [FORM_COMMUNITY]: {
-                    ...question?.community,
-                    tags: _uniqBy(
-                      question?.community?.tags?.concat(
+      (state, { question, form: formName, communities }) => ({
+        formValues: state.toJS().form[formName]?.values ?? {},
+        initialValues: {
+          [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
+          ...(question
+            ? {
+                [FORM_TITLE]: question?.title,
+                [FORM_CONTENT]: question?.content,
+                [FORM_COMMUNITY]: {
+                  ...question?.community,
+                  tags: _uniqBy(
+                    question?.community?.tags?.concat(
+                      communities.find(
+                        ({ id }) => id === question?.community?.id,
+                      )?.tags,
+                    ),
+                    'id',
+                  ),
+                },
+                [FORM_TAGS]: question?.chosenTags,
+              }
+            : {}),
+          ...(single
+            ? {
+                [FORM_COMMUNITY]: {
+                  ...communities?.find(({ id }) => id === single),
+                  tags: _uniqBy(
+                    communities
+                      .find(({ id }) => id === single)
+                      ?.tags?.concat(
                         communities.find(
                           ({ id }) => id === question?.community?.id,
                         )?.tags,
-                      ),
-                      'id',
-                    ),
-                  },
-                  [FORM_TAGS]: question?.chosenTags,
-                }
-              : {}),
-            ...(single
-              ? {
-                  [FORM_COMMUNITY]: {
-                    ...communities?.find(({ id }) => id === single),
-                    tags: _uniqBy(
-                      communities
-                        .find(({ id }) => id === single)
-                        ?.tags?.concat(
-                          communities.find(
-                            ({ id }) => id === question?.community?.id,
-                          )?.tags,
-                        ),
-                      'id',
-                    ),
-                  },
-                }
-              : {}),
-          },
-          enableReinitialize: true,
+                      )
+                      .filter(x => x),
+                    'id',
+                  ),
+                },
+              }
+            : {}),
         },
+        enableReinitialize: true,
+      }),
       dispatch => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,

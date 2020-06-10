@@ -88,7 +88,7 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <Grid xl={3} md={2} xs={1}>
-      {!!tags.length && (
+      {!!tags.length || text ? (
         <li className="d-sm-flex align-items-center justify-content-center">
           <Item
             isInputBox
@@ -102,7 +102,7 @@ const Content = ({
             />
           </Item>
         </li>
-      )}
+      ) : null}
 
       {tags.map(x => (
         <Tag key={x.id}>

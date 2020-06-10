@@ -94,23 +94,13 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(Form);
 
-FormClone = connect((state, props) => {
-  const { communities, communityId } = props;
-
-  const form = state.toJS().form[FORM_NAME];
-
-  return {
-    valueHasNotBeInListValidate: (
-      (form &&
-        form.values &&
-        form.values[FORM_COMMUNITY] &&
-        form.values[FORM_COMMUNITY].tags) ||
-      []
-    ).map(x => x.name),
-    initialValues: {
-      [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
-    },
-  };
-})(FormClone);
+FormClone = connect((state, { communities, communityId }) => ({
+  valueHasNotBeInListValidate: (
+    state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
+  ).map(x => x.name),
+  initialValues: {
+    [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
+  },
+}))(FormClone);
 
 export default React.memo(FormClone);

@@ -13,7 +13,7 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  loading: false,
+  loading: true,
   error: null,
   account: null,
   balance: null,
