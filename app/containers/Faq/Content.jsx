@@ -27,7 +27,7 @@ import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import { Icon14 } from 'components/Icon/IconWithSizes';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
@@ -121,7 +121,7 @@ const Question = ({
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
       <ImgWrapper>
-        <Icon14 rotate={isOpened} icon={arrowIconFilled} />
+        <IconSm rotate={isOpened} icon={arrowIconFilled} />
       </ImgWrapper>
 
       <div>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { BORDER_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
@@ -16,7 +16,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
-import { Icon14, Icon18 } from 'components/Icon/IconWithSizes';
+import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -158,7 +158,7 @@ const ContentHeader = props => {
             disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
             isVotedToDelete={isVotedToDelete}
           >
-            <Icon14 icon={blockIcon} fill={BORDER_PRIMARY} />
+            <IconSm icon={blockIcon} fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY} />
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
 
@@ -169,7 +169,7 @@ const ContentHeader = props => {
                 disabled={isModalOpen}
                 onClick={() => setModalOpen(true)}
               >
-                <Icon14 icon={shareIcon} />
+                <IconSm icon={shareIcon} />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
@@ -189,7 +189,7 @@ const ContentHeader = props => {
               buttonParams.questionId
             }-${commentId}`}
           >
-            <Icon18 icon={pencilIcon} />
+            <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -204,7 +204,7 @@ const ContentHeader = props => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <Icon18 icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

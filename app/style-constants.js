@@ -71,6 +71,7 @@ export const BORDER_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const BORDER_WARNING_LIGHT_RGB = pinkRGB;
 export const BORDER_DARK = black;
 export const BORDER_SECONDARY_LIGHT = gray;
+export const BORDER_ATTENTION_LIGHT = _get(colors, 'attentionLight', pink);
 
 export const BG_SUCCESS = green;
 export const BG_PRIMARY = blue;

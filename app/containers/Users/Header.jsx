@@ -17,7 +17,7 @@ import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper from 'components/Header/Simple';
 
 import options from './options';
@@ -25,7 +25,7 @@ import options from './options';
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <Icon18 className="mr-2" icon={usersHeaderFilter} />
+      <IconMd className="mr-2" icon={usersHeaderFilter} />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>

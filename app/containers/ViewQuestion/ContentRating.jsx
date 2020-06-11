@@ -12,12 +12,12 @@ import disabledFingerDown from 'images/disabledFingerDown.svg?external';
 import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 
-import { BORDER_SUCCESS, BORDER_WARNING_LIGHT } from 'style-constants';
+import { BORDER_SUCCESS, BORDER_ATTENTION_LIGHT } from 'style-constants';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -43,7 +43,7 @@ const ImgBox = styled.div`
 
     ${x =>
       x.src === redFingerDownSingleQuestion
-        ? `border: 1px solid ${BORDER_WARNING_LIGHT};`
+        ? `border: 1px solid ${BORDER_ATTENTION_LIGHT};`
         : ``};
   }
 
@@ -129,7 +129,7 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <IconLg icon={src} />
     </ImgBox>
   );
 }
@@ -155,7 +155,7 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <IconLg icon={src} />
     </ImgBox>
   );
 }

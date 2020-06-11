@@ -10,7 +10,7 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButto
 
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
@@ -56,7 +56,7 @@ export const Header = ({
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
       <MediumIconStyled>
-        <Icon24 icon={communityAvatar || defaultAvatar} />
+        <IconLg icon={communityAvatar || defaultAvatar} />
       </MediumIconStyled>
 
       <span>{communityLabel || defaultLabel}</span>

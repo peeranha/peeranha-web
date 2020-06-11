@@ -2,11 +2,14 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import topQuestionActiveIcon from 'images/starActive.svg?inline';
-import topQuestionsInactiveIcon from 'images/star.svg?inline';
+import topQuestionActiveIcon from 'images/starActive.svg?external';
+import topQuestionsInactiveIcon from 'images/star.svg?external';
 
 import TopQuestionPopover from './TopQuestionPopover';
+import { IconLm } from 'components/Icon/IconWithSizes';
+
 import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
+import { BORDER_WARNING_LIGHT } from 'style-constants';
 
 const Button = styled.button`
   position: relative;
@@ -76,7 +79,7 @@ const TopQuestion = ({
         disabled={topQuestionActionProcessing}
       >
         {visible && <TopQuestionPopover locale={locale} />}
-        <img src={topQuestionIcon} width="20" alt="top" />
+        <IconLm icon={topQuestionIcon} fill={BORDER_WARNING_LIGHT} color={BORDER_WARNING_LIGHT} />
       </Button>
     )
   );
