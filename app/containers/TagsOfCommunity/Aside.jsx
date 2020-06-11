@@ -14,7 +14,7 @@ import A from 'components/A';
 
 import VoteUpButton from 'containers/VoteForNewTagButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewTagButton/VoteDownButton';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { Header, Item } from 'components/ExistingCommunities/Aside';
 
 import messages from './messages';
@@ -59,7 +59,7 @@ const Aside = ({ suggestedTags, communityId }) => (
         to={routes.suggestedTags(communityId)}
         href={routes.suggestedTags(communityId)}
       >
-        <Icon18 className="mr-2" icon={moreVotingIcon} fill={TEXT_PRIMARY} />
+        <IconMd className="mr-2" icon={moreVotingIcon} fill={TEXT_PRIMARY} />
         <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.moreVoting} />
         </Span>

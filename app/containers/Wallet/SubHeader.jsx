@@ -16,7 +16,7 @@ import walletCoinsImage from 'images/walletCoins.svg?inline';
 import { getFormattedNum3 } from 'utils/numbers';
 
 import Icon from 'components/Icon';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
@@ -39,7 +39,7 @@ const SubHeader = ({ account, balance }) => (
       <div>
         <div className="d-flex align-items-center">
           <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-            <Icon24
+            <IconLg
               className="mr-2"
               icon={currencyPeerImage}
               color={TEXT_PRIMARY}

@@ -33,7 +33,7 @@ import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?exter
 import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
 
 import Input from 'components/Input';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -108,19 +108,19 @@ const SharingModal = ({ questionData, locale }) => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <Icon24 icon={twitter} />
+            <IconLg icon={twitter} />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <Icon24 icon={telegram} />
+            <IconLg icon={telegram} />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <Icon24 icon={reddit} />
+            <IconLg icon={reddit} />
           </RedditShareButton>
         </div>
         <button

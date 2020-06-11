@@ -6,7 +6,7 @@ import topQuestionActiveIcon from 'images/starActive.svg?external';
 import topQuestionsInactiveIcon from 'images/star.svg?external';
 
 import TopQuestionPopover from './TopQuestionPopover';
-import { Icon20 } from 'components/Icon/IconWithSizes';
+import { IconLm } from 'components/Icon/IconWithSizes';
 
 import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
 import { BORDER_WARNING_LIGHT } from 'style-constants';
@@ -79,7 +79,7 @@ const TopQuestion = ({
         disabled={topQuestionActionProcessing}
       >
         {visible && <TopQuestionPopover locale={locale} />}
-        <Icon20 icon={topQuestionIcon} fill={BORDER_WARNING_LIGHT} color={BORDER_WARNING_LIGHT} />
+        <IconLm icon={topQuestionIcon} fill={BORDER_WARNING_LIGHT} color={BORDER_WARNING_LIGHT} />
       </Button>
     )
   );

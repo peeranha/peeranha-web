@@ -16,7 +16,7 @@ import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommuni
 import Button from 'components/Button/Outlined/InfoMedium';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 import {
   isSingleCommunityWebsite,
@@ -98,7 +98,7 @@ export const QuestionTitle = ({
             account={user}
           >
             <B>
-              <Icon18
+              <IconMd
                 className="mr-1"
                 icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
               />

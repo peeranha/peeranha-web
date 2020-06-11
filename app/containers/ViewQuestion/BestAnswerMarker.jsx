@@ -18,7 +18,7 @@ import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import SendTips from '../SendTips';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
@@ -85,7 +85,7 @@ export const BestAnswerMarker = ({
           account={whoWasAccepted}
         >
           <B>
-            <Icon18 className="mr-1"
+            <IconMd className="mr-1"
               icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon} />
             <FormattedMessage {...commonMessages.tipAnswer} />
           </B>

@@ -17,7 +17,7 @@ import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -129,7 +129,7 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <IconLg icon={src} />
     </ImgBox>
   );
 }
@@ -155,7 +155,7 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
   return (
     <ImgBox src={src}>
-      <Icon24 icon={src} />
+      <IconLg icon={src} />
     </ImgBox>
   );
 }

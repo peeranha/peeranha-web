@@ -9,7 +9,7 @@ import energyIcon from 'images/energy.svg?external';
 
 import Ul, { Ul1 } from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import { Icon19, Icon20 } from 'components/Icon/IconWithSizes';
+import { IconEm, IconLm } from 'components/Icon/IconWithSizes';
 import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
@@ -21,7 +21,7 @@ export const Button = ({ energy }) => (
     <Span fontSize="16" bold>
       {energy}
     </Span>
-    <Icon19 icon={energyIcon} />
+    <IconEm icon={energyIcon} />
   </IconBG>
 );
 
@@ -29,7 +29,7 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
   <nav>
     <Ul>
       <li>
-        <Icon20 icon={energyIcon} />
+        <IconLm icon={energyIcon} />
         <Span className="mx-1">
           <Span fontSize="16" bold>
             {energy}

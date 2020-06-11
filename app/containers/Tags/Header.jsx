@@ -17,7 +17,7 @@ import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
-import { Icon14, Icon18 } from 'components/Icon/IconWithSizes';
+import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
 import Wrapper from 'components/Header/Complex';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -35,7 +35,7 @@ const single = isSingleCommunityWebsite();
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <Icon18 className="mr-2" icon={communitiesHeaderFilter} />
+      <IconMd className="mr-2" icon={communitiesHeaderFilter} />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>
@@ -118,7 +118,7 @@ export const Header = ({
             isLink
           >
             <MediumIcon>
-              <Icon18
+              <IconMd
                 className="d-none d-sm-inline-block"
                 icon={icoTagIcon}
                 isColorImportant={true}
@@ -126,7 +126,7 @@ export const Header = ({
               />
             </MediumIcon>
 
-            <Icon14
+            <IconSm
               className="d-inline-flex d-sm-none"
               icon={addIcon}
             />
