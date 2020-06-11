@@ -37,14 +37,18 @@ export const B = Button.extend`
   width: max-content;
 `.withComponent('span');
 
+const QuestionName = H3.extend`
+  display: initial;
+`.withComponent('h3');
+
 const Div = styled.div`
   min-width: 140px;
 `;
 
 const Top = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  > div {
+    margin-bottom: 5px;
+  }
 
   @media only screen and (max-width: 310px) {
     flex-direction: column-reverse;
@@ -106,20 +110,7 @@ export const QuestionTitle = ({
             </B>
           </SendTips>
         )}
-        <MarkAnswerNotification
-          className={
-            !correctAnswerId && isItWrittenByMe && answers.length
-              ? 'd-inline-flex'
-              : 'd-none'
-          }
-        >
-          <img className="mr-2" src={checkIcon} alt="icon" />
-          <FormattedMessage
-            {...(isGeneral
-              ? messages.markGeneralQuestionAndGetEarn
-              : messages.markExpertQuestionAndGetEarn)}
-          />
-        </MarkAnswerNotification>
+
         {!isGeneral && (
           <QuestionType size="md" top="0px" topMedia="0px">
             <FormattedMessage {...messages.expertQuestion} />
@@ -127,7 +118,23 @@ export const QuestionTitle = ({
         )}
       </Top>
       <Div>
-        <H3>{title}</H3>
+        {!correctAnswerId &&
+          isItWrittenByMe &&
+          answers.length && (
+            <>
+              <MarkAnswerNotification className="d-inline-flex">
+                <img className="mr-2" src={checkIcon} alt="icon" />
+                <FormattedMessage
+                  {...(isGeneral
+                    ? messages.markGeneralQuestionAndGetEarn
+                    : messages.markExpertQuestionAndGetEarn)}
+                />
+              </MarkAnswerNotification>
+              <br />
+            </>
+          )}
+
+        <QuestionName>{title}</QuestionName>
 
         <TagList
           className="my-2"

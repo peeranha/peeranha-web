@@ -8,6 +8,7 @@ import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
+  BORDER_ATTENTION_LIGHT,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -198,7 +199,15 @@ const CommentView = item => {
             )}
             isVotedToDelete={item.votingStatus.isVotedToDelete}
           >
-            <Icon icon={blockSmallIcon} width="12" />
+            <Icon
+              icon={blockSmallIcon}
+              width="12"
+              fill={
+                item.votingStatus.isVotedToDelete
+                  ? BORDER_ATTENTION_LIGHT
+                  : BORDER_PRIMARY
+              }
+            />
             <FormattedMessage {...messages.voteToDelete} />
           </Button>
         </CommentManage>

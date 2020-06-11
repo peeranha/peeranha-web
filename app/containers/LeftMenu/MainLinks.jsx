@@ -57,7 +57,9 @@ const A1 = A.extend`
     letter-spacing: 0.5px;
     font-weight: bold;
     color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
-
+    .fill {
+      fill: ${BORDER_PRIMARY};
+    }
     :hover {
       color: ${colors.mainLinks};
     }
