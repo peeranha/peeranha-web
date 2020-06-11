@@ -165,7 +165,7 @@ const CommunitySelector = ({
           menuIsOpen
           isWrapped
         />
-        <ManageMyCommunities/>
+        <ManageMyCommunities />
       </Wrapper>
     </Dropdown>
   );
