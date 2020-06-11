@@ -10,7 +10,7 @@ import messages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
 import {
   isAnswerOfficial,
-  isUserOfficialCommunityRepresentative,
+  communityAdminOfficialAnswerPermission,
 } from 'utils/properties';
 import { required, strLength25x30000 } from 'components/FormFields/validate';
 
@@ -19,7 +19,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
-import { ADD_ANSWER_FORM } from 'containers/ViewQuestion/constants';
+import { EDIT_ANSWER_FORM } from 'containers/EditAnswer/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
@@ -103,6 +103,7 @@ AnswerForm.propTypes = {
   answerTypeLabel: PropTypes.string,
   isOfficialRepresentative: PropTypes.bool,
   properties: PropTypes.array,
+  questionView: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -110,13 +111,13 @@ const FormClone = reduxForm({
 })(AnswerForm);
 
 export default React.memo(
-  connect((state, { answer, communityId, properties }) => {
-    const form = state.toJS().form[ADD_ANSWER_FORM] || { values: {} };
+  connect((state, { answer, communityId, properties, questionView }) => {
+    const form = state.toJS().form[EDIT_ANSWER_FORM] || { values: {} };
     const locale = makeSelectLocale()(state);
     const translate = translationMessages[locale];
     const profileInfo = makeSelectProfileInfo()(state);
     const official = isAnswerOfficial({ properties, id: true });
-    const isOfficialRepresentative = isUserOfficialCommunityRepresentative(
+    const isOfficialRepresentative = communityAdminOfficialAnswerPermission(
       profileInfo?.permissions,
       communityId,
     );
@@ -128,7 +129,7 @@ export default React.memo(
       answerTypeLabel: translate[messages.official.id],
       initialValues: {
         [TEXT_EDITOR_ANSWER_FORM]: answer,
-        [ANSWER_TYPE_FORM]: official,
+        [ANSWER_TYPE_FORM]: questionView ? isOfficialRepresentative : official,
       },
     };
   })(FormClone),

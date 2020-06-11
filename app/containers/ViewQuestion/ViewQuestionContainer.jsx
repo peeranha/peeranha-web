@@ -33,6 +33,7 @@ export const ViewQuestionContainer = props => {
           submitButtonName={msg[messages.postAnswerButton.id]}
           previewLabel={msg[commonMessages.preview.id]}
           properties={[]}
+          questionView
         />
       </Base>
     </article>

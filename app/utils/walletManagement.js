@@ -152,11 +152,10 @@ export async function getWeekStat(eosService, profile) {
     }
   });
 
-  const numberOfPeriods =
-    Math.ceil(
-      (Date.now() / 1000 - +process.env.RELEASE_DATE) /
-        +process.env.WEEK_DURATION,
-    ) - 1;
+  const numberOfPeriods = Math.ceil(
+    (Date.now() / 1000 - +process.env.RELEASE_DATE) /
+      +process.env.WEEK_DURATION,
+  );
 
   // Fill by periods with 0 reward - they not stored in blockchain
   return new Array(numberOfPeriods)

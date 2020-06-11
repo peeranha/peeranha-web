@@ -22,6 +22,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsLoaded } from './selectors';
+import { MediumImageStyled } from '../../components/Img/MediumImage';
 
 const single = isSingleCommunityWebsite();
 
@@ -59,10 +60,7 @@ export const Header = ({
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
       {communityAvatar ? (
-        <MediumImageStyled
-          src={communityAvatar}
-          alt="communityAvatar"
-        />
+        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
       ) : (
         <MediumIconStyled>
           <IconLg icon={communityAvatar || defaultAvatar} />

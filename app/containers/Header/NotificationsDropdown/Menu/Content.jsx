@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
 
-import { AutoSizer, List } from 'react-virtualized';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer/AutoSizer';
+import List from 'react-virtualized/dist/commonjs/List';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'components/Notifications/messages';

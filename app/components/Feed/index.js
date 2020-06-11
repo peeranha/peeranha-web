@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import * as routes from 'routes-config';
 import Questions from 'containers/Questions';
 import PropTypes from 'prop-types';
@@ -16,13 +16,11 @@ import WidthCentered from '../LoadingIndicator/WidthCentered';
 const Feed = ({ match, account, loading }) => {
   if (loading) {
     return <WidthCentered />;
+  } else if (account) {
+    return <Questions parentPage={routes.feed()} match={match} />;
   }
 
-  return account ? (
-    <Questions parentPage={routes.feed()} match={match} />
-  ) : (
-    <NotFoundPage />
-  );
+  return <NotFoundPage />;
 };
 
 Feed.propTypes = {
@@ -31,9 +29,11 @@ Feed.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default compose(
-  connect(state => ({
-    account: makeSelectAccount()(state),
-    loading: makeSelectAccountLoading()(state),
-  })),
-)(Feed);
+export default memo(
+  compose(
+    connect(state => ({
+      account: makeSelectAccount()(state),
+      loading: makeSelectAccountLoading()(state),
+    })),
+  )(Feed),
+);

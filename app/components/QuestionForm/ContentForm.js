@@ -7,7 +7,6 @@ import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
-import Wrapper from 'components/Header/Simple';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import TextBlock from 'containers/ViewQuestion/TextBlock';
@@ -16,6 +15,7 @@ import { FORM_CONTENT } from './constants';
 
 import messages from './messages';
 import { PreviewWrapper } from '../AnswerForm';
+import Wrapper from '../FormFields/Wrapper';
 
 const ContentForm = ({ questionLoading, intl, formValues }) => (
   <>

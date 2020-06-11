@@ -121,11 +121,8 @@ export default defineMessages({
   expertQuestion: {
     id: 'app.containers.ViewQuestion.expertQuestion',
   },
-  changeQuestionTypeWithRatingRestore: {
-    id: 'app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore',
-  },
-  changeQuestionTypeWithoutRatingRestore: {
-    id: 'app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore',
+  changeQuestionType: {
+    id: 'app.containers.ViewQuestion.changeQuestionType',
   },
   officialAnswer: {
     id: 'app.containers.ViewQuestion.officialAnswer',

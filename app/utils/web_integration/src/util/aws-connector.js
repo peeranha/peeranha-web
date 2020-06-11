@@ -40,6 +40,7 @@ async function callService(service, props, isGet = false) {
     ...(!isGet ? { body: JSON.stringify(props) } : {}),
   });
   const response = await rawResponse.json();
+
   if (rawResponse.status < 200 || rawResponse.status > 208) {
     return {
       errorMessage: response.message,

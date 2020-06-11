@@ -321,14 +321,12 @@ export function* getCommunityPropertyWorker(profile) {
       profileInfo.user,
     );
 
-    if (info) {
-      yield put(
-        getUserProfileSuccess({
-          ...profile,
-          permissions: info.properties,
-        }),
-      );
-    }
+    yield put(
+      getUserProfileSuccess({
+        ...profile,
+        permissions: info?.properties ?? [],
+      }),
+    );
     // eslint-disable-next-line no-empty
   } catch (e) {}
 }

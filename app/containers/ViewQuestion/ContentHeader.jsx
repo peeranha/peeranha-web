@@ -1,16 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import commonMessages from 'common-messages';
 
-import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_ATTENTION_LIGHT,
+} from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
+import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY } from 'utils/constants';
@@ -78,7 +84,6 @@ const ContentHeader = props => {
     type,
     postTime,
     locale,
-    isModerator,
     answerId,
     buttonParams,
     voteToDelete,
@@ -89,19 +94,29 @@ const ContentHeader = props => {
     deleteItem,
     changeQuestionTypeDispatch,
     questionData,
-    profileInfo,
+    profile,
+    isChangeTypeAvailable,
+    infiniteImpact,
   } = props;
-
-  const isItWrittenByMe = !!profileInfo ? userInfo.user === profileInfo.user : false;
-  
-  const changeQuestionTypeWithRatingRestore = event =>
-    changeQuestionTypeDispatch(true, event);
-  const changeQuestionTypeWithoutRatingRestore = event =>
-    changeQuestionTypeDispatch(false, event);
-
-  const ref = useRef();
   const [isModalOpen, setModalOpen] = useState(false);
+  const ref = useRef(null);
+
   useOnClickOutside(ref, () => setModalOpen(false));
+
+  const isGlobalModerator = useMemo(
+    () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
+    [profile],
+  );
+
+  const isItWrittenByMe = useMemo(
+    () => (profile ? userInfo.user === profile.user : false),
+    [profile, userInfo],
+  );
+
+  const changeQuestionTypeWithRatingRestore = useCallback(
+    event => changeQuestionTypeDispatch(true, event),
+    [changeQuestionTypeDispatch],
+  );
 
   return (
     <Box>
@@ -119,53 +134,45 @@ const ContentHeader = props => {
           postTime={postTime}
           locale={locale}
         />
-        
+
         <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
-            <>
-              <Button
-                id={`${type}_change_type_with_rating_restore_${answerId}`}
-                show={isModerator}
-                onClick={changeQuestionTypeWithRatingRestore}
-                disabled={ids.includes(
-                  `${type}_change_type_with_rating_restore_${answerId}`,
-                )}
-              >
-                <FormattedMessage
-                  {...messages.changeQuestionTypeWithRatingRestore}
-                />
-              </Button>
-              <Button
-                id={`${type}_change_type_without_rating_restore_${answerId}`}
-                show={isModerator}
-                onClick={changeQuestionTypeWithoutRatingRestore}
-                disabled={ids.includes(
-                  `${type}_change_type_without_rating_restore_${answerId}`,
-                )}
-              >
-                <FormattedMessage
-                  {...messages.changeQuestionTypeWithoutRatingRestore}
-                />
-              </Button>
-            </>
+            <Button
+              id={`${type}_change_type_with_rating_restore_${answerId}`}
+              show={isGlobalModerator || isChangeTypeAvailable}
+              onClick={changeQuestionTypeWithRatingRestore}
+              disabled={ids.includes(
+                `${type}_change_type_with_rating_restore_${answerId}`,
+              )}
+            >
+              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
+              <FormattedMessage {...messages.changeQuestionType} />
+            </Button>
           )}
 
           <Button
-            show={!profileInfo || (!!profileInfo && !isItWrittenByMe)}
+            show={!profile || (!!profile && !isItWrittenByMe)}
             id={`${type}_vote_to_delete_${answerId}`}
             params={buttonParams}
             onClick={voteToDelete}
             disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
             isVotedToDelete={isVotedToDelete}
           >
-            <IconSm icon={blockIcon} fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY} />
-            <FormattedMessage {...messages.voteToDelete} />
+            <IconSm
+              icon={blockIcon}
+              fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
+            />
+            <FormattedMessage
+              {...(infiniteImpact
+                ? commonMessages.delete
+                : messages.voteToDelete)}
+            />
           </Button>
 
           {type === QUESTION_TYPE && (
             <DropdownBox>
               <Button
-                show={true}
+                show
                 disabled={isModalOpen}
                 onClick={() => setModalOpen(true)}
               >
@@ -182,7 +189,7 @@ const ContentHeader = props => {
           )}
 
           <Button
-            show={!!profileInfo && isItWrittenByMe}
+            show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${
@@ -198,7 +205,7 @@ const ContentHeader = props => {
               submitAction={deleteItem}
               Button={({ onClick }) => (
                 <Button
-                  show={!!profileInfo && isItWrittenByMe}
+                  show={!!profile && isItWrittenByMe}
                   id={`${type}_delete_${answerId}`}
                   params={buttonParams}
                   onClick={onClick}
@@ -236,20 +243,16 @@ ContentHeader.propTypes = {
   isModerator: PropTypes.bool,
   changeQuestionTypeDispatch: PropTypes.func,
   questionData: PropTypes.object,
-  profileInfo: PropTypes.object,
+  profile: PropTypes.object,
+  isChangeTypeAvailable: PropTypes.bool,
+  infiniteImpact: PropTypes.bool,
 };
 
 export default React.memo(
   connect(
-    state => {
-      const profileInfo = makeSelectProfileInfo()(state);
-      return {
-        profileInfo: profileInfo,
-        isModerator: profileInfo
-          ? !!profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)
-          : false,
-      };
-    },
+    state => ({
+      profile: makeSelectProfileInfo()(state),
+    }),
     dispatch => ({
       changeQuestionTypeDispatch: bindActionCreators(
         changeQuestionType,

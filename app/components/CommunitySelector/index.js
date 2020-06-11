@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
@@ -24,140 +24,152 @@ import CustomOption from './CustomOption';
 import Group from './Group';
 import ManageMyCommunities from './ManageMyCommunities';
 
+const single = isSingleCommunityWebsite();
+
 const Wrapper = styled.div`
   ${MenuStyled} {
     box-shadow: none;
   }
 `;
 
-export class CommunitySelector extends React.PureComponent {
-  state = { isOpen: false };
+const CommunitySelector = ({
+  input = {},
+  Button,
+  isArrowed,
+  locale,
+  communities,
+  followedCommunities,
+  showOnlyFollowed,
+  selectedCommunityId,
+  disabled,
+  toggle,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  toggleOpen = () => {
-    if (!this.props.disabled) {
-      this.setState(state => ({ isOpen: !state.isOpen }));
-    }
-  };
+  const [optionsNumber, options] = useMemo(
+    () => {
+      // To form options array I need to get 2 groups: communities where I AM and NOT
+      const followedFilteredCommunities = getFollowedCommunities(
+        communities,
+        followedCommunities || [],
+      );
 
-  onSelectChange = x => {
-    const { input, toggle } = this.props;
+      const unfollowedFilteredCommunities = getUnfollowedCommunities(
+        communities,
+        followedCommunities || [],
+      );
 
-    this.toggleOpen();
+      let options = [];
 
-    // change redux-form value
-    if (input) {
-      input.onChange(x);
-    }
+      // My feed page
+      if (followedCommunities && showOnlyFollowed) {
+        options = [{ options: followedFilteredCommunities }];
+      }
 
-    // additional action
-    if (toggle) {
-      toggle(x.value);
-    }
-  };
+      // All questions page
+      if (!showOnlyFollowed) {
+        options = [
+          { options: followedFilteredCommunities },
+          { options: unfollowedFilteredCommunities },
+        ];
+      }
 
-  render() {
-    const { isOpen } = this.state;
-    const {
-      input = {},
-      Button,
-      isArrowed,
-      locale,
-      communities,
-      followedCommunities,
-      showOnlyFollowed,
-      selectedCommunityId,
-      disabled,
-    } = this.props;
+      // Default option - All communities - if it is not from form field
+      if (!input.name) {
+        options = [
+          {
+            options: [
+              {
+                label: translationMessages[locale][messages.allCommunities.id],
+                value: 0,
+              },
+            ],
+          },
+          ...options,
+        ];
+      }
 
-    // To form options array I need to get 2 groups: communities where I AM and NOT
-    const followedFilteredCommunities = getFollowedCommunities(
-      communities,
-      followedCommunities || [],
-    );
-
-    const unfollowedFilteredCommunities = getUnfollowedCommunities(
-      communities,
-      followedCommunities || [],
-    );
-
-    let options = [];
-    let optionsNumber = null;
-
-    // My feed page
-    if (followedCommunities && showOnlyFollowed) {
-      optionsNumber = followedFilteredCommunities.length;
-      options = [{ options: followedFilteredCommunities }];
-    }
-
-    // All questions page
-    if (!showOnlyFollowed) {
-      optionsNumber = communities.length;
-      options = [
-        { options: followedFilteredCommunities },
-        { options: unfollowedFilteredCommunities },
+      return [
+        followedCommunities && showOnlyFollowed
+          ? followedFilteredCommunities.length
+          : communities.length ?? null,
+        options,
       ];
-    }
+    },
+    [communities],
+  );
 
-    // Default option - All communities - if it is not from form field
-    if (!input.name) {
-      options = [
-        {
-          options: [
-            {
-              label: translationMessages[locale][messages.allCommunities.id],
-              value: 0,
-            },
-          ],
-        },
-        ...options,
-      ];
-    }
+  const toggleOpen = useCallback(
+    () => {
+      if (optionsNumber > 0 && !single && !disabled) {
+        setIsOpen(!isOpen);
+      }
+    },
+    [disabled, isOpen, optionsNumber],
+  );
 
-    const singleCommunityId = isSingleCommunityWebsite();
+  const onSelectChange = useCallback(
+    x => {
+      toggleOpen();
 
-    const selectedValue = getFollowedCommunities(communities, [
-      selectedCommunityId,
-    ])[0];
+      // change redux-form value
+      if (input.onChange) {
+        input.onChange(x);
+      }
 
-    return (
-      <Dropdown
-        isCommunitySelector
-        isArrowed={optionsNumber > 0 && !singleCommunityId && isArrowed}
-        isOpen={isOpen}
-        toggle={
-          optionsNumber > 0 && !singleCommunityId ? this.toggleOpen : null
-        }
-        target={
-          <Button
-            communityAvatar={selectedValue ? selectedValue.avatar : null}
-            communityLabel={selectedValue ? selectedValue.label : null}
-          />
-        }
-      >
-        <Wrapper>
-          <Select2
-            input={{
-              ...input,
-              optionsNumber,
-              selectedValue,
-              onChange: this.onSelectChange,
-              onBlur: null,
-              value: null,
-            }}
-            options={options}
-            disabled={disabled}
-            Group={Group}
-            CustomOption={CustomOption}
-            autoFocus
-            menuIsOpen
-            isWrapped
-          />
-          <ManageMyCommunities />
-        </Wrapper>
-      </Dropdown>
-    );
-  }
-}
+      // additional action
+      if (toggle) {
+        toggle(x.value);
+      }
+    },
+    [toggleOpen, input, toggle],
+  );
+
+  const selectedValue = getFollowedCommunities(communities, [
+    selectedCommunityId,
+  ])[0];
+
+  const isItArrowed = useMemo(() => optionsNumber > 0 && !single && isArrowed, [
+    optionsNumber,
+    isArrowed,
+  ]);
+
+  return (
+    <Dropdown
+      isCommunitySelector
+      isArrowed={isItArrowed}
+      isOpen={isOpen}
+      toggle={toggleOpen}
+      target={
+        <Button
+          communityAvatar={selectedValue?.avatar}
+          communityLabel={selectedValue?.label}
+        />
+      }
+    >
+      <Wrapper>
+        <Select2
+          input={{
+            ...input,
+            optionsNumber,
+            selectedValue,
+            onChange: onSelectChange,
+            onBlur: null,
+            value: null,
+          }}
+          options={options}
+          disabled={disabled}
+          Group={Group}
+          CustomOption={CustomOption}
+          autoFocus
+          menuIsOpen
+          isWrapped
+        />
+        <ManageMyCommunities />
+      </Wrapper>
+    </Dropdown>
+  );
+};
 
 CommunitySelector.propTypes = {
   Button: PropTypes.any,

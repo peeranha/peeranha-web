@@ -1,9 +1,20 @@
-import { COMMUNITY_ADMIN_KEY, OFFICIAL_ANSWER_KEYS } from './constants';
+import {
+  COMMUNITY_ADMIN_INFINITE_IMPACT,
+  COMMUNITY_ADMIN_OFFICIAL_ANSWER,
+  COMMUNITY_ADMIN_QUESTION_TYPE,
+  COMMUNITY_ADMIN_TOP_QUESTIONS,
+  OFFICIAL_ANSWER_KEYS,
+} from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
   properties.filter(({ value }) =>
     keys.every(
-      key => value.toString(2)[value.toString(2).length - key] === '1',
+      key =>
+        value
+          .toString(2)
+          .split('')
+          .reverse()
+          .join('')[key] === '1',
     ),
   );
 
@@ -11,7 +22,7 @@ export const isUserTopCommunityQuestionsModerator = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_KEY]).filter(
+  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_TOP_QUESTIONS]).filter(
     ({ community }) => communityId === community,
   ).length;
 
@@ -28,10 +39,23 @@ export const isAnswerOfficial = ({ id, properties }) =>
 export const officialAnswersCount = questionData =>
   questionData.answers.filter(answer => isAnswerOfficial(answer)).length;
 
-export const isUserOfficialCommunityRepresentative = (
+export const communityAdminOfficialAnswerPermission = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, OFFICIAL_ANSWER_KEYS).filter(
+  !!findAllPropertiesByKeys(properties, [
+    COMMUNITY_ADMIN_OFFICIAL_ANSWER,
+  ]).filter(({ community }) => communityId === community).length;
+
+export const communityAdminQuestionTypePermission = (properties, communityId) =>
+  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(
     ({ community }) => communityId === community,
   ).length;
+
+export const communityAdminInfiniteImpactPermission = (
+  properties,
+  communityId,
+) =>
+  !!findAllPropertiesByKeys(properties, [
+    COMMUNITY_ADMIN_INFINITE_IMPACT,
+  ]).filter(({ community }) => communityId === community).length;
