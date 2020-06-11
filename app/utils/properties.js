@@ -1,5 +1,6 @@
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
+  COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   OFFICIAL_ANSWER_KEYS,
@@ -42,9 +43,9 @@ export const communityAdminOfficialAnswerPermission = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, [OFFICIAL_ANSWER_KEYS]).filter(
-    ({ community }) => communityId === community,
-  ).length;
+  !!findAllPropertiesByKeys(properties, [
+    COMMUNITY_ADMIN_OFFICIAL_ANSWER,
+  ]).filter(({ community }) => communityId === community).length;
 
 export const communityAdminQuestionTypePermission = (properties, communityId) =>
   !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(

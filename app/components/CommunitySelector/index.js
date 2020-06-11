@@ -113,7 +113,7 @@ const CommunitySelector = ({
       toggleOpen();
 
       // change redux-form value
-      if (input) {
+      if (input.onChange) {
         input.onChange(x);
       }
 
@@ -165,7 +165,7 @@ const CommunitySelector = ({
           menuIsOpen
           isWrapped
         />
-        <ManageMyCommunities />
+        <ManageMyCommunities/>
       </Wrapper>
     </Dropdown>
   );
