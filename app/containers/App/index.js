@@ -79,17 +79,18 @@ import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
-const App = ({ location, redirectToFeedDispatch }) => {
+const App = ({
+  location: { pathname, search, hash },
+  redirectToFeedDispatch,
+  history,
+}) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
 
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {
-      const value = getValueFromSearchString(
-        location.search,
-        REFERRAL_CODE_URI,
-      );
+      const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
       if (value) {
         setCookie({
           name: REFERRAL_CODE_URI,
@@ -106,9 +107,10 @@ const App = ({ location, redirectToFeedDispatch }) => {
 
   useEffect(() => {
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-
-    if (loginData && !single && location.pathname === '/') {
+    if (loginData && !single && pathname === '/' && hash !== '#allquestions') {
       redirectToFeedDispatch();
+    } else if (hash === '#allquestions') {
+      history.push(pathname);
     }
   }, []);
 
@@ -343,6 +345,7 @@ const App = ({ location, redirectToFeedDispatch }) => {
 };
 
 App.propTypes = {
+  history: PropTypes.object,
   location: PropTypes.object,
   redirectToFeedDispatch: PropTypes.func,
 };

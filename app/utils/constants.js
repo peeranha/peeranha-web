@@ -25,9 +25,10 @@ export const HUBSPOT_SEND_MESSAGE_FORM_ID =
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
 // permissions
-export const MODERATOR_KEY = 48;
-export const COMMUNITY_ADMIN_KEY = 7;
-export const OFFICIAL_ANSWER_KEYS = [2, 4];
+export const ADMIN_GLOBAL = 48;
+export const MODERATOR_TOP_QUESTIONS = 7;
+export const MODERATOR_CHANGE_QUESTION_TYPE = [6];
+export const MODERATOR_OFFICIAL_ANSWER_KEYS = [2, 4];
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';

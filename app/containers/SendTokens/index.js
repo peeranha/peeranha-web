@@ -1,9 +1,3 @@
-/**
- *
- * SendTokens
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -49,7 +43,7 @@ export const SendTokens = /* istanbul ignore next */ ({
   balance,
   eosService,
 }) => (
-  <React.Fragment>
+  <>
     <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
       <SendTokensForm
         locale={locale}
@@ -62,7 +56,7 @@ export const SendTokens = /* istanbul ignore next */ ({
     </Modal>
 
     <Button onClick={showSendTokensModalDispatch}>{children}</Button>
-  </React.Fragment>
+  </>
 );
 
 SendTokens.propTypes = {
@@ -78,39 +72,28 @@ SendTokens.propTypes = {
   eosService: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  eosService: selectEos,
-  locale: makeSelectLocale(),
-  loginData: makeSelectLoginData(),
-  balance: makeSelectBalance(),
-  showModal: selectors.selectShowModal(),
-  sendTokensProcessing: selectors.selectSendTokensProcessing(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    hideSendTokensModalDispatch: bindActionCreators(
-      hideSendTokensModal,
-      dispatch,
-    ),
-    showSendTokensModalDispatch: bindActionCreators(
-      showSendTokensModal,
-      dispatch,
-    ),
-    sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'sendTokens', reducer });
-const withSaga = injectSaga({ key: 'sendTokens', saga, mode: DAEMON });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'sendTokens', reducer }),
+  injectSaga({ key: 'sendTokens', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      eosService: selectEos,
+      locale: makeSelectLocale(),
+      loginData: makeSelectLoginData(),
+      balance: makeSelectBalance(),
+      showModal: selectors.selectShowModal(),
+      sendTokensProcessing: selectors.selectSendTokensProcessing(),
+    }),
+    dispatch => ({
+      hideSendTokensModalDispatch: bindActionCreators(
+        hideSendTokensModal,
+        dispatch,
+      ),
+      showSendTokensModalDispatch: bindActionCreators(
+        showSendTokensModal,
+        dispatch,
+      ),
+      sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
+    }),
+  ),
 )(SendTokens);

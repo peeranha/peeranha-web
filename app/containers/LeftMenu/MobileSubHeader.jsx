@@ -73,7 +73,7 @@ const MobileSubHeader = ({ profile }) => {
                 <FormattedMessage {...messages.myFeed} />
               </ADefault>
             )}
-            <ADefault href={process.env.APP_LOCATION}>
+            <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
               <FormattedMessage {...messages.allQuestions} />
             </ADefault>
             <ADefault

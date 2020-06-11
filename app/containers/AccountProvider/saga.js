@@ -12,7 +12,7 @@ import {
   ALL_PROPERTY_COMMUNITY_TABLE,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
-  MODERATOR_KEY,
+  ADMIN_GLOBAL,
   REWARD_REFER,
 } from 'utils/constants';
 import commonMessages from 'common-messages';
@@ -184,7 +184,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 export function* isAvailableAction(isValid) {
   const profileInfo = yield select(makeSelectProfileInfo());
 
-  if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
+  if (profileInfo.integer_properties.find(x => x.key === ADMIN_GLOBAL)) {
     return true;
   }
 

@@ -380,7 +380,7 @@ class EosioService {
     keyType,
     code,
   ) => {
-    const { endpoint } = this.node;
+    const { endpoint } = this.node; // ??? endpoint of null
 
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 

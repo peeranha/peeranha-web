@@ -1,4 +1,7 @@
-import { COMMUNITY_ADMIN_KEY, OFFICIAL_ANSWER_KEYS } from './constants';
+import {
+  MODERATOR_TOP_QUESTIONS,
+  MODERATOR_OFFICIAL_ANSWER_KEYS,
+} from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
   properties.filter(({ value }) =>
@@ -11,7 +14,7 @@ export const isUserTopCommunityQuestionsModerator = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_KEY]).filter(
+  !!findAllPropertiesByKeys(properties, [MODERATOR_TOP_QUESTIONS]).filter(
     ({ community }) => communityId === community,
   ).length;
 
@@ -21,7 +24,7 @@ export const isAnswerOfficial = ({ id, properties }) =>
     ({ key, value }) =>
       !!findAllPropertiesByKeys(
         [{ key: value, value: key }],
-        OFFICIAL_ANSWER_KEYS,
+        MODERATOR_OFFICIAL_ANSWER_KEYS,
       ).length,
   ).length;
 
@@ -32,6 +35,6 @@ export const isUserOfficialCommunityRepresentative = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, OFFICIAL_ANSWER_KEYS).filter(
+  !!findAllPropertiesByKeys(properties, MODERATOR_OFFICIAL_ANSWER_KEYS).filter(
     ({ community }) => communityId === community,
   ).length;

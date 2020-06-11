@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
@@ -12,10 +14,10 @@ import A from 'components/A';
 import Span from 'components/Span';
 import Wrapper from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
-import SendTokens from 'containers/SendTokens';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { showSendTokensModal } from 'containers/SendTokens/actions';
 
-const WalletNavigation = ({ userId }) => {
+const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
   const path = window.location.pathname + window.location.hash;
 
   return (
@@ -29,12 +31,12 @@ const WalletNavigation = ({ userId }) => {
       </ul>
 
       <div className="right-panel">
-        <SendTokens>
+        <button onClick={showSendTokensModalDispatch}>
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
             <IconMd className="mr-2" icon={sendtokensIcon} />
             <FormattedMessage {...messages.sendTokens} />
           </Span>
-        </SendTokens>
+        </button>
       </div>
     </Wrapper>
   );
@@ -42,6 +44,17 @@ const WalletNavigation = ({ userId }) => {
 
 WalletNavigation.propTypes = {
   userId: PropTypes.string,
+  showSendTokensModalDispatch: PropTypes.func,
 };
 
-export default React.memo(WalletNavigation);
+export default React.memo(
+  connect(
+    null,
+    dispatch => ({
+      showSendTokensModalDispatch: bindActionCreators(
+        showSendTokensModal,
+        dispatch,
+      ),
+    }),
+  )(WalletNavigation),
+);

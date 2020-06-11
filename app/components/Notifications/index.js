@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
-import { List, WindowScroller } from 'react-virtualized';
+import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
+import List from 'react-virtualized/dist/commonjs/List';
 
 import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
@@ -22,6 +23,7 @@ import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT } from 'style-constants';
 
+import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
 
 import { ROW_HEIGHT, VERTICAL_OFFSET } from './constants';
@@ -47,7 +49,6 @@ import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
 import WidthCentered from '../LoadingIndicator/WidthCentered';
-import NotFound from '../../containers/ErrorPage';
 
 const colors = singleCommunityColors();
 
@@ -249,7 +250,7 @@ const Notifications = ({
                 />
               </div>
             )}
-          </WindowScroller>,
+          </WindowScroller>
         </Content>
       )}
       {loading && (

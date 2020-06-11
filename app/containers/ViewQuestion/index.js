@@ -90,7 +90,7 @@ export const ViewQuestion = ({
     () => {
       getQuestionDataDispatch(match.params.id);
     },
-    [match],
+    [match.params.id],
   );
 
   useEffect(
@@ -144,22 +144,18 @@ export const ViewQuestion = ({
   };
 
   const helmetTitle =
-    (questionData && questionData.content.title) ||
-    translations[messages.title.id];
+    questionData?.content.title || translations[messages.title.id];
 
   const helmetDescription =
-    (questionData && questionData.content.content) ||
-    translations[messages.title.id];
+    questionData?.content.content ?? translations[messages.title.id];
 
-  const articlePublishedTime =
-    questionData && questionData.post_time
-      ? new Date(questionData.post_time * 1000)
-      : ``;
+  const articlePublishedTime = questionData?.post_time
+    ? new Date(questionData.post_time * 1000)
+    : ``;
 
-  const articleModifiedTime =
-    questionData && questionData.lastEditedDate
-      ? new Date(questionData.lastEditedDate * 1000)
-      : ``;
+  const articleModifiedTime = questionData?.lastEditedDate
+    ? new Date(questionData.lastEditedDate * 1000)
+    : ``;
 
   const tagIds = questionData?.tags ?? [];
 
