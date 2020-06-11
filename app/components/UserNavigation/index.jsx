@@ -16,7 +16,7 @@ import NavigationButton, {
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 const Ul = styled.ul`
   display: flex;
@@ -171,7 +171,7 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <Icon18 icon={pencilIcon} />
+            <IconMd icon={pencilIcon} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.edit} />
             </Span>
@@ -185,7 +185,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <Icon18 icon={closeIcon} fill={BORDER_PRIMARY} />
+            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>

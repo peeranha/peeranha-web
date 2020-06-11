@@ -34,7 +34,7 @@ import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
 
 import A from 'components/A';
-import { Icon24 } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
@@ -102,19 +102,19 @@ const MainLinks = ({ profile }) => {
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
-            <Icon24 className="mr-2" icon={myFeedIcon} fill={BORDER_PRIMARY} />
+            <IconLg className="mr-2" icon={myFeedIcon} />
             <FormattedMessage {...messages.myFeed} />
           </A1>
         )}
 
       <A1 to={routes.questions()} name="questions" route={route || 'questions'}>
-        <Icon24 className="mr-2" icon={allQuestionsIcon} />
+        <IconLg className="mr-2" icon={allQuestionsIcon} />
         <FormattedMessage {...messages.questions} />
       </A1>
 
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
-          <Icon24 className="mr-2" icon={communitiesIcon} />
+          <IconLg className="mr-2" icon={communitiesIcon} />
           <FormattedMessage {...messages.communities} />
         </A1>
       )}
@@ -124,18 +124,18 @@ const MainLinks = ({ profile }) => {
         name="tags"
         route={route}
       >
-        <Icon24 className="mr-2" icon={tagsIcon} />
+        <IconLg className="mr-2" icon={tagsIcon} />
         <FormattedMessage {...messages.tags} />
       </A1>
 
       <A1 to={routes.users()} name="users" route={route}>
-        <Icon24 className="mr-2" icon={usersIcon} />
+        <IconLg className="mr-2" icon={usersIcon} />
         <FormattedMessage {...messages.users} />
       </A1>
 
       {!styles.withoutFAQ && (
         <A1 to={routes.faq()} name="faq" route={route}>
-          <Icon24 className="mr-2" icon={faqIcon} />
+          <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.faq} />
         </A1>
       )}

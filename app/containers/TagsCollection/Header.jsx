@@ -10,7 +10,7 @@ import addIcon from 'images/add.svg?external';
 
 import Wrapper from 'components/Header/Simple';
 import H3 from 'components/H3';
-import { Icon14 } from 'components/Icon/IconWithSizes';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
@@ -31,7 +31,7 @@ const Header = ({ openTagForm }) => (
       >
         <img className="d-none d-sm-inline-block" src={icoTagIcon} alt="icon" />
 
-        <Icon14 className="d-inline-flex d-sm-none" icon={addIcon} />
+        <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
 
         <span className="ml-1">
           <FormattedMessage {...messages.suggestTag} />

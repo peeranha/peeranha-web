@@ -1,6 +1,6 @@
 import React from 'react';
 
-import coinsBlueIcon from 'images/coinsBlue.svg?inline';
+import coinsBlueIcon from 'images/coinsBlack.svg?external';
 import OntLogo from './images/ont.svg?inline';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';

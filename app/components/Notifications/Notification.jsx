@@ -19,7 +19,7 @@ import { trimRightZeros } from 'utils/numbers';
 import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
 
 import Span from '../Span';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 const Container = styled.div`
   position: absolute;
@@ -159,7 +159,7 @@ const Notification = ({
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <Link to={href} href={href} className="d-flex align-items-center">
-          <Icon18 icon={NOTIFICATIONS_TYPES[type].src} />
+          <IconMd icon={NOTIFICATIONS_TYPES[type].src} />
           <span>{data.title}</span>
         </Link>
       </div>

@@ -22,7 +22,7 @@ import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 import {
   FORM_TITLE,
@@ -54,7 +54,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
       id="question-form-suggest-tag"
       type="button"
     >
-      <Icon18 className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+      <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
       <FormattedMessage {...commonMessages.suggestTag} />
     </TransparentButton>
 

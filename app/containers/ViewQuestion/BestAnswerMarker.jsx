@@ -10,16 +10,18 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
 
-import coinsIcon from 'images/coins.svg?inline';
+import coinsIcon from 'images/coins.svg?external';
 import crownIcon from 'images/crownIcon.svg?inline';
 import officialIcon from 'images/officialWhite.svg?inline';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
+import SendTips from '../SendTips';
+import { IconMd } from 'components/Icon/IconWithSizes';
+
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
-import SendTips from '../SendTips';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -31,7 +33,7 @@ const Label = Button.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
-  max-width: 167px;
+  max-width: 180px;
   color: white;
   background: ${({ bg }) => bg || 'inherit'};
 `;
@@ -83,11 +85,8 @@ export const BestAnswerMarker = ({
           account={whoWasAccepted}
         >
           <B>
-            <img
-              className="mr-1"
-              src={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-              alt="icon"
-            />
+            <IconMd className="mr-1"
+              icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon} />
             <FormattedMessage {...commonMessages.tipAnswer} />
           </B>
         </SendTips>

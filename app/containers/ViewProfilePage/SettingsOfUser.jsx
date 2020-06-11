@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
 import * as clipboard from 'clipboard-polyfill';
 
-import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
+import { TEXT_DARK, TEXT_PRIMARY, LINK_COLOR } from 'style-constants';
 import commonMessages from 'common-messages';
 
 import { showPopover } from 'utils/popover';
@@ -24,6 +24,10 @@ export const BaseStyled = Base.extend`
     width: 100%;
 
     tr td {
+      .link-btn {
+        color: ${LINK_COLOR};
+      }
+
       :nth-child(1) {
         color: ${TEXT_DARK};
         font-weight: bold;

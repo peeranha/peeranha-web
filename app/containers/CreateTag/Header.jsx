@@ -13,7 +13,7 @@ import H3 from 'components/H3';
 import Span from 'components/Span';
 import Wrapper from 'components/Header/Simple';
 import Icon from 'components/Icon';
-import { Icon18 } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
@@ -35,7 +35,7 @@ export const Header = () => (
     <div className="right-panel">
       <A to={routes.tags()}>
         <button>
-          <Icon18 className="mr-1" icon={closeIcon} fill={BORDER_PRIMARY} />
+          <IconMd className="mr-1" icon={closeIcon} fill={BORDER_PRIMARY} />
           <Span color={TEXT_PRIMARY}>
             <FormattedMessage {...commonMessages.close} />
           </Span>
