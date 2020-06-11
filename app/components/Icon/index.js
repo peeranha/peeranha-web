@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
   BG_PRIMARY_SPECIAL_2,
-  BORDER_SECONDARY,
   BORDER_PRIMARY,
 } from 'style-constants';
 

@@ -10,7 +10,7 @@ import Icon from 'components/Icon';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import closeIcon from 'images/closeCircle.svg?inline';
-import questionIcon from 'images/question.svg?inline';
+import questionIcon from 'images/question.svg?external';
 
 import A from '../A';
 import Span from '../Span';
