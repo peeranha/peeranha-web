@@ -66,7 +66,7 @@ const CreateTag = ({
     },
     [suggestTagDispatch],
   );
-  console.log(communities);
+
   return (
     <div>
       <Seo
@@ -79,7 +79,7 @@ const CreateTag = ({
       <Header />
 
       {communities[0] && (
-        <TipsBase className="overflow-hidden">
+        <TipsBase>
           <BaseSpecialOne>
             <Form
               communityId={commId}

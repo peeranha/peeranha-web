@@ -46,23 +46,6 @@ const CommunitySelector = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onSelectChange = useCallback(
-    x => {
-      toggleOpen();
-
-      // change redux-form value
-      if (input) {
-        input.onChange(x);
-      }
-
-      // additional action
-      if (toggle) {
-        toggle(x.value);
-      }
-    },
-    [toggleOpen, input, toggle],
-  );
-
   const [optionsNumber, options] = useMemo(
     () => {
       // To form options array I need to get 2 groups: communities where I AM and NOT
@@ -116,15 +99,6 @@ const CommunitySelector = ({
     [communities],
   );
 
-  const selectedValue = getFollowedCommunities(communities, [
-    selectedCommunityId,
-  ])[0];
-
-  const isItArrowed = useMemo(() => optionsNumber > 0 && !single && isArrowed, [
-    optionsNumber,
-    isArrowed,
-  ]);
-
   const toggleOpen = useCallback(
     () => {
       if (optionsNumber > 0 && !single && !disabled) {
@@ -133,6 +107,32 @@ const CommunitySelector = ({
     },
     [disabled, isOpen, optionsNumber],
   );
+
+  const onSelectChange = useCallback(
+    x => {
+      toggleOpen();
+
+      // change redux-form value
+      if (input) {
+        input.onChange(x);
+      }
+
+      // additional action
+      if (toggle) {
+        toggle(x.value);
+      }
+    },
+    [toggleOpen, input, toggle],
+  );
+
+  const selectedValue = getFollowedCommunities(communities, [
+    selectedCommunityId,
+  ])[0];
+
+  const isItArrowed = useMemo(() => optionsNumber > 0 && !single && isArrowed, [
+    optionsNumber,
+    isArrowed,
+  ]);
 
   return (
     <Dropdown
