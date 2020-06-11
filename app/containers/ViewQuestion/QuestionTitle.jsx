@@ -120,7 +120,7 @@ export const QuestionTitle = ({
       <Div>
         {!correctAnswerId &&
           isItWrittenByMe &&
-          answers.length && (
+          answers.length ? (
             <>
               <MarkAnswerNotification className="d-inline-flex">
                 <img className="mr-2" src={checkIcon} alt="icon" />
@@ -132,7 +132,7 @@ export const QuestionTitle = ({
               </MarkAnswerNotification>
               <br />
             </>
-          )}
+          ) : null}
 
         <QuestionName>{title}</QuestionName>
 
