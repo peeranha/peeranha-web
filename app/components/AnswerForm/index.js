@@ -10,7 +10,7 @@ import messages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
 import {
   isAnswerOfficial,
-  isUserOfficialCommunityRepresentative,
+  communityAdminOfficialAnswerPermission,
 } from 'utils/properties';
 import { required, strLength25x30000 } from 'components/FormFields/validate';
 
@@ -117,7 +117,7 @@ export default React.memo(
     const translate = translationMessages[locale];
     const profileInfo = makeSelectProfileInfo()(state);
     const official = isAnswerOfficial({ properties, id: true });
-    const isOfficialRepresentative = isUserOfficialCommunityRepresentative(
+    const isOfficialRepresentative = communityAdminOfficialAnswerPermission(
       profileInfo?.permissions,
       communityId,
     );

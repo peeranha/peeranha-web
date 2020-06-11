@@ -6,7 +6,7 @@ import Content from './Content';
 import { ANSWER_TYPE } from './constants';
 
 export const AcceptedAnswer = props => (
-  <React.Fragment>
+  <>
     {props.questionData.answers.map(
       item =>
         props.questionData.correct_answer_id === item.id ? (
@@ -42,7 +42,7 @@ export const AcceptedAnswer = props => (
           />
         ) : null,
     )}
-  </React.Fragment>
+  </>
 );
 
 AcceptedAnswer.propTypes = {

@@ -12,7 +12,7 @@ import {
   ALL_PROPERTY_COMMUNITY_TABLE,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
-  ADMIN_GLOBAL,
+  MODERATOR_KEY,
   REWARD_REFER,
 } from 'utils/constants';
 import commonMessages from 'common-messages';
@@ -184,7 +184,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 export function* isAvailableAction(isValid) {
   const profileInfo = yield select(makeSelectProfileInfo());
 
-  if (profileInfo.integer_properties.find(x => x.key === ADMIN_GLOBAL)) {
+  if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
     return true;
   }
 
@@ -321,14 +321,12 @@ export function* getCommunityPropertyWorker(profile) {
       profileInfo.user,
     );
 
-    if (info) {
-      yield put(
-        getUserProfileSuccess({
-          ...profile,
-          permissions: info.properties,
-        }),
-      );
-    }
+    yield put(
+      getUserProfileSuccess({
+        ...profile,
+        permissions: info?.properties ?? [],
+      }),
+    );
     // eslint-disable-next-line no-empty
   } catch (e) {}
 }

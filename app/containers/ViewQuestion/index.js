@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,6 +8,10 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
+import {
+  communityAdminInfiniteImpactPermission,
+  communityAdminQuestionTypePermission,
+} from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -15,7 +19,10 @@ import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { redirectToEditAnswerPage } from 'containers/EditAnswer/actions';
@@ -41,6 +48,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
+
 
 export const ViewQuestion = ({
   locale,
@@ -74,6 +82,7 @@ export const ViewQuestion = ({
   ids,
   resetStoreDispatch,
   match,
+  profile,
   history,
 }) => {
   useEffect(() => {
@@ -112,6 +121,20 @@ export const ViewQuestion = ({
 
   const translations = translationMessages[locale];
 
+  const [isChangeTypeAvailable, infiniteImpact] = useMemo(
+    () => [
+      communityAdminQuestionTypePermission(
+        profile?.permissions || [],
+        questionData?.['community_id'],
+      ),
+      communityAdminInfiniteImpactPermission(
+        profile?.permissions || [],
+        questionData?.['community_id'],
+      ),
+    ],
+    [profile, questionData],
+  );
+
   const sendProps = {
     account,
     locale,
@@ -141,6 +164,8 @@ export const ViewQuestion = ({
     redirectToEditQuestionPage: redirectToEditQuestionPageDispatch,
     redirectToEditAnswerPage: redirectToEditAnswerPageDispatch,
     ids,
+    isChangeTypeAvailable,
+    infiniteImpact,
   };
 
   const helmetTitle =
@@ -223,6 +248,7 @@ ViewQuestion.propTypes = {
   redirectToEditQuestionPageDispatch: PropTypes.func,
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
+  profile: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -230,6 +256,7 @@ const withConnect = connect(
     account: makeSelectAccount(),
     locale: makeSelectLocale(),
     communities: selectCommunities(),
+    profile: makeSelectProfileInfo(),
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),

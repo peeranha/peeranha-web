@@ -1,12 +1,19 @@
 import {
-  MODERATOR_TOP_QUESTIONS,
-  MODERATOR_OFFICIAL_ANSWER_KEYS,
+  COMMUNITY_ADMIN_INFINITE_IMPACT,
+  COMMUNITY_ADMIN_QUESTION_TYPE,
+  COMMUNITY_ADMIN_TOP_QUESTIONS,
+  OFFICIAL_ANSWER_KEYS,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
   properties.filter(({ value }) =>
     keys.every(
-      key => value.toString(2)[value.toString(2).length - key] === '1',
+      key =>
+        value
+          .toString(2)
+          .split('')
+          .reverse()
+          .join('')[key] === '1',
     ),
   );
 
@@ -14,7 +21,7 @@ export const isUserTopCommunityQuestionsModerator = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, [MODERATOR_TOP_QUESTIONS]).filter(
+  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_TOP_QUESTIONS]).filter(
     ({ community }) => communityId === community,
   ).length;
 
@@ -24,17 +31,30 @@ export const isAnswerOfficial = ({ id, properties }) =>
     ({ key, value }) =>
       !!findAllPropertiesByKeys(
         [{ key: value, value: key }],
-        MODERATOR_OFFICIAL_ANSWER_KEYS,
+        OFFICIAL_ANSWER_KEYS,
       ).length,
   ).length;
 
 export const officialAnswersCount = questionData =>
   questionData.answers.filter(answer => isAnswerOfficial(answer)).length;
 
-export const isUserOfficialCommunityRepresentative = (
+export const communityAdminOfficialAnswerPermission = (
   properties = [],
   communityId,
 ) =>
-  !!findAllPropertiesByKeys(properties, MODERATOR_OFFICIAL_ANSWER_KEYS).filter(
+  !!findAllPropertiesByKeys(properties, [OFFICIAL_ANSWER_KEYS]).filter(
     ({ community }) => communityId === community,
   ).length;
+
+export const communityAdminQuestionTypePermission = (properties, communityId) =>
+  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(
+    ({ community }) => communityId === community,
+  ).length;
+
+export const communityAdminInfiniteImpactPermission = (
+  properties,
+  communityId,
+) =>
+  !!findAllPropertiesByKeys(properties, [
+    COMMUNITY_ADMIN_INFINITE_IMPACT,
+  ]).filter(({ community }) => communityId === community).length;

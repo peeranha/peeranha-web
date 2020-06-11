@@ -4,16 +4,22 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import commonMessages from 'common-messages';
 
-import { BORDER_SECONDARY, BORDER_PRIMARY, BORDER_ATTENTION_LIGHT } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+  BORDER_ATTENTION_LIGHT,
+} from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
+import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { ADMIN_GLOBAL } from 'utils/constants';
+import { MODERATOR_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -89,6 +95,8 @@ const ContentHeader = props => {
     changeQuestionTypeDispatch,
     questionData,
     profile,
+    isChangeTypeAvailable,
+    infiniteImpact,
   } = props;
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
@@ -96,7 +104,7 @@ const ContentHeader = props => {
   useOnClickOutside(ref, () => setModalOpen(false));
 
   const isGlobalModerator = useMemo(
-    () => !!profile?.['integer_properties'].find(x => x.key === ADMIN_GLOBAL),
+    () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
     [profile],
   );
 
@@ -109,14 +117,6 @@ const ContentHeader = props => {
     event => changeQuestionTypeDispatch(true, event),
     [changeQuestionTypeDispatch],
   );
-
-  // #define COMMUNITY_ADMIN_FLG_INFINITE_ENERGY (1 << 0)
-  // #define COMMUNITY_ADMIN_FLG_INFINITE_IMPACT (1 << 1)
-  // #define COMMUNITY_ADMIN_FLG_IGNORE_RATING (1 << 2)
-  // #define COMMUNITY_ADMIN_FLG_CREATE_TAG (1 << 4)
-  // #define COMMUNITY_ADMIN_FLG_CHANGE_QUESTION_STATUS (1 << 5)
-  // #define COMMUNITY_ADMIN_FLG_CHANGE_TOP_QUESTION (1 << 6)
-  // #define COMMUNITY_ADMIN_FLG_OFFICIAL_ANSWER  (1 << 7)
 
   return (
     <Box>
@@ -139,12 +139,13 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={isGlobalModerator}
+              show={isGlobalModerator || isChangeTypeAvailable}
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
               )}
             >
+              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
               <FormattedMessage {...messages.changeQuestionType} />
             </Button>
           )}
@@ -157,8 +158,15 @@ const ContentHeader = props => {
             disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
             isVotedToDelete={isVotedToDelete}
           >
-            <IconSm icon={blockIcon} fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY} />
-            <FormattedMessage {...messages.voteToDelete} />
+            <IconSm
+              icon={blockIcon}
+              fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
+            />
+            <FormattedMessage
+              {...(infiniteImpact
+                ? commonMessages.delete
+                : messages.voteToDelete)}
+            />
           </Button>
 
           {type === QUESTION_TYPE && (
@@ -236,6 +244,8 @@ ContentHeader.propTypes = {
   changeQuestionTypeDispatch: PropTypes.func,
   questionData: PropTypes.object,
   profile: PropTypes.object,
+  isChangeTypeAvailable: PropTypes.bool,
+  infiniteImpact: PropTypes.bool,
 };
 
 export default React.memo(
