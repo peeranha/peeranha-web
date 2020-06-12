@@ -9,7 +9,7 @@ import energyIcon from 'images/energy.svg?external';
 
 import Ul, { Ul1 } from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
+import { IconEm, IconLm } from 'components/Icon/IconWithSizes';
 import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
@@ -21,7 +21,7 @@ export const Button = ({ energy }) => (
     <Span fontSize="16" bold>
       {energy}
     </Span>
-    <Icon icon={energyIcon} width="19" />
+    <IconEm icon={energyIcon} />
   </IconBG>
 );
 
@@ -29,7 +29,7 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
   <nav>
     <Ul>
       <li>
-        <Icon icon={energyIcon} width="20" />
+        <IconLm icon={energyIcon} />
         <Span className="mx-1">
           <Span fontSize="16" bold>
             {energy}
@@ -49,12 +49,13 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
   </nav>
 );
 
-/* eslint no-unreachable: 0 */
 const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
   const { maxEnergy } = userStatusOptions[getStatus(rating)];
 
   // TODO: return if energy will be needed
-  return null;
+  if (process.env.ENV === 'prod') {
+    return null;
+  }
 
   return (
     <Dropdown

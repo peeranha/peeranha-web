@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
-import dotsIcon from 'images/dots.svg?inline';
+import dotsIcon from 'images/dots.svg?external';
 import arrowDownOutlined from 'images/arrowDown.svg?external';
 
 import Span from 'components/Span';
 import Icon from 'components/Icon';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import Textarea from 'components/Textarea';
-
 import CommentForm from './CommentForm';
+
 import messages from './messages';
 
 const ButtonStyled = styled.button`
@@ -62,7 +63,7 @@ export const CommentOptions = ({
         )}
 
         <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
-          <img src={dotsIcon} alt="***" />
+          <IconMd icon={dotsIcon} fill={BORDER_PRIMARY} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>

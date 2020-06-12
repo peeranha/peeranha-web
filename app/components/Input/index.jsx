@@ -9,8 +9,7 @@ import refreshIcon from 'images/reload.svg?external';
 import eyeOpenedIcon from 'images/eyeOpened.svg?external';
 import eyeClosedIcon from 'images/eyeСlosed.svg?external';
 
-import Icon from 'components/Icon';
-
+import { IconMd } from 'components/Icon/IconWithSizes';
 import InputStyled from './InputStyled';
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -39,7 +38,7 @@ const Handler = ({
 
   return (
     <button onClick={onClick || null} type="button" tabIndex="-1">
-      <Icon icon={src} width="18" color={TEXT_SECONDARY_LIGHT} />
+      <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
     </button>
   );
 };

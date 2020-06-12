@@ -1,10 +1,4 @@
-/**
- *
- * View
- *
- */
-
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
@@ -24,10 +18,14 @@ import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
+import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 import { ADefault } from 'components/A';
 
 import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
@@ -38,25 +36,29 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID } from './constants';
+import { HEADER_ID, SEARCH_FORM_ID } from './constants';
 
-export const LoginProfile = React.memo(
-  ({ profileInfo, showLoginModalDispatch, faqQuestions }) => {
-    if (profileInfo) {
-      return (
-        <ButtonGroupForAuthorizedUser
-          faqQuestions={faqQuestions}
-          profileInfo={profileInfo}
-        />
-      );
-    }
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
-    return (
+export const LoginProfile = memo(
+  ({
+    profileInfo,
+    showLoginModalDispatch,
+    faqQuestions,
+    isSearchFormVisible,
+  }) =>
+    profileInfo ? (
+      <ButtonGroupForAuthorizedUser
+        faqQuestions={faqQuestions}
+        profileInfo={profileInfo}
+        isSearchFormVisible={isSearchFormVisible}
+      />
+    ) : (
       <ButtonGroupForNotAuthorizedUser
         showLoginModal={showLoginModalDispatch}
       />
-    );
-  },
+    ),
 );
 
 const Button = LargeButton.extend`
@@ -77,14 +79,6 @@ const Button = LargeButton.extend`
   }
 `;
 
-const Base = styled.div`
-  display: flex;
-  margin-left: auto;
-  height: 27px;
-  align-items: center;
-  justify-content: center;
-`;
-
 const View = ({
   showMenu,
   intl,
@@ -94,77 +88,70 @@ const View = ({
   faqQuestions,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
-  const searchFormId = 'q';
 
   useEffect(
     () => {
       if (isSearchFormVisible) {
-        document.getElementById(searchFormId).focus();
+        document.getElementById(SEARCH_FORM_ID).focus();
       }
     },
     [isSearchFormVisible],
   );
 
-  const singleCommunityId = isSingleCommunityWebsite();
+  const Logo = useCallback(
+    () => {
+      if (isSearchFormVisible) return null;
 
-  const Logo = () => {
-    if (isSearchFormVisible) return null;
+      const src = styles.withoutSubHeader
+        ? communitiesConfig[single].src
+        : peeranhaLogo;
 
-    const src = singleCommunityId
-      ? communitiesConfig[singleCommunityId].src
-      : peeranhaLogo;
-
-    return (
-      <LogoStyles to={routes.questions()}>
-        <img src={src} alt="logo" />
-      </LogoStyles>
-    );
-  };
+      return (
+        <LogoStyles to={routes.questions()}>
+          <img src={src} alt="logo" />
+        </LogoStyles>
+      );
+    },
+    [isSearchFormVisible],
+  );
 
   return (
     <Wrapper id={HEADER_ID}>
-      {singleCommunityId ? (
-        <SingleModeSubHeader>
-          <div className="container">
-            <ADefault href={`${process.env.APP_LOCATION}${routes.questions()}`}>
-              <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
-            </ADefault>
-
-            {profileInfo && (
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <FormattedMessage {...messages.myFeed} />
+      {!styles?.customSubHeader &&
+        !!single && (
+          <SingleModeSubHeader>
+            <div className="container">
+              <ADefault
+                href={`${process.env.APP_LOCATION}${routes.questions()}`}
+              >
+                <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
               </ADefault>
-            )}
-            <ADefault href={process.env.APP_LOCATION}>
-              <FormattedMessage {...messages.allQuestions} />
-            </ADefault>
-            <ADefault
-              href={`${process.env.APP_LOCATION}${routes.communities()}`}
-            >
-              <FormattedMessage {...messages.allCommunities} />
-            </ADefault>
-            <Base>
-              {profileInfo ? (
-                <LoginProfile
-                  showLoginModalDispatch={showLoginModalDispatch}
-                  profileInfo={profileInfo}
-                  faqQuestions={faqQuestions}
-                />
-              ) : null}
-            </Base>
-          </div>
-        </SingleModeSubHeader>
-      ) : null}
 
+              {profileInfo && (
+                <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
+                  <FormattedMessage {...messages.myFeed} />
+                </ADefault>
+              )}
+              <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
+                <FormattedMessage {...messages.allQuestions} />
+              </ADefault>
+              <ADefault
+                href={`${process.env.APP_LOCATION}${routes.communities()}`}
+              >
+                <FormattedMessage {...messages.allCommunities} />
+              </ADefault>
+            </div>
+          </SingleModeSubHeader>
+        )}
+      {styles?.customSubHeader ?? null}
       <MainSubHeader>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
-                <Icon
+                <IconLm
                   icon={headerNavigationIcon}
                   color={TEXT_SECONDARY_LIGHT}
-                  width="20"
                 />
               </button>
 
@@ -173,7 +160,7 @@ const View = ({
 
             <Section className="insides">
               <SearchForm
-                searchFormId={searchFormId}
+                searchFormId={SEARCH_FORM_ID}
                 onBlur={() => setSearchFormVisibility(false)}
                 className={`${isSearchFormVisible ? '' : 'd-none'} d-lg-flex`}
                 placeholder={intl.formatMessage({
@@ -182,34 +169,36 @@ const View = ({
               />
 
               {!isSearchFormVisible && (
-                <Button
-                  bg={BG_LIGHT}
-                  className="d-flex d-lg-none"
-                  onClick={() => setSearchFormVisibility(!isSearchFormVisible)}
-                >
-                  <Icon
-                    icon={searchIcon}
-                    width="16"
-                    color={TEXT_SECONDARY_LIGHT}
-                  />
-                </Button>
+                <>
+                  <Button
+                    bg={BG_LIGHT}
+                    className="d-flex d-lg-none"
+                    onClick={() =>
+                      setSearchFormVisibility(!isSearchFormVisible)
+                    }
+                  >
+                    <Icon
+                      icon={searchIcon}
+                      width="16"
+                      color={TEXT_SECONDARY_LIGHT}
+                    />
+                  </Button>
+                  <Button
+                    id="header-ask-question"
+                    onClick={redirectToAskQuestionPage}
+                  >
+                    <IconSm icon={addIcon} />
+
+                    <span className="d-none d-lg-inline ml-2">
+                      <FormattedMessage {...messages.askQuestion} />
+                    </span>
+                  </Button>
+                </>
               )}
 
-              {!isSearchFormVisible && (
-                <Button
-                  id="header-ask-question"
-                  onClick={redirectToAskQuestionPage}
-                >
-                  <Icon icon={addIcon} width="14" />
-
-                  <span className="d-none d-lg-inline ml-2">
-                    <FormattedMessage {...messages.askQuestion} />
-                  </span>
-                </Button>
-              )}
-
-              {!singleCommunityId || !profileInfo ? (
+              {!single.withoutSubHeader || !profileInfo ? (
                 <LoginProfile
+                  isSearchFormVisible={isSearchFormVisible}
                   showLoginModalDispatch={showLoginModalDispatch}
                   profileInfo={profileInfo}
                   faqQuestions={faqQuestions}
@@ -234,9 +223,10 @@ View.propTypes = {
 };
 
 LoginProfile.propTypes = {
+  isSearchFormVisible: PropTypes.bool,
   profileInfo: PropTypes.object,
   showLoginModalDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
 };
 
-export default injectIntl(React.memo(View));
+export default injectIntl(memo(View));

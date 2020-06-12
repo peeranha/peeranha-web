@@ -79,7 +79,10 @@
     "plugins": [
       "styled-components",
       "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-syntax-dynamic-import"
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-optional-chaining",
+      "@babel/plugin-proposal-do-expressions",
+      "@babel/plugin-proposal-nullish-coalescing-operator"
     ],
     "env": {
       "production": {
@@ -90,13 +93,19 @@
           "lodash",
           "transform-react-remove-prop-types",
           "@babel/plugin-transform-react-inline-elements",
-          "@babel/plugin-transform-react-constant-elements"
+          "@babel/plugin-transform-react-constant-elements",
+          "@babel/plugin-proposal-optional-chaining",
+          "@babel/plugin-proposal-do-expressions",
+          "@babel/plugin-proposal-nullish-coalescing-operator"
         ]
       },
       "test": {
         "plugins": [
           "@babel/plugin-transform-modules-commonjs",
-          "dynamic-import-node"
+          "dynamic-import-node",
+          "@babel/plugin-proposal-optional-chaining",
+          "@babel/plugin-proposal-do-expressions",
+          "@babel/plugin-proposal-nullish-coalescing-operator"
         ]
       }
     }
@@ -167,7 +176,7 @@
     "chalk": "^2.4.2",
     "clipboard-polyfill": "^2.8.6",
     "compression": "1.7.2",
-    "copy-webpack-plugin": "^5.0.3",
+    "copy-webpack-plugin": "^5.1.1",
     "cross-env": "5.2.0",
     "crypto": "^1.0.1",
     "date-fns": "^1.29.0",
@@ -184,7 +193,7 @@
     "ip": "1.1.5",
     "ipfs-api": "24.0.1",
     "jquery": "3.4.0",
-    "jsbi": "^3.1.1",
+    "jsbi": "^3.1.2",
     "lodash": "4.17.13",
     "markdown-loader": "^5.0.0",
     "minimist": "1.2.0",
@@ -192,9 +201,9 @@
     "object-hash": "^1.3.1",
     "popper.js": "1.14.4",
     "prop-types": "15.6.1",
-    "react": "^16.8.3",
+    "react": "^16.13.1",
     "react-avatar-edit": "^0.8.3",
-    "react-dom": "^16.8.3",
+    "react-dom": "^16.13.1",
     "react-ga": "^2.5.6",
     "react-helmet": "5.2.0",
     "react-intl": "2.4.0",
@@ -202,10 +211,12 @@
     "react-redux": "5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
-    "react-select": "^3.0.4",
+    "react-select": "^3.1.0",
+    "react-share": "^4.1.0",
     "react-simplemde-editor": "^3.6.22",
+    "react-virtualized": "^9.21.2",
     "redux": "4.0.0",
-    "redux-form": "^7.4.2",
+    "redux-form": "^7.4.3",
     "redux-immutable": "4.0.0",
     "redux-saga": "0.16.0",
     "reselect": "3.0.1",
@@ -221,6 +232,9 @@
     "@babel/cli": "7.4.3",
     "@babel/core": "7.4.3",
     "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/plugin-proposal-do-expressions": "^7.10.1",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.1",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-transform-modules-commonjs": "7.4.3",
     "@babel/plugin-transform-react-constant-elements": "7.2.0",
@@ -275,13 +289,13 @@
     "prettier": "1.13.5",
     "react-test-renderer": "16.4.1",
     "rimraf": "2.6.2",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.4",
     "style-loader": "0.21.0",
     "stylelint": "9.3.0",
     "stylelint-config-recommended": "2.1.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.3.1",
-    "svg-inline-loader": "^0.8.0",
+    "svg-inline-loader": "^0.8.2",
     "svg-url-loader": "2.3.2",
     "url-loader": "1.0.1",
     "webpack": "4.12.0",

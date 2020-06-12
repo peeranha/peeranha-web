@@ -14,9 +14,13 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
+import injectSaga from 'utils/injectSaga';
+import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -27,6 +31,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
 
+import saga from './saga';
 import {
   HomePage,
   Faq,
@@ -69,20 +74,23 @@ import {
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
+import { AUTOLOGIN_DATA } from '../Login/constants';
+import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
-const App = ({ location }) => {
+const App = ({
+  location: { pathname, search, hash },
+  redirectToFeedDispatch,
+  history,
+}) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
 
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {
-      const value = getValueFromSearchString(
-        location.search,
-        REFERRAL_CODE_URI,
-      );
+      const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
       if (value) {
         setCookie({
           name: REFERRAL_CODE_URI,
@@ -94,6 +102,15 @@ const App = ({ location }) => {
           },
         });
       }
+    }
+  }, []);
+
+  useEffect(() => {
+    const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+    if (loginData && !single && pathname === '/' && hash !== '#allquestions') {
+      redirectToFeedDispatch();
+    } else if (hash === '#allquestions') {
+      history.push(pathname);
     }
   }, []);
 
@@ -328,6 +345,18 @@ const App = ({ location }) => {
 };
 
 App.propTypes = {
+  history: PropTypes.object,
   location: PropTypes.object,
+  redirectToFeedDispatch: PropTypes.func,
 };
-export default withRouter(App);
+
+export default compose(
+  withRouter,
+  injectSaga({ key: 'app', saga, mode: DAEMON }),
+  connect(
+    null,
+    dispatch => ({
+      redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    }),
+  ),
+)(App);

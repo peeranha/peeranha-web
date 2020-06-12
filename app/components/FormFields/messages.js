@@ -4,6 +4,9 @@ export default defineMessages({
   wrongLength: {
     id: 'app.components.FormFields.wrongLength',
   },
+  wrongExactLength: {
+    id: 'app.components.FormFields.wrongExactLength',
+  },
   wrongLengthOfList: {
     id: 'app.components.FormFields.wrongLengthOfList',
   },
@@ -34,8 +37,8 @@ export default defineMessages({
   passwordsNotMatch: {
     id: 'app.components.FormFields.passwordsNotMatch',
   },
-  onlyLettersAndNumbersFromTo: {
-    id: 'app.components.FormFields.onlyLettersAndNumbersFromTo',
+  onlyLowerCaseLettersAndNumbersFromTo: {
+    id: 'app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo',
   },
   withoutDoubleSpace: {
     id: 'app.components.FormFields.withoutDoubleSpace',
@@ -48,5 +51,27 @@ export default defineMessages({
   },
   onlyOneDotValue: {
     id: 'app.components.FormFields.onlyOneDotValue',
+  },
+  telosNameLength: {
+    id: 'app.components.FormFields.telosNameLength',
+  },
+  telosCorrectSymbols: {
+    id: 'app.components.FormFields.telosCorrectSymbols',
+  },
+  notAbleChangeAfterCreation: {
+    id: 'app.components.FormFields.notAbleChangeAfterCreation',
+  },
+  thisTelosNameIsAvailable: {
+    id: 'app.components.FormFields.thisTelosNameIsAvailable',
+  },
+  thisTelosNameIsntAvailable: {
+    id: 'app.components.FormFields.thisTelosNameIsntAvailable',
+  },
+  atLeastOneLetter: {
+    id: 'app.components.FormFields.atLeastOneLetter',
+  },
+  exactFromAndToAccounts: {
+    id: 'app.components.FormFields.exactFromAndToAccounts',
+    visited: true,
   },
 });

@@ -6,15 +6,19 @@ import { formatStringToHtmlId } from 'utils/animation';
 
 import {
   BG_LIGHT,
-  BORDER_SECONDARY,
   BG_PRIMARY_DARK,
   BORDER_PRIMARY_DARK,
+  BORDER_SECONDARY,
 } from 'style-constants';
 
 import checkedIcon from 'images/okay.svg?inline';
 
 import Span from 'components/Span';
-import { ErrorHandling, DisableHandling } from './InputStyled';
+import { DisableHandling, ErrorHandling } from './InputStyled';
+
+const Container = styled.div`
+  width: ${({ width }) => width || 'auto'};
+`;
 
 export const Icon = styled.span`
   background: ${BG_LIGHT};
@@ -53,8 +57,8 @@ export const Label = Span.extend`
 `.withComponent('label');
 
 /* eslint jsx-a11y/label-has-for: 0 */
-const Checkbox = ({ input, label, disabled, meta }) => (
-  <div className="d-flex align-items-start">
+const Checkbox = ({ input, label, disabled, meta, width }) => (
+  <Container width={width} className="d-flex align-items-start">
     <div className="position-relative d-inline-flex">
       <Icon
         value={input.value}
@@ -73,7 +77,7 @@ const Checkbox = ({ input, label, disabled, meta }) => (
     <Label htmlFor={formatStringToHtmlId(input.name)} disabled={disabled}>
       {label}
     </Label>
-  </div>
+  </Container>
 );
 
 Checkbox.propTypes = {
@@ -81,6 +85,7 @@ Checkbox.propTypes = {
   meta: PropTypes.object,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   disabled: PropTypes.bool,
+  width: PropTypes.string,
 };
 
 export default Checkbox;

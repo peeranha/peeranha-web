@@ -3,17 +3,16 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ACCOUNTS_TABLE,
-  PERIOD_REWARD_TABLE,
-  PERIOD_RATING_TABLE,
-  SEND_TOKEN_METHOD,
-  PICKUP_REWARD_METHOD,
-  APP_CURRENCY,
-  TOTAL_REWARD_TABLE,
-  TOTAL_RATING_TABLE,
   ALL_PERIODS_SCOPE,
   INF_LIMIT,
-  USER_SUPPLY_TABLE,
+  PERIOD_RATING_TABLE,
+  PERIOD_REWARD_TABLE,
+  PICKUP_REWARD_METHOD,
+  SEND_TOKEN_METHOD,
+  TOTAL_RATING_TABLE,
+  TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
+  USER_SUPPLY_TABLE,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -105,7 +104,7 @@ export async function getWeekStat(eosService, profile) {
     { rows: totalRating },
     { rows: periodRating },
     { rows: weekRewards },
-    { rows: userSupplyValues },
+    userSupplyValues,
   ] = await Promise.all([
     getTotalReward(),
     getTotalRating(),
@@ -182,19 +181,26 @@ export async function getWeekStat(eosService, profile) {
     .reverse();
 }
 
-export async function sendTokens(eosService, info) {
-  await eosService.sendTransaction(
-    info.from,
+export async function sendTokens(
+  eosService,
+  { from, to, quantity, precision, symbol, contractAccount },
+) {
+  const data = {
+    from,
+    to,
+    quantity: getNormalizedCurrency(quantity, precision, symbol),
+    memo: '',
+  };
+
+  const response = await eosService.sendTransaction(
+    from,
     SEND_TOKEN_METHOD,
-    {
-      from: info.from,
-      to: info.to,
-      quantity: getNormalizedCurrency(info.quantity),
-      memo: '',
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    data,
+    contractAccount,
     true,
   );
+
+  return { response, data };
 }
 
 export async function pickupReward(eosService, user, periodIndex) {
@@ -211,14 +217,14 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
-export function getNormalizedCurrency(value) {
-  if (!Number(value)) {
+export function getNormalizedCurrency(quantity, precision, symbol) {
+  if (!Number(quantity)) {
     throw new ApplicationError(`Value has to be number`);
   }
 
-  const num = getFormattedNum3(Number(value)).replace(/ /gim, '');
+  const num = getFormattedNum3(Number(quantity), precision).replace(/ /gim, '');
 
-  return `${num} ${APP_CURRENCY}`;
+  return `${num} ${symbol}`;
 }
 
 // TODO: test

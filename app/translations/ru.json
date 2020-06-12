@@ -10,6 +10,10 @@
   "app.common.answersNumber": "Ответы {number}",
   "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
+  "app.common.notifications": "Уведомления",
+  "app.common.notificationCenter": "Центр Уведомлений",
+  "app.common.archive": "Архив",
+  "app.common.markAllAsRead": "Пометить все как прочитанные",
   "app.common.edit": "Править",
   "app.common.logout": "Выход",
   "app.common.search": "Поиск",
@@ -92,6 +96,7 @@
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
@@ -102,6 +107,11 @@
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
   "app.common.tipQuestion": "Чаевые",
+  "app.common.chooseCrypto": "Выберите валюту",
+  "app.common.chooseWallet": "Выберите кошелек",
+  "app.common.tip": "Вознаградить",
+  "app.common.tipAnswer": "Вознаградить ответ",
+  "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
@@ -109,25 +119,25 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
-
+  "app.common.rightNow": "Прямо сейчас",
+  "app.common.minutesAgo": "{minutes} минут назад",
+  "app.common.hoursAgo": "{hours} часов назад",
+  "app.common.yesterday": "Вчера",
+  "app.common.official": "Официальный",
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
     "Условия обслуживания : описание",
-
   "app.containers.Search.title": "Поиск",
   "app.containers.Search.description": "Поиск: описание",
-
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Е-мэйлы не совпадают",
-
   "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
   "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
   "app.containers.DeleteAccount.iUnderstand":
     "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
   "app.containers.DeleteAccount.iHaveBackup":
     "Я сделал бэкап моих Telos приватных ключей.",
-
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
   "app.containers.Wallet.eosAccount": "Telos аккаунт",
@@ -141,6 +151,11 @@
   "app.containers.Wallet.week": "Неделя",
   "app.containers.Wallet.getReward": "Получить награду",
   "app.containers.Wallet.received": "Получено",
+  "app.containers.Wallet.thisIsRegistrationWeek":
+    "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
+  "app.containers.Wallet.registrationWeek": "Неделя регистрации",
+  "app.containers.Wallet.yourWalletWasSuccessfullySet":
+    "Ваш кошелёк был успешно настроен в этот период",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
@@ -471,6 +486,29 @@
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
 
+  "app.containers.Notifications.youHaveNoNewNotifications":
+    "У вас нет новых уведомлений",
+  "app.containers.Notifications.yourQuestionWasUpVoted":
+    "Вашему вопросу поставили лайк",
+  "app.containers.Notifications.yourQuestionWasDownVoted":
+    "Вашему вопросу поставили дизлайк",
+  "app.containers.Notifications.yourAnswerWasUpVoted":
+    "Вашему ответу поставили лайк",
+  "app.containers.Notifications.yourAnswerWasDownVoted":
+    "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
+    "Ваш ответ был помечен как лучший",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion":
+    "Кто-то ответил на ваш вопрос",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
+    "Кто-то оставил комментарий к вашему вопросу",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
+    "Кто-то оставил комментарий к вашему ответу",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "Вашему вопросу отправили чаевые",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "Вашему ответу отправили чаевые",
+
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
@@ -507,6 +545,8 @@
     "Такого вопроса не существует",
   "app.containers.ViewQuestion.deleteButton": "Удалить",
   "app.containers.ViewQuestion.editButton": "Редактировать",
+  "app.containers.ViewQuestion.shareButton": "Поделиться",
+  "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот вопрос",
   "app.containers.ViewQuestion.saveButton": "Сохранить",
   "app.containers.ViewQuestion.commentButton": "Комментировать",
   "app.containers.ViewQuestion.postCommentButton": "Отправить",
@@ -533,15 +573,14 @@
     "Отметить лучший ответ в своем вопросе и получи +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
-  "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
-    "Изменить тип с восстановление рейтинга",
-  "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
-    "Изменить тип без восстановление рейтинга",
-
+  "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
+  "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongExactLength":
+    "Значение должно быть длины {min} символов",
   "app.components.FormFields.wrongLengthOfList":
     "Оставьте не менее {min} и не более {max} элементов",
   "app.components.FormFields.wrongLengthMin":
@@ -557,8 +596,8 @@
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
-  "app.components.FormFields.onlyLettersAndNumbersFromTo":
-    "Значение должно содержать только буквы и цифры от {min} до {max}",
+  "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
+    "Значение должно содержать только строчные буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Значение не должно содержать двойного пробела",
   "app.components.FormFields.wrongByteLength":
@@ -567,7 +606,20 @@
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Значение должно содержать только 1 точку",
-
+  "app.components.FormFields.telosNameLength":
+    "Имя Телос аккаунта должно содержать только 12 символов",
+  "app.components.FormFields.telosCorrectSymbols":
+    "Только a-z буквы и 1-5 цифры разрешены",
+  "app.components.FormFields.notAbleChangeAfterCreation":
+    "У Вас не будет возможности изменить его после создания",
+  "app.components.FormFields.thisTelosNameIsAvailable":
+    "Это Телос имя не занято",
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "Это Телос имя занято",
+  "app.components.FormFields.atLeastOneLetter":
+    "Телос имя должно содержать хотя бы одну букву",
+  "app.components.FormFields.exactFromAndToAccounts":
+    "Отправитель и получатель не могут быть одним и тем же",
   "app.components.Footer.header": "Авторские права: Peeranha",
 
   "app.containers.Login.authUserHasMore":
@@ -652,6 +704,8 @@
     "Приватные ключи не соответствуют Telos аккаунт имени",
   "app.containers.SignUp.registrationWithEosAccountAlmostDone":
     "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
+  "app.containers.SignUp.autogenerated": "Автосгенерированное",
+  "app.containers.SignUp.myOwn": "Моё собственное",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",
@@ -672,6 +726,14 @@
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
   "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
+  "app.containers.Profile.tipText":
+    "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
+  "app.containers.Profile.crypto": "Крипто-кошелёк",
+  "app.containers.Profile.account": "Аккаунт",
+  "app.containers.Profile.sendFromAccount": "Отправить с аккаунта",
+  "app.containers.Profile.sendToAccount": "Отправить на аккаунт",
+  "app.containers.Profile.changeAccount": "Изменить аккаунт",
+  "app.containers.Profile.chooseAccount": "Выбрать аккаунт",
 
   "app.components.NoAccess.errorMessage":
     "Нет прав, чтобы выполнить данное действие!",
@@ -722,6 +784,8 @@
   "app.containers.Questions.thisIsNewCommunity":
     "Это новое сообщество, Вы можете стать первым и Ваш вопрос может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
+  "app.containers.Questions.topQuestionPopover":
+    "Часто задаваемый вопрос этого сообщества.",
 
   "app.containers.QuestionForm.communityTip": "Сообщество подсказка...",
   "app.containers.QuestionForm.titleTip": "Заголовок подсказка...",

@@ -49,6 +49,8 @@ const Label = AcceptAnswerView.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
+  transition-property: none;
+  width: max-content;
 
   ${Icon} {
     background-color: ${BG_LIGHT};
@@ -76,7 +78,7 @@ export const MarkAsAcceptedIcon = ({
     account !== questionFrom
   ) {
     return (
-      <Label className={`mr-2 ${className}`} inactive value>
+      <Label className={className} inactive value>
         <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
         <FormattedMessage {...messages.theBest} />
       </Label>

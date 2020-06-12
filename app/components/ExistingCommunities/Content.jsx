@@ -98,6 +98,10 @@ const Content = ({ communities, sorting, locale, language }) => {
             return (
               <BaseSpecial
                 origin={origin}
+                overOrigin={
+                  index !== arr.length - 1 &&
+                  hasCommunitySingleWebsite(arr[index + 1].id)
+                }
                 last={arr.length - 1 === index}
                 first={!index}
                 className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"

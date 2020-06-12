@@ -57,7 +57,7 @@ const Content = ({
               alt="ipfs_avatar"
             />
             <div>
-              <P fontSize="14">{x.display_name}</P>
+              <P fontSize="14">{x?.['display_name']}</P>
               <IconWithStatus className="py-1" size="sm" rating={x.rating} />
               <P fontSize="14" color={TEXT_SECONDARY}>
                 {getTimeFromDateToNow(x.registration_time, locale)}

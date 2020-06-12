@@ -19,7 +19,7 @@ import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 
-import Icon from 'components/Icon';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -162,11 +162,7 @@ const CreateCommunityForm = ({
                     onClick={removeTag}
                     tabIndex="-1"
                   >
-                    <Icon
-                      width="14"
-                      icon={closeIcon}
-                      color={TEXT_SECONDARY_LIGHT}
-                    />
+                    <IconSm icon={closeIcon} color={TEXT_SECONDARY_LIGHT} />
                   </button>
                 )}
 

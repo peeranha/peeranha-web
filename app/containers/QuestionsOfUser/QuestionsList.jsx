@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
 import {
+  BORDER_PRIMARY,
+  BORDER_SECONDARY,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
-  BORDER_SECONDARY,
-  BORDER_PRIMARY,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
@@ -71,7 +71,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
           className="d-flex align-items-center"
         >
           <Span className="mr-2" fontSize="14" lineHeight="18">
-            {lastAnswer.userInfo.display_name}
+            {lastAnswer.userInfo?.display_name}
           </Span>
           <RatingStatus
             rating={lastAnswer.userInfo.rating}
@@ -122,7 +122,6 @@ const Question = ({
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isGeneral={isGeneral}
-      bordered={false}
     />
     <RightBlock>
       <span className="d-flex align-items-center mb-2">

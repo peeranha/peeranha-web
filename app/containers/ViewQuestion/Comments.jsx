@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import {
-  BORDER_SECONDARY,
   BORDER_PRIMARY,
+  BORDER_SECONDARY,
   BORDER_TRANSPARENT,
+  BORDER_ATTENTION_LIGHT,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -15,24 +17,24 @@ import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 import Textarea from 'components/Textarea';
-
 import Button from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
 import CommentForm from './CommentForm';
+import AreYouSure from './AreYouSure';
 
 import messages from './messages';
 
 import {
-  SAVE_COMMENT_FORM,
-  SAVE_COMMENT_BUTTON,
   COMMENT_TYPE,
+  SAVE_COMMENT_BUTTON,
+  SAVE_COMMENT_FORM,
 } from './constants';
-
-import AreYouSure from './AreYouSure';
 
 const CommentManage = styled.div`
   display: flex;
@@ -127,85 +129,99 @@ const CommentEdit = ({
 );
 
 /* eslint react/no-danger: 0 */
-const CommentView = item => (
-  <li>
-    <div className="d-flex justify-content-between align-items-center position-relative">
-      <UserInfo
-        type={COMMENT_TYPE}
-        avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
-        name={item.userInfo.display_name}
-        rating={item.userInfo.rating}
-        account={item.userInfo.user}
-        postTime={item.post_time}
-        locale={item.locale}
-      />
+const CommentView = item => {
+  const isItWrittenByMe = !!item.profileInfo
+    ? item.user === item.profileInfo.user
+    : false;
 
-      <CommentManage>
-        <Button
-          show={item.isItWrittenByMe}
-          params={{
-            ...item.buttonParams,
-            commentId: item.id,
-            whowasvoted: item.userInfo.user,
-          }}
-          onClick={() => item.toggleView(!item.isView)}
-        >
-          <img src={editSmallIcon} alt="icon" />
-          <FormattedMessage {...messages.editButton} />
-        </Button>
+  return (
+    <li>
+      <div className="d-flex justify-content-between align-items-center position-relative">
+        <UserInfo
+          type={COMMENT_TYPE}
+          avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
+          name={item.userInfo?.display_name ?? ''}
+          rating={item.userInfo.rating}
+          account={item.userInfo.user}
+          postTime={item.post_time}
+          locale={item.locale}
+        />
 
-        <div id={`delete-comment-${item.answerId}${item.id}`}>
-          <AreYouSure
-            submitAction={item.deleteComment}
-            Button={({ onClick }) => (
-              <Button
-                show={item.isItWrittenByMe}
-                id={`delete-comment-${item.answerId}${item.id}`}
-                params={{
-                  ...item.buttonParams,
-                  commentId: item.id,
-                  whowasvoted: item.userInfo.user,
-                }}
-                onClick={onClick}
-                disabled={item.ids.includes(
-                  `delete-comment-${item.answerId}${item.id}`,
-                )}
-              >
-                <img src={deleteSmallIcon} alt="icon" />
-                <FormattedMessage {...messages.deleteButton} />
-              </Button>
+        <CommentManage>
+          <Button
+            show={!!item.profileInfo && isItWrittenByMe}
+            params={{
+              ...item.buttonParams,
+              commentId: item.id,
+              whowasvoted: item.userInfo.user,
+            }}
+            onClick={() => item.toggleView(!item.isView)}
+          >
+            <img src={editSmallIcon} alt="icon" />
+            <FormattedMessage {...messages.editButton} />
+          </Button>
+
+          <div id={`delete-comment-${item.answerId}${item.id}`}>
+            <AreYouSure
+              submitAction={item.deleteComment}
+              Button={({ onClick }) => (
+                <Button
+                  show={!!item.profileInfo && isItWrittenByMe}
+                  id={`delete-comment-${item.answerId}${item.id}`}
+                  params={{
+                    ...item.buttonParams,
+                    commentId: item.id,
+                    whowasvoted: item.userInfo.user,
+                  }}
+                  onClick={onClick}
+                  disabled={item.ids.includes(
+                    `delete-comment-${item.answerId}${item.id}`,
+                  )}
+                >
+                  <img src={deleteSmallIcon} alt="icon" />
+                  <FormattedMessage {...messages.deleteButton} />
+                </Button>
+              )}
+            />
+          </div>
+
+          <Button
+            show={!item.profileInfo || (!!item.profileInfo && !isItWrittenByMe)}
+            id={`comment_vote_to_delete_${item.answerId}${item.id}`}
+            params={{
+              ...item.buttonParams,
+              commentId: item.id,
+              whowasvoted: item.userInfo.user,
+            }}
+            onClick={item.voteToDelete}
+            disabled={item.ids.includes(
+              `comment_vote_to_delete_${item.answerId}${item.id}`,
             )}
-          />
-        </div>
+            isVotedToDelete={item.votingStatus.isVotedToDelete}
+          >
+            <Icon
+              icon={blockSmallIcon}
+              width="12"
+              fill={
+                item.votingStatus.isVotedToDelete
+                  ? BORDER_ATTENTION_LIGHT
+                  : BORDER_PRIMARY
+              }
+            />
+            <FormattedMessage {...messages.voteToDelete} />
+          </Button>
+        </CommentManage>
+      </div>
 
-        <Button
-          show={!item.isItWrittenByMe}
-          id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-          params={{
-            ...item.buttonParams,
-            commentId: item.id,
-            whowasvoted: item.userInfo.user,
-          }}
-          onClick={item.voteToDelete}
-          disabled={item.ids.includes(
-            `comment_vote_to_delete_${item.answerId}${item.id}`,
-          )}
-          isVotedToDelete={item.votingStatus.isVotedToDelete}
-        >
-          <Icon icon={blockSmallIcon} width="12" />
-          <FormattedMessage {...messages.voteToDelete} />
-        </Button>
-      </CommentManage>
-    </div>
-
-    <Span
-      fontSize="16"
-      lineHeight="20"
-      className="d-block mb-2"
-      dangerouslySetInnerHTML={{ __html: item.content }}
-    />
-  </li>
-);
+      <Span
+        fontSize="16"
+        lineHeight="20"
+        className="d-block mb-2"
+        dangerouslySetInnerHTML={{ __html: item.content }}
+      />
+    </li>
+  );
+};
 
 const Comment = item => {
   const [isView, toggleView] = useState(true);
@@ -263,6 +279,7 @@ Comments.propTypes = {
   sendCommentLoading: PropTypes.bool,
   sendComment: PropTypes.func,
   answerId: PropTypes.number,
+  profileInfo: PropTypes.object,
 };
 
 CommentEdit.propTypes = {
@@ -276,4 +293,13 @@ CommentEdit.propTypes = {
 };
 
 export { Comment, CommentEdit, CommentView, Comments };
-export default React.memo(Comments);
+export default React.memo(
+  connect(
+    state => {
+      return {
+        profileInfo: makeSelectProfileInfo()(state),
+      };
+    },
+    null,
+  )(Comments),
+);

@@ -25,6 +25,12 @@ export default defineMessages({
   editButton: {
     id: 'app.containers.ViewQuestion.editButton',
   },
+  shareButton: {
+    id: 'app.containers.ViewQuestion.shareButton',
+  },
+  shareTitle: {
+    id: 'app.containers.ViewQuestion.shareTitle',
+  },
   moreComments: {
     id: 'app.containers.ViewQuestion.moreComments',
   },
@@ -115,10 +121,10 @@ export default defineMessages({
   expertQuestion: {
     id: 'app.containers.ViewQuestion.expertQuestion',
   },
-  changeQuestionTypeWithRatingRestore: {
-    id: 'app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore',
+  changeQuestionType: {
+    id: 'app.containers.ViewQuestion.changeQuestionType',
   },
-  changeQuestionTypeWithoutRatingRestore: {
-    id: 'app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore',
+  officialAnswer: {
+    id: 'app.containers.ViewQuestion.officialAnswer',
   },
 });

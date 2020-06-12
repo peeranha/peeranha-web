@@ -28,7 +28,7 @@ const BaseStyled = Base.extend`
   display: flex;
   margin: 10px auto;
   max-width: 1200px;
-  min-height: 90vh;
+  min-height: 95vh;
   padding: 0 !important;
   overflow: hidden;
 
@@ -93,7 +93,7 @@ const SlideIndicators = () => {
 
   return (
     <SlideIndicatorsStyled step={currentStep}>
-      {new Array(maxStep).fill().map(() => <div />)}
+      {new Array(maxStep).fill().map(() => <div key={Math.random()} />)}
     </SlideIndicatorsStyled>
   );
 };

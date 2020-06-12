@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
@@ -10,6 +11,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import Button from './index';
 import messages from './messages';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -24,8 +26,12 @@ const CustomButton = styled.div`
   }
 `;
 
-const B = ({ isFollowed, onClick, id, disabled }) =>
-  single ? (
+const B = ({ isFollowed, onClick, id, disabled, profile }) => {
+  if (single && !profile) {
+    return null;
+  }
+
+  return single && profile ? (
     <CustomButton
       id={id}
       data-isfollowed={isFollowed}
@@ -47,12 +53,25 @@ const B = ({ isFollowed, onClick, id, disabled }) =>
       />
     </OutlinedButton>
   );
+};
+
+B.propTypes = {
+  isFollowed: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  profile: PropTypes.object,
+};
+
+const BWrapper = connect(state => ({
+  profile: makeSelectProfileInfo()(state),
+}))(B);
 
 export const DefaultButton = ({ communityIdFilter }) => (
   <Button
     communityIdFilter={communityIdFilter}
     render={({ isFollowed, onClick, id, disabled }) => (
-      <B
+      <BWrapper
         id={id}
         isFollowed={isFollowed}
         onClick={onClick}
@@ -61,13 +80,6 @@ export const DefaultButton = ({ communityIdFilter }) => (
     )}
   />
 );
-
-B.propTypes = {
-  isFollowed: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  id: PropTypes.string.isRequired,
-};
 
 DefaultButton.propTypes = {
   communityIdFilter: PropTypes.number,

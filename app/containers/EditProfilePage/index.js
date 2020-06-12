@@ -4,12 +4,13 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
+import _get from 'lodash/get';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -33,50 +34,48 @@ import { setDefaultReducer, saveProfile } from './actions';
 
 import ProfileEditForm from './ProfileEditForm';
 
-/* eslint-disable react/prefer-stateless-function */
-export class EditProfilePage extends React.PureComponent {
-  componentWillUnmount() {
-    this.props.setDefaultReducerDispatch();
-  }
+export const EditProfilePage = ({
+  match: {
+    params: { id },
+  },
+  profile,
+  account,
+  isProfileSaving,
+  loginData,
+  setDefaultReducerDispatch,
+  saveProfileDispatch,
+}) => {
+  const saveProfileMethod = values =>
+    saveProfileDispatch({
+      userKey: id,
+      profile: {
+        ...profile.profile,
+        ...values.toJS(),
+      },
+    });
 
-  saveProfile = values => {
-    const { match } = this.props;
-    const userKey = match.params.id;
-
-    const valJS = values.toJS();
-
-    const profile = {
-      ...this.props.profile.profile,
-      ...valJS,
-    };
-
-    this.props.saveProfileDispatch({ profile, userKey });
+  const sendProps = {
+    saveProfile: saveProfileMethod,
+    isProfileSaving,
+    profile,
   };
 
-  render() /* istanbul ignore next */ {
-    const { profile, match, account, isProfileSaving, loginData } = this.props;
+  useEffect(() => setDefaultReducerDispatch, []);
 
-    const sendProps = {
-      saveProfile: this.saveProfile,
-      isProfileSaving,
-      profile,
-    };
+  return (
+    <Profile userId={id}>
+      <UserNavigation
+        userId={id}
+        account={account}
+        questionsLength={_get(profile, 'questions_asked', 0)}
+        questionsWithUserAnswersLength={_get(profile, 'answers_given', 0)}
+        loginData={loginData}
+      />
 
-    return (
-      <Profile userId={match.params.id}>
-        <UserNavigation
-          userId={match.params.id}
-          account={account}
-          questionsLength={profile ? profile.questions_asked : 0}
-          questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
-          loginData={loginData}
-        />
-
-        <ProfileEditForm {...sendProps} />
-      </Profile>
-    );
-  }
-}
+      <ProfileEditForm {...sendProps} />
+    </Profile>
+  );
+};
 
 EditProfilePage.propTypes = {
   saveProfileDispatch: PropTypes.func,
@@ -90,25 +89,19 @@ EditProfilePage.propTypes = {
   loginData: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  profile: makeSelectProfileInfo(),
-  loginData: makeSelectLoginData(),
-  account: makeSelectAccount(),
-  isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
-  questions: selectQuestions(),
-  questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    profile: makeSelectProfileInfo(),
+    loginData: makeSelectLoginData(),
+    account: makeSelectAccount(),
+    isProfileSaving: editProfileSelectors.selectIsProfileSaving(),
+    questions: selectQuestions(),
+    questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
+  }),
+  dispatch => ({
     setDefaultReducerDispatch: bindActionCreators(setDefaultReducer, dispatch),
     saveProfileDispatch: bindActionCreators(saveProfile, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'editProfileReducer', reducer });

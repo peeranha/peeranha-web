@@ -48,7 +48,7 @@ import {
 export const initialState = fromJS({
   questionData: null,
   getQuestionDataError: null,
-  questionDataLoading: false,
+  questionDataLoading: true,
   postAnswerLoading: false,
   postAnswerError: null,
   postCommentLoading: false,

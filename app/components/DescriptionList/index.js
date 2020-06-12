@@ -18,7 +18,10 @@ const Base = styled.div`
     li {
       color: ${TEXT_DARK};
       margin-left: 25px;
-      margin-bottom: 7px;
+
+      :not(:last-child) {
+        margin-bottom: 7px;
+      }
     }
 
     li::before {

@@ -1,9 +1,3 @@
-/**
- *
- * SendTokens
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -35,6 +29,7 @@ import saga from './saga';
 
 import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
+import { selectEos } from '../EosioProvider/selectors';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
@@ -46,8 +41,9 @@ export const SendTokens = /* istanbul ignore next */ ({
   showSendTokensModalDispatch,
   loginData,
   balance,
+  eosService,
 }) => (
-  <React.Fragment>
+  <>
     <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
       <SendTokensForm
         locale={locale}
@@ -55,11 +51,12 @@ export const SendTokens = /* istanbul ignore next */ ({
         sendTokensProcessing={sendTokensProcessing}
         loginData={loginData}
         valueHasToBeLessThan={balance}
+        eosService={eosService}
       />
     </Modal>
 
     <Button onClick={showSendTokensModalDispatch}>{children}</Button>
-  </React.Fragment>
+  </>
 );
 
 SendTokens.propTypes = {
@@ -72,40 +69,31 @@ SendTokens.propTypes = {
   sendTokensDispatch: PropTypes.func,
   loginData: PropTypes.object,
   balance: PropTypes.number,
+  eosService: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  loginData: makeSelectLoginData(),
-  balance: makeSelectBalance(),
-  showModal: selectors.selectShowModal(),
-  sendTokensProcessing: selectors.selectSendTokensProcessing(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    hideSendTokensModalDispatch: bindActionCreators(
-      hideSendTokensModal,
-      dispatch,
-    ),
-    showSendTokensModalDispatch: bindActionCreators(
-      showSendTokensModal,
-      dispatch,
-    ),
-    sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'sendTokens', reducer });
-const withSaga = injectSaga({ key: 'sendTokens', saga, mode: DAEMON });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'sendTokens', reducer }),
+  injectSaga({ key: 'sendTokens', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      eosService: selectEos,
+      locale: makeSelectLocale(),
+      loginData: makeSelectLoginData(),
+      balance: makeSelectBalance(),
+      showModal: selectors.selectShowModal(),
+      sendTokensProcessing: selectors.selectSendTokensProcessing(),
+    }),
+    dispatch => ({
+      hideSendTokensModalDispatch: bindActionCreators(
+        hideSendTokensModal,
+        dispatch,
+      ),
+      showSendTokensModalDispatch: bindActionCreators(
+        showSendTokensModal,
+        dispatch,
+      ),
+      sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
+    }),
+  ),
 )(SendTokens);

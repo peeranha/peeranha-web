@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
 import {
   BG_LIGHT,
   BORDER_SECONDARY,
@@ -13,6 +15,8 @@ import {
   HEADER_HEIGHT,
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
+
+const colors = singleCommunityColors();
 
 export const BasicLink = css`
   display: flex;
@@ -44,7 +48,9 @@ export const After = styled.div`
   width: 50px;
   height: 100%;
   z-index: 9999;
-  background: rgba(${BG_PRIMARY_DARK_RGB}, 0.9);
+  background: ${colors.darkBlue
+    ? colors.darkBlue
+    : `rgba(${BG_PRIMARY_DARK_RGB}, 0.9)`};
   justify-content: center;
   padding-top: 25px;
 `;
@@ -82,7 +88,7 @@ export const ViewStyled = styled.nav`
     transform: translate(0px, -${HEADER_HEIGHT}px);
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 991px) {
     > div.lightbg {
       padding: 2px 0 2px 5px;
     }

@@ -2,7 +2,10 @@
 import { call, put, takeLatest, select, all } from 'redux-saga/effects';
 import maxBy from 'lodash/maxBy';
 
-import { getAnswersPostedByUser, getQuestionById } from 'utils/questionsManagement';
+import {
+  getAnswersPostedByUser,
+  getQuestionById,
+} from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
@@ -27,9 +30,13 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
         +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
       0;
 
-    const answersId = yield call(() => getAnswersPostedByUser(eosService, userId, offset, limit));
+    const answersId = yield call(() =>
+      getAnswersPostedByUser(eosService, userId, offset, limit),
+    );
 
-    const questions = yield all(answersId.map(x => getQuestionById(eosService, x.question_id, userId)));
+    const questions = yield all(
+      answersId.map(x => getQuestionById(eosService, x.question_id, userId)),
+    );
 
     /*
      *
@@ -53,7 +60,9 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
           x.myPostTime = y.post_time;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
 
-          x.isTheLargestRating = y.rating === mostRatingAnswer.rating && y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
+          x.isTheLargestRating =
+            y.rating === mostRatingAnswer.rating &&
+            y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
           x.myPostRating = y.rating;
           x.answerId = y.id;

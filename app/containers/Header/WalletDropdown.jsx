@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -18,17 +18,14 @@ import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import { getFormattedNum4 } from 'utils/numbers';
 
 import Dropdown from 'components/Dropdown';
-import Icon from 'components/Icon';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import SendTokens from 'containers/SendTokens';
-
-const single = isSingleCommunityWebsite();
 
 const ButtonStyled = styled.span`
   display: flex;
@@ -36,8 +33,8 @@ const ButtonStyled = styled.span`
   border: 1px solid ${BORDER_PRIMARY};
   border-left: 0px;
   border-radius: 23px;
-  padding-right: ${single ? 15 : 25}px;
-  height: ${single ? 27 : 47}px;
+  padding-right: 25px;
+  height: 47px;
 
   ${MediumSpecialImage}, ${SmallSpecialImage} {
     margin-right: 10px;
@@ -57,33 +54,18 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
-const IconSM = SmallSpecialImage.extend`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${BORDER_PRIMARY};
-  color: ${x => x.color};
-`.withComponent('span');
-
-export const Button = ({ balance }) => (
+export const Button = memo(({ balance }) => (
   <ButtonStyled>
-    {!single ? (
-      <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-        <Icon icon={currencyPeerIcon} width="24" />
-      </IconBG>
-    ) : (
-      <IconSM className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-        <Icon icon={currencyPeerIcon} width="17" />
-      </IconSM>
-    )}
+    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+      <IconLg icon={currencyPeerIcon} />
+    </IconBG>
 
-    <span className={`d-flex flex-${single ? 'row' : 'column'} text-left`}>
+    <span className="d-flex flex-column text-left">
       <Span className="align-middle" fontSize="16" bold>
         {getFormattedNum4(balance)}
       </Span>
       <Span
-        className={single ? 'ml-1 align-middle' : ''}
+        className="ml-1 align-middle"
         fontSize="14"
         lineHeight="18"
         color={TEXT_SECONDARY}
@@ -92,9 +74,9 @@ export const Button = ({ balance }) => (
       </Span>
     </span>
   </ButtonStyled>
-);
+));
 
-const Menu = ({ user }) => (
+const Menu = memo(({ user }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
@@ -103,7 +85,7 @@ const Menu = ({ user }) => (
       <FormattedMessage {...messages.sendTokens} />
     </SendTokens>
   </Ul>
-);
+));
 
 const WalletDropdown = ({ user, balance }) => (
   <Dropdown
@@ -129,4 +111,4 @@ WalletDropdown.propTypes = {
 };
 
 export { IconBG };
-export default React.memo(WalletDropdown);
+export default memo(WalletDropdown);

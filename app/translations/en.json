@@ -10,6 +10,10 @@
   "app.common.answersNumber": "Answers {number}",
   "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
+  "app.common.notifications": "Notifications",
+  "app.common.notificationCenter": "Notification Center",
+  "app.common.archive": "Archive",
+  "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
@@ -94,6 +98,7 @@
   "app.common.showMore": "Show more {value}",
   "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
@@ -104,6 +109,11 @@
   "app.common.general": "General",
   "app.common.expert": "Expert",
   "app.common.tipQuestion": "Tip question",
+  "app.common.chooseCrypto": "Choose Crypto",
+  "app.common.chooseWallet": "Choose Wallet",
+  "app.common.tip": "Tip",
+  "app.common.tipAnswer": "Tip answer",
+  "app.common.sendTip": "Send tip",
   "app.common.receivedReward": "You received referral reward",
   "app.common.expertPopoverLabel": "A question that asks one of the following:",
   "app.common.expertPopoverList": [
@@ -111,17 +121,18 @@
     "Source of information or resources on a specific subject that is not easily found;",
     "Explanation or clarification of the information that is complicated to comprehend."
   ],
-
+  "app.common.rightNow": "Right now",
+  "app.common.minutesAgo": "{minutes} minutes ago",
+  "app.common.hoursAgo": "{hours} hours ago",
+  "app.common.yesterday": "Yesterday",
+  "app.common.official": "Official",
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
-
   "app.containers.Search.title": "Search",
   "app.containers.Search.description": "Search: description",
-
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
-
   "app.containers.DeleteAccount.deleteAccount": "Delete account",
   "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
   "app.containers.DeleteAccount.iUnderstand":
@@ -132,9 +143,9 @@
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
   "app.containers.Wallet.eosAccount": "Telos account",
-  "app.containers.Wallet.currentPeriod": "Current and settlement periods",
+  "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "These periods are still in progress. You will see more details next week.",
+    "This period is still in progress. You will see more details next week.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
@@ -142,6 +153,12 @@
   "app.containers.Wallet.week": "Week",
   "app.containers.Wallet.getReward": "Get reward",
   "app.containers.Wallet.received": "Received",
+  "app.containers.Wallet.thisIsRegistrationWeek":
+    "This is registration week. We are setting up your wallet. Reward for this week will be applied to the next week.",
+  "app.containers.Wallet.registrationWeek": "Registration week",
+  "app.containers.Wallet.yourWalletWasSuccessfullySet":
+    "Your wallet was successfully set during this period",
+
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",
   "web_integration.errors.accountAlreadyRegistered":
@@ -463,6 +480,29 @@
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
 
+  "app.containers.Notifications.youHaveNoNewNotifications":
+    "You have no new notifications.",
+  "app.containers.Notifications.yourQuestionWasUpVoted":
+    "Your question was upvoted",
+  "app.containers.Notifications.yourQuestionWasDownVoted":
+    "Your question was downvoted",
+  "app.containers.Notifications.yourAnswerWasUpVoted":
+    "Your answer was upvoted",
+  "app.containers.Notifications.yourAnswerWasDownVoted":
+    "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
+    "Your answer was marked as the best",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion":
+    "Somebody answered your question",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
+    "Somebody left a comment to your question",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
+    "Somebody left a comment to your answer",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "You question was tipped {quantity}",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "You answer was tipped {quantity}",
+
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
   "app.containers.EditAnswer.title": "Edit Answer",
@@ -500,6 +540,8 @@
     "This question does not exist",
   "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
+  "app.containers.ViewQuestion.shareButton": "Share",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
@@ -524,15 +566,14 @@
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Mark the best answer to this question and earn +1 reputation point",
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
-  "app.containers.ViewQuestion.changeQuestionTypeWithRatingRestore":
-    "Change type & Restore Rating",
-  "app.containers.ViewQuestion.changeQuestionTypeWithoutRatingRestore":
-    " Change type",
-
+  "app.containers.ViewQuestion.changeQuestionType": "Change type",
+  "app.containers.ViewQuestion.officialAnswer": "Official answer",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
+  "app.components.FormFields.wrongExactLength":
+    "Value must be {min} characters long",
   "app.components.FormFields.wrongLengthOfList":
     "Leave at least {min} item but no more than {max}",
   "app.components.FormFields.wrongLengthMin":
@@ -548,8 +589,8 @@
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
   "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
-  "app.components.FormFields.onlyLettersAndNumbersFromTo":
-    "Value must contain only letters and numbers from {min} to {max}",
+  "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
+    "Value must contain only lowercase letters and numbers from {min} to {max}",
   "app.components.FormFields.withoutDoubleSpace":
     "Value must not contain a double space",
   "app.components.FormFields.wrongByteLength": "Value byte length is too long",
@@ -557,7 +598,20 @@
     "Value must contain digits from {min} to {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Value must contain only one dot",
-
+  "app.components.FormFields.telosNameLength":
+    "Telos account name must be 12 characters long",
+  "app.components.FormFields.telosCorrectSymbols":
+    "Only a-z letters and 1-5 numbers are allowed",
+  "app.components.FormFields.notAbleChangeAfterCreation":
+    "You will not be able to change it after creation",
+  "app.components.FormFields.thisTelosNameIsAvailable":
+    "This Telos account name is available",
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "This Telos account name is not available",
+  "app.components.FormFields.atLeastOneLetter":
+    "Telos name must contain at least one letter",
+  "app.components.FormFields.exactFromAndToAccounts":
+    "Sender and receiver cannot be the same",
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
@@ -602,11 +656,11 @@
     "Sounds too complicated? Don’t  worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.peeranhaIsNotTypical":
-    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
+    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Choose email sign-up option if would like to access Peeranha from any device using just your email and password. We will also create Telos account for you if needed and cover the fee required for account creation. If you prefer to use a wallet application to manage the account, than wallet sign up option is available.",
+    "If you prefer to use a wallet application to manage your Telos blockchain account, then wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
@@ -645,6 +699,8 @@
     "Private keys do not match Telos account name",
   "app.containers.SignUp.registrationWithEosAccountAlmostDone":
     "Registration is successfully passed. Now you can login and continue work in our app!",
+  "app.containers.SignUp.autogenerated": "Autogenerated",
+  "app.containers.SignUp.myOwn": "My own",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",
@@ -665,7 +721,14 @@
   "app.containers.Profile.confirmPassword": "Confirm password",
   "app.containers.Profile.youAnswered": "You answered",
   "app.containers.Profile.seeMore": "See all {questions} and {answers}",
-
+  "app.containers.Profile.tipText":
+    "Set up wallets for crypto tokens to get tips from other users.",
+  "app.containers.Profile.crypto": "Crypto",
+  "app.containers.Profile.account": "Account",
+  "app.containers.Profile.sendFromAccount": "Send from account",
+  "app.containers.Profile.sendToAccount": "Send to account",
+  "app.containers.Profile.changeAccount": "Change account",
+  "app.containers.Profile.chooseAccount": "Choose account",
   "app.components.NoAccess.errorMessage": "No access to complete this action!",
 
   "app.containers.ButtonGroupForAuthorizedUser.profile": "Profile",
@@ -689,6 +752,8 @@
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.topQuestionPopover":
+    "Top question of this community",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

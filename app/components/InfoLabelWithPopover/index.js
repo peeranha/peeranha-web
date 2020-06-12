@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import infoIcon from 'images/icon-information.svg?inline';
+import { BORDER_PRIMARY } from 'style-constants';
+
+import infoIcon from 'images/icon-information.svg?external';
 import { showPopover } from 'utils/popover';
+
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 const InfoLabel = ({ id, children, message }) => (
   <button
@@ -12,10 +16,11 @@ const InfoLabel = ({ id, children, message }) => (
     onClick={() => showPopover(id, message)}
   >
     {children}
-    <img
+
+    <IconMd
       className="d-none d-sm-inline-block ml-1"
-      src={infoIcon}
-      alt="popover tip"
+      icon={infoIcon}
+      fill={BORDER_PRIMARY}
     />
   </button>
 );

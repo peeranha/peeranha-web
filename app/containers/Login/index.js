@@ -19,6 +19,8 @@ import ModalDialog from 'components/ModalDialog';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showForgotPasswordModal } from 'containers/ForgotPassword/actions';
 
+import notificationsReducer from 'components/Notifications/reducer';
+
 import * as selectors from './selectors';
 
 import {
@@ -155,6 +157,7 @@ const withReducer = injectReducer({ key: 'login', reducer });
 const withSaga = injectSaga({ key: 'login', saga, mode: DAEMON });
 
 export default compose(
+  injectReducer({ key: 'login', reducer: notificationsReducer }),
   withReducer,
   withSaga,
   withConnect,

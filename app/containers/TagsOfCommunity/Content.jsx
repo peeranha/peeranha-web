@@ -88,19 +88,21 @@ const Content = ({
     isLastFetch={isLastFetch}
   >
     <Grid xl={3} md={2} xs={1}>
-      <li className="d-sm-flex align-items-center justify-content-center">
-        <Item
-          isInputBox
-          className="d-flex align-items-center justify-content-center p-2"
-        >
-          <Input
-            input={{ onChange: typeInput, value: text }}
-            placeholder={translationMessages[locale][messages.findTag.id]}
-            isSearchable
-            onClick={clearTextField}
-          />
-        </Item>
-      </li>
+      {!!tags.length || text ? (
+        <li className="d-sm-flex align-items-center justify-content-center">
+          <Item
+            isInputBox
+            className="d-flex align-items-center justify-content-center p-2"
+          >
+            <Input
+              input={{ onChange: typeInput, value: text }}
+              placeholder={translationMessages[locale][messages.findTag.id]}
+              isSearchable
+              onClick={clearTextField}
+            />
+          </Item>
+        </li>
+      ) : null}
 
       {tags.map(x => (
         <Tag key={x.id}>

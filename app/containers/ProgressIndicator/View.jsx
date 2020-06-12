@@ -43,7 +43,7 @@ const Box = styled.div`
     content: '...';
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 991px) {
     top: ${x =>
       x.inProgress ? MOBILE_HEADER_HEIGHT * 1.25 : -MOBILE_HEADER_HEIGHT}px;
   }

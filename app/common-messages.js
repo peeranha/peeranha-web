@@ -27,6 +27,18 @@ export default defineMessages({
   settings: {
     id: 'app.common.settings',
   },
+  notifications: {
+    id: 'app.common.notifications',
+  },
+  notificationCenter: {
+    id: 'app.common.notificationCenter',
+  },
+  archive: {
+    id: 'app.common.archive',
+  },
+  markAllAsRead: {
+    id: 'app.common.markAllAsRead',
+  },
   edit: {
     id: 'app.common.edit',
   },
@@ -291,6 +303,9 @@ export default defineMessages({
   poweredByTelos: {
     id: 'app.common.poweredByTelos',
   },
+  poweredByPeeranha: {
+    id: 'app.common.poweredByPeeranha',
+  },
   noResults: {
     id: 'app.common.noResults',
   },
@@ -326,5 +341,35 @@ export default defineMessages({
   },
   expertPopoverList: {
     id: 'app.common.expertPopoverList',
+  },
+  chooseCrypto: {
+    id: 'app.common.chooseCrypto',
+  },
+  chooseWallet: {
+    id: 'app.common.chooseWallet',
+  },
+  tip: {
+    id: 'app.common.tip',
+  },
+  tipAnswer: {
+    id: 'app.common.tipAnswer',
+  },
+  sendTip: {
+    id: 'app.common.sendTip',
+  },
+  rightNow: {
+    id: 'app.common.rightNow',
+  },
+  minutesAgo: {
+    id: 'app.common.minutesAgo',
+  },
+  hoursAgo: {
+    id: 'app.common.hoursAgo',
+  },
+  yesterday: {
+    id: 'app.common.yesterday',
+  },
+  official: {
+    id: 'app.common.official',
   },
 });

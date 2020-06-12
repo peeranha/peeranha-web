@@ -1,5 +1,4 @@
-/* eslint no-param-reassign: 0 */
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -49,18 +48,34 @@ export const TagSelector = ({
   splitInHalf,
   options = [],
 }) => {
-  if (input) {
-    input.value = input.value.toJS ? input.value.toJS() : input.value;
-  }
-
-  const value = input.value || [];
-
   const [isOpen, toggleOpen] = useState(false);
 
-  const valueIds = value.map(x => x.id);
+  const [value, filteredOptions] = useMemo(
+    () => {
+      const v = (input?.value?.toJS ? input.value.toJS() : input?.value) || [];
+      const valueIds = v?.map(x => x.id);
 
-  // In menu show only which are NOT chosen
-  const filteredOptions = options.filter(x => !valueIds.includes(x.id));
+      // In menu show only which are NOT chosen
+      const fO = options?.filter(x => !valueIds.includes(x?.id));
+      return [v, fO];
+    },
+    [input, input.value],
+  );
+
+  const error = useMemo(() => meta.touched && (meta.warning || meta.error), [
+    meta,
+  ]);
+
+  const toggle = useCallback(() => toggleOpen(!isOpen), [isOpen]);
+  const onChange = useCallback(x => setTags([...value, x]), [setTags, value]);
+
+  const onClick = useCallback(
+    (e, id) => {
+      e.stopPropagation();
+      setTags(value.filter(y => y.id !== id));
+    },
+    [value, setTags],
+  );
 
   return (
     <Base isOpen={isOpen}>
@@ -74,22 +89,13 @@ export const TagSelector = ({
       >
         <Dropdown
           isOpen={isOpen}
-          toggle={() => toggleOpen(!isOpen)}
+          toggle={toggle}
           target={
-            <TagsContainer
-              disabled={disabled}
-              error={meta.touched && (meta.warning || meta.error)}
-            >
-              {value.map(x => (
-                <Tag key={x.label}>
-                  <span>{x.label}</span>
-                  <RemoveTagIcon
-                    type="button"
-                    onClick={e => {
-                      e.stopPropagation();
-                      setTags(value.filter(y => y.id !== x.id));
-                    }}
-                  >
+            <TagsContainer disabled={disabled} error={error}>
+              {value.map(({ label: valueLabel, id }) => (
+                <Tag key={valueLabel}>
+                  <span>{valueLabel}</span>
+                  <RemoveTagIcon type="button" onClick={e => onClick(e, id)}>
                     <img src={closeIcon} alt="X" />
                   </RemoveTagIcon>
                 </Tag>
@@ -102,7 +108,7 @@ export const TagSelector = ({
               ...input,
               value: null,
               onBlur: null,
-              onChange: x => setTags([...value, x]),
+              onChange,
             }}
             options={filteredOptions}
             disabled={disabled}

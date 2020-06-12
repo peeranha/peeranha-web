@@ -6,12 +6,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY } from 'style-constants';
+import communitiesConfig from 'communities-config';
+import { LINK_COLOR } from 'style-constants';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
@@ -19,14 +26,14 @@ import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 import { LoginViaWallet } from 'containers/Login/Footer';
+import SignUpWrapper from './index';
 
 import {
   HOW_STORE_MY_KEYS_QUESTION,
   CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
   CAN_I_DELETE_ACCOUNT_QUESTION,
 } from 'containers/Faq/constants';
-
-import SignUpWrapper from './index';
+import styled from 'styled-components';
 
 export const P = Span.extend`
   font-size: 18px;
@@ -40,7 +47,7 @@ export const Li = P.extend`
   margin-bottom: 10px;
 
   a {
-    color: ${TEXT_PRIMARY};
+    color: ${LINK_COLOR};
   }
 
   @media only screen and (max-width: 576px) {
@@ -49,38 +56,87 @@ export const Li = P.extend`
   }
 `.withComponent('li');
 
-const LeftMenu = ({ faqQuestions }) => (
-  <React.Fragment>
-    <div className="mb-4">
-      <Link to={routes.questions()} href={routes.questions()}>
-        <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
-      </Link>
-    </div>
+const CommunityLogoWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
 
-    <H3 className="mb-4">
-      <FormattedMessage {...messages.signUpOptions} />
-    </H3>
+const CommunityLogoDescr = styled.div`
+  display: flex;
+  align-items: start;
+  padding-top: 4px;
 
-    <div className="mb-4">
-      <P>
-        <FormattedMessage {...messages.peeranhaIsNotTypical} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.telosBlockchainPowers} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.weAreHappyToCover} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.ifYouLikeToSkip} />
-      </P>
-    </div>
+  span {
+    margin-right: 6px;
 
-    {faqQuestions && (
-      <ul className="mb-4">{faqQuestions.map(x => <Li>{x}</Li>)}</ul>
-    )}
-  </React.Fragment>
-);
+    font-size: 14px;
+    font-weight: 600;
+
+    opacity: 0.4;
+  }
+
+  img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
+`;
+
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
+
+const LeftMenu = ({ faqQuestions }) => {
+  console.log(single);
+  return (
+    <React.Fragment>
+      <div className="mb-4">
+        {styles.withoutSubHeader ? (
+          <CommunityLogoWrapper>
+            <Link to={routes.questions()} href={routes.questions()}>
+              <img
+                src={communitiesConfig[single].src}
+                width="180px"
+                alt="logo"
+              />
+            </Link>
+            <CommunityLogoDescr>
+              <span>{'Q&A on'}</span>
+              <Link to={routes.questions()} href={routes.questions()}>
+                <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              </Link>
+            </CommunityLogoDescr>
+          </CommunityLogoWrapper>
+        ) : (
+          <Link to={routes.questions()} href={routes.questions()}>
+            <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+          </Link>
+        )}
+      </div>
+
+      <H3 className="mb-4">
+        <FormattedMessage {...messages.signUpOptions} />
+      </H3>
+
+      <div className="mb-4">
+        <P>
+          <FormattedMessage {...messages.peeranhaIsNotTypical} />
+        </P>
+        <P>
+          <FormattedMessage {...messages.ifYouLikeToSkip} />
+        </P>
+        <P>
+          <FormattedMessage {...messages.weAreHappyToCover} />
+        </P>
+      </div>
+
+      {faqQuestions && (
+        <ul className="mb-4">
+          {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
+        </ul>
+      )}
+    </React.Fragment>
+  );
+};
 
 /* eslint react/no-children-prop: 0 */
 const RightMenuWithoutScatter = ({

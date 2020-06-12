@@ -11,6 +11,7 @@ const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
   flex-grow: 1;
+  padding-top: ${({ paddingTop }) => paddingTop || 20}px;
 
   overflow: ${({ overflowHidden }) => (overflowHidden ? 'hidden' : 'initial')};
   border: ${({ bordered }) =>
@@ -19,13 +20,24 @@ const Base = styled.div`
     bordered && !position
       ? `0 0 0 1px rgba(${BORDER_PRIMARY_RGB}, 0.4) !important`
       : `none`};
-  border-top-right-radius: ${({ bordered }) => (bordered ? 'none' : '5px')};
-  border-bottom-right-radius: ${({ bordered }) => (bordered ? 'none' : '5px')};
+  border-top-left-radius: ${({ bordered, topRightRadius, withoutBR }) =>
+    (bordered || topRightRadius) && !withoutBR ? '5px' : 'none'};
+  border-bottom-left-radius: ${({ bordered, bottomRightRadius, withoutBR }) =>
+    (bordered || bottomRightRadius) && !withoutBR ? '5px' : 'none'};
+
+  @media only screen and (max-width: 768px) {
+    border-top-left-radius: ${({ bordered, topRightRadius, withoutBR }) =>
+      (bordered || topRightRadius) && !withoutBR ? '5px' : 'none'};
+    border-top-right-radius: ${({ bordered, bottomRightRadius, withoutBR }) =>
+      (bordered || bottomRightRadius) && !withoutBR ? '5px' : 'none'};
+    border-bottom-left-radius: 0;
+  }
 
   @media only screen and (max-width: 576px) {
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};
+    ${({ paddingTopMedia }) => `padding-top: ${paddingTopMedia}px`};
     border-radius: 0;
-  }
+  }  
 
   ${x =>
     x.position === 'top'

@@ -11,6 +11,10 @@ import {
   SAVE_PROFILE_METHOD,
   NO_AVATAR,
 } from './constants';
+import {
+  callService,
+  NOTIFICATIONS_INFO_SERVICE,
+} from './web_integration/src/util/aws-connector';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -225,3 +229,12 @@ export async function saveProfile(eosService, user, avatar, profile) {
     ipfs_avatar: avatar,
   });
 }
+
+export const getNotificationsInfo = async user => {
+  const response = await callService(
+    NOTIFICATIONS_INFO_SERVICE,
+    { user },
+    true,
+  );
+  return response.OK ? response.body : { all: 0, unread: 0 };
+};

@@ -1,10 +1,4 @@
-/**
- *
- * Wallet
- *
- */
-
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -32,58 +26,54 @@ import { getWeekStat, pickupReward } from './actions';
 
 import View from './View';
 
-/* eslint-disable react/prefer-stateless-function */
-export class Wallet extends React.PureComponent {
-  componentDidMount() {
-    if (this.props.account) {
-      this.props.getWeekStatDispatch();
-    }
-  }
+const Wallet = ({
+  match: {
+    params: { id },
+  },
+  locale,
+  account,
+  balance,
+  weekStat,
+  getWeekStatProcessing,
+  pickupRewardDispatch,
+  pickupRewardProcessing,
+  ids,
+  getWeekStatDispatch,
+}) => {
+  useEffect(
+    () => {
+      if (account) {
+        getWeekStatDispatch();
+      }
+    },
+    [account],
+  );
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.account && this.props.account) {
-      this.props.getWeekStatDispatch();
-    }
-  }
-
-  render() /* istanbul ignore next */ {
-    const userId = this.props.match.params.id;
-
-    const {
-      locale,
-      account,
-      balance,
-      weekStat,
-      getWeekStatProcessing,
-      pickupRewardDispatch,
-      pickupRewardProcessing,
-      ids,
-    } = this.props;
-
-    return (
-      <div>
+  return (
+    <div>
+      {process.env.ENV !== 'dev' && (
         <Seo
           title={translationMessages[locale][messages.title.id]}
           description={translationMessages[locale][messages.description.id]}
           language={locale}
           index={false}
         />
+      )}
 
-        <View
-          userId={userId}
-          locale={locale}
-          account={account}
-          balance={balance}
-          weekStat={weekStat}
-          getWeekStatProcessing={getWeekStatProcessing}
-          pickupRewardDispatch={pickupRewardDispatch}
-          pickupRewardProcessing={pickupRewardProcessing}
-          ids={ids}
-        />
-      </div>
-    );
-  }
-}
+      <View
+        userId={id}
+        locale={locale}
+        account={account}
+        balance={balance}
+        weekStat={weekStat}
+        getWeekStatProcessing={getWeekStatProcessing}
+        pickupRewardDispatch={pickupRewardDispatch}
+        pickupRewardProcessing={pickupRewardProcessing}
+        ids={ids}
+      />
+    </div>
+  );
+};
 
 Wallet.propTypes = {
   balance: PropTypes.string,
@@ -98,33 +88,24 @@ Wallet.propTypes = {
   pickupRewardProcessing: PropTypes.bool,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  account: makeSelectAccount(),
-  balance: makeSelectBalance(),
-  weekStat: selectors.selectWeekStat(),
-  getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
-  pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
-  ids: selectors.selectIds(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
-    pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default memo(
+  compose(
+    injectReducer({ key: 'wallet', reducer }),
+    injectSaga({ key: 'wallet', saga }),
+    connect(
+      createStructuredSelector({
+        locale: makeSelectLocale(),
+        account: makeSelectAccount(),
+        balance: makeSelectBalance(),
+        weekStat: selectors.selectWeekStat(),
+        getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
+        pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
+        ids: selectors.selectIds(),
+      }),
+      dispatch => ({
+        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
+        pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
+      }),
+    ),
+  )(Wallet),
 );
-
-const withReducer = injectReducer({ key: 'wallet', reducer });
-const withSaga = injectSaga({ key: 'wallet', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Wallet);

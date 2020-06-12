@@ -1,6 +1,8 @@
 import JSBI from 'jsbi';
 import communitiesConfig from 'communities-config';
 
+import _get from 'lodash/get';
+
 import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
 
@@ -24,6 +26,15 @@ export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
     id => communitiesConfig[id].origin === window.location.origin,
   );
+
+export const singleCommunityStyles = () =>
+  _get(communitiesConfig, [isSingleCommunityWebsite(), 'styles'], {});
+
+export const singleCommunityColors = () =>
+  _get(singleCommunityStyles(), 'colors', {});
+
+export const singleCommunityFonts = () =>
+  _get(singleCommunityStyles(), 'fonts', {});
 
 export function hasCommunitySingleWebsite(commId) {
   return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
@@ -57,10 +68,10 @@ export function getTagScope(communityId) {
 
   for (let i = 0; i < 13; i++) {
     v = JSBI.bitwiseAnd(v, mask64);
-    if (v.toString() == zero.toString()) break;
+    if (v.toString() === zero.toString()) break;
     const indx = JSBI.signedRightShift(
       JSBI.bitwiseAnd(v, mask),
-      JSBI.BigInt(i == 12 ? 60 : 59),
+      JSBI.BigInt(i === 12 ? 60 : 59),
     );
 
     ret += charmap[indx.toString()];
@@ -149,54 +160,54 @@ export async function downVoteToCreateTag(
 }
 
 /* eslint no-param-reassign: 0 */
-export async function getAllCommunities(eosService) {
-  const lowerBound = 0;
-  const limit = -1;
+export const getAllCommunities = async (eosService, count) => {
+  let limit = count;
+  let rows = [];
+  let more = true;
+  let lowerBound = 0;
 
-  const { rows } = await eosService.getTableRows(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    lowerBound,
-    limit,
-  );
+  while (rows.length < count && more && limit > 0) {
+    // eslint-disable-next-line no-await-in-loop
+    const { rows: newRows, more: hasMore } = await eosService.getTableRows(
+      COMMUNITIES_TABLE,
+      ALL_COMMUNITIES_SCOPE,
+      lowerBound,
+      limit,
+    );
 
-  await Promise.all(
+    rows = [...rows, ...newRows];
+    more = hasMore;
+    lowerBound = rows[rows.length - 1].id;
+    limit -= newRows.length;
+  }
+
+  const updatedRows = await Promise.all(
     rows.map(async x => {
-      x.label = x.name;
-      x.value = x.id;
+      const { description, main_description, language, avatar } = JSON.parse(
+        await getText(x.ipfs_description),
+      );
+      const { rows: tagRows } = await eosService.getTableRows(
+        TAGS_TABLE,
+        getTagScope(x.id),
+        0,
+        -1,
+      );
 
-      const promise1 = async () => {
-        const { description, main_description, language, avatar } = JSON.parse(
-          await getText(x.ipfs_description),
-        );
-
-        x.avatar = getFileUrl(avatar);
-        x.description = description;
-        x.main_description = main_description;
-        x.language = language;
+      return {
+        ...x,
+        label: x.name,
+        value: x.id,
+        avatar: getFileUrl(avatar),
+        description,
+        main_description,
+        language,
+        tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
       };
-
-      // Tags for community
-      const promise2 = async () => {
-        x.tags = (await eosService.getTableRows(
-          TAGS_TABLE,
-          getTagScope(x.id),
-          lowerBound,
-          limit,
-        )).rows;
-
-        x.tags.forEach(y => {
-          y.label = y.name;
-          y.value = y.id;
-        });
-      };
-
-      await Promise.all([promise1(), promise2()]);
     }),
   );
 
-  return rows;
-}
+  return updatedRows;
+};
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   const { rows } = await eosService.getTableRows(

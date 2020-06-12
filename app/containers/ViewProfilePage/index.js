@@ -1,9 +1,3 @@
-/**
- *
- * ViewProfilePage
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,6 +9,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
+import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 
 import QuestionsOfUser from 'containers/QuestionsOfUser';
@@ -32,8 +27,8 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import {
-  selectQuestionsLoading,
   selectQuestions,
+  selectQuestionsLoading,
 } from 'containers/QuestionsOfUser/selectors';
 
 import {
@@ -52,7 +47,7 @@ import saga from '../QuestionsWithAnswersOfUser/saga';
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
 
-const ViewProfilePage = /* istanbul ignore next */ ({
+const ViewProfilePage = ({
   match,
   loginData,
   profile,
@@ -76,22 +71,22 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         userId={userId}
         account={account}
         loginData={loginData}
-        questionsLength={profile ? profile.questions_asked : 0}
-        questionsWithUserAnswersLength={profile ? profile.answers_given : 0}
+        questionsLength={profile?.questions_asked ?? 0}
+        questionsWithUserAnswersLength={profile?.answers_given ?? 0}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
-        displayName={profile ? profile.display_name : null}
+        displayName={profile?.display_name}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
-        displayName={profile ? profile.display_name : null}
+        displayName={profile?.display_name}
         userId={userId}
       />
 
@@ -102,9 +97,18 @@ const ViewProfilePage = /* istanbul ignore next */ ({
         activeKey={activeKey}
         ownerKey={ownerKey}
         loginData={loginData}
-        user={profile ? profile.user : null}
+        profile={profile}
+        account={account}
+        user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
       />
+
+      {path === routes.userNotifications(userId) && (
+        <Notifications
+          className={path === routes.userNotifications(userId) ? '' : 'd-none'}
+          isAvailable={account === profile?.user}
+        />
+      )}
 
       <ProfileViewForm
         className={

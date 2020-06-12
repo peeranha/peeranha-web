@@ -1,16 +1,20 @@
-import OntLogo from 'images/communities-logos/ont.svg?inline';
-import TelosLogo from 'images/communities-logos/telos.png';
-import AgeronaLogo from 'images/communities-logos/agerona.svg?inline';
+import OntLogo from './communities-configs/ont/images/ont.svg?inline';
+import TelosLogo from './communities-configs/telos/images/telos-logo-light.svg?inline';
+
+import { TelosStyles } from './communities-configs/telos';
+import { OntStyles } from './communities-configs/ont';
 
 const communitiesConfig = {
   prod: {
     2: {
       origin: 'https://telos.peeranha.io',
       src: TelosLogo,
+      styles: TelosStyles,
     },
     3: {
       origin: 'https://ont.peeranha.io',
       src: OntLogo,
+      styles: OntStyles,
     },
     18: {
       origin: 'https://agerona.peeranha.io',
@@ -18,15 +22,23 @@ const communitiesConfig = {
     },
   },
   test: {
-    2: {
+    1: {
       origin: 'https://blockchain-test.peeranha.io',
+    },
+    2: {
+      origin: 'https://community1-test.peeranha.io',
+      src: TelosLogo,
+      styles: TelosStyles,
+    },
+    3: {
+      origin: 'https://community2-test.peeranha.io',
       src: OntLogo,
+      styles: OntStyles,
     },
   },
   dev: {
-    2: {
-      origin: 'http://localhost:13000',
-      src: OntLogo,
+    1: {
+      origin: 'http://localhost:30001',
     },
   },
 };

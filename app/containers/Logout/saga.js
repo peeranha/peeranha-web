@@ -11,6 +11,7 @@ import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 import { LOGOUT } from './constants';
 
 import { logoutSuccess, logoutErr } from './actions';
+import { clearNotificationsData } from '../../components/Notifications/actions';
 
 export function* logoutWorker() {
   try {
@@ -24,6 +25,8 @@ export function* logoutWorker() {
 
     yield call(createdHistory.push, routes.questions());
     yield put(getCurrentAccountSuccess());
+
+    yield put(clearNotificationsData());
 
     yield put(logoutSuccess());
   } catch (err) {

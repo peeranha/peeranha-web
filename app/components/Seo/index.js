@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { APP_MAIN_NAME } from 'utils/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 const Seo = ({
@@ -20,12 +21,28 @@ const Seo = ({
     <title>{`${communityName}${title} - Peeranha`}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
-    <meta property="og:description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={window.location.href} />
+    <meta property="og:site_name" content={APP_MAIN_NAME} />
+    <meta property="og:image" content="/logo.png" />
     <meta property="og:locale" content={language} />
+
+    <meta name="twitter:title" property="og:title" content={title} />
+    <meta
+      name="twitter:description"
+      property="og:description"
+      content={description}
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@peeranhaio" />
+    <meta name="twitter:creator" content="@peeranhaio" />
+    <meta name="twitter:domain" content={window.location.hostname} />
+
     <meta httpEquiv="content-language" content={appLocales} />
     <meta property="article:section" content={description} />
     {keywords && <meta property="article:tag" content={keywords} />}
-    <meta property="og:type" content="article" />
 
     {articlePublishedTime && (
       <meta property="article:published_time" content={articlePublishedTime} />
@@ -51,7 +68,10 @@ Seo.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  articleModifiedTime: PropTypes.instanceOf(Date),
+  articleModifiedTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   index: PropTypes.bool,
   communityName: PropTypes.string,
 };

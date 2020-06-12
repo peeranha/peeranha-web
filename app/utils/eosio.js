@@ -5,7 +5,7 @@ import ecc from 'eosjs-ecc';
 import { JsSignatureProvider } from 'eosjs20/dist/eosjs-jssig';
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
-import { TextEncoder, TextDecoder } from 'text-encoding';
+import { TextDecoder, TextEncoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
@@ -14,14 +14,14 @@ import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
 import {
   BLOCKCHAIN_NAME,
   DEFAULT_EOS_PERMISSION,
-  SCATTER_APP_NAME,
-  EOS_IS_NOT_INIT,
   ENDPOINTS_LIST,
-  SCATTER_TIMEOUT_ERROR,
+  EOS_IS_NOT_INIT,
+  SCATTER_APP_NAME,
   SCATTER_TIMEOUT_DURATION,
+  SCATTER_TIMEOUT_ERROR,
 } from './constants';
 
-import { parseTableRows, createPushActionBody } from './ipfs';
+import { createPushActionBody, parseTableRows } from './ipfs';
 import { ApplicationError, BlockchainError } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
@@ -44,19 +44,20 @@ class EosioService {
     this.node = null;
     this.isScatterWindowOpened = false;
     this.#key = null;
+    this.withScatter = false;
   }
 
-  initScatter = async () => {
+  initScatter = async appName => {
     ScatterJS.plugins(new ScatterEOS());
 
-    const connected = await ScatterJS.scatter.connect(SCATTER_APP_NAME);
+    const connected = await ScatterJS.scatter.connect(appName);
 
     if (!connected) throw new Error('No connection with Scatter');
   };
 
-  initEosioWithScatter = async () => {
+  initEosioWithScatter = async (appName = SCATTER_APP_NAME) => {
     try {
-      await this.initScatter();
+      await this.initScatter(appName);
       this.node = await this.getNode();
 
       const scatterConfig = this.getScatterConfig();
@@ -65,6 +66,7 @@ class EosioService {
       this.selectedAccount = await this.selectAccount();
       this.initialized = true;
       this.scatterInstalled = true;
+      this.withScatter = true;
 
       const api = ScatterJS.scatter.eos(scatterConfig, Eosjs16, eosOptions);
 
@@ -73,7 +75,7 @@ class EosioService {
         authorityProvider: {
           get_table_rows: api.getTableRows,
           history_get_key_accounts: api.getKeyAccounts,
-          get_account: api.getKeyAccounts,
+          get_account: api.getAccount,
           get_block: api.getBlock,
         },
       };
@@ -98,6 +100,7 @@ class EosioService {
     });
     this.initialized = true;
     this.selectedAccount = acc;
+    this.withScatter = false;
     this.#key = key;
   };
 
@@ -137,18 +140,16 @@ class EosioService {
     }
   };
 
-  getSelectedAccount = async () => {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-
-    if (!autoLoginData) return null;
-
-    return this.selectedAccount;
-  };
+  getSelectedAccount = async () =>
+    this.selectedAccount ||
+    JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
+    null;
 
   forgetIdentity = async () => {
     try {
       if (ScatterJS.scatter && ScatterJS.scatter.identity) {
         await ScatterJS.scatter.forgetIdentity();
+        this.selectedAccount = null;
       }
     } catch ({ message }) {
       console.log(message);
@@ -254,10 +255,10 @@ class EosioService {
 
         this.isScatterWindowOpened = false;
 
-        return;
-      } catch ({ message }) {
+        return trx;
+      } catch (e) {
         this.isScatterWindowOpened = false;
-        throw new BlockchainError(message);
+        throw new BlockchainError(e.message);
       }
     }
 
@@ -299,6 +300,7 @@ class EosioService {
       if (waitForGettingToBlock) {
         await this.awaitTransactionToBlock(trx.processed.block_num);
       }
+      return trx;
     } catch ({ message }) {
       const isHandled = Object.keys(blockchainErrors).find(x =>
         message.match(blockchainErrors[x].keywords.toLowerCase()),
@@ -378,7 +380,7 @@ class EosioService {
     keyType,
     code,
   ) => {
-    const { endpoint } = this.node;
+    const { endpoint } = this.node; // ??? endpoint of null
 
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 

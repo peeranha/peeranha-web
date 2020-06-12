@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { BORDER_PRIMARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
+
+import { singleCommunityFonts } from 'utils/communityManagement';
+
+const fonts = singleCommunityFonts();
 
 const Tag = Span.extend`
   border: 1px solid ${BORDER_PRIMARY};
@@ -35,23 +39,32 @@ const TagsList = ({
   className,
   showPopularity,
 }) => {
-  const community = communities.filter(x => communityId === x.id)[0];
+  const community = useMemo(
+    () => communities.filter(x => communityId === x.id)[0] || { tags: [] },
+    [communities, communities.length],
+  );
 
-  if (!community) return null;
+  const questionTags = useMemo(
+    () =>
+      chosenTags
+        ? community.tags.filter(x => chosenTags.includes(x.id))
+        : community.tags,
+    [chosenTags, community.tags, community.tags.length],
+  );
 
-  const questionTags = chosenTags
-    ? community.tags.filter(x => chosenTags.includes(x.id))
-    : community.tags;
+  if (!community || !community.tags.length) return null;
 
   return (
     <Box>
       {questionTags.map(x => (
         <li key={x.name} className="d-flex flex-column">
-          <Tag className={className}>{x.name}</Tag>
+          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
+            {x.name}
+          </Tag>
 
           {showPopularity && (
             <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-              {`${x.questions_asked}`}
+              {x.questions_asked}
             </Span>
           )}
         </li>

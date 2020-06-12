@@ -1,6 +1,6 @@
-/* eslint eqeqeq: 0 */
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 /**
  * Direct selector to the viewQuestion state domain
@@ -10,8 +10,47 @@ const selectViewQuestionDomain = state =>
   state.get('viewQuestion', initialState);
 
 const selectQuestionData = () =>
-  createSelector(selectViewQuestionDomain, substate =>
-    substate.get('questionData'),
+  createSelector(
+    selectViewQuestionDomain,
+    makeSelectProfileInfo(),
+    (substate, profileInfo) => {
+      const questionData = substate.get('questionData');
+      if (!questionData || !profileInfo) {
+        return questionData;
+      }
+
+      // update profile question data if profile itself has updated
+      const { userInfo, answers } = questionData;
+      const { user, rating } = profileInfo;
+
+      answers.forEach(answer => {
+        const { comments, userInfo: answerUserInfo } = answer;
+        if (answerUserInfo.user === user && answerUserInfo.rating !== rating) {
+          answerUserInfo.rating = rating;
+        }
+        comments.forEach(comment => {
+          const { userInfo: commentUserInfo } = comment;
+          if (
+            commentUserInfo.user === user &&
+            commentUserInfo.rating !== rating
+          ) {
+            commentUserInfo.rating = rating;
+          }
+        });
+      });
+
+      if (
+        userInfo.user === profileInfo.user &&
+        userInfo.rating !== profileInfo.rating
+      ) {
+        return {
+          ...questionData,
+          userInfo: profileInfo,
+        };
+      }
+
+      return questionData;
+    },
   );
 
 export const selectAnswer = answerId =>

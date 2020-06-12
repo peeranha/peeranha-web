@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Base from 'components/Base';
+
+import { isAnswerOfficial } from 'utils/properties';
 
 import TextBlock from './TextBlock';
 import Comments from './Comments';
@@ -34,44 +36,64 @@ export const ContentBody = ({
   userInfo,
   isTheLargestRating,
   ids,
-}) => (
-  <Base position="bottom">
-    <BestAnswerMarker
-      answerId={answerId}
-      questionFrom={questionFrom}
-      account={account}
-      markAsAccepted={markAsAccepted}
-      markAsAcceptedLoading={markAsAcceptedLoading}
-      correctAnswerId={questionData.correct_answer_id}
-      whoWasAccepted={userInfo.user}
-      isTheLargestRating={isTheLargestRating}
-      ids={ids}
-    />
+  isItWrittenByMe,
+}) => {
+  const isOfficial = useMemo(
+    () =>
+      isAnswerOfficial(
+        questionData.answers.find(({ id }) => id === answerId) || {
+          id: 0,
+          properties: [],
+        },
+      ),
+    [questionData.answers, answerId],
+  );
 
-    <TextBlock content={content} />
+  return (
+    <Base position="bottom">
+      <BestAnswerMarker
+        answerId={answerId}
+        questionFrom={questionFrom}
+        account={account}
+        markAsAccepted={markAsAccepted}
+        markAsAcceptedLoading={markAsAcceptedLoading}
+        correctAnswerId={questionData.correct_answer_id}
+        whoWasAccepted={userInfo.user}
+        isTheLargestRating={isTheLargestRating}
+        ids={ids}
+        isGeneral={questionData.isGeneral}
+        isItWrittenByMe={isItWrittenByMe}
+        communityId={questionData.community_id}
+        questionId={questionData.id}
+        isOfficial={isOfficial}
+        userInfo={userInfo}
+      />
 
-    <Comments
-      locale={locale}
-      type={type}
-      saveComment={saveComment}
-      saveCommentLoading={saveCommentLoading}
-      deleteComment={deleteComment}
-      deleteCommentLoading={deleteCommentLoading}
-      voteToDelete={voteToDelete}
-      voteToDeleteLoading={voteToDeleteLoading}
-      buttonParams={buttonParams}
-      translations={translations}
-      answerId={answerId}
-      comments={comments}
-      form={`${ADD_COMMENT_FORM}${answerId}`}
-      submitButtonId={POST_COMMENT_BUTTON}
-      submitButtonName={translations[messages.postCommentButton.id]}
-      sendCommentLoading={postCommentLoading}
-      sendComment={postComment}
-      ids={ids}
-    />
-  </Base>
-);
+      <TextBlock content={content} />
+
+      <Comments
+        locale={locale}
+        type={type}
+        saveComment={saveComment}
+        saveCommentLoading={saveCommentLoading}
+        deleteComment={deleteComment}
+        deleteCommentLoading={deleteCommentLoading}
+        voteToDelete={voteToDelete}
+        voteToDeleteLoading={voteToDeleteLoading}
+        buttonParams={buttonParams}
+        translations={translations}
+        answerId={answerId}
+        comments={comments}
+        form={`${ADD_COMMENT_FORM}${answerId}`}
+        submitButtonId={POST_COMMENT_BUTTON}
+        submitButtonName={translations[messages.postCommentButton.id]}
+        sendCommentLoading={postCommentLoading}
+        sendComment={postComment}
+        ids={ids}
+      />
+    </Base>
+  );
+};
 
 ContentBody.propTypes = {
   type: PropTypes.string,
@@ -97,6 +119,7 @@ ContentBody.propTypes = {
   markAsAcceptedLoading: PropTypes.bool,
   ids: PropTypes.array,
   answerId: PropTypes.number,
+  isItWrittenByMe: PropTypes.bool,
 };
 
 export default React.memo(ContentBody);

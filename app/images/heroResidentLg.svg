@@ -4,13 +4,13 @@
     <title>7377F86E-729F-4911-9A0A-CE8A12F756ED</title>
     <desc>Created with sketchtool.</desc>
     <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="ico_junior_big-copy-ico_hero_big" fill="#FDE2DF" stroke="#F76F60">
-            <ellipse id="Oval-Copy-7" cx="7.78378378" cy="8" rx="7.28378378" ry="7.5"></ellipse>
-            <ellipse id="Oval-Copy-12" cx="7.78378378" cy="8" rx="5.33783784" ry="5.5"></ellipse>
-            <ellipse id="Oval-Copy-8" cx="17.5135135" cy="8" rx="7.28378378" ry="7.5"></ellipse>
-            <ellipse id="Oval-Copy-13" cx="17.5135135" cy="8" rx="5.33783784" ry="5.5"></ellipse>
-            <ellipse id="Oval-Copy-9" cx="28.2162162" cy="8" rx="7.28378378" ry="7.5"></ellipse>
-            <ellipse id="Oval-Copy-14" cx="28.2162162" cy="8" rx="5.33783784" ry="5.5"></ellipse>
+        <g id="ico_junior_big-copy-ico_hero_big">
+            <ellipse class="fill stroke" id="Oval-Copy-7" cx="7.78378378" cy="8" rx="7.28378378" ry="7.5"></ellipse>
+            <ellipse class="fill stroke" id="Oval-Copy-12" cx="7.78378378" cy="8" rx="5.33783784" ry="5.5"></ellipse>
+            <ellipse class="fill stroke" id="Oval-Copy-8" cx="17.5135135" cy="8" rx="7.28378378" ry="7.5"></ellipse>
+            <ellipse class="fill stroke" id="Oval-Copy-13" cx="17.5135135" cy="8" rx="5.33783784" ry="5.5"></ellipse>
+            <ellipse class="fill stroke" id="Oval-Copy-9" cx="28.2162162" cy="8" rx="7.28378378" ry="7.5"></ellipse>
+            <ellipse class="fill stroke" id="Oval-Copy-14" cx="28.2162162" cy="8" rx="5.33783784" ry="5.5"></ellipse>
         </g>
     </g>
 </svg>

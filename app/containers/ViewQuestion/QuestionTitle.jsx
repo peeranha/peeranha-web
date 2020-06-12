@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
 import checkIcon from 'images/okayGreen.svg?inline';
+import coinsIcon from 'images/coins.svg?external';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -10,62 +14,125 @@ import TagList from 'components/TagsList';
 import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
-
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-import messages from './messages';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import SendTips from '../SendTips';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
-// eslint-disable-next-line no-unused-vars
-const B = Button.extend`
-  display: inline-flex;
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+
+import messages from './messages';
+
+const styles = singleCommunityStyles();
+
+export const B = Button.extend`
   align-items: center;
   padding-top: 0;
   padding-bottom: 0;
+  min-height: 32px;
+  transition-property: none;
+  width: max-content;
 `.withComponent('span');
+
+const QuestionName = H3.extend`
+  display: initial;
+`.withComponent('h3');
+
+const Div = styled.div`
+  min-width: 140px;
+`;
+
+const Top = styled.div`
+  > div {
+    margin-bottom: 5px;
+  }
+
+  @media only screen and (max-width: 310px) {
+    flex-direction: column-reverse;
+    justify-content: start;
+
+    > div {
+      margin-bottom: 5px;
+      left: 0;
+    }
+
+    > button,
+    > div {
+      width: fit-content;
+    }
+  }
+`;
 
 export const QuestionTitle = ({
   title,
-  tags,
-  communityId,
   communities,
-  isItWrittenByMe,
-  correctAnswerId,
-  answersNumber,
-  isGeneral,
-}) =>
-  title ? (
-    <Base position="middle" bordered={!isGeneral}>
-      {!isGeneral && (
-        <QuestionType size="md">
-          <FormattedMessage {...messages.expertQuestion} />
-        </QuestionType>
-      )}
-      <div>
-        {/*
-          <SendTokens>
+  user,
+  questionData,
+  profileInfo,
+}) => {
+  const {
+    tags,
+    community_id: communityId,
+    correct_answer_id: correctAnswerId,
+    answers,
+    isGeneral,
+    id,
+  } = questionData;
+
+  const isItWrittenByMe = !!profileInfo ? user === profileInfo.user : false;
+
+  return title ? (
+    <Base
+      paddingTop="5"
+      paddingTopMedia="5"
+      position="middle"
+      bordered={!isGeneral}
+      withoutBR
+    >
+      <Top>
+        {(!profileInfo || (!!profileInfo && !isItWrittenByMe)) && (
+          <SendTips
+            form="tip-question"
+            questionId={id}
+            answerId={0}
+            account={user}
+          >
             <B>
-              <img className="mr-1" src={coinsIcon} alt="icon" />
+              <IconMd
+                className="mr-1"
+                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+              />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
-          </SendTokens>
-        */}
+          </SendTips>
+        )}
 
-        <MarkAnswerNotification
-          className={
-            !correctAnswerId && isItWrittenByMe && answersNumber
-              ? 'd-inline-flex'
-              : 'd-none'
-          }
-        >
-          <img className="mr-2" src={checkIcon} alt="icon" />
-          <FormattedMessage
-            {...(isGeneral
-              ? messages.markGeneralQuestionAndGetEarn
-              : messages.markExpertQuestionAndGetEarn)}
-          />
-        </MarkAnswerNotification>
+        {!isGeneral && (
+          <QuestionType size="md" top="0px" topMedia="0px">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        )}
+      </Top>
+      <Div>
+        {!correctAnswerId && isItWrittenByMe && answers.length ? (
+          <>
+            <MarkAnswerNotification className="d-inline-flex">
+              <img className="mr-2" src={checkIcon} alt="icon" />
+              <FormattedMessage
+                {...(isGeneral
+                  ? messages.markGeneralQuestionAndGetEarn
+                  : messages.markExpertQuestionAndGetEarn)}
+              />
+            </MarkAnswerNotification>
+            <br />
+          </>
+        ) : null}
 
-        <H3>{title}</H3>
+        <QuestionName>{title}</QuestionName>
 
         <TagList
           className="my-2"
@@ -81,9 +148,10 @@ export const QuestionTitle = ({
             />
           ) : null}
         </TagList>
-      </div>
+      </Div>
     </Base>
   ) : null;
+};
 
 QuestionTitle.propTypes = {
   title: PropTypes.string,
@@ -94,6 +162,18 @@ QuestionTitle.propTypes = {
   isGeneral: PropTypes.bool,
   correctAnswerId: PropTypes.number,
   answersNumber: PropTypes.number,
+  user: PropTypes.string,
+  questionData: PropTypes.object,
+  profileInfo: PropTypes.object,
 };
 
-export default React.memo(QuestionTitle);
+export default React.memo(
+  connect(
+    state => {
+      return {
+        profileInfo: makeSelectProfileInfo()(state),
+      };
+    },
+    null,
+  )(QuestionTitle),
+);

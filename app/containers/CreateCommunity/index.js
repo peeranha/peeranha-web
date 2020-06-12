@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -49,13 +49,14 @@ import Banner from './Banner';
 
 const createCommunityRoute = routes.communitiesCreate();
 
-/* eslint-disable react/prefer-stateless-function */
-export class CreateCommunity extends React.PureComponent {
-  componentWillUnmount() {
-    this.props.setDefaultStoreDispatch();
-  }
-
-  createCommunity = (...args) => {
+export const CreateCommunity = ({
+  locale,
+  faqQuestions,
+  createCommunityLoading,
+  createCommunityDispatch,
+  setDefaultStoreDispatch,
+}) => {
+  const createCommunityMethod = (...args) => {
     const { reset } = args[2];
     const values = args[0].toJS();
 
@@ -77,41 +78,41 @@ export class CreateCommunity extends React.PureComponent {
       tags,
     };
 
-    this.props.createCommunityDispatch(community, reset);
+    createCommunityDispatch(community, reset);
   };
 
-  render() /* istanbul ignore next */ {
-    const sendProps = {
-      createCommunity: this.createCommunity,
-      createCommunityLoading: this.props.createCommunityLoading,
-      translations: translationMessages[this.props.locale],
-    };
+  useEffect(() => setDefaultStoreDispatch, []);
 
-    const path = window.location.pathname + window.location.hash;
+  const sendProps = {
+    createCommunity: createCommunityMethod,
+    createCommunityLoading,
+    translations: translationMessages[locale],
+  };
 
-    return (
-      <div>
-        <Seo
-          title={sendProps.translations[messages.title.id]}
-          description={sendProps.translations[messages.description.id]}
-          language={this.props.locale}
-          index={false}
-        />
+  const path = window.location.pathname + window.location.hash;
 
-        <Header />
+  return (
+    <div>
+      <Seo
+        title={sendProps.translations[messages.title.id]}
+        description={sendProps.translations[messages.description.id]}
+        language={locale}
+        index={false}
+      />
 
-        {path === createCommunityRoute && (
-          <TipsBase className="overflow-hidden">
-            <Form {...sendProps} />
-            <Tips faqQuestions={this.props.faqQuestions} />
-          </TipsBase>
-        )}
+      <Header />
 
-        {path !== createCommunityRoute && <Banner />}
-      </div>
-    );
-  }
-}
+      {path === createCommunityRoute && (
+        <TipsBase className="overflow-hidden">
+          <Form {...sendProps} />
+          <Tips faqQuestions={faqQuestions} />
+        </TipsBase>
+      )}
+
+      {path !== createCommunityRoute && <Banner />}
+    </div>
+  );
+};
 
 CreateCommunity.propTypes = {
   setDefaultStoreDispatch: PropTypes.func.isRequired,
@@ -121,25 +122,19 @@ CreateCommunity.propTypes = {
   faqQuestions: PropTypes.array,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  faqQuestions: selectFaqQuestions([
-    WHAT_IS_COMMUNITY_QUESTION,
-    WHO_MANAGES_COMMUNITY_QUESTION,
-  ]),
-  createCommunityLoading: selectors.selectCreateCommunityLoading(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    faqQuestions: selectFaqQuestions([
+      WHAT_IS_COMMUNITY_QUESTION,
+      WHO_MANAGES_COMMUNITY_QUESTION,
+    ]),
+    createCommunityLoading: selectors.selectCreateCommunityLoading(),
+  }),
+  dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
 
 const withReducer = injectReducer({ key: 'createCommunity', reducer });

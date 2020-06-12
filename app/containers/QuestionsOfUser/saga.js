@@ -1,16 +1,19 @@
 /* eslint no-param-reassign: 0, array-callback-return: 0, func-names: 0 */
-import { call, put, takeLatest, select, all } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { getQuestionsPostedByUser, getQuestionById } from 'utils/questionsManagement';
+import {
+  getQuestionById,
+  getQuestionsPostedByUser,
+} from 'utils/questionsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { POST_TYPE_QUESTION } from 'containers/Profile/constants';
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
-import { getQuestionsSuccess, getQuestionsErr } from './actions';
+import { getQuestionsErr, getQuestionsSuccess } from './actions';
 
-import { selectQuestions, selectNumber } from './selectors';
+import { selectNumber, selectQuestions } from './selectors';
 
 import { GET_QUESTIONS } from './constants';
 
@@ -19,15 +22,20 @@ export function* getQuestionsWorker({ userId }) {
     const questionsFromStore = yield select(selectQuestions());
     const limit = yield select(selectNumber());
     const eosService = yield select(selectEos);
-
     const offset =
       (questionsFromStore[questionsFromStore.length - 1] &&
         +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
       0;
 
-    const idOfQuestions = yield call(() => getQuestionsPostedByUser(eosService, userId, offset, limit));
+    const idOfQuestions = yield call(() =>
+      getQuestionsPostedByUser(eosService, userId, offset, limit),
+    );
 
-    const questions = yield all(idOfQuestions.map(x => getQuestionById(eosService, x.question_id, userId)));
+    const questions = yield all(
+      idOfQuestions.map(x =>
+        getQuestionById(eosService, x.question_id, userId),
+      ),
+    );
 
     /*
      *
@@ -51,7 +59,9 @@ export function* getQuestionsWorker({ userId }) {
         const lastAnswer = x.answers[x.answers.length - 1];
         users.set(
           lastAnswer.user,
-          users.get(lastAnswer.user) ? [...users.get(lastAnswer.user), lastAnswer] : [lastAnswer],
+          users.get(lastAnswer.user)
+            ? [...users.get(lastAnswer.user), lastAnswer]
+            : [lastAnswer],
         );
       }
     });

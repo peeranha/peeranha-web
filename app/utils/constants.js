@@ -5,6 +5,7 @@ export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
 export const SCATTER_APP_NAME = 'Peeranha';
+export const SEND_TIPS_SCATTER_APP_NAME = 'PeeranhaSendTips';
 
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
@@ -23,7 +24,24 @@ export const HUBSPOT_SEND_MESSAGE_FORM_ID =
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
+// question/answers properties
+export const OFFICIAL_ANSWER_KEYS = [1, 3];
+
+// permissions
 export const MODERATOR_KEY = 48;
+export const MODERATOR_INFINITE_IMPACT = 1;
+export const MODERATOR_IGNORE_RATING = 2;
+export const MODERATOR_CREATE_COMMUNITY = 3;
+export const MODERATOR_CREATE_TAG = 4;
+export const MODERATOR_QUESTION_TYPE = 5;
+
+export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
+export const COMMUNITY_ADMIN_IGNORE_RATING = 2;
+export const COMMUNITY_ADMIN_CREATE_TAG = 4;
+export const COMMUNITY_ADMIN_QUESTION_TYPE = 5;
+export const COMMUNITY_ADMIN_TOP_QUESTIONS = 6;
+export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
+
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
 
@@ -49,6 +67,8 @@ export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
 export const INVITED_USERS_TABLE = 'invited';
+export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
+export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 
 // Scopes
 
@@ -59,6 +79,8 @@ export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
 export const INVITED_USERS_SCOPE = 'allinvited';
+export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
+export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -103,6 +125,13 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
 
+// Top community questions methods
+export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
+export const REMOVE_FROM_TOP_COMMUNITY_METHOD = 'remfrmtopcom';
+export const UP_QUESTION_METHOD = 'upquestion';
+export const DOWN_QUESTION_METHOD = 'downquestion';
+export const MOVE_QUESTION_METHOD = 'movequestion';
+
 // Datetime
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
@@ -116,3 +145,7 @@ export const NO_AVATAR_EDIT = 'QmVu3aRQU2fYJ12W632f1ST2LhBdH3FDYpWeKeiLsTVt9E';
 
 // Currency
 export const APP_CURRENCY = 'PEER';
+
+// Social Media Data
+export const APP_TWITTER_NICKNAME = 'peeranhaio';
+export const APP_MAIN_NAME = 'Peeranha';

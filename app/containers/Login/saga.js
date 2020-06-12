@@ -23,6 +23,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   getCurrentAccountWorker,
   getReferralInfo,
+  getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
 import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
@@ -55,9 +56,6 @@ import {
   WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
-  LOGIN_WITH_EMAIL_SUCCESS,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  FINISH_REGISTRATION_SUCCESS,
   REFERRAL_CODE,
 } from './constants';
 
@@ -65,6 +63,7 @@ import messages from './messages';
 import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -110,6 +109,10 @@ export function* loginWithEmailWorker({ val }) {
       eosAccountName,
     );
 
+    yield call(getNotificationsInfoWorker, profileInfo.user);
+
+    yield call(getCommunityPropertyWorker);
+
     yield put(initEosioSuccess(eosService));
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -149,6 +152,10 @@ export function* loginWithScatterWorker() {
         translations[messages[USER_IS_NOT_REGISTERED].id],
       );
     }
+
+    yield call(getNotificationsInfoWorker, profileInfo.user);
+
+    yield call(getCommunityPropertyWorker);
 
     setCookie({
       name: AUTOLOGIN_DATA,
@@ -252,12 +259,4 @@ export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
-  yield takeLatest(
-    [
-      LOGIN_WITH_EMAIL_SUCCESS,
-      LOGIN_WITH_SCATTER_SUCCESS,
-      FINISH_REGISTRATION_SUCCESS,
-    ],
-    redirectToFeedWorker,
-  );
 }

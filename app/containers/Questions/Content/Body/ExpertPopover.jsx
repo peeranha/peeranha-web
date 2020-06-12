@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import commonMessages from 'common-messages';
@@ -10,11 +10,10 @@ const Base = styled.div`
   background-color: ${BG_LIGHT};
   width: 290px;
   z-index: 100;
-  height: 170px;
   left: -235px;
   top: 25px;
   border-radius: 5px;
-  box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);}
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
 
   span {
@@ -28,7 +27,7 @@ const Base = styled.div`
     }
 
     li::before {
-      content: "\\2022";
+      content: '\\2022';
       color: ${BORDER_PRIMARY_LIGHT};
       font-weight: bold;
       display: inline-block;
@@ -52,4 +51,4 @@ ExpertPopover.propTypes = {
   locale: PropTypes.string,
 };
 
-export default ExpertPopover;
+export default memo(ExpertPopover);

@@ -9,8 +9,8 @@ import {
 } from '../actions';
 
 import {
-  SHOW_SENDTOKENS_MODAL,
-  HIDE_SENDTOKENS_MODAL,
+  SHOW_SEND_TOKENS_MODAL,
+  HIDE_SEND_TOKENS_MODAL,
   SEND_TOKENS,
   SEND_TOKENS_SUCCESS,
   SEND_TOKENS_ERROR,
@@ -19,7 +19,7 @@ import {
 describe('SendTokens actions', () => {
   it('showSendTokensModal', () => {
     const expected = {
-      type: SHOW_SENDTOKENS_MODAL,
+      type: SHOW_SEND_TOKENS_MODAL,
     };
 
     expect(showSendTokensModal()).toEqual(expected);
@@ -27,7 +27,7 @@ describe('SendTokens actions', () => {
 
   it('hideSendTokensModal', () => {
     const expected = {
-      type: HIDE_SENDTOKENS_MODAL,
+      type: HIDE_SEND_TOKENS_MODAL,
     };
 
     expect(hideSendTokensModal()).toEqual(expected);

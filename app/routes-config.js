@@ -24,6 +24,7 @@ export const userQuestions = userRedirect('#questions');
 export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
+export const userNotifications = userRedirect('#notifications');
 export const userWallet = userRedirect('/wallet');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 

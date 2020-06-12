@@ -1,10 +1,4 @@
-/**
- *
- * TagsCollection
- *
- */
-
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -36,8 +30,10 @@ export const TagsCollection = /* istanbul ignore next */ ({
   communitiesLoading,
   redirectToCreateTagDispatch,
 }) => {
-  const keywords = communities.map(comm =>
-    comm.tags.map(tag => `${comm.name} ${tag.name}`),
+  const keywords = useMemo(
+    () =>
+      communities.map(comm => comm.tags.map(tag => `${comm.name} ${tag.name}`)),
+    [communities],
   );
 
   return (
@@ -53,9 +49,11 @@ export const TagsCollection = /* istanbul ignore next */ ({
 
       <List communities={communities} />
 
-      <Banner openTagForm={redirectToCreateTagDispatch} />
-
-      {communitiesLoading && <LoadingIndicator />}
+      {communitiesLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <Banner openTagForm={redirectToCreateTagDispatch} />
+      )}
     </div>
   );
 };

@@ -1,14 +1,9 @@
-/**
- *
- * Questions
- *
- */
-
-import React from 'react';
+/* eslint no-unused-expressions: 0 */
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
 import * as routes from 'routes-config';
 
@@ -16,6 +11,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getCookie } from 'utils/cookie';
+import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
@@ -23,8 +20,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
-  makeSelectFollowedCommunities,
   makeSelectAccount,
+  makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
@@ -42,189 +39,260 @@ import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
-import { getQuestions, setTypeFilter, setCreatedFilter } from './actions';
+import {
+  getQuestions,
+  loadTopCommunityQuestions,
+  setCreatedFilter,
+  setTypeFilter,
+} from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import Content from './Content';
+import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
+import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
-/* eslint react/prefer-stateless-function: 0, indent: 0 */
-export class Questions extends React.PureComponent {
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
+export const Questions = ({
+  locale,
+  questionsList,
+  questionsLoading,
+  isLastFetch,
+  communities,
+  followedCommunities,
+  parentPage,
+  communitiesLoading,
+  account,
+  profile,
+  match: { params, path },
+  redirectToAskQuestionPageDispatch,
+  typeFilter,
+  createdFilter,
+  setTypeFilterDispatch,
+  eosService,
+  initLoadedItems,
+  nextLoadedItems,
+  getQuestionsDispatch,
+  topQuestionsLoaded,
+  questionFilter,
+  loadTopQuestionsDispatch,
+}) => {
+  const [fetcher, setFetcher] = useState(null);
 
-  componentWillUnmount() {
-    this.fetcher = null;
-  }
+  const initFetcher = useCallback(
+    () => {
+      const MARGIN = 1.2;
+      const f = new FetcherOfQuestionsForFollowedCommunities(
+        Math.floor(MARGIN * initLoadedItems),
+        followedCommunities || [],
+        eosService,
+      );
+      setFetcher(f);
+      return f;
+    },
+    [initLoadedItems, followedCommunities, eosService],
+  );
 
-  componentDidUpdate(prevProps) {
-    const {
-      followedCommunities,
+  const getInitQuestions = useCallback(
+    () => {
+      if (!questionFilter) {
+        const offset = 0;
+        const f = initFetcher();
+
+        getQuestionsDispatch(
+          initLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          f,
+        );
+      }
+    },
+    [initLoadedItems, params.communityid, parentPage, fetcher, questionFilter],
+  );
+
+  const getNextQuestions = useCallback(
+    () => {
+      const lastItem = questionsList[questionsList.length - 1];
+      const offset = lastItem ? +lastItem.id + 1 : 0;
+      const next = true;
+
+      if (!questionFilter) {
+        const f = do {
+          if (parentPage !== feed) {
+            initFetcher();
+          } else {
+            fetcher;
+          }
+        };
+
+        getQuestionsDispatch(
+          nextLoadedItems,
+          offset,
+          Number(params.communityid) || 0,
+          parentPage,
+          f,
+          next,
+        );
+      }
+    },
+    [
+      questionsList,
+      questionsList.length,
+      nextLoadedItems,
+      params.communityid,
       parentPage,
-      eosService,
-      match: {
-        params: { communityid },
-      },
-      typeFilter,
-      createdFilter,
-    } = this.props;
+      fetcher,
+      questionFilter,
+    ],
+  );
 
-    // location changing
-    if (prevProps && prevProps.match.params.communityid !== communityid) {
-      this.fetcher = null;
-    }
+  useEffect(
+    () => {
+      setFetcher(null);
 
-    if (
-      (prevProps && typeFilter !== prevProps.typeFilter) ||
-      (prevProps && createdFilter !== prevProps.createdFilter) ||
-      (!this.fetcher &&
+      return () => {
+        setFetcher(null);
+      };
+    },
+    [params.communityid, questionFilter],
+  );
+
+  useEffect(
+    () => {
+      if (
+        !fetcher &&
         eosService &&
         ((parentPage === feed &&
           followedCommunities &&
           followedCommunities.length > 0) ||
-          parentPage !== feed))
-    ) {
-      this.getInitQuestions();
+          parentPage !== feed) &&
+        !questionFilter
+      ) {
+        getInitQuestions();
+      }
+    },
+    [fetcher, eosService, questionFilter],
+  );
+
+  useEffect(
+    () => {
+      if (!fetcher && !questionFilter) {
+        getInitQuestions();
+      }
+    },
+    [typeFilter, createdFilter, questionFilter],
+  );
+
+  useEffect(() => {
+    if (single) {
+      loadTopQuestionsDispatch();
     }
-  }
+  }, []);
 
-  initFetcher = () => {
-    const { eosService, initLoadedItems, followedCommunities } = this.props;
-    const MARGIN = 1.2;
+  const display = useMemo(
+    () => !(single && path === routes.questions(':communityid')),
+    [single, path],
+  );
 
-    this.fetcher = new FetcherOfQuestionsForFollowedCommunities(
-      Math.floor(MARGIN * initLoadedItems),
-      followedCommunities || [],
-      eosService,
-    );
-  };
-
-  getInitQuestions = () => {
-    const { initLoadedItems, parentPage, match } = this.props;
-    const offset = 0;
-
-    this.initFetcher();
-
-    this.props.getQuestionsDispatch(
-      initLoadedItems,
-      offset,
-      Number(match.params.communityid) || 0,
-      parentPage,
-      this.fetcher,
-    );
-  };
-
-  getNextQuestions = () => {
-    const { nextLoadedItems, questionsList, parentPage, match } = this.props;
-
-    const lastItem = questionsList[questionsList.length - 1];
-    const offset = lastItem ? +lastItem.id + 1 : 0;
-    const next = true;
-
-    if (parentPage !== feed) {
-      this.initFetcher();
-    }
-
-    this.props.getQuestionsDispatch(
-      nextLoadedItems,
-      offset,
-      Number(match.params.communityid) || 0,
-      parentPage,
-      this.fetcher,
-      next,
-    );
-  };
-
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      questionsList,
+  const displayBanner = useMemo(
+    () =>
+      !(getCookie(QUESTION_FILTER) === '1' || questionFilter === 1)
+        ? !questionsList.length && !questionsLoading && !communitiesLoading
+        : false,
+    [
+      questionsList.length,
       questionsLoading,
-      isLastFetch,
-      communities,
-      followedCommunities,
-      parentPage,
       communitiesLoading,
-      account,
-      profile,
-      match: { params, path },
-      redirectToAskQuestionPageDispatch,
-      typeFilter,
-      createdFilter,
-      setTypeFilterDispatch,
-    } = this.props;
+      topQuestionsLoaded,
+      questionFilter,
+    ],
+  );
 
-    const display = !(single && path === routes.questions(':communityid'));
+  const lastFetched = useMemo(
+    () => (!questionFilter ? isLastFetch : topQuestionsLoaded),
+    [isLastFetch, topQuestionsLoaded, questionFilter],
+  );
 
-    return display ? (
-      <div>
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-        />
+  const displayLoader = useMemo(
+    () =>
+      questionsLoading ||
+      communitiesLoading ||
+      (getCookie(QUESTION_FILTER) === '1' && !topQuestionsLoaded),
+    [questionsLoading, communitiesLoading, topQuestionsLoaded],
+  );
 
-        <Header
-          communityIdFilter={Number(params.communityid) || 0}
+  const isModerator = useMemo(
+    () =>
+      isUserTopCommunityQuestionsModerator(profile?.permissions ?? [], single),
+    [profile],
+  );
+
+  return display ? (
+    <div>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+      />
+
+      <Header
+        communityIdFilter={Number(params.communityid) || 0}
+        followedCommunities={followedCommunities}
+        parentPage={parentPage}
+        typeFilter={typeFilter}
+        createdFilter={createdFilter}
+        setTypeFilter={setTypeFilterDispatch}
+      />
+
+      {displayBanner && (
+        <Banner
+          isFeed={parentPage === feed}
           followedCommunities={followedCommunities}
-          parentPage={parentPage}
-          typeFilter={typeFilter}
-          createdFilter={createdFilter}
-          setTypeFilter={setTypeFilterDispatch}
+          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
+      )}
 
-        {!questionsList.length &&
-          !questionsLoading &&
-          !communitiesLoading && (
-            <Banner
-              isFeed={parentPage === feed}
-              followedCommunities={followedCommunities}
-              redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-            />
-          )}
-
-        {questionsList.length > 0 && (
-          <InfinityLoader
-            loadNextPaginatedData={this.getNextQuestions}
-            isLoading={questionsLoading}
-            isLastFetch={isLastFetch}
-          >
-            <Content
-              questionsList={questionsList}
-              locale={locale}
-              communities={communities}
-              typeFilter={typeFilter}
-              createdFilter={createdFilter}
-            />
-          </InfinityLoader>
-        )}
-
-        {parentPage === feed && (
-          <TopCommunities
-            userId={account}
-            account={account}
+      {questionsList.length > 0 && (
+        <InfinityLoader
+          loadNextPaginatedData={getNextQuestions}
+          isLoading={questionsLoading}
+          isLastFetch={lastFetched}
+        >
+          <Content
+            questionsList={questionsList}
+            locale={locale}
             communities={communities}
-            profile={profile}
+            typeFilter={typeFilter}
+            createdFilter={createdFilter}
+            isModerator={isModerator}
+            profileInfo={profile}
           />
-        )}
+        </InfinityLoader>
+      )}
 
-        {(questionsLoading || communitiesLoading) && <LoadingIndicator />}
-      </div>
-    ) : (
-      <NotFound />
-    );
-  }
-}
+      {parentPage === feed && (
+        <TopCommunities
+          userId={account}
+          account={account}
+          communities={communities}
+          profile={profile}
+        />
+      )}
+
+      {displayLoader && <LoadingIndicator />}
+    </div>
+  ) : (
+    <NotFound />
+  );
+};
 
 Questions.propTypes = {
   locale: PropTypes.string,
@@ -246,52 +314,50 @@ Questions.propTypes = {
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
+  topQuestionsLoaded: PropTypes.bool,
+  questionFilter: PropTypes.number,
+  loadTopQuestionsDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  account: makeSelectAccount(),
-  profile: makeSelectProfileInfo(),
-  eosService: selectEos,
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  communitiesLoading: selectCommunitiesLoading(),
-  followedCommunities: makeSelectFollowedCommunities(),
-  questionsLoading: questionsSelector.selectQuestionsLoading(),
-  initLoadedItems: questionsSelector.selectInitLoadedItems(),
-  nextLoadedItems: questionsSelector.selectNextLoadedItems(),
-  typeFilter: questionsSelector.selectTypeFilter(),
-  createdFilter: questionsSelector.selectCreatedFilter(),
-  isLastFetch: questionsSelector.selectIsLastFetch(),
-  questionsList: (state, props) =>
-    questionsSelector.selectQuestions(
-      props.parentPage,
-      Number(props.match.params.communityid),
-    )(state),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
-    setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
-    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    redirectToAskQuestionPageDispatch: bindActionCreators(
-      redirectToAskQuestionPage,
-      dispatch,
-    ),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'questionsReducer', reducer });
-const withSaga = injectSaga({ key: 'questionsReducer', saga, mode: DAEMON });
-
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+  injectReducer({ key: 'questionsReducer', reducer }),
+  injectSaga({ key: 'questionsReducer', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      account: makeSelectAccount(),
+      profile: makeSelectProfileInfo(),
+      eosService: selectEos,
+      locale: makeSelectLocale(),
+      communities: selectCommunities(),
+      communitiesLoading: selectCommunitiesLoading(),
+      followedCommunities: makeSelectFollowedCommunities(),
+      questionsLoading: questionsSelector.selectQuestionsLoading(),
+      initLoadedItems: questionsSelector.selectInitLoadedItems(),
+      nextLoadedItems: questionsSelector.selectNextLoadedItems(),
+      typeFilter: questionsSelector.selectTypeFilter(),
+      createdFilter: questionsSelector.selectCreatedFilter(),
+      isLastFetch: questionsSelector.selectIsLastFetch(),
+      topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
+      questionFilter: questionsSelector.selectQuestionFilter(),
+      questionsList: (state, props) =>
+        questionsSelector.selectQuestions(
+          props.parentPage,
+          Number(props.match.params.communityid),
+        )(state),
+    }),
+    dispatch => ({
+      setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
+      setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
+      getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+      showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+      redirectToAskQuestionPageDispatch: bindActionCreators(
+        redirectToAskQuestionPage,
+        dispatch,
+      ),
+      loadTopQuestionsDispatch: bindActionCreators(
+        loadTopCommunityQuestions,
+        dispatch,
+      ),
+    }),
+  ),
 )(Questions);
