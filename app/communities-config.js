@@ -7,7 +7,7 @@ import { OntStyles } from './communities-configs/ont';
 const communitiesConfig = {
   prod: {
     2: {
-      origin: 'https://telos.peeranha.io',
+      origin: 'https://faq.telos.net/',
       src: TelosLogo,
       styles: TelosStyles,
     },
