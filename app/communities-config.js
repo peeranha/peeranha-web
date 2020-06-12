@@ -16,10 +16,6 @@ const communitiesConfig = {
       src: OntLogo,
       styles: OntStyles,
     },
-    18: {
-      origin: 'https://agerona.peeranha.io',
-      src: AgeronaLogo,
-    },
   },
   test: {
     1: {
