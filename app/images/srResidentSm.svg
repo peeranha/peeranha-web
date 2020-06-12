@@ -7,10 +7,10 @@
         <g id="Status_big" transform="translate(-56.000000, -201.000000)" fill-rule="nonzero">
             <g id="Status_Senior" transform="translate(56.000000, 201.000000)">
                 <g id="Peercoin">
-                    <circle class="fill stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4"></circle>
+                    <circle class="fill stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4" />
                 </g>
                 <g id="Peercoin-Copy" transform="translate(6.000000, 0.000000)">
-                    <circle class="fill stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4"></circle>
+                    <circle class="fill stroke" id="Oval-Copy-7" cx="4.5" cy="4.5" r="4" />
                 </g>
             </g>
         </g>

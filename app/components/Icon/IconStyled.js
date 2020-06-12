@@ -9,7 +9,7 @@ const svgDraw = ({ color, fill }) => `
 
   .stroke {
     stroke: ${color};
-  } 
+  }
 `;
 
 const IconStyled = styled.span`
@@ -24,15 +24,16 @@ const IconStyled = styled.span`
     height: inherit;
   }
 
-  ${x =>
-    x.color
-      ? svgDraw({
-          color: `${x.color} ${!!x.isColorImportant ? `!important` : ``}`,
-          fill: `${x.fill || x.color} ${
-            !!x.isColorImportant ? `!important` : ``
-          }`,
-        })
-      : ``};
+  ${({ color, fill, isColorImportant }) => {
+    if (color) {
+      return svgDraw({
+        color: `${color} ${isColorImportant ? `!important` : ``}`,
+        fill: `${fill || color} ${isColorImportant ? `!important` : ``}`,
+      });
+    }
+
+    return '';
+  }};
 `;
 
 export { svgDraw };

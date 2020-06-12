@@ -14,10 +14,10 @@ import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 
-import options from './options';
-import RatingStatusStyled from './RatingStatusStyled';
 import Icon from 'components/Icon';
 
+import options from './options';
+import RatingStatusStyled from './RatingStatusStyled';
 const getStatus = rating =>
   Object.keys(options).filter(
     x => options[x].minRating <= rating && options[x].maxRating >= rating,
@@ -27,9 +27,11 @@ const IconWithStatus = ({ className, size, rating }) => {
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
+  let fill = '';
 
   if (rating > options.resident.minRating && size === 'sm') {
     color = TEXT_WARNING_LIGHT;
+    fill = '#FDE2DF';
   } else if (rating <= options.banned.maxRating) {
     color = TEXT_WARNING;
   } else if (rating <= options.resident.minRating && size === 'sm') {
@@ -43,7 +45,9 @@ const IconWithStatus = ({ className, size, rating }) => {
         icon={full.icon[size || 'sm']}
         width={full.icon.size[size || 'sm'].width}
         height={full.icon.size[size || 'sm'].height}
-        isColorImportant={true}
+        color={color}
+        fill={fill}
+        isColorImportant
       />
 
       <Span
