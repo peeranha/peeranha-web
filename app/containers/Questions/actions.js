@@ -1,9 +1,3 @@
-/*
- *
- * Questions actions
- *
- */
-
 import {
   GET_QUESTIONS,
   GET_QUESTIONS_SUCCESS,
@@ -15,12 +9,9 @@ import {
   LOAD_COMMUNITY_TOP_QUESTIONS,
   LOAD_COMMUNITY_TOP_QUESTIONS_SUCCESS,
   LOAD_COMMUNITY_TOP_QUESTIONS_ERROR,
-  ADD_TO_TOP_QUESTIONS,
-  ADD_TO_TOP_QUESTIONS_SUCCESS,
-  ADD_TO_TOP_QUESTIONS_ERROR,
-  REMOVE_FROM_TOP_QUESTIONS,
-  REMOVE_FROM_TOP_QUESTIONS_SUCCESS,
-  REMOVE_FROM_TOP_QUESTIONS_ERROR,
+  REMOVE_OR_ADD_TOP_QUESTION,
+  REMOVE_OR_ADD_TOP_QUESTION_SUCCESS,
+  REMOVE_OR_ADD_TOP_QUESTION_ERROR,
   UP_QUESTION,
   UP_QUESTION_SUCCESS,
   UP_QUESTION_ERROR,
@@ -31,12 +22,6 @@ import {
   MOVE_QUESTION_SUCCESS,
   MOVE_QUESTION_ERROR,
 } from './constants';
-
-/*
- *
- * getInitQuestions actions
- *
- */
 
 export function getQuestions(
   limit,
@@ -107,17 +92,22 @@ export const changeQuestionFilter = questionFilter => ({
   questionFilter,
 });
 
-export const loadTopCommunityQuestions = () => ({
+export const loadTopCommunityQuestions = init => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS,
+  init,
 });
 
 export const loadTopCommunityQuestionsSuccess = (
-  topQuestions,
+  questions,
   questionFilter,
+  topQuestionsIds,
+  lastIndex,
 ) => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS_SUCCESS,
-  topQuestions,
+  questions,
   questionFilter,
+  topQuestionsIds,
+  lastIndex,
 });
 
 export const loadTopCommunityQuestionsErr = loadTopCommunityQuestionsError => ({
@@ -125,34 +115,20 @@ export const loadTopCommunityQuestionsErr = loadTopCommunityQuestionsError => ({
   loadTopCommunityQuestionsError,
 });
 
-export const addToTopQuestions = id => ({
-  type: ADD_TO_TOP_QUESTIONS,
+export const removeOrAddTopQuestion = id => ({
+  type: REMOVE_OR_ADD_TOP_QUESTION,
   id,
 });
 
-export const addToTopQuestionsSuccess = id => ({
-  type: ADD_TO_TOP_QUESTIONS_SUCCESS,
+export const removeOrAddTopQuestionSuccess = (id, isRemove) => ({
+  type: REMOVE_OR_ADD_TOP_QUESTION_SUCCESS,
+  isRemove,
   id,
 });
 
-export const addToTopQuestionsErr = addToTopQuestionsError => ({
-  type: ADD_TO_TOP_QUESTIONS_ERROR,
-  addToTopQuestionsError,
-});
-
-export const removeFromTopQuestions = id => ({
-  type: REMOVE_FROM_TOP_QUESTIONS,
-  id,
-});
-
-export const removeFromTopQuestionsSuccess = id => ({
-  type: REMOVE_FROM_TOP_QUESTIONS_SUCCESS,
-  id,
-});
-
-export const removeFromTopQuestionsErr = removeFromTopQuestionsError => ({
-  type: REMOVE_FROM_TOP_QUESTIONS_ERROR,
-  removeFromTopQuestionsError,
+export const removeOrAddTopQuestionErr = removeOrAddTopQuestionError => ({
+  type: REMOVE_OR_ADD_TOP_QUESTION_ERROR,
+  removeOrAddTopQuestionError,
 });
 
 export const upQuestion = id => ({

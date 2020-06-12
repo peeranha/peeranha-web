@@ -3,37 +3,43 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 
 import { initialState } from './reducer';
 
-const selectQuestionsDomain = state =>
+export const selectQuestionsDomain = state =>
   state.get('questionsReducer', initialState);
 
-const selectQuestionsLoading = () =>
+export const selectQuestionsLoading = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsLoading'),
   );
 
-const selectQuestionsList = () =>
+export const selectQuestionsList = () =>
   createSelector(
     selectQuestionsDomain,
     substate => substate.toJS().questionsList,
   );
 
-const selectTopQuestions = () =>
-  createSelector(selectQuestionsDomain, substate => {
-    const topQuestions = substate.get('topQuestions');
+export const selectTopQuestionIds = createSelector(
+  selectQuestionsDomain,
+  substate => substate.toJS().topQuestionIds,
+);
 
-    if (topQuestions.size === 0) {
-      return [];
-    }
+export const selectQuestionsObject = createSelector(
+  selectQuestionsDomain,
+  substate => substate.get('questions').toJS(),
+);
 
-    return topQuestions;
-  });
+export const selectTopQuestions = () =>
+  createSelector(
+    selectTopQuestionIds,
+    selectQuestionsObject,
+    (ids, questions) => ids.map(id => questions[id]).filter(Boolean),
+  );
 
-const selectQuestionFilter = () =>
+export const selectQuestionFilter = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionFilter'),
   );
 
-const selectQuestions = (
+export const selectQuestions = (
   isFeed,
   communityId,
   questionId,
@@ -67,75 +73,69 @@ const selectQuestions = (
     },
   );
 
-const selectQuestionsError = () =>
+export const selectQuestionsError = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('questionsError'),
   );
 
-const selectInitLoadedItems = () =>
+export const selectInitLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('initLoadedItems'),
   );
 
-const selectNextLoadedItems = () =>
+export const selectNextLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('nextLoadedItems'),
   );
 
-const selectIsLastFetch = () =>
+export const selectIsLastFetch = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('isLastFetch'),
   );
 
-const selectFollowedCommunities = () =>
+export const selectFollowedCommunities = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('followedCommunities'),
   );
 
-const selectFollowHandlerLoading = () =>
+export const selectFollowHandlerLoading = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('followHandlerLoading'),
   );
 
-const selectFollowHandlerError = () =>
+export const selectFollowHandlerError = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('followHandlerError'),
   );
 
-const selectTypeFilter = () =>
+export const selectTypeFilter = () =>
   createSelector(selectQuestionsDomain, substate => substate.get('typeFilter'));
 
-const selectCreatedFilter = () =>
+export const selectCreatedFilter = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('createdFilter'),
   );
 
-const selectTopQuestionsLoaded = () =>
+export const selectTopQuestionsInfoLoaded = () =>
   createSelector(selectQuestionsDomain, substate =>
-    substate.get('topQuestionsLoaded'),
+    substate.get('topQuestionsInfoLoaded'),
   );
 
-const selectTopQuestionActionProcessing = () =>
+export const selectTopQuestionActionProcessing = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('topQuestionActionProcessing'),
   );
 
-export {
+export const isQuestionTop = questionId =>
+  createSelector(selectTopQuestionIds, ids => ids.includes(questionId));
+
+export const selectLastLoadedTopQuestionIndex = createSelector(
   selectQuestionsDomain,
-  selectQuestionsLoading,
-  selectQuestionsList,
-  selectQuestionsError,
-  selectInitLoadedItems,
-  selectNextLoadedItems,
-  selectIsLastFetch,
-  selectFollowedCommunities,
-  selectFollowHandlerLoading,
-  selectFollowHandlerError,
-  selectQuestions,
-  selectTypeFilter,
-  selectCreatedFilter,
-  selectTopQuestions,
-  selectTopQuestionsLoaded,
-  selectQuestionFilter,
-  selectTopQuestionActionProcessing,
-};
+  substate => substate.get('lastLoadedTopQuestionIndex'),
+);
+
+export const isLastTopQuestionLoadedSelector = createSelector(
+  selectLastLoadedTopQuestionIndex,
+  selectTopQuestionIds,
+  (lastIndex, ids) => lastIndex === ids.length,
+);

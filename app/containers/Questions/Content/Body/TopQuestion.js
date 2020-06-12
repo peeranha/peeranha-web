@@ -1,15 +1,20 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+
+import { IconLm } from 'components/Icon/IconWithSizes';
 
 import topQuestionActiveIcon from 'images/starActive.svg?external';
 import topQuestionsInactiveIcon from 'images/star.svg?external';
 
+import { BORDER_WARNING_LIGHT } from 'style-constants';
+
 import TopQuestionPopover from './TopQuestionPopover';
-import { IconLm } from 'components/Icon/IconWithSizes';
 
 import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
-import { BORDER_WARNING_LIGHT } from 'style-constants';
+import { removeOrAddTopQuestion } from '../../actions';
 
 const Button = styled.button`
   position: relative;
@@ -32,8 +37,7 @@ const TopQuestion = ({
   isTopQuestion,
   isModerator,
   topQuestionsCount,
-  addToTopQuestionsDispatch,
-  removeFromTopQuestionsDispatch,
+  removeOrAddTopQuestionDispatch,
   topQuestionActionProcessing,
 }) => {
   const [visible, changeVisibility] = useState(false);
@@ -41,16 +45,7 @@ const TopQuestion = ({
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
-  const onClick = useCallback(
-    () => {
-      if (isTopQuestion) {
-        removeFromTopQuestionsDispatch(id);
-      } else {
-        addToTopQuestionsDispatch(id);
-      }
-    },
-    [id, isTopQuestion],
-  );
+  const onClick = useCallback(() => removeOrAddTopQuestionDispatch(id), [id]);
 
   const topQuestionIcon = useMemo(
     () => {
@@ -96,9 +91,18 @@ TopQuestion.propTypes = {
   isTopQuestion: PropTypes.bool,
   isModerator: PropTypes.bool,
   topQuestionsCount: PropTypes.number,
-  addToTopQuestionsDispatch: PropTypes.func,
-  removeFromTopQuestionsDispatch: PropTypes.func,
+  removeOrAddTopQuestionDispatch: PropTypes.func,
   topQuestionActionProcessing: PropTypes.bool,
 };
 
-export default memo(TopQuestion);
+export default memo(
+  connect(
+    null,
+    dispatch => ({
+      removeOrAddTopQuestionDispatch: bindActionCreators(
+        removeOrAddTopQuestion,
+        dispatch,
+      ),
+    }),
+  )(TopQuestion),
+);

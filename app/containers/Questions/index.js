@@ -82,9 +82,9 @@ export const Questions = ({
   initLoadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
-  topQuestionsLoaded,
   questionFilter,
   loadTopQuestionsDispatch,
+  isLastTopQuestionLoaded,
 }) => {
   const [fetcher, setFetcher] = useState(null);
 
@@ -143,6 +143,8 @@ export const Questions = ({
           f,
           next,
         );
+      } else if (single) {
+        loadTopQuestionsDispatch(false);
       }
     },
     [
@@ -153,6 +155,7 @@ export const Questions = ({
       parentPage,
       fetcher,
       questionFilter,
+      loadTopQuestionsDispatch,
     ],
   );
 
@@ -195,7 +198,7 @@ export const Questions = ({
 
   useEffect(() => {
     if (single) {
-      loadTopQuestionsDispatch();
+      loadTopQuestionsDispatch(true);
     }
   }, []);
 
@@ -213,22 +216,21 @@ export const Questions = ({
       questionsList.length,
       questionsLoading,
       communitiesLoading,
-      topQuestionsLoaded,
       questionFilter,
     ],
   );
 
   const lastFetched = useMemo(
-    () => (!questionFilter ? isLastFetch : topQuestionsLoaded),
-    [isLastFetch, topQuestionsLoaded, questionFilter],
+    () => (!questionFilter ? isLastFetch : isLastTopQuestionLoaded),
+    [isLastFetch, isLastTopQuestionLoaded, questionFilter],
   );
 
   const displayLoader = useMemo(
     () =>
       questionsLoading ||
       communitiesLoading ||
-      (getCookie(QUESTION_FILTER) === '1' && !topQuestionsLoaded),
-    [questionsLoading, communitiesLoading, topQuestionsLoaded],
+      (getCookie(QUESTION_FILTER) === '1' && !isLastTopQuestionLoaded),
+    [questionsLoading, communitiesLoading, isLastTopQuestionLoaded],
   );
 
   const isModerator = useMemo(
@@ -328,9 +330,9 @@ Questions.propTypes = {
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
   setTypeFilterDispatch: PropTypes.func,
-  topQuestionsLoaded: PropTypes.bool,
   questionFilter: PropTypes.number,
   loadTopQuestionsDispatch: PropTypes.func,
+  isLastTopQuestionLoaded: PropTypes.bool,
 };
 
 export default compose(
@@ -351,13 +353,13 @@ export default compose(
       typeFilter: questionsSelector.selectTypeFilter(),
       createdFilter: questionsSelector.selectCreatedFilter(),
       isLastFetch: questionsSelector.selectIsLastFetch(),
-      topQuestionsLoaded: questionsSelector.selectTopQuestionsLoaded(),
       questionFilter: questionsSelector.selectQuestionFilter(),
       questionsList: (state, props) =>
         questionsSelector.selectQuestions(
           props.parentPage,
           Number(props.match.params.communityid),
         )(state),
+      isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
     }),
     dispatch => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),

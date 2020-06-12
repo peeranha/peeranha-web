@@ -8,14 +8,9 @@ import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
 
 import { officialAnswersCount } from 'utils/properties';
 
+import { downQuestion, moveQuestion, upQuestion } from '../actions';
 import {
-  addToTopQuestions,
-  downQuestion,
-  moveQuestion,
-  removeFromTopQuestions,
-  upQuestion,
-} from '../actions';
-import {
+  isQuestionTop,
   selectQuestionFilter,
   selectTopQuestionActionProcessing,
   selectTopQuestions,
@@ -68,8 +63,6 @@ const QI = ({
   questionFilter,
   isModerator,
   topQuestions,
-  addToTopQuestionsDispatch,
-  removeFromTopQuestionsDispatch,
   upQuestionDispatch,
   downQuestionDispatch,
   topQuestionActionProcessing,
@@ -169,8 +162,6 @@ const QI = ({
           isTopQuestion={isTopQuestion}
           topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}
-          addToTopQuestionsDispatch={addToTopQuestionsDispatch}
-          removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
         />
       </Div>
     </Box>
@@ -178,17 +169,13 @@ const QI = ({
 };
 
 const QuestionItem = connect(
-  state => ({
+  (state, { id }) => ({
     questionFilter: selectQuestionFilter()(state),
     topQuestions: selectTopQuestions()(state),
     topQuestionActionProcessing: selectTopQuestionActionProcessing()(state),
+    isTopQuestion: isQuestionTop(id)(state),
   }),
   dispatch => ({
-    addToTopQuestionsDispatch: bindActionCreators(addToTopQuestions, dispatch),
-    removeFromTopQuestionsDispatch: bindActionCreators(
-      removeFromTopQuestions,
-      dispatch,
-    ),
     upQuestionDispatch: bindActionCreators(upQuestion, dispatch),
     downQuestionDispatch: bindActionCreators(downQuestion, dispatch),
     moveQuestionDispatch: bindActionCreators(moveQuestion, dispatch),
@@ -238,8 +225,6 @@ QI.propTypes = {
   index: PropTypes.number,
   isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
-  addToTopQuestionsDispatch: PropTypes.func,
-  removeFromTopQuestionsDispatch: PropTypes.func,
   profileInfo: PropTypes.object,
   questionFilter: PropTypes.number,
   upQuestionDispatch: PropTypes.func,

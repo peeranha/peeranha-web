@@ -26,8 +26,6 @@ const Body = ({
   topQuestionsCount,
   displayTopQuestionMove,
   topQuestionActionProcessing,
-  addToTopQuestionsDispatch,
-  removeFromTopQuestionsDispatch,
 }) => (
   <Base
     className={displayTopQuestionMove ? 'pl-0' : ''}
@@ -41,8 +39,6 @@ const Body = ({
       isModerator={isModerator}
       topQuestionsCount={topQuestionsCount}
       topQuestionActionProcessing={topQuestionActionProcessing}
-      addToTopQuestionsDispatch={addToTopQuestionsDispatch}
-      removeFromTopQuestionsDispatch={removeFromTopQuestionsDispatch}
     />
 
     <QuestionType locale={locale} isGeneral={isGeneral} />
@@ -81,8 +77,6 @@ Body.propTypes = {
   topQuestionsCount: PropTypes.number,
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
-  addToTopQuestionsDispatch: PropTypes.func,
-  removeFromTopQuestionsDispatch: PropTypes.func,
 };
 
 export default memo(Body);
