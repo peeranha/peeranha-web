@@ -8,6 +8,7 @@ import messages from 'common-messages';
 
 import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
 
+import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -59,13 +60,13 @@ export const Header = ({
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
       {communityAvatar ? (
-        <MediumImageStyled
-          src={communityAvatar}
-          alt="communityAvatar"
-        />
+        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
       ) : (
         <MediumIconStyled>
-          <IconLg icon={communityAvatar || defaultAvatar} />
+          <IconLg
+            icon={communityAvatar || defaultAvatar}
+            width={defaultAvatarWidth}
+          />
         </MediumIconStyled>
       )}
 

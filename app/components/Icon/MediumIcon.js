@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-import { BG_PRIMARY_SPECIAL_2, BORDER_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import {
+  BG_PRIMARY_SPECIAL_2,
+  BORDER_SECONDARY,
+  BORDER_PRIMARY,
+} from 'style-constants';
 
 const MediumIcon = styled.span`
   .stroke {
