@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BG_PRIMARY } from 'style-constants';
+import { BG_PRIMARY, BG_PRIMARY_RGB } from 'style-constants';
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
 
 import coinsIcon from 'images/coins.svg?external';
-import crownIcon from 'images/crownIcon.svg?inline';
-import officialIcon from 'images/officialWhite.svg?inline';
+import crownIcon from 'images/crownIcon.svg?external';
+import officialIcon from 'images/officialWhite.svg?external';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import SendTips from '../SendTips';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
 
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
@@ -34,8 +35,9 @@ const Label = Button.extend`
   height: 1%;
   min-height: 32px;
   max-width: 180px;
-  color: white;
+  color: ${({ color }) => color || 'white'};
   background: ${({ bg }) => bg || 'inherit'};
+  ${({ border }) => `border: 1px solid ${border}` || ''};
 `;
 
 const Div = styled.div`
@@ -109,19 +111,14 @@ export const BestAnswerMarker = ({
 
       {isTheLargestRating && (
         <Label bg={BG_PRIMARY} inactive>
-          <img className="d-inline-flex mr-2" src={crownIcon} alt="icon" />
+          <Icon className="d-inline-flex mr-2" icon={crownIcon} width="11" />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
       )}
 
       {isOfficial && (
-        <Label bg="rgb(93, 109, 254)" inactive>
-          <img
-            className="d-inline-flex mr-2"
-            height="20"
-            src={officialIcon}
-            alt="icon"
-          />
+        <Label bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`} border={BG_PRIMARY} color={BG_PRIMARY} inactive>
+          <Icon className="d-inline-flex mr-2" icon={officialIcon} width="16" color={BG_PRIMARY} />
           <FormattedMessage {...messages.officialAnswer} />
         </Label>
       )}
