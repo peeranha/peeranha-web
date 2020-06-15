@@ -23,7 +23,6 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsLoaded } from './selectors';
-import { MediumImageStyled } from '../../components/Img/MediumImage';
 
 const single = isSingleCommunityWebsite();
 

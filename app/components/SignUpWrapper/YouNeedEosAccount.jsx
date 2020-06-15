@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
+import communitiesConfig from 'communities-config';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -27,14 +33,31 @@ import {
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
-import { Li, P } from './SignUpOptions';
+import { Li, P, CommunityLogoWrapper, CommunityLogoDescr, Logo } from './SignUpOptions';
+
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
 const LeftMenu = ({ faqQuestions, route }) => (
   <React.Fragment>
     <div className="mb-4">
-      <Link to={routes.questions()} href={routes.questions()}>
-        <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
-      </Link>
+      {styles.withoutSubHeader ? (
+        <CommunityLogoWrapper>
+          <Link to={routes.questions()} href={routes.questions()}>
+            <Logo src={communitiesConfig[single].src} />
+          </Link>
+          <CommunityLogoDescr>
+            <span>{'Q&A on'}</span>
+            <Link to={routes.questions()} href={routes.questions()}>
+              <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+            </Link>
+          </CommunityLogoDescr>
+        </CommunityLogoWrapper>
+      ) : (
+        <Link to={routes.questions()} href={routes.questions()}>
+          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+        </Link>
+      )}
     </div>
 
     <H3 className="d-flex align-items-center mb-4">
