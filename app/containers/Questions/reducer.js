@@ -1,6 +1,5 @@
 /* eslint indent: 0 */
 import { fromJS } from 'immutable';
-import uniqBy from 'lodash/uniqBy';
 import orderBy from 'lodash/orderBy';
 
 import {
@@ -49,7 +48,7 @@ export const initialState = fromJS({
 function questionsReducer(state = initialState, action) {
   const {
     type,
-    questionsList,
+    questionsList = [],
     questionsError,
     toUpdateQuestions,
     typeFilter,
@@ -66,7 +65,12 @@ function questionsReducer(state = initialState, action) {
     topQuestionIds: stateTopQuestionIds,
     questions: stateQuestions,
     lastLoadedTopQuestionIndex,
+    questionsList: stateQuestionsList,
   } = state.toJS();
+  const mappedQuestionsList = questionsList.map(
+    ({ id: questionId }) => questionId,
+  );
+
   const element = stateTopQuestionIds.find(questionId => questionId === id);
   const index = stateTopQuestionIds.indexOf(element);
   const tempObject = {};
@@ -85,19 +89,25 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          toUpdateQuestions
-            ? questionsList.map(({ id: questionId, ...rest }) => ({
-                ...rest,
-                id: questionId,
-              }))
-            : orderBy(
-                uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
-                ['id'],
-                ['asc'],
-              ).map(({ id: questionId, ...rest }) => ({
-                ...rest,
-                id: questionId,
-              })),
+          fromJS(
+            toUpdateQuestions
+              ? mappedQuestionsList
+              : orderBy(
+                  [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
+                  [],
+                  ['asc'],
+                ),
+          ),
+        )
+        .set(
+          'questions',
+          fromJS({
+            ...stateQuestions,
+            ...questionsList.reduce((acc, cur) => {
+              acc[cur.id] = cur;
+              return acc;
+            }, {}),
+          }),
         )
         .set('isLastFetch', questionsList.length === 0);
     case GET_QUESTIONS_ERROR:
@@ -109,10 +119,12 @@ function questionsReducer(state = initialState, action) {
       return state.set(
         'questionsList',
         orderBy(
-          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+          [...new Set(mappedQuestionsList.concat(questionsList))].filter(
+            questionId => !stateQuestions[questionId]?.isDeleted,
+          ),
           ['id'],
           ['asc'],
-        ).filter(x => !x.isDeleted),
+        ),
       );
 
     case CHANGE_QUESTION_FILTER:
@@ -142,7 +154,6 @@ function questionsReducer(state = initialState, action) {
 
     case REMOVE_OR_ADD_TOP_QUESTION:
       return state.set('topQuestionActionProcessing', true);
-    // eslint-disable-next-line no-case-declarations
     case REMOVE_OR_ADD_TOP_QUESTION_SUCCESS:
       return state
         .set(
@@ -166,13 +177,11 @@ function questionsReducer(state = initialState, action) {
     case UP_QUESTION:
       return state.set('topQuestionActionProcessing', true);
     case UP_QUESTION_SUCCESS:
-      console.log([...stateTopQuestionIds]);
       temp = stateTopQuestionIds[index - 1];
       stateTopQuestionIds[index - 1] = element;
       stateTopQuestionIds[index] = temp;
-      console.log([...stateTopQuestionIds]);
       return state
-        .set('topQuestionsIds', fromJS([...stateTopQuestionIds]))
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case UP_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
@@ -180,13 +189,11 @@ function questionsReducer(state = initialState, action) {
     case DOWN_QUESTION:
       return state.set('topQuestionActionProcessing', true);
     case DOWN_QUESTION_SUCCESS:
-      console.log([...stateTopQuestionIds]);
       temp = stateTopQuestionIds[index + 1];
       stateTopQuestionIds[index + 1] = element;
       stateTopQuestionIds[index] = temp;
-      console.log([...stateTopQuestionIds]);
       return state
-        .set('topQuestionsIds', fromJS([...stateTopQuestionIds]))
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case DOWN_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
@@ -206,7 +213,7 @@ function questionsReducer(state = initialState, action) {
         element,
       );
       return state
-        .set('topQuestionsIds', fromJS([...stateTopQuestionIds]))
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case MOVE_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);

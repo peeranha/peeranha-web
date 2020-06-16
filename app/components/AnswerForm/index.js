@@ -19,7 +19,6 @@ import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 
 import TextBlock from 'containers/ViewQuestion/TextBlock';
-import { EDIT_ANSWER_FORM } from 'containers/EditAnswer/constants';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
@@ -111,26 +110,33 @@ const FormClone = reduxForm({
 })(AnswerForm);
 
 export default React.memo(
-  connect((state, { answer, communityId, properties, questionView }) => {
-    const form = state.toJS().form[EDIT_ANSWER_FORM] || { values: {} };
-    const locale = makeSelectLocale()(state);
-    const translate = translationMessages[locale];
-    const profileInfo = makeSelectProfileInfo()(state);
-    const official = isAnswerOfficial({ properties, id: true });
-    const isOfficialRepresentative = communityAdminOfficialAnswerPermission(
-      profileInfo?.permissions,
-      communityId,
-    );
+  connect(
+    (
+      state,
+      { answer, communityId, properties, questionView, form: formName },
+    ) => {
+      const form = state.toJS().form[formName] || { values: {} };
+      const locale = makeSelectLocale()(state);
+      const translate = translationMessages[locale];
+      const profileInfo = makeSelectProfileInfo()(state);
+      const official = isAnswerOfficial({ properties, id: true });
+      const isOfficialRepresentative = communityAdminOfficialAnswerPermission(
+        profileInfo?.permissions,
+        communityId,
+      );
 
-    return {
-      enableReinitialize: true,
-      isOfficialRepresentative,
-      textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
-      answerTypeLabel: translate[messages.official.id],
-      initialValues: {
-        [TEXT_EDITOR_ANSWER_FORM]: answer,
-        [ANSWER_TYPE_FORM]: questionView ? isOfficialRepresentative : official,
-      },
-    };
-  })(FormClone),
+      return {
+        enableReinitialize: true,
+        isOfficialRepresentative,
+        textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
+        answerTypeLabel: translate[messages.official.id],
+        initialValues: {
+          [TEXT_EDITOR_ANSWER_FORM]: answer,
+          [ANSWER_TYPE_FORM]: questionView
+            ? isOfficialRepresentative
+            : official,
+        },
+      };
+    },
+  )(FormClone),
 );

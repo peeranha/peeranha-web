@@ -11,20 +11,26 @@ export const selectQuestionsLoading = () =>
     substate.get('questionsLoading'),
   );
 
+export const selectQuestionsObject = createSelector(
+  selectQuestionsDomain,
+  substate => substate.get('questions').toJS(),
+);
+
+export const selectQuestionIdsList = createSelector(
+  selectQuestionsDomain,
+  substate => substate.toJS().questionsList,
+);
+
 export const selectQuestionsList = () =>
   createSelector(
-    selectQuestionsDomain,
-    substate => substate.toJS().questionsList,
+    selectQuestionIdsList,
+    selectQuestionsObject,
+    (ids, questions) => ids.map(id => questions[id]),
   );
 
 export const selectTopQuestionIds = createSelector(
   selectQuestionsDomain,
   substate => substate.toJS().topQuestionIds,
-);
-
-export const selectQuestionsObject = createSelector(
-  selectQuestionsDomain,
-  substate => substate.get('questions').toJS(),
 );
 
 export const selectTopQuestions = () =>
@@ -137,5 +143,5 @@ export const selectLastLoadedTopQuestionIndex = createSelector(
 export const isLastTopQuestionLoadedSelector = createSelector(
   selectLastLoadedTopQuestionIndex,
   selectTopQuestionIds,
-  (lastIndex, ids) => lastIndex === ids.length,
+  (lastIndex, ids) => lastIndex >= ids.length,
 );

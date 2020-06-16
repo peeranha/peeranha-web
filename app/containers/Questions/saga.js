@@ -244,6 +244,13 @@ function* loadTopCommunityQuestionsWorker({ init }) {
           single,
         );
 
+        if (process.env.ENV === 'test') {
+          console.log(
+            `Top questions data of community (id: ${single}): `,
+            data,
+          );
+        }
+
         if (data?.['top_questions'].length) {
           const topQuestionIdsForLoad = data.top_questions.slice(
             0,
@@ -258,19 +265,29 @@ function* loadTopCommunityQuestionsWorker({ init }) {
             }),
           );
 
-          // It's needed if deleted questions left at the table
-          // const indexies = loadedQuestionData
+          // // It's needed if deleted questions left at the table
+          // const indexes = loadedQuestionData
           //   .map((x, i) => {
           //     if (!x) return i;
-          //     else return null;
+          //     return null;
           //   })
           //   .filter(x => x || x === 0);
-          // const filtered = topQuestionForLoad.filter((x, i) =>
-          //   indexies.includes(i),
+          // const filtered = topQuestionIdsForLoad.filter((x, i) =>
+          //   indexes.includes(i),
           // );
+          // const { user } = yield select(makeSelectProfileInfo());
           // yield all(
           //   filtered.map(function*(x) {
-          //     return yield call(removeFromTopCommunityWorker, { id: x });
+          //     return yield call(
+          //       eosService.sendTransaction,
+          //       user,
+          //       REMOVE_FROM_TOP_COMMUNITY_METHOD,
+          //       {
+          //         user,
+          //         community_id: single,
+          //         question_id: x,
+          //       },
+          //     );
           //   }),
           // );
 
@@ -323,6 +340,7 @@ function* loadTopCommunityQuestionsWorker({ init }) {
       }
     }
   } catch (e) {
+    console.log(e);
     yield put(loadTopCommunityQuestionsErr(e));
   }
 }
