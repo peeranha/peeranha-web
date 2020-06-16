@@ -75,6 +75,7 @@ export const BORDER_ATTENTION_LIGHT = _get(colors, 'attentionLight', pink);
 
 export const BG_SUCCESS = green;
 export const BG_PRIMARY = blue;
+export const BG_PRIMARY_RGB = blueRGB;
 export const BG_PRIMARY_LIGHT = lightblue;
 export const BG_PRIMARY_DARK = darkblue;
 export const BG_PRIMARY_DARK_RGB = darkBlueRGB;
