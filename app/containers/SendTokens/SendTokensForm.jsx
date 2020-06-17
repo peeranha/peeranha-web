@@ -15,8 +15,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import {
   isTelosNameAvailable,
   required,
-  telosCorrectSymbols,
-  telosNameLength,
+  validateTelosName,
   valueHasToBeLessThan,
 } from 'components/FormFields/validate';
 
@@ -56,8 +55,8 @@ const SendTokensForm = ({
         disabled={sendTokensProcessing}
         label={translationMessages[locale][commonMessages.eosAccount.id]}
         component={TextInputField}
-        validate={[required, telosCorrectSymbols, telosNameLength]}
-        warn={[required]}
+        validate={[required, validateTelosName]}
+        warn={[required, validateTelosName]}
       />
 
       <Field
