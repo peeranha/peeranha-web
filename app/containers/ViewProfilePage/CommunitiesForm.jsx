@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import _get from 'lodash/get';
+
 import { TEXT_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 
 import messages from 'common-messages';
@@ -19,12 +21,14 @@ import arrowRightIcon from 'images/arrowRight.svg?external';
 import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
+  singleCommunityStyles,
 } from 'utils/communityManagement';
 
 const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
 const CommunityStyled = Base.extend`
-  border-radius: 5px;
+  border-radius: ${_get(styles, 'buttonsBorderRadius', '5px')};
   padding: 12px 20px;
   height: 68px;
 `;

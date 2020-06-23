@@ -754,6 +754,7 @@
   "app.containers.Questions.readMyFeed": "Read my feed",
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
+  "app.containers.Questions.showAllQuestions": "Show all questions",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

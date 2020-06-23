@@ -30,7 +30,7 @@ import { ADefault } from 'components/A';
 
 import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
 import Section from './Section';
-import LogoStyles from './Logo';
+import LogoStyles, { QAndALogo } from './Logo';
 
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
@@ -106,7 +106,13 @@ const View = ({
         ? communitiesConfig[single].src
         : peeranhaLogo;
 
-      return (
+      return styles.withoutSubHeader ? (
+        <QAndALogo to={routes.questions()}>
+          <span>Questions</span>
+          <span>&amp;</span>
+          <span>Answers</span>
+        </QAndALogo>
+      ) : (
         <LogoStyles to={routes.questions()}>
           <img src={src} alt="logo" />
         </LogoStyles>

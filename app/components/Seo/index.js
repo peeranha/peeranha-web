@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { appLocales } from 'i18n';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
 import { APP_MAIN_NAME } from 'utils/constants';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
+import peeranhaFavicon from '!file-loader?name=[name].[ext]!images/favicon.ico';
+
+const styles = singleCommunityStyles();
 
 const Seo = ({
   title,
@@ -16,48 +25,57 @@ const Seo = ({
   articleModifiedTime,
   index,
   communityName,
-}) => (
-  <Helmet>
-    <title>{`${communityName}${title} - Peeranha`}</title>
-    <meta name="description" content={description} />
-    {keywords && <meta name="keywords" content={keywords} />}
+}) => {
+  const favicon = styles.favicon ? styles.favicon : peeranhaFavicon;
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={window.location.href} />
-    <meta property="og:site_name" content={APP_MAIN_NAME} />
-    <meta property="og:image" content="/logo.png" />
-    <meta property="og:locale" content={language} />
+  return (
+    <Helmet>
+      <title>{`${communityName}${title} - Peeranha`}</title>
+      <meta name="description" content={description} />
+      {keywords && <meta name="keywords" content={keywords} />}
 
-    <meta name="twitter:title" property="og:title" content={title} />
-    <meta
-      name="twitter:description"
-      property="og:description"
-      content={description}
-    />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={window.location.href} />
+      <meta property="og:site_name" content={APP_MAIN_NAME} />
+      <meta property="og:image" content="/logo.png" />
+      <meta property="og:locale" content={language} />
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@peeranhaio" />
-    <meta name="twitter:creator" content="@peeranhaio" />
-    <meta name="twitter:domain" content={window.location.hostname} />
+      <meta name="twitter:title" property="og:title" content={title} />
+      <meta
+        name="twitter:description"
+        property="og:description"
+        content={description}
+      />
 
-    <meta httpEquiv="content-language" content={appLocales} />
-    <meta property="article:section" content={description} />
-    {keywords && <meta property="article:tag" content={keywords} />}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@peeranhaio" />
+      <meta name="twitter:creator" content="@peeranhaio" />
+      <meta name="twitter:domain" content={window.location.hostname} />
 
-    {articlePublishedTime && (
-      <meta property="article:published_time" content={articlePublishedTime} />
-    )}
+      <meta httpEquiv="content-language" content={appLocales} />
+      <meta property="article:section" content={description} />
+      {keywords && <meta property="article:tag" content={keywords} />}
 
-    {articleModifiedTime && (
-      <meta property="article:modified_time" content={articleModifiedTime} />
-    )}
+      {articlePublishedTime && (
+        <meta
+          property="article:published_time"
+          content={articlePublishedTime}
+        />
+      )}
 
-    <meta
-      name="robots"
-      content={index === false ? 'noindex, nofollow' : 'index, follow'}
-    />
-  </Helmet>
-);
+      {articleModifiedTime && (
+        <meta property="article:modified_time" content={articleModifiedTime} />
+      )}
+
+      <meta
+        name="robots"
+        content={index === false ? 'noindex, nofollow' : 'index, follow'}
+      />
+
+      <link rel="shortcut icon" type="image/x-icon" href={favicon} />
+    </Helmet>
+  );
+};
 
 Seo.propTypes = {
   title: PropTypes.string.isRequired,

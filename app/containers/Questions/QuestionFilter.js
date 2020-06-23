@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
+import _get from 'lodash/get';
 
 import commonMessages from 'common-messages';
 
@@ -13,11 +14,12 @@ import {
   BORDER_SECONDARY,
 } from 'style-constants';
 
-import { getCookie, setCookie } from 'utils/cookie';
-
+import { setCookie } from 'utils/cookie';
 import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from '../../utils/communityManagement';
+
+const styles = singleCommunityStyles();
 
 const Container = styled.div`
   display: flex;
@@ -32,10 +34,10 @@ const Button = styled.button`
   justify-content: center;
   width: ${({ left }) => (left ? 50 : 50)}%;
   border: 1px solid ${({ active }) => (active ? 'blue' : 'black')};
-  border-top-left-radius: ${({ left }) => (left ? '5px' : 0)};
-  border-bottom-left-radius: ${({ left }) => (left ? '5px' : 0)};
-  border-top-right-radius: ${({ left }) => (!left ? '5px' : 0)};
-  border-bottom-right-radius: ${({ left }) => (!left ? '5px' : 0)};
+  border-top-left-radius: ${({ left }) => (left ? _get(styles, 'buttonsBorderRadius', '5px') : 0)};
+  border-bottom-left-radius: ${({ left }) => (left ? _get(styles, 'buttonsBorderRadius', '5px') : 0)};
+  border-top-right-radius: ${({ left }) => (!left ? _get(styles, 'buttonsBorderRadius', '5px') : 0)};
+  border-bottom-right-radius: ${({ left }) => (!left ? _get(styles, 'buttonsBorderRadius', '5px') : 0)};
   border: 1px solid
     ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
 
@@ -54,19 +56,21 @@ const cookieFilterSetter = value => ({
   },
 });
 
-const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
+const QuestionFilter = ({ display, changeQuestionFilterDispatch, questionFilterFromCookies }) => {
   if (!single) return null;
 
-  const [filter, setFilterValue] = useState(+(getCookie(QUESTION_FILTER) || 1));
+  const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
 
   useEffect(() => {
-    const cookieValue = getCookie(QUESTION_FILTER);
+    const cookieValue = questionFilterFromCookies;
+
+    setFilterValue(cookieValue);
 
     if (!cookieValue || cookieValue === '1') {
       setCookie(cookieFilterSetter(1));
       changeQuestionFilterDispatch(1);
     }
-  }, []);
+  }, [filter]);
 
   const setFilter = useCallback(
     value => {
@@ -84,10 +88,10 @@ const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
 
   return display ? (
     <Container>
-      <Button active={!!filter} onClick={setQuestionFilter} left>
+      <Button active={questionFilterFromCookies == "1"} onClick={setQuestionFilter} left>
         <FormattedMessage {...commonMessages.top} />
       </Button>
-      <Button active={!filter} onClick={setAllFilter}>
+      <Button active={questionFilterFromCookies == "0"} onClick={setAllFilter}>
         <FormattedMessage {...commonMessages.all} />
       </Button>
     </Container>

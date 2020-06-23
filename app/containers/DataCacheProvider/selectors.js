@@ -86,10 +86,11 @@ const selectFaqQuestions = questionsIndexes =>
         .map(x => {
           const [sectionIndex, questionIndex] = x.split('.');
           const section = faq.blocks[sectionIndex];
-
+          
           if (section && section.blocks[questionIndex]) {
             return (
               <A
+                key={x}
                 to={routes.faq(
                   getQuestionCode(SECTION_ID, sectionIndex, questionIndex),
                 )}

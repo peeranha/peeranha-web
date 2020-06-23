@@ -34,4 +34,7 @@ export default defineMessages({
   topQuestionPopover: {
     id: 'app.containers.Questions.topQuestionPopover',
   },
+  showAllQuestions: {
+    id: 'app.containers.Questions.showAllQuestions',
+  }
 });

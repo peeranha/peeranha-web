@@ -1,14 +1,20 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import _get from 'lodash/get';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
+
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import closeIcon from 'images/closeCircle.svg?inline';
 
 import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
+
+const styles = singleCommunityStyles();
 
 const TagsContainer = styled.ul`
   ${props => Input(props)};
@@ -31,7 +37,7 @@ const Tag = styled.li`
   padding: 2px 8px;
   margin: 5px 10px 5px 0;
   border: 1px solid ${BORDER_PRIMARY};
-  border-radius: 2px;
+  border-radius:  ${_get(styles, 'buttonsBorderRadius', '2px')};
 `;
 
 const Base = styled.div`

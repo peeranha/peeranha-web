@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { bindActionCreators, compose } from 'redux';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller/WindowScroller';
 import List from 'react-virtualized/dist/commonjs/List';
+import _get from 'lodash/get';
 
 import _isEqual from 'lodash/isEqual';
 import { DAEMON } from 'utils/constants';
@@ -18,7 +19,7 @@ import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { singleCommunityColors } from 'utils/communityManagement';
+import { singleCommunityColors, singleCommunityStyles } from 'utils/communityManagement';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import { BG_LIGHT, BORDER_SECONDARY_LIGHT } from 'style-constants';
@@ -51,6 +52,7 @@ import reducer from './reducer';
 import WidthCentered from '../LoadingIndicator/WidthCentered';
 
 const colors = singleCommunityColors();
+const styles = singleCommunityStyles();
 
 const Container = styled.div`
   @media only screen and (max-width: 576px) {
@@ -63,7 +65,7 @@ const Content = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: ${_get(styles, 'buttonsBorderRadius', '5px')};
   width: 100%;
   padding: 0;
   height: ${({ height }) => height}px;

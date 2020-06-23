@@ -3,42 +3,35 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Arrow from '../Arrow';
+import CustomSubHeaderContainer from './CustomSubHeaderContainer';
 
 const Div = styled.div`
   position: relative;
 
-  color: ${props => props.styles.color.a || `#ffffff`};
+  color: ${({ styles }) => styles.color.a || `#ffffff`};
 
-  background: ${props => props.styles.bg.header || `rgb(${'80, 101, 165'})`};
+  background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
   border-bottom: 1px solid
-    ${props =>
-      props.styles.bg.header === `#ffffff`
-        ? `#c2c6d8`
-        : props.styles.bg.header};
+    ${({ styles }) =>
+      styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
 
-  > div > div {
-    float: right;
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-
-    font-family: ${props => props.styles.font.body || `inherit`};
+  ${({ styles }) =>
+    styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
+    font-family: ${({ styles }) => styles.font.body || `inherit`};
     font-size: 15px;
     letter-spacing: 1px;
   }
 
   a {
-    color: ${props => props.styles.color.a || `#ffffff`};
+    color: ${({ styles }) => styles.color.a || `#ffffff`};
 
     :visited {
-      color: ${props => props.styles.color.a || `#ffffff`};
+      color: ${({ styles }) => styles.color.a || `#ffffff`};
     }
   }
 
   span {
-    color: ${props => props.styles.color.a || `#ffffff`};
+    color: ${({ styles }) => styles.color.a || `#ffffff`};
   }
 
   @media only screen and (max-width: 991px) {
@@ -48,11 +41,13 @@ const Div = styled.div`
   ${({ styles }) => styles.subHeader || ``};
 `;
 
-const Link = styled.a`
-  ${({ styles }) => styles || ``};
+const LocalLink = styled.a`
+  ${({ styles }) => (!!styles.subHeaderItem ? styles.subHeaderItem : ``) || ``};
 
-  padding: 12px 0;
-  margin-left: 14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 0;
+  margin-left: 18.5px;
 
   white-space: nowrap;
 
@@ -61,9 +56,18 @@ const Link = styled.a`
   }
 
   transition: color 170ms ease-in-out;
+
+  @media(max-width: 992px) {
+    margin-left: 14px;
+  }
+
+  ${({ isHighlighted, styles }) => (isHighlighted ? styles.Highlighted : ``)};
 `;
 
 const SubitemsWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   padding: 12px 0;
   margin-left: 14px;
 
@@ -73,6 +77,10 @@ const SubitemsWrapper = styled.div`
         display: block;
       }
     }
+  }
+
+  @media only screen and (max-width: 991px) {
+    flex-direction: column;
   }
 
   ${({ styles }) => styles || ``};
@@ -165,6 +173,7 @@ const Subitems = styled.div`
     align-items: flex-start;
     width: 100%;
     max-width: 1360px;
+    padding-left: 235px;
     margin: 0 auto;
   }
 
@@ -180,16 +189,22 @@ const Subitems = styled.div`
 
     > div {
       flex-direction: column;
+      padding-left: 0;
     }
   }
 
   ${({ styles }) => styles || ``};
 `;
 
-export const A = ({ href, text, styles }) => (
-  <Link href={href} target="_blank" styles={styles.subHeaderItem}>
+export const A = ({ href, text, isHighlighted, styles }) => (
+  <LocalLink
+    href={href}
+    target="_blank"
+    styles={styles}
+    isHighlighted={isHighlighted}
+  >
     {text}
-  </Link>
+  </LocalLink>
 );
 
 A.propTypes = {
@@ -217,9 +232,14 @@ export const B = ({ text, subitems, styles, device }) => {
             <Subitems styles={styles.subitems}>
               <div>
                 {subitems.map(({ text, href }) => (
-                  <Link key={href} href={href} target="_blank">
+                  <LocalLink
+                    styles={styles}
+                    key={href}
+                    href={href}
+                    target="_blank"
+                  >
                     {text}
-                  </Link>
+                  </LocalLink>
                 ))}
               </div>
             </Subitems>
@@ -234,9 +254,14 @@ export const B = ({ text, subitems, styles, device }) => {
           <Subitems styles={styles.subitems}>
             <div>
               {subitems.map(({ text, href }) => (
-                <Link key={href} href={href} target="_blank">
+                <LocalLink
+                  styles={styles}
+                  key={href}
+                  href={href}
+                  target="_blank"
+                >
                   {text}
-                </Link>
+                </LocalLink>
               ))}
             </div>
           </Subitems>
@@ -254,9 +279,15 @@ B.propTypes = {
 export const Links = ({ links, styles, device = 'desktop' }) => (
   <div>
     {links.map(
-      ({ text, href, subitems }) =>
+      ({ text, href, isHighlighted, subitems }) =>
         href ? (
-          <A text={text} href={href} key={href} styles={styles} />
+          <A
+            text={text}
+            href={href}
+            key={href}
+            styles={styles}
+            isHighlighted={isHighlighted}
+          />
         ) : (
           <B
             text={text}
@@ -276,19 +307,17 @@ Links.propTypes = {
 };
 
 const CustomSubHeader = ({ config }) => {
-  const { styles, links } = config;
-
-  return (
-    <Div styles={styles}>
+  return config ? (
+    <Div styles={config.styles}>
       <div className="container h-100">
-        <Links links={links} styles={styles} />
+        <CustomSubHeaderContainer design={config.design} />
       </div>
     </Div>
-  );
+  ) : null;
 };
 
 CustomSubHeader.propTypes = {
-  config: PropTypes.object.isRequired,
+  config: PropTypes.object,
 };
 
 export default CustomSubHeader;

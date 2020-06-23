@@ -1,7 +1,13 @@
 import styled from 'styled-components';
+import _get from 'lodash/get';
+
 import { BG_LIGHT } from 'style-constants';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import IconStyled from 'components/Icon/IconStyled';
+
+const styles = singleCommunityStyles();
 
 export default styled.div`
   position: relative;
@@ -19,7 +25,7 @@ export default styled.div`
   > div.modal-children {
     position: relative;
     background: ${BG_LIGHT};
-    border-radius: 5px;
+    border-radius: ${_get(styles, 'buttonsBorderRadius', '5px')};
     transition: 1s;
     padding: 30px;
     overflow: hidden;

@@ -34,6 +34,7 @@ export const Header = ({
   setTypeFilter,
   topQuestions,
   topQuestionsLoaded,
+  questionFilterFromCookies,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -105,7 +106,7 @@ export const Header = ({
           </div>
         )}
       </div>
-      <QuestionFilter display={displayQuestionFilter} />
+      <QuestionFilter display={displayQuestionFilter} questionFilterFromCookies={questionFilterFromCookies} />
     </Wrapper>
   );
 };

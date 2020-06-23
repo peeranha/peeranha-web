@@ -1,3 +1,6 @@
+import styled, { css } from 'styled-components';
+import _get from 'lodash/get';
+
 import {
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
@@ -10,7 +13,9 @@ import {
   BORDER_WARNING_LIGHT_RGB,
 } from 'style-constants';
 
-import styled, { css } from 'styled-components';
+import { singleCommunityStyles } from 'utils/communityManagement';
+
+const styles = singleCommunityStyles();
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
@@ -20,7 +25,8 @@ const ErrorHandling = error => `
   box-shadow: 0 0 0 3px ${
     error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
   };
-  border-radius: 3px;
+
+  border-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
 `;
 
 const DisableHandling = disabled => `

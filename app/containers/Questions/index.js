@@ -55,6 +55,8 @@ import Content from './Content/Content';
 import Banner from './Banner';
 import Header from './Header';
 import NotFound from '../ErrorPage';
+import ShowMoreButton from './Content/ShowMoreButton';
+
 import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
@@ -235,6 +237,8 @@ export const Questions = ({
     [profile],
   );
 
+  const questionFilterFromCookies = getCookie(QUESTION_FILTER);
+
   return display ? (
     <div>
       <Seo
@@ -250,6 +254,7 @@ export const Questions = ({
         typeFilter={typeFilter}
         createdFilter={createdFilter}
         setTypeFilter={setTypeFilterDispatch}
+        questionFilterFromCookies={questionFilterFromCookies}
       />
 
       {displayBanner && (
@@ -275,6 +280,15 @@ export const Questions = ({
             isModerator={isModerator}
             profileInfo={profile}
           />
+          {!!+questionFilterFromCookies && (
+            <div className="d-flex justify-content-center mb-3">
+              <ShowMoreButton
+                questionFilterFromCookies={questionFilterFromCookies}
+              >
+                {translationMessages[locale][messages.showAllQuestions.id]}
+              </ShowMoreButton>
+            </div>
+          )}
         </InfinityLoader>
       )}
 

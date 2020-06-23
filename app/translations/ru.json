@@ -786,6 +786,7 @@
   "app.containers.Questions.readMyFeed": "Читать мой фид",
   "app.containers.Questions.topQuestionPopover":
     "Часто задаваемый вопрос этого сообщества.",
+  "app.containers.Questions.showAllQuestions": "Смотреть все вопросы",
 
   "app.containers.QuestionForm.communityTip": "Сообщество подсказка...",
   "app.containers.QuestionForm.titleTip": "Заголовок подсказка...",
