@@ -10,6 +10,7 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
+  BORDER_RADIUS_M,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -37,14 +38,14 @@ const ButtonGroup = styled.div`
 
 const Button = B.extend`
   &:first-child {
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border-top-left-radius: ${BORDER_RADIUS_M};
+    border-bottom-left-radius: ${BORDER_RADIUS_M};
   }
 
   &:last-child {
     border-left: none;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-top-right-radius: ${BORDER_RADIUS_M};
+    border-bottom-right-radius: ${BORDER_RADIUS_M};
   }
 
   flex: 1;

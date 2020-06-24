@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { BORDER_PRIMARY, TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
@@ -11,11 +11,11 @@ import { singleCommunityFonts } from 'utils/communityManagement';
 const fonts = singleCommunityFonts();
 
 const Tag = Span.extend`
-  border: 1px solid ${BORDER_PRIMARY};
-  color: ${TEXT_PRIMARY};
+  border: 1px solid ${TAG_COLOR};
+  color: ${TAG_COLOR};
   font-size: 14px;
   height: 24px;
-  border-radius: 2px;
+  border-radius: ${BORDER_RADIUS_S};
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;

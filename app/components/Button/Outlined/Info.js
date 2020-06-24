@@ -3,10 +3,8 @@ import { css } from 'styled-components';
 import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
-  TEXT_WARNING_LIGHT,
-  BG_WARNING_LIGHT,
   TEXT_LIGHT,
-  BORDER_WARNING_LIGHT,
+  BUTTON_COLOR
 } from 'style-constants';
 
 import Button from '../index';
@@ -14,19 +12,19 @@ import Button from '../index';
 export const hover = css`
   :hover {
     color: ${TEXT_LIGHT};
-    background: ${BG_WARNING_LIGHT};
-    border-color: ${BORDER_TRANSPARENT};
+    background: ${BUTTON_COLOR};
+    border-color: ${BUTTON_COLOR};
   }
 `;
 
 const OutlinedButton = Button.extend`
   background: ${BG_TRANSPARENT};
-  border: 1px solid ${BORDER_WARNING_LIGHT};
-  color: ${TEXT_WARNING_LIGHT};
+  border: 1px solid ${BUTTON_COLOR};
+  color: ${BUTTON_COLOR};
 
   :hover {
     color: ${TEXT_LIGHT};
-    background: ${BG_WARNING_LIGHT};
+    background: ${BUTTON_COLOR};
     border-color: ${BORDER_TRANSPARENT};
   }
 `;

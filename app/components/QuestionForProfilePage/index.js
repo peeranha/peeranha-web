@@ -9,6 +9,8 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY_DARK,
+  BORDER_RADIUS_M,
+  BORDER_RADIUS_L,
 } from 'style-constants';
 
 import commonMessages from 'common-messages';
@@ -36,7 +38,7 @@ const single = isSingleCommunityWebsite();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (bordered ? '5px' : 'none')};
+  border-radius: ${({ bordered }) => (bordered ? BORDER_RADIUS_L : 'none')};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -46,7 +48,7 @@ const BaseStyled = Base.extend`
 const Badge = Span.extend`
   color: ${TEXT_PRIMARY_DARK};
   border: 1px solid ${BORDER_PRIMARY_DARK};
-  border-radius: 3px;
+  border-radius: ${BORDER_RADIUS_M};
   padding: 4px 10px;
   text-align: center;
   width: 57px;

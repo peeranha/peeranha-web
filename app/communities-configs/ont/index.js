@@ -2,6 +2,7 @@ import React from 'react';
 
 import coinsBlueIcon from 'images/coinsBlack.svg?external';
 import OntLogo from './images/ont.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!images/favicon-ont.ico';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
@@ -11,6 +12,7 @@ import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 export const CustomSubHeaderConfig = {
+  design: "logo_right__menu_right",
   styles: {
     bg: {
       header: '#ffffff',
@@ -43,6 +45,9 @@ export const CustomSubHeaderConfig = {
           margin-left: 0;
         }
       }        
+    `,
+    CustomSubHeader: `
+      
     `,
   },
   links: [
@@ -151,6 +156,8 @@ export const OntStyles = {
   withoutAdditionalLinks: true,
   coinsIcon: coinsBlueIcon,
   leftMenuLogo: OntLogo,
+  signUpPageLogo: OntLogo,
+  favicon: favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={OntLogo} />
   ),
@@ -178,6 +185,8 @@ export const OntStyles = {
     attentionColor: '#2fa3f1',
     linkColor: '#2fa3f1',
     purple: 'rgba(0,0,0,.6)',
+    btnColor: '#000000',
+    tagColor: 'rgba(0,0,0,.6)',
   },
   fontFace: `@font-face {
     font-family: 'Roboto-Regular';
@@ -187,4 +196,6 @@ export const OntStyles = {
       url(${RobotoRegularTTF}) format('truetype');
     font-style: normal;
   }`,
+  headerHeight: 150,
+  customSubHeaderConfig: CustomSubHeaderConfig
 };

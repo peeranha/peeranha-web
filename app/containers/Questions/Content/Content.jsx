@@ -31,6 +31,7 @@ const Box = BaseNoPadding.extend`
   flex-direction: row;
   position: relative;
   transition: none;
+  overflow: hidden;
 
   @media only screen and (max-width: 576px) {
     flex-direction: column;

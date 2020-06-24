@@ -38,7 +38,7 @@ export const Button = ({
   const z = {};
 
   Object.keys(params).forEach(x => {
-    z[`data-${x}`] = params[x];
+    z[`data-${x.toLowerCase()}`] = params[x];
   });
 
   return show ? (

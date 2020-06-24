@@ -2,7 +2,8 @@ import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_PRIMARY, BORDER_RADIUS_S } from 'style-constants';
+
 import closeIcon from 'images/closeCircle.svg?inline';
 
 import { Select2 } from 'components/FormFields/SelectField';
@@ -31,7 +32,7 @@ const Tag = styled.li`
   padding: 2px 8px;
   margin: 5px 10px 5px 0;
   border: 1px solid ${BORDER_PRIMARY};
-  border-radius: 2px;
+  border-radius:  ${BORDER_RADIUS_S};
 `;
 
 const Base = styled.div`

@@ -21,7 +21,11 @@ import injectReducer from 'utils/injectReducer';
 import { singleCommunityColors } from 'utils/communityManagement';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
-import { BG_LIGHT, BORDER_SECONDARY_LIGHT } from 'style-constants';
+import {
+  BG_LIGHT,
+  BORDER_SECONDARY_LIGHT,
+  BORDER_RADIUS_L,
+} from 'style-constants';
 
 import NotFound from 'containers/ErrorPage';
 import { ROW_HEIGHT as ROW_HEIGHT_FOR_SMALL } from 'containers/Header/NotificationsDropdown/constants';
@@ -63,7 +67,7 @@ const Content = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS_L};
   width: 100%;
   padding: 0;
   height: ${({ height }) => height}px;

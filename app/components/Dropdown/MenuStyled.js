@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { BG_LIGHT } from 'style-constants';
+
+import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 const MenuStyled = styled.div`
   margin: 10px 0;
   padding: 0;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS_L};
   min-width: auto;
   overflow: hidden;
   background-color: ${BG_LIGHT};

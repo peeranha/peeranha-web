@@ -1,3 +1,5 @@
+import styled, { css } from 'styled-components';
+
 import {
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
@@ -8,9 +10,10 @@ import {
   BG_LIGHT,
   BORDER_PRIMARY_RGB,
   BORDER_WARNING_LIGHT_RGB,
+  BORDER_RADIUS_M,
 } from 'style-constants';
 
-import styled, { css } from 'styled-components';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
@@ -20,7 +23,8 @@ const ErrorHandling = error => `
   box-shadow: 0 0 0 3px ${
     error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
   };
-  border-radius: 3px;
+
+  border-radius: ${BORDER_RADIUS_M};
 `;
 
 const DisableHandling = disabled => `

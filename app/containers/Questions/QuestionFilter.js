@@ -11,10 +11,10 @@ import {
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_SECONDARY,
+  BORDER_RADIUS_L,
 } from 'style-constants';
 
-import { getCookie, setCookie } from 'utils/cookie';
-
+import { setCookie } from 'utils/cookie';
 import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
@@ -32,10 +32,10 @@ const Button = styled.button`
   justify-content: center;
   width: ${({ left }) => (left ? 50 : 50)}%;
   border: 1px solid ${({ active }) => (active ? 'blue' : 'black')};
-  border-top-left-radius: ${({ left }) => (left ? '5px' : 0)};
-  border-bottom-left-radius: ${({ left }) => (left ? '5px' : 0)};
-  border-top-right-radius: ${({ left }) => (!left ? '5px' : 0)};
-  border-bottom-right-radius: ${({ left }) => (!left ? '5px' : 0)};
+  border-top-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
+  border-bottom-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
+  border-top-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
+  border-bottom-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
   border: 1px solid
     ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
 
@@ -54,19 +54,28 @@ const cookieFilterSetter = value => ({
   },
 });
 
-const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
+const QuestionFilter = ({
+  display,
+  changeQuestionFilterDispatch,
+  questionFilterFromCookies,
+}) => {
   if (!single) return null;
 
-  const [filter, setFilterValue] = useState(+(getCookie(QUESTION_FILTER) || 1));
+  const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
 
-  useEffect(() => {
-    const cookieValue = getCookie(QUESTION_FILTER);
+  useEffect(
+    () => {
+      const cookieValue = questionFilterFromCookies;
 
-    if (!cookieValue || cookieValue === '1') {
-      setCookie(cookieFilterSetter(1));
-      changeQuestionFilterDispatch(1);
-    }
-  }, []);
+      setFilterValue(cookieValue);
+
+      if (!cookieValue || cookieValue === '1') {
+        setCookie(cookieFilterSetter(1));
+        changeQuestionFilterDispatch(1);
+      }
+    },
+    [filter],
+  );
 
   const setFilter = useCallback(
     value => {
@@ -84,10 +93,14 @@ const QuestionFilter = ({ display, changeQuestionFilterDispatch }) => {
 
   return display ? (
     <Container>
-      <Button active={!!filter} onClick={setQuestionFilter} left>
+      <Button
+        active={questionFilterFromCookies == '1'}
+        onClick={setQuestionFilter}
+        left
+      >
         <FormattedMessage {...commonMessages.top} />
       </Button>
-      <Button active={!filter} onClick={setAllFilter}>
+      <Button active={questionFilterFromCookies == '0'} onClick={setAllFilter}>
         <FormattedMessage {...commonMessages.all} />
       </Button>
     </Container>

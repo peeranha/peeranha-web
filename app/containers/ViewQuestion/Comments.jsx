@@ -9,6 +9,7 @@ import {
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
   BORDER_ATTENTION_LIGHT,
+  BORDER_RADIUS_M,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -75,13 +76,13 @@ const CommentsStyled = styled.ul`
     padding: 9px 28px 9px 38px;
 
     :first-child {
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
+      border-top-left-radius: ${BORDER_RADIUS_M};
+      border-top-right-radius: ${BORDER_RADIUS_M};
     }
 
     :last-child {
-      border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: ${BORDER_RADIUS_M};
+      border-bottom-right-radius: ${BORDER_RADIUS_M};
     }
 
     :not(:last-child) {

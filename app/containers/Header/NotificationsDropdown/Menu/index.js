@@ -2,16 +2,19 @@ import React, { memo, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Header from './Header';
-import Content from './Content';
-import Footer from './Footer';
-
 import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
   ROW_HEIGHT,
 } from '../constants';
+import { BORDER_RADIUS_L } from 'style-constants';
+
+import { singleCommunityStyles } from 'utils/communityManagement';
+
+import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
 
 const MenuContainer = styled.div`
   width: ${MENU_WIDTH}px;
@@ -22,7 +25,7 @@ const MenuContainer = styled.div`
   flex-direction: column;
   top: 60px;
   left: 0;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS_L};
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   cursor: default;

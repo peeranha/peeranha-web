@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { BG_LIGHT } from 'style-constants';
+
+import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 import IconStyled from 'components/Icon/IconStyled';
 
@@ -19,7 +20,7 @@ export default styled.div`
   > div.modal-children {
     position: relative;
     background: ${BG_LIGHT};
-    border-radius: 5px;
+    border-radius: ${BORDER_RADIUS_L};
     transition: 1s;
     padding: 30px;
     overflow: hidden;

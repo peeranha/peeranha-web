@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import { BORDER_RADIUS_M } from 'style-constants';
+
 const Button = styled.button`
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: ${BORDER_RADIUS_M};
   text-align: center;
   transition: 0.5s;
 
