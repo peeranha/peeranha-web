@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import _get from 'lodash/get';
 
 import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
   BORDER_ATTENTION_LIGHT,
+  BORDER_RADIUS_M,
 } from 'style-constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?inline';
@@ -17,7 +17,6 @@ import deleteSmallIcon from 'images/deleteSmallIcon.svg?inline';
 import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -37,8 +36,6 @@ import {
   SAVE_COMMENT_BUTTON,
   SAVE_COMMENT_FORM,
 } from './constants';
-
-const styles = singleCommunityStyles();
 
 const CommentManage = styled.div`
   display: flex;
@@ -79,13 +76,13 @@ const CommentsStyled = styled.ul`
     padding: 9px 28px 9px 38px;
 
     :first-child {
-      border-top-left-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
-      border-top-right-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+      border-top-left-radius: ${BORDER_RADIUS_M};
+      border-top-right-radius: ${BORDER_RADIUS_M};
     }
 
     :last-child {
-      border-bottom-left-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
-      border-bottom-right-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+      border-bottom-left-radius: ${BORDER_RADIUS_M};
+      border-bottom-right-radius: ${BORDER_RADIUS_M};
     }
 
     :not(:last-child) {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import _get from 'lodash/get';
 
 import {
   TEXT_PRIMARY_DARK,
@@ -10,13 +9,15 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY_DARK,
+  BORDER_RADIUS_M,
+  BORDER_RADIUS_L,
 } from 'style-constants';
 
 import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
 import crownIcon from 'images/crownIcon.svg?inline';
@@ -34,11 +35,10 @@ import {
 import QuestionCommunity from './QuestionCommunity';
 
 const single = isSingleCommunityWebsite();
-const styles = singleCommunityStyles();
 
 const BaseStyled = Base.extend`
   position: relative;
-  border-radius: ${({ bordered }) => (bordered ? _get(styles, 'buttonsBorderRadius', '5px') : 'none')};
+  border-radius: ${({ bordered }) => (bordered ? BORDER_RADIUS_L : 'none')};
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -48,7 +48,7 @@ const BaseStyled = Base.extend`
 const Badge = Span.extend`
   color: ${TEXT_PRIMARY_DARK};
   border: 1px solid ${BORDER_PRIMARY_DARK};
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+  border-radius: ${BORDER_RADIUS_M};
   padding: 4px 10px;
   text-align: center;
   width: 57px;

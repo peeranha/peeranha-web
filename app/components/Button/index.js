@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 
-import _get from 'lodash/get';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
-
-const styles = singleCommunityStyles();
+import { BORDER_RADIUS_M } from 'style-constants';
 
 const Button = styled.button`
   cursor: pointer;
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+  border-radius: ${BORDER_RADIUS_M};
   text-align: center;
   transition: 0.5s;
 

@@ -1,16 +1,11 @@
 import styled from 'styled-components';
-import _get from 'lodash/get';
 
-import { BG_LIGHT } from 'style-constants';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
-
-const styles = singleCommunityStyles();
+import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 
 const MenuStyled = styled.div`
   margin: 10px 0;
   padding: 0;
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '5px')};
+  border-radius: ${BORDER_RADIUS_L};
   min-width: auto;
   overflow: hidden;
   background-color: ${BG_LIGHT};

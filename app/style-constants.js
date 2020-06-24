@@ -2,9 +2,11 @@ import _get from 'lodash/get';
 import {
   singleCommunityColors,
   singleCommunityFonts,
+  singleCommunityStyles,
 } from './utils/communityManagement';
 
 const colors = singleCommunityColors();
+const styles = singleCommunityStyles();
 const fonts = singleCommunityFonts();
 
 const black = _get(colors, 'black', '#282828');
@@ -93,3 +95,7 @@ export const ATTENTION_COLOR = attentionColor;
 
 export const BUTTON_COLOR = _get(colors, 'btnColor', pink);
 export const TAG_COLOR = _get(colors, 'tagColor', blue);
+
+export const BORDER_RADIUS_S = _get(styles, 'buttonsBorderRadius', '2px');
+export const BORDER_RADIUS_M = _get(styles, 'buttonsBorderRadius', '3px');
+export const BORDER_RADIUS_L = _get(styles, 'buttonsBorderRadius', '5px');

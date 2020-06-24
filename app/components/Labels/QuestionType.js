@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _get from 'lodash/get';
 
-import { BG_PRIMARY_SPECIAL_2, TEXT_PRIMARY } from 'style-constants';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
-
-const styles = singleCommunityStyles();
+import { BG_PRIMARY_SPECIAL_2, TEXT_PRIMARY, BORDER_RADIUS_M } from 'style-constants';
 
 const SIZE_CONFIG = {
   sm: {
@@ -46,7 +41,7 @@ const Type = styled.div`
   padding: 0 9px;
   display: inline-flex;
   align-items: center;
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+  border-radius: ${BORDER_RADIUS_M};
 
   > span {
     white-space: nowrap;

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import _get from 'lodash/get';
 
 import {
   BORDER_SECONDARY,
@@ -11,11 +10,10 @@ import {
   BG_LIGHT,
   BORDER_PRIMARY_RGB,
   BORDER_WARNING_LIGHT_RGB,
+  BORDER_RADIUS_M,
 } from 'style-constants';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
-
-const styles = singleCommunityStyles();
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
@@ -26,7 +24,7 @@ const ErrorHandling = error => `
     error ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)` : BORDER_TRANSPARENT
   };
 
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+  border-radius: ${BORDER_RADIUS_M};
 `;
 
 const DisableHandling = disabled => `

@@ -1,15 +1,10 @@
-import _get from 'lodash/get';
-
-import { SECONDARY_SPECIAL_2 } from 'style-constants';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
+import { SECONDARY_SPECIAL_2, BORDER_RADIUS_L } from 'style-constants';
 
 import Base from './index';
 
-const styles = singleCommunityStyles();
-
 const BaseRounded = Base.extend`
-  border-radius: ${({ notRoundedStyle }) => (notRoundedStyle ? 'none' : _get(styles, 'buttonsBorderRadius', '5px'))};
+  border-radius: ${({ notRoundedStyle }) =>
+    notRoundedStyle ? 'none' : BORDER_RADIUS_L};
   box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};
   transition: 0.5s;
 

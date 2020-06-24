@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _get from 'lodash/get';
 
-import { TEXT_SECONDARY, TAG_COLOR } from 'style-constants';
+import { TEXT_SECONDARY, TAG_COLOR, BORDER_RADIUS_S } from 'style-constants';
 
 import Span from 'components/Span';
 
-import { singleCommunityFonts, singleCommunityStyles } from 'utils/communityManagement';
+import { singleCommunityFonts } from 'utils/communityManagement';
 
-const styles = singleCommunityStyles();
 const fonts = singleCommunityFonts();
 
 const Tag = Span.extend`
@@ -17,7 +15,7 @@ const Tag = Span.extend`
   color: ${TAG_COLOR};
   font-size: 14px;
   height: 24px;
-  border-radius: ${_get(styles, 'buttonsBorderRadius', '2px')};
+  border-radius: ${BORDER_RADIUS_S};
   margin-bottom: 2px;
   margin-right: 8px;
   padding-left: 10px;

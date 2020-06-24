@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import _get from 'lodash/get';
 
 import messages from 'common-messages';
 
@@ -11,15 +10,12 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
+  BORDER_RADIUS_M,
 } from 'style-constants';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
-
-const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
@@ -42,14 +38,14 @@ const ButtonGroup = styled.div`
 
 const Button = B.extend`
   &:first-child {
-    border-top-left-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
-    border-bottom-left-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+    border-top-left-radius: ${BORDER_RADIUS_M};
+    border-bottom-left-radius: ${BORDER_RADIUS_M};
   }
 
   &:last-child {
     border-left: none;
-    border-top-right-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
-    border-bottom-right-radius: ${_get(styles, 'buttonsBorderRadius', '3px')};
+    border-top-right-radius: ${BORDER_RADIUS_M};
+    border-bottom-right-radius: ${BORDER_RADIUS_M};
   }
 
   flex: 1;
