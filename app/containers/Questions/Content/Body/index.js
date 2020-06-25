@@ -31,8 +31,7 @@ const Body = ({
 }) => (
   <Base
     className={displayTopQuestionMove ? 'pl-0' : ''}
-    bottomRightRadius
-    topRightRadius
+    position='right'
   >
     <TopQuestion
       id={id}

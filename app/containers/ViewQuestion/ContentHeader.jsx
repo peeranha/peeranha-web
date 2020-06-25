@@ -54,6 +54,10 @@ const ItemInfo = styled.div`
   flex-grow: 1;
   justify-content: space-between;
   padding: 0 30px;
+
+  button {
+    border-radius: 0;
+  }
 `;
 
 const Box = styled.div`

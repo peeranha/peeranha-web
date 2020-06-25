@@ -59,7 +59,7 @@ const Aside = ({ suggestedTags, communityId }) => (
         to={routes.suggestedTags(communityId)}
         href={routes.suggestedTags(communityId)}
       >
-        <IconMd className="mr-2" icon={moreVotingIcon} fill={TEXT_PRIMARY} />
+        <IconMd className="mr-2" icon={moreVotingIcon} fill={TEXT_PRIMARY} isColorImportant={true} />
         <Span color={TEXT_PRIMARY}>
           <FormattedMessage {...commonMessages.moreVoting} />
         </Span>

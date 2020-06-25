@@ -116,7 +116,7 @@ export const TelosStyles = {
     blueRGB: '93,109,254',
     black: '#02003D',
     warningLight: '#FF4026',
-    darkBlue: '#4452C5',
+    darkBlue: '#5d6dfe',
     mainBackground: '#DFDFED',
     mainLinks: '#5463E8',
     linkColor: '#5463E8',
@@ -124,6 +124,7 @@ export const TelosStyles = {
     tagColor: '#FF422A',
     successColor: '#55C3B3',
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
+    secondaryLight: '#5D6DFE',
   },
   fontFace: `
     @font-face {

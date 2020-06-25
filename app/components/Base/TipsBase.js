@@ -1,4 +1,5 @@
-import { SECONDARY_SPECIAL_3 } from 'style-constants';
+import { SECONDARY_SPECIAL_3, BORDER_RADIUS_L } from 'style-constants';
+
 import BaseRoundedNoPadding from './BaseRoundedNoPadding';
 
 export default BaseRoundedNoPadding.extend`
@@ -20,6 +21,8 @@ export default BaseRoundedNoPadding.extend`
       max-width: 340px;
       padding: 47px 36px;
       background: ${SECONDARY_SPECIAL_3};
+      border-top-right-radius: ${BORDER_RADIUS_L};
+      border-bottom-right-radius: ${BORDER_RADIUS_L};
     }
   }
 

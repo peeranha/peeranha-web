@@ -17,7 +17,9 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 
 import options from './options';
+
 import RatingStatusStyled from './RatingStatusStyled';
+
 const getStatus = rating =>
   Object.keys(options).filter(
     x => options[x].minRating <= rating && options[x].maxRating >= rating,

@@ -49,6 +49,7 @@ const UserNavigation = ({
 }) => {
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
+
   useEffect(
     () => {
       if (
@@ -60,6 +61,7 @@ const UserNavigation = ({
     },
     [window.location.hash],
   );
+
   return (
     <Wrapper position="top" ref={ref}>
       <Ul>
@@ -185,7 +187,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant={true} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>

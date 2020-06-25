@@ -35,7 +35,7 @@ export const Header = () => (
     <div className="right-panel">
       <A to={routes.tags()}>
         <button>
-          <IconMd className="mr-1" icon={closeIcon} fill={BORDER_PRIMARY} />
+          <IconMd className="mr-1" icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant={true} />
           <Span color={TEXT_PRIMARY}>
             <FormattedMessage {...commonMessages.close} />
           </Span>
