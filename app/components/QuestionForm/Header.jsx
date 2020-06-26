@@ -16,12 +16,13 @@ import Span from '../Span';
 
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
+import Icon from '../Icon';
 
 const Header = ({ formTitle, questionId, intl }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
-        <img src={questionIcon} width="43" alt="?" />
+        <Icon icon={questionIcon} width="43" alt="?" />
       </MediumIconStyled>
       <span>{formTitle}</span>
     </H3>
