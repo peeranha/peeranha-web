@@ -6,7 +6,10 @@ import { deleteCookie } from 'utils/cookie';
 
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
+import {
+  getCurrentAccountSuccess,
+  addLoginData,
+} from 'containers/AccountProvider/actions';
 
 import { LOGOUT } from './constants';
 
@@ -25,6 +28,7 @@ export function* logoutWorker() {
 
     yield call(createdHistory.push, routes.questions());
     yield put(getCurrentAccountSuccess());
+    yield put(addLoginData({}));
 
     yield put(clearNotificationsData());
 

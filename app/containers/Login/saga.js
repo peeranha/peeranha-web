@@ -64,6 +64,7 @@ import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
+import { addLoginData } from '../AccountProvider/actions';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -91,6 +92,7 @@ export function* loginWithEmailWorker({ val }) {
       );
     }
 
+    yield put(addLoginData(response.peeranhaAutoLogin));
     yield call(getCurrentAccountWorker, eosAccountName);
     const profileInfo = yield select(makeSelectProfileInfo());
 
@@ -109,7 +111,7 @@ export function* loginWithEmailWorker({ val }) {
       eosAccountName,
     );
 
-    yield call(getNotificationsInfoWorker, profileInfo.user);
+    yield call(getNotificationsInfoWorker, profileInfo?.user);
 
     yield call(getCommunityPropertyWorker);
 
@@ -156,16 +158,18 @@ export function* loginWithScatterWorker() {
     yield call(getNotificationsInfoWorker, profileInfo.user);
 
     yield call(getCommunityPropertyWorker);
+    const autologinData = { loginWithScatter: true };
 
     setCookie({
       name: AUTOLOGIN_DATA,
-      value: JSON.stringify({ loginWithScatter: true }),
+      value: JSON.stringify(autologinData),
       options: {
         allowSubdomains: true,
         defaultPath: true,
       },
     });
 
+    yield put(addLoginData(autologinData));
     yield put(loginWithScatterSuccess());
   } catch (err) {
     yield put(loginWithScatterErr(err));

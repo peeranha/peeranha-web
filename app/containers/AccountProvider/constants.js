@@ -16,6 +16,9 @@ export const UPDATE_ACC_SUCCESS = 'app/AccountProvider/UPDATE_ACC_SUCCESS';
 export const UPDATE_ACC_ERROR = 'app/AccountProvider/UPDATE_ACC_ERROR';
 export const REWARD_REFER_ERROR = 'app/AccountProvider/REWARD_REFER_ERROR';
 
+export const ADD_LOGIN_DATA = 'app/AccountProvider/ADD_LOGIN_DATA';
+export const REMOVE_LOGIN_DATA = 'app/AccountProvider/REMOVE_LOGIN_DATA';
+
 export const UPDATE_ACC_PERIOD = 600000; // 10 min
 export const REFERRAL_REWARD_RATING = 25;
 
