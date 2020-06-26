@@ -8,6 +8,7 @@ import {
   BORDER_PRIMARY_DARK,
   BG_SUCCESS,
   TEXT_SECONDARY,
+  BG_PRIMARY,
   BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
@@ -75,7 +76,7 @@ const AcceptedQuestionBadgeStyled = Badge.extend`
 `;
 
 const TopCommunityBadgeStyled = Badge.extend`
-  background: ${BG_PRIMARY_DARK};
+  background: ${BG_PRIMARY};
   margin-right: 20px;
   border: none;
 

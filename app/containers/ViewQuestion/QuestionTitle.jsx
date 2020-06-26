@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
+import { BUTTON_COLOR } from 'style-constants';
+
 import checkIcon from 'images/okayGreen.svg?inline';
 import coinsIcon from 'images/coins.svg?external';
 
@@ -105,6 +107,7 @@ export const QuestionTitle = ({
               <IconMd
                 className="mr-1"
                 icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                color={BUTTON_COLOR}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>

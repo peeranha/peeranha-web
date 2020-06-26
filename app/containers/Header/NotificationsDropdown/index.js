@@ -32,8 +32,7 @@ const Container = styled.div`
   min-width: 47px;
   min-height: 47px;
   background: ${BG_LIGHT};
-  border: 1px solid
-    ${({ active }) => (!active ? BORDER_SECONDARY_LIGHT : BORDER_PRIMARY)};
+  border: 1px solid ${BORDER_PRIMARY};
   display: flex;
   align-items: center;
   justify-content: center;

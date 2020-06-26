@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BG_PRIMARY, BG_PRIMARY_RGB } from 'style-constants';
+import { BG_PRIMARY, BG_PRIMARY_RGB, BUTTON_COLOR } from 'style-constants';
+
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
 
@@ -90,6 +91,7 @@ export const BestAnswerMarker = ({
             <IconMd
               className="mr-1"
               icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+              color={BUTTON_COLOR}
             />
             <FormattedMessage {...commonMessages.tipAnswer} />
           </B>
@@ -117,8 +119,18 @@ export const BestAnswerMarker = ({
       )}
 
       {isOfficial && (
-        <Label bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`} border={BG_PRIMARY} color={BG_PRIMARY} inactive>
-          <Icon className="d-inline-flex mr-2" icon={officialIcon} width="16" color={BG_PRIMARY} />
+        <Label
+          bg={`rgba(${BG_PRIMARY_RGB}, 0.2)`}
+          border={BG_PRIMARY}
+          color={BG_PRIMARY}
+          inactive
+        >
+          <Icon
+            className="d-inline-flex mr-2"
+            icon={officialIcon}
+            width="16"
+            color={BG_PRIMARY}
+          />
           <FormattedMessage {...messages.officialAnswer} />
         </Label>
       )}
