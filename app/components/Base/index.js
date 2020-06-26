@@ -45,7 +45,7 @@ const Base = styled.div`
     x.position === 'top'
       ? `border-top-left-radius: ${BORDER_RADIUS_L}; border-top-right-radius: ${BORDER_RADIUS_L}; border-bottom: 1px solid ${BORDER_SECONDARY};`
       : ''}
-color: green;
+
   ${x =>
     x.position === 'bottom'
       ? `border-bottom-left-radius: ${BORDER_RADIUS_L}; border-bottom-right-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`

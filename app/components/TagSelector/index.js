@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 import { TEXT_PRIMARY, BORDER_PRIMARY, BORDER_RADIUS_S } from 'style-constants';
 
-import closeIcon from 'images/closeCircle.svg?inline';
+import closeIcon from 'images/closeCircle.svg?external';
 
 import { Select2 } from 'components/FormFields/SelectField';
 import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 const TagsContainer = styled.ul`
   ${props => Input(props)};
@@ -32,7 +33,7 @@ const Tag = styled.li`
   padding: 2px 8px;
   margin: 5px 10px 5px 0;
   border: 1px solid ${BORDER_PRIMARY};
-  border-radius:  ${BORDER_RADIUS_S};
+  border-radius: ${BORDER_RADIUS_S};
 `;
 
 const Base = styled.div`
@@ -97,7 +98,7 @@ export const TagSelector = ({
                 <Tag key={valueLabel}>
                   <span>{valueLabel}</span>
                   <RemoveTagIcon type="button" onClick={e => onClick(e, id)}>
-                    <img src={closeIcon} alt="X" />
+                    <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
                   </RemoveTagIcon>
                 </Tag>
               ))}

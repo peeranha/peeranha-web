@@ -11,9 +11,10 @@ import {
 import Button from '../index';
 
 const ButtonCss = css`
-  color: ${LINK_COLOR};
+  color: ${({ color }) => (color ? color : LINK_COLOR)};
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BORDER_TRANSPARENT};
+  border-radius: 0;
   height: auto;
   min-height: auto;
   font-size: 16px;

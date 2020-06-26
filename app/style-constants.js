@@ -61,6 +61,7 @@ export const TEXT_PRIMARY_DARK = darkblue;
 export const TEXT_PRIMARY = blue;
 
 export const LINK_COLOR = linkColor;
+export const LINK_COLOR_SECONDARY = _get(colors, 'linkColorSecondary', linkColor);
 
 export const BORDER_SECONDARY = secondarySpecial;
 export const BORDER_PRIMARY_DARK = darkblue;

@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { BORDER_PRIMARY } from 'style-constants';
+import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?external';
 
@@ -53,6 +53,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
       data-communityid={communityId}
       id="question-form-suggest-tag"
       type="button"
+      color={LINK_COLOR_SECONDARY}
     >
       <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
       <FormattedMessage {...commonMessages.suggestTag} />
