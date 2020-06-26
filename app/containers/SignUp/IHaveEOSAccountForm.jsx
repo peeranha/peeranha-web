@@ -6,7 +6,7 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { BG_PRIMARY_LIGHT, BG_TRANSPARENT } from 'style-constants';
+import { BG_PRIMARY_LIGHT, BG_TRANSPARENT, BORDER_RADIUS_M } from 'style-constants';
 import * as routes from 'routes-config';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
@@ -45,7 +45,7 @@ import {
 export const Div = styled.div`
   padding: ${x => (x.primary ? '20px' : '0px')} 30px;
   margin-bottom: ${x => (x.primary ? '20px' : '0px')};
-  border-radius: 3px;
+  border-radius: ${BORDER_RADIUS_M};
   background: ${x => (x.primary ? BG_PRIMARY_LIGHT : BG_TRANSPARENT)};
   position: relative;
 

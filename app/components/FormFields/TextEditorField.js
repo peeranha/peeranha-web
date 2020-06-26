@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { BORDER_SECONDARY } from 'style-constants';
+import { BORDER_SECONDARY, BORDER_RADIUS_M } from 'style-constants';
 
 import { DisableHandling, ErrorHandling } from 'components/Input/InputStyled';
 import TextEditor, { TEXT_EDITOR_CLASSNAME } from 'components/TextEditor';
@@ -22,6 +22,11 @@ const Div = styled.div`
 
   .editor-toolbar {
     border-bottom: 1px solid ${BORDER_SECONDARY} !important;
+  }
+
+  .CodeMirror {
+    border-bottom-right-radius: ${BORDER_RADIUS_M};
+    border-bottom-left-radius: ${BORDER_RADIUS_M};
   }
 
   @media only screen and (max-width: 768px) {
