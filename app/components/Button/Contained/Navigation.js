@@ -21,6 +21,7 @@ const ButtonCss = css`
       ? `
     color: ${TEXT_PRIMARY};
     background: ${BG_TRANSPARENT};
+    border-radius: 0;
 
     :hover {
       color: ${TEXT_PRIMARY};
