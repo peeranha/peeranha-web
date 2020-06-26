@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
-import seacrhIcon from 'images/search.svg?external';
+import searchIcon from 'images/search.svg?external';
 import closeIcon from 'images/close.svg?external';
 import refreshIcon from 'images/reload.svg?external';
 import eyeOpenedIcon from 'images/eyeOpened.svg?external';
@@ -22,77 +22,72 @@ const Handler = ({
   onClick,
   value,
 }) => {
-  let src = null;
+  const src = useMemo(
+    () => {
+      if (isSearchable) {
+        return value ? closeIcon : searchIcon;
+      } else if (isRefreshable) {
+        return refreshIcon;
+      } else if (isPassword[0] && !isPassword[1]) {
+        return eyeClosedIcon;
+      } else if (isPassword[0] && isPassword[1]) {
+        return eyeOpenedIcon;
+      }
+      return null;
+    },
+    [isSearchable, isRefreshable, isPassword],
+  );
 
-  if (isSearchable) {
-    src = value ? closeIcon : seacrhIcon;
-  } else if (isRefreshable) {
-    src = refreshIcon;
-  } else if (isPassword[0] && !isPassword[1]) {
-    src = eyeClosedIcon;
-  } else if (isPassword[0] && isPassword[1]) {
-    src = eyeOpenedIcon;
-  } else {
-    return null;
-  }
-
-  return (
+  return src ? (
     <button onClick={onClick || null} type="button" tabIndex="-1">
       <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
     </button>
-  );
+  ) : null;
 };
 
-class Input extends React.PureComponent {
-  state = {
-    isText: false,
-  };
+const Input = ({
+  input = {},
+  type,
+  placeholder,
+  isSearchable,
+  isRefreshable,
+  disabled,
+  className,
+  error,
+  readOnly,
+  onClick,
+  autoComplete,
+}) => {
+  const [isText, setIsText] = useState(false);
 
-  changeType = () => {
-    this.setState({ isText: !this.state.isText });
-  };
+  const changeType = useCallback(
+    () => {
+      setIsText(!isText);
+    },
+    [isText, setIsText],
+  );
 
-  render() {
-    const {
-      input = {},
-      type,
-      placeholder,
-      isSearchable,
-      isRefreshable,
-      disabled,
-      className,
-      error,
-      readOnly,
-      onClick,
-      autoComplete,
-    } = this.props;
+  return (
+    <InputStyled error={error} isText={isText} className={className}>
+      <input
+        {...input}
+        readOnly={readOnly}
+        type={isText ? 'text' : type}
+        placeholder={placeholder}
+        disabled={disabled}
+        autoComplete={autoComplete}
+      />
 
-    return (
-      <InputStyled
-        error={error}
-        isText={this.state.isText}
-        className={className}
-      >
-        <input
-          {...input}
-          readOnly={readOnly}
-          type={this.state.isText ? 'text' : type}
-          placeholder={placeholder}
-          disabled={disabled}
-          autoComplete={autoComplete}
-        />
-
-        <Handler
-          value={input.value}
-          isSearchable={isSearchable}
-          isRefreshable={isRefreshable}
-          isPassword={[type === 'password', this.state.isText]}
-          onClick={type === 'password' ? this.changeType : onClick}
-        />
-      </InputStyled>
-    );
-  }
-}
+      <Handler
+        value={input.value}
+        isSearchable={isSearchable}
+        isRefreshable={isRefreshable}
+        isPassword={[type === 'password', isText]}
+        onClick={type === 'password' ? changeType : onClick}
+      />
+    </InputStyled>
+  );
+};
 
 Input.propTypes = {
   input: PropTypes.object,

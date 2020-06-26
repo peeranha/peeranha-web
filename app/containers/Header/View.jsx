@@ -91,7 +91,7 @@ const View = ({
 
   useEffect(
     () => {
-      if (isSearchFormVisible) {
+      if (isSearchFormVisible && !single) {
         document.getElementById(SEARCH_FORM_ID).focus();
       }
     },
