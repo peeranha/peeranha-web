@@ -118,7 +118,7 @@ const ContentHeader = props => {
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
-    event => changeQuestionTypeDispatch(true, event),
+    event => changeQuestionTypeDispatch(event),
     [changeQuestionTypeDispatch],
   );
 

@@ -157,12 +157,10 @@ export async function getWeekStat(eosService, profile) {
   );
 
   // Fill by periods with 0 reward - they not stored in blockchain
-  const result = new Array(numberOfPeriods)
+  return new Array(numberOfPeriods)
     .fill()
     .map((_, index) => {
-      const existingPeriod = normalizedRewards.find(
-        y => y.period === index + 1,
-      );
+      const existingPeriod = normalizedRewards.find(y => y.period === index);
 
       return {
         reward: 0,
@@ -178,20 +176,6 @@ export async function getWeekStat(eosService, profile) {
     })
     .filter(x => x.periodFinished > profile.registration_time)
     .reverse();
-
-  // registration week
-  const last = result[result.length - 1];
-  result.push({
-    reward: 0,
-    period: last.period - 1,
-    rating: 0,
-    rating_to_award: 0,
-    hasTaken: true,
-    periodStarted: last.periodStarted - +process.env.WEEK_DURATION,
-    periodFinished: last.periodStarted,
-  });
-
-  return result;
 }
 
 export async function sendTokens(

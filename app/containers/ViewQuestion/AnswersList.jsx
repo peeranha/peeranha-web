@@ -28,39 +28,53 @@ export const AnswersList = props => {
 
   return (
     <>
-      {visibleAnswers.map(item => (
-        <Content
-          {...props}
-          className="mb-3"
-          type={ANSWER_TYPE}
-          key={`${ANSWER_TYPE}${item.id}`}
-          answerId={item.id}
-          comments={item.comments}
-          content={item.content}
-          rating={item.rating}
-          isTheLargestRating={item.isTheLargestRating}
-          questionFrom={props.questionData.user}
-          isItWrittenByMe={item.isItWrittenByMe}
-          history={item.history}
-          userInfo={item.userInfo}
-          postTime={item.post_time}
-          lastEditedDate={item.lastEditedDate}
-          votingStatus={item.votingStatus}
-          deleteItem={props.deleteAnswer}
-          deleteItemLoading={props.deleteAnswerLoading}
-          editItem={[
-            props.redirectToEditAnswerPage,
-            routes.answerEdit(props.questionData.id, item.id),
-          ]}
-          saveComment={props.saveComment}
-          deleteComment={props.deleteComment}
-          buttonParams={{
-            questionId: props.questionData.id,
-            answerId: item.id,
-            whowasvoted: item.userInfo.user,
-          }}
-        />
-      ))}
+      {visibleAnswers.map(
+        ({
+          id,
+          comments,
+          content,
+          rating,
+          isTheLargestRating,
+          isItWrittenByMe,
+          history,
+          userInfo,
+          post_time: postTime,
+          lastEditedDate,
+          votingStatus,
+        }) => (
+          <Content
+            {...props}
+            className="mb-3"
+            type={ANSWER_TYPE}
+            key={`${ANSWER_TYPE}${id}`}
+            answerId={id}
+            comments={comments}
+            content={content}
+            rating={rating}
+            isTheLargestRating={isTheLargestRating}
+            questionFrom={props.questionData.user}
+            isItWrittenByMe={isItWrittenByMe}
+            history={history}
+            userInfo={userInfo}
+            postTime={postTime}
+            lastEditedDate={lastEditedDate}
+            votingStatus={votingStatus}
+            deleteItem={props.deleteAnswer}
+            deleteItemLoading={props.deleteAnswerLoading}
+            editItem={[
+              props.redirectToEditAnswerPage,
+              routes.answerEdit(props.questionData.id, id),
+            ]}
+            saveComment={props.saveComment}
+            deleteComment={props.deleteComment}
+            buttonParams={{
+              questionId: props.questionData.id,
+              answerId: id,
+              whowasvoted: userInfo.user,
+            }}
+          />
+        ),
+      )}
 
       {answers.length > DEFAULT_NUMBER && (
         <div className="d-flex">
