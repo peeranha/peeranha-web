@@ -12,8 +12,8 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import editSmallIcon from 'images/editSmallIcon.svg?inline';
-import deleteSmallIcon from 'images/deleteSmallIcon.svg?inline';
+import editSmallIcon from 'images/editSmallIcon.svg?external';
+import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
 import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
@@ -158,7 +158,7 @@ const CommentView = item => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <img src={editSmallIcon} alt="icon" />
+            <Icon icon={editSmallIcon} width={13} fill={BORDER_PRIMARY} />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -179,7 +179,7 @@ const CommentView = item => {
                     `delete-comment-${item.answerId}${item.id}`,
                   )}
                 >
-                  <img src={deleteSmallIcon} alt="icon" />
+                  <Icon icon={deleteSmallIcon} width={13} fill={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

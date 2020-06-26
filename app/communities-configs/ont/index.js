@@ -184,6 +184,7 @@ export const OntStyles = {
     mainLinks: 'rgba(0,0,0,.6)',
     attentionColor: '#2fa3f1',
     linkColor: '#2fa3f1',
+    linkColorSecondary: 'rgba(0,0,0,.6)',
     purple: 'rgba(0,0,0,.6)',
     btnColor: '#000000',
     tagColor: 'rgba(0,0,0,.6)',
