@@ -87,6 +87,7 @@ import { addToast } from 'containers/Toast/actions';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
 
 import {
+  addLoginData,
   getCurrentAccountError,
   getCurrentAccountProcessing,
   getCurrentAccountSuccess,
@@ -173,6 +174,9 @@ export const getCurrentAccountWorker = function*(initAccount) {
       },
     });
 
+    yield put(
+      addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
+    );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
     yield put(getCurrentAccountSuccess(account, balance));

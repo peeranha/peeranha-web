@@ -20,8 +20,7 @@ import { ApplicationError } from './errors';
 /**
  * @balance - string, example - '1000.000000 PEER'
  */
-
-export async function getBalance(eosService, user) {
+export const getBalance = async (eosService, user) => {
   const val = await eosService.getTableRow(
     ACCOUNTS_TABLE,
     user,
@@ -31,74 +30,69 @@ export async function getBalance(eosService, user) {
 
   // remove all chars besides of number
   return val ? convertPeerValueToNumberValue(val.balance) : 0;
-}
+};
 
 /**
  * @reward - string, example - '1000.000000 PEER'
  */
 
+const getUserSupplyValues = eosService =>
+  eosService.getTableRow(
+    USER_SUPPLY_TABLE,
+    USER_SUPPLY_SCOPE,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+const getTotalReward = eosService =>
+  eosService.getTableRows(
+    TOTAL_REWARD_TABLE,
+    ALL_PERIODS_SCOPE,
+    0,
+    INF_LIMIT,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+const getTotalRating = eosService =>
+  eosService.getTableRows(
+    TOTAL_RATING_TABLE,
+    ALL_PERIODS_SCOPE,
+    0,
+    INF_LIMIT,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_CONTRACT_ACCOUNT,
+  );
+
+const getPeriodRating = (eosService, user) =>
+  eosService.getTableRows(
+    PERIOD_RATING_TABLE,
+    user,
+    0,
+    INF_LIMIT,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_CONTRACT_ACCOUNT,
+  );
+
+const getWeekRewards = (eosService, user) =>
+  eosService.getTableRows(
+    PERIOD_REWARD_TABLE,
+    user,
+    0,
+    INF_LIMIT,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
 export async function getWeekStat(eosService, profile) {
-  function getUserSupplyValues() {
-    return eosService.getTableRow(
-      USER_SUPPLY_TABLE,
-      USER_SUPPLY_SCOPE,
-      undefined,
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
-  }
-
-  function getTotalReward() {
-    return eosService.getTableRows(
-      TOTAL_REWARD_TABLE,
-      ALL_PERIODS_SCOPE,
-      0,
-      INF_LIMIT,
-      undefined,
-      undefined,
-      undefined,
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
-  }
-
-  function getTotalRating() {
-    return eosService.getTableRows(
-      TOTAL_RATING_TABLE,
-      ALL_PERIODS_SCOPE,
-      0,
-      INF_LIMIT,
-      undefined,
-      undefined,
-      undefined,
-      process.env.EOS_CONTRACT_ACCOUNT,
-    );
-  }
-
-  function getPeriodRating() {
-    return eosService.getTableRows(
-      PERIOD_RATING_TABLE,
-      profile.user,
-      0,
-      INF_LIMIT,
-      undefined,
-      undefined,
-      undefined,
-      process.env.EOS_CONTRACT_ACCOUNT,
-    );
-  }
-
-  function getWeekRewards() {
-    return eosService.getTableRows(
-      PERIOD_REWARD_TABLE,
-      profile.user,
-      0,
-      INF_LIMIT,
-      undefined,
-      undefined,
-      undefined,
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
-  }
-
   const [
     { rows: totalReward },
     { rows: totalRating },
@@ -106,11 +100,11 @@ export async function getWeekStat(eosService, profile) {
     { rows: weekRewards },
     userSupplyValues,
   ] = await Promise.all([
-    getTotalReward(),
-    getTotalRating(),
-    getPeriodRating(),
-    getWeekRewards(),
-    getUserSupplyValues(),
+    getTotalReward(eosService),
+    getTotalRating(eosService),
+    getPeriodRating(eosService, profile.user),
+    getWeekRewards(eosService, profile.user),
+    getUserSupplyValues(eosService),
   ]);
 
   const normalizedRewards = periodRating.map(x => {
@@ -139,9 +133,14 @@ export async function getWeekStat(eosService, profile) {
       const periodReward =
         (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod;
 
+      const reward =
+        Number.isNaN(periodReward) || periodReward < 0.000001
+          ? 0
+          : periodReward;
+
       return {
         ...x,
-        reward: periodReward,
+        reward,
         hasTaken,
       };
     } catch (err) {
@@ -161,9 +160,7 @@ export async function getWeekStat(eosService, profile) {
   return new Array(numberOfPeriods)
     .fill()
     .map((_, index) => {
-      const existingPeriod = normalizedRewards.find(
-        y => y.period === index + 1,
-      );
+      const existingPeriod = normalizedRewards.find(y => y.period === index);
 
       return {
         reward: 0,

@@ -61,7 +61,7 @@ const PendingWeek = ({
 );
 
 PendingWeek.propTypes = {
-  period: PropTypes.string,
+  period: PropTypes.number,
   locale: PropTypes.string,
   reward: PropTypes.number,
   periodStarted: PropTypes.number,

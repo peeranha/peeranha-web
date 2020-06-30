@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -14,57 +14,71 @@ import messages from './messages';
 const DEFAULT_NUMBER = 10;
 
 export const AnswersList = props => {
-  const [allVisible, changeVisibility] = useState(false);
+  const [allVisible, setAllVisible] = useState(false);
   const { answers } = props.questionData;
 
-  const visibleNumber = allVisible ? answers.length : DEFAULT_NUMBER;
-  const visibleAnswers = answers.slice(0, visibleNumber);
+  const changeVisibility = useCallback(() => setAllVisible(!allVisible), [
+    allVisible,
+  ]);
+
+  const visibleAnswers = useMemo(
+    () => answers.slice(0, allVisible ? answers.length : DEFAULT_NUMBER),
+    [answers, allVisible],
+  );
 
   return (
-    <React.Fragment>
+    <>
       {visibleAnswers.map(
-        item =>
-          props.questionData.correct_answer_id !== item.id ? (
-            <Content
-              {...props}
-              className="mb-3"
-              type={ANSWER_TYPE}
-              key={`${ANSWER_TYPE}${item.id}`}
-              answerId={item.id}
-              comments={item.comments}
-              content={item.content}
-              rating={item.rating}
-              isTheLargestRating={item.isTheLargestRating}
-              questionFrom={props.questionData.user}
-              isItWrittenByMe={item.isItWrittenByMe}
-              history={item.history}
-              userInfo={item.userInfo}
-              postTime={item.post_time}
-              lastEditedDate={item.lastEditedDate}
-              votingStatus={item.votingStatus}
-              deleteItem={props.deleteAnswer}
-              deleteItemLoading={props.deleteAnswerLoading}
-              editItem={[
-                props.redirectToEditAnswerPage,
-                routes.answerEdit(props.questionData.id, item.id),
-              ]}
-              saveComment={props.saveComment}
-              deleteComment={props.deleteComment}
-              buttonParams={{
-                questionId: props.questionData.id,
-                answerId: item.id,
-                whowasvoted: item.userInfo.user,
-              }}
-            />
-          ) : null,
+        ({
+          id,
+          comments,
+          content,
+          rating,
+          isTheLargestRating,
+          isItWrittenByMe,
+          history,
+          userInfo,
+          post_time: postTime,
+          lastEditedDate,
+          votingStatus,
+        }) => (
+          <Content
+            {...props}
+            className="mb-3"
+            type={ANSWER_TYPE}
+            key={`${ANSWER_TYPE}${id}`}
+            answerId={id}
+            comments={comments}
+            content={content}
+            rating={rating}
+            isTheLargestRating={isTheLargestRating}
+            questionFrom={props.questionData.user}
+            isItWrittenByMe={isItWrittenByMe}
+            history={history}
+            userInfo={userInfo}
+            postTime={postTime}
+            lastEditedDate={lastEditedDate}
+            votingStatus={votingStatus}
+            deleteItem={props.deleteAnswer}
+            deleteItemLoading={props.deleteAnswerLoading}
+            editItem={[
+              props.redirectToEditAnswerPage,
+              routes.answerEdit(props.questionData.id, id),
+            ]}
+            saveComment={props.saveComment}
+            deleteComment={props.deleteComment}
+            buttonParams={{
+              questionId: props.questionData.id,
+              answerId: id,
+              whowasvoted: userInfo.user,
+            }}
+          />
+        ),
       )}
 
       {answers.length > DEFAULT_NUMBER && (
         <div className="d-flex">
-          <Button
-            className="py-2"
-            onClick={() => changeVisibility(!allVisible)}
-          >
+          <Button className="py-2" onClick={changeVisibility}>
             <FormattedMessage
               id={messages.showMoreAnswers.id}
               values={{ value: `(${visibleAnswers.length}/${answers.length})` }}
@@ -72,7 +86,7 @@ export const AnswersList = props => {
           </Button>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
@@ -85,4 +99,4 @@ AnswersList.propTypes = {
   deleteAnswerLoading: PropTypes.bool,
 };
 
-export default React.memo(AnswersList);
+export default memo(AnswersList);

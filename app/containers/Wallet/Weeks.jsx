@@ -72,13 +72,10 @@ const Weeks = ({
                 />
               ) : (
                 <CurrentWeek
+                  {...weekStat[0]}
                   currentWeeksNumber={0}
                   locale={locale}
                   period={0}
-                  periodStarted={profile.registration_time}
-                  periodFinished={
-                    profile.registration_time + +process.env.WEEK_DURATION
-                  }
                 />
               )}
 

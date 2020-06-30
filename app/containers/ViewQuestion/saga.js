@@ -31,6 +31,7 @@ import {
   voteToDelete,
 } from 'utils/questionsManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
@@ -835,23 +836,41 @@ export function* updateQuestionDataAfterTransactionWorker({
   }
 }
 
-function* changeQuestionTypeWorker({ ratingRestore, buttonId }) {
-  const { questionData, eosService, profileInfo } = yield call(getParams);
-
+function* changeQuestionTypeWorker({ buttonId }) {
   try {
+    const { questionData, eosService, profileInfo, account } = yield call(
+      getParams,
+    );
+
     yield call(
       changeQuestionType,
       profileInfo.user,
       questionData.id,
       getQuestionTypeValue(!questionData.isGeneral),
-      eosService.scatterInstalled ? +ratingRestore : ratingRestore,
+      eosService.scatterInstalled ? 1 : true,
       eosService,
+    );
+
+    const profile = yield call(
+      eosService.getTableRow,
+      ACCOUNT_TABLE,
+      ALL_ACCOUNTS_SCOPE,
+      account,
+    );
+
+    yield put(getUserProfileSuccess(profile));
+    yield put(
+      getQuestionDataSuccess({
+        ...questionData,
+        isGeneral: !questionData.isGeneral,
+      }),
     );
     yield put(changeQuestionTypeSuccess(buttonId));
   } catch (err) {
     yield put(changeQuestionTypeErr(err, buttonId));
   }
 }
+
 export function* updateQuestionList({ questionData }) {
   if (questionData && questionData.id) {
     yield put(getUniqQuestions([questionData]));

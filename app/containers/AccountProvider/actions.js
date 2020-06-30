@@ -1,9 +1,3 @@
-/*
- *
- * getCurrentAccount actions
- *
- */
-
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -12,6 +6,8 @@ import {
   UPDATE_ACC_SUCCESS,
   UPDATE_ACC_ERROR,
   REWARD_REFER_ERROR,
+  ADD_LOGIN_DATA,
+  REMOVE_LOGIN_DATA,
 } from './constants';
 
 export const getCurrentAccount = () => ({
@@ -45,4 +41,13 @@ export const updateAccErr = updateAccError => ({
 export const rewardReferErr = rewardReferError => ({
   type: REWARD_REFER_ERROR,
   rewardReferError,
+});
+
+export const addLoginData = data => ({
+  type: ADD_LOGIN_DATA,
+  ...data,
+});
+
+export const removeLoginData = () => ({
+  type: REMOVE_LOGIN_DATA,
 });

@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { getFormattedDate } from 'utils/datetime';
-import { FULL_MONTH_NAME_DAY_YEAR, DD_MM_YY } from 'utils/constants';
+import {
+  FULL_MONTH_NAME_DAY_YEAR,
+  DD_MM_YY,
+  MONTH_3LETTERS__DAY_TIME,
+} from 'utils/constants';
 
 import P from 'components/P';
 import Span from 'components/Span';
@@ -32,9 +36,21 @@ const WeekNumber = ({
       </Span>
 
       <Span className="d-none d-md-inline-block">
-        {getFormattedDate(periodStarted, locale, FULL_MONTH_NAME_DAY_YEAR)}
+        {getFormattedDate(
+          periodStarted,
+          locale,
+          process.env.ENV === 'prod'
+            ? FULL_MONTH_NAME_DAY_YEAR
+            : MONTH_3LETTERS__DAY_TIME,
+        )}
         {' — '}
-        {getFormattedDate(periodFinished, locale, FULL_MONTH_NAME_DAY_YEAR)}
+        {getFormattedDate(
+          periodFinished,
+          locale,
+          process.env.ENV === 'prod'
+            ? FULL_MONTH_NAME_DAY_YEAR
+            : MONTH_3LETTERS__DAY_TIME,
+        )}
       </Span>
 
       <Span className="d-inline-block d-md-none" mobileFS={14}>

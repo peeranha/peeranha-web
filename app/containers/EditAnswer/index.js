@@ -105,10 +105,10 @@ const EditAnswer = ({
     [answer],
   );
 
-  const available = useMemo(() => !!profile && answer?.user === profile.user, [
-    answer,
-    profile,
-  ]);
+  const available = useMemo(
+    () => (!!profile && answer?.user === profile.user) || !answer?.user,
+    [answer, profile, answer, editAnswerLoading],
+  );
 
   return (
     <div>

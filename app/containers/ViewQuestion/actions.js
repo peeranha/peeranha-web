@@ -339,9 +339,8 @@ export function resetStore() {
   };
 }
 
-export const changeQuestionType = (ratingRestore, event) => ({
+export const changeQuestionType = event => ({
   type: CHANGE_QUESTION_TYPE,
-  ratingRestore,
   buttonId: event.currentTarget.id,
 });
 

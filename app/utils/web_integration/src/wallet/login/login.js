@@ -93,6 +93,7 @@ async function login(email, password, rememberMe = false) {
   return {
     OK: true,
     body: { activeKey, eosAccountName, hasOwnerEosKey },
+    peeranhaAutoLogin,
   };
 }
 

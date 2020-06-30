@@ -1,12 +1,8 @@
 /* eslint indent: 0 */
 import { fromJS } from 'immutable';
-import uniqBy from 'lodash/uniqBy';
 import orderBy from 'lodash/orderBy';
 
 import {
-  ADD_TO_TOP_QUESTIONS,
-  ADD_TO_TOP_QUESTIONS_ERROR,
-  ADD_TO_TOP_QUESTIONS_SUCCESS,
   CHANGE_QUESTION_FILTER,
   DOWN_QUESTION,
   DOWN_QUESTION_ERROR,
@@ -21,9 +17,9 @@ import {
   MOVE_QUESTION,
   MOVE_QUESTION_ERROR,
   MOVE_QUESTION_SUCCESS,
-  REMOVE_FROM_TOP_QUESTIONS,
-  REMOVE_FROM_TOP_QUESTIONS_ERROR,
-  REMOVE_FROM_TOP_QUESTIONS_SUCCESS,
+  REMOVE_OR_ADD_TOP_QUESTION,
+  REMOVE_OR_ADD_TOP_QUESTION_ERROR,
+  REMOVE_OR_ADD_TOP_QUESTION_SUCCESS,
   SET_CREATED_FILTER,
   SET_TYPE_FILTER,
   UP_QUESTION,
@@ -37,11 +33,13 @@ export const initialState = fromJS({
   questionsLoading: true,
   questionsList: [],
   questionsError: '',
+  questions: {},
+  lastLoadedTopQuestionIndex: 0,
   isLastFetch: false,
   typeFilter: 0,
   createdFilter: null,
-  topQuestions: [],
-  topQuestionsLoaded: false,
+  topQuestionIds: [],
+  topQuestionsInfoLoaded: false,
   questionFilter: 0,
   topQuestionActionProcessing: false,
 });
@@ -50,21 +48,31 @@ export const initialState = fromJS({
 function questionsReducer(state = initialState, action) {
   const {
     type,
-    questionsList,
+    questionsList = [],
     questionsError,
     toUpdateQuestions,
     typeFilter,
     createdFilter,
-    topQuestions,
+    topQuestionsIds,
     questionFilter,
     id,
     position,
+    questions,
+    lastIndex,
+    isRemove,
   } = action;
-  const { topQuestions: topQuestionsState } = state.toJS();
-  const element = topQuestionsState.find(
-    ({ id: questionId }) => questionId === id,
+  const {
+    topQuestionIds: stateTopQuestionIds,
+    questions: stateQuestions,
+    lastLoadedTopQuestionIndex,
+    questionsList: stateQuestionsList,
+  } = state.toJS();
+  const mappedQuestionsList = questionsList.map(
+    ({ id: questionId }) => questionId,
   );
-  const index = topQuestionsState.indexOf(element);
+
+  const element = stateTopQuestionIds.find(questionId => questionId === id);
+  const index = stateTopQuestionIds.indexOf(element);
   const tempObject = {};
   let temp = null;
 
@@ -81,25 +89,25 @@ function questionsReducer(state = initialState, action) {
         .set('questionsLoading', false)
         .set(
           'questionsList',
-          toUpdateQuestions
-            ? questionsList.map(({ id: questionId, ...rest }) => ({
-                ...rest,
-                id: questionId,
-                isTopQuestion: !!topQuestionsState.find(
-                  ({ id: qId }) => qId === questionId,
+          fromJS(
+            toUpdateQuestions
+              ? mappedQuestionsList
+              : orderBy(
+                  [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
+                  [],
+                  ['asc'],
                 ),
-              }))
-            : orderBy(
-                uniqBy(state.toJS().questionsList.concat(questionsList), 'id'),
-                ['id'],
-                ['asc'],
-              ).map(({ id: questionId, ...rest }) => ({
-                ...rest,
-                id: questionId,
-                isTopQuestion: !!topQuestionsState.find(
-                  ({ id: qId }) => qId === questionId,
-                ),
-              })),
+          ),
+        )
+        .set(
+          'questions',
+          fromJS({
+            ...stateQuestions,
+            ...questionsList.reduce((acc, cur) => {
+              acc[cur.id] = cur;
+              return acc;
+            }, {}),
+          }),
         )
         .set('isLastFetch', questionsList.length === 0);
     case GET_QUESTIONS_ERROR:
@@ -111,18 +119,12 @@ function questionsReducer(state = initialState, action) {
       return state.set(
         'questionsList',
         orderBy(
-          uniqBy(questionsList.concat(state.toJS().questionsList), 'id'),
+          [...new Set(mappedQuestionsList.concat(questionsList))].filter(
+            questionId => !stateQuestions[questionId]?.isDeleted,
+          ),
           ['id'],
           ['asc'],
-        )
-          .filter(x => !x.isDeleted)
-          .map(({ id: questionId, ...rest }) => ({
-            ...rest,
-            id: questionId,
-            isTopQuestion: !!topQuestionsState.find(
-              ({ id: qId }) => qId === questionId,
-            ),
-          })),
+        ),
       );
 
     case CHANGE_QUESTION_FILTER:
@@ -132,84 +134,53 @@ function questionsReducer(state = initialState, action) {
       return state.set('questionsLoading', true);
     case LOAD_COMMUNITY_TOP_QUESTIONS_SUCCESS:
       return state
-        .set(
-          'topQuestions',
-          topQuestions.map(x => ({ ...x, isTopQuestion: true })),
-        )
-        .set('topQuestionsLoaded', true)
+        .set('topQuestionIds', fromJS(topQuestionsIds))
+        .set('topQuestionsInfoLoaded', true)
         .set('questionFilter', questionFilter)
-        .set('questionsList', [
-          ...state.toJS().questionsList.map(({ id: questionId, ...rest }) => ({
-            ...rest,
-            id: questionId,
-            isTopQuestion: !!topQuestions.find(
-              ({ id: qId }) => qId === questionId,
-            ),
-          })),
-        ])
-        .set('questionsLoading', false);
+        .set('lastLoadedTopQuestionIndex', lastIndex)
+        .set(
+          'questions',
+          fromJS({
+            ...stateQuestions,
+            ...questions.reduce((acc, cur) => {
+              acc[cur.id] = cur;
+              return acc;
+            }, {}),
+          }),
+        );
     case LOAD_COMMUNITY_TOP_QUESTIONS_ERROR:
       return state.set('questionsLoading', false);
 
-    case ADD_TO_TOP_QUESTIONS:
+    case REMOVE_OR_ADD_TOP_QUESTION:
       return state.set('topQuestionActionProcessing', true);
-    case ADD_TO_TOP_QUESTIONS_SUCCESS:
-      topQuestionsState.push({
-        ...state
-          .toJS()
-          .questionsList.find(({ id: questionId }) => questionId === id),
-        isTopQuestion: true,
-      });
-      return state
-        .set('topQuestions', [...topQuestionsState])
-        .set(
-          'questionsList',
-          state.toJS().questionsList.map(({ id: questionId, ...rest }) => ({
-            ...rest,
-            id: questionId,
-            isTopQuestion: !!topQuestionsState.find(
-              ({ id: qId }) => qId === questionId,
-            ),
-          })),
-        )
-        .set('topQuestionActionProcessing', false);
-    case ADD_TO_TOP_QUESTIONS_ERROR:
-      return state.set('topQuestionActionProcessing', false);
-
-    case REMOVE_FROM_TOP_QUESTIONS:
-      return state.set('topQuestionActionProcessing', true);
-    case REMOVE_FROM_TOP_QUESTIONS_SUCCESS:
+    case REMOVE_OR_ADD_TOP_QUESTION_SUCCESS:
       return state
         .set(
-          'topQuestions',
-          state
-            .toJS()
-            .topQuestions.filter(({ id: questionId }) => questionId !== id),
+          'topQuestionIds',
+          fromJS(
+            isRemove
+              ? stateTopQuestionIds.filter(questionId => questionId !== id)
+              : [...stateTopQuestionIds, id],
+          ),
         )
         .set(
-          'questionsList',
-          state
-            .toJS()
-            .questionsList.map(
-              ({ id: questionId, isTopQuestion, ...rest }) => ({
-                ...rest,
-                id: questionId,
-                isTopQuestion: id === questionId ? false : isTopQuestion,
-              }),
-            ),
+          'lastLoadedTopQuestionIndex',
+          isRemove
+            ? lastLoadedTopQuestionIndex - 1
+            : lastLoadedTopQuestionIndex + 1,
         )
         .set('topQuestionActionProcessing', false);
-    case REMOVE_FROM_TOP_QUESTIONS_ERROR:
+    case REMOVE_OR_ADD_TOP_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
 
     case UP_QUESTION:
       return state.set('topQuestionActionProcessing', true);
     case UP_QUESTION_SUCCESS:
-      temp = topQuestionsState[index - 1];
-      topQuestionsState[index - 1] = element;
-      topQuestionsState[index] = temp;
+      temp = stateTopQuestionIds[index - 1];
+      stateTopQuestionIds[index - 1] = element;
+      stateTopQuestionIds[index] = temp;
       return state
-        .set('topQuestions', [...topQuestionsState])
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case UP_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
@@ -217,11 +188,11 @@ function questionsReducer(state = initialState, action) {
     case DOWN_QUESTION:
       return state.set('topQuestionActionProcessing', true);
     case DOWN_QUESTION_SUCCESS:
-      temp = topQuestionsState[index + 1];
-      topQuestionsState[index + 1] = element;
-      topQuestionsState[index] = temp;
+      temp = stateTopQuestionIds[index + 1];
+      stateTopQuestionIds[index + 1] = element;
+      stateTopQuestionIds[index] = temp;
       return state
-        .set('topQuestions', [...topQuestionsState])
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case DOWN_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
@@ -229,19 +200,19 @@ function questionsReducer(state = initialState, action) {
     case MOVE_QUESTION:
       return state.set('topQuestionActionProcessing', true);
     case MOVE_QUESTION_SUCCESS:
-      topQuestionsState.splice(
+      stateTopQuestionIds.splice(
         position > index ? position + 1 : position,
         0,
         tempObject,
       );
-      topQuestionsState.splice(topQuestionsState.indexOf(element), 1);
-      topQuestionsState.splice(
-        topQuestionsState.indexOf(tempObject),
+      stateTopQuestionIds.splice(stateTopQuestionIds.indexOf(element), 1);
+      stateTopQuestionIds.splice(
+        stateTopQuestionIds.indexOf(tempObject),
         1,
         element,
       );
       return state
-        .set('topQuestions', [...topQuestionsState])
+        .set('topQuestionIds', fromJS(stateTopQuestionIds))
         .set('topQuestionActionProcessing', false);
     case MOVE_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);

@@ -68,7 +68,6 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
     // check password for users which logged with email
     if (val[WALLET_FIELD].name === WALLETS.PEERANHA.name) {
       eosService = yield select(selectEos);
-
       const response = yield call(
         login,
         profile.loginData.email,

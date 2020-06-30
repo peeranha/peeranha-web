@@ -45,7 +45,7 @@ const AuthorizationData = ({
             <td>
               <FormattedMessage {...signupMessages.email} />
             </td>
-            <td>{loginData ? loginData.email : null}</td>
+            <td>{loginData?.email ?? null}</td>
             <td>
               <ChangeEmailButton>
                 <FormattedMessage {...commonMessages.change} />{' '}

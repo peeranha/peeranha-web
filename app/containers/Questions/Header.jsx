@@ -22,7 +22,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import QuestionFilter from './QuestionFilter';
 
-import { selectQuestions, selectTopQuestionsLoaded } from './selectors';
+import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -33,7 +33,7 @@ export const Header = ({
   parentPage,
   setTypeFilter,
   topQuestions,
-  topQuestionsLoaded,
+  topQuestionsInfoLoaded,
   questionFilterFromCookies,
 }) => {
   const isFeed = parentPage === routes.feed();
@@ -53,8 +53,8 @@ export const Header = ({
   }
 
   const displayQuestionFilter = useMemo(
-    () => !!single && topQuestionsLoaded && !!topQuestions.length,
-    [single, topQuestionsLoaded, topQuestions.length],
+    () => !!single && topQuestionsInfoLoaded && !!topQuestions.length,
+    [single, topQuestionsInfoLoaded, topQuestions.length],
   );
 
   /* eslint react/prop-types: 0 */
@@ -106,7 +106,10 @@ export const Header = ({
           </div>
         )}
       </div>
-      <QuestionFilter display={displayQuestionFilter} questionFilterFromCookies={questionFilterFromCookies} />
+      <QuestionFilter
+        display={displayQuestionFilter}
+        questionFilterFromCookies={questionFilterFromCookies}
+      />
     </Wrapper>
   );
 };
@@ -117,12 +120,14 @@ Header.propTypes = {
   followedCommunities: PropTypes.array,
   parentPage: PropTypes.string,
   setTypeFilter: PropTypes.func,
+  topQuestionsInfoLoaded: PropTypes.bool,
+  topQuestions: PropTypes.array,
 };
 //
 export default injectIntl(
   React.memo(
     connect(state => ({
-      topQuestionsLoaded: selectTopQuestionsLoaded()(state),
+      topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
     }))(Header),
   ),

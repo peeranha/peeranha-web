@@ -47,14 +47,14 @@ import {
 } from 'containers/ViewQuestion/saga';
 
 import {
-  ADD_TO_TOP_QUESTIONS,
   CHANGE_QUESTION_FILTER,
   DOWN_QUESTION,
   GET_QUESTIONS,
   LOAD_COMMUNITY_TOP_QUESTIONS,
   MOVE_QUESTION,
   QUESTION_FILTER,
-  REMOVE_FROM_TOP_QUESTIONS,
+  REMOVE_OR_ADD_TOP_QUESTION,
+  TOP_QUESTIONS_LOAD_NUMBER,
   UP_QUESTION,
 } from './constants';
 
@@ -64,10 +64,8 @@ import {
   getQuestionsError,
   loadTopCommunityQuestionsSuccess,
   loadTopCommunityQuestionsErr,
-  addToTopQuestionsSuccess,
-  addToTopQuestionsErr,
-  removeFromTopQuestionsSuccess,
-  removeFromTopQuestionsErr,
+  removeOrAddTopQuestionSuccess,
+  removeOrAddTopQuestionErr,
   upQuestionSuccess,
   upQuestionErr,
   downQuestionSuccess,
@@ -79,10 +77,11 @@ import {
 
 import {
   selectInitLoadedItems,
-  selectTopQuestionsLoaded,
-  selectTopQuestions,
-  selectQuestions,
+  selectTopQuestionsInfoLoaded,
   selectQuestionFilter,
+  selectLastLoadedTopQuestionIndex,
+  selectTopQuestionIds,
+  isQuestionTop,
 } from './selectors';
 
 const feed = routes.feed();
@@ -210,11 +209,11 @@ export function* updateStoredQuestionsWorker() {
 
 function* changeQuestionFilterWorker({ questionFilter }) {
   if (questionFilter) {
-    yield call(loadTopCommunityQuestionsWorker);
+    yield call(loadTopCommunityQuestionsWorker, { init: true });
   }
 }
 
-function* loadTopCommunityQuestionsWorker() {
+function* loadTopCommunityQuestionsWorker({ init }) {
   try {
     const eosService = yield select(selectEos);
 
@@ -231,9 +230,13 @@ function* loadTopCommunityQuestionsWorker() {
         });
       }
 
-      const topQuestions = yield select(selectTopQuestions());
-      const topQuestionsLoaded = yield select(selectTopQuestionsLoaded());
-      if (!topQuestions.length && !topQuestionsLoaded) {
+      const topQuestionsIds = yield select(selectTopQuestionIds);
+      const topQuestionsInfoLoaded = yield select(
+        selectTopQuestionsInfoLoaded(),
+      );
+      const questionFilter = yield select(selectQuestionFilter());
+
+      if (!topQuestionsIds.length && !topQuestionsInfoLoaded) {
         const data = yield call(
           eosService.getTableRow,
           ALL_TOP_QUESTIONS_TABLE,
@@ -241,23 +244,65 @@ function* loadTopCommunityQuestionsWorker() {
           single,
         );
 
-        const questionFilter = +getCookie(QUESTION_FILTER) || 0;
+        if (process.env.ENV === 'test') {
+          console.log(
+            `Top questions data of community (id: ${single}): `,
+            data,
+          );
+        }
 
         if (data?.['top_questions'].length) {
+          const topQuestionIdsForLoad = data.top_questions.slice(
+            0,
+            TOP_QUESTIONS_LOAD_NUMBER,
+          );
+
+          const loadedQuestionData = yield all(
+            topQuestionIdsForLoad.map(function*(questionId) {
+              return yield call(getQuestionData, {
+                questionId,
+              });
+            }),
+          );
+
+          // // It's needed if deleted questions left at the table
+          // const indexes = loadedQuestionData
+          //   .map((x, i) => {
+          //     if (!x) return i;
+          //     return null;
+          //   })
+          //   .filter(x => x || x === 0);
+          // const filtered = topQuestionIdsForLoad.filter((x, i) =>
+          //   indexes.includes(i),
+          // );
+          // const { user } = yield select(makeSelectProfileInfo());
+          // yield all(
+          //   filtered.map(function*(x) {
+          //     return yield call(
+          //       eosService.sendTransaction,
+          //       user,
+          //       REMOVE_FROM_TOP_COMMUNITY_METHOD,
+          //       {
+          //         user,
+          //         community_id: single,
+          //         question_id: x,
+          //       },
+          //     );
+          //   }),
+          // );
+
           yield put(
             loadTopCommunityQuestionsSuccess(
-              (yield all(
-                data.top_questions.map(function*(questionId) {
-                  return yield call(getQuestionData, {
-                    questionId,
-                  });
-                }),
-              )).filter(x => !!x),
+              loadedQuestionData,
               questionFilter,
+              data.top_questions,
+              TOP_QUESTIONS_LOAD_NUMBER,
             ),
           );
         } else {
-          yield put(loadTopCommunityQuestionsSuccess([]));
+          yield put(
+            loadTopCommunityQuestionsSuccess([], questionFilter, [], 0),
+          );
           yield put(changeQuestionFilter(0));
           setCookie({
             name: QUESTION_FILTER,
@@ -268,28 +313,52 @@ function* loadTopCommunityQuestionsWorker() {
             },
           });
         }
-      } else {
-        const questionFilter = yield select(selectQuestionFilter());
+      } else if (!init) {
+        const lastIndex = yield select(selectLastLoadedTopQuestionIndex);
+        const next = Math.min(
+          lastIndex + TOP_QUESTIONS_LOAD_NUMBER,
+          topQuestionsIds.length,
+        );
+        const topQuestionIdsForLoad = topQuestionsIds.slice(lastIndex, next);
+
+        const loadedQuestionData = yield all(
+          topQuestionIdsForLoad.map(function*(questionId) {
+            return yield call(getQuestionData, {
+              questionId,
+            });
+          }),
+        );
+
         yield put(
-          loadTopCommunityQuestionsSuccess(topQuestions, questionFilter),
+          loadTopCommunityQuestionsSuccess(
+            loadedQuestionData,
+            questionFilter,
+            topQuestionsIds,
+            next,
+          ),
         );
       }
     }
   } catch (e) {
+    console.log(e);
     yield put(loadTopCommunityQuestionsErr(e));
   }
 }
 
-function* addToTopCommunityWorker({ id }) {
+function* removeOrAddTopQuestionWorker({ id }) {
   try {
     if (single) {
       const eosService = yield select(selectEos);
       const { user } = yield select(makeSelectProfileInfo());
+      const isTopQuestion = yield select(isQuestionTop(id));
+      const topQuestionsIds = yield select(selectTopQuestionIds);
 
       yield call(
         eosService.sendTransaction,
         user,
-        ADD_TO_TOP_COMMUNITY_METHOD,
+        isTopQuestion
+          ? REMOVE_FROM_TOP_COMMUNITY_METHOD
+          : ADD_TO_TOP_COMMUNITY_METHOD,
         {
           user,
           community_id: single,
@@ -297,11 +366,10 @@ function* addToTopCommunityWorker({ id }) {
         },
       );
 
-      const topQuestions = yield select(
-        selectQuestions(null, null, null, true),
-      );
-
-      if (!topQuestions.length) {
+      if (
+        (topQuestionsIds.length === 1 && isTopQuestion) ||
+        (!isTopQuestion && !topQuestionsIds.length)
+      ) {
         yield put(changeQuestionFilter(0));
         setCookie({
           name: QUESTION_FILTER,
@@ -312,47 +380,11 @@ function* addToTopCommunityWorker({ id }) {
           },
         });
       }
-      yield put(addToTopQuestionsSuccess(id));
+
+      yield put(removeOrAddTopQuestionSuccess(id, isTopQuestion));
     }
   } catch (e) {
-    yield put(addToTopQuestionsErr(e));
-  }
-}
-
-function* removeFromTopCommunityWorker({ id }) {
-  try {
-    if (single) {
-      const eosService = yield select(selectEos);
-      const { user } = yield select(makeSelectProfileInfo());
-
-      yield call(
-        eosService.sendTransaction,
-        user,
-        REMOVE_FROM_TOP_COMMUNITY_METHOD,
-        {
-          user,
-          community_id: single,
-          question_id: id,
-        },
-      );
-      const topQuestions = yield select(
-        selectQuestions(null, null, null, true),
-      );
-      if (topQuestions.length === 1) {
-        yield put(changeQuestionFilter(0));
-        setCookie({
-          name: QUESTION_FILTER,
-          value: 0,
-          options: {
-            defaultPath: true,
-            neverExpires: true,
-          },
-        });
-      }
-      yield put(removeFromTopQuestionsSuccess(id));
-    }
-  } catch (e) {
-    yield put(removeFromTopQuestionsErr(e));
+    yield put(removeOrAddTopQuestionErr(e));
   }
 }
 
@@ -367,6 +399,7 @@ function* upQuestionWorker({ id }) {
         community_id: single,
         question_id: id,
       });
+
       yield put(upQuestionSuccess(id));
     }
   } catch (e) {
@@ -385,6 +418,7 @@ function* downQuestionWorker({ id }) {
         community_id: single,
         question_id: id,
       });
+
       yield put(downQuestionSuccess(id));
     }
   } catch (e) {
@@ -419,8 +453,7 @@ export default function*() {
     LOAD_COMMUNITY_TOP_QUESTIONS,
     loadTopCommunityQuestionsWorker,
   );
-  yield takeLatest(ADD_TO_TOP_QUESTIONS, addToTopCommunityWorker);
-  yield takeLatest(REMOVE_FROM_TOP_QUESTIONS, removeFromTopCommunityWorker);
+  yield takeLatest(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
   yield takeLatest(UP_QUESTION, upQuestionWorker);
   yield takeLatest(DOWN_QUESTION, downQuestionWorker);
   yield takeLatest(MOVE_QUESTION, moveQuestionWorker);

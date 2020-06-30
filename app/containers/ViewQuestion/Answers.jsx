@@ -8,7 +8,6 @@ import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from 'containers/Questions/constants
 
 import AnswersTitle from './AnswersTitle';
 import AnswersList from './AnswersList';
-import AcceptedAnswer from './AcceptedAnswer';
 
 export const Answers = ({
   questionData: { answers, ...questionData },
@@ -33,14 +32,22 @@ export const Answers = ({
       const officialAnswers = sortedByRatingAnswers.filter(answer =>
         isAnswerOfficial(answer),
       );
+
+      const correctAnswer = sortedByRatingAnswers.find(
+        ({ id }) => id === questionData.correct_answer_id,
+      );
       const officialAnswerIds = officialAnswers.map(({ id }) => id);
       const rest = sortedByRatingAnswers.filter(
-        ({ id }) => !officialAnswerIds.includes(id),
+        ({ id }) =>
+          !(officialAnswerIds.includes(id) || id === correctAnswer?.id),
       );
 
       return {
         ...questionData,
-        answers: officialAnswers.concat(rest),
+        answers: officialAnswers
+          .concat([correctAnswer])
+          .concat(rest)
+          .filter(Boolean),
       };
     },
     [answers, questionData],
@@ -49,7 +56,6 @@ export const Answers = ({
   return (
     <div>
       <AnswersTitle answersNum={answers.length} />
-      <AcceptedAnswer {...props} questionData={updatedQuestionData} />
       <AnswersList {...props} questionData={updatedQuestionData} />
     </div>
   );
