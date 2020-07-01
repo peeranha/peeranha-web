@@ -17,7 +17,6 @@ import Span from '../Span';
 
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
-import Icon from '../Icon';
 
 const Header = ({ formTitle, questionId, intl }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
