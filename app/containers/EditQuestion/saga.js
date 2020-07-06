@@ -69,7 +69,7 @@ export function* editQuestionWorker({ question, questionId }) {
       cachedQuestion.content = { ...question };
     }
 
-    yield put(editQuestionSuccess({ ...cachedQuestion }));
+    yield put(editQuestionSuccess(cachedQuestion));
     yield call(createdHistory.push, routes.questionView(questionId));
   } catch (err) {
     yield put(editQuestionErr(err));

@@ -10,20 +10,21 @@ import { BUTTON_COLOR } from 'style-constants';
 import checkIcon from 'images/okayGreen.svg?inline';
 import coinsIcon from 'images/coins.svg?external';
 
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
+
 import Base from 'components/Base';
 import H3 from 'components/H3';
 import TagList from 'components/TagsList';
 import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
-import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-import SendTips from '../SendTips';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
+import SendTips from '../SendTips';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -85,7 +86,7 @@ export const QuestionTitle = ({
     id,
   } = questionData;
 
-  const isItWrittenByMe = !!profileInfo ? user === profileInfo.user : false;
+  const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
     <Base
@@ -172,11 +173,9 @@ QuestionTitle.propTypes = {
 
 export default React.memo(
   connect(
-    state => {
-      return {
-        profileInfo: makeSelectProfileInfo()(state),
-      };
-    },
+    state => ({
+      profileInfo: makeSelectProfileInfo()(state),
+    }),
     null,
   )(QuestionTitle),
 );

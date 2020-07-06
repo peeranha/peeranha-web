@@ -157,7 +157,7 @@ export function* getQuestionData({
   question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag && historyFlag.flag & (1 << constantFlag);
+    historyFlag?.flag & (1 << constantFlag);
 
   /*
    * @ITEM_UPV_FLAG - number of bit from historyFlag value - zero bit
@@ -197,7 +197,6 @@ export function* getQuestionData({
       currentItem.content = content;
     }
 
-    currentItem.isItWrittenByMe = user === currentItem.user;
     currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
     currentItem.votingStatus = votingStatus(currentItem.history);
 
@@ -872,7 +871,7 @@ function* changeQuestionTypeWorker({ buttonId }) {
 }
 
 export function* updateQuestionList({ questionData }) {
-  if (questionData && questionData.id) {
+  if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
   }
 }

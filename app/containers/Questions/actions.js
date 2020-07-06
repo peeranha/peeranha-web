@@ -66,26 +66,20 @@ export function getQuestionsError(questionsError) {
   };
 }
 
-export function getUniqQuestions(questionsList) {
-  return {
-    type: GET_UNIQ_QUESTIONS,
-    questionsList,
-  };
-}
+export const getUniqQuestions = questionsList => ({
+  type: GET_UNIQ_QUESTIONS,
+  questionsList,
+});
 
-export function setTypeFilter(typeFilter) {
-  return {
-    type: SET_TYPE_FILTER,
-    typeFilter,
-  };
-}
+export const setTypeFilter = typeFilter => ({
+  type: SET_TYPE_FILTER,
+  typeFilter,
+});
 
-export function setCreatedFilter(createdFilter) {
-  return {
-    type: SET_CREATED_FILTER,
-    createdFilter,
-  };
-}
+export const setCreatedFilter = createdFilter => ({
+  type: SET_CREATED_FILTER,
+  createdFilter,
+});
 
 export const changeQuestionFilter = questionFilter => ({
   type: CHANGE_QUESTION_FILTER,
