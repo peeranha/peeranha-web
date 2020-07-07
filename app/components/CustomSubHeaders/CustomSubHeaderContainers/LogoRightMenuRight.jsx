@@ -17,6 +17,7 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
 const TopContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   min-height: ${({ headerHeight }) => (headerHeight ? headerHeight - 80 : 0)}px;
 `;
 
@@ -38,14 +39,14 @@ const TopMenuContainer = styled.div`
   }
 `;
 
-const SubHeaderLogo = styled.div`
+const SubHeaderLogo = styled.a`
   display: inline-block;
 
   img {
     width: 140px;
     height: 49px;
   }
-`.withComponent(Link);
+`;
 
 const LogoRightMenuRight = () => {
   const src = singleCommunityStyles().withoutSubHeader
@@ -57,12 +58,18 @@ const LogoRightMenuRight = () => {
   return (
     <TopContainer headerHeight={singleCommunityStyles().headerHeight}>
       <TopLogoContainer>
-        <SubHeaderLogo to={routes.questions()}>
+        <SubHeaderLogo href={singleCommunityStyles().domainName}>
           <img src={src} alt="logo" />
         </SubHeaderLogo>
       </TopLogoContainer>
       <TopMenuContainer>
-        {!!links && !!styles ? <Links links={links} styles={styles} /> : null}
+        {!!links && !!styles ? (
+          <Links
+            links={links}
+            styles={styles}
+            isDropdownMenuArrow={singleCommunityStyles().isDropdownMenuArrow}
+          />
+        ) : null}
       </TopMenuContainer>
     </TopContainer>
   );
