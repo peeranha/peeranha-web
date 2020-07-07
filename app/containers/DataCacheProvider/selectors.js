@@ -3,11 +3,14 @@ import { createSelector } from 'reselect';
 import * as routes from 'routes-config';
 
 import { getQuestionCode } from 'utils/mdManagement';
+import { singleCommunityStyles } from 'utils/communityManagement';
 import { SECTION_ID } from 'containers/Faq/constants';
 
 import A from 'components/A';
 
 import { initialState } from './reducer';
+
+const styles = singleCommunityStyles();
 
 /**
  * Direct selector to the dataCacheProvider state domain
@@ -86,9 +89,18 @@ const selectFaqQuestions = questionsIndexes =>
         .map(x => {
           const [sectionIndex, questionIndex] = x.split('.');
           const section = faq.blocks[sectionIndex];
-          
+
           if (section && section.blocks[questionIndex]) {
-            return (
+            return styles.withoutSubHeader ? (
+              <a
+                key={x}
+                href={`${process.env.APP_LOCATION}${routes.faq(
+                  getQuestionCode(SECTION_ID, sectionIndex, questionIndex),
+                )}`}
+              >
+                {section.blocks[questionIndex].h3}
+              </a>
+            ) : (
               <A
                 key={x}
                 to={routes.faq(
