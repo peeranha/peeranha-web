@@ -7,9 +7,10 @@ import { intlShape } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import Icon from 'components/Icon';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-import closeIcon from 'images/closeCircle.svg?inline';
+import closeIcon from 'images/closeCircle.svg?external';
 import questionIcon from 'images/question.svg?external';
 
 import A from '../A';
@@ -31,7 +32,7 @@ const Header = ({ formTitle, questionId, intl }) => (
       <div className="right-panel">
         <A to={routes.questionView(questionId)}>
           <button>
-            <img className="mr-1" src={closeIcon} alt="x" />
+            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} />
             <Span color={TEXT_PRIMARY}>
               {intl.formatMessage(commonMessages.close)}
             </Span>

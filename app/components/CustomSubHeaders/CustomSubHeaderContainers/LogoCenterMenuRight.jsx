@@ -40,14 +40,14 @@ const TopRightContainer = styled.div`
   }
 `;
 
-const SubHeaderLogo = styled.div`
+const SubHeaderLogo = styled.a`
   display: inline-block;
 
   img {
     width: 140px;
     height: 49px;
   }
-`.withComponent(Link);
+`;
 
 const LogoCenterMenuRight = () => {
   const src = singleCommunityStyles().withoutSubHeader
@@ -60,7 +60,7 @@ const LogoCenterMenuRight = () => {
     <TopContainer>
       <TopLeftContainer />
       <TopCenterContainer>
-        <SubHeaderLogo to={routes.questions()}>
+        <SubHeaderLogo href={singleCommunityStyles().domainName}>
           <img src={src} alt="logo" />
         </SubHeaderLogo>
       </TopCenterContainer>

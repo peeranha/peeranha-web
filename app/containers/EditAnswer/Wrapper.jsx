@@ -6,17 +6,18 @@ import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import myFeedIcon from 'images/myFeedHeader.svg?inline';
-import closeIcon from 'images/closeCircle.svg?inline';
+import myFeedIcon from 'images/myFeedHeader.svg?external';
+import closeIcon from 'images/closeCircle.svg?external';
 
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import Header from 'components/Header/Simple';
 import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
+import { IconMd, IconLg } from 'components/Icon/IconWithSizes';
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
 
@@ -24,14 +25,16 @@ const Wrapper = ({ children, questionid, answerid }) => (
   <div>
     <Header className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <MediumImageStyled src={myFeedIcon} alt="edit-answer-icon" />
+        <MediumIconStyled>
+          <IconLg icon={myFeedIcon} width="38" />
+        </MediumIconStyled>
         <FormattedMessage {...messages.editAnswer} />
       </H3>
 
       <div className="right-panel">
         <A to={routes.questionView(questionid, answerid)}>
           <button>
-            <img className="mr-1" src={closeIcon} alt="x" />
+            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} />
             <Span color={TEXT_PRIMARY}>
               <FormattedMessage {...commonMessages.close} />
             </Span>

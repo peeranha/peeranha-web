@@ -11,6 +11,7 @@ import {
   BORDER_SECONDARY,
   TEXT_PRIMARY_DARK,
   TEXT_SUCCESS,
+  BORDER_RADIUS_L,
 } from 'style-constants';
 
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
@@ -58,7 +59,7 @@ const Div = Base.extend`
   }
 
   &:not(:last-child) {
-    border-top-left-radius: 5px;
+    border-top-left-radius: ${BORDER_RADIUS_L};
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 

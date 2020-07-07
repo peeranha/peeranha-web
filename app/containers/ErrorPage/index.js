@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY } from 'style-constants';
+import { LINK_COLOR } from 'style-constants';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -68,7 +68,7 @@ const NotFound = ({ locale, withSeo = true }) => (
             values={{
               value: (
                 <A className="text-lowercase" to={routes.questions()}>
-                  <Span color={TEXT_PRIMARY}>
+                  <Span color={LINK_COLOR}>
                     <FormattedMessage {...commonMessages.questions} />
                   </Span>
                 </A>
@@ -87,7 +87,7 @@ const NotFound = ({ locale, withSeo = true }) => (
                   }${routes.communities()}`}
                   className="text-lowercase"
                 >
-                  <Span color={TEXT_PRIMARY}>
+                  <Span color={LINK_COLOR}>
                     <FormattedMessage {...commonMessages.communities} />
                   </Span>
                 </ADefault>
@@ -101,7 +101,7 @@ const NotFound = ({ locale, withSeo = true }) => (
             values={{
               value: (
                 <A className="text-lowercase" to={routes.support()}>
-                  <Span color={TEXT_PRIMARY}>
+                  <Span color={LINK_COLOR}>
                     <FormattedMessage {...commonMessages.contactUs} />
                   </Span>
                 </A>

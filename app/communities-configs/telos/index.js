@@ -24,6 +24,8 @@ import RomanTTF from './fonts/NeueHaasDisplay-Roman.ttf';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
+const domainName = 'https://www.telos.net/';
+
 export const CustomSubHeaderConfig = {
   design: 'logo_center__menu_right',
   styles: {
@@ -63,19 +65,19 @@ export const CustomSubHeaderConfig = {
   links: [
     {
       text: 'HQ',
-      href: 'https://www.telos.net/',
+      href: domainName,
     },
     {
       text: 'Developers',
-      href: 'https://www.telos.net/developers',
+      href: `${domainName}developers`,
     },
     {
       text: 'Resources',
-      href: 'https://www.telos.net/resources',
+      href: `${domainName}resources`,
     },
     {
       text: 'News',
-      href: 'https://www.telos.net/news',
+      href: `${domainName}news`,
     },
     {
       text: 'Explore',
@@ -173,4 +175,5 @@ export const TelosStyles = {
   headerHeight: 182,
   buttonsBorderRadius: '20px',
   customSubHeaderConfig: CustomSubHeaderConfig,
+  domainName: domainName,
 };

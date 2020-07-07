@@ -11,8 +11,10 @@ import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
+const domainName = 'https://ont.io/';
+
 export const CustomSubHeaderConfig = {
-  design: "logo_right__menu_right",
+  design: 'logo_right__menu_right',
   styles: {
     bg: {
       header: '#ffffff',
@@ -28,19 +30,25 @@ export const CustomSubHeaderConfig = {
       background: '#ffffff',
     },
     subHeader: `
-      > div > div {
-        float: left;
-      }
+      
     `,
     subitems: `
-      @media only screen and (min-width: 992px) {
-        background: #fafafa;
-      }
+
     `,
     subHeaderItem: `
+      position: relative;
+
       font-size: 13px;
+      font-weight: bold;
+
+      > div {
+        font-weight: normal;
+      }
 
       @media only screen and (min-width: 992px) {
+        padding: 0;
+        margin-left: 30px;
+
         :first-child {
           margin-left: 0;
         }
@@ -49,14 +57,93 @@ export const CustomSubHeaderConfig = {
     CustomSubHeader: `
       
     `,
+    Highlighted: `
+      color: #48a3ff !important;
+    `,
   },
   links: [
     {
-      text: 'Home',
-      href: 'https://ont.io/',
+      text: 'HOME',
+      href: domainName,
     },
     {
-      text: 'Developer',
+      text: 'ABOUT',
+      subitems: [
+        {
+          text: 'About us',
+          href: `${domainName}about`,
+        },
+        {
+          text: 'Join us',
+          href: `${domainName}join`,
+        },
+        {
+          text: 'Contact us',
+          href: 'mailto:contact@ont.io',
+        },
+        {
+          text: 'Branding',
+          href: `${domainName}branding`,
+        },
+      ],
+    },
+    {
+      text: 'NEWS',
+      href: 'https://medium.com/ontologynetwork',
+    },
+    {
+      text: 'SOLUTIONS',
+      subitems: [
+        {
+          text: 'Automotive Solutions',
+          href: `${domainName}automotive`,
+        },
+        {
+          text: 'Data Marketplace',
+          href: `${domainName}marketplace`,
+        },
+        {
+          text: 'Data Attestation',
+          href: `${domainName}attestation`,
+        },
+        {
+          text: 'Digital Finance',
+          href: `${domainName}finance`,
+        },
+      ],
+    },
+    {
+      text: 'DECENTRALIZATION',
+      subitems: [
+        {
+          text: 'ONT',
+          href: 'https://app.flipsidecrypto.com/cooperative/ontology',
+        },
+        {
+          text: 'ONG',
+          href: 'https://app.flipsidecrypto.com/cooperative/ontologygas',
+        },
+        {
+          text: 'Nodes',
+          href: 'https://node.ont.io/',
+        },
+        {
+          text: 'Explorer',
+          href: 'https://explorer.ont.io/',
+        },
+        {
+          text: 'GCC Program',
+          href:
+            'https://medium.com/ontologynetwork/ontology-gcc-global-community-contributor-program-is-coming-e4be768f17e3',
+        },
+        {
+          text: 'Community',
+          href: `${domainName}community`,
+        },
+      ],
+    },
+    {
+      text: 'DEVELOPERS',
       subitems: [
         {
           text: 'Developer Center',
@@ -64,87 +151,18 @@ export const CustomSubHeaderConfig = {
         },
         {
           text: 'Bounty Program',
-          href: 'https://bounty.ont.io/',
+          href: 'https://bounty.ont.io/#/home',
+        },
+        {
+          text: 'Global University Workshop',
+          href: `${domainName}guw`,
         },
       ],
     },
     {
-      text: 'dApps',
-      subitems: [
-        {
-          text: 'dApp List',
-          href: 'https://oodapp.io/',
-        },
-        {
-          text: 'Submit a dApp',
-          href: 'https://submit.oodapp.io/',
-        },
-      ],
-    },
-    {
-      text: 'Wallets',
-      subitems: [
-        {
-          text: 'ONTO',
-          href: 'https://onto.app/',
-        },
-        {
-          text: 'OWallet',
-          href: 'https://github.com/ontio/owallet',
-        },
-      ],
-    },
-    {
-      text: 'Trust Ecosystem',
-      subitems: [
-        {
-          text: 'ONT ID',
-          href: 'https://ontid.ont.io/',
-        },
-        {
-          text: 'Node',
-          href: 'https://node.ont.io/',
-        },
-        {
-          text: 'PAX',
-          href: 'https://pax.ont.io/',
-        },
-      ],
-    },
-
-    {
-      text: 'Global Workshop',
-      subitems: [
-        {
-          text: 'University Workshop',
-          href: 'https://ont.io/global_uni_workshop',
-        },
-        {
-          text: 'Course',
-          href: 'https://ont.io/global_uni_workshop/course',
-        },
-      ],
-    },
-    {
-      text: 'About',
-      subitems: [
-        {
-          text: 'About us',
-          href: 'https://ont.io/aboutus',
-        },
-        {
-          text: 'News',
-          href: 'https://medium.com/ontologynetwork',
-        },
-        {
-          text: 'Contact us',
-          href: 'https://ont.io/contactUs',
-        },
-      ],
-    },
-    {
-      text: 'Consultation',
-      href: 'https://ont.io/consultation',
+      text: 'GET ONT & ONG',
+      href: `${domainName}get`,
+      isHighlighted: true,
     },
   ],
 };
@@ -197,6 +215,8 @@ export const OntStyles = {
       url(${RobotoRegularTTF}) format('truetype');
     font-style: normal;
   }`,
-  headerHeight: 150,
-  customSubHeaderConfig: CustomSubHeaderConfig
+  headerHeight: 170,
+  isDropdownMenuArrow: false,
+  customSubHeaderConfig: CustomSubHeaderConfig,
+  domainName: domainName,
 };

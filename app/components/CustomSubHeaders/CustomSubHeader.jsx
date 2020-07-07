@@ -57,8 +57,8 @@ const LocalLink = styled.a`
 
   transition: color 170ms ease-in-out;
 
-  @media(max-width: 992px) {
-    margin-left: 14px;
+  @media (max-width: 992px) {
+    margin-left: 0;
   }
 
   ${({ isHighlighted, styles }) => (isHighlighted ? styles.Highlighted : ``)};
@@ -81,6 +81,7 @@ const SubitemsWrapper = styled.div`
 
   @media only screen and (max-width: 991px) {
     flex-direction: column;
+    margin-left: 0;
   }
 
   ${({ styles }) => styles || ``};
@@ -135,7 +136,10 @@ const SubitemsTitle = styled.span`
 
   > span {
     padding: 0;
-    margin-right: 4px;
+
+    + div {
+      margin-left: 4px;
+    }
   }
 
   > div {
@@ -151,30 +155,27 @@ const SubitemsTitle = styled.span`
 const Subitems = styled.div`
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -30px;
   z-index: 99;
 
   display: none;
-  width: 200px;
-  width: 100%;
-  padding: 8px 0;
+  min-width: 152px;
+  padding: 15px 0;
 
   font-size: inherit;
 
   a {
-    display: inline-block;
-    padding: 0;
-    margin: 6px 14px;
+    display: block;
+    padding: 0 30px;
+    margin: 0;
+
+    line-height: 48px;
   }
 
   div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
-    width: 100%;
-    max-width: 1360px;
-    padding-left: 235px;
-    margin: 0 auto;
   }
 
   @media only screen and (max-width: 991px) {
@@ -187,10 +188,23 @@ const Subitems = styled.div`
     padding: 0 !important;
     padding-top: 10px !important;
 
+    a {
+      margin-left: 15px;
+
+      line-height: 2;
+    }
+
     > div {
       flex-direction: column;
       padding-left: 0;
     }
+  }
+
+  @media only screen and (min-width: 992px) {
+    border: 1px solid #f2f2f2;
+    box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 4px;
   }
 
   ${({ styles }) => styles || ``};
@@ -212,7 +226,7 @@ A.propTypes = {
   text: PropTypes.string,
 };
 
-export const B = ({ text, subitems, styles, device }) => {
+export const B = ({ text, subitems, styles, device, isDropdownMenuArrow }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
 
@@ -222,11 +236,13 @@ export const B = ({ text, subitems, styles, device }) => {
         <>
           <SubitemsTitleButton onClick={setVis}>
             <span>{text}</span>
-            <Arrow
-              className="mt-auto mb-auto"
-              color={'small'}
-              rotate={visible}
-            />
+            {isDropdownMenuArrow && (
+              <Arrow
+                className="mt-auto mb-auto"
+                color={'small'}
+                rotate={visible}
+              />
+            )}
           </SubitemsTitleButton>
           {visible && (
             <Subitems styles={styles.subitems}>
@@ -249,7 +265,9 @@ export const B = ({ text, subitems, styles, device }) => {
         <>
           <SubitemsTitle styles={styles.subHeaderItem}>
             <span>{text}</span>
-            <Arrow className="mt-auto mb-auto" color={'small'} />
+            {isDropdownMenuArrow && (
+              <Arrow className="mt-auto mb-auto" color={'small'} />
+            )}
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>
             <div>
@@ -276,7 +294,12 @@ B.propTypes = {
   subitems: PropTypes.array.isRequired,
 };
 
-export const Links = ({ links, styles, device = 'desktop' }) => (
+export const Links = ({
+  links,
+  styles,
+  device = 'desktop',
+  isDropdownMenuArrow = true,
+}) => (
   <div>
     {links.map(
       ({ text, href, isHighlighted, subitems }) =>
@@ -295,6 +318,7 @@ export const Links = ({ links, styles, device = 'desktop' }) => (
             key={text}
             styles={styles}
             device={device}
+            isDropdownMenuArrow={isDropdownMenuArrow}
           />
         ),
     )}
