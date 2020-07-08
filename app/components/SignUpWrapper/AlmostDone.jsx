@@ -9,6 +9,8 @@ import * as routes from 'routes-config';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import almostDoneBanner from 'images/communityIsSuggested.svg?inline';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
 import H3 from 'components/H3';
@@ -23,14 +25,30 @@ import {
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
-import { Li, P } from './SignUpOptions';
+import { Li, P, CommunityLogoWrapper, Logo, CommunityLogoDescr } from './SignUpOptions';
+
+const styles = singleCommunityStyles();
 
 const LeftMenu = ({ faqQuestions }) => (
   <React.Fragment>
     <div className="mb-4">
-      <Link to={routes.questions()} href={routes.questions()}>
-        <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
-      </Link>
+      {styles.withoutSubHeader ? (
+        <CommunityLogoWrapper>
+          <Link to={routes.questions()} href={routes.questions()}>
+            <Logo src={styles.signUpPageLogo} />
+          </Link>
+          <CommunityLogoDescr>
+            <span>{'Q&A on'}</span>
+            <Link to={routes.questions()} href={routes.questions()}>
+              <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+            </Link>
+          </CommunityLogoDescr>
+        </CommunityLogoWrapper>
+      ) : (
+        <Link to={routes.questions()} href={routes.questions()}>
+          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+        </Link>
+      )}
     </div>
 
     <H3 className="d-flex align-items-center mb-4">

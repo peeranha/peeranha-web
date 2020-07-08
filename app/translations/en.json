@@ -641,9 +641,9 @@
     "Check your email for the verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha is not a typical Q&A platform. It's powered by Telos blockchain.",
+    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
   "app.containers.SignUp.secondParagraphAlmostDone":
-    "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications. A fee is required to create Telos account.",
+    "Telos blockchain account is required to use Peeranha. A fee is required to create an account.",
   "app.containers.SignUp.thirdParagraphAlmostDone":
     "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
   "app.containers.SignUp.weWillNotify":
