@@ -1,10 +1,4 @@
-/**
- *
- * Communities
- *
- */
-
-import React from 'react';
+import React, { memo, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
@@ -46,97 +40,91 @@ import languages from './languagesOptions';
 import Header from './Header';
 import Banner from './Banner';
 
-/* eslint react/prefer-stateless-function: 0, indent: 0 */
-export class Communities extends React.PureComponent {
-  state = {
-    language: languages.all,
-  };
+export const Communities = ({
+  locale,
+  communities,
+  communitiesLoading,
+  suggestedCommunities,
+  suggestedCommunitiesLoading,
+  isLastFetch,
+  Content,
+  Aside,
+  SubHeader,
+  changeSorting,
+  sorting,
+  redirectToCreateCommunityDispatch,
+  route,
+  getSuggestedCommunitiesDispatch,
+}) => {
+  const [language, setLanguage] = useState(languages.all);
 
-  setLang = language => {
-    this.setState({ language });
-  };
+  useEffect(() => {
+    getSuggestedCommunitiesDispatch();
+  }, []);
 
-  componentDidMount() {
-    this.getSuggestedCommunities();
-  }
+  const keywords = useMemo(() => communities.map(x => x.name), [communities]);
 
-  getSuggestedCommunities = () => {
-    this.props.getSuggestedCommunitiesDispatch();
-  };
+  const [displayLoadingIndicator, displayBanner] = useMemo(
+    () => [
+      (communitiesLoading && route === routes.communities()) ||
+        (suggestedCommunitiesLoading &&
+          route === routes.suggestedCommunities()),
+      (!communitiesLoading && route === routes.communities()) ||
+        (!suggestedCommunitiesLoading &&
+          route === routes.suggestedCommunities()),
+    ],
+    [communitiesLoading, route, suggestedCommunitiesLoading],
+  );
 
-  render() /* istanbul ignore next */ {
-    const {
-      locale,
-      communities,
-      communitiesLoading,
-      suggestedCommunities,
-      suggestedCommunitiesLoading,
-      isLastFetch,
-      Content,
-      Aside,
-      SubHeader,
-      changeSorting,
-      sorting,
-      redirectToCreateCommunityDispatch,
-      route,
-    } = this.props;
+  return (
+    <div className="d-xl-flex">
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        keywords={keywords}
+      />
 
-    const keywords = communities.map(x => x.name);
-
-    return (
-      <div className="d-xl-flex">
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          keywords={keywords}
+      <div className="flex-xl-grow-1">
+        <Header
+          goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
+          SubHeader={SubHeader}
+          changeSorting={changeSorting}
+          sorting={sorting}
+          communitiesNumber={communities?.length ?? 0}
+          setLang={setLanguage}
+          language={language}
         />
 
-        <div className="flex-xl-grow-1">
-          <Header
+        <Content
+          suggestedCommunities={suggestedCommunities}
+          suggestedCommunitiesLoading={suggestedCommunitiesLoading}
+          getSuggestedCommunities={getSuggestedCommunitiesDispatch}
+          isLastFetch={isLastFetch}
+          communities={communities}
+          sorting={sorting}
+          locale={locale}
+          language={language}
+        />
+
+        {displayLoadingIndicator && <LoadingIndicator />}
+
+        {displayBanner && (
+          <Banner
             goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
-            SubHeader={SubHeader}
-            changeSorting={changeSorting}
-            sorting={sorting}
-            communitiesNumber={communities ? communities.length : 0}
-            setLang={this.setLang}
-            language={this.state.language}
           />
-
-          <Content
-            suggestedCommunities={suggestedCommunities}
-            suggestedCommunitiesLoading={suggestedCommunitiesLoading}
-            getSuggestedCommunities={this.getSuggestedCommunities}
-            isLastFetch={isLastFetch}
-            communities={communities}
-            sorting={sorting}
-            locale={locale}
-            language={this.state.language}
-          />
-
-          {((communitiesLoading && route === routes.communities()) ||
-            (suggestedCommunitiesLoading &&
-              route === routes.suggestedCommunities())) && <LoadingIndicator />}
-
-          {((!communitiesLoading && route === routes.communities()) ||
-            (!suggestedCommunitiesLoading &&
-              route === routes.suggestedCommunities())) && (
-            <Banner
-              goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
-            />
-          )}
-        </div>
-
-        <AsideBox className="d-none d-xl-block">
-          <Aside
-            suggestedCommunities={suggestedCommunities}
-            communities={communities}
-          />
-        </AsideBox>
+        )}
       </div>
-    );
-  }
-}
+
+      <AsideBox className="d-none d-xl-block">
+        <Aside
+          suggestedCommunities={suggestedCommunities}
+          communities={communities}
+        />
+      </AsideBox>
+    </div>
+  );
+};
 
 Communities.propTypes = {
   communities: PropTypes.array,
@@ -155,39 +143,30 @@ Communities.propTypes = {
   redirectToCreateCommunityDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  communitiesLoading: selectCommunitiesLoading(),
-  profile: makeSelectProfileInfo(),
-  suggestedCommunities: selectSuggestedCommunities(),
-  suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
-  isLastFetch: selectIsLastFetch(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    redirectToCreateCommunityDispatch: bindActionCreators(
-      redirectToCreateCommunity,
-      dispatch,
+export default memo(
+  compose(
+    injectReducer({ key: 'communities', reducer }),
+    injectSaga({ key: 'communities', saga, mode: DAEMON }),
+    connect(
+      createStructuredSelector({
+        locale: makeSelectLocale(),
+        communities: selectCommunities(),
+        communitiesLoading: selectCommunitiesLoading(),
+        profile: makeSelectProfileInfo(),
+        suggestedCommunities: selectSuggestedCommunities(),
+        suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
+        isLastFetch: selectIsLastFetch(),
+      }),
+      dispatch => ({
+        redirectToCreateCommunityDispatch: bindActionCreators(
+          redirectToCreateCommunity,
+          dispatch,
+        ),
+        getSuggestedCommunitiesDispatch: bindActionCreators(
+          getSuggestedCommunities,
+          dispatch,
+        ),
+      }),
     ),
-    getSuggestedCommunitiesDispatch: bindActionCreators(
-      getSuggestedCommunities,
-      dispatch,
-    ),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  )(Communities),
 );
-
-const withReducer = injectReducer({ key: 'communities', reducer });
-const withSaga = injectSaga({ key: 'communities', saga, mode: DAEMON });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Communities);

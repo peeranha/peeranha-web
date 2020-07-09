@@ -27,7 +27,7 @@ export const updateAcc = async (profile, eosService) => {
       user: profile.user,
     });
   } else {
-    throw new ApplicationError('Period is not finished');
+    // throw new ApplicationError('Period is not finished');
   }
 };
 
