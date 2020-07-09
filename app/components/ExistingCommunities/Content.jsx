@@ -91,9 +91,10 @@ const Content = ({ communities, sorting, locale, language }) => {
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
+
             return (
               <BaseSpecial
-                origin={origin.toString()}
+                origin={(origin || '').toString()}
                 overOrigin={
                   index !== arr.length - 1 &&
                   hasCommunitySingleWebsite(arr[index + 1].id)
@@ -127,7 +128,7 @@ const Content = ({ communities, sorting, locale, language }) => {
                         style={{ fontSize: '14px', color: TEXT_PRIMARY }}
                         href={origin}
                       >
-                        {origin ? origin.replace('https://', '') : ''}
+                        {origin?.replace('https://', '') || ''}
                       </ADefault>
                     )}
                   </div>

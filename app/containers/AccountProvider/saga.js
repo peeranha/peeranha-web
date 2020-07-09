@@ -236,7 +236,6 @@ function* updateRefer(user, eosService) {
       );
     }
   } else {
-    debugger
     setCookie({
       name: noInviterCookieName,
       value: true,
