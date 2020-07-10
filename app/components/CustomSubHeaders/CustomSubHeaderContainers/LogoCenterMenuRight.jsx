@@ -11,9 +11,9 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import { Links } from '../CustomSubHeader';
-
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+
+import { Links } from '../CustomSubHeader';
 
 const TopContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ const LogoCenterMenuRight = () => {
   const src = singleCommunityStyles().withoutSubHeader
     ? communitiesConfig[isSingleCommunityWebsite()].src
     : peeranhaLogo;
-  
+
   const { links, styles } = singleCommunityStyles().customSubHeaderConfig;
 
   return (
@@ -65,7 +65,7 @@ const LogoCenterMenuRight = () => {
         </SubHeaderLogo>
       </TopCenterContainer>
       <TopRightContainer>
-        {(!!links && !!styles) ? <Links links={links} styles={styles} /> : null}
+        {!!links && !!styles ? <Links links={links} styles={styles} /> : null}
       </TopRightContainer>
     </TopContainer>
   );
