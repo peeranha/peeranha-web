@@ -208,6 +208,7 @@ export const getReferralInfo = async (user, eosService) => {
 function* updateRefer(user, eosService) {
   const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
   const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
+
   if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
     return;
   }
@@ -272,6 +273,7 @@ export function* updateAccWorker({ eos }) {
       yield take(GET_CURRENT_ACCOUNT_SUCCESS);
       profileInfo = yield select(makeSelectProfileInfo());
     }
+
     if (profileInfo) {
       yield call(updateRefer, profileInfo.user, eos);
     }
