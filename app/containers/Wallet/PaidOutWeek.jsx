@@ -83,7 +83,7 @@ const PaidOutWeek = ({
               className="ml-4"
               id={`pickup-reward-${period}`}
               onClick={() =>
-                pickupRewardDispatch(period, `pickup-reward-${period}`)
+                pickupRewardDispatch(period - 1, `pickup-reward-${period}`)
               }
               disabled={
                 hasTaken !== false ||
