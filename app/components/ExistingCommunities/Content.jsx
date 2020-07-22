@@ -6,11 +6,7 @@ import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
-import {
-  BORDER_SECONDARY,
-  TEXT_PRIMARY,
-  TEXT_SECONDARY,
-} from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -95,9 +91,10 @@ const Content = ({ communities, sorting, locale, language }) => {
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
+
             return (
               <BaseSpecial
-                origin={origin}
+                origin={(origin || '').toString()}
                 overOrigin={
                   index !== arr.length - 1 &&
                   hasCommunitySingleWebsite(arr[index + 1].id)
@@ -126,12 +123,14 @@ const Content = ({ communities, sorting, locale, language }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    <ADefault
-                      style={{ fontSize: '14px', color: TEXT_PRIMARY }}
-                      href={origin}
-                    >
-                      {origin ? origin.replace('https://', '') : ''}
-                    </ADefault>
+                    {origin && (
+                      <ADefault
+                        style={{ fontSize: '14px', color: TEXT_PRIMARY }}
+                        href={origin}
+                      >
+                        {origin?.replace('https://', '') || ''}
+                      </ADefault>
+                    )}
                   </div>
                 </DescriptionBlock>
 

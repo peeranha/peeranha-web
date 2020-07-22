@@ -1,5 +1,7 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
+import * as routes from 'routes-config';
+
 import _get from 'lodash/get';
 import { getProfileInfo } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
@@ -109,6 +111,9 @@ import {
 import { makeSelectProfileInfo } from './selectors';
 import { translationMessages } from '../../i18n';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { selectQuestionData } from '../ViewQuestion/selectors';
+import { getQuestionData } from '../ViewQuestion/saga';
+import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
@@ -143,6 +148,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
         return null;
       }
     }
+
     const [profileInfo, balance] = yield all([
       call(
         getProfileInfo,
@@ -155,9 +161,20 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
-    }
 
-    if (profileInfo) {
+      // Update info for question depending on user
+      const viewQuestion = yield select(selectQuestionData());
+      if (
+        window.location.pathname.includes(routes.questionView(viewQuestion?.id))
+      ) {
+        const updatedQuestion = yield call(getQuestionData, {
+          questionId: viewQuestion.id,
+          user: profileInfo.user,
+        });
+
+        yield put(getQuestionDataSuccess(updatedQuestion));
+      }
+
       profileInfo.balance = balance;
 
       if (prevProfileInfo) {
@@ -208,6 +225,7 @@ export const getReferralInfo = async (user, eosService) => {
 function* updateRefer(user, eosService) {
   const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
   const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
+
   if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
     return;
   }
@@ -272,6 +290,7 @@ export function* updateAccWorker({ eos }) {
       yield take(GET_CURRENT_ACCOUNT_SUCCESS);
       profileInfo = yield select(makeSelectProfileInfo());
     }
+
     if (profileInfo) {
       yield call(updateRefer, profileInfo.user, eos);
     }

@@ -340,7 +340,6 @@ function* loadTopCommunityQuestionsWorker({ init }) {
       }
     }
   } catch (e) {
-    console.log(e);
     yield put(loadTopCommunityQuestionsErr(e));
   }
 }

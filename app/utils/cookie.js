@@ -1,5 +1,4 @@
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
-export const DOMAIN = '.peeranha.io';
 export const DEFAULT_PATH = '/';
 export const TELOS_DOMAIN = '.telos.net';
 
@@ -32,7 +31,9 @@ export const setCookie = ({
       return `${acc}; expires=${NEVER_EXPIRES}`;
     } else if (optionKey === 'allowSubdomains' && process.env.ENV !== 'dev') {
       return `${acc}; domain=${
-        window.location.origin.endsWith(TELOS_DOMAIN) ? TELOS_DOMAIN : DOMAIN
+        window.location.origin.endsWith(TELOS_DOMAIN)
+          ? TELOS_DOMAIN
+          : process.env.COOKIE_DOMAIN
       }`;
     } else if (optionKey === 'defaultPath') {
       return `${acc}; path=${DEFAULT_PATH}`;

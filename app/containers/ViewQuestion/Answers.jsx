@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import orderBy from 'lodash/orderBy';
+
+import _orderBy from 'lodash/orderBy';
+import _uniqBy from 'lodash/uniqBy';
 
 import { isAnswerOfficial } from 'utils/properties';
 
@@ -17,7 +19,7 @@ export const Answers = ({
 
   const updatedQuestionData = useMemo(
     () => {
-      const sortedByRatingAnswers = orderBy(answers, 'rating', 'desc').map(
+      const sortedByRatingAnswers = _orderBy(answers, 'rating', 'desc').map(
         x => ({
           ...x,
           isTheLargestRating: false,
@@ -44,10 +46,13 @@ export const Answers = ({
 
       return {
         ...questionData,
-        answers: officialAnswers
-          .concat([correctAnswer])
-          .concat(rest)
-          .filter(Boolean),
+        answers: _uniqBy(
+          officialAnswers
+            .concat([correctAnswer])
+            .concat(rest)
+            .filter(Boolean),
+          'id',
+        ),
       };
     },
     [answers, questionData],

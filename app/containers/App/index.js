@@ -79,6 +79,14 @@ import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
+const redirectRoutes = [
+  routes.faq(),
+  routes.privacyPolicy(),
+  routes.termsAndConditions(),
+  routes.support(),
+  routes.home(),
+];
+
 const App = ({
   location: { pathname, search, hash },
   redirectToFeedDispatch,
@@ -103,14 +111,23 @@ const App = ({
         });
       }
     }
-  }, []);
 
-  useEffect(() => {
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     if (loginData && !single && pathname === '/' && hash !== '#allquestions') {
       redirectToFeedDispatch();
     } else if (hash === '#allquestions') {
       history.push(pathname);
+    }
+
+    if (single && pathname !== '/') {
+      if (redirectRoutes.find(route => route.startsWith(pathname))) {
+        window.open(
+          `${process.env.APP_LOCATION}${window.location.pathname}${
+            window.location.hash
+          }`,
+          '_parent',
+        );
+      }
     }
   }, []);
 

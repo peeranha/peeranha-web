@@ -116,16 +116,29 @@ function questionsReducer(state = initialState, action) {
         .set('questionsError', questionsError);
 
     case GET_UNIQ_QUESTIONS:
-      return state.set(
-        'questionsList',
-        orderBy(
-          [...new Set(mappedQuestionsList.concat(questionsList))].filter(
-            questionId => !stateQuestions[questionId]?.isDeleted,
+      return state
+        .set(
+          'questionsList',
+          orderBy(
+            [
+              ...new Set(
+                mappedQuestionsList.concat(questionsList.map(x => x.id)),
+              ),
+            ].filter(questionId => !stateQuestions[questionId]?.isDeleted),
+            ['id'],
+            ['asc'],
           ),
-          ['id'],
-          ['asc'],
-        ),
-      );
+        )
+        .set(
+          'questions',
+          fromJS({
+            ...stateQuestions,
+            ...questionsList.reduce((acc, cur) => {
+              acc[cur.id] = cur;
+              return acc;
+            }, {}),
+          }),
+        );
 
     case CHANGE_QUESTION_FILTER:
       return state.set('questionFilter', questionFilter);

@@ -9,6 +9,12 @@ import {
   BORDER_RADIUS_L,
 } from 'style-constants';
 
+const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
+  (bordered || topRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
+
+const borderTopRightRadius = ({ bordered, bottomRightRadius, withoutBR }) =>
+  (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
+
 const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
@@ -28,10 +34,8 @@ const Base = styled.div`
     (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none'};
 
   @media only screen and (max-width: 768px) {
-    border-top-left-radius: ${({ bordered, topRightRadius, withoutBR }) =>
-      (bordered || topRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none'};
-    border-top-right-radius: ${({ bordered, bottomRightRadius, withoutBR }) =>
-      (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none'};
+    border-top-left-radius: ${borderTopLeftRadius};
+    border-top-right-radius: ${borderTopRightRadius};
     border-bottom-left-radius: 0;
   }
 
@@ -39,7 +43,7 @@ const Base = styled.div`
     padding: ${({ nullMobilePadding }) => (nullMobilePadding ? '0px' : '15px')};
     ${({ paddingTopMedia }) => `padding-top: ${paddingTopMedia}px`};
     border-radius: 0;
-  }  
+  }
 
   ${x =>
     x.position === 'top'
@@ -55,7 +59,7 @@ const Base = styled.div`
     x.position === 'left'
       ? `border-top-left-radius: ${BORDER_RADIUS_L}; border-bottom-left-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2}; border-right: 1px solid ${BORDER_SECONDARY};`
       : ''}
-    
+
   ${x =>
     x.position === 'right'
       ? `border-top-right-radius: ${BORDER_RADIUS_L}; border-bottom-right-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`

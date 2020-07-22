@@ -19,7 +19,7 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: 'https://blockchain-test.peeranha.io',
+      origin: 'https://telos.testpeeranha.io',
     },
     2: {
       origin: 'https://community1-test.peeranha.io',
