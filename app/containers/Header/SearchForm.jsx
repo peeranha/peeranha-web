@@ -29,6 +29,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
       e.preventDefault();
       if (single) {
         window.open(`${process.env.APP_LOCATION}${routes.search(text)}`);
+        changeText('');
       } else {
         createdHistory.push(routes.search(text));
       }
