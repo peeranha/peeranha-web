@@ -40,6 +40,7 @@ const Header = ({ notificationsNumber }) => (
       color={TEXT_SECONDARY_LIGHT}
       bold
       whiteSpace="nowrap"
+      mobileFS="30"
     >
       {notificationsNumber}
     </Span>

@@ -57,6 +57,10 @@ export const BaseStyled = Base.extend`
         padding: 0;
         text-align: right;
         white-space: nowrap;
+
+        @media only screen and (max-width: 576px) {
+          padding-bottom: 20px;
+        }
       }
     }
   }
@@ -79,7 +83,7 @@ export const BaseStyled = Base.extend`
 
   @media only screen and (max-width: 576px) {
     > :nth-child(2) {
-      margin: 20px 0;
+      margin: 20px 0 0;
       padding: 0;
     }
 
