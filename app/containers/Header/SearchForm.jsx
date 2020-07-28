@@ -12,41 +12,27 @@ const single = isSingleCommunityWebsite();
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
-  const [disabled, setDisabled] = useState(false);
-
-  const onMouseEnter = useCallback(
-    () => {
-      if (single) {
-        setDisabled(true);
-      }
-    },
-    [setDisabled],
-  );
-
-  const onMouseLeave = useCallback(
-    () => {
-      if (single) {
-        setDisabled(false);
-      }
-    },
-    [setDisabled],
-  );
 
   const onClickHandler = useCallback(
     () => {
       onBlur();
-      if (!disabled) {
-        changeText('');
+      changeText('');
+      if (!single) {
         createdHistory.push(routes.search(''));
       }
     },
-    [onBlur, changeText, disabled],
+    [onBlur, changeText],
   );
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
-      createdHistory.push(routes.search(text));
+      if (single) {
+        window.open(`${process.env.APP_LOCATION}${routes.search(text)}`);
+        changeText('');
+      } else {
+        createdHistory.push(routes.search(text));
+      }
     },
     [text],
   );
@@ -55,28 +41,19 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
     () => ({
       id: searchFormId,
       name: searchFormId,
-      value: disabled
-        ? 'Search functionality is currently in development'
-        : text,
+      value: text,
       onChange: e => changeText(e.target.value),
       onBlur,
     }),
-    [disabled, text, searchFormId, onBlur],
+    [text, searchFormId, onBlur],
   );
 
   return (
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-    <form
-      className={className}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onMouseOver={onMouseEnter}
-      onSubmit={onSubmit}
-    >
+    <form className={className} onSubmit={onSubmit}>
       <Input
         type="text"
         input={input}
-        disabled={disabled}
         placeholder={placeholder}
         isSearchable
         onClick={onClickHandler}
