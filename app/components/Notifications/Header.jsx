@@ -21,8 +21,13 @@ import { MediumIconStyled } from 'components/Icon/MediumIcon';
 const Container = styled.div`
   display: flex;
   align-items: center;
+
   > h3 {
     margin-right: 20px;
+  }
+
+  > span {
+    flex-shrink: 0;
   }
 `;
 

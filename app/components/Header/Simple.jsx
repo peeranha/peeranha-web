@@ -5,8 +5,8 @@ const C1 = `
   align-items: flex-start;
 
   > div:nth-child(2) {
+    width: 100%;
     margin-top: 15px;
-    margin-left: 5px;
   }
 `;
 
@@ -17,9 +17,14 @@ const C2 = `
     img {
       margin-right: 0 !important;
     }
+  }
 
-    span {
-      // display: none;
+  @media only screen and (max-width: 690px) {
+    flex-wrap: wrap;
+
+    > div:nth-child(2) {
+      width: 100%;
+      margin-top: 15px;
     }
   }
 `;
@@ -39,10 +44,6 @@ export const C3 = isColumnForSM => `
   @media only screen and (max-width: 576px) {
     background: none;
     box-shadow: none;
-
-    > *:nth-child(1) {
-      // margin-right: 20px;
-    }
 
     h3 {
       font-size: 24px;
