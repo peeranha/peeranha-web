@@ -372,4 +372,13 @@ export default defineMessages({
   official: {
     id: 'app.common.official',
   },
+  profilesUsersInfo: {
+    id: 'app.common.profilesUsersInfo',
+  },
+  fileSizeErrorMsg: {
+    id: 'app.common.fileSizeErrorMsg',
+  },
+  chooseFile: {
+    id: 'app.common.chooseFile',
+  },
 });
