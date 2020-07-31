@@ -124,6 +124,9 @@
   "app.common.hoursAgo": "{hours} часов назад",
   "app.common.yesterday": "Вчера",
   "app.common.official": "Официальный",
+  "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
+  "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
+  "app.common.chooseFile": "Выберите файл",
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
     "Условия обслуживания : описание",
