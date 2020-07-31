@@ -26,8 +26,7 @@ import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
-// size in Mb
-const IMG_SIZE_LIMIT = 2;
+const IMG_SIZE_LIMIT_B = 2 * 1024 * 1024;
 
 const Div = styled.div`
   position: relative;
@@ -200,9 +199,7 @@ function AvatarField({ input, meta, disabled }) {
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
                 onBeforeFileLoad={e => {
-                  const imgSizeInMb = e.target.files[0].size / 1000000;
-
-                  if (imgSizeInMb > IMG_SIZE_LIMIT) {
+                  if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';
                   }
