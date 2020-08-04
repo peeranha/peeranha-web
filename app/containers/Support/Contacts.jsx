@@ -14,6 +14,7 @@ import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
 import calendarIcon from 'images/ico_email.svg?inline';
+import telegramIcon from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -86,6 +87,11 @@ const Contacts = ({ locale }) => (
       <MediaItem href={getLinks(locale).medium} target="_blank">
         <img src={mediumIcon} alt="medium" />
         <Span bold>Medium</Span>
+      </MediaItem>
+
+      <MediaItem href={getLinks(locale).telegram} target="_blank">
+        <img src={telegramIcon} alt="telegram" />
+        <Span bold>Telegram</Span>
       </MediaItem>
 
       <MediaItem href={routes.support(FORM_ID)}>
