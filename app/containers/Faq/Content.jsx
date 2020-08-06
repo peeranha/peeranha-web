@@ -69,6 +69,10 @@ const ImgWrapper = styled.div`
   justify-content: center;
   flex-shrink: 0;
 
+  :hover {
+    cursor: pointer;
+  }
+
   @media only screen and (max-width: 576px) {
     margin-right: 8px;
   }
@@ -95,6 +99,10 @@ const QuestionBox = BaseTransparent.extend`
   }
 `.withComponent('li');
 
+const QuestionBoxBody = styled.div`
+  width: 100%;
+`;
+
 const Question = ({
   h3,
   content,
@@ -120,11 +128,11 @@ const Question = ({
 
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
-      <ImgWrapper>
+      <ImgWrapper onClick={collapseQuestion}>
         <IconSm rotate={isOpened} icon={arrowIconFilled} />
       </ImgWrapper>
 
-      <div>
+      <QuestionBoxBody>
         <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
           <Span fontSize="20" lineHeight="30" mobileFS="16">
             {h3}
@@ -135,7 +143,7 @@ const Question = ({
           isOpened={isOpened}
           dangerouslySetInnerHTML={{ __html: content }}
         />
-      </div>
+      </QuestionBoxBody>
     </QuestionBox>
   );
 };

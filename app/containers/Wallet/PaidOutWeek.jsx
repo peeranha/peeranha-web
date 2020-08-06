@@ -40,6 +40,18 @@ const Container = styled.div`
     padding-bottom: 16px;
   }
 `;
+
+const WeekActions = styled.div`
+  @media only screen and (max-width: 576px) {
+    flex-direction: column;
+    flex-grow: 0;
+
+    button {
+      margin: 7px 0 0 !important;
+    }
+  }
+`;
+
 const PaidOutWeek = ({
   period,
   reward,
@@ -70,7 +82,7 @@ const PaidOutWeek = ({
       </div>
 
       {!registrationWeek ? (
-        <div className="d-flex align-items-center justify-content-end">
+        <WeekActions className="d-flex align-items-center justify-content-end">
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
@@ -101,7 +113,7 @@ const PaidOutWeek = ({
               <FormattedMessage {...messages.received} />
             </ReceivedButton>
           )}
-        </div>
+        </WeekActions>
       ) : (
         <div className="d-flex justify-content-end">
           <P>

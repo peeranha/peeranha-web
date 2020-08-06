@@ -23,9 +23,6 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 
 const Container = styled.div`
   position: absolute;
-  display: grid;
-  grid-template-columns: 1.35fr 1.45fr 0.55fr;
-  grid-template-rows: ${({ height }) => height}px;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -39,6 +36,21 @@ const Container = styled.div`
     last || withoutBorder ? 'none' : `1px solid ${BORDER_SECONDARY_LIGHT}`};
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
+
+  @media only screen and (min-width: 815px) and (max-width: 991px), only screen and (min-width: 1015px) {
+    display: grid;
+    grid-template-columns: 1.35fr 1.45fr 0.55fr;
+    grid-template-rows: ${({ height }) => height}px;
+  }
+
+  > span {
+    display: inline-block;
+  }
+
+  > div,
+  > span {
+    margin-bottom: 4px;
+  }
 
   > div:nth-child(2) a > span:first-child {
     height: 20px;
@@ -59,7 +71,7 @@ const Container = styled.div`
       : '  @media only screen and (max-width: 768px) {'};
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  padding: 10px ${({ paddingHorizontal }) => paddingHorizontal || 0}px;
+  padding: 10px ${({ paddingHorizontal }) => paddingHorizontal / 2 || 0}px;
 
   > div:nth-child(2) {
     grid-row-start: 3;

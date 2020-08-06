@@ -19,22 +19,22 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: 'https://telos.testpeeranha.io',
+      origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'https://community1-test.peeranha.io',
+      origin: 'https://telos.testpeeranha.io',
       src: TelosLogo,
       styles: TelosStyles,
     },
     3: {
-      origin: 'https://community2-test.peeranha.io',
+      origin: 'https://ont.testpeeranha.io',
       src: OntLogo,
       styles: OntStyles,
     },
   },
   dev: {
     3: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
     },
   },
 };

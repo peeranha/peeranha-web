@@ -85,7 +85,7 @@ export const Questions = ({
   questionFilter,
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
-}) => {
+}) => {  
   const [fetcher, setFetcher] = useState(null);
 
   const initFetcher = useCallback(
@@ -282,7 +282,7 @@ export const Questions = ({
             isModerator={isModerator}
             profileInfo={profile}
           />
-          {!!+questionFilterFromCookies && (
+          {(!!+questionFilterFromCookies && !displayLoader) && (
             <div className="d-flex justify-content-center mb-3">
               <ShowMoreButton
                 questionFilterFromCookies={questionFilterFromCookies}

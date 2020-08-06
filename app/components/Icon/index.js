@@ -8,6 +8,7 @@ import IconStyled from './IconStyled';
 const Icon = ({
   icon,
   width,
+  height,
   className,
   fill,
   color,
@@ -19,6 +20,7 @@ const Icon = ({
   <IconStyled
     className={className}
     width={width}
+    height={height}
     color={color || BORDER_PRIMARY}
     fill={fill || BG_PRIMARY_SPECIAL_2}
     dangerouslySetInnerHTML={{ __html: icon }}

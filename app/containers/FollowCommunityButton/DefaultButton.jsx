@@ -22,7 +22,10 @@ const CustomButton = styled.div`
   cursor: pointer;
 
   @media only screen and (max-width: 576px) {
-    margin-top: 12px;
+    max-width: 95px;
+    margin-top: 9px;
+
+    text-align: right;
   }
 `;
 
