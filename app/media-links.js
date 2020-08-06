@@ -5,6 +5,7 @@ const links = {
     github: 'https://github.com/peeranha',
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
     medium: 'https://medium.com/peeranha',
+    telegram: 'https://t.me/peeranhaio',
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
@@ -12,6 +13,7 @@ const links = {
     github: 'https://github.com/peeranha',
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
     medium: 'https://medium.com/peeranha',
+    telegram: 'https://t.me/peeranhaio',
   },
 };
 
