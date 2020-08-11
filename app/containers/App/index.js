@@ -35,6 +35,7 @@ import saga from './saga';
 import {
   HomePage,
   Faq,
+  Tutorial,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -220,6 +221,12 @@ const App = ({
           exact
           path={routes.faq()}
           render={props => Wrapper(Faq, props)}
+        />
+
+        <Route
+          exact
+          path={routes.tutorial()}
+          render={props => Wrapper(Tutorial, props)}
         />
 
         <Route

@@ -16,13 +16,4 @@ export default defineMessages({
   faq: {
     id: 'app.containers.Faq.faq',
   },
-  help: {
-    id: 'app.containers.Faq.help',
-  },
-  didntFindAnswer: {
-    id: 'app.containers.Faq.didntFindAnswer',
-  },
-  freeFeelToAsk: {
-    id: 'app.containers.Faq.freeFeelToAsk',
-  },
 });

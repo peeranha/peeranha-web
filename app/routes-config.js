@@ -56,6 +56,7 @@ export const tags = () => `/tags`;
 
 export const users = () => '/users';
 
+export const tutorial = code => `/tutorial/${code ? `#${code}` : ``}`;
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;

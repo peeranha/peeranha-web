@@ -29,6 +29,7 @@
   "app.common.users": "Пользователи",
   "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
+  "app.common.tutorial": "Руководство",
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
   "app.common.see": "Посмотреть",
@@ -193,9 +194,14 @@
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
-  "app.containers.Faq.help": "Помощь",
-  "app.containers.Faq.didntFindAnswer": "Не нашел ответ?",
-  "app.containers.Faq.freeFeelToAsk":
+
+  "app.containers.Tutorial.title": "Руководство",
+  "app.containers.Tutorial.description": "Руководство: описание",
+  "app.containers.Tutorial.tutorial": "Руководство",
+
+  "app.components.AskQuestionBanner.help": "Помощь",
+  "app.components.AskQuestionBanner.didntFindAnswer": "Не нашел ответ?",
+  "app.components.AskQuestionBanner.freeFeelToAsk":
     "Спроси нашу команду. Мы поможем найти ответ.",
 
   "app.containers.Users.title": "Пользователи",
