@@ -7,7 +7,6 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import messages from 'containers/Profile/messages';
 
 import {
-  ABOUT_FIELD,
   AVATAR_FIELD,
   COMPANY_FIELD,
   DISPLAY_NAME_FIELD,
@@ -15,7 +14,6 @@ import {
   POSITION_FIELD,
 } from 'containers/Profile/constants';
 
-import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
 
@@ -27,13 +25,15 @@ import FormBox from 'components/Form';
 import {
   imageValidation,
   required,
-  strLength20x1000,
   strLength3x20,
 } from 'components/FormFields/validate';
+
+import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
 
 export const ProfileEditForm = ({
+  formValues,
   handleSubmit,
   intl,
   saveProfile,
@@ -97,15 +97,10 @@ export const ProfileEditForm = ({
         splitInHalf
       />
 
-      <Field
-        name={ABOUT_FIELD}
-        component={TextareaField}
-        label={intl.formatMessage({ id: messages.aboutLabel.id })}
-        tip={intl.formatMessage({ id: messages.companyTip.id })}
-        disabled={isProfileSaving}
-        validate={strLength20x1000}
-        warn={strLength20x1000}
-        splitInHalf
+      <AboutForm
+        formValues={formValues}
+        intl={intl}
+        isProfileSaving={isProfileSaving}
       />
 
       <Button
@@ -120,6 +115,7 @@ export const ProfileEditForm = ({
 );
 
 ProfileEditForm.propTypes = {
+  formValues: PropTypes.object,
   intl: intlShape.isRequired,
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
@@ -133,8 +129,9 @@ let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
 
-FormClone = connect((_, props) => ({
+FormClone = connect((state, props) => ({
   enableReinitialize: true,
+  formValues: state.toJS().form[PROFILE_EDIT_FORM]?.values ?? {},
   initialValues: {
     ...(props?.profile?.profile || {}),
     [DISPLAY_NAME_FIELD]: props?.profile?.['display_name'],

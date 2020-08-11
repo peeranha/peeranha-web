@@ -89,7 +89,13 @@ export const Wrapper = ({
     <Label>{label}</Label>
     <div>
       <div>{children}</div>
-      {meta && <WarningMessage {...meta} tip={tip} />}
+      {meta && (
+        <WarningMessage
+          {...meta}
+          containerIsSplittedInHalf={splitInHalf}
+          tip={tip}
+        />
+      )}
     </div>
   </StyledBox>
 );
