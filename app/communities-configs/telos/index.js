@@ -25,6 +25,12 @@ import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 const domainName = 'https://www.telos.net/';
+const domainDocs = 'https://docs.telos.net';
+const domainStudio = 'https://studio.telos.net';
+const domainBloks = 'https://telos.bloks.io';
+const domainFaq = 'https://faq.telos.net/';
+const domainExplore = 'https://explore.telos.net';
+const domainStaker = 'https://telos.staker.one';
 
 export const CustomSubHeaderConfig = {
   design: 'logo_center__menu_right',
@@ -61,28 +67,165 @@ export const CustomSubHeaderConfig = {
         background-color: rgba(79,7,233,.8);
       }
     `,
+    subitems: `
+      padding: 1em;
+
+      border: none !important;
+      border-radius: 0 !important;
+      background: #000 !important;
+
+      a {
+        padding: .382em;
+
+        font-size: 15px;
+        line-height: 1em;
+      }
+
+      @media only screen and (max-width: 991px) {
+        left: 5px;
+        top: -5px;
+
+        padding: 0 !important;
+
+        background: transparent !important;
+      }
+    `,
   },
   links: [
     {
       text: 'HQ',
-      href: domainName,
+      href: `${domainName}foldershq`,
+      subitems: [
+        {
+          text: 'Home',
+          href: `${domainName}home`,
+        },
+        {
+          text: 'Foundation',
+          href: `${domainName}foundation`,
+        },
+      ],
     },
     {
       text: 'Developers',
-      href: `${domainName}developers`,
+      href: `${domainName}dev`,
+      subitems: [
+        {
+          text: 'Why Telos',
+          href: `${domainName}developers`,
+        },
+        {
+          text: 'Getting Started',
+          href: `${domainName}developers-get-started`,
+        },
+        {
+          text: 'Service Layer',
+          href: `${domainName}telos-micro-services`,
+        },
+        {
+          text: 'Documentation',
+          href: domainDocs,
+        },
+        {
+          text: 'Studio IDE',
+          href: domainStudio,
+        },
+        {
+          text: 'Block Explorer',
+          href: domainBloks,
+        },
+        {
+          text: 'Developer Updates',
+          href: `${domainName}dev-signup-for-updates`,
+        },
+      ],
+    },
+    {
+      text: 'Products',
+      href: `${domainName}products`,
+      subitems: [
+        {
+          text: 'Blockchain',
+          href: `${domainName}dev`,
+        },
+        {
+          text: 'Decide',
+          href: `${domainName}decide`,
+        },
+        {
+          text: 'EVM',
+          href: `${domainName}telos-evm`,
+        },
+        {
+          text: 'Gamify',
+          href: `${domainName}gamify`,
+        },
+      ],
     },
     {
       text: 'Resources',
-      href: `${domainName}resources`,
+      href: `${domainName}resources-2`,
+      subitems: [
+        {
+          text: 'Resources Overview',
+          href: `${domainName}resources`,
+        },
+        {
+          text: 'Wallets',
+          href: `${domainName}wallets`,
+        },
+        {
+          text: 'Governance',
+          href: `${domainName}governance-docs`,
+        },
+        {
+          text: 'Branding',
+          href: `${domainName}branding-and-guidelines`,
+        },
+        {
+          text: 'FAQ',
+          href: domainFaq,
+        },
+      ],
     },
     {
       text: 'News',
       href: `${domainName}news`,
     },
     {
+      text: 'FAQ',
+      href: domainFaq,
+    },
+    {
       text: 'Explore',
-      href: 'https://explore.telos.net/',
+      href: `${domainName}explore-1`,
       isHighlighted: true,
+      subitems: [
+        {
+          text: 'Ecosystem',
+          href: domainExplore,
+        },
+        {
+          text: 'Gaming',
+          href: `${domainName}gaming`,
+        },
+        {
+          text: 'Works',
+          href: `${domainName}works`,
+        },
+        {
+          text: 'Staking for Resources',
+          href: domainStaker,
+        },
+        {
+          text: 'Staking for Rewards',
+          href: `${domainStaker}rewards`,
+        },
+        {
+          text: 'Create Account',
+          href: `${domainExplore}/create-account`,
+        },
+      ],
     },
   ],
 };
