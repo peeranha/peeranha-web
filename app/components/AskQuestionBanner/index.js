@@ -4,16 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import Wrapper from 'components/Banner';
+import Banner from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
 import bannerImage from 'images/faqBanner.svg?inline';
 
 import messages from './messages';
 
-export const Banner = () => (
-  <Wrapper>
-    <img src={bannerImage} alt="banner" />
+export const AskQuestionBanner = () => (
+  <Banner>
+    <img src={bannerImage} alt="askQuestionBanner" />
     <div>
       <p>
         <FormattedMessage {...messages.didntFindAnswer} />
@@ -27,7 +27,7 @@ export const Banner = () => (
         <FormattedMessage {...messages.help} />
       </Button>
     </div>
-  </Wrapper>
+  </Banner>
 );
 
-export default React.memo(Banner);
+export default React.memo(AskQuestionBanner);

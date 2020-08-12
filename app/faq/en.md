@@ -259,3 +259,22 @@ If total rating points earned by all of the users during the week multiplied by 
 
 Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
 
+## Messenger Bots
+
+### Telegram
+
+Telegram bot is created to give Users an ability to receive notifications about new questions, asked in their favorite communities in Telegram Messenger. Users are able to set notifications in private messages, groups or channels.
+
+To set the bot for private messages search for @PeeranhaBot and start a chat with it.
+
+To set it in group/channel click "Add members" and add @PeeranhaBot.
+
+**Commands for bot:**
+
+/subscribe - subscribes to the notifications from a community (e.g. /subscribe Peeranha)
+
+/unsubscribe - unsubscribes from the notifications from a community (e.g. /unsubscribe Peeranha)
+
+/communities - displays the communities that are available for subscription
+
+/subscriptions - displays current subscriptions

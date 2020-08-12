@@ -69,6 +69,9 @@ function getMD(prefix, locale) {
     case 'faq':
       md = require(`faq/${locale}.md`);
       break;
+    case 'tutorial':
+      md = require(`tutorial/${locale}.md`);
+      break;
     case 'privacy-policy':
       md = require(`privacy-policy/${locale}.md`);
       break;

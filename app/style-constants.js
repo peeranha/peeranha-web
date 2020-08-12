@@ -33,6 +33,7 @@ const pinkRGB = `252, 102, 85`;
 const graySpecialRGB = `40, 40, 40`;
 const transparentSpecialRGB = `255, 255, 255`;
 const lightblueSpecial = `#7699FF`;
+const iconTransparentBlue = '#a5bcff';
 
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
 const graySpecial3 = 'rgba(250, 250, 250, 1)';
@@ -61,7 +62,12 @@ export const TEXT_PRIMARY_DARK = darkblue;
 export const TEXT_PRIMARY = blue;
 
 export const LINK_COLOR = linkColor;
-export const LINK_COLOR_SECONDARY = _get(colors, 'linkColorSecondary', linkColor);
+export const LINK_COLOR_SECONDARY = _get(
+  colors,
+  'linkColorSecondary',
+  linkColor,
+);
+export const ICON_TRASPARENT_BLUE = iconTransparentBlue;
 
 export const BORDER_SECONDARY = secondarySpecial;
 export const BORDER_PRIMARY_DARK = darkblue;

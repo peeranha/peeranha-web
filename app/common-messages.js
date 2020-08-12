@@ -87,6 +87,9 @@ export default defineMessages({
   faq: {
     id: 'app.common.faq',
   },
+  tutorial: {
+    id: 'app.common.tutorial',
+  },
   about: {
     id: 'app.common.about',
   },

@@ -29,6 +29,7 @@
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.tutorial": "Tutorial",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
@@ -127,7 +128,8 @@
   "app.common.yesterday": "Yesterday",
   "app.common.official": "Official",
   "app.common.profilesUsersInfo": "File size should not exceed 2Mb",
-  "app.common.fileSizeErrorMsg": "File size is more than 2Mb. Choose another one...",
+  "app.common.fileSizeErrorMsg":
+    "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -192,9 +194,14 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
-  "app.containers.Faq.help": "Help",
-  "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
-  "app.containers.Faq.freeFeelToAsk":
+
+  "app.containers.Tutorial.title": "Tutorial",
+  "app.containers.Tutorial.description": "Tutorial: description",
+  "app.containers.Tutorial.tutorial": "Tutorial",
+
+  "app.components.AskQuestionBanner.help": "Help",
+  "app.components.AskQuestionBanner.didntFindAnswer": "Didn’t find the answer?",
+  "app.components.AskQuestionBanner.freeFeelToAsk":
     "Feel free to ask our team.  We will help to find the answer.",
 
   "app.containers.Users.title": "Users",
