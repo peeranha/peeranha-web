@@ -33,7 +33,11 @@ export const CustomSubHeaderConfig = {
       
     `,
     subitems: `
-
+      @media only screen and (max-width: 991px) {
+        a {
+          padding: 0 0 0 30px  !important;
+        }
+      }
     `,
     subHeaderItem: `
       position: relative;
@@ -43,6 +47,10 @@ export const CustomSubHeaderConfig = {
 
       > div {
         font-weight: normal;
+      }
+
+      @media only screen and (max-width: 991px) {
+        padding: 10px 0 10px 15px !important;
       }
 
       @media only screen and (min-width: 992px) {
