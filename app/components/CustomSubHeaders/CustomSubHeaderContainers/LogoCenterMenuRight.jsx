@@ -67,12 +67,12 @@ const NavItem = styled.div`
 
 const Links = ({ links, styles }) => (
   <div>
-    {links.map(({ text, href, isHighlighted, subitems }) => (
+    {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <NavItem>
         {href ? (
           <LocalLink
             href={href}
-            target="_blank"
+            target={target ? target : "_blank"}
             styles={styles}
             isHighlighted={isHighlighted}
           >
@@ -84,12 +84,12 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(({ text, href }) => (
+              {subitems.map(({ text, href, target }) => (
                 <LocalLink
                   styles={styles}
                   key={href}
                   href={href}
-                  target="_blank"
+                  target={target ? target : "_blank"}
                 >
                   {text}
                 </LocalLink>

@@ -28,7 +28,6 @@ const domainName = 'https://www.telos.net/';
 const domainDocs = 'https://docs.telos.net';
 const domainStudio = 'https://studio.telos.net';
 const domainBloks = 'https://telos.bloks.io';
-const domainFaq = 'https://faq.telos.net/';
 const domainExplore = 'https://explore.telos.net';
 const domainStaker = 'https://telos.staker.one';
 
@@ -141,6 +140,20 @@ export const CustomSubHeaderConfig = {
       ],
     },
     {
+      text: 'Use Cases',
+      href: `${domainName}use-cases-1`,
+      subitems: [
+        {
+          text: 'Social Media',
+          href: `${domainName}social`,
+        },
+        {
+          text: 'Gaming',
+          href: `${domainName}gaming`,
+        },
+      ],
+    },
+    {
       text: 'Products',
       href: `${domainName}products`,
       subitems: [
@@ -184,7 +197,8 @@ export const CustomSubHeaderConfig = {
         },
         {
           text: 'FAQ',
-          href: domainFaq,
+          href: '/',
+          target: '_self',
         },
       ],
     },
@@ -194,7 +208,8 @@ export const CustomSubHeaderConfig = {
     },
     {
       text: 'FAQ',
-      href: domainFaq,
+      href: '/',
+      target: '_self',
     },
     {
       text: 'Explore',
