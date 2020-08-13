@@ -41,7 +41,7 @@ const Div = styled.div`
   ${({ styles }) => styles.subHeader || ``};
 `;
 
-const LocalLink = styled.a`
+export const LocalLink = styled.a`
   ${({ styles }) => (!!styles.subHeaderItem ? styles.subHeaderItem : ``) || ``};
 
   display: inline-flex;
@@ -81,13 +81,14 @@ const SubitemsWrapper = styled.div`
 
   @media only screen and (max-width: 991px) {
     flex-direction: column;
+    padding: 0 !important;
     margin-left: 0;
   }
 
   ${({ styles }) => styles || ``};
 `;
 
-const SubitemsTitleButton = styled.button`
+const SubitemsTitleButton = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,7 +153,7 @@ const SubitemsTitle = styled.span`
   }
 `;
 
-const Subitems = styled.div`
+export const Subitems = styled.div`
   position: absolute;
   top: 100%;
   left: -30px;
@@ -210,6 +211,15 @@ const Subitems = styled.div`
   ${({ styles }) => styles || ``};
 `;
 
+const ArrowButton = styled.button`
+  padding: 0 16px !important;
+
+  > div {
+    padding: 0;
+    margin: 0;
+  }
+`;
+
 export const A = ({ href, text, isHighlighted, styles }) => (
   <LocalLink
     href={href}
@@ -226,7 +236,15 @@ A.propTypes = {
   text: PropTypes.string,
 };
 
-export const B = ({ text, subitems, styles, device, isDropdownMenuArrow }) => {
+export const B = ({
+  text,
+  subitems,
+  styles,
+  device,
+  isDropdownMenuArrow,
+  href,
+  isHighlighted
+}) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
 
@@ -234,14 +252,28 @@ export const B = ({ text, subitems, styles, device, isDropdownMenuArrow }) => {
     <SubitemsWrapper styles={styles.subHeaderItem}>
       {device === 'mobile' ? (
         <>
-          <SubitemsTitleButton onClick={setVis}>
-            <span>{text}</span>
+          <SubitemsTitleButton>
+            {href ? (
+              <A
+                text={text}
+                href={href}
+                key={href}
+                styles={styles}
+                isHighlighted={isHighlighted}
+              />
+            ) : (
+              <span>{text}</span>
+            )}
+
             {isDropdownMenuArrow && (
+              <ArrowButton onClick={setVis}>
               <Arrow
                 className="mt-auto mb-auto"
                 color={'small'}
                 rotate={visible}
+                
               />
+              </ArrowButton>
             )}
           </SubitemsTitleButton>
           {visible && (
@@ -301,27 +333,32 @@ export const Links = ({
   isDropdownMenuArrow = true,
 }) => (
   <div>
-    {links.map(
-      ({ text, href, isHighlighted, subitems }) =>
-        href ? (
-          <A
-            text={text}
-            href={href}
-            key={href}
-            styles={styles}
-            isHighlighted={isHighlighted}
-          />
-        ) : (
+    {links.map(({ text, href, isHighlighted, subitems }) => (
+      <>
+        {href &&
+          !subitems && (
+            <A
+              text={text}
+              href={href}
+              key={href}
+              styles={styles}
+              isHighlighted={isHighlighted}
+            />
+          )}
+        {subitems && (
           <B
             text={text}
+            href={href}
             subitems={subitems}
             key={text}
             styles={styles}
             device={device}
             isDropdownMenuArrow={isDropdownMenuArrow}
+            isHighlighted={isHighlighted}
           />
-        ),
-    )}
+        )}
+      </>
+    ))}
   </div>
 );
 
