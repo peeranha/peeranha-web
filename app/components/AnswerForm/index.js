@@ -14,11 +14,11 @@ import {
 } from 'utils/properties';
 import { required, strLength25x30000 } from 'components/FormFields/validate';
 
+import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 
-import TextBlock from 'containers/ViewQuestion/TextBlock';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 

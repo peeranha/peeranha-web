@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Base from 'components/Base';
+import TextBlock from 'components/FormFields/TextBlock';
 
 import { isAnswerOfficial } from 'utils/properties';
 
-import TextBlock from './TextBlock';
 import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
 

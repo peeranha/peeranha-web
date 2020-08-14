@@ -8,8 +8,8 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import { strLength25x30000, required } from 'components/FormFields/validate';
+import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
-import TextBlock from 'containers/ViewQuestion/TextBlock';
 
 import { FORM_CONTENT } from './constants';
 
