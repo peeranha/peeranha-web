@@ -73,8 +73,6 @@ const Section = ({
   route,
   getSectionCode,
   getQuestionCode,
-  questionPlayingId,
-  setQuestionPlayingId,
 }) => {
   const { hash } = window.location;
 
@@ -125,8 +123,6 @@ const Section = ({
                 route={route}
                 getQuestionCode={getQuestionCode}
                 sectionIsOpened={isOpened}
-                questionPlayingId={questionPlayingId}
-                setQuestionPlayingId={setQuestionPlayingId}
               />
             ))}
         </ul>
@@ -153,25 +149,19 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode }) => {
-  const [questionPlayingId, setQuestionPlayingId] = useState(null);
-
-  return (
-    <div className="mb-3">
-      {content.blocks.map(x => (
-        <Section
-          {...x}
-          key={x.h2}
-          route={route}
-          getSectionCode={getSectionCode}
-          getQuestionCode={getQuestionCode}
-          questionPlayingId={questionPlayingId}
-          setQuestionPlayingId={setQuestionPlayingId}
-        />
-      ))}
-    </div>
-  );
-};
+const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
+  <div className="mb-3">
+    {content.blocks.map(x => (
+      <Section
+        {...x}
+        key={x.h2}
+        route={route}
+        getSectionCode={getSectionCode}
+        getQuestionCode={getQuestionCode}
+      />
+    ))}
+  </div>
+);
 
 Section.propTypes = {
   h2: PropTypes.string,
@@ -180,8 +170,6 @@ Section.propTypes = {
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,
-  questionPlayingId: PropTypes.string,
-  setQuestionPlayingId: PropTypes.func,
 };
 
 Content.propTypes = {

@@ -4,32 +4,32 @@
 
 ### Как зарегистрироваться с помощью кошелька?
 
-url=embed/8rDsjM4XWdY
+https://www.youtube.com/embed/8rDsjM4XWdY
 
 ### Как зарегистрироваться с помощью электронной почты без учетной записи Telos?
 
-url=embed/3RFOd3AcBHs
+https://www.youtube.com/embed/3RFOd3AcBHs
 
 ### Как зарегистрироваться с помощью электронной почты с помощью учетной записи Telos?
 
-url=embed/HsLJhYfgMVE
+https://www.youtube.com/embed/HsLJhYfgMVE
 
 ### Как получить ваши приватные ключи Telos?
 
-url=embed/2hGA3HaHbdE
+https://www.youtube.com/embed/2hGA3HaHbdE
 
 ## Вопросы и ответы
 
 ### Как задать вопрос
 
-url=embed/V3sy1CHUaks
+https://www.youtube.com/embed/V3sy1CHUaks
 
 ### Как ответить на вопрос
 
-url=embed/s1IpoKsd9AI
+https://www.youtube.com/embed/s1IpoKsd9AI
 
 ## Вознаграждения
 
 ### Как получить PEER token вознаграждения
 
-url=embed/Hx9J3AMMW50
+https://www.youtube.com/embed/Hx9J3AMMW50

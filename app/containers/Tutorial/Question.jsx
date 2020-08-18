@@ -66,29 +66,17 @@ const VideoWrapper = styled.div`
 `;
 
 const getYoutubeLink = mdContent =>
-  mdContent
-    .match(/url=/)
-    .input.split('url=')[1]
-    .split('</p>')[0];
+  mdContent.match(/https:\/\/www\.youtube\.com\//)
+    ? mdContent.match(/https:\/\/www\.youtube\.com\//).input.split(`"`)[1]
+    : null;
 
-const VideoBlock = ({
-  isOpened,
-  content,
-  sectionIsOpened,
-  questionCode,
-  sectionCode,
-  questionPlayingId,
-}) => (
+const VideoBlock = ({ isOpened, content, sectionIsOpened }) => (
   <div>
     <VideoWrapper isOpened={isOpened}>
       <ReactPlayer
-        url={`https://www.youtube.com/${getYoutubeLink(content)}`}
+        url={getYoutubeLink(content)}
         controls
-        playing={
-          isOpened &&
-          sectionIsOpened &&
-          questionPlayingId === `${sectionCode}-${questionCode}`
-        }
+        playing={!isOpened || !sectionIsOpened}
         width="100%"
         height="100%"
       />
@@ -104,8 +92,6 @@ const Question = ({
   route,
   getQuestionCode,
   sectionIsOpened,
-  questionPlayingId,
-  setQuestionPlayingId,
 }) => {
   const { hash } = window.location;
 
@@ -116,7 +102,6 @@ const Question = ({
   const collapseQuestion = () => {
     createdHistory.push(route());
     collapse(!isOpened);
-    setQuestionPlayingId(`${sectionCode}-${questionCode}`);
   };
 
   if (hash.match(questionId) && !isOpened) {
@@ -140,9 +125,6 @@ const Question = ({
           sectionIsOpened={sectionIsOpened}
           isOpened={isOpened}
           content={content}
-          questionCode={questionCode}
-          sectionCode={sectionCode}
-          questionPlayingId={questionPlayingId}
         />
       </QuestionBoxBody>
     </QuestionBox>
@@ -156,18 +138,13 @@ Question.propTypes = {
   sectionCode: PropTypes.number,
   route: PropTypes.func,
   getQuestionCode: PropTypes.func,
-  setQuestionPlayingId: PropTypes.func,
   sectionIsOpened: PropTypes.bool,
-  questionPlayingId: PropTypes.string,
 };
 
 VideoBlock.propTypes = {
   isOpened: PropTypes.bool,
   content: PropTypes.string,
   sectionIsOpened: PropTypes.bool,
-  questionCode: PropTypes.number,
-  sectionCode: PropTypes.number,
-  questionPlayingId: PropTypes.string,
 };
 
 export default Question;
