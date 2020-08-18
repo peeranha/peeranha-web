@@ -148,10 +148,12 @@ const MainLinks = ({ profile }) => {
         </A1>
       )}
 
-      <A1 to={routes.tutorial()} name="tutorial" route={route}>
-        <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-        <FormattedMessage {...messages.tutorial} />
-      </A1>
+      {!singleCommId && (
+        <A1 to={routes.tutorial()} name="tutorial" route={route}>
+          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+          <FormattedMessage {...messages.tutorial} />
+        </A1>
+      )}
     </Box>
   );
 };

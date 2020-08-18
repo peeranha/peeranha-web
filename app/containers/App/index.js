@@ -201,6 +201,14 @@ const App = ({
           />
         )}
 
+        {!single && (
+          <Route
+            exact
+            path={routes.tutorial()}
+            render={props => Wrapper(Tutorial, props)}
+          />
+        )}
+
         <Route
           exact
           path={routes.communityTags(':communityid')}
@@ -221,12 +229,6 @@ const App = ({
           exact
           path={routes.faq()}
           render={props => Wrapper(Faq, props)}
-        />
-
-        <Route
-          exact
-          path={routes.tutorial()}
-          render={props => Wrapper(Tutorial, props)}
         />
 
         <Route
