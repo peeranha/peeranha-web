@@ -71,17 +71,15 @@ const getYoutubeLink = mdContent =>
     : null;
 
 const VideoBlock = ({ isOpened, content, sectionIsOpened }) => (
-  <div>
-    <VideoWrapper isOpened={isOpened}>
-      <ReactPlayer
-        url={getYoutubeLink(content)}
-        controls
-        playing={!isOpened || !sectionIsOpened}
-        width="100%"
-        height="100%"
-      />
-    </VideoWrapper>
-  </div>
+  <VideoWrapper isOpened={isOpened}>
+    <ReactPlayer
+      url={getYoutubeLink(content)}
+      controls
+      playing={!isOpened || !sectionIsOpened}
+      width="100%"
+      height="100%"
+    />
+  </VideoWrapper>
 );
 
 const Question = ({
