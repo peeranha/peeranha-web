@@ -14,7 +14,7 @@ import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
 import calendarIcon from 'images/ico_email.svg?inline';
-import telegramIcon from 'images/social-media-logos/logo-telegram-glyph-24.svg?inline';
+import telegramIcon from 'images/telegramOfficialBlue.svg?inline';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -53,6 +53,10 @@ const MediaList = styled.div`
       margin-bottom: 15px;
     }
   }
+`;
+
+const EmailSpan = Span.extend`
+  font-size: 12px;
 `;
 
 const Contacts = ({ locale }) => (
@@ -96,7 +100,7 @@ const Contacts = ({ locale }) => (
 
       <MediaItem href={routes.support(FORM_ID)}>
         <img src={calendarIcon} alt="calendar" />
-        <Span color={TEXT_PRIMARY}>hello@peeranha.io</Span>
+        <EmailSpan color={TEXT_PRIMARY}>hello@peeranha.io</EmailSpan>
       </MediaItem>
     </MediaList>
   </div>
