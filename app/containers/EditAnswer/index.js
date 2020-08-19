@@ -116,7 +116,7 @@ const EditAnswer = ({
         <>
           <Seo
             title={title}
-            description={description}
+            description={description || ''}
             language={locale}
             index={false}
           />
