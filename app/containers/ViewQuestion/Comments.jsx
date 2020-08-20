@@ -158,7 +158,7 @@ const CommentView = item => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <Icon icon={editSmallIcon} width={13} fill={BORDER_PRIMARY} />
+            <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -179,7 +179,7 @@ const CommentView = item => {
                     `delete-comment-${item.answerId}${item.id}`,
                   )}
                 >
-                  <Icon icon={deleteSmallIcon} width={13} fill={BORDER_PRIMARY} />
+                  <Icon icon={deleteSmallIcon} width="13" fill={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

@@ -588,6 +588,10 @@
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongLength25x30000":
+    "Оставьте не менее 25 и не более 30000 символов",
+  "app.components.FormFields.wrongLength20x1000":
+    "Оставьте не менее 20 и не более 1000 символов",
   "app.components.FormFields.wrongExactLength":
     "Значение должно быть длины {min} символов",
   "app.components.FormFields.wrongLengthOfList":
