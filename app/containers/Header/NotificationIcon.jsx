@@ -46,6 +46,11 @@ const Base = styled.div`
     color: ${TEXT_DARK};
   }
 
+  @media (max-width: 992px) {
+    left: 16px;
+    bottom: -62px;
+  }
+
   @media (max-width: 767px) {
     left: -60px;
     bottom: 22px;

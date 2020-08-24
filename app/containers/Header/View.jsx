@@ -65,7 +65,7 @@ const Button = LargeButton.extend`
   background-color: ${x => x.bg};
   border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
-  @media only screen and (max-width: 992px) {
+  @media only screen and (max-width: 991px) {
     padding: 0;
     border-radius: 50%;
     min-width: auto;
