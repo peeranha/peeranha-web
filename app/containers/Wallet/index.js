@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -22,7 +22,7 @@ import saga from './saga';
 import messages from './messages';
 import * as selectors from './selectors';
 
-import { getWeekStat, pickupReward } from './actions';
+import { pickupReward } from './actions';
 
 import View from './View';
 
@@ -38,18 +38,7 @@ const Wallet = ({
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-  getWeekStatDispatch,
-}) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
-
-  return (
+}) => (
     <div>
       {process.env.ENV !== 'dev' && (
         <Seo
@@ -73,14 +62,12 @@ const Wallet = ({
       />
     </div>
   );
-};
 
 Wallet.propTypes = {
   balance: PropTypes.string,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
-  getWeekStatDispatch: PropTypes.func,
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
   ids: PropTypes.array,
@@ -103,7 +90,6 @@ export default memo(
         ids: selectors.selectIds(),
       }),
       dispatch => ({
-        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
       }),
     ),

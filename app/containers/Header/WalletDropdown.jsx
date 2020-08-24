@@ -1,85 +1,46 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-
-import {
-  BG_PRIMARY,
-  BORDER_PRIMARY,
-  TEXT_LIGHT,
-  TEXT_SECONDARY,
-} from 'style-constants';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import currencyPeerIcon from 'images/currencyPeer.svg?external';
-
-import { getFormattedNum4 } from 'utils/numbers';
-
 import Dropdown from 'components/Dropdown';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
-import Span from 'components/Span';
-import { MediumSpecialImage } from 'components/Img/MediumImage';
-import { SmallSpecialImage } from 'components/Img/SmallImage';
 
 import SendTokens from 'containers/SendTokens';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-const ButtonStyled = styled.span`
-  display: flex;
-  align-items: center;
-  border: 1px solid ${BORDER_PRIMARY};
-  border-left: 0px;
-  border-radius: 23px;
-  padding-right: 25px;
-  height: 47px;
+import {
+  selectWeekStat,
+  selectRewardsWeeksNumber,
+  selectGetWeekStatProcessing,
+} from 'containers/Wallet/selectors';
 
-  ${MediumSpecialImage}, ${SmallSpecialImage} {
-    margin-right: 10px;
-  }
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-  > span {
-    margin-bottom: 1px;
-  }
-`;
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
-const IconBG = MediumSpecialImage.extend`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid ${BORDER_PRIMARY};
-  color: ${x => x.color};
-`.withComponent('span');
+import reducer from 'containers/Wallet/reducer';
+import saga from 'containers/Wallet/saga';
 
-export const Button = memo(({ balance }) => (
-  <ButtonStyled>
-    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <IconLg icon={currencyPeerIcon} />
-    </IconBG>
+import { getWeekStat } from 'containers/Wallet/actions';
 
-    <span className="d-flex flex-column text-left">
-      <Span className="align-middle" fontSize="16" bold>
-        {getFormattedNum4(balance)}
-      </Span>
-      <Span
-        className="ml-1 align-middle"
-        fontSize="14"
-        lineHeight="18"
-        color={TEXT_SECONDARY}
-      >
-        <FormattedMessage {...messages.peers} />
-      </Span>
-    </span>
-  </ButtonStyled>
-));
+import NotificationIcon from './NotificationIcon';
+import WalletButton from './WalletButton';
 
-const Menu = memo(({ user }) => (
+const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+
+const Menu = memo(({ user, number }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
+      {isPositiveNumber(number) && <NotificationIcon inline number={number} />}
     </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />
@@ -87,28 +48,70 @@ const Menu = memo(({ user }) => (
   </Ul>
 ));
 
-const WalletDropdown = ({ user, balance }) => (
-  <Dropdown
-    id={`profile_id_${Math.random()}`}
-    className="d-none d-md-flex mr-3"
-    button={<Button balance={balance} />}
-    menu={<Menu user={user} />}
-  />
-);
+const WalletDropdown = ({
+  user,
+  balance,
+  locale,
+  weekStat,
+  getWeekStatDispatch,
+  rewardsWeeksNumber,
+  getWeekStatProcessing,
+  account,
+}) => {
+  useEffect(() => {
+    if (account && !weekStat && !getWeekStatProcessing) {
+      getWeekStatDispatch();
+    }
+  }, []);
 
-Button.propTypes = {
-  balance: PropTypes.number,
+  return (
+    <Dropdown
+      id={`profile_id_${Math.random()}`}
+      className="d-none d-md-flex mr-3"
+      button={
+        <WalletButton
+          balance={balance}
+          locale={locale}
+          number={rewardsWeeksNumber}
+        />
+      }
+      menu={<Menu user={user} number={rewardsWeeksNumber} />}
+    />
+  );
 };
 
 Menu.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.string,
+  number: PropTypes.number,
 };
 
 WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
+  locale: PropTypes.string,
+  weekStat: PropTypes.array,
+  getWeekStatDispatch: PropTypes.func,
+  rewardsWeeksNumber: PropTypes.number,
+  getWeekStatProcessing: PropTypes.bool,
+  account: PropTypes.string,
 };
 
-export { IconBG };
-export default memo(WalletDropdown);
+export default memo(
+  compose(
+    injectReducer({ key: 'wallet', reducer }),
+    injectSaga({ key: 'wallet', saga }),
+    connect(
+      createStructuredSelector({
+        locale: makeSelectLocale(),
+        weekStat: selectWeekStat(),
+        rewardsWeeksNumber: selectRewardsWeeksNumber(),
+        getWeekStatProcessing: selectGetWeekStatProcessing(),
+        account: makeSelectAccount(),
+      }),
+      dispatch => ({
+        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
+      }),
+    ),
+  )(WalletDropdown),
+);

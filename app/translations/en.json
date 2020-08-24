@@ -191,6 +191,9 @@
   "web_integration.errors.emailAlreadyInUse": "Email already in use",
   "web_integration.errors.unableToBuildModel": "Unable to build model",
 
+  "app.containers.Header.walletTooltipPart1": "You have ",
+  "app.containers.Header.walletTooltipPart2": " rewards ready",
+
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",

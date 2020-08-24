@@ -191,6 +191,9 @@
   "web_integration.errors.emailAlreadyInUse": "Email уже используется",
   "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
 
+  "app.containers.Header.walletTooltipPart1": "Вам доступны ",
+  "app.containers.Header.walletTooltipPart2": " поощрений",
+
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
