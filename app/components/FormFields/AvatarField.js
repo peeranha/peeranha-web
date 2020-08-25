@@ -16,6 +16,7 @@ import {
 import avatarCloseIcon from 'images/avatarCloseIcon.png';
 import addIcon from 'images/tick.png';
 
+import { NO_AVATAR } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
@@ -42,9 +43,39 @@ const Div = styled.div`
   }
 
   > :first-child {
+    border-radius: 50%;
+    overflow: hidden;
     position: relative;
     width: inherit;
     height: 120px;
+
+    &:hover {
+      .remove-avatar-action-container {
+        bottom: 0;
+      }
+    }
+
+    .remove-avatar-action-container {
+      background-color: #fff;
+      bottom: -25%;
+      height: 25%;
+      left: 0;
+      opacity: 75%;
+      position: absolute;
+      right: 0;
+      transition: bottom 0.5s;
+      z-index: 1;
+    }
+
+    .remove-avatar-action {
+      background: url(${avatarCloseIcon}) center center / 10px 10px no-repeat;
+      height: 10px;
+      left: 50%;
+      position: absolute;
+      top: 25%;
+      transform: translateX(-50%);
+      width: 10px;
+    }
 
     label {
       width: 100%;
@@ -227,6 +258,14 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
+        {input.value !== NO_AVATAR && (
+          <div className="remove-avatar-action-container">
+            <button
+              className="remove-avatar-action"
+              onClick={() => input.onChange(NO_AVATAR)}
+            />
+          </div>
+        )}
       </div>
       <InfoMessage>
         <FormattedMessage {...messages.profilesUsersInfo} />
