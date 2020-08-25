@@ -31,7 +31,7 @@ const Div = styled.div`
   }
 `;
 
-const Base = styled.div`
+const Tooltip = styled.div`
   position: absolute;
   width: 150px;
   padding: 10px;
@@ -87,7 +87,7 @@ const NotificationIcon = memo(({ number, inline, mobile, tooltipText }) => {
       <Span fontSize="13" color="white">
         {number}
       </Span>
-      {displayHint && tooltipText && <Base>{tooltipText}</Base>}
+      {displayHint && tooltipText && <Tooltip>{tooltipText}</Tooltip>}
     </Div>
   );
 });
