@@ -13,13 +13,20 @@ import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
+import { IconSm } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
+import globe from 'images/globe-outline-16.svg?external';
+
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
+import {
+  hasCommunitySingleWebsite,
+  communityOfficialSite,
+} from '../../utils/communityManagement';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -77,6 +84,14 @@ const Info = styled.div`
   }
 `;
 
+const StrokedSpan = styled.span`
+  margin-right: 2px;
+  // vertical-align: middle;
+  .globeStroke {
+    stroke: ${TEXT_PRIMARY};
+  }
+`;
+
 const Content = ({ communities, sorting, locale, language }) => {
   if (!communities || !communities.length) return null;
 
@@ -91,6 +106,7 @@ const Content = ({ communities, sorting, locale, language }) => {
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
+            const officialSite = communityOfficialSite(id);
 
             return (
               <BaseSpecial
@@ -123,12 +139,22 @@ const Content = ({ communities, sorting, locale, language }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    {origin && (
+                    {officialSite && (
                       <ADefault
-                        style={{ fontSize: '14px', color: TEXT_PRIMARY }}
-                        href={origin}
+                        style={{
+                          fontSize: '14px',
+                          color: TEXT_PRIMARY,
+                          verticalAlight: 'bottom',
+                        }}
+                        href={officialSite}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        {origin?.replace('https://', '') || ''}
+                        <StrokedSpan>
+                          {/* <IconSm icon={globe} /> */}
+                          <Icon icon={globe} width="12" height="12" />
+                        </StrokedSpan>
+                        {officialSite?.replace('https://', '') || ''}
                       </ADefault>
                     )}
                   </div>

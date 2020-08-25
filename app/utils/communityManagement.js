@@ -36,6 +36,12 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export function communityOfficialSite(commId) {
+  return communitiesConfig[commId]
+    ? communitiesConfig[commId].officialSite
+    : null;
+}
+
 export function hasCommunitySingleWebsite(commId) {
   return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 }
