@@ -26,6 +26,11 @@ const Div = styled.div`
   }
 `;
 
+const IconNumber = Span.extend`
+  padding-left: 4px;
+  padding-right: 4px;
+`;
+
 const NotificationIcon = ({ number, inline, mobile, tooltipText, iconId }) => {
   const iPad = window.navigator.userAgent.includes('iPad');
 
@@ -47,9 +52,9 @@ const NotificationIcon = ({ number, inline, mobile, tooltipText, iconId }) => {
       onClick={e => showTooltipOnClick(e)}
       onMouseEnter={showTooltip}
     >
-      <Span fontSize="13" color="white">
+      <IconNumber fontSize="13" color="white">
         {number}
-      </Span>
+      </IconNumber>
     </Div>
   );
 };
