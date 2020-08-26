@@ -1,10 +1,11 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { BG_WARNING_LIGHT, TEXT_DARK } from 'style-constants';
+import { BG_WARNING_LIGHT } from 'style-constants';
 
 import Span from 'components/Span';
+import { showPopover } from 'utils/popover';
 
 const Div = styled.div`
   display: flex;
@@ -20,83 +21,45 @@ const Div = styled.div`
   border-radius: 8.5px;
   min-width: 24px;
 
-  $:hover {
-    Tooltip {
-      display: block;
-    }
-  }
-
   @media only screen and (max-width: 992px) {
     min-width: 20px;
   }
 `;
 
-const Tooltip = styled.div`
-  position: absolute;
-  width: 150px;
-  padding: 10px;
-  line-height: 1.3em;
-  left: 30px;
-  bottom: -54px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-
-  span {
-    color: ${TEXT_DARK};
-  }
-
-  @media (max-width: 992px) {
-    left: 16px;
-    bottom: -62px;
-  }
-
-  @media (max-width: 767px) {
-    left: -60px;
-    bottom: 22px;
-  }
-`;
-
-const NotificationIcon = memo(({ number, inline, mobile, tooltipText }) => {
-  const [displayHint, setDisplay] = useState(false);
-
+const NotificationIcon = ({ number, inline, mobile, tooltipText, iconId }) => {
   const iPad = window.navigator.userAgent.includes('iPad');
 
-  const mobileClickHandler = e => {
-    if (mobile && !inline) {
-      e.stopPropagation();
-      setDisplay(!displayHint);
-    }
-  };
-
   const showTooltip = () => {
-    if (!mobile && !inline && !iPad) setDisplay(true);
+    if (!inline && tooltipText && !iPad) showPopover(iconId, tooltipText);
   };
 
-  const hideTooltip = () => {
-    if (!mobile && !inline && !iPad) setDisplay(false);
+  const showTooltipOnClick = e => {
+    if (!inline && (mobile || iPad) && tooltipText) {
+      e.stopPropagation();
+      showTooltip();
+    }
   };
 
   return (
     <Div
+      id={iconId}
       inline={inline}
+      onClick={e => showTooltipOnClick(e)}
       onMouseEnter={showTooltip}
-      onMouseLeave={hideTooltip}
-      onClick={e => mobileClickHandler(e)}
     >
       <Span fontSize="13" color="white">
         {number}
       </Span>
-      {displayHint && tooltipText && <Tooltip>{tooltipText}</Tooltip>}
     </Div>
   );
-});
+};
 
 NotificationIcon.propTypes = {
   number: PropTypes.number,
   inline: PropTypes.bool,
   mobile: PropTypes.bool,
   tooltipText: PropTypes.string,
+  iconId: PropTypes.string,
 };
 
-export default NotificationIcon;
+export default memo(NotificationIcon);

@@ -53,7 +53,11 @@ const MobileLinksInWallet = ({
           <A to={routes.userWallet(profile.user)}>
             <FormattedMessage {...messages.wallet} />
             {isPositiveNumber(rewardsWeeksNumber) && (
-              <NotificationIcon inline number={rewardsWeeksNumber} />
+              <NotificationIcon
+                inline
+                number={rewardsWeeksNumber}
+                id="MobileLinksInWallet"
+              />
             )}
           </A>
 

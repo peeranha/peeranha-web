@@ -75,6 +75,7 @@ const WalletButton = ({ balance, mobile, locale, number }) => (
       <NotificationIcon
         mobile={mobile}
         number={number}
+        iconId="walletDropDown"
         tooltipText={getTooltipText(locale, number)}
       />
     )}

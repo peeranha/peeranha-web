@@ -68,7 +68,9 @@ const NotificationsDropdown = ({
       onClick={onClick}
       innerRef={ref}
     >
-      {!!unreadCount && <NotificationIcon number={number} />}
+      {!!unreadCount && (
+        <NotificationIcon number={number} iconId="NotificationsDropdown" />
+      )}
 
       <IconEm
         icon={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon}

@@ -40,7 +40,13 @@ const Menu = memo(({ user, number }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
-      {isPositiveNumber(number) && <NotificationIcon inline number={number} />}
+      {isPositiveNumber(number) && (
+        <NotificationIcon
+          inline
+          number={number}
+          iconId="walletDropDownInline"
+        />
+      )}
     </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />
