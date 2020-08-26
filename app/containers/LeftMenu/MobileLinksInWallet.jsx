@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
+import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
+
+import WalletButton from 'containers/Header/WalletButton';
+import NotificationIcon from 'containers/Header/NotificationIcon';
+
 import A from 'components/A';
 import Icon from 'components/Icon';
 
 import SendTokens from 'containers/SendTokens';
 
-import { Button as WalletButton } from 'containers/Header/WalletDropdown';
-
-export default React.memo(({ profile, isMenuVisible, balance }) => {
+const MobileLinksInWallet = ({
+  profile,
+  isMenuVisible,
+  balance,
+  rewardsWeeksNumber,
+}) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
+
+  const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
   if (!profile || !isMenuVisible) {
     return null;
@@ -26,7 +39,7 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
       >
-        <WalletButton balance={balance} />
+        <WalletButton balance={balance} mobile number={rewardsWeeksNumber} />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}
@@ -39,6 +52,13 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
         <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
             <FormattedMessage {...messages.wallet} />
+            {isPositiveNumber(rewardsWeeksNumber) && (
+              <NotificationIcon
+                inline
+                number={rewardsWeeksNumber}
+                id="MobileLinksInWallet"
+              />
+            )}
           </A>
 
           <SendTokens>
@@ -48,4 +68,19 @@ export default React.memo(({ profile, isMenuVisible, balance }) => {
       )}
     </div>
   );
-});
+};
+
+MobileLinksInWallet.propTypes = {
+  balance: PropTypes.number,
+  profile: PropTypes.object,
+  isMenuVisible: PropTypes.bool,
+  rewardsWeeksNumber: PropTypes.number,
+};
+
+export default memo(
+  connect(
+    createStructuredSelector({
+      rewardsWeeksNumber: selectRewardsWeeksNumber(),
+    }),
+  )(MobileLinksInWallet),
+);
