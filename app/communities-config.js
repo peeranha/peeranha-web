@@ -39,4 +39,34 @@ const communitiesConfig = {
   },
 };
 
+const googleSiteVerificationsConfig = {
+  prod: {
+    default: {
+      formKey: 'AIzaSyA8OYoejHkhBWJnokE78JYndPY8M-4eN7U',
+      engineKey: '012465490266412806753:wrajkcmcuob',
+      content: 'BTlB8iFDcjn1BbfXgwbUvOy5BLbuz28XnPYQ0OmEbss',
+    },
+    communities: {},
+  },
+  test: {
+    default: {
+      formKey: 'AIzaSyC-hxNXz2D16rCXB6yVPf2FbMCqcKsq8A8',
+      engineKey: '002220552224929577704:ip529aw0r_k',
+      content: 'xG6B69BYag77q5daOYxk0ehphPB3mT4VLX2gYjUp4Bs',
+    },
+    communities: {},
+  },
+  dev: {
+    default: {
+      formKey: 'AIzaSyC-hxNXz2D16rCXB6yVPf2FbMCqcKsq8A8',
+      engineKey: '002220552224929577704:ip529aw0r_k',
+      content: 'xG6B69BYag77q5daOYxk0ehphPB3mT4VLX2gYjUp4Bs',
+    },
+    communities: {},
+  },
+};
+
+export const googleVerificationConfig =
+  googleSiteVerificationsConfig[process.env.ENV];
+
 export default communitiesConfig[process.env.ENV];

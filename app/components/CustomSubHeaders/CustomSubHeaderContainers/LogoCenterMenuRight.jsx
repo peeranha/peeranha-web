@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import * as routes from 'routes-config';
 
 import communitiesConfig from 'communities-config';
 
@@ -23,7 +20,7 @@ const TopContainer = styled.div`
 `;
 
 const TopLeftContainer = styled.div`
-  flex: 1 1 0px;
+  flex: 1 1 0;
 `;
 
 const TopCenterContainer = styled.div`
@@ -31,7 +28,7 @@ const TopCenterContainer = styled.div`
 `;
 
 const TopRightContainer = styled.div`
-  flex: 1 1 0px;
+  flex: 1 1 0;
   display: flex;
   justify-content: flex-end;
 
@@ -72,7 +69,7 @@ const Links = ({ links, styles }) => (
         {href ? (
           <LocalLink
             href={href}
-            target={target ? target : "_blank"}
+            target={target || '_blank'}
             styles={styles}
             isHighlighted={isHighlighted}
           >
@@ -84,12 +81,12 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(({ text, href, target }) => (
+              {subitems.map(item => (
                 <LocalLink
                   styles={styles}
-                  key={href}
-                  href={href}
-                  target={target ? target : "_blank"}
+                  key={item.href}
+                  href={item.href}
+                  target={item.target || '_blank'}
                 >
                   {text}
                 </LocalLink>

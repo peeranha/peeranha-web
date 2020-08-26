@@ -25,7 +25,13 @@ import {
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
-import { Li, P, CommunityLogoWrapper, Logo, CommunityLogoDescr } from './SignUpOptions';
+import {
+  Li,
+  P,
+  CommunityLogoWrapper,
+  Logo,
+  CommunityLogoDescr,
+} from './SignUpOptions';
 
 const styles = singleCommunityStyles();
 
@@ -38,7 +44,7 @@ const LeftMenu = ({ faqQuestions }) => (
             <Logo src={styles.signUpPageLogo} />
           </Link>
           <CommunityLogoDescr>
-            <span>{'Q&A on'}</span>
+            <span>Q&A on</span>
             <Link to={routes.questions()} href={routes.questions()}>
               <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
             </Link>

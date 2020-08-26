@@ -7,6 +7,7 @@ import { appLocales } from 'i18n';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
+  getGoogleMetaTagContent,
 } from 'utils/communityManagement';
 
 import { APP_MAIN_NAME } from 'utils/constants';
@@ -25,57 +26,56 @@ const Seo = ({
   articleModifiedTime,
   index,
   communityName,
-}) => {
-  const favicon = styles.favicon ? styles.favicon : peeranhaFavicon;
+}) => (
+  <Helmet>
+    <title>{`${communityName}${title} - Peeranha`}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
 
-  return (
-    <Helmet>
-      <title>{`${communityName}${title} - Peeranha`}</title>
-      <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={window.location.href} />
+    <meta property="og:site_name" content={APP_MAIN_NAME} />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:locale" content={language} />
 
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={window.location.href} />
-      <meta property="og:site_name" content={APP_MAIN_NAME} />
-      <meta property="og:image" content="/logo.png" />
-      <meta property="og:locale" content={language} />
+    <meta name="twitter:title" property="og:title" content={title} />
+    <meta
+      name="twitter:description"
+      property="og:description"
+      content={description}
+    />
 
-      <meta name="twitter:title" property="og:title" content={title} />
-      <meta
-        name="twitter:description"
-        property="og:description"
-        content={description}
-      />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@peeranhaio" />
+    <meta name="twitter:creator" content="@peeranhaio" />
+    <meta name="twitter:domain" content={window.location.hostname} />
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@peeranhaio" />
-      <meta name="twitter:creator" content="@peeranhaio" />
-      <meta name="twitter:domain" content={window.location.hostname} />
+    <meta httpEquiv="content-language" content={appLocales} />
+    <meta property="article:section" content={description} />
+    {keywords && <meta property="article:tag" content={keywords} />}
 
-      <meta httpEquiv="content-language" content={appLocales} />
-      <meta property="article:section" content={description} />
-      {keywords && <meta property="article:tag" content={keywords} />}
+    {articlePublishedTime && (
+      <meta property="article:published_time" content={articlePublishedTime} />
+    )}
 
-      {articlePublishedTime && (
-        <meta
-          property="article:published_time"
-          content={articlePublishedTime}
-        />
-      )}
+    {articleModifiedTime && (
+      <meta property="article:modified_time" content={articleModifiedTime} />
+    )}
 
-      {articleModifiedTime && (
-        <meta property="article:modified_time" content={articleModifiedTime} />
-      )}
+    <meta
+      name="robots"
+      content={index === false ? 'noindex, nofollow' : 'index, follow'}
+    />
 
-      <meta
-        name="robots"
-        content={index === false ? 'noindex, nofollow' : 'index, follow'}
-      />
+    <meta name="google-site-verification" content={getGoogleMetaTagContent()} />
 
-      <link rel="shortcut icon" type="image/x-icon" href={favicon} />
-    </Helmet>
-  );
-};
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href={styles?.favicon ?? peeranhaFavicon}
+    />
+  </Helmet>
+);
 
 Seo.propTypes = {
   title: PropTypes.string.isRequired,
@@ -98,6 +98,7 @@ export default React.memo(
   connect(state => {
     const single = isSingleCommunityWebsite();
     const communities = selectCommunities()(state);
+
     if (!single || !communities.length) {
       return { communityName: '' };
     }
