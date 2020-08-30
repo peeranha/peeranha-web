@@ -36,12 +36,6 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
-export function communityOfficialSite(commId) {
-  return communitiesConfig[commId]
-    ? communitiesConfig[commId].officialSite
-    : null;
-}
-
 export function hasCommunitySingleWebsite(commId) {
   return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 }
@@ -189,9 +183,13 @@ export const getAllCommunities = async (eosService, count) => {
 
   const updatedRows = await Promise.all(
     rows.map(async x => {
-      const { description, main_description, language, avatar } = JSON.parse(
-        await getText(x.ipfs_description),
-      );
+      const {
+        description,
+        main_description,
+        language,
+        avatar,
+        officialSite,
+      } = JSON.parse(await getText(x.ipfs_description));
       const { rows: tagRows } = await eosService.getTableRows(
         TAGS_TABLE,
         getTagScope(x.id),
@@ -207,6 +205,7 @@ export const getAllCommunities = async (eosService, count) => {
         description,
         main_description,
         language,
+        officialSite: officialSite || null,
         tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
       };
     }),
@@ -225,14 +224,19 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
   await Promise.all(
     rows.map(async x => {
-      const { avatar, description, main_description, language } = JSON.parse(
-        await getText(x.ipfs_description),
-      );
+      const {
+        avatar,
+        description,
+        main_description,
+        language,
+        officialSite,
+      } = JSON.parse(await getText(x.ipfs_description));
 
       x.avatar = getFileUrl(avatar);
       x.description = description;
       x.main_description = main_description;
       x.language = language;
+      x.officialSite = officialSite || null;
     }),
   );
 

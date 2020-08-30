@@ -9,6 +9,8 @@ export const COMM_SHORT_DESCRIPTION_FIELD =
   'app/CreateCommunity/COMM_SHORT_DESCRIPTION_FIELD';
 export const COMM_MAIN_DESCRIPTION_FIELD =
   'app/CreateCommunity/COMM_MAIN_DESCRIPTION_FIELD';
+export const COMM_OFFICIAL_SITE_FIELD =
+  'app/CreateCommunity/COMM_OFFICIAL_SITE_URL';
 
 export const TAG_NAME_FIELD = 'app/CreateCommunity/TAG_NAME_FIELD';
 export const TAG_DESCRIPTION_FIELD =

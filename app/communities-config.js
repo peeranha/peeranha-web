@@ -10,37 +10,31 @@ const communitiesConfig = {
       origin: 'https://faq.telos.net',
       src: TelosLogo,
       styles: TelosStyles,
-      officialSite: 'https://telos.net',
     },
     3: {
       origin: 'https://ont.peeranha.io',
       src: OntLogo,
       styles: OntStyles,
-      officialSite: 'https://ont.io',
     },
   },
   test: {
     1: {
       origin: 'https://community.testpeeranha.io',
-      officialSite: 'https://blockchain.com',
     },
     2: {
       origin: 'https://telos.testpeeranha.io',
-      officialSite: 'https://telos.net',
       src: TelosLogo,
       styles: TelosStyles,
     },
     3: {
       origin: 'https://ont.testpeeranha.io',
-      officialSite: 'https://ont.io',
       src: OntLogo,
       styles: OntStyles,
     },
   },
   dev: {
     3: {
-      origin: 'http://localhost:3000',
-      officialSite: 'https://en.wikipedia.org/wiki/Alpaca',
+      origin: 'http://localhost:30000',
     },
   },
 };

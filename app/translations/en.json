@@ -319,6 +319,9 @@
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",
+  "app.containers.CreateCommunity.officialSite": "Official site",
+  "app.containers.CreateCommunity.officialSiteTip":
+    "You can add official site URL",
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",
@@ -596,6 +599,7 @@
     "Value must be no longer than {max} characters",
   "app.components.FormFields.fileSize": "The file is too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.wrongURL": "URL is not correct",
   "app.components.FormFields.wrongBase58Format":
     "Wrong data format. Recheck your inputs.",
   "app.components.FormFields.itemAlreadyExists":

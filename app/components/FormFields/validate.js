@@ -47,6 +47,14 @@ const validateEmail = email => {
   return email && !re.test(email) ? messages.wrongEmail : undefined;
 };
 
+const validateURL = url => {
+  const re = /^(https?:\/\/)?([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  const re1 = /\.{2,}/;
+  return (url && !re.test(url)) || (url && re1.test(url))
+    ? messages.wrongURL
+    : undefined;
+};
+
 const required = value => {
   let val = value;
 
@@ -172,6 +180,7 @@ export {
   imageValidation,
   stringLength,
   validateEmail,
+  validateURL,
   required,
   requiredForObjectField,
   strLength1x5,

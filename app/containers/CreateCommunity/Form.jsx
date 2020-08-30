@@ -31,6 +31,7 @@ import {
   strLength15x250,
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
+  validateURL,
 } from 'components/FormFields/validate';
 
 import messages from './messages';
@@ -41,6 +42,7 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
@@ -126,6 +128,18 @@ const CreateCommunityForm = ({
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
           tip={translations[messages.shortDescriptionTip.id]}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_OFFICIAL_SITE_FIELD}
+          component={TextInputField}
+          label={translations[messages.officialSite.id]}
+          validate={[validateURL]}
+          warn={[validateURL]}
+          placeholder="website.com"
+          tip={translations[messages.officialSiteTip.id]}
           splitInHalf
         />
 

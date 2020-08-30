@@ -13,7 +13,6 @@ import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
-import { IconSm } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
 import globe from 'images/globe-outline-16.svg?external';
 
@@ -23,10 +22,7 @@ import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import {
-  hasCommunitySingleWebsite,
-  communityOfficialSite,
-} from '../../utils/communityManagement';
+import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -84,12 +80,28 @@ const Info = styled.div`
   }
 `;
 
-const StrokedSpan = styled.span`
+const OfficialSiteIcon = styled(Icon)`
+  display: flex;
+  align-items: center;
   margin-right: 2px;
-  // vertical-align: middle;
   .globeStroke {
     stroke: ${TEXT_PRIMARY};
   }
+`;
+
+const OfficialSiteText = styled.span`
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 18px;
+`;
+
+const OfficialSiteLink = styled(ADefault)`
+  display: inline-flex;
+  align-items: center;
+  color: ${TEXT_PRIMARY};
+  margin-top: 6px;
 `;
 
 const Content = ({ communities, sorting, locale, language }) => {
@@ -101,12 +113,22 @@ const Content = ({ communities, sorting, locale, language }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, tags, ...x },
+            { value, avatar, name, id, description, officialSite, tags, ...x },
             index,
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
-            const officialSite = communityOfficialSite(id);
+
+            const getShortUrl = url => {
+              if (/^https?:\/\//.test(url))
+                return url.replace(/https?:\/\//, '');
+              return url;
+            };
+
+            const getFullUrl = url => {
+              if (/^https?:\/\//.test(url)) return url;
+              return `https://${url}`;
+            };
 
             return (
               <BaseSpecial
@@ -140,22 +162,18 @@ const Content = ({ communities, sorting, locale, language }) => {
                       {description}
                     </P>
                     {officialSite && (
-                      <ADefault
-                        style={{
-                          fontSize: '14px',
-                          color: TEXT_PRIMARY,
-                          verticalAlight: 'bottom',
-                        }}
-                        href={officialSite}
+                      <OfficialSiteLink
+                        href={getFullUrl(officialSite)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <StrokedSpan>
-                          {/* <IconSm icon={globe} /> */}
-                          <Icon icon={globe} width="12" height="12" />
-                        </StrokedSpan>
-                        {officialSite?.replace('https://', '') || ''}
-                      </ADefault>
+                        {/* <StrokedSpan> */}
+                        <OfficialSiteIcon icon={globe} width="12" height="12" />
+                        {/* </StrokedSpan> */}
+                        <OfficialSiteText>
+                          {getShortUrl(officialSite)}
+                        </OfficialSiteText>
+                      </OfficialSiteLink>
                     )}
                   </div>
                 </DescriptionBlock>

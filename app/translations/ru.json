@@ -326,6 +326,9 @@
 
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
+  "app.containers.CreateCommunity.officialSite": "Официальный сайт",
+  "app.containers.CreateCommunity.officialSiteTip":
+    "Вы можете добавить адрес официального сайта",
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
@@ -602,6 +605,7 @@
     "Значение должно быть не больше {max} символов",
   "app.components.FormFields.fileSize": "Файл слишком большой",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
+  "app.components.FormFields.wrongURL": "Неправильный URL-адрес",
   "app.components.FormFields.wrongBase58Format":
     "Неверный формат данных. Проверьте содержимое этого поля.",
   "app.components.FormFields.itemAlreadyExists":
