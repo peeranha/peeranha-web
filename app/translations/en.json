@@ -321,7 +321,7 @@
     "Description of CreateCommunity",
   "app.containers.CreateCommunity.officialSite": "Official site",
   "app.containers.CreateCommunity.officialSiteTip":
-    "You can add official site URL",
+    "Official site URL (optionally)",
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",
@@ -599,7 +599,8 @@
     "Value must be no longer than {max} characters",
   "app.components.FormFields.fileSize": "The file is too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
-  "app.components.FormFields.wrongURL": "URL is not correct",
+  "app.components.FormFields.wrongURL":
+    "Check URL format correctness: http(s)://site.com",
   "app.components.FormFields.wrongBase58Format":
     "Wrong data format. Recheck your inputs.",
   "app.components.FormFields.itemAlreadyExists":

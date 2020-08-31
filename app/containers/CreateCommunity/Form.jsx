@@ -25,10 +25,11 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import {
-  strLength3x20,
   required,
+  strLength3x20,
   strLength20x1000,
   strLength15x250,
+  strLength100Max,
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
   validateURL,
@@ -136,9 +137,9 @@ const CreateCommunityForm = ({
           name={COMM_OFFICIAL_SITE_FIELD}
           component={TextInputField}
           label={translations[messages.officialSite.id]}
-          validate={[validateURL]}
+          validate={[validateURL, strLength100Max]}
           warn={[validateURL]}
-          placeholder="website.com"
+          placeholder="https://example.com"
           tip={translations[messages.officialSiteTip.id]}
           splitInHalf
         />
