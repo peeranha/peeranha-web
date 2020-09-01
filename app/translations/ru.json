@@ -605,8 +605,7 @@
     "Значение должно быть не больше {max} символов",
   "app.components.FormFields.fileSize": "Файл слишком большой",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
-  "app.components.FormFields.wrongURL":
-    "Проверьте формат URL: http(s)://site.com",
+  "app.components.FormFields.wrongURL": "Неправильный URL-формат",
   "app.components.FormFields.wrongBase58Format":
     "Неверный формат данных. Проверьте содержимое этого поля.",
   "app.components.FormFields.itemAlreadyExists":

@@ -48,9 +48,10 @@ const validateEmail = email => {
 };
 
 const validateURL = url => {
-  const re = /^(https?:\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-  const re1 = /\.{2,}/;
-  return (url && !re.test(url)) || (url && re1.test(url))
+  const re = /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  return (url &&
+    (url.match(/\/\//g)?.length > 1 || url.match(/\.\./g)?.length > 0)) ||
+    !re.test(url)
     ? messages.wrongURL
     : undefined;
 };
