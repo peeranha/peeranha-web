@@ -1,5 +1,8 @@
 import JSBI from 'jsbi';
-import communitiesConfig from 'communities-config';
+
+import communitiesConfig, {
+  googleVerificationConfig,
+} from 'communities-config';
 
 import _get from 'lodash/get';
 
@@ -36,9 +39,15 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
-export function hasCommunitySingleWebsite(commId) {
-  return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
-}
+export const hasCommunitySingleWebsite = commId =>
+  communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
+
+export const getGoogleVerificationData = () =>
+  googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
+  googleVerificationConfig.default;
+
+export const getGoogleMetaTagContent = () =>
+  getGoogleVerificationData().content;
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];

@@ -31,7 +31,7 @@ const Box = ({
   );
 
   return (
-    <React.Fragment>
+    <>
       <Header />
 
       <Main isMenuVisible={isMenuVisible}>
@@ -47,7 +47,7 @@ const Box = ({
           </div>
         </div>
       </Main>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -60,21 +60,15 @@ Box.propTypes = {
   hideLeftMenuDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  isMenuVisible: selectIsMenuVisible(),
-  location: makeSelectLocation(),
-});
-
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const WrapperConnection = connect(
+  createStructuredSelector({
+    isMenuVisible: selectIsMenuVisible(),
+    location: makeSelectLocation(),
+  }),
+  dispatch => ({
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
-  };
-}
-
-const WrapperConnection = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 )(Box);
 
 export default (Comp, props) => <WrapperConnection Comp={Comp} props={props} />;
