@@ -25,4 +25,9 @@ export const GET_FAQ = 'app/DataCacheProvider/GET_FAQ';
 export const GET_FAQ_SUCCESS = 'app/DataCacheProvider/GET_FAQ_SUCCESS';
 export const GET_FAQ_ERROR = 'app/DataCacheProvider/GET_FAQ_ERROR';
 
+export const GET_TUTORIAL = 'app/DataCacheProvider/GET_TUTORIAL';
+export const GET_TUTORIAL_SUCCESS =
+  'app/DataCacheProvider/GET_TUTORIAL_SUCCESS';
+export const GET_TUTORIAL_ERROR = 'app/DataCacheProvider/GET_TUTORIAL_ERROR';
+
 export const REMOVE_USER_PROFILE = 'app/DataCacheProvider/REMOVE_USER_PROFILE';

@@ -31,6 +31,8 @@ import {
   getFaqErr,
   getFaqSuccess,
   getCommunitiesWithTags,
+  getTutorialSuccess,
+  getTutorialErr,
 } from './actions';
 
 import {
@@ -38,6 +40,7 @@ import {
   GET_USER_PROFILE,
   GET_STAT,
   GET_FAQ,
+  GET_TUTORIAL,
 } from './constants';
 
 export function* getStatWorker() {
@@ -77,6 +80,18 @@ export function* getFaqWorker() {
     yield put(getFaqSuccess(faq));
   } catch (err) {
     yield put(getFaqErr(err));
+  }
+}
+
+export function* getTutorialWorker() {
+  try {
+    const prefix = 'tutorial';
+    const locale = yield select(makeSelectLocale());
+    const tutorial = yield call(getMD, prefix, locale);
+
+    yield put(getTutorialSuccess(tutorial));
+  } catch (err) {
+    yield put(getTutorialErr(err));
   }
 }
 
@@ -129,6 +144,7 @@ export default function*() {
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
+  yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
     [
       LOGOUT_SUCCESS,

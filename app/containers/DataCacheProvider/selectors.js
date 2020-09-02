@@ -130,6 +130,21 @@ const selectGetFaqLoading = () =>
     substate => substate.getFaqLoading,
   );
 
+const selectTutorial = () =>
+  createSelector(selectDataCacheProviderDomain, substate => substate.tutorial);
+
+const selectGetTutorialError = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getTutorialError,
+  );
+
+const selectGetTutorialLoading = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getTutorialLoading,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -145,4 +160,7 @@ export {
   selectGetFaqError,
   selectFaqQuestions,
   selectGetFaqLoading,
+  selectTutorial,
+  selectGetTutorialError,
+  selectGetTutorialLoading,
 };

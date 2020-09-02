@@ -18,6 +18,7 @@ import {
   TEXT_DARK,
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
+import LoadingIndicator from 'components/LoadingIndicator/CenteredTutorial';
 
 const QuestionBox = BaseTransparent.extend`
   display: flex;
@@ -70,17 +71,22 @@ const getYoutubeLink = mdContent =>
     ? mdContent.match(/https:\/\/www\.youtube\.com\//).input.split(`"`)[1]
     : null;
 
-const VideoBlock = ({ isOpened, content, sectionIsOpened }) => (
-  <VideoWrapper isOpened={isOpened}>
-    <ReactPlayer
-      url={getYoutubeLink(content)}
-      controls
-      playing={!isOpened || !sectionIsOpened}
-      width="100%"
-      height="100%"
-    />
-  </VideoWrapper>
-);
+const VideoBlock = ({ isOpened, content, sectionIsOpened }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  return (
+    <VideoWrapper isOpened={isOpened}>
+      {isLoading && <LoadingIndicator />}
+      <ReactPlayer
+        url={getYoutubeLink(content)}
+        controls
+        playing={!isOpened || !sectionIsOpened}
+        width="100%"
+        height="100%"
+        onReady={() => setIsLoading(false)}
+      />
+    </VideoWrapper>
+  );
+};
 
 const Question = ({
   h3,
