@@ -13,6 +13,12 @@ export default defineMessages({
   description: {
     id: 'app.containers.CreateCommunity.description',
   },
+  officialSite: {
+    id: 'app.containers.CreateCommunity.officialSite',
+  },
+  officialSiteTip: {
+    id: 'app.containers.CreateCommunity.officialSiteTip',
+  },
   avatar: {
     id: 'app.containers.CreateCommunity.avatar',
   },

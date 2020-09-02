@@ -31,6 +31,9 @@ export default defineMessages({
   wrongEmail: {
     id: 'app.components.FormFields.wrongEmail',
   },
+  wrongURL: {
+    id: 'app.components.FormFields.wrongURL',
+  },
   wrongBase58Format: {
     id: 'app.components.FormFields.wrongBase58Format',
   },

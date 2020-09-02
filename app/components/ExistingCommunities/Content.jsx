@@ -13,6 +13,9 @@ import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
+import Icon from 'components/Icon';
+import globe from 'images/globe-outline-16.svg?external';
+
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -77,6 +80,30 @@ const Info = styled.div`
   }
 `;
 
+const OfficialSiteIcon = styled(Icon)`
+  display: flex;
+  align-items: center;
+  margin-right: 2px;
+  .globeStroke {
+    stroke: ${TEXT_PRIMARY};
+  }
+`;
+
+const OfficialSiteText = styled.span`
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 18px;
+`;
+
+const OfficialSiteLink = styled(ADefault)`
+  display: inline-flex;
+  align-items: center;
+  color: ${TEXT_PRIMARY};
+  margin-top: 6px;
+`;
+
 const Content = ({ communities, sorting, locale, language }) => {
   if (!communities || !communities.length) return null;
 
@@ -86,11 +113,22 @@ const Content = ({ communities, sorting, locale, language }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, tags, ...x },
+            { value, avatar, name, id, description, officialSite, tags, ...x },
             index,
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
+
+            const getShortUrl = url => {
+              if (/^https?:\/\//.test(url))
+                return url.replace(/https?:\/\//, '');
+              return url;
+            };
+
+            const getFullUrl = url => {
+              if (/^https?:\/\//.test(url)) return url;
+              return `https://${url}`;
+            };
 
             return (
               <BaseSpecial
@@ -123,13 +161,19 @@ const Content = ({ communities, sorting, locale, language }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    {origin && (
-                      <ADefault
-                        style={{ fontSize: '14px', color: TEXT_PRIMARY }}
-                        href={origin}
+                    {officialSite && (
+                      <OfficialSiteLink
+                        href={getFullUrl(officialSite)}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        {origin?.replace('https://', '') || ''}
-                      </ADefault>
+                        {/* <StrokedSpan> */}
+                        <OfficialSiteIcon icon={globe} width="12" height="12" />
+                        {/* </StrokedSpan> */}
+                        <OfficialSiteText>
+                          {getShortUrl(officialSite)}
+                        </OfficialSiteText>
+                      </OfficialSiteLink>
                     )}
                   </div>
                 </DescriptionBlock>

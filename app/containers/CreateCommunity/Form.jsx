@@ -25,12 +25,14 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import {
-  strLength3x20,
   required,
+  strLength3x20,
   strLength20x1000,
   strLength15x250,
+  strLength100Max,
   imageValidation,
   valueHasNotBeInListMoreThanOneTime,
+  validateURL,
 } from 'components/FormFields/validate';
 
 import messages from './messages';
@@ -41,6 +43,7 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
@@ -126,6 +129,18 @@ const CreateCommunityForm = ({
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
           tip={translations[messages.shortDescriptionTip.id]}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_OFFICIAL_SITE_FIELD}
+          component={TextInputField}
+          label={translations[messages.officialSite.id]}
+          validate={[validateURL, strLength100Max]}
+          warn={[validateURL]}
+          placeholder="https://example.com"
+          tip={translations[messages.officialSiteTip.id]}
           splitInHalf
         />
 

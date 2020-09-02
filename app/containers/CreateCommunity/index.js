@@ -36,6 +36,7 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -75,9 +76,9 @@ export const CreateCommunity = ({
         : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
+      officialSite: values[COMM_OFFICIAL_SITE_FIELD],
       tags,
     };
-
     createCommunityDispatch(community, reset);
   };
 
