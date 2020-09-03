@@ -94,14 +94,15 @@ const OfficialSiteText = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-height: 18px;
+  min-height: 16px;
+  font-size: 14px;
 `;
 
 const OfficialSiteLink = styled(ADefault)`
   display: inline-flex;
   align-items: center;
   color: ${TEXT_PRIMARY};
-  margin-top: 6px;
+  margin-top: 4px;
 `;
 
 const Content = ({ communities, sorting, locale, language }) => {
@@ -167,9 +168,7 @@ const Content = ({ communities, sorting, locale, language }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {/* <StrokedSpan> */}
                         <OfficialSiteIcon icon={globe} width="12" height="12" />
-                        {/* </StrokedSpan> */}
                         <OfficialSiteText>
                           {getShortUrl(officialSite)}
                         </OfficialSiteText>
