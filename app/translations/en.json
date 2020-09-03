@@ -131,6 +131,7 @@
   "app.common.fileSizeErrorMsg":
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
+  "app.common.skip": "Skip",
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",
@@ -632,7 +633,6 @@
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
-  "app.containers.TagsCollection.title": "Tags collection",
   "app.components.Footer.header": "Copyright: Peeranha",
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
@@ -805,6 +805,8 @@
     "Tags that are relevant to the question",
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
+  "app.containers.QuestionForm.existingQuestionsLabel":
+    "To avoid duplicates check existed questions.",
   "app.containers.QuestionForm.contentLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",

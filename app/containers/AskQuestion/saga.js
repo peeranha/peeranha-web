@@ -9,6 +9,8 @@ import {
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
+import { GET_RESULTS } from 'containers/Search/constants';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
@@ -21,6 +23,7 @@ import {
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { sendTokensWorker } from 'containers/Search/saga';
 
 import { askQuestionSuccess, askQuestionError } from './actions';
 
@@ -88,4 +91,5 @@ export function* redirectToAskQuestionPageWorker({ buttonId }) {
 
 export default function*() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
+  yield takeLatest(GET_RESULTS, sendTokensWorker);
 }
