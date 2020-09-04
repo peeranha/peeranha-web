@@ -43,28 +43,38 @@ const Div = styled.div`
   }
 
   > :first-child {
-    border-radius: 50%;
     overflow: hidden;
     position: relative;
     width: inherit;
     height: 120px;
 
-    &:hover {
-      .remove-avatar-action-container {
-        bottom: 0;
+    @media (min-width: 992px) {
+      border-radius: 50%;
+
+      &:hover {
+        .remove-avatar-action-container {
+          bottom: 0;
+        }
       }
     }
 
     .remove-avatar-action-container {
-      background-color: #fff;
-      bottom: -25%;
-      height: 25%;
-      left: 0;
-      opacity: 75%;
+      height: 14px;
       position: absolute;
       right: 0;
-      transition: bottom 0.5s;
+      top: 0;
+      width: 14px;
       z-index: 1;
+
+      @media (min-width: 992px) {
+        background-color: #fff;
+        bottom: -25%;
+        height: 25%;
+        opacity: 75%;
+        top: initial;
+        transition: bottom 0.5s;
+        width: 100%;
+      }
     }
 
     .remove-avatar-action {
@@ -72,9 +82,14 @@ const Div = styled.div`
       height: 10px;
       left: 50%;
       position: absolute;
-      top: 25%;
-      transform: translateX(-50%);
+      top: 50%;
+      transform: translate(-50%, -50%);
       width: 10px;
+
+      @media (min-width: 992px) {
+        top: 25%;
+        transform: translateX(-50%);
+      }
     }
 
     label {
