@@ -128,6 +128,7 @@
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
+  "app.common.skip": "Пропустить",
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
     "Условия обслуживания : описание",
@@ -813,6 +814,8 @@
   "app.containers.QuestionForm.tagsTip": "Теги подсказка...",
   "app.containers.QuestionForm.title": "Задать вопрос",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
+  "app.containers.QuestionForm.existingQuestionsLabel":
+    "Чтобы избежать дублирования, проверьте существующие вопросы.",
   "app.containers.QuestionForm.contentLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.tagsLabel": "Теги",
