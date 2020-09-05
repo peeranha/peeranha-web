@@ -73,16 +73,19 @@ const getYoutubeLink = mdContent =>
 
 const VideoBlock = ({ isOpened, content, sectionIsOpened }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPaused, setIsPaused] = useState(true);
   return (
     <VideoWrapper isOpened={isOpened}>
       {isLoading && <LoadingIndicator />}
       <ReactPlayer
         url={getYoutubeLink(content)}
         controls
-        playing={!isOpened || !sectionIsOpened}
+        playing={isOpened && sectionIsOpened && !isPaused}
         width="100%"
         height="100%"
         onReady={() => setIsLoading(false)}
+        onPause={() => setIsPaused(true)}
+        onPlay={() => setIsPaused(false)}
       />
     </VideoWrapper>
   );
