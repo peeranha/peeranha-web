@@ -37,12 +37,16 @@ const Container = styled.div`
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
 
-  @media only screen and (min-width: 815px) and (max-width: 991px), only screen and (min-width: 1015px) {
+  ${({ small }) => !small ? `
+    @media only screen and (min-width: 815px) and (max-width: 991px), only screen and (min-width: 1015px) {
+      display: grid;
+      grid-template-columns: 1.35fr 1.45fr 0.55fr;
+      grid-template-rows: ${({ height }) => height}px;
+    }
+  ` : `
     display: grid;
-    grid-template-columns: 1.35fr 1.45fr 0.55fr;
-    grid-template-rows: ${({ height }) => height}px;
-  }
-
+  `}
+  
   > span {
     display: inline-block;
   }
@@ -73,9 +77,21 @@ const Container = styled.div`
   grid-template-rows: 1fr 1fr 1fr;
   padding: 10px ${({ paddingHorizontal }) => paddingHorizontal / 2 || 0}px;
 
+  > span:nth-child(1) {
+    ${({ small }) => small ? `
+    margin-bottom: 0;
+    ` : null}
+  }
+
   > div:nth-child(2) {
-    grid-row-start: 3;
-    grid-row-end: 3;
+    ${({ small }) => !small ? `
+      grid-row-start: 3;
+      grid-row-end: 3;
+    ` : `
+      grid-row: 3 / 3;
+      margin-bottom: 0;
+    `}
+    
     > a {
       font-size: 13px;
 
@@ -87,6 +103,10 @@ const Container = styled.div`
   }
 
   > div:nth-child(3) {
+    ${({ small }) => small ? `
+      margin-bottom: 0;
+    ` : null}
+
     justify-self: start;
 
     > span {
