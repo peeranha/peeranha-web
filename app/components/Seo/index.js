@@ -7,7 +7,6 @@ import { appLocales } from 'i18n';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
-  getGoogleMetaTagContent,
 } from 'utils/communityManagement';
 
 import { APP_MAIN_NAME } from 'utils/constants';
@@ -66,8 +65,6 @@ const Seo = ({
       name="robots"
       content={index === false ? 'noindex, nofollow' : 'index, follow'}
     />
-
-    <meta name="google-site-verification" content={getGoogleMetaTagContent()} />
 
     <link
       rel="shortcut icon"
