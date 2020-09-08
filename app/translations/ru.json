@@ -11,6 +11,7 @@
   "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
+  "app.common.achievments": "Достижения",
   "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
@@ -849,5 +850,42 @@
   "app.components.TextEditor.quoteByPlacing":
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
-    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
+    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.achievementsNotReceived":
+    "Достижения не могут быть получены",
+  "app.containers.Achievements.questionAsked.title": "Задан вопрос",
+  "app.containers.Achievements.questionAsked.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.answerGiven.title": "Дан ответ",
+  "app.containers.Achievements.answerGiven.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.correctAnswer.title": "Правильный ответ",
+  "app.containers.Achievements.correctAnswer.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.first10kregistered.title":
+    "Первые 10.000 зарегистрированных",
+  "app.containers.Achievements.first10kregistered.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.stanger.title": "Незнакомец",
+  "app.containers.Achievements.stanger.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.newbie.title": "Новичок",
+  "app.containers.Achievements.newbie.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.junior.title": "Начинающий",
+  "app.containers.Achievements.junior.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.resident.title": "Постоялец",
+  "app.containers.Achievements.resident.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.senior.title": "Опытный",
+  "app.containers.Achievements.senior.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.hero.title": "Герой",
+  "app.containers.Achievements.hero.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.superhero.title": "Супергерой",
+  "app.containers.Achievements.superhero.description":
+    "Поздравляем! Это отличное достижение!"
 }

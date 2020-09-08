@@ -9,6 +9,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
+import Achievements from 'containers/AchievementsList';
 import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 
@@ -110,10 +111,17 @@ const ViewProfilePage = ({
         />
       )}
 
+      {path === routes.userAchievements(userId) && (
+        <Achievements
+          className={path === routes.userAchievements(userId) ? '' : 'd-none'}
+          isAvailable={account === profile?.user}
+        />
+      )}
+
       <ProfileViewForm
         className={
           path === routes.profileView(userId) ||
-          path === routes.userCommunities(userId)
+            path === routes.userCommunities(userId)
             ? ''
             : 'd-none'
         }
