@@ -9,12 +9,19 @@ import {
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,
   SET_CURRENT_ACCOUNT,
+  USER_ACHIEVEMENTS_LOADING,
 } from './constants';
 
-export function getUserAchievements(currentAccount) {
+export function getUserAchievements() {
   return {
     type: GET_USER_ACHIEVEMENTS,
-    currentAccount,
+  };
+}
+
+export function setUserAchievementLoading(loading) {
+  return {
+    type: USER_ACHIEVEMENTS_LOADING,
+    loading,
   };
 }
 

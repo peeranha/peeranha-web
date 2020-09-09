@@ -11,6 +11,7 @@ import {
   GET_USER_ACHIEVEMENTS_SUCCESS,
   GET_USER_ACHIEVEMENTS_ERROR,
   SET_CURRENT_ACCOUNT,
+  USER_ACHIEVEMENTS_LOADING,
 } from './constants';
 
 export const initialState = fromJS({
@@ -21,7 +22,7 @@ export const initialState = fromJS({
 });
 
 function communitiesReducer(state = initialState, action) {
-  const { type, error, achievements, currentAccount } = action;
+  const { type, error, achievements, currentAccount, loading } = action;
 
   switch (type) {
     case GET_USER_ACHIEVEMENTS:
@@ -29,6 +30,9 @@ function communitiesReducer(state = initialState, action) {
 
     case SET_CURRENT_ACCOUNT:
       return state.set('currentAccount', currentAccount);
+
+    case USER_ACHIEVEMENTS_LOADING:
+      return state.set('userAchievementsLoading', loading);
 
     case GET_USER_ACHIEVEMENTS_SUCCESS:
       return state

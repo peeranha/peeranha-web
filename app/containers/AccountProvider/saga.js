@@ -87,6 +87,7 @@ import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getUserAchievementsWorker } from 'containers/AchievementsPage/saga';
 
 import {
   addLoginData,
@@ -116,7 +117,7 @@ import { getQuestionData } from '../ViewQuestion/saga';
 import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 /* eslint func-names: 0, consistent-return: 0 */
-export const getCurrentAccountWorker = function*(initAccount) {
+export const getCurrentAccountWorker = function* (initAccount) {
   try {
     yield put(getCurrentAccountProcessing());
 
@@ -161,6 +162,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
+      yield call(getUserAchievementsWorker);
 
       // Update info for question depending on user
       const viewQuestion = yield select(selectQuestionData());
@@ -351,7 +353,7 @@ export function* getCommunityPropertyWorker(profile) {
       }),
     );
     // eslint-disable-next-line no-empty
-  } catch (e) {}
+  } catch (e) { }
 }
 
 export default function* defaultSaga() {

@@ -60,7 +60,7 @@ const AchievementsPage = ({
       !userAchievements.length ||
       currentAccount !== userAchievements[0]?.user
     ) {
-      getUserAchievementsDispatch(currentAccount);
+      getUserAchievementsDispatch();
     }
   }, []);
 
