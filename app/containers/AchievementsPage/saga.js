@@ -1,13 +1,14 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { addToast } from 'containers/Toast/actions';
 
 import { GET_USER_ACHIEVEMENTS } from './constants';
-import { getUserAchievementsSuccess, getUserAchievementsErr } from './actions';
-import messages from './messages';
+import {
+  getUserAchievementsSuccess,
+  getUserAchievementsErr,
+  setCurrentAccount,
+} from './actions';
+import { selectuserAchievementsError } from './selectors';
 
 export async function getUserAchievements(eosService, tableTitle, scope) {
   const { rows } = await eosService.getTableRows(tableTitle, scope);
@@ -16,6 +17,9 @@ export async function getUserAchievements(eosService, tableTitle, scope) {
 
 export function* getUserAchievementsWorker(action) {
   try {
+    yield put(setCurrentAccount(action.currentAccount));
+    const isErrorInState = yield select(selectuserAchievementsError());
+    if (isErrorInState) yield put(getUserAchievementsErr(null));
     const eosService = yield select(selectEos);
 
     const achievements = yield call(
@@ -25,12 +29,8 @@ export function* getUserAchievementsWorker(action) {
       action.currentAccount,
     );
 
-    yield put(getUserAchievementsSuccess(action.currentAccount, achievements));
+    yield put(getUserAchievementsSuccess(achievements));
   } catch (err) {
-    const locale = yield select(makeSelectLocale());
-    const text =
-      translationMessages[locale][messages.achievementsNotReceived.id];
-    yield put(addToast({ type: 'error', text }));
     yield put(getUserAchievementsErr(err));
   }
 }

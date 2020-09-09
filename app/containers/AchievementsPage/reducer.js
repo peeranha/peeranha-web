@@ -10,13 +10,14 @@ import {
   GET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_SUCCESS,
   GET_USER_ACHIEVEMENTS_ERROR,
+  SET_CURRENT_ACCOUNT,
 } from './constants';
 
 export const initialState = fromJS({
   currentAccount: null,
   achievements: [],
-  getUserAchievementsError: null,
-  getUserAchievementsLoading: false,
+  userAchievementsError: null,
+  userAchievementsLoading: false,
 });
 
 function communitiesReducer(state = initialState, action) {
@@ -24,18 +25,23 @@ function communitiesReducer(state = initialState, action) {
 
   switch (type) {
     case GET_USER_ACHIEVEMENTS:
-      return state.set('getUserAchievementsLoading', true);
+      return state.set('userAchievementsLoading', true);
+
+    case SET_CURRENT_ACCOUNT:
+      return state.set('currentAccount', currentAccount);
 
     case GET_USER_ACHIEVEMENTS_SUCCESS:
       return state
-        .set('getUserAchievementsLoading', false)
-        .set('currentAccount', currentAccount)
+        .set('userAchievementsLoading', false)
         .set('achievements', achievements);
 
     case GET_USER_ACHIEVEMENTS_ERROR:
       return state
-        .set('getUserAchievementsLoading', false)
-        .set('getUserAchievementsError', error.message);
+        .set('userAchievementsLoading', false)
+        .set(
+          'userAchievementsError',
+          error ? JSON.parse(error.message) : error,
+        );
 
     default:
       return state;

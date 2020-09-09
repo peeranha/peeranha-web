@@ -1,15 +1,12 @@
 /*
- * AchievementsList Messages
+ * AchievementsPage Messages
  *
- * This contains all the text for the AchievementsList component.
+ * This contains all the text for the AchievementsPage component.
  */
 
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  achievementsNotReceived: {
-    id: 'app.containers.Achievements.achievementsNotReceived',
-  },
   QUESTION_ASKED: {
     title: {
       id: 'app.containers.Achievements.questionAsked.title',

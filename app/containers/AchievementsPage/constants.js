@@ -13,14 +13,16 @@ export const possibleAchievements = [
 ];
 
 const GET_USER_ACHIEVEMENTS =
-  'containers/AchievementsList/GET_USER_ACHIEVEMENTS';
+  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS';
 const GET_USER_ACHIEVEMENTS_ERROR =
-  'containers/AchievementsList/GET_USER_ACHIEVEMENTS_ERROR';
+  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS_ERROR';
 const GET_USER_ACHIEVEMENTS_SUCCESS =
-  'containers/AchievementsList/GET_USER_ACHIEVEMENTS_SUCCESS';
+  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS_SUCCESS';
+const SET_CURRENT_ACCOUNT = 'containers/AchievementsPage/SET_CURRENT_ACCOUNT';
 
 export {
   GET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,
+  SET_CURRENT_ACCOUNT,
 };

@@ -848,8 +848,6 @@
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
-  "app.containers.Achievements.achievementsNotReceived":
-    "Achievements can't be received",
   "app.containers.Achievements.questionAsked.title": "Question Asked",
   "app.containers.Achievements.questionAsked.description":
     "Congratulations! This is a great achievement!",

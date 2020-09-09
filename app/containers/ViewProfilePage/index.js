@@ -9,7 +9,7 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
-import Achievements from 'containers/AchievementsList';
+import Achievements from 'containers/AchievementsPage';
 import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 

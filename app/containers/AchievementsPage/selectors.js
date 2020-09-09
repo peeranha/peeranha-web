@@ -19,7 +19,9 @@ const makeSelectSortedUserAchievements = () =>
   createSelector(selectUserAchievementsDomain, substate => {
     const reachedAchievementsIds = substate
       .toJS()
-      .achievements.filter(el => el.value > 0)
+      .achievements.filter(
+        el => el.value > 0 && el.user === substate.toJS().currentAccount,
+      )
       .map(el => el.achievements_id);
 
     const reachedAchievements = possibleAchievements
@@ -36,11 +38,18 @@ const makeSelectSortedUserAchievements = () =>
 const makeSelectAchievementsLoading = () =>
   createSelector(
     selectUserAchievementsDomain,
-    substate => substate.toJS().getUserAchievementsLoading,
+    substate => substate.toJS().userAchievementsLoading,
+  );
+
+const selectuserAchievementsError = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().userAchievementsError,
   );
 
 export {
   selectUserAchievements,
   makeSelectSortedUserAchievements,
   makeSelectAchievementsLoading,
+  selectuserAchievementsError,
 };
