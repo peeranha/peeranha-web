@@ -219,6 +219,8 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
+  "app.containers.ExistingCommunities.singleCommunityTooltip":
+    "This community has Q&A website on another domain",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",

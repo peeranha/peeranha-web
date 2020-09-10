@@ -222,6 +222,8 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Голосуйте за новые сообщества",
+  "app.containers.ExistingCommunities.singleCommunityTooltip":
+    "У этого сообщества есть сайт вопросов и ответов на отдельном домене",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",

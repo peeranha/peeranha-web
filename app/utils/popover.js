@@ -1,16 +1,27 @@
-export const showPopover = (elemId, message) => {
-  window.$(`#${elemId}`).attr({
-    'data-content': message,
-    'data-trigger': 'manual',
-    'data-placement': 'auto',
-  });
+let timerIsRunning = false;
+let timerId = null;
 
-  window.$(`#${elemId}`).popover('show');
+export const showPopover = (elemId, message, restParamets = {}) => {
+  const { callback, timeout = 2500, timer = true } = restParamets;
 
-  setTimeout(closePopover, 2500);
+  if (!timerIsRunning) {
+    timerIsRunning = true;
+
+    window.$(`#${elemId}`).attr({
+      'data-content': message,
+      'data-trigger': 'manual',
+      'data-placement': 'auto',
+    });
+    window.$(`#${elemId}`).popover('show');
+
+    if (timer) timerId = setTimeout(() => closePopover(callback), timeout);
+  }
 };
 
-export const closePopover = () => {
+export const closePopover = (callback = null) => {
   window.$(`.popover`).remove();
+  clearTimeout(timerId);
+  timerIsRunning = false;
+  if (typeof callback === 'function') callback();
   return null;
 };

@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
@@ -13,9 +13,6 @@ import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
-import Icon from 'components/Icon';
-import globe from 'images/globe-outline-16.svg?external';
-
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -23,6 +20,8 @@ import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
+import OfficialSiteLink from './OfficialSiteLink';
+import SingleCommunityIcon from './SingleCommunityIcon';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -80,34 +79,8 @@ const Info = styled.div`
   }
 `;
 
-const OfficialSiteIcon = styled(Icon)`
-  display: flex;
-  align-items: center;
-  margin-right: 2px;
-  .globeStroke {
-    stroke: ${TEXT_PRIMARY};
-  }
-`;
-
-const OfficialSiteText = styled.span`
-  max-width: 220px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 16px;
-  font-size: 14px;
-`;
-
-const OfficialSiteLink = styled(ADefault)`
-  display: inline-flex;
-  align-items: center;
-  color: ${TEXT_PRIMARY};
-  margin-top: 4px;
-`;
-
 const Content = ({ communities, sorting, locale, language }) => {
   if (!communities || !communities.length) return null;
-
   return (
     <Base>
       {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
@@ -120,24 +93,8 @@ const Content = ({ communities, sorting, locale, language }) => {
           ) => {
             const origin = hasCommunitySingleWebsite(id);
 
-            const getShortUrl = url => {
-              if (/^https?:\/\//.test(url))
-                return url.replace(/https?:\/\//, '');
-              return url;
-            };
-
-            const getFullUrl = url => {
-              if (/^https?:\/\//.test(url)) return url;
-              return `https://${url}`;
-            };
-
             return (
               <BaseSpecial
-                origin={(origin || '').toString()}
-                overOrigin={
-                  index !== arr.length - 1 &&
-                  hasCommunitySingleWebsite(arr[index + 1].id)
-                }
                 last={arr.length - 1 === index}
                 first={!index}
                 className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
@@ -152,8 +109,12 @@ const Content = ({ communities, sorting, locale, language }) => {
 
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
-                      <ADefault href={origin || routes.questions(id)}>
+                      <ADefault
+                        href={origin || routes.questions(id)}
+                        css={{ position: 'relative' }}
+                      >
                         {name}
+                        {origin && <SingleCommunityIcon locale={locale} />}
                       </ADefault>
                     </P>
                     {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
@@ -163,16 +124,7 @@ const Content = ({ communities, sorting, locale, language }) => {
                       {description}
                     </P>
                     {officialSite && (
-                      <OfficialSiteLink
-                        href={getFullUrl(officialSite)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <OfficialSiteIcon icon={globe} width="12" height="12" />
-                        <OfficialSiteText>
-                          {getShortUrl(officialSite)}
-                        </OfficialSiteText>
-                      </OfficialSiteLink>
+                      <OfficialSiteLink officialSite={officialSite} />
                     )}
                   </div>
                 </DescriptionBlock>
