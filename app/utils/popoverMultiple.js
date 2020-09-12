@@ -40,7 +40,7 @@ export const showPopover = (elemId, message, restParamets = {}) => {
 };
 
 export const closePopover = (elemId, callback = null) => {
-  const currentTimerId = getCurrentElement(elemId).timerId || null;
+  const currentTimerId = getCurrentElement(elemId)?.timerId || null;
   window.$(`#${elemId}`).popover('dispose');
   clearTimeout(currentTimerId);
   timerArray = timerArray.filter(el => el.elemId !== elemId);

@@ -15,7 +15,7 @@ const SCIcon = styled(Icon)`
   margin-right: 8px;
 `;
 
-const SCSpan = styled('span')`
+const SCButton = styled.button`
   display: inline;
   position: absolute;
   z-index: 1000;
@@ -25,7 +25,7 @@ const SCSpan = styled('span')`
   }
 `;
 
-const SCSpanMob = styled(SCSpan)`
+const SCButtonMob = styled(SCButton)`
   display: none;
 
   @media only screen and (max-width: 991px) {
@@ -42,14 +42,14 @@ const SingleCommunityIcon = ({ locale, id }) => {
   const [opened, setOpened] = useState(false);
   const setOpenedFalse = () => setOpened(false);
 
-  const isIPad = () => window.navigator.userAgent.includes('iPad');
+  const iPad = () => window.navigator.userAgent.includes('iPad');
 
   const showTooltip = () => {
-    if (!isIPad()) showPopover(id, tooltipText, { timer: false });
+    if (!iPad()) showPopover(id, tooltipText, { timer: false });
   };
 
   const hideTooltip = () => {
-    if (!isIPad()) closePopover(id);
+    if (!iPad()) closePopover(id);
   };
 
   const toggleTooltipMobile = (e, iconId = idMobile) => {
@@ -67,24 +67,38 @@ const SingleCommunityIcon = ({ locale, id }) => {
   };
 
   const iPadClick = e => {
-    if (isIPad()) {
+    if (iPad()) {
       toggleTooltipMobile(e, id);
+    }
+  };
+
+  const onBlur = () => {
+    if (opened) {
+      closePopover(idMobile, setOpenedFalse);
+    }
+    if (opened && iPad) {
+      closePopover(id, setOpenedFalse);
     }
   };
 
   return (
     <>
-      <SCSpan
+      <SCButton
         id={id}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
         onClick={e => iPadClick(e)}
+        onBlur={onBlur}
       >
         <SCIcon icon={singleCommunity} width="14" height="14" />
-      </SCSpan>
-      <SCSpanMob id={idMobile} onClick={e => toggleTooltipMobile(e)}>
+      </SCButton>
+      <SCButtonMob
+        onBlur={onBlur}
+        id={idMobile}
+        onClick={e => toggleTooltipMobile(e)}
+      >
         <SCIcon icon={singleCommunity} width="14" height="14" />
-      </SCSpanMob>
+      </SCButtonMob>
     </>
   );
 };
