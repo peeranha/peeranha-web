@@ -12,6 +12,7 @@ import messages from './messages';
 
 const SCIcon = styled(Icon)`
   margin-left: 8px;
+  margin-right: 8px;
 `;
 
 const SCSpan = styled('span')`
@@ -90,7 +91,7 @@ const SingleCommunityIcon = ({ locale, id }) => {
 
 SingleCommunityIcon.propTypes = {
   locale: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.number,
 };
 
 export default SingleCommunityIcon;

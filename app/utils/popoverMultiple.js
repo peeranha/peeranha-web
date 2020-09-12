@@ -40,7 +40,6 @@ export const showPopover = (elemId, message, restParamets = {}) => {
 };
 
 export const closePopover = (elemId, callback = null) => {
-  // если таймер закончился => удалить элемент из массива
   const currentTimerId = getCurrentElement(elemId).timerId || null;
   window.$(`#${elemId}`).popover('dispose');
   clearTimeout(currentTimerId);
