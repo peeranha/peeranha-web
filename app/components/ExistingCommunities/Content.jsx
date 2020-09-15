@@ -121,12 +121,13 @@ const Content = ({ communities, sorting, locale, language }) => {
             const origin = hasCommunitySingleWebsite(id);
 
             const getShortUrl = url => {
-              if (/^https?:\/\//.test(url))
-                return url.replace(/https?:\/\//, '');
+              if (/^https?:\/\//.test(url)) url.replace(/https?:\/\//, '');
+              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
               return url;
             };
 
             const getFullUrl = url => {
+              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
               if (/^https?:\/\//.test(url)) return url;
               return `https://${url}`;
             };

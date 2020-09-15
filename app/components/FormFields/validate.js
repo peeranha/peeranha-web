@@ -50,9 +50,9 @@ const validateEmail = email => {
 const validateURL = url => {
   const re = /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
   const isUrl = re.test(url);
-  const hasDoubleDot = /\.\./g.test(url);
+  const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
   const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
-  return url && (!isUrl || hasDoubleDot || hasDoubleSlash)
+  return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash)
     ? messages.wrongURL
     : undefined;
 };
