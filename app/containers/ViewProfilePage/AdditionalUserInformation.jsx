@@ -7,7 +7,7 @@ import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import TextEditor from 'components/TextEditor';
+import TextBlock from 'components/FormFields/TextBlock';
 
 import {
   POSITION_FIELD,
@@ -51,11 +51,7 @@ const Row = ({ nameField, value, asHtml }) =>
         <FormattedMessage {...messages[nameField]} />
       </Span>
       {asHtml ? (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: TextEditor.getHtmlText(String(value)),
-          }}
-        />
+        <TextBlock content={value} />
       ) : (
         <Span mobileFS="16" lineHeight="24" mobileLH="20">
           {value}
