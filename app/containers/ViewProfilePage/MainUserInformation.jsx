@@ -19,6 +19,7 @@ import RatingStatus from 'components/RatingStatus';
 import LargeImage from 'components/Img/LargeImage';
 
 import messages from 'containers/Profile/messages';
+import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -103,6 +104,7 @@ const MainUserInformation = ({
   profile,
   userId,
   account,
+  locale,
   redirectToEditProfilePage,
 }) => (
   <Box position="middle">
@@ -159,7 +161,11 @@ const MainUserInformation = ({
             <li>
               <span>
                 <FormattedMessage {...messages.memberSince} />
-                {getFormattedDate(profile.registration_time)}
+                {getFormattedDate(
+                  profile.registration_time,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY,
+                )}
               </span>
             </li>
           </UlStyled>
@@ -173,6 +179,7 @@ MainUserInformation.propTypes = {
   profile: PropTypes.object,
   userId: PropTypes.string,
   account: PropTypes.string,
+  locale: PropTypes.string,
   redirectToEditProfilePage: PropTypes.func,
 };
 

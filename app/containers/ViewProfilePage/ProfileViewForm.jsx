@@ -27,6 +27,7 @@ const ProfileViewForm = ({
       profile={profile}
       userId={userId}
       account={account}
+      locale={locale}
       redirectToEditProfilePage={redirectToEditProfilePage}
     />
 
