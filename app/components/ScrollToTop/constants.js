@@ -4,4 +4,4 @@
 *
 */
 
-export const scrollToTopPaths = ['/'];
+export const scrollToTopPaths = ['/', '/feed/'];
