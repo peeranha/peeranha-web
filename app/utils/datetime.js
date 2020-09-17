@@ -8,6 +8,7 @@ import en from 'date-fns/locale/en/index.js';
 import {
   MONTH_3LETTERS__DAY_TIME,
   MONTH_3LETTERS__DAY_YYYY_TIME,
+  MONTH_3LETTERS__DAY_YYYY,
   DD_MM_YYYY,
   DD_MM_YY,
   FULL_MONTH_NAME_DAY_YEAR,
@@ -16,6 +17,7 @@ import {
 const options = {
   [MONTH_3LETTERS__DAY_TIME]: 'MMM D, HH:mm',
   [MONTH_3LETTERS__DAY_YYYY_TIME]: 'MMM D YYYY, HH:mm',
+  [MONTH_3LETTERS__DAY_YYYY]: 'MMM D, YYYY',
   [DD_MM_YYYY]: 'DD.MM.YYYY',
   [DD_MM_YY]: 'DD.MM.YY',
   [FULL_MONTH_NAME_DAY_YEAR]: 'MMMM, D, YYYY',

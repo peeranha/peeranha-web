@@ -135,6 +135,7 @@ export const MOVE_QUESTION_METHOD = 'movequestion';
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
   'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY = 'datetime/MONTH_3LETTERS__DAY_YYYY';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
 export const DD_MM_YY = 'datetime/DD_MM_YY';
 export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
