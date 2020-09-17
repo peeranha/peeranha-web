@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
 import singleCommunity from 'images/singleCommunity.svg?external';
-import { showPopover, closePopover } from 'utils/popoverMultiple';
+import { showPopover, closePopover } from 'utils/popover';
 
 import Icon from 'components/Icon';
 
