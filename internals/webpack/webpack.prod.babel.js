@@ -4,6 +4,29 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const { HashedModuleIdsPlugin } = require('webpack');
 
+const testPlugins = [
+  {
+    filename: 'index',
+    meta: {
+      'google-site-verification': 'xG6B69BYag77q5daOYxk0ehphPB3mT4VLX2gYjUp4Bs',
+    },
+  },
+  {
+    filename: 'index-testcommunity',
+    meta: {
+      'google-site-verification': 'IgB1UAlZ0YIseYsjVbTZVNplkxGptwU0Zm7oajS9kHk',
+    },
+  },
+];
+
+const prodPlugins = [
+  {
+    filename: 'index',
+  },
+];
+
+const plugins = process.env.NODE_ENV === 'test' ? testPlugins : prodPlugins;
+
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
 
@@ -43,23 +66,27 @@ module.exports = require('./webpack.base.babel')({
 
   plugins: [
     // Minify and optimize the index.html
-    new HtmlWebpackPlugin({
-      template: 'app/index.html',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-      inject: true,
-    }),
-
+    ...plugins.map(
+      ({ filename, meta = {} }) =>
+        new HtmlWebpackPlugin({
+          template: 'app/index.html',
+          filename: `${filename}.html`,
+          meta,
+          minify: {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeRedundantAttributes: true,
+            useShortDoctype: true,
+            removeEmptyAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            keepClosingSlash: true,
+            minifyJS: true,
+            minifyCSS: true,
+            minifyURLs: true,
+          },
+          inject: true,
+        }),
+    ),
     new WebpackPwaManifest({
       name: 'Peeranha',
       short_name: 'Peeranha',
