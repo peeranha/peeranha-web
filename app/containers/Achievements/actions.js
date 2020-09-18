@@ -1,6 +1,6 @@
 /*
  *
- * SuggestedCommunities actions
+ * Achievements actions
  *
  */
 

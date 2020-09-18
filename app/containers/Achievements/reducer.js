@@ -1,6 +1,6 @@
 /*
  *
- * userAchievements reducer
+ * Achievements reducer
  *
  */
 

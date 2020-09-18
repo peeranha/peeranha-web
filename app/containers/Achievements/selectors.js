@@ -1,10 +1,10 @@
+/**
+ * Selectors to the Achievements state domain
+ */
+
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 import { possibleAchievements } from './constants';
-
-/**
- * Direct selector to the userAchievements state domain
- */
 
 const selectUserAchievementsDomain = state =>
   state.get('userAchievements', initialState);
