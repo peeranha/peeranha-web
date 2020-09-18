@@ -1,7 +1,6 @@
-let timerArray = [];
-
-const setNewCurrentElement = (elemId, timerId) =>
-  timerArray.push({ elemId, timerId });
+let currentElement = null;
+let timerId = null;
+let timerOn = false;
 
 const setPopover = (elemId, message, position) => {
   window.$(`#${elemId}`).attr({
@@ -12,11 +11,6 @@ const setPopover = (elemId, message, position) => {
   window.$(`#${elemId}`).popover('show');
 };
 
-const getCurrentElement = elemId =>
-  timerArray.length && timerArray.filter(el => el.elemId === elemId).length
-    ? timerArray.filter(el => el.elemId === elemId)[0]
-    : null;
-
 export const showPopover = (elemId, message, restParamets = {}) => {
   const {
     callback,
@@ -25,35 +19,37 @@ export const showPopover = (elemId, message, restParamets = {}) => {
     position = 'auto',
   } = restParamets;
 
-  const CurrentElement = getCurrentElement(elemId);
-
-  if (timer && !CurrentElement) {
+  // if there are no running timers
+  if (timer && !timerOn) {
     setPopover(elemId, message, position);
-    const timerId = setTimeout(() => closePopover(elemId, callback), timeout);
-    setNewCurrentElement(elemId, timerId);
+    timerId = setTimeout(() => closePopover(callback), timeout);
+    currentElement = elemId;
+    timerOn = true;
+  }
+
+  // if there is running timer & elemId !== currentElemId
+  if (timer && currentElement && currentElement !== elemId) {
+    closePopover();
+    setPopover(elemId, message, position);
+    timerId = setTimeout(() => closePopover(callback), timeout);
+    currentElement = elemId;
+    timerOn = true;
   }
 
   if (!timer) {
+    closePopover();
     setPopover(elemId, message, position);
-    setNewCurrentElement(elemId);
   }
 };
 
-export const closePopover = (elemId, callback) => {
-  // processing a call from the <Popover /> component in app/ErrorBoundary
-  // delete all popovers
-  if (typeof elemId === 'object' && Object.keys(elemId).length === 0) {
-    timerArray.forEach(el => el.timerId && clearTimeout(el.timerId));
-    timerArray = [];
-    window.$(`.popover`).remove();
-  } else {
-    // delete one popover with elemId
-    const currentTimerId = getCurrentElement(elemId)?.timerId || null;
-    window.$(`#${elemId}`).popover('dispose');
-    clearTimeout(currentTimerId);
-    timerArray = timerArray.filter(el => el.elemId !== elemId);
+export const closePopover = callback => {
+  if (timerOn) {
+    clearTimeout(timerId);
+    currentElement = null;
+    timerOn = false;
   }
 
+  window.$(`.popover`).remove();
   if (typeof callback === 'function') callback();
 
   return null;
