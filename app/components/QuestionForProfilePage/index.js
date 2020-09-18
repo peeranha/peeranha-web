@@ -17,7 +17,7 @@ import {
 import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
@@ -191,7 +191,7 @@ export const QuestionForProfilePage = ({
                   when: getFormattedDate(
                     myPostTime,
                     locale,
-                    MONTH_3LETTERS__DAY_TIME,
+                    MONTH_3LETTERS__DAY_YYYY_TIME,
                   ),
                 }}
               />

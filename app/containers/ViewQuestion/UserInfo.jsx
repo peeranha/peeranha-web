@@ -7,7 +7,7 @@ import * as routes from 'routes-config';
 import noAvatar from 'images/ico-user-no-photo.png';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 import RatingStatus from 'components/RatingStatus';
 import MediumImage from 'components/Img/MediumImage';
@@ -48,7 +48,7 @@ export const UserInfo = ({
       </span>
 
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}
+        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY)}
       </Span>
     </div>
   </A>
