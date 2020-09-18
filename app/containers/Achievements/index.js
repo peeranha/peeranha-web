@@ -47,7 +47,7 @@ const AchievementsWrapper = styled(BaseRounded)`
   }
 `;
 
-const AchievementsPage = ({
+const Achievements = ({
   locale,
   currentAccount,
   sortedAchievements,
@@ -93,7 +93,7 @@ const AchievementsPage = ({
   );
 };
 
-AchievementsPage.propTypes = {
+Achievements.propTypes = {
   locale: PropTypes.string,
   currentAccount: PropTypes.string,
   sortedAchievements: PropTypes.array,
@@ -129,5 +129,5 @@ export default memo(
     withReducer,
     withSaga,
     withConnect,
-  )(AchievementsPage),
+  )(Achievements),
 );

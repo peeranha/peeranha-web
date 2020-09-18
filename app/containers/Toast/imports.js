@@ -153,7 +153,7 @@ import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
-import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/AchievementsPage/constants';
+import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,

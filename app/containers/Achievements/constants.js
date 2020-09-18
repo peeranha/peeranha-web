@@ -12,15 +12,14 @@ export const possibleAchievements = [
   { id: 11, title: 'SUPERHERO' },
 ];
 
-const GET_USER_ACHIEVEMENTS =
-  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS';
+const GET_USER_ACHIEVEMENTS = 'containers/Achievements/GET_USER_ACHIEVEMENTS';
 const GET_USER_ACHIEVEMENTS_ERROR =
-  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS_ERROR';
+  'containers/Achievements/GET_USER_ACHIEVEMENTS_ERROR';
 const GET_USER_ACHIEVEMENTS_SUCCESS =
-  'containers/AchievementsPage/GET_USER_ACHIEVEMENTS_SUCCESS';
-const SET_CURRENT_ACCOUNT = 'containers/AchievementsPage/SET_CURRENT_ACCOUNT';
+  'containers/Achievements/GET_USER_ACHIEVEMENTS_SUCCESS';
+const SET_CURRENT_ACCOUNT = 'containers/Achievements/SET_CURRENT_ACCOUNT';
 const USER_ACHIEVEMENTS_LOADING =
-  'containers/AchievementsPage/USER_ACHIEVEMENTS_LOADING';
+  'containers/Achievements/USER_ACHIEVEMENTS_LOADING';
 
 export {
   GET_USER_ACHIEVEMENTS,

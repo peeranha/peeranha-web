@@ -1,7 +1,7 @@
 /*
- * AchievementsPage Messages
+ * Achievements Messages
  *
- * This contains all the text for the AchievementsPage component.
+ * This contains all the text for the Achievements component.
  */
 
 import { defineMessages } from 'react-intl';
