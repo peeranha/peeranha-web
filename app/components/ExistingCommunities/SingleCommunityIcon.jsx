@@ -10,7 +10,7 @@ import Icon from 'components/Icon';
 
 import messages from './messages';
 
-const SingleIcon = styled(Icon)`
+const IconSingle = styled(Icon)`
   margin-left: 8px;
   margin-right: 8px;
 `;
@@ -88,14 +88,14 @@ const SingleCommunityIcon = ({ locale, id }) => {
         onClick={e => iPadClick(e)}
         onBlur={onBlur}
       >
-        <SingleIcon icon={singleCommunity} width="14" height="14" />
+        <IconSingle icon={singleCommunity} width="14" height="14" />
       </ButtonSingle>
       <ButtonSingleMob
         onBlur={onBlur}
         id={idMobile}
         onClick={e => toggleTooltipMobile(e)}
       >
-        <SingleIcon icon={singleCommunity} width="14" height="14" />
+        <IconSingle icon={singleCommunity} width="14" height="14" />
       </ButtonSingleMob>
     </>
   );
