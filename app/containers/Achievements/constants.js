@@ -10,6 +10,8 @@ export const possibleAchievements = [
   { id: 9, title: 'SENIOR' },
   { id: 10, title: 'HERO' },
   { id: 11, title: 'SUPERHERO' },
+  { id: 12, title: 'ANSWER_15_MINUTES' },
+  { id: 13, title: 'FIRST_ANSWER' },
 ];
 
 const GET_USER_ACHIEVEMENTS = 'containers/Achievements/GET_USER_ACHIEVEMENTS';

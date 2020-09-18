@@ -857,29 +857,35 @@
   "app.containers.Achievements.correctAnswer.title": "Correct Answer",
   "app.containers.Achievements.correctAnswer.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.first10kregistered.title":
-    "First 10.000 Registered",
+  "app.containers.Achievements.first10kregistered.title": "Founding Member",
   "app.containers.Achievements.first10kregistered.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.stanger.title": "Stranger",
+  "app.containers.Achievements.stanger.title": "Honorable Stranger",
   "app.containers.Achievements.stanger.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.newbie.title": "Newbie",
+  "app.containers.Achievements.newbie.title": "Honorable Newbie",
   "app.containers.Achievements.newbie.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.junior.title": "Junior",
+  "app.containers.Achievements.junior.title": "Honorable Junior",
   "app.containers.Achievements.junior.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.resident.title": "Resident",
+  "app.containers.Achievements.resident.title": "Honorable Resident",
   "app.containers.Achievements.resident.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.senior.title": "Senior",
+  "app.containers.Achievements.senior.title": "Honorable Senior",
   "app.containers.Achievements.senior.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.hero.title": "Hero",
+  "app.containers.Achievements.hero.title": "Honorable Hero",
   "app.containers.Achievements.hero.description":
     "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.superhero.title": "Super Hero",
+  "app.containers.Achievements.superhero.title": "Honorable Superhero",
   "app.containers.Achievements.superhero.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.answer15minutes.title":
+    "Answered within 15 minutes",
+  "app.containers.Achievements.answer15minutes.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.firstAnswer.title": "Answered First",
+  "app.containers.Achievements.firstAnswer.description":
     "Congratulations! This is a great achievement!"
 }

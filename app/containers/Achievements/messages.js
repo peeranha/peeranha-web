@@ -95,4 +95,20 @@ export default defineMessages({
       id: 'app.containers.Achievements.superhero.description',
     },
   },
+  ANSWER_15_MINUTES: {
+    title: {
+      id: 'app.containers.Achievements.answer15minutes.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.answer15minutes.description',
+    },
+  },
+  FIRST_ANSWER: {
+    title: {
+      id: 'app.containers.Achievements.firstAnswer.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstAnswer.description',
+    },
+  },
 });
