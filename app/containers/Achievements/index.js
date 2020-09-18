@@ -21,8 +21,8 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import {
   selectUserAchievements,
-  makeSelectSortedUserAchievements,
-  makeSelectAchievementsLoading,
+  selectSortedUserAchievements,
+  selectAchievementsLoading,
 } from './selectors';
 import { getUserAchievements } from './actions';
 import reducer from './reducer';
@@ -82,9 +82,14 @@ const Achievements = ({
           {sortedAchievements.map(el => (
             <Achievement
               key={el.title}
+              id={el.id}
               reached={el.reached}
               title={translations[messages[el.title].title.id]}
+              multipleTitle={
+                translations[(messages[el.title].multipleTitle?.id)]
+              }
               description={translations[messages[el.title].description.id]}
+              value={el.value}
             />
           ))}
         </AchievementsWrapper>
@@ -105,8 +110,8 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   currentAccount: makeSelectAccount(),
   userAchievements: selectUserAchievements(),
-  sortedAchievements: makeSelectSortedUserAchievements(),
-  achievementsLoading: makeSelectAchievementsLoading(),
+  sortedAchievements: selectSortedUserAchievements(),
+  achievementsLoading: selectAchievementsLoading(),
 });
 
 const mapDispatchToProps = dispatch => ({

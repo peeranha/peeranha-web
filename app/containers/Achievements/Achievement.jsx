@@ -23,25 +23,47 @@ const Bage = styled.div`
   display: flex;
 `;
 
-const Achievement = ({ reached, title, description }) => (
-  <Bage>
-    {reached && <Img src={achievementReached} alt="reached achievement" />}
-    {!reached && (
-      <Img src={achievementNotReached} alt="not reached achievement" />
-    )}
-    <div>
-      <TitleBlock>
-        <strong>{title}</strong>
-      </TitleBlock>
-      <DescriptionBlock>{description}</DescriptionBlock>
-    </div>
-  </Bage>
-);
+const ValueSpan = styled.span`
+  font-size: 18px;
+  margin-right: 4px;
+`;
+
+const Achievement = ({
+  reached,
+  title,
+  multipleTitle,
+  description,
+  value,
+  id,
+}) => {
+  return (
+    <Bage>
+      {reached && <Img src={achievementReached} alt="reached achievement" />}
+      {!reached && (
+        <Img src={achievementNotReached} alt="not reached achievement" />
+      )}
+      <div>
+        <TitleBlock>
+          <strong>
+            <ValueSpan>{(id === 1 || id === 2 || id === 3) && value}</ValueSpan>
+            {(id === 1 || id === 2 || id === 3) && value > 1
+              ? multipleTitle
+              : title}
+          </strong>
+        </TitleBlock>
+        <DescriptionBlock>{description}</DescriptionBlock>
+      </div>
+    </Bage>
+  );
+};
 
 Achievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
+  multipleTitle: PropTypes.string,
   description: PropTypes.string,
+  value: PropTypes.number,
+  id: PropTypes.number,
 };
 
 export default Achievement;

@@ -849,12 +849,15 @@
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
   "app.containers.Achievements.questionAsked.title": "Question Asked",
+  "app.containers.Achievements.questionAsked.multipleTitle": "Questions Asked",
   "app.containers.Achievements.questionAsked.description":
     "Congratulations! This is a great achievement!",
   "app.containers.Achievements.answerGiven.title": "Answer Given",
+  "app.containers.Achievements.answerGiven.multipleTitle": "Answers Given",
   "app.containers.Achievements.answerGiven.description":
     "Congratulations! This is a great achievement!",
   "app.containers.Achievements.correctAnswer.title": "Correct Answer",
+  "app.containers.Achievements.correctAnswer.multipleTitle": "Correct Answers",
   "app.containers.Achievements.correctAnswer.description":
     "Congratulations! This is a great achievement!",
   "app.containers.Achievements.first10kregistered.title": "Founding Member",

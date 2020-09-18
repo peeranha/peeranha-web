@@ -11,6 +11,9 @@ export default defineMessages({
     title: {
       id: 'app.containers.Achievements.questionAsked.title',
     },
+    multipleTitle: {
+      id: 'app.containers.Achievements.questionAsked.multipleTitle',
+    },
     description: {
       id: 'app.containers.Achievements.questionAsked.description',
     },
@@ -19,6 +22,9 @@ export default defineMessages({
     title: {
       id: 'app.containers.Achievements.answerGiven.title',
     },
+    multipleTitle: {
+      id: 'app.containers.Achievements.answerGiven.multipleTitle',
+    },
     description: {
       id: 'app.containers.Achievements.answerGiven.description',
     },
@@ -26,6 +32,9 @@ export default defineMessages({
   CORRECT_ANSWER: {
     title: {
       id: 'app.containers.Achievements.correctAnswer.title',
+    },
+    multipleTitle: {
+      id: 'app.containers.Achievements.correctAnswer.multipleTitle',
     },
     description: {
       id: 'app.containers.Achievements.correctAnswer.description',

@@ -852,13 +852,17 @@
   "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
-  "app.containers.Achievements.questionAsked.title": "Задан вопрос",
+  "app.containers.Achievements.questionAsked.title": "Вопрос задан",
+  "app.containers.Achievements.questionAsked.multipleTitle": "Вопросы заданы",
   "app.containers.Achievements.questionAsked.description":
     "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.answerGiven.title": "Дан ответ",
+  "app.containers.Achievements.answerGiven.title": "Ответ дан",
+  "app.containers.Achievements.answerGiven.multipleTitle": "Ответов даны",
   "app.containers.Achievements.answerGiven.description":
     "Поздравляем! Это отличное достижение!",
   "app.containers.Achievements.correctAnswer.title": "Правильный ответ",
+  "app.containers.Achievements.correctAnswer.multipleTitle":
+    "Правильных ответа",
   "app.containers.Achievements.correctAnswer.description":
     "Поздравляем! Это отличное достижение!",
   "app.containers.Achievements.first10kregistered.title": "Основатель",
