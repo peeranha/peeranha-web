@@ -24,9 +24,8 @@ const selectRewardsWeeksNumber = () =>
     selectWalletDomain,
     substate =>
       substate.weekStat
-        ? // eslint-disable-next-line prettier/prettier
-          substate.weekStat.filter(el => el.reward > 0 && el.hasTaken === false)
-            .length + 5
+        ? substate.weekStat.filter(el => el.reward > 0 && el.hasTaken === false)
+            .length
         : null,
   );
 
