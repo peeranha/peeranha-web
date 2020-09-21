@@ -49,6 +49,7 @@ const SubHeaderLogo = styled.a`
 
 const NavItem = styled.div`
   position: relative;
+  z-index: 9999;
 
   > div {
     left: auto;
@@ -88,7 +89,7 @@ const Links = ({ links, styles }) => (
                   href={item.href}
                   target={item.target || '_blank'}
                 >
-                  {text}
+                  {item.text}
                 </LocalLink>
               ))}
             </div>
