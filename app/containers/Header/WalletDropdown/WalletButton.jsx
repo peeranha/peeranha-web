@@ -50,6 +50,8 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
+const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+
 const WalletButton = ({ balance, mobile, number, locale }) => (
   <div className="position-relative">
     <ButtonStyled>
@@ -71,14 +73,15 @@ const WalletButton = ({ balance, mobile, number, locale }) => (
         </Span>
       </span>
     </ButtonStyled>
-    {mobile && (
-      <NotificationIcon
-        mobile={mobile}
-        number={number}
-        iconId="WalletButton_NotificationIconMobile"
-        locale={locale}
-      />
-    )}
+    {mobile &&
+      isPositiveNumber(number) && (
+        <NotificationIcon
+          mobile={mobile}
+          number={number}
+          iconId="WalletButton_NotificationIconMobile"
+          locale={locale}
+        />
+      )}
   </div>
 );
 
