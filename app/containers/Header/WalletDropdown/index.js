@@ -13,7 +13,6 @@ import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 
 import SendTokens from 'containers/SendTokens';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   selectWeekStat,
@@ -21,6 +20,7 @@ import {
   selectGetWeekStatProcessing,
 } from 'containers/Wallet/selectors';
 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import injectSaga from 'utils/injectSaga';
@@ -36,7 +36,7 @@ import WalletButton from './WalletButton';
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number }) => (
+const Menu = memo(({ user, number, locale }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
@@ -45,6 +45,7 @@ const Menu = memo(({ user, number }) => (
           inline
           number={number}
           iconId="walletDropDownInline"
+          locale={locale}
         />
       )}
     </A>
@@ -60,7 +61,7 @@ const WalletDropdown = ({
   locale,
   weekStat,
   getWeekStatDispatch,
-  rewardsWeeksNumber,
+  rewardsWeeksNumber: number,
   getWeekStatProcessing,
   account,
 }) => {
@@ -71,18 +72,22 @@ const WalletDropdown = ({
   }, []);
 
   return (
-    <Dropdown
-      id={`profile_id_${Math.random()}`}
-      className="d-none d-md-flex mr-3"
-      button={
-        <WalletButton
-          balance={balance}
+    <div className="position-relative">
+      <Dropdown
+        id={`profile_id_${Math.random()}`}
+        className="d-none d-md-flex mr-3 wallet-dropdown"
+        button={<WalletButton balance={balance} locale={locale} />}
+        menu={<Menu user={user} number={number} locale={locale} />}
+      />
+      {isPositiveNumber(number) && (
+        <NotificationIcon
+          mobile={false}
+          number={number}
+          iconId="WalletDropDown_NotificationIcon"
           locale={locale}
-          number={rewardsWeeksNumber}
         />
-      }
-      menu={<Menu user={user} number={rewardsWeeksNumber} />}
-    />
+      )}
+    </div>
   );
 };
 

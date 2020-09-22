@@ -4,4 +4,7 @@ export default defineMessages({
   voteForNewCommunities: {
     id: 'app.containers.ExistingCommunities.voteForNewCommunities',
   },
+  singleCommunityTooltip: {
+    id: 'app.containers.ExistingCommunities.singleCommunityTooltip',
+  },
 });

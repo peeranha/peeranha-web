@@ -46,9 +46,6 @@ export const getGoogleVerificationData = () =>
   googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
   googleVerificationConfig.default;
 
-export const getGoogleMetaTagContent = () =>
-  getGoogleVerificationData().content;
-
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
 

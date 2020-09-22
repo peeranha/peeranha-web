@@ -19,7 +19,7 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import searchIcon from 'images/search.svg?external';
+import arrowDown from 'images/arrowDownNotFilled.svg?external';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
 
@@ -94,7 +94,7 @@ export const Select2 = ({
         DropdownIndicator: () => (
           <Icon
             className="mr-1"
-            icon={searchIcon}
+            icon={arrowDown}
             width="16"
             color={TEXT_SECONDARY_LIGHT}
           />

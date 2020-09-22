@@ -3,6 +3,7 @@ import questionIcon from 'images/question2.svg?external';
 import bestAnswerIcon from 'images/bestAnswer.svg?external';
 import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?external';
 import upVoteIcon from 'images/fingerUpSingleQuestionPage.svg?external';
+import greenUpVoteIcon from 'images/greenFingerUpSingleQuestion.svg?external';
 import coinsIcon from 'images/coins.svg?external';
 
 import messages from './messages';
@@ -53,7 +54,7 @@ export const FILTER_READ_TIMESTAMPS =
 export const NOTIFICATIONS_TYPES = {
   1: {
     ...messages.yourQuestionWasUpVoted,
-    src: upVoteIcon,
+    src: greenUpVoteIcon,
   },
   2: {
     ...messages.yourQuestionWasDownVoted,
@@ -61,7 +62,7 @@ export const NOTIFICATIONS_TYPES = {
   },
   3: {
     ...messages.yourAnswerWasUpVoted,
-    src: upVoteIcon,
+    src: greenUpVoteIcon,
   },
   4: {
     ...messages.yourAnswerWasDownVoted,

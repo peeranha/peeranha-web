@@ -5,9 +5,6 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
@@ -17,8 +14,6 @@ import {
 
 import Seo from 'components/Seo';
 
-import reducer from './reducer';
-import saga from './saga';
 import messages from './messages';
 import * as selectors from './selectors';
 
@@ -39,29 +34,29 @@ const Wallet = ({
   pickupRewardProcessing,
   ids,
 }) => (
-    <div>
-      {process.env.ENV !== 'dev' && (
-        <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
-          language={locale}
-          index={false}
-        />
-      )}
-
-      <View
-        userId={id}
-        locale={locale}
-        account={account}
-        balance={balance}
-        weekStat={weekStat}
-        getWeekStatProcessing={getWeekStatProcessing}
-        pickupRewardDispatch={pickupRewardDispatch}
-        pickupRewardProcessing={pickupRewardProcessing}
-        ids={ids}
+  <div>
+    {process.env.ENV !== 'dev' && (
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        index={false}
       />
-    </div>
-  );
+    )}
+
+    <View
+      userId={id}
+      locale={locale}
+      account={account}
+      balance={balance}
+      weekStat={weekStat}
+      getWeekStatProcessing={getWeekStatProcessing}
+      pickupRewardDispatch={pickupRewardDispatch}
+      pickupRewardProcessing={pickupRewardProcessing}
+      ids={ids}
+    />
+  </div>
+);
 
 Wallet.propTypes = {
   balance: PropTypes.string,
@@ -77,8 +72,9 @@ Wallet.propTypes = {
 
 export default memo(
   compose(
-    injectReducer({ key: 'wallet', reducer }),
-    injectSaga({ key: 'wallet', saga }),
+    /* 
+    * reducer and saga injections are produced in WalletDropdown container
+    */
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),

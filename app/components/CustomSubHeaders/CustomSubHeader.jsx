@@ -157,7 +157,7 @@ export const Subitems = styled.div`
   position: absolute;
   top: 100%;
   left: -30px;
-  z-index: 99;
+  z-index: 9999;
 
   display: none;
   min-width: 152px;

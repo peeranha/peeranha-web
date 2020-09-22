@@ -90,6 +90,9 @@ const Menu = memo(
         <A to={routes.userNotifications(user)}>
           <FormattedMessage {...messages.notifications} />
         </A>
+        <A to={routes.userAchievements(user)}>
+          <FormattedMessage {...messages.achievements} />
+        </A>
       </Ul>
 
       <Ul>

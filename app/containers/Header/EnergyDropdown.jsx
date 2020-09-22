@@ -14,7 +14,7 @@ import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
 
-import { IconBG } from './WalletButton';
+import { IconBG } from './WalletDropdown/WalletButton';
 
 export const Button = ({ energy }) => (
   <IconBG className="d-flex flex-column" bg={BG_LIGHT}>

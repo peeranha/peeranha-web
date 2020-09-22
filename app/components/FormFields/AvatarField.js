@@ -23,6 +23,8 @@ import { formatStringToHtmlId } from 'utils/animation';
 import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
+import { AVATAR_FIELD } from 'containers/Profile/constants';
+
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
@@ -273,14 +275,15 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
-        {input.value !== NO_AVATAR && (
-          <div className="remove-avatar-action-container">
-            <button
-              className="remove-avatar-action"
-              onClick={() => input.onChange(NO_AVATAR)}
-            />
-          </div>
-        )}
+        {input.name === AVATAR_FIELD &&
+          input.value !== NO_AVATAR && (
+            <div className="remove-avatar-action-container">
+              <button
+                className="remove-avatar-action"
+                onClick={() => input.onChange(NO_AVATAR)}
+              />
+            </div>
+          )}
       </div>
       <InfoMessage>
         <FormattedMessage {...messages.profilesUsersInfo} />

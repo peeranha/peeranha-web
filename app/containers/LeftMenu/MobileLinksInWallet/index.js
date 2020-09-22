@@ -10,9 +10,10 @@ import messages from 'common-messages';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import WalletButton from 'containers/Header/WalletButton';
-import NotificationIcon from 'containers/Header/NotificationIcon';
+import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
+import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
@@ -24,6 +25,7 @@ const MobileLinksInWallet = ({
   isMenuVisible,
   balance,
   rewardsWeeksNumber,
+  locale,
 }) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
@@ -39,7 +41,12 @@ const MobileLinksInWallet = ({
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
       >
-        <WalletButton balance={balance} mobile number={rewardsWeeksNumber} />
+        <WalletButton
+          balance={balance}
+          number={rewardsWeeksNumber}
+          locale={locale}
+          mobile
+        />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}
@@ -55,8 +62,10 @@ const MobileLinksInWallet = ({
             {isPositiveNumber(rewardsWeeksNumber) && (
               <NotificationIcon
                 inline
+                mobile
                 number={rewardsWeeksNumber}
                 id="MobileLinksInWallet"
+                locale={locale}
               />
             )}
           </A>
@@ -75,12 +84,14 @@ MobileLinksInWallet.propTypes = {
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 export default memo(
   connect(
     createStructuredSelector({
       rewardsWeeksNumber: selectRewardsWeeksNumber(),
+      locale: makeSelectLocale(),
     }),
   )(MobileLinksInWallet),
 );

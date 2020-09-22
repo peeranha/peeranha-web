@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import A from 'components/A';
 import Span from 'components/Span';
@@ -27,7 +27,7 @@ const UserInfo = ({ user, userInfo, postTime, locale }) => (
         fontSize="14"
         color={TEXT_SECONDARY}
       >
-        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_TIME)}
+        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
     </A>
   </p>
