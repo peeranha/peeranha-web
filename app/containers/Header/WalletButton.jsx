@@ -88,7 +88,7 @@ const WalletButton = ({ balance, mobile, locale, number }) => (
         {getFormattedNum4(balance)}
       </Span>
       <Span
-        className="ml-1 align-middle"
+        className="align-middle"
         fontSize="14"
         lineHeight="18"
         color={TEXT_SECONDARY}

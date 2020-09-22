@@ -12,14 +12,22 @@ import {
   BG_SECONDARY_SPECIAL_4,
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
+  BORDER_WARNING_LIGHT,
 } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
 
 import Span from '../Span';
 import { IconMd } from 'components/Icon/IconWithSizes';
+
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
 
 const Container = styled.div`
   position: absolute;
@@ -37,17 +45,18 @@ const Container = styled.div`
   border-bottom-left-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
   border-bottom-right-radius: ${({ lastBR }) => (lastBR ? 5 : 0)}px;
 
-  ${({ small }) => !small ? `
+  ${({ small }) =>
+    !small
+      ? `
     @media only screen and (min-width: 815px) and (max-width: 991px), only screen and (min-width: 1015px) {
       display: grid;
       grid-template-columns: 1.35fr 1.45fr 0.55fr;
       grid-template-rows: ${({ height }) => height}px;
     }
-  ` : `
+  `
+      : `
     display: grid;
-  `}
-  
-  > span {
+  `} > span {
     display: inline-block;
   }
 
@@ -78,21 +87,25 @@ const Container = styled.div`
   padding: 10px ${({ paddingHorizontal }) => paddingHorizontal / 2 || 0}px;
 
   > span:nth-child(1) {
-    ${({ small }) => small ? `
+    ${({ small }) =>
+      small
+        ? `
     margin-bottom: 0;
-    ` : null}
+    `
+        : null};
   }
 
   > div:nth-child(2) {
-    ${({ small }) => !small ? `
+    ${({ small }) =>
+      !small
+        ? `
       grid-row-start: 3;
       grid-row-end: 3;
-    ` : `
+    `
+        : `
       grid-row: 3 / 3;
       margin-bottom: 0;
-    `}
-    
-    > a {
+    `} > a {
       font-size: 13px;
 
       > img {
@@ -103,11 +116,12 @@ const Container = styled.div`
   }
 
   > div:nth-child(3) {
-    ${({ small }) => small ? `
+    ${({ small }) =>
+      small
+        ? `
       margin-bottom: 0;
-    ` : null}
-
-    justify-self: start;
+    `
+        : null} justify-self: start;
 
     > span {
       font-size: 12px;
@@ -172,6 +186,8 @@ const Notification = ({
     [data],
   );
 
+  const isCommunityMood = !!single && Object.keys(styles).length > 0;
+
   return (
     <Container
       top={top}
@@ -191,7 +207,14 @@ const Notification = ({
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <Link to={href} href={href} className="d-flex align-items-center">
-          <IconMd icon={NOTIFICATIONS_TYPES[type].src} />
+          <IconMd
+            icon={NOTIFICATIONS_TYPES[type].src}
+            color={
+              (type === 9 || type === 10) && !isCommunityMood
+                ? BORDER_WARNING_LIGHT
+                : null
+            }
+          />
           <span>{data.title}</span>
         </Link>
       </div>

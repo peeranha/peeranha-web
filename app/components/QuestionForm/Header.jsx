@@ -32,7 +32,7 @@ const Header = ({ formTitle, questionId, intl }) => (
       <div className="right-panel">
         <A to={routes.questionView(questionId)}>
           <button>
-            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} />
+            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} isColorImportant={true} />
             <Span color={TEXT_PRIMARY}>
               {intl.formatMessage(commonMessages.close)}
             </Span>
