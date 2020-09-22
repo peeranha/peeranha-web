@@ -87,6 +87,7 @@ import { getCookie, setCookie } from 'utils/cookie';
 import { addToast } from 'containers/Toast/actions';
 
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getUserAchievementsWorker } from 'containers/Achievements/saga';
 
 import {
   addLoginData,
@@ -161,6 +162,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
+      yield call(getUserAchievementsWorker);
 
       // Update info for question depending on user
       const viewQuestion = yield select(selectQuestionData());

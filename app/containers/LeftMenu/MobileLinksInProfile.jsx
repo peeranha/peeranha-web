@@ -60,6 +60,10 @@ export default React.memo(({ profile, isMenuVisible }) => {
             <FormattedMessage {...messages.notifications} />
           </A>
 
+          <A to={routes.userAchievements(profile.user)}>
+            <FormattedMessage {...messages.achievements} />
+          </A>
+
           <Logout>
             <FormattedMessage {...messages.logout} />
           </Logout>

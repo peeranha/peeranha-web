@@ -11,6 +11,7 @@
   "app.common.postsNumber": "Посты {number}",
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
+  "app.common.achievments": "Достижения",
   "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
@@ -851,5 +852,49 @@
   "app.components.TextEditor.quoteByPlacing":
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
-    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
+    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.questionAsked.title": "Вопрос задан",
+  "app.containers.Achievements.questionAsked.multipleTitle": "Вопросы заданы",
+  "app.containers.Achievements.questionAsked.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.answerGiven.title": "Ответ дан",
+  "app.containers.Achievements.answerGiven.multipleTitle": "Ответов даны",
+  "app.containers.Achievements.answerGiven.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.correctAnswer.title": "Правильный ответ",
+  "app.containers.Achievements.correctAnswer.multipleTitle":
+    "Правильных ответа",
+  "app.containers.Achievements.correctAnswer.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.first10kregistered.title": "Основатель",
+  "app.containers.Achievements.first10kregistered.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.stanger.title": "Почётный Незнакомец",
+  "app.containers.Achievements.stanger.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.newbie.title": "Почётный Новичок",
+  "app.containers.Achievements.newbie.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.junior.title": "Почётный Начинающий",
+  "app.containers.Achievements.junior.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.resident.title": "Почётный Постоялец",
+  "app.containers.Achievements.resident.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.senior.title": "Почётный Опытный",
+  "app.containers.Achievements.senior.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.hero.title": "Почётный Герой",
+  "app.containers.Achievements.hero.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.superhero.title": "Почётный Супергерой",
+  "app.containers.Achievements.superhero.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.answer15minutes.title": "Ответ за 15 минут",
+  "app.containers.Achievements.answer15minutes.description":
+    "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.firstAnswer.title": "Первый ответ",
+  "app.containers.Achievements.firstAnswer.description":
+    "Поздравляем! Это отличное достижение!"
 }

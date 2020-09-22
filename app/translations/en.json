@@ -11,6 +11,7 @@
   "app.common.postsNumber": "Posts {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
+  "app.common.achievements": "Achievements",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
@@ -847,5 +848,49 @@
   "app.components.TextEditor.quoteByPlacing":
     "quote by placing > at start of line",
   "app.components.TextEditor.toMakeLinks":
-    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.questionAsked.title": "Question Asked",
+  "app.containers.Achievements.questionAsked.multipleTitle": "Questions Asked",
+  "app.containers.Achievements.questionAsked.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.answerGiven.title": "Answer Given",
+  "app.containers.Achievements.answerGiven.multipleTitle": "Answers Given",
+  "app.containers.Achievements.answerGiven.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.correctAnswer.title": "Correct Answer",
+  "app.containers.Achievements.correctAnswer.multipleTitle": "Correct Answers",
+  "app.containers.Achievements.correctAnswer.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.first10kregistered.title": "Founding Member",
+  "app.containers.Achievements.first10kregistered.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.stanger.title": "Honorable Stranger",
+  "app.containers.Achievements.stanger.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.newbie.title": "Honorable Newbie",
+  "app.containers.Achievements.newbie.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.junior.title": "Honorable Junior",
+  "app.containers.Achievements.junior.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.resident.title": "Honorable Resident",
+  "app.containers.Achievements.resident.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.senior.title": "Honorable Senior",
+  "app.containers.Achievements.senior.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.hero.title": "Honorable Hero",
+  "app.containers.Achievements.hero.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.superhero.title": "Honorable Superhero",
+  "app.containers.Achievements.superhero.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.answer15minutes.title":
+    "Answered within 15 minutes",
+  "app.containers.Achievements.answer15minutes.description":
+    "Congratulations! This is a great achievement!",
+  "app.containers.Achievements.firstAnswer.title": "Answered First",
+  "app.containers.Achievements.firstAnswer.description":
+    "Congratulations! This is a great achievement!"
 }
