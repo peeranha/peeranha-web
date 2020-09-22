@@ -7,6 +7,8 @@ import achievementNotReached from 'images/achievement_not_reached.svg?inline';
 
 import Span from 'components/Span';
 
+import { badgesWithValuesIds } from './constants';
+
 const Img = styled('img')`
   margin-right: 15px;
 `;
@@ -35,27 +37,25 @@ const Achievement = ({
   description,
   value,
   id,
-}) => {
-  return (
-    <Bage>
-      {reached && <Img src={achievementReached} alt="reached achievement" />}
-      {!reached && (
-        <Img src={achievementNotReached} alt="not reached achievement" />
-      )}
-      <div>
-        <TitleBlock>
-          <strong>
-            <ValueSpan>{(id === 1 || id === 2 || id === 3) && value}</ValueSpan>
-            {(id === 1 || id === 2 || id === 3) && value > 1
-              ? multipleTitle
-              : title}
-          </strong>
-        </TitleBlock>
-        <DescriptionBlock>{description}</DescriptionBlock>
-      </div>
-    </Bage>
-  );
-};
+}) => (
+  <Bage>
+    {reached && <Img src={achievementReached} alt="reached achievement" />}
+    {!reached && (
+      <Img src={achievementNotReached} alt="not reached achievement" />
+    )}
+    <div>
+      <TitleBlock>
+        <strong>
+          <ValueSpan>{badgesWithValuesIds.includes(id) && value}</ValueSpan>
+          {badgesWithValuesIds.includes(id) && value > 1
+            ? multipleTitle
+            : title}
+        </strong>
+      </TitleBlock>
+      <DescriptionBlock>{description}</DescriptionBlock>
+    </div>
+  </Bage>
+);
 
 Achievement.propTypes = {
   reached: PropTypes.bool,

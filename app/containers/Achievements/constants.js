@@ -14,6 +14,8 @@ export const possibleAchievements = [
   { id: 13, title: 'FIRST_ANSWER' },
 ];
 
+export const badgesWithValuesIds = [1, 2, 3];
+
 const GET_USER_ACHIEVEMENTS = 'containers/Achievements/GET_USER_ACHIEVEMENTS';
 const GET_USER_ACHIEVEMENTS_ERROR =
   'containers/Achievements/GET_USER_ACHIEVEMENTS_ERROR';
