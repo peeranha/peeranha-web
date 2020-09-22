@@ -23,10 +23,7 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import {
-  isSingleCommunityWebsite,
-  getGoogleMetaTagContent,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ProgressIndicator from 'containers/ProgressIndicator';
@@ -133,11 +130,6 @@ const App = ({
         );
       }
     }
-
-    const meta = document.createElement('meta');
-    meta.name = 'google-site-verification';
-    meta.content = getGoogleMetaTagContent();
-    document.getElementsByTagName('head')[0].appendChild(meta);
   }, []);
 
   return (
