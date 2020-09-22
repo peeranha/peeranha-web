@@ -93,7 +93,7 @@ export class ChangePasswordByPrevious extends React.PureComponent {
           )}
         </Modal>
 
-        <Button onClick={showChangePasswordModalDispatch}>{children}</Button>
+        <Button onClick={showChangePasswordModalDispatch} style={{paddingBottom: 2}}>{children}</Button>
       </React.Fragment>
     );
   }

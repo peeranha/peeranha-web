@@ -93,7 +93,7 @@ export class ChangeEmail extends React.PureComponent {
           )}
         </Modal>
 
-        <Button onClick={showChangeEmailModalDispatch}>{children}</Button>
+        <Button onClick={showChangeEmailModalDispatch} style={{paddingBottom: 2}}>{children}</Button>
       </React.Fragment>
     );
   }

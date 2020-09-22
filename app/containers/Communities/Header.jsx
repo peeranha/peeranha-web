@@ -55,13 +55,15 @@ const Header = ({
             onClick={goToCreateCommunityScreen}
             className="d-flex align-items-center"
           >
-            <img
-              className="d-none d-sm-inline-block"
-              src={createCommunityIcon}
-              alt="icon"
-            />
+            <span>
+              <img
+                className="d-none d-sm-inline-block"
+                src={createCommunityIcon}
+                alt="icon"
+              />
 
-            <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+              <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+            </span>
 
             <span className="ml-1">
               <FormattedMessage {...messages.suggestCommunity} />
