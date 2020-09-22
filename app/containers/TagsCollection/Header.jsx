@@ -8,7 +8,7 @@ import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
 import icoTagIcon from 'images/icoTag.svg?inline';
 import addIcon from 'images/add.svg?external';
 
-import Wrapper from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import H3 from 'components/H3';
 import { IconSm } from 'components/Icon/IconWithSizes';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -23,7 +23,7 @@ const Header = ({ openTagForm }) => (
       <FormattedMessage {...messages.tags} />
     </H3>
 
-    <div className="right-panel">
+    <WrapperRightPanel className="right-panel">
       <TransparentButton
         onClick={openTagForm}
         data-communityid=""
@@ -33,11 +33,11 @@ const Header = ({ openTagForm }) => (
 
         <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
 
-        <span className="ml-1">
+        <span className="ml-1 button-label">
           <FormattedMessage {...messages.suggestTag} />
         </span>
       </TransparentButton>
-    </div>
+    </WrapperRightPanel>
   </Wrapper>
 );
 

@@ -10,7 +10,7 @@ import addIcon from 'images/add.svg?external';
 
 import { IconSm } from 'components/Icon/IconWithSizes';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import SubHeaderWrapper from 'components/Header/Complex';
+import SubHeaderWrapper, {SubHeaderWrapperRightPanel} from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
@@ -49,7 +49,7 @@ const Header = ({
           </A>
         </div>
 
-        <div className="right-panel">
+        <SubHeaderWrapperRightPanel className="right-panel">
           <TransparentButton
             id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
             onClick={goToCreateCommunityScreen}
@@ -65,11 +65,11 @@ const Header = ({
               <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
             </span>
 
-            <span className="ml-1">
+            <span className="ml-1 button-label">
               <FormattedMessage {...messages.suggestCommunity} />
             </span>
           </TransparentButton>
-        </div>
+        </SubHeaderWrapperRightPanel>
       </SubHeaderWrapper>
 
       <SubHeader

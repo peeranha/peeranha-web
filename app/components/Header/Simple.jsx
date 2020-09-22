@@ -1,4 +1,20 @@
+import styled from 'styled-components';
+
 import BaseRounded from 'components/Base/BaseRounded';
+
+export const WrapperRightPanel = styled.div`
+  align-self: center;
+  width: auto !important;
+  margin-top: 5px !important;
+
+  button {
+    .button-label {
+      @media only screen and (max-width: 576px) {
+        display: none;
+      }
+    }
+  }
+`;
 
 const C1 = `
   flex-direction: column;
