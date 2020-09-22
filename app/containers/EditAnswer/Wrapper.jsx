@@ -34,7 +34,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
       <div className="right-panel">
         <A to={routes.questionView(questionid, answerid)}>
           <button>
-            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} />
+            <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} isColorImportant={true} />
             <Span color={TEXT_PRIMARY}>
               <FormattedMessage {...commonMessages.close} />
             </Span>
