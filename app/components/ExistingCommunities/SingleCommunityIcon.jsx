@@ -10,14 +10,14 @@ import Icon from 'components/Icon';
 
 import messages from './messages';
 
-const SCIcon = styled(Icon)`
+const IconSingle = styled(Icon)`
   margin-left: 8px;
   margin-right: 8px;
 `;
 
-const SCButton = styled.button`
+const ButtonSingle = styled.button`
   display: inline;
-  position: absolute;
+  position: relative;
   z-index: 1000;
 
   @media only screen and (max-width: 991px) {
@@ -25,7 +25,7 @@ const SCButton = styled.button`
   }
 `;
 
-const SCButtonMob = styled(SCButton)`
+const ButtonSingleMob = styled(ButtonSingle)`
   display: none;
 
   @media only screen and (max-width: 991px) {
@@ -37,7 +37,8 @@ const SingleCommunityIcon = ({ locale, id }) => {
   const tooltipText =
     translationMessages[locale][messages.singleCommunityTooltip.id];
 
-  const idMobile = `${id}mob`;
+  const fullId = `SingleCommunityIcon_${id}`;
+  const idMobile = `${fullId}mob`;
 
   const [opened, setOpened] = useState(false);
   const setOpenedFalse = () => setOpened(false);
@@ -45,11 +46,11 @@ const SingleCommunityIcon = ({ locale, id }) => {
   const iPad = () => window.navigator.userAgent.includes('iPad');
 
   const showTooltip = () => {
-    if (!iPad()) showPopover(id, tooltipText, { timer: false });
+    if (!iPad()) showPopover(fullId, tooltipText, { timer: false });
   };
 
   const hideTooltip = () => {
-    if (!iPad()) closePopover(id);
+    if (!iPad()) closePopover();
   };
 
   const toggleTooltipMobile = (e, iconId = idMobile) => {
@@ -62,43 +63,40 @@ const SingleCommunityIcon = ({ locale, id }) => {
         position: 'top',
       });
     } else {
-      closePopover(iconId, setOpenedFalse);
+      closePopover();
+      setOpenedFalse();
     }
   };
 
   const iPadClick = e => {
     if (iPad()) {
-      toggleTooltipMobile(e, id);
+      toggleTooltipMobile(e, fullId);
     }
   };
 
   const onBlur = () => {
-    if (opened) {
-      closePopover(idMobile, setOpenedFalse);
-    }
-    if (opened && iPad) {
-      closePopover(id, setOpenedFalse);
-    }
+    closePopover();
+    setOpenedFalse();
   };
 
   return (
     <>
-      <SCButton
-        id={id}
+      <ButtonSingle
+        id={fullId}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
         onClick={e => iPadClick(e)}
         onBlur={onBlur}
       >
-        <SCIcon icon={singleCommunity} width="14" height="14" />
-      </SCButton>
-      <SCButtonMob
+        <IconSingle icon={singleCommunity} width="14" height="14" />
+      </ButtonSingle>
+      <ButtonSingleMob
         onBlur={onBlur}
         id={idMobile}
         onClick={e => toggleTooltipMobile(e)}
       >
-        <SCIcon icon={singleCommunity} width="14" height="14" />
-      </SCButtonMob>
+        <IconSingle icon={singleCommunity} width="14" height="14" />
+      </ButtonSingleMob>
     </>
   );
 };
