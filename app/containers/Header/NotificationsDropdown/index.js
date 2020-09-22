@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
-import { BG_LIGHT, BORDER_PRIMARY } from 'style-constants';
+import { BG_LIGHT, BG_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
+
+import Span from 'components/Span';
+import { IconEm } from 'components/Icon/IconWithSizes';
 
 import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
 import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
-import { IconEm } from 'components/Icon/IconWithSizes';
 import Menu from './Menu';
-import NotificationIcon from '../NotificationIcon';
 
 import {
   selectUnreadNotifications,
@@ -37,6 +38,23 @@ const Container = styled.div`
     height: 40px;
     min-width: 40px;
     min-height: 40px;
+  }
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 17px;
+  background: ${BG_WARNING_LIGHT};
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  border-radius: 8.5px 50%;
+  min-width: 24px;
+
+  @media only screen and (max-width: 992px) {
+    min-width: 20px;
   }
 `;
 
@@ -69,9 +87,12 @@ const NotificationsDropdown = ({
       innerRef={ref}
     >
       {!!unreadCount && (
-        <NotificationIcon number={number} iconId="NotificationsDropdown" />
+        <Div>
+          <Span fontSize="13" color="white">
+            {number}
+          </Span>
+        </Div>
       )}
-
       <IconEm
         icon={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon}
       />

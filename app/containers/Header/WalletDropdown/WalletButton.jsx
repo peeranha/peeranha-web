@@ -2,10 +2,6 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 import {
   BG_PRIMARY,
@@ -24,14 +20,10 @@ import { IconLg } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import NotificationIcon from './NotificationIcon';
-import headerMessages from './messages';
 
 const ButtonStyled = styled.span`
   position: relative;
-  z-index: 1001;
   display: flex;
   align-items: center;
   border: 1px solid ${BORDER_PRIMARY};
@@ -58,45 +50,39 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
-const getTooltipText = (locale, number) => {
-  const translations = translationMessages[locale];
-  return (
-    translations[headerMessages.walletTooltipPart1.id] +
-    number +
-    translations[headerMessages.walletTooltipPart2.id]
-  );
-};
-
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const WalletButton = ({ balance, mobile, locale, number }) => (
-  <ButtonStyled>
-    {isPositiveNumber(number) && (
-      <NotificationIcon
-        mobile={mobile}
-        number={number}
-        iconId="walletDropDown"
-        tooltipText={getTooltipText(locale, number)}
-      />
-    )}
-    <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-      <IconLg icon={currencyPeerIcon} />
-    </IconBG>
+const WalletButton = ({ balance, mobile, number, locale }) => (
+  <div className="position-relative">
+    <ButtonStyled>
+      <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+        <IconLg icon={currencyPeerIcon} />
+      </IconBG>
 
-    <span className="d-flex flex-column text-left">
-      <Span className="align-middle" fontSize="16" bold>
-        {getFormattedNum4(balance)}
-      </Span>
-      <Span
-        className="align-middle"
-        fontSize="14"
-        lineHeight="18"
-        color={TEXT_SECONDARY}
-      >
-        <FormattedMessage {...messages.peers} />
-      </Span>
-    </span>
-  </ButtonStyled>
+      <span className="d-flex flex-column text-left">
+        <Span className="align-middle" fontSize="16" bold>
+          {getFormattedNum4(balance)}
+        </Span>
+        <Span
+          className="ml-1 align-middle"
+          fontSize="14"
+          lineHeight="18"
+          color={TEXT_SECONDARY}
+        >
+          <FormattedMessage {...messages.peers} />
+        </Span>
+      </span>
+    </ButtonStyled>
+    {mobile &&
+      isPositiveNumber(number) && (
+        <NotificationIcon
+          mobile={mobile}
+          number={number}
+          iconId="WalletButton_NotificationIconMobile"
+          locale={locale}
+        />
+      )}
+  </div>
 );
 
 WalletButton.propTypes = {
@@ -107,12 +93,4 @@ WalletButton.propTypes = {
 };
 
 export { IconBG };
-export default memo(
-  compose(
-    connect(
-      createStructuredSelector({
-        locale: makeSelectLocale(),
-      }),
-    ),
-  )(WalletButton),
-);
+export default memo(WalletButton);
