@@ -192,7 +192,14 @@ export function* getQuestionData({
     const content = yield call(getText, currentItem.ipfs_link);
 
     try {
-      currentItem.content = JSON.parse(content);
+      if (
+        typeof JSON.parse(content) == 'string' ||
+        typeof JSON.parse(content) == 'number'
+      ) {
+        currentItem.content = content;
+      } else {
+        currentItem.content = JSON.parse(content);
+      }
     } catch (err) {
       currentItem.content = content;
     }
