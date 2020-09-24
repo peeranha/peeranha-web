@@ -26,6 +26,7 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
+import answerFormMessages from './messages';
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 import Wrapper from '../FormFields/Wrapper';
 import Span from '../Span';
@@ -59,6 +60,7 @@ export const AnswerForm = ({
       component={TextEditor}
       buttonConfig={reactMDEOptions}
       placeholder=""
+      labelMessage={answerFormMessages.titleLabel}
       validate={[required, strLength25x30000]}
     />
     {isOfficialRepresentative && (

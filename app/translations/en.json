@@ -836,6 +836,9 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+
+  "app.containers.AnswerForm.titleLabel": "Your Answer",
+
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
     "markdown is supported",
