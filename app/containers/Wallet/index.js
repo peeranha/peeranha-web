@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
@@ -17,7 +17,7 @@ import Seo from 'components/Seo';
 import messages from './messages';
 import * as selectors from './selectors';
 
-import { pickupReward } from './actions';
+import { pickupReward, getWeekStat } from './actions';
 
 import View from './View';
 
@@ -29,34 +29,46 @@ const Wallet = ({
   account,
   balance,
   weekStat,
+  getWeekStatDispatch,
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-}) => (
-  <div>
-    {process.env.ENV !== 'dev' && (
-      <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
-        language={locale}
-        index={false}
-      />
-    )}
+}) => {
+  useEffect(
+    () => {
+      if (account) {
+        getWeekStatDispatch();
+      }
+    },
+    [account],
+  );
 
-    <View
-      userId={id}
-      locale={locale}
-      account={account}
-      balance={balance}
-      weekStat={weekStat}
-      getWeekStatProcessing={getWeekStatProcessing}
-      pickupRewardDispatch={pickupRewardDispatch}
-      pickupRewardProcessing={pickupRewardProcessing}
-      ids={ids}
-    />
-  </div>
-);
+  return (
+    <div>
+      {process.env.ENV !== 'dev' && (
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          index={false}
+        />
+      )}
+
+      <View
+        userId={id}
+        locale={locale}
+        account={account}
+        balance={balance}
+        weekStat={weekStat}
+        getWeekStatProcessing={getWeekStatProcessing}
+        pickupRewardDispatch={pickupRewardDispatch}
+        pickupRewardProcessing={pickupRewardProcessing}
+        ids={ids}
+      />
+    </div>
+  );
+};
 
 Wallet.propTypes = {
   balance: PropTypes.string,
@@ -66,6 +78,7 @@ Wallet.propTypes = {
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
   ids: PropTypes.array,
+  getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardProcessing: PropTypes.bool,
 };
@@ -87,6 +100,7 @@ export default memo(
       }),
       dispatch => ({
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
+        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),
     ),
   )(Wallet),
