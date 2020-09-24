@@ -2,48 +2,36 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape, FormattedMessage } from 'react-intl';
-import ReactMDE from 'redux-forms-markdown-editor';
-
-import commonMessages from 'common-messages';
-import formFieldsMsg from 'components/FormFields/messages';
-import messages from './messages';
-
-import { TEXT_SECONDARY } from 'style-constants';
-import { FORM_CONTENT } from './constants';
 
 import Span from 'components/Span';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 import TextBlock from 'components/FormFields/TextBlock';
-import {
-  TextEditorWrapper,
-  TextEditorWarning,
-  TextEditorTitle,
-} from 'components/FormFields/TextEditorField';
+import TextEditor from 'components/FormFields/TextEditor';
+
+import commonMessages from 'common-messages';
+
+import { reactMDEOptions } from 'components/TextEditor/options';
+import { TEXT_SECONDARY } from 'style-constants';
+
+import messages from './messages';
+
+import { FORM_CONTENT } from './constants';
+
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from '../FormFields/Wrapper';
 
-import { reactMDEOptions } from 'components/TextEditor/options';
-
-const ContentForm = ({ questionLoading, intl, formValues }) => (
+const ContentForm = ({ intl, formValues }) => (
   <>
-    <TextEditorWrapper isError={!!strLength25x30000(formValues[FORM_CONTENT])}>
-      {intl.formatMessage(messages.contentLabel) && (
-        <TextEditorTitle>
-          {intl.formatMessage(messages.contentLabel)}
-        </TextEditorTitle>
-      )}
-      <Field
-        name={FORM_CONTENT}
-        component={ReactMDE}
-        buttonConfig={reactMDEOptions}
-        placeholder=" "
-      />
-      {strLength25x30000(formValues[FORM_CONTENT]) && (
-        <TextEditorWarning>
-          <FormattedMessage {...formFieldsMsg.wrongLength25x30000} />
-        </TextEditorWarning>
-      )}
-    </TextEditorWrapper>
+    <Field
+      name={FORM_CONTENT}
+      component={TextEditor}
+      buttonConfig={reactMDEOptions}
+      placeholder=""
+      labelMessage={messages.questionBodyLabel}
+      formValues={formValues}
+      validate={[required, strLength25x30000]}
+      warn={strLength25x30000}
+    />
 
     <Wrapper
       style={{ borderRadius: 0, boxShadow: 'none', paddingLeft: 0 }}
