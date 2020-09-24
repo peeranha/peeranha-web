@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { TEXT_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
+import { HEADER_ID } from 'containers/Header/constants';
 
 import Icon from 'components/Icon';
 import toTopArrow from 'images/toTopArrow.svg?external';
@@ -70,7 +72,7 @@ const ScrollToTop = () => {
         setVisibility(false);
         clearTimeout(timeoutId);
         timerOn = false;
-      }, 1500);
+      }, 3000);
     }
 
     if (currentPosition <= 1000 || currentPosition < previousPosition) {
@@ -85,6 +87,8 @@ const ScrollToTop = () => {
 
   const clickHandler = () => {
     window.scrollTo(0, 0);
+    document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
+    document.querySelector(`#${LEFT_MENU_ID}`).classList.remove('sticky');
   };
 
   return (
