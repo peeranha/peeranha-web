@@ -12,7 +12,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import A from 'components/A';
-import Wrapper from 'components/Header/Simple';
+import Wrapper, {WrapperRightPanel} from 'components/Header/Simple';
 
 import messages from './messages';
 
@@ -30,16 +30,16 @@ const Header = () => (
       </span>
     </H3>
 
-    <div className="right-panel">
+    <WrapperRightPanel className="right-panel">
       <A to={routes.support()}>
         <button>
           <img className="mr-1" src={infoIcon} alt="x" />
-          <Span color={TEXT_PRIMARY}>
+          <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.support} />
           </Span>
         </button>
       </A>
-    </div>
+    </WrapperRightPanel>
   </Wrapper>
 );
 

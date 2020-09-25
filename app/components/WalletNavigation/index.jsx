@@ -12,7 +12,7 @@ import sendtokensIcon from 'images/sendtokens.svg?external';
 
 import A from 'components/A';
 import Span from 'components/Span';
-import Wrapper from 'components/Header/Complex';
+import Wrapper, {SubHeaderWrapperRightPanel as WrapperRightPanel} from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { showSendTokensModal } from 'containers/SendTokens/actions';
@@ -30,14 +30,14 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
         </A>
       </ul>
 
-      <div className="right-panel">
+      <WrapperRightPanel className="right-panel">
         <button onClick={showSendTokensModalDispatch}>
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
             <IconMd className="mr-2" icon={sendtokensIcon} />
             <FormattedMessage {...messages.sendTokens} />
           </Span>
         </button>
-      </div>
+      </WrapperRightPanel>
     </Wrapper>
   );
 };

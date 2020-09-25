@@ -15,7 +15,9 @@ import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import SubHeaderWrapper from 'components/Header/Complex';
+import SubHeaderWrapper, {
+  SubHeaderWrapperRightPanel,
+} from 'components/Header/Complex';
 
 import sortingOptions from './sortingOptions';
 
@@ -48,7 +50,7 @@ export const SubHeader = ({
   language,
   languages,
 }) => (
-  <SubHeaderWrapper position="bottom" isColumnForSM>
+  <SubHeaderWrapper position="bottom">
     <H3>
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
@@ -60,7 +62,7 @@ export const SubHeader = ({
       </span>
     </H3>
 
-    <div className="d-flex right-panel">
+    <SubHeaderWrapperRightPanel className="d-flex right-panel">
       {/* <Dropdown
         className="mr-3"
         button={<Button sorting={language} icon={languageIcon} />}
@@ -87,7 +89,7 @@ export const SubHeader = ({
         id="existing-communities-dropdown"
         isArrowed
       />
-    </div>
+    </SubHeaderWrapperRightPanel>
   </SubHeaderWrapper>
 );
 

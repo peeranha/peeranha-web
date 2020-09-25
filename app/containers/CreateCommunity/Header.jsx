@@ -11,7 +11,7 @@ import closeIcon from 'images/closeCircle.svg?inline';
 import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
-import Wrapper from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
 import messages from './messages';
@@ -23,16 +23,16 @@ export const Header = () => (
       <FormattedMessage {...messages.newCommunity} />
     </H3>
 
-    <div className="right-panel">
+    <WrapperRightPanel className="right-panel">
       <A to={routes.communities()}>
         <button>
           <img className="mr-1" src={closeIcon} alt="x" />
-          <Span color={TEXT_PRIMARY}>
+          <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.close} />
           </Span>
         </button>
       </A>
-    </div>
+    </WrapperRightPanel>
   </Wrapper>
 );
 

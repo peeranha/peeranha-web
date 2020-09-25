@@ -34,6 +34,10 @@ const PageContentHeader = styled.div`
   }
 `;
 
+const PageContentHeaderRightPanel = styled.div`
+  flex-shrink: 0;
+`;
+
 export const Header = ({
   intl,
   communityIdFilter,
@@ -106,12 +110,14 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
         {!!displaySubscribeButton && (
-          <div className={`right-panel m-0 ml-${single ? 3 : 4}`}>
+          <PageContentHeaderRightPanel
+            className={`right-panel m-0 ml-${single ? 3 : 4}`}
+          >
             <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
             />
-          </div>
+          </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>
       <QuestionFilter
