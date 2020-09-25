@@ -59,17 +59,18 @@ const WalletDropdown = ({
   user,
   balance,
   locale,
-  weekStat,
   getWeekStatDispatch,
   rewardsWeeksNumber: number,
-  getWeekStatProcessing,
   account,
 }) => {
-  useEffect(() => {
-    if (account && !weekStat && !getWeekStatProcessing) {
-      getWeekStatDispatch();
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (account) {
+        getWeekStatDispatch();
+      }
+    },
+    [account],
+  );
 
   return (
     <div className="position-relative">
@@ -101,10 +102,8 @@ WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
   locale: PropTypes.string,
-  weekStat: PropTypes.array,
   getWeekStatDispatch: PropTypes.func,
   rewardsWeeksNumber: PropTypes.number,
-  getWeekStatProcessing: PropTypes.bool,
   account: PropTypes.string,
 };
 
