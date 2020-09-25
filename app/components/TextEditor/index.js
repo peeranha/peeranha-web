@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SimpleMDE from 'react-simplemde-editor';
 import EditorOptions from 'simplemde';
-import 'simplemde/dist/simplemde.min.css';
+import 'easymde/dist/easymde.min.css';
 
 import options from './options';
 

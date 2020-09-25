@@ -4,12 +4,6 @@ export default defineMessages({
   wrongLength: {
     id: 'app.components.FormFields.wrongLength',
   },
-  wrongLength20x1000: {
-    id: 'app.components.FormFields.wrongLength20x1000',
-  },
-  wrongLength25x30000: {
-    id: 'app.components.FormFields.wrongLength25x30000',
-  },
   wrongExactLength: {
     id: 'app.components.FormFields.wrongExactLength',
   },
