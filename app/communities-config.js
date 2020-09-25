@@ -54,7 +54,24 @@ const googleSiteVerificationsConfig = {
       formKey: 'AIzaSyC-hxNXz2D16rCXB6yVPf2FbMCqcKsq8A8',
       engineKey: '002220552224929577704:ip529aw0r_k',
     },
-    communities: {},
+    communities: {
+      1: {
+        formKey: 'AIzaSyAdfxmajqH18qupbtTV361xhIMCj3gnXWo',
+        engineKey: 'd9065fd30c7c4dd3e',
+      },
+      2: {
+        formKey: 'AIzaSyCuOqi2jP7PqMS_e3rxWWbc69eo3BnEF8M',
+        engineKey: '7afa8280bb505813e',
+      },
+      3: {
+        formKey: 'AIzaSyCqvn3BIJHKIs5QX9XGFzPGnSvYAMv17hE',
+        engineKey: 'dbdbdb5077be9fcbb',
+      },
+      4: {
+        formKey: 'AIzaSyBqPKf_EfzpnbI-vb2yd6wLwyHn7XkN5BY',
+        engineKey: '29ec0c27249bc1846',
+      },
+    },
   },
   dev: {
     default: {
