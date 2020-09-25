@@ -19,8 +19,8 @@ export default defineMessages({
   skipExistingQuestions: {
     id: 'app.common.skip',
   },
-  contentLabel: {
-    id: 'app.containers.QuestionForm.contentLabel',
+  questionBodyLabel: {
+    id: 'app.containers.QuestionForm.questionBodyLabel',
   },
   communityLabel: {
     id: 'app.containers.QuestionForm.communityLabel',

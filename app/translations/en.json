@@ -814,7 +814,7 @@
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
     "To avoid duplicates check existed questions.",
-  "app.containers.QuestionForm.contentLabel": "Body",
+  "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.previewLabel": "Preview",
@@ -836,6 +836,9 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+
+  "app.containers.AnswerForm.titleLabel": "Your Answer",
+
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
     "markdown is supported",

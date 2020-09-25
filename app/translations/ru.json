@@ -819,7 +819,7 @@
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
     "Чтобы избежать дублирования, проверьте существующие вопросы.",
-  "app.containers.QuestionForm.contentLabel": "Содержание",
+  "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
@@ -840,6 +840,8 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+
+  "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",
   "app.components.TextEditor.putReturnsBetweenParagraphs":

@@ -5,24 +5,18 @@ import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
-import ReactMDE from 'redux-forms-markdown-editor';
 
 import messages from 'common-messages';
-import formFieldsMsg from 'components/FormFields/messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import {
   isAnswerOfficial,
   communityAdminOfficialAnswerPermission,
 } from 'utils/properties';
-import { strLength25x30000 } from 'components/FormFields/validate';
+import { strLength25x30000, required } from 'components/FormFields/validate';
 
 import TextBlock from 'components/FormFields/TextBlock';
-import {
-  TextEditorWrapper,
-  TextEditorWarning,
-  TextEditorTitle,
-} from 'components/FormFields/TextEditorField';
+import TextEditor from 'components/FormFields/TextEditor';
 import { reactMDEOptions } from 'components/TextEditor/options';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
@@ -32,6 +26,7 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
+import answerFormMessages from './messages';
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 import Wrapper from '../FormFields/Wrapper';
 import Span from '../Span';
@@ -54,27 +49,20 @@ export const AnswerForm = ({
   sendAnswerLoading,
   sendButtonId,
   submitButtonName,
-  label,
   previewLabel,
   textEditorValue,
   answerTypeLabel,
   isOfficialRepresentative,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
-    <TextEditorWrapper isError={!!strLength25x30000(textEditorValue)}>
-      {label && <TextEditorTitle>{label}</TextEditorTitle>}
-      <Field
-        name={TEXT_EDITOR_ANSWER_FORM}
-        component={ReactMDE}
-        buttonConfig={reactMDEOptions}
-        placeholder=" "
-      />
-      {strLength25x30000(textEditorValue) && (
-        <TextEditorWarning>
-          <FormattedMessage {...formFieldsMsg.wrongLength25x30000} />
-        </TextEditorWarning>
-      )}
-    </TextEditorWrapper>
+    <Field
+      name={TEXT_EDITOR_ANSWER_FORM}
+      component={TextEditor}
+      buttonConfig={reactMDEOptions}
+      placeholder=""
+      labelMessage={answerFormMessages.titleLabel}
+      validate={[required, strLength25x30000]}
+    />
     {isOfficialRepresentative && (
       <Field
         name={ANSWER_TYPE_FORM}
@@ -107,7 +95,6 @@ AnswerForm.propTypes = {
   sendAnswer: PropTypes.func,
   sendButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
-  label: PropTypes.string,
   previewLabel: PropTypes.string,
   sendAnswerLoading: PropTypes.bool,
   communityId: PropTypes.number,
