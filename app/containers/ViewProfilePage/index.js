@@ -24,6 +24,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   selectCommunities,
+  selectGetUserTgData,
   selectUsers,
 } from 'containers/DataCacheProvider/selectors';
 
@@ -37,7 +38,11 @@ import {
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 
-import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
+import {
+  redirectToEditProfilePage,
+  confirmTgAccount,
+  unlinkTgAccount,
+} from 'containers/EditProfilePage/actions';
 
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
@@ -62,6 +67,7 @@ const ViewProfilePage = ({
   activeKey,
   ownerKey,
   redirectToEditProfilePageDispatch,
+  userTgData,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -102,6 +108,7 @@ const ViewProfilePage = ({
         account={account}
         user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
+        tgData={userTgData}
       />
 
       {path === routes.userNotifications(userId) && (
@@ -154,6 +161,7 @@ ViewProfilePage.propTypes = {
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
+  userTgData: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -169,6 +177,7 @@ const withConnect = connect(
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
     activeKey: selectActiveKey(),
     ownerKey: selectOwnerKey(),
+    userTgData: selectGetUserTgData(),
   }),
   dispatch => ({
     redirectToEditProfilePageDispatch: bindActionCreators(

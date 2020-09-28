@@ -145,6 +145,12 @@ const selectGetTutorialLoading = () =>
     substate => substate.getTutorialLoading,
   );
 
+const selectGetUserTgData = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.userTgData,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -163,4 +169,5 @@ export {
   selectTutorial,
   selectGetTutorialError,
   selectGetTutorialLoading,
+  selectGetUserTgData,
 };
