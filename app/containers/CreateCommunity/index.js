@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,6 +20,10 @@ import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import {
+  selectUserRating,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_COMMUNITY_QUESTION,
@@ -52,6 +57,8 @@ const createCommunityRoute = routes.communitiesCreate();
 
 export const CreateCommunity = ({
   locale,
+  account,
+  userRating,
   faqQuestions,
   createCommunityLoading,
   createCommunityDispatch,
@@ -92,6 +99,9 @@ export const CreateCommunity = ({
 
   const path = window.location.pathname + window.location.hash;
 
+  if (!account || userRating < 500)
+    return <Redirect to={routes.communities()} />;
+
   return (
     <div>
       <Seo
@@ -121,11 +131,15 @@ CreateCommunity.propTypes = {
   locale: PropTypes.string.isRequired,
   createCommunityLoading: PropTypes.bool.isRequired,
   faqQuestions: PropTypes.array,
+  account: PropTypes.string,
+  userRating: PropTypes.number,
 };
 
 const withConnect = connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
+    account: makeSelectAccount(),
+    userRating: selectUserRating(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_COMMUNITY_QUESTION,
       WHO_MANAGES_COMMUNITY_QUESTION,

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { tags } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,6 +22,11 @@ import {
   selectCommunities,
   selectFaqQuestions,
 } from 'containers/DataCacheProvider/selectors';
+
+import {
+  selectUserRating,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_TAG_QUESTION,
@@ -48,6 +55,8 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
+  account,
+  userRating,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -66,6 +75,8 @@ const CreateTag = ({
     },
     [suggestTagDispatch],
   );
+
+  if (!account || userRating < 100) return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -113,6 +124,8 @@ CreateTag.propTypes = {
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
+  account: PropTypes.string,
+  userRating: PropTypes.number,
 };
 
 export default compose(
@@ -127,6 +140,8 @@ export default compose(
       ]),
       communities: selectCommunities(),
       createTagLoading: selectors.selectSuggestTagLoading(),
+      account: makeSelectAccount(),
+      userRating: selectUserRating(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),

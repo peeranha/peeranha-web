@@ -60,6 +60,15 @@ const makeSelectFollowedCommunities = () =>
     },
   );
 
+const selectUserRating = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return profileInfo ? profileInfo.rating : null;
+    },
+  );
+
 export {
   selectAccountProviderDomain,
   makeSelectAccountLoading,
@@ -70,4 +79,5 @@ export {
   makeSelectBalance,
   makeSelectLoginData,
   selectLastUpdate,
+  selectUserRating,
 };
