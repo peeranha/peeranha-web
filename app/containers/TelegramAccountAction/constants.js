@@ -1,4 +1,4 @@
-export const TG_ACCOUNT_KEY = 'telegramAccountActions';
+export const TG_ACCOUNT_KEY = 'telegramAccountAction';
 
 export const CONFIRM_TG_ACCOUNT_ID = 'viewprofile-settings-confirm-tg';
 export const UNLINK_TG_ACCOUNT_ID = 'viewprofile-settings-unlink-tg';
@@ -26,3 +26,8 @@ export const UNCONFIRM_TELEGRAM_ACCOUNT_SUCCESS =
   'app/TelegramInfo/UNCONFIRM_TELEGRAM_ACCOUNT_SUCCESS';
 export const UNCONFIRM_TELEGRAM_ACCOUNT_ERROR =
   'app/TelegramInfo/UNCONFIRM_TELEGRAM_ACCOUNT_ERROR';
+
+export const GET_USER_TG_DATA = 'app/TelegramInfo/GET_USER_TG_DATA';
+export const GET_USER_TG_DATA_SUCCESS =
+  'app/TelegramInfo/GET_USER_TG_DATA_SUCCESS';
+export const GET_USER_TG_DATA_ERROR = 'app/TelegramInfo/GET_USER_TG_DATA_ERROR';

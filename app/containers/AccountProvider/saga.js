@@ -18,8 +18,10 @@ import { makeSelectProfileInfo } from './selectors';
 
 import {
   getUserProfileSuccess,
-  getUserTelegramDataSuccess,
 } from 'containers/DataCacheProvider/actions';
+import {
+  getUserTelegramDataSuccess,
+} from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
 import {
   addLoginData,
@@ -180,9 +182,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
       },
     });
 
-    const userTgInfo = yield call(() =>
-      getUserTelegramData(eosService, account),
-    );
+    const userTgInfo = yield call(getUserTelegramData, eosService, account);
 
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),

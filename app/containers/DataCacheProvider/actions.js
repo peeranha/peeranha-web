@@ -21,9 +21,6 @@ import {
   GET_TUTORIAL,
   GET_TUTORIAL_SUCCESS,
   GET_TUTORIAL_ERROR,
-  GET_USER_TG_DATA,
-  GET_USER_TG_DATA_SUCCESS,
-  GET_USER_TG_DATA_ERROR,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -135,26 +132,5 @@ export function getTutorialErr(getTutorialError) {
   return {
     type: GET_TUTORIAL_ERROR,
     getTutorialError,
-  };
-}
-
-// Get user telegram data
-export function getUserTelegramData() {
-  return {
-    type: GET_USER_TG_DATA,
-  };
-}
-
-export function getUserTelegramDataSuccess(data) {
-  return {
-    type: GET_USER_TG_DATA_SUCCESS,
-    userTgData: data,
-  };
-}
-
-export function getUserTelegramDataError(err) {
-  return {
-    type: GET_USER_TG_DATA_ERROR,
-    err,
   };
 }

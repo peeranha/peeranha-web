@@ -3,55 +3,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import * as routes from 'routes-config';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
+
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
 import Achievements from 'containers/Achievements';
 import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
-
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
+import ProfileViewForm from './ProfileViewForm';
+import SettingsOfUser from './SettingsOfUser';
 
 import {
   makeSelectAccount,
   makeSelectLoginData,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import {
   selectCommunities,
-  selectGetUserTgData,
   selectUsers,
 } from 'containers/DataCacheProvider/selectors';
-
 import {
   selectQuestions,
   selectQuestionsLoading,
 } from 'containers/QuestionsOfUser/selectors';
-
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-
-import {
-  redirectToEditProfilePage,
-  confirmTgAccount,
-  unlinkTgAccount,
-} from 'containers/EditProfilePage/actions';
-
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
+import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
-import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
 import saga from '../QuestionsWithAnswersOfUser/saga';
+
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
+import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
 
 const ViewProfilePage = ({
   match,
@@ -188,6 +183,10 @@ const withConnect = connect(
 );
 
 const key = 'questionsOfUser';
+const withTelegramAccountActionReducer = injectReducer({
+  key,
+  reducer: telegramAccountActionReducer,
+});
 const withQuestionsWithAnswersReducer = injectReducer({
   key,
   reducer: questionsWithAnswersOfUserReducer,
@@ -202,6 +201,7 @@ const withSaga = injectSaga({ key, saga, mode: DAEMON });
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
+  withTelegramAccountActionReducer,
   withSaga,
   withConnect,
 )(ViewProfilePage);

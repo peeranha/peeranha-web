@@ -31,7 +31,3 @@ export const GET_TUTORIAL_SUCCESS =
 export const GET_TUTORIAL_ERROR = 'app/DataCacheProvider/GET_TUTORIAL_ERROR';
 
 export const REMOVE_USER_PROFILE = 'app/DataCacheProvider/REMOVE_USER_PROFILE';
-
-export const GET_USER_TG_DATA = 'app/DataCacheProvider/GET_USER_TG_DATA';
-export const GET_USER_TG_DATA_SUCCESS = 'app/DataCacheProvider/GET_USER_TG_DATA_SUCCESS';
-export const GET_USER_TG_DATA_ERROR = 'app/DataCacheProvider/GET_USER_TG_DATA_ERROR';

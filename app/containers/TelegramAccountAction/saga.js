@@ -20,20 +20,17 @@ import {
 export function* confirmTelegramAccountWorker() {
   try {
     const eosService = yield select(selectEos);
-
     const account = yield call(eosService.getSelectedAccount);
-
+    
     yield call(confirmTelegramAccount, eosService, account);
-
-    const userTgInfo = yield call(() =>
-      getUserTelegramData(eosService, account),
-    );
-
+    
+    const userTgInfo = yield call(getUserTelegramData, eosService, account);
+    
     const data = {
       ...userTgInfo,
       confirmed: 1,
     };
-
+    
     yield put(confirmTelegramAccountSuccess(data));
   } catch (err) {
     console.log(err);
@@ -46,9 +43,9 @@ export function* unlinkTelegramAccountWorker() {
     const eosService = yield select(selectEos);
 
     const account = yield call(eosService.getSelectedAccount);
-
+    
     yield call(unlinkTelegramAccount, eosService, account);
-
+    
     yield put(unlinkTelegramAccountSuccess());
   } catch (err) {
     console.log(err);

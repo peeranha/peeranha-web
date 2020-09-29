@@ -23,9 +23,6 @@ import {
   GET_USER_PROFILE_ERROR,
   GET_USER_PROFILE_SUCCESS,
   REMOVE_USER_PROFILE,
-  GET_USER_TG_DATA,
-  GET_USER_TG_DATA_SUCCESS,
-  GET_USER_TG_DATA_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -44,7 +41,6 @@ export const initialState = fromJS({
   tutorial: null,
   getTutorialLoading: false,
   getTutorialError: null,
-  userTgData: null,
 });
 
 /* eslint no-param-reassign: 0, indent: 0, no-case-declarations: 0 */
@@ -124,17 +120,6 @@ function dataCacheProviderReducer(state = initialState, action) {
       return state
         .set('usersLoading', false)
         .set('getUserProfileError', getUserProfileError);
-
-    case GET_USER_TG_DATA:
-      return state.set('getUserTgDataLoading', true);
-    case GET_USER_TG_DATA_SUCCESS:
-      return state
-        .set('getUserTgDataLoading', false)
-        .set('userTgData', action.userTgData);
-    case GET_USER_TG_DATA_ERROR:
-      return state
-        .set('getUserTgDataLoading', false)
-        .set('getUserTgDataError', action.err);
 
     default:
       return state;
