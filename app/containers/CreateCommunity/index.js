@@ -22,6 +22,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import {
   selectUserRating,
+  selectUserEnergy,
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
@@ -46,6 +47,8 @@ import {
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
+  MIN_RATING_TO_CREATE_COMMUNITY,
+  MIN_ENERGY_TO_CREATE_COMMUNITY,
 } from './constants';
 
 import Form from './Form';
@@ -59,6 +62,7 @@ export const CreateCommunity = ({
   locale,
   account,
   userRating,
+  userEnergy,
   faqQuestions,
   createCommunityLoading,
   createCommunityDispatch,
@@ -99,7 +103,11 @@ export const CreateCommunity = ({
 
   const path = window.location.pathname + window.location.hash;
 
-  if (!account || userRating < 500)
+  if (
+    !account ||
+    userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
+    userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY
+  )
     return <Redirect to={routes.communities()} />;
 
   return (
@@ -133,6 +141,7 @@ CreateCommunity.propTypes = {
   faqQuestions: PropTypes.array,
   account: PropTypes.string,
   userRating: PropTypes.number,
+  userEnergy: PropTypes.number,
 };
 
 const withConnect = connect(
@@ -140,6 +149,7 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     account: makeSelectAccount(),
     userRating: selectUserRating(),
+    userEnergy: selectUserEnergy(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_COMMUNITY_QUESTION,
       WHO_MANAGES_COMMUNITY_QUESTION,

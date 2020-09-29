@@ -25,6 +25,7 @@ import {
 
 import {
   selectUserRating,
+  selectUserEnergy,
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
@@ -40,7 +41,13 @@ import messages from './messages';
 
 import { suggestTag } from './actions';
 
-import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from './constants';
+import {
+  NAME_FIELD,
+  DESCRIPTION_FIELD,
+  FORM_COMMUNITY,
+  MIN_RATING_TO_CREATE_TAG,
+  MIN_ENERGY_TO_CREATE_TAG,
+} from './constants';
 
 import Form from './Form';
 import Tips from './Tips';
@@ -57,6 +64,7 @@ const CreateTag = ({
   suggestTagDispatch,
   account,
   userRating,
+  userEnergy,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -76,7 +84,12 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  if (!account || userRating < 100) return <Redirect to={tags()} />;
+  if (
+    !account ||
+    userRating < MIN_RATING_TO_CREATE_TAG ||
+    userEnergy < MIN_ENERGY_TO_CREATE_TAG
+  )
+    return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -126,6 +139,7 @@ CreateTag.propTypes = {
   faqQuestions: PropTypes.array,
   account: PropTypes.string,
   userRating: PropTypes.number,
+  userEnergy: PropTypes.number,
 };
 
 export default compose(
@@ -142,6 +156,7 @@ export default compose(
       createTagLoading: selectors.selectSuggestTagLoading(),
       account: makeSelectAccount(),
       userRating: selectUserRating(),
+      userEnergy: selectUserEnergy(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),

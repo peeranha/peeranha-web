@@ -69,6 +69,15 @@ const selectUserRating = () =>
     },
   );
 
+const selectUserEnergy = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return profileInfo ? profileInfo.energy : null;
+    },
+  );
+
 export {
   selectAccountProviderDomain,
   makeSelectAccountLoading,
@@ -80,4 +89,5 @@ export {
   makeSelectLoginData,
   selectLastUpdate,
   selectUserRating,
+  selectUserEnergy,
 };
