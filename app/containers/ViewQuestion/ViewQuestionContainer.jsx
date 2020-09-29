@@ -16,6 +16,8 @@ import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 export const ViewQuestionContainer = props => {
   const msg = translationMessages[props.locale];
 
+  const { isAnswered } = props;
+
   return (
     <article>
       <Question {...props} />
@@ -34,6 +36,7 @@ export const ViewQuestionContainer = props => {
           previewLabel={msg[commonMessages.preview.id]}
           properties={[]}
           questionView
+          isAnswered={isAnswered}
         />
       </Base>
     </article>
@@ -46,6 +49,7 @@ ViewQuestionContainer.propTypes = {
   locale: PropTypes.string,
   translations: PropTypes.object,
   questionData: PropTypes.object,
+  isAnswered: PropTypes.bool,
 };
 
 export default React.memo(ViewQuestionContainer);

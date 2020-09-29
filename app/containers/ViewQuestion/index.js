@@ -83,6 +83,7 @@ export const ViewQuestion = ({
   match,
   profile,
   history,
+  isAnswered,
 }) => {
   useEffect(() => {
     window.isRendered = false;
@@ -165,6 +166,7 @@ export const ViewQuestion = ({
     ids,
     isChangeTypeAvailable,
     infiniteImpact,
+    isAnswered,
   };
 
   const helmetTitle =
@@ -248,6 +250,7 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  isAnswered: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -269,6 +272,7 @@ const withConnect = connect(
     deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
     voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
     ids: makeSelectViewQuestion.selectIds(),
+    isAnswered: makeSelectViewQuestion.selectIsAnswered(),
   }),
   (
     dispatch,

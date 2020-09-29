@@ -51,12 +51,13 @@ export const AnswerForm = ({
   textEditorValue,
   answerTypeLabel,
   isOfficialRepresentative,
+  isAnswered,
 }) => (
-  <FormBox onSubmit={handleSubmit(sendAnswer)}>
+  <FormBox onSubmit={handleSubmit(sendAnswer)} disabled>
     <Field
       name={TEXT_EDITOR_ANSWER_FORM}
       component={TextEditorField}
-      disabled={sendAnswerLoading}
+      disabled={sendAnswerLoading || isAnswered}
       validate={[strLength25x30000, required]}
       warn={[strLength25x30000, required]}
       label={label}
@@ -83,7 +84,11 @@ export const AnswerForm = ({
         )}
       </PreviewWrapper>
     </Wrapper>
-    <Button id={sendButtonId} disabled={sendAnswerLoading} type="submit">
+    <Button
+      id={sendButtonId}
+      disabled={sendAnswerLoading || isAnswered}
+      type="submit"
+    >
       {submitButtonName}
     </Button>
   </FormBox>
@@ -103,6 +108,7 @@ AnswerForm.propTypes = {
   isOfficialRepresentative: PropTypes.bool,
   properties: PropTypes.array,
   questionView: PropTypes.bool,
+  isAnswered: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
