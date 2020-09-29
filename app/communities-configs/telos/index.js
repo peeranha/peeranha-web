@@ -92,20 +92,6 @@ export const CustomSubHeaderConfig = {
   },
   links: [
     {
-      text: 'HQ',
-      href: `${domainName}foldershq`,
-      subitems: [
-        {
-          text: 'Home',
-          href: `${domainName}home`,
-        },
-        {
-          text: 'Foundation',
-          href: `${domainName}foundation`,
-        },
-      ],
-    },
-    {
       text: 'Developers',
       href: `${domainName}dev`,
       subitems: [
@@ -196,6 +182,10 @@ export const CustomSubHeaderConfig = {
           href: `${domainName}branding-and-guidelines`,
         },
         {
+          text: 'Foundation',
+          href: `${domainName}foundation`,
+        },
+        {
           text: 'FAQ',
           href: '/',
           target: '_self',
@@ -219,10 +209,6 @@ export const CustomSubHeaderConfig = {
         {
           text: 'Ecosystem',
           href: domainExplore,
-        },
-        {
-          text: 'Gaming',
-          href: `${domainName}gaming`,
         },
         {
           text: 'Works',
