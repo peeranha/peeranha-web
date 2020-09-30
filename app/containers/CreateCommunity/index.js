@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,6 +20,11 @@ import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import {
+  selectUserRating,
+  selectUserEnergy,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_COMMUNITY_QUESTION,
@@ -41,6 +47,8 @@ import {
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
+  MIN_RATING_TO_CREATE_COMMUNITY,
+  MIN_ENERGY_TO_CREATE_COMMUNITY,
 } from './constants';
 
 import Form from './Form';
@@ -52,6 +60,9 @@ const createCommunityRoute = routes.communitiesCreate();
 
 export const CreateCommunity = ({
   locale,
+  account,
+  userRating,
+  userEnergy,
   faqQuestions,
   createCommunityLoading,
   createCommunityDispatch,
@@ -92,6 +103,13 @@ export const CreateCommunity = ({
 
   const path = window.location.pathname + window.location.hash;
 
+  if (
+    !account ||
+    userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
+    userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY
+  )
+    return <Redirect to={routes.communities()} />;
+
   return (
     <div>
       <Seo
@@ -121,11 +139,17 @@ CreateCommunity.propTypes = {
   locale: PropTypes.string.isRequired,
   createCommunityLoading: PropTypes.bool.isRequired,
   faqQuestions: PropTypes.array,
+  account: PropTypes.string,
+  userRating: PropTypes.number,
+  userEnergy: PropTypes.number,
 };
 
 const withConnect = connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
+    account: makeSelectAccount(),
+    userRating: selectUserRating(),
+    userEnergy: selectUserEnergy(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_COMMUNITY_QUESTION,
       WHO_MANAGES_COMMUNITY_QUESTION,

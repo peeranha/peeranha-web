@@ -2,11 +2,9 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, intlShape } from 'react-intl';
 import { Field } from 'redux-form/immutable';
-import ReactMDE from 'redux-forms-markdown-editor';
 
 import commonMessages from 'common-messages';
 import messages from 'containers/Profile/messages';
-import formFieldsMsg from 'components/FormFields/messages';
 
 import { TEXT_SECONDARY } from 'style-constants';
 import { ABOUT_FIELD } from 'containers/Profile/constants';
@@ -14,40 +12,22 @@ import { ABOUT_FIELD } from 'containers/Profile/constants';
 import { PreviewWrapper } from 'components/AnswerForm';
 import Span from 'components/Span';
 import TextBlock from 'components/FormFields/TextBlock';
-import {
-  TextEditorWrapper,
-  TextEditorWarning,
-  TextEditorTitle,
-} from 'components/FormFields/TextEditorField';
 import Wrapper from 'components/FormFields/Wrapper';
+import TextEditorField from 'components/FormFields/TextEditorField';
 
 import { strLength20x1000 } from 'components/FormFields/validate';
 
-import { reactMDEOptions } from 'components/TextEditor/options';
-
-
-
-
 const AboutForm = ({ formValues, intl, isProfileSaving }) => (
   <>
-    <TextEditorWrapper isError={!!strLength20x1000(formValues[ABOUT_FIELD])}>
-      {intl.formatMessage(messages.aboutLabel) && (
-        <TextEditorTitle>
-          {intl.formatMessage(messages.aboutLabel)}
-        </TextEditorTitle>
-      )}
-      <Field
-        name={ABOUT_FIELD}
-        component={ReactMDE}
-        buttonConfig={reactMDEOptions}
-        placeholder=" "
-      />
-      {strLength20x1000(formValues[ABOUT_FIELD]) && (
-        <TextEditorWarning>
-          <FormattedMessage {...formFieldsMsg.wrongLength20x1000} />
-        </TextEditorWarning>
-      )}
-    </TextEditorWrapper>
+    <Field
+      name={ABOUT_FIELD}
+      component={TextEditorField}
+      label={intl.formatMessage(messages.aboutLabel)}
+      tip={intl.formatMessage(messages.companyTip)}
+      disabled={isProfileSaving}
+      validate={strLength20x1000}
+      warn={strLength20x1000}
+    />
 
     <Wrapper
       className="mt-3"

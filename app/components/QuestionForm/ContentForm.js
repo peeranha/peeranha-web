@@ -6,30 +6,26 @@ import { intlShape, FormattedMessage } from 'react-intl';
 import Span from 'components/Span';
 import { strLength25x30000, required } from 'components/FormFields/validate';
 import TextBlock from 'components/FormFields/TextBlock';
-import TextEditor from 'components/FormFields/TextEditor';
+import TextEditorField from 'components/FormFields/TextEditorField';
 
 import commonMessages from 'common-messages';
-
-import { reactMDEOptions } from 'components/TextEditor/options';
-import { TEXT_SECONDARY } from 'style-constants';
-
 import messages from './messages';
 
+import { TEXT_SECONDARY } from 'style-constants';
 import { FORM_CONTENT } from './constants';
 
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from '../FormFields/Wrapper';
 
-const ContentForm = ({ intl, formValues }) => (
+const ContentForm = ({ questionLoading, intl, formValues }) => (
   <>
     <Field
       name={FORM_CONTENT}
-      component={TextEditor}
-      buttonConfig={reactMDEOptions}
-      placeholder=""
-      labelMessage={messages.questionBodyLabel}
-      formValues={formValues}
-      validate={[required, strLength25x30000]}
+      component={TextEditorField}
+      disabled={questionLoading}
+      label={intl.formatMessage(messages.questionBodyLabel)}
+      validate={[strLength25x30000, required]}
+      warn={[strLength25x30000, required]}
     />
 
     <Wrapper

@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
+
+import {
+  CONFIRM_TG_ACCOUNT,
+  UNLINK_TG_ACCOUNT,
+} from '../TelegramAccountAction/constants';
 
 import H3 from 'components/H3';
 import InfoLabel from 'components/InfoLabelWithPopover';
@@ -20,6 +24,7 @@ import ShowOwnerKeyButton from '../ShowOwnerKey';
 import ShowActiveKeyButton from '../ShowActiveKey';
 import DeleteAccountButton from '../DeleteAccount';
 import ChangePasswordButton from '../ChangePasswordByPrevious';
+import TelegramAccountAction from '../TelegramAccountAction';
 
 const AuthorizationData = ({
   locale,
@@ -28,6 +33,7 @@ const AuthorizationData = ({
   className,
   activeKey,
   writeToBuffer,
+  tgData,
 }) => (
   <BaseStyled
     position="bottom"
@@ -65,6 +71,21 @@ const AuthorizationData = ({
               </ChangePasswordButton>
             </td>
           </tr>
+          {tgData && (
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.tgAccountID} />
+              </td>
+              <td>{tgData.telegram_id}</td>
+              <td>
+                {!tgData.confirmed && (
+                  <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                )}
+
+                <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+              </td>
+            </tr>
+          )}
 
           <tr>
             <td>
@@ -154,6 +175,7 @@ AuthorizationData.propTypes = {
   loginData: PropTypes.object,
   isAvailable: PropTypes.bool,
   writeToBuffer: PropTypes.func,
+  tgData: PropTypes.object,
 };
 
 export default AuthorizationData;

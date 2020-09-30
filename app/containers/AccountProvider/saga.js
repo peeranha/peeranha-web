@@ -1,95 +1,28 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
-
 import * as routes from 'routes-config';
-
 import _get from 'lodash/get';
-import { getProfileInfo } from 'utils/profileManagement';
+
+import { getProfileInfo, getUserTelegramData } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
 } from 'utils/walletManagement';
-import {
-  ALL_PROPERTY_COMMUNITY_SCOPE,
-  ALL_PROPERTY_COMMUNITY_TABLE,
-  INVITED_USERS_SCOPE,
-  INVITED_USERS_TABLE,
-  MODERATOR_KEY,
-  REWARD_REFER,
-} from 'utils/constants';
+
 import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-
-import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
-
-import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
-import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
-import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { selectQuestionData } from '../ViewQuestion/selectors';
+import { makeSelectProfileInfo } from './selectors';
 
 import {
-  ASK_QUESTION_SUCCESS,
-  REDIRECT_TO_ASK_QUESTION_PAGE,
-} from 'containers/AskQuestion/constants';
-
+  getUserProfileSuccess,
+} from 'containers/DataCacheProvider/actions';
 import {
-  CREATE_COMMUNITY_SUCCESS,
-  REDIRECT_TO_CREATE_COMMUNITY,
-} from 'containers/CreateCommunity/constants';
-
-import {
-  REDIRECT_TO_CREATE_TAG,
-  SUGGEST_TAG_SUCCESS,
-} from 'containers/CreateTag/constants';
-
-import {
-  EDIT_ANSWER_SUCCESS,
-  REDIRECT_TO_EDIT_ANSWER_PAGE,
-} from 'containers/EditAnswer/constants';
-
-import {
-  EDIT_QUESTION_SUCCESS,
-  REDIRECT_TO_EDIT_QUESTION_PAGE,
-} from 'containers/EditQuestion/constants';
-
-import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
-import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
-
-import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
-import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
-
-import {
-  DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
-  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
-} from 'containers/VoteForNewCommunityButton/constants';
-
-import {
-  DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
-  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
-} from 'containers/VoteForNewTagButton/constants';
-
-import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
-
-import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
-import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-
-import {
-  DELETE_ANSWER_SUCCESS,
-  DELETE_COMMENT_SUCCESS,
-  DELETE_QUESTION_SUCCESS,
-  SAVE_COMMENT_SUCCESS,
-} from 'containers/ViewQuestion/constants';
-
-import { getCookie, setCookie } from 'utils/cookie';
+  getUserTelegramDataSuccess,
+} from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
-
-import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { getUserAchievementsWorker } from 'containers/Achievements/saga';
-import { getWeekStatWorker } from 'containers/Wallet/saga';
-
 import {
   addLoginData,
   getCurrentAccountError,
@@ -99,7 +32,67 @@ import {
   updateAccErr,
   updateAccSuccess,
 } from './actions';
+import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
+import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
+import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
+import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
+import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
+import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
+import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
+import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getUserAchievementsWorker } from 'containers/Achievements/saga';
+import { getWeekStatWorker } from 'containers/Wallet/saga';
+import { getQuestionData } from '../ViewQuestion/saga';
+
+import {
+  ALL_PROPERTY_COMMUNITY_SCOPE,
+  ALL_PROPERTY_COMMUNITY_TABLE,
+  INVITED_USERS_SCOPE,
+  INVITED_USERS_TABLE,
+  MODERATOR_KEY,
+  REWARD_REFER,
+} from 'utils/constants';
+import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
+import {
+  ASK_QUESTION_SUCCESS,
+  REDIRECT_TO_ASK_QUESTION_PAGE,
+} from 'containers/AskQuestion/constants';
+import {
+  CREATE_COMMUNITY_SUCCESS,
+  REDIRECT_TO_CREATE_COMMUNITY,
+} from 'containers/CreateCommunity/constants';
+import {
+  REDIRECT_TO_CREATE_TAG,
+  SUGGEST_TAG_SUCCESS,
+} from 'containers/CreateTag/constants';
+import {
+  EDIT_ANSWER_SUCCESS,
+  REDIRECT_TO_EDIT_ANSWER_PAGE,
+} from 'containers/EditAnswer/constants';
+import {
+  EDIT_QUESTION_SUCCESS,
+  REDIRECT_TO_EDIT_QUESTION_PAGE,
+} from 'containers/EditQuestion/constants';
+import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
+import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
+import {
+  DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
+  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
+} from 'containers/VoteForNewCommunityButton/constants';
+import {
+  DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
+  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
+} from 'containers/VoteForNewTagButton/constants';
+import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
+import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
+import {
+  DELETE_ANSWER_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_QUESTION_SUCCESS,
+  SAVE_COMMENT_SUCCESS,
+} from 'containers/ViewQuestion/constants';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -110,12 +103,8 @@ import {
   UPDATE_ACC_SUCCESS,
 } from './constants';
 
-import { makeSelectProfileInfo } from './selectors';
+import { getCookie, setCookie } from 'utils/cookie';
 import { translationMessages } from '../../i18n';
-import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { selectQuestionData } from '../ViewQuestion/selectors';
-import { getQuestionData } from '../ViewQuestion/saga';
-import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
@@ -195,12 +184,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
       },
     });
 
+    const userTgInfo = yield call(getUserTelegramData, eosService, account);
+
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
     yield put(getCurrentAccountSuccess(account, balance));
+    yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

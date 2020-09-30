@@ -10,6 +10,10 @@ import {
   ALL_ACCOUNTS_SCOPE,
   SAVE_PROFILE_METHOD,
   NO_AVATAR,
+  TG_ACCOUNT_TABLE,
+  ALL_TG_ACCOUNTS_SCOPE,
+  CONFIRM_TELEGRAM_ACCOUNT,
+  UNLINK_TELEGRAM_ACCOUNT,
 } from './constants';
 import {
   callService,
@@ -238,3 +242,30 @@ export const getNotificationsInfo = async user => {
   );
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
+
+export async function getUserTelegramData(eosService, userName) {
+  const { rows } = await eosService.getTableRows(
+    TG_ACCOUNT_TABLE,
+    ALL_TG_ACCOUNTS_SCOPE,
+  );
+
+  const userTgData = rows.filter(item => item.user === userName);
+
+  return userTgData.length > 0 ? userTgData[0] : null;
+}
+
+export async function confirmTelegramAccount(eosService, user) {
+  await eosService.sendTransaction(
+    user,
+    CONFIRM_TELEGRAM_ACCOUNT,
+    { user },
+  );
+}
+
+export async function unlinkTelegramAccount(eosService, user) {
+  await eosService.sendTransaction(
+    user,
+    UNLINK_TELEGRAM_ACCOUNT,
+    { user },
+  );
+}
