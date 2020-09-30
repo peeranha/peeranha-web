@@ -43,6 +43,7 @@ import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
 import { getUserAchievementsWorker } from 'containers/Achievements/saga';
+import { getWeekStatWorker } from 'containers/Wallet/saga';
 import { getQuestionData } from '../ViewQuestion/saga';
 
 import {
@@ -152,6 +153,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
       yield call(getUserAchievementsWorker);
+      yield call(getWeekStatWorker);
 
       // Update info for question depending on user
       const viewQuestion = yield select(selectQuestionData());
