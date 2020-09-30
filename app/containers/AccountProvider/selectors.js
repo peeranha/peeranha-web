@@ -60,6 +60,24 @@ const makeSelectFollowedCommunities = () =>
     },
   );
 
+const selectUserRating = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return profileInfo ? profileInfo.rating : null;
+    },
+  );
+
+const selectUserEnergy = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return profileInfo ? profileInfo.energy : null;
+    },
+  );
+
 export {
   selectAccountProviderDomain,
   makeSelectAccountLoading,
@@ -70,4 +88,6 @@ export {
   makeSelectBalance,
   makeSelectLoginData,
   selectLastUpdate,
+  selectUserRating,
+  selectUserEnergy,
 };

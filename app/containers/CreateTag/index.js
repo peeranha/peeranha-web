@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { tags } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,6 +24,12 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import {
+  selectUserRating,
+  selectUserEnergy,
+  makeSelectAccount,
+} from 'containers/AccountProvider/selectors';
+
+import {
   WHAT_IS_TAG_QUESTION,
   HOW_TO_USE_IT_QUESTION,
 } from 'containers/Faq/constants';
@@ -33,7 +41,13 @@ import messages from './messages';
 
 import { suggestTag } from './actions';
 
-import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from './constants';
+import {
+  NAME_FIELD,
+  DESCRIPTION_FIELD,
+  FORM_COMMUNITY,
+  MIN_RATING_TO_CREATE_TAG,
+  MIN_ENERGY_TO_CREATE_TAG,
+} from './constants';
 
 import Form from './Form';
 import Tips from './Tips';
@@ -48,6 +62,9 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
+  account,
+  userRating,
+  userEnergy,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -66,6 +83,13 @@ const CreateTag = ({
     },
     [suggestTagDispatch],
   );
+
+  if (
+    !account ||
+    userRating < MIN_RATING_TO_CREATE_TAG ||
+    userEnergy < MIN_ENERGY_TO_CREATE_TAG
+  )
+    return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -113,6 +137,9 @@ CreateTag.propTypes = {
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
+  account: PropTypes.string,
+  userRating: PropTypes.number,
+  userEnergy: PropTypes.number,
 };
 
 export default compose(
@@ -127,6 +154,9 @@ export default compose(
       ]),
       communities: selectCommunities(),
       createTagLoading: selectors.selectSuggestTagLoading(),
+      account: makeSelectAccount(),
+      userRating: selectUserRating(),
+      userEnergy: selectUserEnergy(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
