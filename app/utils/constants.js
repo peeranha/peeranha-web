@@ -68,6 +68,7 @@ export const USER_SUPPLY_TABLE = 'stat';
 export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
+export const TG_ACCOUNT_TABLE = 'telegramacc';
 
 // Scopes
 
@@ -80,6 +81,7 @@ export const USER_SUPPLY_SCOPE = 'PEER';
 export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
+export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -123,6 +125,9 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
+
+export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
+export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';

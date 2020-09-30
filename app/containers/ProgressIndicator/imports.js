@@ -70,6 +70,10 @@ import {
   selectSendTipsProcessing,
 } from '../SendTips/selectors';
 import { selectTopQuestionActionProcessing } from '../Questions/selectors';
+import {
+  selectGetConfirmTelegramAccountProcessing,
+  selectGetUnlinkTelegramAccountProcessing,
+} from '../TelegramAccountAction/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
@@ -122,4 +126,6 @@ export default {
   selectedAccountProcessing: selectedAccountProcessingSelector(),
   selectSendTipsProcessing: selectSendTipsProcessing(),
   selectPinActionProcessing: selectTopQuestionActionProcessing(),
+  selectGetConfirmTelegramAccountProcessing: selectGetConfirmTelegramAccountProcessing(),
+  selectGetUnlinkTelegramAccountProcessing: selectGetUnlinkTelegramAccountProcessing(),
 };
