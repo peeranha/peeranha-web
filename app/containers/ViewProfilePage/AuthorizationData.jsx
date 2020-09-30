@@ -38,7 +38,9 @@ const AuthorizationData = ({
   <BaseStyled
     position="bottom"
     notRoundedStyle
-    className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
+    className={`${className}${
+      loginData.loginWithScatter && !tgData ? ' d-none' : ''
+    }`}
   >
     <H3>
       <FormattedMessage {...profileMessages.authorizationData} />
@@ -46,31 +48,37 @@ const AuthorizationData = ({
 
     <div>
       <table>
-        <thead>
-          <tr>
-            <td>
-              <FormattedMessage {...signupMessages.email} />
-            </td>
-            <td>{loginData?.email ?? null}</td>
-            <td>
-              <ChangeEmailButton>
-                <FormattedMessage {...commonMessages.change} />{' '}
-              </ChangeEmailButton>
-            </td>
-          </tr>
-        </thead>
+        {!loginData.loginWithScatter && (
+          <thead>
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.email} />
+              </td>
+              <td>{loginData?.email ?? null}</td>
+              <td>
+                <ChangeEmailButton>
+                  <FormattedMessage {...commonMessages.change} />{' '}
+                </ChangeEmailButton>
+              </td>
+            </tr>
+          </thead>
+        )}
+
         <tbody>
-          <tr>
-            <td>
-              <FormattedMessage {...signupMessages.password} />
-            </td>
-            <td>• • • • • • • • • • • • •</td>
-            <td>
-              <ChangePasswordButton>
-                <FormattedMessage {...commonMessages.change} />{' '}
-              </ChangePasswordButton>
-            </td>
-          </tr>
+          {!loginData.loginWithScatter && (
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.password} />
+              </td>
+              <td>• • • • • • • • • • • • •</td>
+              <td>
+                <ChangePasswordButton>
+                  <FormattedMessage {...commonMessages.change} />{' '}
+                </ChangePasswordButton>
+              </td>
+            </tr>
+          )}
+
           {tgData && (
             <tr>
               <td>
@@ -87,82 +95,90 @@ const AuthorizationData = ({
             </tr>
           )}
 
-          <tr>
-            <td>
-              <InfoLabel
-                id="wallet_settings_eos_active"
-                message={
-                  translationMessages[locale][
-                    forgotPasswordMessages.youGotThisKey.id
-                  ]
+          {!loginData.loginWithScatter && (
+            <>
+              <tr>
+                <td>
+                  <InfoLabel
+                    id="wallet_settings_eos_active"
+                    message={
+                      translationMessages[locale][
+                        forgotPasswordMessages.youGotThisKey.id
+                      ]
+                    }
+                  >
+                    <FormattedMessage {...signupMessages.eosActivePrivateKey} />
+                  </InfoLabel>
+                </td>
+                <td>{activeKey || `• • • • • • • • • •`}</td>
+
+                <td>
+                  <button
+                    id="viewprofile-settings-activekey"
+                    className={!activeKey ? 'd-none' : 'mr-3'}
+                    data-key={activeKey}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />
+                  </button>
+
+                  <ShowActiveKeyButton activeKey={activeKey}>
+                    <FormattedMessage
+                      {...commonMessages[!activeKey ? 'show' : 'hide']}
+                    />
+                  </ShowActiveKeyButton>
+                </td>
+              </tr>
+
+              <tr
+                className={
+                  !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
                 }
               >
-                <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-              </InfoLabel>
-            </td>
-            <td>{activeKey || `• • • • • • • • • •`}</td>
+                <td>
+                  <InfoLabel
+                    id="wallet_settings_eos_owner"
+                    message={
+                      translationMessages[locale][
+                        forgotPasswordMessages.youGotThisKey.id
+                      ]
+                    }
+                  >
+                    <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
+                  </InfoLabel>
+                </td>
+                <td>{ownerKey || `• • • • • • • • • •`}</td>
+                <td>
+                  <button
+                    id="viewprofile-settings-ownerkey"
+                    className={!ownerKey ? 'd-none' : 'mr-3'}
+                    data-key={ownerKey}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />
+                  </button>
 
-            <td>
-              <button
-                id="viewprofile-settings-activekey"
-                className={!activeKey ? 'd-none' : 'mr-3'}
-                data-key={activeKey}
-                onClick={writeToBuffer}
-              >
-                <FormattedMessage {...commonMessages.copy} />
-              </button>
-
-              <ShowActiveKeyButton activeKey={activeKey}>
-                <FormattedMessage
-                  {...commonMessages[!activeKey ? 'show' : 'hide']}
-                />
-              </ShowActiveKeyButton>
-            </td>
-          </tr>
-
-          <tr
-            className={!loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''}
-          >
-            <td>
-              <InfoLabel
-                id="wallet_settings_eos_owner"
-                message={
-                  translationMessages[locale][
-                    forgotPasswordMessages.youGotThisKey.id
-                  ]
-                }
-              >
-                <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-              </InfoLabel>
-            </td>
-            <td>{ownerKey || `• • • • • • • • • •`}</td>
-            <td>
-              <button
-                id="viewprofile-settings-ownerkey"
-                className={!ownerKey ? 'd-none' : 'mr-3'}
-                data-key={ownerKey}
-                onClick={writeToBuffer}
-              >
-                <FormattedMessage {...commonMessages.copy} />
-              </button>
-
-              <ShowOwnerKeyButton ownerKey={ownerKey}>
-                <FormattedMessage
-                  {...commonMessages[!ownerKey ? 'show' : 'hide']}
-                />
-              </ShowOwnerKeyButton>
-            </td>
-          </tr>
+                  <ShowOwnerKeyButton ownerKey={ownerKey}>
+                    <FormattedMessage
+                      {...commonMessages[!ownerKey ? 'show' : 'hide']}
+                    />
+                  </ShowOwnerKeyButton>
+                </td>
+              </tr>
+            </>
+          )}
         </tbody>
       </table>
 
-      <DeleteAccountButton
-        render={({ onClick }) => (
-          <InfoButton onClick={onClick}>
-            <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-          </InfoButton>
-        )}
-      />
+      {!loginData.loginWithScatter && (
+        <DeleteAccountButton
+          render={({ onClick }) => (
+            <InfoButton onClick={onClick}>
+              <FormattedMessage {...deleteAccountMessages.deleteAccount} />
+            </InfoButton>
+          )}
+        />
+      )}
     </div>
   </BaseStyled>
 );

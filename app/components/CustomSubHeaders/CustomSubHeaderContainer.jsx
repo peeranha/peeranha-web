@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LogoCenterMenuRight from './CustomSubHeaderContainers/LogoCenterMenuRight';
+import TelosStyleTopNav from './CustomSubHeaderContainers/TelosStyleTopNav';
 import LogoRightMenuRight from './CustomSubHeaderContainers/LogoRightMenuRight';
 
 const CUSTOM_SUB_HEADER_CONTAINER = {
-  logo_center__menu_right: <LogoCenterMenuRight />,
+  telos_style: <TelosStyleTopNav />,
   logo_right__menu_right: <LogoRightMenuRight />,
 };
 

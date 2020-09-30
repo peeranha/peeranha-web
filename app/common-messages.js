@@ -387,4 +387,7 @@ export default defineMessages({
   chooseFile: {
     id: 'app.common.chooseFile',
   },
+  questionIsAnswered: {
+    id: 'app.common.questionIsAnswered',
+  },
 });

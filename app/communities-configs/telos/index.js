@@ -32,7 +32,7 @@ const domainExplore = 'https://explore.telos.net';
 const domainStaker = 'https://telos.staker.one';
 
 export const CustomSubHeaderConfig = {
-  design: 'logo_center__menu_right',
+  design: 'telos_style',
   styles: {
     bg: {
       header: '#020038',
@@ -49,7 +49,7 @@ export const CustomSubHeaderConfig = {
       background: '#020038',
     },
     CustomSubHeader: `
-      padding: 27px 0;
+      padding: 20px 0;
 
       font-weight: bolder;
     `,

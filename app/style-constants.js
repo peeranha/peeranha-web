@@ -100,6 +100,7 @@ export const BG_SUCCESS_LIGHT = _get(colors, 'lightSuccessColor', lightgreen);
 export const BG_SECONDARY_LIGHT = lightgray;
 export const BG_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const BG_PRIMARY_SPECIAL_2 = blue2;
+export const BG_PRIMARY_TRANSPARENT = `rgba(${blueRGB}, 0.1)`;
 export const BG_SUPERHERO = superHeroColor;
 export const BG_SUPERHERO_LIGHT = superHeroColorLight;
 
