@@ -1,9 +1,6 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
-import {
-  makeSelectProfileInfo,
-  makeSelectAccount,
-} from '../AccountProvider/selectors';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 /**
  * Direct selector to the viewQuestion state domain
@@ -54,14 +51,6 @@ const selectQuestionData = () =>
 
       return questionData;
     },
-  );
-
-export const selectIsAnswered = () =>
-  createSelector(
-    selectQuestionData(),
-    makeSelectAccount(),
-    (questionData, account) =>
-      !!questionData?.answers.filter(x => x.user === account).length,
   );
 
 export const selectAnswer = answerId =>

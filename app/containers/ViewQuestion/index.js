@@ -83,7 +83,6 @@ export const ViewQuestion = ({
   match,
   profile,
   history,
-  isAnswered,
 }) => {
   useEffect(() => {
     window.isRendered = false;
@@ -134,6 +133,9 @@ export const ViewQuestion = ({
     ],
     [profile, questionData],
   );
+
+  const isAnswered = !!questionData?.answers.filter(x => x.user === account)
+    .length;
 
   const sendProps = {
     account,
@@ -250,7 +252,6 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
-  isAnswered: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -272,7 +273,6 @@ const withConnect = connect(
     deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
     voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
     ids: makeSelectViewQuestion.selectIds(),
-    isAnswered: makeSelectViewQuestion.selectIsAnswered(),
   }),
   (
     dispatch,
