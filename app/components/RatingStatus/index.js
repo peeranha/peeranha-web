@@ -8,6 +8,8 @@ import {
   TEXT_PRIMARY,
   TEXT_DARK,
   TEXT_SECONDARY,
+  TEXT_SUPERHERO,
+  BG_SUPERHERO_LIGHT,
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
@@ -31,7 +33,13 @@ const IconWithStatus = ({ className, size, rating }) => {
   let color = TEXT_DARK;
   let fill = '';
 
-  if (rating > options.resident.minRating && size === 'sm') {
+  if (
+    rating >= options.legResident.minRating &&
+    rating <= options.legResident.maxRating
+  ) {
+    color = TEXT_SUPERHERO;
+    fill = BG_SUPERHERO_LIGHT;
+  } else if (rating > options.resident.minRating && size === 'sm') {
     color = TEXT_WARNING_LIGHT;
     fill = '#FDE2DF';
   } else if (rating <= options.banned.maxRating) {

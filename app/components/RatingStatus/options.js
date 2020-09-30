@@ -65,7 +65,7 @@ const options = {
     maxEnergy: 100,
     messageId: messages.newbie.id,
     icon: {
-      sm: newbieSm,
+      sm: srResidentSm,
       lg: newbieLg,
       size: {
         sm: {
@@ -85,7 +85,7 @@ const options = {
     maxEnergy: 150,
     messageId: messages.jrResident.id,
     icon: {
-      sm: jrResidentSm,
+      sm: heroResidentSm,
       lg: jrResidentLg,
       size: {
         sm: {

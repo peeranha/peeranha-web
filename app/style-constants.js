@@ -26,6 +26,8 @@ const darkred = '#dc3545';
 const blue2 = _get(colors, 'blue2', '#dfe3f2');
 const attentionColor = _get(colors, 'attentionColor', '#ff4026');
 const linkColor = _get(colors, 'linkColor', '#576fed');
+const superHeroColor = _get(colors, 'superHeroColor', '#FF8500');
+const superHeroColorLight = _get(colors, 'superHeroColorlight', '#FFECCC');
 
 const blueRGB = _get(colors, 'blueRGB', `118, 153, 255`);
 const darkBlueRGB = `80, 101, 165`;
@@ -60,6 +62,7 @@ export const TEXT_WARNING = darkred;
 export const TEXT_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const TEXT_PRIMARY_DARK = darkblue;
 export const TEXT_PRIMARY = blue;
+export const TEXT_SUPERHERO = superHeroColor;
 
 export const LINK_COLOR = linkColor;
 export const LINK_COLOR_SECONDARY = _get(
@@ -97,6 +100,8 @@ export const BG_SUCCESS_LIGHT = _get(colors, 'lightSuccessColor', lightgreen);
 export const BG_SECONDARY_LIGHT = lightgray;
 export const BG_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const BG_PRIMARY_SPECIAL_2 = blue2;
+export const BG_SUPERHERO = superHeroColor;
+export const BG_SUPERHERO_LIGHT = superHeroColorLight;
 
 export const ATTENTION_COLOR = attentionColor;
 
