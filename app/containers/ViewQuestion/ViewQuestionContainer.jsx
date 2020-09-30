@@ -23,7 +23,7 @@ export const ViewQuestionContainer = props => {
       <Question {...props} />
       <Answers {...props} />
 
-      <Base className="mt-3 position-relative">
+      <Base className="mt-3 position-relative overflow-hidden">
         <AnswerForm
           answer=""
           communityId={props.questionData.community_id}
