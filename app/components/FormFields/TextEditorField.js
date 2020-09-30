@@ -64,55 +64,22 @@ export const TextEditorField = ({
   meta,
   tip,
   splitInHalf,
-}) => {
-  const [tooltip, showTooltip] = useState(false);
-  return (
-    <Wrapper
-      label={label}
-      tip={tip}
-      meta={meta}
-      splitInHalf={splitInHalf}
-      id={input.name}
+}) => (
+  <Wrapper
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    id={input.name}
+  >
+    <Div
+      disabled={disabled}
+      error={meta.touched && (meta.error || meta.warning)}
     >
-      {disabled && (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: '1000',
-            width: '100%',
-            height: '100%',
-          }}
-          onMouseEnter={() => showTooltip(true)}
-          onMouseLeave={() => showTooltip(false)}
-        >
-          {tooltip && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(50% - 8px)',
-                right: 'calc(50% - 100px)',
-                zIndex: '1001',
-                background: 'yellowgreen',
-                opacity: '1',
-                padding: '10px',
-                width: 'fit-content',
-                color: 'white',
-              }}
-            >
-              You answered this question
-            </div>
-          )}
-        </div>
-      )}
-      <Div
-        disabled={disabled}
-        error={meta.touched && (meta.error || meta.warning)}
-      >
-        <TextEditor {...input} disabled={disabled} />
-      </Div>
-    </Wrapper>
-  );
-};
+      <TextEditor {...input} disabled={disabled} />
+    </Div>
+  </Wrapper>
+);
 
 TextEditorField.propTypes = {
   disabled: PropTypes.bool,
