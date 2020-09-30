@@ -133,6 +133,7 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
+  "app.common.questionIsAnswered": "You have already answered this question",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
