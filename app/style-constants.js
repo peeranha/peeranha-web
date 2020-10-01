@@ -9,14 +9,23 @@ const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
 const fonts = singleCommunityFonts();
 
+export const PEER_PRIMARY_COLOR = '#576fed';
+export const PEER_PRIMARY_TRANSPARENT_COLOR = '#dde2fb';
+export const PEER_WARNING_COLOR = '#fc6655';
+export const PEER_WARNING_TRANSPARENT_COLOR = '#FDE2DF';
+export const PEER_ERROR_COLOR = '#DC3545';
+export const PEER_ERROR_TRANSPARENT_COLOR = '#dc35452b';
+export const PEER_PREMIUM_COLOR = '#FF8500';
+export const PEER_PREMIUM_TRANSPARENT_COLOR = '#FFECCC';
+
 const black = _get(colors, 'black', '#282828');
 const white = '#ffffff';
 const gray = '#bdbdbd';
 const darkgray = '#7b7b7b';
 const lightgray = '#efefef';
-const pink = '#fc6655';
+const pink = PEER_WARNING_COLOR;
 const lightblue = '#edeff6';
-const blue = _get(colors, 'blue', '#576fed');
+const blue = _get(colors, 'blue', PEER_PRIMARY_COLOR);
 const purple = _get(colors, 'purple', 'rgba(39, 56, 104, 0.85)');
 const darkblue = _get(colors, 'darkBlue', '#5065A5');
 const transparent = 'rgba(0, 0, 0, 0)';
@@ -25,9 +34,7 @@ const lightgreen = '#ebffe7';
 const darkred = '#dc3545';
 const blue2 = _get(colors, 'blue2', '#dfe3f2');
 const attentionColor = _get(colors, 'attentionColor', '#ff4026');
-const linkColor = _get(colors, 'linkColor', '#576fed');
-const superHeroColor = _get(colors, 'superHeroColor', '#FF8500');
-const superHeroColorLight = _get(colors, 'superHeroColorlight', '#FFECCC');
+const linkColor = _get(colors, 'linkColor', PEER_PRIMARY_COLOR);
 
 const blueRGB = _get(colors, 'blueRGB', `118, 153, 255`);
 const darkBlueRGB = `80, 101, 165`;
@@ -62,7 +69,6 @@ export const TEXT_WARNING = darkred;
 export const TEXT_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const TEXT_PRIMARY_DARK = darkblue;
 export const TEXT_PRIMARY = blue;
-export const TEXT_SUPERHERO = superHeroColor;
 
 export const LINK_COLOR = linkColor;
 export const LINK_COLOR_SECONDARY = _get(
@@ -101,8 +107,6 @@ export const BG_SECONDARY_LIGHT = lightgray;
 export const BG_WARNING_LIGHT = _get(colors, 'warningLight', pink);
 export const BG_PRIMARY_SPECIAL_2 = blue2;
 export const BG_PRIMARY_TRANSPARENT = `rgba(${blueRGB}, 0.1)`;
-export const BG_SUPERHERO = superHeroColor;
-export const BG_SUPERHERO_LIGHT = superHeroColorLight;
 
 export const ATTENTION_COLOR = attentionColor;
 
