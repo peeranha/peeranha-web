@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 
 import {
-  TEXT_WARNING_LIGHT,
-  TEXT_WARNING,
-  TEXT_PRIMARY,
   TEXT_DARK,
   TEXT_SECONDARY,
-  TEXT_SUPERHERO,
-  BG_SUPERHERO_LIGHT,
+  PEER_PRIMARY_COLOR,
+  PEER_PRIMARY_TRANSPARENT_COLOR,
+  PEER_WARNING_COLOR,
+  PEER_WARNING_TRANSPARENT_COLOR,
+  PEER_ERROR_COLOR,
+  PEER_ERROR_TRANSPARENT_COLOR,
+  PEER_PREMIUM_COLOR,
+  PEER_PREMIUM_TRANSPARENT_COLOR,
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
@@ -33,19 +36,22 @@ const IconWithStatus = ({ className, size, rating }) => {
   let color = TEXT_DARK;
   let fill = '';
 
-  if (
-    rating >= options.legResident.minRating &&
-    rating <= options.legResident.maxRating
-  ) {
-    color = TEXT_SUPERHERO;
-    fill = BG_SUPERHERO_LIGHT;
-  } else if (rating > options.resident.minRating && size === 'sm') {
-    color = TEXT_WARNING_LIGHT;
-    fill = '#FDE2DF';
-  } else if (rating <= options.banned.maxRating) {
-    color = TEXT_WARNING;
-  } else if (rating <= options.resident.minRating && size === 'sm') {
-    color = TEXT_PRIMARY;
+  if (rating <= options.banned.maxRating) {
+    // banned
+    color = PEER_ERROR_COLOR;
+    fill = PEER_ERROR_TRANSPARENT_COLOR;
+  } else if (rating <= options.jrResident.maxRating) {
+    // stranger - junior
+    color = PEER_PRIMARY_COLOR;
+    fill = PEER_PRIMARY_TRANSPARENT_COLOR;
+  } else if (rating <= options.heroResident.maxRating) {
+    // resident - hero
+    color = PEER_WARNING_COLOR;
+    fill = PEER_WARNING_TRANSPARENT_COLOR;
+  } else {
+    // superhero
+    color = PEER_PREMIUM_COLOR;
+    fill = PEER_PREMIUM_TRANSPARENT_COLOR;
   }
 
   return (

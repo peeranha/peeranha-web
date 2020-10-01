@@ -69,7 +69,7 @@ const options = {
       lg: newbieLg,
       size: {
         sm: {
-          width: '13',
+          width: '15',
           height: '9',
         },
         lg: {
@@ -89,7 +89,7 @@ const options = {
       lg: jrResidentLg,
       size: {
         sm: {
-          width: '17',
+          width: '21',
           height: '9',
         },
         lg: {
