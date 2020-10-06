@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Textarea from 'components/Textarea';
+import GrowingTextarea from 'components/Textarea';
 import Wrapper from './Wrapper';
 
 export const TextareaField = ({
@@ -20,7 +20,7 @@ export const TextareaField = ({
     splitInHalf={splitInHalf}
     id={input.name}
   >
-    <Textarea
+    <GrowingTextarea
       {...input}
       error={meta.touched && (meta.error || meta.warning)}
       disabled={disabled}

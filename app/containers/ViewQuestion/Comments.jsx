@@ -22,7 +22,7 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import Textarea from 'components/Textarea';
+import { TextareaStyled } from 'components/Textarea';
 import Button from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
@@ -58,7 +58,7 @@ const CommentManage = styled.div`
 `;
 
 const CommentEditStyled = styled.li`
-  ${Textarea} {
+  ${TextareaStyled} {
     height: 90px;
   }
 `;
@@ -179,7 +179,11 @@ const CommentView = item => {
                     `delete-comment-${item.answerId}${item.id}`,
                   )}
                 >
-                  <Icon icon={deleteSmallIcon} width="13" fill={BORDER_PRIMARY} />
+                  <Icon
+                    icon={deleteSmallIcon}
+                    width="13"
+                    fill={BORDER_PRIMARY}
+                  />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}
