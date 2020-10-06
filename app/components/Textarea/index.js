@@ -6,20 +6,20 @@ import { Styles } from 'components/Input/InputStyled';
 export const TextareaStyled = styled.textarea`
   ${Styles};
   height: ${x => (x.rows > 3 ? `${x.rows * 20 + 22}px` : '90px')} !important;
-  /* For height calculating ware taken line-height = 20px, which is set in InputStyled, */
+  /* For height calculating were taken line-height = 20px, which is set in InputStyled, */
   /* and 22px for vertical paddings */
   resize: none;
 `;
 
-const GrowingTextarea = props => {
+const Textarea = props => {
   const { value } = props;
   const rowsNumber = value.split('\n').length;
 
   return <TextareaStyled {...props} rows={rowsNumber} />;
 };
 
-GrowingTextarea.propTypes = {
+Textarea.propTypes = {
   value: PropTypes.string,
 };
 
-export default GrowingTextarea;
+export default Textarea;
