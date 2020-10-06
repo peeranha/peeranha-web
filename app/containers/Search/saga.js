@@ -4,7 +4,7 @@ import { getResults } from 'utils/custom-search';
 import { GET_RESULTS } from './constants';
 import { getResultsSuccess, getResultsErr } from './actions';
 
-export function* sendTokensWorker({ query }) {
+export function* searchWorker({ query }) {
   try {
     const items = yield call(getResults, query);
     yield put(getResultsSuccess(items));
@@ -14,5 +14,5 @@ export function* sendTokensWorker({ query }) {
 }
 
 export default function* defaultSaga() {
-  yield takeEvery(GET_RESULTS, sendTokensWorker);
+  yield takeEvery(GET_RESULTS, searchWorker);
 }
