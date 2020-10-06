@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 
 import createdHistory from 'createdHistory';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
 import * as routes from 'routes-config';
 import Input from 'components/Input';
-
-const single = isSingleCommunityWebsite();
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
@@ -17,9 +13,6 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
     () => {
       onBlur();
       changeText('');
-      if (!single) {
-        createdHistory.push(routes.search(''));
-      }
     },
     [onBlur, changeText],
   );
@@ -27,12 +20,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
-      if (single) {
-        // window.open(`${process.env.APP_LOCATION}${routes.search(text)}`);
-        changeText('');
-      } else {
-        createdHistory.push(routes.search(text));
-      }
+      createdHistory.push(routes.search(text));
     },
     [text],
   );
