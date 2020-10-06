@@ -46,7 +46,8 @@ const Achievement = ({
     <div>
       <TitleBlock>
         <strong>
-          <ValueSpan>{badgesWithValuesIds.includes(id) && value}</ValueSpan>
+          {badgesWithValuesIds.includes(id) &&
+            value && <ValueSpan>{value}</ValueSpan>}
           {badgesWithValuesIds.includes(id) && value > 1
             ? multipleTitle
             : title}
