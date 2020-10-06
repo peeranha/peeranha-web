@@ -24,6 +24,7 @@ import {
   selectUserRating,
   selectUserEnergy,
   makeSelectAccount,
+  selectIsGlobalModerator,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -64,6 +65,7 @@ export const CreateCommunity = ({
   userRating,
   userEnergy,
   faqQuestions,
+  isGlobalModerator,
   createCommunityLoading,
   createCommunityDispatch,
   setDefaultStoreDispatch,
@@ -106,7 +108,8 @@ export const CreateCommunity = ({
   if (
     !account ||
     userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
-    userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY
+    userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY ||
+    !isGlobalModerator
   )
     return <Redirect to={routes.communities()} />;
 
@@ -142,6 +145,7 @@ CreateCommunity.propTypes = {
   account: PropTypes.string,
   userRating: PropTypes.number,
   userEnergy: PropTypes.number,
+  isGlobalModerator: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -154,6 +158,7 @@ const withConnect = connect(
       WHAT_IS_COMMUNITY_QUESTION,
       WHO_MANAGES_COMMUNITY_QUESTION,
     ]),
+    isGlobalModerator: selectIsGlobalModerator(),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
   }),
   dispatch => ({
