@@ -27,6 +27,7 @@ import {
   selectUserRating,
   selectUserEnergy,
   makeSelectAccount,
+  selectIsGlobalModerator,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -65,6 +66,7 @@ const CreateTag = ({
   account,
   userRating,
   userEnergy,
+  isGlobalModerator,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -87,7 +89,8 @@ const CreateTag = ({
   if (
     !account ||
     userRating < MIN_RATING_TO_CREATE_TAG ||
-    userEnergy < MIN_ENERGY_TO_CREATE_TAG
+    userEnergy < MIN_ENERGY_TO_CREATE_TAG ||
+    !isGlobalModerator
   )
     return <Redirect to={tags()} />;
 
@@ -140,6 +143,7 @@ CreateTag.propTypes = {
   account: PropTypes.string,
   userRating: PropTypes.number,
   userEnergy: PropTypes.number,
+  isGlobalModerator: PropTypes.bool,
 };
 
 export default compose(
@@ -157,6 +161,7 @@ export default compose(
       account: makeSelectAccount(),
       userRating: selectUserRating(),
       userEnergy: selectUserEnergy(),
+      isGlobalModerator: selectIsGlobalModerator(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),

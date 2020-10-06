@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { getCookie } from 'utils/cookie';
 import { selectUsers } from 'containers/DataCacheProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+import { MODERATOR_KEY } from 'utils/constants';
 
 import { initialState } from './reducer';
 
@@ -69,6 +70,17 @@ const selectUserRating = () =>
     },
   );
 
+const selectIsGlobalModerator = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return !!profileInfo?.['integer_properties'].find(
+        x => x.key === MODERATOR_KEY,
+      );
+    },
+  );
+
 const selectUserEnergy = () =>
   createSelector(
     state => state,
@@ -90,4 +102,5 @@ export {
   selectLastUpdate,
   selectUserRating,
   selectUserEnergy,
+  selectIsGlobalModerator,
 };
