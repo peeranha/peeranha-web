@@ -10,7 +10,6 @@ import {
   PEER_WARNING_COLOR,
   PEER_WARNING_TRANSPARENT_COLOR,
   PEER_ERROR_COLOR,
-  PEER_ERROR_TRANSPARENT_COLOR,
   PEER_PREMIUM_COLOR,
   PEER_PREMIUM_TRANSPARENT_COLOR,
 } from 'style-constants';
@@ -39,7 +38,7 @@ const IconWithStatus = ({ className, size, rating }) => {
   if (rating <= options.banned.maxRating) {
     // banned
     color = PEER_ERROR_COLOR;
-    fill = PEER_ERROR_TRANSPARENT_COLOR;
+    fill = PEER_ERROR_COLOR;
   } else if (rating <= options.jrResident.maxRating) {
     // stranger - junior
     color = PEER_PRIMARY_COLOR;
