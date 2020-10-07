@@ -8,6 +8,7 @@ import messages from 'common-messages';
 
 import scatterLogo from 'images/scatterLogo.svg?inline';
 import sqrlLogo from 'images/sqrl.svg?inline';
+import wombatLogo from 'images/wombat.png';
 
 import Button from 'components/Button/Outlined/SecondaryLarge';
 
@@ -36,8 +37,10 @@ const Wallets = styled.div`
   justify-content: center;
   padding-top: 15px;
 
-  > img:not(:last-child) {
-    margin-right: 20px;
+  > img {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
 
     &[alt='scatter'] {
       height: 16px;
@@ -45,6 +48,10 @@ const Wallets = styled.div`
 
     &[alt='sqrl'] {
       height: 26px;
+    }
+
+    &[alt='wombat'] {
+      height: 22px;
     }
   }
 `;
@@ -58,6 +65,7 @@ export const LoginViaWallet = ({ action, processing, text }) => (
     <Wallets>
       <img src={scatterLogo} alt="scatter" />
       <img src={sqrlLogo} alt="sqrl" />
+      <img src={wombatLogo} alt="wombat" />
     </Wallets>
   </>
 );
