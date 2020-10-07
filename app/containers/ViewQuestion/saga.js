@@ -434,6 +434,10 @@ export function* getQuestionDataWorker({ questionId }) {
       user: account,
     });
 
+    if (!questionData) {
+      throw new Error(`No question data, id: ${questionId}`);
+    }
+
     if (single && questionData.community_id !== single) {
       window.open(
         `${process.env.APP_LOCATION}${routes.questions(

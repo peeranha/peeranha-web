@@ -87,10 +87,10 @@ export const ViewQuestion = ({
   useEffect(() => {
     window.isRendered = false;
     resetStoreDispatch();
-    getQuestionDataDispatch(match.params.id);
 
     return () => {
       window.$(window).off();
+      resetStoreDispatch();
     };
   }, []);
 
