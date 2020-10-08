@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Styles } from 'components/Input/InputStyled';
 
 export const TextareaStyled = styled.textarea`
   ${Styles};
-  height: ${x => (x.rows > 3 ? `${x.rows * 20 + 22}px` : '90px')} !important;
-  /* For height calculating were taken line-height = 20px, which is set in InputStyled, */
-  /* and 22px for vertical paddings */
   resize: none;
+  overflow: hidden;
 `;
 
 const Textarea = props => {
-  const { value } = props;
-  const rowsNumber = value.split('\n').length;
+  const textareaRef = useRef(null);
+  const [currentValue, setCurrentValue] = useState(null);
 
-  return <TextareaStyled {...props} rows={rowsNumber} />;
+  useEffect(
+    () => {
+      textareaRef.current.style.height = '90px';
+      const { scrollHeight } = textareaRef.current;
+      textareaRef.current.style.height = `${scrollHeight + 2}px`;
+    },
+    [currentValue],
+  );
+
+  return (
+    <TextareaStyled
+      innerRef={textareaRef}
+      {...props}
+      height={currentValue}
+      onKeyUp={e => setCurrentValue(e.target.value)}
+    />
+  );
 };
 
 Textarea.propTypes = {
