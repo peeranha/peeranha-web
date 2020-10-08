@@ -107,9 +107,9 @@ export const CreateCommunity = ({
 
   if (
     !account ||
-    userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
-    userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY ||
-    !isGlobalModerator
+    ((userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
+      userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY) &&
+      !isGlobalModerator)
   )
     return <Redirect to={routes.communities()} />;
 

@@ -1,36 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Styles } from 'components/Input/InputStyled';
+import TextareaAutosize from 'react-textarea-autosize';
 
-export const TextareaStyled = styled.textarea`
+export const TextareaStyled = styled(TextareaAutosize)`
   ${Styles};
   resize: none;
-  overflow: hidden;
+  min-height: 90px;
 `;
 
-const Textarea = props => {
-  const textareaRef = useRef(null);
-  const [currentValue, setCurrentValue] = useState(null);
-
-  useEffect(
-    () => {
-      textareaRef.current.style.height = '90px';
-      const { scrollHeight } = textareaRef.current;
-      textareaRef.current.style.height = `${scrollHeight + 2}px`;
-    },
-    [currentValue],
-  );
-
-  return (
-    <TextareaStyled
-      innerRef={textareaRef}
-      {...props}
-      height={currentValue}
-      onKeyUp={e => setCurrentValue(e.target.value)}
-    />
-  );
-};
+const Textarea = props => <TextareaStyled {...props} />;
 
 Textarea.propTypes = {
   value: PropTypes.string,
