@@ -856,18 +856,47 @@
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
   "app.containers.Achievements.questionAsked.title": "Вопрос задан",
-  "app.containers.Achievements.questionAsked.multipleTitle": "Вопросы заданы",
   "app.containers.Achievements.questionAsked.description":
     "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.questionAsked.bronzeTitle": "Броза - Ученик",
+  "app.containers.Achievements.questionAsked.bronzeDescription":
+    "Заданы 10 вопросов",
+  "app.containers.Achievements.questionAsked.silverTitle":
+    "Серебро - Копаю глубже",
+  "app.containers.Achievements.questionAsked.silverDescription":
+    "Заданы 50 вопросов",
+  "app.containers.Achievements.questionAsked.goldTitle":
+    "Золото - Хочу знать всё!",
+  "app.containers.Achievements.questionAsked.goldDescription":
+    "Заданы 100 вопросов",
+
   "app.containers.Achievements.answerGiven.title": "Ответ дан",
-  "app.containers.Achievements.answerGiven.multipleTitle": "Ответов даны",
   "app.containers.Achievements.answerGiven.description":
     "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.answerGiven.bronzeTitle": "Бронза - Эксперт",
+  "app.containers.Achievements.answerGiven.bronzeDescription":
+    "Даны 20 ответов",
+  "app.containers.Achievements.answerGiven.silverTitle": "Серебро - Мастер",
+  "app.containers.Achievements.answerGiven.silverDescription":
+    "Даны 100 ответов",
+  "app.containers.Achievements.answerGiven.goldTitle": "Золото - Гуру",
+  "app.containers.Achievements.answerGiven.goldDescription": "Даны 200 ответов",
+
   "app.containers.Achievements.correctAnswer.title": "Правильный ответ",
-  "app.containers.Achievements.correctAnswer.multipleTitle":
-    "Правильных ответа",
   "app.containers.Achievements.correctAnswer.description":
     "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.correctAnswer.bronzeTitle":
+    "Бронза - Настоящий профессионал",
+  "app.containers.Achievements.correctAnswer.bronzeDescription":
+    "Получены 5 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.correctAnswer.silverTitle": "Серебро - Эрудит",
+  "app.containers.Achievements.correctAnswer.silverDescription":
+    "Получены 25 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.correctAnswer.goldTitle":
+    "Золото - Искусственный интеллект",
+  "app.containers.Achievements.correctAnswer.goldDescription":
+    "Получены 50 отметок \"Лучший ответ\"",
+
   "app.containers.Achievements.first10kregistered.title": "Основатель",
   "app.containers.Achievements.first10kregistered.description":
     "Поздравляем! Это отличное достижение!",
@@ -892,12 +921,36 @@
   "app.containers.Achievements.superhero.title": "Почётный Супергерой",
   "app.containers.Achievements.superhero.description":
     "Поздравляем! Это отличное достижение!",
+
   "app.containers.Achievements.answer15minutes.title": "Ответ за 15 минут",
   "app.containers.Achievements.answer15minutes.description":
     "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.answer15minutes.bronzeTitle":
+    "Bronze - Fastest hand in the West",
+  "app.containers.Achievements.answer15minutes.bronzeDescription":
+    "Даны 5 ответов в течение 15 минут",
+  "app.containers.Achievements.answer15minutes.silverTitle":
+    "Silver - Pedal to the metal",
+  "app.containers.Achievements.answer15minutes.silverDescription":
+    "Даны 10 ответов в течение 15 минут",
+  "app.containers.Achievements.answer15minutes.goldTitle": "Gold - Lightning",
+  "app.containers.Achievements.answer15minutes.goldDescription":
+    "Даны 20 ответов в течение 15 минут",
+
   "app.containers.Achievements.firstAnswer.title": "Первый ответ",
   "app.containers.Achievements.firstAnswer.description":
     "Поздравляем! Это отличное достижение!",
+  "app.containers.Achievements.firstAnswer.bronzeTitle": "Bronze - Quick help",
+  "app.containers.Achievements.firstAnswer.bronzeDescription":
+    "Be the first one, who posts an answer for 10 different questions",
+  "app.containers.Achievements.firstAnswer.silverTitle":
+    "Silver - I was here first!",
+  "app.containers.Achievements.firstAnswer.silverDescription":
+    "Be the first one, who posts an answer for 25 different questions",
+  "app.containers.Achievements.firstAnswer.goldTitle":
+    "Gold - Undisputed champion",
+  "app.containers.Achievements.firstAnswer.goldDescription":
+    "Be the first one, who posts an answer for 50 different questions",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"

@@ -21,7 +21,10 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import {
   selectUserAchievements,
-  selectSortedUserAchievements,
+  selectReachedAchievements,
+  selectUnreachedAchievements,
+  selectReachedLevelAchievements,
+  selectUnreachedLevelAchievements,
   selectAchievementsLoading,
 } from './selectors';
 import { getUserAchievements } from './actions';
@@ -30,6 +33,7 @@ import saga from './saga';
 import messages from './messages';
 
 import Achievement from './Achievement';
+import AchievementWithLevels from './AchievementWithLevels';
 
 const AchievementsWrapper = styled(BaseRounded)`
   display: grid;
@@ -50,7 +54,10 @@ const AchievementsWrapper = styled(BaseRounded)`
 const Achievements = ({
   locale,
   currentAccount,
-  sortedAchievements,
+  reachedAchievements,
+  unreachedAchievements,
+  reachedLevelAchievements,
+  unreachedLevelAchievements,
   userAchievements,
   getUserAchievementsDispatch,
   achievementsLoading,
@@ -79,15 +86,51 @@ const Achievements = ({
       {achievementsLoading && <LoadingIndicator />}
       {!achievementsLoading && (
         <AchievementsWrapper>
-          {sortedAchievements.map(el => (
+          {reachedLevelAchievements.map(el => (
+            <AchievementWithLevels
+              key={el.title}
+              id={el.id}
+              reached={el.reached}
+              bronzeTitle={translations[messages[el.title].bronzeTitle.id]}
+              bronzeDescription={
+                translations[messages[el.title].bronzeDescription.id]
+              }
+              silverTitle={translations[messages[el.title].silverTitle.id]}
+              silverDescription={
+                translations[messages[el.title].silverDescription.id]
+              }
+              goldTitle={translations[messages[el.title].goldTitle.id]}
+              goldDescription={
+                translations[messages[el.title].goldDescription.id]
+              }
+              value={el.value}
+              levels={el.levels}
+            />
+          ))}
+          {reachedAchievements.map(el => (
             <Achievement
               key={el.title}
               id={el.id}
               reached={el.reached}
               title={translations[messages[el.title].title.id]}
-              multipleTitle={
-                translations[(messages[el.title].multipleTitle?.id)]
-              }
+              description={translations[messages[el.title].description.id]}
+            />
+          ))}
+          {unreachedLevelAchievements.map(el => (
+            <Achievement
+              key={el.title}
+              id={el.id}
+              reached={el.reached}
+              title={translations[messages[el.title].title.id]}
+              description={translations[messages[el.title].description.id]}
+            />
+          ))}
+          {unreachedAchievements.map(el => (
+            <Achievement
+              key={el.title}
+              id={el.id}
+              reached={el.reached}
+              title={translations[messages[el.title].title.id]}
               description={translations[messages[el.title].description.id]}
               value={el.value}
             />
@@ -110,7 +153,10 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   currentAccount: makeSelectAccount(),
   userAchievements: selectUserAchievements(),
-  sortedAchievements: selectSortedUserAchievements(),
+  reachedAchievements: selectReachedAchievements(),
+  unreachedAchievements: selectUnreachedAchievements(),
+  reachedLevelAchievements: selectReachedLevelAchievements(),
+  unreachedLevelAchievements: selectUnreachedLevelAchievements(),
   achievementsLoading: selectAchievementsLoading(),
 });
 

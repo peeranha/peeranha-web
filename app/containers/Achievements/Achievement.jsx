@@ -7,8 +7,6 @@ import achievementNotReached from 'images/achievement_not_reached.svg?inline';
 
 import Span from 'components/Span';
 
-import { badgesWithValuesIds } from './constants';
-
 const Img = styled('img')`
   margin-right: 15px;
 `;
@@ -25,19 +23,7 @@ const Bage = styled.div`
   display: flex;
 `;
 
-const ValueSpan = styled.span`
-  font-size: 18px;
-  margin-right: 4px;
-`;
-
-const Achievement = ({
-  reached,
-  title,
-  multipleTitle,
-  description,
-  value,
-  id,
-}) => (
+const Achievement = ({ reached, title, description }) => (
   <Bage>
     {reached && <Img src={achievementReached} alt="reached achievement" />}
     {!reached && (
@@ -45,13 +31,7 @@ const Achievement = ({
     )}
     <div>
       <TitleBlock>
-        <strong>
-          {badgesWithValuesIds.includes(id) &&
-            value && <ValueSpan>{value}</ValueSpan>}
-          {badgesWithValuesIds.includes(id) && value > 1
-            ? multipleTitle
-            : title}
-        </strong>
+        <strong>{title}</strong>
       </TitleBlock>
       <DescriptionBlock>{description}</DescriptionBlock>
     </div>
@@ -61,10 +41,7 @@ const Achievement = ({
 Achievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
-  multipleTitle: PropTypes.string,
   description: PropTypes.string,
-  value: PropTypes.number,
-  id: PropTypes.number,
 };
 
 export default Achievement;
