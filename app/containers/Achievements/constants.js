@@ -13,27 +13,42 @@ export const levelAchievementsArr = [
   {
     id: 1,
     title: 'QUESTION_ASKED',
-    levels: { bronze: 5, silver: 50, gold: 100 },
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 10, silver: 50, gold: 100 }
+        : { bronze: 5, silver: 10, gold: 15 },
   },
   {
     id: 2,
     title: 'ANSWER_GIVEN',
-    levels: { bronze: 5, silver: 10, gold: 200 },
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 20, silver: 100, gold: 200 }
+        : { bronze: 5, silver: 10, gold: 15 },
   },
   {
     id: 3,
     title: 'CORRECT_ANSWER',
-    levels: { bronze: 5, silver: 25, gold: 50 },
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 5, silver: 25, gold: 50 }
+        : { bronze: 1, silver: 3, gold: 5 },
   },
   {
     id: 12,
     title: 'ANSWER_15_MINUTES',
-    levels: { bronze: 5, silver: 10, gold: 20 },
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 5, silver: 10, gold: 20 }
+        : { bronze: 1, silver: 3, gold: 5 },
   },
   {
     id: 13,
     title: 'FIRST_ANSWER',
-    levels: { bronze: 10, silver: 25, gold: 50 },
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 10, silver: 25, gold: 50 }
+        : { bronze: 2, silver: 5, gold: 10 },
   },
 ];
 
