@@ -8,6 +8,7 @@ export const TextareaStyled = styled(TextareaAutosize)`
   ${Styles};
   resize: none;
   min-height: 90px;
+  overflow: hidden;
 `;
 
 const Textarea = props => <TextareaStyled {...props} />;
