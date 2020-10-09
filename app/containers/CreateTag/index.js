@@ -88,9 +88,9 @@ const CreateTag = ({
 
   if (
     !account ||
-    userRating < MIN_RATING_TO_CREATE_TAG ||
-    userEnergy < MIN_ENERGY_TO_CREATE_TAG ||
-    !isGlobalModerator
+    ((userRating < MIN_RATING_TO_CREATE_TAG ||
+      userEnergy < MIN_ENERGY_TO_CREATE_TAG) &&
+      !isGlobalModerator)
   )
     return <Redirect to={tags()} />;
 
