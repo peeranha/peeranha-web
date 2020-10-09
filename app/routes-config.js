@@ -89,6 +89,14 @@ export const preloaderPage = () => '/preloader-page';
 
 export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
+export const redirectRoutesForSCM = [
+  faq(),
+  privacyPolicy(),
+  termsAndConditions(),
+  support(),
+  home(),
+];
+
 export const signup = {
   email: {
     step: 1,

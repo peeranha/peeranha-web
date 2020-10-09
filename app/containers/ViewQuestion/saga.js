@@ -427,24 +427,18 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
 export function* getQuestionDataWorker({ questionId }) {
   try {
     const { account } = yield call(getParams);
-    const single = isSingleCommunityWebsite();
 
     const questionData = yield call(getQuestionData, {
       questionId,
       user: account,
     });
 
+    const single = isSingleCommunityWebsite();
+    const isAnotherCommunityQuestion =
+      single && questionData.community_id !== single;
+
     if (!questionData) {
       throw new Error(`No question data, id: ${questionId}`);
-    }
-
-    if (single && questionData.community_id !== single) {
-      window.open(
-        `${process.env.APP_LOCATION}${routes.questions(
-          questionData.community_id,
-        )}`,
-        '_parent',
-      );
     }
 
     const { userInfo, answers } = questionData;
@@ -473,7 +467,11 @@ export function* getQuestionDataWorker({ questionId }) {
       }),
     );
 
-    yield put(getQuestionDataSuccess(questionData));
+    if (isAnotherCommunityQuestion) {
+      yield put(getQuestionDataSuccess(null));
+    } else {
+      yield put(getQuestionDataSuccess(questionData));
+    }
   } catch (err) {
     yield put(getQuestionDataErr(err));
   }

@@ -45,7 +45,7 @@ const Box = ({
               <React.Suspense fallback={<Loader />}>
                 <>
                   <Comp {...props} />
-                  {showScrollToTop(window.location.pathname) && <ScrollToTop />}
+                  {showScrollToTop(location.pathname) && <ScrollToTop />}
                 </>
               </React.Suspense>
             </WrapStyled>
