@@ -17,6 +17,24 @@ export default defineMessages({
     description: {
       id: 'app.containers.Achievements.questionAsked.description',
     },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.questionAsked.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.questionAsked.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.questionAsked.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.questionAsked.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.questionAsked.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.questionAsked.goldDescription',
+    },
   },
   ANSWER_GIVEN: {
     title: {
@@ -28,6 +46,24 @@ export default defineMessages({
     description: {
       id: 'app.containers.Achievements.answerGiven.description',
     },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.answerGiven.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.answerGiven.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.answerGiven.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.answerGiven.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.answerGiven.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.answerGiven.goldDescription',
+    },
   },
   CORRECT_ANSWER: {
     title: {
@@ -38,6 +74,24 @@ export default defineMessages({
     },
     description: {
       id: 'app.containers.Achievements.correctAnswer.description',
+    },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.correctAnswer.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.correctAnswer.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.correctAnswer.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.correctAnswer.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.correctAnswer.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.correctAnswer.goldDescription',
     },
   },
   FIRST_10K_REGISTERED: {
@@ -111,6 +165,24 @@ export default defineMessages({
     description: {
       id: 'app.containers.Achievements.answer15minutes.description',
     },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.answer15minutes.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.answer15minutes.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.answer15minutes.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.answer15minutes.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.answer15minutes.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.answer15minutes.goldDescription',
+    },
   },
   FIRST_ANSWER: {
     title: {
@@ -118,6 +190,24 @@ export default defineMessages({
     },
     description: {
       id: 'app.containers.Achievements.firstAnswer.description',
+    },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.firstAnswer.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.firstAnswer.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.firstAnswer.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.firstAnswer.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.firstAnswer.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.firstAnswer.goldDescription',
     },
   },
 });

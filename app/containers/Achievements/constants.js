@@ -1,7 +1,4 @@
-export const possibleAchievements = [
-  { id: 1, title: 'QUESTION_ASKED' },
-  { id: 2, title: 'ANSWER_GIVEN' },
-  { id: 3, title: 'CORRECT_ANSWER' },
+export const achievementsArr = [
   { id: 4, title: 'FIRST_10K_REGISTERED' },
   { id: 5, title: 'STRANGER' },
   { id: 6, title: 'NEWBIE' },
@@ -10,11 +7,50 @@ export const possibleAchievements = [
   { id: 9, title: 'SENIOR' },
   { id: 10, title: 'HERO' },
   { id: 11, title: 'SUPERHERO' },
-  { id: 12, title: 'ANSWER_15_MINUTES' },
-  { id: 13, title: 'FIRST_ANSWER' },
 ];
 
-export const badgesWithValuesIds = [1, 2, 3];
+export const levelAchievementsArr = [
+  {
+    id: 1,
+    title: 'QUESTION_ASKED',
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 10, silver: 50, gold: 100 }
+        : { bronze: 5, silver: 10, gold: 15 },
+  },
+  {
+    id: 2,
+    title: 'ANSWER_GIVEN',
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 20, silver: 100, gold: 200 }
+        : { bronze: 5, silver: 10, gold: 15 },
+  },
+  {
+    id: 3,
+    title: 'CORRECT_ANSWER',
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 5, silver: 25, gold: 50 }
+        : { bronze: 1, silver: 3, gold: 5 },
+  },
+  {
+    id: 12,
+    title: 'ANSWER_15_MINUTES',
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 5, silver: 10, gold: 20 }
+        : { bronze: 1, silver: 3, gold: 5 },
+  },
+  {
+    id: 13,
+    title: 'FIRST_ANSWER',
+    levels:
+      process.env.ENV === 'prod'
+        ? { bronze: 10, silver: 25, gold: 50 }
+        : { bronze: 2, silver: 5, gold: 10 },
+  },
+];
 
 const GET_USER_ACHIEVEMENTS = 'containers/Achievements/GET_USER_ACHIEVEMENTS';
 const GET_USER_ACHIEVEMENTS_ERROR =
