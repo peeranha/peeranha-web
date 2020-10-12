@@ -26,6 +26,7 @@ const DescriptionBlock = styled(TitleBlock)`
 
 const Bage = styled.div`
   display: flex;
+  align-items: flex-start;
 `;
 
 const LimitPhrase = styled.p`
