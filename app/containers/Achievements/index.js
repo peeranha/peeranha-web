@@ -11,6 +11,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
+import { BORDER_SECONDARY } from 'style-constants';
 import commonMessage from 'common-messages';
 
 import BaseRounded from 'components/Base/BaseRounded';
@@ -69,8 +70,8 @@ const UniqueAchievementsWrapper = styled(BaseRounded)`
 `;
 
 const UniqueAchievementsTitle = styled(H4)`
-  padding-bottom: 15px;
-  border-bottom: 1px solid gray;
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${BORDER_SECONDARY};
 `;
 
 const Achievements = ({
