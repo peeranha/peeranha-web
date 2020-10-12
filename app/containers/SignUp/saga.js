@@ -165,7 +165,7 @@ export function* iHaveEosAccountWorker({ val }) {
 
     let isActiveKeyValid = true;
     let isOwnerKeyValid = true;
-
+    
     const eosActivePublicKey = yield call(
       eosService.privateToPublic,
       val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
@@ -212,15 +212,17 @@ export function* iHaveEosAccountWorker({ val }) {
         activeKey: {
           private: val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
         },
-        ownerKey: {
-          private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
-        },
+        ownerKey: val[EOS_OWNER_PRIVATE_KEY_FIELD]
+          ? {
+              private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
+            }
+          : null,
       },
       masterKey: val[MASTER_KEY_FIELD],
       password: val[PASSWORD_FIELD],
       eosAccountName: val[EOS_ACCOUNT_FIELD],
     };
-
+    
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
 
     const response = yield call(
@@ -256,7 +258,6 @@ export function* idontHaveEosAccountWorker({ val }) {
     const locale = yield select(makeSelectLocale());
     const keys = yield select(selectKeys());
     const translations = translationMessages[locale];
-
     const email = yield select(selectEmail());
     const encryptionKey = yield select(selectEncryptionKey());
 
