@@ -28,7 +28,24 @@ const Bage = styled.div`
   display: flex;
 `;
 
-const Achievement = ({ reached, title, description, next, locale }) => {
+const LimitPhrase = styled.p`
+  margin-top: 10px;
+  font-style: italic;
+  color: #7b7b7b;
+  font-size: 14px;
+`;
+
+const Achievement = ({
+  reached,
+  limit,
+  totalAwarded,
+  next,
+  title,
+  description,
+  locale,
+}) => {
+  const availiableCount = limit - totalAwarded;
+
   const getProgress = () => {
     const { minRating, userRating } = next;
     return (userRating / minRating) * 100;
@@ -59,7 +76,14 @@ const Achievement = ({ reached, title, description, next, locale }) => {
         <TitleBlock>
           <strong>{title}</strong>
         </TitleBlock>
-        <DescriptionBlock>{description}</DescriptionBlock>
+        <DescriptionBlock>
+          {description}
+          {!reached && (
+            <LimitPhrase>
+              Available {availiableCount} out of {limit}
+            </LimitPhrase>
+          )}
+        </DescriptionBlock>
       </div>
     </Bage>
   );
@@ -68,6 +92,8 @@ const Achievement = ({ reached, title, description, next, locale }) => {
 Achievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
+  limit: PropTypes.number,
+  totalAwarded: PropTypes.number,
   description: PropTypes.string,
   next: PropTypes.bool,
   locale: PropTypes.string,

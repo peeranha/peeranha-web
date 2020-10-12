@@ -7,6 +7,13 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  progressBar: {
+    nextByRating: {
+      id: 'app.containers.Achievements.progressBar.nextByRating',
+    },
+  },
+
+  // Achievements with levels
   QUESTION_ASKED: {
     title: {
       id: 'app.containers.Achievements.questionAsked.title',
@@ -94,6 +101,60 @@ export default defineMessages({
       id: 'app.containers.Achievements.correctAnswer.goldDescription',
     },
   },
+  ANSWER_15_MINUTES: {
+    title: {
+      id: 'app.containers.Achievements.answer15minutes.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.answer15minutes.description',
+    },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.answer15minutes.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.answer15minutes.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.answer15minutes.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.answer15minutes.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.answer15minutes.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.answer15minutes.goldDescription',
+    },
+  },
+  FIRST_ANSWER: {
+    title: {
+      id: 'app.containers.Achievements.firstAnswer.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstAnswer.description',
+    },
+    bronzeTitle: {
+      id: 'app.containers.Achievements.firstAnswer.bronzeTitle',
+    },
+    bronzeDescription: {
+      id: 'app.containers.Achievements.firstAnswer.bronzeDescription',
+    },
+    silverTitle: {
+      id: 'app.containers.Achievements.firstAnswer.silverTitle',
+    },
+    silverDescription: {
+      id: 'app.containers.Achievements.firstAnswer.silverDescription',
+    },
+    goldTitle: {
+      id: 'app.containers.Achievements.firstAnswer.goldTitle',
+    },
+    goldDescription: {
+      id: 'app.containers.Achievements.firstAnswer.goldDescription',
+    },
+  },
+
+  // Unique achievements
   FIRST_10K_REGISTERED: {
     title: {
       id: 'app.containers.Achievements.first10kregistered.title',
@@ -156,58 +217,6 @@ export default defineMessages({
     },
     description: {
       id: 'app.containers.Achievements.superhero.description',
-    },
-  },
-  ANSWER_15_MINUTES: {
-    title: {
-      id: 'app.containers.Achievements.answer15minutes.title',
-    },
-    description: {
-      id: 'app.containers.Achievements.answer15minutes.description',
-    },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.answer15minutes.bronzeTitle',
-    },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.answer15minutes.bronzeDescription',
-    },
-    silverTitle: {
-      id: 'app.containers.Achievements.answer15minutes.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.answer15minutes.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.answer15minutes.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.answer15minutes.goldDescription',
-    },
-  },
-  FIRST_ANSWER: {
-    title: {
-      id: 'app.containers.Achievements.firstAnswer.title',
-    },
-    description: {
-      id: 'app.containers.Achievements.firstAnswer.description',
-    },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.firstAnswer.bronzeTitle',
-    },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.firstAnswer.bronzeDescription',
-    },
-    silverTitle: {
-      id: 'app.containers.Achievements.firstAnswer.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.firstAnswer.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.firstAnswer.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.firstAnswer.goldDescription',
     },
   },
 });

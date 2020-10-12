@@ -12,6 +12,7 @@
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
   "app.common.achievments": "Достижения",
+  "app.common.uniqueAchievements": "Уникальные достижения",
   "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
@@ -854,6 +855,9 @@
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.progressBarMessages.nextByRating":
+    "пунктов рейтинга осталось до следующего досижения",
 
   "app.containers.Achievements.questionAsked.title": "Вопрос задан",
   "app.containers.Achievements.questionAsked.description":

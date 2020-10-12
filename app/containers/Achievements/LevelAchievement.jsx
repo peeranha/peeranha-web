@@ -25,7 +25,7 @@ const Bage = styled.div`
   display: flex;
 `;
 
-const AchievementWithLevels = ({
+const LevelAchievement = ({
   reached,
   value,
   levels,
@@ -43,6 +43,16 @@ const AchievementWithLevels = ({
   const gold = value >= levels.gold;
 
   const zeroLevel = value < levels.bronze;
+
+  const nextLevel = () => {
+    if (value < levels.bronze)
+      return { nextLevel: 'bronze', remained: levels.bronze - value };
+    if (value >= levels.bronze && value < levels.silver)
+      return { nextLevel: 'silver', remained: levels.silver - value };
+    if (value >= levels.silver && value < levels.gold)
+      return { nextLevel: 'gold', remained: levels.gold - value };
+    return null;
+  };
 
   return (
     <Bage>
@@ -65,12 +75,19 @@ const AchievementWithLevels = ({
         {bronze && <DescriptionBlock>{bronzeDescription}</DescriptionBlock>}
         {silver && <DescriptionBlock>{silverDescription}</DescriptionBlock>}
         {gold && <DescriptionBlock>{goldDescription}</DescriptionBlock>}
+        {nextLevel() && (
+          <p
+            style={{ fontStyle: 'italic', marginTop: '10px', color: 'skyblue' }}
+          >
+            {nextLevel().remained} points to next level left
+          </p>
+        )}
       </div>
     </Bage>
   );
 };
 
-AchievementWithLevels.propTypes = {
+LevelAchievement.propTypes = {
   value: PropTypes.number,
   reached: PropTypes.bool,
   levels: PropTypes.object,
@@ -84,4 +101,4 @@ AchievementWithLevels.propTypes = {
   goldDescription: PropTypes.string,
 };
 
-export default AchievementWithLevels;
+export default LevelAchievement;
