@@ -18,6 +18,8 @@ import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
+import Loader from 'components/LoadingIndicator/WidthCentered';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import {
@@ -25,6 +27,7 @@ import {
   selectUserEnergy,
   makeSelectAccount,
   selectIsGlobalModerator,
+  makeSelectAccountLoading,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -69,6 +72,7 @@ export const CreateCommunity = ({
   createCommunityLoading,
   createCommunityDispatch,
   setDefaultStoreDispatch,
+  accountIsLoading,
 }) => {
   const createCommunityMethod = (...args) => {
     const { reset } = args[2];
@@ -104,6 +108,8 @@ export const CreateCommunity = ({
   };
 
   const path = window.location.pathname + window.location.hash;
+
+  if (accountIsLoading) return <Loader />;
 
   if (
     !account ||
@@ -146,6 +152,7 @@ CreateCommunity.propTypes = {
   userRating: PropTypes.number,
   userEnergy: PropTypes.number,
   isGlobalModerator: PropTypes.bool,
+  accountIsLoading: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -160,6 +167,7 @@ const withConnect = connect(
     ]),
     isGlobalModerator: selectIsGlobalModerator(),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
+    accountIsLoading: makeSelectAccountLoading(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
