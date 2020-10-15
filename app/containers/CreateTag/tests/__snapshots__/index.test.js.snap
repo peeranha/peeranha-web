@@ -365,6 +365,7 @@ exports[`<CreateTag /> render 1`] = `
                 "app.containers.Questions.noQuestions": "No questions",
                 "app.containers.Questions.noQuestionsYet": "No questions yet.",
                 "app.containers.Questions.readMyFeed": "Read my feed",
+                "app.containers.Questions.goToCommunities": "Go to communities",
                 "app.containers.Questions.subscribeToCommToKeep": "Subscribe to communities to keep track of topics that you are interested in.",
                 "app.containers.Questions.thisIsNewCommunity": "This is a new community, you can be the first and your question may be the most popular.",
                 "app.containers.Questions.title": "Questions",

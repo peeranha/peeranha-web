@@ -807,6 +807,7 @@
   "app.containers.Questions.thisIsNewCommunity":
     "Это новое сообщество, Вы можете стать первым и Ваш вопрос может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
+  "app.containers.Questions.goToCommunities": "Перейти к сообществам",
   "app.containers.Questions.topQuestionPopover":
     "Часто задаваемый вопрос этого сообщества.",
   "app.containers.Questions.showAllQuestions": "Смотреть все вопросы",

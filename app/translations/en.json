@@ -775,6 +775,7 @@
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.goToCommunities": "Go to communities",
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",

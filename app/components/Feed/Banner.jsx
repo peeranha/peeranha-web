@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import * as routes from 'routes-config';
 import Wrapper from 'components/Banner';
-import Button from 'components/Button/Contained/SecondaryLarge';
+import Button from 'components/Button/Contained/InfoLarge';
+import A from 'components/A';
 
 import noQuestionsFeedPage from 'images/noQuestionsFeedPage.svg?inline';
 
@@ -20,9 +21,11 @@ export const Banner = () => (
         <FormattedMessage {...messages.subscribeToCommToKeep} />
       </p>
 
-      <Button disabled>
-        <FormattedMessage {...messages.readMyFeed} />
-      </Button>
+      <A to={routes.communities()}>
+        <Button>
+          <FormattedMessage {...messages.goToCommunities} />
+        </Button>
+      </A>
     </div>
   </Wrapper>
 );
