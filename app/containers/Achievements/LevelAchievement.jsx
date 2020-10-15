@@ -2,15 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import achievementBronze from 'images/achievement_bronze.svg?inline';
-import achievementSilver from 'images/achievement_silver.svg?inline';
-import achievementGold from 'images/achievement_gold.svg?inline';
-import achievementNotReached from 'images/achievement_not_reached.svg?inline';
+import achievementNotReached from 'images/achievement_not_reached.svg?external';
+import achievementReached from 'images/achievement_reached.svg?external';
 
 import Span from 'components/Span';
+import Icon from 'components/Icon';
 
-const Img = styled('img')`
+const BageIcon = styled(Icon)`
   margin-right: 15px;
+`;
+
+const LevelIcon = styled(BageIcon)`
+  .crown {
+    fill: ${props => {
+      if (props.level === 'bronze') return '#8b4513';
+      if (props.level === 'silver') return '#c0c0c0';
+      if (props.level === 'gold') return '#ffd700';
+      return '#F76F60';
+    }};
+  }
 `;
 
 const TitleBlock = styled(Span)`
@@ -58,11 +68,32 @@ const LevelAchievement = ({
   return (
     <Bage>
       {(!reached || zeroLevel) && (
-        <Img src={achievementNotReached} alt="not reached achievement" />
+        <BageIcon icon={achievementNotReached} width="80" height="74" />
       )}
-      {bronze && <Img src={achievementBronze} alt="bronze achievement" />}
-      {silver && <Img src={achievementSilver} alt="silver achievement" />}
-      {gold && <Img src={achievementGold} alt="gold achievement" />}
+      {bronze && (
+        <LevelIcon
+          icon={achievementReached}
+          width="80"
+          height="74"
+          level="bronze"
+        />
+      )}
+      {silver && (
+        <LevelIcon
+          icon={achievementReached}
+          width="80"
+          height="74"
+          level="silver"
+        />
+      )}
+      {gold && (
+        <LevelIcon
+          icon={achievementReached}
+          width="80"
+          height="74"
+          level="gold"
+        />
+      )}
       <div>
         <TitleBlock>
           {(!reached || zeroLevel) && <strong>{title}</strong>}

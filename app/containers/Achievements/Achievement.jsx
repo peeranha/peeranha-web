@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
-import achievementReached from 'images/achievement_reached.svg?inline';
-import achievementNotReached from 'images/achievement_not_reached.svg?inline';
+import achievementReached from 'images/achievement_reached.svg?external';
+import achievementNotReached from 'images/achievement_not_reached.svg?external';
 
+import Icon from 'components/Icon';
 import Span from 'components/Span';
 import ProgressBar from './ProgressBar';
 
@@ -42,9 +43,9 @@ const Achievement = ({ reached, title, description, next, locale }) => {
   return (
     <Bage>
       <ImageBlock>
-        {reached && <img src={achievementReached} alt="reached achievement" />}
+        {reached && <Icon icon={achievementReached} width="80" height="74" />}
         {!reached && (
-          <img src={achievementNotReached} alt="not reached achievement" />
+          <Icon icon={achievementNotReached} width="80" height="74" />
         )}
         {next && (
           <ProgressBar
@@ -70,7 +71,7 @@ Achievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
   description: PropTypes.string,
-  next: PropTypes.bool,
+  next: PropTypes.object,
   locale: PropTypes.string,
 };
 

@@ -31,17 +31,8 @@ const ProgressBar = ({ width, progress, message = '' }) => {
     if (message) showPopover(id, message);
   };
 
-  const hideTooltip = () => {
-    if (message) closePopover();
-  };
-
   return (
-    <Wrapper
-      id={id}
-      width={width}
-      onMouseEnter={showTooltip}
-      onMouseLeave={hideTooltip}
-    >
+    <Wrapper id={id} width={width} onMouseEnter={showTooltip}>
       <Progress progress={progress} />
     </Wrapper>
   );
