@@ -28,6 +28,7 @@ import {
   selectUserEnergy,
   makeSelectAccount,
   selectIsGlobalModerator,
+  makeSelectAccountLoading,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -67,6 +68,7 @@ const CreateTag = ({
   userRating,
   userEnergy,
   isGlobalModerator,
+  accountIsLoading,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -85,6 +87,8 @@ const CreateTag = ({
     },
     [suggestTagDispatch],
   );
+
+  if (accountIsLoading) return <LoadingIndicator />;
 
   if (
     !account ||
@@ -144,6 +148,7 @@ CreateTag.propTypes = {
   userRating: PropTypes.number,
   userEnergy: PropTypes.number,
   isGlobalModerator: PropTypes.bool,
+  accountIsLoading: PropTypes.bool,
 };
 
 export default compose(
@@ -162,6 +167,7 @@ export default compose(
       userRating: selectUserRating(),
       userEnergy: selectUserEnergy(),
       isGlobalModerator: selectIsGlobalModerator(),
+      accountIsLoading: makeSelectAccountLoading(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
