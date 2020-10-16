@@ -31,10 +31,13 @@ export default defineMessages({
   readMyFeed: {
     id: 'app.containers.Questions.readMyFeed',
   },
+  goToCommunities: {
+    id: 'app.containers.Questions.goToCommunities',
+  },
   topQuestionPopover: {
     id: 'app.containers.Questions.topQuestionPopover',
   },
   showAllQuestions: {
     id: 'app.containers.Questions.showAllQuestions',
-  }
+  },
 });
