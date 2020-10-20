@@ -11,11 +11,13 @@ import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
-import MediumImage from 'components/Img/MediumImage';
+import MediumImage, { MediumImageWrapper, MediumImageLabel, MediumImageLabelImage } from 'components/Img/MediumImage';
 import Span from 'components/Span';
 import A from 'components/A';
 
 import { COMMENT_TYPE } from './constants';
+
+import telegram from 'images/telegram-sm.svg?inline';
 
 export const UserInfo = ({
   rating,
@@ -26,15 +28,26 @@ export const UserInfo = ({
   postTime,
   locale,
   achievementsCount,
+  isTemporaryAccount,
 }) => (
   <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
     {type !== COMMENT_TYPE && (
-      <MediumImage
-        className="mr-2"
-        isBordered
-        src={avatar || noAvatar}
-        alt="avatar"
-      />
+      <MediumImageWrapper>
+        <MediumImage
+          className="mr-2"
+          isBordered
+          src={avatar || noAvatar}
+          alt="avatar"
+        />
+        {isTemporaryAccount && (
+          <MediumImageLabel>
+            <MediumImageLabelImage
+              src={telegram}
+              alt="Telegram user"
+            />
+          </MediumImageLabel>
+        )}
+      </MediumImageWrapper>
     )}
 
     <div

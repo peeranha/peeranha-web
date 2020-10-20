@@ -5,6 +5,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
 
@@ -14,16 +15,17 @@ import P from 'components/P';
 import A from 'components/A';
 import Grid from 'components/Grid';
 import { IconWithStatus } from 'components/RatingStatus';
-import MediumImage from 'components/Img/MediumImage';
+import MediumImage, { MediumImageWrapper, MediumImageLabel, MediumImageLabelImage } from 'components/Img/MediumImage';
+
+import telegram from 'images/telegram-sm.svg?inline';
 
 const User = Base.extend`
   min-height: 84px;
   display: flex;
   align-items: start;
 
-  > div {
+  > div:last-child {
     min-width: 0;
-    padding-left: 15px;
     flex: 1;
 
     p {
@@ -31,6 +33,11 @@ const User = Base.extend`
       white-space: nowrap;
       text-overflow: ellipsis;
     }
+  }
+
+  > div:first-child {
+    flex-shrink: 0;
+    margin-right: 7px;
   }
 `;
 
@@ -50,12 +57,22 @@ const Content = ({
       {users.map(x => (
         <A to={routes.profileView(x.user)} key={x.user}>
           <User>
-            <MediumImage
-              isBordered
-              className="flex-shrink-0"
-              src={getUserAvatar(x.ipfs_avatar)}
-              alt="ipfs_avatar"
-            />
+            <MediumImageWrapper>
+              <MediumImage
+                isBordered
+                className="flex-shrink-0 mr-2"
+                src={getUserAvatar(x.ipfs_avatar)}
+                alt="ipfs_avatar"
+              />
+              {!!x?.['integer_properties'].find(item => item.key === TEMPORARY_ACCOUNT_KEY && item.value) && (
+                <MediumImageLabel>
+                  <MediumImageLabelImage
+                    src={telegram}
+                    alt="Telegram user"
+                  />
+                </MediumImageLabel>
+              )}              
+            </MediumImageWrapper>
             <div>
               <P fontSize="14">{x?.['display_name']}</P>
               <IconWithStatus className="py-1" size="sm" rating={x.rating} />

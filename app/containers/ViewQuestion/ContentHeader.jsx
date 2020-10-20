@@ -19,7 +19,7 @@ import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { MODERATOR_KEY } from 'utils/constants';
+import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -113,6 +113,11 @@ const ContentHeader = props => {
     [profile],
   );
 
+  const isTemporaryAccount = useMemo(
+    () => !!profile?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
+    [profile],
+  );
+
   const isItWrittenByMe = useMemo(
     () => (profile ? userInfo.user === profile.user : false),
     [profile, userInfo],
@@ -139,6 +144,7 @@ const ContentHeader = props => {
           postTime={postTime}
           locale={locale}
           achievementsCount={userInfo.achievements_reached}
+          isTemporaryAccount={isTemporaryAccount}
         />
 
         <div className="d-flex align-items-center">
