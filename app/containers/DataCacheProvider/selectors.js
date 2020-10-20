@@ -145,6 +145,12 @@ const selectGetTutorialLoading = () =>
     substate => substate.getTutorialLoading,
   );
 
+const selectUserRatingDCP = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].rating,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -163,4 +169,5 @@ export {
   selectTutorial,
   selectGetTutorialError,
   selectGetTutorialLoading,
+  selectUserRatingDCP,
 };
