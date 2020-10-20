@@ -154,3 +154,6 @@ export const APP_CURRENCY = 'PEER';
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
 export const APP_MAIN_NAME = 'Peeranha';
+
+// Temporary Account Data
+export const TEMPORARY_ACCOUNT_KEY = 15;
