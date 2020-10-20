@@ -55,16 +55,6 @@ const LevelAchievement = ({
 
   const zeroLevel = value < levels.bronze;
 
-  // const nextLevel = () => {
-  //   if (value < levels.bronze)
-  //     return { nextLevel: 'bronze', remained: levels.bronze - value };
-  //   if (value >= levels.bronze && value < levels.silver)
-  //     return { nextLevel: 'silver', remained: levels.silver - value };
-  //   if (value >= levels.silver && value < levels.gold)
-  //     return { nextLevel: 'gold', remained: levels.gold - value };
-  //   return null;
-  // };
-
   return (
     <Bage>
       {(!reached || zeroLevel) && (
@@ -107,13 +97,6 @@ const LevelAchievement = ({
         {bronze && <DescriptionBlock>{bronzeDescription}</DescriptionBlock>}
         {silver && <DescriptionBlock>{silverDescription}</DescriptionBlock>}
         {gold && <DescriptionBlock>{goldDescription}</DescriptionBlock>}
-        {/* {nextLevel() && (
-          <p
-            style={{ fontStyle: 'italic', marginTop: '10px', color: 'skyblue' }}
-          >
-            {nextLevel().remained} points to next level left
-          </p>
-        )} */}
       </div>
     </Bage>
   );
