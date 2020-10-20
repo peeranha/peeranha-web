@@ -8,14 +8,15 @@ import { fromJS } from 'immutable';
 
 import {
   GET_USER_ACHIEVEMENTS,
+  RESET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_SUCCESS,
   GET_USER_ACHIEVEMENTS_ERROR,
-  SET_CURRENT_ACCOUNT,
+  SET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
 } from './constants';
 
 export const initialState = fromJS({
-  currentAccount: null,
+  viewProfileAccount: null,
   achievements: [],
   userAchievementsError: null,
   userAchievementsLoading: false,
@@ -29,7 +30,7 @@ function communitiesReducer(state = initialState, action) {
     projectAchievements,
     nextAchievement,
     nextUniqueAchievement,
-    currentAccount,
+    viewProfileAccount,
     loading,
   } = action;
 
@@ -37,8 +38,8 @@ function communitiesReducer(state = initialState, action) {
     case GET_USER_ACHIEVEMENTS:
       return state.set('userAchievementsLoading', true);
 
-    case SET_CURRENT_ACCOUNT:
-      return state.set('currentAccount', currentAccount);
+    case SET_VIEW_PROFILE_ACCOUNT:
+      return state.set('viewProfileAccount', viewProfileAccount);
 
     case USER_ACHIEVEMENTS_LOADING:
       return state.set('userAchievementsLoading', loading);
@@ -58,6 +59,9 @@ function communitiesReducer(state = initialState, action) {
           'userAchievementsError',
           error ? JSON.parse(error.message) : error,
         );
+
+    case RESET_USER_ACHIEVEMENTS:
+      return initialState;
 
     default:
       return state;

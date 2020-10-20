@@ -15,6 +15,7 @@ import Base from 'components/Base';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
+import AchievementsStatus from 'components/AchievementsStatus/index';
 
 import LargeImage from 'components/Img/LargeImage';
 
@@ -151,6 +152,14 @@ const MainUserInformation = ({
                 <img src={answerIcon} alt="icon" />
                 {profile.answers_given}
               </span>
+            </li>
+
+            <li>
+              <FormattedMessage {...messages.achievements} />
+              <AchievementsStatus
+                count={profile.achievements_reached}
+                size="lg"
+              />
             </li>
 
             <li>

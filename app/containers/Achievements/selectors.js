@@ -13,6 +13,12 @@ import {
 const selectUserAchievementsDomain = state =>
   state.get('userAchievements', initialState);
 
+const selectViewProfileAccount = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().viewProfileAccount,
+  );
+
 const selectUserAchievements = () =>
   createSelector(
     selectUserAchievementsDomain,
@@ -23,7 +29,7 @@ const getReachedAchievementsIds = substate =>
   substate
     .toJS()
     .achievements.filter(
-      el => el.value > 0 && el.user === substate.toJS().currentAccount,
+      el => el.value > 0 && el.user === substate.toJS().viewProfileAccount,
     )
     .map(el => el.achievements_id);
 
@@ -158,6 +164,7 @@ const selectuserAchievementsError = () =>
   );
 
 export {
+  selectViewProfileAccount,
   selectReachedAchievements,
   selectUnreachedAchievements,
   selectReachedLevelAchievements,

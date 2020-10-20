@@ -211,6 +211,11 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
     user,
   );
 
+  const userAchievements = await eosService.getTableRows('accachieve', user);
+  profile.achievements_reached = userAchievements?.rows.filter(
+    el => el.value > 0,
+  ).length;
+
   if (!profile || profile.user !== user) return null;
 
   if (getExtendedProfile) {
@@ -255,17 +260,9 @@ export async function getUserTelegramData(eosService, userName) {
 }
 
 export async function confirmTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(
-    user,
-    CONFIRM_TELEGRAM_ACCOUNT,
-    { user },
-  );
+  await eosService.sendTransaction(user, CONFIRM_TELEGRAM_ACCOUNT, { user });
 }
 
 export async function unlinkTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(
-    user,
-    UNLINK_TELEGRAM_ACCOUNT,
-    { user },
-  );
+  await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
 }

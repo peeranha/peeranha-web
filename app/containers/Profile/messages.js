@@ -64,6 +64,9 @@ export default defineMessages({
   noAnswersYet: {
     id: 'app.containers.Profile.noAnswersYet',
   },
+  achievements: {
+    id: 'app.containers.Profile.achievements',
+  },
   editProfile: {
     id: 'app.containers.Profile.editProfile',
   },

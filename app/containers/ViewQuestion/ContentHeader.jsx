@@ -102,6 +102,7 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
+
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
 
@@ -137,6 +138,7 @@ const ContentHeader = props => {
           type={type}
           postTime={postTime}
           locale={locale}
+          achievementsCount={userInfo.achievements_reached}
         />
 
         <div className="d-flex align-items-center">

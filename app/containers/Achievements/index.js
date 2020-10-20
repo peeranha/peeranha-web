@@ -20,7 +20,6 @@ import H3 from 'components/H3';
 import H4 from 'components/H4';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import {
   selectUserAchievements,
   selectReachedAchievements,
@@ -31,7 +30,11 @@ import {
   selectUniqueUnreachedAchievements,
   selectAchievementsLoading,
 } from './selectors';
-import { getUserAchievements } from './actions';
+import {
+  getUserAchievements,
+  setviewProfileAccount,
+  resetUserAchievements,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -76,24 +79,28 @@ const UniqueAchievementsTitle = styled(H4)`
 
 const Achievements = ({
   locale,
-  currentAccount,
+  userId,
   reachedAchievements,
   unreachedAchievements,
   reachedLevelAchievements,
   unreachedLevelAchievements,
   uniqueReachedAchievements,
   uniqueUnreachedAchievements,
-  userAchievements,
   getUserAchievementsDispatch,
   achievementsLoading,
+  setviewProfileAccountDispatch,
+  resetUserAchievementsDispatch,
 }) => {
-  useEffect(() => {
-    if (
-      !userAchievements.length ||
-      currentAccount !== userAchievements[0]?.user
-    ) {
+  useEffect(
+    () => {
+      setviewProfileAccountDispatch(userId);
       getUserAchievementsDispatch();
-    }
+    },
+    [userId],
+  );
+
+  useEffect(() => {
+    return () => resetUserAchievementsDispatch();
   }, []);
 
   const translations = translationMessages[locale]
@@ -209,7 +216,7 @@ const Achievements = ({
 
 Achievements.propTypes = {
   locale: PropTypes.string,
-  currentAccount: PropTypes.string,
+  userId: PropTypes.string,
   reachedAchievements: PropTypes.array,
   unreachedAchievements: PropTypes.array,
   reachedLevelAchievements: PropTypes.array,
@@ -222,7 +229,6 @@ Achievements.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  currentAccount: makeSelectAccount(),
   userAchievements: selectUserAchievements(),
   reachedAchievements: selectReachedAchievements(),
   unreachedAchievements: selectUnreachedAchievements(),
@@ -236,6 +242,14 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   getUserAchievementsDispatch: bindActionCreators(
     getUserAchievements,
+    dispatch,
+  ),
+  setviewProfileAccountDispatch: bindActionCreators(
+    setviewProfileAccount,
+    dispatch,
+  ),
+  resetUserAchievementsDispatch: bindActionCreators(
+    resetUserAchievements,
     dispatch,
   ),
 });
