@@ -4,18 +4,20 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
+import { BORDER_SECONDARY } from 'style-constants';
 import commonMessage from 'common-messages';
 
 import BaseRounded from 'components/Base/BaseRounded';
 import Wrapper from 'components/Header/Complex';
 import H3 from 'components/H3';
+import H4 from 'components/H4';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -25,6 +27,8 @@ import {
   selectUnreachedAchievements,
   selectReachedLevelAchievements,
   selectUnreachedLevelAchievements,
+  selectUniqueReachedAchievements,
+  selectUniqueUnreachedAchievements,
   selectAchievementsLoading,
 } from './selectors';
 import { getUserAchievements } from './actions';
@@ -33,12 +37,14 @@ import saga from './saga';
 import messages from './messages';
 
 import Achievement from './Achievement';
-import AchievementWithLevels from './AchievementWithLevels';
+import LevelAchievement from './LevelAchievement';
+import UniqueAchievement from './UniqueAchievement';
 
-const AchievementsWrapper = styled(BaseRounded)`
+const AchievementsBlockStyles = css`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-row-gap: 50px;
+  grid-column-gap: 15px;
   padding-top: 35px;
   padding-bottom: 35px;
 
@@ -51,6 +57,23 @@ const AchievementsWrapper = styled(BaseRounded)`
   }
 `;
 
+const AchievementsWrapper = styled(BaseRounded)`
+  ${AchievementsBlockStyles};
+`;
+
+const UniqueAchievementsBlock = styled.div`
+  ${AchievementsBlockStyles};
+`;
+
+const UniqueAchievementsWrapper = styled(BaseRounded)`
+  margin-top: 15px;
+`;
+
+const UniqueAchievementsTitle = styled(H4)`
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${BORDER_SECONDARY};
+`;
+
 const Achievements = ({
   locale,
   currentAccount,
@@ -58,6 +81,8 @@ const Achievements = ({
   unreachedAchievements,
   reachedLevelAchievements,
   unreachedLevelAchievements,
+  uniqueReachedAchievements,
+  uniqueUnreachedAchievements,
   userAchievements,
   getUserAchievementsDispatch,
   achievementsLoading,
@@ -85,57 +110,98 @@ const Achievements = ({
 
       {achievementsLoading && <LoadingIndicator />}
       {!achievementsLoading && (
-        <AchievementsWrapper>
-          {reachedLevelAchievements.map(el => (
-            <AchievementWithLevels
-              key={el.title}
-              id={el.id}
-              reached={el.reached}
-              bronzeTitle={translations[messages[el.title].bronzeTitle.id]}
-              bronzeDescription={
-                translations[messages[el.title].bronzeDescription.id]
-              }
-              silverTitle={translations[messages[el.title].silverTitle.id]}
-              silverDescription={
-                translations[messages[el.title].silverDescription.id]
-              }
-              goldTitle={translations[messages[el.title].goldTitle.id]}
-              goldDescription={
-                translations[messages[el.title].goldDescription.id]
-              }
-              value={el.value}
-              levels={el.levels}
-            />
-          ))}
-          {reachedAchievements.map(el => (
-            <Achievement
-              key={el.title}
-              id={el.id}
-              reached={el.reached}
-              title={translations[messages[el.title].title.id]}
-              description={translations[messages[el.title].description.id]}
-            />
-          ))}
-          {unreachedLevelAchievements.map(el => (
-            <Achievement
-              key={el.title}
-              id={el.id}
-              reached={el.reached}
-              title={translations[messages[el.title].title.id]}
-              description={translations[messages[el.title].description.id]}
-            />
-          ))}
-          {unreachedAchievements.map(el => (
-            <Achievement
-              key={el.title}
-              id={el.id}
-              reached={el.reached}
-              title={translations[messages[el.title].title.id]}
-              description={translations[messages[el.title].description.id]}
-              value={el.value}
-            />
-          ))}
-        </AchievementsWrapper>
+        <>
+          <AchievementsWrapper>
+            {reachedLevelAchievements.map(el => (
+              <LevelAchievement
+                key={el.title}
+                id={el.id}
+                reached={el.reached}
+                bronzeTitle={translations[messages[el.title].bronzeTitle.id]}
+                bronzeDescription={
+                  translations[messages[el.title].bronzeDescription.id]
+                }
+                silverTitle={translations[messages[el.title].silverTitle.id]}
+                silverDescription={
+                  translations[messages[el.title].silverDescription.id]
+                }
+                goldTitle={translations[messages[el.title].goldTitle.id]}
+                goldDescription={
+                  translations[messages[el.title].goldDescription.id]
+                }
+                value={el.value}
+                levels={el.levels}
+              />
+            ))}
+            {reachedAchievements.map(el => (
+              <Achievement
+                key={el.title}
+                id={el.id}
+                reached={el.reached}
+                title={translations[messages[el.title].title.id]}
+                description={translations[messages[el.title].description.id]}
+              />
+            ))}
+            {unreachedLevelAchievements.map(el => (
+              <Achievement
+                key={el.title}
+                id={el.id}
+                reached={el.reached}
+                next={el.next}
+                title={translations[messages[el.title].title.id]}
+                description={translations[messages[el.title].description.id]}
+              />
+            ))}
+            {unreachedAchievements.map(el => (
+              <Achievement
+                key={el.title}
+                id={el.id}
+                reached={el.reached}
+                next={el.next}
+                title={translations[messages[el.title].title.id]}
+                description={translations[messages[el.title].description.id]}
+                value={el.value}
+                locale={locale}
+              />
+            ))}
+          </AchievementsWrapper>
+          <UniqueAchievementsWrapper>
+            <UniqueAchievementsTitle>
+              <FormattedMessage {...commonMessage.uniqueAchievements} />
+            </UniqueAchievementsTitle>
+
+            <UniqueAchievementsBlock>
+              {uniqueReachedAchievements.map(el => (
+                <UniqueAchievement
+                  key={el.title}
+                  id={el.id}
+                  reached={el.reached}
+                  title={translations[messages[el.title].title.id]}
+                  description={translations[messages[el.title].description.id]}
+                />
+              ))}
+              {uniqueUnreachedAchievements.map(
+                el =>
+                  el.limit > el.totalAwarded ? (
+                    <UniqueAchievement
+                      key={el.title}
+                      id={el.id}
+                      reached={el.reached}
+                      limit={el.limit}
+                      next={el.next}
+                      totalAwarded={el.totalAwarded}
+                      title={translations[messages[el.title].title.id]}
+                      description={
+                        translations[messages[el.title].description.id]
+                      }
+                      value={el.value}
+                      locale={locale}
+                    />
+                  ) : null,
+              )}
+            </UniqueAchievementsBlock>
+          </UniqueAchievementsWrapper>
+        </>
       )}
     </>
   );
@@ -144,7 +210,12 @@ const Achievements = ({
 Achievements.propTypes = {
   locale: PropTypes.string,
   currentAccount: PropTypes.string,
-  sortedAchievements: PropTypes.array,
+  reachedAchievements: PropTypes.array,
+  unreachedAchievements: PropTypes.array,
+  reachedLevelAchievements: PropTypes.array,
+  unreachedLevelAchievements: PropTypes.array,
+  uniqueReachedAchievements: PropTypes.array,
+  uniqueUnreachedAchievements: PropTypes.array,
   getUserAchievementsDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
 };
@@ -157,6 +228,8 @@ const mapStateToProps = createStructuredSelector({
   unreachedAchievements: selectUnreachedAchievements(),
   reachedLevelAchievements: selectReachedLevelAchievements(),
   unreachedLevelAchievements: selectUnreachedLevelAchievements(),
+  uniqueReachedAchievements: selectUniqueReachedAchievements(),
+  uniqueUnreachedAchievements: selectUniqueUnreachedAchievements(),
   achievementsLoading: selectAchievementsLoading(),
 });
 

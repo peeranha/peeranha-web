@@ -33,6 +33,9 @@ export default defineMessages({
   achievements: {
     id: 'app.common.achievements',
   },
+  uniqueAchievements: {
+    id: 'app.common.uniqueAchievements',
+  },
   notificationCenter: {
     id: 'app.common.notificationCenter',
   },

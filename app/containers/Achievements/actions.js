@@ -25,10 +25,18 @@ export function setUserAchievementLoading(loading) {
   };
 }
 
-export function getUserAchievementsSuccess(achievements) {
+export function getUserAchievementsSuccess(
+  userAchievements,
+  projectAchievements,
+  nextAchievement,
+  nextUniqueAchievement,
+) {
   return {
     type: GET_USER_ACHIEVEMENTS_SUCCESS,
-    achievements,
+    userAchievements,
+    projectAchievements,
+    nextAchievement,
+    nextUniqueAchievement,
   };
 }
 

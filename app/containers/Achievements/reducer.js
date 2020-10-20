@@ -22,7 +22,16 @@ export const initialState = fromJS({
 });
 
 function communitiesReducer(state = initialState, action) {
-  const { type, error, achievements, currentAccount, loading } = action;
+  const {
+    type,
+    error,
+    userAchievements,
+    projectAchievements,
+    nextAchievement,
+    nextUniqueAchievement,
+    currentAccount,
+    loading,
+  } = action;
 
   switch (type) {
     case GET_USER_ACHIEVEMENTS:
@@ -37,7 +46,10 @@ function communitiesReducer(state = initialState, action) {
     case GET_USER_ACHIEVEMENTS_SUCCESS:
       return state
         .set('userAchievementsLoading', false)
-        .set('achievements', achievements);
+        .set('achievements', userAchievements)
+        .set('projectAchievements', projectAchievements)
+        .set('nextAchievement', nextAchievement)
+        .set('nextUniqueAchievement', nextUniqueAchievement);
 
     case GET_USER_ACHIEVEMENTS_ERROR:
       return state

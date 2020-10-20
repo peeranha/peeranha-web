@@ -12,6 +12,7 @@
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
   "app.common.achievements": "Achievements",
+  "app.common.uniqueAchievements": "Unique achievements",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
@@ -852,6 +853,9 @@
     "quote by placing > at start of line",
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.progressBar.nextByRating":
+    "rating points left until the next achievement",
 
   "app.containers.Achievements.questionAsked.title": "Questions asked",
   "app.containers.Achievements.questionAsked.description":
