@@ -55,10 +55,7 @@ function communitiesReducer(state = initialState, action) {
     case GET_USER_ACHIEVEMENTS_ERROR:
       return state
         .set('userAchievementsLoading', false)
-        .set(
-          'userAchievementsError',
-          error ? JSON.parse(error.message) : error,
-        );
+        .set('userAchievementsError', error);
 
     case RESET_USER_ACHIEVEMENTS:
       return initialState;
