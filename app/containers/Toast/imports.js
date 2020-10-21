@@ -39,6 +39,12 @@ import {
 } from 'containers/EditAnswer/constants';
 
 import {
+  EDIT_COMMUNITY_ERROR,
+  EDIT_COMMUNITY_SUCCESS,
+  GET_COMMUNITY_ERROR,
+} from 'containers/EditCommunity/constants';
+
+import {
   SAVE_PROFILE_ERROR,
   SAVE_PROFILE_SUCCESS,
 } from 'containers/EditProfilePage/constants';
@@ -187,6 +193,8 @@ export const otherTypes = [
 export const errHandlingTypes = [
   ASK_QUESTION_ERROR,
   CHANGE_EMAIL_ERROR,
+  EDIT_COMMUNITY_ERROR,
+  GET_COMMUNITY_ERROR,
   SEND_OLD_EMAIL_ERROR,
   CONFIRM_OLD_EMAIL_ERROR,
   SEND_EMAIL_ERROR,
@@ -249,6 +257,7 @@ export const successHandlingTypes = [
   CHANGE_EMAIL_SUCCESS,
   CHANGE_PASSWORD_SUCCESS,
   CREATE_COMMUNITY_SUCCESS,
+  EDIT_COMMUNITY_SUCCESS,
   SUGGEST_TAG_SUCCESS,
   DELETE_ACCOUNT_SUCCESS,
   EDIT_ANSWER_SUCCESS,

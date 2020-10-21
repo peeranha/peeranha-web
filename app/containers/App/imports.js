@@ -13,6 +13,7 @@ import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
 
+const EditCommunity = React.lazy(() => import('containers/EditCommunity'));
 const Faq = React.lazy(() => import('containers/Faq'));
 const Tutorial = React.lazy(() => import('containers/Tutorial'));
 const TermsOfService = React.lazy(() => import('containers/TermsOfService'));
@@ -50,6 +51,7 @@ const Support = React.lazy(() => import('containers/Support'));
 const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
 
 export {
+  EditCommunity,
   HomePage,
   Faq,
   Tutorial,

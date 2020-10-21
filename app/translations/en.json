@@ -373,6 +373,12 @@
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Max tags number was reached",
 
+  "app.containers.EditCommunity.communityTitleTip": "Name of the community",
+  "app.containers.EditCommunity.description": "Description of EditCommunity",
+  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.header": "Edit community",
+  "app.containers.EditCommunity.pageTitle": "Community | Edit",
+
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
   "app.containers.Communities.suggestInterestingComm":

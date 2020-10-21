@@ -128,7 +128,7 @@ export const CreateCommunity = ({
         index={false}
       />
 
-      <Header />
+      <Header headerDescriptor={messages.newCommunity} />
 
       {path === createCommunityRoute && (
         <TipsBase className="overflow-hidden">
