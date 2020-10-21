@@ -44,8 +44,7 @@ const selectReachedAchievements = () =>
         reached: true,
         value: substate
           .toJS()
-          .achievements.filter(item => item.achievements_id === el.id)[0]
-          ?.value,
+          .achievements.find(item => item.achievements_id === el.id)?.value,
       }));
   });
 
@@ -72,8 +71,7 @@ const selectReachedLevelAchievements = () =>
       .filter(el => {
         const itemValue = substate
           .toJS()
-          .achievements.filter(item => item.achievements_id === el.id)[0]
-          ?.value;
+          .achievements.find(item => item.achievements_id === el.id)?.value;
         return (
           reachedAchievementsIds.includes(el.id) &&
           itemValue >= el.levels.bronze
@@ -84,8 +82,7 @@ const selectReachedLevelAchievements = () =>
         reached: true,
         value: substate
           .toJS()
-          .achievements.filter(item => item.achievements_id === el.id)[0]
-          ?.value,
+          .achievements.find(item => item.achievements_id === el.id)?.value,
       }));
   });
 
@@ -97,8 +94,7 @@ const selectUnreachedLevelAchievements = () =>
       .filter(el => {
         const itemValue = substate
           .toJS()
-          .achievements.filter(item => item.achievements_id === el.id)[0]
-          ?.value;
+          .achievements.find(item => item.achievements_id === el.id)?.value;
         return (
           !reachedAchievementsIds.includes(el.id) ||
           itemValue < el.levels.bronze
@@ -110,8 +106,8 @@ const selectUnreachedLevelAchievements = () =>
         value:
           substate
             .toJS()
-            .achievements.filter(item => item.achievements_id === el.id)[0]
-            ?.value ?? 0,
+            .achievements.find(item => item.achievements_id === el.id)?.value ??
+          0,
       }));
   });
 
@@ -126,27 +122,32 @@ const selectUniqueReachedAchievements = () =>
         reached: true,
         value: substate
           .toJS()
-          .achievements.filter(item => item.achievements_id === el.id)[0]
-          ?.value,
+          .achievements.find(item => item.achievements_id === el.id)?.value,
       }));
   });
 
 const selectUniqueUnreachedAchievements = () =>
   createSelector(selectUserAchievementsDomain, substate => {
     const reachedAchievementsIds = getReachedAchievementsIds(substate);
+    const totalAwarded = achievementId =>
+      substate
+        .toJS()
+        .projectAchievements?.find(item => item.id === achievementId)?.count ??
+      0;
+
     return uniqueAchievementsArr
-      .filter(el => !reachedAchievementsIds.includes(el.id))
+      .filter(
+        el =>
+          !reachedAchievementsIds.includes(el.id) &&
+          totalAwarded(el.id) < el.limit,
+      )
       .map(el => ({
         ...el,
         reached: false,
-        totalAwarded:
-          substate
-            .toJS()
-            .projectAchievements?.filter(item => item.id === el.id)[0]?.count ??
-          0,
+        totalAwarded: totalAwarded(el.id),
         next:
           substate.toJS().nextUniqueAchievement?.id === el.id
-            ? substate.toJS().nextAchievement
+            ? substate.toJS().nextUniqueAchievement
             : null,
       }));
   });
@@ -155,12 +156,6 @@ const selectAchievementsLoading = () =>
   createSelector(
     selectUserAchievementsDomain,
     substate => substate.toJS().userAchievementsLoading,
-  );
-
-const selectuserAchievementsError = () =>
-  createSelector(
-    selectUserAchievementsDomain,
-    substate => substate.toJS().userAchievementsError,
   );
 
 export {
@@ -173,5 +168,4 @@ export {
   selectUniqueUnreachedAchievements,
   selectUserAchievements,
   selectAchievementsLoading,
-  selectuserAchievementsError,
 };
