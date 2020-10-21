@@ -75,6 +75,7 @@ const ViewProfilePage = ({
         loginData={loginData}
         questionsLength={profile?.questions_asked ?? 0}
         questionsWithUserAnswersLength={profile?.answers_given ?? 0}
+        userAchievementsLength={profile?.achievements_reached ?? 0}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
@@ -117,6 +118,7 @@ const ViewProfilePage = ({
         <Achievements
           className={path === routes.userAchievements(userId) ? '' : 'd-none'}
           isAvailable={account === profile?.user}
+          userId={userId}
         />
       )}
 

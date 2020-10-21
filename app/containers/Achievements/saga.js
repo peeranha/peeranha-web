@@ -1,10 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import {
-  makeSelectAccount,
-  selectUserRating,
-} from 'containers/AccountProvider/selectors';
+import { selectUserRatingDCP } from 'containers/DataCacheProvider/selectors';
 
 import {
   GET_USER_ACHIEVEMENTS,
@@ -14,84 +11,97 @@ import {
 import {
   getUserAchievementsSuccess,
   getUserAchievementsErr,
-  setCurrentAccount,
   setUserAchievementLoading,
 } from './actions';
-import { selectuserAchievementsError } from './selectors';
+import {
+  selectViewProfileAccount,
+  selectuserAchievementsError,
+} from './selectors';
 
 export async function getAchievements(eosService, tableTitle, scope) {
   const { rows } = await eosService.getTableRows(tableTitle, scope);
   return rows;
 }
 
+const getNextAchievement = userRating => {
+  const currentRatingDiapasone = achievementsRating.filter(
+    el => userRating >= el.minRating && userRating < el.maxRating,
+  )[0];
+
+  const nextAchievement = {
+    id: currentRatingDiapasone.nextId,
+    userRating,
+    minRating:
+      currentRatingDiapasone.maxRating !== Infinity
+        ? currentRatingDiapasone.maxRating + 1
+        : null,
+    pointsToNext:
+      currentRatingDiapasone.maxRating !== Infinity
+        ? currentRatingDiapasone.maxRating + 1 - userRating
+        : null,
+  };
+  return nextAchievement;
+};
+
+const getNextUniqueAchievement = userRating => {
+  const currentUniqueRatingDiapasone = uniqueAchievementsRating.filter(
+    el => userRating >= el.minRating && userRating < el.maxRating,
+  )[0];
+
+  const nextUniqueAchievement = {
+    id: currentUniqueRatingDiapasone.nextId,
+    userRating,
+    minRating:
+      currentUniqueRatingDiapasone.maxRating !== Infinity
+        ? currentUniqueRatingDiapasone.maxRating + 1
+        : null,
+    pointsToNext:
+      currentUniqueRatingDiapasone.maxRating !== Infinity
+        ? currentUniqueRatingDiapasone.maxRating + 1 - userRating
+        : null,
+  };
+  return nextUniqueAchievement;
+};
+
 export function* getUserAchievementsWorker() {
   try {
-    const currentAccount = yield select(makeSelectAccount());
-    const isErrorInState = yield select(selectuserAchievementsError());
+    const viewProfileAccount = yield select(selectViewProfileAccount());
 
-    yield put(setUserAchievementLoading(true));
-    yield put(setCurrentAccount(currentAccount));
-    if (isErrorInState) yield put(getUserAchievementsErr(null));
+    if (viewProfileAccount) {
+      const isErrorInState = yield select(selectuserAchievementsError());
 
-    const eosService = yield select(selectEos);
-    const userRating = yield select(selectUserRating());
+      yield put(setUserAchievementLoading(true));
+      if (isErrorInState) yield put(getUserAchievementsErr(null));
 
-    const getRating = () =>
-      achievementsRating.filter(
-        el => userRating >= el.minRating && userRating < el.maxRating,
-      )[0];
+      const eosService = yield select(selectEos);
+      const userRating = yield select(selectUserRatingDCP(viewProfileAccount));
 
-    const getUniqueRating = () =>
-      uniqueAchievementsRating.filter(
-        el => userRating >= el.minRating && userRating < el.maxRating,
-      )[0];
+      const nextAchievement = getNextAchievement(userRating);
+      const nextUniqueAchievement = getNextUniqueAchievement(userRating);
 
-    const nextAchievement = {
-      id: getRating().nextId,
-      userRating,
-      minRating:
-        getRating().maxRating !== Infinity ? getRating().maxRating + 1 : null,
-      pointsToNext:
-        getRating().maxRating !== Infinity
-          ? getRating().maxRating + 1 - userRating
-          : null,
-    };
+      const userAchievements = yield call(
+        getAchievements,
+        eosService,
+        'accachieve',
+        viewProfileAccount,
+      );
 
-    const nextUniqueAchievement = {
-      id: getUniqueRating().nextId,
-      userRating,
-      minRating:
-        getUniqueRating().maxRating !== Infinity
-          ? getUniqueRating().maxRating + 1
-          : null,
-      pointsToNext:
-        getUniqueRating().maxRating !== Infinity
-          ? getUniqueRating().maxRating + 1 - userRating
-          : null,
-    };
+      const projectAchievements = yield call(
+        getAchievements,
+        eosService,
+        'achieve',
+        'allachieve',
+      );
 
-    const userAchievements = yield call(
-      getAchievements,
-      eosService,
-      'accachieve',
-      currentAccount,
-    );
-
-    const projectAchievements = yield call(
-      getAchievements,
-      eosService,
-      'achieve',
-      'allachieve',
-    );
-
-    yield put(
-      getUserAchievementsSuccess(
-        userAchievements,
-        projectAchievements,
-        nextAchievement,
-        nextUniqueAchievement,
-      ),
-    );
+      yield put(
+        getUserAchievementsSuccess(
+          userAchievements,
+          projectAchievements,
+          nextAchievement,
+          nextUniqueAchievement,
+        ),
+      );
+    }
   } catch (err) {
     yield put(getUserAchievementsErr(err));
     yield put(setUserAchievementLoading(false));

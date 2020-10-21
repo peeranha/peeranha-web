@@ -33,6 +33,9 @@ export default defineMessages({
   achievements: {
     id: 'app.common.achievements',
   },
+  achievementsNumber: {
+    id: 'app.common.achievementsNumber',
+  },
   uniqueAchievements: {
     id: 'app.common.uniqueAchievements',
   },

@@ -10,6 +10,7 @@ import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import RatingStatus from 'components/RatingStatus';
+import AchievementsStatus from 'components/AchievementsStatus';
 import MediumImage, { MediumImageWrapper, MediumImageLabel, MediumImageLabelImage } from 'components/Img/MediumImage';
 import Span from 'components/Span';
 import A from 'components/A';
@@ -26,9 +27,10 @@ export const UserInfo = ({
   type,
   postTime,
   locale,
+  achievementsCount,
   isTemporaryAccount,
 }) => (
-  <A to={routes.profileView(account)} className="d-flex">
+  <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
     {type !== COMMENT_TYPE && (
       <MediumImageWrapper>
         <MediumImage
@@ -58,6 +60,7 @@ export const UserInfo = ({
           {name}
         </Span>
         <RatingStatus rating={rating} size="sm" isRankOff />
+        <AchievementsStatus count={achievementsCount} />
       </span>
 
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
@@ -75,6 +78,7 @@ UserInfo.propTypes = {
   type: PropTypes.string,
   postTime: PropTypes.number,
   locale: PropTypes.string,
+  achievementsCount: PropTypes.number,
 };
 
 export default React.memo(UserInfo);
