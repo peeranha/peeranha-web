@@ -46,6 +46,9 @@ export default defineMessages({
   withoutDoubleSpace: {
     id: 'app.components.FormFields.withoutDoubleSpace',
   },
+  withoutDuplicates: {
+    id: 'app.components.FormFields.withoutDuplicates',
+  },
   wrongByteLength: {
     id: 'app.components.FormFields.wrongByteLength',
   },

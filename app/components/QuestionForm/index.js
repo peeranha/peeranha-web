@@ -80,6 +80,7 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
+  questionList,
 }) => {
   useEffect(
     () => {
@@ -89,7 +90,6 @@ export const QuestionForm = ({
     },
     [formValues[FORM_TITLE]],
   );
-
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
@@ -114,7 +114,11 @@ export const QuestionForm = ({
               />
             )}
 
-            <TitleForm intl={intl} questionLoading={questionLoading} />
+            <TitleForm
+              intl={intl}
+              questionLoading={questionLoading}
+              questionList={questionList}
+            />
 
             {(existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (

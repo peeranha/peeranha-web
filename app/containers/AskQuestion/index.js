@@ -32,6 +32,7 @@ import saga from './saga';
 import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
+import * as questionsSelector from '../Questions/selectors';
 
 export const AskQuestion = ({
   locale,
@@ -40,15 +41,14 @@ export const AskQuestion = ({
   askQuestionDispatch,
   getQuestionsDispatch,
   existingQuestions,
+  questionList,
 }) => {
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
   const [skipExistingQuestions, setSkipExistingQuestions] = useState(false);
-
   useEffect(() => () => {
     getQuestionsDispatchDebounced.cancel();
   });
-
   return (
     <div>
       <Seo
@@ -71,6 +71,7 @@ export const AskQuestion = ({
         existingQuestions={existingQuestions}
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
+        questionList={questionList}
       />
     </div>
   );
@@ -91,6 +92,7 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
   existingQuestions: selectQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
+  questionList: questionsSelector.selectQuestions(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

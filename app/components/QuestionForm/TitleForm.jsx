@@ -8,6 +8,7 @@ import {
   required,
   maxByteLength,
   withoutDoubleSpace,
+  withoutDuplicates,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 
@@ -15,14 +16,20 @@ import { FORM_TITLE } from './constants';
 
 import messages from './messages';
 
-const TitleForm = ({ questionLoading, intl }) => (
+const TitleForm = ({ questionLoading, intl, questionList }) => (
   <Field
     name={FORM_TITLE}
     component={TextInputField}
     disabled={questionLoading}
     label={intl.formatMessage(messages.titleLabel)}
     tip={intl.formatMessage(messages.titleTip)}
-    validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
+    validate={[
+      withoutDoubleSpace,
+      strLength15x100,
+      maxByteLength,
+      required,
+      withoutDuplicates(questionList),
+    ]}
     warn={[strLength15x100, required]}
     splitInHalf
   />
@@ -31,6 +38,7 @@ const TitleForm = ({ questionLoading, intl }) => (
 TitleForm.propTypes = {
   questionLoading: PropTypes.bool,
   intl: intlShape.isRequired,
+  questionsList: PropTypes.array,
 };
 
 export default memo(TitleForm);

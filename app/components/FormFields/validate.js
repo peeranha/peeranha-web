@@ -143,6 +143,11 @@ const validateTelosName = str => {
 const withoutDoubleSpace = str =>
   str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
 
+const withoutDuplicates = questionList => str => {
+  const titleList = questionList.map(question => question.title);
+  return titleList.includes(str) ? messages.withoutDuplicates : undefined;
+};
+
 const telosCorrectSymbols = str => {
   if (!/^[a-z1-5]+$/.test(str)) {
     return {
@@ -208,4 +213,5 @@ export {
   telosNameLength,
   isTelosNameAvailable,
   atLeastOneLetter,
+  withoutDuplicates,
 };
