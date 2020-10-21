@@ -134,6 +134,9 @@
   "app.common.skip": "Пропустить",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
 
+  "app.telegram.user": "Телеграм пользователь",
+  "app.telegram.userLabelPopover": "Это временная учетная запись, предоставленная Telegram Bot.",
+
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
     "Условия обслуживания : описание",

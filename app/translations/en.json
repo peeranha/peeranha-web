@@ -137,6 +137,9 @@
   "app.common.skip": "Skip",
   "app.common.questionIsAnswered": "You have already answered this question",
 
+  "app.telegram.user": "Telegram user",
+  "app.telegram.userLabelPopover": "This is a temporary account provided by Telegram Bot",
+
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",

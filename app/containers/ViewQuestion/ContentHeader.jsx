@@ -114,8 +114,8 @@ const ContentHeader = props => {
   );
 
   const isTemporaryAccount = useMemo(
-    () => !!profile?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
-    [profile],
+    () => !!userInfo?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
+    [userInfo],
   );
 
   const isItWrittenByMe = useMemo(
