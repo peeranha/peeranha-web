@@ -159,6 +159,7 @@ const selectAchievementsLoading = () =>
   );
 
 export {
+  selectUserAchievementsDomain,
   selectViewProfileAccount,
   selectReachedAchievements,
   selectUnreachedAchievements,
@@ -168,4 +169,5 @@ export {
   selectUniqueUnreachedAchievements,
   selectUserAchievements,
   selectAchievementsLoading,
+  getReachedAchievementsIds,
 };

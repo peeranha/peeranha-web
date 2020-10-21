@@ -15,12 +15,12 @@ import {
 } from './actions';
 import { selectViewProfileAccount } from './selectors';
 
-export async function getAchievements(eosService, tableTitle, scope) {
+async function getAchievements(eosService, tableTitle, scope) {
   const { rows } = await eosService.getTableRows(tableTitle, scope);
   return rows;
 }
 
-const getNextAchievement = userRating => {
+export const getNextAchievement = userRating => {
   const currentAchievement = achievementsArr.find(
     el => userRating >= el.minRating && userRating < el.maxRating,
   );
@@ -40,13 +40,24 @@ const getNextAchievement = userRating => {
   return nextAchievement;
 };
 
-const getNextUniqueAchievement = (userRating, projectAchievements) => {
-  const currentUniqueAchievement = uniqueAchievementsArr.find(
-    el => userRating >= el.minRating && userRating < el.maxRating,
-  );
+export const getNextUniqueAchievement = (
+  userRating,
+  projectAchievements = [],
+) => {
+  const currentUniqueAchievement =
+    uniqueAchievementsArr.find(el => {
+      const totalAwarded =
+        projectAchievements.find(item => item.id === el.id)?.count ?? 0;
 
-  // current unique achievement is last possible
-  if (currentUniqueAchievement.nextId === null) return null;
+      return (
+        userRating >= el.minRating &&
+        userRating < el.maxRating &&
+        el.limit > totalAwarded
+      );
+    }) || {};
+
+  // current unique achievement is last possible or they are out of limit
+  if (!currentUniqueAchievement.nextId) return null;
 
   // check whether next unique achievement is not out of limit
   let { nextId } = currentUniqueAchievement;
@@ -56,7 +67,7 @@ const getNextUniqueAchievement = (userRating, projectAchievements) => {
 
   while (true) {
     const totalAwarded =
-      projectAchievements.find(el => el.id === nextId)?.count ?? 0;
+      projectAchievements.find(el => el.id === nextId)?.count || 0;
     if (totalAwarded < nextUniqueAchievement.limit) {
       break;
     }
@@ -120,7 +131,6 @@ export function* getUserAchievementsWorker() {
     }
   } catch (err) {
     yield put(getUserAchievementsErr(err));
-    yield put(setUserAchievementLoading(false));
   }
 }
 
