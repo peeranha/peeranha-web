@@ -22,7 +22,7 @@ export const initialState = fromJS({
   userAchievementsLoading: false,
 });
 
-function AchievementsReducer(state = initialState, action) {
+function achievementsReducer(state = initialState, action) {
   const {
     type,
     error,
@@ -65,4 +65,4 @@ function AchievementsReducer(state = initialState, action) {
   }
 }
 
-export default AchievementsReducer;
+export default achievementsReducer;
