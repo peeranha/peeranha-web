@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
@@ -18,9 +19,15 @@ import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
 
 import LargeImage from 'components/Img/LargeImage';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
 import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+
+const InlineLoader = styled(LoadingIndicator)`
+  margin: auto;
+  margin-top: 5px;
+`;
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -156,10 +163,14 @@ const MainUserInformation = ({
 
             <li>
               <FormattedMessage {...messages.achievements} />
-              <AchievementsStatus
-                count={profile.achievements_reached}
-                size="lg"
-              />
+              {profile.achievements_reached ? (
+                <AchievementsStatus
+                  count={profile.achievements_reached}
+                  size="lg"
+                />
+              ) : (
+                <InlineLoader width={7} height={7} margin={3} />
+              )}
             </li>
 
             <li>

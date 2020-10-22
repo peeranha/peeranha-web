@@ -153,7 +153,10 @@ export function* getQuestionsWorker({
 
     yield all(
       Array.from(users.keys()).map(function*(user) {
-        const userInfo = yield call(getUserProfileWorker, { user });
+        const userInfo = yield call(getUserProfileWorker, {
+          user,
+          getFullProfile: true,
+        });
 
         users.get(user).map(cachedItem => {
           cachedItem.userInfo = userInfo;

@@ -17,7 +17,7 @@ const StatusSpan = styled.span`
 `;
 
 const Count = styled.span`
-  margin-left: 0.15rem;
+  margin-left: 0.25rem;
   color: ${props => (props.size === 'lg' ? 'inherit' : PEER_PRIMARY_COLOR)};
 `;
 
@@ -27,7 +27,7 @@ const IconAbsolute = styled(Icon)`
   left: 0;
 
   .achievement-inline * {
-    stroke-width: ${props => (props.size === 'lg' ? '0.8px' : '1.2px')};
+    stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
   }
 `;
 
