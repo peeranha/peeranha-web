@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -18,6 +20,7 @@ import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
 
 import LargeImage from 'components/Img/LargeImage';
+import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 import messages from 'containers/Profile/messages';
 import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
@@ -101,6 +104,10 @@ export const Box = Base.extend`
   }
 `;
 
+const LargeImageButton = styled.button`
+  position: relative;
+`;
+
 const MainUserInformation = ({
   profile,
   userId,
@@ -111,7 +118,7 @@ const MainUserInformation = ({
   <Box position="middle">
     <div>
       <div>
-        <button
+        <LargeImageButton
           onClick={redirectToEditProfilePage}
           data-user={userId}
           disabled={account !== userId}
@@ -121,7 +128,12 @@ const MainUserInformation = ({
             alt="avatar"
             isBordered
           />
-        </button>
+          <TelegramUserLabel
+            id={`temporary-account-${userId}-label`}
+            locale={locale}
+            size={LABEL_SIZE_LG}
+          />
+        </LargeImageButton>
       </div>
 
       <div>

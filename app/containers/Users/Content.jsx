@@ -15,9 +15,8 @@ import P from 'components/P';
 import A from 'components/A';
 import Grid from 'components/Grid';
 import { IconWithStatus } from 'components/RatingStatus';
-import MediumImage, { MediumImageWrapper, MediumImageLabel, MediumImageLabelImage } from 'components/Img/MediumImage';
-
-import telegram from 'images/telegram-sm.svg?inline';
+import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
+import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 const User = Base.extend`
   min-height: 84px;
@@ -65,12 +64,7 @@ const Content = ({
                 alt="ipfs_avatar"
               />
               {!!x?.['integer_properties'].find(item => item.key === TEMPORARY_ACCOUNT_KEY && item.value) && (
-                <MediumImageLabel>
-                  <MediumImageLabelImage
-                    src={telegram}
-                    alt="Telegram user"
-                  />
-                </MediumImageLabel>
+                <TelegramUserLabel id={`temporary-account-${x.user}-label`} locale={locale} />
               )}              
             </MediumImageWrapper>
             <div>
