@@ -17,7 +17,6 @@ function searchReducer(state = initialState, action) {
 
   switch (type) {
     case GET_RESULTS:
-      console.log('WTF');
       return state.set('getResultsProcessing', true);
     case GET_RESULTS_SUCCESS:
       return state
