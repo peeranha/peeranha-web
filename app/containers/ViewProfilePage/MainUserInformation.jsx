@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
+import { MONTH_3LETTERS__DAY_YYYY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -23,7 +24,6 @@ import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 import messages from 'containers/Profile/messages';
-import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -114,87 +114,93 @@ const MainUserInformation = ({
   account,
   locale,
   redirectToEditProfilePage,
-}) => (
-  <Box position="middle">
-    <div>
+}) => {
+  const isTemporaryAccount = !!profile?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value);
+
+  return (
+    <Box position="middle">
       <div>
-        <LargeImageButton
-          onClick={redirectToEditProfilePage}
-          data-user={userId}
-          disabled={account !== userId}
-        >
-          <LargeImage
-            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-            alt="avatar"
-            isBordered
-          />
-          <TelegramUserLabel
-            id={`temporary-account-${userId}-label`}
-            locale={locale}
-            size={LABEL_SIZE_LG}
-          />
-        </LargeImageButton>
-      </div>
-
-      <div>
-        <div className="d-flex align-items-center">
-          <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-            {profile?.['display_name']}
-          </Span>
-        </div>
-
-        <div className="d-flex align-items-center">
-          <UlStyled>
-            <li>
-              <FormattedMessage {...messages.reputation} />
-              <RatingStatus rating={profile.rating} size="lg" />
-            </li>
-
-            <li>
-              <FormattedMessage {...commonMessages.questions} />
-              <span>
-                <img src={questionRoundedIcon} alt="icon" />
-                {profile.questions_asked}
-              </span>
-            </li>
-
-            <li>
-              <FormattedMessage {...commonMessages.answers} />
-              <span>
-                <img src={answerIcon} alt="icon" />
-                {profile.answers_given}
-              </span>
-            </li>
-
-            <li>
-              <FormattedMessage {...messages.achievements} />
-              <AchievementsStatus
-                count={profile.achievements_reached}
-                size="lg"
+        <div>
+          <LargeImageButton
+            onClick={redirectToEditProfilePage}
+            data-user={userId}
+            disabled={account !== userId}
+          >
+            <LargeImage
+              src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+              alt="avatar"
+              isBordered
+            />
+            {isTemporaryAccount && (
+              <TelegramUserLabel
+                id={`temporary-account-${userId}-label`}
+                locale={locale}
+                size={LABEL_SIZE_LG}
               />
-            </li>
+            )}
+          </LargeImageButton>
+        </div>
 
-            <li>
-              <FormattedMessage {...commonMessages.eosAccount} />
-              <span>{userId}</span>
-            </li>
+        <div>
+          <div className="d-flex align-items-center">
+            <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+              {profile?.['display_name']}
+            </Span>
+          </div>
 
-            <li>
-              <span>
-                <FormattedMessage {...messages.memberSince} />
-                {getFormattedDate(
-                  profile.registration_time,
-                  locale,
-                  MONTH_3LETTERS__DAY_YYYY,
-                )}
-              </span>
-            </li>
-          </UlStyled>
+          <div className="d-flex align-items-center">
+            <UlStyled>
+              <li>
+                <FormattedMessage {...messages.reputation} />
+                <RatingStatus rating={profile.rating} size="lg" />
+              </li>
+
+              <li>
+                <FormattedMessage {...commonMessages.questions} />
+                <span>
+                  <img src={questionRoundedIcon} alt="icon" />
+                  {profile.questions_asked}
+                </span>
+              </li>
+
+              <li>
+                <FormattedMessage {...commonMessages.answers} />
+                <span>
+                  <img src={answerIcon} alt="icon" />
+                  {profile.answers_given}
+                </span>
+              </li>
+
+              <li>
+                <FormattedMessage {...messages.achievements} />
+                <AchievementsStatus
+                  count={profile.achievements_reached}
+                  size="lg"
+                />
+              </li>
+
+              <li>
+                <FormattedMessage {...commonMessages.eosAccount} />
+                <span>{userId}</span>
+              </li>
+
+              <li>
+                <span>
+                  <FormattedMessage {...messages.memberSince} />
+                  {getFormattedDate(
+                    profile.registration_time,
+                    locale,
+                    MONTH_3LETTERS__DAY_YYYY,
+                  )}
+                </span>
+              </li>
+            </UlStyled>
+          </div>
         </div>
       </div>
-    </div>
-  </Box>
-);
+    </Box>
+  );
+}
 
 MainUserInformation.propTypes = {
   profile: PropTypes.object,
