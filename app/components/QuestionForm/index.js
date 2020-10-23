@@ -116,7 +116,8 @@ export const QuestionForm = ({
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
-            {(existingQuestions?.length ?? 0) > 0 &&
+            {formValues[FORM_TITLE] &&
+              (existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (
                 <ExistingQuestions
                   questions={existingQuestions.slice(0, 4)}
