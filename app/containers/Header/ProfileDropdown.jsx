@@ -58,7 +58,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user },
+    profileInfo: { user, permissions },
     questionsLength,
     questionsWithUserAnswersLength,
   }) => (
@@ -93,6 +93,12 @@ const Menu = memo(
         <A to={routes.userAchievements(user)}>
           <FormattedMessage {...messages.achievements} />
         </A>
+        {permissions &&
+          !!permissions.length && (
+            <A to={routes.userModeration(user)}>
+              <FormattedMessage {...messages.moderation} />
+            </A>
+          )}
       </Ul>
 
       <Ul>

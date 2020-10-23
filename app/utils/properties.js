@@ -4,6 +4,8 @@ import {
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   OFFICIAL_ANSWER_KEYS,
+  moderatorPermissions,
+  communityAdminPermissions,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
@@ -17,6 +19,45 @@ const findAllPropertiesByKeys = (properties, keys) =>
           .join('')[key] === '1',
     ),
   );
+
+export const getModeratorPermissions = (
+  communityPermissions = [],
+  globalPermissions = [],
+  isGlobal,
+  communities,
+) => {
+  const values = isGlobal ? globalPermissions : communityPermissions;
+  const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
+  const permissions = { h1: 'Moderator permissions' };
+  permissions.blocks = values.reduce((acc, { community, value }, index) => {
+    const permission = [];
+    value
+      .toString(2)
+      .split('')
+      .forEach((perm, permIndex) => {
+        if (perm === '1') permission.push(permIndex);
+      });
+    return [
+      ...acc,
+      {
+        h2: isGlobal
+          ? 'Global Moderator'
+          : communities.find(({ id }) => id === community).name,
+        sectionCode: index,
+        blocks: Object.values(perms).map(
+          ({ description, title }, questionIndex) => ({
+            questionCode: questionIndex,
+            description,
+            title,
+          }),
+        ),
+        permission,
+      },
+    ];
+  }, []);
+
+  return permissions;
+};
 
 export const isUserTopCommunityQuestionsModerator = (
   properties = [],

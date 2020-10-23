@@ -12,6 +12,7 @@
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
   "app.common.achievements": "Achievements",
+  "app.common.moderation": "Moderation",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
@@ -30,6 +31,7 @@
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.moderationHeader": "Moderator permissions",
   "app.common.tutorial": "Tutorial",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
@@ -201,6 +203,36 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
+
+  "app.containers.Moderation.title": "Moderator permissions",
+
+  "app.common.permissionInfinite": "Infinite Impact",
+  "app.common.permissionInfiniteDescription":
+    "Allows you to delete questions, answers and comments in one click",
+
+  "app.common.permissionIgnoreRating": "Ignore rating",
+  "app.common.permissionIgnoreRatingDescription":
+    "Allows you to perform actions that are rating restricted",
+
+  "app.common.permissionCreateCommunity": "Create community",
+  "app.common.permissionCreateCommunityDescription":
+    "Allows you to instantly create a community",
+
+  "app.common.permissionCreateTag": "Create tag",
+  "app.common.permissionCreateTagDescription":
+    "Allows you to instantly create a tag",
+
+  "app.common.permissionChangeQuestionType": "Change question type",
+  "app.common.permissionChangeQuestionTypeDescription":
+    "Allows you to change question type",
+
+  "app.common.permissionSelectTopQuestion": "Select top question",
+  "app.common.permissionSelectTopQuestionDescription":
+    "Allows you to select a question that will be displayed on \"Top\" page",
+
+  "app.common.permissionOfficialAnswer": "Post official answer",
+  "app.common.permissionOfficialAnswerDescription":
+    "Allows you to post an official answer",
 
   "app.containers.Tutorial.title": "Tutorial",
   "app.containers.Tutorial.description": "Tutorial: description",
