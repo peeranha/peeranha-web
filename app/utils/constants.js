@@ -69,6 +69,8 @@ export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const TG_ACCOUNT_TABLE = 'telegramacc';
+export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
+export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 
 // Scopes
 
@@ -82,6 +84,7 @@ export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
+export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
 
 // Inf. limit
 export const INF_LIMIT = -1;

@@ -8,6 +8,7 @@ import { saveText, getText, saveFile, getFileUrl } from './ipfs';
 import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
+  USER_ACHIEVEMENTS_TABLE,
   SAVE_PROFILE_METHOD,
   NO_AVATAR,
   TG_ACCOUNT_TABLE,
@@ -211,7 +212,10 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
     user,
   );
 
-  const userAchievements = await eosService.getTableRows('accachieve', user);
+  const userAchievements = await eosService.getTableRows(
+    USER_ACHIEVEMENTS_TABLE,
+    user,
+  );
   profile.achievements_reached = userAchievements?.rows.filter(
     el => el.value > 0,
   ).length;
