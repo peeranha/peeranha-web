@@ -6,6 +6,7 @@ import { defineMessages } from 'react-intl';
 
 import {
   SCATTER_MODE_ERROR,
+  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
 } from './constants';
@@ -31,6 +32,9 @@ export default defineMessages({
   },
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
+  },
+  [SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED]: {
+    id: 'app.containers.Login.scatterBrowserExtensionNotConfigured',
   },
   [USER_IS_NOT_REGISTERED]: {
     id: 'app.containers.Login.userIsNotRegistered',

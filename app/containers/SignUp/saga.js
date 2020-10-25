@@ -31,6 +31,7 @@ import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
+  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
   USER_IS_NOT_SELECTED,
   REFERRAL_CODE,
 } from 'containers/Login/constants';
@@ -165,7 +166,7 @@ export function* iHaveEosAccountWorker({ val }) {
 
     let isActiveKeyValid = true;
     let isOwnerKeyValid = true;
-    
+
     const eosActivePublicKey = yield call(
       eosService.privateToPublic,
       val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
@@ -222,7 +223,7 @@ export function* iHaveEosAccountWorker({ val }) {
       password: val[PASSWORD_FIELD],
       eosAccountName: val[EOS_ACCOUNT_FIELD],
     };
-    
+
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
 
     const response = yield call(
@@ -369,9 +370,17 @@ export function* showScatterSignUpFormWorker() {
     }
 
     if (!eosService.selectedAccount) {
-      throw new WebIntegrationError(
-        translations[loginMessages[USER_IS_NOT_SELECTED].id],
-      );
+      if (eosService.isScatterExtension) {
+        throw new WebIntegrationError(
+          translations[
+            loginMessages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED].id
+          ],
+        );
+      } else {
+        throw new WebIntegrationError(
+          translations[loginMessages[USER_IS_NOT_SELECTED].id],
+        );
+      }
     }
 
     const profileInfo = yield call(

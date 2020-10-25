@@ -48,6 +48,7 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_SCATTER,
   SCATTER_MODE_ERROR,
+  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
   USER_IS_NOT_SELECTED,
   USER_IS_NOT_REGISTERED,
   EMAIL_FIELD,
@@ -137,9 +138,15 @@ export function* loginWithScatterWorker() {
     }
 
     if (!eosService.selectedAccount) {
-      throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
-      );
+      if (eosService.isScatterExtension) {
+        throw new WebIntegrationError(
+          translations[messages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED].id],
+        );
+      } else {
+        throw new WebIntegrationError(
+          translations[messages[USER_IS_NOT_SELECTED].id],
+        );
+      }
     }
 
     yield call(getCurrentAccountWorker, eosService.selectedAccount);

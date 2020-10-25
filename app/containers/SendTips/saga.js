@@ -45,7 +45,11 @@ import {
   addTipsEosService,
 } from './actions';
 import messages from '../Login/messages';
-import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
+import {
+  SCATTER_MODE_ERROR,
+  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
+  USER_IS_NOT_SELECTED,
+} from '../Login/constants';
 import { selectTipsEosService } from './selectors';
 import { selectEos } from '../EosioProvider/selectors';
 import { formName } from './SendTipsForm';
@@ -172,9 +176,15 @@ export function* selectAccountWorker() {
     if (!selectedAccount) {
       selectedAccount = yield call(tipsEosService.selectAccount);
       if (!selectedAccount) {
-        throw new WebIntegrationError(
-          translations[messages[USER_IS_NOT_SELECTED].id],
-        );
+        if (tipsEosService.isScatterExtension) {
+          throw new WebIntegrationError(
+            translations[messages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED].id],
+          );
+        } else {
+          throw new WebIntegrationError(
+            translations[messages[USER_IS_NOT_SELECTED].id],
+          );
+        }
       }
     }
     const receiver = (yield select(getFormValues(formName))).get(
