@@ -19,11 +19,10 @@ import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
 import { getResults } from 'containers/Search/actions';
-
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { selectItems as selectQuestions } from 'containers/Search/selectors';
+import { selectExistingQuestions } from 'containers/Search/selectors';
 
 import { askQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
@@ -89,7 +88,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   communities: selectCommunities(),
-  existingQuestions: selectQuestions(),
+  existingQuestions: selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 
