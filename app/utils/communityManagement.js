@@ -90,20 +90,13 @@ export const getCommunityById = async (eosService, communityId) => {
 
   const community = JSON.parse(await getText(row.ipfs_description));
 
-  const {
-    avatar,
-    name,
-    description,
-    main_description,
-    officialSite = null,
-  } = community;
+  const { avatar, name, description, officialSite = null } = community;
 
   return {
     avatar,
     name,
     description,
     officialSite,
-    main_description,
   };
 };
 

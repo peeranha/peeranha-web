@@ -59,17 +59,23 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
+  const editingAllowed = useMemo(
+    () =>
+      communityModeratorCreatePermission(
+        profileInfo?.['integer_properties'] || [],
+      ),
+    [profileInfo],
+  );
+
+  if (!editingAllowed) {
+    return <Redirect to={noAccessRoute()} />;
+  }
+
   useEffect(
     () => {
       getCommunityDispatch(communityId);
     },
     [communityId],
-  );
-
-  const editingAllowed = useMemo(
-    () =>
-      communityModeratorCreatePermission(profileInfo.integer_properties || []),
-    [profileInfo],
   );
 
   const formData = useMemo(
@@ -84,7 +90,7 @@ const EditCommunity = ({
 
   const translations = useMemo(() => translationMessages[locale], [locale]);
 
-  return editingAllowed ? (
+  return (
     <div>
       <Seo
         title={translations[messages.pageTitle.id]}
@@ -103,8 +109,6 @@ const EditCommunity = ({
         <Tips faqQuestions={faqQuestions} />
       </TipsBase>
     </div>
-  ) : (
-    <Redirect to={noAccessRoute()} />
   );
 };
 
