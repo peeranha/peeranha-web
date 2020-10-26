@@ -9,7 +9,9 @@ import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_ERROR,
-  GET_EXISTING_QUESTIONS_SUCCESS, GET_EXISTING_QUESTIONS, GET_EXISTING_QUESTIONS_ERROR,
+  GET_EXISTING_QUESTIONS_SUCCESS,
+  GET_EXISTING_QUESTIONS,
+  GET_EXISTING_QUESTIONS_ERROR,
 } from './constants';
 
 export function redirectToAskQuestionPage(ev) {
@@ -43,7 +45,7 @@ export function getExistingQuestion(query) {
   return {
     type: GET_EXISTING_QUESTIONS,
     query,
-  }
+  };
 }
 
 export function getExistingQuestionSuccess(existingQuestions) {

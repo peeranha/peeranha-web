@@ -27,7 +27,8 @@ import {
   askQuestionSuccess,
   askQuestionError,
   getExistingQuestionSuccess,
-  getExistingQuestionError } from './actions';
+  getExistingQuestionError,
+} from './actions';
 
 import {
   ASK_QUESTION,
@@ -79,7 +80,7 @@ export function* postQuestionWorker({ val }) {
 function* qetExistingQuestionsWorker({ query }) {
   try {
     const existingQuestions = yield call(getResults, query);
-    yield put(getExistingQuestionSuccess(existingQuestions))
+    yield put(getExistingQuestionSuccess(existingQuestions));
   } catch (err) {
     yield put(getExistingQuestionError(err));
   }
