@@ -37,7 +37,7 @@ const LimitPhrase = styled.p`
   font-size: 14px;
 `;
 
-const Achievement = ({
+const UniqueAchievement = ({
   reached,
   limit,
   totalAwarded,
@@ -91,7 +91,7 @@ const Achievement = ({
   );
 };
 
-Achievement.propTypes = {
+UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
   limit: PropTypes.number,
@@ -101,4 +101,4 @@ Achievement.propTypes = {
   locale: PropTypes.string,
 };
 
-export default Achievement;
+export default UniqueAchievement;
