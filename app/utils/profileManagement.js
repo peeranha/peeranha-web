@@ -4,11 +4,11 @@ import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { saveText, getText, saveFile, getFileUrl } from './ipfs';
+import { getUserAchievementsCount } from './achievementsManagement';
 
 import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
-  USER_ACHIEVEMENTS_TABLE,
   SAVE_PROFILE_METHOD,
   NO_AVATAR,
   TG_ACCOUNT_TABLE,
@@ -212,15 +212,15 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
     user,
   );
 
-  const userAchievements = await eosService.getTableRows(
-    USER_ACHIEVEMENTS_TABLE,
-    user,
-  );
-  profile.achievements_reached = userAchievements?.rows.filter(
-    el => el.value > 0,
-  ).length;
-
   if (!profile || profile.user !== user) return null;
+
+  if (!profile.achievements_reached) {
+    const achievements_reached = await getUserAchievementsCount(
+      profile.user,
+      eosService,
+    );
+    profile.achievements_reached = achievements_reached;
+  }
 
   if (getExtendedProfile) {
     const ipfsProfile = await getText(profile.ipfs_profile);

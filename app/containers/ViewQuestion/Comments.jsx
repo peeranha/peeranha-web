@@ -232,7 +232,6 @@ const CommentView = item => {
 
 const Comment = item => {
   const [isView, toggleView] = useState(true);
-  console.log('$$$item: ', item);
 
   return (
     <React.Fragment>
