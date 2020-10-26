@@ -122,7 +122,8 @@ const SendTipsForm = ({
   useEffect(
     () => {
       if (
-        (walletValue && walletValue.name !== WALLETS.SCATTER_SQRL.name) ||
+        (walletValue &&
+          walletValue.name !== WALLETS.SCATTER_SQRL_WOMBAT.name) ||
         withScatter
       ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
