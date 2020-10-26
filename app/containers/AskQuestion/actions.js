@@ -9,6 +9,7 @@ import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_ERROR,
+  GET_EXISTING_QUESTIONS_SUCCESS, GET_EXISTING_QUESTIONS, GET_EXISTING_QUESTIONS_ERROR,
 } from './constants';
 
 export function redirectToAskQuestionPage(ev) {
@@ -35,5 +36,26 @@ export function askQuestionError(questionError) {
   return {
     type: ASK_QUESTION_ERROR,
     questionError,
+  };
+}
+
+export function getExistingQuestion(query) {
+  return {
+    type: GET_EXISTING_QUESTIONS,
+    query,
+  }
+}
+
+export function getExistingQuestionSuccess(existingQuestions) {
+  return {
+    type: GET_EXISTING_QUESTIONS_SUCCESS,
+    existingQuestions,
+  };
+}
+
+export function getExistingQuestionError(getExistingQuestionsError) {
+  return {
+    type: GET_EXISTING_QUESTIONS_ERROR,
+    getExistingQuestionsError,
   };
 }

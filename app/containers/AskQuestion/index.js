@@ -18,13 +18,11 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
-import { getResults } from 'containers/Search/actions';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { selectExistingQuestions } from 'containers/Search/selectors';
 
-import { askQuestion } from './actions';
+import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -88,14 +86,14 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   communities: selectCommunities(),
-  existingQuestions: selectExistingQuestions(),
+  existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     askQuestionDispatch: bindActionCreators(askQuestion, dispatch),
-    getQuestionsDispatch: bindActionCreators(getResults, dispatch),
+    getQuestionsDispatch: bindActionCreators(getExistingQuestion, dispatch),
   };
 }
 

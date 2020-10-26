@@ -23,9 +23,15 @@ const selectQuestionError = () =>
     substate.get('questionError'),
   );
 
+const selectExistingQuestions = () =>
+  createSelector(selectAskQuestionDomain, substate =>
+    substate.get('existingQuestions'),
+  );
+
 export {
   selectAskQuestionDomain,
   selectQuestionData,
   selectAskQuestionLoading,
   selectQuestionError,
+  selectExistingQuestions,
 };

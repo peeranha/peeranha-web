@@ -23,14 +23,21 @@ import {
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { searchWorker } from 'containers/Search/saga';
 
-import { askQuestionSuccess, askQuestionError } from './actions';
+import {
+  askQuestionSuccess,
+  askQuestionError,
+  getExistingQuestionSuccess,
+  getExistingQuestionError } from './actions';
 
 import {
   ASK_QUESTION,
   POST_QUESTION_BUTTON,
   MIN_RATING_TO_POST_QUESTION,
   MIN_ENERGY_TO_POST_QUESTION,
+  GET_EXISTING_QUESTIONS,
 } from './constants';
+
+import { getResults } from '../../utils/custom-search';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -69,6 +76,15 @@ export function* postQuestionWorker({ val }) {
   }
 }
 
+function* qetExistingQuestionsWorker({ query }) {
+  try {
+    const existingQuestions = yield call(getResults, query);
+    yield put(getExistingQuestionSuccess(existingQuestions))
+  } catch (err) {
+    yield put(getExistingQuestionError(err));
+  }
+}
+
 export function* checkReadinessWorker({ buttonId }) {
   yield call(isAuthorized);
 
@@ -89,5 +105,5 @@ export function* redirectToAskQuestionPageWorker({ buttonId }) {
 
 export default function*() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
-  yield takeLatest(GET_RESULTS, searchWorker);
+  yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }

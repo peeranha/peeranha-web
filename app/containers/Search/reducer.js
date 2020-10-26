@@ -4,7 +4,6 @@ import {
   GET_RESULTS,
   GET_RESULTS_SUCCESS,
   GET_RESULTS_ERROR,
-  GET_EXISTING_QUESTIONS_SUCCESS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,13 +22,6 @@ function searchReducer(state = initialState, action) {
       return state
         .set('getResultsProcessing', false)
         .set('items', items ? items.slice(0, 9) : initialState.get('items'));
-    case GET_EXISTING_QUESTIONS_SUCCESS:
-      return state
-        .set('getResultProcessing', false)
-        .set(
-          'existingQuestions',
-          items ? items.slice(0, 4) : initialState.get('existingQuestions'),
-        );
     case GET_RESULTS_ERROR:
       return state
         .set('getResultsProcessing', false)
