@@ -10,6 +10,7 @@ import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
 
 import {
+  EDIT_COMMUNITY,
   TAGS_TABLE,
   COMMUNITIES_TABLE,
   CREATED_TAGS_TABLE,
@@ -57,6 +58,54 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 
   return allcommunities.filter(x => !followedcommunities.includes(x.id));
 }
+
+export const editCommunity = async (
+  eosService,
+  selectedAccount,
+  communityId,
+  communityData,
+) => {
+  const ipfsHash = await saveText(JSON.stringify(communityData));
+
+  await eosService.sendTransaction(
+    selectedAccount,
+    EDIT_COMMUNITY,
+    {
+      user: selectedAccount,
+      community_id: communityId,
+      name: communityData.name,
+      ipfs_link: ipfsHash,
+    },
+    null,
+    true,
+  );
+};
+
+export const getCommunityById = async (eosService, communityId) => {
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    communityId,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+
+  const {
+    avatar,
+    name,
+    description,
+    main_description,
+    officialSite = null,
+  } = community;
+
+  return {
+    avatar,
+    name,
+    description,
+    officialSite,
+    main_description,
+  };
+};
 
 /* eslint-disable */
 export function getTagScope(communityId) {

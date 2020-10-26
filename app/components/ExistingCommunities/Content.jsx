@@ -1,18 +1,21 @@
 /* eslint no-unused-vars: 0 */
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
+import { communityModeratorCreatePermission } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -79,8 +82,15 @@ const Info = styled.div`
   }
 `;
 
-const Content = ({ communities, sorting, locale, language }) => {
+const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
+
+  const communityEditingAllowed = useMemo(
+    () =>
+      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+    [profile],
+  );
+
   return (
     <Base>
       {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
@@ -179,7 +189,18 @@ const Content = ({ communities, sorting, locale, language }) => {
                     </P>
                   </Info>
 
-                  <FollowCommunityButton communityIdFilter={id} />
+                  <Info>
+                    {communityEditingAllowed && (
+                      <InfoButton
+                        onClick={() =>
+                          createdHistory.push(routes.communitiesEdit(id))
+                        }
+                      >
+                        <FormattedMessage {...commonMessages.edit} />
+                      </InfoButton>
+                    )}
+                    <FollowCommunityButton communityIdFilter={id} />
+                  </Info>
                 </InfoBlock>
               </BaseSpecial>
             );
@@ -194,6 +215,7 @@ Content.propTypes = {
   sorting: PropTypes.object,
   locale: PropTypes.string,
   language: PropTypes.object,
+  profile: PropTypes.object,
 };
 
 export default React.memo(Content);

@@ -1,3 +1,4 @@
+import { selectEditCommunityLoading } from 'containers/EditCommunity/selectors';
 import { selectFollowHandlerLoading } from 'containers/FollowCommunityButton/selectors';
 import { selectAskQuestionLoading } from 'containers/AskQuestion/selectors';
 import {
@@ -78,6 +79,7 @@ import {
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
   selectChangeEmailProcessing: selectChangeEmailProcessing(),
+  selectEditCommunityLoading: selectEditCommunityLoading(),
   selectSendOldEmailProcessing: selectSendOldEmailProcessing(),
   selectConfirmOldEmailProcessing: selectConfirmOldEmailProcessing(),
   selectSendEmailProcessing: selectSendEmailProcessing(),

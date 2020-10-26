@@ -1,0 +1,222 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EditCommunity /> renders and matches the snapshot 1`] = `
+<div>
+  <div
+    class="mb-to-sm-0 mb-from-sm-3 Base-gxTqDr hgJIyR"
+  >
+    <h3
+      class="f1znse-0-Span-juOiwt SaUZL"
+    >
+      <img
+        alt="Community icon"
+        class="Img-funbTP bVljxa"
+        src="IMAGE_MOCK"
+      />
+      <span>
+        Edit community
+      </span>
+    </h3>
+    <div
+      class="right-panel Simple__WrapperRightPanel-sc-1uv1n1f-0 kkNECD"
+    >
+      <a
+        class="A-sc-1lkwpuz-1 bMWbep"
+        href="/communities"
+      >
+        <button>
+          <img
+            alt="x"
+            class="mr-1"
+            src="IMAGE_MOCK"
+          />
+          <span
+            class="button-label Span-f1znse-0 cOvmGD"
+            color="#576fed"
+          >
+            <span>
+              Close
+            </span>
+          </span>
+        </button>
+      </a>
+    </div>
+  </div>
+  <div
+    class="overflow-hidden Base-gxTqDr btHItu"
+  >
+    <div
+      class="sc-1j4f184-0-Base-gxTqDr IMsVu"
+    >
+      <div
+        class="AvatarField__Div-sc-1bmtuz8-0 fACQrM"
+        id="app-EditCommunity-COMM-AVATAR-FIELD"
+        value="6"
+      >
+        <div>
+          <div>
+            <div
+              class="avatar-wrapper"
+            >
+              <mock-avatar />
+              <button
+                class="close-icon"
+              />
+            </div>
+            <div
+              class="reload-bg"
+            />
+          </div>
+          <img
+            alt="icon"
+            class="sc-1swdnke-0-Img-funbTP hYsIYr"
+            src="undefined://undefined/Avatar"
+          />
+        </div>
+        <div
+          class="AvatarField__InfoMessage-sc-1bmtuz8-1 bKZxys"
+        >
+          <span>
+            File size should not exceed 2Mb
+          </span>
+        </div>
+      </div>
+      <form
+        class="Form-sc-1vkcewz-0 dbpQQy"
+      >
+        <div
+          class="Wrapper__StyledBox-rr64xs-0 gIQOlG"
+          id="app-EditCommunity-COMM-NAME-FIELD"
+        >
+          <h6
+            class="f1znse-0-Span-juOiwt bKHwNH"
+          >
+            Title
+          </h6>
+          <div>
+            <div>
+              <div
+                class="InputStyled-sc-1xf9t49-0 fYDrLB"
+              >
+                <input
+                  name="app/EditCommunity/COMM_NAME_FIELD"
+                  type="text"
+                  value="Name"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Wrapper__StyledBox-rr64xs-0 gIQOlG"
+          id="app-EditCommunity-COMM-SHORT-DESCRIPTION-FIELD"
+        >
+          <h6
+            class="f1znse-0-Span-juOiwt bKHwNH"
+          >
+            Short description
+          </h6>
+          <div>
+            <div>
+              <div
+                class="InputStyled-sc-1xf9t49-0 fYDrLB"
+              >
+                <input
+                  name="app/EditCommunity/COMM_SHORT_DESCRIPTION_FIELD"
+                  type="text"
+                  value="Short description"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Wrapper__StyledBox-rr64xs-0 gIQOlG"
+          id="app-EditCommunity-COMM-OFFICIAL-SITE-URL"
+        >
+          <h6
+            class="f1znse-0-Span-juOiwt bKHwNH"
+          >
+            Official site
+          </h6>
+          <div>
+            <div>
+              <div
+                class="InputStyled-sc-1xf9t49-0 fYDrLB"
+              >
+                <input
+                  name="app/EditCommunity/COMM_OFFICIAL_SITE_URL"
+                  placeholder="https://example.com"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Wrapper__StyledBox-rr64xs-0 gIQOlG"
+          id="app-EditCommunity-COMM-MAIN-DESCRIPTION-FIELD"
+        >
+          <h6
+            class="f1znse-0-Span-juOiwt bKHwNH"
+          >
+            Why we need it?
+          </h6>
+          <div>
+            <div>
+              <textarea
+                class="Textarea__TextareaStyled-sc-1abb0xy-0 jMIQar"
+                name="app/EditCommunity/COMM_MAIN_DESCRIPTION_FIELD"
+              >
+                Descriptive description
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <button
+          class="Button-kDSBcD knCmMg"
+          id="app/EditCommunity/EDIT_COMMUNITY_BUTTON"
+          type="submit"
+        >
+          Edit community
+        </button>
+      </form>
+    </div>
+    <div>
+      <h6
+        class="mb-3 f1znse-0-Span-juOiwt bKHwNH"
+      >
+        <span>
+          Tips
+        </span>
+      </h6>
+      <ul
+        class="Tips__Ul-sc-1l950jl-1 jIOofx"
+      >
+        <li>
+          <span>
+            Image will be the face of community
+          </span>
+        </li>
+        <li>
+          <span>
+            Specify a memorable title
+          </span>
+        </li>
+        <li>
+          <span>
+            Community description should be concise and have a clear description for its users
+          </span>
+        </li>
+        <li>
+          <span>
+            Describe how this community will attract the attention of other users and collect votes
+          </span>
+        </li>
+      </ul>
+      <ul />
+    </div>
+  </div>
+</div>
+`;
