@@ -36,6 +36,9 @@ export default defineMessages({
   moderation: {
     id: 'app.common.moderation',
   },
+  globalModerator: {
+    id: 'app.common.globalModerator',
+  },
   permissionInfinite: {
     id: 'app.common.permissionInfinite',
   },

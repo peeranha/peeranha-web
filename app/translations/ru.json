@@ -205,6 +205,7 @@
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
 
   "app.containers.Moderation.title": "Права модератора",
+  "app.common.globalModerator": "Глобальный модератор",
 
   "app.common.permissionInfinite": "Безграничное воздействие",
   "app.common.permissionInfiniteDescription":

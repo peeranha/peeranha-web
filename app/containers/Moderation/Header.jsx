@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
-import faqPageHeader from 'images/faqPageHeader.svg?inline';
+import faqPageHeader from 'images/incognito.svg?inline';
 import infoIcon from 'images/icon-information.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';

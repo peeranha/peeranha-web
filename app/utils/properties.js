@@ -1,3 +1,4 @@
+import messages from 'common-messages';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -25,10 +26,11 @@ export const getModeratorPermissions = (
   globalPermissions = [],
   isGlobal,
   communities,
+  translations,
 ) => {
   const values = isGlobal ? globalPermissions : communityPermissions;
   const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
-  const permissions = { h1: 'Moderator permissions' };
+  const permissions = {};
   permissions.blocks = values.reduce((acc, { community, value }, index) => {
     const permission = [];
     value
@@ -41,12 +43,12 @@ export const getModeratorPermissions = (
       ...acc,
       {
         h2: isGlobal
-          ? 'Global Moderator'
+          ? translations[messages.globalModerator.id]
           : communities.find(({ id }) => id === community).name,
         sectionCode: index,
         blocks: Object.values(perms).map(
-          ({ description, title }, questionIndex) => ({
-            questionCode: questionIndex,
+          ({ description, title }, permissionIndex) => ({
+            permissionCode: permissionIndex,
             description,
             title,
           }),

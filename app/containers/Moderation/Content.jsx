@@ -77,7 +77,7 @@ const ImgWrapper = styled.div`
   }
 `;
 
-const QuestionBox = BaseTransparent.extend`
+const PermissionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
@@ -98,30 +98,30 @@ const QuestionBox = BaseTransparent.extend`
   }
 `.withComponent('li');
 
-const QuestionBoxBody = styled.div`
+const PermissionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Question = ({
+const Permission = ({
   description,
   title,
-  questionCode,
+  permissionCode,
   sectionCode,
-  getQuestionCode,
+  getPermissionCode,
   permission,
 }) => {
-  const questionId = getQuestionCode(sectionCode, questionCode);
+  const questionId = getPermissionCode(sectionCode, permissionCode);
   let ico;
-  if (permission.includes(questionCode)) {
+  if (permission.includes(permissionCode)) {
     ico = okayGreen;
   } else ico = notOkay;
   return (
-    <QuestionBox id={questionId} isOpened={false}>
+    <PermissionBox id={questionId} isOpened={false}>
       <ImgWrapper>
         <IconSm icon={ico} />
       </ImgWrapper>
 
-      <QuestionBoxBody>
+      <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
           <Span fontSize="20" lineHeight="30" mobileFS="16">
             <FormattedMessage {...messages[title]} />
@@ -130,8 +130,8 @@ const Question = ({
         <Span fontSize="12" mobileFS="9">
           <FormattedMessage {...messages[description]} />
         </Span>
-      </QuestionBoxBody>
-    </QuestionBox>
+      </PermissionBoxBody>
+    </PermissionBox>
   );
 };
 
@@ -141,7 +141,7 @@ const Section = ({
   sectionCode,
   route,
   getSectionCode,
-  getQuestionCode,
+  getPermissionCode,
   permission,
 }) => {
   const { hash } = window.location;
@@ -182,12 +182,12 @@ const Section = ({
       <div className={isOpened ? 'd-block' : 'd-none'}>
         <ul>
           {blocks.map(x => (
-            <Question
+            <Permission
               {...x}
               key={x.h3}
               permission={permission}
               sectionCode={sectionCode}
-              getQuestionCode={getQuestionCode}
+              getPermissionCode={getPermissionCode}
             />
           ))}
         </ul>
@@ -196,7 +196,7 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
+const Content = ({ content, route, getSectionCode, getPermissionCode }) => (
   <div className="mb-3">
     {content.blocks.map(x => (
       <Section
@@ -204,16 +204,16 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
         key={x.h2}
         route={route}
         getSectionCode={getSectionCode}
-        getQuestionCode={getQuestionCode}
+        getPermissionCode={getPermissionCode}
       />
     ))}
   </div>
 );
 
-Question.propTypes = {
-  questionCode: PropTypes.number,
+Permission.propTypes = {
+  permissionCode: PropTypes.number,
   sectionCode: PropTypes.number,
-  getQuestionCode: PropTypes.func,
+  getPermissionCode: PropTypes.func,
   permission: PropTypes.array,
   description: PropTypes.string,
   title: PropTypes.string,
@@ -225,7 +225,7 @@ Section.propTypes = {
   sectionCode: PropTypes.number,
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
-  getQuestionCode: PropTypes.func,
+  getPermissionCode: PropTypes.func,
   permission: PropTypes.array,
 };
 
@@ -233,7 +233,7 @@ Content.propTypes = {
   content: PropTypes.object,
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
-  getQuestionCode: PropTypes.func,
+  getPermissionCode: PropTypes.func,
 };
 
 export default Content;
