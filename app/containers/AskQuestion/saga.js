@@ -104,7 +104,10 @@ export function* redirectToAskQuestionPageWorker({ buttonId }) {
   } catch (err) {}
 }
 
+export function* existingQuestionSaga() {
+  yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
+}
+
 export default function*() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
-  yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }

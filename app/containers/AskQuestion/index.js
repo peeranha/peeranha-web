@@ -24,8 +24,8 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import reducer, { existingQuestionReducer } from './reducer';
+import saga, { existingQuestionSaga } from './saga';
 import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
@@ -104,9 +104,19 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'askQuestionReducer', reducer });
 const withSaga = injectSaga({ key: 'askQuestionReducer', saga });
+const withExistingQuestionReducer = injectReducer({
+  key: 'existingQuestionReducer',
+  reducer: existingQuestionReducer,
+});
+const withExistingQuestionSaga = injectSaga({
+  key: 'existingQuestionReducer',
+  saga: existingQuestionSaga,
+});
 
 export default compose(
   withReducer,
   withSaga,
+  withExistingQuestionReducer,
+  withExistingQuestionSaga,
   withConnect,
 )(AskQuestion);

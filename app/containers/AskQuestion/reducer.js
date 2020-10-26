@@ -23,12 +23,7 @@ export const initialState = fromJS({
 });
 
 function askQuestionReducer(state = initialState, action) {
-  const {
-    type,
-    questionError,
-    existingQuestions,
-    getExistingQuestionsError,
-  } = action;
+  const { type, questionError } = action;
 
   switch (type) {
     case ASK_QUESTION:
@@ -39,6 +34,16 @@ function askQuestionReducer(state = initialState, action) {
       return state
         .set('askQuestionLoading', false)
         .set('questionError', questionError);
+
+    default:
+      return state;
+  }
+}
+
+export function existingQuestionReducer(state = initialState, action) {
+  const { type, existingQuestions, getExistingQuestionsError } = action;
+
+  switch (type) {
     case GET_EXISTING_QUESTIONS:
       return state.set('getExistingQuestionsLoading', true);
     case GET_EXISTING_QUESTIONS_SUCCESS:
@@ -54,6 +59,7 @@ function askQuestionReducer(state = initialState, action) {
       return state
         .set('getExistingQuestionsLoading', false)
         .set('getExistingQuestionsError', getExistingQuestionsError);
+
     default:
       return state;
   }
