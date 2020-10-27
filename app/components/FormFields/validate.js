@@ -74,10 +74,12 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
+const tagNameHasNotExist = tagList => value =>
+  tagList.includes(value) ? messages.tagNameAlreadyExists : undefined;
+
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
-
   return list &&
     list.find(
       x => x && x.trim().toLowerCase() === value && value.trim().toLowerCase(),
@@ -197,6 +199,7 @@ export {
   strLength15x250,
   strLength20x1000,
   strLength25x30000,
+  tagNameHasNotExist,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,

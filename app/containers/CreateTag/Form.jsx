@@ -21,6 +21,7 @@ import {
   strLength20x1000,
   requiredForObjectField,
   valueHasNotBeInList,
+  tagNameHasNotExist,
 } from 'components/FormFields/validate';
 
 import {
@@ -38,6 +39,7 @@ export const Form = ({
   handleSubmit,
   translations,
   communities,
+  tagList,
 }) => (
   <FormBox onSubmit={handleSubmit(createTag)}>
     <Field
@@ -59,7 +61,12 @@ export const Form = ({
       component={TextInputField}
       label={translations[messages.name.id]}
       tip={translations[messages.nameTip.id]}
-      validate={[strLength2x15, required, valueHasNotBeInList]}
+      validate={[
+        strLength2x15,
+        required,
+        valueHasNotBeInList,
+        tagNameHasNotExist(tagList),
+      ]}
       warn={[strLength2x15, required, valueHasNotBeInList]}
       splitInHalf
     />

@@ -72,6 +72,15 @@ const CreateTag = ({
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
+  const tagList = useMemo(
+    () =>
+      communities
+        .map(comm => comm.tags)
+        .reduce((tags, tag) => tags.concat(tag))
+        .map(tag => tag.name),
+    [communities],
+  );
+
   const createTag = useCallback(
     (...args) => {
       const values = args[0].toJS();
@@ -118,6 +127,7 @@ const CreateTag = ({
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}
+              tagList={tagList}
             />
           </BaseSpecialOne>
 
