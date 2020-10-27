@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import messages from 'common-messages';
 
 import createdHistory from 'createdHistory';
 
@@ -30,6 +29,7 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
+import messages from './messages';
 
 export const TextBlock = styled.div`
   display: ${x => (x.isOpened ? 'block' : 'none')};
@@ -103,20 +103,16 @@ const PermissionBoxBody = styled.div`
 `;
 
 const Permission = ({
-  description,
   title,
   permissionCode,
   sectionCode,
   getPermissionCode,
   permission,
 }) => {
-  const questionId = getPermissionCode(sectionCode, permissionCode);
-  let ico;
-  if (permission.includes(permissionCode)) {
-    ico = okayGreen;
-  } else ico = notOkay;
+  const permissionId = getPermissionCode(sectionCode, permissionCode);
+  const ico = permission.includes(permissionCode) ? okayGreen : notOkay;
   return (
-    <PermissionBox id={questionId} isOpened={false}>
+    <PermissionBox id={permissionId} isOpened={false}>
       <ImgWrapper>
         <IconSm icon={ico} />
       </ImgWrapper>
@@ -124,11 +120,11 @@ const Permission = ({
       <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
           <Span fontSize="20" lineHeight="30" mobileFS="16">
-            <FormattedMessage {...messages[title]} />
+            <FormattedMessage {...messages.permissions[title].title} />
           </Span>
         </h5>
         <Span fontSize="12" mobileFS="9">
-          <FormattedMessage {...messages[description]} />
+          <FormattedMessage {...messages.permissions[title].description} />
         </Span>
       </PermissionBoxBody>
     </PermissionBox>
@@ -215,7 +211,6 @@ Permission.propTypes = {
   sectionCode: PropTypes.number,
   getPermissionCode: PropTypes.func,
   permission: PropTypes.array,
-  description: PropTypes.string,
   title: PropTypes.string,
 };
 

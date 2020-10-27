@@ -207,32 +207,32 @@
   "app.containers.Moderation.title": "Права модератора",
   "app.common.globalModerator": "Глобальный модератор",
 
-  "app.common.permissionInfinite": "Безграничное воздействие",
-  "app.common.permissionInfiniteDescription":
+  "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
+  "app.containers.Moderation.permissionInfiniteDescription":
     "Позволяет удалять вопросы, ответы и комментарии в один клик",
 
-  "app.common.permissionIgnoreRating": "Игнорирование рейтинга",
-  "app.common.permissionIgnoreRatingDescription":
+  "app.containers.Moderation.permissionIgnoreRating": "Игнорирование рейтинга",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
     "Позволяет выполнять действия с ограниченным рейтингом",
 
-  "app.common.permissionCreateCommunity": "Создание сообщества",
-  "app.common.permissionCreateCommunityDescription":
+  "app.containers.Moderation.permissionCreateCommunity": "Создание сообщества",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
     "Позволяет мгновенно создать сообщество",
 
-  "app.common.permissionCreateTag": "Создание тега",
-  "app.common.permissionCreateTagDescription":
+  "app.containers.Moderation.permissionCreateTag": "Создание тега",
+  "app.containers.Moderation.permissionCreateTagDescription":
     "Позволяет мгновенно создать тег",
 
-  "app.common.permissionChangeQuestionType": "Изменение типа вопроса",
-  "app.common.permissionChangeQuestionTypeDescription":
+  "app.containers.Moderation.permissionChangeQuestionType": "Изменение типа вопроса",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
     "Позволяет изменить тип вопроса",
 
-  "app.common.permissionSelectTopQuestion": "Выбор «Top» вопроса",
-  "app.common.permissionSelectTopQuestionDescription":
+  "app.containers.Moderation.permissionSelectTopQuestion": "Выбор «Top» вопроса",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
     "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
 
-  "app.common.permissionOfficialAnswer": "Публикация официального ответа",
-  "app.common.permissionOfficialAnswerDescription":
+  "app.containers.Moderation.permissionOfficialAnswer": "Публикация официального ответа",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
     "Позволяет опубликовать официальный ответ",
 
   "app.containers.Tutorial.title": "Руководство",

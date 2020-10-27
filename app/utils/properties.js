@@ -5,6 +5,7 @@ import {
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   OFFICIAL_ANSWER_KEYS,
+  PERMISSION_GRANTED,
   moderatorPermissions,
   communityAdminPermissions,
 } from './constants';
@@ -37,7 +38,7 @@ export const getModeratorPermissions = (
       .toString(2)
       .split('')
       .forEach((perm, permIndex) => {
-        if (perm === '1') permission.push(permIndex);
+        if (perm === PERMISSION_GRANTED) permission.push(permIndex);
       });
     return [
       ...acc,
@@ -46,13 +47,10 @@ export const getModeratorPermissions = (
           ? translations[messages.globalModerator.id]
           : communities.find(({ id }) => id === community).name,
         sectionCode: index,
-        blocks: Object.values(perms).map(
-          ({ description, title }, permissionIndex) => ({
-            permissionCode: permissionIndex,
-            description,
-            title,
-          }),
-        ),
+        blocks: Object.values(perms).map(({ title }, permissionIndex) => ({
+          permissionCode: permissionIndex,
+          title,
+        })),
         permission,
       },
     ];

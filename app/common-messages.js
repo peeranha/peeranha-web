@@ -39,48 +39,6 @@ export default defineMessages({
   globalModerator: {
     id: 'app.common.globalModerator',
   },
-  permissionInfinite: {
-    id: 'app.common.permissionInfinite',
-  },
-  permissionInfiniteDescription: {
-    id: 'app.common.permissionInfiniteDescription',
-  },
-  permissionIgnoreRating: {
-    id: 'app.common.permissionIgnoreRating',
-  },
-  permissionIgnoreRatingDescription: {
-    id: 'app.common.permissionIgnoreRatingDescription',
-  },
-  permissionCreateCommunity: {
-    id: 'app.common.permissionCreateCommunity',
-  },
-  permissionCreateCommunityDescription: {
-    id: 'app.common.permissionCreateCommunityDescription',
-  },
-  permissionCreateTag: {
-    id: 'app.common.permissionCreateTag',
-  },
-  permissionCreateTagDescription: {
-    id: 'app.common.permissionCreateTagDescription',
-  },
-  permissionChangeQuestionType: {
-    id: 'app.common.permissionChangeQuestionType',
-  },
-  permissionChangeQuestionTypeDescription: {
-    id: 'app.common.permissionChangeQuestionTypeDescription',
-  },
-  permissionSelectTopQuestion: {
-    id: 'app.common.permissionSelectTopQuestion',
-  },
-  permissionSelectTopQuestionDescription: {
-    id: 'app.common.permissionSelectTopQuestionDescription',
-  },
-  permissionOfficialAnswer: {
-    id: 'app.common.permissionOfficialAnswer',
-  },
-  permissionOfficialAnswerDescription: {
-    id: 'app.common.permissionOfficialAnswerDescription',
-  },
   notificationCenter: {
     id: 'app.common.notificationCenter',
   },
