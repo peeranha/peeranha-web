@@ -154,26 +154,6 @@ exports[`<EditCommunity /> renders and matches the snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="Wrapper__StyledBox-rr64xs-0 gIQOlG"
-          id="app-EditCommunity-COMM-MAIN-DESCRIPTION-FIELD"
-        >
-          <h6
-            class="f1znse-0-Span-juOiwt bKHwNH"
-          >
-            Why we need it?
-          </h6>
-          <div>
-            <div>
-              <textarea
-                class="Textarea__TextareaStyled-sc-1abb0xy-0 jMIQar"
-                name="app/EditCommunity/COMM_MAIN_DESCRIPTION_FIELD"
-              >
-                Descriptive description
-              </textarea>
-            </div>
-          </div>
-        </div>
         <button
           class="Button-kDSBcD knCmMg"
           id="app/EditCommunity/EDIT_COMMUNITY_BUTTON"

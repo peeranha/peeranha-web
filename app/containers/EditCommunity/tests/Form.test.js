@@ -22,7 +22,6 @@ const communityData = {
   name: 'Name',
   description: 'Short description',
   officialSite: '',
-  main_description: 'Descriptive description',
 };
 
 const editCommunityDispatch = jest.fn();

@@ -11,8 +11,6 @@ export const COMM_AVATAR_FIELD = 'app/EditCommunity/COMM_AVATAR_FIELD';
 export const COMM_NAME_FIELD = 'app/EditCommunity/COMM_NAME_FIELD';
 export const COMM_SHORT_DESCRIPTION_FIELD =
   'app/EditCommunity/COMM_SHORT_DESCRIPTION_FIELD';
-export const COMM_MAIN_DESCRIPTION_FIELD =
-  'app/EditCommunity/COMM_MAIN_DESCRIPTION_FIELD';
 export const COMM_OFFICIAL_SITE_FIELD =
   'app/EditCommunity/COMM_OFFICIAL_SITE_URL';
 

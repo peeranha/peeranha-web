@@ -62,4 +62,4 @@ export const communityAdminInfiniteImpactPermission = (
   ]).filter(({ community }) => communityId === community).length;
 
 export const communityModeratorCreatePermission = properties =>
-  findAllPropertiesByKeys(properties, [MODERATOR_CREATE_COMMUNITY]);
+  !!findAllPropertiesByKeys(properties, [MODERATOR_CREATE_COMMUNITY]).length;

@@ -49,14 +49,9 @@ jest.mock('../selectors', () => ({
   selectGetCommunityLoading: jest.fn(() => () => false),
 }));
 
-const communityId = 1;
-
-const getCommunityDispatch = jest.fn();
-
 const props = {
-  getCommunityDispatch,
   match: {
-    params: { communityId },
+    params: { communityId: 1 },
   },
 };
 
