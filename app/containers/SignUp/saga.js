@@ -19,7 +19,9 @@ import {
   followCommunity,
 } from 'utils/communityManagement';
 
-import loginMessages from 'containers/Login/messages';
+import loginMessages, {
+  getAccountNotSelectedMessageDescriptor,
+} from 'containers/Login/messages';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { successHandling } from 'containers/Toast/saga';
@@ -31,8 +33,6 @@ import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
-  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
-  USER_IS_NOT_SELECTED,
   REFERRAL_CODE,
 } from 'containers/Login/constants';
 
@@ -370,17 +370,13 @@ export function* showScatterSignUpFormWorker() {
     }
 
     if (!eosService.selectedAccount) {
-      if (eosService.isScatterExtension) {
-        throw new WebIntegrationError(
-          translations[
-            loginMessages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED].id
-          ],
-        );
-      } else {
-        throw new WebIntegrationError(
-          translations[loginMessages[USER_IS_NOT_SELECTED].id],
-        );
-      }
+      throw new WebIntegrationError(
+        translations[
+          getAccountNotSelectedMessageDescriptor(
+            eosService.isScatterExtension,
+          ).id
+        ],
+      );
     }
 
     const profileInfo = yield call(
