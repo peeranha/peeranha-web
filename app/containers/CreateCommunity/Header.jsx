@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
@@ -14,13 +15,11 @@ import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 
-import messages from './messages';
-
-export const Header = () => (
+export const Header = ({ headerDescriptor }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
-      <MediumImageStyled src={createCommunityHeader} alt="create-community" />
-      <FormattedMessage {...messages.newCommunity} />
+      <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
+      <FormattedMessage {...headerDescriptor} />
     </H3>
 
     <WrapperRightPanel className="right-panel">
@@ -35,5 +34,9 @@ export const Header = () => (
     </WrapperRightPanel>
   </Wrapper>
 );
+
+Header.propTypes = {
+  headerDescriptor: PropTypes.object.isRequired,
+};
 
 export default React.memo(Header);

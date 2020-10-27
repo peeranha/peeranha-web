@@ -172,42 +172,44 @@ const Achievements = ({
               />
             ))}
           </AchievementsWrapper>
-          <UniqueAchievementsWrapper>
-            <UniqueAchievementsTitle>
-              <FormattedMessage {...commonMessage.uniqueAchievements} />
-            </UniqueAchievementsTitle>
+          {(uniqueReachedAchievements.length > 0 ||
+            uniqueUnreachedAchievements.lenght > 0) && (
+            <UniqueAchievementsWrapper>
+              <UniqueAchievementsTitle>
+                <FormattedMessage {...commonMessage.uniqueAchievements} />
+              </UniqueAchievementsTitle>
 
-            <UniqueAchievementsBlock>
-              {uniqueReachedAchievements.map(el => (
-                <UniqueAchievement
-                  key={el.title}
-                  id={el.id}
-                  reached={el.reached}
-                  title={translations[messages[el.title].title.id]}
-                  description={translations[messages[el.title].description.id]}
-                />
-              ))}
-              {uniqueUnreachedAchievements.map(
-                el =>
-                  el.limit > el.totalAwarded ? (
-                    <UniqueAchievement
-                      key={el.title}
-                      id={el.id}
-                      reached={el.reached}
-                      limit={el.limit}
-                      next={el.next}
-                      totalAwarded={el.totalAwarded}
-                      title={translations[messages[el.title].title.id]}
-                      description={
-                        translations[messages[el.title].description.id]
-                      }
-                      value={el.value}
-                      locale={locale}
-                    />
-                  ) : null,
-              )}
-            </UniqueAchievementsBlock>
-          </UniqueAchievementsWrapper>
+              <UniqueAchievementsBlock>
+                {uniqueReachedAchievements.map(el => (
+                  <UniqueAchievement
+                    key={el.title}
+                    id={el.id}
+                    reached={el.reached}
+                    title={translations[messages[el.title].title.id]}
+                    description={
+                      translations[messages[el.title].description.id]
+                    }
+                  />
+                ))}
+                {uniqueUnreachedAchievements.map(el => (
+                  <UniqueAchievement
+                    key={el.title}
+                    id={el.id}
+                    reached={el.reached}
+                    limit={el.limit}
+                    next={el.next}
+                    totalAwarded={el.totalAwarded}
+                    title={translations[messages[el.title].title.id]}
+                    description={
+                      translations[messages[el.title].description.id]
+                    }
+                    value={el.value}
+                    locale={locale}
+                  />
+                ))}
+              </UniqueAchievementsBlock>
+            </UniqueAchievementsWrapper>
+          )}
         </>
       )}
     </>

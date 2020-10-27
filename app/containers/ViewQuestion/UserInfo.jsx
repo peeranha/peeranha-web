@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -12,13 +13,11 @@ import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
-import MediumImage, {
-  MediumImageWrapper,
-  MediumImageLabel,
-  MediumImageLabelImage,
-} from 'components/Img/MediumImage';
+import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
+
 import Span from 'components/Span';
 import A from 'components/A';
+import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 import { COMMENT_TYPE } from './constants';
 
@@ -44,9 +43,7 @@ export const UserInfo = ({
           alt="avatar"
         />
         {isTemporaryAccount && (
-          <MediumImageLabel>
-            <MediumImageLabelImage src={telegram} alt="Telegram user" />
-          </MediumImageLabel>
+          <TelegramUserLabel id={`temporary-account-${account}-label`} locale={locale} />
         )}
       </MediumImageWrapper>
     )}

@@ -55,6 +55,7 @@ export const Communities = ({
   redirectToCreateCommunityDispatch,
   route,
   getSuggestedCommunitiesDispatch,
+  profile,
 }) => {
   const [language, setLanguage] = useState(languages.all);
 
@@ -78,12 +79,14 @@ export const Communities = ({
 
   return (
     <div className="d-xl-flex">
-      <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
-        language={locale}
-        keywords={keywords}
-      />
+      {process.env.ENV !== 'dev' && (
+        <Seo
+          title={translationMessages[locale][messages.title.id]}
+          description={translationMessages[locale][messages.description.id]}
+          language={locale}
+          keywords={keywords}
+        />
+      )}
 
       <div className="flex-xl-grow-1">
         <Header
@@ -105,6 +108,7 @@ export const Communities = ({
           sorting={sorting}
           locale={locale}
           language={language}
+          profile={profile}
         />
 
         {displayLoadingIndicator && <LoadingIndicator />}
@@ -141,6 +145,7 @@ Communities.propTypes = {
   communitiesLoading: PropTypes.bool,
   getSuggestedCommunitiesDispatch: PropTypes.func,
   redirectToCreateCommunityDispatch: PropTypes.func,
+  profile: PropTypes.object,
 };
 
 export default memo(

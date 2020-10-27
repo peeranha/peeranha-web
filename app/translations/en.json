@@ -137,6 +137,9 @@
   "app.common.skip": "Skip",
   "app.common.questionIsAnswered": "You have already answered this question",
 
+  "app.telegram.user": "Telegram user",
+  "app.telegram.userLabelPopover": "This is a temporary account provided by Telegram Bot",
+
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",
@@ -372,6 +375,12 @@
   "app.containers.CreateCommunity.goToList": "Go to list",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Max tags number was reached",
+
+  "app.containers.EditCommunity.communityTitleTip": "Name of the community",
+  "app.containers.EditCommunity.description": "Description of EditCommunity",
+  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.header": "Edit community",
+  "app.containers.EditCommunity.pageTitle": "Community | Edit",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",

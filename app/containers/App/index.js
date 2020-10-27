@@ -33,6 +33,7 @@ import Wrapper from 'containers/AppWrapper';
 
 import saga from './saga';
 import {
+  EditCommunity,
   HomePage,
   Faq,
   Tutorial,
@@ -164,6 +165,13 @@ const App = ({
           <Route
             path={routes.communitiesCreate()}
             render={props => Wrapper(CreateCommunity, props)}
+          />
+        )}
+
+        {!single && (
+          <Route
+            path={routes.communitiesEdit(':communityId')}
+            render={props => Wrapper(EditCommunity, props)}
           />
         )}
 

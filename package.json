@@ -154,12 +154,13 @@
     "moduleNameMapper": {
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
       ".*\\.svg.*$": "<rootDir>/internals/mocks/image.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|ico)$": "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "setupFiles": [
       "raf/polyfill",
-      "<rootDir>/internals/testing/enzyme-setup.js"
+      "<rootDir>/internals/testing/enzyme-setup.js",
+      "<rootDir>/internals/testing/environment-variables.js"
     ],
     "testRegex": "tests/.*\\.test\\.js$",
     "snapshotSerializers": [
@@ -245,6 +246,7 @@
     "@babel/preset-env": "7.4.3",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.4.0",
+    "@testing-library/react": "^11.1.0",
     "add-asset-html-webpack-plugin": "3.1.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",

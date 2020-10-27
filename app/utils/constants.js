@@ -120,6 +120,7 @@ export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
 export const UNFOLLOW_COMM = 'unfollowcomm';
 export const FOLLOW_COMM = 'followcomm';
 export const CREATE_COMMUNITY = 'crcommunity';
+export const EDIT_COMMUNITY = 'editcomm';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';

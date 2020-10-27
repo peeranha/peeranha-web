@@ -134,6 +134,9 @@
   "app.common.skip": "Пропустить",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
 
+  "app.telegram.user": "Телеграм пользователь",
+  "app.telegram.userLabelPopover": "Это временная учетная запись, предоставленная Telegram Bot.",
+
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
     "Условия обслуживания : описание",
@@ -381,6 +384,12 @@
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Максимальное число тегов было достигнуто",
+
+  "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
+  "app.containers.EditCommunity.description": "Описание EditCommunity",
+  "app.containers.EditCommunity.editCommunity": "Редактировать сообщество",
+  "app.containers.EditCommunity.header": "Редактировать сообщество",
+  "app.containers.EditCommunity.pageTitle": "Сообщество | Редактировать",
 
   "app.containers.HomePage.title":
     "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
