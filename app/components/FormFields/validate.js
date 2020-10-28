@@ -74,8 +74,10 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
-const tagNameHasNotExist = tagList => value =>
-  tagList.includes(value) ? messages.tagNameAlreadyExists : undefined;
+const tagNameHasNotExist = suggestedTags => value =>
+  suggestedTags.map(tag => tag.name).includes(value)
+    ? messages.tagNameAlreadySuggested
+    : undefined;
 
 const valueHasNotBeInList = (...args) => {
   const value = args[0];

@@ -31,8 +31,8 @@ export default defineMessages({
   wrongBase58Format: {
     id: 'app.components.FormFields.wrongBase58Format',
   },
-  tagNameAlreadyExists: {
-    id: 'app.components.FormFields.tagNameAlreadyExists',
+  tagNameAlreadySuggested: {
+    id: 'app.components.FormFields.tagNameAlreadySuggested',
   },
   itemAlreadyExists: {
     id: 'app.components.FormFields.itemAlreadyExists',

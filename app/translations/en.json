@@ -608,8 +608,8 @@
     "Use valid URL format http(s)://example.com",
   "app.components.FormFields.wrongBase58Format":
     "Wrong data format. Recheck your inputs.",
-  "app.components.FormFields.tagNameAlreadyExists":
-    "Tag with that name exists already ",
+  "app.components.FormFields.tagNameAlreadySuggested":
+    "Tag with that name suggested already ",
   "app.components.FormFields.itemAlreadyExists":
     "Item with that name exists already ",
   "app.components.FormFields.valueIsMore":

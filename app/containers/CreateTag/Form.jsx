@@ -39,55 +39,64 @@ export const Form = ({
   handleSubmit,
   translations,
   communities,
-  tagList,
-}) => (
-  <FormBox onSubmit={handleSubmit(createTag)}>
-    <Field
-      className={isSingleCommunityWebsite() ? 'd-none' : ''}
-      name={FORM_COMMUNITY}
-      component={CommunityField}
-      disabled={createTagLoading}
-      label={translations[messages.community.id]}
-      tip={translations[messages.communityTip.id]}
-      options={communities}
-      validate={[requiredForObjectField]}
-      warn={[requiredForObjectField]}
-      splitInHalf
-    />
+  suggestedTags,
+  getSuggestedTagsDispatch,
+}) => {
+  const onChange = value => {
+    if (value) {
+      getSuggestedTagsDispatch({ communityId: value.id })
+    }
+  };
 
-    <Field
-      disabled={createTagLoading}
-      name={NAME_FIELD}
-      component={TextInputField}
-      label={translations[messages.name.id]}
-      tip={translations[messages.nameTip.id]}
-      validate={[
-        strLength2x15,
-        required,
-        valueHasNotBeInList,
-        tagNameHasNotExist(tagList),
-      ]}
-      warn={[strLength2x15, required, valueHasNotBeInList]}
-      splitInHalf
-    />
+  return (
+    <FormBox onSubmit={handleSubmit(createTag)}>
+      <Field
+        className={isSingleCommunityWebsite() ? 'd-none' : ''}
+        name={FORM_COMMUNITY}
+        component={CommunityField}
+        disabled={createTagLoading}
+        label={translations[messages.community.id]}
+        tip={translations[messages.communityTip.id]}
+        options={communities}
+        validate={[requiredForObjectField]}
+        warn={[requiredForObjectField]}
+        splitInHalf
+        onChange={onChange}
+      />
 
-    <Field
-      disabled={createTagLoading}
-      name={DESCRIPTION_FIELD}
-      component={TextareaField}
-      label={translations[messages.descriptionField.id]}
-      tip={translations[messages.descriptionFieldTip.id]}
-      validate={[strLength20x1000, required]}
-      warn={[strLength20x1000, required]}
-      splitInHalf
-    />
+      <Field
+        disabled={createTagLoading}
+        name={NAME_FIELD}
+        component={TextInputField}
+        label={translations[messages.name.id]}
+        tip={translations[messages.nameTip.id]}
+        validate={[
+          strLength2x15,
+          required,
+          valueHasNotBeInList,
+          tagNameHasNotExist(suggestedTags),
+        ]}
+        warn={[strLength2x15, required, valueHasNotBeInList]}
+        splitInHalf
+      />
 
-    <Button type="submit" disabled={createTagLoading}>
-      {translations[messages.createTag.id]}
-    </Button>
-  </FormBox>
-);
+      <Field
+        disabled={createTagLoading}
+        name={DESCRIPTION_FIELD}
+        component={TextareaField}
+        label={translations[messages.descriptionField.id]}
+        tip={translations[messages.descriptionFieldTip.id]}
+        validate={[strLength20x1000, required]}
+        warn={[strLength20x1000, required]}
+        splitInHalf
+      />
 
+      <Button type="submit" disabled={createTagLoading}>
+        {translations[messages.createTag.id]}
+      </Button>
+    </FormBox>
+  );
+};
 Form.propTypes = {
   createTagLoading: PropTypes.bool,
   createTag: PropTypes.func,
