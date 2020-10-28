@@ -1,7 +1,14 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { selectUserRatingDCP } from 'containers/DataCacheProvider/selectors';
+import {
+  selectUserRatingDCP,
+  selectQuestionsAskedValue,
+  selectAnswersGivenValue,
+  selectAnswersBestValue,
+  selectFirstAnswersValue,
+  selectFirstIn15AnswersValue,
+} from 'containers/DataCacheProvider/selectors';
 
 import {
   USER_ACHIEVEMENTS_TABLE,
@@ -13,10 +20,24 @@ import {
   GET_USER_ACHIEVEMENTS,
   uniqueAchievementsArr,
   achievementsArr,
+  questionsAskedArr,
+  answerGivenArr,
+  bestAnswerArr,
+  firstAnswerArr,
+  firstIn15Arr,
+  ratingRelated,
+  uniqueRatingRelated,
+  questionAskedRelated,
+  answerGivenRelated,
+  bestAnswerRelated,
+  firstAnswerIn15Related,
+  firstAnswerRelated,
 } from './constants';
 
 import {
   getUserAchievementsSuccess,
+  setNextUserAchievements,
+  setUserProgressValues,
   getUserAchievementsErr,
   setUserAchievementLoading,
 } from './actions';
@@ -28,27 +49,24 @@ async function getAchievements(eosService, tableTitle, scope) {
   return rows;
 }
 
-export const getNextAchievement = userRating => {
-  const currentAchievement = achievementsArr.find(
-    el => userRating >= el.minRating && userRating < el.maxRating,
-  );
+export const getNextAchievementId = (currentValue, possibleAchievements) => {
+  // find the minimum lower value of the achievement group
+  let valuesStartFrom = possibleAchievements[0].lowerValue;
+  possibleAchievements.forEach(el => {
+    if (el.lowerValue < valuesStartFrom) valuesStartFrom = el.lowerValue;
+  });
 
-  const nextAchievement = {
-    id: currentAchievement.nextId,
-    userRating,
-    minRating:
-      currentAchievement.maxRating !== Infinity
-        ? currentAchievement.maxRating + 1
-        : null,
-    pointsToNext:
-      currentAchievement.maxRating !== Infinity
-        ? currentAchievement.maxRating + 1 - userRating
-        : null,
-  };
-  return nextAchievement;
+  const currentAchievement =
+    currentValue < valuesStartFrom
+      ? possibleAchievements.find(el.lowerValue === valuesStartFrom)
+      : possibleAchievements.find(
+          el => currentValue >= el.lowerValue && currentValue < el.upperValue,
+        );
+
+  return currentAchievement.nextId;
 };
 
-export const getNextUniqueAchievement = (
+export const getNextUniqueAchievementId = (
   userRating,
   projectAchievements = [],
 ) => {
@@ -87,15 +105,8 @@ export const getNextUniqueAchievement = (
   // there is no availiable unique achievements
   if (!nextUniqueAchievement) return null;
 
-  // return next unique achievement
-  const { id, minRating } = nextUniqueAchievement;
-  const pointsToNext = nextUniqueAchievement.minRating - userRating;
-  return {
-    id,
-    userRating,
-    minRating,
-    pointsToNext,
-  };
+  // return next unique achievement id
+  return nextUniqueAchievement.id;
 };
 
 export function* getUserAchievementsWorker() {
@@ -106,7 +117,49 @@ export function* getUserAchievementsWorker() {
       yield put(setUserAchievementLoading(true));
 
       const eosService = yield select(selectEos);
+
       const userRating = yield select(selectUserRatingDCP(viewProfileAccount));
+      const questionsAskedValue = yield select(
+        selectQuestionsAskedValue(viewProfileAccount),
+      );
+      const answersGivenValue = yield select(
+        selectAnswersGivenValue(viewProfileAccount),
+      );
+      const answersBestValue = yield select(
+        selectAnswersBestValue(viewProfileAccount),
+      );
+      const firstAnwersValue = yield select(
+        selectFirstAnswersValue(viewProfileAccount),
+      );
+      const firstIn15AnwersValue = yield select(
+        selectFirstIn15AnswersValue(viewProfileAccount),
+      );
+
+      const nextUniqueRatingAch = getNextUniqueAchievementId(
+        userRating,
+        projectAchievements,
+      );
+      const nextRatingAchId = getNextAchievementId(userRating, achievementsArr);
+      const nextQuestionAskedAchId = getNextAchievementId(
+        questionsAskedValue,
+        questionsAskedArr,
+      );
+      const nextAnswerGivenAchId = getNextAchievementId(
+        answersGivenValue,
+        answerGivenArr,
+      );
+      const nextAnswerBestAchId = getNextAchievementId(
+        answersBestValue,
+        bestAnswerArr,
+      );
+      const nextAnswerFirstAchId = getNextAchievementId(
+        firstAnwersValue,
+        firstAnswerArr,
+      );
+      const nextAnswerFirstIn15AchId = getNextAchievementId(
+        firstIn15AnwersValue,
+        firstIn15Arr,
+      );
 
       const userAchievements = yield call(
         getAchievements,
@@ -122,20 +175,34 @@ export function* getUserAchievementsWorker() {
         ALL_ACHIEVEMENTS_SCOPE,
       );
 
-      const nextAchievement = getNextAchievement(userRating);
-      const nextUniqueAchievement = getNextUniqueAchievement(
-        userRating,
-        projectAchievements,
+      yield put(
+        getUserAchievementsSuccess(userAchievements, projectAchievements),
       );
 
       yield put(
-        getUserAchievementsSuccess(
-          userAchievements,
-          projectAchievements,
-          nextAchievement,
-          nextUniqueAchievement,
-        ),
+        setNextUserAchievements({
+          [`${ratingRelated}`]: nextRatingAchId,
+          [`${uniqueRatingRelated}`]: nextUniqueRatingAch,
+          [`${questionAskedRelated}`]: nextQuestionAskedAchId,
+          [`${answerGivenRelated}`]: nextAnswerGivenAchId,
+          [`${bestAnswerRelated}`]: nextAnswerBestAchId,
+          [`${firstAnswerRelated}`]: nextAnswerFirstAchId,
+          [`${firstAnswerIn15Related}`]: nextAnswerFirstIn15AchId,
+        }),
       );
+
+      yield put(
+        setUserProgressValues({
+          [`${ratingRelated}`]: userRating,
+          [`${questionAskedRelated}`]: questionsAskedValue,
+          [`${answerGivenRelated}`]: answersGivenValue,
+          [`${bestAnswerRelated}`]: answersBestValue,
+          [`${firstAnswerIn15Related}`]: firstAnwersValue,
+          [`${firstAnswerRelated}`]: firstIn15AnwersValue,
+        }),
+      );
+
+      yield put(setUserAchievementLoading(false));
     }
   } catch (err) {
     yield put(getUserAchievementsErr(err));

@@ -24,8 +24,6 @@ import {
   selectUserAchievements,
   selectReachedAchievements,
   selectUnreachedAchievements,
-  selectReachedLevelAchievements,
-  selectUnreachedLevelAchievements,
   selectUniqueReachedAchievements,
   selectUniqueUnreachedAchievements,
   selectAchievementsLoading,
@@ -40,7 +38,6 @@ import saga from './saga';
 import messages from './messages';
 
 import Achievement from './Achievement';
-import LevelAchievement from './LevelAchievement';
 import UniqueAchievement from './UniqueAchievement';
 
 const AchievementsBlockStyles = css`
@@ -82,8 +79,6 @@ const Achievements = ({
   userId,
   reachedAchievements,
   unreachedAchievements,
-  reachedLevelAchievements,
-  unreachedLevelAchievements,
   uniqueReachedAchievements,
   uniqueUnreachedAchievements,
   getUserAchievementsDispatch,
@@ -99,9 +94,7 @@ const Achievements = ({
     [userId],
   );
 
-  useEffect(() => {
-    return () => resetUserAchievementsDispatch();
-  }, []);
+  useEffect(() => () => resetUserAchievementsDispatch(), []);
 
   const translations = translationMessages[locale]
     ? translationMessages[locale]
@@ -119,42 +112,12 @@ const Achievements = ({
       {!achievementsLoading && (
         <>
           <AchievementsWrapper>
-            {reachedLevelAchievements.map(el => (
-              <LevelAchievement
-                key={el.title}
-                id={el.id}
-                reached={el.reached}
-                bronzeTitle={translations[messages[el.title].bronzeTitle.id]}
-                bronzeDescription={
-                  translations[messages[el.title].bronzeDescription.id]
-                }
-                silverTitle={translations[messages[el.title].silverTitle.id]}
-                silverDescription={
-                  translations[messages[el.title].silverDescription.id]
-                }
-                goldTitle={translations[messages[el.title].goldTitle.id]}
-                goldDescription={
-                  translations[messages[el.title].goldDescription.id]
-                }
-                value={el.value}
-                levels={el.levels}
-              />
-            ))}
             {reachedAchievements.map(el => (
               <Achievement
                 key={el.title}
                 id={el.id}
                 reached={el.reached}
-                title={translations[messages[el.title].title.id]}
-                description={translations[messages[el.title].description.id]}
-              />
-            ))}
-            {unreachedLevelAchievements.map(el => (
-              <Achievement
-                key={el.title}
-                id={el.id}
-                reached={el.reached}
-                next={el.next}
+                level={el.level}
                 title={translations[messages[el.title].title.id]}
                 description={translations[messages[el.title].description.id]}
               />
@@ -162,18 +125,15 @@ const Achievements = ({
             {unreachedAchievements.map(el => (
               <Achievement
                 key={el.title}
-                id={el.id}
-                reached={el.reached}
-                next={el.next}
+                {...el}
                 title={translations[messages[el.title].title.id]}
                 description={translations[messages[el.title].description.id]}
-                value={el.value}
                 locale={locale}
               />
             ))}
           </AchievementsWrapper>
           {(uniqueReachedAchievements.length > 0 ||
-            uniqueUnreachedAchievements.lenght > 0) && (
+            uniqueUnreachedAchievements.length > 0) && (
             <UniqueAchievementsWrapper>
               <UniqueAchievementsTitle>
                 <FormattedMessage {...commonMessage.uniqueAchievements} />
@@ -194,16 +154,11 @@ const Achievements = ({
                 {uniqueUnreachedAchievements.map(el => (
                   <UniqueAchievement
                     key={el.title}
-                    id={el.id}
-                    reached={el.reached}
-                    limit={el.limit}
-                    next={el.next}
-                    totalAwarded={el.totalAwarded}
+                    {...el}
                     title={translations[messages[el.title].title.id]}
                     description={
                       translations[messages[el.title].description.id]
                     }
-                    value={el.value}
                     locale={locale}
                   />
                 ))}
@@ -221,8 +176,6 @@ Achievements.propTypes = {
   userId: PropTypes.string,
   reachedAchievements: PropTypes.array,
   unreachedAchievements: PropTypes.array,
-  reachedLevelAchievements: PropTypes.array,
-  unreachedLevelAchievements: PropTypes.array,
   uniqueReachedAchievements: PropTypes.array,
   uniqueUnreachedAchievements: PropTypes.array,
   getUserAchievementsDispatch: PropTypes.func,
@@ -234,8 +187,6 @@ const mapStateToProps = createStructuredSelector({
   userAchievements: selectUserAchievements(),
   reachedAchievements: selectReachedAchievements(),
   unreachedAchievements: selectUnreachedAchievements(),
-  reachedLevelAchievements: selectReachedLevelAchievements(),
-  unreachedLevelAchievements: selectUnreachedLevelAchievements(),
   uniqueReachedAchievements: selectUniqueReachedAchievements(),
   uniqueUnreachedAchievements: selectUniqueUnreachedAchievements(),
   achievementsLoading: selectAchievementsLoading(),

@@ -871,9 +871,6 @@
   "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
-  "app.containers.Achievements.progressBarMessages.nextByRating":
-    "пунктов рейтинга осталось до следующего досижения",
-
   "app.containers.Achievements.questionAsked.bronze.title": "Броза - Ученик",
   "app.containers.Achievements.questionAsked.bronze.description":
     "Задайте 10 вопросов",
@@ -975,6 +972,22 @@
   "app.containers.Achievements.kingOfTheHill.title": "Царь горы",
   "app.containers.Achievements.kingOfTheHill.description":
     "Будьте одним и 10 первых пользователей, получивших статус \"Супергерой\"..",
+
+  "app.containers.Achievements.progressBarMessages.nextByRating":
+    "пунктов рейтинга осталось до следующего досижения",
+
+  "app.containers.Achievements.progressBarPopover.ratingRelated":
+    "пунктов рейтинга осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
+    "вопросов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
+    "ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
+    "лучших ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
+    "первых за 15 минут ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
+    "первых ответов осталось до следующего досижения",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"

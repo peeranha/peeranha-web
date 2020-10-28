@@ -10,6 +10,8 @@ import {
   GET_USER_ACHIEVEMENTS,
   RESET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_SUCCESS,
+  SET_NEXT_USER_ACHIEVEMENTS,
+  SET_USER_PROGRESS_VALUES,
   GET_USER_ACHIEVEMENTS_ERROR,
   SET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
@@ -20,6 +22,8 @@ export const initialState = fromJS({
   achievements: [],
   userAchievementsError: null,
   userAchievementsLoading: false,
+  nextUserAchievements: {},
+  userProgressValues: {},
 });
 
 function achievementsReducer(state = initialState, action) {
@@ -28,8 +32,8 @@ function achievementsReducer(state = initialState, action) {
     error,
     userAchievements,
     projectAchievements,
-    nextAchievement,
-    nextUniqueAchievement,
+    nextUserAchievements,
+    userProgressValues,
     viewProfileAccount,
     loading,
   } = action;
@@ -46,11 +50,14 @@ function achievementsReducer(state = initialState, action) {
 
     case GET_USER_ACHIEVEMENTS_SUCCESS:
       return state
-        .set('userAchievementsLoading', false)
         .set('achievements', userAchievements)
-        .set('projectAchievements', projectAchievements)
-        .set('nextAchievement', nextAchievement)
-        .set('nextUniqueAchievement', nextUniqueAchievement);
+        .set('projectAchievements', projectAchievements);
+
+    case SET_NEXT_USER_ACHIEVEMENTS:
+      return state.set('nextUserAchievements', nextUserAchievements);
+
+    case SET_USER_PROGRESS_VALUES:
+      return state.set('userProgressValues', userProgressValues);
 
     case GET_USER_ACHIEVEMENTS_ERROR:
       return state

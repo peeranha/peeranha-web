@@ -7,9 +7,25 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  progressBar: {
-    nextByRating: {
-      id: 'app.containers.Achievements.progressBar.nextByRating',
+  progressBarPopover: {
+    ratingRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.ratingRelated',
+    },
+    questionAskedRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.questionAskedRelated',
+    },
+    answerGivenRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.answerGivenRelated',
+    },
+    bestAnswerRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.bestAnswerRelated',
+    },
+    firstAnswerIn15Related: {
+      id:
+        'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related',
+    },
+    firstAnswerRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.firstAnswerRelated',
     },
   },
 

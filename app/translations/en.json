@@ -868,9 +868,6 @@
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
-  "app.containers.Achievements.progressBar.nextByRating":
-    "rating points left until the next achievement",
-
   "app.containers.Achievements.questionAsked.bronze.title":
     "Bronze - The learner",
   "app.containers.Achievements.questionAsked.bronze.description":
@@ -972,6 +969,19 @@
   "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
   "app.containers.Achievements.kingOfTheHill.description":
     "Be the one of first 10 Users to achieve the \"Superhero\" status..",
+
+  "app.containers.Achievements.progressBarPopover.ratingRelated":
+    "rating points left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
+    "questions left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
+    "answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
+    "best answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
+    "first answers in 15 minutes left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
+    "first answers left until the next achievement",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink"

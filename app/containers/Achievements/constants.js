@@ -102,6 +102,7 @@ export const questionsAskedArr = [
     lowerValue: process.env.ENV === 'prod' ? 10 : 2,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
     nextId: 2,
+    level: 'bronze',
   },
   {
     id: 2,
@@ -109,6 +110,7 @@ export const questionsAskedArr = [
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: process.env.ENV === 'prod' ? 99 : 9,
     nextId: 3,
+    level: 'silver',
   },
   {
     id: 3,
@@ -116,6 +118,7 @@ export const questionsAskedArr = [
     lowerValue: process.env.ENV === 'prod' ? 100 : 10,
     upperValue: Infinity,
     nextId: null,
+    level: 'gold',
   },
 ];
 
@@ -126,6 +129,7 @@ export const answerGivenArr = [
     lowerValue: process.env.ENV === 'prod' ? 10 : 2,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
     nextId: 11,
+    level: 'bronze',
   },
   {
     id: 11,
@@ -133,6 +137,7 @@ export const answerGivenArr = [
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: process.env.ENV === 'prod' ? 99 : 9,
     nextId: 12,
+    level: 'silver',
   },
   {
     id: 12,
@@ -140,6 +145,7 @@ export const answerGivenArr = [
     lowerValue: process.env.ENV === 'prod' ? 100 : 10,
     upperValue: Infinity,
     nextId: null,
+    level: 'gold',
   },
 ];
 
@@ -150,6 +156,7 @@ export const bestAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
     nextId: 21,
+    level: 'bronze',
   },
   {
     id: 21,
@@ -157,6 +164,7 @@ export const bestAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
     nextId: 22,
+    level: 'silver',
   },
   {
     id: 22,
@@ -164,6 +172,7 @@ export const bestAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
     nextId: null,
+    level: 'gold',
   },
 ];
 
@@ -174,6 +183,7 @@ export const firstIn15Arr = [
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
     nextId: 51,
+    level: 'bronze',
   },
   {
     id: 51,
@@ -181,6 +191,7 @@ export const firstIn15Arr = [
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
     nextId: 52,
+    level: 'silver',
   },
   {
     id: 52,
@@ -188,6 +199,7 @@ export const firstIn15Arr = [
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
     nextId: null,
+    level: 'gold',
   },
 ];
 
@@ -198,6 +210,7 @@ export const firstAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
     nextId: 61,
+    level: 'bronze',
   },
   {
     id: 61,
@@ -205,6 +218,7 @@ export const firstAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
     nextId: 62,
+    level: 'silver',
   },
   {
     id: 62,
@@ -212,6 +226,7 @@ export const firstAnswerArr = [
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
     nextId: null,
+    level: 'gold',
   },
 ];
 
@@ -234,6 +249,10 @@ const GET_USER_ACHIEVEMENTS_ERROR =
   'containers/Achievements/GET_USER_ACHIEVEMENTS_ERROR';
 const GET_USER_ACHIEVEMENTS_SUCCESS =
   'containers/Achievements/GET_USER_ACHIEVEMENTS_SUCCESS';
+const SET_NEXT_USER_ACHIEVEMENTS =
+  'containers/Achievements/SET_NEXT_USER_ACHIEVEMENTS';
+const SET_USER_PROGRESS_VALUES =
+  'containers/Achievements/SET_USER_PROGRESS_VALUES';
 const SET_VIEW_PROFILE_ACCOUNT =
   'containers/Achievements/SET_VIEW_PROFILE_ACCOUNT';
 const USER_ACHIEVEMENTS_LOADING =
@@ -244,6 +263,8 @@ export {
   RESET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,
+  SET_NEXT_USER_ACHIEVEMENTS,
+  SET_USER_PROGRESS_VALUES,
   SET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
 };
