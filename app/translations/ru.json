@@ -874,102 +874,107 @@
   "app.containers.Achievements.progressBarMessages.nextByRating":
     "пунктов рейтинга осталось до следующего досижения",
 
-  "app.containers.Achievements.questionAsked.title": "Вопрос задан",
-  "app.containers.Achievements.questionAsked.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.questionAsked.bronzeTitle": "Броза - Ученик",
-  "app.containers.Achievements.questionAsked.bronzeDescription":
-    "Заданы 10 вопросов",
-  "app.containers.Achievements.questionAsked.silverTitle":
+  "app.containers.Achievements.questionAsked.bronze.title": "Броза - Ученик",
+  "app.containers.Achievements.questionAsked.bronze.description":
+    "Задайте 10 вопросов",
+  "app.containers.Achievements.questionAsked.silver.title":
     "Серебро - Копаю глубже",
-  "app.containers.Achievements.questionAsked.silverDescription":
-    "Заданы 50 вопросов",
-  "app.containers.Achievements.questionAsked.goldTitle":
+  "app.containers.Achievements.questionAsked.silver.description":
+    "Задайет 50 вопросов",
+  "app.containers.Achievements.questionAsked.gold.title":
     "Золото - Хочу знать всё!",
-  "app.containers.Achievements.questionAsked.goldDescription":
-    "Заданы 100 вопросов",
+  "app.containers.Achievements.questionAsked.gold.description":
+    "Задайте 100 вопросов",
 
-  "app.containers.Achievements.answerGiven.title": "Ответ дан",
-  "app.containers.Achievements.answerGiven.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.answerGiven.bronzeTitle": "Бронза - Эксперт",
-  "app.containers.Achievements.answerGiven.bronzeDescription":
-    "Даны 20 ответов",
-  "app.containers.Achievements.answerGiven.silverTitle": "Серебро - Мастер",
-  "app.containers.Achievements.answerGiven.silverDescription":
-    "Даны 100 ответов",
-  "app.containers.Achievements.answerGiven.goldTitle": "Золото - Гуру",
-  "app.containers.Achievements.answerGiven.goldDescription": "Даны 200 ответов",
+  "app.containers.Achievements.answerGiven.bronze.title": "Бронза - Эксперт",
+  "app.containers.Achievements.answerGiven.bronze.description":
+    "Ответьте на 20 вопросов",
+  "app.containers.Achievements.answerGiven.silver.title": "Серебро - Мастер",
+  "app.containers.Achievements.answerGiven.silver.description":
+    "Ответьте на 100 вопросов",
+  "app.containers.Achievements.answerGiven.gold.title": "Золото - Гуру",
+  "app.containers.Achievements.answerGiven.gold.description":
+    "Ответьте на 200 вопросов",
 
-  "app.containers.Achievements.correctAnswer.title": "Правильный ответ",
-  "app.containers.Achievements.correctAnswer.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.correctAnswer.bronzeTitle":
+  "app.containers.Achievements.bestAnswer.bronze.title":
     "Бронза - Настоящий профессионал",
-  "app.containers.Achievements.correctAnswer.bronzeDescription":
-    "Получены 5 отметок \"Лучший ответ\"",
-  "app.containers.Achievements.correctAnswer.silverTitle": "Серебро - Эрудит",
-  "app.containers.Achievements.correctAnswer.silverDescription":
-    "Получены 25 отметок \"Лучший ответ\"",
-  "app.containers.Achievements.correctAnswer.goldTitle":
+  "app.containers.Achievements.bestAnswer.bronze.description":
+    "Получите 5 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.silver.title": "Серебро - Эрудит",
+  "app.containers.Achievements.bestAnswer.silver.description":
+    "Получите 25 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.gold.title":
     "Золото - Искусственный интеллект",
-  "app.containers.Achievements.correctAnswer.goldDescription":
-    "Получены 50 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.gold.description":
+    "Получите 50 отметок \"Лучший ответ\"",
 
-  "app.containers.Achievements.first10kregistered.title": "Основатель",
-  "app.containers.Achievements.first10kregistered.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.stanger.title": "Почётный Незнакомец",
-  "app.containers.Achievements.stanger.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.newbie.title": "Почётный Новичок",
+  "app.containers.Achievements.firstIn15.bronze.title":
+    "Бронза - Самая быстрая рука на диком западе",
+  "app.containers.Achievements.firstIn15.bronze.description":
+    "Ответьте первым на 5 вопросов в течение первых 15 минут",
+  "app.containers.Achievements.firstIn15.silver.title":
+    "Серебро - В пол педаль",
+  "app.containers.Achievements.firstIn15.silver.description":
+    "Ответьте первым на 10 вопросов в течение первых 15 минут",
+  "app.containers.Achievements.firstIn15.gold.title": "Золото - Молния",
+  "app.containers.Achievements.firstIn15.gold.description":
+    "Ответьте первым на 20 вопросов в течение первых 15 минут",
+
+  "app.containers.Achievements.firstAnswer.bronze.title":
+    "Бронза - Быстрая помощь",
+  "app.containers.Achievements.firstAnswer.bronze.description":
+    "Ответьте первым на 10 различных вопросов",
+  "app.containers.Achievements.firstAnswer.silver.title":
+    "Серебро - Я здесь первый!",
+  "app.containers.Achievements.firstAnswer.silver.description":
+    "Ответьте первым на 25 различных вопросов",
+  "app.containers.Achievements.firstAnswer.gold.title":
+    "Gold - Абсолютный чемпион",
+  "app.containers.Achievements.firstAnswer.gold.description":
+    "Ответьте первым на 50 различных вопросов",
+
+  "app.containers.Achievements.welcomeStranger.title": "Здравствуй, Незнакомец",
+  "app.containers.Achievements.welcomeStranger.description":
+    "Успешно зарегистрирован на Пиранье",
+  "app.containers.Achievements.newbie.title": "Начало великого путешествия",
   "app.containers.Achievements.newbie.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.junior.title": "Почётный Начинающий",
+    "Получите статус \"Новичок\"",
+  "app.containers.Achievements.junior.title": "Не называйте меня младшим",
   "app.containers.Achievements.junior.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.resident.title": "Почётный Постоялец",
+    "Получите статус \"Начинающий\"",
+  "app.containers.Achievements.resident.title": "Пиранья - мой дом",
   "app.containers.Achievements.resident.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.senior.title": "Почётный Опытный",
+    "Получите статус \"Постоялец\"",
+  "app.containers.Achievements.senior.title": "Я научу вас чему угодно",
   "app.containers.Achievements.senior.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.hero.title": "Почётный Герой",
-  "app.containers.Achievements.hero.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.superhero.title": "Почётный Супергерой",
+    "Получите статус \"Мастер\"",
+  "app.containers.Achievements.hero.title": "Сайту нужен герой",
+  "app.containers.Achievements.hero.description": "Получите статус \"Герой\"",
+  "app.containers.Achievements.superhero.title": "Живая легенда",
   "app.containers.Achievements.superhero.description":
-    "Поздравляем! Это отличное достижение!",
+    "Получите статус \"Супергерой\"",
 
-  "app.containers.Achievements.answer15minutes.title": "Ответ за 15 минут",
-  "app.containers.Achievements.answer15minutes.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.answer15minutes.bronzeTitle":
-    "Bronze - Fastest hand in the West",
-  "app.containers.Achievements.answer15minutes.bronzeDescription":
-    "Даны 5 ответов в течение 15 минут",
-  "app.containers.Achievements.answer15minutes.silverTitle":
-    "Silver - Pedal to the metal",
-  "app.containers.Achievements.answer15minutes.silverDescription":
-    "Даны 10 ответов в течение 15 минут",
-  "app.containers.Achievements.answer15minutes.goldTitle": "Gold - Lightning",
-  "app.containers.Achievements.answer15minutes.goldDescription":
-    "Даны 20 ответов в течение 15 минут",
-
-  "app.containers.Achievements.firstAnswer.title": "Первый ответ",
-  "app.containers.Achievements.firstAnswer.description":
-    "Поздравляем! Это отличное достижение!",
-  "app.containers.Achievements.firstAnswer.bronzeTitle": "Bronze - Quick help",
-  "app.containers.Achievements.firstAnswer.bronzeDescription":
-    "Be the first one, who posts an answer for 10 different questions",
-  "app.containers.Achievements.firstAnswer.silverTitle":
-    "Silver - I was here first!",
-  "app.containers.Achievements.firstAnswer.silverDescription":
-    "Be the first one, who posts an answer for 25 different questions",
-  "app.containers.Achievements.firstAnswer.goldTitle":
-    "Gold - Undisputed champion",
-  "app.containers.Achievements.firstAnswer.goldDescription":
-    "Be the first one, who posts an answer for 50 different questions",
+  "app.containers.Achievements.foundingMember.title": "Основатель",
+  "app.containers.Achievements.foundingMember.description":
+    "Будьте одним и 10000 первых пользователей, зарегистрировавшихся на Пиранье",
+  "app.containers.Achievements.activist.title": "Активист",
+  "app.containers.Achievements.activist.description":
+    "Будьте одним и 700 первых пользователей, получивших статус \"Новичок\"",
+  "app.containers.Achievements.researcher.title": "Исследователь",
+  "app.containers.Achievements.researcher.description":
+    "Будьте одним и 500 первых пользователей, получивших статус \"Начинающий\"",
+  "app.containers.Achievements.honorableResident.title": "Почётный Постоялец",
+  "app.containers.Achievements.honorableResident.description":
+    "Будьте одним и 300 первых пользователей, получивших статус \"Постоялец\"",
+  "app.containers.Achievements.theWisest.title": "Самый мудрый",
+  "app.containers.Achievements.theWisest.description":
+    "Будьте одним и 150 первых пользователей, получивших статус \"Мастер\"",
+  "app.containers.Achievements.modernHero.title": "Современный герой",
+  "app.containers.Achievements.modernHero.description":
+    "Будьте одним и 50 первых пользователей, получивших статус \"Герой\"",
+  "app.containers.Achievements.kingOfTheHill.title": "Царь горы",
+  "app.containers.Achievements.kingOfTheHill.description":
+    "Будьте одним и 10 первых пользователей, получивших статус \"Супергерой\"..",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
