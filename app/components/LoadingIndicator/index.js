@@ -1,13 +1,13 @@
 import React from 'react';
 import Circle from './Circle';
 
-const LoadingIndicator = () => (
+const LoadingIndicator = props => (
   <div className="d-flex">
-    <Circle number={1} />
-    <Circle number={2} />
-    <Circle number={3} />
-    <Circle number={4} />
-    <Circle number={5} />
+    <Circle number={1} {...props} />
+    <Circle number={2} {...props} />
+    <Circle number={3} {...props} />
+    <Circle number={4} {...props} />
+    <Circle number={5} {...props} />
   </div>
 );
 

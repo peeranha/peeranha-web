@@ -6,7 +6,10 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
-import { MONTH_3LETTERS__DAY_YYYY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import {
+  MONTH_3LETTERS__DAY_YYYY,
+  TEMPORARY_ACCOUNT_KEY,
+} from 'utils/constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -22,8 +25,14 @@ import AchievementsStatus from 'components/AchievementsStatus/index';
 
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
+
+const InlineLoader = styled(LoadingIndicator)`
+  margin: auto;
+  margin-top: 5px;
+`;
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -115,7 +124,9 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
 }) => {
-  const isTemporaryAccount = !!profile?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value);
+  const isTemporaryAccount = !!profile?.['integer_properties'].find(
+    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  );
 
   return (
     <Box position="middle">
@@ -173,10 +184,14 @@ const MainUserInformation = ({
 
               <li>
                 <FormattedMessage {...messages.achievements} />
-                <AchievementsStatus
-                  count={profile.achievements_reached}
-                  size="lg"
-                />
+                {profile.achievements_reached ? (
+                  <AchievementsStatus
+                    count={profile.achievements_reached}
+                    size="lg"
+                  />
+                ) : (
+                  <InlineLoader width={7} height={7} margin={3} />
+                )}
               </li>
 
               <li>
@@ -200,7 +215,7 @@ const MainUserInformation = ({
       </div>
     </Box>
   );
-}
+};
 
 MainUserInformation.propTypes = {
   profile: PropTypes.object,

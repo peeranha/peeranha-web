@@ -1,18 +1,26 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectUserRatingDCP } from 'containers/DataCacheProvider/selectors';
+
+import {
+  USER_ACHIEVEMENTS_TABLE,
+  PROJECT_ACHIEVEMENTS_TABLE,
+  ALL_ACHIEVEMENTS_SCOPE,
+} from 'utils/constants';
 
 import {
   GET_USER_ACHIEVEMENTS,
   uniqueAchievementsArr,
   achievementsArr,
 } from './constants';
+
 import {
   getUserAchievementsSuccess,
   getUserAchievementsErr,
   setUserAchievementLoading,
 } from './actions';
+
 import { selectViewProfileAccount } from './selectors';
 
 async function getAchievements(eosService, tableTitle, scope) {
@@ -103,15 +111,15 @@ export function* getUserAchievementsWorker() {
       const userAchievements = yield call(
         getAchievements,
         eosService,
-        'accachieve',
+        USER_ACHIEVEMENTS_TABLE,
         viewProfileAccount,
       );
 
       const projectAchievements = yield call(
         getAchievements,
         eosService,
-        'achieve',
-        'allachieve',
+        PROJECT_ACHIEVEMENTS_TABLE,
+        ALL_ACHIEVEMENTS_SCOPE,
       );
 
       const nextAchievement = getNextAchievement(userRating);
