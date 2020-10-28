@@ -138,7 +138,8 @@
   "app.common.questionIsAnswered": "You have already answered this question",
 
   "app.telegram.user": "Telegram user",
-  "app.telegram.userLabelPopover": "This is a temporary account provided by Telegram Bot",
+  "app.telegram.userLabelPopover":
+    "This is a temporary account provided by Telegram Bot",
 
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
@@ -657,6 +658,8 @@
   "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the wallet and network settings are installed",
+  "app.containers.Login.scatterBrowserExtensionNotConfigured":
+    "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",

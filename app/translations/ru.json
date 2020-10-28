@@ -135,7 +135,8 @@
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
 
   "app.telegram.user": "Телеграм пользователь",
-  "app.telegram.userLabelPopover": "Это временная учетная запись, предоставленная Telegram Bot.",
+  "app.telegram.userLabelPopover":
+    "Это временная учетная запись, предоставленная Telegram Bot.",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
   "app.containers.TermsOfService.description":
@@ -662,6 +663,8 @@
   "app.containers.Login.iForgotPassword": "Я забыл пароль",
   "app.containers.Login.scatterIsNotInstalled":
     "Проверьте, установлен ли Scatter, а также его настройки",
+  "app.containers.Login.scatterBrowserExtensionNotConfigured":
+    "Проверьте, настроено ли расширение браузера для работы с кошельком",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
