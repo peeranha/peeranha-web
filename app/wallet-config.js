@@ -18,8 +18,9 @@ export const WALLETS = {
     logo: sqrlWallet,
   },
   WOMBAT: {
-    name: 'Wombat',
+    // name: 'Wombat',
     logo: wombatLogo,
+    names: [''],
   },
   SCATTER_SQRL_WOMBAT: {
     name: 'Scatter/Sqrl/Wombat',

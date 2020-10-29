@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isMobile from 'ismobilejs';
 import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
@@ -13,6 +14,7 @@ import { scrollToErrorField } from 'utils/animation';
 import { getCookie } from 'utils/cookie';
 
 import _get from 'lodash/get';
+import _pick from 'lodash/pick';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import H4 from 'components/H4';
@@ -291,16 +293,38 @@ FormClone = connect(
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
+    // const isMobileDevice = isMobile(window.navigator).any;
+    const isMobileDevice = true;
+    const notMobileWallets = ['Scatter', 'Sqrl', 'Scatter/Sqrl/Wombat'];
+    const walletsToUseKeys = Object.keys(WALLETS).filter(
+      key => !notMobileWallets.includes(WALLETS[key].name),
+    );
+    const walletsToUse = [];
+    Object.entries(WALLETS).forEach(([key, value]) => {
+      walletsToUseKeys.includes(key) && walletsToUse.push(value);
+    });
+    debugger;
 
-    const wallets = currencyValue
-      ? currencyValue.wallets.filter(
-          wallet =>
-            !(
-              wallet.name === WALLETS.PEERANHA.name &&
-              (!profile || withScatter)
-            ),
-        )
-      : [];
+    /*  const wallets = currencyValue
+      ? currencyValue.wallets.filter(wallet => {
+          const checkWallets = isMobile ? walletsToUse : WALLETS;
+          return !(
+            wallet.name === checkWallets.PEERANHA.name &&
+            (!profile || withScatter)
+          );
+        })
+      : []; */
+    let wallets = [];
+    if (currencyValue) {
+      const walletsToFilter = isMobileDevice ? walletsToUse : currencyValue.wallets;
+      wallets = walletsToFilter.filter(wallet => {
+        // const checkWallets = isMobile ? walletsToUse : WALLETS;
+        return !(
+          wallet.name === WALLETS.PEERANHA.name &&
+          (!profile || withScatter)
+        );
+      });
+    }
 
     const initialValues = {
       [CURRENCY_FIELD]: tipsPreselect
