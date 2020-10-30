@@ -37,7 +37,7 @@ const CommunitySelector = ({
   Button,
   isArrowed,
   locale,
-  communities,
+  communities = [],
   followedCommunities,
   showOnlyFollowed,
   selectedCommunityId,
@@ -186,7 +186,6 @@ CommunitySelector.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  communities: selectCommunities(),
   followedCommunities: makeSelectFollowedCommunities(),
 });
 

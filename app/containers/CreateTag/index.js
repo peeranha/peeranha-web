@@ -11,6 +11,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
+
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -28,6 +30,7 @@ import {
   selectUserEnergy,
   makeSelectAccount,
   selectIsGlobalModerator,
+  selectPermissions,
   makeSelectAccountLoading,
 } from 'containers/AccountProvider/selectors';
 
@@ -68,6 +71,7 @@ const CreateTag = ({
   userRating,
   userEnergy,
   isGlobalModerator,
+  permissions,
   accountIsLoading,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
@@ -88,16 +92,26 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
+  const isCommunityAdmin = useMemo(
+    () => permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE),
+    [permissions],
+  );
+
+  const rightCommunitiesIds = useMemo(
+    () => isCommunityAdmin ? permissions.map(x => x.community) : communities.map(x => x.id),
+    [],
+  );
+
   if (accountIsLoading) return <LoadingIndicator />;
 
   if (
     !account ||
     ((userRating < MIN_RATING_TO_CREATE_TAG ||
       userEnergy < MIN_ENERGY_TO_CREATE_TAG) &&
-      !isGlobalModerator)
+      !isGlobalModerator && !isCommunityAdmin)
   )
     return <Redirect to={tags()} />;
-
+    
   return (
     <div>
       <Seo
@@ -114,7 +128,7 @@ const CreateTag = ({
           <BaseSpecialOne>
             <Form
               communityId={commId}
-              communities={communities}
+              communities={communities.filter(x => rightCommunitiesIds.includes(x.id))}
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}
@@ -148,6 +162,7 @@ CreateTag.propTypes = {
   userRating: PropTypes.number,
   userEnergy: PropTypes.number,
   isGlobalModerator: PropTypes.bool,
+  permissions: PropTypes.array,
   accountIsLoading: PropTypes.bool,
 };
 
@@ -167,6 +182,7 @@ export default compose(
       userRating: selectUserRating(),
       userEnergy: selectUserEnergy(),
       isGlobalModerator: selectIsGlobalModerator(),
+      permissions: selectPermissions(),
       accountIsLoading: makeSelectAccountLoading(),
     }),
     dispatch => ({
