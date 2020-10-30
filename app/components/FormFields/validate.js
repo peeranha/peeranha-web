@@ -74,18 +74,10 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
-const tagNameHasNotExist = suggestedTags => value =>
-  suggestedTags.map(tag => tag.name).includes(value)
-    ? messages.tagNameAlreadySuggested
-    : undefined;
-
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
-  return list &&
-    list.find(
-      x => x && x.trim().toLowerCase() === value && value.trim().toLowerCase(),
-    )
+  return list.includes(value.toLowerCase())
     ? messages.itemAlreadyExists
     : undefined;
 };
@@ -201,7 +193,6 @@ export {
   strLength15x250,
   strLength20x1000,
   strLength25x30000,
-  tagNameHasNotExist,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,

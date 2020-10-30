@@ -21,7 +21,6 @@ import {
   strLength20x1000,
   requiredForObjectField,
   valueHasNotBeInList,
-  tagNameHasNotExist,
 } from 'components/FormFields/validate';
 
 import {
@@ -44,7 +43,7 @@ export const Form = ({
 }) => {
   const onChange = value => {
     if (value) {
-      getSuggestedTagsDispatch({ communityId: value.id })
+      getSuggestedTagsDispatch({ communityId: value.id });
     }
   };
 
@@ -70,12 +69,7 @@ export const Form = ({
         component={TextInputField}
         label={translations[messages.name.id]}
         tip={translations[messages.nameTip.id]}
-        validate={[
-          strLength2x15,
-          required,
-          valueHasNotBeInList,
-          tagNameHasNotExist(suggestedTags),
-        ]}
+        validate={[strLength2x15, required, valueHasNotBeInList]}
         warn={[strLength2x15, required, valueHasNotBeInList]}
         splitInHalf
       />
@@ -113,7 +107,11 @@ let FormClone = reduxForm({
 FormClone = connect((state, { communities, communityId }) => ({
   valueHasNotBeInListValidate: (
     state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
-  ).map(x => x.name),
+  )
+    .map(x => x.name.toLowerCase())
+    .concat(
+      (state?.toJS()?.tags?.suggestedTags ?? []).map(x => x.name.toLowerCase()),
+    ),
   initialValues: {
     [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
   },
