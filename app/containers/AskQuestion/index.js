@@ -18,17 +18,14 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
-import { getResults } from 'containers/Search/actions';
-
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import { selectItems as selectQuestions } from 'containers/Search/selectors';
 
-import { askQuestion } from './actions';
+import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import reducer, { existingQuestionReducer } from './reducer';
+import saga, { existingQuestionSaga } from './saga';
 import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
@@ -89,14 +86,14 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   communities: selectCommunities(),
-  existingQuestions: selectQuestions(),
+  existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     askQuestionDispatch: bindActionCreators(askQuestion, dispatch),
-    getQuestionsDispatch: bindActionCreators(getResults, dispatch),
+    getQuestionsDispatch: bindActionCreators(getExistingQuestion, dispatch),
   };
 }
 
@@ -107,9 +104,19 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'askQuestionReducer', reducer });
 const withSaga = injectSaga({ key: 'askQuestionReducer', saga });
+const withExistingQuestionReducer = injectReducer({
+  key: 'existingQuestionReducer',
+  reducer: existingQuestionReducer,
+});
+const withExistingQuestionSaga = injectSaga({
+  key: 'existingQuestionReducer',
+  saga: existingQuestionSaga,
+});
 
 export default compose(
   withReducer,
   withSaga,
+  withExistingQuestionReducer,
+  withExistingQuestionSaga,
   withConnect,
 )(AskQuestion);

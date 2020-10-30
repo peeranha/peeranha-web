@@ -8,6 +8,9 @@ import { initialState } from './reducer';
 const selectAskQuestionDomain = state =>
   state.get('askQuestionReducer', initialState);
 
+const selectExistingQuestionsDomain = state =>
+  state.get('existingQuestionReducer', initialState);
+
 const selectQuestionData = () =>
   createSelector(selectAskQuestionDomain, substate =>
     substate.get('questionData'),
@@ -23,9 +26,15 @@ const selectQuestionError = () =>
     substate.get('questionError'),
   );
 
+const selectExistingQuestions = () =>
+  createSelector(selectExistingQuestionsDomain, substate =>
+    substate.get('existingQuestions'),
+  );
+
 export {
   selectAskQuestionDomain,
   selectQuestionData,
   selectAskQuestionLoading,
   selectQuestionError,
+  selectExistingQuestions,
 };

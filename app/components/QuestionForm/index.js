@@ -84,7 +84,7 @@ export const QuestionForm = ({
   useEffect(
     () => {
       if (formValues[FORM_TITLE] && getQuestions) {
-        getQuestions(formValues[FORM_TITLE]);
+        getQuestions(formValues[FORM_TITLE], true);
       }
     },
     [formValues[FORM_TITLE]],
@@ -116,10 +116,11 @@ export const QuestionForm = ({
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
-            {(existingQuestions?.length ?? 0) > 0 &&
+            {formValues[FORM_TITLE] &&
+              (existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (
                 <ExistingQuestions
-                  questions={existingQuestions.slice(0, 4)}
+                  questions={existingQuestions}
                   skip={skipExistingQuestions}
                   intl={intl}
                 />
