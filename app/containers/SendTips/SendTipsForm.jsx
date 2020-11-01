@@ -292,8 +292,7 @@ FormClone = connect(
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
-    // const isMobileDevice = isMobile(window.navigator).any;
-    const isMobileDevice = true;
+    const isMobileDevice = isMobile(window.navigator).any;
     const mobileWallets = [];
     Object.entries(WALLETS).forEach(([key, value]) => {
       WALLETS[key].isMobile && mobileWallets.push(value);
