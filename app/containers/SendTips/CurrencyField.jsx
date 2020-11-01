@@ -57,7 +57,8 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
           {!Array.isArray(option.logo) ? (
             <>
               <img src={option.logo} alt="logo" />
-              {option.name && <span className="ml-2">{option.name}</span>}
+              {!option.doNotShowName &&
+                option.name && <span className="ml-2">{option.name}</span>}
             </>
           ) : (
             option.logo.map((logo, i) => (

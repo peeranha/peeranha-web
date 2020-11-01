@@ -14,7 +14,6 @@ import { scrollToErrorField } from 'utils/animation';
 import { getCookie } from 'utils/cookie';
 
 import _get from 'lodash/get';
-import _pick from 'lodash/pick';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import H4 from 'components/H4';
@@ -295,35 +294,21 @@ FormClone = connect(
     );
     // const isMobileDevice = isMobile(window.navigator).any;
     const isMobileDevice = true;
-    const notMobileWallets = ['Scatter', 'Sqrl', 'Scatter/Sqrl/Wombat'];
-    const walletsToUseKeys = Object.keys(WALLETS).filter(
-      key => !notMobileWallets.includes(WALLETS[key].name),
-    );
-    const walletsToUse = [];
+    const mobileWallets = [];
     Object.entries(WALLETS).forEach(([key, value]) => {
-      walletsToUseKeys.includes(key) && walletsToUse.push(value);
+      WALLETS[key].isMobile && mobileWallets.push(value);
     });
-    debugger;
 
-    /*  const wallets = currencyValue
-      ? currencyValue.wallets.filter(wallet => {
-          const checkWallets = isMobile ? walletsToUse : WALLETS;
-          return !(
-            wallet.name === checkWallets.PEERANHA.name &&
-            (!profile || withScatter)
-          );
-        })
-      : []; */
     let wallets = [];
     if (currencyValue) {
-      const walletsToFilter = isMobileDevice ? walletsToUse : currencyValue.wallets;
-      wallets = walletsToFilter.filter(wallet => {
-        // const checkWallets = isMobile ? walletsToUse : WALLETS;
-        return !(
+      const walletsToFilter = isMobileDevice
+        ? mobileWallets
+        : currencyValue.wallets;
+      wallets = walletsToFilter.filter(wallet => !(
           wallet.name === WALLETS.PEERANHA.name &&
           (!profile || withScatter)
-        );
-      });
+        )
+      );
     }
 
     const initialValues = {
