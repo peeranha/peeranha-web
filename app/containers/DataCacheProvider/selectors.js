@@ -170,18 +170,22 @@ const selectAnswersBestValue = user =>
   );
 
 const selectFirstIn15AnswersValue = user =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    substate =>
-      substate?.users[user].integer_properties.find(el => el.key === 12) ?? 0,
-  );
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const answersIn15Data = substate?.users[user].integer_properties.find(
+      el => el.key === 12,
+    );
+    const answersIn15Value = answersIn15Data ? answersIn15Data.value : 0;
+    return answersIn15Value;
+  });
 
 const selectFirstAnswersValue = user =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    substate =>
-      substate?.users[user].integer_properties.find(el => el.key === 13) ?? 0,
-  );
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const firstAnswersData = substate?.users[user].integer_properties.find(
+      el => el.key === 13,
+    );
+    const firstAnswersValue = firstAnswersData ? firstAnswersData.value : 0;
+    return firstAnswersValue;
+  });
 
 export {
   selectDataCacheProviderDomain,

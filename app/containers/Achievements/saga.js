@@ -114,8 +114,6 @@ export function* getUserAchievementsWorker() {
     const viewProfileAccount = yield select(selectViewProfileAccount());
 
     if (typeof viewProfileAccount === 'string') {
-      yield put(setUserAchievementLoading(true));
-
       const eosService = yield select(selectEos);
 
       const userRating = yield select(selectUserRatingDCP(viewProfileAccount));
@@ -215,6 +213,7 @@ export function* getUserAchievementsWorker() {
       );
   } catch (err) {
     yield put(getUserAchievementsErr(err));
+    yield put(setUserAchievementLoading(false));
   }
 }
 

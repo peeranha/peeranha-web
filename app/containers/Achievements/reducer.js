@@ -21,7 +21,7 @@ export const initialState = fromJS({
   viewProfileAccount: null,
   achievements: [],
   userAchievementsError: null,
-  userAchievementsLoading: false,
+  userAchievementsLoading: true,
   nextUserAchievements: {},
   userProgressValues: {},
 });
@@ -60,9 +60,7 @@ function achievementsReducer(state = initialState, action) {
       return state.set('userProgressValues', userProgressValues);
 
     case GET_USER_ACHIEVEMENTS_ERROR:
-      return state
-        .set('userAchievementsLoading', false)
-        .set('userAchievementsError', error);
+      return state.set('userAchievementsError', error);
 
     case RESET_USER_ACHIEVEMENTS:
       return initialState;
