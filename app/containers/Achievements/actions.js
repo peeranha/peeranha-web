@@ -62,7 +62,7 @@ export function getUserAchievementsErr(error) {
   };
 }
 
-export function setviewProfileAccount(viewProfileAccount) {
+export function setViewProfileAccount(viewProfileAccount) {
   return {
     type: SET_VIEW_PROFILE_ACCOUNT,
     viewProfileAccount,

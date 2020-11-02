@@ -184,7 +184,7 @@ const MainUserInformation = ({
 
               <li>
                 <FormattedMessage {...messages.achievements} />
-                {profile.achievements_reached ? (
+                {typeof profile.achievements_reached === 'number' ? (
                   <AchievementsStatus
                     count={profile.achievements_reached}
                     size="lg"

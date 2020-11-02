@@ -11,6 +11,7 @@ import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
+  UPDATE_USER_ACHIEV_COUNT,
   REMOVE_USER_PROFILE,
   GET_STAT,
   GET_STAT_SUCCESS,
@@ -69,6 +70,14 @@ export function removeUserProfile(user) {
   return {
     type: REMOVE_USER_PROFILE,
     user,
+  };
+}
+
+export function updateUserAchievCount(userForUpdate, updatedAchCount) {
+  return {
+    type: UPDATE_USER_ACHIEV_COUNT,
+    userForUpdate,
+    updatedAchCount,
   };
 }
 

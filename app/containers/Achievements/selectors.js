@@ -74,27 +74,31 @@ const getUnreachedAchievements = (
   achievementsGroupType,
   reachedAchievementsIds,
 ) =>
-  possibleAchievements
-    .filter(el => !reachedAchievementsIds.includes(el.id))
-    .map(el => {
-      const isNext =
-        substate.toJS().nextUserAchievements[achievementsGroupType] === el.id;
+  possibleAchievements.filter(el => !reachedAchievementsIds.includes(el.id))
+    .length
+    ? possibleAchievements
+        .filter(el => !reachedAchievementsIds.includes(el.id))
+        .map(el => {
+          const isNext =
+            substate.toJS().nextUserAchievements[achievementsGroupType] ===
+            el.id;
 
-      const currentValue = substate.toJS().userProgressValues[
-        achievementsGroupType
-      ];
+          const currentValue = substate.toJS().userProgressValues[
+            achievementsGroupType
+          ];
 
-      const pointsToNext = isNext ? el.lowerValue - currentValue : null;
+          const pointsToNext = isNext ? el.lowerValue - currentValue : null;
 
-      return {
-        ...el,
-        reached: false,
-        isNext,
-        pointsToNext,
-        currentValue,
-        groupType: achievementsGroupType,
-      };
-    });
+          return {
+            ...el,
+            reached: false,
+            isNext,
+            pointsToNext,
+            currentValue,
+            groupType: achievementsGroupType,
+          };
+        })
+    : [];
 
 const selectUnreachedAchievements = () =>
   createSelector(selectUserAchievementsDomain, substate => {
@@ -171,9 +175,7 @@ const selectUniqueUnreachedAchievements = () =>
         const isNext =
           substate.toJS().nextUserAchievements[uniqueRatingRelated] === el.id;
 
-        const currentValue = substate.toJS().userProgressValues[
-          uniqueRatingRelated
-        ];
+        const currentValue = substate.toJS().userProgressValues[ratingRelated];
 
         const pointsToNext = isNext ? el.lowerValue - currentValue : null;
 
@@ -204,4 +206,6 @@ export {
   selectUserAchievements,
   selectAchievementsLoading,
   getReachedAchievementsIds,
+  getReachedAchievements,
+  getUnreachedAchievements,
 };

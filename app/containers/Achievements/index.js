@@ -30,7 +30,7 @@ import {
 } from './selectors';
 import {
   getUserAchievements,
-  setviewProfileAccount,
+  setViewProfileAccount,
   resetUserAchievements,
 } from './actions';
 import reducer from './reducer';
@@ -83,12 +83,12 @@ const Achievements = ({
   uniqueUnreachedAchievements,
   getUserAchievementsDispatch,
   achievementsLoading,
-  setviewProfileAccountDispatch,
+  setViewProfileAccountDispatch,
   resetUserAchievementsDispatch,
 }) => {
   useEffect(
     () => {
-      setviewProfileAccountDispatch(userId);
+      setViewProfileAccountDispatch(userId);
       getUserAchievementsDispatch();
     },
     [userId],
@@ -197,8 +197,8 @@ const mapDispatchToProps = dispatch => ({
     getUserAchievements,
     dispatch,
   ),
-  setviewProfileAccountDispatch: bindActionCreators(
-    setviewProfileAccount,
+  setViewProfileAccountDispatch: bindActionCreators(
+    setViewProfileAccount,
     dispatch,
   ),
   resetUserAchievementsDispatch: bindActionCreators(

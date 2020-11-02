@@ -2,6 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
+  selectUsers,
   selectUserRatingDCP,
   selectQuestionsAskedValue,
   selectAnswersGivenValue,
@@ -9,6 +10,8 @@ import {
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
 } from 'containers/DataCacheProvider/selectors';
+
+import { updateUserAchievCount } from 'containers/DataCacheProvider/actions';
 
 import {
   USER_ACHIEVEMENTS_TABLE,
@@ -52,16 +55,20 @@ async function getAchievements(eosService, tableTitle, scope) {
 export const getNextAchievementId = (currentValue, possibleAchievements) => {
   // find the minimum lower value of the achievement group
   let valuesStartFrom = possibleAchievements[0].lowerValue;
-  possibleAchievements.forEach(el => {
-    if (el.lowerValue < valuesStartFrom) valuesStartFrom = el.lowerValue;
+  let firstGroupAchievementPosition = 0;
+  possibleAchievements.forEach((el, index) => {
+    if (el.lowerValue < valuesStartFrom) {
+      valuesStartFrom = el.lowerValue;
+      firstGroupAchievementPosition = index;
+    }
   });
 
-  const currentAchievement =
-    currentValue < valuesStartFrom
-      ? possibleAchievements.find(el.lowerValue === valuesStartFrom)
-      : possibleAchievements.find(
-          el => currentValue >= el.lowerValue && currentValue < el.upperValue,
-        );
+  if (currentValue < valuesStartFrom)
+    return possibleAchievements[firstGroupAchievementPosition].id;
+
+  const currentAchievement = possibleAchievements.find(
+    el => currentValue >= el.lowerValue && currentValue <= el.upperValue,
+  );
 
   return currentAchievement.nextId;
 };
@@ -71,16 +78,9 @@ export const getNextUniqueAchievementId = (
   projectAchievements = [],
 ) => {
   const currentUniqueAchievement =
-    uniqueAchievementsArr.find(el => {
-      const totalAwarded =
-        projectAchievements.find(item => item.id === el.id)?.count ?? 0;
-
-      return (
-        userRating >= el.minRating &&
-        userRating < el.maxRating &&
-        el.limit > totalAwarded
-      );
-    }) || {};
+    uniqueAchievementsArr.find(
+      el => userRating >= el.lowerValue && userRating <= el.upperValue,
+    ) || {};
 
   // current unique achievement is last possible or they are out of limit
   if (!currentUniqueAchievement.nextId) return null;
@@ -113,7 +113,7 @@ export function* getUserAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
 
-    if (viewProfileAccount) {
+    if (typeof viewProfileAccount === 'string') {
       yield put(setUserAchievementLoading(true));
 
       const eosService = yield select(selectEos);
@@ -175,37 +175,67 @@ export function* getUserAchievementsWorker() {
         ALL_ACHIEVEMENTS_SCOPE,
       );
 
+      // update cached user achievements_count if achievements count changed
+      yield updateUserAchCountWorker(
+        viewProfileAccount,
+        userAchievements.length,
+      );
+
       yield put(
         getUserAchievementsSuccess(userAchievements, projectAchievements),
       );
 
       yield put(
         setNextUserAchievements({
-          [`${ratingRelated}`]: nextRatingAchId,
-          [`${uniqueRatingRelated}`]: nextUniqueRatingAch,
-          [`${questionAskedRelated}`]: nextQuestionAskedAchId,
-          [`${answerGivenRelated}`]: nextAnswerGivenAchId,
-          [`${bestAnswerRelated}`]: nextAnswerBestAchId,
-          [`${firstAnswerRelated}`]: nextAnswerFirstAchId,
-          [`${firstAnswerIn15Related}`]: nextAnswerFirstIn15AchId,
+          [ratingRelated]: nextRatingAchId,
+          [uniqueRatingRelated]: nextUniqueRatingAch,
+          [questionAskedRelated]: nextQuestionAskedAchId,
+          [answerGivenRelated]: nextAnswerGivenAchId,
+          [bestAnswerRelated]: nextAnswerBestAchId,
+          [firstAnswerRelated]: nextAnswerFirstAchId,
+          [firstAnswerIn15Related]: nextAnswerFirstIn15AchId,
         }),
       );
 
       yield put(
         setUserProgressValues({
-          [`${ratingRelated}`]: userRating,
-          [`${questionAskedRelated}`]: questionsAskedValue,
-          [`${answerGivenRelated}`]: answersGivenValue,
-          [`${bestAnswerRelated}`]: answersBestValue,
-          [`${firstAnswerIn15Related}`]: firstAnwersValue,
-          [`${firstAnswerRelated}`]: firstIn15AnwersValue,
+          [ratingRelated]: userRating,
+          [questionAskedRelated]: questionsAskedValue,
+          [answerGivenRelated]: answersGivenValue,
+          [bestAnswerRelated]: answersBestValue,
+          [firstAnswerIn15Related]: firstAnwersValue,
+          [firstAnswerRelated]: firstIn15AnwersValue,
         }),
       );
 
       yield put(setUserAchievementLoading(false));
-    }
+    } else
+      throw new Error(
+        `viewProfileAccount must be a string value, but got ${viewProfileAccount}`,
+      );
   } catch (err) {
     yield put(getUserAchievementsErr(err));
+  }
+}
+
+export function* updateUserAchCountWorker(account, userAchievementsCount) {
+  const cachedUserProfile = yield select(selectUsers(account));
+  let achievementsCount;
+
+  if (userAchievementsCount) {
+    achievementsCount = userAchievementsCount;
+  } else {
+    const eosService = yield select(selectEos);
+    const userAchievements = yield call(
+      getAchievements,
+      eosService,
+      USER_ACHIEVEMENTS_TABLE,
+      account,
+    );
+    achievementsCount = userAchievements.length;
+  }
+  if (cachedUserProfile.achievements_reached !== achievementsCount) {
+    yield put(updateUserAchievCount(account, achievementsCount));
   }
 }
 
