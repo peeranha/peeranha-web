@@ -92,7 +92,7 @@ const getWeekRewards = (eosService, user) =>
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
 
-export async function getWeekStat(eosService, profile) {
+export async function getWeekStat(eosService, profile = {}) {
   const [
     { rows: totalReward },
     { rows: totalRating },

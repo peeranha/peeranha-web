@@ -113,11 +113,11 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
-
+    
     let account = yield typeof initAccount === 'string'
       ? initAccount
       : call(eosService.getSelectedAccount);
-
+      
     if (!account) {
       const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
@@ -126,6 +126,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       }
     }
 
+    if (typeof account === 'object') {
+      account = account.eosAccountName;
+    }
+    
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
       if (
