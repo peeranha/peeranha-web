@@ -973,20 +973,29 @@
   "app.containers.Achievements.kingOfTheHill.description":
     "Будьте одним и 10 первых пользователей, получивших статус \"Супергерой\"..",
 
-  "app.containers.Achievements.progressBarMessages.nextByRating":
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
+    "пункт рейтинга остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
     "пунктов рейтинга осталось до следующего досижения",
-
-  "app.containers.Achievements.progressBarPopover.ratingRelated":
-    "пунктов рейтинга осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
+    "вопрос остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
     "вопросов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
+    "ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
     "ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
+    "лучший ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
     "лучших ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
+    "первый за 15 минут ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
     "первых за 15 минут ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
+    "первый ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
     "первых ответов осталось до следующего досижения",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
