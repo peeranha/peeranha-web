@@ -32,7 +32,7 @@ const IconAbsolute = styled(Icon)`
 `;
 
 const AchievementsStatus = ({ count, size }) => {
-  if (count && typeof count === 'number')
+  if (typeof count === 'number')
     return (
       <StatusSpan size={size}>
         <IconAbsolute

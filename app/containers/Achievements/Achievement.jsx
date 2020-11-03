@@ -12,6 +12,17 @@ import ProgressBar from './ProgressBar';
 
 import messages from './messages';
 
+const LevelIcon = styled(Icon)`
+  .crown {
+    fill: ${props => {
+      if (props.level === 'bronze') return '#8b4513';
+      if (props.level === 'silver') return '#c0c0c0';
+      if (props.level === 'gold') return '#ffd700';
+      return '#F76F60';
+    }};
+  }
+`;
+
 const ImageBlock = styled.div`
   margin-right: 15px;
   text-align: center;
@@ -30,11 +41,19 @@ const Bage = styled.div`
   align-items: flex-start;
 `;
 
-const Achievement = ({ reached, title, description, next, locale }) => {
-  const getProgress = () => {
-    const { minRating, userRating } = next;
-    return (userRating / minRating) * 100;
-  };
+const Achievement = ({
+  reached,
+  level,
+  title,
+  description,
+  isNext,
+  lowerValue,
+  currentValue,
+  pointsToNext,
+  groupType,
+  locale,
+}) => {
+  const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
     ? translationMessages[locale]
@@ -43,16 +62,26 @@ const Achievement = ({ reached, title, description, next, locale }) => {
   return (
     <Bage>
       <ImageBlock>
-        {reached && <Icon icon={achievementReached} width="80" height="74" />}
+        {reached &&
+          !level && <Icon icon={achievementReached} width="80" height="74" />}
+        {reached &&
+          level && (
+            <LevelIcon
+              icon={achievementReached}
+              width="80"
+              height="74"
+              level={level}
+            />
+          )}
         {!reached && (
           <Icon icon={achievementNotReached} width="80" height="74" />
         )}
-        {next && (
+        {isNext && (
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${next.pointsToNext} ${
-              translations[messages.progressBar.nextByRating.id]
+            message={`${pointsToNext} ${
+              translations[(messages.progressBarPopover[groupType]?.id)]
             }`}
           />
         )}
@@ -69,9 +98,14 @@ const Achievement = ({ reached, title, description, next, locale }) => {
 
 Achievement.propTypes = {
   reached: PropTypes.bool,
+  isNext: PropTypes.bool,
+  lowerValue: PropTypes.number,
+  currentValue: PropTypes.number,
+  pointsToNext: PropTypes.number,
+  groupType: PropTypes.string,
+  level: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  next: PropTypes.object,
   locale: PropTypes.string,
 };
 

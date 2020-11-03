@@ -151,6 +151,42 @@ const selectUserRatingDCP = user =>
     substate => substate?.users[user].rating,
   );
 
+const selectQuestionsAskedValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].questions_asked,
+  );
+
+const selectAnswersGivenValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].answers_given,
+  );
+
+const selectAnswersBestValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].correct_answers,
+  );
+
+const selectFirstIn15AnswersValue = user =>
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const answersIn15Data = substate?.users[user].integer_properties.find(
+      el => el.key === 12,
+    );
+    const answersIn15Value = answersIn15Data ? answersIn15Data.value : 0;
+    return answersIn15Value;
+  });
+
+const selectFirstAnswersValue = user =>
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const firstAnswersData = substate?.users[user].integer_properties.find(
+      el => el.key === 13,
+    );
+    const firstAnswersValue = firstAnswersData ? firstAnswersData.value : 0;
+    return firstAnswersValue;
+  });
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -170,4 +206,9 @@ export {
   selectGetTutorialError,
   selectGetTutorialLoading,
   selectUserRatingDCP,
+  selectQuestionsAskedValue,
+  selectAnswersGivenValue,
+  selectAnswersBestValue,
+  selectFirstAnswersValue,
+  selectFirstIn15AnswersValue,
 };

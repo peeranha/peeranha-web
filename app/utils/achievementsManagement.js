@@ -5,5 +5,11 @@ export async function getUserAchievementsCount(user, eosService) {
     USER_ACHIEVEMENTS_TABLE,
     user,
   );
-  return userAchievements?.rows.filter(el => el.value > 0).length;
+
+  const achievementsCount =
+    typeof userAchievements?.rows.length === 'number'
+      ? userAchievements?.rows.length
+      : 0;
+
+  return achievementsCount;
 }

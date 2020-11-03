@@ -868,58 +868,67 @@
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
-  "app.containers.Achievements.progressBar.nextByRating":
-    "rating points left until the next achievement",
-
-  "app.containers.Achievements.questionAsked.title": "Questions asked",
-  "app.containers.Achievements.questionAsked.description":
-    "Base unreached description",
-  "app.containers.Achievements.questionAsked.bronzeTitle":
+  "app.containers.Achievements.questionAsked.bronze.title":
     "Bronze - The learner",
-  "app.containers.Achievements.questionAsked.bronzeDescription":
+  "app.containers.Achievements.questionAsked.bronze.description":
     "Ask 10 Questions",
-  "app.containers.Achievements.questionAsked.silverTitle":
+  "app.containers.Achievements.questionAsked.silver.title":
     "Silver - Digging deep",
-  "app.containers.Achievements.questionAsked.silverDescription":
+  "app.containers.Achievements.questionAsked.silver.description":
     "Ask 50 Questions",
-  "app.containers.Achievements.questionAsked.goldTitle":
+  "app.containers.Achievements.questionAsked.gold.title":
     "Gold - I want to know everything!",
-  "app.containers.Achievements.questionAsked.goldDescription":
+  "app.containers.Achievements.questionAsked.gold.description":
     "Ask 100 Questions",
 
-  "app.containers.Achievements.answerGiven.title": "Answer Given",
-  "app.containers.Achievements.answerGiven.description":
-    "Base unreached description",
-  "app.containers.Achievements.answerGiven.bronzeTitle": "Bronze - Expert",
-  "app.containers.Achievements.answerGiven.bronzeDescription":
+  "app.containers.Achievements.answerGiven.bronze.title": "Bronze - Expert",
+  "app.containers.Achievements.answerGiven.bronze.description":
     "Answer 20 questions",
-  "app.containers.Achievements.answerGiven.silverTitle": "Silver - Master",
-  "app.containers.Achievements.answerGiven.silverDescription":
+  "app.containers.Achievements.answerGiven.silver.title": "Silver - Master",
+  "app.containers.Achievements.answerGiven.silver.description":
     "Answer 100 questions",
-  "app.containers.Achievements.answerGiven.goldTitle": "Gold - Guru",
-  "app.containers.Achievements.answerGiven.goldDescription":
+  "app.containers.Achievements.answerGiven.gold.title": "Gold - Guru",
+  "app.containers.Achievements.answerGiven.gold.description":
     "Answer 200 questions",
 
-  "app.containers.Achievements.correctAnswer.title": "Correct Answer",
-  "app.containers.Achievements.correctAnswer.description":
-    "Base unreached description",
-  "app.containers.Achievements.correctAnswer.bronzeTitle":
+  "app.containers.Achievements.bestAnswer.bronze.title":
     "Bronze - A true professional",
-  "app.containers.Achievements.correctAnswer.bronzeDescription":
+  "app.containers.Achievements.bestAnswer.bronze.description":
     "Receive 5 marks as \"The best\"",
-  "app.containers.Achievements.correctAnswer.silverTitle": "Silver - Erudite",
-  "app.containers.Achievements.correctAnswer.silverDescription":
+  "app.containers.Achievements.bestAnswer.silver.title": "Silver - Erudite",
+  "app.containers.Achievements.bestAnswer.silver.description":
     "Receive 25 marks as \"The best\"",
-  "app.containers.Achievements.correctAnswer.goldTitle":
+  "app.containers.Achievements.bestAnswer.gold.title":
     "Gold - Artificial Intelligence",
-  "app.containers.Achievements.correctAnswer.goldDescription":
+  "app.containers.Achievements.bestAnswer.gold.description":
     "Receive 50 marks as \"The best\"",
 
-  "app.containers.Achievements.first10kregistered.title": "Founding Member",
-  "app.containers.Achievements.first10kregistered.description":
-    "Congratulations! This is a great achievement!",
-  "app.containers.Achievements.stanger.title": "Welcome, Stranger",
-  "app.containers.Achievements.stanger.description":
+  "app.containers.Achievements.firstIn15.bronze.title":
+    "Bronze - Fastest hand in the West",
+  "app.containers.Achievements.firstIn15.bronze.description":
+    "Be the first one to post an answer in 15 minutes for 5 different question",
+  "app.containers.Achievements.firstIn15.silver.title":
+    "Silver - Pedal to the metal",
+  "app.containers.Achievements.firstIn15.silver.description":
+    "Be the first one to post an answer in 15 minutes for 10 different question",
+  "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
+  "app.containers.Achievements.firstIn15.gold.description":
+    "Be the first one to post an answer in 15 minutes for 20 different question",
+
+  "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
+  "app.containers.Achievements.firstAnswer.bronze.description":
+    "Be the first one, who posts an answer for 10 different questions",
+  "app.containers.Achievements.firstAnswer.silver.title":
+    "Silver - I was here first!",
+  "app.containers.Achievements.firstAnswer.silver.description":
+    "Be the first one, who posts an answer for 25 different questions",
+  "app.containers.Achievements.firstAnswer.gold.title":
+    "Gold - Undisputed champion",
+  "app.containers.Achievements.firstAnswer.gold.description":
+    "Be the first one, who posts an answer for 50 different questions",
+
+  "app.containers.Achievements.welcomeStranger.title": "Welcome, Stranger",
+  "app.containers.Achievements.welcomeStranger.description":
     "Successfully register on Peeranha",
   "app.containers.Achievements.newbie.title": "A beginning of a great journey",
   "app.containers.Achievements.newbie.description":
@@ -937,38 +946,42 @@
   "app.containers.Achievements.hero.description": "Achieve the \"Hero\" status",
   "app.containers.Achievements.superhero.title": "A living Legend",
   "app.containers.Achievements.superhero.description":
-    "Achieve the \"Hero\" status",
+    "Achieve the \"Superhero\" status",
 
-  "app.containers.Achievements.answer15minutes.title":
-    "Answered within 15 minutes",
-  "app.containers.Achievements.answer15minutes.description":
-    "Base unreached description",
-  "app.containers.Achievements.answer15minutes.bronzeTitle":
-    "Bronze - Fastest hand in the West",
-  "app.containers.Achievements.answer15minutes.bronzeDescription":
-    "Answer 5 questions within 15 minutes",
-  "app.containers.Achievements.answer15minutes.silverTitle":
-    "Silver - Pedal to the metal",
-  "app.containers.Achievements.answer15minutes.silverDescription":
-    "Answer 10 questions within 15 minutes",
-  "app.containers.Achievements.answer15minutes.goldTitle": "Gold - Lightning",
-  "app.containers.Achievements.answer15minutes.goldDescription":
-    "Answer 20 questions within 15 minutes",
+  "app.containers.Achievements.foundingMember.title": "Founding Member",
+  "app.containers.Achievements.foundingMember.description":
+    "Be the one of first 10 000 Users to successfully register on Peeranha",
+  "app.containers.Achievements.activist.title": "Activist",
+  "app.containers.Achievements.activist.description":
+    "Be the one of first 700 Users to achieve the \"Newbie\" status",
+  "app.containers.Achievements.researcher.title": "Researcher",
+  "app.containers.Achievements.researcher.description":
+    "Be the one of first 500 Users to achieve the \"Junior\" status",
+  "app.containers.Achievements.honorableResident.title": "Honorable Resident",
+  "app.containers.Achievements.honorableResident.description":
+    "Be the one of first 300 Users to achieve the \"Resident\" status",
+  "app.containers.Achievements.theWisest.title": "The wisest",
+  "app.containers.Achievements.theWisest.description":
+    "Be the one of first 150 Users to achieve the \"Senior\" status",
+  "app.containers.Achievements.modernHero.title": "Modern hero",
+  "app.containers.Achievements.modernHero.description":
+    "Be the one of first 50 Users to achieve the \"Hero\" status",
+  "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
+  "app.containers.Achievements.kingOfTheHill.description":
+    "Be the one of first 10 Users to achieve the \"Superhero\" status..",
 
-  "app.containers.Achievements.firstAnswer.title": "Answered First",
-  "app.containers.Achievements.firstAnswer.description":
-    "Base unreached description",
-  "app.containers.Achievements.firstAnswer.bronzeTitle": "Bronze - Quick help",
-  "app.containers.Achievements.firstAnswer.bronzeDescription":
-    "Be the first one, who posts an answer for 10 different questions",
-  "app.containers.Achievements.firstAnswer.silverTitle":
-    "Silver - I was here first!",
-  "app.containers.Achievements.firstAnswer.silverDescription":
-    "Be the first one, who posts an answer for 25 different questions",
-  "app.containers.Achievements.firstAnswer.goldTitle":
-    "Gold - Undisputed champion",
-  "app.containers.Achievements.firstAnswer.goldDescription":
-    "Be the first one, who posts an answer for 50 different questions",
+  "app.containers.Achievements.progressBarPopover.ratingRelated":
+    "rating points left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
+    "questions left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
+    "answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
+    "best answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
+    "first answers in 15 minutes left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
+    "first answers left until the next achievement",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink"
