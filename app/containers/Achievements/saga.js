@@ -174,7 +174,8 @@ export function* getUserAchievementsWorker() {
       );
 
       // update cached user achievements_count if achievements count changed
-      yield updateUserAchCountWorker(
+      yield call(
+        updateUserAchCountWorker,
         viewProfileAccount,
         userAchievements.length,
       );
@@ -233,7 +234,10 @@ export function* updateUserAchCountWorker(account, userAchievementsCount) {
     );
     achievementsCount = userAchievements.length;
   }
-  if (cachedUserProfile.achievements_reached !== achievementsCount) {
+  if (
+    cachedUserProfile &&
+    cachedUserProfile.achievements_reached !== achievementsCount
+  ) {
     yield put(updateUserAchievCount(account, achievementsCount));
   }
 }
