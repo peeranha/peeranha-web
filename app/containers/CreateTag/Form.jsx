@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
@@ -38,7 +38,6 @@ export const Form = ({
   handleSubmit,
   translations,
   communities,
-  suggestedTags,
   getSuggestedTagsDispatch,
 }) => {
   const onChange = value => {
@@ -69,8 +68,8 @@ export const Form = ({
         component={TextInputField}
         label={translations[messages.name.id]}
         tip={translations[messages.nameTip.id]}
-        validate={[strLength2x15, required, valueHasNotBeInList]}
-        warn={[strLength2x15, required, valueHasNotBeInList]}
+        validate={[strLength2x15, required, valueHasNotBeInList()]}
+        warn={[strLength2x15, required, valueHasNotBeInList()]}
         splitInHalf
       />
 

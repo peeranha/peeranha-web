@@ -614,8 +614,6 @@
     "Используйте правильный формат http(s)://example.com",
   "app.components.FormFields.wrongBase58Format":
     "Неверный формат данных. Проверьте содержимое этого поля.",
-  "app.components.FormFields.tagNameAlreadySuggested":
-    "Тег с таким именем уже предложен",
   "app.components.FormFields.itemAlreadyExists":
     "Элемент с таким именем уже существует",
   "app.components.FormFields.valueIsMore":

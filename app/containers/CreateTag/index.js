@@ -124,7 +124,6 @@ const CreateTag = ({
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}
-              suggestedTags={suggestedTags}
               getSuggestedTagsDispatch={getSuggestedTagsDispatch}
             />
           </BaseSpecialOne>
@@ -178,7 +177,6 @@ export default compose(
       userEnergy: selectUserEnergy(),
       isGlobalModerator: selectIsGlobalModerator(),
       accountIsLoading: makeSelectAccountLoading(),
-      suggestedTags: selectSuggestedTags(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
