@@ -47,7 +47,7 @@ const Wallets = styled.div`
     }
 
     &[alt='sqrl'] {
-      height: 26px;
+      height: 28px;
     }
 
     &[alt='wombat'] {
