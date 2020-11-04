@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import isMobile from 'ismobilejs';
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
@@ -146,12 +147,14 @@ const RightMenuWithoutScatter = ({
   showLoginModal,
   showScatterSignUpForm,
   showScatterSignUpProcessing,
+  isMobileDevice,
 }) => (
   <div className="py-5">
     {children}
     <Div className="py-5">
       <LoginViaWallet
         action={showScatterSignUpForm}
+        isMobileDevice={isMobileDevice}
         processing={showScatterSignUpProcessing}
         text={<FormattedMessage {...commonMessages.signUpViaWallet} />}
       />
@@ -187,6 +190,7 @@ export const SignUpOptions = ({
           showLoginModal={showLoginModal}
           showScatterSignUpForm={showScatterSignUpForm}
           showScatterSignUpProcessing={showScatterSignUpProcessing}
+          isMobileDevice={isMobile(window.navigator).any}
         />
       ) : (
         children
@@ -204,6 +208,7 @@ RightMenuWithoutScatter.propTypes = {
   showLoginModal: PropTypes.func,
   showScatterSignUpForm: PropTypes.func,
   showScatterSignUpProcessing: PropTypes.bool,
+  isMobileDevice: PropTypes.bool,
 };
 
 SignUpOptions.propTypes = {

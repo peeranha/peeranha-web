@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import isMobile from 'ismobilejs';
 
 import { TEXT_DARK, BG_SECONDARY_SPECIAL_4, BG_LIGHT } from 'style-constants';
 import messages from 'common-messages';
@@ -56,15 +57,15 @@ const Wallets = styled.div`
   }
 `;
 
-export const LoginViaWallet = ({ action, processing, text }) => (
+export const LoginViaWallet = ({ action, processing, text, isMobileDevice }) => (
   <>
     <B onClick={action || null} disabled={!!processing}>
       {text || <FormattedMessage {...messages.loginViaWallet} />}
     </B>
 
     <Wallets>
-      <img src={scatterLogo} alt="scatter" />
-      <img src={sqrlLogo} alt="sqrl" />
+      {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
+      {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
       <img src={wombatLogo} alt="wombat" />
     </Wallets>
   </>
@@ -77,6 +78,10 @@ LoginViaWallet.propTypes = {
 
 export default React.memo(({ action, processing }) => (
   <Box>
-    <LoginViaWallet action={action} processing={processing} />
+    <LoginViaWallet
+      action={action}
+      processing={processing}
+      isMobileDevice={isMobile(window.navigator).any}
+    />
   </Box>
 ));
