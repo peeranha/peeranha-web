@@ -8,23 +8,33 @@ export const WALLETS = {
   PEERANHA: {
     name: 'Peeranha Wallet',
     logo: peeranhaLogo,
+    isMobile: true,
+    doNotShowName: false,
   },
   SCATTER: {
     name: 'Scatter',
     logo: scatterLogo,
+    isMobile: false,
+    doNotShowName: true,
   },
   SQRL: {
     name: 'Sqrl',
     logo: sqrlWallet,
+    isMobile: false,
+    doNotShowName: true,
   },
   WOMBAT: {
     name: 'Wombat',
     logo: wombatLogo,
+    isMobile: true,
+    doNotShowName: true,
   },
   SCATTER_SQRL_WOMBAT: {
     name: 'Scatter/Sqrl/Wombat',
     names: ['', 'Sqrl', ''],
     logo: [scatterLogo, sqrlWallet, wombatLogo],
+    isMobile: false,
+    doNotShowName: true,
   },
 };
 
