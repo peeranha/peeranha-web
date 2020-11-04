@@ -67,10 +67,6 @@ export const MainSubHeader = styled.div`
   box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
   flex: 2;
 
-  div.insides > * {
-    height: 40px;
-  }
-
   form {
     flex: 1;
   }
