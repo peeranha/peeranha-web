@@ -14,6 +14,7 @@ import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
 import Achievements from 'containers/Achievements';
+import Moderation from 'containers/Moderation';
 import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
@@ -72,6 +73,7 @@ const ViewProfilePage = ({
       <UserNavigation
         userId={userId}
         account={account}
+        profile={profile}
         loginData={loginData}
         questionsLength={profile?.questions_asked ?? 0}
         questionsWithUserAnswersLength={profile?.answers_given ?? 0}
@@ -119,6 +121,17 @@ const ViewProfilePage = ({
           className={path === routes.userAchievements(userId) ? '' : 'd-none'}
           isAvailable={account === profile?.user}
           userId={userId}
+        />
+      )}
+
+      {path === routes.userModeration(userId) && (
+        <Moderation
+          className={path === routes.userModeration(userId) ? '' : 'd-none'}
+          userId={userId}
+          account={account}
+          profile={profile}
+          loginData={loginData}
+          isAvailable={account === profile?.user}
         />
       )}
 
