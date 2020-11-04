@@ -13,6 +13,8 @@
   "app.common.achievementsNumber": "Achievements {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
+  "app.common.achievements": "Achievements",
+  "app.common.moderation": "Moderation",
   "app.common.uniqueAchievements": "Unique achievements",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
@@ -32,6 +34,7 @@
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.moderationHeader": "Moderator permissions",
   "app.common.tutorial": "Tutorial",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
@@ -207,6 +210,37 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
+
+  "app.containers.Moderation.title": "Moderator permissions",
+  "app.common.globalModerator": "Global moderator",
+
+  "app.containers.Moderation.permissionInfinite": "Infinite Impact",
+  "app.containers.Moderation.permissionInfiniteDescription":
+    "Allows you to delete questions, answers and comments in one click",
+
+  "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
+    "Allows you to perform actions that are rating restricted",
+
+  "app.containers.Moderation.permissionCreateCommunity": "Create community",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
+    "Allows you to instantly create a community",
+
+  "app.containers.Moderation.permissionCreateTag": "Create tag",
+  "app.containers.Moderation.permissionCreateTagDescription":
+    "Allows you to instantly create a tag",
+
+  "app.containers.Moderation.permissionChangeQuestionType": "Change question type",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
+    "Allows you to change question type",
+
+  "app.containers.Moderation.permissionSelectTopQuestion": "Select top question",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
+    "Allows you to select a question that will be displayed on \"Top\" page",
+
+  "app.containers.Moderation.permissionOfficialAnswer": "Post official answer",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
+    "Allows you to post an official answer",
 
   "app.containers.Tutorial.title": "Tutorial",
   "app.containers.Tutorial.description": "Tutorial: description",

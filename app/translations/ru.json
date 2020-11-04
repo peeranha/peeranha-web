@@ -13,6 +13,8 @@
   "app.common.achievementsNumber": "Достижения {number}",
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
+  "app.common.achievments": "Достижения",
+  "app.common.moderation": "Модерация",
   "app.common.uniqueAchievements": "Уникальные достижения",
   "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
@@ -32,6 +34,7 @@
   "app.common.users": "Пользователи",
   "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
+  "app.common.moderationHeader": "Права модератора",
   "app.common.tutorial": "Руководство",
   "app.common.subscribeMore": "Подписаться еще",
   "app.common.top": "Лучшие",
@@ -207,6 +210,37 @@
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
+
+  "app.containers.Moderation.title": "Права модератора",
+  "app.common.globalModerator": "Глобальный модератор",
+
+  "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
+  "app.containers.Moderation.permissionInfiniteDescription":
+    "Позволяет удалять вопросы, ответы и комментарии в один клик",
+
+  "app.containers.Moderation.permissionIgnoreRating": "Игнорирование рейтинга",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
+    "Позволяет выполнять действия с ограниченным рейтингом",
+
+  "app.containers.Moderation.permissionCreateCommunity": "Создание сообщества",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
+    "Позволяет мгновенно создать сообщество",
+
+  "app.containers.Moderation.permissionCreateTag": "Создание тега",
+  "app.containers.Moderation.permissionCreateTagDescription":
+    "Позволяет мгновенно создать тег",
+
+  "app.containers.Moderation.permissionChangeQuestionType": "Изменение типа вопроса",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
+    "Позволяет изменить тип вопроса",
+
+  "app.containers.Moderation.permissionSelectTopQuestion": "Выбор «Top» вопроса",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
+    "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
+
+  "app.containers.Moderation.permissionOfficialAnswer": "Публикация официального ответа",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
+    "Позволяет опубликовать официальный ответ",
 
   "app.containers.Tutorial.title": "Руководство",
   "app.containers.Tutorial.description": "Руководство: описание",

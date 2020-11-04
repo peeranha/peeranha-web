@@ -1,3 +1,4 @@
+import messages from 'common-messages';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -5,6 +6,9 @@ import {
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   MODERATOR_CREATE_COMMUNITY,
   OFFICIAL_ANSWER_KEYS,
+  PERMISSION_GRANTED,
+  moderatorPermissions,
+  communityAdminPermissions,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
@@ -18,6 +22,43 @@ const findAllPropertiesByKeys = (properties, keys) =>
           .join('')[key] === '1',
     ),
   );
+
+export const getModeratorPermissions = (
+  communityPermissions = [],
+  globalPermissions = [],
+  isGlobal,
+  communities,
+  translations,
+) => {
+  const values = isGlobal ? globalPermissions : communityPermissions;
+  const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
+  const permissions = {};
+  permissions.blocks = values.reduce((acc, { community, value }, index) => {
+    const permission = [];
+    value
+      .toString(2)
+      .split('')
+      .forEach((perm, permIndex) => {
+        if (perm === PERMISSION_GRANTED) permission.push(permIndex);
+      });
+    return [
+      ...acc,
+      {
+        h2: isGlobal
+          ? translations[messages.globalModerator.id]
+          : communities.find(({ id }) => id === community).name,
+        sectionCode: index,
+        blocks: Object.values(perms).map(({ title }, permissionIndex) => ({
+          permissionCode: permissionIndex,
+          title,
+        })),
+        permission,
+      },
+    ];
+  }, []);
+
+  return permissions;
+};
 
 export const isUserTopCommunityQuestionsModerator = (
   properties = [],
